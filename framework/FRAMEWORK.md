@@ -53,6 +53,14 @@ The objective is not automatic return to the pre-Trump status quo. Where prior a
 
 Elected officials should control lawful policy direction. Factual determination, scientific assessment, adjudication, auditing, personnel administration, and individual enforcement decisions should receive protection from personal or partisan coercion.
 
+### Institutional Corrigibility
+
+Not every institutional abuse can be prevented without impairing legitimate governmental authority, eliminating necessary discretion, or creating an equally serious countervailing danger. Where complete prevention is impracticable, the project should establish the least-complex adequate means by which abuse can be detected, documented, reviewed, exposed, remedied, deterred, and prevented from becoming entrenched.
+
+A remedy may therefore be adequate even when it cannot prevent the first violation, provided it creates a credible and durable avenue for institutional self-correction. The analysis should distinguish prevention, detection, correction, deterrence, and containment rather than treating them as interchangeable.
+
+Institutional corrigibility is not an excuse for weak reform. Preventive safeguards remain preferable where they are lawful, workable, and proportionate. Corrigibility becomes central where stronger front-end control would destroy necessary discretion, create unconstitutional supervision, or impose a cure more damaging than the underlying risk.
+
 ## Issue-Admission Test
 
 Before promoting a candidate into a standalone issue, ask:
@@ -107,13 +115,15 @@ Complexity should be assessed by legal difficulty, administrative burden, implem
 
 The main text need not catalogue every conceivable remedy. It should identify the least-complex adequate measure or package and explain why it is adequate. Annotation should briefly note materially simpler but insufficient options and more complex fallback options that may be necessary for completeness, durability, or constitutional reasons.
 
+Adequacy should be evaluated against the remedy’s proper function. Where prevention is feasible, the remedy should prevent. Where necessary discretion or constitutional structure makes complete prevention impracticable, adequacy may instead require reliable detection, evidence preservation, independent review, mandatory reporting, correction, discipline, compensation, legislative response, or another credible self-corrective mechanism.
+
 The assessment remains provisional rather than irrevocable and may be revised as the record develops.
 
 ## Repair and Prevention
 
 Every issue must consider both repair and prevention. Some issues may require restoration, investigation, disclosure, recovery, correction of the public record, rebuilding of capacity, or compensation. Prevention may require substantive legal limits, structural independence, professional safeguards, oversight, enforcement, transparency, procedural reform, or constitutional change.
 
-The distinction is mandatory to consider but need not receive equal prose where one side is not materially relevant.
+The distinction is mandatory to consider but need not receive equal prose where one side is not materially relevant. Issues should also identify whether the proposed safeguard primarily prevents, detects, corrects, deters, or contains institutional abuse.
 
 ## Constitutional Amendments
 
@@ -147,9 +157,14 @@ Markdown and CSV files are authoritative. Binary Office and PDF files are genera
 
 The current area inventory is maintained in [`../areas/README.md`](../areas/README.md) and [`../inventory/areas.csv`](../inventory/areas.csv). The issue inventory is maintained in [`../inventory/issues.csv`](../inventory/issues.csv).
 
-## Initial Developed Issue
+## Developed Issues
 
-The first developed issue is [`DOJ-001 — Recent Presidential Personal Counsel in Senior DOJ Leadership`](../areas/a-01-department-of-justice/issues/DOJ-001.md), with proposed statutory language maintained separately at [`../legislation/DOJ-001.md`](../legislation/DOJ-001.md).
+Developed Department of Justice issues include:
+
+- [`DOJ-001 — Recent Presidential Personal Counsel in Senior DOJ Leadership`](../areas/a-01-department-of-justice/issues/DOJ-001.md)
+- [`DOJ-002 — White House Direction or Interference in Particular Federal Criminal Matters`](../areas/a-01-department-of-justice/issues/DOJ-002.md)
+- [`DOJ-003 — Politically Selective Enforcement, Charging, and Favoritism`](../areas/a-01-department-of-justice/issues/DOJ-003.md)
+- [`DOJ-007 — Independent Investigation of Presidential and Senior Executive Misconduct`](../areas/a-01-department-of-justice/issues/DOJ-007.md)
 
 ## Development Phase
 
