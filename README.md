@@ -11,7 +11,7 @@ This private repository is the canonical working source for the American Restora
 - [`inventory/issues.csv`](inventory/issues.csv) — structured issue inventory
 - [`inventory/sources.csv`](inventory/sources.csv) — source-tracking table
 - [`areas/`](areas/) — modular area and issue analyses
-- [`legislation/`](legislation/) — draft statutory language keyed to issue identifiers
+- [`legislation/`](legislation/) — draft statutory and administrative language keyed to issue identifiers
 
 ## Working conventions
 
@@ -19,8 +19,9 @@ This private repository is the canonical working source for the American Restora
 2. The framework governs analysis; the inventory tracks it; issue files contain the substantive work.
 3. Each developed issue identifies the **Least-Complex Adequate Remedy**.
 4. Supporting evidence, qualifications, and alternatives belong in annotation or source notes.
-5. Markdown and CSV are canonical. DOCX, PDF, and XLSX files are generated exports.
+5. Where complete prevention is impracticable, a remedy may instead provide reliable detection, correction, deterrence, and institutional self-repair.
+6. Markdown and CSV are canonical. DOCX, PDF, and XLSX files are generated exports.
 
 ## Current status
 
-The framework is migrated from Version 0.14. DOJ-001 is the first developed issue and has a linked legislative proposal.
+The framework is migrated from Version 0.14. Developed Department of Justice issues currently include DOJ-001, DOJ-002, DOJ-003, and DOJ-007, each with linked proposed statutory or administrative language where applicable.
