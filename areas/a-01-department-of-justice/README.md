@@ -19,9 +19,9 @@ The Department of Justice lacks sufficient structural independence, external ove
 - **DOJ-004** — Inadequate protection for career prosecutors, investigators, and legal officials _(status: Candidate; priority: High)_
 - **DOJ-005** — Weak and internally controlled recusal and ethics mechanisms _(status: Candidate; priority: High)_
 - **DOJ-006** — Insufficiently enforceable limits on White House–DOJ contacts _(status: Candidate; priority: High)_
-- **DOJ-007** — Special-counsel dependence and removal vulnerability _(status: Candidate; priority: High)_
+- [DOJ-007 — Special-counsel dependence and removal vulnerability](issues/DOJ-007.md)
 - **DOJ-008** — Weak external review of politicized charging or noncharging decisions _(status: Candidate; priority: High)_
 
 ## Notes
 
-Provisional inventory; full source development pending.
+DOJ-001 and DOJ-007 are developed. Remaining issues are provisional and require full source development.
