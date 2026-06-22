@@ -1,0 +1,27 @@
+---
+area_id: A-10
+title: "Emergency Powers and Domestic Executive Authority"
+status: active
+issue_count: 8
+---
+
+# A-10 — Emergency Powers and Domestic Executive Authority
+
+## Generalized Institutional Concern
+
+Presidents can invoke broadly worded emergency statutes to unlock extraordinary powers without sufficiently demanding findings, narrow scope, firm time limits, recurring legislative approval, or prompt judicial review.
+
+## Issues
+
+- **EMERG-001** — Open-ended national-emergency declarations _(status: Candidate; priority: High)_
+- **EMERG-002** — Use of emergency authority to redirect appropriated funds _(status: Candidate; priority: High)_
+- **EMERG-003** — Emergency economic powers used beyond immediate crises _(status: Candidate; priority: High)_
+- **EMERG-004** — Border or immigration emergency declarations _(status: Candidate; priority: High)_
+- **EMERG-005** — Weak congressional termination procedures _(status: Candidate; priority: High)_
+- **EMERG-006** — Indefinite renewal of emergencies _(status: Candidate; priority: High)_
+- **EMERG-007** — Insufficiently specific factual findings _(status: Candidate; priority: High)_
+- **EMERG-008** — Delayed or deferential judicial review _(status: Candidate; priority: High)_
+
+## Notes
+
+Provisional inventory; full source development pending.
