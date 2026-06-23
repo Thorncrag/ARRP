@@ -1,13 +1,13 @@
 ---
-proposal_id: ELEC-004
+proposal_id: ELEC-004-state
 issue_id: ELEC-004
 title: "Model State Election Proceedings Integrity Act"
 status: working-draft
 framework_issue: "../areas/a-02-election-integrity/issues/ELEC-004.md"
-federal_legislation: "ELEC-004-FEDERAL.md"
+federal_legislation: "ELEC-004.md"
 ---
 
-# ELEC-004 — Model State Election Proceedings Integrity Act
+# ELEC-004-state — Model State Election Proceedings Integrity Act
 
 ## A MODEL STATE BILL
 
@@ -25,14 +25,7 @@ This Act adapts the procedural logic of Anti-SLAPP laws to state election procee
 
 ### (b) Purposes.
 
-The purposes of this Act are to—
-
-1. preserve access to lawful recounts, contests, audits, investigations, and judicial review;
-2. distinguish ordinary citizen reporting from coercive or disruptive election proceedings;
-3. require early particularized showings before a proceeding may delay certification, alter results, compel nonstatutory audits, burden election personnel, or access sensitive election materials;
-4. protect ballots, voter privacy, voting systems, chain of custody, and election-security information;
-5. reduce abuse of subpoenas, discovery, investigations, and public-law proceedings; and
-6. provide sanctions where later-discovered evidence proves that a proceeding was materially connected to a coordinated improper scheme.
+The purposes of this Act are to preserve access to lawful recounts, contests, audits, investigations, and judicial review; distinguish ordinary citizen reporting from coercive or disruptive election proceedings; require early particularized showings before a proceeding may delay certification, alter results, compel nonstatutory audits, burden election personnel, or access sensitive election materials; protect ballots, voter privacy, voting systems, chain of custody, and election-security information; reduce abuse of subpoenas, discovery, investigations, and public-law proceedings; and provide sanctions where later-discovered evidence proves that a proceeding was materially connected to a coordinated improper scheme.
 
 ## SEC. 3. DEFINITIONS.
 
@@ -53,14 +46,7 @@ This Act applies to covered election proceedings under state law, including proc
 
 ### (b) Preserved activity.
 
-Nothing in this Act limits—
-
-1. a good-faith report;
-2. a ballot-specific voter remedy;
-3. a recount, audit, or contest conducted according to ordinary statutory procedures without a request for extraordinary election-disruptive relief;
-4. an ordinary public-records request subject to applicable privacy, security, and election-material protections;
-5. a criminal investigation or prosecution; or
-6. the authority of a court or election tribunal to provide relief for a proven violation of law.
+Nothing in this Act limits a good-faith report, ballot-specific voter remedy, recount, audit, contest, public-records request, criminal investigation or prosecution, or the authority of a court or election tribunal to provide relief for a proven violation of law.
 
 ### (c) Relief-based trigger.
 
@@ -86,16 +72,7 @@ Subject to subsections (b) and (c), a special screening motion shall be filed as
 
 ### (e) Required early showing.
 
-Upon filing of a special screening motion, the person seeking election-disruptive relief or access to sensitive election material shall make a prima facie showing of—
-
-1. legal authority for the requested relief;
-2. timeliness under applicable election deadlines;
-3. particularized facts identifying the jurisdiction, precinct, ballot category, official act, legal defect, or material election record at issue;
-4. admissible evidence or a verified factual proffer supporting the material allegations;
-5. materiality to the requested remedy;
-6. remedy fit, including why the requested relief is authorized and no narrower lawful remedy is adequate;
-7. necessity of any requested discovery, subpoena, inspection, audit, or access to sensitive election material; and
-8. absence of improper purpose.
+Upon filing of a special screening motion, the person seeking election-disruptive relief or access to sensitive election material shall make a prima facie showing of legal authority, timeliness, particularized material facts, admissible evidence or a verified factual proffer, materiality, remedy fit, necessity of any intrusive process or sensitive-material access, and absence of improper purpose.
 
 ### (f) Court or tribunal action.
 
@@ -113,25 +90,11 @@ The court or tribunal may authorize limited discovery or inspection before resol
 
 ## SEC. 7. EMERGENCY RELIEF FINDINGS.
 
-A court or tribunal may not issue a temporary restraining order, preliminary injunction, stay, impoundment order, certification delay, elector-appointment delay, extraordinary audit order, or other election-disruptive relief unless it makes written findings that—
-
-1. the movant is substantially likely to succeed on a legally authorized claim;
-2. the alleged defect is material to the election outcome or legally material to the specific remedy requested;
-3. irreparable injury will occur absent relief and is not primarily caused by the movant’s delay;
-4. no narrower lawful remedy would adequately address the injury;
-5. the relief is compatible with applicable election deadlines or is necessary to remedy a proven violation of law; and
-6. the relief will not unnecessarily impair voters, election personnel, ballot secrecy, voter privacy, chain of custody, or election security.
+A court or tribunal may not issue a temporary restraining order, preliminary injunction, stay, impoundment order, certification delay, elector-appointment delay, extraordinary audit order, or other election-disruptive relief unless it makes written findings that the movant is substantially likely to succeed on a legally authorized claim, the alleged defect is material, irreparable injury is not primarily caused by the movant's delay, no narrower lawful remedy is adequate, the relief is compatible with applicable election deadlines or necessary to remedy a proven violation of law, and the relief will not unnecessarily impair voters, election personnel, ballot secrecy, voter privacy, chain of custody, or election security.
 
 ## SEC. 8. SENSITIVE ELECTION MATERIAL PROTECTION.
 
-A court or tribunal authorizing access to sensitive election material shall enter a protective order or equivalent written directive that—
-
-1. limits access to persons with a demonstrated need;
-2. prohibits public disclosure except as authorized by court order or law;
-3. preserves ballot secrecy, voter privacy, and chain of custody;
-4. prevents disclosure of source code, credentials, security logs, keys, facility plans, or exploitable security information except under secure conditions;
-5. requires secure storage, logging, return, or destruction of copies; and
-6. imposes sanctions for violation.
+A court or tribunal authorizing access to sensitive election material shall enter a protective order or equivalent directive that limits access to persons with a demonstrated need, prohibits unauthorized disclosure, preserves ballot secrecy and chain of custody, prevents disclosure of source code, credentials, security logs, keys, facility plans, or exploitable security information except under secure conditions, requires secure storage and return or destruction of copies, and imposes sanctions for violation.
 
 ## SEC. 9. FEES, COSTS, AND SANCTIONS AT SCREENING OR DISPOSITION.
 
@@ -141,7 +104,7 @@ A person may not be sanctioned under this Act solely because an election claim, 
 
 ### (b) Sanctions authorized.
 
-The court or tribunal may award reasonable attorney’s fees, costs, public costs, or other appropriate sanctions if it finds that a filing, request, subpoena, audit demand, discovery demand, or emergency-relief request was frivolous, knowingly unsupported, presented for improper purpose, materially based on false factual allegations, legally foreclosed by binding authority, maintained after a defect was identified, or used to harass, delay, or obtain unauthorized access to sensitive election material.
+The court or tribunal may award reasonable attorney's fees, costs, public costs, or other appropriate sanctions if it finds that a filing, request, subpoena, audit demand, discovery demand, or emergency-relief request was frivolous, knowingly unsupported, presented for improper purpose, materially based on false factual allegations, legally foreclosed by binding authority, maintained after a defect was identified, or used to harass, delay, or obtain unauthorized access to sensitive election material.
 
 ### (c) Additional authority preserved.
 
@@ -149,23 +112,31 @@ This Act supplements and does not limit state rules of civil procedure, attorney
 
 ## SEC. 10. LATER-DISCOVERED IMPROPER-PURPOSE SANCTIONS.
 
-### (a) Motion after disposition.
+### (a) Independent post-disposition motion.
+
+A motion under this section is an independent post-disposition motion for sanctions and ancillary relief. The motion may be filed whether or not a special screening motion under section 5 was previously filed, granted, denied, withdrawn, or resolved on other grounds.
+
+### (b) Ancillary jurisdiction after termination.
+
+The court or tribunal retains ancillary jurisdiction to resolve a motion under this section after dismissal, remand, voluntary dismissal, settlement, denial of emergency relief, final judgment, or other termination of the covered election proceeding.
+
+### (c) Time for motion.
 
 Within one year after final disposition of a covered election proceeding, or within 180 days after discovery of material evidence of improper purpose, whichever is later, a party, governmental entity, election official, affected candidate, affected voter, or custodian of sensitive election material may move for sanctions under this section.
 
-### (b) Standard.
+### (d) Standard.
 
 The court or tribunal may impose sanctions if clear and convincing evidence shows that the proceeding, filing, subpoena, discovery request, inspection demand, audit demand, investigation demand, or request for emergency relief was materially presented, maintained, coordinated, or used for an improper purpose.
 
-### (c) Relevant evidence.
+### (e) Relevant evidence.
 
 Relevant evidence may include communications, funding arrangements, concealed coordination, inconsistent public and tribunal representations, knowingly false factual assertions, fundraising representations, links to certification delay, links to elector-appointment disruption, or efforts to create a false predicate for governmental action.
 
-### (d) Relief.
+### (f) Relief.
 
-Sanctions may include attorney’s fees, public costs, restitution for election-administration expenses, referral to disciplinary authorities, civil penalties where authorized by law, restrictions on future emergency election filings absent leave of court, protective orders, and referral to prosecuting authorities where criminal conduct may be implicated.
+Sanctions may include attorney's fees, public costs, restitution for election-administration expenses, referral to disciplinary authorities, civil penalties where authorized by law, restrictions on future emergency election filings absent leave of court, protective orders, and referral to prosecuting authorities where criminal conduct may be implicated.
 
-### (e) Due process.
+### (g) Due process.
 
 No sanctions may be imposed under this section without notice, an opportunity to respond, and an evidentiary hearing where material facts are disputed.
 
@@ -187,59 +158,17 @@ If any provision or application of this Act is held invalid, the remainder shall
 
 ## Federal-State Mirror Crosswalk
 
-| State provision | Federal mirror |
-|---|---|
-| Anti-SLAPP-style purpose and adaptation | Federal section 2(a). |
-| Covered election proceeding definition | Federal section 3(1), adapted to federal-court proceedings involving federal office. |
-| Election-disruptive relief definition | Federal section 3(2). |
-| Sensitive election material definition | Federal section 3(3). |
-| Good-faith report preservation | Federal sections 3(6) and 4(b). |
-| Relief-based trigger | Federal section 4(c). |
-| Motion-invoked special screening procedure | Federal section 5(a). |
-| 180-day pre-election timing bar | Federal section 5(b). |
-| No fixed post-election cutoff | Federal section 5(c). |
-| Prima facie showing requirements | Federal section 5(e). |
-| Dismissal, narrowing, stay, conditioning, quashing, modification, or control of defective proceedings | Federal section 5(f), adapted to federal-court remedies. |
-| Automatic stay of intrusive process after motion filing | Federal section 6. |
-| Emergency-relief findings | Federal section 7. |
-| Sensitive-material protective order | Federal section 8. |
-| No automatic penalty merely for losing | Federal section 9(a). |
-| Fee, cost, public-cost, and sanctions authority | Federal section 9(b). |
-| Preservation of other sanction authority | Federal section 9(c). |
-| Later-discovered improper-purpose sanctions | Federal section 10. |
-| Expedited review | Federal section 11. |
-| Uniform application | Federal drafting notes and issue framework; federal bill applies by relief sought rather than party identity. |
-| Relation to other law | Federal section 12. |
-| Severability | Federal section 13. |
+This model state bill mirrors `ELEC-004.md`, adapted for state courts, state election tribunals, state subpoenas, administrative or legislative demands, and state-law election contests. Future revisions should check the corresponding federal section before materially revising definitions, timing, special-motion procedure, stay, emergency-relief findings, sensitive-material protection, sanctions, later-discovered sanctions, expedited review, savings clauses, uniform application, relation to other law, or severability.
 
 ## Manifestation-to-Remedy Crosswalk
 
-| Manifestation | State statutory response |
-|---|---|
-| Frivolous or abusive pre-election challenges seeking emergency rule changes, voter-list disruption, ballot-design changes, or election-office burdens | Covered by sections 3, 5, 6, and 7 when the proceeding seeks election-disruptive relief within 180 days of the election, or immediate sensitive-material access or present security/privacy-risk relief. |
-| Litigation that publicly alleges fraud while presenting narrower or unsupported claims in court or tribunal | Sections 5(e), 9, and 10 require particularized evidence, materiality, remedy fit, absence of improper purpose, and allow sanctions for knowingly unsupported or later-discovered improper-purpose filings. |
-| Post-election suits seeking to delay or disturb certification, counting, recounts, canvassing, or elector appointment | Sections 3, 5, and 7 require early screening and written findings before election-disruptive relief may issue. |
-| Demands for ballots, ballot images, voter data, source code, logs, chain-of-custody records, or election-security information | Sections 3, 6, and 8 define sensitive materials, stay access upon motion, and require protective orders before access is allowed. |
-| Broad discovery, subpoenas, audits, inspections, investigations, or forensic demands used to burden election officials or obtain process leverage | Sections 5, 6, and 9 authorize special screening, automatic stay, narrowing, quashing, conditioning, and sanctions. |
-| Later-discovered coordination showing that an initially ordinary-looking proceeding was part of an improper scheme | Section 10 creates the post-disposition sanctions mechanism, with clear-and-convincing proof, relevant-evidence categories, available relief, and due-process protections. |
-| Concern that good-faith citizen reports or ordinary contests will be chilled | Sections 4 and 13 preserve good-faith reports, ballot-specific voter remedies, recounts, contests, audits, public-records channels, and relief for proven violations. |
-| Concern that the special motion itself could be used prematurely as a delay tactic | Section 5(b) bars special motions concerning elections more than 180 days away, subject only to immediate sensitive-material or present security/privacy-risk exceptions. |
-| Concern that abuse discovered after the election could evade review through a post-election sunset | Sections 5(c) and 10 impose no fixed post-election cutoff for functionally related proceedings and separately preserve a later-discovered sanctions lookback. |
-
-## Federal-State Relationship Note
-
-This Act is intended as a model for state adoption. It parallels the Federal Election Proceedings Integrity Act but is adapted for state courts, state election tribunals, state-law contests, state subpoenas, and state or local audit and inspection demands.
+This bill addresses abusive pre-election challenges through the 180-day timing bar, relief-based trigger, special screening motion, stay, and emergency-relief findings; unsupported public fraud narratives through evidentiary, materiality, remedy-fit, and sanctions requirements; post-election disruption through no fixed post-election cutoff and emergency-relief findings; sensitive-material demands through stay and protective-order requirements; broad subpoenas, audits, inspections, or forensic demands through screening, narrowing, quashing, conditioning, and sanctions; later-discovered coordination through section 10; and good-faith-report chilling through preserved-activity provisions.
 
 ## Drafting Notes
 
-- The proposal is expressly Anti-SLAPP-style: it adapts early screening, discovery stay, burden clarification, fee-shifting, and sanctions to election-disruptive proceedings.
-- The trigger is relief-based rather than status-based.
+- The proposal is Anti-SLAPP-style: it adapts early screening, discovery stay, burden clarification, fee-shifting, and sanctions to election-disruptive proceedings.
 - The special motion is motion-invoked, not automatic.
 - A pre-election timing bar prevents the motion from being filed for elections more than 180 days away, except where immediate sensitive-material access or a present security/privacy risk is at issue.
-- The Act expressly imposes no fixed post-election cutoff; post-election availability depends on functional relation to the election result, election administration, or sensitive election material.
-- The federal-state mirror crosswalk is mandatory for future revision: no state provision should be materially revised without checking the corresponding federal provision.
-- The manifestation-to-remedy crosswalk is mandatory for future revision: no documented manifestation should remain without a corresponding procedural safeguard or remedy.
-- The Act preserves good-faith citizen reporting and ordinary statutory recount or contest channels.
-- States should conform the motion procedure, appeal procedure, sanctions authority, legislative subpoena treatment, public-records interaction, and tribunal jurisdiction to existing state constitutional and procedural law.
-- The later-discovered sanctions provision is designed as deferred enforcement, not retroactive criminalization.
+- The Act imposes no fixed post-election cutoff; post-election availability depends on functional relation to the election result, election administration, or sensitive election material.
+- Section 10 is expressly independent of the special screening motion and survives termination of the underlying proceeding.
 - State versions should be checked against state Anti-SLAPP provisions, court-rule authority, separation of powers, open-records clauses, ballot-secrecy provisions, and election-contest statutes.
