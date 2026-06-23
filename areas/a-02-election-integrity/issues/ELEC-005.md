@@ -72,7 +72,9 @@ The federal amendment should:
 
 ## Least-Complex Adequate Remedy
 
-The least-complex adequate remedy is a targeted federal amendment to Title 3 rather than a general federal regulation of state elector appointment. The amendment should protect only the federal receipt and counting channel.
+The least-complex adequate remedy within the existing Electoral College framework is a targeted federal amendment to Title 3 rather than a general federal regulation of state elector appointment. The amendment should protect only the federal receipt and counting channel.
+
+A less complex and more complete structural remedy may be abolition of the Electoral College itself, because eliminating presidential electors would make false presidential-elector certificates moot. That broader structural reform belongs principally to ELEC-009. If a non-Electoral-College presidential election mechanism is adopted, however, the core principle of ELEC-005 should remain applicable to the official transmission of presidential-election results to federal officials. A replacement system would still require a protected federal channel for official state or national result documents, and knowingly false or unauthorized result-transmission documents should not be permitted to create federal procedural ambiguity.
 
 ## Proposed Legislation
 
@@ -83,6 +85,7 @@ The least-complex adequate remedy is a targeted federal amendment to Title 3 rat
 - **ELEC-002** concerns certification refusal, deadlock, delay, or unauthorized discretion by certification bodies.
 - **ELEC-004** concerns abusive election litigation, subpoenas, audits, and process leverage.
 - **ELEC-005** concerns false or unauthorized presidential-elector documents entering federal channels.
+- **ELEC-009** concerns whether the Electoral College itself should be restructured or replaced by a national popular-vote system.
 - **ELEC-008** concerns broader accountability for efforts to overturn lawful results.
 
 ## Annotation
@@ -90,6 +93,8 @@ The least-complex adequate remedy is a targeted federal amendment to Title 3 rat
 **Existing Remedies.** This issue does not assume that false-elector conduct is otherwise lawful. Existing fraud, forgery, false-statement, obstruction, conspiracy, perjury, and state election statutes may apply. The proposed reform addresses the structural need for a federal-channel document-integrity rule.
 
 **Federalism Boundary.** The proposal does not regulate how states appoint electors before federal transmission. It attaches only when a presidential-elector document is submitted, transmitted, filed, presented, delivered, or used in a federal channel.
+
+**Electoral College Relationship.** Abolishing the Electoral College would supersede the elector-certificate-specific problem addressed here. The general document-integrity principle would remain relevant, however, to any replacement system requiring official presidential-election results to be transmitted to federal officials.
 
 **Contingent Documents.** A safe harbor is necessary to preserve legitimate litigation-contingent activity while prohibiting false present-tense certification or deceptive federal-channel use.
 
