@@ -21,7 +21,7 @@ The election system remains vulnerable to federal executive interference, delegi
 - [ELEC-006 — Insufficiently Automatic Presidential-Transition Procedures](issues/ELEC-006.md)
 - [ELEC-007 — Improper Federal-Force Presence in Election Administration](issues/ELEC-007.md)
 - [ELEC-008 — Accountability for Coordinated Federal Election-Subversion Schemes](issues/ELEC-008.md)
-- [ELEC-009 — Electoral College Structure and National Popular Vote](issues/ELEC-009.md) _(status: Candidate; priority: High)_
+- [ELEC-009 — Electoral College Structure and National Popular Vote](issues/ELEC-009.md)
 
 ## Issue Boundaries
 
@@ -37,4 +37,4 @@ The election system remains vulnerable to federal executive interference, delegi
 
 ## Notes
 
-ELEC-001, ELEC-002, ELEC-003, ELEC-004, ELEC-005, ELEC-006, ELEC-007, and ELEC-008 are developed. ELEC-009 has preliminary candidate framing. Remaining issues are provisional and require full source development and overlap review.
+ELEC-001, ELEC-002, ELEC-003, ELEC-004, ELEC-005, ELEC-006, ELEC-007, ELEC-008, and ELEC-009 are developed.
