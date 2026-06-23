@@ -10,4 +10,5 @@ Working statutory and administrative language is maintained separately from the 
 - [DOJ-005 — Senior DOJ Recusal Review and Transparency Act](DOJ-005.md)
 - [DOJ-007 — Independent Investigative Counsel Appointment and Accountability Act](DOJ-007.md)
 - [ELEC-001 — Federal Executive Election Noninterference Act](ELEC-001.md)
+- [ELEC-002 — Model State Election Certification and Automatic Substitution Act](ELEC-002.md)
 - [IMM-001 — Presidential Criminal Accountability Amendment](IMM-001.md)
