@@ -11,7 +11,7 @@ model_state_legislation: "ELEC-004.md"
 
 ## A BILL
 
-To establish special screening, discovery control, sensitive-material protection, and later-discovered improper-purpose sanctions for certain post-election proceedings in federal court, and for other purposes.
+To establish an Anti-SLAPP-style special screening mechanism, discovery control, sensitive-material protection, and later-discovered improper-purpose sanctions for certain post-election proceedings in federal court, and for other purposes.
 
 Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
 
@@ -20,6 +20,12 @@ Be it enacted by the Senate and House of Representatives of the United States of
 This Act may be cited as the **“Federal Post-Election Proceedings Integrity Act.”**
 
 ## SEC. 2. PURPOSES.
+
+### (a) Anti-SLAPP-style adaptation.
+
+This Act adapts the procedural logic of Anti-SLAPP laws to post-election proceedings in federal court. Anti-SLAPP laws recognize that litigation process can itself be used abusively to impose cost, delay, discovery burdens, reputational harm, or coercive pressure before a court reaches the merits. This Act applies that logic to post-election proceedings that seek election-disruptive relief or access to sensitive election material without an early particularized showing.
+
+### (b) Purposes.
 
 The purposes of this Act are to—
 
@@ -178,7 +184,8 @@ If any provision or application of this Act is held invalid, the remainder shall
 ## Drafting Notes
 
 - This draft regulates federal-court procedure and relief in post-election proceedings; it does not attempt to commandeer state courts.
+- The proposal is expressly Anti-SLAPP-style: it adapts early screening, discovery stay, burden clarification, fee-shifting, and sanctions to election-disruptive post-election proceedings.
 - The trigger is relief-based rather than status-based. Private plaintiffs, officials, campaigns, parties, or organizations are treated alike when they seek election-disruptive relief or sensitive-material access.
 - The later-discovered sanctions provision is designed as deferred enforcement, not retroactive criminalization.
 - The draft should be reviewed for Rules Enabling Act, Article III, First Amendment, Petition Clause, Elections Clause, Article II, Electoral Count Reform Act, federal jurisdiction, and separation-of-powers issues.
-- Section 10’s time limits and evidentiary standard are provisional and should be refined after comparison to Rule 11, 28 U.S.C. § 1927, inherent-power sanctions, and analogous anti-SLAPP lookback provisions.
+- Section 10’s time limits and evidentiary standard are provisional and should be refined after comparison to Rule 11, 28 U.S.C. § 1927, inherent-power sanctions, and analogous Anti-SLAPP lookback provisions.
