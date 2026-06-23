@@ -5,6 +5,7 @@ title: "Insufficient Protection for Election Workers and Officials"
 status: developed
 priority: high
 remedy_type: coupled-state-and-federal-legislation
+legislative_proposal: "../../../legislation/ELEC-003.md"
 ---
 
 # ELEC-003 — Insufficient Protection for Election Workers and Officials
@@ -109,6 +110,10 @@ The least-complex adequate remedy is a coupled legislative package:
 The state supplies legal protection and operational administration. The federal government supplies only a voluntary financial backstop, objective verification, protection-purpose accounting, and independently authorized criminal enforcement. Failure to participate results only in loss of the new grant.
 
 This structure is less coercive and less susceptible to executive leverage than withholding existing election, justice, homeland-security, transportation, or other federal funds.
+
+## Proposed Legislation
+
+The working model statute is maintained separately as the [Model State Election Personnel Protection and Continuity Act](../../../legislation/ELEC-003.md).
 
 ## Relationship to Other Issues
 
