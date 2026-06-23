@@ -215,7 +215,21 @@ Nothing in this Act shall be construed to—
 10. limit 18 U.S.C. § 592 except to provide additional protections; or
 11. authorize federal personnel to direct, supervise, or control a state or local election official.
 
-## SEC. 12. SEVERABILITY.
+## SEC. 12. PERSONAL-CAPACITY VOTING APPEARANCE.
+
+### (a) Civilian attire where reasonably practicable.
+
+Federal personnel appearing at a polling place, ballot drop site, voter-registration site, or other voting location solely in a personal capacity shall, where reasonably practicable, appear in civilian attire.
+
+### (b) No indicia of federal authority.
+
+Federal personnel appearing in a personal capacity shall not display official insignia, tactical gear, official credentials, marked federal vehicles, visible weapons, or other indicia of federal authority in a manner that would reasonably create the appearance of federal election supervision, intimidation, or official presence.
+
+### (c) No denial or invalidation of vote.
+
+Nothing in this section shall be construed to deny, burden, condition, or abridge the right of federal personnel to vote. A violation of this section shall not invalidate the individual's ballot.
+
+## SEC. 13. SEVERABILITY.
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
 
@@ -226,7 +240,8 @@ If any provision or application of this Act is held invalid, the remainder shall
 - The extraordinary emergency definition is intentionally limited to concrete non-election emergencies and excludes election-administration disputes, generalized election-integrity concerns, and requests to inspect or secure election materials.
 - The incidental-contact safe harbor protects good-faith inadvertent or unavoidable contact, but not intentional, reckless, pretextual, repeated, or election-affecting conduct.
 - Federal personnel retain ordinary personal voting rights and lawful personal civic rights, subject to ordinary election law, ethics rules, agency rules, and the prohibition on invoking federal authority.
+- Federal personnel should appear in civilian attire when voting in person where reasonably practicable and must not display official indicia in a manner suggesting federal election supervision or intimidation; this rule does not deny the right to vote or invalidate any ballot.
 - Lawful court-issued writs, warrants, subpoena-enforcement orders, and other judicial orders remain executable, but they do not authorize election-administration participation beyond the order's express terms and required safeguards.
 - State consent is necessary but not sufficient; there must also be a documented state-capacity inadequacy.
 - Election-material access requires separate judicial safeguards.
-- This draft should be reviewed against 18 U.S.C. § 592, the Posse Comitatus Act, National Guard authorities, federal civil-rights enforcement, election-crime enforcement, emergency-response law, federalism principles, and state emergency-management law.
+- This draft should be reviewed against 18 U.S.C. § 592, the Posse Comitatus Act, National Guard authorities, federal civil-rights enforcement, election-crime enforcement, emergency-response law, federalism principles, state emergency-management law, Hatch Act principles, and federal employee voting-rights protections.
