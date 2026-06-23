@@ -45,13 +45,15 @@ In this title:
 4. **Election function** includes voter registration, ballot preparation, polling-place operation, ballot custody, counting, tabulation, auditing, recounting, canvassing, certification, records administration, equipment support, election-security support, and adjudicative or ministerial duties assigned by State law.
 5. **Protection-purpose expenditure** means an expenditure authorized under section 1006.
 6. **Qualifying State law** means a State statute satisfying section 1004.
-7. **State** has the meaning given that term under section 901 of the Help America Vote Act of 2002.
+7. **Reserve threshold** means the amount determined under section 1006(d).
+8. **State** has the meaning given that term under section 901 of the Help America Vote Act of 2002.
+9. **Unobligated Federal balance** means the amount of payments received by a State under this title, including interest credited under section 1006(c), that has not been obligated for a protection-purpose expenditure as of the close of a fiscal year.
 
 ## SEC. 1003. VOLUNTARY FORMULA PAYMENTS.
 
 ### (a) Payments required.
 
-For each fiscal year for which amounts are appropriated under section 1014, the Commission shall make a payment to each eligible State in the amount determined under section 1005.
+For each fiscal year for which amounts are appropriated under section 1014, the Commission shall make a payment to each eligible State in the amount determined under section 1005 and adjusted, if applicable, under section 1006(e).
 
 ### (b) Voluntary participation.
 
@@ -64,6 +66,10 @@ Eligibility or ineligibility under this title may not affect the eligibility of 
 ### (d) No matching requirement.
 
 A State may not be required to provide matching funds as a condition of receiving a payment under this title.
+
+### (e) Voluntary State and local supplementation preserved.
+
+Nothing in subsection (d) or any other provision of this title prohibits a State or political subdivision from voluntarily appropriating, matching, supplementing, or expending non-Federal funds for purposes consistent with this title and the qualifying State law.
 
 ## SEC. 1004. SOLE SUBSTANTIVE ELIGIBILITY CONDITION; QUALIFYING STATE LAW.
 
@@ -113,7 +119,7 @@ Congress may specify by law a minimum allotment or territorial adjustment, provi
 
 ### (d) No discretionary adjustment.
 
-The Commission may not increase, decrease, withhold, accelerate, delay, or redirect an allotment based on—
+Except for the automatic carryover adjustment required by section 1006(e), the Commission may not increase, decrease, withhold, accelerate, delay, or redirect an allotment based on—
 
 1. the Commission’s evaluation of the merits or effectiveness of a State election policy;
 2. an election outcome;
@@ -121,7 +127,9 @@ The Commission may not increase, decrease, withhold, accelerate, delay, or redir
 4. the political affiliation of any State or local official; or
 5. any factor not expressly stated in this section.
 
-## SEC. 1006. PERMITTED USES.
+## SEC. 1006. PERMITTED USES; CARRYOVER; BALANCE ADJUSTMENT.
+
+### (a) Permitted uses.
 
 A State may use payments under this title only for—
 
@@ -134,6 +142,31 @@ A State may use payments under this title only for—
 7. temporary staffing, security-related leave, accommodations, recruitment, retention, and reimbursement of necessary out-of-pocket security costs in jurisdictions experiencing documented threat-related disruption or attrition;
 8. grants or reimbursements to local governments for the purposes stated in this section; and
 9. reasonable administrative costs directly attributable to this title, subject to a percentage cap fixed by Congress.
+
+### (b) State election-personnel protection fund.
+
+A State receiving a payment under this title shall hold such amounts in a State election-personnel protection fund or a separately accounted subaccount of an existing State election fund. Amounts in the fund, including interest credited under subsection (c), shall be used only for protection-purpose expenditures.
+
+### (c) Availability until expended; interest.
+
+Amounts paid to a State under this title shall remain available until expended for protection-purpose expenditures, subject to this title. Interest earned on such amounts shall be credited to the fund described in subsection (b) and used only for protection-purpose expenditures.
+
+### (d) Reserve threshold.
+
+For each eligible State and fiscal year, the reserve threshold shall equal the greater of—
+
+1. 25 percent of the State’s allotment for the fiscal year before application of subsection (e); or
+2. 18 months of the State’s average monthly protection-purpose expenditures under this title during the preceding 24 months.
+
+For a State that has received payments under this title for fewer than 24 months, the reserve threshold shall equal 25 percent of the State’s allotment for the fiscal year before application of subsection (e).
+
+### (e) Automatic carryover adjustment.
+
+If, as of the close of a fiscal year, a State’s unobligated Federal balance exceeds the reserve threshold, the State’s next payment under section 1003 shall be reduced by the amount of the excess. The Commission shall apply this subsection ministerially and may not waive, increase, decrease, suspend, accelerate, delay, or otherwise modify the reserve threshold or adjustment for any State.
+
+### (f) No forfeiture while State remains eligible.
+
+Except as provided in subsection (e) and sections 1007(d) and 1011, a State that continues to maintain a qualifying State law shall not be required to return an unobligated Federal balance solely because the balance remains unexpended at the close of a fiscal year.
 
 ## SEC. 1007. STATE CERTIFICATION.
 
@@ -157,6 +190,10 @@ A State shall notify the Commission of any repeal or material amendment of the q
 ### (d) No retroactive recoupment for legal change.
 
 Repeal or amendment of a qualifying State law does not authorize recovery of amounts lawfully obligated before the change, except in cases of fraud, false certification, or expenditure outside section 1006.
+
+### (e) Unobligated balances after loss of eligibility.
+
+If a State ceases to maintain a qualifying State law, the State may liquidate amounts lawfully obligated before the date of ineligibility for a period of 180 days after that date. Any remaining unobligated Federal balance after that period shall be returned to the United States. This subsection does not authorize withholding or offset of unrelated Federal assistance.
 
 ## SEC. 1008. MINISTERIAL REVIEW AND AUTOMATIC QUALIFICATION.
 
@@ -227,17 +264,19 @@ A State may not be required to disclose to the Commission the identity, address,
 A State receiving a payment shall report annually only—
 
 1. amounts received, obligated, expended, and unobligated;
-2. amounts distributed to local governments;
-3. expenditures by the categories listed in section 1006; and
-4. material findings of fraud or misuse.
+2. the State’s unobligated Federal balance and reserve threshold;
+3. any automatic carryover adjustment applied or anticipated under section 1006(e);
+4. amounts distributed to local governments;
+5. expenditures by the categories listed in section 1006; and
+6. material findings of fraud or misuse.
 
 ### (b) Audit scope.
 
-An audit under this title shall be limited to whether funds were expended for a purpose authorized by section 1006 and whether a certification under section 1007 was materially false.
+An audit under this title shall be limited to whether funds were expended for a purpose authorized by section 1006, whether a certification under section 1007 was materially false, and whether the unobligated Federal balance and reserve threshold were calculated according to section 1006.
 
 ### (c) Recovery.
 
-The United States may recover only amounts obtained by material fraud or expended outside section 1006. Recovery may not be based on disagreement with a State’s election policy, protective judgment, enforcement priority, or method of compliance.
+The United States may recover only amounts obtained by material fraud, expended outside section 1006, or required to be returned under section 1007(e). Recovery may not be based on disagreement with a State’s election policy, protective judgment, enforcement priority, or method of compliance.
 
 ### (d) No cross-program offset.
 
@@ -291,7 +330,7 @@ The table of contents of the Help America Vote Act of 2002 is amended by adding 
 >
 > “Sec. 1005. Allotment formula.
 >
-> “Sec. 1006. Permitted uses.
+> “Sec. 1006. Permitted uses; carryover; balance adjustment.
 >
 > “Sec. 1007. State certification.
 >
@@ -317,7 +356,9 @@ The table of contents of the Help America Vote Act of 2002 is amended by adding 
 - HAVA presently contains Titles I through IX; this draft therefore adds a new Title X rather than conflicting with the existing Title IV enforcement provisions.
 - The title is intentionally self-contained and does not amend existing HAVA voting-system requirements, State-plan provisions, or complaint procedures.
 - The draft creates a new dedicated funding stream; no existing HAVA, highway, justice, homeland-security, or other funds are placed at risk.
-- The formula is objective and noncompetitive. The specific base percentage and population methodology remain provisional and require fiscal modeling.
+- The formula is objective and noncompetitive. The specific base percentage, population methodology, reserve threshold, and balance-adjustment mechanics remain provisional and require fiscal modeling.
+- The draft prohibits a federally required State match while preserving voluntary State and local supplementation.
+- Unobligated Federal balances remain available until expended while the State remains eligible, subject to a nondiscretionary soft cap that reduces future payments when balances exceed the statutory reserve threshold.
 - The EAC’s role is ministerial and fiscal. The bill denies substantive rulemaking, discretionary scoring, waiver, plan-approval, and election-policy authority.
 - Section 1004 is designed to correspond to the Model State Election Personnel Protection and Continuity Act. The federal minimums should be rechecked against every later revision of the model State act.
 - The judicial-review provision should be reviewed for sovereign-standing, venue, timing, and Administrative Procedure Act interaction.
