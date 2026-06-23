@@ -2,14 +2,14 @@
 area_id: A-04
 title: "Judicial Independence and Enforcement"
 status: active
-issue_count: 8
+issue_count: 9
 ---
 
 # A-04 — Judicial Independence and Enforcement
 
 ## Generalized Institutional Concern
 
-The federal judiciary’s authority to interpret and apply law is not matched by a sufficiently independent and reliable enforcement structure capable of ensuring timely executive compliance during interbranch conflict.
+The federal judiciary’s authority to interpret and apply law is not matched by a sufficiently independent and reliable enforcement structure capable of ensuring timely executive compliance during interbranch conflict, nor by sufficiently determinate recusal rules for unusually legitimacy-sensitive presidential-party litigation.
 
 ## Issues
 
@@ -21,7 +21,8 @@ The federal judiciary’s authority to interpret and apply law is not matched by
 - **JUD-006** — Uncertainty regarding contempt and coercive sanctions against senior executive officials _(status: Candidate; priority: High)_
 - **JUD-007** — Evasion through substitution, reorganization, or nominally revised directives _(status: Candidate; priority: High)_
 - **JUD-008** — Insufficient transparency and verification regarding compliance _(status: Candidate; priority: High)_
+- [JUD-009 — Appointer-President Recusal](issues/JUD-009.md)
 
 ## Notes
 
-Provisional inventory; full source development pending.
+JUD-009 is developed. Remaining judicial-independence issues are provisional and require full source development.
