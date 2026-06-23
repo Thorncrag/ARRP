@@ -5,6 +5,7 @@ title: "Federal Executive Interference with State and Local Election Administrat
 status: developed
 priority: high
 remedy_type: hatch-act-amendment-and-companion-enforcement
+legislative_proposal: "../../../legislation/ELEC-001.md"
 ---
 
 # ELEC-001 — Federal Executive Interference with State and Local Election Administration
@@ -77,6 +78,10 @@ Amend the Hatch Act rather than create an entirely separate primary regime. The 
 Where the President, Vice President, Attorney General, or another senior executive official creates a disabling investigative conflict, the matter should be referable to the independent investigative-counsel mechanism developed under DOJ-007. Criminal enforcement against presidential official acts remains subject to current immunity doctrine unless superseded by IMM-001.
 
 This package is less complex than a wholly freestanding election-administration code because it extends an existing federal principle, uses established OSC and MSPB structures, and regulates federal executive actors rather than the internal organization of state elections.
+
+## Proposed Legislation
+
+The working statutory draft is maintained separately as the [Federal Executive Election Noninterference Act](../../../legislation/ELEC-001.md).
 
 ## Enforcement Architecture
 
