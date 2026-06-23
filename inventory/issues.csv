@@ -9,8 +9,8 @@ DOJ-007,A-01,Independent Investigation of Presidential and Senior Executive Misc
 DOJ-008,A-01,Weak external review of politicized charging or noncharging decisions,High,Retired—merged into DOJ-003
 ELEC-001,A-02,Federal Executive Interference with State and Local Election Administration,High,Developed
 ELEC-002,A-02,Pressure on certification and canvassing officials,High,Developed
-ELEC-003,A-02,Insufficient protection for election workers and officials,High,Candidate
-ELEC-004,A-02,Abuse of post-election litigation and investigatory mechanisms,High,Candidate
+ELEC-003,A-02,Insufficient protection for election workers and officials,High,Developed
+ELEC-004,A-02,Abuse of election litigation and investigatory mechanisms,High,Developed
 ELEC-005,A-02,Weak safeguards against alternate-elector or certification schemes,High,Candidate
 ELEC-006,A-02,Insufficiently automatic presidential-transition procedures,High,Candidate
 ELEC-007,A-02,Military or armed federal-force intervention in election administration,High,Candidate
@@ -160,8 +160,8 @@ RET-001,A-19,Politically motivated grant cancellation or withholding,Medium,Cand
 RET-002,A-19,Contracting favoritism or retaliation,Medium,Candidate
 RET-003,A-19,Selective regulatory scrutiny,Medium,Candidate
 RET-004,A-19,Licensing or approval pressure,Medium,Candidate
-RET-005,A-19,"Antitrust, tax, or enforcement coercion",Medium,Candidate
-RET-006,A-19,"Retaliation against universities, law firms, media, or businesses",Medium,Candidate
+RET-005,"A-19","Antitrust, tax, or enforcement coercion",Medium,Candidate
+RET-006,"A-19","Retaliation against universities, law firms, media, or businesses",Medium,Candidate
 RET-007,A-19,Security-clearance or access retaliation,Medium,Candidate
 RET-008,A-19,Weak emergency remedies and evidentiary transparency,Medium,Candidate
 FED-001,A-20,Conditioning disaster or infrastructure aid,Medium,Candidate
@@ -182,7 +182,7 @@ FRB-007,A-21,Pre-election monetary manipulation,Critical,Candidate
 FRB-008,A-21,Preservation of accountability alongside instrument independence,High,Candidate
 PRESS-001,A-22,Retaliatory denial of access,High,Candidate
 PRESS-002,A-22,Selective exclusion from government events and information,High,Candidate
-PRESS-003,A-22,"Misuse of investigations, subpoenas, surveillance, or source demands",Critical,Candidate
+PRESS-003,"A-22","Misuse of investigations, subpoenas, surveillance, or source demands",Critical,Candidate
 PRESS-004,A-22,Regulatory retaliation,Critical,Candidate
 PRESS-005,A-22,Contracting and commercial pressure,High,Candidate
 PRESS-006,A-22,Misuse of official power to threaten or punish reporting,High,Candidate
