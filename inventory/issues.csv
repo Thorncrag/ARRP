@@ -2,11 +2,11 @@ Issue ID,Area ID,Issue / Institutional Anomaly,Priority,Development Status
 DOJ-001,A-01,Appointment of recent presidential personal counsel to senior DOJ leadership,High,Developed
 DOJ-002,A-01,White House Direction or Interference in Particular Federal Criminal Matters,High,Developed
 DOJ-003,A-01,"Politically Selective Enforcement, Charging, and Favoritism",High,Developed
-DOJ-004,A-01,"Inadequate protection for career prosecutors, investigators, and legal officials",High,Candidate
-DOJ-005,A-01,Weak and internally controlled recusal and ethics mechanisms,High,Candidate
-DOJ-006,A-01,Insufficiently enforceable limits on White House–DOJ contacts,High,Candidate
+DOJ-004,A-01,Protection of Career DOJ Personnel from Politically Motivated Removal or Reassignment,High,Awaiting merits adjudication
+DOJ-005,A-01,Weak Enforcement and Internal Control of DOJ Recusal Duties,High,Developed
+DOJ-006,A-01,Insufficiently enforceable limits on White House–DOJ contacts,High,Retired—merged into DOJ-002 and DOJ-007
 DOJ-007,A-01,Independent Investigation of Presidential and Senior Executive Misconduct,High,Developed
-DOJ-008,A-01,Weak external review of politicized charging or noncharging decisions,High,Candidate
+DOJ-008,A-01,Weak external review of politicized charging or noncharging decisions,High,Retired—merged into DOJ-003
 ELEC-001,A-02,Partisan interference with election administration,High,Candidate
 ELEC-002,A-02,Pressure on certification and canvassing officials,High,Candidate
 ELEC-003,A-02,Insufficient protection for election workers and officials,High,Candidate
@@ -131,7 +131,7 @@ CONG-005,A-15,Contempt referrals dependent on DOJ,High,Candidate
 CONG-006,A-15,Lack of expedited judicial review,High,Candidate
 CONG-007,A-15,Weak committee investigative capacity,High,Candidate
 CONG-008,A-15,Partisan collapse of oversight under unified government,High,Candidate
-IMM-001,A-16,Criminal immunity for official acts,High,Candidate
+IMM-001,A-16,Criminal Immunity for Presidential Official Acts,High,Developed
 IMM-002,A-16,Civil immunity and remedial gaps,High,Candidate
 IMM-003,A-16,Statutes of limitation during presidential tenure,High,Candidate
 IMM-004,A-16,Restrictions on evidentiary use of official conduct,High,Candidate
