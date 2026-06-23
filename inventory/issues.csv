@@ -11,7 +11,7 @@ ELEC-001,A-02,Federal Executive Interference with State and Local Election Admin
 ELEC-002,A-02,Pressure on certification and canvassing officials,High,Developed
 ELEC-003,A-02,Insufficient protection for election workers and officials,High,Developed
 ELEC-004,A-02,Abuse of election litigation and investigatory mechanisms,High,Developed
-ELEC-005,A-02,Weak safeguards against alternate-elector or certification schemes,High,Candidate
+ELEC-005,A-02,Weak safeguards against false presidential-elector certificates,High,Developed
 ELEC-006,A-02,Insufficiently automatic presidential-transition procedures,High,Candidate
 ELEC-007,A-02,Military or armed federal-force intervention in election administration,High,Candidate
 ELEC-008,A-02,Weak accountability for efforts to overturn lawful results,High,Candidate
@@ -32,6 +32,7 @@ JUD-005,A-04,Weak or partisan congressional response to judicial defiance,High,C
 JUD-006,A-04,Uncertainty regarding contempt and coercive sanctions against senior executive officials,High,Candidate
 JUD-007,A-04,"Evasion through substitution, reorganization, or nominally revised directives",High,Candidate
 JUD-008,A-04,Insufficient transparency and verification regarding compliance,High,Candidate
+JUD-009,A-04,Appointer-President Recusal,High,Developed
 PAR-001,A-05,Personal or political benefit,Medium,Candidate
 PAR-002,A-05,Obstruction or witness inducement,Medium,Candidate
 PAR-003,A-05,"Sale, brokerage, or monetization of pardons",Medium,Candidate
