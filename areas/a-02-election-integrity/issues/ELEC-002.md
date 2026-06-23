@@ -5,7 +5,7 @@ title: "Pressure on Certification and Canvassing Officials"
 status: developed
 priority: high
 remedy_type: model-state-legislation
-legislative_proposal: "../../../legislation/ELEC-002.md"
+legislative_proposal: "../../../legislation/ELEC-002-state.md"
 ---
 
 # ELEC-002 — Pressure on Certification and Canvassing Officials
@@ -82,7 +82,7 @@ A limited federal floor may remain appropriate for elections containing a federa
 
 ## Proposed Legislation
 
-The working model statute is maintained separately as the [Model State Election Certification and Automatic Substitution Act](../../../legislation/ELEC-002.md).
+The working model statute is maintained separately as the [Model State Election Certification and Automatic Substitution Act](../../../legislation/ELEC-002-state.md).
 
 ## Relationship to Other Issues
 
