@@ -20,7 +20,7 @@ The election system remains vulnerable to federal executive interference, delegi
 - [ELEC-005 — Weak Safeguards Against False Presidential Result-Transmission Documents](issues/ELEC-005.md)
 - [ELEC-006 — Insufficiently Automatic Presidential-Transition Procedures](issues/ELEC-006.md)
 - [ELEC-007 — Improper Federal-Force Presence in Election Administration](issues/ELEC-007.md)
-- **ELEC-008** — Weak accountability for efforts to overturn lawful results _(status: Candidate; priority: High)_
+- [ELEC-008 — Accountability for Coordinated Election-Subversion Schemes](issues/ELEC-008.md)
 - [ELEC-009 — Electoral College Structure and National Popular Vote](issues/ELEC-009.md) _(status: Candidate; priority: High)_
 
 ## Issue Boundaries
@@ -32,8 +32,9 @@ The election system remains vulnerable to federal executive interference, delegi
 - **ELEC-005** concerns false or unauthorized presidential result-transmission documents entering federal receipt, preservation, recognition, or electoral-count channels.
 - **ELEC-006** concerns continuity of government, transition automaticity, and narrow statutory backstops for presidential-transition access, agreements, agency cooperation, and enforcement.
 - **ELEC-007** concerns improper federal-force presence, emergency response, and election-material custody safeguards around election administration.
+- **ELEC-008** concerns coordinated election-subversion schemes using independently wrongful predicate acts to corruptly nullify, reverse, obstruct, delay, or procure official disregard of a lawful presidential-election result.
 - **ELEC-009** concerns whether the Electoral College itself should be restructured or replaced by a national popular-vote system.
 
 ## Notes
 
-ELEC-001, ELEC-002, ELEC-003, ELEC-004, ELEC-005, ELEC-006, and ELEC-007 are developed. ELEC-009 has preliminary candidate framing. Remaining issues are provisional and require full source development and overlap review.
+ELEC-001, ELEC-002, ELEC-003, ELEC-004, ELEC-005, ELEC-006, ELEC-007, and ELEC-008 are developed. ELEC-009 has preliminary candidate framing. Remaining issues are provisional and require full source development and overlap review.
