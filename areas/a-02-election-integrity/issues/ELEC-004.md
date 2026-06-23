@@ -13,7 +13,9 @@ legislative_proposal: "../../../legislation/ELEC-004.md"
 
 ## Institutional Anomaly
 
-Election law necessarily permits candidates, parties, voters, public officials, and authorized institutions to seek recounts, contests, audits, investigations, and judicial relief after an election. Existing law, however, does not always distinguish quickly and reliably between good-faith post-election review and proceedings used primarily to delay certification, manufacture uncertainty, harass election personnel, obtain unauthorized access to sensitive election materials, or create a false predicate for extra-legal pressure.
+This issue is modeled on the logic of **Anti-SLAPP** laws. Anti-SLAPP statutes recognize that the legal process itself can be abused: even a weak claim can impose cost, delay, discovery burdens, reputational harm, and coercive pressure before a court reaches the merits. ELEC-004 applies that same procedural insight to post-election proceedings. The adapted target is not ordinary speech or petitioning activity, but the use of post-election litigation, subpoenas, audits, investigations, or inspection demands to delay certification, manufacture uncertainty, harass election personnel, obtain sensitive election materials, or create a false predicate for extra-legal pressure.
+
+Election law necessarily permits candidates, parties, voters, public officials, and authorized institutions to seek recounts, contests, audits, investigations, and judicial relief after an election. Existing law, however, does not always distinguish quickly and reliably between good-faith post-election review and proceedings used primarily for improper procedural leverage.
 
 The institutional problem is not the availability of election challenges. The problem is the use of formal legal, quasi-legal, investigatory, subpoena, audit, or judicial mechanisms to convert unsupported allegations into deadline pressure, evidentiary rummaging, official harassment, or public claims that a lawful result remains unresolved.
 
@@ -49,7 +51,7 @@ The damage is often procedural rather than outcome-determinative: delay, uncerta
 
 Existing law may lack:
 
-- early screening for extraordinary election-disruptive relief;
+- Anti-SLAPP-style early screening adapted to extraordinary election-disruptive relief;
 - particularized pleading and evidentiary-proffer requirements;
 - automatic stays of intrusive discovery, subpoenas, or inspection demands;
 - materiality and remedy-fit requirements before certification or election deadlines are affected;
@@ -64,7 +66,7 @@ Existing law may lack:
 
 ### Federal-court legislation
 
-Congress should enact a federal Post-Election Proceedings Integrity Act governing federal-court proceedings that seek election-disruptive relief or access to sensitive election materials in elections involving federal office. The statute should include:
+Congress should enact an Anti-SLAPP-style federal Post-Election Proceedings Integrity Act governing federal-court proceedings that seek election-disruptive relief or access to sensitive election materials in elections involving federal office. The statute should include:
 
 1. a special motion to screen post-election proceedings seeking extraordinary relief;
 2. an automatic stay of intrusive discovery, subpoenas, inspections, and sensitive-material access pending screening;
@@ -78,7 +80,7 @@ Congress should enact a federal Post-Election Proceedings Integrity Act governin
 
 ### Model state legislation
 
-States should be encouraged to enact a parallel Post-Election Proceedings Integrity Act for state courts, state-law election contests, recount litigation, nonstatutory audit demands, subpoenas, and proceedings seeking to affect state or local certification. State adoption is necessary because many election contests and post-election challenges arise in state court and under state law.
+States should be encouraged to enact a parallel Anti-SLAPP-style Post-Election Proceedings Integrity Act for state courts, state-law election contests, recount litigation, nonstatutory audit demands, subpoenas, and proceedings seeking to affect state or local certification. State adoption is necessary because many election contests and post-election challenges arise in state court and under state law.
 
 ### Citizen reporting distinction
 
@@ -90,7 +92,7 @@ The screening procedure applies to proceedings or demands that seek coercive, di
 
 The least-complex adequate remedy is a two-track package:
 
-1. mandatory federal-court screening, discovery control, sensitive-material protection, and later-discovered improper-purpose sanctions for federal post-election proceedings; and
+1. mandatory federal-court Anti-SLAPP-style screening, discovery control, sensitive-material protection, and later-discovered improper-purpose sanctions for federal post-election proceedings; and
 2. model state legislation encouraging states to adopt parallel procedures for state courts and state-law post-election proceedings.
 
 This approach avoids a federal takeover of state election-contest systems while ensuring that federal courts do not become vehicles for election-disruptive litigation, evidentiary rummaging, or later-discovered coordinated schemes.
@@ -105,7 +107,7 @@ This approach avoids a federal takeover of state election-contest systems while 
 - **ELEC-001** concerns federal executive interference with state and local election administration.
 - **ELEC-002** concerns certification refusal, deadlock, delay, or unauthorized discretion by certification bodies.
 - **ELEC-003** concerns protection of election personnel from threats, harassment, doxxing, retaliation, and operational disruption.
-- **ELEC-004** concerns abuse of post-election litigation, investigatory demands, subpoenas, audit requests, and extraordinary proceedings.
+- **ELEC-004** concerns Anti-SLAPP-style control of abusive post-election litigation, investigatory demands, subpoenas, audit requests, and extraordinary proceedings.
 - **ELEC-005** concerns alternate-elector or false-certification schemes.
 - **ELEC-008** concerns broader accountability for efforts to overturn lawful results.
 
@@ -113,7 +115,7 @@ ELEC-004 may supply the procedural predicate for ELEC-002 or ELEC-005 conduct, b
 
 ## Annotation
 
-**Anti-SLAPP Analogy.** This issue borrows from anti-SLAPP architecture: early screening, discovery stay, burden clarification, fee-shifting, and sanctions. The model is adapted for public-law election proceedings rather than ordinary civil claims affecting speech or petitioning.
+**Anti-SLAPP Analogy.** This issue expressly borrows from Anti-SLAPP architecture: early screening, discovery stay, burden clarification, fee-shifting, and sanctions. The model is adapted for public-law election proceedings rather than ordinary civil claims affecting speech or petitioning.
 
 **No Anti-Challenge Rule.** The proposal does not disfavor election challenges. It requires an early showing only when a proceeding seeks extraordinary relief, deadline disruption, intrusive discovery, sensitive-material access, or other coercive process capable of impairing election administration.
 
@@ -121,4 +123,4 @@ ELEC-004 may supply the procedural predicate for ELEC-002 or ELEC-005 conduct, b
 
 **Federalism.** Federal legislation should govern federal courts and federal-election-related proceedings. States should be encouraged, not commandeered, to adopt parallel procedures for state courts and state-law contests.
 
-**Source Development Pending.** Further development should cite representative cases and orders from Pennsylvania, Michigan, Wisconsin, Nevada, Georgia, and other post-2020 proceedings, together with Rule 11, 28 U.S.C. § 1927, inherent-power sanctions, and state anti-SLAPP analogues.
+**Source Development Pending.** Further development should cite representative cases and orders from Pennsylvania, Michigan, Wisconsin, Nevada, Georgia, and other post-2020 proceedings, together with Rule 11, 28 U.S.C. § 1927, inherent-power sanctions, and state Anti-SLAPP analogues.
