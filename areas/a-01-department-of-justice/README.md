@@ -16,12 +16,20 @@ The Department of Justice lacks sufficient structural independence, external ove
 - [DOJ-001 — Appointment of recent presidential personal counsel to senior DOJ leadership](issues/DOJ-001.md)
 - [DOJ-002 — White House Direction or Interference in Particular Federal Criminal Matters](issues/DOJ-002.md)
 - [DOJ-003 — Politically Selective Enforcement, Charging, and Favoritism](issues/DOJ-003.md)
-- **DOJ-004** — Inadequate protection for career prosecutors, investigators, and legal officials _(status: Candidate; priority: High)_
-- **DOJ-005** — Weak and internally controlled recusal and ethics mechanisms _(status: Candidate; priority: High)_
-- **DOJ-006** — Insufficiently enforceable limits on White House–DOJ contacts _(status: Candidate; priority: High)_
+- [DOJ-004 — Protection of Career DOJ Personnel from Politically Motivated Removal or Reassignment](issues/DOJ-004.md) _(status: Awaiting merits adjudication; priority: High)_
+- [DOJ-005 — Weak Enforcement and Internal Control of DOJ Recusal Duties](issues/DOJ-005.md)
+- **DOJ-006** — Insufficiently enforceable limits on White House–DOJ contacts _(status: Retired—merged into DOJ-002 and DOJ-007)_
 - [DOJ-007 — Independent Investigation of Presidential and Senior Executive Misconduct](issues/DOJ-007.md)
-- **DOJ-008** — Weak external review of politicized charging or noncharging decisions _(status: Candidate; priority: High)_
+- **DOJ-008** — Weak external review of politicized charging or noncharging decisions _(status: Retired—merged into DOJ-003)_
+
+## Issue Boundaries
+
+- **DOJ-002** owns preventive controls over case-specific White House and political contacts, including routing, logging, review, and preservation.
+- **DOJ-003** owns politically selective charging and noncharging together with independent OIG anomaly review and congressional reporting.
+- **DOJ-004** is paused pending merits adjudication of the Article II removal question presented by the Maurene Comey litigation.
+- **DOJ-005** owns senior-official recusal administration and enforcement.
+- **DOJ-007** owns independent investigation, evidence preservation, and congressional reporting when presidential or senior executive conflict makes ordinary DOJ accountability unreliable.
 
 ## Notes
 
-DOJ-001, DOJ-002, DOJ-003, and DOJ-007 are developed. DOJ-002 addresses front-end case-specific political interference; DOJ-003 addresses systemic disparity detection and correction; DOJ-007 addresses extraordinary executive conflict in investigation of presidential and senior executive misconduct. Remaining issues are provisional and require full source development.
+DOJ-001, DOJ-002, DOJ-003, DOJ-005, and DOJ-007 are developed. DOJ-004 is substantively identified but intentionally held at Awaiting merits adjudication. DOJ-006 and DOJ-008 are retired as duplicative standalone issues, with their nonduplicative components preserved in the identified primary issues.
