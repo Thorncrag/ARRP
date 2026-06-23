@@ -7,7 +7,7 @@ framework_issue: "../areas/a-02-election-integrity/issues/ELEC-003.md"
 model_state_legislation: "ELEC-003-state.md"
 ---
 
-# ELEC-003-FEDERAL — Election Personnel Protection Amendments to the Help America Vote Act of 2002
+# ELEC-003 — Election Personnel Protection Amendments to the Help America Vote Act of 2002
 
 ## A BILL
 
