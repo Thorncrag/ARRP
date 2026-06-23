@@ -130,7 +130,9 @@ A court order under this section authorizes only the specific evidence-preservat
 
 Nothing in this Act prohibits federal personnel from executing a lawful court-issued writ, warrant, subpoena-enforcement order, or other judicial order, provided that execution of the order does not authorize federal personnel to perform an election-administration function except to the limited extent expressly required by the order and consistent with any chain-of-custody, voter-privacy, ballot-secrecy, and election-security safeguards imposed by the issuing court or applicable law.
 
-## SEC. 8. PROHIBITED CONDUCT.
+## SEC. 8. PROHIBITED CONDUCT; INCIDENTAL-CONTACT SAFE HARBOR.
+
+### (a) Prohibited conduct.
 
 It shall be unlawful for federal personnel or any person acting under color of federal authority to—
 
@@ -141,6 +143,21 @@ It shall be unlawful for federal personnel or any person acting under color of f
 5. use a non-election emergency or investigation as a pretext to observe election administration, access election materials, or influence election decisions;
 6. take custody of covered election material except under section 7; or
 7. represent, expressly or implicitly, that federal personnel are supervising, validating, invalidating, certifying, decertifying, or controlling the election.
+
+### (b) Incidental-contact safe harbor.
+
+No person shall be liable under this Act solely because federal personnel, while acting in good faith and performing an otherwise lawful non-election function, inadvertently or unavoidably encounter, overhear, observe, or have incidental contact with an election process, election personnel, voters, observers, or covered election material, provided that the federal personnel—
+
+1. did not intend to influence, supervise, control, delay, or participate in election administration;
+2. did not invoke federal authority to affect an election-administration decision;
+3. disengaged from any election-administration matter as soon as practicable;
+4. did not access, inspect, image, copy, transport, seize, retain, or take custody of covered election material except as authorized by section 6 or 7;
+5. did not disclose or use nonpublic election information obtained through the incidental contact except as required by lawful process or necessary to address the non-election emergency; and
+6. documented and reported any material incidental contact to the responsible federal supervisor and, where feasible, the chief state or local election official.
+
+### (c) Safe harbor limitations.
+
+The safe harbor in subsection (b) does not apply to intentional, reckless, repeated, pretextual, or avoidable conduct; conduct undertaken to observe or investigate election administration without lawful authority; or conduct that materially affects voting, counting, canvassing, auditing, certification, custody of election materials, or any other election-administration function.
 
 ## SEC. 9. NOTICE, REPORTING, AND RECORDKEEPING.
 
@@ -193,9 +210,10 @@ Nothing in this Act shall be construed to—
 5. impair lawful civil-rights enforcement conducted without federal election-administration participation;
 6. impair lawful criminal investigation conducted outside active election administration or under the safeguards of this Act;
 7. prohibit execution of a lawful court-issued writ, warrant, subpoena-enforcement order, or other judicial order, subject to section 7;
-8. authorize any action prohibited by the Posse Comitatus Act or other federal law;
-9. limit 18 U.S.C. § 592 except to provide additional protections; or
-10. authorize federal personnel to direct, supervise, or control a state or local election official.
+8. prohibit federal personnel from registering to vote, voting, standing in line to vote, assisting family or household members as permitted by ordinary election law, appearing at a polling place in a personal capacity, or engaging in lawful civic activity in the same manner as other citizens, provided that they do not invoke federal authority, act under color of federal office, or perform official duties while doing so;
+9. authorize any action prohibited by the Posse Comitatus Act or other federal law;
+10. limit 18 U.S.C. § 592 except to provide additional protections; or
+11. authorize federal personnel to direct, supervise, or control a state or local election official.
 
 ## SEC. 12. SEVERABILITY.
 
@@ -206,6 +224,8 @@ If any provision or application of this Act is held invalid, the remainder shall
 - The controlling rule is that federal agents may respond to a non-election emergency; they may not become part of the election.
 - The emergency exception is not an election-participation exception.
 - The extraordinary emergency definition is intentionally limited to concrete non-election emergencies and excludes election-administration disputes, generalized election-integrity concerns, and requests to inspect or secure election materials.
+- The incidental-contact safe harbor protects good-faith inadvertent or unavoidable contact, but not intentional, reckless, pretextual, repeated, or election-affecting conduct.
+- Federal personnel retain ordinary personal voting rights and lawful personal civic rights, subject to ordinary election law, ethics rules, agency rules, and the prohibition on invoking federal authority.
 - Lawful court-issued writs, warrants, subpoena-enforcement orders, and other judicial orders remain executable, but they do not authorize election-administration participation beyond the order's express terms and required safeguards.
 - State consent is necessary but not sufficient; there must also be a documented state-capacity inadequacy.
 - Election-material access requires separate judicial safeguards.
