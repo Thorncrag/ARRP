@@ -4,6 +4,7 @@ issue_id: ELEC-003
 title: "Model State Election Personnel Protection and Continuity Act"
 status: working-draft
 framework_issue: "../areas/a-02-election-integrity/issues/ELEC-003.md"
+federal_legislation: "ELEC-003-FEDERAL.md"
 ---
 
 # ELEC-003 — Model State Election Personnel Protection and Continuity Act
@@ -222,15 +223,43 @@ Funds distributed to local jurisdictions shall be allocated under objective crit
 
 Acceptance of federal funds does not authorize a federal officer or entity to supervise or influence any election law, policy, procedure, decision, or dispute beyond verifying eligibility and lawful expenditure under the governing federal statute.
 
-## SEC. 18. RELATION TO OTHER LAW.
+## SEC. 18. FEDERAL ELIGIBILITY CERTIFICATION AND CONTINUING MAINTENANCE.
+
+This Act is intended to constitute a qualifying State law for purposes of the Election Personnel Protection Payments title of the Help America Vote Act of 2002, as amended.
+
+The chief state election official and the attorney general, or equivalent state legal officer, shall jointly prepare and submit any certification, citation table, statutory crosswalk, or expenditure certification required to establish eligibility for federal election-personnel protection payments.
+
+The State shall maintain the protections required by this Act as a condition of future eligibility for such payments. Repeal or material narrowing of this Act terminates eligibility for future federal payments unless the State enacts substitute provisions satisfying the federal minimum requirements.
+
+Nothing in this section incorporates future federal guidance, regulation, policy statement, executive order, model practice, or administrative condition into state law. Eligibility shall be determined only by the federal statute enacted by Congress and the state statutory provisions in force.
+
+## SEC. 19. RELATION TO OTHER LAW.
 
 This Act supplements and does not narrow any other criminal offense, civil remedy, public-employment protection, address-confidentiality provision, victims’ right, emergency authority, or election-continuity procedure.
 
 Where another law provides greater protection consistent with constitutional requirements, the greater protection controls.
 
-## SEC. 19. SEVERABILITY.
+## SEC. 20. SEVERABILITY.
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
+
+## Federal Eligibility Crosswalk
+
+| Federal HAVA Title X requirement | State act provision satisfying requirement |
+|---|---|
+| Protect covered election personnel when targeted because of an election function | Sections 3, 6, 7, 8, 10, 11, 12, 14, and 15. |
+| Extend appropriate protection to covered family or household members | Sections 3, 6, 7, 8, 10, 11, and 15. |
+| Require politically neutral administration | Sections 2, 4, 7, and 17. |
+| Establish statewide prompt reporting, threat assessment, referral, and coordination through existing state offices | Sections 3, 5, and 6. |
+| Authorize emergency protective assistance | Section 7. |
+| Provide expedited judicial process for protective relief consistent with due process and the First Amendment | Sections 8 and 15. |
+| Protect residential and sensitive personal information | Sections 3, 8, 9, 10, and 16. |
+| Provide civil or criminal remedies for threats, coercion, retaliation, family harm, doxxing, false emergency reports, bomb threats, swatting, or comparable misconduct | Sections 10, 11, 12, and 15. |
+| Require continuity-of-operations planning for election facilities and functions | Sections 5, 6, 12, and 13. |
+| Authorize workforce support related to threat-driven attrition | Sections 14, 16, and 17. |
+| Provide aggregate public reporting while protecting personal, investigative, and security-sensitive information | Section 16. |
+| Apply equally to state and local election personnel without regard to partisan affiliation or identity of alleged offender | Sections 3, 4, 7, and 17. |
+| Remain legally operative regardless of whether the State receives federal funds | Sections 2, 17, and 18. |
 
 ## Manifestation-to-Remedy Crosswalk
 
@@ -249,4 +278,5 @@ If any provision or application of this Act is held invalid, the remainder shall
 - Doxxing provisions are limited by intent, recklessness, causation, exceptions, and tailored remedies to reduce First Amendment and overbreadth risk.
 - The model distinguishes personal protection from election administration: the protection coordinator may secure people and operations but may not direct election outcomes or procedures beyond continuity requirements stated by law.
 - States should conform protective-order procedure, offense grading, public-record exemptions, labor protections, standing, and appropriations to their constitutions and existing codes.
-- The crosswalk is mandatory for future revision: no documented manifestation should remain without a corresponding preventive, protective, continuity, remedial, or workforce mechanism.
+- The federal eligibility crosswalk is mandatory for future revision: no federal minimum condition should be added or revised without identifying the corresponding state-law provision.
+- The manifestation-to-remedy crosswalk is mandatory for future revision: no documented manifestation should remain without a corresponding preventive, protective, continuity, remedial, or workforce mechanism.
