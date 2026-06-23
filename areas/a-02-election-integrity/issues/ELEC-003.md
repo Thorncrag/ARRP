@@ -17,14 +17,25 @@ The federal government should not become the primary administrator, supervisor, 
 
 ## Manifestations of the Failure
 
-Election personnel and qualifying family or household members may face:
+### Ruby Freeman and Shaye Moss — Georgia, 2020–2022
 
-- threats or attempted violence;
-- doxxing or disclosure of residential and family information;
-- sustained targeted harassment that may fall below a criminal-threat threshold;
-- retaliation against employment, business, professional standing, or public service;
-- threats intended to alter, delay, or punish the performance of election duties; and
-- threat-driven resignation, recruitment difficulty, facility disruption, or loss of institutional knowledge.
+After false allegations accused Fulton County election workers Ruby Freeman and Wandrea “Shaye” Moss of manipulating ballots, both women and members of their family were subjected to sustained racist harassment and death threats. Freeman testified that the FBI advised her to leave her home through the presidential inauguration. Moss testified that people went to her grandmother’s home, attempted to push inside, and claimed that they intended to make a “citizen’s arrest.” Moss subsequently left election work. The episode demonstrates family targeting, forced displacement, career loss, and the inability of ordinary post hoc remedies to prevent severe personal and institutional damage. See U.S. House Select Committee to Investigate the January 6th Attack, *Final Report*, ch. 2 (2022); [fourth public hearing materials and testimony](https://www.govinfo.gov/content/pkg/GPO-J6-REPORT/pdf/GPO-J6-REPORT.pdf).
+
+### Threats against bipartisan Arizona election officials — 2021–2025
+
+Federal prosecutions have documented repeated threats against Arizona election officials of both parties. James W. Clark threatened to detonate an explosive device unless then-Secretary of State Katie Hobbs resigned, searched for her home address and methods of killing her, and caused evacuation of portions of the state government complex and security sweeps of Hobbs’s home and vehicle. He was sentenced in March 2024 to 42 months’ imprisonment. Other prosecutions have involved threats against Maricopa County officials and later threats against officials in both Arizona and Colorado. These cases demonstrate that existing criminal law can punish provable true threats but often only after evacuation, fear, security expense, and operational disruption have already occurred. See [The Guardian, March 12, 2024](https://www.theguardian.com/us-news/2024/mar/12/man-sentenced-bomb-threat-arizona-state-election-official); [Associated Press, May 29, 2025](https://apnews.com/article/a50f82a9fbad6ebf72eafef189a06f38).
+
+### Election Day bomb threats and polling-place closures — 2024
+
+On November 5, 2024, bomb threats were directed at polling locations in multiple battleground states. The FBI stated that many appeared to originate from Russian email domains and that none had been determined credible at the time. At least two Fulton County, Georgia polling locations were evacuated and closed temporarily; officials sought extended voting hours to compensate for the interruption. Later research identified at least 227 threats against polling places and tabulation centers and found evidence that extending hours may not have fully cured turnout suppression at affected DeKalb County precincts. This episode demonstrates that even noncredible threats can disrupt voting, divert law-enforcement resources, expose workers to risk, and produce harm that cannot necessarily be repaired after the fact. See [Reuters, November 5, 2024](https://www.reuters.com/world/us/fake-bomb-threats-linked-russia-briefly-close-georgia-polling-locations-2024-11-05/); Sequoia Andrade & Philip B. Stark, [*Does Extending Polling Hours Compensate for Bomb Threats? Evidence from the 2024 Election in Georgia, USA*](https://arxiv.org/abs/2508.19442) (2025).
+
+### Doxxing and family-directed retaliation against senior election officials — 2020
+
+Georgia Secretary of State Brad Raffensperger testified that his personal information was disseminated, his wife received sexualized threats, and intruders broke into the home of his widowed daughter-in-law after he refused efforts to alter Georgia’s certified result. Similar testimony described armed or threatening demonstrations outside the homes of other state officials. Although some conduct overlapped with pressure on certification officials, the personal-security failure was distinct: existing institutions did not reliably prevent political disputes over election administration from being transferred to officials’ homes and families. See U.S. House Select Committee to Investigate the January 6th Attack, *Final Report*, ch. 2 (2022); [summary of fourth-hearing testimony](https://www.axios.com/2022/06/21/jan-6-hearing-violence-threats).
+
+### Workforce attrition and recruitment damage — nationwide
+
+The harm is not limited to a few prominent prosecutions. In a 2024 Brennan Center survey of 928 local election officials, 38 percent reported threats, harassment, or abuse related to their work; 27 percent reported knowing one or two officials who had resigned because of safety concerns; and 20 percent stated that they were unlikely to remain through the 2026 midterms. These findings support the institutional inference that intimidation is degrading experience, recruitment, and continuity across election offices even when no single communication results in prosecution. See [Brennan Center survey reporting, May 1, 2024](https://www.politico.com/news/2024/05/01/2024-election-poll-workers-00154953).
 
 Existing criminal enforcement is necessary but incomplete. Some dangerous conduct remains constitutionally protected, cannot be attributed or proved beyond a reasonable doubt, falls below the applicable criminal threshold, or causes operational damage before prosecution can occur.
 
@@ -121,4 +132,4 @@ A threat intended to compel a certification decision may implicate both ELEC-002
 
 **Federalism Firewall.** Federal eligibility review should be binary and statutory, not a general assessment of whether federal officials approve of a state's election-security program. No regulation, guidance, executive order, or grant term should be permitted to add substantive conditions beyond those enacted by Congress.
 
-**Sources for Further Development.** Department of Justice Election Threats Task Force materials; Help America Vote Act of 2002; 52 U.S.C. §§ 20921, 21001–21008, 21081–21085; 23 U.S.C. §§ 153, 158; and the conditional-spending and anti-commandeering decisions cited above.
+**Source Note.** The manifestations are illustrative rather than exhaustive. The examples were selected to show distinct institutional failures: individual and family targeting, forced displacement, prosecutable true threats, facility evacuation, Election Day operational disruption, and workforce attrition.
