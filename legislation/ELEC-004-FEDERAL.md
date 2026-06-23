@@ -1,48 +1,48 @@
 ---
 proposal_id: ELEC-004-FEDERAL
 issue_id: ELEC-004
-title: "Federal Post-Election Proceedings Integrity Act"
+title: "Federal Election Proceedings Integrity Act"
 status: working-draft
 framework_issue: "../areas/a-02-election-integrity/issues/ELEC-004.md"
 model_state_legislation: "ELEC-004.md"
 ---
 
-# ELEC-004-FEDERAL — Federal Post-Election Proceedings Integrity Act
+# ELEC-004-FEDERAL — Federal Election Proceedings Integrity Act
 
 ## A BILL
 
-To establish an Anti-SLAPP-style special screening mechanism, discovery control, sensitive-material protection, and later-discovered improper-purpose sanctions for certain post-election proceedings in federal court, and for other purposes.
+To establish an Anti-SLAPP-style special screening mechanism, discovery control, sensitive-material protection, and later-discovered improper-purpose sanctions for certain election proceedings in federal court, and for other purposes.
 
 Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
 
 ## SECTION 1. SHORT TITLE.
 
-This Act may be cited as the **“Federal Post-Election Proceedings Integrity Act.”**
+This Act may be cited as the **“Federal Election Proceedings Integrity Act.”**
 
 ## SEC. 2. PURPOSES.
 
 ### (a) Anti-SLAPP-style adaptation.
 
-This Act adapts the procedural logic of Anti-SLAPP laws to post-election proceedings in federal court. Anti-SLAPP laws recognize that litigation process can itself be used abusively to impose cost, delay, discovery burdens, reputational harm, or coercive pressure before a court reaches the merits. This Act applies that logic to post-election proceedings that seek election-disruptive relief or access to sensitive election material without an early particularized showing.
+This Act adapts the procedural logic of Anti-SLAPP laws to election proceedings in federal court. Anti-SLAPP laws recognize that litigation process can itself be used abusively to impose cost, delay, discovery burdens, reputational harm, or coercive pressure before a court reaches the merits. This Act applies that logic to election proceedings that seek election-disruptive relief or access to sensitive election material without an early particularized showing.
 
 ### (b) Purposes.
 
 The purposes of this Act are to—
 
-1. preserve access to good-faith election challenges and lawful post-election review;
+1. preserve access to good-faith election challenges and lawful election review;
 2. prevent federal courts from being used to delay certification, manufacture uncertainty, harass election personnel, or obtain unauthorized access to sensitive election materials without an early particularized showing;
 3. protect statutory election deadlines, ballot secrecy, voter privacy, chain of custody, voting-system security, and election finality;
-4. distinguish ordinary citizen reporting and authorized recount or contest procedures from extraordinary post-election proceedings seeking coercive or disruptive relief; and
-5. provide sanctions where later-discovered evidence shows that a post-election proceeding was materially connected to a coordinated improper scheme.
+4. distinguish ordinary citizen reporting and authorized recount or contest procedures from election proceedings seeking coercive or disruptive relief; and
+5. provide sanctions where later-discovered evidence shows that an election proceeding was materially connected to a coordinated improper scheme.
 
 ## SEC. 3. DEFINITIONS.
 
 In this Act:
 
-1. **Covered post-election proceeding** means a civil action, motion, petition, application, subpoena, discovery demand, inspection demand, audit demand, or request for emergency relief filed in or issued by a federal court after the closing of polls in an election involving a federal office, if the proceeding seeks or would foreseeably cause election-disruptive relief.
-2. **Election-disruptive relief** means relief that would delay, enjoin, alter, decertify, nullify, or otherwise disturb counting, tabulation, auditing, recounting, canvassing, certification, appointment of presidential electors, transmission of election returns, or another statutory election deadline.
+1. **Covered election proceeding** means a civil action, motion, petition, application, subpoena, discovery demand, inspection demand, audit demand, or request for emergency relief filed in or issued by a federal court in relation to an election involving a federal office, if the proceeding seeks or would foreseeably cause election-disruptive relief.
+2. **Election-disruptive relief** means relief that would delay, enjoin, alter, decertify, nullify, or otherwise disturb voter eligibility lists, ballot preparation, voting procedures, counting, tabulation, auditing, recounting, canvassing, certification, appointment of presidential electors, transmission of election returns, or another statutory election deadline.
 3. **Sensitive election material** means ballots, ballot images, voter-identifiable data, election-management-system data, voting-system source code, tabulator or scanner data, security logs, chain-of-custody records, passwords, keys, security procedures, facility plans, or other election material whose disclosure, inspection, copying, or transfer may impair ballot secrecy, voter privacy, election security, or chain of custody.
-4. **Special screening motion** means a motion under section 5 to dismiss, narrow, stay, condition, or otherwise control a covered post-election proceeding.
+4. **Special screening motion** means a motion under section 5 to dismiss, narrow, stay, condition, or otherwise control a covered election proceeding.
 5. **Improper purpose** includes delay, harassment, knowingly false factual presentation, reckless disregard of contrary evidence, unauthorized access to sensitive election material, creation of a false predicate for disrupting certification or elector appointment, or other bad-faith use of federal judicial process.
 6. **Good-faith report** means a report of suspected election irregularity made to an election official, law-enforcement agency, prosecutor, candidate, political party, court, or other body authorized by law to receive such information, where the report does not itself seek election-disruptive relief or access to sensitive election material.
 
@@ -50,7 +50,7 @@ In this Act:
 
 ### (a) Scope.
 
-This Act applies only to covered post-election proceedings in federal court.
+This Act applies only to covered election proceedings in federal court.
 
 ### (b) Preserved proceedings and activity.
 
@@ -67,17 +67,25 @@ Nothing in this Act limits—
 
 This Act applies according to the relief sought or reasonably foreseeable procedural effect of the proceeding, not solely according to the identity of the filer.
 
-## SEC. 5. SPECIAL MOTION TO SCREEN COVERED POST-ELECTION PROCEEDING.
+## SEC. 5. SPECIAL MOTION TO SCREEN COVERED ELECTION PROCEEDING.
 
 ### (a) Motion authorized.
 
-A party, election official, governmental entity, affected candidate, affected voter, or custodian of sensitive election material may file a special screening motion in a covered post-election proceeding.
+A party, election official, governmental entity, affected candidate, affected voter, or custodian of sensitive election material may file a special screening motion in a covered election proceeding.
 
-### (b) Time for filing.
+### (b) Pre-election timing limitation.
 
-A special screening motion shall be filed as soon as practicable. A court may permit later filing for good cause or where the election-disruptive character of the proceeding becomes apparent after filing.
+A special screening motion may not be filed with respect to a future election scheduled to occur more than 180 days after the date of the motion, unless the motion is directed to a request for immediate access to sensitive election material or another present risk to ballot secrecy, voter privacy, chain of custody, or election security.
 
-### (c) Required early showing.
+### (c) No post-election cutoff.
+
+No fixed post-election time limit applies to a special screening motion. After the election occurs, a special screening motion may be filed in any covered election proceeding that seeks or materially relates to election-disruptive relief, counting, tabulation, auditing, recounting, canvassing, certification, elector appointment, election contest, validity of the election result, or access to sensitive election material.
+
+### (d) Time for filing.
+
+Subject to subsections (b) and (c), a special screening motion shall be filed as soon as practicable. A court may permit later filing for good cause or where the election-disruptive character of the proceeding becomes apparent after filing.
+
+### (e) Required early showing.
 
 Upon filing of a special screening motion, the party seeking election-disruptive relief or access to sensitive election material shall make a prima facie showing of—
 
@@ -90,7 +98,7 @@ Upon filing of a special screening motion, the party seeking election-disruptive
 7. necessity of any requested discovery, subpoena, inspection, or access to sensitive election material; and
 8. absence of improper purpose.
 
-### (d) Court action.
+### (f) Court action.
 
 If the required showing is not made, the court shall dismiss, deny, narrow, stay, condition, or otherwise control the proceeding or request to the extent necessary to prevent election-disruptive relief, unauthorized access to sensitive election material, or abuse of judicial process.
 
@@ -130,7 +138,7 @@ A court authorizing access to sensitive election material shall enter a protecti
 
 ### (a) No automatic penalty for losing.
 
-A party may not be sanctioned under this Act solely because a post-election claim, motion, petition, or request is denied.
+A party may not be sanctioned under this Act solely because an election claim, motion, petition, or request is denied.
 
 ### (b) Sanctions authorized.
 
@@ -144,7 +152,7 @@ This Act supplements and does not limit Rule 11 of the Federal Rules of Civil Pr
 
 ### (a) Motion after disposition.
 
-Within one year after final disposition of a covered post-election proceeding, or within 180 days after discovery of material evidence of improper purpose, whichever is later, a party, governmental entity, election official, affected candidate, affected voter, or custodian of sensitive election material may move for sanctions under this section.
+Within one year after final disposition of a covered election proceeding, or within 180 days after discovery of material evidence of improper purpose, whichever is later, a party, governmental entity, election official, affected candidate, affected voter, or custodian of sensitive election material may move for sanctions under this section.
 
 ### (b) Standard.
 
@@ -183,8 +191,11 @@ If any provision or application of this Act is held invalid, the remainder shall
 
 ## Drafting Notes
 
-- This draft regulates federal-court procedure and relief in post-election proceedings; it does not attempt to commandeer state courts.
-- The proposal is expressly Anti-SLAPP-style: it adapts early screening, discovery stay, burden clarification, fee-shifting, and sanctions to election-disruptive post-election proceedings.
+- This draft regulates federal-court procedure and relief in election proceedings; it does not attempt to commandeer state courts.
+- The proposal is expressly Anti-SLAPP-style: it adapts early screening, discovery stay, burden clarification, fee-shifting, and sanctions to election-disruptive proceedings.
+- The special motion is motion-invoked, not automatic.
+- A pre-election timing bar prevents the motion from being filed for elections more than 180 days away, except where immediate sensitive-material access or a present security/privacy risk is at issue.
+- The draft expressly imposes no fixed post-election cutoff; post-election availability depends on functional relation to the election result, election administration, or sensitive election material.
 - The trigger is relief-based rather than status-based. Private plaintiffs, officials, campaigns, parties, or organizations are treated alike when they seek election-disruptive relief or sensitive-material access.
 - The later-discovered sanctions provision is designed as deferred enforcement, not retroactive criminalization.
 - The draft should be reviewed for Rules Enabling Act, Article III, First Amendment, Petition Clause, Elections Clause, Article II, Electoral Count Reform Act, federal jurisdiction, and separation-of-powers issues.
