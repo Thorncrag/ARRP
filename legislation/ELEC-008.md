@@ -28,8 +28,9 @@ The purposes of this Act are to—
 4. preserve lawful litigation, recounts, election contests, congressional procedures, legal advocacy, good-faith official duties, public advocacy, journalism, reporting, whistleblowing, and ordinary campaign activity;
 5. recognize that Congress has addressed certain presidential electoral-count and transition vulnerabilities through prior reforms, while preserving accountability for coordinated schemes that exploit multiple channels of federal-election administration;
 6. protect federal elections without generally federalizing state and local elections;
-7. avoid interference with each House of Congress's constitutional authority to judge the elections, returns, and qualifications of its own Members; and
-8. ensure that liability attaches only where the statute's coordination, corrupt-purpose, predicate-act, material-connection, safe-harbor, and limiting-instruction requirements are satisfied.
+7. avoid interference with each House of Congress's constitutional authority to judge the elections, returns, and qualifications of its own Members;
+8. provide a limited state-attorney-general backstop where federal enforcement may be conflicted, delayed, or unavailable because the alleged scheme involves the President, White House, Department of Justice leadership, federal agencies, or persons politically aligned with federal executive actors; and
+9. ensure that liability attaches only where the statute's coordination, corrupt-purpose, predicate-act, material-connection, safe-harbor, and limiting-instruction requirements are satisfied.
 
 ## SEC. 3. DEFINITIONS.
 
@@ -322,17 +323,56 @@ Civil relief under this section requires clear and convincing evidence of a viol
 
 This Act does not create a general private right of action for candidates, campaigns, parties, political committees, or voters to obtain damages.
 
-## SEC. 10. LIMITED STATE AND ELECTION-OFFICIAL CIVIL ACTIONS.
+## SEC. 10. STATE ATTORNEY GENERAL AND ELECTION-OFFICIAL BACKSTOP ACTIONS.
 
-### (a) Limited action.
+### (a) Independent backstop action.
 
-A state attorney general, chief state election official, or state officer expressly authorized by state law may bring a civil action for declaratory or injunctive relief to prevent imminent or ongoing violation of this Act that materially threatens a lawful federal-election result, certification, result-transmission process, presidential-transition process, or federal count process.
+A state attorney general, chief state election official, or state officer expressly authorized by state law may bring a civil action for declaratory, injunctive, preservation, corrective-notice, or other equitable relief to prevent or remedy an imminent, ongoing, or recently completed violation of this Act that materially threatens, impairs, or corrupts that State's administration, canvassing, recount, certification, result transmission, custody of election materials, protection of election personnel, voters, or performance of lawful duties in a covered federal election.
 
-### (b) No damages.
+### (b) State nexus required.
 
-A civil action under this section may not seek damages, punitive damages, or partisan relief.
+A plaintiff under subsection (a) must plead and prove a material nexus between the alleged coordinated federal election-subversion scheme and that State's federal-election administration, certification, canvassing, recount, result-transmission process, election materials, election personnel, voters, or lawful duties.
 
-### (c) Expedition.
+### (c) Relief available.
+
+Relief under this section may include—
+
+1. declaratory relief;
+2. temporary, preliminary, or permanent injunctive relief;
+3. preservation orders;
+4. corrective notice to federal or state recipients of false or unauthorized election documents;
+5. election-material custody safeguards;
+6. orders preventing or remedying ongoing interference with certification, canvassing, recount, result transmission, or protected election personnel; and
+7. other equitable relief narrowly necessary to prevent or remedy the violation.
+
+### (d) No damages or partisan relief.
+
+A civil action under this section may not seek damages, punitive damages, candidate-specific damages, party-specific damages, or relief whose primary purpose is to benefit or burden a candidate, campaign, party, or political committee.
+
+### (e) Anti-weaponization pleading requirement.
+
+A complaint under this section must plead with particularity—
+
+1. the alleged coordinated federal election-subversion scheme;
+2. the specific predicate acts alleged;
+3. the corrupt objective;
+4. the material connection between the predicate acts and the corrupt objective;
+5. the State nexus required by subsection (b); and
+6. why the safe harbors in section 6 do not bar the requested relief.
+
+### (f) Protected activity limitation.
+
+Relief may not be granted under this section based solely on political disagreement, public advocacy, election denial, ordinary litigation, good-faith recounts, lawful election contests, protected congressional activity, legal advice, journalism, lobbying, or a rejected legal theory.
+
+### (g) Notice to the United States; no veto.
+
+A plaintiff under this section shall provide contemporaneous notice of the action to the Attorney General of the United States. The failure or refusal of the Attorney General to authorize, join, approve, or support the action shall not bar the action.
+
+### (h) Consolidation and coordination.
+
+If multiple actions under this section concern substantially overlapping alleged schemes or requested relief, a court may coordinate, consolidate, transfer, or otherwise manage the actions to reduce inconsistent obligations, duplicative litigation, or conflicting injunctions, consistent with due process and the need for expedited election-related review.
+
+### (i) Expedition.
 
 The court shall expedite an action under this section to the greatest practicable extent.
 
@@ -428,6 +468,8 @@ If any provision or application of this Act is held invalid, the remainder shall
 - Liability requires a coordinated scheme, corrupt objective, at least two independently wrongful predicate acts, and material connection.
 - Required jury instructions are included because overbreadth, speech, association, legal-representation, and official-duty risks are central design concerns.
 - A pressure communication is not unlawful merely because it is forceful, political, mistaken, adversarial, or requests lawful review. It becomes relevant only if independently wrongful, knowingly and corruptly undertaken, and materially connected to a coordinated federal election-subversion scheme.
+- The state-attorney-general backstop is included because exclusive federal enforcement may be inadequate where the alleged scheme involves the President, White House, DOJ leadership, federal agencies, or politically aligned federal executive actors.
+- State backstop actions are limited to state-nexus equitable relief; they do not authorize damages, punitive damages, partisan proxy suits, or generalized election-dispute litigation.
 - The statute should not punish election denial, political speech, litigation, recounts, contests, legal advice, journalism, lobbying, lawful congressional activity, or ordinary campaign activity.
 - Safe harbors are central and should be strengthened during review.
 - The bill applies to federal elections, with presidential-specific coverage where the federal result-transmission, electoral-count, and transition processes require it.
