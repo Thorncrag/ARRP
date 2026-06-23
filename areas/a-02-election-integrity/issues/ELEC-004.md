@@ -5,8 +5,8 @@ title: "Abuse of Election Litigation and Investigatory Mechanisms"
 status: developed
 priority: high
 remedy_type: coupled-federal-and-model-state-legislation
-federal_legislative_proposal: "../../../legislation/ELEC-004-FEDERAL.md"
-legislative_proposal: "../../../legislation/ELEC-004.md"
+federal_legislative_proposal: "../../../legislation/ELEC-004.md"
+legislative_proposal: "../../../legislation/ELEC-004-state.md"
 ---
 
 # ELEC-004 — Abuse of Election Litigation and Investigatory Mechanisms
@@ -108,8 +108,8 @@ This approach avoids a federal takeover of state election-contest systems while 
 
 ## Proposed Legislation
 
-- [Federal Election Proceedings Integrity Act](../../../legislation/ELEC-004-FEDERAL.md)
-- [Model State Election Proceedings Integrity Act](../../../legislation/ELEC-004.md)
+- [Federal Election Proceedings Integrity Act](../../../legislation/ELEC-004.md)
+- [Model State Election Proceedings Integrity Act](../../../legislation/ELEC-004-state.md)
 
 ## Relationship to Other Issues
 
