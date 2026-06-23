@@ -24,6 +24,21 @@ This private repository is the canonical working source for the American Restora
 7. A status such as **Awaiting merits adjudication** identifies a deliberately paused issue whose remedy depends materially on pending judicial resolution.
 8. Markdown and CSV are canonical. DOCX, PDF, and XLSX files are generated exports.
 
+## Legislation filename convention
+
+Legislative proposal files use the issue identifier as the base filename.
+
+- Federal legislative proposals use the unsuffixed issue identifier: `XXX-NNN.md`.
+- Model state legislative proposals use the state suffix: `XXX-NNN-state.md`.
+
+For issues with both federal and state proposals, the federal proposal is the unsuffixed file and the model state proposal is the `-state` file. For issues with only a model state proposal, the proposal should still use the `-state` suffix.
+
+Examples:
+
+- `ELEC-003.md` — federal proposal.
+- `ELEC-003-state.md` — model state proposal.
+- `ELEC-002-state.md` — model state proposal where no federal proposal is yet maintained.
+
 ## Current status
 
 Developed Department of Justice issues currently include DOJ-001, DOJ-002, DOJ-003, DOJ-005, and DOJ-007. DOJ-004 is awaiting merits adjudication. DOJ-006 and DOJ-008 have been retired and merged into their primary issues. A-16 now includes developed issue IMM-001 and the proposed Presidential Criminal Accountability Amendment.
