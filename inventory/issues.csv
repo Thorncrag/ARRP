@@ -1,195 +1,195 @@
-Issue ID,Area ID,Issue / Institutional Anomaly,Priority,Development Status
-DOJ-001,A-01,Appointment of recent presidential personal counsel to senior DOJ leadership,High,Developed
-DOJ-002,A-01,White House Direction or Interference in Particular Federal Criminal Matters,High,Developed
-DOJ-003,A-01,"Politically Selective Enforcement, Charging, and Favoritism",High,Developed
-DOJ-004,A-01,Protection of Career DOJ Personnel from Politically Motivated Removal or Reassignment,High,Awaiting merits adjudication
-DOJ-005,A-01,Weak Enforcement and Internal Control of DOJ Recusal Duties,High,Developed
-DOJ-006,A-01,Insufficiently enforceable limits on White House–DOJ contacts,High,Retired—merged into DOJ-002 and DOJ-007
-DOJ-007,A-01,Independent Investigation of Presidential and Senior Executive Misconduct,High,Developed
-DOJ-008,A-01,Weak external review of politicized charging or noncharging decisions,High,Retired—merged into DOJ-003
-ELEC-001,A-02,Federal Executive Interference with State and Local Election Administration,High,Developed
-ELEC-002,A-02,Pressure on certification and canvassing officials,High,Developed
-ELEC-003,A-02,Insufficient protection for election workers and officials,High,Developed
-ELEC-004,A-02,Abuse of election litigation and investigatory mechanisms,High,Developed
-ELEC-005,A-02,Weak safeguards against false presidential result-transmission documents,High,Developed
-ELEC-006,A-02,Insufficiently automatic presidential-transition procedures,High,Candidate
-ELEC-007,A-02,Military or armed federal-force intervention in election administration,High,Candidate
-ELEC-008,A-02,Weak accountability for efforts to overturn lawful results,High,Candidate
-ELEC-009,A-02,Electoral College Structure and National Popular Vote,High,Candidate
-WAR-001,A-03,Unilateral initiation of hostilities,High,Candidate
-WAR-002,A-03,Ineffective automatic termination under the War Powers framework,High,Candidate
-WAR-003,A-03,Overbroad and indefinite authorizations for use of military force,High,Candidate
-WAR-004,A-03,"Executive control over legal interpretations of war, hostilities, self-defense, and authorization",High,Candidate
-WAR-005,A-03,Partisan collapse of congressional oversight,High,Candidate
-WAR-006,A-03,Insufficient information before military commitment,High,Candidate
-WAR-007,A-03,Mission expansion beyond original authorization,High,Candidate
-WAR-008,A-03,Treatment of appropriations as implied authorization,High,Candidate
-JUD-001,A-04,Executive dependence of judicial enforcement,High,Candidate
-JUD-002,A-04,Inadequate remedies for executive noncompliance,High,Candidate
-JUD-003,A-04,Delay as functional defiance,High,Candidate
-JUD-004,A-04,Lack of an independent judicial enforcement officer or service,High,Candidate
-JUD-005,A-04,Weak or partisan congressional response to judicial defiance,High,Candidate
-JUD-006,A-04,Uncertainty regarding contempt and coercive sanctions against senior executive officials,High,Candidate
-JUD-007,A-04,"Evasion through substitution, reorganization, or nominally revised directives",High,Candidate
-JUD-008,A-04,Insufficient transparency and verification regarding compliance,High,Candidate
-JUD-009,A-04,Appointer-President Recusal,High,Developed
-PAR-001,A-05,Personal or political benefit,Medium,Candidate
-PAR-002,A-05,Obstruction or witness inducement,Medium,Candidate
-PAR-003,A-05,"Sale, brokerage, or monetization of pardons",Medium,Candidate
-PAR-004,A-05,Pardons benefiting the president or presidential interests,Medium,Candidate
-PAR-005,A-05,Self-pardon uncertainty,Medium,Candidate
-PAR-006,A-05,Bypass of professional clemency review,Medium,Candidate
-PAR-007,A-05,Inadequate transparency,Medium,Candidate
-PAR-008,A-05,Blanket or categorical pardons,Medium,Candidate
-PAR-009,A-05,Transition-period pardons,Medium,Candidate
-PAR-010,A-05,Weak remedies after corrupt use,Medium,Candidate
-EMOL-001,A-06,Lack of mandatory divestment,Medium,Candidate
-EMOL-002,A-06,Presidential exemption from ordinary conflict-of-interest law,Medium,Candidate
-EMOL-003,A-06,Absence of a designated enforcement institution,Medium,Candidate
-EMOL-004,A-06,Standing barriers,Medium,Candidate
-EMOL-005,A-06,Uncertainty over the meaning of emolument,Medium,Candidate
-EMOL-006,A-06,Benefits routed through business entities,Medium,Candidate
-EMOL-007,A-06,Foreign-government patronage,Medium,Candidate
-EMOL-008,A-06,Domestic-government spending at presidential businesses,Medium,Candidate
-EMOL-009,A-06,Inadequate financial disclosure,Medium,Candidate
-EMOL-010,A-06,Lack of an operational congressional-consent process,Medium,Candidate
-EMOL-011,A-06,Remedies that arrive too late,Medium,Candidate
-EMOL-012,A-06,Lack of effective disgorgement,Medium,Candidate
-EMOL-013,A-06,Circumvention through family or affiliated entities,Medium,Candidate
-EMOL-014,A-06,Dependence on impeachment or political restraint,Medium,Candidate
-CLASS-001,A-07,Undocumented presidential declassification,Medium,Candidate
-CLASS-002,A-07,Confusion between declassification and lawful possession,Medium,Candidate
-CLASS-003,A-07,Unclear statutory exceptions such as Restricted Data,Medium,Candidate
-CLASS-004,A-07,Classification used to conceal misconduct or embarrassment,Medium,Candidate
-CLASS-005,A-07,Politically selective declassification,Medium,Candidate
-CLASS-006,A-07,Inadequate protection against exposure of intelligence sources and methods,Medium,Candidate
-CLASS-007,A-07,Weak archival and agency implementation procedures,Medium,Candidate
-CLASS-008,A-07,Overclassification and excessive secrecy,Medium,Candidate
-CLASS-009,A-07,Insufficient congressional access and oversight,Medium,Candidate
-CLASS-010,A-07,Limited external review and judicial remedies,Medium,Candidate
-CLASS-011,A-07,Politicized security-clearance authority,Medium,Candidate
-CLASS-012,A-07,Inconsistent accountability for unauthorized retention or disclosure,Medium,Candidate
-CIV-001,A-08,Political reclassification of career positions,High,Candidate
-CIV-002,A-08,Removal or reassignment for disfavored professional judgments,High,Candidate
-CIV-003,A-08,Loyalty tests and partisan hiring,High,Candidate
-CIV-004,A-08,Weak protection for refusal of unlawful directives,High,Candidate
-CIV-005,A-08,Loss of technical and institutional capacity,High,Candidate
-CIV-006,A-08,Inadequate and delayed personnel remedies,High,Candidate
-CIV-007,A-08,Politicized promotion and performance systems,High,Candidate
-CIV-008,A-08,Mass reduction or hollowing of agency capacity,High,Candidate
-OVS-001,A-09,Removal or intimidation of inspectors general,High,Candidate
-OVS-002,A-09,Use of acting officials to weaken independence,High,Candidate
-OVS-003,A-09,"Denial of records, access, or testimony",High,Candidate
-OVS-004,A-09,Retaliation against whistleblowers,High,Candidate
-OVS-005,A-09,Suppression or delay of reports,High,Candidate
-OVS-006,A-09,Inability to enforce recommendations,High,Candidate
-OVS-007,A-09,Weak congressional notification and follow-up,High,Candidate
-OVS-008,A-09,Insufficient independence of internal ethics offices,High,Candidate
-EMERG-001,A-10,Open-ended national-emergency declarations,High,Candidate
-EMERG-002,A-10,Use of emergency authority to redirect appropriated funds,High,Candidate
-EMERG-003,A-10,Emergency economic powers used beyond immediate crises,High,Candidate
-EMERG-004,A-10,Border or immigration emergency declarations,High,Candidate
-EMERG-005,A-10,Weak congressional termination procedures,High,Candidate
-EMERG-006,A-10,Indefinite renewal of emergencies,High,Candidate
-EMERG-007,A-10,Insufficiently specific factual findings,High,Candidate
-EMERG-008,A-10,Delayed or deferential judicial review,High,Candidate
-FUND-001,A-11,Unlawful impoundment,Medium,Candidate
-FUND-002,A-11,Pocket rescissions and strategic delay,Medium,Candidate
-FUND-003,A-11,Agency closure or program nullification through nonspending,Medium,Candidate
-FUND-004,A-11,Politically selective withholding of grants or aid,Medium,Candidate
-FUND-005,A-11,Reprogramming beyond congressional intent,Medium,Candidate
-FUND-006,A-11,Weak standing and remedies,Medium,Candidate
-FUND-007,A-11,Insufficient personal accountability,Medium,Candidate
-FUND-008,A-11,Inadequate real-time reporting to Congress and GAO,Medium,Candidate
-APPT-001,A-12,Excessive reliance on acting officials,Medium,Candidate
-APPT-002,A-12,Evasion of the Federal Vacancies Reform Act,Medium,Candidate
-APPT-003,A-12,Delegation around expired acting service,Medium,Candidate
-APPT-004,A-12,Installation of insufficiently vetted loyalists,Medium,Candidate
-APPT-005,A-12,Removal and replacement of confirmed officers,Medium,Candidate
-APPT-006,A-12,Manipulation of office titles and duties,Medium,Candidate
-APPT-007,A-12,Weak consequences for unlawful service,Medium,Candidate
-APPT-008,A-12,Inadequate transparency concerning succession and authority,Medium,Candidate
-REC-001,A-13,Removal or concealment of presidential records,Medium,Candidate
-REC-002,A-13,Destruction or deletion of records,Medium,Candidate
-REC-003,A-13,Use of private messaging or unofficial systems,Medium,Candidate
-REC-004,A-13,Weak National Archives enforcement authority,Medium,Candidate
-REC-005,A-13,Delayed litigation and recovery,Medium,Candidate
-REC-006,A-13,"Preservation of websites, datasets, and digital records",Medium,Candidate
-REC-007,A-13,Ambiguous separation of personal and presidential records,Medium,Candidate
-REC-008,A-13,Insufficient transition-period custody controls,Medium,Candidate
-DOM-001,A-14,Overbroad Insurrection Act authority,Medium,Candidate
-DOM-002,A-14,Ambiguity in Posse Comitatus limitations,Medium,Candidate
-DOM-003,A-14,Federalization of the National Guard over state objection,Medium,Candidate
-DOM-004,A-14,Deployment around protests or elections,Medium,Candidate
-DOM-005,A-14,Unidentified or inadequately accountable federal forces,Medium,Candidate
-DOM-006,A-14,Federal-property authority used as a pretext for broader operations,Medium,Candidate
-DOM-007,A-14,Domestic military intelligence activity,Medium,Candidate
-DOM-008,A-14,Insufficient expedited judicial review,Medium,Candidate
-CONG-001,A-15,Weak enforcement of congressional subpoenas,High,Candidate
-CONG-002,A-15,Overbroad executive-privilege claims,High,Candidate
-CONG-003,A-15,Claims of testimonial immunity,High,Candidate
-CONG-004,A-15,Delay through litigation,High,Candidate
-CONG-005,A-15,Contempt referrals dependent on DOJ,High,Candidate
-CONG-006,A-15,Lack of expedited judicial review,High,Candidate
-CONG-007,A-15,Weak committee investigative capacity,High,Candidate
-CONG-008,A-15,Partisan collapse of oversight under unified government,High,Candidate
-IMM-001,A-16,Criminal Immunity for Presidential Official Acts,High,Developed
-IMM-002,A-16,Civil immunity and remedial gaps,High,Candidate
-IMM-003,A-16,Statutes of limitation during presidential tenure,High,Candidate
-IMM-004,A-16,Restrictions on evidentiary use of official conduct,High,Candidate
-IMM-005,A-16,Delay as de facto immunity,High,Candidate
-IMM-006,A-16,Relationship between impeachment and criminal liability,High,Candidate
-IMM-007,A-16,Self-protective use of presidential powers,High,Candidate
-IMM-008,A-16,Independent investigation and prosecution mechanisms,High,Candidate
-REG-001,A-17,Erosion of removal protections,Medium,Candidate
-REG-002,A-17,Politicized enforcement or nonenforcement,Medium,Candidate
-REG-003,A-17,Control of administrative adjudication,Medium,Candidate
-REG-004,A-17,Suspension or dismantling of agency operations,Medium,Candidate
-REG-005,A-17,Manipulation of commissions through vacancies,Medium,Candidate
-REG-006,A-17,Presidential control of rulemaking and legal positions,Medium,Candidate
-REG-007,A-17,Threats to independent funding,Medium,Candidate
-REG-008,A-17,Unclear constitutional design options after recent doctrine,Medium,Candidate
-FACT-001,A-18,Political review or alteration of scientific reports,High,Candidate
-FACT-002,A-18,Removal or suppression of datasets,High,Candidate
-FACT-003,A-18,Manipulation of publication schedules,High,Candidate
-FACT-004,A-18,Interference with statistical agencies,High,Candidate
-FACT-005,A-18,Censorship of agency terminology,High,Candidate
-FACT-006,A-18,Suppression of unfavorable findings,High,Candidate
-FACT-007,A-18,Political alteration of historical presentation,High,Candidate
-FACT-008,A-18,Insufficient independent archival preservation and methodology protection,High,Candidate
-RET-001,A-19,Politically motivated grant cancellation or withholding,Medium,Candidate
-RET-002,A-19,Contracting favoritism or retaliation,Medium,Candidate
-RET-003,A-19,Selective regulatory scrutiny,Medium,Candidate
-RET-004,A-19,Licensing or approval pressure,Medium,Candidate
-RET-005,"A-19","Antitrust, tax, or enforcement coercion",Medium,Candidate
-RET-006,"A-19","Retaliation against universities, law firms, media, or businesses",Medium,Candidate
-RET-007,A-19,Security-clearance or access retaliation,Medium,Candidate
-RET-008,A-19,Weak emergency remedies and evidentiary transparency,Medium,Candidate
-FED-001,A-20,Conditioning disaster or infrastructure aid,Medium,Candidate
-FED-002,A-20,Selective enforcement against disfavored states,Medium,Candidate
-FED-003,A-20,Coercive grant conditions,Medium,Candidate
-FED-004,A-20,Federal takeover or displacement of state functions,Medium,Candidate
-FED-005,A-20,Deployment of federal forces over state objection,Medium,Candidate
-FED-006,A-20,Interference with state election systems,Medium,Candidate
-FED-007,A-20,Retaliatory investigations or audits,Medium,Candidate
-FED-008,A-20,Abuse of waiver and approval authority,Medium,Candidate
-FRB-001,A-21,Presidential pressure on interest-rate and monetary-policy decisions,Critical,Candidate
-FRB-002,A-21,Uncertain removal protection for Federal Reserve governors and leadership,High,Candidate
-FRB-003,A-21,Politicized appointments and confirmations,High,Candidate
-FRB-004,A-21,Manipulation through vacancies,Medium,Candidate
-FRB-005,A-21,Threats to financing and operational independence,High,Candidate
-FRB-006,A-21,Political retaliation against Federal Reserve officials,High,Candidate
-FRB-007,A-21,Pre-election monetary manipulation,Critical,Candidate
-FRB-008,A-21,Preservation of accountability alongside instrument independence,High,Candidate
-PRESS-001,A-22,Retaliatory denial of access,High,Candidate
-PRESS-002,A-22,Selective exclusion from government events and information,High,Candidate
-PRESS-003,"A-22","Misuse of investigations, subpoenas, surveillance, or source demands",Critical,Candidate
-PRESS-004,A-22,Regulatory retaliation,Critical,Candidate
-PRESS-005,A-22,Contracting and commercial pressure,High,Candidate
-PRESS-006,A-22,Misuse of official power to threaten or punish reporting,High,Candidate
-PRESS-007,A-22,Manipulation of the factual record,Critical,Candidate
-PRESS-008,A-22,Delegitimization combined with governmental coercive power,High,Candidate
-PRESS-009,A-22,Weak protection for confidential sources,High,Candidate
-PRESS-010,A-22,Public-broadcasting and funding retaliation,High,Candidate
-PRESS-011,A-22,Discriminatory taxation or financial burdens,High,Candidate
-PRESS-012,A-22,Lack of rapid remedies for time-sensitive press disputes,High,Candidate
+Issue ID,Area ID,Priority,Development Status
+DOJ-001,A-01,High,Developed
+DOJ-002,A-01,High,Developed
+DOJ-003,A-01,High,Developed
+DOJ-004,A-01,High,Awaiting merits adjudication
+DOJ-005,A-01,High,Developed
+DOJ-006,A-01,High,Retired—merged into DOJ-002 and DOJ-007
+DOJ-007,A-01,High,Developed
+DOJ-008,A-01,High,Retired—merged into DOJ-003
+ELEC-001,A-02,High,Developed
+ELEC-002,A-02,High,Developed
+ELEC-003,A-02,High,Developed
+ELEC-004,A-02,High,Developed
+ELEC-005,A-02,High,Developed
+ELEC-006,A-02,High,Candidate
+ELEC-007,A-02,High,Candidate
+ELEC-008,A-02,High,Candidate
+ELEC-009,A-02,High,Candidate
+WAR-001,A-03,High,Candidate
+WAR-002,A-03,High,Candidate
+WAR-003,A-03,High,Candidate
+WAR-004,A-03,High,Candidate
+WAR-005,A-03,High,Candidate
+WAR-006,A-03,High,Candidate
+WAR-007,A-03,High,Candidate
+WAR-008,A-03,High,Candidate
+JUD-001,A-04,High,Candidate
+JUD-002,A-04,High,Candidate
+JUD-003,A-04,High,Candidate
+JUD-004,A-04,High,Candidate
+JUD-005,A-04,High,Candidate
+JUD-006,A-04,High,Candidate
+JUD-007,A-04,High,Candidate
+JUD-008,A-04,High,Candidate
+JUD-009,A-04,High,Developed
+PAR-001,A-05,Medium,Candidate
+PAR-002,A-05,Medium,Candidate
+PAR-003,A-05,Medium,Candidate
+PAR-004,A-05,Medium,Candidate
+PAR-005,A-05,Medium,Candidate
+PAR-006,A-05,Medium,Candidate
+PAR-007,A-05,Medium,Candidate
+PAR-008,A-05,Medium,Candidate
+PAR-009,A-05,Medium,Candidate
+PAR-010,A-05,Medium,Candidate
+EMOL-001,A-06,Medium,Candidate
+EMOL-002,A-06,Medium,Candidate
+EMOL-003,A-06,Medium,Candidate
+EMOL-004,A-06,Medium,Candidate
+EMOL-005,A-06,Medium,Candidate
+EMOL-006,A-06,Medium,Candidate
+EMOL-007,A-06,Medium,Candidate
+EMOL-008,A-06,Medium,Candidate
+EMOL-009,A-06,Medium,Candidate
+EMOL-010,A-06,Medium,Candidate
+EMOL-011,A-06,Medium,Candidate
+EMOL-012,A-06,Medium,Candidate
+EMOL-013,A-06,Medium,Candidate
+EMOL-014,A-06,Medium,Candidate
+CLASS-001,A-07,Medium,Candidate
+CLASS-002,A-07,Medium,Candidate
+CLASS-003,A-07,Medium,Candidate
+CLASS-004,A-07,Medium,Candidate
+CLASS-005,A-07,Medium,Candidate
+CLASS-006,A-07,Medium,Candidate
+CLASS-007,A-07,Medium,Candidate
+CLASS-008,A-07,Medium,Candidate
+CLASS-009,A-07,Medium,Candidate
+CLASS-010,A-07,Medium,Candidate
+CLASS-011,A-07,Medium,Candidate
+CLASS-012,A-07,Medium,Candidate
+CIV-001,A-08,High,Candidate
+CIV-002,A-08,High,Candidate
+CIV-003,A-08,High,Candidate
+CIV-004,A-08,High,Candidate
+CIV-005,A-08,High,Candidate
+CIV-006,A-08,High,Candidate
+CIV-007,A-08,High,Candidate
+CIV-008,A-08,High,Candidate
+OVS-001,A-09,High,Candidate
+OVS-002,A-09,High,Candidate
+OVS-003,A-09,High,Candidate
+OVS-004,A-09,High,Candidate
+OVS-005,A-09,High,Candidate
+OVS-006,A-09,High,Candidate
+OVS-007,A-09,High,Candidate
+OVS-008,A-09,High,Candidate
+EMERG-001,A-10,High,Candidate
+EMERG-002,A-10,High,Candidate
+EMERG-003,A-10,High,Candidate
+EMERG-004,A-10,High,Candidate
+EMERG-005,A-10,High,Candidate
+EMERG-006,A-10,High,Candidate
+EMERG-007,A-10,High,Candidate
+EMERG-008,A-10,High,Candidate
+FUND-001,A-11,Medium,Candidate
+FUND-002,A-11,Medium,Candidate
+FUND-003,A-11,Medium,Candidate
+FUND-004,A-11,Medium,Candidate
+FUND-005,A-11,Medium,Candidate
+FUND-006,A-11,Medium,Candidate
+FUND-007,A-11,Medium,Candidate
+FUND-008,A-11,Medium,Candidate
+APPT-001,A-12,Medium,Candidate
+APPT-002,A-12,Medium,Candidate
+APPT-003,A-12,Medium,Candidate
+APPT-004,A-12,Medium,Candidate
+APPT-005,A-12,Medium,Candidate
+APPT-006,A-12,Medium,Candidate
+APPT-007,A-12,Medium,Candidate
+APPT-008,A-12,Medium,Candidate
+REC-001,A-13,Medium,Candidate
+REC-002,A-13,Medium,Candidate
+REC-003,A-13,Medium,Candidate
+REC-004,A-13,Medium,Candidate
+REC-005,A-13,Medium,Candidate
+REC-006,A-13,Medium,Candidate
+REC-007,A-13,Medium,Candidate
+REC-008,A-13,Medium,Candidate
+DOM-001,A-14,Medium,Candidate
+DOM-002,A-14,Medium,Candidate
+DOM-003,A-14,Medium,Candidate
+DOM-004,A-14,Medium,Candidate
+DOM-005,A-14,Medium,Candidate
+DOM-006,A-14,Medium,Candidate
+DOM-007,A-14,Medium,Candidate
+DOM-008,A-14,Medium,Candidate
+CONG-001,A-15,High,Candidate
+CONG-002,A-15,High,Candidate
+CONG-003,A-15,High,Candidate
+CONG-004,A-15,High,Candidate
+CONG-005,A-15,High,Candidate
+CONG-006,A-15,High,Candidate
+CONG-007,A-15,High,Candidate
+CONG-008,A-15,High,Candidate
+IMM-001,A-16,High,Developed
+IMM-002,A-16,High,Candidate
+IMM-003,A-16,High,Candidate
+IMM-004,A-16,High,Candidate
+IMM-005,A-16,High,Candidate
+IMM-006,A-16,High,Candidate
+IMM-007,A-16,High,Candidate
+IMM-008,A-16,High,Candidate
+REG-001,A-17,Medium,Candidate
+REG-002,A-17,Medium,Candidate
+REG-003,A-17,Medium,Candidate
+REG-004,A-17,Medium,Candidate
+REG-005,A-17,Medium,Candidate
+REG-006,A-17,Medium,Candidate
+REG-007,A-17,Medium,Candidate
+REG-008,A-17,Medium,Candidate
+FACT-001,A-18,High,Candidate
+FACT-002,A-18,High,Candidate
+FACT-003,A-18,High,Candidate
+FACT-004,A-18,High,Candidate
+FACT-005,A-18,High,Candidate
+FACT-006,A-18,High,Candidate
+FACT-007,A-18,High,Candidate
+FACT-008,A-18,High,Candidate
+RET-001,A-19,Medium,Candidate
+RET-002,A-19,Medium,Candidate
+RET-003,A-19,Medium,Candidate
+RET-004,A-19,Medium,Candidate
+RET-005,A-19,Medium,Candidate
+RET-006,A-19,Medium,Candidate
+RET-007,A-19,Medium,Candidate
+RET-008,A-19,Medium,Candidate
+FED-001,A-20,Medium,Candidate
+FED-002,A-20,Medium,Candidate
+FED-003,A-20,Medium,Candidate
+FED-004,A-20,Medium,Candidate
+FED-005,A-20,Medium,Candidate
+FED-006,A-20,Medium,Candidate
+FED-007,A-20,Medium,Candidate
+FED-008,A-20,Medium,Candidate
+FRB-001,A-21,Critical,Candidate
+FRB-002,A-21,High,Candidate
+FRB-003,A-21,High,Candidate
+FRB-004,A-21,Medium,Candidate
+FRB-005,A-21,High,Candidate
+FRB-006,A-21,High,Candidate
+FRB-007,A-21,Critical,Candidate
+FRB-008,A-21,High,Candidate
+PRESS-001,A-22,High,Candidate
+PRESS-002,A-22,High,Candidate
+PRESS-003,A-22,Critical,Candidate
+PRESS-004,A-22,Critical,Candidate
+PRESS-005,A-22,High,Candidate
+PRESS-006,A-22,High,Candidate
+PRESS-007,A-22,Critical,Candidate
+PRESS-008,A-22,High,Candidate
+PRESS-009,A-22,High,Candidate
+PRESS-010,A-22,High,Candidate
+PRESS-011,A-22,High,Candidate
+PRESS-012,A-22,High,Candidate
