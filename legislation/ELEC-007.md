@@ -103,7 +103,7 @@ Within six hours after action under this section begins, the responsible federal
 
 ### (a) Separate judicial process required.
 
-Federal personnel may not access, inspect, image, copy, transport, seize, retain, or take custody of covered election material unless authorized by a separate federal court order satisfying this section, except for incidental physical movement necessary to protect life during an exigent emergency under section 6.
+Federal personnel may not access, inspect, image, copy, transport, seize, retain, or take custody of covered election material unless authorized by a lawful court-issued writ, warrant, subpoena-enforcement order, or other judicial order satisfying this section, except for incidental physical movement necessary to protect life during an exigent emergency under section 6.
 
 ### (b) Required findings.
 
@@ -125,6 +125,10 @@ Any order under this section shall include conditions governing chain of custody
 ### (d) No supervisory authority.
 
 A court order under this section authorizes only the specific evidence-preservation or law-enforcement action ordered. It does not authorize federal personnel to supervise, direct, pause, resume, validate, invalidate, count, recount, canvass, audit, certify, or decertify any election process.
+
+### (e) Court-process savings clause.
+
+Nothing in this Act prohibits federal personnel from executing a lawful court-issued writ, warrant, subpoena-enforcement order, or other judicial order, provided that execution of the order does not authorize federal personnel to perform an election-administration function except to the limited extent expressly required by the order and consistent with any chain-of-custody, voter-privacy, ballot-secrecy, and election-security safeguards imposed by the issuing court or applicable law.
 
 ## SEC. 8. PROHIBITED CONDUCT.
 
@@ -188,9 +192,10 @@ Nothing in this Act shall be construed to—
 4. limit stricter protections under state law;
 5. impair lawful civil-rights enforcement conducted without federal election-administration participation;
 6. impair lawful criminal investigation conducted outside active election administration or under the safeguards of this Act;
-7. authorize any action prohibited by the Posse Comitatus Act or other federal law;
-8. limit 18 U.S.C. § 592 except to provide additional protections; or
-9. authorize federal personnel to direct, supervise, or control a state or local election official.
+7. prohibit execution of a lawful court-issued writ, warrant, subpoena-enforcement order, or other judicial order, subject to section 7;
+8. authorize any action prohibited by the Posse Comitatus Act or other federal law;
+9. limit 18 U.S.C. § 592 except to provide additional protections; or
+10. authorize federal personnel to direct, supervise, or control a state or local election official.
 
 ## SEC. 12. SEVERABILITY.
 
@@ -200,6 +205,7 @@ If any provision or application of this Act is held invalid, the remainder shall
 
 - The controlling rule is that federal agents may respond to a non-election emergency; they may not become part of the election.
 - The emergency exception is not an election-participation exception.
+- Lawful court-issued writs, warrants, subpoena-enforcement orders, and other judicial orders remain executable, but they do not authorize election-administration participation beyond the order's express terms and required safeguards.
 - State consent is necessary but not sufficient; there must also be a documented state-capacity inadequacy.
 - Election-material access requires separate judicial safeguards.
 - This draft should be reviewed against 18 U.S.C. § 592, the Posse Comitatus Act, National Guard authorities, federal civil-rights enforcement, election-crime enforcement, emergency-response law, federalism principles, and state emergency-management law.
