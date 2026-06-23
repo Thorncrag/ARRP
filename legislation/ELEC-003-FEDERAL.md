@@ -21,11 +21,11 @@ This Act may be cited as the **“Election Personnel Protection Amendments to th
 
 ## SEC. 2. ELECTION PERSONNEL PROTECTION PAYMENTS.
 
-The Help America Vote Act of 2002 is amended by inserting after title III the following new title:
+The Help America Vote Act of 2002 is amended by adding at the end the following new title:
 
-# TITLE IV—ELECTION PERSONNEL PROTECTION PAYMENTS
+# TITLE X—ELECTION PERSONNEL PROTECTION PAYMENTS
 
-## SEC. 401. PURPOSES.
+## SEC. 1001. PURPOSES.
 
 The purposes of this title are—
 
@@ -35,7 +35,7 @@ The purposes of this title are—
 4. to provide a voluntary and dedicated Federal financial backstop through automatic formula payments; and
 5. to prohibit use of those payments as leverage over any other election law, policy, procedure, decision, outcome, or dispute.
 
-## SEC. 402. DEFINITIONS.
+## SEC. 1002. DEFINITIONS.
 
 In this title:
 
@@ -43,15 +43,15 @@ In this title:
 2. **Covered election personnel** means a current, former, prospective, permanent, or temporary State or local election official, employee, poll worker, canvasser, contractor, vendor employee, volunteer, or other person performing an authorized election function.
 3. **Covered family or household member** means a spouse, domestic partner, child, parent, sibling, dependent, household member, or other person targeted because of the election duties of covered election personnel.
 4. **Election function** includes voter registration, ballot preparation, polling-place operation, ballot custody, counting, tabulation, auditing, recounting, canvassing, certification, records administration, equipment support, election-security support, and adjudicative or ministerial duties assigned by State law.
-5. **Protection-purpose expenditure** means an expenditure authorized under section 406.
-6. **Qualifying State law** means a State statute satisfying section 404.
+5. **Protection-purpose expenditure** means an expenditure authorized under section 1006.
+6. **Qualifying State law** means a State statute satisfying section 1004.
 7. **State** has the meaning given that term under section 901 of the Help America Vote Act of 2002.
 
-## SEC. 403. VOLUNTARY FORMULA PAYMENTS.
+## SEC. 1003. VOLUNTARY FORMULA PAYMENTS.
 
 ### (a) Payments required.
 
-For each fiscal year for which amounts are appropriated under section 414, the Commission shall make a payment to each eligible State in the amount determined under section 405.
+For each fiscal year for which amounts are appropriated under section 1014, the Commission shall make a payment to each eligible State in the amount determined under section 1005.
 
 ### (b) Voluntary participation.
 
@@ -65,7 +65,7 @@ Eligibility or ineligibility under this title may not affect the eligibility of 
 
 A State may not be required to provide matching funds as a condition of receiving a payment under this title.
 
-## SEC. 404. SOLE SUBSTANTIVE ELIGIBILITY CONDITION; QUALIFYING STATE LAW.
+## SEC. 1004. SOLE SUBSTANTIVE ELIGIBILITY CONDITION; QUALIFYING STATE LAW.
 
 ### (a) Sole condition.
 
@@ -97,7 +97,7 @@ Except for the minimum protections expressly stated in subsection (b), the form,
 
 A qualifying State law may not be required to incorporate, comply with, or remain consistent with a regulation, guidance document, policy statement, executive order, model practice, or other administrative material issued after enactment of this title.
 
-## SEC. 405. ALLOTMENT FORMULA.
+## SEC. 1005. ALLOTMENT FORMULA.
 
 ### (a) Base allotment.
 
@@ -121,7 +121,7 @@ The Commission may not increase, decrease, withhold, accelerate, delay, or redir
 4. the political affiliation of any State or local official; or
 5. any factor not expressly stated in this section.
 
-## SEC. 406. PERMITTED USES.
+## SEC. 1006. PERMITTED USES.
 
 A State may use payments under this title only for—
 
@@ -135,7 +135,7 @@ A State may use payments under this title only for—
 8. grants or reimbursements to local governments for the purposes stated in this section; and
 9. reasonable administrative costs directly attributable to this title, subject to a percentage cap fixed by Congress.
 
-## SEC. 407. STATE CERTIFICATION.
+## SEC. 1007. STATE CERTIFICATION.
 
 ### (a) Submission.
 
@@ -143,7 +143,7 @@ To receive a payment, the chief State election official and the attorney general
 
 1. a certification that a qualifying State law is in force;
 2. the full text and citation of that law;
-3. a provision-by-provision crosswalk identifying the State provision corresponding to each requirement of section 404(b); and
+3. a provision-by-provision crosswalk identifying the State provision corresponding to each requirement of section 1004(b); and
 4. a certification that amounts received will be used only for protection-purpose expenditures.
 
 ### (b) No State plan.
@@ -152,21 +152,21 @@ The Commission may not require a State plan, implementation narrative, needs ass
 
 ### (c) Continuing certification.
 
-A State shall notify the Commission of any repeal or material amendment of the qualifying State law. Eligibility for future payments ends when the law no longer satisfies section 404.
+A State shall notify the Commission of any repeal or material amendment of the qualifying State law. Eligibility for future payments ends when the law no longer satisfies section 1004.
 
 ### (d) No retroactive recoupment for legal change.
 
-Repeal or amendment of a qualifying State law does not authorize recovery of amounts lawfully obligated before the change, except in cases of fraud, false certification, or expenditure outside section 406.
+Repeal or amendment of a qualifying State law does not authorize recovery of amounts lawfully obligated before the change, except in cases of fraud, false certification, or expenditure outside section 1006.
 
-## SEC. 408. MINISTERIAL REVIEW AND AUTOMATIC QUALIFICATION.
+## SEC. 1008. MINISTERIAL REVIEW AND AUTOMATIC QUALIFICATION.
 
 ### (a) Limited review.
 
-The Commission may determine only whether the submission facially identifies a State statutory provision corresponding to each requirement of section 404(b).
+The Commission may determine only whether the submission facially identifies a State statutory provision corresponding to each requirement of section 1004(b).
 
 ### (b) Automatic qualification.
 
-A State shall be deemed eligible 30 days after a complete submission unless, before that date, the Commission issues a written determination identifying each specific requirement of section 404(b) for which no corresponding State statutory provision has been identified.
+A State shall be deemed eligible 30 days after a complete submission unless, before that date, the Commission issues a written determination identifying each specific requirement of section 1004(b) for which no corresponding State statutory provision has been identified.
 
 ### (c) No policy judgment.
 
@@ -178,9 +178,9 @@ A State may cure an identified deficiency by submitting an amended citation, cro
 
 ### (e) No deference.
 
-In any judicial proceeding under section 412, no deference shall be afforded to the Commission’s interpretation of this title.
+In any judicial proceeding under section 1012, no deference shall be afforded to the Commission’s interpretation of this title.
 
-## SEC. 409. PROHIBITION ON ADDITIONAL CONDITIONS, WAIVERS, AND DISCRETIONARY SCORING.
+## SEC. 1009. PROHIBITION ON ADDITIONAL CONDITIONS, WAIVERS, AND DISCRETIONARY SCORING.
 
 The Commission, the President, and every other Federal officer or entity are prohibited from—
 
@@ -194,7 +194,7 @@ The Commission, the President, and every other Federal officer or entity are pro
 8. using payment timing or administration to reward, punish, pressure, or influence a State or political subdivision; or
 9. delegating to another Federal entity authority prohibited by this section.
 
-## SEC. 410. FEDERAL NONINTERFERENCE AND JURISDICTIONAL FIREWALL.
+## SEC. 1010. FEDERAL NONINTERFERENCE AND JURISDICTIONAL FIREWALL.
 
 ### (a) Rule of construction.
 
@@ -220,7 +220,7 @@ Authority provided by this title is limited to receipt of certifications, object
 
 A State may not be required to disclose to the Commission the identity, address, threat file, security plan, protected personal information, or case-specific investigative information of any covered person, except to the minimum extent necessary to investigate suspected fraud in the expenditure of Federal funds and subject to appropriate confidentiality protections.
 
-## SEC. 411. FISCAL REPORTING, AUDIT, AND RECOVERY.
+## SEC. 1011. FISCAL REPORTING, AUDIT, AND RECOVERY.
 
 ### (a) Limited reporting.
 
@@ -228,22 +228,22 @@ A State receiving a payment shall report annually only—
 
 1. amounts received, obligated, expended, and unobligated;
 2. amounts distributed to local governments;
-3. expenditures by the categories listed in section 406; and
+3. expenditures by the categories listed in section 1006; and
 4. material findings of fraud or misuse.
 
 ### (b) Audit scope.
 
-An audit under this title shall be limited to whether funds were expended for a purpose authorized by section 406 and whether a certification under section 407 was materially false.
+An audit under this title shall be limited to whether funds were expended for a purpose authorized by section 1006 and whether a certification under section 1007 was materially false.
 
 ### (c) Recovery.
 
-The United States may recover only amounts obtained by material fraud or expended outside section 406. Recovery may not be based on disagreement with a State’s election policy, protective judgment, enforcement priority, or method of compliance.
+The United States may recover only amounts obtained by material fraud or expended outside section 1006. Recovery may not be based on disagreement with a State’s election policy, protective judgment, enforcement priority, or method of compliance.
 
 ### (d) No cross-program offset.
 
 Amounts recoverable under this section may not be collected by withholding or offsetting unrelated Federal assistance.
 
-## SEC. 412. EXPEDITED JUDICIAL REVIEW.
+## SEC. 1012. EXPEDITED JUDICIAL REVIEW.
 
 ### (a) Cause of action.
 
@@ -261,64 +261,65 @@ The court shall review de novo all questions of law and statutory eligibility. T
 
 The court may order payment, prohibit an unlawful condition, set aside an unlawful withholding or recovery, and grant other appropriate declaratory or injunctive relief.
 
-## SEC. 413. RELATION TO FEDERAL CRIMINAL LAW.
+## SEC. 1013. RELATION TO FEDERAL CRIMINAL LAW.
 
 Nothing in this title expands or limits Federal criminal jurisdiction. Federal investigation and prosecution of independently defined Federal offenses shall remain separate from payment administration under this title and may not be used to supervise State election administration.
 
-## SEC. 414. AUTHORIZATION OF APPROPRIATIONS.
+## SEC. 1014. AUTHORIZATION OF APPROPRIATIONS.
 
 There are authorized to be appropriated such sums as may be necessary for fiscal year 2027 and each succeeding fiscal year to carry out this title.
 
 No amount appropriated under this section may be transferred to another Federal election program or used for a purpose other than this title.
 
-## SEC. 415. SEVERABILITY.
+## SEC. 1015. SEVERABILITY.
 
 If any provision of this title or its application is held invalid, the remainder of the title and its application to other persons or circumstances shall not be affected.
 
 ## SEC. 3. CLERICAL AMENDMENTS.
 
-The table of contents of the Help America Vote Act of 2002 is amended by inserting after the items relating to title III the following:
+The table of contents of the Help America Vote Act of 2002 is amended by adding at the end the following:
 
-> “TITLE IV—ELECTION PERSONNEL PROTECTION PAYMENTS
+> “TITLE X—ELECTION PERSONNEL PROTECTION PAYMENTS
 >
-> “Sec. 401. Purposes.
+> “Sec. 1001. Purposes.
 >
-> “Sec. 402. Definitions.
+> “Sec. 1002. Definitions.
 >
-> “Sec. 403. Voluntary formula payments.
+> “Sec. 1003. Voluntary formula payments.
 >
-> “Sec. 404. Sole substantive eligibility condition; qualifying State law.
+> “Sec. 1004. Sole substantive eligibility condition; qualifying State law.
 >
-> “Sec. 405. Allotment formula.
+> “Sec. 1005. Allotment formula.
 >
-> “Sec. 406. Permitted uses.
+> “Sec. 1006. Permitted uses.
 >
-> “Sec. 407. State certification.
+> “Sec. 1007. State certification.
 >
-> “Sec. 408. Ministerial review and automatic qualification.
+> “Sec. 1008. Ministerial review and automatic qualification.
 >
-> “Sec. 409. Prohibition on additional conditions, waivers, and discretionary scoring.
+> “Sec. 1009. Prohibition on additional conditions, waivers, and discretionary scoring.
 >
-> “Sec. 410. Federal noninterference and jurisdictional firewall.
+> “Sec. 1010. Federal noninterference and jurisdictional firewall.
 >
-> “Sec. 411. Fiscal reporting, audit, and recovery.
+> “Sec. 1011. Fiscal reporting, audit, and recovery.
 >
-> “Sec. 412. Expedited judicial review.
+> “Sec. 1012. Expedited judicial review.
 >
-> “Sec. 413. Relation to Federal criminal law.
+> “Sec. 1013. Relation to Federal criminal law.
 >
-> “Sec. 414. Authorization of appropriations.
+> “Sec. 1014. Authorization of appropriations.
 >
-> “Sec. 415. Severability.”
+> “Sec. 1015. Severability.”
 
 ## Drafting Notes
 
 - This is a first working draft. Final codification placement and section numbering should be conformed to the current structure of HAVA and the Office of the Law Revision Counsel’s classification practices.
+- HAVA presently contains Titles I through IX; this draft therefore adds a new Title X rather than conflicting with the existing Title IV enforcement provisions.
 - The title is intentionally self-contained and does not amend existing HAVA voting-system requirements, State-plan provisions, or complaint procedures.
 - The draft creates a new dedicated funding stream; no existing HAVA, highway, justice, homeland-security, or other funds are placed at risk.
 - The formula is objective and noncompetitive. The specific base percentage and population methodology remain provisional and require fiscal modeling.
 - The EAC’s role is ministerial and fiscal. The bill denies substantive rulemaking, discretionary scoring, waiver, plan-approval, and election-policy authority.
-- Section 404 is designed to correspond to the Model State Election Personnel Protection and Continuity Act. The federal minimums should be rechecked against every later revision of the model State act.
+- Section 1004 is designed to correspond to the Model State Election Personnel Protection and Continuity Act. The federal minimums should be rechecked against every later revision of the model State act.
 - The judicial-review provision should be reviewed for sovereign-standing, venue, timing, and Administrative Procedure Act interaction.
 - The authorization level, administrative-cost cap, territorial formula, and treatment of the District of Columbia and Commonwealths require separate fiscal and statutory review.
 - The bill should be reviewed for Appointments Clause, nondelegation, Spending Clause, anti-commandeering, First Amendment, due-process, and federalism concerns before being treated as final legislative text.
