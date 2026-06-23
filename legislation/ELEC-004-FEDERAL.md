@@ -189,6 +189,47 @@ Nothing in this Act shall be construed to—
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
 
+## Federal-State Mirror Crosswalk
+
+| Federal provision | State mirror |
+|---|---|
+| Anti-SLAPP-style purpose and adaptation | State section 2(a). |
+| Covered election proceeding definition | State section 3(1), adapted to state courts, tribunals, legislative demands, administrative demands, and state/local process. |
+| Election-disruptive relief definition | State section 3(2). |
+| Sensitive election material definition | State section 3(3). |
+| Good-faith report preservation | State sections 3(6) and 4(b). |
+| Relief-based trigger | State section 4(c). |
+| Motion-invoked special screening procedure | State section 5(a). |
+| 180-day pre-election timing bar | State section 5(b). |
+| No fixed post-election cutoff | State section 5(c). |
+| Prima facie showing requirements | State section 5(e). |
+| Dismissal, narrowing, stay, conditioning, or control of defective proceedings | State section 5(f). |
+| Automatic stay of intrusive process after motion filing | State section 6. |
+| Emergency-relief findings | State section 7. |
+| Sensitive-material protective order | State section 8. |
+| No automatic penalty merely for losing | State section 9(a). |
+| Fee, cost, public-cost, and sanctions authority | State section 9(b). |
+| Preservation of other sanction authority | State section 9(c). |
+| Later-discovered improper-purpose sanctions | State section 10. |
+| Expedited review | State section 11. |
+| Uniform application | State section 12. |
+| Relation to other law | State section 13. |
+| Severability | State section 14. |
+
+## Manifestation-to-Remedy Crosswalk
+
+| Manifestation | Federal statutory response |
+|---|---|
+| Frivolous or abusive pre-election challenges seeking emergency rule changes, voter-list disruption, ballot-design changes, or election-office burdens | Covered by sections 3, 5, 6, and 7 when the proceeding seeks election-disruptive relief within 180 days of the election, or immediate sensitive-material access or present security/privacy-risk relief. |
+| Litigation that publicly alleges fraud while presenting narrower or unsupported claims in court | Sections 5(e), 9, and 10 require particularized evidence, materiality, remedy fit, absence of improper purpose, and allow sanctions for knowingly unsupported or later-discovered improper-purpose filings. |
+| Post-election suits seeking to delay or disturb certification, counting, recounts, canvassing, or elector appointment | Sections 3, 5, and 7 require early screening and written findings before election-disruptive relief may issue. |
+| Demands for ballots, ballot images, voter data, source code, logs, chain-of-custody records, or election-security information | Sections 3, 6, and 8 define sensitive materials, stay access upon motion, and require protective orders before access is allowed. |
+| Broad discovery, subpoenas, audits, inspections, or forensic demands used to burden election officials or obtain process leverage | Sections 5, 6, and 9 authorize special screening, automatic stay, narrowing, quashing, conditioning, and sanctions. |
+| Later-discovered coordination showing that an initially ordinary-looking proceeding was part of an improper scheme | Section 10 creates the post-disposition sanctions mechanism, with clear-and-convincing proof, relevant-evidence categories, available relief, and due-process protections. |
+| Concern that good-faith citizen reports or ordinary contests will be chilled | Sections 4 and 12 preserve good-faith reports, ballot-specific voter remedies, state recounts, contests, public-records channels, and relief for proven violations. |
+| Concern that the special motion itself could be used prematurely as a delay tactic | Section 5(b) bars special motions concerning elections more than 180 days away, subject only to immediate sensitive-material or present security/privacy-risk exceptions. |
+| Concern that abuse discovered after the election could evade review through a post-election sunset | Sections 5(c) and 10 impose no fixed post-election cutoff for functionally related proceedings and separately preserve a later-discovered sanctions lookback. |
+
 ## Drafting Notes
 
 - This draft regulates federal-court procedure and relief in election proceedings; it does not attempt to commandeer state courts.
@@ -196,6 +237,8 @@ If any provision or application of this Act is held invalid, the remainder shall
 - The special motion is motion-invoked, not automatic.
 - A pre-election timing bar prevents the motion from being filed for elections more than 180 days away, except where immediate sensitive-material access or a present security/privacy risk is at issue.
 - The draft expressly imposes no fixed post-election cutoff; post-election availability depends on functional relation to the election result, election administration, or sensitive election material.
+- The federal-state mirror crosswalk is mandatory for future revision: no federal provision should be materially revised without checking the corresponding state provision.
+- The manifestation-to-remedy crosswalk is mandatory for future revision: no documented manifestation should remain without a corresponding procedural safeguard or remedy.
 - The trigger is relief-based rather than status-based. Private plaintiffs, officials, campaigns, parties, or organizations are treated alike when they seek election-disruptive relief or sensitive-material access.
 - The later-discovered sanctions provision is designed as deferred enforcement, not retroactive criminalization.
 - The draft should be reviewed for Rules Enabling Act, Article III, First Amendment, Petition Clause, Elections Clause, Article II, Electoral Count Reform Act, federal jurisdiction, and separation-of-powers issues.
