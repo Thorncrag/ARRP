@@ -144,12 +144,15 @@ The least-complex adequate remedy is not a general election-denial statute. It i
 - **ELEC-006** addresses presidential-transition continuity and automaticity.
 - **ELEC-007** addresses improper federal-force presence and election-material custody safeguards.
 - **ELEC-008** is the capstone accountability framework for coordinated schemes using one or more of those narrower mechanisms.
+- **IMM-001** addresses criminal immunity for presidential official acts. ELEC-008 and IMM-001 are complementary: ELEC-008 defines a scheme-level accountability framework for coordinated election subversion, while IMM-001 is necessary to preserve a meaningful avenue for applying such accountability when presidential conduct or claimed official-act immunity would otherwise prevent adjudication.
 
 ## Annotation
 
 **Ambitious Scope.** ELEC-008 is broader and more constitutionally sensitive than ELEC-002 through ELEC-007. It should proceed cautiously and should be developed with a comparative review of existing reform proposals, election-subversion scholarship, RICO doctrine, First Amendment limits, Petition Clause protections, and post-2020 federal reforms.
 
 **ECRA Baseline.** The 2022 Electoral Count Reform and Presidential Transition Improvement Act is a partial reform baseline. ELEC-008 should not duplicate or ignore it.
+
+**Presidential Accountability Complement.** ELEC-008 should be developed in tandem with the presidential-immunity reform. An election-subversion accountability statute may define prohibited scheme-level conduct, but presidential accountability may still fail if immunity doctrine prevents prosecution, civil enforcement, evidentiary use, or adjudication of presidential conduct. The two reforms therefore complement each other: ELEC-008 supplies the accountability framework; the immunity reform preserves the pathway to hold a president accountable where the conduct falls outside legitimate constitutional functions or where Congress validly defines enforceable duties.
 
 **Conduct Not Belief.** The statute should target corrupt coordinated conduct using independently wrongful predicate acts, not beliefs, public claims, or political advocacy.
 
@@ -159,4 +162,4 @@ The least-complex adequate remedy is not a general election-denial statute. It i
 
 **Legislation Deferred.** Full statutory drafting should be deferred pending comparative review of existing proposals and related scholarship. The likely model is a narrow election-specific RICO analogue, not direct incorporation of ordinary RICO.
 
-**Source Development Pending.** Further source development should review the 2022 Electoral Count Reform and Presidential Transition Improvement Act, existing election-crime statutes, obstruction statutes, RICO doctrine, state anti-subversion proposals, Protect Democracy and other reform proposals, and post-2020 federal and state prosecutions.
+**Source Development Pending.** Further source development should review the 2022 Electoral Count Reform and Presidential Transition Improvement Act, existing election-crime statutes, obstruction statutes, RICO doctrine, state anti-subversion proposals, Protect Democracy and other reform proposals, post-2020 federal and state prosecutions, and ARRP's presidential-immunity reform.
