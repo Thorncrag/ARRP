@@ -16,7 +16,7 @@ The election system remains vulnerable to federal executive interference, delegi
 - [ELEC-001 — Federal Executive Interference with State and Local Election Administration](issues/ELEC-001.md)
 - [ELEC-002 — Pressure on Certification and Canvassing Officials](issues/ELEC-002.md)
 - [ELEC-003 — Insufficient Protection for Election Workers and Officials](issues/ELEC-003.md)
-- [ELEC-004 — Abuse of Post-Election Litigation and Investigatory Mechanisms](issues/ELEC-004.md)
+- [ELEC-004 — Abuse of Election Litigation and Investigatory Mechanisms](issues/ELEC-004.md)
 - **ELEC-005** — Weak safeguards against alternate-elector or certification schemes _(status: Candidate; priority: High)_
 - **ELEC-006** — Insufficiently automatic presidential-transition procedures _(status: Candidate; priority: High)_
 - **ELEC-007** — Military or armed federal-force intervention in election administration _(status: Candidate; priority: High)_
@@ -28,7 +28,7 @@ The election system remains vulnerable to federal executive interference, delegi
 - **ELEC-001** concerns civilian executive interference through presidential authority, agencies, investigations, funding, regulation, intelligence, administrative process, or official influence.
 - **ELEC-002** concerns the vulnerability of state and local canvassing and certification mechanisms to refusal, deadlock, delay, or unauthorized discretion, regardless of the source of pressure or motive.
 - **ELEC-003** concerns politically neutral protection of election personnel and continuity of election operations, with state administration and only narrowly limited federal financial support.
-- **ELEC-004** concerns abuse of post-election litigation, investigatory demands, subpoenas, audit requests, and extraordinary proceedings, including later-discovered improper-purpose coordination.
+- **ELEC-004** concerns abuse of election litigation, investigatory demands, subpoenas, audit requests, and extraordinary proceedings, including later-discovered improper-purpose coordination.
 - **ELEC-005** concerns unlawful manipulation of the existing presidential-elector and certification process.
 - **ELEC-007** is reserved for military, National Guard, or armed federal-force intervention in polling, counting, canvassing, recount, certification, or custody of election materials.
 - **ELEC-009** concerns whether the Electoral College itself should be restructured or replaced by a national popular-vote system.
