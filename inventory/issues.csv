@@ -7,14 +7,15 @@ DOJ-005,A-01,Weak Enforcement and Internal Control of DOJ Recusal Duties,High,De
 DOJ-006,A-01,Insufficiently enforceable limits on White House–DOJ contacts,High,Retired—merged into DOJ-002 and DOJ-007
 DOJ-007,A-01,Independent Investigation of Presidential and Senior Executive Misconduct,High,Developed
 DOJ-008,A-01,Weak external review of politicized charging or noncharging decisions,High,Retired—merged into DOJ-003
-ELEC-001,A-02,Partisan interference with election administration,High,Candidate
+ELEC-001,A-02,Federal Executive Interference with State and Local Election Administration,High,Developed
 ELEC-002,A-02,Pressure on certification and canvassing officials,High,Candidate
 ELEC-003,A-02,Insufficient protection for election workers and officials,High,Candidate
 ELEC-004,A-02,Abuse of post-election litigation and investigatory mechanisms,High,Candidate
 ELEC-005,A-02,Weak safeguards against alternate-elector or certification schemes,High,Candidate
 ELEC-006,A-02,Insufficiently automatic presidential-transition procedures,High,Candidate
-ELEC-007,A-02,Federal or military interference with election administration,High,Candidate
+ELEC-007,A-02,Military or armed federal-force intervention in election administration,High,Candidate
 ELEC-008,A-02,Weak accountability for efforts to overturn lawful results,High,Candidate
+ELEC-009,A-02,Electoral College Structure and National Popular Vote,High,Candidate
 WAR-001,A-03,Unilateral initiation of hostilities,High,Candidate
 WAR-002,A-03,Ineffective automatic termination under the War Powers framework,High,Candidate
 WAR-003,A-03,Overbroad and indefinite authorizations for use of military force,High,Candidate
