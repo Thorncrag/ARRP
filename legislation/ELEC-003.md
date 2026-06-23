@@ -210,14 +210,22 @@ The protection coordinator shall publish an annual aggregate report stating—
 2. response times and dispositions;
 3. forms of assistance provided;
 4. funds distributed and expended;
-5. operational disruptions and continuity measures used; and
-6. workforce effects reasonably attributable to threats or harassment.
+5. operational disruptions and continuity measures used;
+6. workforce effects reasonably attributable to threats or harassment;
+7. federal amounts received, obligated, expended, unobligated, and carried forward; and
+8. any automatic federal payment reduction resulting from an unobligated-balance threshold.
 
 The report may not identify a protected person, disclose a residential address, reveal an active investigative fact, expose a security vulnerability, or disclose information reasonably likely to facilitate further targeting.
 
-## SEC. 17. FUNDING AND LOCAL DISTRIBUTION.
+## SEC. 17. FUNDING, MATCHING, CARRYOVER, AND LOCAL DISTRIBUTION.
 
-The legislature shall appropriate funds sufficient to administer this Act. Federal funds received for election-personnel protection may be used only for purposes authorized by this Act.
+The legislature shall appropriate funds sufficient to administer this Act. Federal funds received for election-personnel protection may be used only for purposes authorized by this Act and the governing federal statute.
+
+The State and any political subdivision may voluntarily appropriate, match, supplement, or expend non-Federal funds for purposes consistent with this Act. No State or local matching contribution is required as a condition of eligibility for federal funds unless separately enacted by the State.
+
+Federal funds received under the corresponding federal election-personnel protection program shall be held in a State election-personnel protection fund or separately accounted subaccount of an existing State election fund. Interest earned on federal amounts shall be credited to that fund or subaccount and used only for purposes authorized by this Act and the governing federal statute.
+
+Unobligated federal balances may be carried forward into succeeding fiscal years while this Act, or substitute provisions satisfying the federal minimum requirements, remains in force. Future federal payments may be reduced pursuant to the nondiscretionary balance-adjustment formula established by federal law if the State’s unobligated federal balance exceeds the federal reserve threshold.
 
 Funds distributed to local jurisdictions shall be allocated under objective criteria that consider population, number of election facilities, documented risk, resource capacity, and demonstrated security need. Political affiliation, election outcome, and disagreement with state or local election policy may not be considered.
 
@@ -227,7 +235,7 @@ Acceptance of federal funds does not authorize a federal officer or entity to su
 
 This Act is intended to constitute a qualifying State law for purposes of the Election Personnel Protection Payments title of the Help America Vote Act of 2002, as amended.
 
-The chief state election official and the attorney general, or equivalent state legal officer, shall jointly prepare and submit any certification, citation table, statutory crosswalk, or expenditure certification required to establish eligibility for federal election-personnel protection payments.
+The chief state election official and the attorney general, or equivalent state legal officer, shall jointly prepare and submit any certification, citation table, statutory crosswalk, expenditure certification, unobligated-balance report, reserve-threshold calculation, or related fiscal report required to establish or maintain eligibility for federal election-personnel protection payments.
 
 The State shall maintain the protections required by this Act as a condition of future eligibility for such payments. Repeal or material narrowing of this Act terminates eligibility for future federal payments unless the State enacts substitute provisions satisfying the federal minimum requirements.
 
