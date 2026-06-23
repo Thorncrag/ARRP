@@ -4,8 +4,9 @@ area_id: A-02
 title: "Accountability for Coordinated Federal Election-Subversion Schemes"
 status: developed
 priority: high
-remedy_type: federal-legislation-research
-legislative_status: deferred-pending-comparative-review
+remedy_type: federal-legislation
+legislative_status: working-draft
+federal_legislation: "../../../legislation/ELEC-008.md"
 ---
 
 # ELEC-008 — Accountability for Coordinated Federal Election-Subversion Schemes
@@ -170,6 +171,10 @@ A narrow statute could include:
 
 The least-complex adequate remedy is not a general election-denial statute. It is a narrow scheme-level accountability framework that applies only when independently wrongful predicate acts are coordinated for the corrupt purpose of overturning or obstructing a lawful federal-election result.
 
+## Proposed Legislation
+
+- [Federal Election Subversion Accountability Act](../../../legislation/ELEC-008.md)
+
 ## Relationship to Other Issues
 
 - **ELEC-002** addresses pressure on certification and canvassing officials.
@@ -196,6 +201,6 @@ The least-complex adequate remedy is not a general election-denial statute. It i
 
 **Safe-Harbor Centrality.** Robust safe harbors are essential to prevent the statute from chilling lawful election contests, recounts, litigation, advocacy, reporting, legal advice, journalism, or congressional activity.
 
-**Legislation Deferred.** Full statutory drafting should be deferred pending comparative review of existing proposals and related scholarship. The likely model is a narrow election-specific RICO analogue, not direct incorporation of ordinary RICO.
+**Working Draft.** Full statutory drafting has begun. The current draft should be treated as a first-pass framework subject to comparative review of existing proposals and related scholarship. The likely model is a narrow election-specific RICO analogue, not direct incorporation of ordinary RICO.
 
 **Source Development Pending.** Further source development should review the 2022 Electoral Count Reform and Presidential Transition Improvement Act, existing election-crime statutes, obstruction statutes, RICO doctrine, state anti-subversion proposals, Protect Democracy and other reform proposals, post-2020 federal and state prosecutions, congressional election-contest procedures, Article I Section 5 doctrine, and ARRP's presidential-immunity reform.
