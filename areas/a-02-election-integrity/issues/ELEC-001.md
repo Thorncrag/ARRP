@@ -1,0 +1,107 @@
+---
+issue_id: ELEC-001
+area_id: A-02
+title: "Federal Executive Interference with State and Local Election Administration"
+status: developed
+priority: high
+remedy_type: hatch-act-amendment-and-companion-enforcement
+---
+
+# ELEC-001 — Federal Executive Interference with State and Local Election Administration
+
+## Institutional Anomaly
+
+The President and other federal executive officials possess substantial investigative, prosecutorial, regulatory, funding, intelligence, administrative, and communicative power but possess no general constitutional authority to direct state or local election administration. Existing law does not provide a sufficiently precise, comprehensive, and rapidly enforceable prohibition against using federal executive office to obtain, prevent, alter, or secure a preferred electoral outcome through state or local election functions.
+
+## Manifestation of the Failure
+
+On January 2, 2021, President Donald Trump called Georgia Secretary of State Brad Raffensperger after Georgia had certified its presidential election result and completed multiple reviews of the vote. Trump asked Raffensperger to “find 11,780 votes,” the number necessary to reverse Trump’s certified defeat, and invoked possible criminal consequences while urging state officials to act.
+
+The institutional significance does not depend on a final criminal judgment:
+
+> A sitting President used the authority and influence of federal executive office to seek a candidate-specific alteration of a state’s lawful election determination.
+
+The episode demonstrates that a President can exert federal executive influence directly upon a state election official without issuing a formal order, deploying an agency, or completing the requested alteration. Existing remedies did not supply an immediate, specialized mechanism to stop the pressure, preserve records, transfer investigation outside the presidential chain of command, or impose consequences tailored to misuse of federal office against a state election function.
+
+## Resulting Damage
+
+Federal executive interference can distort or delay lawful election administration, coerce state and local officials, undermine federalism, convert federal law-enforcement or administrative powers into electoral leverage, chill resistance to unlawful demands, and damage public confidence that election outcomes are determined by lawful votes rather than federal executive pressure.
+
+The harm exists even when the target refuses and the result remains unchanged. An unsuccessful attempt may still burden officials, consume public resources, generate threats or retaliation, and normalize future misuse of federal office.
+
+## Underlying Weakness
+
+The Constitution assigns states primary responsibility for administering elections under state law, subject to federal constitutional protections and valid Acts of Congress. Article I, Section 4 gives Congress broad authority over congressional-election regulation; Article II assigns each state authority over the manner of appointing presidential electors, while reserving specified timing functions to Congress. Neither provision gives the President a general supervisory power over state election administration.
+
+Existing federal law addresses portions of the problem but not the complete institutional defect:
+
+- 5 U.S.C. § 7323 prohibits covered federal employees from using official authority or influence to interfere with or affect an election, but the Hatch Act excludes the President and Vice President from the relevant definition of employee.
+- 18 U.S.C. § 595 criminalizes specified official interference with federal elections but is narrower in coverage, remedies, and institutional design.
+- 18 U.S.C. §§ 241 and 242 protect federal voting rights but require proof of distinct statutory elements and do not directly create rapid protection for a state election authority facing federal executive pressure.
+- obstruction, records, civil-rights, and election statutes may apply to particular conduct but do not establish a unified prohibition, mandatory record, expedited state-initiated remedy, and independent referral process.
+
+The central gap is therefore not the absence of every possible legal prohibition. It is the absence of a coherent rule expressly covering the President and senior executive officials, defining prohibited result-directed interference, preserving legitimate federal functions, and providing relief before the election process becomes irreversible.
+
+## Repair and Prevention
+
+Federal law should prohibit a covered executive official from knowingly using, directing, threatening, authorizing, requesting, or causing the use of official authority or influence derived from federal office to interfere with a state or local election function for the purpose of effectuating, preventing, altering, or securing a preferred outcome for an identified candidate, political party, slate of electors, ballot position, or election result.
+
+The general prohibition should be paired with objectively defined covered acts, including efforts to:
+
+1. add, exclude, alter, manufacture, destroy, suppress, count, or refuse to count votes contrary to law;
+2. state, transmit, canvass, recount, or certify a materially false result;
+3. depart from an applicable election statute, final judicial order, or lawfully completed administrative determination;
+4. initiate or manipulate a federal investigation, prosecution, audit, regulatory action, funding action, intelligence activity, or administrative process without a good-faith lawful basis and for the prohibited electoral purpose;
+5. obtain ballots, voting equipment, voter records, election data, or election materials without lawful authority;
+6. procure a materially false official representation concerning fraud, vote totals, certification, or election results;
+7. threaten or impose adverse federal action to obtain an election-related act; or
+8. retaliate against an official who refuses an unlawful or unauthorized election-related request.
+
+A completed alteration of the election result should not be required. Attempt, direction, authorization, conspiracy, and knowing material assistance should be covered.
+
+The statute must preserve ordinary political advocacy, public criticism, lawful litigation, good-faith enforcement of federal law, compliance with judicial process, authorized voting-rights and election-crime enforcement, foreign-interference response, and voluntary technical or cybersecurity assistance requested by lawful state authorities.
+
+## Least-Complex Adequate Remedy
+
+Amend the Hatch Act rather than create an entirely separate primary regime. The amendment should:
+
+1. extend the prohibition on use of official authority or influence to the President and Vice President for this specific category of conduct without subjecting them to every Hatch Act restriction on political activity;
+2. establish a separately named Federal Executive Election Noninterference provision within 5 U.S.C. chapter 73;
+3. define state and local election functions, federal governmental authority, preferred electoral outcome, and specifically prohibited conduct;
+4. require contemporaneous records and preservation of covered contacts;
+5. authorize Office of Special Counsel investigation and ordinary Hatch Act administrative sanctions for covered subordinate officials;
+6. provide anti-retaliation protections and referral to Inspectors General;
+7. create a companion civil-enforcement title authorizing states and responsible election authorities to seek expedited declaratory, injunctive, preservation, and restorative relief; and
+8. enact a companion criminal provision, preferably 18 U.S.C. § 595A, for knowing, intentional, coercive, or result-directed violations.
+
+Where the President, Vice President, Attorney General, or another senior executive official creates a disabling investigative conflict, the matter should be referable to the independent investigative-counsel mechanism developed under DOJ-007. Criminal enforcement against presidential official acts remains subject to current immunity doctrine unless superseded by IMM-001.
+
+This package is less complex than a wholly freestanding election-administration code because it extends an existing federal principle, uses established OSC and MSPB structures, and regulates federal executive actors rather than the internal organization of state elections.
+
+## Enforcement Architecture
+
+The eventual legislation should provide layered enforcement:
+
+- immediate three-judge-court review and emergency injunctive relief;
+- mandatory contact records, preservation orders, and narrow authorization for state election officials to record covered official communications;
+- OSC, OIG, Public Integrity, and DOJ-007 referral according to jurisdiction and conflict;
+- administrative discipline and disqualification from delegated election-related functions for subordinate officials;
+- substantial civil penalties and reimbursement of state or local response costs;
+- calibrated criminal penalties distinguishing attempted pressure, coercive use of federal powers, and completed alteration or falsification; and
+- mandatory congressional reporting for substantiated violations involving senior officials.
+
+Courts and investigators should not determine the winner of an election or substitute their policy judgment for lawful state election administration. Their role is to prevent and remedy misuse of federal executive authority.
+
+## Relationship to ELEC-007
+
+ELEC-001 concerns civilian executive interference through presidential authority, agencies, investigations, funding, regulation, intelligence, administrative process, or official influence.
+
+ELEC-007 should be narrowed to military, National Guard, or armed federal-force intervention in polling, counting, canvassing, recount, certification, or custody of election materials.
+
+## Annotation
+
+**Basis and Evidence.** The Hatch Act already embodies the principle that federal employees may not use official authority or influence to interfere with or affect an election. Its exclusion of the President and Vice President and its employment-centered remedial structure leave the principal conduct identified here inadequately covered. The Trump–Raffensperger call is a representative manifestation because the requested numerical alteration corresponded to the margin necessary to reverse the state’s certified result.
+
+**Qualification.** Federal executive officials retain lawful responsibilities concerning voting rights, election crimes, campaign finance, foreign interference, cybersecurity, federal judicial process, and other functions assigned by the Constitution or Congress. The proposal regulates misuse of federal office, not political speech, criticism, litigation, or good-faith execution of federal law. The term “partisan” is deliberately not used as an operative limitation because prohibited conduct may be personal, candidate-specific, retaliatory, factional, or otherwise result-directed without fitting a narrow partisan classification.
+
+**Remedial Alternatives and Constraints.** A wholly freestanding statute would permit cleaner organization but would duplicate the Hatch Act’s established official-authority principle and enforcement institutions. Amending only the Hatch Act would remain inadequate because OSC–MSPB proceedings cannot supply rapid state-initiated injunctions and should not convert every administrative violation into a felony. The least-complex adequate solution is therefore a Hatch Act amendment with companion civil and criminal titles.
