@@ -5,8 +5,8 @@ title: "Insufficient Protection for Election Workers and Officials"
 status: developed
 priority: high
 remedy_type: coupled-state-and-federal-legislation
-legislative_proposal: "../../../legislation/ELEC-003.md"
-federal_legislative_proposal: "../../../legislation/ELEC-003-FEDERAL.md"
+legislative_proposal: "../../../legislation/ELEC-003-state.md"
+federal_legislative_proposal: "../../../legislation/ELEC-003.md"
 ---
 
 # ELEC-003 — Insufficient Protection for Election Workers and Officials
@@ -114,8 +114,8 @@ This structure is less coercive and less susceptible to executive leverage than 
 
 ## Proposed Legislation
 
-- [Model State Election Personnel Protection and Continuity Act](../../../legislation/ELEC-003.md)
-- [Election Personnel Protection Amendments to the Help America Vote Act of 2002](../../../legislation/ELEC-003-FEDERAL.md)
+- [Model State Election Personnel Protection and Continuity Act](../../../legislation/ELEC-003-state.md)
+- [Election Personnel Protection Amendments to the Help America Vote Act of 2002](../../../legislation/ELEC-003.md)
 
 ## Relationship to Other Issues
 
