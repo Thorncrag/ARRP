@@ -29,7 +29,7 @@ The purposes of this Act are to—
 5. recognize that Congress has addressed certain presidential electoral-count and transition vulnerabilities through prior reforms, while preserving accountability for coordinated schemes that exploit multiple channels of federal-election administration;
 6. protect federal elections without generally federalizing state and local elections;
 7. avoid interference with each House of Congress's constitutional authority to judge the elections, returns, and qualifications of its own Members; and
-8. ensure that liability attaches only where the statute's coordination, corrupt-purpose, predicate-act, material-connection, and safe-harbor requirements are satisfied.
+8. ensure that liability attaches only where the statute's coordination, corrupt-purpose, predicate-act, material-connection, safe-harbor, and limiting-instruction requirements are satisfied.
 
 ## SEC. 3. DEFINITIONS.
 
@@ -224,7 +224,54 @@ No expressive activity may serve as a predicate act unless it is integral to ind
 
 The government bears the burden of proving beyond a reasonable doubt that the safe harbor does not apply in a criminal prosecution.
 
-## SEC. 7. CRIMINAL PENALTIES.
+## SEC. 7. REQUIRED JURY INSTRUCTIONS AND LIMITING PRINCIPLES.
+
+### (a) Required limiting instructions.
+
+In any criminal prosecution under this Act, the court shall instruct the jury that liability may not be based solely on—
+
+1. political speech;
+2. public advocacy;
+3. election denial;
+4. criticism of election administration;
+5. legal theory;
+6. lobbying;
+7. journalism;
+8. academic analysis;
+9. association with a candidate, campaign, political party, attorney, public official, organization, or participant;
+10. lawful legal representation;
+11. official position or official status;
+12. a lawsuit, recount request, contest, audit request, or investigation request that is unsuccessful or rejected;
+13. a factual claim that is mistaken but made in good faith; or
+14. a legal argument that is rejected by a court, election official, legislative body, or other decisionmaker.
+
+### (b) Required elements instruction.
+
+The court shall instruct the jury that the government must prove beyond a reasonable doubt each of the following:
+
+1. the existence of a coordinated federal election-subversion scheme;
+2. the defendant's knowing and corrupt participation in that scheme;
+3. the scheme's specific corrupt objective to nullify, reverse, obstruct, delay, corruptly alter, or procure official disregard of a lawful federal-election result or covered federal-election process;
+4. at least two independently wrongful predicate acts;
+5. the defendant's knowledge, or willful blindness, that the predicate acts were independently wrongful;
+6. a material connection between the predicate acts and the corrupt objective; and
+7. that no safe harbor under section 6 precludes liability.
+
+### (c) Pressure communications.
+
+The court shall instruct the jury that a communication with an election official, public official, court, legislative body, agency, or other decisionmaker is not unlawful under this Act merely because it is forceful, persistent, political, mistaken, adversarial, or requests investigation, review, recount, audit, litigation, legislative consideration, or other lawful process.
+
+A pressure communication may support liability only if the government proves beyond a reasonable doubt that the communication was independently wrongful, knowingly and corruptly undertaken, and materially connected to a coordinated federal election-subversion scheme satisfying section 4.
+
+### (d) Safe-harbor sequencing.
+
+The court shall instruct the jury that it must consider the safe harbors and protected-activity provisions of section 6 before finding criminal liability.
+
+### (e) Attorney and official limitations.
+
+The court shall instruct the jury that attorney status, client representation, public office, campaign status, political affiliation, or access to official channels is insufficient by itself to establish liability.
+
+## SEC. 8. CRIMINAL PENALTIES.
 
 ### (a) Basic offense.
 
@@ -247,7 +294,7 @@ A person shall be fined under title 18, United States Code, imprisoned for not m
 
 No sentence may be imposed for conduct protected under section 6.
 
-## SEC. 8. CIVIL ENFORCEMENT BY THE UNITED STATES.
+## SEC. 9. CIVIL ENFORCEMENT BY THE UNITED STATES.
 
 ### (a) Civil action.
 
@@ -275,7 +322,7 @@ Civil relief under this section requires clear and convincing evidence of a viol
 
 This Act does not create a general private right of action for candidates, campaigns, parties, political committees, or voters to obtain damages.
 
-## SEC. 9. LIMITED STATE AND ELECTION-OFFICIAL CIVIL ACTIONS.
+## SEC. 10. LIMITED STATE AND ELECTION-OFFICIAL CIVIL ACTIONS.
 
 ### (a) Limited action.
 
@@ -289,7 +336,7 @@ A civil action under this section may not seek damages, punitive damages, or par
 
 The court shall expedite an action under this section to the greatest practicable extent.
 
-## SEC. 10. DISGORGEMENT AND PUBLIC-COST REIMBURSEMENT.
+## SEC. 11. DISGORGEMENT AND PUBLIC-COST REIMBURSEMENT.
 
 ### (a) Disgorgement.
 
@@ -299,7 +346,7 @@ Where the United States proves by clear and convincing evidence that a person kn
 
 The court may order reimbursement of reasonable public costs directly caused by the coordinated scheme, including emergency security costs, election-administration costs, corrective notice costs, document-preservation costs, or litigation costs incurred by public entities.
 
-## SEC. 11. DISQUALIFICATION.
+## SEC. 12. DISQUALIFICATION.
 
 ### (a) Disqualification authorized.
 
@@ -319,7 +366,7 @@ Disqualification shall be imposed only if necessary to protect the integrity of 
 
 Nothing in this section shall be construed to add qualifications for President, Vice President, Senator, or Representative beyond those established by the Constitution.
 
-## SEC. 12. RECORD PRESERVATION.
+## SEC. 13. RECORD PRESERVATION.
 
 ### (a) Preservation duty.
 
@@ -333,7 +380,7 @@ Records include communications, funding records, legal memoranda, drafts of resu
 
 Nothing in this section abrogates attorney-client privilege, work-product protection, constitutional privilege, Speech or Debate Clause protection, executive privilege, or other lawful privilege. Claims of privilege shall be resolved by the court.
 
-## SEC. 13. RELATION TO EXISTING LAW.
+## SEC. 14. RELATION TO EXISTING LAW.
 
 Nothing in this Act shall be construed to—
 
@@ -348,7 +395,7 @@ Nothing in this Act shall be construed to—
 9. regulate either House of Congress's constitutional authority to judge the elections, returns, and qualifications of its Members; or
 10. apply to state or local elections except where predicate conduct independently violates federal law.
 
-## SEC. 14. PRESIDENTIAL ACCOUNTABILITY AND IMMUNITY.
+## SEC. 15. PRESIDENTIAL ACCOUNTABILITY AND IMMUNITY.
 
 ### (a) No immunity expansion.
 
@@ -366,11 +413,11 @@ This section does not displace any statute, constitutional amendment, or rule go
 
 If application of this Act to a President, former President, Vice President, or former Vice President is held invalid in any circumstance, the remainder of this Act and all valid applications shall remain in force.
 
-## SEC. 15. EXPEDITED REVIEW.
+## SEC. 16. EXPEDITED REVIEW.
 
 A court hearing an action seeking emergency relief under this Act shall expedite the action to the greatest practicable extent, consistent with due process, the First Amendment, the Petition Clause, the Speech or Debate Clause, constitutional separation of powers, and the lawful completion of covered federal-election processes.
 
-## SEC. 16. SEVERABILITY.
+## SEC. 17. SEVERABILITY.
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
 
@@ -379,10 +426,12 @@ If any provision or application of this Act is held invalid, the remainder shall
 - This draft is intentionally ambitious and should be treated as a first-pass framework.
 - It is RICO-like but not ordinary RICO.
 - Liability requires a coordinated scheme, corrupt objective, at least two independently wrongful predicate acts, and material connection.
+- Required jury instructions are included because overbreadth, speech, association, legal-representation, and official-duty risks are central design concerns.
+- A pressure communication is not unlawful merely because it is forceful, political, mistaken, adversarial, or requests lawful review. It becomes relevant only if independently wrongful, knowingly and corruptly undertaken, and materially connected to a coordinated federal election-subversion scheme.
 - The statute should not punish election denial, political speech, litigation, recounts, contests, legal advice, journalism, lobbying, lawful congressional activity, or ordinary campaign activity.
 - Safe harbors are central and should be strengthened during review.
 - The bill applies to federal elections, with presidential-specific coverage where the federal result-transmission, electoral-count, and transition processes require it.
 - It does not generally federalize state or local elections.
 - It should be reviewed carefully for Article I, Section 5 and Speech or Debate Clause concerns in congressional-election applications.
-- Section 14 is designed to complement ARRP's presidential-immunity reform, not to solve immunity by itself.
+- Section 15 is designed to complement ARRP's presidential-immunity reform, not to solve immunity by itself.
 - Further review should compare existing reform proposals, election-crime statutes, obstruction statutes, RICO doctrine, First Amendment doctrine, Petition Clause doctrine, Speech or Debate Clause doctrine, ECRA, federalism limits, Article I Section 5 doctrine, and presidential-immunity doctrine.
