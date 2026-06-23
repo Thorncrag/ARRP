@@ -2,7 +2,7 @@
 area_id: A-01
 title: "Department of Justice"
 status: active
-issue_count: 8
+issue_count: 9
 ---
 
 # A-01 — Department of Justice
@@ -21,6 +21,7 @@ The Department of Justice lacks sufficient structural independence, external ove
 - **DOJ-006** — Insufficiently enforceable limits on White House–DOJ contacts _(status: Retired—merged into DOJ-002 and DOJ-007)_
 - [DOJ-007 — Independent Investigation of Presidential and Senior Executive Misconduct](issues/DOJ-007.md)
 - **DOJ-008** — Weak external review of politicized charging or noncharging decisions _(status: Retired—merged into DOJ-003)_
+- [DOJ-009 — Insufficient Professional-Qualification Requirements for Senior DOJ Leadership](issues/DOJ-009.md)
 
 ## Issue Boundaries
 
@@ -29,7 +30,8 @@ The Department of Justice lacks sufficient structural independence, external ove
 - **DOJ-004** is paused pending merits adjudication of the Article II removal question presented by the Maurene Comey litigation.
 - **DOJ-005** owns senior-official recusal administration and enforcement.
 - **DOJ-007** owns independent investigation, evidence preservation, and congressional reporting when presidential or senior executive conflict makes ordinary DOJ accountability unreliable.
+- **DOJ-009** owns baseline professional eligibility, good standing, disciplinary disclosure, and post-appointment discipline consequences for senior DOJ legal offices.
 
 ## Notes
 
-DOJ-001, DOJ-002, DOJ-003, DOJ-005, and DOJ-007 are developed. DOJ-004 is substantively identified but intentionally held at Awaiting merits adjudication. DOJ-006 and DOJ-008 are retired as duplicative standalone issues, with their nonduplicative components preserved in the identified primary issues.
+DOJ-001, DOJ-002, DOJ-003, DOJ-005, DOJ-007, and DOJ-009 are developed. DOJ-004 is substantively identified but intentionally held at Awaiting merits adjudication. DOJ-006 and DOJ-008 are retired as duplicative standalone issues, with their nonduplicative components preserved in the identified primary issues.
