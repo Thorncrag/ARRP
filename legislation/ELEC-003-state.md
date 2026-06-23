@@ -4,7 +4,7 @@ issue_id: ELEC-003
 title: "Model State Election Personnel Protection and Continuity Act"
 status: working-draft
 framework_issue: "../areas/a-02-election-integrity/issues/ELEC-003.md"
-federal_legislation: "ELEC-003-FEDERAL.md"
+federal_legislation: "ELEC-003.md"
 ---
 
 # ELEC-003-state — Model State Election Personnel Protection and Continuity Act
