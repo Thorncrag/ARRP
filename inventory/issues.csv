@@ -18,13 +18,13 @@ ELEC-007,A-02,High,Developed
 ELEC-008,A-02,High,Developed
 ELEC-009,A-02,High,Developed
 WAR-001,A-03,High,Developed
-WAR-002,A-03,High,Candidate
-WAR-003,A-03,High,Candidate
-WAR-004,A-03,High,Candidate
-WAR-005,A-03,High,Candidate
-WAR-006,A-03,High,Candidate
-WAR-007,A-03,High,Candidate
-WAR-008,A-03,High,Candidate
+WAR-002,A-03,High,Retired—merged into WAR-001
+WAR-003,A-03,High,Retired—merged into WAR-001
+WAR-004,A-03,High,Retired—merged into WAR-001
+WAR-005,A-03,High,Retired—merged into WAR-001
+WAR-006,A-03,High,Retired—merged into WAR-001
+WAR-007,A-03,High,Retired—merged into WAR-001
+WAR-008,A-03,High,Retired—merged into WAR-001
 JUD-001,A-04,High,Candidate
 JUD-002,A-04,High,Candidate
 JUD-003,A-04,High,Candidate
