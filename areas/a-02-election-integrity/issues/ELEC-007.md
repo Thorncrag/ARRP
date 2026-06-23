@@ -49,6 +49,8 @@ Existing law may lack:
 - a strict distinction between non-election emergency response and election-related participation;
 - a state-consent and state-capacity-inadequacy requirement for extraordinary emergency assistance;
 - a narrow exigent-life-safety fallback;
+- a good-faith incidental-contact safe harbor for federal personnel who inadvertently encounter election activity while performing lawful non-election duties;
+- a voter-rights savings clause confirming that federal employment does not impair personal voting rights;
 - election-material access, imaging, copying, transport, and seizure safeguards;
 - written scope, duration, and termination limits for federal emergency assistance;
 - notice and after-action reporting requirements; and
@@ -63,7 +65,7 @@ The emergency exception should authorize only otherwise lawful law-enforcement, 
 Federal emergency assistance at or near a covered election site should require:
 
 1. a written request or consent from the Governor or other statewide official designated by state law;
-2. an extraordinary emergency involving imminent threat to life, physical safety, voting access, continuity of election operations, or custody/security of election materials;
+2. an extraordinary emergency involving a concrete non-election emergency;
 3. a written finding that state and local authorities cannot timely and adequately address the specific non-election emergency without federal assistance;
 4. assistance limited to the specific state-capacity inadequacy identified;
 5. written scope limits governing location, duration, personnel, mission, permitted actions, prohibited actions, and termination trigger;
@@ -72,6 +74,8 @@ Federal emergency assistance at or near a covered election site should require:
 8. automatic withdrawal when the emergency ends or state capacity is restored.
 
 Where prior written state consent is impossible because of an imminent threat to life or serious bodily harm, federal personnel may act only to stabilize the emergency and protect life. Federal personnel must withdraw unless state consent, a valid judicial order, or another lawful non-election emergency predicate is promptly obtained.
+
+The statute should also make clear that inadvertent or unavoidable incidental contact with election activity does not create liability if the federal personnel act in good faith, do not intend to influence election administration, disengage from any election-administration issue as soon as practicable, and do not use federal authority to affect the election. Separately, the statute should not restrict federal employees, agents, or service members from voting, registering to vote, standing in line to vote, or otherwise acting in a lawful personal civic capacity subject to ordinary election law and ethics rules.
 
 ## Least-Complex Adequate Remedy
 
@@ -96,6 +100,10 @@ The least-complex adequate remedy is a targeted federal statute clarifying that 
 **State Capacity Requirement.** State consent alone should not be sufficient. The state should also document why state and local capacity is inadequate for the specific extraordinary emergency.
 
 **Emergency Limitation.** An emergency authorizes only non-election law enforcement, emergency response, protection, or technical assistance. It does not authorize federal election administration.
+
+**Incidental Contact Safe Harbor.** Good-faith inadvertent or unavoidable incidental contact should not create liability where federal personnel do not intend to influence election administration, do not use federal authority, and disengage as soon as practicable.
+
+**Personal Voting Rights.** Federal personnel retain the same personal right to vote, register, appear at a polling place, and engage in lawful personal civic activity as other citizens, subject to ordinary election law, ethics rules, and agency rules.
 
 **Election-Material Safeguards.** Ballots, voting equipment, pollbooks, tabulators, memory devices, election records, and result-transmission materials require separate judicial safeguards before access, imaging, copying, transport, or seizure.
 
