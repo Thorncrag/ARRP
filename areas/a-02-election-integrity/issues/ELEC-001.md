@@ -11,8 +11,8 @@ legislative_proposal: "../../../legislation/ELEC-001.md"
 # ELEC-001 — Federal Executive Interference with State and Local Election Administration
 
 > ## Issue Snapshot
-> **Problem:** Federal power can pressure state election administration.
-> **Repair:** Ban result-directed executive election interference.
+> **Problem:** Federal power can pressure state election administration.<br />
+> **Repair:** Ban result-directed executive election interference.<br />
 > **Vehicle:** Hatch Act package ([draft](../../../legislation/ELEC-001.md)).
 >
 

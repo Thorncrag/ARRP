@@ -12,8 +12,8 @@ legislative_proposal: "../../../legislation/ELEC-004-state.md"
 # ELEC-004 — Abuse of Election Litigation and Investigatory Mechanisms
 
 > ## Issue Snapshot
-> **Problem:** Process can manufacture election uncertainty.
-> **Repair:** Add election Anti-SLAPP screening.
+> **Problem:** Process can manufacture election uncertainty.<br />
+> **Repair:** Add election Anti-SLAPP screening.<br />
 > **Vehicle:** Federal and state acts ([federal](../../../legislation/ELEC-004.md), [state](../../../legislation/ELEC-004-state.md)).
 >
 

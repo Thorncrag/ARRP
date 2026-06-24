@@ -25,7 +25,7 @@ If not, merge it into a broader issue, treat it as a manifestation or example, c
 
 Each developed issue page should place an **Issue Snapshot** blockquote immediately after the issue title and before **Institutional Anomaly**. The snapshot is a reader-navigation device: it should let a reader move quickly from problem to proposed solution without reading the full issue page first.
 
-The Issue Snapshot should be extremely concise. Each line should normally convey its point in about twelve words or fewer:
+The Issue Snapshot should be extremely concise. Each line should normally convey its point in about twelve words or fewer. To render consistently in both GitHub and Codex previews, the **Problem** and **Repair** lines should end with `<br />`:
 
 1. **Problem:** the institutional weakness.
 2. **Repair:** the core proposed fix.
@@ -35,8 +35,8 @@ Use this format:
 
 ```markdown
 > ## Issue Snapshot
-> **Problem:** Short problem statement.
-> **Repair:** Short repair statement.
+> **Problem:** Short problem statement.<br />
+> **Repair:** Short repair statement.<br />
 > **Vehicle:** Remedy vehicle ([draft link]).
 >
 ```

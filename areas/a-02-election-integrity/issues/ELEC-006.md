@@ -11,8 +11,8 @@ federal_legislative_proposal: "../../../legislation/ELEC-006.md"
 # ELEC-006 — Insufficiently Automatic Presidential-Transition Procedures
 
 > ## Issue Snapshot
-> **Problem:** Transition access remains delay-prone.
-> **Repair:** Add automatic triggers and enforceable deadlines.
+> **Problem:** Transition access remains delay-prone.<br />
+> **Repair:** Add automatic triggers and enforceable deadlines.<br />
 > **Vehicle:** Transition Act amendment ([draft](../../../legislation/ELEC-006.md)).
 >
 

@@ -11,8 +11,8 @@ federal_legislative_proposal: "../../../legislation/ELEC-007.md"
 # ELEC-007 — Improper Federal-Force Presence in Election Administration
 
 > ## Issue Snapshot
-> **Problem:** Federal responders can become election participants.
-> **Repair:** Separate emergency response from election administration.
+> **Problem:** Federal responders can become election participants.<br />
+> **Repair:** Separate emergency response from election administration.<br />
 > **Vehicle:** Federal-force noninterference statute ([draft](../../../legislation/ELEC-007.md)).
 >
 

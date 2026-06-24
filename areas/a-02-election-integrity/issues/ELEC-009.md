@@ -12,8 +12,8 @@ federal_legislation: "../../../legislation/ELEC-009.md"
 # ELEC-009 — Electoral College Structure and National Popular Vote
 
 > ## Issue Snapshot
-> **Problem:** Electoral College can override national vote.
-> **Repair:** Establish direct national presidential election.
+> **Problem:** Electoral College can override national vote.<br />
+> **Repair:** Establish direct national presidential election.<br />
 > **Vehicle:** Constitutional amendment ([draft](../../../legislation/ELEC-009.md)).
 >
 

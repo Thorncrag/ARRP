@@ -12,8 +12,8 @@ federal_legislation: "../../../legislation/ELEC-008.md"
 # ELEC-008 — Accountability for Coordinated Federal Election-Subversion Schemes
 
 > ## Issue Snapshot
-> **Problem:** Coordinated subversion can evade scheme-level accountability.
-> **Repair:** Create narrow predicate-act accountability framework.
+> **Problem:** Coordinated subversion can evade scheme-level accountability.<br />
+> **Repair:** Create narrow predicate-act accountability framework.<br />
 > **Vehicle:** Federal election-subversion statute ([draft](../../../legislation/ELEC-008.md)).
 >
 
