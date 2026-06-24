@@ -11,6 +11,12 @@ federal_legislation: "../../../legislation/ELEC-008.md"
 
 # ELEC-008 — Accountability for Coordinated Federal Election-Subversion Schemes
 
+> ## Issue Snapshot
+> **Problem:** Coordinated subversion can evade scheme-level accountability.
+> **Repair:** Create narrow predicate-act accountability framework.
+> **Vehicle:** Federal election-subversion statute ([draft](../../../legislation/ELEC-008.md)).
+>
+
 ## Institutional Anomaly
 
 Congress partially addressed post-2020 election-subversion vulnerabilities through the Electoral Count Reform and Presidential Transition Improvement Act of 2022. That statute amended the Electoral Count Act and the Presidential Transition Act, clarified that the Vice President's role in counting electoral votes is ministerial, raised the threshold for congressional objections, narrowed objection grounds, clarified state certificate procedures, provided expedited review for certain presidential-election disputes, and improved transition-resource rules where the apparent winner remains unclear.
@@ -166,6 +172,12 @@ A narrow statute could include:
 7. disqualification from federal election-administration roles, presidential-elector service, or specified transition roles where narrowly justified;
 8. record-preservation duties;
 9. expedited judicial review.
+
+## Proposal Survey
+
+The closest legal analogue is RICO, which treats coordinated patterns of predicate misconduct as a distinct statutory wrong. See [18 U.S.C. §§ 1961-1968](https://www.law.cornell.edu/uscode/text/18/chapter-96). Ordinary RICO is too broad for election disputes because protected speech, litigation, recounts, contests, journalism, and congressional activity must be preserved.
+
+Congress also partially addressed presidential-election subversion through the Electoral Count Reform Act, but that reform hardened electoral-count procedures rather than creating scheme-level accountability. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). ELEC-008 therefore uses a narrow election-specific RICO analogue with defined predicates and safe harbors.
 
 ## Least-Complex Adequate Remedy
 

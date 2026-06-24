@@ -23,15 +23,41 @@ If not, merge it into a broader issue, treat it as a manifestation or example, c
 
 ## Mandatory Issue Structure
 
-1. Institutional Anomaly
-2. Manifestation of the Failure
-3. Resulting Damage
-4. Underlying Weakness
-5. Repair and Prevention
-6. Least-Complex Adequate Remedy
-7. Annotation
+Each developed issue page should place an **Issue Snapshot** blockquote immediately after the issue title and before **Institutional Anomaly**. The snapshot is a reader-navigation device: it should let a reader move quickly from problem to proposed solution without reading the full issue page first.
+
+The Issue Snapshot should be extremely concise. Each line should normally convey its point in about twelve words or fewer:
+
+1. **Problem:** the institutional weakness.
+2. **Repair:** the core proposed fix.
+3. **Vehicle:** the legal or institutional form of the remedy, with a relative Markdown link to proposed legislation or amendment text where a draft exists.
+
+Use this format:
+
+```markdown
+> ## Issue Snapshot
+> **Problem:** Short problem statement.
+> **Repair:** Short repair statement.
+> **Vehicle:** Remedy vehicle ([draft link]).
+>
+```
+
+The full issue structure is:
+
+1. Issue Snapshot
+2. Institutional Anomaly
+3. Manifestation of the Failure
+4. Resulting Damage
+5. Underlying Weakness
+6. Repair and Prevention
+7. Proposal Survey
+8. Least-Complex Adequate Remedy
+9. Annotation
 
 The headings guide analysis but do not require artificial expansion. Each section should add a distinct proposition.
+
+## Proposal Survey
+
+Each developed issue should include a concise survey of prior legislative, regulatory, constitutional, procedural, or institutional models that bear on the proposed remedy. The survey should identify the closest models, cite or link them, and explain why the project adopts, narrows, rejects, or combines them. It should appear before **Least-Complex Adequate Remedy** so the preferred remedy follows the comparison.
 
 ## Issue-Level Conciseness
 

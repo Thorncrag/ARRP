@@ -10,6 +10,12 @@ federal_legislative_proposal: "../../../legislation/ELEC-007.md"
 
 # ELEC-007 — Improper Federal-Force Presence in Election Administration
 
+> ## Issue Snapshot
+> **Problem:** Federal responders can become election participants.
+> **Repair:** Separate emergency response from election administration.
+> **Vehicle:** Federal-force noninterference statute ([draft](../../../legislation/ELEC-007.md)).
+>
+
 ## Institutional Anomaly
 
 Election administration is a civilian state and local function. Federal personnel may have legitimate law-enforcement, emergency-response, protective, or technical roles in extraordinary circumstances, but federal agents, federalized military personnel, federally directed armed personnel, or federally commanded task forces should not administer, supervise, direct, control, monitor, inspect, count, recount, canvass, audit, certify, decertify, transport, seize, or otherwise participate in election administration.
@@ -76,6 +82,12 @@ Federal emergency assistance at or near a covered election site should require:
 Where prior written state consent is impossible because of an imminent threat to life or serious bodily harm, federal personnel may act only to stabilize the emergency and protect life. Federal personnel must withdraw unless state consent, a valid judicial order, or another lawful non-election emergency predicate is promptly obtained.
 
 The statute should also make clear that inadvertent or unavoidable incidental contact with election activity does not create liability if the federal personnel act in good faith, do not intend to influence election administration, disengage from any election-administration issue as soon as practicable, and do not use federal authority to affect the election. Separately, the statute should not restrict federal employees, agents, or service members from voting, registering to vote, standing in line to vote, or otherwise acting in a lawful personal civic capacity subject to ordinary election law and ethics rules.
+
+## Proposal Survey
+
+Existing law already disfavors military presence at polls and domestic military law enforcement. The troops-at-polls statute prohibits certain military presence at elections, while the Posse Comitatus Act limits use of the Army and Air Force to execute domestic law. See [18 U.S.C. § 592](https://www.law.cornell.edu/uscode/text/18/592) and [18 U.S.C. § 1385](https://www.law.cornell.edu/uscode/text/18/1385).
+
+Those models do not fully address modern federal agents, federalized forces, emergency response, cyber or technical assistance, and election-material custody. ELEC-007 modernizes the older troops-at-polls principle while preserving genuine non-election emergency response.
 
 ## Least-Complex Adequate Remedy
 

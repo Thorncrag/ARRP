@@ -11,6 +11,12 @@ federal_legislation: "../../../legislation/ELEC-009.md"
 
 # ELEC-009 — Electoral College Structure and National Popular Vote
 
+> ## Issue Snapshot
+> **Problem:** Electoral College can override national vote.
+> **Repair:** Establish direct national presidential election.
+> **Vehicle:** Constitutional amendment ([draft](../../../legislation/ELEC-009.md)).
+>
+
 ## Institutional Anomaly
 
 The constitutional system for selecting the President can award the office to a candidate who did not receive the greatest number of votes nationally, concentrates campaign attention and practical influence in a limited number of competitive states, and assigns presidential selection through state-based electoral votes rather than equal aggregation of individual votes nationwide. These features can weaken public confidence that presidential authority reflects the electorate's collective choice.
@@ -68,6 +74,12 @@ The amendment should:
 7. preserve state administration subject to uniform federal standards;
 8. supersede inconsistent constitutional provisions; and
 9. provide a delayed effective date sufficient for implementation.
+
+## Proposal Survey
+
+Prior reform models include constitutional amendments for direct popular election, state allocation reforms, proportional or district-based electoral-vote allocation, and the National Popular Vote Interstate Compact. The compact seeks to use state appointment power to award electoral votes to the national popular-vote winner once states totaling 270 electoral votes join. See [National Popular Vote](https://www.nationalpopularvote.com/written-explanation).
+
+The Electoral Count Reform Act improved counting procedures but left the Electoral College structure intact. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). ELEC-009 treats compact and allocation reforms as possible interim models but selects constitutional replacement as the durable remedy.
 
 ## Least-Complex Adequate Remedy
 

@@ -10,6 +10,12 @@ federal_legislative_proposal: "../../../legislation/ELEC-005.md"
 
 # ELEC-005 — Weak Safeguards Against False Presidential Result-Transmission Documents
 
+> ## Issue Snapshot
+> **Problem:** False presidential result documents can enter federal channels.
+> **Repair:** Define, mark, and penalize unauthorized transmissions.
+> **Vehicle:** Title 3 amendment ([draft](../../../legislation/ELEC-005.md)).
+>
+
 ## Institutional Anomaly
 
 Federal presidential-election law relies on official state-issued documents entering a federal receipt, preservation, and counting or verification channel. Under the current Electoral College system, those documents include presidential-elector certificates and related elector-vote materials. Under any replacement system, they would include whatever official state or national presidential result-transmission documents federal law designates.
@@ -71,6 +77,12 @@ The federal amendment should:
 6. authorize civil declaratory and injunctive relief by the United States;
 7. create calibrated criminal penalties for knowing federal-channel misuse; and
 8. supplement, rather than displace, existing federal and state remedies.
+
+## Proposal Survey
+
+The Electoral Count Reform Act clarified several certificate and electoral-count procedures but did not create a standalone false-result-transmission offense. See [3 U.S.C. §§ 5, 11, 12, and 15](https://www.law.cornell.edu/uscode/text/3/chapter-1). Existing criminal statutes may apply to false documents, false statements, conspiracy, or obstruction, but they were not designed specifically for presidential result-transmission channels. See [18 U.S.C. §§ 371, 1001, and 1512](https://www.law.cornell.edu/uscode/text/18/part-I).
+
+State forgery, false-instrument, and election-law statutes provide additional models, but coverage and remedies vary. ELEC-005 therefore proposes a targeted federal-channel rule that supplements rather than displaces existing federal and state remedies.
 
 ## Least-Complex Adequate Remedy
 

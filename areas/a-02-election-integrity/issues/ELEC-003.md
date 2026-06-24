@@ -11,6 +11,12 @@ federal_legislative_proposal: "../../../legislation/ELEC-003.md"
 
 # ELEC-003 — Insufficient Protection for Election Workers and Officials
 
+> ## Issue Snapshot
+> **Problem:** Election personnel face uneven protection.
+> **Repair:** Pair state protections with HAVA funding.
+> **Vehicle:** State and federal acts ([state](../../../legislation/ELEC-003-state.md), [federal](../../../legislation/ELEC-003.md)).
+>
+
 ## Institutional Anomaly
 
 Election administration depends on permanent officials, temporary workers, contractors, and volunteers who perform legally indispensable and politically sensitive duties, yet protection against threats, violence, coercive intimidation, unlawful disclosure of personal information, retaliation, and targeted harassment remains fragmented, reactive, and uneven among jurisdictions.
@@ -100,6 +106,12 @@ The amendment should:
 9. provide expedited de novo judicial review of a denial identifying the specific missing statutory element.
 
 Federal criminal jurisdiction should remain limited to independently defined federal offenses, including conduct with an appropriate federal or interstate nexus. It should not become a source of administrative control over state election processes.
+
+## Proposal Survey
+
+Federal law already protects voting rights and criminalizes some intimidation, threats, and interference. Relevant models include the Voting Rights Act intimidation provision, federal threat statutes, and civil-rights enforcement authority. See [52 U.S.C. § 10307](https://www.law.cornell.edu/uscode/text/52/10307) and [18 U.S.C. § 875](https://www.law.cornell.edu/uscode/text/18/875).
+
+Election-administration funding also has an established vehicle: the Help America Vote Act of 2002 created federal support through the Election Assistance Commission while preserving state administration. See [52 U.S.C. §§ 20901-21145](https://www.law.cornell.edu/uscode/text/52/subtitle-II/chapter-209). ELEC-003 combines state protection statutes with a HAVA-style funding backstop rather than federal operational control.
 
 ## Least-Complex Adequate Remedy
 

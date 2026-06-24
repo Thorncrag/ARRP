@@ -10,6 +10,12 @@ federal_legislative_proposal: "../../../legislation/ELEC-006.md"
 
 # ELEC-006 — Insufficiently Automatic Presidential-Transition Procedures
 
+> ## Issue Snapshot
+> **Problem:** Transition access remains delay-prone.
+> **Repair:** Add automatic triggers and enforceable deadlines.
+> **Vehicle:** Transition Act amendment ([draft](../../../legislation/ELEC-006.md)).
+>
+
 ## Institutional Anomaly
 
 Presidential-transition law depends on timely cooperation among the outgoing administration, the incoming transition team, federal agencies, the General Services Administration, national-security offices, ethics officials, clearance authorities, and Congress. Historically, many of these functions were regulated successfully by political norms rather than detailed statutory compulsion. Losing administrations generally cooperated, apparent winners received practical access, agencies prepared briefing materials, and transition teams accepted ethics, funding, and security conditions.
@@ -69,6 +75,12 @@ The reform should include:
 9. expedited judicial review for concrete missed statutory duties;
 10. no concession requirement; and
 11. preservation of congressional oversight without dependence on congressional action as the primary remedy.
+
+## Proposal Survey
+
+The Presidential Transition Act of 1963 is the principal statutory model. Congress has repeatedly amended it, including through the 2022 Electoral Count Reform and Presidential Transition Improvement Act, which reduced dependence on a single GSA ascertainment decision where the apparent winner remains unclear. See [3 U.S.C. § 102 note](https://www.law.cornell.edu/uscode/text/3/102) and [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617).
+
+Prior reform models focus on resources, agency cooperation, ethics plans, security clearances, and ascertainment. ELEC-006 treats those as partial solutions and adds objective staged access, candidate-side duties, written delay notices, and expedited review.
 
 ## Least-Complex Adequate Remedy
 

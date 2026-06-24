@@ -10,6 +10,12 @@ legislative_proposal: "../../../legislation/ELEC-001.md"
 
 # ELEC-001 — Federal Executive Interference with State and Local Election Administration
 
+> ## Issue Snapshot
+> **Problem:** Federal power can pressure state election administration.
+> **Repair:** Ban result-directed executive election interference.
+> **Vehicle:** Hatch Act package ([draft](../../../legislation/ELEC-001.md)).
+>
+
 ## Institutional Anomaly
 
 The President and other federal executive officials possess substantial investigative, prosecutorial, regulatory, funding, intelligence, administrative, and communicative power but possess no general constitutional authority to direct state or local election administration. Existing law does not provide a sufficiently precise, comprehensive, and rapidly enforceable prohibition against using federal executive office to obtain, prevent, alter, or secure a preferred electoral outcome through state or local election functions.
@@ -61,6 +67,12 @@ The general prohibition should be paired with objectively defined covered acts, 
 A completed alteration of the election result should not be required. Attempt, direction, authorization, conspiracy, and knowing material assistance should be covered.
 
 The statute must preserve ordinary political advocacy, public criticism, lawful litigation, good-faith enforcement of federal law, compliance with judicial process, authorized voting-rights and election-crime enforcement, foreign-interference response, and voluntary technical or cybersecurity assistance requested by lawful state authorities.
+
+## Proposal Survey
+
+The Hatch Act already prohibits many federal employees from using official authority to interfere with or affect an election, but it excludes the President and Vice President from the relevant employee definition. See [5 U.S.C. §§ 7322-7323](https://www.law.cornell.edu/uscode/text/5/part-III/subpart-F/chapter-73/subchapter-III). Criminal law also contains narrower election-interference provisions. See [18 U.S.C. § 595](https://www.law.cornell.edu/uscode/text/18/595).
+
+Civil-rights and voting-rights statutes may reach some coercive conduct, but they do not create a complete state-initiated emergency remedy for misuse of federal executive power. ELEC-001 therefore extends the Hatch Act principle while adding civil and criminal enforcement suited to state election functions.
 
 ## Least-Complex Adequate Remedy
 

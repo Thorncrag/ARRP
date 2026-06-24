@@ -10,6 +10,12 @@ legislative_proposal: "../../../legislation/ELEC-002-state.md"
 
 # ELEC-002 — Pressure on Certification and Canvassing Officials
 
+> ## Issue Snapshot
+> **Problem:** Certifiers can delay or refuse ministerial duties.
+> **Repair:** Mandate certification and automatic substitution.
+> **Vehicle:** Model state act ([draft](../../../legislation/ELEC-002-state.md)).
+>
+
 ## Institutional Anomaly
 
 State election law does not always provide sufficiently clear ministerial certification duties, fixed deadlines, automatic substitution, and immediate judicial enforcement when a designated state or local canvassing or certification official refuses, delays, deadlocks, or exceeds the lawful scope of the certification function.
@@ -73,6 +79,12 @@ Each state should adopt a Model State Election Certification and Automatic Subst
 8. officials may refer suspected fraud or illegality to law enforcement without withholding certification;
 9. knowing refusal or delay for an unauthorized purpose supports removal from the matter, civil penalties, reimbursement of public costs, and appropriate discipline; and
 10. intentional falsification, concealment, destruction, or corrupt alteration of certification records may be criminally punished.
+
+## Proposal Survey
+
+States have begun clarifying certification duties through litigation and statutory practice, while Congress addressed presidential certificate procedures through the Electoral Count Reform and Presidential Transition Improvement Act of 2022. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). Those federal reforms reduced some electoral-count vulnerabilities but did not comprehensively redesign local and state certification bodies.
+
+Common remedial models include mandamus, ministerial-duty statutes, automatic substitution, expedited judicial review, and penalties for refusal or falsification. ELEC-002 selects model state legislation because state law creates most canvassing and certification offices and can specify the correct substitute official or court.
 
 ## Least-Complex Adequate Remedy
 
