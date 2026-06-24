@@ -1,3 +1,8 @@
+---
+title: "Inventory and Drafting Method"
+status: active
+---
+
 # Inventory and Drafting Method
 
 ## Purpose
@@ -53,6 +58,10 @@ Trump is the principal case study; the institutional weakness is the subject of 
 ## Source Standard
 
 Use primary legal and governmental records first. Use authoritative institutional and academic sources for doctrine, design, and comparative analysis. Use high-quality secondary reporting mainly to synthesize factual records. Every factual, legal, and causal proposition must remain independently supportable.
+
+When an issue file refers to a real-life event, case, official action, report, statute, rule, hearing, order, or other source material, include a nearby citation or link. Do not name concrete examples in issue text without enough source information for later verification.
+
+When referring to another page in this project, use a relative Markdown link whenever the target page exists. If the referenced issue exists only as an inventory or area-index entry, link to the nearest project page that contains that entry.
 
 ## Overlap Rule
 

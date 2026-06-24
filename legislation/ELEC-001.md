@@ -8,6 +8,10 @@ framework_issue: "../areas/a-02-election-integrity/issues/ELEC-001.md"
 
 # ELEC-001 — Federal Executive Election Noninterference Act
 
+## Framework Issue
+
+- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-001.md)
+
 ## A BILL
 
 To amend the Hatch Act to prohibit the President, Vice President, and other federal executive officials from using official authority or influence to interfere with state or local election administration for a preferred electoral outcome; to provide expedited civil remedies, record-preservation requirements, administrative enforcement, and criminal penalties for knowing and coercive violations; and for other purposes.
@@ -260,5 +264,9 @@ If any provision of this Act, an amendment made by this Act, or the application 
 - Civil enforcement is assigned principally to States and responsible election authorities rather than individual voters.
 - Relief against agencies and implementing subordinates remains available even where direct relief against the President raises remedial concerns.
 - Section 403 is a congressional declaration of constitutional seriousness, not a binding impeachment determination.
-- Full criminal enforceability against presidential official acts may depend upon the Presidential Criminal Accountability Amendment developed under IMM-001.
-- The independent-referral provision is designed to coordinate with DOJ-007 without making this bill dependent upon adoption of that proposal.
+- Full criminal enforceability against presidential official acts may depend upon the Presidential Criminal Accountability Amendment developed under [IMM-001](IMM-001.md).
+- The independent-referral provision is designed to coordinate with [DOJ-007](DOJ-007.md) without making this bill dependent upon adoption of that proposal.
+
+## Source Notes
+
+- Source review should include the Hatch Act subchapter, [5 U.S.C. §§ 7321-7326](https://uscode.house.gov/view.xhtml?edition=prelim&path=%2Fprelim%40title5%2Fpart3%2FsubpartF%2Fchapter73%2Fsubchapter3), and [Trump v. United States](https://www.supremecourt.gov/opinions/23pdf/23-939_e2pg.pdf).

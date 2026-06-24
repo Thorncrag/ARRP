@@ -8,6 +8,10 @@ framework_issue: "../areas/a-02-election-integrity/issues/ELEC-005.md"
 
 # ELEC-005 — Presidential Result Transmission Integrity Amendments
 
+## Framework Issue
+
+- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-005.md)
+
 ## A BILL
 
 To amend chapter 1 of title 3, United States Code, to protect the integrity of official presidential-election result-transmission documents submitted to federal recipients and used in the recognition, preservation, or counting of presidential-election results, and for other purposes.
@@ -110,4 +114,4 @@ If any provision or application of this Act is held invalid, the remainder shall
 - The statute attaches when a presidential result-transmission document enters, or is used for, a federal receipt, preservation, recognition, or counting channel.
 - Presidential-elector certificates remain covered as the current Electoral College implementation, but the statute is not limited to elector certificates as a conceptual matter.
 - The safe harbor is essential to distinguish lawful contingent legal-preservation activity from false present-tense certification.
-- The statute should be reviewed against Article II, the Twelfth Amendment, the Necessary and Proper Clause, the First Amendment, due process vagueness limits, federalism limits, 18 U.S.C. §§ 371, 1001, and 1512, 3 U.S.C. §§ 5, 11, 12, and 15, the Electoral Count Reform Act, and any proposed Electoral College replacement mechanism.
+- The statute should be reviewed against Article II, the Twelfth Amendment, the Necessary and Proper Clause, the First Amendment, due process vagueness limits, federalism limits, [18 U.S.C. § 371](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section371&num=0&edition=prelim), [18 U.S.C. § 1001](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1001&num=0&edition=prelim), [18 U.S.C. § 1512](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1512&num=0&edition=prelim), [3 U.S.C. § 5](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section5&num=0&edition=prelim), [3 U.S.C. § 11](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section11&num=0&edition=prelim), [3 U.S.C. § 12](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section12&num=0&edition=prelim), [3 U.S.C. § 15](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section15&num=0&edition=prelim), the Electoral Count Reform Act, and any proposed Electoral College replacement mechanism.

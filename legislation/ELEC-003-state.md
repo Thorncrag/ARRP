@@ -9,6 +9,10 @@ federal_legislation: "ELEC-003.md"
 
 # ELEC-003-state — Model State Election Personnel Protection and Continuity Act
 
+## Framework Issue
+
+- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-003.md)
+
 ## A MODEL STATE BILL
 
 To protect election personnel and their families from threats, violence, coercive intimidation, unlawful disclosure of personal information, retaliation, and operational disruption; to provide rapid protective and continuity measures; to preserve constitutionally protected speech; and to establish a politically neutral state protection regime eligible for federal support under a corresponding amendment to the Help America Vote Act of 2002.
@@ -288,3 +292,8 @@ If any provision or application of this Act is held invalid, the remainder shall
 - States should conform protective-order procedure, offense grading, public-record exemptions, labor protections, standing, and appropriations to their constitutions and existing codes.
 - The federal eligibility crosswalk is mandatory for future revision: no federal minimum condition should be added or revised without identifying the corresponding state-law provision.
 - The manifestation-to-remedy crosswalk is mandatory for future revision: no documented manifestation should remain without a corresponding preventive, protective, continuity, remedial, or workforce mechanism.
+
+## Source Notes
+
+- Manifestation support is developed in the [ELEC-003 framework analysis](../areas/a-02-election-integrity/issues/ELEC-003.md), including source links for Freeman and Moss, Arizona election-official threats, 2024 Election Day bomb threats, Raffensperger family-directed threats, and election-workforce attrition.
+- Threat-offense review should include [Counterman v. Colorado](https://www.supremecourt.gov/opinions/22pdf/22-138_43j7.pdf).

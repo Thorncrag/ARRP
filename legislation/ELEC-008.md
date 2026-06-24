@@ -8,6 +8,10 @@ framework_issue: "../areas/a-02-election-integrity/issues/ELEC-008.md"
 
 # ELEC-008 — Federal Election Subversion Accountability Act
 
+## Framework Issue
+
+- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-008.md)
+
 ## A BILL
 
 To establish narrowly tailored criminal and civil accountability for coordinated schemes that use independently wrongful predicate acts to corruptly nullify, reverse, obstruct, delay, or procure official disregard of lawful federal-election results, while preserving lawful litigation, recounts, contests, advocacy, reporting, legal advice, journalism, congressional activity, and good-faith official duties, and for other purposes.
@@ -477,3 +481,7 @@ If any provision or application of this Act is held invalid, the remainder shall
 - It should be reviewed carefully for Article I, Section 5 and Speech or Debate Clause concerns in congressional-election applications.
 - Section 15 is designed to complement ARRP's presidential-immunity reform, not to solve immunity by itself.
 - Further review should compare existing reform proposals, election-crime statutes, obstruction statutes, RICO doctrine, First Amendment doctrine, Petition Clause doctrine, Speech or Debate Clause doctrine, ECRA, federalism limits, Article I Section 5 doctrine, and presidential-immunity doctrine.
+
+## Source Notes
+
+- Source review should include federal RICO definitions and remedies in [18 U.S.C. chapter 96](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter96&edition=prelim), Electoral Count Reform Act provisions including [3 U.S.C. § 15](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section15&num=0&edition=prelim), the Constitution's [Speech or Debate Clause](https://constitution.congress.gov/browse/article-1/section-6/clause-1/), and [Trump v. United States](https://www.supremecourt.gov/opinions/23pdf/23-939_e2pg.pdf).

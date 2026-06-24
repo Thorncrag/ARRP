@@ -8,6 +8,10 @@ framework_issue: "../areas/a-02-election-integrity/issues/ELEC-009.md"
 
 # ELEC-009 — Direct Election of the President and Vice President Amendment
 
+## Framework Issue
+
+- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-009.md)
+
 ## JOINT RESOLUTION
 
 Proposing an amendment to the Constitution of the United States to abolish presidential electors and provide for the direct election of the President and Vice President by the people of the United States.
@@ -56,3 +60,7 @@ This article shall take effect for the first presidential election occurring mor
 - Implementing legislation will be required for ballot access, national certification, recounts, contests, result transmission, candidate vacancy, tie, and transition procedures.
 - The draft preserves state administration subject to uniform federal rules enacted under the amendment.
 - The draft supersedes inconsistent parts of Article II, the Twelfth Amendment, the Twentieth Amendment, and the Twenty-Third Amendment rather than attempting to rewrite each clause inline.
+
+## Source Notes
+
+- Source review should include [Article II, Section 1](https://constitution.congress.gov/browse/article-2/section-1/), the [Twelfth Amendment](https://constitution.congress.gov/browse/amendment-12/), the [Twentieth Amendment](https://constitution.congress.gov/browse/amendment-20/), and the [Twenty-Third Amendment](https://constitution.congress.gov/browse/amendment-23/).

@@ -17,6 +17,7 @@ ELEC-006,A-02,High,Developed
 ELEC-007,A-02,High,Developed
 ELEC-008,A-02,High,Developed
 ELEC-009,A-02,High,Developed
+ELEC-010,A-02,High,Candidate
 WAR-001,A-03,High,Developed
 WAR-002,A-03,High,Retired—merged into WAR-001
 WAR-003,A-03,High,Retired—merged into WAR-001
@@ -78,6 +79,7 @@ CIV-005,A-08,High,Candidate
 CIV-006,A-08,High,Candidate
 CIV-007,A-08,High,Candidate
 CIV-008,A-08,High,Candidate
+CIV-009,A-08,High,Candidate
 OVS-001,A-09,High,Candidate
 OVS-002,A-09,High,Candidate
 OVS-003,A-09,High,Candidate

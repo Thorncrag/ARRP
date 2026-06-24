@@ -9,6 +9,10 @@ model_state_legislation: "ELEC-004-state.md"
 
 # ELEC-004 — Federal Election Proceedings Integrity Act
 
+## Framework Issue
+
+- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-004.md)
+
 ## A BILL
 
 To establish an Anti-SLAPP-style special screening mechanism, discovery control, sensitive-material protection, and later-discovered improper-purpose sanctions for certain election proceedings in federal court, and for other purposes.
@@ -169,7 +173,7 @@ If any provision or application of this Act is held invalid, the remainder shall
 
 ## Federal-State Mirror Crosswalk
 
-This federal bill is mirrored by `ELEC-004-state.md`, adapted for state courts, state election tribunals, state subpoenas, administrative or legislative demands, and state-law election contests. Future revisions should check the corresponding state section before materially revising definitions, timing, special-motion procedure, stay, emergency-relief findings, sensitive-material protection, sanctions, later-discovered sanctions, expedited review, savings clauses, or severability.
+This federal bill is mirrored by [ELEC-004-state](ELEC-004-state.md), adapted for state courts, state election tribunals, state subpoenas, administrative or legislative demands, and state-law election contests. Future revisions should check the corresponding state section before materially revising definitions, timing, special-motion procedure, stay, emergency-relief findings, sensitive-material protection, sanctions, later-discovered sanctions, expedited review, savings clauses, or severability.
 
 ## Manifestation-to-Remedy Crosswalk
 
@@ -184,3 +188,4 @@ This bill addresses abusive pre-election challenges through the 180-day timing b
 - The draft imposes no fixed post-election cutoff; post-election availability depends on functional relation to the election result, election administration, or sensitive election material.
 - Section 10 is expressly independent of the special screening motion and survives termination of the underlying proceeding.
 - The draft should be reviewed for Rules Enabling Act, Article III, First Amendment, Petition Clause, Elections Clause, Article II, Electoral Count Reform Act, federal jurisdiction, and separation-of-powers issues.
+- Source review should include [Federal Rule of Civil Procedure 11](https://www.law.cornell.edu/rules/frcp/rule_11) and [28 U.S.C. § 1927](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section1927&num=0&edition=prelim).

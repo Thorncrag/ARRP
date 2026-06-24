@@ -2,7 +2,7 @@
 area_id: A-02
 title: "Election Integrity"
 status: active
-issue_count: 9
+issue_count: 10
 ---
 
 # A-02 — Election Integrity
@@ -22,6 +22,7 @@ The election system remains vulnerable to federal executive interference, delegi
 - [ELEC-007 — Improper Federal-Force Presence in Election Administration](issues/ELEC-007.md)
 - [ELEC-008 — Accountability for Coordinated Federal Election-Subversion Schemes](issues/ELEC-008.md)
 - [ELEC-009 — Electoral College Structure and National Popular Vote](issues/ELEC-009.md)
+- **ELEC-010** — Mail-In Voting Access, Reliability, and Trust _(status: Candidate; priority: High)_
 
 ## Issue Boundaries
 
@@ -34,7 +35,8 @@ The election system remains vulnerable to federal executive interference, delegi
 - **ELEC-007** concerns improper federal-force presence, emergency response, and election-material custody safeguards around election administration.
 - **ELEC-008** concerns coordinated federal election-subversion schemes using independently wrongful predicate acts to corruptly nullify, reverse, obstruct, delay, or procure official disregard of a lawful federal-election result.
 - **ELEC-009** concerns whether the Electoral College itself should be restructured or replaced by a national popular-vote system.
+- **ELEC-010** concerns the vulnerability of mail-in and absentee voting systems to unequal access, late or unreliable ballot delivery, inconsistent cure and signature rules, politicized postal or administrative disruption, chain-of-custody attacks, and unsupported delegitimization of lawful mail ballots.
 
 ## Notes
 
-ELEC-001, ELEC-002, ELEC-003, ELEC-004, ELEC-005, ELEC-006, ELEC-007, ELEC-008, and ELEC-009 are developed.
+ELEC-001, ELEC-002, ELEC-003, ELEC-004, ELEC-005, ELEC-006, ELEC-007, ELEC-008, and ELEC-009 are developed. ELEC-010 is provisional and requires full source development.

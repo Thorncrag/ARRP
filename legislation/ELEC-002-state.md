@@ -8,6 +8,10 @@ framework_issue: "../areas/a-02-election-integrity/issues/ELEC-002.md"
 
 # ELEC-002 — Model State Election Certification and Automatic Substitution Act
 
+## Framework Issue
+
+- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-002.md)
+
 ## A MODEL STATE BILL
 
 To define election certification as a ministerial duty, provide automatic substitution and expedited judicial enforcement when a certifying official refuses or fails to act, preserve lawful investigation and contest procedures, and establish consequences for knowing nonperformance or falsification.
@@ -162,3 +166,7 @@ If any provision or application of this Act is held invalid, the remainder shall
 - The standing provision should be conformed to each state’s constitutional rules governing taxpayer, voter, candidate, and governmental standing.
 - States should adapt the substitute sequence, deadlines, and penalties to existing offices and court structures.
 - A federal minimum rule may separately be considered for elections containing a federal office, but this model is designed for state adoption.
+
+## Source Notes
+
+- Source review for federal-election interactions should include the Electoral Count Reform Act amendments to [3 U.S.C. § 5](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section5&num=0&edition=prelim), [3 U.S.C. § 12](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section12&num=0&edition=prelim), and [3 U.S.C. § 15](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section15&num=0&edition=prelim), plus each adopting state's election-certification statutes.

@@ -13,7 +13,7 @@ The federal judiciary’s authority to interpret and apply law is not matched by
 
 ## Issues
 
-- **JUD-001** — Executive dependence of judicial enforcement _(status: Candidate; priority: High)_
+- [JUD-001 — Executive Dependence of Judicial Enforcement](issues/JUD-001.md)
 - **JUD-002** — Inadequate remedies for executive noncompliance _(status: Candidate; priority: High)_
 - **JUD-003** — Delay as functional defiance _(status: Candidate; priority: High)_
 - **JUD-004** — Lack of an independent judicial enforcement officer or service _(status: Candidate; priority: High)_

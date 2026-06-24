@@ -22,6 +22,10 @@ The executive can bypass or substantially weaken Senate confirmation through ext
 - **APPT-007** — Weak consequences for unlawful service _(status: Candidate; priority: Medium)_
 - **APPT-008** — Inadequate transparency concerning succession and authority _(status: Candidate; priority: Medium)_
 
+## Issue Boundaries
+
+- **APPT-006** concerns executive manipulation of statutory office, department, component, or officer titles, duties, and public-facing labels in ways that may blur Congress's enacted office structure, Senate-confirmed role definitions, reporting lines, or legal accountability. A principal source-development example is Executive Order 14347, which authorized use of "Department of War" and "Secretary of War" as secondary titles while acknowledging that statutory references to the Department of Defense and Secretary of Defense remain controlling until changed by law. See [Executive Order 14347, 90 Fed. Reg. 43893 (Sept. 10, 2025)](https://www.federalregister.gov/documents/2025/09/10/2025-17508/restoring-the-united-states-department-of-war); [10 U.S.C. § 111](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title10-section111&num=0&edition=prelim).
+
 ## Notes
 
 Provisional inventory; full source development pending.

@@ -8,6 +8,10 @@ framework_issue: "../areas/a-02-election-integrity/issues/ELEC-006.md"
 
 # ELEC-006 — Presidential Transition Continuity and Automaticity Act
 
+## Framework Issue
+
+- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-006.md)
+
 ## A BILL
 
 To amend the Presidential Transition Act of 1963 to preserve ordinary cooperative presidential-transition norms while establishing automatic continuity backstops, transition-agreement deadlines, agency-cooperation requirements, public delay notices, and expedited remedies for missed statutory transition duties, and for other purposes.
@@ -296,3 +300,7 @@ If any provision or application of this Act is held invalid, the remainder shall
 - The draft addresses both government-side obstruction and transition-entity noncompliance.
 - The expedited-review provision is limited to concrete missed statutory transition duties and should not invite courts to adjudicate the election winner.
 - The draft should be reviewed against the Presidential Transition Act of 1963, the 2022 transition amendments, appropriations law, classified-information rules, background-check authorities, ethics laws, and agency transition-practice guidance.
+
+## Source Notes
+
+- Source review should include the Presidential Transition Act of 1963, as amended, in the GPO [statutory compilation](https://www.govinfo.gov/content/pkg/COMPS-1612/pdf/COMPS-1612.pdf), and the Electoral Count Reform and Presidential Transition Improvement Act of 2022 provisions reflected in [3 U.S.C. § 5](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section5&num=0&edition=prelim).

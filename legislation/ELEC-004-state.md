@@ -9,6 +9,10 @@ federal_legislation: "ELEC-004.md"
 
 # ELEC-004-state — Model State Election Proceedings Integrity Act
 
+## Framework Issue
+
+- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-004.md)
+
 ## A MODEL STATE BILL
 
 To establish an Anti-SLAPP-style special screening mechanism for election proceedings, subpoenas, audits, investigations, and inspection demands; to preserve good-faith election challenges; to prevent legal process from being used to delay certification, manufacture uncertainty, harass election personnel, obtain unauthorized access to sensitive election materials, or create a false predicate for extra-legal pressure; and for other purposes.
@@ -158,7 +162,7 @@ If any provision or application of this Act is held invalid, the remainder shall
 
 ## Federal-State Mirror Crosswalk
 
-This model state bill mirrors `ELEC-004.md`, adapted for state courts, state election tribunals, state subpoenas, administrative or legislative demands, and state-law election contests. Future revisions should check the corresponding federal section before materially revising definitions, timing, special-motion procedure, stay, emergency-relief findings, sensitive-material protection, sanctions, later-discovered sanctions, expedited review, savings clauses, uniform application, relation to other law, or severability.
+This model state bill mirrors [ELEC-004](ELEC-004.md), adapted for state courts, state election tribunals, state subpoenas, administrative or legislative demands, and state-law election contests. Future revisions should check the corresponding federal section before materially revising definitions, timing, special-motion procedure, stay, emergency-relief findings, sensitive-material protection, sanctions, later-discovered sanctions, expedited review, savings clauses, uniform application, relation to other law, or severability.
 
 ## Manifestation-to-Remedy Crosswalk
 
@@ -172,3 +176,7 @@ This bill addresses abusive pre-election challenges through the 180-day timing b
 - The Act imposes no fixed post-election cutoff; post-election availability depends on functional relation to the election result, election administration, or sensitive election material.
 - Section 10 is expressly independent of the special screening motion and survives termination of the underlying proceeding.
 - State versions should be checked against state Anti-SLAPP provisions, court-rule authority, separation of powers, open-records clauses, ballot-secrecy provisions, and election-contest statutes.
+
+## Source Notes
+
+- Source review should compare each adopting state's election-contest, court-rule, public-records, ballot-secrecy, and Anti-SLAPP statutes; the federal counterpart is [ELEC-004](ELEC-004.md). For state Anti-SLAPP variation, review jurisdiction-specific statutes and secondary surveys such as the Reporters Committee for Freedom of the Press [Anti-SLAPP guide](https://www.rcfp.org/anti-slapp-guide/).

@@ -8,6 +8,10 @@ framework_issue: "../areas/a-02-election-integrity/issues/ELEC-007.md"
 
 # ELEC-007 — Election Administration Federal-Force Noninterference Act
 
+## Framework Issue
+
+- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-007.md)
+
 ## A BILL
 
 To prohibit federal personnel from participating in election administration, to preserve state and local civilian control over election operations, to permit narrowly limited non-election emergency response near election sites, to protect election materials from federal interference absent specific judicial safeguards, and for other purposes.
@@ -244,4 +248,4 @@ If any provision or application of this Act is held invalid, the remainder shall
 - Lawful court-issued writs, warrants, subpoena-enforcement orders, and other judicial orders remain executable, but they do not authorize election-administration participation beyond the order's express terms and required safeguards.
 - State consent is necessary but not sufficient; there must also be a documented state-capacity inadequacy.
 - Election-material access requires separate judicial safeguards.
-- This draft should be reviewed against 18 U.S.C. § 592, the Posse Comitatus Act, National Guard authorities, federal civil-rights enforcement, election-crime enforcement, emergency-response law, federalism principles, state emergency-management law, Hatch Act principles, and federal employee voting-rights protections.
+- This draft should be reviewed against [18 U.S.C. § 592](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section592&num=0&edition=prelim), the [Posse Comitatus Act](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1385&num=0&edition=prelim), National Guard authorities, federal civil-rights enforcement, election-crime enforcement, emergency-response law, federalism principles, state emergency-management law, Hatch Act principles, and federal employee voting-rights protections.
