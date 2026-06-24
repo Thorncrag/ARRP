@@ -1,6 +1,6 @@
 # American Restoration and Resilience Project — Technical Framework
 
-This file contains the project's technical operating framework: method, issue architecture, evidence standards, remedy standards, repository structure, file conventions, contribution process, release process, and development backlog.
+This file contains the project's technical operating framework: method, issue architecture, evidence standards, remedy standards, repository structure, file conventions, print assembly, contribution process, release process, and development backlog.
 
 The project's public-facing premise, mission, scope, and governing principles are maintained in [`../README.md`](../README.md).
 
@@ -120,6 +120,7 @@ Markdown and CSV files are authoritative. Binary Office and PDF files are genera
 - [`../CITATION.cff`](../CITATION.cff) — citation metadata
 - [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — contribution expectations
 - [`../PUBLIC_RELEASE.md`](../PUBLIC_RELEASE.md) — public release process
+- [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md) — compiled-document and print assembly framework
 
 ## Working Conventions
 
