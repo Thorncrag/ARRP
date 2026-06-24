@@ -1,23 +1,8 @@
-# American Restoration and Resilience Project — Governing Framework
+# American Restoration and Resilience Project — Technical Framework
 
-## Foundational Premise
+This file contains the project's technical operating framework: method, issue architecture, evidence standards, remedy standards, repository structure, file conventions, contribution process, release process, and development backlog.
 
-The American system of government is broken because it failed to prevent Donald Trump and the MAGA movement from subordinating constitutional duty, institutional independence, factual adjudication, and the peaceful transfer of power to personal loyalty. The damage must be repaired, the weaknesses that enabled it must be corrected, and stronger safeguards must be established against future personalist capture.
-
-The project is written for readers who already accept that foundational diagnosis. Its purpose is not to repeatedly prove that the system is broken, but to determine how the failure occurred, what damage followed, which weaknesses allowed it, what must be repaired, and what reforms can prevent recurrence.
-
-## Mission
-
-The project will:
-
-1. identify the principal institutional damage caused or accelerated by Trump and the MAGA movement;
-2. identify the legal, structural, administrative, and policy weaknesses that made that damage possible;
-3. distinguish repair of existing damage from prevention of recurrence; and
-4. develop a durable roadmap for restoring lawful and trustworthy government.
-
-## Scope
-
-The project concerns systems, structures, institutions, laws, and policies. It does not attempt a comprehensive sociological account of voter psychology, cultural identity, or partisan affiliation except where those matters directly illuminate an institutional vulnerability or remedy.
+The project's public-facing premise, mission, scope, and governing principles are maintained in [`../README.md`](../README.md).
 
 ## Core Method
 
@@ -28,38 +13,6 @@ The project concerns systems, structures, institutions, laws, and policies. It d
 **Identify repair and prevention.** Determine what must be restored or corrected now and what safeguards are necessary to prevent recurrence.
 
 **Identify the least-complex adequate remedy.** Determine the least-complex measure, or package of measures, capable of adequately addressing the defect.
-
-## Governing Principles
-
-### Institutional Focus
-
-Trump is the principal case study, but the institutional weakness is the subject of analysis. Each issue must identify the legal, structural, administrative, institutional, or policy vulnerability that enabled, permitted, or failed to constrain the abuse. The project should not conclude merely that “Trump is the problem.”
-
-### Neutral Application
-
-The project is not neutral about abuse, but it is neutral about who may commit it. Evidence may involve presidents or administrations of either party where supported by reliable evidence, and safeguards must apply equally regardless of political affiliation.
-
-The project rejects false equivalence, partisan exemptions, unsupported accusations, and rules that apply differently depending on who holds power.
-
-### Truth and Reconciliation
-
-The project seeks truth, legal coherence, factual accountability, and reconciliation grounded in an honest record. Where evidence establishes responsibility, the project should state it directly. Where uncertainty remains, it should identify the uncertainty rather than manufacture balance.
-
-### Restoration and Reform
-
-The objective is not automatic return to the pre-Trump status quo. Where prior arrangements enabled abuse, restoration must include redesign and legal hardening.
-
-### Functional Administrative Independence
-
-Elected officials should control lawful policy direction. Factual determination, scientific assessment, adjudication, auditing, personnel administration, and individual enforcement decisions should receive protection from personal or partisan coercion.
-
-### Institutional Corrigibility
-
-Not every institutional abuse can be prevented without impairing legitimate governmental authority, eliminating necessary discretion, or creating an equally serious countervailing danger. Where complete prevention is impracticable, the project should establish the least-complex adequate means by which abuse can be detected, documented, reviewed, exposed, remedied, deterred, and prevented from becoming entrenched.
-
-A remedy may therefore be adequate even when it cannot prevent the first violation, provided it creates a credible and durable avenue for institutional self-correction. The analysis should distinguish prevention, detection, correction, deterrence, and containment rather than treating them as interchangeable.
-
-Institutional corrigibility is not an excuse for weak reform. Preventive safeguards remain preferable where they are lawful, workable, and proportionate. Corrigibility becomes central where stronger front-end control would destroy necessary discretion, create unconstitutional supervision, or impose a cure more damaging than the underlying risk.
 
 ## Issue-Admission Test
 
@@ -143,6 +96,7 @@ Each institutional defect should have one primary home. Related areas should cro
 
 ## Repository Architecture
 
+- [`../README.md`](../README.md) contains the public-facing proposal front matter, including the reader notice, foundational premise, mission, scope, governing principles, rights notice, citation pointer, and technical-framework pointer.
 - `framework/` contains governing methodology and cross-cutting remedial architecture.
 - `areas/` contains one directory per project area and one file per developed issue.
 - `legislation/` contains proposed statutory language keyed to issue identifiers.
@@ -152,6 +106,46 @@ Each institutional defect should have one primary home. Related areas should cro
 - `archive/` contains superseded snapshots retained for provenance.
 
 Markdown and CSV files are authoritative. Binary Office and PDF files are generated outputs.
+
+## Canonical Sources
+
+- [`FRAMEWORK.md`](FRAMEWORK.md) — technical framework, methodology, repository conventions, and development status
+- [`../inventory/areas.csv`](../inventory/areas.csv) — structured area inventory
+- [`../inventory/issues.csv`](../inventory/issues.csv) — structured issue inventory
+- [`../inventory/sources.csv`](../inventory/sources.csv) — source-tracking table
+- [`../areas/`](../areas/) — modular area and issue analyses
+- [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
+- [`../AUTHORS.md`](../AUTHORS.md) — authorship statement
+- [`../LICENSE.md`](../LICENSE.md) — rights and reuse notice
+- [`../CITATION.cff`](../CITATION.cff) — citation metadata
+- [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — contribution expectations
+- [`../PUBLIC_RELEASE.md`](../PUBLIC_RELEASE.md) — public release process
+
+## Working Conventions
+
+1. Every substantive issue has a stable identifier such as `DOJ-001`.
+2. The framework governs analysis; the inventory tracks it; issue files contain the substantive work.
+3. Each developed issue identifies the **Least-Complex Adequate Remedy**.
+4. Supporting evidence, qualifications, and alternatives belong in annotation or source notes.
+5. Where complete prevention is impracticable, a remedy may instead provide reliable detection, correction, deterrence, and institutional self-repair.
+6. Candidate issues may be retired or merged when the issue-admission test shows substantial duplication.
+7. A status such as **Awaiting merits adjudication** identifies a deliberately paused issue whose remedy depends materially on pending judicial resolution.
+8. Markdown and CSV are canonical. DOCX, PDF, and XLSX files are generated exports.
+
+## Legislation Filename Convention
+
+Legislative proposal files use the issue identifier as the base filename.
+
+- Federal legislative proposals use the unsuffixed issue identifier: `XXX-NNN.md`.
+- Model state legislative proposals use the state suffix: `XXX-NNN-state.md`.
+
+For issues with both federal and state proposals, the federal proposal is the unsuffixed file and the model state proposal is the `-state` file. For issues with only a model state proposal, the proposal should still use the `-state` suffix.
+
+Examples:
+
+- `ELEC-003.md` — federal proposal.
+- `ELEC-003-state.md` — model state proposal.
+- `ELEC-002-state.md` — model state proposal where no federal proposal is yet maintained.
 
 ## Current Areas
 
@@ -169,3 +163,24 @@ Developed Department of Justice issues include:
 ## Development Phase
 
 The project will proceed by applying this framework to retained issues, developing authoritative source records, resolving overlap through primary ownership and cross-reference, and revising the least-complex adequate remedy as legal and factual analysis matures.
+
+## Current Status
+
+Developed Department of Justice issues currently include DOJ-001, DOJ-002, DOJ-003, DOJ-005, and DOJ-007. DOJ-004 is awaiting merits adjudication. DOJ-006 and DOJ-008 have been retired and merged into their primary issues. A-16 now includes developed issue IMM-001 and the proposed Presidential Criminal Accountability Amendment.
+
+The governing framework already incorporates the project-wide rules for institutional focus, politically neutral application, issue admission, mandatory issue architecture, issue-level conciseness, standardized annotations, the Least-Complex Adequate Remedy, limited use of automatic institutional-failure triggers, and cross-referencing instead of duplicative treatment.
+
+The area and issue inventories already include A-04 Judicial Independence and Enforcement (JUD-001 through JUD-008), A-05 Presidential Clemency and Pardon Power (PAR-001 through PAR-010), A-07 Classification, Declassification, and National-Security Information (CLASS-001 through CLASS-012), and A-21 Federal Reserve Independence and Monetary Policy (FRB-001 through FRB-008). The `FED` prefix remains reserved for A-20 Federalism and Presidential Coercion of States.
+
+## Outstanding Development
+
+The following work remains outstanding and should not be treated as an uncommitted framework revision:
+
+- develop authoritative source records, annotations, and individual issue files for the JUD, PAR, and CLASS candidate inventories;
+- analyze constitutional and implementation constraints for judicial-enforcement remedies, including appointments, appropriations, due process, and presidential control;
+- analyze the constitutional limits on restricting the legal effect of presidential clemency while developing transparency, anti-corruption, review, recordkeeping, disclosure, and surrounding-liability remedies;
+- preserve and source the distinctions among classification status, authorization to disclose, lawful custody or possession, and government ownership and records-preservation duties;
+- develop the A-21 annotation explaining the systemic risks of sustained political subordination of monetary policy, including inflation, unanchored expectations, leverage, asset-price distortions, currency weakness, loss of credibility, and the possibility of a later severe corrective contraction;
+- select and adopt an appropriate Creative Commons or other public reuse license when the project is ready for broader legislative and public engagement.
+
+These are substantive research and issue-development tasks. They do not reopen the already committed governing framework or area inventories.

@@ -2,59 +2,81 @@
 
 **A Roadmap for Repairing Institutional Damage, Restoring Trustworthy Government, and Preventing Future Personalist Capture**
 
-This private repository is the canonical working source for the American Restoration and Resilience Project.
+## Reader notice
 
-## Canonical sources
+The author studies public policy and does not have formal legal training. This project is a policy-reform research and drafting exercise, not legal advice. Proposed legislation, model acts, constitutional amendments, and administrative language in this repository are illustrative working drafts. They have not been reviewed or approved by an attorney, legislative counsel, legal scholar, public official, or affected institution, and should not be treated as final or ready-to-introduce legislative text.
 
-- [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md) — governing framework and current project-area inventory
-- [`inventory/areas.csv`](inventory/areas.csv) — structured area inventory
-- [`inventory/issues.csv`](inventory/issues.csv) — structured issue inventory
-- [`inventory/sources.csv`](inventory/sources.csv) — source-tracking table
-- [`areas/`](areas/) — modular area and issue analyses
-- [`legislation/`](legislation/) — draft statutory and administrative language keyed to issue identifiers
+This project is intended to be institution-focused and nonpartisan in its standards, methods, and proposed remedies. It is not neutral about institutional abuse, democratic backsliding, corruption, personalist capture, or rule-of-law failure, and it is transparent about seeking to reverse, repair, and prevent institutional outcomes associated with Project 2025 and similar efforts to subordinate public institutions to personal or factional control. The project uses real-world examples to identify structural vulnerabilities and possible repairs, not to advance a party program or defend or condemn any person, party, administration, or ideology as such. Proposed remedies are meant to apply prospectively and evenhandedly across parties, officeholders, and political circumstances.
 
-## Working conventions
+The project does not avoid naming public actors, including Donald Trump, where specific conduct is relevant to identifying institutional damage, structural vulnerability, or necessary repair. Such references are not included as partisan argument or personal condemnation for its own sake, but because the project depends on concrete examples of how institutions were damaged, tested, or exploited. The same standards should apply to any officeholder, party, administration, or movement that creates comparable institutional risk.
 
-1. Every substantive issue has a stable identifier such as `DOJ-001`.
-2. The framework governs analysis; the inventory tracks it; issue files contain the substantive work.
-3. Each developed issue identifies the **Least-Complex Adequate Remedy**.
-4. Supporting evidence, qualifications, and alternatives belong in annotation or source notes.
-5. Where complete prevention is impracticable, a remedy may instead provide reliable detection, correction, deterrence, and institutional self-repair.
-6. Candidate issues may be retired or merged when the issue-admission test shows substantial duplication.
-7. A status such as **Awaiting merits adjudication** identifies a deliberately paused issue whose remedy depends materially on pending judicial resolution.
-8. Markdown and CSV are canonical. DOCX, PDF, and XLSX files are generated exports.
+The project is also a living research draft. Sources, citations, examples, issue classifications, and proposed remedies may be incomplete, provisional, or later revised as the work develops.
 
-## Legislation filename convention
+The project is author-directed. The author has set the research agenda, selected and organized the issues, made the editorial judgments, and remained in charge of the project's structure and development. Large language model tools, including ChatGPT, have been used extensively for research organization, drafting assistance, revision, comparison, and issue spotting, but the project was not generated from scratch by an LLM. The author asserts authorship of the project as a whole and remains responsible for its editorial choices, judgments, omissions, and errors.
 
-Legislative proposal files use the issue identifier as the base filename.
+For a dedicated authorship statement, see [`AUTHORS.md`](AUTHORS.md).
 
-- Federal legislative proposals use the unsuffixed issue identifier: `XXX-NNN.md`.
-- Model state legislative proposals use the state suffix: `XXX-NNN-state.md`.
+## Foundational Premise
 
-For issues with both federal and state proposals, the federal proposal is the unsuffixed file and the model state proposal is the `-state` file. For issues with only a model state proposal, the proposal should still use the `-state` suffix.
+The American system of government is broken because it failed to prevent Donald Trump and the MAGA movement from subordinating constitutional duty, institutional independence, factual adjudication, and the peaceful transfer of power to personal loyalty. The damage must be repaired, the weaknesses that enabled it must be corrected, and stronger safeguards must be established against future personalist capture.
 
-Examples:
+The project is written for readers who already accept that foundational diagnosis. Its purpose is not to repeatedly prove that the system is broken, but to determine how the failure occurred, what damage followed, which weaknesses allowed it, what must be repaired, and what reforms can prevent recurrence.
 
-- `ELEC-003.md` — federal proposal.
-- `ELEC-003-state.md` — model state proposal.
-- `ELEC-002-state.md` — model state proposal where no federal proposal is yet maintained.
+## Mission
 
-## Current status
+The project will:
 
-Developed Department of Justice issues currently include DOJ-001, DOJ-002, DOJ-003, DOJ-005, and DOJ-007. DOJ-004 is awaiting merits adjudication. DOJ-006 and DOJ-008 have been retired and merged into their primary issues. A-16 now includes developed issue IMM-001 and the proposed Presidential Criminal Accountability Amendment.
+1. identify the principal institutional damage caused or accelerated by Trump and the MAGA movement;
+2. identify the legal, structural, administrative, and policy weaknesses that made that damage possible;
+3. distinguish repair of existing damage from prevention of recurrence; and
+4. develop a durable roadmap for restoring lawful and trustworthy government.
 
-The governing framework already incorporates the project-wide rules for institutional focus, politically neutral application, issue admission, mandatory issue architecture, issue-level conciseness, standardized annotations, the Least-Complex Adequate Remedy, limited use of automatic institutional-failure triggers, and cross-referencing instead of duplicative treatment.
+## Scope
 
-The area and issue inventories already include A-04 Judicial Independence and Enforcement (JUD-001 through JUD-008), A-05 Presidential Clemency and Pardon Power (PAR-001 through PAR-010), A-07 Classification, Declassification, and National-Security Information (CLASS-001 through CLASS-012), and A-21 Federal Reserve Independence and Monetary Policy (FRB-001 through FRB-008). The `FED` prefix remains reserved for A-20 Federalism and Presidential Coercion of States.
+The project concerns systems, structures, institutions, laws, and policies. It does not attempt a comprehensive sociological account of voter psychology, cultural identity, or partisan affiliation except where those matters directly illuminate an institutional vulnerability or remedy.
 
-## Outstanding development
+## Governing Principles
 
-The following work remains outstanding and should not be treated as an uncommitted framework revision:
+### Institutional Focus
 
-- develop authoritative source records, annotations, and individual issue files for the JUD, PAR, and CLASS candidate inventories;
-- analyze constitutional and implementation constraints for judicial-enforcement remedies, including appointments, appropriations, due process, and presidential control;
-- analyze the constitutional limits on restricting the legal effect of presidential clemency while developing transparency, anti-corruption, review, recordkeeping, disclosure, and surrounding-liability remedies;
-- preserve and source the distinctions among classification status, authorization to disclose, lawful custody or possession, and government ownership and records-preservation duties;
-- develop the A-21 annotation explaining the systemic risks of sustained political subordination of monetary policy, including inflation, unanchored expectations, leverage, asset-price distortions, currency weakness, loss of credibility, and the possibility of a later severe corrective contraction.
+Trump is the principal case study, but the institutional weakness is the subject of analysis. Each issue must identify the legal, structural, administrative, institutional, or policy vulnerability that enabled, permitted, or failed to constrain the abuse. The project should not conclude merely that "Trump is the problem."
 
-These are substantive research and issue-development tasks. They do not reopen the already committed governing framework or area inventories.
+### Neutral Application
+
+The project is not neutral about abuse, but it is neutral about who may commit it. Evidence may involve presidents or administrations of either party where supported by reliable evidence, and safeguards must apply equally regardless of political affiliation.
+
+The project rejects false equivalence, partisan exemptions, unsupported accusations, and rules that apply differently depending on who holds power.
+
+### Truth and Reconciliation
+
+The project seeks truth, legal coherence, factual accountability, and reconciliation grounded in an honest record. Where evidence establishes responsibility, the project should state it directly. Where uncertainty remains, it should identify the uncertainty rather than manufacture balance.
+
+### Restoration and Reform
+
+The objective is not automatic return to the pre-Trump status quo. Where prior arrangements enabled abuse, restoration must include redesign and legal hardening.
+
+### Functional Administrative Independence
+
+Elected officials should control lawful policy direction. Factual determination, scientific assessment, adjudication, auditing, personnel administration, and individual enforcement decisions should receive protection from personal or partisan coercion.
+
+### Institutional Corrigibility
+
+Not every institutional abuse can be prevented without impairing legitimate governmental authority, eliminating necessary discretion, or creating an equally serious countervailing danger. Where complete prevention is impracticable, the project should establish the least-complex adequate means by which abuse can be detected, documented, reviewed, exposed, remedied, deterred, and prevented from becoming entrenched.
+
+A remedy may therefore be adequate even when it cannot prevent the first violation, provided it creates a credible and durable avenue for institutional self-correction. The analysis should distinguish prevention, detection, correction, deterrence, and containment rather than treating them as interchangeable.
+
+Institutional corrigibility is not an excuse for weak reform. Preventive safeguards remain preferable where they are lawful, workable, and proportionate. Corrigibility becomes central where stronger front-end control would destroy necessary discretion, create unconstitutional supervision, or impose a cure more damaging than the underlying risk.
+
+## Rights and reuse
+
+Original project materials are copyright (c) 2026 Benjamin Smith. All rights reserved unless otherwise noted. See [`LICENSE.md`](LICENSE.md).
+
+The project is planned to be released at a later date, in whole or in part, under a Creative Commons license to support public use, adaptation, and legislative engagement. Until a public reuse license is adopted, no general permission is granted to reproduce, distribute, adapt, sublicense, or create derivative works from the original project materials outside rights independently provided by law or GitHub's platform terms.
+
+## Citation
+
+For citation metadata, see [`CITATION.cff`](CITATION.cff). The preferred citation may be updated when the project is formally released for broader public use.
+
+## Technical Framework
+
+The project methodology, repository structure, file conventions, contribution process, and development backlog are maintained in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md).

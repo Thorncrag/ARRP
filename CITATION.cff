@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you cite, discuss, or rely on this project, please cite it as below. The preferred citation may be updated when the project is formally released for broader public use."
+title: "American Restoration and Resilience Project"
+authors:
+  - family-names: "Smith"
+    given-names: "Benjamin"
+repository-code: "https://github.com/Thorncrag/ARRP"
+type: report
+abstract: "A public-policy research and drafting project proposing institutional repairs, guardrails, and model legal reforms to restore trustworthy government and prevent future personalist capture."
+keywords:
+  - "public policy"
+  - "institutional reform"
+  - "democratic resilience"
+  - "rule of law"
+  - "model legislation"
