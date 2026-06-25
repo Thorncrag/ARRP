@@ -244,8 +244,9 @@ Each completed audit should leave a concise record that identifies:
 8. source, legal, judicial-scrutiny, remedial, drafting, implementation, adoption, and political-language risks;
 9. international-support and foreign-relations score, or why it is not applicable;
 10. recommended next audit or revision;
-11. whether the proposal-quality score changed; and
-12. why any score change is justified.
+11. whether issue-page audit front matter was updated;
+12. whether the proposal-quality score changed; and
+13. why any score change is justified.
 
 Each completed audit should also include a brief **Audit Process Feedback** note. The note should identify whether the selected tier was adequate, whether the audit finished under or over estimate, what slowed or improved the audit, what recurring defect or workflow friction appeared, and whether the audit framework, inventory method, source rules, scoring rules, or issue-page template should be revised before future audits. If a rule change is recommended, record the reason and apply the change only when it improves consistency, source reliability, transparency, resource control, or implementation quality.
 
