@@ -195,6 +195,7 @@ Markdown and CSV files are authoritative. Binary Office and PDF files are genera
 9. Project updates must keep the structured inventory and audit dashboard current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant rows in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), [`../inventory/contents.csv`](../inventory/contents.csv), [`../inventory/audits.csv`](../inventory/audits.csv), [`../inventory/sources.csv`](../inventory/sources.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as part of the same change.
 10. Source inventory updates are required whenever a new external source is cited or an existing cited source is repurposed for a materially different proposition. A source may remain marked `Reviewed?` as `No` until verification is complete, but the citation should still be captured promptly.
 11. Every Markdown page must carry `print_levels` metadata under [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
+12. Every audit tier must check pending judicial matters, scaled to the tier, where a pending Supreme Court, appellate, district-court, state high-court, emergency, stay, or remand posture could materially affect the proposal's authority, remedy design, urgency, scope, or issue-admission result.
 
 ## Legislation Filename Convention
 
