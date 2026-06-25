@@ -1,3 +1,12 @@
+---
+title: "Authorship"
+print_levels:
+  - public-proposal
+  - full-technical
+  - legislative-appendix
+  - executive-summary
+---
+
 # Authorship
 
 The American Restoration and Resilience Project is authored and directed by Benjamin Smith.

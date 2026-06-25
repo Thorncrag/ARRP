@@ -5,13 +5,13 @@ title: "Election Personnel Protection Amendments to the Help America Vote Act of
 status: working-draft
 framework_issue: "../areas/a-02-election-integrity/issues/ELEC-003.md"
 model_state_legislation: "ELEC-003-state.md"
+print_levels:
+  - public-proposal
+  - full-technical
+  - legislative-appendix
 ---
 
 # ELEC-003 — Election Personnel Protection Amendments to the Help America Vote Act of 2002
-
-## Framework Issue
-
-- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-003.md)
 
 ## A BILL
 
@@ -364,7 +364,7 @@ The table of contents of the Help America Vote Act of 2002 is amended by adding 
 - The draft prohibits a federally required State match while preserving voluntary State and local supplementation.
 - Unobligated Federal balances remain available until expended while the State remains eligible, subject to a nondiscretionary soft cap that reduces future payments when balances exceed the statutory reserve threshold.
 - The EAC’s role is ministerial and fiscal. The bill denies substantive rulemaking, discretionary scoring, waiver, plan-approval, and election-policy authority.
-- Section 1004 is designed to correspond to the [Model State Election Personnel Protection and Continuity Act](ELEC-003-state.md). The federal minimums should be rechecked against every later revision of the model State act.
+- Section 1004 is designed to correspond to the Model State Election Personnel Protection and Continuity Act. The federal minimums should be rechecked against every later revision of the model State act.
 - The judicial-review provision should be reviewed for sovereign-standing, venue, timing, and Administrative Procedure Act interaction.
 - The authorization level, administrative-cost cap, territorial formula, and treatment of the District of Columbia and Commonwealths require separate fiscal and statutory review.
 - The bill should be reviewed for Appointments Clause, nondelegation, Spending Clause, anti-commandeering, First Amendment, due-process, and federalism concerns before being treated as final legislative text.

@@ -1,3 +1,11 @@
+---
+title: "Project Areas"
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
+---
+
 # Project Areas
 
 - [A-01 — Department of Justice](a-01-department-of-justice/README.md)

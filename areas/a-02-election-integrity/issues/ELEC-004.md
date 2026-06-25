@@ -7,6 +7,9 @@ priority: high
 remedy_type: coupled-federal-and-model-state-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
+print_levels:
+  - public-proposal
+  - full-technical
 ---
 
 # ELEC-004 — Abuse of Election Litigation and Investigatory Mechanisms
@@ -115,6 +118,12 @@ States should be encouraged to enact a parallel Anti-SLAPP-style Election Procee
 ELEC-004 does not regulate ordinary citizen complaints, reports of suspected irregularity, ballot-specific voter remedies, or statutorily authorized recount participation. A voter may report suspected irregularities to election officials, law enforcement, candidates, parties, prosecutors, or other authorized bodies without triggering the special screening or sanctions mechanism.
 
 The screening procedure applies to proceedings or demands that seek coercive, disruptive, or sensitive-material relief, regardless of whether the filer is a candidate, party, official, organization, attorney, or private plaintiff.
+
+### Legislation Crosswalk
+
+The federal and model state bills are intended to mirror one another while respecting institutional differences. ELEC-004 applies to federal courts and federal election proceedings; ELEC-004-state adapts the same architecture for state courts, state election tribunals, state subpoenas, administrative or legislative demands, and state-law election contests. Future revisions should check the corresponding federal or state draft before materially changing definitions, timing, special-motion procedure, stays, emergency-relief findings, sensitive-material protections, sanctions, later-discovered sanctions, expedited review, savings clauses, uniform application, relation-to-law provisions, or severability.
+
+The remedy architecture addresses abusive pre-election challenges through the 180-day timing bar, relief-based trigger, special screening motion, stay, and emergency-relief findings; unsupported public fraud narratives through evidentiary, materiality, remedy-fit, and sanctions requirements; post-election disruption through no fixed post-election cutoff and emergency-relief findings; sensitive-material demands through stay and protective-order requirements; broad subpoenas, audits, inspections, or forensic demands through screening, narrowing, quashing, conditioning, and sanctions; later-discovered coordination through the post-disposition sanctions mechanism; and good-faith-report chilling through preserved-activity provisions.
 
 ## Proposed Legislation
 

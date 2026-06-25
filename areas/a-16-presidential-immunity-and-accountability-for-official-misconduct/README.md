@@ -3,6 +3,10 @@ area_id: A-16
 title: "Presidential Immunity and Accountability for Official Misconduct"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-16 — Presidential Immunity and Accountability for Official Misconduct

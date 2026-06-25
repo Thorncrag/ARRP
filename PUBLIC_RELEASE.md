@@ -1,3 +1,9 @@
+---
+title: "Public Release Process"
+print_levels:
+  - full-technical
+---
+
 # Public Release Process
 
 This project is not yet formally released for broad public reuse. The first public release should create a clear dated snapshot of the project for citation, provenance, review, and public engagement.

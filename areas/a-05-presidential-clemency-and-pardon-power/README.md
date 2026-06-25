@@ -3,6 +3,10 @@ area_id: A-05
 title: "Presidential Clemency and Pardon Power"
 status: active
 issue_count: 10
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-05 — Presidential Clemency and Pardon Power

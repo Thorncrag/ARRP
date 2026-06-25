@@ -3,6 +3,10 @@ area_id: A-13
 title: "Presidential Records, Archives, and Government Information"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-13 — Presidential Records, Archives, and Government Information

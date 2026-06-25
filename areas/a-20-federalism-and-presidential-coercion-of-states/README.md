@@ -3,6 +3,10 @@ area_id: A-20
 title: "Federalism and Presidential Coercion of States"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-20 — Federalism and Presidential Coercion of States

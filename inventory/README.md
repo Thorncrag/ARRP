@@ -1,3 +1,9 @@
+---
+title: "Structured Inventory"
+print_levels:
+  - full-technical
+---
+
 # Structured Inventory
 
 - `areas.csv` — top-level project areas
@@ -5,7 +11,7 @@
 - `contents.csv` — combined area-and-issue navigation index suitable for table-of-contents development
 - `audits.csv` — issue-level audit status and proposal-quality scoring
 - `sources.csv` — source records associated with issues, areas, or project-level records
-- `METHOD.md` — inventory and drafting rules
+- `METHOD.md` — inventory maintenance, audit procedure, scoring rules, and dashboard update rules
 
 The CSV files are canonical structured records. Spreadsheet editions may be generated for convenience.
 

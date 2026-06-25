@@ -3,6 +3,8 @@ issue_id: WAR-001
 area_id: A-03
 title: "Source Development — Comprehensive War Powers and Use-of-Force Authorization Reform"
 status: working-notes
+print_levels:
+  - full-technical
 ---
 
 # WAR-001 Source Development — Manifestations and Examples

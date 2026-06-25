@@ -3,6 +3,10 @@ area_id: A-08
 title: "Civil Service and Professional Administration"
 status: active
 issue_count: 9
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-08 — Civil Service and Professional Administration

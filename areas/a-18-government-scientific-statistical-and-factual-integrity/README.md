@@ -3,6 +3,10 @@ area_id: A-18
 title: "Government Scientific, Statistical, and Factual Integrity"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-18 — Government Scientific, Statistical, and Factual Integrity

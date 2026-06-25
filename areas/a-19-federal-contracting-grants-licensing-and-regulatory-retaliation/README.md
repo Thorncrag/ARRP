@@ -3,6 +3,10 @@ area_id: A-19
 title: "Federal Contracting, Grants, Licensing, and Regulatory Retaliation"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-19 — Federal Contracting, Grants, Licensing, and Regulatory Retaliation

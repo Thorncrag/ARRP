@@ -3,6 +3,10 @@ area_id: A-23
 title: "Federal Historic Property and Civic Heritage"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-23 — Federal Historic Property and Civic Heritage

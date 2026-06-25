@@ -6,6 +6,9 @@ status: developed
 priority: high
 remedy_type: model-state-legislation
 legislative_proposal: "../../../legislation/ELEC-002-state.md"
+print_levels:
+  - public-proposal
+  - full-technical
 ---
 
 # ELEC-002 — Pressure on Certification and Canvassing Officials

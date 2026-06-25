@@ -5,13 +5,13 @@ title: "Model State Election Proceedings Integrity Act"
 status: working-draft
 framework_issue: "../areas/a-02-election-integrity/issues/ELEC-004.md"
 federal_legislation: "ELEC-004.md"
+print_levels:
+  - public-proposal
+  - full-technical
+  - legislative-appendix
 ---
 
 # ELEC-004-state — Model State Election Proceedings Integrity Act
-
-## Framework Issue
-
-- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-004.md)
 
 ## A MODEL STATE BILL
 
@@ -160,14 +160,6 @@ This Act supplements and does not narrow any lawful recount, contest, audit, inv
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
 
-## Federal-State Mirror Crosswalk
-
-This model state bill mirrors [ELEC-004](ELEC-004.md), adapted for state courts, state election tribunals, state subpoenas, administrative or legislative demands, and state-law election contests. Future revisions should check the corresponding federal section before materially revising definitions, timing, special-motion procedure, stay, emergency-relief findings, sensitive-material protection, sanctions, later-discovered sanctions, expedited review, savings clauses, uniform application, relation to other law, or severability.
-
-## Manifestation-to-Remedy Crosswalk
-
-This bill addresses abusive pre-election challenges through the 180-day timing bar, relief-based trigger, special screening motion, stay, and emergency-relief findings; unsupported public fraud narratives through evidentiary, materiality, remedy-fit, and sanctions requirements; post-election disruption through no fixed post-election cutoff and emergency-relief findings; sensitive-material demands through stay and protective-order requirements; broad subpoenas, audits, inspections, or forensic demands through screening, narrowing, quashing, conditioning, and sanctions; later-discovered coordination through section 10; and good-faith-report chilling through preserved-activity provisions.
-
 ## Drafting Notes
 
 - The proposal is Anti-SLAPP-style: it adapts early screening, discovery stay, burden clarification, fee-shifting, and sanctions to election-disruptive proceedings.
@@ -179,4 +171,4 @@ This bill addresses abusive pre-election challenges through the 180-day timing b
 
 ## Source Notes
 
-- Source review should compare each adopting state's election-contest, court-rule, public-records, ballot-secrecy, and Anti-SLAPP statutes; the federal counterpart is [ELEC-004](ELEC-004.md). For state Anti-SLAPP variation, review jurisdiction-specific statutes and secondary surveys such as the Reporters Committee for Freedom of the Press [Anti-SLAPP guide](https://www.rcfp.org/anti-slapp-guide/).
+- Source review should compare each adopting state's election-contest, court-rule, public-records, ballot-secrecy, and Anti-SLAPP statutes; the federal counterpart is ELEC-004. For state Anti-SLAPP variation, review jurisdiction-specific statutes and secondary surveys such as the Reporters Committee for Freedom of the Press [Anti-SLAPP guide](https://www.rcfp.org/anti-slapp-guide/).

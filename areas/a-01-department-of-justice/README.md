@@ -3,6 +3,10 @@ area_id: A-01
 title: "Department of Justice"
 status: active
 issue_count: 9
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-01 — Department of Justice

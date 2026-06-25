@@ -3,6 +3,10 @@ area_id: A-04
 title: "Judicial Independence and Enforcement"
 status: active
 issue_count: 9
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-04 — Judicial Independence and Enforcement

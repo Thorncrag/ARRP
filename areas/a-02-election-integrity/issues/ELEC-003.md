@@ -7,6 +7,9 @@ priority: high
 remedy_type: coupled-state-and-federal-legislation
 legislative_proposal: "../../../legislation/ELEC-003-state.md"
 federal_legislative_proposal: "../../../legislation/ELEC-003.md"
+print_levels:
+  - public-proposal
+  - full-technical
 ---
 
 # ELEC-003 — Insufficient Protection for Election Workers and Officials
@@ -121,6 +124,12 @@ The amendment should:
 9. provide expedited de novo judicial review of a denial identifying the specific missing statutory element.
 
 Federal criminal jurisdiction should remain limited to independently defined federal offenses, including conduct with an appropriate federal or interstate nexus. It should not become a source of administrative control over state election processes.
+
+### Legislation Crosswalk
+
+The model state act should satisfy the federal HAVA eligibility structure through a provision-by-provision statutory crosswalk. The current draft maps federal minimum requirements to state-act sections covering protection of election personnel and covered family or household members; politically neutral administration; prompt reporting, threat assessment, referral, and coordination; emergency protective assistance; expedited protective relief; address confidentiality and data minimization; remedies for threats, coercion, retaliation, doxxing, false emergency reports, bomb threats, swatting, and comparable misconduct; continuity planning; workforce support; aggregate reporting; neutral application; and continued state-law operation regardless of federal funding.
+
+The current model state draft also maps documented manifestations to remedy provisions. Freeman and Moss-style threats, family targeting, forced displacement, and career loss are addressed through reporting, family-inclusive assessment, emergency relocation, protective orders, address confidentiality, doxxing liability, threat offenses, counseling, leave, anti-retaliation, and retention support. Arizona-style threats, evacuation, and later prosecution are addressed through rapid assessment, preventive security, protective orders, threat liability, restitution, evacuation protocols, backup operations, and continuity planning. Election Day bomb threats and polling-place closures are addressed through aggravated liability, restitution, relocation, public notice, backup sites, staffing, records preservation, and lawful remedial procedures. Raffensperger-family-style doxxing, sexualized threats, and intrusion are addressed through family and household protections, suppression of exposed personal information, emergency residential security, and civil and criminal remedies for targeted disclosure and coercion. Workforce attrition is addressed through counseling, protected leave, replacement staffing, recruitment and retention assistance, aggregate measurement, and needs-based funding.
 
 ## Proposed Legislation
 

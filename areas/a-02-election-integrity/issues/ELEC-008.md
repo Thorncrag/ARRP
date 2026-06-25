@@ -7,6 +7,9 @@ priority: high
 remedy_type: federal-legislation
 legislative_status: working-draft
 federal_legislation: "../../../legislation/ELEC-008.md"
+print_levels:
+  - public-proposal
+  - full-technical
 ---
 
 # ELEC-008 — Accountability for Coordinated Federal Election-Subversion Schemes

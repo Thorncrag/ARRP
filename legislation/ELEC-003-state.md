@@ -5,13 +5,13 @@ title: "Model State Election Personnel Protection and Continuity Act"
 status: working-draft
 framework_issue: "../areas/a-02-election-integrity/issues/ELEC-003.md"
 federal_legislation: "ELEC-003.md"
+print_levels:
+  - public-proposal
+  - full-technical
+  - legislative-appendix
 ---
 
 # ELEC-003-state — Model State Election Personnel Protection and Continuity Act
-
-## Framework Issue
-
-- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-003.md)
 
 ## A MODEL STATE BILL
 
@@ -255,34 +255,6 @@ Where another law provides greater protection consistent with constitutional req
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
 
-## Federal Eligibility Crosswalk
-
-| Federal HAVA Title X requirement | State act provision satisfying requirement |
-|---|---|
-| Protect covered election personnel when targeted because of an election function | Sections 3, 6, 7, 8, 10, 11, 12, 14, and 15. |
-| Extend appropriate protection to covered family or household members | Sections 3, 6, 7, 8, 10, 11, and 15. |
-| Require politically neutral administration | Sections 2, 4, 7, and 17. |
-| Establish statewide prompt reporting, threat assessment, referral, and coordination through existing state offices | Sections 3, 5, and 6. |
-| Authorize emergency protective assistance | Section 7. |
-| Provide expedited judicial process for protective relief consistent with due process and the First Amendment | Sections 8 and 15. |
-| Protect residential and sensitive personal information | Sections 3, 8, 9, 10, and 16. |
-| Provide civil or criminal remedies for threats, coercion, retaliation, family harm, doxxing, false emergency reports, bomb threats, swatting, or comparable misconduct | Sections 10, 11, 12, and 15. |
-| Require continuity-of-operations planning for election facilities and functions | Sections 5, 6, 12, and 13. |
-| Authorize workforce support related to threat-driven attrition | Sections 14, 16, and 17. |
-| Provide aggregate public reporting while protecting personal, investigative, and security-sensitive information | Section 16. |
-| Apply equally to state and local election personnel without regard to partisan affiliation or identity of alleged offender | Sections 3, 4, 7, and 17. |
-| Remain legally operative regardless of whether the State receives federal funds | Sections 2, 17, and 18. |
-
-## Manifestation-to-Remedy Crosswalk
-
-| Documented manifestation | Statutory response |
-|---|---|
-| Freeman and Moss: sustained threats, family targeting, forced displacement, and career loss | Sections 6–11 and 14 provide early reporting, family-inclusive assessment, emergency relocation, protective orders, address confidentiality, doxxing liability, threat offenses, counseling, leave, anti-retaliation, and retention support. |
-| Arizona threats: bomb threat, home-address research, evacuation, and post hoc prosecution | Sections 6–8 and 11–13 require rapid assessment, preventive security, protective orders, threat liability, restitution, evacuation protocols, backup operations, and continuity planning before prosecution concludes. |
-| 2024 Election Day bomb threats and polling-place closures | Sections 12 and 13 create aggravated liability and restitution for false emergency reports and require relocation, public notice, backup sites, staffing, records preservation, and lawful remedial procedures. |
-| Raffensperger and family: doxxing, sexualized threats, and intrusion directed at relatives | Sections 7–11 expressly protect family and household members, suppress exposed personal information, authorize emergency residential security, and create civil and criminal remedies for targeted disclosure and coercion. |
-| Nationwide workforce attrition and recruitment loss | Sections 14, 16, and 17 authorize counseling, protected leave, replacement staffing, recruitment and retention assistance, aggregate measurement, and needs-based funding. |
-
 ## Drafting Notes
 
 - The Act intentionally uses existing state institutions rather than creating a new election-security agency.
@@ -295,5 +267,5 @@ If any provision or application of this Act is held invalid, the remainder shall
 
 ## Source Notes
 
-- Manifestation support is developed in the [ELEC-003 framework analysis](../areas/a-02-election-integrity/issues/ELEC-003.md), including source links for Freeman and Moss, Arizona election-official threats, 2024 Election Day bomb threats, Raffensperger family-directed threats, and election-workforce attrition.
+- Manifestation support is developed in the ELEC-003 framework analysis, including source links for Freeman and Moss, Arizona election-official threats, 2024 Election Day bomb threats, Raffensperger family-directed threats, and election-workforce attrition.
 - Threat-offense review should include [Counterman v. Colorado](https://www.supremecourt.gov/opinions/22pdf/22-138_43j7.pdf).

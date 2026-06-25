@@ -1,3 +1,14 @@
+---
+title: "Rights and Reuse Notice"
+print_levels:
+  - public-proposal
+  - full-technical
+  - legislative-appendix
+  - executive-summary
+---
+
+# Rights and Reuse Notice
+
 Copyright (c) 2026 Benjamin Smith. All rights reserved.
 
 This repository and its original text, structure, draft legislative language, issue analyses, annotations, inventories, and related project materials are protected by copyright unless otherwise noted.

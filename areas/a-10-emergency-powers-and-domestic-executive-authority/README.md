@@ -3,6 +3,10 @@ area_id: A-10
 title: "Emergency Powers and Domestic Executive Authority"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-10 — Emergency Powers and Domestic Executive Authority

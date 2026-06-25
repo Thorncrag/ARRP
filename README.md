@@ -1,3 +1,11 @@
+---
+title: "American Restoration and Resilience Project (ARRP)"
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
+---
+
 # American Restoration and Resilience Project (ARRP)
 
 **A Roadmap for Repairing Institutional Damage, Restoring Trustworthy Government, and Preventing Future Personalist Capture**

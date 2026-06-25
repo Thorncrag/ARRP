@@ -3,6 +3,10 @@ area_id: A-03
 title: "War Powers and Military Force"
 status: active
 issue_count: 1
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-03 — War Powers and Military Force

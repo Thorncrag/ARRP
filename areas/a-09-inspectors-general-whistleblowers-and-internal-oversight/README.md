@@ -3,6 +3,10 @@ area_id: A-09
 title: "Inspectors General, Whistleblowers, and Internal Oversight"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-09 — Inspectors General, Whistleblowers, and Internal Oversight

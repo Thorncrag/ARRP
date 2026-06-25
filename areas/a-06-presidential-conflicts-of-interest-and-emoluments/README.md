@@ -3,6 +3,10 @@ area_id: A-06
 title: "Presidential Conflicts of Interest and Emoluments"
 status: active
 issue_count: 14
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-06 — Presidential Conflicts of Interest and Emoluments

@@ -3,6 +3,10 @@ area_id: A-21
 title: "Federal Reserve Independence and Monetary Policy"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-21 — Federal Reserve Independence and Monetary Policy

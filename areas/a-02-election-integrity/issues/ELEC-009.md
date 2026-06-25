@@ -7,6 +7,9 @@ priority: high
 remedy_type: constitutional-amendment
 legislative_status: working-draft
 federal_legislation: "../../../legislation/ELEC-009.md"
+print_levels:
+  - public-proposal
+  - full-technical
 ---
 
 # ELEC-009 — Electoral College Structure and National Popular Vote

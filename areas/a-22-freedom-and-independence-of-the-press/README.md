@@ -3,6 +3,10 @@ area_id: A-22
 title: "Freedom and Independence of the Press"
 status: active
 issue_count: 12
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-22 — Freedom and Independence of the Press

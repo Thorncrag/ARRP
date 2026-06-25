@@ -6,6 +6,9 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-007.md"
+print_levels:
+  - public-proposal
+  - full-technical
 ---
 
 # ELEC-007 — Improper Federal-Force Presence in Election Administration

@@ -3,6 +3,10 @@ area_id: A-12
 title: "Appointments, Acting Officials, and Senate Confirmation"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-12 — Appointments, Acting Officials, and Senate Confirmation

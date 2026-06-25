@@ -3,6 +3,10 @@ area_id: A-14
 title: "Federal Law-Enforcement and Military Use Inside the United States"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-14 — Federal Law-Enforcement and Military Use Inside the United States

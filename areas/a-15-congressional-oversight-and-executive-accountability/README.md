@@ -3,6 +3,10 @@ area_id: A-15
 title: "Congressional Oversight and Executive Accountability"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-15 — Congressional Oversight and Executive Accountability

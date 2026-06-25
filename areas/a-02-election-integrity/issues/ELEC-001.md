@@ -6,6 +6,9 @@ status: developed
 priority: high
 remedy_type: hatch-act-amendment-and-companion-enforcement
 legislative_proposal: "../../../legislation/ELEC-001.md"
+print_levels:
+  - public-proposal
+  - full-technical
 ---
 
 # ELEC-001 — Federal Executive Interference with State and Local Election Administration

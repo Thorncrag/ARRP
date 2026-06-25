@@ -3,6 +3,10 @@ area_id: A-07
 title: "Classification, Declassification, and National-Security Information"
 status: active
 issue_count: 12
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-07 — Classification, Declassification, and National-Security Information

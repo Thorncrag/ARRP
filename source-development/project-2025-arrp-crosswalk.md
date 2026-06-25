@@ -2,6 +2,8 @@
 title: "Project 2025 / ARRP Crosswalk"
 status: initial-source-development
 purpose: "Map Project 2025 initiatives to ARRP guardrail areas and identify coverage gaps."
+print_levels:
+  - full-technical
 ---
 
 # Project 2025 / ARRP Crosswalk

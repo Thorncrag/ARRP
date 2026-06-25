@@ -4,13 +4,13 @@ issue_id: ELEC-008
 title: "Federal Election Subversion Accountability Act"
 status: working-draft
 framework_issue: "../areas/a-02-election-integrity/issues/ELEC-008.md"
+print_levels:
+  - public-proposal
+  - full-technical
+  - legislative-appendix
 ---
 
 # ELEC-008 — Federal Election Subversion Accountability Act
-
-## Framework Issue
-
-- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-008.md)
 
 ## A BILL
 

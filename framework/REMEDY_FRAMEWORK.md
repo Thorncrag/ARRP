@@ -1,3 +1,9 @@
+---
+title: "Remedy Framework"
+print_levels:
+  - full-technical
+---
+
 # Remedy Framework
 
 | Level | Remedy Category | Typical Examples | Default Emphasis | Framework Rule |

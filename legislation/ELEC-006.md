@@ -4,13 +4,13 @@ issue_id: ELEC-006
 title: "Presidential Transition Continuity and Automaticity Act"
 status: working-draft
 framework_issue: "../areas/a-02-election-integrity/issues/ELEC-006.md"
+print_levels:
+  - public-proposal
+  - full-technical
+  - legislative-appendix
 ---
 
 # ELEC-006 — Presidential Transition Continuity and Automaticity Act
-
-## Framework Issue
-
-- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-006.md)
 
 ## A BILL
 

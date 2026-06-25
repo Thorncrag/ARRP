@@ -3,6 +3,10 @@ area_id: A-17
 title: "Independent Agencies and Regulatory Neutrality"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-17 — Independent Agencies and Regulatory Neutrality

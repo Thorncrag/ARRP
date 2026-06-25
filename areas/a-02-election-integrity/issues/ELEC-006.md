@@ -6,6 +6,9 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-006.md"
+print_levels:
+  - public-proposal
+  - full-technical
 ---
 
 # ELEC-006 — Insufficiently Automatic Presidential-Transition Procedures

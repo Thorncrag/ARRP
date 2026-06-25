@@ -3,6 +3,10 @@ area_id: A-02
 title: "Election Integrity"
 status: active
 issue_count: 10
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-02 — Election Integrity

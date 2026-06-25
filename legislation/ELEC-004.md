@@ -5,13 +5,13 @@ title: "Federal Election Proceedings Integrity Act"
 status: working-draft
 framework_issue: "../areas/a-02-election-integrity/issues/ELEC-004.md"
 model_state_legislation: "ELEC-004-state.md"
+print_levels:
+  - public-proposal
+  - full-technical
+  - legislative-appendix
 ---
 
 # ELEC-004 — Federal Election Proceedings Integrity Act
-
-## Framework Issue
-
-- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-004.md)
 
 ## A BILL
 
@@ -171,14 +171,6 @@ Nothing in this Act shall be construed to prohibit a good-faith election challen
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
 
-## Federal-State Mirror Crosswalk
-
-This federal bill is mirrored by [ELEC-004-state](ELEC-004-state.md), adapted for state courts, state election tribunals, state subpoenas, administrative or legislative demands, and state-law election contests. Future revisions should check the corresponding state section before materially revising definitions, timing, special-motion procedure, stay, emergency-relief findings, sensitive-material protection, sanctions, later-discovered sanctions, expedited review, savings clauses, or severability.
-
-## Manifestation-to-Remedy Crosswalk
-
-This bill addresses abusive pre-election challenges through the 180-day timing bar, relief-based trigger, special screening motion, stay, and emergency-relief findings; unsupported public fraud narratives through evidentiary, materiality, remedy-fit, and sanctions requirements; post-election disruption through no fixed post-election cutoff and emergency-relief findings; sensitive-material demands through stay and protective-order requirements; broad subpoenas, audits, inspections, or forensic demands through screening, narrowing, quashing, conditioning, and sanctions; later-discovered coordination through section 10; and good-faith-report chilling through preserved-activity provisions.
-
 ## Drafting Notes
 
 - This draft regulates federal-court procedure and relief in election proceedings; it does not attempt to commandeer state courts.
@@ -187,5 +179,8 @@ This bill addresses abusive pre-election challenges through the 180-day timing b
 - A pre-election timing bar prevents the motion from being filed for elections more than 180 days away, except where immediate sensitive-material access or a present security/privacy risk is at issue.
 - The draft imposes no fixed post-election cutoff; post-election availability depends on functional relation to the election result, election administration, or sensitive election material.
 - Section 10 is expressly independent of the special screening motion and survives termination of the underlying proceeding.
+
+## Source Notes
+
 - The draft should be reviewed for Rules Enabling Act, Article III, First Amendment, Petition Clause, Elections Clause, Article II, Electoral Count Reform Act, federal jurisdiction, and separation-of-powers issues.
 - Source review should include [Federal Rule of Civil Procedure 11](https://www.law.cornell.edu/rules/frcp/rule_11) and [28 U.S.C. § 1927](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section1927&num=0&edition=prelim).

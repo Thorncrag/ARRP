@@ -3,6 +3,10 @@ area_id: A-11
 title: "Congressional Power of the Purse and Impoundment"
 status: active
 issue_count: 8
+print_levels:
+  - public-proposal
+  - full-technical
+  - executive-summary
 ---
 
 # A-11 — Congressional Power of the Purse and Impoundment

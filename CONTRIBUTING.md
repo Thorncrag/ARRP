@@ -1,3 +1,9 @@
+---
+title: "Contributing"
+print_levels:
+  - full-technical
+---
+
 # Contributing
 
 The American Restoration and Resilience Project is currently an author-directed public-policy research and drafting project. Public contributions may be invited to improve accuracy, sourcing, clarity, structure, and the quality of proposed institutional repairs.

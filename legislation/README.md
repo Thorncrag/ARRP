@@ -1,3 +1,10 @@
+---
+title: "Legislative Drafting Proposals"
+print_levels:
+  - full-technical
+  - legislative-appendix
+---
+
 # Legislative Drafting Proposals
 
 Working statutory and administrative language is maintained separately from the framework and substantive issue analyses. Each proposal uses the same identifier as its corresponding issue.

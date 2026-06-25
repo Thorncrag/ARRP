@@ -6,6 +6,9 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-005.md"
+print_levels:
+  - public-proposal
+  - full-technical
 ---
 
 # ELEC-005 — Weak Safeguards Against False Presidential Result-Transmission Documents

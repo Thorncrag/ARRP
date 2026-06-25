@@ -4,13 +4,13 @@ issue_id: ELEC-001
 title: "Federal Executive Election Noninterference Act"
 status: working-draft
 framework_issue: "../areas/a-02-election-integrity/issues/ELEC-001.md"
+print_levels:
+  - public-proposal
+  - full-technical
+  - legislative-appendix
 ---
 
 # ELEC-001 — Federal Executive Election Noninterference Act
-
-## Framework Issue
-
-- [Framework analysis](../areas/a-02-election-integrity/issues/ELEC-001.md)
 
 ## A BILL
 
@@ -264,8 +264,8 @@ If any provision of this Act, an amendment made by this Act, or the application 
 - Civil enforcement is assigned principally to States and responsible election authorities rather than individual voters.
 - Relief against agencies and implementing subordinates remains available even where direct relief against the President raises remedial concerns.
 - Section 403 is a congressional declaration of constitutional seriousness, not a binding impeachment determination.
-- Full criminal enforceability against presidential official acts may depend upon the Presidential Criminal Accountability Amendment developed under [IMM-001](IMM-001.md).
-- The independent-referral provision is designed to coordinate with [DOJ-007](DOJ-007.md) without making this bill dependent upon adoption of that proposal.
+- Full criminal enforceability against presidential official acts may depend upon the Presidential Criminal Accountability Amendment developed under IMM-001.
+- The independent-referral provision is designed to coordinate with DOJ-007 without making this bill dependent upon adoption of that proposal.
 
 ## Source Notes
 

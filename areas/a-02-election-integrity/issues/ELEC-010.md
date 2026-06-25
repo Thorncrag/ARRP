@@ -5,6 +5,9 @@ title: "Mail-In Voting Access, Reliability, and Trust"
 status: developed
 priority: high
 remedy_type: federal-legislation
+print_levels:
+  - public-proposal
+  - full-technical
 ---
 
 # ELEC-010 — Mail-In Voting Access, Reliability, and Trust

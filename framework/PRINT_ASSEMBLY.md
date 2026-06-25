@@ -1,3 +1,9 @@
+---
+title: "Print Assembly Framework"
+print_levels:
+  - full-technical
+---
+
 # Print Assembly Framework
 
 This file defines how the modular Markdown project should be assembled into a single proposal document for printing, PDF generation, DOCX export, or other linear publication.
@@ -55,7 +61,16 @@ Appendix A should include legislation files in issue-identifier order, using uns
 
 Appendix B should include model state legislation files in issue-identifier order, using `-state` filenames, for example `ELEC-002-state.md`.
 
-The main issue page should refer to proposed legislation through its Issue Snapshot Vehicle line, Least-Complex Adequate Remedy, or other relevant cross-reference. The bill text itself should remain free of Markdown links unless the project later adopts a different legislative-text convention.
+The main issue page should refer to proposed legislation through its Issue Snapshot Vehicle line, Least-Complex Adequate Remedy, or other relevant cross-reference. Legislation pages may keep issue-page relationships in metadata, such as `framework_issue`, but should not render separate internal-reference sections such as "Framework Issue" or "Framework Cross-Reference." Except for legislation index pages, legislation pages should refer to related proposals by plain identifier rather than internal Markdown links. The bill text itself should remain free of Markdown links unless the project later adopts a different legislative-text convention.
+
+Legislation pages should use a narrow publication structure:
+
+1. introductory text only when necessary to identify a special vehicle or circumstance, such as a constitutional amendment, model state bill, Justice Manual provision, statutory analogue, or proposed amendment;
+2. the proposed legislative, constitutional, regulatory, rule, or manual text;
+3. `Drafting Notes`; and
+4. `Source Notes`, or `Authority Notes` where the proposal specifically needs a legal-authority or statutory-hook map.
+
+Relation-to-law provisions, rules of construction, severability clauses, definitions, and similar material should remain inside the proposed text when they are operative provisions. Explanatory crosswalks, manifestation-to-remedy mapping, implementation principles, and other analysis should live on the issue page, source-development page, or selected technical appendix rather than as standalone sections on the legislation page, unless the user deliberately creates a publication-specific appendix.
 
 ## Area and Issue Ordering Rules
 
@@ -80,7 +95,7 @@ Retired issues should be included only where necessary to preserve explanatory c
 
 ## Cross-References in Print
 
-Internal Markdown links should be preserved for digital PDF and DOCX editions where possible.
+Internal Markdown links should be preserved for digital PDF and DOCX editions where possible, subject to the legislation-page limits above.
 
 For print-only editions, cross-references should remain textually meaningful even when links are not clickable. Prefer references such as:
 
@@ -120,6 +135,21 @@ The project may later maintain more than one compiled edition:
 4. **Executive summary edition** - includes front matter, brief area summaries, selected priority issues, and references to the full edition.
 
 Unless otherwise specified, "compiled proposal document" means the public proposal edition.
+
+## Print Assignment Metadata
+
+Every Markdown page should identify the compiled edition or editions in which it belongs. The assignment belongs in page metadata so it is available to export tooling and review workflows without adding repetitive visible text to rendered pages.
+
+Use the metadata key `print_levels` with one or more of these stable values:
+
+| Metadata value | Visible label | Use |
+| --- | --- | --- |
+| `public-proposal` | Public proposal edition | Main public-facing proposal pages, area pages, developed issue pages, and legislation appendices used by the public proposal edition. |
+| `full-technical` | Full technical edition | All pages that should remain available in the complete technical record, including framework, inventory, audit, research, source-development, archive, and process pages. |
+| `legislative-appendix` | Legislative appendix edition | Proposed legislation pages and legislation-index pages intended for a legislation-only export. |
+| `executive-summary` | Executive summary edition | Front-matter and area-summary pages that can support a short summary edition. |
+
+Pages may belong to multiple levels. The metadata values should follow the order shown above. If a page is not appropriate for the public proposal, legislative appendix, or executive summary editions, assign it to `full-technical` only rather than omitting the print assignment.
 
 ## Backlog Reference
 

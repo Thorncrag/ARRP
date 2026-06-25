@@ -1,3 +1,9 @@
+---
+title: "Migration Manifest"
+print_levels:
+  - full-technical
+---
+
 # Migration Manifest
 
 The repository was initialized from the project’s DOCX/XLSX-era working files and converted to canonical Markdown and CSV sources.
