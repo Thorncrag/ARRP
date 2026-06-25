@@ -223,6 +223,8 @@ If the push cannot be completed, preserve a local commit where possible, record 
 
 Audits are corrective workflows, not documentation-only reviews. When an audit identifies a defect that can be fixed within the selected tier, within the project's framework, and without requiring unresolved user judgment, the auditor should make the correction as part of the audit. The audit record should distinguish issues fixed during the audit from issues left unresolved for later work.
 
+Relevant audit results should be visible on the issue page itself. The inventory row may track structured status, scoring, and machine-readable fields, but it should not be the only place where audit findings live. When an audit is completed, update the issue page with a concise **Audit Record** or equivalent section identifying the latest audit tier, date, proposal-quality score, corrections made, unresolved findings, and next audit need. Do not hide important audit caveats, source gaps, legal risks, or score limitations solely in [`../inventory/audits.csv`](../inventory/audits.csv).
+
 Each completed audit should leave a concise record that identifies:
 
 1. audit scope;

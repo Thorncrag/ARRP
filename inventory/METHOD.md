@@ -96,6 +96,8 @@ When an audit uncertainty cannot be resolved independently, do not pause the ent
 
 Audits should fix identified defects when the correction can be made within the selected tier, follows the framework, and does not require unresolved user judgment. Record what was corrected, what remains unresolved, and whether the correction changed the proposal-quality score.
 
+Audit inventory rows should not hide material audit results. When an audit updates [`audits.csv`](audits.csv), also update the relevant issue page with a concise public-facing audit record that includes the latest audit tier, date, proposal-quality score, corrections made, unresolved findings, and next audit need.
+
 After an audit is completed, or if an audit is interrupted after changes have been made, preserve the work promptly. Where the repository and remote are available, create the necessary non-interactive commit or commits and push them to the configured GitHub remote without asking the user additional process questions, unless approval is required by the working environment or by the framework. Optional local validation, formatting, pre-commit hooks, or other nonessential local checks may be bypassed solely to preserve interrupted audit work, but source verification, citation rules, scoring rules, unresolved-claim treatment, T4 confirmation, and audit-overage approval must not be bypassed. Record any skipped check, local-only commit, or failed push.
 
 ## Adding or Promoting Issues
