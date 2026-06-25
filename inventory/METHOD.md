@@ -98,6 +98,8 @@ Audits should fix identified defects when the correction can be made within the 
 
 Audit inventory rows should not hide material audit results. When an audit updates [`audits.csv`](audits.csv), also update the relevant issue page with a concise public-facing audit record that includes the latest audit tier, date, proposal-quality score, corrections made, unresolved findings, and next audit need.
 
+Each completed audit should include a brief audit-process feedback note on the issue page or audit record. The note should identify whether the selected tier was adequate, whether the audit finished under or over estimate, what slowed or improved the audit, and whether the framework, inventory method, source rules, scoring rules, or issue-page template should be revised before future audits. Recommended rule changes should explain the reason and should improve consistency, source reliability, transparency, resource control, or implementation quality.
+
 After an audit is completed, or if an audit is interrupted after changes have been made, preserve the work promptly. Where the repository and remote are available, create the necessary non-interactive commit or commits and push them to the configured GitHub remote without asking the user additional process questions, unless approval is required by the working environment or by the framework. Optional local validation, formatting, pre-commit hooks, or other nonessential local checks may be bypassed solely to preserve interrupted audit work, but source verification, citation rules, scoring rules, unresolved-claim treatment, T4 confirmation, and audit-overage approval must not be bypassed. Record any skipped check, local-only commit, or failed push.
 
 ## Adding or Promoting Issues

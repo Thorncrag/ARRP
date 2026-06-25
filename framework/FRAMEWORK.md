@@ -240,6 +240,8 @@ Each completed audit should leave a concise record that identifies:
 11. whether the proposal-quality score changed; and
 12. why any score change is justified.
 
+Each completed audit should also include a brief **Audit Process Feedback** note. The note should identify whether the selected tier was adequate, whether the audit finished under or over estimate, what slowed or improved the audit, what recurring defect or workflow friction appeared, and whether the audit framework, inventory method, source rules, scoring rules, or issue-page template should be revised before future audits. If a rule change is recommended, record the reason and apply the change only when it improves consistency, source reliability, transparency, resource control, or implementation quality.
+
 If an audit finds serious unresolved defects, the proposal should remain below external-circulation readiness even if the page is otherwise developed.
 
 ### Hallucination-Resistance and Verification Protocol
