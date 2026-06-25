@@ -42,7 +42,7 @@ When updating the project, check whether the change requires inventory maintenan
 2. If an issue is added, renamed, promoted, retired, merged, moved, or given a new development status, update [`issues.csv`](issues.csv), [`contents.csv`](contents.csv), and the relevant area README.
 3. If proposed legislation is added, renamed, or removed, update the `Legislation Path` field in [`contents.csv`](contents.csv).
 4. If an issue is audited, promoted, paused, retired, merged, given legislation, or materially revised, update the issue-page audit front matter, visible Audit Record, [`audits.csv`](audits.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), including `Audit Runs`, `Proposal Quality Score`, `Audit Status`, `Score Basis`, `Next Audit Need`, issue link, and legislation link.
-5. If a Horizon Scan audit is run, add the report and concise finding table to [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), but do not update issue pages, legislation, inventories, scores, or source records unless the user separately approves implementation.
+5. If a Horizon Scan audit is run, add new findings to the cumulative Horizon Scan list in [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), but do not update issue pages, legislation, inventories, scores, or source records unless the user separately approves implementation.
 6. If an external source is newly cited, removed, or used for a materially different proposition, update [`sources.csv`](sources.csv).
 7. If source review is completed, update `Reviewed?`, `Proposition Supported`, and any notes in [`sources.csv`](sources.csv).
 8. If issue counts change, update both the area README front matter and [`areas.csv`](areas.csv).
@@ -148,9 +148,9 @@ A Horizon Scan audit should:
 7. recommend whether to expand, adapt, amend, merge, cross-reference, source-develop, or decline the concern; and
 8. document sources, uncertainty, duplicate checks, and the basis for each recommendation.
 
-A Horizon Scan audit should not directly create new issue pages, modify existing issue pages, revise legislation, change scores, update inventories, or change source records unless the user separately approves implementation after reviewing the scan. Its output should be a detailed analysis report placed on [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), with a concise and easily readable listing of each flagged concern and recommendation. If the scan identifies urgent or high-confidence concerns, present them prominently to the user before implementation work begins.
+A Horizon Scan audit should not directly create new issue pages, modify existing issue pages, revise legislation, change scores, update inventories, or change source records unless the user separately approves implementation after reviewing the scan. Its output should be added to the cumulative Horizon Scan list on [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), with a concise and easily readable listing of each flagged concern and recommendation. Unlike issue-quality audit histories, Horizon Scan findings should be additive rather than segmented by run: new scans should append or update rows in the existing list, preserve prior findings, and avoid creating a new dated subsection unless the dashboard schema itself is being changed. If the scan identifies urgent or high-confidence concerns, present them prominently to the user before implementation work begins.
 
-The Horizon Scan report should normally include:
+Each Horizon Scan list update should normally include:
 
 1. scan date and scope;
 2. source categories checked;
