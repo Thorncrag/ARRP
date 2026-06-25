@@ -9,6 +9,8 @@
 
 The CSV files are canonical structured records. Spreadsheet editions may be generated for convenience.
 
+The project-wide human-readable audit tracker is [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md). It summarizes audit posture for meta-analysis and should be refreshed whenever an audit changes issue score, audit status, last audit type, next audit need, issue link, legislation link, or development status.
+
 ## Issue Inventory Scope
 
 `issues.csv` is intentionally a compact tracking index. It records only the issue identifier, area identifier, priority, and development status.
@@ -26,6 +28,8 @@ Area and issue rows include relative links to the area page, issue page, and pro
 `audits.csv` assigns every issue a current proposal-quality score, audit run count, audit status, score basis, and next audit need.
 
 The proposal-quality score is a provisional planning value, not a claim that the issue is publication-ready or externally validated. Audit runs may support a higher score only when the audit resolves findings, broadens review, verifies sources, improves legal fit, improves drafting, or strengthens adoption prospects.
+
+`AUDIT_DASHBOARD.md` is the compact reader-facing dashboard for cross-issue audit status. It should not replace issue-page audit records or the structured audit inventory.
 
 ## Source Inventory Scope
 

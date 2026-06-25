@@ -80,3 +80,5 @@ For citation metadata, see [`CITATION.cff`](CITATION.cff). The preferred citatio
 ## Technical Framework
 
 The project methodology, repository structure, file conventions, contribution process, and development backlog are maintained in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md).
+
+The compact project-wide audit tracker is maintained in [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md).
