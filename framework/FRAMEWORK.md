@@ -194,6 +194,8 @@ On the first audit run for an issue, the auditor should do what can reasonably b
 
 Future audits should use prior audit results to adjust scope within the selected timeframe. If prior work already verified a component and the underlying sources have not changed, spend less time there and use the saved time on unresolved or changed components. If prior work showed an area is unusually complex, timebox that area earlier and document the follow-up need instead of allowing it to crowd out the rest of the audit.
 
+Successive audits should be improvement-targeted. After the first audit, the auditor should identify the unresolved components, penalties, or source gaps most likely to raise the Proposal Quality Score within the selected tier and target work there first. The goal is to improve the proposal's actual quality, reliability, and adoption readiness, not merely to repeat completed checks. A score should rise only when the audit actually resolves findings, verifies support, improves legal fit, strengthens drafting, reduces risk, or otherwise satisfies the scoring rules.
+
 ### Audit Autonomy and Unknowns
 
 Audits should be conducted with the assumption that the user wants as few questions as possible. The auditor should attempt to resolve uncertainties through the project record, current-source refresh, primary-source checks, reasonable inference from documented framework rules, and conservative scoring before asking the user.

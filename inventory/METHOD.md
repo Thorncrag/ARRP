@@ -76,6 +76,8 @@ Audit updates should not let one audit area, source dispute, or legal question c
 
 Tier estimates are not minimums. If a responsible audit can be completed in less than the selected tier's estimated time, finish early, record that result, and use it to calibrate future audit budgeting for comparable issues.
 
+Successive audits should be improvement-targeted. Use prior audit results to identify the unresolved components, penalties, source gaps, or drafting defects most likely to raise the proposal-quality score within the selected tier, and target those items first. Do not raise the score merely because another audit was run; the score should increase only when the audit resolves findings or improves the proposal under the framework's scoring rules.
+
 Audit count may influence the score only through the mathematical formulation in the framework and only when the audit changes the basis for confidence. Do not increase a score merely because the same unresolved defects were reviewed again.
 
 When updating a proposal-quality score, apply the same component scores, penalties, public-support inputs, and baseline-status rules each time. A repeated audit of unchanged materials should produce the same score. Record the score basis clearly enough that a later reviewer can reproduce the calculation.
