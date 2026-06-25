@@ -26,6 +26,12 @@ The Federal Reserve’s operational independence remains vulnerable to president
 - **FRB-007** — Pre-election monetary manipulation _(status: Candidate; priority: Critical)_
 - **FRB-008** — Preservation of accountability alongside instrument independence _(status: Candidate; priority: High)_
 
+## Issue Boundaries
+
+- **FRB-002** concerns the legal uncertainty surrounding removal protection for Federal Reserve governors and leadership, including attempted removal, litigation over removal authority, interim reinstatement, and whether statutory or constitutional design adequately protects monetary-policy independence during contested removal disputes. HOR-006 is integrated primarily here: Guardian reporting described Lisa Cook's legal and security expenses after Trump's attempted removal of her from the Federal Reserve board, temporary judicial reinstatement, and a pending Supreme Court dispute over the legality of the removal. See The Guardian, [*Fed governor Lisa Cook faced $1.3m in legal and security fees after Trump's bid to fire her*](https://www.theguardian.com/business/2026/jun/18/lisa-cook-legal-security-fees-trump-fed) (June 18, 2026).
+- **FRB-001** should receive secondary source-development support from HOR-006 only for pressure on interest-rate and monetary-policy decisions. Guardian reporting separately described White House pressure on Jerome Powell and the Federal Reserve while the Fed resisted rate-cut demands. See The Guardian, [*Federal Reserve holds interest rates as Trump piles on pressure*](https://www.theguardian.com/business/2026/jan/28/federal-reserve-holds-rates-powell-trump) (Jan. 28, 2026).
+- **FRB-006** should receive secondary source-development support where removal threats, investigations, legal expenses, security expenses, or similar burdens appear to function as retaliation or intimidation against Federal Reserve officials. **FRB-007** should be cross-referenced only if source development ties the pressure to election-cycle monetary manipulation.
+
 ## Notes
 
 High-priority systemic-risk area. Full source development and annotation pending.
