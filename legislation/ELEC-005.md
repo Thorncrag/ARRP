@@ -108,6 +108,10 @@ The table of sections for chapter 1 of title 3, United States Code, is amended b
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Drafting Notes
 
 - This draft is a targeted amendment to Title 3 and is drafted broadly enough to preserve the document-integrity principle if the Electoral College is replaced by another federal presidential result-transmission mechanism.

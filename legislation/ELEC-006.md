@@ -292,6 +292,10 @@ Nothing in this Act shall be construed to—
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Drafting Notes
 
 - This draft is designed as a targeted amendment to the Presidential Transition Act of 1963.

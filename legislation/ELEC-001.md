@@ -256,6 +256,10 @@ Nothing in this Act shall be construed—
 
 If any provision of this Act, an amendment made by this Act, or the application thereof is held invalid, the remainder and its application to other persons and circumstances shall not be affected.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Drafting Notes
 
 - The bill amends the Hatch Act only for the narrow official-authority prohibition and does not subject the President or Vice President to every restriction applicable to federal employees.

@@ -126,6 +126,10 @@ ELEC-001 concerns civilian executive interference through presidential authority
 
 ELEC-007 should be narrowed to military, National Guard, or armed federal-force intervention in polling, counting, canvassing, recount, certification, or custody of election materials.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Annotation
 
 **Basis and Evidence.** The Hatch Act already embodies the principle that federal employees may not use official authority or influence to interfere with or affect an election. Its exclusion of the President and Vice President and its employment-centered remedial structure leave the principal conduct identified here inadequately covered. The Trump–Raffensperger call is a representative manifestation because the requested numerical alteration corresponded to the margin necessary to reverse the state’s certified result. HOR-001 was integrated into this issue because the federal citizenship-list and voter-data architecture is a later manifestation of the same core defect: federal executive authority being used to control, pressure, or restructure state election administration outside ordinary constitutional channels.

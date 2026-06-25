@@ -146,6 +146,10 @@ The current model state draft also maps documented manifestations to remedy prov
 
 A threat intended to compel a certification decision may implicate both ELEC-002 and ELEC-003. ELEC-002 owns the certification mechanism; ELEC-003 owns protection of the targeted person and continuity of election operations.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.
+
 ## Annotation
 
 **Constitutional Structure.** Congress may encourage state action through clearly stated, related, and genuinely voluntary spending conditions. The proposal avoids commandeering by leaving states free to decline the new funds and avoids the principal coercion concern identified in *NFIB v. Sebelius* by placing no existing or unrelated funding at risk. See U.S. Const. art. I, § 8, cl. 1; *South Dakota v. Dole*, 483 U.S. 203 (1987); *NFIB v. Sebelius*, 567 U.S. 519 (2012); *Murphy v. NCAA*, 584 U.S. 453 (2018).

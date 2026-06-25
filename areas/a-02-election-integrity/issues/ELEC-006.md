@@ -102,6 +102,10 @@ The reform should include:
 - **ELEC-009** concerns whether the Electoral College should be restructured or replaced.
 - Judicial and congressional-enforcement issues may overlap where expedited review or oversight mechanisms are implicated.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Annotation
 
 **Norm-Preserving Design.** The proposal should preserve the historical norm-based transition model and add statutory backstops only where recent manifestations show that norms can fail.

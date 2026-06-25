@@ -103,6 +103,10 @@ The federal amendment should:
 - **ELEC-009** concerns whether the Electoral College itself should be restructured or replaced by a national popular-vote system.
 - **ELEC-008** concerns broader accountability for efforts to overturn lawful results.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Annotation
 
 **Existing Remedies.** This issue does not assume that false result-transmission conduct is otherwise lawful. Existing fraud, forgery, false-statement, obstruction, conspiracy, perjury, and state election statutes may apply. The proposed reform addresses the structural need for a federal-channel document-integrity rule.

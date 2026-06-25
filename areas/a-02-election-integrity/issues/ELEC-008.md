@@ -206,6 +206,10 @@ A narrow statute could include:
 - **ELEC-008** is the capstone accountability framework for coordinated schemes using one or more of those narrower mechanisms.
 - **IMM-001** addresses criminal immunity for presidential official acts. ELEC-008 and IMM-001 are complementary: ELEC-008 defines a scheme-level accountability framework for coordinated election subversion, while IMM-001 is necessary to preserve a meaningful avenue for applying such accountability when presidential conduct or claimed official-act immunity would otherwise prevent adjudication.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Annotation
 
 **Ambitious Scope.** ELEC-008 is broader and more constitutionally sensitive than ELEC-002 through ELEC-007. It should proceed cautiously and should be developed with a comparative review of existing reform proposals, election-subversion scholarship, RICO doctrine, First Amendment limits, Petition Clause protections, and post-2020 federal reforms.

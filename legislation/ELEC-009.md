@@ -52,6 +52,10 @@ Congress shall have power to enforce and implement this article by appropriate l
 
 This article shall take effect for the first presidential election occurring more than two years after ratification, unless Congress by law provides a later effective date.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. No direct appropriation is anticipated for the amendment itself; implementing legislation may have costs.
+
 ## Drafting Notes
 
 - This is a first working draft of a constitutional amendment.

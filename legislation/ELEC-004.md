@@ -171,6 +171,10 @@ Nothing in this Act shall be construed to prohibit a good-faith election challen
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Drafting Notes
 
 - This draft regulates federal-court procedure and relief in election proceedings; it does not attempt to commandeer state courts.

@@ -99,6 +99,10 @@ The amendment should:
 - **ELEC-008** concerns coordinated federal election-subversion schemes. Direct election would reduce elector-specific attack surfaces while preserving the need for scheme-level accountability.
 - **ELEC-009** concerns the constitutional presidential-selection mechanism itself.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. No direct appropriation is anticipated for the amendment itself; implementing legislation may have costs.
+
 ## Annotation
 
 **Institutional-Trust Basis.** This issue belongs in the project even though it is not principally prompted by the conduct of a particular President. The project addresses institutional structures that undermine legitimacy, accountability, resilience, or public confidence. Repeated divergence between the national popular vote and the presidential outcome presents such a structural concern.

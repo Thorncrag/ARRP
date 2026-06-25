@@ -104,6 +104,10 @@ Each state should adopt a Model State Election Certification and Automatic Subst
 - **ELEC-005** addresses alternate-elector and false-certification schemes.
 - **ELEC-008** addresses broader accountability for efforts to overturn lawful election results.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Annotation
 
 **Scope.** This issue retains the existing title because pressure upon certifiers remains an important manifestation, but its distinct institutional subject is the vulnerability of the certification mechanism itself.

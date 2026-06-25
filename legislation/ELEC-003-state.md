@@ -255,6 +255,10 @@ Where another law provides greater protection consistent with constitutional req
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.
+
 ## Drafting Notes
 
 - The Act intentionally uses existing state institutions rather than creating a new election-security agency.

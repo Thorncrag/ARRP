@@ -42,7 +42,7 @@ The main body should then include:
 2. project areas in the order listed in [`../areas/README.md`](../areas/README.md) and [`../inventory/areas.csv`](../inventory/areas.csv);
 3. for each area, the area README as the area introduction;
 4. for each area, existing issue pages in issue-identifier order;
-5. within each issue, the issue page's existing heading structure, including Issue Snapshot, Institutional Anomaly, Manifestations, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation where present, Annotation, source notes, and internal cross-references where present.
+5. within each issue, the issue page's existing heading structure, including Issue Snapshot, Institutional Anomaly, Manifestations, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation where present, Budgetary Impact Statement, Annotation, source notes, and internal cross-references where present.
 
 If an issue exists only in the inventory or area README and does not yet have its own issue page, it should remain summarized in the area page and should not be expanded artificially in the compiled document.
 
@@ -67,8 +67,9 @@ Legislation pages should use a narrow publication structure:
 
 1. introductory text only when necessary to identify a special vehicle or circumstance, such as a constitutional amendment, model state bill, Justice Manual provision, statutory analogue, or proposed amendment;
 2. the proposed legislative, constitutional, regulatory, rule, or manual text;
-3. `Drafting Notes`; and
-4. `Source Notes`, or `Authority Notes` where the proposal specifically needs a legal-authority or statutory-hook map.
+3. `Budgetary Impact Statement`;
+4. `Drafting Notes`; and
+5. `Source Notes`, or `Authority Notes` where the proposal specifically needs a legal-authority or statutory-hook map.
 
 Relation-to-law provisions, rules of construction, severability clauses, definitions, and similar material should remain inside the proposed text when they are operative provisions. Explanatory crosswalks, manifestation-to-remedy mapping, implementation principles, and other analysis should live on the issue page, source-development page, or selected technical appendix rather than as standalone sections on the legislation page, unless the user deliberately creates a publication-specific appendix.
 

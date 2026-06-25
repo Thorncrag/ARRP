@@ -178,6 +178,10 @@ Congress should also enact federal postal standards for election mail, including
 
 [ELEC-007](ELEC-007.md) covers improper federal-force presence in election administration. ELEC-010 covers mail and custody procedures that may reduce pressure for pretextual federal intervention.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority may be required if the chosen remedy funds postage, tracking, or election-administration support; no dollar estimate is assigned pending source-backed cost data.
+
 ## Annotation
 
 **Basis and Evidence.** Mail voting can be administered securely, but it is operationally demanding. The USPS OIG's 2020 report supports both sides of that conclusion: the Postal Service prioritized and largely delivered election mail, but it also identified visibility, communication, all-clear, postmarking, and measurement gaps. EAC canvass guidance confirms that cure, chain of custody, ballot reconciliation, late-arriving mail ballots, and drop-box documentation are ordinary election-integrity tools rather than partisan inventions. USPS deadline advisories are useful evidence for voter guidance and statutory planning, but they should not themselves become legal disqualification rules.

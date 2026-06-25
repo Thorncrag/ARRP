@@ -354,6 +354,10 @@ The table of contents of the Help America Vote Act of 2002 is amended by adding 
 >
 > “Sec. 1015. Severability.”
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.
+
 ## Drafting Notes
 
 - This is a first working draft. Final codification placement and section numbering should be conformed to the current structure of HAVA and the Office of the Law Revision Counsel’s classification practices.

@@ -158,6 +158,10 @@ This Act applies without regard to the identity, party, affiliation, office, can
 
 If any provision or application of this Act is held invalid, the remainder shall not be affected.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Drafting Notes
 
 - The model separates certification from investigation and election-contest adjudication.

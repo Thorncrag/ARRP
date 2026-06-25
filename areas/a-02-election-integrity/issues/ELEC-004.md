@@ -141,6 +141,10 @@ The remedy architecture addresses abusive pre-election challenges through the 18
 
 ELEC-004 may supply the procedural predicate for ELEC-002 or ELEC-005 conduct, but it owns the abuse of formal election process itself.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Annotation
 
 **Anti-SLAPP Analogy.** This issue expressly borrows from Anti-SLAPP architecture: early screening, discovery stay, burden clarification, fee-shifting, and sanctions. The model is adapted for public-law election proceedings rather than ordinary civil claims affecting speech or petitioning.

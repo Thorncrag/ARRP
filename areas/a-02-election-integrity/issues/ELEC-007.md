@@ -110,6 +110,10 @@ The statute should also make clear that inadvertent or unavoidable incidental co
 - **ELEC-007** concerns federal-force presence, emergency response, and election-material custody around election administration.
 - Domestic-deployment and Insurrection Act issues belong primarily in the DOM-series area.
 
+## Budgetary Impact Statement
+
+Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
 ## Annotation
 
 **Core Rule.** Federal agents may respond to the emergency; they may not become part of the election.
