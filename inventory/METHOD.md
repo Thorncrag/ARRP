@@ -39,7 +39,7 @@ When updating the project, check whether the change requires inventory maintenan
 1. If an area is added, renamed, retired, or materially reframed, update [`areas.csv`](areas.csv) and [`contents.csv`](contents.csv).
 2. If an issue is added, renamed, promoted, retired, merged, moved, or given a new development status, update [`issues.csv`](issues.csv), [`contents.csv`](contents.csv), and the relevant area README.
 3. If proposed legislation is added, renamed, or removed, update the `Legislation Path` field in [`contents.csv`](contents.csv).
-4. If an issue is audited, promoted, paused, retired, merged, given legislation, or materially revised, update [`audits.csv`](audits.csv), including `Audit Runs`, `Proposal Quality Score`, `Audit Status`, `Score Basis`, and `Next Audit Need`.
+4. If an issue is audited, promoted, paused, retired, merged, given legislation, or materially revised, update the issue-page audit front matter, visible Audit Record, and [`audits.csv`](audits.csv), including `Audit Runs`, `Proposal Quality Score`, `Audit Status`, `Score Basis`, and `Next Audit Need`.
 5. If an external source is newly cited, removed, or used for a materially different proposition, update [`sources.csv`](sources.csv).
 6. If source review is completed, update `Reviewed?`, `Proposition Supported`, and any notes in [`sources.csv`](sources.csv).
 7. If issue counts change, update both the area README front matter and [`areas.csv`](areas.csv).
@@ -101,6 +101,8 @@ When an audit uncertainty cannot be resolved independently, do not pause the ent
 Audits should fix identified defects when the correction can be made within the selected tier, follows the framework, and does not require unresolved user judgment. Record what was corrected, what remains unresolved, and whether the correction changed the proposal-quality score.
 
 Audit inventory rows should not hide material audit results. When an audit updates [`audits.csv`](audits.csv), also update the relevant issue page with a concise public-facing audit record that includes the latest audit tier, date, proposal-quality score, corrections made, unresolved findings, material caveats, score limitations, and next audit need. Any audit information a human reader would reasonably need should appear on the issue page, while the CSV row should serve as the compact tracking record.
+
+Developed issue pages should include compact audit front matter for tooling and quick scanning: `audit_status`, `audit_score`, `audit_last_type`, `audit_last_date`, and `audit_next`. These fields should match the visible Audit Record and [`audits.csv`](audits.csv), but they should not replace the human-facing audit explanation on the issue page.
 
 Each completed audit should include a brief audit-process feedback note on the issue page or audit record. The note should identify whether the selected tier was adequate, whether the audit finished under or over estimate, what slowed or improved the audit, and whether the framework, inventory method, source rules, scoring rules, or issue-page template should be revised before future audits. Recommended rule changes should explain the reason and should improve consistency, source reliability, transparency, resource control, or implementation quality.
 

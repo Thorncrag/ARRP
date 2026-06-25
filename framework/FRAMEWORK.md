@@ -227,6 +227,8 @@ Audits are corrective workflows, not documentation-only reviews. When an audit i
 
 Human-relevant audit results should be visible on the issue page itself. CSV files are for tracking, indexing, verification, and machine-readable maintenance; they are not a substitute for human-facing disclosure. When an audit is completed, update the issue page with a concise **Audit Record** or equivalent section identifying the latest audit tier, date, proposal-quality score, corrections made, unresolved findings, material caveats, score limitations, and next audit need. Do not leave any information that a human reader would reasonably need to understand the issue's audit posture only in [`../inventory/audits.csv`](../inventory/audits.csv), [`../inventory/sources.csv`](../inventory/sources.csv), or another inventory file.
 
+Each developed issue page should also carry compact audit metadata in front matter: `audit_status`, `audit_score`, `audit_last_type`, `audit_last_date`, and `audit_next`. These fields are for tooling and quick scanning only. They should match the latest visible **Audit Record** and [`../inventory/audits.csv`](../inventory/audits.csv), but they should not replace the human-readable audit explanation on the page.
+
 Each completed audit should leave a concise record that identifies:
 
 1. audit scope;
