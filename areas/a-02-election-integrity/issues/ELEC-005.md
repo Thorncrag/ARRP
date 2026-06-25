@@ -61,6 +61,18 @@ Existing law may lack:
 - an express rule preserving state authority before federal transmission; and
 - clear nonpreemption of state criminal, civil, and election-law remedies.
 
+## Proposal Survey
+
+The Electoral Count Reform Act clarified several certificate and electoral-count procedures but did not create a standalone false-result-transmission offense. See [3 U.S.C. §§ 5, 11, 12, and 15](https://www.law.cornell.edu/uscode/text/3/chapter-1). Existing criminal statutes may apply to false documents, false statements, conspiracy, or obstruction, but they were not designed specifically for presidential result-transmission channels. See [18 U.S.C. §§ 371, 1001, and 1512](https://www.law.cornell.edu/uscode/text/18/part-I).
+
+State forgery, false-instrument, and election-law statutes provide additional models, but coverage and remedies vary. ELEC-005 therefore proposes a targeted federal-channel rule that supplements rather than displaces existing federal and state remedies.
+
+## Least-Complex Adequate Remedy
+
+The least-complex adequate remedy within the existing Electoral College framework is a targeted federal amendment to Title 3 rather than a general federal regulation of state elector appointment. The amendment should protect only the federal receipt, preservation, and counting channel.
+
+A less complex and more complete structural remedy may be abolition of the Electoral College itself, because eliminating presidential electors would make false presidential-elector certificates moot. That broader structural reform belongs principally to ELEC-009. If a non-Electoral-College presidential election mechanism is adopted, however, the core principle of ELEC-005 should remain applicable to the official transmission of presidential-election results to federal officials. A replacement system would still require a protected federal channel for official state or national result documents, and knowingly false or unauthorized result-transmission documents should not be permitted to create federal procedural ambiguity.
+
 ## Repair and Prevention
 
 Congress should amend chapter 1 of title 3, United States Code, by adding a new section, likely 3 U.S.C. § 12A, governing false or unauthorized presidential result-transmission documents submitted or used in federal channels.
@@ -75,18 +87,6 @@ The federal amendment should:
 6. authorize civil declaratory and injunctive relief by the United States;
 7. create calibrated criminal penalties for knowing federal-channel misuse; and
 8. supplement, rather than displace, existing federal and state remedies.
-
-## Proposal Survey
-
-The Electoral Count Reform Act clarified several certificate and electoral-count procedures but did not create a standalone false-result-transmission offense. See [3 U.S.C. §§ 5, 11, 12, and 15](https://www.law.cornell.edu/uscode/text/3/chapter-1). Existing criminal statutes may apply to false documents, false statements, conspiracy, or obstruction, but they were not designed specifically for presidential result-transmission channels. See [18 U.S.C. §§ 371, 1001, and 1512](https://www.law.cornell.edu/uscode/text/18/part-I).
-
-State forgery, false-instrument, and election-law statutes provide additional models, but coverage and remedies vary. ELEC-005 therefore proposes a targeted federal-channel rule that supplements rather than displaces existing federal and state remedies.
-
-## Least-Complex Adequate Remedy
-
-The least-complex adequate remedy within the existing Electoral College framework is a targeted federal amendment to Title 3 rather than a general federal regulation of state elector appointment. The amendment should protect only the federal receipt, preservation, and counting channel.
-
-A less complex and more complete structural remedy may be abolition of the Electoral College itself, because eliminating presidential electors would make false presidential-elector certificates moot. That broader structural reform belongs principally to ELEC-009. If a non-Electoral-College presidential election mechanism is adopted, however, the core principle of ELEC-005 should remain applicable to the official transmission of presidential-election results to federal officials. A replacement system would still require a protected federal channel for official state or national result documents, and knowingly false or unauthorized result-transmission documents should not be permitted to create federal procedural ambiguity.
 
 ## Proposed Legislation
 

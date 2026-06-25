@@ -47,25 +47,6 @@ Existing federal law addresses portions of the problem but not the complete inst
 
 The central gap is therefore not the absence of every possible legal prohibition. It is the absence of a coherent rule expressly covering the President and senior executive officials, defining prohibited result-directed interference, preserving legitimate federal functions, and providing relief before the election process becomes irreversible.
 
-## Repair and Prevention
-
-Federal law should prohibit a covered executive official from knowingly using, directing, threatening, authorizing, requesting, or causing the use of official authority or influence derived from federal office to interfere with a state or local election function for the purpose of effectuating, preventing, altering, or securing a preferred outcome for an identified candidate, political party, slate of electors, ballot position, or election result.
-
-The general prohibition should be paired with objectively defined covered acts, including efforts to:
-
-1. add, exclude, alter, manufacture, destroy, suppress, count, or refuse to count votes contrary to law;
-2. state, transmit, canvass, recount, or certify a materially false result;
-3. depart from an applicable election statute, final judicial order, or lawfully completed administrative determination;
-4. initiate or manipulate a federal investigation, prosecution, audit, regulatory action, funding action, intelligence activity, or administrative process without a good-faith lawful basis and for the prohibited electoral purpose;
-5. obtain ballots, voting equipment, voter records, election data, or election materials without lawful authority;
-6. procure a materially false official representation concerning fraud, vote totals, certification, or election results;
-7. threaten or impose adverse federal action to obtain an election-related act; or
-8. retaliate against an official who refuses an unlawful or unauthorized election-related request.
-
-A completed alteration of the election result should not be required. Attempt, direction, authorization, conspiracy, and knowing material assistance should be covered.
-
-The statute must preserve ordinary political advocacy, public criticism, lawful litigation, good-faith enforcement of federal law, compliance with judicial process, authorized voting-rights and election-crime enforcement, foreign-interference response, and voluntary technical or cybersecurity assistance requested by lawful state authorities.
-
 ## Proposal Survey
 
 The Hatch Act already prohibits many federal employees from using official authority to interfere with or affect an election, but it excludes the President and Vice President from the relevant employee definition. See [5 U.S.C. §§ 7322-7323](https://www.law.cornell.edu/uscode/text/5/part-III/subpart-F/chapter-73/subchapter-III). Criminal law also contains narrower election-interference provisions. See [18 U.S.C. § 595](https://www.law.cornell.edu/uscode/text/18/595).
@@ -88,6 +69,25 @@ Amend the Hatch Act rather than create an entirely separate primary regime. The 
 Where the President, Vice President, Attorney General, or another senior executive official creates a disabling investigative conflict, the matter should be referable to the independent investigative-counsel mechanism developed under DOJ-007. Criminal enforcement against presidential official acts remains subject to current immunity doctrine unless superseded by IMM-001.
 
 This package is less complex than a wholly freestanding election-administration code because it extends an existing federal principle, uses established OSC and MSPB structures, and regulates federal executive actors rather than the internal organization of state elections.
+
+## Repair and Prevention
+
+Federal law should prohibit a covered executive official from knowingly using, directing, threatening, authorizing, requesting, or causing the use of official authority or influence derived from federal office to interfere with a state or local election function for the purpose of effectuating, preventing, altering, or securing a preferred outcome for an identified candidate, political party, slate of electors, ballot position, or election result.
+
+The general prohibition should be paired with objectively defined covered acts, including efforts to:
+
+1. add, exclude, alter, manufacture, destroy, suppress, count, or refuse to count votes contrary to law;
+2. state, transmit, canvass, recount, or certify a materially false result;
+3. depart from an applicable election statute, final judicial order, or lawfully completed administrative determination;
+4. initiate or manipulate a federal investigation, prosecution, audit, regulatory action, funding action, intelligence activity, or administrative process without a good-faith lawful basis and for the prohibited electoral purpose;
+5. obtain ballots, voting equipment, voter records, election data, or election materials without lawful authority;
+6. procure a materially false official representation concerning fraud, vote totals, certification, or election results;
+7. threaten or impose adverse federal action to obtain an election-related act; or
+8. retaliate against an official who refuses an unlawful or unauthorized election-related request.
+
+A completed alteration of the election result should not be required. Attempt, direction, authorization, conspiracy, and knowing material assistance should be covered.
+
+The statute must preserve ordinary political advocacy, public criticism, lawful litigation, good-faith enforcement of federal law, compliance with judicial process, authorized voting-rights and election-crime enforcement, foreign-interference response, and voluntary technical or cybersecurity assistance requested by lawful state authorities.
 
 ## Proposed Legislation
 

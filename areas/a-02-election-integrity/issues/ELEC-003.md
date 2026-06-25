@@ -68,6 +68,23 @@ The protection system may lack one or more of the following:
 
 A federal remedy centered on discretionary executive supervision would create an additional institutional risk: the same funding or protection mechanism could be used to reward, punish, pressure, or influence state election administration.
 
+## Proposal Survey
+
+Federal law already protects voting rights and criminalizes some intimidation, threats, and interference. Relevant models include the Voting Rights Act intimidation provision, federal threat statutes, and civil-rights enforcement authority. See [52 U.S.C. § 10307](https://www.law.cornell.edu/uscode/text/52/10307) and [18 U.S.C. § 875](https://www.law.cornell.edu/uscode/text/18/875).
+
+Election-administration funding also has an established vehicle: the Help America Vote Act of 2002 created federal support through the Election Assistance Commission while preserving state administration. See [52 U.S.C. §§ 20901-21145](https://www.law.cornell.edu/uscode/text/52/subtitle-II/chapter-209). ELEC-003 combines state protection statutes with a HAVA-style funding backstop rather than federal operational control.
+
+## Least-Complex Adequate Remedy
+
+The least-complex adequate remedy is a coupled legislative package:
+
+1. a model state Election Personnel Protection Act establishing the substantive, politically neutral protection regime; and
+2. a narrowly drawn HAVA amendment offering automatic formula payments only to states maintaining that regime.
+
+The state supplies legal protection and operational administration. The federal government supplies only a voluntary financial backstop, objective verification, protection-purpose accounting, and independently authorized criminal enforcement. Failure to participate results only in loss of the new grant.
+
+This structure is less coercive and less susceptible to executive leverage than withholding existing election, justice, homeland-security, transportation, or other federal funds.
+
 ## Repair and Prevention
 
 ### State protection regime
@@ -104,23 +121,6 @@ The amendment should:
 9. provide expedited de novo judicial review of a denial identifying the specific missing statutory element.
 
 Federal criminal jurisdiction should remain limited to independently defined federal offenses, including conduct with an appropriate federal or interstate nexus. It should not become a source of administrative control over state election processes.
-
-## Proposal Survey
-
-Federal law already protects voting rights and criminalizes some intimidation, threats, and interference. Relevant models include the Voting Rights Act intimidation provision, federal threat statutes, and civil-rights enforcement authority. See [52 U.S.C. § 10307](https://www.law.cornell.edu/uscode/text/52/10307) and [18 U.S.C. § 875](https://www.law.cornell.edu/uscode/text/18/875).
-
-Election-administration funding also has an established vehicle: the Help America Vote Act of 2002 created federal support through the Election Assistance Commission while preserving state administration. See [52 U.S.C. §§ 20901-21145](https://www.law.cornell.edu/uscode/text/52/subtitle-II/chapter-209). ELEC-003 combines state protection statutes with a HAVA-style funding backstop rather than federal operational control.
-
-## Least-Complex Adequate Remedy
-
-The least-complex adequate remedy is a coupled legislative package:
-
-1. a model state Election Personnel Protection Act establishing the substantive, politically neutral protection regime; and
-2. a narrowly drawn HAVA amendment offering automatic formula payments only to states maintaining that regime.
-
-The state supplies legal protection and operational administration. The federal government supplies only a voluntary financial backstop, objective verification, protection-purpose accounting, and independently authorized criminal enforcement. Failure to participate results only in loss of the new grant.
-
-This structure is less coercive and less susceptible to executive leverage than withholding existing election, justice, homeland-security, transportation, or other federal funds.
 
 ## Proposed Legislation
 

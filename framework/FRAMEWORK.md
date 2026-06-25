@@ -35,17 +35,17 @@ Every developed issue should use the following structure:
 3. **Manifestation of the Failure** — only the representative facts necessary to show how the defect operates.
 4. **Resulting Damage** — the principal institutional, legal, factual, administrative, or legitimacy harm.
 5. **Underlying Weakness** — the law, structure, procedure, remedy, or norm that failed.
-6. **Repair and Prevention** — restoration or correction of existing damage and prospective safeguards against recurrence.
-7. **Proposed Legislation** — link to the proposed legislative, rule, constitutional, or procedural vehicle when one exists.
-8. **Proposal Survey** — concise review of prior or adjacent models bearing on the remedy.
-9. **Least-Complex Adequate Remedy** — the least-complex measure or package capable of adequately addressing the defect.
+6. **Proposal Survey** — concise review of prior or adjacent models bearing on the remedy.
+7. **Least-Complex Adequate Remedy** — the least-complex measure or package capable of adequately addressing the defect.
+8. **Repair and Prevention** — restoration or correction of existing damage and prospective safeguards against recurrence.
+9. **Proposed Legislation** — link to the proposed legislative, rule, constitutional, or procedural vehicle when one exists.
 10. **Annotation** — evidence, legal analysis, qualifications, alternatives, and implementation constraints.
 
 The headings guide analysis but do not require artificial expansion. Each section should add a distinct proposition.
 
 Custom section headings are permitted where they make a developed issue clearer or more natural to read, provided the issue still performs the required analytical functions. A custom heading should be meaningfully distinct from the canonical heading it replaces rather than a trivial restatement. Where custom headings are used, the required function should remain clear from the heading itself, the surrounding structure, or a short orienting sentence.
 
-Where proposed legislation or another concrete reform vehicle exists, the issue page should include a **Proposed Legislation** section immediately after **Repair and Prevention**. This placement lets a reader move directly from diagnosis and repair to the proposed vehicle before reading the deeper survey, remedy analysis, annotation, or audit record.
+Where proposed legislation or another concrete reform vehicle exists, the issue page should include a **Proposed Legislation** section immediately after **Repair and Prevention**. **Repair and Prevention** and **Proposed Legislation** should appear after **Least-Complex Adequate Remedy**, so the page first compares available models and identifies the preferred remedy before presenting the repair frame and concrete vehicle.
 
 ### Issue Snapshot Format
 
@@ -144,7 +144,7 @@ Every issue should have a corresponding row in [`../inventory/audits.csv`](../in
 Each developed proposal should be audited through the following sequence. The sequence may be run as a full review or as a targeted review, but the audit record should identify which parts were completed.
 
 1. **Issue-identification audit.** Confirm that the issue identifies a distinct institutional weakness, has the correct primary area home, is not duplicative of another issue, and is framed as a structural defect rather than as a narrative about one person or episode.
-2. **Framework-compliance audit.** Confirm that the issue performs the required analytical functions: Issue Snapshot, Institutional Anomaly, Manifestation of the Failure, Resulting Damage, Underlying Weakness, Repair and Prevention, Proposed Legislation where applicable, Proposal Survey, Least-Complex Adequate Remedy, and Annotation.
+2. **Framework-compliance audit.** Confirm that the issue performs the required analytical functions: Issue Snapshot, Institutional Anomaly, Manifestation of the Failure, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation where applicable, and Annotation.
 3. **Evidence and citation audit.** Confirm that factual, legal, and causal claims are supported by nearby citations, that real-world examples link to source material, and that all cited external sources are captured in [`../inventory/sources.csv`](../inventory/sources.csv).
 4. **Legal-support audit.** Confirm that the proposal accurately identifies the constitutional, statutory, regulatory, procedural, or institutional authority on which it depends and discloses material uncertainty, doctrine, limits, or litigation risk.
 5. **Existing-law and prior-proposal audit.** Confirm that the proposal checks existing law first, prefers amendment of existing vehicles where adequate, and weighs prior proposals according to enacted use, institutional review, sponsorship, co-sponsorship, bipartisan support, and legislative progress.

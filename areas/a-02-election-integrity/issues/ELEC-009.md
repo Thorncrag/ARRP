@@ -57,6 +57,18 @@ The current system combines several distinct features that should not be treated
 - contingent election by state delegation in the House; and
 - decentralized state administration of the underlying popular vote.
 
+## Proposal Survey
+
+Prior reform models include constitutional amendments for direct popular election, state allocation reforms, proportional or district-based electoral-vote allocation, and the National Popular Vote Interstate Compact. The compact seeks to use state appointment power to award electoral votes to the national popular-vote winner once states totaling 270 electoral votes join. See [National Popular Vote](https://www.nationalpopularvote.com/written-explanation).
+
+The Electoral Count Reform Act improved counting procedures but left the Electoral College structure intact. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). ELEC-009 treats compact and allocation reforms as possible interim models but selects constitutional replacement as the durable remedy.
+
+## Least-Complex Adequate Remedy
+
+The most durable method of guaranteeing that the national popular-vote winner becomes President is a constitutional amendment establishing direct national popular election. That remedy is legally clear but politically difficult and requires detailed national rules governing recounts, ballot access, dispute resolution, certification, and election administration.
+
+The National Popular Vote Interstate Compact is less procedurally difficult than amendment but does not abolish the Electoral College, depends on coordinated state enactments, and presents unresolved constitutional and operational risks. It should be evaluated as an interim or alternative mechanism rather than presumed equivalent to constitutional replacement.
+
 ## Repair and Prevention
 
 Congress and the States should adopt a constitutional amendment abolishing presidential electors and providing for direct national election of the President and Vice President by the people of the United States.
@@ -72,18 +84,6 @@ The amendment should:
 7. preserve state administration subject to uniform federal standards;
 8. supersede inconsistent constitutional provisions; and
 9. provide a delayed effective date sufficient for implementation.
-
-## Proposal Survey
-
-Prior reform models include constitutional amendments for direct popular election, state allocation reforms, proportional or district-based electoral-vote allocation, and the National Popular Vote Interstate Compact. The compact seeks to use state appointment power to award electoral votes to the national popular-vote winner once states totaling 270 electoral votes join. See [National Popular Vote](https://www.nationalpopularvote.com/written-explanation).
-
-The Electoral Count Reform Act improved counting procedures but left the Electoral College structure intact. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). ELEC-009 treats compact and allocation reforms as possible interim models but selects constitutional replacement as the durable remedy.
-
-## Least-Complex Adequate Remedy
-
-The most durable method of guaranteeing that the national popular-vote winner becomes President is a constitutional amendment establishing direct national popular election. That remedy is legally clear but politically difficult and requires detailed national rules governing recounts, ballot access, dispute resolution, certification, and election administration.
-
-The National Popular Vote Interstate Compact is less procedurally difficult than amendment but does not abolish the Electoral College, depends on coordinated state enactments, and presents unresolved constitutional and operational risks. It should be evaluated as an interim or alternative mechanism rather than presumed equivalent to constitutional replacement.
 
 ## Proposed Legislation
 

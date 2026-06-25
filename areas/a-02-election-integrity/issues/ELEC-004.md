@@ -73,6 +73,21 @@ Existing law may lack:
 - expedited appellate review before downstream deadlines expire; and
 - safeguards against chilling good-faith reporting or authorized election contests.
 
+## Proposal Survey
+
+Anti-SLAPP statutes provide the closest procedural analogue: early screening, discovery stays, burden clarification, and fee shifting for abusive litigation. Because Anti-SLAPP law is primarily state law and varies widely, ELEC-004 adapts the architecture rather than copying any single state statute.
+
+Federal procedural models also exist for accelerated election litigation and sensitive-material protection, including expedited review provisions in the Electoral Count Reform Act and ordinary protective-order practice. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617) and [Federal Rule of Civil Procedure 26(c)](https://www.law.cornell.edu/rules/frcp/rule_26). The proposal applies those ideas to election-disruptive process abuse.
+
+## Least-Complex Adequate Remedy
+
+The least-complex adequate remedy is a two-track package:
+
+1. mandatory federal-court Anti-SLAPP-style screening, discovery control, sensitive-material protection, and later-discovered improper-purpose sanctions for federal election proceedings; and
+2. model state legislation encouraging states to adopt parallel procedures for state courts and state-law election proceedings.
+
+This approach avoids a federal takeover of state election-contest systems while ensuring that federal courts do not become vehicles for election-disruptive litigation, evidentiary rummaging, or later-discovered coordinated schemes.
+
 ## Repair and Prevention
 
 ### Federal-court legislation
@@ -100,21 +115,6 @@ States should be encouraged to enact a parallel Anti-SLAPP-style Election Procee
 ELEC-004 does not regulate ordinary citizen complaints, reports of suspected irregularity, ballot-specific voter remedies, or statutorily authorized recount participation. A voter may report suspected irregularities to election officials, law enforcement, candidates, parties, prosecutors, or other authorized bodies without triggering the special screening or sanctions mechanism.
 
 The screening procedure applies to proceedings or demands that seek coercive, disruptive, or sensitive-material relief, regardless of whether the filer is a candidate, party, official, organization, attorney, or private plaintiff.
-
-## Proposal Survey
-
-Anti-SLAPP statutes provide the closest procedural analogue: early screening, discovery stays, burden clarification, and fee shifting for abusive litigation. Because Anti-SLAPP law is primarily state law and varies widely, ELEC-004 adapts the architecture rather than copying any single state statute.
-
-Federal procedural models also exist for accelerated election litigation and sensitive-material protection, including expedited review provisions in the Electoral Count Reform Act and ordinary protective-order practice. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617) and [Federal Rule of Civil Procedure 26(c)](https://www.law.cornell.edu/rules/frcp/rule_26). The proposal applies those ideas to election-disruptive process abuse.
-
-## Least-Complex Adequate Remedy
-
-The least-complex adequate remedy is a two-track package:
-
-1. mandatory federal-court Anti-SLAPP-style screening, discovery control, sensitive-material protection, and later-discovered improper-purpose sanctions for federal election proceedings; and
-2. model state legislation encouraging states to adopt parallel procedures for state courts and state-law election proceedings.
-
-This approach avoids a federal takeover of state election-contest systems while ensuring that federal courts do not become vehicles for election-disruptive litigation, evidentiary rummaging, or later-discovered coordinated schemes.
 
 ## Proposed Legislation
 

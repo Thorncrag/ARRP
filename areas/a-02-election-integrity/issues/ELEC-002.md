@@ -63,6 +63,18 @@ Certification law often assumes that officials will perform their duties without
 - anti-retaliation protection for officials who perform the duty; and
 - consequences calibrated to knowing refusal or falsification.
 
+## Proposal Survey
+
+States have begun clarifying certification duties through litigation and statutory practice, while Congress addressed presidential certificate procedures through the Electoral Count Reform and Presidential Transition Improvement Act of 2022. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). Those federal reforms reduced some electoral-count vulnerabilities but did not comprehensively redesign local and state certification bodies.
+
+Common remedial models include mandamus, ministerial-duty statutes, automatic substitution, expedited judicial review, and penalties for refusal or falsification. ELEC-002 selects model state legislation because state law creates most canvassing and certification offices and can specify the correct substitute official or court.
+
+## Least-Complex Adequate Remedy
+
+The least-complex adequate remedy is model state legislation rather than comprehensive federal regulation. States create and administer the relevant county and state certification offices and are best positioned to specify the lawful successor, court, deadline, and enforcement mechanism within their own institutional structures.
+
+A limited federal floor may remain appropriate for elections containing a federal office, particularly under the Elections Clause for congressional elections and existing federal law governing presidential electors. The primary recommendation, however, is uniform state adoption of the model act.
+
 ## Repair and Prevention
 
 Each state should adopt a Model State Election Certification and Automatic Substitution Act providing that:
@@ -77,18 +89,6 @@ Each state should adopt a Model State Election Certification and Automatic Subst
 8. officials may refer suspected fraud or illegality to law enforcement without withholding certification;
 9. knowing refusal or delay for an unauthorized purpose supports removal from the matter, civil penalties, reimbursement of public costs, and appropriate discipline; and
 10. intentional falsification, concealment, destruction, or corrupt alteration of certification records may be criminally punished.
-
-## Proposal Survey
-
-States have begun clarifying certification duties through litigation and statutory practice, while Congress addressed presidential certificate procedures through the Electoral Count Reform and Presidential Transition Improvement Act of 2022. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). Those federal reforms reduced some electoral-count vulnerabilities but did not comprehensively redesign local and state certification bodies.
-
-Common remedial models include mandamus, ministerial-duty statutes, automatic substitution, expedited judicial review, and penalties for refusal or falsification. ELEC-002 selects model state legislation because state law creates most canvassing and certification offices and can specify the correct substitute official or court.
-
-## Least-Complex Adequate Remedy
-
-The least-complex adequate remedy is model state legislation rather than comprehensive federal regulation. States create and administer the relevant county and state certification offices and are best positioned to specify the lawful successor, court, deadline, and enforcement mechanism within their own institutional structures.
-
-A limited federal floor may remain appropriate for elections containing a federal office, particularly under the Elections Clause for congressional elections and existing federal law governing presidential electors. The primary recommendation, however, is uniform state adoption of the model act.
 
 ## Proposed Legislation
 

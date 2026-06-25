@@ -165,6 +165,16 @@ The statute should expressly preserve:
 
 No person should be liable merely for asserting that an election was unlawful, supporting a candidate, filing a losing lawsuit, advocating for a recount, criticizing election administration, or participating in ordinary political activity.
 
+## Proposal Survey
+
+The closest legal analogue is RICO, which treats coordinated patterns of predicate misconduct as a distinct statutory wrong. See [18 U.S.C. §§ 1961-1968](https://www.law.cornell.edu/uscode/text/18/chapter-96). Ordinary RICO is too broad for election disputes because protected speech, litigation, recounts, contests, journalism, and congressional activity must be preserved.
+
+Congress also partially addressed presidential-election subversion through the Electoral Count Reform Act, but that reform hardened electoral-count procedures rather than creating scheme-level accountability. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). ELEC-008 therefore uses a narrow election-specific RICO analogue with defined predicates and safe harbors.
+
+## Least-Complex Adequate Remedy
+
+The least-complex adequate remedy is not a general election-denial statute. It is a narrow scheme-level accountability framework that applies only when independently wrongful predicate acts are coordinated for the corrupt purpose of overturning or obstructing a lawful federal-election result.
+
 ## Repair and Prevention
 
 A narrow statute could include:
@@ -178,16 +188,6 @@ A narrow statute could include:
 7. disqualification from federal election-administration roles, presidential-elector service, or specified transition roles where narrowly justified;
 8. record-preservation duties;
 9. expedited judicial review.
-
-## Proposal Survey
-
-The closest legal analogue is RICO, which treats coordinated patterns of predicate misconduct as a distinct statutory wrong. See [18 U.S.C. §§ 1961-1968](https://www.law.cornell.edu/uscode/text/18/chapter-96). Ordinary RICO is too broad for election disputes because protected speech, litigation, recounts, contests, journalism, and congressional activity must be preserved.
-
-Congress also partially addressed presidential-election subversion through the Electoral Count Reform Act, but that reform hardened electoral-count procedures rather than creating scheme-level accountability. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). ELEC-008 therefore uses a narrow election-specific RICO analogue with defined predicates and safe harbors.
-
-## Least-Complex Adequate Remedy
-
-The least-complex adequate remedy is not a general election-denial statute. It is a narrow scheme-level accountability framework that applies only when independently wrongful predicate acts are coordinated for the corrupt purpose of overturning or obstructing a lawful federal-election result.
 
 ## Proposed Legislation
 

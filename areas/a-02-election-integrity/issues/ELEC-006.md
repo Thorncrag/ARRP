@@ -58,6 +58,16 @@ Existing law may still lack:
 - protections against dependence on congressional oversight as the primary remedy; and
 - a clear statement that transition access is administrative preparedness, not legal recognition of election victory.
 
+## Proposal Survey
+
+The Presidential Transition Act of 1963 is the principal statutory model. Congress has repeatedly amended it, including through the 2022 Electoral Count Reform and Presidential Transition Improvement Act, which reduced dependence on a single GSA ascertainment decision where the apparent winner remains unclear. See [3 U.S.C. § 102 note](https://www.law.cornell.edu/uscode/text/3/102) and [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617).
+
+Prior reform models focus on resources, agency cooperation, ethics plans, security clearances, and ascertainment. ELEC-006 treats those as partial solutions and adds objective staged access, candidate-side duties, written delay notices, and expedited review.
+
+## Least-Complex Adequate Remedy
+
+The least-complex adequate remedy is not a comprehensive federal takeover of presidential transition. It is a targeted amendment to the Presidential Transition Act that codifies narrow automatic defaults, transparency requirements, and enforcement mechanisms while preserving ordinary cooperative transition norms wherever they continue to function.
+
 ## Repair and Prevention
 
 Congress should amend the Presidential Transition Act of 1963 to preserve ordinary cooperative transition norms while adding narrow statutory backstops for known failure points.
@@ -77,16 +87,6 @@ The reform should include:
 9. expedited judicial review for concrete missed statutory duties;
 10. no concession requirement; and
 11. preservation of congressional oversight without dependence on congressional action as the primary remedy.
-
-## Proposal Survey
-
-The Presidential Transition Act of 1963 is the principal statutory model. Congress has repeatedly amended it, including through the 2022 Electoral Count Reform and Presidential Transition Improvement Act, which reduced dependence on a single GSA ascertainment decision where the apparent winner remains unclear. See [3 U.S.C. § 102 note](https://www.law.cornell.edu/uscode/text/3/102) and [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617).
-
-Prior reform models focus on resources, agency cooperation, ethics plans, security clearances, and ascertainment. ELEC-006 treats those as partial solutions and adds objective staged access, candidate-side duties, written delay notices, and expedited review.
-
-## Least-Complex Adequate Remedy
-
-The least-complex adequate remedy is not a comprehensive federal takeover of presidential transition. It is a targeted amendment to the Presidential Transition Act that codifies narrow automatic defaults, transparency requirements, and enforcement mechanisms while preserving ordinary cooperative transition norms wherever they continue to function.
 
 ## Proposed Legislation
 

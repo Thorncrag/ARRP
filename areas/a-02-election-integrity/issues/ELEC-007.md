@@ -64,6 +64,16 @@ Existing law may lack:
 - notice and after-action reporting requirements; and
 - expedited judicial review for unlawful federal-force presence or election-material interference.
 
+## Proposal Survey
+
+Existing law already disfavors military presence at polls and domestic military law enforcement. The troops-at-polls statute prohibits certain military presence at elections, while the Posse Comitatus Act limits use of the Army and Air Force to execute domestic law. See [18 U.S.C. § 592](https://www.law.cornell.edu/uscode/text/18/592) and [18 U.S.C. § 1385](https://www.law.cornell.edu/uscode/text/18/1385).
+
+Those models do not fully address modern federal agents, federalized forces, emergency response, cyber or technical assistance, and election-material custody. ELEC-007 modernizes the older troops-at-polls principle while preserving genuine non-election emergency response.
+
+## Least-Complex Adequate Remedy
+
+The least-complex adequate remedy is a targeted federal statute clarifying that federal personnel may respond to genuine non-election emergencies near election sites, but may not participate in election administration. The statute should modernize existing troops-at-polls principles without displacing state and local civilian election control.
+
 ## Repair and Prevention
 
 Congress should modernize federal election-protection statutes to provide that federal personnel have no operational role in election administration except where a separate and narrowly tailored court order authorizes limited election-material evidence preservation under statutory safeguards.
@@ -84,16 +94,6 @@ Federal emergency assistance at or near a covered election site should require:
 Where prior written state consent is impossible because of an imminent threat to life or serious bodily harm, federal personnel may act only to stabilize the emergency and protect life. Federal personnel must withdraw unless state consent, a valid judicial order, or another lawful non-election emergency predicate is promptly obtained.
 
 The statute should also make clear that inadvertent or unavoidable incidental contact with election activity does not create liability if the federal personnel act in good faith, do not intend to influence election administration, disengage from any election-administration issue as soon as practicable, and do not use federal authority to affect the election. Separately, the statute should not restrict federal employees, agents, or service members from voting, registering to vote, standing in line to vote, or otherwise acting in a lawful personal civic capacity subject to ordinary election law and ethics rules.
-
-## Proposal Survey
-
-Existing law already disfavors military presence at polls and domestic military law enforcement. The troops-at-polls statute prohibits certain military presence at elections, while the Posse Comitatus Act limits use of the Army and Air Force to execute domestic law. See [18 U.S.C. § 592](https://www.law.cornell.edu/uscode/text/18/592) and [18 U.S.C. § 1385](https://www.law.cornell.edu/uscode/text/18/1385).
-
-Those models do not fully address modern federal agents, federalized forces, emergency response, cyber or technical assistance, and election-material custody. ELEC-007 modernizes the older troops-at-polls principle while preserving genuine non-election emergency response.
-
-## Least-Complex Adequate Remedy
-
-The least-complex adequate remedy is a targeted federal statute clarifying that federal personnel may respond to genuine non-election emergencies near election sites, but may not participate in election administration. The statute should modernize existing troops-at-polls principles without displacing state and local civilian election control.
 
 ## Proposed Legislation
 

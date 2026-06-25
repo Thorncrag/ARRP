@@ -89,27 +89,6 @@ Existing law often addresses pieces of the process but not the whole mail-ballot
 - inaccessible instructions for voters with disabilities or limited English proficiency; and
 - partisan narratives that attack mail voting categorically rather than distinguishing security defects from lawful processing.
 
-## Repair and Prevention
-
-Congress should enact a Mail-In Voting Reliability and Cure Act establishing minimum standards for mail and absentee ballots in federal elections where those voting methods are available. The Act should:
-
-1. set request, outbound-mailing, and return deadlines that account for USPS delivery standards and local processing needs;
-2. require prepaid return postage or an equally reliable no-cost return option;
-3. require voter-facing ballot tracking for request, outbound mailing, receipt, acceptance, rejection, and cure status;
-4. require uniform statewide signature or identity-verification standards for federal-election ballots where signature or identity review is used;
-5. require prompt notice and a meaningful cure opportunity for missing signature, signature mismatch, ID-number mismatch, missing date, envelope defect, or comparable curable errors;
-6. prohibit rejection for immaterial paperwork defects where voter eligibility, ballot timeliness, and ballot authenticity are otherwise established;
-7. require USPS, in consultation with state election officials, to publish jurisdiction-specific recommended mailing dates for ballot return;
-8. require states to provide reasonable nonpostal return options after the recommended mailing date where mail return is no longer reasonably reliable;
-9. require uniform treatment of timely postmarked ballots and clear publication of receipt and counting deadlines;
-10. require secure drop-box rules where drop boxes are used, including public locations, collection frequency, bipartisan or dual-control pickup, seal logs, and reconciliation;
-11. require election offices to publish rejection statistics by category after each election;
-12. require contingency plans for postal disruption, severe weather, disaster, cyber incident, printing failure, vendor failure, or administrative backlog;
-13. require plain-language instructions, accessibility review, and language-access compliance; and
-14. require public explanation of mail-ballot processing timelines before Election Day.
-
-Congress should also enact federal postal standards for election mail, including tracking, communication, postmarking, all-clear procedures, delivery-performance reporting, election-official escalation channels, evidence-based mailing advisories, and a prohibition on operational changes that foreseeably degrade election-mail performance during defined election windows without notice and mitigation.
-
 ## Debated Design Questions
 
 Mail voting has been extensively debated, and ELEC-010 should not flatten those debates into a simple access-versus-suppression story. The proposal should account for at least six recurring disputes.
@@ -153,6 +132,27 @@ Congress can set a federal floor for congressional elections under the Elections
 The federal role should ensure that USPS and federal actors do not become hidden veto points over lawful mail-ballot channels, and that voters in federal elections receive minimum notice, cure, tracking, deadline, and transparency protections. States may extend the same standards to state and local contests to avoid dual-track administration, but ELEC-010 does not require a separate state legislative project as the primary remedy.
 
 This approach is less complex than nationalizing mail-voting administration and more adequate than leaving federal-election cure, tracking, deadline realism, chain-of-custody documentation, USPS mailing advisories, and postal contingency planning to fragmented local practice.
+
+## Repair and Prevention
+
+Congress should enact a Mail-In Voting Reliability and Cure Act establishing minimum standards for mail and absentee ballots in federal elections where those voting methods are available. The Act should:
+
+1. set request, outbound-mailing, and return deadlines that account for USPS delivery standards and local processing needs;
+2. require prepaid return postage or an equally reliable no-cost return option;
+3. require voter-facing ballot tracking for request, outbound mailing, receipt, acceptance, rejection, and cure status;
+4. require uniform statewide signature or identity-verification standards for federal-election ballots where signature or identity review is used;
+5. require prompt notice and a meaningful cure opportunity for missing signature, signature mismatch, ID-number mismatch, missing date, envelope defect, or comparable curable errors;
+6. prohibit rejection for immaterial paperwork defects where voter eligibility, ballot timeliness, and ballot authenticity are otherwise established;
+7. require USPS, in consultation with state election officials, to publish jurisdiction-specific recommended mailing dates for ballot return;
+8. require states to provide reasonable nonpostal return options after the recommended mailing date where mail return is no longer reasonably reliable;
+9. require uniform treatment of timely postmarked ballots and clear publication of receipt and counting deadlines;
+10. require secure drop-box rules where drop boxes are used, including public locations, collection frequency, bipartisan or dual-control pickup, seal logs, and reconciliation;
+11. require election offices to publish rejection statistics by category after each election;
+12. require contingency plans for postal disruption, severe weather, disaster, cyber incident, printing failure, vendor failure, or administrative backlog;
+13. require plain-language instructions, accessibility review, and language-access compliance; and
+14. require public explanation of mail-ballot processing timelines before Election Day.
+
+Congress should also enact federal postal standards for election mail, including tracking, communication, postmarking, all-clear procedures, delivery-performance reporting, election-official escalation channels, evidence-based mailing advisories, and a prohibition on operational changes that foreseeably degrade election-mail performance during defined election windows without notice and mitigation.
 
 ## Relationship to Other Election Issues
 
