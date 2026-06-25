@@ -12,9 +12,7 @@ federal_legislation: "../../../legislation/ELEC-009.md"
 # ELEC-009 — Electoral College Structure and National Popular Vote
 
 > ## Issue Snapshot
-> **Problem:** Electoral College can override national vote.<br />
-> **Repair:** Establish direct national presidential election.<br />
-> **Vehicle:** Constitutional amendment ([draft](../../../legislation/ELEC-009.md)).
+> **Problem:** Electoral College can override national vote.<br />**Repair:** Establish direct national presidential election.<br />**Vehicle:** Constitutional amendment ([draft](../../../legislation/ELEC-009.md)).
 >
 
 ## Institutional Anomaly
@@ -59,7 +57,7 @@ The current system combines several distinct features that should not be treated
 - contingent election by state delegation in the House; and
 - decentralized state administration of the underlying popular vote.
 
-## Proposed Remedy
+## Repair and Prevention
 
 Congress and the States should adopt a constitutional amendment abolishing presidential electors and providing for direct national election of the President and Vice President by the people of the United States.
 

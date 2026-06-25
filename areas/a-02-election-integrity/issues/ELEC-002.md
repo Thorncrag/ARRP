@@ -11,9 +11,7 @@ legislative_proposal: "../../../legislation/ELEC-002-state.md"
 # ELEC-002 — Pressure on Certification and Canvassing Officials
 
 > ## Issue Snapshot
-> **Problem:** Certifiers can delay or refuse ministerial duties.<br />
-> **Repair:** Mandate certification and automatic substitution.<br />
-> **Vehicle:** Model state act ([draft](../../../legislation/ELEC-002-state.md)).
+> **Problem:** Certifiers can delay or refuse ministerial duties.<br />**Repair:** Mandate certification and automatic substitution.<br />**Vehicle:** Model state act ([draft](../../../legislation/ELEC-002-state.md)).
 >
 
 ## Institutional Anomaly

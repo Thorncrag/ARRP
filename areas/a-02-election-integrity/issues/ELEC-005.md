@@ -11,9 +11,7 @@ federal_legislative_proposal: "../../../legislation/ELEC-005.md"
 # ELEC-005 — Weak Safeguards Against False Presidential Result-Transmission Documents
 
 > ## Issue Snapshot
-> **Problem:** False presidential result documents can enter federal channels.<br />
-> **Repair:** Define, mark, and penalize unauthorized transmissions.<br />
-> **Vehicle:** Title 3 amendment ([draft](../../../legislation/ELEC-005.md)).
+> **Problem:** False presidential result documents can enter federal channels.<br />**Repair:** Define, mark, and penalize unauthorized transmissions.<br />**Vehicle:** Title 3 amendment ([draft](../../../legislation/ELEC-005.md)).
 >
 
 ## Institutional Anomaly

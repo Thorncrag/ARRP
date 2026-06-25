@@ -36,7 +36,7 @@ The main body should then include:
 2. project areas in the order listed in [`../areas/README.md`](../areas/README.md) and [`../inventory/areas.csv`](../inventory/areas.csv);
 3. for each area, the area README as the area introduction;
 4. for each area, existing issue pages in issue-identifier order;
-5. within each issue, the issue page's existing heading structure, including Issue Snapshot, Institutional Anomaly, Manifestations, Resulting Damage, Underlying Weakness, Repair and Prevention, Least-Complex Adequate Remedy, Proposal Survey, Annotations, source notes, and internal cross-references where present.
+5. within each issue, the issue page's existing heading structure, including Issue Snapshot, Institutional Anomaly, Manifestations, Resulting Damage, Underlying Weakness, Repair and Prevention, Proposal Survey, Least-Complex Adequate Remedy, Annotation, source notes, and internal cross-references where present.
 
 If an issue exists only in the inventory or area README and does not yet have its own issue page, it should remain summarized in the area page and should not be expanded artificially in the compiled document.
 

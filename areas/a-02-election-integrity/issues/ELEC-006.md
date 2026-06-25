@@ -11,9 +11,7 @@ federal_legislative_proposal: "../../../legislation/ELEC-006.md"
 # ELEC-006 — Insufficiently Automatic Presidential-Transition Procedures
 
 > ## Issue Snapshot
-> **Problem:** Transition access remains delay-prone.<br />
-> **Repair:** Add automatic triggers and enforceable deadlines.<br />
-> **Vehicle:** Transition Act amendment ([draft](../../../legislation/ELEC-006.md)).
+> **Problem:** Transition access remains delay-prone.<br />**Repair:** Add automatic triggers and enforceable deadlines.<br />**Vehicle:** Transition Act amendment ([draft](../../../legislation/ELEC-006.md)).
 >
 
 ## Institutional Anomaly
@@ -41,6 +39,10 @@ Congressional oversight is an inadequate emergency backstop when transition acce
 ### Transition-team noncompliance and delayed agreements
 
 A transition may also be impaired when the apparent incoming administration delays or refuses to execute transition agreements, ethics commitments, donor-disclosure obligations, information-security protocols, or arrangements necessary for background checks and clearances. This failure mode is distinct from GSA ascertainment delay and requires a different statutory response.
+
+## Resulting Damage
+
+Delayed or incomplete transition access can compress national-security preparation, personnel vetting, ethics review, agency briefings, and continuity planning into the final weeks before inauguration. That damage may persist even after access is eventually granted because lost preparation time cannot always be restored, and uncertainty over transition duties can leave agencies, candidates, and Congress without a reliable enforcement path during the period when delay matters most.
 
 ## Underlying Weakness
 

@@ -11,9 +11,7 @@ federal_legislative_proposal: "../../../legislation/ELEC-007.md"
 # ELEC-007 — Improper Federal-Force Presence in Election Administration
 
 > ## Issue Snapshot
-> **Problem:** Federal responders can become election participants.<br />
-> **Repair:** Separate emergency response from election administration.<br />
-> **Vehicle:** Federal-force noninterference statute ([draft](../../../legislation/ELEC-007.md)).
+> **Problem:** Federal responders can become election participants.<br />**Repair:** Separate emergency response from election administration.<br />**Vehicle:** Federal-force noninterference statute ([draft](../../../legislation/ELEC-007.md)).
 >
 
 ## Institutional Anomaly
@@ -45,6 +43,10 @@ Federal law-enforcement process directed at ballots, voting equipment, pollbooks
 ### Federal law enforcement as a pretext for election supervision
 
 Investigations, threat response, federal-facility protection, or emergency assistance can be misused as a pretext to pressure state or local officials, influence election timing, create public doubt, or support claims that federal officials are validating or invalidating the election.
+
+## Resulting Damage
+
+Improper federal-force presence can intimidate voters or election workers, disrupt chain of custody, compromise state election deadlines, and create the appearance that federal officials are supervising, validating, or challenging a state-run election. Even when no ballot is altered, visible federal operational involvement can damage public trust and supply a pretext for later attacks on certification or legitimacy.
 
 ## Underlying Weakness
 

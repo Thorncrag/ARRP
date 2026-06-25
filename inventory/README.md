@@ -3,6 +3,7 @@
 - `areas.csv` — top-level project areas
 - `issues.csv` — compact issue-tracking index keyed to issue identifier
 - `contents.csv` — combined area-and-issue navigation index suitable for table-of-contents development
+- `audits.csv` — issue-level audit status and proposal-quality scoring
 - `sources.csv` — source records associated with issues, areas, or project-level records
 - `METHOD.md` — inventory and drafting rules
 
@@ -19,6 +20,12 @@ Substantive issue titles, descriptions, institutional-anomaly analysis, manifest
 `contents.csv` combines area rows and issue rows in document order. It exists so the inventory can also function as a future table-of-contents scaffold without collapsing the normalized working files.
 
 Area and issue rows include relative links to the area page, issue page, and proposed legislation where available. Candidate or retired issues without standalone pages link to the nearest area page that contains the inventory entry.
+
+## Audit Inventory Scope
+
+`audits.csv` assigns every issue a current proposal-quality score, audit run count, audit status, score basis, and next audit need.
+
+The proposal-quality score is a provisional planning value, not a claim that the issue is publication-ready or externally validated. Audit runs may support a higher score only when the audit resolves findings, broadens review, verifies sources, improves legal fit, improves drafting, or strengthens adoption prospects.
 
 ## Source Inventory Scope
 

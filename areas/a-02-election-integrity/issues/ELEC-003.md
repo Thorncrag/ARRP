@@ -12,9 +12,7 @@ federal_legislative_proposal: "../../../legislation/ELEC-003.md"
 # ELEC-003 — Insufficient Protection for Election Workers and Officials
 
 > ## Issue Snapshot
-> **Problem:** Election personnel face uneven protection.<br />
-> **Repair:** Pair state protections with HAVA funding.<br />
-> **Vehicle:** State and federal acts ([state](../../../legislation/ELEC-003-state.md), [federal](../../../legislation/ELEC-003.md)).
+> **Problem:** Election personnel face uneven protection.<br />**Repair:** Pair state protections with HAVA funding.<br />**Vehicle:** State and federal acts ([state](../../../legislation/ELEC-003-state.md), [federal](../../../legislation/ELEC-003.md)).
 >
 
 ## Institutional Anomaly

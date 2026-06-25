@@ -4,14 +4,13 @@ area_id: A-02
 title: "Mail-In Voting Access, Reliability, and Trust"
 status: developed
 priority: high
+remedy_type: federal-legislation
 ---
 
 # ELEC-010 — Mail-In Voting Access, Reliability, and Trust
 
 > ## Issue Snapshot
-> **Problem:** Mail-ballot rules are uneven and fragile.<br />
-> **Repair:** Set mail-ballot and USPS election-mail standards.<br />
-> **Vehicle:** Federal election and postal legislation.
+> **Problem:** Mail-ballot rules are uneven and fragile.<br />**Repair:** Set mail-ballot and USPS election-mail standards.<br />**Vehicle:** Federal election and postal legislation.
 >
 
 ## Institutional Anomaly

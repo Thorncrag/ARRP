@@ -12,9 +12,7 @@ federal_legislation: "../../../legislation/ELEC-008.md"
 # ELEC-008 — Accountability for Coordinated Federal Election-Subversion Schemes
 
 > ## Issue Snapshot
-> **Problem:** Coordinated subversion can evade scheme-level accountability.<br />
-> **Repair:** Create narrow predicate-act accountability framework.<br />
-> **Vehicle:** Federal election-subversion statute ([draft](../../../legislation/ELEC-008.md)).
+> **Problem:** Coordinated subversion can evade scheme-level accountability.<br />**Repair:** Create narrow predicate-act accountability framework.<br />**Vehicle:** Federal election-subversion statute ([draft](../../../legislation/ELEC-008.md)).
 >
 
 ## Institutional Anomaly
@@ -94,6 +92,10 @@ Congress addressed several presidential electoral-count vulnerabilities in 2022,
 
 Transition obstruction may be one feature of a broader election-subversion scheme, but ELEC-006 addresses transition automaticity directly. ELEC-008 should treat transition obstruction only as a possible predicate or manifestation when connected to a larger coordinated scheme.
 
+## Resulting Damage
+
+Coordinated election-subversion schemes can aggregate individually addressable acts into a broader effort that threatens the lawful result itself. The institutional damage is not limited to any one false document, lawsuit, pressure campaign, or obstructive act. The larger harm is that officials, courts, Congress, voters, and transition institutions may face a manufactured multi-channel crisis without a clear scheme-level accountability tool calibrated to federal-election integrity.
+
 ## Manifestation-to-Remedy Mapping
 
 | Manifestation | Existing narrower issue or law | Residual gap | ELEC-008 response |
@@ -107,6 +109,10 @@ Transition obstruction may be one feature of a broader election-subversion schem
 | Transition obstruction or denial of practical effect to lawful result | ELEC-006 addresses transition automaticity and continuity | Transition obstruction may be used as downstream pressure to deny the practical effect of a lawful election result | Treat knowing violation of transition-access duties, transition court orders, or transition-continuity safeguards as predicate acts when tied to the scheme |
 | Fundraising, financing, or material assistance based on knowing false representations tied to the scheme | Existing fraud and campaign-finance laws may apply unevenly | Scheme financing may enable the coordinated pattern even where each fundraising communication is difficult to litigate separately | Permit disgorgement where funds are knowingly raised through materially false representations in furtherance of a coordinated federal election-subversion scheme |
 | Presidential participation or claimed official-act immunity | IMM-001 addresses criminal immunity for presidential official acts | An election-subversion statute may define prohibited scheme-level conduct, but accountability can fail if immunity doctrine bars prosecution, civil enforcement, evidence, or adjudication | ELEC-008 supplies the accountability framework; IMM-001 preserves the pathway to apply it to presidential conduct where constitutionally valid |
+
+## Underlying Weakness
+
+Existing law addresses many component acts, but it may not clearly identify a coordinated federal-election-subversion scheme as a distinct wrong when the scheme combines pressure, false documents, abusive process, federal-channel misuse, transition obstruction, or other independently wrongful predicates. Ordinary RICO is too broad and poorly tailored for election disputes, while narrower election reforms may leave no single framework for scheme-level accountability that also protects lawful advocacy, litigation, recounts, journalism, legal advice, and congressional activity.
 
 ## Proposed Accountability Model
 
@@ -159,7 +165,7 @@ The statute should expressly preserve:
 
 No person should be liable merely for asserting that an election was unlawful, supporting a candidate, filing a losing lawsuit, advocating for a recount, criticizing election administration, or participating in ordinary political activity.
 
-## Remedies
+## Repair and Prevention
 
 A narrow statute could include:
 
