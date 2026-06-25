@@ -13,7 +13,7 @@ The Department of Justice lacks sufficient structural independence, external ove
 
 ## Issues
 
-- [DOJ-001 — Appointment of recent presidential personal counsel to senior DOJ leadership](issues/DOJ-001.md)
+- [DOJ-001 — Recent Presidential Personal Counsel in Senior DOJ Leadership](issues/DOJ-001.md)
 - [DOJ-002 — White House Direction or Interference in Particular Federal Criminal Matters](issues/DOJ-002.md)
 - [DOJ-003 — Politically Selective Enforcement, Charging, and Favoritism](issues/DOJ-003.md)
 - [DOJ-004 — Protection of Career DOJ Personnel from Politically Motivated Removal or Reassignment](issues/DOJ-004.md) _(status: Awaiting merits adjudication; priority: High)_

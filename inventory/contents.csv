@@ -1,6 +1,6 @@
 Sort Order,Record Type,Area ID,Issue ID,Title,Priority,Development Status,Path,Legislation Path,Notes
 A-01,Area,A-01,,Department of Justice,,Active,areas/a-01-department-of-justice/README.md,,Provisional inventory; full source development pending.
-A-01.001,Issue,A-01,DOJ-001,Appointment of recent presidential personal counsel to senior DOJ leadership,High,Developed,areas/a-01-department-of-justice/issues/DOJ-001.md,legislation/DOJ-001.md,
+A-01.001,Issue,A-01,DOJ-001,Recent Presidential Personal Counsel in Senior DOJ Leadership,High,Developed,areas/a-01-department-of-justice/issues/DOJ-001.md,legislation/DOJ-001.md,
 A-01.002,Issue,A-01,DOJ-002,White House Direction or Interference in Particular Federal Criminal Matters,High,Developed,areas/a-01-department-of-justice/issues/DOJ-002.md,legislation/DOJ-002.md,
 A-01.003,Issue,A-01,DOJ-003,"Politically Selective Enforcement, Charging, and Favoritism",High,Developed,areas/a-01-department-of-justice/issues/DOJ-003.md,legislation/DOJ-003.md,
 A-01.004,Issue,A-01,DOJ-004,Protection of Career DOJ Personnel from Politically Motivated Removal or Reassignment,High,Awaiting merits adjudication,areas/a-01-department-of-justice/issues/DOJ-004.md,,
