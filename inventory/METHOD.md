@@ -176,6 +176,23 @@ Each Horizon Scan list update should normally include:
 12. confidence level and unresolved questions; and
 13. recommended next action.
 
+### Horizon Candidate Adjudication Workflow
+
+When the user asks to address, review, assess, adjudicate, ingest, merge, admit, or retire a specific `HOR-###` candidate, use this workflow unless the user gives narrower instructions. A Horizon candidate adjudication is different from running a new Horizon Scan: it decides what to do with an already identified intake item.
+
+1. **Locate the candidate.** Find the `HOR-###` row in [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md). Confirm whether it is still in the active Horizon Scan table or already appears in the Horizon Integration Log.
+2. **Verify the factual premise.** Check the cited sources and, where the matter is current or source-sensitive, refresh with reliable current public sources. Prefer primary materials when the claim depends on a court order, statute, regulation, bill, executive action, agency action, official vote, or formal record.
+3. **Cross-check existing project coverage.** Search existing areas, issue pages, proposed legislation, source-development notes, inventories, and dashboard rows for overlap. Identify the best existing home if the concern is a manifestation, source-development lead, or expansion of an existing issue.
+4. **Apply the issue-admission test.** Ask whether the candidate identifies a distinct institutional weakness requiring separate diagnosis or remedial analysis, rather than only a disliked policy outcome, ordinary political bargaining, a single unresolved episode, or a manifestation already covered elsewhere.
+5. **Test ripeness and outcome status.** Do not admit a candidate merely because the event is troubling. Check whether the relevant event has matured enough to show a durable institutional defect, legal gap, repeated pattern, completed harm, controlling ruling, official action, or remedy need. If the outcome is still unfolding, consider retirement or source-development retention with a clear revisit trigger.
+6. **Test neutrality and overcorrection risk.** Ask whether creating a remedy would restructure institutions to force a preferred political result rather than to repair a generalizable institutional weakness. If the same mechanism would be concerning when used by an opposing faction, that supports admission; if not, retire or narrow the candidate.
+7. **Make a disposition recommendation.** Present the user with a concise recommendation: admit as a new issue, merge into an existing issue, expand or amend an existing issue, retain as source development only, retire without admission, or reject as outside scope. Include the best counter-argument if the recommendation is not obvious.
+8. **Wait for user approval before implementation.** Do not create, merge, retire, or update issue records from an adjudication recommendation until the user agrees or gives direct implementation instructions.
+9. **Implement the approved disposition.** If admitted as a new issue, assign the next stable area-specific issue ID, update the area page and `issue_count`, and update [`issues.csv`](issues.csv), [`contents.csv`](contents.csv), [`audits.csv`](audits.csv), [`sources.csv`](sources.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md). If merged or retained as source development, update the relevant area or issue page and source inventory. If retired, remove the candidate from the active Horizon Scan table and add an Integration Log row preserving the static `HOR-###` ID, rationale, and revisit trigger.
+10. **Maintain the dashboard state.** Active Horizon Scan rows should contain only candidates still needing action. Adjudicated candidates should appear in the Horizon Integration Log, not the active table.
+11. **Preserve source traceability.** Add or update [`sources.csv`](sources.csv) rows for external sources relied on in the adjudication or implementation, even when the candidate is retired.
+12. **Validate and preserve.** Run lightweight formatting and inventory checks appropriate to the files changed. Commit and push the adjudication update when repository access is available, unless the user has asked not to commit.
+
 ### Audit Autonomy and Unknowns
 
 Audits should be conducted with the assumption that the user wants as few questions as possible. The auditor should attempt to resolve uncertainties through the project record, current-source refresh, primary-source checks, reasonable inference from documented framework rules, and conservative scoring before asking the user.
