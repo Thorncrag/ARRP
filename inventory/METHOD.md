@@ -150,20 +150,23 @@ A Horizon Scan audit should:
 
 A Horizon Scan audit should not directly create new issue pages, modify existing issue pages, revise legislation, change scores, update inventories, or change source records unless the user separately approves implementation after reviewing the scan. Its output should be added to the cumulative Horizon Scan list on [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), with a concise and easily readable listing of each flagged concern and recommendation. Unlike issue-quality audit histories, Horizon Scan findings should be additive rather than segmented by run: new scans should append or update rows in the existing list, preserve prior findings, and avoid creating a new dated subsection unless the dashboard schema itself is being changed. If the scan identifies urgent or high-confidence concerns, present them prominently to the user before implementation work begins.
 
+Each Horizon Scan finding should receive a stable **Horizon ID** in the form `HOR-###`, assigned sequentially in the cumulative dashboard list. The Horizon ID is a temporary intake reference, not a formal issue ID. If a finding is later developed into a proposal, the new issue should receive the ordinary area-specific issue ID, and the Horizon ID should remain in the dashboard row as the intake reference.
+
 Each Horizon Scan list update should normally include:
 
-1. scan date and scope;
-2. source categories checked;
-3. search terms or discovery routes used where practical;
-4. concise list of flagged concerns;
-5. duplicate or overlap check against existing issues and legislation;
-6. issue-admission result;
-7. explicit new-issue or existing-issue recommendation;
-8. recommended disposition;
-9. suggested existing issue or area link;
-10. source links or source-development needs;
-11. confidence level and unresolved questions; and
-12. recommended next action.
+1. Horizon ID;
+2. scan date and scope;
+3. source categories checked;
+4. search terms or discovery routes used where practical;
+5. concise list of flagged concerns;
+6. duplicate or overlap check against existing issues and legislation;
+7. issue-admission result;
+8. explicit new-issue or existing-issue recommendation;
+9. recommended disposition;
+10. suggested existing issue or area link;
+11. source links or source-development needs;
+12. confidence level and unresolved questions; and
+13. recommended next action.
 
 ### Audit Autonomy and Unknowns
 
@@ -262,7 +265,7 @@ The **Proposal Quality Score** is a provisional 0-100 planning value. It measure
 
 Scores must be calculated consistently. A repeated audit using the same record, same rubric, and same findings should produce the same score. Audit count may inform the score only through the formula below; repetition alone must not increase the value. A score should increase only when an audit meaningfully broadens review, resolves findings, verifies sources, improves legal fit, strengthens drafting, reduces implementation risk, or improves adoption prospects without weakening the least-complex adequate remedy.
 
-Use this mathematical formulation for developed proposals:
+Use this mathematical formulation only for developed proposals. A proposal is **Developed** when the project has created a basic proposal framework for the issue: a distinct issue page or equivalent proposal page that identifies the institutional anomaly, manifestation, damage, underlying weakness, proposal survey or source-development basis, least-complex adequate remedy, repair/prevention approach, and proposed legislative or non-legislative vehicle where appropriate. Candidate inventory entries, area-page issue bullets, and source-development notes are not developed proposals and receive no proposal-quality score until that framework exists.
 
 ```
 Proposal Quality Score =
@@ -391,15 +394,15 @@ Do not assign international-support points without current, cited, and properly 
 
 If a proposal has no material international-relations dimension, record the score as `N/A` with a short explanation. If the proposal may materially affect foreign relations but the audit has not checked current international sources, record `0` and identify the source-refresh task.
 
-For non-developed issues, use the fixed baseline scores below. Retired, merged, pending-controlling-finding, and reliably moot issues are fixed at `0` and should not receive a formula-based score while that status remains in effect. Candidate issues may receive a different formula-based score only if a written audit justifies departing from the candidate baseline.
+For non-developed issues, use the fixed scores below. Retired, merged, pending-controlling-finding, reliably moot, and candidate inventory issues are fixed at `0` and should not receive a formula-based proposal-quality score while that status remains in effect. A candidate issue may receive a formula-based score only after it is promoted to `Developed` by creating the basic proposal framework described above.
 
 | Issue status | Baseline score |
 | --- | ---: |
 | Retired or merged | 0 |
 | Pending judicial finding, merits adjudication, or other controlling external finding | 0 |
 | Reliably moot as a standalone proposal | 0 |
-| Candidate inventory entry only | 10 |
-| Candidate or draft issue with partial source notes or analysis | 25 |
+| Candidate inventory entry only | 0 |
+| Candidate with source-development notes but no basic proposal framework | 0 |
 
 ### Score Consistency Rules
 
@@ -420,8 +423,8 @@ Use the following bands to interpret formula-based scores. These bands do not re
 
 | Score range | Meaning |
 | --- | --- |
-| 0 | Retired, merged, blocked by pending controlling finding, or no standalone proposal quality score. |
-| 1-24 | Inventory-only, minimally reviewed, or largely unaudited. |
+| 0 | Retired, merged, blocked by pending controlling finding, reliably moot, pending development, or no standalone proposal quality score. |
+| 1-24 | Developed proposal with severe unresolved defects or only minimal audit support. |
 | 25-49 | Partial draft or early development with significant unresolved source, legal, remedy, or structure issues. |
 | 50-64 | Developed draft with meaningful framework structure but incomplete source, legal-fit, prior-proposal, adoption, or implementation review. |
 | 65-74 | Substantially developed proposal with several audit components complete but material unresolved issues remaining. |
