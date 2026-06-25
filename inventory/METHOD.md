@@ -64,11 +64,15 @@ The score is a conservative planning value. It should reflect the issue's curren
 
 Audit updates should identify the resource tier used: T0 triage scan, T1 framework check, T2 development audit, T3 readiness audit, or T4 publication-ready audit. Do not treat a lower-tier audit as a completed higher-tier audit. If the user does not specify a tier, ask which tier to run and recommend the lowest useful tier. Before running a higher-tier audit, confirm that the immediately lower tier has already been completed and remains reasonably current; otherwise ask whether to run the lower tier first or explicitly skip it. T4 requires additional explicit user confirmation before it is run.
 
+Audits should be run on exactly one issue at a time. Before starting, identify the target issue by issue ID and page path. If the request could refer to more than one issue, or if the issue ID is missing or unclear, ask the user to identify the issue before beginning the audit.
+
 Before starting a new audit for an issue, check the most recent audit row or audit record for unresolved blocking findings, skipped prerequisites, source-development tasks, or user-input needs that must be resolved before further audit work can proceed. If blocking unresolved items remain, cancel the new audit request, notify the user, and ask whether to resolve the existing items, override the block, or revise the audit scope. Ordinary next-audit recommendations do not block a new audit when the requested audit is meant to address them.
 
 The audit tier controls scope and confidence, not scoring weight. Apply the same component weights at every tier; do not award or subtract points merely because a higher or lower tier was selected. Unreviewed components should be marked unresolved and receive no favorable credit until reviewed.
 
 Audit updates should not let one audit area, source dispute, or legal question consume the entire tier estimate. Tier times are planning estimates rather than hard caps, but an audit should not exceed 150% of the selected tier's estimated time without explicit user approval. On a first run, the auditor may use reasonable overage up to that 150% ceiling to calibrate complexity, but moving beyond it or reaching T4 requires explicit user approval. Document any overage and use prior results to scope later audits more tightly.
+
+Tier estimates are not minimums. If a responsible audit can be completed in less than the selected tier's estimated time, finish early, record that result, and use it to calibrate future audit budgeting for comparable issues.
 
 Audit count may influence the score only through the mathematical formulation in the framework and only when the audit changes the basis for confidence. Do not increase a score merely because the same unresolved defects were reviewed again.
 

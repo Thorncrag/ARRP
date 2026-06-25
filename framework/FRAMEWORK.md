@@ -160,6 +160,8 @@ Each developed proposal should be audited through the following sequence. The se
 
 Audits should be scoped to a stated resource tier before work begins. A smaller tier is not a failed larger audit; it is a deliberately budgeted review. The audit record should identify the tier used, what was completed, what was skipped, and what the next higher tier should examine.
 
+Audits should be run on exactly one issue at a time. Before starting, identify the target issue by issue ID and page path. If the request could refer to more than one issue, or if the issue ID is missing or unclear, ask the user to identify the issue before beginning the audit.
+
 Before starting a new audit for an issue, check the most recent audit record for unresolved blocking findings, skipped prerequisites, source-development tasks, or user-input needs that must be resolved before further audit work can proceed. If blocking unresolved items remain from the last audit, cancel the new audit request, notify the user, and ask whether to resolve the existing items, explicitly override the block, or revise the audit scope. Do not begin a new audit until the user gives direction. Ordinary next-audit recommendations do not block a new audit when the requested audit is meant to address them.
 
 If the user requests an audit without specifying a tier, ask which tier to run rather than guessing. The default recommendation should be the lowest level that appears useful, usually **T0: Triage scan** for a new or ambiguous request. Do not silently escalate to a higher tier.
@@ -175,6 +177,8 @@ Before running a higher-tier audit, confirm that the immediately lower tier has 
 | **T4: Publication-ready audit** | 18 hours or less | Resolve every publication concern that can reasonably be resolved through deep public-source research before external circulation. | Publication-readiness memo, final score recommendation, deep source-refresh log, verified and unresolved claims table, legal-durability analysis, prior-proposal comparison, adoption and opposition analysis, international score or `N/A`, drafting recommendations, and expert-review needs. |
 
 Tier times are planning estimates rather than hard caps. If an audit exceeds the estimate by a reasonable degree and is close to a responsible stopping point, the auditor may finish the current audit unit. The audit should not exceed 150% of the selected tier's estimated time without explicit user approval.
+
+Tier estimates are not minimums. If a responsible audit can be completed in less than the selected tier's estimated time, finish early rather than filling the allotted time. Record that the audit finished under estimate and use that result to calibrate future audit budgeting for comparable issues.
 
 The **T4: Publication-ready audit** must not be run by default. It requires additional explicit user confirmation after the user is told the expected time estimate, likely scope, and that the audit may still identify issues requiring attorney, legislative-counsel, subject-matter expert, or stakeholder review.
 
