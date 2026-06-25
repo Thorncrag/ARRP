@@ -45,7 +45,7 @@ Update this page whenever an audit changes an issue score, audit status, last au
 
 | Issue | Area | Priority | Status | Score | Band | Runs | Last audit | Last date | Next | Proposal page/status | Legislation |
 | --- | --- | --- | --- | ---: | --- | ---: | --- | --- | --- | --- | --- |
-| DOJ-001 | A-01 | High | Developed | 73 | Audit in progress | 6 | Targeted T2 follow-up | 2026-06-25 | T3 | [Issue](areas/a-01-department-of-justice/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) |
+| DOJ-001 | A-01 | High | Developed | 74 | Audit in progress | 8 | T0/T1 current-status and framework check | 2026-06-25 | T3 | [Issue](areas/a-01-department-of-justice/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) |
 | DOJ-002 | A-01 | High | Developed | 62 | Developed draft | 2 | T1 framework check | 2026-06-25 | T2 | [Issue](areas/a-01-department-of-justice/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) |
 | DOJ-003 | A-01 | High | Developed | 60 | Developed draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/a-01-department-of-justice/issues/DOJ-003.md) | [Bill](legislation/DOJ-003.md) |
 | DOJ-004 | A-01 | High | Awaiting merits adjudication | 0 | Paused | 1 | Initial inventory audit | 2026-06-24 | Reassess predicate | [Issue](areas/a-01-department-of-justice/issues/DOJ-004.md) | — |
