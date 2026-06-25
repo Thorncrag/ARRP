@@ -21,7 +21,9 @@ print_levels:
 
 The President and other federal executive officials possess substantial investigative, prosecutorial, regulatory, funding, intelligence, administrative, and communicative power but possess no general constitutional authority to direct state or local election administration. Existing law does not provide a sufficiently precise, comprehensive, and rapidly enforceable prohibition against using federal executive office to obtain, prevent, alter, or secure a preferred electoral outcome through state or local election functions.
 
-## Manifestation of the Failure
+## Manifestations of the Failure
+
+### Georgia result-pressure call
 
 On January 2, 2021, President Donald Trump called Georgia Secretary of State Brad Raffensperger after Georgia had certified its presidential election result and completed multiple reviews of the vote. Trump asked Raffensperger to “find 11,780 votes,” the number necessary to reverse Trump’s certified defeat, and invoked possible criminal consequences while urging state officials to act.
 
@@ -30,6 +32,14 @@ The institutional significance does not depend on a final criminal judgment:
 > A sitting President used the authority and influence of federal executive office to seek a candidate-specific alteration of a state’s lawful election determination.
 
 The episode demonstrates that a President can exert federal executive influence directly upon a state election official without issuing a formal order, deploying an agency, or completing the requested alteration. Existing remedies did not supply an immediate, specialized mechanism to stop the pressure, preserve records, transfer investigation outside the presidential chain of command, or impose consequences tailored to misuse of federal office against a state election function.
+
+### Federal citizenship-list and voter-data architecture
+
+In 2026, Executive Order 14399 directed DHS, USCIS, SSA, DOJ, and USPS toward a federal election-control architecture involving state citizenship lists, federal database matching, voter-data transmission, election-fraud investigation priorities, and mail-ballot restrictions. The order was published as [91 Fed. Reg. 17125](https://www.federalregister.gov/documents/2026/04/03/2026-06601/ensuring-citizenship-verification-and-integrity-in-federal-elections) and described federal compilation and transmission of state-specific citizenship lists derived from federal records.
+
+Federal litigation then produced decisions blocking or rejecting key parts of that architecture. Public reporting described a federal court blocking an order aimed at creating a federal voter list and restricting mail-ballot distribution, a Sixth Circuit ruling against a demand for sensitive Michigan voter data, and dismissal of a DOJ lawsuit seeking detailed Maryland voter data. See Associated Press, [federal voter-list injunction](https://apnews.com/article/b28c3425c1dc968cd0f57c61fb7a684e), [Michigan voter-data appeal](https://apnews.com/article/b73d510dddaf9c96088904b6c44f919a), and [Maryland voter-data lawsuit](https://apnews.com/article/67c94fb8af9cbcf2a0947ad81de5eab4).
+
+The institutional significance is that federal executive power can be converted from case-specific enforcement into a centralized election-administration architecture. Even when courts block implementation, state and local officials must respond to federal data demands, reconcile federal database claims with state registration law, protect sensitive voter information, and litigate under election-time pressure.
 
 ## Resulting Damage
 
@@ -83,7 +93,7 @@ The general prohibition should be paired with objectively defined covered acts, 
 2. state, transmit, canvass, recount, or certify a materially false result;
 3. depart from an applicable election statute, final judicial order, or lawfully completed administrative determination;
 4. initiate or manipulate a federal investigation, prosecution, audit, regulatory action, funding action, intelligence activity, or administrative process without a good-faith lawful basis and for the prohibited electoral purpose;
-5. obtain ballots, voting equipment, voter records, election data, or election materials without lawful authority;
+5. obtain ballots, voting equipment, voter records, election data, citizenship-list data, or election materials without lawful authority;
 6. procure a materially false official representation concerning fraud, vote totals, certification, or election results;
 7. threaten or impose adverse federal action to obtain an election-related act; or
 8. retaliate against an official who refuses an unlawful or unauthorized election-related request.
@@ -118,7 +128,7 @@ ELEC-007 should be narrowed to military, National Guard, or armed federal-force 
 
 ## Annotation
 
-**Basis and Evidence.** The Hatch Act already embodies the principle that federal employees may not use official authority or influence to interfere with or affect an election. Its exclusion of the President and Vice President and its employment-centered remedial structure leave the principal conduct identified here inadequately covered. The Trump–Raffensperger call is a representative manifestation because the requested numerical alteration corresponded to the margin necessary to reverse the state’s certified result.
+**Basis and Evidence.** The Hatch Act already embodies the principle that federal employees may not use official authority or influence to interfere with or affect an election. Its exclusion of the President and Vice President and its employment-centered remedial structure leave the principal conduct identified here inadequately covered. The Trump–Raffensperger call is a representative manifestation because the requested numerical alteration corresponded to the margin necessary to reverse the state’s certified result. HOR-001 was integrated into this issue because the federal citizenship-list and voter-data architecture is a later manifestation of the same core defect: federal executive authority being used to control, pressure, or restructure state election administration outside ordinary constitutional channels.
 
 **Qualification.** Federal executive officials retain lawful responsibilities concerning voting rights, election crimes, campaign finance, foreign interference, cybersecurity, federal judicial process, and other functions assigned by the Constitution or Congress. The proposal regulates misuse of federal office, not political speech, criticism, litigation, or good-faith execution of federal law. The term “partisan” is deliberately not used as an operative limitation because prohibited conduct may be personal, candidate-specific, retaliatory, factional, or otherwise result-directed without fitting a narrow partisan classification.
 

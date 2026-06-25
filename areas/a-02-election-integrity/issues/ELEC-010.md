@@ -38,6 +38,14 @@ But there is an important distinction between an evidence-based USPS mailing adv
 
 The better design is to require USPS to publish jurisdiction-specific mailing advisories, require states to align ballot-request and outbound-mailing deadlines with those advisories, and require states to provide nonpostal return options after the recommended mailing date. The legal rule should remain in election law, not postal administration.
 
+### Federal postal and voter-data leverage over mail ballots
+
+In 2026, Executive Order 14399 sought to link federal citizenship-list construction, federal database matching, and USPS handling of mail ballots. The order directed federal agencies toward state-specific citizenship lists and stated that secure ballot-envelope identifiers could be used to support federal election-integrity enforcement. See [91 Fed. Reg. 17125](https://www.federalregister.gov/documents/2026/04/03/2026-06601/ensuring-citizenship-verification-and-integrity-in-federal-elections).
+
+Public reporting described litigation blocking or rejecting related federal efforts to create voter-list architecture, restrict mail-ballot distribution, and obtain sensitive state voter data. See Associated Press, [federal voter-list injunction](https://apnews.com/article/b28c3425c1dc968cd0f57c61fb7a684e), [Michigan voter-data appeal](https://apnews.com/article/b73d510dddaf9c96088904b6c44f919a), and [Maryland voter-data lawsuit](https://apnews.com/article/67c94fb8af9cbcf2a0947ad81de5eab4).
+
+This manifestation does not mean that ballot tracking, envelope identifiers, voter-list maintenance, or citizenship verification are categorically illegitimate. The defect is control architecture: federal executive agencies and USPS should not become hidden veto points over state-created lawful mail-voting channels, nor should postal delivery be conditioned on state participation in federal voter-data systems that exceed lawful authority.
+
 ### Rejection for curable technical defects
 
 Mail ballots can be rejected for missing signatures, signature mismatch, missing secrecy envelopes, dating errors, witness defects, identification-number mismatch, lateness, or other technical requirements. Some requirements protect real interests, including voter authentication and ballot integrity. But where voters receive no timely notice or meaningful cure opportunity, a technical defect can become disenfranchisement even when voter eligibility is not in doubt.
@@ -75,8 +83,9 @@ Mail voting crosses several institutional boundaries:
 1. states set eligibility, request, return, receipt, cure, verification, canvass, and certification rules;
 2. local officials administer intake, verification, cure, reconciliation, counting, and custody;
 3. USPS controls most delivery infrastructure but does not control state election deadlines;
-4. courts often resolve disputes close to election deadlines; and
-5. voters must navigate complex instructions under time pressure.
+4. federal executive agencies may seek voter data or impose postal conditions that affect mail-ballot access;
+5. courts often resolve disputes close to election deadlines; and
+6. voters must navigate complex instructions under time pressure.
 
 Existing law often addresses pieces of the process but not the whole mail-ballot pathway. Common weaknesses include:
 
@@ -155,7 +164,7 @@ Congress should enact a Mail-In Voting Reliability and Cure Act establishing min
 13. require plain-language instructions, accessibility review, and language-access compliance; and
 14. require public explanation of mail-ballot processing timelines before Election Day.
 
-Congress should also enact federal postal standards for election mail, including tracking, communication, postmarking, all-clear procedures, delivery-performance reporting, election-official escalation channels, evidence-based mailing advisories, and a prohibition on operational changes that foreseeably degrade election-mail performance during defined election windows without notice and mitigation.
+Congress should also enact federal postal standards for election mail, including tracking, communication, postmarking, all-clear procedures, delivery-performance reporting, election-official escalation channels, evidence-based mailing advisories, and a prohibition on operational changes that foreseeably degrade election-mail performance during defined election windows without notice and mitigation. USPS should not refuse, delay, or condition lawful election-mail service based on a state's refusal to participate in a federal voter-data, citizenship-list, or ballot-identifier system unless Congress has clearly authorized that condition and supplied voter-protective procedures.
 
 ## Relationship to Other Election Issues
 
@@ -172,6 +181,8 @@ Congress should also enact federal postal standards for election mail, including
 ## Annotation
 
 **Basis and Evidence.** Mail voting can be administered securely, but it is operationally demanding. The USPS OIG's 2020 report supports both sides of that conclusion: the Postal Service prioritized and largely delivered election mail, but it also identified visibility, communication, all-clear, postmarking, and measurement gaps. EAC canvass guidance confirms that cure, chain of custody, ballot reconciliation, late-arriving mail ballots, and drop-box documentation are ordinary election-integrity tools rather than partisan inventions. USPS deadline advisories are useful evidence for voter guidance and statutory planning, but they should not themselves become legal disqualification rules.
+
+HOR-001 was integrated into this issue only for the mail-ballot and USPS components. The broader federal voter-list and state-election-pressure concern is integrated into [ELEC-001](ELEC-001.md).
 
 **Qualification.** ELEC-010 should not be framed as a universal mandate for all-mail elections. States may reasonably choose different mixes of in-person, early, absentee, and mail voting. The institutional requirement is that any mail-voting channel the state creates must be reliable, nondiscriminatory, auditable, and supported by meaningful cure and public explanation.
 
@@ -196,5 +207,9 @@ Congress should also enact federal postal standards for election mail, including
 - The Guardian, [*Texas leans on new voting law to reject thousands of ballot applications*](https://www.theguardian.com/us-news/2022/feb/03/texas-new-restrictive-voting-law-reject-thousands-mail-in-ballots) (Feb. 3, 2022).
 - Politico, [*Appeals court upholds Texas law requiring ID numbers to cast mail-in ballots*](https://www.politico.com/news/2025/08/04/appeals-court-upholds-texas-law-requiring-id-numbers-to-cast-mail-in-ballots-00493514) (Aug. 4, 2025).
 - Associated Press, [*Yes, voter fraud happens. But it's rare and election offices have safeguards to catch it*](https://apnews.com/article/election-2024-voter-fraud-trump-harris-a3b4c2db17217311770259193c115b80) (Oct. 3, 2024).
+- Associated Press, [*Federal judge halts Trump's election executive order seeking to create a federal voter list*](https://apnews.com/article/b28c3425c1dc968cd0f57c61fb7a684e) (June 25, 2026).
+- Associated Press, [*Trump administration loses appeal over access to personal information of Michigan voters*](https://apnews.com/article/b73d510dddaf9c96088904b6c44f919a) (June 25, 2026).
+- Associated Press, [*Federal judge dismisses Justice Department lawsuit seeking detailed voter data from Maryland*](https://apnews.com/article/67c94fb8af9cbcf2a0947ad81de5eab4) (June 24, 2026).
+- Federal Register, [Executive Order 14399, *Ensuring Citizenship Verification and Integrity in Federal Elections*](https://www.federalregister.gov/documents/2026/04/03/2026-06601/ensuring-citizenship-verification-and-integrity-in-federal-elections), 91 Fed. Reg. 17125 (Apr. 3, 2026).
 - Georgia General Assembly, [S.B. 202, 2021-2022 Reg. Sess.](https://www.legis.ga.gov/api/legislation/document/20212022/201121).
 - U.S. Supreme Court, [*Brnovich v. Democratic National Committee*](https://www.supremecourt.gov/opinions/20pdf/19-1257_g204.pdf), 594 U.S. 647 (2021).
