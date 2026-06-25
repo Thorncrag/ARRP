@@ -22,19 +22,49 @@ Before promoting a candidate into a standalone issue, ask:
 
 If not, merge it into a broader issue, treat it as a manifestation or example, cross-reference it, or retain it only in the research inventory.
 
+## Unit of Analysis
+
+Each issue must identify a generalized structural defect. Trump-era or other-administration incidents illustrate the defect but do not define it.
+
 ## Mandatory Issue Architecture
 
 Every developed issue should use the following structure:
 
-1. **Institutional Anomaly** — a concise, generalized statement of the structural defect.
-2. **Manifestation of the Failure** — only the representative facts necessary to show how the defect operates.
-3. **Resulting Damage** — the principal institutional, legal, factual, administrative, or legitimacy harm.
-4. **Underlying Weakness** — the law, structure, procedure, remedy, or norm that failed.
-5. **Repair and Prevention** — restoration or correction of existing damage and prospective safeguards against recurrence.
-6. **Least-Complex Adequate Remedy** — the least-complex measure or package capable of adequately addressing the defect.
-7. **Annotation** — evidence, legal analysis, qualifications, alternatives, and implementation constraints.
+1. **Issue Snapshot** — a short reader-navigation box summarizing problem, repair, and vehicle.
+2. **Institutional Anomaly** — a concise, generalized statement of the structural defect.
+3. **Manifestation of the Failure** — only the representative facts necessary to show how the defect operates.
+4. **Resulting Damage** — the principal institutional, legal, factual, administrative, or legitimacy harm.
+5. **Underlying Weakness** — the law, structure, procedure, remedy, or norm that failed.
+6. **Repair and Prevention** — restoration or correction of existing damage and prospective safeguards against recurrence.
+7. **Proposal Survey** — concise review of prior or adjacent models bearing on the remedy.
+8. **Least-Complex Adequate Remedy** — the least-complex measure or package capable of adequately addressing the defect.
+9. **Annotation** — evidence, legal analysis, qualifications, alternatives, and implementation constraints.
 
 The headings guide analysis but do not require artificial expansion. Each section should add a distinct proposition.
+
+### Issue Snapshot Format
+
+Each developed issue page should place an **Issue Snapshot** blockquote immediately after the issue title and before **Institutional Anomaly**. The snapshot is a reader-navigation device: it should let a reader move quickly from problem to proposed solution without reading the full issue page first.
+
+The Issue Snapshot should be extremely concise. Each line should normally convey its point in about twelve words or fewer. To render consistently in both GitHub and Codex previews, the **Problem** and **Repair** lines should end with `<br />`:
+
+1. **Problem:** the institutional weakness.
+2. **Repair:** the core proposed fix.
+3. **Vehicle:** the legal or institutional form of the remedy, with a relative Markdown link to proposed legislation or amendment text where a draft exists.
+
+Use this format:
+
+```markdown
+> ## Issue Snapshot
+> **Problem:** Short problem statement.<br />
+> **Repair:** Short repair statement.<br />
+> **Vehicle:** Remedy vehicle ([draft link]).
+>
+```
+
+### Proposal Survey
+
+Each developed issue should include a concise survey of prior legislative, regulatory, constitutional, procedural, or institutional models that bear on the proposed remedy. The survey should identify the closest models, cite or link them, and explain why the project adopts, narrows, rejects, or combines them. It should appear before **Least-Complex Adequate Remedy** so the preferred remedy follows the comparison.
 
 ## Issue-Level Conciseness
 
@@ -59,6 +89,10 @@ State each institutional conclusion as directly as the record permits. An annota
 ### Source Standard
 
 Use primary legal and governmental records first. Use authoritative institutional and academic sources for doctrine, design, and comparative analysis. Use high-quality secondary reporting mainly for synthesis and discovery.
+
+Every factual, legal, and causal proposition must remain independently supportable. When an issue file refers to a real-life event, case, official action, report, statute, rule, hearing, order, or other source material, include a nearby citation or link. Do not name concrete examples in issue text without enough source information for later verification.
+
+When referring to another page in this project, use a relative Markdown link whenever the target page exists. If the referenced issue exists only as an inventory or area-index entry, link to the nearest project page that contains that entry.
 
 ## Least-Complex Adequate Remedy
 
@@ -112,6 +146,7 @@ Markdown and CSV files are authoritative. Binary Office and PDF files are genera
 - [`FRAMEWORK.md`](FRAMEWORK.md) — technical framework, methodology, repository conventions, and development status
 - [`../inventory/areas.csv`](../inventory/areas.csv) — structured area inventory
 - [`../inventory/issues.csv`](../inventory/issues.csv) — structured issue inventory
+- [`../inventory/contents.csv`](../inventory/contents.csv) — combined area-and-issue contents index
 - [`../inventory/sources.csv`](../inventory/sources.csv) — source-tracking table
 - [`../areas/`](../areas/) — modular area and issue analyses
 - [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
@@ -132,6 +167,8 @@ Markdown and CSV files are authoritative. Binary Office and PDF files are genera
 6. Candidate issues may be retired or merged when the issue-admission test shows substantial duplication.
 7. A status such as **Awaiting merits adjudication** identifies a deliberately paused issue whose remedy depends materially on pending judicial resolution.
 8. Markdown and CSV are canonical. DOCX, PDF, and XLSX files are generated exports.
+9. Project updates must keep the structured inventory current. When an area, issue, legislation file, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant rows in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), [`../inventory/contents.csv`](../inventory/contents.csv), and [`../inventory/sources.csv`](../inventory/sources.csv) as part of the same change.
+10. Source inventory updates are required whenever a new external source is cited or an existing cited source is repurposed for a materially different proposition. A source may remain marked `Reviewed?` as `No` until verification is complete, but the citation should still be captured promptly.
 
 ## Legislation Filename Convention
 
@@ -171,7 +208,7 @@ Developed Department of Justice issues currently include DOJ-001, DOJ-002, DOJ-0
 
 The governing framework already incorporates the project-wide rules for institutional focus, politically neutral application, issue admission, mandatory issue architecture, issue-level conciseness, standardized annotations, the Least-Complex Adequate Remedy, limited use of automatic institutional-failure triggers, and cross-referencing instead of duplicative treatment.
 
-The area and issue inventories already include A-04 Judicial Independence and Enforcement (JUD-001 through JUD-008), A-05 Presidential Clemency and Pardon Power (PAR-001 through PAR-010), A-07 Classification, Declassification, and National-Security Information (CLASS-001 through CLASS-012), and A-21 Federal Reserve Independence and Monetary Policy (FRB-001 through FRB-008). The `FED` prefix remains reserved for A-20 Federalism and Presidential Coercion of States.
+The area and issue inventories already include A-04 Judicial Independence and Enforcement (JUD-001 through JUD-009, with JUD-002, JUD-003, JUD-004, and JUD-006 retired into JUD-001), A-05 Presidential Clemency and Pardon Power (PAR-001 through PAR-010), A-07 Classification, Declassification, and National-Security Information (CLASS-001 through CLASS-012), and A-21 Federal Reserve Independence and Monetary Policy (FRB-001 through FRB-008). The `FED` prefix remains reserved for A-20 Federalism and Presidential Coercion of States.
 
 ## Outstanding Development
 
@@ -182,6 +219,7 @@ The following work remains outstanding and should not be treated as an uncommitt
 - analyze the constitutional limits on restricting the legal effect of presidential clemency while developing transparency, anti-corruption, review, recordkeeping, disclosure, and surrounding-liability remedies;
 - preserve and source the distinctions among classification status, authorization to disclose, lawful custody or possession, and government ownership and records-preservation duties;
 - develop the A-21 annotation explaining the systemic risks of sustained political subordination of monetary policy, including inflation, unanchored expectations, leverage, asset-price distortions, currency weakness, loss of credibility, and the possibility of a later severe corrective contraction;
+- conduct a systematic review of each proposal's potential bipartisan support, including cross-party institutional interests, likely objections, possible neutral framing, and risks of partisan capture or misuse;
 - select and adopt an appropriate Creative Commons or other public reuse license when the project is ready for broader legislative and public engagement.
 
 These are substantive research and issue-development tasks. They do not reopen the already committed governing framework or area inventories.

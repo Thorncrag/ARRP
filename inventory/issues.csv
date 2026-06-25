@@ -26,12 +26,12 @@ WAR-005,A-03,High,Retired—merged into WAR-001
 WAR-006,A-03,High,Retired—merged into WAR-001
 WAR-007,A-03,High,Retired—merged into WAR-001
 WAR-008,A-03,High,Retired—merged into WAR-001
-JUD-001,A-04,High,Candidate
-JUD-002,A-04,High,Candidate
-JUD-003,A-04,High,Candidate
-JUD-004,A-04,High,Candidate
+JUD-001,A-04,High,Developed
+JUD-002,A-04,High,Retired—merged into JUD-001
+JUD-003,A-04,High,Retired—merged into JUD-001
+JUD-004,A-04,High,Retired—merged into JUD-001
 JUD-005,A-04,High,Candidate
-JUD-006,A-04,High,Candidate
+JUD-006,A-04,High,Retired—merged into JUD-001
 JUD-007,A-04,High,Candidate
 JUD-008,A-04,High,Candidate
 JUD-009,A-04,High,Developed

@@ -1,102 +1,74 @@
 ---
-title: "Inventory and Drafting Method"
+title: "Inventory Maintenance Method"
 status: active
 ---
 
-# Inventory and Drafting Method
+# Inventory Maintenance Method
 
 ## Purpose
 
-Maintain the project’s living inventory of institutional areas and issues before and during substantive development.
+Maintain the project's living inventory of institutional areas and issues before and during substantive development.
 
-## Unit of Analysis
+This file is limited to inventory maintenance. The canonical drafting method, issue architecture, source standard, Issue Snapshot format, Proposal Survey requirement, remedy standard, and cross-reference rules are maintained in [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md).
 
-Each issue must identify a generalized structural defect. Trump-era or other-administration incidents illustrate the defect but do not define it.
+## Inventory Files
 
-## Issue-Admission Test
+The structured inventory is maintained in:
 
-Before promoting a candidate into a standalone issue, ask:
+- [`areas.csv`](areas.csv) — project areas, generalized institutional concerns, status, issue counts, and notes.
+- [`issues.csv`](issues.csv) — issue identifiers, area ownership, priority, and development status.
+- [`contents.csv`](contents.csv) — combined area-and-issue navigation index for table-of-contents planning.
+- [`sources.csv`](sources.csv) — source-tracking records.
 
-> Does this candidate identify a distinct institutional weakness requiring separate diagnosis or remedial analysis?
+## Inventory Rules
 
-If not, merge it into a broader issue, treat it as a manifestation or example, cross-reference it, or retain it only in the research inventory.
+1. Each substantive issue should have a stable issue identifier, such as `DOJ-001`.
+2. Each issue should have one primary area home.
+3. Candidate issues may remain inventory-only until they receive a developed issue page.
+4. Retired or merged issues should remain traceable in the inventory rather than disappearing silently.
+5. Area issue counts should be updated when issues are added, retired, merged, or moved.
+6. Development status should use consistent labels, such as `Candidate`, `Developed`, `Awaiting merits adjudication`, or `Retired—merged into ...`.
+7. Inventory updates should be made in the same change as the substantive project update that requires them.
 
-## Mandatory Issue Structure
+## Project-Update Checklist
 
-Each developed issue page should place an **Issue Snapshot** blockquote immediately after the issue title and before **Institutional Anomaly**. The snapshot is a reader-navigation device: it should let a reader move quickly from problem to proposed solution without reading the full issue page first.
+When updating the project, check whether the change requires inventory maintenance:
 
-The Issue Snapshot should be extremely concise. Each line should normally convey its point in about twelve words or fewer. To render consistently in both GitHub and Codex previews, the **Problem** and **Repair** lines should end with `<br />`:
+1. If an area is added, renamed, retired, or materially reframed, update [`areas.csv`](areas.csv) and [`contents.csv`](contents.csv).
+2. If an issue is added, renamed, promoted, retired, merged, moved, or given a new development status, update [`issues.csv`](issues.csv), [`contents.csv`](contents.csv), and the relevant area README.
+3. If proposed legislation is added, renamed, or removed, update the `Legislation Path` field in [`contents.csv`](contents.csv).
+4. If an external source is newly cited, removed, or used for a materially different proposition, update [`sources.csv`](sources.csv).
+5. If source review is completed, update `Reviewed?`, `Proposition Supported`, and any notes in [`sources.csv`](sources.csv).
+6. If issue counts change, update both the area README front matter and [`areas.csv`](areas.csv).
 
-1. **Problem:** the institutional weakness.
-2. **Repair:** the core proposed fix.
-3. **Vehicle:** the legal or institutional form of the remedy, with a relative Markdown link to proposed legislation or amendment text where a draft exists.
+## Contents Index Rules
 
-Use this format:
+`contents.csv` may combine areas and issues because its purpose is navigation, ordering, and eventual table-of-contents development.
 
-```markdown
-> ## Issue Snapshot
-> **Problem:** Short problem statement.<br />
-> **Repair:** Short repair statement.<br />
-> **Vehicle:** Remedy vehicle ([draft link]).
->
-```
+The normalized `areas.csv` and `issues.csv` files should remain available for compact tracking, but the combined contents index should include relative links to the area page, issue page, and proposed legislation where those files exist.
 
-The full issue structure is:
+## Source Inventory Rules
 
-1. Issue Snapshot
-2. Institutional Anomaly
-3. Manifestation of the Failure
-4. Resulting Damage
-5. Underlying Weakness
-6. Repair and Prevention
-7. Proposal Survey
-8. Least-Complex Adequate Remedy
-9. Annotation
+`sources.csv` should capture distinct external sources already cited in the project. A row may be associated with an issue, area, framework file, research file, or project-level page.
 
-The headings guide analysis but do not require artificial expansion. Each section should add a distinct proposition.
+Source rows may be captured before full verification. Use the `Reviewed?` field to distinguish a captured source from a source that has been checked against the proposition it is being used to support.
 
-## Proposal Survey
+## Adding or Promoting Issues
 
-Each developed issue should include a concise survey of prior legislative, regulatory, constitutional, procedural, or institutional models that bear on the proposed remedy. The survey should identify the closest models, cite or link them, and explain why the project adopts, narrows, rejects, or combines them. It should appear before **Least-Complex Adequate Remedy** so the preferred remedy follows the comparison.
+Before adding or promoting a candidate into a standalone issue, apply the issue-admission test in [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md).
 
-## Issue-Level Conciseness
+If a candidate is duplicative, keep it as a manifestation, example, cross-reference, or research note rather than creating a separate issue.
 
-Each issue should be stated in the minimum space necessary to identify the defect, damage, weakness, repair, prevention, and remedy. Additional evidence, legal analysis, qualifications, counterarguments, implementation detail, and fallback options belong in annotation or source notes.
+## Links to Developed Work
 
-## Least-Complex Adequate Remedy
+When an issue becomes developed, maintain consistency among:
 
-Every developed issue must identify the least-complex remedy, or least-complex package of remedies, that appears capable of adequately addressing the institutional weakness. The analysis must explain why the remedy is adequate. Simpler but insufficient measures and more complex fallback options should be noted briefly in annotation.
+- the issue row in [`issues.csv`](issues.csv);
+- the area README entry;
+- the issue page under the relevant area directory;
+- any proposed legislation under [`../legislation/`](../legislation/); and
+- any source-development or research notes that remain relevant.
 
-The Least-Complex Adequate Remedy functions as the project’s provisional preferred remedy, but it is not irrevocable. Adequacy controls over simplicity.
+## Cross-References
 
-## Repair and Prevention
-
-Consider both repair of existing damage and prevention of recurrence. The distinction is mandatory to consider but need not receive equal prose where one side is not materially relevant.
-
-## Political and Institutional Neutrality
-
-The project is not neutral about abuse, but it is neutral about who may commit it. Safeguards must apply equally regardless of party or officeholder. Avoid false equivalence, partisan exemptions, unsupported accusations, and person-specific rules.
-
-## Drafting Rule
-
-Trump is the principal case study; the institutional weakness is the subject of analysis. Prefer formulations explaining that an absent or inadequate safeguard allowed, enabled, or failed to constrain misconduct.
-
-## Source Standard
-
-Use primary legal and governmental records first. Use authoritative institutional and academic sources for doctrine, design, and comparative analysis. Use high-quality secondary reporting mainly to synthesize factual records. Every factual, legal, and causal proposition must remain independently supportable.
-
-When an issue file refers to a real-life event, case, official action, report, statute, rule, hearing, order, or other source material, include a nearby citation or link. Do not name concrete examples in issue text without enough source information for later verification.
-
-When referring to another page in this project, use a relative Markdown link whenever the target page exists. If the referenced issue exists only as an inventory or area-index entry, link to the nearest project page that contains that entry.
-
-## Overlap Rule
-
-Each defect should have one primary home. Related areas should cross-reference the primary issue rather than duplicate diagnosis, evidence, and remedies.
-
-## Trigger Regime
-
-Automatic Constitutional Stabilizers and Institutional-Failure Triggers are a limited, cross-cutting remedial tool. Apply them only where persistent failure can be addressed through objective, proportionate escalation or reallocation mechanisms. Do not treat the trigger regime as a universal solution.
-
-## Constitutional Amendment Rule
-
-Constitutional amendments remain within scope. Prefer adequate non-amendment remedies where available because Article V is arduous and slow, but preserve amendment options where lesser measures cannot lawfully, completely, or durably solve the problem.
+Inventory entries should not duplicate developed analysis. Where a related issue is developed elsewhere, cross-reference the primary area or issue instead of repeating the same diagnosis, evidence, or remedy.

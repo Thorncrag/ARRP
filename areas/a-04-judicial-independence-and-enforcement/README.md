@@ -14,15 +14,15 @@ The federal judiciary’s authority to interpret and apply law is not matched by
 ## Issues
 
 - [JUD-001 — Executive Dependence of Judicial Enforcement](issues/JUD-001.md)
-- **JUD-002** — Inadequate remedies for executive noncompliance _(status: Candidate; priority: High)_
-- **JUD-003** — Delay as functional defiance _(status: Candidate; priority: High)_
-- **JUD-004** — Lack of an independent judicial enforcement officer or service _(status: Candidate; priority: High)_
+- **JUD-002** — Inadequate remedies for executive noncompliance _(status: Retired—merged into JUD-001; priority: High)_
+- **JUD-003** — Delay as functional defiance _(status: Retired—merged into JUD-001; priority: High)_
+- **JUD-004** — Lack of an independent judicial enforcement officer or service _(status: Retired—merged into JUD-001; priority: High)_
 - **JUD-005** — Weak or partisan congressional response to judicial defiance _(status: Candidate; priority: High)_
-- **JUD-006** — Uncertainty regarding contempt and coercive sanctions against senior executive officials _(status: Candidate; priority: High)_
+- **JUD-006** — Uncertainty regarding contempt and coercive sanctions against senior executive officials _(status: Retired—merged into JUD-001; priority: High)_
 - **JUD-007** — Evasion through substitution, reorganization, or nominally revised directives _(status: Candidate; priority: High)_
 - **JUD-008** — Insufficient transparency and verification regarding compliance _(status: Candidate; priority: High)_
 - [JUD-009 — Appointer-President Recusal](issues/JUD-009.md)
 
 ## Notes
 
-JUD-009 is developed. Remaining judicial-independence issues are provisional and require full source development.
+JUD-001 and JUD-009 are developed. JUD-002, JUD-003, JUD-004, and JUD-006 are retired as duplicative of JUD-001's civil-contempt and executive-compliance remedy. Remaining judicial-independence issues are provisional and require full source development.

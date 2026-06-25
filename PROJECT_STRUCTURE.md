@@ -19,4 +19,6 @@ archive/                           Superseded or migrated source snapshots
 - A defect has one primary issue file.
 - Related areas cross-reference the primary file instead of duplicating analysis.
 - Legislative drafts use the corresponding issue identifier.
-- Source records use the issue identifier in `inventory/sources.csv`.
+- `inventory/contents.csv` combines area and issue rows for navigation and future table-of-contents planning.
+- Source records in `inventory/sources.csv` may be associated with issues, areas, framework files, research files, or project-level pages.
+- Inventory CSVs should be updated in the same change that adds, removes, renames, merges, retires, or materially revises an area, issue, legislative proposal, or cited source.
