@@ -56,6 +56,8 @@ The normalized `areas.csv` and `issues.csv` files should remain available for co
 
 Source rows may be captured before full verification. Use the `Reviewed?` field to distinguish a captured source from a source that has been checked against the proposition it is being used to support.
 
+When a cited issue page, legislation file, or framework file is edited, refresh any affected `Project Location` line references in [`sources.csv`](sources.csv). Exact line references are useful for rapid verification, but they can become stale after otherwise unrelated edits.
+
 ## Audit Inventory Rules
 
 `audits.csv` should assign every issue a current proposal-quality score using the rubric in [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md).
