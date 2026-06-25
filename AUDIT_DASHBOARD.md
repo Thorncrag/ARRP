@@ -49,7 +49,8 @@ Update this page whenever an audit changes an issue score, audit status, last au
 | Issue-admission test | 179 |
 | Reassess predicate | 1 |
 | T2 | 1 |
-| T3 | 1 |
+| T3 | 0 |
+| T4 | 1 |
 
 ## Issue Audit Index
 
@@ -57,7 +58,7 @@ Update this page whenever an audit changes an issue score, audit status, last au
 
 | Issue | Area | Priority | Status | Score | Band | Runs | Last audit | Last date | Next | Proposal page/status | Legislation |
 | --- | --- | --- | --- | ---: | --- | ---: | --- | --- | --- | --- | --- |
-| DOJ-001 | A-01 | High | Developed | 74 | Developed draft | 9 | T0/T1/T2 refresh audit | 2026-06-25 | T3 | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) |
+| DOJ-001 | A-01 | High | Developed | 82 | Developed draft | 10 | T3 judicial-scrutiny and enforcement-design audit | 2026-06-25 | T4 | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) |
 | DOJ-002 | A-01 | High | Developed | 62 | Developed draft | 2 | T1 framework check | 2026-06-25 | T2 | [Issue](areas/DOJ/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) |
 | DOJ-003 | A-01 | High | Developed | 60 | Developed draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/DOJ/issues/DOJ-003.md) | [Bill](legislation/DOJ-003.md) |
 | DOJ-004 | A-01 | High | Awaiting merits adjudication | 0 | Paused | 1 | Initial inventory audit | 2026-06-24 | Reassess predicate | [Issue](areas/DOJ/issues/DOJ-004.md) | — |
