@@ -2,7 +2,7 @@
 area_id: A-14
 title: "Federal Law-Enforcement and Military Use Inside the United States"
 status: active
-issue_count: 8
+issue_count: 9
 print_levels:
   - public-proposal
   - full-technical
@@ -25,6 +25,7 @@ The president retains broad and partially ambiguous authority to deploy federal 
 - **DOM-006** — Federal-property authority used as a pretext for broader operations _(status: Candidate; priority: Medium)_
 - **DOM-007** — Domestic military intelligence activity _(status: Candidate; priority: Medium)_
 - **DOM-008** — Insufficient expedited judicial review _(status: Candidate; priority: Medium)_
+- [**DOM-009** — Federal Law-Enforcement Surveillance Procurement and Deployment](issues/DOM-009.md) _(status: Candidate; priority: High)_
 
 ## Notes
 
