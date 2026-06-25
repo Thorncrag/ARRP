@@ -40,10 +40,11 @@ When updating the project, check whether the change requires inventory maintenan
 2. If an issue is added, renamed, promoted, retired, merged, moved, or given a new development status, update [`issues.csv`](issues.csv), [`contents.csv`](contents.csv), and the relevant area README.
 3. If proposed legislation is added, renamed, or removed, update the `Legislation Path` field in [`contents.csv`](contents.csv).
 4. If an issue is audited, promoted, paused, retired, merged, given legislation, or materially revised, update the issue-page audit front matter, visible Audit Record, [`audits.csv`](audits.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), including `Audit Runs`, `Proposal Quality Score`, `Audit Status`, `Score Basis`, `Next Audit Need`, issue link, and legislation link.
-5. If an external source is newly cited, removed, or used for a materially different proposition, update [`sources.csv`](sources.csv).
-6. If source review is completed, update `Reviewed?`, `Proposition Supported`, and any notes in [`sources.csv`](sources.csv).
-7. If issue counts change, update both the area README front matter and [`areas.csv`](areas.csv).
-8. If a roadmap, backlog, or to-do item is added or revised, update only [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md); other files should link there rather than maintaining separate task lists.
+5. If a Horizon Scan audit is run, add the report and concise finding table to [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), but do not update issue pages, legislation, inventories, scores, or source records unless the user separately approves implementation.
+6. If an external source is newly cited, removed, or used for a materially different proposition, update [`sources.csv`](sources.csv).
+7. If source review is completed, update `Reviewed?`, `Proposition Supported`, and any notes in [`sources.csv`](sources.csv).
+8. If issue counts change, update both the area README front matter and [`areas.csv`](areas.csv).
+9. If a roadmap, backlog, or to-do item is added or revised, update only [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md); other files should link there rather than maintaining separate task lists.
 
 ## Contents Index Rules
 
@@ -67,7 +68,9 @@ The score is a conservative planning value. It should reflect the issue's curren
 
 Audit updates should identify the resource tier used: T0 triage scan, T1 framework check, T2 development audit, T3 readiness audit, or T4 publication-ready audit. Do not treat a lower-tier audit as a completed higher-tier audit. If the user does not specify a tier, ask which tier to run and recommend the lowest useful tier. Before running a higher-tier audit, confirm that the immediately lower tier has already been completed and remains reasonably current; otherwise ask whether to run the lower tier first or explicitly skip it. T4 requires additional explicit user confirmation before it is run.
 
-Audits should be run on exactly one issue at a time. Before starting, identify the target issue by issue ID and page path. If the request could refer to more than one issue, or if the issue ID is missing or unclear, ask the user to identify the issue before beginning the audit.
+Issue-quality audits should be run on exactly one issue at a time. Before starting, identify the target issue by issue ID and page path. If the request could refer to more than one issue, or if the issue ID is missing or unclear, ask the user to identify the issue before beginning the audit. The Horizon Scan audit is the only standing exception because it is a project-wide discovery and recommendation workflow.
+
+The Horizon Scan audit should look for new, emerging, or newly salient concerns within the project's goals using current sources; cross-check each concern against existing areas, issue pages, proposals, proposed legislation, inventories, and dashboard records; apply the Issue-Admission Test; and recommend whether to expand, adapt, amend, merge, cross-reference, source-develop, create a new candidate, or decline the concern. It should place a detailed analysis report and concise finding table on [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md). It should not directly create issue pages, revise legislation, change scores, update inventories, or modify source records unless the user separately approves implementation after reviewing the report.
 
 Before starting a new audit for an issue, check the most recent audit row or audit record for unresolved blocking findings, skipped prerequisites, source-development tasks, or user-input needs that must be resolved before further audit work can proceed. If blocking unresolved items remain, cancel the new audit request, notify the user, and ask whether to resolve the existing items, override the block, or revise the audit scope. Ordinary next-audit recommendations do not block a new audit when the requested audit is meant to address them.
 

@@ -167,7 +167,7 @@ Each developed proposal should be audited through the following sequence. The se
 
 Audits should be scoped to a stated resource tier before work begins. A smaller tier is not a failed larger audit; it is a deliberately budgeted review. The audit record should identify the tier used, what was completed, what was skipped, and what the next higher tier should examine.
 
-Audits should be run on exactly one issue at a time. Before starting, identify the target issue by issue ID and page path. If the request could refer to more than one issue, or if the issue ID is missing or unclear, ask the user to identify the issue before beginning the audit.
+Issue-quality audits should be run on exactly one issue at a time. Before starting, identify the target issue by issue ID and page path. If the request could refer to more than one issue, or if the issue ID is missing or unclear, ask the user to identify the issue before beginning the audit. The project-wide Horizon Scan audit is the only standing exception because its purpose is to identify possible new or changed issues across the project; it must not be used as a substitute for scoring or revising an individual issue.
 
 Before starting a new audit for an issue, check the most recent audit record for unresolved blocking findings, skipped prerequisites, source-development tasks, or user-input needs that must be resolved before further audit work can proceed. If blocking unresolved items remain from the last audit, cancel the new audit request, notify the user, and ask whether to resolve the existing items, explicitly override the block, or revise the audit scope. Do not begin a new audit until the user gives direction. Ordinary next-audit recommendations do not block a new audit when the requested audit is meant to address them.
 
@@ -204,6 +204,36 @@ On the first audit run for an issue, the auditor should do what can reasonably b
 Future audits should use prior audit results to adjust scope within the selected timeframe. If prior work already verified a component and the underlying sources have not changed, spend less time there and use the saved time on unresolved or changed components. If prior work showed an area is unusually complex, timebox that area earlier and document the follow-up need instead of allowing it to crowd out the rest of the audit.
 
 Successive audits should be improvement-targeted. After the first audit, the auditor should identify the unresolved components, penalties, or source gaps most likely to raise the Proposal Quality Score within the selected tier and target work there first. The goal is to improve the proposal's actual quality, reliability, and adoption readiness, not merely to repeat completed checks. A score should rise only when the audit actually resolves findings, verifies support, improves legal fit, strengthens drafting, reduces risk, or otherwise satisfies the scoring rules.
+
+### Horizon Scan Audit
+
+The **Horizon Scan audit** is a special project-wide audit flavor for identifying new, emerging, or newly salient issues of concern within the project's goals, including threats to democracy, rule-of-law failure, personalist capture, institutional damage, evasion of checks and balances, or comparable structural risks. It is a discovery and recommendation workflow, not an issue-quality scoring tier.
+
+A Horizon Scan audit should:
+
+1. perform a current-source discovery pass using recent reliable public sources, including current news, official records, court activity, legislation, agency action, government reports, public legal-research sources, watchdog materials, expert commentary, and other relevant sources;
+2. identify possible new concerns, emerging manifestations, or changed factual or legal conditions that may matter to the project;
+3. cross-check each concern against existing areas, issue pages, issue inventories, proposals, proposed legislation, source-development notes, and the audit dashboard;
+4. apply the ordinary Issue-Admission Test rather than bypassing it;
+5. determine whether the concern is substantially duplicative, a manifestation of an existing issue, a reason to expand or amend an existing issue, a reason to reformulate existing proposed legislation, a candidate for a new standalone issue, or outside current ARRP scope;
+6. recommend whether to expand, adapt, amend, merge, cross-reference, source-develop, or decline the concern; and
+7. document sources, uncertainty, duplicate checks, and the basis for each recommendation.
+
+A Horizon Scan audit should not directly create new issue pages, modify existing issue pages, revise legislation, change scores, update inventories, or change source records unless the user separately approves implementation after reviewing the scan. Its output should be a detailed analysis report placed on [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), with a concise and easily readable listing of each flagged concern and recommendation. If the scan identifies urgent or high-confidence concerns, present them prominently to the user before implementation work begins.
+
+The Horizon Scan report should normally include:
+
+1. scan date and scope;
+2. source categories checked;
+3. search terms or discovery routes used where practical;
+4. concise list of flagged concerns;
+5. duplicate or overlap check against existing issues and legislation;
+6. issue-admission result;
+7. recommended disposition;
+8. suggested existing issue or area link;
+9. source links or source-development needs;
+10. confidence level and unresolved questions; and
+11. recommended next action.
 
 ### Audit Autonomy and Unknowns
 
