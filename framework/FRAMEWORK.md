@@ -228,11 +228,11 @@ If the push cannot be completed, preserve a local commit where possible, record 
 
 Audits are corrective workflows, not documentation-only reviews. When an audit identifies a defect that can be fixed within the selected tier, within the project's framework, and without requiring unresolved user judgment, the auditor should make the correction as part of the audit. The audit record should distinguish issues fixed during the audit from issues left unresolved for later work.
 
-Human-relevant audit results should be visible on the issue page itself. CSV files are for tracking, indexing, verification, and machine-readable maintenance; they are not a substitute for human-facing disclosure. When an audit is completed, update the issue page with a concise **Audit Record** or equivalent section identifying the latest audit tier, date, proposal-quality score, corrections made, unresolved findings, material caveats, score limitations, and next audit need. Do not leave any information that a human reader would reasonably need to understand the issue's audit posture only in [`../inventory/audits.csv`](../inventory/audits.csv), [`../inventory/sources.csv`](../inventory/sources.csv), or another inventory file.
+Human-relevant audit results should be visible on the issue page itself. CSV files are for tracking, indexing, verification, and machine-readable maintenance; they are not a substitute for human-facing disclosure. When an audit is completed, update the issue page with a detailed **Audit Record** or equivalent section identifying the latest audit tier, date, proposal-quality score, corrections made, unresolved findings, material caveats, score limitations, and next audit need. Prefer more reader-facing detail over brevity: an audit record may begin with a short summary, but it should then document enough evidence, reasoning, source review, scoring basis, and unresolved work for a reader to understand the audit without opening the CSV files or reconstructing the conversation. Do not leave any information that a human reader would reasonably need to understand the issue's audit posture only in [`../inventory/audits.csv`](../inventory/audits.csv), [`../inventory/sources.csv`](../inventory/sources.csv), or another inventory file.
 
 Each developed issue page should also carry compact audit metadata in front matter: `audit_status`, `audit_score`, `audit_last_type`, `audit_last_date`, and `audit_next`. These fields are for tooling and quick scanning only. They should match the latest visible **Audit Record** and [`../inventory/audits.csv`](../inventory/audits.csv), but they should not replace the human-readable audit explanation on the page.
 
-Each completed audit should leave a concise record that identifies:
+Each completed audit should leave a detailed issue-page record that identifies:
 
 1. audit scope;
 2. audit date;
@@ -247,6 +247,8 @@ Each completed audit should leave a concise record that identifies:
 11. whether issue-page audit front matter was updated;
 12. whether the proposal-quality score changed; and
 13. why any score change is justified.
+
+For higher-tier audits, successive audits, or audits that change the proposal-quality score, the issue-page record should normally include a short narrative of the audit's major findings, a list or paragraph of sources and source categories checked, a clear distinction between verified findings and unresolved claims, a score explanation tied to the scoring rubric, and enough detail on corrected defects that a future reader can see why the proposal improved. If this makes the page longer, accept the added length; audit transparency is more important than keeping the Audit Record short.
 
 Each completed audit should also include a brief **Audit Process Feedback** note. The note should identify whether the selected tier was adequate, whether the audit finished under or over estimate, what slowed or improved the audit, what recurring defect or workflow friction appeared, and whether the audit framework, inventory method, source rules, scoring rules, or issue-page template should be revised before future audits. If a rule change is recommended, record the reason and apply the change only when it improves consistency, source reliability, transparency, resource control, or implementation quality.
 
