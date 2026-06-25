@@ -24,6 +24,15 @@ Project 2025 should be analyzed at the initiative level. Each proposal should be
 
 This is an initial crosswalk. It uses major publicly documented Project 2025 themes as a starting point. A later pass should verify every item against the primary Project 2025 Mandate chapter text, page references, and related implementation materials.
 
+The crosswalk is not limited to Project 2025 proposals that have already been enacted, attempted, litigated, or adopted. A proposal may be important because it identifies a weakness vehicle: a legal authority, statutory gap, administrative process, personnel mechanism, funding condition, records practice, enforcement theory, or institutional norm that could be exploited by any administration. Implementation status should be recorded because it affects urgency and evidentiary weight, but a lack of implementation should not by itself remove an initiative from ARRP analysis.
+
+For each Project 2025 initiative, the crosswalk should distinguish:
+
+1. **Implementation status:** whether the initiative is proposed, attempted, enacted, enjoined, abandoned, superseded, or uncertain.
+2. **Weakness vehicle:** the legal or institutional pathway the initiative would use.
+3. **ARRP relevance:** whether the weakness vehicle reveals a guardrail gap ARRP should cure even if the specific Project 2025 initiative never proceeds.
+4. **Manifestation evidence:** whether current events provide concrete proof of use, attempted use, or institutional stress.
+
 ## Summary Matrix
 
 | Project 2025 initiative / theme | Structural vulnerability implicated | ARRP area / issue coverage | Current ARRP status | Gap / next action |
@@ -104,6 +113,8 @@ Most Project 2025 initiatives outside DOJ and war powers map to ARRP areas that 
 ## Working Principle
 
 Project 2025 proposals should be evaluated according to whether they represent ordinary policy disagreement or structural institutional vulnerability. ARRP should focus on structural vulnerabilities: loyalty-based capture, retaliation, politicized enforcement, executive evasion of Congress, suppression or distortion of facts, abuse of emergency powers, and collapse of professional or independent legal checks.
+
+Do not equate "not implemented" with "not relevant." Proposed Project 2025 vehicles may still expose structural weaknesses that ARRP should repair prospectively. Conversely, implementation alone does not prove ARRP relevance unless the proposal implicates a structural weakness rather than an ordinary policy choice.
 
 ## Backlog Reference
 
