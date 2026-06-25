@@ -3,7 +3,7 @@ proposal_id: ELEC-008
 issue_id: ELEC-008
 title: "Federal Election Subversion Accountability Act"
 status: working-draft
-framework_issue: "../areas/a-02-election-integrity/issues/ELEC-008.md"
+framework_issue: "../areas/ELEC/issues/ELEC-008.md"
 print_levels:
   - public-proposal
   - full-technical

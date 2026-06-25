@@ -3,7 +3,7 @@ proposal_id: ELEC-004-state
 issue_id: ELEC-004
 title: "Model State Election Proceedings Integrity Act"
 status: working-draft
-framework_issue: "../areas/a-02-election-integrity/issues/ELEC-004.md"
+framework_issue: "../areas/ELEC/issues/ELEC-004.md"
 federal_legislation: "ELEC-004.md"
 print_levels:
   - public-proposal

@@ -3,7 +3,7 @@ proposal_id: ELEC-009
 issue_id: ELEC-009
 title: "Direct Election of the President and Vice President Amendment"
 status: working-draft
-framework_issue: "../areas/a-02-election-integrity/issues/ELEC-009.md"
+framework_issue: "../areas/ELEC/issues/ELEC-009.md"
 print_levels:
   - public-proposal
   - full-technical

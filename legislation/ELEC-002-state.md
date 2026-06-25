@@ -3,7 +3,7 @@ proposal_id: ELEC-002
 issue_id: ELEC-002
 title: "Model State Election Certification and Automatic Substitution Act"
 status: working-draft
-framework_issue: "../areas/a-02-election-integrity/issues/ELEC-002.md"
+framework_issue: "../areas/ELEC/issues/ELEC-002.md"
 print_levels:
   - public-proposal
   - full-technical

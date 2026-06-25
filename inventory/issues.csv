@@ -18,6 +18,9 @@ ELEC-007,A-02,High,Developed
 ELEC-008,A-02,High,Developed
 ELEC-009,A-02,High,Developed
 ELEC-010,A-02,High,Developed
+ELEC-011,A-02,High,Candidate
+ELEC-012,A-02,High,Candidate
+ELEC-013,A-02,High,Candidate
 WAR-001,A-03,High,Developed
 WAR-002,A-03,High,Retired—merged into WAR-001
 WAR-003,A-03,High,Retired—merged into WAR-001
@@ -35,6 +38,7 @@ JUD-006,A-04,High,Retired—merged into JUD-001
 JUD-007,A-04,High,Candidate
 JUD-008,A-04,High,Candidate
 JUD-009,A-04,High,Developed
+JUD-010,A-04,High,Candidate
 PAR-001,A-05,Medium,Candidate
 PAR-002,A-05,Medium,Candidate
 PAR-003,A-05,Medium,Candidate
@@ -206,3 +210,5 @@ HER-005,A-23,Medium,Candidate
 HER-006,A-23,Medium,Candidate
 HER-007,A-23,High,Candidate
 HER-008,A-23,High,Candidate
+RIGHTS-001,A-24,High,Candidate
+RIGHTS-002,A-24,High,Candidate

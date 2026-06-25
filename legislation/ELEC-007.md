@@ -3,7 +3,7 @@ proposal_id: ELEC-007
 issue_id: ELEC-007
 title: "Election Administration Federal-Force Noninterference Act"
 status: working-draft
-framework_issue: "../areas/a-02-election-integrity/issues/ELEC-007.md"
+framework_issue: "../areas/ELEC/issues/ELEC-007.md"
 print_levels:
   - public-proposal
   - full-technical

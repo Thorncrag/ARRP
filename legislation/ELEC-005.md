@@ -3,7 +3,7 @@ proposal_id: ELEC-005
 issue_id: ELEC-005
 title: "Presidential Result Transmission Integrity Amendments"
 status: working-draft
-framework_issue: "../areas/a-02-election-integrity/issues/ELEC-005.md"
+framework_issue: "../areas/ELEC/issues/ELEC-005.md"
 print_levels:
   - public-proposal
   - full-technical

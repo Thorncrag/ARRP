@@ -3,7 +3,7 @@ proposal_id: ELEC-001
 issue_id: ELEC-001
 title: "Federal Executive Election Noninterference Act"
 status: working-draft
-framework_issue: "../areas/a-02-election-integrity/issues/ELEC-001.md"
+framework_issue: "../areas/ELEC/issues/ELEC-001.md"
 print_levels:
   - public-proposal
   - full-technical

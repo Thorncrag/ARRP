@@ -3,7 +3,7 @@ proposal_id: ELEC-003
 issue_id: ELEC-003
 title: "Election Personnel Protection Amendments to the Help America Vote Act of 2002"
 status: working-draft
-framework_issue: "../areas/a-02-election-integrity/issues/ELEC-003.md"
+framework_issue: "../areas/ELEC/issues/ELEC-003.md"
 model_state_legislation: "ELEC-003-state.md"
 print_levels:
   - public-proposal

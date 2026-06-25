@@ -9,7 +9,7 @@ print_levels:
 ```text
 framework/                         Governing methodology, remedy taxonomy, and print assembly rules
 areas/                             One directory per project area
-  a-01-.../
+  DOJ/                             Folder name matches the issue identifier prefix
     README.md                      Area concern and issue index
     issues/
       DOJ-001.md                   Developed issue analysis
