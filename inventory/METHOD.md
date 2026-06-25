@@ -9,7 +9,7 @@ status: active
 
 Maintain the project's living inventory of institutional areas and issues before and during substantive development.
 
-This file is limited to inventory maintenance. The canonical drafting method, issue architecture, source standard, Issue Snapshot format, Proposal Survey requirement, remedy standard, and cross-reference rules are maintained in [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md).
+This file is limited to inventory maintenance. Inventory CSV files are tracking, indexing, verification, and machine-readable maintenance aids. Human-relevant analysis, audit findings, caveats, source gaps, score limitations, and next steps should appear on the relevant project page, usually the issue page. The canonical drafting method, issue architecture, source standard, Issue Snapshot format, Proposal Survey requirement, remedy standard, and cross-reference rules are maintained in [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md).
 
 ## Inventory Files
 
@@ -100,7 +100,7 @@ When an audit uncertainty cannot be resolved independently, do not pause the ent
 
 Audits should fix identified defects when the correction can be made within the selected tier, follows the framework, and does not require unresolved user judgment. Record what was corrected, what remains unresolved, and whether the correction changed the proposal-quality score.
 
-Audit inventory rows should not hide material audit results. When an audit updates [`audits.csv`](audits.csv), also update the relevant issue page with a concise public-facing audit record that includes the latest audit tier, date, proposal-quality score, corrections made, unresolved findings, and next audit need.
+Audit inventory rows should not hide material audit results. When an audit updates [`audits.csv`](audits.csv), also update the relevant issue page with a concise public-facing audit record that includes the latest audit tier, date, proposal-quality score, corrections made, unresolved findings, material caveats, score limitations, and next audit need. Any audit information a human reader would reasonably need should appear on the issue page, while the CSV row should serve as the compact tracking record.
 
 Each completed audit should include a brief audit-process feedback note on the issue page or audit record. The note should identify whether the selected tier was adequate, whether the audit finished under or over estimate, what slowed or improved the audit, and whether the framework, inventory method, source rules, scoring rules, or issue-page template should be revised before future audits. Recommended rule changes should explain the reason and should improve consistency, source reliability, transparency, resource control, or implementation quality.
 
