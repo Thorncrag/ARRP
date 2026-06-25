@@ -92,7 +92,7 @@ Each state should adopt a Model State Election Certification and Automatic Subst
 
 ## Proposed Legislation
 
-The working model statute is maintained separately as the [Model State Election Certification and Automatic Substitution Act](../../../legislation/ELEC-002-state.md).
+- [Model State Election Certification and Automatic Substitution Act](../../../legislation/ELEC-002-state.md)
 
 ## Relationship to Other Issues
 

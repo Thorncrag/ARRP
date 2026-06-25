@@ -91,7 +91,7 @@ The statute must preserve ordinary political advocacy, public criticism, lawful 
 
 ## Proposed Legislation
 
-The working statutory draft is maintained separately as the [Federal Executive Election Noninterference Act](../../../legislation/ELEC-001.md).
+- [Federal Executive Election Noninterference Act](../../../legislation/ELEC-001.md)
 
 ## Enforcement Architecture
 
