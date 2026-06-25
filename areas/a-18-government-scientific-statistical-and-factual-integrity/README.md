@@ -1,6 +1,6 @@
 ---
 area_id: A-18
-title: "Government Scientific, Statistical, and Factual Integrity"
+title: "Government Information, Scientific, Statistical, and Factual Integrity"
 status: active
 issue_count: 8
 print_levels:
@@ -9,11 +9,11 @@ print_levels:
   - executive-summary
 ---
 
-# A-18 — Government Scientific, Statistical, and Factual Integrity
+# A-18 — Government Information, Scientific, Statistical, and Factual Integrity
 
 ## Generalized Institutional Concern
 
-Official data, scientific findings, public-health guidance, economic statistics, historical information, and technical assessments remain vulnerable to suppression, alteration, delay, selective publication, or political reinterpretation.
+Official information, public-facing government terminology, data, scientific findings, public-health guidance, economic statistics, historical information, and technical assessments remain vulnerable to suppression, alteration, delay, selective publication, political reinterpretation, or misleading presentation that can confuse the public about legal authority, constitutional status, enacted law, or institutional reality.
 
 ## Issues
 
@@ -25,6 +25,11 @@ Official data, scientific findings, public-health guidance, economic statistics,
 - **FACT-006** — Suppression of unfavorable findings _(status: Candidate; priority: High)_
 - **FACT-007** — Political alteration of historical presentation _(status: Candidate; priority: High)_
 - **FACT-008** — Insufficient independent archival preservation and methodology protection _(status: Candidate; priority: High)_
+- **FACT-009** — Misleading official terminology, titles, or institutional labels _(status: Candidate; priority: High)_
+
+## Issue Boundaries
+
+- **FACT-009** concerns executive or agency use of public-facing terminology, secondary titles, institutional labels, or official communications that may mislead the public about legal authority, constitutional status, enacted law, declared war, statutory office structure, or institutional reality. HOR-005 is integrated here as a source-development example: Executive Order 14347 authorized use of "Department of War" and "Secretary of War" as secondary titles while acknowledging that statutory references to the Department of Defense and Secretary of Defense remain controlling until changed by law. See [Executive Order 14347, 90 Fed. Reg. 43893 (Sept. 10, 2025)](https://www.federalregister.gov/documents/2025/09/10/2025-17508/restoring-the-united-states-department-of-war); [10 U.S.C. § 111](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title10-section111&num=0&edition=prelim). This issue should cross-reference [A-03](../a-03-war-powers-and-military-force/README.md) where war-status terminology may confuse public understanding of Congress's constitutional war powers, and [APPT-006](../a-12-appointments-acting-officials-and-senate-confirmation/README.md) where title manipulation blurs statutory office structure or Senate-confirmed role definitions.
 
 ## Notes
 

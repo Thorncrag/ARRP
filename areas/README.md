@@ -25,7 +25,7 @@ print_levels:
 - [A-15 — Congressional Oversight and Executive Accountability](a-15-congressional-oversight-and-executive-accountability/README.md)
 - [A-16 — Presidential Immunity and Accountability for Official Misconduct](a-16-presidential-immunity-and-accountability-for-official-misconduct/README.md)
 - [A-17 — Independent Agencies and Regulatory Neutrality](a-17-independent-agencies-and-regulatory-neutrality/README.md)
-- [A-18 — Government Scientific, Statistical, and Factual Integrity](a-18-government-scientific-statistical-and-factual-integrity/README.md)
+- [A-18 — Government Information, Scientific, Statistical, and Factual Integrity](a-18-government-scientific-statistical-and-factual-integrity/README.md)
 - [A-19 — Federal Contracting, Grants, Licensing, and Regulatory Retaliation](a-19-federal-contracting-grants-licensing-and-regulatory-retaliation/README.md)
 - [A-20 — Federalism and Presidential Coercion of States](a-20-federalism-and-presidential-coercion-of-states/README.md)
 - [A-21 — Federal Reserve Independence and Monetary Policy](a-21-federal-reserve-independence-and-monetary-policy/README.md)
