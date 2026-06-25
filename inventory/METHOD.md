@@ -43,6 +43,7 @@ When updating the project, check whether the change requires inventory maintenan
 5. If an external source is newly cited, removed, or used for a materially different proposition, update [`sources.csv`](sources.csv).
 6. If source review is completed, update `Reviewed?`, `Proposition Supported`, and any notes in [`sources.csv`](sources.csv).
 7. If issue counts change, update both the area README front matter and [`areas.csv`](areas.csv).
+8. If a roadmap, backlog, or to-do item is added or revised, update only [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md); other files should link there rather than maintaining separate task lists.
 
 ## Contents Index Rules
 

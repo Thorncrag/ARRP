@@ -121,8 +121,6 @@ The project may later maintain more than one compiled edition:
 
 Unless otherwise specified, "compiled proposal document" means the public proposal edition.
 
-## Future Automation
+## Backlog Reference
 
-A future export script should assemble files according to this framework, generate a table of contents, normalize heading levels, verify local links, and place proposed legislation into appendices automatically.
-
-Future table-of-contents work should wait until the project is more fully developed. At that stage, the compiled document should use a page-numbered, clickable PDF table of contents limited to major sections, project areas, developed issues, and appendices.
+Roadmap, backlog, and to-do items are maintained only in [`FRAMEWORK.md`](FRAMEWORK.md). This file records print-assembly rules and should not maintain a separate roadmap.

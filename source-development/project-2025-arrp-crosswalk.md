@@ -103,12 +103,6 @@ Most Project 2025 initiatives outside DOJ and war powers map to ARRP areas that 
 
 Project 2025 proposals should be evaluated according to whether they represent ordinary policy disagreement or structural institutional vulnerability. ARRP should focus on structural vulnerabilities: loyalty-based capture, retaliation, politicized enforcement, executive evasion of Congress, suppression or distortion of facts, abuse of emergency powers, and collapse of professional or independent legal checks.
 
-## Source-development TODO
+## Backlog Reference
 
-1. Retrieve the official Project 2025 Mandate chapter list and chapter text.
-2. Create a row for every chapter and major policy proposal.
-3. Add page references or section citations.
-4. Map each row to ARRP areas and issues.
-5. Mark coverage as Developed, Candidate, Partial, Missing, or Outside ARRP Scope.
-6. Identify new issues needed.
-7. Revisit ARRP area priorities based on the coverage gaps.
+Roadmap, backlog, and to-do items are maintained only in [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md). This crosswalk records source-development context and should not maintain a separate task list.
