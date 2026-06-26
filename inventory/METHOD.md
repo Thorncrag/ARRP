@@ -73,15 +73,24 @@ Every issue should have a corresponding row in [`audits.csv`](audits.csv). That 
 
 ### Audit Rubric Versioning and Rebaseline Control
 
-The current audit rubric version is **2026-06-26.1**.
+The current audit rubric version is **2026-06-26.2**.
+
+Rubric version log:
+
+| Version | Change | Rebaseline effect |
+| --- | --- | --- |
+| `2026-06-26.1` | First explicit rubric-version and rebaseline-tracking system. | Marked prior developed scores for rebaseline and fixed-status zero scores as current fixed-status values. |
+| `2026-06-26.2` | Added Adoption Friction Score as a companion metric outside the 100-point Proposal Quality Score. | Soft rebaseline for otherwise-current developed proposals; hard rebaseline remains for developed proposals already awaiting formula rebaseline. |
 
 Every proposal-quality score must be tied to the audit rubric version used to produce it. This prevents older scores from appearing directly comparable to newer scores after the project changes scoring weights, required filters, current-status checks, source rules, or audit-output requirements.
 
 Use these fields in issue-page front matter for developed issues when the page is next audited or materially revised:
 
 ```yaml
-audit_rubric_version: 2026-06-26.1
+audit_rubric_version: 2026-06-26.2
 audit_rebaseline_status: current
+adoption_friction_score: null
+adoption_friction_band: unassessed
 ```
 
 Use these fields in [`audits.csv`](audits.csv) for every issue:
@@ -89,6 +98,9 @@ Use these fields in [`audits.csv`](audits.csv) for every issue:
 - `Audit Rubric Version`
 - `Rebaseline Status`
 - `Rebaseline Notes`
+- `Adoption Friction Score`
+- `Adoption Friction Band`
+- `Adoption Friction Notes`
 
 Rebaseline statuses:
 
@@ -444,6 +456,44 @@ Do not award polling or public-support points unless the evidence is cited, curr
 State-level and federal-level support should be evaluated separately. National polling may show broad federal salience; state polling, referendum results, enacted-state practice, or bipartisan state adoption may show practical political viability. Neither should be substituted for the other without explanation.
 
 Public support should increase only the Adoption Score. It should not override legal defects, source weaknesses, abuse risks, or an inadequate remedy. A popular proposal can still receive a low overall score if it is legally vulnerable, poorly drafted, unsupported by sources, or unlikely to survive implementation.
+
+### Adoption Friction Score
+
+Each developed proposal should receive a separate **Adoption Friction Score** from 0-100. This is a companion metric, not part of the 100-point Proposal Quality Score. It measures the expected intensity of organized opposition, litigation, procedural blockade, public misunderstanding, or institutional resistance. Higher friction does not mean lower quality; a proposal can be high-quality and high-friction.
+
+Use this formula:
+
+| Friction subcomponent | Points |
+| --- | ---: |
+| Partisan salience: the proposal is likely to be treated as helping or harming a party, administration, movement, candidate, or named political figure | 0-15 |
+| Constitutional or doctrinal controversy: the proposal depends on contested constitutional doctrine, uncertain judicial review, or significant statutory interpretation | 0-15 |
+| Institutional disruption: the proposal changes authority, procedure, tenure, jurisdiction, funding, enforcement, or decision rights of powerful institutions | 0-15 |
+| Rights or identity sensitivity: the proposal touches voting, speech, religion, equal protection, criminal process, immigration, privacy, bodily autonomy, or comparable high-salience rights | 0-10 |
+| Stakeholder opposition intensity: concentrated or well-resourced actors are likely to oppose implementation | 0-15 |
+| Public-understanding burden: opponents can plausibly caricature the proposal or the proposal requires substantial explanation to avoid misunderstanding | 0-10 |
+| Implementation friction: the proposal requires new systems, appropriations, intergovernmental coordination, agency capacity, data-sharing, or complex administration | 0-10 |
+| Litigation likelihood: prompt facial, as-applied, emergency, or strategic litigation is likely | 0-10 |
+| **Total** | **100** |
+
+Bands:
+
+| Score range | Band |
+| --- | --- |
+| `0-20` | Low |
+| `21-40` | Manageable |
+| `41-60` | Significant |
+| `61-80` | High |
+| `81-100` | Extreme |
+| Unscored | Unassessed |
+
+Apply the score conservatively:
+
+1. Do not infer a friction score from general political intuition alone; record the basis in the issue-page audit record, [`audits.csv`](audits.csv), or both.
+2. Do not treat friction as opposition to the proposal's merits. Friction is about expected resistance and adoption difficulty.
+3. Do not subtract friction from Proposal Quality Score. Use it to prioritize framing, coalition work, litigation preparation, implementation planning, and public explanation.
+4. If the proposal has not yet received an adoption-friction review, record the score as blank or `N/A` and the band as `Unassessed`.
+5. If a developed proposal is otherwise current but lacks an adoption-friction score after version `2026-06-26.2`, mark it `soft-rebaseline-needed` until the next audit assigns or expressly defers the score.
+6. Fixed zero-status rows should use `N/A` unless and until the issue becomes developed.
 
 ### International Support and Relations Score
 

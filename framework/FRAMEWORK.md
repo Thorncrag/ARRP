@@ -161,7 +161,7 @@ Before an issue or proposal is treated as ready for external circulation, it sho
 
 The canonical audit rules, resource tiers, Horizon Scan procedure, hallucination-resistance protocol, scoring formula, adoption-score formula, international-support score, output requirements, and audit-preservation rules are maintained in [`../inventory/METHOD.md`](../inventory/METHOD.md#audit-rules-and-proposal-quality-scoring).
 
-Every issue should have a corresponding row in [`../inventory/audits.csv`](../inventory/audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, and rebaseline status. Human-facing audit findings should also appear on the relevant issue page, while [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) provides the compact cross-issue view. Scores should not be compared across different rubric versions without noting the rebaseline status.
+Every issue should have a corresponding row in [`../inventory/audits.csv`](../inventory/audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, rebaseline status, and Adoption Friction Score where assessed. Human-facing audit findings should also appear on the relevant issue page, while [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) provides the compact cross-issue view. Scores should not be compared across different rubric versions without noting the rebaseline status, and Adoption Friction should not be treated as part of the Proposal Quality Score.
 
 ## Repository Architecture
 
