@@ -69,7 +69,55 @@ Before an issue or proposal is treated as ready for external circulation, it sho
 
 The audit should identify unresolved legal, factual, remedial, implementation, and adoption risks rather than treating completion of a draft as evidence of readiness.
 
-Every issue should have a corresponding row in [`audits.csv`](audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, and next audit need.
+Every issue should have a corresponding row in [`audits.csv`](audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, and rebaseline status.
+
+### Audit Rubric Versioning and Rebaseline Control
+
+The current audit rubric version is **2026-06-26.1**.
+
+Every proposal-quality score must be tied to the audit rubric version used to produce it. This prevents older scores from appearing directly comparable to newer scores after the project changes scoring weights, required filters, current-status checks, source rules, or audit-output requirements.
+
+Use these fields in issue-page front matter for developed issues when the page is next audited or materially revised:
+
+```yaml
+audit_rubric_version: 2026-06-26.1
+audit_rebaseline_status: current
+```
+
+Use these fields in [`audits.csv`](audits.csv) for every issue:
+
+- `Audit Rubric Version`
+- `Rebaseline Status`
+- `Rebaseline Notes`
+
+Rebaseline statuses:
+
+| Status | Meaning |
+| --- | --- |
+| `current` | The score was calculated under the current rubric version and may be compared to other current scores. |
+| `current-fixed-status` | The issue has a fixed non-formula status, usually candidate, retired, merged, pending controlling finding, or reliably moot; the zero score is current until the status changes. |
+| `soft-rebaseline-needed` | The rubric changed in a way that adds useful context or a new non-score field, but the existing score remains usable with a caveat until the next audit. |
+| `hard-rebaseline-needed` | The rubric changed in a way that could materially change the score; treat the existing score as provisional until the next substantive audit recalculates it. |
+| `rebaseline-complete` | A rebaseline audit was completed; this status should normally be converted to `current` after the dashboard and issue metadata are updated. |
+
+When the audit framework changes, classify the change before applying it:
+
+| Change type | Required action |
+| --- | --- |
+| Wording clarification, formatting, or examples only | No rebaseline required. |
+| New metadata, dashboard field, or non-score tracking category | Soft rebaseline unless the change exposes a score-affecting defect. |
+| New required check, source rule, penalty, scoring component, component weight, baseline rule, or current-status gate | Hard rebaseline for already scored developed proposals unless the issue was already audited under the new rule. |
+| Change to fixed zero-score categories | Rebaseline affected candidate, retired, merged, pending-finding, or moot rows. |
+
+Rebaseline workflow:
+
+1. Assign a new rubric version before changing scoring rules or required audit filters.
+2. Record the change in this section and update [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) rebaseline counts.
+3. Mark affected already-audited proposals as `soft-rebaseline-needed` or `hard-rebaseline-needed` in [`audits.csv`](audits.csv).
+4. Preserve old scores, but treat non-current scores as provisional in summaries, comparisons, and prioritization.
+5. During the next T2, T3, or T4 audit of an affected developed proposal, recalculate the score under the current rubric, update issue-page metadata, update the visible Audit Record, and set the rebaseline status to `current`.
+6. Do not compare scores across rubric versions without noting the mismatch.
+7. Do not rerun every proposal immediately unless the user asks; use the rebaseline status to queue the work responsibly.
 
 ### Audit Workflow
 
@@ -226,7 +274,7 @@ Human-relevant audit results should be visible on the issue page itself. CSV fil
 
 Audit history on issue pages should be append-only. New audits should add a new dated entry under **Audit Record** rather than replacing, deleting, or compressing prior audit entries. Use newest-first ordering unless a page already uses another clear chronological convention. Older audit entries may be corrected only to fix clerical errors, broken links, stale line references, or clearly identified inaccuracies; do not remove them merely because the page becomes long. Public-facing compiled editions may omit or trim audit logs, but the source issue page should retain the complete technical audit history.
 
-Each developed issue page should also carry compact audit metadata in front matter: `audit_status`, `audit_score`, `audit_last_type`, `audit_last_date`, and `audit_next`. These fields are for tooling and quick scanning only. They should match the latest visible **Audit Record** and [`audits.csv`](audits.csv), but they should not replace the human-readable audit explanation on the page.
+Each developed issue page should also carry compact audit metadata in front matter: `audit_status`, `audit_score`, `audit_last_type`, `audit_last_date`, `audit_next`, `audit_rubric_version`, and `audit_rebaseline_status`. These fields are for tooling and quick scanning only. They should match the latest visible **Audit Record** and [`audits.csv`](audits.csv), but they should not replace the human-readable audit explanation on the page.
 
 Each completed audit should leave a detailed issue-page record that identifies:
 
@@ -442,7 +490,7 @@ To keep scoring reproducible across audits:
 6. Use the lower score where a component sits between two values.
 7. If separate reviewers would assign different scores, require them to identify the disputed component, cited evidence, and specific rule causing disagreement; absent resolution, use the lower score.
 8. Keep prior audit scores visible in the audit record where practical so score movement can be explained.
-9. If the scoring formula is later amended, record the formula version or method date used for the audit.
+9. If the scoring formula is later amended, assign a new audit rubric version, record the version used for the audit, and update the rebaseline status of affected proposals.
 10. A higher score should reflect stronger reliability, not merely a longer or more elaborate proposal.
 
 Use the following bands to interpret formula-based scores. These bands do not replace the scoring formula and should not be used to award points independently:
