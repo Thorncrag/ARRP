@@ -196,6 +196,7 @@ Markdown and CSV files are authoritative. Binary Office and PDF files are genera
 - [`../areas/`](../areas/) — modular area and issue analyses
 - [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
 - [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) — compact cross-issue audit tracker for meta-analysis and audit planning
+- [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) — cumulative Horizon Scan intake and integration ledger
 - [`../AUTHORS.md`](../AUTHORS.md) — authorship statement
 - [`../LICENSE.md`](../LICENSE.md) — rights and reuse notice
 - [`../CITATION.cff`](../CITATION.cff) — citation metadata
@@ -213,7 +214,7 @@ Markdown and CSV files are authoritative. Binary Office and PDF files are genera
 6. Candidate issues may be retired or merged when the issue-admission test shows substantial duplication.
 7. A status such as **Awaiting merits adjudication** identifies a deliberately paused issue whose remedy depends materially on pending judicial resolution.
 8. Markdown and CSV are canonical. DOCX, PDF, and XLSX files are generated exports.
-9. Project updates must keep the structured inventory and audit dashboard current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant rows in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), [`../inventory/contents.csv`](../inventory/contents.csv), [`../inventory/audits.csv`](../inventory/audits.csv), [`../inventory/sources.csv`](../inventory/sources.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as part of the same change.
+9. Project updates must keep the structured inventory, audit dashboard, and Horizon Scan ledger current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant rows in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), [`../inventory/contents.csv`](../inventory/contents.csv), [`../inventory/audits.csv`](../inventory/audits.csv), [`../inventory/sources.csv`](../inventory/sources.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as part of the same change. When a `HOR-###` candidate is added, adjudicated, integrated, retained, or retired, update [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) as part of the same change.
 10. Source inventory updates are required whenever a new external source is cited or an existing cited source is repurposed for a materially different proposition. A source may remain marked `Reviewed?` as `No` until verification is complete, but the citation should still be captured promptly.
 11. Every Markdown page must carry `print_levels` metadata under [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
 12. Every audit tier must check pending judicial matters, scaled to the tier, where a pending Supreme Court, appellate, district-court, state high-court, emergency, stay, or remand posture could materially affect the proposal's authority, remedy design, urgency, scope, or issue-admission result.

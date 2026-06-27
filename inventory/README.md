@@ -17,6 +17,8 @@ The CSV files are canonical structured records. Spreadsheet editions may be gene
 
 The project-wide human-readable audit tracker is [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md). It summarizes audit posture for meta-analysis and should be refreshed whenever an audit changes issue score, audit status, last audit type, next audit need, issue link, legislation link, or development status.
 
+The Horizon Scan intake and integration ledger is [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md). It tracks active and adjudicated `HOR-###` candidates separately from the audit-score dashboard.
+
 ## Issue Inventory Scope
 
 `issues.csv` is intentionally a compact tracking index. It records only the issue identifier, area identifier, priority, and development status.
@@ -36,6 +38,8 @@ Area and issue rows include relative links to the area page, issue page, and pro
 The proposal-quality score is a provisional planning value, not a claim that the issue is publication-ready or externally validated. Audit runs may support a higher score only when the audit resolves findings, broadens review, verifies sources, improves legal fit, improves drafting, or strengthens adoption prospects.
 
 `AUDIT_DASHBOARD.md` is the compact reader-facing dashboard for cross-issue audit status. It should not replace issue-page Proposal Scoring summaries, sibling audit-history sidecars, or the structured audit inventory.
+
+`HORIZON_SCAN.md` is the cumulative reader-facing tracker for Horizon Scan findings and integration decisions. It should not replace issue-page source development, audit histories, or structured inventory records once a horizon item is admitted, merged, or retired.
 
 ## Source Inventory Scope
 
