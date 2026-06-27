@@ -129,6 +129,8 @@ Adoption friction bands are interpreted as follows:
 
 Some issue pages also include a **Required Electoral Environment** descriptor. This is not a separate score. It states, in plain terms, what political or institutional condition would likely need to exist before the proposal could realistically move. The descriptor helps calibrate adoption and implementation risk; it does not mean the proposal is weak, undesirable, or impossible.
 
+`current-law-available` means a legal or institutional vehicle already exists; it does not mean the current officeholder or institution is likely to adopt the proposal. Where adoption depends on voluntary self-limitation by the same actor whose discretion would be constrained, the Adoption Score and Adoption Friction Score should reflect that practical barrier.
+
 Common descriptors are interpreted as follows:
 
 | Descriptor | Meaning |

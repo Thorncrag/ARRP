@@ -43,7 +43,7 @@ Update this page whenever an audit changes an issue score, audit status, last au
 
 [Back to top](#audit-dashboard)
 
-Current audit rubric version: `2026-06-27.1`
+Current audit rubric version: `2026-06-27.2`
 
 | Rebaseline status | Count |
 | --- | ---: |
@@ -85,8 +85,8 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Low Resistance | 0 |
 | Manageable Resistance | 0 |
 | Significant Resistance | 0 |
-| High Resistance | 2 |
-| Extreme Resistance | 0 |
+| High Resistance | 1 |
+| Extreme Resistance | 1 |
 | Unassessed | 18 |
 | N/A | 193 |
 
@@ -111,6 +111,7 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 
 | Date | Change audited | Scope | Score/rebaseline effect | Findings and corrections |
 | --- | --- | --- | --- | --- |
+| 2026-06-27 | Institutional Self-Limitation Rule for adoption viability | Targeted Change Audit for currently rebaselined proposals and DOJ-002 as the model current-law/internal-policy vehicle. | Rubric advanced to `2026-06-27.2`. DOJ-001 had no score effect because it uses federal legislation rather than voluntary self-limitation by the constrained actor. DOJ-002 score decreased from 70 to 67, Adoption Score decreased from 4/12 to 1/12, Adoption Friction increased from 66 to 84, and Pathway Viability changed from `current` to `conditional-current`. | Updated `METHOD.md` to distinguish legal availability from adoption viability, added `conditional-current`, updated DOJ-001 and DOJ-002 metadata/audit histories/audit inventory/dashboard rows, and preserved DOJ-002 as the model example of a formally available but practically adverse-adopter proposal. |
 | 2026-06-27 | Proposal Scoring display, score descriptors, budget-note display, and coalition-estimate formatting | Project-wide issue-page and legislation-page sweep for Proposal Scoring box format, em dash divider, Proposal Quality Score threshold labels, Adoption Score descriptor labels, Adoption Friction band labels, Budgetary Impact Statement note placement, and Coalition Support Estimates display. | No proposal-quality score change and no rubric-version rebaseline required. These were display, template, and documentation changes; substantive scoring formula remains `2026-06-27.1`. | Updated framework and method instructions; applied display changes to affected issue and legislation pages; confirmed DOJ-001 is the only current issue page with Coalition Support Estimates and now uses indented compact lines with the evidentiary caveat in annotation; corrected DOJ-001 audit-history friction label from `High` to `High Resistance`; validation found no front matter, CSV, dashboard, scoring-box, budget-note, or old-divider inconsistencies. |
 | 2026-06-27 | Framework hierarchy reorganization and neutrality/language guidelines | Project-wide Markdown and CSV sweep for duplicated framework sections, broken framework links, stale architecture references, and obvious project-authored language conflicts with the new neutrality rules. | No score or rubric rebaseline effect. The change clarified structure and language conventions but did not alter the proposal-quality scoring formula, required audit fields, or issue-page scoring template. Existing hard-rebaseline queue remains unchanged. | Consolidated `FRAMEWORK.md` hierarchy; confirmed no duplicate framework headings or broken framework links; corrected two project-authored wording issues (`radically` to more precise neutral phrasing) in source-development and ELEC-006. Remaining flagged terms were legal/statutory uses, source titles, framework examples, or ordinary institutional terminology. |
 
@@ -127,8 +128,8 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 
 | Issue | Area | Priority | Status | Score | Band | Runs | Last audit | Last date | Next | Proposal page/status | Legislation | Rubric | Rebaseline | Pathway | Priority | Friction |
 | --- | --- | --- | --- | ---: | --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| DOJ-001 | A-01 | High | Developed | 82 | Review Ready | 14 | T4 publication-ready audit | 2026-06-27 | T4 follow-up | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) | 2026-06-27.1 | current | sixty-vote-senate | active | High Resistance |
-| DOJ-002 | A-01 | High | Developed | 70 | Substantially Developed Draft | 3 | T2 development audit | 2026-06-27 | T3 | [Issue](areas/DOJ/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) | 2026-06-27.1 | current | current-law-available | active | High Resistance |
+| DOJ-001 | A-01 | High | Developed | 82 | Review Ready | 15 | Change Audit | 2026-06-27 | T4 follow-up | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
+| DOJ-002 | A-01 | High | Developed | 67 | Substantially Developed Draft | 4 | Change Audit | 2026-06-27 | T3 | [Issue](areas/DOJ/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) | 2026-06-27.2 | current | current-law-available | active | Extreme Resistance |
 | DOJ-003 | A-01 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/DOJ/issues/DOJ-003.md) | [Bill](legislation/DOJ-003.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | DOJ-004 | A-01 | High | Awaiting merits adjudication | 0 | Paused | 1 | Initial inventory audit | 2026-06-24 | Reassess predicate | [Issue](areas/DOJ/issues/DOJ-004.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | DOJ-005 | A-01 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/DOJ/issues/DOJ-005.md) | [Bill](legislation/DOJ-005.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |

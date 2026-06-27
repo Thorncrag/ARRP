@@ -77,7 +77,7 @@ Every issue should have a corresponding row in [`audits.csv`](audits.csv). That 
 
 A **Change Audit** is the project-wide consistency check run when the audit framework, scoring rubric, issue-page template, dashboard schema, inventory schema, audit sidecar structure, or other governing project rule changes. Its purpose is to prevent newer rules from applying only prospectively while older issue pages, scores, metadata, dashboard rows, and audit histories silently remain under a different structure.
 
-The current audit rubric version is **2026-06-27.1**.
+The current audit rubric version is **2026-06-27.2**.
 
 Rubric version log:
 
@@ -86,6 +86,7 @@ Rubric version log:
 | `2026-06-26.1` | First explicit rubric-version and rebaseline-tracking system. | Marked prior developed scores for rebaseline and fixed-status zero scores as current fixed-status values. |
 | `2026-06-26.2` | Added Adoption Friction Score as a companion metric outside the 100-point Proposal Quality Score. | Soft rebaseline for otherwise-current developed proposals; hard rebaseline remains for developed proposals already awaiting formula rebaseline. |
 | `2026-06-27.1` | Added required T1 Enactment Pathway Check, including Required Electoral Environment, Pathway Viability, Development Priority, and Pathway Adjustment. The check is evidence-bound and feeds Adoption and Implementation scoring rather than creating a standalone score. | Hard rebaseline for developed proposals because the new required check can materially change Adoption and Implementation component credit. Fixed-status zero scores remain current fixed-status values. |
+| `2026-06-27.2` | Clarified that legal availability is not adoption viability where a proposal depends on voluntary self-limitation by the same institutional actor whose discretion the proposal constrains. Added `conditional-current` Pathway Viability value and required Adoption Score and Adoption Friction treatment for institutionally adverse adopters. | Hard rebaseline for developed proposals whose pathway depends on discretionary adoption by an institution or officer materially adverse to the reform, especially current-law or internal-policy vehicles. No rebaseline is required for proposals whose adoption path does not depend on that condition. |
 
 Every proposal-quality score must be tied to the audit rubric version used to produce it. This prevents older scores from appearing directly comparable to newer scores after the project changes scoring weights, required filters, current-status checks, source rules, or audit-output requirements.
 
@@ -511,7 +512,7 @@ Use these required values:
 | Field | Allowed values |
 | --- | --- |
 | Required Electoral Environment | `current-law-available`; `house-oversight-majority`; `narrow-unified-government`; `filibuster-constrained-unified-government`; `sixty-vote-senate`; `filibuster-reform-or-exception`; `wave-election-mandate`; `post-crisis-repair-mandate`; `constitutional-amendment-environment`; `state-level-pathway`; `not-electorally-dependent`; `unassessed` |
-| Pathway Viability | `current`; `plausible-after-wave`; `post-crisis-only`; `currently-dead-on-arrival`; `unassessed` |
+| Pathway Viability | `current`; `conditional-current`; `plausible-after-wave`; `post-crisis-only`; `currently-dead-on-arrival`; `unassessed` |
 | Development Priority | `immediate`; `active`; `conditional`; `reserve`; `deprioritized`; `unassessed` |
 | Pathway Adjustment | `proceed`; `narrow`; `reframe`; `split`; `stage`; `convert-to-oversight`; `convert-to-state-model`; `reserve`; `unassessed` |
 
@@ -529,6 +530,21 @@ The pathway finding must be source-based and reproducible. Do not assign a favor
 At T1, the check may be preliminary, but it must still be evidence-bound. If sufficient evidence is not available within T1, record `unassessed` or the least favorable supported pathway and identify the source work needed for T2. At T2 or higher, do not award full Adoption or Implementation credit unless the pathway is supported by cited evidence and the proposal explains whether narrowing, staging, reframing, oversight conversion, state-model conversion, or reserve status would improve viability without sacrificing remedy adequacy.
 
 Speculative election-scenario modeling may inform planning but must not itself increase the Proposal Quality Score. A proposal receives credit for correctly identifying its minimum required environment and adjusting the vehicle realistically, not for assuming that a favorable election environment will occur.
+
+#### Institutional Self-Limitation Rule
+
+Legal availability and adoption viability are distinct. A proposal may be `current-law-available` because an agency, officer, court, chamber, committee, or other institution already has authority to adopt it, while still having little or no realistic adoption potential because the required adopter is the same actor whose discretion, power, secrecy, flexibility, or political advantage the proposal would constrain.
+
+When adoption depends on voluntary self-limitation by an institution or officer that is materially adverse to the reform, the audit must:
+
+1. keep `current-law-available` only as a statement of legal vehicle availability, not as proof of adoption likelihood;
+2. use `conditional-current` for Pathway Viability unless reliable evidence shows the required adopter is presently willing to adopt the reform;
+3. award low or zero Adoption Score credit for the adoption-vehicle subcomponent absent evidence of leadership support, binding external mandate, enforceable statutory fallback, appropriations condition, court order, settlement, or comparable adoption pressure;
+4. reflect institutional self-limitation resistance in Adoption Friction, including stakeholder opposition, institutional disruption, public-understanding burden, and implementation friction where applicable;
+5. consider `stage`, `convert-to-oversight`, `convert-to-state-model`, or `reserve` as Pathway Adjustment values when the internal or current-law path is formally available but practically nonviable under current leadership; and
+6. document the distinction in the issue-page **Adoption Score**, **Adoption Friction**, and **Required Electoral Environment** annotations when those fields are visible.
+
+This rule is a hallucination-resistance guardrail: do not treat a formally available vehicle as realistically adoptable merely because the project can write the rule text.
 
 ### Adoption Friction Score
 
