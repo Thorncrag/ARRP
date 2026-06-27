@@ -136,13 +136,15 @@ ELEC-007 should be narrowed to military, National Guard, or armed federal-force 
 
 ## Budgetary Impact Statement
 
-Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+Administrative workload is possible; no new appropriation is specified.
+
+*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-001.audit.md)**<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+> **Proposal Quality Score:** **[60 / 100](ELEC-001.audit.md)** (Developed Draft)<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
 >
-> ---
+> —
 >
 > **Audit Status:** HOR-012 integrated as source-strengthening manifestation; advanced audits pending<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
 

@@ -160,7 +160,9 @@ If any provision or application of this Act is held invalid, the remainder shall
 
 ## Budgetary Impact Statement
 
-Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+Administrative workload is possible; no new appropriation is specified.
+
+*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Drafting Notes
 

@@ -204,7 +204,7 @@ The **T4: Publication-ready audit** should be run when the user requests T4, pub
 
 A T4 audit should address every reasonably researchable publication concern, including source verification, current-law status, prior-proposal history, legislative drafting vulnerabilities, constitutional and administrative-law risks, judicial-scrutiny concerns, implementation feasibility, abuse resistance, adoption strategy, opposition arguments, public-support evidence, international implications where material, and consistency with the project's framework and inventories. It should not claim to replace professional legal advice, legislative counsel, empirical polling, fiscal scoring, or stakeholder validation.
 
-Budgetary-impact review is tier-scaled. T1 confirms that the required **Budgetary Impact Statement** exists and uses a permissible preliminary classification. T2 develops provisional funding, workload, or implementation-burden analysis where materially relevant. T3 and T4 source-check any fiscal or burden claims that the issue or proposal affirmatively makes. Do not include a dollar estimate unless it is tied to a cited government source, historical appropriation, CBO score, agency budget material, audited program cost, or comparable source-backed basis. Never describe ARRP's budgetary statement as an official CBO, OMB, agency, or legislative-counsel score.
+Budgetary-impact review is tier-scaled. T1 confirms that the required **Budgetary Impact Statement** exists and uses a permissible preliminary classification. T2 develops provisional funding, workload, or implementation-burden analysis where materially relevant. T3 and T4 source-check any fiscal or burden claims that the issue or proposal affirmatively makes. Do not include a dollar estimate unless it is tied to a cited government source, historical appropriation, CBO score, agency budget material, audited program cost, or comparable source-backed basis. The substantive classification should appear first, followed by the italicized project disclaimer note. Never describe ARRP's budgetary statement as an official CBO, OMB, agency, or legislative-counsel score.
 
 If the selected tier cannot responsibly complete a required check within the estimate plus reasonable overage, skip that portion, mark it unresolved, assign no favorable credit for it, and identify it as work for the next tier. Do not expand beyond the selected tier unless the user asks for a deeper audit.
 
@@ -303,7 +303,13 @@ If the push cannot be completed, preserve a local commit where possible, record 
 
 Audits are corrective workflows, not documentation-only reviews. When an audit identifies a defect that can be fixed within the selected tier, within the project's framework, and without requiring unresolved user judgment, the auditor should make the correction as part of the audit. The audit record should distinguish issues fixed during the audit from issues left unresolved for later work.
 
-Human-relevant audit results should be visible without making issue pages unwieldy. CSV files are for tracking, indexing, verification, and machine-readable maintenance; they are not a substitute for human-facing disclosure. Each issue page should contain a succinct but usable **Proposal Scoring** section with the at-a-glance proposal-quality score, Adoption Score when separately reported, Coalition Support Estimates when assessed, Required Electoral Environment, Development Priority, Adoption Friction, and any other companion score or viability indicator grouped at the top, followed by a horizontal rule, then audit status, last audit, rubric version, rebaseline status, next audit need, and a visible link to the full audit-history page. Coalition-support estimates must identify whether they are polling-based, evidence-based, stakeholder-based, or provisional planning judgments.
+Human-relevant audit results should be visible without making issue pages unwieldy. CSV files are for tracking, indexing, verification, and machine-readable maintenance; they are not a substitute for human-facing disclosure. Each issue page should contain a succinct but usable **Proposal Scoring** section with the at-a-glance proposal-quality score, Adoption Score when separately reported, Coalition Support Estimates when assessed, Required Electoral Environment, Development Priority, Adoption Friction, and any other companion score or viability indicator grouped at the top, followed by an em dash divider, then audit status, last audit, rubric version, rebaseline status, next audit need, and a visible link to the full audit-history page. When an Adoption Score is displayed, it should include the consistent descriptor in parentheses after the score, for example: `5 / 12 (Limited Adoption Basis)`. If the compact scoring box includes Coalition Support Estimates, put the label on its own line, then list each audience estimate on indented lines using inline `<br />` breaks and `&nbsp;` spacing. Keep the compact box free of evidentiary caveats when those caveats are explained in the matching annotation segment. If visible scores or descriptors require explanation, place that explanation in annotation segments after any **Budgetary Impact** annotation segment, using labels that mirror the scoring box where practical: **Quality Score**, **Adoption Score**, **Coalition Support Estimates**, **Adoption Friction**, **Required Electoral Environment**, and **Development Priority**.
+
+Use this compact format when coalition estimates are displayed:
+
+```markdown
+> **Coalition Support Estimates:**<br />&nbsp;&nbsp;&nbsp;&nbsp;Democratic 80%<br />&nbsp;&nbsp;&nbsp;&nbsp;Independent 60%<br />&nbsp;&nbsp;&nbsp;&nbsp;Republican 40%<br />&nbsp;&nbsp;&nbsp;&nbsp;Bipartisan viability 55%
+```
 
 The full audit history should live in a sibling file named `ISSUE-ID.audit.md` beside the issue page. For example, `areas/DOJ/issues/DOJ-001.md` should link to `areas/DOJ/issues/DOJ-001.audit.md`. The sibling audit file is the append-only technical record. New audits should add a new dated entry under **Audit History** rather than replacing, deleting, or compressing prior audit entries. Use newest-first ordering unless a page already uses another clear chronological convention. Older audit entries may be corrected only to fix clerical errors, broken links, stale line references, or clearly identified inaccuracies; do not remove them merely because the audit file becomes long. Public-facing compiled editions may omit or trim audit-history files, but source control should retain the complete technical audit history.
 
@@ -472,6 +478,17 @@ The **Adoption Score** is part of the 100-point proposal-quality score and is ca
 | The cited public-support evidence is specific to the proposal's actual mechanism rather than only a vague adjacent value | 1.5 |
 | The proposal explains how popular support can be used without compromising legality, rights, minority protections, institutional independence, or remedy adequacy | 1.5 |
 
+Adoption score bands are interpreted as follows:
+
+| Score | Descriptor | Meaning |
+| --- | --- | --- |
+| 0 | Unassessed | Adoption path has not been scored. |
+| 1-3 | Weak Adoption Basis | Adoption path is mostly undeveloped or unsupported. |
+| 4-6 | Limited Adoption Basis | Some adoption logic exists, but key evidence is missing. |
+| 7-9 | Credible Adoption Basis | Adoption path is reasonably developed and partly evidenced. |
+| 10-11 | Strong Adoption Basis | Adoption path is well developed and well supported. |
+| 12 | Exceptional Adoption Basis | Adoption path is unusually complete and strongly evidenced. |
+
 Do not award polling or public-support points unless the evidence is cited, current enough for the claim being made, methodologically credible, and captured in [`sources.csv`](sources.csv). For volatile political questions, polling should normally be treated as current only if it was released within the last two years or if the audit explains why older evidence remains probative. For durable structural preferences, older evidence may be used only with a qualification.
 
 State-level and federal-level support should be evaluated separately. National polling may show broad federal salience; state polling, referendum results, enacted-state practice, or bipartisan state adoption may show practical political viability. Neither should be substituted for the other without explanation.
@@ -535,11 +552,11 @@ Bands:
 
 | Score range | Band |
 | --- | --- |
-| `0-20` | Low |
-| `21-40` | Manageable |
-| `41-60` | Significant |
-| `61-80` | High |
-| `81-100` | Extreme |
+| `0-20` | Low Resistance |
+| `21-40` | Manageable Resistance |
+| `41-60` | Significant Resistance |
+| `61-80` | High Resistance |
+| `81-100` | Extreme Resistance |
 | Unscored | Unassessed |
 
 Apply the score conservatively:
@@ -550,6 +567,7 @@ Apply the score conservatively:
 4. If the proposal has not yet received an adoption-friction review, record the score as blank or `N/A` and the band as `Unassessed`.
 5. If a developed proposal is otherwise current but lacks an adoption-friction score after version `2026-06-26.2`, mark it `soft-rebaseline-needed` until the next audit assigns or expressly defers the score. If the proposal already has `hard-rebaseline-needed` status for a later score-affecting rubric change, keep the hard-rebaseline status rather than downgrading it to soft.
 6. Fixed zero-status rows should use `N/A` unless and until the issue becomes developed.
+7. When an issue page displays an assessed Adoption Friction Score, the band should appear in parentheses immediately after the score, for example: `72 / 100 (High Resistance)`.
 
 ### International Support and Relations Score
 
@@ -601,16 +619,20 @@ To keep scoring reproducible across audits:
 
 Use the following bands to interpret formula-based scores. These bands do not replace the scoring formula and should not be used to award points independently:
 
-| Score range | Meaning |
-| --- | --- |
-| 0 | Retired, merged, blocked by pending controlling finding, reliably moot, pending development, or no standalone proposal quality score. |
-| 1-24 | Developed proposal with severe unresolved defects or only minimal audit support. |
-| 25-49 | Partial draft or early development with significant unresolved source, legal, remedy, or structure issues. |
-| 50-64 | Developed draft with meaningful framework structure but incomplete source, legal-fit, prior-proposal, adoption, or implementation review. |
-| 65-74 | Substantially developed proposal with several audit components complete but material unresolved issues remaining. |
-| 75-84 | Strong proposal with source verification, existing-law fit, prior-proposal review, and remedy analysis substantially complete. |
-| 85-94 | Near-ready proposal with coalition appeal, abuse resistance, implementation, enforcement, and judicial-scrutiny review substantially complete. |
-| 95-100 | Publication-ready or near-publication-ready proposal with external expert, practitioner, legislative, stakeholder, or comparable review incorporated. |
+| Score range | Threshold status | Meaning |
+| --- | --- | --- |
+| 0 | Not Scored | Retired, merged, blocked by pending controlling finding, reliably moot, pending development, or no standalone proposal quality score. |
+| 1-24 | Early/Partial Draft | Developed proposal with severe unresolved defects or only minimal audit support. |
+| 25-49 | Early/Partial Draft | Partial draft or early development with significant unresolved source, legal, remedy, or structure issues. |
+| 50-64 | Developed Draft | Developed draft with meaningful framework structure but incomplete source, legal-fit, prior-proposal, adoption, or implementation review. |
+| 65-74 | Substantially Developed Draft | Substantially developed proposal with several audit components complete; useful internally but still carrying material unresolved issues. |
+| 75-84 | Review Ready | Strong enough for knowledgeable external critique, with source verification, existing-law fit, prior-proposal review, and remedy analysis substantially complete. |
+| 85-89 | Advanced Review Ready | Most internal checks are complete, but key external validation, adoption evidence, judicial-risk resolution, or implementation support remains incomplete. |
+| 90-94 | Proposal Ready | Mature enough for serious proposal packets or stakeholder circulation, with any remaining caveats clearly disclosed. |
+| 95-99 | Publication Ready | Publication-ready or near-publication-ready proposal with external expert, practitioner, legislative, stakeholder, or comparable review incorporated. |
+| 100 | Fully Validated | Fully validated under the current rubric; theoretically possible, but not expected for most institutional-reform proposals. |
+
+When an issue page displays a Proposal Quality Score, the threshold status should appear in parentheses immediately after the score, for example: `82 / 100 (Review Ready)`. The dashboard should use the same threshold-status labels for formula-based proposal scores; fixed zero-status rows may use routing labels such as `Paused`, `Retired/Merged`, or `Pending Development` when those labels are more informative.
 
 Scores should remain conservative. When in doubt, record the lower score and identify the next audit needed to justify advancement.
 
@@ -620,7 +642,7 @@ Audit rows created before adoption of the component formula should be treated as
 
 Each developed proposal should be reviewed for support and adoption prospects among the audiences most likely to affect adoption, implementation, public legitimacy, and long-term durability.
 
-Support estimates, audience-appeal percentages, coalition viability estimates, and similar scoring judgments should be consolidated here, in the issue's `Proposal Scoring` summary, or in the issue's audit-history sidecar. When an audit has assigned audience-class percentage estimates, the issue-page `Proposal Scoring` summary should display them in the top score group as **Coalition Support Estimates** unless the estimate has been superseded or withdrawn. They should not appear as standalone `Support Appeal` annotations unless the issue also needs a non-scoring substantive support discussion. When estimates are not based on polling or comparable evidence, label them as provisional planning judgments and do not award polling or public-support score credit for them.
+Support estimates, audience-appeal percentages, coalition viability estimates, and similar scoring judgments should be consolidated here, in the issue's `Proposal Scoring` summary, or in the issue's audit-history sidecar. When an audit has assigned audience-class percentage estimates, the issue-page `Proposal Scoring` summary should display them in the top score group as **Coalition Support Estimates** unless the estimate has been superseded or withdrawn. They should not appear as standalone `Support Appeal` annotations unless the issue also needs a non-scoring substantive support discussion. When estimates are not based on polling or comparable evidence, label them as provisional planning judgments in the matching **Coalition Support Estimates** annotation segment or audit-history sidecar, not necessarily in the compact scoring box, and do not award polling or public-support score credit for them.
 
 The audit should include:
 

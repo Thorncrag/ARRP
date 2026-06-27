@@ -356,7 +356,9 @@ The table of contents of the Help America Vote Act of 2002 is amended by adding 
 
 ## Budgetary Impact Statement
 
-Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.
+Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.
+
+*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Drafting Notes
 

@@ -156,13 +156,15 @@ A threat intended to compel a certification decision may implicate both ELEC-002
 
 ## Budgetary Impact Statement
 
-Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.
+Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.
+
+*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-003.audit.md)**<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+> **Proposal Quality Score:** **[60 / 100](ELEC-003.audit.md)** (Developed Draft)<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
 >
-> ---
+> —
 >
 > **Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-003 audit history](ELEC-003.audit.md)
 

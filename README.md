@@ -81,6 +81,71 @@ A remedy may therefore be adequate even when it cannot prevent the first violati
 
 Institutional corrigibility is not an excuse for weak reform. Preventive safeguards remain preferable where they are lawful, workable, and proportionate. Corrigibility becomes central where stronger front-end control would destroy necessary discretion, create unconstitutional supervision, or impose a cure more damaging than the underlying risk.
 
+## Proposal Scores
+
+Issue pages may include a **Proposal Quality Score** from 0 to 100. The score is a planning and readiness signal, not a claim that the proposal is correct, final, popular, legally valid, or certain to pass. It measures how well the proposal has been developed, sourced, tested against existing law, checked for implementation risk, and prepared for review.
+
+Score bands are interpreted as follows:
+
+| Score | Meaning |
+| --- | --- |
+| 0 | **Not Scored:** retired, merged, moot, pending development, or awaiting a controlling finding. |
+| 1-49 | **Early/Partial Draft:** major unresolved source, legal, remedy, or structure issues. |
+| 50-64 | **Developed Draft:** meaningful structure but incomplete audit support. |
+| 65-74 | **Substantially Developed Draft:** useful internally but still has material unresolved issues. |
+| 75-84 | **Review Ready:** strong enough for knowledgeable external critique, but not yet proposal-ready. |
+| 85-89 | **Advanced Review Ready:** most internal checks are complete, but key validation remains. |
+| 90-94 | **Proposal Ready:** mature enough for serious proposal packets or stakeholder circulation, with caveats. |
+| 95-99 | **Publication Ready:** rare and heavily validated. |
+| 100 | **Fully Validated:** theoretically possible but not expected for most reforms. |
+
+The full scoring formula and audit rules are maintained in [`inventory/METHOD.md`](inventory/METHOD.md#audit-rules-and-proposal-quality-scoring).
+
+Some issue pages also show an **Adoption Score** from 0 to 12. This is part of the Proposal Quality Score, not a separate score. It measures whether the proposal has a realistic, evidence-supported adoption path, including likely audiences, good-faith objections, coalition strategy, current support evidence, and the required electoral environment.
+
+Adoption score bands are interpreted as follows:
+
+| Score | Meaning |
+| --- | --- |
+| 0 | **Unassessed:** adoption path has not been scored. |
+| 1-3 | **Weak Adoption Basis:** adoption path is mostly undeveloped or unsupported. |
+| 4-6 | **Limited Adoption Basis:** some adoption logic exists, but key evidence is missing. |
+| 7-9 | **Credible Adoption Basis:** adoption path is reasonably developed and partly evidenced. |
+| 10-11 | **Strong Adoption Basis:** adoption path is well developed and well supported. |
+| 12 | **Exceptional Adoption Basis:** adoption path is unusually complete and strongly evidenced. |
+
+Some issue pages also include an **Adoption Friction Score** from 0 to 100. This is separate from Proposal Quality. It estimates how much resistance, litigation risk, procedural blockade, public misunderstanding, or institutional opposition a proposal is likely to face. A higher friction score does not mean the proposal is worse; it means adoption will likely require more coalition work, explanation, staging, or litigation planning.
+
+Adoption friction bands are interpreted as follows:
+
+| Score | Meaning |
+| --- | --- |
+| 0-20 | **Low Resistance:** likely to face limited organized opposition or implementation friction. |
+| 21-40 | **Manageable Resistance:** likely to face ordinary objections but no major structural barrier. |
+| 41-60 | **Significant Resistance:** likely to require active coalition work, explanation, or implementation planning. |
+| 61-80 | **High Resistance:** likely to face organized opposition, litigation risk, or serious procedural barriers. |
+| 81-100 | **Extreme Resistance:** likely to face intense opposition, major litigation, or exceptional adoption barriers. |
+| Unassessed | Not yet scored. |
+
+Some issue pages also include a **Required Electoral Environment** descriptor. This is not a separate score. It states, in plain terms, what political or institutional condition would likely need to exist before the proposal could realistically move. The descriptor helps calibrate adoption and implementation risk; it does not mean the proposal is weak, undesirable, or impossible.
+
+Common descriptors are interpreted as follows:
+
+| Descriptor | Meaning |
+| --- | --- |
+| `current-law-available` | Existing law, rule, or authority may already permit action. |
+| `not-electorally-dependent` | The proposal does not mainly depend on an election outcome. |
+| `house-oversight-majority` | A House majority could advance oversight, hearings, subpoenas, or reports. |
+| `narrow-unified-government` | Same-party control is likely needed, but margins may be tight. |
+| `filibuster-constrained-unified-government` | Unified government may still face Senate filibuster limits. |
+| `sixty-vote-senate` | Ordinary Senate passage likely requires a 60-vote coalition. |
+| `filibuster-reform-or-exception` | Passage likely requires changing or bypassing the filibuster. |
+| `wave-election-mandate` | The proposal likely needs a major electoral shift. |
+| `post-crisis-repair-mandate` | Adoption likely requires a public crisis or institutional reckoning. |
+| `constitutional-amendment-environment` | Adoption would require Article V-level national and state support. |
+| `state-level-pathway` | The proposal is more viable through state action or state models. |
+| `unassessed` | The electoral environment has not yet been assessed. |
+
 ## Rights and reuse
 
 Original project materials are copyright (c) 2026 Benjamin Smith. All rights reserved unless otherwise noted. See [`LICENSE.md`](LICENSE.md).

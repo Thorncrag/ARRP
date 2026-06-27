@@ -257,7 +257,9 @@ If any provision or application of this Act is held invalid, the remainder shall
 
 ## Budgetary Impact Statement
 
-Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.
+Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.
+
+*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Drafting Notes
 

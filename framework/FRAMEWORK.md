@@ -170,7 +170,7 @@ Every developed issue should use the following structure:
 8. **Repair and Prevention** — restoration or correction of existing damage and prospective safeguards against recurrence.
 9. **Proposed Legislation** — link to the proposed legislative, rule, constitutional, or procedural vehicle when one exists.
 10. **Budgetary Impact Statement** — a concise preliminary fiscal classification using the project rubric.
-11. **Proposal Scoring** — a succinct audit and scoring box showing the proposal-quality score, any companion scores, Required Electoral Environment, Development Priority, and any assessed coalition-support estimates first, separated by a horizontal rule from audit status, rubric version, rebaseline status, next audit need, and a link to the sibling full audit-history file.
+11. **Proposal Scoring** — a succinct audit and scoring box showing the proposal-quality score, any companion scores, Required Electoral Environment, Development Priority, and any assessed coalition-support estimates first, separated by an em dash divider from audit status, rubric version, rebaseline status, next audit need, and a link to the sibling full audit-history file.
 12. **Annotation** — evidence, legal analysis, qualifications, alternatives, and implementation constraints.
 
 The headings guide analysis but do not require artificial expansion. Each section should add a distinct proposition.
@@ -183,16 +183,16 @@ Candidate or source-development pages may keep a **Proposed Legislation** sectio
 
 The issue page and its linked proposed legislation must remain substantively aligned. When either page changes, the next framework, drafting, or project-integration audit should cross-check the Issue Snapshot vehicle, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation, Annotation, and Proposal Scoring summary against the linked legislative or rule text. The check should confirm that the issue page still accurately describes the vehicle, covered actors, legal hook, remedy type, enforcement mechanism, deadlines, responsible institutions, scope limits, and material drafting notes.
 
-Every developed issue page and every proposal page should include a **Budgetary Impact Statement** before **Annotation** on issue pages and before **Drafting Notes** on legislation or proposal pages. The statement is a preliminary ARRP planning classification, not an official fiscal score. It must be short, source-conscious, and must not include a dollar figure unless the figure is tied to a cited government source, historical appropriation, CBO score, agency budget material, audited program cost, or comparable source-backed basis.
+Every developed issue page and every proposal page should include a **Budgetary Impact Statement** before **Annotation** on issue pages and before **Drafting Notes** on legislation or proposal pages. The statement is a preliminary ARRP planning classification, not an official fiscal score. It must be short, source-conscious, and must not include a dollar figure unless the figure is tied to a cited government source, historical appropriation, CBO score, agency budget material, audited program cost, or comparable source-backed basis. The substantive classification should appear first. The project disclaimer should appear below it as an italicized note: `*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*`
 
 Use one of the following baseline classifications unless a source-backed estimate justifies a narrower formulation:
 
-- `Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. No direct appropriation is anticipated.`
-- `Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.`
-- `Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.`
-- `Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Not estimated pending proposal development.`
-- `Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. No direct appropriation is anticipated for the amendment itself; implementing legislation may have costs.`
-- `Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority may be required if the chosen remedy funds postage, tracking, or election-administration support; no dollar estimate is assigned pending source-backed cost data.`
+- `No direct appropriation is anticipated.`
+- `Administrative workload is possible; no new appropriation is specified.`
+- `Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.`
+- `Not estimated pending proposal development.`
+- `No direct appropriation is anticipated for the amendment itself; implementing legislation may have costs.`
+- `Budget authority may be required if the chosen remedy funds postage, tracking, or election-administration support; no dollar estimate is assigned pending source-backed cost data.`
 
 When a proposal authorizes appropriations or clearly requires new funded capacity, use the budget-authority classification unless a tighter source-backed range is available. When a proposal is a constitutional amendment, distinguish the amendment itself from later implementing legislation.
 
@@ -235,6 +235,18 @@ Each annotation segment should begin with a bold inline title followed by a peri
 **Qualification.** State material uncertainty, competing interpretations, and limits necessary to keep the main assertion accurate.
 
 **Remedial Alternatives and Constraints.** Briefly identify materially serious fallback options and the constitutional, statutory, administrative, or practical limits affecting the least-complex remedy.
+
+**Budgetary Impact.** Explain any fiscal, workload, or implementation-burden classification that needs more support than the short Budgetary Impact Statement can provide.
+
+Scoring annotations should mirror the labels used in the **Proposal Scoring** box where practical. Use **Quality Score**, **Adoption Score**, **Coalition Support Estimates**, **Adoption Friction**, **Required Electoral Environment**, and **Development Priority** as needed. Place these scoring annotation segments after **Budgetary Impact** when they appear, so score explanations can incorporate fiscal, implementation, adoption, friction, and readiness findings without crowding the Proposal Scoring box.
+
+When the **Proposal Scoring** box includes **Coalition Support Estimates**, keep the box visually compact: put the label on its own line, then list each audience estimate on indented lines using inline `<br />` breaks and `&nbsp;` spacing. Do not place evidentiary caveats such as "provisional," "not polling," or "stakeholder judgment" in the compact scoring box when the same point is explained in the matching **Coalition Support Estimates** annotation segment.
+
+Use this compact format when coalition estimates are displayed:
+
+```markdown
+> **Coalition Support Estimates:**<br />&nbsp;&nbsp;&nbsp;&nbsp;Democratic 80%<br />&nbsp;&nbsp;&nbsp;&nbsp;Independent 60%<br />&nbsp;&nbsp;&nbsp;&nbsp;Republican 40%<br />&nbsp;&nbsp;&nbsp;&nbsp;Bipartisan viability 55%
+```
 
 ### Assertion Discipline
 
@@ -286,7 +298,7 @@ Before an issue or proposal is treated as ready for external circulation, it sho
 
 The canonical audit rules, resource tiers, Horizon Scan procedure, hallucination-resistance protocol, scoring formula, adoption-score formula, international-support score, output requirements, and audit-preservation rules are maintained in [`../inventory/METHOD.md`](../inventory/METHOD.md#audit-rules-and-proposal-quality-scoring).
 
-Every issue should have a corresponding row in [`../inventory/audits.csv`](../inventory/audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, rebaseline status, Required Electoral Environment, Development Priority, and Adoption Friction Score where assessed. The relevant issue page should contain a compact **Proposal Scoring** summary, and its full technical audit history should be maintained in a sibling `ISSUE-ID.audit.md` file linked from that section. In that summary, all scores and viability indicators, including Required Electoral Environment and Development Priority, should appear grouped at the top, followed by a horizontal rule, then audit status and routing fields. When the scoring template, audit schema, rubric version, or audit sidecar structure changes, run a **Change Audit** and update the issue-page scoring box, issue-page front matter, audit sidecar, [`../inventory/audits.csv`](../inventory/audits.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as a single consistency unit. [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) provides the compact cross-issue view. Scores should not be compared across different rubric versions without noting the rebaseline status. Adoption Friction should not be treated as part of the Proposal Quality Score, while the Required Electoral Environment should feed Adoption and Implementation scoring under the audit rubric.
+Every issue should have a corresponding row in [`../inventory/audits.csv`](../inventory/audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, rebaseline status, Required Electoral Environment, Development Priority, and Adoption Friction Score where assessed. The relevant issue page should contain a compact **Proposal Scoring** summary, and its full technical audit history should be maintained in a sibling `ISSUE-ID.audit.md` file linked from that section. In that summary, all scores and viability indicators, including Required Electoral Environment and Development Priority, should appear grouped at the top, followed by an em dash divider, then audit status and routing fields. When the scoring template, audit schema, rubric version, or audit sidecar structure changes, run a **Change Audit** and update the issue-page scoring box, issue-page front matter, audit sidecar, [`../inventory/audits.csv`](../inventory/audits.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as a single consistency unit. [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) provides the compact cross-issue view. Scores should not be compared across different rubric versions without noting the rebaseline status. Adoption Friction should not be treated as part of the Proposal Quality Score, while the Required Electoral Environment should feed Adoption and Implementation scoring under the audit rubric.
 
 Every audit tier must check pending judicial matters, scaled to the tier, where a pending Supreme Court, appellate, district-court, state high-court, emergency, stay, or remand posture could materially affect the proposal's authority, remedy design, urgency, scope, or issue-admission result.
 

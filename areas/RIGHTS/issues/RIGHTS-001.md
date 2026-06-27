@@ -141,11 +141,13 @@ Future drafting should evaluate whether Congress should:
 
 No reliable estimate yet. Early remedies may require compliance, records, review, and litigation resources, but no appropriation estimate should be assigned until a specific proposal exists.
 
+*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
+
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[0 / 100](RIGHTS-001.audit.md)**<br />**Adoption Friction:** `N/A`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`
+> **Proposal Quality Score:** **[0 / 100](RIGHTS-001.audit.md)** (Not Scored)<br />**Adoption Friction:** `N/A`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`
 >
-> ---
+> —
 >
 > **Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [RIGHTS-001 audit history](RIGHTS-001.audit.md)
 

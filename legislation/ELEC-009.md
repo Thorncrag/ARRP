@@ -54,7 +54,9 @@ This article shall take effect for the first presidential election occurring mor
 
 ## Budgetary Impact Statement
 
-Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. No direct appropriation is anticipated for the amendment itself; implementing legislation may have costs.
+No direct appropriation is anticipated for the amendment itself; implementing legislation may have costs.
+
+*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Drafting Notes
 
