@@ -34,9 +34,9 @@ Update this page whenever an audit changes an issue score, audit status, last au
 | Retired/Merged | 13 |
 | Paused | 1 |
 | Pending development | 179 |
-| Developed Draft | 18 |
+| Developed Draft | 17 |
 | Substantially Developed Draft | 0 |
-| Review Ready | 2 |
+| Review Ready | 3 |
 | Audit in progress | 0 |
 
 ## Rubric Rebaseline
@@ -47,10 +47,10 @@ Current audit rubric version: `2026-06-27.2`
 
 | Rebaseline status | Count |
 | --- | ---: |
-| Current | 2 |
+| Current | 3 |
 | Current fixed-status score | 193 |
 | Soft rebaseline needed | 0 |
-| Hard rebaseline needed | 18 |
+| Hard rebaseline needed | 17 |
 
 ## Enactment Pathway
 
@@ -85,9 +85,9 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Low Resistance | 0 |
 | Manageable Resistance | 0 |
 | Significant Resistance | 0 |
-| High Resistance | 1 |
+| High Resistance | 2 |
 | Extreme Resistance | 1 |
-| Unassessed | 18 |
+| Unassessed | 17 |
 | N/A | 193 |
 
 ## Next Audit Queue
@@ -98,12 +98,12 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | --- | ---: |
 | Advanced audit | 17 |
 | Cross-reference check | 13 |
-| Development audit | 1 |
+| Development audit | 0 |
 | Issue-admission test | 179 |
 | Reassess predicate | 1 |
 | T2 | 0 |
 | T3 | 0 |
-| T4 follow-up | 2 |
+| T4 follow-up | 3 |
 
 ## Change Audit Log
 
@@ -125,7 +125,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | --- | --- | --- | --- | ---: | --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | DOJ-001 | A-01 | High | Developed | 82 | Review Ready | 15 | Change Audit | 2026-06-27 | T4 follow-up | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | DOJ-002 | A-01 | High | Developed | 78 | Review Ready | 6 | T4 publication-ready audit | 2026-06-27 | T4 follow-up | [Issue](areas/DOJ/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) | 2026-06-27.2 | current | current-law-available | active | Extreme Resistance |
-| DOJ-003 | A-01 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/DOJ/issues/DOJ-003.md) | [Bill](legislation/DOJ-003.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
+| DOJ-003 | A-01 | High | Developed | 81 | Review Ready | 5 | T4 publication-ready audit | 2026-06-27 | T4 follow-up / external validation | [Issue](areas/DOJ/issues/DOJ-003.md) | [Bill](legislation/DOJ-003.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | DOJ-004 | A-01 | High | Awaiting merits adjudication | 0 | Paused | 1 | Initial inventory audit | 2026-06-24 | Reassess predicate | [Issue](areas/DOJ/issues/DOJ-004.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | DOJ-005 | A-01 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/DOJ/issues/DOJ-005.md) | [Bill](legislation/DOJ-005.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | DOJ-006 | A-01 | High | Retired—merged into DOJ-002 and DOJ-007 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/DOJ/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
