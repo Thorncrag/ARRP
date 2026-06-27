@@ -45,10 +45,10 @@ Current audit rubric version: `2026-06-27.1`
 
 | Rebaseline status | Count |
 | --- | ---: |
-| Current | 0 |
+| Current | 1 |
 | Current fixed-status score | 193 |
 | Soft rebaseline needed | 0 |
-| Hard rebaseline needed | 20 |
+| Hard rebaseline needed | 19 |
 
 ## Enactment Pathway
 
@@ -62,14 +62,14 @@ Required Electoral Environment is a T1 gate that identifies the minimum electora
 | House oversight majority | 0 |
 | Narrow unified government | 0 |
 | Filibuster-constrained unified government | 0 |
-| Sixty-vote Senate | 0 |
+| Sixty-vote Senate | 1 |
 | Filibuster reform or exception | 0 |
 | Wave-election mandate | 0 |
 | Post-crisis repair mandate | 0 |
 | Constitutional amendment environment | 0 |
 | State-level pathway | 0 |
 | Not electorally dependent | 0 |
-| Unassessed | 20 |
+| Unassessed | 19 |
 | N/A | 193 |
 
 ## Adoption Friction
@@ -83,9 +83,9 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Low | 0 |
 | Manageable | 0 |
 | Significant | 0 |
-| High | 0 |
+| High | 1 |
 | Extreme | 0 |
-| Unassessed | 20 |
+| Unassessed | 19 |
 | N/A | 193 |
 
 ## Next Audit Queue
@@ -116,7 +116,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 
 | Issue | Area | Priority | Status | Score | Band | Runs | Last audit | Last date | Next | Proposal page/status | Legislation | Rubric | Rebaseline | Pathway | Priority | Friction |
 | --- | --- | --- | --- | ---: | --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| DOJ-001 | A-01 | High | Developed | 82 | Developed draft | 11 | Change Audit | 2026-06-27 | T4 | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) | pre-2026-06-27.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
+| DOJ-001 | A-01 | High | Developed | 80 | Developed draft | 12 | Rubric rebaseline audit | 2026-06-27 | T4 | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) | 2026-06-27.1 | current | sixty-vote-senate | active | High |
 | DOJ-002 | A-01 | High | Developed | 62 | Developed draft | 2 | T1 framework check | 2026-06-25 | T2 | [Issue](areas/DOJ/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | DOJ-003 | A-01 | High | Developed | 60 | Developed draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/DOJ/issues/DOJ-003.md) | [Bill](legislation/DOJ-003.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | DOJ-004 | A-01 | High | Awaiting merits adjudication | 0 | Paused | 1 | Initial inventory audit | 2026-06-24 | Reassess predicate | [Issue](areas/DOJ/issues/DOJ-004.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
