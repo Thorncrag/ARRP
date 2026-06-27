@@ -73,7 +73,7 @@ Every issue should have a corresponding row in [`audits.csv`](audits.csv). That 
 
 ### Audit Rubric Versioning and Rebaseline Control
 
-The current audit rubric version is **2026-06-26.2**.
+The current audit rubric version is **2026-06-27.1**.
 
 Rubric version log:
 
@@ -81,16 +81,21 @@ Rubric version log:
 | --- | --- | --- |
 | `2026-06-26.1` | First explicit rubric-version and rebaseline-tracking system. | Marked prior developed scores for rebaseline and fixed-status zero scores as current fixed-status values. |
 | `2026-06-26.2` | Added Adoption Friction Score as a companion metric outside the 100-point Proposal Quality Score. | Soft rebaseline for otherwise-current developed proposals; hard rebaseline remains for developed proposals already awaiting formula rebaseline. |
+| `2026-06-27.1` | Added required T1 Enactment Pathway Check, including Required Electoral Environment, Pathway Viability, Development Priority, and Pathway Adjustment. The check is evidence-bound and feeds Adoption and Implementation scoring rather than creating a standalone score. | Hard rebaseline for developed proposals because the new required check can materially change Adoption and Implementation component credit. Fixed-status zero scores remain current fixed-status values. |
 
 Every proposal-quality score must be tied to the audit rubric version used to produce it. This prevents older scores from appearing directly comparable to newer scores after the project changes scoring weights, required filters, current-status checks, source rules, or audit-output requirements.
 
 Use these fields in issue-page front matter for developed issues when the page is next audited or materially revised:
 
 ```yaml
-audit_rubric_version: 2026-06-26.2
+audit_rubric_version: 2026-06-27.1
 audit_rebaseline_status: current
 adoption_friction_score: null
 adoption_friction_band: unassessed
+required_electoral_environment: unassessed
+pathway_viability: unassessed
+development_priority: unassessed
+pathway_adjustment: unassessed
 ```
 
 Use these fields in [`audits.csv`](audits.csv) for every issue:
@@ -101,6 +106,11 @@ Use these fields in [`audits.csv`](audits.csv) for every issue:
 - `Adoption Friction Score`
 - `Adoption Friction Band`
 - `Adoption Friction Notes`
+- `Required Electoral Environment`
+- `Pathway Viability`
+- `Development Priority`
+- `Pathway Adjustment`
+- `Enactment Pathway Notes`
 
 Rebaseline statuses:
 
@@ -137,19 +147,20 @@ Each developed proposal should be audited through the following sequence. The se
 
 1. **Issue-identification audit.** Confirm that the issue identifies a distinct institutional weakness, has the correct primary area home, is not duplicative of another issue, and is framed as a structural defect rather than as a narrative about one person or episode.
 2. **Framework-compliance audit.** Confirm that the issue performs the required analytical functions: Issue Snapshot, Institutional Anomaly, Manifestation of the Failure, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation where applicable, and Annotation.
-3. **Evidence and citation audit.** Confirm that factual, legal, and causal claims are supported by nearby citations, that real-world examples link to source material, and that all cited external sources are captured in [`sources.csv`](sources.csv).
-4. **Legal-support audit.** Confirm that the proposal accurately identifies the constitutional, statutory, regulatory, procedural, or institutional authority on which it depends and discloses material uncertainty, doctrine, limits, or litigation risk.
-5. **Existing-law and prior-proposal audit.** Confirm that the proposal checks existing law first, prefers amendment of existing vehicles where adequate, and weighs prior proposals according to enacted use, institutional review, sponsorship, co-sponsorship, bipartisan support, and legislative progress.
-6. **Remedy-adequacy audit.** Confirm that the proposed remedy is the least-complex adequate remedy, addresses both repair and prevention where relevant, identifies why simpler options are insufficient, and preserves more complex fallback options where necessary.
-7. **Implementation and enforcement audit.** Confirm that the remedy can be administered, enforced, funded, reviewed, and updated without relying on the same failed institution or norm that created the problem.
-8. **Abuse-resistance audit.** Confirm that the remedy includes safeguards against capture, selective enforcement, evasion, delay, retaliation, pretextual use, or partisan conversion.
-9. **Drafting-quality audit.** Confirm that proposed legislation or rules use the appropriate legal vehicle, maintain legislative drafting conventions, define operative terms, assign responsible actors, specify procedures, and include remedies, deadlines, reporting, review, and severability where appropriate.
-10. **Hallucination-resistance and verification audit.** Confirm that the issue contains no invented, uncited, stale, unverifiable, or overconfident claims, and that every material factual, legal, polling, legislative-history, scholarly, or real-world-example assertion is traceable to reliable source material.
-11. **Judicial and scholarly scrutiny audit.** Confirm that the proposal has been tested against likely Supreme Court, relevant lower-court, and serious legal-scholar objections, and that the issue records deeply researched recommendations for increasing the likelihood that the proposal would be upheld.
-12. **Argument and cogency audit.** Confirm that the problem, weakness, damage, remedy, and implementation logic follow from each other without hidden premises, overclaiming, unsupported causation, or remedy mismatch.
-13. **Support and adoption audit.** Confirm that the issue can be explained to likely supporters, skeptics, lawmakers, staff, experts, and the public in terms of institutional repair rather than partisan advantage.
-14. **Political-language and coalition-appeal audit.** Confirm that the proposal remains candid about misconduct while using institution-focused language and estimating likely support from bipartisan, independent, Democratic, and Republican audiences.
-15. **Project-integration audit.** Confirm that internal links, legislation links, issue status, remedy type, source inventory, audit inventory, contents index, area page, and compiled-document placement remain consistent.
+3. **Enactment-pathway audit.** Confirm the minimum electoral environment required for the proposal to become seriously actionable, whether the proposal can be narrowed or staged to fit a more realistic environment, and whether further development is immediate, active, conditional, reserve, or deprioritized. This check begins at T1 and must be evidence-bound rather than speculative.
+4. **Evidence and citation audit.** Confirm that factual, legal, and causal claims are supported by nearby citations, that real-world examples link to source material, and that all cited external sources are captured in [`sources.csv`](sources.csv).
+5. **Legal-support audit.** Confirm that the proposal accurately identifies the constitutional, statutory, regulatory, procedural, or institutional authority on which it depends and discloses material uncertainty, doctrine, limits, or litigation risk.
+6. **Existing-law and prior-proposal audit.** Confirm that the proposal checks existing law first, prefers amendment of existing vehicles where adequate, and weighs prior proposals according to enacted use, institutional review, sponsorship, co-sponsorship, bipartisan support, and legislative progress.
+7. **Remedy-adequacy audit.** Confirm that the proposed remedy is the least-complex adequate remedy, addresses both repair and prevention where relevant, identifies why simpler options are insufficient, and preserves more complex fallback options where necessary.
+8. **Implementation and enforcement audit.** Confirm that the remedy can be administered, enforced, funded, reviewed, and updated without relying on the same failed institution or norm that created the problem.
+9. **Abuse-resistance audit.** Confirm that the remedy includes safeguards against capture, selective enforcement, evasion, delay, retaliation, pretextual use, or partisan conversion.
+10. **Drafting-quality audit.** Confirm that proposed legislation or rules use the appropriate legal vehicle, maintain legislative drafting conventions, define operative terms, assign responsible actors, specify procedures, and include remedies, deadlines, reporting, review, and severability where appropriate.
+11. **Hallucination-resistance and verification audit.** Confirm that the issue contains no invented, uncited, stale, unverifiable, or overconfident claims, and that every material factual, legal, polling, legislative-history, scholarly, or real-world-example assertion is traceable to reliable source material.
+12. **Judicial and scholarly scrutiny audit.** Confirm that the proposal has been tested against likely Supreme Court, relevant lower-court, and serious legal-scholar objections, and that the issue records deeply researched recommendations for increasing the likelihood that the proposal would be upheld.
+13. **Argument and cogency audit.** Confirm that the problem, weakness, damage, remedy, and implementation logic follow from each other without hidden premises, overclaiming, unsupported causation, or remedy mismatch.
+14. **Support and adoption audit.** Confirm that the issue can be explained to likely supporters, skeptics, lawmakers, staff, experts, and the public in terms of institutional repair rather than partisan advantage.
+15. **Political-language and coalition-appeal audit.** Confirm that the proposal remains candid about misconduct while using institution-focused language and estimating likely support from bipartisan, independent, Democratic, and Republican audiences.
+16. **Project-integration audit.** Confirm that internal links, legislation links, issue status, remedy type, source inventory, audit inventory, contents index, area page, and compiled-document placement remain consistent.
 
 ### Audit Resource Tiers
 
@@ -166,7 +177,7 @@ Before running a higher-tier audit, confirm that the immediately lower tier has 
 | Tier | Estimated time | Purpose | Expected output |
 | --- | ---: | --- | --- |
 | **T0: Triage scan** | 5 minutes or less | Catch obvious blockers before deeper work. | One-paragraph status, obvious defects, obvious mootness or material-reframing flags, obvious pending-judicial-opinion flags, and whether deeper audit is needed. |
-| **T1: Framework check** | 30 minutes or less | Check internal project consistency, visible framework compliance, and basic current-status risk. | Short checklist covering structure, links, metadata, legislation link, issue status, remedy type, source-inventory presence, obvious unsupported claims, a basic mootness or material-reframing check, and an obvious pending-judicial-opinion check. |
+| **T1: Framework check** | 30 minutes or less | Check internal project consistency, visible framework compliance, basic current-status risk, and initial enactment-pathway fit. | Short checklist covering structure, links, metadata, legislation link, issue status, remedy type, source-inventory presence, obvious unsupported claims, initial Required Electoral Environment, Pathway Viability, Development Priority, Pathway Adjustment, a basic mootness or material-reframing check, and an obvious pending-judicial-opinion check. |
 | **T2: Development audit** | 2 hours or less | Verify the proposal enough to guide revision and provisional scoring. | Component-level score estimate, key source checks, current public-source refresh, mootness or material-reframing assessment, pending-judicial-opinion vulnerability assessment, legal-fit notes, remedy-fit notes, major risks, and next audit needs. |
 | **T3: Readiness audit** | 6 hours or less | Test whether a proposal is close to external circulation. | Reproducible score, source-refresh log, verified claims, unresolved claims, mootness or material-reframing assessment, pending-judicial-opinion vulnerability assessment, legal and judicial-scrutiny risks, adoption/support notes, international score or `N/A`, and recommended revisions. |
 | **T4: Publication-ready audit** | 18 hours or less | Resolve every publication concern that can reasonably be resolved through deep public-source research before external circulation. | Publication-readiness memo, final score recommendation, deep source-refresh log, verified and unresolved claims table, mootness and material-reframing determination, pending-judicial-opinion vulnerability assessment, legal-durability analysis, prior-proposal comparison, adoption and opposition analysis, international score or `N/A`, drafting recommendations, and expert-review needs. |
@@ -394,11 +405,11 @@ For consistent application, use these component definitions:
 | Legal Fit Score | The proposal identifies verified authority, limits, doctrines, vulnerabilities, and judicial-scrutiny issues. |
 | Prior-Proposal Score | Existing law and prior models have been checked against authoritative records and weighted by enacted use, institutional review, sponsorship, co-sponsorship, bipartisan support, and legislative progress. |
 | Remedy Score | The remedy is the least-complex adequate remedy and addresses repair, prevention, fallback options, and remedy mismatch risk. |
-| Implementation Score | The proposal can be administered, funded, enforced, reviewed, and updated without unrealistic institutional assumptions. |
+| Implementation Score | The proposal can be administered, funded, enforced, reviewed, updated, and moved through a vehicle that matches its required electoral environment without unrealistic institutional assumptions. |
 | Abuse-Resistance Score | Capture, evasion, delay, retaliation, pretext, selective enforcement, and partisan conversion risks are identified and mitigated. |
 | Drafting Score | Legislative or rule text uses proper vehicle, conventions, definitions, responsible actors, procedures, remedies, deadlines, review, and severability. |
 | Cogency Score | The problem, weakness, damage, remedy, and implementation logic follow from each other without hidden premises or overclaiming. |
-| Adoption Score | Support appeal, public-support evidence, audience fit, objection handling, adoption vehicle, and coalition strategy are documented. |
+| Adoption Score | Support appeal, public-support evidence, audience fit, objection handling, adoption vehicle, coalition strategy, and required electoral environment are documented with evidence. |
 | Project-Integration Score | Internal links, legislation links, issue status, remedy type, source inventory, audit inventory, contents index, area page, and compiled-document placement are consistent. |
 | External-Review Score | Appropriate expert, practitioner, legislative, stakeholder, judicial-scrutiny, or scholarly review has been incorporated. |
 
@@ -444,7 +455,7 @@ The **Adoption Score** is part of the 100-point proposal-quality score and is ca
 | --- | ---: |
 | Audience segmentation and audience-specific value proposition | 1.5 |
 | Good-faith objection handling across partisan, independent, federalism, civil-liberties, administrative, and constitutional perspectives | 1.5 |
-| Adoption vehicle and plausible sponsor, validator, or coalition map | 1.5 |
+| Adoption vehicle, required electoral environment, and plausible sponsor, validator, or coalition map | 1.5 |
 | Public-trust and reciprocity showing the proposal applies fairly across parties and administrations | 1.5 |
 | Current, methodologically credible national polling or survey evidence supports the underlying reform principle | 1.5 |
 | Current, methodologically credible state-level polling, referendum results, enacted-state practice, or comparable state evidence supports the underlying reform principle | 1.5 |
@@ -456,6 +467,41 @@ Do not award polling or public-support points unless the evidence is cited, curr
 State-level and federal-level support should be evaluated separately. National polling may show broad federal salience; state polling, referendum results, enacted-state practice, or bipartisan state adoption may show practical political viability. Neither should be substituted for the other without explanation.
 
 Public support should increase only the Adoption Score. It should not override legal defects, source weaknesses, abuse risks, or an inadequate remedy. A popular proposal can still receive a low overall score if it is legally vulnerable, poorly drafted, unsupported by sources, or unlikely to survive implementation.
+
+Do not award full adoption-vehicle credit unless the proposal identifies its Required Electoral Environment and Pathway Viability using the Enactment Pathway Check. If the pathway is `currently-dead-on-arrival`, full Adoption Score credit requires a credible narrowing, staging, oversight, state-model, or reserve strategy. If the pathway is `unassessed`, adoption-vehicle credit is zero until assessed.
+
+### Enactment Pathway Check
+
+Every developed proposal should receive an early **Enactment Pathway Check** beginning at T1. The check asks: **what kind of electoral environment is required to make this proposal seriously actionable, and can the proposal be adjusted to fit a more realistic environment without weakening the remedy below adequacy?**
+
+This check is not a standalone score. It feeds the **Adoption Score** and **Implementation Score**:
+
+- Adoption credit requires a realistic political pathway, coalition threshold, and evidence-supported account of the electoral or institutional conditions needed for passage.
+- Implementation credit requires a vehicle that matches the pathway, such as oversight, statute, appropriations rider, rules reform, agency action, omnibus package, state model, or constitutional amendment.
+
+Use these required values:
+
+| Field | Allowed values |
+| --- | --- |
+| Required Electoral Environment | `current-law-available`; `house-oversight-majority`; `narrow-unified-government`; `filibuster-constrained-unified-government`; `sixty-vote-senate`; `filibuster-reform-or-exception`; `wave-election-mandate`; `post-crisis-repair-mandate`; `constitutional-amendment-environment`; `state-level-pathway`; `not-electorally-dependent`; `unassessed` |
+| Pathway Viability | `current`; `plausible-after-wave`; `post-crisis-only`; `currently-dead-on-arrival`; `unassessed` |
+| Development Priority | `immediate`; `active`; `conditional`; `reserve`; `deprioritized`; `unassessed` |
+| Pathway Adjustment | `proceed`; `narrow`; `reframe`; `split`; `stage`; `convert-to-oversight`; `convert-to-state-model`; `reserve`; `unassessed` |
+
+The pathway finding must be source-based and reproducible. Do not assign a favorable pathway value from intuition, hope, a single speculative scenario, or assumed partisan advantage. Use the most concrete reliable evidence available for the tier, including:
+
+- current chamber control, seat margins, committee control, veto posture, and filibuster or cloture constraints;
+- recent relevant votes, sponsor and co-sponsor patterns, bipartisan sponsorship, committee action, discharge attempts, vetoes, overrides, and enacted analogues;
+- current and recent polling on the underlying reform principle, with method, date, sample, and source recorded when relied upon;
+- historical wave or collapse-election data only when used as scenario context, not as proof that a future wave will occur;
+- recent ballot-measure, referendum, state-enactment, or local-enactment results where the proposal has state or local analogues;
+- recent judicial decisions, pending cases, injunctions, agency actions, executive orders, regulations, and enforcement developments that change viability;
+- credible voter-sentiment, trust, legitimacy, or institutional-confidence data where directly relevant and properly sourced;
+- public statements, platform commitments, leadership positions, or committee agendas from relevant lawmakers or institutional actors, characterized cautiously.
+
+At T1, the check may be preliminary, but it must still be evidence-bound. If sufficient evidence is not available within T1, record `unassessed` or the least favorable supported pathway and identify the source work needed for T2. At T2 or higher, do not award full Adoption or Implementation credit unless the pathway is supported by cited evidence and the proposal explains whether narrowing, staging, reframing, oversight conversion, state-model conversion, or reserve status would improve viability without sacrificing remedy adequacy.
+
+Speculative election-scenario modeling may inform planning but must not itself increase the Proposal Quality Score. A proposal receives credit for correctly identifying its minimum required environment and adjusting the vehicle realistically, not for assuming that a favorable election environment will occur.
 
 ### Adoption Friction Score
 
