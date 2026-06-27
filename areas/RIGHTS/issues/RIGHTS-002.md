@@ -117,7 +117,7 @@ Future drafting should evaluate whether Congress should:
 
 - Pending development.
 
-## Relationship to Other Areas
+## Relationship to Adjacent Proposals
 
 [A-24](../README.md) owns this issue because it concerns rights-bearing civil administration, humanitarian status, due process, statutory reviewability, and access to adjudication.
 

@@ -204,7 +204,7 @@ A narrow statute could include:
 
 - [Federal Election Subversion Accountability Act](../../../legislation/ELEC-008.md)
 
-## Relationship to Other Issues
+## Relationship to Adjacent Proposals
 
 - **ELEC-002** addresses pressure on certification and canvassing officials.
 - **ELEC-004** addresses abusive election litigation, investigatory demands, subpoenas, audits, and extraordinary proceedings.

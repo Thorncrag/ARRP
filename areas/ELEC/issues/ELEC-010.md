@@ -176,7 +176,7 @@ Congress should enact a Mail-In Voting Reliability and Cure Act establishing min
 
 Congress should also enact federal postal standards for election mail, including tracking, communication, postmarking, all-clear procedures, delivery-performance reporting, election-official escalation channels, evidence-based mailing advisories, and a prohibition on operational changes that foreseeably degrade election-mail performance during defined election windows without notice and mitigation. USPS should not refuse, delay, or condition lawful election-mail service based on a state's refusal to participate in a federal voter-data, citizenship-list, or ballot-identifier system unless Congress has clearly authorized that condition and supplied voter-protective procedures.
 
-## Relationship to Other Election Issues
+## Relationship to Adjacent Proposals
 
 [ELEC-001](ELEC-001.md) covers federal executive interference with state and local election administration. ELEC-010 covers ordinary and extraordinary vulnerabilities in the mail-ballot pathway itself, including postal performance and voter cure.
 

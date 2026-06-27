@@ -103,7 +103,7 @@ The federal amendment should:
 
 - [Presidential Result Transmission Integrity Amendments](../../../legislation/ELEC-005.md)
 
-## Relationship to Other Issues
+## Relationship to Adjacent Proposals
 
 - **ELEC-002** concerns certification refusal, deadlock, delay, or unauthorized discretion by certification bodies.
 - **ELEC-004** concerns abusive election litigation, subpoenas, audits, and process leverage.

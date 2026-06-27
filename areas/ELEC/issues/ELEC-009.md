@@ -100,7 +100,7 @@ The amendment should:
 
 - [Direct Election of the President and Vice President Amendment](../../../legislation/ELEC-009.md)
 
-## Relationship to Other Issues
+## Relationship to Adjacent Proposals
 
 - **ELEC-005** concerns false or unauthorized presidential result-transmission documents within the existing constitutional system. Direct election would remove elector-specific document vulnerabilities but still require secure national result-transmission rules.
 - **ELEC-006** concerns continuity and automatic operation of presidential transition procedures. Direct election would simplify some sources of uncertainty but would still require transition administration.

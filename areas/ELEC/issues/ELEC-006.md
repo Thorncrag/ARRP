@@ -103,7 +103,7 @@ The reform should include:
 
 - [Presidential Transition Continuity and Automaticity Act](../../../legislation/ELEC-006.md)
 
-## Relationship to Other Issues
+## Relationship to Adjacent Proposals
 
 - **ELEC-005** concerns false or unauthorized presidential result-transmission documents entering federal channels.
 - **ELEC-006** concerns continuity of government and automatic transition access after a presidential election.

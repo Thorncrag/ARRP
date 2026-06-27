@@ -144,7 +144,7 @@ The current model state draft also maps documented manifestations to remedy prov
 - [Model State Election Personnel Protection and Continuity Act](../../../legislation/ELEC-003-state.md)
 - [Election Personnel Protection Amendments to the Help America Vote Act of 2002](../../../legislation/ELEC-003.md)
 
-## Relationship to Other Issues
+## Relationship to Adjacent Proposals
 
 - **ELEC-001** concerns federal executive interference with state and local election administration.
 - **ELEC-002** concerns the legal resilience of canvassing and certification mechanisms.

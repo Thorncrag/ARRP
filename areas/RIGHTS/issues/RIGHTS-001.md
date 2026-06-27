@@ -127,7 +127,7 @@ Future drafting should evaluate whether Congress should:
 
 - Pending development.
 
-## Relationship to Other Areas
+## Relationship to Adjacent Proposals
 
 [A-18](../../FACT/README.md) owns factual, scientific, statistical, public-health-data, and terminology-integrity problems. RIGHTS-001 should cross-link A-18 where civil-rights administration is implemented through deletion, suppression, alteration, or misleading presentation of government information.
 

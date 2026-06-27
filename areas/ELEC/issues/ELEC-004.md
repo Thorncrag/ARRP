@@ -138,7 +138,7 @@ The remedy architecture addresses abusive pre-election challenges through the 18
 - [Federal Election Proceedings Integrity Act](../../../legislation/ELEC-004.md)
 - [Model State Election Proceedings Integrity Act](../../../legislation/ELEC-004-state.md)
 
-## Relationship to Other Issues
+## Relationship to Adjacent Proposals
 
 - **ELEC-001** concerns federal executive interference with state and local election administration.
 - **ELEC-002** concerns certification refusal, deadlock, delay, or unauthorized discretion by certification bodies.

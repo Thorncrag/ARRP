@@ -110,7 +110,7 @@ The statute should also make clear that inadvertent or unavoidable incidental co
 
 - [Election Administration Federal-Force Noninterference Act](../../../legislation/ELEC-007.md)
 
-## Relationship to Other Issues
+## Relationship to Adjacent Proposals
 
 - **ELEC-001** concerns federal executive interference with state and local election administration generally.
 - **ELEC-003** concerns protection of election personnel from threats and operational disruption.

@@ -105,7 +105,7 @@ Each state should adopt a Model State Election Certification and Automatic Subst
 
 - [Model State Election Certification and Automatic Substitution Act](../../../legislation/ELEC-002-state.md)
 
-## Relationship to Other Issues
+## Relationship to Adjacent Proposals
 
 - **ELEC-001** regulates federal executive officials who interfere with state election administration.
 - **ELEC-002** makes the state certification mechanism resistant to refusal or deadlock regardless of the source or motive.

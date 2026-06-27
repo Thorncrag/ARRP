@@ -128,7 +128,7 @@ The eventual legislation should provide layered enforcement:
 
 Courts and investigators should not determine the winner of an election or substitute their policy judgment for lawful state election administration. Their role is to prevent and remedy misuse of federal executive authority.
 
-## Relationship to ELEC-007
+## Relationship to Adjacent Proposals
 
 ELEC-001 concerns civilian executive interference through presidential authority, agencies, investigations, funding, regulation, intelligence, administrative process, or official influence.
 

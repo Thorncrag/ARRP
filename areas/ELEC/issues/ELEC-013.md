@@ -127,7 +127,7 @@ Future drafting should evaluate whether Congress or the states should:
 
 - Pending development.
 
-## Relationship to Other Election Issues
+## Relationship to Adjacent Proposals
 
 [ELEC-009](ELEC-009.md) concerns the constitutional mechanism for presidential selection and may include ranked-choice tabulation as a national majority mechanism. ELEC-013 is broader: it concerns candidate gatekeeping, competition, ballot access, debate access, and majority-choice mechanisms across election contexts.
 
