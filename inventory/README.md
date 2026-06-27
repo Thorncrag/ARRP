@@ -35,7 +35,7 @@ Area and issue rows include relative links to the area page, issue page, and pro
 
 The proposal-quality score is a provisional planning value, not a claim that the issue is publication-ready or externally validated. Audit runs may support a higher score only when the audit resolves findings, broadens review, verifies sources, improves legal fit, improves drafting, or strengthens adoption prospects.
 
-`AUDIT_DASHBOARD.md` is the compact reader-facing dashboard for cross-issue audit status. It should not replace issue-page audit records or the structured audit inventory.
+`AUDIT_DASHBOARD.md` is the compact reader-facing dashboard for cross-issue audit status. It should not replace issue-page Proposal Scoring summaries, sibling audit-history sidecars, or the structured audit inventory.
 
 ## Source Inventory Scope
 

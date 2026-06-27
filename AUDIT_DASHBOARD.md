@@ -6,7 +6,7 @@ print_levels:
 
 # Audit Dashboard
 
-This dashboard is the compact project-wide audit tracker. It is for meta-analysis, triage, and audit planning only; detailed audit findings belong on the relevant issue page and compact tracking data belongs in [`inventory/audits.csv`](inventory/audits.csv).
+This dashboard is the compact project-wide audit tracker. It is for meta-analysis, triage, and audit planning only; compact proposal-scoring summaries belong on issue pages, full audit histories belong in sibling `ISSUE-ID.audit.md` files, and machine-readable tracking data belongs in [`inventory/audits.csv`](inventory/audits.csv).
 
 Update this page whenever an audit changes an issue score, audit status, last audit type, next audit need, proposal-page link or status, legislation link, development status, or other dashboard field.
 

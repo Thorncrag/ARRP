@@ -11,7 +11,7 @@ print_levels:
 
 Maintain the project's living inventory of institutional areas and issues before and during substantive development, and provide the canonical audit procedure, scoring rules, Horizon Scan rules, and audit-output requirements.
 
-Inventory CSV files are tracking, indexing, verification, and machine-readable maintenance aids. Human-relevant analysis, audit findings, caveats, source gaps, score limitations, and next steps should appear on the relevant project page, usually the issue page. The canonical drafting method, issue architecture, source standard, Issue Snapshot format, Proposal Survey requirement, remedy standard, and cross-reference rules are maintained in [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md). The canonical audit rules are maintained in this file under [Audit Rules and Proposal Quality Scoring](#audit-rules-and-proposal-quality-scoring).
+Inventory CSV files are tracking, indexing, verification, and machine-readable maintenance aids. Human-relevant audit material should be visible in two layers: each issue page should carry a compact **Proposal Scoring** summary, and the full audit history should live in the sibling `ISSUE-ID.audit.md` sidecar. The canonical drafting method, issue architecture, source standard, Issue Snapshot format, Proposal Survey requirement, remedy standard, and cross-reference rules are maintained in [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md). The canonical audit rules are maintained in this file under [Audit Rules and Proposal Quality Scoring](#audit-rules-and-proposal-quality-scoring).
 
 ## Inventory Files
 
@@ -47,9 +47,9 @@ When updating the project, check whether the change requires inventory maintenan
 7. If a Horizon Scan audit is run, add new findings to the cumulative Horizon Scan list in [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), but do not update issue pages, legislation, inventories, scores, or source records unless the user separately approves implementation.
 8. If an external source is newly cited, removed, or used for a materially different proposition, update [`sources.csv`](sources.csv).
 9. If source review is completed, update `Reviewed?`, `Proposition Supported`, and any notes in [`sources.csv`](sources.csv).
-8. If issue counts change, update both the area README front matter and [`areas.csv`](areas.csv).
-9. If a Markdown page is created, moved, promoted, retired, or repurposed, update its `print_levels` metadata under the rules in [`../framework/PRINT_ASSEMBLY.md`](../framework/PRINT_ASSEMBLY.md#print-assignment-metadata).
-10. If a roadmap, backlog, or to-do item is added or revised, update only [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md); other files should link there rather than maintaining separate task lists.
+10. If issue counts change, update both the area README front matter and [`areas.csv`](areas.csv).
+11. If a Markdown page is created, moved, promoted, retired, or repurposed, update its `print_levels` metadata under the rules in [`../framework/PRINT_ASSEMBLY.md`](../framework/PRINT_ASSEMBLY.md#print-assignment-metadata).
+12. If a roadmap, backlog, or to-do item is added or revised, update only [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md); other files should link there rather than maintaining separate task lists.
 
 ## Contents Index Rules
 
@@ -71,7 +71,7 @@ Before an issue or proposal is treated as ready for external circulation, it sho
 
 The audit should identify unresolved legal, factual, remedial, implementation, and adoption risks rather than treating completion of a draft as evidence of readiness.
 
-Every issue should have a corresponding row in [`audits.csv`](audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, and rebaseline status.
+Every issue should have a corresponding row in [`audits.csv`](audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, rebaseline status, Required Electoral Environment, Development Priority, Adoption Friction, and other compact scoring or routing fields defined by the current schema.
 
 ### Change Audit
 
@@ -545,7 +545,7 @@ Apply the score conservatively:
 2. Do not treat friction as opposition to the proposal's merits. Friction is about expected resistance and adoption difficulty.
 3. Do not subtract friction from Proposal Quality Score. Use it to prioritize framing, coalition work, litigation preparation, implementation planning, and public explanation.
 4. If the proposal has not yet received an adoption-friction review, record the score as blank or `N/A` and the band as `Unassessed`.
-5. If a developed proposal is otherwise current but lacks an adoption-friction score after version `2026-06-26.2`, mark it `soft-rebaseline-needed` until the next audit assigns or expressly defers the score.
+5. If a developed proposal is otherwise current but lacks an adoption-friction score after version `2026-06-26.2`, mark it `soft-rebaseline-needed` until the next audit assigns or expressly defers the score. If the proposal already has `hard-rebaseline-needed` status for a later score-affecting rubric change, keep the hard-rebaseline status rather than downgrading it to soft.
 6. Fixed zero-status rows should use `N/A` unless and until the issue becomes developed.
 
 ### International Support and Relations Score
