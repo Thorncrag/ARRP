@@ -73,9 +73,30 @@ The audit should identify unresolved legal, factual, remedial, implementation, a
 
 Every issue should have a corresponding row in [`audits.csv`](../inventory/audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, rebaseline status, Required Electoral Environment, Development Priority, Adoption Friction, and other compact scoring or routing fields defined by the current schema.
 
+### Pre-Audit Orientation
+
+Every audit should begin from [`FRAMEWORK.md`](FRAMEWORK.md), then proceed to this methodology file, then follow the linked governing files relevant to the audit's scope before applying the audit to an issue, proposal, dashboard, inventory, horizon candidate, or export product. The auditor need not reread every project file for every audit, but must consult enough governing material to avoid applying stale rules.
+
+At minimum:
+
+- all audits should consult [`FRAMEWORK.md`](FRAMEWORK.md) for the project's governing structure, issue architecture, drafting method, neutrality rules, source standards, Issue Snapshot format, Proposal Survey requirements, annotation conventions, appendix catalog, cross-reference rules, and proposal-page alignment rules;
+- all audits should consult this file for audit procedure, scoring rules, tier requirements, current-status checks, output requirements, and audit-preservation rules;
+- remedy-type, least-complex-remedy, or remedial-adequacy audits should consult [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md);
+- print, appendix, compiled-document, PDF, DOCX, public-release, or export-placement audits should consult [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md);
+- Change Audits should consult every governing project material listed in the Change Audit workflow before updating individual proposal pages; and
+- audits that update human-facing or machine-readable status should consult the affected issue page, sibling audit-history file, [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), and relevant inventory CSV files before finalizing changes.
+
+If a linked governing file appears inconsistent with [`FRAMEWORK.md`](FRAMEWORK.md) or this methodology file, document the inconsistency as a Change Audit issue and resolve or report it before relying on either rule for downstream scoring or page updates.
+
 ### Change Audit
 
-A **Change Audit** is the project-wide consistency check run when the audit framework, scoring rubric, issue-page template, dashboard schema, inventory schema, audit sidecar structure, or other governing project rule changes. It must begin with project-level consistency before addressing individual proposals. Its purpose is to prevent newer rules from applying only prospectively while older issue pages, scores, metadata, dashboard rows, and audit histories silently remain under a different structure.
+A **Change Audit** is the consistency check run when the audit framework, scoring rubric, issue-page template, dashboard schema, inventory schema, audit sidecar structure, other governing project rule, or a substantive developed proposal changes. It must begin with project-level consistency when the change affects governing rules or cross-project conventions, and may be targeted to a single proposal when the change is limited to that proposal's issue page, linked proposal vehicle, source basis, remedy design, implementation design, or scoring-relevant analysis. Its purpose is to prevent newer rules or substantive proposal revisions from leaving older scores, metadata, dashboard rows, audit histories, issue-page summaries, or proposal-to-legislation alignment silently stale.
+
+Project-wide Change Audits should be recorded in [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md). Proposal-specific Change Audits should be recorded in the affected proposal's sibling audit-history file, not duplicated in the project-wide Change Audit Log, unless the proposal-specific audit also changes a governing rule, template, schema, rubric, or cross-project convention.
+
+When several related substantive edits or Change Audit clarifications occur in rapid succession, they may be collapsed into a single coherent change entry in the appropriate log. Consolidation is acceptable only if the entry still preserves the material changes made, the affected files or proposal, the score or rebaseline effect, unresolved findings, and the reason the edits are treated as one change set.
+
+When a developed issue page, proposed legislation page, rule text, constitutional amendment text, or other proposal vehicle receives a substantive update that could affect legal fit, prior-proposal grounding, remedy design, implementation design, abuse resistance, drafting quality, adoption posture, source support, budgetary impact, or proposal-to-legislation alignment, the assistant should remind the user to consider a Change Audit before treating the proposal score as current. Do not run the Change Audit automatically unless the user asks, because the user may intend to make additional substantive edits before auditing. Formatting-only edits, typo fixes, link repairs, and other non-substantive maintenance do not require this reminder unless they reveal a score-affecting defect.
 
 The current audit rubric version is **2026-06-27.2**.
 
@@ -139,7 +160,7 @@ When the audit framework or scoring system changes, classify the change before a
 Change Audit workflow:
 
 1. Assign a new rubric version before changing scoring rules or required audit filters.
-2. Record the change in this section, update [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md), and update [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) rebaseline counts.
+2. Record governing-rule changes in this section, update [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md), and update [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) rebaseline counts. For proposal-specific Change Audits that do not alter governing rules or cross-project conventions, record the audit in the affected issue's sibling audit-history file and update the issue page, [`../inventory/audits.csv`](../inventory/audits.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), but do not add a duplicative project-wide Change Audit Log entry.
 3. Conduct a systematic internal-consistency review of governing project materials before applying the change to any individual proposal. This review should be deep enough to catch the kinds of drift that arise from repeated structural edits rather than only obvious formatting errors. The following checks are a required floor, not an exhaustive ceiling; the auditor should follow any additional inconsistency, ambiguity, broken reference, stale convention, or implementation defect discovered during the review. At minimum, check [`FRAMEWORK.md`](FRAMEWORK.md), this methodology file, [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md), [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), inventory CSV headers, issue-page templates as reflected in developed pages, audit sidecar conventions, and Horizon Scan rules for:
    - misplaced ownership between Framework, Methodology, print assembly, dashboard, inventories, issue pages, legislation pages, and Horizon Scan;
    - duplicated rules, conflicting instructions, obsolete rubric versions, stale terminology, inconsistent section names, and dead conventions;
@@ -168,10 +189,10 @@ Each developed proposal should be audited through the following sequence. The se
 3. **Enactment-pathway audit.** Confirm the minimum electoral environment required for the proposal to become seriously actionable, whether the proposal can be narrowed or staged to fit a more realistic environment, and whether further development is immediate, active, conditional, reserve, or deprioritized. This check begins at T1 and must be evidence-bound rather than speculative.
 4. **Evidence and citation audit.** Confirm that factual, legal, and causal claims are supported by nearby citations, that real-world examples link to source material, and that all cited external sources are captured in [`sources.csv`](../inventory/sources.csv).
 5. **Legal-support audit.** Confirm that the proposal accurately identifies the constitutional, statutory, regulatory, procedural, or institutional authority on which it depends and discloses material uncertainty, doctrine, limits, or litigation risk.
-6. **Existing-law and prior-proposal audit.** Confirm that the proposal checks existing law first, prefers amendment of existing vehicles where adequate, and weighs prior proposals according to enacted use, institutional review, sponsorship, co-sponsorship, bipartisan support, and legislative progress.
+6. **Existing-law and prior-proposal audit.** Confirm that the proposal checks existing law first, prefers amendment of existing vehicles where adequate, searches direct and functional analogues, and weighs prior proposals according to enacted use, institutional review, sponsorship, co-sponsorship, bipartisan support, and legislative progress.
 7. **Remedy-adequacy audit.** Confirm that the proposed remedy is the least-complex adequate remedy, addresses both repair and prevention where relevant, identifies why simpler options are insufficient, and preserves more complex fallback options where necessary.
 8. **Implementation and enforcement audit.** Confirm that the remedy can be administered, enforced, funded, reviewed, and updated without relying on the same failed institution or norm that created the problem.
-9. **Budgetary-impact audit.** Confirm that the issue page and proposal page contain the required preliminary **Budgetary Impact Statement** and that any fiscal characterization is appropriately sourced, caveated, and tier-scaled.
+9. **Budgetary-impact audit.** Confirm that the issue page and proposal page contain the required preliminary **Budgetary Impact Statement** and that any fiscal characterization is appropriately sourced, caveated, tier-scaled, and checked against available budget or appropriations analogues.
 10. **Abuse-resistance audit.** Confirm that the remedy includes safeguards against capture, selective enforcement, evasion, delay, retaliation, pretextual use, or partisan conversion.
 11. **Drafting-quality audit.** Confirm that proposed legislation or rules use the appropriate legal vehicle, maintain legislative drafting conventions, define operative terms, assign responsible actors, specify procedures, and include remedies, deadlines, reporting, review, and severability where appropriate.
 12. **Proposal-to-legislation consistency audit.** Where an issue page links to proposed legislation, compare the Issue Snapshot vehicle, Least-Complex Adequate Remedy, Repair and Prevention section, Proposed Legislation section, Annotation, and scoring/audit summary against the linked bill, rule, constitutional amendment, or procedural text. Confirm that the issue page still accurately describes the operative vehicle, covered actors, legal hook, remedy type, enforcement mechanism, deadlines, responsible institutions, scope limits, and any material drafting notes. If the audit discovers a substantive discrepancy between the issue page and proposed legislation, document the mismatch as an unresolved finding, report it to the user, and do not update either page or related inventories to resolve the discrepancy unless the user separately approves the correction.
@@ -199,8 +220,8 @@ Before running a higher-tier audit, confirm that the immediately lower tier has 
 | **T0: Triage scan** | 5 minutes or less | Catch obvious blockers before deeper work. | One-paragraph status, obvious defects, obvious mootness or material-reframing flags, obvious pending-judicial-opinion flags, and whether deeper audit is needed. |
 | **T1: Framework check** | 30 minutes or less | Check internal project consistency, visible framework compliance, basic current-status risk, and initial enactment-pathway fit. | Short checklist covering structure, links, metadata, legislation link, issue status, remedy type, source-inventory presence, Budgetary Impact Statement presence and basic classification, obvious unsupported claims, initial Required Electoral Environment, Pathway Viability, Development Priority, Pathway Adjustment, a basic mootness or material-reframing check, and an obvious pending-judicial-opinion check. |
 | **T2: Development audit** | 2 hours or less | Verify the proposal enough to guide revision and provisional scoring. | Component-level score estimate, key source checks, current public-source refresh, mootness or material-reframing assessment, pending-judicial-opinion vulnerability assessment, legal-fit notes, remedy-fit notes, provisional budget or implementation-burden analysis where material, major risks, and next audit needs. |
-| **T3: Readiness audit** | 6 hours or less | Test whether a proposal is close to external circulation. | Reproducible score, source-refresh log, verified claims, unresolved claims, mootness or material-reframing assessment, pending-judicial-opinion vulnerability assessment, legal and judicial-scrutiny risks, source-backed fiscal or burden claims where asserted, adoption/support notes, international score or `N/A`, and recommended revisions. |
-| **T4: Publication-ready audit** | 18 hours or less | Resolve every publication concern that can reasonably be resolved through deep public-source research before external circulation. | Publication-readiness memo, final score recommendation, deep source-refresh log, verified and unresolved claims table, mootness and material-reframing determination, pending-judicial-opinion vulnerability assessment, legal-durability analysis, prior-proposal comparison, adoption and opposition analysis, source-backed fiscal or burden review where material, international score or `N/A`, drafting recommendations, and expert-review needs. |
+| **T3: Readiness audit** | 6 hours or less | Test whether a proposal is close to external circulation. | Reproducible score, source-refresh log, verified claims, unresolved claims, mootness or material-reframing assessment, pending-judicial-opinion vulnerability assessment, legal and judicial-scrutiny risks, direct and functional analogue review, source-backed fiscal or burden claims where asserted, adoption/support notes, international score or `N/A`, and recommended revisions. |
+| **T4: Publication-ready audit** | 18 hours or less | Resolve every publication concern that can reasonably be resolved through deep public-source research before external circulation. | Publication-readiness memo, final score recommendation, deep source-refresh log, verified and unresolved claims table, mootness and material-reframing determination, pending-judicial-opinion vulnerability assessment, legal-durability analysis, direct and functional prior-proposal comparison, adoption and opposition analysis, source-backed fiscal or burden review including available budget analogues where material, international score or `N/A`, drafting recommendations, and expert-review needs. |
 
 Every audit tier must include a current-status check for mootness and material reframing, scaled to the tier's time budget. The auditor should check whether recent decisions, pending judicial opinions, pending merits cases, certiorari grants, emergency or stay applications, lower-court injunctions, legal opinions, enacted laws, pending or completed legislation, regulations, agency actions, court orders, factual developments, elections, appointments, repeals, superseding events, implementation experience, or other current developments have made the proposal unnecessary, partially obsolete, legally impossible, materially stronger, materially weaker, or structurally different from the issue as drafted. If the check identifies a serious mootness, pending-judicial-vulnerability, or reframing concern, document it prominently in the audit record, update the issue page when source support permits, and adjust the Proposal Quality Score. If reliable current sources show that the standalone proposal has become completely moot, set the score to `0` while that condition remains true.
 
@@ -216,7 +237,7 @@ The **T4: Publication-ready audit** should be run when the user requests T4, pub
 
 A T4 audit should address every reasonably researchable publication concern, including source verification, current-law status, prior-proposal history, legislative drafting vulnerabilities, constitutional and administrative-law risks, judicial-scrutiny concerns, implementation feasibility, abuse resistance, adoption strategy, opposition arguments, public-support evidence, international implications where material, and consistency with the project's framework and inventories. It should not claim to replace professional legal advice, legislative counsel, empirical polling, fiscal scoring, or stakeholder validation.
 
-Budgetary-impact review is tier-scaled. T1 confirms that the required **Budgetary Impact Statement** exists and uses a permissible preliminary classification. T2 develops provisional funding, workload, or implementation-burden analysis where materially relevant. T3 and T4 source-check any fiscal or burden claims that the issue or proposal affirmatively makes. Do not include a dollar estimate unless it is tied to a cited government source, historical appropriation, CBO score, agency budget material, audited program cost, or comparable source-backed basis. The substantive classification should appear first, followed by the italicized project disclaimer note. Never describe ARRP's budgetary statement as an official CBO, OMB, agency, or legislative-counsel score.
+Budgetary-impact review is tier-scaled. T1 confirms that the required **Budgetary Impact Statement** exists and uses a permissible preliminary classification. T2 develops provisional funding, workload, or implementation-burden analysis where materially relevant. T3 and T4 source-check any fiscal or burden claims that the issue or proposal affirmatively makes and search for budget or appropriations analogues when the proposal requires funding. Do not include a dollar estimate unless it is tied to a cited government source, historical appropriation, authorization of appropriations, CBO score, agency budget material, audited program cost, or comparable source-backed basis. The substantive classification should appear first, followed by the italicized project disclaimer note. Never describe ARRP's budgetary statement as an official CBO, OMB, agency, or legislative-counsel score.
 
 If the selected tier cannot responsibly complete a required check within the estimate plus reasonable overage, skip that portion, mark it unresolved, assign no favorable credit for it, and identify it as work for the next tier. Do not expand beyond the selected tier unless the user asks for a deeper audit.
 
@@ -315,7 +336,7 @@ If the push cannot be completed, preserve a local commit where possible, record 
 
 Audits are corrective workflows, not documentation-only reviews. When an audit identifies a defect that can be fixed within the selected tier, within the project's framework, and without requiring unresolved user judgment, the auditor should make the correction as part of the audit. The audit record should distinguish issues fixed during the audit from issues left unresolved for later work.
 
-Human-relevant audit results should be visible without making issue pages unwieldy. CSV files are for tracking, indexing, verification, and machine-readable maintenance; they are not a substitute for human-facing disclosure. Each issue page should contain a succinct but usable **Proposal Scoring** section with the at-a-glance proposal-quality score, Adoption Score when separately reported, Coalition Support Estimates when assessed, Required Electoral Environment, Development Priority, Adoption Friction, and any other companion score or viability indicator grouped at the top, followed by an em dash divider, then audit status, last audit, rubric version, rebaseline status, next audit need, and a visible link to the full audit-history page. When an Adoption Score is displayed, it should include the consistent descriptor in parentheses after the score, for example: `5 / 12 (Limited Adoption Basis)`. If the compact scoring box includes Coalition Support Estimates, put the label on its own line, then list each audience estimate on indented lines using inline `<br />` breaks and `&nbsp;` spacing. Keep the compact box free of evidentiary caveats when those caveats are explained in the matching annotation segment. If visible scores or descriptors require explanation, place that explanation in annotation segments after any **Budgetary Impact** annotation segment, using labels that mirror the scoring box where practical: **Quality Score**, **Adoption Score**, **Coalition Support Estimates**, **Adoption Friction**, **Required Electoral Environment**, and **Development Priority**.
+Human-relevant audit results should be visible without making issue pages unwieldy. CSV files are for tracking, indexing, verification, and machine-readable maintenance; they are not a substitute for human-facing disclosure. Each issue page should contain a succinct but usable **Proposal Scoring** section with the at-a-glance proposal-quality score, Adoption Score when separately reported, Coalition Support Estimates when assessed, Required Electoral Environment, Development Priority, External Review Status when assessed, Adoption Friction, and any other companion score or viability indicator grouped at the top, followed by an em dash divider, then audit status, last audit, rubric version, rebaseline status, next audit need, and a visible link to the full audit-history page. When an Adoption Score is displayed, it should include the consistent descriptor in parentheses after the score, for example: `5 / 12 (Limited Adoption Basis)`. If the compact scoring box includes Coalition Support Estimates, put the label on its own line, then list each audience estimate on indented lines using inline `<br />` breaks and `&nbsp;` spacing. Keep the compact box free of evidentiary caveats when those caveats are explained in the matching annotation segment. If visible scores or descriptors require explanation, place that explanation in annotation segments after any **Budgetary Impact** annotation segment, using labels that mirror the scoring box where practical: **Quality Score**, **Adoption Score**, **Coalition Support Estimates**, **External Review Status**, **Adoption Friction**, **Required Electoral Environment**, and **Development Priority**.
 
 Use this compact format when coalition estimates are displayed:
 
@@ -325,7 +346,7 @@ Use this compact format when coalition estimates are displayed:
 
 The full audit history should live in a sibling file named `ISSUE-ID.audit.md` beside the issue page. For example, `areas/DOJ/issues/DOJ-001.md` should link to `areas/DOJ/issues/DOJ-001.audit.md`. The sibling audit file is the append-only technical record. New audits should add a new dated entry under **Audit History** rather than replacing, deleting, or compressing prior audit entries. Use newest-first ordering unless a page already uses another clear chronological convention. Older audit entries may be corrected only to fix clerical errors, broken links, stale line references, or clearly identified inaccuracies; do not remove them merely because the audit file becomes long. Public-facing compiled editions may omit or trim audit-history files, but source control should retain the complete technical audit history.
 
-Each issue page with a **Proposal Scoring** section should also carry compact audit metadata in front matter: `audit_status`, `audit_score`, `audit_last_type`, `audit_last_date`, `audit_next`, `audit_rubric_version`, `audit_rebaseline_status`, and `audit_history` where applicable. These fields are for tooling and quick scanning only. They should match the issue-page **Proposal Scoring** section and sibling audit-history file. They should also remain consistent with [`audits.csv`](../inventory/audits.csv), though compact front-matter fields such as `audit_next` may summarize the longer CSV next-audit-need text. The metadata should not replace the human-readable scoring summary or audit explanation.
+Each issue page with a **Proposal Scoring** section should also carry compact audit metadata in front matter: `audit_status`, `audit_score`, `audit_last_type`, `audit_last_date`, `audit_next`, `audit_rubric_version`, `audit_rebaseline_status`, and `audit_history` where applicable. Where external professional review has occurred, the page should also carry compact external-review metadata when practical: `external_review_status`, `external_review_type`, `external_review_date`, `external_review_reviewer_role`, and `external_review_notes`. These fields are for tooling and quick scanning only. They should match the issue-page **Proposal Scoring** section and sibling audit-history file. They should also remain consistent with [`audits.csv`](../inventory/audits.csv), though compact front-matter fields such as `audit_next` may summarize the longer CSV next-audit-need text. The metadata should not replace the human-readable scoring summary or audit explanation.
 
 Each completed audit should leave a detailed sibling audit-history record that identifies:
 
@@ -431,7 +452,7 @@ For consistent application, use these component definitions:
 | Structural Score | The issue has the required architecture, correct issue ownership, accurate status, and no unresolved duplication. |
 | Evidence Score | Material factual, legal, causal, and real-world-example claims have nearby citations and source-inventory coverage. |
 | Legal Fit Score | The proposal identifies verified authority, limits, doctrines, vulnerabilities, and judicial-scrutiny issues. |
-| Prior-Proposal Score | Existing law and prior models have been checked against authoritative records and weighted by enacted use, institutional review, sponsorship, co-sponsorship, bipartisan support, and legislative progress. |
+| Prior-Proposal Score | Existing law, direct analogues, functional analogues, budget analogues where relevant, and prior models have been checked against authoritative records and weighted by enacted use, institutional review, sponsorship, co-sponsorship, bipartisan support, and legislative progress. |
 | Remedy Score | The remedy is the least-complex adequate remedy and addresses repair, prevention, fallback options, and remedy mismatch risk. |
 | Implementation Score | The proposal can be administered, funded, enforced, reviewed, updated, and moved through a vehicle that matches its required electoral environment without unrealistic institutional assumptions. |
 | Abuse-Resistance Score | Capture, evasion, delay, retaliation, pretext, selective enforcement, and partisan conversion risks are identified and mitigated. |
@@ -439,7 +460,7 @@ For consistent application, use these component definitions:
 | Cogency Score | The problem, weakness, damage, remedy, and implementation logic follow from each other without hidden premises or overclaiming. |
 | Adoption Score | Support and adoption analysis, public-support evidence, audience fit, objection handling, adoption vehicle, coalition strategy, and required electoral environment are documented with evidence. |
 | Project-Integration Score | Internal links, legislation links, issue status, remedy type, source inventory, audit inventory, contents index, area page, and compiled-document placement are consistent. |
-| External-Review Score | Appropriate expert, practitioner, legislative, stakeholder, judicial-scrutiny, or scholarly review has been incorporated. |
+| External-Review Score | Qualified expert, practitioner, legislative, stakeholder, judicial-scrutiny, or scholarly review has been documented, incorporated, and matched to the reviewer's domain. |
 
 Apply each component as follows:
 
@@ -450,6 +471,47 @@ Apply each component as follows:
 5. Do not award component credit based on memory, assumed expertise, model-generated assertions, or uncited background knowledge where verification is feasible.
 6. Round only the final score, using ordinary whole-number rounding. If the result is exactly halfway between two whole numbers, round down.
 7. If two auditors applying the same record would plausibly differ, use the lower score and record the ambiguity.
+
+### External Review Status and Qualified Reviewers
+
+External Review Score credit may be awarded only when the project record identifies the reviewer category, review date, review scope, reviewer domain, material comments or approval status, and how the review changed or validated the proposal. The project should not identify a reviewer by name, quote private feedback, or imply endorsement unless the reviewer has given permission.
+
+Use careful language. Prefer `reviewed by a qualified reviewer`, `reviewed with comments incorporated`, `reviewed without unresolved material objection within the reviewer's domain`, or `approved for circulation by reviewer within stated scope`. Do not say that proposed legislation is legally approved, professionally certified, final, or guaranteed valid unless that exact characterization is supported by the reviewer's written authorization.
+
+A **qualified reviewer** is a person whose professional role, training, or institutional experience is relevant to the specific part of the proposal being credited. Qualified reviewers may include:
+
+1. a licensed attorney who is not reviewing only as a legislator or political advocate and whose practice, public-law experience, litigation experience, compliance work, or drafting experience is relevant to the proposal;
+2. legislative counsel, a professional bill drafter, or a legislative attorney;
+3. a legislator, committee staff member, or legislative staff member with jurisdictional, drafting, oversight, or implementation experience relevant to the proposal, with legal-credit limited to the person's actual expertise unless the person is also acting as a lawyer;
+4. a law professor, legal scholar, public-administration scholar, political scientist, economist, historian, or other academic whose field directly bears on the legal, institutional, fiscal, empirical, or implementation claim being reviewed;
+5. a current or former government official, inspector general staff member, agency counsel, ethics official, election administrator, prosecutor, defender, judge, court administrator, or comparable practitioner with direct institutional knowledge relevant to the proposal;
+6. a civil-rights, civil-liberties, good-government, transparency, election, budget, national-security, labor, procurement, privacy, or other subject-matter professional whose expertise directly bears on the proposal's operation; or
+7. an affected institutional stakeholder with implementation knowledge, where the credit is limited to implementation feasibility, burden, practical effect, or stakeholder response.
+
+The following do not qualify by themselves for External Review Score credit: general reader approval, ordinary political agreement, media praise, social-media engagement, anonymous comments without verifiable credentials, LLM output, reviewer status outside the relevant domain, or review that cannot be documented in the project record.
+
+External Review Status should use one of these values:
+
+| Status | Meaning |
+| --- | --- |
+| `not-reviewed` | No qualified external review has been incorporated. |
+| `informal-review` | A qualified reviewer gave limited or conversational feedback; comments are documented at a high level. |
+| `substantive-review` | A qualified reviewer reviewed the relevant proposal and material comments were incorporated or documented. |
+| `reviewed-with-caveats` | A qualified reviewer found the proposal supportable within scope but identified caveats, limits, or unresolved risks that remain disclosed. |
+| `reviewed-no-material-objection` | A qualified reviewer raised no unresolved material objection within the stated review domain. |
+| `approved-for-circulation` | A qualified reviewer affirmatively approved circulation within the stated scope, with permission to describe the review that way. |
+
+External Review Score should be awarded conservatively:
+
+| External Review Score | Required showing |
+| ---: | --- |
+| 0 | No qualified external professional review incorporated, or review is undocumented, outside the reviewer's domain, or unresolved. |
+| 1 | Informal qualified review with limited notes, no major contradiction, and no claim of approval. |
+| 2 | Substantive qualified review with comments incorporated or documented, but material caveats or limited scope remain. |
+| 3 | Substantive review by a highly relevant attorney, legislative counsel, legislative staffer, legal scholar, practitioner, former official, or subject-matter expert, with material issues resolved or clearly disclosed. |
+| 4 | Multiple relevant qualified reviewers, or formal written review by a highly relevant reviewer, with no unresolved material objection within the reviewed domain or with objections fully documented and addressed. |
+
+External review increases the Proposal Quality Score only through the External-Review Score component unless the review actually improves another component, such as Legal Fit, Drafting, Implementation, Remedy, Abuse Resistance, or Adoption. A professional title alone never increases the score. The audit must identify what changed, what was validated, and what remains unresolved.
 
 Apply penalties after adding component scores:
 
@@ -779,6 +841,32 @@ The audit should identify whether the proposal:
 5. avoids overstating the significance of a prior bill that had only a single sponsor, no co-sponsors, no bipartisan support, or no meaningful legislative activity.
 
 This preference order does not require adopting weak prior proposals. Adequacy remains controlling: a better-supported model may still be rejected if it fails to repair the institutional weakness, lacks enforceability, creates abuse risk, or cannot satisfy the least-complex adequate remedy standard.
+
+### Functional Analogue Search
+
+The existing-law and prior-proposal audit must not stop at `no direct analogue found`. If no direct existing-law vehicle or prior proposal is identified, or if the direct analogue is weak, the audit must conduct a functional-analogue search before closing the issue.
+
+A functional analogue is an enacted law, rule, regulation, institutional practice, budget authorization, oversight model, reporting requirement, or formal proposal that uses a similar method to solve a different problem. Functional analogues do not prove the ARRP proposal is correct, but they can show that Congress or another institution has already used the same kind of mechanism.
+
+At T2 and above, the audit should attempt to identify at least three functional analogues or document why fewer could be found. Search by:
+
+1. **Institution:** DOJ, OIG, GAO, BJS, FBI, agency heads, congressional committees, courts, state agencies, or comparable implementing bodies.
+2. **Mechanism:** data collection, statistical review, anomaly detection, confidential notice, congressional reporting, compliance certification, audit, random sampling, pilot implementation, methodology validation, or public reporting.
+3. **Safeguards:** privacy, confidentiality, classified information, grand jury material, protected records, fair-trial rights, sensitive populations, or limited disclosure.
+4. **Budget model:** authorization of appropriations, pilot funding, grant funding, staffing, data systems, implementation timelines, agency budget material, CBO scores, or historical program costs.
+5. **Oversight path:** annual report, inspector-general notice, GAO review, committee notice, public report, secure report, enforcement referral, or corrective-action plan.
+
+Classify each useful analogue as one or more of:
+
+| Analogue type | Meaning |
+| --- | --- |
+| Direct analogue | Same or nearly same subject and mechanism. |
+| Functional analogue | Different subject but similar institutional method. |
+| Budget analogue | Useful primarily for appropriations, staffing, or implementation scale. |
+| Safeguard analogue | Useful primarily for privacy, secrecy, confidentiality, rights, or abuse-resistance design. |
+| Cautionary analogue | Shows a failure mode, abuse risk, underfunding problem, implementation burden, or litigation vulnerability. |
+
+When a functional analogue is used, state its limits. Do not imply that a functional analogue supplies direct legislative precedent, public support, constitutionality, fiscal sufficiency, or stakeholder agreement unless the source actually supports that claim.
 
 ## Adding or Promoting Issues
 

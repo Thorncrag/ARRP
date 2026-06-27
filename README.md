@@ -81,6 +81,26 @@ A remedy may therefore be adequate even when it cannot prevent the first violati
 
 Institutional corrigibility is not an excuse for weak reform. Preventive safeguards remain preferable where they are lawful, workable, and proportionate. Corrigibility becomes central where stronger front-end control would destroy necessary discretion, create unconstitutional supervision, or impose a cure more damaging than the underlying risk.
 
+## How to Read an Issue Page
+
+Developed issue pages are designed to move from problem to remedy before turning to scoring and technical notes. Common sections include:
+
+- **Issue Snapshot:** brief problem, repair, and vehicle summary.
+- **Institutional Anomaly:** the structural defect the issue addresses.
+- **Manifestation of the Failure:** representative facts showing the defect in operation.
+- **Resulting Damage:** institutional, legal, administrative, or legitimacy harm.
+- **Underlying Weakness:** the law, structure, procedure, remedy, or norm that failed.
+- **Proposal Survey:** existing law, prior proposals, or adjacent models considered.
+- **Least-Complex Adequate Remedy:** the preferred remedy and why it is sufficient.
+- **Repair and Prevention:** how the proposal repairs damage and reduces recurrence.
+- **Proposed Legislation:** linked draft bill, rule, amendment, manual text, or procedural vehicle.
+- **Adoption Viability Note:** why a legally available vehicle may still require a future or amenable actor.
+- **Relationship to Adjacent Proposals:** how overlapping ARRP proposals differ, merge, or complement one another.
+- **Budgetary Impact Statement:** preliminary fiscal or workload classification, not an official cost score.
+- **Proposal Scoring:** compact readiness, adoption, friction, pathway, review, and audit-status summary.
+- **Annotation:** evidence, qualifications, legal analysis, alternatives, implementation limits, and score explanations.
+- **Audit History:** linked technical sidecar preserving the full audit record.
+
 ## Proposal Scores
 
 Issue pages may include a **Proposal Quality Score** from 0 to 100. The score is a planning and readiness signal, not a claim that the proposal is correct, final, popular, legally valid, or certain to pass. It measures how well the proposal has been developed, sourced, tested against existing law, checked for implementation risk, and prepared for review.
@@ -113,6 +133,10 @@ Adoption score bands are interpreted as follows:
 | 7-9 | **Credible Adoption Basis:** adoption path is reasonably developed and partly evidenced. |
 | 10-11 | **Strong Adoption Basis:** adoption path is well developed and well supported. |
 | 12 | **Exceptional Adoption Basis:** adoption path is unusually complete and strongly evidenced. |
+
+Some issue pages also show **Coalition Support Estimates** for Democratic, Republican, independent, or bipartisan audiences. These percentages are provisional planning judgments, not polling claims. They estimate how likely each audience is to find the proposal supportable in principle based on the proposal's framing, institutional purpose, current public evidence, prior legislative behavior, stakeholder signals, good-faith objections, and audit judgment. They should be revised when better polling, expert review, legislative behavior, stakeholder feedback, or coalition analysis becomes available.
+
+Some issue pages may also show **External Review Status** when a qualified professional or institutional reviewer has reviewed the proposal. External review can increase the Proposal Quality Score only when the review is documented, within the reviewer's domain, and incorporated into the audit record. Qualified reviewers may include relevant attorneys, legislative counsel, legislators or legislative staff, law professors, public-law scholars, government practitioners, inspectors general or ethics professionals, subject-matter experts, or affected institutional stakeholders. External review is not a guarantee that a proposal is legally valid, final, or certain to pass.
 
 Some issue pages also include an **Adoption Friction Score** from 0 to 100. This is separate from Proposal Quality. It estimates how much resistance, litigation risk, procedural blockade, public misunderstanding, or institutional opposition a proposal is likely to face. A higher friction score does not mean the proposal is worse; it means adoption will likely require more coalition work, explanation, staging, or litigation planning.
 

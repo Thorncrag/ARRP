@@ -26,6 +26,8 @@ from reportlab.platypus import (
     Preformatted,
     SimpleDocTemplate,
     Spacer,
+    Table,
+    TableStyle,
 )
 
 
@@ -93,11 +95,20 @@ def escape(text: str) -> str:
 
 
 def inline_markup(text: str) -> str:
+    text = text.replace("&nbsp;", " ")
+    text = re.sub(r"<br\s*/?>", "\n", text)
     text = escape(text)
+    text = text.replace("\n", "<br/>")
     text = re.sub(r"`([^`]+)`", r"<font face='Courier'>\1</font>", text)
     text = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", text)
     text = re.sub(r"\*([^*]+)\*", r"<i>\1</i>", text)
     text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1", text)
+    return text
+
+
+def printable_code(text: str) -> str:
+    text = text.replace("&nbsp;", " ")
+    text = re.sub(r"<br\s*/?>", "\n", text)
     return text
 
 
@@ -117,6 +128,57 @@ def heading_style(level: int, styles: dict[str, ParagraphStyle]) -> ParagraphSty
     return styles["H3"]
 
 
+def is_table_line(line: str) -> bool:
+    stripped = line.strip()
+    return stripped.startswith("|") and stripped.endswith("|") and stripped.count("|") >= 2
+
+
+def table_cells(line: str) -> list[str]:
+    return [cell.strip() for cell in line.strip().strip("|").split("|")]
+
+
+def is_table_divider(line: str) -> bool:
+    cells = table_cells(line)
+    return bool(cells) and all(re.fullmatch(r":?-{3,}:?", cell.strip()) for cell in cells)
+
+
+def table_column_widths(rows: list[list[str]], total_width: float = 7.06 * inch) -> list[float]:
+    column_count = max(len(row) for row in rows)
+    weights = [1] * column_count
+    for row in rows:
+        for index, cell in enumerate(row):
+            weights[index] = max(weights[index], min(len(cell), 42))
+    total_weight = sum(weights)
+    return [total_width * weight / total_weight for weight in weights]
+
+
+def table_to_flowable(table_lines: list[str], styles: dict[str, ParagraphStyle]) -> Table | None:
+    rows = [table_cells(line) for line in table_lines if is_table_line(line) and not is_table_divider(line)]
+    if not rows:
+        return None
+    column_count = max(len(row) for row in rows)
+    normalized = []
+    for row in rows:
+        padded = row + [""] * (column_count - len(row))
+        normalized.append([Paragraph(inline_markup(cell), styles["TableCell"]) for cell in padded])
+    table = Table(normalized, colWidths=table_column_widths(rows), repeatRows=1, hAlign="LEFT")
+    table.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, 0), colors.whitesmoke),
+                ("FONTNAME", (0, 0), (-1, 0), "Times-Bold"),
+                ("GRID", (0, 0), (-1, -1), 0.35, colors.lightgrey),
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 3),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 3),
+                ("TOPPADDING", (0, 0), (-1, -1), 2),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+            ]
+        )
+    )
+    return table
+
+
 def markdown_to_flowables(
     text: str,
     styles: dict[str, ParagraphStyle],
@@ -129,6 +191,7 @@ def markdown_to_flowables(
     para: list[str] = []
     code: list[str] = []
     quote: list[str] = []
+    table: list[str] = []
     in_code = False
     skip_heading_level: int | None = None
 
@@ -143,12 +206,20 @@ def markdown_to_flowables(
     def flush_code() -> None:
         nonlocal code
         if code:
-            flow.append(Preformatted("\n".join(code), styles["Code"]))
+            flow.append(Preformatted(printable_code("\n".join(code)), styles["Code"]))
             code = []
+
+    def flush_table() -> None:
+        nonlocal table
+        if table:
+            rendered_table = table_to_flowable(table, styles)
+            if rendered_table is not None:
+                flow.append(rendered_table)
+                flow.append(Spacer(1, 3))
+            table = []
 
     def normalize_quote_line(line: str) -> str:
         line = line.strip()
-        line = re.sub(r"<br\s*/?>", "", line)
         line = re.sub(r"^#{1,6}\s+", "", line)
         return line.strip()
 
@@ -163,6 +234,7 @@ def markdown_to_flowables(
     for raw in lines:
         line = raw.rstrip()
         if line.startswith("```"):
+            flush_table()
             flush_quote()
             if in_code:
                 flush_code()
@@ -179,6 +251,7 @@ def markdown_to_flowables(
         if should_omit_line(line):
             flush_para()
             flush_quote()
+            flush_table()
             continue
         if line.startswith("#"):
             level = len(line) - len(line.lstrip("#")) + heading_offset
@@ -191,10 +264,12 @@ def markdown_to_flowables(
             if title in OMIT_SECTION_TITLES:
                 flush_para()
                 flush_quote()
+                flush_table()
                 skip_heading_level = raw_level
                 continue
             flush_para()
             flush_quote()
+            flush_table()
             flow.append(Paragraph(inline_markup(title), heading_style(level, styles)))
             continue
         if skip_heading_level is not None:
@@ -202,9 +277,11 @@ def markdown_to_flowables(
         if not line.strip():
             flush_para()
             flush_quote()
+            flush_table()
             continue
         if line.startswith(">"):
             flush_para()
+            flush_table()
             cleaned = normalize_quote_line(line.lstrip("> "))
             if cleaned:
                 quote.append(cleaned)
@@ -212,24 +289,28 @@ def markdown_to_flowables(
         if re.match(r"^\s*[-*]\s+", line):
             flush_para()
             flush_quote()
+            flush_table()
             item = re.sub(r"^\s*[-*]\s+", "", line)
             flow.append(Paragraph(f"- {inline_markup(item)}", styles["Bullet"]))
             continue
         if re.match(r"^\s*\d+\.\s+", line):
             flush_para()
             flush_quote()
+            flush_table()
             flow.append(Paragraph(inline_markup(line.strip()), styles["Bullet"]))
             continue
-        if "|" in line and line.strip().startswith("|"):
+        if is_table_line(line):
             flush_para()
             flush_quote()
-            flow.append(Preformatted(line, styles["Code"]))
+            table.append(line)
             continue
+        flush_table()
         flush_quote()
         para.append(line)
 
     flush_para()
     flush_quote()
+    flush_table()
     flush_code()
     return flow
 
@@ -311,6 +392,13 @@ def make_styles() -> dict[str, ParagraphStyle]:
         backColor=colors.whitesmoke,
         spaceBefore=2,
         spaceAfter=3,
+    )
+    styles["TableCell"] = ParagraphStyle(
+        "ARRPTableCell",
+        parent=styles["Body"],
+        fontSize=7.4,
+        leading=8.4,
+        spaceAfter=0,
     )
     styles["Code"] = ParagraphStyle(
         "ARRPCode",

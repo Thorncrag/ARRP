@@ -55,7 +55,7 @@ Appendices should use this order:
 1. Appendix A - Proposed Federal Legislation and Constitutional Amendments;
 2. Appendix B - Model State Legislation;
 3. Appendix C - Source-development materials, crosswalks, or research notes selected for publication;
-4. Appendix D - Technical framework, print assembly framework, contribution rules, and release process, if included in a technical edition; and
+4. Appendix D - Technical framework, contribution rules, and release process, if included in a technical edition; and
 5. Appendix E - issue audit-history files for full technical editions, when audit provenance is included.
 
 Appendix A should include legislation files in issue-identifier order, using unsuffixed filenames first, for example `DOJ-001.md`, `ELEC-001.md`, `JUD-001.md`, and `WAR-001.md`.
@@ -106,9 +106,17 @@ For print-only editions, cross-references should remain textually meaningful eve
 ```text
 See ELEC-005.
 See Appendix A, ELEC-005.
+See Appendix A, ELEC-005, p. 42.
 ```
 
 Issue pages that refer to proposed legislation should identify the appendix destination when practical, but the canonical Markdown may continue to link to the legislation file.
+
+Final public, legislative, and technical editions should support stable appendix references with resolved page numbers. Because page numbers are known only after pagination, the export workflow should eventually use a two-pass build:
+
+1. generate the document and record the start page for each major section, area, developed issue, legislation appendix item, and technical appendix item;
+2. regenerate the document with page-numbered cross-references, a page-numbered table of contents or appendix index, and references such as `Appendix A-1, DOJ-001 proposed legislation, p. 10`.
+
+Manual page-number references should not be maintained in canonical Markdown because they will drift whenever content changes. Canonical issue pages should keep stable links and identifiers; the export layer should resolve those identifiers into appendix labels and page numbers for final print products.
 
 ## Heading Levels
 

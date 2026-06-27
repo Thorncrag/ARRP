@@ -82,6 +82,20 @@ Examples:
 
 Every Markdown page must carry `print_levels` metadata under [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
 
+## Compiled Appendix Catalog
+
+The detailed print and export rules are maintained in [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md), but the governing framework should preserve the appendix catalog for quick reference.
+
+Compiled public, legislative, and technical editions use this appendix allocation unless a publication-specific export plan deliberately supersedes it:
+
+1. **Appendix A** - Proposed Federal Legislation and Constitutional Amendments;
+2. **Appendix B** - Model State Legislation;
+3. **Appendix C** - source-development materials, crosswalks, or research notes selected for publication;
+4. **Appendix D** - technical framework, contribution rules, and release process, if included in a technical edition; and
+5. **Appendix E** - issue audit-history files for full technical editions, when audit provenance is included.
+
+Final print exports should resolve stable issue and legislation identifiers into appendix labels and page numbers through the export layer rather than manually maintained page-number references in canonical Markdown.
+
 ## Neutrality and Language Guidelines
 
 The project applies neutral standards without pretending to be neutral about institutional harm. Language should help a skeptical but fair reader understand the project as structural reform analysis rather than campaign argument, while still naming abuse, corruption, illegality, coercion, falsehood, or institutional damage when the record supports those descriptions.
@@ -317,8 +331,9 @@ The following canonical backlog items remain outstanding:
 - develop the A-21 annotation explaining the systemic risks of sustained political subordination of monetary policy, including inflation, unanchored expectations, leverage, asset-price distortions, currency weakness, loss of credibility, and the possibility of a later severe corrective contraction;
 - conduct a systematic review of each proposal's potential bipartisan support, including cross-party institutional interests, likely objections, possible neutral framing, and risks of partisan capture or misuse;
 - complete the Project 2025 / ARRP crosswalk source-development pass, including official Mandate chapter records, chapter-level and major-proposal rows, page or section citations, implementation-status labels, weakness-vehicle analysis for proposals whether or not enacted or attempted, ARRP area and issue mappings, coverage-status labels, newly needed issue candidates, and area-priority review;
-- maintain and improve the compiled-export workflow, including table-of-contents generation, heading normalization, local-link verification, appendix placement for proposed legislation, and compact document layout;
-- defer full page-numbered and clickable table-of-contents work until the project is more developed, then limit it to major sections, project areas, developed issues, and appendices;
+- maintain and improve the compiled-export workflow, including lightweight table-of-contents generation, heading normalization, local-link verification, appendix placement for proposed legislation, and compact document layout;
+- before public release, implement two-pass PDF/DOCX export support for stable appendix labels, page-numbered cross-references, and a page-numbered table of contents or appendix index, so body references can point to proposed legislation and technical appendices without manually maintained page numbers;
+- defer full clickable table-of-contents work until the project is more developed, then limit it to major sections, project areas, developed issues, and appendices;
 - select and adopt an appropriate Creative Commons or other public reuse license when the project is ready for broader legislative and public engagement.
 
 These are substantive research and issue-development tasks, not exceptions to the governing framework above.
