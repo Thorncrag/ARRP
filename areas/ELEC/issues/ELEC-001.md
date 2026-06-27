@@ -6,6 +6,13 @@ status: developed
 priority: high
 remedy_type: hatch-act-amendment-and-companion-enforcement
 legislative_proposal: "../../../legislation/ELEC-001.md"
+audit_status: "HOR-012 integrated as source-strengthening manifestation; advanced audits pending"
+audit_score: 60
+audit_last_type: "Horizon integration decision"
+audit_last_date: "2026-06-25"
+audit_next: "Source-development pass"
+audit_rubric_version: "pre-2026-06-27.1"
+audit_rebaseline_status: "hard-rebaseline-needed"
 print_levels:
   - public-proposal
   - full-technical
@@ -133,7 +140,11 @@ Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-001.audit.md)**<br />**Audit Status:** HOR-012 integrated as source-strengthening manifestation; advanced audits pending<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`<br />**Adoption Friction:** `Unassessed`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
+> **Proposal Quality Score:** **[60 / 100](ELEC-001.audit.md)**<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+>
+> ---
+>
+> **Audit Status:** HOR-012 integrated as source-strengthening manifestation; advanced audits pending<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
 
 ## Annotation
 

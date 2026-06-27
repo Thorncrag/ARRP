@@ -50,7 +50,7 @@ Every developed issue should use the following structure:
 8. **Repair and Prevention** — restoration or correction of existing damage and prospective safeguards against recurrence.
 9. **Proposed Legislation** — link to the proposed legislative, rule, constitutional, or procedural vehicle when one exists.
 10. **Budgetary Impact Statement** — a concise preliminary fiscal classification using the project rubric.
-11. **Proposal Scoring** — a succinct audit and scoring box showing the proposal-quality score, audit status, rubric version, rebaseline status, Required Electoral Environment, Development Priority, Adoption Friction, next audit need, and a link to the sibling full audit-history file.
+11. **Proposal Scoring** — a succinct audit and scoring box showing the proposal-quality score, any companion scores, Required Electoral Environment, Development Priority, and any assessed coalition-support estimates first, separated by a horizontal rule from audit status, rubric version, rebaseline status, next audit need, and a link to the sibling full audit-history file.
 12. **Annotation** — evidence, legal analysis, qualifications, alternatives, and implementation constraints.
 
 The headings guide analysis but do not require artificial expansion. Each section should add a distinct proposition.
@@ -58,6 +58,10 @@ The headings guide analysis but do not require artificial expansion. Each sectio
 Custom section headings are permitted where they make a developed issue clearer or more natural to read, provided the issue still performs the required analytical functions. A custom heading should be meaningfully distinct from the canonical heading it replaces rather than a trivial restatement. Where custom headings are used, the required function should remain clear from the heading itself, the surrounding structure, or a short orienting sentence.
 
 Where proposed legislation or another concrete reform vehicle exists, the issue page should include a **Proposed Legislation** section immediately after **Repair and Prevention**. **Repair and Prevention** and **Proposed Legislation** should appear after **Least-Complex Adequate Remedy**, so the page first compares available models and identifies the preferred remedy before presenting the repair frame and concrete vehicle. Proposed vehicles should always be presented as a Markdown bullet list, even when there is only one linked item.
+
+Candidate or source-development pages may keep a **Proposed Legislation** section with a single `Pending development` bullet when no draft vehicle exists yet. That placeholder is a development-status marker, not a legislation link failure. Once a concrete vehicle exists, replace the placeholder with a linked bullet and update the Issue Snapshot vehicle line, metadata, inventories, and dashboard.
+
+The issue page and its linked proposed legislation must remain substantively aligned. When either page changes, the next framework, drafting, or project-integration audit should cross-check the Issue Snapshot vehicle, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation, Annotation, and Proposal Scoring summary against the linked legislative or rule text. The check should confirm that the issue page still accurately describes the vehicle, covered actors, legal hook, remedy type, enforcement mechanism, deadlines, responsible institutions, scope limits, and material drafting notes.
 
 Every developed issue page and every proposal page should include a **Budgetary Impact Statement** before **Annotation** on issue pages and before **Drafting Notes** on legislation or proposal pages. The statement is a preliminary ARRP planning classification, not an official fiscal score. It must be short, source-conscious, and must not include a dollar figure unless the figure is tied to a cited government source, historical appropriation, CBO score, agency budget material, audited program cost, or comparable source-backed basis.
 
@@ -103,6 +107,8 @@ Representative incidents should illustrate the structural defect, not become exh
 ## Annotation and Evidence
 
 ### Standard Annotation
+
+Each annotation segment should begin with a bold inline title followed by a period, then the paragraph text.
 
 **Basis and Evidence.** Explain why the anomaly has been identified and cite representative authoritative support.
 
@@ -162,7 +168,7 @@ Before an issue or proposal is treated as ready for external circulation, it sho
 
 The canonical audit rules, resource tiers, Horizon Scan procedure, hallucination-resistance protocol, scoring formula, adoption-score formula, international-support score, output requirements, and audit-preservation rules are maintained in [`../inventory/METHOD.md`](../inventory/METHOD.md#audit-rules-and-proposal-quality-scoring).
 
-Every issue should have a corresponding row in [`../inventory/audits.csv`](../inventory/audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, rebaseline status, Required Electoral Environment, Development Priority, and Adoption Friction Score where assessed. The relevant issue page should contain a compact **Proposal Scoring** summary, and its full technical audit history should be maintained in a sibling `ISSUE-ID.audit.md` file linked from that section. [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) provides the compact cross-issue view. Scores should not be compared across different rubric versions without noting the rebaseline status. Adoption Friction should not be treated as part of the Proposal Quality Score, while the Required Electoral Environment should feed Adoption and Implementation scoring under the audit rubric.
+Every issue should have a corresponding row in [`../inventory/audits.csv`](../inventory/audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, rebaseline status, Required Electoral Environment, Development Priority, and Adoption Friction Score where assessed. The relevant issue page should contain a compact **Proposal Scoring** summary, and its full technical audit history should be maintained in a sibling `ISSUE-ID.audit.md` file linked from that section. In that summary, all scores and viability indicators, including Required Electoral Environment and Development Priority, should appear grouped at the top, followed by a horizontal rule, then audit status and routing fields. When the scoring template, audit schema, rubric version, or audit sidecar structure changes, run a **Change Audit** and update the issue-page scoring box, issue-page front matter, audit sidecar, [`../inventory/audits.csv`](../inventory/audits.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as a single consistency unit. [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) provides the compact cross-issue view. Scores should not be compared across different rubric versions without noting the rebaseline status. Adoption Friction should not be treated as part of the Proposal Quality Score, while the Required Electoral Environment should feed Adoption and Implementation scoring under the audit rubric.
 
 ## Repository Architecture
 

@@ -7,6 +7,13 @@ priority: high
 remedy_type: coupled-state-and-federal-legislation
 legislative_proposal: "../../../legislation/ELEC-003-state.md"
 federal_legislative_proposal: "../../../legislation/ELEC-003.md"
+audit_status: "Structural audit complete; advanced audits pending"
+audit_score: 60
+audit_last_type: "Initial framework and inventory audit"
+audit_last_date: "2026-06-24"
+audit_next: "Advanced audit"
+audit_rubric_version: "pre-2026-06-27.1"
+audit_rebaseline_status: "hard-rebaseline-needed"
 print_levels:
   - public-proposal
   - full-technical
@@ -153,7 +160,11 @@ Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-003.audit.md)**<br />**Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`<br />**Adoption Friction:** `Unassessed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-003 audit history](ELEC-003.audit.md)
+> **Proposal Quality Score:** **[60 / 100](ELEC-003.audit.md)**<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+>
+> ---
+>
+> **Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-003 audit history](ELEC-003.audit.md)
 
 ## Annotation
 

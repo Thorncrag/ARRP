@@ -5,6 +5,13 @@ title: "Mail-In Voting Access, Reliability, and Trust"
 status: developed
 priority: high
 remedy_type: federal-legislation
+audit_status: "HOR-012 integrated as USPS and mail-ballot source-strengthening manifestation; legislation path pending"
+audit_score: 55
+audit_last_type: "Horizon integration decision"
+audit_last_date: "2026-06-25"
+audit_next: "Source-development pass"
+audit_rubric_version: "pre-2026-06-27.1"
+audit_rebaseline_status: "hard-rebaseline-needed"
 print_levels:
   - public-proposal
   - full-technical
@@ -187,7 +194,11 @@ Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[55 / 100](ELEC-010.audit.md)**<br />**Audit Status:** HOR-012 integrated as USPS and mail-ballot source-strengthening manifestation; legislation path pending<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`<br />**Adoption Friction:** `Unassessed`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [ELEC-010 audit history](ELEC-010.audit.md)
+> **Proposal Quality Score:** **[55 / 100](ELEC-010.audit.md)**<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+>
+> ---
+>
+> **Audit Status:** HOR-012 integrated as USPS and mail-ballot source-strengthening manifestation; legislation path pending<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [ELEC-010 audit history](ELEC-010.audit.md)
 
 ## Annotation
 

@@ -6,7 +6,12 @@ status: candidate
 priority: high
 remedy_type: humanitarian-status-review
 audit_score: 0
-audit_status: pending development
+audit_status: Pending development; no proposal-quality score assigned
+audit_last_type: "Horizon integration decision"
+audit_last_date: "2026-06-25"
+audit_next: "Source-development pass"
+audit_rubric_version: "2026-06-27.1"
+audit_rebaseline_status: "current-fixed-status"
 print_levels:
   - public-proposal
   - full-technical
@@ -128,7 +133,11 @@ No reliable estimate yet. Reviewability, record-preparation, transition, and adj
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[0 / 100](RIGHTS-002.audit.md)**<br />**Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`<br />**Adoption Friction:** `N/A`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [RIGHTS-002 audit history](RIGHTS-002.audit.md)
+> **Proposal Quality Score:** **[0 / 100](RIGHTS-002.audit.md)**<br />**Adoption Friction:** `N/A`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`
+>
+> ---
+>
+> **Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [RIGHTS-002 audit history](RIGHTS-002.audit.md)
 
 ## Annotation
 

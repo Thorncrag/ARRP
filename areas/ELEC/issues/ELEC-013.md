@@ -6,7 +6,12 @@ status: candidate
 priority: high
 remedy_type: election-system-reform
 audit_score: 0
-audit_status: pending development
+audit_status: Pending development
+audit_last_type: "Horizon integration decision"
+audit_last_date: "2026-06-25"
+audit_next: "Issue-admission test"
+audit_rubric_version: "2026-06-27.1"
+audit_rebaseline_status: "current-fixed-status"
 print_levels:
   - public-proposal
   - full-technical
@@ -136,7 +141,11 @@ Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[0 / 100](ELEC-013.audit.md)**<br />**Audit Status:** Pending development<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`<br />**Adoption Friction:** `N/A`<br />**Next Audit:** Issue-admission test<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
+> **Proposal Quality Score:** **[0 / 100](ELEC-013.audit.md)**<br />**Adoption Friction:** `N/A`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`
+>
+> ---
+>
+> **Audit Status:** Pending development<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Issue-admission test<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
 
 ## Annotation
 
