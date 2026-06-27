@@ -20,7 +20,7 @@ The project does not claim or intend to function as a Democratic Party agenda. A
 
 The project does not avoid naming public actors, including President Trump, where specific conduct is relevant to identifying institutional damage, structural vulnerability, or necessary repair. Such references are not included as partisan argument or personal condemnation for its own sake, but because the project depends on concrete examples of how institutions were damaged, tested, or exploited. The same standards should apply to any officeholder, party, administration, or movement that creates comparable institutional risk.
 
-The full neutrality, language, coalition-reality, and political-language audit rules are maintained in the technical framework and audit method. See [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#neutrality-and-language-guidelines) and [`inventory/METHOD.md`](inventory/METHOD.md#political-language-and-coalition-appeal-audit).
+The full neutrality, language, coalition-reality, and political-language audit rules are maintained in the technical framework and project methodology. See [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#neutrality-and-language-guidelines) and [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#political-language-and-coalition-appeal-audit).
 
 The project is also a living research draft. Sources, citations, examples, issue classifications, and proposed remedies may be incomplete, provisional, or later revised as the work develops.
 
@@ -99,7 +99,7 @@ Score bands are interpreted as follows:
 | 95-99 | **Publication Ready:** rare and heavily validated. |
 | 100 | **Fully Validated:** theoretically possible but not expected for most reforms. |
 
-The full scoring formula and audit rules are maintained in [`inventory/METHOD.md`](inventory/METHOD.md#audit-rules-and-proposal-quality-scoring).
+The full scoring formula and audit rules are maintained in [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#audit-rules-and-proposal-quality-scoring).
 
 Some issue pages also show an **Adoption Score** from 0 to 12. This is part of the Proposal Quality Score, not a separate score. It measures whether the proposal has a realistic, evidence-supported adoption path, including likely audiences, good-faith objections, coalition strategy, current support evidence, and the required electoral environment.
 
@@ -160,8 +160,12 @@ For citation metadata, see [`CITATION.cff`](CITATION.cff). The preferred citatio
 
 ## Technical Framework
 
-The project methodology, repository structure, file conventions, contribution process, and development backlog are maintained in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md).
+The project framework, repository structure, file conventions, contribution process, and development backlog are maintained in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md).
+
+The project methodology, audit rules, scoring rules, and inventory maintenance rules are maintained in [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md).
 
 The compact project-wide audit tracker is maintained in [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md).
+
+The cumulative Change Audit history is maintained in [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md).
 
 The Horizon Scan intake and integration ledger is maintained in [`HORIZON_SCAN.md`](HORIZON_SCAN.md).

@@ -8,7 +8,7 @@ print_levels:
 
 This page is the cumulative intake and integration ledger for Horizon Scan audits. It tracks possible new, emerging, or newly salient institutional-risk concerns and preserves how each `HOR-###` candidate is handled.
 
-[Audit Dashboard](AUDIT_DASHBOARD.md) remains the compact scoring and audit-status dashboard. Horizon candidate adjudication rules are maintained in [Inventory and Audit Method](inventory/METHOD.md#horizon-candidate-adjudication-workflow).
+[Audit Dashboard](AUDIT_DASHBOARD.md) remains the compact scoring and audit-status dashboard. Horizon candidate adjudication rules are maintained in [Project Methodology](framework/METHODOLOGY.md#horizon-candidate-adjudication-workflow).
 
 > **Quick Jump**
 >
@@ -30,7 +30,7 @@ Horizon Scan audits identify possible new, emerging, or newly salient concerns w
 
 **Implementation status.** Report only until an integration decision is made. The table below tracks horizon items that still need action. When a horizon item is integrated into an issue, merged, rejected, or otherwise adjudicated, remove it from the active table, preserve the original HOR identifier, and record the decision in the integration log below.
 
-Specific `HOR-###` candidates should be adjudicated under the [Horizon Candidate Adjudication Workflow](inventory/METHOD.md#horizon-candidate-adjudication-workflow), including factual verification, overlap review, issue-admission testing, ripeness review, neutrality review, user approval before implementation, Horizon Scan cleanup, source-inventory updates, and preservation of the static HOR ID.
+Specific `HOR-###` candidates should be adjudicated under the [Horizon Candidate Adjudication Workflow](framework/METHODOLOGY.md#horizon-candidate-adjudication-workflow), including factual verification, overlap review, issue-admission testing, ripeness review, neutrality review, user approval before implementation, Horizon Scan cleanup, source-inventory updates, and preservation of the static HOR ID.
 
 | Horizon ID | Date | Concern | Existing overlap | Issue-admission result | New issue / merge recommendation | Recommended disposition | Sources / next source need | Confidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |

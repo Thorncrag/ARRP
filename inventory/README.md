@@ -11,11 +11,14 @@ print_levels:
 - `contents.csv` — combined area-and-issue navigation index suitable for table-of-contents development
 - `audits.csv` — issue-level audit status and proposal-quality scoring
 - `sources.csv` — source records associated with issues, areas, or project-level records
-- `METHOD.md` — inventory maintenance, audit procedure, scoring rules, and dashboard update rules
 
 The CSV files are canonical structured records. Spreadsheet editions may be generated for convenience.
 
 The project-wide human-readable audit tracker is [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md). It summarizes audit posture for meta-analysis and should be refreshed whenever an audit changes issue score, audit status, last audit type, next audit need, issue link, legislation link, or development status.
+
+The Change Audit history is [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md). It records project-wide rubric, template, scoring, and structural-consistency changes separately from the compact dashboard.
+
+Project methodology, audit rules, scoring rules, and dashboard update rules are maintained in [`../framework/METHODOLOGY.md`](../framework/METHODOLOGY.md).
 
 The Horizon Scan intake and integration ledger is [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md). It tracks active and adjudicated `HOR-###` candidates separately from the audit-score dashboard.
 
@@ -38,6 +41,8 @@ Area and issue rows include relative links to the area page, issue page, and pro
 The proposal-quality score is a provisional planning value, not a claim that the issue is publication-ready or externally validated. Audit runs may support a higher score only when the audit resolves findings, broadens review, verifies sources, improves legal fit, improves drafting, or strengthens adoption prospects.
 
 `AUDIT_DASHBOARD.md` is the compact reader-facing dashboard for cross-issue audit status. It should not replace issue-page Proposal Scoring summaries, sibling audit-history sidecars, or the structured audit inventory.
+
+`CHANGE_AUDIT_LOG.md` is the cumulative reader-facing tracker for Change Audit history. It should not replace `audits.csv`, issue-page audit histories, or dashboard score/status summaries.
 
 `HORIZON_SCAN.md` is the cumulative reader-facing tracker for Horizon Scan findings and integration decisions. It should not replace issue-page source development, audit histories, or structured inventory records once a horizon item is admitted, merged, or retired.
 

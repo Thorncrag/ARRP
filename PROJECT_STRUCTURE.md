@@ -14,7 +14,8 @@ areas/                             One directory per project area
     issues/
       DOJ-001.md                   Developed issue analysis
 legislation/                       Proposed statutory language keyed to issue ID
-inventory/                         Structured CSV inventories plus inventory and audit method
+inventory/                         Structured CSV inventories
+CHANGE_AUDIT_LOG.md                Cumulative project-wide Change Audit history
 research/                          Research notes not yet integrated
 exports/                           Generated DOCX, PDF, and XLSX outputs
 archive/                           Superseded or migrated source snapshots
@@ -28,4 +29,4 @@ archive/                           Superseded or migrated source snapshots
 - `inventory/contents.csv` combines area and issue rows for navigation and future table-of-contents planning.
 - Source records in `inventory/sources.csv` may be associated with issues, areas, framework files, research files, or project-level pages.
 - Inventory CSVs should be updated in the same change that adds, removes, renames, merges, retires, or materially revises an area, issue, legislative proposal, or cited source.
-- Audit rules and scoring live in `inventory/METHOD.md`; print assembly rules live in `framework/PRINT_ASSEMBLY.md`; remedy categories and trigger stages live in `framework/REMEDY_FRAMEWORK.md`.
+- Audit rules and scoring live in `framework/METHODOLOGY.md`; print assembly rules live in `framework/PRINT_ASSEMBLY.md`; remedy categories and trigger stages live in `framework/REMEDY_FRAMEWORK.md`.

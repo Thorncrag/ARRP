@@ -16,8 +16,9 @@ The project's public-facing premise, mission, scope, and governing principles ar
 - `framework/` contains governing methodology and cross-cutting remedial architecture.
 - `areas/` contains one directory per project area, area README indexes, developed issue pages, and sibling issue audit-history files.
 - `legislation/` contains proposed statutory, constitutional, regulatory, procedural, and model-state language keyed to issue identifiers.
-- `inventory/` contains structured area, issue, contents, audit, source, and method records.
+- `inventory/` contains structured area, issue, contents, audit, and source records.
 - [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) contains the compact cross-issue audit dashboard for meta-analysis and audit planning.
+- [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md) contains cumulative project-wide Change Audit history.
 - [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) contains cumulative horizon-scan intake, recommendations, adjudications, and integration history.
 - [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md) contains the repository map for human orientation.
 - `research/` contains material not yet integrated into a developed issue.
@@ -30,17 +31,18 @@ Markdown and CSV files are authoritative. Binary Office and PDF files are genera
 
 ## Canonical Sources
 
-- [`FRAMEWORK.md`](FRAMEWORK.md) — technical framework, methodology, repository conventions, and development status
+- [`FRAMEWORK.md`](FRAMEWORK.md) — technical framework, repository conventions, and development status
 - [`../inventory/areas.csv`](../inventory/areas.csv) — structured area inventory
 - [`../inventory/issues.csv`](../inventory/issues.csv) — structured issue inventory
 - [`../inventory/contents.csv`](../inventory/contents.csv) — combined area-and-issue contents index
 - [`../inventory/audits.csv`](../inventory/audits.csv) — issue-level audit status and proposal-quality scoring
 - [`../inventory/sources.csv`](../inventory/sources.csv) — source-tracking table
-- [`../inventory/METHOD.md`](../inventory/METHOD.md) — inventory maintenance, audit procedure, scoring rules, and Horizon Scan rules
+- [`METHODOLOGY.md`](METHODOLOGY.md) — inventory maintenance, audit procedure, scoring rules, and Horizon Scan rules
 - [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md) — remedy categories, trigger stages, and cross-cutting remedial options
 - [`../areas/`](../areas/) — modular area and issue analyses
 - [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
 - [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) — compact cross-issue audit tracker for meta-analysis and audit planning
+- [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md) — cumulative Change Audit history
 - [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) — cumulative Horizon Scan intake and integration ledger
 - [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md) — human-readable repository map
 - [`../AUTHORS.md`](../AUTHORS.md) — authorship statement
@@ -57,7 +59,7 @@ Markdown and CSV files are authoritative. Binary Office and PDF files are genera
 
 Current area and issue status is maintained in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), and the ordered contents scaffold in [`../inventory/contents.csv`](../inventory/contents.csv). [`../areas/README.md`](../areas/README.md) and area README files provide human-readable indexes, while developed issue pages contain the substantive analysis. Do not duplicate current area lists, issue lists, or developed-issue status snapshots in this framework file unless the list is generated from the inventory.
 
-Project updates must keep the structured inventory, audit dashboard, and Horizon Scan ledger current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant rows in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), [`../inventory/contents.csv`](../inventory/contents.csv), [`../inventory/audits.csv`](../inventory/audits.csv), [`../inventory/sources.csv`](../inventory/sources.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as part of the same change. When a `HOR-###` candidate is added, adjudicated, integrated, retained, or retired, update [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) as part of the same change.
+Project updates must keep the structured inventory, audit dashboard, Change Audit log, and Horizon Scan ledger current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant rows in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), [`../inventory/contents.csv`](../inventory/contents.csv), [`../inventory/audits.csv`](../inventory/audits.csv), [`../inventory/sources.csv`](../inventory/sources.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as part of the same change. When a Change Audit is run, update [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md) as part of the same change. When a `HOR-###` candidate is added, adjudicated, integrated, retained, or retired, update [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) as part of the same change.
 
 The project will proceed by applying this framework to retained issues, developing authoritative source records, resolving overlap through primary ownership and cross-reference, and revising the least-complex adequate remedy as legal and factual analysis matures.
 
@@ -300,7 +302,7 @@ Triggers are not a universal solution and do not organize or subsume the rest of
 
 Before an issue or proposal is treated as ready for external circulation, it should undergo a quality audit. The framework requirement is structural: developed issue pages must expose a compact **Proposal Scoring** section, link to the sibling full audit-history file, and keep scoring visible without overloading the main issue page.
 
-The canonical audit rules, resource tiers, Horizon Scan procedure, hallucination-resistance protocol, scoring formula, adoption-score formula, international-support score, output requirements, and audit-preservation rules are maintained in [`../inventory/METHOD.md`](../inventory/METHOD.md#audit-rules-and-proposal-quality-scoring).
+The canonical audit rules, resource tiers, Horizon Scan procedure, hallucination-resistance protocol, scoring formula, adoption-score formula, international-support score, output requirements, and audit-preservation rules are maintained in [`METHODOLOGY.md`](METHODOLOGY.md#audit-rules-and-proposal-quality-scoring).
 
 The **Proposal Scoring** section should group all scores and viability indicators at the top, followed by an em dash divider and then audit status, routing fields, rubric version, rebaseline status, and the audit-history link. [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) provides the compact cross-issue view.
 
