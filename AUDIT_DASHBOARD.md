@@ -35,8 +35,8 @@ Update this page whenever an audit changes an issue score, audit status, last au
 | Paused | 1 |
 | Pending development | 179 |
 | Developed Draft | 18 |
-| Substantially Developed Draft | 1 |
-| Review Ready | 1 |
+| Substantially Developed Draft | 0 |
+| Review Ready | 2 |
 | Audit in progress | 0 |
 
 ## Rubric Rebaseline
@@ -102,8 +102,8 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Issue-admission test | 179 |
 | Reassess predicate | 1 |
 | T2 | 0 |
-| T3 | 1 |
-| T4 | 1 |
+| T3 | 0 |
+| T4 | 2 |
 
 ## Change Audit Log
 
@@ -129,7 +129,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | Issue | Area | Priority | Status | Score | Band | Runs | Last audit | Last date | Next | Proposal page/status | Legislation | Rubric | Rebaseline | Pathway | Priority | Friction |
 | --- | --- | --- | --- | ---: | --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | DOJ-001 | A-01 | High | Developed | 82 | Review Ready | 15 | Change Audit | 2026-06-27 | T4 follow-up | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| DOJ-002 | A-01 | High | Developed | 67 | Substantially Developed Draft | 4 | Change Audit | 2026-06-27 | T3 | [Issue](areas/DOJ/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) | 2026-06-27.2 | current | current-law-available | active | Extreme Resistance |
+| DOJ-002 | A-01 | High | Developed | 75 | Review Ready | 5 | T3 readiness audit | 2026-06-27 | T4 | [Issue](areas/DOJ/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) | 2026-06-27.2 | current | current-law-available | active | Extreme Resistance |
 | DOJ-003 | A-01 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/DOJ/issues/DOJ-003.md) | [Bill](legislation/DOJ-003.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | DOJ-004 | A-01 | High | Awaiting merits adjudication | 0 | Paused | 1 | Initial inventory audit | 2026-06-24 | Reassess predicate | [Issue](areas/DOJ/issues/DOJ-004.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | DOJ-005 | A-01 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/DOJ/issues/DOJ-005.md) | [Bill](legislation/DOJ-005.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
