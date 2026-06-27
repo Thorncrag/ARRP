@@ -124,7 +124,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 
 | Issue | Area | Priority | Status | Score | Band | Runs | Last audit | Last date | Next | Proposal page/status | Legislation | Rubric | Rebaseline | Pathway | Priority | Friction |
 | --- | --- | --- | --- | ---: | --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| DOJ-001 | A-01 | High | Developed | 80 | Developed draft | 12 | Rubric rebaseline audit | 2026-06-27 | T4 | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) | 2026-06-27.1 | current | sixty-vote-senate | active | High |
+| DOJ-001 | A-01 | High | Developed | 82 | Developed draft | 14 | T4 publication-ready audit | 2026-06-27 | T4 follow-up | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) | 2026-06-27.1 | current | sixty-vote-senate | active | High |
 | DOJ-002 | A-01 | High | Developed | 62 | Developed draft | 2 | T1 framework check | 2026-06-25 | T2 | [Issue](areas/DOJ/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | DOJ-003 | A-01 | High | Developed | 60 | Developed draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/DOJ/issues/DOJ-003.md) | [Bill](legislation/DOJ-003.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | DOJ-004 | A-01 | High | Awaiting merits adjudication | 0 | Paused | 1 | Initial inventory audit | 2026-06-24 | Reassess predicate | [Issue](areas/DOJ/issues/DOJ-004.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
