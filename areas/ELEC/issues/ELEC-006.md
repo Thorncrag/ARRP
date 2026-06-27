@@ -83,7 +83,7 @@ The least-complex adequate remedy is not a comprehensive federal takeover of pre
 
 Congress should amend the Presidential Transition Act of 1963 to preserve ordinary cooperative transition norms while adding narrow statutory backstops for known failure points.
 
-The statute should not replace historically successful transition practice with a radically new bureaucratic or judicialized system. Instead, it should establish default rules that activate only when ordinary transition cooperation fails.
+The statute should not replace historically successful transition practice with a sweeping new bureaucratic or judicialized system. Instead, it should establish default rules that activate only when ordinary transition cooperation fails.
 
 The reform should include:
 

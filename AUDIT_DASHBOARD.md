@@ -12,7 +12,7 @@ Update this page whenever an audit changes an issue score, audit status, last au
 
 > **Quick Jump**
 >
-> [Score Bands](#score-bands) · [Rubric Rebaseline](#rubric-rebaseline) · [Enactment Pathway](#enactment-pathway) · [Adoption Friction](#adoption-friction) · [Next Audit Queue](#next-audit-queue) · [Horizon Scan](#horizon-scan) · [Issue Audit Index](#issue-audit-index)
+> [Score Bands](#score-bands) · [Rubric Rebaseline](#rubric-rebaseline) · [Enactment Pathway](#enactment-pathway) · [Adoption Friction](#adoption-friction) · [Next Audit Queue](#next-audit-queue) · [Change Audit Log](#change-audit-log) · [Horizon Scan](#horizon-scan) · [Issue Audit Index](#issue-audit-index)
 
 ## Snapshot
 
@@ -102,6 +102,14 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | T2 | 1 |
 | T3 | 0 |
 | T4 | 1 |
+
+## Change Audit Log
+
+[Back to top](#audit-dashboard)
+
+| Date | Change audited | Scope | Score/rebaseline effect | Findings and corrections |
+| --- | --- | --- | --- | --- |
+| 2026-06-27 | Framework hierarchy reorganization and neutrality/language guidelines | Project-wide Markdown and CSV sweep for duplicated framework sections, broken framework links, stale architecture references, and obvious project-authored language conflicts with the new neutrality rules. | No score or rubric rebaseline effect. The change clarified structure and language conventions but did not alter the proposal-quality scoring formula, required audit fields, or issue-page scoring template. Existing hard-rebaseline queue remains unchanged. | Consolidated `FRAMEWORK.md` hierarchy; confirmed no duplicate framework headings or broken framework links; corrected two project-authored wording issues (`radically` to more precise neutral phrasing) in source-development and ELEC-006. Remaining flagged terms were legal/statutory uses, source titles, framework examples, or ordinary institutional terminology. |
 
 ## Horizon Scan
 

@@ -6,15 +6,129 @@ print_levels:
 
 # American Restoration and Resilience Project — Technical Framework
 
-This file contains the project's technical operating framework: method, issue architecture, evidence standards, remedy standards, repository structure, file conventions, print assembly, contribution process, release process, and canonical development backlog.
+This file contains the project's technical operating framework: method, issue architecture, evidence standards, remedy standards, repository structure, file conventions, and canonical development backlog. It also points to the separate files governing print assembly, contribution expectations, public release, audit scoring, source tracking, and remedy taxonomy.
 
 The project's public-facing premise, mission, scope, and governing principles are maintained in [`../README.md`](../README.md).
 
-## Canonical Roadmap and Backlog
+## Repository Architecture
 
-The only canonical project roadmap, backlog, and to-do list is the [`Outstanding Development`](#outstanding-development) section of this file. Other project files may describe local context or link here, but should not maintain separate roadmap, backlog, or to-do lists.
+- [`../README.md`](../README.md) contains the public-facing proposal front matter, including the reader notice, foundational premise, mission, scope, governing principles, rights notice, citation pointer, and technical-framework pointer.
+- `framework/` contains governing methodology and cross-cutting remedial architecture.
+- `areas/` contains one directory per project area, area README indexes, developed issue pages, and sibling issue audit-history files.
+- `legislation/` contains proposed statutory, constitutional, regulatory, procedural, and model-state language keyed to issue identifiers.
+- `inventory/` contains structured area, issue, contents, audit, source, and method records.
+- [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) contains the compact cross-issue audit dashboard for meta-analysis and audit planning.
+- [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) contains cumulative horizon-scan intake, recommendations, adjudications, and integration history.
+- [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md) contains the repository map for human orientation.
+- `research/` contains material not yet integrated into a developed issue.
+- `source-development/` contains source-development work products and crosswalks not yet fully absorbed into issue pages, inventories, or proposed legislation.
+- `scripts/` contains project-maintenance and export-generation scripts.
+- `exports/` contains generated DOCX, PDF, and XLSX editions.
+- `archive/` contains superseded snapshots retained for provenance.
 
-## Core Method
+Markdown and CSV files are authoritative. Binary Office and PDF files are generated outputs.
+
+## Canonical Sources
+
+- [`FRAMEWORK.md`](FRAMEWORK.md) — technical framework, methodology, repository conventions, and development status
+- [`../inventory/areas.csv`](../inventory/areas.csv) — structured area inventory
+- [`../inventory/issues.csv`](../inventory/issues.csv) — structured issue inventory
+- [`../inventory/contents.csv`](../inventory/contents.csv) — combined area-and-issue contents index
+- [`../inventory/audits.csv`](../inventory/audits.csv) — issue-level audit status and proposal-quality scoring
+- [`../inventory/sources.csv`](../inventory/sources.csv) — source-tracking table
+- [`../inventory/METHOD.md`](../inventory/METHOD.md) — inventory maintenance, audit procedure, scoring rules, and Horizon Scan rules
+- [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md) — remedy categories, trigger stages, and cross-cutting remedial options
+- [`../areas/`](../areas/) — modular area and issue analyses
+- [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
+- [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) — compact cross-issue audit tracker for meta-analysis and audit planning
+- [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) — cumulative Horizon Scan intake and integration ledger
+- [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md) — human-readable repository map
+- [`../AUTHORS.md`](../AUTHORS.md) — authorship statement
+- [`../LICENSE.md`](../LICENSE.md) — rights and reuse notice
+- [`../CITATION.cff`](../CITATION.cff) — citation metadata
+- [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — contribution expectations
+- [`../PUBLIC_RELEASE.md`](../PUBLIC_RELEASE.md) — public release process
+- [`../source-development/`](../source-development/) — source-development work products and crosswalks
+- [`../scripts/`](../scripts/) — project-maintenance and export-generation scripts
+- [`../exports/`](../exports/) — generated, non-authoritative export files
+- [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md) — compiled-document and print assembly framework
+
+## Inventory Status and Development Phase
+
+Current area and issue status is maintained in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), and the ordered contents scaffold in [`../inventory/contents.csv`](../inventory/contents.csv). [`../areas/README.md`](../areas/README.md) and area README files provide human-readable indexes, while developed issue pages contain the substantive analysis. Do not duplicate current area lists, issue lists, or developed-issue status snapshots in this framework file unless the list is generated from the inventory.
+
+Project updates must keep the structured inventory, audit dashboard, and Horizon Scan ledger current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant rows in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), [`../inventory/contents.csv`](../inventory/contents.csv), [`../inventory/audits.csv`](../inventory/audits.csv), [`../inventory/sources.csv`](../inventory/sources.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as part of the same change. When a `HOR-###` candidate is added, adjudicated, integrated, retained, or retired, update [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) as part of the same change.
+
+The project will proceed by applying this framework to retained issues, developing authoritative source records, resolving overlap through primary ownership and cross-reference, and revising the least-complex adequate remedy as legal and factual analysis matures.
+
+The governing framework incorporates the project-wide rules for institutional focus, politically neutral application, issue admission, mandatory issue architecture, issue-level conciseness, standardized annotations, the Least-Complex Adequate Remedy, limited use of automatic institutional-failure triggers, audit sidecars, source tracking, print assignment, and cross-referencing instead of duplicative treatment.
+
+## File and Metadata Conventions
+
+Every substantive issue has a stable identifier such as `DOJ-001`. Legislative proposal files use the issue identifier as the base filename.
+
+- Federal legislative proposals use the unsuffixed issue identifier: `XXX-NNN.md`.
+- Model state legislative proposals use the state suffix: `XXX-NNN-state.md`.
+
+For issues with both federal and state proposals, the federal proposal is the unsuffixed file and the model state proposal is the `-state` file. For issues with only a model state proposal, the proposal should still use the `-state` suffix.
+
+Examples:
+
+- `ELEC-003.md` — federal proposal.
+- `ELEC-003-state.md` — model state proposal.
+- `ELEC-002-state.md` — model state proposal where no federal proposal is yet maintained.
+
+Every Markdown page must carry `print_levels` metadata under [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
+
+## Neutrality and Language Guidelines
+
+The project applies neutral standards without pretending to be neutral about institutional harm. Language should help a skeptical but fair reader understand the project as structural reform analysis rather than campaign argument, while still naming abuse, corruption, illegality, coercion, falsehood, or institutional damage when the record supports those descriptions.
+
+### Institutional Focus
+
+Frame issues around institutional weakness, structural damage, and legal repair. Name individual actors only when their conduct is necessary to understand the failure, source the example, or explain the remedy.
+
+### Neutral Application
+
+Apply the same evidentiary, legal, and remedial standards regardless of party, ideology, officeholder, administration, or movement. Do not create partisan exemptions, manufacture false equivalence, make unsupported accusations for balance, or design rules that depend on who currently holds power.
+
+### Public-Actor References
+
+Project-authored prose should use office-respecting, institutionally neutral references for public actors when doing so improves precision and avoids avoidable partisan tone. For example, use `President Trump` rather than `Trump` or `Donald Trump` when referring to him as an officeholder, actor, or case-study subject in the project's own analysis.
+
+This convention does not alter exact source material. Preserve formal case names, article titles, source titles, URLs, direct quotations, formal legal labels, and other citation text exactly as written unless the underlying source itself is being corrected or replaced.
+
+When a phrase such as `Trump-era`, `anti-Trump`, or `pre-Trump` appears in project-authored prose, rewrite it into a more precise institutional formulation, such as `incidents from President Trump's administration`, `framed as targeting President Trump`, or `pre-2017 institutional status quo`, as context requires.
+
+### Accuracy Over Softening
+
+Neutrality does not require euphemism. If the record supports a term such as `unlawful`, `false`, `retaliatory`, `corrupt`, `coercive`, `abusive`, or `pretextual`, use the accurate term and cite the supporting basis. If the record is incomplete, contested, pending, or inferential, identify that limitation directly.
+
+### Motive and Intent
+
+Do not state motive, bad faith, corrupt purpose, retaliation, or pretext as fact unless supported by findings, admissions, contemporaneous records, credible reporting, or a clearly explained documented inference. Use qualified formulations such as `may indicate`, `raises concern`, `alleged`, `reported`, or `not yet adjudicated` when the record requires qualification.
+
+### Conduct Before Character
+
+Avoid standalone character labels and ideological epithets where a conduct-based description would be more precise. Instead of relying on labels such as `authoritarian`, `fascist`, `extremist`, or `radical`, describe the mechanism: concentration of removal power, weakened adjudicatory independence, reduced reviewability, coercive use of funding, manipulation of factual records, or similar institutional effects.
+
+### Project 2025 Treatment
+
+Treat Project 2025 and comparable ideological programs as source material for institutional-risk analysis, not as partisan enemy documents. The project may state its opposition to unitary executive theory, institutional capture, and efforts to subordinate public institutions to personal or factional control, but analysis should focus on the mechanism, legal vulnerability, implementation pathway, and institutional effect.
+
+### Collective Labels
+
+Avoid loaded collective labels that imply every Republican, conservative, Trump voter, Democrat, progressive, independent, or other broad political group supports the conduct or institutional weakness being analyzed. Use narrower sourced formulations such as `MAGA-aligned`, `Project 2025-associated`, `President Trump's administration`, `the administration`, `the proposal's sponsors`, or `identified supporters` only when analytically necessary.
+
+### Coalition Reality
+
+The project should not describe itself as a Democratic Party agenda or allow likely audience interest to substitute for institutional analysis. It may, however, acknowledge that certain proposals are likely to be more immediately interesting to Democratic, independent, civil-libertarian, good-government, institutionalist, or other audiences because of the present political alignment of the abuses being studied. That coalition reality should inform adoption analysis, objection handling, and framing, but it should not change the evidentiary standard, legal analysis, remedy design, or neutrality of application.
+
+### Advocacy Tone
+
+Avoid campaign-style language such as `fight back`, `defeat`, `crush`, `resist`, `anti-Trump`, or `pro-democracy side` in proposal analysis. Prefer institutional verbs such as `repair`, `prevent recurrence`, `constrain`, `restore`, `stabilize`, `harden`, `detect`, `correct`, `deter`, and `contain`.
+
+## Analytical Method
 
 **Identify the problem.** Determine what institution or governing process failed, how the failure manifested, and what damage resulted.
 
@@ -24,7 +138,7 @@ The only canonical project roadmap, backlog, and to-do list is the [`Outstanding
 
 **Identify the least-complex adequate remedy.** Determine the least-complex measure, or package of measures, capable of adequately addressing the defect.
 
-## Issue-Admission Test
+### Issue-Admission Test
 
 Before promoting a candidate into a standalone issue, ask:
 
@@ -32,9 +146,15 @@ Before promoting a candidate into a standalone issue, ask:
 
 If not, merge it into a broader issue, treat it as a manifestation or example, cross-reference it, or retain it only in the research inventory.
 
-## Unit of Analysis
+Candidate issues may be retired or merged when the issue-admission test shows substantial duplication. A status such as **Awaiting merits adjudication** identifies a deliberately paused issue whose remedy depends materially on pending judicial resolution.
 
-Each issue must identify a generalized structural defect. Trump-era or other-administration incidents illustrate the defect but do not define it.
+### Unit of Analysis
+
+Each issue must identify a generalized structural defect. Incidents from President Trump's administration or any other administration illustrate the defect but do not define it.
+
+### Overlap and Cross-Reference Rule
+
+Each institutional defect should have one primary home. Related areas should cross-reference the primary issue instead of repeating the same diagnosis, evidence, and remedy. The issue inventory may identify related areas without creating duplicate substantive sections.
 
 ## Mandatory Issue Architecture
 
@@ -126,6 +246,8 @@ Use primary legal and governmental records first. Use authoritative institutiona
 
 Every factual, legal, and causal proposition must remain independently supportable. When an issue file refers to a real-life event, case, official action, report, statute, rule, hearing, order, or other source material, include a nearby citation or link. Do not name concrete examples in issue text without enough source information for later verification.
 
+Source inventory updates are required whenever a new external source is cited or an existing cited source is repurposed for a materially different proposition. A source may remain marked `Reviewed?` as `No` until verification is complete, but the citation should still be captured promptly.
+
 When referring to another page in this project, use a relative Markdown link whenever the target page exists. If the referenced issue exists only as an inventory or area-index entry, link to the nearest project page that contains that entry.
 
 ## Least-Complex Adequate Remedy
@@ -158,10 +280,6 @@ Trigger mechanisms are a limited, cross-cutting remedial tool. They may include 
 
 Triggers are not a universal solution and do not organize or subsume the rest of the project. Apply them only where persistent institutional failure can be addressed through objective, measurable, proportionate, manipulation-resistant escalation or reallocation mechanisms. Many issues will instead require substantive limits, structural independence, disclosure, professional safeguards, enforcement, oversight, funding reform, or constitutional change.
 
-## Overlap and Cross-Reference Rule
-
-Each institutional defect should have one primary home. Related areas should cross-reference the primary issue instead of repeating the same diagnosis, evidence, and remedy. The issue inventory may identify related areas without creating duplicate substantive sections.
-
 ## Proposal Quality Audit
 
 Before an issue or proposal is treated as ready for external circulation, it should undergo a quality audit assessing issue definition, legal authority, source support, proposal survey, remedy adequacy, abuse resistance, political adoption prospects, drafting clarity, and integration with the project inventory.
@@ -170,103 +288,21 @@ The canonical audit rules, resource tiers, Horizon Scan procedure, hallucination
 
 Every issue should have a corresponding row in [`../inventory/audits.csv`](../inventory/audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, rebaseline status, Required Electoral Environment, Development Priority, and Adoption Friction Score where assessed. The relevant issue page should contain a compact **Proposal Scoring** summary, and its full technical audit history should be maintained in a sibling `ISSUE-ID.audit.md` file linked from that section. In that summary, all scores and viability indicators, including Required Electoral Environment and Development Priority, should appear grouped at the top, followed by a horizontal rule, then audit status and routing fields. When the scoring template, audit schema, rubric version, or audit sidecar structure changes, run a **Change Audit** and update the issue-page scoring box, issue-page front matter, audit sidecar, [`../inventory/audits.csv`](../inventory/audits.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as a single consistency unit. [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) provides the compact cross-issue view. Scores should not be compared across different rubric versions without noting the rebaseline status. Adoption Friction should not be treated as part of the Proposal Quality Score, while the Required Electoral Environment should feed Adoption and Implementation scoring under the audit rubric.
 
-## Repository Architecture
-
-- [`../README.md`](../README.md) contains the public-facing proposal front matter, including the reader notice, foundational premise, mission, scope, governing principles, rights notice, citation pointer, and technical-framework pointer.
-- `framework/` contains governing methodology and cross-cutting remedial architecture.
-- `areas/` contains one directory per project area and one file per developed issue.
-- `legislation/` contains proposed statutory language keyed to issue identifiers.
-- `inventory/` contains structured area, issue, audit, source, and method records.
-- `research/` contains material not yet integrated into a developed issue.
-- `exports/` contains generated DOCX, PDF, and XLSX editions.
-- `archive/` contains superseded snapshots retained for provenance.
-
-Markdown and CSV files are authoritative. Binary Office and PDF files are generated outputs.
-
-## Canonical Sources
-
-- [`FRAMEWORK.md`](FRAMEWORK.md) — technical framework, methodology, repository conventions, and development status
-- [`../inventory/areas.csv`](../inventory/areas.csv) — structured area inventory
-- [`../inventory/issues.csv`](../inventory/issues.csv) — structured issue inventory
-- [`../inventory/contents.csv`](../inventory/contents.csv) — combined area-and-issue contents index
-- [`../inventory/audits.csv`](../inventory/audits.csv) — issue-level audit status and proposal-quality scoring
-- [`../inventory/sources.csv`](../inventory/sources.csv) — source-tracking table
-- [`../inventory/METHOD.md`](../inventory/METHOD.md) — inventory maintenance, audit procedure, scoring rules, and Horizon Scan rules
-- [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md) — remedy categories, trigger stages, and cross-cutting remedial options
-- [`../areas/`](../areas/) — modular area and issue analyses
-- [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
-- [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) — compact cross-issue audit tracker for meta-analysis and audit planning
-- [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) — cumulative Horizon Scan intake and integration ledger
-- [`../AUTHORS.md`](../AUTHORS.md) — authorship statement
-- [`../LICENSE.md`](../LICENSE.md) — rights and reuse notice
-- [`../CITATION.cff`](../CITATION.cff) — citation metadata
-- [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — contribution expectations
-- [`../PUBLIC_RELEASE.md`](../PUBLIC_RELEASE.md) — public release process
-- [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md) — compiled-document and print assembly framework
-
-## Working Conventions
-
-1. Every substantive issue has a stable identifier such as `DOJ-001`.
-2. The framework governs analysis; the inventory tracks it; issue files contain the substantive work.
-3. Each developed issue identifies the **Least-Complex Adequate Remedy**, using [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md) as the shared remedy taxonomy where helpful.
-4. Supporting evidence, qualifications, and alternatives belong in annotation or source notes.
-5. Where complete prevention is impracticable, a remedy may instead provide reliable detection, correction, deterrence, and institutional self-repair.
-6. Candidate issues may be retired or merged when the issue-admission test shows substantial duplication.
-7. A status such as **Awaiting merits adjudication** identifies a deliberately paused issue whose remedy depends materially on pending judicial resolution.
-8. Markdown and CSV are canonical. DOCX, PDF, and XLSX files are generated exports.
-9. Project updates must keep the structured inventory, audit dashboard, and Horizon Scan ledger current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant rows in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), [`../inventory/contents.csv`](../inventory/contents.csv), [`../inventory/audits.csv`](../inventory/audits.csv), [`../inventory/sources.csv`](../inventory/sources.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as part of the same change. When a `HOR-###` candidate is added, adjudicated, integrated, retained, or retired, update [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) as part of the same change.
-10. Source inventory updates are required whenever a new external source is cited or an existing cited source is repurposed for a materially different proposition. A source may remain marked `Reviewed?` as `No` until verification is complete, but the citation should still be captured promptly.
-11. Every Markdown page must carry `print_levels` metadata under [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
-12. Every audit tier must check pending judicial matters, scaled to the tier, where a pending Supreme Court, appellate, district-court, state high-court, emergency, stay, or remand posture could materially affect the proposal's authority, remedy design, urgency, scope, or issue-admission result.
-
-## Legislation Filename Convention
-
-Legislative proposal files use the issue identifier as the base filename.
-
-- Federal legislative proposals use the unsuffixed issue identifier: `XXX-NNN.md`.
-- Model state legislative proposals use the state suffix: `XXX-NNN-state.md`.
-
-For issues with both federal and state proposals, the federal proposal is the unsuffixed file and the model state proposal is the `-state` file. For issues with only a model state proposal, the proposal should still use the `-state` suffix.
-
-Examples:
-
-- `ELEC-003.md` — federal proposal.
-- `ELEC-003-state.md` — model state proposal.
-- `ELEC-002-state.md` — model state proposal where no federal proposal is yet maintained.
-
-## Current Areas
-
-The current area inventory is maintained in [`../areas/README.md`](../areas/README.md) and [`../inventory/areas.csv`](../inventory/areas.csv). The issue inventory is maintained in [`../inventory/issues.csv`](../inventory/issues.csv).
-
-## Developed Issues
-
-The developed-issue list is maintained in [`../inventory/contents.csv`](../inventory/contents.csv), with source-of-truth status tracking in [`../inventory/issues.csv`](../inventory/issues.csv). Avoid duplicating the developed-issue list in prose unless the list is generated from the inventory.
-
-## Development Phase
-
-The project will proceed by applying this framework to retained issues, developing authoritative source records, resolving overlap through primary ownership and cross-reference, and revising the least-complex adequate remedy as legal and factual analysis matures.
-
-## Current Status
-
-Current issue status is maintained in [`../inventory/issues.csv`](../inventory/issues.csv) and the ordered contents scaffold in [`../inventory/contents.csv`](../inventory/contents.csv). Area README files provide the nearest human-readable issue indexes, while developed issue pages contain the substantive analysis.
-
-The governing framework already incorporates the project-wide rules for institutional focus, politically neutral application, issue admission, mandatory issue architecture, issue-level conciseness, standardized annotations, the Least-Complex Adequate Remedy, limited use of automatic institutional-failure triggers, and cross-referencing instead of duplicative treatment.
-
-The area and issue inventories already include A-04 Judicial Independence and Enforcement (JUD-001 through JUD-009, with JUD-002, JUD-003, JUD-004, and JUD-006 retired into JUD-001), A-05 Presidential Clemency and Pardon Power (PAR-001 through PAR-010), A-07 Classification, Declassification, and National-Security Information (CLASS-001 through CLASS-012), and A-21 Federal Reserve Independence and Monetary Policy (FRB-001 through FRB-008). The `FED` prefix remains reserved for A-20 Federalism and Presidential Coercion of States.
+Every audit tier must check pending judicial matters, scaled to the tier, where a pending Supreme Court, appellate, district-court, state high-court, emergency, stay, or remand posture could materially affect the proposal's authority, remedy design, urgency, scope, or issue-admission result.
 
 ## Outstanding Development
 
-The following work remains outstanding and should not be treated as an uncommitted framework revision:
+The following canonical backlog items remain outstanding:
 
-- develop authoritative source records, annotations, and individual issue files for the JUD, PAR, and CLASS candidate inventories;
+- develop authoritative source records, annotations, and individual issue files for remaining JUD, PAR, and CLASS candidate issues;
 - analyze constitutional and implementation constraints for judicial-enforcement remedies, including appointments, appropriations, due process, and presidential control;
 - analyze the constitutional limits on restricting the legal effect of presidential clemency while developing transparency, anti-corruption, review, recordkeeping, disclosure, and surrounding-liability remedies;
 - preserve and source the distinctions among classification status, authorization to disclose, lawful custody or possession, and government ownership and records-preservation duties;
 - develop the A-21 annotation explaining the systemic risks of sustained political subordination of monetary policy, including inflation, unanchored expectations, leverage, asset-price distortions, currency weakness, loss of credibility, and the possibility of a later severe corrective contraction;
 - conduct a systematic review of each proposal's potential bipartisan support, including cross-party institutional interests, likely objections, possible neutral framing, and risks of partisan capture or misuse;
 - complete the Project 2025 / ARRP crosswalk source-development pass, including official Mandate chapter records, chapter-level and major-proposal rows, page or section citations, implementation-status labels, weakness-vehicle analysis for proposals whether or not enacted or attempted, ARRP area and issue mappings, coverage-status labels, newly needed issue candidates, and area-priority review;
-- build an export script to assemble compiled proposal editions, generate a table of contents, normalize heading levels, verify local links, and move proposed legislation into appendices;
+- maintain and improve the compiled-export workflow, including table-of-contents generation, heading normalization, local-link verification, appendix placement for proposed legislation, and compact document layout;
 - defer full page-numbered and clickable table-of-contents work until the project is more developed, then limit it to major sections, project areas, developed issues, and appendices;
 - select and adopt an appropriate Creative Commons or other public reuse license when the project is ready for broader legislative and public engagement.
 
-These are substantive research and issue-development tasks. They do not reopen the already committed governing framework or area inventories.
+These are substantive research and issue-development tasks, not exceptions to the governing framework above.

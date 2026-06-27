@@ -16,7 +16,11 @@ The author is an independent researcher and does not have formal legal training.
 
 This project is intended to be institution-focused and nonpartisan in its standards, methods, and proposed remedies. It is not neutral about institutional abuse, democratic backsliding, corruption, personalist capture, rule-of-law failure, or unitary executive theory, and it is transparent about seeking to reverse, repair, and prevent institutional outcomes associated with Project 2025 and similar efforts to subordinate public institutions to personal or factional control. The project uses real-world examples to identify structural vulnerabilities and possible repairs, not to advance a party program or defend or condemn any person, party, administration, or ideology as such. Proposed remedies are meant to apply prospectively and evenhandedly across parties, officeholders, and political circumstances.
 
-The project does not avoid naming public actors, including Donald Trump, where specific conduct is relevant to identifying institutional damage, structural vulnerability, or necessary repair. Such references are not included as partisan argument or personal condemnation for its own sake, but because the project depends on concrete examples of how institutions were damaged, tested, or exploited. The same standards should apply to any officeholder, party, administration, or movement that creates comparable institutional risk.
+The project does not claim or intend to function as a Democratic Party agenda. At the same time, it does not ignore the practical reality that some readers, lawmakers, advocates, or institutions may be more receptive to the project because of the present political alignment of the abuses it studies. That likely audience does not define the project’s standards. The project should remain candid about coalition realities while continuing to frame proposals as institutional repairs that can be evaluated, improved, supported, or criticized on their merits.
+
+The project does not avoid naming public actors, including President Trump, where specific conduct is relevant to identifying institutional damage, structural vulnerability, or necessary repair. Such references are not included as partisan argument or personal condemnation for its own sake, but because the project depends on concrete examples of how institutions were damaged, tested, or exploited. The same standards should apply to any officeholder, party, administration, or movement that creates comparable institutional risk.
+
+The full neutrality, language, coalition-reality, and political-language audit rules are maintained in the technical framework and audit method. See [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#neutrality-and-language-guidelines) and [`inventory/METHOD.md`](inventory/METHOD.md#political-language-and-coalition-appeal-audit).
 
 The project is also a living research draft. Sources, citations, examples, issue classifications, and proposed remedies may be incomplete, provisional, or later revised as the work develops.
 
@@ -26,15 +30,17 @@ For a dedicated authorship statement, see [`AUTHORS.md`](AUTHORS.md).
 
 ## Foundational Premise
 
-The American system of government is broken because it failed to prevent Donald Trump and the MAGA movement from subordinating constitutional duty, institutional independence, factual adjudication, and the peaceful transfer of power to personal loyalty. The damage must be repaired, the weaknesses that enabled it must be corrected, and stronger safeguards must be established against future personalist capture.
+The American system of government is broken because it failed to prevent President Trump and the MAGA movement from subordinating constitutional duty, institutional independence, factual adjudication, and the peaceful transfer of power to personal loyalty. The damage must be repaired, the weaknesses that enabled it must be corrected, and stronger safeguards must be established against future personalist capture.
 
-The project is written for readers who already accept that foundational diagnosis. Its purpose is not to repeatedly prove that the system is broken, but to determine how the failure occurred, what damage followed, which weaknesses allowed it, what must be repaired, and what reforms can prevent recurrence.
+This project was not devised as a partisan response to partisan policy preferences, nor as a counter-platform to Project 2025. It analyzes outcomes associated with President Trump's administration, MAGA-aligned efforts, Project 2025, and other partisan or ideological projects only where they reveal, exploit, accelerate, or manifest institutional damage. The project’s concern is the legal, structural, administrative, and institutional vulnerability, not the partisan identity of the actor or the ordinary policy preference at issue.
+
+The project is designed for readers who accept the project's underlying premise and foundational diagnosis. Its purpose is not to repeatedly prove that the system is broken, but to determine how the failure occurred, what damage followed, which weaknesses allowed it, what must be repaired, and what reforms can prevent recurrence.
 
 ## Mission
 
 The project will:
 
-1. identify the principal institutional damage caused or accelerated by Trump and the MAGA movement;
+1. identify the principal institutional damage caused, accelerated, revealed, or exploited by President Trump, the MAGA movement, Project 2025, or comparable efforts;
 2. identify the legal, structural, administrative, and policy weaknesses that made that damage possible;
 3. distinguish repair of existing damage from prevention of recurrence; and
 4. develop a durable roadmap for restoring lawful and trustworthy government.
@@ -47,7 +53,7 @@ The project concerns systems, structures, institutions, laws, and policies. It d
 
 ### Institutional Focus
 
-Trump is the principal case study, but the institutional weakness is the subject of analysis. Each issue must identify the legal, structural, administrative, institutional, or policy vulnerability that enabled, permitted, or failed to constrain the abuse. The project should not conclude merely that "Trump is the problem."
+President Trump is the principal case study, but the institutional weakness is the subject of analysis. Each issue must identify the legal, structural, administrative, institutional, or policy vulnerability that enabled, permitted, or failed to constrain the abuse. The project should not conclude merely that "President Trump is the problem."
 
 ### Neutral Application
 
@@ -61,7 +67,7 @@ The project seeks truth, legal coherence, factual accountability, and reconcilia
 
 ### Restoration and Reform
 
-The objective is not automatic return to the pre-Trump status quo. Where prior arrangements enabled abuse, restoration must include redesign and legal hardening.
+The objective is not automatic return to the pre-2017 institutional status quo. Where prior arrangements enabled abuse, restoration must include redesign and legal hardening.
 
 ### Functional Administrative Independence
 

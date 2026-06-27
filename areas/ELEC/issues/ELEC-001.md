@@ -33,7 +33,7 @@ The President and other federal executive officials possess substantial investig
 
 ### Georgia result-pressure call
 
-On January 2, 2021, President Donald Trump called Georgia Secretary of State Brad Raffensperger after Georgia had certified its presidential election result and completed multiple reviews of the vote. Trump asked Raffensperger to “find 11,780 votes,” the number necessary to reverse Trump’s certified defeat, and invoked possible criminal consequences while urging state officials to act.
+On January 2, 2021, President Trump called Georgia Secretary of State Brad Raffensperger after Georgia had certified its presidential election result and completed multiple reviews of the vote. President Trump asked Raffensperger to “find 11,780 votes,” the number necessary to reverse President Trump’s certified defeat, and invoked possible criminal consequences while urging state officials to act.
 
 The institutional significance does not depend on a final criminal judgment:
 
@@ -148,7 +148,7 @@ Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel
 
 ## Annotation
 
-**Basis and Evidence.** The Hatch Act already embodies the principle that federal employees may not use official authority or influence to interfere with or affect an election. Its exclusion of the President and Vice President and its employment-centered remedial structure leave the principal conduct identified here inadequately covered. The Trump–Raffensperger call is a representative manifestation because the requested numerical alteration corresponded to the margin necessary to reverse the state’s certified result. HOR-001 was integrated into this issue because the federal citizenship-list and voter-data architecture is a later manifestation of the same core defect: federal executive authority being used to control, pressure, or restructure state election administration outside ordinary constitutional channels.
+**Basis and Evidence.** The Hatch Act already embodies the principle that federal employees may not use official authority or influence to interfere with or affect an election. Its exclusion of the President and Vice President and its employment-centered remedial structure leave the principal conduct identified here inadequately covered. The call between President Trump and Raffensperger is a representative manifestation because the requested numerical alteration corresponded to the margin necessary to reverse the state’s certified result. HOR-001 was integrated into this issue because the federal citizenship-list and voter-data architecture is a later manifestation of the same core defect: federal executive authority being used to control, pressure, or restructure state election administration outside ordinary constitutional channels.
 
 **Qualification.** Federal executive officials retain lawful responsibilities concerning voting rights, election crimes, campaign finance, foreign interference, cybersecurity, federal judicial process, and other functions assigned by the Constitution or Congress. The proposal regulates misuse of federal office, not political speech, criticism, litigation, or good-faith execution of federal law. The term “partisan” is deliberately not used as an operative limitation because prohibited conduct may be personal, candidate-specific, retaliatory, factional, or otherwise result-directed without fitting a narrow partisan classification.
 
