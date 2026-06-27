@@ -9,6 +9,7 @@ federal_legislative_proposal: "../../../legislation/ELEC-007.md"
 print_levels:
   - public-proposal
   - full-technical
+audit_history: "ELEC-007.audit.md"
 ---
 
 # ELEC-007 — Improper Federal-Force Presence in Election Administration
@@ -113,6 +114,10 @@ The statute should also make clear that inadvertent or unavoidable incidental co
 ## Budgetary Impact Statement
 
 Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
+## Proposal Scoring
+
+> **Proposal Quality Score:** **[60 / 100](ELEC-007.audit.md)**<br />**Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`<br />**Adoption Friction:** `Unassessed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-007 audit history](ELEC-007.audit.md)
 
 ## Annotation
 

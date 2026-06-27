@@ -9,6 +9,7 @@ legislative_proposal: "../../../legislation/ELEC-001.md"
 print_levels:
   - public-proposal
   - full-technical
+audit_history: "ELEC-001.audit.md"
 ---
 
 # ELEC-001 — Federal Executive Interference with State and Local Election Administration
@@ -129,6 +130,10 @@ ELEC-007 should be narrowed to military, National Guard, or armed federal-force 
 ## Budgetary Impact Statement
 
 Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
+## Proposal Scoring
+
+> **Proposal Quality Score:** **[60 / 100](ELEC-001.audit.md)**<br />**Audit Status:** HOR-012 integrated as source-strengthening manifestation; advanced audits pending<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`<br />**Adoption Friction:** `Unassessed`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
 
 ## Annotation
 

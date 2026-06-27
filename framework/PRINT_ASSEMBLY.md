@@ -42,7 +42,7 @@ The main body should then include:
 2. project areas in the order listed in [`../areas/README.md`](../areas/README.md) and [`../inventory/areas.csv`](../inventory/areas.csv);
 3. for each area, the area README as the area introduction;
 4. for each area, existing issue pages in issue-identifier order;
-5. within each issue, the issue page's existing heading structure, including Issue Snapshot, Institutional Anomaly, Manifestations, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation where present, Budgetary Impact Statement, Annotation, source notes, and internal cross-references where present.
+5. within each issue, the issue page's existing heading structure, including Issue Snapshot, Institutional Anomaly, Manifestations, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation where present, Budgetary Impact Statement, Proposal Scoring, Annotation, source notes, and internal cross-references where present.
 
 If an issue exists only in the inventory or area README and does not yet have its own issue page, it should remain summarized in the area page and should not be expanded artificially in the compiled document.
 
@@ -55,7 +55,8 @@ Appendices should use this order:
 1. Appendix A - Proposed Federal Legislation and Constitutional Amendments;
 2. Appendix B - Model State Legislation;
 3. Appendix C - Source-development materials, crosswalks, or research notes selected for publication;
-4. Appendix D - Technical framework, print assembly framework, contribution rules, and release process, if included in a technical edition.
+4. Appendix D - Technical framework, print assembly framework, contribution rules, and release process, if included in a technical edition; and
+5. Appendix E - issue audit-history files for full technical editions, when audit provenance is included.
 
 Appendix A should include legislation files in issue-identifier order, using unsuffixed filenames first, for example `DOJ-001.md`, `ELEC-001.md`, `JUD-001.md`, and `WAR-001.md`.
 
@@ -72,6 +73,8 @@ Legislation pages should use a narrow publication structure:
 5. `Source Notes`, or `Authority Notes` where the proposal specifically needs a legal-authority or statutory-hook map.
 
 Relation-to-law provisions, rules of construction, severability clauses, definitions, and similar material should remain inside the proposed text when they are operative provisions. Explanatory crosswalks, manifestation-to-remedy mapping, implementation principles, and other analysis should live on the issue page, source-development page, or selected technical appendix rather than as standalone sections on the legislation page, unless the user deliberately creates a publication-specific appendix.
+
+Issue audit-history files named `ISSUE-ID.audit.md` are technical sidecars. They should be included only in full technical editions or audit-specific exports unless the user deliberately chooses to publish audit provenance. Public proposal editions should generally keep only the issue page's compact Proposal Scoring section and omit the full audit-history sidecars.
 
 ## Area and Issue Ordering Rules
 

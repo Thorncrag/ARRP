@@ -10,6 +10,7 @@ audit_status: pending development
 print_levels:
   - public-proposal
   - full-technical
+audit_history: "RIGHTS-001.audit.md"
 ---
 
 # RIGHTS-001 — Civil-Rights Administration, Identity Records, and Federal Definition Control
@@ -134,6 +135,10 @@ Future drafting should evaluate whether Congress should:
 ## Budgetary Impact Statement
 
 No reliable estimate yet. Early remedies may require compliance, records, review, and litigation resources, but no appropriation estimate should be assigned until a specific proposal exists.
+
+## Proposal Scoring
+
+> **Proposal Quality Score:** **[0 / 100](RIGHTS-001.audit.md)**<br />**Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`<br />**Adoption Friction:** `N/A`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [RIGHTS-001 audit history](RIGHTS-001.audit.md)
 
 ## Annotation
 

@@ -10,6 +10,7 @@ federal_legislation: "../../../legislation/ELEC-009.md"
 print_levels:
   - public-proposal
   - full-technical
+audit_history: "ELEC-009.audit.md"
 ---
 
 # ELEC-009 — Electoral College Structure and National Popular Vote
@@ -102,6 +103,10 @@ The amendment should:
 ## Budgetary Impact Statement
 
 Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. No direct appropriation is anticipated for the amendment itself; implementing legislation may have costs.
+
+## Proposal Scoring
+
+> **Proposal Quality Score:** **[60 / 100](ELEC-009.audit.md)**<br />**Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`<br />**Adoption Friction:** `Unassessed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-009 audit history](ELEC-009.audit.md)
 
 ## Annotation
 

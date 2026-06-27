@@ -10,6 +10,7 @@ audit_status: pending development
 print_levels:
   - public-proposal
   - full-technical
+audit_history: "ELEC-013.audit.md"
 ---
 
 # ELEC-013 — Electoral Competition, Ballot Access, and Debate Gatekeeping
@@ -132,6 +133,10 @@ Future drafting should evaluate whether Congress or the states should:
 ## Budgetary Impact Statement
 
 Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority may be required for voter education, voting-system updates, ballot redesign, tabulation software, public debate administration, or state pilot grants; no dollar estimate is assigned pending source-backed cost data.
+
+## Proposal Scoring
+
+> **Proposal Quality Score:** **[0 / 100](ELEC-013.audit.md)**<br />**Audit Status:** Pending development<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`<br />**Adoption Friction:** `N/A`<br />**Next Audit:** Issue-admission test<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
 
 ## Annotation
 

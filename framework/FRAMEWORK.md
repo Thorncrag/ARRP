@@ -50,7 +50,8 @@ Every developed issue should use the following structure:
 8. **Repair and Prevention** — restoration or correction of existing damage and prospective safeguards against recurrence.
 9. **Proposed Legislation** — link to the proposed legislative, rule, constitutional, or procedural vehicle when one exists.
 10. **Budgetary Impact Statement** — a concise preliminary fiscal classification using the project rubric.
-11. **Annotation** — evidence, legal analysis, qualifications, alternatives, and implementation constraints.
+11. **Proposal Scoring** — a succinct audit and scoring box showing the proposal-quality score, audit status, rubric version, rebaseline status, Required Electoral Environment, Development Priority, Adoption Friction, next audit need, and a link to the sibling full audit-history file.
+12. **Annotation** — evidence, legal analysis, qualifications, alternatives, and implementation constraints.
 
 The headings guide analysis but do not require artificial expansion. Each section should add a distinct proposition.
 
@@ -161,7 +162,7 @@ Before an issue or proposal is treated as ready for external circulation, it sho
 
 The canonical audit rules, resource tiers, Horizon Scan procedure, hallucination-resistance protocol, scoring formula, adoption-score formula, international-support score, output requirements, and audit-preservation rules are maintained in [`../inventory/METHOD.md`](../inventory/METHOD.md#audit-rules-and-proposal-quality-scoring).
 
-Every issue should have a corresponding row in [`../inventory/audits.csv`](../inventory/audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, rebaseline status, Required Electoral Environment, Development Priority, and Adoption Friction Score where assessed. Human-facing audit findings should also appear on the relevant issue page, while [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) provides the compact cross-issue view. Scores should not be compared across different rubric versions without noting the rebaseline status. Adoption Friction should not be treated as part of the Proposal Quality Score, while the Required Electoral Environment should feed Adoption and Implementation scoring under the audit rubric.
+Every issue should have a corresponding row in [`../inventory/audits.csv`](../inventory/audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, rebaseline status, Required Electoral Environment, Development Priority, and Adoption Friction Score where assessed. The relevant issue page should contain a compact **Proposal Scoring** summary, and its full technical audit history should be maintained in a sibling `ISSUE-ID.audit.md` file linked from that section. [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) provides the compact cross-issue view. Scores should not be compared across different rubric versions without noting the rebaseline status. Adoption Friction should not be treated as part of the Proposal Quality Score, while the Required Electoral Environment should feed Adoption and Implementation scoring under the audit rubric.
 
 ## Repository Architecture
 

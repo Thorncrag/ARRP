@@ -9,6 +9,7 @@ legislative_proposal: "../../../legislation/ELEC-002-state.md"
 print_levels:
   - public-proposal
   - full-technical
+audit_history: "ELEC-002.audit.md"
 ---
 
 # ELEC-002 — Pressure on Certification and Canvassing Officials
@@ -107,6 +108,10 @@ Each state should adopt a Model State Election Certification and Automatic Subst
 ## Budgetary Impact Statement
 
 Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
+## Proposal Scoring
+
+> **Proposal Quality Score:** **[60 / 100](ELEC-002.audit.md)**<br />**Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`<br />**Adoption Friction:** `Unassessed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-002 audit history](ELEC-002.audit.md)
 
 ## Annotation
 

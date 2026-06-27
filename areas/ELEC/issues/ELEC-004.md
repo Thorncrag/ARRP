@@ -10,6 +10,7 @@ legislative_proposal: "../../../legislation/ELEC-004-state.md"
 print_levels:
   - public-proposal
   - full-technical
+audit_history: "ELEC-004.audit.md"
 ---
 
 # ELEC-004 — Abuse of Election Litigation and Investigatory Mechanisms
@@ -144,6 +145,10 @@ ELEC-004 may supply the procedural predicate for ELEC-002 or ELEC-005 conduct, b
 ## Budgetary Impact Statement
 
 Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
+## Proposal Scoring
+
+> **Proposal Quality Score:** **[60 / 100](ELEC-004.audit.md)**<br />**Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`<br />**Adoption Friction:** `Unassessed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 

@@ -8,6 +8,7 @@ remedy_type: federal-legislation
 print_levels:
   - public-proposal
   - full-technical
+audit_history: "ELEC-010.audit.md"
 ---
 
 # ELEC-010 — Mail-In Voting Access, Reliability, and Trust
@@ -183,6 +184,10 @@ Congress should also enact federal postal standards for election mail, including
 ## Budgetary Impact Statement
 
 Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority may be required if the chosen remedy funds postage, tracking, or election-administration support; no dollar estimate is assigned pending source-backed cost data.
+
+## Proposal Scoring
+
+> **Proposal Quality Score:** **[55 / 100](ELEC-010.audit.md)**<br />**Audit Status:** HOR-012 integrated as USPS and mail-ballot source-strengthening manifestation; legislation path pending<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`<br />**Adoption Friction:** `Unassessed`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [ELEC-010 audit history](ELEC-010.audit.md)
 
 ## Annotation
 

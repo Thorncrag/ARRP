@@ -10,6 +10,7 @@ federal_legislative_proposal: "../../../legislation/ELEC-003.md"
 print_levels:
   - public-proposal
   - full-technical
+audit_history: "ELEC-003.audit.md"
 ---
 
 # ELEC-003 — Insufficient Protection for Election Workers and Officials
@@ -149,6 +150,10 @@ A threat intended to compel a certification decision may implicate both ELEC-002
 ## Budgetary Impact Statement
 
 Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Budget authority is likely required; no dollar estimate is assigned pending source-backed cost data.
+
+## Proposal Scoring
+
+> **Proposal Quality Score:** **[60 / 100](ELEC-003.audit.md)**<br />**Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`<br />**Adoption Friction:** `Unassessed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-003 audit history](ELEC-003.audit.md)
 
 ## Annotation
 

@@ -10,6 +10,7 @@ federal_legislation: "../../../legislation/ELEC-008.md"
 print_levels:
   - public-proposal
   - full-technical
+audit_history: "ELEC-008.audit.md"
 ---
 
 # ELEC-008 — Accountability for Coordinated Federal Election-Subversion Schemes
@@ -209,6 +210,10 @@ A narrow statute could include:
 ## Budgetary Impact Statement
 
 Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score. Administrative workload is possible; no new appropriation is specified.
+
+## Proposal Scoring
+
+> **Proposal Quality Score:** **[60 / 100](ELEC-008.audit.md)**<br />**Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`<br />**Adoption Friction:** `Unassessed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
 
 ## Annotation
 
