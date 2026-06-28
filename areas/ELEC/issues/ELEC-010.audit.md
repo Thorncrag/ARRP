@@ -99,3 +99,29 @@ No issue-specific audit log has been migrated from the issue page yet. The curre
 **Next audit need:** T4 should verify official court and rulemaking posture, compare the draft against direct prior bills, stress-test constitutional authority and enforcement design, verify privacy and data-handling safeguards, develop fiscal/workload analogues, decide whether to narrow the private right of action, and obtain external election-law, postal-operation, or legislative-counsel review.
 
 **Audit process feedback:** T3 was effective because the primary proposed-rule source changed the evidentiary posture quickly. T4 should start with official docket and rulemaking status before revising text, because the rule's final posture could materially change the remedy.
+
+### 2026-06-28 — T4 publication-ready audit
+
+**Audit status:** T4 publication-ready audit complete; external validation pending
+
+**Proposal-quality score:** 77
+
+**Component score:** Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 7/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. Total: 77.
+
+**Scope reviewed:** T4 reviewed the issue page, bill text, T1/T2/T3 audit history, dashboard row, audit inventory, source inventory, official Federal Register API metadata, GovInfo PDF for 91 Fed. Reg. 32915, public-inspection PDF availability, HAVA and UOCAVA statutory hooks, title 39 statutory hooks, and issue-to-legislation alignment.
+
+**Sources checked:** T4 verified the official Federal Register metadata for *Ballot Mail for Federal Elections*: proposed rule, 91 Fed. Reg. 32915, publication date June 2, 2026, comments due July 2, 2026, and GovInfo PDF URL. T4 also verified that the GovInfo PDF is accessible and confirms key source propositions concerning 39 U.S.C. §§ 401 and 404, DMM 705 amendments, serialized Intelligent Mail barcodes, participation lists, and federal ballot-mail verification architecture.
+
+**Verified findings:** The issue page now cites the published Federal Register/GovInfo proposed-rule record rather than only a public-inspection scheduled-publication source. The issue page and bill remain substantively aligned: both preserve State choice over whether to offer mail voting, impose minimum reliability standards when mail voting is available for Federal elections, treat USPS mailing dates as advisory, and prohibit unauthorized voter-data conditions on lawful election-mail service.
+
+**Current-status and mootness check:** No T4 source makes ELEC-010 moot. The proposed rule's comment period and litigation posture remain relevant. T4 did not verify whether the rule was later finalized, withdrawn, modified, enjoined, or superseded, so final publication-ready reliance requires another current rulemaking and docket-status refresh.
+
+**Legal-durability findings:** The draft is directionally stronger because it amends HAVA and title 39 rather than creating an entirely freestanding election-mail regime. Remaining legal questions include Elections Clause coverage of presidential-election mail-ballot standards, UOCAVA and HAVA interaction, NVRA and Privacy Act implications for voter-data restrictions, sovereign-immunity limits, private-right-of-action scope, Purcell timing concerns, Postal Regulatory Commission interaction, and title 39 codification placement.
+
+**Publication-readiness determination:** ELEC-010 is Review Ready for knowledgeable external critique but not publication-ready or lawmaker-circulation-ready. The proposal has a concrete bill, primary statutory hooks, primary proposed-rule support, and coherent remedy architecture, but still needs external review, official court-order and docket verification, final rulemaking-status check, direct prior-bill comparison, and budget/workload support.
+
+**Unresolved findings:** T4 did not obtain the official Talwani order, docket filings, appeal posture, Senate hearing transcript, Postmaster General testimony, USPS comments, Postal Regulatory Commission materials, final rulemaking status, or external expert review. T4 did not complete a full prior-bill section-by-section comparison or source-backed cost/workload analysis.
+
+**Next audit need:** Run external validation or T4 follow-up after verifying final USPS rulemaking and litigation status, obtaining official court and hearing materials, comparing the draft against direct prior bills, reviewing constitutional and privacy-law durability, narrowing or validating the private right of action, and developing budget/workload analogues.
+
+**Audit process feedback:** T4 completed quickly because the Federal Register API and GovInfo PDF resolved the main rulemaking-source problem. Future T4 follow-up should begin with rulemaking and docket status, because that is the most likely source of material reframing.

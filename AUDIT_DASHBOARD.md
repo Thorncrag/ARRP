@@ -103,8 +103,8 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Reassess predicate | 1 |
 | T2 | 2 |
 | T3 | 0 |
-| T4 publication-ready audit | 1 |
-| T4 follow-up | 13 |
+| T4 publication-ready audit | 0 |
+| T4 follow-up | 14 |
 
 ## Change Audit Log
 
@@ -142,7 +142,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | ELEC-007 | A-02 | High | Developed | 78 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-007.md) | [Bill](legislation/ELEC-007.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | ELEC-008 | A-02 | High | Developed | 74 | Substantially Developed Draft | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-008.md) | [Bill](legislation/ELEC-008.md) | 2026-06-27.2 | current | post-crisis-repair-mandate | active | Extreme Resistance |
 | ELEC-009 | A-02 | High | Developed | 70 | Substantially Developed Draft | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-009.md) | [Amendment](legislation/ELEC-009-amendment.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
-| ELEC-010 | A-02 | High | Developed | 75 | Review Ready | 5 | T3 readiness audit | 2026-06-28 | T4 publication-ready audit | [Issue](areas/ELEC/issues/ELEC-010.md) | [Bill](legislation/ELEC-010.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
+| ELEC-010 | A-02 | High | Developed | 77 | Review Ready | 6 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-010.md) | [Bill](legislation/ELEC-010.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | ELEC-011 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | ELEC-012 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | ELEC-013 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | [Issue](areas/ELEC/issues/ELEC-013.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |

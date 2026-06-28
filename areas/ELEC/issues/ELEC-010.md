@@ -6,11 +6,11 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 proposal_legislation: "../../../legislation/ELEC-010.md"
-audit_status: "T3 readiness audit complete; T4 publication-ready audit pending"
-audit_score: 75
-audit_last_type: "T3 readiness audit"
+audit_status: "T4 publication-ready audit complete; external validation pending"
+audit_score: 77
+audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-06-28"
-audit_next: "T4 publication-ready audit"
+audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 4
@@ -61,7 +61,7 @@ In 2026, Executive Order 14399 sought to link federal citizenship-list construct
 
 Public reporting described litigation blocking or rejecting related federal efforts to create voter-list architecture, restrict mail-ballot distribution, and obtain sensitive state voter data. See Associated Press, [federal voter-list injunction](https://apnews.com/article/b28c3425c1dc968cd0f57c61fb7a684e), [Michigan voter-data appeal](https://apnews.com/article/b73d510dddaf9c96088904b6c44f919a), and [Maryland voter-data lawsuit](https://apnews.com/article/67c94fb8af9cbcf2a0947ad81de5eab4).
 
-USPS published a proposed rule titled [*Ballot Mail for Federal Elections*](https://public-inspection.federalregister.gov/2026-10968.pdf), scheduled for Federal Register publication on June 2, 2026. The proposed rule would amend Domestic Mail Manual standards for federal ballot mail, cite USPS authority under 39 U.S.C. §§ 401 and 404, require serialized Intelligent Mail barcodes on outbound and return federal ballot envelopes, create a mail-in and absentee participation-list process, and establish a verification process tied to state-submitted ballot-mail data. Additional reporting described litigation and Senate testimony concerning whether USPS would refuse to deliver mail ballots if states refused to provide required manifests. See AP, [federal voter-list injunction](https://apnews.com/article/trump-executive-order-elections-mail-voting-b28c3425c1dc968cd0f57c61fb7a684e), The Guardian, [*US judge blocks Trump administration's bid to restrict mail-in voting*](https://www.theguardian.com/us-news/2026/jun/25/judge-blocks-trump-bid-restrict-mail-ballots), and The Daily Beast, [*Trump's Postmaster General Says USPS Wouldn't Mail Absentee Ballots in Under New Rule*](https://www.thedailybeast.com/trumps-postmaster-general-david-steiner-admits-usps-wouldnt-mail-absentee-ballots-in-under-new-rule/).
+USPS published a proposed rule titled [*Ballot Mail for Federal Elections*](https://www.govinfo.gov/content/pkg/FR-2026-06-02/pdf/2026-10968.pdf), 91 Fed. Reg. 32915 (June 2, 2026), with comments due July 2, 2026. The proposed rule would amend Domestic Mail Manual standards for federal ballot mail, cite USPS authority under 39 U.S.C. §§ 401 and 404, require serialized Intelligent Mail barcodes on outbound and return federal ballot envelopes, create a mail-in and absentee participation-list process, and establish a verification process tied to state-submitted ballot-mail data. Additional reporting described litigation and Senate testimony concerning whether USPS would refuse to deliver mail ballots if states refused to provide required manifests. See AP, [federal voter-list injunction](https://apnews.com/article/trump-executive-order-elections-mail-voting-b28c3425c1dc968cd0f57c61fb7a684e), The Guardian, [*US judge blocks Trump administration's bid to restrict mail-in voting*](https://www.theguardian.com/us-news/2026/jun/25/judge-blocks-trump-bid-restrict-mail-ballots), and The Daily Beast, [*Trump's Postmaster General Says USPS Wouldn't Mail Absentee Ballots in Under New Rule*](https://www.thedailybeast.com/trumps-postmaster-general-david-steiner-admits-usps-wouldnt-mail-absentee-ballots-in-under-new-rule/).
 
 This manifestation does not mean that ballot tracking, envelope identifiers, voter-list maintenance, or citizenship verification are categorically illegitimate. The defect is control architecture: federal executive agencies and USPS should not become hidden veto points over state-created lawful mail-voting channels, nor should postal delivery be conditioned on state participation in federal voter-data systems that exceed lawful authority.
 
@@ -209,11 +209,11 @@ Budget authority may be required if the chosen remedy funds postage, tracking, o
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[75 / 100](ELEC-010.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[77 / 100](ELEC-010.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T3 readiness audit complete; T4 publication-ready audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-010 audit history](ELEC-010.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-010 audit history](ELEC-010.audit.md)
 
 ## Annotation
 
@@ -225,7 +225,7 @@ HOR-001 was integrated into this issue only for the mail-ballot and USPS compone
 
 **Remedial Alternatives and Constraints.** A federal statute requiring no-excuse mail voting nationwide would maximize uniform access but would create larger federalism and administrative questions. A model state act would be useful but slower and less uniform for federal-election vulnerabilities. A purely advisory best-practices guide would be simpler but inadequate where rejection, postal disruption, or cure disparities recur. The least-complex adequate approach is a federal floor for federal-election mail ballots plus federal postal-performance standards for election mail.
 
-**Quality Score.** The proposal is 75/100 after T3. Component score: Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior Proposal 7/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. T3 adds the official USPS proposed rule source and stronger title 39 authority mapping, but official court orders, Senate hearing materials, full prior-bill comparison, budget/workload support, final private-enforcement design, and external election-law or postal-operation review remain unresolved.
+**Quality Score.** The proposal is 77/100 after T4. Component score: Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 7/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. T4 verifies the published Federal Register/GovInfo proposed-rule record and confirms issue-to-bill alignment, but official court orders, Senate hearing materials, full prior-bill comparison, budget/workload support, final private-enforcement design, and external election-law or postal-operation review remain unresolved.
 
 **Adoption Score.** Adoption Score is 4/12 because ELEC-010 has a plausible federal statutory vehicle, identifiable prior-proposal families, and both access and integrity framing, but lacks proposal-specific polling, active sponsor support for this narrower framework, bipartisan coalition evidence, state election-official validation, USPS operational validation, or external election-law review.
 
