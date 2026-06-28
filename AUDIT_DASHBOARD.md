@@ -34,8 +34,8 @@ Update this page whenever an audit changes an issue score, audit status, last au
 | Retired/Merged | 13 |
 | Paused | 1 |
 | Pending development | 179 |
-| Developed Draft | 7 |
-| Substantially Developed Draft | 1 |
+| Developed Draft | 6 |
+| Substantially Developed Draft | 2 |
 | Review Ready | 12 |
 | Audit in progress | 0 |
 
@@ -47,10 +47,10 @@ Current audit rubric version: `2026-06-27.2`
 
 | Rebaseline status | Count |
 | --- | ---: |
-| Current | 13 |
+| Current | 14 |
 | Current fixed-status score | 193 |
 | Soft rebaseline needed | 0 |
-| Hard rebaseline needed | 7 |
+| Hard rebaseline needed | 6 |
 
 ## Enactment Pathway
 
@@ -101,8 +101,8 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Development audit | 0 |
 | Issue-admission test | 179 |
 | Reassess predicate | 1 |
-| T2 | 3 |
-| T3 | 0 |
+| T2 | 2 |
+| T3 | 1 |
 | T4 publication-ready audit | 0 |
 | T4 follow-up | 11 |
 
@@ -140,7 +140,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | ELEC-005 | A-02 | High | Developed | 78 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-005.md) | [Bill](legislation/ELEC-005.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | ELEC-006 | A-02 | High | Developed | 76 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-006.md) | [Bill](legislation/ELEC-006.md) | 2026-06-27.2 | current | sixty-vote-senate | active | Significant Resistance |
 | ELEC-007 | A-02 | High | Developed | 78 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-007.md) | [Bill](legislation/ELEC-007.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| ELEC-008 | A-02 | High | Developed | 60 | Developed Draft | 2 | T1 framework check | 2026-06-28 | T2 development audit | [Issue](areas/ELEC/issues/ELEC-008.md) | [Bill](legislation/ELEC-008.md) | 2026-06-27.2 | hard-rebaseline-needed | post-crisis-repair-mandate | active | Extreme Resistance |
+| ELEC-008 | A-02 | High | Developed | 67 | Substantially Developed Draft | 3 | T2 development audit | 2026-06-28 | T3 readiness audit | [Issue](areas/ELEC/issues/ELEC-008.md) | [Bill](legislation/ELEC-008.md) | 2026-06-27.2 | current | post-crisis-repair-mandate | active | Extreme Resistance |
 | ELEC-009 | A-02 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-009.md) | [Bill](legislation/ELEC-009.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | ELEC-010 | A-02 | High | Developed | 55 | Developed Draft | 2 | Horizon integration decision | 2026-06-25 | Development audit | [Issue](areas/ELEC/issues/ELEC-010.md) | — | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | ELEC-011 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |

@@ -7,13 +7,13 @@ priority: high
 remedy_type: federal-legislation
 legislative_status: working-draft
 federal_legislative_proposal: "../../../legislation/ELEC-008.md"
-audit_status: "T1 framework check complete; T2 development audit pending"
-audit_score: 60
-audit_last_type: "T1 framework check"
+audit_status: "T2 development audit complete; T3 readiness audit pending"
+audit_score: 67
+audit_last_type: "T2 development audit"
 audit_last_date: "2026-06-28"
-audit_next: "T2 development audit"
+audit_next: "T3 readiness audit"
 audit_rubric_version: "2026-06-27.2"
-audit_rebaseline_status: "hard-rebaseline-needed"
+audit_rebaseline_status: "current"
 adoption_score: 4
 adoption_score_band: "Limited Adoption Basis"
 adoption_friction_score: 85
@@ -83,7 +83,7 @@ The target is not election denial, political speech, litigation, recounts, or la
 
 The clearest manifestation is the alleged multi-channel effort after the 2020 presidential election to overturn, obstruct, delay, or procure official disregard of the lawful presidential-election result through several different mechanisms that existing law treated largely as separate incidents.
 
-The relevant manifestation is not any single act alone. It is the alleged combination of state-official pressure, false or unauthorized presidential-elector or result-transmission documents, attempted use of federal executive authority, pressure on the Vice President and Congress, and continuing efforts after courts and state officials rejected the asserted factual basis.
+The relevant manifestation is not any single act alone. It is the alleged combination of state-official pressure, false or unauthorized presidential-elector or result-transmission documents, attempted use of federal executive authority, pressure on the Vice President and Congress, and continuing efforts after courts and state officials rejected the asserted factual basis. See the federal indictment in [*United States v. Trump*, No. 23-cr-257](https://www.justice.gov/storage/US_v_Trump_23_cr_257.pdf).
 
 This manifestation exposed a pattern-level gap: existing law supplied tools for pieces of the conduct, but not a narrowly tailored federal statute that clearly treated the coordinated election-subversion pattern as such while preserving lawful litigation, recounts, advocacy, reporting, legal advice, journalism, and congressional procedures.
 
@@ -230,11 +230,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-008.audit.md)** (Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 85 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `post-crisis-repair-mandate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[67 / 100](ELEC-008.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 85 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `post-crisis-repair-mandate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
+> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
 
 ## Annotation
 
@@ -255,3 +255,5 @@ Administrative workload is possible; no new appropriation is specified.
 **Working Draft.** Full statutory drafting has begun. The current draft should be treated as a first-pass framework subject to comparative review of existing proposals and related scholarship. The likely model is a narrow election-specific RICO analogue, not direct incorporation of ordinary RICO.
 
 **Source Development Pending.** Further source development should review the 2022 Electoral Count Reform and Presidential Transition Improvement Act, existing election-crime statutes, obstruction statutes, RICO doctrine, state anti-subversion proposals, Protect Democracy and other reform proposals, post-2020 federal and state prosecutions, congressional election-contest procedures, Article I Section 5 doctrine, and ARRP's presidential-immunity reform.
+
+**Quality Score.** The proposal is 67/100 after T2. Component score: Structural 8/8; Evidence 9/12; Legal Fit 5/10; Prior Proposal 6/8; Remedy 8/12; Implementation 5/8; Abuse Resistance 6/8; Drafting 7/8; Cogency 5/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. The proposal is substantially developed but not Review Ready because the RICO-like framework remains constitutionally and politically high-risk and needs deeper review of First Amendment, Petition Clause, Speech or Debate, Article I Section 5, presidential-immunity, federalism, prosecutorial-discretion, safe-harbor, and civil-enforcement design.
