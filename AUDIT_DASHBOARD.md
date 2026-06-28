@@ -102,8 +102,8 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Issue-admission test | 179 |
 | Reassess predicate | 1 |
 | T2 | 3 |
-| T3 | 1 |
-| T4 follow-up | 4 |
+| T3 | 0 |
+| T4 follow-up | 5 |
 
 ## Change Audit Log
 
@@ -153,7 +153,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | WAR-006 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | WAR-007 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | WAR-008 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| JUD-001 | A-04 | High | Developed | 69 | Substantially Developed Draft | 3 | T2 development audit | 2026-06-28 | T3 readiness audit | [Issue](areas/JUD/issues/JUD-001.md) | [Bill](legislation/JUD-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
+| JUD-001 | A-04 | High | Developed | 74 | Substantially Developed Draft | 4 | T3 readiness audit | 2026-06-28 | T4 publication-ready audit | [Issue](areas/JUD/issues/JUD-001.md) | [Bill](legislation/JUD-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | JUD-002 | A-04 | High | Retired—merged into JUD-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/JUD/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | JUD-003 | A-04 | High | Retired—merged into JUD-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/JUD/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | JUD-004 | A-04 | High | Retired—merged into JUD-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/JUD/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
