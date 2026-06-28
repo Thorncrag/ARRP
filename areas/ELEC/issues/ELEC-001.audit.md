@@ -12,6 +12,34 @@ This file preserves the full audit history for [ELEC-001](ELEC-001.md). The issu
 
 ## Audit History
 
+### 2026-06-28 — T4 Publication-Ready Audit
+
+**Audit status:** T4 publication-ready audit complete; external validation pending
+
+**Audit scope:** This T4 audit reviewed ELEC-001, the linked bill, Hatch Act statutory sources, official OSC Hatch Act source support, 18 U.S.C. §§ 241-242 and 595, 28 U.S.C. § 2284, EO 14399 source leads, AP current-status reporting, issue-to-legislation alignment, budget posture, adoption posture, and publication blockers. It did not locate primary court orders for all 2026 EO 14399 litigation or complete external election-law review.
+
+**Current-status and mootness check:** No current law, judicial decision, or enacted reform located during T4 moots ELEC-001. Existing reporting that courts blocked or rejected major components of the EO 14399 election-control architecture does not make the proposal obsolete; it shows that courts can respond to individual episodes, while the project proposal addresses prospective misuse of federal executive authority against state and local election functions.
+
+**Source and litigation finding:** Federal Register EO 14399 remains the primary source for the executive architecture. AP reporting remains adequate as a current-status source lead for the federal voter-list injunction, Michigan voter-data appeal, and Maryland voter-data lawsuit at internal review stage. T4 did not obtain primary court orders or docket materials sufficient for publication-ready reliance.
+
+**Legal-fit finding:** The proposal is Review Ready because it is candidly anchored in existing Hatch Act and criminal-law comparators and preserves lawful federal voting-rights, cybersecurity, foreign-interference, and election-crime functions. T4 still flags state standing, direct relief against the President, subordinate-official relief, Purcell-style timing constraints, criminal-law fair notice, presidential-immunity limits, and three-judge-court fit as external-review needs.
+
+**Issue-to-legislation alignment:** No material discrepancy was found between the issue page and linked bill. The issue and bill remain aligned on Hatch Act extension, limited application to the President and Vice President only for result-directed election interference, contact records, state-initiated civil enforcement, companion criminal penalties, lawful-function exceptions, DOJ-007 referral, and IMM-001 coordination.
+
+**Budgetary-impact finding:** The current budget classification remains acceptable for internal review: administrative workload is possible, and no new appropriation is specified. Publication-ready work should test whether OSC, OIG, Public Integrity, court, record-preservation, congressional-reporting, and state-reimbursement features require budget-authority language.
+
+**Adoption and friction finding:** Adoption Score remains 5/12. Adoption Friction remains 88/100. T4 did not locate proposal-specific polling, active sponsor coalition, bipartisan prior-proposal analogue, state election-official endorsement, or external validator support sufficient to raise adoption credit.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 10/12; Legal Fit 8/10; Prior-Proposal 5/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 77/100 (Review Ready).
+
+**Score effect:** Score increased from 74 to 77 because T4 confirmed the current-source posture, strengthened the legal-fit analysis, verified proposal-to-legislation alignment, and clarified publication blockers. The proposal is Review Ready for knowledgeable external critique but not publication-ready or lawmaker-circulation-ready.
+
+**Defects corrected during the audit:** Updated the issue-page score, metadata, Quality Score annotation, audit history, audit inventory, and Audit Dashboard. No legislative text was changed during T4.
+
+**Publication blockers:** Obtain primary court orders and docket materials for the EO 14399 injunction, Michigan voter-data appeal, and Maryland voter-data lawsuit; complete Congress.gov prior-proposal research; obtain election-law or legislative-counsel review; test state standing and equitable relief; narrow criminal-law language if necessary; test direct presidential-relief limits; verify three-judge-court fit; and develop budget-authority support if needed.
+
+**Audit process feedback:** ELEC-001 is a good example of a proposal that can be Review Ready without every current-event source being publication-grade. T4 should keep unresolved court-record work visible rather than delaying all advancement until every docket source is located.
+
 ### 2026-06-28 — T3 Readiness Audit
 
 **Audit status:** T3 readiness audit complete; T4 publication audit and external review pending

@@ -6,11 +6,11 @@ status: developed
 priority: high
 remedy_type: hatch-act-amendment-and-companion-enforcement
 legislative_proposal: "../../../legislation/ELEC-001.md"
-audit_status: "T3 readiness audit complete; T4 publication audit and external review pending"
-audit_score: 74
-audit_last_type: "T3 readiness audit"
+audit_status: "T4 publication-ready audit complete; external validation pending"
+audit_score: 77
+audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-06-28"
-audit_next: "T4 publication-ready audit / external review"
+audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 5
@@ -151,11 +151,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[74 / 100](ELEC-001.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 88 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[77 / 100](ELEC-001.audit.md)** (Review Ready)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 88 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T3 readiness audit complete; T4 publication audit and external review pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit / external review<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
 
 ## Annotation
 
@@ -165,7 +165,7 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Remedial Alternatives and Constraints.** A wholly freestanding statute would permit cleaner organization but would duplicate the Hatch Act’s established official-authority principle and enforcement institutions. Amending only the Hatch Act would remain inadequate because OSC–MSPB proceedings cannot supply rapid state-initiated injunctions and should not convert every administrative violation into a felony. The least-complex adequate solution is therefore a Hatch Act amendment with companion civil and criminal titles.
 
-**Quality Score.** The 74/100 score reflects a stronger Substantially Developed Draft after T3. The proposal has a coherent Hatch Act anchor, a linked companion civil and criminal enforcement draft, improved primary statutory source support, official OSC support for the baseline Hatch Act principle, and clear relationship to DOJ-007 and IMM-001. It remains just below Review Ready because primary court records for the 2026 litigation, prior-proposal research, state-plaintiff standing analysis, criminal-law narrowing, budgetary-source development, and external election-law review remain incomplete.
+**Quality Score.** The 77/100 score reflects a Review Ready draft suitable for knowledgeable external critique. T4 verified the Hatch Act anchor, official OSC baseline, companion 18 U.S.C. § 595A concept, adjacent rights-statute comparators, three-judge-court source, current EO 14399 source lead, issue-to-legislation alignment, budget caveat, and adoption/friction posture. The score remains below publication-ready because primary court orders for the 2026 litigation, fuller prior-proposal research, state-plaintiff standing analysis, criminal-law narrowing, budgetary-source development, and external election-law review remain incomplete.
 
 **Adoption Score.** The 5/12 score is limited. ELEC-001 has strong institutional salience, an existing-law anchor in the Hatch Act, and neutral election-integrity framing, but T1 did not identify proposal-specific polling, active sponsors, a bipartisan prior bill, state attorney-general coalition support, or external election-law validation for the full mechanism.
 
