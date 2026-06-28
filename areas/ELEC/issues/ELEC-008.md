@@ -6,14 +6,22 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 legislative_status: working-draft
-federal_legislation: "../../../legislation/ELEC-008.md"
-audit_status: "Structural audit complete; advanced audits pending"
+federal_legislative_proposal: "../../../legislation/ELEC-008.md"
+audit_status: "T1 framework check complete; T2 development audit pending"
 audit_score: 60
-audit_last_type: "Initial framework and inventory audit"
-audit_last_date: "2026-06-24"
-audit_next: "Advanced audit"
-audit_rubric_version: "pre-2026-06-27.1"
+audit_last_type: "T1 framework check"
+audit_last_date: "2026-06-28"
+audit_next: "T2 development audit"
+audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "hard-rebaseline-needed"
+adoption_score: 4
+adoption_score_band: "Limited Adoption Basis"
+adoption_friction_score: 85
+adoption_friction_band: "Extreme Resistance"
+required_electoral_environment: "post-crisis-repair-mandate"
+pathway_viability: "post-crisis-only"
+development_priority: "active"
+pathway_adjustment: "stage"
 print_levels:
   - public-proposal
   - full-technical
@@ -178,7 +186,7 @@ No person should be liable merely for asserting that an election was unlawful, s
 
 ## Proposal Survey
 
-The closest legal analogue is RICO, which treats coordinated patterns of predicate misconduct as a distinct statutory wrong. See [18 U.S.C. §§ 1961-1968](https://www.law.cornell.edu/uscode/text/18/chapter-96). Ordinary RICO is too broad for election disputes because protected speech, litigation, recounts, contests, journalism, and congressional activity must be preserved.
+The closest legal analogue is RICO, which treats coordinated patterns of predicate misconduct as a distinct statutory wrong. See [18 U.S.C. chapter 96](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter96&edition=prelim). Ordinary RICO is too broad for election disputes because protected speech, litigation, recounts, contests, journalism, and congressional activity must be preserved.
 
 Congress also partially addressed presidential-election subversion through the Electoral Count Reform Act, but that reform hardened electoral-count procedures rather than creating scheme-level accountability. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). ELEC-008 therefore uses a narrow election-specific RICO analogue with defined predicates and safe harbors.
 
@@ -222,11 +230,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-008.audit.md)** (Developed Draft)<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+> **Proposal Quality Score:** **[60 / 100](ELEC-008.audit.md)** (Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 85 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `post-crisis-repair-mandate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
+> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
 
 ## Annotation
 
