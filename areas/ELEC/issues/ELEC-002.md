@@ -6,11 +6,11 @@ status: developed
 priority: high
 remedy_type: model-state-legislation
 legislative_proposal: "../../../legislation/ELEC-002-state.md"
-audit_status: "T3 readiness audit complete; T4 publication audit and external review pending"
-audit_score: 74
-audit_last_type: "T3 readiness audit"
+audit_status: "T4 publication-ready audit complete; external validation pending"
+audit_score: 76
+audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-06-28"
-audit_next: "T4 publication-ready audit / external review"
+audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 5
@@ -127,11 +127,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[74 / 100](ELEC-002.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 58 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[76 / 100](ELEC-002.audit.md)** (Review Ready)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 58 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T3 readiness audit complete; T4 publication audit and external review pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit / external review<br />**Full Audit History:** [ELEC-002 audit history](ELEC-002.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-002 audit history](ELEC-002.audit.md)
 
 ## Annotation
 
@@ -141,7 +141,7 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Qualification.** Certification must not become automatic in the sense of ignoring a demonstrated defect that state law assigns the certifier to resolve. The model statute therefore permits narrow, written identification of defects within the official’s lawful authority while prohibiting generalized investigation or relitigation through the certification process.
 
-**Quality Score.** The 74/100 score reflects a stronger Substantially Developed Draft after T3. The proposal has a coherent model state bill, multiple sourced manifestations, a clear ministerial-duty theory, automatic substitution architecture, ECRA background treatment, and a plausible state-by-state adoption pathway. It remains just below Review Ready because primary court orders or official state records, representative state statutory comparisons, administrator/stakeholder validation, federal-floor analysis, and penalty calibration remain incomplete.
+**Quality Score.** The 76/100 score reflects a Review Ready draft suitable for knowledgeable external critique. T4 verified the model-state vehicle, ministerial-duty theory, automatic substitution design, manifestation source coverage, ECRA background treatment, issue-to-legislation alignment, budget caveat, and state-by-state adoption posture. The score remains below publication-ready because primary court orders or official state records, representative state statutory comparisons, administrator/stakeholder validation, federal-floor analysis, optional appropriation language, and penalty calibration remain incomplete.
 
 **Adoption Score.** The 5/12 score is limited. ELEC-002 has a plausible state-level model-law path and concrete recent examples, but T1 did not identify proposal-specific polling, state sponsor coalitions, election-administrator endorsements, bipartisan adoption records, or comparable enacted model-law uptake.
 

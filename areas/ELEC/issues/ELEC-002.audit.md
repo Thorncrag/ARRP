@@ -12,6 +12,34 @@ This file preserves the full audit history for [ELEC-002](ELEC-002.md). The issu
 
 ## Audit History
 
+### 2026-06-28 — T4 Publication-Ready Audit
+
+**Audit status:** T4 publication-ready audit complete; external validation pending
+
+**Audit scope:** This T4 audit reviewed ELEC-002, the linked model state bill, manifestation source coverage, ECRA source leads, state-level pathway fields, issue-to-legislation alignment, budget posture, adoption posture, and publication blockers. It did not obtain qualified external review or primary records for every manifestation.
+
+**Current-status and mootness check:** No current law, judicial decision, or enacted reform located during T4 moots ELEC-002. Court-ordered certification in individual cases reinforces rather than eliminates the need for clearer state statutes, automatic substitution, and emergency enforcement.
+
+**Source finding:** ELEC-002 is internally Review Ready because every manifestation now has nearby source support and the source inventory captures the relevant reporting. It is not publication-ready because the principal examples still rely substantially on secondary reporting rather than primary court orders, official county records, official secretary-of-state records, or official plea/case records.
+
+**Legal-fit finding:** The state-model vehicle remains legally appropriate. T4 confirms that the proposal should not be converted into federal primary legislation at this stage. A separate federal-floor proposal may be considered later only if state-by-state model adoption proves insufficient for elections containing federal offices.
+
+**Issue-to-legislation alignment:** No material discrepancy was found between the issue page and model bill. The proposal and bill are aligned on ministerial certification, specific defect findings, referral without withholding certification, automatic substitution, expedited judicial enforcement, preservation of recounts and election contests, matter-specific removal, civil and criminal consequences, anti-coercion, and public records.
+
+**Budgetary-impact finding:** Administrative workload remains possible and no new appropriation is specified. Publication follow-up should decide whether the model act needs optional appropriation or implementation-cost language for training, court procedures, substitute-certifier administration, and enforcement.
+
+**Adoption and friction finding:** Adoption Score remains 5/12. Adoption Friction remains 58/100. T4 did not locate proposal-specific polling, election-administrator endorsements, model-law organization support, bipartisan state sponsor evidence, or enacted state analogues sufficient to raise adoption credit.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior-Proposal 5/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 76/100 (Review Ready).
+
+**Score effect:** Score increased from 74 to 76 because T4 confirmed source coverage, state-model vehicle fit, issue-to-legislation alignment, and publication blockers. The proposal is Review Ready for knowledgeable external critique but not publication-ready or model-law circulation-ready.
+
+**Defects corrected during the audit:** Updated the issue-page score, metadata, Quality Score annotation, audit history, audit inventory, and Audit Dashboard. No legislative text was changed during T4.
+
+**Publication blockers:** Obtain primary records for the Wayne County, Otero County, Cochise County, and Fulton County examples; compare representative state certification statutes; test standing and direct-certification authority in model states; calibrate civil and criminal penalties; seek election-administrator or state-law expert review; decide whether optional appropriation language is needed; and separately assess any federal-floor proposal.
+
+**Audit process feedback:** ELEC-002 is strong enough for expert review without pretending its example sourcing is finished. Future work should trade breadth for primary records on the strongest examples.
+
 ### 2026-06-28 — T3 Readiness Audit
 
 **Audit status:** T3 readiness audit complete; T4 publication audit and external review pending
