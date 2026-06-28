@@ -7,11 +7,11 @@ priority: high
 remedy_type: federal-legislation
 legislative_status: working-draft
 federal_legislative_proposal: "../../../legislation/ELEC-008.md"
-audit_status: "T3 readiness audit complete; T4 publication-ready audit pending"
-audit_score: 72
-audit_last_type: "T3 readiness audit"
+audit_status: "T4 publication-ready audit complete; external validation needed before circulation"
+audit_score: 74
+audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-06-28"
-audit_next: "T4 publication-ready audit"
+audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 4
@@ -232,11 +232,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[72 / 100](ELEC-008.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 85 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `post-crisis-repair-mandate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[74 / 100](ELEC-008.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 85 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `post-crisis-repair-mandate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T3 readiness audit complete; T4 publication-ready audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; external validation needed before circulation<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
 
 ## Annotation
 
@@ -258,6 +258,8 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Source Development Pending.** Further source development should review the 2022 Electoral Count Reform and Presidential Transition Improvement Act, existing election-crime statutes, obstruction statutes, RICO doctrine, state anti-subversion proposals, Protect Democracy and other reform proposals, post-2020 federal and state prosecutions, congressional election-contest procedures, Article I Section 5 doctrine, and ARRP's presidential-immunity reform.
 
-**Quality Score.** The proposal is 72/100 after T3. Component score: Structural 8/8; Evidence 10/12; Legal Fit 6/10; Prior Proposal 6/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. The score increased because T3 added primary-source comparison to existing federal criminal statutes, *Fischer*, and *Trump v. United States*, and confirmed that the bill's predicate-act and safe-harbor design partly responds to those limits. It remains below Review Ready because direct Congress.gov/prior-proposal research, official docket-posture verification, state-enforcement anti-weaponization analysis, budget/workload analogues, and external criminal-law, election-law, federal-courts, or legislative-counsel review remain unresolved.
+**Quality Score.** The proposal is 74/100 after T4. Component score: Structural 8/8; Evidence 11/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 5/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. T4 strengthened source grounding and confirmed that the bill's predicate-act, safe-harbor, congressional-protection, and presidential-immunity caveats are directionally appropriate. It remains below Review Ready because direct prior-proposal research, official docket-posture verification, state-enforcement anti-weaponization analysis, budget/workload analogues, safe-harbor stress testing, Title 18 codification review, and external criminal-law, election-law, federal-courts, or legislative-counsel review remain unresolved.
 
 **Legal Fit.** Existing conspiracy, voting-rights, and obstruction statutes provide component-law support, but *Fischer* cautions against unbounded obstruction theories and *Trump v. United States* requires official-act and evidence-use limits for presidential applications. ELEC-008 should therefore remain predicate-act-based, safe-harbor-heavy, and complementary to IMM-001 rather than relying on a general obstruction or election-denial theory.
+
+**Case Posture.** The federal election-subversion prosecution did not produce adjudicated findings. DOJ's final Special Counsel report should be treated as the government's prosecution assessment and source lead, not as a judicial determination of fact. See [Final Report on the Special Counsel's Investigations and Prosecutions, Volume One](https://www.justice.gov/storage/Report-of-Special-Counsel-Smith-Volume-1-January-2025.pdf).
