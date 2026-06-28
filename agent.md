@@ -54,6 +54,18 @@ Autonomous Batch Audit Mode is used only when the user expressly asks for autono
 
 The batch objective is to move eligible developed proposals toward T4 readiness while conserving resources and avoiding unsupervised substantive overreach.
 
+### Batch Preflight
+
+Before starting an autonomous batch run, the agent must:
+
+1. confirm the working tree is clean, or stop and report the existing uncommitted files without beginning new audit work;
+2. confirm the current branch and remote target are understood;
+3. confirm the repository can read the latest local project rules, including this file, [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md), [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md), and [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md);
+4. check the latest relevant audit record before each issue and skip any issue with unresolved human-review blockers unless the user has expressly authorized proceeding; and
+5. if the run is scheduled inside a defined work window, confirm that the first planned unit can reasonably fit inside the remaining window.
+
+If the preflight fails, do not begin autonomous edits. Record the reason in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) when appropriate and notify the user.
+
 ### Eligible Items
 
 By default, include only developed issues with issue pages and linked proposal vehicles. Exclude retired, merged, candidate, pending-development, paused, or awaiting-finding issues unless the user expressly includes them.
@@ -121,6 +133,8 @@ Agents should not edit the same file set at the same time unless a coordinator a
 
 Batch work should apply the audit tier time estimates as planning ceilings, not obligations. If a tier is complete early, stop early. If a tier is running long, finish only if it is likely to complete within the methodology's overage limit and is not crowding out the rest of the batch.
 
+For scheduled batch windows, the agent should stop before beginning a new audit unit that cannot reasonably be completed, validated, committed, pushed, and logged inside the remaining window. If a unit is already near completion when the window is ending, the agent may finish the current validation/commit/push cycle if doing so is safer than leaving partial work, but should not start a new issue.
+
 When deciding whether to continue research, ask:
 
 1. Will this likely change the score, remedy, source reliability, or next-audit need?
@@ -143,6 +157,8 @@ Each completed issue audit should leave:
 7. a commit pushed to GitHub.
 
 If validation cannot be completed because of a tool or environment failure, preserve the work if possible, record the skipped check, and notify the user.
+
+If commit or push fails, stop the batch after preserving the work locally, record the failure and changed files in the agent audit log or final report, and do not begin another issue until the repository state and authentication problem are resolved.
 
 ## Self-Validation Requirement
 

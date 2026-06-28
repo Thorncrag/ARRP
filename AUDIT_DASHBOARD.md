@@ -34,9 +34,9 @@ Update this page whenever an audit changes an issue score, audit status, last au
 | Retired/Merged | 13 |
 | Paused | 1 |
 | Pending development | 179 |
-| Developed Draft | 2 |
+| Developed Draft | 1 |
 | Substantially Developed Draft | 3 |
-| Review Ready | 15 |
+| Review Ready | 16 |
 | Audit in progress | 0 |
 
 ## Rubric Rebaseline
@@ -128,7 +128,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | DOJ-002 | A-01 | High | Developed | 78 | Review Ready | 6 | T4 publication-ready audit | 2026-06-27 | T4 follow-up | [Issue](areas/DOJ/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) | 2026-06-27.2 | current | current-law-available | active | Extreme Resistance |
 | DOJ-003 | A-01 | High | Developed | 82 | Review Ready | 7 | Change Audit | 2026-06-27 | T4 follow-up / external validation | [Issue](areas/DOJ/issues/DOJ-003.md) | [Bill](legislation/DOJ-003.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | DOJ-004 | A-01 | High | Awaiting merits adjudication | 0 | Paused | 2 | T1 predicate check | 2026-06-27 | Reassess predicate | [Issue](areas/DOJ/issues/DOJ-004.md) | — | 2026-06-27.2 | current-fixed-status | N/A | N/A | N/A |
-| DOJ-005 | A-01 | High | Developed | 60 | Developed Draft | 3 | T2 blocker review | 2026-06-28 | Human review: authorize existing-law redraft, then T2 development audit | [Issue](areas/DOJ/issues/DOJ-005.md) | [Bill](legislation/DOJ-005.md) | 2026-06-27.2 | hard-rebaseline-needed | sixty-vote-senate | active | High Resistance |
+| DOJ-005 | A-01 | High | Developed | 76 | Review Ready | 5 | T3 readiness audit | 2026-06-28 | T4 follow-up / external validation | [Issue](areas/DOJ/issues/DOJ-005.md) | [Bill](legislation/DOJ-005.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | DOJ-006 | A-01 | High | Retired—merged into DOJ-002 and DOJ-007 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/DOJ/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | DOJ-007 | A-01 | High | Developed | 78 | Review Ready | 8 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/DOJ/issues/DOJ-007.md) | [Amendment](legislation/DOJ-007-amendment.md); [Act](legislation/DOJ-007.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
 | DOJ-008 | A-01 | High | Retired—merged into DOJ-003 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/DOJ/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
