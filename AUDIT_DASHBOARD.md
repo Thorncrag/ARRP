@@ -103,8 +103,8 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Reassess predicate | 1 |
 | T2 | 2 |
 | T3 | 0 |
-| T4 publication-ready audit | 1 |
-| T4 follow-up | 16 |
+| T4 publication-ready audit | 0 |
+| T4 follow-up | 17 |
 
 ## Change Audit Log
 
@@ -146,7 +146,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | ELEC-011 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | ELEC-012 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | ELEC-013 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | [Issue](areas/ELEC/issues/ELEC-013.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| WAR-001 | A-03 | High | Developed | 76 | Review Ready | 4 | T3 readiness audit | 2026-06-28 | T4 publication-ready audit | [Issue](areas/WAR/issues/WAR-001.md) | [Bill](legislation/WAR-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
+| WAR-001 | A-03 | High | Developed | 77 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/WAR/issues/WAR-001.md) | [Bill](legislation/WAR-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | WAR-002 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | WAR-003 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | WAR-004 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
