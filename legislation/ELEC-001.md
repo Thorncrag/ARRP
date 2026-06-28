@@ -275,4 +275,4 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Source Notes
 
-- Source review should include the Hatch Act subchapter, [5 U.S.C. §§ 7321-7326](https://uscode.house.gov/view.xhtml?edition=prelim&path=%2Fprelim%40title5%2Fpart3%2FsubpartF%2Fchapter73%2Fsubchapter3), and [Trump v. United States](https://www.supremecourt.gov/opinions/23pdf/23-939_e2pg.pdf).
+- Source review should include the Hatch Act subchapter, [5 U.S.C. §§ 7321-7326](https://uscode.house.gov/view.xhtml?edition=prelim&path=%2Fprelim%40title5%2Fpart3%2FsubpartF%2Fchapter73%2Fsubchapter3), [18 U.S.C. § 595](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section595&num=0&edition=prelim), the January 6th Committee [Final Report](https://www.govinfo.gov/content/pkg/GPO-J6-REPORT/pdf/GPO-J6-REPORT.pdf), and [Trump v. United States](https://www.supremecourt.gov/opinions/23pdf/23-939_e2pg.pdf).

@@ -6,13 +6,20 @@ status: developed
 priority: high
 remedy_type: hatch-act-amendment-and-companion-enforcement
 legislative_proposal: "../../../legislation/ELEC-001.md"
-audit_status: "HOR-012 integrated as source-strengthening manifestation; advanced audits pending"
+audit_status: "T1 framework check complete; T2 development audit pending"
 audit_score: 60
-audit_last_type: "Horizon integration decision"
-audit_last_date: "2026-06-25"
-audit_next: "Source-development pass"
-audit_rubric_version: "pre-2026-06-27.1"
+audit_last_type: "T1 framework check"
+audit_last_date: "2026-06-28"
+audit_next: "T2 development audit"
+audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "hard-rebaseline-needed"
+adoption_score: 5
+adoption_friction_score: 88
+adoption_friction_band: "Extreme Resistance"
+required_electoral_environment: "sixty-vote-senate"
+pathway_viability: "plausible-after-wave"
+development_priority: "active"
+pathway_adjustment: "stage"
 print_levels:
   - public-proposal
   - full-technical
@@ -33,7 +40,7 @@ The President and other federal executive officials possess substantial investig
 
 ### Georgia result-pressure call
 
-On January 2, 2021, President Trump called Georgia Secretary of State Brad Raffensperger after Georgia had certified its presidential election result and completed multiple reviews of the vote. President Trump asked Raffensperger to “find 11,780 votes,” the number necessary to reverse President Trump’s certified defeat, and invoked possible criminal consequences while urging state officials to act.
+On January 2, 2021, President Trump called Georgia Secretary of State Brad Raffensperger after Georgia had certified its presidential election result and completed multiple reviews of the vote. President Trump asked Raffensperger to “find 11,780 votes,” the number necessary to reverse President Trump’s certified defeat, and invoked possible criminal consequences while urging state officials to act. See the U.S. House Select Committee to Investigate the January 6th Attack, [Final Report](https://www.govinfo.gov/content/pkg/GPO-J6-REPORT/pdf/GPO-J6-REPORT.pdf).
 
 The institutional significance does not depend on a final criminal judgment:
 
@@ -70,7 +77,7 @@ The central gap is therefore not the absence of every possible legal prohibition
 
 ## Proposal Survey
 
-The Hatch Act already prohibits many federal employees from using official authority to interfere with or affect an election, but it excludes the President and Vice President from the relevant employee definition. See [5 U.S.C. §§ 7322-7323](https://www.law.cornell.edu/uscode/text/5/part-III/subpart-F/chapter-73/subchapter-III). Criminal law also contains narrower election-interference provisions. See [18 U.S.C. § 595](https://www.law.cornell.edu/uscode/text/18/595).
+The Hatch Act already prohibits many federal employees from using official authority to interfere with or affect an election, but it excludes the President and Vice President from the relevant employee definition. See [5 U.S.C. §§ 7321-7326](https://uscode.house.gov/view.xhtml?edition=prelim&path=%2Fprelim%40title5%2Fpart3%2FsubpartF%2Fchapter73%2Fsubchapter3). Criminal law also contains narrower election-interference provisions. See [18 U.S.C. § 595](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section595&num=0&edition=prelim).
 
 Civil-rights and voting-rights statutes may reach some coercive conduct, but they do not create a complete state-initiated emergency remedy for misuse of federal executive power. ELEC-001 therefore extends the Hatch Act principle while adding civil and criminal enforcement suited to state election functions.
 
@@ -142,11 +149,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-001.audit.md)** (Developed Draft)<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+> **Proposal Quality Score:** **[60 / 100](ELEC-001.audit.md)** (Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 88 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** HOR-012 integrated as source-strengthening manifestation; advanced audits pending<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
+> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
 
 ## Annotation
 
@@ -155,3 +162,13 @@ Administrative workload is possible; no new appropriation is specified.
 **Qualification.** Federal executive officials retain lawful responsibilities concerning voting rights, election crimes, campaign finance, foreign interference, cybersecurity, federal judicial process, and other functions assigned by the Constitution or Congress. The proposal regulates misuse of federal office, not political speech, criticism, litigation, or good-faith execution of federal law. The term “partisan” is deliberately not used as an operative limitation because prohibited conduct may be personal, candidate-specific, retaliatory, factional, or otherwise result-directed without fitting a narrow partisan classification.
 
 **Remedial Alternatives and Constraints.** A wholly freestanding statute would permit cleaner organization but would duplicate the Hatch Act’s established official-authority principle and enforcement institutions. Amending only the Hatch Act would remain inadequate because OSC–MSPB proceedings cannot supply rapid state-initiated injunctions and should not convert every administrative violation into a felony. The least-complex adequate solution is therefore a Hatch Act amendment with companion civil and criminal titles.
+
+**Quality Score.** The 60/100 score remains a Developed Draft placeholder after T1 because the issue has a coherent framework, a linked bill, a plausible existing-law anchor, and substantial source leads, but the current component formula has not yet been recalculated. T2 should perform the first full current-rubric score.
+
+**Adoption Score.** The 5/12 score is limited. ELEC-001 has strong institutional salience, an existing-law anchor in the Hatch Act, and neutral election-integrity framing, but T1 did not identify proposal-specific polling, active sponsors, a bipartisan prior bill, state attorney-general coalition support, or external election-law validation for the full mechanism.
+
+**Adoption Friction.** The 88/100 score is Extreme Resistance. The proposal would regulate presidential and senior executive conduct in election administration, create state-initiated emergency litigation, add criminal exposure, and interact with presidential-immunity doctrine, making organized partisan, executive-power, and constitutional opposition highly likely.
+
+**Required Electoral Environment.** The required environment is `sixty-vote-senate`, with Pathway Viability `plausible-after-wave` and Pathway Adjustment `stage`. The bill is ordinary federal legislation and does not require constitutional amendment, but adoption likely requires a Senate environment capable of overcoming filibuster constraints or an unusually strong post-election-abuse mandate.
+
+**Development Priority.** The priority is `active` because the proposal addresses a high-salience electoral-institution vulnerability, has a concrete draft, and can be substantially improved through T2 source development, existing-law fit review, and prior-proposal research.
