@@ -12,6 +12,34 @@ This file preserves the full audit history for [ELEC-003](ELEC-003.md). The issu
 
 ## Audit History
 
+### 2026-06-28 — T4 Publication-Ready Audit
+
+**Audit status:** T4 publication-ready audit complete; external validation pending
+
+**Audit scope:** This T4 audit reviewed ELEC-003, the linked model state bill, the linked federal HAVA amendment, statutory source coverage, Maryland's state-law analogue, the Election Official Legal Defense Network functional analogue, prosecution-limit source support, issue-to-legislation alignment, legal durability, abuse resistance, implementation posture, adoption posture, and publication blockers. It did not obtain qualified external review, a complete Congress.gov/state-legislature survey, primary records for every manifestation, or a source-backed fiscal estimate.
+
+**Current-status and mootness check:** No current law, judicial decision, enacted reform, or factual development located during T4 moots ELEC-003. Existing prosecutions and state-law responses reinforce the issue rather than eliminating it: criminal enforcement can punish some true threats, but it does not itself supply rapid protective assistance, continuity planning, address confidentiality, family support, workforce retention, or stable funding.
+
+**Source-refresh finding:** T4 confirms that ELEC-003 is internally source-supported enough for knowledgeable external critique. It now has official U.S. Code source coverage for 52 U.S.C. § 10307, 18 U.S.C. § 875, and HAVA; a primary Maryland legislative source lead for an enacted state analogue; a functional legal-assistance analogue through EOLDN; and multiple manifestation sources. It remains below publication-final because the core real-world examples still need primary records or direct official materials wherever available.
+
+**Legal-durability finding:** The coupled state/HAVA vehicle remains the least-complex adequate remedy. The state model owns direct protection and enforcement; the federal proposal supplies only voluntary formula funding, statutory minimums, objective review, fiscal controls, and noninterference. T4 did not identify a material issue-to-legislation discrepancy or a reason to convert the proposal into a federal operational-control regime.
+
+**Judicial-scrutiny finding:** The main legal risks are manageable but must remain visible. Threat, harassment, doxxing, and protective-order provisions must be construed consistently with the First Amendment, *Counterman v. Colorado*, due process, state public-records law, and state constitutional limits. The HAVA amendment should retain clear statutory conditions, voluntary participation, no unrelated-funding leverage, ministerial EAC review, and de novo judicial review to reduce Spending Clause, anti-commandeering, and federalism objections.
+
+**Budgetary-impact finding:** Budget authority is likely required, but no dollar estimate should be added yet. T4 did not locate a sufficiently comparable, source-backed cost basis for the full state/federal package. External or follow-up work should search HAVA appropriations, EAC grant-administration material, state election-security grant records, address-confidentiality program costs, emergency protective-service costs, and continuity-planning costs.
+
+**Adoption and friction finding:** Adoption Score remains 5/12. Adoption Friction remains 58/100. Maryland's law and EOLDN support practical grounding, but the project still lacks proposal-specific polling, bipartisan sponsor evidence for the full package, administrator endorsements, state-by-state uptake evidence, or a coalition map sufficient to increase adoption credit.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior-Proposal 6/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 77/100 (Review Ready).
+
+**Score effect:** Score increased from 74 to 77 because T4 confirmed issue-to-legislation alignment, legal-durability posture, statutory source coverage, state-law and functional analogues, and publication blockers. The proposal is Review Ready for knowledgeable external critique but not publication-final or lawmaker-circulation-ready.
+
+**Defects corrected during the audit:** Updated the issue-page score, metadata, Proposal Scoring box, Quality Score annotation, prior-proposal/source annotation, audit history, source inventory, audit inventory, and Audit Dashboard. No legislative text was changed during T4.
+
+**Publication blockers:** Obtain primary records for the Freeman/Moss, Arizona-threat, Election Day bomb-threat, Raffensperger-family, and workforce-attrition examples; complete a representative state-law survey; complete a direct Congress.gov and state-legislature prior-proposal survey; verify Maryland enacted-law text against ELEC-003's model provisions; locate fiscal analogues for HAVA/EAC grants and state protective services; test First Amendment/doxxing/protective-order limits with legal expertise; and seek election-administrator, legislative-counsel, or election-law expert review.
+
+**Audit process feedback:** T4 confirmed that ELEC-003 should continue forward. The next quality gain is not more structural drafting; it is primary-record replacement, fiscal-source development, legal expert review, and administrator/stakeholder validation.
+
 ### 2026-06-28 — T3 Readiness Audit
 
 **Audit status:** T3 readiness audit complete; T4 publication audit pending

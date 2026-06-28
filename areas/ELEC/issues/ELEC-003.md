@@ -7,11 +7,11 @@ priority: high
 remedy_type: coupled-state-and-federal-legislation
 legislative_proposal: "../../../legislation/ELEC-003-state.md"
 federal_legislative_proposal: "../../../legislation/ELEC-003.md"
-audit_status: "T3 readiness audit complete; T4 publication audit pending"
-audit_score: 74
-audit_last_type: "T3 readiness audit"
+audit_status: "T4 publication-ready audit complete; external validation pending"
+audit_score: 77
+audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-06-28"
-audit_next: "T4 publication-ready audit"
+audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 5
@@ -169,11 +169,11 @@ Budget authority is likely required; no dollar estimate is assigned pending sour
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[74 / 100](ELEC-003.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 58 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[77 / 100](ELEC-003.audit.md)** (Review Ready)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 58 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T3 readiness audit complete; T4 publication audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-003 audit history](ELEC-003.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-003 audit history](ELEC-003.audit.md)
 
 ## Annotation
 
@@ -189,7 +189,7 @@ Budget authority is likely required; no dollar estimate is assigned pending sour
 
 **Source Note.** The manifestations are illustrative rather than exhaustive. The examples were selected to show distinct institutional failures: individual and family targeting, forced displacement, prosecutable true threats, facility evacuation, Election Day operational disruption, and workforce attrition.
 
-**Quality Score.** The 74/100 score reflects a Substantially Developed Draft under rubric 2026-06-27.2. T3 confirmed the required issue architecture, state-primary remedy design, HAVA funding hook, issue-to-legislation alignment, budget-statement posture, initial source coverage, official-law source upgrades, a state-law analogue, and a functional legal-assistance analogue. The score remains just below Review Ready because primary records for key manifestations, representative state-law comparison, federal prior-proposal research, source-backed fiscal analogues, election-administrator validation, and deeper First Amendment/doxxing analysis remain incomplete.
+**Quality Score.** The 77/100 score reflects a Review Ready draft under rubric 2026-06-27.2. T4 confirmed the required issue architecture, state-primary remedy design, HAVA funding hook, issue-to-legislation alignment, budget-statement posture, official-law source coverage, Maryland state-law analogue, EOLDN functional legal-assistance analogue, and prosecution-limit source support. The score remains below publication-ready because primary records for every manifestation, representative state-law comparison, full federal prior-proposal research, source-backed fiscal analogues, election-administrator validation, and deeper First Amendment/doxxing analysis remain incomplete.
 
 **Adoption Score.** The 5/12 score is limited. ELEC-003 has a plausible state-by-state model-law path, a federal grant-support vehicle, bipartisan institutional beneficiaries, and concrete recent manifestations, but T1 did not identify proposal-specific polling, sponsor coalitions, enacted model-state uptake, election-administrator endorsements, or bipartisan legislative records sufficient to award higher adoption credit.
 
@@ -199,4 +199,4 @@ Budget authority is likely required; no dollar estimate is assigned pending sour
 
 **Development Priority.** The priority is `active` because election-personnel threats, operational disruption, and workforce attrition remain live election-administration risks and the proposal has concrete vehicles for continued development.
 
-**Prior-Proposal and Existing-Law Fit.** T3 confirms that the draft should remain coupled rather than solely federal. Existing federal threat and voting-rights statutes punish some conduct but do not create a complete personal-security, continuity, and workforce-support regime. Source leads show state-law movement, including Maryland's enacted 2024 Protecting Election Officials Act, and a functional legal-assistance analogue through the [Election Official Legal Defense Network](https://eoldn.org/); T4 should supplement these leads with a direct Congress.gov and state-legislature survey.
+**Prior-Proposal and Existing-Law Fit.** T4 confirms that the draft should remain coupled rather than solely federal. Existing federal threat and voting-rights statutes punish some conduct but do not create a complete personal-security, continuity, and workforce-support regime; [reporting on the DOJ election-threats task force](https://www.theguardian.com/us-news/2024/mar/12/man-sentenced-bomb-threat-arizona-state-election-official) indicates that prosecution alone reaches only a subset of threats. Source leads show state-law movement, including Maryland's enacted 2024 Protecting Election Officials Act, and a functional legal-assistance analogue through the [Election Official Legal Defense Network](https://eoldn.org/). T4 follow-up should complete a direct Congress.gov and state-legislature survey.
