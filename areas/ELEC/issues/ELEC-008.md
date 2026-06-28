@@ -7,11 +7,11 @@ priority: high
 remedy_type: federal-legislation
 legislative_status: working-draft
 federal_legislative_proposal: "../../../legislation/ELEC-008.md"
-audit_status: "T2 development audit complete; T3 readiness audit pending"
-audit_score: 67
-audit_last_type: "T2 development audit"
+audit_status: "T3 readiness audit complete; T4 publication-ready audit pending"
+audit_score: 72
+audit_last_type: "T3 readiness audit"
 audit_last_date: "2026-06-28"
-audit_next: "T3 readiness audit"
+audit_next: "T4 publication-ready audit"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 4
@@ -188,7 +188,9 @@ No person should be liable merely for asserting that an election was unlawful, s
 
 The closest legal analogue is RICO, which treats coordinated patterns of predicate misconduct as a distinct statutory wrong. See [18 U.S.C. chapter 96](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter96&edition=prelim). Ordinary RICO is too broad for election disputes because protected speech, litigation, recounts, contests, journalism, and congressional activity must be preserved.
 
-Congress also partially addressed presidential-election subversion through the Electoral Count Reform Act, but that reform hardened electoral-count procedures rather than creating scheme-level accountability. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). ELEC-008 therefore uses a narrow election-specific RICO analogue with defined predicates and safe harbors.
+Existing federal criminal statutes already cover important components of the problem, including conspiracy against the United States, conspiracy against voting rights, and obstruction-related conduct. See [18 U.S.C. § 371](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section371&num=0&edition=prelim), [18 U.S.C. § 241](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section241&num=0&edition=prelim), and [18 U.S.C. § 1512](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1512&num=0&edition=prelim). But those statutes address particular theories of liability rather than a tailored election-subversion framework with election-specific safe harbors, state-nexus emergency relief, and scheme-level remedial structure.
+
+Congress also partially addressed presidential-election subversion through the Electoral Count Reform Act, but that reform hardened electoral-count procedures rather than creating scheme-level accountability. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). Any obstruction-related design must account for [*Fischer v. United States*](https://www.supremecourt.gov/opinions/23pdf/23-5572_l6hn.pdf), which narrowed the reach of 18 U.S.C. § 1512(c)(2), and [*Trump v. United States*](https://www.supremecourt.gov/opinions/23pdf/23-939_e2pg.pdf), which makes presidential-immunity and official-act evidence limits central where presidential conduct is implicated. ELEC-008 therefore uses a narrow election-specific RICO analogue with defined predicates, safe harbors, and immunity-aware limitations.
 
 ## Least-Complex Adequate Remedy
 
@@ -230,11 +232,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[67 / 100](ELEC-008.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 85 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `post-crisis-repair-mandate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[72 / 100](ELEC-008.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 85 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `post-crisis-repair-mandate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
+> **Audit Status:** T3 readiness audit complete; T4 publication-ready audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
 
 ## Annotation
 
@@ -256,4 +258,6 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Source Development Pending.** Further source development should review the 2022 Electoral Count Reform and Presidential Transition Improvement Act, existing election-crime statutes, obstruction statutes, RICO doctrine, state anti-subversion proposals, Protect Democracy and other reform proposals, post-2020 federal and state prosecutions, congressional election-contest procedures, Article I Section 5 doctrine, and ARRP's presidential-immunity reform.
 
-**Quality Score.** The proposal is 67/100 after T2. Component score: Structural 8/8; Evidence 9/12; Legal Fit 5/10; Prior Proposal 6/8; Remedy 8/12; Implementation 5/8; Abuse Resistance 6/8; Drafting 7/8; Cogency 5/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. The proposal is substantially developed but not Review Ready because the RICO-like framework remains constitutionally and politically high-risk and needs deeper review of First Amendment, Petition Clause, Speech or Debate, Article I Section 5, presidential-immunity, federalism, prosecutorial-discretion, safe-harbor, and civil-enforcement design.
+**Quality Score.** The proposal is 72/100 after T3. Component score: Structural 8/8; Evidence 10/12; Legal Fit 6/10; Prior Proposal 6/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. The score increased because T3 added primary-source comparison to existing federal criminal statutes, *Fischer*, and *Trump v. United States*, and confirmed that the bill's predicate-act and safe-harbor design partly responds to those limits. It remains below Review Ready because direct Congress.gov/prior-proposal research, official docket-posture verification, state-enforcement anti-weaponization analysis, budget/workload analogues, and external criminal-law, election-law, federal-courts, or legislative-counsel review remain unresolved.
+
+**Legal Fit.** Existing conspiracy, voting-rights, and obstruction statutes provide component-law support, but *Fischer* cautions against unbounded obstruction theories and *Trump v. United States* requires official-act and evidence-use limits for presidential applications. ELEC-008 should therefore remain predicate-act-based, safe-harbor-heavy, and complementary to IMM-001 rather than relying on a general obstruction or election-denial theory.

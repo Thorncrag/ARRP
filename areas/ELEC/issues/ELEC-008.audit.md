@@ -67,3 +67,33 @@ This file preserves the full audit history for [ELEC-008](ELEC-008.md). The issu
 **Adoption and friction:** Adoption Score remains 4/12. Adoption Friction remains 85/100 because the proposal creates RICO-like election-subversion liability affecting criminal law, protected speech, litigation, congressional activity, presidential conduct, federalism, state enforcement, and election administration.
 
 **Next audit need:** T3 should focus on constitutional narrowing, prior-proposal research, existing-law amendment alternatives, federal and state prosecution records, Protect Democracy or comparable reform models, safe-harbor strength, civil-enforcement anti-weaponization, and whether the proposal should be split into narrower modules.
+
+### 2026-06-28 — T3 readiness audit
+
+**Audit status:** T3 readiness audit complete; T4 publication-ready audit pending
+
+**Proposal-quality score:** 72
+
+**Component score:** Structural 8/8; Evidence 10/12; Legal Fit 6/10; Prior Proposal 6/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. Total: 72.
+
+**Scope reviewed:** T3 reviewed the issue page, linked bill, prior audit history, audit dashboard row, audit inventory row, relevant source-inventory rows, existing federal criminal-law comparators, Supreme Court sources for *Fischer v. United States* and *Trump v. United States*, and the T3 requirements for current-status, legal-fit, remedy-fit, source-refresh, issue-to-legislation alignment, abuse-resistance, and readiness scoring.
+
+**Sources and source categories checked:** Existing project source rows for RICO, ECRA, 18 U.S.C. §§ 371, 241, 1512, Speech or Debate, *Trump v. United States*, and the DOJ indictment were reviewed for ELEC-008 relevance. Targeted public-source discovery also checked Supreme Court sources, U.S. Code sources, Congress.gov-style prior-proposal search terms, CourtListener/docket search terms, and reform-organization search terms for election-subversion analogues. T3 added *Fischer v. United States* as a source row and associated existing 18 U.S.C. §§ 371, 241, and 1512 source rows with ELEC-008.
+
+**Verified findings:** Existing federal law provides several component-law comparators: conspiracy against the United States, conspiracy against voting rights, obstruction-related law, RICO pattern structure, and ECRA procedural hardening. These sources support the issue page's claim that ELEC-008 should supplement existing law rather than ignore it. *Fischer* strengthens the need to avoid a generalized obstruction theory, and *Trump v. United States* confirms that presidential applications require immunity-aware drafting and coordination with IMM-001.
+
+**Current-status and mootness check:** T3 did not identify a controlling development making ELEC-008 moot. The current legal posture instead materially supports caution: *Fischer* narrows one obstruction comparator, and *Trump v. United States* heightens presidential-official-act and evidence-use limits. T4 should still verify the official current docket posture of the federal election-subversion prosecution, superseding indictment materials, dismissal or procedural status, and any pending Supreme Court or appellate matters that could materially reframe the proposal.
+
+**Existing-law fit:** T3 found no autonomous basis to convert the draft into a pure existing-law amendment. Existing statutes cover component conduct, but the issue page's residual-gap theory remains plausible because the project is trying to address scheme-level election subversion while adding election-specific safe harbors and emergency equitable tools. However, T4 should compare whether a narrower Title 18 amendment package could achieve the same remedy with lower constitutional and adoption risk before the proposal is treated as Review Ready.
+
+**Issue-to-legislation alignment:** No material discrepancy requiring human review was identified. The bill includes the issue page's core limiting principles: two or more actors, knowing and corrupt participation, at least two independently wrongful predicate acts, material connection, safe harbors for protected activity, congressional-proceedings limits, presidential-immunity caveats, and state-nexus limits for backstop actions.
+
+**Defects corrected during T3:** The issue page Proposal Survey now cites existing federal conspiracy, rights, and obstruction statutes as component-law comparators; the bill Source Notes now include those sources and *Fischer*; the issue-page Quality Score annotation now explains the T3 score; the source inventory now captures *Fischer* and associates existing statutory rows with ELEC-008.
+
+**Unresolved findings:** T3 did not complete direct prior-proposal research sufficient for publication, did not verify every relevant federal or state prosecution record, did not complete a full civil-enforcement anti-weaponization analysis, did not source a budget or workload analogue, did not locate professional or legislative-counsel review, did not complete international-relations assessment beyond treating it as not materially central at this tier, and did not verify official docket posture from primary docket materials.
+
+**Adoption and friction:** Adoption Score remains 4/12 and Adoption Friction remains 85/100. The proposal remains post-crisis-only in practical viability because it creates RICO-like election-subversion liability in a highly polarized and constitutionally sensitive space. Narrower modules or existing-law amendments may reduce friction and should be tested at T4.
+
+**Readiness determination:** ELEC-008 remains a Substantially Developed Draft, not Review Ready. T3 improved source grounding and legal-fit analysis, but the proposal still needs T4-level prior-proposal review, constitutional narrowing, docket/posture verification, safe-harbor stress testing, civil-enforcement abuse-resistance review, federalism analysis, and external review before external circulation.
+
+**Audit process feedback:** T3 was adequate to improve legal-fit and source grounding without exhausting the tier estimate. The recurring weakness is that broad RICO-like proposals need a structured "existing-law component map" early in T2 or T3; future audits of similar proposals should build that map before scoring Remedy, Legal Fit, and Abuse Resistance.
