@@ -73,3 +73,29 @@ No issue-specific audit log has been migrated from the issue page yet. The curre
 **Next audit need:** T3 should source-check the current 2026 manifestation through primary court/rulemaking/hearing records where available, review the draft bill against existing federal election statutes and prior bills, stress-test constitutional authority and private enforcement, develop budget/workload analogues, and refine the bill's cure, tracking, deadline, nonpostal return, and data-condition provisions.
 
 **Audit process feedback:** T2's largest quality gain came from converting the proposal into an existing-law amendment package. The next audit should not spend most of its time expanding prose; it should verify primary records and stress-test the new bill text.
+
+### 2026-06-28 — T3 readiness audit
+
+**Audit status:** T3 readiness audit complete; T4 publication-ready audit pending
+
+**Proposal-quality score:** 75
+
+**Component score:** Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior Proposal 7/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. Total: 75.
+
+**Scope reviewed:** T3 reviewed the issue page, bill text, T1/T2 audit history, dashboard row, audit inventory, source inventory, official USPS proposed rule, AP current reporting on the Talwani ruling, HAVA and UOCAVA statutory hooks, and title 39 postal authority sources.
+
+**Sources checked:** T3 located the USPS proposed rule, *Ballot Mail for Federal Elections*, scheduled for Federal Register publication on June 2, 2026. The proposed rule cites 39 U.S.C. §§ 401 and 404, would amend DMM 705 through 39 CFR part 111, would require serialized Intelligent Mail barcodes, would create a mail-in and absentee participation-list process, and would establish a verification process tied to state-submitted ballot-mail data. T3 also reviewed AP reporting that Judge Indira Talwani halted provisions of Executive Order 14399 seeking a federal voter list and USPS mail-ballot limits.
+
+**Verified findings:** The 2026 USPS proposed rule is now supported by a primary rulemaking source rather than only news reporting. The bill's data-condition limitation directly responds to the proposed rule's manifest, barcode, and participation-list architecture. The bill's title 39 source notes now include 39 U.S.C. §§ 401 and 404, the same core postal-authority provisions USPS cited.
+
+**Current-status and mootness check:** No T3 source makes ELEC-010 moot. The Talwani ruling and proposed USPS rule materially strengthen the need for a clear statutory rule preventing USPS from conditioning lawful election-mail service on unauthorized voter-data submission. T4 should verify the official court order, docket posture, appeal status, and whether the proposed USPS rule was finalized, withdrawn, modified, enjoined, or superseded.
+
+**Issue-to-legislation alignment:** No material discrepancy identified. The issue page and bill both identify a federal floor for mail and absentee ballots where States offer those channels, preserve State choice not to conduct all-mail elections, treat USPS mailing dates as advisory rather than disqualifying, and prohibit unauthorized data-condition delivery rules.
+
+**Drafting and legal-fit findings:** T3 improves legal fit by tying the election-administration provisions to HAVA and the postal provisions to title 39. Remaining legal questions include Elections Clause coverage for presidential mail-ballot rules, Spending Clause alternatives, interaction with UOCAVA and HAVA complaint procedures, NVRA and Privacy Act implications for voter data, Purcell timing concerns, private-right-of-action scope, sovereign-immunity issues, and whether title 39 chapter 36 is the best codification location.
+
+**Unresolved findings:** T3 did not obtain the official Talwani order, the full docket record, Senate hearing transcript, USPS comments, final-rule status, Postal Regulatory Commission materials, or USPS operational validation. T3 did not complete a section-by-section comparison against the Election Mail Act, Freedom to Vote Act, For the People Act, SAVE Act, ACE Act, or Make Elections Great Again Act. T3 did not locate budget/workload analogues or external legal, postal, or election-administration review.
+
+**Next audit need:** T4 should verify official court and rulemaking posture, compare the draft against direct prior bills, stress-test constitutional authority and enforcement design, verify privacy and data-handling safeguards, develop fiscal/workload analogues, decide whether to narrow the private right of action, and obtain external election-law, postal-operation, or legislative-counsel review.
+
+**Audit process feedback:** T3 was effective because the primary proposed-rule source changed the evidentiary posture quickly. T4 should start with official docket and rulemaking status before revising text, because the rule's final posture could materially change the remedy.
