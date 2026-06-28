@@ -6,13 +6,21 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-006.md"
-audit_status: "Structural audit complete; advanced audits pending"
+audit_status: "T1 framework check complete; T2 development audit pending"
 audit_score: 60
-audit_last_type: "Initial framework and inventory audit"
-audit_last_date: "2026-06-24"
-audit_next: "Advanced audit"
-audit_rubric_version: "pre-2026-06-27.1"
+audit_last_type: "T1 framework check"
+audit_last_date: "2026-06-28"
+audit_next: "T2 development audit"
+audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "hard-rebaseline-needed"
+adoption_score: 6
+adoption_score_band: "Limited Adoption Basis"
+adoption_friction_score: 54
+adoption_friction_band: "Significant Resistance"
+required_electoral_environment: "sixty-vote-senate"
+pathway_viability: "plausible-after-wave"
+development_priority: "active"
+pathway_adjustment: "stage"
 print_levels:
   - public-proposal
   - full-technical
@@ -37,11 +45,11 @@ The residual vulnerability is not only government-side obstruction. Transition r
 
 ### Genuine uncertainty compressing transition time
 
-The 2000 presidential election demonstrated that even good-faith legal uncertainty can substantially compress the effective transition period. When the election result remains unresolved for weeks, national-security preparation, personnel vetting, agency briefings, and continuity planning may be delayed even without bad faith.
+The 2000 presidential election demonstrated that even good-faith legal uncertainty can substantially compress the effective transition period. When the election result remains unresolved for weeks, national-security preparation, personnel vetting, agency briefings, and continuity planning may be delayed even without bad faith. The 9/11 Commission later identified the abbreviated transition as one factor contributing to slow national-security staffing. See [The 9/11 Commission Report](https://govinfo.library.unt.edu/911/report/911Report.pdf).
 
 ### Administrative discretion delaying transition access
 
-The 2020 transition demonstrated a different failure mode: transition access can be delayed when statutory operation depends too heavily on discretionary recognition by a single official or small number of political actors. Even if Congress later applies oversight pressure, the delay itself may already have impaired readiness.
+The 2020 transition demonstrated a different failure mode: transition access can be delayed when statutory operation depends too heavily on discretionary recognition by a single official or small number of political actors. Even if Congress later applies oversight pressure, the delay itself may already have impaired readiness. GSA ascertained the Biden-Harris transition on November 23, 2020, after weeks of dispute over access. See [Axios, *Key government agency says Biden transition can formally begin*](https://www.axios.com/2020/11/23/gsa-biden-transition).
 
 ### Congressional oversight as a politically contingent remedy
 
@@ -49,7 +57,7 @@ Congressional oversight is an inadequate emergency backstop when transition acce
 
 ### Transition-team noncompliance and delayed agreements
 
-A transition may also be impaired when the apparent incoming administration delays or refuses to execute transition agreements, ethics commitments, donor-disclosure obligations, information-security protocols, or arrangements necessary for background checks and clearances. This failure mode is distinct from GSA ascertainment delay and requires a different statutory response.
+A transition may also be impaired when the apparent incoming administration delays or refuses to execute transition agreements, ethics commitments, donor-disclosure obligations, information-security protocols, or arrangements necessary for background checks and clearances. This failure mode is distinct from GSA ascertainment delay and requires a different statutory response. In 2024, the Trump-Vance transition delayed signing the Justice Department agreement permitting FBI background checks and security-clearance processing and declined a GSA agreement for federal funding and support. See [Politico, *Trump transition green-lights FBI background checks for incoming staff*](https://www.politico.com/news/2024/12/03/trump-transition-doj-agreement-00192451).
 
 ## Resulting Damage
 
@@ -71,7 +79,7 @@ Existing law may still lack:
 
 ## Proposal Survey
 
-The Presidential Transition Act of 1963 is the principal statutory model. Congress has repeatedly amended it, including through the 2022 Electoral Count Reform and Presidential Transition Improvement Act, which reduced dependence on a single GSA ascertainment decision where the apparent winner remains unclear. See [3 U.S.C. § 102 note](https://www.law.cornell.edu/uscode/text/3/102) and [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617).
+The Presidential Transition Act of 1963 is the principal statutory model. Congress has repeatedly amended it, including through the 2022 Electoral Count Reform and Presidential Transition Improvement Act, which reduced dependence on a single GSA ascertainment decision where the apparent winner remains unclear. See the [Presidential Transition Act statutory compilation](https://www.govinfo.gov/content/pkg/COMPS-1612/pdf/COMPS-1612.pdf) and [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617).
 
 Prior reform models focus on resources, agency cooperation, ethics plans, security clearances, and ascertainment. ELEC-006 treats those as partial solutions and adds objective staged access, candidate-side duties, written delay notices, and expedited review.
 
@@ -118,11 +126,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-006.audit.md)** (Developed Draft)<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+> **Proposal Quality Score:** **[60 / 100](ELEC-006.audit.md)** (Developed Draft)<br />**Adoption Score:** 6 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 54 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-006 audit history](ELEC-006.audit.md)
+> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-006 audit history](ELEC-006.audit.md)
 
 ## Annotation
 
@@ -137,3 +145,11 @@ Administrative workload is possible; no new appropriation is specified.
 **Congressional Nondependence.** Congressional oversight should be preserved, but transition continuity should not depend on Congress being willing or able to oppose delay.
 
 **Source Development Pending.** Further source development should review the Presidential Transition Act of 1963, the 2022 transition amendments, 2000 transition compression, 2020 GSA ascertainment delay, and 2024 transition-agreement and background-check issues.
+
+**Quality Score.** The proposal remains at 60/100 after T1 because it has a developed framework and an aligned Presidential Transition Act amendment, but it has not yet received a full current-rubric component rebaseline. T2 should test the 2022 amendments, transition-agreement duties, background-check and clearance mechanics, GSA authority, judicial-review path, and candidate-side consequence design.
+
+**Adoption Score.** Adoption Score is 6/12. Presidential-transition continuity has bipartisan institutional logic and the 2022 reform precedent, but ELEC-006 does not yet cite proposal-specific polling, current sponsor coalitions, committee activity, transition-practitioner endorsement, or external validation for its full automaticity package.
+
+**Adoption Friction.** Adoption Friction is 54/100 because the proposal affects presidential transitions, agency access, background checks, ethics agreements, donor-disclosure leverage, and expedited review. The norm-preserving design reduces resistance, but presidential-transition disputes remain politically salient.
+
+**Required Electoral Environment.** Required Electoral Environment is `sixty-vote-senate`; Pathway Viability is `plausible-after-wave`; Pathway Adjustment is `stage`. The full federal amendment likely requires ordinary legislation capable of clearing Senate cloture and presidential signature. T2 should assess whether narrower updates to transition agreements, delay notices, or agency-preparation deadlines could be staged if the full automatic-access package proves too difficult.
