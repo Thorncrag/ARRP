@@ -68,10 +68,10 @@ Required Electoral Environment is a T1 gate that identifies the minimum electora
 | Filibuster reform or exception | 0 |
 | Wave-election mandate | 0 |
 | Post-crisis repair mandate | 1 |
-| Constitutional amendment environment | 2 |
+| Constitutional amendment environment | 3 |
 | State-level pathway | 2 |
 | Not electorally dependent | 0 |
-| Unassessed | 1 |
+| Unassessed | 0 |
 | N/A | 193 |
 
 ## Adoption Friction
@@ -86,8 +86,8 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Manageable Resistance | 0 |
 | Significant Resistance | 3 |
 | High Resistance | 10 |
-| Extreme Resistance | 6 |
-| Unassessed | 1 |
+| Extreme Resistance | 7 |
+| Unassessed | 0 |
 | N/A | 193 |
 
 ## Next Audit Queue
@@ -96,12 +96,12 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 
 | Next audit indicator | Count |
 | --- | ---: |
-| Advanced audit | 1 |
+| Advanced audit | 0 |
 | Cross-reference check | 13 |
 | Development audit | 0 |
 | Issue-admission test | 179 |
 | Reassess predicate | 1 |
-| T2 | 2 |
+| T2 | 3 |
 | T3 | 0 |
 | T4 publication-ready audit | 0 |
 | T4 follow-up | 17 |
@@ -266,7 +266,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | CONG-006 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | CONG-007 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | CONG-008 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| IMM-001 | A-16 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/IMM/issues/IMM-001.md) | [Bill](legislation/IMM-001.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
+| IMM-001 | A-16 | High | Developed | 60 | Developed Draft | 2 | T1 framework check | 2026-06-28 | T2 development audit | [Issue](areas/IMM/issues/IMM-001.md) | [Bill](legislation/IMM-001.md) | 2026-06-27.2 | hard-rebaseline-needed | constitutional-amendment-environment | conditional | Extreme Resistance |
 | IMM-002 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | IMM-003 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | IMM-004 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
