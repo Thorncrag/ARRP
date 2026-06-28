@@ -6,13 +6,13 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-005.md"
-audit_status: "T1 framework check complete; T2 development audit pending"
-audit_score: 60
-audit_last_type: "T1 framework check"
+audit_status: "T2 development audit complete; T3 readiness audit pending"
+audit_score: 72
+audit_last_type: "T2 development audit"
 audit_last_date: "2026-06-28"
-audit_next: "T2 development audit"
+audit_next: "T3 readiness audit"
 audit_rubric_version: "2026-06-27.2"
-audit_rebaseline_status: "hard-rebaseline-needed"
+audit_rebaseline_status: "current"
 adoption_score: 5
 adoption_score_band: "Limited Adoption Basis"
 adoption_friction_score: 64
@@ -45,19 +45,19 @@ The problem is not that existing fraud, forgery, false-statement, obstruction, c
 
 ### Multi-state false-elector certificates — 2020
 
-After the 2020 presidential election, individuals in multiple states prepared or signed documents purporting to cast electoral votes for a candidate who had not been certified as the winner in those states. The institutional harm was the creation of facially official elector documents outside the lawful certificate-of-ascertainment process, with potential use in the federal electoral-count process.
+After the 2020 presidential election, individuals in multiple states prepared or signed documents purporting to cast electoral votes for a candidate who had not been certified as the winner in those states. The institutional harm was the creation of facially official elector documents outside the lawful certificate-of-ascertainment process, with potential use in the federal electoral-count process. A former Senate official testified in Michigan proceedings that a fake certificate of votes was mailed to the Senate and did not match the official gubernatorial certificate. See [Associated Press, *Fake Michigan Certificate of Votes mailed to U.S. Senate after 2020 presidential vote, official says*](https://apnews.com/article/7496e37442648d4facdf86e41c7841f7).
 
 ### State prosecutions under general statutes
 
-Some states pursued prosecutions under general forgery, false-instrument, election-law, fraud, or conspiracy statutes. These prosecutions demonstrate that existing law may reach some conduct, but also demonstrate that prosecutors must fit presidential-result-transmission conduct into statutes not written for this specific federal-channel function.
+Some states pursued prosecutions under general forgery, false-instrument, election-law, fraud, or conspiracy statutes. These prosecutions demonstrate that existing law may reach some conduct, but also demonstrate that prosecutors must fit presidential-result-transmission conduct into statutes not written for this specific federal-channel function. Michigan charges were dismissed for insufficient evidence of fraudulent intent, Nevada's case was revived on venue grounds, and Arizona prosecutors dismissed their case while stating an intent to seek a new indictment after losing an appeal concerning grand-jury process. See [Politico, *Michigan judge dismisses criminal charges against false Trump electors*](https://www.politico.com/news/2025/09/09/false-electors-trump-2020-case-00552153), [Politico, *Nevada Supreme Court revives criminal case over Trump elector gambit*](https://www.politico.com/news/2025/11/13/nevada-supreme-court-2020-fake-electors-00651642), and [Associated Press, *Arizona prosecutors dismissing fake elector case but vow to seek new indictment*](https://apnews.com/article/bd5ca470f910f18ad9e88ddd9c6d17bb).
 
 ### Statutory-fit and remedial-gap concerns
 
-At least some jurisdictions confronted questions about whether existing state statutes clearly covered the conduct. Even where prosecution is available, criminal law may not provide rapid declaratory relief, document invalidation, official recipient duties, or clear federal-channel handling rules.
+At least some jurisdictions confronted questions about whether existing state statutes clearly covered the conduct. Even where prosecution is available, criminal law may not provide rapid declaratory relief, document invalidation, official recipient duties, or clear federal-channel handling rules. Wisconsin's civil settlement, for example, shows that civil remedies can secure acknowledgment and future-service limits, but only after the documents have already entered public and federal channels. See [The Guardian, *Fake electors in Wisconsin first to admit Biden won election and face penalty*](https://www.theguardian.com/us-news/2023/dec/06/wisconsin-fake-electors-admit-biden-won-2020-election).
 
 ### Contingent or disputed-result ambiguity
 
-A narrow category of contingent elector or disputed-result preservation activity may be legitimate where a real recount, contest, or litigation proceeding remains unresolved and the document is clearly conditional and nonoperative. The absence of clear federal labeling and transmission rules permits abusive documents to mimic lawful official result documents while claiming after the fact to be merely contingent.
+A narrow category of contingent elector or disputed-result preservation activity may be legitimate where a real recount, contest, or litigation proceeding remains unresolved and the document is clearly conditional and nonoperative. The absence of clear federal labeling and transmission rules permits abusive documents to mimic lawful official result documents while claiming after the fact to be merely contingent. Post-2020 defenses have repeatedly invoked contingent-elector theories and Hawaii 1960 comparisons, making a narrow safe harbor important to avoid overcriminalizing lawful preservation activity while still prohibiting false present-tense use. See [The Guardian, *The fake elector defense: what Trump allies are saying to justify the 2020 scheme*](https://www.theguardian.com/us-news/article/2024/jun/05/wisconsin-2020-trump-fake-electors-defense).
 
 ### Transmission and official-receipt vulnerability
 
@@ -127,11 +127,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-005.audit.md)** (Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 64 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[72 / 100](ELEC-005.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 64 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-005 audit history](ELEC-005.audit.md)
+> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-005 audit history](ELEC-005.audit.md)
 
 ## Annotation
 
@@ -145,9 +145,9 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Source Development Pending.** Further source development should review the Electoral Count Reform Act, 3 U.S.C. §§ 5, 11, 12, and 15, state false-elector prosecutions, state statutory-gap reports, 18 U.S.C. §§ 371, 1001, and 1512, and relevant forgery and false-instrument statutes.
 
-**Quality Score.** The proposal remains at 60/100 after T1 because the page has a developed framework and an aligned Title 3 amendment, but the proposal has not yet received a full current-rubric component rebaseline. T2 should test existing-law fit, source support, prior proposals, state-prosecution records, constitutional limits, safe-harbor drafting, enforcement calibration, and issue-to-legislation alignment in detail.
+**Quality Score.** The proposal is 72/100 after T2 because it has a developed issue architecture, a linked Title 3 amendment, official statutory source leads, current-status source support, plausible safe-harbor design, and no material issue-to-legislation discrepancy. The score remains below Review Ready because T3 must still obtain primary state court or attorney-general records, complete a direct Congress.gov prior-proposal survey, test criminal-offense drafting against First Amendment and due-process limits, and verify recipient-duty implementation.
 
-**Adoption Score.** Adoption Score is 5/12. The Title 3 amendment path is understandable and benefits from the post-2020 bipartisan precedent of Electoral Count Reform Act revisions, but ELEC-005 does not yet cite proposal-specific polling, sponsor coalitions, committee activity, or external election-law validation.
+**Adoption Score.** Adoption Score remains 5/12. The Title 3 amendment path is understandable and benefits from the post-2020 bipartisan precedent of Electoral Count Reform Act revisions, but ELEC-005 does not yet cite proposal-specific polling, sponsor coalitions, committee activity, or external election-law validation.
 
 **Adoption Friction.** Adoption Friction is 64/100 because the proposal addresses presidential-election documents, false-elector conduct, federal criminal penalties, state-federal boundaries, and speech/litigation-adjacent safe harbors. Those features make opposition and litigation likely even though the proposal is framed as a neutral federal-channel document-integrity rule.
 

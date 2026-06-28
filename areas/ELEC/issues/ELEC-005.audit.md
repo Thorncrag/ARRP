@@ -12,6 +12,36 @@ This file preserves the full audit history for [ELEC-005](ELEC-005.md). The issu
 
 ## Audit History
 
+### 2026-06-28 — T2 Development Audit
+
+**Audit status:** T2 development audit complete; T3 readiness audit pending
+
+**Audit scope:** This T2 audit reviewed ELEC-005, the linked Title 3 bill, official Title 3 and Title 18 source leads, current false-elector prosecution posture, manifestation source support, issue-to-legislation alignment, safe-harbor design, basic constitutional and federalism fit, budget posture, adoption posture, audit dashboard, audit inventory, source inventory, and governing framework/methodology. It did not complete a full Congress.gov prior-proposal survey, primary state docket retrieval, state-by-state statutory comparison, detailed legislative-history review, or external election-law review.
+
+**Current-status and mootness check:** No current law, judicial decision, enacted reform, or factual development located during T2 moots ELEC-005. Current public-source review instead reinforces the diagnosis: state false-elector remedies remain uneven. Michigan charges were dismissed for insufficient evidence of fraudulent intent; Nevada's prosecution was revived on venue grounds after an earlier dismissal; and Arizona prosecutors dismissed a pending case while stating an intent to seek a new indictment after an appellate ruling concerning grand-jury process. These developments show that general state remedies may reach some conduct but do not supply a uniform federal-channel document-integrity rule.
+
+**Source finding:** T2 strengthened the issue page with nearby citations for the 2020 false-certificate manifestation, state prosecutions, statutory-fit concerns, and contingent-elector safe-harbor problem. It also retained official U.S. Code source leads for 3 U.S.C. §§ 5, 11, 12, and 15 and 18 U.S.C. §§ 371, 1001, and 1512. Source posture remains below T3 because several real-world examples still rely on secondary reporting rather than official indictments, orders, docket records, state attorney-general releases, NARA records, congressional records, or authenticated certificate materials.
+
+**Existing-law and prior-proposal finding:** The existing-law vehicle remains appropriate. ELEC-005 already amends chapter 1 of title 3 rather than creating a freestanding new title, and the proposed § 12A sits near certificate-transmission and receipt provisions. T2 did not identify a stop condition requiring autonomous conversion to another legal vehicle. T3 should decide whether criminal penalties should remain inside title 3, cross-reference title 18, or be split between Title 3 recipient duties and Title 18 offense provisions. T2 did not complete the required Congress.gov search for direct false-elector, electoral-certificate, or result-transmission bills.
+
+**Legal-fit finding:** The proposal is plausible but needs T3 legal scrutiny. Congress has a strong federal-channel interest in documents submitted for federal receipt, preservation, recognition, or counting of presidential-election results. The draft narrows federal reach by preserving state appointment and contest processes before federal transmission, adding a contingent-document safe harbor, requiring knowledge and materiality, and including a First Amendment rule of construction. T3 should test vagueness, overbreadth, protected petitioning, litigation-contingency, Article II/Twelfth Amendment limits, Necessary and Proper Clause grounding, anti-commandeering, state sovereign interests, and prosecutorial-discretion concerns.
+
+**Issue-to-legislation alignment:** No material discrepancy was found between the issue page and the linked bill. Both describe a federal-channel document-integrity rule, a safe harbor for genuinely contingent or disputed documents, federal-recipient preservation and marking duties, civil enforcement by the United States, calibrated criminal penalties, no preemption of state processes, and relation to existing federal and state remedies.
+
+**Budgetary-impact finding:** The preliminary budget statement remains appropriate. Administrative workload is possible, but the bill does not create a new grant, office, or explicit appropriation. T3 should assess whether NARA, congressional officers, federal courts, and DOJ would need reporting, referral, preservation, or training capacity and whether any source-backed implementation-burden analogue should be added.
+
+**Adoption and friction finding:** Adoption Score remains 5/12. Adoption Friction remains 64/100. T2 found no proposal-specific polling, active federal sponsor coalition, committee activity, state-election-administrator endorsement, or public-support evidence specific to this mechanism. The proposal has a plausible federal statutory pathway, but it is high-friction because it criminalizes election-document conduct, affects presidential-election disputes, and will likely draw partisan, federalism, speech, and litigation-process objections.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 8/12; Legal Fit 6/10; Prior-Proposal 5/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 72/100 (Substantially Developed Draft).
+
+**Score effect:** Score increased from 60 to 72 because T2 completed the first current-rubric component rebaseline, added manifestation citations, confirmed the Title 3 existing-law amendment path, verified issue-to-legislation alignment, and clarified legal, source, budget, and adoption blockers.
+
+**Defects corrected during the audit:** Updated issue-page score, metadata, Proposal Scoring, manifestation citations, Quality Score annotation, audit history, source inventory, audit inventory, and Audit Dashboard. No legislative text was changed during T2.
+
+**Next audit need:** Run T3 readiness audit. Prioritize primary state prosecution records and disposition checks; NARA or congressional records concerning 2020 certificates where available; direct Congress.gov and legislative-history survey; exact Title 3 and Title 18 codification fit; First Amendment, due-process, and petitioning limits; anti-commandeering and state-authority review; recipient-duty implementation and NARA/congressional-process fit; federal court venue and standing analysis for civil enforcement; and budget/workload analogue search.
+
+**Audit process feedback:** T2 confirms that ELEC-005 is a strong developed draft but not yet Review Ready. The next quality gain should come from official records and legal-durability review, not from expanding the proposed criminal offense before safe-harbor and federalism limits are tested.
+
 ### 2026-06-28 — T1 Framework Check
 
 **Audit status:** T1 framework check complete; T2 development audit pending
