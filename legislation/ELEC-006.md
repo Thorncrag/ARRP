@@ -310,4 +310,5 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Source Notes
 
-- Source review should include the Presidential Transition Act of 1963, as amended, in the GPO [statutory compilation](https://www.govinfo.gov/content/pkg/COMPS-1612/pdf/COMPS-1612.pdf), and the Electoral Count Reform and Presidential Transition Improvement Act of 2022 provisions reflected in [3 U.S.C. § 5](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section5&num=0&edition=prelim).
+- Source review should include the Presidential Transition Act of 1963, as amended, in the GPO [statutory compilation](https://www.govinfo.gov/content/pkg/COMPS-1612/pdf/COMPS-1612.pdf), including apparent-successful-candidate services, multiple-candidate support, transition memoranda of understanding, public ethics-plan requirements, background-investigation and security-clearance provisions, and public statement requirements.
+- Source review should also include the Electoral Count Reform and Presidential Transition Improvement Act of 2022 provisions reflected in [3 U.S.C. § 5](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section5&num=0&edition=prelim).

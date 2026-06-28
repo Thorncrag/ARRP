@@ -71,3 +71,25 @@ This file preserves the full audit history for [ELEC-006](ELEC-006.md). The issu
 **Adoption friction:** Adoption Friction is 56/100 (Significant Resistance). Friction is driven by presidential-transition salience, disputed-election strategy, agency access, sensitive-information gates, ethics agreements, donor-disclosure leverage, clearance timing, expedited review, and public misunderstanding risk. The norm-preserving design and existing 2022 statutory baseline keep the score below High Resistance.
 
 **Unresolved claims and T3 targets:** T3 should add pinpoint statutory citations; seek official or primary records for the 2020 GSA ascertainment delay and 2024 transition-agreement/background-check delay; test classified-information, clearance, FBI, OPM, ODNI, and DOJ mechanics; complete direct and functional prior-proposal research; review standing and jurisdiction for expedited judicial review; and seek transition-law, national-security, election-administration, or legislative-counsel review.
+
+### 2026-06-28 — T3 readiness audit
+
+**Audit status:** T3 readiness audit complete; T4 publication-ready audit pending
+
+**Proposal-quality score:** 76
+
+**Component score:** Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. Total: 76.
+
+**Major findings:** T3 confirmed that ELEC-006 is ready for knowledgeable external critique but not publication-ready. The core repair logic is now clear: use the Presidential Transition Act as the vehicle, preserve cooperative transition norms, and add narrow backstops where the 2022 amendments and existing transition practice do not fully solve delay, noncooperation, candidate-side agreement failures, written-notice gaps, or expedited enforcement.
+
+**Source-refresh log:** T3 extracted usable page leads from the official Presidential Transition Act compilation. The compilation supports apparent-successful-candidate services, multiple-candidate treatment beginning five days after the election in some unresolved-election circumstances, transition memoranda of understanding, public ethics-plan availability, background investigations and security clearances, and public statements when one candidate is treated as sole apparent successful candidate. T3 also checked the 9/11 Commission Report and found direct support for the claim that the 36-day 2000 election dispute cut the normal transition period in half and hampered identifying, recruiting, clearing, and confirming key appointees.
+
+**Verified findings:** Existing law is a strong vehicle; the 2022 amendments are a partial reform rather than a complete solution; the 2000 transition-compression claim has direct report support; the issue and legislation remain aligned; and the budgetary-impact statement remains appropriately preliminary because no new appropriation is specified.
+
+**Unresolved claims:** T3 did not locate official primary records for the 2020 GSA ascertainment-delay timeline or the 2024 transition-agreement/background-check delay. The current issue page uses secondary source leads for those examples. T4 should replace or supplement them with official GSA, congressional, transition-team, White House, DOJ, FBI, or court/oversight records if available.
+
+**Legal and implementation risks:** Expedited judicial review needs standing, jurisdiction, remedy, and political-question review so courts are enforcing concrete missed statutory transition duties rather than adjudicating the election winner. Sensitive-information access needs clearer interaction with classified-information, law-enforcement-sensitive, cybersecurity, personnel, background-check, clearance, OPM, ODNI, FBI, DOJ, and agency rules. Drafting still needs exact amendment placement within the Presidential Transition Act.
+
+**Prior-proposal and adoption posture:** The enacted 2022 transition reform supports prior-proposal credit, but direct automaticity, public-delay-notice, and expedited-enforcement proposal research remains incomplete. Adoption Score remains 5/12 because no proposal-specific polling, sponsor coalition, committee support, transition-practitioner endorsement, or external validation has been documented.
+
+**Next audit need:** T4 publication-ready audit should complete official-source substitution, direct prior-proposal and legislative-history research, amendment-placement review, sensitive-information and clearance-mechanics review, expedited-review legal analysis, budget/workload analogue search, and external legal or transition-practitioner review.

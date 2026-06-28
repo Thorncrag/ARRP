@@ -6,11 +6,11 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-006.md"
-audit_status: "T2 development audit complete; T3 readiness audit pending"
-audit_score: 73
-audit_last_type: "T2 development audit"
+audit_status: "T3 readiness audit complete; T4 publication-ready audit pending"
+audit_score: 76
+audit_last_type: "T3 readiness audit"
 audit_last_date: "2026-06-28"
-audit_next: "T3 readiness audit"
+audit_next: "T4 publication-ready audit"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 5
@@ -126,17 +126,17 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[73 / 100](ELEC-006.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 56 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[76 / 100](ELEC-006.audit.md)** (Review Ready)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 56 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-006 audit history](ELEC-006.audit.md)
+> **Audit Status:** T3 readiness audit complete; T4 publication-ready audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-006 audit history](ELEC-006.audit.md)
 
 ## Annotation
 
 **Norm-Preserving Design.** The proposal should preserve the historical norm-based transition model and add statutory backstops only where recent manifestations show that norms can fail.
 
-**2022 Reform Baseline.** The 2022 amendments should be treated as a partial reform, not ignored. Current law already provides multiple-candidate transition support in some unresolved-election circumstances, authorizes services and facilities for apparent successful candidates, requires transition memoranda of understanding, addresses ethics plans, and contemplates background investigations and security clearances. ELEC-006 should therefore remain focused on residual gaps: automatic staged access, enforceable agency deadlines, candidate-side agreement delay, public delay notices, and expedited review for concrete missed transition duties.
+**2022 Reform Baseline.** The 2022 amendments should be treated as a partial reform, not ignored. The Presidential Transition Act compilation provides source support for apparent-successful-candidate services, multiple-candidate support in some unresolved-election circumstances, transition memoranda of understanding, public ethics-plan availability, background investigations and security clearances, and public statements when a sole apparent successful candidate is treated as such. ELEC-006 should therefore remain focused on residual gaps: automatic staged access, enforceable agency deadlines, candidate-side agreement delay, public delay notices, and expedited review for concrete missed transition duties.
 
 **No Legal Recognition of Victory.** Transition access should be characterized as administrative preparedness, not legal determination of the election winner.
 
@@ -144,9 +144,9 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Congressional Nondependence.** Congressional oversight should be preserved, but transition continuity should not depend on Congress being willing or able to oppose delay.
 
-**Source Development Pending.** T3 should add pinpoint statutory support from the Presidential Transition Act compilation, official or primary records for the 2020 ascertainment delay and 2024 transition-agreement/background-check delay if available, and a direct prior-proposal or legislative-history survey for transition automaticity and access-enforcement reforms.
+**Source Development Pending.** T4 should seek official or primary records for the 2020 ascertainment delay and 2024 transition-agreement/background-check delay if available, complete a direct prior-proposal or legislative-history survey for transition automaticity and access-enforcement reforms, and add transition-law or national-security practitioner review.
 
-**Quality Score.** The proposal is 73/100 after T2. Component score: Structural 8/8; Evidence 8/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 6/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. The proposal is substantially developed but not yet Review Ready because T3 still needs pinpoint statutory mapping, official event-source substitution where available, deeper sensitive-information and clearance-process review, fuller prior-proposal research, and external transition-law or election-administration review.
+**Quality Score.** The proposal is 76/100 after T3. Component score: Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. T3 raised the score by adding statutory and 9/11 Commission page leads, clarifying the residual-gap theory, and documenting implementation risks. The proposal is Review Ready for knowledgeable external critique but not publication-ready because official 2020/2024 event records, direct prior-proposal research, exact amendment placement, budget/workload analogues, and external review remain pending.
 
 **Adoption Score.** Adoption Score is 5/12. Presidential-transition continuity has bipartisan institutional logic and an enacted 2022 reform baseline, but ELEC-006 does not yet cite proposal-specific polling, current sponsor coalitions, committee activity, transition-practitioner endorsement, or external validation for its full automaticity package.
 
