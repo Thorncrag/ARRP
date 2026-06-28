@@ -7,11 +7,11 @@ priority: high
 remedy_type: coupled-federal-and-model-state-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
-audit_status: "T3 readiness audit complete; T4 publication audit pending"
-audit_score: 71
-audit_last_type: "T3 readiness audit"
+audit_status: "T4 publication-ready audit complete; external validation needed before circulation"
+audit_score: 73
+audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-06-28"
-audit_next: "T4 publication-ready audit"
+audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 4
@@ -164,11 +164,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[71 / 100](ELEC-004.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[73 / 100](ELEC-004.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T3 readiness audit complete; T4 publication audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; external validation needed before circulation<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 
@@ -186,7 +186,7 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Source Development Pending.** Further development should cite representative cases and orders from Pennsylvania, Michigan, Wisconsin, Nevada, Georgia, and other election proceedings, together with Rule 11, 28 U.S.C. § 1927, inherent-power sanctions, and state Anti-SLAPP analogues.
 
-**Quality Score.** The 71/100 score reflects a Substantially Developed Draft under rubric 2026-06-27.2. T3 confirmed the coupled federal/model-state vehicle, issue-to-legislation alignment, initial Anti-SLAPP analogy, basic sanctions/protective-order source coverage, representative source support for Pennsylvania and Michigan, and the need to test the federal proposal against the Rules Enabling Act and Congress's statutory procedure authority. The score remains below Review Ready because several named manifestations lack primary records, legal-fit analysis remains preliminary, and the proposal has significant Petition Clause, First Amendment, federalism, state-court authority, and court-rule displacement questions.
+**Quality Score.** The 73/100 score reflects a Substantially Developed Draft after T4. T4 confirmed the coupled federal/model-state vehicle, issue-to-legislation alignment, Anti-SLAPP analogy, sanctions and protective-order source coverage, representative source support for Pennsylvania and Michigan, and the need to treat the federal bill as statutory procedure rather than a rules amendment. The proposal remains below Review Ready because core primary records, federal-procedure authority, Petition Clause and First Amendment limits, state-court authority, and prior-proposal comparison remain unresolved.
 
 **Adoption Score.** The 4/12 score is limited. ELEC-004 has a clear procedural analogue in Anti-SLAPP law and a staged federal/state vehicle, but T1 did not identify proposal-specific polling, sponsor coalitions, administrator or court-administration support, bipartisan legislative records, or enacted election-specific Anti-SLAPP analogues.
 
@@ -196,4 +196,4 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Development Priority.** The priority is `active` because litigation and investigatory-process abuse can materially affect election timelines, sensitive election materials, election personnel, and public confidence even when the underlying claim ultimately fails.
 
-**Procedure Authority.** T3 treats the federal bill as a statutory federal-court procedure proposal rather than a proposed amendment to the Federal Rules of Civil Procedure. That posture remains plausible, but T4 must test whether any provision impermissibly abridges substantive rights, conflicts with existing rulemaking structures, or should instead be framed as a targeted statute codified in title 28.
+**Procedure Authority.** T4 treats the federal bill as a statutory federal-court procedure proposal rather than a proposed amendment to the Federal Rules of Civil Procedure. That posture remains plausible but unresolved. Before circulation, a federal-courts or legislative-counsel reviewer should determine whether the bill should be narrowed, codified in title 28, or converted into amendments to existing procedural statutes.
