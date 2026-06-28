@@ -103,8 +103,8 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Reassess predicate | 1 |
 | T2 | 2 |
 | T3 | 0 |
-| T4 publication-ready audit | 1 |
-| T4 follow-up | 17 |
+| T4 publication-ready audit | 0 |
+| T4 follow-up | 18 |
 
 ## Change Audit Log
 
@@ -266,7 +266,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | CONG-006 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | CONG-007 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | CONG-008 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| IMM-001 | A-16 | High | Developed | 77 | Review Ready | 4 | T3 readiness audit | 2026-06-28 | T4 publication-ready audit | [Issue](areas/IMM/issues/IMM-001.md) | [Bill](legislation/IMM-001.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
+| IMM-001 | A-16 | High | Developed | 78 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/IMM/issues/IMM-001.md) | [Bill](legislation/IMM-001.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
 | IMM-002 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | IMM-003 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | IMM-004 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
