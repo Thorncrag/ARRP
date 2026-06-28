@@ -9,11 +9,18 @@ legislative_proposal: "../../../legislation/ELEC-003-state.md"
 federal_legislative_proposal: "../../../legislation/ELEC-003.md"
 audit_status: "Structural audit complete; advanced audits pending"
 audit_score: 60
-audit_last_type: "Initial framework and inventory audit"
-audit_last_date: "2026-06-24"
-audit_next: "Advanced audit"
-audit_rubric_version: "pre-2026-06-27.1"
+audit_last_type: "T1 framework check"
+audit_last_date: "2026-06-28"
+audit_next: "T2 development audit"
+audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "hard-rebaseline-needed"
+adoption_score: 5
+adoption_friction_score: 58
+adoption_friction_band: "Significant Resistance"
+required_electoral_environment: "state-level-pathway"
+pathway_viability: "state-by-state"
+development_priority: "active"
+pathway_adjustment: "model-law-and-voluntary-federal-grant"
 print_levels:
   - public-proposal
   - full-technical
@@ -81,9 +88,9 @@ A federal remedy centered on discretionary executive supervision would create an
 
 ## Proposal Survey
 
-Federal law already protects voting rights and criminalizes some intimidation, threats, and interference. Relevant models include the Voting Rights Act intimidation provision, federal threat statutes, and civil-rights enforcement authority. See [52 U.S.C. § 10307](https://www.law.cornell.edu/uscode/text/52/10307) and [18 U.S.C. § 875](https://www.law.cornell.edu/uscode/text/18/875).
+Federal law already protects voting rights and criminalizes some intimidation, threats, and interference. Relevant models include the Voting Rights Act intimidation provision, federal threat statutes, and civil-rights enforcement authority. See [52 U.S.C. § 10307](https://uscode.house.gov/view.xhtml?req=(title:52%20section:10307%20edition:prelim)) and [18 U.S.C. § 875](https://uscode.house.gov/view.xhtml?req=(title:18%20section:875%20edition:prelim)).
 
-Election-administration funding also has an established vehicle: the Help America Vote Act of 2002 created federal support through the Election Assistance Commission while preserving state administration. See [52 U.S.C. §§ 20901-21145](https://www.law.cornell.edu/uscode/text/52/subtitle-II/chapter-209). ELEC-003 combines state protection statutes with a HAVA-style funding backstop rather than federal operational control.
+Election-administration funding also has an established vehicle: the Help America Vote Act of 2002 created federal support through the Election Assistance Commission while preserving state administration. See [52 U.S.C. chapter 209](https://uscode.house.gov/view.xhtml?path=/prelim@title52/subtitle2/chapter209&edition=prelim). ELEC-003 combines state protection statutes with a HAVA-style funding backstop rather than federal operational control.
 
 ## Least-Complex Adequate Remedy
 
@@ -162,11 +169,11 @@ Budget authority is likely required; no dollar estimate is assigned pending sour
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-003.audit.md)** (Developed Draft)<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+> **Proposal Quality Score:** **[60 / 100](ELEC-003.audit.md)** (Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 58 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-003 audit history](ELEC-003.audit.md)
+> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-003 audit history](ELEC-003.audit.md)
 
 ## Annotation
 
@@ -181,3 +188,13 @@ Budget authority is likely required; no dollar estimate is assigned pending sour
 **Federalism Firewall.** Federal eligibility review should be binary and statutory, not a general assessment of whether federal officials approve of a state's election-security program. No regulation, guidance, executive order, or grant term should be permitted to add substantive conditions beyond those enacted by Congress.
 
 **Source Note.** The manifestations are illustrative rather than exhaustive. The examples were selected to show distinct institutional failures: individual and family targeting, forced displacement, prosecutable true threats, facility evacuation, Election Day operational disruption, and workforce attrition.
+
+**Quality Score.** The 60/100 score remains a Developed Draft score because T1 confirmed the structure, linked vehicles, citation inventory, preliminary pathway, and budget-statement presence but did not recalculate component scores under the current rubric. The proposal remains hard-rebaseline-needed until T2 completes the first current-rubric merits score.
+
+**Adoption Score.** The 5/12 score is limited. ELEC-003 has a plausible state-by-state model-law path, a federal grant-support vehicle, bipartisan institutional beneficiaries, and concrete recent manifestations, but T1 did not identify proposal-specific polling, sponsor coalitions, enacted model-state uptake, election-administrator endorsements, or bipartisan legislative records sufficient to award higher adoption credit.
+
+**Adoption Friction.** The 58/100 score is Significant Resistance. The proposal protects election personnel of all parties and preserves state administration, which lowers friction, but it touches election administration, speech-adjacent threat and doxxing rules, appropriations, state-federal grant conditions, and security operations, each of which creates meaningful opposition, litigation, and implementation risk.
+
+**Required Electoral Environment.** The required environment is `state-level-pathway`, with Pathway Viability `state-by-state` and Pathway Adjustment `model-law-and-voluntary-federal-grant`. The model state act can proceed state by state, while the federal HAVA amendment would require federal legislation and appropriations to create the voluntary funding backstop.
+
+**Development Priority.** The priority is `active` because election-personnel threats, operational disruption, and workforce attrition remain live election-administration risks and the proposal has concrete vehicles for continued development.
