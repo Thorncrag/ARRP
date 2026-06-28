@@ -7,11 +7,11 @@ priority: high
 remedy_type: constitutional-amendment
 legislative_status: working-draft
 constitutional_proposal: "../../../legislation/ELEC-009-amendment.md"
-audit_status: "T3 readiness audit complete; T4 publication-ready audit pending"
-audit_score: 68
-audit_last_type: "T3 readiness audit"
+audit_status: "T4 publication-ready audit complete; external validation and implementation design pending"
+audit_score: 70
+audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-06-28"
-audit_next: "T4 publication-ready audit"
+audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 1
@@ -45,6 +45,8 @@ The Electoral College also creates elector-specific pressure points, including e
 ### Popular-vote and Electoral College divergence
 
 The Electoral College winner did not receive the national popular-vote plurality in the presidential elections of 1876, 1888, 2000, and 2016. The 1824 election also produced a President who did not lead the initial popular vote, although the popular vote was incomplete and the election was ultimately decided by the House of Representatives under the Twelfth Amendment.
+
+Official FEC election compilations verify the two modern examples central to this proposal's contemporary relevance. In 2000, the FEC reported Al Gore with 50,992,335 popular votes and George W. Bush with 50,455,156 popular votes, while the electoral-vote map gave Bush 271 electoral votes and Gore 266. See [FEC Federal Elections 2000](https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/federal-elections-2000/) and [FEC Federal Elections 2000 PDF](https://www.fec.gov/documents/1556/federalelections00.pdf). In 2016, the FEC reported Hillary Clinton with 65,853,514 popular votes and President Trump with 62,984,828 popular votes, while the electoral-vote table reported President Trump with 304 electoral votes and Clinton with 227 after faithless-elector votes. See [FEC Federal Elections 2016](https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/federal-elections-2016/) and [FEC Federal Elections 2016 workbook](https://www.fec.gov/documents/1890/federalelections2016.xlsx).
 
 ### Modern structural mismatch
 
@@ -131,11 +133,11 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[68 / 100](ELEC-009.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 1 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 95 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `constitutional-amendment-environment`<br />**Development Priority:** `conditional`
+> **Proposal Quality Score:** **[70 / 100](ELEC-009.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 1 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 95 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `constitutional-amendment-environment`<br />**Development Priority:** `conditional`
 >
 > —
 >
-> **Audit Status:** T3 readiness audit complete; T4 publication-ready audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-009 audit history](ELEC-009.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; external validation and implementation design pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-009 audit history](ELEC-009.audit.md)
 
 ## Annotation
 
@@ -149,9 +151,9 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 
 **Implementation Required.** The amendment must be paired with implementing legislation for national certification, recount thresholds, contest procedures, ballot access, candidate replacement, tie resolution, transition access, and emergency contingencies.
 
-**Quality Score.** The proposal is 68/100 after T3. Component score: Structural 8/8; Evidence 8/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 1/12; Project Integration 4/4; External Review 0/4. T3 improves prior-proposal grounding and Article V analysis, but national administration, recounts, ballot access, state ratification, compact legality, majority mechanism, official election-result verification, and implementing legislation remain materially underdeveloped.
+**Quality Score.** The proposal is 70/100 after T4. Component score: Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 1/12; Project Integration 4/4; External Review 0/4. T4 verifies the 2000 and 2016 modern divergence examples through official FEC records and confirms direct congressional amendment analogues, but older historical examples, state-by-state compact verification, compact legality, majority-mechanism selection, implementing legislation, and external constitutional-law or election-law review remain unresolved.
 
-**Adoption Score.** Adoption Score is 1/12 because the proposal correctly identifies that a constitutional amendment is required, but T1 did not identify a realistic ratification coalition, proposal-specific polling, current congressional sponsor base, state-ratification pathway, or external validator support for direct national presidential election.
+**Adoption Score.** Adoption Score is 1/12 because the proposal correctly identifies that a constitutional amendment is required, but the audit record does not identify a realistic ratification coalition, proposal-specific polling, current congressional sponsor base, state-ratification pathway, or external validator support for direct national presidential election.
 
 **Adoption Friction.** Adoption Friction is 95/100 (Extreme Resistance) because the proposal would abolish presidential electors, alter presidential-selection incentives nationwide, require Article V ratification, affect state and party strategic interests, require extensive implementing legislation, and invite intense federalism, partisan, administrative, recount, and ballot-access objections.
 

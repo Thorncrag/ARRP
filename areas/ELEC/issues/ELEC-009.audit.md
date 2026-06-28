@@ -101,3 +101,31 @@ No issue-specific audit log has been migrated from the issue page yet. The curre
 **Next audit need:** T4 should verify official election-result evidence, complete direct-proposal legislative-history review, verify compact status through state sources, test compact and Article V legal risks, select or bracket the majority mechanism, outline implementing legislation, and obtain external election-law or constitutional-law review.
 
 **Audit process feedback:** T3 materially improved legal-fit and prior-proposal grounding, but it also confirmed that ELEC-009 cannot become publication-ready through amendment text alone. T4 should begin with official election-result and compact/state-source verification before attempting additional prose refinement.
+
+### 2026-06-28 — T4 publication-ready audit
+
+**Audit status:** T4 publication-ready audit complete; external validation and implementation design pending
+
+**Proposal-quality score:** 70
+
+**Component score:** Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 1/12; Project Integration 4/4; External Review 0/4. Total: 70.
+
+**Scope reviewed:** T4 reviewed the issue page, amendment text, T1/T2/T3 audit history, dashboard row, audit inventory, source inventory, FEC election-result index pages and official files for 2000 and 2016, Article V, verified Congress.gov amendment analogues, and the National Popular Vote compact source posture.
+
+**Sources checked:** T4 added official FEC source rows for the 2000 and 2016 federal election compilations and files. The 2000 FEC PDF verifies that Al Gore led the popular vote while George W. Bush received the electoral-vote majority. The 2016 FEC workbook verifies that Hillary Clinton led the popular vote while President Trump received the electoral-vote majority after faithless-elector votes. T4 also retained Article V and Congress.gov prior-proposal sources from T3.
+
+**Verified findings:** The two modern divergence examples, 2000 and 2016, are now supported by official FEC election-result materials. Article V remains the controlling mechanism for abolishing presidential electors. The issue page and amendment text remain aligned on direct election, joint tickets, abolition of electors, congressional implementation authority, state administration subject to uniform federal rules, and delayed effective date.
+
+**Unresolved claims and publication blockers:** T4 did not source-check the 1876 and 1888 historical examples through official or scholarly sources; did not fully verify the 1824 qualification; did not verify National Popular Vote compact enactments through each official state source; did not complete a current Congress.gov search for all 118th, 119th, or later direct-election proposals; did not analyze compact constitutional risk; did not select a plurality, runoff, ranked-choice, or other majority mechanism; did not draft implementing legislation; did not develop budget/workload analogues for implementation; and did not obtain external constitutional-law, election-law, election-administration, or legislative-counsel review.
+
+**Mootness and material-reframing check:** No source reviewed during T4 makes ELEC-009 moot. The Electoral Count Reform Act and related presidential-count reforms do not abolish electors or guarantee that the national popular-vote winner becomes President. The compact remains a live staged alternative, but it is not treated as a completed or publication-verified substitute for amendment.
+
+**Adoption and opposition analysis:** Adoption Score remains 1/12 and Adoption Friction remains 95/100. The proposal's adoption barrier is structural because Article V requires supermajority congressional proposal and three-fourths state ratification while changing state, party, and campaign incentives. T4 did not identify proposal-specific polling, a current viable sponsor coalition, bipartisan ratification pathway, or external validator support sufficient to improve adoption credit.
+
+**Budget and implementation:** No direct appropriation is anticipated for the amendment itself. Implementing legislation may impose meaningful costs for national certification, recounts, contests, ballot access, candidate replacement, ties, transition timing, and administration, but T4 did not locate a source-backed budget analogue sufficient for a dollar estimate.
+
+**Publication-readiness determination:** ELEC-009 is not publication-ready. It is a substantially developed constitutional-amendment draft with official modern divergence evidence and verified amendment analogues, but it needs external review, implementation legislation, compact-state verification, majority-mechanism design, and historical source cleanup before external circulation as a mature recommendation.
+
+**Next audit need:** Run external validation or T4 follow-up after official or scholarly source support for older historical examples, state-source verification of compact enactments, current Congress.gov prior-proposal search, compact constitutional-risk analysis, implementing legislation outline or draft, budget/workload analogues, majority-mechanism decision, and qualified constitutional-law or election-law review.
+
+**Audit process feedback:** T4 was useful for replacing the weakest factual predicate with official FEC support, but ELEC-009 remains constrained by design choices that cannot be solved by citation cleanup alone. Future work should prioritize implementation architecture and external review before another score-focused audit.
