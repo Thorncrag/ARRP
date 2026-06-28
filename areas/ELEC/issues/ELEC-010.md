@@ -5,13 +5,14 @@ title: "Mail-In Voting Access, Reliability, and Trust"
 status: developed
 priority: high
 remedy_type: federal-legislation
-audit_status: "HOR-012 integrated as USPS and mail-ballot source-strengthening manifestation; legislation path pending"
-audit_score: 55
-audit_last_type: "Horizon integration decision"
-audit_last_date: "2026-06-25"
-audit_next: "T2 development audit"
+proposal_legislation: "../../../legislation/ELEC-010.md"
+audit_status: "T2 development audit complete; T3 readiness audit pending"
+audit_score: 70
+audit_last_type: "T2 development audit"
+audit_last_date: "2026-06-28"
+audit_next: "T3 readiness audit"
 audit_rubric_version: "2026-06-27.2"
-audit_rebaseline_status: "hard-rebaseline-needed"
+audit_rebaseline_status: "current"
 adoption_score: 4
 adoption_score_band: "Limited Adoption Basis"
 adoption_friction_score: 72
@@ -186,7 +187,7 @@ Congress should also enact federal postal standards for election mail, including
 
 ## Proposed Legislation
 
-- Pending development
+- [Mail-In Voting Reliability and Election Mail Standards Act](../../../legislation/ELEC-010.md)
 
 ## Relationship to Adjacent Proposals
 
@@ -208,11 +209,11 @@ Budget authority may be required if the chosen remedy funds postage, tracking, o
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[55 / 100](ELEC-010.audit.md)** (Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[70 / 100](ELEC-010.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-010 audit history](ELEC-010.audit.md)
+> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-010 audit history](ELEC-010.audit.md)
 
 ## Annotation
 
@@ -224,7 +225,7 @@ HOR-001 was integrated into this issue only for the mail-ballot and USPS compone
 
 **Remedial Alternatives and Constraints.** A federal statute requiring no-excuse mail voting nationwide would maximize uniform access but would create larger federalism and administrative questions. A model state act would be useful but slower and less uniform for federal-election vulnerabilities. A purely advisory best-practices guide would be simpler but inadequate where rejection, postal disruption, or cure disparities recur. The least-complex adequate approach is a federal floor for federal-election mail ballots plus federal postal-performance standards for election mail.
 
-**Quality Score.** The proposal remains 55/100 after T1 because no full current-rubric component rebaseline has been performed. T1 confirms that the page has a developed issue framework and substantial source leads, but a concrete bill text, proposal-to-legislation alignment check, formula score, current-source refresh, and implementation-risk review remain pending.
+**Quality Score.** The proposal is 70/100 after T2. Component score: Structural 8/8; Evidence 8/12; Legal Fit 6/10; Prior Proposal 7/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 6/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. T2 creates a concrete HAVA and title 39 amendment package and confirms official statutory hooks, but official court/rulemaking records, legal-authority stress testing, USPS operational validation, budget/workload support, and external election-law or postal-operation review remain unresolved.
 
 **Adoption Score.** Adoption Score is 4/12 because ELEC-010 has a plausible federal statutory vehicle, identifiable prior-proposal families, and both access and integrity framing, but lacks proposal-specific polling, active sponsor support for this narrower framework, bipartisan coalition evidence, state election-official validation, USPS operational validation, or external election-law review.
 

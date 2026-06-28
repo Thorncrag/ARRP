@@ -28,6 +28,7 @@ Working statutory and administrative language is maintained separately from the 
 - [ELEC-007 — Election Administration Federal-Force Noninterference Act](ELEC-007.md)
 - [ELEC-008 — Federal Election Subversion Accountability Act](ELEC-008.md)
 - [ELEC-009 — Direct Election of the President and Vice President Amendment](ELEC-009-amendment.md)
+- [ELEC-010 — Mail-In Voting Reliability and Election Mail Standards Act](ELEC-010.md)
 - [JUD-001 — Executive Compliance and Civil Contempt Accountability Act](JUD-001.md)
 - [JUD-009 — Appointer-President Recusal Act](JUD-009.md)
 - [IMM-001 — Presidential Criminal Accountability Amendment](IMM-001.md)
