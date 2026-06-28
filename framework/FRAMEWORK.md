@@ -71,14 +71,20 @@ Every substantive issue has a stable identifier such as `DOJ-001`. Legislative p
 
 - Federal legislative proposals use the unsuffixed issue identifier: `XXX-NNN.md`.
 - Model state legislative proposals use the state suffix: `XXX-NNN-state.md`.
+- Constitutional amendment text uses the amendment suffix: `XXX-NNN-amendment.md`.
+- Enabling legislation for a constitutional amendment normally uses the unsuffixed issue identifier: `XXX-NNN.md`.
 
 For issues with both federal and state proposals, the federal proposal is the unsuffixed file and the model state proposal is the `-state` file. For issues with only a model state proposal, the proposal should still use the `-state` suffix.
+
+For issues with both constitutional amendment text and enabling legislation, the amendment page should contain the proposed constitutional amendment itself and the unsuffixed page should contain the proposed enabling legislation. The issue page should link both vehicles.
 
 Examples:
 
 - `ELEC-003.md` — federal proposal.
 - `ELEC-003-state.md` — model state proposal.
 - `ELEC-002-state.md` — model state proposal where no federal proposal is yet maintained.
+- `DOJ-007-amendment.md` — constitutional amendment text.
+- `DOJ-007.md` — enabling legislation for the amendment.
 
 Every Markdown page must carry `print_levels` metadata under [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
 
@@ -178,30 +184,34 @@ Every developed issue should use the following structure:
 
 1. **Issue Snapshot** — a short reader-navigation box summarizing problem, repair, and vehicle.
 2. **Institutional Anomaly** — a concise, generalized statement of the structural defect.
-3. **Manifestation of the Failure** — only the representative facts necessary to show how the defect operates.
+3. **Manifestation of the Failure** — titled representative instances or categories showing only the facts necessary to show how the defect operates.
 4. **Resulting Damage** — the principal institutional, legal, factual, administrative, or legitimacy harm.
 5. **Underlying Weakness** — the law, structure, procedure, remedy, or norm that failed.
 6. **Proposal Survey** — concise review of prior or adjacent models bearing on the remedy.
 7. **Least-Complex Adequate Remedy** — the least-complex measure or package capable of adequately addressing the defect.
 8. **Repair and Prevention** — restoration or correction of existing damage and prospective safeguards against recurrence.
-9. **Proposed Legislation** — link to the proposed legislative, rule, constitutional, or procedural vehicle when one exists.
+9. **Proposed Legislation** — link to the proposed legislative, rule, constitutional, or procedural vehicle when one exists. For amendment-dependent issues, use **Proposed Constitutional Amendment** and **Proposed Enabling Legislation** instead.
 10. **Budgetary Impact Statement** — a concise preliminary fiscal classification using the project rubric.
 11. **Proposal Scoring** — a succinct audit and scoring box showing the proposal-quality score, any companion scores, Required Electoral Environment, Development Priority, and any assessed coalition-support estimates first, separated by an em dash divider from audit status, rubric version, rebaseline status, next audit need, and a link to the sibling full audit-history file.
 12. **Annotation** — evidence, legal analysis, qualifications, alternatives, and implementation constraints.
 
 The headings guide analysis but do not require artificial expansion. Each section should add a distinct proposition.
 
+The **Manifestation of the Failure** section should use short `###` instance titles in the style of `DOJ-005`, such as `### Example actor or episode` or `### Functional category of failure`. Use one titled instance even when the page currently has only one principal manifestation. Where the section discusses both general mechanisms and concrete episodes, separate them into titled subsections rather than leaving untitled paragraphs. Titles should be descriptive, neutral, concise, and supported by the text that follows.
+
 Custom section headings are permitted where they make a developed issue clearer or more natural to read, provided the issue still performs the required analytical functions. A custom heading should be meaningfully distinct from the canonical heading it replaces rather than a trivial restatement. Where custom headings are used, the required function should remain clear from the heading itself, the surrounding structure, or a short orienting sentence.
 
 Where proposed legislation or another concrete reform vehicle exists, the issue page should include a **Proposed Legislation** section immediately after **Repair and Prevention**. **Repair and Prevention** and **Proposed Legislation** should appear after **Least-Complex Adequate Remedy**, so the page first compares available models and identifies the preferred remedy before presenting the repair frame and concrete vehicle. Proposed vehicles should always be presented as a Markdown bullet list, even when there is only one linked item.
 
+Where a proposal requires a constitutional amendment and separate implementing legislation, the issue page should use **Proposed Constitutional Amendment** for the amendment page and **Proposed Enabling Legislation** for the implementing statute. Both sections should appear as Markdown bullet lists. The amendment text itself should live on its own proposal page, not inside the issue page. The enabling legislation page should identify the amendment dependency in front matter or introductory text.
+
 Candidate or source-development pages may keep a **Proposed Legislation** section with a single `Pending development` bullet when no draft vehicle exists yet. That placeholder is a development-status marker, not a legislation link failure. Once a concrete vehicle exists, replace the placeholder with a linked bullet and update the Issue Snapshot vehicle line, metadata, inventories, and dashboard.
 
-Where a proposal is legally available under current law but depends on a future or amenable institutional actor for realistic adoption, the issue page may include an **Adoption Viability Note** immediately after **Proposed Legislation**. The note should be concise and should distinguish legal vehicle availability from practical adoption likelihood.
+Where a proposal is legally available under current law but depends on a future or amenable institutional actor for realistic adoption, the issue page may include an **Adoption Viability Note** immediately after **Proposed Legislation**, or after **Proposed Enabling Legislation** for amendment-dependent issues. The note should be concise and should distinguish legal vehicle availability from practical adoption likelihood.
 
-Where a proposal may be confused with, overlap with, partially replace, or depend on another ARRP proposal, the issue page should include an optional **Relationship to Adjacent Proposals** section after **Proposed Legislation** and any **Adoption Viability Note**, but before **Budgetary Impact Statement**. The section should briefly identify what the current proposal owns, what each adjacent proposal owns, whether there is partial overlap or merger, and whether the adjacent proposal complements or replaces the current remedy.
+Where a proposal may be confused with, overlap with, partially replace, or depend on another ARRP proposal, the issue page should include an optional **Relationship to Adjacent Proposals** section after **Proposed Legislation** or **Proposed Enabling Legislation** and any **Adoption Viability Note**, but before **Budgetary Impact Statement**. The section should briefly identify what the current proposal owns, what each adjacent proposal owns, whether there is partial overlap or merger, and whether the adjacent proposal complements or replaces the current remedy.
 
-The issue page and its linked proposed legislation must remain substantively aligned. When either page changes, the next framework, drafting, or project-integration audit should cross-check the Issue Snapshot vehicle, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation, Annotation, and Proposal Scoring summary against the linked legislative or rule text. The check should confirm that the issue page still accurately describes the vehicle, covered actors, legal hook, remedy type, enforcement mechanism, deadlines, responsible institutions, scope limits, and material drafting notes. If an audit discovers a substantive discrepancy, document it as an unresolved finding, report it to the user, and treat it as requiring human review before updating either the issue page or the proposed legislation.
+The issue page and its linked proposed legislation, constitutional amendment text, enabling legislation, or other proposal vehicle must remain substantively aligned. When either page changes, the next framework, drafting, or project-integration audit should cross-check the Issue Snapshot vehicle, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation or amendment/enabling sections, Annotation, and Proposal Scoring summary against the linked legislative, constitutional, rule, or procedural text. The check should confirm that the issue page still accurately describes the vehicle, covered actors, legal hook, remedy type, enforcement mechanism, deadlines, responsible institutions, scope limits, and material drafting notes. If an audit discovers a substantive discrepancy, document it as an unresolved finding, report it to the user, and treat it as requiring human review before updating either the issue page or the proposed legislation.
 
 Every developed issue page and every proposal page should include a **Budgetary Impact Statement** before **Annotation** on issue pages and before **Drafting Notes** on legislation or proposal pages. The statement is a preliminary ARRP planning classification, not an official fiscal score. It must be short, source-conscious, and must not include a dollar figure unless the figure is tied to a cited government source, historical appropriation, CBO score, agency budget material, audited program cost, or comparable source-backed basis. The substantive classification should appear first. The project disclaimer should appear below it as an italicized note: `*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*`
 

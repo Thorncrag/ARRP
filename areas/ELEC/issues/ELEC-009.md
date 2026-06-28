@@ -34,7 +34,11 @@ The Electoral College also creates elector-specific pressure points, including e
 
 ## Manifestation of the Failure
 
+### Popular-vote and Electoral College divergence
+
 The Electoral College winner did not receive the national popular-vote plurality in the presidential elections of 1876, 1888, 2000, and 2016. The 1824 election also produced a President who did not lead the initial popular vote, although the popular vote was incomplete and the election was ultimately decided by the House of Representatives under the Twelfth Amendment.
+
+### Modern structural mismatch
 
 The issue is not dependent upon misconduct by any individual officeholder. The 2000 and 2016 elections are modern manifestations of a longstanding structural possibility: a candidate may assume the presidency despite receiving fewer votes nationwide than an opponent.
 
