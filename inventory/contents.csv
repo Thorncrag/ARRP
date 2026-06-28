@@ -69,6 +69,7 @@ A-06.011,Issue,A-06,EMOL-011,Remedies that arrive too late,Medium,Candidate,area
 A-06.012,Issue,A-06,EMOL-012,Lack of effective disgorgement,Medium,Candidate,areas/EMOL/README.md,,
 A-06.013,Issue,A-06,EMOL-013,Circumvention through family or affiliated entities,Medium,Candidate,areas/EMOL/README.md,,
 A-06.014,Issue,A-06,EMOL-014,Dependence on impeachment or political restraint,Medium,Candidate,areas/EMOL/README.md,,
+A-06.015,Issue,A-06,EMOL-015,Executive Self-Litigation and Settlement Conflicts,High,Developed,areas/EMOL/issues/EMOL-015.md,legislation/EMOL-015.md,
 A-07,Area,A-07,,"Classification, Declassification, and National-Security Information",,Active,areas/CLASS/README.md,,Provisional inventory; full source development pending.
 A-07.001,Issue,A-07,CLASS-001,Undocumented presidential declassification,Medium,Candidate,areas/CLASS/README.md,,
 A-07.002,Issue,A-07,CLASS-002,Confusion between declassification and lawful possession,Medium,Candidate,areas/CLASS/README.md,,

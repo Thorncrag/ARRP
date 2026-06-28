@@ -18,9 +18,9 @@ Update this page whenever an audit changes an issue score, audit status, last au
 
 [Back to top](#audit-dashboard)
 
-- Issues tracked: 213
-- Issues with proposed legislation links: 19
-- Developed issues: 20
+- Issues tracked: 214
+- Issues with proposed legislation links: 20
+- Developed issues: 21
 - Candidate issues: 179
 - Retired or merged issues: 13
 - Paused for controlling finding: 1
@@ -35,7 +35,7 @@ Update this page whenever an audit changes an issue score, audit status, last au
 | Paused | 1 |
 | Pending development | 179 |
 | Developed Draft | 1 |
-| Substantially Developed Draft | 3 |
+| Substantially Developed Draft | 4 |
 | Review Ready | 16 |
 | Audit in progress | 0 |
 
@@ -47,7 +47,7 @@ Current audit rubric version: `2026-06-27.2`
 
 | Rebaseline status | Count |
 | --- | ---: |
-| Current | 18 |
+| Current | 19 |
 | Current fixed-status score | 193 |
 | Soft rebaseline needed | 0 |
 | Hard rebaseline needed | 2 |
@@ -64,7 +64,7 @@ Required Electoral Environment is a T1 gate that identifies the minimum electora
 | House oversight majority | 0 |
 | Narrow unified government | 0 |
 | Filibuster-constrained unified government | 0 |
-| Sixty-vote Senate | 13 |
+| Sixty-vote Senate | 14 |
 | Filibuster reform or exception | 0 |
 | Wave-election mandate | 0 |
 | Post-crisis repair mandate | 1 |
@@ -85,7 +85,7 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Low Resistance | 0 |
 | Manageable Resistance | 0 |
 | Significant Resistance | 3 |
-| High Resistance | 10 |
+| High Resistance | 11 |
 | Extreme Resistance | 7 |
 | Unassessed | 0 |
 | N/A | 193 |
@@ -102,7 +102,7 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Issue-admission test | 179 |
 | Reassess predicate | 1 |
 | T2 | 2 |
-| T3 | 0 |
+| T3 | 1 |
 | T4 publication-ready audit | 0 |
 | T4 follow-up | 18 |
 
@@ -132,7 +132,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | DOJ-006 | A-01 | High | Retired—merged into DOJ-002 and DOJ-007 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/DOJ/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | DOJ-007 | A-01 | High | Developed | 78 | Review Ready | 8 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/DOJ/issues/DOJ-007.md) | [Amendment](legislation/DOJ-007-amendment.md); [Act](legislation/DOJ-007.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
 | DOJ-008 | A-01 | High | Retired—merged into DOJ-003 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/DOJ/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOJ-009 | A-01 | High | Developed | 60 | Developed Draft | 3 | T2 blocker review | 2026-06-28 | Human review: authorize existing-law redraft, then T2 development audit | [Issue](areas/DOJ/issues/DOJ-009.md) | [Bill](legislation/DOJ-009.md) | 2026-06-27.2 | hard-rebaseline-needed | sixty-vote-senate | active | High Resistance |
+| DOJ-009 | A-01 | High | Developed | 74 | Substantially Developed Draft | 5 | T2 development audit | 2026-06-28 | T3 readiness audit | [Issue](areas/DOJ/issues/DOJ-009.md) | [Bill](legislation/DOJ-009.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | ELEC-001 | A-02 | High | Developed | 77 | Review Ready | 6 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-001.md) | [Bill](legislation/ELEC-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | Extreme Resistance |
 | ELEC-002 | A-02 | High | Developed | 76 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-002.md) | [Bill](legislation/ELEC-002-state.md) | 2026-06-27.2 | current | state-level-pathway | active | Significant Resistance |
 | ELEC-003 | A-02 | High | Developed | 77 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-003.md) | [Bill 1](legislation/ELEC-003-state.md)<br />[Bill 2](legislation/ELEC-003.md) | 2026-06-27.2 | current | state-level-pathway | active | Significant Resistance |
@@ -188,6 +188,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | EMOL-012 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | EMOL-013 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | EMOL-014 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
+| EMOL-015 | A-06 | High | Developed | 60 | Developed Draft | 1 | Initial development | 2026-06-28 | T1 framework check | [Issue](areas/EMOL/issues/EMOL-015.md) | [Bill](legislation/EMOL-015.md) | 2026-06-27.2 | hard-rebaseline-needed | sixty-vote-senate | active | High Resistance |
 | CLASS-001 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | CLASS-002 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | CLASS-003 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |

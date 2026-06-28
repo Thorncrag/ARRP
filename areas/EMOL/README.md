@@ -2,7 +2,7 @@
 area_id: A-06
 title: "Presidential Conflicts of Interest and Emoluments"
 status: active
-issue_count: 14
+issue_count: 15
 print_levels:
   - public-proposal
   - full-technical
@@ -31,7 +31,10 @@ The constitutional and statutory framework does not adequately prevent a preside
 - **EMOL-012** — Lack of effective disgorgement _(status: Candidate; priority: Medium)_
 - **EMOL-013** — Circumvention through family or affiliated entities _(status: Candidate; priority: Medium)_
 - **EMOL-014** — Dependence on impeachment or political restraint _(status: Candidate; priority: Medium)_
+- [EMOL-015 — Executive Self-Litigation and Settlement Conflicts](issues/EMOL-015.md) _(status: Developed; priority: High)_
 
 ## Notes
 
-Provisional inventory; full source development pending.
+EMOL-015 is developed as a conflict-of-interest and settlement-authority proposal. The President is expressly included in the proposed coverage and is not excluded by title, office, or implication.
+
+Other EMOL issues remain provisional inventory pending full source development.
