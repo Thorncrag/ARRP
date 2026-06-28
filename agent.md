@@ -173,14 +173,16 @@ For each autonomous issue unit, record:
 1. date and time if available;
 2. agent or run identifier if available;
 3. issue ID;
-4. requested tier or task;
-5. files changed;
-6. validation performed;
-7. commit message;
-8. commit hash;
-9. push status;
-10. rollback target or revert notes; and
-11. any blockers, skipped checks, or human-review stop conditions.
+4. link to the issue page;
+5. link to the proposed legislation, constitutional amendment, rule, model text, or other proposal page where one exists;
+6. requested tier or task;
+7. files changed;
+8. validation performed;
+9. commit message;
+10. commit hash;
+11. push status;
+12. rollback target or revert notes; and
+13. any blockers, skipped checks, or human-review stop conditions.
 
 The agent audit log should be append-only. If a commit is later reverted, add a new log entry identifying the revert commit and the original commit it reverses. Do not erase the original log entry.
 
@@ -194,6 +196,8 @@ Each log entry should be formatted as its own short section with an independent 
 | Date/time | YYYY-MM-DD |
 | Run/agent | Agent or run label |
 | Issue/task | ISSUE-ID or project task |
+| Issue page | Link to issue page, or `N/A` |
+| Proposal page | Link to proposed legislation, amendment, rule, or model text; use `N/A` if none exists |
 | Tier | T1/T2/T3/T4/change/etc. |
 | Files changed | `path`; `path` |
 | Validation | Checks performed |
