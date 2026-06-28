@@ -6,11 +6,11 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-007.md"
-audit_status: "T2 development audit complete; T3 readiness audit pending"
-audit_score: 72
-audit_last_type: "T2 development audit"
+audit_status: "T3 readiness audit complete; T4 publication-ready audit pending"
+audit_score: 76
+audit_last_type: "T3 readiness audit"
 audit_last_date: "2026-06-28"
-audit_next: "T3 readiness audit"
+audit_next: "T4 publication-ready audit"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 5
@@ -134,11 +134,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[72 / 100](ELEC-007.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 70 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[76 / 100](ELEC-007.audit.md)** (Review Ready)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 70 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-007 audit history](ELEC-007.audit.md)
+> **Audit Status:** T3 readiness audit complete; T4 publication-ready audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-007 audit history](ELEC-007.audit.md)
 
 ## Annotation
 
@@ -154,11 +154,13 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Election-Material Safeguards.** Ballots, voting equipment, pollbooks, tabulators, memory devices, election records, and result-transmission materials require separate judicial safeguards before access, imaging, copying, transport, or seizure.
 
-**Source Development Pending.** Further source development should review 18 U.S.C. § 592, the Posse Comitatus Act, National Guard authorities, federal election-crime enforcement guidance, emergency-response authorities, and state emergency-management law.
+**Source Development Pending.** T4 should review DOJ election-enforcement and election-monitoring guidance, National Guard and Insurrection Act authorities, emergency-response authorities, state emergency-management law, and exact codification placement.
 
 **Current Domestic-Deployment Context.** Current litigation over federalized National Guard deployment confirms that Posse Comitatus and federal domestic-force authority remain live legal issues, though not election-specific ones. See the Ninth Circuit's 2025 orders in [*Newsom v. Trump*](https://cdn.ca9.uscourts.gov/datastore/opinions/2025/06/19/25-3727.pdf) and [related rehearing order](https://cdn.ca9.uscourts.gov/datastore/opinions/2025/10/22/25-3727.pdf).
 
-**Quality Score.** The proposal is 72/100 after T2. Component score: Structural 8/8; Evidence 7/12; Legal Fit 7/10; Prior Proposal 5/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. The proposal is substantially developed but not yet Review Ready because it still needs election-specific source development, direct prior-proposal research, exact codification strategy, National Guard/Insurrection Act analysis, standing/remedy review, and external election-law or domestic-deployment review.
+**Prior-Proposal Grounding.** Brennan Center materials identify federal and state prohibitions on federal forces at polling places and provide a close model-bill analogue on state accountability for federal interference at polling places. These sources strengthen the prior-proposal family, but T4 should still review formal legislative history and enacted-law options before publication.
+
+**Quality Score.** The proposal is 76/100 after T3. Component score: Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior Proposal 7/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. The proposal is Review Ready for knowledgeable external critique but not publication-ready because it still needs exact codification strategy, DOJ/election-enforcement guidance review, National Guard/Insurrection Act analysis, standing/remedy review, budget/workload analogues, and external election-law or domestic-deployment review.
 
 **Adoption Score.** Adoption Score is 5/12. The proposal has a neutral institutional premise and existing statutory analogues, but it does not yet cite proposal-specific polling, sponsor coalitions, committee activity, cross-partisan institutional validators, or election-security/public-safety practitioner support.
 

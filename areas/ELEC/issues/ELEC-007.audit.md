@@ -67,3 +67,23 @@ This file preserves the full audit history for [ELEC-007](ELEC-007.md). The issu
 **Adoption and friction:** Adoption Score remains 5/12 because the proposal has neutral institutional logic and existing statutory analogues but lacks proposal-specific polling, sponsors, committee activity, practitioner support, or public-safety/election-administration validators. Adoption Friction remains 70/100 because the proposal constrains federal law-enforcement and force-deployment posture in a highly salient election context.
 
 **Next audit need:** T3 should conduct election-specific manifestation source development, prior-proposal and legislative-history research, National Guard and Insurrection Act analysis, codification review, emergency-response analogue search, standing/remedy review, and election-law or domestic-deployment practitioner review.
+
+### 2026-06-28 — T3 readiness audit
+
+**Audit status:** T3 readiness audit complete; T4 publication-ready audit pending
+
+**Proposal-quality score:** 76
+
+**Component score:** Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior Proposal 7/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. Total: 76.
+
+**Major findings:** T3 found that ELEC-007 is Review Ready for knowledgeable external critique. The proposal now has official statutory baseline sources, current court-source context for federalized National Guard and Posse Comitatus-adjacent disputes, and close Brennan Center materials addressing federal forces at polling places and a model bill for state accountability for federal interference at polling places.
+
+**Verified findings:** Existing federal law includes the troops-at-polls statute and Posse Comitatus Act, but those baselines are narrower than ELEC-007's modern emergency-response, federal-agent, election-material, cyber/technical-assistance, and notice/reporting architecture. The issue page and proposed legislation remain aligned.
+
+**Prior-proposal and analogue review:** Brennan Center materials strengthen the prior-proposal family and show that federal-force election-site restrictions are a recognized reform category. They do not eliminate the need for T4 legislative-history research, enacted-state comparison, or federal codification review.
+
+**Legal and implementation risks:** T4 should test exact codification in title 18 or title 52, National Guard and Insurrection Act interaction, DOJ election-enforcement and civil-rights savings clauses, election-crime investigations, search-and-seizure rules, election-material chain-of-custody safeguards, federalism limits, standing, sovereign immunity, and expedited review during active election administration.
+
+**Budgetary-impact finding:** No new appropriation is specified. Implementation burden remains training, notice/reporting, legal review, state-federal coordination, emergency-response scoping, court-process safeguards, and recordkeeping. T4 should look for source-backed analogues before adding any estimate.
+
+**Next audit need:** T4 publication-ready audit should resolve codification placement, DOJ/election-enforcement guidance, National Guard and Insurrection Act analysis, legislative-history/prior-proposal research, emergency-response analogue support, budget/workload analogues, standing/remedy review, and external election-law or domestic-deployment review.
