@@ -170,19 +170,20 @@ Autonomous batch mode must maintain an independent agent audit log in [`AGENT_AU
 
 For each autonomous issue unit, record:
 
-1. date and time if available;
+1. date and time with local timezone if available;
 2. agent or run identifier if available;
 3. issue ID;
 4. link to the issue page;
-5. link to the proposed legislation, constitutional amendment, rule, model text, or other proposal page where one exists;
-6. requested tier or task;
-7. files changed;
-8. validation performed;
-9. commit message;
-10. commit hash;
-11. push status;
-12. rollback target or revert notes; and
-13. any blockers, skipped checks, or human-review stop conditions.
+5. link to the issue audit-history file;
+6. link to the proposed legislation, constitutional amendment, rule, model text, or other proposal page where one exists;
+7. requested tier or task;
+8. files changed;
+9. validation performed;
+10. commit message;
+11. commit hash;
+12. push status;
+13. rollback target or revert notes; and
+14. any blockers, skipped checks, or human-review stop conditions.
 
 The agent audit log should be append-only. If a commit is later reverted, add a new log entry identifying the revert commit and the original commit it reverses. Do not erase the original log entry.
 
@@ -193,10 +194,11 @@ Each log entry should be formatted as its own short section with an independent 
 
 | Field | Entry |
 | --- | --- |
-| Date/time | YYYY-MM-DD |
+| Date/time | YYYY-MM-DD HH:MM:SS ±TZ |
 | Run/agent | Agent or run label |
 | Issue/task | ISSUE-ID or project task |
 | Issue page | Link to issue page, or `N/A` |
+| Audit history | Link to issue audit-history file, or `N/A` |
 | Proposal page | Link to proposed legislation, amendment, rule, or model text; use `N/A` if none exists |
 | Tier | T1/T2/T3/T4/change/etc. |
 | Files changed | `path`; `path` |

@@ -124,7 +124,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 
 | Issue | Area | Priority | Status | Score | Band | Runs | Last audit | Last date | Next | Proposal page/status | Legislation | Rubric | Rebaseline | Pathway | Priority | Friction |
 | --- | --- | --- | --- | ---: | --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| DOJ-001 | A-01 | High | Developed | 82 | Review Ready | 15 | Change Audit | 2026-06-27 | T4 follow-up | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
+| DOJ-001 | A-01 | High | Developed | 82 | Review Ready | 16 | Change Audit | 2026-06-28 | T4 follow-up after Slaughter/J.G.G. posture | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | DOJ-002 | A-01 | High | Developed | 78 | Review Ready | 6 | T4 publication-ready audit | 2026-06-27 | T4 follow-up | [Issue](areas/DOJ/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) | 2026-06-27.2 | current | current-law-available | active | Extreme Resistance |
 | DOJ-003 | A-01 | High | Developed | 82 | Review Ready | 7 | Change Audit | 2026-06-27 | T4 follow-up / external validation | [Issue](areas/DOJ/issues/DOJ-003.md) | [Bill](legislation/DOJ-003.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | DOJ-004 | A-01 | High | Awaiting merits adjudication | 0 | Paused | 2 | T1 predicate check | 2026-06-27 | Reassess predicate | [Issue](areas/DOJ/issues/DOJ-004.md) | — | 2026-06-27.2 | current-fixed-status | N/A | N/A | N/A |

@@ -12,7 +12,7 @@ Entries should be append-only. If a bad autonomous edit is later reverted, add a
 
 ## Log Format
 
-Each log entry should be recorded as its own short section with an independent two-column table. Use newest-at-bottom ordering unless the file is intentionally reorganized as part of a readability pass. Do not combine unrelated audit units into a single table. Each issue-specific entry should link both the issue page and the linked proposal, legislation, amendment, rule, or model text where one exists.
+Each log entry should be recorded as its own short section with an independent two-column table. Use newest-at-bottom ordering unless the file is intentionally reorganized as part of a readability pass. Do not combine unrelated audit units into a single table. Each issue-specific entry should link the issue page, the issue audit-history file, and the linked proposal, legislation, amendment, rule, or model text where one exists. Date/time fields should include the local time and timezone when available.
 
 Template:
 
@@ -21,10 +21,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | YYYY-MM-DD |
+| Date/time | YYYY-MM-DD HH:MM:SS ±TZ |
 | Run/agent | Agent or run label |
 | Issue/task | ISSUE-ID or project task |
 | Issue page | Link to issue page, or `N/A` |
+| Audit history | Link to issue audit-history file, or `N/A` |
 | Proposal page | Link to proposed legislation, amendment, rule, or model text; use `N/A` if none exists |
 | Tier | T1/T2/T3/T4/change/etc. |
 | Files changed | `path`; `path` |
@@ -41,10 +42,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 21:55:11 -0400 |
 | Run/agent | Codex autonomous pilot |
 | Issue/task | JUD-001 |
 | Issue page | [Issue](areas/JUD/issues/JUD-001.md) |
+| Audit history | [Audit](areas/JUD/issues/JUD-001.audit.md) |
 | Proposal page | [Bill](legislation/JUD-001.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-001.md`; `areas/JUD/issues/JUD-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -58,10 +60,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 21:59:59 -0400 |
 | Run/agent | Codex autonomous pilot |
 | Issue/task | JUD-009 |
 | Issue page | [Issue](areas/JUD/issues/JUD-009.md) |
+| Audit history | [Audit](areas/JUD/issues/JUD-009.audit.md) |
 | Proposal page | [Bill](legislation/JUD-009.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-009.md`; `areas/JUD/issues/JUD-009.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -75,10 +78,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 22:39:48 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-001 |
 | Issue page | [Issue](areas/JUD/issues/JUD-001.md) |
+| Audit history | [Audit](areas/JUD/issues/JUD-001.audit.md) |
 | Proposal page | [Bill](legislation/JUD-001.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-001.md`; `areas/JUD/issues/JUD-001.audit.md`; `legislation/JUD-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -92,10 +96,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 22:44:49 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-001 |
 | Issue page | [Issue](areas/JUD/issues/JUD-001.md) |
+| Audit history | [Audit](areas/JUD/issues/JUD-001.audit.md) |
 | Proposal page | [Bill](legislation/JUD-001.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-001.md`; `areas/JUD/issues/JUD-001.audit.md`; `legislation/JUD-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -109,10 +114,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 22:48:26 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-001 |
 | Issue page | [Issue](areas/JUD/issues/JUD-001.md) |
+| Audit history | [Audit](areas/JUD/issues/JUD-001.audit.md) |
 | Proposal page | [Bill](legislation/JUD-001.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-001.md`; `areas/JUD/issues/JUD-001.audit.md`; `legislation/JUD-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -126,10 +132,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 22:52:10 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-009 |
 | Issue page | [Issue](areas/JUD/issues/JUD-009.md) |
+| Audit history | [Audit](areas/JUD/issues/JUD-009.audit.md) |
 | Proposal page | [Bill](legislation/JUD-009.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-009.md`; `areas/JUD/issues/JUD-009.audit.md`; `legislation/JUD-009.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -143,10 +150,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 22:55:52 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-009 |
 | Issue page | [Issue](areas/JUD/issues/JUD-009.md) |
+| Audit history | [Audit](areas/JUD/issues/JUD-009.audit.md) |
 | Proposal page | [Bill](legislation/JUD-009.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-009.md`; `areas/JUD/issues/JUD-009.audit.md`; `legislation/JUD-009.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -160,10 +168,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 22:59:49 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-009 |
 | Issue page | [Issue](areas/JUD/issues/JUD-009.md) |
+| Audit history | [Audit](areas/JUD/issues/JUD-009.audit.md) |
 | Proposal page | [Bill](legislation/JUD-009.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-009.md`; `areas/JUD/issues/JUD-009.audit.md`; `legislation/JUD-009.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -177,10 +186,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 23:17:47 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | DOJ-005 |
 | Issue page | [Issue](areas/DOJ/issues/DOJ-005.md) |
+| Audit history | [Audit](areas/DOJ/issues/DOJ-005.audit.md) |
 | Proposal page | [Bill](legislation/DOJ-005.md) |
 | Tier | T2 blocker review |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/DOJ/issues/DOJ-005.md`; `areas/DOJ/issues/DOJ-005.audit.md`; `inventory/audits.csv` |
@@ -194,10 +204,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 23:24:07 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | DOJ-007 |
 | Issue page | [Issue](areas/DOJ/issues/DOJ-007.md) |
+| Audit history | [Audit](areas/DOJ/issues/DOJ-007.audit.md) |
 | Proposal page | [Amendment](legislation/DOJ-007-amendment.md); [Act](legislation/DOJ-007.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/DOJ/issues/DOJ-007.md`; `areas/DOJ/issues/DOJ-007.audit.md`; `legislation/DOJ-007.md`; `legislation/DOJ-007-amendment.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -211,10 +222,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 23:32:04 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | DOJ-009 |
 | Issue page | [Issue](areas/DOJ/issues/DOJ-009.md) |
+| Audit history | [Audit](areas/DOJ/issues/DOJ-009.audit.md) |
 | Proposal page | [Bill](legislation/DOJ-009.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/DOJ/issues/DOJ-009.md`; `areas/DOJ/issues/DOJ-009.audit.md`; `legislation/DOJ-009.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -228,10 +240,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 23:35:37 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | DOJ-009 |
 | Issue page | [Issue](areas/DOJ/issues/DOJ-009.md) |
+| Audit history | [Audit](areas/DOJ/issues/DOJ-009.audit.md) |
 | Proposal page | [Bill](legislation/DOJ-009.md) |
 | Tier | T2 blocker review |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/DOJ/issues/DOJ-009.md`; `areas/DOJ/issues/DOJ-009.audit.md`; `legislation/DOJ-009.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -245,10 +258,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 23:40:14 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-001 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-001.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-001.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-001.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-001.md`; `areas/ELEC/issues/ELEC-001.audit.md`; `legislation/ELEC-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -262,10 +276,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 23:45:10 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-001 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-001.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-001.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-001.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-001.md`; `areas/ELEC/issues/ELEC-001.audit.md`; `legislation/ELEC-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -279,10 +294,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 23:48:57 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-001 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-001.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-001.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-001.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-001.md`; `areas/ELEC/issues/ELEC-001.audit.md`; `legislation/ELEC-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -296,10 +312,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 23:52:25 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-001 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-001.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-001.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-001.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-001.md`; `areas/ELEC/issues/ELEC-001.audit.md`; `inventory/audits.csv` |
@@ -313,10 +330,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-27 23:59:21 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-002 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-002.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-002.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-002-state.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-002.md`; `areas/ELEC/issues/ELEC-002.audit.md`; `legislation/ELEC-002-state.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -330,10 +348,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 00:02:36 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-002 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-002.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-002.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-002-state.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-002.md`; `areas/ELEC/issues/ELEC-002.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -347,10 +366,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 00:06:35 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-002 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-002.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-002.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-002-state.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-002.md`; `areas/ELEC/issues/ELEC-002.audit.md`; `inventory/audits.csv` |
@@ -364,10 +384,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 00:09:40 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-002 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-002.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-002.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-002-state.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-002.md`; `areas/ELEC/issues/ELEC-002.audit.md`; `inventory/audits.csv` |
@@ -381,10 +402,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 00:16:55 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-003 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-003.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-003.audit.md) |
 | Proposal page | [Bill 1](legislation/ELEC-003-state.md)<br />[Bill 2](legislation/ELEC-003.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-003.md`; `areas/ELEC/issues/ELEC-003.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -398,10 +420,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 00:23:24 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-003 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-003.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-003.audit.md) |
 | Proposal page | [Bill 1](legislation/ELEC-003-state.md)<br />[Bill 2](legislation/ELEC-003.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-003.md`; `areas/ELEC/issues/ELEC-003.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -415,10 +438,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 00:27:38 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-003 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-003.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-003.audit.md) |
 | Proposal page | [Bill 1](legislation/ELEC-003-state.md)<br />[Bill 2](legislation/ELEC-003.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-003.md`; `areas/ELEC/issues/ELEC-003.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -432,10 +456,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 00:32:18 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-003 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-003.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-003.audit.md) |
 | Proposal page | [Bill 1](legislation/ELEC-003-state.md)<br />[Bill 2](legislation/ELEC-003.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-003.md`; `areas/ELEC/issues/ELEC-003.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -449,10 +474,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 00:36:53 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-004 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-004.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-004.audit.md) |
 | Proposal page | [Bill 1](legislation/ELEC-004-state.md)<br />[Bill 2](legislation/ELEC-004.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-004.md`; `areas/ELEC/issues/ELEC-004.audit.md`; `inventory/audits.csv` |
@@ -466,10 +492,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 00:41:47 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-004 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-004.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-004.audit.md) |
 | Proposal page | [Bill 1](legislation/ELEC-004-state.md)<br />[Bill 2](legislation/ELEC-004.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-004.md`; `areas/ELEC/issues/ELEC-004.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -483,10 +510,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 00:45:26 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-004 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-004.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-004.audit.md) |
 | Proposal page | [Bill 1](legislation/ELEC-004-state.md)<br />[Bill 2](legislation/ELEC-004.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-004.md`; `areas/ELEC/issues/ELEC-004.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -500,10 +528,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 00:48:53 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-004 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-004.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-004.audit.md) |
 | Proposal page | [Bill 1](legislation/ELEC-004-state.md)<br />[Bill 2](legislation/ELEC-004.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-004.md`; `areas/ELEC/issues/ELEC-004.audit.md`; `inventory/audits.csv` |
@@ -521,6 +550,7 @@ Template:
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-005 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-005.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-005.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-005.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-005.md`; `areas/ELEC/issues/ELEC-005.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -534,10 +564,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 01:06:51 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-005 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-005.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-005.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-005.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-005.md`; `areas/ELEC/issues/ELEC-005.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -551,10 +582,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 01:11:51 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-005 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-005.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-005.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-005.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-005.md`; `areas/ELEC/issues/ELEC-005.audit.md`; `inventory/audits.csv` |
@@ -568,10 +600,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 01:15:53 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-005 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-005.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-005.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-005.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-005.md`; `areas/ELEC/issues/ELEC-005.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -585,10 +618,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 01:22:44 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-006 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-006.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-006.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-006.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-006.md`; `areas/ELEC/issues/ELEC-006.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -602,10 +636,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 01:29:57 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-006 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-006.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-006.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-006.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-006.md`; `areas/ELEC/issues/ELEC-006.audit.md`; `legislation/ELEC-006.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -619,10 +654,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 01:35:25 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-006 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-006.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-006.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-006.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-006.md`; `areas/ELEC/issues/ELEC-006.audit.md`; `legislation/ELEC-006.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -636,10 +672,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 01:39:34 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-006 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-006.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-006.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-006.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-006.md`; `areas/ELEC/issues/ELEC-006.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -653,10 +690,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 01:46:04 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-007 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-007.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-007.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-007.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-007.md`; `areas/ELEC/issues/ELEC-007.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -670,10 +708,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 01:51:19 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-007 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-007.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-007.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-007.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-007.md`; `areas/ELEC/issues/ELEC-007.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -687,10 +726,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 01:55:37 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-007 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-007.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-007.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-007.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-007.md`; `areas/ELEC/issues/ELEC-007.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -704,10 +744,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 01:59:39 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-007 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-007.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-007.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-007.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-007.md`; `areas/ELEC/issues/ELEC-007.audit.md`; `legislation/ELEC-007.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -721,10 +762,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 02:03:06 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-008 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-008.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-008.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-008.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-008.md`; `areas/ELEC/issues/ELEC-008.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -738,10 +780,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 02:08:36 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-008 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-008.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-008.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-008.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-008.md`; `areas/ELEC/issues/ELEC-008.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -755,10 +798,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 02:16:16 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-008 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-008.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-008.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-008.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-008.md`; `areas/ELEC/issues/ELEC-008.audit.md`; `legislation/ELEC-008.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -772,10 +816,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 02:21:40 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-008 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-008.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-008.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-008.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-008.md`; `areas/ELEC/issues/ELEC-008.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -789,10 +834,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 02:27:01 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-009 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-009.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-009.audit.md) |
 | Proposal page | [Amendment](legislation/ELEC-009-amendment.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-009.md`; `areas/ELEC/issues/ELEC-009.audit.md`; `inventory/audits.csv`; `inventory/contents.csv`; `inventory/sources.csv`; `legislation/README.md`; `legislation/ELEC-009-amendment.md` |
@@ -806,10 +852,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 02:32:40 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-009 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-009.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-009.audit.md) |
 | Proposal page | [Amendment](legislation/ELEC-009-amendment.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-009.md`; `areas/ELEC/issues/ELEC-009.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -823,10 +870,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 02:39:34 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-009 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-009.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-009.audit.md) |
 | Proposal page | [Amendment](legislation/ELEC-009-amendment.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-009.md`; `areas/ELEC/issues/ELEC-009.audit.md`; `legislation/ELEC-009-amendment.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -840,10 +888,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 02:47:53 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-009 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-009.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-009.audit.md) |
 | Proposal page | [Amendment](legislation/ELEC-009-amendment.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-009.md`; `areas/ELEC/issues/ELEC-009.audit.md`; `legislation/ELEC-009-amendment.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -857,10 +906,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 02:52:44 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-010 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-010.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-010.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-010.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-010.md`; `areas/ELEC/issues/ELEC-010.audit.md`; `inventory/audits.csv` |
@@ -874,10 +924,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 02:59:49 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-010 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-010.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-010.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-010.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-010.md`; `areas/ELEC/issues/ELEC-010.audit.md`; `legislation/ELEC-010.md`; `legislation/README.md`; `inventory/audits.csv`; `inventory/contents.csv`; `inventory/sources.csv` |
@@ -891,10 +942,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 03:03:51 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-010 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-010.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-010.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-010.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-010.md`; `areas/ELEC/issues/ELEC-010.audit.md`; `legislation/ELEC-010.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -908,10 +960,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 03:09:57 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-010 |
 | Issue page | [Issue](areas/ELEC/issues/ELEC-010.md) |
+| Audit history | [Audit](areas/ELEC/issues/ELEC-010.audit.md) |
 | Proposal page | [Bill](legislation/ELEC-010.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-010.md`; `areas/ELEC/issues/ELEC-010.audit.md`; `legislation/ELEC-010.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -925,10 +978,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 03:16:18 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | WAR-001 |
 | Issue page | [Issue](areas/WAR/issues/WAR-001.md) |
+| Audit history | [Audit](areas/WAR/issues/WAR-001.audit.md) |
 | Proposal page | [Bill](legislation/WAR-001.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/WAR/issues/WAR-001.md`; `areas/WAR/issues/WAR-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -942,10 +996,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 03:23:03 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | WAR-001 |
 | Issue page | [Issue](areas/WAR/issues/WAR-001.md) |
+| Audit history | [Audit](areas/WAR/issues/WAR-001.audit.md) |
 | Proposal page | [Bill](legislation/WAR-001.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/WAR/issues/WAR-001.md`; `areas/WAR/issues/WAR-001.audit.md`; `legislation/WAR-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -959,10 +1014,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 03:28:50 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | WAR-001 |
 | Issue page | [Issue](areas/WAR/issues/WAR-001.md) |
+| Audit history | [Audit](areas/WAR/issues/WAR-001.audit.md) |
 | Proposal page | [Bill](legislation/WAR-001.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/WAR/issues/WAR-001.md`; `areas/WAR/issues/WAR-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -976,10 +1032,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 03:33:27 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | WAR-001 |
 | Issue page | [Issue](areas/WAR/issues/WAR-001.md) |
+| Audit history | [Audit](areas/WAR/issues/WAR-001.audit.md) |
 | Proposal page | [Bill](legislation/WAR-001.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/WAR/issues/WAR-001.md`; `areas/WAR/issues/WAR-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -993,10 +1050,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 03:40:06 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | IMM-001 |
 | Issue page | [Issue](areas/IMM/issues/IMM-001.md) |
+| Audit history | [Audit](areas/IMM/issues/IMM-001.audit.md) |
 | Proposal page | [Bill](legislation/IMM-001.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/IMM/issues/IMM-001.md`; `areas/IMM/issues/IMM-001.audit.md`; `inventory/audits.csv` |
@@ -1010,10 +1068,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 03:47:40 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | IMM-001 |
 | Issue page | [Issue](areas/IMM/issues/IMM-001.md) |
+| Audit history | [Audit](areas/IMM/issues/IMM-001.audit.md) |
 | Proposal page | [Bill](legislation/IMM-001.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/IMM/issues/IMM-001.md`; `areas/IMM/issues/IMM-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -1027,10 +1086,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 03:53:58 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | IMM-001 |
 | Issue page | [Issue](areas/IMM/issues/IMM-001.md) |
+| Audit history | [Audit](areas/IMM/issues/IMM-001.audit.md) |
 | Proposal page | [Bill](legislation/IMM-001.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/IMM/issues/IMM-001.md`; `areas/IMM/issues/IMM-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
@@ -1044,10 +1104,11 @@ Template:
 
 | Field | Entry |
 | --- | --- |
-| Date/time | 2026-06-28 |
+| Date/time | 2026-06-28 04:03:30 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | IMM-001 |
 | Issue page | [Issue](areas/IMM/issues/IMM-001.md) |
+| Audit history | [Audit](areas/IMM/issues/IMM-001.audit.md) |
 | Proposal page | [Bill](legislation/IMM-001.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/IMM/issues/IMM-001.md`; `areas/IMM/issues/IMM-001.audit.md`; `legislation/IMM-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
