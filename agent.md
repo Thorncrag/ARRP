@@ -184,6 +184,25 @@ For each autonomous issue unit, record:
 
 The agent audit log should be append-only. If a commit is later reverted, add a new log entry identifying the revert commit and the original commit it reverses. Do not erase the original log entry.
 
+Each log entry should be formatted as its own short section with an independent two-column table rather than as a row in a single cumulative table. This keeps long validation notes, rollback notes, and blocker descriptions readable in GitHub and Codex previews. Use this structure:
+
+```markdown
+### YYYY-MM-DD — ISSUE-ID — Audit tier or task
+
+| Field | Entry |
+| --- | --- |
+| Date/time | YYYY-MM-DD |
+| Run/agent | Agent or run label |
+| Issue/task | ISSUE-ID or project task |
+| Tier | T1/T2/T3/T4/change/etc. |
+| Files changed | `path`; `path` |
+| Validation | Checks performed |
+| Commit | `Commit message` (`hash`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `hash` to roll back this unit. |
+| Blockers/skipped checks | No blocker, or concise blocker/skipped-check note. |
+```
+
 Autonomous agents must not force-push. Rollback should normally occur through a revert commit so GitHub history remains intelligible.
 
 ## Conservative Scoring
