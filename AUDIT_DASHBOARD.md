@@ -102,8 +102,8 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Issue-admission test | 179 |
 | Reassess predicate | 1 |
 | T2 | 2 |
-| T3 | 1 |
-| T4 follow-up | 5 |
+| T3 | 0 |
+| T4 follow-up | 6 |
 
 ## Change Audit Log
 
@@ -161,7 +161,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | JUD-006 | A-04 | High | Retired—merged into JUD-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/JUD/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | JUD-007 | A-04 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | JUD-008 | A-04 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| JUD-009 | A-04 | High | Developed | 68 | Substantially Developed Draft | 3 | T2 development audit | 2026-06-28 | T3 readiness audit | [Issue](areas/JUD/issues/JUD-009.md) | [Bill](legislation/JUD-009.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
+| JUD-009 | A-04 | High | Developed | 74 | Substantially Developed Draft | 4 | T3 readiness audit | 2026-06-28 | T4 publication-ready audit | [Issue](areas/JUD/issues/JUD-009.md) | [Bill](legislation/JUD-009.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | JUD-010 | A-04 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | PAR-001 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | PAR-002 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
