@@ -9,9 +9,17 @@ audit_status: "HOR-012 integrated as USPS and mail-ballot source-strengthening m
 audit_score: 55
 audit_last_type: "Horizon integration decision"
 audit_last_date: "2026-06-25"
-audit_next: "Source-development pass"
-audit_rubric_version: "pre-2026-06-27.1"
+audit_next: "T2 development audit"
+audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "hard-rebaseline-needed"
+adoption_score: 4
+adoption_score_band: "Limited Adoption Basis"
+adoption_friction_score: 72
+adoption_friction_band: "High Resistance"
+required_electoral_environment: "sixty-vote-senate"
+pathway_viability: "plausible-after-wave"
+development_priority: "active"
+pathway_adjustment: "stage"
 print_levels:
   - public-proposal
   - full-technical
@@ -176,6 +184,10 @@ Congress should enact a Mail-In Voting Reliability and Cure Act establishing min
 
 Congress should also enact federal postal standards for election mail, including tracking, communication, postmarking, all-clear procedures, delivery-performance reporting, election-official escalation channels, evidence-based mailing advisories, and a prohibition on operational changes that foreseeably degrade election-mail performance during defined election windows without notice and mitigation. USPS should not refuse, delay, or condition lawful election-mail service based on a state's refusal to participate in a federal voter-data, citizenship-list, or ballot-identifier system unless Congress has clearly authorized that condition and supplied voter-protective procedures.
 
+## Proposed Legislation
+
+- Pending development
+
 ## Relationship to Adjacent Proposals
 
 [ELEC-001](ELEC-001.md) covers federal executive interference with state and local election administration. ELEC-010 covers ordinary and extraordinary vulnerabilities in the mail-ballot pathway itself, including postal performance and voter cure.
@@ -196,11 +208,11 @@ Budget authority may be required if the chosen remedy funds postage, tracking, o
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[55 / 100](ELEC-010.audit.md)** (Developed Draft)<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+> **Proposal Quality Score:** **[55 / 100](ELEC-010.audit.md)** (Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** HOR-012 integrated as USPS and mail-ballot source-strengthening manifestation; legislation path pending<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [ELEC-010 audit history](ELEC-010.audit.md)
+> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-010 audit history](ELEC-010.audit.md)
 
 ## Annotation
 
@@ -211,6 +223,14 @@ HOR-001 was integrated into this issue only for the mail-ballot and USPS compone
 **Qualification.** ELEC-010 should not be framed as a universal mandate for all-mail elections. States may reasonably choose different mixes of in-person, early, absentee, and mail voting. The institutional requirement is that any mail-voting channel the state creates must be reliable, nondiscriminatory, auditable, and supported by meaningful cure and public explanation.
 
 **Remedial Alternatives and Constraints.** A federal statute requiring no-excuse mail voting nationwide would maximize uniform access but would create larger federalism and administrative questions. A model state act would be useful but slower and less uniform for federal-election vulnerabilities. A purely advisory best-practices guide would be simpler but inadequate where rejection, postal disruption, or cure disparities recur. The least-complex adequate approach is a federal floor for federal-election mail ballots plus federal postal-performance standards for election mail.
+
+**Quality Score.** The proposal remains 55/100 after T1 because no full current-rubric component rebaseline has been performed. T1 confirms that the page has a developed issue framework and substantial source leads, but a concrete bill text, proposal-to-legislation alignment check, formula score, current-source refresh, and implementation-risk review remain pending.
+
+**Adoption Score.** Adoption Score is 4/12 because ELEC-010 has a plausible federal statutory vehicle, identifiable prior-proposal families, and both access and integrity framing, but lacks proposal-specific polling, active sponsor support for this narrower framework, bipartisan coalition evidence, state election-official validation, USPS operational validation, or external election-law review.
+
+**Adoption Friction.** Adoption Friction is 72/100 (High Resistance) because the proposal affects mail voting, postal operations, ballot deadlines, cure rules, drop boxes, voter-identification alternatives, federal-state election administration, and current partisan conflict over mail ballots.
+
+**Required Electoral Environment.** Required Electoral Environment is `sixty-vote-senate`, with Pathway Viability `plausible-after-wave`, Development Priority `active`, and Pathway Adjustment `stage`. Development should stage postal-performance, tracking, cure, transparency, and custody provisions so narrower consensus elements can survive if a full mail-ballot standards bill is not viable.
 
 ## Source Notes
 
