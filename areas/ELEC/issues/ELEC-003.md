@@ -7,13 +7,13 @@ priority: high
 remedy_type: coupled-state-and-federal-legislation
 legislative_proposal: "../../../legislation/ELEC-003-state.md"
 federal_legislative_proposal: "../../../legislation/ELEC-003.md"
-audit_status: "Structural audit complete; advanced audits pending"
-audit_score: 60
-audit_last_type: "T1 framework check"
+audit_status: "T2 development audit complete; T3 readiness audit pending"
+audit_score: 72
+audit_last_type: "T2 development audit"
 audit_last_date: "2026-06-28"
-audit_next: "T2 development audit"
+audit_next: "T3 readiness audit"
 audit_rubric_version: "2026-06-27.2"
-audit_rebaseline_status: "hard-rebaseline-needed"
+audit_rebaseline_status: "current"
 adoption_score: 5
 adoption_friction_score: 58
 adoption_friction_band: "Significant Resistance"
@@ -169,11 +169,11 @@ Budget authority is likely required; no dollar estimate is assigned pending sour
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-003.audit.md)** (Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 58 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[72 / 100](ELEC-003.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 58 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-003 audit history](ELEC-003.audit.md)
+> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-003 audit history](ELEC-003.audit.md)
 
 ## Annotation
 
@@ -189,7 +189,7 @@ Budget authority is likely required; no dollar estimate is assigned pending sour
 
 **Source Note.** The manifestations are illustrative rather than exhaustive. The examples were selected to show distinct institutional failures: individual and family targeting, forced displacement, prosecutable true threats, facility evacuation, Election Day operational disruption, and workforce attrition.
 
-**Quality Score.** The 60/100 score remains a Developed Draft score because T1 confirmed the structure, linked vehicles, citation inventory, preliminary pathway, and budget-statement presence but did not recalculate component scores under the current rubric. The proposal remains hard-rebaseline-needed until T2 completes the first current-rubric merits score.
+**Quality Score.** The 72/100 score reflects a Substantially Developed Draft under rubric 2026-06-27.2. T2 confirmed the required issue architecture, state-primary remedy design, HAVA funding hook, issue-to-legislation alignment, budget-statement posture, initial source coverage, official-law source upgrades, and current-status posture. The score remains below Review Ready because primary records for key manifestations, state-law comparison, federal and state prior-proposal research, source-backed fiscal analogues, election-administrator validation, and deeper First Amendment/doxxing analysis remain incomplete.
 
 **Adoption Score.** The 5/12 score is limited. ELEC-003 has a plausible state-by-state model-law path, a federal grant-support vehicle, bipartisan institutional beneficiaries, and concrete recent manifestations, but T1 did not identify proposal-specific polling, sponsor coalitions, enacted model-state uptake, election-administrator endorsements, or bipartisan legislative records sufficient to award higher adoption credit.
 
@@ -198,3 +198,5 @@ Budget authority is likely required; no dollar estimate is assigned pending sour
 **Required Electoral Environment.** The required environment is `state-level-pathway`, with Pathway Viability `state-by-state` and Pathway Adjustment `model-law-and-voluntary-federal-grant`. The model state act can proceed state by state, while the federal HAVA amendment would require federal legislation and appropriations to create the voluntary funding backstop.
 
 **Development Priority.** The priority is `active` because election-personnel threats, operational disruption, and workforce attrition remain live election-administration risks and the proposal has concrete vehicles for continued development.
+
+**Prior-Proposal and Existing-Law Fit.** T2 confirms that the draft should remain coupled rather than solely federal. Existing federal threat and voting-rights statutes punish some conduct but do not create a complete personal-security, continuity, and workforce-support regime. Current source leads show state-law movement, including Maryland's enacted 2024 Protecting Election Officials Act, and continuing prosecution-based limits; T3 should supplement this lead with a direct Congress.gov and state-legislature survey.

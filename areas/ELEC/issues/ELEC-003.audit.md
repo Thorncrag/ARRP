@@ -12,6 +12,34 @@ This file preserves the full audit history for [ELEC-003](ELEC-003.md). The issu
 
 ## Audit History
 
+### 2026-06-28 — T2 Development Audit
+
+**Audit status:** T2 development audit complete; T3 readiness audit pending
+
+**Audit scope:** This T2 audit reviewed ELEC-003, the linked model state bill, the linked federal HAVA amendment, T1 pathway fields, statutory source rows, manifestation source coverage, budget posture, issue-to-legislation alignment, remedy fit, implementation design, abuse-resistance design, and current-rubric scoring. It did not complete T3-level primary-record collection, representative state-law comparison, complete Congress.gov search, state-legislature survey, administrator/stakeholder validation, or budget-analogue research.
+
+**Current-status and mootness check:** No current law, judicial decision, enacted reform, or factual development located during T2 moots ELEC-003. Current source leads continue to indicate that election-personnel threats, harassment, operational disruption, and workforce attrition remain live risks. Existing prosecutions and threat statutes punish some conduct after the fact but do not supply the full preventive, protective, continuity, privacy, and workforce-support regime proposed here.
+
+**Existing-law and prior-proposal finding:** The coupled state/federal vehicle remains appropriate. Federal law already contains voting-rights intimidation and interstate-threat provisions, and HAVA supplies an election-assistance architecture. Those laws do not themselves create a comprehensive election-personnel protection program. T2 identified a state-law analogue in Maryland's enacted 2024 Protecting Election Officials Act, but did not complete the authoritative Congress.gov and state-legislature prior-proposal survey required for higher scoring.
+
+**Legal-fit finding:** The proposal is plausible at T2. The state model owns protective orders, address confidentiality, state offenses, continuity planning, workforce support, and local implementation. The federal HAVA amendment is limited to voluntary formula payments, objective eligibility review, fiscal accounting, and noninterference rules, which reduces anti-commandeering and coercion risk. T3 should test Spending Clause limits, EAC statutory authority, de novo review design, First Amendment limits, doxxing doctrine, protective-order due process, and state constitutional variation.
+
+**Issue-to-legislation alignment:** No material discrepancy was found between the issue page, the state model bill, and the federal HAVA amendment. The issue page accurately describes the two-vehicle structure, state-primary protection regime, voluntary federal funding backstop, political-neutrality requirement, family/household-member coverage, address confidentiality, continuity planning, aggregate reporting, workforce support, and federal noninterference firewall.
+
+**Budgetary-impact finding:** Budget authority is likely required, and the current no-dollar-estimate statement remains appropriate. T2 did not identify a source-backed fiscal analogue sufficient to support a dollar estimate. T3 should search HAVA appropriations, EAC grant-administration costs, state election-security grant experience, state address-confidentiality or protective-service costs, and comparable emergency-security or continuity funding.
+
+**Adoption and friction finding:** Adoption Score remains 5/12. Adoption Friction remains 58/100. T2 did not identify proposal-specific polling, bipartisan sponsor coalitions, enacted model-state uptake, election-administrator endorsements, or public-support evidence specific to the mechanism. The state-model pathway and voluntary grant design are plausible, but the proposal remains politically and administratively sensitive because it touches election administration, speech-adjacent misconduct, doxxing, appropriations, and state-federal coordination.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 8/12; Legal Fit 6/10; Prior-Proposal 5/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 72/100 (Substantially Developed Draft).
+
+**Score effect:** Score increased from 60 to 72 because T2 completed the first current-rubric component rebaseline, confirmed the coupled state/HAVA vehicle, verified issue-to-legislation alignment, upgraded statutory source treatment, and clarified remaining source, legal, adoption, and budget tasks.
+
+**Defects corrected during the audit:** Updated the issue-page score, metadata, Proposal Scoring box, Quality Score annotation, audit history, source inventory, audit inventory, and Audit Dashboard. No legislative text was changed during T2.
+
+**Next audit need:** Run T3 readiness audit. Prioritize primary records for the Freeman/Moss, Arizona, bomb-threat, Raffensperger-family, and workforce-attrition examples; a representative state-law survey; additional primary Maryland and federal bill records; HAVA appropriations and EAC grant analogues; election-administrator support or opposition; First Amendment/doxxing and protective-order doctrine; Spending Clause and anti-commandeering analysis; and whether the federal title needs a specific authorization amount or administrative-cost cap.
+
+**Audit process feedback:** ELEC-003's design is strong enough for serious development, but the next quality gain depends on replacing source leads with primary records and testing fiscal/legal details rather than expanding the narrative.
+
 ### 2026-06-28 — T1 Framework Check
 
 **Audit status:** T1 framework check complete; T2 development audit pending
