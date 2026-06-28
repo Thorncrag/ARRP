@@ -6,13 +6,13 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-007.md"
-audit_status: "T1 framework check complete; T2 development audit pending"
-audit_score: 60
-audit_last_type: "T1 framework check"
+audit_status: "T2 development audit complete; T3 readiness audit pending"
+audit_score: 72
+audit_last_type: "T2 development audit"
 audit_last_date: "2026-06-28"
-audit_next: "T2 development audit"
+audit_next: "T3 readiness audit"
 audit_rubric_version: "2026-06-27.2"
-audit_rebaseline_status: "hard-rebaseline-needed"
+audit_rebaseline_status: "current"
 adoption_score: 5
 adoption_score_band: "Limited Adoption Basis"
 adoption_friction_score: 70
@@ -134,11 +134,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-007.audit.md)** (Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 70 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[72 / 100](ELEC-007.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 70 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-007 audit history](ELEC-007.audit.md)
+> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-007 audit history](ELEC-007.audit.md)
 
 ## Annotation
 
@@ -156,7 +156,9 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Source Development Pending.** Further source development should review 18 U.S.C. § 592, the Posse Comitatus Act, National Guard authorities, federal election-crime enforcement guidance, emergency-response authorities, and state emergency-management law.
 
-**Quality Score.** The proposal remains at 60/100 after T1 because it has a developed framework and linked legislation but has not yet received a full current-rubric component rebaseline. T2 should test the fit between the new statute, 18 U.S.C. § 592, the Posse Comitatus Act, Insurrection Act and National Guard authorities, federal civil-rights enforcement, election-crime enforcement, emergency-response law, election-material custody, and expedited review.
+**Current Domestic-Deployment Context.** Current litigation over federalized National Guard deployment confirms that Posse Comitatus and federal domestic-force authority remain live legal issues, though not election-specific ones. See the Ninth Circuit's 2025 orders in [*Newsom v. Trump*](https://cdn.ca9.uscourts.gov/datastore/opinions/2025/06/19/25-3727.pdf) and [related rehearing order](https://cdn.ca9.uscourts.gov/datastore/opinions/2025/10/22/25-3727.pdf).
+
+**Quality Score.** The proposal is 72/100 after T2. Component score: Structural 8/8; Evidence 7/12; Legal Fit 7/10; Prior Proposal 5/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. The proposal is substantially developed but not yet Review Ready because it still needs election-specific source development, direct prior-proposal research, exact codification strategy, National Guard/Insurrection Act analysis, standing/remedy review, and external election-law or domestic-deployment review.
 
 **Adoption Score.** Adoption Score is 5/12. The proposal has a neutral institutional premise and existing statutory analogues, but it does not yet cite proposal-specific polling, sponsor coalitions, committee activity, cross-partisan institutional validators, or election-security/public-safety practitioner support.
 
