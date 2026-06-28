@@ -87,3 +87,27 @@ This file preserves the full audit history for [ELEC-007](ELEC-007.md). The issu
 **Budgetary-impact finding:** No new appropriation is specified. Implementation burden remains training, notice/reporting, legal review, state-federal coordination, emergency-response scoping, court-process safeguards, and recordkeeping. T4 should look for source-backed analogues before adding any estimate.
 
 **Next audit need:** T4 publication-ready audit should resolve codification placement, DOJ/election-enforcement guidance, National Guard and Insurrection Act analysis, legislative-history/prior-proposal research, emergency-response analogue support, budget/workload analogues, standing/remedy review, and external election-law or domestic-deployment review.
+
+### 2026-06-28 — T4 publication-ready audit
+
+**Audit status:** T4 publication-ready audit complete; external validation pending
+
+**Proposal-quality score:** 78
+
+**Component score:** Structural 8/8; Evidence 10/12; Legal Fit 8/10; Prior Proposal 7/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. Total: 78.
+
+**Publication-readiness finding:** ELEC-007 is Review Ready but not publication-ready. T4 improved the proposal by resolving a civil-rights-enforcement ambiguity, but exact codification, National Guard/Insurrection Act analysis, workload analogues, standing/remedy review, and external review remain unresolved.
+
+**Civil-rights monitoring correction:** T4 found that the draft could be read too broadly against lawful Voting Rights Act observers or Department of Justice election monitoring. The bill now excludes lawful federal civil-rights monitoring, federal observer activity, and DOJ election monitoring authorized by federal voting-rights law when conducted without force, intimidation, direction of election officials, custody of election materials, or participation in election-administration decisions.
+
+**Source-refresh result:** T4 added official DOJ Voting Section support for federal observers and election monitoring, and a primary U.S. Code source for Voting Rights Act observer authority. Brennan Center materials remain useful prior-proposal and policy analogues but are not primary law.
+
+**Current-status and mootness determination:** No reviewed source moots ELEC-007. The proposal remains live because existing federal-force, federalized National Guard, civil-rights monitoring, and election-site laws create a complex boundary that the proposed statute attempts to clarify.
+
+**Legal-durability findings:** The most important legal-durability tasks are preserving lawful civil-rights enforcement, avoiding conflict with valid court process, fitting the proposal with 18 U.S.C. § 592, 18 U.S.C. § 1385, 10 U.S.C. § 12406, Insurrection Act provisions, and federal voting-rights law, and ensuring expedited review does not interfere with lawful election administration.
+
+**Implementation and budget findings:** No new appropriation is specified. The likely burden remains training, guidance, notice/reporting, recordkeeping, legal review, and coordination. T4 did not add a source-backed budget estimate.
+
+**Remaining publication blockers:** Exact codification placement; Insurrection Act and National Guard review; DOJ election-crime and civil-rights enforcement interaction; emergency-management analogue support; state-law comparison; standing, sovereign-immunity, and remedies review; source-backed workload analysis; and qualified external review.
+
+**Next audit need:** External validation or T4 follow-up with election-law, civil-rights, domestic-deployment, emergency-management, or legislative-counsel review.
