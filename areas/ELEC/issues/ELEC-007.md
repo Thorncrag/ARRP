@@ -6,13 +6,21 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-007.md"
-audit_status: "Structural audit complete; advanced audits pending"
+audit_status: "T1 framework check complete; T2 development audit pending"
 audit_score: 60
-audit_last_type: "Initial framework and inventory audit"
-audit_last_date: "2026-06-24"
-audit_next: "Advanced audit"
-audit_rubric_version: "pre-2026-06-27.1"
+audit_last_type: "T1 framework check"
+audit_last_date: "2026-06-28"
+audit_next: "T2 development audit"
+audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "hard-rebaseline-needed"
+adoption_score: 5
+adoption_score_band: "Limited Adoption Basis"
+adoption_friction_score: 70
+adoption_friction_band: "High Resistance"
+required_electoral_environment: "sixty-vote-senate"
+pathway_viability: "plausible-after-wave"
+development_priority: "active"
+pathway_adjustment: "stage"
 print_levels:
   - public-proposal
   - full-technical
@@ -77,7 +85,7 @@ Existing law may lack:
 
 ## Proposal Survey
 
-Existing law already disfavors military presence at polls and domestic military law enforcement. The troops-at-polls statute prohibits certain military presence at elections, while the Posse Comitatus Act limits use of the Army and Air Force to execute domestic law. See [18 U.S.C. § 592](https://www.law.cornell.edu/uscode/text/18/592) and [18 U.S.C. § 1385](https://www.law.cornell.edu/uscode/text/18/1385).
+Existing law already disfavors military presence at polls and domestic military law enforcement. The troops-at-polls statute prohibits certain military presence at elections, while the Posse Comitatus Act limits use of the Army and Air Force to execute domestic law. See [18 U.S.C. § 592](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section592&num=0&edition=prelim) and [18 U.S.C. § 1385](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1385&num=0&edition=prelim).
 
 Those models do not fully address modern federal agents, federalized forces, emergency response, cyber or technical assistance, and election-material custody. ELEC-007 modernizes the older troops-at-polls principle while preserving genuine non-election emergency response.
 
@@ -126,11 +134,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-007.audit.md)** (Developed Draft)<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+> **Proposal Quality Score:** **[60 / 100](ELEC-007.audit.md)** (Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 70 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-007 audit history](ELEC-007.audit.md)
+> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-007 audit history](ELEC-007.audit.md)
 
 ## Annotation
 
@@ -147,3 +155,11 @@ Administrative workload is possible; no new appropriation is specified.
 **Election-Material Safeguards.** Ballots, voting equipment, pollbooks, tabulators, memory devices, election records, and result-transmission materials require separate judicial safeguards before access, imaging, copying, transport, or seizure.
 
 **Source Development Pending.** Further source development should review 18 U.S.C. § 592, the Posse Comitatus Act, National Guard authorities, federal election-crime enforcement guidance, emergency-response authorities, and state emergency-management law.
+
+**Quality Score.** The proposal remains at 60/100 after T1 because it has a developed framework and linked legislation but has not yet received a full current-rubric component rebaseline. T2 should test the fit between the new statute, 18 U.S.C. § 592, the Posse Comitatus Act, Insurrection Act and National Guard authorities, federal civil-rights enforcement, election-crime enforcement, emergency-response law, election-material custody, and expedited review.
+
+**Adoption Score.** Adoption Score is 5/12. The proposal has a neutral institutional premise and existing statutory analogues, but it does not yet cite proposal-specific polling, sponsor coalitions, committee activity, cross-partisan institutional validators, or election-security/public-safety practitioner support.
+
+**Adoption Friction.** Adoption Friction is 70/100 because the proposal implicates federal law enforcement, military and federalized-force authority, state election administration, emergency response, voter intimidation, civil-rights enforcement, election-material custody, and likely separation-of-powers and federalism objections.
+
+**Required Electoral Environment.** Required Electoral Environment is `sixty-vote-senate`; Pathway Viability is `plausible-after-wave`; Pathway Adjustment is `stage`. T2 should assess whether narrower updates to election-material safeguards, notice/reporting, or emergency-response scope limits could be staged if the full federal-force package proves too difficult.

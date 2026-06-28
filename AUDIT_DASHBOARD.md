@@ -64,14 +64,14 @@ Required Electoral Environment is a T1 gate that identifies the minimum electora
 | House oversight majority | 0 |
 | Narrow unified government | 0 |
 | Filibuster-constrained unified government | 0 |
-| Sixty-vote Senate | 10 |
+| Sixty-vote Senate | 11 |
 | Filibuster reform or exception | 0 |
 | Wave-election mandate | 0 |
 | Post-crisis repair mandate | 0 |
 | Constitutional amendment environment | 1 |
 | State-level pathway | 2 |
 | Not electorally dependent | 0 |
-| Unassessed | 6 |
+| Unassessed | 5 |
 | N/A | 193 |
 
 ## Adoption Friction
@@ -85,9 +85,9 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Low Resistance | 0 |
 | Manageable Resistance | 0 |
 | Significant Resistance | 3 |
-| High Resistance | 7 |
+| High Resistance | 8 |
 | Extreme Resistance | 4 |
-| Unassessed | 6 |
+| Unassessed | 5 |
 | N/A | 193 |
 
 ## Next Audit Queue
@@ -96,12 +96,12 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 
 | Next audit indicator | Count |
 | --- | ---: |
-| Advanced audit | 9 |
+| Advanced audit | 8 |
 | Cross-reference check | 13 |
 | Development audit | 0 |
 | Issue-admission test | 179 |
 | Reassess predicate | 1 |
-| T2 | 2 |
+| T2 | 3 |
 | T3 | 0 |
 | T4 publication-ready audit | 0 |
 | T4 follow-up | 10 |
@@ -139,7 +139,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | ELEC-004 | A-02 | High | Developed | 73 | Substantially Developed Draft | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-004.md) | [Bill 1](legislation/ELEC-004-state.md)<br />[Bill 2](legislation/ELEC-004.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | ELEC-005 | A-02 | High | Developed | 78 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-005.md) | [Bill](legislation/ELEC-005.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | ELEC-006 | A-02 | High | Developed | 76 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-006.md) | [Bill](legislation/ELEC-006.md) | 2026-06-27.2 | current | sixty-vote-senate | active | Significant Resistance |
-| ELEC-007 | A-02 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-007.md) | [Bill](legislation/ELEC-007.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
+| ELEC-007 | A-02 | High | Developed | 60 | Developed Draft | 2 | T1 framework check | 2026-06-28 | T2 development audit | [Issue](areas/ELEC/issues/ELEC-007.md) | [Bill](legislation/ELEC-007.md) | 2026-06-27.2 | hard-rebaseline-needed | sixty-vote-senate | active | High Resistance |
 | ELEC-008 | A-02 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-008.md) | [Bill](legislation/ELEC-008.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | ELEC-009 | A-02 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-009.md) | [Bill](legislation/ELEC-009.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | ELEC-010 | A-02 | High | Developed | 55 | Developed Draft | 2 | Horizon integration decision | 2026-06-25 | Development audit | [Issue](areas/ELEC/issues/ELEC-010.md) | — | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
