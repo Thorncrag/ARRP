@@ -9,11 +9,18 @@ federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
 audit_status: "Structural audit complete; advanced audits pending"
 audit_score: 60
-audit_last_type: "Initial framework and inventory audit"
-audit_last_date: "2026-06-24"
-audit_next: "Advanced audit"
-audit_rubric_version: "pre-2026-06-27.1"
+audit_last_type: "T1 framework check"
+audit_last_date: "2026-06-28"
+audit_next: "T2 development audit"
+audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "hard-rebaseline-needed"
+adoption_score: 4
+adoption_friction_score: 72
+adoption_friction_band: "High Resistance"
+required_electoral_environment: "sixty-vote-senate"
+pathway_viability: "plausible-after-wave"
+development_priority: "active"
+pathway_adjustment: "stage"
 print_levels:
   - public-proposal
   - full-technical
@@ -157,11 +164,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-004.audit.md)** (Developed Draft)<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+> **Proposal Quality Score:** **[60 / 100](ELEC-004.audit.md)** (Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 
@@ -178,3 +185,13 @@ Administrative workload is possible; no new appropriation is specified.
 **Federalism.** Federal legislation should govern federal courts and federal-election-related proceedings. States should be encouraged, not commandeered, to adopt parallel procedures for state courts and state-law contests.
 
 **Source Development Pending.** Further development should cite representative cases and orders from Pennsylvania, Michigan, Wisconsin, Nevada, Georgia, and other election proceedings, together with Rule 11, 28 U.S.C. § 1927, inherent-power sanctions, and state Anti-SLAPP analogues.
+
+**Quality Score.** The 60/100 score remains a Developed Draft score because T1 confirmed the structure, linked federal and model-state vehicles, source-inventory presence, budget-statement placement, preliminary pathway, and no obvious mootness, but did not recalculate component scores under the current rubric. The proposal remains hard-rebaseline-needed until T2 completes the first current-rubric merits score.
+
+**Adoption Score.** The 4/12 score is limited. ELEC-004 has a clear procedural analogue in Anti-SLAPP law and a staged federal/state vehicle, but T1 did not identify proposal-specific polling, sponsor coalitions, administrator or court-administration support, bipartisan legislative records, or enacted election-specific Anti-SLAPP analogues.
+
+**Adoption Friction.** The 72/100 score is High Resistance. The proposal touches election litigation, court procedure, sanctions, sensitive election materials, subpoena and audit demands, and Petition Clause/First Amendment concerns, and opponents could characterize it as burdening election challenges even though the draft preserves good-faith reporting and lawful contests.
+
+**Required Electoral Environment.** The required environment is `sixty-vote-senate`, with Pathway Viability `plausible-after-wave` and Pathway Adjustment `stage`. The federal-court procedure likely requires ordinary federal legislation, while the model-state component can be developed and promoted state by state as a staged path.
+
+**Development Priority.** The priority is `active` because litigation and investigatory-process abuse can materially affect election timelines, sensitive election materials, election personnel, and public confidence even when the underlying claim ultimately fails.
