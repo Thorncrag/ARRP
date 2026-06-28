@@ -6,13 +6,21 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-005.md"
-audit_status: "Structural audit complete; advanced audits pending"
+audit_status: "T1 framework check complete; T2 development audit pending"
 audit_score: 60
-audit_last_type: "Initial framework and inventory audit"
-audit_last_date: "2026-06-24"
-audit_next: "Advanced audit"
-audit_rubric_version: "pre-2026-06-27.1"
+audit_last_type: "T1 framework check"
+audit_last_date: "2026-06-28"
+audit_next: "T2 development audit"
+audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "hard-rebaseline-needed"
+adoption_score: 5
+adoption_score_band: "Limited Adoption Basis"
+adoption_friction_score: 64
+adoption_friction_band: "High Resistance"
+required_electoral_environment: "sixty-vote-senate"
+pathway_viability: "plausible-after-wave"
+development_priority: "active"
+pathway_adjustment: "proceed"
 print_levels:
   - public-proposal
   - full-technical
@@ -74,7 +82,7 @@ Existing law may lack:
 
 ## Proposal Survey
 
-The Electoral Count Reform Act clarified several certificate and electoral-count procedures but did not create a standalone false-result-transmission offense. See [3 U.S.C. §§ 5, 11, 12, and 15](https://www.law.cornell.edu/uscode/text/3/chapter-1). Existing criminal statutes may apply to false documents, false statements, conspiracy, or obstruction, but they were not designed specifically for presidential result-transmission channels. See [18 U.S.C. §§ 371, 1001, and 1512](https://www.law.cornell.edu/uscode/text/18/part-I).
+The Electoral Count Reform Act clarified several certificate and electoral-count procedures but did not create a standalone false-result-transmission offense. See [3 U.S.C. §§ 5, 11, 12, and 15](https://uscode.house.gov/view.xhtml?path=/prelim@title3/chapter1&edition=prelim). Existing criminal statutes may apply to false documents, false statements, conspiracy, or obstruction, but they were not designed specifically for presidential result-transmission channels. See [18 U.S.C. §§ 371](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section371&num=0&edition=prelim), [1001](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1001&num=0&edition=prelim), and [1512](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1512&num=0&edition=prelim).
 
 State forgery, false-instrument, and election-law statutes provide additional models, but coverage and remedies vary. ELEC-005 therefore proposes a targeted federal-channel rule that supplements rather than displaces existing federal and state remedies.
 
@@ -119,11 +127,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-005.audit.md)** (Developed Draft)<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+> **Proposal Quality Score:** **[60 / 100](ELEC-005.audit.md)** (Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 64 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-005 audit history](ELEC-005.audit.md)
+> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-005 audit history](ELEC-005.audit.md)
 
 ## Annotation
 
@@ -136,3 +144,11 @@ Administrative workload is possible; no new appropriation is specified.
 **Contingent Documents.** A safe harbor is necessary to preserve legitimate litigation-contingent activity while prohibiting false present-tense certification or deceptive federal-channel use.
 
 **Source Development Pending.** Further source development should review the Electoral Count Reform Act, 3 U.S.C. §§ 5, 11, 12, and 15, state false-elector prosecutions, state statutory-gap reports, 18 U.S.C. §§ 371, 1001, and 1512, and relevant forgery and false-instrument statutes.
+
+**Quality Score.** The proposal remains at 60/100 after T1 because the page has a developed framework and an aligned Title 3 amendment, but the proposal has not yet received a full current-rubric component rebaseline. T2 should test existing-law fit, source support, prior proposals, state-prosecution records, constitutional limits, safe-harbor drafting, enforcement calibration, and issue-to-legislation alignment in detail.
+
+**Adoption Score.** Adoption Score is 5/12. The Title 3 amendment path is understandable and benefits from the post-2020 bipartisan precedent of Electoral Count Reform Act revisions, but ELEC-005 does not yet cite proposal-specific polling, sponsor coalitions, committee activity, or external election-law validation.
+
+**Adoption Friction.** Adoption Friction is 64/100 because the proposal addresses presidential-election documents, false-elector conduct, federal criminal penalties, state-federal boundaries, and speech/litigation-adjacent safe harbors. Those features make opposition and litigation likely even though the proposal is framed as a neutral federal-channel document-integrity rule.
+
+**Required Electoral Environment.** Required Electoral Environment is `sixty-vote-senate`; Pathway Viability is `plausible-after-wave`; Pathway Adjustment is `proceed`. Because the proposal amends federal presidential-election law and creates a new federal offense, it likely requires ordinary federal legislation capable of surviving Senate cloture and presidential signature. The proposal should proceed as a federal Title 3 amendment, with T2 assessing whether a narrower civil-recipient-duty or appropriations/reporting package could be staged if the criminal-offense path proves too politically or legally costly.
