@@ -12,6 +12,34 @@ This file preserves the full audit history for [ELEC-002](ELEC-002.md). The issu
 
 ## Audit History
 
+### 2026-06-28 — T3 Readiness Audit
+
+**Audit status:** T3 readiness audit complete; T4 publication audit and external review pending
+
+**Audit scope:** This T3 audit reviewed ELEC-002, the linked model state bill, T1 manifestation source rows, ECRA source leads, issue-to-legislation alignment, state-level pathway fields, budget posture, and unresolved publication-source needs. It searched for primary state court or official records but did not locate enough primary material in the audit window to rely on them for publication-ready scoring.
+
+**Current-status and mootness check:** No current law, judicial decision, or enacted reform located during T3 moots ELEC-002. The issue remains live because courts can compel certification in individual cases while state statutes may still lack automatic substitution, precise ministerial-duty language, and clear consequences before downstream election deadlines are threatened.
+
+**Source finding:** The manifestation examples are now adequately sourced for internal review through AP and Axios reporting, but T3 did not obtain primary court orders, official county minutes, official state mandamus filings, or official certification records. T4 should not treat the examples as publication-ready until at least the most important primary records are located or the issue page is narrowed to claims fully supported by available sources.
+
+**Legal-fit finding:** The model remains plausible and should remain state-law-first. T3 confirms that a federal floor may be considered later, but the current issue should not be converted into federal legislation unless a separate analysis shows that state-by-state adoption is inadequate for federal-office elections.
+
+**Issue-to-legislation alignment:** No material discrepancy was found between the issue page and model bill. The issue page and bill remain aligned on ministerial certification, narrow defect identification, referral without withholding certification, automatic substitution, expedited court enforcement, preservation of recounts and election contests, matter-specific removal, public records, and calibrated civil/criminal consequences.
+
+**Budgetary-impact finding:** No change. Administrative workload is possible, but no new appropriation is specified. T4 should decide whether the model act needs optional state appropriation language for training, court procedures, substitute-certifier administration, and enforcement.
+
+**Adoption and friction finding:** Adoption Score remains 5/12. Adoption Friction remains 58/100. T3 did not locate state-level polling, sponsor coalitions, election-administrator endorsements, bipartisan state adoption, or model-law organization support.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior-Proposal 5/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 74/100 (Substantially Developed Draft).
+
+**Score effect:** Score increased from 72 to 74 because T3 clarified source limitations, confirmed state-law-first vehicle fit, verified issue-to-legislation alignment, and sharpened T4 publication blockers. The score remains below Review Ready because primary source support and state-specific implementation analysis remain incomplete.
+
+**Defects corrected during the audit:** Updated the issue-page score, metadata, Quality Score annotation, audit history, audit inventory, and Audit Dashboard. No legislative text was changed during T3.
+
+**Next audit need:** Run T4 publication-ready audit. Prioritize primary court orders or official state records, representative state certification statutes, standing and direct-certification authority, penalty calibration, election-administrator validation, and whether to add optional state appropriation or federal-floor notes.
+
+**Audit process feedback:** T3 confirmed that ELEC-002's bottleneck is not conceptual design; it is primary state-law sourcing and state-specific implementation validation.
+
 ### 2026-06-28 — T2 Development Audit
 
 **Audit status:** T2 development audit complete; T3 readiness audit pending
