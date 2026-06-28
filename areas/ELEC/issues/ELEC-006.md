@@ -6,11 +6,11 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-006.md"
-audit_status: "T3 readiness audit complete; T4 publication-ready audit pending"
+audit_status: "T4 publication-ready audit complete; external validation pending"
 audit_score: 76
-audit_last_type: "T3 readiness audit"
+audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-06-28"
-audit_next: "T4 publication-ready audit"
+audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 5
@@ -130,7 +130,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** T3 readiness audit complete; T4 publication-ready audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-006 audit history](ELEC-006.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-006 audit history](ELEC-006.audit.md)
 
 ## Annotation
 
@@ -144,9 +144,9 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Congressional Nondependence.** Congressional oversight should be preserved, but transition continuity should not depend on Congress being willing or able to oppose delay.
 
-**Source Development Pending.** T4 should seek official or primary records for the 2020 ascertainment delay and 2024 transition-agreement/background-check delay if available, complete a direct prior-proposal or legislative-history survey for transition automaticity and access-enforcement reforms, and add transition-law or national-security practitioner review.
+**Source Development Pending.** T4 attempted official-source substitution for the 2020 ascertainment delay and 2024 transition-agreement/background-check delay but did not locate stable official records through the public paths checked. External validation or T4 follow-up should continue seeking official GSA, congressional, transition-team, White House, DOJ, FBI, or oversight records; complete a direct prior-proposal or legislative-history survey; and add transition-law or national-security practitioner review.
 
-**Quality Score.** The proposal is 76/100 after T3. Component score: Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. T3 raised the score by adding statutory and 9/11 Commission page leads, clarifying the residual-gap theory, and documenting implementation risks. The proposal is Review Ready for knowledgeable external critique but not publication-ready because official 2020/2024 event records, direct prior-proposal research, exact amendment placement, budget/workload analogues, and external review remain pending.
+**Quality Score.** The proposal is 76/100 after T4. Component score: Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. T4 did not change the score because it did not resolve the remaining publication blockers: official 2020/2024 event records, direct prior-proposal research, exact amendment placement, budget/workload analogues, and external review. The proposal remains Review Ready for knowledgeable external critique.
 
 **Adoption Score.** Adoption Score is 5/12. Presidential-transition continuity has bipartisan institutional logic and an enacted 2022 reform baseline, but ELEC-006 does not yet cite proposal-specific polling, current sponsor coalitions, committee activity, transition-practitioner endorsement, or external validation for its full automaticity package.
 

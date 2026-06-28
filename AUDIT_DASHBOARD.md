@@ -103,8 +103,8 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Reassess predicate | 1 |
 | T2 | 2 |
 | T3 | 0 |
-| T4 publication-ready audit | 1 |
-| T4 follow-up | 9 |
+| T4 publication-ready audit | 0 |
+| T4 follow-up | 10 |
 
 ## Change Audit Log
 
@@ -138,7 +138,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | ELEC-003 | A-02 | High | Developed | 77 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-003.md) | [Bill 1](legislation/ELEC-003-state.md)<br />[Bill 2](legislation/ELEC-003.md) | 2026-06-27.2 | current | state-level-pathway | active | Significant Resistance |
 | ELEC-004 | A-02 | High | Developed | 73 | Substantially Developed Draft | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-004.md) | [Bill 1](legislation/ELEC-004-state.md)<br />[Bill 2](legislation/ELEC-004.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | ELEC-005 | A-02 | High | Developed | 78 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-005.md) | [Bill](legislation/ELEC-005.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| ELEC-006 | A-02 | High | Developed | 76 | Review Ready | 4 | T3 readiness audit | 2026-06-28 | T4 publication-ready audit | [Issue](areas/ELEC/issues/ELEC-006.md) | [Bill](legislation/ELEC-006.md) | 2026-06-27.2 | current | sixty-vote-senate | active | Significant Resistance |
+| ELEC-006 | A-02 | High | Developed | 76 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-006.md) | [Bill](legislation/ELEC-006.md) | 2026-06-27.2 | current | sixty-vote-senate | active | Significant Resistance |
 | ELEC-007 | A-02 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-007.md) | [Bill](legislation/ELEC-007.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | ELEC-008 | A-02 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-008.md) | [Bill](legislation/ELEC-008.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | ELEC-009 | A-02 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-009.md) | [Bill](legislation/ELEC-009.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |

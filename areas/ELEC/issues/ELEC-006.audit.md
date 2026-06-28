@@ -93,3 +93,27 @@ This file preserves the full audit history for [ELEC-006](ELEC-006.md). The issu
 **Prior-proposal and adoption posture:** The enacted 2022 transition reform supports prior-proposal credit, but direct automaticity, public-delay-notice, and expedited-enforcement proposal research remains incomplete. Adoption Score remains 5/12 because no proposal-specific polling, sponsor coalition, committee support, transition-practitioner endorsement, or external validation has been documented.
 
 **Next audit need:** T4 publication-ready audit should complete official-source substitution, direct prior-proposal and legislative-history research, amendment-placement review, sensitive-information and clearance-mechanics review, expedited-review legal analysis, budget/workload analogue search, and external legal or transition-practitioner review.
+
+### 2026-06-28 — T4 publication-ready audit
+
+**Audit status:** T4 publication-ready audit complete; external validation pending
+
+**Proposal-quality score:** 76
+
+**Component score:** Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. Total: 76.
+
+**Publication-readiness finding:** ELEC-006 is Review Ready but not publication-ready. T4 confirmed the basic statutory vehicle, residual-gap theory, issue-to-legislation alignment, and current score posture, but did not resolve enough publication blockers to justify a score increase.
+
+**Current-status and mootness determination:** No currently identified public-source development moots the proposal. The 2022 amendments remain a partial reform baseline rather than a complete substitute for automatic staged access, public delay notices, candidate-side agreement-delay consequences, agency deadlines, and expedited review for concrete missed duties.
+
+**Source-refresh result:** T4 attempted to locate stable official records for the 2020 GSA ascertainment-delay letter and 2024 transition-agreement/background-check delay through public GSA, White House, and likely PDF paths, but did not locate reliable official copies. The issue page therefore continues to use Axios and Politico as secondary source leads for those examples, with publication follow-up required.
+
+**Verified source posture:** The Presidential Transition Act compilation remains the primary statutory baseline. The 9/11 Commission Report remains a direct official source lead for the 2000 transition-compression manifestation. Congress.gov/Public Law source support remains sufficient for the existence of the 2022 transition reform baseline, but T4 did not complete a detailed sponsor, co-sponsor, committee, or legislative-history review.
+
+**Legal-durability findings:** The proposal's most important legal-durability guardrail is its repeated statement that transition access is administrative preparedness, not legal recognition of election victory. T4 confirms that expedited review should remain limited to concrete missed statutory transition duties and should avoid asking courts to decide the election winner. T4 also confirms that sensitive-information access should remain conditioned on ordinary legal, clearance, ethics, confidentiality, and information-security requirements.
+
+**Implementation and budget findings:** No new appropriation is specified. Administrative burden is plausible but not yet quantified. T4 did not locate or add a source-backed budget analogue, so the budget statement remains preliminary and should not include a dollar estimate.
+
+**Remaining publication blockers:** Official 2020 and 2024 event records; direct prior-proposal and legislative-history survey; exact placement of amendments into the Presidential Transition Act; classified-information, law-enforcement-sensitive information, cybersecurity, privacy, personnel, background-check, OPM, ODNI, FBI, DOJ, and agency-transition implementation review; expedited-review standing and jurisdiction analysis; budget/workload analogue search; and qualified external review.
+
+**Next audit need:** External validation or T4 follow-up focused on official event records, legislative-counsel drafting placement, transition-law or national-security practitioner review, and source-backed workload analysis.
