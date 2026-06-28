@@ -12,6 +12,36 @@ This file preserves the full audit history for [ELEC-005](ELEC-005.md). The issu
 
 ## Audit History
 
+### 2026-06-28 — T4 Publication-Ready Audit
+
+**Audit status:** T4 publication-ready audit complete; external validation pending
+
+**Audit scope:** This T4 audit reviewed ELEC-005, the linked Title 3 bill, current-status source leads, official Title 3 and Title 18 source leads, the Electoral Count Reform Act relationship, a federal-count source lead from the January 6th Select Committee final report, manifestation citations, issue-to-legislation alignment, legal durability, recipient-duty implementation posture, budget posture, adoption posture, audit dashboard, audit inventory, source inventory, and governing framework/methodology. It did not obtain qualified external review, retrieve every primary state docket record, complete a full Congress.gov bill-search memorandum, or secure legislative-counsel review.
+
+**Current-status and mootness check:** No current law, judicial decision, enacted reform, or factual development located during T4 moots ELEC-005. Recent and current false-elector prosecution posture remains uneven across states, and no located federal enactment supplies the exact combination of federal-channel recipient duties, safe-harbor labeling, civil relief, and knowing false-result-transmission penalties proposed here.
+
+**Source-refresh finding:** T4 improved federal source posture by adding the official GovInfo copy of the January 6th Select Committee final report as a federal-count source lead. The issue remains below publication-final because many manifestations still rely on secondary reports and source leads rather than primary state-court orders, indictment documents, attorney-general releases, settlement papers, NARA certificate records, congressional receipt records, or authenticated exhibits.
+
+**Existing-law and prior-proposal finding:** The existing-law vehicle remains the least-complex adequate remedy. Title 3 is the correct statutory neighborhood because the proposal protects federal receipt, preservation, recognition, and counting channels for presidential result documents. The ECRA is a close enacted analogue for repairing electoral-count procedures, but it does not itself create a standalone false-result-transmission rule. T4 did not identify a need to convert ELEC-005 into a new title or abandon the Title 3 amendment path. A direct Congress.gov survey remains a T4 follow-up need.
+
+**Legal-durability finding:** ELEC-005 is plausible but still needs legal validation. The proposal is strongest when confined to knowing use or transmission of false or unauthorized documents in a federal channel. Its most important safeguards are the knowledge element, materiality definition, contingent-document safe harbor, state-process nonpreemption clause, First Amendment rule of construction, and preservation of existing remedies. Remaining legal risks include overbreadth, vagueness, protected petitioning and litigation conduct, Article II/Twelfth Amendment concerns, anti-commandeering, federalism, prosecutorial-discretion concerns, and civil disqualification authority.
+
+**Issue-to-legislation alignment:** No material discrepancy was found between the issue page and linked bill. The issue page accurately describes the operative vehicle, federal-channel hook, covered documents, federal recipients, safe harbor, enforcement mechanisms, relation to existing law, federalism limits, and source/development caveats.
+
+**Implementation and budget finding:** The budget statement remains appropriate. Administrative workload is possible, but no new appropriation is specified. The current draft imposes ministerial recipient duties rather than a new funded program. T4 follow-up should still confirm NARA, congressional, court, and DOJ operational practice before adding specific deadlines, forms, referral routes, reporting requirements, training duties, or cost estimates.
+
+**Adoption and friction finding:** Adoption Score remains 5/12. Adoption Friction remains 64/100. The post-2020 ECRA precedent supports the plausibility of federal Title 3 repair, but T4 did not identify proposal-specific polling, active sponsor coalitions, committee work, election-administrator support, cross-party endorsements, or external validators specific to this false-document mechanism.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 10/12; Legal Fit 8/10; Prior-Proposal 6/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 78/100 (Review Ready).
+
+**Score effect:** Score increased from 75 to 78 because T4 added a federal-count source lead, confirmed legal and implementation posture, completed publication-level internal source refresh, verified issue-to-legislation alignment, and clarified external-validation blockers. The proposal remains Review Ready rather than publication-ready because external legal, legislative, election-administration, and primary-record validation remain incomplete.
+
+**Defects corrected during the audit:** Updated issue-page score, metadata, Proposal Scoring, Quality Score annotation, manifestation source support, audit history, source inventory, audit inventory, and Audit Dashboard. No legislative text was changed during T4.
+
+**External-validation blockers:** Obtain primary state records for Michigan, Nevada, Arizona, Wisconsin, Georgia, and any other cited examples; retrieve NARA or congressional certificate records; complete direct Congress.gov and legislative-history survey; test whether penalties should be placed in Title 3, Title 18, or split between the two; verify safe-harbor drafting against legitimate litigation-contingent elector documents; obtain criminal-law, election-law, legislative-counsel, and NARA/congressional-process review; assess civil disqualification authority; and locate implementation-burden or workload analogues if any specific recipient duties are added.
+
+**Audit process feedback:** T4 confirms ELEC-005 is suitable for knowledgeable external critique. The next quality gain is external validation and primary-record replacement, not additional autonomous expansion.
+
 ### 2026-06-28 — T3 Readiness Audit
 
 **Audit status:** T3 readiness audit complete; T4 publication-ready audit pending

@@ -6,11 +6,11 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-005.md"
-audit_status: "T3 readiness audit complete; T4 publication-ready audit pending"
-audit_score: 75
-audit_last_type: "T3 readiness audit"
+audit_status: "T4 publication-ready audit complete; external validation pending"
+audit_score: 78
+audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-06-28"
-audit_next: "T4 publication-ready audit"
+audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 5
@@ -45,7 +45,7 @@ The problem is not that existing fraud, forgery, false-statement, obstruction, c
 
 ### Multi-state false-elector certificates — 2020
 
-After the 2020 presidential election, individuals in multiple states prepared or signed documents purporting to cast electoral votes for a candidate who had not been certified as the winner in those states. The institutional harm was the creation of facially official elector documents outside the lawful certificate-of-ascertainment process, with potential use in the federal electoral-count process. A former Senate official testified in Michigan proceedings that a fake certificate of votes was mailed to the Senate and did not match the official gubernatorial certificate. See [Associated Press, *Fake Michigan Certificate of Votes mailed to U.S. Senate after 2020 presidential vote, official says*](https://apnews.com/article/7496e37442648d4facdf86e41c7841f7).
+After the 2020 presidential election, individuals in multiple states prepared or signed documents purporting to cast electoral votes for a candidate who had not been certified as the winner in those states. The institutional harm was the creation of facially official elector documents outside the lawful certificate-of-ascertainment process, with potential use in the federal electoral-count process. The Select Committee to Investigate the January 6th Attack treated the alternate-elector effort as a distinct pressure point in the broader federal-count record. See [Final Report of the Select Committee to Investigate the January 6th Attack on the United States Capitol](https://www.govinfo.gov/content/pkg/GPO-J6-REPORT/pdf/GPO-J6-REPORT.pdf). A former Senate official also testified in Michigan proceedings that a fake certificate of votes was mailed to the Senate and did not match the official gubernatorial certificate. See [Associated Press, *Fake Michigan Certificate of Votes mailed to U.S. Senate after 2020 presidential vote, official says*](https://apnews.com/article/7496e37442648d4facdf86e41c7841f7).
 
 ### State prosecutions under general statutes
 
@@ -127,11 +127,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[75 / 100](ELEC-005.audit.md)** (Review Ready)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 64 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[78 / 100](ELEC-005.audit.md)** (Review Ready)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 64 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T3 readiness audit complete; T4 publication-ready audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-005 audit history](ELEC-005.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-005 audit history](ELEC-005.audit.md)
 
 ## Annotation
 
@@ -151,7 +151,7 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Implementation.** Recipient duties should remain ministerial: preserve the document, mark or log disputed status, avoid treating it as operative absent legal authority, refer apparent misconduct, and notify likely recipients. T4 should verify how NARA, congressional officers, courts, and DOJ already handle disputed elector materials before assigning any more specific duty, deadline, referral path, or recordkeeping burden.
 
-**Quality Score.** The proposal is 75/100 after T3 because it has a developed issue architecture, a linked Title 3 amendment, official statutory source leads, current-status source support, plausible safe-harbor design, a stronger existing-law fit explanation, and no material issue-to-legislation discrepancy. The score is Review Ready for knowledgeable external critique, not publication-ready, because T4 must still obtain primary state court or attorney-general records, complete a direct Congress.gov prior-proposal survey, test criminal-offense drafting against First Amendment and due-process limits, and verify recipient-duty implementation.
+**Quality Score.** The proposal is 78/100 after T4 because it has a developed issue architecture, a linked Title 3 amendment, official statutory source leads, current-status source support, plausible safe-harbor design, a stronger existing-law fit explanation, a federal-count source lead, and no material issue-to-legislation discrepancy. The score remains Review Ready rather than publication-ready because primary state court or attorney-general records, direct Congress.gov prior-proposal survey, legislative-counsel review, criminal-law review, election-law review, and recipient-duty implementation validation remain pending.
 
 **Adoption Score.** Adoption Score remains 5/12. The Title 3 amendment path is understandable and benefits from the post-2020 bipartisan precedent of Electoral Count Reform Act revisions, but ELEC-005 does not yet cite proposal-specific polling, sponsor coalitions, committee activity, or external election-law validation.
 
