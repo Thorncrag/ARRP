@@ -176,3 +176,4 @@ Administrative workload is possible; no new appropriation is specified.
 ## Source Notes
 
 - Source review for federal-election interactions should include the Electoral Count Reform Act amendments to [3 U.S.C. § 5](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section5&num=0&edition=prelim), [3 U.S.C. § 12](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section12&num=0&edition=prelim), and [3 U.S.C. § 15](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section15&num=0&edition=prelim), plus each adopting state's election-certification statutes.
+- T2 should prioritize primary court orders or official state records for Wayne County, Otero County, Cochise County, and Fulton County before publication-ready reliance.

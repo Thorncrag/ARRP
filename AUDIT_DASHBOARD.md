@@ -69,9 +69,9 @@ Required Electoral Environment is a T1 gate that identifies the minimum electora
 | Wave-election mandate | 0 |
 | Post-crisis repair mandate | 0 |
 | Constitutional amendment environment | 1 |
-| State-level pathway | 0 |
+| State-level pathway | 1 |
 | Not electorally dependent | 0 |
-| Unassessed | 11 |
+| Unassessed | 10 |
 | N/A | 193 |
 
 ## Adoption Friction
@@ -84,10 +84,10 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | --- | ---: |
 | Low Resistance | 0 |
 | Manageable Resistance | 0 |
-| Significant Resistance | 0 |
+| Significant Resistance | 1 |
 | High Resistance | 5 |
 | Extreme Resistance | 4 |
-| Unassessed | 11 |
+| Unassessed | 10 |
 | N/A | 193 |
 
 ## Next Audit Queue
@@ -133,7 +133,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | DOJ-008 | A-01 | High | Retired—merged into DOJ-003 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/DOJ/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | DOJ-009 | A-01 | High | Developed | 60 | Developed Draft | 3 | T2 blocker review | 2026-06-28 | Human review: authorize existing-law redraft, then T2 development audit | [Issue](areas/DOJ/issues/DOJ-009.md) | [Bill](legislation/DOJ-009.md) | 2026-06-27.2 | hard-rebaseline-needed | sixty-vote-senate | active | High Resistance |
 | ELEC-001 | A-02 | High | Developed | 77 | Review Ready | 6 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-001.md) | [Bill](legislation/ELEC-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | Extreme Resistance |
-| ELEC-002 | A-02 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-002.md) | [Bill](legislation/ELEC-002-state.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
+| ELEC-002 | A-02 | High | Developed | 60 | Developed Draft | 2 | T1 framework check | 2026-06-28 | T2 development audit | [Issue](areas/ELEC/issues/ELEC-002.md) | [Bill](legislation/ELEC-002-state.md) | 2026-06-27.2 | hard-rebaseline-needed | state-level-pathway | active | Significant Resistance |
 | ELEC-003 | A-02 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-003.md) | [Bill 1](legislation/ELEC-003-state.md)<br />[Bill 2](legislation/ELEC-003.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | ELEC-004 | A-02 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-004.md) | [Bill 1](legislation/ELEC-004-state.md)<br />[Bill 2](legislation/ELEC-004.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | ELEC-005 | A-02 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-005.md) | [Bill](legislation/ELEC-005.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
