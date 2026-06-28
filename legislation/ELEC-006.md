@@ -305,6 +305,7 @@ Administrative workload is possible; no new appropriation is specified.
 - Transition access is framed as administrative preparedness, not legal recognition of election victory.
 - The draft addresses both government-side obstruction and transition-entity noncompliance.
 - The expedited-review provision is limited to concrete missed statutory transition duties and should not invite courts to adjudicate the election winner.
+- A later drafting pass should place each amendment into the correct section or subsection of the Presidential Transition Act of 1963 and add conforming amendments to existing terminology where needed.
 - The draft should be reviewed against the Presidential Transition Act of 1963, the 2022 transition amendments, appropriations law, classified-information rules, background-check authorities, ethics laws, and agency transition-practice guidance.
 
 ## Source Notes

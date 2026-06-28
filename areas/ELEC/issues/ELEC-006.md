@@ -6,16 +6,16 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-006.md"
-audit_status: "T1 framework check complete; T2 development audit pending"
-audit_score: 60
-audit_last_type: "T1 framework check"
+audit_status: "T2 development audit complete; T3 readiness audit pending"
+audit_score: 73
+audit_last_type: "T2 development audit"
 audit_last_date: "2026-06-28"
-audit_next: "T2 development audit"
+audit_next: "T3 readiness audit"
 audit_rubric_version: "2026-06-27.2"
-audit_rebaseline_status: "hard-rebaseline-needed"
-adoption_score: 6
+audit_rebaseline_status: "current"
+adoption_score: 5
 adoption_score_band: "Limited Adoption Basis"
-adoption_friction_score: 54
+adoption_friction_score: 56
 adoption_friction_band: "Significant Resistance"
 required_electoral_environment: "sixty-vote-senate"
 pathway_viability: "plausible-after-wave"
@@ -126,17 +126,17 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-006.audit.md)** (Developed Draft)<br />**Adoption Score:** 6 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 54 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[73 / 100](ELEC-006.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 56 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-006 audit history](ELEC-006.audit.md)
+> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-006 audit history](ELEC-006.audit.md)
 
 ## Annotation
 
 **Norm-Preserving Design.** The proposal should preserve the historical norm-based transition model and add statutory backstops only where recent manifestations show that norms can fail.
 
-**2022 Reform Baseline.** The 2022 amendments should be treated as a partial reform, not ignored. ELEC-006 should identify residual vulnerabilities that remain after the 2022 changes.
+**2022 Reform Baseline.** The 2022 amendments should be treated as a partial reform, not ignored. Current law already provides multiple-candidate transition support in some unresolved-election circumstances, authorizes services and facilities for apparent successful candidates, requires transition memoranda of understanding, addresses ethics plans, and contemplates background investigations and security clearances. ELEC-006 should therefore remain focused on residual gaps: automatic staged access, enforceable agency deadlines, candidate-side agreement delay, public delay notices, and expedited review for concrete missed transition duties.
 
 **No Legal Recognition of Victory.** Transition access should be characterized as administrative preparedness, not legal determination of the election winner.
 
@@ -144,12 +144,12 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Congressional Nondependence.** Congressional oversight should be preserved, but transition continuity should not depend on Congress being willing or able to oppose delay.
 
-**Source Development Pending.** Further source development should review the Presidential Transition Act of 1963, the 2022 transition amendments, 2000 transition compression, 2020 GSA ascertainment delay, and 2024 transition-agreement and background-check issues.
+**Source Development Pending.** T3 should add pinpoint statutory support from the Presidential Transition Act compilation, official or primary records for the 2020 ascertainment delay and 2024 transition-agreement/background-check delay if available, and a direct prior-proposal or legislative-history survey for transition automaticity and access-enforcement reforms.
 
-**Quality Score.** The proposal remains at 60/100 after T1 because it has a developed framework and an aligned Presidential Transition Act amendment, but it has not yet received a full current-rubric component rebaseline. T2 should test the 2022 amendments, transition-agreement duties, background-check and clearance mechanics, GSA authority, judicial-review path, and candidate-side consequence design.
+**Quality Score.** The proposal is 73/100 after T2. Component score: Structural 8/8; Evidence 8/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 6/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. The proposal is substantially developed but not yet Review Ready because T3 still needs pinpoint statutory mapping, official event-source substitution where available, deeper sensitive-information and clearance-process review, fuller prior-proposal research, and external transition-law or election-administration review.
 
-**Adoption Score.** Adoption Score is 6/12. Presidential-transition continuity has bipartisan institutional logic and the 2022 reform precedent, but ELEC-006 does not yet cite proposal-specific polling, current sponsor coalitions, committee activity, transition-practitioner endorsement, or external validation for its full automaticity package.
+**Adoption Score.** Adoption Score is 5/12. Presidential-transition continuity has bipartisan institutional logic and an enacted 2022 reform baseline, but ELEC-006 does not yet cite proposal-specific polling, current sponsor coalitions, committee activity, transition-practitioner endorsement, or external validation for its full automaticity package.
 
-**Adoption Friction.** Adoption Friction is 54/100 because the proposal affects presidential transitions, agency access, background checks, ethics agreements, donor-disclosure leverage, and expedited review. The norm-preserving design reduces resistance, but presidential-transition disputes remain politically salient.
+**Adoption Friction.** Adoption Friction is 56/100 because the proposal affects presidential transitions, agency access, background checks, ethics agreements, donor-disclosure leverage, sensitive-information gates, and expedited review. The norm-preserving design reduces resistance, but presidential-transition disputes remain politically salient and can be framed as affecting candidate strategy during disputed elections.
 
-**Required Electoral Environment.** Required Electoral Environment is `sixty-vote-senate`; Pathway Viability is `plausible-after-wave`; Pathway Adjustment is `stage`. The full federal amendment likely requires ordinary legislation capable of clearing Senate cloture and presidential signature. T2 should assess whether narrower updates to transition agreements, delay notices, or agency-preparation deadlines could be staged if the full automatic-access package proves too difficult.
+**Required Electoral Environment.** Required Electoral Environment is `sixty-vote-senate`; Pathway Viability is `plausible-after-wave`; Pathway Adjustment is `stage`. The full federal amendment likely requires ordinary legislation capable of clearing Senate cloture and presidential signature. Staged alternatives should focus on transition-agreement deadlines, written delay notices, agency-preparation deadlines, public reporting, and limited access defaults if the full automatic-access package proves too difficult.
