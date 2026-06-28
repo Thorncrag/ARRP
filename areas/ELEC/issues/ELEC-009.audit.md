@@ -47,3 +47,31 @@ No issue-specific audit log has been migrated from the issue page yet. The curre
 **Next audit need:** T2 should complete a current-rubric component rebaseline; verify popular-vote divergence and National Popular Vote compact claims; survey direct-election constitutional amendments and NPV/state-allocation models; assess Article V feasibility, implementation legislation, recount/contest administration, federalism, ballot access, majority mechanism, and state ratification strategy.
 
 **Audit process feedback:** T1 was sufficient for structural normalization and did not need deeper source work beyond source-hygiene corrections. The file-name convention issue suggests future T1 checks should explicitly compare constitutional amendment filenames against `FRAMEWORK.md` before scoring.
+
+### 2026-06-28 — T2 development audit
+
+**Audit status:** T2 development audit complete; T3 readiness audit pending
+
+**Proposal-quality score:** 65
+
+**Component score:** Structural 8/8; Evidence 8/12; Legal Fit 6/10; Prior Proposal 7/8; Remedy 9/12; Implementation 4/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 1/12; Project Integration 4/4; External Review 0/4. Total: 65.
+
+**Scope reviewed:** T2 reviewed the issue page, amendment text, T1 audit history, dashboard row, audit inventory, constitutional source rows, compact source rows, and current methodology requirements for current-rubric scoring, source support, existing-law and prior-proposal fit, implementation burden, adoption pathway, and issue-to-amendment alignment.
+
+**Sources and source categories checked:** T2 reviewed Congress.gov Constitution Annotated sources for Article II, Section 1; the Twelfth Amendment; the Twentieth Amendment; and the Twenty-Third Amendment. It also reviewed National Popular Vote written-explanation and state-status pages as secondary compact-model sources. T2 added a separate source row for the compact status page and reclassified the compact explanation source as secondary advocacy material requiring official state verification before publication-ready reliance.
+
+**Current-status and mootness check:** No source reviewed during T2 makes ELEC-009 moot. Direct national presidential election remains unavailable without Article V amendment. The National Popular Vote Interstate Compact remains a live staged alternative, but it has not reached its 270-electoral-vote activation threshold according to the compact sponsor's status page.
+
+**Prior-proposal and existing-law fit:** Direct abolition of presidential electors cannot be accomplished by ordinary statute alone. The NPV compact and state allocation reforms are important alternatives because they can alter practical selection incentives without formal abolition, but they do not fully replace the constitutional elector structure. T3 should survey congressional direct-election amendments and state compact enactments through primary legislative sources.
+
+**Issue-to-amendment alignment:** No material discrepancy identified. The issue page and amendment text both call for direct election, joint tickets, abolition of presidential electors, congressional implementation authority, state administration subject to federal standards, and supersession of inconsistent Article II, Twelfth Amendment, Twentieth Amendment, and Twenty-Third Amendment provisions.
+
+**Implementation and budget check:** The budgetary-impact statement remains appropriate for the amendment itself. Implementing legislation may impose costs for national certification, recounts, contests, ballot access, candidate vacancies, tie resolution, result transmission, transition timing, and election-administration coordination. No source-backed cost estimate is available at T2.
+
+**Adoption and friction:** Adoption Score remains 1/12 and Adoption Friction remains 95/100. The proposal's adoption difficulty is structural rather than merely partisan: it requires two-thirds of both houses of Congress and ratification by three-fourths of the states while changing state and party incentives.
+
+**Unresolved findings:** T2 did not verify historical divergence claims through official election-result sources; did not complete a direct congressional amendment survey; did not verify each NPV compact jurisdiction through official state sources; did not analyze compact constitutional litigation risk; did not resolve plurality versus majority mechanism design; and did not develop implementing legislation.
+
+**Next audit need:** T3 should verify popular-vote divergence using official election results; survey direct-election amendments on Congress.gov; verify NPV compact status through state sources; compare proportional, district, compact, runoff, and ranked-choice alternatives; and test national recount, certification, contest, ballot-access, tie, vacancy, and transition implementation design.
+
+**Audit process feedback:** T2 was sufficient for formula rebaseline and compact-source hygiene, but the proposal's next meaningful improvement depends on a primary-source prior-proposal and state-enactment survey rather than additional general prose.
