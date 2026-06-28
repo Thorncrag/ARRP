@@ -18,6 +18,8 @@ The project's public-facing premise, mission, scope, and governing principles ar
 - `legislation/` contains proposed statutory, constitutional, regulatory, procedural, and model-state language keyed to issue identifiers.
 - `inventory/` contains structured area, issue, contents, audit, and source records.
 - [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) contains the compact cross-issue audit dashboard for meta-analysis and audit planning.
+- [`../agent.md`](../agent.md) contains agent-assisted audit and autonomous batch-audit operating rules.
+- [`../AGENT_AUDIT_LOG.md`](../AGENT_AUDIT_LOG.md) contains autonomous-agent commit provenance and rollback references.
 - [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md) contains cumulative project-wide Change Audit history.
 - [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) contains cumulative horizon-scan intake, recommendations, adjudications, and integration history.
 - [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md) contains the repository map for human orientation.
@@ -42,6 +44,8 @@ Markdown and CSV files are authoritative. Binary Office and PDF files are genera
 - [`../areas/`](../areas/) — modular area and issue analyses
 - [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
 - [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) — compact cross-issue audit tracker for meta-analysis and audit planning
+- [`../agent.md`](../agent.md) — agent-assisted audit and autonomous batch-audit operating rules
+- [`../AGENT_AUDIT_LOG.md`](../AGENT_AUDIT_LOG.md) — autonomous-agent commit provenance and rollback references
 - [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md) — cumulative Change Audit history
 - [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) — cumulative Horizon Scan intake and integration ledger
 - [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md) — human-readable repository map

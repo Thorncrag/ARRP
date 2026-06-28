@@ -188,6 +188,10 @@ The project framework, repository structure, file conventions, contribution proc
 
 The project methodology, audit rules, scoring rules, and inventory maintenance rules are maintained in [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md).
 
+Agent-assisted audit and autonomous batch-audit operating rules are maintained in [`agent.md`](agent.md).
+
+Autonomous-agent commit provenance and rollback references are maintained in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md).
+
 The compact project-wide audit tracker is maintained in [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md).
 
 The cumulative Change Audit history is maintained in [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md).
