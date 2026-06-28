@@ -12,6 +12,34 @@ This file preserves the full audit history for [ELEC-001](ELEC-001.md). The issu
 
 ## Audit History
 
+### 2026-06-28 — T2 Development Audit
+
+**Audit status:** T2 development audit complete; T3 readiness audit pending
+
+**Audit scope:** This T2 audit reviewed ELEC-001, the linked bill, existing source records, Hatch Act source structure, 18 U.S.C. § 595, 18 U.S.C. §§ 241-242, three-judge-court authority, issue-to-legislation alignment, budget posture, adoption posture, and current-rubric scoring. It did not complete T3-level court-record verification for EO 14399 litigation, prior-proposal research, state-plaintiff standing analysis, OSC/MSPB implementation detail, or external election-law review.
+
+**Existing-law and prior-model finding:** ELEC-001 correctly starts from existing law rather than creating a wholly freestanding election-administration code. The Hatch Act supplies the official-authority principle; 18 U.S.C. § 595 supplies a narrower criminal comparator; 18 U.S.C. §§ 241-242 supply adjacent voting-rights and rights-under-color-of-law comparators; and 28 U.S.C. § 2284 supplies an existing three-judge-court mechanism. T2 did not locate a direct prior proposal matching the full Hatch Act plus civil and criminal architecture.
+
+**Source work completed:** Added official U.S. Code source rows for 18 U.S.C. §§ 241-242 and 28 U.S.C. § 2284. T1 had already added the January 6th Committee Final Report and 18 U.S.C. § 595 source row and upgraded the Hatch Act source. T3 should add primary court records or orders for the 2026 EO 14399 litigation currently supported mainly by AP reporting.
+
+**Issue-to-legislation alignment:** No material discrepancy was found between the issue page and linked bill. The bill implements the issue's least-complex remedy by amending the Hatch Act, adding record-preservation duties, creating state-initiated emergency civil enforcement, adding a companion 18 U.S.C. § 595A criminal provision, and preserving lawful federal election, voting-rights, foreign-interference, cybersecurity, and court-process functions.
+
+**Legal-fit finding:** The draft is legally plausible at T2 but needs narrowing review. The civil remedy must be tested against standing, sovereign immunity, equitable relief against subordinate officials, direct presidential-relief limits, Purcell-style election-timing concerns, and three-judge-court fit. The criminal provision must be tested against presidential immunity, intent language, lawful-function defenses, overlap with 18 U.S.C. §§ 241, 242, and 595, and fair-notice concerns.
+
+**Budgetary-impact finding:** Administrative workload remains possible, and no new appropriation is specified. T3 should test whether OSC, OIG, Public Integrity, three-judge-court, record-preservation, state-cost reimbursement, and congressional-reporting features require budget authority or source-backed cost caveats.
+
+**Adoption and friction finding:** Adoption Score remains 5/12 (Limited Adoption Basis). Adoption Friction remains 88/100 (Extreme Resistance). The proposal has strong institutional salience and a neutral election-integrity frame, but T2 did not identify proposal-specific polling, sponsor coalition, direct bipartisan prior bill, state attorney-general support, or external validation.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 8/12; Legal Fit 6/10; Prior-Proposal 4/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 6/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 70/100 (Substantially Developed Draft).
+
+**Score effect:** Score increased from 60 to 70 because T2 completed the first current-rubric component rebaseline, confirmed the existing-law Hatch Act vehicle, added adjacent statutory comparators, confirmed issue-to-legislation alignment, and identified the principal legal and implementation risks for T3.
+
+**Defects corrected during the audit:** Updated the issue-page score, metadata, Proposal Scoring box, Quality Score annotation, audit history, source inventory, audit inventory, and Audit Dashboard.
+
+**Next audit need:** Run T3 readiness audit. Prioritize primary EO 14399 litigation records, OSC/MSPB Hatch Act enforcement materials, Congress.gov prior-proposal research, state-plaintiff standing and relief analysis, presidential-immunity analysis, criminal-law narrowing, and budgetary-impact source development.
+
+**Audit process feedback:** T2 was useful because it separated confirmed structure from unresolved publication questions. Future ELEC-001 work should avoid spending T3 time re-proving the Hatch Act anchor and instead focus on court records, remedy scope, and criminal/civil narrowing.
+
 ### 2026-06-28 — T1 Framework Check
 
 **Audit status:** T1 framework check complete; T2 development audit pending

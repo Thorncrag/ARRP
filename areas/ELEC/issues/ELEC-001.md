@@ -6,13 +6,13 @@ status: developed
 priority: high
 remedy_type: hatch-act-amendment-and-companion-enforcement
 legislative_proposal: "../../../legislation/ELEC-001.md"
-audit_status: "T1 framework check complete; T2 development audit pending"
-audit_score: 60
-audit_last_type: "T1 framework check"
+audit_status: "T2 development audit complete; T3 readiness audit pending"
+audit_score: 70
+audit_last_type: "T2 development audit"
 audit_last_date: "2026-06-28"
-audit_next: "T2 development audit"
+audit_next: "T3 readiness audit"
 audit_rubric_version: "2026-06-27.2"
-audit_rebaseline_status: "hard-rebaseline-needed"
+audit_rebaseline_status: "current"
 adoption_score: 5
 adoption_friction_score: 88
 adoption_friction_band: "Extreme Resistance"
@@ -149,11 +149,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-001.audit.md)** (Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 88 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[70 / 100](ELEC-001.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 88 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
+> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
 
 ## Annotation
 
@@ -163,7 +163,7 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Remedial Alternatives and Constraints.** A wholly freestanding statute would permit cleaner organization but would duplicate the Hatch Act’s established official-authority principle and enforcement institutions. Amending only the Hatch Act would remain inadequate because OSC–MSPB proceedings cannot supply rapid state-initiated injunctions and should not convert every administrative violation into a felony. The least-complex adequate solution is therefore a Hatch Act amendment with companion civil and criminal titles.
 
-**Quality Score.** The 60/100 score remains a Developed Draft placeholder after T1 because the issue has a coherent framework, a linked bill, a plausible existing-law anchor, and substantial source leads, but the current component formula has not yet been recalculated. T2 should perform the first full current-rubric score.
+**Quality Score.** The 70/100 score reflects a Substantially Developed Draft after T2. The proposal has a coherent Hatch Act anchor, a linked companion civil and criminal enforcement draft, improved primary statutory source support, and clear relationship to DOJ-007 and IMM-001. It remains below Review Ready because primary court records for the 2026 litigation, prior-proposal research, state-plaintiff standing analysis, OSC/MSPB implementation review, criminal-law fit, budgetary-source development, and external election-law review remain incomplete.
 
 **Adoption Score.** The 5/12 score is limited. ELEC-001 has strong institutional salience, an existing-law anchor in the Hatch Act, and neutral election-integrity framing, but T1 did not identify proposal-specific polling, active sponsors, a bipartisan prior bill, state attorney-general coalition support, or external election-law validation for the full mechanism.
 
