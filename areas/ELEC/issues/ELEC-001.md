@@ -6,11 +6,11 @@ status: developed
 priority: high
 remedy_type: hatch-act-amendment-and-companion-enforcement
 legislative_proposal: "../../../legislation/ELEC-001.md"
-audit_status: "T2 development audit complete; T3 readiness audit pending"
-audit_score: 70
-audit_last_type: "T2 development audit"
+audit_status: "T3 readiness audit complete; T4 publication audit and external review pending"
+audit_score: 74
+audit_last_type: "T3 readiness audit"
 audit_last_date: "2026-06-28"
-audit_next: "T3 readiness audit"
+audit_next: "T4 publication-ready audit / external review"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 5
@@ -78,6 +78,8 @@ The central gap is therefore not the absence of every possible legal prohibition
 ## Proposal Survey
 
 The Hatch Act already prohibits many federal employees from using official authority to interfere with or affect an election, but it excludes the President and Vice President from the relevant employee definition. See [5 U.S.C. §§ 7321-7326](https://uscode.house.gov/view.xhtml?edition=prelim&path=%2Fprelim%40title5%2Fpart3%2FsubpartF%2Fchapter73%2Fsubchapter3). Criminal law also contains narrower election-interference provisions. See [18 U.S.C. § 595](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section595&num=0&edition=prelim).
+
+The Office of Special Counsel's [Federal Employee Hatch Act information](https://osc.gov/Services/Pages/HatchAct-Federal.aspx) confirms the same baseline for federal executive employees: except for the President and Vice President, federal civilian executive-branch employees are covered, and covered employees may not use official authority or influence to interfere with or affect an election result. That source supports the Hatch Act anchor but also shows why ELEC-001 needs a specially bounded extension rather than wholesale application of all Hatch Act restrictions to the President and Vice President.
 
 Civil-rights and voting-rights statutes may reach some coercive conduct, but they do not create a complete state-initiated emergency remedy for misuse of federal executive power. ELEC-001 therefore extends the Hatch Act principle while adding civil and criminal enforcement suited to state election functions.
 
@@ -149,11 +151,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[70 / 100](ELEC-001.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 88 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[74 / 100](ELEC-001.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 88 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
+> **Audit Status:** T3 readiness audit complete; T4 publication audit and external review pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit / external review<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
 
 ## Annotation
 
@@ -163,7 +165,7 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Remedial Alternatives and Constraints.** A wholly freestanding statute would permit cleaner organization but would duplicate the Hatch Act’s established official-authority principle and enforcement institutions. Amending only the Hatch Act would remain inadequate because OSC–MSPB proceedings cannot supply rapid state-initiated injunctions and should not convert every administrative violation into a felony. The least-complex adequate solution is therefore a Hatch Act amendment with companion civil and criminal titles.
 
-**Quality Score.** The 70/100 score reflects a Substantially Developed Draft after T2. The proposal has a coherent Hatch Act anchor, a linked companion civil and criminal enforcement draft, improved primary statutory source support, and clear relationship to DOJ-007 and IMM-001. It remains below Review Ready because primary court records for the 2026 litigation, prior-proposal research, state-plaintiff standing analysis, OSC/MSPB implementation review, criminal-law fit, budgetary-source development, and external election-law review remain incomplete.
+**Quality Score.** The 74/100 score reflects a stronger Substantially Developed Draft after T3. The proposal has a coherent Hatch Act anchor, a linked companion civil and criminal enforcement draft, improved primary statutory source support, official OSC support for the baseline Hatch Act principle, and clear relationship to DOJ-007 and IMM-001. It remains just below Review Ready because primary court records for the 2026 litigation, prior-proposal research, state-plaintiff standing analysis, criminal-law narrowing, budgetary-source development, and external election-law review remain incomplete.
 
 **Adoption Score.** The 5/12 score is limited. ELEC-001 has strong institutional salience, an existing-law anchor in the Hatch Act, and neutral election-integrity framing, but T1 did not identify proposal-specific polling, active sponsors, a bipartisan prior bill, state attorney-general coalition support, or external election-law validation for the full mechanism.
 

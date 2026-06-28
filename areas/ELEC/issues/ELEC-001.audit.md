@@ -12,6 +12,34 @@ This file preserves the full audit history for [ELEC-001](ELEC-001.md). The issu
 
 ## Audit History
 
+### 2026-06-28 — T3 Readiness Audit
+
+**Audit status:** T3 readiness audit complete; T4 publication audit and external review pending
+
+**Audit scope:** This T3 audit reviewed ELEC-001, the linked bill, Hatch Act statutory sources, official OSC Hatch Act guidance, 18 U.S.C. §§ 241-242 and 595, 28 U.S.C. § 2284, EO 14399 source leads, issue-to-legislation alignment, adoption posture, and readiness blockers. It did not complete publication-grade court-record retrieval for EO 14399 litigation, direct prior-proposal research, or external election-law review.
+
+**Current-status and mootness check:** No current law, judicial decision, or enacted reform located during T3 moots ELEC-001. The 2026 federal voter-list and voter-data litigation remains a source-development task rather than a reason to pause the proposal.
+
+**Source work completed:** Added the Office of Special Counsel's Federal Employee Hatch Act information as an official source supporting the ordinary Hatch Act baseline: most federal civilian executive-branch employees are covered, the President and Vice President are excluded from ordinary employee coverage, and covered employees may not use official authority or influence to interfere with or affect an election result.
+
+**Legal-fit finding:** The Hatch Act anchor is stronger after T3 because the proposal targets a known gap in ordinary federal-employee coverage rather than inventing a new principle. The draft still needs T4 review of presidential-immunity constraints, direct relief against the President, state standing, three-judge-court fit, criminal-law fair notice, and the relationship between lawful federal election enforcement and prohibited result-directed pressure.
+
+**Issue-to-legislation alignment:** No material discrepancy was found between the issue page and linked bill. Both remain aligned on a Hatch Act extension, companion civil remedies, companion criminal penalties, record preservation, lawful-function exceptions, DOJ-007 referral where conflicts exist, and IMM-001 coordination where presidential-immunity doctrine limits prosecution.
+
+**Budgetary-impact finding:** No change. Administrative workload is possible, but no new appropriation is specified. T4 should test whether OSC, IG, court, reporting, and state-reimbursement features require budget-authority language.
+
+**Adoption and friction finding:** Adoption Score remains 5/12. Adoption Friction remains 88/100. T3 strengthened institutional framing but did not locate proposal-specific polling, active sponsors, a bipartisan prior bill, state attorney-general support, or external election-law validation.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior-Proposal 4/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 74/100 (Substantially Developed Draft).
+
+**Score effect:** Score increased from 70 to 74 because T3 added official OSC support for the Hatch Act anchor, improved the proposal survey, confirmed issue-to-legislation alignment, and sharpened the remaining legal-fit and publication blockers. The score remains below Review Ready because T4-level primary litigation records, direct prior-proposal research, external review, and remedy narrowing remain incomplete.
+
+**Defects corrected during the audit:** Added OSC source support to the Proposal Survey, updated the Quality Score annotation, added the OSC source row, and synchronized issue metadata, audit inventory, and Audit Dashboard.
+
+**Next audit need:** Run T4 publication-ready audit and external-review preparation. Prioritize primary EO 14399 litigation records, Congress.gov prior-proposal research, standing and equitable-remedy analysis, presidential-immunity and official-act constraints, criminal-law narrowing, three-judge-court fit, budget-authority implications, and external election-law review.
+
+**Audit process feedback:** T3 usefully improved the official Hatch Act foundation, but the next audit should not spend much additional time on that settled anchor. T4 should focus on the harder remedial and constitutional questions.
+
 ### 2026-06-28 — T2 Development Audit
 
 **Audit status:** T2 development audit complete; T3 readiness audit pending
