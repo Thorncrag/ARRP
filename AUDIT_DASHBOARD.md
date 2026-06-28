@@ -64,14 +64,14 @@ Required Electoral Environment is a T1 gate that identifies the minimum electora
 | House oversight majority | 0 |
 | Narrow unified government | 0 |
 | Filibuster-constrained unified government | 0 |
-| Sixty-vote Senate | 3 |
+| Sixty-vote Senate | 4 |
 | Filibuster reform or exception | 0 |
 | Wave-election mandate | 0 |
 | Post-crisis repair mandate | 0 |
 | Constitutional amendment environment | 1 |
 | State-level pathway | 0 |
 | Not electorally dependent | 0 |
-| Unassessed | 15 |
+| Unassessed | 14 |
 | N/A | 193 |
 
 ## Adoption Friction
@@ -85,9 +85,9 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Low Resistance | 0 |
 | Manageable Resistance | 0 |
 | Significant Resistance | 0 |
-| High Resistance | 3 |
+| High Resistance | 4 |
 | Extreme Resistance | 2 |
-| Unassessed | 15 |
+| Unassessed | 14 |
 | N/A | 193 |
 
 ## Next Audit Queue
@@ -96,12 +96,12 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 
 | Next audit indicator | Count |
 | --- | ---: |
-| Advanced audit | 15 |
+| Advanced audit | 14 |
 | Cross-reference check | 13 |
 | Development audit | 0 |
 | Issue-admission test | 179 |
 | Reassess predicate | 1 |
-| T2 | 2 |
+| T2 | 3 |
 | T3 | 0 |
 | T4 follow-up | 4 |
 
@@ -153,7 +153,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | WAR-006 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | WAR-007 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | WAR-008 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| JUD-001 | A-04 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/JUD/issues/JUD-001.md) | [Bill](legislation/JUD-001.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
+| JUD-001 | A-04 | High | Developed | 60 | Developed Draft | 2 | T1 framework check | 2026-06-28 | T2 development audit | [Issue](areas/JUD/issues/JUD-001.md) | [Bill](legislation/JUD-001.md) | 2026-06-27.2 | hard-rebaseline-needed | sixty-vote-senate | active | High Resistance |
 | JUD-002 | A-04 | High | Retired—merged into JUD-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/JUD/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | JUD-003 | A-04 | High | Retired—merged into JUD-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/JUD/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | JUD-004 | A-04 | High | Retired—merged into JUD-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/JUD/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
