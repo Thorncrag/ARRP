@@ -70,3 +70,4 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 ## Source Notes
 
 - Source review should include [Article II, Section 1](https://constitution.congress.gov/browse/article-2/section-1/), the [Twelfth Amendment](https://constitution.congress.gov/browse/amendment-12/), the [Twentieth Amendment](https://constitution.congress.gov/browse/amendment-20/), and the [Twenty-Third Amendment](https://constitution.congress.gov/browse/amendment-23/).
+- Article V is the controlling amendment vehicle for proposal and ratification thresholds. Direct prior-proposal review should include congressional constitutional-amendment analogues such as [H.J.Res. 7](https://www.congress.gov/bill/116th-congress/house-joint-resolution/7), [S.J.Res. 16](https://www.congress.gov/bill/116th-congress/senate-joint-resolution/16), and [S.J.Res. 17](https://www.congress.gov/bill/116th-congress/senate-joint-resolution/17) from the 116th Congress.

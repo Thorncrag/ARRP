@@ -7,11 +7,11 @@ priority: high
 remedy_type: constitutional-amendment
 legislative_status: working-draft
 constitutional_proposal: "../../../legislation/ELEC-009-amendment.md"
-audit_status: "T2 development audit complete; T3 readiness audit pending"
-audit_score: 65
-audit_last_type: "T2 development audit"
+audit_status: "T3 readiness audit complete; T4 publication-ready audit pending"
+audit_score: 68
+audit_last_type: "T3 readiness audit"
 audit_last_date: "2026-06-28"
-audit_next: "T3 readiness audit"
+audit_next: "T4 publication-ready audit"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 1
@@ -86,11 +86,13 @@ Prior reform models include constitutional amendments for direct popular electio
 
 The compact remains a live staged model rather than a completed substitute for amendment. National Popular Vote's current status page states that the compact has been enacted by 19 jurisdictions possessing 222 electoral votes and would take effect when enacted by states possessing an additional 48 electoral votes. See [National Popular Vote state status](https://www.nationalpopularvote.com/state-status). Because that source is maintained by the compact's advocacy organization, publication-ready treatment should verify individual state enactments through state legislative or code sources.
 
+Recent congressional direct-election proposals confirm that ELEC-009 has direct legislative analogues but also that the proposal has not advanced far in modern Congress. In the 116th Congress, [H.J.Res. 7](https://www.congress.gov/bill/116th-congress/house-joint-resolution/7), [S.J.Res. 16](https://www.congress.gov/bill/116th-congress/senate-joint-resolution/16), and [S.J.Res. 17](https://www.congress.gov/bill/116th-congress/senate-joint-resolution/17) each proposed constitutional amendment language for direct election or abolition of the Electoral College, but each remained introduced or referred rather than advancing to proposal by Congress.
+
 The Electoral Count Reform Act improved counting procedures but left the Electoral College structure intact. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). ELEC-009 treats compact and allocation reforms as possible interim models but selects constitutional replacement as the durable remedy.
 
 ## Least-Complex Adequate Remedy
 
-The most durable method of guaranteeing that the national popular-vote winner becomes President is a constitutional amendment establishing direct national popular election. That remedy is legally clear but politically difficult and requires detailed national rules governing recounts, ballot access, dispute resolution, certification, and election administration.
+The most durable method of guaranteeing that the national popular-vote winner becomes President is a constitutional amendment establishing direct national popular election. Article V requires proposal by two-thirds of both houses of Congress or a convention called on application of two-thirds of state legislatures, followed by ratification by three-fourths of the states or state conventions. See [Article V](https://constitution.congress.gov/browse/article-5/). That remedy is legally clear but politically difficult and requires detailed national rules governing recounts, ballot access, dispute resolution, certification, and election administration.
 
 The National Popular Vote Interstate Compact is less procedurally difficult than amendment but does not abolish the Electoral College, depends on coordinated state enactments, and presents unresolved constitutional and operational risks. It should be evaluated as an interim or alternative mechanism rather than presumed equivalent to constitutional replacement.
 
@@ -129,11 +131,11 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[65 / 100](ELEC-009.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 1 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 95 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `constitutional-amendment-environment`<br />**Development Priority:** `conditional`
+> **Proposal Quality Score:** **[68 / 100](ELEC-009.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 1 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 95 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `constitutional-amendment-environment`<br />**Development Priority:** `conditional`
 >
 > —
 >
-> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-009 audit history](ELEC-009.audit.md)
+> **Audit Status:** T3 readiness audit complete; T4 publication-ready audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-009 audit history](ELEC-009.audit.md)
 
 ## Annotation
 
@@ -147,7 +149,7 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 
 **Implementation Required.** The amendment must be paired with implementing legislation for national certification, recount thresholds, contest procedures, ballot access, candidate replacement, tie resolution, transition access, and emergency contingencies.
 
-**Quality Score.** The proposal is 65/100 after T2. Component score: Structural 8/8; Evidence 8/12; Legal Fit 6/10; Prior Proposal 7/8; Remedy 9/12; Implementation 4/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 1/12; Project Integration 4/4; External Review 0/4. T2 confirms a coherent constitutional-amendment framework and live staged alternatives, but national administration, recounts, ballot access, state ratification, compact legality, majority mechanism, and implementation legislation remain materially underdeveloped.
+**Quality Score.** The proposal is 68/100 after T3. Component score: Structural 8/8; Evidence 8/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 1/12; Project Integration 4/4; External Review 0/4. T3 improves prior-proposal grounding and Article V analysis, but national administration, recounts, ballot access, state ratification, compact legality, majority mechanism, official election-result verification, and implementing legislation remain materially underdeveloped.
 
 **Adoption Score.** Adoption Score is 1/12 because the proposal correctly identifies that a constitutional amendment is required, but T1 did not identify a realistic ratification coalition, proposal-specific polling, current congressional sponsor base, state-ratification pathway, or external validator support for direct national presidential election.
 

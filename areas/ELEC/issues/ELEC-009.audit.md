@@ -75,3 +75,29 @@ No issue-specific audit log has been migrated from the issue page yet. The curre
 **Next audit need:** T3 should verify popular-vote divergence using official election results; survey direct-election amendments on Congress.gov; verify NPV compact status through state sources; compare proportional, district, compact, runoff, and ranked-choice alternatives; and test national recount, certification, contest, ballot-access, tie, vacancy, and transition implementation design.
 
 **Audit process feedback:** T2 was sufficient for formula rebaseline and compact-source hygiene, but the proposal's next meaningful improvement depends on a primary-source prior-proposal and state-enactment survey rather than additional general prose.
+
+### 2026-06-28 — T3 readiness audit
+
+**Audit status:** T3 readiness audit complete; T4 publication-ready audit pending
+
+**Proposal-quality score:** 68
+
+**Component score:** Structural 8/8; Evidence 8/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 1/12; Project Integration 4/4; External Review 0/4. Total: 68.
+
+**Scope reviewed:** T3 reviewed the issue page, constitutional amendment text, T1/T2 audit history, dashboard row, audit inventory, source inventory, constitutional source rows, compact source rows, Article V, and Congress.gov direct-election amendment analogues.
+
+**Sources checked:** T3 added and reviewed Article V as the proposal-and-ratification source. T3 also added Congress.gov source rows for H.J.Res. 7, S.J.Res. 16, and S.J.Res. 17 from the 116th Congress as direct constitutional-amendment analogues.
+
+**Current-status and mootness check:** No source reviewed during T3 makes ELEC-009 moot. Direct national presidential election remains unavailable without Article V amendment. The National Popular Vote Interstate Compact remains a live staged alternative, but T3 did not verify compact enactments through official state sources.
+
+**Prior-proposal fit:** Direct congressional analogues now appear in the source inventory, improving the prior-proposal score. The reviewed proposals confirm that constitutional-amendment language has been introduced in modern Congress, but T3 did not find advancement beyond introduction or referral during the reviewed 116th Congress examples.
+
+**Issue-to-amendment alignment:** No material discrepancy identified. The issue page and amendment text both treat constitutional amendment as the durable remedy, preserve congressional implementation authority, and identify implementing legislation as necessary for national certification, recounts, contests, ballot access, vacancies, ties, and transition-related mechanics.
+
+**Implementation and budget check:** The amendment itself still has no direct appropriation. T3 confirms that implementing legislation remains materially underdeveloped because national administration, recount thresholds, contest procedure, ballot access, candidate replacement, tie resolution, certification timing, transition access, and emergency contingencies are not yet specified.
+
+**Unresolved findings:** T3 did not verify historical popular-vote divergence through official election-result sources; did not complete a full legislative-history and sponsor-count survey; did not verify National Popular Vote compact enactments through official state sources; did not analyze compact constitutional risk; did not choose between plurality, runoff, ranked-choice, or other majority mechanisms; did not draft implementing legislation; and did not obtain external constitutional-law or election-law review.
+
+**Next audit need:** T4 should verify official election-result evidence, complete direct-proposal legislative-history review, verify compact status through state sources, test compact and Article V legal risks, select or bracket the majority mechanism, outline implementing legislation, and obtain external election-law or constitutional-law review.
+
+**Audit process feedback:** T3 materially improved legal-fit and prior-proposal grounding, but it also confirmed that ELEC-009 cannot become publication-ready through amendment text alone. T4 should begin with official election-result and compact/state-source verification before attempting additional prose refinement.

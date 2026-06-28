@@ -102,8 +102,8 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Issue-admission test | 179 |
 | Reassess predicate | 1 |
 | T2 | 2 |
-| T3 | 1 |
-| T4 publication-ready audit | 0 |
+| T3 | 0 |
+| T4 publication-ready audit | 1 |
 | T4 follow-up | 12 |
 
 ## Change Audit Log
@@ -141,7 +141,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | ELEC-006 | A-02 | High | Developed | 76 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-006.md) | [Bill](legislation/ELEC-006.md) | 2026-06-27.2 | current | sixty-vote-senate | active | Significant Resistance |
 | ELEC-007 | A-02 | High | Developed | 78 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-007.md) | [Bill](legislation/ELEC-007.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
 | ELEC-008 | A-02 | High | Developed | 74 | Substantially Developed Draft | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-008.md) | [Bill](legislation/ELEC-008.md) | 2026-06-27.2 | current | post-crisis-repair-mandate | active | Extreme Resistance |
-| ELEC-009 | A-02 | High | Developed | 65 | Substantially Developed Draft | 3 | T2 development audit | 2026-06-28 | T3 readiness audit | [Issue](areas/ELEC/issues/ELEC-009.md) | [Amendment](legislation/ELEC-009-amendment.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
+| ELEC-009 | A-02 | High | Developed | 68 | Substantially Developed Draft | 4 | T3 readiness audit | 2026-06-28 | T4 publication-ready audit | [Issue](areas/ELEC/issues/ELEC-009.md) | [Amendment](legislation/ELEC-009-amendment.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
 | ELEC-010 | A-02 | High | Developed | 55 | Developed Draft | 2 | Horizon integration decision | 2026-06-25 | Development audit | [Issue](areas/ELEC/issues/ELEC-010.md) | — | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | ELEC-011 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | ELEC-012 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
