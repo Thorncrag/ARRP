@@ -12,6 +12,34 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 ## Audit History
 
+### 2026-06-28 — T3 Readiness Audit
+
+**Audit status:** T3 readiness audit complete; T4 publication audit pending
+
+**Audit scope:** This T3 audit reviewed ELEC-004, the linked federal bill, the linked model state bill, T2 manifestation source additions, existing sanctions and protective-order source leads, Rules Enabling Act fit, issue-to-legislation alignment, budget posture, legal-durability risks, adoption posture, and readiness blockers. It did not complete primary-record retrieval for every manifestation, comprehensive Anti-SLAPP comparison, or full constitutional/procedural authority analysis.
+
+**Current-status and mootness check:** No current law, judicial decision, enacted reform, or factual development located during T3 moots ELEC-004. Existing sanctions and protective-order mechanisms remain partial and after-the-fact; they do not clearly create a tailored election-specific screen for deadline-disruptive relief, sensitive election materials, or later-discovered improper-purpose coordination.
+
+**Source finding:** T3 added official Rules Enabling Act source support to the Proposal Survey. Pennsylvania now has primary appellate source support and Michigan has a source lead, but the Wisconsin, Nevada, Georgia, pre-election, investigatory, subpoena, and audit manifestations remain insufficiently sourced for publication. T4 should obtain primary court orders, sanctions orders, docket materials, official investigation records, or narrow the manifestation language.
+
+**Legal-fit finding:** T3 treats the federal bill as a statutory federal-court procedure proposal rather than a direct amendment to the Federal Rules of Civil Procedure. That posture is plausible because Congress can legislate federal procedure, but T4 must test whether any provision abridges, enlarges, or modifies substantive rights, conflicts with the Rules Enabling Act framework, burdens the Petition Clause, chills good-faith election contests, or intrudes on state-court authority.
+
+**Issue-to-legislation alignment:** No material discrepancy was found between the issue page, the federal bill, and the model state bill. The documents remain aligned on the federal/state split, motion-invoked screening, timing limits, sensitive-material stay, emergency-relief findings, sanctions, later-discovered improper-purpose sanctions, and safe harbors.
+
+**Budgetary-impact finding:** Administrative workload remains possible and no new appropriation is specified. T3 did not identify a direct appropriation need, but T4 should test court-administration burden, expedited-review burden, election-office response costs, protective-order compliance, and whether public-cost restitution is sufficient.
+
+**Adoption and friction finding:** Adoption Score remains 4/12. Adoption Friction remains 72/100. The proposal has a recognizable Anti-SLAPP analogy but no proposal-specific coalition evidence, court-administration support, election-administrator endorsement, polling, or sponsor history.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 8/12; Legal Fit 6/10; Prior-Proposal 4/8; Remedy 9/12; Implementation 6/8; Abuse Resistance 6/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 71/100 (Substantially Developed Draft).
+
+**Score effect:** Score increased from 68 to 71 because T3 added procedure-authority source support and clarified that the federal proposal must be tested as statutory federal-court procedure. The proposal remains below Review Ready because primary records, prior-proposal comparison, Rules Enabling Act and Petition Clause review, and state-law implementation analysis remain incomplete.
+
+**Defects corrected during the audit:** Updated the issue-page score, metadata, Proposal Scoring box, Quality Score annotation, Procedure Authority annotation, Proposal Survey source link, audit history, source inventory, audit inventory, and Audit Dashboard. No legislative text was changed during T3.
+
+**Publication blockers:** Obtain primary court records for remaining manifestations; complete a direct Anti-SLAPP and election-contest statute comparison; test Rules Enabling Act, Petition Clause, First Amendment, Article III, Elections Clause, federalism, state-court authority, and court-rule displacement concerns; verify whether the federal text should be codified in title 28; and seek election-law, federal-courts, or legislative-counsel review.
+
+**Audit process feedback:** ELEC-004 should not be advanced to Review Ready until the federal procedure authority question and primary manifestation sourcing are substantially stronger.
+
 ### 2026-06-28 — T2 Development Audit
 
 **Audit status:** T2 development audit complete; T3 readiness audit pending

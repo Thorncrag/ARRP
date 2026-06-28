@@ -7,11 +7,11 @@ priority: high
 remedy_type: coupled-federal-and-model-state-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
-audit_status: "T2 development audit complete; T3 readiness audit pending"
-audit_score: 68
-audit_last_type: "T2 development audit"
+audit_status: "T3 readiness audit complete; T4 publication audit pending"
+audit_score: 71
+audit_last_type: "T3 readiness audit"
 audit_last_date: "2026-06-28"
-audit_next: "T3 readiness audit"
+audit_next: "T4 publication-ready audit"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 4
@@ -95,7 +95,7 @@ Existing law may lack:
 
 Anti-SLAPP statutes provide the closest procedural analogue: early screening, discovery stays, burden clarification, and fee shifting for abusive litigation. Because Anti-SLAPP law is primarily state law and varies widely, ELEC-004 adapts the architecture rather than copying any single state statute.
 
-Federal procedural models also exist for accelerated election litigation and sensitive-material protection, including expedited review provisions in the Electoral Count Reform Act and ordinary protective-order practice. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617) and [Federal Rule of Civil Procedure 26(c)](https://www.law.cornell.edu/rules/frcp/rule_26). The proposal applies those ideas to election-disruptive process abuse.
+Federal procedural models also exist for accelerated election litigation and sensitive-material protection, including expedited review provisions in the Electoral Count Reform Act, ordinary protective-order practice, and Congress's rulemaking authority under the Rules Enabling Act. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617), [Federal Rule of Civil Procedure 26(c)](https://www.law.cornell.edu/rules/frcp/rule_26), and [28 U.S.C. § 2072](https://uscode.house.gov/view.xhtml?req=(title:28%20section:2072%20edition:prelim)). The proposal applies those ideas to election-disruptive process abuse.
 
 ## Least-Complex Adequate Remedy
 
@@ -164,11 +164,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[68 / 100](ELEC-004.audit.md)** (Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[71 / 100](ELEC-004.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** T3 readiness audit complete; T4 publication audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 
@@ -186,7 +186,7 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Source Development Pending.** Further development should cite representative cases and orders from Pennsylvania, Michigan, Wisconsin, Nevada, Georgia, and other election proceedings, together with Rule 11, 28 U.S.C. § 1927, inherent-power sanctions, and state Anti-SLAPP analogues.
 
-**Quality Score.** The 68/100 score reflects a Developed Draft under rubric 2026-06-27.2. T2 confirmed the coupled federal/model-state vehicle, issue-to-legislation alignment, initial Anti-SLAPP analogy, basic sanctions/protective-order source coverage, and added representative source support for Pennsylvania and a Michigan source lead. The score remains below Substantially Developed because several named manifestations lack primary records, legal-fit analysis remains preliminary, and the proposal has significant Rules Enabling Act, Petition Clause, federalism, and state-court authority questions.
+**Quality Score.** The 71/100 score reflects a Substantially Developed Draft under rubric 2026-06-27.2. T3 confirmed the coupled federal/model-state vehicle, issue-to-legislation alignment, initial Anti-SLAPP analogy, basic sanctions/protective-order source coverage, representative source support for Pennsylvania and Michigan, and the need to test the federal proposal against the Rules Enabling Act and Congress's statutory procedure authority. The score remains below Review Ready because several named manifestations lack primary records, legal-fit analysis remains preliminary, and the proposal has significant Petition Clause, First Amendment, federalism, state-court authority, and court-rule displacement questions.
 
 **Adoption Score.** The 4/12 score is limited. ELEC-004 has a clear procedural analogue in Anti-SLAPP law and a staged federal/state vehicle, but T1 did not identify proposal-specific polling, sponsor coalitions, administrator or court-administration support, bipartisan legislative records, or enacted election-specific Anti-SLAPP analogues.
 
@@ -195,3 +195,5 @@ Administrative workload is possible; no new appropriation is specified.
 **Required Electoral Environment.** The required environment is `sixty-vote-senate`, with Pathway Viability `plausible-after-wave` and Pathway Adjustment `stage`. The federal-court procedure likely requires ordinary federal legislation, while the model-state component can be developed and promoted state by state as a staged path.
 
 **Development Priority.** The priority is `active` because litigation and investigatory-process abuse can materially affect election timelines, sensitive election materials, election personnel, and public confidence even when the underlying claim ultimately fails.
+
+**Procedure Authority.** T3 treats the federal bill as a statutory federal-court procedure proposal rather than a proposed amendment to the Federal Rules of Civil Procedure. That posture remains plausible, but T4 must test whether any provision impermissibly abridges substantive rights, conflicts with existing rulemaking structures, or should instead be framed as a targeted statute codified in title 28.
