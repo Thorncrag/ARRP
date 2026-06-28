@@ -6,14 +6,22 @@ status: developed
 priority: high
 remedy_type: constitutional-amendment
 legislative_status: working-draft
-federal_legislation: "../../../legislation/ELEC-009.md"
-audit_status: "Structural audit complete; advanced audits pending"
+constitutional_proposal: "../../../legislation/ELEC-009-amendment.md"
+audit_status: "T1 framework check complete; T2 development audit pending"
 audit_score: 60
-audit_last_type: "Initial framework and inventory audit"
-audit_last_date: "2026-06-24"
-audit_next: "Advanced audit"
-audit_rubric_version: "pre-2026-06-27.1"
+audit_last_type: "T1 framework check"
+audit_last_date: "2026-06-28"
+audit_next: "T2 development audit"
+audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "hard-rebaseline-needed"
+adoption_score: 1
+adoption_score_band: "Weak Adoption Basis"
+adoption_friction_score: 95
+adoption_friction_band: "Extreme Resistance"
+required_electoral_environment: "constitutional-amendment-environment"
+pathway_viability: "post-crisis-only"
+development_priority: "conditional"
+pathway_adjustment: "stage"
 print_levels:
   - public-proposal
   - full-technical
@@ -23,7 +31,7 @@ audit_history: "ELEC-009.audit.md"
 # ELEC-009 — Electoral College Structure and National Popular Vote
 
 > ## Issue Snapshot
-> **Problem:** Electoral College can override national vote.<br />**Repair:** Establish direct national presidential election.<br />**Vehicle:** Constitutional amendment ([draft](../../../legislation/ELEC-009.md)).
+> **Problem:** Electoral College can override national vote.<br />**Repair:** Establish direct national presidential election.<br />**Vehicle:** Constitutional amendment ([draft](../../../legislation/ELEC-009-amendment.md)).
 >
 
 ## Institutional Anomaly
@@ -100,9 +108,9 @@ The amendment should:
 8. supersede inconsistent constitutional provisions; and
 9. provide a delayed effective date sufficient for implementation.
 
-## Proposed Legislation
+## Proposed Constitutional Amendment
 
-- [Direct Election of the President and Vice President Amendment](../../../legislation/ELEC-009.md)
+- [Direct Election of the President and Vice President Amendment](../../../legislation/ELEC-009-amendment.md)
 
 ## Relationship to Adjacent Proposals
 
@@ -119,11 +127,11 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-009.audit.md)** (Developed Draft)<br />**Adoption Friction:** `Unassessed`<br />**Required Electoral Environment:** `unassessed`<br />**Development Priority:** `unassessed`
+> **Proposal Quality Score:** **[60 / 100](ELEC-009.audit.md)** (Developed Draft)<br />**Adoption Score:** 1 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 95 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `constitutional-amendment-environment`<br />**Development Priority:** `conditional`
 >
 > —
 >
-> **Audit Status:** Structural audit complete; advanced audits pending<br />**Last Audit:** Initial framework and inventory audit<br />**Rubric Version:** `pre-2026-06-27.1`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** Advanced audit<br />**Full Audit History:** [ELEC-009 audit history](ELEC-009.audit.md)
+> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-009 audit history](ELEC-009.audit.md)
 
 ## Annotation
 
@@ -136,3 +144,9 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 **Constitutional Constraint.** Direct abolition of the Electoral College requires constitutional amendment. State-law allocation reforms and the interstate compact may alter practical outcomes without formal abolition, but they raise different questions of durability, administration, and constitutional validity.
 
 **Implementation Required.** The amendment must be paired with implementing legislation for national certification, recount thresholds, contest procedures, ballot access, candidate replacement, tie resolution, transition access, and emergency contingencies.
+
+**Adoption Score.** Adoption Score is 1/12 because the proposal correctly identifies that a constitutional amendment is required, but T1 did not identify a realistic ratification coalition, proposal-specific polling, current congressional sponsor base, state-ratification pathway, or external validator support for direct national presidential election.
+
+**Adoption Friction.** Adoption Friction is 95/100 (Extreme Resistance) because the proposal would abolish presidential electors, alter presidential-selection incentives nationwide, require Article V ratification, affect state and party strategic interests, require extensive implementing legislation, and invite intense federalism, partisan, administrative, recount, and ballot-access objections.
+
+**Required Electoral Environment.** Required Electoral Environment is `constitutional-amendment-environment`, with Pathway Viability `post-crisis-only`, Development Priority `conditional`, and Pathway Adjustment `stage`. Interim development should preserve comparison to the National Popular Vote Interstate Compact, state allocation reforms, ranked-choice or runoff mechanisms, and electoral-count hardening while recognizing that direct abolition requires Article V ratification.
