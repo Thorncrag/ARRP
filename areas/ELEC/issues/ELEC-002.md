@@ -6,13 +6,13 @@ status: developed
 priority: high
 remedy_type: model-state-legislation
 legislative_proposal: "../../../legislation/ELEC-002-state.md"
-audit_status: "T1 framework check complete; T2 development audit pending"
-audit_score: 60
-audit_last_type: "T1 framework check"
+audit_status: "T2 development audit complete; T3 readiness audit pending"
+audit_score: 72
+audit_last_type: "T2 development audit"
 audit_last_date: "2026-06-28"
-audit_next: "T2 development audit"
+audit_next: "T3 readiness audit"
 audit_rubric_version: "2026-06-27.2"
-audit_rebaseline_status: "hard-rebaseline-needed"
+audit_rebaseline_status: "current"
 adoption_score: 5
 adoption_friction_score: 58
 adoption_friction_band: "Significant Resistance"
@@ -127,11 +127,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-002.audit.md)** (Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 58 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[72 / 100](ELEC-002.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 58 / 100 (Significant Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-002 audit history](ELEC-002.audit.md)
+> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-002 audit history](ELEC-002.audit.md)
 
 ## Annotation
 
@@ -141,7 +141,7 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Qualification.** Certification must not become automatic in the sense of ignoring a demonstrated defect that state law assigns the certifier to resolve. The model statute therefore permits narrow, written identification of defects within the official’s lawful authority while prohibiting generalized investigation or relitigation through the certification process.
 
-**Quality Score.** The 60/100 score remains a Developed Draft placeholder after T1 because the issue has a coherent framework and linked model bill, but the substantive component formula has not yet been recalculated. T2 should perform the first full current-rubric score.
+**Quality Score.** The 72/100 score reflects a Substantially Developed Draft after T2. The proposal has a coherent model state bill, multiple sourced manifestations, a clear ministerial-duty theory, automatic substitution architecture, and a plausible state-by-state adoption pathway. It remains below Review Ready because primary court orders or official state records, state-by-state statutory comparisons, administrator/stakeholder validation, federal-floor analysis, and penalty calibration remain incomplete.
 
 **Adoption Score.** The 5/12 score is limited. ELEC-002 has a plausible state-level model-law path and concrete recent examples, but T1 did not identify proposal-specific polling, state sponsor coalitions, election-administrator endorsements, bipartisan adoption records, or comparable enacted model-law uptake.
 
