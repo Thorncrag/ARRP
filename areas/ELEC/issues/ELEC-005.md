@@ -6,11 +6,11 @@ status: developed
 priority: high
 remedy_type: federal-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-005.md"
-audit_status: "T2 development audit complete; T3 readiness audit pending"
-audit_score: 72
-audit_last_type: "T2 development audit"
+audit_status: "T3 readiness audit complete; T4 publication-ready audit pending"
+audit_score: 75
+audit_last_type: "T3 readiness audit"
 audit_last_date: "2026-06-28"
-audit_next: "T3 readiness audit"
+audit_next: "T4 publication-ready audit"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 5
@@ -127,11 +127,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[72 / 100](ELEC-005.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 64 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[75 / 100](ELEC-005.audit.md)** (Review Ready)<br />**Adoption Score:** 5 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 64 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-005 audit history](ELEC-005.audit.md)
+> **Audit Status:** T3 readiness audit complete; T4 publication-ready audit pending<br />**Last Audit:** T3 readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [ELEC-005 audit history](ELEC-005.audit.md)
 
 ## Annotation
 
@@ -145,7 +145,13 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Source Development Pending.** Further source development should review the Electoral Count Reform Act, 3 U.S.C. §§ 5, 11, 12, and 15, state false-elector prosecutions, state statutory-gap reports, 18 U.S.C. §§ 371, 1001, and 1512, and relevant forgery and false-instrument statutes.
 
-**Quality Score.** The proposal is 72/100 after T2 because it has a developed issue architecture, a linked Title 3 amendment, official statutory source leads, current-status source support, plausible safe-harbor design, and no material issue-to-legislation discrepancy. The score remains below Review Ready because T3 must still obtain primary state court or attorney-general records, complete a direct Congress.gov prior-proposal survey, test criminal-offense drafting against First Amendment and due-process limits, and verify recipient-duty implementation.
+**Prior-Proposal and Existing-Law Fit.** T3 confirms that the current vehicle follows the project's existing-law-first preference because it amends chapter 1 of title 3 rather than creating a new standalone title. The Electoral Count Reform Act is the closest enacted analogue because it amended the same Title 3 presidential-count architecture, but it does not create a standalone false-result-transmission offense or federal-recipient handling rule for unauthorized documents.
+
+**Judicial Scrutiny.** The proposal's legal durability depends on narrow federal-channel drafting. The strongest defense is that Congress is regulating documents submitted for federal receipt, preservation, recognition, or counting, not choosing state electors or adjudicating state election results. T4 should test the offense against vagueness, overbreadth, petitioning, litigation-contingency, due process, Article II, the Twelfth Amendment, the Necessary and Proper Clause, anti-commandeering doctrine, and state sovereign authority over elector appointment before the criminal provisions are treated as circulation-ready.
+
+**Implementation.** Recipient duties should remain ministerial: preserve the document, mark or log disputed status, avoid treating it as operative absent legal authority, refer apparent misconduct, and notify likely recipients. T4 should verify how NARA, congressional officers, courts, and DOJ already handle disputed elector materials before assigning any more specific duty, deadline, referral path, or recordkeeping burden.
+
+**Quality Score.** The proposal is 75/100 after T3 because it has a developed issue architecture, a linked Title 3 amendment, official statutory source leads, current-status source support, plausible safe-harbor design, a stronger existing-law fit explanation, and no material issue-to-legislation discrepancy. The score is Review Ready for knowledgeable external critique, not publication-ready, because T4 must still obtain primary state court or attorney-general records, complete a direct Congress.gov prior-proposal survey, test criminal-offense drafting against First Amendment and due-process limits, and verify recipient-duty implementation.
 
 **Adoption Score.** Adoption Score remains 5/12. The Title 3 amendment path is understandable and benefits from the post-2020 bipartisan precedent of Electoral Count Reform Act revisions, but ELEC-005 does not yet cite proposal-specific polling, sponsor coalitions, committee activity, or external election-law validation.
 
