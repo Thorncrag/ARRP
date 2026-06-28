@@ -34,9 +34,9 @@ Update this page whenever an audit changes an issue score, audit status, last au
 | Retired/Merged | 13 |
 | Paused | 1 |
 | Pending development | 179 |
-| Developed Draft | 17 |
+| Developed Draft | 16 |
 | Substantially Developed Draft | 0 |
-| Review Ready | 3 |
+| Review Ready | 4 |
 | Audit in progress | 0 |
 
 ## Rubric Rebaseline
@@ -47,10 +47,10 @@ Current audit rubric version: `2026-06-27.2`
 
 | Rebaseline status | Count |
 | --- | ---: |
-| Current | 3 |
+| Current | 4 |
 | Current fixed-status score | 193 |
 | Soft rebaseline needed | 0 |
-| Hard rebaseline needed | 17 |
+| Hard rebaseline needed | 16 |
 
 ## Enactment Pathway
 
@@ -103,7 +103,7 @@ Adoption Friction Score is a companion metric outside the Proposal Quality Score
 | Reassess predicate | 1 |
 | T2 | 1 |
 | T3 | 0 |
-| T4 follow-up | 3 |
+| T4 follow-up | 4 |
 
 ## Change Audit Log
 
@@ -129,7 +129,7 @@ Horizon Scan intake and integration decisions are maintained on the separate [Ho
 | DOJ-004 | A-01 | High | Awaiting merits adjudication | 0 | Paused | 2 | T1 predicate check | 2026-06-27 | Reassess predicate | [Issue](areas/DOJ/issues/DOJ-004.md) | — | 2026-06-27.2 | current-fixed-status | N/A | N/A | N/A |
 | DOJ-005 | A-01 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/DOJ/issues/DOJ-005.md) | [Bill](legislation/DOJ-005.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | DOJ-006 | A-01 | High | Retired—merged into DOJ-002 and DOJ-007 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/DOJ/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOJ-007 | A-01 | High | Developed | 68 | Substantially Developed Draft | 6 | T2 development audit | 2026-06-28 | T3 readiness audit | [Issue](areas/DOJ/issues/DOJ-007.md) | [Amendment](legislation/DOJ-007-amendment.md); [Act](legislation/DOJ-007.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
+| DOJ-007 | A-01 | High | Developed | 75 | Review Ready | 7 | T3 readiness audit | 2026-06-28 | T4 publication-ready audit / external review | [Issue](areas/DOJ/issues/DOJ-007.md) | [Amendment](legislation/DOJ-007-amendment.md); [Act](legislation/DOJ-007.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
 | DOJ-008 | A-01 | High | Retired—merged into DOJ-003 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/DOJ/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
 | DOJ-009 | A-01 | High | Developed | 60 | Developed Draft | 1 | Initial inventory audit | 2026-06-24 | Advanced audit | [Issue](areas/DOJ/issues/DOJ-009.md) | [Bill](legislation/DOJ-009.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
 | ELEC-001 | A-02 | High | Developed | 60 | Developed Draft | 2 | Horizon integration decision | 2026-06-25 | Advanced audit | [Issue](areas/ELEC/issues/ELEC-001.md) | [Bill](legislation/ELEC-001.md) | pre-2026-06-26.1 | hard-rebaseline-needed | unassessed | unassessed | Unassessed |
