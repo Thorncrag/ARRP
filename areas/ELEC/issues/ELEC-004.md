@@ -7,13 +7,13 @@ priority: high
 remedy_type: coupled-federal-and-model-state-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
-audit_status: "Structural audit complete; advanced audits pending"
-audit_score: 60
-audit_last_type: "T1 framework check"
+audit_status: "T2 development audit complete; T3 readiness audit pending"
+audit_score: 68
+audit_last_type: "T2 development audit"
 audit_last_date: "2026-06-28"
-audit_next: "T2 development audit"
+audit_next: "T3 readiness audit"
 audit_rubric_version: "2026-06-27.2"
-audit_rebaseline_status: "hard-rebaseline-needed"
+audit_rebaseline_status: "current"
 adoption_score: 4
 adoption_friction_score: 72
 adoption_friction_band: "High Resistance"
@@ -53,11 +53,11 @@ After the 2020 presidential election, numerous lawsuits were filed challenging p
 
 ### Pennsylvania — mismatch between public fraud narrative and court presentation
 
-In federal litigation challenging Pennsylvania’s result, public claims of fraud were not matched by the legal theory ultimately presented in court. Counsel stated that the case was not a fraud case, and the Third Circuit rejected the effort to undo certification. The episode illustrates how public-facing allegations may be laundered through litigation even when the courtroom record does not support the public narrative.
+In federal litigation challenging Pennsylvania’s result, public claims of fraud were not matched by the legal theory ultimately presented in court. Counsel stated that the case was not a fraud case, and the Third Circuit rejected the effort to undo certification. The episode illustrates how public-facing allegations may be laundered through litigation even when the courtroom record does not support the public narrative. See [*Donald J. Trump for President, Inc. v. Secretary Commonwealth of Pennsylvania*, No. 20-3371 (3d Cir. Nov. 27, 2020)](https://www2.ca3.uscourts.gov/opinarch/203371np.pdf).
 
 ### Michigan — post-election suit and later sanctions
 
-A federal post-election suit in Michigan sought extraordinary relief affecting the presidential result. The district court later sanctioned counsel, finding that the suit had been filed without adequate factual and legal basis and was not a legitimate vehicle for overturning the result. This episode illustrates that a proceeding may appear initially as litigation but later prove sanctionable when its factual basis, purpose, or coordination is examined more fully.
+A federal post-election suit in Michigan sought extraordinary relief affecting the presidential result. The district court later sanctioned counsel, finding that the suit had been filed without adequate factual and legal basis and was not a legitimate vehicle for overturning the result. This episode illustrates that a proceeding may appear initially as litigation but later prove sanctionable when its factual basis, purpose, or coordination is examined more fully. See source lead for *King v. Whitmer* in [CourtListener](https://www.courtlistener.com/opinion/4959090/king-v-whitmer/); primary order verification remains pending.
 
 ### Wisconsin, Nevada, and other state proceedings
 
@@ -164,11 +164,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-004.audit.md)** (Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[68 / 100](ELEC-004.audit.md)** (Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 framework check complete; T2 development audit pending<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 readiness audit<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 
@@ -186,7 +186,7 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Source Development Pending.** Further development should cite representative cases and orders from Pennsylvania, Michigan, Wisconsin, Nevada, Georgia, and other election proceedings, together with Rule 11, 28 U.S.C. § 1927, inherent-power sanctions, and state Anti-SLAPP analogues.
 
-**Quality Score.** The 60/100 score remains a Developed Draft score because T1 confirmed the structure, linked federal and model-state vehicles, source-inventory presence, budget-statement placement, preliminary pathway, and no obvious mootness, but did not recalculate component scores under the current rubric. The proposal remains hard-rebaseline-needed until T2 completes the first current-rubric merits score.
+**Quality Score.** The 68/100 score reflects a Developed Draft under rubric 2026-06-27.2. T2 confirmed the coupled federal/model-state vehicle, issue-to-legislation alignment, initial Anti-SLAPP analogy, basic sanctions/protective-order source coverage, and added representative source support for Pennsylvania and a Michigan source lead. The score remains below Substantially Developed because several named manifestations lack primary records, legal-fit analysis remains preliminary, and the proposal has significant Rules Enabling Act, Petition Clause, federalism, and state-court authority questions.
 
 **Adoption Score.** The 4/12 score is limited. ELEC-004 has a clear procedural analogue in Anti-SLAPP law and a staged federal/state vehicle, but T1 did not identify proposal-specific polling, sponsor coalitions, administrator or court-administration support, bipartisan legislative records, or enacted election-specific Anti-SLAPP analogues.
 

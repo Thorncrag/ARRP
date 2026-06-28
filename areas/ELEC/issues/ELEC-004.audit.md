@@ -12,6 +12,36 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 ## Audit History
 
+### 2026-06-28 — T2 Development Audit
+
+**Audit status:** T2 development audit complete; T3 readiness audit pending
+
+**Audit scope:** This T2 audit reviewed ELEC-004, the linked federal bill, the linked model state bill, T1 pathway fields, Anti-SLAPP source leads, federal sanctions/protective-order source leads, representative litigation examples, issue-to-legislation alignment, budget posture, legal-fit risks, adoption posture, and current-rubric scoring. It did not complete a full primary-record survey for all manifestations, complete federal/state Anti-SLAPP comparison, or resolve constitutional/procedural-rule concerns.
+
+**Current-status and mootness check:** No current law, judicial decision, enacted reform, or factual development located during T2 moots ELEC-004. Existing Rule 11, 28 U.S.C. § 1927, inherent-power sanctions, protective-order practice, and state Anti-SLAPP laws provide partial analogues but do not clearly supply a tailored early screen for election-disruptive relief, sensitive election materials, deadline pressure, and later-discovered improper-purpose schemes.
+
+**Source work completed:** T2 added primary Third Circuit source support for the Pennsylvania manifestation and a CourtListener source lead for the Michigan sanctions manifestation. The Wisconsin, Nevada, Georgia, pre-election, and investigatory/audit manifestations remain under-sourced for publication. T3 should replace source leads with primary orders, docket materials, or official records wherever available.
+
+**Existing-law and prior-proposal finding:** The proposal remains plausible as a coupled federal/model-state package, but T2 did not complete the required existing-law and prior-proposal survey. Higher-tier review should compare existing Federal Rules of Civil Procedure, federal statutes, inherent-power sanctions, state Anti-SLAPP laws, state election-contest statutes, and state public-records/security protections before concluding that every new procedural element is necessary.
+
+**Legal-fit finding:** Legal fit remains preliminary. The federal bill may be supportable as statutory federal-court election procedure, but T3/T4 must test Rules Enabling Act interaction, Article III jurisdiction, Petition Clause and First Amendment concerns, court-rule displacement, federalism limits, state-court authority, and whether the later-discovered sanctions mechanism is sufficiently bounded.
+
+**Issue-to-legislation alignment:** No material discrepancy was found between the issue page, the federal bill, and the model state bill. The documents remain aligned on motion-invoked screening, pre-election timing limits, no fixed post-election cutoff, automatic stay of intrusive process, emergency-relief findings, sensitive-material protection, sanctions, later-discovered improper-purpose sanctions, and safe harbors.
+
+**Budgetary-impact finding:** Administrative workload remains possible and no new appropriation is specified. T2 did not identify a need for direct appropriations, but T3 should examine court-administration burdens, expedited review workload, election-office response burdens, protective-order compliance, and public-cost restitution.
+
+**Adoption and friction finding:** Adoption Score remains 4/12. Adoption Friction remains 72/100. The Anti-SLAPP analogy helps explain the proposal, but the election-specific application is legally and politically sensitive and lacks proposal-specific support evidence.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 7/12; Legal Fit 5/10; Prior-Proposal 4/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 6/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 68/100 (Developed Draft).
+
+**Score effect:** Score increased from 60 to 68 because T2 completed the first current-rubric component rebaseline, added representative source support, confirmed issue-to-legislation alignment, and clarified the main legal and source-development risks. The proposal remains below Substantially Developed because primary records, legal fit, prior-proposal comparison, and implementation analysis remain incomplete.
+
+**Defects corrected during the audit:** Updated the issue-page score, metadata, Proposal Scoring box, Quality Score annotation, manifestation source links, audit history, source inventory, audit inventory, and Audit Dashboard. No legislative text was changed during T2.
+
+**Next audit need:** Run T3 readiness audit. Prioritize primary court records for Michigan, Wisconsin, Nevada, Georgia, and investigatory/audit examples; compare Rule 11, 28 U.S.C. § 1927, inherent-power sanctions, protective orders, state Anti-SLAPP laws, state election-contest statutes, and public-records protections; test Rules Enabling Act, Petition Clause, First Amendment, Article III, Elections Clause, and federalism issues; and assess whether the 180-day timing rule and later-discovered sanctions mechanism need narrowing.
+
+**Audit process feedback:** ELEC-004 is conceptually promising but legally sensitive. Future audits should not raise the score materially without primary litigation records and a deeper procedural-authority analysis.
+
 ### 2026-06-28 — T1 Framework Check
 
 **Audit status:** T1 framework check complete; T2 development audit pending
