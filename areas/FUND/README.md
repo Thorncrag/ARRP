@@ -17,7 +17,7 @@ The executive branch can delay, condition, redirect, or refuse congressionally a
 
 ## Issues
 
-- **FUND-001** — [Executive-Order Abuse Through Impoundment](issues/FUND-001.md) _(status: Developed; priority: Medium)_
+- [FUND-001 — Executive-Order Abuse Through Impoundment](issues/FUND-001.md) _(status: Developed; priority: Medium)_
 - **FUND-002** — Pocket rescissions and strategic delay _(status: Candidate; priority: Medium)_
 - **FUND-003** — Agency closure or program nullification through nonspending _(status: Candidate; priority: Medium)_
 - **FUND-004** — Politically selective withholding of grants or aid _(status: Candidate; priority: Medium)_
