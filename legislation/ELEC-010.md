@@ -29,7 +29,7 @@ The purposes of this Act are—
 1. to protect eligible voters from avoidable disenfranchisement caused by unreliable mail-ballot delivery, opaque rejection practices, curable technical defects, or late notice;
 2. to strengthen public confidence in lawful mail and absentee voting by requiring transparent custody, tracking, rejection, cure, and canvass procedures;
 3. to preserve State choice over whether and how broadly to offer mail or absentee voting, while establishing minimum standards when such voting is made available in elections for Federal office;
-4. to ensure that postal operations support, and do not secretly condition or veto, lawful State-created mail-ballot channels; and
+4. to ensure that postal operations support, and do not secretly condition or veto, lawful State-created mail-ballot channels, including any State-law receipt window for ballots cast by election day; and
 5. to preserve election security, voter authentication, ballot custody, and timely finality through clear and auditable rules.
 
 # TITLE I — MAIL AND ABSENTEE BALLOT RELIABILITY STANDARDS
@@ -57,7 +57,7 @@ In this title:
 
 A covered State shall, for each election for Federal office in which covered mail ballots are available—
 
-1. publish clear request, mailing, return, receipt, cure, preprocessing, canvass, and counting deadlines;
+1. publish clear request, mailing, return, receipt, cure, preprocessing, canvass, and counting deadlines, including the treatment of ballots postmarked by election day but received afterward if such ballots are countable under State law;
 2. set ballot-request and outbound-mailing deadlines that account for Postal Service delivery standards, jurisdiction-specific mailing advisories, and local processing needs;
 3. provide a voter-facing method for tracking, at minimum, ballot request, outbound mailing, receipt, acceptance, rejection, and cure status;
 4. apply uniform statewide standards for signature review, identification-number review, or other voter-authentication review used for covered mail ballots;
@@ -168,6 +168,7 @@ Budget authority may be required for EAC guidance, State implementation support,
 - Title II places election-mail operational standards in title 39 because USPS delivery, postmarking, tracking, all-clear procedures, and election-official escalation belong in postal law.
 - The draft does not require States to offer no-excuse mail voting or all-mail elections; it applies when a State chooses to make covered mail ballots available for elections for Federal office.
 - The draft treats USPS mailing dates as advisories for planning and notice, not as independent ballot-disqualification deadlines.
+- After *Watson v. Republican National Committee*, 609 U.S. ___ (2026), the draft does not need to create a federal rule making post-Election-Day receipt lawful; it instead requires clear publication, reliable postal handling, and uniform administration of any State-law receipt window.
 - The data-condition rule is designed to prevent USPS or another Federal actor from making lawful ballot delivery depend on State submission of voter manifests, citizenship lists, barcode files, or comparable voter-data systems absent clear congressional authorization and voter-protective procedures.
 - The enforcement section is limited to declaratory and injunctive relief and does not create damages liability.
 
@@ -176,3 +177,4 @@ Budget authority may be required for EAC guidance, State implementation support,
 - Source review should include the Help America Vote Act of 2002, classified in [52 U.S.C. chapter 209](https://uscode.house.gov/view.xhtml?path=/prelim@title52/subtitle2/chapter209&edition=prelim); the Uniformed and Overseas Citizens Absentee Voting Act, classified in [52 U.S.C. chapter 203](https://uscode.house.gov/view.xhtml?path=/prelim@title52/subtitle1/chapter203&edition=prelim); and postal-service provisions including [39 U.S.C. § 101](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section101&num=0&edition=prelim), [39 U.S.C. § 401](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section401&num=0&edition=prelim), [39 U.S.C. § 403](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section403&num=0&edition=prelim), and [39 U.S.C. § 404](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section404&num=0&edition=prelim).
 - Source review should also include the USPS Office of Inspector General's election-mail performance report and the Election Assistance Commission's canvass guidance.
 - Source review should include the USPS proposed rule, [*Ballot Mail for Federal Elections*](https://www.govinfo.gov/content/pkg/FR-2026-06-02/pdf/2026-10968.pdf), 91 Fed. Reg. 32915 (June 2, 2026).
+- Source review should include the Supreme Court's decision in [*Watson v. Republican National Committee*](https://www.supremecourt.gov/opinions/25pdf/24-1260_g3cn.pdf), 609 U.S. ___ (2026), holding that the federal election-day statutes do not require absentee ballots to be received by election day.
