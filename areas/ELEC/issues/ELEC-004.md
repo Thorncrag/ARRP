@@ -11,9 +11,11 @@ audit_status: "T4 publication-ready audit complete; external validation needed b
 audit_score: 73
 audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-06-28"
-audit_next: "External validation / T4 follow-up"
+audit_next: "Targeted Change Audit / Internal Remedy-Fit Audit after Ohio source-development update"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
+change_audit_needed: true
+change_audit_reason: "June 2026 Ohio Organizing Collaborative FBI search added as a new investigatory-process manifestation; verify remedy fit before relying on score as fully current."
 adoption_score: 4
 adoption_friction_score: 72
 adoption_friction_band: "High Resistance"
@@ -66,6 +68,8 @@ Post-election challenges in multiple states sought relief that would have affect
 ### Investigatory, subpoena, and audit mechanisms
 
 Election pressure may also appear as subpoenas, public-records demands, nonstatutory audits, legislative investigations, or inspection demands for ballots, equipment, voter data, source code, logs, chain-of-custody records, or security-sensitive materials. Such demands may be legitimate when grounded in lawful authority and material evidence, but they can also be used to burden officials, expose sensitive systems, or imply fraud without proof.
+
+In June 2026, federal agents searched the Cleveland office of the Ohio Organizing Collaborative, a grassroots organization involved in voter-registration and voting-rights work, and reportedly seized documents and computer files while also contacting people affiliated with the group. Reporting described the search as connected to potential voter-fraud allegations, while officials and voting-rights advocates criticized the timing and warned that the action could chill voter-registration activity before competitive 2026 races. Treat political motive, retaliation, or voter-intimidation purpose as concerns raised by critics unless later court records, warrant materials, inspector-general findings, congressional findings, or official admissions substantiate them. See Associated Press, [*FBI searches office of Ohio group that supports voter registration efforts*](https://apnews.com/article/4b241d64db0478c6a5852aa20d3e138f), and The Guardian, [*FBI raid of Ohio voting rights group stokes fear of pre-midterm crackdown*](https://www.theguardian.com/us-news/2026/jun/12/fbi-raid-ohio-voting-group-election).
 
 ## Resulting Damage
 
@@ -168,7 +172,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** T4 publication-ready audit complete; external validation needed before circulation<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; targeted Change Audit needed after source-development update<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** yes<br />**Next Audit:** Targeted Change Audit / Internal Remedy-Fit Audit after Ohio source-development update<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 

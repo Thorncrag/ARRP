@@ -87,6 +87,8 @@ For each issue:
 
 An agent should not spend the entire autonomous run trying to perfect one issue. If an issue reaches a blocker, document it, preserve it, and proceed.
 
+If an agent adds or materially changes a source, manifestation, institutional framing, damage theory, weakness theory, remedy language, repair/prevention language, or proposal vehicle for a developed issue without running the targeted Change Audit required by the methodology, the agent must mark the issue as needing a targeted Change Audit and Internal Remedy-Fit Audit before treating the score as fully current. The marker should appear in issue front matter, the visible Proposal Scoring or Next Audit line, the issue audit-history file, `audits.csv`, and the compact dashboard row.
+
 ### Permitted Autonomous Corrections
 
 In batch mode, agents may autonomously fix defects that are mechanical, framework-governed, or directly supported by existing project records, including:
@@ -113,9 +115,10 @@ In batch mode, agents must document and stop work on the affected issue before m
 5. converting a freestanding bill into amendments to existing law;
 6. adding a constitutional amendment or removing one;
 7. resolving a substantive discrepancy between an issue page and proposed legislation;
-8. making unsupported claims about real-world events, motives, legal effect, polling, or public support;
-9. increasing a score based on judgment rather than documented audit findings; or
-10. marking a proposal as proposal-ready, publication-ready, or externally validated without the required record.
+8. clearing a `change_audit_needed` marker without performing the targeted Change Audit and Internal Remedy-Fit Audit required by the methodology;
+9. making unsupported claims about real-world events, motives, legal effect, polling, or public support;
+10. increasing a score based on judgment rather than documented audit findings; or
+11. marking a proposal as proposal-ready, publication-ready, or externally validated without the required record.
 
 When a stop condition appears, record the finding in the issue's audit-history file, update the compact audit status and next-audit need, commit and push if files changed, and move on.
 

@@ -33,3 +33,9 @@ Existing constitutional and statutory safeguards do not adequately prevent presi
 ## Notes
 
 Distinguish protected criticism from governmental coercive or distributive action.
+
+## Source-Development Notes
+
+### PRESS-003 — Misuse of investigations, subpoenas, surveillance, or source demands
+
+The January 2026 FBI search of Washington Post reporter Hannah Natanson's home should be source-developed under PRESS-003. Reporting states that the search occurred as part of a classified-materials investigation involving a government contractor, that Natanson and the Post were reportedly not targets, and that agents seized journalistic devices and materials. Press-freedom organizations and media observers criticized the search as unusually aggressive, chilling to confidential-source relationships, and threatening to press independence. Treat political motive, intimidation, or retaliation as concerns raised by critics rather than established findings unless later court records, inspector-general materials, congressional findings, or official admissions substantiate them. See [The Guardian, January 14, 2026](https://www.theguardian.com/us-news/2026/jan/14/fbi-raid-washington-post-hannah-natanson), [The Guardian, February 24, 2026](https://www.theguardian.com/us-news/2026/feb/24/judge-blocks-washington-post-reporter-search-devices-doj), and [Associated Press, reporter-subpoena follow-up](https://apnews.com/article/c4fcb4d718d8313940f7c19a8f3f8e26).

@@ -128,6 +128,20 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 The initial inventory-level audit record is preserved below for chronology.
 
+### 2026-06-29 — Source-development update
+
+**Audit status:** Source-development note added; no proposal-quality score change
+
+**Scope:** Added the June 2026 FBI search of the Ohio Organizing Collaborative's Cleveland office as an investigatory-process manifestation for ELEC-004. The update reviewed the issue boundary and placed the episode under abuse of election investigatory mechanisms rather than PRESS-003 because the target was a voter-registration and voting-rights organization rather than a media organization.
+
+**Source posture:** Added Associated Press and The Guardian source leads. The page treats criticism about political motive, retaliation, or voter-intimidation purpose as concerns raised by critics, not established findings. Publication-ready reliance requires warrant materials, docket records, official DOJ/FBI statements, and any relevant state election records.
+
+**Score effect:** No score change. The update adds a relevant contemporary source-development example but does not resolve ELEC-004's existing publication blockers concerning primary records, federal-procedure authority, Petition Clause and First Amendment limits, state-court authority, or prior-proposal comparison.
+
+**Internal remedy-fit marker:** Because this is a developed issue with a scored proposal, the Ohio manifestation should not be treated as fully absorbed until a targeted Change Audit confirms that ELEC-004's Anti-SLAPP-style procedural remedy still addresses the expanded investigatory-process framing. The Change Audit should decide whether the episode fits ELEC-004 as written, belongs partly in ELEC-001 or DOJ-002, requires a targeted addition to the legislation for federal criminal-investigative searches or subpoenas directed at voter-registration organizations, or should remain only a source-development example.
+
+**Next audit need:** Run a targeted Change Audit / Internal Remedy-Fit Audit. During that pass, verify the Ohio search through primary records if available and decide whether the legislation should expressly address federal criminal-investigative searches or subpoenas directed at voter-registration organizations.
+
 ### 2026-06-24 — Initial framework and inventory audit
 
 **Audit status:** Structural audit complete; advanced audits pending
