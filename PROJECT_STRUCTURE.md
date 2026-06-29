@@ -16,6 +16,7 @@ areas/                             One directory per project area
 legislation/                       Proposed statutory language keyed to issue ID
 inventory/                         Structured CSV inventories
 AUDIT_DASHBOARD.md                 Compact audit snapshot and issue audit index
+CURRENT_AUDIT.md                   Current long-running audit handoff checkpoint
 CHANGE_AUDIT_LOG.md                Cumulative project-wide Change Audit history
 HORIZON_SCAN.md                    Cumulative horizon-scan intake and integration ledger
 AGENT_AUDIT_LOG.md                 Autonomous-agent provenance, commits, and rollback references
@@ -33,4 +34,5 @@ archive/                           Superseded or migrated source snapshots
 - Source records in `inventory/sources.csv` may be associated with issues, areas, framework files, research files, or project-level pages.
 - Inventory CSVs should be updated in the same change that adds, removes, renames, merges, retires, or materially revises an area, issue, legislative proposal, or cited source.
 - `AUDIT_DASHBOARD.md` is compact and should not duplicate detailed scoring, Horizon Scan, Change Audit, or Agent Audit Log content.
+- `CURRENT_AUDIT.md` is the active handoff checkpoint for long audits and should be read before resuming vague follow-up instructions.
 - Audit rules and scoring live in `framework/METHODOLOGY.md`; print assembly rules live in `framework/PRINT_ASSEMBLY.md`; remedy categories and trigger stages live in `framework/REMEDY_FRAMEWORK.md`.

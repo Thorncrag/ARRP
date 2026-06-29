@@ -10,6 +10,8 @@ This file governs agent-assisted maintenance, audit execution, and autonomous ba
 
 Autonomous run provenance is maintained in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). Each autonomous batch unit should record its commits there.
 
+Active long-running audit handoff state is maintained in [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md). Before resuming from a vague instruction such as "continue," "follow up," or "resume the audit," agents must read that file and use it as the active-task pointer. If `CURRENT_AUDIT.md` is inactive, stale, missing, or inconsistent with the user's latest instruction, ask for the active issue or task instead of inferring from recent commits, dashboard rows, or nearby audit markers.
+
 ## Purpose
 
 Agent work should improve the project carefully, conservatively, and reproducibly. The goal is not maximum speed. The goal is reliable stewardship of the project record, the user's attention, and GPT/account resources.
@@ -30,6 +32,28 @@ Agents should use the least resource-intensive method that can responsibly satis
 8. If a source path or theory is not producing useful results, document the limitation and move on.
 9. If a proposal is blocked by a human-review issue, document the blocker and advance to the next eligible item rather than spending the batch budget on speculative repair.
 10. Commit and push completed units promptly so work is preserved and later agents do not repeat it.
+
+## Context Handoff
+
+Long audits and source-development passes should not depend on chat memory alone. Use [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) as the durable handoff checkpoint for any audit, drafting pass, source-development task, or batch run that may span many tool calls, user interruptions, or a new chat.
+
+Before beginning a long audit, update `CURRENT_AUDIT.md` with the active issue or task, requested tier, scope, expected files, and first next step. During the work, refresh it after each major phase, before broad file edits, before risky or hard-to-reverse decisions, and whenever the conversation appears likely to approach a context handoff.
+
+The checkpoint should identify:
+
+1. active issue or task;
+2. audit type or tier;
+3. user request;
+4. scope and files in play;
+5. completed steps;
+6. exact next step;
+7. blockers or open questions;
+8. validation status; and
+9. whether work is active, paused, blocked, complete, or inactive.
+
+When a user opens a new chat and asks to continue prior work, read `CURRENT_AUDIT.md` before inspecting recent commits or dashboard rows. Do not infer the active issue from the newest local commit, the most recent dashboard marker, or unrelated uncommitted changes. If no active checkpoint exists, ask the user which issue or task to continue.
+
+When the task is complete, clear `CURRENT_AUDIT.md` back to inactive or leave a final paused checkpoint if the user intends to resume later.
 
 ## Single-Issue Default
 
