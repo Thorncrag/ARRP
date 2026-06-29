@@ -75,6 +75,10 @@ Elected officials should control lawful policy direction. Factual determination,
 
 ### Unitary Executive Consolidation
 
+The project is not opposed to a strong executive as such. A constitutional republic needs an executive capable of lawful administration, crisis response, foreign-policy execution, national defense, and faithful implementation of statutes. The project objects to theories and practices that convert executive strength into power enhancement, accumulation, institutional corrosion, or evasion of the democratic checks and balances built into the constitutional design.
+
+Unitary-executive jurisprudence becomes corrosive when it treats presidential control as a reason to disregard congressional intent, weaken independent adjudication or factual administration, evade appropriations limits, defeat statutory accountability, or place executive action substantially beyond timely judicial review. The project therefore distinguishes lawful energetic execution from legal theories that make executive power self-insulating, self-expanding, or resistant to ordinary democratic correction.
+
 Many issues produced by unitary executive theory may share a common constitutional source and therefore may be curable, if at all, through a single carefully drafted constitutional amendment rather than a separate amendment for each affected proposal. Where a proposal's core obstacle is Article II doctrine rather than ordinary statutory ambiguity, the project should evaluate whether the issue belongs within a broader executive-power amendment package.
 
 Ordinary legislation may still provide useful staging, transparency, process, reporting, funding, records, and continuity safeguards. But the project should not mistake those mitigation tools for a durable cure when the asserted defect is constitutional doctrine limiting Congress's power to insulate, supervise, or structure executive-branch functions.

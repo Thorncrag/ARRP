@@ -92,7 +92,7 @@ Any ELEC-013 proposal should consider a menu of established or seriously tested 
 
 **Ballot-access floor for federal elections.** Congress could consider a federal floor for presidential and congressional ballot access, including reasonable signature thresholds, filing deadlines, cure opportunities for petition defects, and nondiscriminatory treatment of independent and minor-party candidates. This would need careful Elections Clause and Article II analysis, especially for presidential elector appointment.
 
-**Public financing and small-donor systems.** Public financing can reduce dominant-party and donor-network barriers if designed to include credible independent and minor-party candidates. This overlaps with [ELEC-012](../README.md) and should be coordinated with campaign-finance reform rather than duplicated.
+**Public financing and small-donor systems.** Public financing can reduce dominant-party and donor-network barriers if designed to include credible independent and minor-party candidates. This overlaps with [ELEC-012](ELEC-012.md) and should be coordinated with campaign-finance reform rather than duplicated.
 
 **Proportional or multi-member representation models.** For legislative bodies, proportional or semi-proportional systems can reduce winner-take-all exclusion and allow more political viewpoints to earn representation. This is a larger structural reform and may belong partly outside A-02 if it implicates congressional apportionment, districting, or constitutional design.
 
@@ -121,7 +121,7 @@ Future drafting should evaluate whether Congress or the states should:
 5. support state pilots for ranked-choice, runoff, open-primary, nonpartisan-primary, fusion, and proportional models;
 6. require plain-language ballot instructions, voter education, accessibility testing, public tabulation data, and audit procedures for ranked or multi-round systems;
 7. evaluate whether primary rules for publicly funded elections should protect unaffiliated-voter participation; and
-8. coordinate with campaign-finance reforms in [ELEC-012](../README.md) where donor networks, public financing, or debate thresholds reinforce candidate exclusion.
+8. coordinate with campaign-finance reforms in [ELEC-012](ELEC-012.md) where donor networks, public financing, or debate thresholds reinforce candidate exclusion.
 
 ## Proposed Legislation
 
@@ -133,7 +133,7 @@ Future drafting should evaluate whether Congress or the states should:
 
 [ELEC-011](../README.md) concerns representation safeguards and redistricting. ELEC-013 may overlap where multimember or proportional systems are considered as alternatives to single-member district distortions.
 
-[ELEC-012](../README.md) concerns campaign finance, dark money, and corporate political spending. ELEC-013 should coordinate with ELEC-012 where money, polling access, debate qualification, and party networks jointly determine candidate viability.
+[ELEC-012](ELEC-012.md) concerns campaign finance, dark money, and corporate political spending. ELEC-013 should coordinate with ELEC-012 where money, polling access, debate qualification, and party networks jointly determine candidate viability.
 
 ## Budgetary Impact Statement
 
