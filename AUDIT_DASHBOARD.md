@@ -8,11 +8,11 @@ print_levels:
 
 This dashboard is the compact project-wide audit tracker. It is for meta-analysis, triage, and audit planning only; compact proposal-scoring summaries belong on issue pages, full audit histories belong in sibling `ISSUE-ID.audit.md` files, and machine-readable tracking data belongs in [`inventory/audits.csv`](inventory/audits.csv).
 
-Update this page whenever an audit changes an issue score, audit status, last audit type, next audit need, proposal-page link or status, legislation link, development status, or other dashboard field.
+Update this page whenever an audit changes an issue's compact dashboard fields: issue link, area, priority, status band, score, run count, last audit with date, next audit, or snapshot counts. Detailed legislation links, rubric fields, score basis, pathway fields, friction fields, Change Audit entries, Horizon Scan entries, and agent-run provenance belong in their dedicated project files.
 
 > **Quick Jump**
 >
-> [Score Bands](#score-bands) · [Rubric Rebaseline](#rubric-rebaseline) · [Enactment Pathway](#enactment-pathway) · [Adoption Friction](#adoption-friction) · [Next Audit Queue](#next-audit-queue) · [Change Audit Log](#change-audit-log) · [Horizon Scan](#horizon-scan) · [Issue Audit Index](#issue-audit-index)
+> [Snapshot](#snapshot) · [Issue Audit Index](#issue-audit-index) · [Horizon Scan](HORIZON_SCAN.md) · [Change Audit Log](CHANGE_AUDIT_LOG.md) · [Agent Audit Log](AGENT_AUDIT_LOG.md)
 
 ## Snapshot
 

@@ -60,7 +60,7 @@ Before starting an autonomous batch run, the agent must:
 
 1. confirm the working tree is clean, or stop and report the existing uncommitted files without beginning new audit work;
 2. confirm the current branch and remote target are understood;
-3. confirm the repository can read the latest local project rules, including this file, [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md), [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md), and [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md);
+3. confirm the repository can read the latest local project rules, including this file, [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md), [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md), [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md), [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md), [`HORIZON_SCAN.md`](HORIZON_SCAN.md), and [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md);
 4. check the latest relevant audit record before each issue and skip any issue with unresolved human-review blockers unless the user has expressly authorized proceeding; and
 5. if the run is scheduled inside a defined work window, confirm that the first planned unit can reasonably fit inside the remaining window.
 
@@ -80,7 +80,7 @@ For each issue:
 2. determine the next required audit tier;
 3. run only the next appropriate tier unless the prior tier completes cleanly and the next tier is clearly mechanical or already authorized;
 4. stop tier progression for that issue if a material unresolved finding requires human review;
-5. update the issue page, audit-history file, dashboard, and inventory rows;
+5. update the issue page, audit-history file, compact dashboard row/snapshot counts, and inventory rows;
 6. validate the changed files;
 7. commit and push the completed issue audit; and
 8. move to the next eligible issue.
@@ -93,7 +93,7 @@ In batch mode, agents may autonomously fix defects that are mechanical, framewor
 
 1. broken internal links;
 2. missing audit metadata;
-3. dashboard and CSV inconsistencies;
+3. compact dashboard and CSV inconsistencies;
 4. missing or stale source-inventory capture;
 5. missing Proposal Scoring fields required by the current template;
 6. missing audit-history entries;
@@ -150,7 +150,7 @@ Each completed issue audit should leave:
 
 1. updated issue-page Proposal Scoring and metadata;
 2. a new sibling audit-history entry;
-3. updated dashboard row and aggregate counts where applicable;
+3. updated compact dashboard row and snapshot counts where applicable;
 4. updated `audits.csv`;
 5. updated `sources.csv` for sources used for audit credit;
 6. validation notes; and
@@ -171,9 +171,9 @@ If no validation script exists, perform a manual validation checklist before mar
 1. confirm changed Markdown files render structurally and contain no obvious broken local links;
 2. confirm issue front matter matches the visible Proposal Scoring section;
 3. confirm the sibling audit-history file contains a new entry for the completed audit;
-4. confirm [`inventory/audits.csv`](inventory/audits.csv) parses and matches the issue page and [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md);
+4. confirm [`inventory/audits.csv`](inventory/audits.csv) parses and matches the issue page and the compact row fields in [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md);
 5. confirm [`inventory/sources.csv`](inventory/sources.csv) parses and includes any source used for audit credit;
-6. confirm dashboard aggregate counts changed when relevant;
+6. confirm dashboard snapshot counts changed when relevant;
 7. run a whitespace or formatting check where available;
 8. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md); and
 9. confirm no unintended files remain changed for that unit.
@@ -182,7 +182,7 @@ If a validation check is skipped, record the skipped check and reason in [`AGENT
 
 ## Agent Audit Log
 
-Autonomous batch mode must maintain an independent agent audit log in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). This log is for operational provenance and rollback planning. It should not replace issue audit histories, the Audit Dashboard, `audits.csv`, or source records.
+Autonomous batch mode must maintain an independent agent audit log in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). This log is for operational provenance and rollback planning. It should not replace issue audit histories, the Audit Dashboard, `audits.csv`, or source records. The Audit Dashboard should link to this log from its Quick Jump box, but agent-run details belong here rather than on the dashboard.
 
 For each autonomous issue unit, record:
 
