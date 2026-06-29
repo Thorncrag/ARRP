@@ -112,8 +112,8 @@ A-10.006,Issue,A-10,EMERG-006,Indefinite renewal of emergencies,High,Candidate,a
 A-10.007,Issue,A-10,EMERG-007,Insufficiently specific factual findings,High,Candidate,areas/EMERG/README.md,,
 A-10.008,Issue,A-10,EMERG-008,Delayed or deferential judicial review,High,Candidate,areas/EMERG/README.md,,
 A-11,Area,A-11,,Congressional Power of the Purse and Impoundment,,Active,areas/FUND/README.md,,Provisional inventory; full source development pending.
-A-11.001,Issue,A-11,FUND-001,Executive-Order Abuse Through Impoundment,Medium,Developed,areas/FUND/issues/FUND-001.md,legislation/FUND-001.md,"Initial issue page and draft Executive-Order Abuse Impoundment Control Act created; T2 development audit needed."
-A-11.002,Issue,A-11,FUND-002,Pocket rescissions and strategic delay,Medium,Candidate,areas/FUND/README.md,,
+A-11.001,Issue,A-11,FUND-001,Addressing Executive Order Abuse,Medium,Developed,areas/FUND/issues/FUND-001.md,legislation/FUND-001.md,"Initial issue page and draft Executive-Order Abuse Impoundment Control Act created; T2 development audit needed."
+A-11.002,Issue,A-11,FUND-002,Pocket Rescissions and Strategic Delay,Medium,Candidate,areas/FUND/issues/FUND-002.md,,
 A-11.003,Issue,A-11,FUND-003,Agency closure or program nullification through nonspending,Medium,Candidate,areas/FUND/README.md,,
 A-11.004,Issue,A-11,FUND-004,Politically selective withholding of grants or aid,Medium,Candidate,areas/FUND/README.md,,
 A-11.005,Issue,A-11,FUND-005,Reprogramming beyond congressional intent,Medium,Candidate,areas/FUND/README.md,,
@@ -167,7 +167,7 @@ A-16.006,Issue,A-16,IMM-006,Relationship between impeachment and criminal liabil
 A-16.007,Issue,A-16,IMM-007,Self-protective use of presidential powers,High,Candidate,areas/IMM/README.md,,
 A-16.008,Issue,A-16,IMM-008,Independent investigation and prosecution mechanisms,High,Candidate,areas/IMM/README.md,,
 A-17,Area,A-17,,Independent Agencies and Regulatory Neutrality,,Active,areas/REG/README.md,,Provisional inventory; full source development pending.
-A-17.001,Issue,A-17,REG-001,Erosion of removal protections,Medium,Candidate,areas/REG/README.md,,
+A-17.001,Issue,A-17,REG-001,Erosion of Removal Protections for Independent Agencies,High,Candidate,areas/REG/issues/REG-001.md,,
 A-17.002,Issue,A-17,REG-002,Politicized enforcement or nonenforcement,Medium,Candidate,areas/REG/README.md,,
 A-17.003,Issue,A-17,REG-003,Control of administrative adjudication,Medium,Candidate,areas/REG/README.md,,
 A-17.004,Issue,A-17,REG-004,Suspension or dismantling of agency operations,Medium,Candidate,areas/REG/README.md,,
@@ -237,3 +237,4 @@ A-23.008,Issue,A-23,HER-008,"Weak remedies after demolition, construction, donor
 A-24,Area,A-24,,Civil Rights Administration and Identity Records,,Active,areas/RIGHTS/README.md,,Created during HOR-015 adjudication and expanded during HOR-016 adjudication; full source development pending.
 A-24.001,Issue,A-24,RIGHTS-001,"Civil-Rights Administration, Identity Records, and Federal Definition Control",High,Candidate,areas/RIGHTS/issues/RIGHTS-001.md,,
 A-24.002,Issue,A-24,RIGHTS-002,"Temporary Protected Status, Asylum Access, and Humanitarian Reviewability",High,Candidate,areas/RIGHTS/issues/RIGHTS-002.md,,
+A-24.003,Issue,A-24,RIGHTS-003,Birthright Citizenship Recognition and Federal Identity Records,High,Candidate,areas/RIGHTS/issues/RIGHTS-003.md,,Admitted as a horizon issue after birthright-citizenship executive-order litigation appeared in the state-led adverse-rulings comparator; pending source development.

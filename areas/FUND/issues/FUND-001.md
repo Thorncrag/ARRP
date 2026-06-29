@@ -1,7 +1,7 @@
 ---
 issue_id: FUND-001
 area_id: A-11
-title: "Executive-Order Abuse Through Impoundment"
+title: "Addressing Executive Order Abuse"
 status: developed
 priority: medium
 remedy_type: federal-legislation
@@ -27,10 +27,10 @@ print_levels:
 audit_history: "FUND-001.audit.md"
 ---
 
-# FUND-001 — Executive-Order Abuse Through Impoundment
+# FUND-001 — Addressing Executive Order Abuse
 
 > ## Issue Snapshot
-> **Problem:** Executive orders can convert unlawful nonexecution into facts on the ground.<br />**Repair:** Make later covered directives fiscally inert after repeated unlawful directives.<br />**Vehicle:** Impoundment Control Act and appropriations-enforcement amendments ([draft](../../../legislation/FUND-001.md)).
+> **Problem:** Executive orders can convert unlawful nonexecution into facts on the ground.<br />**Repair:** Make new and continuing covered directives fiscally inert after repeated unlawful directives.<br />**Vehicle:** Impoundment Control Act and appropriations-enforcement amendments ([draft](../../../legislation/FUND-001.md)).
 >
 
 ## Institutional Anomaly
@@ -39,7 +39,7 @@ Executive orders and presidential memoranda can be lawful tools for supervising 
 
 Direct regulation of the President's issuance of executive orders would raise serious Article II and separation-of-powers questions. The more durable statutory hook is Congress's power of the purse. A presidential directive may exist as an internal instruction, but agencies should not be able to use appropriated funds, apportionment authority, grant administration, program execution, or nonspending to implement a pattern of directives that courts or the Comptroller General have already identified as unlawful.
 
-FUND-001 therefore treats repeated unlawful covered executive directives as an appropriations-control problem. The proposal does not nullify executive orders as presidential speech or internal management documents. It makes covered directives temporarily fiscally inert after an objective trigger, unless the implementing agency and OMB identify lawful statutory authority and survive an expedited review path.
+FUND-001 therefore treats repeated unlawful covered executive directives as an appropriations-control problem. The proposal does not nullify executive orders as presidential speech or internal management documents. It makes new covered directives and continuing implementation of lookback-period covered directives temporarily fiscally inert after an objective trigger, unless the implementing agency and OMB identify lawful statutory authority and survive an expedited review path.
 
 ## Manifestations of the Failure
 
@@ -55,9 +55,13 @@ The Impoundment Control Act already regulates rescissions and deferrals, but a P
 
 Ordinary litigation can stop a single unlawful action, but it may not address a pattern. If several covered executive directives are found unlawful, the legal system has identified a repeat institutional failure. A repeated-failure trigger should not require impeachment before Congress can protect later appropriations from similar abuse.
 
-### Executive-order volume and unlawfulness comparator
+### First-day directives and continuing implementation
 
-**Important note:** The project would strongly prefer to include metrics evenly across all administrations. This would be an incredibly useful comparison in investigating abuse of executive orders. However, no public-facing sources have yet been identified that would be citable or useful in tabulating such data. The only reliable source identified so far for court-blocked executive actions appears to cover only the second Trump administration.
+Presidents often issue numerous executive orders at the beginning of a term. A purely prospective trigger would leave first-day directives untouched even if later legal findings reveal a pattern of unlawful directive-based implementation. FUND-001 therefore requires a lookback review for covered directives issued earlier in the same presidential term that continue to affect appropriated funds, statutory programs, grants, benefits, apportionments, or agency operations after the trigger. The lookback mechanism does not retroactively void executive orders or unwind completed actions automatically; it requires continued implementation to be certified, narrowed, paused, or reviewed.
+
+### Executive-order volume and judicial-review comparator
+
+**Important note:** The project would strongly prefer to include metrics evenly across all administrations. This would be an incredibly useful comparison in investigating abuse of executive orders. However, no public-facing source has yet been identified that directly tabulates executive-order-specific unlawfulness across administrations. The currently identified sources instead support narrower comparator tracks: CRS provides nationwide-injunction counts for the first Trump and Biden administrations, AttorneysGeneral.org provides a structured multistate-litigation database with administration and injunction fields, Ballotpedia provides a Biden-era multistate-litigation routing source, and the AP figure provides a second-Trump-administration court-blocking proxy.
 
 The project was able to locate some reliable data tracking nationwide injunctions issued in response to orders across administrations going back to George W. Bush. Therefore, the project provisionally offers nationwide injunctions as a potentially useful analog in analyzing the lawfulness of issued orders.
 
@@ -76,7 +80,7 @@ Injunctions issued during the second Trump administration were not specifically 
 * *_Accessed June 29, 2026; AP proxy as of May 1, 2025_
 * †_For George W. Bush and Obama, CRS does not provide appendix counts in the reviewed report; the table uses the higher DOJ-cited count reported by CRS. CRS also cites lower Harvard Law Review counts for those administrations._
 * EO counts come from the [Federal Register executive-order disposition tables](https://www.federalregister.gov/presidential-documents/executive-orders). 
-* Injunction counts use CRS appendix counts from [Nationwide Injunctions Under the First Trump Administration and the Biden Administration](https://www.congress.gov/crs-product/R48467) where available. 
+* Injunction counts use CRS appendix counts from [Nationwide Injunctions Under the First Trump Administration and the Biden Administration](https://www.congress.gov/crs-product/R48467) where available. AttorneysGeneral.org's [State Lawsuits Database](https://attorneysgeneral.org/multistate-lawsuits-vs-the-federal-government/list-of-lawsuits-1980-present/) is retained as a structured case-level audit source, with [data-collection methods](https://attorneysgeneral.org/data-collection-methods/) defining the multistate-lawsuit dataset. A June 29, 2026 quick scan of the May 25, 2025 table data identified, among multistate Biden-administration rows, 23 national injunctions issued, 23 local injunctions issued, and 2 pending injunction motions. That figure is not substituted into the table because it is broader than the CRS nationwide-injunction count and still requires case-level normalization. Ballotpedia's [Biden multistate-lawsuit tracker](https://ballotpedia.org/Multistate_lawsuits_against_the_federal_government_during_the_Biden_administration) is retained as an additional routing source for checking Biden-era injunction and status coding, but it has not yet been normalized into an EO-specific numerator.
 * The Trump second-term proxy comes from the Associated Press report [Trump's agenda faces courtroom setbacks as Justice Department lawyers struggle to win over judges](https://apnews.com/article/5522245bc2140579d39a0a825b6db7af).
 
 ### Unified-government oversight collapse
@@ -97,6 +101,7 @@ Existing law may lack:
 
 - a pattern-based trigger for repeated unlawful executive directives;
 - a clear rule that covered directives become fiscally inert as to their scope after the trigger;
+- a lookback rule for continuing implementation of earlier covered directives issued in the same presidential term;
 - a prohibition on spending, withholding, delaying, apportioning, reprogramming, or conditioning funds to implement a covered directive during the review period;
 - OMB-specific duties for apportionment, deferral, and legal-authority certification;
 - expedited review for states, congressional institutional plaintiffs, affected recipients, and program beneficiaries;
@@ -109,7 +114,7 @@ The existing statutory foundation is the Impoundment Control Act of 1974. Rescis
 
 The Supreme Court has rejected presidential nonspending where Congress directed funds to be allotted. In [*Train v. City of New York*](https://supreme.justia.com/cases/federal/us/420/35/), the Court held that the executive could not frustrate the will of Congress by allotting less than the statutory formula required. In [*Youngstown Sheet & Tube Co. v. Sawyer*](https://supreme.justia.com/cases/federal/us/343/579/), the Court rejected an executive order that lacked statutory or constitutional authority and conflicted with Congress's allocation of power.
 
-The proposal draws from those sources but adds a new pattern-response mechanism. The closest functional analogue is not a legislative veto of executive orders. It is an appropriations rule: after repeated unlawful covered directives, later covered directives may not be funded, used to withhold funds, or implemented through apportionment unless lawful authority is publicly certified or expedited review permits implementation.
+The proposal draws from those sources but adds a new pattern-response mechanism. The closest functional analogue is not a legislative veto of executive orders. It is an appropriations rule: after repeated unlawful covered directives, new covered directives and continuing implementation of lookback-period covered directives may not be funded, used to withhold funds, or implemented through apportionment unless lawful authority is publicly certified or expedited review permits implementation.
 
 Lisa Manheim and Kathryn A. Watts's article [Reviewing Presidential Orders](https://lawreview.uchicago.edu/print-archive/reviewing-presidential-orders) provides an important scholarly frame for this proposal. The article explains that presidents increasingly rely on executive orders and other unilateral written directives to influence agency policymaking, while courts lack a coherent framework for direct review of presidential orders. It also distinguishes the traditional route of challenging agency implementation under administrative-law doctrines from newer direct challenges to presidential orders. FUND-001 uses that distinction by regulating agency implementation and appropriated funds rather than attempting to invalidate presidential orders directly.
 
@@ -126,13 +131,14 @@ The statute should:
 1. define covered executive directives to include executive orders, presidential memoranda, OMB directives, and other presidential or Executive Office instructions that materially affect appropriated funds, statutory program execution, grants, benefits, apportionment, reprogramming, enforcement capacity, or state-administered programs;
 2. define trigger findings to include final court judgments, three-judge-court determinations, and Comptroller General findings that a covered directive or covered implementation action was unlawful;
 3. activate a temporary review period after a specified number of trigger findings within a defined time window;
-4. make later covered directives fiscally inert as to their covered scope during the review period;
-5. prohibit agencies and OMB from obligating, expending, withholding, delaying, deferring, apportioning, reprogramming, or conditioning funds to implement a covered directive unless the statutory process is satisfied;
-6. require a public legal-authority certification from OMB and the implementing agency;
-7. provide expedited three-judge-court review and direct appeal;
-8. preserve emergency implementation only for narrow, time-limited, certified circumstances;
-9. protect officials who decline implementation where the directive lacks required certification or review clearance;
-10. preserve ordinary executive orders that do not affect appropriations, statutory program execution, or covered democratic/federalism structures.
+4. make new covered directives fiscally inert as to their covered scope during the review period;
+5. require lookback review of continuing implementation actions under earlier covered directives issued in the same presidential term;
+6. prohibit agencies and OMB from obligating, expending, withholding, delaying, deferring, apportioning, reprogramming, or conditioning funds to implement a covered directive unless the statutory process is satisfied;
+7. require a public legal-authority certification from OMB and the implementing agency;
+8. provide expedited three-judge-court review and direct appeal;
+9. preserve emergency implementation only for narrow, time-limited, certified circumstances;
+10. protect officials who decline implementation where the directive lacks required certification or review clearance;
+11. preserve ordinary executive orders that do not affect appropriations, statutory program execution, or covered democratic/federalism structures.
 
 ## Proposed Legislation
 
@@ -166,7 +172,9 @@ Administrative and litigation workload is likely for OMB, implementing agencies,
 
 **Naming.** The issue is named for executive-order abuse, not merely impoundment, because the institutional defect is directive-based executive circumvention. The legal hook remains appropriations and impoundment because direct statutory nullification of executive orders would raise harder constitutional questions.
 
-**No Blanket Nullification.** The proposal does not declare later executive orders void. It makes a later covered directive fiscally inert as to its covered scope during a review period. The President may still issue orders; agencies may not use or withhold appropriated funds to implement covered directives without satisfying the statutory process.
+**No Blanket Nullification.** The proposal does not declare executive orders void. It makes new covered directives, and continuing implementation of lookback-period covered directives, fiscally inert as to their covered scope during a review period. The President may still issue orders; agencies may not use or withhold appropriated funds to implement covered directives without satisfying the statutory process.
+
+**Lookback Review.** The lookback rule addresses first-day or early-term executive orders that are already in force when the trigger occurs. It should apply only to ongoing or future covered implementation actions, not automatically unwind completed acts or vested third-party rights. The draft uses a 30-day inventory deadline, 90-day certification deadline, and 180-day fiscal-inertness backstop for continuing implementation, while blocking new covered implementation under lookback directives unless certified. T2 should test whether those periods are sufficient for agency review, state and grantee reliance interests, expedited litigation, and judicial capacity.
 
 **Objective Trigger.** The trigger should rest on external legal findings, not partisan congressional accusation alone. T2 should test whether final judgments, three-judge-court determinations, preliminary injunctions after merits findings, Comptroller General decisions, or combinations of those findings are the right trigger inputs.
 
@@ -176,7 +184,7 @@ Administrative and litigation workload is likely for OMB, implementing agencies,
 
 **Standing and Review.** T2 should test who may sue, whether GAO may initiate enforcement, whether either House or designated congressional officers may sue, and whether states, grantees, beneficiaries, contractors, and program administrators have adequate causes of action.
 
-**Quality Score.** The 60/100 score is an initial development score under rubric `2026-06-27.2`: Structural 8/8; Evidence 6/12; Legal Fit 6/10; Prior-Proposal 4/8; Remedy 8/12; Implementation 5/8; Abuse Resistance 6/8; Drafting 5/8; Cogency 6/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. The issue has a coherent statutory hook, issue framework, draft vehicle, neutral executive-order-volume manifestation, an unlawfulness-comparator scaffold, and a strong scholarly source for the presidential-order review gap, but T2 must verify existing-law fit, GAO enforcement mechanics, statutory standing, Youngstown/Train doctrine, Chadha constraints, OMB apportionment practice, emergency exceptions, implementation burden, public-support evidence, and prior legislative analogues.
+**Quality Score.** The 60/100 score is an initial development score under rubric `2026-06-27.2`: Structural 8/8; Evidence 6/12; Legal Fit 6/10; Prior-Proposal 4/8; Remedy 8/12; Implementation 5/8; Abuse Resistance 6/8; Drafting 5/8; Cogency 6/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. The issue has a coherent statutory hook, issue framework, draft vehicle, neutral executive-order-volume manifestation, a judicial-review comparator scaffold, and a strong scholarly source for the presidential-order review gap, but T2 must verify existing-law fit, GAO enforcement mechanics, statutory standing, Youngstown/Train doctrine, Chadha constraints, OMB apportionment practice, emergency exceptions, implementation burden, public-support evidence, and prior legislative analogues.
 
 **Adoption Friction.** The 82/100 score is Extreme Resistance because the proposal responds to presidential abuse of executive orders, constrains OMB and agency implementation after repeated unlawful conduct, may be opposed by presidents of both parties, and would likely draw separation-of-powers, standing, expedited-review, emergency-authority, and appropriations-process objections.
 

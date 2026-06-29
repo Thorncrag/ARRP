@@ -73,6 +73,12 @@ The objective is not automatic return to the pre-2017 institutional status quo. 
 
 Elected officials should control lawful policy direction. Factual determination, scientific assessment, adjudication, auditing, personnel administration, and individual enforcement decisions should receive protection from personal or partisan coercion.
 
+### Unitary Executive Consolidation
+
+Many issues produced by unitary executive theory may share a common constitutional source and therefore may be curable, if at all, through a single carefully drafted constitutional amendment rather than a separate amendment for each affected proposal. Where a proposal's core obstacle is Article II doctrine rather than ordinary statutory ambiguity, the project should evaluate whether the issue belongs within a broader executive-power amendment package.
+
+Ordinary legislation may still provide useful staging, transparency, process, reporting, funding, records, and continuity safeguards. But the project should not mistake those mitigation tools for a durable cure when the asserted defect is constitutional doctrine limiting Congress's power to insulate, supervise, or structure executive-branch functions.
+
 ### Institutional Corrigibility
 
 Not every institutional abuse can be prevented without impairing legitimate governmental authority, eliminating necessary discretion, or creating an equally serious countervailing danger. Where complete prevention is impracticable, the project should establish the least-complex adequate means by which abuse can be detected, documented, reviewed, exposed, remedied, deterred, and prevented from becoming entrenched.

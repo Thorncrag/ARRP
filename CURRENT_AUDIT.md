@@ -14,7 +14,7 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Active |
-| Active issue/task | FUND-001 — Executive-Order Abuse Through Impoundment |
+| Active issue/task | FUND-001 — Addressing Executive Order Abuse |
 | Audit type/tier | Initial development / T1 framework check |
 | Started | 2026-06-29 |
 | Last checkpoint | 2026-06-29 |

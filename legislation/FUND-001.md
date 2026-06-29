@@ -14,7 +14,7 @@ print_levels:
 
 ## A BILL
 
-To amend the Impoundment Control Act of 1974 to establish appropriations safeguards when repeated unlawful executive directives demonstrate a pattern of directive-based nonexecution, to prohibit the use, withholding, delay, deferral, apportionment, reprogramming, or conditioning of funds to implement later covered directives during a review period unless lawful authority is certified, to provide expedited review, and for other purposes.
+To amend the Impoundment Control Act of 1974 to establish appropriations safeguards when repeated unlawful executive directives demonstrate a pattern of directive-based nonexecution, to prohibit the use, withholding, delay, deferral, apportionment, reprogramming, or conditioning of funds to implement new or continuing covered directives during a review period unless lawful authority is certified, to provide expedited review, and for other purposes.
 
 Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
 
@@ -30,9 +30,10 @@ The purposes of this Act are to—
 2. prevent executive orders, presidential memoranda, OMB directives, or comparable executive directives from being used to effectuate unlawful impoundment, nonexecution, program suspension, grant coercion, or statutory evasion;
 3. preserve lawful executive supervision and administration while limiting the use of appropriated funds to implement covered directives after repeated unlawful conduct;
 4. create an objective trigger based on judicial or Comptroller General findings rather than partisan accusation;
-5. ensure that covered directives are fiscally inert as to their covered scope during a review period unless lawful authority is publicly certified or judicial review permits implementation;
-6. provide expedited review before unlawful directive-based implementation creates facts on the ground; and
-7. protect officers and employees who decline to implement covered directives that do not satisfy this Act.
+5. ensure that new covered directives are fiscally inert as to their covered scope during a review period unless lawful authority is publicly certified or judicial review permits implementation;
+6. require review of continuing implementation under earlier covered directives issued in the same presidential term;
+7. provide expedited review before unlawful directive-based implementation creates facts on the ground; and
+8. protect officers and employees who decline to implement covered directives that do not satisfy this Act.
 
 ## SEC. 3. EXECUTIVE DIRECTIVE IMPOUNDMENT REVIEW.
 
@@ -72,11 +73,13 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(4) **Review period.** The term 'review period' means the Executive Directive Impoundment Review Period established under section 1022.
 
-"(5) **Fiscally inert.** The term 'fiscally inert' means that a covered executive directive may not be implemented, relied upon, or treated as authority to obligate, expend, withhold, delay, defer, apportion, reapportion, reprogram, transfer, cancel, or condition budget authority, or to alter statutory program execution, within the covered scope unless the requirements of this part are satisfied.
+"(5) **Lookback directive.** The term 'lookback directive' means a covered executive directive issued by the same President before the beginning of a review period and during the then-current presidential term, but only to the extent the directive has ongoing or future covered implementation actions on or after the date the review period begins.
 
-"(6) **Covered scope.** The term 'covered scope' means the portion of a covered executive directive that materially affects an item listed in paragraph (1).
+"(6) **Fiscally inert.** The term 'fiscally inert' means that a covered executive directive may not be implemented, relied upon, or treated as authority to obligate, expend, withhold, delay, defer, apportion, reapportion, reprogram, transfer, cancel, or condition budget authority, or to alter statutory program execution, within the covered scope unless the requirements of this part are satisfied.
 
-"(7) **Emergency implementation certification.** The term 'emergency implementation certification' means a written certification under section 1025.
+"(7) **Covered scope.** The term 'covered scope' means the portion of a covered executive directive that materially affects an item listed in paragraph (1).
+
+"(8) **Emergency implementation certification.** The term 'emergency implementation certification' means a written certification under section 1025.
 
 ## "SEC. 1022. EXECUTIVE DIRECTIVE IMPOUNDMENT REVIEW PERIOD.
 
@@ -94,13 +97,15 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(2) the period shall terminate early if a three-judge district court determines under section 1026 that the trigger requirements were not satisfied.
 
-"(d) Publication.—Not later than 3 days after a review period begins, the Director of the Office of Management and Budget shall publish in the Federal Register and transmit to Congress a notice identifying the trigger findings, the covered executive directives involved, the date the review period begins, and the date the review period is scheduled to end.
+"(d) Publication.—Not later than 3 days after a review period begins, the Director of the Office of Management and Budget shall publish in the Federal Register and transmit to Congress a notice identifying the trigger findings, the covered executive directives involved, the date the review period begins, the date the review period is scheduled to end, and the process for identifying lookback directives subject to continuing-implementation review.
 
 "(e) Failure to publish.—The review period begins under subsection (b) regardless of whether the Director publishes the notice required by subsection (d).
 
+"(f) Lookback inventory.—Not later than 30 days after a review period begins, the Director of the Office of Management and Budget shall publish in the Federal Register and transmit to Congress an inventory of known lookback directives and the affected appropriations, accounts, programs, grants, benefits, contracts, loans, apportionments, or agency operations. Failure to identify a directive in the inventory does not exempt the directive or any covered implementation action from this part.
+
 ## "SEC. 1023. FISCAL INERTNESS OF COVERED EXECUTIVE DIRECTIVES DURING REVIEW PERIOD.
 
-"(a) General rule.—During a review period, any covered executive directive issued after the review period begins is fiscally inert as to its covered scope unless—
+"(a) New covered directives.—During a review period, any covered executive directive issued after the review period begins is fiscally inert as to its covered scope unless—
 
 "(1) the Director of the Office of Management and Budget and the head of each implementing agency publish a certification under section 1024;
 
@@ -110,7 +115,21 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(4) no other provision of law prohibits the covered implementation action.
 
-"(b) Prohibited actions.—During a review period, no officer, employee, agency, or component of the United States may, solely or materially because of a covered executive directive that has not satisfied subsection (a)—
+"(b) Lookback directives.—Beginning 180 days after a review period begins, a lookback directive is fiscally inert as to any ongoing or future covered implementation action unless—
+
+"(1) not later than 90 days after the review period begins, the Director of the Office of Management and Budget and the head of each implementing agency publish a certification under section 1024 for continued implementation;
+
+"(2) the waiting period under section 1024 has expired without an action filed under section 1026;
+
+"(3) if an action is filed under section 1026, the court has denied interim relief or entered judgment permitting continued implementation; and
+
+"(4) no other provision of law prohibits the covered implementation action.
+
+"(c) Immediate limitation on new implementation under lookback directives.—During a review period, an agency may not begin a new covered implementation action under a lookback directive unless the certification required by subsection (b)(1) has been published and the remaining requirements of subsection (b) are satisfied, except as provided in section 1025.
+
+"(d) No automatic undoing of completed acts.—Subsection (b) does not automatically invalidate a completed obligation, expenditure, personnel action, grant award, contract, benefit payment, or other completed implementation action, and does not by itself disturb vested third-party rights. This subsection does not limit otherwise available relief for an unlawful covered implementation action, including release of budget authority, restoration of statutory program operation, correction of unlawful conditions, or other relief authorized by section 1026.
+
+"(e) Prohibited actions.—During a review period, no officer, employee, agency, or component of the United States may, solely or materially because of a covered executive directive that has not satisfied subsection (a) or subsection (b), as applicable—
 
 "(1) obligate or expend funds to implement the directive;
 
@@ -126,17 +145,17 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(7) direct a recipient of Federal funds to take an action that the agency could not take directly under this part.
 
-"(c) No inference of validity.—Publication of a certification under section 1024 does not create a presumption that the covered executive directive is lawful.
+"(f) No inference of validity.—Publication of a certification under section 1024 does not create a presumption that the covered executive directive is lawful.
 
-"(d) Ordinary administration preserved.—This section does not apply to a directive that solely concerns ceremonial matters, internal scheduling, advisory committee administration, purely internal housekeeping, classification markings, diplomatic communications, military command within authority otherwise provided by law, or other matters that do not materially affect the covered scope described in section 1021(1).
+"(g) Ordinary administration preserved.—This section does not apply to a directive that solely concerns ceremonial matters, internal scheduling, advisory committee administration, purely internal housekeeping, classification markings, diplomatic communications, military command within authority otherwise provided by law, or other matters that do not materially affect the covered scope described in section 1021(1).
 
 ## "SEC. 1024. LEGAL-AUTHORITY CERTIFICATION.
 
-"(a) Certification required.—Before implementation of a covered executive directive during a review period, the Director of the Office of Management and Budget and the head of each implementing agency shall publish a written legal-authority certification.
+"(a) Certification required.—Before implementation or continued implementation of a covered executive directive during a review period, the Director of the Office of Management and Budget and the head of each implementing agency shall publish a written legal-authority certification.
 
 "(b) Contents.—The certification shall—
 
-"(1) identify the covered executive directive;
+"(1) identify the covered executive directive and state whether it is a new covered directive or a lookback directive;
 
 "(2) identify each statutory or constitutional authority relied upon;
 
@@ -154,7 +173,7 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(9) certify that implementation is consistent with this title and other applicable law.
 
-"(c) Waiting period.—Except as provided in section 1025, implementation may not begin until 15 days after publication of the certification.
+"(c) Waiting period.—Except as provided in section 1025, implementation of a new covered directive may not begin until 15 days after publication of the certification. Continued implementation of a lookback directive may continue during the 15-day waiting period, but may not continue after the 180-day period described in section 1023(b) unless the requirements of section 1023(b) are satisfied.
 
 "(d) Congressional notice.—The certification shall be transmitted on the date of publication to the Speaker of the House of Representatives, the President pro tempore of the Senate, the Committees on Appropriations and the Budget of the House of Representatives and the Senate, each authorizing committee with jurisdiction over an affected program, and the Comptroller General.
 
@@ -210,7 +229,7 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 ## "SEC. 1027. OFFICER AND EMPLOYEE SAFE HARBOR.
 
-"(a) Safe harbor.—An officer or employee of the United States may not be removed, demoted, suspended, reassigned, denied promotion, denied pay, disciplined, threatened, or otherwise retaliated against for refusing in good faith to implement a covered executive directive during a review period if the directive has not satisfied section 1023(a).
+"(a) Safe harbor.—An officer or employee of the United States may not be removed, demoted, suspended, reassigned, denied promotion, denied pay, disciplined, threatened, or otherwise retaliated against for refusing in good faith to implement a covered executive directive during a review period if the directive has not satisfied section 1023(a) or section 1023(b), as applicable.
 
 "(b) Reporting.—An officer or employee may report a suspected violation of this part to the Comptroller General, an Inspector General, the Office of Special Counsel, Congress, or a court with jurisdiction.
 

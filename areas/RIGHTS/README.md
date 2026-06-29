@@ -2,7 +2,7 @@
 area_id: A-24
 title: "Civil Rights Administration and Identity Records"
 status: active
-issue_count: 2
+issue_count: 3
 print_levels:
   - public-proposal
   - full-technical
@@ -19,6 +19,7 @@ Civil-rights enforcement, humanitarian protection, identity records, benefit acc
 
 - [**RIGHTS-001** — Civil-Rights Administration, Identity Records, and Federal Definition Control](issues/RIGHTS-001.md) _(status: Candidate; priority: High)_
 - [**RIGHTS-002** — Temporary Protected Status, Asylum Access, and Humanitarian Reviewability](issues/RIGHTS-002.md) _(status: Candidate; priority: High)_
+- [**RIGHTS-003** — Birthright Citizenship Recognition and Federal Identity Records](issues/RIGHTS-003.md) _(status: Candidate; priority: High)_
 
 ## Issue Boundaries
 
@@ -31,4 +32,4 @@ Civil-rights enforcement, humanitarian protection, identity records, benefit acc
 
 ## Notes
 
-Created during HOR-015 adjudication and expanded during HOR-016 adjudication. Provisional inventory; full source development pending.
+Created during HOR-015 adjudication and expanded during HOR-016 adjudication. RIGHTS-003 was added as a horizon issue after identifying birthright-citizenship executive-order litigation in the state-led adverse-rulings comparator. Provisional inventory; full source development pending.
