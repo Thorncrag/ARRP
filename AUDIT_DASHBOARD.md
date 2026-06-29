@@ -18,323 +18,231 @@ Update this page whenever an audit changes an issue score, audit status, last au
 
 [Back to top](#audit-dashboard)
 
-- Issues tracked: 214
-- Issues with proposed legislation links: 20
-- Developed issues: 21
-- Candidate issues: 179
-- Retired or merged issues: 13
-- Paused for controlling finding: 1
-
-## Score Bands
-
-[Back to top](#audit-dashboard)
-
 | Band | Count |
 | --- | ---: |
-| Retired/Merged | 13 |
-| Paused | 1 |
-| Pending development | 179 |
-| Developed Draft | 1 |
-| Substantially Developed Draft | 4 |
+| Total issues tracked | 214 (13 retired)|
+| Undeveloped | 179 |
+| Drafts below Review Ready | 5 |
 | Review Ready | 16 |
-| Audit in progress | 0 |
-
-## Rubric Rebaseline
-
-[Back to top](#audit-dashboard)
-
-Current audit rubric version: `2026-06-27.2`
-
-| Rebaseline status | Count |
-| --- | ---: |
-| Current | 19 |
-| Current fixed-status score | 193 |
-| Soft rebaseline needed | 0 |
-| Hard rebaseline needed | 2 |
-
-## Enactment Pathway
-
-[Back to top](#audit-dashboard)
-
-Required Electoral Environment is a T1 gate that identifies the minimum electoral or institutional condition needed to make a proposal seriously actionable. It is evidence-bound and feeds Adoption and Implementation scoring rather than creating a standalone score.
-
-| Required electoral environment | Count |
-| --- | ---: |
-| Current-law available | 1 |
-| House oversight majority | 0 |
-| Narrow unified government | 0 |
-| Filibuster-constrained unified government | 0 |
-| Sixty-vote Senate | 14 |
-| Filibuster reform or exception | 0 |
-| Wave-election mandate | 0 |
-| Post-crisis repair mandate | 1 |
-| Constitutional amendment environment | 3 |
-| State-level pathway | 2 |
-| Not electorally dependent | 0 |
-| Unassessed | 0 |
-| N/A | 193 |
-
-## Adoption Friction
-
-[Back to top](#audit-dashboard)
-
-Adoption Friction Score is a companion metric outside the Proposal Quality Score. Higher resistance means greater expected organized opposition, litigation, procedural blockade, public misunderstanding, or institutional barriers.
-
-| Adoption friction band | Count |
-| --- | ---: |
-| Low Resistance | 0 |
-| Manageable Resistance | 0 |
-| Significant Resistance | 3 |
-| High Resistance | 11 |
-| Extreme Resistance | 7 |
-| Unassessed | 0 |
-| N/A | 193 |
-
-## Next Audit Queue
-
-[Back to top](#audit-dashboard)
-
-| Next audit indicator | Count |
-| --- | ---: |
-| Advanced audit | 0 |
-| Cross-reference check | 13 |
-| Development audit | 0 |
-| Issue-admission test | 179 |
-| Reassess predicate | 1 |
-| T2 | 2 |
-| T3 | 1 |
-| T4 publication-ready audit | 0 |
-| T4 follow-up | 18 |
-
-## Change Audit Log
-
-[Back to top](#audit-dashboard)
-
-Change Audit entries are maintained on the separate [Change Audit Log](CHANGE_AUDIT_LOG.md) page. This dashboard remains the compact cross-issue score, audit-status, and next-audit tracker.
-
-## Horizon Scan
-
-[Back to top](#audit-dashboard)
-
-Horizon Scan intake and integration decisions are maintained on the separate [Horizon Scan](HORIZON_SCAN.md) page. This dashboard remains the compact cross-issue score, audit-status, and next-audit tracker.
+| Paused | 1 |
 
 ## Issue Audit Index
 
 [Back to top](#audit-dashboard)
 
-| Issue | Area | Priority | Status | Score | Band | Runs | Last audit | Last date | Next | Proposal page/status | Legislation | Rubric | Rebaseline | Pathway | Priority | Friction |
-| --- | --- | --- | --- | ---: | --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| DOJ-001 | A-01 | High | Developed | 82 | Review Ready | 16 | Change Audit | 2026-06-28 | T4 follow-up after Slaughter/J.G.G. posture | [Issue](areas/DOJ/issues/DOJ-001.md) | [Bill](legislation/DOJ-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| DOJ-002 | A-01 | High | Developed | 78 | Review Ready | 6 | T4 publication-ready audit | 2026-06-27 | T4 follow-up | [Issue](areas/DOJ/issues/DOJ-002.md) | [Bill](legislation/DOJ-002.md) | 2026-06-27.2 | current | current-law-available | active | Extreme Resistance |
-| DOJ-003 | A-01 | High | Developed | 82 | Review Ready | 7 | Change Audit | 2026-06-27 | T4 follow-up / external validation | [Issue](areas/DOJ/issues/DOJ-003.md) | [Bill](legislation/DOJ-003.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| DOJ-004 | A-01 | High | Awaiting merits adjudication | 0 | Paused | 2 | T1 predicate check | 2026-06-27 | Reassess predicate | [Issue](areas/DOJ/issues/DOJ-004.md) | — | 2026-06-27.2 | current-fixed-status | N/A | N/A | N/A |
-| DOJ-005 | A-01 | High | Developed | 76 | Review Ready | 5 | T3 readiness audit | 2026-06-28 | T4 follow-up / external validation | [Issue](areas/DOJ/issues/DOJ-005.md) | [Bill](legislation/DOJ-005.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| DOJ-006 | A-01 | High | Retired—merged into DOJ-002 and DOJ-007 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/DOJ/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOJ-007 | A-01 | High | Developed | 78 | Review Ready | 8 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/DOJ/issues/DOJ-007.md) | [Amendment](legislation/DOJ-007-amendment.md); [Act](legislation/DOJ-007.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
-| DOJ-008 | A-01 | High | Retired—merged into DOJ-003 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/DOJ/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOJ-009 | A-01 | High | Developed | 74 | Substantially Developed Draft | 6 | Change Audit | 2026-06-28 | T3 readiness audit | [Issue](areas/DOJ/issues/DOJ-009.md) | [Bill](legislation/DOJ-009.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| ELEC-001 | A-02 | High | Developed | 77 | Review Ready | 6 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-001.md) | [Bill](legislation/ELEC-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | Extreme Resistance |
-| ELEC-002 | A-02 | High | Developed | 76 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-002.md) | [Bill](legislation/ELEC-002-state.md) | 2026-06-27.2 | current | state-level-pathway | active | Significant Resistance |
-| ELEC-003 | A-02 | High | Developed | 77 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-003.md) | [Bill 1](legislation/ELEC-003-state.md)<br />[Bill 2](legislation/ELEC-003.md) | 2026-06-27.2 | current | state-level-pathway | active | Significant Resistance |
-| ELEC-004 | A-02 | High | Developed | 73 | Substantially Developed Draft | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-004.md) | [Bill 1](legislation/ELEC-004-state.md)<br />[Bill 2](legislation/ELEC-004.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| ELEC-005 | A-02 | High | Developed | 78 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-005.md) | [Bill](legislation/ELEC-005.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| ELEC-006 | A-02 | High | Developed | 76 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-006.md) | [Bill](legislation/ELEC-006.md) | 2026-06-27.2 | current | sixty-vote-senate | active | Significant Resistance |
-| ELEC-007 | A-02 | High | Developed | 78 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-007.md) | [Bill](legislation/ELEC-007.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| ELEC-008 | A-02 | High | Developed | 74 | Substantially Developed Draft | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-008.md) | [Bill](legislation/ELEC-008.md) | 2026-06-27.2 | current | post-crisis-repair-mandate | active | Extreme Resistance |
-| ELEC-009 | A-02 | High | Developed | 70 | Substantially Developed Draft | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-009.md) | [Amendment](legislation/ELEC-009-amendment.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
-| ELEC-010 | A-02 | High | Developed | 77 | Review Ready | 6 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/ELEC/issues/ELEC-010.md) | [Bill](legislation/ELEC-010.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| ELEC-011 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| ELEC-012 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| ELEC-013 | A-02 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | [Issue](areas/ELEC/issues/ELEC-013.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| WAR-001 | A-03 | High | Developed | 77 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/WAR/issues/WAR-001.md) | [Bill](legislation/WAR-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| WAR-002 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| WAR-003 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| WAR-004 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| WAR-005 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| WAR-006 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| WAR-007 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| WAR-008 | A-03 | High | Retired—merged into WAR-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/WAR/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| JUD-001 | A-04 | High | Developed | 78 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/JUD/issues/JUD-001.md) | [Bill](legislation/JUD-001.md) | 2026-06-27.2 | current | sixty-vote-senate | active | High Resistance |
-| JUD-002 | A-04 | High | Retired—merged into JUD-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/JUD/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| JUD-003 | A-04 | High | Retired—merged into JUD-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/JUD/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| JUD-004 | A-04 | High | Retired—merged into JUD-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/JUD/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| JUD-005 | A-04 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| JUD-006 | A-04 | High | Retired—merged into JUD-001 | 0 | Retired/Merged | 1 | Initial inventory audit | 2026-06-24 | Cross-reference check | [Issue](areas/JUD/README.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| JUD-007 | A-04 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| JUD-008 | A-04 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| JUD-009 | A-04 | High | Developed | 77 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/JUD/issues/JUD-009.md) | [Bill](legislation/JUD-009.md) | 2026-06-27.2 | current | sixty-vote-senate | active | Extreme Resistance |
-| JUD-010 | A-04 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PAR-001 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PAR-002 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PAR-003 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PAR-004 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PAR-005 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PAR-006 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PAR-007 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PAR-008 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PAR-009 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PAR-010 | A-05 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-001 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-002 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-003 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-004 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-005 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-006 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-007 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-008 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-009 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-010 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-011 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-012 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-013 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-014 | A-06 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMOL-015 | A-06 | High | Developed | 60 | Developed Draft | 1 | Initial development | 2026-06-28 | T1 framework check | [Issue](areas/EMOL/issues/EMOL-015.md) | [Bill](legislation/EMOL-015.md) | 2026-06-27.2 | hard-rebaseline-needed | sixty-vote-senate | active | High Resistance |
-| CLASS-001 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CLASS-002 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CLASS-003 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CLASS-004 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CLASS-005 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CLASS-006 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CLASS-007 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CLASS-008 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CLASS-009 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CLASS-010 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CLASS-011 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CLASS-012 | A-07 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CIV-001 | A-08 | High | Candidate | 0 | Pending development | 2 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CIV-002 | A-08 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CIV-003 | A-08 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CIV-004 | A-08 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CIV-005 | A-08 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CIV-006 | A-08 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CIV-007 | A-08 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CIV-008 | A-08 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CIV-009 | A-08 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| OVS-001 | A-09 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| OVS-002 | A-09 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| OVS-003 | A-09 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| OVS-004 | A-09 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| OVS-005 | A-09 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| OVS-006 | A-09 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| OVS-007 | A-09 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| OVS-008 | A-09 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMERG-001 | A-10 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMERG-002 | A-10 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMERG-003 | A-10 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMERG-004 | A-10 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMERG-005 | A-10 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMERG-006 | A-10 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMERG-007 | A-10 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| EMERG-008 | A-10 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FUND-001 | A-11 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FUND-002 | A-11 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FUND-003 | A-11 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FUND-004 | A-11 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FUND-005 | A-11 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FUND-006 | A-11 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FUND-007 | A-11 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FUND-008 | A-11 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| APPT-001 | A-12 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| APPT-002 | A-12 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| APPT-003 | A-12 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| APPT-004 | A-12 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| APPT-005 | A-12 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| APPT-006 | A-12 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| APPT-007 | A-12 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| APPT-008 | A-12 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REC-001 | A-13 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REC-002 | A-13 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REC-003 | A-13 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REC-004 | A-13 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REC-005 | A-13 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REC-006 | A-13 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REC-007 | A-13 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REC-008 | A-13 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOM-001 | A-14 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOM-002 | A-14 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOM-003 | A-14 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOM-004 | A-14 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOM-005 | A-14 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOM-006 | A-14 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOM-007 | A-14 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOM-008 | A-14 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| DOM-009 | A-14 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CONG-001 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CONG-002 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CONG-003 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CONG-004 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CONG-005 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CONG-006 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CONG-007 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| CONG-008 | A-15 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| IMM-001 | A-16 | High | Developed | 78 | Review Ready | 5 | T4 publication-ready audit | 2026-06-28 | External validation / T4 follow-up | [Issue](areas/IMM/issues/IMM-001.md) | [Bill](legislation/IMM-001.md) | 2026-06-27.2 | current | constitutional-amendment-environment | conditional | Extreme Resistance |
-| IMM-002 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| IMM-003 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| IMM-004 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| IMM-005 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| IMM-006 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| IMM-007 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| IMM-008 | A-16 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REG-001 | A-17 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REG-002 | A-17 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REG-003 | A-17 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REG-004 | A-17 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REG-005 | A-17 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REG-006 | A-17 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REG-007 | A-17 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| REG-008 | A-17 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FACT-001 | A-18 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FACT-002 | A-18 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FACT-003 | A-18 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FACT-004 | A-18 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FACT-005 | A-18 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FACT-006 | A-18 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FACT-007 | A-18 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FACT-008 | A-18 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FACT-009 | A-18 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| RET-001 | A-19 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| RET-002 | A-19 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| RET-003 | A-19 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| RET-004 | A-19 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| RET-005 | A-19 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| RET-006 | A-19 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| RET-007 | A-19 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| RET-008 | A-19 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FED-001 | A-20 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FED-002 | A-20 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FED-003 | A-20 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FED-004 | A-20 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FED-005 | A-20 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FED-006 | A-20 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FED-007 | A-20 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FED-008 | A-20 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FRB-001 | A-21 | Critical | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FRB-002 | A-21 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FRB-003 | A-21 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FRB-004 | A-21 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FRB-005 | A-21 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FRB-006 | A-21 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FRB-007 | A-21 | Critical | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| FRB-008 | A-21 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-001 | A-22 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-002 | A-22 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-003 | A-22 | Critical | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-004 | A-22 | Critical | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-005 | A-22 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-006 | A-22 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-007 | A-22 | Critical | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-008 | A-22 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-009 | A-22 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-010 | A-22 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-011 | A-22 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| PRESS-012 | A-22 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| HER-001 | A-23 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| HER-002 | A-23 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| HER-003 | A-23 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| HER-004 | A-23 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| HER-005 | A-23 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| HER-006 | A-23 | Medium | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| HER-007 | A-23 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| HER-008 | A-23 | High | Candidate | 0 | Pending development | 1 | Initial inventory audit | 2026-06-24 | Issue-admission test | Pending Development | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| RIGHTS-001 | A-24 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | [Issue](areas/RIGHTS/issues/RIGHTS-001.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
-| RIGHTS-002 | A-24 | High | Candidate | 0 | Pending development | 1 | Horizon integration decision | 2026-06-25 | Issue-admission test | [Issue](areas/RIGHTS/issues/RIGHTS-002.md) | — | 2026-06-26.1 | current-fixed-status | N/A | N/A | N/A |
+| Issue | Area | Priority | Status | Score | Runs | Last audit | Next audit |
+| --- | --- | --- | --- | ---: | ---: | --- | --- |
+| [DOJ-001](areas/DOJ/issues/DOJ-001.md) | A-01 | High | Review Ready | 82 | 16 | Change Audit (2026-06-28) | T4 follow-up after Slaughter/J.G.G. posture |
+| [DOJ-002](areas/DOJ/issues/DOJ-002.md) | A-01 | High | Review Ready | 78 | 6 | T4 publication-ready audit (2026-06-27) | T4 follow-up |
+| [DOJ-003](areas/DOJ/issues/DOJ-003.md) | A-01 | High | Review Ready | 82 | 7 | Change Audit (2026-06-27) | T4 follow-up / external validation |
+| [DOJ-004](areas/DOJ/issues/DOJ-004.md) | A-01 | High | Paused | 0 | 2 | T1 predicate check (2026-06-27) | Reassess predicate |
+| [DOJ-005](areas/DOJ/issues/DOJ-005.md) | A-01 | High | Review Ready | 76 | 5 | T3 readiness audit (2026-06-28) | T4 follow-up / external validation |
+| *[DOJ-006](areas/DOJ/README.md)* | *A-01* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| [DOJ-007](areas/DOJ/issues/DOJ-007.md) | A-01 | High | Review Ready | 78 | 8 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| *[DOJ-008](areas/DOJ/README.md)* | *A-01* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| [DOJ-009](areas/DOJ/issues/DOJ-009.md) | A-01 | High | Substantially Developed Draft | 74 | 6 | Change Audit (2026-06-28) | T3 readiness audit |
+| [ELEC-001](areas/ELEC/issues/ELEC-001.md) | A-02 | High | Review Ready | 77 | 6 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| [ELEC-002](areas/ELEC/issues/ELEC-002.md) | A-02 | High | Review Ready | 76 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| [ELEC-003](areas/ELEC/issues/ELEC-003.md) | A-02 | High | Review Ready | 77 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| [ELEC-004](areas/ELEC/issues/ELEC-004.md) | A-02 | High | Substantially Developed Draft | 73 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| [ELEC-005](areas/ELEC/issues/ELEC-005.md) | A-02 | High | Review Ready | 78 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| [ELEC-006](areas/ELEC/issues/ELEC-006.md) | A-02 | High | Review Ready | 76 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| [ELEC-007](areas/ELEC/issues/ELEC-007.md) | A-02 | High | Review Ready | 78 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| [ELEC-008](areas/ELEC/issues/ELEC-008.md) | A-02 | High | Substantially Developed Draft | 74 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| [ELEC-009](areas/ELEC/issues/ELEC-009.md) | A-02 | High | Substantially Developed Draft | 70 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| [ELEC-010](areas/ELEC/issues/ELEC-010.md) | A-02 | High | Review Ready | 77 | 6 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| ELEC-011 | A-02 | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
+| ELEC-012 | A-02 | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
+| [ELEC-013](areas/ELEC/issues/ELEC-013.md) | A-02 | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
+| [WAR-001](areas/WAR/issues/WAR-001.md) | A-03 | High | Review Ready | 77 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| *[WAR-002](areas/WAR/README.md)* | *A-03* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| *[WAR-003](areas/WAR/README.md)* | *A-03* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| *[WAR-004](areas/WAR/README.md)* | *A-03* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| *[WAR-005](areas/WAR/README.md)* | *A-03* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| *[WAR-006](areas/WAR/README.md)* | *A-03* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| *[WAR-007](areas/WAR/README.md)* | *A-03* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| *[WAR-008](areas/WAR/README.md)* | *A-03* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| [JUD-001](areas/JUD/issues/JUD-001.md) | A-04 | High | Review Ready | 78 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| *[JUD-002](areas/JUD/README.md)* | *A-04* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| *[JUD-003](areas/JUD/README.md)* | *A-04* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| *[JUD-004](areas/JUD/README.md)* | *A-04* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| JUD-005 | A-04 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| *[JUD-006](areas/JUD/README.md)* | *A-04* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
+| JUD-007 | A-04 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| JUD-008 | A-04 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| [JUD-009](areas/JUD/issues/JUD-009.md) | A-04 | High | Review Ready | 77 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| JUD-010 | A-04 | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
+| PAR-001 | A-05 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PAR-002 | A-05 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PAR-003 | A-05 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PAR-004 | A-05 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PAR-005 | A-05 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PAR-006 | A-05 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PAR-007 | A-05 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PAR-008 | A-05 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PAR-009 | A-05 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PAR-010 | A-05 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-001 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-002 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-003 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-004 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-005 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-006 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-007 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-008 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-009 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-010 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-011 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-012 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-013 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMOL-014 | A-06 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| [EMOL-015](areas/EMOL/issues/EMOL-015.md) | A-06 | High | Developed Draft | 60 | 1 | Initial development (2026-06-28) | T1 framework check |
+| CLASS-001 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CLASS-002 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CLASS-003 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CLASS-004 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CLASS-005 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CLASS-006 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CLASS-007 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CLASS-008 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CLASS-009 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CLASS-010 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CLASS-011 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CLASS-012 | A-07 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CIV-001 | A-08 | High | Pending development | 0 | 2 | Horizon integration decision (2026-06-25) | Issue-admission test |
+| CIV-002 | A-08 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CIV-003 | A-08 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CIV-004 | A-08 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CIV-005 | A-08 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CIV-006 | A-08 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CIV-007 | A-08 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CIV-008 | A-08 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CIV-009 | A-08 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| OVS-001 | A-09 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| OVS-002 | A-09 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| OVS-003 | A-09 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| OVS-004 | A-09 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| OVS-005 | A-09 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| OVS-006 | A-09 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| OVS-007 | A-09 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| OVS-008 | A-09 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMERG-001 | A-10 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMERG-002 | A-10 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMERG-003 | A-10 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMERG-004 | A-10 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMERG-005 | A-10 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMERG-006 | A-10 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMERG-007 | A-10 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| EMERG-008 | A-10 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FUND-001 | A-11 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FUND-002 | A-11 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FUND-003 | A-11 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FUND-004 | A-11 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FUND-005 | A-11 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FUND-006 | A-11 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FUND-007 | A-11 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FUND-008 | A-11 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| APPT-001 | A-12 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| APPT-002 | A-12 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| APPT-003 | A-12 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| APPT-004 | A-12 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| APPT-005 | A-12 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| APPT-006 | A-12 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| APPT-007 | A-12 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| APPT-008 | A-12 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REC-001 | A-13 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REC-002 | A-13 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REC-003 | A-13 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REC-004 | A-13 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REC-005 | A-13 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REC-006 | A-13 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REC-007 | A-13 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REC-008 | A-13 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| DOM-001 | A-14 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| DOM-002 | A-14 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| DOM-003 | A-14 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| DOM-004 | A-14 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| DOM-005 | A-14 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| DOM-006 | A-14 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| DOM-007 | A-14 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| DOM-008 | A-14 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| DOM-009 | A-14 | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
+| CONG-001 | A-15 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CONG-002 | A-15 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CONG-003 | A-15 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CONG-004 | A-15 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CONG-005 | A-15 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CONG-006 | A-15 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CONG-007 | A-15 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| CONG-008 | A-15 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| [IMM-001](areas/IMM/issues/IMM-001.md) | A-16 | High | Review Ready | 78 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| IMM-002 | A-16 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| IMM-003 | A-16 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| IMM-004 | A-16 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| IMM-005 | A-16 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| IMM-006 | A-16 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| IMM-007 | A-16 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| IMM-008 | A-16 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REG-001 | A-17 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REG-002 | A-17 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REG-003 | A-17 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REG-004 | A-17 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REG-005 | A-17 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REG-006 | A-17 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REG-007 | A-17 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| REG-008 | A-17 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FACT-001 | A-18 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FACT-002 | A-18 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FACT-003 | A-18 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FACT-004 | A-18 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FACT-005 | A-18 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FACT-006 | A-18 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FACT-007 | A-18 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FACT-008 | A-18 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FACT-009 | A-18 | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
+| RET-001 | A-19 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| RET-002 | A-19 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| RET-003 | A-19 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| RET-004 | A-19 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| RET-005 | A-19 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| RET-006 | A-19 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| RET-007 | A-19 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| RET-008 | A-19 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FED-001 | A-20 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FED-002 | A-20 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FED-003 | A-20 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FED-004 | A-20 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FED-005 | A-20 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FED-006 | A-20 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FED-007 | A-20 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FED-008 | A-20 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FRB-001 | A-21 | Critical | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FRB-002 | A-21 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FRB-003 | A-21 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FRB-004 | A-21 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FRB-005 | A-21 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FRB-006 | A-21 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FRB-007 | A-21 | Critical | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| FRB-008 | A-21 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-001 | A-22 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-002 | A-22 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-003 | A-22 | Critical | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-004 | A-22 | Critical | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-005 | A-22 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-006 | A-22 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-007 | A-22 | Critical | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-008 | A-22 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-009 | A-22 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-010 | A-22 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-011 | A-22 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| PRESS-012 | A-22 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| HER-001 | A-23 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| HER-002 | A-23 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| HER-003 | A-23 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| HER-004 | A-23 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| HER-005 | A-23 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| HER-006 | A-23 | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| HER-007 | A-23 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| HER-008 | A-23 | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| [RIGHTS-001](areas/RIGHTS/issues/RIGHTS-001.md) | A-24 | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
+| [RIGHTS-002](areas/RIGHTS/issues/RIGHTS-002.md) | A-24 | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
