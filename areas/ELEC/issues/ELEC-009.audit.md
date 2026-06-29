@@ -12,7 +12,51 @@ This file preserves the full audit history for [ELEC-009](ELEC-009.md). The issu
 
 ## Audit History
 
-No issue-specific audit log has been migrated from the issue page yet. The current inventory-level audit record is summarized below.
+This file now contains issue-specific audit entries and migrated inventory-level audit summaries.
+
+### 2026-06-29 — Targeted Change Audit / adoption-evidence rebaseline
+
+**Audit status:** Targeted Change Audit complete; external validation and implementation design pending
+
+**Proposal-quality score:** 73
+
+**Component score:** Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. Total: 73.
+
+**Scope reviewed:** Targeted Change Audit reviewed the issue page, amendment text, T4 audit history, dashboard row, audit inventory, source inventory, Pew 2024 polling, Gallup 2020 polling, the National Popular Vote compact status source already used by the issue page, and the methodology rules for adoption scoring, polling/public-support evidence, current-source refresh, mootness/material-reframing, source inventory, and issue-to-amendment alignment.
+
+**Current-source refresh:** Refresh performed June 29, 2026. Source categories checked included current polling/public-opinion evidence, Congress.gov/public-web leads for pending direct-election proposals, National Popular Vote compact status, existing project constitutional-amendment analogues, and the linked amendment text. No current source checked during this targeted audit made ELEC-009 moot or eliminated the Article V barrier to abolishing presidential electors.
+
+**Verified adoption findings:** Pew Research Center 2024 provides current national polling support for the underlying reform principle: selecting the President by national popular vote rather than retaining the Electoral College. Gallup 2020 is older but directly relevant to the mechanism because it asks about amending the Constitution so the national popular-vote winner becomes President. Together, these sources justify modest Adoption Score credit that was unavailable during T4.
+
+**Adoption-score rebaseline:** Adoption Score increases from 1/12 to 4/12. Credit is awarded for current national polling support, qualified mechanism-specific support, and improved explanation of the gap between national majority support and Article V viability. No credit is awarded for state-level ratification evidence because the audit has not verified state-level polling, referendum results, or compact enactments through official state sources. No full adoption-vehicle or coalition-map credit is awarded because ELEC-009 still lacks a verified sponsor pathway, state-ratification strategy, external validators, and support evidence for the draft amendment's full implementation architecture.
+
+**Proposal-quality score effect:** Proposal Quality Score increases from 70/100 to 73/100 solely because the Adoption Score increases from 1/12 to 4/12. No other component changes. The threshold band remains **Substantially Developed Draft**.
+
+**Issue-to-amendment alignment:** No material discrepancy identified. The issue page and amendment text both describe direct national election, joint tickets, abolition of presidential electors, congressional implementation authority, state administration subject to uniform federal rules, supersession of inconsistent constitutional provisions, and delayed effective date.
+
+**Adoption friction:** Adoption Friction remains 95/100 (Extreme Resistance). Polling improves the public-support record but does not reduce the Article V threshold, state-interest resistance, party-strategy resistance, federalism objections, recount and ballot-access complexity, litigation risk, or implementation burden.
+
+**Unresolved findings:** ELEC-009 still needs official or scholarly support for older historical examples; state-source verification of National Popular Vote compact enactments; current Congress.gov prior-proposal search and sponsor/co-sponsor review; compact constitutional-risk analysis; majority-mechanism selection; implementing legislation; budget/workload analogues; and qualified constitutional-law or election-law review.
+
+**Corrections made:** Updated issue front matter, Proposal Scoring, Quality Score annotation, Adoption Score annotation, audit history, audit inventory, and Audit Dashboard. Cleared `change_audit_needed` because the polling update has now been rebaselined.
+
+**Next audit need:** Run external validation or T4 follow-up after state-source compact verification, current Congress.gov prior-proposal review, implementation architecture, and qualified constitutional-law or election-law review are available.
+
+**Audit process feedback:** The targeted Change Audit was adequate for the narrow polling/adoption-score question. It should not be treated as a full T4 refresh because implementation architecture, compact verification, and external review remain unresolved.
+
+### 2026-06-29 — Polling and public-sentiment source-development update
+
+**Audit status:** Source-development note added; targeted Change Audit needed
+
+**Proposal-quality score:** 70; unchanged pending targeted Change Audit
+
+**Scope:** Added a dedicated public-opinion and adoption-evidence section to the issue page using Pew Research Center 2024 and Gallup 2020 polling. The update responds to the project need for ELEC-009 to analyze public sentiment on abolishing the Electoral College before relying on adoption scoring.
+
+**Source posture:** Pew 2024 is directly relevant to public preference for selecting the President by national popular vote. Gallup 2020 is directly relevant to the more constitutionally specific question of amending the Constitution so the national popular-vote winner becomes President. Both sources are polling evidence rather than legal authority, sponsor evidence, or state-ratification evidence.
+
+**Score effect:** No immediate score change. The new sources likely strengthen the adoption-evidence record, but they do not by themselves establish Article V viability, current sponsor strength, state-ratification capacity, external validator support, or support for this draft amendment's full implementation architecture. Adoption Score remains 1/12 and Adoption Friction remains 95/100 until a targeted Change Audit decides whether rebaseline is warranted.
+
+**Next audit need:** Run a targeted Change Audit / adoption-evidence rebaseline before treating ELEC-009's score as fully current. The audit should verify polling question wording, sample and date posture, partisan and independent splits, trend context, relevance to the draft amendment's specific architecture, and whether the adoption component should increase modestly.
 
 ### 2026-06-24 — Initial framework and inventory audit
 

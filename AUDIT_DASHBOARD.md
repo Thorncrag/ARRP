@@ -49,7 +49,7 @@ Update this page whenever an audit changes an issue's compact dashboard fields: 
 | [ELEC-006](areas/ELEC/issues/ELEC-006.md) | A-02 / ELEC | High | Review Ready | 76 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
 | [ELEC-007](areas/ELEC/issues/ELEC-007.md) | A-02 / ELEC | High | Review Ready | 78 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
 | [ELEC-008](areas/ELEC/issues/ELEC-008.md) | A-02 / ELEC | High | Substantially Developed Draft | 74 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
-| [ELEC-009](areas/ELEC/issues/ELEC-009.md) | A-02 / ELEC | High | Substantially Developed Draft | 70 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
+| [ELEC-009](areas/ELEC/issues/ELEC-009.md) | A-02 / ELEC | High | Substantially Developed Draft | 73 | 6 | Change Audit (2026-06-29) | External validation / T4 follow-up |
 | [ELEC-010](areas/ELEC/issues/ELEC-010.md) | A-02 / ELEC | High | Review Ready | 77 | 6 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
 | ELEC-011 | A-02 / ELEC | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
 | ELEC-012 | A-02 / ELEC | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |

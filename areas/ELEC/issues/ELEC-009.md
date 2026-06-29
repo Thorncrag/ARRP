@@ -7,15 +7,17 @@ priority: high
 remedy_type: constitutional-amendment
 legislative_status: working-draft
 constitutional_proposal: "../../../legislation/ELEC-009-amendment.md"
-audit_status: "T4 publication-ready audit complete; external validation and implementation design pending"
-audit_score: 70
-audit_last_type: "T4 publication-ready audit"
-audit_last_date: "2026-06-28"
+audit_status: "Targeted Change Audit complete; external validation and implementation design pending"
+audit_score: 73
+audit_last_type: "Change Audit"
+audit_last_date: "2026-06-29"
 audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
-adoption_score: 1
-adoption_score_band: "Weak Adoption Basis"
+change_audit_needed: false
+change_audit_reason: ""
+adoption_score: 4
+adoption_score_band: "Limited Adoption Basis"
 adoption_friction_score: 95
 adoption_friction_band: "Extreme Resistance"
 required_electoral_environment: "constitutional-amendment-environment"
@@ -92,6 +94,16 @@ Recent congressional direct-election proposals confirm that ELEC-009 has direct 
 
 The Electoral Count Reform Act improved counting procedures but left the Electoral College structure intact. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). ELEC-009 treats compact and allocation reforms as possible interim models but selects constitutional replacement as the durable remedy.
 
+## Public Opinion and Adoption Evidence
+
+Available polling shows a durable national preference for selecting the President by national popular vote, but also a serious adoption gap between abstract public support and the Article V coalition required to abolish presidential electors. In September 2024, Pew Research Center reported that 63 percent of U.S. adults preferred the presidential winner to be the person receiving the most votes nationally, while 35 percent preferred retaining the Electoral College. Pew also reported a large partisan divide: 80 percent of Democrats and Democratic-leaning independents favored a popular-vote system, while Republicans and Republican leaners were more divided, with 46 percent favoring replacement and 53 percent favoring retention. See Pew Research Center, [*Majority of Americans continue to favor moving away from Electoral College*](https://www.pewresearch.org/short-reads/2024/09/25/majority-of-americans-continue-to-favor-moving-away-from-electoral-college/).
+
+Gallup's September 2020 polling asked the more constitutionally specific question whether respondents preferred amending the Constitution so the candidate receiving the most total votes nationwide wins. Gallup found 61 percent support and 38 percent opposition overall, with 89 percent support among Democrats, 68 percent among independents, and 23 percent among Republicans. Gallup also reported that support for replacing the Electoral College with a national popular vote usually remained at majority levels in its post-2000 polling, but fell to 49 percent immediately after the 2016 election, reflecting how public attitudes can shift with partisan incentives and recent electoral outcomes. See Gallup, [*61% of Americans Support Abolishing Electoral College*](https://news.gallup.com/poll/320744/americans-support-abolishing-electoral-college.aspx).
+
+This evidence strengthens the public-legitimacy case for ELEC-009: support for a national popular-vote rule is not merely an elite or academic preference. It also clarifies the adoption problem. National majority support does not translate into Article V viability because ratification requires geographically distributed state support, and the polling shows substantial partisan asymmetry. ELEC-009 should therefore distinguish three questions: whether the public generally prefers a national popular vote; whether voters support a specific constitutional amendment with implementation details; and whether enough states and congressional actors would support ratification despite expected partisan and state-interest resistance.
+
+For scoring purposes, the targeted Change Audit treats this polling as sufficient for modest adoption-credit improvement. The evidence is directly relevant to popular-vote reform, and Gallup's 2020 question is specifically relevant to a constitutional-amendment mechanism, but the record still does not establish support for this draft amendment's full architecture, including plurality default, congressional power to create a runoff or ranked-choice mechanism, uniform national administration, state-administered implementation, recount rules, ballot-access rules, or contest procedures.
+
 ## Least-Complex Adequate Remedy
 
 The most durable method of guaranteeing that the national popular-vote winner becomes President is a constitutional amendment establishing direct national popular election. Article V requires proposal by two-thirds of both houses of Congress or a convention called on application of two-thirds of state legislatures, followed by ratification by three-fourths of the states or state conventions. See [Article V](https://constitution.congress.gov/browse/article-5/). That remedy is legally clear but politically difficult and requires detailed national rules governing recounts, ballot access, dispute resolution, certification, and election administration.
@@ -133,11 +145,11 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[70 / 100](ELEC-009.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 1 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 95 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `constitutional-amendment-environment`<br />**Development Priority:** `conditional`
+> **Proposal Quality Score:** **[73 / 100](ELEC-009.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 95 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `constitutional-amendment-environment`<br />**Development Priority:** `conditional`
 >
 > —
 >
-> **Audit Status:** T4 publication-ready audit complete; external validation and implementation design pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-009 audit history](ELEC-009.audit.md)
+> **Audit Status:** Targeted Change Audit complete; external validation and implementation design pending<br />**Last Audit:** Change Audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-009 audit history](ELEC-009.audit.md)
 
 ## Annotation
 
@@ -151,9 +163,9 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 
 **Implementation Required.** The amendment must be paired with implementing legislation for national certification, recount thresholds, contest procedures, ballot access, candidate replacement, tie resolution, transition access, and emergency contingencies.
 
-**Quality Score.** The proposal is 70/100 after T4. Component score: Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 1/12; Project Integration 4/4; External Review 0/4. T4 verifies the 2000 and 2016 modern divergence examples through official FEC records and confirms direct congressional amendment analogues, but older historical examples, state-by-state compact verification, compact legality, majority-mechanism selection, implementing legislation, and external constitutional-law or election-law review remain unresolved.
+**Quality Score.** The proposal is 73/100 after the June 29, 2026 targeted Change Audit. Component score: Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. The score increased because Pew 2024 and Gallup 2020 provide cited, source-inventoried public-support evidence for national popular-vote reform and constitutional-amendment framing. The proposal remains below Review Ready because older historical examples, state-by-state compact verification, compact legality, majority-mechanism selection, implementing legislation, budget/workload analogues, and external constitutional-law or election-law review remain unresolved.
 
-**Adoption Score.** Adoption Score is 1/12 because the proposal correctly identifies that a constitutional amendment is required, but the audit record does not identify a realistic ratification coalition, proposal-specific polling, current congressional sponsor base, state-ratification pathway, or external validator support for direct national presidential election.
+**Adoption Score.** Adoption Score is 4/12 (Limited Adoption Basis). Pew 2024 supports the underlying national-popular-vote reform principle with current national polling. Gallup 2020 is older but remains probative because it asks the more mechanism-specific question whether the Constitution should be amended so the national popular-vote winner becomes President. The adoption record remains limited because the project has not identified state-level ratification evidence, current sponsor strength, a verified bipartisan Article V path, external validator support, or public support for this draft amendment's full implementation architecture.
 
 **Adoption Friction.** Adoption Friction is 95/100 (Extreme Resistance) because the proposal would abolish presidential electors, alter presidential-selection incentives nationwide, require Article V ratification, affect state and party strategic interests, require extensive implementing legislation, and invite intense federalism, partisan, administrative, recount, and ballot-access objections.
 
