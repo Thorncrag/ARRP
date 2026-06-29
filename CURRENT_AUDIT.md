@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Active |
-| Active issue/task | ELEC-011 — Algorithmic Redistricting Baseline and Representation Safeguards |
-| Audit type/tier | T2 development audit |
-| Started | 2026-06-29 09:05:28 -0400 |
-| Last checkpoint | 2026-06-29 09:19:57 -0400 |
-| User request | Continue the prior ELEC-011 T2 audit after chat context filled; recover the full developed ELEC-011 proposal and legislation that were missing from the older local checkout. |
-| Scope | T2 development audit for the developed ELEC-011 package: issue page, model State act, reserve constitutional amendment, reserve Federal enabling act, audit sidecar, dashboard/inventory/source records. |
-| Files touched | `CURRENT_AUDIT.md`; handoff-rule files from safeguard change; restored committed ELEC-011 and ELEC-009 remote-tracking files from `origin/main` into the working tree. |
-| Completed steps | Recovered full ELEC-011 developed package from `origin/main` commit `57bf267`; recovered preceding ELEC-009 adoption audit from `origin/main` commit `c5309c1`; fast-forwarded local `main` to `origin/main`; confirmed legislation files exist for `ELEC-011.md`, `ELEC-011-state.md`, and `ELEC-011-amendment.md`. |
-| Next step | Continue ELEC-011 T2 development audit from restored state: verify Iowa statutory mechanics, state VRA models, algorithmic districting literature, anti-mid-decade rules, judicial fallback authority, constitutional fit, public-support evidence, and implementation burden. |
-| Blockers/questions | None for recovery. Handoff-system changes are ready to commit and push before the ELEC-011 T2 audit continues. |
-| Validation status | `git diff --check` passed after recovery and handoff updates. |
+| Active issue/task | FUND-001 — Executive-Order Abuse Through Impoundment |
+| Audit type/tier | Initial development / T1 framework check |
+| Started | 2026-06-29 |
+| Last checkpoint | 2026-06-29 |
+| User request | Formulate the executive-order abuse safety-valve concept as discussed, with an impoundment-based mechanism and a name centered on abuse of executive orders. |
+| Scope | Develop `FUND-001` issue page, proposed legislation, audit sidecar, dashboard row, area README, legislation README, inventories, and initial source records. |
+| Files touched | `CURRENT_AUDIT.md`; `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `legislation/FUND-001.md`; dashboard and inventory files. |
+| Completed steps | Identified `FUND-001` as the best home; created issue page, audit sidecar, and draft Executive-Order Abuse Impoundment Control Act; updated dashboard, area README, legislation README, inventory rows, and initial source records; cross-referenced `FUND-002`, `FUND-003`, `FUND-004`, `EMERG-002`, `CONG-008`, `FED-003`, and `JUD-001`. |
+| Next step | Run T2 development audit: verify Impoundment Control Act mechanics, GAO enforcement authority, OMB apportionment rules, Train, Youngstown, Chadha, Franklin, Dalton, standing, three-judge-court routing, emergency exceptions, congressional-plaintiff options, state/grantee standing, prior bills, public-support evidence, and administrative burden. |
+| Blockers/questions | None. |
+| Validation status | CSV parse, local-link check, and `git diff --check` passed after initial development. |
 
 ## Handoff Rules
 

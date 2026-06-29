@@ -21,8 +21,8 @@ Update this page whenever an audit changes an issue's compact dashboard fields: 
 | Band | Count |
 | --- | ---: |
 | Total issues tracked | 214 (13 retired)|
-| Undeveloped | 179 |
-| Drafts below Review Ready | 5 |
+| Undeveloped | 178 |
+| Drafts below Review Ready | 6 |
 | Review Ready | 16 |
 | Paused | 1 |
 
@@ -134,7 +134,7 @@ Update this page whenever an audit changes an issue's compact dashboard fields: 
 | EMERG-006 | A-10 / EMERG | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | EMERG-007 | A-10 / EMERG | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | EMERG-008 | A-10 / EMERG | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
-| FUND-001 | A-11 / FUND | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| [FUND-001](areas/FUND/issues/FUND-001.md) | A-11 / FUND | Medium | Developed Draft | 60 | 2 | Initial development and T1 framework check (2026-06-29) | T2 development audit |
 | FUND-002 | A-11 / FUND | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | FUND-003 | A-11 / FUND | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | FUND-004 | A-11 / FUND | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |

@@ -112,7 +112,7 @@ A-10.006,Issue,A-10,EMERG-006,Indefinite renewal of emergencies,High,Candidate,a
 A-10.007,Issue,A-10,EMERG-007,Insufficiently specific factual findings,High,Candidate,areas/EMERG/README.md,,
 A-10.008,Issue,A-10,EMERG-008,Delayed or deferential judicial review,High,Candidate,areas/EMERG/README.md,,
 A-11,Area,A-11,,Congressional Power of the Purse and Impoundment,,Active,areas/FUND/README.md,,Provisional inventory; full source development pending.
-A-11.001,Issue,A-11,FUND-001,Unlawful impoundment,Medium,Candidate,areas/FUND/README.md,,
+A-11.001,Issue,A-11,FUND-001,Executive-Order Abuse Through Impoundment,Medium,Developed,areas/FUND/issues/FUND-001.md,legislation/FUND-001.md,"Initial issue page and draft Executive-Order Abuse Impoundment Control Act created; T2 development audit needed."
 A-11.002,Issue,A-11,FUND-002,Pocket rescissions and strategic delay,Medium,Candidate,areas/FUND/README.md,,
 A-11.003,Issue,A-11,FUND-003,Agency closure or program nullification through nonspending,Medium,Candidate,areas/FUND/README.md,,
 A-11.004,Issue,A-11,FUND-004,Politically selective withholding of grants or aid,Medium,Candidate,areas/FUND/README.md,,
