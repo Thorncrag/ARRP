@@ -1117,3 +1117,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `ff354f4` to roll back this issue unit. |
 | Blockers/skipped checks | No blocker. Score raised to 78 Review Ready after deeper official-source verification of H.J.Res. 193 and source-status cleanup; external constitutional-law or legislative-counsel review, implementation legislation, Article V adoption evidence, and official-source confirmation of any Senate statutory analogue remain pending. |
+
+### 2026-07-01 — DOJ-009 — T3 readiness audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-01 14:16:57 -0400 |
+| Run/agent | Codex single-issue audit |
+| Issue/task | DOJ-009 |
+| Issue page | [Issue](../areas/DOJ/issues/DOJ-009.md) |
+| Audit history | [Audit](../areas/DOJ/issues/DOJ-009.audit.md) |
+| Proposal page | [Bill](../legislation/DOJ-009.md) |
+| Tier | T3 readiness audit |
+| Files changed | `areas/DOJ/issues/DOJ-009.md`; `areas/DOJ/issues/DOJ-009.audit.md`; `legislation/DOJ-009.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`; `exports/pdf/ARRP-public-proposal-draft.pdf` |
+| Validation | CSV parse for `sources.csv`; local Markdown link check; `git diff --check` excluding generated PDF binary; GitHub Project row verification for issue #28; compiled PDF rebuild |
+| Commit | `Run DOJ-009 T3 audit` (`2883c35`) |
+| Push status | Pushed to `origin/main` with follow-up agent-log commit |
+| Rollback notes | Revert `2883c35` and the follow-up log commit to roll back this issue unit. |
+| Blockers/skipped checks | No blocker to preserving T3. Score stayed 74/100 because qualified legal/legislative-counsel review, exhaustive prior-proposal search, professional-association review, historical licensure sampling, and proposal-specific support evidence remain unresolved. |
