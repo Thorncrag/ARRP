@@ -214,7 +214,7 @@ Agent-assisted audit and autonomous batch-audit operating rules are maintained i
 
 Autonomous-agent commit provenance and rollback references are maintained in [`framework/AGENT_AUDIT_LOG.md`](framework/AGENT_AUDIT_LOG.md).
 
-The compact project-wide audit tracker is maintained in [`framework/AUDIT_DASHBOARD.md`](framework/AUDIT_DASHBOARD.md).
+Project-wide workflow, audit-status, and release-triage fields are maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2).
 
 The cumulative Change Audit history is maintained in [`framework/CHANGE_AUDIT_LOG.md`](framework/CHANGE_AUDIT_LOG.md).
 

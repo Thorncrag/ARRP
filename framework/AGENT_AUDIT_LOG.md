@@ -6,7 +6,7 @@ print_levels:
 
 # ARRP Agent Audit Log
 
-This file records autonomous-agent audit runs, commits, push status, blockers, and rollback references. It is an operational provenance log for agent work. It does not replace issue audit histories, [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md), GitHub Project tracking, or [`inventory/sources.csv`](../inventory/sources.csv).
+This file records autonomous-agent audit runs, commits, push status, blockers, and rollback references. It is an operational provenance log for agent work. It does not replace issue audit histories, GitHub Project tracking, or [`inventory/sources.csv`](../inventory/sources.csv).
 
 Entries should be append-only. If a bad autonomous edit is later reverted, add a new entry identifying the revert commit and the original commit it reverses.
 

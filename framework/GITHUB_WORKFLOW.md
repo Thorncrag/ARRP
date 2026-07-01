@@ -25,7 +25,7 @@ Use GitHub Project fields as the authoritative structured workflow metadata:
 - `Priority` records the current project priority.
 - `Release blocker` records whether the item blocks the active release.
 - `Status` records lifecycle and workflow position.
-- `Score`, `Runs`, `Last audit`, and `Next audit` provide compact audit-dashboard summaries.
+- `Score`, `Runs`, `Last audit`, and `Next audit` provide compact audit-status summaries.
 - `Rebaseline status` records whether the proposal score is current under the governing rubric or needs a soft/hard rebaseline.
 - `Change audit needed` records whether a developed proposal has an unresolved targeted Change Audit / Internal Remedy-Fit Audit marker.
 - `Canonical page` links to the repository page or GitHub issue that carries the authoritative substance or active intake record.

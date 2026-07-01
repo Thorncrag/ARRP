@@ -6,11 +6,11 @@ print_levels:
 
 # ARRP Agent Operating Rules
 
-This file governs agent-assisted maintenance, audit execution, and autonomous batch-audit work. It does not replace the project framework or methodology. Agents must begin from [`FRAMEWORK.md`](FRAMEWORK.md), then follow [`METHODOLOGY.md`](METHODOLOGY.md), [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md), the relevant issue page, the linked proposed legislation, and the issue's audit-history file.
+This file governs agent-assisted maintenance, audit execution, and autonomous batch-audit work. It does not replace the project framework or methodology. Agents must begin from [`FRAMEWORK.md`](FRAMEWORK.md), then follow [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), the relevant issue page, the linked proposed legislation, and the issue's audit-history file.
 
 Autonomous run provenance is maintained in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). Each autonomous batch unit should record its commits there.
 
-Active long-running audit handoff state is maintained in [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md). Before resuming from a vague instruction such as "continue," "follow up," or "resume the audit," agents must read that file and use it as the active-task pointer. If `CURRENT_AUDIT.md` is inactive, stale, missing, or inconsistent with the user's latest instruction, ask for the active issue or task instead of inferring from recent commits, dashboard rows, or nearby audit markers.
+Active long-running audit handoff state is maintained in [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md). Before resuming from a vague instruction such as "continue," "follow up," or "resume the audit," agents must read that file and use it as the active-task pointer. If `CURRENT_AUDIT.md` is inactive, stale, missing, or inconsistent with the user's latest instruction, ask for the active issue or task instead of inferring from recent commits, GitHub Project rows, or nearby audit markers.
 
 ## Purpose
 
@@ -51,7 +51,7 @@ The checkpoint should identify:
 8. validation status; and
 9. whether work is active, paused, blocked, complete, or inactive.
 
-When a user opens a new chat and asks to continue prior work, read `CURRENT_AUDIT.md` before inspecting recent commits or dashboard rows. Do not infer the active issue from the newest local commit, the most recent dashboard marker, or unrelated uncommitted changes. If no active checkpoint exists, ask the user which issue or task to continue.
+When a user opens a new chat and asks to continue prior work, read `CURRENT_AUDIT.md` before inspecting recent commits or GitHub Project rows. Do not infer the active issue from the newest local commit, the most recent Project marker, or unrelated uncommitted changes. If no active checkpoint exists, ask the user which issue or task to continue.
 
 When the task is complete, clear `CURRENT_AUDIT.md` back to inactive or leave a final paused checkpoint if the user intends to resume later.
 
@@ -62,11 +62,11 @@ Issue-quality audits are single-issue workflows by default. An agent should not 
 Before running a T-audit, an agent must identify:
 
 1. the issue ID;
-2. the requested tier or the next tier shown by the dashboard;
+2. the requested tier or the next tier shown by GitHub Project fields or the issue page;
 3. the issue page;
 4. the linked legislation page or pages;
 5. the sibling audit-history file;
-6. the relevant GitHub Project item and compact dashboard row;
+6. the relevant GitHub Project item;
 7. the relevant `sources.csv` rows; and
 8. any unresolved findings from the latest audit.
 
@@ -84,7 +84,7 @@ Before starting an autonomous batch run, the agent must:
 
 1. confirm the working tree is clean, or stop and report the existing uncommitted files without beginning new audit work;
 2. confirm the current branch and remote target are understood;
-3. confirm the repository can read the latest local project rules, including this file, [`FRAMEWORK.md`](FRAMEWORK.md), [`METHODOLOGY.md`](METHODOLOGY.md), [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md), [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md), [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md);
+3. confirm the repository can read the latest local project rules, including this file, [`FRAMEWORK.md`](FRAMEWORK.md), [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md), [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md);
 4. check the latest relevant audit record before each issue and skip any issue with unresolved human-review blockers unless the user has expressly authorized proceeding; and
 5. if the run is scheduled inside a defined work window, confirm that the first planned unit can reasonably fit inside the remaining window.
 
@@ -94,24 +94,24 @@ If the preflight fails, do not begin autonomous edits. Record the reason in [`AG
 
 By default, include only developed issues with issue pages and linked proposal vehicles. Exclude retired, merged, candidate, pending-development, paused, or awaiting-finding issues unless the user expressly includes them.
 
-Process issues in the GitHub Project queue unless the user gives a different queue. Use [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md) as the compact audit-score and next-audit reference, not as the authoritative workflow queue.
+Process issues in the GitHub Project queue unless the user gives a different queue. Use issue-page metadata and audit-history sidecars as the detailed audit-score and next-audit record.
 
 ### Tier Progression
 
 For each issue:
 
-1. read the latest issue page, linked legislation, sibling audit history, GitHub Project item, compact dashboard row, and relevant source records;
+1. read the latest issue page, linked legislation, sibling audit history, GitHub Project item, and relevant source records;
 2. determine the next required audit tier;
 3. run only the next appropriate tier unless the prior tier completes cleanly and the next tier is clearly mechanical or already authorized;
 4. stop tier progression for that issue if a material unresolved finding requires human review;
-5. update the issue page, audit-history file, compact dashboard row/snapshot counts, GitHub Project fields, and source records;
+5. update the issue page, audit-history file, GitHub Project fields, and source records;
 6. validate the changed files;
 7. commit and push the completed issue audit; and
 8. move to the next eligible issue.
 
 An agent should not spend the entire autonomous run trying to perfect one issue. If an issue reaches a blocker, document it, preserve it, and proceed.
 
-If an agent adds or materially changes a source, manifestation, institutional framing, damage theory, weakness theory, remedy language, repair/prevention language, or proposal vehicle for a developed issue without running the targeted Change Audit required by the methodology, the agent must mark the issue as needing a targeted Change Audit and Internal Remedy-Fit Audit before treating the score as fully current. The marker should appear in issue front matter, the visible Proposal Scoring or Next Audit line, the issue audit-history file, the compact dashboard row, and any corresponding GitHub Project field.
+If an agent adds or materially changes a source, manifestation, institutional framing, damage theory, weakness theory, remedy language, repair/prevention language, or proposal vehicle for a developed issue without running the targeted Change Audit required by the methodology, the agent must mark the issue as needing a targeted Change Audit and Internal Remedy-Fit Audit before treating the score as fully current. The marker should appear in issue front matter, the visible Proposal Scoring or Next Audit line, the issue audit-history file, and any corresponding GitHub Project field.
 
 ### Permitted Autonomous Corrections
 
@@ -119,7 +119,7 @@ In batch mode, agents may autonomously fix defects that are mechanical, framewor
 
 1. broken internal links;
 2. missing audit metadata;
-3. compact dashboard, GitHub Project field, and retained source-inventory inconsistencies;
+3. GitHub Project field and retained source-inventory inconsistencies;
 4. missing or stale source-inventory capture;
 5. missing Proposal Scoring fields required by the current template;
 6. missing audit-history entries;
@@ -144,13 +144,13 @@ In batch mode, agents must document and stop work on the affected issue before m
 10. increasing a score based on judgment rather than documented audit findings; or
 11. marking a proposal as proposal-ready, publication-ready, or externally validated without the required record.
 
-When a stop condition appears, record the finding in the issue's audit-history file, update the compact audit status and next-audit need, commit and push if files changed, and move on.
+When a stop condition appears, record the finding in the issue's audit-history file, update the issue-page audit status, next-audit need, and GitHub Project fields, commit and push if files changed, and move on.
 
 ## Multi-Agent Use
 
 Multiple agents may be used only for separable work with non-overlapping responsibilities. Examples include:
 
-1. one agent checking source sufficiency while another checks dashboard/CSV consistency;
+1. one agent checking source sufficiency while another checks GitHub Project/source-inventory consistency;
 2. one agent surveying prior legislation while another checks issue-to-legislation alignment; or
 3. one agent validating links while another prepares a narrow issue-page cleanup.
 
@@ -177,11 +177,10 @@ Each completed issue audit should leave:
 
 1. updated issue-page Proposal Scoring and metadata;
 2. a new sibling audit-history entry;
-3. updated compact dashboard row and snapshot counts where applicable;
-4. updated GitHub Project fields where applicable;
-5. updated `sources.csv` for sources used for audit credit;
-6. validation notes; and
-7. a commit pushed to GitHub.
+3. updated GitHub Project fields where applicable;
+4. updated `sources.csv` for sources used for audit credit;
+5. validation notes; and
+6. a commit pushed to GitHub.
 
 If validation cannot be completed because of a tool or environment failure, preserve the work if possible, record the skipped check, and notify the user.
 
@@ -198,18 +197,17 @@ If no validation script exists, perform a manual validation checklist before mar
 1. confirm changed Markdown files render structurally and contain no obvious broken local links;
 2. confirm issue front matter matches the visible Proposal Scoring section;
 3. confirm the sibling audit-history file contains a new entry for the completed audit;
-4. confirm the issue page, sibling audit-history file, compact row fields in [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md), and GitHub Project fields agree where they overlap;
+4. confirm the issue page, sibling audit-history file, and GitHub Project fields agree where they overlap;
 5. confirm [`inventory/sources.csv`](../inventory/sources.csv) parses and includes any source used for audit credit;
-6. confirm dashboard snapshot counts changed when relevant;
-7. run a whitespace or formatting check where available;
-8. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md); and
-9. confirm no unintended files remain changed for that unit.
+6. run a whitespace or formatting check where available;
+7. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md); and
+8. confirm no unintended files remain changed for that unit.
 
 If a validation check is skipped, record the skipped check and reason in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md), in the issue audit history when relevant, or in the final user-facing report. A unit should not be marked complete if validation fails, except when the only failure is an explicitly documented environment or tooling limitation and the work has been preserved for human review.
 
 ## Agent Audit Log
 
-Autonomous batch mode must maintain an independent agent audit log in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). This log is for operational provenance and rollback planning. It should not replace issue audit histories, the Audit Dashboard, GitHub Project tracking, or source records. The Audit Dashboard should link to this log from its Quick Jump box, but agent-run details belong here rather than on the dashboard.
+Autonomous batch mode must maintain an independent agent audit log in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). This log is for operational provenance and rollback planning. It should not replace issue audit histories, GitHub Project tracking, or source records.
 
 For each autonomous issue unit, record:
 

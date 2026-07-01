@@ -10,7 +10,7 @@ This page is the canonical disposition log for Horizon Scan audits. It preserves
 
 The active horizon queue is maintained through GitHub Issues and the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). This page should preserve the historical and substantive disposition record; GitHub should carry active status, area, workstream, assignment, filtering, milestone, source-development needs, and contributor-discussion workflow.
 
-[Audit Dashboard](AUDIT_DASHBOARD.md) remains the compact scoring and audit-status dashboard. Horizon candidate adjudication rules are maintained in [Project Methodology](METHODOLOGY.md#horizon-candidate-adjudication-workflow).
+Horizon candidate adjudication rules are maintained in [Project Methodology](METHODOLOGY.md#horizon-candidate-adjudication-workflow).
 
 ## Horizon Integration Log
 

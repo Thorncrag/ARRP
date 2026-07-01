@@ -12,15 +12,15 @@ GitHub Projects is the authoritative structured tracker for areas, issues, lifec
 
 The historical GitHub import ledger, [`github_issue_import.csv`](github_issue_import.csv), is retained only to preserve migration provenance. Columns prefixed with `Legacy` preserve the values used during the original import and should not be treated as current workflow metadata. It is not the live area, issue, priority, status, label, or release-blocker tracker. Current values belong in GitHub Project fields.
 
-The project-wide human-readable audit tracker is [`../framework/AUDIT_DASHBOARD.md`](../framework/AUDIT_DASHBOARD.md). It summarizes audit posture for meta-analysis and should be refreshed whenever an audit changes issue score, status band, run count, last audit type and date, next audit need, issue link, area, priority, or snapshot counts. Detailed audit fields remain in issue pages and issue audit histories.
+GitHub Project fields summarize audit posture for meta-analysis and should be refreshed whenever an audit changes issue score, status band, run count, last audit type and date, next audit need, issue link, area, priority, rebaseline status, change-audit need, or release posture. Detailed audit fields remain in issue pages and issue audit histories.
 
-The Change Audit history is [`../framework/CHANGE_AUDIT_LOG.md`](../framework/CHANGE_AUDIT_LOG.md). It records project-wide rubric, template, scoring, and structural-consistency changes separately from the compact dashboard.
+The Change Audit history is [`../framework/CHANGE_AUDIT_LOG.md`](../framework/CHANGE_AUDIT_LOG.md). It records project-wide rubric, template, scoring, and structural-consistency changes separately from GitHub Project workflow fields.
 
-The Agent Audit Log is [`../framework/AGENT_AUDIT_LOG.md`](../framework/AGENT_AUDIT_LOG.md). It records autonomous-agent commits, validation, blockers, and rollback references separately from the compact dashboard.
+The Agent Audit Log is [`../framework/AGENT_AUDIT_LOG.md`](../framework/AGENT_AUDIT_LOG.md). It records autonomous-agent commits, validation, blockers, and rollback references separately from GitHub Project workflow fields.
 
-Project methodology, audit rules, scoring rules, and dashboard update rules are maintained in [`../framework/METHODOLOGY.md`](../framework/METHODOLOGY.md).
+Project methodology, audit rules, scoring rules, and GitHub Project update rules are maintained in [`../framework/METHODOLOGY.md`](../framework/METHODOLOGY.md).
 
-The Horizon Scan Log is [`../framework/HORIZON_SCAN_LOG.md`](../framework/HORIZON_SCAN_LOG.md). It preserves adjudicated `HOR-###` disposition history separately from the audit-score dashboard and the active GitHub horizon queue.
+The Horizon Scan Log is [`../framework/HORIZON_SCAN_LOG.md`](../framework/HORIZON_SCAN_LOG.md). It preserves adjudicated `HOR-###` disposition history separately from the active GitHub horizon queue.
 
 ## Project Tracking Scope
 
@@ -30,9 +30,9 @@ Area and issue tracking now lives in the [ARRP GitHub Project](https://github.co
 
 The proposal-quality score is a provisional planning value, not a claim that the issue is publication-ready or externally validated. Audit runs may support a higher score only when the audit resolves findings, broadens review, verifies sources, improves legal fit, improves drafting, or strengthens adoption prospects.
 
-`AUDIT_DASHBOARD.md` is the compact reader-facing dashboard for cross-issue audit status. It should contain only the snapshot counts, Quick Jump links, and compact issue audit index. It should not replace issue-page Proposal Scoring summaries, sibling audit-history sidecars, GitHub Project tracking, or separate Change/Horizon/Agent logs.
+GitHub Project fields are the compact reader-facing tracker for cross-issue audit status and release triage. They should not replace issue-page Proposal Scoring summaries, sibling audit-history sidecars, or separate Change/Horizon/Agent logs.
 
-`CHANGE_AUDIT_LOG.md` is the cumulative reader-facing tracker for Change Audit history. It should not replace issue-page audit histories, GitHub Project status fields, or dashboard score/status summaries.
+`CHANGE_AUDIT_LOG.md` is the cumulative reader-facing tracker for Change Audit history. It should not replace issue-page audit histories or GitHub Project status fields.
 
 `HORIZON_SCAN_LOG.md` is the cumulative reader-facing log for Horizon Scan findings and integration decisions. It should not replace issue-page source development, audit histories, GitHub Project tracking, or retained source records once a horizon item is admitted, merged, or retired.
 

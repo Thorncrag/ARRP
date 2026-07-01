@@ -14,7 +14,6 @@ framework/                         Governing methodology, tracking logs, and ope
   PRINT_ASSEMBLY.md                Print/export assembly rules
   GITHUB_WORKFLOW.md               GitHub Issues/Projects workflow rules
   AGENT_OPERATING_RULES.md         Agent-assisted audit and batch-audit rules
-  AUDIT_DASHBOARD.md               Compact audit snapshot and issue audit index
   CURRENT_AUDIT.md                 Current long-running audit handoff checkpoint
   CHANGE_AUDIT_LOG.md              Cumulative project-wide Change Audit history
   HORIZON_SCAN_LOG.md              Cumulative horizon-scan disposition and integration log
@@ -40,6 +39,6 @@ archive/                           Superseded or migrated source snapshots
 - GitHub Projects is the authoritative area, issue, status, milestone, roadmap, and horizon-queue tracker.
 - Source records in `inventory/sources.csv` may be associated with issues, areas, framework files, research files, or project-level pages.
 - GitHub Project items/fields, retained source inventory, audit-history sidecars, and affected Markdown pages should be updated in the same change that adds, removes, renames, merges, retires, or materially revises an area, issue, legislative proposal, audit status, or cited source.
-- `framework/AUDIT_DASHBOARD.md` is compact and should not duplicate detailed scoring, Horizon Scan, Change Audit, or Agent Audit Log content.
+- GitHub Project fields provide the compact cross-issue workflow, audit-status, and release-triage view.
 - `framework/CURRENT_AUDIT.md` is the active handoff checkpoint for long audits and should be read before resuming vague follow-up instructions.
 - Audit rules and scoring live in `METHODOLOGY.md`; print assembly rules live in `PRINT_ASSEMBLY.md`; remedy categories and trigger stages live in `REMEDY_FRAMEWORK.md`.
