@@ -30,7 +30,7 @@ The authoritative project-tracking surfaces are:
 6. Development status should use the GitHub Project `Status` field lifecycle options.
 7. Every developed proposal issue should carry audit front matter, a visible **Proposal Scoring** summary, and a sibling audit-history file.
 8. GitHub Project, source inventory, dashboard, and page updates should be made in the same change as the substantive project update that requires them.
-9. GitHub Project fields, not labels or issue-body metadata, are authoritative for `Area`, `Workstream`, `Priority`, `Release blocker`, `Status`, `Score`, `Runs`, `Last audit`, `Next audit`, `Canonical page`, and parent/sub-issue tracking.
+9. GitHub Project fields, not labels or issue-body metadata, are authoritative for `Area`, `Workstream`, `Priority`, `Release blocker`, `Status`, `Score`, `Runs`, `Last audit`, `Next audit`, `Rebaseline status`, `Change audit needed`, `Canonical page`, and parent/sub-issue tracking.
 10. Labels should be limited to issue kind or temporary triage that is not already represented by a Project field.
 
 ## Project-Update Checklist
@@ -40,7 +40,7 @@ When updating the project, check whether the change requires inventory maintenan
 1. If an area is added, renamed, retired, or materially reframed, update the GitHub Project area field/options and the relevant area README/index pages.
 2. If an issue is added, renamed, promoted, retired, merged, moved, or given a new development status, update the GitHub Project item/fields and the relevant area README.
 3. If proposed legislation, proposed constitutional amendment text, proposed enabling legislation, or another proposal vehicle is added, renamed, or removed, update the issue page, legislation index, and GitHub Project canonical-page/status fields as applicable.
-4. If an issue is audited, promoted, paused, retired, merged, given legislation, or materially revised, update the issue-page audit front matter, the issue-page **Proposal Scoring** summary, the sibling `ISSUE-ID.audit.md` audit-history file, the GitHub Project item or fields, and [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md). The dashboard is intentionally compact: update only the affected row's issue link, area, priority, status band, score, run count, last audit with date, next audit, and any changed snapshot counts. Detailed fields such as score basis, rubric version, rebaseline status, Required Electoral Environment, Development Priority, Adoption Friction, legislation path, and notes belong in the issue page and audit-history sidecar, not as separate dashboard columns.
+4. If an issue is audited, promoted, paused, retired, merged, given legislation, or materially revised, update the issue-page audit front matter, the issue-page **Proposal Scoring** summary, the sibling `ISSUE-ID.audit.md` audit-history file, the GitHub Project item or fields, and [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md). The dashboard is intentionally compact: update only the affected row's issue link, area, priority, status band, score, run count, last audit with date, next audit, and any changed snapshot counts. Detailed fields such as score basis, rubric version, Required Electoral Environment, Development Priority, Adoption Friction, legislation path, and notes belong in the issue page and audit-history sidecar, not as separate dashboard columns. `Rebaseline status` and `Change audit needed` are GitHub Project fields because they are operational audit-control flags needed for safe resumption and release triage.
 5. If the scoring template, audit schema, rubric version, or audit sidecar structure changes, run a **Change Audit** across all affected issue pages with **Proposal Scoring** sections to keep front matter, visible scoring boxes, audit sidecars, the compact dashboard row/snapshot fields in [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md), GitHub Project fields, and [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) synchronized. This prevents drift between human-facing scores and machine-readable metadata without restoring detailed dashboard sections that now live in the issue pages, GitHub Project, or separate logs.
 6. If a candidate or source-development issue has no concrete draft vehicle, its **Proposed Legislation** section may use a single `Pending development` bullet. Do not treat that placeholder as a broken legislation link, but replace it with a linked bullet once a vehicle exists and update the Issue Snapshot vehicle, metadata, inventories, and compact dashboard row if the issue's status band, score, run count, last audit, or next audit changes.
 7. If a Horizon Scan audit is run, create or update GitHub Issues for active horizon candidates and add them to the GitHub Project horizon queue. Use [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) for disposition and integration history, not as the active horizon queue. Do not update issue pages, legislation, scores, or source records unless the user separately approves implementation.
@@ -152,6 +152,20 @@ Rebaseline statuses:
 | `hard-rebaseline-needed` | The rubric changed in a way that could materially change the score; treat the existing score as provisional until the next substantive audit recalculates it. |
 | `rebaseline-complete` | A rebaseline audit was completed; this status should normally be converted to `current` after the dashboard and issue metadata are updated. |
 
+Map issue-page rebaseline metadata to the GitHub Project `Rebaseline status` field as follows:
+
+| Issue-page value | GitHub Project value |
+| --- | --- |
+| `current` | `Current` |
+| `current-fixed-status` | `Current fixed status` |
+| `soft-rebaseline-needed` | `Soft rebaseline needed` |
+| `hard-rebaseline-needed` | `Hard rebaseline needed` |
+| `rebaseline-complete` | `Rebaseline complete` |
+| Not applicable to the item | `Not applicable` |
+| Unknown or not yet reviewed | `Unknown` |
+
+Map issue-page `change_audit_needed` metadata to the GitHub Project `Change audit needed` field as follows: `false` maps to `No`; `true` maps to `Yes`; unresolved intake or unclear cases map to `Pending review`; blocked audit-resolution cases map to `Blocked`.
+
 When the audit framework or scoring system changes, classify the change before applying it:
 
 | Change type | Required action |
@@ -176,9 +190,9 @@ Change Audit workflow:
    - proposal-to-legislation alignment risks that should be documented and reported for human review rather than automatically corrected; and
    - rule changes, inconsistencies, or factual/legal uncertainties that require human review before correction.
 4. If the consistency review finds a governing-rule defect, correct the governing file that properly owns the rule when the correction is mechanical. If the defect requires a substantive judgment, document the discrepancy as an unresolved Change Audit finding and report it to the user before updating downstream pages.
-5. Mark affected already-audited proposals as `soft-rebaseline-needed` or `hard-rebaseline-needed` in issue front matter and the visible **Proposal Scoring** summary.
+5. Mark affected already-audited proposals as `soft-rebaseline-needed` or `hard-rebaseline-needed` in issue front matter, the visible **Proposal Scoring** summary, and the GitHub Project `Rebaseline status` field.
 6. Preserve old scores, but treat non-current scores as provisional in summaries, comparisons, and prioritization.
-7. During the next targeted Change Audit, T2, T3, or T4 audit of an affected developed proposal, resolve any `change_audit_needed` marker by performing the Internal Remedy-Fit Audit and any other affected checks. If the remedy, source basis, and scoring remain valid, clear `change_audit_needed`, update the issue-page metadata, update the issue-page **Proposal Scoring** summary, append the full audit entry to the sibling `ISSUE-ID.audit.md` file, update the dashboard, and update GitHub Project fields where applicable. If the check changes the score, recalculate under the current rubric and set the rebaseline status to `current`.
+7. During the next targeted Change Audit, T2, T3, or T4 audit of an affected developed proposal, resolve any `change_audit_needed` marker by performing the Internal Remedy-Fit Audit and any other affected checks. If the remedy, source basis, and scoring remain valid, clear `change_audit_needed`, update the issue-page metadata, update the issue-page **Proposal Scoring** summary, append the full audit entry to the sibling `ISSUE-ID.audit.md` file, update the dashboard, and update GitHub Project fields where applicable. If the check changes the score, recalculate under the current rubric and set the rebaseline status to `current`. In GitHub Project fields, update `Change audit needed` to `No` and `Rebaseline status` to `Current` once the relevant checks are resolved.
 8. Do not compare scores across rubric versions without noting the mismatch.
 9. Do not rerun every proposal immediately unless the user asks; use the rebaseline status to queue the work responsibly.
 

@@ -26,10 +26,17 @@ Use GitHub Project fields as the authoritative structured workflow metadata:
 - `Release blocker` records whether the item blocks the active release.
 - `Status` records lifecycle and workflow position.
 - `Score`, `Runs`, `Last audit`, and `Next audit` provide compact audit-dashboard summaries.
+- `Rebaseline status` records whether the proposal score is current under the governing rubric or needs a soft/hard rebaseline.
+- `Change audit needed` records whether a developed proposal has an unresolved targeted Change Audit / Internal Remedy-Fit Audit marker.
 - `Canonical page` links to the repository page or GitHub issue that carries the authoritative substance or active intake record.
 - `Parent issue` and `Sub-issues progress` should be used for native GitHub parent/sub-issue tracking where work naturally breaks down into child issues.
 
 Do not duplicate these fields as issue-body metadata or as labels. If a field value changes, update the GitHub Project field directly.
+
+Use these options for audit-control fields:
+
+- `Rebaseline status`: `Current`, `Current fixed status`, `Soft rebaseline needed`, `Hard rebaseline needed`, `Rebaseline complete`, `Not applicable`, `Unknown`.
+- `Change audit needed`: `No`, `Yes`, `Pending review`, `Blocked`.
 
 ## Labels
 
