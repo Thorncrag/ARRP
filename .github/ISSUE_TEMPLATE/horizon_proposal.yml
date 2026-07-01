@@ -3,12 +3,11 @@ description: Suggest a new or emerging institutional-risk concern for ARRP revie
 title: "HOR: "
 labels:
   - "kind: horizon"
-  - "status: needs triage"
 body:
   - type: markdown
     attributes:
       value: |
-        Use this form for a new concern that may belong in the Horizon Scan. If accepted for formal review, maintainers will assign a static HOR-### identifier and update HORIZON_SCAN.md.
+        Use this form for a new concern that may belong in the Horizon Scan. If accepted for formal review, maintainers will assign a static HOR-### identifier, track active status in GitHub, and preserve final disposition in framework/HORIZON_SCAN_LOG.md.
   - type: textarea
     id: concern
     attributes:

@@ -16,46 +16,44 @@ The project's public-facing premise, mission, scope, and governing principles ar
 - `framework/` contains governing methodology and cross-cutting remedial architecture.
 - `areas/` contains one directory per project area, area README indexes, developed issue pages, and sibling issue audit-history files.
 - `legislation/` contains proposed statutory, constitutional, regulatory, procedural, and model-state language keyed to issue identifiers.
-- `inventory/` contains structured area, issue, contents, audit, and source records.
-- [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) contains the compact cross-issue audit dashboard for meta-analysis and audit planning; it should show only snapshot counts and the compact issue audit index.
-- [`../CURRENT_AUDIT.md`](../CURRENT_AUDIT.md) contains the active long-running audit handoff checkpoint used when chat context is interrupted or a new chat resumes prior work.
-- [`../agent.md`](../agent.md) contains agent-assisted audit and autonomous batch-audit operating rules.
-- [`../AGENT_AUDIT_LOG.md`](../AGENT_AUDIT_LOG.md) contains autonomous-agent commit provenance and rollback references.
-- [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md) contains cumulative project-wide Change Audit history.
-- [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) contains cumulative horizon-scan intake, recommendations, adjudications, and integration history.
-- [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md) contains the repository map for human orientation.
+- `inventory/` contains structured source records. GitHub Projects is the authoritative area, issue, lifecycle-status, milestone, and roadmap tracker.
+- [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md) contains the compact cross-issue audit dashboard for meta-analysis and audit planning; it should show only snapshot counts and the compact issue audit index.
+- [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) contains the active long-running audit handoff checkpoint used when chat context is interrupted or a new chat resumes prior work.
+- [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md) contains agent-assisted audit and autonomous batch-audit operating rules.
+- [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) contains autonomous-agent commit provenance and rollback references.
+- [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) contains cumulative project-wide Change Audit history.
+- [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) contains cumulative horizon-scan disposition and integration history.
+- [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) contains the repository map for human orientation.
 - `research/` contains material not yet integrated into a developed issue.
 - `source-development/` contains source-development work products and crosswalks not yet fully absorbed into issue pages, inventories, or proposed legislation.
 - `scripts/` contains project-maintenance and export-generation scripts.
 - `exports/` contains generated DOCX, PDF, and XLSX editions.
 - `archive/` contains superseded snapshots retained for provenance.
 
-Markdown and CSV files are authoritative. Binary Office and PDF files are generated outputs.
+Markdown files, GitHub Project records, issue audit-history files, and the retained source inventory are authoritative within their respective scopes. Binary Office and PDF files are generated outputs.
 
 ## Canonical Sources
 
 - [`FRAMEWORK.md`](FRAMEWORK.md) — technical framework, repository conventions, and development status
-- [`../inventory/areas.csv`](../inventory/areas.csv) — structured area inventory
-- [`../inventory/issues.csv`](../inventory/issues.csv) — structured issue inventory
-- [`../inventory/contents.csv`](../inventory/contents.csv) — combined area-and-issue contents index
-- [`../inventory/audits.csv`](../inventory/audits.csv) — issue-level audit status and proposal-quality scoring
+- [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2) — authoritative area, issue, lifecycle-status, milestone, roadmap, and horizon-tracking surface
 - [`../inventory/sources.csv`](../inventory/sources.csv) — source-tracking table
 - [`METHODOLOGY.md`](METHODOLOGY.md) — inventory maintenance, audit procedure, scoring rules, and Horizon Scan rules
+- [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md) — GitHub Issues, GitHub Project fields, labels, milestones, and sub-issue workflow rules
 - [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md) — remedy categories, trigger stages, and cross-cutting remedial options
 - [`../areas/`](../areas/) — modular area and issue analyses
 - [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
-- [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) — compact cross-issue audit tracker for meta-analysis and audit planning
-- [`../CURRENT_AUDIT.md`](../CURRENT_AUDIT.md) — active handoff checkpoint for long-running audits and source-development work
-- [`../agent.md`](../agent.md) — agent-assisted audit and autonomous batch-audit operating rules
-- [`../AGENT_AUDIT_LOG.md`](../AGENT_AUDIT_LOG.md) — autonomous-agent commit provenance and rollback references
-- [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md) — cumulative Change Audit history
-- [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) — cumulative Horizon Scan intake and integration ledger
-- [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md) — human-readable repository map
+- [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md) — compact cross-issue audit tracker for meta-analysis and audit planning
+- [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) — active handoff checkpoint for long-running audits and source-development work
+- [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md) — agent-assisted audit and autonomous batch-audit operating rules
+- [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) — autonomous-agent commit provenance and rollback references
+- [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) — cumulative Change Audit history
+- [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) — cumulative Horizon Scan disposition and integration log
+- [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) — human-readable repository map
 - [`../AUTHORS.md`](../AUTHORS.md) — authorship statement
 - [`../LICENSE.md`](../LICENSE.md) — rights and reuse notice
 - [`../CITATION.cff`](../CITATION.cff) — citation metadata
 - [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — contribution expectations
-- [`../PUBLIC_RELEASE.md`](../PUBLIC_RELEASE.md) — public release process
+- [`PUBLIC_RELEASE.md`](PUBLIC_RELEASE.md) — public release process
 - [`../source-development/`](../source-development/) — source-development work products and crosswalks
 - [`../scripts/`](../scripts/) — project-maintenance and export-generation scripts
 - [`../exports/`](../exports/) — generated, non-authoritative export files
@@ -63,9 +61,9 @@ Markdown and CSV files are authoritative. Binary Office and PDF files are genera
 
 ## Inventory Status and Development Phase
 
-Current area and issue status is maintained in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), and the ordered contents scaffold in [`../inventory/contents.csv`](../inventory/contents.csv). [`../areas/README.md`](../areas/README.md) and area README files provide human-readable indexes, while developed issue pages contain the substantive analysis. Do not duplicate current area lists, issue lists, or developed-issue status snapshots in this framework file unless the list is generated from the inventory.
+Current area, issue, lifecycle-status, milestone, roadmap, and horizon-tracking status is maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). [`../areas/README.md`](../areas/README.md) and area README files provide human-readable repository indexes, while developed issue pages contain the substantive analysis. Do not duplicate current area lists, issue lists, or developed-issue status snapshots in this framework file unless the list is generated from the GitHub Project or current area pages.
 
-Project updates must keep the structured inventory, compact audit dashboard, Change Audit log, Horizon Scan ledger, and Agent Audit Log current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant rows in [`../inventory/areas.csv`](../inventory/areas.csv), [`../inventory/issues.csv`](../inventory/issues.csv), [`../inventory/contents.csv`](../inventory/contents.csv), [`../inventory/audits.csv`](../inventory/audits.csv), [`../inventory/sources.csv`](../inventory/sources.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) as part of the same change. The dashboard should remain compact: update only its snapshot counts and issue audit index fields rather than restoring detailed scoring, pathway, friction, rebaseline, Change Audit, Horizon Scan, or agent-log sections. When a Change Audit is run, update [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md) as part of the same change. When a `HOR-###` candidate is added, adjudicated, integrated, retained, or retired, update [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md) as part of the same change. When an autonomous agent run commits work, update [`../AGENT_AUDIT_LOG.md`](../AGENT_AUDIT_LOG.md) as part of that run.
+Project updates must keep the GitHub Project, compact audit dashboard, issue-page audit metadata, issue audit-history files, Change Audit log, Horizon Scan Log, Agent Audit Log, and source inventory current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant GitHub Project item or fields, issue page, sibling audit-history file, [`../inventory/sources.csv`](../inventory/sources.csv), and [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md) as part of the same change. The dashboard should remain compact: update only its snapshot counts and issue audit index fields rather than restoring detailed scoring, pathway, friction, rebaseline, Change Audit, Horizon Scan, or agent-log sections. When a Change Audit is run, update [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) as part of the same change. When a `HOR-###` candidate is added, adjudicated, integrated, retained, or retired, update [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) and the corresponding GitHub Project item as part of the same change. When an autonomous agent run commits work, update [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) as part of that run.
 
 The project will proceed by applying this framework to retained issues, developing authoritative source records, resolving overlap through primary ownership and cross-reference, and revising the least-complex adequate remedy as legal and factual analysis matures.
 
@@ -344,7 +342,7 @@ Before an issue or proposal is treated as ready for external circulation, it sho
 
 The canonical audit rules, resource tiers, Horizon Scan procedure, hallucination-resistance protocol, scoring formula, adoption-score formula, international-support score, output requirements, and audit-preservation rules are maintained in [`METHODOLOGY.md`](METHODOLOGY.md#audit-rules-and-proposal-quality-scoring).
 
-The **Proposal Scoring** section should group all scores and viability indicators at the top, followed by an em dash divider and then audit status, routing fields, rubric version, rebaseline status, and the audit-history link. [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md) provides the compact cross-issue view.
+The **Proposal Scoring** section should group all scores and viability indicators at the top, followed by an em dash divider and then audit status, routing fields, rubric version, rebaseline status, and the audit-history link. [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md) provides the compact cross-issue view.
 
 ## Outstanding Development
 

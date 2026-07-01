@@ -9,53 +9,51 @@ print_levels:
 
 ## Purpose
 
-Maintain the project's living inventory of institutional areas and issues before and during substantive development, and provide the canonical audit procedure, scoring rules, Horizon Scan rules, and audit-output requirements.
+Maintain the project's living GitHub Project tracking surface and retained source inventory before and during substantive development, and provide the canonical audit procedure, scoring rules, Horizon Scan rules, and audit-output requirements.
 
-Inventory CSV files are tracking, indexing, verification, and machine-readable maintenance aids. Human-relevant audit material should be visible in two layers: each issue page should carry a compact **Proposal Scoring** summary, and the full audit history should live in the sibling `ISSUE-ID.audit.md` sidecar. The canonical drafting method, issue architecture, source standard, Issue Snapshot format, Proposal Survey requirement, remedy standard, and cross-reference rules are maintained in [`FRAMEWORK.md`](FRAMEWORK.md). The canonical audit rules are maintained in this file under [Audit Rules and Proposal Quality Scoring](#audit-rules-and-proposal-quality-scoring).
+GitHub Projects is the authoritative tracking surface for area, issue, lifecycle-status, milestone, roadmap, and horizon-queue fields. Retained inventory CSV files are limited to source tracking. Human-relevant audit material should be visible in two layers: each issue page should carry a compact **Proposal Scoring** summary and audit front matter, and the full audit history should live in the sibling `ISSUE-ID.audit.md` sidecar. The canonical drafting method, issue architecture, source standard, Issue Snapshot format, Proposal Survey requirement, remedy standard, and cross-reference rules are maintained in [`FRAMEWORK.md`](FRAMEWORK.md). The canonical audit rules are maintained in this file under [Audit Rules and Proposal Quality Scoring](#audit-rules-and-proposal-quality-scoring).
 
 ## Inventory Files
 
-The structured inventory is maintained in:
+The authoritative project-tracking surfaces are:
 
-- [`areas.csv`](../inventory/areas.csv) — project areas, generalized institutional concerns, status, issue counts, and notes.
-- [`issues.csv`](../inventory/issues.csv) — issue identifiers, area ownership, priority, and development status.
-- [`contents.csv`](../inventory/contents.csv) — combined area-and-issue navigation index for table-of-contents planning.
-- [`audits.csv`](../inventory/audits.csv) — issue-level proposal-quality scores, audit counts, audit status, score basis, and next audit need.
+- [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2) — area, issue, lifecycle-status, milestone, roadmap, workstream, and horizon-queue tracking.
 - [`sources.csv`](../inventory/sources.csv) — source-tracking records.
 
 ## Inventory Rules
 
 1. Each substantive issue should have a stable issue identifier, such as `DOJ-001`.
 2. Each issue should have one primary area home.
-3. Candidate issues may remain inventory-only until they receive a developed issue page.
-4. Retired or merged issues should remain traceable in the inventory rather than disappearing silently.
-5. Area issue counts should be updated when issues are added, retired, merged, or moved.
-6. Development status should use consistent labels, such as `Candidate`, `Developed`, `Awaiting merits adjudication`, or `Retired—merged into ...`.
-7. Every issue should have a row in [`audits.csv`](../inventory/audits.csv), even if the issue is only a candidate or has been retired or merged.
-8. Inventory updates should be made in the same change as the substantive project update that requires them.
+3. Candidate and horizon issues may remain GitHub Project items until they receive a developed issue page.
+4. Retired or merged issues should remain traceable in GitHub Projects, the Horizon Scan integration log, the relevant area page, an issue audit-history file, or a source record rather than disappearing silently.
+5. Area issue counts should be updated in area README front matter when issues are added, retired, merged, or moved.
+6. Development status should use the GitHub Project `Status` field lifecycle options.
+7. Every developed proposal issue should carry audit front matter, a visible **Proposal Scoring** summary, and a sibling audit-history file.
+8. GitHub Project, source inventory, dashboard, and page updates should be made in the same change as the substantive project update that requires them.
+9. GitHub Project fields, not labels or issue-body metadata, are authoritative for `Area`, `Workstream`, `Priority`, `Release blocker`, `Status`, `Score`, `Runs`, `Last audit`, `Next audit`, `Canonical page`, and parent/sub-issue tracking.
+10. Labels should be limited to issue kind or temporary triage that is not already represented by a Project field.
 
 ## Project-Update Checklist
 
 When updating the project, check whether the change requires inventory maintenance:
 
-1. If an area is added, renamed, retired, or materially reframed, update [`areas.csv`](../inventory/areas.csv) and [`contents.csv`](../inventory/contents.csv).
-2. If an issue is added, renamed, promoted, retired, merged, moved, or given a new development status, update [`issues.csv`](../inventory/issues.csv), [`contents.csv`](../inventory/contents.csv), and the relevant area README.
-3. If proposed legislation, proposed constitutional amendment text, proposed enabling legislation, or another proposal vehicle is added, renamed, or removed, update the `Legislation Path` field in [`contents.csv`](../inventory/contents.csv).
-4. If an issue is audited, promoted, paused, retired, merged, given legislation, or materially revised, update the issue-page audit front matter, the issue-page **Proposal Scoring** summary, the sibling `ISSUE-ID.audit.md` audit-history file, [`audits.csv`](../inventory/audits.csv), and [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md). The dashboard is intentionally compact: update only the affected row's issue link, area, priority, status band, score, run count, last audit with date, next audit, and any changed snapshot counts. Detailed fields such as score basis, rubric version, rebaseline status, Required Electoral Environment, Development Priority, Adoption Friction, legislation path, and notes belong in the issue page and [`audits.csv`](../inventory/audits.csv), not as separate dashboard columns.
-5. If the scoring template, audit schema, rubric version, or audit sidecar structure changes, run a **Change Audit** across all affected issue pages with **Proposal Scoring** sections to keep front matter, visible scoring boxes, audit sidecars, [`audits.csv`](../inventory/audits.csv), the compact dashboard row/snapshot fields in [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), and [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md) synchronized. This prevents drift between human-facing scores and machine-readable metadata without restoring detailed dashboard sections that now live in the issue pages, inventories, or separate logs.
+1. If an area is added, renamed, retired, or materially reframed, update the GitHub Project area field/options and the relevant area README/index pages.
+2. If an issue is added, renamed, promoted, retired, merged, moved, or given a new development status, update the GitHub Project item/fields and the relevant area README.
+3. If proposed legislation, proposed constitutional amendment text, proposed enabling legislation, or another proposal vehicle is added, renamed, or removed, update the issue page, legislation index, and GitHub Project canonical-page/status fields as applicable.
+4. If an issue is audited, promoted, paused, retired, merged, given legislation, or materially revised, update the issue-page audit front matter, the issue-page **Proposal Scoring** summary, the sibling `ISSUE-ID.audit.md` audit-history file, the GitHub Project item or fields, and [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md). The dashboard is intentionally compact: update only the affected row's issue link, area, priority, status band, score, run count, last audit with date, next audit, and any changed snapshot counts. Detailed fields such as score basis, rubric version, rebaseline status, Required Electoral Environment, Development Priority, Adoption Friction, legislation path, and notes belong in the issue page and audit-history sidecar, not as separate dashboard columns.
+5. If the scoring template, audit schema, rubric version, or audit sidecar structure changes, run a **Change Audit** across all affected issue pages with **Proposal Scoring** sections to keep front matter, visible scoring boxes, audit sidecars, the compact dashboard row/snapshot fields in [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md), GitHub Project fields, and [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) synchronized. This prevents drift between human-facing scores and machine-readable metadata without restoring detailed dashboard sections that now live in the issue pages, GitHub Project, or separate logs.
 6. If a candidate or source-development issue has no concrete draft vehicle, its **Proposed Legislation** section may use a single `Pending development` bullet. Do not treat that placeholder as a broken legislation link, but replace it with a linked bullet once a vehicle exists and update the Issue Snapshot vehicle, metadata, inventories, and compact dashboard row if the issue's status band, score, run count, last audit, or next audit changes.
-7. If a Horizon Scan audit is run, add new findings to the cumulative Horizon Scan list in [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md), but do not update issue pages, legislation, inventories, scores, or source records unless the user separately approves implementation.
+7. If a Horizon Scan audit is run, create or update GitHub Issues for active horizon candidates and add them to the GitHub Project horizon queue. Use [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) for disposition and integration history, not as the active horizon queue. Do not update issue pages, legislation, scores, or source records unless the user separately approves implementation.
 8. If an external source is newly cited, removed, or used for a materially different proposition, update [`sources.csv`](../inventory/sources.csv).
 9. If source review is completed, update `Reviewed?`, `Proposition Supported`, and any notes in [`sources.csv`](../inventory/sources.csv).
-10. If issue counts change, update both the area README front matter and [`areas.csv`](../inventory/areas.csv).
+10. If issue counts change, update the area README front matter and any corresponding GitHub Project area metadata.
 11. If a Markdown page is created, moved, promoted, retired, or repurposed, update its `print_levels` metadata under the rules in [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
-12. If a roadmap, backlog, or to-do item is added or revised, update only [`FRAMEWORK.md`](FRAMEWORK.md); other files should link there rather than maintaining separate task lists.
+12. If a roadmap, backlog, or to-do item is added or revised, update the GitHub Project issue/milestone/roadmap item; framework files should link to GitHub rather than maintaining separate task lists.
+13. If a roadmap, governance, audit, release, or publication task has meaningful child tasks, use GitHub native sub-issues rather than Markdown-only checklist substitutes.
 
-## Contents Index Rules
+## Area and Issue Index Rules
 
-`contents.csv` may combine areas and issues because its purpose is navigation, ordering, and eventual table-of-contents development.
-
-The normalized `areas.csv` and `issues.csv` files should remain available for compact tracking, but the combined contents index should include relative links to the area page, issue page, and proposed legislation where those files exist.
+The ordered project-area index is maintained in [`../areas/README.md`](../areas/README.md). Current status, lifecycle, workstream, milestone, and horizon-queue metadata are maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). Area pages and issue pages should carry stable repository links for human navigation; GitHub Project items should carry clickable canonical-page links where practical.
 
 ## Source Inventory Rules
 
@@ -71,7 +69,7 @@ Before an issue or proposal is treated as ready for external circulation, it sho
 
 The audit should identify unresolved legal, factual, remedial, implementation, and adoption risks rather than treating completion of a draft as evidence of readiness.
 
-Every issue should have a corresponding row in [`audits.csv`](../inventory/audits.csv). That row records the current proposal-quality score, audit count, audit status, score basis, next audit need, audit-rubric version, rebaseline status, Required Electoral Environment, Development Priority, Adoption Friction, and other compact scoring or routing fields defined by the current schema.
+Every developed issue should have audit front matter, a visible **Proposal Scoring** summary, and a sibling audit-history file. Current proposal-quality score, audit status, next audit need, audit-rubric version, rebaseline status, Required Electoral Environment, Development Priority, Adoption Friction, and related score-basis narrative belong on the issue page and in the audit-history sidecar. Cross-project routing fields belong in the GitHub Project and compact dashboard.
 
 ### Pre-Audit Orientation
 
@@ -84,7 +82,7 @@ At minimum:
 - remedy-type, least-complex-remedy, or remedial-adequacy audits should consult [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md);
 - print, appendix, compiled-document, PDF, DOCX, public-release, or export-placement audits should consult [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md);
 - Change Audits should consult every governing project material listed in the Change Audit workflow before updating individual proposal pages; and
-- audits that update human-facing or machine-readable status should consult the affected issue page, sibling audit-history file, [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), and relevant inventory CSV files before finalizing changes.
+- audits that update human-facing or machine-readable status should consult the affected issue page, sibling audit-history file, [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md), GitHub Project item, and relevant retained source records before finalizing changes.
 
 If a linked governing file appears inconsistent with [`FRAMEWORK.md`](FRAMEWORK.md) or this methodology file, document the inconsistency as a Change Audit issue and resolve or report it before relying on either rule for downstream scoring or page updates.
 
@@ -92,13 +90,13 @@ If a linked governing file appears inconsistent with [`FRAMEWORK.md`](FRAMEWORK.
 
 A **Change Audit** is the consistency check run when the audit framework, scoring rubric, issue-page template, dashboard schema, inventory schema, audit sidecar structure, other governing project rule, or a substantive developed proposal changes. It must begin with project-level consistency when the change affects governing rules or cross-project conventions, and may be targeted to a single proposal when the change is limited to that proposal's issue page, linked proposal vehicle, source basis, remedy design, implementation design, or scoring-relevant analysis. Its purpose is to prevent newer rules or substantive proposal revisions from leaving older scores, metadata, dashboard rows, audit histories, issue-page summaries, or proposal-to-legislation alignment silently stale.
 
-Project-wide Change Audits should be recorded in [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md). Proposal-specific Change Audits should be recorded in the affected proposal's sibling audit-history file, not duplicated in the project-wide Change Audit Log, unless the proposal-specific audit also changes a governing rule, template, schema, rubric, or cross-project convention.
+Project-wide Change Audits should be recorded in [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md). Proposal-specific Change Audits should be recorded in the affected proposal's sibling audit-history file, not duplicated in the project-wide Change Audit Log, unless the proposal-specific audit also changes a governing rule, template, schema, rubric, or cross-project convention.
 
 When several related substantive edits or Change Audit clarifications occur in rapid succession, they may be collapsed into a single coherent change entry in the appropriate log. Consolidation is acceptable only if the entry still preserves the material changes made, the affected files or proposal, the score or rebaseline effect, unresolved findings, and the reason the edits are treated as one change set.
 
 When a developed issue page, proposed legislation page, rule text, constitutional amendment text, or other proposal vehicle receives a substantive update that could affect legal fit, prior-proposal grounding, remedy design, implementation design, abuse resistance, drafting quality, adoption posture, source support, budgetary impact, or proposal-to-legislation alignment, the assistant should remind the user to consider a Change Audit before treating the proposal score as current. Do not run the Change Audit automatically unless the user asks, because the user may intend to make additional substantive edits before auditing. Formatting-only edits, typo fixes, link repairs, and other non-substantive maintenance do not require this reminder unless they reveal a score-affecting defect.
 
-If a developed issue receives a new source, manifestation, institutional-anomaly framing, damage theory, underlying-weakness theory, remedy description, repair/prevention language, or proposal-vehicle change without a contemporaneous Change Audit, mark the issue as needing a targeted Change Audit. This marker is required even when the score does not change. At minimum, update the issue front matter with `change_audit_needed: true`, add a concise `change_audit_reason`, update the visible **Proposal Scoring** summary or **Next Audit** line, update [`audits.csv`](../inventory/audits.csv), update the compact dashboard row, and append a no-score entry to the sibling audit-history file explaining the update and the unresolved consistency check. Candidate or source-development-only issues may use ordinary source-development notes instead of this marker unless they already have a developed proposal and score.
+If a developed issue receives a new source, manifestation, institutional-anomaly framing, damage theory, underlying-weakness theory, remedy description, repair/prevention language, or proposal-vehicle change without a contemporaneous Change Audit, mark the issue as needing a targeted Change Audit. This marker is required even when the score does not change. At minimum, update the issue front matter with `change_audit_needed: true`, add a concise `change_audit_reason`, update the visible **Proposal Scoring** summary or **Next Audit** line, update the compact dashboard row, update the GitHub Project item if a relevant field exists, and append a no-score entry to the sibling audit-history file explaining the update and the unresolved consistency check. Candidate or source-development-only issues may use ordinary source-development notes instead of this marker unless they already have a developed proposal and score.
 
 The targeted Change Audit should include an **Internal Remedy-Fit Audit**. It must confirm that the issue's Institutional Anomaly, Manifestations of the Failure, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, proposed legislation or other proposal vehicle, and Annotation still describe the same institutional defect and that the proposed remedy still addresses the defect as reframed. If a new manifestation or source expands, narrows, or changes the issue's theory, the audit should document whether the remedy still fits, whether the issue should be narrowed, whether the manifestation belongs in another issue, whether the proposed legislation should be revised, or whether human review is required before further score reliance.
 
@@ -130,7 +128,7 @@ development_priority: unassessed
 pathway_adjustment: unassessed
 ```
 
-Use these fields in [`audits.csv`](../inventory/audits.csv) for every issue:
+Use these fields in issue front matter and visible **Proposal Scoring** summaries when applicable:
 
 - `Audit Rubric Version`
 - `Rebaseline Status`
@@ -166,25 +164,25 @@ When the audit framework or scoring system changes, classify the change before a
 Change Audit workflow:
 
 1. Assign a new rubric version before changing scoring rules or required audit filters.
-2. Record governing-rule changes in this section, update [`../CHANGE_AUDIT_LOG.md`](../CHANGE_AUDIT_LOG.md), and update any affected snapshot counts or issue-index rows in [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md). For proposal-specific Change Audits that do not alter governing rules or cross-project conventions, record the audit in the affected issue's sibling audit-history file and update the issue page, [`../inventory/audits.csv`](../inventory/audits.csv), and the compact dashboard row in [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), but do not add a duplicative project-wide Change Audit Log entry.
-3. Conduct a systematic internal-consistency review of governing project materials before applying the change to any individual proposal. This review should be deep enough to catch the kinds of drift that arise from repeated structural edits rather than only obvious formatting errors. The following checks are a required floor, not an exhaustive ceiling; the auditor should follow any additional inconsistency, ambiguity, broken reference, stale convention, or implementation defect discovered during the review. At minimum, check [`FRAMEWORK.md`](FRAMEWORK.md), this methodology file, [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md), [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), inventory CSV headers, issue-page templates as reflected in developed pages, audit sidecar conventions, and Horizon Scan rules for:
-   - misplaced ownership between Framework, Methodology, print assembly, dashboard, inventories, issue pages, legislation pages, and Horizon Scan;
+2. Record governing-rule changes in this section, update [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md), and update any affected snapshot counts or issue-index rows in [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md). For proposal-specific Change Audits that do not alter governing rules or cross-project conventions, record the audit in the affected issue's sibling audit-history file and update the issue page, GitHub Project fields where applicable, and the compact dashboard row in [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md), but do not add a duplicative project-wide Change Audit Log entry.
+3. Conduct a systematic internal-consistency review of governing project materials before applying the change to any individual proposal. This review should be deep enough to catch the kinds of drift that arise from repeated structural edits rather than only obvious formatting errors. The following checks are a required floor, not an exhaustive ceiling; the auditor should follow any additional inconsistency, ambiguity, broken reference, stale convention, or implementation defect discovered during the review. At minimum, check [`FRAMEWORK.md`](FRAMEWORK.md), this methodology file, [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md), [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md), retained source-inventory headers, issue-page templates as reflected in developed pages, audit sidecar conventions, and Horizon Scan rules for:
+   - misplaced ownership between Framework, Methodology, print assembly, dashboard, GitHub Project, source inventory, issue pages, legislation pages, and Horizon Scan;
    - duplicated rules, conflicting instructions, obsolete rubric versions, stale terminology, inconsistent section names, and dead conventions;
    - broken or stale internal links, heading anchors, file paths, issue IDs, legislation paths, dashboard links, audit-history links, and cross-references;
    - metadata/front-matter drift, including `issue_id`, `area_id`, `status`, `remedy_type`, `legislative_proposal`, `constitutional_proposal`, `audit_*` fields, `print_levels`, and audit-history paths;
-   - inventory drift between `areas.csv`, `issues.csv`, `contents.csv`, `audits.csv`, `sources.csv`, area README files, issue pages, legislation pages, the Audit Dashboard, and Horizon Scan;
+   - tracking drift between GitHub Project items/fields, `sources.csv`, area README files, issue pages, legislation pages, the Audit Dashboard, and Horizon Scan;
    - language-rule drift, including neutrality conventions, title conventions, President/public-actor references, Project 2025 framing, and unsupported partisan or advocacy wording;
    - source-rule drift, including missing nearby citations, uncaptured cited sources, stale source line references, overconfident source characterization, and source claims that no longer match the page text;
    - proposal-to-legislation alignment risks that should be documented and reported for human review rather than automatically corrected; and
    - rule changes, inconsistencies, or factual/legal uncertainties that require human review before correction.
 4. If the consistency review finds a governing-rule defect, correct the governing file that properly owns the rule when the correction is mechanical. If the defect requires a substantive judgment, document the discrepancy as an unresolved Change Audit finding and report it to the user before updating downstream pages.
-5. Mark affected already-audited proposals as `soft-rebaseline-needed` or `hard-rebaseline-needed` in [`audits.csv`](../inventory/audits.csv).
+5. Mark affected already-audited proposals as `soft-rebaseline-needed` or `hard-rebaseline-needed` in issue front matter and the visible **Proposal Scoring** summary.
 6. Preserve old scores, but treat non-current scores as provisional in summaries, comparisons, and prioritization.
-7. During the next targeted Change Audit, T2, T3, or T4 audit of an affected developed proposal, resolve any `change_audit_needed` marker by performing the Internal Remedy-Fit Audit and any other affected checks. If the remedy, source basis, and scoring remain valid, clear `change_audit_needed`, update the issue-page metadata, update the issue-page **Proposal Scoring** summary, append the full audit entry to the sibling `ISSUE-ID.audit.md` file, and update [`audits.csv`](../inventory/audits.csv) and the dashboard. If the check changes the score, recalculate under the current rubric and set the rebaseline status to `current`.
+7. During the next targeted Change Audit, T2, T3, or T4 audit of an affected developed proposal, resolve any `change_audit_needed` marker by performing the Internal Remedy-Fit Audit and any other affected checks. If the remedy, source basis, and scoring remain valid, clear `change_audit_needed`, update the issue-page metadata, update the issue-page **Proposal Scoring** summary, append the full audit entry to the sibling `ISSUE-ID.audit.md` file, update the dashboard, and update GitHub Project fields where applicable. If the check changes the score, recalculate under the current rubric and set the rebaseline status to `current`.
 8. Do not compare scores across rubric versions without noting the mismatch.
 9. Do not rerun every proposal immediately unless the user asks; use the rebaseline status to queue the work responsibly.
 
-Formatting-only or template-only changes may require a Change Audit even when they do not require score rebaseline. In that case, update affected pages, metadata, sidecars, inventory rows, and dashboard rows as needed, but leave proposal-quality scores unchanged unless the change reveals a substantive scoring defect.
+Formatting-only or template-only changes may require a Change Audit even when they do not require score rebaseline. In that case, update affected pages, metadata, sidecars, GitHub Project fields, source records, and dashboard rows as needed, but leave proposal-quality scores unchanged unless the change reveals a substantive scoring defect.
 
 ### Audit Workflow
 
@@ -208,7 +206,7 @@ Each developed proposal should be audited through the following sequence. The se
 16. **Argument and cogency audit.** Confirm that the problem, weakness, damage, remedy, and implementation logic follow from each other without hidden premises, overclaiming, unsupported causation, or remedy mismatch.
 17. **Support and adoption audit.** Confirm that the issue can be explained to likely supporters, skeptics, lawmakers, staff, experts, and the public in terms of institutional repair rather than partisan advantage.
 18. **Political-language and coalition-appeal audit.** Confirm that the proposal remains candid about misconduct while using institution-focused language and estimating likely support from bipartisan, independent, Democratic, and Republican audiences.
-19. **Project-integration audit.** Confirm that internal links, legislation links, issue status, remedy type, source inventory, audit inventory, contents index, area page, and compiled-document placement remain consistent.
+19. **Project-integration audit.** Confirm that internal links, legislation links, issue status, remedy type, source inventory, audit metadata, audit-history sidecar, GitHub Project canonical-page links, area page, and compiled-document placement remain consistent.
 
 ### Formatting Preflight
 
@@ -223,12 +221,12 @@ At minimum, the preflight should check:
 5. the **Budgetary Impact Statement** has the substantive statement first and the italicized `Note:` disclaimer below it;
 6. **Proposal Scoring** groups all scores and viability indicators at the top, uses the coalition-estimate indentation format when estimates appear, separates audit metadata with an em dash divider, and links the full audit-history sidecar;
 7. scoring annotations mirror visible scoring labels where practical, including **Quality Score**, **Adoption Score**, **Coalition Support Estimates**, **External Review Status**, **Adoption Friction**, **Required Electoral Environment**, and **Development Priority** when those fields appear; and
-8. the issue page, sibling audit-history file, Audit Dashboard, and `audits.csv` agree on the fields each surface owns: the dashboard should match the issue's compact index fields and snapshot counts, while detailed rubric, rebaseline, pathway, development-priority, adoption-friction, legislation-path, and score-basis data should match between the issue page and `audits.csv`.
+8. the issue page, sibling audit-history file, Audit Dashboard, and GitHub Project agree on the fields each surface owns: the dashboard should match the issue's compact index fields and snapshot counts, GitHub should match lifecycle/status and routing fields, and detailed rubric, rebaseline, pathway, development-priority, adoption-friction, legislation-path, and score-basis data should remain on the issue page and audit-history sidecar.
 
 Tier scaling:
 
 - **T0/T1:** check the most recent audit entry, visible front matter, Issue Snapshot, Budgetary Impact Statement, Proposal Scoring box, and audit-history link.
-- **T2:** also check compact dashboard row and audit-inventory alignment, proposal-to-legislation link shape, annotation scoring labels, and whether prior format findings were carried forward.
+- **T2:** also check compact dashboard row and GitHub Project field alignment, proposal-to-legislation link shape, annotation scoring labels, and whether prior format findings were carried forward.
 - **T3/T4:** also check the audit-history sidecar, source-inventory references affected by visible citations, legislation-page budget/source-note structure, and any template changes adopted since the prior audit.
 
 Formatting preflight corrections may be made during the audit when mechanical. If the preflight reveals a substantive discrepancy between issue analysis, scoring, and proposed legislation, document and report it under the proposal-to-legislation consistency rule rather than silently correcting it without user review.
@@ -293,7 +291,7 @@ A Horizon Scan audit should:
 
 1. perform a current-source discovery pass using recent reliable public sources, including current news, official records, court activity, legislation, agency action, government reports, public legal-research sources, watchdog materials, expert commentary, and other relevant sources;
 2. identify possible new concerns, emerging manifestations, or changed factual or legal conditions that may matter to the project;
-3. cross-check each concern against existing areas, issue pages, issue inventories, proposals, proposed legislation, source-development notes, the Audit Dashboard, and the Horizon Scan page;
+3. cross-check each concern against existing areas, issue pages, issue inventories, proposals, proposed legislation, source-development notes, the Audit Dashboard, active GitHub horizon issues, and the Horizon Scan Log;
 4. apply the ordinary Issue-Admission Test rather than bypassing it;
 5. determine whether the concern is substantially duplicative, a manifestation of an existing issue, a reason to expand or amend an existing issue, a reason to reformulate existing proposed legislation, a candidate for a new standalone issue, or outside current ARRP scope;
 6. make an explicit new-issue or existing-issue recommendation for each finding, stating whether to create a new issue, merge into an existing issue, expand or amend an existing issue, retain only as source development, or decline as duplicative or out of scope;
@@ -304,7 +302,7 @@ Project 2025 crossover analysis should treat Project 2025 as both an implementat
 
 Project 2025 source verification should follow a strict source hierarchy. First, prefer official Heritage-controlled sources when available: Heritage Foundation pages, `project2025.org` pages, `mandateforleadership.org`, and official Project 2025 or Heritage publications. Second, use stable mirrors such as DocumentCloud only to locate text, preserve access, or identify search terms, and record both the official source and the mirror used for retrieval. Third, use the local fallback copy at [`../source-development/project-2025-mandate-for-leadership-2023-documentcloud-backup.pdf`](../source-development/project-2025-mandate-for-leadership-2023-documentcloud-backup.pdf) only if official sources and stable online mirrors become unavailable, changed, or insufficient for the needed text. News summaries and advocacy summaries may identify leads or public salience but should not replace the official source, stable mirror, or local fallback in the citation record.
 
-A Horizon Scan audit should not directly create new issue pages, modify existing issue pages, revise legislation, change scores, update inventories, or change source records unless the user separately approves implementation after reviewing the scan. Its output should be added to the cumulative Horizon Scan list on [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md), with a concise and easily readable listing of each flagged concern and recommendation. Unlike issue-quality audit histories, Horizon Scan findings should be additive rather than segmented by run: new scans should append or update rows in the existing list, preserve prior findings, and avoid creating a new dated subsection unless the Horizon Scan schema itself is being changed. If the scan identifies urgent or high-confidence concerns, present them prominently to the user before implementation work begins.
+A Horizon Scan audit should not directly create new issue pages, modify existing issue pages, revise legislation, change scores, update inventories, or change source records unless the user separately approves implementation after reviewing the scan. Its active output should be captured in GitHub Issues and the GitHub Project horizon queue, with a concise and easily readable listing of each flagged concern and recommendation. [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) should be updated when a candidate is admitted, merged, deferred, retired, or otherwise adjudicated. If the scan identifies urgent or high-confidence concerns, present them prominently to the user before implementation work begins.
 
 Each Horizon Scan finding should receive a stable **Horizon ID** in the form `HOR-###`, assigned sequentially in the cumulative Horizon Scan list. The Horizon ID is a temporary intake reference, not a formal issue ID. If a finding is later developed into a proposal, the new issue should receive the ordinary area-specific issue ID, and the Horizon ID should remain in the Horizon Integration Log as the intake reference.
 
@@ -328,7 +326,7 @@ Each Horizon Scan list update should normally include:
 
 When the user asks to address, review, assess, adjudicate, ingest, merge, admit, or retire a specific `HOR-###` candidate, use this workflow unless the user gives narrower instructions. A Horizon candidate adjudication is different from running a new Horizon Scan: it decides what to do with an already identified intake item.
 
-1. **Locate the candidate.** Find the `HOR-###` row in [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md). Confirm whether it is still in the active Horizon Scan table or already appears in the Horizon Integration Log.
+1. **Locate the candidate.** Find the `HOR-###` GitHub Issue for active horizon candidates, or find the `HOR-###` row in [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) if the candidate has already been adjudicated.
 2. **Verify the factual premise.** Check the cited sources and, where the matter is current or source-sensitive, refresh with reliable current public sources. Prefer primary materials when the claim depends on a court order, statute, regulation, bill, executive action, agency action, official vote, or formal record.
 3. **Cross-check existing project coverage.** Search existing areas, issue pages, proposed legislation, source-development notes, inventories, and dashboard rows for overlap. Identify the best existing home if the concern is a manifestation, source-development lead, or expansion of an existing issue.
 4. **Apply the issue-admission test.** Ask whether the candidate identifies a distinct institutional weakness requiring separate diagnosis or remedial analysis, rather than only a disliked policy outcome, ordinary political bargaining, a single unresolved episode, or a manifestation already covered elsewhere.
@@ -336,8 +334,8 @@ When the user asks to address, review, assess, adjudicate, ingest, merge, admit,
 6. **Test neutrality and overcorrection risk.** Ask whether creating a remedy would restructure institutions to force a preferred political result rather than to repair a generalizable institutional weakness. If the same mechanism would be concerning when used by an opposing faction, that supports admission; if not, retire or narrow the candidate.
 7. **Make a disposition recommendation.** Present the user with a concise recommendation: admit as a new issue, merge into an existing issue, expand or amend an existing issue, retain as source development only, retire without admission, or reject as outside scope. Include the best counter-argument if the recommendation is not obvious.
 8. **Wait for user approval before implementation.** Do not create, merge, retire, or update issue records from an adjudication recommendation until the user agrees or gives direct implementation instructions.
-9. **Implement the approved disposition.** If admitted as a new issue, assign the next stable area-specific issue ID, update the area page and `issue_count`, and update [`issues.csv`](../inventory/issues.csv), [`contents.csv`](../inventory/contents.csv), [`audits.csv`](../inventory/audits.csv), [`sources.csv`](../inventory/sources.csv), [`../AUDIT_DASHBOARD.md`](../AUDIT_DASHBOARD.md), and [`../HORIZON_SCAN.md`](../HORIZON_SCAN.md). If merged or retained as source development, update the relevant area or issue page, source inventory, and Horizon Scan page. If retired, remove the candidate from the active Horizon Scan table and add an Integration Log row preserving the static `HOR-###` ID, original concern, rationale, and revisit trigger.
-10. **Maintain the Horizon Scan state.** Active Horizon Scan rows should contain only candidates still needing action. Adjudicated candidates should appear in the Horizon Integration Log, not the active table.
+9. **Implement the approved disposition.** If admitted as a new issue, assign the next stable area-specific issue ID, update the area page and `issue_count`, and update the GitHub Project item/fields, [`sources.csv`](../inventory/sources.csv), [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md), and [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md). If merged or retained as source development, update the relevant area or issue page, source inventory, GitHub Project item, and Horizon Scan Log. If retired, close or update the active GitHub horizon issue and add an Integration Log row preserving the static `HOR-###` ID, original concern, rationale, and revisit trigger.
+10. **Maintain the Horizon Scan state.** Active horizon candidates should live as GitHub Issues and GitHub Project items. Adjudicated candidates should appear in the Horizon Scan Log.
 11. **Preserve source traceability.** Add or update [`sources.csv`](../inventory/sources.csv) rows for external sources relied on in the adjudication or implementation, even when the candidate is retired.
 12. **Validate and preserve.** Run lightweight formatting and inventory checks appropriate to the files changed. Commit and push the adjudication update when repository access is available, unless the user has asked not to commit.
 
@@ -356,7 +354,7 @@ If an unknown cannot be resolved without user input, do not block the entire aud
 
 When uncertainty affects scoring, assign no favorable credit for the unresolved portion, apply any required penalty, and identify the next audit need. Do not ask the user to resolve matters that can be answered through reliable sources or the project's existing framework.
 
-When a defect can be corrected without user input, correct it rather than only noting it. Examples include broken links, missing internal links, stale inventory rows, missing source-inventory capture, obvious citation-placement defects, metadata inconsistencies, formatting defects, issue-status inconsistencies, and framework-compliance gaps that can be fixed from the existing record. Do not make substantive policy choices, legal judgments, or factual claims that require unresolved source support; mark those unresolved and notify the user.
+When a defect can be corrected without user input, correct it rather than only noting it. Examples include broken links, missing internal links, stale source rows or GitHub Project fields, missing source-inventory capture, obvious citation-placement defects, metadata inconsistencies, formatting defects, issue-status inconsistencies, and framework-compliance gaps that can be fixed from the existing record. Do not make substantive policy choices, legal judgments, or factual claims that require unresolved source support; mark those unresolved and notify the user.
 
 ### Audit Preservation and GitHub Storage
 
@@ -370,7 +368,7 @@ If the push cannot be completed, preserve a local commit where possible, record 
 
 Audits are corrective workflows, not documentation-only reviews. When an audit identifies a defect that can be fixed within the selected tier, within the project's framework, and without requiring unresolved user judgment, the auditor should make the correction as part of the audit. The audit record should distinguish issues fixed during the audit from issues left unresolved for later work.
 
-Human-relevant audit results should be visible without making issue pages unwieldy. CSV files are for tracking, indexing, verification, and machine-readable maintenance; they are not a substitute for human-facing disclosure. Each issue page should contain a succinct but usable **Proposal Scoring** section with the at-a-glance proposal-quality score, Adoption Score when separately reported, Coalition Support Estimates when assessed, Required Electoral Environment, Development Priority, External Review Status when assessed, Adoption Friction, and any other companion score or viability indicator grouped at the top, followed by an em dash divider, then audit status, last audit, rubric version, rebaseline status, next audit need, and a visible link to the full audit-history page. When an Adoption Score is displayed, it should include the consistent descriptor in parentheses after the score, for example: `5 / 12 (Limited Adoption Basis)`. If the compact scoring box includes Coalition Support Estimates, put the label on its own line, then list each audience estimate on indented lines using inline `<br />` breaks and `&nbsp;` spacing. Keep the compact box free of evidentiary caveats when those caveats are explained in the matching annotation segment. If visible scores or descriptors require explanation, place that explanation in annotation segments after any **Budgetary Impact** annotation segment, using labels that mirror the scoring box where practical: **Quality Score**, **Adoption Score**, **Coalition Support Estimates**, **External Review Status**, **Adoption Friction**, **Required Electoral Environment**, and **Development Priority**.
+Human-relevant audit results should be visible without making issue pages unwieldy. GitHub Project fields and the compact dashboard are for tracking, filtering, triage, and machine-readable maintenance; they are not a substitute for human-facing disclosure. The retained CSV inventory is limited to source tracking. Each issue page should contain a succinct but usable **Proposal Scoring** section with the at-a-glance proposal-quality score, Adoption Score when separately reported, Coalition Support Estimates when assessed, Required Electoral Environment, Development Priority, External Review Status when assessed, Adoption Friction, and any other companion score or viability indicator grouped at the top, followed by an em dash divider, then audit status, last audit, rubric version, rebaseline status, next audit need, and a visible link to the full audit-history page. When an Adoption Score is displayed, it should include the consistent descriptor in parentheses after the score, for example: `5 / 12 (Limited Adoption Basis)`. If the compact scoring box includes Coalition Support Estimates, put the label on its own line, then list each audience estimate on indented lines using inline `<br />` breaks and `&nbsp;` spacing. Keep the compact box free of evidentiary caveats when those caveats are explained in the matching annotation segment. If visible scores or descriptors require explanation, place that explanation in annotation segments after any **Budgetary Impact** annotation segment, using labels that mirror the scoring box where practical: **Quality Score**, **Adoption Score**, **Coalition Support Estimates**, **External Review Status**, **Adoption Friction**, **Required Electoral Environment**, and **Development Priority**.
 
 Use this compact format when coalition estimates are displayed:
 
@@ -380,7 +378,7 @@ Use this compact format when coalition estimates are displayed:
 
 The full audit history should live in a sibling file named `ISSUE-ID.audit.md` beside the issue page. For example, `areas/DOJ/issues/DOJ-001.md` should link to `areas/DOJ/issues/DOJ-001.audit.md`. The sibling audit file is the append-only technical record. New audits should add a new dated entry under **Audit History** rather than replacing, deleting, or compressing prior audit entries. Use newest-first ordering unless a page already uses another clear chronological convention. Older audit entries may be corrected only to fix clerical errors, broken links, stale line references, or clearly identified inaccuracies; do not remove them merely because the audit file becomes long. Public-facing compiled editions may omit or trim audit-history files, but source control should retain the complete technical audit history.
 
-Each issue page with a **Proposal Scoring** section should also carry compact audit metadata in front matter: `audit_status`, `audit_score`, `audit_last_type`, `audit_last_date`, `audit_next`, `audit_rubric_version`, `audit_rebaseline_status`, `change_audit_needed`, `change_audit_reason`, and `audit_history` where applicable. Where external professional review has occurred, the page should also carry compact external-review metadata when practical: `external_review_status`, `external_review_type`, `external_review_date`, `external_review_reviewer_role`, and `external_review_notes`. These fields are for tooling and quick scanning only. They should match the issue-page **Proposal Scoring** section and sibling audit-history file. They should also remain consistent with [`audits.csv`](../inventory/audits.csv), though compact front-matter fields such as `audit_next` may summarize the longer CSV next-audit-need text. The metadata should not replace the human-readable scoring summary or audit explanation.
+Each issue page with a **Proposal Scoring** section should also carry compact audit metadata in front matter: `audit_status`, `audit_score`, `audit_last_type`, `audit_last_date`, `audit_next`, `audit_rubric_version`, `audit_rebaseline_status`, `change_audit_needed`, `change_audit_reason`, and `audit_history` where applicable. Where external professional review has occurred, the page should also carry compact external-review metadata when practical: `external_review_status`, `external_review_type`, `external_review_date`, `external_review_reviewer_role`, and `external_review_notes`. These fields are for tooling and quick scanning only. They should match the issue-page **Proposal Scoring** section and sibling audit-history file. The metadata should not replace the human-readable scoring summary or audit explanation.
 
 Each completed audit should leave a detailed sibling audit-history record that identifies:
 
@@ -493,7 +491,7 @@ For consistent application, use these component definitions:
 | Drafting Score | Legislative or rule text uses proper vehicle, conventions, definitions, responsible actors, procedures, remedies, deadlines, review, and severability. |
 | Cogency Score | The problem, weakness, damage, remedy, and implementation logic follow from each other without hidden premises or overclaiming. |
 | Adoption Score | Support and adoption analysis, public-support evidence, audience fit, objection handling, adoption vehicle, coalition strategy, and required electoral environment are documented with evidence. |
-| Project-Integration Score | Internal links, legislation links, issue status, remedy type, source inventory, audit inventory, contents index, area page, and compiled-document placement are consistent. |
+| Project-Integration Score | Internal links, legislation links, issue status, remedy type, source inventory, audit metadata, audit-history sidecar, GitHub Project canonical-page links, area page, and compiled-document placement are consistent. |
 | External-Review Score | Qualified expert, practitioner, legislative, stakeholder, judicial-scrutiny, or scholarly review has been documented, incorporated, and matched to the reviewer's domain. |
 
 Apply each component as follows:
@@ -684,7 +682,7 @@ Bands:
 
 Apply the score conservatively:
 
-1. Do not infer a friction score from general political intuition alone; record the basis in the issue-page audit record, [`audits.csv`](../inventory/audits.csv), or both.
+1. Do not infer a friction score from general political intuition alone; record the basis in the issue page, sibling audit-history file, or both.
 2. Do not treat friction as opposition to the proposal's merits. Friction is about expected resistance and adoption difficulty.
 3. Do not subtract friction from Proposal Quality Score. Use it to prioritize framing, coalition work, litigation preparation, implementation planning, and public explanation.
 4. If the proposal has not yet received an adoption-friction review, record the score as blank or `N/A` and the band as `Unassessed`.
@@ -912,7 +910,7 @@ If a candidate is duplicative, keep it as a manifestation, example, cross-refere
 
 When an issue becomes developed, maintain consistency among:
 
-- the issue row in [`issues.csv`](../inventory/issues.csv);
+- the GitHub Project item for the issue;
 - the area README entry;
 - the issue page under the relevant area directory;
 - any proposed legislation under [`../legislation/`](../legislation/); and
@@ -920,4 +918,4 @@ When an issue becomes developed, maintain consistency among:
 
 ## Cross-References
 
-Inventory entries should not duplicate developed analysis. Where a related issue is developed elsewhere, cross-reference the primary area or issue instead of repeating the same diagnosis, evidence, or remedy.
+Tracking entries should not duplicate developed analysis. Where a related issue is developed elsewhere, cross-reference the primary area or issue instead of repeating the same diagnosis, evidence, or remedy.

@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: active
+status: inactive
 print_levels:
   - full-technical
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
-| Active issue/task | FUND-001 — Addressing Executive Order Abuse |
-| Audit type/tier | Initial development / T1 framework check |
-| Started | 2026-06-29 |
-| Last checkpoint | 2026-06-29 |
-| User request | Formulate the executive-order abuse safety-valve concept as discussed, with an impoundment-based mechanism and a name centered on abuse of executive orders. |
-| Scope | Develop `FUND-001` issue page, proposed legislation, audit sidecar, dashboard row, area README, legislation README, inventories, and initial source records. |
-| Files touched | `CURRENT_AUDIT.md`; `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `legislation/FUND-001.md`; dashboard and inventory files. |
-| Completed steps | Identified `FUND-001` as the best home; created issue page, audit sidecar, and draft Executive-Order Abuse Impoundment Control Act; updated dashboard, area README, legislation README, inventory rows, and initial source records; cross-referenced `FUND-002`, `FUND-003`, `FUND-004`, `EMERG-002`, `CONG-008`, `FED-003`, and `JUD-001`. |
-| Next step | Run T2 development audit: verify Impoundment Control Act mechanics, GAO enforcement authority, OMB apportionment rules, Train, Youngstown, Chadha, Franklin, Dalton, standing, three-judge-court routing, emergency exceptions, congressional-plaintiff options, state/grantee standing, prior bills, public-support evidence, and administrative burden. |
+| Status | Inactive |
+| Active issue/task | None |
+| Audit type/tier | N/A |
+| Started | N/A |
+| Last checkpoint | 2026-07-01 |
+| User request | No active request. Last completed: project internal consistency and GitHub workflow review after moving workflow authority to GitHub Projects and governance files into `framework/`. |
+| Scope | None active. |
+| Files touched | None active. |
+| Completed steps | Confirmed Project fields now own structured workflow metadata; corrected contributor guidance, GitHub workflow rules, methodology, agent rules, inventory documentation, issue templates, import tooling, and Change Audit logging; validated local Markdown links and maintenance scripts. |
+| Next step | None unless the user starts or resumes a specific audit, drafting task, or project-governance pass. |
 | Blockers/questions | None. |
-| Validation status | CSV parse, local-link check, and `git diff --check` passed after initial development. |
+| Validation status | Passed as of 2026-07-01: local Markdown link check reported `missing_count 0`; maintenance scripts compiled; whitespace check passed excluding generated PDF binary; compiled PDF rebuilt successfully. |
 
 ## Handoff Rules
 

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Create GitHub tracking issues from inventory/github_issue_import.csv."""
+"""Create GitHub tracking issues from the historical import ledger.
+
+This legacy helper creates issue wrappers and attaches them to the GitHub
+Project, but Project fields remain authoritative and must be populated there.
+"""
 
 from __future__ import annotations
 
@@ -39,24 +43,26 @@ def issue_body(row: dict[str, str]) -> str:
             "",
             f"- Repo record: `{row['Canonical Record']}`",
             f"- Object ID: `{row['Object ID']}`",
-            f"- Inventory status: `{row['Inventory Status']}`",
-            f"- Priority: `{row['Priority']}`",
             "",
             "## Workflow Purpose",
             "",
             "This GitHub issue is the public workflow wrapper for the ARRP proposal. "
-            "Discussion, status, assignment, project-board placement, and release "
-            "tracking should happen here.",
+            "Discussion, assignment, and contributor-facing workflow should happen "
+            "here. Structured workflow metadata belongs in GitHub Project fields.",
             "",
             "The repository remains the authoritative substantive record for the "
             "proposal text, audit history, source records, and proposed legislation.",
             "",
             "## Next Step",
             "",
-            "Use the labels and project-board fields to identify whether this proposal "
+            "Use the Project fields to identify whether this proposal "
             "needs development, source review, audit work, release review, or deferral.",
         ]
     )
+
+
+def kind_label(row: dict[str, str]) -> str:
+    return f"kind: {row['Kind'].strip()}"
 
 
 def main() -> int:
@@ -98,18 +104,25 @@ def main() -> int:
             skipped += 1
             continue
 
-        labels = [
-            part.strip()
-            for part in row["Suggested Labels"].split(";")
-            if part.strip()
-        ]
+        labels = [kind_label(row)]
         if dry_run:
             print(f"DRY RUN: would create {title} [{', '.join(labels)}]")
             processed += 1
             skipped += 1
             continue
 
-        args = ["issue", "create", "--repo", REPO, "--title", title, "--body", issue_body(row)]
+        args = [
+            "issue",
+            "create",
+            "--repo",
+            REPO,
+            "--title",
+            title,
+            "--body",
+            issue_body(row),
+            "--project",
+            "American Restoration and Resilience Project",
+        ]
         for label in labels:
             args.extend(["--label", label])
         url = run_gh(args)

@@ -8,7 +8,6 @@ legislation in appendices.
 
 from __future__ import annotations
 
-import csv
 import html
 import os
 import re
@@ -49,28 +48,22 @@ class Area:
 
 def load_areas() -> list[Area]:
     rows: list[Area] = []
-    with (ROOT / "inventory" / "areas.csv").open(newline="", encoding="utf-8") as fh:
-        for row in csv.DictReader(fh):
-            area_id = row["Area ID"]
-            title = row["Area"]
-            slug = find_area_slug(area_id)
+    area_index = read(ROOT / "areas" / "README.md")
+    pattern = re.compile(r"^- \[(A-\d{2}) / ([A-Z]+) — ([^\]]+)\]\(([^)]+)/README\.md\)$")
+    for line in area_index.splitlines():
+        match = pattern.match(line.strip())
+        if match:
+            area_id, slug, title, _href_slug = match.groups()
             rows.append(Area(area_id=area_id, title=title, slug=slug))
     return rows
 
 
-def find_area_slug(area_id: str) -> str:
-    prefix = area_id.lower()
-    matches = sorted((ROOT / "areas").glob(f"{prefix}-*/README.md"))
-    if not matches:
-        raise FileNotFoundError(f"No area README found for {area_id}")
-    return matches[0].parent.name
-
-
-def load_issue_order() -> dict[str, list[str]]:
+def load_issue_order(areas: list[Area]) -> dict[str, list[str]]:
     by_area: dict[str, list[str]] = {}
-    with (ROOT / "inventory" / "issues.csv").open(newline="", encoding="utf-8") as fh:
-        for row in csv.DictReader(fh):
-            by_area.setdefault(row["Area ID"], []).append(row["Issue ID"])
+    for area in areas:
+        issue_dir = ROOT / "areas" / area.slug / "issues"
+        if issue_dir.exists():
+            by_area[area.area_id] = sorted(path.stem for path in issue_dir.glob(f"{area.slug}-*.md"))
     return by_area
 
 
@@ -444,7 +437,7 @@ def toc_entries(areas: list[Area], issue_order: dict[str, list[str]]) -> list[st
 
 def build_story(styles: dict[str, ParagraphStyle]) -> list:
     areas = load_areas()
-    issue_order = load_issue_order()
+    issue_order = load_issue_order(areas)
     federal_bills, state_bills = legislation_files()
     story = []
 

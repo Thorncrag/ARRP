@@ -210,12 +210,12 @@ The project framework, repository structure, file conventions, contribution proc
 
 The project methodology, audit rules, scoring rules, and inventory maintenance rules are maintained in [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md).
 
-Agent-assisted audit and autonomous batch-audit operating rules are maintained in [`agent.md`](agent.md).
+Agent-assisted audit and autonomous batch-audit operating rules are maintained in [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md).
 
-Autonomous-agent commit provenance and rollback references are maintained in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md).
+Autonomous-agent commit provenance and rollback references are maintained in [`framework/AGENT_AUDIT_LOG.md`](framework/AGENT_AUDIT_LOG.md).
 
-The compact project-wide audit tracker is maintained in [`AUDIT_DASHBOARD.md`](AUDIT_DASHBOARD.md).
+The compact project-wide audit tracker is maintained in [`framework/AUDIT_DASHBOARD.md`](framework/AUDIT_DASHBOARD.md).
 
-The cumulative Change Audit history is maintained in [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md).
+The cumulative Change Audit history is maintained in [`framework/CHANGE_AUDIT_LOG.md`](framework/CHANGE_AUDIT_LOG.md).
 
-The Horizon Scan intake and integration ledger is maintained in [`HORIZON_SCAN.md`](HORIZON_SCAN.md).
+The Horizon Scan Log is maintained in [`framework/HORIZON_SCAN_LOG.md`](framework/HORIZON_SCAN_LOG.md).

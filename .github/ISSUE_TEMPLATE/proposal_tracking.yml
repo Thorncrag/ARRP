@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this form to create a workflow wrapper for an existing or newly admitted ARRP proposal. The GitHub issue tracks discussion and status; the repository remains the authoritative substantive record.
+        Use this form to create a workflow wrapper for an existing or newly admitted ARRP proposal. The GitHub issue tracks discussion; GitHub Project fields track structured workflow status; the repository remains the authoritative substantive record.
   - type: input
     id: proposal-id
     attributes:
@@ -27,14 +27,18 @@ body:
   - type: dropdown
     id: workflow-status
     attributes:
-      label: Workflow status
+      label: Suggested Project status
       options:
-        - needs triage
-        - needs development
-        - needs sources
-        - needs audit
-        - release ready
-        - deferred
+        - Horizon / Intake
+        - Pending development
+        - In development
+        - Developed draft
+        - Audit needed
+        - Review ready
+        - Release candidate
+        - Done / Published
+        - Deferred / Parked
+        - Blocked
     validations:
       required: true
   - type: textarea

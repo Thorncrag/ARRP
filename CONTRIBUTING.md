@@ -14,16 +14,17 @@ Stakeholder input is welcome. To offer feedback, propose a correction, identify 
 
 GitHub Issues and the project board are the authoritative workflow record for active ARRP proposals, horizon proposals, release blockers, and development tasks. The repository remains the authoritative substantive record for proposal text, audit history, inventories, source records, legislation drafts, and framework rules.
 
-Each active proposal or horizon item should have a GitHub issue for discussion, status, labels, assignment, and project-board tracking. Substantive project changes should be made through repository edits and pull requests so the public workflow record and the canonical drafting record stay aligned.
+Each active proposal or horizon item should have a GitHub issue for discussion, assignment, and contributor-facing workflow. Structured workflow metadata belongs in GitHub Project fields rather than duplicate labels or issue-body metadata. Substantive project changes should be made through repository edits and pull requests so the public workflow record and the canonical drafting record stay aligned.
 
-For the working conventions, label taxonomy, milestone rule, and import ledger, see [GitHub Workflow](framework/GITHUB_WORKFLOW.md).
+For the working conventions, Project field ownership, label rule, sub-issue rule, milestone rule, and import ledger, see [GitHub Workflow](framework/GITHUB_WORKFLOW.md).
 
 Contributors should follow the project's current governing documents rather than treating this page as a complete rulebook. The controlling conventions for structure, method, sourcing, scoring, audit practice, neutrality, drafting, and publication are maintained in:
 
 - [Project Framework](framework/FRAMEWORK.md)
 - [Project Methodology](framework/METHODOLOGY.md)
+- [GitHub Workflow](framework/GITHUB_WORKFLOW.md)
 - [Print Assembly Framework](framework/PRINT_ASSEMBLY.md)
-- [Project Structure](PROJECT_STRUCTURE.md)
+- [Project Structure](framework/PROJECT_STRUCTURE.md)
 
 If those documents change, contributors should follow the current version of those documents.
 

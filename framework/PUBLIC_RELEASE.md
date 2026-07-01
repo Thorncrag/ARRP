@@ -22,10 +22,10 @@ A release should:
 
 Before creating a public release, complete a final review of:
 
-1. [`README.md`](README.md), including the reader notice, rights notice, citation pointer, and project status;
-2. [`LICENSE.md`](LICENSE.md), including the all-rights-reserved status and planned future public reuse license note;
-3. [`AUTHORS.md`](AUTHORS.md), including the author-directed project statement;
-4. [`CITATION.cff`](CITATION.cff), including author, title, repository URL, abstract, and citation message;
+1. [`README.md`](../README.md), including the reader notice, rights notice, citation pointer, and project status;
+2. [`LICENSE.md`](../LICENSE.md), including the all-rights-reserved status and planned future public reuse license note;
+3. [`AUTHORS.md`](../AUTHORS.md), including the author-directed project statement;
+4. [`CITATION.cff`](../CITATION.cff), including author, title, repository URL, abstract, and citation message;
 5. source citations for named real-world events, public actors, legal materials, reports, and institutional examples;
 6. Git history, author metadata, and `.mailmap`;
 7. repository settings for issues, discussions, pull requests, branch protection, and contributor permissions; and
@@ -66,4 +66,4 @@ Known limitations:
 
 ## Later Release-Licensing Decision
 
-When the project is ready for broader legislative and public engagement, select and adopt an appropriate Creative Commons or other public reuse license, update [`LICENSE.md`](LICENSE.md), update [`README.md`](README.md), and create a new release that clearly identifies the first version available under that public reuse license.
+When the project is ready for broader legislative and public engagement, select and adopt an appropriate Creative Commons or other public reuse license, update [`LICENSE.md`](../LICENSE.md), update [`README.md`](../README.md), and create a new release that clearly identifies the first version available under that public reuse license.

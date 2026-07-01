@@ -8,7 +8,7 @@ print_levels:
 
 This file defines how the modular Markdown project should be assembled into a single proposal document for printing, PDF generation, DOCX export, or other linear publication.
 
-Markdown and CSV files remain canonical. Generated print, PDF, DOCX, and other compiled editions are convenience exports.
+Markdown files, GitHub Project records, issue audit-history files, and the retained source inventory remain canonical within their respective scopes. Generated print, PDF, DOCX, and other compiled editions are convenience exports.
 
 ## Assembly Objectives
 
@@ -39,7 +39,7 @@ The compiled proposal document should use the following order.
 The main body should then include:
 
 1. foundational premise, mission, scope, and governing principles from [`../README.md`](../README.md);
-2. project areas in the order listed in [`../areas/README.md`](../areas/README.md) and [`../inventory/areas.csv`](../inventory/areas.csv);
+2. project areas in the order listed in [`../areas/README.md`](../areas/README.md);
 3. for each area, the area README as the area introduction;
 4. for each area, existing issue pages in issue-identifier order;
 5. within each issue, the issue page's existing heading structure, including Issue Snapshot, Institutional Anomaly, Manifestation of the Failure, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation where present, Proposed Constitutional Amendment and Proposed Enabling Legislation where present, Adoption Viability Note where present, Relationship to Adjacent Proposals where present, Budgetary Impact Statement, Proposal Scoring, Annotation, source notes, and internal cross-references where present.
@@ -84,7 +84,7 @@ Area order is controlled by area identifiers:
 A-01, A-02, A-03, ...
 ```
 
-Issue order within an area is controlled by issue identifiers and the issue inventory:
+Issue order within an area is controlled by issue identifiers and the area page:
 
 ```text
 DOJ-001, DOJ-002, DOJ-003, ...
