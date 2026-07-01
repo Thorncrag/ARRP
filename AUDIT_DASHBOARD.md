@@ -20,9 +20,9 @@ Update this page whenever an audit changes an issue's compact dashboard fields: 
 
 | Band | Count |
 | --- | ---: |
-| Total issues tracked | 214 (13 retired)|
+| Total issues tracked | 215 (13 retired)|
 | Undeveloped | 178 |
-| Drafts below Review Ready | 6 |
+| Drafts below Review Ready | 7 |
 | Review Ready | 16 |
 | Paused | 1 |
 
@@ -52,7 +52,7 @@ Update this page whenever an audit changes an issue's compact dashboard fields: 
 | [ELEC-009](areas/ELEC/issues/ELEC-009.md) | A-02 / ELEC | High | Substantially Developed Draft | 73 | 6 | Change Audit (2026-06-29) | External validation / T4 follow-up |
 | [ELEC-010](areas/ELEC/issues/ELEC-010.md) | A-02 / ELEC | High | Review Ready | 77 | 6 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
 | [ELEC-011](areas/ELEC/issues/ELEC-011.md) | A-02 / ELEC | High | Developed Draft | 60 | 9 | T1 framework check (2026-06-29) | T2 development audit |
-| ELEC-012 | A-02 / ELEC | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
+| [ELEC-012](areas/ELEC/issues/ELEC-012.md) | A-02 / ELEC | High | Pending development | 0 | 2 | Initial issue framework (2026-06-29) | Issue-admission test |
 | [ELEC-013](areas/ELEC/issues/ELEC-013.md) | A-02 / ELEC | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
 | [WAR-001](areas/WAR/issues/WAR-001.md) | A-03 / WAR | High | Review Ready | 77 | 5 | T4 publication-ready audit (2026-06-28) | External validation / T4 follow-up |
 | *[WAR-002](areas/WAR/README.md)* | *A-03 / WAR* | *High* | *Retired/Merged* | *0* | *1* | *Initial inventory audit (2026-06-24)* | *Cross-reference check* |
@@ -135,7 +135,7 @@ Update this page whenever an audit changes an issue's compact dashboard fields: 
 | EMERG-007 | A-10 / EMERG | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | EMERG-008 | A-10 / EMERG | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | [FUND-001](areas/FUND/issues/FUND-001.md) | A-11 / FUND | Medium | Developed Draft | 60 | 2 | Initial development and T1 framework check (2026-06-29) | T2 development audit |
-| FUND-002 | A-11 / FUND | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| [FUND-002](areas/FUND/issues/FUND-002.md) | A-11 / FUND | Medium | Pending development | 0 | 2 | Initial candidate development (2026-06-29) | Source-development pass |
 | FUND-003 | A-11 / FUND | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | FUND-004 | A-11 / FUND | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | FUND-005 | A-11 / FUND | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
@@ -166,7 +166,7 @@ Update this page whenever an audit changes an issue's compact dashboard fields: 
 | DOM-006 | A-14 / DOM | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | DOM-007 | A-14 / DOM | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | DOM-008 | A-14 / DOM | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
-| DOM-009 | A-14 / DOM | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
+| [DOM-009](areas/DOM/issues/DOM-009.md) | A-14 / DOM | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
 | CONG-001 | A-15 / CONG | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | CONG-002 | A-15 / CONG | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | CONG-003 | A-15 / CONG | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
@@ -183,7 +183,7 @@ Update this page whenever an audit changes an issue's compact dashboard fields: 
 | IMM-006 | A-16 / IMM | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | IMM-007 | A-16 / IMM | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | IMM-008 | A-16 / IMM | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
-| REG-001 | A-17 / REG | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
+| [REG-001](areas/REG/issues/REG-001.md) | A-17 / REG | High | Pending development | 0 | 2 | Horizon update after Trump v. Slaughter (2026-06-29) | Source-development pass |
 | REG-002 | A-17 / REG | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | REG-003 | A-17 / REG | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | REG-004 | A-17 / REG | Medium | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
@@ -246,3 +246,4 @@ Update this page whenever an audit changes an issue's compact dashboard fields: 
 | HER-008 | A-23 / HER | High | Pending development | 0 | 1 | Initial inventory audit (2026-06-24) | Issue-admission test |
 | [RIGHTS-001](areas/RIGHTS/issues/RIGHTS-001.md) | A-24 / RIGHTS | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
 | [RIGHTS-002](areas/RIGHTS/issues/RIGHTS-002.md) | A-24 / RIGHTS | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-25) | Issue-admission test |
+| [RIGHTS-003](areas/RIGHTS/issues/RIGHTS-003.md) | A-24 / RIGHTS | High | Pending development | 0 | 1 | Horizon integration decision (2026-06-29) | Source-development pass |

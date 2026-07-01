@@ -17,4 +17,10 @@ Large language model tools, including ChatGPT, have been used extensively for re
 
 Outside contributions, comments, suggestions, or proposed edits may be incorporated in the future, but such contributions do not transfer authorship of the project as a whole unless expressly stated in writing.
 
+## Stakeholder Input
+
+The project would welcome and appreciate input from additional stakeholders, including attorneys, legislative counsel, public-law scholars, government practitioners, civil-society organizations, affected communities, journalists, technologists, former public officials, and other readers with relevant expertise or lived experience. Comments may address factual accuracy, source quality, legal fit, implementation risk, institutional design, drafting clarity, missing issues, or unintended consequences.
+
+To offer feedback, propose a correction, identify a source, or discuss a possible contribution, contact Benjamin Smith at <smith.benjamin.j@icloud.com>.
+
 For citation metadata, see [CITATION.cff](CITATION.cff). For rights and reuse terms, see [LICENSE.md](LICENSE.md).

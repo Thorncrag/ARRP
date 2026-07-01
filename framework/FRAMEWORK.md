@@ -116,6 +116,12 @@ The project applies neutral standards without pretending to be neutral about ins
 
 Frame issues around institutional weakness, structural damage, and legal repair. Name individual actors only when their conduct is necessary to understand the failure, source the example, or explain the remedy.
 
+### Resilience and Temporal Scope
+
+Do not reject an issue merely because it is not tied to President Trump's administrations, Project 2025, or a current partisan conflict. Those events are principal case studies and stress tests, not the project's outer boundary. Older, continuing, or future-facing defects remain within scope when they bear on democratic resilience, institutional legitimacy, equal political membership, lawful administration, representation, disenfranchisement, or the system's capacity for self-correction.
+
+When an issue turns on political tradition, voluntary restraint, unwritten norms, informal interbranch accommodation, or underspecified legal guidance, identify that dependence directly. The analysis should ask whether the vulnerable norm can remain informal, should be codified, should be made reviewable, should receive an enforcement or transparency mechanism, or requires constitutional clarification.
+
 ### Neutral Application
 
 Apply the same evidentiary, legal, and remedial standards regardless of party, ideology, officeholder, administration, or movement. Do not create partisan exemptions, manufacture false equivalence, make unsupported accusations for balance, or design rules that depend on who currently holds power.
@@ -143,6 +149,8 @@ Avoid standalone character labels and ideological epithets where a conduct-based
 ### Project 2025 Treatment
 
 Treat Project 2025 and comparable ideological programs as source material for institutional-risk analysis, not as partisan enemy documents. The project may state its opposition to unitary executive theory, institutional capture, and efforts to subordinate public institutions to personal or factional control, but analysis should focus on the mechanism, legal vulnerability, implementation pathway, and institutional effect.
+
+Where Project 2025-style unitary executive theory is discussed, distinguish founding-era executive unity from modern maximalist presidential-control claims. The project may characterize the maximalist version as Federalist in pedigree but Anti-Federalist in consequence when the analysis explains that it takes Hamiltonian executive unity and pushes it toward the monarchy-like concentration of power that Anti-Federalists feared. The focus should remain on how unchecked presidential control can hollow out separation of powers, checks and balances, legislative authority, judicial review, or independent statutory administration.
 
 ### Collective Labels
 
@@ -173,6 +181,8 @@ Before promoting a candidate into a standalone issue, ask:
 > Does this candidate identify a distinct institutional weakness requiring separate diagnosis or remedial analysis?
 
 If not, merge it into a broader issue, treat it as a manifestation or example, cross-reference it, or retain it only in the research inventory.
+
+An issue may satisfy the test even when its main evidence is not drawn from President Trump's administrations. The relevant question is whether the candidate identifies a repairable structural defect. Representation and disenfranchisement issues, including District of Columbia statehood, Puerto Rico status, territorial representation, or other durable political-membership defects, may qualify where they materially affect democratic legitimacy or long-term institutional resilience.
 
 Candidate issues may be retired or merged when the issue-admission test shows substantial duplication. A status such as **Awaiting merits adjudication** identifies a deliberately paused issue whose remedy depends materially on pending judicial resolution.
 
@@ -338,19 +348,6 @@ The **Proposal Scoring** section should group all scores and viability indicator
 
 ## Outstanding Development
 
-The following canonical backlog items remain outstanding:
+The operational roadmap is maintained in GitHub rather than duplicated in this framework file. Use [GitHub Issues](https://github.com/Thorncrag/ARRP/issues) and the [American Restoration and Resilience Project board](https://github.com/users/Thorncrag/projects/2) to track active tasks, release milestones, area-level development work, and publication-readiness blockers.
 
-- develop authoritative source records, annotations, and individual issue files for remaining JUD, PAR, and CLASS candidate issues;
-- analyze constitutional and implementation constraints for judicial-enforcement remedies, including appointments, appropriations, due process, and presidential control;
-- analyze the constitutional limits on restricting the legal effect of presidential clemency while developing transparency, anti-corruption, review, recordkeeping, disclosure, and surrounding-liability remedies;
-- preserve and source the distinctions among classification status, authorization to disclose, lawful custody or possession, and government ownership and records-preservation duties;
-- develop the A-21 annotation explaining the systemic risks of sustained political subordination of monetary policy, including inflation, unanchored expectations, leverage, asset-price distortions, currency weakness, loss of credibility, and the possibility of a later severe corrective contraction;
-- before public release, conduct a cross-proposal unitary-executive review to determine whether issues sharing the same Article II obstacle should be treated through one broader constitutional amendment package rather than separate issue-by-issue amendments; this review should include, at minimum, independent-agency removal protection, Federal Reserve independence, independent investigation, presidential immunity, executive-order abuse, adjudicatory independence, and administrative neutrality;
-- conduct a systematic review of each proposal's potential bipartisan support, including cross-party institutional interests, likely objections, possible neutral framing, and risks of partisan capture or misuse;
-- complete the Project 2025 / ARRP crosswalk source-development pass, including official Mandate chapter records, chapter-level and major-proposal rows, page or section citations, implementation-status labels, weakness-vehicle analysis for proposals whether or not enacted or attempted, ARRP area and issue mappings, coverage-status labels, newly needed issue candidates, and area-priority review;
-- maintain and improve the compiled-export workflow, including lightweight table-of-contents generation, heading normalization, local-link verification, appendix placement for proposed legislation, and compact document layout;
-- before public release, implement two-pass PDF/DOCX export support for stable appendix labels, page-numbered cross-references, and a page-numbered table of contents or appendix index, so body references can point to proposed legislation and technical appendices without manually maintained page numbers;
-- defer full clickable table-of-contents work until the project is more developed, then limit it to major sections, project areas, developed issues, and appendices;
-- select and adopt an appropriate Creative Commons or other public reuse license when the project is ready for broader legislative and public engagement.
-
-These are substantive research and issue-development tasks, not exceptions to the governing framework above.
+The repository remains the authoritative record for project substance, issue pages, inventories, audit sidecars, source records, proposed legislation, and framework rules. GitHub Issues and Projects are workflow surfaces; they should point back to canonical repo records rather than replace them.

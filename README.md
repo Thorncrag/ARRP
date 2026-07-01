@@ -20,19 +20,23 @@ The project does not claim or intend to function as a Democratic Party agenda. A
 
 The project does not avoid naming public actors, including President Trump, where specific conduct is relevant to identifying institutional damage, structural vulnerability, or necessary repair. Such references are not included as partisan argument or personal condemnation for its own sake, but because the project depends on concrete examples of how institutions were damaged, tested, or exploited. The same standards should apply to any officeholder, party, administration, or movement that creates comparable institutional risk.
 
+The project is not limited to incidents from President Trump's administrations. Those incidents are a principal case study because they exposed how many parts of the constitutional and administrative system depended on political traditions, voluntary restraint, unwritten norms, and underspecified legal guidelines. The project also includes older, continuing, or future-facing institutional weaknesses where they bear on democratic resilience, including representation, disenfranchisement, territorial status, and other structural conditions that affect whether the system can remain self-correcting over time.
+
 The full neutrality, language, coalition-reality, and political-language audit rules are maintained in the technical framework and project methodology. See [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#neutrality-and-language-guidelines) and [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#political-language-and-coalition-appeal-audit).
 
 The project is also a living research draft. Sources, citations, examples, issue classifications, and proposed remedies may be incomplete, provisional, or later revised as the work develops.
 
 The project is author-directed. The author has set the research agenda, selected and organized the issues, made the editorial judgments, and remained in charge of the project's structure and development. Large language model tools, including ChatGPT, have been used extensively for research organization, drafting assistance, revision, comparison, and issue spotting, but the project was not generated from scratch by an LLM. The author asserts authorship of the project as a whole and remains responsible for its editorial choices, judgments, omissions, and errors.
 
-For a dedicated authorship statement, see [`AUTHORS.md`](AUTHORS.md).
+For a dedicated authorship, stakeholder-input, and contact statement, see [`AUTHORS.md`](AUTHORS.md).
 
 ## Foundational Premise
 
 The American system of government is broken because it failed to prevent President Trump and the MAGA movement from subordinating constitutional duty, institutional independence, factual adjudication, and the peaceful transfer of power to personal loyalty. The damage must be repaired, the weaknesses that enabled it must be corrected, and stronger safeguards must be established against future personalist capture.
 
 This project was not devised as a partisan response to partisan policy preferences, nor as a counter-platform to Project 2025. It analyzes outcomes associated with President Trump's administration, MAGA-aligned efforts, Project 2025, and other partisan or ideological projects only where they reveal, exploit, accelerate, or manifest institutional damage. The project’s concern is the legal, structural, administrative, and institutional vulnerability, not the partisan identity of the actor or the ordinary policy preference at issue.
+
+The project treats democratic resilience as more than emergency resistance to a single officeholder. A resilient system should not depend so heavily on officeholders honoring informal traditions, adhering to voluntary norms, or declining to exploit legal ambiguity. Where such traditions proved load-bearing, the project asks whether they should be clarified, hardened, made reviewable, or paired with credible correction mechanisms.
 
 The project is designed for readers who accept the project's underlying premise and foundational diagnosis. Its purpose is not to repeatedly prove that the system is broken, but to determine how the failure occurred, what damage followed, which weaknesses allowed it, what must be repaired, and what reforms can prevent recurrence.
 
@@ -48,6 +52,8 @@ The project will:
 ## Scope
 
 The project concerns systems, structures, institutions, laws, and policies. It does not attempt a comprehensive sociological account of voter psychology, cultural identity, or partisan affiliation except where those matters directly illuminate an institutional vulnerability or remedy.
+
+The scope is not limited to President Trump, Project 2025, or any single political period. Those examples may reveal urgent vulnerabilities, but the project may also address long-running structural defects whose democratic-resilience consequences are independent of any one administration. Issues such as District of Columbia statehood, Puerto Rico status, representation gaps, and durable disenfranchisement may therefore fall within scope when the analysis connects them to institutional legitimacy, democratic self-correction, or equal political membership.
 
 ## Governing Principles
 
@@ -69,6 +75,10 @@ The project seeks truth, legal coherence, factual accountability, and reconcilia
 
 The objective is not automatic return to the pre-2017 institutional status quo. Where prior arrangements enabled abuse, restoration must include redesign and legal hardening.
 
+### Democratic Resilience
+
+The project uses resilience to mean the legal and institutional capacity to withstand abuse, correct failure, and preserve democratic legitimacy without relying primarily on voluntary restraint. Political traditions, professional norms, and interbranch comity remain valuable, but they are not sufficient when a determined actor can lawfully or practically evade them. Where the project identifies a norm as load-bearing, it should consider whether that norm needs a statutory hook, procedural trigger, transparency requirement, review mechanism, enforcement path, or constitutional clarification.
+
 ### Functional Administrative Independence
 
 Elected officials should control lawful policy direction. Factual determination, scientific assessment, adjudication, auditing, personnel administration, and individual enforcement decisions should receive protection from personal or partisan coercion.
@@ -78,6 +88,8 @@ Elected officials should control lawful policy direction. Factual determination,
 The project is not opposed to a strong executive as such. A constitutional republic needs an executive capable of lawful administration, crisis response, foreign-policy execution, national defense, and faithful implementation of statutes. The project objects to theories and practices that convert executive strength into power enhancement, accumulation, institutional corrosion, or evasion of the democratic checks and balances built into the constitutional design.
 
 Unitary-executive jurisprudence becomes corrosive when it treats presidential control as a reason to disregard congressional intent, weaken independent adjudication or factual administration, evade appropriations limits, defeat statutory accountability, or place executive action substantially beyond timely judicial review. The project therefore distinguishes lawful energetic execution from legal theories that make executive power self-insulating, self-expanding, or resistant to ordinary democratic correction.
+
+Project 2025-style unitary executive theory is Federalist in pedigree but Anti-Federalist in consequence: it takes Hamilton's argument for executive unity and pushes it toward the monarchy-like concentration of power that Anti-Federalists feared. If presidential action cannot be meaningfully constrained by the other branches of government, then separation of powers and checks and balances become functionally meaningless. The powers delegated to the judicial and legislative branches are hollowed out if the President can reconstruct, absorb, evade, or nullify those functions within the executive branch.
 
 Many issues produced by unitary executive theory may share a common constitutional source and therefore may be curable, if at all, through a single carefully drafted constitutional amendment rather than a separate amendment for each affected proposal. Where a proposal's core obstacle is Article II doctrine rather than ordinary statutory ambiguity, the project should evaluate whether the issue belongs within a broader executive-power amendment package.
 
