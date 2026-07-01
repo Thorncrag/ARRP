@@ -348,6 +348,6 @@ The **Proposal Scoring** section should group all scores and viability indicator
 
 ## Outstanding Development
 
-The operational roadmap is maintained in GitHub rather than duplicated in this framework file. Use [GitHub Issues](https://github.com/Thorncrag/ARRP/issues) and the [American Restoration and Resilience Project board](https://github.com/users/Thorncrag/projects/2) to track active tasks, release milestones, area-level development work, and publication-readiness blockers.
+The operational roadmap is maintained in GitHub rather than duplicated in this framework file. Use [GitHub Issues](https://github.com/Thorncrag/ARRP/issues) and the [American Restoration and Resilience Project board](https://github.com/users/Thorncrag/projects/2) as the authoritative workflow record for active tasks, proposal tracking, horizon proposals, release milestones, area-level development work, and publication-readiness blockers.
 
-The repository remains the authoritative record for project substance, issue pages, inventories, audit sidecars, source records, proposed legislation, and framework rules. GitHub Issues and Projects are workflow surfaces; they should point back to canonical repo records rather than replace them.
+The repository remains the authoritative record for project substance, issue pages, inventories, audit sidecars, source records, proposed legislation, and framework rules. GitHub Issues and Projects are workflow surfaces; each active proposal or horizon item should point back to the canonical repo record, and substantive adoption should be reflected in the repository.

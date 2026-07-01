@@ -10,6 +10,12 @@ The American Restoration and Resilience Project is currently an author-directed 
 
 Stakeholder input is welcome. To offer feedback, propose a correction, identify a source, or discuss a possible contribution, contact Benjamin Smith at <smith.benjamin.j@icloud.com>. For the public authorship and stakeholder-input statement, see [AUTHORS.md](AUTHORS.md).
 
+## GitHub Workflow
+
+GitHub Issues and the project board are the authoritative workflow record for active ARRP proposals, horizon proposals, release blockers, and development tasks. The repository remains the authoritative substantive record for proposal text, audit history, inventories, source records, legislation drafts, and framework rules.
+
+Each active proposal or horizon item should have a GitHub issue for discussion, status, labels, assignment, and project-board tracking. Substantive project changes should be made through repository edits and pull requests so the public workflow record and the canonical drafting record stay aligned.
+
 Contributors should follow the project's current governing documents rather than treating this page as a complete rulebook. The controlling conventions for structure, method, sourcing, scoring, audit practice, neutrality, drafting, and publication are maintained in:
 
 - [Project Framework](framework/FRAMEWORK.md)

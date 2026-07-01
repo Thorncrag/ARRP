@@ -1,0 +1,46 @@
+name: Proposal tracking issue
+description: Create or maintain a GitHub workflow issue for an ARRP proposal.
+title: "ARRP: "
+labels:
+  - "kind: proposal"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to create a workflow wrapper for an existing or newly admitted ARRP proposal. The GitHub issue tracks discussion and status; the repository remains the authoritative substantive record.
+  - type: input
+    id: proposal-id
+    attributes:
+      label: Proposal ID
+      description: ARRP issue identifier, if assigned.
+      placeholder: ELEC-011, FUND-001, REG-001, etc.
+    validations:
+      required: true
+  - type: input
+    id: canonical-path
+    attributes:
+      label: Canonical repo path
+      description: Link or path to the proposal, area README, horizon row, or source record.
+      placeholder: areas/ELEC/issues/ELEC-011.md
+    validations:
+      required: false
+  - type: dropdown
+    id: workflow-status
+    attributes:
+      label: Workflow status
+      options:
+        - needs triage
+        - needs development
+        - needs sources
+        - needs audit
+        - release ready
+        - deferred
+    validations:
+      required: true
+  - type: textarea
+    id: next-step
+    attributes:
+      label: Next step
+      description: State the concrete next action needed to move this proposal forward.
+    validations:
+      required: true
