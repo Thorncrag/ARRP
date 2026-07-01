@@ -16,6 +16,8 @@ GitHub Issues and the project board are the authoritative workflow record for ac
 
 Each active proposal or horizon item should have a GitHub issue for discussion, status, labels, assignment, and project-board tracking. Substantive project changes should be made through repository edits and pull requests so the public workflow record and the canonical drafting record stay aligned.
 
+For the working conventions, label taxonomy, milestone rule, and import ledger, see [GitHub Workflow](framework/GITHUB_WORKFLOW.md).
+
 Contributors should follow the project's current governing documents rather than treating this page as a complete rulebook. The controlling conventions for structure, method, sourcing, scoring, audit practice, neutrality, drafting, and publication are maintained in:
 
 - [Project Framework](framework/FRAMEWORK.md)
