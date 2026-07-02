@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | SCOTUS current-opinion review and proposal updates |
+| Active issue/task | ELEC-012 Maine campaign-finance comparator integration |
 | Audit type/tier | Source-development / targeted current-status update |
-| Started | 2026-07-02 07:51:13 -0400 |
-| Last checkpoint | 2026-07-02 08:00:12 -0400 to completion |
-| User request | Review the recent SCOTUS opinions and update applicable proposals. |
-| Scope | Completed current SCOTUS slip-opinion review affecting `RIGHTS-003`, `ELEC-012`, `RIGHTS-001`, DOJ stale pending-case language, source inventory rows, GitHub Project audit fields, and public PDF export. |
-| Files touched | `areas/RIGHTS/issues/RIGHTS-003.md`; `areas/RIGHTS/issues/RIGHTS-003.audit.md`; `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `areas/RIGHTS/issues/RIGHTS-001.md`; `areas/RIGHTS/issues/RIGHTS-001.audit.md`; `areas/DOJ/issues/DOJ-001.md`; `areas/DOJ/issues/DOJ-001.audit.md`; `areas/DOJ/issues/DOJ-002.md`; `areas/DOJ/issues/DOJ-002.audit.md`; `areas/DOJ/issues/DOJ-003.md`; `areas/DOJ/issues/DOJ-003.audit.md`; `areas/DOJ/issues/DOJ-007.md`; `areas/DOJ/issues/DOJ-007.audit.md`; `inventory/sources.csv`; `exports/pdf/ARRP-public-proposal-draft.pdf`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Added `Trump v. Barbara` to RIGHTS-003, `National Republican Senatorial Committee v. FEC` to ELEC-012, and `West Virginia v. B. P. J.` to RIGHTS-001; updated DOJ-001, DOJ-002, DOJ-003, and DOJ-007 from pending Slaughter/Cook posture to current decided-case posture; added no-score audit-history entries; added source rows SRC-0362 through SRC-0364; synced GitHub Project Last audit, Next audit, and developed-issue Runs fields for issues #22, #23, #24, #27, #40, #221, and #223; rebuilt the public PDF. |
-| Next step | None unless the user requests a deeper source-development pass, post-*Barbara* disposition decision for RIGHTS-003, post-*NRSC* ELEC-012 development, post-*B.P.J.* RIGHTS-001 development, or developed-proposal external validation. |
+| Started | 2026-07-02 10:49:30 -0400 |
+| Last checkpoint | 2026-07-02 10:52:58 -0400 to completion |
+| User request | Integrate Maine campaign-finance laws into the ELEC-012 discussion. |
+| Scope | Completed ELEC-012 update with Maine's independent-expenditure PAC contribution-limit experiment and foreign-government-influenced entity restrictions; added source inventory rows; updated audit history, public PDF export, and GitHub Project audit fields. |
+| Files touched | `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `inventory/sources.csv`; `exports/pdf/ARRP-public-proposal-draft.pdf`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Integrated Maine's super PAC contribution-limit law as a direct *SpeechNow* source-development comparator; integrated Maine's foreign government-influenced entity law as a foreign-money/entity-control comparator with litigation caution; added source rows SRC-0365 through SRC-0369; rebuilt the public PDF; synced GitHub Project fields for issue #40. |
+| Next step | None unless the user requests a deeper post-*NRSC*/Maine issue-admission and source-development pass. |
 | Blockers/questions | None. |
-| Validation status | Passed CSV parse, text-file whitespace check excluding generated PDF internals, focused internal Markdown link scan, GitHub Project field verification, and PDF rebuild using bundled Python runtime. |
+| Validation status | Passed CSV parse, text-file whitespace check excluding generated PDF internals, focused internal Markdown link target check, PDF rebuild, and GitHub Project field verification. |
 
 ## Handoff Rules
 

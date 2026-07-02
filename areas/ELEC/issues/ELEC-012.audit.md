@@ -12,7 +12,17 @@ This file preserves the full audit history for [ELEC-012](ELEC-012.md). The issu
 
 ## Audit History
 
-No issue-specific audit log has been migrated from the issue page yet. The current inventory-level audit record is summarized below.
+The entries below preserve issue-specific audit history and source-development checkpoints.
+
+### 2026-07-02 — Maine comparator source-development update
+
+**Audit status:** Pending development
+
+**Proposal-quality score:** 0
+
+**Score basis:** Maine has been integrated as a live state-experiment comparator. Section 1015's independent-expenditure PAC contribution limits make Maine a direct *SpeechNow* and super PAC source-development lead. Section 1064's foreign government-influenced entity restrictions are useful for foreign-money and entity-control safeguards, but require caution because federal litigation has raised First Amendment overbreadth and enforcement concerns. No score change is assigned because ELEC-012 remains a candidate/source-development issue without a selected remedy or legislative vehicle.
+
+**Next audit need:** Run a post-*NRSC*/Maine issue-admission and source-development pass focused on official Maine text, Dinner Table Action v. Schneider docket materials, First Circuit and district-court foreign-influence litigation, Hawaii and Montana models, *SpeechNow*, *Citizens United*, *NRSC*, disclosure, coordination, true-source reporting, foreign-money safeguards, and amendment-first strategy.
 
 ### 2026-07-02 — SCOTUS doctrine update
 

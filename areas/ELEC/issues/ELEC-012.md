@@ -7,9 +7,9 @@ priority: high
 remedy_type: campaign-finance-and-constitutional-amendment
 audit_score: 0
 audit_status: Pending development
-audit_last_type: "SCOTUS doctrine update"
+audit_last_type: "Maine comparator source-development update"
 audit_last_date: "2026-07-02"
-audit_next: "Post-NRSC issue-admission and source-development pass"
+audit_next: "Post-NRSC/Maine issue-admission and source-development pass"
 audit_rubric_version: "2026-06-27.1"
 audit_rebaseline_status: "current-fixed-status"
 print_levels:
@@ -56,7 +56,9 @@ The issue is not anonymity for ordinary speakers. The issue is large-scale elect
 
 Associated Press reporting identifies Hawaii's 2026 corporate-powers law and Montana-related efforts as source-development leads for state responses to corporate political spending after *Citizens United*. Hawaii's law is especially salient because it reportedly targets corporate influence through state corporate-law authority rather than only campaign-finance regulation.
 
-These state efforts should be treated as live experiments, not settled models. ELEC-012 should obtain official bill text, enacted session law, legislative findings, attorney-general materials, litigation records, and state campaign-finance analyses before relying on any state design.
+Maine now supplies two closer comparators. First, Maine law caps individual, PAC, and business-entity contributions to political action committees for independent expenditures at $5,000 per calendar year. That makes Maine a direct state test of the post-*SpeechNow* super PAC contribution-limit question. Second, Maine bars foreign government-influenced entities from making contributions, expenditures, independent expenditures, electioneering communications, or other disbursements to influence candidate elections or referenda. That makes Maine useful for foreign-money and entity-control drafting, but only as a cautionary comparator because federal litigation has challenged the law as overbroad.
+
+These state efforts should be treated as live experiments, not settled models. ELEC-012 should obtain official bill text, enacted session law, legislative findings, attorney-general materials, litigation records, court orders, and state campaign-finance analyses before relying on any state design.
 
 ## Resulting Damage
 
@@ -90,11 +92,13 @@ Any ELEC-012 proposal should separate durable constitutional repair from statuto
 
 **Coordination rules.** Reform can narrow the gap between formally independent spending and practical candidate assistance, but *NRSC v. FEC* reduces the space for broad spending limits framed as coordination controls. Source development should test rules for common vendors, former staff, candidate fundraising for outside groups, republication of campaign materials, strategic information sharing, public signaling, and family or business intermediaries, while distinguishing disclosure, anti-circumvention, and true-source rules from expenditure caps that now face heightened First Amendment risk.
 
+**State contribution-limit experiments.** Maine's independent-expenditure PAC contribution cap should be source-developed as the cleanest current state test of whether contributions to super PAC-like entities may be limited without capping the entities' independent expenditures. This lane is constitutionally high-risk under *SpeechNow* and adjacent post-*Citizens United* doctrine, but it is important because Maine's voter-approved law appears designed to force clarification of that question rather than to evade it.
+
 **Public financing and small-donor matching.** Public financing, vouchers, tax credits, and small-donor matching can reduce reliance on large donors without directly limiting independent expenditures. This overlaps with [ELEC-013](ELEC-013.md) where donor networks affect candidate viability.
 
 **Corporate-law and entity-governance rules.** States may explore whether corporate charters, shareholder approval, member consent, beneficial-owner disclosure, board fiduciary duties, or state-law restrictions on entity powers can reduce corporate political spending. These approaches require careful First Amendment, dormant Commerce Clause, preemption, and internal-affairs-doctrine review.
 
-**Foreign-money and contractor safeguards.** Rules should prevent foreign nationals, foreign-controlled entities, government contractors, and regulated entities from evading spending restrictions through domestic intermediaries, shell entities, nonprofits, or super PACs.
+**Foreign-money and contractor safeguards.** Rules should prevent foreign nationals, foreign-controlled entities, government contractors, and regulated entities from evading spending restrictions through domestic intermediaries, shell entities, nonprofits, or super PACs. Maine's foreign government-influenced entity law is a useful source-development comparator because it uses ownership and control tests, but its litigation posture warns that thresholds, media/platform due-diligence duties, and referendum-coverage rules need careful First Amendment tailoring.
 
 **FEC enforcement and deadlock repair.** Campaign-finance rules are only as strong as their enforcement institutions. ELEC-012 should assess whether FEC structure, deadlock, advisory opinions, enforcement delays, and coordination-rule enforcement need a separate remedy or belong within this issue.
 
@@ -105,7 +109,7 @@ The least-complex adequate remedy is not yet selected. ELEC-012 should begin wit
 At this stage, the honest structure appears to be two-tiered:
 
 1. a constitutional amendment as the durable remedy for *Citizens United* and related independent-expenditure doctrine; and
-2. ordinary legislation and state-law models as mitigation tools for disclosure, carefully tailored coordination and anti-circumvention rules, public financing, true-source reporting, foreign-money safeguards, and entity-governance experiments.
+2. ordinary legislation and state-law models as mitigation tools for disclosure, carefully tailored coordination and anti-circumvention rules, public financing, true-source reporting, state contribution-limit experiments, foreign-money safeguards, and entity-governance experiments.
 
 That structure matters because a disclosure-only or public-financing-only bill may be worthwhile, but it should not be described as fully addressing *Citizens United*.
 
@@ -120,7 +124,7 @@ Future drafting should evaluate whether Congress and the states should:
 5. strengthen constitutionally durable disclosure, coordination, and anti-circumvention rules for super PACs and outside groups;
 6. create public-financing or small-donor systems that reduce large-donor dependence;
 7. regulate shell entities, pass-through spending, and foreign or contractor-linked money;
-8. test state corporate-law and entity-governance approaches after *Citizens United*; and
+8. test state contribution-limit, corporate-law, entity-governance, and foreign-influenced spending approaches after *Citizens United*; and
 9. repair campaign-finance enforcement capacity, including FEC deadlock and delay.
 
 ## Proposed Legislation
@@ -149,23 +153,28 @@ Budget authority may be required for public financing, small-donor matching, dis
 >
 > —
 >
-> **Audit Status:** Pending development<br />**Last Audit:** SCOTUS doctrine update<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Post-*NRSC* issue-admission and source-development pass<br />**Full Audit History:** [ELEC-012 audit history](ELEC-012.audit.md)
+> **Audit Status:** Pending development<br />**Last Audit:** Maine comparator source-development update<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Post-*NRSC*/Maine issue-admission and source-development pass<br />**Full Audit History:** [ELEC-012 audit history](ELEC-012.audit.md)
 
 ## Annotation
 
 **Candidate Status.** ELEC-012 is admitted as a candidate issue from HOR-013. It has not yet been developed into a full proposal or legislative draft.
 
-**Citizens United Centrality.** ELEC-012 is basically the project's *Citizens United* issue, but it should not be limited to a slogan of "overturn Citizens United." The issue includes the downstream structures that make the doctrine consequential: *SpeechNow*, *NRSC v. FEC*, super PACs, dark money, entity opacity, coordination rules, public financing, state corporate-law experiments, and campaign-finance enforcement.
+**Citizens United Centrality.** ELEC-012 is basically the project's *Citizens United* issue, but it should not be limited to a slogan of "overturn Citizens United." The issue includes the downstream structures that make the doctrine consequential: *SpeechNow*, *NRSC v. FEC*, super PACs, dark money, entity opacity, coordination rules, public financing, Maine's super PAC contribution-limit experiment, state corporate-law experiments, and campaign-finance enforcement.
 
-**Constitutional Caution.** A durable remedy likely requires a constitutional amendment. Statutory mitigation must be drafted around current First Amendment doctrine, including *NRSC v. FEC*'s treatment of coordinated-expenditure limits, associational privacy, press freedom, viewpoint neutrality, anti-incumbent-protection safeguards, and state/federal authority limits.
+**Constitutional Caution.** A durable remedy likely requires a constitutional amendment. Statutory mitigation must be drafted around current First Amendment doctrine, including *NRSC v. FEC*'s treatment of coordinated-expenditure limits, *SpeechNow*'s treatment of independent-expenditure PAC contributions, associational privacy, press freedom, viewpoint neutrality, anti-incumbent-protection safeguards, and state/federal authority limits.
 
-**State-Experimentation Caution.** Hawaii, Montana, and similar state efforts should be treated as source-development leads. They may be strategically important, but they are not validated models until their text, legal theory, litigation posture, and implementation details are reviewed.
+**State-Experimentation Caution.** Hawaii, Montana, Maine, and similar state efforts should be treated as source-development leads. They may be strategically important, but they are not validated models until their text, legal theory, litigation posture, and implementation details are reviewed. Maine is especially useful because it shows both voter appetite for direct super PAC contribution limits and the litigation risk attached to aggressive foreign-influenced entity restrictions.
 
 ## Source Notes
 
 - U.S. Supreme Court, [*Citizens United v. FEC*](https://www.supremecourt.gov/opinions/09pdf/08-205.pdf) (2010).
 - U.S. Supreme Court, [*National Republican Senatorial Committee v. Federal Election Commission*](https://www.supremecourt.gov/opinions/25pdf/24-621_h315.pdf) (2026).
 - D.C. Circuit, [*SpeechNow.org v. FEC*](https://www.fec.gov/resources/cms-content/documents/speechnowopinion.pdf) (2010).
+- Maine Revised Statutes, [Title 21-A, Section 1015](https://legislature.maine.gov/legis/statutes/21-A/title21-Asec1015.html), limiting contributions to political action committees making independent expenditures.
+- Maine Revised Statutes, [Title 21-A, Section 1064](https://legislature.maine.gov/legis/statutes/21-A/title21-Asec1064.html), prohibiting campaign spending by foreign government-influenced entities.
+- Associated Press, [*A voter-approved Maine limit on PAC contributions sets the stage for a legal challenge*](https://apnews.com/article/dccfd8f49c4337b1d9e7053a0e3a4fef) (Nov. 8, 2024).
+- Associated Press, [*Maine's voter-approved limit on PAC contributions triggers lawsuit in federal court*](https://apnews.com/article/49cf34be8ae6aaf96c0b92ad09615abb) (Dec. 13, 2024).
+- Associated Press, [*Maine can't enforce foreign election interference law that appeals court calls unconstitutional*](https://apnews.com/article/4dc57b16164b29ab93ede134c5d02813) (Aug. 11, 2025).
 - Associated Press, [*New Hawaii law targets corporate influence in politics after Citizens United ruling*](https://apnews.com/article/71a28bc7e8f6e0279b31e999f222519a) (May 15, 2026).
 - Associated Press, [*What to know about states' efforts to limit corporate donations in politics*](https://apnews.com/article/7476b9b0f1aaecbc68de8707e6ff6eb9) (May 12, 2026).
 - *Trustees of Dartmouth College v. Woodward*, [17 U.S. 518](https://supreme.justia.com/cases/federal/us/17/518/) (1819), as historical corporate-powers framing only.
