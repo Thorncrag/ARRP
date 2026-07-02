@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-012 Maine campaign-finance comparator integration |
-| Audit type/tier | Source-development / targeted current-status update |
-| Started | 2026-07-02 10:49:30 -0400 |
-| Last checkpoint | 2026-07-02 10:52:58 -0400 to completion |
-| User request | Integrate Maine campaign-finance laws into the ELEC-012 discussion. |
-| Scope | Completed ELEC-012 update with Maine's independent-expenditure PAC contribution-limit experiment and foreign-government-influenced entity restrictions; added source inventory rows; updated audit history, public PDF export, and GitHub Project audit fields. |
-| Files touched | `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `inventory/sources.csv`; `exports/pdf/ARRP-public-proposal-draft.pdf`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Integrated Maine's super PAC contribution-limit law as a direct *SpeechNow* source-development comparator; integrated Maine's foreign government-influenced entity law as a foreign-money/entity-control comparator with litigation caution; added source rows SRC-0365 through SRC-0369; rebuilt the public PDF; synced GitHub Project fields for issue #40. |
-| Next step | None unless the user requests a deeper post-*NRSC*/Maine issue-admission and source-development pass. |
+| Active issue/task | ELEC-012 post-*NRSC*/Maine issue-admission and source-development audit |
+| Audit type/tier | T1-style issue-admission/source-development pass |
+| Started | 2026-07-02 12:09:13 -0400 |
+| Last checkpoint | 2026-07-02 12:17:14 -0400 to completion |
+| User request | Run the next audit on ELEC-012. |
+| Scope | Completed ELEC-012 current candidate-posture review after *NRSC*, Maine comparators, and prior campaign-finance reform proposals; updated the issue page, audit history, source inventory, GitHub Project fields, and handoff record. Generated exports were out of scope under the pre-1.0 export policy. |
+| Files touched | `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Ran bounded T1-style issue-admission/source-development pass; added prior-proposal routing for Democracy for All, We the People / Move to Amend, DISCLOSE Act, For the People Act, Freedom to Vote Act, and REAL Political Advertisements Act families; added source rows SRC-0370 through SRC-0376; kept score fixed at 0 pending remedy selection; synced GitHub Project issue #40 fields. |
+| Next step | Run T2 remedy-selection and prior-proposal comparison. |
 | Blockers/questions | None. |
-| Validation status | Passed CSV parse, text-file whitespace check excluding generated PDF internals, focused internal Markdown link target check, PDF rebuild, and GitHub Project field verification. |
+| Validation status | Passed CSV parse, whitespace check, focused internal Markdown link target check, and GitHub Project field verification. |
 
 ## Handoff Rules
 

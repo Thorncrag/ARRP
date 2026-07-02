@@ -6,11 +6,11 @@ status: candidate
 priority: high
 remedy_type: campaign-finance-and-constitutional-amendment
 audit_score: 0
-audit_status: Pending development
-audit_last_type: "Maine comparator source-development update"
+audit_status: "T1-style issue-admission/source-development pass complete; remedy selection pending"
+audit_last_type: "T1-style issue-admission/source-development pass"
 audit_last_date: "2026-07-02"
-audit_next: "Post-NRSC/Maine issue-admission and source-development pass"
-audit_rubric_version: "2026-06-27.1"
+audit_next: "T2 remedy-selection and prior-proposal comparison"
+audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 print_levels:
   - public-proposal
@@ -88,6 +88,8 @@ Any ELEC-012 proposal should separate durable constitutional repair from statuto
 
 **Constitutional amendment.** A durable amendment could authorize Congress and the states to set reasonable limits on campaign contributions and expenditures, distinguish natural persons from artificial entities, require transparency, protect press freedom and individual political speech, and prevent incumbent-protective or viewpoint-discriminatory abuse. The amendment should be compared with existing "Democracy for All" style proposals and other post-*Citizens United* amendment drafts.
 
+**Prior constitutional-amendment families.** This issue should not draft amendment language from scratch before comparing the major existing families. The Democracy for All line, reflected in recent House and Senate joint resolutions, authorizes Congress and the states to regulate election spending and distinguish natural persons from artificial entities. The We the People / Move to Amend line goes further by reserving constitutional rights to natural persons, denying constitutional rights to artificial entities, requiring regulation and disclosure of election spending, and preventing courts from treating election spending as First Amendment speech. ELEC-012's drafting choice likely turns on whether the project prefers a narrower campaign-finance authority amendment, a broader corporate-personhood amendment, or a hybrid that preserves press freedom and individual political speech while authorizing regulation of artificial-entity treasury spending.
+
 **Disclosure and true-source reporting.** Congress and states may strengthen disclosure for large election-related spending, including true-source tracing, donor thresholds, transfer reporting, entity-control reporting, digital-ad transparency, and timely public databases. Disclosure should protect ordinary small donors, harassment-sensitive contexts, and legitimate associational privacy where constitutional law requires it.
 
 **Coordination rules.** Reform can narrow the gap between formally independent spending and practical candidate assistance, but *NRSC v. FEC* reduces the space for broad spending limits framed as coordination controls. Source development should test rules for common vendors, former staff, candidate fundraising for outside groups, republication of campaign materials, strategic information sharing, public signaling, and family or business intermediaries, while distinguishing disclosure, anti-circumvention, and true-source rules from expenditure caps that now face heightened First Amendment risk.
@@ -100,6 +102,8 @@ Any ELEC-012 proposal should separate durable constitutional repair from statuto
 
 **Foreign-money and contractor safeguards.** Rules should prevent foreign nationals, foreign-controlled entities, government contractors, and regulated entities from evading spending restrictions through domestic intermediaries, shell entities, nonprofits, or super PACs. Maine's foreign government-influenced entity law is a useful source-development comparator because it uses ownership and control tests, but its litigation posture warns that thresholds, media/platform due-diligence duties, and referendum-coverage rules need careful First Amendment tailoring.
 
+**Existing statutory mitigation packages.** Statutory models already exist for several mitigation lanes. The DISCLOSE Act family focuses on foreign-money restrictions, rapid expenditure reporting, shell-entity anti-concealment rules, and political-ad donor disclosure. The For the People Act and Freedom to Vote Act families combine campaign-finance provisions with voting, redistricting, election-security, ethics, disclosure, disclaimers, foreign-money safeguards, and alternative campaign-funding systems. Digital-ad and AI-ad disclosure bills, including the REAL Political Advertisements Act, supply narrower mitigation models for online and synthetic-media political communications. These bills cannot fully solve *Citizens United* on their own, but they are important prior-proposal comparators for any statutory layer.
+
 **FEC enforcement and deadlock repair.** Campaign-finance rules are only as strong as their enforcement institutions. ELEC-012 should assess whether FEC structure, deadlock, advisory opinions, enforcement delays, and coordination-rule enforcement need a separate remedy or belong within this issue.
 
 ## Least-Complex Adequate Remedy
@@ -111,7 +115,7 @@ At this stage, the honest structure appears to be two-tiered:
 1. a constitutional amendment as the durable remedy for *Citizens United* and related independent-expenditure doctrine; and
 2. ordinary legislation and state-law models as mitigation tools for disclosure, carefully tailored coordination and anti-circumvention rules, public financing, true-source reporting, state contribution-limit experiments, foreign-money safeguards, and entity-governance experiments.
 
-That structure matters because a disclosure-only or public-financing-only bill may be worthwhile, but it should not be described as fully addressing *Citizens United*.
+That structure matters because a disclosure-only or public-financing-only bill may be worthwhile, but it should not be described as fully addressing *Citizens United*. The next development pass should compare existing amendment and statutory families before selecting whether ARRP should endorse an existing amendment model, modify one, or propose a narrower hybrid.
 
 ## Repair and Prevention
 
@@ -153,7 +157,7 @@ Budget authority may be required for public financing, small-donor matching, dis
 >
 > —
 >
-> **Audit Status:** Pending development<br />**Last Audit:** Maine comparator source-development update<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Post-*NRSC*/Maine issue-admission and source-development pass<br />**Full Audit History:** [ELEC-012 audit history](ELEC-012.audit.md)
+> **Audit Status:** T1-style issue-admission/source-development pass complete; remedy selection pending<br />**Last Audit:** T1-style issue-admission/source-development pass<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** T2 remedy-selection and prior-proposal comparison<br />**Full Audit History:** [ELEC-012 audit history](ELEC-012.audit.md)
 
 ## Annotation
 
@@ -165,11 +169,20 @@ Budget authority may be required for public financing, small-donor matching, dis
 
 **State-Experimentation Caution.** Hawaii, Montana, Maine, and similar state efforts should be treated as source-development leads. They may be strategically important, but they are not validated models until their text, legal theory, litigation posture, and implementation details are reviewed. Maine is especially useful because it shows both voter appetite for direct super PAC contribution limits and the litigation risk attached to aggressive foreign-influenced entity restrictions.
 
+**Prior-Proposal Caution.** ELEC-012 is a mature reform field. Any ARRP draft should compare at least the Democracy for All amendment family, the We the People / Move to Amend amendment family, DISCLOSE Act-style transparency bills, For the People Act / Freedom to Vote Act-style omnibus mitigation packages, small-donor public-financing models, and digital-ad or AI-ad disclaimer proposals before selecting a least-complex adequate remedy.
+
 ## Source Notes
 
 - U.S. Supreme Court, [*Citizens United v. FEC*](https://www.supremecourt.gov/opinions/09pdf/08-205.pdf) (2010).
 - U.S. Supreme Court, [*National Republican Senatorial Committee v. Federal Election Commission*](https://www.supremecourt.gov/opinions/25pdf/24-621_h315.pdf) (2026).
 - D.C. Circuit, [*SpeechNow.org v. FEC*](https://www.fec.gov/resources/cms-content/documents/speechnowopinion.pdf) (2010).
+- Congress.gov, [H.J.Res. 54, 119th Cong.](https://www.congress.gov/bill/119th-congress/house-joint-resolution/54), We the People-style amendment concerning natural persons, artificial entities, election spending, disclosure, and money-as-speech doctrine.
+- Congress.gov, [H.J.Res. 13, 118th Cong.](https://www.congress.gov/bill/118th-congress/house-joint-resolution/13), Democracy for All-style amendment concerning election spending, artificial entities, and public campaign financing.
+- Congress.gov, [S.J.Res. 45, 118th Cong.](https://www.congress.gov/bill/118th-congress/senate-joint-resolution/45), Senate Democracy for All-style amendment concerning election spending and artificial entities.
+- Congress.gov, [H.R. 1118, 118th Cong.](https://www.congress.gov/bill/118th-congress/house-bill/1118), DISCLOSE Act of 2023.
+- Congress.gov, [H.R. 1, 117th Cong.](https://www.congress.gov/bill/117th-congress/house-bill/1), For the People Act of 2021.
+- Congress.gov, [S. 1, 118th Cong.](https://www.congress.gov/bill/118th-congress/senate-bill/1), Freedom to Vote Act.
+- Congress.gov, [S. 1596, 118th Cong.](https://www.congress.gov/bill/118th-congress/senate-bill/1596), REAL Political Advertisements Act.
 - Maine Revised Statutes, [Title 21-A, Section 1015](https://legislature.maine.gov/legis/statutes/21-A/title21-Asec1015.html), limiting contributions to political action committees making independent expenditures.
 - Maine Revised Statutes, [Title 21-A, Section 1064](https://legislature.maine.gov/legis/statutes/21-A/title21-Asec1064.html), prohibiting campaign spending by foreign government-influenced entities.
 - Associated Press, [*A voter-approved Maine limit on PAC contributions sets the stage for a legal challenge*](https://apnews.com/article/dccfd8f49c4337b1d9e7053a0e3a4fef) (Nov. 8, 2024).
