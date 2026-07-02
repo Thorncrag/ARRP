@@ -31,6 +31,8 @@ The project's public-facing premise, mission, scope, and governing principles ar
 
 Markdown files, GitHub Project records, issue audit-history files, and the retained source inventory are authoritative within their respective scopes. Binary Office and PDF files are generated outputs.
 
+Until the project reaches version 1.0 or enters an explicit release, export, publication, or print-assembly pass, generated PDF, DOCX, XLSX, and similar export files should not be rebuilt or committed as a routine consequence of ordinary proposal, source, audit, or GitHub Project updates. Rebuild generated exports only when the user requests an export refresh, the export itself is the deliverable, the work is part of a release/publication pass, or the export tooling is being tested. If an export is rebuilt, identify that step before committing because generated binaries can create noisy diffs.
+
 ## Canonical Sources
 
 - [`FRAMEWORK.md`](FRAMEWORK.md) — technical framework, repository conventions, and development status

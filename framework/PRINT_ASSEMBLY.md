@@ -148,6 +148,8 @@ The project may later maintain more than one compiled edition:
 
 Unless otherwise specified, "compiled proposal document" means the public proposal edition.
 
+Before version 1.0, compiled PDF, DOCX, XLSX, and similar export files are not expected to remain synchronized after ordinary proposal or source edits. Treat them as generated snapshots. Rebuild them only when the user requests an export refresh, the export is the deliverable, export tooling is being tested, or the project is in an explicit release, publication, or print-assembly pass.
+
 ## Print Assignment Metadata
 
 Every Markdown page should identify the compiled edition or editions in which it belongs. The assignment belongs in page metadata so it is available to export tooling and review workflows without adding repetitive visible text to rendered pages.

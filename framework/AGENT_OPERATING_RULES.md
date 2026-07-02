@@ -201,7 +201,7 @@ If no validation script exists, perform a manual validation checklist before mar
 5. confirm [`inventory/sources.csv`](../inventory/sources.csv) parses and includes any source used for audit credit;
 6. run a whitespace or formatting check where available;
 7. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md); and
-8. confirm no unintended files remain changed for that unit.
+8. confirm no unintended files remain changed for that unit, including generated PDF, DOCX, XLSX, or similar export files unless the user requested an export refresh, the export is the deliverable, export tooling is being tested, or the work is expressly part of a release/publication pass.
 
 If a validation check is skipped, record the skipped check and reason in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md), in the issue audit history when relevant, or in the final user-facing report. A unit should not be marked complete if validation fails, except when the only failure is an explicitly documented environment or tooling limitation and the work has been preserved for human review.
 

@@ -46,10 +46,11 @@ When updating the project, check whether the change requires inventory maintenan
 7. If a Horizon Scan audit is run, create or update GitHub Issues for active horizon candidates and add them to the GitHub Project horizon queue. Use [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) for disposition and integration history, not as the active horizon queue. Do not update issue pages, legislation, scores, or source records unless the user separately approves implementation.
 8. If an external source is newly cited, removed, or used for a materially different proposition, update [`sources.csv`](../inventory/sources.csv).
 9. If source review is completed, update `Reviewed?`, `Proposition Supported`, and any notes in [`sources.csv`](../inventory/sources.csv).
-10. If issue counts change, update the area README front matter and any corresponding GitHub Project area metadata.
-11. If a Markdown page is created, moved, promoted, retired, or repurposed, update its `print_levels` metadata under the rules in [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
-12. If a roadmap, backlog, or to-do item is added or revised, update the GitHub Project issue/milestone/roadmap item; framework files should link to GitHub rather than maintaining separate task lists.
-13. If a roadmap, governance, audit, release, or publication task has meaningful child tasks, use GitHub native sub-issues rather than Markdown-only checklist substitutes.
+10. Until version 1.0 or an explicit release, export, publication, or print-assembly pass, do not rebuild or commit generated PDF, DOCX, XLSX, or similar export files as part of ordinary proposal, source, audit, or GitHub Project updates. Generated exports may be refreshed only when the user asks for it, the export is the deliverable, export tooling is being tested, or the work is expressly part of release/publication preparation.
+11. If issue counts change, update the area README front matter and any corresponding GitHub Project area metadata.
+12. If a Markdown page is created, moved, promoted, retired, or repurposed, update its `print_levels` metadata under the rules in [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
+13. If a roadmap, backlog, or to-do item is added or revised, update the GitHub Project issue/milestone/roadmap item; framework files should link to GitHub rather than maintaining separate task lists.
+14. If a roadmap, governance, audit, release, or publication task has meaningful child tasks, use GitHub native sub-issues rather than Markdown-only checklist substitutes.
 
 ## Area and Issue Index Rules
 
