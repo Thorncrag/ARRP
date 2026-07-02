@@ -2,14 +2,14 @@
 issue_id: ELEC-012
 area_id: A-02
 title: "Campaign Finance, Dark Money, and Corporate Political Spending"
-status: candidate
+status: working-draft
 priority: high
 remedy_type: campaign-finance-and-constitutional-amendment
 audit_score: 0
-audit_status: "T1-style issue-admission/source-development pass complete; remedy selection pending"
-audit_last_type: "T1-style issue-admission/source-development pass"
+audit_status: "Remedy selected; H.J.Res. 54 supported with recommended enforcement/federalism clarification and initial enabling legislation drafted; legal-durability review pending"
+audit_last_type: "T2 remedy-selection drafting pass"
 audit_last_date: "2026-07-02"
-audit_next: "T2 remedy-selection and prior-proposal comparison"
+audit_next: "T2 legal-durability and implementation review"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 print_levels:
@@ -21,7 +21,7 @@ audit_history: "ELEC-012.audit.md"
 # ELEC-012 — Campaign Finance, Dark Money, and Corporate Political Spending
 
 > ## Issue Snapshot
-> **Problem:** Wealth and artificial entities can dominate political spending.<br />**Repair:** Restore democratic campaign-finance authority and transparency.<br />**Vehicle:** Constitutional amendment plus statutory and state-law mitigation.
+> **Problem:** Wealth and artificial entities can dominate political spending.<br />**Repair:** Restore democratic campaign-finance authority and transparency.<br />**Vehicle:** Support [H.J.Res. 54 with an enforcement/federalism clarification](../../../legislation/ELEC-012-amendment.md), preserve H.J.Res. 13 as an alternative, and enact [post-ratification enabling legislation](../../../legislation/ELEC-012.md).
 >
 
 ## Institutional Anomaly
@@ -86,11 +86,13 @@ If the constitutional rule is that independent spending cannot be limited becaus
 
 Any ELEC-012 proposal should separate durable constitutional repair from statutory mitigation.
 
-**Constitutional amendment.** A durable amendment could authorize Congress and the states to set reasonable limits on campaign contributions and expenditures, distinguish natural persons from artificial entities, require transparency, protect press freedom and individual political speech, and prevent incumbent-protective or viewpoint-discriminatory abuse. The amendment should be compared with existing "Democracy for All" style proposals and other post-*Citizens United* amendment drafts.
+**Constitutional amendment.** ARRP supports H.J.Res. 54, 119th Congress, as the preferred constitutional-amendment vehicle, but recommends adding an express enforcement and federalism clarification before ratification. H.J.Res. 54 directly addresses artificial-entity constitutional status, requires public regulation and disclosure of election spending, protects press freedom, and instructs courts not to treat election spending as First Amendment speech. The clarification is needed because ELEC-012 now relies on the amendment to support a federal baseline for statewide elections and statewide ballot measures, a scope that should not be left vulnerable to ordinary reserved-to-the-States election federalism objections. H.J.Res. 13, 118th Congress, is preserved as a narrower Democracy for All-style alternative if the broader H.J.Res. 54 approach is not politically or legally viable.
 
-**Prior constitutional-amendment families.** This issue should not draft amendment language from scratch before comparing the major existing families. The Democracy for All line, reflected in recent House and Senate joint resolutions, authorizes Congress and the states to regulate election spending and distinguish natural persons from artificial entities. The We the People / Move to Amend line goes further by reserving constitutional rights to natural persons, denying constitutional rights to artificial entities, requiring regulation and disclosure of election spending, and preventing courts from treating election spending as First Amendment speech. ELEC-012's drafting choice likely turns on whether the project prefers a narrower campaign-finance authority amendment, a broader corporate-personhood amendment, or a hybrid that preserves press freedom and individual political speech while authorizing regulation of artificial-entity treasury spending.
+**Federalism and enforcement-clause models.** The closest historical analogy is the Twenty-Sixth Amendment sequence: Congress's ordinary power over state elections was contested in *Oregon v. Mitchell*, and the constitutional amendment supplied a national rule plus enforcement power. The Fifteenth and Nineteenth Amendments also pair a substantive voting-rights guarantee with express congressional enforcement power, while Fifteenth Amendment enforcement cases such as *South Carolina v. Katzenbach* and *City of Rome v. United States* show how amendment enforcement can alter the ordinary federalism baseline. The Fourteenth Amendment's Section 5 cases, especially *City of Boerne v. Flores*, warn that the substantive rule and enforcement scope should be clear rather than left to later congressional implication. The Twenty-Fourth Amendment is the cautionary contrast because it expressly covers federal offices only.
 
-**Disclosure and true-source reporting.** Congress and states may strengthen disclosure for large election-related spending, including true-source tracing, donor thresholds, transfer reporting, entity-control reporting, digital-ad transparency, and timely public databases. Disclosure should protect ordinary small donors, harassment-sensitive contexts, and legitimate associational privacy where constitutional law requires it.
+**Prior constitutional-amendment families.** The remedy selection favors the We the People / Move to Amend line reflected in H.J.Res. 54 because ordinary legislation cannot fully cure *Citizens United*, *SpeechNow*, and related independent-expenditure doctrine. The Democracy for All line reflected in H.J.Res. 13 remains the fallback because it is narrower, expressly authorizes public financing, and still permits Congress and the states to distinguish natural persons from corporations and other artificial entities.
+
+**Disclosure and true-source reporting.** Congress and states may strengthen disclosure for large election-related spending, including true-source tracing, donor thresholds, transfer reporting, entity-control reporting, digital-ad transparency, and timely public databases. Because H.J.Res. 54 reaches the election of any candidate for public office and any ballot measure, ELEC-012 should apply the same baseline standards to federal elections, statewide elections, and statewide ballot measures while preserving stronger state rules and avoiding unnecessary federal administration of state systems. The statewide layer should include a bounded transition period so states can compare existing campaign-finance, corporate, ballot-measure, public-financing, disclosure, enforcement, and election-administration laws against the new baseline. Disclosure should protect ordinary small donors, harassment-sensitive contexts, and legitimate associational privacy where constitutional law requires it.
 
 **Coordination rules.** Reform can narrow the gap between formally independent spending and practical candidate assistance, but *NRSC v. FEC* reduces the space for broad spending limits framed as coordination controls. Source development should test rules for common vendors, former staff, candidate fundraising for outside groups, republication of campaign materials, strategic information sharing, public signaling, and family or business intermediaries, while distinguishing disclosure, anti-circumvention, and true-source rules from expenditure caps that now face heightened First Amendment risk.
 
@@ -104,18 +106,16 @@ Any ELEC-012 proposal should separate durable constitutional repair from statuto
 
 **Existing statutory mitigation packages.** Statutory models already exist for several mitigation lanes. The DISCLOSE Act family focuses on foreign-money restrictions, rapid expenditure reporting, shell-entity anti-concealment rules, and political-ad donor disclosure. The For the People Act and Freedom to Vote Act families combine campaign-finance provisions with voting, redistricting, election-security, ethics, disclosure, disclaimers, foreign-money safeguards, and alternative campaign-funding systems. Digital-ad and AI-ad disclosure bills, including the REAL Political Advertisements Act, supply narrower mitigation models for online and synthetic-media political communications. These bills cannot fully solve *Citizens United* on their own, but they are important prior-proposal comparators for any statutory layer.
 
-**FEC enforcement and deadlock repair.** Campaign-finance rules are only as strong as their enforcement institutions. ELEC-012 should assess whether FEC structure, deadlock, advisory opinions, enforcement delays, and coordination-rule enforcement need a separate remedy or belong within this issue.
+**FEC enforcement and deadlock repair.** Campaign-finance rules are only as strong as their enforcement institutions. ELEC-012's enabling legislation should therefore use congressionally enacted, self-executing rules where possible rather than relying on a hostile, deadlocked, or executive-pressured Federal Election Commission to create the operative standards. The draft now includes a contingent-safeguards section that activates only if ordinary FEC implementation fails through missed deadlines, deadlock, quorum failure, database failure, rule dilution, selective enforcement, funding obstruction, retaliation, or litigation sabotage. A later pass should decide whether broader FEC structure, commissioner-removal, advisory-opinion, quorum, and coordination-rule enforcement repairs also need a companion REG/ELEC issue.
 
 ## Least-Complex Adequate Remedy
 
-The least-complex adequate remedy is not yet selected. ELEC-012 should begin with source development and doctrine review.
-
-At this stage, the honest structure appears to be two-tiered:
+The least-complex adequate remedy is a two-tiered amendment-and-implementation structure:
 
 1. a constitutional amendment as the durable remedy for *Citizens United* and related independent-expenditure doctrine; and
 2. ordinary legislation and state-law models as mitigation tools for disclosure, carefully tailored coordination and anti-circumvention rules, public financing, true-source reporting, state contribution-limit experiments, foreign-money safeguards, and entity-governance experiments.
 
-That structure matters because a disclosure-only or public-financing-only bill may be worthwhile, but it should not be described as fully addressing *Citizens United*. The next development pass should compare existing amendment and statutory families before selecting whether ARRP should endorse an existing amendment model, modify one, or propose a narrower hybrid.
+ARRP supports H.J.Res. 54 as the primary amendment vehicle, but the preferred form is H.J.Res. 54 with an added enforcement and federalism clarification. H.J.Res. 13 remains the alternative. The enabling legislation should be treated as post-ratification implementation, not as a claim that Congress can fully solve *Citizens United* by ordinary statute under current doctrine. Because the project now treats statewide-election coverage as central to the remedy, the amendment should expressly authorize Congress to establish minimum standards for elections for public office and ballot measures notwithstanding ordinary state-reserved election-administration doctrines, while preserving anti-commandeering and stronger state protections. The implementing statute should apply the same core standards to federal elections, statewide elections, and statewide ballot measures, but the statewide layer should include a grace period for state law review and alignment. The statute should supply operative rules directly, leaving the FEC with administrative, form, database, guidance, and ministerial adjustment duties rather than open-ended authority to decide whether the amendment's purpose is effectuated. If ordinary implementation fails, contingent safeguards should route filings, enforcement, intervention, funding protection, and expedited judicial review around the failure.
 
 ## Repair and Prevention
 
@@ -128,12 +128,17 @@ Future drafting should evaluate whether Congress and the states should:
 5. strengthen constitutionally durable disclosure, coordination, and anti-circumvention rules for super PACs and outside groups;
 6. create public-financing or small-donor systems that reduce large-donor dependence;
 7. regulate shell entities, pass-through spending, and foreign or contractor-linked money;
-8. test state contribution-limit, corporate-law, entity-governance, and foreign-influenced spending approaches after *Citizens United*; and
-9. repair campaign-finance enforcement capacity, including FEC deadlock and delay.
+8. apply baseline standards to statewide elections and statewide ballot measures while preserving stronger state laws, avoiding unnecessary commandeering of state administration, and providing a bounded state-law review transition period;
+9. test state contribution-limit, corporate-law, entity-governance, and foreign-influenced spending approaches after *Citizens United*; and
+10. repair campaign-finance enforcement capacity, including FEC deadlock and delay.
 
-## Proposed Legislation
+## Proposed Constitutional Amendment
 
-- Pending development.
+- [Campaign Finance Democratic Authority Amendment](../../../legislation/ELEC-012-amendment.md)
+
+## Proposed Enabling Legislation
+
+- [Campaign Finance Democratic Authority Implementation Act](../../../legislation/ELEC-012.md)
 
 ## Relationship to Adjacent Proposals
 
@@ -157,11 +162,11 @@ Budget authority may be required for public financing, small-donor matching, dis
 >
 > —
 >
-> **Audit Status:** T1-style issue-admission/source-development pass complete; remedy selection pending<br />**Last Audit:** T1-style issue-admission/source-development pass<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** T2 remedy-selection and prior-proposal comparison<br />**Full Audit History:** [ELEC-012 audit history](ELEC-012.audit.md)
+> **Audit Status:** Remedy selected; H.J.Res. 54 supported with recommended enforcement/federalism clarification and initial enabling legislation drafted; legal-durability review pending<br />**Last Audit:** T2 remedy-selection drafting pass<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** T2 legal-durability and implementation review<br />**Full Audit History:** [ELEC-012 audit history](ELEC-012.audit.md)
 
 ## Annotation
 
-**Candidate Status.** ELEC-012 is admitted as a candidate issue from HOR-013. It has not yet been developed into a full proposal or legislative draft.
+**Working-Draft Status.** ELEC-012 now has a selected amendment strategy and initial enabling legislation. It remains unscored because the new draft has not yet received legal-durability, implementation, cost, adoption-friction, or external-source validation.
 
 **Citizens United Centrality.** ELEC-012 is basically the project's *Citizens United* issue, but it should not be limited to a slogan of "overturn Citizens United." The issue includes the downstream structures that make the doctrine consequential: *SpeechNow*, *NRSC v. FEC*, super PACs, dark money, entity opacity, coordination rules, public financing, Maine's super PAC contribution-limit experiment, state corporate-law experiments, and campaign-finance enforcement.
 
@@ -169,7 +174,7 @@ Budget authority may be required for public financing, small-donor matching, dis
 
 **State-Experimentation Caution.** Hawaii, Montana, Maine, and similar state efforts should be treated as source-development leads. They may be strategically important, but they are not validated models until their text, legal theory, litigation posture, and implementation details are reviewed. Maine is especially useful because it shows both voter appetite for direct super PAC contribution limits and the litigation risk attached to aggressive foreign-influenced entity restrictions.
 
-**Prior-Proposal Caution.** ELEC-012 is a mature reform field. Any ARRP draft should compare at least the Democracy for All amendment family, the We the People / Move to Amend amendment family, DISCLOSE Act-style transparency bills, For the People Act / Freedom to Vote Act-style omnibus mitigation packages, small-donor public-financing models, and digital-ad or AI-ad disclaimer proposals before selecting a least-complex adequate remedy.
+**Prior-Proposal Position.** ELEC-012 adopts H.J.Res. 54 as the preferred external amendment vehicle with a recommended enforcement/federalism clarification and preserves H.J.Res. 13 as the alternative. The enabling act remains ARRP working-draft text and should be compared against DISCLOSE Act-style transparency bills, For the People Act / Freedom to Vote Act-style omnibus mitigation packages, small-donor public-financing models, and digital-ad or AI-ad disclaimer proposals before scoring.
 
 ## Source Notes
 
@@ -177,7 +182,17 @@ Budget authority may be required for public financing, small-donor matching, dis
 - U.S. Supreme Court, [*National Republican Senatorial Committee v. Federal Election Commission*](https://www.supremecourt.gov/opinions/25pdf/24-621_h315.pdf) (2026).
 - D.C. Circuit, [*SpeechNow.org v. FEC*](https://www.fec.gov/resources/cms-content/documents/speechnowopinion.pdf) (2010).
 - Congress.gov, [H.J.Res. 54, 119th Cong.](https://www.congress.gov/bill/119th-congress/house-joint-resolution/54), We the People-style amendment concerning natural persons, artificial entities, election spending, disclosure, and money-as-speech doctrine.
+- GovInfo, [H.J.Res. 54, 119th Cong., Introduced in House](https://www.govinfo.gov/content/pkg/BILLS-119hjres54ih/html/BILLS-119hjres54ih.htm), official introduced text copied into the proposed amendment page.
 - Congress.gov, [H.J.Res. 13, 118th Cong.](https://www.congress.gov/bill/118th-congress/house-joint-resolution/13), Democracy for All-style amendment concerning election spending, artificial entities, and public campaign financing.
+- GovInfo, [H.J.Res. 13, 118th Cong., Introduced in House](https://www.govinfo.gov/content/pkg/BILLS-118hjres13ih/html/BILLS-118hjres13ih.htm), official introduced text for the alternative amendment vehicle.
+- Congress.gov Constitution Annotated, [Twenty-Sixth Amendment](https://constitution.congress.gov/constitution/amendment-26/), enforcement model following *Oregon v. Mitchell*.
+- Congress.gov Constitution Annotated, [Fifteenth Amendment](https://constitution.congress.gov/constitution/amendment-15/), enforcement model for federal power over state-administered elections.
+- Congress.gov Constitution Annotated, [Nineteenth Amendment](https://constitution.congress.gov/constitution/amendment-19/), United States/State voting-rights and enforcement-clause model.
+- Congress.gov Constitution Annotated, [Twenty-Fourth Amendment](https://constitution.congress.gov/constitution/amendment-24/), federal-office-only contrast.
+- *Oregon v. Mitchell*, [400 U.S. 112](https://supreme.justia.com/cases/federal/us/400/112/) (1970), state-election federalism predicate for the Twenty-Sixth Amendment model.
+- *South Carolina v. Katzenbach*, [383 U.S. 301](https://supreme.justia.com/cases/federal/us/383/301/) (1966), Fifteenth Amendment enforcement model.
+- *City of Rome v. United States*, [446 U.S. 156](https://supreme.justia.com/cases/federal/us/446/156/) (1980), Fifteenth Amendment enforcement and federalism-baseline model.
+- *City of Boerne v. Flores*, [521 U.S. 507](https://supreme.justia.com/cases/federal/us/521/507/) (1997), enforcement-power caution requiring clear substantive constitutional scope.
 - Congress.gov, [S.J.Res. 45, 118th Cong.](https://www.congress.gov/bill/118th-congress/senate-joint-resolution/45), Senate Democracy for All-style amendment concerning election spending and artificial entities.
 - Congress.gov, [H.R. 1118, 118th Cong.](https://www.congress.gov/bill/118th-congress/house-bill/1118), DISCLOSE Act of 2023.
 - Congress.gov, [H.R. 1, 117th Cong.](https://www.congress.gov/bill/117th-congress/house-bill/1), For the People Act of 2021.

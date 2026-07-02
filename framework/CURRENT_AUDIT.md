@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-012 post-*NRSC*/Maine issue-admission and source-development audit |
-| Audit type/tier | T1-style issue-admission/source-development pass |
-| Started | 2026-07-02 12:09:13 -0400 |
-| Last checkpoint | 2026-07-02 12:17:14 -0400 to completion |
-| User request | Run the next audit on ELEC-012. |
-| Scope | Completed ELEC-012 current candidate-posture review after *NRSC*, Maine comparators, and prior campaign-finance reform proposals; updated the issue page, audit history, source inventory, GitHub Project fields, and handoff record. Generated exports were out of scope under the pre-1.0 export policy. |
-| Files touched | `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Ran bounded T1-style issue-admission/source-development pass; added prior-proposal routing for Democracy for All, We the People / Move to Amend, DISCLOSE Act, For the People Act, Freedom to Vote Act, and REAL Political Advertisements Act families; added source rows SRC-0370 through SRC-0376; kept score fixed at 0 pending remedy selection; synced GitHub Project issue #40 fields. |
-| Next step | Run T2 remedy-selection and prior-proposal comparison. |
+| Active issue/task | ELEC-012 amendment support and enabling-legislation drafting |
+| Audit type/tier | Drafting / T2 remedy-selection follow-up |
+| Started | 2026-07-02 12:26:51 -0400 |
+| Last checkpoint | 2026-07-02 13:30:45 -0400 to completion |
+| User request | Support H.J.Res. 54, preserve H.J.Res. 13 as an alternative, copy over the proposed amendment with clear attribution, start basic enabling legislation, build in contingency safeguards for hostile or failed FEC/executive implementation, apply the same standards to statewide elections if H.J.Res. 54 permits, add analysis/recommendation for an express enforcement/federalism clarification, and add a state-law review grace period. |
+| Scope | Completed ELEC-012 remedy-selection drafting pass; moved issue from candidate to working-draft posture; added attributed H.J.Res. 54 amendment page, H.J.Res. 13 alternative comparator note, initial post-ratification enabling legislation, source inventory records, legislation index links, audit-history entry, triggered institutional safeguards for FEC/executive implementation failure, statewide-election/statewide-ballot-measure coverage, an ARRP-recommended Section 4 enforcement/federalism clarification modeled on voting-rights amendments, and an 18-month statewide-election transition period. Generated exports were out of scope under the pre-1.0 export policy. |
+| Files touched | `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `legislation/ELEC-012-amendment.md`; `legislation/ELEC-012.md`; `legislation/README.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Selected H.J.Res. 54 as the preferred external amendment vehicle; preserved H.J.Res. 13 as the alternative; copied and attributed H.J.Res. 54 text from GovInfo; drafted initial enabling act; revised it to use self-executing statutory rules and a contingent-safeguards section for missed deadlines, deadlock, quorum failure, disclosure-publication failure, rule dilution, selective enforcement, funding obstruction, retaliation, and litigation sabotage; expanded coverage to federal elections, covered statewide elections, and covered statewide ballot measures while preserving stronger State rules and avoiding mandatory State administration; added an 18-month statewide-election transition period for State law review; added recommended H.J.Res. 54 Section 4 to expressly authorize Congress to enforce minimum standards notwithstanding ordinary state-reserved election/campaign-finance doctrines; added historical enforcement-model sources; kept score fixed at 0 pending legal-durability and implementation review; validated CSV parse and focused link/file presence. |
+| Next step | Run T2 legal-durability and implementation review. |
 | Blockers/questions | None. |
-| Validation status | Passed CSV parse, whitespace check, focused internal Markdown link target check, and GitHub Project field verification. |
+| Validation status | Passed CSV parse, focused stale-marker check, and linked-file presence check. |
 
 ## Handoff Rules
 

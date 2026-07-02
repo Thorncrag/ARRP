@@ -14,6 +14,32 @@ This file preserves the full audit history for [ELEC-012](ELEC-012.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-02 — T2 remedy-selection drafting pass
+
+**Audit status:** Remedy selected; H.J.Res. 54 supported with recommended enforcement/federalism clarification and initial enabling legislation drafted; legal-durability review pending
+
+**Proposal-quality score:** 0
+
+**Scope:** This pass implemented the remedy-selection decision for ELEC-012. It selected H.J.Res. 54, 119th Congress, as ARRP's preferred constitutional-amendment vehicle, preserved H.J.Res. 13, 118th Congress, as the narrower Democracy for All-style alternative, created an attributed amendment page, and added an initial post-ratification enabling-legislation draft.
+
+**Framework finding:** ELEC-012 now follows the project convention for amendment-dependent proposals by separating the external constitutional amendment vehicle from ARRP's enabling legislation. The amendment page makes clear that H.J.Res. 54 is not ARRP-original text. The enabling act is ARRP working-draft text and is expressly conditioned on ratification of H.J.Res. 54 or a substantially similar amendment.
+
+**Drafting finding:** The enabling act creates an initial structure for limited FEC administration, true-source disclosure, artificial-entity election-spending regulation, foreign-influenced and contractor-linked spending rules, public campaign-finance systems, enforcement, rules of construction, effective date, and severability. The draft is intentionally basic and should not yet be treated as a final statutory package.
+
+**Adjunctive FEC-hostility update:** Following review of FEC independence and deadlock risk, the enabling act was revised to make the principal rules self-executing and congressionally specified rather than dependent on FEC rulemaking. The FEC retains administrative, form, electronic-filing, database, guidance, and ministerial-adjustment duties, but Commission delay, deadlock, quorum failure, or narrowing guidance does not suspend the statutory rules. The enforcement path now includes direct civil actions by affected parties and State attorneys general after FEC inaction or where election timing makes exhaustion impractical.
+
+**Contingent-safeguards update:** The enabling act now includes a triggered institutional-safeguards section. The section applies only after a covered implementation failure, including missed deadlines, quorum failure, deadlock, disclosure-publication failure, rule dilution, selective enforcement, funding obstruction, retaliation, or litigation sabotage. Once triggered, it authorizes backup filings, direct and expedited civil actions, intervention as of right, limits on nonstatutory safe harbors, funding and apportionment protection, GAO audit/reporting, and confidential interference notices.
+
+**Statewide-election scope update:** The enabling act was revised to apply its baseline standards to federal elections, covered statewide elections, and covered statewide ballot measures. This reflects H.J.Res. 54's broader language concerning any candidate for public office and any ballot measure. The draft preserves stronger State laws, avoids requiring States to administer the federal Act, and applies mixed-purpose spending rules only to the portion reasonably attributable to influencing a covered election.
+
+**State transition update:** The statewide-election layer now includes an 18-month transition period before sections 5 through 10 apply to covered statewide elections and covered statewide ballot measures. The transition period is intended to allow States to compare existing campaign-finance, corporate, ballot-measure, public-financing, disclosure, enforcement, and election-administration laws against the new federal baseline. The transition does not delay federal-election coverage, authorize evasion through mixed-purpose spending, authorize foreign-influenced covered election spending, or prevent earlier State adoption or stronger State enforcement.
+
+**Enforcement/federalism clarification update:** Because statewide-election coverage may be the most consequential part of ELEC-012, the amendment page now recommends adding an express enforcement and federalism section to H.J.Res. 54 before ratification. The recommendation is modeled on the Twenty-Sixth Amendment response to *Oregon v. Mitchell*, the Fifteenth and Nineteenth Amendment enforcement-clause pattern, Fifteenth Amendment enforcement cases such as *South Carolina v. Katzenbach* and *City of Rome*, and the Fourteenth Amendment caution from *City of Boerne*. The purpose is to remove ordinary reserved-to-the-States objections while preserving anti-commandeering and stronger State protections.
+
+**Score basis:** Score remains fixed at 0 because the proposal has just moved from candidate/source-development posture to working-draft posture and has not yet received legal-durability scoring, implementation review, cost review, adoption-friction assessment, or external validation.
+
+**Next audit need:** Run a T2 legal-durability and implementation review focused on whether the enabling act conforms to H.J.Res. 54 as clarified by ARRP's recommended Section 4, how it would need to change under H.J.Res. 13, whether the proposed enforcement/federalism section is sufficient to support the statewide-election floor, whether the 18-month statewide transition period is too short, too long, or needs election-cycle exceptions, whether the contingent-safeguards trigger is overbroad or underinclusive, whether FEC deadlock repair belongs here or in a companion proposal, how disclosure and privacy safeguards should be calibrated, whether foreign-influenced entity provisions should borrow from or avoid Maine's design, and which DISCLOSE Act, For the People Act, Freedom to Vote Act, and digital-ad provisions should be incorporated.
+
 ### 2026-07-02 — T1-style issue-admission/source-development pass
 
 **Audit status:** T1-style issue-admission/source-development pass complete; remedy selection pending
