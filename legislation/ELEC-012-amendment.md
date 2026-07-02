@@ -31,12 +31,6 @@ Source: GovInfo, [H.J.Res. 54, 119th Congress, Introduced in House](https://www.
 >
 > **Section 3.** This amendment shall not be construed to abridge the right secured by the Constitution of the United States of the freedom of the press.
 
-## Alternative Vehicle: H.J.Res. 13, 118th Congress
-
-Source: GovInfo, [H.J.Res. 13, 118th Congress, Introduced in House](https://www.govinfo.gov/content/pkg/BILLS-118hjres13ih/html/BILLS-118hjres13ih.htm), introduced January 9, 2023.
-
-H.J.Res. 13 remains the narrower Democracy for All-style alternative. Its official text should be reviewed directly if ARRP later shifts from H.J.Res. 54 to the alternative vehicle.
-
 ## Recommended ARRP Clarifying Section
 
 ARRP recommends adding an express enforcement and federalism section to H.J.Res. 54 before ratification. The purpose is to make clear that Congress may establish minimum nationwide standards for campaign-finance regulation in elections for public office and ballot measures, including statewide elections and statewide ballot measures, without relying on ordinary pre-amendment federal election powers.
@@ -46,6 +40,16 @@ ARRP recommends adding an express enforcement and federalism section to H.J.Res.
 > This power is an affirmative constitutional grant and shall not be limited by any doctrine reserving ordinary election administration, campaign-finance regulation, corporate regulation, ballot-measure regulation, or state-office election regulation to the States.
 >
 > Nothing in this article shall require a State or State officer to administer or enforce federal law, prevent a State from adopting stronger protections consistent with this article, or abridge the freedom of the press.
+
+## Alternative Vehicle: H.J.Res. 13, 118th Congress
+
+Source: GovInfo, [H.J.Res. 13, 118th Congress, Introduced in House](https://www.govinfo.gov/content/pkg/BILLS-118hjres13ih/html/BILLS-118hjres13ih.htm), introduced January 9, 2023.
+
+H.J.Res. 13 remains the narrower Democracy for All-style alternative. Its official text should be reviewed directly if ARRP later shifts from H.J.Res. 54 to the alternative vehicle.
+
+## ARRP Position
+
+H.J.Res. 54 is preferred because it directly addresses both sides of the institutional weakness: artificial-entity constitutional status and election-money-as-speech doctrine. ARRP should support H.J.Res. 54 with the recommended Section 4 clarification because statewide-election coverage is too important to leave vulnerable to reserved-to-the-States federalism objections. H.J.Res. 13 is retained as an alternative because it may be more narrowly tailored to campaign finance and easier to defend as a campaign-finance authority amendment rather than a broader corporate-personhood amendment.
 
 ## Historical Enforcement Models
 
@@ -59,9 +63,6 @@ The Fourteenth Amendment's Section 5 is useful but also cautions against ambigui
 
 The Twenty-Fourth Amendment is the cautionary contrast because it expressly applies only to federal offices. H.J.Res. 54 should avoid any comparable ambiguity if the intended coverage includes statewide elections and statewide ballot measures.
 
-## ARRP Position
-
-H.J.Res. 54 is preferred because it directly addresses both sides of the institutional weakness: artificial-entity constitutional status and election-money-as-speech doctrine. ARRP should support H.J.Res. 54 with the recommended Section 4 clarification because statewide-election coverage is too important to leave vulnerable to reserved-to-the-States federalism objections. H.J.Res. 13 is retained as an alternative because it may be more narrowly tailored to campaign finance and easier to defend as a campaign-finance authority amendment rather than a broader corporate-personhood amendment.
 
 ## Budgetary Impact Statement
 

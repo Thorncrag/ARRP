@@ -302,6 +302,8 @@ Use primary legal and governmental records first. Use authoritative institutiona
 
 Every factual, legal, and causal proposition must remain independently supportable. When an issue file refers to a real-life event, case, official action, report, statute, rule, hearing, order, or other source material, include a nearby citation or link. Do not name concrete examples in issue text without enough source information for later verification.
 
+Indictments, criminal complaints, informations, prosecutorial reports, press releases describing charges, and comparable advocacy-position records may be used to identify alleged fact patterns, procedural posture, source leads, and potential institutional weaknesses. They must not be used as evidentiary support for the truth of an allegation unless the project separately verifies the allegation through specific cited evidence, admitted records, judicial findings, official records, or other reliable corroboration. When used, label them as allegations, prosecution assessments, charging documents, or source-development leads rather than adjudicated facts.
+
 Source inventory updates are required whenever a new external source is cited or an existing cited source is repurposed for a materially different proposition. A source may remain marked `Reviewed?` as `No` until verification is complete, but the citation should still be captured promptly.
 
 When referring to another page in this project, use a relative Markdown link whenever the target page exists. If the referenced issue exists only as an inventory or area-index entry, link to the nearest project page that contains that entry.
