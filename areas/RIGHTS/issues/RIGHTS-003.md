@@ -7,9 +7,9 @@ priority: high
 remedy_type: citizenship-recognition-and-records
 audit_score: 0
 audit_status: Pending development; no proposal-quality score assigned
-audit_last_type: "Horizon integration decision"
-audit_last_date: "2026-06-29"
-audit_next: "Source-development pass"
+audit_last_type: "SCOTUS merits update"
+audit_last_date: "2026-07-02"
+audit_next: "Post-Barbara source-development pass"
 audit_rubric_version: "2026-06-27.1"
 audit_rebaseline_status: "current-fixed-status"
 print_levels:
@@ -34,9 +34,9 @@ The institutional defect is not that citizenship doctrine is immune from judicia
 
 ### Birthright-citizenship executive-order litigation
 
-The FUND-001 state-led adverse-rulings scan identifies two Trump second-term state-led challenges involving a birthright-citizenship executive order: *New Jersey v. Trump* and *Washington v. Trump*. The scan flags both as immigration / presidential-directive matters with adverse preliminary relief and likely executive-order linkage.
+The FUND-001 state-led adverse-rulings scan identified two Trump second-term state-led challenges involving a birthright-citizenship executive order: *New Jersey v. Trump* and *Washington v. Trump*. The scan flagged both as immigration / presidential-directive matters with adverse preliminary relief and likely executive-order linkage.
 
-This issue is admitted only as a horizon issue for now. The scan should be treated as a source-development lead, not as a final legal conclusion about the merits, scope, or current posture of the underlying litigation.
+The Supreme Court has now decided the merits in [*Trump v. Barbara*](https://www.supremecourt.gov/opinions/25pdf/25-365_new_5if6.pdf), holding that children born in the United States to parents unlawfully or temporarily present are citizens at birth under the Fourteenth Amendment. That decision sharply narrows the predicate for any ARRP remedy aimed at resisting Executive Order 14160 itself. The remaining source-development question is whether a narrower records, recognition-continuity, reliance, and review safeguard remains useful for future executive implementation attempts, agency lag, record instability, or downstream benefit and identity-document disruption.
 
 ## Resulting Damage
 
@@ -74,7 +74,7 @@ Any RIGHTS-003 proposal should consider several remedy paths before drafting:
 
 ## Least-Complex Adequate Remedy
 
-The least-complex adequate remedy is not selected. RIGHTS-003 should begin with source development, including constitutional doctrine, citizenship statutes, identity-record statutes, agency implementation rules, and the current litigation record.
+The least-complex adequate remedy is not selected. RIGHTS-003 should begin with post-*Barbara* source development, including constitutional doctrine, citizenship statutes, identity-record statutes, agency implementation rules, reliance interests, and any remaining implementation or compliance disputes after the Supreme Court's merits ruling.
 
 A narrow first-stage remedy could focus on recognition continuity and record stability: agencies may not deny or alter citizenship-related recognition for persons born in the United States without clear statutory authority, individualized notice, preserved records, and expedited review.
 
@@ -82,7 +82,7 @@ A narrow first-stage remedy could focus on recognition continuity and record sta
 
 Future drafting should evaluate whether Congress should:
 
-1. require continuity of citizenship recognition during litigation over executive directives;
+1. require continuity of citizenship recognition during litigation over executive directives or while agencies implement controlling judicial rulings;
 2. protect federal identity records from categorical alteration without clear statutory authority;
 3. preserve reliance on state birth records and federal records already issued;
 4. require written agency authority and implementation guidance before any change in recognition policy takes effect;
@@ -118,14 +118,14 @@ No reliable estimate yet. Records, notice, review, document-continuity, and liti
 >
 > —
 >
-> **Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [RIGHTS-003 audit history](RIGHTS-003.audit.md)
+> **Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** SCOTUS merits update<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Post-*Barbara* source-development pass<br />**Full Audit History:** [RIGHTS-003 audit history](RIGHTS-003.audit.md)
 
 ## Annotation
 
-RIGHTS-003 is a candidate horizon issue admitted after birthright-citizenship executive-order litigation appeared in the state-led adverse-rulings comparator. It receives a proposal-quality score of 0 until a basic proposal framework is developed.
+RIGHTS-003 is a candidate horizon issue admitted after birthright-citizenship executive-order litigation appeared in the state-led adverse-rulings comparator. After *Trump v. Barbara*, the issue should not be framed as if the core Citizenship Clause merits question remains unresolved. It receives a proposal-quality score of 0 until the project decides whether to retire the issue, merge it into RIGHTS-001 or another records/recognition issue, or develop a narrower post-ruling implementation safeguard.
 
 The neutral institutional frame is that citizenship recognition and identity-record systems should not be destabilized by executive directive without clear legal authority, transparent implementation rules, reliance safeguards, and expedited review.
 
 ## Source Notes
 
-Primary source development should begin with the Fourteenth Amendment Citizenship Clause, 8 U.S.C. citizenship provisions, federal passport and Social Security identity-record authorities, relevant agency implementation guidance, and the dockets and orders in *New Jersey v. Trump* and *Washington v. Trump*. The FUND-001 state-led adverse-rulings scan should be used as a routing lead only.
+Primary source development should begin with *Trump v. Barbara*, the Fourteenth Amendment Citizenship Clause, 8 U.S.C. citizenship provisions, federal passport and Social Security identity-record authorities, relevant agency implementation guidance, and any remaining post-ruling implementation orders or agency compliance records. The *New Jersey v. Trump* and *Washington v. Trump* dockets and the FUND-001 state-led adverse-rulings scan should now be treated as procedural-history and routing leads rather than as unresolved merits predicates.

@@ -14,6 +14,16 @@ This file preserves the full audit history for [RIGHTS-003](RIGHTS-003.md). The 
 
 No issue-specific audit log has been migrated from the issue page yet. The current inventory-level audit record is summarized below.
 
+### 2026-07-02 — SCOTUS merits update
+
+**Audit status:** Pending development; no proposal-quality score assigned
+
+**Proposal-quality score:** 0
+
+**Score basis:** The Supreme Court's decision in *Trump v. Barbara* resolves the core birthright-citizenship merits question against Executive Order 14160 and therefore materially narrows RIGHTS-003. The issue remains a candidate only for possible records, recognition-continuity, reliance, agency-compliance, and expedited-review safeguards after a controlling judicial ruling.
+
+**Next audit need:** Run a post-*Barbara* source-development pass to decide whether RIGHTS-003 should be retired, merged into RIGHTS-001 or another records/recognition issue, or developed into a narrower implementation-safeguard proposal. Review the opinion, any agency compliance guidance, passport and Social Security record authorities, state vital-record reliance, and any remaining implementation disputes.
+
 ### 2026-06-29 — Horizon integration decision
 
 **Audit status:** Pending development; no proposal-quality score assigned

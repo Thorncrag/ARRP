@@ -7,9 +7,9 @@ priority: high
 remedy_type: campaign-finance-and-constitutional-amendment
 audit_score: 0
 audit_status: Pending development
-audit_last_type: "Initial issue framework"
-audit_last_date: "2026-06-29"
-audit_next: "Issue-admission test"
+audit_last_type: "SCOTUS doctrine update"
+audit_last_date: "2026-07-02"
+audit_next: "Post-NRSC issue-admission and source-development pass"
 audit_rubric_version: "2026-06-27.1"
 audit_rebaseline_status: "current-fixed-status"
 print_levels:
@@ -44,7 +44,7 @@ For that reason, ELEC-012 should not pretend that ordinary legislation can fully
 
 *SpeechNow* is the main super PAC acceleration point. It treats contributions to independent-expenditure-only committees differently because independent expenditures are presumed not to create quid pro quo corruption. That structure allows very large contributions to entities that spend independently of candidates, even where the practical political relationship between candidates, donors, consultants, and outside groups is difficult for voters to disentangle.
 
-ELEC-012 should source-develop coordination, common-vendor, former-staffer, fundraising, strategic-information, and candidate-signal rules before deciding whether the least-complex statutory mitigation is disclosure-focused, coordination-focused, public-financing-focused, or amendment-first.
+The Supreme Court's decision in [*National Republican Senatorial Committee v. Federal Election Commission*](https://www.supremecourt.gov/opinions/25pdf/24-621_h315.pdf) makes the coordination lane more constitutionally constrained. The Court held that FECA's political-party coordinated-expenditure limits violate the First Amendment and applied a more rigorous closely drawn scrutiny focused on quid pro quo corruption and circumvention of base contribution limits. ELEC-012 should therefore source-develop coordination, common-vendor, former-staffer, fundraising, strategic-information, and candidate-signal rules with explicit constitutional caution before deciding whether the least-complex statutory mitigation is disclosure-focused, coordination-focused, public-financing-focused, or amendment-first.
 
 ### Dark money and entity opacity
 
@@ -88,7 +88,7 @@ Any ELEC-012 proposal should separate durable constitutional repair from statuto
 
 **Disclosure and true-source reporting.** Congress and states may strengthen disclosure for large election-related spending, including true-source tracing, donor thresholds, transfer reporting, entity-control reporting, digital-ad transparency, and timely public databases. Disclosure should protect ordinary small donors, harassment-sensitive contexts, and legitimate associational privacy where constitutional law requires it.
 
-**Coordination rules.** Reform can narrow the gap between formally independent spending and practical candidate assistance. Source development should test rules for common vendors, former staff, candidate fundraising for outside groups, republication of campaign materials, strategic information sharing, public signaling, and family or business intermediaries.
+**Coordination rules.** Reform can narrow the gap between formally independent spending and practical candidate assistance, but *NRSC v. FEC* reduces the space for broad spending limits framed as coordination controls. Source development should test rules for common vendors, former staff, candidate fundraising for outside groups, republication of campaign materials, strategic information sharing, public signaling, and family or business intermediaries, while distinguishing disclosure, anti-circumvention, and true-source rules from expenditure caps that now face heightened First Amendment risk.
 
 **Public financing and small-donor matching.** Public financing, vouchers, tax credits, and small-donor matching can reduce reliance on large donors without directly limiting independent expenditures. This overlaps with [ELEC-013](ELEC-013.md) where donor networks affect candidate viability.
 
@@ -105,7 +105,7 @@ The least-complex adequate remedy is not yet selected. ELEC-012 should begin wit
 At this stage, the honest structure appears to be two-tiered:
 
 1. a constitutional amendment as the durable remedy for *Citizens United* and related independent-expenditure doctrine; and
-2. ordinary legislation and state-law models as mitigation tools for disclosure, coordination, public financing, true-source reporting, foreign-money safeguards, and entity-governance experiments.
+2. ordinary legislation and state-law models as mitigation tools for disclosure, carefully tailored coordination and anti-circumvention rules, public financing, true-source reporting, foreign-money safeguards, and entity-governance experiments.
 
 That structure matters because a disclosure-only or public-financing-only bill may be worthwhile, but it should not be described as fully addressing *Citizens United*.
 
@@ -117,7 +117,7 @@ Future drafting should evaluate whether Congress and the states should:
 2. clarify that artificial entities may be regulated differently from natural persons in election spending;
 3. protect individual political speech, press freedom, and viewpoint neutrality;
 4. require true-source disclosure for large election-related spending;
-5. strengthen coordination rules for super PACs and outside groups;
+5. strengthen constitutionally durable disclosure, coordination, and anti-circumvention rules for super PACs and outside groups;
 6. create public-financing or small-donor systems that reduce large-donor dependence;
 7. regulate shell entities, pass-through spending, and foreign or contractor-linked money;
 8. test state corporate-law and entity-governance approaches after *Citizens United*; and
@@ -149,21 +149,22 @@ Budget authority may be required for public financing, small-donor matching, dis
 >
 > —
 >
-> **Audit Status:** Pending development<br />**Last Audit:** Initial issue framework<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Issue-admission test<br />**Full Audit History:** [ELEC-012 audit history](ELEC-012.audit.md)
+> **Audit Status:** Pending development<br />**Last Audit:** SCOTUS doctrine update<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Post-*NRSC* issue-admission and source-development pass<br />**Full Audit History:** [ELEC-012 audit history](ELEC-012.audit.md)
 
 ## Annotation
 
 **Candidate Status.** ELEC-012 is admitted as a candidate issue from HOR-013. It has not yet been developed into a full proposal or legislative draft.
 
-**Citizens United Centrality.** ELEC-012 is basically the project's *Citizens United* issue, but it should not be limited to a slogan of "overturn Citizens United." The issue includes the downstream structures that make the doctrine consequential: *SpeechNow*, super PACs, dark money, entity opacity, coordination rules, public financing, state corporate-law experiments, and campaign-finance enforcement.
+**Citizens United Centrality.** ELEC-012 is basically the project's *Citizens United* issue, but it should not be limited to a slogan of "overturn Citizens United." The issue includes the downstream structures that make the doctrine consequential: *SpeechNow*, *NRSC v. FEC*, super PACs, dark money, entity opacity, coordination rules, public financing, state corporate-law experiments, and campaign-finance enforcement.
 
-**Constitutional Caution.** A durable remedy likely requires a constitutional amendment. Statutory mitigation must be drafted around current First Amendment doctrine, associational privacy, press freedom, viewpoint neutrality, anti-incumbent-protection safeguards, and state/federal authority limits.
+**Constitutional Caution.** A durable remedy likely requires a constitutional amendment. Statutory mitigation must be drafted around current First Amendment doctrine, including *NRSC v. FEC*'s treatment of coordinated-expenditure limits, associational privacy, press freedom, viewpoint neutrality, anti-incumbent-protection safeguards, and state/federal authority limits.
 
 **State-Experimentation Caution.** Hawaii, Montana, and similar state efforts should be treated as source-development leads. They may be strategically important, but they are not validated models until their text, legal theory, litigation posture, and implementation details are reviewed.
 
 ## Source Notes
 
 - U.S. Supreme Court, [*Citizens United v. FEC*](https://www.supremecourt.gov/opinions/09pdf/08-205.pdf) (2010).
+- U.S. Supreme Court, [*National Republican Senatorial Committee v. Federal Election Commission*](https://www.supremecourt.gov/opinions/25pdf/24-621_h315.pdf) (2026).
 - D.C. Circuit, [*SpeechNow.org v. FEC*](https://www.fec.gov/resources/cms-content/documents/speechnowopinion.pdf) (2010).
 - Associated Press, [*New Hawaii law targets corporate influence in politics after Citizens United ruling*](https://apnews.com/article/71a28bc7e8f6e0279b31e999f222519a) (May 15, 2026).
 - Associated Press, [*What to know about states' efforts to limit corporate donations in politics*](https://apnews.com/article/7476b9b0f1aaecbc68de8707e6ff6eb9) (May 12, 2026).

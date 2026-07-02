@@ -14,6 +14,16 @@ This file preserves the full audit history for [ELEC-012](ELEC-012.md). The issu
 
 No issue-specific audit log has been migrated from the issue page yet. The current inventory-level audit record is summarized below.
 
+### 2026-07-02 — SCOTUS doctrine update
+
+**Audit status:** Pending development
+
+**Proposal-quality score:** 0
+
+**Score basis:** The Supreme Court's decision in *National Republican Senatorial Committee v. Federal Election Commission* strengthens ELEC-012's constitutional-amendment caution and narrows the ordinary statutory lane for coordinated-expenditure limits. The issue remains a candidate because it has not yet selected a concrete remedy or legislative vehicle.
+
+**Next audit need:** Run a post-*NRSC* issue-admission and source-development pass focused on how the decision affects coordination rules, anti-circumvention provisions, disclosure, true-source reporting, public financing, FEC enforcement, and amendment-first strategy.
+
 ### 2026-06-29 — Initial issue framework
 
 **Audit status:** Pending development

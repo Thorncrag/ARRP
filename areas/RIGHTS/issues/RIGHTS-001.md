@@ -7,9 +7,9 @@ priority: high
 remedy_type: civil-rights-administration
 audit_score: 0
 audit_status: Pending development; no proposal-quality score assigned
-audit_last_type: "Horizon integration decision"
-audit_last_date: "2026-06-25"
-audit_next: "Source-development pass"
+audit_last_type: "SCOTUS doctrine update"
+audit_last_date: "2026-07-02"
+audit_next: "Post-B.P.J. source-development pass"
 audit_rubric_version: "2026-06-27.1"
 audit_rebaseline_status: "current-fixed-status"
 print_levels:
@@ -66,6 +66,8 @@ This manifestation is not yet developed into a remedial theory. It flags a sourc
 
 The Supreme Court's decision in [*United States v. Skrmetti*](https://www.supremecourt.gov/opinions/24pdf/23-477_2cp3.pdf) is a necessary doctrinal caution. It does not settle every federal civil-rights administration question raised here, but it affects how future proposals should be framed, especially where equal-protection arguments, sex classifications, age, medical care, Title IX, Title VII, and agency authority intersect.
 
+The Supreme Court's decision in [*West Virginia v. B. P. J.*](https://www.supremecourt.gov/opinions/25pdf/24-43_2b35.pdf) adds a second caution for Title IX and Equal Protection claims involving school athletics and sex-specific classifications. RIGHTS-001 should not assume that Title IX requires gender-identity-inclusive athletics rules or that every sex-definition policy is constitutionally invalid. The remaining institutional question is whether civil-rights administration, identity records, grant conditions, privacy, detention classification, and agency guidance should have clearer statutory authority, transition rules, record preservation, individualized process, and review safeguards when executive definitions change.
+
 ## Resulting Damage
 
 Government-wide civil-rights redefinition can:
@@ -102,7 +104,7 @@ Any RIGHTS-001 proposal should consider several remedy paths before drafting:
 
 **Detention and prison classification process.** Assess whether federal prison, detention, and shelter-classification policies require minimum individualized risk assessment, safety review, and appeal procedures.
 
-**Statutory clarification.** Evaluate whether Congress should clarify Title IX, Title VII, identity-document, federal-records, prison-safety, medical-privacy, or grant-condition rules. This path requires high caution because doctrine is active and politically sensitive.
+**Statutory clarification.** Evaluate whether Congress should clarify Title IX, Title VII, identity-document, federal-records, prison-safety, medical-privacy, or grant-condition rules. This path requires high caution because doctrine is active, politically sensitive, and now includes *Skrmetti* and *West Virginia v. B. P. J.* as material limits on some equality and Title IX theories.
 
 ## Least-Complex Adequate Remedy
 
@@ -149,14 +151,14 @@ No reliable estimate yet. Early remedies may require compliance, records, review
 >
 > —
 >
-> **Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [RIGHTS-001 audit history](RIGHTS-001.audit.md)
+> **Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** SCOTUS doctrine update<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Post-*B.P.J.* source-development pass<br />**Full Audit History:** [RIGHTS-001 audit history](RIGHTS-001.audit.md)
 
 ## Annotation
 
 RIGHTS-001 is a candidate issue admitted from HOR-015. It receives a proposal-quality score of 0 until a basic proposal framework is developed.
 
-The page intentionally avoids deciding the merits of every sex-specific law, gender-identity policy, or civil-rights claim. Its current role is to isolate the institutional weakness: government-wide civil-rights administration can be rapidly redefined through executive definitions, records systems, funding leverage, guidance rescission, and privacy-sensitive enforcement tools.
+The page intentionally avoids deciding the merits of every sex-specific law, gender-identity policy, athletics policy, or civil-rights claim. Its current role is to isolate the institutional weakness: government-wide civil-rights administration can be rapidly redefined through executive definitions, records systems, funding leverage, guidance rescission, and privacy-sensitive enforcement tools.
 
 ## Source Notes
 
-Primary source development should begin with Executive Order 14168, *United States v. Skrmetti*, Project 2025 / Heritage materials, and the dockets behind the passport, grant-condition, prison/detention, public-health-information, and medical-record cases. Secondary reporting may be used to identify events, but final drafting should rely on official orders, docket filings, statutes, regulations, agency guidance, and congressional materials wherever available.
+Primary source development should begin with Executive Order 14168, *United States v. Skrmetti*, *West Virginia v. B. P. J.*, Project 2025 / Heritage materials, and the dockets behind the passport, grant-condition, prison/detention, public-health-information, and medical-record cases. Secondary reporting may be used to identify events, but final drafting should rely on official orders, docket filings, statutes, regulations, agency guidance, and congressional materials wherever available.

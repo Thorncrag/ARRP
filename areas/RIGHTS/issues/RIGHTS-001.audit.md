@@ -14,6 +14,16 @@ This file preserves the full audit history for [RIGHTS-001](RIGHTS-001.md). The 
 
 No issue-specific audit log has been migrated from the issue page yet. The current inventory-level audit record is summarized below.
 
+### 2026-07-02 — SCOTUS doctrine update
+
+**Audit status:** Pending development; no proposal-quality score assigned
+
+**Proposal-quality score:** 0
+
+**Score basis:** The Supreme Court's decision in *West Virginia v. B. P. J.* adds a material Title IX and Equal Protection caution for sex-specific school-athletics policies. RIGHTS-001 remains a candidate issue, but source development should now frame remedies around statutory authority, process, records stability, privacy, grant-condition review, and implementation safeguards rather than assuming any particular substantive gender-identity or athletics outcome is doctrinally required.
+
+**Next audit need:** Run a post-*B.P.J.* source-development pass covering *Skrmetti*, *B.P.J.*, Executive Order 14168, Title IX, Title VII, identity-record statutes, grant-condition limits, detention/prison classification, medical-record privacy, and agency guidance rescission.
+
 ### 2026-06-25 — Horizon integration decision
 
 **Audit status:** Pending development; no proposal-quality score assigned

@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | None |
-| Audit type/tier | N/A |
-| Started | N/A |
-| Last checkpoint | 2026-07-01 14:05:50 -0400 to 2026-07-01 T3 completion |
-| User request | Last completed: run a T3 audit on DOJ-009. |
-| Scope | Completed DOJ-009 T3 readiness audit covering `areas/DOJ/issues/DOJ-009.md`, `areas/DOJ/issues/DOJ-009.audit.md`, `legislation/DOJ-009.md`, `inventory/sources.csv`, generated PDF output, and GitHub Project audit-control fields. |
-| Files touched | `areas/DOJ/issues/DOJ-009.md`; `areas/DOJ/issues/DOJ-009.audit.md`; `legislation/DOJ-009.md`; `inventory/sources.csv`; `exports/pdf/ARRP-public-proposal-draft.pdf`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Completed T3 source refresh, current-status/mootness check, pending-judicial-vulnerability check, legal-fit and FVRA/section 508 review, implementation-fit review, functional-analogue review, budget/adoption/friction review, issue-page status update, audit-history entry, source-inventory refresh, GitHub Project field sync for issue #28, and PDF rebuild. |
-| Next step | None unless the user starts another audit. DOJ-009 next audit is T4 publication-ready audit or qualified external legal/legislative-counsel review. |
-| Blockers/questions | No blocker to preserving the T3 audit. DOJ-009 remains below review-ready because qualified legal review, exhaustive prior-proposal research, professional-association review, historical licensure sampling, and proposal-specific support evidence remain unresolved. |
-| Validation status | Passed local CSV parse, local Markdown link check, whitespace check, GitHub Project row verification, and PDF rebuild during the DOJ-009 T3 audit. |
+| Active issue/task | SCOTUS current-opinion review and proposal updates |
+| Audit type/tier | Source-development / targeted current-status update |
+| Started | 2026-07-02 07:51:13 -0400 |
+| Last checkpoint | 2026-07-02 08:00:12 -0400 to completion |
+| User request | Review the recent SCOTUS opinions and update applicable proposals. |
+| Scope | Completed current SCOTUS slip-opinion review affecting `RIGHTS-003`, `ELEC-012`, `RIGHTS-001`, DOJ stale pending-case language, source inventory rows, GitHub Project audit fields, and public PDF export. |
+| Files touched | `areas/RIGHTS/issues/RIGHTS-003.md`; `areas/RIGHTS/issues/RIGHTS-003.audit.md`; `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `areas/RIGHTS/issues/RIGHTS-001.md`; `areas/RIGHTS/issues/RIGHTS-001.audit.md`; `areas/DOJ/issues/DOJ-001.md`; `areas/DOJ/issues/DOJ-001.audit.md`; `areas/DOJ/issues/DOJ-002.md`; `areas/DOJ/issues/DOJ-002.audit.md`; `areas/DOJ/issues/DOJ-003.md`; `areas/DOJ/issues/DOJ-003.audit.md`; `areas/DOJ/issues/DOJ-007.md`; `areas/DOJ/issues/DOJ-007.audit.md`; `inventory/sources.csv`; `exports/pdf/ARRP-public-proposal-draft.pdf`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Added `Trump v. Barbara` to RIGHTS-003, `National Republican Senatorial Committee v. FEC` to ELEC-012, and `West Virginia v. B. P. J.` to RIGHTS-001; updated DOJ-001, DOJ-002, DOJ-003, and DOJ-007 from pending Slaughter/Cook posture to current decided-case posture; added no-score audit-history entries; added source rows SRC-0362 through SRC-0364; synced GitHub Project Last audit, Next audit, and developed-issue Runs fields for issues #22, #23, #24, #27, #40, #221, and #223; rebuilt the public PDF. |
+| Next step | None unless the user requests a deeper source-development pass, post-*Barbara* disposition decision for RIGHTS-003, post-*NRSC* ELEC-012 development, post-*B.P.J.* RIGHTS-001 development, or developed-proposal external validation. |
+| Blockers/questions | None. |
+| Validation status | Passed CSV parse, text-file whitespace check excluding generated PDF internals, focused internal Markdown link scan, GitHub Project field verification, and PDF rebuild using bundled Python runtime. |
 
 ## Handoff Rules
 
