@@ -15,7 +15,7 @@ print_levels:
 
 ## A MODEL STATE BILL
 
-To establish an Anti-SLAPP-style special screening mechanism for election proceedings, subpoenas, audits, investigations, and inspection demands; to preserve good-faith election challenges; to prevent legal process from being used to delay certification, manufacture uncertainty, harass election personnel, obtain unauthorized access to sensitive election materials, or create a false predicate for extra-legal pressure; and for other purposes.
+To establish an Anti-SLAPP-style special screening mechanism for election proceedings, civil subpoenas, noncriminal audits, noncriminal investigation demands, and inspection demands; to preserve good-faith election challenges; to prevent legal process from being used to delay certification, manufacture uncertainty, harass election personnel, obtain unauthorized access to sensitive election materials, or create a false predicate for extra-legal pressure; and for other purposes.
 
 ## SECTION 1. SHORT TITLE.
 
@@ -25,28 +25,28 @@ This Act may be cited as the **“Election Proceedings Integrity Act.”**
 
 ### (a) Anti-SLAPP-style adaptation.
 
-This Act adapts the procedural logic of Anti-SLAPP laws to state election proceedings. Anti-SLAPP laws recognize that legal process can itself be used abusively to impose cost, delay, discovery burdens, reputational harm, or coercive pressure before a court or tribunal reaches the merits. This Act applies that logic to election litigation, subpoenas, audits, investigations, and inspection demands that seek election-disruptive relief or access to sensitive election material without an early particularized showing.
+This Act adapts the procedural logic of Anti-SLAPP laws to state election proceedings. Anti-SLAPP laws recognize that legal process can itself be used abusively to impose cost, delay, discovery burdens, reputational harm, or coercive pressure before a court or tribunal reaches the merits. This Act applies that logic to election litigation, civil subpoenas, noncriminal audits, noncriminal investigation demands, and inspection demands that seek election-disruptive relief or access to sensitive election material without an early particularized showing.
 
 ### (b) Purposes.
 
-The purposes of this Act are to preserve access to lawful recounts, contests, audits, investigations, and judicial review; distinguish ordinary citizen reporting from coercive or disruptive election proceedings; require early particularized showings before a proceeding may delay certification, alter results, compel nonstatutory audits, burden election personnel, or access sensitive election materials; protect ballots, voter privacy, voting systems, chain of custody, and election-security information; reduce abuse of subpoenas, discovery, investigations, and public-law proceedings; and provide sanctions where later-discovered evidence proves that a proceeding was materially connected to a coordinated improper scheme.
+The purposes of this Act are to preserve access to lawful recounts, contests, noncriminal audits, noncriminal investigation demands, and judicial review; distinguish ordinary citizen reporting from coercive or disruptive election proceedings; require early particularized showings before a proceeding may delay certification, alter results, compel nonstatutory audits, burden election personnel, or access sensitive election materials; protect ballots, voter privacy, voting systems, chain of custody, and election-security information; reduce abuse of civil subpoenas, discovery, noncriminal audits, noncriminal investigation demands, and public-law proceedings; and provide sanctions where later-discovered evidence proves that a proceeding was materially connected to a coordinated improper scheme.
 
 ## SEC. 3. DEFINITIONS.
 
 In this Act:
 
-1. **Covered election proceeding** means a civil action, election contest, petition, motion, subpoena, discovery demand, inspection demand, audit demand, legislative demand, administrative demand, or request for emergency relief filed, issued, or pursued in relation to an election if the proceeding seeks or would foreseeably cause election-disruptive relief.
+1. **Covered election proceeding** means a civil action, election contest, petition, motion, civil subpoena, discovery demand, inspection demand, audit demand, noncriminal investigation demand, legislative demand, administrative demand, or request for emergency relief filed, issued, or pursued in relation to an election if the proceeding seeks or would foreseeably cause election-disruptive relief.
 2. **Election-disruptive relief** means relief or action that would delay, enjoin, alter, decertify, nullify, or otherwise disturb voter eligibility lists, ballot preparation, voting procedures, counting, tabulation, auditing, recounting, canvassing, certification, appointment of presidential electors, transmission of election returns, or another statutory election deadline.
 3. **Sensitive election material** means ballots, ballot images, voter-identifiable data, election-management-system data, voting-system source code, tabulator or scanner data, security logs, chain-of-custody records, passwords, keys, security procedures, facility plans, or other election material whose disclosure, inspection, copying, or transfer may impair ballot secrecy, voter privacy, election security, or chain of custody.
 4. **Special screening motion** means a motion under section 5 to dismiss, narrow, stay, condition, or otherwise control a covered election proceeding.
-5. **Improper purpose** includes delay, harassment, knowingly false factual presentation, reckless disregard of contrary evidence, unauthorized access to sensitive election material, creation of a false predicate for disrupting certification or elector appointment, or other bad-faith use of legal, investigative, administrative, legislative, or judicial process.
+5. **Improper purpose** includes delay, harassment, knowingly false factual presentation, reckless disregard of contrary evidence, unauthorized access to sensitive election material, creation of a false predicate for disrupting certification or elector appointment, or other bad-faith use of legal, noncriminal investigative, administrative, legislative, or judicial process.
 6. **Good-faith report** means a report of suspected election irregularity made to an election official, law-enforcement agency, prosecutor, candidate, political party, court, or other body authorized by law to receive such information, where the report does not itself seek election-disruptive relief or access to sensitive election material.
 
 ## SEC. 4. SCOPE; PRESERVED ACTIVITY.
 
 ### (a) Scope.
 
-This Act applies to covered election proceedings under state law, including proceedings in state courts, before state or local election bodies, and before state or local entities authorized to issue subpoenas, audit demands, inspection demands, or investigative requests relating to an election.
+This Act applies to covered election proceedings under state law, including proceedings in state courts, before state or local election bodies, and before state or local entities authorized to issue civil subpoenas, audit demands, inspection demands, or noncriminal investigative requests relating to an election.
 
 ### (b) Preserved activity.
 
@@ -130,7 +130,7 @@ Within one year after final disposition of a covered election proceeding, or wit
 
 ### (d) Standard.
 
-The court or tribunal may impose sanctions if clear and convincing evidence shows that the proceeding, filing, subpoena, discovery request, inspection demand, audit demand, investigation demand, or request for emergency relief was materially presented, maintained, coordinated, or used for an improper purpose.
+The court or tribunal may impose sanctions if clear and convincing evidence shows that the proceeding, filing, civil subpoena, discovery request, inspection demand, audit demand, noncriminal investigation demand, or request for emergency relief was materially presented, maintained, coordinated, or used for an improper purpose.
 
 ### (e) Relevant evidence.
 
@@ -154,7 +154,7 @@ This Act applies without regard to the party, candidate, office, ballot measure,
 
 ## SEC. 13. RELATION TO OTHER LAW.
 
-This Act supplements and does not narrow any lawful recount, contest, audit, investigation, public-records, voter-remedy, criminal, disciplinary, or judicial procedure. Where a more specific election statute provides greater protection against abuse, delay, unauthorized access, or improper disclosure, the more protective provision controls.
+This Act supplements and does not narrow any lawful recount, contest, noncriminal audit, noncriminal investigation, public-records, voter-remedy, criminal, disciplinary, or judicial procedure. Where a more specific election statute provides greater protection against abuse, delay, unauthorized access, or improper disclosure, the more protective provision controls.
 
 ## SEC. 14. SEVERABILITY.
 
@@ -174,7 +174,10 @@ Administrative workload is possible; no new appropriation is specified.
 - The Act imposes no fixed post-election cutoff; post-election availability depends on functional relation to the election result, election administration, or sensitive election material.
 - Section 10 is expressly independent of the special screening motion and survives termination of the underlying proceeding.
 - State versions should be checked against state Anti-SLAPP provisions, court-rule authority, separation of powers, open-records clauses, ballot-secrecy provisions, and election-contest statutes.
+- State versions govern state courts, state tribunals, and state-law process. If a state-law election dispute is removed to or otherwise proceeds in federal court, the federal counterpart should control the federal-court procedure. After *Berk v. Choy*, states should not assume that a state-created election-screening rule will apply in federal court unless Congress has supplied the federal procedure.
+- The July 3, 2026 ELEC-004 boundary cleanup preserved the distinction between civil, administrative, legislative, audit, subpoena, and inspection-process safeguards on the one hand and criminal-investigative process on the other. Any adopting state should separately review whether and how the model interacts with state criminal subpoenas, search warrants, grand-jury process, prosecutor authority, and law-enforcement investigations. Federal criminal-process guardrails are now tracked separately in [ELEC-014](../areas/ELEC/issues/ELEC-014.md).
 
 ## Source Notes
 
 - Source review should compare each adopting state's election-contest, court-rule, public-records, ballot-secrecy, and Anti-SLAPP statutes; the federal counterpart is ELEC-004. For state Anti-SLAPP variation, review jurisdiction-specific statutes and secondary surveys such as the Reporters Committee for Freedom of the Press [Anti-SLAPP guide](https://www.rcfp.org/anti-slapp-guide/).
+- The Ohio Organizing Collaborative FBI-search reporting is [ELEC-014](../areas/ELEC/issues/ELEC-014.md) source-development material, not a model for automatic state-law regulation of criminal-investigative process without separate state constitutional and criminal-procedure review.

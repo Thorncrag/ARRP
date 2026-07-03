@@ -16,7 +16,7 @@ GitHub Project fields summarize audit posture for meta-analysis and should be re
 
 The Change Audit history is [`../framework/CHANGE_AUDIT_LOG.md`](../framework/CHANGE_AUDIT_LOG.md). It records project-wide rubric, template, scoring, and structural-consistency changes separately from GitHub Project workflow fields.
 
-The Agent Audit Log is [`../framework/AGENT_AUDIT_LOG.md`](../framework/AGENT_AUDIT_LOG.md). It records autonomous-agent commits, validation, blockers, and rollback references separately from GitHub Project workflow fields.
+The Agent Audit Log is [`../framework/AGENT_AUDIT_LOG.md`](../framework/AGENT_AUDIT_LOG.md). It records autonomous, batched, or scheduled agent commits, validation, blockers, and rollback references separately from GitHub Project workflow fields. It is not used for ordinary human-invoked audits.
 
 Project methodology, audit rules, scoring rules, and GitHub Project update rules are maintained in [`../framework/METHODOLOGY.md`](../framework/METHODOLOGY.md).
 

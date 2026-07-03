@@ -212,7 +212,7 @@ The project methodology, audit rules, scoring rules, and inventory maintenance r
 
 Agent-assisted audit and autonomous batch-audit operating rules are maintained in [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md).
 
-Autonomous-agent commit provenance and rollback references are maintained in [`framework/AGENT_AUDIT_LOG.md`](framework/AGENT_AUDIT_LOG.md).
+Autonomous, batched, or scheduled agent commit provenance and rollback references are maintained in [`framework/AGENT_AUDIT_LOG.md`](framework/AGENT_AUDIT_LOG.md). Human-invoked audits use the issue audit-history sidecar, issue-page metadata, and GitHub Project fields instead.
 
 Project-wide workflow, audit-status, and release-triage fields are maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2).
 

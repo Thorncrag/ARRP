@@ -6,9 +6,11 @@ print_levels:
 
 # ARRP Agent Audit Log
 
-This file records autonomous-agent audit runs, commits, push status, blockers, and rollback references. It is an operational provenance log for agent work. It does not replace issue audit histories, GitHub Project tracking, or [`inventory/sources.csv`](../inventory/sources.csv).
+This file records autonomous, batched, or scheduled agent audit runs, commits, push status, blockers, and rollback references. It is an operational provenance log for unattended or autorun work.
 
-Entries should be append-only. If a bad autonomous edit is later reverted, add a new entry identifying the revert commit and the original commit it reverses.
+This file is not the log for ordinary human-invoked audits or drafting sessions. Human-directed audit results belong in the relevant issue audit-history sidecar, issue page audit metadata, GitHub Project fields, [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) while work is active, and the final user-facing report. Do not add entries here merely because Codex or another agent assisted a human-directed task.
+
+Entries for autonomous, batched, or scheduled runs should be append-only. If a bad autonomous edit is later reverted, add a new entry identifying the revert commit and the original commit it reverses.
 
 ## Log Format
 
@@ -1117,21 +1119,3 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `ff354f4` to roll back this issue unit. |
 | Blockers/skipped checks | No blocker. Score raised to 78 Review Ready after deeper official-source verification of H.J.Res. 193 and source-status cleanup; external constitutional-law or legislative-counsel review, implementation legislation, Article V adoption evidence, and official-source confirmation of any Senate statutory analogue remain pending. |
-
-### 2026-07-01 — DOJ-009 — T3 readiness audit
-
-| Field | Entry |
-| --- | --- |
-| Date/time | 2026-07-01 14:16:57 -0400 |
-| Run/agent | Codex single-issue audit |
-| Issue/task | DOJ-009 |
-| Issue page | [Issue](../areas/DOJ/issues/DOJ-009.md) |
-| Audit history | [Audit](../areas/DOJ/issues/DOJ-009.audit.md) |
-| Proposal page | [Bill](../legislation/DOJ-009.md) |
-| Tier | T3 readiness audit |
-| Files changed | `areas/DOJ/issues/DOJ-009.md`; `areas/DOJ/issues/DOJ-009.audit.md`; `legislation/DOJ-009.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`; `exports/pdf/ARRP-public-proposal-draft.pdf` |
-| Validation | CSV parse for `sources.csv`; local Markdown link check; `git diff --check` excluding generated PDF binary; GitHub Project row verification for issue #28; compiled PDF rebuild |
-| Commit | `Run DOJ-009 T3 audit` (`2883c35`) |
-| Push status | Pushed to `origin/main` with follow-up agent-log commit |
-| Rollback notes | Revert `2883c35` and the follow-up log commit to roll back this issue unit. |
-| Blockers/skipped checks | No blocker to preserving T3. Score stayed 74/100 because qualified legal/legislative-counsel review, exhaustive prior-proposal search, professional-association review, historical licensure sampling, and proposal-specific support evidence remain unresolved. |

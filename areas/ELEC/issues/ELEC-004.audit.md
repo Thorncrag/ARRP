@@ -1,6 +1,6 @@
 ---
 issue_id: ELEC-004
-title: "Abuse of Election Litigation and Investigatory Mechanisms — Audit History"
+title: "Abuse of Election Litigation and Civil Process — Audit History"
 source_issue: "ELEC-004.md"
 print_levels:
   - full-technical
@@ -11,6 +11,76 @@ print_levels:
 This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issue page keeps only the compact Proposal Scoring summary.
 
 ## Audit History
+
+### 2026-07-03 — T4 Follow-Up / Legal-Source Validation
+
+**Audit status:** T4 follow-up complete; external legal review and primary-source expansion needed
+
+**Scope:** This human-directed T4 follow-up reviewed ELEC-004 after the ELEC-014 boundary cleanup. The pass tested federal-procedure authority, Rules Enabling Act posture, federal-court screening after *Berk v. Choy*, Petition Clause / First Amendment risk, state-court implementation boundaries, primary manifestation sourcing, and whether the civil/criminal boundary remains coherent.
+
+**Current-source refresh:** The audit checked the official U.S. Code sources for 28 U.S.C. §§ 2072, 2074, and 1927; the official U.S. Courts Federal Rules of Civil Procedure committee print; 3 U.S.C. § 5 as the Electoral Count Reform Act expedited-procedure analogue; the January 20, 2026 Supreme Court decision in *Berk v. Choy*; Supreme Court Petition Clause source leads in *Bill Johnson's Restaurants* and *BE&K Construction*; the existing Pennsylvania and Michigan source rows; and a reviewed Justia mirror of the Seventh Circuit opinion in *Trump v. Wisconsin Elections Commission*. This pass did not conduct a paid-database search and did not obtain official source records for Michigan, Nevada, Georgia, or state Anti-SLAPP/election-contest comparisons.
+
+**Federal-procedure finding:** *Berk v. Choy* materially sharpens the federal-court procedure analysis. The decision confirms that Rules 8 and 12 displace state-law affidavit or evidentiary screens in federal court when those screens answer the same pleading/dismissal question. That does not defeat ELEC-004, because ELEC-004 is proposed federal legislation, not a state rule or court-created gloss. It does mean the bill should say expressly that Congress is creating a specific federal statutory procedure for covered election proceedings and that the statute controls over inconsistent Federal Rules only within its defined scope. The federal bill now includes that clarification in section 4(d), and the rules-of-construction section now preserves nonfrivolous, good-faith election claims.
+
+**Rules Enabling Act / title 28 finding:** The proposal is stronger when treated as a congressionally enacted statute rather than as a rules-amendment proposal. 28 U.S.C. § 2074 confirms Congress's direct role in approving, postponing, modifying, or displacing federal procedural rules by Act of Congress, but the draft still needs legislative-counsel or federal-courts review to decide whether it should be codified in title 28, folded into existing procedural statutes, or narrowed further.
+
+**Petition Clause / First Amendment finding:** Petition Clause review remains a publication blocker, not a fatal flaw. *Bill Johnson's Restaurants* supports the proposition that baseless litigation may be sanctioned without Petition Clause immunity, while *BE&K Construction* cautions that unsuccessful but reasonably based lawsuits retain First Amendment interests. ELEC-004's safeguards against sanctioning a party solely for losing, its preservation of good-faith reports and lawful contests, and its requirement of abuse-specific findings remain necessary and should not be weakened.
+
+**State-implementation finding:** The model state bill remains useful for state courts, state tribunals, state civil subpoenas, audits, inspection demands, and state-law election contests. After *Berk*, however, the state model should not imply that a state-created screen will apply in federal court. The state bill now states that federal-court procedure should be governed by the federal counterpart when a dispute proceeds in federal court.
+
+**Manifestation-source finding:** Pennsylvania remains supported by a primary Third Circuit opinion. Wisconsin now has a reviewed Seventh Circuit opinion mirror supporting the late post-certification federal challenge manifestation and the timing/laches concern, but an official Seventh Circuit PDF should still be preferred before final publication. Michigan remains a CourtListener source lead for the sanctions order; Nevada, Georgia, pre-election, subpoena, audit, and inspection-demand examples still require primary records or narrower phrasing.
+
+**Issue-to-legislation alignment:** The issue page, federal bill, and model state bill remain aligned after the ELEC-014 spin-off. This audit improved alignment by adding the federal statutory-procedure clause to the federal bill, adding *Berk* and official Federal Rules support to the issue page and source notes, and clarifying the state/federal forum boundary in the model state bill.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior-Proposal 5/8; Remedy 9/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 73/100 (Substantially Developed Draft).
+
+**Score effect:** No score change. The follow-up strengthened evidence, legal fit, and drafting enough to support the existing 73 score with a reproducible component calculation, but it did not justify advancement to Review Ready because external legal review, primary records for several manifestations, direct state-law implementation comparison, and Petition Clause analysis remain incomplete.
+
+**Defects corrected during the audit:** Added *Berk v. Choy* to the issue analysis; replaced active reliance on LII Rule 11/Rule 26(c) source rows with the official U.S. Courts Federal Rules source; added 3 U.S.C. § 5 as the more exact expedited-procedure analogue; added a Wisconsin opinion source lead; clarified federal statutory-procedure language in the federal bill; clarified state/federal forum treatment in the model state bill; updated the issue-page scoring summary and procedure-authority annotation; and updated source inventory rows.
+
+**Next audit need:** Obtain qualified federal-courts, election-law, or legislative-counsel review; decide title 28 codification and final procedural vehicle; obtain primary records for Michigan, Nevada, Georgia, and representative audit/subpoena/inspection examples; complete a state-by-state or representative-state comparison of Anti-SLAPP, election-contest, open-records, ballot-secrecy, and court-rule constraints; and complete a deeper Petition Clause / First Amendment review before moving the proposal to Review Ready.
+
+**Audit process feedback:** The T4 follow-up was the correct tier because *Berk* is current controlling federal-procedure authority and affects the remedy design. The audit did not become a full external-review substitute. Future ELEC-004 work should avoid adding more manifestations until the existing examples are sourced or narrowed.
+
+### 2026-07-03 — Boundary Cleanup / ELEC-014 Spin-Off
+
+**Audit status:** Boundary cleanup complete; external validation needed before circulation
+
+**Scope:** This human-directed boundary cleanup revisited the July 3 Change Audit conclusion after further issue-framing discussion. The project determined that the Ohio Organizing Collaborative FBI-search reporting should not remain inside ELEC-004's core manifestations because ELEC-004 is an Anti-SLAPP-style civil and noncriminal process proposal, while the Ohio episode concerns federal criminal investigative process.
+
+**Boundary correction:** ELEC-004 now owns election litigation, civil subpoenas, audits, inspection demands, state or local administrative demands, legislative demands, and comparable noncriminal process capable of delaying certification, exposing sensitive election material, or manufacturing public uncertainty. Federal criminal searches, criminal subpoenas, grand-jury process, law-enforcement interviews, device seizures, and criminal investigative data demands directed at election-related civic activity or state-administered elections are moved to [ELEC-014](ELEC-014.md).
+
+**ELEC-014 creation:** Created [ELEC-014](ELEC-014.md), "Limiting Federal Criminal Investigations into State-Administered Elections," with a companion audit-history file. ELEC-014 remains a candidate/source-development issue with no selected remedy or legislative vehicle. It should source-develop heightened predicates, supervisory approval, timing safeguards, minimization, under-seal court review, OIG or congressional reporting, emergency exceptions, and preservation of legitimate federal voting-rights and election-crime enforcement.
+
+**Source treatment:** The Ohio Organizing Collaborative AP and Guardian source leads should be reassociated primarily with ELEC-014. They may remain traceable in ELEC-004's historical audit record only as the source-development material that triggered the boundary review. They should not supply score credit for ELEC-004 and should not be treated as evidence that ELEC-004 remedies federal criminal investigative conduct.
+
+**Score effect:** No score change. ELEC-004 remains 73/100 (Substantially Developed Draft). The score is not increased because the cleanup narrows issue scope and improves remedy fit but does not resolve core ELEC-004 blockers: primary records for remaining manifestations, direct Anti-SLAPP/election-contest comparisons, federal-procedure authority, Petition Clause and First Amendment review, state-court implementation, prior-proposal comparison, and external legal review.
+
+**Metadata effect:** Updated ELEC-004 title, front matter, visible Proposal Scoring summary, manifestation section, crosswalk, relationship section, and annotation to reflect the boundary cleanup and ELEC-014 spin-off. `change_audit_needed` remains false because this pass resolves, rather than creates, the remedy-fit drift.
+
+**Next audit need:** T4 follow-up or qualified external review should test federal-procedure authority, Rules Enabling Act fit, Petition Clause / First Amendment risk, state-court implementation, primary manifestation sourcing, and direct Anti-SLAPP and election-contest analogues. Criminal investigative process should be reviewed under ELEC-014.
+
+### 2026-07-03 — Targeted Change Audit / Internal Remedy-Fit Audit
+
+**Audit status:** Targeted Change Audit complete; external validation needed before circulation
+
+**Audit trigger:** The June 29 source-development update added the June 2026 FBI search of the Ohio Organizing Collaborative's Cleveland office as an investigatory-process manifestation and marked ELEC-004 with `change_audit_needed: true`. The required question was whether this new federal criminal-investigative example fits ELEC-004's existing Anti-SLAPP-style procedural remedy, belongs in another issue, requires legislation changes, or should remain only a source-development example.
+
+**Source-refresh result:** The Change Audit reviewed the existing Associated Press and Guardian source leads and ran a public-source refresh for warrant materials, docket records, a Rule 41 return, official DOJ/FBI statements, inspector-general findings, and any OOC lawsuit or return-of-property proceeding. No public primary record was located during this pass. The available public record remains secondary reporting plus criticism from OOC representatives, public officials, and voting-rights advocates. The issue page should continue treating political motive, retaliation, or intimidation purpose as allegations or concerns raised by critics unless later primary records or official findings substantiate them.
+
+**Internal Remedy-Fit Audit:** ELEC-004 still describes a coherent institutional defect: formal election litigation, subpoenas, audits, investigations, inspection demands, and extraordinary process can be used to manufacture election uncertainty, burden election officials or civic actors, obtain sensitive election material, and chill participation. The Ohio example fits that broad concern only at the boundary. It does not fit cleanly as a core example for the current federal bill because the federal draft expressly preserves federal criminal investigation and prosecution and does not attempt to regulate federal criminal search warrants, law-enforcement interviews, Rule 41 procedures, grand-jury process, or prosecutorial discretion.
+
+**Remedy-fit decision:** Do not expand ELEC-004 in this Change Audit to regulate federal criminal-investigative searches or subpoenas directed at voter-registration organizations. That expansion would materially change the proposal and require separate Fourth Amendment, Rule 41, grand-jury, criminal-procedure, DOJ-politicization, law-enforcement-chilling, and election-law analysis. The Ohio episode should remain in ELEC-004 as a boundary/source-development example and should be cross-referenced to adjacent homes such as ELEC-001 for federal executive interference with election administration and DOJ-002/DOJ-003 for politicized federal law-enforcement direction, selective enforcement, or enforcement favoritism.
+
+**Issue-to-legislation alignment:** The issue page, federal bill, and model state bill remain aligned after this clarification. ELEC-004's current operative remedy remains directed to federal-court election proceedings and state-law/state-tribunal analogues, with explicit preservation of criminal investigation and prosecution. The model state bill may still address state or local subpoenas, administrative demands, legislative demands, audits, and investigative requests, subject to state-specific criminal-investigation preservation and state court-rule constraints.
+
+**Score effect:** No score change. Proposal Quality Score remains 73/100 (Substantially Developed Draft). The Change Audit clears the stale marker by narrowing the role of the Ohio example, not by resolving ELEC-004's larger T4 blockers. Evidence, Legal Fit, Prior-Proposal, Remedy, Implementation, Adoption, and External Review remain unchanged because no primary Ohio records were located, no direct election-specific Anti-SLAPP analogue was added, no external legal review occurred, and the federal criminal-investigation boundary remains a future-review issue rather than a solved remedy component.
+
+**Metadata effect:** Clear `change_audit_needed` and set `change_audit_reason` to `null`. Keep `audit_rebaseline_status: current`; update the visible Proposal Scoring summary and GitHub Project field to show Change Audit Needed: no. Update the next-audit language to focus on T4 follow-up / external validation of federal-procedure authority and the law-enforcement boundary.
+
+**Defects corrected during the audit:** Clarified the Ohio manifestation as a boundary/source-development example; added internal cross-references to ELEC-001, DOJ-002, and DOJ-003; updated the legislation crosswalk; added a Change Audit / Remedy Fit annotation; updated federal and model state drafting/source notes; updated source-inventory notes for the Ohio source leads; and updated the audit handoff.
+
+**Next audit need:** T4 follow-up or qualified external review should test federal-court procedure authority, Rules Enabling Act fit, Petition Clause / First Amendment risk, state-court implementation, primary manifestation sourcing, direct Anti-SLAPP and election-contest analogues, and whether a separate proposal is needed for federal criminal-investigative safeguards when election-related civic organizations, election officials, voter data, ballots, or voting infrastructure are targeted by federal law-enforcement process.
 
 ### 2026-06-28 — T4 Publication-Ready Audit
 

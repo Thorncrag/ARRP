@@ -165,6 +165,10 @@ For mixed-purpose communications, transfers, or spending that affect both a cove
 
 Nothing in this Act shall be construed to abridge the freedom of the press; authorize viewpoint discrimination; suppress ordinary individual political speech; prevent reasonable protection of associational privacy; displace stronger State campaign-finance laws consistent with the Constitution; or require disclosure of small donors below thresholds established by section 5.
 
+Disclosure duties under this Act shall be administered and construed to preserve narrow tailoring, protect against threats, harassment, reprisals, and comparable associational harms, and permit confidential filing, redaction, or delayed public disclosure when a court finds that such relief is required by the Constitution and does not defeat the Act's voter-information purpose.
+
+Nothing in this Act authorizes a public campaign-finance mechanism that penalizes a nonparticipating speaker, awards public funds solely because of an opponent's spending, or otherwise burdens protected political expression except to the extent expressly authorized by the authorizing constitutional amendment.
+
 Nothing in this Act shall take effect to the extent it depends on constitutional authority not yet supplied by ratification of the authorizing amendment.
 
 ## SEC. 13. EFFECTIVE DATE.
@@ -189,6 +193,10 @@ Budget authority is likely required for FEC administration and enforcement, publ
 - The statewide-election layer includes an 18-month transition period so States can review existing law against the new baseline; T2 should test whether that period should instead be keyed to election cycles or legislative sessions.
 - If Congress proceeds under a narrower Democracy for All-style amendment, the artificial-entity and money-as-speech provisions should receive a conformity review.
 - Section 10 is intentionally contingent: it preserves ordinary FEC administration unless defined implementation failures trigger backup filing, direct enforcement, intervention, funding-protection, and interference-reporting safeguards.
+- T3 should decide whether this Act should be recast as conforming amendments to the Federal Election Campaign Act rather than a freestanding post-ratification statute, especially as to 52 U.S.C. §§ 30104, 30106, 30109, 30116, 30118, and 30121.
+- Any direct-civil-action provision should be conformed to FECA's existing FEC complaint, four-vote, civil-enforcement, and citizen-suit structure before publication-ready reliance.
+- Disclosure rules should be tested against *Buckley*, *McCutcheon*, and *Americans for Prosperity Foundation v. Bonta* for true-source transparency, tailoring, harassment risk, and associational privacy.
+- Public-financing provisions should avoid opponent-triggered matching-fund structures or other burdens on nonparticipating speakers identified in *Arizona Free Enterprise Club's Freedom Club PAC v. Bennett*.
 - FEC structure and deadlock repair may require a separate companion proposal if ELEC-012 remains focused on substantive campaign-finance authority.
 
 ## Source Notes
@@ -198,3 +206,17 @@ Budget authority is likely required for FEC administration and enforcement, publ
 - Congress.gov, [H.R. 1118, 118th Congress, DISCLOSE Act of 2023](https://www.congress.gov/bill/118th-congress/house-bill/1118).
 - Congress.gov, [H.R. 1, 117th Congress, For the People Act of 2021](https://www.congress.gov/bill/117th-congress/house-bill/1).
 - Congress.gov, [S. 1, 118th Congress, Freedom to Vote Act](https://www.congress.gov/bill/118th-congress/senate-bill/1).
+- U.S. Code, [52 U.S.C. § 30104](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title52-section30104), reporting requirements.
+- U.S. Code, [52 U.S.C. § 30106](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title52-section30106&num=0&edition=prelim), Federal Election Commission structure and voting thresholds.
+- U.S. Code, [52 U.S.C. § 30109](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title52-section30109), enforcement.
+- U.S. Code, [52 U.S.C. § 30116](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title52-section30116), contribution and expenditure limits.
+- U.S. Code, [52 U.S.C. § 30118](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title52-section30118), corporate and labor-organization contributions or expenditures.
+- U.S. Code, [52 U.S.C. § 30121](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title52-section30121), foreign-national contributions and donations.
+- U.S. Supreme Court, [*Buckley v. Valeo*](https://supreme.justia.com/cases/federal/us/424/1/) (1976).
+- U.S. Supreme Court, [*McCutcheon v. Federal Election Commission*](https://supreme.justia.com/cases/federal/us/572/185/) (2014).
+- U.S. Supreme Court, [*Federal Election Commission v. Ted Cruz for Senate*](https://supreme.justia.com/cases/federal/us/596/289/) (2022).
+- U.S. Supreme Court, [*Arizona Free Enterprise Club's Freedom Club PAC v. Bennett*](https://supreme.justia.com/cases/federal/us/564/721/) (2011).
+- U.S. Supreme Court, [*Americans for Prosperity Foundation v. Bonta*](https://www.supremecourt.gov/opinions/20pdf/19-251_p86b.pdf) (2021).
+- Federal Election Commission, [FEC approves two advisory opinions in wake of Citizens United and SpeechNow decisions](https://www.fec.gov/updates/fec-approves-two-advisory-opinions-in-wake-of-citizens-united-and-speechnow-decisions/) (July 22, 2010).
+- Federal Election Commission, [Advisory Opinion 2010-11, Commonsense Ten](https://www.fec.gov/data/legal/advisory-opinions/2010-11/).
+- Federal Election Commission, [Advisory Opinion 2010-09, Club for Growth](https://www.fec.gov/data/legal/advisory-opinions/2010-09/).

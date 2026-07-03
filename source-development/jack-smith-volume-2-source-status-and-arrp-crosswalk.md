@@ -9,6 +9,8 @@ source_ids:
   - SRC-0387
   - SRC-0388
   - SRC-0389
+  - SRC-0407
+  - SRC-0408
 print_levels:
   - full-technical
 ---
@@ -29,13 +31,19 @@ The publicly released Volume One cover letter states that the final report has t
 
 Public reporting and DOJ posture materials further indicate that Volume Two remained under court restrictions rather than publicly released. The Associated Press reported in January 2025 that DOJ planned to release the election-interference volume while keeping the classified-documents volume under wraps at least while co-defendant proceedings remained unresolved. See [SRC-0389](../inventory/sources.csv).
 
+The underlying classified-documents criminal docket is *United States v. Trump*, No. 9:23-cr-80101 (S.D. Fla.). That docket should be distinguished from later Eleventh Circuit proceedings concerning report-release timing or access. The retained superseding indictment is the current lawful public substitute source for issue-spotting from the classified-documents case. See [SRC-0387](../inventory/sources.csv).
+
+The later public docket posture should be treated as a source-status update, not as permission to use Volume Two. A Justia docket lead for Eleventh Circuit No. 25-13400, *In re American Oversight; In re Knight First Amendment Institute at Columbia University*, indicates that an earlier public-interest mandamus or timing challenge was dismissed as moot. See [SRC-0407](../inventory/sources.csv).
+
+The current pertinent appellate lead appears to be Eleventh Circuit No. 26-10674, *Knight First Amendment Institute at Columbia University v. USA*. CourtListener identifies that appeal as filed March 3, 2026, from the S.D. Fla. criminal docket, No. 9:23-cr-80101; its docket entries indicate that No. 26-10674 was consolidated with No. 25-14507 for briefing and merits disposition, with last known filing activity on June 25, 2026. A later docket entry assigns the consolidated appeals to a tentative Miami calendar during the week of September 28, 2026. See [SRC-0408](../inventory/sources.csv). The project has not yet verified the official Eleventh Circuit docket sheet, orders, calendar notice, or dispositive filings, so publication-ready reliance should obtain the official appellate records. Unless a later lawful release occurs, the practical status remains unchanged: Volume Two is still not a lawful public source for ARRP.
+
 The project should also distinguish an alleged unauthorized transmission from lawful public release. DOJ announced on May 20, 2026 that a former DOJ attorney had been indicted for allegedly transmitting a court-ordered sealed DOJ report outside DOJ under misleading file names. That supports the source-status conclusion that nonpublic copies may have moved outside ordinary channels, but it does not make Volume Two a lawful public source. See [SRC-0388](../inventory/sources.csv).
 
 ARRP rule: do not download, retain, quote, summarize, or rely on any inadvertently disclosed, unauthorized, leaked, sealed, or otherwise nonpublic copy of Volume Two unless it is later lawfully unsealed or officially released. Use lawful public substitutes only.
 
 Local retained public substitute source: [us-v-trump-nauta-de-oliveira-superseding-indictment-2023.pdf](us-v-trump-nauta-de-oliveira-superseding-indictment-2023.pdf)
 
-Source inventory rows: `SRC-0283`, `SRC-0387`, `SRC-0388`, `SRC-0389`
+Source inventory rows: `SRC-0283`, `SRC-0387`, `SRC-0388`, `SRC-0389`, `SRC-0407`, `SRC-0408`
 
 ## Summary Assessment
 
@@ -63,7 +71,7 @@ No immediate new developed proposal is required solely because Volume Two is una
 | NARA requests, partial returns, subpoena production, and search-warrant recovery are alleged in the public record and identify how slow or incomplete records recovery can become an accountability bottleneck. | Superseding indictment allegations regarding NARA demands, subpoena response, and search-warrant recovery | REC-001; REC-004; REC-005; REC-008 | Candidate-level coverage. A-13 already identifies these weaknesses, but lacks developed remedies. | Develop National Archives enforcement authority, expedited recovery process, and transition custody controls; verify factual details from NARA records, docket materials, admitted records, or judicial findings before using them as allegation support. |
 | Public allegations include obstruction theories involving movement of boxes, false or incomplete representations, and attempted deletion of security footage. | Superseding indictment obstruction counts and factual allegations | DOJ-007; REC-005; CLASS-012 | Partly covered. DOJ-007 covers independent counsel authority and evidence preservation; records/classification issues remain candidate-level. | DOJ-007 follow-up should test whether its evidence-preservation and obstruction-resistance provisions are sufficient for classified-records investigations. |
 | The classified-documents prosecution was dismissed on special-counsel appointment grounds, affecting accountability without a trial on the merits. | Public docket posture; secondary reporting; case history | DOJ-007; [JUD-009](../areas/JUD/issues/JUD-009.md); IMM-001 | Covered in principle. DOJ-007's constitutional appointment model is directly relevant; JUD-009 is relevant to perceived legitimacy in presidential-party litigation. | DOJ-007 T4 or prepublication review should compare its appointment mechanism against the dismissal rationale and Appointments Clause objections. |
-| DOJ special-counsel reporting raised conflicts among transparency, fair-trial rights, grand-jury secrecy, classification, privacy, and third-party reputation. | Volume One cover letter; AP reporting on proposed limited disclosure; report-release litigation posture | DOJ-007; JUD-009 | Covered but stress-test needed. DOJ-007 already includes reporting limits, but the Volume Two dispute is the hardest version of that problem. | Stress-test DOJ-007 final-report provisions against sealed material, untried co-defendants, dismissed indictments, judicial orders, and congressional access. |
+| DOJ special-counsel reporting raised conflicts among transparency, fair-trial rights, grand-jury secrecy, classification, privacy, and third-party reputation. | Volume One cover letter; AP reporting on proposed limited disclosure; report-release litigation posture; Justia docket lead indicating Eleventh Circuit No. 25-13400 was dismissed as moot; CourtListener lead for Eleventh Circuit No. 26-10674 consolidated with No. 25-14507 | DOJ-007; JUD-009 | Covered but stress-test needed. DOJ-007 already includes reporting limits, but the Volume Two dispute is the hardest version of that problem. The docket posture indicates one public-interest appellate path became moot while later consolidated appellate proceedings continued. | Stress-test DOJ-007 final-report provisions against sealed material, untried co-defendants, dismissed indictments, judicial orders, mootness, appellate consolidation, and congressional access. |
 | Public sources indicate possible unauthorized/nonpublic transmission of sealed report material without lawful public release. | DOJ May 20, 2026 press release regarding former DOJ attorney indictment | DOJ-007; CLASS-007; REC-002; REC-004 | Partly covered. This is less about Trump-specific conduct than about custody and control of sensitive investigative/report materials. | Consider whether CLASS/REC development should include court-ordered report custody, access logs, and sanctions for unauthorized handling of sealed investigative reports. |
 | Reelection and DOJ sitting-President policy prevented trial against Trump, and related co-defendant/report issues affected public accountability. | Case posture; Volume One cover letter; AP reporting | IMM-001; DOJ-007 | Covered. IMM-001 owns sitting-President prosecution barriers; DOJ-007 owns investigation, preservation, and reporting when prosecution is delayed or unavailable. | IMM-001 and DOJ-007 should later cross-check whether classified-documents cases require special tolling, preservation, or deferred-prosecution language beyond current election-case framing. |
 
@@ -88,7 +96,7 @@ When using this source cluster in issue pages, audits, or legislation notes:
 - describe the DOJ May 20, 2026 press release as allegations in a separate indictment and source-status evidence, not proof of guilt;
 - do not use an indictment, prosecutorial report, or charging press release to support the truth of an allegation unless the project verifies the specific cited evidence or corroborates the allegation through admitted records, judicial findings, official records, or other reliable sources;
 - use indictments and prosecutorial materials to identify alleged fact patterns, procedural posture, source leads, and potential institutional flaws;
-- pair report-release claims with official court orders or docket materials if they become accessible;
+- pair report-release claims with official court orders or docket materials if they become accessible, including official Eleventh Circuit docket entries or orders for Nos. 25-13400, 25-14507, and 26-10674;
 - preserve presumption-of-innocence language for untried charges, dismissed charges, uncharged persons, and any separate records-handling indictment;
 - distinguish classified-information law, declassification, Presidential Records Act custody, National Archives recovery, obstruction, and special-counsel reporting as overlapping but separate institutional problems.
 

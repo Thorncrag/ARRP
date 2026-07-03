@@ -8,7 +8,7 @@ print_levels:
 
 This file governs agent-assisted maintenance, audit execution, and autonomous batch-audit work. It does not replace the project framework or methodology. Agents must begin from [`FRAMEWORK.md`](FRAMEWORK.md), then follow [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), the relevant issue page, the linked proposed legislation, and the issue's audit-history file.
 
-Autonomous run provenance is maintained in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). Each autonomous batch unit should record its commits there.
+Autonomous run provenance is maintained in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). Each autonomous batch unit should record its commits there. Ordinary human-invoked audit or drafting sessions should not update the agent audit log unless the user expressly converts the work into an autonomous, batched, or scheduled run.
 
 Active long-running audit handoff state is maintained in [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md). Before resuming from a vague instruction such as "continue," "follow up," or "resume the audit," agents must read that file and use it as the active-task pointer. If `CURRENT_AUDIT.md` is inactive, stale, missing, or inconsistent with the user's latest instruction, ask for the active issue or task instead of inferring from recent commits, GitHub Project rows, or nearby audit markers.
 
@@ -207,7 +207,7 @@ If a validation check is skipped, record the skipped check and reason in [`AGENT
 
 ## Agent Audit Log
 
-Autonomous batch mode must maintain an independent agent audit log in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). This log is for operational provenance and rollback planning. It should not replace issue audit histories, GitHub Project tracking, or source records.
+Autonomous batch mode must maintain an independent agent audit log in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). This log is for operational provenance and rollback planning for unattended or autorun work. It should not replace issue audit histories, GitHub Project tracking, source records, `CURRENT_AUDIT.md` handoff checkpoints, or final user-facing reports.
 
 For each autonomous issue unit, record:
 

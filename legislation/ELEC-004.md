@@ -71,6 +71,10 @@ Nothing in this Act limits—
 
 This Act applies according to the relief sought or reasonably foreseeable procedural effect of the proceeding, not solely according to the identity of the filer.
 
+### (d) Specific federal statutory procedure.
+
+This Act is a specific federal statutory procedure governing covered election proceedings in federal court. It shall operate alongside the Federal Rules of Civil Procedure where possible and shall control only to the extent of any inconsistency within its defined scope.
+
 ## SEC. 5. SPECIAL MOTION TO SCREEN COVERED ELECTION PROCEEDING.
 
 ### (a) Motion authorized.
@@ -165,7 +169,7 @@ An appeal from an order granting or denying election-disruptive relief, denying 
 
 ## SEC. 12. RULES OF CONSTRUCTION.
 
-Nothing in this Act shall be construed to prohibit a good-faith election challenge, alter the substantive elements of a federal claim, create federal jurisdiction where jurisdiction is otherwise absent, require a state court to adopt this Act, prevent a state from enacting a parallel or more protective state procedure, or limit lawful criminal investigation or prosecution.
+Nothing in this Act shall be construed to prohibit a good-faith election challenge, alter the substantive elements of a federal claim, create federal jurisdiction where jurisdiction is otherwise absent, require a state court to adopt this Act, prevent a state from enacting a parallel or more protective state procedure, or limit lawful criminal investigation or prosecution. This Act shall not be construed to require dismissal or sanctions solely because a party loses an election claim, advances a nonfrivolous argument for changing law, or seeks relief for a proven constitutional or statutory violation.
 
 ## SEC. 13. SEVERABILITY.
 
@@ -185,8 +189,11 @@ Administrative workload is possible; no new appropriation is specified.
 - A pre-election timing bar prevents the motion from being filed for elections more than 180 days away, except where immediate sensitive-material access or a present security/privacy risk is at issue.
 - The draft imposes no fixed post-election cutoff; post-election availability depends on functional relation to the election result, election administration, or sensitive election material.
 - Section 10 is expressly independent of the special screening motion and survives termination of the underlying proceeding.
+- Section 4(d) responds to *Berk v. Choy*, 607 U.S. ___ (2026), by making clear that the screening mechanism is intended as a congressional federal-court procedure, not as a court-created pleading gloss or state-law affidavit screen displaced by Rules 8 and 12. A later legislative-counsel pass should decide whether to codify this Act in title 28.
+- The July 3, 2026 ELEC-004 boundary cleanup did not expand this draft to regulate federal criminal search warrants, grand-jury process, law-enforcement interviews, or ordinary federal criminal investigations. Section 4(b)(5) remains intentional. Federal criminal investigative pressure on election-related civic organizations, election officials, ballots, voter data, or voting infrastructure is now treated as an [ELEC-014](../areas/ELEC/issues/ELEC-014.md) drafting question requiring Fourth Amendment, Rule 41, grand-jury, DOJ-politicization, voting-rights, and election-chilling review.
 
 ## Source Notes
 
-- The draft should be reviewed for Rules Enabling Act, Article III, First Amendment, Petition Clause, Elections Clause, Article II, Electoral Count Reform Act, federal jurisdiction, and separation-of-powers issues.
-- Source review should include [Federal Rule of Civil Procedure 11](https://www.law.cornell.edu/rules/frcp/rule_11) and [28 U.S.C. § 1927](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section1927&num=0&edition=prelim).
+- The draft should be reviewed for Rules Enabling Act, Article III, First Amendment, Petition Clause, Elections Clause, Article II, Electoral Count Reform Act, federal jurisdiction, and separation-of-powers issues. Current procedure-authority sources include [*Berk v. Choy*](https://www.supremecourt.gov/opinions/25pdf/24-440_1b82.pdf), [28 U.S.C. § 2072](https://uscode.house.gov/view.xhtml?req=(title:28%20section:2072%20edition:prelim)), [28 U.S.C. § 2074](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section2074&num=0&edition=prelim), and the official [Federal Rules of Civil Procedure](https://www.uscourts.gov/file/78323/download).
+- Source review should include Rule 11 and Rule 26(c) in the official Federal Rules of Civil Procedure, [28 U.S.C. § 1927](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section1927&num=0&edition=prelim), and Petition Clause cases distinguishing baseless litigation from reasonably based but unsuccessful litigation, including [*Bill Johnson's Restaurants, Inc. v. NLRB*](https://supreme.justia.com/cases/federal/us/461/731/) and [*BE&K Construction Co. v. NLRB*](https://supreme.justia.com/cases/federal/us/536/516/).
+- The Ohio Organizing Collaborative FBI-search source leads should be treated as [ELEC-014](../areas/ELEC/issues/ELEC-014.md) source-development material, not as direct support for this bill's current federal-court screening mechanism.

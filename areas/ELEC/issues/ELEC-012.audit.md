@@ -14,6 +14,32 @@ This file preserves the full audit history for [ELEC-012](ELEC-012.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-03 — T2 legal-durability and implementation review
+
+**Audit status:** T2 legal-durability and implementation review complete; amendment-first developed draft with major adoption and validation risks
+
+**Proposal-quality score:** 60
+
+**Component score under rubric 2026-06-27.2:** Structural 7/8; Evidence 7/12; Legal Fit 5/10; Prior-Proposal 5/8; Remedy 7/12; Implementation 5/8; Abuse Resistance 5/8; Drafting 6/8; Cogency 5/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. Penalties: 0. Final Proposal Quality Score: 60/100 (Developed Draft).
+
+**Scope reviewed:** T2 reviewed the ELEC-012 issue page, the H.J.Res. 54 amendment-support page, the ARRP enabling-act draft, the Election area page, the existing ELEC-012 source inventory, H.J.Res. 54, H.J.Res. 13, S.J.Res. 45, *NRSC v. FEC*, *SpeechNow*, *Buckley*, *McCutcheon*, *FEC v. Ted Cruz for Senate*, *Arizona Free Enterprise*, *Americans for Prosperity Foundation v. Bonta*, representative FECA sections, FEC post-*Citizens United* advisory-opinion materials, and the Maine statutory comparator records already captured in the source inventory.
+
+**Current-status and mootness check:** No source reviewed during T2 made ELEC-012 moot, paused, or superseded. *NRSC v. FEC* strengthens the amendment-first posture by making party coordinated-expenditure limits more constitutionally constrained under current doctrine. Ordinary legislation remains useful for disclosure, anti-conduit, anti-evasion, foreign-money, contractor-linked spending, FEC process, and public-financing mitigation, but it cannot fully restore pre-*Citizens United* authority without a constitutional amendment or major doctrinal change.
+
+**Legal-durability finding:** The durable remedy is correctly amendment-first. H.J.Res. 54 directly targets artificial-entity constitutional status and election spending, while H.J.Res. 13/S.J.Res. 45-style Democracy for All proposals remain narrower fallback comparators. The recommended ARRP Section 4 is justified because the issue now depends on statewide-election and statewide-ballot-measure coverage. The main unresolved constitutional risk is H.J.Res. 54's breadth: Section 1 is not limited to political activity and should receive external constitutional-law review for press, nonprofit, religious, civil-rights, property, due-process, and non-election artificial-entity implications.
+
+**Implementation finding:** The enabling act properly avoids relying on FEC rulemaking as the source of operative duties and includes contingent safeguards for deadlock, missed deadlines, nonpublication, rule dilution, selective enforcement, funding obstruction, retaliation, and litigation sabotage. The next drafting pass should decide whether the bill should be recast as direct conforming amendments to FECA, especially 52 U.S.C. §§ 30104, 30106, 30109, 30116, 30118, and 30121, rather than operating as a freestanding post-ratification statute.
+
+**Disclosure, privacy, and public-financing finding:** Disclosure is a strong mitigation lane under *Buckley* and *McCutcheon*, but *Americans for Prosperity Foundation v. Bonta* requires narrow tailoring and meaningful associational-privacy safeguards. Public-financing design should avoid opponent-triggered matching-fund structures invalidated in *Arizona Free Enterprise*. *FEC v. Ted Cruz for Senate* cautions against speculative anti-corruption theories and incumbent-protection effects.
+
+**State-comparator finding:** Maine remains the most directly relevant current state experiment for super PAC contribution limits and foreign-influenced entity restrictions, but the current ELEC-012 record still depends partly on secondary reporting for litigation posture. Hawaii and Montana remain source-development leads rather than validated models. T3 should obtain primary state bill text, session law, agency guidance, court dockets, court orders, and campaign-finance implementation materials before increasing Evidence or Legal Fit scores.
+
+**Adoption and pathway assessment:** Adoption Score is 4/12 (Limited Adoption Basis). Adoption Friction is 96/100 (Extreme Resistance). Required Electoral Environment is `constitutional-amendment-environment`; Pathway Viability is `post-crisis-only`; Development Priority is `conditional`; Pathway Adjustment is `stage`. The proposal has real congressional amendment vehicles and state-experiment evidence, but no current national polling, bipartisan ratification plan, state-ratification pathway, cost source, or qualified external review has been incorporated.
+
+**Defects corrected during audit:** Promoted ELEC-012 from fixed-zero working draft to developed scored proposal; updated issue-page audit metadata, Proposal Scoring, and annotations; added FECA, Supreme Court, and FEC advisory-opinion source leads; strengthened constitutional, disclosure/privacy, public-financing, and FEC-codification cautions; updated the enabling-act drafting notes and rules of construction; and corrected the Election area page's stale ELEC-012 candidate description.
+
+**Unresolved findings:** T3 should verify primary docket materials for the Maine litigation, obtain official Hawaii and Montana texts, decide FECA codification structure, compare H.J.Res. 54 and H.J.Res. 13/S.J.Res. 45 section by section, test whether H.J.Res. 54 should be narrowed or clarified around artificial entities outside election spending, develop proposal-specific adoption evidence, test the 18-month state transition against election cycles and legislative sessions, locate fiscal analogues for FEC/database/state support, and seek external constitutional-law and election-law review.
+
 ### 2026-07-02 — T2 remedy-selection drafting pass
 
 **Audit status:** Remedy selected; H.J.Res. 54 supported with recommended enforcement/federalism clarification and initial enabling legislation drafted; legal-durability review pending

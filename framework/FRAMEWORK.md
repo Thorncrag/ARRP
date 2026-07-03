@@ -19,7 +19,7 @@ The project's public-facing premise, mission, scope, and governing principles ar
 - `inventory/` contains structured source records. GitHub Projects is the authoritative area, issue, lifecycle-status, milestone, and roadmap tracker.
 - [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) contains the active long-running audit handoff checkpoint used when chat context is interrupted or a new chat resumes prior work.
 - [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md) contains agent-assisted audit and autonomous batch-audit operating rules.
-- [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) contains autonomous-agent commit provenance and rollback references.
+- [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) contains autonomous, batched, or scheduled agent commit provenance and rollback references.
 - [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) contains cumulative project-wide Change Audit history.
 - [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) contains cumulative horizon-scan disposition and integration history.
 - [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) contains the repository map for human orientation.
@@ -45,7 +45,7 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 - [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
 - [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) — active handoff checkpoint for long-running audits and source-development work
 - [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md) — agent-assisted audit and autonomous batch-audit operating rules
-- [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) — autonomous-agent commit provenance and rollback references
+- [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) — autonomous, batched, or scheduled agent commit provenance and rollback references
 - [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) — cumulative Change Audit history
 - [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) — cumulative Horizon Scan disposition and integration log
 - [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) — human-readable repository map
@@ -63,7 +63,7 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 
 Current area, issue, lifecycle-status, milestone, roadmap, and horizon-tracking status is maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). [`../areas/README.md`](../areas/README.md) and area README files provide human-readable repository indexes, while developed issue pages contain the substantive analysis. Do not duplicate current area lists, issue lists, or developed-issue status snapshots in this framework file unless the list is generated from the GitHub Project or current area pages.
 
-Project updates must keep the GitHub Project, issue-page audit metadata, issue audit-history files, Change Audit log, Horizon Scan Log, Agent Audit Log, and source inventory current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant GitHub Project item or fields, issue page, sibling audit-history file, and [`../inventory/sources.csv`](../inventory/sources.csv) as part of the same change. When a Change Audit is run, update [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) as part of the same change. When a `HOR-###` candidate is added, adjudicated, integrated, retained, or retired, update [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) and the corresponding GitHub Project item as part of the same change. When an autonomous agent run commits work, update [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) as part of that run.
+Project updates must keep the GitHub Project, issue-page audit metadata, issue audit-history files, Change Audit log, Horizon Scan Log, applicable autonomous-run Agent Audit Log entries, and source inventory current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant GitHub Project item or fields, issue page, sibling audit-history file, and [`../inventory/sources.csv`](../inventory/sources.csv) as part of the same change. When a Change Audit is run, update [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) as part of the same change. When a `HOR-###` candidate is added, adjudicated, integrated, retained, or retired, update [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) and the corresponding GitHub Project item as part of the same change. When an autonomous, batched, or scheduled agent run commits work, update [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) as part of that run. Human-invoked audit or drafting sessions should not update the Agent Audit Log merely because an agent assisted the work.
 
 The project will proceed by applying this framework to retained issues, developing authoritative source records, resolving overlap through primary ownership and cross-reference, and revising the least-complex adequate remedy as legal and factual analysis matures.
 

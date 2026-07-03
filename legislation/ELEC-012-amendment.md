@@ -51,6 +51,8 @@ H.J.Res. 13 remains the narrower Democracy for All-style alternative. Its offici
 
 H.J.Res. 54 is preferred because it directly addresses both sides of the institutional weakness: artificial-entity constitutional status and election-money-as-speech doctrine. ARRP should support H.J.Res. 54 with the recommended Section 4 clarification because statewide-election coverage is too important to leave vulnerable to reserved-to-the-States federalism objections. H.J.Res. 13 is retained as an alternative because it may be more narrowly tailored to campaign finance and easier to defend as a campaign-finance authority amendment rather than a broader corporate-personhood amendment.
 
+T3 should test whether H.J.Res. 54's artificial-entity language should be narrowed, clarified, or supplemented before publication-ready reliance. Section 1 is not limited to election spending; it says artificial entities have no constitutional rights. That may be the intended Move to Amend / We the People theory, but ARRP should expressly review possible effects on press entities, nonprofit advocacy organizations, religious and civil-rights organizations, due-process and property claims, contract and takings questions, and non-election litigation before treating the text as ready for external circulation.
+
 ## Historical Enforcement Models
 
 The recommended Section 4 follows the structure of voting-rights amendments that pair a substantive constitutional rule with express congressional enforcement authority.
@@ -76,6 +78,7 @@ No direct appropriation is anticipated for the amendment itself. Implementing le
 - ARRP's recommended Section 4 is original project drafting and is not part of H.J.Res. 54 as introduced.
 - The linked [enabling legislation](ELEC-012.md) is an ARRP working draft designed to operate after ratification of H.J.Res. 54 with the recommended Section 4 or a substantially similar amendment.
 - If a Democracy for All-style amendment resembling H.J.Res. 13 were ratified instead, the enabling legislation would need a narrower conformity review before introduction.
+- Before publication-ready reliance, qualified constitutional-law and election-law review should test whether H.J.Res. 54's broader artificial-entity rule should be limited to political activity, paired with additional rules of construction, or preserved as written with explicit discussion of its non-election implications.
 
 ## Source Notes
 

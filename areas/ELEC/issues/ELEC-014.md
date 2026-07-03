@@ -1,0 +1,146 @@
+---
+issue_id: ELEC-014
+area_id: A-02
+title: "Limiting Federal Criminal Investigations into State-Administered Elections"
+status: candidate
+priority: high
+remedy_type: federal-election-criminal-process-guardrails
+audit_score: 0
+audit_status: Pending development
+audit_last_type: "Issue spin-off / source-development admission"
+audit_last_date: "2026-07-03"
+audit_next: "Issue-admission and source-development pass"
+audit_rubric_version: "2026-06-27.2"
+audit_rebaseline_status: "current-fixed-status"
+print_levels:
+  - public-proposal
+  - full-technical
+audit_history: "ELEC-014.audit.md"
+---
+
+# ELEC-014 — Limiting Federal Criminal Investigations into State-Administered Elections
+
+> ## Issue Snapshot
+> **Problem:** Federal criminal process can chill election participation and state election administration.<br />**Repair:** Build election-specific investigative guardrails while preserving legitimate federal enforcement.<br />**Vehicle:** Pending source development.
+>
+
+## Institutional Anomaly
+
+Federal criminal enforcement is essential to election integrity. The federal government must be able to investigate and prosecute voter intimidation, civil-rights violations, ballot destruction, public corruption, foreign election interference, knowing election fraud, threats, and other federal crimes.
+
+The institutional defect is different: federal criminal investigative tools can also chill voting, voter registration, election administration, voting-rights work, and state control of elections if deployed without election-specific predicates, timing safeguards, supervisory review, privacy limits, and neutrality controls.
+
+Because elections are time-sensitive and mostly state-administered, even a lawful investigative act can have unusually large institutional effects. A broad search, subpoena, data demand, interview campaign, device seizure, or public investigative signal close to an election can burden election offices, discourage civic organizations, expose voter data, disrupt registration work, or create public claims of fraud before any violation is adjudicated.
+
+## Manifestations of the Failure
+
+### Federal searches of voter-registration or voting-rights organizations
+
+In June 2026, federal agents searched the Cleveland office of the Ohio Organizing Collaborative, a grassroots organization involved in voter-registration and voting-rights work, and reportedly seized documents and computer files while also contacting people affiliated with the group. Reporting described the search as connected to potential voter-fraud allegations, while officials and voting-rights advocates criticized the timing and warned that the action could chill voter-registration activity before competitive 2026 races. Treat political motive, retaliation, or voter-intimidation purpose as concerns raised by critics unless later court records, warrant materials, inspector-general findings, congressional findings, or official admissions substantiate them. See Associated Press, [*FBI searches office of Ohio group that supports voter registration efforts*](https://apnews.com/article/4b241d64db0478c6a5852aa20d3e138f), and The Guardian, [*FBI raid of Ohio voting rights group stokes fear of pre-midterm crackdown*](https://www.theguardian.com/us-news/2026/jun/12/fbi-raid-ohio-voting-group-election).
+
+The Ohio episode is a source-development trigger, not yet a proven violation. Publication-ready use requires primary materials, including any warrant, application, return, docket record, Rule 41 proceeding, official DOJ or FBI explanation, inspector-general finding, congressional record, or civil action challenging the search.
+
+### Federal election-fraud priorities and state-administered election systems
+
+Executive-branch election-integrity initiatives can combine voter-list access, citizenship verification, database matching, election-fraud rhetoric, and investigative direction in ways that place pressure on state-administered elections. Executive Order 14399 is already source-developed in [ELEC-001](ELEC-001.md) and [ELEC-010](ELEC-010.md) for federal election-control and mail-ballot concerns. ELEC-014 should source-develop only the criminal-investigative layer: when federal election-crime authority may be invoked, what predicate must exist, who must approve it, and what safeguards protect lawful participation and state election administration.
+
+## Resulting Damage
+
+Misuse or overbroad use of federal criminal investigative process in election contexts can:
+
+1. chill voter-registration drives, voting-rights advocacy, and lawful civic participation;
+2. deter voters, volunteers, election workers, or local officials from engaging with election activity;
+3. expose voter data, membership lists, donor lists, device contents, ballots, election-system records, or security-sensitive material;
+4. convert generalized voter-fraud allegations into public investigative pressure;
+5. disrupt election administration during compressed pre-election or post-election windows;
+6. create an appearance of federal supervision over state election administration beyond lawful federal enforcement authority;
+7. produce partisan or retaliatory perceptions even where an investigation later proves lawful; and
+8. weaken trust in legitimate federal enforcement of voting-rights and election-crime statutes.
+
+## Underlying Weakness
+
+Federal election-crime enforcement sits at the intersection of criminal law, civil-rights enforcement, state election administration, associational privacy, voter privacy, federalism, and emergency election timing.
+
+Existing safeguards may not be sufficiently election-specific. Ordinary criminal-procedure rules address probable cause, warrants, subpoenas, privilege, and suppression after the fact, but they may not fully address pre-election chilling effects, voter-data sensitivity, state election deadlines, associational records, or the public meaning of federal investigative action in an election environment.
+
+The issue should source-develop whether DOJ policy, internal approval channels, court oversight, congressional reporting, OIG review, minimization rules, and statutory standards already cover the problem or whether a new statutory or Justice Manual framework is needed.
+
+## Proposal Survey
+
+The least-complex remedy is not yet selected. Future review should compare:
+
+**DOJ policy and Justice Manual controls.** Review existing DOJ election-crimes, Public Integrity, civil-rights, and election-year sensitivity policies before drafting. If internal policy is adequate but nonbinding, codification or reporting may be the least-complex adequate remedy.
+
+**Criminal-procedure safeguards.** Review Rule 41, grand-jury subpoena practice, warrant minimization, privilege screening, return-of-property procedures, suppression remedies, and protective orders to determine whether ordinary criminal procedure already protects sensitive election and associational material.
+
+**Voting-rights and election-crime enforcement.** The proposal must preserve legitimate federal enforcement of voting-rights statutes, voter-intimidation laws, civil-rights crimes, public-corruption laws, foreign-interference laws, and actual election fraud. It should not create practical immunity for election-related crime.
+
+**Sensitive-context analogues.** Review existing safeguards for politically sensitive investigations, attorney-client materials, press materials, associational records, medical records, classified information, and election materials to identify analogues for heightened approval, minimization, timing, reporting, and post-action review.
+
+## Least-Complex Adequate Remedy
+
+The least-complex adequate remedy is not yet selected.
+
+A plausible first-stage remedy could require heightened written findings, supervisory approval, timing review, minimization, and after-action reporting before federal criminal investigative process may seek sensitive election materials or target state-administered election activity, voter-registration work, voting-rights organizations, election officials, ballots, voter data, or voting infrastructure.
+
+That remedy should be calibrated to prevent chilling, retaliation, rummaging, and election-period disruption without disabling legitimate federal enforcement.
+
+## Repair and Prevention
+
+Future drafting should evaluate whether Congress or DOJ should require:
+
+1. a specific factual predicate tied to a defined federal offense before federal criminal process targets state-administered election activity;
+2. heightened approval for searches, subpoenas, interviews, device seizures, or data demands close to an election;
+3. written neutrality and non-retaliation findings for politically sensitive election investigations;
+4. timing safeguards for pre-election or certification-period investigative actions unless delay would create concrete risk;
+5. minimization rules for ballots, voter data, membership lists, donor lists, volunteer records, devices, source code, chain-of-custody records, and security-sensitive materials;
+6. under-seal judicial notice or review where especially sensitive election or associational material is sought;
+7. post-action reporting to the DOJ Inspector General, Congress, or both, with redactions for secrecy, privacy, and investigation integrity;
+8. emergency exceptions for imminent threats, destruction of evidence, violence, foreign interference, corruption, or ongoing criminal conduct;
+9. an anti-evasion rule preventing civil election-control efforts from being routed through criminal process without the required predicate; and
+10. explicit preservation of lawful federal voting-rights and election-crime enforcement.
+
+## Proposed Legislation
+
+- Pending development.
+
+## Relationship to Adjacent Proposals
+
+[ELEC-001](ELEC-001.md) concerns federal executive interference with state and local election administration through presidential authority, agencies, funding, regulation, intelligence, administrative process, official influence, or federal voter-data architecture. ELEC-014 is narrower: it concerns federal criminal investigative process.
+
+[ELEC-004](ELEC-004.md) concerns Anti-SLAPP-style control of election litigation, civil subpoenas, audit requests, inspection demands, and comparable noncriminal process. ELEC-014 owns federal criminal searches, criminal subpoenas, grand-jury process, law-enforcement interviews, and election-related criminal investigative guardrails.
+
+[ELEC-007](ELEC-007.md) concerns improper federal-force presence around election administration. ELEC-014 may overlap if federal law-enforcement activity involves physical presence, searches, seizures, or custody of election materials, but ELEC-014's core focus is the criminal-investigative predicate and process.
+
+[DOJ-002](../../DOJ/issues/DOJ-002.md) concerns White House direction or interference in particular federal criminal matters. [DOJ-003](../../DOJ/issues/DOJ-003.md) concerns selective enforcement, charging, and favoritism. ELEC-014 should cross-reference those issues where the defect is political direction or selective enforcement, but it remains in A-02 because the protected institutional interest is election participation and state-administered election integrity.
+
+## Budgetary Impact Statement
+
+Administrative workload is possible; no new appropriation is specified pending source-backed implementation review.
+
+*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
+
+## Proposal Scoring
+
+> **Proposal Quality Score:** **[0 / 100](ELEC-014.audit.md)** (Not Scored)<br />**Adoption Friction:** `N/A`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`
+>
+> —
+>
+> **Audit Status:** Pending development<br />**Last Audit:** Issue spin-off / source-development admission<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Issue-admission and source-development pass<br />**Full Audit History:** [ELEC-014 audit history](ELEC-014.audit.md)
+
+## Annotation
+
+**Candidate Status.** ELEC-014 is a candidate issue spun off from ELEC-004 after the project determined that federal criminal investigative process does not fit ELEC-004's Anti-SLAPP-style civil-procedure remedy.
+
+**Neutral Framing.** The issue is not anti-law-enforcement and should not imply that federal election-crime enforcement is illegitimate. The premise is that election-related criminal process can require heightened guardrails because the state-administered election context magnifies chilling, privacy, timing, and federalism harms.
+
+**Source Caution.** The Ohio Organizing Collaborative episode is a source-development trigger only. Current public sources are secondary reporting and criticism. Do not treat motive, retaliation, intimidation, or illegality as established without primary records or official findings.
+
+**Legal Caution.** Any remedy must be tested against the Fourth Amendment, Rule 41, grand-jury secrecy, prosecutorial discretion, federal civil-rights enforcement, legitimate voter-fraud enforcement, associational privacy, voter privacy, state election authority, and emergency-threat exceptions.
+
+## Source Notes
+
+- Associated Press, [*FBI searches office of Ohio group that supports voter registration efforts*](https://apnews.com/article/4b241d64db0478c6a5852aa20d3e138f) (June 12, 2026).
+- The Guardian, [*FBI raid of Ohio voting rights group stokes fear of pre-midterm crackdown*](https://www.theguardian.com/us-news/2026/jun/12/fbi-raid-ohio-voting-group-election) (June 12, 2026).
+- Federal Register, [Executive Order 14399 — Ensuring Citizenship Verification and Integrity in Federal Elections](https://www.federalregister.gov/documents/2026/04/03/2026-06601/ensuring-citizenship-verification-and-integrity-in-federal-elections) (published Apr. 3, 2026).
+- Future source development should review DOJ election-crimes guidance, Justice Manual provisions for politically sensitive investigations, Public Integrity Section approval rules, Civil Rights Division voting-rights enforcement materials, Rule 41, grand-jury subpoena practice, warrant minimization, OIG review, congressional oversight models, and any public court record arising from the Ohio search.

@@ -44,6 +44,14 @@ Project 2025 materials should be treated as a vulnerability map even where a par
 
 The existing Project 2025 crosswalk identifies proposals to eliminate DEI and gender-identity protections across agencies and to restrict Title IX gender-identity policies and related guidance as possible civil-rights, factual-integrity, and regulatory-neutrality vulnerabilities. See the [Project 2025 crosswalk](../../../source-development/project-2025-arrp-crosswalk.md) and the official [Heritage Mandate for Leadership Series](https://www.heritage.org/mandate).
 
+### DEI program, contractor, and grantee targeting
+
+Executive Order 14151 directs agencies to terminate federal diversity, equity, inclusion, and accessibility programs, positions, plans, grants, contracts, equity-related actions, and related environmental-justice offices. See [Executive Order 14151, 90 Fed. Reg. 8339 (Jan. 29, 2025)](https://www.federalregister.gov/documents/2025/01/29/2025-01953/ending-radical-and-wasteful-government-dei-programs-and-preferencing).
+
+Executive Order 14173 revokes several prior equal-opportunity and contractor-compliance executive orders, directs federal agencies to remove DEI-related language from acquisition and grant procedures, requires contractor and grantee certification tied to federal anti-discrimination law and False Claims Act materiality, and directs federal action against private-sector DEI practices. See [Executive Order 14173, 90 Fed. Reg. 8633 (Jan. 31, 2025)](https://www.federalregister.gov/documents/2025/01/31/2025-02097/ending-illegal-discrimination-and-restoring-merit-based-opportunity).
+
+The institutional question is not whether every DEI program is lawful or wise. It is whether executive-branch civil-rights administration can be converted into a government-wide targeting system through employment directives, grant and contractor certifications, agency guidance removal, False Claims Act risk, public reporting channels, and funding leverage without clear statutory standards, preserved records, transparent reasoning, and prompt review.
+
 ### Identity-document instability
 
 Passport sex-marker policy is a live example of identity-record instability. Politico reported that a federal judge expanded an injunction against restrictions on passport sex markers in June 2025, but later reporting stated that the Supreme Court allowed the administration to enforce its passport policy while litigation continued. See Politico, [*Judge says government can't limit passport sex markers for many transgender, nonbinary people*](https://www.politico.com/news/2025/06/17/judge-says-government-cant-limit-passport-sex-markers-for-many-transgender-nonbinary-people-00411803) and Politico, [*Supreme Court OKs Trump's passport policy limiting options for transgender people*](https://www.politico.com/news/2025/11/06/supreme-court-transgender-case-passports-ruling-00640503).
@@ -161,4 +169,4 @@ The page intentionally avoids deciding the merits of every sex-specific law, gen
 
 ## Source Notes
 
-Primary source development should begin with Executive Order 14168, *United States v. Skrmetti*, *West Virginia v. B. P. J.*, Project 2025 / Heritage materials, and the dockets behind the passport, grant-condition, prison/detention, public-health-information, and medical-record cases. Secondary reporting may be used to identify events, but final drafting should rely on official orders, docket filings, statutes, regulations, agency guidance, and congressional materials wherever available.
+Primary source development should begin with Executive Orders 14151, 14168, and 14173; *United States v. Skrmetti*; *West Virginia v. B. P. J.*; Project 2025 / Heritage materials; and the dockets behind the passport, DEI/grant-condition, contractor-certification, prison/detention, public-health-information, and medical-record cases. Secondary reporting may be used to identify events, but final drafting should rely on official orders, docket filings, statutes, regulations, agency guidance, and congressional materials wherever available.

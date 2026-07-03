@@ -1,21 +1,21 @@
 ---
 issue_id: ELEC-004
 area_id: A-02
-title: "Abuse of Election Litigation and Investigatory Mechanisms"
+title: "Abuse of Election Litigation and Civil Process"
 status: developed
 priority: high
 remedy_type: coupled-federal-and-model-state-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
-audit_status: "T4 publication-ready audit complete; external validation needed before circulation"
+audit_status: "T4 follow-up complete; external legal review and primary-source expansion needed"
 audit_score: 73
-audit_last_type: "T4 publication-ready audit"
-audit_last_date: "2026-06-28"
-audit_next: "Targeted Change Audit / Internal Remedy-Fit Audit after Ohio source-development update"
+audit_last_type: "T4 follow-up / legal-source validation"
+audit_last_date: "2026-07-03"
+audit_next: "Qualified federal-courts/election-law review plus primary records for Michigan, Nevada, Georgia, and state implementation comparison"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
-change_audit_needed: true
-change_audit_reason: "June 2026 Ohio Organizing Collaborative FBI search added as a new investigatory-process manifestation; verify remedy fit before relying on score as fully current."
+change_audit_needed: false
+change_audit_reason: null
 adoption_score: 4
 adoption_friction_score: 72
 adoption_friction_band: "High Resistance"
@@ -29,7 +29,7 @@ print_levels:
 audit_history: "ELEC-004.audit.md"
 ---
 
-# ELEC-004 — Abuse of Election Litigation and Investigatory Mechanisms
+# ELEC-004 — Abuse of Election Litigation and Civil Process
 
 > ## Issue Snapshot
 > **Problem:** Process can manufacture election uncertainty.<br />**Repair:** Add election Anti-SLAPP screening.<br />**Vehicle:** Federal and state acts ([federal](../../../legislation/ELEC-004.md), [state](../../../legislation/ELEC-004-state.md)).
@@ -37,11 +37,11 @@ audit_history: "ELEC-004.audit.md"
 
 ## Institutional Anomaly
 
-This issue is modeled on the logic of **Anti-SLAPP** laws. Anti-SLAPP statutes recognize that the legal process itself can be abused: even a weak claim can impose cost, delay, discovery burdens, reputational harm, and coercive pressure before a court reaches the merits. ELEC-004 applies that same procedural insight to election proceedings. The adapted target is not ordinary speech or petitioning activity, but the use of election litigation, subpoenas, audits, investigations, or inspection demands to delay certification, manufacture uncertainty, harass election personnel, obtain sensitive election materials, or create a false predicate for extra-legal pressure.
+This issue is modeled on the logic of **Anti-SLAPP** laws. Anti-SLAPP statutes recognize that the legal process itself can be abused: even a weak claim can impose cost, delay, discovery burdens, reputational harm, and coercive pressure before a court reaches the merits. ELEC-004 applies that same procedural insight to election proceedings. The adapted target is not ordinary speech or petitioning activity, but the use of election litigation, civil subpoenas, noncriminal audits, inspection demands, or comparable civil process to delay certification, manufacture uncertainty, harass election personnel, obtain sensitive election materials, or create a false predicate for extra-legal pressure.
 
-Election law necessarily permits candidates, parties, voters, public officials, and authorized institutions to seek recounts, contests, audits, investigations, and judicial relief. Existing law, however, does not always distinguish quickly and reliably between good-faith election review and proceedings used primarily for improper procedural leverage.
+Election law necessarily permits candidates, parties, voters, public officials, and authorized institutions to seek recounts, contests, audits, administrative review, and judicial relief. Existing law, however, does not always distinguish quickly and reliably between good-faith election review and proceedings used primarily for improper procedural leverage.
 
-The institutional problem is not the availability of election challenges. The problem is the use of formal legal, quasi-legal, investigatory, subpoena, audit, or judicial mechanisms to convert unsupported allegations into deadline pressure, evidentiary rummaging, official harassment, or public claims that a lawful result remains unresolved.
+The institutional problem is not the availability of election challenges. The problem is the use of formal legal, quasi-legal, subpoena, audit, inspection, or judicial mechanisms to convert unsupported allegations into deadline pressure, evidentiary rummaging, official harassment, or public claims that a lawful result remains unresolved.
 
 ## Manifestations of the Failure
 
@@ -65,11 +65,11 @@ A federal post-election suit in Michigan sought extraordinary relief affecting t
 
 Post-election challenges in multiple states sought relief that would have affected certified or certifiable results, including selective invalidation of votes, extraordinary review, or annulment theories. Courts generally rejected claims that failed to establish material error sufficient to change the result or justify the requested remedy. These proceedings show the need for early materiality and remedy-fit requirements when a filing seeks election-disruptive relief.
 
-### Investigatory, subpoena, and audit mechanisms
+### Subpoena, audit, and inspection mechanisms
 
-Election pressure may also appear as subpoenas, public-records demands, nonstatutory audits, legislative investigations, or inspection demands for ballots, equipment, voter data, source code, logs, chain-of-custody records, or security-sensitive materials. Such demands may be legitimate when grounded in lawful authority and material evidence, but they can also be used to burden officials, expose sensitive systems, or imply fraud without proof.
+Election pressure may also appear as civil subpoenas, public-records demands, nonstatutory audits, legislative or administrative demands, or inspection demands for ballots, equipment, voter data, source code, logs, chain-of-custody records, or security-sensitive materials. Such demands may be legitimate when grounded in lawful authority and material evidence, but they can also be used to burden officials, expose sensitive systems, or imply fraud without proof.
 
-In June 2026, federal agents searched the Cleveland office of the Ohio Organizing Collaborative, a grassroots organization involved in voter-registration and voting-rights work, and reportedly seized documents and computer files while also contacting people affiliated with the group. Reporting described the search as connected to potential voter-fraud allegations, while officials and voting-rights advocates criticized the timing and warned that the action could chill voter-registration activity before competitive 2026 races. Treat political motive, retaliation, or voter-intimidation purpose as concerns raised by critics unless later court records, warrant materials, inspector-general findings, congressional findings, or official admissions substantiate them. See Associated Press, [*FBI searches office of Ohio group that supports voter registration efforts*](https://apnews.com/article/4b241d64db0478c6a5852aa20d3e138f), and The Guardian, [*FBI raid of Ohio voting rights group stokes fear of pre-midterm crackdown*](https://www.theguardian.com/us-news/2026/jun/12/fbi-raid-ohio-voting-group-election).
+Federal criminal searches, criminal subpoenas, grand-jury process, and federal law-enforcement interviews directed at election officials, state-administered election infrastructure, voter-registration organizations, or voting-rights activity are not owned by ELEC-004. Those concerns are now spun off to [ELEC-014](ELEC-014.md), which should source-develop election-specific guardrails for federal criminal investigative process while preserving legitimate federal enforcement of voting-rights, voter-intimidation, corruption, foreign-interference, and election-crime laws.
 
 ## Resulting Damage
 
@@ -82,7 +82,7 @@ The damage is often procedural rather than outcome-determinative: delay, uncerta
 Existing law may lack:
 
 - Anti-SLAPP-style early screening adapted to extraordinary election-disruptive relief;
-- a motion-invoked trigger that avoids unnecessary screening where no party disputes material facts or no sensitive process is sought;
+- a motion-invoked trigger that avoids unnecessary screening where no party disputes material facts or no sensitive civil process is sought;
 - a pre-election timing bar preventing special motions concerning elections more than 180 days away, except for immediate sensitive-material or present security/privacy risks;
 - an express rule that no fixed post-election cutoff applies while the proceeding remains functionally related to the election result, election administration, or sensitive election material;
 - particularized pleading and evidentiary-proffer requirements;
@@ -91,7 +91,7 @@ Existing law may lack:
 - protections for ballots, voter data, election equipment, source code, logs, chain-of-custody records, and security procedures;
 - prompt sanctions for knowingly false, frivolous, or improper-purpose filings;
 - later-discovered improper-purpose sanctions where coordination or bad faith emerges after initial proceedings;
-- clear separation between citizen reporting, recounts, contests, audits, investigations, certification, and litigation;
+- clear separation between citizen reporting, recounts, contests, audits, certification, civil proceedings, and litigation;
 - expedited appellate review before downstream deadlines expire; and
 - safeguards against chilling good-faith reporting or authorized election contests.
 
@@ -99,7 +99,9 @@ Existing law may lack:
 
 Anti-SLAPP statutes provide the closest procedural analogue: early screening, discovery stays, burden clarification, and fee shifting for abusive litigation. Because Anti-SLAPP law is primarily state law and varies widely, ELEC-004 adapts the architecture rather than copying any single state statute.
 
-Federal procedural models also exist for accelerated election litigation and sensitive-material protection, including expedited review provisions in the Electoral Count Reform Act, ordinary protective-order practice, and Congress's rulemaking authority under the Rules Enabling Act. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617), [Federal Rule of Civil Procedure 26(c)](https://www.law.cornell.edu/rules/frcp/rule_26), and [28 U.S.C. § 2072](https://uscode.house.gov/view.xhtml?req=(title:28%20section:2072%20edition:prelim)). The proposal applies those ideas to election-disruptive process abuse.
+Federal procedural models also exist for accelerated election litigation and sensitive-material protection, including expedited review provisions in the Electoral Count Reform Act, ordinary protective-order practice, and Congress's authority to prescribe federal procedure by statute. See [3 U.S.C. § 5](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section5&num=0&edition=prelim), the official [Federal Rules of Civil Procedure](https://www.uscourts.gov/file/78323/download), and [28 U.S.C. § 2072](https://uscode.house.gov/view.xhtml?req=(title:28%20section:2072%20edition:prelim)).
+
+The January 2026 Supreme Court decision in [*Berk v. Choy*](https://www.supremecourt.gov/opinions/25pdf/24-440_1b82.pdf) strengthens the need to frame ELEC-004 as express federal legislation, not a court-inferred screening gloss on ordinary pleading rules. *Berk* held that a state affidavit-of-merit screen could not apply in federal court where it conflicted with Rules 8 and 12. ELEC-004 therefore should operate as a specific congressional procedure for covered federal election proceedings and should say so expressly.
 
 ## Least-Complex Adequate Remedy
 
@@ -140,7 +142,7 @@ The screening procedure applies to proceedings or demands that seek coercive, di
 
 ### Legislation Crosswalk
 
-The federal and model state bills are intended to mirror one another while respecting institutional differences. ELEC-004 applies to federal courts and federal election proceedings; ELEC-004-state adapts the same architecture for state courts, state election tribunals, state subpoenas, administrative or legislative demands, and state-law election contests. Future revisions should check the corresponding federal or state draft before materially changing definitions, timing, special-motion procedure, stays, emergency-relief findings, sensitive-material protections, sanctions, later-discovered sanctions, expedited review, savings clauses, uniform application, relation-to-law provisions, or severability.
+The federal and model state bills are intended to mirror one another while respecting institutional differences. ELEC-004 applies to federal courts and federal election proceedings; ELEC-004-state adapts the same architecture for state courts, state election tribunals, state civil subpoenas, administrative or legislative demands, and state-law election contests. The federal bill currently preserves federal criminal investigation and prosecution. Federal criminal investigative searches, interviews, and subpoenas directed at election-related civic participation, state election administration, ballots, voter data, or voting infrastructure are now treated as [ELEC-014](ELEC-014.md) source-development material rather than ELEC-004 remedies. Future revisions should check the corresponding federal or state draft before materially changing definitions, timing, special-motion procedure, stays, emergency-relief findings, sensitive-material protections, sanctions, later-discovered sanctions, expedited review, savings clauses, uniform application, relation-to-law provisions, or severability.
 
 The remedy architecture addresses abusive pre-election challenges through the 180-day timing bar, relief-based trigger, special screening motion, stay, and emergency-relief findings; unsupported public fraud narratives through evidentiary, materiality, remedy-fit, and sanctions requirements; post-election disruption through no fixed post-election cutoff and emergency-relief findings; sensitive-material demands through stay and protective-order requirements; broad subpoenas, audits, inspections, or forensic demands through screening, narrowing, quashing, conditioning, and sanctions; later-discovered coordination through the post-disposition sanctions mechanism; and good-faith-report chilling through preserved-activity provisions.
 
@@ -154,9 +156,11 @@ The remedy architecture addresses abusive pre-election challenges through the 18
 - **ELEC-001** concerns federal executive interference with state and local election administration.
 - **ELEC-002** concerns certification refusal, deadlock, delay, or unauthorized discretion by certification bodies.
 - **ELEC-003** concerns protection of election personnel from threats, harassment, doxxing, retaliation, and operational disruption.
-- **ELEC-004** concerns Anti-SLAPP-style control of abusive election litigation, investigatory demands, subpoenas, audit requests, and extraordinary proceedings.
+- **ELEC-004** concerns Anti-SLAPP-style control of abusive election litigation, civil subpoenas, audit requests, inspection demands, and extraordinary proceedings.
 - **ELEC-005** concerns alternate-elector or false-certification schemes.
 - **ELEC-008** concerns broader accountability for efforts to overturn lawful results.
+- [**ELEC-014**](ELEC-014.md) concerns federal criminal investigative process directed at state-administered elections, election officials, voter-registration activity, voter data, ballots, voting systems, or voting-rights organizations.
+- [**DOJ-002**](../../DOJ/issues/DOJ-002.md) and [**DOJ-003**](../../DOJ/issues/DOJ-003.md) concern politicized federal law-enforcement direction, charging, enforcement, and favoritism.
 
 ELEC-004 may supply the procedural predicate for ELEC-002 or ELEC-005 conduct, but it owns the abuse of formal election process itself.
 
@@ -172,7 +176,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** T4 publication-ready audit complete; targeted Change Audit needed after source-development update<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** yes<br />**Next Audit:** Targeted Change Audit / Internal Remedy-Fit Audit after Ohio source-development update<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** T4 follow-up complete; external legal review and primary-source expansion needed<br />**Last Audit:** T4 follow-up / legal-source validation<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review plus primary records for Michigan, Nevada, Georgia, and state implementation comparison<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 
@@ -188,9 +192,9 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Federalism.** Federal legislation should govern federal courts and federal-election-related proceedings. States should be encouraged, not commandeered, to adopt parallel procedures for state courts and state-law contests.
 
-**Source Development Pending.** Further development should cite representative cases and orders from Pennsylvania, Michigan, Wisconsin, Nevada, Georgia, and other election proceedings, together with Rule 11, 28 U.S.C. § 1927, inherent-power sanctions, and state Anti-SLAPP analogues.
+**Source Development Pending.** Further development should cite representative cases and orders from Michigan, Nevada, Georgia, and other election proceedings, together with state Anti-SLAPP analogues, state election-contest statutes, and representative state court-rule constraints. Pennsylvania has direct Third Circuit source support; Wisconsin now has a reviewed Seventh Circuit opinion mirror but should still be replaced or supplemented with the official court PDF if available.
 
-**Quality Score.** The 73/100 score reflects a Substantially Developed Draft after T4. T4 confirmed the coupled federal/model-state vehicle, issue-to-legislation alignment, Anti-SLAPP analogy, sanctions and protective-order source coverage, representative source support for Pennsylvania and Michigan, and the need to treat the federal bill as statutory procedure rather than a rules amendment. The proposal remains below Review Ready because core primary records, federal-procedure authority, Petition Clause and First Amendment limits, state-court authority, and prior-proposal comparison remain unresolved.
+**Quality Score.** The 73/100 score reflects a Substantially Developed Draft after T4 follow-up. The current component calculation is: Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior-Proposal 5/8; Remedy 9/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. The follow-up adds *Berk v. Choy*, official Federal Rules source support, a direct 3 U.S.C. § 5 expedited-procedure analogue, a Wisconsin opinion source lead, and an express federal-statutory-procedure clause in the draft. The proposal remains below Review Ready because Michigan, Nevada, Georgia, and state-implementation records remain incomplete; Petition Clause and First Amendment limits need deeper review; and no qualified external review has been incorporated.
 
 **Adoption Score.** The 4/12 score is limited. ELEC-004 has a clear procedural analogue in Anti-SLAPP law and a staged federal/state vehicle, but T1 did not identify proposal-specific polling, sponsor coalitions, administrator or court-administration support, bipartisan legislative records, or enacted election-specific Anti-SLAPP analogues.
 
@@ -198,6 +202,10 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Required Electoral Environment.** The required environment is `sixty-vote-senate`, with Pathway Viability `plausible-after-wave` and Pathway Adjustment `stage`. The federal-court procedure likely requires ordinary federal legislation, while the model-state component can be developed and promoted state by state as a staged path.
 
-**Development Priority.** The priority is `active` because litigation and investigatory-process abuse can materially affect election timelines, sensitive election materials, election personnel, and public confidence even when the underlying claim ultimately fails.
+**Development Priority.** The priority is `active` because litigation and civil-process abuse can materially affect election timelines, sensitive election materials, election personnel, and public confidence even when the underlying claim ultimately fails.
 
-**Procedure Authority.** T4 treats the federal bill as a statutory federal-court procedure proposal rather than a proposed amendment to the Federal Rules of Civil Procedure. That posture remains plausible but unresolved. Before circulation, a federal-courts or legislative-counsel reviewer should determine whether the bill should be narrowed, codified in title 28, or converted into amendments to existing procedural statutes.
+**Procedure Authority.** T4 follow-up treats the federal bill as a specific federal statutory procedure rather than a proposed amendment to the Federal Rules of Civil Procedure or a court-inferred screening rule. That posture is strengthened by *Berk v. Choy*, which confirms that ordinary Rules 8 and 12 displace nonfederal affidavit or evidentiary screens in federal court, while also underscoring why ELEC-004 must speak expressly if Congress intends a special federal election-proceeding screen. Before circulation, a federal-courts or legislative-counsel reviewer should still determine whether the bill should be codified in title 28, narrowed further, or converted into amendments to existing procedural statutes.
+
+**Petition Clause Limits.** ELEC-004 must preserve reasonably based election litigation even when it fails. Supreme Court Petition Clause doctrine supports sanctions for baseless litigation, but also recognizes First Amendment interests in reasonably based but unsuccessful suits. See [*Bill Johnson's Restaurants, Inc. v. NLRB*](https://supreme.justia.com/cases/federal/us/461/731/) and [*BE&K Construction Co. v. NLRB*](https://supreme.justia.com/cases/federal/us/536/516/). This is why the draft rejects automatic penalties for losing and requires abuse-specific findings.
+
+**Change Audit / Remedy Fit.** The July 3, 2026 Change Audit cleared the stale Ohio source-development marker without changing the score. A later boundary-cleanup pass removed the Ohio Organizing Collaborative FBI-search episode from ELEC-004's core manifestations and spun the federal criminal-process concern into [ELEC-014](ELEC-014.md). ELEC-004 remains focused on Anti-SLAPP-style control of election litigation, civil subpoenas, audits, inspection demands, and comparable noncriminal process. The current federal bill deliberately preserves federal criminal investigation and prosecution.
