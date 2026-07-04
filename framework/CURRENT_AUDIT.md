@@ -15,16 +15,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Inactive |
 | Active issue/task | ELEC-011 |
-| Audit type/tier | T3 legal-durability and implementation audit |
-| Started | 2026-07-04 15:28:00 -0400 |
-| Last checkpoint | 2026-07-04 15:46:30 -0400 |
-| User request | Audit ELEC-011. |
-| Scope | Run the next progressive audit for ELEC-011, focused on algorithm selection, VRA/state-VRA tailoring, state constitutional fit, judicial fallback, cost/workload evidence, and adoption evidence; update issue page, audit sidecar, sources, and GitHub Project fields. |
+| Audit type/tier | T4 publication-readiness / external-review readiness audit |
+| Started | 2026-07-04 15:58:50 -0400 |
+| Last checkpoint | 2026-07-04 16:06:36 -0400 |
+| User request | Run the next audit. |
+| Scope | Run the next progressive audit for ELEC-011 as a T4 publication-readiness / external-review readiness pass, focused on cumulative T1-T3 carry-forward, algorithm standard, state-by-state constitutional adaptation, public-records/open-meetings fit, budget/workload evidence, adoption evidence, and expert-review blockers. |
 | Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-011.md`; `areas/ELEC/issues/ELEC-011.audit.md`; `legislation/ELEC-011-state.md`; `legislation/ELEC-011.md`; `legislation/ELEC-011-amendment.md`; `inventory/sources.csv`. |
-| Completed steps | Ran ELEC-011 T3 legal-durability and implementation audit; raised the issue score from 70 to 74; added a new T3 audit-history entry; added official Constitution Annotated sources for Article I, Section 2, Article I, Section 4, the Fourteenth Amendment, and the Fifteenth Amendment; added California Constitution Article XXI as a state constitutional comparator; updated the model State act, reserve amendment, and reserve enabling act notes to reflect T3 source posture and remaining implementation gaps. |
-| Next step | T4 / external review focused on selecting or certifying the algorithmic standard, state-by-state constitutional adaptation, public-records/open-meetings fit, budget/workload evidence, adoption evidence, and legislative-counsel review. |
-| Blockers/questions | External election-law, voting-rights, technical, state-legislative, and legislative-counsel review is unavailable in-session. |
-| Validation status | Passed: `inventory/sources.csv` parses with 461 rows and 11 columns; source IDs are unique; `git diff --check` passed; compact ELEC-011 issue/status surfaces no longer contain stale 70-score or T2-current-audit language. |
+| Completed steps | Ran T4 external-review readiness audit; moved ELEC-011 from 74 to 77 / 100 and Review Ready; added official California CRC workload, public-input, finance, and litigation-budget analogue; added California 2008 Statement of Vote adoption analogue; added ALARM 50-state simulation and 2026 community-of-interest differential-privacy technical source leads; updated the issue page, audit history, model state act, reserve amendment/enabling act, and source inventory. |
+| Next step | Qualified external election-law, voting-rights, technical, fiscal, stakeholder, and legislative-counsel review; state-specific algorithm-certification and implementation package; proposal-specific adoption evidence. |
+| Blockers/questions | Qualified external election-law, voting-rights, technical, state-legislative, fiscal, adoption/polling, stakeholder, and legislative-counsel review is unavailable in-session. |
+| Validation status | Passed: source CSV parses with 465 rows and 11 columns, source IDs are unique, git diff whitespace check passed, and current ELEC-011 surfaces are free of stale T3 status/score markers outside historical audit entries. |
 
 ## Handoff Rules
 

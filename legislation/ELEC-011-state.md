@@ -318,7 +318,8 @@ Budget authority may be required for algorithm development, public data publicat
 - The Act does not draft the reserve constitutional amendment referenced on the issue page.
 - California Constitution Article XXI is a useful state constitutional analogue for an independent commission, open process, ordered criteria, Voting Rights Act compliance, community-of-interest protection, incumbent/candidate/party neutrality limits, final-map reporting, state supreme court review, special-master fallback, and funding/defense provisions.
 - The current California Article XXI text is also a durability caution because it includes a 2025 temporary congressional-map override. A State-specific ELEC-011 package should decide whether anti-mid-cycle safeguards belong in ordinary statute, a state constitutional amendment, or both.
-- T4 should select or certify the algorithmic standard, define technical governance and independent replication, add cost/workload support, and prepare state-specific drafting brackets before this model is treated as review-ready.
+- The California Citizens Redistricting Commission's 2020 lessons-learned report supplies a workload and fiscal analogue for State-specific drafting. A State package should budget for outreach, data management, mapping software or specifications, technical contractors, legal counsel, public-input processing, financial reporting, and post-map litigation capacity.
+- T4 added technical source leads for simulation workflows, public code/data, and adversarial community-of-interest input, but those sources do not select the statutory algorithm. A State-specific draft still needs an algorithm-certification appendix or rulemaking package before publication-ready use.
 
 ## Source Notes
 
@@ -329,4 +330,5 @@ Budget authority may be required for algorithm development, public data publicat
 - *Allen v. Milligan* and *Louisiana v. Callais* are caution sources for Voting Rights Act and racial-gerrymandering tailoring.
 - Algorithmic redistricting sources remain technical leads rather than final legal validation for a particular algorithm.
 - The issue page source record now includes T2-verified Iowa statutory mechanics, state voting-rights-law comparators, core Supreme Court doctrine sources, algorithmic source leads, T3-reviewed Constitution Annotated sources for Article I and the Fourteenth and Fifteenth Amendments, and California Constitution Article XXI as a state constitutional comparator.
-- State constitutional redistricting provisions, commission structures, public-records/open-meetings fit, costs, and final algorithm-selection standards still need additional source development before treating this model act as review-ready.
+- T4 added the California Citizens Redistricting Commission's 2020 lessons-learned report as a workload, public-input, finance, data-management, and litigation-budget analogue, and California's 2008 Statement of Vote as an adoption analogue for state redistricting reform.
+- State constitutional redistricting provisions, commission structures, public-records/open-meetings fit, state-specific costs, and final algorithm-selection standards still need qualified external review before treating this model act as publication-ready.

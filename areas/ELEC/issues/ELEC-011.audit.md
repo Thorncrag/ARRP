@@ -12,6 +12,42 @@ This file preserves the full audit history for [ELEC-011](ELEC-011.md). The issu
 
 ## Audit History
 
+### 2026-07-04 — T4 publication-readiness / external-review readiness audit
+
+**Audit tier:** T4: Publication-readiness / external-review readiness audit
+
+**Audit status:** T4 external-review readiness audit complete; review ready for qualified external critique, but publication blockers remain
+
+**Proposal-quality score:** 77/100 (Review Ready)
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 10/12; Legal Fit 8/10; Prior-Proposal 7/8; Remedy 9/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0.
+
+**Audit scope:** Ran the next progressive ELEC-011 audit as a T4 publication-readiness / external-review readiness pass. Reviewed the issue page, full audit history, model State act, reserve constitutional amendment, reserve Federal enabling act, source inventory, current audit tracker, governing T4 rules, and public sources for workload, public-input, finance, litigation-budget, adoption, and technical-source gaps. This was not a substitute for qualified election-law, voting-rights, state-legislative, technical, fiscal, stakeholder, or legislative-counsel review.
+
+**Cumulative T1-T3 check:** T4 confirmed the T1 structure and metadata work, the T2 primary-law/doctrine/state-VRA source work, and the T3 constitutional-source/state-constitutional comparator work remain usable. T4 carried forward the unresolved algorithm-selection, state-by-state adaptation, cost/workload, adoption, and external-review findings rather than treating them as resolved by repeated audit.
+
+**Source-refresh log:** T4 added the California Citizens Redistricting Commission's official 2020 lessons-learned report as an implementation analogue; California's official November 4, 2008 Statement of Vote as an adoption analogue for state constitutional redistricting reform; McCartan et al.'s 50-state simulation-workflow paper as a technical source-development lead; and McWhorter et al.'s 2026 community-of-interest/differential-privacy paper as an emerging adversarial-input technical source lead. These sources supplement but do not replace Iowa Code chapter 42, California Constitution Article XXI, the Supreme Court doctrine sources, state voting-rights-law comparators, or the 2025 Iowa computational-redistricting paper.
+
+**Implementation and fiscal finding:** The California CRC report materially improves the implementation record. It shows that independent redistricting administration requires real staffing, outreach, data-management, public-input, mapping, legal, finance-reporting, and litigation-budget capacity. It identifies public outreach funding, Statewide Database support, post-map litigation funding, additional pandemic/census-delay funding, nearly 33,000 written public inputs, almost 4,000 live call-in inputs, and lessons about financial reporting and data-management burdens. Implementation increases from 6/8 to 7/8 because ELEC-011 now has a source-backed workload and budget analogue. No dollar estimate is assigned because ELEC-011 still lacks a state-specific fiscal model.
+
+**Adoption finding:** The California Secretary of State's 2008 Statement of Vote confirms that Proposition 11, "Redistricting. Initiative Constitutional Amendment and Statute," was approved by 6,095,033 votes, 50.9%, against 5,897,655 votes, 49.1%. This is durable state-level evidence that voters have adopted redistricting-process reform through a constitutional/statutory vehicle. Adoption increases from 3/12 to 4/12 because this evidence supports the underlying state-level redistricting-reform principle. It does not justify more than limited adoption credit because it is not specific to algorithmic baseline redistricting and does not show current sponsor, coalition, polling, stakeholder, or enactment momentum for ELEC-011's actual mechanism.
+
+**Technical-source finding:** The added ALARM/50-state simulation source supports transparent computational workflows, state-specific criteria, public code/data, and simulation-based analysis. The 2026 community-of-interest/differential-privacy paper is useful because it treats public testimony as manipulable input and explores adversarial robustness. These sources strengthen the evidence base but also confirm the main T4 blocker: ELEC-011 still has not selected, certified, or legally validated a specific deterministic baseline algorithm, tie-breaker, input-data package, replication protocol, or failure-mode control.
+
+**Legal-durability finding:** No T4 source displaced the T3 conclusion that the model State act is the least-complex adequate vehicle. The reserve amendment and reserve enabling act remain useful as future durability tools, especially where ordinary state statutes could be bypassed. The current drafts remain legally cautious by using the algorithmic map as a first draft rather than an automatic final map and by preserving narrow, public, reviewable representation-safeguard deviations.
+
+**Current-status and pending-judicial vulnerability check:** T4 did not identify a source that makes ELEC-011 moot. Post-*Callais* redistricting remains active and legally salient. T4 did not complete a full docket-level review of every pending federal and state redistricting case, and the issue remains vulnerable to developing VRA, racial-gerrymandering, state constitutional, and mid-decade-redistricting litigation. No favorable legal-fit credit is awarded for unresolved pending-case risk.
+
+**External review finding:** `not-reviewed`. No qualified external election-law, voting-rights, state-legislative, technical, fiscal, stakeholder, or legislative-counsel review has been documented or incorporated. External Review remains 0/4. The proposal is ready to be sent for qualified critique, not ready to be represented as publication-ready or externally validated.
+
+**Score effect:** Score increased from 74 to 77. Evidence increased from 9/12 to 10/12 because T4 added official implementation/adoption sources and additional technical source leads. Implementation increased from 6/8 to 7/8 because the California CRC report supplies a source-backed workload, public-input, finance, and litigation-budget analogue. Adoption increased from 3/12 to 4/12 because California's official 2008 Statement of Vote supplies a state-level redistricting-reform referendum analogue. Legal Fit, Remedy, Abuse Resistance, Drafting, Cogency, Project Integration, and External Review did not increase.
+
+**Publication blockers:** ELEC-011 is not publication-ready. It still needs a selected or certified algorithmic standard; state-by-state constitutional, statutory, public-records, open-meetings, election-calendar, funding, and judicial-review adaptation; a source-backed cost model for at least one representative state package; proposal-specific polling or stakeholder evidence; and qualified external election-law, voting-rights, technical, fiscal, and legislative-counsel review.
+
+**Next audit need:** Qualified external review and state-specific implementation package. The next useful work should identify a target State, draft optional state-specific brackets, choose or certify the algorithmic standard, map public-records/open-meetings and court-jurisdiction cross-references, estimate costs from source-backed analogues, and obtain qualified review before any further score increase.
+
+**Audit process feedback:** The next score increase should not come from another general-source audit. It should come from a concrete state implementation package, algorithm-selection review, or documented outside expert/stakeholder review.
+
 ### 2026-07-04 — T3 legal-durability and implementation audit
 
 **Audit tier:** T3: Legal-durability and implementation audit

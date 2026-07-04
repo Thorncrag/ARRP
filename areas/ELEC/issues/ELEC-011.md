@@ -10,16 +10,16 @@ legislative_proposal: "../../../legislation/ELEC-011-state.md"
 federal_legislative_proposal: "../../../legislation/ELEC-011.md"
 constitutional_proposal: "../../../legislation/ELEC-011-amendment.md"
 constitutional_option: "reserved working draft"
-audit_score: 74
-audit_status: "T3 legal-durability and implementation audit complete; algorithm selection, cost/workload, adoption, and external review still needed"
-audit_last_type: "T3 legal-durability and implementation audit"
+audit_score: 77
+audit_status: "T4 external-review readiness audit complete; review ready for qualified external critique, but publication blockers remain"
+audit_last_type: "T4 publication-readiness / external-review readiness audit"
 audit_last_date: "2026-07-04"
-audit_next: "T4 / external review focused on algorithm standard, state-by-state constitutional adaptation, public-records/open-meetings fit, budget/workload evidence, adoption evidence, and legislative-counsel review"
+audit_next: "Qualified election-law, voting-rights, technical, fiscal, stakeholder, and legislative-counsel review; state-specific algorithm-certification and implementation package; proposal-specific adoption evidence"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
 change_audit_reason: null
-adoption_score: 3
+adoption_score: 4
 adoption_friction_score: 80
 adoption_friction_band: "High Resistance"
 required_electoral_environment: "state-level-pathway"
@@ -159,15 +159,15 @@ Administrative workload and possible technology, data, public-hearing, commissio
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[74 / 100](ELEC-011.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 3 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[77 / 100](ELEC-011.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T3 legal-durability and implementation audit complete; algorithm selection, cost/workload, adoption, and external review still needed<br />**Last Audit:** T3 legal-durability and implementation audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 / external review focused on algorithm standard, state-by-state constitutional adaptation, public-records/open-meetings fit, budget/workload evidence, adoption evidence, and legislative-counsel review<br />**Full Audit History:** [ELEC-011 audit history](ELEC-011.audit.md)
+> **Audit Status:** T4 external-review readiness audit complete; review ready for qualified external critique, but publication blockers remain<br />**Last Audit:** T4 publication-readiness / external-review readiness audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** Qualified election-law, voting-rights, technical, fiscal, stakeholder, and legislative-counsel review; state-specific algorithm-certification and implementation package; proposal-specific adoption evidence<br />**Full Audit History:** [ELEC-011 audit history](ELEC-011.audit.md)
 
 ## Annotation
 
-**Development Status.** ELEC-011 has a developed issue framework, linked model state legislation, a reserve constitutional amendment, and reserve enabling legislation. T2 verified the main state-law analogue, core doctrine sources, state voting-rights-law comparators, and a current algorithmic-redistricting research lead. T3 added official constitutional-source coverage and a state constitutional redistricting comparator. It remains below review-ready status because the algorithm-selection standard, state-by-state implementation fit, court-remedy design, cost record, adoption evidence, and qualified external review are incomplete.
+**Development Status.** ELEC-011 has a developed issue framework, linked model state legislation, a reserve constitutional amendment, and reserve enabling legislation. T2 verified the main state-law analogue, core doctrine sources, state voting-rights-law comparators, and a current algorithmic-redistricting research lead. T3 added official constitutional-source coverage and a state constitutional redistricting comparator. T4 added official workload, public-input, finance, litigation-budget, and adoption analogues. It is now ready for qualified external critique, but it is not publication-ready because the algorithm-selection standard, state-by-state implementation fit, court-remedy design, proposal-specific adoption evidence, and qualified external review remain incomplete.
 
 **Neutrality.** The proposal must be party-neutral. It should constrain any line-drawer, party, faction, or incumbent who benefits from discretionary district manipulation.
 
@@ -191,11 +191,15 @@ Administrative workload and possible technology, data, public-hearing, commissio
 
 **T3 Implementation Finding.** The model State act is administrable in concept because it assigns a review body, baseline publication, public findings, public comment, legislative consideration, judicial fallback, and expedited review. T3 strengthens implementation readiness by clarifying that state adaptation must identify the redistricting authority, algorithm-certification process, state court jurisdiction, public-records/open-meetings rules, election-calendar deadlines, funding source, and constitutional override risk. The audit does not yet validate a specific algorithm, cost model, software governance structure, or state-by-state implementation package.
 
-**Algorithmic Evidence Finding.** T2 added a 2025 Iowa-focused computational redistricting paper as a current research lead. The source supports using nonpartisan simulations and transparent computational baselines as diagnostic tools, but it does not by itself validate shortest splitline or any single deterministic algorithm as the legally safest enacted statutory standard.
+**T4 Implementation / Budget Analogue Finding.** The July 4, 2026 T4 readiness audit added the California Citizens Redistricting Commission's 2020 lessons-learned report as an official implementation analogue. The report supports treating public outreach, public-input management, data management, legal counsel, line-drawing support, finance reporting, and post-map litigation capacity as real implementation costs rather than incidental administration. It identifies public funding for outreach, Statewide Database support, post-map litigation, additional pandemic/census-delay funding, and major written and live public-input volumes. This supports moving Implementation from 6/8 to 7/8, but no ELEC-011 dollar estimate is assigned because a state-specific cost model has not been built.
 
-**Quality Score.** The 74/100 score reflects a Substantially Developed Draft after the July 4, 2026 T3 legal-durability and implementation audit. The current component calculation is: Structural 8/8; Evidence 9/12; Legal Fit 8/10; Prior-Proposal 7/8; Remedy 9/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. T3 raised the score from 70 because the issue now has official constitutional-source coverage, a state constitutional implementation comparator, and clearer state-adaptation drafting guidance. It remains below Review Ready because the record still lacks a selected algorithm standard, detailed state-by-state implementation comparison, source-backed budget/workload support, proposal-specific adoption evidence, and qualified external review.
+**Algorithmic Evidence Finding.** T2 added a 2025 Iowa-focused computational redistricting paper as a current research lead. T4 added a 50-state simulation workflow source and a 2026 community-of-interest/differential-privacy source as technical source-development leads. Together, these sources support transparent computational baselines, simulation-based diagnostics, public code/data, and adversarial-input concerns. They do not validate shortest splitline or any single deterministic algorithm as the legally safest enacted statutory standard.
 
-**Adoption Score.** The 3/12 score is weak. The proposal has a plausible state-by-state model-law path and a reserve amendment strategy, but T3 did not verify proposal-specific polling, state enactment momentum, sponsor coalitions, referendum evidence, or stakeholder support for algorithmic baseline redistricting.
+**Quality Score.** The 77/100 score reflects Review Ready status after the July 4, 2026 T4 publication-readiness / external-review readiness audit. The current component calculation is: Structural 8/8; Evidence 10/12; Legal Fit 8/10; Prior-Proposal 7/8; Remedy 9/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. T4 raised the score from 74 because the record now includes official workload, finance, public-input, litigation-budget, and adoption analogues, plus stronger technical source leads. It remains far below publication-ready because the record still lacks a selected algorithm standard, state-specific implementation package, proposal-specific adoption evidence, and qualified external review.
+
+**Adoption Score.** The 4/12 score is limited. The proposal has a plausible state-by-state model-law path and a reserve amendment strategy, and T4 added an official California referendum result showing voter approval of a state constitutional redistricting-commission reform. That supports the underlying state-level redistricting-reform principle, but it is not proposal-specific evidence for algorithmic baseline redistricting. No current proposal-specific polling, sponsor coalition, enactment momentum, or stakeholder support was verified.
+
+**External Review Status.** `not-reviewed`. T4 did not identify any qualified external election-law, voting-rights, technical, fiscal, stakeholder, or legislative-counsel review incorporated into the project record. The External Review component remains 0/4.
 
 **Adoption Friction.** Adoption Friction is provisionally 80/100 (High Resistance). The model state path avoids Article V and federal commandeering concerns, but redistricting reform directly threatens incumbent and party control, requires technical public administration, may trigger state constitutional litigation, and intersects with VRA, racial-gerrymandering, community-of-interest, commission-design, and judicial-review disputes.
 
@@ -211,6 +215,10 @@ Administrative workload and possible technology, data, public-hearing, commissio
 - Congress.gov Constitution Annotated, [Fourteenth Amendment](https://constitution.congress.gov/browse/amendment-14/).
 - Congress.gov Constitution Annotated, [Fifteenth Amendment](https://constitution.congress.gov/browse/amendment-15/).
 - California Constitution, [Article XXI](https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=CONS&division=&title=&part=&chapter=&article=XXI).
+- California Citizens Redistricting Commission, [*2020 California Citizens Redistricting Commission Report: Recollections, Recommendations, & Resources, Volume 1*](https://wedrawthelines.ca.gov/wp-content/uploads/sites/64/2023/06/rrr-2023-06-30-RRR-Report-Volume1.pdf).
+- California Secretary of State, [*Statement of Vote, November 4, 2008, General Election*](https://elections.cdn.sos.ca.gov/sov/2008-general/sov_complete.pdf).
 - NCSL, [*Redistricting Commissions: Congressional Plans*](https://www.ncsl.org/redistricting-and-census/redistricting-commissions-congressional-plans).
 - Pan Kai, Tan Yue, and Jiang Sheng, [*The study of a new gerrymandering methodology*](https://arxiv.org/abs/0708.2266).
+- Cory McCartan et al., [*Simulated redistricting plans for the analysis and evaluation of redistricting in the United States*](https://arxiv.org/abs/2206.10763).
 - Stefanie G. Wang and Nathaniel C. Merrill, [*Computational Redistricting of Iowa's Congressional Districts*](https://arxiv.org/abs/2508.05848).
+- Atticus McWhorter et al., [*Redistricting from the Bottom Up: Sampling Communities of Interest with Differential Privacy*](https://arxiv.org/abs/2606.14453).
