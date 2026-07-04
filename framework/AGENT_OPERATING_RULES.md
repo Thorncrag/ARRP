@@ -70,6 +70,8 @@ Before running a T-audit, an agent must identify:
 7. the relevant `sources.csv` rows; and
 8. any unresolved findings from the latest audit.
 
+Before starting substantive audit work, the agent must also check whether the issue has a linked proposed legislation file, constitutional amendment, enabling legislation, rule text, manual text, model act, or other concrete proposal vehicle. If the issue has only a `Pending development` placeholder or otherwise lacks concrete proposal text, stop and notify the user that no proposed legislation or equivalent vehicle exists yet. Ask for confirmation before proceeding, and make clear that the audit will be limited to source development, issue admission, remedy selection, or fixed-zero/candidate review unless the user wants drafting added to the scope. Do not assign a formula-based Proposal Quality Score until a concrete draft exists.
+
 If the issue ID is unclear, ask the user before running the audit.
 
 ## Autonomous Batch Audit Mode
