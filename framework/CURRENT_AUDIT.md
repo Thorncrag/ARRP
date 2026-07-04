@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-011 |
-| Audit type/tier | T4 publication-readiness / external-review readiness audit |
-| Started | 2026-07-04 15:58:50 -0400 |
-| Last checkpoint | 2026-07-04 16:06:36 -0400 |
-| User request | Run the next audit. |
-| Scope | Run the next progressive audit for ELEC-011 as a T4 publication-readiness / external-review readiness pass, focused on cumulative T1-T3 carry-forward, algorithm standard, state-by-state constitutional adaptation, public-records/open-meetings fit, budget/workload evidence, adoption evidence, and expert-review blockers. |
-| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-011.md`; `areas/ELEC/issues/ELEC-011.audit.md`; `legislation/ELEC-011-state.md`; `legislation/ELEC-011.md`; `legislation/ELEC-011-amendment.md`; `inventory/sources.csv`. |
-| Completed steps | Ran T4 external-review readiness audit; moved ELEC-011 from 74 to 77 / 100 and Review Ready; added official California CRC workload, public-input, finance, and litigation-budget analogue; added California 2008 Statement of Vote adoption analogue; added ALARM 50-state simulation and 2026 community-of-interest differential-privacy technical source leads; updated the issue page, audit history, model state act, reserve amendment/enabling act, and source inventory. |
-| Next step | Qualified external election-law, voting-rights, technical, fiscal, stakeholder, and legislative-counsel review; state-specific algorithm-certification and implementation package; proposal-specific adoption evidence. |
-| Blockers/questions | Qualified external election-law, voting-rights, technical, state-legislative, fiscal, adoption/polling, stakeholder, and legislative-counsel review is unavailable in-session. |
-| Validation status | Passed: source CSV parses with 465 rows and 11 columns, source IDs are unique, git diff whitespace check passed, and current ELEC-011 surfaces are free of stale T3 status/score markers outside historical audit entries. |
+| Active issue/task | ELEC-012 |
+| Audit type/tier | T3 source and legal-readiness audit |
+| Started | 2026-07-04 16:19:53 -0400 |
+| Last checkpoint | 2026-07-04 16:30:10 -0400 |
+| User request | Audit ELEC-012. |
+| Scope | Run the next progressive audit for ELEC-012, focused on FECA codification, amendment conformity, state comparators, disclosure/privacy tailoring, adoption evidence, source inventory, issue-page scoring, linked legislation notes, and GitHub Project synchronization. |
+| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `legislation/ELEC-012.md`; `legislation/ELEC-012-amendment.md`; `inventory/sources.csv`. |
+| Completed steps | Completed T3 source and legal-readiness audit; updated ELEC-012 score to 69/100; added full audit sidecar entry; refreshed issue-page annotations, source notes, linked legislation notes, source inventory rows, and stale next-audit language; validated CSV width and duplicate IDs; ran whitespace and stale-score checks. |
+| Next step | Commit and push the ELEC-012 T3 audit, then synchronize GitHub Project issue #40 with score 69, Developed draft status, updated run count, last audit, next audit, rebaseline current, and change audit no. |
+| Blockers/questions | Qualified external constitutional-law, election-law, legislative-counsel, FEC practitioner, state-campaign-finance, fiscal, and stakeholder review is unavailable in-session. |
+| Validation status | Passed locally; GitHub Project synchronization pending. |
 
 ## Handoff Rules
 

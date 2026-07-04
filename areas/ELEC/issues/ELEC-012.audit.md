@@ -14,6 +14,34 @@ This file preserves the full audit history for [ELEC-012](ELEC-012.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-04 — T3 source and legal-readiness audit
+
+**Audit tier:** T3: Source and legal-readiness audit
+
+**Audit status:** T3 source and legal-readiness audit complete; substantially developed amendment-first draft, but FECA rewrite, primary litigation records, official state comparators, cost model, and external review remain blockers
+
+**Proposal-quality score:** 69/100 (Substantially Developed Draft)
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 8/12; Legal Fit 6/10; Prior-Proposal 6/8; Remedy 8/12; Implementation 6/8; Abuse Resistance 6/8; Drafting 6/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0.
+
+**Audit scope:** Ran the next progressive audit focused on FECA codification, amendment conformity, state comparators, disclosure/privacy tailoring, adoption evidence, source inventory, issue-page scoring, linked legislation notes, and current-status checks. Reviewed the issue page, audit history, H.J.Res. 54 amendment page, post-ratification enabling act, source inventory, governing methodology, and official or public source leads.
+
+**Current-status and mootness check:** No source made ELEC-012 moot or superseded. Congress.gov shows H.J.Res. 54 still introduced and referred to the House Judiciary Committee, with 70 cosponsors, not advanced. That supports a real external amendment vehicle but not an Article V pathway.
+
+**Source-refresh log:** T3 added or verified the Maine Secretary of State 2024 Citizen's Guide, Maine 2024 election-results page, current Issue One/YouGov national campaign-finance top lines, LegiScan's Hawaii SB2471 / Act 011 status lead, Congress.gov current H.J.Res. 54 status, and official Maine statutory sections 1015 and 1064. T3 did not incorporate primary federal docket materials for *Dinner Table Action v. Schneider*, did not verify official Hawaii Act 011 text, and did not complete section-by-section review of H.J.Res. 54, H.J.Res. 13, DISCLOSE Act, Freedom to Vote Act, and For the People Act comparators.
+
+**FECA codification finding:** The enabling act should move from a mostly freestanding post-ratification statute to direct conforming amendments to the Federal Election Campaign Act before Review Ready reliance. The principal hooks are 52 U.S.C. §§ 30104, 30106, 30109, 30116, 30118, and 30121. Direct civil actions, backup filings, FEC deadlock triggers, State attorney-general authority, disclosure-publication deadlines, and database duties must be reconciled with FECA's existing complaint, four-vote, conciliation, civil-enforcement, and citizen-suit structure.
+
+**Amendment-tailoring finding:** The amendment-first posture remains correct. H.J.Res. 54 is the preferred external vehicle because it directly addresses artificial-entity constitutional status, disclosure, election spending, and money-as-speech doctrine. Its main legal-tailoring risk remains Section 1's breadth: it reaches artificial-entity constitutional rights generally, not only campaign finance or election spending. The next pass should draft either a narrower election-activity variant or a rule-of-construction package before external circulation.
+
+**State-comparator finding:** Maine is now the strongest verified state comparator. Official Maine sources support the super PAC contribution-cap concept, CPI adjustment, segregated-funds design, voter-facing explanation, implementation changes, and a concrete one-time database and filing-system programming estimate of approximately $75,000. Maine also shows legal risk: foreign-government-influenced entity restrictions remain useful for ownership, control, assistance, structuring, disclosure, and due-diligence drafting, but AP reporting on the First Circuit posture reinforces overbreadth and media/platform-duty concerns. Hawaii SB2471 / Act 011 remains a high-salience state corporate-powers lead, but T3 treated LegiScan as a routing/status source only because official Hawaii Act text was not verified in-session.
+
+**Adoption finding:** Adoption Score increases from 4/12 to 5/12. ELEC-012 now has current Issue One/YouGov national polling, an official Maine referendum source, a real congressional amendment vehicle, and state-experiment leads. The score remains limited because the polling is advocacy-commissioned, H.J.Res. 54 has not advanced beyond referral, Article V ratification remains extremely difficult, and no bipartisan ratification plan or proposal-specific stakeholder validation has been incorporated.
+
+**Score effect:** Score increased from 60 to 69. T3 added one point each for Structural completion, Evidence, Legal Fit, Prior-Proposal development, Remedy Design, Implementation, Abuse Resistance, Cogency, and Adoption. Drafting remains 6/8 because the enabling act has not been converted into direct FECA conforming amendments. External Review remains 0/4.
+
+**Next audit need:** T4 legal-durability and drafting-conversion audit focused on direct FECA conforming amendments, primary Maine docket records, official Hawaii Act 011 text, H.J.Res. 54/H.J.Res. 13 section-by-section conformity, cost model, and external constitutional/election-law review.
+
 ### 2026-07-03 — T2 legal-durability and implementation review
 
 **Audit status:** T2 legal-durability and implementation review complete; amendment-first developed draft with major adoption and validation risks

@@ -190,10 +190,12 @@ Budget authority is likely required for FEC administration and enforcement, publ
 - This is an initial enabling-legislation draft, not a final statutory package.
 - The Act is drafted to operate only after ratification of H.J.Res. 54 with ARRP's recommended enforcement and federalism clarification, or a substantially similar constitutional amendment.
 - The Act now applies the same baseline standards to federal elections, covered statewide elections, and covered statewide ballot measures, while preserving stronger State rules and avoiding mandatory State administration of the federal Act.
-- The statewide-election layer includes an 18-month transition period so States can review existing law against the new baseline; T2 should test whether that period should instead be keyed to election cycles or legislative sessions.
+- The statewide-election layer includes an 18-month transition period so States can review existing law against the new baseline; T4 should test whether that period should instead be keyed to election cycles or legislative sessions.
 - If Congress proceeds under a narrower Democracy for All-style amendment, the artificial-entity and money-as-speech provisions should receive a conformity review.
 - Section 10 is intentionally contingent: it preserves ordinary FEC administration unless defined implementation failures trigger backup filing, direct enforcement, intervention, funding-protection, and interference-reporting safeguards.
-- T3 should decide whether this Act should be recast as conforming amendments to the Federal Election Campaign Act rather than a freestanding post-ratification statute, especially as to 52 U.S.C. §§ 30104, 30106, 30109, 30116, 30118, and 30121.
+- T3 confirmed that this Act should be recast as conforming amendments to the Federal Election Campaign Act before review-ready reliance, especially as to 52 U.S.C. §§ 30104, 30106, 30109, 30116, 30118, and 30121.
+- The Maine 2024 Citizen's Guide supplies a limited implementation analogue: a $75,000 one-time database and filing-system programming estimate for a narrower super PAC contribution-limit initiative. Use only as a floor-level comparator, not a federal cost model.
+- Current Issue One/YouGov polling supports public concern and adoption analysis, but it does not replace an Article V ratification strategy, neutral polling, stakeholder validation, or external review.
 - Any direct-civil-action provision should be conformed to FECA's existing FEC complaint, four-vote, civil-enforcement, and citizen-suit structure before publication-ready reliance.
 - Disclosure rules should be tested against *Buckley*, *McCutcheon*, and *Americans for Prosperity Foundation v. Bonta* for true-source transparency, tailoring, harassment risk, and associational privacy.
 - Public-financing provisions should avoid opponent-triggered matching-fund structures or other burdens on nonparticipating speakers identified in *Arizona Free Enterprise Club's Freedom Club PAC v. Bennett*.
@@ -220,3 +222,7 @@ Budget authority is likely required for FEC administration and enforcement, publ
 - Federal Election Commission, [FEC approves two advisory opinions in wake of Citizens United and SpeechNow decisions](https://www.fec.gov/updates/fec-approves-two-advisory-opinions-in-wake-of-citizens-united-and-speechnow-decisions/) (July 22, 2010).
 - Federal Election Commission, [Advisory Opinion 2010-11, Commonsense Ten](https://www.fec.gov/data/legal/advisory-opinions/2010-11/).
 - Federal Election Commission, [Advisory Opinion 2010-09, Club for Growth](https://www.fec.gov/data/legal/advisory-opinions/2010-09/).
+- Maine Secretary of State, [*Maine Citizen's Guide to the Referendum Election, November 5, 2024*](https://www.maine.gov/sos/sites/maine.gov.sos/files/content/assets/Citizens-20Guide-2011.5.2024-20FINAL.pdf), Question 1 text, segregated-funds design, fiscal impact, and constitutional-litigation caution.
+- Maine Secretary of State, [Election Results 2024](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2024), official referendum-result tabulation source page.
+- Issue One / YouGov, [*Campaign Finance - National Toplines*](https://issueone.org/wp-content/uploads/2025/10/YouGov-Issue-One-Oct-2025-Campaign-Finance-National-Poll-Toplines.pdf) (Oct. 2025).
+- LegiScan, [Hawaii SB2471, Relating to the Powers of Artificial Persons](https://legiscan.com/HI/bill/SB2471/2026), state-legislation status lead pending official Hawaii source verification.

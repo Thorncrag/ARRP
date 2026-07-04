@@ -51,7 +51,7 @@ H.J.Res. 13 remains the narrower Democracy for All-style alternative. Its offici
 
 H.J.Res. 54 is preferred because it directly addresses both sides of the institutional weakness: artificial-entity constitutional status and election-money-as-speech doctrine. ARRP should support H.J.Res. 54 with the recommended Section 4 clarification because statewide-election coverage is too important to leave vulnerable to reserved-to-the-States federalism objections. H.J.Res. 13 is retained as an alternative because it may be more narrowly tailored to campaign finance and easier to defend as a campaign-finance authority amendment rather than a broader corporate-personhood amendment.
 
-T3 should test whether H.J.Res. 54's artificial-entity language should be narrowed, clarified, or supplemented before publication-ready reliance. Section 1 is not limited to election spending; it says artificial entities have no constitutional rights. That may be the intended Move to Amend / We the People theory, but ARRP should expressly review possible effects on press entities, nonprofit advocacy organizations, religious and civil-rights organizations, due-process and property claims, contract and takings questions, and non-election litigation before treating the text as ready for external circulation.
+The next conformity pass should test whether H.J.Res. 54's artificial-entity language should be narrowed, clarified, or supplemented before publication-ready reliance. Section 1 is not limited to election spending; it says artificial entities have no constitutional rights. That may be the intended Move to Amend / We the People theory, but ARRP should expressly review possible effects on press entities, nonprofit advocacy organizations, religious and civil-rights organizations, due-process and property claims, contract and takings questions, and non-election litigation before treating the text as ready for external circulation.
 
 ## Historical Enforcement Models
 
@@ -78,12 +78,16 @@ No direct appropriation is anticipated for the amendment itself. Implementing le
 - ARRP's recommended Section 4 is original project drafting and is not part of H.J.Res. 54 as introduced.
 - The linked [enabling legislation](ELEC-012.md) is an ARRP working draft designed to operate after ratification of H.J.Res. 54 with the recommended Section 4 or a substantially similar amendment.
 - If a Democracy for All-style amendment resembling H.J.Res. 13 were ratified instead, the enabling legislation would need a narrower conformity review before introduction.
+- T3 verified that H.J.Res. 54 remains introduced and referred to the House Judiciary Committee with 70 cosponsors as of July 4, 2026; that supports it as a real vehicle but not a viable Article V strategy.
+- T3 confirms that H.J.Res. 54 Section 1 is the main legal-tailoring issue because it reaches artificial-entity constitutional rights generally, not only election spending. A T4 conformity pass should draft either a narrower election-activity variant or an explicit rule-of-construction package before external circulation.
 - Before publication-ready reliance, qualified constitutional-law and election-law review should test whether H.J.Res. 54's broader artificial-entity rule should be limited to political activity, paired with additional rules of construction, or preserved as written with explicit discussion of its non-election implications.
 
 ## Source Notes
 
 - GovInfo, [H.J.Res. 54, 119th Congress, Introduced in House](https://www.govinfo.gov/content/pkg/BILLS-119hjres54ih/html/BILLS-119hjres54ih.htm).
+- Congress.gov, [H.J.Res. 54, 119th Congress](https://www.congress.gov/bill/119th-congress/house-joint-resolution/54), current status, cosponsors, and CRS summary.
 - GovInfo, [H.J.Res. 13, 118th Congress, Introduced in House](https://www.govinfo.gov/content/pkg/BILLS-118hjres13ih/html/BILLS-118hjres13ih.htm).
+- Issue One / YouGov, [*Campaign Finance - National Toplines*](https://issueone.org/wp-content/uploads/2025/10/YouGov-Issue-One-Oct-2025-Campaign-Finance-National-Poll-Toplines.pdf) (Oct. 2025), current public-support source used only as limited adoption evidence.
 - Congress.gov Constitution Annotated, [Twenty-Sixth Amendment](https://constitution.congress.gov/constitution/amendment-26/).
 - Congress.gov Constitution Annotated, [Fifteenth Amendment](https://constitution.congress.gov/constitution/amendment-15/).
 - Congress.gov Constitution Annotated, [Nineteenth Amendment](https://constitution.congress.gov/constitution/amendment-19/).
