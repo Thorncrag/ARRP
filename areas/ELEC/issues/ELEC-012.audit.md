@@ -14,6 +14,32 @@ This file preserves the full audit history for [ELEC-012](ELEC-012.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-04 — T4 legal-durability and drafting-conversion audit
+
+**Audit tier:** T4: Legal-durability and drafting-conversion audit
+
+**Audit status:** T4 legal-durability and drafting-conversion audit complete; official Hawaii source path and Maine docket routing upgraded, but FECA conforming rewrite, full merits-document review, cost model, and external review remain blockers
+
+**Proposal-quality score:** 72/100 (Substantially Developed Draft)
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior-Proposal 7/8; Remedy 8/12; Implementation 6/8; Abuse Resistance 6/8; Drafting 6/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0.
+
+**Audit scope:** Ran the next progressive ELEC-012 audit as a focused T4 source, legal-durability, and drafting-conversion pass. Reviewed the issue page, full audit sidecar, H.J.Res. 54 amendment-support page, post-ratification enabling act, source inventory, methodology, current handoff, Congress.gov amendment comparators, Hawai'i State Legislature SB2471 materials, LegiScan routing record, and CourtListener/RECAP public docket metadata for the Maine super PAC contribution-limit litigation.
+
+**Current-status and mootness check:** No reviewed source mooted or superseded ELEC-012. Congress.gov still lists H.J.Res. 54 as introduced February 12, 2025, referred to the House Judiciary Committee, with 70 cosponsors and no later passage action. H.J.Res. 13 and S.J.Res. 45 remain narrower Democracy for All-style alternatives from the 118th Congress and did not advance beyond Judiciary referral. The Hawaii and Maine developments strengthen state-comparator and litigation-routing support but do not remove the need for an Article V amendment or a narrower statutory mitigation track.
+
+**Hawaii official-source finding:** T4 located the working official Hawai'i State Legislature data mirror for SB2471. The official measure page verifies SB2471 SD2 HD2 CD2, title, description, Act 011 status on May 14, 2026, final-passage history, and July 1, 2027 effective-date description. The official CD2 text endpoint is accessible and contains the enacted corporate-powers language relevant to artificial persons, election spending, contributions of value, elections, and ballot measures. This upgrades Hawaii from a secondary LegiScan/AP lead to an official-source comparator, but T4 did not complete a section-by-section legal-theory review of the enacted text.
+
+**Maine docket finding:** T4 located public CourtListener/RECAP metadata for *Dinner Table Action v. Schneider*. The District of Maine docket, No. 1:24-cv-00430, was filed December 13, 2024, assigned to Judge Karen Frink Wolf, and terminated July 15, 2025. The First Circuit appeal, No. 25-1705, was filed July 29, 2025, remains unterminated in the public docket metadata reviewed, and includes available briefing-schedule and appellee-brief metadata. This upgrades the record from secondary litigation reporting to docket-level routing, but full merits-document review and official court/PACER verification remain unresolved.
+
+**FECA conversion finding:** The current enabling act should still be converted from a freestanding post-ratification statute into direct conforming amendments. T4 added a conversion map rather than rewriting the bill: true-source disclosure should map principally to 52 U.S.C. § 30104; FEC administration, forms, databases, voting thresholds, advisory-opinion limits, and deadlock triggers to §§ 30106 and 30109 and related administration sections; contribution and super PAC contribution-limit authority to § 30116 only to the extent supported by the ratified amendment; artificial-entity treasury spending to § 30118; foreign-influenced and anti-conduit provisions to § 30121; and direct civil-action, backup-filing, State attorney-general, expedited-review, and funding-protection provisions to a careful reconciliation with FECA's complaint, conciliation, four-vote, civil-enforcement, and citizen-suit structure.
+
+**Amendment-conformity finding:** ARRP's H.J.Res. 54 preference remains appropriate because it directly addresses artificial-entity constitutional status and money-as-speech doctrine. T4 did not resolve the known tailoring problem: H.J.Res. 54 Section 1 reaches artificial-entity constitutional rights generally, not only election spending. H.J.Res. 13 and S.J.Res. 45 remain narrower fallback comparators. Before external circulation, the amendment page should either draft a narrower election-activity variant or add a rule-of-construction package for press, nonprofit, religious, civil-rights, property, due-process, contract, takings, and non-election artificial-entity implications.
+
+**Score effect:** Score increased from 69 to 72. Evidence increased from 8 to 9 because T4 located official Hawaii status/text sources and Maine docket metadata. Legal Fit increased from 6 to 7 because the audit now ties state comparators and live litigation to primary or docket-level records with explicit unresolved limits. Prior-Proposal increased from 6 to 7 because T4 refreshed H.J.Res. 54/H.J.Res. 13/S.J.Res. 45 posture and converted Hawaii from a routing lead to an official comparator. Drafting remains 6/8 and Implementation remains 6/8 because the FECA conforming-amendment rewrite has not been completed. Adoption remains 5/12, External Review remains 0/4, and Adoption Friction remains 96/100.
+
+**Next audit need:** T4/T5 drafting-conversion follow-up focused on direct FECA conforming amendments, full *Dinner Table Action* merits-document review, Hawaii Act 011 legal-theory comparison, H.J.Res. 54 narrowing or rule-of-construction language, source-backed federal cost model, proposal-specific adoption strategy, and qualified external constitutional-law/election-law review.
+
 ### 2026-07-04 — T3 source and legal-readiness audit
 
 **Audit tier:** T3: Source and legal-readiness audit

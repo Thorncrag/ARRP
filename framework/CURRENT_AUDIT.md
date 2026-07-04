@@ -14,16 +14,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-013 |
-| Audit type/tier | T1 issue-admission/source-development audit |
-| Started | 2026-07-04 16:39:02 -0400 |
-| Last checkpoint | 2026-07-04 16:47:14 -0400 |
-| User request | Next audit. |
-| Scope | Run the next progressive Election-area audit on ELEC-013, focused on issue admission, framework compliance, fixed-zero candidate status, source inventory, current-status and pending-case checks, debate-access/ballot-access/RCV/open-primary/fusion/proportional source routing, area-page status, and GitHub Project synchronization. |
-| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `areas/ELEC/README.md`; `inventory/sources.csv`. |
-| Completed steps | Completed T1 issue-admission/source-development audit; confirmed ELEC-013 remains a distinct fixed-zero candidate; updated issue metadata, visible scoring summary, annotation, audit sidecar, Election area note, and source inventory; verified CSV width and duplicate IDs; ran whitespace and stale-marker checks; synchronized GitHub Project issue #41. |
-| Next step | None for this audit. The next substantive pass is the listed T2 remedy-selection and prior-proposal comparison audit. |
-| Blockers/questions | No concrete remedy or legislative vehicle has been selected; T1 cannot assign a formula proposal-quality score. Primary official D.C. and Alaska implementation/result records should be obtained before T2 reliance. |
+| Active issue/task | ELEC-012 |
+| Audit type/tier | T4 legal-durability and drafting-conversion audit |
+| Started | 2026-07-04 16:51:08 -0400 |
+| Last checkpoint | 2026-07-04 17:02:33 -0400 |
+| User request | Next audit on ELEC-012. |
+| Scope | Run the next progressive ELEC-012 audit focused on FECA conforming-amendment readiness, primary Maine litigation/docket records, official Hawaii Act 011 text, H.J.Res. 54/H.J.Res. 13 conformity, cost-model support, external-review status, source inventory, issue-page scoring, legislation notes, and GitHub Project synchronization. |
+| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `legislation/ELEC-012.md`; `legislation/ELEC-012-amendment.md`; `inventory/sources.csv`. |
+| Completed steps | Completed the ELEC-012 T4 legal-durability and drafting-conversion audit; verified Congress.gov amendment posture; located official Hawai'i State Legislature SB2471 status and CD2 text endpoints; located public CourtListener/RECAP docket metadata for the Maine district case and First Circuit appeal; updated ELEC-012 score from 69 to 72; added T4 audit history; added FECA conversion map and source notes; updated source inventory; validated local CSV/stale-marker checks; synchronized GitHub Project issue #40. |
+| Next step | None for this audit. The next substantive pass is the listed T4/T5 drafting-conversion follow-up. |
+| Blockers/questions | Direct FECA conforming-amendment rewrite, full *Dinner Table Action* merits-document review, official court/PACER verification, Hawaii Act 011 section-by-section legal-theory comparison, source-backed cost model, adoption strategy, and qualified external review remain unresolved. |
 | Validation status | Passed locally; GitHub Project synchronization verified. |
 
 ## Handoff Rules

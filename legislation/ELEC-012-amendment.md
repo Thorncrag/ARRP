@@ -78,8 +78,9 @@ No direct appropriation is anticipated for the amendment itself. Implementing le
 - ARRP's recommended Section 4 is original project drafting and is not part of H.J.Res. 54 as introduced.
 - The linked [enabling legislation](ELEC-012.md) is an ARRP working draft designed to operate after ratification of H.J.Res. 54 with the recommended Section 4 or a substantially similar amendment.
 - If a Democracy for All-style amendment resembling H.J.Res. 13 were ratified instead, the enabling legislation would need a narrower conformity review before introduction.
-- T3 verified that H.J.Res. 54 remains introduced and referred to the House Judiciary Committee with 70 cosponsors as of July 4, 2026; that supports it as a real vehicle but not a viable Article V strategy.
-- T3 confirms that H.J.Res. 54 Section 1 is the main legal-tailoring issue because it reaches artificial-entity constitutional rights generally, not only election spending. A T4 conformity pass should draft either a narrower election-activity variant or an explicit rule-of-construction package before external circulation.
+- T4 refreshed the external-vehicle posture. H.J.Res. 54 remains an introduced House Judiciary referral with 70 cosponsors on Congress.gov as of July 4, 2026. H.J.Res. 13 and S.J.Res. 45 remain narrower Democracy for All-style alternatives from the 118th Congress, each referred to the relevant Judiciary Committee and not enacted.
+- T4 confirms that H.J.Res. 54 Section 1 is the main legal-tailoring issue because it reaches artificial-entity constitutional rights generally, not only election spending. The next drafting-conversion pass should draft either a narrower election-activity variant or an explicit rule-of-construction package before external circulation.
+- T4 did not change ARRP's amendment preference. H.J.Res. 54 remains the strongest fit for ELEC-012's artificial-entity and money-as-speech theory, while H.J.Res. 13/S.J.Res. 45 remain important fallback comparators if the project chooses a narrower campaign-finance-only amendment.
 - Before publication-ready reliance, qualified constitutional-law and election-law review should test whether H.J.Res. 54's broader artificial-entity rule should be limited to political activity, paired with additional rules of construction, or preserved as written with explicit discussion of its non-election implications.
 
 ## Source Notes
@@ -87,6 +88,8 @@ No direct appropriation is anticipated for the amendment itself. Implementing le
 - GovInfo, [H.J.Res. 54, 119th Congress, Introduced in House](https://www.govinfo.gov/content/pkg/BILLS-119hjres54ih/html/BILLS-119hjres54ih.htm).
 - Congress.gov, [H.J.Res. 54, 119th Congress](https://www.congress.gov/bill/119th-congress/house-joint-resolution/54), current status, cosponsors, and CRS summary.
 - GovInfo, [H.J.Res. 13, 118th Congress, Introduced in House](https://www.govinfo.gov/content/pkg/BILLS-118hjres13ih/html/BILLS-118hjres13ih.htm).
+- Congress.gov, [H.J.Res. 13, 118th Congress](https://www.congress.gov/bill/118th-congress/house-joint-resolution/13), alternative Democracy for All-style amendment status and cosponsor record.
+- Congress.gov, [S.J.Res. 45, 118th Congress](https://www.congress.gov/bill/118th-congress/senate-joint-resolution/45), Senate Democracy for All-style amendment status.
 - Issue One / YouGov, [*Campaign Finance - National Toplines*](https://issueone.org/wp-content/uploads/2025/10/YouGov-Issue-One-Oct-2025-Campaign-Finance-National-Poll-Toplines.pdf) (Oct. 2025), current public-support source used only as limited adoption evidence.
 - Congress.gov Constitution Annotated, [Twenty-Sixth Amendment](https://constitution.congress.gov/constitution/amendment-26/).
 - Congress.gov Constitution Annotated, [Fifteenth Amendment](https://constitution.congress.gov/constitution/amendment-15/).
