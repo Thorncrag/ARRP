@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-012 |
-| Audit type/tier | T4 legal-durability and drafting-conversion audit |
-| Started | 2026-07-04 16:51:08 -0400 |
-| Last checkpoint | 2026-07-04 17:02:33 -0400 |
-| User request | Next audit on ELEC-012. |
-| Scope | Run the next progressive ELEC-012 audit focused on FECA conforming-amendment readiness, primary Maine litigation/docket records, official Hawaii Act 011 text, H.J.Res. 54/H.J.Res. 13 conformity, cost-model support, external-review status, source inventory, issue-page scoring, legislation notes, and GitHub Project synchronization. |
-| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `legislation/ELEC-012.md`; `legislation/ELEC-012-amendment.md`; `inventory/sources.csv`. |
-| Completed steps | Completed the ELEC-012 T4 legal-durability and drafting-conversion audit; verified Congress.gov amendment posture; located official Hawai'i State Legislature SB2471 status and CD2 text endpoints; located public CourtListener/RECAP docket metadata for the Maine district case and First Circuit appeal; updated ELEC-012 score from 69 to 72; added T4 audit history; added FECA conversion map and source notes; updated source inventory; validated local CSV/stale-marker checks; synchronized GitHub Project issue #40. |
-| Next step | None for this audit. The next substantive pass is the listed T4/T5 drafting-conversion follow-up. |
-| Blockers/questions | Direct FECA conforming-amendment rewrite, full *Dinner Table Action* merits-document review, official court/PACER verification, Hawaii Act 011 section-by-section legal-theory comparison, source-backed cost model, adoption strategy, and qualified external review remain unresolved. |
-| Validation status | Passed locally; GitHub Project synchronization verified. |
+| Active issue/task | ELEC-013 |
+| Audit type/tier | T2 remedy-selection and prior-proposal comparison |
+| Started | 2026-07-04 17:29:36 -0400 |
+| Last checkpoint | 2026-07-04 17:42:56 -0400 |
+| User request | Next audit on ELEC-013. |
+| Scope | Run the next progressive ELEC-013 audit focused on selecting or rejecting a concrete remedy path; debate-access transparency; federal ballot-access floors; RCV, runoff, open-primary, fusion, and proportional comparators; official D.C., Alaska, and Maine records; current state bans/repeal efforts; constitutional doctrine; implementation-cost analogues; and statute-versus-model-state vehicle choice. |
+| Files touched | `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `areas/ELEC/README.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Completed T2 remedy-selection audit; selected staged federal-first election-competition path; updated issue metadata, visible scoring summary, audit history, area note, source inventory, current-audit handoff, and GitHub Project fields. |
+| Next step | Draft first staged federal election-competition bill and companion model-state pilot option. |
+| Blockers/questions | Score remains fixed at 0 until draft legislation or enforceable policy text exists; D.C. and Alaska official result/implementation records still need deeper static primary-source verification. |
+| Validation status | Local checks passed; GitHub Project row confirmed updated. |
 
 ## Handoff Rules
 
