@@ -309,12 +309,16 @@ Budget authority may be required for algorithm development, public data publicat
 ## Drafting Notes
 
 - This is a model state act and should be adapted to each State's constitution, redistricting commission structure, legislative procedure, public-records law, open-meetings law, judicial-review rules, and election calendar.
+- A State-specific draft should identify the redistricting authority or review body, algorithm-certification method, state court jurisdiction and standing, public-records and open-meetings cross-references, election-calendar deadlines, funding source, and whether a statute alone is durable or a state constitutional amendment is needed to prevent later bypass.
 - The Act makes the algorithmic map the required first draft rather than the final enacted map.
 - The Act prohibits partisan, incumbent, candidate, donor, campaign, and election-performance data in the baseline-generation process.
 - The Act permits public and reviewable departures where needed for federal law, state constitutional law, Voting Rights Act compliance, state voting-rights acts, tribal integrity, political-subdivision integrity, compact communities of interest, geography, contiguity, equal population, or administrability.
 - State voting-rights acts are treated as protective safeguards, not as authority to bypass the neutral baseline or justify broader-than-necessary departures.
 - The Act includes judicial fallback to prevent repeated rejection of compliant maps or enactment of undisclosed substitute maps.
 - The Act does not draft the reserve constitutional amendment referenced on the issue page.
+- California Constitution Article XXI is a useful state constitutional analogue for an independent commission, open process, ordered criteria, Voting Rights Act compliance, community-of-interest protection, incumbent/candidate/party neutrality limits, final-map reporting, state supreme court review, special-master fallback, and funding/defense provisions.
+- The current California Article XXI text is also a durability caution because it includes a 2025 temporary congressional-map override. A State-specific ELEC-011 package should decide whether anti-mid-cycle safeguards belong in ordinary statute, a state constitutional amendment, or both.
+- T4 should select or certify the algorithmic standard, define technical governance and independent replication, add cost/workload support, and prepare state-specific drafting brackets before this model is treated as review-ready.
 
 ## Source Notes
 
@@ -324,4 +328,5 @@ Budget authority may be required for algorithm development, public data publicat
 - *Arizona State Legislature v. Arizona Independent Redistricting Commission* supports state-law use of independent redistricting institutions for congressional redistricting.
 - *Allen v. Milligan* and *Louisiana v. Callais* are caution sources for Voting Rights Act and racial-gerrymandering tailoring.
 - Algorithmic redistricting sources remain technical leads rather than final legal validation for a particular algorithm.
-- The issue page source record now includes T2-verified Iowa statutory mechanics, state voting-rights-law comparators, core Supreme Court doctrine sources, and algorithmic source leads. T3 should still test state constitutional redistricting provisions, commission structures, public-records/open-meetings fit, costs, and final algorithm-selection standards before treating this model act as review-ready.
+- The issue page source record now includes T2-verified Iowa statutory mechanics, state voting-rights-law comparators, core Supreme Court doctrine sources, algorithmic source leads, T3-reviewed Constitution Annotated sources for Article I and the Fourteenth and Fifteenth Amendments, and California Constitution Article XXI as a state constitutional comparator.
+- State constitutional redistricting provisions, commission structures, public-records/open-meetings fit, costs, and final algorithm-selection standards still need additional source development before treating this model act as review-ready.

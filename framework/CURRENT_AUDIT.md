@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-009 |
-| Audit type/tier | First draft enabling legislation |
-| Started | 2026-07-04 15:05:00 -0400 |
-| Last checkpoint | 2026-07-04 15:14:00 -0400 |
-| User request | Write the first draft of ELEC-009 enabling legislation. |
-| Scope | Draft title 52 direct-presidential-election implementation legislation, add title 3 conforming amendments, and update ELEC-009 issue/audit/source/index records. |
-| Files touched | `framework/CURRENT_AUDIT.md`; `legislation/ELEC-009.md`; `legislation/README.md`; `areas/ELEC/issues/ELEC-009.md`; `areas/ELEC/issues/ELEC-009.audit.md`; `inventory/sources.csv`; `legislation/ELEC-009-amendment.md`. |
-| Completed steps | Added the Direct Presidential Election Implementation Act as a title 52 first draft with title 3 conforming amendments; linked it from the issue page and amendment draft; added source inventory rows for title 52 structure, 3 U.S.C. chapter 1, and 28 U.S.C. § 1253; associated ELEC-009 with the existing 28 U.S.C. § 2284 row; added a first-draft audit entry; moved ELEC-009 from 74 to 75 by increasing Implementation from 6/8 to 7/8. |
-| Next step | Qualified constitutional-law, election-law, election-administration, and legislative-counsel review; majority-mechanism selection or defense; official state-by-state compact verification; fiscal/workload analogues. |
-| Blockers/questions | External constitutional-law, election-law, election-administration, and legislative-counsel review remains unavailable in-session. Existing uncommitted ELEC-004, ELEC-008, ELEC-009, and ELEC-011 edits must be preserved. |
-| Validation status | Passed: source CSV parses with 456 rows and 11 columns; `git diff --check` passed; compact ELEC-009 issue/status surfaces no longer contain stale 74-score language. |
+| Active issue/task | ELEC-011 |
+| Audit type/tier | T3 legal-durability and implementation audit |
+| Started | 2026-07-04 15:28:00 -0400 |
+| Last checkpoint | 2026-07-04 15:46:30 -0400 |
+| User request | Audit ELEC-011. |
+| Scope | Run the next progressive audit for ELEC-011, focused on algorithm selection, VRA/state-VRA tailoring, state constitutional fit, judicial fallback, cost/workload evidence, and adoption evidence; update issue page, audit sidecar, sources, and GitHub Project fields. |
+| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-011.md`; `areas/ELEC/issues/ELEC-011.audit.md`; `legislation/ELEC-011-state.md`; `legislation/ELEC-011.md`; `legislation/ELEC-011-amendment.md`; `inventory/sources.csv`. |
+| Completed steps | Ran ELEC-011 T3 legal-durability and implementation audit; raised the issue score from 70 to 74; added a new T3 audit-history entry; added official Constitution Annotated sources for Article I, Section 2, Article I, Section 4, the Fourteenth Amendment, and the Fifteenth Amendment; added California Constitution Article XXI as a state constitutional comparator; updated the model State act, reserve amendment, and reserve enabling act notes to reflect T3 source posture and remaining implementation gaps. |
+| Next step | T4 / external review focused on selecting or certifying the algorithmic standard, state-by-state constitutional adaptation, public-records/open-meetings fit, budget/workload evidence, adoption evidence, and legislative-counsel review. |
+| Blockers/questions | External election-law, voting-rights, technical, state-legislative, and legislative-counsel review is unavailable in-session. |
+| Validation status | Passed: `inventory/sources.csv` parses with 461 rows and 11 columns; source IDs are unique; `git diff --check` passed; compact ELEC-011 issue/status surfaces no longer contain stale 70-score or T2-current-audit language. |
 
 ## Handoff Rules
 

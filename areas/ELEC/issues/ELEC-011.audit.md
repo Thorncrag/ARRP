@@ -12,6 +12,40 @@ This file preserves the full audit history for [ELEC-011](ELEC-011.md). The issu
 
 ## Audit History
 
+### 2026-07-04 — T3 legal-durability and implementation audit
+
+**Audit tier:** T3: Legal-durability and implementation audit
+
+**Audit status:** T3 legal-durability and implementation audit complete; algorithm selection, cost/workload, adoption, and external review still needed
+
+**Proposal-quality score:** 74/100 (Substantially Developed Draft)
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 9/12; Legal Fit 8/10; Prior-Proposal 7/8; Remedy 9/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0.
+
+**Audit scope:** Reviewed the ELEC-011 issue page, T1/T2 audit history, model State act, reserve constitutional amendment, reserve Federal enabling act, source inventory, current audit tracker, and official sources for Article I, Section 2; Article I, Section 4; the Fourteenth Amendment; the Fifteenth Amendment; and California Constitution Article XXI. This was not a qualified election-law, voting-rights, state-constitutional, technical, budget, or legislative-counsel review.
+
+**Constitutional-source check:** T3 added official Constitution Annotated sources for Article I, Section 2, Article I, Section 4, the Fourteenth Amendment, and the Fifteenth Amendment. Article I, Section 2 supplies congressional apportionment and House-election background. Article I, Section 4 supplies the Elections Clause baseline for congressional election regulation. The Fourteenth Amendment supplies equal-protection and vote-dilution constraints. The Fifteenth Amendment supplies race-denial, race-abridgment, and enforcement background. These sources strengthen the legal-fit record but do not eliminate the need for external constitutional review.
+
+**State constitutional comparator:** T3 added California Constitution Article XXI as an official state constitutional comparator. Article XXI combines independent commission design, public process, federal Voting Rights Act compliance, ordered criteria, compactness, community-of-interest protection, incumbent/candidate/party neutrality limits, final-map reporting, California Supreme Court review, special-master fallback, and funding/defense provisions. The current text also includes a 2025 temporary congressional-map override, which is a durability caution: even a constitutionalized commission structure can be displaced by later state constitutional action.
+
+**Implementation finding:** The model State act is administrable as a process model because it assigns a review body, baseline publication, public findings, public comment, legislative consideration, judicial fallback, expedited review, rulemaking, and archive duties. T3 strengthens drafting readiness by requiring future state-specific versions to identify the redistricting authority, algorithm-certification method, state court jurisdiction and standing, public-records and open-meetings rules, election-calendar deadlines, funding source, and constitutional override risk.
+
+**Algorithm-selection finding:** T3 does not validate shortest splitline or any other deterministic method as the final statutory standard. The proposal should continue to treat the algorithmic map as a public first draft, not an automatic final map, until technical review selects the algorithm, parameters, data sources, replication procedure, audit method, and failure-mode controls.
+
+**VRA and representation-safeguard finding:** The issue and drafts properly preserve lawful representation safeguards and narrow public deviations, but T3 does not resolve the full VRA, state-VRA, racial-gerrymandering, or state constitutional fit analysis. The next pass should test whether the deviation criteria are precise enough to protect compact minority, tribal, municipal, and community interests without becoming a broad discretionary bypass around the neutral baseline.
+
+**Fiscal/workload finding:** No source-backed cost estimate, workload estimate, software-maintenance estimate, public-hearing cost analogue, or litigation-cost analogue was verified. Implementation remains 6/8 because the model is coherent but not yet budgeted or state-administered in a tested package.
+
+**Adoption finding:** No proposal-specific polling, sponsor coalition, enactment momentum, referendum result, official ballot-pamphlet support/opposition record, or stakeholder evidence was verified during T3. Adoption remains 3/12 and adoption friction remains 80/100.
+
+**Score effect:** Score increased from 70 to 74. Evidence increased from 8/12 to 9/12 for official constitutional-source coverage and a state constitutional comparator. Legal Fit increased from 7/10 to 8/10 for direct Article I, Fourteenth Amendment, Fifteenth Amendment, and state constitutional fit checks. Prior-Proposal increased from 6/8 to 7/8 because California Article XXI is a direct state constitutional redistricting architecture analogue. Drafting increased from 6/8 to 7/8 because the issue and model-act notes now state the state-adaptation questions needed before review-ready treatment. Implementation, Adoption, and External Review did not increase.
+
+**Remaining limits:** ELEC-011 remains below Review Ready. It still needs a selected algorithm standard; technical-governance review; state-by-state constitutional, public-records, open-meetings, election-calendar, and judicial-review adaptation; source-backed cost/workload evidence; proposal-specific adoption evidence; and qualified election-law, voting-rights, state-legislative, technical, and legislative-counsel review.
+
+**Next audit need:** Run T4 / external review focused on algorithm standard, state-by-state constitutional adaptation, public-records/open-meetings fit, budget/workload evidence, adoption evidence, and legislative-counsel review.
+
+**Audit process feedback:** The model State act remains the least-complex vehicle. The reserve amendment and reserve enabling act are useful as future durability tools, especially in states where a statute could be bypassed, but the next useful score movement should come from implementation evidence and external review rather than additional broad constitutional framing.
+
 ### 2026-07-04 — T2 development audit
 
 **Audit tier:** T2: Development audit
