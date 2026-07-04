@@ -184,6 +184,8 @@ Each completed issue audit should leave:
 5. validation notes; and
 6. a commit pushed to GitHub.
 
+GitHub Project fields are a completion-critical surface for audit work. If the Project row should change but cannot be updated because of authentication, permissions, API, tooling, sandbox, or connector limitations, the agent must notify the user clearly as soon as the failure is known, identify the exact field or row that remains unsynced, and treat the task as blocked or only partially complete until the Project row is updated or the user explicitly accepts a repo-only interim state. Updating the GitHub issue body may be used as a temporary visibility fallback, but it does not replace the required Project-field update.
+
 If validation cannot be completed because of a tool or environment failure, preserve the work if possible, record the skipped check, and notify the user.
 
 If commit or push fails, stop the batch after preserving the work locally, record the failure and changed files in the agent audit log or final report, and do not begin another issue until the repository state and authentication problem are resolved.
