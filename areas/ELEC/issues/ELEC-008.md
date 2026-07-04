@@ -7,11 +7,11 @@ priority: high
 remedy_type: federal-legislation
 legislative_status: working-draft
 federal_legislative_proposal: "../../../legislation/ELEC-008.md"
-audit_status: "T4 publication-ready audit complete; external validation needed before circulation"
-audit_score: 74
-audit_last_type: "T4 publication-ready audit"
-audit_last_date: "2026-06-28"
-audit_next: "External validation / T4 follow-up"
+audit_status: "Check audit complete; Title 18 amendment structure corrected; external validation still needed before circulation"
+audit_score: 75
+audit_last_type: "Check audit of Title 18 amendment restructure"
+audit_last_date: "2026-07-04"
+audit_next: "Qualified criminal-law, election-law, federal-courts, First Amendment, Speech or Debate, and legislative-counsel review; then targeted source-backed revisions if review identifies concrete fixes"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 adoption_score: 4
@@ -31,7 +31,7 @@ audit_history: "ELEC-008.audit.md"
 # ELEC-008 — Accountability for Coordinated Federal Election-Subversion Schemes
 
 > ## Issue Snapshot
-> **Problem:** Coordinated subversion can evade scheme-level accountability.<br />**Repair:** Create narrow predicate-act accountability framework.<br />**Vehicle:** Federal election-subversion statute ([draft](../../../legislation/ELEC-008.md)).
+> **Problem:** Coordinated subversion can evade scheme-level accountability.<br />**Repair:** Create narrow predicate-act accountability framework.<br />**Vehicle:** Title 18 amendment adding a new election-subversion chapter adjacent to existing election and political-activity offenses ([draft](../../../legislation/ELEC-008.md)).
 >
 
 ## Institutional Anomaly
@@ -111,6 +111,10 @@ Congress addressed several presidential electoral-count vulnerabilities in 2022,
 
 Transition obstruction may be one feature of a broader election-subversion scheme, but ELEC-006 addresses transition automaticity directly. ELEC-008 should treat transition obstruction only as a possible predicate or manifestation when connected to a larger coordinated scheme.
 
+### False-purpose fundraising tied to the scheme
+
+False-purpose political fundraising can function as a financing predicate when donors are induced by knowingly false material representations and the funds help sustain the coordinated scheme. The useful analogue is the alleged *We Build the Wall* fundraising pattern, where DOJ alleged that organizers solicited donations under false representations about how funds would be used. See the U.S. Attorney's Office for the Southern District of New York press release, [*Leaders Of 'We Build The Wall' Online Fundraising Campaign Charged With Defrauding Hundreds Of Thousands Of Donors*](https://www.justice.gov/usao-sdny/pr/leaders-we-build-wall-online-fundraising-campaign-charged-defrauding-hundreds-thousands). ELEC-008 should use that only as a structural comparator for knowing false-purpose fundraising, not as a generic campaign-finance or donor-fraud provision.
+
 ## Resulting Damage
 
 Coordinated election-subversion schemes can aggregate individually addressable acts into a broader effort that threatens the lawful result itself. The institutional damage is not limited to any one false document, lawsuit, pressure campaign, or obstructive act. The larger harm is that officials, courts, Congress, voters, and transition institutions may face a manufactured multi-channel crisis without a clear scheme-level accountability tool calibrated to federal-election integrity.
@@ -126,7 +130,7 @@ Coordinated election-subversion schemes can aggregate individually addressable a
 | Abusive litigation, subpoenas, audits, or investigatory demands used after factual and legal rejection | ELEC-004 addresses abusive election litigation and extraordinary process | A lawsuit, subpoena, or audit request may be lawful in isolation; the difficulty is identifying when adjudicated bad faith or improper purpose becomes one part of a coordinated scheme | Allow process abuse to serve as a predicate only after a court, tribunal, or authorized body finds bad faith, material falsity, improper purpose, contempt, sanctionable conduct, or knowing misuse |
 | Unauthorized access to election systems or materials | ELEC-007 addresses election-material custody and federal-force safeguards; other laws may address computer intrusion or election-material tampering | Unauthorized access may function as one predicate in a larger coordinated effort to manufacture doubt, obtain data, alter records, or justify official disregard | Treat unauthorized access, copying, imaging, custody, disclosure, or use of election materials or systems as predicate conduct when independently wrongful and materially connected to the scheme |
 | Transition obstruction or denial of practical effect to lawful result | ELEC-006 addresses transition automaticity and continuity | Transition obstruction may be used as downstream pressure to deny the practical effect of a lawful election result | Treat knowing violation of transition-access duties, transition court orders, or transition-continuity safeguards as predicate acts when tied to the scheme |
-| Fundraising, financing, or material assistance based on knowing false representations tied to the scheme | Existing fraud and campaign-finance laws may apply unevenly | Scheme financing may enable the coordinated pattern even where each fundraising communication is difficult to litigate separately | Permit disgorgement where funds are knowingly raised through materially false representations in furtherance of a coordinated federal election-subversion scheme |
+| Fundraising, financing, or material assistance based on knowing false representations tied to the scheme | Existing fraud and campaign-finance laws may apply unevenly; the *We Build the Wall* prosecution is a false-purpose fundraising analogue, not an election-subversion analogue | Scheme financing may enable the coordinated pattern even where each fundraising communication is difficult to litigate separately | Treat knowing material false fundraising as a predicate only when tied to the coordinated federal election-subversion scheme, and permit disgorgement where funds are knowingly raised through materially false representations in furtherance of that scheme |
 | Presidential participation or claimed official-act immunity | IMM-001 addresses criminal immunity for presidential official acts | An election-subversion statute may define prohibited scheme-level conduct, but accountability can fail if immunity doctrine bars prosecution, civil enforcement, evidence, or adjudication | ELEC-008 supplies the accountability framework; IMM-001 preserves the pathway to apply it to presidential conduct where constitutionally valid |
 
 ## Underlying Weakness
@@ -135,9 +139,9 @@ Existing law addresses many component acts, but it may not clearly identify a co
 
 ## Proposed Accountability Model
 
-Congress should consider a narrow federal election-subversion accountability statute that operates as a RICO analogue but is tailored to federal-election integrity.
+Congress should consider a narrow Title 18 amendment that operates as a RICO analogue but is tailored to federal-election integrity. The preferred vehicle is a new chapter 29A, placed adjacent to chapter 29's election and political-activity offenses rather than inside ordinary RICO or in a new federal title.
 
-The statute should require:
+The amended title 18 chapter should require:
 
 1. a coordinated course of conduct involving two or more persons;
 2. knowing and corrupt participation;
@@ -188,7 +192,7 @@ No person should be liable merely for asserting that an election was unlawful, s
 
 The closest legal analogue is RICO, which treats coordinated patterns of predicate misconduct as a distinct statutory wrong. See [18 U.S.C. chapter 96](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter96&edition=prelim). Ordinary RICO is too broad for election disputes because protected speech, litigation, recounts, contests, journalism, and congressional activity must be preserved.
 
-Existing federal criminal statutes already cover important components of the problem, including conspiracy against the United States, conspiracy against voting rights, and obstruction-related conduct. See [18 U.S.C. § 371](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section371&num=0&edition=prelim), [18 U.S.C. § 241](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section241&num=0&edition=prelim), and [18 U.S.C. § 1512](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1512&num=0&edition=prelim). But those statutes address particular theories of liability rather than a tailored election-subversion framework with election-specific safe harbors, state-nexus emergency relief, and scheme-level remedial structure.
+Existing federal criminal statutes already cover important components of the problem, including election and political-activity offenses in [18 U.S.C. chapter 29](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter29&edition=prelim), conspiracy against the United States, conspiracy against voting rights, and obstruction-related conduct. See [18 U.S.C. § 371](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section371&num=0&edition=prelim), [18 U.S.C. § 241](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section241&num=0&edition=prelim), and [18 U.S.C. § 1512](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1512&num=0&edition=prelim). But those statutes address particular theories of liability rather than a tailored election-subversion framework with election-specific safe harbors, state-nexus emergency relief, and scheme-level remedial structure.
 
 Congress also partially addressed presidential-election subversion through the Electoral Count Reform Act, but that reform hardened electoral-count procedures rather than creating scheme-level accountability. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). Any obstruction-related design must account for [*Fischer v. United States*](https://www.supremecourt.gov/opinions/23pdf/23-5572_l6hn.pdf), which narrowed the reach of 18 U.S.C. § 1512(c)(2), and [*Trump v. United States*](https://www.supremecourt.gov/opinions/23pdf/23-939_e2pg.pdf), which makes presidential-immunity and official-act evidence limits central where presidential conduct is implicated. ELEC-008 therefore uses a narrow election-specific RICO analogue with defined predicates, safe harbors, and immunity-aware limitations.
 
@@ -232,11 +236,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[74 / 100](ELEC-008.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 85 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `post-crisis-repair-mandate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[75 / 100](ELEC-008.audit.md)** (Review Ready for External Critique)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 85 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `post-crisis-repair-mandate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T4 publication-ready audit complete; external validation needed before circulation<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
+> **Audit Status:** Check audit complete; Title 18 amendment structure corrected; external validation still needed before circulation<br />**Last Audit:** Check audit of Title 18 amendment restructure<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** Qualified criminal-law, election-law, federal-courts, First Amendment, Speech or Debate, and legislative-counsel review; then targeted source-backed revisions if review identifies concrete fixes<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
 
 ## Annotation
 
@@ -256,10 +260,20 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Working Draft.** Full statutory drafting has begun. The current draft should be treated as a first-pass framework subject to comparative review of existing proposals and related scholarship. The likely model is a narrow election-specific RICO analogue, not direct incorporation of ordinary RICO.
 
-**Source Development Pending.** Further source development should review the 2022 Electoral Count Reform and Presidential Transition Improvement Act, existing election-crime statutes, obstruction statutes, RICO doctrine, state anti-subversion proposals, Protect Democracy and other reform proposals, post-2020 federal and state prosecutions, congressional election-contest procedures, Article I Section 5 doctrine, and ARRP's presidential-immunity reform.
+**Title 18 Amendment Structure.** The July 4 amendment pass converts ELEC-008 from a freestanding accountability act into a title 18 amendment adding a new chapter 29A for coordinated federal election subversion. This keeps the proposal in the criminal-law title, adjacent to existing election and political-activity offenses, while preserving its RICO-analogue structure without importing ordinary RICO's broader civil-damages model.
 
-**Quality Score.** The proposal is 74/100 after T4. Component score: Structural 8/8; Evidence 11/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 5/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. T4 strengthened source grounding and confirmed that the bill's predicate-act, safe-harbor, congressional-protection, and presidential-immunity caveats are directionally appropriate. It remains below Review Ready because direct prior-proposal research, official docket-posture verification, state-enforcement anti-weaponization analysis, budget/workload analogues, safe-harbor stress testing, Title 18 codification review, and external criminal-law, election-law, federal-courts, or legislative-counsel review remain unresolved.
+**Check Audit Correction.** The July 4 check audit preserved the chapter 29A vehicle but corrected the proposed section range from 6201-6216 to 618-633 so the new chapter sits numerically between [18 U.S.C. chapter 29](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter29&edition=prelim)'s election-and-political-activity provisions and [18 U.S.C. chapter 31](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter31&edition=prelim).
+
+**T4 Follow-Up Source Review.** The July 4, 2026 follow-up added direct prior-proposal comparators for the Presidential Election Reform Act and the Deceptive Practices and Voter Intimidation Prevention Act, and associated the Protecting Our Democracy Act with ELEC-008 as an adjacent presidential-accountability and election-integrity comparator. These sources confirm that Congress has considered narrower procedural, deceptive-practice, voter-interference, White House/DOJ-contact, and electoral-count reforms. They do not supply a complete scheme-level election-subversion framework, so ELEC-008's residual-gap theory remains plausible but still needs expert validation.
+
+**State Backstop Controls.** The amendment draft now makes the state-attorney-general and election-official backstop more abuse-resistant by requiring contemporaneous notice to the United States, recognizing federal intervention as of right, allowing federal statements of interest, consolidation, transfer, or dismissal requests, and directing dismissal or sanctions where an action is primarily partisan, chilling, duplicative, or contrary to the chapter's safe harbors.
+
+**Source Development Pending.** Further source development should review state anti-subversion proposals, Protect Democracy and other reform proposals, post-2020 federal and state prosecutions, congressional election-contest procedures, Article I Section 5 doctrine, Speech or Debate doctrine, fiscal/workload analogues, safe-harbor stress testing, and ARRP's presidential-immunity reform.
+
+**Quality Score.** The proposal is 75/100 after the July 4 Title 18 amendment restructure and check audit. Component score: Structural 8/8; Evidence 11/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. The score movement comes from improving the draft, not changing the rubric: the bill now selects a Title 18 codification strategy, adds chapter-and-table amendment language, and strengthens state-backstop anti-weaponization controls. External review remains 0/4, so the proposal should be treated as ready for expert critique rather than ready for public circulation.
 
 **Legal Fit.** Existing conspiracy, voting-rights, and obstruction statutes provide component-law support, but *Fischer* cautions against unbounded obstruction theories and *Trump v. United States* requires official-act and evidence-use limits for presidential applications. ELEC-008 should therefore remain predicate-act-based, safe-harbor-heavy, and complementary to IMM-001 rather than relying on a general obstruction or election-denial theory.
 
 **Case Posture.** The federal election-subversion prosecution did not produce adjudicated findings. DOJ's final Special Counsel report should be treated as the government's prosecution assessment and source lead, not as a judicial determination of fact. See [Final Report on the Special Counsel's Investigations and Prosecutions, Volume One](https://www.justice.gov/storage/Report-of-Special-Counsel-Smith-Volume-1-January-2025.pdf).
+
+**Next Improvement Path.** To earn a higher score under the existing rubric, ELEC-008 should be improved by incorporating qualified external review, adding source-backed fiscal/workload analogues, verifying official docket posture from primary records, and stress-testing the safe harbors against hostile readings that could chill ordinary election litigation or protected advocacy.

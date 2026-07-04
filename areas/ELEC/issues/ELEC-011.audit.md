@@ -12,6 +12,36 @@ This file preserves the full audit history for [ELEC-011](ELEC-011.md). The issu
 
 ## Audit History
 
+### 2026-07-04 — T2 development audit
+
+**Audit tier:** T2: Development audit
+
+**Audit status:** T2 development audit complete; doctrinal, algorithmic, implementation, adoption, and external-review work still needed
+
+**Proposal-quality score:** 70/100 (Substantially Developed Draft)
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 8/12; Legal Fit 7/10; Prior-Proposal 6/8; Remedy 9/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 6/8; Cogency 6/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0.
+
+**Audit scope:** Reviewed ELEC-011 issue page, audit history, model State act, reserve constitutional amendment, reserve Federal enabling act, source inventory, current audit tracker, and current public sources for Iowa redistricting law, redistricting doctrine, state voting-rights-law comparators, and algorithmic redistricting research. This was not a qualified legal review, legislative-counsel review, technical implementation review, or budget score.
+
+**Primary-law verification:** T2 verified Iowa Code chapter 42 as the strongest public state-law analogue for ELEC-011's least-complex model-law path. Iowa law assigns plan preparation to the Legislative Services Agency, uses census data, requires public bill/map/population-deviation information, contemplates up-or-down votes with only corrective amendments for the first two plans, sets population, political-subdivision, contiguity, and compactness standards, and prohibits drawing districts to favor a party, incumbent, person, group, or to augment or dilute language-minority or racial-minority voting strength. Iowa Code section 42.4 also bars use of incumbent addresses, party-registration data, previous election results, and demographic information beyond population head counts except as required by federal law.
+
+**Doctrine verification:** T2 verified official Supreme Court sources for the main doctrinal frame. *Rucho v. Common Cause* makes federal partisan-gerrymandering claims nonjusticiable while recognizing that state law, independent commissions, and Congress remain possible reform paths. *Arizona State Legislature v. Arizona Independent Redistricting Commission* supports state-law use of independent redistricting institutions for congressional redistricting. *Allen v. Milligan* and *Louisiana v. Callais* together require ELEC-011 to preserve lawful representation safeguards while avoiding race-predominant or insufficiently tailored districting rationales.
+
+**State voting-rights-law comparator finding:** T2 verified official California, New York, and Washington statutory comparators. California Elections Code sections 14025-14032 supplies an at-large vote-dilution model with district-based remedies. New York Election Law section 17-206 supplies broader voter-suppression, vote-dilution, redistricting-remedy, public-hearing, and court-retention provisions. Washington chapter 29A.92 RCW supplies protected-class equal-opportunity standards and court-supervised district-based remedies. These sources support preserving state voting-rights laws as protective floors, but they also confirm why ELEC-011 needs careful language preventing state-law remedies from becoming a broad bypass around the neutral-baseline requirement.
+
+**Algorithmic evidence finding:** T2 added Wang and Merrill's 2025 Iowa computational-redistricting paper as a current technical source lead. The paper supports transparent, nonpartisan computational baselines and simulation-based review, but it does not validate any single deterministic algorithm as a ready statutory default. The 2007 shortest-splitline paper remains a source-development lead only.
+
+**Drafting defect corrected:** Corrected duplicate subsection lettering in the model State act's permissible-deviation section by changing the second subsection (e), Burden of explanation, to subsection (f).
+
+**Score effect:** Score increased from 60 to 70. Evidence increased because T2 replaced several T1 source leads with reviewed primary or official sources. Legal Fit increased because the doctrine frame is now directly grounded in official Supreme Court opinions. Prior-Proposal and Implementation increased because Iowa, California, New York, and Washington provide direct or functional state-law analogues. Drafting remains below full credit because the algorithm-selection standard, review-body adaptation provisions, judicial fallback details, and state constitutional fit still need state-by-state legal drafting.
+
+**Remaining limits:** ELEC-011 remains below Review Ready. It still needs a T3 legal-durability and implementation audit; stronger algorithm-selection and technical-governance sources; representative state implementation comparison beyond Iowa, California, New York, and Washington; state constitutional adaptation notes; court-remedy and standing refinement; public-records and open-meetings review; cost/workload data; proposal-specific adoption evidence; and qualified election-law, voting-rights, state-legislative, technical, and legislative-counsel review.
+
+**Next audit need:** Run T3 legal-durability and implementation audit focused on algorithm selection, VRA/state-VRA tailoring, state constitutional fit, judicial fallback, costs, adoption evidence, and whether the model State act should include optional state-specific drafting brackets.
+
+**Audit process feedback:** This T2 audit usefully moved ELEC-011 out of purely structural status, but the proposal should not be treated as publication-ready. Future work should resist overclaiming algorithmic neutrality and should document exactly which data, criteria, and review body a State would use.
+
 ### 2026-06-29 — T1 framework check
 
 **Audit tier:** T1: Framework check

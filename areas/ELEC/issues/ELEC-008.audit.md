@@ -12,6 +12,84 @@ This file preserves the full audit history for [ELEC-008](ELEC-008.md). The issu
 
 ## Audit History
 
+### 2026-07-04 — False-Fundraising Mapping Update
+
+**Audit status:** Mapping update complete; no score change
+
+**Proposal-quality score:** 75/100 (Review Ready for External Critique); no score change
+
+**Scope reviewed:** Updated the issue-page manifestation and mapping treatment for fundraising, financing, or material assistance based on knowing false representations tied to the coordinated election-subversion scheme.
+
+**Source added:** Added the U.S. Attorney's Office for the Southern District of New York press release on the alleged *We Build the Wall* fundraising scheme as a structural comparator for false-purpose fundraising. The source is used only to illustrate the fundraising-fraud pattern: solicitation through material representations about use of funds, alleged knowing falsity, and concealed diversion. It is not treated as an election-subversion analogue.
+
+**Boundary preserved:** ELEC-008 remains narrower than generic donor fraud or campaign fundraising misconduct. The predicate applies only where knowing material false fundraising is tied to the coordinated federal election-subversion scheme and satisfies the chapter's other elements.
+
+**Score finding:** No score change. The update improves mapping clarity and source support, but does not supply external expert review, fiscal/workload sourcing, docket-posture verification, or safe-harbor stress testing.
+
+### 2026-07-04 — Check Audit of Title 18 Amendment Restructure
+
+**Audit status:** Check audit complete; amendment structure corrected; external validation still needed before circulation
+
+**Proposal-quality score:** 75/100 (Review Ready for External Critique); no score change
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 11/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. Total: 75.
+
+**Scope reviewed:** Follow-up check of the Title 18 amendment restructure, including issue metadata, proposal-scoring block, audit sidecar, bill headings, internal statutory references, source-inventory row for 18 U.S.C. chapter 29, and repository validation checks.
+
+**Finding corrected:** The amendment vehicle was right, but the proposed chapter section range was too remote from chapter 29. Because [18 U.S.C. chapter 29](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter29&edition=prelim) runs through the existing election-and-political-activity section range before [18 U.S.C. chapter 31](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter31&edition=prelim) begins at section 641, the check audit corrected the proposed chapter 29A numbering from sections 6201-6216 to sections 618-633 and updated the table-of-chapters entry to start at section 618.
+
+**Consistency finding:** The issue page, audit sidecar, source inventory, and bill remain aligned on the Title 18 chapter 29A vehicle, narrow RICO-analogue framing, state-backstop anti-weaponization controls, 75/100 score, Implementation 6/8 rationale, and External Review 0/4 limitation.
+
+**Remaining blockers:** Qualified external legal and legislative-counsel review, source-backed fiscal/workload analogue, official docket-posture verification, and safe-harbor stress testing remain necessary before public circulation.
+
+**Validation:** Source CSV parsing, whitespace validation, and internal bill cross-reference checks passed after the correction. A targeted reference scan found no stale 6201-6216 operative references in the bill; remaining mentions are historical/correction notes.
+
+### 2026-07-04 — Title 18 Amendment Restructure / Implementation Improvement
+
+**Audit status:** Title 18 amendment restructure complete; review ready for external critique, external validation still needed before circulation
+
+**Proposal-quality score:** 75/100 (Review Ready for External Critique); increased from 74
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 11/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. Total: 75.
+
+**Scope reviewed:** This pass implemented the user's decision to restructure ELEC-008 as an amendment rather than a freestanding new-title proposal. It reviewed the existing bill, issue page, audit history, source inventory, and the current Title 18 election-and-political-activity hook before revising the draft.
+
+**Vehicle finding:** ELEC-008 now uses a title 18 amendment posture. The bill would amend part I of title 18 by inserting a new chapter 29A, "Coordinated Federal Election Subversion," after chapter 29, "Elections and Political Activities." This keeps the proposal in the criminal-law title, adjacent to existing election-related offenses, while preserving the election-specific RICO-analogue design without importing ordinary RICO's broader civil-damages architecture.
+
+**Implementation improvement:** The score increases by one point because the draft no longer leaves codification strategy unresolved. The bill now contains title 18 amendment language, a proposed new chapter structure, section numbering, a table-of-chapters clerical amendment, and internal references adjusted from freestanding-act language to chapter-based language.
+
+**Anti-weaponization improvement:** The state-attorney-general and election-official backstop was tightened by requiring contemporaneous notice to the United States, recognizing federal intervention as of right, allowing federal statements of interest, consolidation, transfer, or dismissal requests, and adding dismissal or sanctions where an action is primarily partisan, chilling, duplicative, or inconsistent with the chapter's safe harbors.
+
+**No external-review finding:** External Review remains 0/4. The score movement reflects concrete article and bill improvements under the existing rubric, not a rubric change and not expert validation.
+
+**Remaining blockers:** ELEC-008 still needs qualified criminal-law, election-law, federal-courts, First Amendment, Speech or Debate, and legislative-counsel review; source-backed fiscal or workload analogues; official docket-posture verification from primary records; and a safe-harbor stress test against hostile readings before public circulation.
+
+**Defects corrected during pass:** Converted the bill from freestanding act posture to title 18 amendment posture; added new chapter 29A and table-of-chapters language; updated issue-page vehicle, proposal survey, metadata, scoring annotation, and next-improvement path; and added a source-inventory row for 18 U.S.C. chapter 29 as the existing statutory hook.
+
+**Next audit need:** External validation and targeted revisions based on qualified review. Future score movement should come from expert-backed legal revisions, fiscal/workload sourcing, docket-posture verification, or stress-tested safe-harbor language.
+
+### 2026-07-04 — External-Validation Substitute / T4 Follow-Up
+
+**Audit status:** T4 follow-up complete; external validation still needed before circulation
+
+**Proposal-quality score:** 74/100 (Substantially Developed Draft); no score change
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 11/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 5/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. Total: 74.
+
+**Scope reviewed:** This follow-up treated the requested "next audit" as the next useful internal step after T4, not as external expert review. It reviewed ELEC-008 issue page, bill, audit history, source rows, current worktree status, and public prior-proposal comparators for electoral-count reform, deceptive practices, voter interference, White House/DOJ communications, and broader election-integrity reforms.
+
+**Prior-proposal refresh:** Added direct source rows for the House Presidential Election Reform Act, H.R. 8873, and the Deceptive Practices and Voter Intimidation Prevention Act of 2021, S. 1840. Also associated the existing Protecting Our Democracy Act source row with ELEC-008. These sources improve the prior-proposal map: H.R. 8873 and S. 4573/ECRA address electoral-count and certificate procedures; S. 1840 addresses deceptive practices, false voting-related statements, voter interference, corrective DOJ communications, private preventive relief, and criminal penalties; H.R. 5314 addresses presidential-power checks, White House/DOJ communication logs, foreign-contact reporting, deepfakes, and other election-integrity/security mechanisms.
+
+**Residual-gap finding:** The prior-proposal refresh did not identify a public congressional bill that fully duplicates ELEC-008's narrow scheme-level framework: coordinated course of conduct, two independently wrongful predicate acts, corrupt objective, safe harbors, congressional-proceeding limits, presidential-immunity caveats, and state-nexus equitable backstop. The residual-gap theory remains plausible.
+
+**No score change finding:** The article improved modestly under the existing rubric because the prior-proposal record is clearer, but not enough to move the Proposal Quality Score. External review remains 0/4. The follow-up did not complete qualified legal review, official docket-posture verification from primary docket records, Title 18 codification selection, fiscal/workload sourcing, state-enforcement anti-weaponization redesign, or full safe-harbor stress testing.
+
+**Improvement path for future score movement:** A higher score should come from improving the article and bill, not changing the rubric. The next concrete improvements are: obtain qualified criminal-law/election-law/federal-courts/First Amendment/Speech-or-Debate/legislative-counsel review; add source-backed fiscal or workload analogues; decide whether ELEC-008 belongs as a new Title 18 chapter, an amendment to chapter 29/election statutes, or a narrower package amending existing statutes; stress-test safe harbors against hostile readings; and decide whether the state-attorney-general backstop should be optional, narrowed, or conditioned on stricter federal notice/intervention and consolidation rules.
+
+**Defects corrected during follow-up:** Updated issue metadata and annotation to reflect T4 follow-up completion without changing the score; added prior-proposal comparator rows to the source inventory; associated Protecting Our Democracy Act with ELEC-008; and updated bill source notes to name the new comparators.
+
+**Next audit need:** Qualified external validation and targeted revisions based on that review. In-session internal audits should not move ELEC-008 to Review Ready without either documented expert review or source-backed fixes to the remaining legal, implementation, codification, and safe-harbor defects.
+
 ### 2026-06-24 — Initial framework and inventory audit
 
 **Audit status:** Structural audit complete; advanced audits pending

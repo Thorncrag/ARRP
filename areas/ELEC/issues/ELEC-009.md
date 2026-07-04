@@ -7,11 +7,12 @@ priority: high
 remedy_type: constitutional-amendment
 legislative_status: working-draft
 constitutional_proposal: "../../../legislation/ELEC-009-amendment.md"
-audit_status: "Targeted Change Audit complete; external validation and implementation design pending"
-audit_score: 73
-audit_last_type: "Change Audit"
-audit_last_date: "2026-06-29"
-audit_next: "External validation / T4 follow-up"
+enabling_legislation: "../../../legislation/ELEC-009.md"
+audit_status: "First draft enabling legislation complete; external validation and majority-mechanism refinement still pending"
+audit_score: 75
+audit_last_type: "First draft enabling legislation"
+audit_last_date: "2026-07-04"
+audit_next: "Qualified constitutional-law, election-law, election-administration, and legislative-counsel review; majority-mechanism selection or defense; official state-by-state compact verification; fiscal and workload analogues"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -33,7 +34,7 @@ audit_history: "ELEC-009.audit.md"
 # ELEC-009 — Electoral College Structure and National Popular Vote
 
 > ## Issue Snapshot
-> **Problem:** Electoral College can override national vote.<br />**Repair:** Establish direct national presidential election.<br />**Vehicle:** Constitutional amendment ([draft](../../../legislation/ELEC-009-amendment.md)).
+> **Problem:** Electoral College can override national vote.<br />**Repair:** Establish direct national presidential election.<br />**Vehicle:** Constitutional amendment ([draft](../../../legislation/ELEC-009-amendment.md)) plus title 52 enabling legislation ([first draft](../../../legislation/ELEC-009.md)).
 >
 
 ## Institutional Anomaly
@@ -90,6 +91,8 @@ Prior reform models include constitutional amendments for direct popular electio
 
 The compact remains a live staged model rather than a completed substitute for amendment. National Popular Vote's current status page states that the compact has been enacted by 19 jurisdictions possessing 222 electoral votes and would take effect when enacted by states possessing an additional 48 electoral votes. See [National Popular Vote state status](https://www.nationalpopularvote.com/state-status). Because that source is maintained by the compact's advocacy organization, publication-ready treatment should verify individual state enactments through state legislative or code sources.
 
+The July 4, 2026 follow-up confirms that this compact-status posture remains materially current: the compact sponsor identifies Virginia as the newest enacted jurisdiction and continues to report 19 jurisdictions, 222 electoral votes, and 48 additional electoral votes needed for activation. That development strengthens the compact-as-live-alternative discussion but does not make the compact equivalent to Article V repeal, and it does not remove the need for official state-by-state verification before publication-ready reliance.
+
 Recent congressional direct-election proposals confirm that ELEC-009 has direct legislative analogues but also that the proposal has not advanced far in modern Congress. In the 116th Congress, [H.J.Res. 7](https://www.congress.gov/bill/116th-congress/house-joint-resolution/7), [S.J.Res. 16](https://www.congress.gov/bill/116th-congress/senate-joint-resolution/16), and [S.J.Res. 17](https://www.congress.gov/bill/116th-congress/senate-joint-resolution/17) each proposed constitutional amendment language for direct election or abolition of the Electoral College, but each remained introduced or referred rather than advancing to proposal by Congress.
 
 The Electoral Count Reform Act improved counting procedures but left the Electoral College structure intact. See [Pub. L. No. 117-328, div. P](https://www.congress.gov/bill/117th-congress/house-bill/2617). ELEC-009 treats compact and allocation reforms as possible interim models but selects constitutional replacement as the durable remedy.
@@ -110,6 +113,28 @@ The most durable method of guaranteeing that the national popular-vote winner be
 
 The National Popular Vote Interstate Compact is less procedurally difficult than amendment but does not abolish the Electoral College, depends on coordinated state enactments, and presents unresolved constitutional and operational risks. It should be evaluated as an interim or alternative mechanism rather than presumed equivalent to constitutional replacement.
 
+## Implementation Architecture
+
+ELEC-009 cannot rely on amendment text alone. A direct national presidential election would require implementing legislation that converts state-administered vote totals into a lawful national result under uniform federal rules.
+
+The first enabling-legislation draft now uses an amendment to the existing federal election-administration title, principally title 52, rather than a freestanding election code. Title 52 already houses federal voting, election-administration, and campaign-finance statutes, including the Help America Vote Act framework. Title 3 would still require conforming amendments after ratification because its current presidential-election provisions are built around electors, certificates of ascertainment, electoral-vote transmission, and congressional counting.
+
+The [Direct Presidential Election Implementation Act](../../../legislation/ELEC-009.md) is a first draft. It would create a new title 52 direct-presidential-election chapter for State administration under uniform federal rules, joint tickets, ballot access, State vote certificates, national canvass, recounts, contests, plurality-default operation, candidate substitution, emergencies, exact ties, public guidance, and enforcement. It would also add a title 3 conforming section making elector-based procedures inapplicable to covered direct presidential elections while preserving succession and vacancy law.
+
+The implementation architecture should include:
+
+1. **Codification vehicle.** The enabling act should primarily amend title 52, either by adding a direct-presidential-election subchapter to the existing election-administration framework or by creating a new title 52 chapter for national presidential canvass, certification, recount, contest, and transition rules.
+2. **National canvass and certification.** States should continue administering voting, but federal law should prescribe uniform certification content, transmission format, authentication standards, public posting, correction procedures, and final national aggregation. Existing [3 U.S.C. § 5](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section5&num=0&edition=prelim) supplies a useful procedural analogue because it requires state executive certification, transmission to the Archivist, certificate security features, treatment of court-ordered revisions, and expedited federal judicial procedures for presidential-election certification disputes.
+3. **Election-administration floor.** Congress should adapt existing federal election-administration infrastructure rather than inventing every rule from scratch. The Help America Vote Act framework in [52 U.S.C. chapter 209](https://uscode.house.gov/view.xhtml?path=/prelim@title52/subtitle2/chapter209&edition=prelim) is relevant because it already addresses election-administration improvements, the Election Assistance Commission, voting-system guidance, testing, certification, and federal-state implementation tools.
+4. **Title 3 conforming amendments.** Because direct election would abolish presidential electors, implementing legislation should repeal, supersede, or conform Title 3 provisions that assume elector appointment, certificates of ascertainment, certificates of vote, electoral-vote transmission, and congressional counting. Some Title 3 procedures should be reused as analogues, but Title 3 should not be the main affirmative home for the new national popular-vote regime.
+5. **Recount triggers.** Implementing legislation should define automatic and candidate-requested recount thresholds, whether recounts occur nationwide or only in affected jurisdictions, how corrected state totals are aggregated, who bears costs, and how recount deadlines interact with transition timing.
+6. **Contest procedure.** Direct election would need an expedited federal contest path for disputes capable of changing the national result. A three-judge district-court model with expedited Supreme Court review, analogous to the procedure in 3 U.S.C. § 5(d), should be tested against due process, federalism, timing, and administrability concerns.
+7. **Majority mechanism.** The amendment and first enabling draft currently use a national plurality default while allowing Congress to enact a uniform runoff, ranked-choice tabulation, or other majority mechanism. That default is legally simple but politically and legitimacy-sensitive. Publication-ready work should either defend plurality as the default or select a concrete majority mechanism.
+8. **Ballot access and candidate continuity.** Federal law should establish minimum national rules for ballot access, write-in treatment, joint-ticket substitution, candidate death or incapacity, withdrawal, replacement deadlines, and party or independent-candidate certification.
+9. **Emergency and unresolved-contest rules.** The enabling act should specify what happens if a state fails to certify, a disaster prevents voting in part of a state, litigation remains unresolved, or no final national result is available by transition deadlines.
+
+This architecture does not require all election administration to become federal. The better model is state administration under uniform federal rules, with federal procedures for national aggregation, expedited review, and result finality.
+
 ## Repair and Prevention
 
 Congress and the States should adopt a constitutional amendment abolishing presidential electors and providing for direct national election of the President and Vice President by the people of the United States.
@@ -126,9 +151,10 @@ The amendment should:
 8. supersede inconsistent constitutional provisions; and
 9. provide a delayed effective date sufficient for implementation.
 
-## Proposed Constitutional Amendment
+## Proposed Amendment and Enabling Legislation
 
 - [Direct Election of the President and Vice President Amendment](../../../legislation/ELEC-009-amendment.md)
+- [Direct Presidential Election Implementation Act](../../../legislation/ELEC-009.md)
 
 ## Relationship to Adjacent Proposals
 
@@ -145,11 +171,11 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[73 / 100](ELEC-009.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 95 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `constitutional-amendment-environment`<br />**Development Priority:** `conditional`
+> **Proposal Quality Score:** **[75 / 100](ELEC-009.audit.md)** (Review Ready for External Critique)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 95 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `constitutional-amendment-environment`<br />**Development Priority:** `conditional`
 >
 > —
 >
-> **Audit Status:** Targeted Change Audit complete; external validation and implementation design pending<br />**Last Audit:** Change Audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-009 audit history](ELEC-009.audit.md)
+> **Audit Status:** First draft enabling legislation complete; external validation and majority-mechanism refinement still pending<br />**Last Audit:** First draft enabling legislation<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified constitutional-law, election-law, election-administration, and legislative-counsel review; majority-mechanism selection or defense; official state-by-state compact verification; fiscal and workload analogues<br />**Full Audit History:** [ELEC-009 audit history](ELEC-009.audit.md)
 
 ## Annotation
 
@@ -161,9 +187,15 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 
 **Constitutional Constraint.** Direct abolition of the Electoral College requires constitutional amendment. State-law allocation reforms and the interstate compact may alter practical outcomes without formal abolition, but they raise different questions of durability, administration, and constitutional validity.
 
-**Implementation Required.** The amendment must be paired with implementing legislation for national certification, recount thresholds, contest procedures, ballot access, candidate replacement, tie resolution, transition access, and emergency contingencies.
+**Compact Status Refresh.** The July 4, 2026 follow-up confirms the compact remains live but incomplete. National Popular Vote reports 19 jurisdictions with 222 electoral votes, including Virginia after its 2026 enactment, leaving 48 electoral votes short of activation. This supports treating the compact as a serious staged alternative but not as a completed substitute for Article V amendment.
 
-**Quality Score.** The proposal is 73/100 after the June 29, 2026 targeted Change Audit. Component score: Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. The score increased because Pew 2024 and Gallup 2020 provide cited, source-inventoried public-support evidence for national popular-vote reform and constitutional-amendment framing. The proposal remains below Review Ready because older historical examples, state-by-state compact verification, compact legality, majority-mechanism selection, implementing legislation, budget/workload analogues, and external constitutional-law or election-law review remain unresolved.
+**Implementation Required.** The amendment must be paired with implementing legislation for national certification, recount thresholds, contest procedures, ballot access, candidate replacement, tie resolution, transition access, and emergency contingencies. The July 4 implementation audit identified the core architecture and statutory analogues, and the first title 52 enabling draft now supplies a concrete starting text. It still requires expert review, refinement, and fiscal/workload support before publication-ready circulation.
+
+**Implementation Architecture.** The July 4 implementation audit adds a source-backed outline for national canvass, certification, recounts, contests, majority mechanism, ballot access, candidate continuity, emergencies, and unresolved contests. The likely enabling-legislation vehicle is a title 52 amendment, using 52 U.S.C. chapter 209 as an election-administration infrastructure analogue, with conforming title 3 amendments to remove or adapt obsolete elector-based machinery. It uses 3 U.S.C. § 5 as an expedited presidential-election certification analogue, not as the primary codification home.
+
+**First Draft Enabling Legislation.** The July 4, 2026 first draft adds the [Direct Presidential Election Implementation Act](../../../legislation/ELEC-009.md). The draft creates a title 52 direct-presidential-election chapter, assigns ministerial national canvass duties, requires State presidential vote certificates, defines recount and contest paths, uses three-judge federal review with direct Supreme Court appeal for result-affecting contests, keeps a national plurality default, permits a later uniform majority mechanism, addresses candidate substitution and emergencies, creates an exact-tie runoff fallback, and adds a title 3 conforming amendment for elector-based provisions.
+
+**Quality Score.** The proposal is 75/100 after the July 4, 2026 first draft enabling-legislation pass. Component score: Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 7/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. The score movement comes from improving the issue itself, not changing the rubric: ELEC-009 now has actual title 52 implementation text rather than only a source-backed implementation architecture. The proposal reaches Review Ready for External Critique, but it is not publication-ready. The majority mechanism remains unresolved, the exact-tie runoff and Archivist/EAC administration model need expert testing, compact legality and official state-by-state compact verification remain incomplete, budget/workload analogues are missing, and external constitutional-law or election-law review remains unavailable.
 
 **Adoption Score.** Adoption Score is 4/12 (Limited Adoption Basis). Pew 2024 supports the underlying national-popular-vote reform principle with current national polling. Gallup 2020 is older but remains probative because it asks the more mechanism-specific question whether the Constitution should be amended so the national popular-vote winner becomes President. The adoption record remains limited because the project has not identified state-level ratification evidence, current sponsor strength, a verified bipartisan Article V path, external validator support, or public support for this draft amendment's full implementation architecture.
 

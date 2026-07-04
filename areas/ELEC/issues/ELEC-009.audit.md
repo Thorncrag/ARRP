@@ -14,6 +14,84 @@ This file preserves the full audit history for [ELEC-009](ELEC-009.md). The issu
 
 This file now contains issue-specific audit entries and migrated inventory-level audit summaries.
 
+### 2026-07-04 — First Draft Enabling Legislation
+
+**Audit status:** First draft enabling legislation complete; external validation and majority-mechanism refinement still pending
+
+**Proposal-quality score:** 75/100 (Review Ready for External Critique); increased from 74
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 7/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. Total: 75.
+
+**Scope reviewed:** Drafted the first ELEC-009 enabling act after the vehicle-clarification audit concluded that the implementation bill should primarily amend title 52, with title 3 conforming amendments for elector-based provisions.
+
+**Draft added:** Added `legislation/ELEC-009.md`, the Direct Presidential Election Implementation Act. The draft would add a proposed title 52 chapter 211 for direct presidential election, covering State administration under uniform Federal rules, joint tickets, ballot access, State presidential vote certificates, national canvass, recounts, contests, plurality-default operation, future uniform majority mechanisms, candidate substitution, emergencies, exact ties, regulations and guidance, and enforcement. It also adds a title 3 conforming section making elector-based procedures inapplicable to covered direct presidential elections while preserving succession and vacancy law.
+
+**Source-backed statutory hooks:** The draft uses 52 U.S.C. chapter 209 and the title 52 structure as the election-administration analogue and codification home; 3 U.S.C. chapter 1 and 3 U.S.C. § 5 as elector-system and expedited-review analogues; and 28 U.S.C. §§ 2284 and 1253 for the three-judge/direct-appeal contest model.
+
+**Score movement:** Implementation increases from 6/8 to 7/8 because the proposal now has actual statutory implementation text rather than only an architecture outline. No other component changes. Abuse Resistance remains 5/8 because the draft still needs stress testing for recount gaming, ballot-access fights, exact-tie procedures, emergency voting orders, State noncertification, and litigation timing. External Review remains 0/4.
+
+**Review-ready boundary:** The proposal now reaches Review Ready for External Critique, but it is not publication-ready. The plurality default still needs either a stronger defense or replacement with a selected majority mechanism; the exact-tie runoff fallback may be difficult to administer before January 20; the Archivist/EAC ministerial administration model needs constitutional and practical review; compact legality and official state-by-state compact verification remain incomplete; and fiscal/workload analogues remain missing.
+
+**Next audit need:** Qualified constitutional-law, election-law, election-administration, and legislative-counsel review of the enabling act; majority-mechanism selection or defense; official state-by-state compact verification; fiscal/workload analogues for recount, national canvass, certification, litigation, accessibility, language access, cybersecurity, and emergency administration.
+
+### 2026-07-04 — Enabling-Legislation Vehicle Clarification
+
+**Audit status:** Enabling-legislation vehicle clarified; no score change
+
+**Proposal-quality score:** 74/100 (Substantially Developed Draft); no score change
+
+**Scope reviewed:** Clarified the likely statutory home for ELEC-009's post-ratification enabling legislation after the implementation-architecture audit.
+
+**Vehicle finding:** The enabling act should likely be drafted primarily as amendments to title 52, the federal election-law title, rather than as a freestanding election code. Title 52 already houses federal voting and election-administration statutes, including the Help America Vote Act framework in 52 U.S.C. chapter 209. Title 3 should remain relevant for conforming amendments because existing presidential-election provisions are built around elector appointment, certificates of ascertainment, certificates of vote, electoral-vote transmission, and congressional counting.
+
+**Boundary preserved:** 3 U.S.C. § 5 remains a useful procedural analogue for certification, authentication, expedited review, and direct Supreme Court review, but it should not be treated as the primary affirmative home for a direct national popular-vote regime after electors are abolished.
+
+**Score finding:** No score change. This improves the implementation path and codification theory, but ELEC-009 still lacks a drafted title 52 enabling act, selected majority mechanism, official state-by-state compact verification, budget/workload analogues, and external constitutional-law or election-law review.
+
+### 2026-07-04 — Implementation-Architecture Audit
+
+**Audit status:** Implementation-architecture audit complete; external validation and implementing legislation still pending
+
+**Proposal-quality score:** 74/100 (Substantially Developed Draft); increased from 73
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 6/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. Total: 74.
+
+**Scope reviewed:** This audit treated the user's "next audit" request as the next useful internal ELEC-009 step after the T4 follow-up substitute. Because external constitutional-law, election-law, election-administration, and legislative-counsel review remains unavailable in-session, the audit focused on implementation architecture.
+
+**Implementation finding:** ELEC-009 previously identified implementation as necessary but did not meaningfully structure the enabling architecture. The issue page now distinguishes amendment text from the required implementation layer and outlines national canvass and certification, election-administration floor, recount triggers, contest procedure, majority mechanism, ballot access and candidate continuity, emergency rules, unresolved-contest treatment, and the state-administered/federally uniform model.
+
+**Source-backed analogues added:** The audit associated 3 U.S.C. § 5 with ELEC-009 as a presidential-election certification, transmission, authentication, and expedited-contest analogue, while preserving that it remains an elector-system statute rather than a direct-election model. The audit also associated 52 U.S.C. chapter 209 with ELEC-009 as a Help America Vote Act election-administration infrastructure analogue, not as a complete national-popular-vote implementation scheme.
+
+**Score movement:** Implementation increases from 5/8 to 6/8 because the article now provides a concrete source-backed implementation architecture rather than only a general implementation warning. No other component changes. The proposal remains below Review Ready because it still lacks actual implementing legislation, a selected majority mechanism, official state-by-state compact verification, compact legality analysis, historical-source cleanup, budget/workload analogues, and external review.
+
+**Issue-to-amendment alignment:** No material discrepancy identified. The amendment remains appropriately constitutional-level and does not attempt to codify all implementation details in constitutional text. The amendment drafting notes now point to the enabling-legislation architecture.
+
+**Next audit need:** Draft or outline enabling legislation for direct national presidential election, including majority mechanism, recount thresholds, national certification, contest jurisdiction, result finality, ballot access, candidate replacement, ties, emergency voting interruptions, transition timing, and unresolved contests; then obtain qualified external review.
+
+### 2026-07-04 — T4 Follow-Up Substitute / Current-Source and Implementation-Readiness Audit
+
+**Audit status:** T4 follow-up substitute complete; external validation and implementation design still pending
+
+**Proposal-quality score:** 73/100 (Substantially Developed Draft); no score change
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 8/8; Remedy 9/12; Implementation 5/8; Abuse Resistance 5/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. Total: 73.
+
+**Scope reviewed:** This follow-up reviewed the ELEC-009 issue page, constitutional amendment draft, audit history, source inventory, current compact-status source, current public-source leads for congressional direct-election proposals, and repository state. It was treated as an in-session substitute for the next useful T4 follow-up, not as external expert review.
+
+**Current compact-status finding:** National Popular Vote's current status page continues to report 19 jurisdictions possessing 222 electoral votes, with 48 additional electoral votes needed for activation. The page now identifies Virginia as an enacted jurisdiction after its 2026 enactment. This confirms the issue page's compact-as-live-staged-alternative posture but does not make the compact a completed substitute for Article V replacement.
+
+**Source-quality caution:** The compact-status source is maintained by the compact advocacy organization. It is useful for current tracking and links to official state bill pages, but publication-ready reliance still requires official state-by-state verification through enacted laws or state legislative records. The Virginia official bill pages were identified through the compact page, but the available in-session rendering required JavaScript and did not provide extractable bill text.
+
+**Current prior-proposal finding:** Public-source discovery did not identify a clearly advanced current 119th Congress direct-election constitutional amendment comparable to the 116th Congress examples already tracked. The audit does not treat this as exhaustive Congress.gov research; direct Congress.gov advanced search and sponsor/cosponsor review remain needed before publication-ready prior-proposal claims.
+
+**Issue-to-amendment alignment:** No material discrepancy identified. The issue page and amendment text remain aligned on direct election, joint tickets, abolition of presidential electors, default plurality with congressional authority to create a uniform majority mechanism, congressional implementation power, state administration subject to uniform federal rules, supersession of inconsistent constitutional provisions, and delayed effective date.
+
+**No score change finding:** The follow-up improves current-status clarity but does not change the component scores. Evidence remains 10/12 because modern divergence and polling are sourced, but older historical examples and official compact verification remain incomplete. Implementation remains 5/8 because the amendment still lacks implementing legislation or a concrete majority/recount/contest architecture. Abuse Resistance remains 5/8 because compact legality, recount incentives, ballot-access disputes, and litigation/contingency design remain unresolved. External Review remains 0/4.
+
+**Defects corrected during follow-up:** Updated issue metadata, compact-status discussion, annotation, Proposal Scoring block, and audit history to reflect the July 4 current-status and implementation-readiness audit.
+
+**Next audit need:** Qualified constitutional-law, election-law, election-administration, and legislative-counsel review; official state-by-state compact verification; current Congress.gov advanced search for direct-election proposals and sponsor strength; majority-mechanism selection; implementation architecture; budget/workload analogue; and historical-source cleanup for 1876, 1888, and 1824.
+
 ### 2026-06-29 — Targeted Change Audit / adoption-evidence rebaseline
 
 **Audit status:** Targeted Change Audit complete; external validation and implementation design pending

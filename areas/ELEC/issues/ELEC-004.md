@@ -7,9 +7,9 @@ priority: high
 remedy_type: coupled-federal-and-model-state-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
-audit_status: "Targeted T4 source/comparator follow-up complete; external legal review and additional primary-source expansion needed"
-audit_score: 73
-audit_last_type: "Targeted T4 source/comparator follow-up"
+audit_status: "Review ready for external critique; external legal review and additional primary-source expansion needed"
+audit_score: 75
+audit_last_type: "Score recalibration / review-ready threshold"
 audit_last_date: "2026-07-04"
 audit_next: "Qualified federal-courts/election-law review, Nevada primary order retrieval, representative state comparison beyond Nevada, title 28 codification decision, and Petition Clause review"
 audit_rubric_version: "2026-06-27.2"
@@ -174,11 +174,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[73 / 100](ELEC-004.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[75 / 100](ELEC-004.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 72 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** Targeted T4 source/comparator follow-up complete; external legal review and additional primary-source expansion needed<br />**Last Audit:** Targeted T4 source/comparator follow-up<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review, Nevada primary order retrieval, representative state comparison beyond Nevada, title 28 codification decision, and Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** Review ready for external critique; external legal review and additional primary-source expansion needed<br />**Last Audit:** Score recalibration / review-ready threshold<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review, Nevada primary order retrieval, representative state comparison beyond Nevada, title 28 codification decision, and Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 
@@ -194,11 +194,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Federalism.** Federal legislation should govern federal courts and federal-election-related proceedings. States should be encouraged, not commandeered, to adopt parallel procedures for state courts and state-law contests.
 
-**Targeted Source / Comparator Follow-Up.** The July 4, 2026 follow-up verified primary order support for the Michigan sanctions manifestation, added a Georgia hearing transcript source for *Pearson v. Kemp*, and added official Nevada Anti-SLAPP and election-contest statutory comparators. The pass did not retrieve a primary Nevada *Law v. Whitmer* order, replace the Wisconsin mirror with an official Seventh Circuit PDF, complete representative-state review beyond Nevada, or supply qualified external legal review.
+**Targeted Source / Comparator Follow-Up.** The July 4, 2026 follow-up verified primary order support for the Michigan sanctions manifestation, added a Georgia hearing transcript source for *Pearson v. Kemp*, and added official Nevada Anti-SLAPP and election-contest statutory comparators. The same-day score recalibration treats that work as enough to move ELEC-004 into Review Ready status for knowledgeable external critique. The pass did not retrieve a primary Nevada *Law v. Whitmer* order, replace the Wisconsin mirror with an official Seventh Circuit PDF, complete representative-state review beyond Nevada, or supply qualified external legal review.
 
 **Source Development Pending.** Further development should cite representative cases and orders from Nevada and other election proceedings, together with additional state Anti-SLAPP analogues, state election-contest statutes, ballot-secrecy rules, open-records limits, and representative state court-rule constraints. Pennsylvania has direct Third Circuit source support; Michigan now has primary order support; Georgia now has hearing-transcript support; Wisconsin has a reviewed Seventh Circuit opinion mirror but should still be replaced or supplemented with the official court PDF if available; and Nevada still needs primary-order retrieval or narrower phrasing.
 
-**Quality Score.** The 73/100 score reflects a Substantially Developed Draft after T4 follow-up. The current component calculation is: Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior-Proposal 5/8; Remedy 9/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. The follow-up adds *Berk v. Choy*, official Federal Rules source support, a direct 3 U.S.C. § 5 expedited-procedure analogue, a Wisconsin opinion source lead, an express federal-statutory-procedure clause in the draft, verified Michigan order support, Georgia transcript support, and Nevada statutory comparators. The proposal remains below Review Ready because the Nevada primary order, broader representative-state implementation comparison, Petition Clause and First Amendment limits, title 28 procedural vehicle, and qualified external review remain unresolved.
+**Quality Score.** The 75/100 score reflects a Review Ready proposal after T4 follow-up and same-day score recalibration. The current component calculation is: Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior-Proposal 5/8; Remedy 9/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. The recalibration raises Evidence from 9 to 10 because the follow-up replaced the Michigan source lead with a verified primary sanctions order, added a Georgia primary hearing transcript, and added reviewed source-inventory rows for the new materials. It raises Implementation from 6 to 7 because the Nevada statutory comparison now gives the state-model component a concrete implementation comparator for Anti-SLAPP procedure, election contests, presidential-elector timing, and ballot-inspection limits. Review Ready means strong enough for knowledgeable external critique; it does not mean publication-ready. The Nevada primary order, broader representative-state implementation comparison, Petition Clause and First Amendment limits, title 28 procedural vehicle, and qualified external review remain unresolved.
 
 **Adoption Score.** The 4/12 score is limited. ELEC-004 has a clear procedural analogue in Anti-SLAPP law and a staged federal/state vehicle, but T1 did not identify proposal-specific polling, sponsor coalitions, administrator or court-administration support, bipartisan legislative records, or enacted election-specific Anti-SLAPP analogues.
 

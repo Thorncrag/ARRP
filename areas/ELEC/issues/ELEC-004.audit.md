@@ -12,9 +12,25 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 ## Audit History
 
+### 2026-07-04 — Score Recalibration / Review-Ready Threshold
+
+**Audit status:** Review ready for external critique; external legal review and additional primary-source work needed
+
+**Scope:** This same-day score recalibration reviewed the July 4 targeted source/comparator follow-up against the project scoring bands. No new source research was performed in this recalibration. The purpose was to decide whether the verified Michigan order, Georgia transcript, and Nevada statutory comparators should move ELEC-004 across the Review Ready threshold.
+
+**Threshold finding:** The project rubric places Review Ready at 75-84, so a one-point increase from 73 would not change the threshold status. The current record supports a two-point increase to 75 because the July 4 follow-up resolved enough of the previously identified source and implementation uncertainty to justify component-level movement while still preserving the remaining caveats.
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior-Proposal 5/8; Remedy 9/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. Final Proposal Quality Score: 75/100 (Review Ready).
+
+**Score effect:** Score increased from 73 to 75. Evidence increases from 9 to 10 because the follow-up replaced the Michigan source lead with a verified primary sanctions order, added a Georgia primary hearing transcript, and added reviewed source-inventory rows for the new materials. Implementation increases from 6 to 7 because the Nevada statutory comparison now gives the state-model component a concrete implementation comparator for Anti-SLAPP procedure, election contests, presidential-elector timing, and ballot-inspection limits.
+
+**Remaining limits:** Review Ready means strong enough for knowledgeable external critique, not public-release clearance. ELEC-004 still needs qualified federal-courts, election-law, state-election-law, or legislative-counsel review; a primary Nevada disposition/order or narrower Nevada language; broader representative-state comparison beyond Nevada; an official Seventh Circuit PDF if available; a final title 28 or procedural-vehicle decision; and deeper Petition Clause / First Amendment review.
+
+**Audit process feedback:** Future score changes should identify the precise component movement. External-review credit remains 0 until qualified review is documented and incorporated.
+
 ### 2026-07-04 — Targeted T4 Source / State-Comparator Follow-Up
 
-**Audit status:** Targeted source/comparator follow-up complete; external legal review and additional primary-source work needed
+**Audit status:** Targeted source/comparator follow-up complete; same-day score recalibration later moved ELEC-004 to Review Ready
 
 **Scope:** This human-directed targeted T4 follow-up continued the July 3 legal-source validation pass by testing whether the remaining manifestation and state-implementation gaps could be narrowed with public primary sources. The pass focused on Michigan, Georgia, Nevada, and representative state Anti-SLAPP/election-contest comparators. It did not conduct paid-database research and is not a substitute for qualified federal-courts, election-law, state-election-law, or legislative-counsel review.
 
@@ -26,11 +42,11 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 **State-comparator finding:** The audit verified official Nevada statutory comparators. NRS 41.660 and 41.670 provide an Anti-SLAPP special-motion framework with discovery-stay, fee-shifting, sanction, and appeal features. NRS chapter 293 provides election-contest, presidential-elector contest, materiality, timing, special-master, and ballot-inspection constraints. These sources support the project design choice to treat the model state bill as adaptable state legislation rather than as a one-size-fits-all state-court procedure.
 
-**Score effect:** No score change. Proposal Quality Score remains 73/100 (Substantially Developed Draft). The follow-up improves source support for the existing score but does not justify advancement to Review Ready because the Nevada primary order remains unresolved, the representative-state comparison is only partial, Wisconsin still relies on a mirror rather than an official Seventh Circuit PDF, Petition Clause and First Amendment review remains incomplete, title 28 codification remains undecided, and no qualified external review has been incorporated.
+**Score effect:** Initial score treatment left Proposal Quality Score at 73/100 (Substantially Developed Draft), but this finding was superseded by the same-day score recalibration recorded above. The final current score is 75/100 (Review Ready). The remaining unresolved items continue to limit public-release readiness and prevent any external-review credit.
 
 **Defects corrected during the audit:** Updated the issue page's Michigan manifestation citation; added a Georgia transcript citation and limited Georgia framing; added Nevada statutory comparator discussion; updated the visible audit summary, source-development annotation, and quality-score annotation; updated source inventory row SRC-0261; and added source rows for the Georgia transcript and Nevada statutory comparators.
 
-**Next audit need:** Obtain qualified federal-courts, election-law, or legislative-counsel review; retrieve a primary Nevada disposition/order or narrow Nevada language; replace or supplement the Wisconsin opinion mirror with the official Seventh Circuit PDF if available; expand representative-state comparison beyond Nevada; decide title 28 codification or other final procedural vehicle; and complete deeper Petition Clause / First Amendment review before moving the proposal to Review Ready.
+**Next audit need:** Obtain qualified federal-courts, election-law, or legislative-counsel review; retrieve a primary Nevada disposition/order or narrow Nevada language; replace or supplement the Wisconsin opinion mirror with the official Seventh Circuit PDF if available; expand representative-state comparison beyond Nevada; decide title 28 codification or other final procedural vehicle; and complete deeper Petition Clause / First Amendment review before moving the proposal beyond Review Ready.
 
 **Audit process feedback:** This was a useful targeted follow-up, not a full T5 or publication-clearance audit. Future ELEC-004 work should prioritize finishing the remaining primary-source and legal-authority blockers before adding new manifestations.
 

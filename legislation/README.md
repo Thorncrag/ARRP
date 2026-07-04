@@ -27,6 +27,7 @@ Working statutory and administrative language is maintained separately from the 
 - [ELEC-006 — Presidential Transition Continuity and Automaticity Act](ELEC-006.md)
 - [ELEC-007 — Election Administration Federal-Force Noninterference Act](ELEC-007.md)
 - [ELEC-008 — Federal Election Subversion Accountability Act](ELEC-008.md)
+- [ELEC-009 — Direct Presidential Election Implementation Act](ELEC-009.md)
 - [ELEC-009 — Direct Election of the President and Vice President Amendment](ELEC-009-amendment.md)
 - [ELEC-010 — Mail-In Voting Reliability and Election Mail Standards Act](ELEC-010.md)
 - [ELEC-011 — Neutral Redistricting Baseline Enforcement Act](ELEC-011.md)

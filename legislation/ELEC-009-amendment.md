@@ -4,6 +4,7 @@ issue_id: ELEC-009
 title: "Direct Election of the President and Vice President Amendment"
 status: working-draft
 framework_issue: "../areas/ELEC/issues/ELEC-009.md"
+enabling_legislation: "ELEC-009.md"
 print_levels:
   - public-proposal
   - full-technical
@@ -64,6 +65,9 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 - The draft abolishes presidential electors and creates direct national election of the President and Vice President.
 - The default rule is national plurality, but Congress may provide a uniform majority mechanism such as a runoff or ranked-choice tabulation.
 - Implementing legislation will be required for ballot access, national certification, recounts, contests, result transmission, candidate vacancy, tie, and transition procedures.
+- The likely enabling legislation vehicle is a title 52 amendment to federal election-administration law, paired with conforming title 3 amendments for elector-based provisions made obsolete or inconsistent by ratification.
+- A first working draft of that enabling legislation is maintained in [ELEC-009 - Direct Presidential Election Implementation Act](ELEC-009.md).
+- Implementation legislation should specify national canvass and certification rules, recount thresholds, contest jurisdiction, expedited review, candidate replacement, unresolved-contest treatment, transition timing, and emergency contingencies before this amendment is treated as publication-ready.
 - The draft preserves state administration subject to uniform federal rules enacted under the amendment.
 - The draft supersedes inconsistent parts of Article II, the Twelfth Amendment, the Twentieth Amendment, and the Twenty-Third Amendment rather than attempting to rewrite each clause inline.
 
@@ -72,3 +76,5 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 - Source review should include [Article II, Section 1](https://constitution.congress.gov/browse/article-2/section-1/), the [Twelfth Amendment](https://constitution.congress.gov/browse/amendment-12/), the [Twentieth Amendment](https://constitution.congress.gov/browse/amendment-20/), and the [Twenty-Third Amendment](https://constitution.congress.gov/browse/amendment-23/).
 - Article V is the controlling amendment vehicle for proposal and ratification thresholds. Direct prior-proposal review should include congressional constitutional-amendment analogues such as [H.J.Res. 7](https://www.congress.gov/bill/116th-congress/house-joint-resolution/7), [S.J.Res. 16](https://www.congress.gov/bill/116th-congress/senate-joint-resolution/16), and [S.J.Res. 17](https://www.congress.gov/bill/116th-congress/senate-joint-resolution/17) from the 116th Congress.
 - Historical predicate review should include official FEC election-result compilations for the 2000 and 2016 modern popular-vote/electoral-vote divergence examples.
+- Implementation review should compare existing presidential-election certification and expedited-review procedure in [3 U.S.C. § 5](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section5&num=0&edition=prelim) and the federal election-administration infrastructure in [52 U.S.C. chapter 209](https://uscode.house.gov/view.xhtml?path=/prelim@title52/subtitle2/chapter209&edition=prelim), with title 52 as the likely affirmative codification home and title 3 as the conforming-amendment target.
+- The accompanying first enabling draft should be reviewed against [3 U.S.C. chapter 1](https://uscode.house.gov/view.xhtml?path=/prelim@title3/chapter1&edition=prelim), [28 U.S.C. § 2284](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section2284&num=0&edition=prelim), and [28 U.S.C. § 1253](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section1253&num=0&edition=prelim) before external circulation.

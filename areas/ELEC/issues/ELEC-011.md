@@ -10,11 +10,11 @@ legislative_proposal: "../../../legislation/ELEC-011-state.md"
 federal_legislative_proposal: "../../../legislation/ELEC-011.md"
 constitutional_proposal: "../../../legislation/ELEC-011-amendment.md"
 constitutional_option: "reserved working draft"
-audit_score: 60
-audit_status: "T1 framework check complete; T2 development audit needed"
-audit_last_type: "T1 framework check"
-audit_last_date: "2026-06-29"
-audit_next: "T2 development audit"
+audit_score: 70
+audit_status: "T2 development audit complete; doctrinal, algorithmic, implementation, adoption, and external-review work still needed"
+audit_last_type: "T2 development audit"
+audit_last_date: "2026-07-04"
+audit_next: "T3 legal-durability and implementation audit focused on algorithm selection, VRA/state-VRA tailoring, state constitutional fit, judicial fallback, costs, and adoption evidence"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -159,15 +159,15 @@ Administrative workload and possible technology, data, public-hearing, commissio
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](ELEC-011.audit.md)** (Developed Draft)<br />**Adoption Score:** 3 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[70 / 100](ELEC-011.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 3 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `state-level-pathway`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 framework check complete; T2 development audit needed<br />**Last Audit:** T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [ELEC-011 audit history](ELEC-011.audit.md)
+> **Audit Status:** T2 development audit complete; doctrinal, algorithmic, implementation, adoption, and external-review work still needed<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T3 legal-durability and implementation audit focused on algorithm selection, VRA/state-VRA tailoring, state constitutional fit, judicial fallback, costs, and adoption evidence<br />**Full Audit History:** [ELEC-011 audit history](ELEC-011.audit.md)
 
 ## Annotation
 
-**Development Status.** ELEC-011 has a developed issue framework, linked model state legislation, a reserve constitutional amendment, and reserve enabling legislation. T1 confirmed basic framework compliance but left source, legal-fit, prior-proposal, implementation, and adoption questions for T2.
+**Development Status.** ELEC-011 has a developed issue framework, linked model state legislation, a reserve constitutional amendment, and reserve enabling legislation. T2 verified the main state-law analogue, core doctrine sources, state voting-rights-law comparators, and a current algorithmic-redistricting research lead. It remains below review-ready status because the algorithm-selection standard, state-by-state implementation fit, court-remedy design, cost record, adoption evidence, and qualified external review are incomplete.
 
 **Neutrality.** The proposal must be party-neutral. It should constrain any line-drawer, party, faction, or incumbent who benefits from discretionary district manipulation.
 
@@ -185,7 +185,11 @@ Administrative workload and possible technology, data, public-hearing, commissio
 
 **Constitutional Reserve.** A nationwide constitutional amendment is not least-complex at this stage and should not displace the model state act. The reserve draft is useful because it embeds mandatory neutrality directly in constitutional text: Congress may enforce and implement the amendment, but should not be able to waive the anti-partisan, anti-incumbent, and anti-election-performance manipulation floor. The linked enabling act supplies the reserve implementation vehicle if the amendment path ever becomes viable.
 
-**Quality Score.** The 60/100 score is a T1 formula score under rubric 2026-06-27.2. ELEC-011 receives credit for structure, clear issue ownership, coherent remedy logic, linked proposal vehicles, basic source inventory, and recent abuse-resistance tightening. It remains a Developed Draft because authoritative state-law verification, existing-law and prior-proposal research, judicial-doctrine analysis, implementation testing, public-support evidence, and external review remain incomplete.
+**T2 Source / Legal-Fit Finding.** The July 4, 2026 T2 audit verified Iowa Code chapter 42 as the strongest public state-law analogue for nonpartisan redistricting staff, up-or-down legislative consideration, political-data limits, compactness, contiguity, political-subdivision respect, and public map disclosures. It also verified *Rucho*, *Arizona State Legislature*, *Allen*, and *Callais* as the controlling doctrinal frame: federal courts do not adjudicate ordinary partisan-gerrymandering claims under *Rucho*; state redistricting commissions remain a viable Elections Clause model under *Arizona State Legislature*; race-conscious representation safeguards require careful VRA and equal-protection tailoring after *Allen* and *Callais*. California, New York, and Washington state voting-rights statutes confirm that state-level voting-rights remedies exist, but they also reinforce the need for narrow, public, evidence-based deviation findings rather than a broad state-law override.
+
+**Algorithmic Evidence Finding.** T2 added a 2025 Iowa-focused computational redistricting paper as a current research lead. The source supports using nonpartisan simulations and transparent computational baselines as diagnostic tools, but it does not by itself validate shortest splitline or any single deterministic algorithm as the legally safest enacted statutory standard.
+
+**Quality Score.** The 70/100 score reflects a Substantially Developed Draft after T2 source and legal-fit review. The current component calculation is: Structural 8/8; Evidence 8/12; Legal Fit 7/10; Prior-Proposal 6/8; Remedy 9/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 6/8; Cogency 6/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. T2 raised the score from 60 because the issue now has primary Iowa-law support, official state voting-rights comparators, official Supreme Court doctrine sources, and a stronger technical source lead. It remains below Review Ready because the record still lacks a selected algorithm standard, detailed State implementation comparison, budget/workload support, proposal-specific adoption evidence, and qualified external review.
 
 **Adoption Score.** The 3/12 score is weak. The proposal has a plausible state-by-state model-law path and a reserve amendment strategy, but T1 did not verify proposal-specific polling, state enactment momentum, sponsor coalitions, referendum evidence, or stakeholder support for algorithmic baseline redistricting.
 
@@ -194,5 +198,10 @@ Administrative workload and possible technology, data, public-hearing, commissio
 ## Source Notes
 
 - U.S. Supreme Court, [*Louisiana v. Callais*](https://www.supremecourt.gov/opinions/25pdf/24-109_21o3.pdf).
+- U.S. Supreme Court, [*Rucho v. Common Cause*](https://www.supremecourt.gov/opinions/18pdf/18-422_9ol1.pdf).
+- U.S. Supreme Court, [*Arizona State Legislature v. Arizona Independent Redistricting Commission*](https://www.supremecourt.gov/opinions/14pdf/13-1314_3ea4.pdf).
+- U.S. Supreme Court, [*Allen v. Milligan*](https://www.supremecourt.gov/opinions/22pdf/21-1086_1co6.pdf).
+- Iowa Code, [chapter 42](https://www.legis.iowa.gov/docs/code/2026/42.pdf).
 - NCSL, [*Redistricting Commissions: Congressional Plans*](https://www.ncsl.org/redistricting-and-census/redistricting-commissions-congressional-plans).
 - Pan Kai, Tan Yue, and Jiang Sheng, [*The study of a new gerrymandering methodology*](https://arxiv.org/abs/0708.2266).
+- Stefanie G. Wang and Nathaniel C. Merrill, [*Computational Redistricting of Iowa's Congressional Districts*](https://arxiv.org/abs/2508.05848).

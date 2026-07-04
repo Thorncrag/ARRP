@@ -162,7 +162,7 @@ A state voting-rights act may justify a deviation only if the law protects equal
 
 A deviation may not be justified by incumbent protection, candidate protection, partisan advantage, donor preference, campaign strategy, retaliation against voters, dilution of a disfavored community, or a desire to avoid lawful electoral competition.
 
-### (e) Burden of explanation.
+### (f) Burden of explanation.
 
 The sponsor of a departing plan bears the burden of producing the written findings required by this section. The review body shall determine whether the findings are complete before the departing plan may proceed to legislative consideration.
 
@@ -318,4 +318,10 @@ Budget authority may be required for algorithm development, public data publicat
 
 ## Source Notes
 
-- The issue page source record currently includes *Louisiana v. Callais*, NCSL's redistricting commission summary, and shortest-splitline source development. T1 should verify Iowa statutory mechanics, state voting-rights acts, state constitutional redistricting provisions, commission structures, and algorithmic districting scholarship before treating this model act as ready for audit scoring.
+- Iowa Code chapter 42 is the closest verified state-law analogue for nonpartisan plan preparation, up-or-down legislative consideration, compactness/contiguity/political-subdivision standards, political-data limits, and public map disclosures.
+- California Elections Code sections 14025-14032, New York Election Law section 17-206, and Washington chapter 29A.92 RCW are state voting-rights-law comparators for protective-floor and remedy language; they do not eliminate the need for State-specific constitutional and statutory adaptation.
+- *Rucho v. Common Cause* supports state-law and congressional reform pathways after federal partisan-gerrymandering nonjusticiability.
+- *Arizona State Legislature v. Arizona Independent Redistricting Commission* supports state-law use of independent redistricting institutions for congressional redistricting.
+- *Allen v. Milligan* and *Louisiana v. Callais* are caution sources for Voting Rights Act and racial-gerrymandering tailoring.
+- Algorithmic redistricting sources remain technical leads rather than final legal validation for a particular algorithm.
+- The issue page source record now includes T2-verified Iowa statutory mechanics, state voting-rights-law comparators, core Supreme Court doctrine sources, and algorithmic source leads. T3 should still test state constitutional redistricting provisions, commission structures, public-records/open-meetings fit, costs, and final algorithm-selection standards before treating this model act as review-ready.

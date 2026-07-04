@@ -14,7 +14,7 @@ print_levels:
 
 ## A BILL
 
-To establish narrowly tailored criminal and civil accountability for coordinated schemes that use independently wrongful predicate acts to corruptly nullify, reverse, obstruct, delay, or procure official disregard of lawful federal-election results, while preserving lawful litigation, recounts, contests, advocacy, reporting, legal advice, journalism, congressional activity, and good-faith official duties, and for other purposes.
+To amend title 18, United States Code, to establish a narrowly tailored chapter on coordinated federal election-subversion schemes using independently wrongful predicate acts, while preserving lawful litigation, recounts, contests, advocacy, reporting, legal advice, journalism, congressional activity, and good-faith official duties, and for other purposes.
 
 Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
 
@@ -22,9 +22,15 @@ Be it enacted by the Senate and House of Representatives of the United States of
 
 This Act may be cited as the **“Federal Election Subversion Accountability Act.”**
 
-## SEC. 2. PURPOSES.
+## SEC. 2. TITLE 18 AMENDMENT.
 
-The purposes of this Act are to—
+(a) **In General.**—Part I of title 18, United States Code, is amended by inserting after chapter 29 the following:
+
+# CHAPTER 29A—COORDINATED FEDERAL ELECTION SUBVERSION
+
+## § 618. Purposes.
+
+The purposes of this chapter are to—
 
 1. protect the lawful determination, certification, transmission, counting, recognition, and practical legal effect of federal-election results;
 2. create a narrow accountability framework for coordinated federal election-subversion schemes composed of independently wrongful predicate acts;
@@ -36,9 +42,9 @@ The purposes of this Act are to—
 8. provide a limited state-attorney-general backstop where federal enforcement may be conflicted, delayed, or unavailable because the alleged scheme involves the President, White House, Department of Justice leadership, federal agencies, or persons politically aligned with federal executive actors; and
 9. ensure that liability attaches only where the statute's coordination, corrupt-purpose, predicate-act, material-connection, safe-harbor, and limiting-instruction requirements are satisfied.
 
-## SEC. 3. DEFINITIONS.
+## § 619. Definitions.
 
-In this Act:
+In this chapter:
 
 ### (a) Covered federal election.
 
@@ -54,7 +60,7 @@ For an election for President or Vice President, the term **“covered federal-e
 
 ### (d) Congressional-election caution.
 
-For an election for Senator or Representative in Congress, this Act does not regulate, control, or displace either House's constitutional authority to judge the elections, returns, and qualifications of its Members. This Act applies only to independently wrongful predicate conduct materially connected to a coordinated federal election-subversion scheme.
+For an election for Senator or Representative in Congress, this chapter does not regulate, control, or displace either House's constitutional authority to judge the elections, returns, and qualifications of its Members. This chapter applies only to independently wrongful predicate conduct materially connected to a coordinated federal election-subversion scheme.
 
 ### (e) Lawful federal-election result.
 
@@ -66,7 +72,7 @@ The term **“coordinated federal election-subversion scheme”** means a course
 
 ### (g) Predicate act.
 
-The term **“predicate act”** means an act listed in section 5 and committed with the mental state required by this Act and by the law, rule, order, or duty establishing the wrongful character of the act.
+The term **“predicate act”** means an act listed in section 621 and committed with the mental state required by this chapter and by the law, rule, order, or duty establishing the wrongful character of the act.
 
 ### (h) Independently wrongful.
 
@@ -94,7 +100,7 @@ The term **“person”** includes an individual, campaign committee, political 
 
 The term **“official”** includes any federal, state, territorial, tribal, or local officer, employee, election official, canvassing official, certification official, law-enforcement official, legislative officer, elector, or person acting under color of law.
 
-## SEC. 4. OFFENSE OF COORDINATED FEDERAL ELECTION SUBVERSION.
+## § 620. Offense of coordinated federal election subversion.
 
 ### (a) Offense.
 
@@ -120,11 +126,11 @@ Mere association with a candidate, campaign, political party, attorney, public o
 
 ### (d) No liability for speech or belief alone.
 
-No person may be liable under this Act solely for political speech, public claims, election denial, criticism of election administration, support for a candidate, public advocacy, commentary, legal theory, opinion, lobbying, journalism, academic analysis, or other expressive activity.
+No person may be liable under this chapter solely for political speech, public claims, election denial, criticism of election administration, support for a candidate, public advocacy, commentary, legal theory, opinion, lobbying, journalism, academic analysis, or other expressive activity.
 
-## SEC. 5. PREDICATE ACTS.
+## § 621. Predicate acts.
 
-For purposes of this Act, predicate acts are limited to the following independently wrongful acts:
+For purposes of this chapter, predicate acts are limited to the following independently wrongful acts:
 
 ### (a) False federal-election result-transmission documents.
 
@@ -178,11 +184,11 @@ Knowingly raising, soliciting, transferring, spending, or retaining funds throug
 
 Attempting, conspiring, aiding, abetting, counseling, commanding, inducing, procuring, financing, or willfully causing any predicate act listed in this section.
 
-## SEC. 6. SAFE HARBORS AND PROTECTED ACTIVITY.
+## § 622. Safe harbors and protected activity.
 
 ### (a) Protected activity.
 
-Nothing in this Act shall be construed to prohibit, punish, chill, or create liability for—
+Nothing in this chapter shall be construed to prohibit, punish, chill, or create liability for—
 
 1. good-faith litigation;
 2. lawful recounts;
@@ -207,19 +213,19 @@ Nothing in this Act shall be construed to prohibit, punish, chill, or create lia
 
 ### (b) Good-faith legal representation.
 
-An attorney may not be liable under this Act solely for representing a client, advancing a nonfrivolous legal claim, preserving a legal argument, advising on lawful options, filing a pleading, communicating with officials, or pursuing lawful recount, contest, appellate, administrative, or congressional procedures.
+An attorney may not be liable under this chapter solely for representing a client, advancing a nonfrivolous legal claim, preserving a legal argument, advising on lawful options, filing a pleading, communicating with officials, or pursuing lawful recount, contest, appellate, administrative, or congressional procedures.
 
 This subsection does not protect knowingly false evidence, fraudulent documents, bribery, threats, coercion, obstruction, contempt, or conduct found by a court or tribunal to be independently wrongful and materially connected to the coordinated scheme.
 
 ### (c) Good-faith official duties.
 
-A public official may not be liable under this Act solely for performing lawful official duties, seeking legal advice, requesting lawful review, voting on an objection, participating in lawful legislative proceedings, or taking a legal position within the scope of lawful authority.
+A public official may not be liable under this chapter solely for performing lawful official duties, seeking legal advice, requesting lawful review, voting on an objection, participating in lawful legislative proceedings, or taking a legal position within the scope of lawful authority.
 
 This subsection does not protect corrupt use of official authority, coercion, bribery, threats, fabrication, knowing falsehoods, or official acts undertaken with knowledge that they are unauthorized and materially connected to a coordinated federal election-subversion scheme.
 
 ### (d) Congressional proceedings.
 
-Nothing in this Act shall be construed to impose liability solely for a Member of Congress's vote, debate, objection, legislative act, or participation in proceedings protected by the Constitution. This subsection does not protect independently wrongful conduct outside constitutionally protected legislative activity.
+Nothing in this chapter shall be construed to impose liability solely for a Member of Congress's vote, debate, objection, legislative act, or participation in proceedings protected by the Constitution. This subsection does not protect independently wrongful conduct outside constitutionally protected legislative activity.
 
 ### (e) Speech and advocacy.
 
@@ -229,11 +235,11 @@ No expressive activity may serve as a predicate act unless it is integral to ind
 
 The government bears the burden of proving beyond a reasonable doubt that the safe harbor does not apply in a criminal prosecution.
 
-## SEC. 7. REQUIRED JURY INSTRUCTIONS AND LIMITING PRINCIPLES.
+## § 623. Required jury instructions and limiting principles.
 
 ### (a) Required limiting instructions.
 
-In any criminal prosecution under this Act, the court shall instruct the jury that liability may not be based solely on—
+In any criminal prosecution under this chapter, the court shall instruct the jury that liability may not be based solely on—
 
 1. political speech;
 2. public advocacy;
@@ -260,31 +266,31 @@ The court shall instruct the jury that the government must prove beyond a reason
 4. at least two independently wrongful predicate acts;
 5. the defendant's knowledge, or willful blindness, that the predicate acts were independently wrongful;
 6. a material connection between the predicate acts and the corrupt objective; and
-7. that no safe harbor under section 6 precludes liability.
+7. that no safe harbor under section 622 precludes liability.
 
 ### (c) Pressure communications.
 
-The court shall instruct the jury that a communication with an election official, public official, court, legislative body, agency, or other decisionmaker is not unlawful under this Act merely because it is forceful, persistent, political, mistaken, adversarial, or requests investigation, review, recount, audit, litigation, legislative consideration, or other lawful process.
+The court shall instruct the jury that a communication with an election official, public official, court, legislative body, agency, or other decisionmaker is not unlawful under this chapter merely because it is forceful, persistent, political, mistaken, adversarial, or requests investigation, review, recount, audit, litigation, legislative consideration, or other lawful process.
 
-A pressure communication may support liability only if the government proves beyond a reasonable doubt that the communication was independently wrongful, knowingly and corruptly undertaken, and materially connected to a coordinated federal election-subversion scheme satisfying section 4.
+A pressure communication may support liability only if the government proves beyond a reasonable doubt that the communication was independently wrongful, knowingly and corruptly undertaken, and materially connected to a coordinated federal election-subversion scheme satisfying section 620.
 
 ### (d) Safe-harbor sequencing.
 
-The court shall instruct the jury that it must consider the safe harbors and protected-activity provisions of section 6 before finding criminal liability.
+The court shall instruct the jury that it must consider the safe harbors and protected-activity provisions of section 622 before finding criminal liability.
 
 ### (e) Attorney and official limitations.
 
 The court shall instruct the jury that attorney status, client representation, public office, campaign status, political affiliation, or access to official channels is insufficient by itself to establish liability.
 
-## SEC. 8. CRIMINAL PENALTIES.
+## § 624. Criminal penalties.
 
 ### (a) Basic offense.
 
-A person who violates section 4 shall be fined under title 18, United States Code, imprisoned for not more than ten years, or both.
+A person who violates section 620 shall be fined under this title, imprisoned for not more than ten years, or both.
 
 ### (b) Aggravated offense.
 
-A person shall be fined under title 18, United States Code, imprisoned for not more than twenty years, or both, if the person violates section 4 and—
+A person shall be fined under this title, imprisoned for not more than twenty years, or both, if the person violates section 620 and—
 
 1. acts as an organizer, director, principal funder, legal architect, or principal coordinator of the coordinated scheme;
 2. uses official authority or apparent official authority;
@@ -297,9 +303,9 @@ A person shall be fined under title 18, United States Code, imprisoned for not m
 
 ### (c) No incarceration for protected activity.
 
-No sentence may be imposed for conduct protected under section 6.
+No sentence may be imposed for conduct protected under section 622.
 
-## SEC. 9. CIVIL ENFORCEMENT BY THE UNITED STATES.
+## § 625. Civil enforcement by the United States.
 
 ### (a) Civil action.
 
@@ -321,17 +327,17 @@ The court may grant—
 
 ### (c) Standard.
 
-Civil relief under this section requires clear and convincing evidence of a violation of section 4.
+Civil relief under this section requires clear and convincing evidence of a violation of section 620.
 
 ### (d) No partisan private damages action.
 
-This Act does not create a general private right of action for candidates, campaigns, parties, political committees, or voters to obtain damages.
+This chapter does not create a general private right of action for candidates, campaigns, parties, political committees, or voters to obtain damages.
 
-## SEC. 10. STATE ATTORNEY GENERAL AND ELECTION-OFFICIAL BACKSTOP ACTIONS.
+## § 626. State attorney general and election-official backstop actions.
 
 ### (a) Independent backstop action.
 
-A state attorney general, chief state election official, or state officer expressly authorized by state law may bring a civil action for declaratory, injunctive, preservation, corrective-notice, or other equitable relief to prevent or remedy an imminent, ongoing, or recently completed violation of this Act that materially threatens, impairs, or corrupts that State's administration, canvassing, recount, certification, result transmission, custody of election materials, protection of election personnel, voters, or performance of lawful duties in a covered federal election.
+A state attorney general, chief state election official, or state officer expressly authorized by state law may bring a civil action for declaratory, injunctive, preservation, corrective-notice, or other equitable relief to prevent or remedy an imminent, ongoing, or recently completed violation of this chapter that materially threatens, impairs, or corrupts that State's administration, canvassing, recount, certification, result transmission, custody of election materials, protection of election personnel, voters, or performance of lawful duties in a covered federal election.
 
 ### (b) State nexus required.
 
@@ -362,25 +368,29 @@ A complaint under this section must plead with particularity—
 3. the corrupt objective;
 4. the material connection between the predicate acts and the corrupt objective;
 5. the State nexus required by subsection (b); and
-6. why the safe harbors in section 6 do not bar the requested relief.
+6. why the safe harbors in section 622 do not bar the requested relief.
 
 ### (f) Protected activity limitation.
 
 Relief may not be granted under this section based solely on political disagreement, public advocacy, election denial, ordinary litigation, good-faith recounts, lawful election contests, protected congressional activity, legal advice, journalism, lobbying, or a rejected legal theory.
 
-### (g) Notice to the United States; no veto.
+### (g) Notice to the United States; intervention.
 
-A plaintiff under this section shall provide contemporaneous notice of the action to the Attorney General of the United States. The failure or refusal of the Attorney General to authorize, join, approve, or support the action shall not bar the action.
+A plaintiff under this section shall provide contemporaneous notice of the action and all material filings to the Attorney General of the United States. The United States may intervene as of right, file statements of interest, seek consolidation or transfer, or seek dismissal of relief that conflicts with federal law, a federal prosecution, a federal civil action, or the safe harbors in section 622. The failure or refusal of the Attorney General to authorize, join, approve, or support the action shall not by itself bar the action.
 
 ### (h) Consolidation and coordination.
 
 If multiple actions under this section concern substantially overlapping alleged schemes or requested relief, a court may coordinate, consolidate, transfer, or otherwise manage the actions to reduce inconsistent obligations, duplicative litigation, or conflicting injunctions, consistent with due process and the need for expedited election-related review.
 
-### (i) Expedition.
+### (i) Anti-abuse dismissal and sanctions.
+
+The court shall dismiss an action, deny relief, or impose appropriate sanctions if the action is brought primarily to burden lawful election administration, chill protected activity, obtain partisan advantage, relitigate a lawful election result without independently wrongful predicate acts, or evade the limitations of this chapter.
+
+### (j) Expedition.
 
 The court shall expedite an action under this section to the greatest practicable extent.
 
-## SEC. 11. DISGORGEMENT AND PUBLIC-COST REIMBURSEMENT.
+## § 627. Disgorgement and public-cost reimbursement.
 
 ### (a) Disgorgement.
 
@@ -390,11 +400,11 @@ Where the United States proves by clear and convincing evidence that a person kn
 
 The court may order reimbursement of reasonable public costs directly caused by the coordinated scheme, including emergency security costs, election-administration costs, corrective notice costs, document-preservation costs, or litigation costs incurred by public entities.
 
-## SEC. 12. DISQUALIFICATION.
+## § 628. Disqualification.
 
 ### (a) Disqualification authorized.
 
-Upon conviction under section 4, or upon clear and convincing evidence in a civil action brought by the United States, a court may disqualify a person from serving for a period not exceeding ten years as—
+Upon conviction under section 620, or upon clear and convincing evidence in a civil action brought by the United States, a court may disqualify a person from serving for a period not exceeding ten years as—
 
 1. a presidential elector;
 2. a federal election administrator;
@@ -410,11 +420,11 @@ Disqualification shall be imposed only if necessary to protect the integrity of 
 
 Nothing in this section shall be construed to add qualifications for President, Vice President, Senator, or Representative beyond those established by the Constitution.
 
-## SEC. 13. RECORD PRESERVATION.
+## § 629. Record preservation.
 
 ### (a) Preservation duty.
 
-Upon notice of a civil or criminal investigation under this Act, a person subject to the investigation shall preserve records materially related to the alleged coordinated federal election-subversion scheme.
+Upon notice of a civil or criminal investigation under this chapter, a person subject to the investigation shall preserve records materially related to the alleged coordinated federal election-subversion scheme.
 
 ### (b) Scope.
 
@@ -424,9 +434,9 @@ Records include communications, funding records, legal memoranda, drafts of resu
 
 Nothing in this section abrogates attorney-client privilege, work-product protection, constitutional privilege, Speech or Debate Clause protection, executive privilege, or other lawful privilege. Claims of privilege shall be resolved by the court.
 
-## SEC. 14. RELATION TO EXISTING LAW.
+## § 630. Relation to existing law.
 
-Nothing in this Act shall be construed to—
+Nothing in this chapter shall be construed to—
 
 1. limit any federal or state criminal, civil, disciplinary, contempt, election, or professional-responsibility law;
 2. limit the Electoral Count Reform and Presidential Transition Improvement Act of 2022;
@@ -439,15 +449,15 @@ Nothing in this Act shall be construed to—
 9. regulate either House of Congress's constitutional authority to judge the elections, returns, and qualifications of its Members; or
 10. apply to state or local elections except where predicate conduct independently violates federal law.
 
-## SEC. 15. PRESIDENTIAL ACCOUNTABILITY AND IMMUNITY.
+## § 631. Presidential accountability and immunity.
 
 ### (a) No immunity expansion.
 
-Nothing in this Act shall be construed to create, expand, recognize, or imply immunity from criminal, civil, evidentiary, or equitable accountability for any person.
+Nothing in this chapter shall be construed to create, expand, recognize, or imply immunity from criminal, civil, evidentiary, or equitable accountability for any person.
 
 ### (b) Relationship to official authority.
 
-A person holding federal office, including the President or Vice President, is subject to this Act to the maximum extent permitted by the Constitution and laws of the United States.
+A person holding federal office, including the President or Vice President, is subject to this chapter to the maximum extent permitted by the Constitution and laws of the United States.
 
 ### (c) No displacement of immunity reform.
 
@@ -455,15 +465,21 @@ This section does not displace any statute, constitutional amendment, or rule go
 
 ### (d) Severability of presidential applications.
 
-If application of this Act to a President, former President, Vice President, or former Vice President is held invalid in any circumstance, the remainder of this Act and all valid applications shall remain in force.
+If application of this chapter to a President, former President, Vice President, or former Vice President is held invalid in any circumstance, the remainder of this chapter and all valid applications shall remain in force.
 
-## SEC. 16. EXPEDITED REVIEW.
+## § 632. Expedited review.
 
-A court hearing an action seeking emergency relief under this Act shall expedite the action to the greatest practicable extent, consistent with due process, the First Amendment, the Petition Clause, the Speech or Debate Clause, constitutional separation of powers, and the lawful completion of covered federal-election processes.
+A court hearing an action seeking emergency relief under this chapter shall expedite the action to the greatest practicable extent, consistent with due process, the First Amendment, the Petition Clause, the Speech or Debate Clause, constitutional separation of powers, and the lawful completion of covered federal-election processes.
 
-## SEC. 17. SEVERABILITY.
+## § 633. Severability.
 
-If any provision or application of this Act is held invalid, the remainder shall not be affected.
+If any provision or application of this chapter is held invalid, the remainder shall not be affected.
+
+(b) **Clerical Amendment.**—The table of chapters for part I of title 18, United States Code, is amended by inserting after the item relating to chapter 29 the following:
+
+| Chapter | Description | Section |
+| --- | --- | --- |
+| 29A | Coordinated Federal Election Subversion | 618 |
 
 ## Budgetary Impact Statement
 
@@ -474,6 +490,7 @@ Administrative workload is possible; no new appropriation is specified.
 ## Drafting Notes
 
 - This draft is intentionally ambitious and should be treated as a first-pass framework.
+- It is drafted as a title 18 amendment adding a new chapter 29A adjacent to chapter 29, not as a new federal title or an amendment to ordinary RICO.
 - It is RICO-like but not ordinary RICO.
 - Liability requires a coordinated scheme, corrupt objective, at least two independently wrongful predicate acts, and material connection.
 - Required jury instructions are included because overbreadth, speech, association, legal-representation, and official-duty risks are central design concerns.
@@ -486,9 +503,11 @@ Administrative workload is possible; no new appropriation is specified.
 - It does not generally federalize state or local elections.
 - It should be reviewed carefully for Article I, Section 5 and Speech or Debate Clause concerns in congressional-election applications.
 - Obstruction-related predicates should be reviewed under *Fischer v. United States* and should remain tied to independently unlawful conduct rather than generalized disruption or political pressure.
-- Section 15 is designed to complement ARRP's presidential-immunity reform, not to solve immunity by itself.
-- Further review should compare existing reform proposals, election-crime statutes, obstruction statutes, RICO doctrine, First Amendment doctrine, Petition Clause doctrine, Speech or Debate Clause doctrine, ECRA, federalism limits, Article I Section 5 doctrine, and presidential-immunity doctrine.
+- Section 631 is designed to complement ARRP's presidential-immunity reform, not to solve immunity by itself.
+- T4 follow-up identified H.R. 8873, S. 4573/ECRA, S. 1840, and H.R. 5314 as direct or adjacent congressional comparators, but none appears to supply the full scheme-level framework drafted here.
+- Further review should compare state anti-subversion proposals, election-crime statutes, obstruction statutes, RICO doctrine, First Amendment doctrine, Petition Clause doctrine, Speech or Debate Clause doctrine, ECRA, federalism limits, Article I Section 5 doctrine, presidential-immunity doctrine, and legislative-counsel feedback on the chapter 29A codification choice.
 
 ## Source Notes
 
-- Source review should include federal RICO definitions and remedies in [18 U.S.C. chapter 96](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter96&edition=prelim), existing federal conspiracy and rights statutes including [18 U.S.C. § 371](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section371&num=0&edition=prelim), [18 U.S.C. § 241](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section241&num=0&edition=prelim), and [18 U.S.C. § 1512](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1512&num=0&edition=prelim), Electoral Count Reform Act provisions including [3 U.S.C. § 15](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section15&num=0&edition=prelim), the Constitution's [Speech or Debate Clause](https://constitution.congress.gov/browse/article-1/section-6/clause-1/), [Fischer v. United States](https://www.supremecourt.gov/opinions/23pdf/23-5572_l6hn.pdf), and [Trump v. United States](https://www.supremecourt.gov/opinions/23pdf/23-939_e2pg.pdf).
+- Source review should include the existing title 18 election-and-political-activity chapter in [18 U.S.C. chapter 29](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter29&edition=prelim), federal RICO definitions and remedies in [18 U.S.C. chapter 96](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter96&edition=prelim), existing federal conspiracy and rights statutes including [18 U.S.C. § 371](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section371&num=0&edition=prelim), [18 U.S.C. § 241](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section241&num=0&edition=prelim), and [18 U.S.C. § 1512](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1512&num=0&edition=prelim), Electoral Count Reform Act provisions including [3 U.S.C. § 15](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section15&num=0&edition=prelim), the Constitution's [Speech or Debate Clause](https://constitution.congress.gov/browse/article-1/section-6/clause-1/), [Fischer v. United States](https://www.supremecourt.gov/opinions/23pdf/23-5572_l6hn.pdf), and [Trump v. United States](https://www.supremecourt.gov/opinions/23pdf/23-939_e2pg.pdf).
+- Prior-proposal review should include [H.R. 8873, Presidential Election Reform Act](https://www.congress.gov/bill/117th-congress/house-bill/8873), [S. 4573, Electoral Count Reform and Presidential Transition Improvement Act](https://www.congress.gov/bill/117th-congress/senate-bill/4573), [S. 1840, Deceptive Practices and Voter Intimidation Prevention Act of 2021](https://www.congress.gov/bill/117th-congress/senate-bill/1840), and [H.R. 5314, Protecting Our Democracy Act](https://www.congress.gov/bill/117th-congress/house-bill/5314).
