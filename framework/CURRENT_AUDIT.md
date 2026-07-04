@@ -14,16 +14,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-012 |
-| Audit type/tier | T3 source and legal-readiness audit |
-| Started | 2026-07-04 16:19:53 -0400 |
-| Last checkpoint | 2026-07-04 16:33:36 -0400 |
-| User request | Audit ELEC-012. |
-| Scope | Run the next progressive audit for ELEC-012, focused on FECA codification, amendment conformity, state comparators, disclosure/privacy tailoring, adoption evidence, source inventory, issue-page scoring, linked legislation notes, and GitHub Project synchronization. |
-| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `legislation/ELEC-012.md`; `legislation/ELEC-012-amendment.md`; `inventory/sources.csv`. |
-| Completed steps | Completed T3 source and legal-readiness audit; updated ELEC-012 score to 69/100; added full audit sidecar entry; refreshed issue-page annotations, source notes, linked legislation notes, source inventory rows, and stale next-audit language; validated CSV width and duplicate IDs; ran whitespace and stale-score checks; committed and pushed the audit; synchronized GitHub Project issue #40. |
-| Next step | None for this audit. The next substantive pass is the listed T4 legal-durability and drafting-conversion audit. |
-| Blockers/questions | Qualified external constitutional-law, election-law, legislative-counsel, FEC practitioner, state-campaign-finance, fiscal, and stakeholder review is unavailable in-session. |
+| Active issue/task | ELEC-013 |
+| Audit type/tier | T1 issue-admission/source-development audit |
+| Started | 2026-07-04 16:39:02 -0400 |
+| Last checkpoint | 2026-07-04 16:47:14 -0400 |
+| User request | Next audit. |
+| Scope | Run the next progressive Election-area audit on ELEC-013, focused on issue admission, framework compliance, fixed-zero candidate status, source inventory, current-status and pending-case checks, debate-access/ballot-access/RCV/open-primary/fusion/proportional source routing, area-page status, and GitHub Project synchronization. |
+| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `areas/ELEC/README.md`; `inventory/sources.csv`. |
+| Completed steps | Completed T1 issue-admission/source-development audit; confirmed ELEC-013 remains a distinct fixed-zero candidate; updated issue metadata, visible scoring summary, annotation, audit sidecar, Election area note, and source inventory; verified CSV width and duplicate IDs; ran whitespace and stale-marker checks; synchronized GitHub Project issue #41. |
+| Next step | None for this audit. The next substantive pass is the listed T2 remedy-selection and prior-proposal comparison audit. |
+| Blockers/questions | No concrete remedy or legislative vehicle has been selected; T1 cannot assign a formula proposal-quality score. Primary official D.C. and Alaska implementation/result records should be obtained before T2 reliance. |
 | Validation status | Passed locally; GitHub Project synchronization verified. |
 
 ## Handoff Rules

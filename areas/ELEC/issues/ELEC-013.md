@@ -6,12 +6,14 @@ status: candidate
 priority: high
 remedy_type: election-system-reform
 audit_score: 0
-audit_status: Pending development
-audit_last_type: "Horizon integration decision"
-audit_last_date: "2026-06-25"
-audit_next: "Issue-admission test"
-audit_rubric_version: "2026-06-27.1"
+audit_status: "T1 issue-admission/source-development pass complete; candidate fixed-zero pending remedy selection"
+audit_last_type: "T1 issue-admission/source-development pass"
+audit_last_date: "2026-07-04"
+audit_next: "T2 remedy-selection and prior-proposal comparison focused on debate-access transparency, federal ballot-access floors, RCV/runoff/open-primary/fusion/proportional comparators, official D.C. and Alaska records, current state bans/repeal efforts, constitutional doctrine, implementation costs, and statute-versus-model-state vehicle choice"
+audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
+change_audit_needed: false
+change_audit_reason: null
 print_levels:
   - public-proposal
   - full-technical
@@ -80,6 +82,8 @@ Existing law often treats each barrier separately. A ballot-access rule may be d
 
 Any ELEC-013 proposal should consider a menu of established or seriously tested reforms rather than treating ranked-choice voting as the only answer.
 
+**Prior federal proposal families.** The Fair Representation Act, introduced in the 119th Congress as H.R. 4632, is a direct source-development lead because it proposes ranked-choice voting, multi-member districts, at-large rules for smaller States, nonpartisan blanket primaries in specified contexts, conforming amendments to the federal single-member-district statute, and voting-rights safeguards. H.Res. 20, 119th Congress, is also relevant because it would create a House Select Committee on Electoral Reform to study alternative congressional election methods, including multi-member districts, proportional representation, ranked-choice voting, and open or nonpartisan primaries.
+
 **Ranked-choice voting / instant-runoff voting.** RCV lets voters rank candidates and can reduce spoiler pressure in single-winner elections. Maine provides the strongest statewide implementation model, and AP reported 2026 use in crowded Maine primaries where no candidate initially won a majority. RCV should be evaluated for voter comprehension, ballot exhaustion, recount timing, tabulation transparency, accessibility, and whether it improves majority legitimacy without increasing distrust.
 
 **Runoff elections.** Traditional runoffs are a familiar majority mechanism in several jurisdictions. They are easier to explain than RCV but cost more, delay finality, and often produce lower-turnout second elections. A runoff model may be more politically acceptable in jurisdictions hostile to RCV, but it does not solve first-round spoiler pressure as cleanly.
@@ -131,7 +135,7 @@ Future drafting should evaluate whether Congress or the states should:
 
 [ELEC-009](ELEC-009.md) concerns the constitutional mechanism for presidential selection and may include ranked-choice tabulation as a national majority mechanism. ELEC-013 is broader: it concerns candidate gatekeeping, competition, ballot access, debate access, and majority-choice mechanisms across election contexts.
 
-[ELEC-011](../README.md) concerns representation safeguards and redistricting. ELEC-013 may overlap where multimember or proportional systems are considered as alternatives to single-member district distortions.
+[ELEC-011](ELEC-011.md) concerns representation safeguards and redistricting. ELEC-013 may overlap where multimember or proportional systems are considered as alternatives to single-member district distortions.
 
 [ELEC-012](ELEC-012.md) concerns campaign finance, dark money, and corporate political spending. ELEC-013 should coordinate with ELEC-012 where money, polling access, debate qualification, and party networks jointly determine candidate viability.
 
@@ -147,15 +151,19 @@ Budget authority may be required for voter education, voting-system updates, bal
 >
 > —
 >
-> **Audit Status:** Pending development<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Issue-admission test<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
+> **Audit Status:** T1 issue-admission/source-development pass complete; candidate fixed-zero pending remedy selection<br />**Last Audit:** T1 issue-admission/source-development pass<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** T2 remedy-selection and prior-proposal comparison focused on debate-access transparency, federal ballot-access floors, RCV/runoff/open-primary/fusion/proportional comparators, official D.C. and Alaska records, current state bans/repeal efforts, constitutional doctrine, implementation costs, and statute-versus-model-state vehicle choice<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
 
 ## Annotation
 
-**Candidate Status.** ELEC-013 is admitted as a candidate issue from HOR-014. It has not yet been developed into a full proposal or legislative draft.
+**Candidate Status.** T1 confirms ELEC-013 as a distinct A-02 candidate issue from HOR-014. The issue is broader than ranked-choice voting alone: it concerns electoral competition, ballot access, debate access, primary structures, plurality rules, fusion bans, proportional or multi-member possibilities, and voter-facing implementation risks. Proposal Quality Score remains fixed at 0/100 because no least-complex adequate remedy or concrete legislative vehicle has been selected.
+
+**T1 Source-Development Status.** The source record now has stronger routing for debate rules, Maine ranked-choice implementation, Fair Representation Act-style congressional reform, a select-committee study model, and core ballot-access / party-association doctrine. Existing D.C. Initiative 83 and Alaska repeal-pressure leads remain useful but should not receive higher audit credit until official D.C. Board of Elections, D.C. Council, Alaska Division of Elections, ballot-measure, court, funding, and implementation records are incorporated.
 
 **Neutrality.** The issue must not be framed as helping any party, faction, or candidate. The rule should be whether election-process structures fairly permit voters to consider meaningful alternatives while preserving administrability, anti-fraud safeguards, clarity, and finality.
 
-**Constitutional Caution.** Debate-access reform must account for First Amendment and press-freedom limits. Ballot-access reform must account for state election-administration authority, party-association rights, the Elections Clause, Article II, and Supreme Court ballot-access doctrine.
+**Current-Status Check.** T1 found no source making ELEC-013 moot or duplicative. The current record instead strengthens the candidate posture: federal law already regulates candidate-debate staging criteria in a limited way; Maine remains a working RCV administration model; and Congress has current source leads for electoral-reform study and Fair Representation Act-style structural reform. T1 did not complete an official state-by-state scan of current RCV bans, repeal efforts, 2026 ballot measures, or litigation; that remains a T2 task.
+
+**Constitutional Caution.** Debate-access reform must account for First Amendment and press-freedom limits. Ballot-access reform must account for state election-administration authority, party-association rights, the Elections Clause, Article II, and Supreme Court ballot-access doctrine, including the Anderson/Burdick balancing framework, *Williams v. Rhodes* on severe two-party-favoring ballot burdens, and *Timmons v. Twin Cities Area New Party* on the constitutional space for fusion bans.
 
 **Implementation Caution.** RCV and other voting-system reforms can fail politically if voters experience them as confusing or imposed. Any model should include voter education, accessibility testing, mock ballots, transparent tabulation, auditability, and a realistic implementation timeline.
 
@@ -163,6 +171,13 @@ Budget authority may be required for voter education, voting-system updates, bal
 
 - 11 C.F.R. § 110.13, [Candidate debates](https://www.ecfr.gov/current/title-11/chapter-I/subchapter-A/part-110/section-110.13).
 - Maine Secretary of State, [Resources for Ranked-Choice Voting](https://www.maine.gov/sos/elections-voting/resources-for-ranked-choice-voting).
+- Congress.gov, [H.R. 4632, 119th Congress, Fair Representation Act](https://www.congress.gov/bill/119th-congress/house-bill/4632).
+- Congress.gov, [H.Res. 20, 119th Congress, Establishing the Select Committee on Electoral Reform](https://www.congress.gov/bill/119th-congress/house-resolution/20).
+- U.S. Supreme Court, [*Williams v. Rhodes*](https://supreme.justia.com/cases/federal/us/393/23/) (1968).
+- U.S. Supreme Court, [*Anderson v. Celebrezze*](https://supreme.justia.com/cases/federal/us/460/780/) (1983).
+- U.S. Supreme Court, [*Burdick v. Takushi*](https://supreme.justia.com/cases/federal/us/504/428/) (1992).
+- U.S. Supreme Court, [*Timmons v. Twin Cities Area New Party*](https://supreme.justia.com/cases/federal/us/520/351/) (1997).
+- U.S. Supreme Court, [*Storer v. Brown*](https://supreme.justia.com/cases/federal/us/415/724/) (1974).
 - Associated Press, [*Maine counts ranked choice ballots to determine nominees for governor and a US House race*](https://apnews.com/article/b45f3a07e354d0b66fb64ac02ab928a0) (June 2026).
 - Axios, [*D.C. approves Initiative 83 for ranked-choice voting*](https://www.axios.com/local/washington-dc/2024/11/06/initiative-83-ranked-choice-voting-open-primaries-dc-council) (Nov. 6, 2024).
 - Associated Press, [*Measure aimed at repealing Alaska's ranked choice voting system scores early, partial win in court*](https://apnews.com/article/eb3b45477ce41b654072bb28699f4b84) (June 2024).
