@@ -51,4 +51,4 @@ The election system remains vulnerable to federal executive interference, delegi
 
 ## Notes
 
-ELEC-001, ELEC-002, ELEC-003, ELEC-004, ELEC-005, ELEC-006, ELEC-007, ELEC-008, ELEC-009, ELEC-010, ELEC-011, and ELEC-012 are developed. ELEC-013 and ELEC-014 have initial issue pages but remain candidate/source-development proposals pending T1 check and legislation drafting.
+ELEC-001, ELEC-002, ELEC-003, ELEC-004, ELEC-005, ELEC-006, ELEC-007, ELEC-008, ELEC-009, ELEC-010, ELEC-011, and ELEC-012 are developed. ELEC-013 remains a candidate/source-development proposal pending T1 check and legislation drafting. ELEC-014 has completed T1 issue-admission/source-development review but remains a candidate pending T2 remedy selection and legislation or policy drafting.

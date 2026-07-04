@@ -12,6 +12,28 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 ## Audit History
 
+### 2026-07-04 — Targeted T4 Source / State-Comparator Follow-Up
+
+**Audit status:** Targeted source/comparator follow-up complete; external legal review and additional primary-source work needed
+
+**Scope:** This human-directed targeted T4 follow-up continued the July 3 legal-source validation pass by testing whether the remaining manifestation and state-implementation gaps could be narrowed with public primary sources. The pass focused on Michigan, Georgia, Nevada, and representative state Anti-SLAPP/election-contest comparators. It did not conduct paid-database research and is not a substitute for qualified federal-courts, election-law, state-election-law, or legislative-counsel review.
+
+**Michigan source finding:** The audit verified the district-court sanctions order in *King v. Whitmer*, Civil Case No. 20-13134, ECF No. 172 (E.D. Mich. Aug. 25, 2021), using a public PDF hosted by the Michigan Attorney General. This clears the prior "primary order verification remains pending" marker for the Michigan manifestation and strengthens the evidentiary basis for treating that case as an example of post-election litigation later found sanctionable.
+
+**Georgia source finding:** The audit verified a public RECAP transcript for the December 7, 2020 motions hearing in *Pearson v. Kemp*, No. 1:20-CV-4809-TCB (N.D. Ga.). The transcript supports only a narrow Georgia manifestation: emergency election-disruptive relief, inspection/access demands, decertification-style remedies, and remedy-fit concerns. It should not be described as a written merits opinion.
+
+**Nevada source finding:** The audit did not retrieve a verified primary order for *Law v. Whitmer* or another Nevada post-election merits/disposition order. A public source lead located through Democracy Docket returned a stale/404 PDF during this pass, while public reporting sources remain available as routing leads. Nevada should therefore remain an open source-development blocker unless the project obtains an official docket record, court PDF, authenticated filing, or narrows the Nevada manifestation language.
+
+**State-comparator finding:** The audit verified official Nevada statutory comparators. NRS 41.660 and 41.670 provide an Anti-SLAPP special-motion framework with discovery-stay, fee-shifting, sanction, and appeal features. NRS chapter 293 provides election-contest, presidential-elector contest, materiality, timing, special-master, and ballot-inspection constraints. These sources support the project design choice to treat the model state bill as adaptable state legislation rather than as a one-size-fits-all state-court procedure.
+
+**Score effect:** No score change. Proposal Quality Score remains 73/100 (Substantially Developed Draft). The follow-up improves source support for the existing score but does not justify advancement to Review Ready because the Nevada primary order remains unresolved, the representative-state comparison is only partial, Wisconsin still relies on a mirror rather than an official Seventh Circuit PDF, Petition Clause and First Amendment review remains incomplete, title 28 codification remains undecided, and no qualified external review has been incorporated.
+
+**Defects corrected during the audit:** Updated the issue page's Michigan manifestation citation; added a Georgia transcript citation and limited Georgia framing; added Nevada statutory comparator discussion; updated the visible audit summary, source-development annotation, and quality-score annotation; updated source inventory row SRC-0261; and added source rows for the Georgia transcript and Nevada statutory comparators.
+
+**Next audit need:** Obtain qualified federal-courts, election-law, or legislative-counsel review; retrieve a primary Nevada disposition/order or narrow Nevada language; replace or supplement the Wisconsin opinion mirror with the official Seventh Circuit PDF if available; expand representative-state comparison beyond Nevada; decide title 28 codification or other final procedural vehicle; and complete deeper Petition Clause / First Amendment review before moving the proposal to Review Ready.
+
+**Audit process feedback:** This was a useful targeted follow-up, not a full T5 or publication-clearance audit. Future ELEC-004 work should prioritize finishing the remaining primary-source and legal-authority blockers before adding new manifestations.
+
 ### 2026-07-03 — T4 Follow-Up / Legal-Source Validation
 
 **Audit status:** T4 follow-up complete; external legal review and primary-source expansion needed

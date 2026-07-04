@@ -12,6 +12,34 @@ This file preserves the full audit history for [ELEC-014](ELEC-014.md). The issu
 
 ## Audit History
 
+### 2026-07-03 — T1 Issue-Admission and Source-Development Pass
+
+**Audit status:** T1 issue-admission/source-development pass complete; candidate fixed-zero pending remedy selection.
+
+**Scope:** Reviewed ELEC-014 after the ELEC-004 criminal-process spin-off. The pass tested issue admission, A-02 ownership, relationship to ELEC-001, ELEC-004, ELEC-007, DOJ-002, and DOJ-003, candidate/fixed-zero status, current DOJ election-crime source leads, Rule 41 and grand-jury source posture, Ohio Organizing Collaborative source posture, and next-audit routing.
+
+**Methodology status:** Because ELEC-014 is a candidate/source-development issue with `current-fixed-status`, this audit did not assign a formula-based proposal score, adoption friction score, Required Electoral Environment, or Development Priority. Those fields remain `N/A` until a least-complex adequate remedy and proposal vehicle are selected.
+
+**Issue-admission finding:** Admission is confirmed. ELEC-014 identifies a distinct institutional weakness: federal criminal investigative process can affect state-administered elections, voter-registration activity, voting-rights organizations, election officials, voter data, ballots, voting systems, and lawful participation in ways not addressed by ELEC-004's civil-process remedy. The issue remains structurally neutral because it preserves legitimate federal enforcement of voting-rights, voter-intimidation, corruption, foreign-interference, and election-crime laws.
+
+**Boundary finding:** ELEC-014 is not duplicative of ELEC-004. ELEC-004 owns election litigation, civil subpoenas, audits, inspection demands, and comparable noncriminal process. ELEC-014 owns federal criminal searches, criminal subpoenas, grand-jury process, law-enforcement interviews, device seizures, voter-data demands, and criminal investigative approvals or timing rules. DOJ-002 and DOJ-003 remain adjacent where the concern is White House direction, selective enforcement, charging, favoritism, or politicization; ELEC-014 remains in A-02 because the protected institutional interest is election participation and state-administered election integrity.
+
+**Current DOJ source finding:** Current Justice Manual 9-85 is directly relevant. It assigns Public Integrity Section supervisory jurisdiction over election crimes, includes a ballot-fraud noninterference rule recognizing state administration and warning against overt measures before certification and related contests are complete, requires Public Integrity consultation for issues involving armed officials where elections are held, and contains election-impact timing limits. The audit also found that JM 9-85.210 states that the consultation requirement for campaign-finance, federal patronage, and election-process corruption matters is suspended while Department leadership revises the section as of June 2025. T2 should treat that suspension as a current-source development issue and test whether codification, reporting, or an external-review layer is needed.
+
+**Criminal-procedure source finding:** Federal Rule of Criminal Procedure 41 supplies ordinary warrant, execution, inventory, return, return-of-property, and suppression architecture, and Rule 6 supplies grand-jury secrecy architecture. DOJ's *Federal Prosecution of Election Offenses* manual supplies election-specific process history, including warnings against pre-election voter interviews or overt investigative activity that may chill voting and Public Integrity consultation for grand-jury/full investigations and election-document subpoenas. T2 should determine whether these general and policy sources are adequate or whether the proposal should draft a narrower election-context overlay.
+
+**Ohio source finding:** A July 3, 2026 public-source refresh found AP and Guardian reporting on the Ohio Organizing Collaborative FBI search but did not locate primary warrant materials, a public Rule 41 docket or return, an official DOJ/FBI explanation, an inspector-general finding, congressional findings, or a civil action challenging the search. The Ohio episode remains a source-development trigger only. Do not treat political motive, retaliation, voter intimidation, or illegality as established on the current record.
+
+**Current-status and pending-judicial vulnerability check:** No mootness event, controlling judicial ruling, or pending case was located within this T1 pass that eliminates ELEC-014 as a candidate issue. The current-source refresh instead strengthens the need for T2 source development because the relevant DOJ election-crime guardrails appear to be a mix of internal policy, current Justice Manual language, and historical DOJ manual guidance rather than a clearly enforceable statutory framework.
+
+**Score effect:** Proposal Quality Score remains fixed at 0/100. This is not an adverse assessment of importance; it reflects candidate/source-development status only. No formula scoring should occur until ELEC-014 receives a selected remedy and proposal vehicle.
+
+**Corrections made:** Updated the issue page audit metadata, visible Proposal Scoring summary, annotation, and source notes. Updated source inventory coverage for Justice Manual 9-85 and added source rows for DOJ's election-offenses manual and the Federal Rules of Criminal Procedure. Updated the Election area note to show ELEC-014 has completed T1 but remains candidate pending T2 remedy selection and legislation or policy drafting.
+
+**Next audit need:** Run a T2 remedy-selection audit. Priority questions: whether existing Justice Manual controls are sufficient or too easily revised; whether the suspended JM 9-85.210 consultation requirement should be codified or replaced; how Rule 41, Rule 6, warrant minimization, voter-data privacy, associational records, and emergency exceptions should interact; whether state-administered election materials require special under-seal review or notice; how to preserve legitimate federal voting-rights and election-crime enforcement; and whether the least-complex adequate vehicle is DOJ policy, statutory codification, OIG/congressional reporting, or a hybrid.
+
+**Audit process feedback:** The T1 tier was adequate for issue admission, boundary confirmation, source-capture, and next routing. It was not adequate for full DOJ manual history, Fourth Amendment doctrine, grand-jury doctrine, or legislative drafting. The main friction was lack of public primary material for the Ohio search; the audit should not attempt to fill that gap with inference.
+
 ### 2026-07-03 — Issue Spin-Off / Source-Development Admission
 
 **Audit status:** Pending development

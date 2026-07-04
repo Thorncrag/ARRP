@@ -7,11 +7,11 @@ priority: high
 remedy_type: coupled-federal-and-model-state-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
-audit_status: "T4 follow-up complete; external legal review and primary-source expansion needed"
+audit_status: "Targeted T4 source/comparator follow-up complete; external legal review and additional primary-source expansion needed"
 audit_score: 73
-audit_last_type: "T4 follow-up / legal-source validation"
-audit_last_date: "2026-07-03"
-audit_next: "Qualified federal-courts/election-law review plus primary records for Michigan, Nevada, Georgia, and state implementation comparison"
+audit_last_type: "Targeted T4 source/comparator follow-up"
+audit_last_date: "2026-07-04"
+audit_next: "Qualified federal-courts/election-law review, Nevada primary order retrieval, representative state comparison beyond Nevada, title 28 codification decision, and Petition Clause review"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -59,11 +59,11 @@ In federal litigation challenging Pennsylvania’s result, public claims of frau
 
 ### Michigan — post-election suit and later sanctions
 
-A federal post-election suit in Michigan sought extraordinary relief affecting the presidential result. The district court later sanctioned counsel, finding that the suit had been filed without adequate factual and legal basis and was not a legitimate vehicle for overturning the result. This episode illustrates that a proceeding may appear initially as litigation but later prove sanctionable when its factual basis, purpose, or coordination is examined more fully. See source lead for *King v. Whitmer* in [CourtListener](https://www.courtlistener.com/opinion/4959090/king-v-whitmer/); primary order verification remains pending.
+A federal post-election suit in Michigan sought extraordinary relief affecting the presidential result. The district court later sanctioned counsel, finding that the suit had been filed without adequate factual and legal basis and was not a legitimate vehicle for overturning the result. This episode illustrates that a proceeding may appear initially as litigation but later prove sanctionable when its factual basis, purpose, or coordination is examined more fully. See [*King v. Whitmer*, Opinion and Order, Civil Case No. 20-13134 (E.D. Mich. Aug. 25, 2021)](https://www.michigan.gov/documents/ag/172_opinion__order_King_733786_7.pdf).
 
-### Wisconsin, Nevada, and other state proceedings
+### Wisconsin, Nevada, Georgia, and other state proceedings
 
-Post-election challenges in multiple states sought relief that would have affected certified or certifiable results, including selective invalidation of votes, extraordinary review, or annulment theories. Courts generally rejected claims that failed to establish material error sufficient to change the result or justify the requested remedy. These proceedings show the need for early materiality and remedy-fit requirements when a filing seeks election-disruptive relief.
+Post-election challenges in multiple states sought relief that would have affected certified or certifiable results, including selective invalidation of votes, extraordinary review, or annulment theories. Courts generally rejected claims that failed to establish material error sufficient to change the result or justify the requested remedy. These proceedings show the need for early materiality and remedy-fit requirements when a filing seeks election-disruptive relief. In Georgia, the hearing transcript in [*Pearson v. Kemp*, No. 1:20-CV-4809-TCB (N.D. Ga. Dec. 7, 2020)](https://storage.courtlistener.com/recap/gov.uscourts.gand.284055/gov.uscourts.gand.284055.79.0.pdf) provides primary support for a narrow remedy-fit example involving emergency election-disruptive relief, inspection/access demands, and decertification-style remedies.
 
 ### Subpoena, audit, and inspection mechanisms
 
@@ -98,6 +98,8 @@ Existing law may lack:
 ## Proposal Survey
 
 Anti-SLAPP statutes provide the closest procedural analogue: early screening, discovery stays, burden clarification, and fee shifting for abusive litigation. Because Anti-SLAPP law is primarily state law and varies widely, ELEC-004 adapts the architecture rather than copying any single state statute.
+
+Representative state comparison also shows why the state model must be adapted jurisdiction by jurisdiction. Nevada, for example, has an Anti-SLAPP special-motion framework in [NRS 41.660 and 41.670](https://www.leg.state.nv.us/NRS/NRS-041.html), while election-contest timing, verification, materiality, presidential-elector contest, and ballot-inspection constraints appear in [NRS chapter 293](https://www.leg.state.nv.us/NRS/NRS-293.html). Those provisions are useful comparators, not a complete model for all states.
 
 Federal procedural models also exist for accelerated election litigation and sensitive-material protection, including expedited review provisions in the Electoral Count Reform Act, ordinary protective-order practice, and Congress's authority to prescribe federal procedure by statute. See [3 U.S.C. § 5](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section5&num=0&edition=prelim), the official [Federal Rules of Civil Procedure](https://www.uscourts.gov/file/78323/download), and [28 U.S.C. § 2072](https://uscode.house.gov/view.xhtml?req=(title:28%20section:2072%20edition:prelim)).
 
@@ -176,7 +178,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** T4 follow-up complete; external legal review and primary-source expansion needed<br />**Last Audit:** T4 follow-up / legal-source validation<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review plus primary records for Michigan, Nevada, Georgia, and state implementation comparison<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** Targeted T4 source/comparator follow-up complete; external legal review and additional primary-source expansion needed<br />**Last Audit:** Targeted T4 source/comparator follow-up<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review, Nevada primary order retrieval, representative state comparison beyond Nevada, title 28 codification decision, and Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 
@@ -192,9 +194,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Federalism.** Federal legislation should govern federal courts and federal-election-related proceedings. States should be encouraged, not commandeered, to adopt parallel procedures for state courts and state-law contests.
 
-**Source Development Pending.** Further development should cite representative cases and orders from Michigan, Nevada, Georgia, and other election proceedings, together with state Anti-SLAPP analogues, state election-contest statutes, and representative state court-rule constraints. Pennsylvania has direct Third Circuit source support; Wisconsin now has a reviewed Seventh Circuit opinion mirror but should still be replaced or supplemented with the official court PDF if available.
+**Targeted Source / Comparator Follow-Up.** The July 4, 2026 follow-up verified primary order support for the Michigan sanctions manifestation, added a Georgia hearing transcript source for *Pearson v. Kemp*, and added official Nevada Anti-SLAPP and election-contest statutory comparators. The pass did not retrieve a primary Nevada *Law v. Whitmer* order, replace the Wisconsin mirror with an official Seventh Circuit PDF, complete representative-state review beyond Nevada, or supply qualified external legal review.
 
-**Quality Score.** The 73/100 score reflects a Substantially Developed Draft after T4 follow-up. The current component calculation is: Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior-Proposal 5/8; Remedy 9/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. The follow-up adds *Berk v. Choy*, official Federal Rules source support, a direct 3 U.S.C. § 5 expedited-procedure analogue, a Wisconsin opinion source lead, and an express federal-statutory-procedure clause in the draft. The proposal remains below Review Ready because Michigan, Nevada, Georgia, and state-implementation records remain incomplete; Petition Clause and First Amendment limits need deeper review; and no qualified external review has been incorporated.
+**Source Development Pending.** Further development should cite representative cases and orders from Nevada and other election proceedings, together with additional state Anti-SLAPP analogues, state election-contest statutes, ballot-secrecy rules, open-records limits, and representative state court-rule constraints. Pennsylvania has direct Third Circuit source support; Michigan now has primary order support; Georgia now has hearing-transcript support; Wisconsin has a reviewed Seventh Circuit opinion mirror but should still be replaced or supplemented with the official court PDF if available; and Nevada still needs primary-order retrieval or narrower phrasing.
+
+**Quality Score.** The 73/100 score reflects a Substantially Developed Draft after T4 follow-up. The current component calculation is: Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior-Proposal 5/8; Remedy 9/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. The follow-up adds *Berk v. Choy*, official Federal Rules source support, a direct 3 U.S.C. § 5 expedited-procedure analogue, a Wisconsin opinion source lead, an express federal-statutory-procedure clause in the draft, verified Michigan order support, Georgia transcript support, and Nevada statutory comparators. The proposal remains below Review Ready because the Nevada primary order, broader representative-state implementation comparison, Petition Clause and First Amendment limits, title 28 procedural vehicle, and qualified external review remain unresolved.
 
 **Adoption Score.** The 4/12 score is limited. ELEC-004 has a clear procedural analogue in Anti-SLAPP law and a staged federal/state vehicle, but T1 did not identify proposal-specific polling, sponsor coalitions, administrator or court-administration support, bipartisan legislative records, or enacted election-specific Anti-SLAPP analogues.
 

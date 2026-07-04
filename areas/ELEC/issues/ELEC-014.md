@@ -6,10 +6,10 @@ status: candidate
 priority: high
 remedy_type: federal-election-criminal-process-guardrails
 audit_score: 0
-audit_status: Pending development
-audit_last_type: "Issue spin-off / source-development admission"
+audit_status: "T1 issue-admission/source-development pass complete; candidate fixed-zero pending remedy selection"
+audit_last_type: "T1 issue-admission/source-development pass"
 audit_last_date: "2026-07-03"
-audit_next: "Issue-admission and source-development pass"
+audit_next: "T2 remedy-selection audit focused on DOJ election-crimes guardrails, suspended JM 9-85.210 consultation rule, Rule 41/grand-jury safeguards, Ohio primary records, and statute-versus-Justice-Manual vehicle choice"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 print_levels:
@@ -126,15 +126,23 @@ Administrative workload is possible; no new appropriation is specified pending s
 >
 > —
 >
-> **Audit Status:** Pending development<br />**Last Audit:** Issue spin-off / source-development admission<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Issue-admission and source-development pass<br />**Full Audit History:** [ELEC-014 audit history](ELEC-014.audit.md)
+> **Audit Status:** T1 issue-admission/source-development pass complete; candidate fixed-zero pending remedy selection<br />**Last Audit:** T1 issue-admission/source-development pass<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** T2 remedy-selection audit focused on DOJ election-crimes guardrails, suspended JM 9-85.210 consultation rule, Rule 41/grand-jury safeguards, Ohio primary records, and statute-versus-Justice-Manual vehicle choice<br />**Full Audit History:** [ELEC-014 audit history](ELEC-014.audit.md)
 
 ## Annotation
 
 **Candidate Status.** ELEC-014 is a candidate issue spun off from ELEC-004 after the project determined that federal criminal investigative process does not fit ELEC-004's Anti-SLAPP-style civil-procedure remedy.
 
+**T1 Status.** The July 3, 2026 T1 pass confirms issue admission, area placement, and the civil/criminal boundary. ELEC-014 remains a candidate fixed at 0/100 because the least-complex adequate remedy and proposal vehicle have not yet been selected.
+
+**Existing DOJ Guardrails.** Current DOJ materials already contain election-specific guardrails relevant to this issue. Justice Manual 9-85 assigns Public Integrity Section supervisory jurisdiction for election crimes, warns against overt ballot-fraud investigative measures before certification and related contests are complete, requires consultation over armed officials where elections are held, and prohibits timing investigative actions to affect elections. The same section also states that the 9-85.210 consultation requirement for campaign-finance, federal patronage, and election-process corruption matters is suspended while Department leadership revises it. That suspension should be treated as a current-source finding requiring T2 analysis, not as proof that any specific investigation was improper.
+
+**Criminal-Procedure Baseline.** Ordinary federal criminal procedure already supplies warrant, inventory, return-of-property, suppression, and grand-jury secrecy rules. T2 should test whether those generally applicable protections are adequate for election-specific timing, voter-data, associational-privacy, state-administration, and chilling-effect concerns or whether Congress should codify a narrower election-context overlay.
+
 **Neutral Framing.** The issue is not anti-law-enforcement and should not imply that federal election-crime enforcement is illegitimate. The premise is that election-related criminal process can require heightened guardrails because the state-administered election context magnifies chilling, privacy, timing, and federalism harms.
 
 **Source Caution.** The Ohio Organizing Collaborative episode is a source-development trigger only. Current public sources are secondary reporting and criticism. Do not treat motive, retaliation, intimidation, or illegality as established without primary records or official findings.
+
+**Pathway Note.** Adoption pathway fields remain `N/A` while the issue is candidate-only. Possible future vehicles include Justice Manual revision, statutory codification of election-crime investigative predicates and approvals, reporting/OIG review, or a hybrid model; T2 should select the least-complex adequate path before any formula score is assigned.
 
 **Legal Caution.** Any remedy must be tested against the Fourth Amendment, Rule 41, grand-jury secrecy, prosecutorial discretion, federal civil-rights enforcement, legitimate voter-fraud enforcement, associational privacy, voter privacy, state election authority, and emergency-threat exceptions.
 
@@ -143,4 +151,7 @@ Administrative workload is possible; no new appropriation is specified pending s
 - Associated Press, [*FBI searches office of Ohio group that supports voter registration efforts*](https://apnews.com/article/4b241d64db0478c6a5852aa20d3e138f) (June 12, 2026).
 - The Guardian, [*FBI raid of Ohio voting rights group stokes fear of pre-midterm crackdown*](https://www.theguardian.com/us-news/2026/jun/12/fbi-raid-ohio-voting-group-election) (June 12, 2026).
 - Federal Register, [Executive Order 14399 — Ensuring Citizenship Verification and Integrity in Federal Elections](https://www.federalregister.gov/documents/2026/04/03/2026-06601/ensuring-citizenship-verification-and-integrity-in-federal-elections) (published Apr. 3, 2026).
+- U.S. Department of Justice, [Justice Manual 9-85.000 - Protection of Government Integrity](https://www.justice.gov/jm/jm-9-85000-protection-government-integrity) (accessed July 3, 2026).
+- U.S. Department of Justice, [*Federal Prosecution of Election Offenses*](https://www.justice.gov/criminal/file/1029066/dl) (Seventh Edition, May 2007; revised Aug. 2007).
+- U.S. Code / House Office of the Law Revision Counsel, [Federal Rules of Criminal Procedure](https://uscode.house.gov/view.xhtml?path=/prelim@title18/title18a/node35&edition=prelim) (accessed July 3, 2026).
 - Future source development should review DOJ election-crimes guidance, Justice Manual provisions for politically sensitive investigations, Public Integrity Section approval rules, Civil Rights Division voting-rights enforcement materials, Rule 41, grand-jury subpoena practice, warrant minimization, OIG review, congressional oversight models, and any public court record arising from the Ohio search.

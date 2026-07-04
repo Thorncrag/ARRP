@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: active
+status: inactive
 print_levels:
   - full-technical
 ---
@@ -15,16 +15,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Inactive |
 | Active issue/task | None |
-| Audit type/tier | None |
-| Started | N/A |
-| Last checkpoint | 2026-07-03 ELEC-012 T2 complete |
-| User request | Turn to ELEC-012. |
-| Scope | Completed ELEC-012 T2 legal-durability and implementation review of H.J.Res. 54 support, ARRP Section 4 clarification, H.J.Res. 13 fallback, post-ratification enabling legislation, statewide-election coverage, FEC implementation and contingency safeguards, Maine/state comparators, and scoring posture. |
-| Files touched | `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `legislation/ELEC-012.md`; `legislation/ELEC-012-amendment.md`; `areas/ELEC/README.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Promoted ELEC-012 to developed status; assigned 60/100 Developed Draft score; added adoption/pathway/friction fields; added FECA, Supreme Court, and FEC source rows; added amendment breadth, disclosure/privacy, public-financing, and FECA-codification cautions; updated the Election area page; synced GitHub Project issue #40 to Developed draft, score 60, runs 5, current rebaseline, and T3 next audit. |
-| Next step | If ELEC-012 resumes, run T3 source and legal-readiness audit focused on FECA codification, amendment conformity, state comparators, disclosure/privacy tailoring, adoption evidence, fiscal support, and qualified external constitutional/election-law review. |
-| Blockers/questions | No qualified external reviewer is available in-session; final constitutional-law and election-law validation remains pending. |
-| Validation status | Passed: `git diff --check`, `sources.csv` CSV parse, stale active ELEC-012 status scan, and GitHub Project issue #40 verification. |
+| Audit type/tier | Completed targeted T4 source/comparator follow-up for ELEC-004 |
+| Started | 2026-07-04 12:41:12 -0400 |
+| Last checkpoint | 2026-07-04 12:57:07 -0400 |
+| User request | Run the next audit on ELEC-004. |
+| Scope | Human-directed targeted T4 follow-up for ELEC-004 after the July 3 legal-source validation pass, focused on primary records for Michigan, Nevada, Georgia, and representative state implementation comparisons. This pass was not a substitute for qualified federal-courts, election-law, or legislative-counsel review. |
+| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-004.md`; `areas/ELEC/issues/ELEC-004.audit.md`; `inventory/sources.csv`; GitHub Project fields for issue #32. |
+| Completed steps | Verified and integrated the Michigan *King v. Whitmer* sanctions order; added the Georgia *Pearson v. Kemp* hearing transcript as a narrow remedy-fit source; added Nevada NRS 41 and NRS 293 statutory comparators; updated ELEC-004 issue metadata, scoring summary, audit history, source inventory, and GitHub Project fields. |
+| Next step | Obtain qualified federal-courts/election-law review, retrieve a primary Nevada disposition/order or narrow Nevada language, expand representative-state comparison beyond Nevada, replace the Wisconsin mirror with an official Seventh Circuit PDF if available, decide title 28 codification, and complete deeper Petition Clause review. |
+| Blockers/questions | Existing uncommitted ELEC-014 audit files remain in the worktree and were preserved. External legal review is unavailable in-session. |
+| Validation status | Passed: source CSV parses cleanly, `git diff --check` passes, GitHub Project ELEC-004 row verified, and `framework/AGENT_AUDIT_LOG.md` was not modified. |
 
 ## Handoff Rules
 
