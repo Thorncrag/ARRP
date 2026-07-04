@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-013 |
-| Audit type/tier | T2 remedy-selection and prior-proposal comparison |
-| Started | 2026-07-04 17:29:36 -0400 |
-| Last checkpoint | 2026-07-04 17:42:56 -0400 |
-| User request | Next audit on ELEC-013. |
-| Scope | Run the next progressive ELEC-013 audit focused on selecting or rejecting a concrete remedy path; debate-access transparency; federal ballot-access floors; RCV, runoff, open-primary, fusion, and proportional comparators; official D.C., Alaska, and Maine records; current state bans/repeal efforts; constitutional doctrine; implementation-cost analogues; and statute-versus-model-state vehicle choice. |
-| Files touched | `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `areas/ELEC/README.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Completed T2 remedy-selection audit; selected staged federal-first election-competition path; updated issue metadata, visible scoring summary, audit history, area note, source inventory, current-audit handoff, and GitHub Project fields. |
-| Next step | Draft first staged federal election-competition bill and companion model-state pilot option. |
-| Blockers/questions | Score remains fixed at 0 until draft legislation or enforceable policy text exists; D.C. and Alaska official result/implementation records still need deeper static primary-source verification. |
-| Validation status | Local checks passed; GitHub Project row confirmed updated. |
+| Active issue/task | ELEC-012 |
+| Audit type/tier | T4/T5 drafting-conversion follow-up |
+| Started | 2026-07-04 18:49:20 -0400 |
+| Last checkpoint | 2026-07-04 18:57:44 -0400 |
+| User request | Restructure ELEC-012 as an amendment to existing election law. |
+| Scope | Convert ELEC-012 enabling legislation from a freestanding post-ratification statute into conforming amendments to FECA; rerun score logic; update issue/audit/source bookkeeping and GitHub Project fields. |
+| Files touched | `legislation/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `areas/ELEC/README.md`; `legislation/README.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Recast ELEC-012 enabling legislation as a FECA conforming-amendment package; raised current score to 75/100 Review Ready; updated issue metadata, scoring summary, audit history, source inventory, and local indexes; ran local validation checks. |
+| Next step | T5 legal-readiness audit: legislative-counsel codification check, full Dinner Table merits-document review, Hawaii Act 011 legal-theory comparison, H.J.Res. 54 tailoring, federal cost model, and external constitutional/election-law review. |
+| Blockers/questions | GitHub Project field sync could not be applied from this machine because the local `gh` token is invalid and the available GitHub connector does not expose Project V2 field writes. |
+| Validation status | Local checks passed: CSV row width, score/front-matter consistency, no trailing whitespace, and `git diff --check`. |
 
 ## Handoff Rules
 

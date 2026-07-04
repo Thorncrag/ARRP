@@ -33,7 +33,7 @@ Working statutory and administrative language is maintained separately from the 
 - [ELEC-011 — Neutral Redistricting Baseline Enforcement Act](ELEC-011.md)
 - [ELEC-011-amendment — Neutral Redistricting Baseline Amendment](ELEC-011-amendment.md)
 - [ELEC-011-state — Model State Algorithmic Redistricting Baseline and Public Deviation Act](ELEC-011-state.md)
-- [ELEC-012 — Campaign Finance Democratic Authority Implementation Act](ELEC-012.md)
+- [ELEC-012 — Campaign Finance Democratic Authority FECA Conforming Amendments Act](ELEC-012.md)
 - [ELEC-012-amendment — Campaign Finance Democratic Authority Amendment](ELEC-012-amendment.md)
 - [FUND-001 — Executive-Order Abuse Impoundment Control Act](FUND-001.md)
 - [JUD-001 — Executive Compliance and Civil Contempt Accountability Act](JUD-001.md)

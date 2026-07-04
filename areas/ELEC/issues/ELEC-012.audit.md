@@ -14,6 +14,26 @@ This file preserves the full audit history for [ELEC-012](ELEC-012.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-04 — T4/T5 FECA drafting-conversion follow-up
+
+**Audit tier:** T4/T5 drafting-conversion and score-check follow-up
+
+**Audit status:** T4/T5 FECA drafting-conversion follow-up complete; enabling legislation now uses FECA conforming amendments, but full merits-document review, cost model, amendment-tailoring, and external review remain blockers
+
+**Proposal-quality score:** 75/100 (Review Ready)
+
+**Component score under rubric 2026-06-27.2:** Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior-Proposal 7/8; Remedy 9/12; Implementation 7/8; Abuse Resistance 6/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4; Penalties 0.
+
+**Audit scope:** Converted the linked ELEC-012 enabling legislation from a mostly freestanding post-ratification implementation act into a FECA conforming-amendment package, then reran the proposal-quality score against that actual draft change. Reviewed the issue page, audit sidecar, legislation page, FECA source hooks, source inventory, and active-audit handoff.
+
+**Drafting-conversion finding:** The enabling legislation now amends or maps into existing FECA architecture rather than creating a separate campaign-finance code. The draft adds definitions through 52 U.S.C. 30101; true-source and covered-transfer reporting through 30104; Commission forms, databases, advisory-opinion limits, and self-executing implementation duties through 30106; post-ratification enforcement, direct civil actions after failure to act, backup filing, intervention, funding protection, and interference notices through 30109; contribution and covered-transfer limits through 30116; artificial-entity treasury spending through 30118; and foreign-influenced entity restrictions through 30121. Public-financing and covered-statewide-election provisions are drafted as additional FECA conforming sections to be numbered and placed by legislative counsel.
+
+**Score effect:** Score increased from 72 to 75. Remedy increased from 8/12 to 9/12 because the vehicle now cleans up existing election law and avoids duplicative freestanding implementation where FECA hooks already exist. Implementation increased from 6/8 to 7/8 because reporting, FEC administration, enforcement, deadlock, backup filing, and state-transition provisions are now tied to current FECA architecture. Drafting increased from 6/8 to 7/8 because the bill now has an amendatory structure keyed to existing statutory sections. Evidence, Legal Fit, Prior-Proposal, Adoption, Abuse Resistance, and External Review remain unchanged because this pass did not complete full court-record review, Hawaii legal-theory comparison, new adoption research, external review, or an expert legislative-counsel check.
+
+**Review-ready caveat:** The 75 score means Review Ready for knowledgeable external critique, not publication-ready or lawmaker-circulation-ready. ELEC-012 remains Article V-dependent, legally and politically high-friction, and not externally validated.
+
+**Unresolved findings:** Next work should include legislative-counsel review for exact FECA codification, cross-references, table-of-sections amendments, criminal-penalty placement, and interaction with FECA's complaint, four-vote, conciliation, civil-enforcement, and citizen-suit structure; full *Dinner Table Action v. Schneider* merits-document review and official court/PACER verification; Hawaii Act 011 legal-theory comparison; H.J.Res. 54 narrowing or rule-of-construction language; source-backed federal cost model; proposal-specific adoption strategy; and qualified external constitutional-law/election-law review.
+
 ### 2026-07-04 — T4 legal-durability and drafting-conversion audit
 
 **Audit tier:** T4: Legal-durability and drafting-conversion audit
