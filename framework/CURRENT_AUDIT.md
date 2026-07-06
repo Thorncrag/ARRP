@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-012 |
-| Audit type/tier | T4/T5 drafting-conversion follow-up |
-| Started | 2026-07-04 18:49:20 -0400 |
-| Last checkpoint | 2026-07-04 18:57:44 -0400 |
-| User request | Restructure ELEC-012 as an amendment to existing election law. |
-| Scope | Convert ELEC-012 enabling legislation from a freestanding post-ratification statute into conforming amendments to FECA; rerun score logic; update issue/audit/source bookkeeping and GitHub Project fields. |
-| Files touched | `legislation/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.md`; `areas/ELEC/issues/ELEC-012.audit.md`; `areas/ELEC/README.md`; `legislation/README.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Recast ELEC-012 enabling legislation as a FECA conforming-amendment package; raised current score to 75/100 Review Ready; updated issue metadata, scoring summary, audit history, source inventory, and local indexes; ran local validation checks. |
-| Next step | T5 legal-readiness audit: legislative-counsel codification check, full Dinner Table merits-document review, Hawaii Act 011 legal-theory comparison, H.J.Res. 54 tailoring, federal cost model, and external constitutional/election-law review. |
-| Blockers/questions | GitHub Project field sync could not be applied from this machine because the local `gh` token is invalid and the available GitHub connector does not expose Project V2 field writes. |
-| Validation status | Local checks passed: CSV row width, score/front-matter consistency, no trailing whitespace, and `git diff --check`. |
+| Active issue/task | ELEC-013 / ELEC-015 |
+| Audit type/tier | Boundary split / issue-scope refinement |
+| Started | 2026-07-06 09:07:13 -0400 |
+| Last checkpoint | 2026-07-06 09:19:14 -0400 |
+| User request | Branch ranked-choice-voting discussion out of ELEC-013 into a new ELEC issue. |
+| Scope | Create ELEC-015 for RCV, runoff, and majority-choice election-method reform; narrow ELEC-013 to federal candidate access, ballot-access floors, debate gatekeeping, and FEC-facing election-competition rules; update area, source, horizon, audit, and GitHub tracking. |
+| Files touched | `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `areas/ELEC/issues/ELEC-015.md`; `areas/ELEC/issues/ELEC-015.audit.md`; `areas/ELEC/README.md`; `framework/HORIZON_SCAN_LOG.md`; `inventory/sources.csv`; `inventory/github_issue_import.csv`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Created ELEC-015 and audit sidecar; narrowed ELEC-013 to federal candidate-access, ballot-access, and debate-gatekeeping; updated Election area boundaries, HOR-014 disposition, source ownership, GitHub import ledger, GitHub issue #41 title, new GitHub issue #237, and Project rows for ELEC-013 and ELEC-015. |
+| Next step | ELEC-013: draft federal candidate-access and debate-gatekeeping bill. ELEC-015: before any audit, confirm no proposed legislation exists, then run T1 source-development/remedy-selection or draft a model-state/federal pilot vehicle. |
+| Blockers/questions | None. |
+| Validation status | Passed: `git diff --check`, CSV row-width checks for `sources.csv` and `github_issue_import.csv`, changed Markdown local-link check, and ELEC issue-count/file-existence check. |
 
 ## Handoff Rules
 

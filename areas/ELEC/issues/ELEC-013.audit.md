@@ -14,6 +14,28 @@ This file preserves the full audit history for [ELEC-013](ELEC-013.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-06 — Boundary split / RCV branch-off
+
+**Audit tier:** Boundary split and issue-scope refinement
+
+**Audit status:** Boundary split complete; RCV and majority-choice voting moved to ELEC-015; candidate fixed-zero pending federal candidate-access draft
+
+**Proposal-quality score:** 0/100 (Fixed-zero; drafting pending)
+
+**Scope:** Split ranked-choice voting, runoff, and majority-choice election-method material out of ELEC-013 and into new [ELEC-015](ELEC-015.md). Reviewed the ELEC-013 issue page, audit sidecar, Election area boundary note, source inventory rows for ELEC-013/HOR-014, and the T2 remedy-selection record before narrowing the issue boundary.
+
+**Boundary finding:** ELEC-013 had become too broad. Debate access, ballot access, FEC-facing debate rules, and federal candidate-access floors are one reform lane; ranked-choice voting, runoffs, majority-choice tabulation, voter education, tabulation transparency, recount rules, and election-method pilots are a separate reform lane. ELEC-013 now owns the federal candidate-access/debate-gatekeeping lane. ELEC-015 owns the election-method lane.
+
+**Remedy-status finding:** The earlier staged federal-first remedy is narrowed. ELEC-013's next draft should focus on debate-transparency and neutrality conditions tied to public benefits, federal-election ballot-access notice and cure floors, FEC administration, and constitutional authority. Any RCV, runoff, tabulation-transparency, or model-state election-method pilot now belongs in ELEC-015 unless it is only an adjacent coordination point.
+
+**Score effect:** Score remains fixed at 0/100. The split improves issue architecture and remedy fit, but ELEC-013 still has no legislative text, enforceable policy draft, cost estimate, constitutional authority map, or implementation model sufficient for formula scoring.
+
+**Corrections made:** Renamed and narrowed the issue page; updated front matter, Issue Snapshot, Institutional Anomaly, manifestations, proposal survey, least-complex remedy, repair/prevention list, proposed-legislation placeholder, adjacent-proposal boundaries, budget statement, Proposal Scoring box, annotation, and source notes. Created ELEC-015 and moved RCV/majority-choice ownership there.
+
+**Unresolved findings:** The next ELEC-013 pass should draft the federal candidate-access and debate-gatekeeping bill; source-develop FEC advisory opinions and enforcement matters; verify official debate sponsor criteria and litigation; map Elections Clause, Article II, Spending Clause, HAVA, First Amendment, press-freedom, party-association, and Anderson/Burdick limits; review state ballot-access statutes and cure procedures; and develop implementation-cost analogues.
+
+**Audit process feedback:** This entry should be treated as a boundary-correction pass. It does not replace the no-draft preflight rule for later audits: unless a draft is added first, future ELEC-013 audits should notify the user that the issue remains fixed-zero and candidate-only.
+
 ### 2026-07-04 — T2 remedy-selection and prior-proposal comparison
 
 **Audit tier:** T2: Remedy selection, prior-proposal comparison, and source-development audit
