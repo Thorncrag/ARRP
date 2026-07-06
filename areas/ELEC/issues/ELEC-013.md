@@ -6,10 +6,10 @@ status: candidate
 priority: high
 remedy_type: election-competition-reform
 audit_score: 0
-audit_status: "Boundary split complete; RCV and majority-choice voting moved to ELEC-015; candidate fixed-zero pending federal candidate-access draft"
-audit_last_type: "Boundary split / issue-scope refinement"
+audit_status: "Targeted Change Audit complete after ELEC-015 split; candidate fixed-zero pending federal candidate-access draft"
+audit_last_type: "Targeted Change Audit / Internal Remedy-Fit Audit"
 audit_last_date: "2026-07-06"
-audit_next: "Draft federal candidate-access and debate-gatekeeping bill focused on debate-transparency/public-benefit conditions, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 for any election-method pilots"
+audit_next: "Draft federal candidate-access and debate-gatekeeping bill focused on debate-transparency/public-benefit conditions, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only for any election-method pilot interactions"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 change_audit_needed: false
@@ -146,11 +146,13 @@ Budget authority may be required for public debate administration, FEC implement
 >
 > —
 >
-> **Audit Status:** Boundary split complete; RCV and majority-choice voting moved to ELEC-015; candidate fixed-zero pending federal candidate-access draft<br />**Last Audit:** Boundary split / issue-scope refinement<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** Draft federal candidate-access and debate-gatekeeping bill focused on debate-transparency/public-benefit conditions, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 for any election-method pilots<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
+> **Audit Status:** Targeted Change Audit complete after ELEC-015 split; candidate fixed-zero pending federal candidate-access draft<br />**Last Audit:** Targeted Change Audit / Internal Remedy-Fit Audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** Draft federal candidate-access and debate-gatekeeping bill focused on debate-transparency/public-benefit conditions, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only for any election-method pilot interactions<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
 
 ## Annotation
 
 **Boundary Split.** On July 6, 2026, ranked-choice voting, runoffs, and majority-choice election-method design were branched to [ELEC-015](ELEC-015.md). ELEC-013 now owns the narrower federal candidate-access, ballot-access, and debate-gatekeeping lane.
+
+**Change Audit Status.** The July 6, 2026 targeted Change Audit confirms that the narrowed issue page, audit metadata, source notes, and adjacent-proposal boundaries now describe the same institutional defect: federal candidate-access and debate-gatekeeping rules. The audit found no unresolved remedy-fit marker to carry forward, but ELEC-013 remains fixed-zero because no draft vehicle exists.
 
 **Development Status.** The issue remains a candidate with a fixed-zero Proposal Quality Score because no legislative text, enforceable policy draft, or model rule exists yet. The next score-changing step is drafting.
 

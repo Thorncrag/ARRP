@@ -1,18 +1,44 @@
 ---
 issue_id: ELEC-013
-title: "Electoral Competition, Ballot Access, and Debate Gatekeeping — Audit History"
+title: "Federal Candidate Access, Ballot Access, and Debate Gatekeeping — Audit History"
 source_issue: "ELEC-013.md"
 print_levels:
   - full-technical
 ---
 
-# ELEC-013 — Audit History
+# ELEC-013 — Federal Candidate Access, Ballot Access, and Debate Gatekeeping — Audit History
 
 This file preserves the full audit history for [ELEC-013](ELEC-013.md). The issue page keeps only the compact Proposal Scoring summary.
 
 ## Audit History
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
+
+### 2026-07-06 — Targeted Change Audit / Internal Remedy-Fit Audit after ELEC-015 split
+
+**Audit tier:** Targeted Change Audit and Internal Remedy-Fit Audit
+
+**Audit status:** Targeted Change Audit complete after ELEC-015 split; candidate fixed-zero pending federal candidate-access draft
+
+**Proposal-quality score:** 0/100 (Fixed-zero; drafting pending)
+
+**No-draft preflight:** ELEC-013 has no proposed legislation, model rule, enforceable policy draft, or other concrete proposal vehicle. This Change Audit is therefore limited to consistency, issue-boundary, and remedy-fit review. It does not assign a formula-based Proposal Quality Score.
+
+**Change audited:** Reviewed the July 6, 2026 boundary split that moved ranked-choice voting, runoffs, majority-choice election methods, tabulation transparency, recount rules, voter education, and model-state/federal pilot election-method options to [ELEC-015](ELEC-015.md). Reviewed ELEC-013's narrowed issue page, prior T1/T2 audit entries, the new boundary-split entry, the Election area note, HOR-014 disposition, source inventory ownership changes, and GitHub Project posture.
+
+**Internal Remedy-Fit finding:** The narrowed ELEC-013 page is internally coherent after the split. The Issue Snapshot, Institutional Anomaly, Manifestations of the Failure, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation placeholder, Budgetary Impact Statement, Annotation, and Source Notes now describe the same defect: federal candidate-access, ballot-access, debate-gatekeeping, public-benefit debate conditions, and FEC-facing transparency rules. The draft path no longer depends on RCV, runoff, tabulation, or election-method implementation as core remedies.
+
+**Boundary finding:** ELEC-015 now owns election-method design and implementation safeguards. ELEC-013 may reference ELEC-015 only for coordination where election-method pilots, public education, or voter-information rules interact with a federal candidate-access bill. ELEC-011 remains the home for redistricting, district structure, and broader representation remedies; ELEC-012 remains the home for campaign-finance and public-financing design; ELEC-009 remains the home for presidential-selection structure.
+
+**Source and inventory finding:** The current ELEC-013 source notes appropriately retain the FEC debate rule and ballot-access / party-association doctrine leads. RCV-specific Maine, NCSL, D.C., Alaska, H.R. 4632, and H.Res. 20 rows were reassigned to ELEC-015 during the boundary split. No additional source rows are needed for this Change Audit because it does not add a new factual manifestation or current-event claim.
+
+**Score and rebaseline effect:** No score change. ELEC-013 remains fixed at 0/100 and `current-fixed-status` because no draft vehicle exists. `change_audit_needed` remains false because this entry performs the targeted consistency check and finds no unresolved remedy-fit defect to carry forward.
+
+**Corrections made:** Updated ELEC-013 front matter and visible Proposal Scoring summary to identify this targeted Change Audit as the latest audit. Added a Change Audit Status annotation. Updated this audit sidecar title to match the narrowed issue title.
+
+**Unresolved findings:** The next score-changing step remains drafting. The first draft should create a federal candidate-access and debate-gatekeeping bill focused on debate-transparency/public-benefit conditions, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only where election-method pilot interactions matter.
+
+**Audit process feedback:** This targeted Change Audit resolves the immediate post-split consistency question. Future ELEC-013 audits should still begin with the no-draft preflight until a concrete bill, rule, or policy vehicle is added.
 
 ### 2026-07-06 — Boundary split / RCV branch-off
 

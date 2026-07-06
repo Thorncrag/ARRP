@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-013 / ELEC-015 |
-| Audit type/tier | Boundary split / issue-scope refinement |
-| Started | 2026-07-06 09:07:13 -0400 |
-| Last checkpoint | 2026-07-06 09:19:14 -0400 |
-| User request | Branch ranked-choice-voting discussion out of ELEC-013 into a new ELEC issue. |
-| Scope | Create ELEC-015 for RCV, runoff, and majority-choice election-method reform; narrow ELEC-013 to federal candidate access, ballot-access floors, debate gatekeeping, and FEC-facing election-competition rules; update area, source, horizon, audit, and GitHub tracking. |
-| Files touched | `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `areas/ELEC/issues/ELEC-015.md`; `areas/ELEC/issues/ELEC-015.audit.md`; `areas/ELEC/README.md`; `framework/HORIZON_SCAN_LOG.md`; `inventory/sources.csv`; `inventory/github_issue_import.csv`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Created ELEC-015 and audit sidecar; narrowed ELEC-013 to federal candidate-access, ballot-access, and debate-gatekeeping; updated Election area boundaries, HOR-014 disposition, source ownership, GitHub import ledger, GitHub issue #41 title, new GitHub issue #237, and Project rows for ELEC-013 and ELEC-015. |
-| Next step | ELEC-013: draft federal candidate-access and debate-gatekeeping bill. ELEC-015: before any audit, confirm no proposed legislation exists, then run T1 source-development/remedy-selection or draft a model-state/federal pilot vehicle. |
+| Active issue/task | ELEC-013 |
+| Audit type/tier | Targeted Change Audit / Internal Remedy-Fit Audit |
+| Started | 2026-07-06 12:43:56 -0400 |
+| Last checkpoint | 2026-07-06 12:47:07 -0400 |
+| User request | Run a Change Audit on ELEC-013 after the RCV branch-off into ELEC-015. |
+| Scope | Confirm the July 6 ELEC-013 narrowing still has coherent institutional-anomaly, manifestation, damage, weakness, remedy, repair/prevention, adjacent-issue, scoring, and audit metadata alignment; preserve fixed-zero candidate posture because no draft vehicle exists. |
+| Files touched | `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `areas/ELEC/README.md`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Confirmed no proposed legislation exists; completed limited candidate/fixed-zero Change Audit and Internal Remedy-Fit Audit; updated ELEC-013 compact audit metadata and annotation; updated ELEC-013 audit sidecar and Election area note; synced GitHub Project row for issue #41 to runs `5`, latest audit `Targeted Change Audit / Internal Remedy-Fit Audit (2026-07-06)`, score `0`, and change audit `No`. |
+| Next step | Draft federal candidate-access and debate-gatekeeping bill before any formula-based score audit. |
 | Blockers/questions | None. |
-| Validation status | Passed: `git diff --check`, CSV row-width checks for `sources.csv` and `github_issue_import.csv`, changed Markdown local-link check, and ELEC issue-count/file-existence check. |
+| Validation status | Passed locally before handoff: `git diff --check`, changed Markdown local-link check, and ELEC-013 compact metadata consistency check. |
 
 ## Handoff Rules
 
