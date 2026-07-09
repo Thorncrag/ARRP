@@ -14,6 +14,28 @@ This file preserves the full audit history for [ELEC-013](ELEC-013.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-09 — Perot 1992 case-study queue update
+
+**Audit tier:** Source-development queue update
+
+**Audit status:** Source-development queue update complete; Perot 1992 debate-access case study queued; candidate fixed-zero pending federal candidate-access draft
+
+**Proposal-quality score:** 0/100 (Fixed-zero; drafting pending)
+
+**No-draft preflight:** ELEC-013 still has no proposed legislation, model rule, enforceable policy draft, or concrete proposal vehicle. This entry therefore does not run a formula-based score audit and does not change the fixed-zero posture.
+
+**Change queued:** Added Ross Perot's 1992 general-election debate participation and popular-vote result as the modern anchor case study for the debate-access lane.
+
+**Source record added:** Added the Commission on Presidential Debates 1992 debate-history page and the Federal Election Commission's *Federal Elections 92* report to the ELEC-013 source record.
+
+**Material finding:** The Perot example should be used as a careful case study rather than a causal overclaim. It supports the proposition that when a non-major-party candidate has serious ballot access, public salience, and access to nationally televised general-election debates, voters may treat the candidacy as electorally real. It does not prove that debate inclusion alone caused Perot's 18.91 percent popular-vote result or that every independent candidate must be included in every debate.
+
+**Drafting effect:** The first ELEC-013 draft should use Perot 1992 as the baseline case study, then compare the later debate-gatekeeping line: Perot's 1996 exclusion, the post-2000 15-percent polling-threshold model, and current disputes over presidential debate criteria. The statutory response should remain disclosure, transparency, alternative qualification paths, public-benefit conditions, and FEC-facing process rather than compelled private press hosting.
+
+**Score effect:** No score change. The update improves source-development direction but does not add legislative text, implementation detail, fiscal support, or constitutional analysis sufficient to score the proposal.
+
+**Next audit need:** Draft the federal candidate-access and debate-gatekeeping bill using Perot 1992 as the modern case-study anchor; source-develop 1996 exclusion and post-2000 threshold practice; review FEC advisory opinions and enforcement matters; review presidential and congressional debate sponsor criteria; and map First Amendment, press-freedom, Elections Clause, Article II, Spending Clause, HAVA, party-association, and Anderson/Burdick limits.
+
 ### 2026-07-06 — Targeted Change Audit / Internal Remedy-Fit Audit after ELEC-015 split
 
 **Audit tier:** Targeted Change Audit and Internal Remedy-Fit Audit

@@ -6,10 +6,10 @@ status: candidate
 priority: high
 remedy_type: election-competition-reform
 audit_score: 0
-audit_status: "Targeted Change Audit complete after ELEC-015 split; candidate fixed-zero pending federal candidate-access draft"
-audit_last_type: "Targeted Change Audit / Internal Remedy-Fit Audit"
-audit_last_date: "2026-07-06"
-audit_next: "Draft federal candidate-access and debate-gatekeeping bill focused on debate-transparency/public-benefit conditions, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only for any election-method pilot interactions"
+audit_status: "Source-development queue update complete; Perot 1992 debate-access case study queued; candidate fixed-zero pending federal candidate-access draft"
+audit_last_type: "Perot 1992 case-study queue update"
+audit_last_date: "2026-07-09"
+audit_next: "Draft federal candidate-access and debate-gatekeeping bill using Perot 1992 as the modern debate-access case-study anchor, focused on debate-transparency/public-benefit conditions, alternative qualification paths, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only for election-method pilot interactions"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 change_audit_needed: false
@@ -41,6 +41,8 @@ This issue now owns the federal candidate-access lane. Ranked-choice voting, run
 Federal regulations allow nonprofit organizations and media entities to stage candidate debates if they use pre-established objective criteria and do not structure debates to promote or advance one candidate over another. For general-election debates, the rule bars using nomination by a particular party as the sole criterion, but it permits other objective criteria. See [11 C.F.R. § 110.13](https://www.ecfr.gov/current/title-11/chapter-I/subchapter-A/part-110/section-110.13).
 
 In practice, debate criteria can still exclude non-major-party candidates before voters have a realistic chance to evaluate them. A national polling threshold may appear neutral while functioning as a barrier: excluded candidates receive less exposure, reduced exposure depresses polling, and low polling then justifies continued exclusion. This can convert a debate rule into a feedback loop protecting the existing party structure.
+
+The 1992 presidential election is queued as the modern anchor case study for this problem. The Commission on Presidential Debates' own history records that Ross Perot participated in all three general-election presidential debates with Bill Clinton and George H. W. Bush, and the Federal Election Commission's official *Federal Elections 92* report records Perot at 18.91 percent of the national popular vote. That example should be used carefully: it does not prove that debate inclusion alone caused Perot's vote share or that every independent candidate should be included in every debate. It does show that, when a non-major-party candidate has serious ballot access, public salience, and debate-stage visibility, voters may treat the candidacy as electorally real.
 
 ### Ballot-access rules that burden nonstandard candidacies
 
@@ -146,7 +148,7 @@ Budget authority may be required for public debate administration, FEC implement
 >
 > —
 >
-> **Audit Status:** Targeted Change Audit complete after ELEC-015 split; candidate fixed-zero pending federal candidate-access draft<br />**Last Audit:** Targeted Change Audit / Internal Remedy-Fit Audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** Draft federal candidate-access and debate-gatekeeping bill focused on debate-transparency/public-benefit conditions, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only for any election-method pilot interactions<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
+> **Audit Status:** Source-development queue update complete; Perot 1992 debate-access case study queued; candidate fixed-zero pending federal candidate-access draft<br />**Last Audit:** Perot 1992 case-study queue update<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** Draft federal candidate-access and debate-gatekeeping bill using Perot 1992 as the modern debate-access case-study anchor, focused on debate-transparency/public-benefit conditions, alternative qualification paths, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only for election-method pilot interactions<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
 
 ## Annotation
 
@@ -156,7 +158,7 @@ Budget authority may be required for public debate administration, FEC implement
 
 **Development Status.** The issue remains a candidate with a fixed-zero Proposal Quality Score because no legislative text, enforceable policy draft, or model rule exists yet. The next score-changing step is drafting.
 
-**Source-Development Status.** The current source base is strong enough to identify the issue but not strong enough for publication-ready drafting. The next pass should source-develop FEC debate advisory opinions and enforcement matters, presidential and congressional debate sponsor criteria, official state ballot-access statutes, petition-cure examples, candidate challenges, and current litigation or administrative records.
+**Source-Development Status.** The current source base is strong enough to identify the issue but not strong enough for publication-ready drafting. The Perot 1992 debate-inclusion example is queued as the modern case-study anchor for the first draft. The next pass should compare Perot's 1992 inclusion, Perot's 1996 exclusion, post-2000 polling-threshold practice, current presidential-debate sponsor criteria, FEC debate advisory opinions and enforcement matters, official state ballot-access statutes, petition-cure examples, candidate challenges, and current litigation or administrative records.
 
 **Neutrality.** The issue must not be framed as helping any party, faction, or candidate. The rule should be whether election-process structures fairly permit voters to consider meaningful alternatives while preserving administrability, anti-fraud safeguards, clarity, party-association rights, and finality.
 
@@ -167,6 +169,8 @@ Budget authority may be required for public debate administration, FEC implement
 ## Source Notes
 
 - 11 C.F.R. § 110.13, [Candidate debates](https://www.ecfr.gov/current/title-11/chapter-I/subchapter-A/part-110/section-110.13).
+- Commission on Presidential Debates, [1992 Debates](https://www.debates.org/debate-history/1992-debates/).
+- Federal Election Commission, [*Federal Elections 92*](https://www.fec.gov/resources/cms-content/documents/federalelections92.pdf).
 - U.S. Supreme Court, [*Williams v. Rhodes*](https://supreme.justia.com/cases/federal/us/393/23/) (1968).
 - U.S. Supreme Court, [*Anderson v. Celebrezze*](https://supreme.justia.com/cases/federal/us/460/780/) (1983).
 - U.S. Supreme Court, [*Burdick v. Takushi*](https://supreme.justia.com/cases/federal/us/504/428/) (1992).
