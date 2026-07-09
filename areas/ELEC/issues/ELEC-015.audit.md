@@ -14,6 +14,16 @@ This file preserves the full audit history for [ELEC-015](ELEC-015.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
+
+**Status:** Development note only; no audit run.
+
+**Scope:** Reoriented ELEC-015 from immediate remedy selection toward candidate-and-voter-participation comparative analysis of Maine, Alaska, and D.C. before any model act, federal pilot bill, technical standard, or other proposal vehicle is selected.
+
+**Source-development effect:** The next source-development pass should first examine candidate participation and voter participation as separate but related measures. Candidate measures should include field size, independent or minor-party candidates, intra-party challengers, uncontested races, withdrawals or consolidation, and campaign incentives where official records permit. Voter measures should include turnout, primary participation, ballot completion, ballot exhaustion, invalid or spoiled ballots, and comparable before/after participation measures where official data permits. Maine should be used for operational maturity, Alaska for top-four/RCV political-system interaction and repeal pressure, and D.C. for voter-approved adoption and implementation-transition analysis.
+
+**Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending source development, remedy selection, and draft proposal text.
+
 ### 2026-07-06 — Boundary split / issue creation
 
 **Audit tier:** Boundary split and issue-scope refinement

@@ -6,10 +6,10 @@ status: candidate
 priority: high
 remedy_type: election-method-reform
 audit_score: 0
-audit_status: "Initial branch-off complete; candidate fixed-zero pending remedy selection and draft proposal"
+audit_status: "Candidate-and-voter-participation comparative analysis posture set; candidate fixed-zero pending Maine, Alaska, and D.C. source development before remedy selection"
 audit_last_type: "Boundary split / issue creation"
 audit_last_date: "2026-07-06"
-audit_next: "Confirm no proposed legislation exists before any audit; then run T1 source-development and remedy-selection review focused on model-state RCV/runoff standards, optional federal pilot grants, voter education, tabulation transparency, recount rules, accessibility, implementation costs, and state-law adoption or prohibition trends"
+audit_next: "Confirm no proposed legislation exists before any audit; then run T1 source-development focused first on Maine, Alaska, and D.C. candidate participation and voter participation before and after majority-choice adoption or repeal pressure, then evaluate implementation, transparency, voter education, costs, accessibility, and durability before any remedy selection"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 change_audit_needed: false
@@ -23,7 +23,7 @@ audit_history: "ELEC-015.audit.md"
 # ELEC-015 — Ranked-Choice Voting and Majority-Choice Election Methods
 
 > ## Issue Snapshot
-> **Problem:** Plurality rules can turn voter choice into spoiler pressure.<br />**Repair:** Test majority-choice election methods with transparent implementation safeguards.<br />**Vehicle:** Pending development.
+> **Problem:** Plurality rules can turn voter choice and candidate entry into strategic pressure.<br />**Repair:** Compare candidate participation, voter participation, and implementation outcomes before selecting any remedy.<br />**Vehicle:** Pending source-development analysis.
 >
 
 ## Institutional Anomaly
@@ -77,7 +77,17 @@ Because election-method reforms affect both political incentives and election ad
 
 ## Proposal Survey
 
-Future review should compare a set of election-method tools rather than treating any one system as the default answer.
+Future review should begin with comparative candidate-participation and voter-participation analysis before treating any election-method tool as the default answer. Maine, Alaska, and D.C. should be used as the first source-development comparators because they show different stages of majority-choice adoption, administration, repeal pressure, and implementation transition.
+
+**Candidate participation baseline.** ELEC-015 should examine whether majority-choice reforms changed candidate participation before and after adoption or implementation. Measures may include number of candidates, independent or minor-party candidates, intra-party challengers, uncontested races, primary-field size, general-election field size, candidate withdrawal or consolidation, and whether candidates campaign differently when backup preferences or runoff paths exist.
+
+**Voter participation and turnout baseline.** ELEC-015 should separately examine whether voter participation changed in comparable elections before and after adoption or implementation of ranked-choice voting, top-four/open-primary structures, runoff alternatives, or repeal campaigns. The analysis should distinguish overall turnout, primary participation, ballot completion, undervotes, ballot exhaustion, invalid or spoiled ballots, voter-registration and unaffiliated-voter participation where relevant, demographic or geographic participation patterns where official data permits, and whether changes are attributable to the election method or to candidate salience, competitiveness, presidential-cycle effects, ballot questions, registration rules, candidate-field size, or other confounders.
+
+**Maine implementation and participation record.** Maine is the best initial comparator for operational maturity because it provides official ranked-choice voter materials, tabulation rules, result files, and cast-vote-record or summary data. Source development should compare participation and ballot-completion patterns across ordinary plurality contests and RCV contests where official data permits.
+
+**Alaska top-four plus RCV record.** Alaska is the best comparator for political-system interaction because its reform combines a nonpartisan primary with RCV in the general election and has faced repeal pressure. Source development should separate participation effects from candidate-field structure, party strategy, repeal campaigns, and statewide political salience.
+
+**D.C. adoption and implementation transition.** D.C. is the best comparator for adoption and transition because voters approved Initiative 83 in 2024, combining ranked-choice voting with unaffiliated-voter primary access. Source development should track certified initiative results, funding, implementation schedule, primary-turnout baseline, unaffiliated-voter participation, and any Council, Board of Elections, litigation, or delay materials.
 
 **Ranked-choice voting / instant-runoff voting.** RCV lets voters rank candidates and uses transfer rounds if no candidate wins initially. It is most directly responsive to spoiler pressure in single-winner elections, but requires careful ballot design, voter education, accessible instructions, tabulation transparency, and recount rules.
 
@@ -93,9 +103,9 @@ Future review should compare a set of election-method tools rather than treating
 
 ## Least-Complex Adequate Remedy
 
-The least-complex adequate remedy is not yet selected.
+The least-complex adequate remedy is not yet selected. ELEC-015 should remain an analysis-first candidate until the project compares candidate participation, voter participation, turnout, and implementation outcomes in Maine, Alaska, and D.C. across appropriate before/after and election-type baselines.
 
-A plausible first-stage path is a model-state majority-choice election-method act, paired with an optional federal pilot-grant and technical-assistance framework. That approach would allow structured experimentation without immediately requiring a national RCV mandate for all federal elections.
+A plausible later path may be a model-state majority-choice election-method act, paired with an optional federal pilot-grant and technical-assistance framework. That approach would allow structured experimentation without immediately requiring a national RCV mandate for all federal elections, but it should not be selected until the participation record, implementation costs, transparency record, accessibility record, and repeal/durability evidence are source-developed.
 
 The first remedy-selection pass should decide whether ELEC-015 should draft:
 
@@ -144,13 +154,15 @@ Budget authority may be required for voter education, ballot redesign, election-
 >
 > —
 >
-> **Audit Status:** Initial branch-off complete; candidate fixed-zero pending remedy selection and draft proposal<br />**Last Audit:** Boundary split / issue creation<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** Confirm no proposed legislation exists before any audit; then run T1 source-development and remedy-selection review focused on model-state RCV/runoff standards, optional federal pilot grants, voter education, tabulation transparency, recount rules, accessibility, implementation costs, and state-law adoption or prohibition trends<br />**Full Audit History:** [ELEC-015 audit history](ELEC-015.audit.md)
+> **Audit Status:** Candidate-and-voter-participation comparative analysis posture set; candidate fixed-zero pending Maine, Alaska, and D.C. source development before remedy selection<br />**Last Audit:** Boundary split / issue creation<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** Confirm no proposed legislation exists before any audit; then run T1 source-development focused first on Maine, Alaska, and D.C. candidate participation and voter participation before and after majority-choice adoption or repeal pressure, then evaluate implementation, transparency, voter education, costs, accessibility, and durability before any remedy selection<br />**Full Audit History:** [ELEC-015 audit history](ELEC-015.audit.md)
 
 ## Annotation
 
 **Branch-Off Status.** ELEC-015 was created on July 6, 2026 to receive the ranked-choice voting, runoff, and majority-choice election-method material previously carried inside ELEC-013. The split keeps ELEC-013 focused on federal candidate-access, debate, and ballot-access rules while allowing ELEC-015 to develop election-method design on its own terms.
 
 **Candidate Status.** ELEC-015 remains a candidate fixed at 0/100 because no model-state act, federal pilot-grant bill, technical standard, or other concrete proposal vehicle exists yet. A formula-based Proposal Quality Score should not be assigned until draft text exists.
+
+**Analysis-First Posture.** ELEC-015 should begin as comparative analysis rather than immediate remedy drafting. The first source-development question is whether Maine, Alaska, and D.C. show measurable changes in candidate participation, voter participation, turnout, ballot completion, voter adaptation, candidate-field structure, or repeal pressure after majority-choice adoption, implementation, or attempted implementation.
 
 **Preflight Notice.** Any future audit should begin by notifying the user that ELEC-015 has no proposed legislation yet unless a draft has been added before that audit. Without drafting, the audit should be limited to source development, issue admission, remedy selection, and fixed-zero candidate review.
 

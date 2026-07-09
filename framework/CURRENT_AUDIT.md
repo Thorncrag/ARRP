@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Deferred |
-| Active issue/task | ELEC-014 / Election-sensitive federal criminal process safeguards |
-| Audit type/tier | Source-development catalog / manifestations cleanup |
+| Status | Inactive |
+| Active issue/task | ELEC-015 / Majority-choice candidate-and-voter-participation analysis |
+| Audit type/tier | Source-development posture / no-audit development note |
 | Started | 2026-07-09 15:23:00 -0400 |
 | Last checkpoint | 2026-07-09 15:23:00 -0400 |
-| User request | Catalog every criminal probe and subpoena for state election records before assessing why the actions were launched and whether they were legitimate. |
-| Scope | Build an ELEC-014 source-development catalog separating criminal probes, warrants/searches, grand-jury subpoenas, state-election-record demands, prosecution-threat letters, and unverified leads; update ELEC-014 manifestations without making motive findings; defer remedy selection until primary criminal-process instruments are available. |
-| Files touched | `framework/CURRENT_AUDIT.md`; `source-development/ELEC-014-criminal-process-catalog.md`; `source-development/ELEC-004-civil-process-catalog.md`; `areas/ELEC/README.md`; `areas/ELEC/issues/ELEC-014.md`; `areas/ELEC/issues/ELEC-014.audit.md`; `areas/ELEC/issues/ELEC-004.md`; `areas/ELEC/issues/ELEC-004.audit.md`; `areas/DOJ/issues/DOJ-003.md`; `inventory/sources.csv`; GitHub issues #236/#32 and Project item fields. |
-| Completed steps | Created ELEC-014 criminal-process catalog and split civil suits/noncriminal state-election-record demands into `source-development/ELEC-004-civil-process-catalog.md`; placed catalog links under the associated ELEC-004 and ELEC-014 manifestation sections; reorganized ELEC-004 manifestations by chronology and process type; expanded manifestations for Ohio, Georgia Fulton County search/seizure, Georgia analyst surge, Fulton County grand-jury subpoena, July 2026 DOJ prosecution-warning letters, and unresolved Arizona subpoena lead; added Broadview Six as adjacent DOJ grand-jury-integrity pattern source `SRC-0532` for ELEC-014/DOJ-003 without treating it as an election-process manifestation; added source rows SRC-0523 through SRC-0532; clarified that civil/administrative state-election-record demands route to ELEC-004 unless a criminal-process hook is verified; added alleged-statute/offense-theory column for ELEC-014 criminal-process entries; clarified that grand-jury process is a tracked mechanism but not ELEC-014's organizing scope; deferred ELEC-014 remedy selection pending unsealed or otherwise available primary criminal-process instruments; updated ELEC-004/ELEC-014 metadata, audit histories, area page, source inventory, GitHub issue wrappers, and GitHub Project fields without making motive or legitimacy findings. |
-| Next step | For ELEC-014, monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, congressional records, and Arizona lead verification; then identify exact alleged statutes or offense theories and run T2 remedy-selection and legitimacy assessment. For ELEC-004, use the new civil-process catalog to source-develop DOJ civil voter-data and state-election-record demand campaign through primary letters, complaints, orders, state responses, protective-order materials, privacy objections, and federalism arguments. |
+| User request | Turn to ELEC-015 and begin by analyzing candidate participation and voter participation in Maine, Alaska, and D.C. before remedy selection. |
+| Scope | Reorient ELEC-015 from immediate remedy selection toward candidate-and-voter-participation comparative analysis of Maine, Alaska, and D.C.; preserve candidate fixed-zero status and no-draft posture. |
+| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/README.md`; `areas/ELEC/issues/ELEC-015.md`; `areas/ELEC/issues/ELEC-015.audit.md`; GitHub issue #237 and Project item fields. |
+| Completed steps | Updated ELEC-015 issue page, audit history, ELEC area summary, GitHub issue #237, and GitHub Project fields to state that the first source-development pass should analyze Maine, Alaska, and D.C. candidate participation, voter participation, turnout, ballot completion, candidate-field structure, and implementation outcomes before selecting any model-state or federal voluntary-pilot remedy. |
+| Next step | Run ELEC-015 T1 source-development on Maine, Alaska, and D.C. candidate-and-voter-participation records before remedy selection. |
 | Blockers/questions | None. |
-| Validation status | Passed lightweight validation: `inventory/sources.csv` parses with 11 columns across 533 rows; local catalog/issue/audit paths exist; GitHub issue #236 and Project fields verified. |
+| Validation status | Passed lightweight validation: `inventory/sources.csv` parses with 11 columns across 533 rows; GitHub issue #237 and Project fields read back after sync. |
 
 ## Handoff Rules
 
