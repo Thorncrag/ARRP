@@ -28,6 +28,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Event-table cleanup update:** Reorganized the Maine source file around the user's stated goal: a user-friendly table comparing candidate participation, voter turnout, and directly relevant RCV experience values for every election event since 2012. The comparison unit is now the election event, not individual primaries. Technical contest profiles, RCV activation notes, archive coverage, extraction roadmap, and current limits are separated into purpose-labeled sections below the event table.
 
+**Maine data-harvest update:** Harvested official Maine Secretary of State result-file values for the principal regular primary and RCV general-election comparator events now visible in the source table. The event table now includes reduced candidate-count and ballots-cast ranges for 2014, 2016, 2018, 2020, 2022, 2024, and 2026, plus a harvested-values table preserving the extracted contest set behind each event. RCV activation/ballot-exhaustion values were added for 2018 Democratic Governor, 2018 Democratic CD-2 primary, 2018 CD-2 general, 2020 Republican CD-2 primary, 2022 State Senate District 16 primary, 2022 CD-2 general, and the 2026 CD-2/Governor/State Senate District 4/House District 58 RCV contests. The 2024 CD-2 general first-choice workbook is extracted, but the summary PDF still needs OCR or manual verification before round/exhaustion values are added.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
