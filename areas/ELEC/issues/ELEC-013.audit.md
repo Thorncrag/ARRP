@@ -140,6 +140,20 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Check-audit need:** The next audit should evaluate HAVA and FECA fit, EAC/FEC/DOJ role allocation, Article II presidential-elector limits, Elections Clause authority for congressional elections, Spending Clause support for public-benefit conditions, First Amendment and press-freedom limits, Anderson/Burdick ballot-access doctrine, state-administration burden, implementation cost, and coordination with ELEC-012 and ELEC-015.
 
+### 2026-07-09 — Presidential debate and ballot-access checklist source-development checkpoint
+
+**Checkpoint type:** Source-development update; not an audit run
+
+**Status:** Presidential debate and state-by-state ballot-access explanatory checklist added for ELEC-013.
+
+**Proposal-quality score:** Unchanged at 0/100 pending draft and check audit.
+
+**Source-development added:** Added [Presidential debate and ballot-access explanatory checklist](../../../source-development/ELEC-013-presidential-debate-ballot-access-explainer.md) to map the national campaign setup path, debate-qualification packet, state and District of Columbia ballot-access verification workflow, certified-versus-claimed ballot-access distinction, polling-threshold timing problem, and reform lessons for ELEC-013.
+
+**Source record added:** Added source rows SRC-0494 through SRC-0498 covering FEC candidate-registration guidance, FEC ballot-access guidance, the FEC combined federal/state directory, and AP reporting on the 2024 CNN/RFK Jr. debate-qualification and certified-ballot-access dispute.
+
+**Score effect:** No score change. This was a source-development and explanatory-checklist update, not a formula-based audit, legislative draft, cost model, constitutional stress test, or external review.
+
 ### 2026-07-09 — Perot 1992 source-development checkpoint
 
 **Checkpoint type:** Source-development queue update
