@@ -12,6 +12,22 @@ This file preserves the full audit history for [ELEC-014](ELEC-014.md). The issu
 
 ## Audit History
 
+### 2026-07-09 — Manifestations Catalog Cleanup
+
+**Audit status:** Source-development catalog pass complete; candidate fixed-zero status preserved pending T2 remedy selection and legitimacy assessment.
+
+**Scope:** Cleaned up and expanded the ELEC-014 manifestations record in response to the user direction that the project should catalog every criminal probe and every subpoena for state election records before assessing why the actions were launched or whether they were legitimate. The pass created a dedicated source-development catalog and updated the issue page to distinguish core criminal-process manifestations from adjacent state-election-record demands and unresolved leads.
+
+**Catalog created:** Added [`source-development/ELEC-014-criminal-process-catalog.md`](../../../source-development/ELEC-014-criminal-process-catalog.md) to track federal criminal probes, warrants, searches, grand-jury subpoenas, prosecution-warning letters, and adjacent state-election-record demands. The catalog currently includes the Ohio Organizing Collaborative search; Fulton County, Georgia search/seizure of 2020 ballots and election documents; Fulton County FBI analyst surge; Fulton County grand-jury subpoena for 2020 election-worker identities; an unresolved Arizona grand-jury subpoena lead; DOJ voter-registration/election-record demands to states; DOJ voter-data lawsuits; and July 2026 DOJ prosecution-warning letters to state election officials.
+
+**Neutrality finding:** The catalog does not decide motive, partisan purpose, legality, or legitimacy. It preserves factual process units so T2 can later assess predicate, timing, necessity, neutrality, scope, minimization, legitimate-law-enforcement purpose, and remedy design without assuming that every federal election investigation is improper.
+
+**Source effect:** Added source rows for AP reporting on the Georgia search/seizure, Georgia analyst surge, Fulton County election-worker subpoena, DOJ state voter-information requests, DOJ voter-data litigation scale, Massachusetts/Maine/Wisconsin voter-roll rulings, July 2026 DOJ prosecution-warning letters, and a Guardian lead for the pre-warrant Fulton County 2020 election-record demand sequence.
+
+**Score effect:** No score change. ELEC-014 remains a candidate/source-development issue fixed at 0/100 pending selection of a least-complex adequate remedy and proposal vehicle.
+
+**Next audit need:** T2 should first complete the catalog with primary records: Ohio and Georgia warrants, affidavits, returns, inventories, docket materials, the Fulton County grand-jury subpoena and quash order, the DOJ 50-state letter, state-by-state voter-record demand letters and court filings, and verification of the Arizona grand-jury subpoena lead. Only then should T2 assess why each probe or demand was launched, whether the predicate was legitimate, and whether statutory, Justice Manual, court-supervision, OIG-reporting, or hybrid safeguards are least-complex and adequate.
+
 ### 2026-07-03 — T1 Issue-Admission and Source-Development Pass
 
 **Audit status:** T1 issue-admission/source-development pass complete; candidate fixed-zero pending remedy selection.

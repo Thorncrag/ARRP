@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-013 / Federal Candidate Access, Ballot Access, and Debate Gatekeeping |
-| Audit type/tier | External-review readiness push / Review Ready source-development audit |
-| Started | 2026-07-09 14:09:30 -0400 |
-| Last checkpoint | 2026-07-09 14:09:30 -0400 |
-| User request | Try to get ELEC-013 to Review Ready before moving on. |
-| Scope | Target the remaining score blockers most likely to move ELEC-013 from 72 to Review Ready: direct prior-proposal comparators, budget/workload analogues, FEC/debate matter-file search, and score recalculation without claiming qualified external review. |
-| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/README.md`; `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `inventory/sources.csv`; `legislation/ELEC-013.md`. |
-| Completed steps | Completed external-review readiness push; added direct federal and State prior-proposal comparators, budget analogues, and FEC debate-enforcement lead; increased score from 72 to 75; set ELEC-013 to Review Ready with disclosed limits and no qualified external-review credit. |
-| Next step | Prepare qualified external-review package and gather official FEC matter files, broader official State sample, fiscal/workload validation, adoption evidence, and election-law, First Amendment, FEC/EAC, State-administration, fiscal, and legislative-counsel review before any Advanced Review Ready or Proposal Ready upgrade. |
+| Active issue/task | ELEC-014 / Election-sensitive federal criminal process safeguards |
+| Audit type/tier | Source-development catalog / manifestations cleanup |
+| Started | 2026-07-09 15:23:00 -0400 |
+| Last checkpoint | 2026-07-09 15:23:00 -0400 |
+| User request | Catalog every criminal probe and subpoena for state election records before assessing why the actions were launched and whether they were legitimate. |
+| Scope | Build an ELEC-014 source-development catalog separating criminal probes, warrants/searches, grand-jury subpoenas, state-election-record demands, prosecution-threat letters, and unverified leads; update ELEC-014 manifestations without making motive findings. |
+| Files touched | `framework/CURRENT_AUDIT.md`; `source-development/ELEC-014-criminal-process-catalog.md`; `areas/ELEC/README.md`; `areas/ELEC/issues/ELEC-014.md`; `areas/ELEC/issues/ELEC-014.audit.md`; `inventory/sources.csv`; GitHub issue #236 and Project item fields. |
+| Completed steps | Created ELEC-014 criminal-process and state-election-records catalog; expanded manifestations for Ohio, Georgia Fulton County search/seizure, Georgia analyst surge, Fulton County grand-jury subpoena, adjacent DOJ voter-data demand campaign, July 2026 DOJ prosecution-warning letters, and unresolved Arizona subpoena lead; added source rows SRC-0523 through SRC-0531; updated issue metadata, audit history, area page, GitHub issue wrapper, and GitHub Project fields without making motive or legitimacy findings. |
+| Next step | Obtain primary warrants, returns, subpoenas, orders, DOJ letters, state responses, and Arizona lead verification; then run T2 remedy-selection and legitimacy assessment. |
 | Blockers/questions | None. |
-| Validation status | Passed Review Ready consistency checks; active ELEC-013 surfaces show 75/100 (Review Ready); `inventory/sources.csv` parses with 11 columns across 523 rows. |
+| Validation status | Passed lightweight validation: `inventory/sources.csv` parses with 11 columns across 531 rows; local catalog/issue/audit paths exist; GitHub issue #236 and Project fields verified. |
 
 ## Handoff Rules
 

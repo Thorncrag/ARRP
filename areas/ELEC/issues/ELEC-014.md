@@ -6,10 +6,10 @@ status: candidate
 priority: high
 remedy_type: federal-election-criminal-process-guardrails
 audit_score: 0
-audit_status: "T1 issue-admission/source-development pass complete; candidate fixed-zero pending remedy selection"
-audit_last_type: "T1 issue-admission/source-development pass"
-audit_last_date: "2026-07-03"
-audit_next: "T2 remedy-selection audit focused on DOJ election-crimes guardrails, suspended JM 9-85.210 consultation rule, Rule 41/grand-jury safeguards, Ohio primary records, and statute-versus-Justice-Manual vehicle choice"
+audit_status: "Manifestations catalog cleanup complete; candidate fixed-zero pending primary-record completion, legitimacy assessment, and remedy selection"
+audit_last_type: "Manifestations catalog cleanup"
+audit_last_date: "2026-07-09"
+audit_next: "Complete source-development catalog with primary warrants, returns, subpoenas, orders, DOJ letters, state responses, and Arizona lead verification; then run T2 remedy-selection and legitimacy assessment focused on DOJ election-crimes guardrails, suspended JM 9-85.210, Rule 41/grand-jury safeguards, Ohio and Georgia primary records, state-record-demand boundaries, and statute-versus-Justice-Manual vehicle choice"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 print_levels:
@@ -34,15 +34,33 @@ Because elections are time-sensitive and mostly state-administered, even a lawfu
 
 ## Manifestations of the Failure
 
+ELEC-014 should begin from a complete process catalog before judging motive or legitimacy. The current source-development catalog is [ELEC-014 Criminal-Process and State Election Records Catalog](../../../source-development/ELEC-014-criminal-process-catalog.md). It separates core criminal-process manifestations from adjacent state-record demands and unresolved leads.
+
 ### Federal searches of voter-registration or voting-rights organizations
 
 In June 2026, federal agents searched the Cleveland office of the Ohio Organizing Collaborative, a grassroots organization involved in voter-registration and voting-rights work, and reportedly seized documents and computer files while also contacting people affiliated with the group. Reporting described the search as connected to potential voter-fraud allegations, while officials and voting-rights advocates criticized the timing and warned that the action could chill voter-registration activity before competitive 2026 races. Treat political motive, retaliation, or voter-intimidation purpose as concerns raised by critics unless later court records, warrant materials, inspector-general findings, congressional findings, or official admissions substantiate them. See Associated Press, [*FBI searches office of Ohio group that supports voter registration efforts*](https://apnews.com/article/4b241d64db0478c6a5852aa20d3e138f), and The Guardian, [*FBI raid of Ohio voting rights group stokes fear of pre-midterm crackdown*](https://www.theguardian.com/us-news/2026/jun/12/fbi-raid-ohio-voting-group-election).
 
 The Ohio episode is a source-development trigger, not yet a proven violation. Publication-ready use requires primary materials, including any warrant, application, return, docket record, Rule 41 proceeding, official DOJ or FBI explanation, inspector-general finding, congressional record, or civil action challenging the search.
 
+### Federal seizure of state election records and ballots
+
+In January 2026, AP reported that FBI agents executed a search at Fulton County, Georgia's election hub and seized hundreds of boxes containing ballots and other documents from the 2020 election. AP reported that the warrant remained sealed and that federal authorities had not publicly explained the basis for the operation. This is a core ELEC-014 manifestation because it concerns federal criminal process directed at state-administered election materials. It should not yet be treated as unlawful or illegitimate without the warrant, affidavit, return, inventory, chain-of-custody records, docket materials, and official DOJ/FBI explanation. See Associated Press, [*FBI seizure of Georgia ballots reflects pursuit of Trump's 2020 election grievance*](https://apnews.com/article/87300edb3ea86961c69132e6a2dfd6e8).
+
+In July 2026, AP further reported that the FBI directed 260 analysts and staff operations specialists to assist its Fulton County 2020 election investigation and review records. That report makes the Georgia episode a useful source-development example for scope and burden, but it still does not answer why the investigation was launched, whether the factual predicate was adequate, or whether the investigative steps were legitimate. See Associated Press, [*The FBI is directing hundreds of analysts to its probe of Georgia's 2020 presidential election*](https://apnews.com/article/a1d9f555519bb3ee1e39594b8eab0a4f).
+
+### Federal subpoenas for election-worker identities or state election records
+
+In April 2026, DOJ served a grand-jury subpoena seeking names and personal contact information for all Fulton County employees and volunteer poll workers who worked during the 2020 election. AP reported that U.S. District Judge William Ray quashed the subpoena in July 2026, citing low need, burden, and grand-jury-purpose concerns. This is a central ELEC-014 manifestation because it combines grand-jury process, election-worker privacy, possible chilling effects, and a judicial legitimacy check. Publication-ready treatment requires the subpoena, motion to quash, any hearing transcript, and the court's order. See Associated Press, [*Judge rejects Justice Department attempt to get names of 2020 election workers in Fulton County*](https://apnews.com/article/22ed0f675d7793a272c9acb6048a4417).
+
+The catalog also preserves an unresolved Arizona lead: reporting references a federal grand-jury subpoena for Arizona Senate Republican caucus records from the Maricopa County 2020 election audit. That lead should not be used as a scored or publication-ready manifestation until verified through a reliable accessible report or primary subpoena record.
+
 ### Federal election-fraud priorities and state-administered election systems
 
 Executive-branch election-integrity initiatives can combine voter-list access, citizenship verification, database matching, election-fraud rhetoric, and investigative direction in ways that place pressure on state-administered elections. Executive Order 14399 is already source-developed in [ELEC-001](ELEC-001.md) and [ELEC-010](ELEC-010.md) for federal election-control and mail-ballot concerns. ELEC-014 should source-develop only the criminal-investigative layer: when federal election-crime authority may be invoked, what predicate must exist, who must approve it, and what safeguards protect lawful participation and state election administration.
+
+DOJ's broader 2025-2026 voter-data campaign is adjacent but not automatically ELEC-014 criminal process. AP reported requests for voter registration lists and election information from at least 19 states by August 2025; later reporting described lawsuits or demands involving at least 30 states and the District of Columbia, including requests for detailed identifiers such as dates of birth, addresses, driver-license numbers, and partial Social Security numbers. Those demands matter for voter-data privacy, federalism, and possible election-administration pressure, but they should be classified separately unless a warrant, grand-jury subpoena, criminal subpoena, Criminal Division channel, or prosecution threat is documented. See Associated Press, [*The Justice Department seeks voter and election information from at least 19 states, AP finds*](https://apnews.com/article/a04b1522bed0cb6bbc286e25b139701f), [*Justice Department sues six more states to get detailed voter data*](https://apnews.com/article/6ab981efaccf7bdca3eb96d08bd48edd), [*A federal judge dismisses another DOJ lawsuit seeking voter data, this time in Massachusetts*](https://apnews.com/article/b4eefdcac577965913f3e4969bcbb7a6), and [*Judges in Maine and Wisconsin dismiss Justice Department's attempts to force turnover of voter rolls*](https://apnews.com/article/a967b300265be5ff54119858113be4a0).
+
+In July 2026, AP reported that DOJ sent letters to election officials in all 50 states and the District of Columbia warning that election administrators could face criminal charges if they knowingly allowed noncitizens to vote or remain on voting rolls. That is not a subpoena or search, but it belongs in ELEC-014's catalog as a prosecution-threat manifestation because criminal warnings from DOJ can affect state election administration even without immediate process. The next source-development step should obtain the letter text and code whether it was a general legal reminder, an investigative demand, or a predicate for later enforcement. See Associated Press, [*The Trump administration is ramping up pressure on states to change election practices*](https://apnews.com/article/3ec6b7838c97342965416756c0b83496).
 
 ## Resulting Damage
 
@@ -126,13 +144,15 @@ Administrative workload is possible; no new appropriation is specified pending s
 >
 > —
 >
-> **Audit Status:** T1 issue-admission/source-development pass complete; candidate fixed-zero pending remedy selection<br />**Last Audit:** T1 issue-admission/source-development pass<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** T2 remedy-selection audit focused on DOJ election-crimes guardrails, suspended JM 9-85.210 consultation rule, Rule 41/grand-jury safeguards, Ohio primary records, and statute-versus-Justice-Manual vehicle choice<br />**Full Audit History:** [ELEC-014 audit history](ELEC-014.audit.md)
+> **Audit Status:** Manifestations catalog cleanup complete; candidate fixed-zero pending primary-record completion, legitimacy assessment, and remedy selection<br />**Last Audit:** Manifestations catalog cleanup<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Complete source-development catalog with primary warrants, returns, subpoenas, orders, DOJ letters, state responses, and Arizona lead verification; then run T2 remedy-selection and legitimacy assessment focused on DOJ election-crimes guardrails, suspended JM 9-85.210, Rule 41/grand-jury safeguards, Ohio and Georgia primary records, state-record-demand boundaries, and statute-versus-Justice-Manual vehicle choice<br />**Full Audit History:** [ELEC-014 audit history](ELEC-014.audit.md)
 
 ## Annotation
 
 **Candidate Status.** ELEC-014 is a candidate issue spun off from ELEC-004 after the project determined that federal criminal investigative process does not fit ELEC-004's Anti-SLAPP-style civil-procedure remedy.
 
 **T1 Status.** The July 3, 2026 T1 pass confirms issue admission, area placement, and the civil/criminal boundary. ELEC-014 remains a candidate fixed at 0/100 because the least-complex adequate remedy and proposal vehicle have not yet been selected.
+
+**Manifestations Catalog.** The July 9, 2026 catalog cleanup adds a source-development catalog for federal criminal probes, searches, grand-jury subpoenas, prosecution-warning letters, adjacent state-election-record demands, and unresolved leads. The catalog is designed to preserve process facts before making motive, partisan-purpose, legitimacy, or remedy judgments.
 
 **Existing DOJ Guardrails.** Current DOJ materials already contain election-specific guardrails relevant to this issue. Justice Manual 9-85 assigns Public Integrity Section supervisory jurisdiction for election crimes, warns against overt ballot-fraud investigative measures before certification and related contests are complete, requires consultation over armed officials where elections are held, and prohibits timing investigative actions to affect elections. The same section also states that the 9-85.210 consultation requirement for campaign-finance, federal patronage, and election-process corruption matters is suspended while Department leadership revises it. That suspension should be treated as a current-source finding requiring T2 analysis, not as proof that any specific investigation was improper.
 
@@ -153,5 +173,14 @@ Administrative workload is possible; no new appropriation is specified pending s
 - Federal Register, [Executive Order 14399 — Ensuring Citizenship Verification and Integrity in Federal Elections](https://www.federalregister.gov/documents/2026/04/03/2026-06601/ensuring-citizenship-verification-and-integrity-in-federal-elections) (published Apr. 3, 2026).
 - U.S. Department of Justice, [Justice Manual 9-85.000 - Protection of Government Integrity](https://www.justice.gov/jm/jm-9-85000-protection-government-integrity) (accessed July 3, 2026).
 - U.S. Department of Justice, [*Federal Prosecution of Election Offenses*](https://www.justice.gov/criminal/file/1029066/dl) (Seventh Edition, May 2007; revised Aug. 2007).
+- Source-development catalog: [ELEC-014 Criminal-Process and State Election Records Catalog](../../../source-development/ELEC-014-criminal-process-catalog.md).
+- Associated Press, [*FBI seizure of Georgia ballots reflects pursuit of Trump's 2020 election grievance*](https://apnews.com/article/87300edb3ea86961c69132e6a2dfd6e8) (Jan. 29, 2026).
+- Associated Press, [*The FBI is directing hundreds of analysts to its probe of Georgia's 2020 presidential election*](https://apnews.com/article/a1d9f555519bb3ee1e39594b8eab0a4f) (July 2, 2026).
+- Associated Press, [*Judge rejects Justice Department attempt to get names of 2020 election workers in Fulton County*](https://apnews.com/article/22ed0f675d7793a272c9acb6048a4417) (July 7, 2026).
+- Associated Press, [*The Justice Department seeks voter and election information from at least 19 states, AP finds*](https://apnews.com/article/a04b1522bed0cb6bbc286e25b139701f) (Aug. 3, 2025).
+- Associated Press, [*Justice Department sues six more states to get detailed voter data*](https://apnews.com/article/6ab981efaccf7bdca3eb96d08bd48edd) (Dec. 3, 2025).
+- Associated Press, [*A federal judge dismisses another DOJ lawsuit seeking voter data, this time in Massachusetts*](https://apnews.com/article/b4eefdcac577965913f3e4969bcbb7a6) (Apr. 9, 2026).
+- Associated Press, [*Judges in Maine and Wisconsin dismiss Justice Department's attempts to force turnover of voter rolls*](https://apnews.com/article/a967b300265be5ff54119858113be4a0) (May 21, 2026).
+- Associated Press, [*The Trump administration is ramping up pressure on states to change election practices*](https://apnews.com/article/3ec6b7838c97342965416756c0b83496) (July 8, 2026).
 - U.S. Code / House Office of the Law Revision Counsel, [Federal Rules of Criminal Procedure](https://uscode.house.gov/view.xhtml?path=/prelim@title18/title18a/node35&edition=prelim) (accessed July 3, 2026).
 - Future source development should review DOJ election-crimes guidance, Justice Manual provisions for politically sensitive investigations, Public Integrity Section approval rules, Civil Rights Division voting-rights enforcement materials, Rule 41, grand-jury subpoena practice, warrant minimization, OIG review, congressional oversight models, and any public court record arising from the Ohio search.
