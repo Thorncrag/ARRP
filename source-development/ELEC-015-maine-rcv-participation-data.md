@@ -16,6 +16,7 @@ This file is the working source-development table for Maine candidate-participat
 - Maine's Secretary of State also states that ranked-choice rounds are used only in races with more than two candidates.
 - Maine therefore provides two distinct comparison surfaces for ELEC-015: state-level RCV primaries and federal-office RCV general elections.
 - This file starts with official 2026 primary materials because they are the current official dataset visible on Maine's Election Results/Data page.
+- For trend analysis, treat 2018 as the operational launch/transition year because Maine first used RCV in the June 12, 2018 primary election. Use 2010-2017 as the eight-year pre-RCV baseline and 2019-2026 as the eight-year post-launch/current comparison window.
 
 ## Official Data Sources
 
@@ -31,18 +32,27 @@ ELEC-015 should start with a narrow participation comparison rather than an outc
 
 Outcome should not be a core field. It should be added only where it explains comparability, salience, or whether ranked-choice tabulation actually affected the voter experience.
 
-| Election referenced | Office / contest | RCV status | Number of candidates | Voter turnout / ballots cast | Comparator note |
-| --- | --- | --- | ---: | ---: | --- |
-| 2026-06-09 primary | Democratic Representative to Congress, District 2 | RCV | 4 | 83,480 | Same-cycle federal primary; compare cautiously to non-RCV U.S. House contests because only the Democratic CD-2 primary required RCV tabulation. |
-| 2026-06-09 primary | Democratic Governor | RCV | 5 | 222,405 | Statewide primary; useful for candidate-field and voter-participation comparison against Republican Governor and prior gubernatorial primaries. |
-| 2026-06-09 primary | Republican Governor | RCV | 8 | 137,981 | Statewide primary; useful for candidate-field comparison and for testing whether large fields correlate with ballot exhaustion or completion problems. |
-| 2026-06-09 primary | Republican Senate District 4 | RCV | TBD | TBD | Maine SOS posts summary/CVR files; extraction pending. District-level comparability limits should be noted. |
-| 2026-06-09 primary | Republican House District 58 | RCV | TBD | TBD | Maine SOS posts summary/CVR files; extraction pending. District-level comparability limits should be noted. |
-| 2026-06-09 primary | U.S. Senate primaries | Non-RCV | TBD | TBD | Same-election non-RCV comparator; parse candidate and turnout fields from Maine SOS Excel files. |
-| 2026-06-09 primary | Representative to Congress, District 1 primaries | Non-RCV | TBD | TBD | Same-election non-RCV comparator for federal House primary participation. |
-| 2026-06-09 primary | Republican Representative to Congress, District 2 | Non-RCV | TBD | TBD | Same district and election date as Democratic CD-2 RCV contest, but party and competitiveness may differ. |
-| 2026-06-09 primary | State Senate primaries | Non-RCV | TBD | TBD | Same-election state-legislative comparator group; should be normalized by district and contest status. |
-| 2026-06-09 primary | Representative to the Legislature primaries | Non-RCV | TBD | TBD | Same-election state-legislative comparator group; useful for uncontested-race and field-size baselines. |
+| Election referenced | Timeframe role | Office / contest | RCV status | Number of candidates | Voter turnout / ballots cast | Comparator note |
+| --- | --- | --- | --- | ---: | ---: | --- |
+| 2026-06-09 primary | Post-launch/current window | Democratic Representative to Congress, District 2 | RCV | 4 | 83,480 | Same-cycle federal primary; compare cautiously to non-RCV U.S. House contests because only the Democratic CD-2 primary required RCV tabulation. |
+| 2026-06-09 primary | Post-launch/current window | Democratic Governor | RCV | 5 | 222,405 | Statewide primary; useful for candidate-field and voter-participation comparison against Republican Governor and prior gubernatorial primaries. |
+| 2026-06-09 primary | Post-launch/current window | Republican Governor | RCV | 8 | 137,981 | Statewide primary; useful for candidate-field comparison and for testing whether large fields correlate with ballot exhaustion or completion problems. |
+| 2026-06-09 primary | Post-launch/current window | Republican Senate District 4 | RCV | TBD | TBD | Maine SOS posts summary/CVR files; extraction pending. District-level comparability limits should be noted. |
+| 2026-06-09 primary | Post-launch/current window | Republican House District 58 | RCV | TBD | TBD | Maine SOS posts summary/CVR files; extraction pending. District-level comparability limits should be noted. |
+| 2026-06-09 primary | Same-cycle non-RCV comparator | U.S. Senate primaries | Non-RCV | TBD | TBD | Same-election non-RCV comparator; parse candidate and turnout fields from Maine SOS Excel files. |
+| 2026-06-09 primary | Same-cycle non-RCV comparator | Representative to Congress, District 1 primaries | Non-RCV | TBD | TBD | Same-election non-RCV comparator for federal House primary participation. |
+| 2026-06-09 primary | Same-cycle non-RCV comparator | Republican Representative to Congress, District 2 | Non-RCV | TBD | TBD | Same district and election date as Democratic CD-2 RCV contest, but party and competitiveness may differ. |
+| 2026-06-09 primary | Same-cycle non-RCV comparator | State Senate primaries | Non-RCV | TBD | TBD | Same-election state-legislative comparator group; should be normalized by district and contest status. |
+| 2026-06-09 primary | Same-cycle non-RCV comparator | Representative to the Legislature primaries | Non-RCV | TBD | TBD | Same-election state-legislative comparator group; useful for uncontested-race and field-size baselines. |
+
+## Trend and Comparator Windows
+
+| Window | Years | Role in ELEC-015 | Notes |
+| --- | --- | --- | --- |
+| Pre-RCV baseline | 2010-2017 | Establish candidate-count and turnout trends before Maine's operational RCV launch. | The eight-year window precedes first operational use in 2018. Rows should be grouped by comparable office class rather than blended into one statewide trend. |
+| Launch / transition year | 2018 | Keep separate from the main before/after comparison. | Maine first used RCV in the June 12, 2018 primary election; early implementation effects may differ from mature-use effects. |
+| Post-launch/current window | 2019-2026 | Compare against the eight-year pre-RCV baseline. | This window captures current RCV-era practice while avoiding the launch year as the starting point. |
+| Same-cycle comparator | Any year in scope | Compare RCV contests against non-RCV contests held in the same election cycle. | Useful for controlling broad turnout environment, but still requires office, district, salience, candidate-field, and competitiveness cautions. |
 
 Maine's 2026 Election Results/Data page separately lists non-ranked-choice primary offices, including U.S. Senate, Representative to Congress District 1, Republican Representative to Congress District 2, State Senate, Representative to the Legislature, and county offices. Those files are useful as same-election non-RCV comparators, but they should be handled carefully because contest salience, district geography, candidate field size, and office type differ.
 
