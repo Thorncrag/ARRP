@@ -12,6 +12,18 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 ## Audit History
 
+### 2026-07-09 — Civil Record-Demand Source Routing Clarification
+
+**Audit status:** Source-routing clarification complete; no score change.
+
+**Scope:** Routed civil and administrative federal voter-data requests, voter-roll lawsuits, information-sharing proposals, and noncriminal state-election-record demands out of ELEC-014 and into ELEC-004's civil-process lane. This responds to the project boundary that ELEC-014 is criminal-process only, while ELEC-004 owns election litigation, civil subpoenas, audits, inspection demands, administrative demands, legislative demands, and comparable noncriminal process.
+
+**Source effect:** Reassociated AP source rows for DOJ state voter-information requests and voter-roll litigation primarily with ELEC-004, preserving ELEC-001 and ELEC-010 cross-references where federal election-control or voter-data architecture is implicated. The Fulton County 2020 record-request lead is now treated as ELEC-004 civil-process material, with an ELEC-014 cross-reference only if primary records connect it to later criminal search activity.
+
+**Score effect:** No score change. ELEC-004 remains 75/100 (Review Ready). The clarification improves issue-boundary discipline and source routing but does not complete qualified external review, representative state comparison, title 28 codification review, or Petition Clause analysis.
+
+**Next audit need:** Future ELEC-004 work should source-develop the DOJ civil voter-data and state-election-record demand campaign through primary letters, complaints, orders, state responses, protective-order materials, privacy objections, and federalism arguments, while maintaining ELEC-014 for warrants, grand-jury subpoenas, criminal subpoenas, criminal investigations, and prosecution-threat communications.
+
 ### 2026-07-04 — Score Recalibration / Review-Ready Threshold
 
 **Audit status:** Review ready for external critique; external legal review and additional primary-source work needed

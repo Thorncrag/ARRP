@@ -7,11 +7,11 @@ priority: high
 remedy_type: coupled-federal-and-model-state-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
-audit_status: "Review ready for external critique; external legal review and additional primary-source expansion needed"
+audit_status: "Civil record-demand source routing clarified; review-ready score preserved while external legal review and additional primary-source expansion remain needed"
 audit_score: 75
-audit_last_type: "Score recalibration / review-ready threshold"
-audit_last_date: "2026-07-04"
-audit_next: "Qualified federal-courts/election-law review, Nevada primary order retrieval, representative state comparison beyond Nevada, title 28 codification decision, and Petition Clause review"
+audit_last_type: "Civil record-demand source routing clarification"
+audit_last_date: "2026-07-09"
+audit_next: "Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -68,6 +68,8 @@ Post-election challenges in multiple states sought relief that would have affect
 ### Subpoena, audit, and inspection mechanisms
 
 Election pressure may also appear as civil subpoenas, public-records demands, nonstatutory audits, legislative or administrative demands, or inspection demands for ballots, equipment, voter data, source code, logs, chain-of-custody records, or security-sensitive materials. Such demands may be legitimate when grounded in lawful authority and material evidence, but they can also be used to burden officials, expose sensitive systems, or imply fraud without proof.
+
+Federal civil or administrative demands for state election records fit ELEC-004 when they operate through civil litigation, Voting Section letters, administrative requests, public-record style demands, information-sharing proposals, or noncriminal lawsuits seeking voter rolls, voter identifiers, election-worker records, ballots, election documents, or retained election records. The 2025-2026 DOJ voter-data request and litigation campaign is therefore source-development material for ELEC-004's civil-process lane, while also cross-referencing [ELEC-001](ELEC-001.md) and [ELEC-010](ELEC-010.md) where federal election-control architecture or voter-data architecture is the more central defect. Treat the campaign as civil/administrative process unless a warrant, grand jury, criminal subpoena, federal criminal investigation, Criminal Division investigative channel, or prosecution threat is verified.
 
 Federal criminal searches, criminal subpoenas, grand-jury process, and federal law-enforcement interviews directed at election officials, state-administered election infrastructure, voter-registration organizations, or voting-rights activity are not owned by ELEC-004. Those concerns are now spun off to [ELEC-014](ELEC-014.md), which should source-develop election-specific guardrails for federal criminal investigative process while preserving legitimate federal enforcement of voting-rights, voter-intimidation, corruption, foreign-interference, and election-crime laws.
 
@@ -178,7 +180,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** Review ready for external critique; external legal review and additional primary-source expansion needed<br />**Last Audit:** Score recalibration / review-ready threshold<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review, Nevada primary order retrieval, representative state comparison beyond Nevada, title 28 codification decision, and Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** Civil record-demand source routing clarified; review-ready score preserved while external legal review and additional primary-source expansion remain needed<br />**Last Audit:** Civil record-demand source routing clarification<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 
@@ -197,6 +199,8 @@ Administrative workload is possible; no new appropriation is specified.
 **Targeted Source / Comparator Follow-Up.** The July 4, 2026 follow-up verified primary order support for the Michigan sanctions manifestation, added a Georgia hearing transcript source for *Pearson v. Kemp*, and added official Nevada Anti-SLAPP and election-contest statutory comparators. The same-day score recalibration treats that work as enough to move ELEC-004 into Review Ready status for knowledgeable external critique. The pass did not retrieve a primary Nevada *Law v. Whitmer* order, replace the Wisconsin mirror with an official Seventh Circuit PDF, complete representative-state review beyond Nevada, or supply qualified external legal review.
 
 **Source Development Pending.** Further development should cite representative cases and orders from Nevada and other election proceedings, together with additional state Anti-SLAPP analogues, state election-contest statutes, ballot-secrecy rules, open-records limits, and representative state court-rule constraints. Pennsylvania has direct Third Circuit source support; Michigan now has primary order support; Georgia now has hearing-transcript support; Wisconsin has a reviewed Seventh Circuit opinion mirror but should still be replaced or supplemented with the official court PDF if available; and Nevada still needs primary-order retrieval or narrower phrasing.
+
+**Civil Record-Demand Source Routing.** The July 9, 2026 ELEC-014 boundary cleanup routes civil and administrative voter-data lawsuits, Voting Section letters, state-election-record requests, and noncriminal information-sharing demands primarily to ELEC-004 rather than ELEC-014. ELEC-004 should source-develop those materials as civil-process examples while preserving ELEC-014 for warrants, grand-jury subpoenas, criminal subpoenas, criminal investigations, and prosecution-threat communications.
 
 **Quality Score.** The 75/100 score reflects a Review Ready proposal after T4 follow-up and same-day score recalibration. The current component calculation is: Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior-Proposal 5/8; Remedy 9/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. The recalibration raises Evidence from 9 to 10 because the follow-up replaced the Michigan source lead with a verified primary sanctions order, added a Georgia primary hearing transcript, and added reviewed source-inventory rows for the new materials. It raises Implementation from 6 to 7 because the Nevada statutory comparison now gives the state-model component a concrete implementation comparator for Anti-SLAPP procedure, election contests, presidential-elector timing, and ballot-inspection limits. Review Ready means strong enough for knowledgeable external critique; it does not mean publication-ready. The Nevada primary order, broader representative-state implementation comparison, Petition Clause and First Amendment limits, title 28 procedural vehicle, and qualified external review remain unresolved.
 

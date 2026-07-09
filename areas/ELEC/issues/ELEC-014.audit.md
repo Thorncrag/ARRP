@@ -12,6 +12,16 @@ This file preserves the full audit history for [ELEC-014](ELEC-014.md). The issu
 
 ## Audit History
 
+### 2026-07-09 — Civil Record-Demand Routing to ELEC-004
+
+**Audit status:** Boundary routing clarification complete; no score change.
+
+**Scope:** Clarified that noncriminal DOJ voter-roll requests, voter-data lawsuits, Voting Section letters, administrative demands, and civil state-election-record demands are routed primarily to ELEC-004 rather than ELEC-014. ELEC-014 remains limited to warrants, grand-jury subpoenas, criminal subpoenas, criminal investigations, criminal investigative data demands, and prosecution-threat communications.
+
+**Source effect:** The ELEC-014 catalog now labels those noncriminal items as an ELEC-004-routed boundary catalog. Source rows for AP reporting on DOJ state voter-information requests and voter-roll litigation were reassociated primarily with ELEC-004, while preserving ELEC-001/ELEC-010 cross-references for broader federal voter-data architecture. The Fulton County 2020 record-request lead remains cross-referenced to ELEC-014 only as a possible sequence lead for later criminal search activity if primary records connect them.
+
+**Score effect:** No score change. ELEC-014 remains a candidate/source-development issue fixed at 0/100 pending primary-record completion, statutory-predicate identification, legitimacy assessment, remedy selection, and proposal-vehicle drafting.
+
 ### 2026-07-09 — Criminal-Scope and Statutory-Predicate Clarification
 
 **Audit status:** Boundary clarification complete; no score change.
