@@ -14,6 +14,22 @@ This file preserves the full audit history for [ELEC-013](ELEC-013.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-09 — Initial draft source-development checkpoint
+
+**Checkpoint type:** Drafting checkpoint; not an audit run
+
+**Status:** Initial federal candidate-access and debate-transparency draft added; check audit needed before scoring
+
+**Proposal-quality score:** Unchanged at 0/100 pending check audit
+
+**Draft added:** Added [Federal Candidate Access and Debate Transparency Act](../../../legislation/ELEC-013.md) as the first ELEC-013 legislative vehicle.
+
+**Drafting effect:** The draft uses a HAVA-centered Federal access form, State publication requirements, notice-and-cure floors, certification-status reporting, and EAC technical assistance for the candidate-access interface. It uses a targeted FECA title for debate-criteria transparency, alternative qualification paths, recordkeeping, and FEC enforcement tied to FEC debate treatment or Federal public benefits.
+
+**No audit-run increment:** This checkpoint does not run a formula-based score audit, does not increment the audit-run count, and does not replace the July 6, 2026 targeted Change Audit as the last completed audit. The score remains fixed-zero until a check audit evaluates the new draft.
+
+**Check-audit need:** The next audit should evaluate HAVA and FECA fit, EAC/FEC/DOJ role allocation, Article II presidential-elector limits, Elections Clause authority for congressional elections, Spending Clause support for public-benefit conditions, First Amendment and press-freedom limits, Anderson/Burdick ballot-access doctrine, state-administration burden, implementation cost, and coordination with ELEC-012 and ELEC-015.
+
 ### 2026-07-09 — Perot 1992 source-development checkpoint
 
 **Checkpoint type:** Source-development queue update

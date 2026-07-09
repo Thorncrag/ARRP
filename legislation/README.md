@@ -35,6 +35,7 @@ Working statutory and administrative language is maintained separately from the 
 - [ELEC-011-state — Model State Algorithmic Redistricting Baseline and Public Deviation Act](ELEC-011-state.md)
 - [ELEC-012 — Campaign Finance Democratic Authority FECA Conforming Amendments Act](ELEC-012.md)
 - [ELEC-012-amendment — Campaign Finance Democratic Authority Amendment](ELEC-012-amendment.md)
+- [ELEC-013 — Federal Candidate Access and Debate Transparency Act](ELEC-013.md)
 - [FUND-001 — Executive-Order Abuse Impoundment Control Act](FUND-001.md)
 - [JUD-001 — Executive Compliance and Civil Contempt Accountability Act](JUD-001.md)
 - [JUD-009 — Appointer-President Recusal Act](JUD-009.md)

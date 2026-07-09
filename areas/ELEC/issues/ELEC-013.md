@@ -6,14 +6,14 @@ status: candidate
 priority: high
 remedy_type: election-competition-reform
 audit_score: 0
-audit_status: "Targeted Change Audit complete after ELEC-015 split; candidate fixed-zero pending federal candidate-access draft"
+audit_status: "Initial federal candidate-access draft added; check audit needed before scoring"
 audit_last_type: "Targeted Change Audit / Internal Remedy-Fit Audit"
 audit_last_date: "2026-07-06"
-audit_next: "Draft federal candidate-access and debate-gatekeeping bill using Perot 1992 as the modern debate-access case-study anchor, focused on debate-transparency/public-benefit conditions, alternative qualification paths, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only for election-method pilot interactions"
+audit_next: "Run a check audit of the initial Federal Candidate Access and Debate Transparency Act draft, including HAVA and FECA fit, EAC/FEC/DOJ role allocation, Article II, Elections Clause, Spending Clause, First Amendment and press-freedom limits, Anderson/Burdick ballot-access doctrine, implementation cost, state-administration burden, and coordination with ELEC-012 and ELEC-015"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
-change_audit_needed: false
-change_audit_reason: null
+change_audit_needed: true
+change_audit_reason: "Initial legislative draft added after fixed-zero source-development status; check audit needed before scoring or rebaseline"
 print_levels:
   - public-proposal
   - full-technical
@@ -23,7 +23,7 @@ audit_history: "ELEC-013.audit.md"
 # ELEC-013 — Federal Candidate Access, Ballot Access, and Debate Gatekeeping
 
 > ## Issue Snapshot
-> **Problem:** Federal election rules and debate criteria can entrench candidate gatekeeping.<br />**Repair:** Create neutral candidate-access, ballot-access, and debate-transparency floors.<br />**Vehicle:** Pending development.
+> **Problem:** Federal election rules and debate criteria can entrench candidate gatekeeping.<br />**Repair:** Create neutral candidate-access, ballot-access, and debate-transparency floors.<br />**Vehicle:** [Federal Candidate Access and Debate Transparency Act](../../../legislation/ELEC-013.md).
 >
 
 ## Institutional Anomaly
@@ -95,11 +95,11 @@ Future review should compare candidate-access tools before drafting.
 
 ## Least-Complex Adequate Remedy
 
-The least-complex adequate remedy is now narrowed to a federal candidate-access and debate-gatekeeping package, but no draft text exists yet.
+The least-complex adequate remedy is now narrowed to a federal candidate-access and debate-gatekeeping package. The first draft uses a HAVA-centered Federal access form, State publication and notice-and-cure floors, certification-status reporting, and targeted FECA debate-criteria transparency for covered debates tied to FEC debate treatment or Federal public benefits.
 
 The first vehicle should not be a national ranked-choice-voting mandate, immediate federal open-primary mandate, freestanding fusion entitlement, proportional-representation rewrite, or pure study commission. Those options either belong in [ELEC-015](ELEC-015.md), [ELEC-011](ELEC-011.md), or later companion work.
 
-A plausible first-stage remedy would combine:
+The first-stage remedy combines:
 
 1. debate-sponsor transparency and neutrality conditions for debates receiving federal funds, public-broadcasting support, tax-favored sponsorship, official institutional partnership, or similar public benefits, while avoiding compelled private press hosting;
 2. federal-election ballot-access notice, publication, and petition-cure floors for independent and minor-party candidates, limited to elections where Congress has a defensible Elections Clause, Article II, HAVA, or Spending Clause hook;
@@ -124,7 +124,7 @@ The first draft should evaluate whether Congress, the FEC, or public-benefit pro
 
 ## Proposed Legislation
 
-- Pending development: first draft should create a federal candidate-access and debate-gatekeeping bill.
+- [Federal Candidate Access and Debate Transparency Act](../../../legislation/ELEC-013.md) (working draft).
 
 ## Relationship to Adjacent Proposals
 
@@ -144,21 +144,21 @@ Budget authority may be required for public debate administration, FEC implement
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[0 / 100](ELEC-013.audit.md)** (Fixed-zero; drafting pending)<br />**Adoption Friction:** `N/A`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`
+> **Proposal Quality Score:** **[0 / 100](ELEC-013.audit.md)** (Initial draft added; check audit pending)<br />**Adoption Friction:** `N/A`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`
 >
 > —
 >
-> **Audit Status:** Targeted Change Audit complete after ELEC-015 split; candidate fixed-zero pending federal candidate-access draft<br />**Last Audit:** Targeted Change Audit / Internal Remedy-Fit Audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** Draft federal candidate-access and debate-gatekeeping bill using Perot 1992 as the modern debate-access case-study anchor, focused on debate-transparency/public-benefit conditions, alternative qualification paths, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only for election-method pilot interactions<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
+> **Audit Status:** Initial federal candidate-access draft added; check audit needed before scoring<br />**Last Audit:** Targeted Change Audit / Internal Remedy-Fit Audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** yes<br />**Next Audit:** Run a check audit of the initial Federal Candidate Access and Debate Transparency Act draft, including HAVA and FECA fit, EAC/FEC/DOJ role allocation, Article II, Elections Clause, Spending Clause, First Amendment and press-freedom limits, Anderson/Burdick ballot-access doctrine, implementation cost, state-administration burden, and coordination with ELEC-012 and ELEC-015<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
 
 ## Annotation
 
 **Boundary Split.** On July 6, 2026, ranked-choice voting, runoffs, and majority-choice election-method design were branched to [ELEC-015](ELEC-015.md). ELEC-013 now owns the narrower federal candidate-access, ballot-access, and debate-gatekeeping lane.
 
-**Change Audit Status.** The July 6, 2026 targeted Change Audit confirms that the narrowed issue page, audit metadata, source notes, and adjacent-proposal boundaries now describe the same institutional defect: federal candidate-access and debate-gatekeeping rules. The audit found no unresolved remedy-fit marker to carry forward, but ELEC-013 remains fixed-zero because no draft vehicle exists.
+**Change Audit Status.** The July 6, 2026 targeted Change Audit confirmed that the narrowed issue page, audit metadata, source notes, and adjacent-proposal boundaries described the same institutional defect: federal candidate-access and debate-gatekeeping rules. On July 9, 2026, an initial Federal Candidate Access and Debate Transparency Act draft was added, so a check audit is now needed before scoring or rebaseline.
 
-**Development Status.** The issue remains a candidate with a fixed-zero Proposal Quality Score because no legislative text, enforceable policy draft, or model rule exists yet. The next score-changing step is drafting.
+**Development Status.** The issue now has an initial legislative draft. The Proposal Quality Score remains fixed-zero only because no check audit has evaluated the draft yet. The next score-changing step is a check audit, not another source-development checkpoint.
 
-**Source-Development Status.** The current source base is strong enough to identify the issue but not strong enough for publication-ready drafting. A source-development explanatory checklist now maps the procedural path for presidential debate qualification and state-by-state ballot access: [Presidential debate and ballot-access explanatory checklist](../../../source-development/ELEC-013-presidential-debate-ballot-access-explainer.md). The Perot 1992 debate-inclusion example is queued as the modern case-study anchor for the first draft. The next pass should compare Perot's 1992 inclusion, Perot's 1996 exclusion, post-2000 polling-threshold practice, current presidential-debate sponsor criteria, FEC debate advisory opinions and enforcement matters, official state ballot-access statutes, petition-cure examples, candidate challenges, and current litigation or administrative records.
+**Source-Development Status.** The current source base is strong enough for a first draft but not yet strong enough for publication-ready drafting. A source-development explanatory checklist maps the procedural path for presidential debate qualification and state-by-state ballot access: [Presidential debate and ballot-access explanatory checklist](../../../source-development/ELEC-013-presidential-debate-ballot-access-explainer.md). The draft uses Perot's 1992 debate inclusion as the modern case-study anchor while avoiding a causal overclaim. The next pass should compare Perot's 1992 inclusion, Perot's 1996 exclusion, post-2000 polling-threshold practice, current presidential-debate sponsor criteria, FEC debate advisory opinions and enforcement matters, official state ballot-access statutes, petition-cure examples, candidate challenges, and current litigation or administrative records.
 
 **Neutrality.** The issue must not be framed as helping any party, faction, or candidate. The rule should be whether election-process structures fairly permit voters to consider meaningful alternatives while preserving administrability, anti-fraud safeguards, clarity, party-association rights, and finality.
 
@@ -181,3 +181,13 @@ Budget authority may be required for public debate administration, FEC implement
 - U.S. Supreme Court, [*Burdick v. Takushi*](https://supreme.justia.com/cases/federal/us/504/428/) (1992).
 - U.S. Supreme Court, [*Timmons v. Twin Cities Area New Party*](https://supreme.justia.com/cases/federal/us/520/351/) (1997).
 - U.S. Supreme Court, [*Storer v. Brown*](https://supreme.justia.com/cases/federal/us/415/724/) (1974).
+- National Archives, [Constitution of the United States: A Transcription](https://www.archives.gov/founding-docs/constitution-transcript).
+- U.S. Supreme Court, [*Arizona v. Inter Tribal Council of Arizona*](https://supreme.justia.com/cases/federal/us/570/1/) (2013).
+- U.S. Supreme Court, [*Burroughs v. United States*](https://supreme.justia.com/cases/federal/us/290/534/) (1934).
+- Election Assistance Commission, [National Mail Voter Registration Form](https://www.eac.gov/voters/national-mail-voter-registration-form).
+- Federal Voting Assistance Program, [Election Forms and Materials](https://www.fvap.gov/eo/overview/materials/forms).
+- Department of Justice Civil Rights Division, [Voting Section](https://www.justice.gov/crt/voting-section).
+- Federal Election Commission, [How to file a complaint with the FEC](https://www.fec.gov/legal-resources/enforcement/complaints-process/how-to-file-complaint-with-fec/).
+- 52 U.S.C. § 30109, [Enforcement](https://www.law.cornell.edu/uscode/text/52/30109).
+- Associated Press, [Georgia lawmakers approve new election rules that could impact 2024 presidential contest](https://apnews.com/article/georgia-elections-voting-presidential-election-78ee0d966327b242d129fe7fe9ac32ce) (2024).
+- Randy Barnett and Lawrence Lessig, [It's Time to Fix the Rules for Third-Party Presidential Campaigns](https://time.com/4436805/lawrence-lessig-randy-barnett/) (2016).
