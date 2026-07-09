@@ -2,14 +2,14 @@
 issue_id: ELEC-014
 area_id: A-02
 title: "Limiting Federal Criminal Investigations into State-Administered Elections"
-status: candidate
+status: deferred
 priority: high
 remedy_type: federal-election-criminal-process-guardrails
 audit_score: 0
-audit_status: "Civil record-demand routing to ELEC-004 complete; candidate fixed-zero pending primary-record completion, statutory-predicate identification, legitimacy assessment, and remedy selection"
+audit_status: "Deferred pending unsealed or otherwise available primary criminal-process instruments; fixed-zero preserved until statutory predicates, legitimacy concerns, and remedy fit can be assessed"
 audit_last_type: "Civil record-demand routing to ELEC-004"
 audit_last_date: "2026-07-09"
-audit_next: "Identify exact alleged statutes or offense theories for each criminal-process item from primary warrants, returns, subpoenas, orders, DOJ letters, state responses, and Arizona lead verification; route civil and administrative record demands to ELEC-004 unless a criminal-process hook is verified; then run T2 remedy-selection and legitimacy assessment"
+audit_next: "Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, or congressional records; then identify statutory predicates and run T2 remedy-selection and legitimacy assessment"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 print_levels:
@@ -21,7 +21,7 @@ audit_history: "ELEC-014.audit.md"
 # ELEC-014 — Limiting Federal Criminal Investigations into State-Administered Elections
 
 > ## Issue Snapshot
-> **Problem:** Federal criminal process can chill election participation and state election administration.<br />**Repair:** Build election-specific investigative guardrails while preserving legitimate federal enforcement.<br />**Vehicle:** Pending source development.
+> **Problem:** Federal criminal process can chill election participation and state election administration.<br />**Repair:** Defer remedy selection until primary instruments identify the defect.<br />**Vehicle:** Pending unsealed criminal-process records.
 >
 
 ## Institutional Anomaly
@@ -35,6 +35,8 @@ Because elections are time-sensitive and mostly state-administered, even a lawfu
 ## Manifestations of the Failure
 
 ELEC-014 should begin from a complete criminal-process catalog before judging motive or legitimacy. The current source-development catalog is [ELEC-014 Criminal-Process and State Election Records Catalog](../../../source-development/ELEC-014-criminal-process-catalog.md). It tracks core criminal probes, warrants, grand-jury subpoenas, criminal subpoenas, prosecution-warning letters, and unresolved criminal-process leads. Noncriminal state-record demands now live in [ELEC-004 Civil Process and State Election Records Catalog](../../../source-development/ELEC-004-civil-process-catalog.md), with ELEC-001 or ELEC-010 cross-references where federal election-control or voter-data architecture is central, unless a criminal-process hook is verified.
+
+ELEC-014 is not primarily a grand-jury reform issue on the current public record. Grand-jury subpoenas and grand-jury integrity concerns remain tracked mechanisms where confirmed, but searches, seizures, warrants, investigative resource surges, prosecution-warning letters, and criminal referrals must be analyzed on their own terms. Do not presume grand-jury origin unless a subpoena, indictment, no-bill, transcript, motion, order, or other primary record identifies grand-jury process.
 
 ### Federal searches of voter-registration or voting-rights organizations
 
@@ -101,9 +103,9 @@ The least-complex remedy is not yet selected. Future review should compare:
 
 ## Least-Complex Adequate Remedy
 
-The least-complex adequate remedy is not yet selected.
+The least-complex adequate remedy is deferred. Current public materials show criminal searches, a confirmed grand-jury subpoena, investigative-resource escalation, prosecution-warning letters, and unresolved criminal-process leads, but no located unsealed federal indictment arising from the 2025-2026 election-related investigations tracked here. The project should wait for unsealed indictments, warrants, affidavits, returns, subpoenas, court orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, or congressional records before selecting a final remedy.
 
-A plausible first-stage remedy could require heightened written findings, supervisory approval, timing review, minimization, and after-action reporting before federal criminal investigative process may seek sensitive election materials or target state-administered election activity, voter-registration work, voting-rights organizations, election officials, ballots, voter data, or voting infrastructure.
+A plausible future remedy could require heightened written findings, supervisory approval, timing review, minimization, and after-action reporting before federal criminal investigative process may seek sensitive election materials or target state-administered election activity, voter-registration work, voting-rights organizations, election officials, ballots, voter data, or voting infrastructure. That remedy should not be selected until the primary records clarify whether the defect is selective or vindictive enforcement, abuse of investigative process, overbroad search or subpoena practice, grand-jury misuse, voter-data exposure, political direction, or simply lawful enforcement with poor optics.
 
 That remedy should be calibrated to prevent chilling, retaliation, rummaging, and election-period disruption without disabling legitimate federal enforcement.
 
@@ -148,15 +150,17 @@ Administrative workload is possible; no new appropriation is specified pending s
 >
 > —
 >
-> **Audit Status:** Civil record-demand routing to ELEC-004 complete; candidate fixed-zero pending primary-record completion, statutory-predicate identification, legitimacy assessment, and remedy selection<br />**Last Audit:** Civil record-demand routing to ELEC-004<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Identify exact alleged statutes or offense theories for each criminal-process item from primary warrants, returns, subpoenas, orders, DOJ letters, state responses, and Arizona lead verification; route civil and administrative record demands to ELEC-004 unless a criminal-process hook is verified; then run T2 remedy-selection and legitimacy assessment<br />**Full Audit History:** [ELEC-014 audit history](ELEC-014.audit.md)
+> **Audit Status:** Deferred pending unsealed or otherwise available primary criminal-process instruments; fixed-zero preserved until statutory predicates, legitimacy concerns, and remedy fit can be assessed<br />**Last Audit:** Civil record-demand routing to ELEC-004<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, or congressional records; then identify statutory predicates and run T2 remedy-selection and legitimacy assessment<br />**Full Audit History:** [ELEC-014 audit history](ELEC-014.audit.md)
 
 ## Annotation
 
-**Candidate Status.** ELEC-014 is a candidate issue spun off from ELEC-004 after the project determined that federal criminal investigative process does not fit ELEC-004's Anti-SLAPP-style civil-procedure remedy.
+**Deferred Status.** ELEC-014 is deferred after source development showed that the public record is not yet sufficient for remedy selection. It remains spun off from ELEC-004 because federal criminal investigative process does not fit ELEC-004's Anti-SLAPP-style civil-procedure remedy.
 
-**T1 Status.** The July 3, 2026 T1 pass confirms issue admission, area placement, and the civil/criminal boundary. ELEC-014 remains a candidate fixed at 0/100 because the least-complex adequate remedy and proposal vehicle have not yet been selected.
+**T1 Status.** The July 3, 2026 T1 pass confirms issue admission, area placement, and the civil/criminal boundary. ELEC-014 remains fixed at 0/100 because the least-complex adequate remedy and proposal vehicle have not yet been selected.
 
 **Manifestations Catalog.** The July 9, 2026 catalog cleanup adds a source-development catalog for federal criminal probes, searches, grand-jury subpoenas, prosecution-warning letters, and unresolved criminal-process leads. The catalog now treats civil or administrative state-election-record demands as boundary material only unless a criminal-process hook is verified. The first question for each criminal-process entry is the alleged statute or offense theory; the catalog marks that field as unknown where warrants, subpoenas, letters, or orders are not yet available.
+
+**Grand-Jury Scope Caution.** Grand-jury process is a tracked mechanism, not the organizing scope of ELEC-014. The issue should not presume grand-jury origin for searches, warrants, analyst surges, or prosecution-warning letters unless primary records confirm that connection. The current doctrinal center is selective or vindictive enforcement and abuse of criminal investigative process in election-sensitive contexts, with grand-jury misuse as a subtopic where confirmed.
 
 **Civil Record-Demand Routing.** Civil and administrative voter-roll requests, voter-data lawsuits, Voting Section letters, information-sharing proposals, and noncriminal state-election-record demands are routed to [ELEC-004 Civil Process and State Election Records Catalog](../../../source-development/ELEC-004-civil-process-catalog.md). ELEC-014 retains them only as boundary references or sequence leads where a later criminal-process hook may need verification.
 

@@ -12,6 +12,16 @@ This file preserves the full audit history for [ELEC-014](ELEC-014.md). The issu
 
 ## Audit History
 
+### 2026-07-09 — Development Note: Deferred Pending Primary Criminal-Process Instruments
+
+**Status:** Development note only; no audit run.
+
+**Scope:** Set ELEC-014's issue status to deferred pending unsealed or otherwise available primary criminal-process instruments. The issue now states that grand-jury process is a tracked mechanism, not the organizing scope, and that searches, warrants, analyst surges, prosecution-warning letters, and criminal referrals should not be treated as grand-jury-originated unless primary records establish that connection.
+
+**Remedy-selection effect:** Remedy selection is deferred until indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, congressional records, or comparable primary materials clarify whether the defect is selective or vindictive enforcement, abuse of investigative process, overbroad search or subpoena practice, grand-jury misuse, voter-data exposure, political direction, or lawful enforcement with poor optics.
+
+**Score effect:** No score change and no audit-count increment. ELEC-014 remains fixed at 0/100 with no proposal-quality score pending primary-record completion, statutory-predicate identification, legitimacy assessment, remedy selection, and proposal-vehicle drafting.
+
 ### 2026-07-09 — Civil Process Catalog Split
 
 **Audit status:** Civil-process table removed from ELEC-014 catalog; no score change.

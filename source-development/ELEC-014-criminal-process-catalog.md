@@ -19,6 +19,8 @@ The catalog is factual and source-development oriented. It does not decide motiv
 
 **Not treated as proof of misuse:** the existence of a search, subpoena, investigation, lawsuit, data request, or prosecution warning. This catalog preserves the facts needed to later assess predicate, timing, necessity, neutrality, scope, minimization, and legitimacy.
 
+**Grand-jury connection not presumed:** grand-jury process is tracked only where the record identifies a grand-jury subpoena, indictment, no-bill, transcript, motion, order, or comparable primary record. Searches, warrants, analyst surges, prosecution-warning letters, and criminal referrals should not be coded as grand-jury-originated unless primary records support that connection.
+
 ## Current Catalog
 
 | ID | Jurisdiction / target | Process type | Alleged statute / offense theory | Record sought or affected | Source status | Current classification | ELEC-014 relevance |
@@ -46,7 +48,8 @@ The Broadview Six anti-ICE protest prosecution is not an election-process manife
 4. Verify the reported Arizona grand-jury subpoena from a reliable accessible source or primary records.
 5. Consult the ELEC-004 civil-process catalog for civil or administrative voter-data litigation and state-election-record demands; move any item back into ELEC-014 analysis only if a criminal-process hook is verified.
 6. Obtain the July 2026 DOJ 50-state letter and code the exact statutory citations and whether it is a legal reminder, investigative demand, prosecution warning, or predicate for later enforcement.
-7. Separate legitimate federal enforcement categories from potentially partisan or election-distorting categories before drafting any remedy.
+7. Monitor for unsealed indictments, no-bill records, dismissed or abandoned indictment efforts, OIG/OPR findings, or congressional records that clarify whether the public manifestations involved selective enforcement, vindictive enforcement, abuse of investigative process, grand-jury misuse, overbreadth, voter-data exposure, political direction, or lawful enforcement.
+8. Separate legitimate federal enforcement categories from potentially partisan or election-distorting categories before drafting any remedy.
 
 ## Source Rows
 
