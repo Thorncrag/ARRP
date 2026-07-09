@@ -7,9 +7,9 @@ priority: high
 remedy_type: coupled-federal-and-model-state-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
-audit_status: "Manifestation catalog link placement complete; review-ready score preserved while external legal review and additional primary-source expansion remain needed"
+audit_status: "Manifestations reorganized by chronology and type; review-ready score preserved while external legal review and additional primary-source expansion remain needed"
 audit_score: 75
-audit_last_type: "Manifestation catalog link placement"
+audit_last_type: "Manifestation chronology and type reorganization"
 audit_last_date: "2026-07-09"
 audit_next: "Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review"
 audit_rubric_version: "2026-06-27.2"
@@ -178,7 +178,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** Manifestation catalog link placement complete; review-ready score preserved while external legal review and additional primary-source expansion remain needed<br />**Last Audit:** Manifestation catalog link placement<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** Manifestations reorganized by chronology and type; review-ready score preserved while external legal review and additional primary-source expansion remain needed<br />**Last Audit:** Manifestation chronology and type reorganization<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 
