@@ -14,15 +14,15 @@ This file preserves the full audit history for [ELEC-013](ELEC-013.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
-### 2026-07-09 — Perot 1992 case-study queue update
+### 2026-07-09 — Perot 1992 source-development checkpoint
 
-**Audit tier:** Source-development queue update
+**Checkpoint type:** Source-development queue update
 
-**Audit status:** Source-development queue update complete; Perot 1992 debate-access case study queued; candidate fixed-zero pending federal candidate-access draft
+**Status:** Perot 1992 debate-access case study queued; candidate fixed-zero pending federal candidate-access draft
 
-**Proposal-quality score:** 0/100 (Fixed-zero; drafting pending)
+**Proposal-quality score:** Unchanged at 0/100 (Fixed-zero; drafting pending)
 
-**No-draft preflight:** ELEC-013 still has no proposed legislation, model rule, enforceable policy draft, or concrete proposal vehicle. This entry therefore does not run a formula-based score audit and does not change the fixed-zero posture.
+**No-draft preflight:** ELEC-013 still has no proposed legislation, model rule, enforceable policy draft, or concrete proposal vehicle. This checkpoint therefore does not run a formula-based score audit, does not increment the audit-run count, and does not replace the July 6, 2026 targeted Change Audit as the last audit.
 
 **Change queued:** Added Ross Perot's 1992 general-election debate participation and popular-vote result as the modern anchor case study for the debate-access lane.
 

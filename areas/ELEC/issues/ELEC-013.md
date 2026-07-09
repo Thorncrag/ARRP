@@ -6,9 +6,9 @@ status: candidate
 priority: high
 remedy_type: election-competition-reform
 audit_score: 0
-audit_status: "Source-development queue update complete; Perot 1992 debate-access case study queued; candidate fixed-zero pending federal candidate-access draft"
-audit_last_type: "Perot 1992 case-study queue update"
-audit_last_date: "2026-07-09"
+audit_status: "Targeted Change Audit complete after ELEC-015 split; candidate fixed-zero pending federal candidate-access draft"
+audit_last_type: "Targeted Change Audit / Internal Remedy-Fit Audit"
+audit_last_date: "2026-07-06"
 audit_next: "Draft federal candidate-access and debate-gatekeeping bill using Perot 1992 as the modern debate-access case-study anchor, focused on debate-transparency/public-benefit conditions, alternative qualification paths, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only for election-method pilot interactions"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
@@ -148,7 +148,7 @@ Budget authority may be required for public debate administration, FEC implement
 >
 > —
 >
-> **Audit Status:** Source-development queue update complete; Perot 1992 debate-access case study queued; candidate fixed-zero pending federal candidate-access draft<br />**Last Audit:** Perot 1992 case-study queue update<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** Draft federal candidate-access and debate-gatekeeping bill using Perot 1992 as the modern debate-access case-study anchor, focused on debate-transparency/public-benefit conditions, alternative qualification paths, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only for election-method pilot interactions<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
+> **Audit Status:** Targeted Change Audit complete after ELEC-015 split; candidate fixed-zero pending federal candidate-access draft<br />**Last Audit:** Targeted Change Audit / Internal Remedy-Fit Audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** Draft federal candidate-access and debate-gatekeeping bill using Perot 1992 as the modern debate-access case-study anchor, focused on debate-transparency/public-benefit conditions, alternative qualification paths, federal-election ballot-access notice-and-cure floors, FEC administration, constitutional authority, and coordination with ELEC-015 only for election-method pilot interactions<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
 
 ## Annotation
 
