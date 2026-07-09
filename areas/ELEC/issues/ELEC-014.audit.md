@@ -12,6 +12,16 @@ This file preserves the full audit history for [ELEC-014](ELEC-014.md). The issu
 
 ## Audit History
 
+### 2026-07-09 — Civil Process Catalog Split
+
+**Audit status:** Civil-process table removed from ELEC-014 catalog; no score change.
+
+**Scope:** Moved civil suits, Voting Section letters, administrative requests, voter-data lawsuits, information-sharing proposals, and noncriminal state-election-record demands out of the ELEC-014 criminal-process catalog and into [`source-development/ELEC-004-civil-process-catalog.md`](../../../source-development/ELEC-004-civil-process-catalog.md).
+
+**Boundary effect:** ELEC-014's catalog now carries only criminal-process entries and a short pointer to the ELEC-004 civil-process catalog. ELEC-014 should still track civil-to-criminal sequence leads, such as Fulton County, only if primary records connect the civil request to later criminal search, grand-jury, criminal-subpoena, or prosecution-threat activity.
+
+**Score effect:** No score change. ELEC-014 remains a candidate/source-development issue fixed at 0/100 pending primary-record completion, statutory-predicate identification, legitimacy assessment, remedy selection, and proposal-vehicle drafting.
+
 ### 2026-07-09 — Civil Record-Demand Routing to ELEC-004
 
 **Audit status:** Boundary routing clarification complete; no score change.
