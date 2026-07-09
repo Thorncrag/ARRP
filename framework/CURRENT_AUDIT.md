@@ -32,7 +32,8 @@ This file is the first place to check when an ARRP audit, source-development pas
 2. If this file identifies an active issue or task, continue from that checkpoint unless the user gives newer contrary instructions.
 3. If this file is inactive or stale and the user says "continue," ask which issue or task to continue instead of inferring from nearby repo state.
 4. Update this file at the start of any long audit, after each major phase, before risky edits, and before any likely context handoff.
-5. Clear this file back to `Inactive` only after the task is complete, committed/pushed when required, or explicitly paused with a final checkpoint.
+5. Clear this file back to `Inactive` only after the task is complete, committed and pushed when a GitHub remote is available, the related GitHub issue wrapper and GitHub Project item have been updated or verified when the task changes tracked fields, and any unfinished sync step is either completed or explicitly paused with a final checkpoint.
+6. Do not use GitHub issue comments as the ordinary audit-history record. Keep substantive audit history in the issue's sibling audit-history file; use the GitHub issue wrapper and Project fields for workflow status, links, score, last audit, next audit, rebaseline status, and change-audit flags.
 
 ## Checkpoint Template
 
