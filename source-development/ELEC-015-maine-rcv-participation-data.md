@@ -77,6 +77,35 @@ Outcome should not be a core field. It should be added only where it explains co
 
 Maine's 2026 Election Results/Data page separately lists non-ranked-choice primary offices, including U.S. Senate, Representative to Congress District 1, Republican Representative to Congress District 2, State Senate, Representative to the Legislature, and county offices. Those files are useful as same-election non-RCV comparators, but they should be handled carefully because contest salience, district geography, candidate field size, and office type differ.
 
+## Per-Election Profile Values
+
+The core comparison unit should be one election profile, not every municipal row, candidate subtotal, or cast-vote-record line. The raw files support the profile; the profile is what ELEC-015 should compare.
+
+### Profile Band Rules
+
+These bands are deliberately simple and provisional. They should be revised only if later extraction shows they distort the Maine record.
+
+| Field | Values | Rule |
+| --- | --- | --- |
+| Competition band | Uncontested; Contested; Crowded; Very crowded | 1 candidate = Uncontested; 2 candidates = Contested; 3-5 candidates = Crowded; 6+ candidates = Very crowded. |
+| Participation band | Unknown; Low; Typical; High | Assign only within a comparable office class after enough rows exist. Until then use Unknown. |
+| RCV experience band | Non-RCV; RCV not activated; RCV activated; RCV high-exhaustion | Non-RCV for plurality contests; RCV activated when transfer rounds occur; high-exhaustion when final exhausted ballots appear material enough to require explanation. |
+| Comparability confidence | Low; Medium; High | Low until the same office class has multiple pre/post rows or a same-cycle comparator; Medium when a plausible comparator exists; High only after comparable pre/post and same-cycle rows are extracted. |
+
+### Current Election Profiles
+
+| Election profile | Window | Office class | RCV status | Candidates | Ballots cast | Competition band | Participation band | RCV experience band | Comparability confidence | Profile note |
+| --- | --- | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
+| 2012 Democratic U.S. Senate primary | Pre-RCV baseline | Federal statewide primary | Non-RCV | 4 | 60,412 | Crowded | Unknown | Non-RCV | Low | Useful baseline row, but needs 2014/2016 and post-launch Senate-primary comparators. |
+| 2012 Republican U.S. Senate primary | Pre-RCV baseline | Federal statewide primary | Non-RCV | 7 | 73,503 | Very crowded | Unknown | Non-RCV | Low | Useful large-field baseline row before RCV. |
+| 2012 Democratic CD-1 primary | Pre-RCV baseline | Federal House primary | Non-RCV | 1 | 60,515 | Uncontested | Unknown | Non-RCV | Low | Useful uncontested federal House primary baseline. |
+| 2012 Republican CD-1 primary | Pre-RCV baseline | Federal House primary | Non-RCV | 2 | 37,174 | Contested | Unknown | Non-RCV | Low | Useful contested federal House primary baseline. |
+| 2012 Democratic CD-2 primary | Pre-RCV baseline | Federal House primary | Non-RCV | 1 | 24,712 | Uncontested | Unknown | Non-RCV | Medium | Closest extracted pre-RCV comparator to the 2026 Democratic CD-2 RCV row, but more years are needed. |
+| 2012 Republican CD-2 primary | Pre-RCV baseline | Federal House primary | Non-RCV | 2 | 36,392 | Contested | Unknown | Non-RCV | Low | Useful same-district pre-RCV baseline row. |
+| 2026 Democratic CD-2 primary | Post-launch/current window | Federal House primary | RCV | 4 | 83,480 | Crowded | Unknown | RCV high-exhaustion | Medium | Same district as extracted 2012 CD-2 rows; comparison remains incomplete until intervening cycles and same-cycle non-RCV rows are extracted. |
+| 2026 Democratic Governor primary | Post-launch/current window | Statewide primary | RCV | 5 | 222,405 | Crowded | Unknown | RCV activated | Low | Statewide RCV row; needs gubernatorial primary pre-RCV and same-cycle Republican/non-RCV context. |
+| 2026 Republican Governor primary | Post-launch/current window | Statewide primary | RCV | 8 | 137,981 | Very crowded | Unknown | RCV high-exhaustion | Low | Large-field statewide RCV row; useful stress test, but not yet comparable enough for participation claims. |
+
 ## Reader-Facing Presentation Plan
 
 The public-facing ELEC-015 discussion should not reproduce every municipal or CVR row. Use a three-layer presentation:

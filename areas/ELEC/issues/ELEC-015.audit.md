@@ -24,6 +24,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Presentation update:** Added a reader-facing presentation plan to the Maine source file. The planned display separates a simple summary-finding table, representative examples, and the technical appendix. The current snapshot is framed as coverage and examples only, not a causal or merits conclusion, because same-cycle non-RCV rows and additional pre/post cycle rows remain unextracted.
 
+**Profile-value update:** Added a per-election profile layer so ELEC-015 can compare elections rather than every municipal row or source-file datapoint. The profile layer defines provisional bands for competition, participation, RCV experience, and comparability confidence, then applies them to the extracted 2012 federal-primary baseline rows and 2026 RCV-primary rows.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
