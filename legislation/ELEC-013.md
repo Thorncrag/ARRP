@@ -51,10 +51,11 @@ In this title:
 3. **Covered election** means an election for Federal office or a presidential elector election.
 4. **Covered State** means a State, the District of Columbia, or a territory to the extent the jurisdiction administers a covered election.
 5. **Federal access form** means the standardized candidate-access filing form and electronic submission format established under section 1202.
-6. **Material defect** means a defect that prevents a State election official from determining candidate identity, office sought, candidate consent, elector-slate consent, signature sufficiency, filing timeliness, fee payment, eligibility certification, or compliance with a substantive State ballot-access requirement.
-7. **Presidential candidate packet** means the Federal access form, any required State supplement, elector-slate materials, candidate and vice-presidential candidate consents, petition materials if applicable, fee materials if applicable, and supporting documentation submitted by or for a presidential or vice-presidential candidate.
-8. **State supplement** means a State-specific form, attestation, petition page, elector-slate document, fee schedule, or instruction that is required by State law and published under section 1203.
-9. **Technical defect** means a missing field, formatting error, clerical error, incomplete attachment, signature-page irregularity, notarization defect, elector-contact defect, committee-identification defect, or comparable defect that can be corrected without changing the candidate, office sought, elector slate, signers, or substantive basis for ballot access.
+6. **Federal candidate-access rule** means a requirement of this title governing the Federal access form, publication of State requirements, notice of defects, cure of technical defects, certification-status reporting, or public dashboard reporting, and does not include a State substantive ballot-access requirement preserved under section 1204.
+7. **Material defect** means a defect that prevents a State election official from determining candidate identity, office sought, candidate consent, elector-slate consent, signature sufficiency, filing timeliness, fee payment, eligibility certification, or compliance with a substantive State ballot-access requirement.
+8. **Presidential candidate packet** means the Federal access form, any required State supplement, elector-slate materials, candidate and vice-presidential candidate consents, petition materials if applicable, fee materials if applicable, and supporting documentation submitted by or for a presidential or vice-presidential candidate.
+9. **State supplement** means a State-specific form, attestation, petition page, elector-slate document, fee schedule, or instruction that is required by State law and published under section 1203.
+10. **Technical defect** means a missing field, formatting error, clerical error, incomplete attachment, signature-page irregularity, notarization defect, elector-contact defect, committee-identification defect, or comparable defect that can be corrected without changing the candidate, office sought, elector slate, signers, filing timeliness, signature sufficiency, candidate eligibility, or substantive basis for ballot access.
 
 ## SEC. 1202. FEDERAL ACCESS FORM AND CLEARINGHOUSE.
 
@@ -135,7 +136,11 @@ Nothing in this title prohibits a covered State from requiring a State supplemen
 
 For a presidential elector election, this title establishes a Federal filing interface, notice floor, cure floor, and reporting floor. It does not require a State to appoint electors in any particular manner, alter the number of electors, recognize a party, accept an elector slate, or place a candidate on the ballot unless the candidate satisfies applicable State and Federal law.
 
-### (d) State substantive standards preserved.
+### (d) Congressional elections.
+
+For elections for Senator or Representative in, or Delegate or Resident Commissioner to, Congress, this title establishes Federal candidate-access administration rules under article I, section 4 of the Constitution. A Federal candidate-access rule may require publication, common filing information, notice, technical cure, and certification-status reporting, but may not create a ballot-placement entitlement independent of applicable State and Federal law.
+
+### (e) State substantive standards preserved.
 
 Nothing in this title preempts a neutral, nondiscriminatory State substantive ballot-access requirement, signature threshold, elector-slate requirement, filing-fee requirement, party-recognition requirement, sore-loser rule, ballot-order rule, anti-fraud rule, or certification rule except to the extent the requirement conflicts with this title or another Federal law.
 
@@ -153,11 +158,15 @@ A covered State shall provide a reasonable cure period for a technical defect. T
 
 This title does not require a covered State to permit cure of a material defect that cannot be corrected without changing the candidate, office sought, elector slate, signers, filing timeliness, or substantive basis for ballot access, but the State shall identify the defect and the legal basis for rejection.
 
-### (d) Immaterial defects.
+### (d) Signature, deadline, eligibility, and fraud rules preserved.
+
+Nothing in this section requires a covered State to treat a signature insufficiency, missed filing deadline, candidate ineligibility, elector ineligibility, fraudulent submission, forged signature, or failure to satisfy a published substantive ballot-access requirement as a technical defect.
+
+### (e) Immaterial defects.
 
 A covered State may not reject a covered candidate's filing solely for an immaterial paperwork defect if candidate identity, office sought, consent, filing timeliness, and substantive ballot-access eligibility are otherwise established and the defect can be corrected without prejudice to orderly administration.
 
-### (e) Expedited notice.
+### (f) Expedited notice.
 
 During the 45-day period before a ballot-printing, certification, or judicial-review deadline, a covered State shall provide defect notice as soon as practicable and by the fastest reliable method designated by the candidate.
 
@@ -229,11 +238,19 @@ A covered candidate aggrieved by a violation of this title may bring a civil act
 
 A court hearing an action under this section shall expedite proceedings to the greatest extent practicable when relief is sought before a filing, cure, challenge, ballot-printing, certification, or election deadline.
 
-### (d) No damages.
+### (d) Timing, laches, and anti-disruption rule.
+
+A court may not grant relief that would delay ballot printing, alter a final certification, reopen an expired filing period, or require emergency ballot reprinting unless the covered candidate acted with reasonable diligence, the violation is clear, the requested relief is narrowly tailored to a Federal candidate-access rule, and the public interest in orderly election administration does not outweigh the injury. Nothing in this subsection limits a court's authority to grant prospective declaratory relief, require future compliance, or preserve evidence for post-election reporting.
+
+### (e) No automatic ballot placement.
+
+Relief under this section shall be limited to enforcing Federal candidate-access rules and shall not include automatic ballot placement, elector recognition, write-in recognition, debate inclusion, or public funding unless expressly authorized by another provision of Federal law.
+
+### (f) No damages.
 
 This section does not create a damages remedy against a State, political subdivision, election official, election worker, or Federal officer.
 
-### (e) Federal Election Commission jurisdiction preserved.
+### (g) Federal Election Commission jurisdiction preserved.
 
 Nothing in this title gives the Federal Election Commission jurisdiction over State ballot-access administration except as provided in the Federal Election Campaign Act of 1971 or another Act of Congress.
 
@@ -243,9 +260,10 @@ Nothing in this title gives the Federal Election Commission jurisdiction over St
 
 Section 30101 of title 52, United States Code, is amended by adding at the end the following:
 
-1. The term **"covered debate"** means a candidate debate, candidate forum, or comparable public candidate event for an election for Federal office or for President or Vice President that seeks treatment as a candidate debate under regulations of the Commission, receives Federal funds or federally authorized public-broadcasting support, uses Federal property or facilities on preferential terms, or is conducted through an official Federal institutional partnership.
+1. The term **"covered debate"** means a candidate debate, candidate forum, or comparable public candidate event for an election for Federal office or for President or Vice President that seeks treatment as a candidate debate under regulations of the Commission or accepts a Federal public benefit.
 2. The term **"debate access criterion"** means a rule, threshold, measurement, poll, ballot-access requirement, fundraising requirement, petition requirement, public-support measure, documentation requirement, deadline, or discretionary standard used to determine whether a candidate is invited to, excluded from, or placed in a tier within a covered debate.
-3. The term **"public-benefit debate sponsor"** means a person or organization that stages, finances, co-sponsors, or controls a covered debate.
+3. The term **"Federal public benefit"** means Federal funds, a Federal grant, Federal property or facilities made available on preferential terms, federally authorized public-broadcasting support, or an official Federal institutional partnership. The term does not include generally available press access, ordinary news coverage, a privately negotiated broadcast, a university facility made available on ordinary market terms, or generally available tax-exempt status.
+4. The term **"public-benefit debate sponsor"** means a person or organization that stages, finances, co-sponsors, or controls a covered debate.
 
 ## SEC. 202. DEBATE-CRITERIA TRANSPARENCY.
 
@@ -277,6 +295,8 @@ Chapter 301 of title 52, United States Code, is amended by adding at the end a n
 
 9. Nothing in this section authorizes the Commission or any other Federal officer to control debate questions, editorial content, broadcast format, news coverage, commentary, moderator selection, candidate speech, or journalistic judgment.
 
+10. A candidate seeking pre-debate review of a sponsor's qualification decision shall submit a written request to the Commission not later than 5 business days after receiving the decision, except that the Commission may accept a later request for good cause when the sponsor issued the decision less than 15 days before the covered debate.
+
 ## SEC. 203. FEDERAL ELECTION COMMISSION ADMINISTRATION AND ENFORCEMENT.
 
 ### (a) Regulations.
@@ -291,11 +311,17 @@ The Commission shall conform regulations governing candidate debates, including 
 
 The Commission may enforce title II and the amendments made by title II under section 30109 of title 52, United States Code, including through conciliation, civil penalties, and civil actions where authorized by that section.
 
-### (d) Debate treatment.
+### (d) Expedited declaratory review.
+
+For a written request submitted under section 202(10), the Commission shall, to the greatest extent practicable, issue an expedited advisory opinion, declaratory ruling, or written staff recommendation before the covered debate. If the Commission cannot act before the covered debate because of time, lack of a quorum, or failure to obtain the votes required by section 30109 of title 52, United States Code, the Commission shall publish the request, the sponsor's response if any, and a post-debate status notice.
+
+### (e) Debate treatment and Federal public-benefit consequence.
 
 The Commission may deny, revoke, condition, or decline to recognize Federal Election Campaign Act debate treatment for a covered debate that materially violates the debate-criteria publication, recordkeeping, or neutrality requirements of this title.
 
-### (e) Department of Justice referrals.
+The head of a Federal agency that provides a Federal public benefit for a covered debate may condition, suspend, deny, or recover the benefit for a material violation of title II if the condition is stated before the benefit is accepted, the sponsor receives notice and an opportunity to respond, and the remedy does not compel hosting, broadcasting, editorial content, or candidate inclusion.
+
+### (f) Department of Justice referrals.
 
 The Commission may refer knowing and willful violations to the Attorney General under section 30109(a)(5)(C) of title 52, United States Code.
 
@@ -338,7 +364,13 @@ If any provision of this Act, an amendment made by this Act, or the application 
 
 ## SEC. 304. AUTHORIZATION OF APPROPRIATIONS.
 
-There are authorized to be appropriated such sums as may be necessary to carry out this Act and the amendments made by this Act.
+There are authorized to be appropriated such sums as may be necessary to carry out this Act and the amendments made by this Act, including:
+
+1. grants to covered States for publication systems, portal integration, certification-status reporting, accessibility, cybersecurity, language access, staff training, and technical support;
+2. amounts for the Election Assistance Commission to develop and maintain the Federal access form, clearinghouse, public dashboard, technical standards, and guidance;
+3. amounts for the Federal Election Commission to conduct rulemaking, maintain debate-criteria records, process expedited debate-criteria review requests, and report to Congress;
+4. amounts for the Department of Justice to enforce title I and provide technical assistance concerning civil enforcement; and
+5. amounts for independent evaluation of administrative burden, accessibility, cybersecurity, and implementation after the first covered general election.
 
 ## SEC. 305. EFFECTIVE DATES.
 
@@ -356,7 +388,7 @@ Federal agencies may issue regulations, guidance, forms, technical standards, an
 
 ## Budgetary Impact Statement
 
-Budget authority may be required for Election Assistance Commission form development, State grants, portal integration, public certification-status reporting, accessibility and language-access tools, Federal Election Commission rulemaking, debate-criteria enforcement, public reporting, and Department of Justice enforcement; no dollar estimate is assigned pending source-backed cost data.
+Budget authority may be required for Election Assistance Commission form development, limited technical assistance, public certification-status reporting, Federal Election Commission rulemaking, expedited debate-criteria review, public-benefit compliance review, public reporting, independent evaluation, and Department of Justice enforcement. Preliminary ARRP assessment estimates modest discretionary costs, likely in the range of $10,000,000 to $35,000,000 over five fiscal years if State grants remain limited to voluntary technical assistance and implementation support. Larger State modernization grants would require separate congressional judgment and are not assumed in this estimate. This conservative range is benchmarked against low-end CBO administrative-process estimates for reporting, review, rulemaking, and database work, and against election-security grant tranches as an upper-scale comparator rather than a model for this bill.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
@@ -369,9 +401,11 @@ Budget authority may be required for Election Assistance Commission form develop
 - The draft gives debate-rule enforcement to the FEC because the FEC administers and enforces FECA, while recognizing existing Commission deadlock and referral limits.
 - The constitutional strategy is to standardize the doorway rather than create a national ballot entitlement: the Federal form, status dashboard, notice, and cure floors reduce procedural gatekeeping while preserving State substantive ballot-access law.
 - The presidential-election provisions require close Article II review. They are drafted as filing-interface, notice, reporting, and public-benefit conditions rather than a direct command changing elector appointment.
-- The congressional-election provisions have a stronger Elections Clause foundation, but still need Anderson/Burdick and party-association review.
-- The debate provisions avoid compelled private hosting and editorial control. They condition FEC debate treatment and Federal public benefits on transparent criteria and alternative objective qualification paths.
-- The next check audit should test HAVA fit, FECA fit, EAC/FEC/DOJ role allocation, First Amendment and press-freedom limits, Article II and Elections Clause authority, Spending Clause support, state-administration burden, cost, and interaction with ELEC-012 and ELEC-015.
+- The congressional-election provisions have a stronger Elections Clause foundation and now state that the Federal rule is an administrative publication, filing, notice, cure, and status-reporting rule rather than an independent ballot-placement entitlement.
+- The debate provisions avoid compelled private hosting and editorial control. They condition FEC debate treatment and defined Federal public benefits on transparent criteria and alternative objective qualification paths.
+- The debate-cycle remedy now includes an expedited review request and a public post-debate notice if FEC deadlock, quorum, or timing prevents pre-debate action; it still needs direct FEC matter-file and First Amendment review.
+- The candidate-civil-action section now includes diligence, laches, anti-disruption, and no-automatic-ballot-placement limits to reduce late-election litigation risk.
+- The next check audit should test the revised HAVA fit, FECA fit, EAC/FEC/DOJ role allocation, First Amendment and press-freedom limits, Article II and Elections Clause authority, Spending Clause support, state-administration burden, cost, and interaction with ELEC-012 and ELEC-015.
 
 ## Source Notes
 
@@ -379,9 +413,13 @@ Budget authority may be required for Election Assistance Commission form develop
 - FEC candidate guidance includes [Registering as a candidate](https://www.fec.gov/help-candidates-and-committees/registering-candidate/) and [Gaining ballot access](https://www.fec.gov/help-candidates-and-committees/registering-candidate/gaining-ballot-access/), the latter of which points candidates to State election offices for State-law ballot-access requirements.
 - FEC's [Combined Federal/State Disclosure and Election Directory](https://www.fec.gov/introduction-campaign-finance/how-to-research-public-records/combined-federalstate-disclosure-and-election-directory/) is the source-route analogue for a national State-contact and status-reporting interface.
 - The [National Mail Voter Registration Form](https://www.eac.gov/voters/national-mail-voter-registration-form) and FVAP's [Federal Post Card Application and Federal Write-In Absentee Ballot forms](https://www.fvap.gov/eo/overview/materials/forms) are federal-form comparators that pair national forms with State-specific instructions.
+- Direct prior-proposal comparators include [H.R. 1503, 111th Congress](https://www.congress.gov/bill/111th-congress/house-bill/1503), which would have amended FECA to attach presidential eligibility documentation to a principal campaign committee filing, and Title X of the [For the People Act of 2019 committee print](https://www.congress.gov/committee-print/116th-congress/house-committee-print/35197), which would have required presidential and vice-presidential tax-return disclosure through the FEC and treated redacted returns as FECA reports.
+- California [SB 27](https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201920200SB27) is a cautionary State ballot-access disclosure comparator because it conditioned presidential primary ballot access on tax-return filing and public posting; this draft instead preserves State substantive ballot-access law and avoids creating a new substantive presidential qualification.
+- Budget analogues include CBO estimates for administrative-process, reporting, review, rulemaking, and database/public-information work in H.R. 4228 and H.R. 9, plus election-security grant reporting used only as an upper-scale contrast for broad modernization grants.
 - Constitutional source review should include Article I, section 4 and Article II, section 1 in the [Constitution transcript](https://www.archives.gov/founding-docs/constitution-transcript), [*Arizona v. Inter Tribal Council of Arizona*](https://supreme.justia.com/cases/federal/us/570/1/) for the Federal Form / Elections Clause analogy, and [*Burroughs v. United States*](https://supreme.justia.com/cases/federal/us/290/534/) for Federal protection of presidential elections from corrupt influence.
 - Ballot-access doctrine review should include [*Williams v. Rhodes*](https://supreme.justia.com/cases/federal/us/393/23/), [*Storer v. Brown*](https://supreme.justia.com/cases/federal/us/415/724/), [*Anderson v. Celebrezze*](https://supreme.justia.com/cases/federal/us/460/780/), [*Burdick v. Takushi*](https://supreme.justia.com/cases/federal/us/504/428/), and [*Timmons v. Twin Cities Area New Party*](https://supreme.justia.com/cases/federal/us/520/351/).
 - DOJ's [Voting Section](https://www.justice.gov/crt/voting-section) is the enforcement-role comparator for civil enforcement of voting statutes including the Voting Rights Act, UOCAVA, NVRA, HAVA, and related civil-rights provisions.
 - FEC enforcement source review should include the FEC's [complaints process guidance](https://www.fec.gov/legal-resources/enforcement/complaints-process/how-to-file-complaint-with-fec/) and [52 U.S.C. § 30109](https://www.law.cornell.edu/uscode/text/52/30109).
 - Ross Perot's 1992 debate participation is sourced to the Commission on Presidential Debates [1992 Debates](https://www.debates.org/debate-history/1992-debates/), and his 18.91 percent national popular-vote result is sourced to FEC's [*Federal Elections 92*](https://www.fec.gov/resources/cms-content/documents/federalelections92.pdf).
+- CPD's official [2024 Nonpartisan Candidate Selection Criteria](https://debates.org/2023/11/20/2024-sites/index.html) and [June 24, 2024 debate statement](https://debates.org/2024/06/24/cpd-statement/) are debate-sponsor comparators for ballot-access, polling-threshold, and public-benefit analysis.
 - Modern debate and ballot-access comparators include Associated Press reporting on [RFK Jr.'s failure to qualify for CNN's 2024 debate](https://apnews.com/article/de23c5bf08e33e0df8639ff11d1ff424), AP reporting distinguishing [claimed versus confirmed ballot access](https://apnews.com/article/c259599e787e422181f986cf2272eb53), Georgia's 20-state cross-recognition ballot-access bill described by [Associated Press](https://apnews.com/article/georgia-elections-voting-presidential-election-78ee0d966327b242d129fe7fe9ac32ce), and the Better for America ballot-access challenge described in [TIME](https://time.com/4436805/lawrence-lessig-randy-barnett/).

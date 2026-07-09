@@ -15,16 +15,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Inactive |
 | Active issue/task | ELEC-013 / Federal Candidate Access, Ballot Access, and Debate Gatekeeping |
-| Audit type/tier | T3 legal-durability and implementation audit |
-| Started | 2026-07-09 13:46:45 -0400 |
-| Last checkpoint | 2026-07-09 14:40:00 -0400 |
-| User request | Run the next audit on ELEC-013, expected to be T3. |
-| Scope | Continue from the completed ELEC-013 T2 audit and run the named T3 legal-durability and implementation audit focused on official state ballot-access and cure samples, official debate-sponsor criteria and FEC enforcement history, Article II/Elections Clause/Spending Clause/First Amendment stress testing, FEC deadlock mitigation, source-backed cost analogues, adoption evidence, and direct congressional prior-proposal survey. |
-| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `inventory/sources.csv`. |
-| Completed steps | Completed ELEC-013 T3 legal-durability and implementation audit; added official Texas and Virginia state ballot-access samples; updated issue score/status from 64 Developed Draft to 68 Substantially Developed Draft; recorded remaining debate-enforcement, cost, prior-proposal, adoption, broader-state-sample, and external-review gaps. |
-| Next step | Run T4 pre-publication audit only after gathering official debate-sponsor/FEC matter files, a larger state sample, source-backed cost/workload estimates, direct congressional prior-proposal survey, adoption evidence, and qualified external review. |
+| Audit type/tier | External-review readiness push / Review Ready source-development audit |
+| Started | 2026-07-09 14:09:30 -0400 |
+| Last checkpoint | 2026-07-09 14:09:30 -0400 |
+| User request | Try to get ELEC-013 to Review Ready before moving on. |
+| Scope | Target the remaining score blockers most likely to move ELEC-013 from 72 to Review Ready: direct prior-proposal comparators, budget/workload analogues, FEC/debate matter-file search, and score recalculation without claiming qualified external review. |
+| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/README.md`; `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `inventory/sources.csv`; `legislation/ELEC-013.md`. |
+| Completed steps | Completed external-review readiness push; added direct federal and State prior-proposal comparators, budget analogues, and FEC debate-enforcement lead; increased score from 72 to 75; set ELEC-013 to Review Ready with disclosed limits and no qualified external-review credit. |
+| Next step | Prepare qualified external-review package and gather official FEC matter files, broader official State sample, fiscal/workload validation, adoption evidence, and election-law, First Amendment, FEC/EAC, State-administration, fiscal, and legislative-counsel review before any Advanced Review Ready or Proposal Ready upgrade. |
 | Blockers/questions | None. |
-| Validation status | Passed targeted T3 consistency checks; `inventory/sources.csv` parses with 11 columns across 514 rows. |
+| Validation status | Passed Review Ready consistency checks; active ELEC-013 surfaces show 75/100 (Review Ready); `inventory/sources.csv` parses with 11 columns across 523 rows. |
 
 ## Handoff Rules
 

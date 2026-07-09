@@ -14,6 +14,142 @@ This file preserves the full audit history for [ELEC-013](ELEC-013.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-09 — External-review readiness push / Review Ready source-development audit
+
+**Audit tier:** External-review readiness push / targeted Review Ready source-development audit
+
+**Audit status:** External-review readiness push complete. ELEC-013 reaches Review Ready for knowledgeable external critique, with disclosed limitations.
+
+**Proposal-quality score:** 75/100 (Review Ready)
+
+**Score movement:** Increased from 72 to 75. The score moves because direct prior-proposal comparators, budget analogues, and a debate-enforcement lead strengthen the record enough for external critique. The score does not move higher because official FEC matter files, broader State sampling, adoption evidence, fiscal/workload validation, and qualified external review remain incomplete.
+
+**Component score calculation:** Structural 8/8; Evidence 11/12; Legal Fit 8/10; Prior-Proposal 6/8; Remedy 8/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 5/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. Total: 75/100.
+
+**Source-development performed:** Added source rows for H.R. 1503, 111th Congress; the For the People Act of 2019 committee print; California SB 27; CBO administrative-process budget analogues for H.R. 4228 and H.R. 9; AP reporting on election-security grant scale; and TIME reporting on the Mark Everson/Fox News FEC debate-criteria complaint. Updated the issue page and legislative source notes to distinguish direct federal FECA/FEC candidate-documentation analogues, federal FEC candidate-disclosure analogues, cautionary State ballot-access disclosure analogues, low-end administrative budget analogues, broad grant-scale comparators, and remaining official FEC matter-file verification needs.
+
+**Prior-proposal finding:** Prior-Proposal increases from 4/8 to 6/8. H.R. 1503 shows a direct federal model for attaching presidential eligibility documentation to FECA/FEC candidate filings. H.R. 1's Title X provisions show a House-passed federal model for routing presidential and vice-presidential candidate disclosure through the FEC and treating redacted returns as FECA reports. California SB 27 supplies a cautionary State model for conditioning presidential primary ballot access on candidate disclosure. No comparator combines ELEC-013's full package of candidate-access filing interface, State publication/status/cure floors, and FECA-linked debate transparency; no bipartisan or enacted federal model has been verified.
+
+**Evidence finding:** Evidence increases from 10/12 to 11/12. The record now supports the conservative budget posture with source-backed analogues and directly supports the prior-proposal survey with authoritative federal and State records. The final point remains unavailable because the audit still lacks official FEC matter-file review, broader State sampling, and publication-ready fiscal/workload validation from agency, CBO, appropriations, State-administrator, or comparable expert sources.
+
+**Implementation finding:** Implementation remains 7/8. Budget analogues make the implementation posture more concrete, but full implementation credit still requires FEC/EAC/DOJ/State workload assumptions, portal-integration estimates, accessibility and language-access cost validation, cybersecurity assumptions, and direct agency or State-administrator review.
+
+**Legal-fit finding:** Legal Fit remains 8/10. The new prior-proposal record supports the FECA/FEC documentation and disclosure lane but also confirms why the draft must avoid California SB 27's vulnerable State-imposed presidential ballot-access qualification posture. Article II, Spending Clause, First Amendment, press-freedom, party-association, Anderson/Burdick, and FEC-deadlock issues still require qualified review.
+
+**Review Ready finding:** ELEC-013 now meets the project's 75-84 Review Ready band because source verification, existing-law fit, prior-proposal review, and remedy analysis are substantially complete for external critique. It is not Advanced Review Ready, Proposal Ready, or Publication Ready. The next package should be sent to knowledgeable external reviewers with caveats rather than circulated as final policy text.
+
+**Next-step finding:** The next useful work is a qualified external-review package, not another internal polish pass. The package should include the issue page, legislative draft, source inventory tail, prior-proposal comparator table, budget-analogue note, FEC matter-file search note, official State sample table, and open questions for election-law, First Amendment, FEC/EAC, State-administration, fiscal, and legislative-counsel reviewers.
+
+### 2026-07-09 — Targeted score reanalysis / budget-framing check
+
+**Audit tier:** Targeted score reanalysis after conservative budget framing
+
+**Audit status:** Score reanalysis complete. ELEC-013 remains 72/100 (Substantially Developed Draft).
+
+**Proposal-quality score:** 72/100 (Substantially Developed Draft)
+
+**Score movement:** No change. The conservative preliminary fiscal range improves review posture and avoids treating broad State modernization grants as assumed, but it does not supply source-backed workload estimates, official budget analogues sufficient for Review Ready status, FEC matter-file review, broader State sampling, adoption evidence, or qualified external review.
+
+**Component score calculation:** Structural 8/8; Evidence 10/12; Legal Fit 8/10; Prior-Proposal 4/8; Remedy 8/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 5/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. Total: 72/100.
+
+**Budget-framing finding:** The issue page and draft now carry a conservative preliminary ARRP estimate of $10,000,000 to $35,000,000 over five fiscal years, assuming State grants remain limited to voluntary technical assistance and implementation support. That framing is more useful for review than a wholly unestimated budget note, but it remains preliminary and expert-adjustable. It should not be treated as a CBO, OMB, agency, legislative-counsel, State-administrator, or expert fiscal estimate.
+
+**Implementation finding:** Implementation remains 7/8. The revised authorization and budget statement make the implementation posture more concrete, but full credit still requires source-backed FEC, EAC, DOJ, State, cybersecurity, accessibility, portal-integration, and certification-status workload assumptions.
+
+**Evidence finding:** Evidence remains 10/12. The current record supports the draft's legal and administrative structure, but budget-specific analogues remain incomplete. The next source-development pass should add official agency-budget, CBO, appropriations, State-administrator, or comparable budget rows before relying on the range for publication.
+
+**Change Audit disposition:** No new change-audit flag. This reanalysis updates the score record after budget framing but does not identify a new internal remedy-fit defect.
+
+### 2026-07-09 — Conservative preliminary budget framing checkpoint
+
+**Checkpoint type:** Budgetary-impact framing refinement; no score change
+
+**Status:** Updated the issue page and legislative draft to use a conservative preliminary fiscal posture rather than leaving the budget statement wholly unestimated.
+
+**Budget framing:** Preliminary ARRP assessment now estimates modest discretionary costs, likely $10,000,000 to $35,000,000 over five fiscal years, assuming State grants remain limited to voluntary technical assistance and implementation support. Larger State modernization grants are treated as a separate congressional policy choice and are not assumed in the base estimate.
+
+**Score effect:** No score change. This checkpoint improves review posture and makes the fiscal assumption explicit, but it is not a CBO, OMB, agency, legislative-counsel, State-administrator, or expert fiscal estimate. The proposal still needs source-backed workload and cost validation before Review Ready status.
+
+### 2026-07-09 — Targeted Change Audit / external-review readiness check after post-T4 drafting revisions
+
+**Audit tier:** Targeted Change Audit / external-review readiness check
+
+**Audit status:** Targeted Change Audit complete after post-T4 drafting revisions; revised bill improves legal fit, abuse resistance, and drafting, but ELEC-013 remains Substantially Developed Draft rather than Review Ready pending FEC matter-file review, cost evidence, broader state sampling, adoption evidence, and qualified external review.
+
+**Proposal-quality score:** 72/100 (Substantially Developed Draft)
+
+**Score movement:** Increased from 69 to 72. The revision resolves the immediate remedy-fit concern created by the post-T4 drafting pass, but does not supply the external evidence package needed for Review Ready status.
+
+**Component score calculation:** Structural 8/8; Evidence 10/12; Legal Fit 8/10; Prior-Proposal 4/8; Remedy 8/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 5/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. Total: 72/100.
+
+**Audit scope:** Reviewed the post-T4 revised Federal Candidate Access and Debate Transparency Act sections on Federal candidate-access rules, congressional/presidential staging, technical and material defects, signature/deadline/eligibility/fraud preservation, candidate civil actions, late-litigation anti-disruption rules, no-automatic-ballot-placement relief, covered debates, Federal public benefits, expedited debate-cycle review, debate-treatment/public-benefit consequences, authorization structure, and updated drafting notes. This was not a qualified election-law, First Amendment, State election-administration, FEC/EAC, fiscal, congressional-research, or legislative-counsel review.
+
+**Internal remedy-fit finding:** The revised draft still fits ELEC-013's narrowed issue theory: candidate-access, ballot-access process, certification-status transparency, and debate-gatekeeping rules. It does not absorb ELEC-015 election-method design, ELEC-012 campaign-finance reform, or ELEC-009 presidential-selection redesign.
+
+**Legal-fit finding:** Legal Fit increases from 7/10 to 8/10. The draft now distinguishes Federal candidate-access rules from State substantive ballot-access requirements, states the stronger congressional-election Elections Clause lane, preserves Article II limits for presidential elector elections, and avoids treating the EAC as a general ballot-access regulator. The score does not rise further because Article II, Spending Clause, First Amendment, press-freedom, party-association, Anderson/Burdick, and FEC-deadlock issues still need qualified review and matter-file testing.
+
+**Abuse-resistance finding:** Abuse Resistance increases from 6/8 to 7/8. The revision preserves signature sufficiency, deadlines, candidate and elector eligibility, fraud rules, material defects, and State substantive ballot-access law; it also adds diligence, laches, anti-disruption, and no-automatic-ballot-placement limits on candidate litigation. Remaining risks include strategic pre-debate filings, sham candidacies, uneven State implementation, and agency deadlock.
+
+**Drafting finding:** Drafting increases from 7/8 to 8/8 for this stage. The revised bill uses existing statutory frameworks, narrows definitions, adds enforceable timing rules, specifies public-benefit boundaries, and separates ordinary FECA enforcement from expedited transparency review and public-benefit consequences. Legislative-counsel review is still required before publication-ready bill text.
+
+**External-review readiness finding:** The draft is closer to external-review ready, but it is not Review Ready. The next useful work is to prepare an external-review package with side-by-side issue theory, bill text, T4 audit findings, State sample table, FEC matter-file index, cost/workload assumptions, and open legal questions.
+
+**Score effect:** Legal Fit increases from 7/10 to 8/10; Abuse Resistance increases from 6/8 to 7/8; Drafting increases from 7/8 to 8/8. Structural, Evidence, Prior-Proposal, Remedy, Implementation, Cogency, Adoption, Project Integration, and External Review do not increase.
+
+**Change Audit disposition:** `change_audit_needed` is cleared. The post-T4 drafting revisions remain in scope for the next external-review readiness follow-up, but no unresolved internal remedy-fit defect needs to be carried as a change-audit flag.
+
+**Remaining limits:** ELEC-013 remains Substantially Developed Draft, not Review Ready. It still needs official FEC matter-file review, a broader official state sample, source-backed cost/workload estimates, direct prior-proposal survey, adoption evidence, and qualified election-law, First Amendment, State-administration, FEC/EAC, fiscal, and legislative-counsel review.
+
+### 2026-07-09 — Post-T4 Review Ready drafting revision checkpoint
+
+**Checkpoint type:** Substantive drafting revision; targeted Change Audit needed
+
+**Status:** Review Ready-oriented bill-text revisions added after the T4 pre-publication audit.
+
+**Proposal-quality score:** Unchanged at 69/100 pending targeted Change Audit and external-review readiness check.
+
+**Drafting changes:** Revised the [Federal Candidate Access and Debate Transparency Act](../../../legislation/ELEC-013.md) to add a defined Federal candidate-access rule, clarify the congressional-election Elections Clause lane, preserve Article II limits for presidential elector elections, tighten technical-versus-material cure limits, preserve signature, deadline, eligibility, elector, fraud, and substantive State ballot-access rules, add diligence/laches/anti-disruption limits for late candidate litigation, bar automatic ballot-placement relief, define Federal public benefit for covered debates, add an expedited debate-cycle review request, add public notice when FEC timing, quorum, or voting rules prevent pre-debate action, add public-benefit consequences that do not compel hosting or editorial content, and expand the authorization structure.
+
+**Remedy-fit finding:** The revisions respond to the T4 blockers by narrowing the bill's most vulnerable legal and implementation surfaces. They do not themselves supply the missing FEC matter files, broader official state sample, source-backed cost/workload package, direct prior-proposal survey, adoption evidence, or qualified external review.
+
+**Score effect:** No score change. The next pass should run a targeted Change Audit and external-review readiness check before increasing the score or treating ELEC-013 as Review Ready.
+
+### 2026-07-09 — T4 pre-publication audit
+
+**Audit tier:** T4: Pre-publication audit
+
+**Audit status:** T4 pre-publication audit complete; official CPD criteria and 2024 debate-disruption records improve debate-source grounding, but ELEC-013 remains Substantially Developed Draft rather than Review Ready because cost, broader state-sample, FEC matter-file, prior-proposal, adoption, and external-review gaps remain.
+
+**Proposal-quality score:** 69/100 (Substantially Developed Draft)
+
+**Score movement:** Increased from 68 to 69. T4 adds official debate-sponsor criteria and 2024 sponsor-disruption records, but does not resolve the larger publication blockers.
+
+**Component score calculation:** Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior-Proposal 4/8; Remedy 8/12; Implementation 7/8; Abuse Resistance 6/8; Drafting 7/8; Cogency 5/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. Total: 69/100.
+
+**Audit scope:** Reviewed the current ELEC-013 handoff, issue metadata, T3 audit baseline, issue scoring summary, source notes, source inventory tail, CPD's official 2024 nonpartisan candidate-selection criteria, CPD's June 24, 2024 statement releasing selected 2024 debate sites from their contracts, and targeted source-search results for FEC debate matter files, direct federal prior proposals, state samples, and cost/workload analogues. This was not a qualified election-law, First Amendment, State election-administration, FEC/EAC, fiscal, congressional-research, or legislative-counsel review.
+
+**Debate-sponsor criteria finding:** T4 adds official CPD criteria. CPD's 2024 criteria required constitutional eligibility, ballot access sufficient for a mathematical Electoral College majority, and at least 15 percent support across five selected national public-opinion organizations. CPD also expressly tied its criteria to the FEC requirement that debate sponsors use pre-established, objective selection criteria. This supports ELEC-013's claim that debate criteria can combine ballot-access law and polling thresholds into a national gatekeeping filter. It does not prove that CPD's criteria are unlawful or that Congress may compel private debate inclusion.
+
+**2024 debate-disruption finding:** CPD's June 24, 2024 statement confirms that its four planned 2024 debate sites were released from their contracts after the Biden campaign declined CPD sponsorship, while CPD stated it remained ready if circumstances changed. This supports ELEC-013's public-benefit and transparency theory because debate administration can affect universities, public-facing voter-education planning, broadcast logistics, and candidate access. It also cautions that a bill should define covered debates and Federal public benefits carefully, because a purely private campaign-negotiated broadcast event raises stronger press and associational concerns.
+
+**FEC matter-file finding:** T4 did not complete official FEC matter-file review. The record still lacks direct FEC advisory-opinion, MUR, statement-of-reasons, dismissal, deadlock, litigation, and RFK Jr./CNN complaint-disposition files. Because ordinary FECA enforcement depends on section 30109 processes and can be too slow for debate-cycle relief, ELEC-013 should not be marked Review Ready until the bill text includes a credible fast process, deadlock fallback, or limited public-benefit consequence that does not depend on ordinary post-election enforcement timing.
+
+**State-sample finding:** The Texas and Virginia samples remain useful, but T4 did not add the larger official state sample needed for publication. The next pass should sample at least a mix of large states, small states, party-recognition states, independent-candidate states, write-in states, challenge-heavy states, and states with recent presidential-candidate litigation or certification disputes.
+
+**Cost and workload finding:** T4 did not locate a source-backed cost package sufficient for Review Ready status. The draft still needs EAC form/portal build assumptions, State integration and publication workload estimates, FEC rulemaking/enforcement workload estimates, DOJ enforcement workload assumptions, cybersecurity and accessibility costs, and grant-sizing comparators. Until then, the budget statement should remain preliminary and unscored by CBO, OMB, agency, or legislative counsel.
+
+**Prior-proposal and adoption finding:** Prior-Proposal remains 4/8 and Adoption remains 3/12. T4 did not locate a direct federal bill combining a federal candidate-access form, State publication/cure floors, certification-status reporting, and FECA-linked debate transparency. It also did not add proposal-specific polling, sponsor coalition, committee action, administrator endorsement, bipartisan support, advocacy coalition, or external expert endorsement.
+
+**External-review finding:** External Review remains 0/4. T4 found no qualified external review from election-law counsel, First Amendment counsel, State election administrators, FEC/EAC specialists, fiscal analysts, or legislative counsel. This alone prevents Review Ready treatment.
+
+**Source record added:** Added CPD's 2024 nonpartisan candidate-selection criteria and CPD's June 24, 2024 statement on its 2024 general-election debates to the ELEC-013 source inventory and issue source notes.
+
+**Score effect:** Evidence increases from 9/12 to 10/12 for official debate-sponsor criteria and sponsor-disruption records. Structural, Legal Fit, Prior-Proposal, Remedy, Implementation, Abuse Resistance, Drafting, Cogency, Adoption, Project Integration, and External Review do not increase.
+
+**Remaining limits:** ELEC-013 remains Substantially Developed Draft, not Review Ready. The next useful work is not another general audit; it is targeted source development and bill-text revision around FEC matter files, debate-cycle remedies, larger official state sampling, cost/workload estimates, public-benefit scope, direct federal prior-proposal survey, adoption support, and qualified external review.
+
+**Next audit need:** Run a T4 follow-up / external-review readiness pass only after those missing materials are gathered.
+
 ### 2026-07-09 — T3 legal-durability and implementation audit
 
 **Audit tier:** T3: Legal-durability and implementation audit
@@ -46,7 +182,7 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Remaining limits:** ELEC-013 is now Substantially Developed Draft, not Review Ready. It still needs a larger official state sample; official debate-sponsor criteria and FEC advisory/enforcement file review; direct congressional prior-proposal survey; source-backed EAC/FEC/State cost and workload analogues; qualified external election-law, First Amendment, State-administration, FEC/EAC, fiscal, and legislative-counsel review; and a bill-text pass for late-injunction timing, FEC deadlock mitigation, public-benefit scope, and presidential-election staging.
 
-**Next audit need:** Run T4 pre-publication audit focused on official debate-sponsor/FEC matter files, larger state sample, cost/workload estimates, direct congressional prior-proposal survey, adoption evidence, and qualified external review before raising the score toward Review Ready.
+**Next audit need:** This T3 next-audit need was satisfied by the July 9, 2026 T4 pre-publication audit. Remaining unresolved items are carried forward in the T4 entry above.
 
 ### 2026-07-09 — T2 development audit
 
