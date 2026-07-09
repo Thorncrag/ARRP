@@ -118,6 +118,8 @@ Frame issues around institutional weakness, structural damage, and legal repair.
 
 Do not reject an issue merely because it is not tied to President Trump's administrations, Project 2025, or a current partisan conflict. Those events are principal case studies and stress tests, not the project's outer boundary. Older, continuing, or future-facing defects remain within scope when they bear on democratic resilience, institutional legitimacy, equal political membership, lawful administration, representation, disenfranchisement, or the system's capacity for self-correction.
 
+Preventive resilience is sufficient for scope when the issue identifies a concrete legal, structural, administrative, or institutional vulnerability that could enable future abuse. A future-facing issue should still be tied to a repairable institutional weakness, not a general policy preference.
+
 When an issue turns on political tradition, voluntary restraint, unwritten norms, informal interbranch accommodation, or underspecified legal guidance, identify that dependence directly. The analysis should ask whether the vulnerable norm can remain informal, should be codified, should be made reviewable, should receive an enforcement or transparency mechanism, or requires constitutional clarification.
 
 ### Neutral Application

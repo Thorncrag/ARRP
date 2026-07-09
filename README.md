@@ -47,13 +47,15 @@ The project will:
 1. identify the principal institutional damage caused, accelerated, revealed, or exploited by President Trump, the MAGA movement, Project 2025, or comparable efforts;
 2. identify the legal, structural, administrative, and policy weaknesses that made that damage possible;
 3. distinguish repair of existing damage from prevention of recurrence; and
-4. develop a durable roadmap for restoring lawful and trustworthy government.
+4. develop a durable roadmap for restoring lawful and trustworthy government and strengthening institutional resilience against future abuse.
 
 ## Scope
 
 The project concerns systems, structures, institutions, laws, and policies. It does not attempt a comprehensive sociological account of voter psychology, cultural identity, or partisan affiliation except where those matters directly illuminate an institutional vulnerability or remedy.
 
 The scope is not limited to President Trump, Project 2025, or any single political period. Those examples may reveal urgent vulnerabilities, but the project may also address long-running structural defects whose democratic-resilience consequences are independent of any one administration. Issues such as District of Columbia statehood, Puerto Rico status, representation gaps, and durable disenfranchisement may therefore fall within scope when the analysis connects them to institutional legitimacy, democratic self-correction, or equal political membership.
+
+Preventive resilience is within scope when a topic identifies a concrete legal, structural, administrative, or institutional vulnerability that could enable future abuse, even if the proposed reform is more forward-looking than reparative.
 
 ## Governing Principles
 
