@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | RIGHTS-003 / RIGHTS-004 immigration proposal update |
-| Audit type/tier | Source-development update / issue admission |
-| Started | 2026-07-06 13:26:27 -0400 |
-| Last checkpoint | 2026-07-06 13:35:16 -0400 |
-| User request | Update RIGHTS-003 after the June 30, 2026 Supreme Court birthright-citizenship ruling and add comprehensive immigration reform as a new RIGHTS proposal. |
-| Scope | Reframe RIGHTS-003 as a post-*Trump v. Barbara* statutory and records-continuity proposal, incorporating the separate statutory-vulnerability analysis; admit a new RIGHTS issue for comprehensive immigration reform; sync area, source, audit, GitHub, and Project tracking surfaces. |
-| Files touched | `areas/RIGHTS/issues/RIGHTS-003.md`; `areas/RIGHTS/issues/RIGHTS-003.audit.md`; `areas/RIGHTS/issues/RIGHTS-004.md`; `areas/RIGHTS/issues/RIGHTS-004.audit.md`; `areas/RIGHTS/README.md`; `inventory/sources.csv`; `inventory/github_issue_import.csv`; `source-development/project-2025-arrp-crosswalk.md`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Reframed RIGHTS-003 as a post-*Trump v. Barbara* statutory-recognition and records-continuity issue, including Justice Kavanaugh's separate statutory-vulnerability analysis of 8 U.S.C. § 1401(a); admitted RIGHTS-004 as the A-24 comprehensive immigration reform issue; updated A-24 index, Project 2025 crosswalk, source inventory, GitHub import ledger, GitHub issue #223 title, new GitHub issue #238, and GitHub Project fields for RIGHTS-003 and RIGHTS-004. |
-| Next step | For RIGHTS-003, source-develop or draft a statutory citizenship-recognition and records-continuity backstop. For RIGHTS-004, run a no-draft preflight and source-development/remedy-selection pass to decide whether to draft one modular title 8 bill or split narrower vehicles. |
+| Active issue/task | ELEC-013 / Federal Candidate Access, Ballot Access, and Debate Gatekeeping |
+| Audit type/tier | T2 development audit |
+| Started | 2026-07-09 13:26:40 -0400 |
+| Last checkpoint | 2026-07-09 13:44:21 -0400 |
+| User request | Resume and complete the interrupted ELEC-013 audit, then commit and push the completed audit unit. |
+| Scope | Completed the ELEC-013 T2 development audit focused on HAVA/EAC authority limits, FECA/FEC enforcement and deadlock risk, presidential-versus-congressional scope, debate-gatekeeping current-status sources, state ballot-access sampling limits, prior-proposal fit, implementation/fiscal posture, and next-audit needs. |
+| Files touched | `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `areas/ELEC/README.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Completed the ELEC-013 T2 development audit. Updated the issue score from 60 to 64, appended the T2 audit entry, updated the Election area note, added AP RFK/CNN debate-complaint source row SRC-0511, and synced GitHub Project issue #41 fields: Score 64, Runs 7, Last audit T2 development audit (2026-07-09), Next audit T3 legal-durability and implementation audit. |
+| Next step | Run T3 legal-durability and implementation audit focused on official state ballot-access and cure samples, official debate-sponsor criteria and FEC enforcement history, constitutional stress testing, FEC deadlock mitigation, cost analogues, adoption evidence, and direct prior-proposal survey. |
 | Blockers/questions | None. |
-| Validation status | Passed locally before handoff: `git diff --check`, CSV column-width check for `inventory/sources.csv` and `inventory/github_issue_import.csv`, changed Markdown local-link check, and GitHub Project readback for issues #223 and #238. |
+| Validation status | Passed locally before commit: `git diff --check`, CSV parse for `inventory/sources.csv`, stale-score sweep for touched ELEC-013 surfaces, and GitHub Project readback for issue #41. |
 
 ## Handoff Rules
 
