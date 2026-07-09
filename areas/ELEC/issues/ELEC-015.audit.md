@@ -32,6 +32,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Presentation correction:** Reduced the Maine source-development page to the user's requested four-column table only: election name, RCV status, candidate participation, and voter turnout. Removed the extra reader-facing scaffolding, harvested-values table, RCV-experience table, archive notes, roadmap, and limits from the page because they obscured the intended comparison.
 
+**Totals correction:** Replaced candidate-count and ballots-cast ranges with event-level totals where the harvested data permits. Candidate participation now reports total candidates across the extracted contests for each event. Voter turnout now uses a single unique-ballot event figure where available, or a labeled party-primary ballot proxy using statewide Democratic and Republican ballot totals where full event turnout has not yet been reduced.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
