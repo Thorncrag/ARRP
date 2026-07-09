@@ -14,6 +14,14 @@ This file preserves the full audit history for [ELEC-015](ELEC-015.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-09 — Development Note: Maine RCV Participation Source File
+
+**Status:** Development note only; no audit run.
+
+**Scope:** Created a dedicated Maine source-development file at [ELEC-015 Maine RCV Participation Data](../../../source-development/ELEC-015-maine-rcv-participation-data.md) and linked it from the issue page. The file starts the Maine candidate-participation and voter-participation extraction with official Secretary of State sources, including the 2026 primary ranked-choice office inventory, initial summary-report measures for Democratic CD-2, Democratic Governor, and Republican Governor, and a next-extraction checklist for candidate lists, withdrawals, first-choice files, cast-vote records, non-RCV comparators, and prior-cycle results.
+
+**Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
+
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
 
 **Status:** Development note only; no audit run.
