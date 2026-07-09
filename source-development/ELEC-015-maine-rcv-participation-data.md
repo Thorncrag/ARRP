@@ -26,6 +26,21 @@ This file is the working source-development table for Maine candidate-participat
 | Maine Secretary of State, [Election Results/Data](https://www.maine.gov/sos/elections-voting/election-results-data) | Current official result-file inventory | Lists 2026 primary ranked-choice offices, first-choice files, summary reports, cast-vote records, non-RCV offices, and candidate/withdrawal files. |
 | Maine Secretary of State, [Previous Election Year Results](https://www.maine.gov/sos/elections-voting/election-results-data/previous-election-results) | Before/after and longer-run comparison inventory | Lists prior RCV and non-RCV result groups for 2018, 2020, 2022, 2024, and other years. |
 
+## Pre-RCV Archive Feasibility
+
+Maine's official previous-results page appears sufficient for a usable pre-RCV baseline, but file depth and format vary by year. The first extraction priority should be even-year regular elections because they provide the strongest comparisons to post-launch federal and state cycles.
+
+| Year | Window role | Official archive coverage observed | Usefulness for ELEC-015 |
+| --- | --- | --- | --- |
+| 2010 | Pre-RCV baseline | General and referendum election files; U.S. Congress TXT, Governor PDF, State Senate TXT, State Representative TXT, county-office TXT files. | Useful for general-election candidate-count and vote-total baseline; primary baseline is not as visible on the current archive page. |
+| 2011 | Pre-RCV baseline | Referendum, special election, county referendum, and county-office Excel files. | Context only; not a regular statewide candidate-participation comparator. |
+| 2012 | Pre-RCV baseline | Strongest old-cycle primary archive found so far: primary total-votes files by party plus TXT/XLS tabulations for U.S. Senate, U.S. House, State Senate, State Representative, and county offices; general-election federal/state/county files also posted. | High-value baseline year. Candidate counts and ballots cast are extractable from official pipe-delimited TXT files without spreadsheet tooling. |
+| 2013 | Pre-RCV baseline | Referendum and special-election files. | Context only; not a regular statewide candidate-participation comparator. |
+| 2014 | Pre-RCV baseline | General/referendum and primary-election result groups listed. | High-value baseline year; extraction pending. |
+| 2015 | Pre-RCV baseline | Referendum and special-election files. | Context only; not a regular statewide candidate-participation comparator. |
+| 2016 | Pre-RCV baseline | General/referendum and primary-election result groups listed. | High-value baseline year; extraction pending. |
+| 2017 | Pre-RCV baseline | Referendum and special-election files. | Context only; not a regular statewide candidate-participation comparator. |
+
 ## Core Comparison Model
 
 ELEC-015 should start with a narrow participation comparison rather than an outcome analysis. The core table should identify the election, whether it used ranked-choice voting, the number of candidates, and voter turnout or ballots cast. Party is part of the election description when the contest is a primary, but the first-pass comparison does not need a separate party-by-party analytic breakdown.
@@ -34,6 +49,12 @@ Outcome should not be a core field. It should be added only where it explains co
 
 | Election referenced | Timeframe role | Office / contest | RCV status | Number of candidates | Voter turnout / ballots cast | Comparator note |
 | --- | --- | --- | --- | ---: | ---: | --- |
+| 2012-06-12 primary | Pre-RCV baseline | Democratic U.S. Senate | Non-RCV | 4 | 60,412 | Extracted from Maine SOS pipe-delimited TXT; candidate count excludes BLANK. Strong pre-RCV federal primary baseline. |
+| 2012-06-12 primary | Pre-RCV baseline | Republican U.S. Senate | Non-RCV | 7 | 73,503 | Extracted from Maine SOS pipe-delimited TXT; candidate count excludes BLANK. Strong pre-RCV federal primary baseline. |
+| 2012-06-12 primary | Pre-RCV baseline | Democratic Representative to Congress, District 1 | Non-RCV | 1 | 60,515 | Extracted from Maine SOS pipe-delimited TXT; candidate count excludes BLANK. Useful uncontested/incumbent-style baseline. |
+| 2012-06-12 primary | Pre-RCV baseline | Republican Representative to Congress, District 1 | Non-RCV | 2 | 37,174 | Extracted from Maine SOS pipe-delimited TXT; candidate count excludes BLANK. |
+| 2012-06-12 primary | Pre-RCV baseline | Democratic Representative to Congress, District 2 | Non-RCV | 1 | 24,712 | Extracted from Maine SOS pipe-delimited TXT; candidate count excludes BLANK. Useful uncontested/incumbent-style baseline. |
+| 2012-06-12 primary | Pre-RCV baseline | Republican Representative to Congress, District 2 | Non-RCV | 2 | 36,392 | Extracted from Maine SOS pipe-delimited TXT; candidate count excludes BLANK. |
 | 2026-06-09 primary | Post-launch/current window | Democratic Representative to Congress, District 2 | RCV | 4 | 83,480 | Same-cycle federal primary; compare cautiously to non-RCV U.S. House contests because only the Democratic CD-2 primary required RCV tabulation. |
 | 2026-06-09 primary | Post-launch/current window | Democratic Governor | RCV | 5 | 222,405 | Statewide primary; useful for candidate-field and voter-participation comparison against Republican Governor and prior gubernatorial primaries. |
 | 2026-06-09 primary | Post-launch/current window | Republican Governor | RCV | 8 | 137,981 | Statewide primary; useful for candidate-field comparison and for testing whether large fields correlate with ballot exhaustion or completion problems. |
@@ -97,10 +118,13 @@ This secondary table is for voter-experience context only. It should not displac
 3. Parse first-choice Excel files and reconcile them to the summary PDFs.
 4. Parse CVR files for ranking-depth, undervote/overvote, and ballot-exhaustion patterns.
 5. Build same-election non-RCV comparator tables from the 2026 non-ranked-choice office files.
-6. Extend backward through 2024, 2022, 2020, and 2018 prior-year result pages for before/after candidate-field and participation comparisons.
+6. Extend backward through 2024, 2022, 2020, and 2018 prior-year result pages for post-launch candidate-field and participation comparisons.
+7. Extract the high-value pre-RCV baseline years 2016, 2014, 2012, and 2010, prioritizing regular even-year primary and general elections over odd-year special or referendum elections.
+8. Treat odd-year files from 2011, 2013, 2015, and 2017 as context unless a specific special-election comparison becomes useful.
 
 ## Current Limits
 
 - This file does not yet determine whether RCV increased or decreased candidate participation or voter participation.
 - The extracted summary-report values should be treated as official initial observations, not as a causal conclusion.
 - Same-election and prior-cycle comparisons need normalization by office type, district, party, competitiveness, presidential-cycle effects, ballot questions, and candidate salience.
+- Old Maine result formats vary. TXT files are immediately parseable; XLS/PDF files may require additional tooling or manual verification.
