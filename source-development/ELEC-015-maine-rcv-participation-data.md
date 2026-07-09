@@ -77,6 +77,34 @@ Outcome should not be a core field. It should be added only where it explains co
 
 Maine's 2026 Election Results/Data page separately lists non-ranked-choice primary offices, including U.S. Senate, Representative to Congress District 1, Republican Representative to Congress District 2, State Senate, Representative to the Legislature, and county offices. Those files are useful as same-election non-RCV comparators, but they should be handled carefully because contest salience, district geography, candidate field size, and office type differ.
 
+## Reader-Facing Presentation Plan
+
+The public-facing ELEC-015 discussion should not reproduce every municipal or CVR row. Use a three-layer presentation:
+
+1. **Summary finding table:** one row per comparable office class and timeframe window, showing the range or average of candidate counts and ballots cast once enough rows are extracted.
+2. **Representative examples:** a small table of named elections that illustrate the pattern without claiming causation.
+3. **Technical appendix:** the core comparison table in this file, plus extraction notes and source-file links.
+
+For now, the safest reader-facing display is a "coverage and examples" table rather than a conclusion table. It should show that Maine's data can support the comparison, while making clear that extraction is incomplete.
+
+| Display question | Simple presentation | Current status |
+| --- | --- | --- |
+| Do we have pre-RCV data? | Coverage table by year, with strong/partial/context labels. | Started in the Pre-RCV Archive Feasibility table. |
+| Did candidate fields change? | Compare candidate-count ranges by office class: federal primaries, state primaries, federal general elections, and same-cycle non-RCV contests. | Started with 2012 federal primary baseline and 2026 RCV primary examples. |
+| Did voter participation change? | Compare ballots cast by comparable office class and cycle type, not one blended statewide line. | Started with 2012 federal primary baseline and 2026 RCV primary examples. |
+| Did RCV change the voter experience? | Separate ballot-experience table: RCV activated, rounds, exhausted ballots, and later ranking-depth/CVR measures. | Started for three 2026 RCV summaries; CVR parsing pending. |
+
+## First Reader-Facing Snapshot
+
+This table is a presentation scaffold only. It should not be treated as a conclusion until 2014, 2016, 2020, 2022, and 2024 rows are added and comparable office classes are separated.
+
+| Window | Example elections currently extracted | Candidate-count signal | Ballots-cast signal | What the reader can take from this now |
+| --- | --- | --- | --- | --- |
+| Pre-RCV baseline | 2012 Democratic/Republican U.S. Senate primaries; 2012 Democratic/Republican CD-1 and CD-2 primaries | 1 to 7 candidates across extracted federal primaries | 24,712 to 73,503 ballots cast across extracted federal primaries | Maine's pre-RCV archive can support candidate-count and ballots-cast comparisons, at least for 2012 federal primaries. |
+| Launch / transition | 2018 RCV and non-RCV result groups identified, not yet extracted | TBD | TBD | Keep 2018 separate until early implementation effects are understood. |
+| Post-launch/current | 2026 Democratic CD-2, Democratic Governor, Republican Governor RCV primaries | 4 to 8 candidates across extracted RCV primaries | 83,480 to 222,405 ballots cast across extracted RCV primaries | Current RCV summaries provide candidate counts and ballots-cast measures, but comparisons need office-class controls. |
+| Same-cycle comparator | 2026 non-RCV primary groups identified, not yet extracted | TBD | TBD | Same-cycle non-RCV rows are needed before any participation claim is responsible. |
+
 ## RCV Activation and Ballot-Experience Context
 
 This secondary table is for voter-experience context only. It should not displace the main participation comparison. Rounds and exhaustion matter because an RCV election with no transfer rounds is different from an RCV election where voters experience multiple elimination rounds.

@@ -22,6 +22,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Archive feasibility update:** Maine's official archive appears sufficient for a usable pre-RCV baseline, especially even-year cycles. A first 2012 extraction from official pipe-delimited TXT files produced candidate counts and ballots-cast values for Democratic and Republican U.S. Senate primaries and U.S. House District 1 and District 2 primaries. The source file now distinguishes strong baseline years from odd-year referendum/special-election context years and flags old XLS/PDF formats for later tooling or manual verification.
 
+**Presentation update:** Added a reader-facing presentation plan to the Maine source file. The planned display separates a simple summary-finding table, representative examples, and the technical appendix. The current snapshot is framed as coverage and examples only, not a causal or merits conclusion, because same-cycle non-RCV rows and additional pre/post cycle rows remain unextracted.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
