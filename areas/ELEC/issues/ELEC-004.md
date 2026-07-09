@@ -7,11 +7,11 @@ priority: high
 remedy_type: coupled-federal-and-model-state-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
-audit_status: "Civil record-demand source routing clarified; review-ready score preserved while external legal review and additional primary-source expansion remain needed"
+audit_status: "Manifestations reorganized by chronology and type; review-ready score preserved while external legal review and additional primary-source expansion remain needed"
 audit_score: 75
-audit_last_type: "Civil record-demand source routing clarification"
+audit_last_type: "Manifestation chronology and type reorganization"
 audit_last_date: "2026-07-09"
-audit_next: "Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review"
+audit_next: "Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -45,29 +45,25 @@ The institutional problem is not the availability of election challenges. The pr
 
 ## Manifestations of the Failure
 
-### Pre-election process abuse
+### Recurring pre-election or pre-deadline process abuse
 
 Frivolous or abusive pre-election challenges may seek emergency rule changes, voter-list disruption, ballot-design changes, candidate-access changes, broad election-office discovery, or access to sensitive election-system materials. These proceedings may be especially damaging when filed close enough to the election to interfere with ballot preparation, equipment programming, voter notices, mail-ballot processing, staffing, or other election-administration tasks.
 
-### 2020 post-election litigation wave
+### 2020 post-election litigation and emergency-relief wave
 
 After the 2020 presidential election, numerous lawsuits were filed challenging procedures, vote counting, certification, or state results. Many were dismissed for lack of standing, laches, lack of evidence, failure to state a claim, or absence of a legally available remedy. Even when unsuccessful, such filings imposed emergency burdens on courts and election officials and could be used publicly to claim that results remained legally contested.
 
-### Pennsylvania — mismatch between public fraud narrative and court presentation
+**Pennsylvania — mismatch between public fraud narrative and court presentation.** In federal litigation challenging Pennsylvania’s result, public claims of fraud were not matched by the legal theory ultimately presented in court. Counsel stated that the case was not a fraud case, and the Third Circuit rejected the effort to undo certification. The episode illustrates how public-facing allegations may be laundered through litigation even when the courtroom record does not support the public narrative. See [*Donald J. Trump for President, Inc. v. Secretary Commonwealth of Pennsylvania*, No. 20-3371 (3d Cir. Nov. 27, 2020)](https://www2.ca3.uscourts.gov/opinarch/203371np.pdf).
 
-In federal litigation challenging Pennsylvania’s result, public claims of fraud were not matched by the legal theory ultimately presented in court. Counsel stated that the case was not a fraud case, and the Third Circuit rejected the effort to undo certification. The episode illustrates how public-facing allegations may be laundered through litigation even when the courtroom record does not support the public narrative. See [*Donald J. Trump for President, Inc. v. Secretary Commonwealth of Pennsylvania*, No. 20-3371 (3d Cir. Nov. 27, 2020)](https://www2.ca3.uscourts.gov/opinarch/203371np.pdf).
+**Michigan — post-election suit and later sanctions.** A federal post-election suit in Michigan sought extraordinary relief affecting the presidential result. The district court later sanctioned counsel, finding that the suit had been filed without adequate factual and legal basis and was not a legitimate vehicle for overturning the result. This episode illustrates that a proceeding may appear initially as litigation but later prove sanctionable when its factual basis, purpose, or coordination is examined more fully. See [*King v. Whitmer*, Opinion and Order, Civil Case No. 20-13134 (E.D. Mich. Aug. 25, 2021)](https://www.michigan.gov/documents/ag/172_opinion__order_King_733786_7.pdf).
 
-### Michigan — post-election suit and later sanctions
+**Wisconsin, Nevada, Georgia, and other state proceedings.** Post-election challenges in multiple states sought relief that would have affected certified or certifiable results, including selective invalidation of votes, extraordinary review, or annulment theories. Courts generally rejected claims that failed to establish material error sufficient to change the result or justify the requested remedy. These proceedings show the need for early materiality and remedy-fit requirements when a filing seeks election-disruptive relief. In Georgia, the hearing transcript in [*Pearson v. Kemp*, No. 1:20-CV-4809-TCB (N.D. Ga. Dec. 7, 2020)](https://storage.courtlistener.com/recap/gov.uscourts.gand.284055/gov.uscourts.gand.284055.79.0.pdf) provides primary support for a narrow remedy-fit example involving emergency election-disruptive relief, inspection/access demands, and decertification-style remedies.
 
-A federal post-election suit in Michigan sought extraordinary relief affecting the presidential result. The district court later sanctioned counsel, finding that the suit had been filed without adequate factual and legal basis and was not a legitimate vehicle for overturning the result. This episode illustrates that a proceeding may appear initially as litigation but later prove sanctionable when its factual basis, purpose, or coordination is examined more fully. See [*King v. Whitmer*, Opinion and Order, Civil Case No. 20-13134 (E.D. Mich. Aug. 25, 2021)](https://www.michigan.gov/documents/ag/172_opinion__order_King_733786_7.pdf).
-
-### Wisconsin, Nevada, Georgia, and other state proceedings
-
-Post-election challenges in multiple states sought relief that would have affected certified or certifiable results, including selective invalidation of votes, extraordinary review, or annulment theories. Courts generally rejected claims that failed to establish material error sufficient to change the result or justify the requested remedy. These proceedings show the need for early materiality and remedy-fit requirements when a filing seeks election-disruptive relief. In Georgia, the hearing transcript in [*Pearson v. Kemp*, No. 1:20-CV-4809-TCB (N.D. Ga. Dec. 7, 2020)](https://storage.courtlistener.com/recap/gov.uscourts.gand.284055/gov.uscourts.gand.284055.79.0.pdf) provides primary support for a narrow remedy-fit example involving emergency election-disruptive relief, inspection/access demands, and decertification-style remedies.
-
-### Subpoena, audit, and inspection mechanisms
+### Cross-cycle civil subpoena, audit, and inspection mechanisms
 
 Election pressure may also appear as civil subpoenas, public-records demands, nonstatutory audits, legislative or administrative demands, or inspection demands for ballots, equipment, voter data, source code, logs, chain-of-custody records, or security-sensitive materials. Such demands may be legitimate when grounded in lawful authority and material evidence, but they can also be used to burden officials, expose sensitive systems, or imply fraud without proof.
+
+### 2025-2026 civil voter-data and state-record demand campaign
 
 Federal civil or administrative demands for state election records fit ELEC-004 when they operate through civil litigation, Voting Section letters, administrative requests, public-record style demands, information-sharing proposals, or noncriminal lawsuits seeking voter rolls, voter identifiers, election-worker records, ballots, election documents, or retained election records. The 2025-2026 DOJ voter-data request and litigation campaign is therefore source-development material for ELEC-004's civil-process lane, while also cross-referencing [ELEC-001](ELEC-001.md) and [ELEC-010](ELEC-010.md) where federal election-control architecture or voter-data architecture is the more central defect. Treat the campaign as civil/administrative process unless a warrant, grand jury, criminal subpoena, federal criminal investigation, Criminal Division investigative channel, or prosecution threat is verified. The working catalog is [ELEC-004 Civil Process and State Election Records Catalog](../../../source-development/ELEC-004-civil-process-catalog.md).
 
@@ -180,7 +176,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** Civil record-demand source routing clarified; review-ready score preserved while external legal review and additional primary-source expansion remain needed<br />**Last Audit:** Civil record-demand source routing clarification<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** Manifestations reorganized by chronology and type; review-ready score preserved while external legal review and additional primary-source expansion remain needed<br />**Last Audit:** Manifestation chronology and type reorganization<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 
@@ -203,6 +199,8 @@ Administrative workload is possible; no new appropriation is specified.
 **Civil Record-Demand Source Routing.** The July 9, 2026 ELEC-014 boundary cleanup routes civil and administrative voter-data lawsuits, Voting Section letters, state-election-record requests, and noncriminal information-sharing demands primarily to ELEC-004 rather than ELEC-014. ELEC-004 should source-develop those materials as civil-process examples while preserving ELEC-014 for warrants, grand-jury subpoenas, criminal subpoenas, criminal investigations, and prosecution-threat communications.
 
 **Civil Process Catalog.** The ELEC-004 civil-process catalog now carries the detailed working table for DOJ civil voter-data requests, voter-roll lawsuits, information-sharing proposals, and noncriminal state-election-record demands. Use that catalog, not the ELEC-014 criminal-process catalog, for civil suits and administrative record-demand source development.
+
+**Manifestation Organization.** The July 9, 2026 organization pass groups manifestations by chronology and process type: recurring pre-election or pre-deadline abuse, the 2020 post-election litigation and emergency-relief wave, cross-cycle subpoena/audit/inspection mechanisms, and the 2025-2026 civil voter-data and state-record demand campaign.
 
 **Quality Score.** The 75/100 score reflects a Review Ready proposal after T4 follow-up and same-day score recalibration. The current component calculation is: Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior-Proposal 5/8; Remedy 9/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. The recalibration raises Evidence from 9 to 10 because the follow-up replaced the Michigan source lead with a verified primary sanctions order, added a Georgia primary hearing transcript, and added reviewed source-inventory rows for the new materials. It raises Implementation from 6 to 7 because the Nevada statutory comparison now gives the state-model component a concrete implementation comparator for Anti-SLAPP procedure, election contests, presidential-elector timing, and ballot-inspection limits. Review Ready means strong enough for knowledgeable external critique; it does not mean publication-ready. The Nevada primary order, broader representative-state implementation comparison, Petition Clause and First Amendment limits, title 28 procedural vehicle, and qualified external review remain unresolved.
 

@@ -21,17 +21,29 @@ This catalog is factual and source-development oriented. It does not decide moti
 
 ## Current Civil / Administrative Catalog
 
+### 2025 requests and information-sharing proposals
+
 | ID | Jurisdiction / target | Demand type | Record sought or affected | Source status | ELEC-004 relevance |
 | --- | --- | --- | --- | --- | --- |
 | ELEC-004-CIV-001 | At least 15 state election administrators as of August 2025 | DOJ Voting Section letters for voter registration lists | Statewide voter-registration lists; AP identified Alaska, Arizona, California, Florida, Illinois, Maine, Maryland, Michigan, Minnesota, Nevada, New Hampshire, New York, Utah, Wisconsin, and Oklahoma by phone contact | AP tally; state letters and responses needed | Civil/administrative election-record demand campaign; cross-reference ELEC-001/ELEC-010 for voter-data architecture |
 | ELEC-004-CIV-002 | Colorado | DOJ all-records demand | "All records" relating to the 2024 election and retained 2020 election records | AP reporting; Colorado request and response needed | Broad civil election-record demand useful for scope, burden, and sensitive-material analysis |
 | ELEC-004-CIV-003 | Los Angeles, Orange, San Diego, and San Francisco Counties, California | DOJ county-level voter-roll letters | Records on people removed as noncitizens, voting records, dates of birth, and identification numbers | AP reporting; county letters and responses needed | County-level voter-data demand involving sensitive identifiers; cross-reference ELEC-010 where mail/voter-data architecture is implicated |
 | ELEC-004-CIV-004 | Arizona, Connecticut, Michigan, Nevada, New Mexico, Rhode Island, and Wisconsin | DOJ information-sharing proposal | Calls or meetings about information-sharing agreements for voting or election-fraud instances | AP reporting; emails and agreement drafts needed | Boundary material unless a Criminal Division investigative channel is verified; cross-reference ELEC-001/ELEC-010 |
+
+### 2025-2026 voter-data lawsuits and rulings
+
+| ID | Jurisdiction / target | Demand type | Record sought or affected | Source status | ELEC-004 relevance |
+| --- | --- | --- | --- | --- | --- |
 | ELEC-004-CIV-005 | Delaware, Maryland, New Mexico, Rhode Island, Vermont, and Washington | DOJ voter-data lawsuits | Statewide voter-registration lists | AP reporting; pleadings and orders needed | Civil voter-data lawsuits; useful for litigation posture, burden, and privacy objections |
 | ELEC-004-CIV-006 | Massachusetts | DOJ voter-roll lawsuit | State voter rolls, including unredacted data for DHS SAVE checks according to AP's account of related litigation | AP reporting and linked court order; full pleadings needed | Civil voter-data litigation and protective-order/privacy questions |
 | ELEC-004-CIV-007 | Maine and Wisconsin | DOJ voter-roll lawsuits | Detailed voter-registration information | AP reporting; court orders and pleadings needed | Civil voter-data litigation and dismissal/posture tracking |
 | ELEC-004-CIV-008 | At least 30 states plus District of Columbia as of spring 2026 | DOJ voter-data lawsuits / demands | Detailed voter data including dates of birth, addresses, driver-license numbers, and partial Social Security numbers | AP reporting; comprehensive state-by-state tracker and docket review needed | Scale marker for state-record-demand campaign; cross-reference ELEC-001/ELEC-010 for federal voter-data architecture |
 | ELEC-004-CIV-009 | Alaska, Arkansas, Indiana, Louisiana, Mississippi, Nebraska, Ohio, Oklahoma, South Dakota, Tennessee, Texas, and Wyoming | State provision or promised provision of detailed voter-registration lists to DOJ | Detailed state voter-registration lists | AP reporting citing Brennan Center; state production records needed | Voluntary/cooperative voter-data sharing comparator for downstream minimization, retention, privacy, and federalism questions |
+
+### Georgia 2020-record demand sequence lead
+
+| ID | Jurisdiction / target | Demand type | Record sought or affected | Source status | ELEC-004 relevance |
+| --- | --- | --- | --- | --- | --- |
 | ELEC-004-CIV-010 | Fulton County, Georgia 2020 election records | DOJ civil-rights / voting-law record request lead | 2020 election records, followed by later federal litigation and FBI seizure sequence according to public reporting | Guardian lead and AP later-event reporting; DOJ letter, Fulton County response, Georgia State Election Board records, complaint, and docket needed | Civil election-record demand lead; also a sequence lead for the later ELEC-014 criminal search only if primary records connect the events |
 
 ## Verification Needs Before Remedy or Legitimacy Assessment

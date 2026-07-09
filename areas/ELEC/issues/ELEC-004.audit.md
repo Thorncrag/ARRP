@@ -12,6 +12,16 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 ## Audit History
 
+### 2026-07-09 — Manifestation Chronology and Type Reorganization
+
+**Audit status:** Manifestation organization pass complete; no score change.
+
+**Scope:** Reorganized ELEC-004's manifestations by chronology and process type so the issue page distinguishes recurring pre-election or pre-deadline process abuse, the 2020 post-election litigation and emergency-relief wave, cross-cycle civil subpoena/audit/inspection mechanisms, and the newer 2025-2026 DOJ civil voter-data and state-record demand campaign.
+
+**Catalog effect:** Updated the ELEC-004 civil-process catalog to group current entries into 2025 requests and information-sharing proposals, 2025-2026 voter-data lawsuits and rulings, and the Georgia 2020-record demand sequence lead.
+
+**Score effect:** No score change. ELEC-004 remains 75/100 (Review Ready). The pass changes organization and source-development routing only; it does not add new source rows, complete primary-record verification, or resolve external-review blockers.
+
 ### 2026-07-09 — Civil Process Catalog Split
 
 **Audit status:** Civil-process catalog split complete; no score change.
