@@ -2,18 +2,27 @@
 issue_id: ELEC-013
 area_id: A-02
 title: "Federal Candidate Access, Ballot Access, and Debate Gatekeeping"
-status: candidate
+status: developed
 priority: high
 remedy_type: election-competition-reform
-audit_score: 0
-audit_status: "Initial federal candidate-access draft added; check audit needed before scoring"
-audit_last_type: "Targeted Change Audit / Internal Remedy-Fit Audit"
-audit_last_date: "2026-07-06"
-audit_next: "Run a check audit of the initial Federal Candidate Access and Debate Transparency Act draft, including HAVA and FECA fit, EAC/FEC/DOJ role allocation, Article II, Elections Clause, Spending Clause, First Amendment and press-freedom limits, Anderson/Burdick ballot-access doctrine, implementation cost, state-administration burden, and coordination with ELEC-012 and ELEC-015"
+legislative_proposal: "../../../legislation/ELEC-013.md"
+audit_score: 60
+audit_status: "T1 draft check / first formula audit complete; developed draft scored, with HAVA/FECA hooks plausible but legal, source, prior-proposal, cost, state-burden, and adoption work still incomplete"
+audit_last_type: "T1 draft check / first formula audit"
+audit_last_date: "2026-07-09"
+audit_next: "T2 development audit focused on official state ballot-access samples and cure models, official debate-sponsor criteria and FEC advisory/enforcement history, HAVA/EAC authority limits, FECA/FEC deadlock risk, Article II/Elections Clause/Spending Clause/First Amendment/Anderson-Burdick mapping, source-backed cost analogues, adoption evidence, and direct prior-proposal survey"
 audit_rubric_version: "2026-06-27.2"
-audit_rebaseline_status: "current-fixed-status"
-change_audit_needed: true
-change_audit_reason: "Initial legislative draft added after fixed-zero source-development status; check audit needed before scoring or rebaseline"
+audit_rebaseline_status: "current"
+change_audit_needed: false
+change_audit_reason: null
+adoption_score: 3
+adoption_score_band: "Weak Adoption Basis"
+adoption_friction_score: 78
+adoption_friction_band: "High Resistance"
+required_electoral_environment: "sixty-vote-senate"
+pathway_viability: "plausible-after-wave"
+development_priority: "active"
+pathway_adjustment: "stage"
 print_levels:
   - public-proposal
   - full-technical
@@ -95,7 +104,7 @@ Future review should compare candidate-access tools before drafting.
 
 ## Least-Complex Adequate Remedy
 
-The least-complex adequate remedy is now narrowed to a federal candidate-access and debate-gatekeeping package. The first draft uses a HAVA-centered Federal access form, State publication and notice-and-cure floors, certification-status reporting, and targeted FECA debate-criteria transparency for covered debates tied to FEC debate treatment or Federal public benefits.
+The least-complex adequate remedy is now narrowed to a federal candidate-access and debate-gatekeeping package. The current draft uses a HAVA-centered Federal access form, State publication and notice-and-cure floors, certification-status reporting, and targeted FECA debate-criteria transparency for covered debates tied to FEC debate treatment or Federal public benefits.
 
 The first vehicle should not be a national ranked-choice-voting mandate, immediate federal open-primary mandate, freestanding fusion entitlement, proportional-representation rewrite, or pure study commission. Those options either belong in [ELEC-015](ELEC-015.md), [ELEC-011](ELEC-011.md), or later companion work.
 
@@ -110,7 +119,7 @@ That approach is less sweeping than redesigning vote tabulation or primary struc
 
 ## Repair and Prevention
 
-The first draft should evaluate whether Congress, the FEC, or public-benefit programs should:
+The current draft evaluates whether Congress, the FEC, or public-benefit programs should:
 
 1. require debate-sponsor transparency when debates receive federal, public, tax-favored, or official institutional support;
 2. prohibit debate criteria that functionally use major-party nomination as a proxy for viability;
@@ -144,25 +153,35 @@ Budget authority may be required for public debate administration, FEC implement
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[0 / 100](ELEC-013.audit.md)** (Initial draft added; check audit pending)<br />**Adoption Friction:** `N/A`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`
+> **Proposal Quality Score:** **[60 / 100](ELEC-013.audit.md)** (Developed Draft)<br />**Adoption Score:** 3 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 78 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** Initial federal candidate-access draft added; check audit needed before scoring<br />**Last Audit:** Targeted Change Audit / Internal Remedy-Fit Audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** yes<br />**Next Audit:** Run a check audit of the initial Federal Candidate Access and Debate Transparency Act draft, including HAVA and FECA fit, EAC/FEC/DOJ role allocation, Article II, Elections Clause, Spending Clause, First Amendment and press-freedom limits, Anderson/Burdick ballot-access doctrine, implementation cost, state-administration burden, and coordination with ELEC-012 and ELEC-015<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
+> **Audit Status:** T1 draft check / first formula audit complete; developed draft scored, with HAVA/FECA hooks plausible but legal, source, prior-proposal, cost, state-burden, and adoption work still incomplete<br />**Last Audit:** T1 draft check / first formula audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** T2 development audit focused on official state ballot-access samples and cure models, official debate-sponsor criteria and FEC advisory/enforcement history, HAVA/EAC authority limits, FECA/FEC deadlock risk, Article II/Elections Clause/Spending Clause/First Amendment/Anderson-Burdick mapping, source-backed cost analogues, adoption evidence, and direct prior-proposal survey<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
 
 ## Annotation
 
 **Boundary Split.** On July 6, 2026, ranked-choice voting, runoffs, and majority-choice election-method design were branched to [ELEC-015](ELEC-015.md). ELEC-013 now owns the narrower federal candidate-access, ballot-access, and debate-gatekeeping lane.
 
-**Change Audit Status.** The July 6, 2026 targeted Change Audit confirmed that the narrowed issue page, audit metadata, source notes, and adjacent-proposal boundaries described the same institutional defect: federal candidate-access and debate-gatekeeping rules. On July 9, 2026, an initial Federal Candidate Access and Debate Transparency Act draft was added, so a check audit is now needed before scoring or rebaseline.
+**Change Audit Status.** The July 6, 2026 targeted Change Audit confirmed that the narrowed issue page, audit metadata, source notes, and adjacent-proposal boundaries described the same institutional defect: federal candidate-access and debate-gatekeeping rules. The July 9, 2026 T1 draft check reviewed the new Federal Candidate Access and Debate Transparency Act draft and clears the post-draft change-audit flag.
 
-**Development Status.** The issue now has an initial legislative draft. The Proposal Quality Score remains fixed-zero only because no check audit has evaluated the draft yet. The next score-changing step is a check audit, not another source-development checkpoint.
+**Development Status.** The issue now has an initial legislative draft and a first formula score. It is a Developed Draft, not Review Ready. T2 should test the HAVA and FECA amendment paths, federal/state allocation, First Amendment and press-freedom limits, Article II presidential-election limits, Anderson/Burdick ballot-access doctrine, cost, and adoption evidence before the score can move into the 65+ band.
+
+**Quality Score.** T1 assigns 60/100 (Developed Draft). Structural, remedy, drafting, and project-integration credit are meaningful because ELEC-013 now has a concrete HAVA/FECA amendment draft, but the score stays below 65 because official state-by-state ballot-access sampling, direct prior-proposal review, cost evidence, full constitutional mapping, and external review remain incomplete.
+
+**Adoption Score.** Adoption Score is 3/12 (Weak Adoption Basis). The proposal has a neutral voter-choice rationale and an ordinary federal legislative vehicle, but T1 found no proposal-specific polling, sponsor coalition, election-administrator endorsement, or direct bipartisan prior-proposal record.
+
+**Adoption Friction.** Adoption Friction is 78/100 (High Resistance) because the proposal affects debate access, federal/state election administration, political-party competition, public-benefit conditions, speech and press limits, agency enforcement, and strategic litigation incentives.
+
+**Required Electoral Environment.** Required Electoral Environment is `sixty-vote-senate`; Pathway Viability is `plausible-after-wave`; Pathway Adjustment is `stage`. The draft should proceed as ordinary federal legislation, but T2 should test whether the presidential-access, congressional-access, and debate-transparency components need narrower staging.
+
+**Development Priority.** The priority is `active` because the issue now has a distinct election-resilience draft and addresses candidate-access barriers without absorbing [ELEC-015](ELEC-015.md) election-method design.
 
 **Source-Development Status.** The current source base is strong enough for a first draft but not yet strong enough for publication-ready drafting. A source-development explanatory checklist maps the procedural path for presidential debate qualification and state-by-state ballot access: [Presidential debate and ballot-access explanatory checklist](../../../source-development/ELEC-013-presidential-debate-ballot-access-explainer.md). The draft uses Perot's 1992 debate inclusion as the modern case-study anchor while avoiding a causal overclaim. The next pass should compare Perot's 1992 inclusion, Perot's 1996 exclusion, post-2000 polling-threshold practice, current presidential-debate sponsor criteria, FEC debate advisory opinions and enforcement matters, official state ballot-access statutes, petition-cure examples, candidate challenges, and current litigation or administrative records.
 
 **Neutrality.** The issue must not be framed as helping any party, faction, or candidate. The rule should be whether election-process structures fairly permit voters to consider meaningful alternatives while preserving administrability, anti-fraud safeguards, clarity, party-association rights, and finality.
 
-**Constitutional Caution.** Debate-access reform must account for First Amendment and press-freedom limits. Ballot-access reform must account for state election-administration authority, party-association rights, the Elections Clause, Article II, and Supreme Court ballot-access doctrine, including the Anderson/Burdick balancing framework, *Williams v. Rhodes* on severe two-party-favoring ballot burdens, and *Storer v. Brown* on ballot-route integrity.
+**Constitutional Caution.** Debate-access reform must account for First Amendment and press-freedom limits. Ballot-access reform must account for state election-administration authority, party-association rights, the Elections Clause, Article II, and Supreme Court ballot-access doctrine, including the Anderson/Burdick balancing framework, *Williams v. Rhodes* on severe two-party-favoring ballot burdens, and *Storer v. Brown* on ballot-route integrity. The Supreme Court's January 14, 2026 decision in [*Bost v. Illinois State Board of Elections*](https://www.supremecourt.gov/opinions/25pdf/24-568_gfbh.pdf) strengthens candidate-standing assumptions for federal election-rule challenges, but it also reinforces the need to avoid late, destabilizing election-rule litigation.
 
 **Implementation Caution.** Candidate-access rules can create abuse risks if they force ballot clutter, invite sham candidacies, overload election administrators, or let bad-faith actors use debate access to launder unserious candidacies. Any remedy needs objective thresholds, cure procedures, emergency exceptions, and administrable enforcement.
 
@@ -184,10 +203,12 @@ Budget authority may be required for public debate administration, FEC implement
 - National Archives, [Constitution of the United States: A Transcription](https://www.archives.gov/founding-docs/constitution-transcript).
 - U.S. Supreme Court, [*Arizona v. Inter Tribal Council of Arizona*](https://supreme.justia.com/cases/federal/us/570/1/) (2013).
 - U.S. Supreme Court, [*Burroughs v. United States*](https://supreme.justia.com/cases/federal/us/290/534/) (1934).
+- U.S. Supreme Court, [*Bost v. Illinois State Board of Elections*](https://www.supremecourt.gov/opinions/25pdf/24-568_gfbh.pdf) (2026).
+- 52 U.S.C. chapter 209, [Election Administration Improvement](https://uscode.house.gov/view.xhtml?path=/prelim@title52/subtitle2/chapter209&edition=prelim).
 - Election Assistance Commission, [National Mail Voter Registration Form](https://www.eac.gov/voters/national-mail-voter-registration-form).
 - Federal Voting Assistance Program, [Election Forms and Materials](https://www.fvap.gov/eo/overview/materials/forms).
 - Department of Justice Civil Rights Division, [Voting Section](https://www.justice.gov/crt/voting-section).
 - Federal Election Commission, [How to file a complaint with the FEC](https://www.fec.gov/legal-resources/enforcement/complaints-process/how-to-file-complaint-with-fec/).
-- 52 U.S.C. § 30109, [Enforcement](https://www.law.cornell.edu/uscode/text/52/30109).
+- 52 U.S.C. § 30109, [Enforcement](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title52-section30109&num=0&edition=prelim).
 - Associated Press, [Georgia lawmakers approve new election rules that could impact 2024 presidential contest](https://apnews.com/article/georgia-elections-voting-presidential-election-78ee0d966327b242d129fe7fe9ac32ce) (2024).
 - Randy Barnett and Lawrence Lessig, [It's Time to Fix the Rules for Third-Party Presidential Campaigns](https://time.com/4436805/lawrence-lessig-randy-barnett/) (2016).
