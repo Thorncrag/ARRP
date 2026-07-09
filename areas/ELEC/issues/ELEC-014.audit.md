@@ -12,6 +12,18 @@ This file preserves the full audit history for [ELEC-014](ELEC-014.md). The issu
 
 ## Audit History
 
+### 2026-07-09 — Criminal-Scope and Statutory-Predicate Clarification
+
+**Audit status:** Boundary clarification complete; no score change.
+
+**Scope:** Clarified that ELEC-014 is limited to criminal process and prosecution-threat material, not civil or administrative voter-data demands standing alone. Updated the source-development catalog to ask the first predicate question for every criminal-process manifestation: what statute or offense theory DOJ or the FBI is alleging.
+
+**Catalog correction:** The catalog now separates noncriminal state-election-record demands into a boundary section and states that those records should route primarily to ELEC-001, ELEC-010, or another proper issue unless a warrant, grand jury, criminal subpoena, Criminal Division investigative channel, or prosecution threat is verified. The core criminal-process table now includes an alleged-statute/offense-theory column.
+
+**Open source need:** The Ohio search, Fulton County Georgia search/seizure, Fulton County grand-jury subpoena, Arizona subpoena lead, and July 2026 prosecution-warning letters still require primary records before the project can identify exact statutory predicates with publication-ready confidence. Secondary sources suggest possible Georgia theories involving election-record destruction and fraudulent voter registrations or votes, but the catalog treats those as unverified until warrant or court materials confirm the statutory sections.
+
+**Score effect:** No score change. ELEC-014 remains a candidate/source-development issue fixed at 0/100 pending primary-record completion, legitimacy assessment, remedy selection, and proposal-vehicle drafting.
+
 ### 2026-07-09 — Manifestations Catalog Cleanup
 
 **Audit status:** Source-development catalog pass complete; candidate fixed-zero status preserved pending T2 remedy selection and legitimacy assessment.
