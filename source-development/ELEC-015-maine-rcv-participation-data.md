@@ -25,29 +25,38 @@ This file is the working source-development table for Maine candidate-participat
 | Maine Secretary of State, [Election Results/Data](https://www.maine.gov/sos/elections-voting/election-results-data) | Current official result-file inventory | Lists 2026 primary ranked-choice offices, first-choice files, summary reports, cast-vote records, non-RCV offices, and candidate/withdrawal files. |
 | Maine Secretary of State, [Previous Election Year Results](https://www.maine.gov/sos/elections-voting/election-results-data/previous-election-results) | Before/after and longer-run comparison inventory | Lists prior RCV and non-RCV result groups for 2018, 2020, 2022, 2024, and other years. |
 
-## 2026 Primary: Ranked-Choice Office Inventory
+## Core Comparison Model
 
-Maine's 2026 Election Results/Data page identifies the June 9, 2026 primary ranked-choice offices and provides first-choice, summary-report, and cast-vote-record files for each office where posted.
+ELEC-015 should start with a narrow participation comparison rather than an outcome analysis. The core table should identify the election, whether it used ranked-choice voting, the number of candidates, and voter turnout or ballots cast. Party is part of the election description when the contest is a primary, but the first-pass comparison does not need a separate party-by-party analytic breakdown.
 
-| Date | Election | Office / contest | Party | Data files posted by Maine SOS | Candidate-participation use | Voter-participation use |
-| --- | --- | --- | --- | --- | --- | --- |
-| 2026-06-09 | Primary | Representative to Congress, District 2 | Democratic | First-choice Excel; RCV Summary Report PDF; cast-vote-record Excel files | Field size and withdrawal/replacement context | First-choice totals, round transfers, exhausted ballots, ballot-completion analysis from CVRs |
-| 2026-06-09 | Primary | Governor | Democratic | First-choice Excel; RCV Summary Report PDF; cast-vote-record Excel files | Field size and withdrawal/replacement context | First-choice totals, round transfers, exhausted ballots, ballot-completion analysis from CVRs |
-| 2026-06-09 | Primary | Governor | Republican | First-choice Excel; RCV Summary Report PDF; cast-vote-record Excel files | Field size and withdrawal/replacement context | First-choice totals, round transfers, exhausted ballots, ballot-completion analysis from CVRs |
-| 2026-06-09 | Primary | Senate District 4 | Republican | First-choice Excel; RCV Summary Report PDF; cast-vote-record Excel files | Field size and withdrawal/replacement context | First-choice totals, round transfers, exhausted ballots, ballot-completion analysis from CVRs |
-| 2026-06-09 | Primary | House District 58 | Republican | First-choice Excel; RCV Summary Report PDF; cast-vote-record Excel files | Field size and withdrawal/replacement context | First-choice totals, round transfers, exhausted ballots, ballot-completion analysis from CVRs |
+Outcome should not be a core field. It should be added only where it explains comparability, salience, or whether ranked-choice tabulation actually affected the voter experience.
 
-Maine's same 2026 page separately lists non-ranked-choice primary offices, including U.S. Senate, Representative to Congress District 1, Republican Representative to Congress District 2, State Senate, Representative to the Legislature, and county offices. Those files are useful as same-election non-RCV comparators, but they should be handled carefully because contest salience, district geography, candidate field size, and office type differ.
+| Election referenced | Office / contest | RCV status | Number of candidates | Voter turnout / ballots cast | Comparator note |
+| --- | --- | --- | ---: | ---: | --- |
+| 2026-06-09 primary | Democratic Representative to Congress, District 2 | RCV | 4 | 83,480 | Same-cycle federal primary; compare cautiously to non-RCV U.S. House contests because only the Democratic CD-2 primary required RCV tabulation. |
+| 2026-06-09 primary | Democratic Governor | RCV | 5 | 222,405 | Statewide primary; useful for candidate-field and voter-participation comparison against Republican Governor and prior gubernatorial primaries. |
+| 2026-06-09 primary | Republican Governor | RCV | 8 | 137,981 | Statewide primary; useful for candidate-field comparison and for testing whether large fields correlate with ballot exhaustion or completion problems. |
+| 2026-06-09 primary | Republican Senate District 4 | RCV | TBD | TBD | Maine SOS posts summary/CVR files; extraction pending. District-level comparability limits should be noted. |
+| 2026-06-09 primary | Republican House District 58 | RCV | TBD | TBD | Maine SOS posts summary/CVR files; extraction pending. District-level comparability limits should be noted. |
+| 2026-06-09 primary | U.S. Senate primaries | Non-RCV | TBD | TBD | Same-election non-RCV comparator; parse candidate and turnout fields from Maine SOS Excel files. |
+| 2026-06-09 primary | Representative to Congress, District 1 primaries | Non-RCV | TBD | TBD | Same-election non-RCV comparator for federal House primary participation. |
+| 2026-06-09 primary | Republican Representative to Congress, District 2 | Non-RCV | TBD | TBD | Same district and election date as Democratic CD-2 RCV contest, but party and competitiveness may differ. |
+| 2026-06-09 primary | State Senate primaries | Non-RCV | TBD | TBD | Same-election state-legislative comparator group; should be normalized by district and contest status. |
+| 2026-06-09 primary | Representative to the Legislature primaries | Non-RCV | TBD | TBD | Same-election state-legislative comparator group; useful for uncontested-race and field-size baselines. |
 
-## Extracted 2026 RCV Summary Measures
+Maine's 2026 Election Results/Data page separately lists non-ranked-choice primary offices, including U.S. Senate, Representative to Congress District 1, Republican Representative to Congress District 2, State Senate, Representative to the Legislature, and county offices. Those files are useful as same-election non-RCV comparators, but they should be handled carefully because contest salience, district geography, candidate field size, and office type differ.
 
-These entries are initial extraction notes from official Maine RCV summary reports. They are not yet a full turnout model because CVR and non-RCV comparator files have not been parsed.
+## RCV Activation and Ballot-Experience Context
 
-| Date | Contest | Candidates shown in summary | Rounds | Winner | Summary threshold | Round 1 candidate votes | Round 1 exhausted ballots | Final-round exhausted ballots | Initial extraction notes |
-| --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | --- |
-| 2026-06-09 | Democratic Representative to Congress, District 2 | 4 | 3 | Matthew G. Dunlap | 34,240 | 78,805 | 4,675 | 15,001 | Final round: Dunlap 35,924; Joseph M. Baldacci 32,555. Eliminated candidates: Paige Loud; Jordan Wood. |
-| 2026-06-09 | Democratic Governor | 5 | 4 | Hannah M. Pingree | 99,351 | 217,747 | 4,658 | 23,705 | Final round: Pingree 111,750; Nirav D. Shah 86,950. Eliminated candidates: Angus King III; Shenna Bellows; Troy Dale Jackson. |
-| 2026-06-09 | Republican Governor | 8 | 7 | Robert B. Charles | 49,687 | 129,407 | 8,574 | 38,609 | Final round: Charles 59,873; Benjamin T. Midgley 39,499. Eliminated candidates: James D. Libby; Robert J. Wessels; David J. Jones; Owen Z. McCarthy; Garrett Paul Mason; Jonathan J. Bush. |
+This secondary table is for voter-experience context only. It should not displace the main participation comparison. Rounds and exhaustion matter because an RCV election with no transfer rounds is different from an RCV election where voters experience multiple elimination rounds.
+
+| Election referenced | RCV tabulation activated? | Rounds | Exhausted ballots in first reported RCV round | Final-round exhausted ballots | Why it matters |
+| --- | --- | ---: | ---: | ---: | --- |
+| 2026-06-09 Democratic Representative to Congress, District 2 primary | Yes | 3 | 4,675 | 15,001 | Shows a four-candidate federal primary where ballot exhaustion becomes material by the final round. |
+| 2026-06-09 Democratic Governor primary | Yes | 4 | 4,658 | 23,705 | Shows a five-candidate statewide primary where multiple rounds were needed. |
+| 2026-06-09 Republican Governor primary | Yes | 7 | 8,574 | 38,609 | Shows a large-field statewide primary and therefore a useful stress test for ranking depth and ballot completion. |
+| 2026-06-09 Republican Senate District 4 primary | TBD | TBD | TBD | TBD | Maine SOS posts summary/CVR files; extraction pending. |
+| 2026-06-09 Republican House District 58 primary | TBD | TBD | TBD | TBD | Maine SOS posts summary/CVR files; extraction pending. |
 
 ## Candidate-Participation Variables To Extract
 
