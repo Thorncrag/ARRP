@@ -158,7 +158,7 @@ Budget authority may be required for public debate administration, FEC implement
 
 **Development Status.** The issue remains a candidate with a fixed-zero Proposal Quality Score because no legislative text, enforceable policy draft, or model rule exists yet. The next score-changing step is drafting.
 
-**Source-Development Status.** The current source base is strong enough to identify the issue but not strong enough for publication-ready drafting. The Perot 1992 debate-inclusion example is queued as the modern case-study anchor for the first draft. The next pass should compare Perot's 1992 inclusion, Perot's 1996 exclusion, post-2000 polling-threshold practice, current presidential-debate sponsor criteria, FEC debate advisory opinions and enforcement matters, official state ballot-access statutes, petition-cure examples, candidate challenges, and current litigation or administrative records.
+**Source-Development Status.** The current source base is strong enough to identify the issue but not strong enough for publication-ready drafting. A source-development explanatory checklist now maps the procedural path for presidential debate qualification and state-by-state ballot access: [Presidential debate and ballot-access explanatory checklist](../../../source-development/ELEC-013-presidential-debate-ballot-access-explainer.md). The Perot 1992 debate-inclusion example is queued as the modern case-study anchor for the first draft. The next pass should compare Perot's 1992 inclusion, Perot's 1996 exclusion, post-2000 polling-threshold practice, current presidential-debate sponsor criteria, FEC debate advisory opinions and enforcement matters, official state ballot-access statutes, petition-cure examples, candidate challenges, and current litigation or administrative records.
 
 **Neutrality.** The issue must not be framed as helping any party, faction, or candidate. The rule should be whether election-process structures fairly permit voters to consider meaningful alternatives while preserving administrability, anti-fraud safeguards, clarity, party-association rights, and finality.
 
@@ -169,8 +169,13 @@ Budget authority may be required for public debate administration, FEC implement
 ## Source Notes
 
 - 11 C.F.R. § 110.13, [Candidate debates](https://www.ecfr.gov/current/title-11/chapter-I/subchapter-A/part-110/section-110.13).
+- Federal Election Commission, [Registering as a candidate](https://www.fec.gov/help-candidates-and-committees/registering-candidate/).
+- Federal Election Commission, [Gaining ballot access](https://www.fec.gov/help-candidates-and-committees/registering-candidate/gaining-ballot-access/).
+- Federal Election Commission, [Combined Federal/State Disclosure and Election Directory](https://www.fec.gov/introduction-campaign-finance/how-to-research-public-records/combined-federalstate-disclosure-and-election-directory/).
 - Commission on Presidential Debates, [1992 Debates](https://www.debates.org/debate-history/1992-debates/).
 - Federal Election Commission, [*Federal Elections 92*](https://www.fec.gov/resources/cms-content/documents/federalelections92.pdf).
+- Associated Press, [Robert F. Kennedy Jr. fails to qualify for CNN's debate](https://apnews.com/article/de23c5bf08e33e0df8639ff11d1ff424) (2024).
+- Associated Press, [Kennedy says he has secured ballot access in enough states to win. That's not yet true](https://apnews.com/article/c259599e787e422181f986cf2272eb53) (2024).
 - U.S. Supreme Court, [*Williams v. Rhodes*](https://supreme.justia.com/cases/federal/us/393/23/) (1968).
 - U.S. Supreme Court, [*Anderson v. Celebrezze*](https://supreme.justia.com/cases/federal/us/460/780/) (1983).
 - U.S. Supreme Court, [*Burdick v. Takushi*](https://supreme.justia.com/cases/federal/us/504/428/) (1992).
