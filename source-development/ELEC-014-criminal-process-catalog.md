@@ -34,6 +34,10 @@ The catalog is factual and source-development oriented. It does not decide motiv
 
 Civil, administrative, or Voting Section voter-roll requests, voter-data lawsuits, information-sharing proposals, and noncriminal state-election-record demands have been moved to [ELEC-004 Civil Process and State Election Records Catalog](ELEC-004-civil-process-catalog.md). Use that file for civil suits and administrative demand tracking. Use this ELEC-014 catalog only when a warrant, grand jury, criminal subpoena, federal criminal investigation, Criminal Division investigative channel, or prosecution-threat hook is verified.
 
+## Adjacent DOJ Pattern Sources
+
+The Broadview Six anti-ICE protest prosecution is not an election-process manifestation, but it is relevant adjacent DOJ pattern evidence for ELEC-014's grand-jury-integrity analysis. AP reported that DOJ began reviewing more than 1,000 Illinois grand-jury presentations after misconduct revelations in that case, including a prosecutor meeting with a grand juror outside proceedings and dissenting grand jurors being dismissed from participation. Use the episode to test whether ELEC-014 needs safeguards for prosecutor-controlled grand-jury presentations, dissenting-grand-juror handling, transcript preservation, and OPR/OIG review. Do not use it as proof that any ELEC-014 catalog entry involved similar misconduct without primary records. See `SRC-0532`.
+
 ## Verification Needs Before Legitimacy Assessment
 
 1. For every criminal-process catalog entry, identify the exact alleged statute or offense theory from the warrant, application, affidavit, subpoena, DOJ letter, court order, or official explanation.
@@ -52,3 +56,4 @@ Civil, administrative, or Voting Section voter-roll requests, voter-data lawsuit
 - `SRC-0525` — Fulton County grand-jury subpoena for election-worker identities and judicial rejection.
 - `SRC-0530` — DOJ 50-state prosecution-warning letters.
 - `SRC-0531` — Fulton County 2020 election-record demand lead, retained only as a possible sequence lead for the later criminal search if primary records connect the events.
+- `SRC-0532` — Broadview Six adjacent DOJ grand-jury misconduct pattern source; use for grand-jury-integrity safeguards, not as an election-process manifestation.
