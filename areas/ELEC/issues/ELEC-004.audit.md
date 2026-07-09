@@ -12,6 +12,14 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 ## Audit History
 
+### 2026-07-09 — Manifestation Catalog Link Placement
+
+**Audit status:** Manifestation catalog link placement complete; no score change.
+
+**Scope:** Added the ELEC-004 civil-process catalog link directly under the issue page's Manifestations section so readers can find the working civil suit, administrative demand, voter-data lawsuit, and state-election-record demand catalog before reading the grouped manifestation narrative.
+
+**Score effect:** No score change. ELEC-004 remains 75/100 (Review Ready). This pass changes navigation only.
+
 ### 2026-07-09 — Manifestation Chronology and Type Reorganization
 
 **Audit status:** Manifestation organization pass complete; no score change.

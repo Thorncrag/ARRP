@@ -7,9 +7,9 @@ priority: high
 remedy_type: coupled-federal-and-model-state-legislation
 federal_legislative_proposal: "../../../legislation/ELEC-004.md"
 legislative_proposal: "../../../legislation/ELEC-004-state.md"
-audit_status: "Manifestations reorganized by chronology and type; review-ready score preserved while external legal review and additional primary-source expansion remain needed"
+audit_status: "Manifestation catalog link placement complete; review-ready score preserved while external legal review and additional primary-source expansion remain needed"
 audit_score: 75
-audit_last_type: "Manifestation chronology and type reorganization"
+audit_last_type: "Manifestation catalog link placement"
 audit_last_date: "2026-07-09"
 audit_next: "Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review"
 audit_rubric_version: "2026-06-27.2"
@@ -44,6 +44,8 @@ Election law necessarily permits candidates, parties, voters, public officials, 
 The institutional problem is not the availability of election challenges. The problem is the use of formal legal, quasi-legal, subpoena, audit, inspection, or judicial mechanisms to convert unsupported allegations into deadline pressure, evidentiary rummaging, official harassment, or public claims that a lawful result remains unresolved.
 
 ## Manifestations of the Failure
+
+The working source-development table for civil suits, Voting Section letters, administrative requests, information-sharing proposals, noncriminal subpoenas, voter-data lawsuits, and state-election-record demands is the [ELEC-004 Civil Process and State Election Records Catalog](../../../source-development/ELEC-004-civil-process-catalog.md). Federal criminal process is tracked separately in [ELEC-014](ELEC-014.md).
 
 ### Recurring pre-election or pre-deadline process abuse
 
@@ -176,7 +178,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** Manifestations reorganized by chronology and type; review-ready score preserved while external legal review and additional primary-source expansion remain needed<br />**Last Audit:** Manifestation chronology and type reorganization<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
+> **Audit Status:** Manifestation catalog link placement complete; review-ready score preserved while external legal review and additional primary-source expansion remain needed<br />**Last Audit:** Manifestation catalog link placement<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
 
