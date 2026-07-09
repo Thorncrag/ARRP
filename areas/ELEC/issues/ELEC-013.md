@@ -6,11 +6,11 @@ status: developed
 priority: high
 remedy_type: election-competition-reform
 legislative_proposal: "../../../legislation/ELEC-013.md"
-audit_score: 64
-audit_status: "T2 development audit complete; authority and enforcement map strengthened, but state-sample, debate-criteria, prior-proposal, cost, adoption, and external-review gaps still keep the proposal in Developed Draft status"
-audit_last_type: "T2 development audit"
+audit_score: 68
+audit_status: "T3 legal-durability and implementation audit complete; official Texas and Virginia state samples, constitutional staging, and implementation-risk findings move the issue into Substantially Developed Draft status, while cost, prior-proposal, adoption, official debate-enforcement, and external-review gaps remain"
+audit_last_type: "T3 legal-durability and implementation audit"
 audit_last_date: "2026-07-09"
-audit_next: "T3 legal-durability and implementation audit focused on official state ballot-access and cure samples, official debate-sponsor criteria and FEC enforcement history, Article II/Elections Clause/Spending Clause/First Amendment stress testing, FEC deadlock mitigation, source-backed cost analogues, adoption evidence, and direct congressional prior-proposal survey"
+audit_next: "T4 pre-publication audit focused on official debate-sponsor/FEC matter files, larger state sample, cost/workload estimates, direct congressional prior-proposal survey, adoption evidence, and qualified external review"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -153,11 +153,11 @@ Budget authority may be required for public debate administration, FEC implement
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[64 / 100](ELEC-013.audit.md)** (Developed Draft)<br />**Adoption Score:** 3 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 78 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[68 / 100](ELEC-013.audit.md)** (Substantially Developed Draft)<br />**Adoption Score:** 3 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 78 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T2 development audit complete; authority and enforcement map strengthened, but state-sample, debate-criteria, prior-proposal, cost, adoption, and external-review gaps still keep the proposal in Developed Draft status<br />**Last Audit:** T2 development audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** T3 legal-durability and implementation audit focused on official state ballot-access and cure samples, official debate-sponsor criteria and FEC enforcement history, Article II/Elections Clause/Spending Clause/First Amendment stress testing, FEC deadlock mitigation, source-backed cost analogues, adoption evidence, and direct congressional prior-proposal survey<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
+> **Audit Status:** T3 legal-durability and implementation audit complete; official Texas and Virginia state samples, constitutional staging, and implementation-risk findings move the issue into Substantially Developed Draft status, while cost, prior-proposal, adoption, official debate-enforcement, and external-review gaps remain<br />**Last Audit:** T3 legal-durability and implementation audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** T4 pre-publication audit focused on official debate-sponsor/FEC matter files, larger state sample, cost/workload estimates, direct congressional prior-proposal survey, adoption evidence, and qualified external review<br />**Full Audit History:** [ELEC-013 audit history](ELEC-013.audit.md)
 
 ## Annotation
 
@@ -165,15 +165,15 @@ Budget authority may be required for public debate administration, FEC implement
 
 **Change Audit Status.** The July 6, 2026 targeted Change Audit confirmed that the narrowed issue page, audit metadata, source notes, and adjacent-proposal boundaries described the same institutional defect: federal candidate-access and debate-gatekeeping rules. The July 9, 2026 T1 draft check reviewed the new Federal Candidate Access and Debate Transparency Act draft and clears the post-draft change-audit flag.
 
-**Development Status.** The issue now has an initial legislative draft and a T2 development audit. It remains a Developed Draft, not Review Ready. The HAVA/FECA amendment path is plausible for a staged federal interface and debate-transparency package, but official state ballot-access samples, official debate-sponsor criteria, FEC enforcement history, cost evidence, direct prior-proposal review, and external validation remain incomplete.
+**Development Status.** The issue now has an initial legislative draft and a T3 legal-durability and implementation audit. It is a Substantially Developed Draft, not Review Ready. The HAVA/FECA amendment path remains plausible for a staged federal interface and debate-transparency package, and official Texas and Virginia samples now make the state-administration problem concrete. Official debate-sponsor criteria, FEC enforcement matter files, cost evidence, direct prior-proposal review, broader state sampling, and external validation remain incomplete.
 
-**Quality Score.** T2 assigns 64/100 (Developed Draft). Structural, remedy, drafting, and project-integration credit are meaningful because ELEC-013 has a concrete HAVA/FECA amendment draft. Evidence, legal fit, implementation, and drafting credit improve modestly because the audit confirms the EAC clearinghouse/form analogy, HAVA state-discretion limits, FECA four-vote enforcement bottleneck, candidate-standing relevance, and DOJ/FEC role split. The score stays below the 65-74 band because official state-by-state ballot-access sampling, direct prior-proposal review, cost evidence, full constitutional mapping, and external review remain incomplete.
+**Quality Score.** T3 assigns 68/100 (Substantially Developed Draft). Structural, remedy, drafting, and project-integration credit remain meaningful because ELEC-013 has a concrete HAVA/FECA amendment draft. Evidence, legal fit, implementation, and abuse-resistance credit improve because T3 adds official Texas and Virginia ballot-access samples, confirms the need for presidential/congressional staging, and sharpens cure, appeal, elector-slate, late-litigation, and FEC-deadlock risks. The score remains below Review Ready because the record still lacks a larger official state sample, official debate-enforcement file review, cost/workload evidence, direct prior-proposal review, adoption support, and external expert validation.
 
 **Adoption Score.** Adoption Score is 3/12 (Weak Adoption Basis). The proposal has a neutral voter-choice rationale and an ordinary federal legislative vehicle, but T1 found no proposal-specific polling, sponsor coalition, election-administrator endorsement, or direct bipartisan prior-proposal record.
 
 **Adoption Friction.** Adoption Friction is 78/100 (High Resistance) because the proposal affects debate access, federal/state election administration, political-party competition, public-benefit conditions, speech and press limits, agency enforcement, and strategic litigation incentives.
 
-**Required Electoral Environment.** Required Electoral Environment is `sixty-vote-senate`; Pathway Viability is `plausible-after-wave`; Pathway Adjustment is `stage`. The draft should proceed as ordinary federal legislation, but T2 should test whether the presidential-access, congressional-access, and debate-transparency components need narrower staging.
+**Required Electoral Environment.** Required Electoral Environment is `sixty-vote-senate`; Pathway Viability is `plausible-after-wave`; Pathway Adjustment is `stage`. The draft should proceed as ordinary federal legislation, but the next drafting pass should convert T3's presidential-access, congressional-access, and debate-transparency staging findings into tighter timing and enforcement text.
 
 **Development Priority.** The priority is `active` because the issue now has a distinct election-resilience draft and addresses candidate-access barriers without absorbing [ELEC-015](ELEC-015.md) election-method design.
 
@@ -197,6 +197,8 @@ Budget authority may be required for public debate administration, FEC implement
 - Federal Election Commission, [*Federal Elections 92*](https://www.fec.gov/resources/cms-content/documents/federalelections92.pdf).
 - Associated Press, [Robert F. Kennedy Jr. fails to qualify for CNN's debate](https://apnews.com/article/de23c5bf08e33e0df8639ff11d1ff424) (2024).
 - Associated Press, [Kennedy says he has secured ballot access in enough states to win. That's not yet true](https://apnews.com/article/c259599e787e422181f986cf2272eb53) (2024).
+- Texas Secretary of State, [Running For President in Texas (in 2024)](https://www.sos.state.tx.us/elections/candidates/guide/2024/president.shtml).
+- Virginia Department of Elections, [Independent and Third Party Presidential Candidate Bulletin](https://www.elections.virginia.gov/media/candidatesandpacs/2024-president-candidate-and-party-docs/2023-11-05-Presidential-Independent-and-Third-Party-Candidates-Bulletin_FINAL.pdf) (2024 general election).
 - U.S. Supreme Court, [*Williams v. Rhodes*](https://supreme.justia.com/cases/federal/us/393/23/) (1968).
 - U.S. Supreme Court, [*Anderson v. Celebrezze*](https://supreme.justia.com/cases/federal/us/460/780/) (1983).
 - U.S. Supreme Court, [*Burdick v. Takushi*](https://supreme.justia.com/cases/federal/us/504/428/) (1992).

@@ -14,6 +14,40 @@ This file preserves the full audit history for [ELEC-013](ELEC-013.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-09 — T3 legal-durability and implementation audit
+
+**Audit tier:** T3: Legal-durability and implementation audit
+
+**Audit status:** T3 legal-durability and implementation audit complete; official Texas and Virginia samples, constitutional staging, and implementation-risk findings move ELEC-013 into Substantially Developed Draft status, but cost, prior-proposal, adoption, official debate-enforcement, and external-review gaps remain.
+
+**Proposal-quality score:** 68/100 (Substantially Developed Draft)
+
+**Score movement:** Increased from 64 to 68. T3 adds concrete official state-administration samples and sharpens legal-durability controls without treating the draft as publication-ready.
+
+**Component score calculation:** Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior-Proposal 4/8; Remedy 8/12; Implementation 7/8; Abuse Resistance 6/8; Drafting 7/8; Cogency 5/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. Total: 68/100.
+
+**Audit scope:** Reviewed targeted ELEC-013 scoring/status excerpts, the T2 audit baseline, source-inventory rows, source-development headings, draft search hits for access/debate/enforcement hooks, 11 C.F.R. § 110.13 routing already in the source record, Texas Secretary of State presidential-candidate guidance, Virginia Department of Elections presidential-candidate bulletin and archive route, AP/CNN debate-criteria source leads, and current unresolved gaps. This was not a qualified election-law, First Amendment, State election-administration, FEC/EAC, fiscal, congressional-research, or legislative-counsel review.
+
+**State sample finding:** T3 adds two official state samples. Texas supplies a high-burden independent-presidential sample: the Secretary of State's 2024 guide required a May 13 filing deadline, petitions circulated after the presidential primary, 113,151 signatures from registered voters who did not vote in either major-party presidential primary, vice-presidential consent, and written consent from 40 elector candidates. Virginia supplies a process-rich sample: the Department of Elections bulletin required 5,000 signatures, at least 200 from each congressional district, 13 pledged electors, Department forms, notarized elector oaths, material-omission rules, and a seven-day appeal route after petition disqualification. These samples support ELEC-013's publication, status-reporting, defect-notice, and cure/appeal design. They do not yet replace the need for a broader state sample covering party, independent, write-in, elector-slate, challenge, cure, certification, and litigation variations.
+
+**Constitutional stress-test finding:** T3 confirms the staged posture from T2. Congressional-election provisions remain the stronger Elections Clause lane. Presidential-election provisions should stay framed as filing-interface, publication, notice, cure, certification-status, and public-benefit/transparency rules rather than a direct national ballot-entitlement command. Article II, Anderson/Burdick, party-association, state-orderly-administration, and late-litigation concerns argue for explicit anti-disruption timing rules and for preserving neutral substantive state ballot-access law.
+
+**Debate and FEC finding:** FECA and 11 C.F.R. § 110.13 remain plausible hooks for debate-transparency recordkeeping because the existing rule already requires pre-established objective criteria and bars general-election debate criteria based solely on party nomination. T3 does not award full debate-enforcement credit because official sponsor criteria files, FEC advisory opinions, MUR files, deadlock statements, litigation records, and any RFK Jr./CNN complaint disposition still need direct review. The draft's transparency and no-compelled-hosting clauses are directionally sound, but debate-cycle timing still needs a faster remedy than ordinary section 30109 enforcement.
+
+**Implementation finding:** Implementation increases from 6/8 to 7/8 because the Texas and Virginia samples show that a federal interface could standardize baseline candidate identity, elector, filing, status, and defect-notice information while leaving substantive state thresholds intact. Remaining implementation limits include EAC portal build assumptions, State integration burdens, cybersecurity and authentication rules, candidate-dashboard maintenance, staff training, fast cure deadlines close to ballot printing, and source-backed cost estimates.
+
+**Abuse-resistance finding:** Abuse Resistance increases from 5/8 to 6/8 because T3 clarifies that ELEC-013 should not erase signature thresholds, elector requirements, anti-fraud review, material-defect rules, or state certification authority. The remedy should distinguish technical defects from material eligibility defects, preserve state challenge procedures, discourage sham candidacies, and limit late injunctions that would disrupt ballot printing or certification.
+
+**Adoption and prior-proposal finding:** Adoption Score remains 3/12 and Prior-Proposal remains 4/8. T3 did not locate a direct federal bill combining a federal candidate-access form, State publication/cure floors, certification-status reporting, and FECA-linked debate transparency. It also did not add proposal-specific polling, sponsor coalition, administrator endorsement, bipartisan support, CBO/agency estimate, or advocacy/administrator adoption evidence.
+
+**Source record added:** Added Texas Secretary of State 2024 presidential-candidate guidance and Virginia Department of Elections 2024 independent/third-party presidential-candidate bulletin to the ELEC-013 source inventory and issue source notes.
+
+**Score effect:** Evidence increases from 8/12 to 9/12 for official state samples. Legal Fit increases from 6/10 to 7/10 for clearer presidential/congressional staging and Article II caution. Implementation increases from 6/8 to 7/8 because the samples validate the federal-interface/State-substance role split. Abuse Resistance increases from 5/8 to 6/8 because the audit clarifies defect, elector, challenge, cure, and late-litigation guardrails. Structural, Prior-Proposal, Remedy, Drafting, Cogency, Adoption, Project Integration, and External Review do not increase.
+
+**Remaining limits:** ELEC-013 is now Substantially Developed Draft, not Review Ready. It still needs a larger official state sample; official debate-sponsor criteria and FEC advisory/enforcement file review; direct congressional prior-proposal survey; source-backed EAC/FEC/State cost and workload analogues; qualified external election-law, First Amendment, State-administration, FEC/EAC, fiscal, and legislative-counsel review; and a bill-text pass for late-injunction timing, FEC deadlock mitigation, public-benefit scope, and presidential-election staging.
+
+**Next audit need:** Run T4 pre-publication audit focused on official debate-sponsor/FEC matter files, larger state sample, cost/workload estimates, direct congressional prior-proposal survey, adoption evidence, and qualified external review before raising the score toward Review Ready.
+
 ### 2026-07-09 — T2 development audit
 
 **Audit tier:** T2: Development audit
@@ -52,7 +86,7 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Remaining limits:** ELEC-013 remains below Substantially Developed Draft. It still needs official state ballot-access and cure samples; official debate-sponsor criteria and FEC advisory/enforcement history; direct congressional prior-proposal survey; Article II, Elections Clause, Spending Clause, First Amendment, press-freedom, Anderson/Burdick, and party-association stress testing; candidate-injunction timing controls; source-backed EAC/FEC/State cost analogues; adoption evidence; and qualified external election-law, First Amendment, state-administration, FEC/EAC, fiscal, and legislative-counsel review.
 
-**Next audit need:** Run T3 legal-durability and implementation audit focused on official state ballot-access and cure samples, official debate-sponsor criteria and FEC enforcement history, Article II/Elections Clause/Spending Clause/First Amendment stress testing, FEC deadlock mitigation, source-backed cost analogues, adoption evidence, and direct congressional prior-proposal survey.
+**Next audit need:** This T2 next-audit need was satisfied by the July 9, 2026 T3 legal-durability and implementation audit. Remaining unresolved items are carried forward in the T3 entry above.
 
 **Audit process feedback:** The next useful score movement should not come from repeating the general HAVA/FECA framing. It should come from a concrete State sample set, official debate-enforcement record, cost/workload evidence, and narrower presidential/congressional staging decisions.
 

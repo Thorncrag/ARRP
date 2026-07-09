@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: active
 print_levels:
   - full-technical
 ---
@@ -15,16 +15,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Inactive |
 | Active issue/task | ELEC-013 / Federal Candidate Access, Ballot Access, and Debate Gatekeeping |
-| Audit type/tier | T2 development audit |
-| Started | 2026-07-09 13:26:40 -0400 |
-| Last checkpoint | 2026-07-09 13:44:21 -0400 |
-| User request | Resume and complete the interrupted ELEC-013 audit, then commit and push the completed audit unit. |
-| Scope | Completed the ELEC-013 T2 development audit focused on HAVA/EAC authority limits, FECA/FEC enforcement and deadlock risk, presidential-versus-congressional scope, debate-gatekeeping current-status sources, state ballot-access sampling limits, prior-proposal fit, implementation/fiscal posture, and next-audit needs. |
-| Files touched | `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `areas/ELEC/README.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Completed the ELEC-013 T2 development audit. Updated the issue score from 60 to 64, appended the T2 audit entry, updated the Election area note, added AP RFK/CNN debate-complaint source row SRC-0511, and synced GitHub Project issue #41 fields: Score 64, Runs 7, Last audit T2 development audit (2026-07-09), Next audit T3 legal-durability and implementation audit. |
-| Next step | Run T3 legal-durability and implementation audit focused on official state ballot-access and cure samples, official debate-sponsor criteria and FEC enforcement history, constitutional stress testing, FEC deadlock mitigation, cost analogues, adoption evidence, and direct prior-proposal survey. |
+| Audit type/tier | T3 legal-durability and implementation audit |
+| Started | 2026-07-09 13:46:45 -0400 |
+| Last checkpoint | 2026-07-09 14:40:00 -0400 |
+| User request | Run the next audit on ELEC-013, expected to be T3. |
+| Scope | Continue from the completed ELEC-013 T2 audit and run the named T3 legal-durability and implementation audit focused on official state ballot-access and cure samples, official debate-sponsor criteria and FEC enforcement history, Article II/Elections Clause/Spending Clause/First Amendment stress testing, FEC deadlock mitigation, source-backed cost analogues, adoption evidence, and direct congressional prior-proposal survey. |
+| Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/issues/ELEC-013.md`; `areas/ELEC/issues/ELEC-013.audit.md`; `inventory/sources.csv`. |
+| Completed steps | Completed ELEC-013 T3 legal-durability and implementation audit; added official Texas and Virginia state ballot-access samples; updated issue score/status from 64 Developed Draft to 68 Substantially Developed Draft; recorded remaining debate-enforcement, cost, prior-proposal, adoption, broader-state-sample, and external-review gaps. |
+| Next step | Run T4 pre-publication audit only after gathering official debate-sponsor/FEC matter files, a larger state sample, source-backed cost/workload estimates, direct congressional prior-proposal survey, adoption evidence, and qualified external review. |
 | Blockers/questions | None. |
-| Validation status | Passed locally before commit: `git diff --check`, CSV parse for `inventory/sources.csv`, stale-score sweep for touched ELEC-013 surfaces, and GitHub Project readback for issue #41. |
+| Validation status | Passed targeted T3 consistency checks; `inventory/sources.csv` parses with 11 columns across 514 rows. |
 
 ## Handoff Rules
 
