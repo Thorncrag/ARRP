@@ -16,13 +16,14 @@ The Maine data remains inconclusive as an RCV-effect signal. Turnout is strongly
 
 The more useful voter-behavior metric is **alternative vote expression**: the share of nonblank contest votes cast for candidates or officially tabulated vote categories outside the Democratic and Republican nominees. This includes printed independent/minor-party candidates and official write-in/other columns where Maine reports them. It excludes blanks, undervotes, overvotes, and later RCV transfer-round totals. For RCV contests, the metric uses first-choice totals only.
 
-That metric still does not show a clean RCV-linked pattern. The largest midterm values appear in 2010 and 2018, both of which had unusually salient independent candidates in statewide or congressional contests. Presidential-year alternative vote expression is low in 2012, rises in 2016, then falls in 2020 and 2024 despite RCV availability for federal offices.
+That metric still does not show a clean RCV-linked pattern. The largest fully reduced midterm values appear in 2010 and 2018, both of which had unusually salient independent candidates in statewide or congressional contests. Presidential-year alternative vote expression is low in 2008 and 2012, rises in 2016, then falls in 2020 and 2024 despite RCV availability for federal offices.
 
 ## Election Comparison Table
 
 | Election name | RCV or not | Voter turnout | Alternative vote-expression status |
 | --- | --- | ---: | --- |
-| 2006-11-07 General Election | No | Source pending | Requested four-year historical extension; current Maine online official archive points users to the Division of Elections for pre-2010 results |
+| 2006-11-07 General Election | No | 543,981 federal Senate ballots | 4.76% across FEC-verified U.S. Senate, CD-1, and CD-2 contests; Governor result data located in a secondary state-tabulation mirror but not folded into the primary table pending a direct state archive or trusted dataset source |
+| 2008-11-04 General Election | No | 731,163 | 1.91% in the statewide presidential contest, including independent, Green Independent, and write-in candidates reported in FEC's official federal-results workbook |
 | 2010-11-02 General Election | No | 580,538 | 21.58% across extracted Governor, CD-1, and CD-2 general contests, including official declared write-ins/other columns and excluding blanks |
 | 2011-11-08 Referendum Election | No; noncandidate context year | Pending legacy XLS reduction | Not applicable; statewide referendum context year, not a candidate-vote measure |
 | 2012-06-12 Primary Election | No | 133,915 | Not applied; party-primary candidate mix is not comparable to general-election D/R alternatives |
@@ -48,7 +49,8 @@ This table preserves the reduced values behind the percentage shown above. The d
 
 | Election event | Trend series | RCV exposure | Metric scope | Alternative votes | Nonblank contest votes | Alternative vote expression |
 | --- | --- | --- | --- | ---: | ---: | ---: |
-| 2006-11-07 General Election | Midterm general | Non-RCV | Source pending | Pending | Pending | Pending |
+| 2006-11-07 General Election | Midterm general | Non-RCV | U.S. Senate, CD-1, CD-2; federal-only official baseline | 51,428 | 1,079,846 | 4.76% |
+| 2008-11-04 General Election | Presidential-year general | Non-RCV | President | 13,967 | 731,163 | 1.91% |
 | 2010-11-02 General Election | Midterm general | Non-RCV | Governor, CD-1, CD-2 | 245,356 | 1,137,134 | 21.58% |
 | 2012-11-06 General Election | Presidential-year general | Non-RCV | President | 19,598 | 713,180 | 2.75% |
 | 2014-11-04 General Election | Midterm general | Non-RCV | U.S. Senate, Governor, CD-1, CD-2 | 110,920 | 1,807,581 | 6.14% |
@@ -64,7 +66,8 @@ This table keeps voter participation visible across primary and general election
 
 | Election event | Trend series | RCV exposure | Turnout measure |
 | --- | --- | --- | ---: |
-| 2006-11-07 General Election | Midterm general | Non-RCV | Pending pre-2010 official-source extraction |
+| 2006-11-07 General Election | Midterm general | Non-RCV | 543,981 federal Senate ballots; Governor turnout source pending |
+| 2008-11-04 General Election | Presidential-year general | Non-RCV | 731,163 |
 | 2010-11-02 General Election | Midterm general | Non-RCV | 580,538 |
 | 2011-11-08 Referendum Election | Referendum context | Non-RCV | Pending legacy XLS reduction |
 | 2012-06-12 Primary Election | Regular primary | Non-RCV | 133,915 |
@@ -84,8 +87,8 @@ This table keeps voter participation visible across primary and general election
 | 2024-11-05 General Election | Presidential-year general | RCV available for federal offices | 842,447 |
 | 2026-06-09 Primary Election | Regular primary | RCV mixed | 360,386 |
 
-The graph separates the alternative vote-expression metric from turnout. The x-axis now spans 2006-2026 to preserve the requested four-year historical extension, but pre-2010 values remain source-pending because Maine's current online previous-results page provides 2010-forward files and directs users to the Division of Elections for earlier result requests. Light vertical shading marks presidential election years. The dashed vertical line marks 2018, when Maine first used RCV in statewide/federal election administration.
+The graph separates the alternative vote-expression metric from turnout. The x-axis now spans 2006-2026 to preserve the requested four-year historical extension. The 2008 presidential row is plotted from FEC official federal results. The 2006 federal-only row is tabulated above but not connected into the midterm-general line because it does not yet include a directly sourced Governor value comparable to later midterm rows. Maine's current online previous-results page provides 2010-forward state files and directs users to the Division of Elections for earlier result requests. Light vertical shading marks presidential election years. The dashed vertical line marks 2018, when Maine first used RCV in statewide/federal election administration.
 
 ![Maine RCV participation trend](ELEC-015-maine-rcv-trend.svg)
 
-Sources: Maine Secretary of State [Election Results/Data](https://www.maine.gov/sos/elections-voting/election-results-data), [Previous Election Year Results](https://www.maine.gov/sos/elections-voting/election-results-data/previous-election-results), [2014/2015 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2014-2015), [2016/2017 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2016-2017), [2018 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2018), [2020 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2020), [2022 Election Results](https://www.maine.gov/sos/node/1956), [2024 Election Results](https://www.maine.gov/sos/node/2479), and [Ranked-Choice Voting FAQ](https://www.maine.gov/sos/elections-voting/ranked-choice-voting-frequently-asked-questions).
+Sources: Maine Secretary of State [Election Results/Data](https://www.maine.gov/sos/elections-voting/election-results-data), [Previous Election Year Results](https://www.maine.gov/sos/elections-voting/election-results-data/previous-election-results), [2014/2015 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2014-2015), [2016/2017 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2016-2017), [2018 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2018), [2020 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2020), [2022 Election Results](https://www.maine.gov/sos/node/1956), [2024 Election Results](https://www.maine.gov/sos/node/2479), [Ranked-Choice Voting FAQ](https://www.maine.gov/sos/elections-voting/ranked-choice-voting-frequently-asked-questions), FEC [Federal Elections 2006](https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/federal-elections-2006/), and FEC [Federal Elections 2008](https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/federal-elections-2008/).
