@@ -42,6 +42,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **General-baseline correction:** Added missing pre-RCV general-election baselines after checking the split-series graph. The presidential-year general series now includes 2012 and 2016 statewide presidential general-election rows, and the midterm general series now includes a 2014 CD-2 general-election row. The graph was rescaled and replotted so general-election series are no longer only two-point post-RCV lines.
 
+**Write-in exclusion correction:** Revised the candidate-participation counts to exclude write-ins and unprinted vote-receiving names from the field-size measure. The purpose of the candidate-participation column is to track ballot access and the apparent candidate field presented to voters, so declared write-ins and write-in buckets are source notes rather than counted candidates. This changed the 2012 and 2016 presidential general baselines and the 2022 CD-2 general row, and the graph was rescaled to the corrected ballot-candidate series.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
