@@ -28,4 +28,24 @@ This file compares Maine election events using official Maine Secretary of State
 | 2024-11-05 General Election | Yes for federal offices | 7 total candidates across extracted presidential and CD-2 first-choice files | 842,447 ballots cast statewide in extracted presidential general file |
 | 2026-06-09 Primary Election | Yes, mixed with non-RCV contests | 33 total candidates across 10 extracted federal/statewide and RCV district contests | 360,386 party-primary ballots using extracted statewide Democratic and Republican ballot totals |
 
+## Normalized Trend Table
+
+| Election event | Type | Office bucket | RCV exposure | Extracted contests | Total candidates | Candidates per contest | Turnout measure |
+| --- | --- | --- | --- | ---: | ---: | ---: | ---: |
+| 2012-06-12 Primary Election | Primary | Federal primary contests | Non-RCV | 6 | 17 | 2.83 | 133,915 |
+| 2014-06-10 Primary Election | Primary | Federal/statewide primary contests | Non-RCV | 8 | 10 | 1.25 | 127,398 |
+| 2016-06-14 Primary Election | Primary | U.S. House primary contests | Non-RCV | 4 | 5 | 1.25 | 98,776 |
+| 2018-06-12 Primary Election | Primary | Federal/statewide primary contests | RCV mixed | 8 | 21 | 2.63 | 234,380 |
+| 2018-11-06 General Election | General | CD-2 general contest | RCV activated | 1 | 4 | 4.00 | 296,077 |
+| 2020-07-14 Primary Election | Primary | Federal primary contests | RCV mixed | 6 | 10 | 1.67 | 272,325 |
+| 2020-11-03 General Election | General | Presidential general contest | RCV available for federal offices | 1 | 5 | 5.00 | 828,305 |
+| 2022-06-14 Primary Election | Primary | Federal/statewide and State Senate District 16 contests | RCV mixed | 7 | 10 | 1.43 | 139,995 |
+| 2022-11-08 General Election | General | CD-2 general contest | RCV activated | 1 | 4 | 4.00 | 322,778 |
+| 2024-03-05 Presidential Primary Election | Presidential primary | Presidential party primaries | Non-RCV | 2 | 7 | 3.50 | 182,378 |
+| 2024-06-11 State Primary Election | Primary | Federal primary contests | Non-RCV in extracted contests | 6 | 8 | 1.33 | 149,165 |
+| 2024-11-05 General Election | General | Presidential and CD-2 first-choice files | RCV available for federal offices | 2 | 7 | 3.50 | 842,447 |
+| 2026-06-09 Primary Election | Primary | Federal/statewide and RCV district contests | RCV mixed | 10 | 33 | 3.30 | 360,386 |
+
+![Maine RCV participation trend](ELEC-015-maine-rcv-trend.svg)
+
 Sources: Maine Secretary of State [Election Results/Data](https://www.maine.gov/sos/elections-voting/election-results-data), [Previous Election Year Results](https://www.maine.gov/sos/elections-voting/election-results-data/previous-election-results), and [Ranked-Choice Voting FAQ](https://www.maine.gov/sos/elections-voting/ranked-choice-voting-frequently-asked-questions).
