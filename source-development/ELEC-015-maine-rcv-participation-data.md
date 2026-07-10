@@ -8,60 +8,84 @@ print_levels:
 
 # ELEC-015 Maine RCV Participation Data
 
-This file compares Maine election events using official Maine Secretary of State result data. The comparison unit is the election event, not each individual primary, town, candidate subtotal, or cast-vote-record line.
+This file compares Maine election events using official Maine Secretary of State result data. The comparison unit is the election event, not each individual municipal row, candidate subtotal, cast-vote-record line, or tabulation round.
 
 ## Working Read
 
-The Maine data is inconclusive as an RCV-effect signal. Candidate participation does not show a clean pre/post pattern once election types are separated and write-ins are excluded. General-election turnout is dominated by presidential-year and midterm-cycle effects, and the midterm series is too sparse to support a causal inference. The only apparent movement worth further testing is an uptrend in regular-primary turnout after RCV launch, but that pattern may reflect election salience, office mix, competitive statewide primaries, calendar effects, or other non-RCV factors.
+The Maine data remains inconclusive as an RCV-effect signal. Turnout is strongly shaped by election type, especially presidential-year versus midterm cycles, and the general-election series is too sparse to support a causal inference. Candidate counts are no longer treated as a headline metric because they mix ballot-access rules, party strategy, office mix, write-in treatment, and ordinary cycle effects.
+
+The more useful voter-behavior metric is **alternative vote expression**: the share of nonblank contest votes cast for candidates or officially tabulated vote categories outside the Democratic and Republican nominees. This includes printed independent/minor-party candidates and official write-in/other columns where Maine reports them. It excludes blanks, undervotes, overvotes, and later RCV transfer-round totals. For RCV contests, the metric uses first-choice totals only.
+
+That metric still does not show a clean RCV-linked pattern. The largest midterm values appear in 2010 and 2018, both of which had unusually salient independent candidates in statewide or congressional contests. Presidential-year alternative vote expression is low in 2012, rises in 2016, then falls in 2020 and 2024 despite RCV availability for federal offices.
 
 ## Election Comparison Table
 
-| Election name | RCV or not | Candidate participation | Voter turnout |
-| --- | --- | --- | --- |
-| 2010-11-02 General Election | No | 9 ballot candidates across extracted Governor, CD-1, and CD-2 general contests, excluding declared write-ins/other columns | 580,538 ballots cast statewide in OCR-reduced Governor PDF |
-| 2011-11-08 Referendum Election | No; noncandidate context year | Not applicable; statewide referendum context year, not a candidate-field measure | Official county/state referendum totals workbook identified; turnout extraction pending from legacy XLS format |
-| 2012-06-12 Primary Election | No | 17 total candidates across 6 extracted federal primary contests | 133,915 party-primary ballots using extracted statewide U.S. Senate Democratic and Republican ballot totals |
-| 2012-11-06 General Election | No | 4 ballot candidates in extracted presidential general file, excluding declared write-ins | 724,758 ballots cast statewide in extracted presidential general file |
-| 2014-06-10 Primary Election | No | 10 total candidates across 8 extracted federal/statewide primary contests, excluding write-in/other columns | 127,398 party-primary ballots using extracted statewide Democratic and Republican ballot totals |
-| 2014-11-04 General Election | No | 11 ballot candidates across extracted U.S. Senate, Governor, CD-1, and CD-2 general contests, excluding write-in/other columns | 616,967 ballots cast statewide in extracted Governor and U.S. Senate files |
-| 2016-06-14 Primary Election | No | 5 total candidates across 4 extracted U.S. House primary contests | 98,776 party-primary ballots across extracted U.S. House district/party contests |
-| 2016-11-08 General Election | No | 4 ballot candidates in extracted presidential general file, excluding write-ins/unprinted vote-receiving names | 771,892 ballots cast statewide in extracted presidential general file |
-| 2018-06-12 Primary Election | Yes, mixed with non-RCV contests | 21 total candidates across 8 extracted federal/statewide primary contests | 234,380 party-primary ballots using extracted statewide Democratic and Republican ballot totals |
-| 2018-11-06 General Election | Yes for CD-2; non-RCV statewide and CD-1 offices also extracted | 13 ballot candidates across extracted U.S. Senate, Governor, CD-1, and CD-2 general contests, excluding write-in/other columns | 646,064 ballots cast statewide in extracted U.S. Senate file |
-| 2020-07-14 Primary Election | Yes, mixed with non-RCV contests | 10 total candidates across 6 extracted federal primary contests | 272,325 party-primary ballots using extracted statewide Democratic and Republican ballot totals |
-| 2020-11-03 General Election | Yes for federal offices | 5 total candidates in extracted presidential general file | 828,305 ballots cast statewide in extracted presidential general file |
-| 2022-06-14 Primary Election | Yes, mixed with non-RCV contests | 10 total candidates across 7 extracted federal/statewide and State Senate District 16 contests | 139,995 party-primary ballots using extracted statewide Democratic and Republican ballot totals |
-| 2022-11-08 General Election | Yes for CD-2; non-RCV Governor and CD-1 offices also extracted | 8 ballot candidates across extracted Governor, CD-1, and CD-2 general contests, excluding write-in/other columns | 680,909 ballots cast statewide in extracted Governor file |
-| 2024-03-05 Presidential Primary Election | No | 7 total candidates across extracted Democratic and Republican presidential primaries | 182,378 party-primary ballots across extracted Democratic and Republican presidential primaries |
-| 2024-06-11 State Primary Election | No in extracted federal primary contests | 8 total candidates across 6 extracted federal primary contests | 149,165 party-primary ballots using extracted statewide Democratic and Republican U.S. Senate ballot totals |
-| 2024-11-05 General Election | Yes for federal offices | 7 total candidates across extracted presidential and CD-2 first-choice files | 842,447 ballots cast statewide in extracted presidential general file |
-| 2026-06-09 Primary Election | Yes, mixed with non-RCV contests | 33 total candidates across 10 extracted federal/statewide and RCV district contests | 360,386 party-primary ballots using extracted statewide Democratic and Republican ballot totals |
+| Election name | RCV or not | Voter turnout | Alternative vote-expression status |
+| --- | --- | ---: | --- |
+| 2006-11-07 General Election | No | Source pending | Requested four-year historical extension; current Maine online official archive points users to the Division of Elections for pre-2010 results |
+| 2010-11-02 General Election | No | 580,538 | 21.58% across extracted Governor, CD-1, and CD-2 general contests, including official declared write-ins/other columns and excluding blanks |
+| 2011-11-08 Referendum Election | No; noncandidate context year | Pending legacy XLS reduction | Not applicable; statewide referendum context year, not a candidate-vote measure |
+| 2012-06-12 Primary Election | No | 133,915 | Not applied; party-primary candidate mix is not comparable to general-election D/R alternatives |
+| 2012-11-06 General Election | No | 724,758 | 2.75% in the statewide presidential contest, including declared write-ins and excluding blanks |
+| 2014-06-10 Primary Election | No | 127,398 | Not applied; party-primary candidate mix is not comparable to general-election D/R alternatives |
+| 2014-11-04 General Election | No | 616,967 | 6.14% across extracted U.S. Senate, Governor, CD-1, and CD-2 general contests, including official other/write-in columns and excluding blanks |
+| 2016-06-14 Primary Election | No | 98,776 | Not applied; party-primary candidate mix is not comparable to general-election D/R alternatives |
+| 2016-11-08 General Election | No | 771,892 | 7.30% in the statewide presidential contest, including Libertarian, Green Independent, Unenrolled, and other officially tabulated non-D/R candidates and excluding blanks |
+| 2018-06-12 Primary Election | Yes, mixed with non-RCV contests | 234,380 | Not applied; party-primary candidate mix is not comparable to general-election D/R alternatives |
+| 2018-11-06 General Election | Yes for CD-2; non-RCV statewide and CD-1 offices also extracted | 646,064 | 22.94% across extracted U.S. Senate, Governor, CD-1, and CD-2 first-choice general contests, including official other/write-in columns and excluding blanks/overvotes/undervotes |
+| 2020-07-14 Primary Election | Yes, mixed with non-RCV contests | 272,325 | Not applied; party-primary candidate mix is not comparable to general-election D/R alternatives |
+| 2020-11-03 General Election | Yes for federal offices | 828,305 | 2.89% in the statewide presidential contest, including Alliance, Green Independent, Libertarian, and official other columns and excluding blanks |
+| 2022-06-14 Primary Election | Yes, mixed with non-RCV contests | 139,995 | Not applied; party-primary candidate mix is not comparable to general-election D/R alternatives |
+| 2022-11-08 General Election | Yes for CD-2; non-RCV Governor and CD-1 offices also extracted | 680,909 | 2.56% across extracted Governor, CD-1, and CD-2 first-choice general contests, including official other/write-in columns and excluding blanks |
+| 2024-03-05 Presidential Primary Election | No | 182,378 | Not applied; party-primary candidate mix is not comparable to general-election D/R alternatives |
+| 2024-06-11 State Primary Election | No in extracted federal primary contests | 149,165 | Not applied; party-primary candidate mix is not comparable to general-election D/R alternatives |
+| 2024-11-05 General Election | Yes for federal offices | 842,447 | 2.13% in the statewide presidential contest, including Libertarian, Green Independent, Justice For All, and official other columns and excluding blanks |
+| 2026-06-09 Primary Election | Yes, mixed with non-RCV contests | 360,386 | Not applied; party-primary candidate mix is not comparable to general-election D/R alternatives |
 
-## Normalized Trend Table
+## Alternative Vote-Expression Table
 
-| Election event | Trend series | Office bucket | RCV exposure | Extracted contests | Total candidates | Candidates per contest | Turnout measure |
-| --- | --- | --- | --- | ---: | ---: | ---: | ---: |
-| 2010-11-02 General Election | Midterm general | Governor, CD-1, and CD-2 general contests | Non-RCV | 3 | 9 | 3.00 | 580,538 |
-| 2011-11-08 Referendum Election | Referendum context | Statewide referendum | Non-RCV | 0 | N/A | N/A | Pending legacy XLS reduction |
-| 2012-06-12 Primary Election | Regular primary | Federal primary contests | Non-RCV | 6 | 17 | 2.83 | 133,915 |
-| 2012-11-06 General Election | Presidential-year general | Presidential general contest | Non-RCV | 1 | 4 | 4.00 | 724,758 |
-| 2014-06-10 Primary Election | Regular primary | Federal/statewide primary contests | Non-RCV | 8 | 10 | 1.25 | 127,398 |
-| 2014-11-04 General Election | Midterm general | U.S. Senate, Governor, CD-1, and CD-2 general contests | Non-RCV | 4 | 11 | 2.75 | 616,967 |
-| 2016-06-14 Primary Election | Regular primary | U.S. House primary contests | Non-RCV | 4 | 5 | 1.25 | 98,776 |
-| 2016-11-08 General Election | Presidential-year general | Presidential general contest | Non-RCV | 1 | 4 | 4.00 | 771,892 |
-| 2018-06-12 Primary Election | Regular primary | Federal/statewide primary contests | RCV mixed | 8 | 21 | 2.63 | 234,380 |
-| 2018-11-06 General Election | Midterm general | U.S. Senate, Governor, CD-1, and CD-2 general contests | RCV activated in CD-2 only | 4 | 13 | 3.25 | 646,064 |
-| 2020-07-14 Primary Election | Regular primary | Federal primary contests | RCV mixed | 6 | 10 | 1.67 | 272,325 |
-| 2020-11-03 General Election | Presidential-year general | Presidential general contest | RCV available for federal offices | 1 | 5 | 5.00 | 828,305 |
-| 2022-06-14 Primary Election | Regular primary | Federal/statewide and State Senate District 16 contests | RCV mixed | 7 | 10 | 1.43 | 139,995 |
-| 2022-11-08 General Election | Midterm general | Governor, CD-1, and CD-2 general contests | RCV activated in CD-2 only | 3 | 8 | 2.67 | 680,909 |
-| 2024-03-05 Presidential Primary Election | Presidential primary | Presidential party primaries | Non-RCV | 2 | 7 | 3.50 | 182,378 |
-| 2024-06-11 State Primary Election | Regular primary | Federal primary contests | Non-RCV in extracted contests | 6 | 8 | 1.33 | 149,165 |
-| 2024-11-05 General Election | Presidential-year general | Presidential and CD-2 first-choice files | RCV available for federal offices | 2 | 7 | 3.50 | 842,447 |
-| 2026-06-09 Primary Election | Regular primary | Federal/statewide and RCV district contests | RCV mixed | 10 | 33 | 3.30 | 360,386 |
+This table preserves the reduced values behind the percentage shown above. The denominator is nonblank contest votes in the extracted contest set, not unique voters. Midterm rows aggregate the extracted statewide/federal contests available for that election event. Presidential-year rows use the statewide presidential contest as the cleaner same-office comparison.
 
-The graph separates regular primaries, midterm general elections, and presidential-year general elections so unlike election environments are not connected into one trend line. The x-axis begins with 2010 as the pre-RCV midterm-general anchor. The dashed vertical line marks 2018, when Maine first used RCV in statewide/federal election administration. The 2011 referendum context row is not plotted as a candidate-participation series. Light vertical shading marks presidential election years. The one-off presidential primary remains in the table but is not plotted as a trend series.
+| Election event | Trend series | RCV exposure | Metric scope | Alternative votes | Nonblank contest votes | Alternative vote expression |
+| --- | --- | --- | --- | ---: | ---: | ---: |
+| 2006-11-07 General Election | Midterm general | Non-RCV | Source pending | Pending | Pending | Pending |
+| 2010-11-02 General Election | Midterm general | Non-RCV | Governor, CD-1, CD-2 | 245,356 | 1,137,134 | 21.58% |
+| 2012-11-06 General Election | Presidential-year general | Non-RCV | President | 19,598 | 713,180 | 2.75% |
+| 2014-11-04 General Election | Midterm general | Non-RCV | U.S. Senate, Governor, CD-1, CD-2 | 110,920 | 1,807,581 | 6.14% |
+| 2016-11-08 General Election | Presidential-year general | Non-RCV | President | 54,599 | 747,927 | 7.30% |
+| 2018-11-06 General Election | Midterm general | RCV activated in CD-2 only | U.S. Senate, Governor, CD-1, CD-2 first choices | 435,130 | 1,896,753 | 22.94% |
+| 2020-11-03 General Election | Presidential-year general | RCV available for federal offices | President | 23,652 | 819,461 | 2.89% |
+| 2022-11-08 General Election | Midterm general | RCV activated in CD-2 only | Governor, CD-1, CD-2 first choices | 34,316 | 1,341,798 | 2.56% |
+| 2024-11-05 General Election | Presidential-year general | RCV available for federal offices | President | 17,746 | 831,375 | 2.13% |
+
+## Turnout Trend Table
+
+This table keeps voter participation visible across primary and general election events while separating it from the alternative-vote metric.
+
+| Election event | Trend series | RCV exposure | Turnout measure |
+| --- | --- | --- | ---: |
+| 2006-11-07 General Election | Midterm general | Non-RCV | Pending pre-2010 official-source extraction |
+| 2010-11-02 General Election | Midterm general | Non-RCV | 580,538 |
+| 2011-11-08 Referendum Election | Referendum context | Non-RCV | Pending legacy XLS reduction |
+| 2012-06-12 Primary Election | Regular primary | Non-RCV | 133,915 |
+| 2012-11-06 General Election | Presidential-year general | Non-RCV | 724,758 |
+| 2014-06-10 Primary Election | Regular primary | Non-RCV | 127,398 |
+| 2014-11-04 General Election | Midterm general | Non-RCV | 616,967 |
+| 2016-06-14 Primary Election | Regular primary | Non-RCV | 98,776 |
+| 2016-11-08 General Election | Presidential-year general | Non-RCV | 771,892 |
+| 2018-06-12 Primary Election | Regular primary | RCV mixed | 234,380 |
+| 2018-11-06 General Election | Midterm general | RCV activated in CD-2 only | 646,064 |
+| 2020-07-14 Primary Election | Regular primary | RCV mixed | 272,325 |
+| 2020-11-03 General Election | Presidential-year general | RCV available for federal offices | 828,305 |
+| 2022-06-14 Primary Election | Regular primary | RCV mixed | 139,995 |
+| 2022-11-08 General Election | Midterm general | RCV activated in CD-2 only | 680,909 |
+| 2024-03-05 Presidential Primary Election | Presidential primary | Non-RCV | 182,378 |
+| 2024-06-11 State Primary Election | Regular primary | Non-RCV in extracted contests | 149,165 |
+| 2024-11-05 General Election | Presidential-year general | RCV available for federal offices | 842,447 |
+| 2026-06-09 Primary Election | Regular primary | RCV mixed | 360,386 |
+
+The graph separates the alternative vote-expression metric from turnout. The x-axis now spans 2006-2026 to preserve the requested four-year historical extension, but pre-2010 values remain source-pending because Maine's current online previous-results page provides 2010-forward files and directs users to the Division of Elections for earlier result requests. Light vertical shading marks presidential election years. The dashed vertical line marks 2018, when Maine first used RCV in statewide/federal election administration.
 
 ![Maine RCV participation trend](ELEC-015-maine-rcv-trend.svg)
 
-Sources: Maine Secretary of State [Election Results/Data](https://www.maine.gov/sos/elections-voting/election-results-data), [Previous Election Year Results](https://www.maine.gov/sos/elections-voting/election-results-data/previous-election-results), and [Ranked-Choice Voting FAQ](https://www.maine.gov/sos/elections-voting/ranked-choice-voting-frequently-asked-questions).
+Sources: Maine Secretary of State [Election Results/Data](https://www.maine.gov/sos/elections-voting/election-results-data), [Previous Election Year Results](https://www.maine.gov/sos/elections-voting/election-results-data/previous-election-results), [2014/2015 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2014-2015), [2016/2017 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2016-2017), [2018 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2018), [2020 Election Results](https://www.maine.gov/sos/elections-voting/election-results-data/election-results-2020), [2022 Election Results](https://www.maine.gov/sos/node/1956), [2024 Election Results](https://www.maine.gov/sos/node/2479), and [Ranked-Choice Voting FAQ](https://www.maine.gov/sos/elections-voting/ranked-choice-voting-frequently-asked-questions).
