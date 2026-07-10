@@ -9,3 +9,8 @@ Thumbs.db
 # Local build products
 .build/
 .tmp/
+
+# Local secrets
+.env
+.env.local
+.env.*.local
