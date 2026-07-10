@@ -14,6 +14,7 @@ This file compares Maine election events using official Maine Secretary of State
 
 | Election name | RCV or not | Candidate participation | Voter turnout |
 | --- | --- | --- | --- |
+| 2010-11-02 General Election | No | 9 ballot candidates across extracted Governor, CD-1, and CD-2 general contests, excluding declared write-ins/other columns | 580,538 ballots cast statewide in OCR-reduced Governor PDF |
 | 2011-11-08 Referendum Election | No; noncandidate context year | Not applicable; statewide referendum context year, not a candidate-field measure | Official county/state referendum totals workbook identified; turnout extraction pending from legacy XLS format |
 | 2012-06-12 Primary Election | No | 17 total candidates across 6 extracted federal primary contests | 133,915 party-primary ballots using extracted statewide U.S. Senate Democratic and Republican ballot totals |
 | 2012-11-06 General Election | No | 4 ballot candidates in extracted presidential general file, excluding declared write-ins | 724,758 ballots cast statewide in extracted presidential general file |
@@ -36,6 +37,7 @@ This file compares Maine election events using official Maine Secretary of State
 
 | Election event | Trend series | Office bucket | RCV exposure | Extracted contests | Total candidates | Candidates per contest | Turnout measure |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: |
+| 2010-11-02 General Election | Midterm general | Governor, CD-1, and CD-2 general contests | Non-RCV | 3 | 9 | 3.00 | 580,538 |
 | 2011-11-08 Referendum Election | Referendum context | Statewide referendum | Non-RCV | 0 | N/A | N/A | Pending legacy XLS reduction |
 | 2012-06-12 Primary Election | Regular primary | Federal primary contests | Non-RCV | 6 | 17 | 2.83 | 133,915 |
 | 2012-11-06 General Election | Presidential-year general | Presidential general contest | Non-RCV | 1 | 4 | 4.00 | 724,758 |
@@ -54,7 +56,7 @@ This file compares Maine election events using official Maine Secretary of State
 | 2024-11-05 General Election | Presidential-year general | Presidential and CD-2 first-choice files | RCV available for federal offices | 2 | 7 | 3.50 | 842,447 |
 | 2026-06-09 Primary Election | Regular primary | Federal/statewide and RCV district contests | RCV mixed | 10 | 33 | 3.30 | 360,386 |
 
-The graph separates regular primaries, midterm general elections, and presidential-year general elections so unlike election environments are not connected into one trend line. The x-axis begins with 2011 as a pre-RCV referendum context year, but that noncandidate event is not plotted as a candidate-participation series. Light vertical shading marks presidential election years. The one-off presidential primary remains in the table but is not plotted as a trend series.
+The graph separates regular primaries, midterm general elections, and presidential-year general elections so unlike election environments are not connected into one trend line. The x-axis begins with 2010 as the pre-RCV midterm-general anchor. The dashed vertical line marks 2018, when Maine first used RCV in statewide/federal election administration. The 2011 referendum context row is not plotted as a candidate-participation series. Light vertical shading marks presidential election years. The one-off presidential primary remains in the table but is not plotted as a trend series.
 
 ![Maine RCV participation trend](ELEC-015-maine-rcv-trend.svg)
 

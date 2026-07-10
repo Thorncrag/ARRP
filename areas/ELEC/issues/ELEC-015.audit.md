@@ -50,6 +50,10 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Baseline and midterm-general expansion:** Added 2011 as a noncandidate referendum context year so the comparison table no longer begins on a presidential election year. The 2011 row is not plotted pending reduction of the official legacy XLS turnout file. Expanded the midterm-general rows from CD-2-only comparators to fuller extracted event rows: 2014 now uses U.S. Senate, Governor, CD-1, and CD-2; 2018 uses U.S. Senate, Governor, CD-1, and CD-2 with RCV activated only in CD-2; and 2022 uses Governor, CD-1, and CD-2 with RCV activated only in CD-2. Updated the trend graph to start at 2011, use the fuller midterm values, and raise the candidate-axis maximum to 6 so the top candidate point has visual headroom.
 
+**2010 midterm-general anchor update:** Added the 2010 general election as the actual pre-RCV midterm-general baseline rather than relying on 2011 referendum context. OCR was used on Maine's scanned 2010 Governor PDF to reduce the statewide Governor turnout value, while the official congressional TXT file supplied CD-1 and CD-2 candidate-field context. The graph now begins at 2010 and plots four midterm-general points: 2010, 2014, 2018, and 2022. The source-development window stops at 2010 for now because that gives the intended eight-year pre-RCV comparison window against the 2019-2026 post-launch/current period; going earlier would be useful only for a separate longer-run historical appendix.
+
+**RCV-use demarcation update:** Added a dashed vertical 2018 marker to the trend graph to show when Maine first used RCV in statewide/federal election administration. This separates the pre-RCV baseline from the post-launch period without changing the data series.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
