@@ -98,6 +98,8 @@ Future review should compare candidate-access tools before drafting.
 
 **FEC administration and enforcement.** The existing FEC debate rule is a natural statutory and regulatory hook, but future drafting should review advisory opinions, enforcement matters, sponsor practices, Commission deadlock risk, and whether the FEC is the right institution for any new disclosure or neutrality requirement.
 
+**EAC stability cross-reference.** The current ELEC-013 draft uses a HAVA-centered federal access form, State publication duties, notice-and-cure floors, certification-status reporting, and EAC technical assistance. Source development on presidential removal of Election Assistance Commission members and resulting commission vacancies belongs primarily in [REG-001](../../REG/issues/REG-001.md), but ELEC-013 should track whether EAC instability affects the feasibility, neutrality, or administration of any HAVA-centered candidate-access mechanism.
+
 **Public financing coordination.** Public-financing or small-donor systems can reduce candidate-viability barriers if designed to include credible independent and minor-party candidates. That overlap belongs primarily in [ELEC-012](ELEC-012.md), but ELEC-013 should coordinate where debate qualification, public funds, or polling access depends on fundraising signals.
 
 **Election-method coordination.** Ranked-choice voting, runoffs, and majority-choice election methods are now owned by [ELEC-015](ELEC-015.md). ELEC-013 may coordinate with ELEC-015 only where a candidate-access bill uses voluntary pilots, public education, or debate-access rules that interact with election-method reform.

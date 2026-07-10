@@ -56,6 +56,8 @@ Federal litigation then produced decisions blocking or rejecting key parts of th
 
 The institutional significance is that federal executive power can be converted from case-specific enforcement into a centralized election-administration architecture. Even when courts block implementation, state and local officials must respond to federal data demands, reconcile federal database claims with state registration law, protect sensitive voter information, and litigate under election-time pressure.
 
+Related independent-agency source development belongs primarily in [REG-001](../../REG/issues/REG-001.md). The July 2026 Election Assistance Commission removal-and-vacancy episode should be cross-referenced here only if source development shows that EAC leadership collapse is part of a broader federal executive architecture pressuring state or local election administration, voter-registration administration, voting-system guidance, or federal election-support functions.
+
 ## Resulting Damage
 
 Federal executive interference can distort or delay lawful election administration, coerce state and local officials, undermine federalism, convert federal law-enforcement or administrative powers into electoral leverage, chill resistance to unlawful demands, and damage public confidence that election outcomes are determined by lawful votes rather than federal executive pressure.
