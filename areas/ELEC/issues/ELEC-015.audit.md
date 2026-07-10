@@ -54,6 +54,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **RCV-use demarcation update:** Added a dashed vertical 2018 marker to the trend graph to show when Maine first used RCV in statewide/federal election administration. This separates the pre-RCV baseline from the post-launch period without changing the data series.
 
+**Working finding update:** Added an explicit working-read section to the Maine source-development page. The current Maine event data should be treated as inconclusive overall: candidate participation does not show a clean RCV-linked pre/post pattern, and general-election turnout is dominated by presidential-year and midterm-cycle effects. The one visible pattern worth further testing is a possible regular-primary turnout uptrend after RCV launch, but the source page now flags plausible non-RCV explanations including election salience, office mix, competitive statewide primaries, and calendar effects.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis

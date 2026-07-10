@@ -10,6 +10,10 @@ print_levels:
 
 This file compares Maine election events using official Maine Secretary of State result data. The comparison unit is the election event, not each individual primary, town, candidate subtotal, or cast-vote-record line.
 
+## Working Read
+
+The Maine data is inconclusive as an RCV-effect signal. Candidate participation does not show a clean pre/post pattern once election types are separated and write-ins are excluded. General-election turnout is dominated by presidential-year and midterm-cycle effects, and the midterm series is too sparse to support a causal inference. The only apparent movement worth further testing is an uptrend in regular-primary turnout after RCV launch, but that pattern may reflect election salience, office mix, competitive statewide primaries, calendar effects, or other non-RCV factors.
+
 ## Election Comparison Table
 
 | Election name | RCV or not | Candidate participation | Voter turnout |
