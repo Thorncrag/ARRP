@@ -14,15 +14,15 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | ELEC-015 / Majority-choice candidate-and-voter-participation analysis |
+| Active issue/task | None; ELEC-015 deferred |
 | Audit type/tier | Source-development posture / no-audit development note |
 | Started | 2026-07-09 15:23:00 -0400 |
-| Last checkpoint | 2026-07-09 15:23:00 -0400 |
-| User request | Turn to ELEC-015 and begin by analyzing candidate participation and voter participation in Maine, Alaska, and D.C. before remedy selection. |
-| Scope | Reorient ELEC-015 from immediate remedy selection toward candidate-and-voter-participation comparative analysis of Maine, Alaska, and D.C.; preserve candidate fixed-zero status and no-draft posture. |
+| Last checkpoint | 2026-07-10 |
+| User request | Set ELEC-015 to deferred pending additional data and additional input. |
+| Scope | Defer ELEC-015 after Maine RCV participation synthesis showed no current basis to treat RCV as a primary competition remedy; preserve fixed-zero status and no-draft posture. |
 | Files touched | `framework/CURRENT_AUDIT.md`; `areas/ELEC/README.md`; `areas/ELEC/issues/ELEC-015.md`; `areas/ELEC/issues/ELEC-015.audit.md`; GitHub issue #237 and Project item fields. |
-| Completed steps | Updated ELEC-015 issue page, audit history, ELEC area summary, GitHub issue #237, and GitHub Project fields to state that the first source-development pass should analyze Maine, Alaska, and D.C. candidate participation, voter participation, turnout, ballot completion, candidate-field structure, and implementation outcomes before selecting any model-state or federal voluntary-pilot remedy. |
-| Next step | Run ELEC-015 T1 source-development on Maine, Alaska, and D.C. candidate-and-voter-participation records before remedy selection. |
+| Completed steps | Updated ELEC-015 issue page, audit history, and ELEC area summary to deferred pending additional certified election-outcome data and additional election-method, ballot-access, party-system, and implementation input. |
+| Next step | None active. Revisit ELEC-015 after the next midterm election cycle with certified outcome data for RCV jurisdictions and additional expert or stakeholder input. |
 | Blockers/questions | None. |
 | Validation status | Passed lightweight validation: `inventory/sources.csv` parses with 11 columns across 533 rows; GitHub issue #237 and Project fields read back after sync. |
 

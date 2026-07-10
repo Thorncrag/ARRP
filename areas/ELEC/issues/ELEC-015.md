@@ -2,14 +2,14 @@
 issue_id: ELEC-015
 area_id: A-02
 title: "Ranked-Choice Voting and Majority-Choice Election Methods"
-status: candidate
+status: deferred
 priority: high
 remedy_type: election-method-reform
 audit_score: 0
-audit_status: "Candidate-and-voter-participation comparative analysis posture set; candidate fixed-zero pending Maine, Alaska, and D.C. source development before remedy selection"
-audit_last_type: "Boundary split / issue creation"
-audit_last_date: "2026-07-06"
-audit_next: "Confirm no proposed legislation exists before any audit; then run T1 source-development focused first on Maine, Alaska, and D.C. candidate participation and voter participation before and after majority-choice adoption or repeal pressure, then evaluate implementation, transparency, voter education, costs, accessibility, and durability before any remedy selection"
+audit_status: "Deferred pending additional certified election-outcome data and additional election-method, ballot-access, party-system, and implementation input; fixed-zero preserved until remedy value and fit can be reassessed"
+audit_last_type: "Deferred status update"
+audit_last_date: "2026-07-10"
+audit_next: "After the next midterm election cycle, update certified outcome data for RCV jurisdictions and obtain additional expert or stakeholder input; then reassess whether ELEC-015 should remain deferred, become an implementation-safeguards issue, or be retired in favor of upstream competition reforms"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 change_audit_needed: false
@@ -23,7 +23,7 @@ audit_history: "ELEC-015.audit.md"
 # ELEC-015 — Ranked-Choice Voting and Majority-Choice Election Methods
 
 > ## Issue Snapshot
-> **Problem:** Plurality rules can turn voter choice and candidate entry into strategic pressure.<br />**Repair:** Compare candidate participation, voter participation, and implementation outcomes before selecting any remedy.<br />**Vehicle:** Pending source-development analysis.
+> **Problem:** Plurality rules can turn voter choice and candidate entry into strategic pressure.<br />**Repair:** Deferred pending additional election-outcome data and outside input before any remedy selection.<br />**Vehicle:** Pending later reassessment.
 >
 
 ## Institutional Anomaly
@@ -107,7 +107,7 @@ Future review should compare election-method tools rather than assume one. The k
 
 ## Least-Complex Adequate Remedy
 
-The least-complex adequate remedy is not yet selected. ELEC-015 should remain an analysis-first candidate until the project compares candidate participation, voter participation, turnout, and implementation outcomes in Maine, Alaska, and D.C. across appropriate before/after and election-type baselines.
+The least-complex adequate remedy is not yet selected. ELEC-015 is deferred pending additional certified election-outcome data and additional election-method, ballot-access, party-system, and implementation input. The current record does not justify treating RCV as a primary competition remedy; later review should decide whether ELEC-015 should remain deferred, become a narrow implementation-safeguards issue, or be retired in favor of upstream candidate-access and representation-structure reforms.
 
 A plausible later path may be a model-state majority-choice election-method act, paired with an optional federal pilot-grant and technical-assistance framework. That approach would allow structured experimentation without immediately requiring a national RCV mandate for all federal elections, but it should not be selected until the participation record, implementation costs, transparency record, accessibility record, and repeal/durability evidence are source-developed.
 
@@ -154,17 +154,17 @@ Budget authority may be required for voter education, ballot redesign, election-
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[0 / 100](ELEC-015.audit.md)** (Fixed-zero; drafting pending)<br />**Adoption Friction:** `N/A`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`
+> **Proposal Quality Score:** **[0 / 100](ELEC-015.audit.md)** (Not Scored; deferred pending additional data and input)<br />**Adoption Friction:** `N/A`<br />**Required Electoral Environment:** `N/A`<br />**Development Priority:** `N/A`
 >
 > —
 >
-> **Audit Status:** Candidate-and-voter-participation comparative analysis posture set; candidate fixed-zero pending Maine, Alaska, and D.C. source development before remedy selection<br />**Last Audit:** Boundary split / issue creation<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** Confirm no proposed legislation exists before any audit; then run T1 source-development focused first on Maine, Alaska, and D.C. candidate participation and voter participation before and after majority-choice adoption or repeal pressure, then evaluate implementation, transparency, voter education, costs, accessibility, and durability before any remedy selection<br />**Full Audit History:** [ELEC-015 audit history](ELEC-015.audit.md)
+> **Audit Status:** Deferred pending additional certified election-outcome data and additional election-method, ballot-access, party-system, and implementation input; fixed-zero preserved until remedy value and fit can be reassessed<br />**Last Audit:** Deferred status update<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** After the next midterm election cycle, update certified outcome data for RCV jurisdictions and obtain additional expert or stakeholder input; then reassess whether ELEC-015 should remain deferred, become an implementation-safeguards issue, or be retired in favor of upstream competition reforms<br />**Full Audit History:** [ELEC-015 audit history](ELEC-015.audit.md)
 
 ## Annotation
 
 **Branch-Off Status.** ELEC-015 was created on July 6, 2026 to receive the ranked-choice voting, runoff, and majority-choice election-method material previously carried inside ELEC-013. The split keeps ELEC-013 focused on federal candidate-access, debate, and ballot-access rules while allowing ELEC-015 to develop election-method design on its own terms.
 
-**Candidate Status.** ELEC-015 remains a candidate fixed at 0/100 because no model-state act, federal pilot-grant bill, technical standard, or other concrete proposal vehicle exists yet. A formula-based Proposal Quality Score should not be assigned until draft text exists.
+**Deferred Status.** ELEC-015 is deferred at 0/100 because the evidence gathered so far does not justify remedy selection. Additional certified outcome data and additional expert or stakeholder input are needed before deciding whether to draft a narrow implementation-safeguards proposal, preserve the issue as research-only, or retire it in favor of upstream competition reforms.
 
 **Analysis-First Posture.** ELEC-015 should begin as comparative analysis rather than immediate remedy drafting. The first source-development question is whether Maine, Alaska, and D.C. show measurable changes in candidate participation, voter participation, turnout, ballot completion, voter adaptation, candidate-field structure, or repeal pressure after majority-choice adoption, implementation, or attempted implementation.
 

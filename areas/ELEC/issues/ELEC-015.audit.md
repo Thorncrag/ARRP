@@ -14,6 +14,16 @@ This file preserves the full audit history for [ELEC-015](ELEC-015.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
+### 2026-07-10 — Deferred Status Update
+
+**Status:** Deferred; no audit run.
+
+**Scope:** Set ELEC-015 to deferred pending additional certified election-outcome data and additional election-method, ballot-access, party-system, and implementation input. The current Maine-focused source development does not justify treating RCV as a primary repair for two-party dominance, candidate competition, or participation. The issue should be revisited after the next midterm election cycle with certified outcome data for RCV jurisdictions and additional expert or stakeholder input.
+
+**Disposition effect:** ELEC-015 remains fixed at 0/100 and not scored. Future review should decide whether ELEC-015 remains deferred, becomes a narrow implementation-safeguards issue for jurisdictions that independently adopt RCV, or is retired in favor of upstream candidate-access and representation-structure reforms owned primarily by ELEC-013 and ELEC-011.
+
+**Score effect:** No score change and no audit-count increment.
+
 ### 2026-07-09 — Development Note: Maine RCV Participation Source File
 
 **Status:** Development note only; no audit run.
