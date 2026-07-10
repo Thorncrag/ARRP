@@ -48,6 +48,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Presidential-year shading update:** Added light vertical shading to the trend graph at presidential election years so presidential-cycle effects are visible without adding a new data series or marker.
 
+**Baseline and midterm-general expansion:** Added 2011 as a noncandidate referendum context year so the comparison table no longer begins on a presidential election year. The 2011 row is not plotted pending reduction of the official legacy XLS turnout file. Expanded the midterm-general rows from CD-2-only comparators to fuller extracted event rows: 2014 now uses U.S. Senate, Governor, CD-1, and CD-2; 2018 uses U.S. Senate, Governor, CD-1, and CD-2 with RCV activated only in CD-2; and 2022 uses Governor, CD-1, and CD-2 with RCV activated only in CD-2. Updated the trend graph to start at 2011, use the fuller midterm values, and raise the candidate-axis maximum to 6 so the top candidate point has visual headroom.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis

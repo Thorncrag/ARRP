@@ -3,41 +3,43 @@
   <desc id="desc">Two line charts separating regular primaries, midterm general elections, and presidential-year general elections so unlike election environments are not connected into one trend line.</desc>
   <rect width="1000" height="680" fill="#ffffff"/>
   <text x="80" y="38" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#1f2937">Maine Election Participation Trend by Election Series</text>
-  <text x="80" y="62" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Pre-RCV general-election baselines are included for presidential-year and midterm series; shaded bands mark presidential election years.</text>
+  <text x="80" y="62" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">The axis begins with 2011 referendum context; shaded bands mark presidential election years.</text>
 
   <g fill="#f3f4f6" opacity="0.65">
-    <rect x="80.0" y="80" width="36" height="530"/>
-    <rect x="304.9" y="80" width="36" height="530"/>
-    <rect x="547.7" y="80" width="36" height="530"/>
-    <rect x="790.6" y="80" width="36" height="530"/>
+    <rect x="118.7" y="80" width="36" height="530"/>
+    <rect x="345.3" y="80" width="36" height="530"/>
+    <rect x="572.0" y="80" width="36" height="530"/>
+    <rect x="798.7" y="80" width="36" height="530"/>
   </g>
 
   <line x1="80" y1="300" x2="930" y2="300" stroke="#d1d5db" stroke-width="1"/>
-  <line x1="80" y1="256" x2="930" y2="256" stroke="#e5e7eb" stroke-width="1"/>
-  <line x1="80" y1="212" x2="930" y2="212" stroke="#e5e7eb" stroke-width="1"/>
-  <line x1="80" y1="168" x2="930" y2="168" stroke="#e5e7eb" stroke-width="1"/>
-  <line x1="80" y1="124" x2="930" y2="124" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="80" y1="263.3" x2="930" y2="263.3" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="80" y1="226.7" x2="930" y2="226.7" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="80" y1="190" x2="930" y2="190" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="80" y1="153.3" x2="930" y2="153.3" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="80" y1="116.7" x2="930" y2="116.7" stroke="#e5e7eb" stroke-width="1"/>
   <line x1="80" y1="80" x2="930" y2="80" stroke="#e5e7eb" stroke-width="1"/>
   <line x1="80" y1="80" x2="80" y2="300" stroke="#d1d5db" stroke-width="1"/>
   <text x="80" y="102" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Candidates per extracted contest</text>
   <text x="52" y="304" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">0</text>
-  <text x="52" y="260" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">1</text>
-  <text x="52" y="216" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">2</text>
-  <text x="52" y="172" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">3</text>
-  <text x="52" y="128" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">4</text>
-  <text x="52" y="84" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">5</text>
+  <text x="52" y="267" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">1</text>
+  <text x="52" y="231" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">2</text>
+  <text x="52" y="194" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">3</text>
+  <text x="52" y="157" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">4</text>
+  <text x="52" y="121" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">5</text>
+  <text x="52" y="84" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">6</text>
 
-  <polyline fill="none" stroke="#2563eb" stroke-width="3" points="80.0,175.5 201.4,245.0 322.9,245.0 444.3,184.3 565.7,226.5 687.1,237.1 808.6,241.5 930.0,154.8"/>
-  <polyline fill="none" stroke="#16a34a" stroke-width="3" points="201.4,168.0 444.3,124.0 687.1,168.0"/>
-  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="80.0,124.0 322.9,124.0 565.7,80.0 808.6,146.0"/>
+  <polyline fill="none" stroke="#2563eb" stroke-width="3" points="136.7,196.2 250.0,254.2 363.3,254.2 476.7,203.6 590.0,238.8 703.3,247.6 816.7,251.2 930.0,179.0"/>
+  <polyline fill="none" stroke="#16a34a" stroke-width="3" points="250.0,199.2 476.7,180.8 703.3,202.1"/>
+  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="136.7,153.3 363.3,153.3 590.0,116.7 816.7,171.7"/>
   <g fill="#2563eb">
-    <circle cx="80.0" cy="175.5" r="4"/><circle cx="201.4" cy="245.0" r="4"/><circle cx="322.9" cy="245.0" r="4"/><circle cx="444.3" cy="184.3" r="4"/><circle cx="565.7" cy="226.5" r="4"/><circle cx="687.1" cy="237.1" r="4"/><circle cx="808.6" cy="241.5" r="4"/><circle cx="930.0" cy="154.8" r="4"/>
+    <circle cx="136.7" cy="196.2" r="4"/><circle cx="250.0" cy="254.2" r="4"/><circle cx="363.3" cy="254.2" r="4"/><circle cx="476.7" cy="203.6" r="4"/><circle cx="590.0" cy="238.8" r="4"/><circle cx="703.3" cy="247.6" r="4"/><circle cx="816.7" cy="251.2" r="4"/><circle cx="930.0" cy="179.0" r="4"/>
   </g>
   <g fill="#16a34a">
-    <circle cx="201.4" cy="168.0" r="4"/><circle cx="444.3" cy="124.0" r="4"/><circle cx="687.1" cy="168.0" r="4"/>
+    <circle cx="250.0" cy="199.2" r="4"/><circle cx="476.7" cy="180.8" r="4"/><circle cx="703.3" cy="202.1" r="4"/>
   </g>
   <g fill="#dc2626">
-    <circle cx="80.0" cy="124.0" r="4"/><circle cx="322.9" cy="124.0" r="4"/><circle cx="565.7" cy="80.0" r="4"/><circle cx="808.6" cy="146.0" r="4"/>
+    <circle cx="136.7" cy="153.3" r="4"/><circle cx="363.3" cy="153.3" r="4"/><circle cx="590.0" cy="116.7" r="4"/><circle cx="816.7" cy="171.7" r="4"/>
   </g>
 
   <line x1="80" y1="610" x2="930" y2="610" stroke="#d1d5db" stroke-width="1"/>
@@ -54,27 +56,28 @@
   <text x="24" y="467" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">600k</text>
   <text x="24" y="418" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">800k</text>
 
-  <polyline fill="none" stroke="#2563eb" stroke-width="3" points="80.0,577.3 201.4,578.9 322.9,585.9 444.3,552.7 565.7,543.4 687.1,575.8 808.6,573.5 930.0,521.9"/>
-  <polyline fill="none" stroke="#16a34a" stroke-width="3" points="201.4,537.9 444.3,537.6 687.1,531.1"/>
-  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="80.0,432.8 322.9,421.3 565.7,407.5 808.6,404.1"/>
+  <polyline fill="none" stroke="#2563eb" stroke-width="3" points="136.7,577.3 250.0,578.9 363.3,585.9 476.7,552.7 590.0,543.4 703.3,575.8 816.7,573.5 930.0,521.9"/>
+  <polyline fill="none" stroke="#16a34a" stroke-width="3" points="250.0,459.2 476.7,452.1 703.3,443.6"/>
+  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="136.7,432.8 363.3,421.3 590.0,407.5 816.7,404.1"/>
   <g fill="#2563eb">
-    <circle cx="80.0" cy="577.3" r="4"/><circle cx="201.4" cy="578.9" r="4"/><circle cx="322.9" cy="585.9" r="4"/><circle cx="444.3" cy="552.7" r="4"/><circle cx="565.7" cy="543.4" r="4"/><circle cx="687.1" cy="575.8" r="4"/><circle cx="808.6" cy="573.5" r="4"/><circle cx="930.0" cy="521.9" r="4"/>
+    <circle cx="136.7" cy="577.3" r="4"/><circle cx="250.0" cy="578.9" r="4"/><circle cx="363.3" cy="585.9" r="4"/><circle cx="476.7" cy="552.7" r="4"/><circle cx="590.0" cy="543.4" r="4"/><circle cx="703.3" cy="575.8" r="4"/><circle cx="816.7" cy="573.5" r="4"/><circle cx="930.0" cy="521.9" r="4"/>
   </g>
   <g fill="#16a34a">
-    <circle cx="201.4" cy="537.9" r="4"/><circle cx="444.3" cy="537.6" r="4"/><circle cx="687.1" cy="531.1" r="4"/>
+    <circle cx="250.0" cy="459.2" r="4"/><circle cx="476.7" cy="452.1" r="4"/><circle cx="703.3" cy="443.6" r="4"/>
   </g>
   <g fill="#dc2626">
-    <circle cx="80.0" cy="432.8" r="4"/><circle cx="322.9" cy="421.3" r="4"/><circle cx="565.7" cy="407.5" r="4"/><circle cx="808.6" cy="404.1" r="4"/>
+    <circle cx="136.7" cy="432.8" r="4"/><circle cx="363.3" cy="421.3" r="4"/><circle cx="590.0" cy="407.5" r="4"/><circle cx="816.7" cy="404.1" r="4"/>
   </g>
 
   <g font-family="Arial, sans-serif" font-size="11" fill="#374151">
-    <text x="80.0" y="632" text-anchor="middle">2012</text>
-    <text x="201.4" y="632" text-anchor="middle">2014</text>
-    <text x="322.9" y="632" text-anchor="middle">2016</text>
-    <text x="444.3" y="632" text-anchor="middle">2018</text>
-    <text x="565.7" y="632" text-anchor="middle">2020</text>
-    <text x="687.1" y="632" text-anchor="middle">2022</text>
-    <text x="808.6" y="632" text-anchor="middle">2024</text>
+    <text x="80.0" y="632" text-anchor="middle">2011</text>
+    <text x="136.7" y="632" text-anchor="middle">2012</text>
+    <text x="250.0" y="632" text-anchor="middle">2014</text>
+    <text x="363.3" y="632" text-anchor="middle">2016</text>
+    <text x="476.7" y="632" text-anchor="middle">2018</text>
+    <text x="590.0" y="632" text-anchor="middle">2020</text>
+    <text x="703.3" y="632" text-anchor="middle">2022</text>
+    <text x="816.7" y="632" text-anchor="middle">2024</text>
     <text x="930.0" y="632" text-anchor="middle">2026</text>
   </g>
   <line x1="80" y1="646" x2="94" y2="646" stroke="#2563eb" stroke-width="3"/><text x="102" y="650" font-family="Arial, sans-serif" font-size="11" fill="#374151">Regular primaries</text>
