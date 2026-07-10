@@ -44,6 +44,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Write-in exclusion correction:** Revised the candidate-participation counts to exclude write-ins and unprinted vote-receiving names from the field-size measure. The purpose of the candidate-participation column is to track ballot access and the apparent candidate field presented to voters, so declared write-ins and write-in buckets are source notes rather than counted candidates. This changed the 2012 and 2016 presidential general baselines and the 2022 CD-2 general row, and the graph was rescaled to the corrected ballot-candidate series.
 
+**Visualization cleanup:** Removed the one-off presidential-primary point from the trend graph because it did not form a trend line and the purple marker added ambiguity. The presidential primary remains in the event table. The graph's candidate axis now uses whole-number ticks, while the normalized table continues to show fractional candidates-per-contest values where multiple contests are averaged for comparability.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
