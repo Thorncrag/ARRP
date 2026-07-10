@@ -46,6 +46,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Visualization cleanup:** Removed the one-off presidential-primary point from the trend graph because it did not form a trend line and the purple marker added ambiguity. The presidential primary remains in the event table. The graph's candidate axis now uses whole-number ticks, while the normalized table continues to show fractional candidates-per-contest values where multiple contests are averaged for comparability.
 
+**Presidential-year shading update:** Added light vertical shading to the trend graph at presidential election years so presidential-cycle effects are visible without adding a new data series or marker.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis

@@ -52,7 +52,7 @@ This file compares Maine election events using official Maine Secretary of State
 | 2024-11-05 General Election | Presidential-year general | Presidential and CD-2 first-choice files | RCV available for federal offices | 2 | 7 | 3.50 | 842,447 |
 | 2026-06-09 Primary Election | Regular primary | Federal/statewide and RCV district contests | RCV mixed | 10 | 33 | 3.30 | 360,386 |
 
-The graph separates regular primaries, midterm general elections, and presidential-year general elections so unlike election environments are not connected into one trend line. The one-off presidential primary remains in the table but is not plotted as a trend series.
+The graph separates regular primaries, midterm general elections, and presidential-year general elections so unlike election environments are not connected into one trend line. Light vertical shading marks presidential election years. The one-off presidential primary remains in the table but is not plotted as a trend series.
 
 ![Maine RCV participation trend](ELEC-015-maine-rcv-trend.svg)
 

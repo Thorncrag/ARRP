@@ -3,7 +3,14 @@
   <desc id="desc">Two line charts separating regular primaries, midterm general elections, and presidential-year general elections so unlike election environments are not connected into one trend line.</desc>
   <rect width="1000" height="680" fill="#ffffff"/>
   <text x="80" y="38" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#1f2937">Maine Election Participation Trend by Election Series</text>
-  <text x="80" y="62" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Pre-RCV general-election baselines are included for presidential-year and midterm series.</text>
+  <text x="80" y="62" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Pre-RCV general-election baselines are included for presidential-year and midterm series; shaded bands mark presidential election years.</text>
+
+  <g fill="#f3f4f6" opacity="0.65">
+    <rect x="80.0" y="80" width="36" height="530"/>
+    <rect x="304.9" y="80" width="36" height="530"/>
+    <rect x="547.7" y="80" width="36" height="530"/>
+    <rect x="790.6" y="80" width="36" height="530"/>
+  </g>
 
   <line x1="80" y1="300" x2="930" y2="300" stroke="#d1d5db" stroke-width="1"/>
   <line x1="80" y1="256" x2="930" y2="256" stroke="#e5e7eb" stroke-width="1"/>
