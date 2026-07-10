@@ -36,6 +36,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Normalization and graph update:** Added a normalized working table to the Maine source-development page with election type, office bucket, RCV exposure, extracted-contest count, total candidates, candidates per contest, and turnout measure. Added a two-panel SVG line graph showing candidates per extracted contest and voter-turnout/proxy trends across the harvested Maine events.
 
+**Election-type split update:** Revised the Maine trend graph so regular primaries, general elections, and the presidential primary appear as separate series rather than one blended line. This avoids comparing unlike election types as if they were a single continuous trend.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis

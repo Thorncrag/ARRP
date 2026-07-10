@@ -46,6 +46,8 @@ This file compares Maine election events using official Maine Secretary of State
 | 2024-11-05 General Election | General | Presidential and CD-2 first-choice files | RCV available for federal offices | 2 | 7 | 3.50 | 842,447 |
 | 2026-06-09 Primary Election | Primary | Federal/statewide and RCV district contests | RCV mixed | 10 | 33 | 3.30 | 360,386 |
 
+The graph separates regular primaries, general elections, and the presidential primary so unlike election types are not connected into one trend line.
+
 ![Maine RCV participation trend](ELEC-015-maine-rcv-trend.svg)
 
 Sources: Maine Secretary of State [Election Results/Data](https://www.maine.gov/sos/elections-voting/election-results-data), [Previous Election Year Results](https://www.maine.gov/sos/elections-voting/election-results-data/previous-election-results), and [Ranked-Choice Voting FAQ](https://www.maine.gov/sos/elections-voting/ranked-choice-voting-frequently-asked-questions).
