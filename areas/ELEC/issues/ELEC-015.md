@@ -168,6 +168,8 @@ Budget authority may be required for voter education, ballot redesign, election-
 
 **Analysis-First Posture.** ELEC-015 should begin as comparative analysis rather than immediate remedy drafting. The first source-development question is whether Maine, Alaska, and D.C. show measurable changes in candidate participation, voter participation, turnout, ballot completion, voter adaptation, candidate-field structure, or repeal pressure after majority-choice adoption, implementation, or attempted implementation.
 
+**Future Data Checkpoint.** Revisit ELEC-015 after the next midterm election cycle with certified outcome data. The update should specifically test whether RCV jurisdictions produced third-party or independent winners, materially changed alternative vote expression, or otherwise supplied evidence that the major bottleneck is not upstream ballot access, debate access, primary structure, fundraising, media visibility, or district design.
+
 **Preflight Notice.** Any future audit should begin by notifying the user that ELEC-015 has no proposed legislation yet unless a draft has been added before that audit. Without drafting, the audit should be limited to source development, issue admission, remedy selection, and fixed-zero candidate review.
 
 **Implementation Caution.** RCV and related election-method reforms can lose legitimacy if voters experience them as confusing, opaque, expensive, or imposed. The source-development priority is therefore not simply whether RCV is desirable; it is whether a specific implementation model can be explained, audited, recounted, funded, and administered.

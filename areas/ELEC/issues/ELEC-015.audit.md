@@ -68,6 +68,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Issue-page synthesis cleanup:** Reorganized the ELEC-015 issue page to reduce creep and duplication. The page now separates the institutional problem, current evidence synthesis, comparator survey, remedy posture, implementation safeguards, and source notes. Added external RCV research leads from MIT Election Lab, FairVote, New America, Electoral Studies, American Journal of Political Science, and Graham-Squire/McCune so the Maine working read is framed against the broader literature without treating any one source as dispositive.
 
+**Future midterm checkpoint:** Added a TODO-style annotation to revisit ELEC-015 after the next midterm election cycle with certified outcome data. The checkpoint should test whether RCV jurisdictions produced third-party or independent winners, changed alternative vote expression, or instead reinforce the working hypothesis that the main candidate-competition bottleneck occurs upstream of the ballot.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
