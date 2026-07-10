@@ -62,6 +62,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Primary-turnout baseline correction:** Added FEC-backed 2006, 2008, and 2010 regular-primary turnout proxies to the Maine source table and graph. The 2006 and 2008 points use statewide U.S. Senate primary votes; the 2010 point uses statewide-summed U.S. House primary votes because no statewide U.S. Senate contest was held.
 
+**Tentative conclusion and evidence-pivot update:** Added a cautious working conclusion that Maine election-result data does not presently show a clear RCV-linked increase in candidate participation or alternative vote expression. The regular-primary turnout increase after 2018 is preserved as a possible signal, but the source page now flags the overlap with the first Trump-era midterm as a major confounder. The next source-development pass should shift from election-result reduction toward voter sentiment, voter comprehension, ballot-completion experience, and voter-reported candidate-choice effects.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis

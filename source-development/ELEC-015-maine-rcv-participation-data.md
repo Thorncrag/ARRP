@@ -18,6 +18,10 @@ The more useful voter-behavior metric is **alternative vote expression**: the sh
 
 That metric still does not show a clean RCV-linked pattern. The largest fully reduced midterm values appear in 2010 and 2018, both of which had unusually salient independent candidates in statewide or congressional contests. Presidential-year alternative vote expression is low in 2008 and 2012, rises in 2016, then falls in 2020 and 2024 despite RCV availability for federal offices.
 
+Tentative conclusion: Maine's election-result data does not presently show that RCV produces a clear, measurable increase in candidate participation or alternative vote expression. The most noticeable movement is in regular-primary turnout after 2018, but that timing is heavily confounded because 2018 was both Maine's first RCV-use cycle and the first midterm election of the Trump era. The election data therefore supports, at most, a cautious hypothesis that RCV may correlate with higher primary participation in some contexts, not a conclusion that RCV caused the increase.
+
+The next useful evidence layer is voter sentiment and voter experience rather than additional election-result reduction alone. The next pass should test whether Maine voters understood RCV, preferred it, found it burdensome or empowering, believed it changed candidate choice, or experienced ballot-completion problems, and whether those views differed by party, geography, age, education, or election type.
+
 ## Election Comparison Table
 
 | Election name | RCV or not | Voter turnout | Alternative vote-expression status |
