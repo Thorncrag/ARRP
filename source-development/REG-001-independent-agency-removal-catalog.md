@@ -20,7 +20,8 @@ REG-001 should use this catalog to separate four questions:
 1. whether the President can remove members of a particular board or commission at will after *Slaughter*;
 2. whether removal, resignation demands, or vacancy management functionally disable statutory missions even if formal removal is lawful; and
 3. whether some attempted removals failed or were delayed because of agency-specific protections, statutory process, judicial interim relief, or historically distinct constitutional treatment; and
-4. whether some bodies require agency-specific remedies because of election administration, labor rights, civil service adjudication, civil-rights enforcement, consumer safety, privacy/civil-liberties oversight, campaign-finance enforcement, central banking, or other statutory functions.
+4. whether removal plus refusal to nominate or refill vacancies can functionally disable a congressionally created agency while bypassing formal repeal; and
+5. whether some bodies require agency-specific remedies because of election administration, labor rights, civil service adjudication, civil-rights enforcement, consumer safety, privacy/civil-liberties oversight, campaign-finance enforcement, central banking, or other statutory functions.
 
 ## Catalog
 
@@ -78,6 +79,7 @@ These rows are comparator leads. They help identify what protected a targeted of
 
 - Removal letters, resignation letters, and White House notices for each agency.
 - Agency commissioner rosters before and after each action.
+- Nomination history, vacancy duration, acting-service arrangements, and evidence of refusal or failure to refill seats after removals, resignations, or term expirations.
 - Statutory removal provisions, quorum provisions, holdover provisions, party-balance provisions, pretermination-process provisions, and term lengths.
 - Docket records for NLRB, MSPB, FTC, CPSC, EEOC, FEC, and any later EAC litigation.
 - Congressional, Inspector General, or agency records showing operational impact.
