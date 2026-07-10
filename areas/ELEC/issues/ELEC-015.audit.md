@@ -60,6 +60,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Pre-2010 source expansion:** Added official FEC federal-results values for the requested pre-2010 extension. The 2006 row now preserves a federal-only official baseline for U.S. Senate, CD-1, and CD-2 while noting that Governor figures were located only through a secondary state-tabulation mirror pending a direct state archive or trusted dataset source. The 2008 presidential-year general row was added from FEC official presidential results and plotted in the presidential-year series.
 
+**Primary-turnout baseline correction:** Added FEC-backed 2006, 2008, and 2010 regular-primary turnout proxies to the Maine source table and graph. The 2006 and 2008 points use statewide U.S. Senate primary votes; the 2010 point uses statewide-summed U.S. House primary votes because no statewide U.S. Senate contest was held.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
