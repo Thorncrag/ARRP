@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="680" viewBox="0 0 1000 680" role="img" aria-labelledby="title desc">
-  <title id="title">Maine RCV participation trend by election type</title>
-  <desc id="desc">Two line charts separating regular primaries, general elections, and the presidential primary so unlike election types are not connected into one trend line.</desc>
+  <title id="title">Maine RCV participation trend by election series</title>
+  <desc id="desc">Two line charts separating regular primaries, midterm general elections, presidential-year general elections, and the presidential primary so unlike election environments are not connected into one trend line.</desc>
   <rect width="1000" height="680" fill="#ffffff"/>
-  <text x="80" y="38" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#1f2937">Maine Election Participation Trend by Election Type</text>
-  <text x="80" y="62" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Regular primaries, general elections, and the presidential primary are shown as separate series.</text>
+  <text x="80" y="38" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#1f2937">Maine Election Participation Trend by Election Series</text>
+  <text x="80" y="62" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Regular primaries, midterm generals, presidential-year generals, and the presidential primary are shown separately.</text>
 
   <line x1="80" y1="300" x2="930" y2="300" stroke="#d1d5db" stroke-width="1"/>
   <line x1="80" y1="256" x2="930" y2="256" stroke="#e5e7eb" stroke-width="1"/>
@@ -21,12 +21,16 @@
   <text x="52" y="84" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">5</text>
 
   <polyline fill="none" stroke="#2563eb" stroke-width="3" points="80.0,175.5 201.4,245.0 322.9,245.0 444.3,184.3 565.7,226.5 687.1,237.1 808.6,241.5 930.0,154.8"/>
-  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="444.3,124.0 565.7,80.0 687.1,124.0 808.6,146.0"/>
+  <polyline fill="none" stroke="#16a34a" stroke-width="3" points="444.3,124.0 687.1,124.0"/>
+  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="565.7,80.0 808.6,146.0"/>
   <g fill="#2563eb">
     <circle cx="80.0" cy="175.5" r="4"/><circle cx="201.4" cy="245.0" r="4"/><circle cx="322.9" cy="245.0" r="4"/><circle cx="444.3" cy="184.3" r="4"/><circle cx="565.7" cy="226.5" r="4"/><circle cx="687.1" cy="237.1" r="4"/><circle cx="808.6" cy="241.5" r="4"/><circle cx="930.0" cy="154.8" r="4"/>
   </g>
+  <g fill="#16a34a">
+    <circle cx="444.3" cy="124.0" r="4"/><circle cx="687.1" cy="124.0" r="4"/>
+  </g>
   <g fill="#dc2626">
-    <circle cx="444.3" cy="124.0" r="4"/><circle cx="565.7" cy="80.0" r="4"/><circle cx="687.1" cy="124.0" r="4"/><circle cx="808.6" cy="146.0" r="4"/>
+    <circle cx="565.7" cy="80.0" r="4"/><circle cx="808.6" cy="146.0" r="4"/>
   </g>
   <rect x="802.6" y="140.0" width="12" height="12" fill="#7c3aed" transform="rotate(45 808.6 146.0)"/>
 
@@ -45,12 +49,16 @@
   <text x="24" y="418" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">800k</text>
 
   <polyline fill="none" stroke="#2563eb" stroke-width="3" points="80.0,577.3 201.4,578.9 322.9,585.9 444.3,552.7 565.7,543.4 687.1,575.8 808.6,573.5 930.0,521.9"/>
-  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="444.3,537.6 565.7,407.5 687.1,531.1 808.6,404.1"/>
+  <polyline fill="none" stroke="#16a34a" stroke-width="3" points="444.3,537.6 687.1,531.1"/>
+  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="565.7,407.5 808.6,404.1"/>
   <g fill="#2563eb">
     <circle cx="80.0" cy="577.3" r="4"/><circle cx="201.4" cy="578.9" r="4"/><circle cx="322.9" cy="585.9" r="4"/><circle cx="444.3" cy="552.7" r="4"/><circle cx="565.7" cy="543.4" r="4"/><circle cx="687.1" cy="575.8" r="4"/><circle cx="808.6" cy="573.5" r="4"/><circle cx="930.0" cy="521.9" r="4"/>
   </g>
+  <g fill="#16a34a">
+    <circle cx="444.3" cy="537.6" r="4"/><circle cx="687.1" cy="531.1" r="4"/>
+  </g>
   <g fill="#dc2626">
-    <circle cx="444.3" cy="537.6" r="4"/><circle cx="565.7" cy="407.5" r="4"/><circle cx="687.1" cy="531.1" r="4"/><circle cx="808.6" cy="404.1" r="4"/>
+    <circle cx="565.7" cy="407.5" r="4"/><circle cx="808.6" cy="404.1" r="4"/>
   </g>
   <rect x="802.6" y="559.4" width="12" height="12" fill="#7c3aed" transform="rotate(45 808.6 565.4)"/>
 
@@ -65,6 +73,7 @@
     <text x="930.0" y="632" text-anchor="middle">2026</text>
   </g>
   <line x1="80" y1="646" x2="94" y2="646" stroke="#2563eb" stroke-width="3"/><text x="102" y="650" font-family="Arial, sans-serif" font-size="11" fill="#374151">Regular primaries</text>
-  <line x1="230" y1="646" x2="244" y2="646" stroke="#dc2626" stroke-width="3"/><text x="252" y="650" font-family="Arial, sans-serif" font-size="11" fill="#374151">General elections</text>
-  <rect x="397" y="641" width="10" height="10" fill="#7c3aed" transform="rotate(45 402 646)"/><text x="418" y="650" font-family="Arial, sans-serif" font-size="11" fill="#374151">Presidential primary</text>
+  <line x1="230" y1="646" x2="244" y2="646" stroke="#16a34a" stroke-width="3"/><text x="252" y="650" font-family="Arial, sans-serif" font-size="11" fill="#374151">Midterm generals</text>
+  <line x1="380" y1="646" x2="394" y2="646" stroke="#dc2626" stroke-width="3"/><text x="402" y="650" font-family="Arial, sans-serif" font-size="11" fill="#374151">Presidential-year generals</text>
+  <rect x="580" y="641" width="10" height="10" fill="#7c3aed" transform="rotate(45 585 646)"/><text x="600" y="650" font-family="Arial, sans-serif" font-size="11" fill="#374151">Presidential primary</text>
 </svg>

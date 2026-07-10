@@ -30,23 +30,23 @@ This file compares Maine election events using official Maine Secretary of State
 
 ## Normalized Trend Table
 
-| Election event | Type | Office bucket | RCV exposure | Extracted contests | Total candidates | Candidates per contest | Turnout measure |
+| Election event | Trend series | Office bucket | RCV exposure | Extracted contests | Total candidates | Candidates per contest | Turnout measure |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: |
-| 2012-06-12 Primary Election | Primary | Federal primary contests | Non-RCV | 6 | 17 | 2.83 | 133,915 |
-| 2014-06-10 Primary Election | Primary | Federal/statewide primary contests | Non-RCV | 8 | 10 | 1.25 | 127,398 |
-| 2016-06-14 Primary Election | Primary | U.S. House primary contests | Non-RCV | 4 | 5 | 1.25 | 98,776 |
-| 2018-06-12 Primary Election | Primary | Federal/statewide primary contests | RCV mixed | 8 | 21 | 2.63 | 234,380 |
-| 2018-11-06 General Election | General | CD-2 general contest | RCV activated | 1 | 4 | 4.00 | 296,077 |
-| 2020-07-14 Primary Election | Primary | Federal primary contests | RCV mixed | 6 | 10 | 1.67 | 272,325 |
-| 2020-11-03 General Election | General | Presidential general contest | RCV available for federal offices | 1 | 5 | 5.00 | 828,305 |
-| 2022-06-14 Primary Election | Primary | Federal/statewide and State Senate District 16 contests | RCV mixed | 7 | 10 | 1.43 | 139,995 |
-| 2022-11-08 General Election | General | CD-2 general contest | RCV activated | 1 | 4 | 4.00 | 322,778 |
+| 2012-06-12 Primary Election | Regular primary | Federal primary contests | Non-RCV | 6 | 17 | 2.83 | 133,915 |
+| 2014-06-10 Primary Election | Regular primary | Federal/statewide primary contests | Non-RCV | 8 | 10 | 1.25 | 127,398 |
+| 2016-06-14 Primary Election | Regular primary | U.S. House primary contests | Non-RCV | 4 | 5 | 1.25 | 98,776 |
+| 2018-06-12 Primary Election | Regular primary | Federal/statewide primary contests | RCV mixed | 8 | 21 | 2.63 | 234,380 |
+| 2018-11-06 General Election | Midterm general | CD-2 general contest | RCV activated | 1 | 4 | 4.00 | 296,077 |
+| 2020-07-14 Primary Election | Regular primary | Federal primary contests | RCV mixed | 6 | 10 | 1.67 | 272,325 |
+| 2020-11-03 General Election | Presidential-year general | Presidential general contest | RCV available for federal offices | 1 | 5 | 5.00 | 828,305 |
+| 2022-06-14 Primary Election | Regular primary | Federal/statewide and State Senate District 16 contests | RCV mixed | 7 | 10 | 1.43 | 139,995 |
+| 2022-11-08 General Election | Midterm general | CD-2 general contest | RCV activated | 1 | 4 | 4.00 | 322,778 |
 | 2024-03-05 Presidential Primary Election | Presidential primary | Presidential party primaries | Non-RCV | 2 | 7 | 3.50 | 182,378 |
-| 2024-06-11 State Primary Election | Primary | Federal primary contests | Non-RCV in extracted contests | 6 | 8 | 1.33 | 149,165 |
-| 2024-11-05 General Election | General | Presidential and CD-2 first-choice files | RCV available for federal offices | 2 | 7 | 3.50 | 842,447 |
-| 2026-06-09 Primary Election | Primary | Federal/statewide and RCV district contests | RCV mixed | 10 | 33 | 3.30 | 360,386 |
+| 2024-06-11 State Primary Election | Regular primary | Federal primary contests | Non-RCV in extracted contests | 6 | 8 | 1.33 | 149,165 |
+| 2024-11-05 General Election | Presidential-year general | Presidential and CD-2 first-choice files | RCV available for federal offices | 2 | 7 | 3.50 | 842,447 |
+| 2026-06-09 Primary Election | Regular primary | Federal/statewide and RCV district contests | RCV mixed | 10 | 33 | 3.30 | 360,386 |
 
-The graph separates regular primaries, general elections, and the presidential primary so unlike election types are not connected into one trend line.
+The graph separates regular primaries, midterm general elections, presidential-year general elections, and the presidential primary so unlike election environments are not connected into one trend line.
 
 ![Maine RCV participation trend](ELEC-015-maine-rcv-trend.svg)
 

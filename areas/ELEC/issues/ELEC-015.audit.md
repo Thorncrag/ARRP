@@ -38,6 +38,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Election-type split update:** Revised the Maine trend graph so regular primaries, general elections, and the presidential primary appear as separate series rather than one blended line. This avoids comparing unlike election types as if they were a single continuous trend.
 
+**Midterm/presidential-cycle split update:** Further separated the Maine general-election series into midterm generals and presidential-year generals. The normalized table now labels each row by trend series so presidential-cycle turnout effects are not blended with midterm general-election participation.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
