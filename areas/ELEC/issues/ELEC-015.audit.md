@@ -64,6 +64,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Tentative conclusion and evidence-pivot update:** Added a cautious working conclusion that Maine election-result data does not presently show a clear RCV-linked increase in candidate participation or alternative vote expression. The regular-primary turnout increase after 2018 is preserved as a possible signal, but the source page now flags the overlap with the first Trump-era midterm as a major confounder. The next source-development pass should shift from election-result reduction toward voter sentiment, voter comprehension, ballot-completion experience, and voter-reported candidate-choice effects.
 
+**Issue-page skepticism update:** Added the current Maine working conclusion to the issue page itself. The update is limited to evidence gathered so far: Maine's record does not presently show a clear increase in candidate participation, alternative vote expression, or third-party/independent electoral success; the post-2018 primary-turnout signal is confounded by the first Trump-era midterm; and the absence of third-party or independent winners in the gathered Maine RCV record is relevant evidence against the strongest two-party-disruption claim.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
