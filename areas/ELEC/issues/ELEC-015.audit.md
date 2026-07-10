@@ -72,6 +72,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Upstream-bottleneck framing update:** Added issue-page language clarifying that RCV should not be treated as the primary repair for two-party dominance on the current evidence. If the goal is non-D/R viability, the more direct repairs likely occur before tabulation through ballot access, debate access, party-recognition rules, fundraising, media visibility, primary structure, voter viability beliefs, and district design. ELEC-015 now owns the downstream vote-counting question, while upstream candidate-competition and representation-structure reforms remain primarily with ELEC-013 and ELEC-011.
 
+**Inline research-citation correction:** Added nearby body citations in the Current Evidence Synthesis section for the MIT Election Lab, FairVote, New America, Electoral Studies, American Journal of Political Science, and Graham-Squire/McCune RCV sources, rather than relying only on Source Notes.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
