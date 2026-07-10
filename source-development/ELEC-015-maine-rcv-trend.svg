@@ -3,36 +3,34 @@
   <desc id="desc">Two line charts separating regular primaries, midterm general elections, presidential-year general elections, and the presidential primary so unlike election environments are not connected into one trend line.</desc>
   <rect width="1000" height="680" fill="#ffffff"/>
   <text x="80" y="38" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#1f2937">Maine Election Participation Trend by Election Series</text>
-  <text x="80" y="62" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Regular primaries, midterm generals, presidential-year generals, and the presidential primary are shown separately.</text>
+  <text x="80" y="62" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Pre-RCV general-election baselines are included for presidential-year and midterm series.</text>
 
   <line x1="80" y1="300" x2="930" y2="300" stroke="#d1d5db" stroke-width="1"/>
-  <line x1="80" y1="256" x2="930" y2="256" stroke="#e5e7eb" stroke-width="1"/>
-  <line x1="80" y1="212" x2="930" y2="212" stroke="#e5e7eb" stroke-width="1"/>
-  <line x1="80" y1="168" x2="930" y2="168" stroke="#e5e7eb" stroke-width="1"/>
-  <line x1="80" y1="124" x2="930" y2="124" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="80" y1="245" x2="930" y2="245" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="80" y1="190" x2="930" y2="190" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="80" y1="135" x2="930" y2="135" stroke="#e5e7eb" stroke-width="1"/>
   <line x1="80" y1="80" x2="930" y2="80" stroke="#e5e7eb" stroke-width="1"/>
   <line x1="80" y1="80" x2="80" y2="300" stroke="#d1d5db" stroke-width="1"/>
   <text x="80" y="102" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Candidates per extracted contest</text>
   <text x="52" y="304" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">0</text>
-  <text x="52" y="260" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">1</text>
-  <text x="52" y="216" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">2</text>
-  <text x="52" y="172" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">3</text>
-  <text x="52" y="128" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">4</text>
-  <text x="52" y="84" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">5</text>
+  <text x="52" y="249" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">2</text>
+  <text x="52" y="194" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">4</text>
+  <text x="52" y="139" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">6</text>
+  <text x="52" y="84" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">8</text>
 
-  <polyline fill="none" stroke="#2563eb" stroke-width="3" points="80.0,175.5 201.4,245.0 322.9,245.0 444.3,184.3 565.7,226.5 687.1,237.1 808.6,241.5 930.0,154.8"/>
-  <polyline fill="none" stroke="#16a34a" stroke-width="3" points="444.3,124.0 687.1,124.0"/>
-  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="565.7,80.0 808.6,146.0"/>
+  <polyline fill="none" stroke="#2563eb" stroke-width="3" points="80.0,222.2 201.4,265.6 322.9,265.6 444.3,227.7 565.7,254.1 687.1,260.7 808.6,263.4 930.0,209.2"/>
+  <polyline fill="none" stroke="#16a34a" stroke-width="3" points="201.4,217.5 444.3,190.0 687.1,190.0"/>
+  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="80.0,107.5 322.9,80.0 565.7,162.5 808.6,203.8"/>
   <g fill="#2563eb">
-    <circle cx="80.0" cy="175.5" r="4"/><circle cx="201.4" cy="245.0" r="4"/><circle cx="322.9" cy="245.0" r="4"/><circle cx="444.3" cy="184.3" r="4"/><circle cx="565.7" cy="226.5" r="4"/><circle cx="687.1" cy="237.1" r="4"/><circle cx="808.6" cy="241.5" r="4"/><circle cx="930.0" cy="154.8" r="4"/>
+    <circle cx="80.0" cy="222.2" r="4"/><circle cx="201.4" cy="265.6" r="4"/><circle cx="322.9" cy="265.6" r="4"/><circle cx="444.3" cy="227.7" r="4"/><circle cx="565.7" cy="254.1" r="4"/><circle cx="687.1" cy="260.7" r="4"/><circle cx="808.6" cy="263.4" r="4"/><circle cx="930.0" cy="209.2" r="4"/>
   </g>
   <g fill="#16a34a">
-    <circle cx="444.3" cy="124.0" r="4"/><circle cx="687.1" cy="124.0" r="4"/>
+    <circle cx="201.4" cy="217.5" r="4"/><circle cx="444.3" cy="190.0" r="4"/><circle cx="687.1" cy="190.0" r="4"/>
   </g>
   <g fill="#dc2626">
-    <circle cx="565.7" cy="80.0" r="4"/><circle cx="808.6" cy="146.0" r="4"/>
+    <circle cx="80.0" cy="107.5" r="4"/><circle cx="322.9" cy="80.0" r="4"/><circle cx="565.7" cy="162.5" r="4"/><circle cx="808.6" cy="203.8" r="4"/>
   </g>
-  <rect x="802.6" y="140.0" width="12" height="12" fill="#7c3aed" transform="rotate(45 808.6 146.0)"/>
+  <rect x="802.6" y="197.8" width="12" height="12" fill="#7c3aed" transform="rotate(45 808.6 203.8)"/>
 
   <line x1="80" y1="610" x2="930" y2="610" stroke="#d1d5db" stroke-width="1"/>
   <line x1="80" y1="561.1" x2="930" y2="561.1" stroke="#e5e7eb" stroke-width="1"/>
@@ -49,16 +47,16 @@
   <text x="24" y="418" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">800k</text>
 
   <polyline fill="none" stroke="#2563eb" stroke-width="3" points="80.0,577.3 201.4,578.9 322.9,585.9 444.3,552.7 565.7,543.4 687.1,575.8 808.6,573.5 930.0,521.9"/>
-  <polyline fill="none" stroke="#16a34a" stroke-width="3" points="444.3,537.6 687.1,531.1"/>
-  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="565.7,407.5 808.6,404.1"/>
+  <polyline fill="none" stroke="#16a34a" stroke-width="3" points="201.4,537.9 444.3,537.6 687.1,531.1"/>
+  <polyline fill="none" stroke="#dc2626" stroke-width="3" points="80.0,432.8 322.9,421.3 565.7,407.5 808.6,404.1"/>
   <g fill="#2563eb">
     <circle cx="80.0" cy="577.3" r="4"/><circle cx="201.4" cy="578.9" r="4"/><circle cx="322.9" cy="585.9" r="4"/><circle cx="444.3" cy="552.7" r="4"/><circle cx="565.7" cy="543.4" r="4"/><circle cx="687.1" cy="575.8" r="4"/><circle cx="808.6" cy="573.5" r="4"/><circle cx="930.0" cy="521.9" r="4"/>
   </g>
   <g fill="#16a34a">
-    <circle cx="444.3" cy="537.6" r="4"/><circle cx="687.1" cy="531.1" r="4"/>
+    <circle cx="201.4" cy="537.9" r="4"/><circle cx="444.3" cy="537.6" r="4"/><circle cx="687.1" cy="531.1" r="4"/>
   </g>
   <g fill="#dc2626">
-    <circle cx="565.7" cy="407.5" r="4"/><circle cx="808.6" cy="404.1" r="4"/>
+    <circle cx="80.0" cy="432.8" r="4"/><circle cx="322.9" cy="421.3" r="4"/><circle cx="565.7" cy="407.5" r="4"/><circle cx="808.6" cy="404.1" r="4"/>
   </g>
   <rect x="802.6" y="559.4" width="12" height="12" fill="#7c3aed" transform="rotate(45 808.6 565.4)"/>
 

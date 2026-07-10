@@ -40,6 +40,8 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Midterm/presidential-cycle split update:** Further separated the Maine general-election series into midterm generals and presidential-year generals. The normalized table now labels each row by trend series so presidential-cycle turnout effects are not blended with midterm general-election participation.
 
+**General-baseline correction:** Added missing pre-RCV general-election baselines after checking the split-series graph. The presidential-year general series now includes 2012 and 2016 statewide presidential general-election rows, and the midterm general series now includes a 2014 CD-2 general-election row. The graph was rescaled and replotted so general-election series are no longer only two-point post-RCV lines.
+
 **Score effect:** No score change and no audit-count increment. ELEC-015 remains a candidate fixed at 0/100 pending broader Maine/Alaska/D.C. source development, remedy selection, and draft proposal text.
 
 ### 2026-07-09 — Development Note: Candidate-and-Voter-Participation Comparative Analysis
