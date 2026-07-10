@@ -11,6 +11,8 @@ This catalog tracks reported removals, attempted removals, resignation demands, 
 
 The catalog distinguishes the mechanism reported in public sources because "fired," "attempted removal," "resignation requested," "resigned," "vacancy left unfilled," and "quorum collapse" are different institutional facts. Publication-ready use should verify each row against removal letters, resignation letters, agency records, Senate records, statutory removal provisions, docket filings, and final court orders.
 
+The functional-disablement question is central to the catalog. Summary removal becomes most threatening when it permits the President to leave a congressionally created agency without quorum, without enough members to adjudicate or enforce, or without the bipartisan/staggered structure Congress enacted. The catalog therefore tracks whether each episode merely changed personnel or also disabled statutory capacity.
+
 ## Working Read
 
 The pattern is broader than the July 2026 Election Assistance Commission episode. Before *Trump v. Slaughter*, public reporting already described removals or attempted removals at the NLRB, MSPB, EEOC, FTC, CPSC, FEC, FLRA, and PCLOB. After *Slaughter*, the EAC episode appears to be a post-decision election-administration manifestation of the same independent-commission vulnerability.
