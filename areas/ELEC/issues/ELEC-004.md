@@ -45,7 +45,7 @@ The institutional problem is not the availability of election challenges. The pr
 
 ## Manifestations of the Failure
 
-The working source-development table for civil suits, Voting Section letters, administrative requests, information-sharing proposals, noncriminal subpoenas, voter-data lawsuits, and state-election-record demands is the [ELEC-004 Civil Process and State Election Records Catalog](../../../source-development/ELEC-004-civil-process-catalog.md). Federal criminal process is tracked separately in [ELEC-014](ELEC-014.md).
+The working source-development table for civil suits, Voting Section letters, administrative requests, information-sharing proposals, noncriminal subpoenas, voter-data lawsuits, and state-election-record demands is the [ELEC-004 Civil Process and State Election Records Catalog](../../../source-development/ELEC-004-civil-process-catalog.md), maintained through [GitHub sub-issue #241](https://github.com/Thorncrag/ARRP/issues/241). Federal criminal process is tracked separately in [ELEC-014](ELEC-014.md).
 
 ### Recurring pre-election or pre-deadline process abuse
 

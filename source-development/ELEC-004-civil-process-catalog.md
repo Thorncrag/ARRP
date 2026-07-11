@@ -7,6 +7,8 @@ print_levels:
 
 # ELEC-004 Civil Process and State Election Records Catalog
 
+> **Maintenance tracking:** [GitHub sub-issue #241](https://github.com/Thorncrag/ARRP/issues/241) under [ELEC-004 issue #32](https://github.com/Thorncrag/ARRP/issues/32). Review at least quarterly and upon the event predicates stated in the monitoring issue.
+
 This catalog supports [ELEC-004](../areas/ELEC/issues/ELEC-004.md). It records civil litigation, Voting Section letters, administrative requests, information-sharing proposals, noncriminal subpoenas, voter-data lawsuits, and state-election-record demands that may burden election administration, expose sensitive election material, or create public uncertainty without operating as criminal process.
 
 This catalog is factual and source-development oriented. It does not decide motive, partisan purpose, legality, or legitimacy. Those judgments require primary letters, complaints, orders, state responses, protective-order materials, privacy objections, and federalism arguments.
