@@ -8,9 +8,11 @@ print_levels:
 
 - `sources.csv` — source records associated with issues, areas, or project-level records
 
-GitHub Projects is the authoritative structured tracker for areas, issues, lifecycle status, milestones, roadmap tasks, workstreams, canonical-page links, and horizon-queue status. Issue pages and sibling audit-history files are authoritative for proposal scoring and audit rationale. This directory retains only the structured CSV records that are still useful as local source inventories.
+GitHub Projects is the authoritative structured tracker for areas, issues, lifecycle status, milestones, roadmap tasks, workstreams, canonical-page links, and horizon-queue status. Issue pages and sibling audit-history files are authoritative for proposal scoring and audit rationale. This directory retains structured CSV records that remain useful as local source and navigation inventories.
 
-The historical GitHub import ledger, [`github_issue_import.csv`](github_issue_import.csv), is retained only to preserve migration provenance. Columns prefixed with `Legacy` preserve the values used during the original import and should not be treated as current workflow metadata. It is not the live area, issue, priority, status, label, or release-blocker tracker. Current values belong in GitHub Project fields.
+The GitHub issue registry, [`github_issue_registry.csv`](github_issue_registry.csv), is the repository-side list of all GitHub issues. It preserves stable navigation data for each issue: GitHub number and URL, project object ID where one exists, kind, title, canonical repository record, and native parent issue. Keep it synchronized when an issue is created, renamed, reclassified, assigned a canonical record, or attached to a different parent. It may be used to generate a project table of contents or other navigation surfaces.
+
+The registry is not the live lifecycle, priority, label, score, audit, or release-blocker tracker. Those values belong in GitHub Project fields and must not be copied into the registry as parallel metadata.
 
 GitHub Project fields summarize audit posture for meta-analysis and should be refreshed whenever an audit changes issue score, status band, run count, last audit type and date, next audit need, issue link, area, priority, rebaseline status, change-audit need, or release posture. Detailed audit fields remain in issue pages and issue audit histories.
 

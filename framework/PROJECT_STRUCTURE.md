@@ -25,7 +25,7 @@ areas/                             One directory per project area
     issues/
       DOJ-001.md                   Developed issue analysis
 legislation/                       Proposed statutory language keyed to issue ID
-inventory/                         Structured source inventory and import ledgers
+inventory/                         Structured source and GitHub issue registries
 research/                          Research notes not yet integrated
 exports/                           Generated DOCX, PDF, and XLSX outputs
 archive/                           Superseded or migrated source snapshots

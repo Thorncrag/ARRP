@@ -59,6 +59,8 @@ A living repository surface may receive a maintenance sub-issue when it has a ge
 
 For the current public-release workflow, `Pre-publication final audit` and `Pre-publication technical` are the parent governance issues. Their detailed work should remain attached through GitHub native sub-issues so the Project board can stay compact while preserving task detail.
 
-## Import Ledger
+## Issue Registry
 
-The proposal-to-GitHub migration ledger is maintained at [`inventory/github_issue_import.csv`](../inventory/github_issue_import.csv). It is a historical import/audit aid, not the live workflow tracker. Rows marked `created` have a GitHub issue URL. Rows marked `pending` still need individual GitHub tracking issues created and Project fields populated under the current field model. Legacy columns such as suggested labels should not be treated as current label policy.
+The repository-side list of all GitHub issues is maintained at [`inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv). Add or update a row whenever an issue is created, renamed, reclassified, assigned a canonical record, or attached to a different native parent. The registry supplies stable issue-to-record relationships for navigation and future table-of-contents generation.
+
+Do not place live status, priority, labels, scores, audit fields, or release posture in the registry. GitHub Project fields remain authoritative for those values. Creating an issue is incomplete until its registry row and required Project fields both read back correctly.
