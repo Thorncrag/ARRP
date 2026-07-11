@@ -30,20 +30,20 @@ REG-001 should use this catalog to separate six questions:
 
 ### Tier One: Congressionally Intended Independence
 
-The table combines every tracked removal, attempted removal, resignation demand, and vacancy-collapse episode so the actions and institutional effects can be compared directly. Rows are ordered by outcome: effective or apparently unprotected actions first, contested or temporarily protected actions next, and surviving interim protection last. "Protected" is used only for protection actually reflected in the current record; unresolved litigation is not treated as ultimate protection.
+The table is a snapshot of every tracked removal, attempted removal, resignation demand, and vacancy-collapse episode. Rows are ordered by outcome: effective or apparently unprotected actions first, contested or temporarily protected actions next, and surviving interim protection last. The source links jump to the supporting annotation and citations below.
 
-| Outcome class | Date | Agency | Officials affected | Action | Protection or final-status note | Operational effect | Routing | Sources |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Effective / protection abandoned | 2025-01 / 2026 follow-up reporting | EEOC (Equal Employment Opportunity Commission) | Charlotte Burrows and Jocelyn Samuels | Removal before terms expired; later lawsuit withdrawal | Lawsuit withdrawal after *Slaughter* suggests protection no longer viable or no longer pursued; verify dismissal posture | Civil-rights enforcement independence and policy direction affected | Track as civil-rights independent-commission removal; verify litigation and final agency composition | [1] |
-| Effective / protection unverified | 2025-02 | FLRA (Federal Labor Relations Authority) | Susan Tsui Grundmann | Removal from chair/member role reported | Statutory and litigation posture still needs primary verification | Federal labor-relations oversight disruption lead | Add to labor-board removal sequence; verify agency/statutory posture | [2] |
-| Effective after constitutional ruling | 2025-03-18 | FTC (Federal Trade Commission) | Alvaro Bedoya and Rebecca Kelly Slaughter | Removal; *Trump v. Slaughter* test case | For-cause removal protection held unconstitutional in *Slaughter* for FTC commissioners | Loss of Democratic commissioners; removal-power doctrine vehicle | Central REG-001 manifestation and doctrinal source path | [3] |
-| Effective vacancy collapse / protection unresolved | 2026-07-10 | EAC (Election Assistance Commission) | Thomas Hicks and Benjamin Hovland removed; Christy McCormick resigned; Donald Palmer had already stepped down | Removal plus resignation and preexisting vacancy | Post-*Slaughter* protection status uncertain; HAVA structure, party-balance, holdover, quorum, and removal provisions need primary review | Four-member EAC left without commissioners; election-administration support functions implicated | REG-001 primary; cross-reference ELEC-001 and ELEC-013 for election-administration and HAVA/candidate-access implications | [4] |
-| Contested / no settled protection | 2025-02-06 to 2025-02-07 | FEC (Federal Election Commission) | Ellen Weintraub | Purported removal / contested removal; later quorum loss also reported after resignations | FEC holdover and replacement structure should be verified; Weintraub disputed removal legality | Campaign-finance enforcement and advisory-opinion capacity affected by quorum loss | Cross-reference ELEC-012 and ELEC-013 where FEC enforcement or debate-rule administration matters | [8], [9] |
-| Temporarily protected / operational impairment remained | 2025-01-20 to 2025-01-28 reporting | PCLOB (Privacy and Civil Liberties Oversight Board) | Chair Sharon Bradford Franklin, Edward Felten, and Travis LeBlanc | Resignation demand followed by reported terminations | District-court relief later protected Felten and LeBlanc temporarily; appellate/Supreme Court posture must be verified | Board reportedly left without quorum and impaired oversight capacity | Track as resignation-demand, removal, and quorum-collapse lead; verify removal notices and later appellate posture | [5] |
-| Protection litigated / final posture unverified | 2025-01-27 / 2025-02-05 reporting | NLRB (National Labor Relations Board) | Gwynne Wilcox; related removal of General Counsel Jennifer Abruzzo | Removal; Wilcox sued | Statutory protection reportedly limits member removal to neglect of duty or malfeasance after notice and hearing; litigation tested that protection | NLRB reportedly fell below quorum for board decisions | Core pre-*Slaughter* removal test involving labor-board independence | [6] |
-| Temporarily protected / final posture unverified | 2025-02 | MSPB (Merit Systems Protection Board) | Cathy Harris; another Democratic member reportedly demoted | Removal / demotion; litigation and reinstatement orders followed | District-court relief temporarily protected continued service; later appellate/Supreme Court posture must be verified | Threatened civil-service appeals-board independence during federal workforce reductions | Track with NLRB as pre-*Slaughter* litigation path; verify docket records | [7] |
-| Temporarily protected / final posture unverified | 2025-05-09 | CPSC (Consumer Product Safety Commission) | Alexander Hoehn-Saric, Mary T. Boyle, and Richard Trumka Jr. | Removal; district-court reinstatement order later blocked or litigated | For-cause statutory protection initially supported district-court relief; later emergency/appellate posture must be verified after *Slaughter* | Bipartisan consumer-safety commission reduced to Republican members; agency-dismantling context reported | Track the removals under REG-001 Tier One and any operational dismantling under REG-001 Tier Two | [10], [11] |
-| Protected at interim stage | 2026-06-29 | FRB (Federal Reserve Board) | Lisa Cook | Attempted removal / stay application denied | *Trump v. Cook* protected continued service at the interim stage because the Court treated the Federal Reserve as historically distinct and emphasized statutory pretermination process | Fed-specific independence preserved as a contrast case, not a generic independent-agency safe harbor | Primary home is FRB-002; REG-001 uses *Cook* as the key comparator showing what protected the Fed differently from FTC-style agencies | [12] |
+| Date | Agency | Action | Outcome / effect | Sources |
+| --- | --- | --- | --- | --- |
+| 2025-01 | EEOC (Equal Employment Opportunity Commission) | Premature removals | Effective; later challenge withdrawn | [1](#t1-eeoc) |
+| 2025-02 | FLRA (Federal Labor Relations Authority) | Member removal | Effective; protection unverified | [2](#t1-flra) |
+| 2025-03-18 | FTC (Federal Trade Commission) | Two commissioner removals | Effective after *Slaughter* | [3](#t1-ftc) |
+| 2026-07-10 | EAC (Election Assistance Commission) | Removals plus vacancies | Commission left without members | [4](#t1-eac) |
+| 2025-02 | FEC (Federal Election Commission) | Purported removal | Contested; later quorum loss | [5](#t1-fec) |
+| 2025-01 | PCLOB (Privacy and Civil Liberties Oversight Board) | Resignation demands and terminations | Temporary relief; quorum impairment remained | [6](#t1-pclob) |
+| 2025-01 | NLRB (National Labor Relations Board) | Member removal | Protection litigated; quorum lost | [7](#t1-nlrb) |
+| 2025-02 | MSPB (Merit Systems Protection Board) | Removal and demotion | Temporary relief; final posture unverified | [8](#t1-mspb) |
+| 2025-05-09 | CPSC (Consumer Product Safety Commission) | Three commissioner removals | Temporary relief; later posture unresolved | [9](#t1-cpsc) |
+| 2026-06-29 | FRB (Federal Reserve Board) | Attempted governor removal | Protected at interim stage | [10](#t1-frb) |
 
 ### Tier Two: Fundamental Repurposing or Functional Disablement
 
@@ -51,51 +51,78 @@ These rows track reported attempts affecting executive-controlled institutions o
 
 Where DOGE/USDS or another repurposed cross-agency unit is the mechanism, this catalog records the effect on the target institution; [CIV-009](../areas/CIV/README.md) separately owns the unit's authority, appointments, delegations, systems access, privacy, records, procurement, appropriations, and oversight design. Cross-reference both only when the evidence supports both defects.
 
-| Date | Institution or function | Congressional design at issue | Reported executive action | Authority or protection issue | Potential functional effect | Current assessment and routing | Sources |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 2025-03 onward | ED (Department of Education) | Cabinet department and statutory education, civil-rights, student-aid, data, grant, and oversight functions established or assigned by Congress | Executive Order 14242 directed steps to facilitate departmental closure and return authority to states; the Department announced a substantial reduction in force | The order acknowledges that closure steps must be consistent with law, while abolition or transfer of statutory duties generally requires congressional authority; litigation challenges the operational measures | Reduced staffing, office capacity, grant administration, civil-rights enforcement, student-aid administration, data functions, and ability to perform duties Congress assigned | Prime Tier Two example. Verify function-by-function capacity and distinguish lawful policy change or authorized transfer from substantial and sustained statutory disablement | [13], [14], [15] |
-| 2025-01 onward | USAID (U.S. Agency for International Development) and congressionally funded foreign-assistance functions | Statutorily created foreign-assistance agency architecture, appropriated programs, and duties allocated among USAID, the Department of State, and other entities | Reporting described stop-work and funding actions, major program terminations, personnel reductions, and moves to absorb or dismantle USAID | Source development must test the Foreign Assistance Act, appropriations, transfer and reorganization authority, congressional-notice requirements, impoundment law, and litigation | Possible loss or transfer of program administration, overseas capacity, contract and grant performance, humanitarian operations, and institutional continuity | Strong Tier Two lead, but current catalog evidence is secondary. Verify official directives, congressional records, GAO and inspector-general findings, appropriations treatment, and final court posture | [16], [17] |
-| 2025-02 onward | CFPB (Consumer Financial Protection Bureau) | Dodd-Frank consumer-protection, supervision, enforcement, rulemaking, complaint-intake, research, and public-information functions | Acting leadership reportedly ordered broad stop-work measures, building closure, restrictions on supervision and enforcement, personnel actions, and limits on funding activity | CFPB is a bridge case: presidential removal control and lawful priority setting coexist with statutory duties, independent funding, records obligations, and judicial review of alleged dismantling | Possible suspension of complaint intake, supervision, investigations, enforcement, rulemaking, records, and other legally required work | Track operational disablement here under Tier Two; retain funding design in REG-007 and enforcement or legal-position choices in REG-002 and REG-006 | [18], [19] |
+| Date | Institution | Reported action | Snapshot | Sources |
+| --- | --- | --- | --- | --- |
+| 2025-03 onward | ED (Department of Education) | Closure directive and major RIF | Prime Tier Two repurposing/disablement test | [11](#t2-ed) |
+| 2025-01 onward | USAID (U.S. Agency for International Development) | Stop-work, terminations, reductions, and absorption | Strong lead; primary verification incomplete | [12](#t2-usaid) |
+| 2025-02 onward | CFPB (Consumer Financial Protection Bureau) | Stop-work and operational restrictions | Bridge between independence and disablement | [13](#t2-cfpb) |
 
-## Source Notes
+## Annotations and Sources
 
-[1] Associated Press, [*Ex-civil rights agency commissioner fired by Trump drops lawsuit in wake of Supreme Court ruling*](https://apnews.com/article/5fae543c35a27467a99a8b20c8291207).
+<a id="t1-eeoc"></a>
+### 1. EEOC (Equal Employment Opportunity Commission)
 
-[2] The Guardian, [*Trump continues clearout of top US labor officials with fresh firing*](https://www.theguardian.com/us-news/2025/feb/11/trump-labor-flra-firing).
+Charlotte Burrows and Jocelyn Samuels were reportedly removed before their terms expired. The later withdrawal of a challenge after *Slaughter* suggests that protection was abandoned or no longer considered viable, but the dismissal posture and final commission composition still require verification. The episode affects civil-rights enforcement independence and policy direction. Source: Associated Press, [*Ex-civil rights agency commissioner fired by Trump drops lawsuit in wake of Supreme Court ruling*](https://apnews.com/article/5fae543c35a27467a99a8b20c8291207).
 
-[3] Associated Press, [*Trump fires 2 Democrats on the Federal Trade Commission, seeking more control over regulators*](https://apnews.com/article/488bfe5419e48d5acbd95d3f9401404b).
+<a id="t1-flra"></a>
+### 2. FLRA (Federal Labor Relations Authority)
 
-[4] Associated Press, [*Donald Trump ousts election commission members in latest push to reshape US voting process*](https://apnews.com/article/0dc1f37c3990398b3085f22a14ea239a).
+Susan Tsui Grundmann was reportedly removed from her chair/member role. The current statutory and litigation posture needs primary verification; the institutional concern is disruption of federal labor-relations oversight. Source: The Guardian, [*Trump continues clearout of top US labor officials with fresh firing*](https://www.theguardian.com/us-news/2025/feb/11/trump-labor-flra-firing).
 
-[5] Associated Press, [*Federal judge blocks Trump's firing of two Democratic members of privacy oversight board*](https://apnews.com/article/8ec805e2b97f31bd6af65dada3448809).
+<a id="t1-ftc"></a>
+### 3. FTC (Federal Trade Commission)
 
-[6] Politico, [*Ex-NLRB member challenges Trump's firing*](https://www.politico.com/news/2025/02/05/ex-nlrb-member-challenges-trumps-firing-00202585).
+Alvaro Bedoya and Rebecca Kelly Slaughter were removed, and *Trump v. Slaughter* became the controlling removal-power vehicle. The Court's rejection of the FTC for-cause protection made the removals effective and altered the commission's composition. Source: Associated Press, [*Trump fires 2 Democrats on the Federal Trade Commission, seeking more control over regulators*](https://apnews.com/article/488bfe5419e48d5acbd95d3f9401404b).
 
-[7] Washington Post, [*Leaders of two independent agencies reinstated by appeals court*](https://www.washingtonpost.com/politics/2025/04/07/agency-head-firings-trump-supreme-court/).
+<a id="t1-eac"></a>
+### 4. EAC (Election Assistance Commission)
 
-[8] Politico, [*Federal campaign finance agency won't have enough members to enforce the law*](https://www.politico.com/news/2025/04/30/fec-quorum-00318077).
+Thomas Hicks and Benjamin Hovland were removed after Donald Palmer had stepped down and Christy McCormick resigned, reportedly leaving the four-member commission without commissioners. HAVA party-balance, holdover, quorum, and removal provisions require primary review. REG-001 owns the independence and continuity problem; ELEC-001 and ELEC-013 receive election-administration and candidate-access cross-references. Source: Associated Press, [*Donald Trump ousts election commission members in latest push to reshape US voting process*](https://apnews.com/article/0dc1f37c3990398b3085f22a14ea239a).
 
-[9] Business Insider, [*The head of the FEC is defying Trump's attempt to fire her*](https://www.businessinsider.com/fec-chair-defying-trump-attempt-fire-2025-2).
+<a id="t1-fec"></a>
+### 5. FEC (Federal Election Commission)
 
-[10] Politico, [*Trump fires three consumer watchdog commissioners as he dismantles agency*](https://www.politico.com/news/2025/05/09/trump-consumer-product-safety-commission-00339203).
+Ellen Weintraub disputed a purported removal, while later resignations reportedly produced quorum loss. The holdover and replacement structure still requires verification. Cross-reference ELEC-012 and ELEC-013 where enforcement or debate-rule administration is affected. Sources: Politico, [*Federal campaign finance agency won't have enough members to enforce the law*](https://www.politico.com/news/2025/04/30/fec-quorum-00318077); Business Insider, [*The head of the FEC is defying Trump's attempt to fire her*](https://www.businessinsider.com/fec-chair-defying-trump-attempt-fire-2025-2).
 
-[11] Associated Press, [*Federal judge blocks Trump's firing of Consumer Product Safety Commission members*](https://apnews.com/article/4de756d7a68ba6dfdd36620b43381fd1).
+<a id="t1-pclob"></a>
+### 6. PCLOB (Privacy and Civil Liberties Oversight Board)
 
-[12] Supreme Court, [*Trump v. Cook*](https://www.supremecourt.gov/opinions/25pdf/25a312_5468.pdf).
+Resignation demands were followed by reported terminations of Chair Sharon Bradford Franklin, Edward Felten, and Travis LeBlanc. District-court relief temporarily protected Felten and LeBlanc, but the board reportedly remained without quorum; later appellate posture must be verified. Source: Associated Press, [*Federal judge blocks Trump's firing of two Democratic members of privacy oversight board*](https://apnews.com/article/8ec805e2b97f31bd6af65dada3448809).
 
-[13] White House, [*Executive Order 14242: Improving Education Outcomes by Empowering Parents, States, and Communities*](https://www.whitehouse.gov/presidential-actions/2025/03/improving-education-outcomes-by-empowering-parents-states-and-communities/).
+<a id="t1-nlrb"></a>
+### 7. NLRB (National Labor Relations Board)
 
-[14] U.S. Department of Education, [*U.S. Department of Education Initiates Reduction in Force*](https://www.ed.gov/about/news/press-release/us-department-of-education-initiates-reduction-force).
+Gwynne Wilcox was removed and challenged the action; General Counsel Jennifer Abruzzo was also removed. The statutory notice-and-hearing protection was tested while the board reportedly fell below quorum. Final litigation posture requires verification. Source: Politico, [*Ex-NLRB member challenges Trump's firing*](https://www.politico.com/news/2025/02/05/ex-nlrb-member-challenges-trumps-firing-00202585).
 
-[15] Supreme Court docket, [*McMahon v. New York*, No. 24A1203](https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/24a1203.html).
+<a id="t1-mspb"></a>
+### 8. MSPB (Merit Systems Protection Board)
 
-[16] The Guardian, [*Marco Rubio says 83 percent of USAid programs terminated*](https://www.theguardian.com/us-news/2025/mar/10/marco-rubio-usaid-funding).
+Cathy Harris was removed and another Democratic member was reportedly demoted. Reinstatement orders temporarily protected continued service, but later appellate and Supreme Court posture must be verified. The episode bears directly on civil-service appeals capacity during workforce reductions. Source: Washington Post, [*Leaders of two independent agencies reinstated by appeals court*](https://www.washingtonpost.com/politics/2025/04/07/agency-head-firings-trump-supreme-court/).
 
-[17] Washington Post, [*Trump administration moves to formally dismantle USAID*](https://www.washingtonpost.com/politics/2025/03/28/trump-usaid-abolish-earthquake-congress/).
+<a id="t1-cpsc"></a>
+### 9. CPSC (Consumer Product Safety Commission)
 
-[18] Associated Press, [*Trump administration orders consumer protection agency to stop work and closes building*](https://apnews.com/article/trump-consumer-protection-cease-1b93c60a773b6b5ee629e769ae6850e9).
+Alexander Hoehn-Saric, Mary T. Boyle, and Richard Trumka Jr. were removed. A district court ordered reinstatement under the statutory for-cause protection, but later emergency and appellate posture remains unresolved in this record. Track removal under Tier One and any broader operational dismantling under Tier Two. Sources: Politico, [*Trump fires three consumer watchdog commissioners as he dismantles agency*](https://www.politico.com/news/2025/05/09/trump-consumer-product-safety-commission-00339203); Associated Press, [*Federal judge blocks Trump's firing of Consumer Product Safety Commission members*](https://apnews.com/article/4de756d7a68ba6dfdd36620b43381fd1).
 
-[19] Associated Press, [*Federal judge blocks Trump from dismantling Consumer Financial Protection Bureau*](https://apnews.com/article/trump-consumer-financial-protection-bureau-d091cfb0794813e40098a40e00a6d1c2).
+<a id="t1-frb"></a>
+### 10. FRB (Federal Reserve Board)
+
+The attempted removal of Lisa Cook was blocked at the interim stage in *Trump v. Cook*. The Court treated the Federal Reserve as historically distinct and emphasized statutory pretermination process. FRB-002 remains the primary home; REG-001 uses the case as a comparator rather than a general independent-agency safe harbor. Source: Supreme Court, [*Trump v. Cook*](https://www.supremecourt.gov/opinions/25pdf/25a312_5468.pdf).
+
+<a id="t2-ed"></a>
+### 11. ED (Department of Education)
+
+Executive Order 14242 directed steps toward departmental closure and returning authority to states, while acknowledging statutory limits; the Department separately announced a substantial reduction in force. The resulting litigation is tracked in *McMahon v. New York*. This is the prime Tier Two example because abolition or transfer of statutory education, civil-rights, student-aid, data, grant, and oversight functions generally requires congressional authority. The required inquiry is function-by-function: whether lawful policy change or authorized transfer crossed into substantial and sustained inability to perform mandatory duties. Sources: White House, [*Executive Order 14242*](https://www.whitehouse.gov/presidential-actions/2025/03/improving-education-outcomes-by-empowering-parents-states-and-communities/); U.S. Department of Education, [*U.S. Department of Education Initiates Reduction in Force*](https://www.ed.gov/about/news/press-release/us-department-of-education-initiates-reduction-force); Supreme Court docket, [*McMahon v. New York*, No. 24A1203](https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/24a1203.html).
+
+<a id="t2-usaid"></a>
+### 12. USAID (U.S. Agency for International Development)
+
+Reporting described stop-work and funding actions, major program terminations, personnel reductions, and moves to absorb or dismantle USAID. Source development must test the Foreign Assistance Act, appropriations, transfer and reorganization authority, congressional-notice requirements, impoundment law, and litigation, as well as effects on overseas, contract, grant, and humanitarian capacity. Current catalog evidence is secondary and requires official, congressional, GAO, inspector-general, and judicial verification. Sources: The Guardian, [*Marco Rubio says 83 percent of USAid programs terminated*](https://www.theguardian.com/us-news/2025/mar/10/marco-rubio-usaid-funding); Washington Post, [*Trump administration moves to formally dismantle USAID*](https://www.washingtonpost.com/politics/2025/03/28/trump-usaid-abolish-earthquake-congress/).
+
+<a id="t2-cfpb"></a>
+### 13. CFPB (Consumer Financial Protection Bureau)
+
+Acting leadership reportedly imposed stop-work, building, supervision, enforcement, investigation, rulemaking, communication, personnel, and funding restrictions. CFPB is a bridge case because presidential removal control and lawful priority setting coexist with Dodd-Frank duties, independent funding, records obligations, and judicial review of alleged dismantling. REG-001 owns operational disablement; REG-007 retains funding design and REG-002/REG-006 retain enforcement and legal-position choices. Sources: Associated Press, [*Trump administration orders consumer protection agency to stop work and closes building*](https://apnews.com/article/trump-consumer-protection-cease-1b93c60a773b6b5ee629e769ae6850e9); Associated Press, [*Federal judge blocks Trump from dismantling Consumer Financial Protection Bureau*](https://apnews.com/article/trump-consumer-financial-protection-bureau-d091cfb0794813e40098a40e00a6d1c2).
 
 ## Verification Needs
 
