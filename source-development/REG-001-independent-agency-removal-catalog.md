@@ -1,33 +1,36 @@
 ---
-title: "REG-001 Independent-Agency Removal and Vacancy Catalog"
+title: "REG-001 Agency Independence and Functional Nullification Catalog"
 source_issue: "../areas/REG/issues/REG-001.md"
 print_levels:
   - full-technical
 ---
 
-# REG-001 Independent-Agency Removal and Vacancy Catalog
+# REG-001 Agency Independence and Functional Nullification Catalog
 
-This catalog tracks reported removals, attempted removals, resignation demands, and vacancy-collapse episodes involving independent or quasi-independent federal boards and commissions during the second Trump administration. It is a source-development aid for [REG-001](../areas/REG/issues/REG-001.md), not a final legal conclusion that every listed action was unlawful or that every listed body has identical constitutional status.
+This catalog tracks reported attempts to unilaterally alter the fundamental congressionally intended purpose of a federal institution or to functionally disable its statutory capacity during the second Trump administration. It is a source-development aid for [REG-001](../areas/REG/issues/REG-001.md), not a final legal conclusion that every listed action was unlawful, that every operational reduction constitutes nullification, or that every listed institution has identical constitutional status.
 
-The catalog distinguishes the mechanism reported in public sources because "fired," "attempted removal," "resignation requested," "resigned," "vacancy left unfilled," and "quorum collapse" are different institutional facts. Publication-ready use should verify each row against removal letters, resignation letters, agency records, Senate records, statutory removal provisions, docket filings, and final court orders.
+The catalog follows REG-001's two-tier framework. Tier One tracks removals, attempted removals, resignation demands, vacancies, and quorum collapse at independent or quasi-independent bodies. Tier Two tracks reported efforts to dismantle, absorb, suspend, transfer, hollow out, or materially repurpose executive-controlled agencies and mandatory functions without congressional authorization. Publication-ready use should verify each row against organic statutes, appropriations, executive directives, personnel and transfer records, agency records, congressional materials, docket filings, and final court orders.
 
-The functional-disablement question is central to the catalog. Summary removal becomes most threatening when it permits the President to leave a congressionally created agency without quorum, without enough members to adjudicate or enforce, or without the bipartisan/staggered structure Congress enacted. The catalog therefore tracks whether each episode merely changed personnel or also disabled statutory capacity.
+The functional-disablement question is central to both tiers. The catalog should distinguish ordinary presidential supervision, lawful policy change, authorized reorganization, and temporary capacity reductions from action or deliberate inaction that produces a substantial and sustained inability to perform mandatory statutory duties or effectively substitutes a new institutional purpose for the one Congress enacted.
 
 ## Working Read
 
-The pattern is broader than the July 2026 Election Assistance Commission episode. Before *Trump v. Slaughter*, public reporting already described removals or attempted removals at the NLRB, MSPB, EEOC, FTC, CPSC, FEC, FLRA, and PCLOB. After *Slaughter*, the EAC episode appears to be a post-decision election-administration manifestation of the same independent-commission vulnerability.
+The pattern is broader than the July 2026 Election Assistance Commission episode. Before *Trump v. Slaughter*, public reporting already described removals or attempted removals at the NLRB, MSPB, EEOC, FTC, CPSC, FEC, FLRA, and PCLOB. After *Slaughter*, the EAC episode appears to be a post-decision election-administration manifestation of the same independent-commission vulnerability. Separate reports concerning the Department of Education, USAID, and CFPB raise the lower-tier question whether operational measures can accomplish practical repeal, absorption, or suspension without Congress formally changing the institution or its duties.
 
-REG-001 should use this catalog to separate four questions:
+REG-001 should use this catalog to separate six questions:
 
 1. whether the President can remove members of a particular board or commission at will after *Slaughter*;
 2. whether removal, resignation demands, or vacancy management functionally disable statutory missions even if formal removal is lawful; and
 3. whether some attempted removals failed or were delayed because of agency-specific protections, statutory process, judicial interim relief, or historically distinct constitutional treatment; and
 4. whether removal plus refusal to nominate or refill vacancies can functionally disable a congressionally created agency while bypassing formal repeal; and
-5. whether some bodies require agency-specific remedies because of election administration, labor rights, civil service adjudication, civil-rights enforcement, consumer safety, privacy/civil-liberties oversight, campaign-finance enforcement, central banking, or other statutory functions.
+5. whether operational changes at executive-controlled agencies merely alter lawful policy and management or instead eliminate the capacity to perform mandatory statutory duties; and
+6. whether some bodies require agency-specific remedies because of election administration, labor rights, civil service adjudication, civil-rights enforcement, consumer safety, privacy/civil-liberties oversight, campaign-finance enforcement, central banking, education, foreign assistance, consumer finance, or other statutory functions.
 
 ## Catalog
 
-### Reported Removals or Operationally Successful Vacancy Collapse
+### Tier One: Congressionally Intended Independence
+
+#### Reported Removals or Operationally Successful Vacancy Collapse
 
 These rows are the strongest manifestation leads because the reported action either removed commissioners, helped disable the board, or was later treated as no longer viable to contest after *Slaughter*. They still require primary-document verification before publication-ready use.
 
@@ -38,7 +41,7 @@ These rows are the strongest manifestation leads because the reported action eit
 | 2025-03-18 | Federal Trade Commission (FTC) | Alvaro Bedoya and Rebecca Kelly Slaughter | Removal; *Trump v. Slaughter* test case | For-cause removal protection held unconstitutional in *Slaughter* for FTC commissioners | Loss of Democratic commissioners; removal-power doctrine vehicle | Central REG-001 manifestation and doctrinal source path | [3] |
 | 2026-07-10 | Election Assistance Commission (EAC) | Thomas Hicks and Benjamin Hovland removed; Christy McCormick resigned; Donald Palmer had already stepped down | Removal plus resignation and preexisting vacancy | Post-*Slaughter* protection status uncertain; HAVA structure, party-balance, holdover, quorum, and removal provisions need primary review | Four-member EAC left without commissioners; election-administration support functions implicated | REG-001 primary; cross-reference ELEC-001 and ELEC-013 for election-administration and HAVA/candidate-access implications | [4] |
 
-### Attempted, Contested, or Temporarily Protected Removals
+#### Attempted, Contested, or Temporarily Protected Removals
 
 These rows are comparator leads. They help identify what protected a targeted official or agency, such as statutory process, interim judicial relief, contested holdover status, or historically distinct constitutional treatment.
 
@@ -50,6 +53,16 @@ These rows are comparator leads. They help identify what protected a targeted of
 | 2025-02-06 to 2025-02-07 | Federal Election Commission (FEC) | Ellen Weintraub | Purported removal / contested removal; later quorum loss also reported after resignations | FEC holdover and replacement structure should be verified; Weintraub disputed removal legality | Campaign-finance enforcement and advisory-opinion capacity affected by quorum loss | Cross-reference ELEC-012 and ELEC-013 where FEC enforcement or debate-rule administration matters | [8], [9] |
 | 2025-05-09 | Consumer Product Safety Commission (CPSC) | Alexander Hoehn-Saric, Mary T. Boyle, and Richard Trumka Jr. | Removal; district-court reinstatement order later blocked or litigated | For-cause statutory protection initially supported district-court relief; later emergency/appellate posture must be verified after *Slaughter* | Bipartisan consumer-safety commission reduced to Republican members; agency-dismantling context reported | Track the removals under REG-001 Tier One and any operational dismantling under REG-001 Tier Two | [10], [11] |
 | 2026-06-29 | Federal Reserve Board | Lisa Cook | Attempted removal / stay application denied | *Trump v. Cook* protected continued service at the interim stage because the Court treated the Federal Reserve as historically distinct and emphasized statutory pretermination process | Fed-specific independence preserved as a contrast case, not a generic independent-agency safe harbor | Primary home is FRB-002; REG-001 uses Cook as the key comparator showing what protected the Fed differently from FTC-style agencies | [12] |
+
+### Tier Two: Fundamental Repurposing or Functional Disablement
+
+These rows track reported attempts affecting executive-controlled institutions or mandatory functions. Inclusion identifies a source-development question, not a finding that the President lacked authority or that the institution was legally disabled. The controlling inquiry is whether the combined measures substantially and sustainably prevented execution of duties Congress made mandatory or replaced Congress's enacted institutional design without statutory authorization.
+
+| Date | Institution or function | Congressional design at issue | Reported executive action | Authority or protection issue | Potential functional effect | Current assessment and routing | Sources |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2025-03 onward | Department of Education | Cabinet department and statutory education, civil-rights, student-aid, data, grant, and oversight functions established or assigned by Congress | Executive Order 14242 directed steps to facilitate departmental closure and return authority to states; the Department announced a substantial reduction in force | The order acknowledges that closure steps must be consistent with law, while abolition or transfer of statutory duties generally requires congressional authority; litigation challenges the operational measures | Reduced staffing, office capacity, grant administration, civil-rights enforcement, student-aid administration, data functions, and ability to perform duties Congress assigned | Prime Tier Two example. Verify function-by-function capacity and distinguish lawful policy change or authorized transfer from substantial and sustained statutory disablement | [13], [14], [15] |
+| 2025-01 onward | U.S. Agency for International Development (USAID) and congressionally funded foreign-assistance functions | Statutorily created foreign-assistance agency architecture, appropriated programs, and duties allocated among USAID, the Department of State, and other entities | Reporting described stop-work and funding actions, major program terminations, personnel reductions, and moves to absorb or dismantle USAID | Source development must test the Foreign Assistance Act, appropriations, transfer and reorganization authority, congressional-notice requirements, impoundment law, and litigation | Possible loss or transfer of program administration, overseas capacity, contract and grant performance, humanitarian operations, and institutional continuity | Strong Tier Two lead, but current catalog evidence is secondary. Verify official directives, congressional records, GAO and inspector-general findings, appropriations treatment, and final court posture | [16], [17] |
+| 2025-02 onward | Consumer Financial Protection Bureau (CFPB) | Dodd-Frank consumer-protection, supervision, enforcement, rulemaking, complaint-intake, research, and public-information functions | Acting leadership reportedly ordered broad stop-work measures, building closure, restrictions on supervision and enforcement, personnel actions, and limits on funding activity | CFPB is a bridge case: presidential removal control and lawful priority setting coexist with statutory duties, independent funding, records obligations, and judicial review of alleged dismantling | Possible suspension of complaint intake, supervision, investigations, enforcement, rulemaking, records, and other legally required work | Track operational disablement here under Tier Two; retain funding design in REG-007 and enforcement or legal-position choices in REG-002 and REG-006 | [18], [19] |
 
 ## Source Notes
 
@@ -77,6 +90,20 @@ These rows are comparator leads. They help identify what protected a targeted of
 
 [12] Supreme Court, [*Trump v. Cook*](https://www.supremecourt.gov/opinions/25pdf/25a312_5468.pdf).
 
+[13] White House, [*Executive Order 14242: Improving Education Outcomes by Empowering Parents, States, and Communities*](https://www.whitehouse.gov/presidential-actions/2025/03/improving-education-outcomes-by-empowering-parents-states-and-communities/).
+
+[14] U.S. Department of Education, [*U.S. Department of Education Initiates Reduction in Force*](https://www.ed.gov/about/news/press-release/us-department-of-education-initiates-reduction-force).
+
+[15] Supreme Court docket, [*McMahon v. New York*, No. 24A1203](https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/24a1203.html).
+
+[16] The Guardian, [*Marco Rubio says 83 percent of USAid programs terminated*](https://www.theguardian.com/us-news/2025/mar/10/marco-rubio-usaid-funding).
+
+[17] Washington Post, [*Trump administration moves to formally dismantle USAID*](https://www.washingtonpost.com/politics/2025/03/28/trump-usaid-abolish-earthquake-congress/).
+
+[18] Associated Press, [*Trump administration orders consumer protection agency to stop work and closes building*](https://apnews.com/article/trump-consumer-protection-cease-1b93c60a773b6b5ee629e769ae6850e9).
+
+[19] Associated Press, [*Federal judge blocks Trump from dismantling Consumer Financial Protection Bureau*](https://apnews.com/article/trump-consumer-financial-protection-bureau-d091cfb0794813e40098a40e00a6d1c2).
+
 ## Verification Needs
 
 - Removal letters, resignation letters, and White House notices for each agency.
@@ -86,3 +113,6 @@ These rows are comparator leads. They help identify what protected a targeted of
 - Docket records for NLRB, MSPB, FTC, CPSC, EEOC, FEC, and any later EAC litigation.
 - Congressional, Inspector General, or agency records showing operational impact.
 - Post-*Slaughter* agency-specific analysis distinguishing bodies exercising executive, adjudicatory, advisory, oversight, or election-administration functions.
+- Organic statutes, mandatory-duty provisions, appropriations, transfer and reorganization authorities, executive directives, reduction-in-force records, stop-work orders, funding actions, system or office closures, and records-preservation materials for each Tier Two entry.
+- Function-by-function evidence showing whether affected institutions retained enough personnel, systems, legal authority, funding, and operational access to perform mandatory duties after the reported action.
+- Evidence distinguishing temporary disruption, lawful reprioritization, authorized transfer, and efficiency measures from substantial and sustained disablement or unilateral replacement of Congress's intended institutional purpose.
