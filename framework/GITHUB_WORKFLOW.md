@@ -47,6 +47,7 @@ Use these options for audit-control fields:
 Use labels sparingly. Labels should not duplicate Project fields.
 
 - `kind:*` labels identify the type of issue, such as `kind: proposal` or `kind: horizon`.
+- `needs: monitoring` identifies an evidence- or event-dependent item whose next substantive step requires an investigation, litigation development, documentary disclosure, scheduled event, or other defined follow-up predicate. It must not replace the Project `Status` field; the canonical record should state what development will trigger renewed review, and the label should be removed when that predicate is resolved.
 - Temporary labels may be used for ad hoc contributor triage only when no existing Project field captures the need.
 - Do not use `area:*`, `priority:*`, `stage:*`, `status:*`, or `release:*` labels unless the Project field model is deliberately changed.
 

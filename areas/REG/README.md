@@ -36,6 +36,8 @@ The constitutional and statutory position of independent agencies is increasingl
 
 - [HOR-024](https://github.com/Thorncrag/ARRP/issues/235) supplies a CFPB bridge manifestation for REG-001 and REG-007. REG-001 owns operational disablement; REG-007 owns independent-funding design; REG-002 and REG-006 retain enforcement, nonenforcement, rulemaking, and agency legal-position control.
 
+- [HOR-025](https://github.com/Thorncrag/ARRP/issues/239) is an active monitoring item routed primarily to REG-002 for reported political or lobbyist influence over DOJ merger enforcement. The present record supports monitoring, process mapping, and preservation of source leads, not a finding of corruption. REG-001 receives a Tier Two cross-reference only if later evidence shows categorical or functional disablement of neutral merger enforcement. Renew substantive review upon congressional or inspector-general investigation, judicial or state discovery, whistleblower documentation, merger-contact disclosures, ethics records, or comparable primary evidence.
+
 ## Notes
 
 REG-001 was promoted after *Trump v. Slaughter* and expanded on July 10, 2026, to consolidate REG-004 and REG-005 under a two-tier agency-independence and functional-continuity framework. Remaining unmerged issues are provisional inventory; full source development pending.
