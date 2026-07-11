@@ -38,6 +38,7 @@ The table is a snapshot of every tracked removal, attempted removal, resignation
 | 2025-02 | FLRA (Federal Labor Relations Authority) | Member removal | Effective; protection unverified | [2](#t1-flra) |
 | 2025-03-18 | FTC (Federal Trade Commission) | Two commissioner removals | Effective after *Slaughter* | [3](#t1-ftc) |
 | 2026-07-10 | EAC (Election Assistance Commission) | Removals plus vacancies | Commission left without members | [4](#t1-eac) |
+| 2025-03 | USIP (U.S. Institute of Peace) | Board removals and DOGE takeover | Operations ceased; appellate stay favored takeover | [14](#t1-usip) |
 | 2025-02 | FEC (Federal Election Commission) | Purported removal | Contested; later quorum loss | [5](#t1-fec) |
 | 2025-01 | PCLOB (Privacy and Civil Liberties Oversight Board) | Resignation demands and terminations | Temporary relief; quorum impairment remained | [6](#t1-pclob) |
 | 2025-01 | NLRB (National Labor Relations Board) | Member removal | Protection litigated; quorum lost | [7](#t1-nlrb) |
@@ -56,6 +57,11 @@ Where DOGE/USDS or another repurposed cross-agency unit is the mechanism, this c
 | 2025-03 onward | ED (Department of Education) | Closure directive and major RIF | Prime Tier Two repurposing/disablement test | [11](#t2-ed) |
 | 2025-01 onward | USAID (U.S. Agency for International Development) | Stop-work, terminations, reductions, and absorption | Strong lead; primary verification incomplete | [12](#t2-usaid) |
 | 2025-02 onward | CFPB (Consumer Financial Protection Bureau) | Stop-work and operational restrictions | Bridge between independence and disablement | [13](#t2-cfpb) |
+| 2025-03 onward | USAGM (U.S. Agency for Global Media) / VOA (Voice of America) | Major downsizing and attempted shuttering | Court found unresolved statutory-performance defects | [15](#t2-usagm) |
+| 2025-03 onward | IMLS (Institute of Museum and Library Services) | Staff leave and grant terminations | Protected by injunction; restoration ordered | [16](#t2-reduction-eo-cluster) |
+| 2025-03 onward | MBDA (Minority Business Development Agency) | Reduction to statutory minimum | Protected by injunction; restoration ordered | [16](#t2-reduction-eo-cluster) |
+| 2025-03 onward | FMCS (Federal Mediation and Conciliation Service) | Staff and service reductions | Protected by injunction; restoration ordered | [16](#t2-reduction-eo-cluster) |
+| 2025-04 onward | AmeriCorps / CNCS (Corporation for National and Community Service) | Staff leave, program closures, and NCCC demobilization | Program actions enjoined; staffing relief incomplete | [17](#t2-americorps) |
 
 ## Annotations and Sources
 
@@ -123,6 +129,26 @@ Reporting described stop-work and funding actions, major program terminations, p
 ### 13. CFPB (Consumer Financial Protection Bureau)
 
 Acting leadership reportedly imposed stop-work, building, supervision, enforcement, investigation, rulemaking, communication, personnel, and funding restrictions. CFPB is a bridge case because presidential removal control and lawful priority setting coexist with Dodd-Frank duties, independent funding, records obligations, and judicial review of alleged dismantling. REG-001 owns operational disablement; REG-007 retains funding design and REG-002/REG-006 retain enforcement and legal-position choices. Sources: Associated Press, [*Trump administration orders consumer protection agency to stop work and closes building*](https://apnews.com/article/trump-consumer-protection-cease-1b93c60a773b6b5ee629e769ae6850e9); Associated Press, [*Federal judge blocks Trump from dismantling Consumer Financial Protection Bureau*](https://apnews.com/article/trump-consumer-financial-protection-bureau-d091cfb0794813e40098a40e00a6d1c2).
+
+<a id="t1-usip"></a>
+### 14. USIP (U.S. Institute of Peace)
+
+The administration removed USIP board members, installed new leadership with DOGE assistance, terminated most staff, transferred headquarters assets, and ceased operations. The district court held that the board removals and subsequent dismantling actions were unlawful, but the D.C. Circuit stayed that judgment after concluding that the Government was likely to prevail on its executive-power theory; the final merits posture remains unresolved. USIP is therefore a bridge case: Tier One tracks board removal and institutional independence, while Tier Two tracks loss of the congressionally assigned peacebuilding, research, training, and conflict-resolution functions. CIV-009 owns DOGE as the takeover instrument. Sources: U.S. District Court for the District of Columbia, [*United States Institute of Peace v. Jackson*, memorandum opinion](https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2025cv00804/278529/40/); U.S. Court of Appeals for the D.C. Circuit, [order granting stay pending appeal](https://media.cadc.uscourts.gov/orders/docs/2025/06/25-5185LDSN2.pdf).
+
+<a id="t2-usagm"></a>
+### 15. USAGM (U.S. Agency for Global Media) / VOA (Voice of America)
+
+Executive Order 14238 directed USAGM to eliminate nonstatutory functions and reduce statutory functions and personnel to the minimum required by law. Subsequent actions dramatically downsized USAGM and attempted to shutter VOA and affiliated broadcasters. In 2026, the district court found that the downsizing record lacked the findings and analysis needed to show performance of statutory broadcasting duties. The catalog should track whether the remaining structure can satisfy Congress's requirements for international broadcasting rather than treating the litigation as finally resolved. Sources: White House, [*Executive Order 14238: Continuing the Reduction of the Federal Bureaucracy*](https://www.whitehouse.gov/presidential-actions/2025/03/continuing-the-reduction-of-the-federal-bureaucracy/); U.S. District Court for the District of Columbia, [*Widakuswara v. Lake*, memorandum opinion](https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2025cv01015/279211/223/).
+
+<a id="t2-reduction-eo-cluster"></a>
+### 16. IMLS, MBDA, and FMCS Reduction-Order Cluster
+
+Executive Order 14238 separately directed IMLS, MBDA, and FMCS to eliminate nonstatutory functions and reduce statutory functions and personnel to the minimum required by law. The ensuing record included employee removals or leave, grant and contract interruption, and service reductions. A preliminary injunction required restoration of employees and functions, prohibited action preventing statutory obligations, and distinguished permissible efficiency measures from measures that would make the agencies unable to fulfill those obligations; the First Circuit declined to stay that protection. The three agencies share one annotation because the same directive, litigation, and continuity test govern the present catalog entry, while future agency-specific evidence may justify separate annotations. Sources: White House, [*Executive Order 14238*](https://www.whitehouse.gov/presidential-actions/2025/03/continuing-the-reduction-of-the-federal-bureaucracy/); U.S. Court of Appeals for the First Circuit, [*Rhode Island v. Trump*](https://law.justia.com/cases/federal/appellate-courts/ca1/25-1477/25-1477-2025-09-11.html).
+
+<a id="t2-americorps"></a>
+### 17. AmeriCorps / CNCS (Corporation for National and Community Service)
+
+AmeriCorps placed approximately 85 percent of staff on administrative leave and initiated a reduction in force, closed more than 1,000 grant-funded programs, and removed NCCC members from service while the FY2026 budget proposed agency elimination. The district court treated the mass program closures and NCCC demobilization as discrete final agency actions and enjoined them in part, but did not grant comparable staffing relief. This is a strong Tier Two example because the record identifies concrete effects on congressionally authorized national-service and disaster-response functions while preserving separate questions about standing, grants, staffing, and final merits. Source: U.S. District Court for the District of Maryland, [*Maryland v. Corporation for National and Community Service*, memorandum opinion](https://law.justia.com/cases/federal/district-courts/maryland/mddce/1%3A2025cv01363/581470/148/).
 
 ## Verification Needs
 
