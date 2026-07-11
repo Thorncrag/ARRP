@@ -28,6 +28,8 @@ REG-001 should use this catalog to separate six questions:
 5. whether operational changes at executive-controlled agencies merely alter lawful policy and management or instead eliminate the capacity to perform mandatory statutory duties; and
 6. whether some bodies require agency-specific remedies because of election administration, labor rights, civil service adjudication, civil-rights enforcement, consumer safety, privacy/civil-liberties oversight, campaign-finance enforcement, central banking, education, foreign assistance, consumer finance, or other statutory functions.
 
+**CPB scope clarification.** The Corporation for Public Broadcasting should not be treated as an example of an institution terminated unilaterally by executive directive. Executive Order 14290 attempted to direct CPB to end direct and indirect funding for NPR and PBS, and CPB maintained that the order had no effect on the congressionally created private corporation. CPB's eventual loss of FY2026 and FY2027 funding, wind-down, and dissolution followed Congress's enactment of the President's rescission proposal in the Rescissions Act of 2025. The episode may illustrate executive initiation and pressure on an independently structured institution, but the final defunding had congressional approval. Sources: White House, [Executive Order 14290](https://www.whitehouse.gov/presidential-actions/2025/05/ending-taxpayer-subsidization-of-biased-media/); Congress.gov, [H.R. 4, Rescissions Act of 2025](https://www.congress.gov/bill/119th-congress/house-bill/4); CPB, [Board Votes to Dissolve Organization](https://cpb.org/pressroom/corporation-public-broadcasting-board-votes-dissolve-organization-act-responsible).
+
 ## Catalog
 
 ### Tier One: Congressionally Intended Independence
