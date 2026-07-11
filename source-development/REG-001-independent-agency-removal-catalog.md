@@ -7,6 +7,8 @@ print_levels:
 
 # REG-001 Agency Independence and Functional Nullification Catalog
 
+> **Maintenance tracking:** [GitHub sub-issue #240](https://github.com/Thorncrag/ARRP/issues/240) under [REG-001 issue #160](https://github.com/Thorncrag/ARRP/issues/160). Review at least quarterly and upon the event predicates stated in the monitoring issue.
+
 This catalog tracks reported attempts to unilaterally alter the fundamental congressionally intended purpose of a federal institution or to functionally disable its statutory capacity during the second Trump administration. It is a source-development aid for [REG-001](../areas/REG/issues/REG-001.md), not a final legal conclusion that every listed action was unlawful, that every operational reduction constitutes nullification, or that every listed institution has identical constitutional status.
 
 The catalog follows REG-001's two-tier framework. Tier One tracks removals, attempted removals, resignation demands, vacancies, and quorum collapse at independent or quasi-independent bodies. Tier Two tracks reported efforts to dismantle, absorb, suspend, transfer, hollow out, or materially repurpose executive-controlled agencies and mandatory functions without congressional authorization. Publication-ready use should verify each row against organic statutes, appropriations, executive directives, personnel and transfer records, agency records, congressional materials, docket filings, and final court orders.
