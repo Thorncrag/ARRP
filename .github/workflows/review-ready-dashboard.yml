@@ -1,0 +1,48 @@
+name: Review Ready progress dashboard
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 10 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/progress-dashboard.json"
+      - ".github/workflows/review-ready-dashboard.yml"
+      - "scripts/build_review_ready_dashboard.py"
+      - "scripts/publish_review_ready_dashboard.py"
+
+concurrency:
+  group: review-ready-dashboard
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Build the private GitHub dashboard
+        env:
+          ARRP_PROJECT_TOKEN: ${{ secrets.ARRP_PROJECT_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python3 scripts/build_review_ready_dashboard.py
+          --config .github/progress-dashboard.json
+          --output "${RUNNER_TEMP}/arrp-review-ready-dashboard"
+
+      - name: Publish the generated dashboard branch
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python3 scripts/publish_review_ready_dashboard.py
+          --source "${RUNNER_TEMP}/arrp-review-ready-dashboard"
+          --repository Thorncrag/ARRP
+          --branch progress-dashboard

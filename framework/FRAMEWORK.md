@@ -37,6 +37,7 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 
 - [`FRAMEWORK.md`](FRAMEWORK.md) — technical framework, repository conventions, and development status
 - [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2) — authoritative area, issue, lifecycle-status, milestone, roadmap, and horizon-tracking surface
+- [ARRP Review Ready Progress Dashboard](https://github.com/Thorncrag/ARRP/blob/progress-dashboard/PROGRESS.md) — private derived goal, pace, forecast, portfolio-composition, and area-progress visualization
 - [`../inventory/sources.csv`](../inventory/sources.csv) — source-tracking table
 - [`METHODOLOGY.md`](METHODOLOGY.md) — inventory maintenance, audit procedure, scoring rules, and Horizon Scan rules
 - [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md) — GitHub Issues, GitHub Project fields, labels, milestones, and sub-issue workflow rules
@@ -64,6 +65,8 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 ## Inventory Status and Development Phase
 
 Current area, issue, lifecycle-status, milestone, roadmap, and horizon-tracking status is maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). [`../areas/README.md`](../areas/README.md) and area README files provide human-readable repository indexes, while developed issue pages contain the substantive analysis. Do not duplicate current area lists, issue lists, or developed-issue status snapshots in this framework file unless the list is generated from the GitHub Project or current area pages.
+
+The [Review Ready Progress Dashboard](PROGRESS_DASHBOARD.md) may visualize Project data and calculate portfolio-level pace or forecasts, but it is not an independent workflow authority and must not silently repair or override Project fields.
 
 Project updates must keep the GitHub Project, issue-page audit metadata, issue audit-history files, Change Audit log, Horizon Scan Log, applicable autonomous-run Agent Audit Log entries, and source inventory current. When an area, issue, legislation file, audit status, quality score, or cited source is added, removed, renamed, merged, retired, or materially revised, update the relevant GitHub Project item or fields, issue page, sibling audit-history file, and [`../inventory/sources.csv`](../inventory/sources.csv) as part of the same change. When a Change Audit is run, update [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) as part of the same change. When a `HOR-###` candidate is added, adjudicated, integrated, retained, or retired, update [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) and the corresponding GitHub Project item as part of the same change. When an autonomous, batched, or scheduled agent run commits work, update [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) as part of that run. Human-invoked audit or drafting sessions should not update the Agent Audit Log merely because an agent assisted the work.
 

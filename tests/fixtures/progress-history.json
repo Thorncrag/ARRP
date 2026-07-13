@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "snapshots": [
+    {"date": "2026-07-01", "total": 4, "ready": 1, "byArea": {}, "detailAvailable": true, "readyIssues": ["DOJ-007"], "scores": {"DOJ-007": 78, "REG-001": 60, "DOM-005": 0, "JUD-011": 70}},
+    {"date": "2026-07-08", "total": 4, "ready": 1, "byArea": {}, "detailAvailable": true, "readyIssues": ["DOJ-007"], "scores": {"DOJ-007": 78, "REG-001": 64, "DOM-005": 0, "JUD-011": 72}}
+  ]
+}

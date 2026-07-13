@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "projectOwner": "Thorncrag",
+  "projectNumber": 2,
+  "repository": "Thorncrag/ARRP",
+  "proposalLabel": "kind: proposal",
+  "projectFields": {"area": "Area", "status": "Status", "score": "Score", "lastAudit": "Last audit", "nextAudit": "Next audit"},
+  "goal": {
+    "name": "Test goal",
+    "baselineDate": "2026-07-01",
+    "baselineReady": 1,
+    "baselineTotal": 4,
+    "targetDate": "2026-12-31",
+    "reviewReadyScore": 75,
+    "readyStatuses": ["Review ready", "Advanced review ready", "Proposal ready", "Publication ready", "Fully validated", "Release candidate", "Done / Published"],
+    "velocityWindowDays": 28,
+    "minimumForecastDays": 7
+  }
+}

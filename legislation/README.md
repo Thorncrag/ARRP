@@ -19,6 +19,7 @@ Working statutory and administrative language is maintained separately from the 
 - [DOJ-007 — Independent Investigative Counsel Shared-Framework Implementation Act (preferred)](DOJ-007-preferred.md)
 - [DOJ-007 — Independent Investigative Counsel Appointment and Accountability Act (independent alternative)](DOJ-007.md)
 - [DOJ-009 — Senior Department of Justice Professional Qualification and Good Standing Act](DOJ-009.md)
+- [DOM-005 — Federal Critical-Incident Evidence Access Act](DOM-005.md)
 - [ELEC-001 — Federal Executive Election Noninterference Act](ELEC-001.md)
 - [ELEC-002 — Model State Election Certification and Automatic Substitution Act](ELEC-002-state.md)
 - [ELEC-003 — Election Personnel Protection Amendments to the Help America Vote Act of 2002](ELEC-003.md)
