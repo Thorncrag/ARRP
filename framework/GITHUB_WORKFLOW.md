@@ -14,6 +14,8 @@ The repository remains the authoritative substantive record. Proposal text, audi
 
 Each active ARRP proposal or active horizon item should have a GitHub issue. The GitHub issue tracks discussion, assignment, contributor-facing workflow, and links back to the canonical repository record. The GitHub Project tracks structured workflow metadata. The canonical repo file records the adopted substance.
 
+GitHub issues are durable records and should not be deleted unless they were created erroneously. When an issue is merged, integrated, retired, or otherwise adjudicated, close the issue and preserve its stable number, title, links, and disposition record. If no active work remains on that record, remove only its card from the active GitHub Project; removing a Project item does not delete or alter the underlying issue. Preserve the disposition in the Horizon Scan Log, relevant area page, audit sidecar, registry, or other canonical record as applicable.
+
 Milestones should not be assigned automatically to every proposal. A milestone means the issue is an obligation for that release phase. Proposal and horizon issues may remain unmilestoned until they are pulled into a specific release path.
 
 ## Project Fields
@@ -33,6 +35,8 @@ Use GitHub Project fields as the authoritative structured workflow metadata:
 
 Do not duplicate these fields as issue-body metadata or as labels. If a field value changes, update the GitHub Project field directly.
 
+Use `Done / Published` for work that was actually completed or published within its own scope. Do not use it as a substitute for `Merged`, `Integrated`, `Retired`, or another archival disposition. A closed adjudicated record with no active work should ordinarily leave the active Project instead of occupying a misleading terminal-status card.
+
 Project-field updates are not optional bookkeeping. When audit work changes a proposal's score, status, run count, last-audit note, next-audit note, rebaseline status, change-audit marker, priority, release-blocker posture, or canonical page, the corresponding GitHub Project row must be updated before the task is reported complete. If the agent cannot update a Project field, it must tell the user immediately, identify the affected issue and field values, preserve the repo work, and either fix the Project access problem with the user or report the work as partially complete. The issue body may carry a temporary snapshot, but the Project field remains the authoritative workflow tracker.
 
 After updating a GitHub issue wrapper or GitHub Project row for an issue-status or audit-control change, perform a readback before closeout. The readback should verify that the GitHub issue body and Project fields match the repository issue metadata for status, score, run count, last audit, next audit, rebaseline status, change-audit flag, canonical page, and release-blocker posture where those fields are in scope. Do not report the task complete until any mismatch is corrected or explicitly disclosed as a blocked sync item.
@@ -48,7 +52,7 @@ The private [ARRP Review Ready Progress Dashboard](https://github.com/Thorncrag/
 
 The Project `Status` field remains the lifecycle authority. The dashboard may use `Score` to detect status/score drift, but it must not infer or write a new status from the score alone. Governance, horizon, source-review, and other non-proposal items are excluded. Newly admitted proposal issues enlarge the tracked scope automatically and must be reported as scope change rather than hidden by resetting the baseline.
 
-The dashboard's registry-based eligibility rule, readiness statuses, baseline, target date, forecast window, and Project field mappings are maintained in [`.github/progress-dashboard.json`](../.github/progress-dashboard.json). The `Canonical page` Project field joins each Project row to its proposal registry record; unmatched proposals remain visible as tracking warnings. The governing definitions, metrics, forecast limits, credential boundary, and change-control rules are documented in [`PROGRESS_DASHBOARD.md`](PROGRESS_DASHBOARD.md). Changes to eligibility, the readiness rule, or the official target require a project-level Change Audit.
+The dashboard's registry-based eligibility rule, readiness statuses, baseline, target date, forecast window, and Project field mappings are maintained in [`.github/progress-dashboard.json`](../.github/progress-dashboard.json). The proposal identifier in the built-in Project `Title` joins each active proposal to its registry record, with `Canonical page` used only as a unique fallback; unmatched or ambiguous proposals remain visible as tracking warnings. The governing definitions, metrics, forecast limits, credential boundary, and change-control rules are documented in [`PROGRESS_DASHBOARD.md`](PROGRESS_DASHBOARD.md). Changes to eligibility, the readiness rule, or the official target require a project-level Change Audit.
 
 ## Labels
 
@@ -69,6 +73,6 @@ For the current public-release workflow, `Pre-publication final audit` and `Pre-
 
 ## Issue Registry
 
-The repository-side list of all GitHub issues is maintained at [`inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv). Add or update a row whenever an issue is created, renamed, reclassified, assigned a canonical record, or attached to a different native parent. The registry supplies stable issue-to-record relationships for navigation and future table-of-contents generation.
+The repository-side list of all GitHub issues is maintained at [`inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv). Add or update a row whenever an issue is created, renamed, reclassified, assigned a canonical record, or attached to a different native parent. The registry supplies stable issue-to-record relationships for navigation and future table-of-contents generation. Retain closed merged records in the registry and classify them as `merged proposal` rather than deleting the row or continuing to count them as active `proposal` records.
 
 Do not place live status, priority, labels, scores, audit fields, or release posture in the registry. GitHub Project fields remain authoritative for those values. Creating an issue is incomplete until its registry row and required Project fields both read back correctly.

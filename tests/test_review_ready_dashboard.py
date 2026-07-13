@@ -126,13 +126,19 @@ class ReviewReadyDashboardTests(unittest.TestCase):
 
     def test_repository_retrospective_seed_matches_documented_baseline(self):
         seed = MODULE.read_json(ROOT / ".github" / "progress-history-seed.json")
+        config = MODULE.read_json(ROOT / ".github" / "progress-dashboard.json")
+        registry = MODULE.read_registry(ROOT / "inventory" / "github_issue_registry.csv")
         evidence = seed["attainmentEvidence"]
         identifiers = {entry["identifier"] for entry in evidence}
+        active_proposals = [row for row in registry if MODULE.normalize(row["Kind"]) == "proposal"]
+        self.assertEqual(len(active_proposals), 204)
+        self.assertEqual(config["goal"]["baselineTotal"], 204)
         self.assertEqual(len(evidence), 23)
         self.assertEqual(len(identifiers), 23)
         self.assertEqual(seed["snapshots"][-1]["ready"], 23)
         self.assertEqual(set(seed["snapshots"][-1]["readyIssues"]), identifiers)
         for snapshot in seed["snapshots"]:
+            self.assertEqual(snapshot["total"], 204)
             self.assertEqual(snapshot["ready"], len(snapshot["readyIssues"]))
         for entry in evidence:
             audit = ROOT / entry["audit"]
