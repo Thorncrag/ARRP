@@ -1119,3 +1119,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `ff354f4` to roll back this issue unit. |
 | Blockers/skipped checks | No blocker. Score raised to 78 Review Ready after deeper official-source verification of H.J.Res. 193 and source-status cleanup; external constitutional-law or legislative-counsel review, implementation legislation, Article V adoption evidence, and official-source confirmation of any Senate statutory analogue remain pending. |
+
+### 2026-07-13 — JUD-011 — T1 framework check
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 19:09:26 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | JUD-011 |
+| Issue page | [Issue](../areas/JUD/issues/JUD-011.md) |
+| Audit history | [Audit](../areas/JUD/issues/JUD-011.audit.md) |
+| Proposal page | [Bill](../legislation/JUD-011.md) |
+| Tier | T1 framework check |
+| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv` |
+| Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; `git diff --check`; signed-in GitHub Project readback of Status, Score, Runs, Last audit, Next audit, Change audit needed, and Rebaseline status |
+| Commit | `Run JUD-011 T1 audit` (`4fe57bc`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `4fe57bc` to roll back the substantive T1 unit; separately revert the provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. JUD-011 advanced from fixed-zero candidate status to 60 / 100 Developed Draft. The local GitHub CLI credential remained invalid, so Project synchronization used the signed-in GitHub interface. T2 must complete the formula rebaseline and the standing, sovereign-immunity, assignment, relief, prior-proposal, budget, adoption, and pending-case checks identified in the issue audit. |
