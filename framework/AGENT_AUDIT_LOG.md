@@ -1155,3 +1155,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `d108f28` to roll back the substantive T2 unit; separately revert the provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. JUD-011 advanced from 60 to 70 after source verification and targeted bill revisions. T3 must complete procedural and local-rule crosswalks, current merits-case refresh, presidential-relief review, launch-capacity analysis, legislative-form review, source verification, and opposition and reciprocity development. |
+
+### 2026-07-13 — JUD-011 — T3 readiness audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 19:43:37 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | JUD-011 |
+| Issue page | [Issue](../areas/JUD/issues/JUD-011.md) |
+| Audit history | [Audit](../areas/JUD/issues/JUD-011.audit.md) |
+| Proposal page | [Bill](../legislation/JUD-011.md) |
+| Tier | T3 readiness audit |
+| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
+| Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; source-row count check; `git diff --check`; signed-in GitHub Project readback of Status, Score, Runs, Last audit, Next audit, Change audit needed, and Rebaseline status |
+| Commit | `Run JUD-011 T3 audit` (`429b494`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `429b494` to roll back the substantive T3 unit; separately revert the provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. JUD-011 advanced from 70 to 80 / 100 Review Ready after procedural, rulemaking, current-case, presidential-relief, capacity, fiscal, opposition, and reciprocity review. T4 must complete publication-level claim and citation verification, legislative-form and judicial-designation review, pending-case refresh, legal-durability analysis, and unresolved-claims and expert-review tables. |
