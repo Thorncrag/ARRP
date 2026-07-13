@@ -39,4 +39,4 @@ The candidate was admitted from HOR-017 after a horizon check on judicial branch
 
 ## Notes
 
-JUD-001, JUD-009, and JUD-011 are developed. JUD-011 completed its T2 development audit at 70 / 100 and now requires a T3 readiness audit of procedural mechanics, current merits litigation, legislative form, judicial capacity, and adoption and opposition evidence. JUD-002, JUD-003, JUD-004, and JUD-006 are retired as duplicative of JUD-001's civil-contempt and executive-compliance remedy. Remaining judicial-independence issues are provisional and require full source development.
+JUD-001, JUD-009, and JUD-011 are developed. JUD-011 completed its T3 readiness audit at 80 / 100 (Review Ready) after procedural, current-case, capacity, budget, and opposition analysis; it now requires a T4 publication-ready audit and qualified external review. JUD-002, JUD-003, JUD-004, and JUD-006 are retired as duplicative of JUD-001's civil-contempt and executive-compliance remedy. Remaining judicial-independence issues are provisional and require full source development.
