@@ -71,3 +71,17 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 **Score effect:** No score change. The proposal remains at the initial placeholder score of 60/100 pending T1 framework check and formula rebaseline.
 
 **Next audit need:** T1 should test whether the injunctive-relief exception is narrow enough to stop continuing harm without becoming a path to executive self-dealing or judicial management of ordinary executive operations.
+
+## 2026-07-13 — Trump–IRS Court-Order Source Development
+
+**Change scope:** Targeted source-development and Internal Remedy-Fit review prompted by current reporting on the July 13 order in *Trump v. Internal Revenue Service*, No. 1:26-cv-20609-KMW (S.D. Fla.). This was not a T1 framework check or formula audit.
+
+**Source finding:** Current AP and Reuters reporting states that Judge Kathleen M. Williams found the lawsuit was filed for an improper purpose, voided the settlement connected to the attempted Anti-Weaponization Fund and tax protections, imposed or recommended sanctions, and referred attorney conduct for disciplinary review. DOJ's May 18 announcement independently confirms that the proposed $1.776 billion fund was tied to dismissal of the President's suit and other claims and was to draw on the Judgment Fund. The user-supplied CNBC report was retained as a source lead because automated retrieval was blocked.
+
+**Internal Remedy-Fit finding:** The development fits EMOL-015 directly. It concerns personal litigation by a sitting President against supervised agencies, weak or manufactured adverseness, conflicted DOJ settlement authority, attempted legal benefit for the President and affiliated entities, and use of the Judgment Fund to support a broader compensation mechanism. It does not fit JUD-011 because the core defect is executive self-dealing in litigation and settlement, not executive nullification of an enacted congressional mandate.
+
+**Remedy finding:** The ruling demonstrates that judicial sanctions, fraud-on-the-court review, and professional discipline can respond after conflicted litigation begins. Those tools do not eliminate the need for EMOL-015's prospective separation, tolling, controlled-maintenance, settlement, payment, audit, enforcement, and compensation-fund rules.
+
+**Score effect:** No change. The 60/100 score remains the initial placeholder pending T1 and formula rebaseline. The new order strengthens manifestation evidence but does not complete primary-order verification, appellate review, existing-law fit, prior-proposal comparison, implementation analysis, or constitutional scrutiny.
+
+**Next audit need:** T1 should obtain and review docket entry 106 and related orders, distinguish sanctions imposed from referrals recommended, determine the precise legal effect on the settlement and audit addendum, track any appeal or reconsideration, and test whether EMOL-015 should expressly address audit, examination, enforcement, release, and nonprosecution benefits in addition to monetary payment.
