@@ -26,12 +26,6 @@
     {"identifier": "JUD-009", "date": "2026-06-28", "audit": "areas/JUD/issues/JUD-009.audit.md"},
     {"identifier": "WAR-001", "date": "2026-06-28", "audit": "areas/WAR/issues/WAR-001.audit.md"}
   ],
-  "unverifiedCurrentStatuses": [
-    {
-      "identifier": "REG-001",
-      "reason": "The July 13 Project snapshot marks REG-001 Review ready, but the Project score is blank and the repository audit record does not document a score at or above 75. It is not included in the retrospective seed; live Project status remains authoritative and the dashboard emits a tracking warning."
-    }
-  ],
   "snapshots": [
     {
       "date": "2026-06-24",

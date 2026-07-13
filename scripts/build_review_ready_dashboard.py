@@ -227,32 +227,56 @@ def parse_items(
     ready_statuses = {normalize(value) for value in config["goal"]["readyStatuses"]}
     threshold = float(config["goal"]["reviewReadyScore"])
     parsed: List[Dict[str, Any]] = []
-    project_values_by_record: Dict[str, Dict[str, Any]] = {}
+    project_values_by_identifier: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    project_values_by_record: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
 
     for node in raw.get("items") or []:
         project_values = extract_field_values(node)
+        project_title = str(project_values.get(fields.get("title", "Title")) or "")
+        project_identifier = issue_identifier(project_title)
+        if project_identifier:
+            project_values_by_identifier[normalize(project_identifier)].append(project_values)
         record = canonical_key(project_values.get(fields["canonicalPage"]), config["repository"])
-        if not record:
-            continue
-        project_values_by_record[record] = project_values
+        if record:
+            project_values_by_record[record].append(project_values)
 
     for registry_row in registry:
         if normalize(registry_row.get("Kind")) != "proposal":
             continue
         record = canonical_key(registry_row.get("Canonical Record"), config["repository"])
-        project_values = project_values_by_record.get(record) or {}
+        title = str(registry_row.get("GitHub Title") or "Untitled proposal")
+        identifier = issue_identifier(title)
+        identifier_matches = project_values_by_identifier.get(normalize(identifier)) or []
+        record_matches = project_values_by_record.get(record) or []
+        identity_warning: Optional[str] = None
+        if len(identifier_matches) == 1:
+            project_values = identifier_matches[0]
+        elif len(identifier_matches) > 1:
+            project_values = {}
+            identity_warning = "Multiple Project items use this proposal identifier; identity is ambiguous."
+        elif len(record_matches) == 1:
+            project_values = record_matches[0]
+        elif len(record_matches) > 1:
+            project_values = {}
+            identity_warning = (
+                "Project Title did not identify this proposal and Canonical page matches multiple items."
+            )
+        else:
+            project_values = {}
         status = str(project_values.get(fields["status"], "Unspecified"))
         score_value = project_values.get(fields["score"])
         try:
             score = float(score_value) if score_value is not None else None
         except (TypeError, ValueError):
             score = None
-        title = str(registry_row.get("GitHub Title") or "Untitled proposal")
         area = str(project_values.get(fields["area"]) or area_from_title(title))
         is_ready = normalize(status) in ready_statuses
         warnings: List[str] = []
+        if identity_warning:
+            warnings.append(identity_warning)
         if not project_values:
-            warnings.append("Proposal registry entry has no matching Project item by Canonical page.")
+            if not identity_warning:
+                warnings.append("Proposal registry entry has no matching Project item by Title or Canonical page.")
         if is_ready and score is None:
             warnings.append(
                 "Ready status is missing a Project score, so threshold consistency cannot be verified."
@@ -264,7 +288,7 @@ def parse_items(
         parsed.append(
             {
                 "number": int(registry_row["GitHub Number"]),
-                "identifier": issue_identifier(title),
+                "identifier": identifier,
                 "title": title,
                 "url": registry_row.get("GitHub Issue"),
                 "state": None,

@@ -10,9 +10,9 @@ The [ARRP Review Ready Progress Dashboard](https://github.com/Thorncrag/ARRP/blo
 
 ## Goal and Eligibility
 
-The official July 13, 2026 goal baseline is 23 Review Ready proposals out of 206 eligible proposal issues. A retrospective series begins on June 24 and reconstructs how those 23 proposals reached Review Ready before the dashboard was activated. Eligibility and issue identity are determined from [`inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv) rows whose `Kind` is `proposal`. The builder then matches each proposal to its GitHub Project row through the `Canonical page` field.
+The official July 13, 2026 goal baseline is 23 Review Ready proposals out of 206 eligible proposal issues. A retrospective series begins on June 24 and reconstructs how those 23 proposals reached Review Ready before the dashboard was activated. Eligibility and issue identity are determined from [`inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv) rows whose `Kind` is `proposal`. The builder matches the proposal identifier in the registry title to the identifier in the Project's built-in `Title` field. `Canonical page` is used only as a fallback when it identifies exactly one Project item.
 
-Governance, horizon, source-review, and other non-proposal registry rows are excluded. Newly admitted proposal rows automatically enlarge the current scope; the dashboard reports the difference from the 206-proposal baseline so that new intake cannot silently distort the goal. A proposal without a matching Project `Canonical page` remains in the denominator, is treated as not ready, and produces a visible tracking warning instead of disappearing from the goal.
+Governance, horizon, source-review, and other non-proposal registry rows are excluded. Newly admitted proposal rows automatically enlarge the current scope; the dashboard reports the difference from the 206-proposal baseline so that new intake cannot silently distort the goal. A proposal without an unambiguous Project identity remains in the denominator, is treated as not ready, and produces a visible tracking warning instead of disappearing from the goal. This matters because merged, integrated, and undeveloped records may legitimately share a canonical proposal or area page; a shared page must not allow one item's lifecycle fields to be attributed to another.
 
 The official target date is stored in [`.github/progress-dashboard.json`](../.github/progress-dashboard.json). A rolling forecast may move as observed progress changes, but it does not silently replace the official target. Revising the target requires an intentional configuration edit and a short explanation in the commit or accompanying Change Audit entry.
 
@@ -75,8 +75,8 @@ The seed does not override current GitHub Project data. A retained automated sna
 
 The [`Review Ready progress dashboard`](../.github/workflows/review-ready-dashboard.yml) workflow runs daily, can be run manually, and also runs when its source, configuration, builder, or publisher changes. It:
 
-1. reads only field values from the user-owned ARRP Project through GitHub's GraphQL API;
-2. joins those fields to proposal identity and links from the checked-out issue registry;
+1. reads only field values, including the built-in `Title`, from the user-owned ARRP Project through GitHub's GraphQL API;
+2. joins those fields to proposal identity and links from the checked-out issue registry by proposal identifier, with unique `Canonical page` fallback;
 3. loads the checked-in audit-derived retrospective seed;
 4. retrieves the previous `data/history.json` snapshot series from the generated dashboard branch;
 5. validates and combines the seed, retained history, and current daily snapshot with later sources taking precedence on matching dates;
@@ -89,7 +89,7 @@ The repository is private and GitHub Pages is unavailable under the current acco
 
 ## Authentication and Permissions
 
-Because the ARRP Project belongs to the `Thorncrag` user account rather than an organization, fine-grained personal access tokens cannot read it. The workflow therefore requires a classic personal access token stored as the repository Actions secret `ARRP_PROJECT_TOKEN`, with only the `read:project` scope. Do not select `project` or `repo`. The GraphQL query requests no repository content; proposal identity and links come from the checked-out registry. The builder never mutates the Project. GitHub's ordinary workflow token separately receives `contents: write` only so the publisher can read retained history and update `progress-dashboard`; it does not write Project fields.
+Because the ARRP Project belongs to the `Thorncrag` user account rather than an organization, fine-grained personal access tokens cannot read it. The workflow therefore requires a classic personal access token stored as the repository Actions secret `ARRP_PROJECT_TOKEN`, with only the `read:project` scope. Do not select `project` or `repo`. The GraphQL query requests Project field values but no repository issue content; the built-in Project `Title` supplies the proposal identifier, while links come from the checked-out registry. The builder never mutates the Project. GitHub's ordinary workflow token separately receives `contents: write` only so the publisher can read retained history and update `progress-dashboard`; it does not write Project fields.
 
 Do not place the token in the repository, dashboard data, workflow text, Project fields, or logs.
 

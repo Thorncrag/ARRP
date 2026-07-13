@@ -50,6 +50,42 @@ class ReviewReadyDashboardTests(unittest.TestCase):
         self.assertEqual(missing["status"], "Unspecified")
         self.assertIn("no matching Project item", missing["warnings"][0])
 
+    def test_title_identifier_wins_when_merged_items_share_canonical_page(self):
+        raw = deepcopy(self.raw)
+        reg = raw["items"][1]
+        reg["fieldValues"]["nodes"].append(
+            {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "REG-001: Congressional Mandate Enforcement",
+                "field": {"name": "Title"},
+            }
+        )
+        merged = deepcopy(reg)
+        merged["id"] = "PVTI_MERGED"
+        merged["fieldValues"]["nodes"] = [
+            node
+            for node in merged["fieldValues"]["nodes"]
+            if (node.get("field") or {}).get("name") not in {"Title", "Status", "Score"}
+        ] + [
+            {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "HOR-018: Integrated into REG-001",
+                "field": {"name": "Title"},
+            },
+            {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done / Published",
+                "field": {"name": "Status"},
+            },
+        ]
+        raw["items"].append(merged)
+        _, items = MODULE.parse_items(raw, self.config, self.registry)
+        proposal = next(item for item in items if item["identifier"] == "REG-001")
+        self.assertEqual(proposal["status"], "Developed draft")
+        self.assertEqual(proposal["score"], 68)
+        self.assertFalse(proposal["ready"])
+        self.assertEqual(proposal["warnings"], [])
+
     def test_ready_status_without_score_emits_consistency_warning(self):
         raw = deepcopy(self.raw)
         nodes = raw["items"][0]["fieldValues"]["nodes"]

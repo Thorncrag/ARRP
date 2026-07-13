@@ -5,6 +5,7 @@
   "repository": "Thorncrag/ARRP",
   "registryPath": "inventory/github_issue_registry.csv",
   "projectFields": {
+    "title": "Title",
     "area": "Area",
     "status": "Status",
     "score": "Score",
