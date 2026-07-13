@@ -4,7 +4,9 @@ issue_id: DOJ-007
 title: "Independent Investigative Counsel Amendment"
 status: working-draft
 framework_issue: "../areas/DOJ/issues/DOJ-007.md"
-enabling_legislation: "DOJ-007.md"
+enabling_legislation: "DOJ-007-preferred.md"
+preferred_enabling_legislation: "DOJ-007-preferred.md"
+independent_alternative_legislation: "DOJ-007.md"
 related_issue: "../areas/IMM/issues/IMM-001.md"
 print_levels:
   - public-proposal
@@ -16,7 +18,7 @@ print_levels:
 
 ## Proposed Constitutional Amendment
 
-> **Section 1.** Congress may by law authorize a court of the United States, or a judicial panel established by law, to appoint an independent investigative counsel when credible information and a conflict of interest materially impair the ordinary investigation of a possible offense, obstruction, retaliation, evidence destruction, or serious abuse of federal investigative or prosecutorial authority involving the President or other senior executive officials.
+> **Section 1.** Congress may by law authorize a court of the United States, a judicial panel established by law, or a specialized component within an Article III judicial division established by law to appoint an independent investigative counsel when credible information and a conflict of interest materially impair the ordinary investigation of a possible offense, obstruction, retaliation, evidence destruction, or serious abuse of federal investigative or prosecutorial authority involving the President or other senior executive officials.
 >
 > **Section 2.** A counsel appointed under this article shall exercise the investigative authority prescribed by law and shall not be subject to direction, supervision, or removal by the President or by any officer acting under presidential authority, except as implementing law may provide consistently with the independence of the office. The authority may include investigation of a sitting President, compulsory process, grand-jury proceedings, evidence preservation, prosecution of persons other than a sitting President within assigned jurisdiction, and transmission of substantial and credible information to the House of Representatives and appropriate committees of Congress.
 >
@@ -24,9 +26,9 @@ print_levels:
 >
 > **Section 4.** A sitting President shall not be indicted or tried under authority conferred by this article while holding office. Congress may provide for suspension of otherwise applicable limitation periods during presidential tenure and for a reasonable period thereafter.
 >
-> **Section 5.** Congress shall provide by law for jurisdiction, qualifications, tenure, resources, reporting, removal standards, judicial review, and termination. Removal shall require defined cause and written findings and shall be subject to expedited judicial review.
+> **Section 5.** Congress shall provide by law for jurisdiction, qualifications, tenure, resources, reporting, removal standards, judicial review, and termination. Removal shall require defined cause and written findings and shall be subject to expedited judicial review. Congress may provide for shared use of a judicial roster, clerk, facilities, security, technology, financial administration, and other nondecisional infrastructure also used for separately authorized judicial functions.
 >
-> **Section 6.** The appointing court or panel shall not direct investigative or prosecutorial decisions and shall not participate in any criminal case arising from an appointment made under this article.
+> **Section 6.** The appointing court, panel, or specialized component shall not direct investigative or prosecutorial decisions and shall not participate in any criminal case arising from an appointment made under this article. A judge or decisional employee who participates in a civil proceeding concerning the same underlying conduct shall not participate in appointment, jurisdiction, access, removal, or completion determinations under this article. Shared nondecisional administration shall not permit access to protected investigative material, transfer authority between separately authorized functions, or merge their decisional records.
 >
 > **Section 7.** Nothing in this article shall displace or bypass impeachment, alter the respective impeachment powers of the House and Senate, make investigation a condition precedent to impeachment, or determine the substantive scope of presidential criminal immunity.
 >
@@ -43,7 +45,8 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 - The amendment authorizes Congress to create a nonexecutive appointment trigger for extraordinary executive-conflict investigations.
 - It preserves the distinction between investigation and prosecution of a sitting President.
 - It does not determine the substantive scope of presidential criminal immunity; [IMM-001](../areas/IMM/issues/IMM-001.md) addresses that issue separately.
-- The linked [enabling legislation](DOJ-007.md) supplies the implementing structure that would operate only after ratification.
+- The amendment is implementation-neutral. It permits Congress either to use a separately firewalled component of an existing Article III judicial framework or to create a self-contained judicial panel.
+- The preferred [Interbranch implementation Act](DOJ-007-preferred.md) reuses JUD-011's roster and nondecisional infrastructure. The standalone [independent alternative](DOJ-007.md) supplies its own Special Division if Congress rejects JUD-011.
 
 ## Source Notes
 

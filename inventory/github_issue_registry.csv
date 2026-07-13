@@ -239,3 +239,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 243,https://github.com/Thorncrag/ARRP/issues/243,ELEC-014-CATALOG-MONITOR,source review,ELEC-014 Monitor: Criminal Process and State Election Records Catalog,source-development/ELEC-014-criminal-process-catalog.md,236
 244,https://github.com/Thorncrag/ARRP/issues/244,ELEC-015-DATA-MONITOR,source review,ELEC-015 Monitor: Maine RCV Participation Dataset,source-development/ELEC-015-maine-rcv-participation-data.md,237
 245,https://github.com/Thorncrag/ARRP/issues/245,HOR-026,horizon,HOR-026: Presidential Withdrawal or Constructive Withdrawal from International Commitments,framework/HORIZON_SCAN_LOG.md,
+246,https://github.com/Thorncrag/ARRP/issues/246,JUD-011,proposal,JUD-011: Executive Nullification of Congressional Mandates,areas/JUD/issues/JUD-011.md,
+247,https://github.com/Thorncrag/ARRP/issues/247,HOR-027,horizon,HOR-027: Presidential Policymaking Through Privately Controlled Social Media,framework/HORIZON_SCAN_LOG.md,
+248,https://github.com/Thorncrag/ARRP/issues/248,HOR-028,horizon,HOR-028: Unofficial or Conflicted Presidential Foreign-Policy Representatives,framework/HORIZON_SCAN_LOG.md,
+249,https://github.com/Thorncrag/ARRP/issues/249,HOR-029,horizon,HOR-029: Presidential Self-Dealing Through an Officially Favored Private Platform,framework/HORIZON_SCAN_LOG.md,

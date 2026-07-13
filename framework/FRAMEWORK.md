@@ -41,6 +41,8 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 - [`METHODOLOGY.md`](METHODOLOGY.md) — inventory maintenance, audit procedure, scoring rules, and Horizon Scan rules
 - [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md) — GitHub Issues, GitHub Project fields, labels, milestones, and sub-issue workflow rules
 - [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md) — remedy categories, trigger stages, and cross-cutting remedial options
+- [`INTERBRANCH_REVIEW_FRAMEWORK.md`](INTERBRANCH_REVIEW_FRAMEWORK.md) — governing integration convention for specialized interbranch review
+- [`INTERBRANCH_REVIEW_COVERAGE_MATRIX.md`](INTERBRANCH_REVIEW_COVERAGE_MATRIX.md) — proposal-by-proposal coverage and independent-alternative record
 - [`../areas/`](../areas/) — modular area and issue analyses
 - [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
 - [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) — active handoff checkpoint for long-running audits and source-development work
@@ -69,6 +71,8 @@ The project will proceed by applying this framework to retained issues, developi
 
 The governing framework incorporates the project-wide rules for institutional focus, politically neutral application, issue admission, mandatory issue architecture, issue-level conciseness, standardized annotations, the Least-Complex Adequate Remedy, limited use of automatic institutional-failure triggers, audit sidecars, source tracking, print assignment, and cross-referencing instead of duplicative treatment.
 
+The governing framework also incorporates the [General Anti-Nullification Review Framework](INTERBRANCH_REVIEW_FRAMEWORK.md). JUD-011 is a generally applicable civil anti-nullification remedy, not a general interbranch or public-law tribunal. It applies by its own terms when senior executive action or deliberate inaction substantially and sustainably suspends, redirects, evades, or functionally nullifies an enacted congressional mandate; urgency, uniformity, or structural independence cannot independently establish coverage. No subject-specific opt-in is required. Every issue that identifies JUD-011 alone as its preferred remedy must also provide a separate standalone alternative that does not rely on JUD-011 or another ARRP proposal. The [Coverage and Independent Alternatives Matrix](INTERBRANCH_REVIEW_COVERAGE_MATRIX.md) records current applications, exclusions, and threshold-screen candidates.
+
 ## File and Metadata Conventions
 
 Every substantive issue has a stable identifier such as `DOJ-001`. Legislative proposal files use the issue identifier as the base filename.
@@ -77,10 +81,11 @@ Every substantive issue has a stable identifier such as `DOJ-001`. Legislative p
 - Model state legislative proposals use the state suffix: `XXX-NNN-state.md`.
 - Constitutional amendment text uses the amendment suffix: `XXX-NNN-amendment.md`.
 - Enabling legislation for a constitutional amendment normally uses the unsuffixed issue identifier: `XXX-NNN.md`.
+- When an amendment-dependent issue has both a preferred shared-framework Act and a standalone alternative, the preferred Act may use `XXX-NNN-preferred.md` and the unsuffixed file remains the complete independent alternative.
 
 For issues with both federal and state proposals, the federal proposal is the unsuffixed file and the model state proposal is the `-state` file. For issues with only a model state proposal, the proposal should still use the `-state` suffix.
 
-For issues with both constitutional amendment text and enabling legislation, the amendment page should contain the proposed constitutional amendment itself and the unsuffixed page should contain the proposed enabling legislation. The issue page should link both vehicles.
+For issues with both constitutional amendment text and enabling legislation, the amendment page should contain the proposed constitutional amendment itself and the unsuffixed page should normally contain the proposed enabling legislation. If the issue has two independently enactable implementing paths, the issue page must link the amendment, preferred implementing Act, and standalone alternative and state their dependencies explicitly.
 
 Examples:
 
@@ -88,7 +93,8 @@ Examples:
 - `ELEC-003-state.md` — model state proposal.
 - `ELEC-002-state.md` — model state proposal where no federal proposal is yet maintained.
 - `DOJ-007-amendment.md` — constitutional amendment text.
-- `DOJ-007.md` — enabling legislation for the amendment.
+- `DOJ-007-preferred.md` — preferred enabling legislation using shared JUD-011 infrastructure.
+- `DOJ-007.md` — standalone enabling legislation retained as the independent alternative.
 
 Every Markdown page must carry `print_levels` metadata under [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
 
@@ -219,6 +225,10 @@ Custom section headings are permitted where they make a developed issue clearer 
 
 Where proposed legislation or another concrete reform vehicle exists, the issue page should include a **Proposed Legislation** section immediately after **Repair and Prevention**. **Repair and Prevention** and **Proposed Legislation** should appear after **Least-Complex Adequate Remedy**, so the page first compares available models and identifies the preferred remedy before presenting the repair frame and concrete vehicle. Proposed vehicles should always be presented as a Markdown bullet list, even when there is only one linked item.
 
+If an issue satisfies the JUD-011 civil coverage test, its **Proposed Legislation** section and Issue Snapshot must distinguish two independent enactment choices: **Primary remedy — enact JUD-011 alone** and **Independent alternative — enact the standalone issue bill alone**. An **Interbranch Review Pathways** section may explain the coverage fit, but it must not describe an opt-in, a two-bill preferred package, a fallback mode, or transition between the bills. A proposal identified only for future threshold screening should not describe JUD-011 as preferred until a proposal-specific Change Audit confirms coverage and a plausible Article III plaintiff.
+
+A proposal outside the civil cause may use JUD-011's shared judicial infrastructure only when independent constitutional authority supports the function and a later Act expressly adds a separately firewalled specialized component. Its page must identify the common constitutional predicate, the JUD-011-plus-implementing-Act preferred package, and a complete standalone alternative. Shared infrastructure may not merge jurisdiction, panels, decisional personnel, dockets, protected records, or appellate routes.
+
 Where a proposal requires a constitutional amendment and separate implementing legislation, the issue page should use **Proposed Constitutional Amendment** for the amendment page and **Proposed Enabling Legislation** for the implementing statute. Both sections should appear as Markdown bullet lists. The amendment text itself should live on its own proposal page, not inside the issue page. The enabling legislation page should identify the amendment dependency in front matter or introductory text.
 
 Candidate or source-development pages may keep a **Proposed Legislation** section with a single `Pending development` bullet when no draft vehicle exists yet. That placeholder is a development-status marker, not a legislation link failure. Once a concrete vehicle exists, replace the placeholder with a linked bullet and update the Issue Snapshot vehicle line, metadata, inventories, and GitHub Project fields if the development status, score, last audit, or next audit changes.
@@ -229,7 +239,7 @@ Where a proposal may be confused with, overlap with, partially replace, or depen
 
 The issue page and its linked proposed legislation, constitutional amendment text, enabling legislation, or other proposal vehicle must remain substantively aligned. When either page changes, the next framework, drafting, or project-integration audit should cross-check the Issue Snapshot vehicle, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation or amendment/enabling sections, Annotation, and Proposal Scoring summary against the linked legislative, constitutional, rule, or procedural text. The check should confirm that the issue page still accurately describes the vehicle, covered actors, legal hook, remedy type, enforcement mechanism, deadlines, responsible institutions, scope limits, and material drafting notes. If an audit discovers a substantive discrepancy, document it as an unresolved finding, report it to the user, and treat it as requiring human review before updating either the issue page or the proposed legislation.
 
-Every developed issue page and every proposal page should include a **Budgetary Impact Statement** before **Annotation** on issue pages and before **Drafting Notes** on legislation or proposal pages. The statement is a preliminary ARRP planning classification, not an official fiscal score. It must be short, source-conscious, and must not include a dollar figure unless the figure is tied to a cited government source, historical appropriation, CBO score, agency budget material, audited program cost, or comparable source-backed basis. The substantive classification should appear first. The project disclaimer should appear below it as an italicized note: `*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*`
+Every developed issue page and every proposal page should include a **Budgetary Impact Statement** before **Annotation** on issue pages and before **Drafting Notes** on legislation or proposal pages. An issue page presenting a preferred JUD-011 path and an independent alternative must instead use **Budgetary Impact Statements** with two separately labeled subsections, one for each path. The statements are preliminary ARRP planning classifications, not official fiscal scores. They must be short, source-conscious, and must not include a dollar figure unless the figure is tied to a cited government source, historical appropriation, CBO score, agency budget material, audited program cost, or comparable source-backed basis. The substantive classification should appear first. A single project disclaimer may follow both subsections: `*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*`
 
 Use one of the following baseline classifications unless a source-backed estimate justifies a narrower formulation:
 

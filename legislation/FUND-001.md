@@ -217,15 +217,19 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(6) any other person authorized to sue under otherwise applicable law.
 
-"(c) Three-judge court.—An action under this section shall be heard by a three-judge district court convened under section 2284 of title 28, United States Code.
+"(c) Three-judge district court.—An action under this section shall be heard by a three-judge court convened in the United States District Court for the District of Columbia under section 2284 of title 28, United States Code.
 
-"(d) Expedition.—The court shall expedite the action to the greatest possible extent and shall rule on any request for interim relief not later than 10 days after the request is fully briefed, unless the court finds that extraordinary circumstances require additional time.
+"(d) Panel formation and temporary relief.—The chief judge of the district court, or a judge designated by the chief judge, shall request designation of the additional judges not later than 2 days after filing. Before the three-judge court is convened, the district judge to whom the action is initially assigned may grant temporary relief necessary to preserve the court's ability to provide effective relief. Any such order shall remain in effect only until modified or dissolved by the three-judge court.
 
-"(e) Direct appeal.—A final judgment of the three-judge court shall be reviewable by direct appeal to the Supreme Court of the United States.
+"(e) Expedition.—The court shall expedite the action to the greatest possible extent and shall rule on any request for interim relief not later than 10 days after the request is fully briefed, unless the court finds that extraordinary circumstances require additional time.
 
-"(f) Relief.—The court may grant declaratory relief, injunctive relief, mandamus relief, vacatur of a covered implementation action, release of budget authority, compliance reporting, or other appropriate relief.
+"(f) Appellate review.—An appeal from a final judgment, or from an order granting or denying interlocutory injunctive relief, shall lie to the United States Court of Appeals for the District of Columbia Circuit and shall be expedited. Section 1253 of title 28, United States Code, shall not apply to an action under this section.
 
-"(g) No bar to other review.—This section does not preclude review under chapter 7 of title 5, United States Code, this title, an appropriations Act, or any other provision of law.
+"(g) Relief.—The court may grant declaratory relief, injunctive relief, mandamus relief, vacatur of a covered implementation action, release of budget authority, compliance reporting, or other appropriate relief.
+
+"(h) No bar to other review.—This section does not preclude review under chapter 7 of title 5, United States Code, this title, an appropriations Act, or any other provision of law.
+
+"(i) Existing mandates and continuing conduct.—This part applies to covered implementation occurring after enactment and to a withholding, suspension, delay, or other covered implementation action that remains ongoing on the effective date, without regard to whether the underlying appropriation or statutory program was enacted before, on, or after this part.
 
 ## "SEC. 1027. OFFICER AND EMPLOYEE SAFE HARBOR.
 
@@ -297,7 +301,7 @@ If any provision of this Act, an amendment made by this Act, or the application 
 
 ## Budgetary Impact Statement
 
-Administrative and litigation workload is likely for OMB, GAO, affected agencies, congressional committees, and the federal courts. No new standing appropriation is specified. Implementation costs would depend on the frequency of trigger findings and covered executive directives.
+Administrative and litigation workload is likely for OMB, GAO, affected agencies, congressional committees, and the federal courts. No new standing appropriation is specified. Implementation costs would depend on the frequency of trigger findings and covered executive directives. FUND-001 is a complete standalone remedy and therefore must account for all incremental OMB, GAO, agency, fiscal-release, compliance, and three-judge-court costs attributable to the Act.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
@@ -305,5 +309,6 @@ Administrative and litigation workload is likely for OMB, GAO, affected agencies
 
 - This draft regulates agency implementation and appropriated funds rather than directly invalidating executive orders.
 - T2 should verify whether the new part should be codified in 2 U.S.C. chapter 17B, a new title 31 provision, annual appropriations riders, or a combination.
-- T2 should test congressional-plaintiff standing, Comptroller General enforcement, emergency exceptions, direct appeal, and three-judge-court routing.
+- T2 should test congressional-plaintiff standing, Comptroller General enforcement, emergency exceptions, D.C. Circuit appellate review, and the standalone three-judge-D.D.C. route.
+- This bill is the independent FUND-001 alternative. It neither invokes nor depends on JUD-011 or another ARRP proposal.
 - T2 should review whether preliminary-injunction findings should count as trigger findings or whether only final judgments and Comptroller General decisions should count.

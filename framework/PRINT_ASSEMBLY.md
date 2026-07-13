@@ -58,7 +58,7 @@ Appendices should use this order:
 4. Appendix D - Technical framework, contribution rules, and release process, if included in a technical edition; and
 5. Appendix E - issue audit-history files for full technical editions, when audit provenance is included.
 
-Appendix A should include legislation and constitutional-amendment files in issue-identifier order. For amendment-dependent proposals, place the amendment text before the enabling legislation, for example `DOJ-007-amendment.md` before `DOJ-007.md`. For ordinary federal proposals, use unsuffixed filenames first, for example `DOJ-001.md`, `ELEC-001.md`, `JUD-001.md`, and `WAR-001.md`.
+Appendix A should include legislation and constitutional-amendment files in issue-identifier order. For amendment-dependent proposals, place the amendment text before enabling legislation. When both preferred and independent implementing Acts exist, use amendment, preferred, then independent order—for example `DOJ-007-amendment.md`, `DOJ-007-preferred.md`, then `DOJ-007.md`. For ordinary federal proposals, use unsuffixed filenames first, for example `DOJ-001.md`, `ELEC-001.md`, `JUD-001.md`, and `WAR-001.md`.
 
 Appendix B should include model state legislation files in issue-identifier order, using `-state` filenames, for example `ELEC-002-state.md`.
 

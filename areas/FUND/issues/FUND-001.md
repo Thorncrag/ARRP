@@ -6,14 +6,17 @@ status: developed
 priority: medium
 remedy_type: federal-legislation
 legislative_status: working-draft
-federal_legislation: "../../../legislation/FUND-001.md"
-audit_status: "Initial development complete; T1 framework check complete"
+legislative_proposal: "../../../legislation/JUD-011.md"
+alternative_legislative_proposal: "../../../legislation/FUND-001.md"
+audit_status: "T1 complete; JUD-011 cross-issue consistency Change Audit complete; full T2 development audit pending"
 audit_score: 60
-audit_last_type: "Initial development and T1 framework check"
-audit_last_date: "2026-06-29"
-audit_next: "T2 development audit"
+audit_last_type: "JUD-011 cross-issue consistency Change Audit"
+audit_last_date: "2026-07-13"
+audit_next: "Full T2 development audit"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
+change_audit_needed: false
+change_audit_reason: null
 adoption_score: 3
 adoption_friction_score: 82
 adoption_friction_band: "Extreme Resistance"
@@ -30,7 +33,7 @@ audit_history: "FUND-001.audit.md"
 # FUND-001 — Addressing Executive Order Abuse
 
 > ## Issue Snapshot
-> **Problem:** Executive orders can convert unlawful nonexecution into facts on the ground.<br />**Repair:** Make new and continuing covered directives fiscally inert after repeated unlawful directives.<br />**Vehicle:** Impoundment Control Act and appropriations-enforcement amendments ([draft](../../../legislation/FUND-001.md)).
+> **Problem:** Executive orders can convert unlawful nonexecution into facts on the ground.<br />**Repair:** Enforce enacted mandates before unlawful directives create irreversible facts.<br />**Vehicle:** [JUD-011](../../JUD/issues/JUD-011.md) alone (preferred); standalone [FUND-001](../../../legislation/FUND-001.md) (independent alternative).
 >
 
 ## Institutional Anomaly
@@ -120,7 +123,7 @@ Lisa Manheim and Kathryn A. Watts's article [Reviewing Presidential Orders](http
 
 ## Least-Complex Adequate Remedy
 
-The least-complex adequate remedy is federal legislation amending the Impoundment Control Act and related appropriations-enforcement rules. A constitutional amendment should be reserved only if Congress seeks to directly invalidate executive orders, impose presidential disabilities, or regulate the President's issuance authority rather than agency implementation and appropriated funds.
+The preferred remedy is [JUD-011](../../JUD/issues/JUD-011.md) alone because its generally applicable anti-nullification claim reaches substantial and sustained executive displacement of enacted appropriations and program mandates without a subject-matter opt-in. If Congress rejects that general framework, the least-complex independent alternative is FUND-001: federal legislation amending the Impoundment Control Act and related appropriations-enforcement rules. A constitutional amendment should be reserved only if Congress seeks to directly invalidate executive orders, impose presidential disabilities, or regulate the President's issuance authority rather than agency implementation and appropriated funds.
 
 ## Repair and Prevention
 
@@ -135,14 +138,28 @@ The statute should:
 5. require lookback review of continuing implementation actions under earlier covered directives issued in the same presidential term;
 6. prohibit agencies and OMB from obligating, expending, withholding, delaying, deferring, apportioning, reprogramming, or conditioning funds to implement a covered directive unless the statutory process is satisfied;
 7. require a public legal-authority certification from OMB and the implementing agency;
-8. provide expedited three-judge-court review and direct appeal;
+8. provide expedited three-judge review with D.C. Circuit appeal and certiorari review;
 9. preserve emergency implementation only for narrow, time-limited, certified circumstances;
 10. protect officials who decline implementation where the directive lacks required certification or review clearance;
 11. preserve ordinary executive orders that do not affect appropriations, statutory program execution, or covered democratic/federalism structures.
 
 ## Proposed Legislation
 
-- [Executive-Order Abuse Impoundment Control Act](../../../legislation/FUND-001.md)
+### Primary remedy — enact JUD-011 alone
+
+- [JUD-011 — Interbranch Review Framework Act](../../../legislation/JUD-011.md)
+
+JUD-011 itself supplies the cause of action, eligible-plaintiff rules, anti-nullification threshold, D.D.C. forum, relief, and appellate procedure. It applies because the alleged executive conduct meets that general statutory test, not because FUND-001 opts in or is enacted.
+
+### Independent legislative alternative — enact FUND-001 alone
+
+- [FUND-001 — Executive-Order Abuse Impoundment Control Act](../../../legislation/FUND-001.md)
+
+FUND-001 is a complete appropriations-specific remedy Congress may enact if it opposes JUD-011. It independently supplies the trigger, fiscal-inertness rules, certification process, cause of action, plaintiffs, relief, three-judge D.D.C. procedure, and D.C. Circuit review. It does not rely on JUD-011 or another ARRP proposal.
+
+## Interbranch Review Pathways
+
+> **Preferred remedy:** Enact JUD-011 alone. Its coverage is automatic across subject matters when executive conduct substantially and sustainably nullifies an enacted mandate.<br />**Independent alternative:** Enact FUND-001 alone. Section 1026 supplies its own three-judge D.D.C. panel, temporary relief, expedition, remedies, and D.C. Circuit review.<br />**Congressional choice:** These are separate enactment choices, not two modes of FUND-001. Neither bill activates or depends on the other.
 
 ## Relationship to Adjacent Proposals
 
@@ -153,10 +170,17 @@ The statute should:
 - **CONG-008** concerns partisan collapse of oversight under unified government.
 - **FED-003** concerns coercive grant conditions imposed on states or local governments.
 - **JUD-001** concerns judicial enforcement after a court has issued an order requiring executive compliance.
+- **JUD-011** is the preferred general anti-nullification remedy and applies without subject-matter designation. FUND-001 is a separate, complete appropriations-specific alternative.
 
-## Budgetary Impact Statement
+## Budgetary Impact Statements
 
-Administrative and litigation workload is likely for OMB, implementing agencies, GAO, congressional committees, and the federal courts. The draft does not create a new benefits program or standing appropriation. Costs would primarily involve certification, reporting, expedited litigation, compliance monitoring, and possible temporary program-continuity administration.
+### Preferred remedy — JUD-011
+
+JUD-011 carries the two additional D.D.C. judgeships and the startup, national-roster, clerk, facilities, technology, secure-record, special-master, emergency-administration, and operating costs of the preferred general remedy. FUND-001 adds no separate judicial apparatus under this path. OMB, agency, GAO, fiscal-release, compliance, and program-restoration costs depend on the underlying dispute and are not included in JUD-011's judicial appropriation.
+
+### Independent alternative — standalone FUND-001
+
+The independent FUND-001 bill must separately account for OMB, agency, GAO, congressional-notice, compliance-monitoring, fiscal-release, and three-judge-court costs. It does not create a new benefits program or presently specify a standing appropriation; T2 should determine whether a protected judicial-administration appropriation is required.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
@@ -166,7 +190,7 @@ Administrative and litigation workload is likely for OMB, implementing agencies,
 >
 > —
 >
-> **Audit Status:** Initial development complete; T1 framework check complete<br />**Last Audit:** Initial development and T1 framework check<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T2 development audit<br />**Full Audit History:** [FUND-001 audit history](FUND-001.audit.md)
+> **Audit Status:** T1 complete; JUD-011 cross-issue consistency Change Audit complete; full T2 development audit pending<br />**Last Audit:** JUD-011 cross-issue consistency Change Audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Change Audit:** Current for JUD-011 coverage, the standalone alternative, and both budget pathways<br />**Next Audit:** Full T2 development audit<br />**Full Audit History:** [FUND-001 audit history](FUND-001.audit.md)
 
 ## Annotation
 
@@ -183,6 +207,8 @@ Administrative and litigation workload is likely for OMB, implementing agencies,
 **Emergency Exception Risk.** Any emergency exception must be narrow. A broad exception could swallow the rule by allowing the same administration that triggered review to recast covered directives as urgent program-management decisions.
 
 **Standing and Review.** T2 should test who may sue, whether GAO may initiate enforcement, whether either House or designated congressional officers may sue, and whether states, grantees, beneficiaries, contractors, and program administrators have adequate causes of action.
+
+**Preferred and Independent Remedies.** JUD-011 alone is the preferred general remedy; it does not require FUND-001 to opt in. FUND-001 is the independent alternative and now contains no JUD-011 routing or dependency. Its own cause of action, plaintiff categories, trigger, fiscal-inertness rules, emergency exception, three-judge D.D.C. procedure, relief, and expedited D.C. Circuit review operate if Congress enacts FUND-001 by itself.
 
 **Quality Score.** The 60/100 score is an initial development score under rubric `2026-06-27.2`: Structural 8/8; Evidence 6/12; Legal Fit 6/10; Prior-Proposal 4/8; Remedy 8/12; Implementation 5/8; Abuse Resistance 6/8; Drafting 5/8; Cogency 6/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. The issue has a coherent statutory hook, issue framework, draft vehicle, neutral executive-order-volume manifestation, a judicial-review comparator scaffold, and a strong scholarly source for the presidential-order review gap, but T2 must verify existing-law fit, GAO enforcement mechanics, statutory standing, Youngstown/Train doctrine, Chadha constraints, OMB apportionment practice, emergency exceptions, implementation burden, public-support evidence, and prior legislative analogues.
 

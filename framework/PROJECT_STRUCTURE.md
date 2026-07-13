@@ -18,6 +18,10 @@ framework/                         Governing methodology, tracking logs, and ope
   CHANGE_AUDIT_LOG.md              Cumulative project-wide Change Audit history
   HORIZON_SCAN_LOG.md              Cumulative horizon-scan disposition and integration log
   AGENT_AUDIT_LOG.md               Autonomous-agent provenance, commits, and rollback references
+  INTERBRANCH_REVIEW_FRAMEWORK.md
+                                   Governing JUD-011 coverage and proposal-independence convention
+  INTERBRANCH_REVIEW_COVERAGE_MATRIX.md
+                                   Proposal inclusion, exclusion, and future-screening record
   PROJECT_STRUCTURE.md             Repository map and file ownership summary
 areas/                             One directory per project area
   DOJ/                             Folder name matches the issue identifier prefix

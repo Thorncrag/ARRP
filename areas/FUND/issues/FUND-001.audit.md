@@ -10,7 +10,41 @@ print_levels:
 
 This file preserves the full audit history for [FUND-001](FUND-001.md). The issue page keeps only the compact Proposal Scoring summary.
 
-## 2026-06-29 — Initial development and T1 framework check
+## Audit History
+
+Entries are maintained newest first. Change Audits preserve the existing score unless the audit identifies a score-bearing defect and recalculates the proposal under the current rubric.
+
+### 2026-07-13 — JUD-011 cross-issue consistency Change Audit
+
+**Audit type:** Targeted Change Audit and Internal Remedy-Fit review; no score recalculation.
+
+**Scope:** Compared FUND-001's anomaly, manifestations, damage, weakness, proposal survey, preferred remedy, repair and prevention, pathway presentation, budgets, annotation, audit metadata, and area summary against JUD-011 and the standalone Executive-Order Abuse Impoundment Control Act.
+
+**Coverage finding:** FUND-001 remains a proper automatic civil application when a specific appropriation or program command is substantially and sustainably withheld, redirected, suspended, or otherwise nullified. JUD-011 preserves lawful fiscal and implementation discretion, requires concrete injury and redressability, and does not treat executive-order issuance alone as actionable. States, recipients, beneficiaries, contractors, grantees, and other concretely affected persons provide plausible plaintiff categories, subject to case-specific Article III review.
+
+**Independent-remedy finding:** The standalone Act independently supplies its pattern trigger, fiscal-inertness rule, certification, emergency exception, safe harbor, Comptroller General functions, cause of action, plaintiffs, D.D.C. three-judge procedure, temporary relief, remedies, and D.C. Circuit review. It contains no JUD-011 prerequisite or funding dependency.
+
+**Corrections and budget finding:** Replaced the ambiguous standalone-only front-matter vehicle field with explicit preferred and alternative proposal fields and confirmed that the issue separately identifies JUD-011 judicial costs, nonjudicial restoration costs, and the complete standalone Act's OMB, agency, GAO, compliance, fiscal-release, and court costs.
+
+**Score effect and unresolved work:** No change; 60/100 remains current. T2 must still resolve standing, Comptroller General authority, sections 1253 and 2284 coordination, emergency design, implementation burden, source-backed cost work, prior proposals, and adoption evidence.
+
+### 2026-07-13 — JUD-011-primary and standalone-alternative architecture review
+
+**Audit type:** Proposal-specific Change Audit / targeted architecture correction.
+
+**Scope:** Corrected the enactment architecture so JUD-011 alone is the preferred general remedy and FUND-001 alone is the independent appropriations-specific alternative. Removed every JUD-011 routing, fallback, transition, and funding dependency from section 1026 and the bill notes.
+
+**Internal Remedy-Fit finding:** JUD-011's own cause reaches substantial and sustained executive nullification of enacted appropriations or program mandates without FUND-001 opt-in. The standalone FUND-001 bill continues to regulate agency implementation and appropriated funds rather than invalidate presidential directives directly and independently supplies its trigger findings, waiting periods, fiscal-inertness rules, OMB certification, emergency exception, safe harbor, Comptroller General functions, plaintiff categories, procedure, and relief.
+
+**Standing and jurisdiction finding:** The standalone bill's congressional-plaintiff and Comptroller General theories remain unresolved T2 questions. FUND-001 itself now provides D.D.C. jurisdiction, a section 2284 three-judge court, temporary preservation authority, expedition, relief, and D.C. Circuit review. Legislative-counsel review of standing and sections 1253 and 2284 remains required.
+
+**Pathway-presentation finding:** The issue page now presents JUD-011 alone as the preferred remedy and FUND-001 alone as the complete independent alternative. The page expressly states that these are separate enactment choices, not two modes of FUND-001.
+
+**Budget-presentation finding:** The issue page separately states the preferred JUD-011 judicial-system costs and the standalone FUND-001 OMB, agency, GAO, fiscal-release, compliance-monitoring, and three-judge-court costs. JUD-011's judicial appropriation does not absorb nonjudicial program or fiscal-restoration costs.
+
+**Score effect:** No change; 60/100 remains the current T1-derived score. The architecture correction does not supply the missing current-source, standing, GAO-authority, emergency, implementation, prior-proposal, budget, and adoption work required for a full T2 score recalculation.
+
+### 2026-06-29 — Initial development and T1 framework check
 
 **Audit type:** Initial development / T1 framework check.
 

@@ -17,6 +17,10 @@ print_levels:
 | 7 | Automatic stabilizer or trigger | Expiration of acting authority, caretaker succession, compulsory review, temporary contraction of authority | Variable; high when persistent failure is central | Cross-reference the shared trigger regime rather than duplicating the substantive defect. |
 | 8 | Constitutional amendment | Changes to tenure, appointment authority, succession, constructive removal, early elections | Lower by default; high when necessary | Always include when serious, but generally prefer adequate non-amendment solutions because Article V is arduous and slow. |
 
+## Shared Interbranch Review
+
+For Level 6 remedies involving alleged executive displacement, suspension, nullification, or evasion of enacted federal commands, apply the [General Anti-Nullification Review Framework](INTERBRANCH_REVIEW_FRAMEWORK.md) and record the result in the [Coverage and Independent Alternatives Matrix](INTERBRANCH_REVIEW_COVERAGE_MATRIX.md). Urgency, national uniformity, political inhibition, or possible benefit from specialized administration does not independently establish JUD-011 civil coverage. When the test is met, JUD-011 alone supplies the preferred general cause and remedial apparatus; the issue must also provide a separate standalone alternative with its own complete substantive, procedural, remedial, administrative, and funding structure. A different function supported by independent constitutional authority may reuse JUD-011's roster and nondecisional infrastructure only through an express later Act, separate jurisdiction and decisional firewalls, and a fully independent alternative.
+
 ## Trigger Stages
 
 | Trigger Stage | Illustrative Consequence | Typical Threshold | Safeguard | Notes |
