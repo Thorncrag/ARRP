@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | None; JUD-011 cross-issue consistency audit completed |
-| Audit type/tier | Completed project-wide Change Audit and targeted Internal Remedy-Fit review |
-| Started | 2026-07-13 12:37:22 -0400 |
-| Last checkpoint | 2026-07-13 12:56:18 -0400 |
-| User request | Run a Change Audit on all issues affected by the JUD-011 architecture and ensure consistency. |
-| Scope | JUD-011, REG-001, FUND-001, and DOJ-007; governing framework, coverage matrix, linked proposal vehicles, budget-path presentation, audit histories, and GitHub workflow fields. |
-| Files touched | JUD-011, REG-001, FUND-001, and DOJ-007 issue pages and audit sidecars; JUD-011 framework, matrix, legislation, indexes, source records, Change Audit Log, and related project-governance files. |
-| Completed steps | Confirmed automatic civil coverage for REG-001 and FUND-001, the express shared-infrastructure path for DOJ-007, and complete standalone alternatives; corrected vehicle metadata, REG-001 rubric metadata, audit headings, and minor DOJ-007 presentation drift; standardized reader-facing references as “Interbranch Review Framework Act (JUD-011)” and the independent-path formulation as “if Congress rejects”; confirmed two budget pathways; synchronized and read back all four GitHub Project `Last audit` fields. |
-| Next step | None for this Change Audit. Resume each issue at its recorded next audit: JUD-011 and REG-001 at T1, FUND-001 at T2, and DOJ-007 at external validation / T4 follow-up. |
-| Blockers/questions | None. The local `gh` token remains invalid, but the signed-in GitHub Project interface supplied the required field updates and readback. |
-| Validation status | Passed: affected YAML, local Markdown links, CSV widths, front-matter/displayed audit alignment, dual budget headings, dependency-language review, and full `git diff --check`. |
+| Status | Active |
+| Active issue/task | JUD-011 — Executive Nullification of Congressional Mandates |
+| Audit type/tier | Autonomous successive T1 through cumulative T4 audit; T1 complete, T2 next |
+| Started | 2026-07-13 18:59:40 -0400 |
+| Last checkpoint | 2026-07-13 19:08:31 -0400 |
+| User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
+| Scope | First unit: JUD-011 issue page, Interbranch Review Framework Act, audit sidecar, relevant title 28 and constitutional authorities, prior-proposal and institutional analogues, implementation and budget evidence, source and audit inventories, dashboard, GitHub Project fields, and issue update surface. Later authorized units: FUND-001, REG-001, and EMOL-015 in dependency-aware order. |
+| Files touched | `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `areas/JUD/README.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md` |
+| Completed steps | Completed JUD-011 T1; promoted the proposal from fixed-zero candidate to 60 / 100 Developed Draft; assigned pathway and friction fields; added current congressional, Supreme Court, and judiciary-administration sources; confirmed issue-to-legislation and Internal Remedy-Fit alignment; synchronized and read back GitHub Project Status, Score, Runs, Last audit, Next audit, Change audit needed, and Rebaseline status through the signed-in Project interface. |
+| Next step | Validate, commit, push, and log the JUD-011 T1 unit; post the concise issue-wrapper update; then begin the full T2 development audit with standing, sovereign-immunity, judicial-assignment, relief, prior-proposal, budget, and current-case research. |
+| Blockers/questions | Local GitHub CLI authentication remains invalid, but the signed-in GitHub interface supplied completion-critical Project synchronization and readback. No substantive policy blocker identified. |
+| Validation status | T1 substantive and Project-field checks passed; final local validation and commit/push pending. |
 
 ## Handoff Rules
 
