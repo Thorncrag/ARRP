@@ -10,12 +10,9 @@ The [ARRP Review Ready Progress Dashboard](https://github.com/Thorncrag/ARRP/blo
 
 ## Goal and Eligibility
 
-The initial July 13, 2026 baseline is 23 Review Ready proposals out of 206 eligible proposal issues. Eligibility is determined from GitHub Project items that:
+The initial July 13, 2026 baseline is 23 Review Ready proposals out of 206 eligible proposal issues. Eligibility and issue identity are determined from [`inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv) rows whose `Kind` is `proposal`. The builder then matches each proposal to its GitHub Project row through the `Canonical page` field.
 
-1. are GitHub Issues in `Thorncrag/ARRP`; and
-2. carry the `kind: proposal` label.
-
-Governance, horizon, source-review, and other non-proposal issues are excluded. Newly admitted `kind: proposal` issues automatically enlarge the current scope; the dashboard reports the difference from the 206-proposal baseline so that new intake cannot silently distort the goal.
+Governance, horizon, source-review, and other non-proposal registry rows are excluded. Newly admitted proposal rows automatically enlarge the current scope; the dashboard reports the difference from the 206-proposal baseline so that new intake cannot silently distort the goal. A proposal without a matching Project `Canonical page` remains in the denominator, is treated as not ready, and produces a visible tracking warning instead of disappearing from the goal.
 
 The official target date is stored in [`.github/progress-dashboard.json`](../.github/progress-dashboard.json). A rolling forecast may move as observed progress changes, but it does not silently replace the official target. Revising the target requires an intentional configuration edit and a short explanation in the commit or accompanying Change Audit entry.
 
@@ -70,8 +67,8 @@ The calculation uses net portfolio movement. A proposal that regresses below Rev
 
 The [`Review Ready progress dashboard`](../.github/workflows/review-ready-dashboard.yml) workflow runs daily, can be run manually, and also runs when its source, configuration, builder, or publisher changes. It:
 
-1. reads the user-owned ARRP Project through GitHub's GraphQL API;
-2. filters and calculates the private proposal metrics;
+1. reads only field values from the user-owned ARRP Project through GitHub's GraphQL API;
+2. joins those fields to proposal identity and links from the checked-out issue registry;
 3. retrieves the previous `data/history.json` snapshot series from the generated dashboard branch;
 4. validates and appends the current daily snapshot;
 5. builds `PROGRESS.md`, accessible SVG charts, and machine-readable JSON; and
@@ -83,7 +80,7 @@ The repository is private and GitHub Pages is unavailable under the current acco
 
 ## Authentication and Permissions
 
-Because the ARRP Project belongs to the `Thorncrag` user account rather than an organization, the workflow requires a repository Actions secret named `ARRP_PROJECT_TOKEN`. Prefer a fine-grained personal access token limited to the `ARRP` repository, with account **Projects: read** and repository **Issues: read** permissions. A classic personal access token requires `read:project` plus the private-repository access needed to read the linked issues. No Project or issue write permission is needed. The builder never mutates the Project. GitHub's ordinary workflow token separately receives `contents: write` only so the publisher can update `progress-dashboard`; it does not write Project fields.
+Because the ARRP Project belongs to the `Thorncrag` user account rather than an organization, fine-grained personal access tokens cannot read it. The workflow therefore requires a classic personal access token stored as the repository Actions secret `ARRP_PROJECT_TOKEN`, with only the `read:project` scope. Do not select `project` or `repo`. The GraphQL query requests no repository content; proposal identity and links come from the checked-out registry. The builder never mutates the Project. GitHub's ordinary workflow token separately receives `contents: write` only so the publisher can read retained history and update `progress-dashboard`; it does not write Project fields.
 
 Do not place the token in the repository, dashboard data, workflow text, Project fields, or logs.
 
@@ -91,7 +88,7 @@ Until the secret is configured, workflow runs exit successfully with a visible s
 
 For first-time activation:
 
-1. create the read-only token in GitHub account settings;
+1. create a classic personal access token in GitHub account settings with only `read:project` selected;
 2. save it as the `ARRP_PROJECT_TOKEN` repository Actions secret at `Settings` → `Secrets and variables` → `Actions`;
 3. open the `Review Ready progress dashboard` workflow under `Actions`; and
 4. choose `Run workflow` once to create the initial `progress-dashboard` branch and baseline page.
@@ -115,6 +112,7 @@ Run:
 python3 -m unittest tests/test_review_ready_dashboard.py
 python3 scripts/build_review_ready_dashboard.py \
   --config tests/fixtures/progress-config.json \
+  --registry tests/fixtures/progress-registry.csv \
   --input tests/fixtures/progress-project.json \
   --history tests/fixtures/progress-history.json \
   --as-of 2026-07-15 \

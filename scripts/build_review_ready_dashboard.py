@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import csv
 import html
 import json
 import math
@@ -36,7 +37,6 @@ query($owner: String!, $number: Int!, $cursor: String) {
         }
         nodes {
           id
-          updatedAt
           fieldValues(first: 50) {
             nodes {
               __typename
@@ -62,16 +62,6 @@ query($owner: String!, $number: Int!, $cursor: String) {
               }
             }
           }
-          content {
-            ... on Issue {
-              number
-              title
-              url
-              state
-              repository { nameWithOwner }
-              labels(first: 50) { nodes { name } }
-            }
-          }
         }
       }
     }
@@ -84,6 +74,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument(
+        "--registry",
+        type=Path,
+        help="Read proposal identity and links from the repository issue registry.",
+    )
     parser.add_argument(
         "--input",
         type=Path,
@@ -110,6 +105,16 @@ def parse_args() -> argparse.Namespace:
 def read_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def read_registry(path: Path) -> List[Dict[str, str]]:
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    required = {"GitHub Number", "GitHub Issue", "Kind", "GitHub Title", "Canonical Record"}
+    missing = required - set(rows[0] if rows else [])
+    if missing:
+        raise RuntimeError("Issue registry is missing required columns: {}".format(", ".join(sorted(missing))))
+    return rows
 
 
 def write_json(path: Path, value: Any) -> None:
@@ -202,43 +207,64 @@ def area_from_title(title: str) -> str:
     return identifier.split("-", 1)[0] if "-" in identifier else "Unassigned"
 
 
-def parse_items(raw: Dict[str, Any], config: Dict[str, Any]) -> Tuple[str, List[Dict[str, Any]]]:
+def canonical_key(value: Any, repository: str) -> str:
+    text = str(value or "").strip().strip("`")
+    prefixes = (
+        "https://github.com/{}/blob/main/".format(repository),
+        "https://github.com/{}/blob/master/".format(repository),
+    )
+    for prefix in prefixes:
+        if text.startswith(prefix):
+            text = text[len(prefix):]
+            break
+    return text.lstrip("./")
+
+
+def parse_items(
+    raw: Dict[str, Any], config: Dict[str, Any], registry: Sequence[Dict[str, str]]
+) -> Tuple[str, List[Dict[str, Any]]]:
     fields = config["projectFields"]
-    wanted_repo = normalize(config["repository"])
-    wanted_label = normalize(config["proposalLabel"])
     ready_statuses = {normalize(value) for value in config["goal"]["readyStatuses"]}
     threshold = float(config["goal"]["reviewReadyScore"])
     parsed: List[Dict[str, Any]] = []
+    project_values_by_record: Dict[str, Dict[str, Any]] = {}
 
     for node in raw.get("items") or []:
-        content = node.get("content") or {}
-        if not content.get("number") or normalize((content.get("repository") or {}).get("nameWithOwner")) != wanted_repo:
-            continue
-        labels = [entry.get("name", "") for entry in ((content.get("labels") or {}).get("nodes") or [])]
-        if wanted_label not in {normalize(label) for label in labels}:
-            continue
         project_values = extract_field_values(node)
+        record = canonical_key(project_values.get(fields["canonicalPage"]), config["repository"])
+        if not record:
+            continue
+        project_values_by_record[record] = project_values
+
+    for registry_row in registry:
+        if normalize(registry_row.get("Kind")) != "proposal":
+            continue
+        record = canonical_key(registry_row.get("Canonical Record"), config["repository"])
+        project_values = project_values_by_record.get(record) or {}
         status = str(project_values.get(fields["status"], "Unspecified"))
         score_value = project_values.get(fields["score"])
         try:
             score = float(score_value) if score_value is not None else None
         except (TypeError, ValueError):
             score = None
-        title = str(content.get("title") or "Untitled proposal")
+        title = str(registry_row.get("GitHub Title") or "Untitled proposal")
         area = str(project_values.get(fields["area"]) or area_from_title(title))
         is_ready = normalize(status) in ready_statuses
         warnings: List[str] = []
+        if not project_values:
+            warnings.append("Proposal registry entry has no matching Project item by Canonical page.")
         if is_ready and score is not None and score < threshold and normalize(status) != normalize("Done / Published"):
             warnings.append("Ready status is paired with a score below the Review Ready threshold.")
         if not is_ready and score is not None and score >= threshold:
             warnings.append("Score meets the Review Ready threshold but status is not Review ready or higher.")
         parsed.append(
             {
-                "number": int(content["number"]),
+                "number": int(registry_row["GitHub Number"]),
                 "identifier": issue_identifier(title),
                 "title": title,
-                "url": content.get("url"),
-                "state": content.get("state"),
+                "url": registry_row.get("GitHub Issue"),
+                "state": None,
+                "canonicalRecord": record,
                 "area": area,
                 "status": status,
                 "score": score,
@@ -989,6 +1015,8 @@ def write_dashboard(output: Path, payload: Dict[str, Any]) -> None:
 def main() -> int:
     args = parse_args()
     config = read_json(args.config)
+    registry_path = args.registry or Path(config["registryPath"])
+    registry = read_registry(registry_path)
     as_of = date.fromisoformat(args.as_of) if args.as_of else datetime.now(timezone.utc).date()
     if args.input:
         raw = read_json(args.input)
@@ -999,7 +1027,7 @@ def main() -> int:
                 "Missing {}. Add a repository secret containing a token with read:project access.".format(args.token_env)
             )
         raw = fetch_project(config, token)
-    project_title, items = parse_items(raw, config)
+    project_title, items = parse_items(raw, config, registry)
     if not items:
         raise RuntimeError("No eligible proposal issues were returned; refusing to publish an empty dashboard.")
     history = load_history(config, args.history)

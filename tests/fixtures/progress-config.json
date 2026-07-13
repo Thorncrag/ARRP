@@ -3,8 +3,8 @@
   "projectOwner": "Thorncrag",
   "projectNumber": 2,
   "repository": "Thorncrag/ARRP",
-  "proposalLabel": "kind: proposal",
-  "projectFields": {"area": "Area", "status": "Status", "score": "Score", "lastAudit": "Last audit", "nextAudit": "Next audit"},
+  "registryPath": "tests/fixtures/progress-registry.csv",
+  "projectFields": {"area": "Area", "status": "Status", "score": "Score", "lastAudit": "Last audit", "nextAudit": "Next audit", "canonicalPage": "Canonical page"},
   "goal": {
     "name": "Test goal",
     "baselineDate": "2026-07-01",

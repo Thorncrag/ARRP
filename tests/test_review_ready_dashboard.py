@@ -23,9 +23,10 @@ class ReviewReadyDashboardTests(unittest.TestCase):
         self.config = MODULE.read_json(ROOT / "tests" / "fixtures" / "progress-config.json")
         self.raw = MODULE.read_json(ROOT / "tests" / "fixtures" / "progress-project.json")
         self.history = MODULE.read_json(ROOT / "tests" / "fixtures" / "progress-history.json")
+        self.registry = MODULE.read_registry(ROOT / "tests" / "fixtures" / "progress-registry.csv")
 
     def test_filters_to_proposals_and_uses_status_as_readiness_authority(self):
-        title, items = MODULE.parse_items(self.raw, self.config)
+        title, items = MODULE.parse_items(self.raw, self.config, self.registry)
         self.assertEqual(title, "American Restoration and Resilience Project")
         self.assertEqual(len(items), 4)
         self.assertEqual(sum(item["ready"] for item in items), 1)
@@ -33,8 +34,23 @@ class ReviewReadyDashboardTests(unittest.TestCase):
         self.assertFalse(mismatch["ready"])
         self.assertEqual(len(mismatch["warnings"]), 1)
 
+    def test_unmatched_registry_proposal_remains_visible_and_warns(self):
+        registry = list(self.registry) + [{
+            "GitHub Number": "999",
+            "GitHub Issue": "https://github.com/Thorncrag/ARRP/issues/999",
+            "Kind": "proposal",
+            "GitHub Title": "TEST-999: Missing Project row",
+            "Canonical Record": "areas/TEST/issues/TEST-999.md",
+        }]
+        _, items = MODULE.parse_items(self.raw, self.config, registry)
+        missing = next(item for item in items if item["identifier"] == "TEST-999")
+        self.assertEqual(len(items), 5)
+        self.assertFalse(missing["ready"])
+        self.assertEqual(missing["status"], "Unspecified")
+        self.assertIn("no matching Project item", missing["warnings"][0])
+
     def test_builds_metrics_history_and_forecast_inputs(self):
-        title, items = MODULE.parse_items(self.raw, self.config)
+        title, items = MODULE.parse_items(self.raw, self.config, self.registry)
         payload = MODULE.build_dashboard_payload(title, items, self.history, self.config, date(2026, 7, 15))
         self.assertEqual(payload["metrics"]["ready"], 1)
         self.assertEqual(payload["metrics"]["total"], 4)
@@ -49,7 +65,7 @@ class ReviewReadyDashboardTests(unittest.TestCase):
         self.assertEqual(required[2], "Dec 31, 2026 (target date)")
 
     def test_dashboard_build_writes_github_renderable_files(self):
-        title, items = MODULE.parse_items(self.raw, self.config)
+        title, items = MODULE.parse_items(self.raw, self.config, self.registry)
         payload = MODULE.build_dashboard_payload(title, items, self.history, self.config, date(2026, 7, 15))
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "site"

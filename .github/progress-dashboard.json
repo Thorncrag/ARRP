@@ -3,13 +3,14 @@
   "projectOwner": "Thorncrag",
   "projectNumber": 2,
   "repository": "Thorncrag/ARRP",
-  "proposalLabel": "kind: proposal",
+  "registryPath": "inventory/github_issue_registry.csv",
   "projectFields": {
     "area": "Area",
     "status": "Status",
     "score": "Score",
     "lastAudit": "Last audit",
-    "nextAudit": "Next audit"
+    "nextAudit": "Next audit",
+    "canonicalPage": "Canonical page"
   },
   "goal": {
     "name": "All eligible ARRP proposals Review Ready",

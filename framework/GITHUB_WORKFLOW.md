@@ -44,11 +44,11 @@ Use these options for audit-control fields:
 
 ## Review Ready Progress Dashboard
 
-The private [ARRP Review Ready Progress Dashboard](https://github.com/Thorncrag/ARRP/blob/progress-dashboard/PROGRESS.md) is a read-only planning view derived from the GitHub Project and generated on a dedicated branch. It measures the `kind: proposal` portfolio against the project's current Review Ready goal without closing proposal issues, assigning artificial milestones, creating tracking-only issues, or adding daily generated commits to `main`.
+The private [ARRP Review Ready Progress Dashboard](https://github.com/Thorncrag/ARRP/blob/progress-dashboard/PROGRESS.md) is a read-only planning view derived from the GitHub Project and generated on a dedicated branch. It measures proposal records in the GitHub issue registry against the project's current Review Ready goal without closing proposal issues, assigning artificial milestones, creating tracking-only issues, or adding daily generated commits to `main`.
 
 The Project `Status` field remains the lifecycle authority. The dashboard may use `Score` to detect status/score drift, but it must not infer or write a new status from the score alone. Governance, horizon, source-review, and other non-proposal items are excluded. Newly admitted proposal issues enlarge the tracked scope automatically and must be reported as scope change rather than hidden by resetting the baseline.
 
-The dashboard's eligibility rule, readiness statuses, baseline, target date, forecast window, and Project field mappings are maintained in [`.github/progress-dashboard.json`](../.github/progress-dashboard.json). The governing definitions, metrics, forecast limits, credential boundary, and change-control rules are documented in [`PROGRESS_DASHBOARD.md`](PROGRESS_DASHBOARD.md). Changes to eligibility, the readiness rule, or the official target require a project-level Change Audit.
+The dashboard's registry-based eligibility rule, readiness statuses, baseline, target date, forecast window, and Project field mappings are maintained in [`.github/progress-dashboard.json`](../.github/progress-dashboard.json). The `Canonical page` Project field joins each Project row to its proposal registry record; unmatched proposals remain visible as tracking warnings. The governing definitions, metrics, forecast limits, credential boundary, and change-control rules are documented in [`PROGRESS_DASHBOARD.md`](PROGRESS_DASHBOARD.md). Changes to eligibility, the readiness rule, or the official target require a project-level Change Audit.
 
 ## Labels
 

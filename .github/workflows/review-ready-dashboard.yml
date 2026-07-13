@@ -50,6 +50,7 @@ jobs:
         run: >-
           python3 scripts/build_review_ready_dashboard.py
           --config .github/progress-dashboard.json
+          --registry inventory/github_issue_registry.csv
           --output "${RUNNER_TEMP}/arrp-review-ready-dashboard"
 
       - name: Publish the generated dashboard branch
