@@ -1137,3 +1137,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `4fe57bc` to roll back the substantive T1 unit; separately revert the provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. JUD-011 advanced from fixed-zero candidate status to 60 / 100 Developed Draft. The local GitHub CLI credential remained invalid, so Project synchronization used the signed-in GitHub interface. T2 must complete the formula rebaseline and the standing, sovereign-immunity, assignment, relief, prior-proposal, budget, adoption, and pending-case checks identified in the issue audit. |
+
+### 2026-07-13 — JUD-011 — T2 development audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 19:21:13 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | JUD-011 |
+| Issue page | [Issue](../areas/JUD/issues/JUD-011.md) |
+| Audit history | [Audit](../areas/JUD/issues/JUD-011.audit.md) |
+| Proposal page | [Bill](../legislation/JUD-011.md) |
+| Tier | T2 development audit |
+| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
+| Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; `git diff --check`; signed-in GitHub Project readback of Score, Runs, Last audit, Next audit, and Rebaseline status |
+| Commit | `Run JUD-011 T2 audit` (`d108f28`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `d108f28` to roll back the substantive T2 unit; separately revert the provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. JUD-011 advanced from 60 to 70 after source verification and targeted bill revisions. T3 must complete procedural and local-rule crosswalks, current merits-case refresh, presidential-relief review, launch-capacity analysis, legislative-form review, source verification, and opposition and reciprocity development. |
