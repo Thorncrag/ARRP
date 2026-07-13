@@ -87,6 +87,8 @@ Because the ARRP Project belongs to the `Thorncrag` user account rather than an 
 
 Do not place the token in the repository, dashboard data, workflow text, Project fields, or logs.
 
+Until the secret is configured, workflow runs exit successfully with a visible setup notice and do not create or update the dashboard branch. This permits the implementation to remain on `main` without producing failed scheduled runs or publishing incomplete data.
+
 For first-time activation:
 
 1. create the read-only token in GitHub account settings;
