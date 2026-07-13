@@ -14,6 +14,7 @@
   },
   "goal": {
     "name": "All eligible ARRP proposals Review Ready",
+    "historyStartDate": "2026-06-24",
     "baselineDate": "2026-07-13",
     "baselineReady": 23,
     "baselineTotal": 206,
@@ -31,6 +32,7 @@
     "velocityWindowDays": 28,
     "minimumForecastDays": 7
   },
+  "historySeedPath": ".github/progress-history-seed.json",
   "dashboardBranch": "progress-dashboard",
   "historyPath": "data/history.json"
 }

@@ -253,6 +253,10 @@ def parse_items(
         warnings: List[str] = []
         if not project_values:
             warnings.append("Proposal registry entry has no matching Project item by Canonical page.")
+        if is_ready and score is None:
+            warnings.append(
+                "Ready status is missing a Project score, so threshold consistency cannot be verified."
+            )
         if is_ready and score is not None and score < threshold and normalize(status) != normalize("Done / Published"):
             warnings.append("Ready status is paired with a score below the Review Ready threshold.")
         if not is_ready and score is not None and score >= threshold:
@@ -376,10 +380,23 @@ def load_history(config: Dict[str, Any], local_path: Optional[Path]) -> Dict[str
         return {"schemaVersion": 1, "snapshots": []}
 
 
+def combine_histories(*histories: Dict[str, Any]) -> Dict[str, Any]:
+    """Combine validated histories in precedence order; later values win by date."""
+    by_date: Dict[str, Dict[str, Any]] = {}
+    for history in histories:
+        for snapshot in valid_history(history).get("snapshots") or []:
+            by_date[snapshot["date"]] = snapshot
+    return {
+        "schemaVersion": 1,
+        "snapshots": [by_date[key] for key in sorted(by_date)],
+    }
+
+
 def merge_history(history: Dict[str, Any], snapshot: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
     goal = config["goal"]
     by_date = {entry["date"]: entry for entry in history.get("snapshots") or []}
     baseline_date = goal["baselineDate"]
+    history_start_date = goal.get("historyStartDate", baseline_date)
     by_date.setdefault(
         baseline_date,
         {
@@ -396,7 +413,7 @@ def merge_history(history: Dict[str, Any], snapshot: Dict[str, Any], config: Dic
     snapshots = [
         by_date[key]
         for key in sorted(by_date)
-        if baseline_date <= key <= snapshot["date"]
+        if history_start_date <= key <= snapshot["date"]
     ]
     return {"schemaVersion": 1, "snapshots": snapshots[-740:]}
 
@@ -606,9 +623,10 @@ def portfolio_movement(
     current_ready = set(current.get("readyIssues") or [])
     current_scores = current.get("scores") or {}
     previous_scores = start.get("scores") or {}
+    comparable_scores = set(current_scores) & set(previous_scores)
     deltas = {
         identifier: float(current_scores[identifier]) - float(previous_scores[identifier])
-        for identifier in set(current_scores) & set(previous_scores)
+        for identifier in comparable_scores
     }
     item_lookup = {item["identifier"]: item for item in items}
 
@@ -628,6 +646,7 @@ def portfolio_movement(
         "elapsedDays": elapsed,
         "newlyReady": linked(current_ready - previous_ready),
         "fellBelowReady": linked(previous_ready - current_ready),
+        "scoresAvailable": bool(comparable_scores),
         "scoresImproved": sum(1 for value in deltas.values() if value > 0),
         "scoresDeclined": sum(1 for value in deltas.values() if value < 0),
         "netScoreChange": round(sum(deltas.values()), 1),
@@ -666,14 +685,20 @@ def trajectory_svg(payload: Dict[str, Any]) -> str:
     baseline = date.fromisoformat(payload["goal"]["baselineDate"])
     target = date.fromisoformat(payload["goal"]["targetDate"])
     as_of = date.fromisoformat(payload["asOf"])
+    historical_dates = [
+        date.fromisoformat(entry["date"])
+        for entry in payload["history"]
+        if date.fromisoformat(entry["date"]) <= as_of
+    ]
+    chart_start = min([baseline] + historical_dates)
     forecast_value = payload["metrics"].get("forecastDate")
     forecast = date.fromisoformat(forecast_value) if forecast_value else None
     end = max(target, as_of, forecast or target)
-    total_days = max((end - baseline).days, 1)
+    total_days = max((end - chart_start).days, 1)
     total = max(int(payload["metrics"]["total"]), 1)
 
     def x(value: date) -> float:
-        return left + ((value - baseline).days / total_days) * (width - left - right)
+        return left + ((value - chart_start).days / total_days) * (width - left - right)
 
     def y(value: float) -> float:
         return height - bottom - (value / total) * (height - top - bottom)
@@ -698,7 +723,7 @@ def trajectory_svg(payload: Dict[str, Any]) -> str:
     history_points = [
         (date.fromisoformat(entry["date"]), int(entry["ready"]))
         for entry in payload["history"]
-        if baseline <= date.fromisoformat(entry["date"]) <= as_of
+        if chart_start <= date.fromisoformat(entry["date"]) <= as_of
     ]
     if len(history_points) > 1:
         path = " ".join(
@@ -714,7 +739,9 @@ def trajectory_svg(payload: Dict[str, Any]) -> str:
                 x(as_of), y(payload["metrics"]["ready"]), x(forecast), y(total)
             )
         )
-    date_labels = [(baseline, "start")]
+    date_labels = [(chart_start, "start")]
+    if chart_start < baseline:
+        date_labels.append((baseline, "middle"))
     if end == target:
         date_labels.append((target, "end"))
     else:
@@ -868,6 +895,13 @@ def markdown_dashboard(payload: Dict[str, Any]) -> str:
     ]
     movement = payload["movement"]
     if movement["available"]:
+        scores_improved = movement["scoresImproved"] if movement.get("scoresAvailable") else "—"
+        scores_declined = movement["scoresDeclined"] if movement.get("scoresAvailable") else "—"
+        net_score_change = (
+            "{:+g}".format(movement["netScoreChange"])
+            if movement.get("scoresAvailable")
+            else "—"
+        )
         lines.extend(
             [
                 "Comparison begins with the nearest available snapshot to the {}-day lookback: **{}** ({} elapsed days).".format(
@@ -878,12 +912,12 @@ def markdown_dashboard(payload: Dict[str, Any]) -> str:
                 "",
                 "| Newly Review Ready | Fell below Review Ready | Scores increased | Scores declined | Net score points |",
                 "| ---: | ---: | ---: | ---: | ---: |",
-                "| **{}** | **{}** | **{}** | **{}** | **{:+g}** |".format(
+                "| **{}** | **{}** | **{}** | **{}** | **{}** |".format(
                     len(movement["newlyReady"]),
                     len(movement["fellBelowReady"]),
-                    movement["scoresImproved"],
-                    movement["scoresDeclined"],
-                    movement["netScoreChange"],
+                    scores_improved,
+                    scores_declined,
+                    net_score_change,
                 ),
                 "",
             ]
@@ -1030,7 +1064,12 @@ def main() -> int:
     project_title, items = parse_items(raw, config, registry)
     if not items:
         raise RuntimeError("No eligible proposal issues were returned; refusing to publish an empty dashboard.")
-    history = load_history(config, args.history)
+    retained_history = load_history(config, args.history)
+    seed_history = {"schemaVersion": 1, "snapshots": []}
+    seed_path = config.get("historySeedPath")
+    if seed_path:
+        seed_history = valid_history(read_json(Path(seed_path)))
+    history = combine_histories(seed_history, retained_history)
     payload = build_dashboard_payload(project_title, items, history, config, as_of)
     write_dashboard(args.output, payload)
     print(

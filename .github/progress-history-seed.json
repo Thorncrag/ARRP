@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "method": "Earliest dated score-bearing audit entry at or above 75 for each proposal in the documented July 13 baseline. Audit sidecars are the controlling evidence; repository commit history was used as a corroborating check, not as the attainment-date authority.",
+  "attainmentEvidence": [
+    {"identifier": "DOJ-001", "date": "2026-06-25", "audit": "areas/DOJ/issues/DOJ-001.audit.md"},
+    {"identifier": "DOJ-002", "date": "2026-06-27", "audit": "areas/DOJ/issues/DOJ-002.audit.md"},
+    {"identifier": "DOJ-003", "date": "2026-06-27", "audit": "areas/DOJ/issues/DOJ-003.audit.md"},
+    {"identifier": "DOJ-005", "date": "2026-06-28", "audit": "areas/DOJ/issues/DOJ-005.audit.md"},
+    {"identifier": "DOJ-007", "date": "2026-06-28", "audit": "areas/DOJ/issues/DOJ-007.audit.md"},
+    {"identifier": "DOJ-009", "date": "2026-07-02", "audit": "areas/DOJ/issues/DOJ-009.audit.md"},
+    {"identifier": "ELEC-001", "date": "2026-06-28", "audit": "areas/ELEC/issues/ELEC-001.audit.md"},
+    {"identifier": "ELEC-002", "date": "2026-06-28", "audit": "areas/ELEC/issues/ELEC-002.audit.md"},
+    {"identifier": "ELEC-003", "date": "2026-06-28", "audit": "areas/ELEC/issues/ELEC-003.audit.md"},
+    {"identifier": "ELEC-004", "date": "2026-07-04", "audit": "areas/ELEC/issues/ELEC-004.audit.md"},
+    {"identifier": "ELEC-005", "date": "2026-06-28", "audit": "areas/ELEC/issues/ELEC-005.audit.md"},
+    {"identifier": "ELEC-006", "date": "2026-06-28", "audit": "areas/ELEC/issues/ELEC-006.audit.md"},
+    {"identifier": "ELEC-007", "date": "2026-06-28", "audit": "areas/ELEC/issues/ELEC-007.audit.md"},
+    {"identifier": "ELEC-008", "date": "2026-07-04", "audit": "areas/ELEC/issues/ELEC-008.audit.md"},
+    {"identifier": "ELEC-009", "date": "2026-07-04", "audit": "areas/ELEC/issues/ELEC-009.audit.md"},
+    {"identifier": "ELEC-010", "date": "2026-06-28", "audit": "areas/ELEC/issues/ELEC-010.audit.md"},
+    {"identifier": "ELEC-011", "date": "2026-07-04", "audit": "areas/ELEC/issues/ELEC-011.audit.md"},
+    {"identifier": "ELEC-012", "date": "2026-07-04", "audit": "areas/ELEC/issues/ELEC-012.audit.md"},
+    {"identifier": "ELEC-013", "date": "2026-07-09", "audit": "areas/ELEC/issues/ELEC-013.audit.md"},
+    {"identifier": "IMM-001", "date": "2026-06-28", "audit": "areas/IMM/issues/IMM-001.audit.md"},
+    {"identifier": "JUD-001", "date": "2026-06-28", "audit": "areas/JUD/issues/JUD-001.audit.md"},
+    {"identifier": "JUD-009", "date": "2026-06-28", "audit": "areas/JUD/issues/JUD-009.audit.md"},
+    {"identifier": "WAR-001", "date": "2026-06-28", "audit": "areas/WAR/issues/WAR-001.audit.md"}
+  ],
+  "unverifiedCurrentStatuses": [
+    {
+      "identifier": "REG-001",
+      "reason": "The July 13 Project snapshot marks REG-001 Review ready, but the Project score is blank and the repository audit record does not document a score at or above 75. It is not included in the retrospective seed; live Project status remains authoritative and the dashboard emits a tracking warning."
+    }
+  ],
+  "snapshots": [
+    {
+      "date": "2026-06-24",
+      "total": 206,
+      "ready": 0,
+      "byArea": {},
+      "detailAvailable": true,
+      "readyIssues": [],
+      "scores": {}
+    },
+    {
+      "date": "2026-06-25",
+      "total": 206,
+      "ready": 1,
+      "byArea": {},
+      "detailAvailable": true,
+      "readyIssues": ["DOJ-001"],
+      "scores": {}
+    },
+    {
+      "date": "2026-06-27",
+      "total": 206,
+      "ready": 3,
+      "byArea": {},
+      "detailAvailable": true,
+      "readyIssues": ["DOJ-001", "DOJ-002", "DOJ-003"],
+      "scores": {}
+    },
+    {
+      "date": "2026-06-28",
+      "total": 206,
+      "ready": 16,
+      "byArea": {},
+      "detailAvailable": true,
+      "readyIssues": [
+        "DOJ-001", "DOJ-002", "DOJ-003", "DOJ-005", "DOJ-007",
+        "ELEC-001", "ELEC-002", "ELEC-003", "ELEC-005", "ELEC-006",
+        "ELEC-007", "ELEC-010", "IMM-001", "JUD-001", "JUD-009", "WAR-001"
+      ],
+      "scores": {}
+    },
+    {
+      "date": "2026-07-02",
+      "total": 206,
+      "ready": 17,
+      "byArea": {},
+      "detailAvailable": true,
+      "readyIssues": [
+        "DOJ-001", "DOJ-002", "DOJ-003", "DOJ-005", "DOJ-007", "DOJ-009",
+        "ELEC-001", "ELEC-002", "ELEC-003", "ELEC-005", "ELEC-006",
+        "ELEC-007", "ELEC-010", "IMM-001", "JUD-001", "JUD-009", "WAR-001"
+      ],
+      "scores": {}
+    },
+    {
+      "date": "2026-07-04",
+      "total": 206,
+      "ready": 22,
+      "byArea": {},
+      "detailAvailable": true,
+      "readyIssues": [
+        "DOJ-001", "DOJ-002", "DOJ-003", "DOJ-005", "DOJ-007", "DOJ-009",
+        "ELEC-001", "ELEC-002", "ELEC-003", "ELEC-004", "ELEC-005",
+        "ELEC-006", "ELEC-007", "ELEC-008", "ELEC-009", "ELEC-010",
+        "ELEC-011", "ELEC-012", "IMM-001", "JUD-001", "JUD-009", "WAR-001"
+      ],
+      "scores": {}
+    },
+    {
+      "date": "2026-07-09",
+      "total": 206,
+      "ready": 23,
+      "byArea": {},
+      "detailAvailable": true,
+      "readyIssues": [
+        "DOJ-001", "DOJ-002", "DOJ-003", "DOJ-005", "DOJ-007", "DOJ-009",
+        "ELEC-001", "ELEC-002", "ELEC-003", "ELEC-004", "ELEC-005",
+        "ELEC-006", "ELEC-007", "ELEC-008", "ELEC-009", "ELEC-010",
+        "ELEC-011", "ELEC-012", "ELEC-013", "IMM-001", "JUD-001", "JUD-009", "WAR-001"
+      ],
+      "scores": {}
+    }
+  ]
+}

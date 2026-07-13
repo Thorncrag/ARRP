@@ -10,7 +10,7 @@ The [ARRP Review Ready Progress Dashboard](https://github.com/Thorncrag/ARRP/blo
 
 ## Goal and Eligibility
 
-The initial July 13, 2026 baseline is 23 Review Ready proposals out of 206 eligible proposal issues. Eligibility and issue identity are determined from [`inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv) rows whose `Kind` is `proposal`. The builder then matches each proposal to its GitHub Project row through the `Canonical page` field.
+The official July 13, 2026 goal baseline is 23 Review Ready proposals out of 206 eligible proposal issues. A retrospective series begins on June 24 and reconstructs how those 23 proposals reached Review Ready before the dashboard was activated. Eligibility and issue identity are determined from [`inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv) rows whose `Kind` is `proposal`. The builder then matches each proposal to its GitHub Project row through the `Canonical page` field.
 
 Governance, horizon, source-review, and other non-proposal registry rows are excluded. Newly admitted proposal rows automatically enlarge the current scope; the dashboard reports the difference from the 206-proposal baseline so that new intake cannot silently distort the goal. A proposal without a matching Project `Canonical page` remains in the denominator, is treated as not ready, and produces a visible tracking warning instead of disappearing from the goal.
 
@@ -28,7 +28,7 @@ The dashboard uses the GitHub Project `Status` field as the lifecycle authority.
 - `Release candidate`; or
 - `Done / Published`.
 
-The score threshold remains 75. The dashboard flags, but does not silently repair, a proposal whose score is at least 75 while its status remains below Review Ready, or whose Review Ready status is paired with a lower score. This preserves the Project readback rule and makes tracking drift visible.
+The score threshold remains 75. The dashboard flags, but does not silently repair, a proposal whose score is at least 75 while its status remains below Review Ready, whose Review Ready status is paired with a lower score, or whose Review Ready status has no Project score with which to verify the threshold. This preserves the Project readback rule and makes tracking drift visible.
 
 ## Metrics
 
@@ -57,11 +57,19 @@ The required weekly pace is:
 
 `remaining eligible proposals / weeks remaining before the official target`.
 
-The rolling pace is the net change in Review Ready count over the configured 28-day window, expressed per week. Until seven days of snapshots exist, the dashboard displays `Establishing pace` and withholds a rolling forecast. Once enough history exists, the forecast date is:
+The rolling pace is the net change in Review Ready count over the configured 28-day window, expressed per week. The initial calculation may use the documented retrospective series rather than waiting seven days after dashboard activation. If fewer than seven days of supported history exist, the dashboard displays `Establishing pace` and withholds a rolling forecast. Once enough history exists, the forecast date is:
 
 `current date + (remaining proposals / rolling weekly pace)`.
 
-The calculation uses net portfolio movement. A proposal that regresses below Review Ready reduces measured progress; newly admitted proposals increase the denominator and required pace. Daily snapshots also retain ready identifiers and scores so the page can distinguish newly completed work, regressions, and pre-completion score movement after two comparable snapshots exist. Score movement is an early pipeline indicator, not a measure of hours worked. The forecast is therefore a planning signal, not a promise or a substitute for proposal-level judgment.
+The calculation uses net portfolio movement. A proposal that regresses below Review Ready reduces measured progress; newly admitted proposals increase the denominator and required pace. Daily snapshots also retain ready identifiers and scores so the page can distinguish newly completed work, regressions, and pre-completion score movement after two comparable snapshots exist. The retrospective seed retains supported ready identifiers but does not invent historical Project-score snapshots, so score-movement comparisons begin only when comparable automated scores exist. Score movement is an early pipeline indicator, not a measure of hours worked. The forecast is therefore a planning signal, not a promise or a substitute for proposal-level judgment.
+
+## Retrospective Pace Evidence
+
+The checked-in [retrospective seed](../.github/progress-history-seed.json) records the earliest dated score-bearing audit at or above 75 for each proposal in the official 23-proposal baseline. The repository audit sidecar is the attainment-date authority because it states the audit date, score, and Review Ready finding. Git commit history was checked as corroboration, but commit timestamps do not replace an explicit audit date: several audit packages were committed on a different calendar date, and commits may bundle or publish work after the audit itself.
+
+The reconstructed cumulative series begins at zero on June 24, the day before the first qualifying attainment, then records 1 on June 25, 3 on June 27, 16 on June 28, 17 on July 2, 22 on July 4, and 23 on July 9. That result independently reproduces the official July 13 baseline. Each of the 23 attainment records links to its controlling audit-sidecar path in the seed file. If an earlier qualifying audit is later discovered, the seed and this method note should be corrected together with a project-level Change Audit entry.
+
+The seed does not override current GitHub Project data. A retained automated snapshot wins over the seed on the same date, and the current build always wins over both. This lets the dashboard use supported pre-activation history while preserving the Project as the current lifecycle authority.
 
 ## Automation and Data Retention
 
@@ -69,10 +77,11 @@ The [`Review Ready progress dashboard`](../.github/workflows/review-ready-dashbo
 
 1. reads only field values from the user-owned ARRP Project through GitHub's GraphQL API;
 2. joins those fields to proposal identity and links from the checked-out issue registry;
-3. retrieves the previous `data/history.json` snapshot series from the generated dashboard branch;
-4. validates and appends the current daily snapshot;
-5. builds `PROGRESS.md`, accessible SVG charts, and machine-readable JSON; and
-6. creates or updates the dedicated `progress-dashboard` branch through GitHub's Git data API.
+3. loads the checked-in audit-derived retrospective seed;
+4. retrieves the previous `data/history.json` snapshot series from the generated dashboard branch;
+5. validates and combines the seed, retained history, and current daily snapshot with later sources taking precedence on matching dates;
+6. builds `PROGRESS.md`, accessible SVG charts, and machine-readable JSON; and
+7. creates or updates the dedicated `progress-dashboard` branch through GitHub's Git data API.
 
 History is retained on the generated branch rather than by opening a tracking issue or committing daily generated data to `main`. If branch history is unavailable or invalid, the builder safely restarts from the documented baseline and current snapshot. The publisher creates the branch as an independent root history, then uses non-forced, fast-forward updates. The generated branch contains only the dashboard, charts, and data; it is not a development branch and should not be edited manually.
 
@@ -97,7 +106,8 @@ The daily schedule maintains the page thereafter. If the personal access token e
 
 ## Implementation Map
 
-- [`.github/progress-dashboard.json`](../.github/progress-dashboard.json) owns the baseline, target, readiness statuses, field names, and forecast window.
+- [`.github/progress-dashboard.json`](../.github/progress-dashboard.json) owns the official baseline, retrospective-history start, target, readiness statuses, field names, and forecast window.
+- [`.github/progress-history-seed.json`](../.github/progress-history-seed.json) owns the audit-derived pre-activation attainment evidence and cumulative snapshots.
 - [`.github/workflows/review-ready-dashboard.yml`](../.github/workflows/review-ready-dashboard.yml) owns the daily, manual, and source-change automation and its permission boundary.
 - [`scripts/build_review_ready_dashboard.py`](../scripts/build_review_ready_dashboard.py) reads and filters Project data, validates history, calculates metrics and forecasts, and generates Markdown, SVG, and JSON output.
 - [`scripts/publish_review_ready_dashboard.py`](../scripts/publish_review_ready_dashboard.py) creates the independent generated branch and applies non-forced updates to it.

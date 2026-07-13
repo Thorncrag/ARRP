@@ -9,6 +9,7 @@ on:
       - main
     paths:
       - ".github/progress-dashboard.json"
+      - ".github/progress-history-seed.json"
       - ".github/workflows/review-ready-dashboard.yml"
       - "scripts/build_review_ready_dashboard.py"
       - "scripts/publish_review_ready_dashboard.py"
