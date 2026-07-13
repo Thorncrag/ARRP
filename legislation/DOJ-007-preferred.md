@@ -5,7 +5,7 @@ title: "Independent Investigative Counsel Shared-Framework Implementation Act"
 status: working-draft
 enactment_path: preferred
 constitutional_dependency: "Ratification of the DOJ-007 Independent Investigative Counsel Amendment"
-framework_dependency: "Enactment and operation of JUD-011"
+framework_dependency: "Enactment and operation of the Interbranch Review Framework Act (JUD-011)"
 constitutional_amendment: "DOJ-007-amendment.md"
 framework_legislation: "JUD-011.md"
 independent_alternative: "DOJ-007.md"
@@ -19,9 +19,9 @@ print_levels:
 
 # DOJ-007 — Independent Investigative Counsel Shared-Framework Implementation Act (Preferred)
 
-This is DOJ-007's preferred implementing legislation. It operates only after ratification of the [Independent Investigative Counsel Amendment](DOJ-007-amendment.md) and enactment of the [Interbranch Review Framework Act](JUD-011.md). It adds a separately firewalled Investigative Counsel component to JUD-011's existing Article III structure and reuses its roster, clerk, facilities, security, technology, judgeships, and nondecisional administration.
+This is DOJ-007's preferred implementing legislation. It operates only after ratification of the [Independent Investigative Counsel Amendment](DOJ-007-amendment.md) and enactment of the [Interbranch Review Framework Act (JUD-011)](JUD-011.md). It adds a separately firewalled Investigative Counsel component to JUD-011's existing Article III structure and reuses its roster, clerk, facilities, security, technology, judgeships, and nondecisional administration.
 
-Congress may instead ratify the same amendment and enact the standalone [Independent Investigative Counsel Appointment and Accountability Act](DOJ-007.md). That independent alternative does not rely on JUD-011.
+If Congress rejects the Interbranch Review Framework Act (JUD-011), it may instead ratify the same amendment and enact the standalone [Independent Investigative Counsel Appointment and Accountability Act](DOJ-007.md). That independent alternative does not rely on JUD-011.
 
 ## A BILL
 

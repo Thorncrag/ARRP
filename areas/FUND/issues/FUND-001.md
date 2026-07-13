@@ -33,7 +33,7 @@ audit_history: "FUND-001.audit.md"
 # FUND-001 — Addressing Executive Order Abuse
 
 > ## Issue Snapshot
-> **Problem:** Executive orders can convert unlawful nonexecution into facts on the ground.<br />**Repair:** Enforce enacted mandates before unlawful directives create irreversible facts.<br />**Vehicle:** [JUD-011](../../JUD/issues/JUD-011.md) alone (preferred); standalone [FUND-001](../../../legislation/FUND-001.md) (independent alternative).
+> **Problem:** Executive orders can convert unlawful nonexecution into facts on the ground.<br />**Repair:** Enforce enacted mandates before unlawful directives create irreversible facts.<br />**Vehicle:** [Interbranch Review Framework Act (JUD-011)](../../../legislation/JUD-011.md) alone (preferred); standalone [FUND-001](../../../legislation/FUND-001.md) (independent alternative).
 >
 
 ## Institutional Anomaly
@@ -123,7 +123,7 @@ Lisa Manheim and Kathryn A. Watts's article [Reviewing Presidential Orders](http
 
 ## Least-Complex Adequate Remedy
 
-The preferred remedy is [JUD-011](../../JUD/issues/JUD-011.md) alone because its generally applicable anti-nullification claim reaches substantial and sustained executive displacement of enacted appropriations and program mandates without a subject-matter opt-in. If Congress rejects that general framework, the least-complex independent alternative is FUND-001: federal legislation amending the Impoundment Control Act and related appropriations-enforcement rules. A constitutional amendment should be reserved only if Congress seeks to directly invalidate executive orders, impose presidential disabilities, or regulate the President's issuance authority rather than agency implementation and appropriated funds.
+The preferred remedy is the [Interbranch Review Framework Act (JUD-011)](../../../legislation/JUD-011.md) alone because its generally applicable anti-nullification claim reaches substantial and sustained executive displacement of enacted appropriations and program mandates without a subject-matter opt-in. If Congress rejects that general framework, the least-complex independent alternative is FUND-001: federal legislation amending the Impoundment Control Act and related appropriations-enforcement rules. A constitutional amendment should be reserved only if Congress seeks to directly invalidate executive orders, impose presidential disabilities, or regulate the President's issuance authority rather than agency implementation and appropriated funds.
 
 ## Repair and Prevention
 
@@ -145,21 +145,21 @@ The statute should:
 
 ## Proposed Legislation
 
-### Primary remedy — enact JUD-011 alone
+### Primary remedy — enact the Interbranch Review Framework Act (JUD-011) alone
 
-- [JUD-011 — Interbranch Review Framework Act](../../../legislation/JUD-011.md)
+- [Interbranch Review Framework Act (JUD-011)](../../../legislation/JUD-011.md)
 
-JUD-011 itself supplies the cause of action, eligible-plaintiff rules, anti-nullification threshold, D.D.C. forum, relief, and appellate procedure. It applies because the alleged executive conduct meets that general statutory test, not because FUND-001 opts in or is enacted.
+The Interbranch Review Framework Act (JUD-011) itself supplies the cause of action, eligible-plaintiff rules, anti-nullification threshold, D.D.C. forum, relief, and appellate procedure. It applies because the alleged executive conduct meets that general statutory test, not because FUND-001 opts in or is enacted.
 
 ### Independent legislative alternative — enact FUND-001 alone
 
 - [FUND-001 — Executive-Order Abuse Impoundment Control Act](../../../legislation/FUND-001.md)
 
-FUND-001 is a complete appropriations-specific remedy Congress may enact if it opposes JUD-011. It independently supplies the trigger, fiscal-inertness rules, certification process, cause of action, plaintiffs, relief, three-judge D.D.C. procedure, and D.C. Circuit review. It does not rely on JUD-011 or another ARRP proposal.
+FUND-001 is a complete appropriations-specific remedy Congress may enact if it rejects the Interbranch Review Framework Act (JUD-011). It independently supplies the trigger, fiscal-inertness rules, certification process, cause of action, plaintiffs, relief, three-judge D.D.C. procedure, and D.C. Circuit review. It does not rely on JUD-011 or another ARRP proposal.
 
 ## Interbranch Review Pathways
 
-> **Preferred remedy:** Enact JUD-011 alone. Its coverage is automatic across subject matters when executive conduct substantially and sustainably nullifies an enacted mandate.<br />**Independent alternative:** Enact FUND-001 alone. Section 1026 supplies its own three-judge D.D.C. panel, temporary relief, expedition, remedies, and D.C. Circuit review.<br />**Congressional choice:** These are separate enactment choices, not two modes of FUND-001. Neither bill activates or depends on the other.
+> **Preferred remedy:** Enact the Interbranch Review Framework Act (JUD-011) alone. Its coverage is automatic across subject matters when executive conduct substantially and sustainably nullifies an enacted mandate.<br />**Independent alternative:** Enact FUND-001 alone. Section 1026 supplies its own three-judge D.D.C. panel, temporary relief, expedition, remedies, and D.C. Circuit review.<br />**Congressional choice:** These are separate enactment choices, not two modes of FUND-001. Neither bill activates or depends on the other.
 
 ## Relationship to Adjacent Proposals
 
@@ -170,13 +170,13 @@ FUND-001 is a complete appropriations-specific remedy Congress may enact if it o
 - **CONG-008** concerns partisan collapse of oversight under unified government.
 - **FED-003** concerns coercive grant conditions imposed on states or local governments.
 - **JUD-001** concerns judicial enforcement after a court has issued an order requiring executive compliance.
-- **JUD-011** is the preferred general anti-nullification remedy and applies without subject-matter designation. FUND-001 is a separate, complete appropriations-specific alternative.
+- The **Interbranch Review Framework Act (JUD-011)** is the preferred general anti-nullification remedy and applies without subject-matter designation. FUND-001 is a separate, complete appropriations-specific alternative.
 
 ## Budgetary Impact Statements
 
-### Preferred remedy — JUD-011
+### Preferred remedy — Interbranch Review Framework Act (JUD-011)
 
-JUD-011 carries the two additional D.D.C. judgeships and the startup, national-roster, clerk, facilities, technology, secure-record, special-master, emergency-administration, and operating costs of the preferred general remedy. FUND-001 adds no separate judicial apparatus under this path. OMB, agency, GAO, fiscal-release, compliance, and program-restoration costs depend on the underlying dispute and are not included in JUD-011's judicial appropriation.
+The Interbranch Review Framework Act (JUD-011) carries the two additional D.D.C. judgeships and the startup, national-roster, clerk, facilities, technology, secure-record, special-master, emergency-administration, and operating costs of the preferred general remedy. FUND-001 adds no separate judicial apparatus under this path. OMB, agency, GAO, fiscal-release, compliance, and program-restoration costs depend on the underlying dispute and are not included in the Act's judicial appropriation.
 
 ### Independent alternative — standalone FUND-001
 
@@ -208,7 +208,7 @@ The independent FUND-001 bill must separately account for OMB, agency, GAO, cong
 
 **Standing and Review.** T2 should test who may sue, whether GAO may initiate enforcement, whether either House or designated congressional officers may sue, and whether states, grantees, beneficiaries, contractors, and program administrators have adequate causes of action.
 
-**Preferred and Independent Remedies.** JUD-011 alone is the preferred general remedy; it does not require FUND-001 to opt in. FUND-001 is the independent alternative and now contains no JUD-011 routing or dependency. Its own cause of action, plaintiff categories, trigger, fiscal-inertness rules, emergency exception, three-judge D.D.C. procedure, relief, and expedited D.C. Circuit review operate if Congress enacts FUND-001 by itself.
+**Preferred and Independent Remedies.** The Interbranch Review Framework Act (JUD-011) alone is the preferred general remedy; it does not require FUND-001 to opt in. FUND-001 is the independent alternative and now contains no JUD-011 routing or dependency. Its own cause of action, plaintiff categories, trigger, fiscal-inertness rules, emergency exception, three-judge D.D.C. procedure, relief, and expedited D.C. Circuit review operate if Congress enacts FUND-001 by itself.
 
 **Quality Score.** The 60/100 score is an initial development score under rubric `2026-06-27.2`: Structural 8/8; Evidence 6/12; Legal Fit 6/10; Prior-Proposal 4/8; Remedy 8/12; Implementation 5/8; Abuse Resistance 6/8; Drafting 5/8; Cogency 6/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. The issue has a coherent statutory hook, issue framework, draft vehicle, neutral executive-order-volume manifestation, a judicial-review comparator scaffold, and a strong scholarly source for the presidential-order review gap, but T2 must verify existing-law fit, GAO enforcement mechanics, statutory standing, Youngstown/Train doctrine, Chadha constraints, OMB apportionment practice, emergency exceptions, implementation burden, public-support evidence, and prior legislative analogues.
 

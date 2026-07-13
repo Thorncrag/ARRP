@@ -46,7 +46,7 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 - It preserves the distinction between investigation and prosecution of a sitting President.
 - It does not determine the substantive scope of presidential criminal immunity; [IMM-001](../areas/IMM/issues/IMM-001.md) addresses that issue separately.
 - The amendment is implementation-neutral. It permits Congress either to use a separately firewalled component of an existing Article III judicial framework or to create a self-contained judicial panel.
-- The preferred [Interbranch implementation Act](DOJ-007-preferred.md) reuses JUD-011's roster and nondecisional infrastructure. The standalone [independent alternative](DOJ-007.md) supplies its own Special Division if Congress rejects JUD-011.
+- The preferred [DOJ-007 Shared-Framework Implementation Act](DOJ-007-preferred.md) reuses the infrastructure created by the [Interbranch Review Framework Act (JUD-011)](JUD-011.md). The standalone [independent alternative](DOJ-007.md) supplies its own Special Division if Congress rejects the Interbranch Review Framework Act (JUD-011).
 
 ## Source Notes
 

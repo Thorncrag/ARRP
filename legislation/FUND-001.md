@@ -310,5 +310,5 @@ Administrative and litigation workload is likely for OMB, GAO, affected agencies
 - This draft regulates agency implementation and appropriated funds rather than directly invalidating executive orders.
 - T2 should verify whether the new part should be codified in 2 U.S.C. chapter 17B, a new title 31 provision, annual appropriations riders, or a combination.
 - T2 should test congressional-plaintiff standing, Comptroller General enforcement, emergency exceptions, D.C. Circuit appellate review, and the standalone three-judge-D.D.C. route.
-- This bill is the independent FUND-001 alternative. It neither invokes nor depends on JUD-011 or another ARRP proposal.
+- This bill is the independent FUND-001 alternative. It neither invokes nor depends on the [Interbranch Review Framework Act (JUD-011)](JUD-011.md) or another ARRP proposal.
 - T2 should review whether preliminary-injunction findings should count as trigger findings or whether only final judgments and Comptroller General decisions should count.

@@ -24,7 +24,7 @@ Entries are maintained newest first. Change Audits preserve the existing score u
 
 **Independent-remedy finding:** The standalone Act independently supplies its pattern trigger, fiscal-inertness rule, certification, emergency exception, safe harbor, Comptroller General functions, cause of action, plaintiffs, D.D.C. three-judge procedure, temporary relief, remedies, and D.C. Circuit review. It contains no JUD-011 prerequisite or funding dependency.
 
-**Corrections and budget finding:** Replaced the ambiguous standalone-only front-matter vehicle field with explicit preferred and alternative proposal fields and confirmed that the issue separately identifies JUD-011 judicial costs, nonjudicial restoration costs, and the complete standalone Act's OMB, agency, GAO, compliance, fiscal-release, and court costs.
+**Corrections and budget finding:** Replaced the ambiguous standalone-only front-matter vehicle field with explicit preferred and alternative proposal fields; standardized reader-facing references as “Interbranch Review Framework Act (JUD-011)” and the alternative-path formulation as “if Congress rejects”; and confirmed that the issue separately identifies JUD-011 judicial costs, nonjudicial restoration costs, and the complete standalone Act's OMB, agency, GAO, compliance, fiscal-release, and court costs.
 
 **Score effect and unresolved work:** No change; 60/100 remains current. T2 must still resolve standing, Comptroller General authority, sections 1253 and 2284 coordination, emergency design, implementation burden, source-backed cost work, prior proposals, and adoption evidence.
 
