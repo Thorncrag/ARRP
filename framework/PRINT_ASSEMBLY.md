@@ -78,7 +78,7 @@ Issue audit-history files named `ISSUE-ID.audit.md` are technical sidecars. They
 
 ### Back Matter
 
-Public-proposal and full-technical editions should end with a generated **Subject and Institution Index** based on [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). The canonical index supplies one alphabetical sequence of entities, subjects, acronyms, and aliases together with ordered stable identifiers, digital links, and a marked preferred route. The export layer supplies the page numbers for the particular edition.
+Public-proposal and full-technical editions should end with a generated **Subject and Institution Index** based on [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). The canonical index supplies one alphabetical sequence of entities, subjects, acronyms, and aliases together with ordered stable identifiers, digital links, a marked preferred route, and conventional **See** redirects for especially common alternate terms. The export layer supplies the page numbers for the particular edition.
 
 ## Area and Issue Ordering Rules
 
@@ -129,8 +129,9 @@ The subject and institution index requires edition-specific page locators and sh
 1. during the first pass, record the start and end pages for every area page, developed issue, legislation item, and selected appendix item;
 2. map each stable target linked from [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md) to the page or page range where that target appears in the assembled edition;
 3. when a candidate issue has no standalone page, resolve its locator to the page containing the candidate entry on the applicable area page;
-4. during the second pass, render a conventional alphabetical back-of-book index with comma-separated pages or page ranges while preserving clickable links in digital PDF and DOCX editions; and
-5. collapse duplicate locators and omit targets not included in the selected edition, without changing the canonical subject-to-issue mapping.
+4. render each **See** entry as a cross-reference to its canonical index term without assigning the redirect its own page locator;
+5. during the second pass, render a conventional alphabetical back-of-book index with comma-separated pages or page ranges while preserving clickable links in digital PDF and DOCX editions; and
+6. collapse duplicate locators and omit targets not included in the selected edition, without changing the canonical subject-to-issue mapping.
 
 The printed index should preserve the canonical distinction between the preferred route and any alternate locators, but it should not add relationship analysis or reproduce proposal status, score, priority, or audit metadata. If pagination changes, regenerate the index rather than editing page numbers in `SUBJECT_INDEX.md`.
 

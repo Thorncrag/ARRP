@@ -6,7 +6,7 @@ print_levels:
 
 # Horizon Scan Log
 
-This page is the canonical disposition log for Horizon Scan audits. It preserves stable `HOR-###` identifiers and records how each candidate is retained, admitted, merged, deferred, retired, or otherwise adjudicated.
+This page is the canonical disposition log for Horizon Scan audits. It preserves stable `HOR-###` identifiers and records how each candidate is retained, admitted, merged, deferred, retired, rejected as outside scope, or otherwise adjudicated. It is also the project's single catalog for rejected, retired, and outside-scope candidate intakes; those candidates should not receive separate entries in the reader-facing Subject and Institution Index.
 
 The active horizon queue is maintained through GitHub Issues and the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). This page preserves the historical and substantive disposition record. When adjudication ends all active work on a horizon record, its GitHub issue remains permanently available in closed form but its card should leave the active Project; GitHub issues are deleted only if created erroneously. GitHub should carry active status, area, workstream, assignment, filtering, milestone, source-development needs, and contributor-discussion workflow.
 

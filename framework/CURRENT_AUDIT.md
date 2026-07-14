@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | Unified subject and institution index |
+| Active issue/task | Unified subject and institution index; common-term, functional-name, and disposition routing |
 | Audit type/tier | Project-level Change Audit |
 | Started | 2026-07-14 |
-| Last checkpoint | 2026-07-14; entity and topic tables merged into one alphabetical lookup sequence |
-| User request | Trim and streamline the subject index, replace full proposal titles with precise identifiers, remove the unclear `Material related issues` structure, and merge entity and topic entries so readers need not check two tables. |
-| Scope | `SUBJECT_INDEX.md`; governing index rules in the framework, methodology, and print-assembly instructions; consolidated same-day Change Audit history. |
-| Files touched | `SUBJECT_INDEX.md`; `framework/FRAMEWORK.md`; `framework/METHODOLOGY.md`; `framework/PRINT_ASSEMBLY.md`; `framework/PROJECT_STRUCTURE.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Replaced full destination titles and explanatory prose with linked record identifiers; removed the primary/related schema; merged entities, topics, acronyms, and aliases into one alphabetical table; consolidated closely overlapping ICC, Inspector General, and IRS entries; marked the preferred destination first; retained alternate routes only when useful; kept scope-boundary terms as direct framework routes; and synchronized governing and print-assembly rules. |
-| Next step | Maintain the single alphabetical, identifier-only format as proposals and lookup terms are added or rerouted. |
+| Last checkpoint | 2026-07-14; common-term redirects, functional institutional names, and centralized rejected-candidate routing implemented |
+| User request | Trim and streamline the subject index, replace full proposal titles with precise identifiers, remove the unclear `Material related issues` structure, merge entity and topic entries, add high-value conventional redirects for common terms readers are likely to seek, alphabetize departments and other institutions by familiar functional names or acronyms rather than generic prefixes, and catalog rejected or outside-scope candidates in one place rather than listing each independently. |
+| Scope | `SUBJECT_INDEX.md`; the Horizon disposition catalog; governing index rules in the framework, methodology, and print-assembly instructions; consolidated same-day Change Audit history. |
+| Files touched | `SUBJECT_INDEX.md`; `framework/HORIZON_SCAN_LOG.md`; `framework/FRAMEWORK.md`; `framework/METHODOLOGY.md`; `framework/PRINT_ASSEMBLY.md`; `framework/PROJECT_STRUCTURE.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Replaced full destination titles and explanatory prose with linked record identifiers; removed the primary/related schema; merged entities, topics, acronyms, and aliases into one alphabetical table; consolidated closely overlapping ICC, Inspector General, and IRS entries; added common-term **See** redirects; reordered departments, courts, offices, and services by familiar functional names or acronyms while preserving formal names; established the Horizon Scan Log as the single catalog for rejected, retired, and outside-scope candidates; replaced individual D.C. and Puerto Rico statehood entries with one general disposition route; marked the preferred destination first; retained alternate routes only when useful; and synchronized governing and print-assembly rules. |
+| Next step | Maintain the single alphabetical format, using functional institutional names, adding **See** redirects only for genuinely common alternate terms, and routing rejected candidates only through the disposition catalog. |
 | Blockers/questions | None. |
-| Validation status | Passed front-matter parsing, alphabetical-order and duplicate-term checks across 89 unique entries, two-column table-shape validation, repository-wide local-link validation across 177 Markdown files, stale-schema scans, and `git diff --check`. No GitHub Project or progress-dashboard sync is required because no proposal lifecycle, score, audit, eligibility, or Project field changes. |
+| Validation status | Passed front-matter parsing for the index and Horizon log; alphabetical-order and duplicate-term checks across 133 unique entries; two-column index table-shape validation; resolution of all 46 **See** and **See also** targets to 88 canonical entries; functional-name validation with no generic `Department of`, `United States`, or `Office of` opening entries; centralized disposition validation with no individual D.C. or Puerto Rico statehood rows and one general Horizon-log route; repository-wide local-link validation across 177 Markdown files; stale-schema scans; and `git diff --check`. No GitHub Project or progress-dashboard sync is required because no proposal lifecycle, score, audit, eligibility, or Project field changes. |
 
 ## Handoff Rules
 
