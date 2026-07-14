@@ -59,6 +59,8 @@ ARRP therefore excludes **strictly political failures**: failures of persuasion,
 
 Preventive resilience is within scope when a topic identifies a concrete legal, structural, administrative, or institutional vulnerability that could enable future abuse, even if the proposed reform is more forward-looking than reparative.
 
+Issue listings are provisional unless the issue has been developed and formally retained through project review. An undeveloped or candidate issue identifies a subject for investigation, not an affirmative project recommendation. As research and review proceed, an issue may be narrowed, merged into another proposal, deferred, retired, or excluded from scope.
+
 ## Governing Principles
 
 ### Institutional Focus
