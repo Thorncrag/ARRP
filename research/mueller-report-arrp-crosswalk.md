@@ -2,7 +2,7 @@
 title: "Mueller Report / ARRP Crosswalk"
 status: initial-source-development
 source_id: SRC-0107
-source_file: "report-on-the-investigation-into-russian-interference-2016-election-2019.pdf"
+source_file: "../sources/report-on-the-investigation-into-russian-interference-2016-election-2019.pdf"
 source_url: "https://www.justice.gov/archives/sco/file/1373816/dl"
 print_levels:
   - full-technical
@@ -16,7 +16,7 @@ This crosswalk maps the DOJ-hosted Mueller Report to ARRP proposals. The report 
 
 The report should be used with the same discipline that applies to indictments and later Special Counsel reports. It is a prosecutorial report, not an adjudicated judicial finding after trial. It may identify institutional flaws, alleged fact patterns, procedural posture, and source leads, but it should not be used to support the truth of an allegation unless the project verifies the specific cited evidence or corroborates the claim through admitted records, judicial findings, official records, sworn testimony, or other reliable sources.
 
-Local retained source file: [report-on-the-investigation-into-russian-interference-2016-election-2019.pdf](report-on-the-investigation-into-russian-interference-2016-election-2019.pdf)
+Local retained source file: [report-on-the-investigation-into-russian-interference-2016-election-2019.pdf](../sources/report-on-the-investigation-into-russian-interference-2016-election-2019.pdf)
 
 Source inventory row: `SRC-0107`
 

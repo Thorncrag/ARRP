@@ -62,7 +62,7 @@ The dashboard's registry-based eligibility rule, readiness statuses, baseline, t
 
 The public website uses GitHub Pages without a second repository or publication branch. The repository's `main` branch remains canonical, while [`.github/workflows/public-site.yml`](../.github/workflows/public-site.yml) builds and deploys only an allowlisted artifact. The publication boundary, local validation commands, and deployment design are maintained in [`../website/README.md`](../website/README.md).
 
-Every admitted page must both declare `public-proposal` in `print_levels` and fall within the approved root-page, `areas/`, or `legislation/` path boundary. The build must fail rather than silently expand that boundary. Internal framework, audit, Project, research, source-development, inventory, archive, test, script, export, secret, and repository-administration materials remain outside the artifact. A future decision to publish one of those classes requires an explicit publication-policy change and project-level Change Audit.
+Every admitted page must both declare `public-proposal` in `print_levels` and fall within the approved root-page, `areas/`, or `legislation/` path boundary. The build must fail rather than silently expand that boundary. Internal framework, audit, Project, research, retained-source, inventory, archive, test, script, export, secret, and repository-administration materials remain outside the artifact. A future decision to publish one of those classes requires an explicit publication-policy change and project-level Change Audit.
 
 ## Labels
 

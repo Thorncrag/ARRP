@@ -3,7 +3,7 @@ title: "Jack Smith Volume Two / Source Status and ARRP Crosswalk"
 status: initial-source-development
 report_status: "legally suppressed / not lawfully public as of 2026-07-02"
 source_file: null
-substitute_source_file: "us-v-trump-nauta-de-oliveira-superseding-indictment-2023.pdf"
+substitute_source_file: "../sources/us-v-trump-nauta-de-oliveira-superseding-indictment-2023.pdf"
 source_ids:
   - SRC-0283
   - SRC-0387
@@ -41,7 +41,7 @@ The project should also distinguish an alleged unauthorized transmission from la
 
 ARRP rule: do not download, retain, quote, summarize, or rely on any inadvertently disclosed, unauthorized, leaked, sealed, or otherwise nonpublic copy of Volume Two unless it is later lawfully unsealed or officially released. Use lawful public substitutes only.
 
-Local retained public substitute source: [us-v-trump-nauta-de-oliveira-superseding-indictment-2023.pdf](us-v-trump-nauta-de-oliveira-superseding-indictment-2023.pdf)
+Local retained public substitute source: [us-v-trump-nauta-de-oliveira-superseding-indictment-2023.pdf](../sources/us-v-trump-nauta-de-oliveira-superseding-indictment-2023.pdf)
 
 Source inventory rows: `SRC-0283`, `SRC-0387`, `SRC-0388`, `SRC-0389`, `SRC-0407`, `SRC-0408`
 

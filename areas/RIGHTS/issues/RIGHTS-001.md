@@ -42,7 +42,7 @@ That order is a strong manifestation because it shows how a single executive def
 
 Project 2025 materials should be treated as a vulnerability map even where a particular recommendation has not been enacted. The relevant question is whether the proposal identifies a legal, administrative, or institutional weak point that ARRP should consider repairing.
 
-The existing Project 2025 crosswalk identifies proposals to eliminate DEI and gender-identity protections across agencies and to restrict Title IX gender-identity policies and related guidance as possible civil-rights, factual-integrity, and regulatory-neutrality vulnerabilities. See the [Project 2025 crosswalk](../../../source-development/project-2025-arrp-crosswalk.md) and the official [Heritage Mandate for Leadership Series](https://www.heritage.org/mandate).
+The existing Project 2025 crosswalk identifies proposals to eliminate DEI and gender-identity protections across agencies and to restrict Title IX gender-identity policies and related guidance as possible civil-rights, factual-integrity, and regulatory-neutrality vulnerabilities. See the [Project 2025 crosswalk](../../../research/project-2025-arrp-crosswalk.md) and the official [Heritage Mandate for Leadership Series](https://www.heritage.org/mandate).
 
 ### DEI program, contractor, and grantee targeting
 

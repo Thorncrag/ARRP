@@ -365,7 +365,7 @@ def validate_staged_site() -> None:
         for path in DOCS_ROOT.rglob("*")
         if path.is_file()
         and path.relative_to(DOCS_ROOT).parts[0]
-        in {".github", "archive", "exports", "framework", "inventory", "research", "scripts", "source-development", "tests"}
+        in {".github", "archive", "exports", "framework", "inventory", "research", "scripts", "sources", "tests"}
     ]
     failures.extend(f"forbidden published path: {path}" for path in forbidden_paths)
     if failures:

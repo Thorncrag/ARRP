@@ -2,7 +2,7 @@
 title: "Durham Report / ARRP Crosswalk"
 status: initial-source-development
 source_id: SRC-0390
-source_file: "report-on-matters-related-to-intelligence-activities-2016-campaigns-durham-2023.pdf"
+source_file: "../sources/report-on-matters-related-to-intelligence-activities-2016-campaigns-durham-2023.pdf"
 source_url: "https://www.justice.gov/storage/durhamreport.pdf"
 archive_url: "https://www.justice.gov/archives/media/1381211/dl"
 print_levels:
@@ -17,7 +17,7 @@ This crosswalk maps Special Counsel John Durham's final report to ARRP proposals
 
 The report must be used with the same discipline that applies to indictments, the Mueller Report, and later Special Counsel reports. It is a prosecutorial report and prosecution/declination record, not an adjudicated judicial finding after trial. It may identify institutional flaws, alleged fact patterns, procedural posture, source leads, and reform ideas, but it should not be used to support the truth of an allegation unless the project verifies the specific cited evidence or corroborates the claim through admitted records, judicial findings, official records, inspector-general findings, FISC orders, sworn testimony, or other reliable sources.
 
-Local retained source file: [report-on-matters-related-to-intelligence-activities-2016-campaigns-durham-2023.pdf](report-on-matters-related-to-intelligence-activities-2016-campaigns-durham-2023.pdf)
+Local retained source file: [report-on-matters-related-to-intelligence-activities-2016-campaigns-durham-2023.pdf](../sources/report-on-matters-related-to-intelligence-activities-2016-campaigns-durham-2023.pdf)
 
 Source inventory row: `SRC-0390`
 

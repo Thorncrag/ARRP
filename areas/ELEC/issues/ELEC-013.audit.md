@@ -284,7 +284,7 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Proposal-quality score:** Unchanged at 0/100 pending draft and check audit.
 
-**Source-development added:** Added [Presidential debate and ballot-access explanatory checklist](../../../source-development/ELEC-013-presidential-debate-ballot-access-explainer.md) to map the national campaign setup path, debate-qualification packet, state and District of Columbia ballot-access verification workflow, certified-versus-claimed ballot-access distinction, polling-threshold timing problem, and reform lessons for ELEC-013.
+**Source-development added:** Added [Presidential debate and ballot-access explanatory checklist](../../../research/ELEC-013-presidential-debate-ballot-access-explainer.md) to map the national campaign setup path, debate-qualification packet, state and District of Columbia ballot-access verification workflow, certified-versus-claimed ballot-access distinction, polling-threshold timing problem, and reform lessons for ELEC-013.
 
 **Source record added:** Added source rows SRC-0494 through SRC-0498 covering FEC candidate-registration guidance, FEC ballot-access guidance, the FEC combined federal/state directory, and AP reporting on the 2024 CNN/RFK Jr. debate-qualification and certified-ballot-access dispute.
 

@@ -1,3 +1,11 @@
+---
+title: "ELEC-013 Presidential Debate and Ballot Access Explanatory Checklist"
+source_issue: "../areas/ELEC/issues/ELEC-013.md"
+status: active
+print_levels:
+  - full-technical
+---
+
 # ELEC-013 Presidential Debate and Ballot Access Explanatory Checklist
 
 > **Maintenance tracking:** [GitHub sub-issue #242](https://github.com/Thorncrag/ARRP/issues/242) under [ELEC-013 issue #41](https://github.com/Thorncrag/ARRP/issues/41). Review at least annually, before each presidential cycle, and upon the event predicates stated in the monitoring issue.

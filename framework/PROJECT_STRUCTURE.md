@@ -35,7 +35,8 @@ areas/                             One directory per project area
 legislation/                       Proposed statutory language keyed to issue ID
 website/                           Public-site policy and website-only presentation assets
 inventory/                         Structured source and GitHub issue registries
-research/                          Research notes not yet integrated
+research/                          ARRP-created analyses and development work product
+sources/                           External source and backup files retained locally
 scripts/prepare_public_site.py     Allowlisted public-site staging and validation
 exports/                           Generated DOCX, PDF, and XLSX outputs
 archive/                           Superseded or migrated source snapshots
@@ -50,6 +51,8 @@ archive/                           Superseded or migrated source snapshots
 - Legislative drafts use the corresponding issue identifier.
 - GitHub Projects is the authoritative area, issue, status, milestone, roadmap, and horizon-queue tracker.
 - Source records in `inventory/sources.csv` may be associated with issues, areas, framework files, research files, or project-level pages.
+- Authorship controls the research/source boundary: ARRP-created analyses, crosswalks, catalogs, transformed datasets, and visualizations belong in `research/`; external reports, filings, raw downloads, and backup copies belong in `sources/` when local retention is useful and appropriate.
+- `inventory/sources.csv` remains the citation catalog for external sources whether or not a local copy is retained. The repository does not download every cited source merely because it appears in the inventory.
 - GitHub Project items/fields, retained source inventory, audit-history sidecars, and affected Markdown pages should be updated in the same change that adds, removes, renames, merges, retires, or materially revises an area, issue, legislative proposal, audit status, or cited source.
 - GitHub Project fields provide the compact cross-issue workflow, audit-status, and release-triage view.
 - The public website is generated from the canonical Markdown rather than maintained as a second copy. `website/README.md` owns the publication boundary; `scripts/prepare_public_site.py` admits only `public-proposal` pages within the approved root, `areas/`, and `legislation/` paths; and the Pages workflow uploads only the validated generated artifact.

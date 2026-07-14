@@ -24,8 +24,8 @@ The project's public-facing premise, mission, scope, and governing principles ar
 - [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) contains cumulative project-wide Change Audit history.
 - [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) contains cumulative horizon-scan disposition and integration history.
 - [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) contains the repository map for human orientation.
-- `research/` contains material not yet integrated into a developed issue.
-- `source-development/` contains source-development work products and crosswalks not yet fully absorbed into issue pages, inventories, or proposed legislation.
+- `research/` contains ARRP-created project-development work product, including analyses, legal memoranda, crosswalks, catalogs, transformed datasets, comparison tables, and project-generated visualizations. A work product remains here whether it is preliminary, active, or already integrated into an issue.
+- `sources/` contains external material not created by ARRP and retained locally for citation support, verification, preservation, or backup. The directory policy README is the sole ordinary project-authored exception.
 - `scripts/` contains project-maintenance and export-generation scripts.
 - `website/` contains the public-site publication policy and website-only presentation assets.
 - `exports/` contains generated DOCX, PDF, and XLSX editions.
@@ -60,7 +60,8 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 - [`../CITATION.cff`](../CITATION.cff) — citation metadata
 - [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — contribution expectations
 - [`PUBLIC_RELEASE.md`](PUBLIC_RELEASE.md) — public release process
-- [`../source-development/`](../source-development/) — source-development work products and crosswalks
+- [`../research/`](../research/) — ARRP-created analyses, crosswalks, catalogs, datasets, and other development work product
+- [`../sources/`](../sources/) — locally retained external source and backup files
 - [`../scripts/`](../scripts/) — project-maintenance and export-generation scripts
 - [`../website/README.md`](../website/README.md) — public-website publication boundary, build, and deployment rules
 - [`../exports/`](../exports/) — generated, non-authoritative export files
@@ -117,7 +118,7 @@ Compiled public, legislative, and technical editions use this appendix allocatio
 
 1. **Appendix A** - Proposed Federal Legislation and Constitutional Amendments;
 2. **Appendix B** - Model State Legislation;
-3. **Appendix C** - source-development materials, crosswalks, or research notes selected for publication;
+3. **Appendix C** - ARRP research, crosswalks, catalogs, or other project work product selected for publication;
 4. **Appendix D** - technical framework, contribution rules, and release process, if included in a technical edition; and
 5. **Appendix E** - issue audit-history files for full technical editions, when audit provenance is included.
 
@@ -250,7 +251,7 @@ A proposal outside the civil cause may use JUD-011's shared judicial infrastruct
 
 Where a proposal requires a constitutional amendment and separate implementing legislation, the issue page should use **Proposed Constitutional Amendment** for the amendment page and **Proposed Enabling Legislation** for the implementing statute. Both sections should appear as Markdown bullet lists. The amendment text itself should live on its own proposal page, not inside the issue page. The enabling legislation page should identify the amendment dependency in front matter or introductory text.
 
-Candidate or source-development pages may keep a **Proposed Legislation** section with a single `Pending development` bullet when no draft vehicle exists yet. That placeholder is a development-status marker, not a legislation link failure. Once a concrete vehicle exists, replace the placeholder with a linked bullet and update the Issue Snapshot vehicle line, metadata, inventories, and GitHub Project fields if the development status, score, last audit, or next audit changes.
+Candidate or development-stage issue pages may keep a **Proposed Legislation** section with a single `Pending development` bullet when no draft vehicle exists yet. That placeholder is a development-status marker, not a legislation link failure. Once a concrete vehicle exists, replace the placeholder with a linked bullet and update the Issue Snapshot vehicle line, metadata, inventories, and GitHub Project fields if the development status, score, last audit, or next audit changes.
 
 Where a proposal is legally available under current law but depends on a future or amenable institutional actor for realistic adoption, the issue page may include an **Adoption Viability Note** immediately after **Proposed Legislation**, or after **Proposed Enabling Legislation** for amendment-dependent issues. The note should be concise and should distinguish legal vehicle availability from practical adoption likelihood.
 

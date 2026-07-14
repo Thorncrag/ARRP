@@ -2,7 +2,7 @@
 title: "Jack Smith Volume One / ARRP Crosswalk"
 status: initial-source-development
 source_id: SRC-0283
-source_file: "report-of-special-counsel-smith-volume-1-january-2025.pdf"
+source_file: "../sources/report-of-special-counsel-smith-volume-1-january-2025.pdf"
 source_url: "https://www.justice.gov/storage/Report-of-Special-Counsel-Smith-Volume-1-January-2025.pdf"
 print_levels:
   - full-technical
@@ -16,7 +16,7 @@ This crosswalk maps Volume One of Special Counsel Jack Smith's final report to A
 
 The report should be used with care. It is a prosecutor's final report and source-development record, not an adjudicated judicial finding after trial. It may identify institutional flaws and point to evidence, but it should not be used to support the truth of an allegation unless the project verifies the specific cited evidence or corroborates the claim through admitted records, judicial findings, official records, or other reliable sources. It should be paired with docket orders, Supreme Court opinions, the January 6 Select Committee report, state records, final court decisions, and other independently verifiable materials before any publication-ready factual claim relies on it.
 
-Local retained source file: [report-of-special-counsel-smith-volume-1-january-2025.pdf](report-of-special-counsel-smith-volume-1-january-2025.pdf)
+Local retained source file: [report-of-special-counsel-smith-volume-1-january-2025.pdf](../sources/report-of-special-counsel-smith-volume-1-january-2025.pdf)
 
 Source inventory row: `SRC-0283`
 

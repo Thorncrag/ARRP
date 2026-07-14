@@ -55,7 +55,7 @@ Appendices should use this order:
 
 1. Appendix A - Proposed Federal Legislation and Constitutional Amendments;
 2. Appendix B - Model State Legislation;
-3. Appendix C - Source-development materials, crosswalks, or research notes selected for publication;
+3. Appendix C - ARRP research, crosswalks, catalogs, or other project work product selected for publication;
 4. Appendix D - Technical framework, contribution rules, and release process, if included in a technical edition; and
 5. Appendix E - issue audit-history files for full technical editions, when audit provenance is included.
 
@@ -73,7 +73,7 @@ Legislation pages should use a narrow publication structure:
 4. `Drafting Notes`; and
 5. `Source Notes`, or `Authority Notes` where the proposal specifically needs a legal-authority or statutory-hook map.
 
-Relation-to-law provisions, rules of construction, severability clauses, definitions, and similar material should remain inside the proposed text when they are operative provisions. Explanatory crosswalks, manifestation-to-remedy mapping, implementation principles, and other analysis should live on the issue page, source-development page, or selected technical appendix rather than as standalone sections on the legislation page, unless the user deliberately creates a publication-specific appendix.
+Relation-to-law provisions, rules of construction, severability clauses, definitions, and similar material should remain inside the proposed text when they are operative provisions. Explanatory crosswalks, manifestation-to-remedy mapping, implementation principles, and other analysis should live on the issue page, a research page, or a selected technical appendix rather than as standalone sections on the legislation page, unless the user deliberately creates a publication-specific appendix.
 
 Issue audit-history files named `ISSUE-ID.audit.md` are technical sidecars. They should be included only in full technical editions or audit-specific exports unless the user deliberately chooses to publish audit provenance. Public proposal editions should generally keep only the issue page's compact Proposal Scoring section and omit the full audit-history sidecars.
 
@@ -161,7 +161,7 @@ Source-development notes may be included in the main body, moved to a source app
 
 The project may later maintain more than one compiled edition:
 
-1. **Full technical edition** - includes front matter, all area pages, all developed issue pages, legislation appendices, source-development appendices, and technical framework appendices.
+1. **Full technical edition** - includes front matter, all area pages, all developed issue pages, legislation appendices, selected ARRP research appendices, and technical framework appendices.
 2. **Public proposal edition** - includes front matter, area pages, developed issue pages, and legislation appendices, but omits technical repository-process materials.
 3. **Legislative appendix edition** - includes only proposed legislation and related drafting notes.
 4. **Executive summary edition** - includes front matter, brief area summaries, selected priority issues, and references to the full edition.
@@ -179,7 +179,7 @@ Use the metadata key `print_levels` with one or more of these stable values:
 | Metadata value | Visible label | Use |
 | --- | --- | --- |
 | `public-proposal` | Public proposal edition | Main public-facing proposal pages, area pages, developed issue pages, and legislation appendices used by the public proposal edition. |
-| `full-technical` | Full technical edition | All pages that should remain available in the complete technical record, including framework, inventory, audit, research, source-development, archive, and process pages. |
+| `full-technical` | Full technical edition | All pages that should remain available in the complete technical record, including framework, inventory, audit, research, archive, and process pages. External files retained in `sources/` are not included unless an export plan deliberately selects a source facsimile. |
 | `legislative-appendix` | Legislative appendix edition | Proposed legislation pages and legislation-index pages intended for a legislation-only export. |
 | `executive-summary` | Executive summary edition | Front-matter and area-summary pages that can support a short summary edition. |
 

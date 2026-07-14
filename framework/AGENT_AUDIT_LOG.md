@@ -1275,7 +1275,7 @@ Template:
 | Audit history | [Audit](../areas/REG/issues/REG-001.audit.md) |
 | Proposal page | [Bill](../legislation/REG-001.md) |
 | Tier | T2 development audit |
-| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `source-development/REG-001-independent-agency-removal-catalog.md` |
+| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run REG-001 T2 audit` (`b576485`) |
 | Push status | Pushed to `origin/main` |
@@ -1293,7 +1293,7 @@ Template:
 | Audit history | [Audit](../areas/REG/issues/REG-001.audit.md) |
 | Proposal page | [Bill](../legislation/REG-001.md) |
 | Tier | T3 readiness audit |
-| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `source-development/REG-001-independent-agency-removal-catalog.md` |
+| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker and definition scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run REG-001 T3 audit` (`d81925f`) |
 | Push status | Pushed to `origin/main` |
@@ -1311,7 +1311,7 @@ Template:
 | Audit history | [Audit](../areas/REG/issues/REG-001.audit.md) |
 | Proposal page | [Bill](../legislation/REG-001.md) |
 | Tier | T4 publication-ready audit |
-| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `source-development/REG-001-independent-agency-removal-catalog.md` |
+| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; score-component sum and front-matter consistency; statutory-form, deadline, appropriation, verified-claim, and stale-marker scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run REG-001 T4 audit` (`b49f45e`) |
 | Push status | Pushed to `origin/main` |

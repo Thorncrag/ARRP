@@ -38,6 +38,8 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertFalse((self.docs / "framework").exists())
         self.assertFalse((self.docs / ".github").exists())
         self.assertFalse((self.docs / "inventory").exists())
+        self.assertFalse((self.docs / "research").exists())
+        self.assertFalse((self.docs / "sources").exists())
         staged_text = "\n".join(
             path.read_text(encoding="utf-8", errors="ignore").lower()
             for path in self.docs.rglob("*")

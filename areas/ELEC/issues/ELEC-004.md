@@ -45,13 +45,13 @@ The institutional problem is not the availability of election challenges. The pr
 
 ## Manifestations of the Failure
 
-The working source-development table for civil suits, Voting Section letters, administrative requests, information-sharing proposals, noncriminal subpoenas, voter-data lawsuits, and state-election-record demands is the [ELEC-004 Civil Process and State Election Records Catalog](../../../source-development/ELEC-004-civil-process-catalog.md), maintained through [GitHub sub-issue #241](https://github.com/Thorncrag/ARRP/issues/241). Federal criminal process is tracked separately in [ELEC-014](ELEC-014.md).
+The working source-development table for civil suits, Voting Section letters, administrative requests, information-sharing proposals, noncriminal subpoenas, voter-data lawsuits, and state-election-record demands is the [ELEC-004 Civil Process and State Election Records Catalog](../../../research/ELEC-004-civil-process-catalog.md), maintained through [GitHub sub-issue #241](https://github.com/Thorncrag/ARRP/issues/241). Federal criminal process is tracked separately in [ELEC-014](ELEC-014.md).
 
 ### Recurring pre-election or pre-deadline process abuse
 
 Frivolous or abusive pre-election challenges may seek emergency rule changes, voter-list disruption, ballot-design changes, candidate-access changes, broad election-office discovery, or access to sensitive election-system materials. These proceedings may be especially damaging when filed close enough to the election to interfere with ballot preparation, equipment programming, voter notices, mail-ballot processing, staffing, or other election-administration tasks.
 
-The [ELEC-004 Civil Process and State Election Records Catalog](../../../source-development/ELEC-004-civil-process-catalog.md) collects the current source-development record for this recurring category.
+The [ELEC-004 Civil Process and State Election Records Catalog](../../../research/ELEC-004-civil-process-catalog.md) collects the current source-development record for this recurring category.
 
 ### 2020 post-election litigation and emergency-relief wave
 
@@ -67,11 +67,11 @@ After the 2020 presidential election, numerous lawsuits were filed challenging p
 
 Election pressure may also appear as civil subpoenas, public-records demands, nonstatutory audits, legislative or administrative demands, or inspection demands for ballots, equipment, voter data, source code, logs, chain-of-custody records, or security-sensitive materials. Such demands may be legitimate when grounded in lawful authority and material evidence, but they can also be used to burden officials, expose sensitive systems, or imply fraud without proof.
 
-The [civil-process catalog](../../../source-development/ELEC-004-civil-process-catalog.md) distinguishes those channels from the criminal-process matters assigned to ELEC-014 and preserves the source record for further verification.
+The [civil-process catalog](../../../research/ELEC-004-civil-process-catalog.md) distinguishes those channels from the criminal-process matters assigned to ELEC-014 and preserves the source record for further verification.
 
 ### 2025-2026 civil voter-data and state-record demand campaign
 
-Federal civil or administrative demands for state election records fit ELEC-004 when they operate through civil litigation, Voting Section letters, administrative requests, public-record style demands, information-sharing proposals, or noncriminal lawsuits seeking voter rolls, voter identifiers, election-worker records, ballots, election documents, or retained election records. The 2025-2026 DOJ voter-data request and litigation campaign is therefore source-development material for ELEC-004's civil-process lane, while also cross-referencing [ELEC-001](ELEC-001.md) and [ELEC-010](ELEC-010.md) where federal election-control architecture or voter-data architecture is the more central defect. Treat the campaign as civil/administrative process unless a warrant, grand jury, criminal subpoena, federal criminal investigation, Criminal Division investigative channel, or prosecution threat is verified. The working catalog is [ELEC-004 Civil Process and State Election Records Catalog](../../../source-development/ELEC-004-civil-process-catalog.md).
+Federal civil or administrative demands for state election records fit ELEC-004 when they operate through civil litigation, Voting Section letters, administrative requests, public-record style demands, information-sharing proposals, or noncriminal lawsuits seeking voter rolls, voter identifiers, election-worker records, ballots, election documents, or retained election records. The 2025-2026 DOJ voter-data request and litigation campaign is therefore source-development material for ELEC-004's civil-process lane, while also cross-referencing [ELEC-001](ELEC-001.md) and [ELEC-010](ELEC-010.md) where federal election-control architecture or voter-data architecture is the more central defect. Treat the campaign as civil/administrative process unless a warrant, grand jury, criminal subpoena, federal criminal investigation, Criminal Division investigative channel, or prosecution threat is verified. The working catalog is [ELEC-004 Civil Process and State Election Records Catalog](../../../research/ELEC-004-civil-process-catalog.md).
 
 Federal criminal searches, criminal subpoenas, grand-jury process, and federal law-enforcement interviews directed at election officials, state-administered election infrastructure, voter-registration organizations, or voting-rights activity are not owned by ELEC-004. Those concerns are now spun off to [ELEC-014](ELEC-014.md), which should source-develop election-specific guardrails for federal criminal investigative process while preserving legitimate federal enforcement of voting-rights, voter-intimidation, corruption, foreign-interference, and election-crime laws.
 

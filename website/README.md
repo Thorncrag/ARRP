@@ -19,7 +19,7 @@ The website build uses two gates:
 
 The approved root pages are `README.md`, `SUBJECT_INDEX.md`, `AUTHORS.md`, and `LICENSE.md`. `CITATION.cff` is copied as an explicitly approved supporting file. Website styling, `robots.txt`, and the not-found page come from this directory.
 
-This excludes the progress dashboard, GitHub Project configuration, audit sidecars, framework files, inventories, research, source-development files, archives, tests, scripts, exports, local secrets, and repository administration files. Links from published pages to excluded Markdown are rendered as plain text in the generated copy so the site does not create broken links or promote internal working apparatus.
+This excludes the progress dashboard, GitHub Project configuration, audit sidecars, framework files, inventories, ARRP research, locally retained external sources, archives, tests, scripts, exports, local secrets, and repository administration files. Links from published pages to excluded Markdown are rendered as plain text in the generated copy so the site does not create broken links or promote internal working apparatus.
 
 The dashboard remains available on the `progress-dashboard` branch to a reader who deliberately browses the GitHub repository. It is not copied into the Pages artifact, linked from the public website, or included in the website navigation, search index, or sitemap.
 
