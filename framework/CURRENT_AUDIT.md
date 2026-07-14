@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Active |
-| Active issue/task | REG-001 — Agency Independence and Functional Nullification |
-| Audit type/tier | Autonomous successive audit sequence; REG-001 T4 publication-ready audit completing |
+| Active issue/task | EMOL-015 — Executive Self-Dealing Litigation and Tax-Administration Conflicts |
+| Audit type/tier | Autonomous successive audit sequence; EMOL-015 T1 framework and quality audit active |
 | Started | 2026-07-13 18:59:40 -0400 |
-| Last checkpoint | 2026-07-13 22:02:00 -0400 |
+| Last checkpoint | 2026-07-13 22:05:00 -0400 |
 | User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
-| Scope | REG-001 issue page, independent Congressional Institutional Continuity and Anti-Nullification Act, JUD-011 preferred-remedy fit, audit sidecar, agency-independence and functional-nullification catalog, post-*Slaughter* and *Cook* doctrine, two-tier statutory test, standing and review mechanics, implementation and budget evidence, source and audit inventories, dashboard, GitHub Project fields, and issue update surface. Later authorized units: REG-001 T2-T4 and EMOL-015 T1-T4. |
-| Files touched | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `source-development/REG-001-independent-agency-removal-catalog.md` |
-| Completed steps | Developed REG-001 T4 to 83 / 100 Review Ready; refreshed official EAC baseline and H.R. 1196 party/status evidence; distinguished verified, reported, rejected, and unresolved public claims; corrected cross-branch appropriation administration; added recipient-specific FY2027-2033 implementation authorizations, 60-day filing guidance, dated reports, default effective-date language, and appropriations dependency; and documented final qualified-review needs. |
-| Next step | Validate the REG-001 T4 source, link, YAML, score, statutory-form, deadline, appropriation, verified-claim, dashboard, and stale-marker surfaces; synchronize GitHub Project fields; commit and push the substantive unit; post the issue update; log provenance; then activate EMOL-015 T1. |
+| Scope | EMOL-015 issue page, proposed legislation and amendment materials, automatic no-adversary screening and self-litigation bar, tax-administration conflict and 26 U.S.C. § 7217 categorical exemption, foreign and domestic emoluments applications, standing and jurisdiction, current July 2026 litigation, implementation and budget evidence, source inventories, area summary, dashboard, GitHub Project fields, and issue update surface. |
+| Files touched | `framework/AGENT_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md` for REG-001 T4 provenance; no EMOL-015 substantive files yet. |
+| Completed steps | Completed, validated, synchronized, committed, pushed, and posted REG-001 T4 as `b49f45e`; finalized REG-001 at 83 / 100 Review Ready through T4; and opened EMOL-015's first scored T1 framework and quality audit. |
+| Next step | Inventory EMOL-015 issue, bill, amendment, audit, sources, current status, remedy fit, implementation, budget, adoption, and GitHub surfaces; establish its T1 baseline and development defects before proceeding through T2-T4. |
 | Blockers/questions | Local GitHub CLI authentication remains invalid, but the signed-in GitHub interface supplied completion-critical Project synchronization and readback. No substantive policy blocker identified. |
-| Validation status | REG-001 T3 passed and is pushed. REG-001 T4 validation pending. |
+| Validation status | REG-001 T4 passed all listed checks; signed-in GitHub Project persistence verified; substantive commit `b49f45e` pushed; issue #160 updated. EMOL-015 T1 validation not started. |
 
 ## Handoff Rules
 

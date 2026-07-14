@@ -1299,3 +1299,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `d81925f` to roll back the substantive T3 unit; separately revert this provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. REG-001 advanced from 75 to 81 / 100 Review Ready after current-status refresh, legal-durability and deadline tables, executive-branch scope correction, title 31 GAO access, phased implementation, bounded emergency extensions, protected-information safeguards, and class, intervention, stay, enforcement, and TRO-appeal completion. T4 must complete publication-level claim, source, legislative-form, current-posture, severability, effective-date, authorization, report, verified-claims, unresolved-claims, and qualified-review analysis. |
+
+### 2026-07-13 — REG-001 — T4 publication-ready audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 22:05:00 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | REG-001 |
+| Issue page | [Issue](../areas/REG/issues/REG-001.md) |
+| Audit history | [Audit](../areas/REG/issues/REG-001.audit.md) |
+| Proposal page | [Bill](../legislation/REG-001.md) |
+| Tier | T4 publication-ready audit |
+| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `source-development/REG-001-independent-agency-removal-catalog.md` |
+| Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; score-component sum and front-matter consistency; statutory-form, deadline, appropriation, verified-claim, and stale-marker scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
+| Commit | `Run REG-001 T4 audit` (`b49f45e`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `b49f45e` to roll back the substantive T4 unit; separately revert this provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. REG-001 advanced from 81 to 83 / 100 and remains Review Ready after publication-level claim verification, official EAC baseline development, party/status refresh, cross-branch appropriation-administration correction, filing-guidance and report deadlines, effective-date clarification, and final verified/unresolved claims. Further advancement requires qualified constitutional, administrative-law, federal-courts, congressional-litigation, agency-operations, records, appropriations, budget, judicial-administration, and legislative-counsel review. |
