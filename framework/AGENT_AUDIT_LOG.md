@@ -1173,3 +1173,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `429b494` to roll back the substantive T3 unit; separately revert the provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. JUD-011 advanced from 70 to 80 / 100 Review Ready after procedural, rulemaking, current-case, presidential-relief, capacity, fiscal, opposition, and reciprocity review. T4 must complete publication-level claim and citation verification, legislative-form and judicial-designation review, pending-case refresh, legal-durability analysis, and unresolved-claims and expert-review tables. |
+
+### 2026-07-13 — JUD-011 — T4 publication-ready audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 20:04:55 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | JUD-011 |
+| Issue page | [Issue](../areas/JUD/issues/JUD-011.md) |
+| Audit history | [Audit](../areas/JUD/issues/JUD-011.audit.md) |
+| Proposal page | [Bill](../legislation/JUD-011.md) |
+| Tier | T4 publication-ready audit |
+| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
+| Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; `git diff --check`; Review Ready dashboard test suite; signed-in GitHub Project persistence readback; fresh issue-sidebar readback |
+| Commit | `Run JUD-011 T4 audit` (`dc6279a`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `dc6279a` to roll back the substantive T4 unit; separately revert the provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. JUD-011 advanced from 80 to 82 / 100 and remains Review Ready after publication-level claim verification, judicial-designation and assignment correction, initial-screening and reassignment clarification, interim-deadline flexibility, pending-case and prior-proposal refresh, legal-durability review, and unresolved-claims documentation. Publication Ready remains unavailable because qualified constitutional, legislative-counsel, judicial-administration, appropriations, and CBO review has not occurred. |

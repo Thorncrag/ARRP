@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Active |
-| Active issue/task | JUD-011 — Executive Nullification of Congressional Mandates |
-| Audit type/tier | Autonomous successive T1 through cumulative T4 audit; JUD-011 T4 publication-ready audit completed and awaiting commit/push |
+| Active issue/task | FUND-001 — Addressing Executive Order Abuse |
+| Audit type/tier | Autonomous successive audit sequence; full T2 development audit active |
 | Started | 2026-07-13 18:59:40 -0400 |
-| Last checkpoint | 2026-07-13 20:02:23 -0400 |
+| Last checkpoint | 2026-07-13 20:04:55 -0400 |
 | User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
-| Scope | First unit: JUD-011 issue page, Interbranch Review Framework Act, audit sidecar, relevant title 28 and constitutional authorities, prior-proposal and institutional analogues, implementation and budget evidence, source and audit inventories, dashboard, GitHub Project fields, and issue update surface. Later authorized units: FUND-001, REG-001, and EMOL-015 in dependency-aware order. |
-| Files touched | `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `areas/JUD/README.md`; `legislation/JUD-011.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md` |
-| Completed steps | Completed, validated, Project-synchronized, committed, and pushed JUD-011 T1 through T3; completed T4 publication-level statutory, rules, assignment, presidential-relief, mandamus, transfer, appeal, current-case, prior-proposal, fiscal, adoption, opposition, legislative-form, and Internal Remedy-Fit review; added the verified-and-unresolved claims table; corrected senior-judge eligibility, Chief Justice and clerk assignment roles, initial screening and reassignment, and interim-deadline flexibility; raised the score to 82 / 100 Review Ready; and read back the T4 Project fields from a fresh issue page. |
-| Next step | Commit and push the JUD-011 T4 substantive unit; add the provenance log and issue update; then activate FUND-001's full T2 development audit. |
+| Scope | FUND-001 issue page, independent Executive-Order Abuse Impoundment Control Act, JUD-011 preferred-remedy fit, audit sidecar, Impoundment Control Act and appropriations authorities, trigger and comparator evidence, standing and three-judge-court mechanics, implementation and budget evidence, source and audit inventories, dashboard, GitHub Project fields, and issue update surface. Later authorized units: FUND-001 T3-T4, REG-001 T1-T4, and EMOL-015 T1-T4. |
+| Files touched | None yet for FUND-001. JUD-011 T1-T4 substantive units are committed and pushed through `dc6279a`. |
+| Completed steps | Completed, validated, Project-synchronized, committed, and pushed JUD-011 T1 through cumulative T4; JUD-011 is 82 / 100 Review Ready. Began FUND-001 orientation from its 60 / 100 T1 and JUD-011 Change Audit baseline and confirmed that the issue presents JUD-011 as the preferred general remedy and FUND-001 as a complete independent alternative. |
+| Next step | Run FUND-001 T2 source, legal-fit, comparator, trigger, standing, procedural, implementation, fiscal, adoption, and legislative-form review; revise the independent bill where warranted; score and synchronize the completed unit. |
 | Blockers/questions | Local GitHub CLI authentication remains invalid, but the signed-in GitHub interface supplied completion-critical Project synchronization and readback. No substantive policy blocker identified. |
-| Validation status | T1 through T3 passed, committed, pushed, logged, and posted. T4 passed front-matter parsing, source-inventory width and ID checks, local-link validation, score/status consistency, dashboard tests, `git diff --check`, Project field persistence, and fresh issue-sidebar readback; substantive commit and push remain. |
+| Validation status | JUD-011 T1-T4 passed, was committed and pushed, and its T4 Project fields were independently read back. FUND-001 T2 validation has not yet started. |
 
 ## Handoff Rules
 
