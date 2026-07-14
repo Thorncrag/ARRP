@@ -48,11 +48,17 @@ Use these options for audit-control fields:
 
 ## Review Ready Progress Dashboard
 
-The private [ARRP Review Ready Progress Dashboard](https://github.com/Thorncrag/ARRP/blob/progress-dashboard/PROGRESS.md) is a read-only planning view derived from the GitHub Project and generated on a dedicated branch. It measures proposal records in the GitHub issue registry against the project's current Review Ready goal without closing proposal issues, assigning artificial milestones, creating tracking-only issues, or adding daily generated commits to `main`.
+The [ARRP Review Ready Progress Dashboard](https://github.com/Thorncrag/ARRP/blob/progress-dashboard/PROGRESS.md) is a read-only planning view derived from the GitHub Project and generated on a dedicated branch. It measures proposal records in the GitHub issue registry against the project's current Review Ready goal without closing proposal issues, assigning artificial milestones, creating tracking-only issues, or adding daily generated commits to `main`. The branch may be viewed by a reader who deliberately browses the public repository, but it is excluded from the public website, website navigation, search index, and sitemap.
 
 The Project `Status` field remains the lifecycle authority. The dashboard may use `Score` to detect status/score drift, but it must not infer or write a new status from the score alone. Governance, horizon, source-review, and other non-proposal items are excluded. Newly admitted proposal issues enlarge the tracked scope automatically and must be reported as scope change rather than hidden by resetting the baseline.
 
 The dashboard's registry-based eligibility rule, readiness statuses, baseline, target date, forecast window, and Project field mappings are maintained in [`.github/progress-dashboard.json`](../.github/progress-dashboard.json). The proposal identifier in the built-in Project `Title` joins each active proposal to its registry record, with `Canonical page` used only as a unique fallback; unmatched or ambiguous proposals remain visible as tracking warnings. The governing definitions, metrics, forecast limits, credential boundary, and change-control rules are documented in [`PROGRESS_DASHBOARD.md`](PROGRESS_DASHBOARD.md). Changes to eligibility, the readiness rule, or the official target require a project-level Change Audit.
+
+## Public Website
+
+The public website uses GitHub Pages without a second repository or publication branch. The repository's `main` branch remains canonical, while [`.github/workflows/public-site.yml`](../.github/workflows/public-site.yml) builds and deploys only an allowlisted artifact. The publication boundary, local validation commands, and deployment design are maintained in [`../website/README.md`](../website/README.md).
+
+Every admitted page must both declare `public-proposal` in `print_levels` and fall within the approved root-page, `areas/`, or `legislation/` path boundary. The build must fail rather than silently expand that boundary. Internal framework, audit, Project, research, source-development, inventory, archive, test, script, export, secret, and repository-administration materials remain outside the artifact. A future decision to publish one of those classes requires an explicit publication-policy change and project-level Change Audit.
 
 ## Labels
 

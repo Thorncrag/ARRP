@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thorncrag.github.io/ARRP/sitemap.xml

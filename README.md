@@ -222,10 +222,6 @@ Agent-assisted audit and autonomous batch-audit operating rules are maintained i
 
 Autonomous, batched, or scheduled agent commit provenance and rollback references are maintained in [`framework/AGENT_AUDIT_LOG.md`](framework/AGENT_AUDIT_LOG.md). Human-invoked audits use the issue audit-history sidecar, issue-page metadata, and GitHub Project fields instead.
 
-Project-wide workflow, audit-status, and release-triage fields are maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2).
-
-Portfolio progress toward the December 31, 2026 Review Ready goal is visualized in the private [ARRP Review Ready Progress Dashboard](https://github.com/Thorncrag/ARRP/blob/progress-dashboard/PROGRESS.md). Its definitions, forecast method, and automation controls are documented in [`framework/PROGRESS_DASHBOARD.md`](framework/PROGRESS_DASHBOARD.md).
-
 The cumulative Change Audit history is maintained in [`framework/CHANGE_AUDIT_LOG.md`](framework/CHANGE_AUDIT_LOG.md).
 
 The Horizon Scan Log is maintained in [`framework/HORIZON_SCAN_LOG.md`](framework/HORIZON_SCAN_LOG.md).

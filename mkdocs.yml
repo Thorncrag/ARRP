@@ -1,0 +1,58 @@
+site_name: American Restoration and Resilience Project
+site_description: A roadmap for repairing institutional damage, restoring trustworthy government, and preventing future personalist capture.
+site_url: https://thorncrag.github.io/ARRP/
+repo_url: https://github.com/Thorncrag/ARRP
+repo_name: Thorncrag/ARRP
+edit_uri: ""
+
+docs_dir: docs
+site_dir: site
+use_directory_urls: true
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Use dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: light blue
+      toggle:
+        icon: material/brightness-4
+        name: Use light mode
+
+plugins:
+  - search:
+      lang: en
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+copyright: Copyright &copy; 2026 Benjamin Smith. All rights reserved.
+
+# Navigation is generated into .site-build/mkdocs.yml by
+# scripts/prepare_public_site.py so area and proposal lists stay synchronized.

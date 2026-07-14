@@ -8,6 +8,9 @@ print_levels:
 
 ```text
 SUBJECT_INDEX.md                   Cross-area subject and institutional-body lookup
+mkdocs.yml                         Public-site presentation and search configuration
+requirements-pages.txt             Pinned public-site build dependencies
+.github/workflows/public-site.yml  GitHub Pages artifact build and deployment
 framework/                         Governing methodology, tracking logs, and operating rules
   FRAMEWORK.md                     Project framework and file-ownership rules
   METHODOLOGY.md                   Audit rules, scoring rules, and workflow rules
@@ -30,8 +33,10 @@ areas/                             One directory per project area
     issues/
       DOJ-001.md                   Developed issue analysis
 legislation/                       Proposed statutory language keyed to issue ID
+website/                           Public-site policy and website-only presentation assets
 inventory/                         Structured source and GitHub issue registries
 research/                          Research notes not yet integrated
+scripts/prepare_public_site.py     Allowlisted public-site staging and validation
 exports/                           Generated DOCX, PDF, and XLSX outputs
 archive/                           Superseded or migrated source snapshots
 ```
@@ -47,5 +52,7 @@ archive/                           Superseded or migrated source snapshots
 - Source records in `inventory/sources.csv` may be associated with issues, areas, framework files, research files, or project-level pages.
 - GitHub Project items/fields, retained source inventory, audit-history sidecars, and affected Markdown pages should be updated in the same change that adds, removes, renames, merges, retires, or materially revises an area, issue, legislative proposal, audit status, or cited source.
 - GitHub Project fields provide the compact cross-issue workflow, audit-status, and release-triage view.
+- The public website is generated from the canonical Markdown rather than maintained as a second copy. `website/README.md` owns the publication boundary; `scripts/prepare_public_site.py` admits only `public-proposal` pages within the approved root, `areas/`, and `legislation/` paths; and the Pages workflow uploads only the validated generated artifact.
+- The `progress-dashboard` branch remains repository-visible but is excluded from the website artifact, navigation, search index, and sitemap.
 - `framework/CURRENT_AUDIT.md` is the active handoff checkpoint for long audits and should be read before resuming vague follow-up instructions.
 - Audit rules and scoring live in `METHODOLOGY.md`; print assembly rules live in `PRINT_ASSEMBLY.md`; remedy categories and trigger stages live in `REMEDY_FRAMEWORK.md`.
