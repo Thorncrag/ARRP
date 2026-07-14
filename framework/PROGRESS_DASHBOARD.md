@@ -87,7 +87,7 @@ The ordinary `main` push trigger intentionally watches dashboard implementation 
 
 History is retained on the generated branch rather than by opening a tracking issue or committing daily generated data to `main`. If branch history is unavailable or invalid, the builder safely restarts from the documented baseline and current snapshot. The publisher creates the branch as an independent root history, then uses non-forced, fast-forward updates. The generated branch contains only the dashboard, charts, and data; it is not a development branch and should not be edited manually.
 
-The dashboard was initially placed on a generated GitHub branch because the repository was private and GitHub Pages was unavailable under the account configuration then in use. The repository may now be public and have a separate Pages site, but the branch design remains useful because it keeps generated daily history out of `main`. The dashboard branch is repository-visible to deliberate GitHub readers but is excluded from the public Pages artifact, website navigation, search index, and sitemap under [`../website/README.md`](../website/README.md).
+The dashboard was initially placed on a generated GitHub branch because the repository was private and GitHub Pages was unavailable under the account configuration then in use. The repository is now public and has a separate Pages site, but the branch design remains useful because it keeps generated daily history out of `main`. The dashboard branch is repository-visible to deliberate GitHub readers but is excluded from the public Pages artifact, website navigation, search index, and sitemap under [`../website/README.md`](../website/README.md).
 
 ## Authentication and Permissions
 

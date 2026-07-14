@@ -8,6 +8,8 @@ print_levels:
 
 ARRP uses one repository and one canonical `main` branch for both project development and the public website. GitHub Pages deploys a generated artifact; it does not publish the repository tree directly and does not use a `gh-pages` branch.
 
+The live site is [https://thorncrag.github.io/ARRP/](https://thorncrag.github.io/ARRP/), and the GitHub repository homepage points readers to that address.
+
 ## Publication Boundary
 
 The website build uses two gates:
