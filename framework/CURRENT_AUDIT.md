@@ -15,16 +15,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Active |
 | Active issue/task | REG-001 — Agency Independence and Functional Nullification |
-| Audit type/tier | Autonomous successive audit sequence; REG-001 T3 readiness audit completing |
+| Audit type/tier | Autonomous successive audit sequence; REG-001 T4 publication-ready audit active |
 | Started | 2026-07-13 18:59:40 -0400 |
-| Last checkpoint | 2026-07-13 21:35:00 -0400 |
+| Last checkpoint | 2026-07-13 21:38:00 -0400 |
 | User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
 | Scope | REG-001 issue page, independent Congressional Institutional Continuity and Anti-Nullification Act, JUD-011 preferred-remedy fit, audit sidecar, agency-independence and functional-nullification catalog, post-*Slaughter* and *Cook* doctrine, two-tier statutory test, standing and review mechanics, implementation and budget evidence, source and audit inventories, dashboard, GitHub Project fields, and issue update surface. Later authorized units: REG-001 T2-T4 and EMOL-015 T1-T4. |
-| Files touched | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `source-development/REG-001-independent-agency-removal-catalog.md` |
-| Completed steps | Developed REG-001 T3 to 81 / 100 Review Ready; refreshed *McMahon* and current bill status; added legal-durability and implementation-schedule tables; confined coverage to executive entities and subordinate officers; anchored GAO access in title 31; phased inventories through OMB-GAO-CIGIE coordination; bounded emergency extensions; strengthened protected-information treatment; and completed class, intervention, stay, enforcement, and TRO-appeal mechanics. |
-| Next step | Validate the REG-001 T3 source, link, YAML, score, definition, deadline, statutory-cross-reference, dashboard, and stale-marker surfaces; synchronize GitHub Project fields; commit and push the substantive unit; post the issue update; log provenance; then activate T4. |
+| Files touched | `framework/AGENT_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md` for T3 provenance; no T4 substantive files yet. |
+| Completed steps | Completed, validated, synchronized, committed, pushed, and posted REG-001 T3 as `d81925f`; advanced the proposal from 75 to 81 / 100 Review Ready; and opened the cumulative T4 publication-ready audit. |
+| Next step | Run REG-001 T4: recheck all public claims and links; inspect legislative form, numbering, definitions, cross-references, grammar, severability, effective dates, authorizations, and reports; refresh current case, bill, roster, and institutional posture; create final verified-claims and unresolved-claims tables; determine final score and qualified-review needs. |
 | Blockers/questions | Local GitHub CLI authentication remains invalid, but the signed-in GitHub interface supplied completion-critical Project synchronization and readback. No substantive policy blocker identified. |
-| Validation status | REG-001 T2 passed and is pushed. REG-001 T3 validation pending. |
+| Validation status | REG-001 T3 passed all listed checks; signed-in GitHub Project persistence verified; substantive commit `d81925f` pushed; issue #160 updated. T4 validation not started. |
 
 ## Handoff Rules
 

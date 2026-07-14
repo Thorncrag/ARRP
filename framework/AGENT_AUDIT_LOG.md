@@ -1281,3 +1281,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `b576485` to roll back the substantive T2 unit; separately revert this provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. REG-001 advanced from 63 to 75 / 100 Review Ready after primary organic-statute, current-workforce, direct-analogue, jurisdiction, waiver, standing, panel, temporary-relief, appeal, specialized-review, preservation, scope, presidential-relief, implementation, workload, budget, adoption, and opposition development. T3 must complete claim-by-claim verification, refresh current litigation and bill status, test deadlines and emergency procedures, inspect protected-information and procedural mechanics, verify legislative form, and resolve publication-blocking ambiguity. |
+
+### 2026-07-13 — REG-001 — T3 readiness audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 21:38:00 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | REG-001 |
+| Issue page | [Issue](../areas/REG/issues/REG-001.md) |
+| Audit history | [Audit](../areas/REG/issues/REG-001.audit.md) |
+| Proposal page | [Bill](../legislation/REG-001.md) |
+| Tier | T3 readiness audit |
+| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `source-development/REG-001-independent-agency-removal-catalog.md` |
+| Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker and definition scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
+| Commit | `Run REG-001 T3 audit` (`d81925f`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `d81925f` to roll back the substantive T3 unit; separately revert this provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. REG-001 advanced from 75 to 81 / 100 Review Ready after current-status refresh, legal-durability and deadline tables, executive-branch scope correction, title 31 GAO access, phased implementation, bounded emergency extensions, protected-information safeguards, and class, intervention, stay, enforcement, and TRO-appeal completion. T4 must complete publication-level claim, source, legislative-form, current-posture, severability, effective-date, authorization, report, verified-claims, unresolved-claims, and qualified-review analysis. |
