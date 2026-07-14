@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | Subject and Institution Index; front-door discovery convention |
-| Audit type/tier | Project-level Change Audit |
+| Active issue/task | JUD-005 development and coordinated-remedy integration |
+| Audit type/tier | Initial development / issue-admission review; targeted Change Audits for JUD-001 and DOJ-007 |
 | Started | 2026-07-14 |
-| Last checkpoint | 2026-07-14; first live public-website deployment verified |
-| User request | Make the Subject and Institution Index readily accessible in the first pages because many readers will look for a topic before learning the project-area taxonomy. |
-| Scope | Repository, Project Areas, and public-website front doors; canonical index convention; print and digital assembly; navigation-bundle ownership; T1 verification; and consolidated same-day Change Audit history. |
-| Files touched | `README.md`; `areas/README.md`; `SUBJECT_INDEX.md`; `mkdocs.yml`; `requirements-pages.txt`; `.github/workflows/public-site.yml`; `scripts/prepare_public_site.py`; `tests/test_prepare_public_site.py`; `website/`; `framework/PRINT_ASSEMBLY.md`; `framework/FRAMEWORK.md`; `framework/METHODOLOGY.md`; `framework/AGENT_OPERATING_RULES.md`; `framework/GITHUB_WORKFLOW.md`; `framework/PROJECT_STRUCTURE.md`; `framework/PROGRESS_DASHBOARD.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Added a prominent topic-first entry route near the beginning of the repository homepage; elevated the index above the Project Areas list; carried that route into the generated website's opening navigation; retained the complete print index in back matter while requiring a resolved front-matter pointer; added the root README to the navigation bundle; established a two-gate public-site allowlist; excluded the progress dashboard and internal apparatus from the Pages artifact; and synchronized T1, workflow, structure, dashboard, validation, and Change Audit conventions. |
-| Next step | No special follow-up is pending; preserve the allowlist and topic-first navigation through ordinary T1 checks. |
+| Last checkpoint | 2026-07-14; JUD-005 implementation, Change Audits, and Project synchronization complete |
+| User request | Develop JUD-005 with JUD-001 and DOJ-007 as the preferred coordinated remedy and a narrow, fully independent public-notice statute as the alternative. |
+| Scope | JUD-005 issue, legislation, and audit record; JUD-001 public-notice integration; DOJ-007 conditional-escalation guardrail; navigation, source inventory, GitHub wrapper/Project fields, validation, and publication. |
+| Files touched | `areas/JUD/issues/JUD-005.md`; `areas/JUD/issues/JUD-005.audit.md`; `legislation/JUD-005.md`; JUD-001 and DOJ-007 issue, audit, and legislation pages; `areas/JUD/README.md`; `SUBJECT_INDEX.md`; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Developed the fixed-zero JUD-005 candidate and standalone statute; integrated its preferred public-notice route into JUD-001; added the DOJ-007 nonautomatic-escalation guardrail to both enactment paths; completed targeted Change Audits with no score or Runs changes; synchronized navigation, sources, issue #44, and the three affected Project rows. |
+| Next step | JUD-005 T1 audit; JUD-001 and DOJ-007 retain external validation / T4 follow-up. |
 | Blockers/questions | None. |
-| Validation status | Passed: the repository, Project Areas, and website front doors expose the Subject and Institution Index prominently; the generated site admits 103 canonical public-proposal pages plus one generated legislation index; 114 links to excluded internal Markdown are safely demoted; the dashboard and internal directories are absent from the artifact; all 14 repository tests pass; the strict MkDocs build succeeds; desktop and mobile visual checks show no horizontal overflow; the first GitHub Actions build and deployment succeeded; the homepage, Subject Index, REG-001, and legislation endpoints return HTTP 200; the live search index and sitemap contain no dashboard reference; and `git diff --check` passes. No GitHub Project or progress-dashboard data sync is required because no proposal lifecycle, score, audit, eligibility, or Project field changes. |
+| Validation status | Passed: `git diff --check`; 17 repository tests; public-site preparation with 105 canonical pages, one generated page, and no internal-dashboard publication; both CSV inventories parse; GitHub issue #44 and affected Project rows read back correctly. Local strict MkDocs execution was unavailable because the system Python lacks MkDocs; verify the authoritative GitHub Pages workflow after push. |
 
 ## Handoff Rules
 

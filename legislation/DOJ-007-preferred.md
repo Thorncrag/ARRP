@@ -94,13 +94,13 @@ Chapter 156 of title 28, United States Code, is amended by adding after section 
 
 “(j) Separate access judge.—A privilege, classification, compulsory-process, or agency-access dispute requiring judicial adjudication shall be assigned randomly to an otherwise unassigned Article III judge who has not participated in a related Civil Compliance proceeding, Investigative Counsel Panel, or resulting criminal case.
 
-“(k) No transfer of authority.—A civil finding, referral, notice, or preservation order does not establish criminal liability, probable cause, corrupt intent, impeachability, or entitlement to appointment. A determination under the implementing Act does not resolve a civil claim under section 2303.”.
+“(k) No transfer of authority.—A civil finding, referral, notice, preservation order, or public-register entry, including one issued or maintained under JUD-001 or JUD-005, does not establish criminal liability, probable cause, corrupt intent, impeachability, extraordinary executive conflict, or entitlement to appointment. It may be submitted as supporting material only when an authorized applicant independently alleges every condition required by the implementing Act. A determination under the implementing Act does not resolve a civil claim under section 2303.”.
 
 ## SEC. 5. AUTHORIZED APPLICATIONS AND REFERRALS.
 
 A verified sealed application may be submitted by the Attorney General or Deputy Attorney General; an Inspector General with related jurisdiction; the Director of the Office of Government Ethics; either House by resolution; either Judiciary Committee by majority vote; a bipartisan one-third minority of either Judiciary Committee; or an Article III court making a qualifying referral.
 
-A court may refer a matter when it has found executive conduct unlawful, the record contains substantial and credible information of a possible federal offense, related obstruction, retaliation, or serious misuse of federal investigative authority, and an extraordinary executive conflict may impair ordinary investigation. The referring judge and decisional employees are disqualified under section 2311(e). A referral is not a finding of guilt, probable cause, corrupt intent, impeachability, or entitlement to appointment and is not admissible to prove an offense.
+A court may refer a matter when it has found executive conduct unlawful, the record contains substantial and credible information of a possible federal offense, related obstruction, retaliation, evidence destruction, concealment, or serious misuse of federal investigative authority, and an extraordinary executive conflict may impair ordinary investigation. A notice or public-register entry under JUD-001 or JUD-005 does not itself satisfy these conditions. The referring judge and decisional employees are disqualified under section 2311(e). A referral is not a finding of guilt, probable cause, corrupt intent, impeachability, or entitlement to appointment and is not admissible to prove an offense.
 
 Private persons may submit information to an authorized applicant but may not petition the Investigative Counsel Panel directly.
 
@@ -254,6 +254,7 @@ This Act avoids duplicating JUD-011's two additional D.D.C. judgeships, national
 - The shared-framework arrangement is administrative, not decisional. A Civil Compliance panel cannot appoint, supervise, remove, or obtain records from counsel.
 - The constitutional amendment is the source of authority for nonexecutive appointment and protection; JUD-011 alone cannot create that authority.
 - The standalone [DOJ-007 Act](DOJ-007.md) remains a complete independent alternative and is not a fallback provision within this bill.
+- A JUD-001 or JUD-005 notice can preserve and route an authenticated judicial finding, but DOJ-007 appointment still requires an authorized application, credible possible serious misconduct, extraordinary executive conflict, and independent panel findings.
 - IMM-001 separately addresses substantive presidential immunity.
 
 ## Source Notes

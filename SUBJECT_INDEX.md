@@ -20,7 +20,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Index term | ARRP route |
 | --- | --- |
 | Acting officials; vacancies; confirmation evasion | **[A-12](areas/APPT/README.md)**; [A-09](areas/OVS/README.md); [REG-001](areas/REG/issues/REG-001.md) |
-| Administrative Office of the United States Courts (AOUSC) | **[A-04](areas/JUD/README.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [JUD-011](areas/JUD/issues/JUD-011.md) |
+| Administrative Office of the United States Courts (AOUSC) | **[A-04](areas/JUD/README.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [JUD-005](areas/JUD/issues/JUD-005.md); [JUD-011](areas/JUD/issues/JUD-011.md) |
 | Agency abolition, closure, dismantlement, hollowing out, or functional nullification | **[REG-001](areas/REG/issues/REG-001.md)**; [FUND-003](areas/FUND/README.md); [CIV-008](areas/CIV/README.md); [JUD-011](areas/JUD/issues/JUD-011.md) |
 | Agency independence; independent commissions; removal protection | **[REG-001](areas/REG/issues/REG-001.md)**; [A-21](areas/FRB/README.md) |
 | Appropriations; impoundment; rescissions; withholding; reprogramming | **[A-11](areas/FUND/README.md)**; [FUND-001](areas/FUND/issues/FUND-001.md); [FUND-002](areas/FUND/issues/FUND-002.md); [JUD-011](areas/JUD/issues/JUD-011.md) |
@@ -42,7 +42,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Congressional oversight; subpoenas; executive privilege; testimonial immunity | **[A-15](areas/CONG/README.md)**; [JUD-001](areas/JUD/issues/JUD-001.md) |
 | Congressional subpoenas | See *Congressional oversight; subpoenas; executive privilege; testimonial immunity*. |
 | Consumer Financial Protection Bureau (CFPB) | **[REG-001](areas/REG/issues/REG-001.md)**; [REG-007](areas/REG/README.md) |
-| Contempt; enforcement of judicial orders; executive defiance of courts | **[JUD-001](areas/JUD/issues/JUD-001.md)**; [JUD-007](areas/JUD/README.md); [JUD-008](areas/JUD/README.md) |
+| Contempt; enforcement of judicial orders; executive defiance of courts | **[JUD-001](areas/JUD/issues/JUD-001.md)**; [JUD-005](areas/JUD/issues/JUD-005.md); [JUD-007](areas/JUD/README.md); [JUD-008](areas/JUD/README.md) |
 | Contracting, grants, licensing, access, or regulatory retaliation | **[A-19](areas/RET/README.md)**; [A-22](areas/PRESS/README.md); [A-11](areas/FUND/README.md) |
 | Critical incidents; federal officer shootings; evidence preservation; State investigative access | **[DOM-005](areas/DOM/issues/DOM-005.md)**; [A-20](areas/FED/README.md); [DOM-008](areas/DOM/README.md) |
 | D.C. Circuit | See *Federal courts, including D.D.C. and the D.C. Circuit*. |
@@ -68,12 +68,13 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Emergency powers | See *National emergency declarations*. See also *Emergency economic powers; IEEPA; sanctions; asset blocking*. |
 | Emoluments; presidential conflicts of interest; private financial benefit | **[A-06](areas/EMOL/README.md)**; [EMOL-015](areas/EMOL/issues/EMOL-015.md); [HER-003](areas/HER/README.md) |
 | Executive noncompliance | See *Congressional mandates; executive noncompliance; anti-nullification review*. |
+| Executive noncompliance with judicial orders; congressional notice; public register | **[JUD-005](areas/JUD/issues/JUD-005.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
 | Executive Office of the President (EOP) and White House | **[DOJ-002](areas/DOJ/issues/DOJ-002.md)**; [FUND-001](areas/FUND/issues/FUND-001.md); [JUD-011](areas/JUD/issues/JUD-011.md); [REG-001](areas/REG/issues/REG-001.md); [EMOL-015](areas/EMOL/issues/EMOL-015.md) |
 | Executive orders; unilateral domestic policy | **[FUND-001](areas/FUND/issues/FUND-001.md)**; [JUD-011](areas/JUD/issues/JUD-011.md); [REG-001](areas/REG/issues/REG-001.md) |
 | Executive privilege | See *Congressional oversight; subpoenas; executive privilege; testimonial immunity*. |
 | Executive self-litigation | See *Internal Revenue Service (IRS); audit immunity; presidential tax administration; executive self-litigation*. |
 | Federal Bureau of Investigation (FBI) | **[A-01](areas/DOJ/README.md)**; [DOM-005](areas/DOM/issues/DOM-005.md); [DOJ-002](areas/DOJ/issues/DOJ-002.md); [DOJ-003](areas/DOJ/issues/DOJ-003.md); [ELEC-014](areas/ELEC/issues/ELEC-014.md) |
-| Federal courts, including D.D.C. and the D.C. Circuit | **[A-04](areas/JUD/README.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [JUD-009](areas/JUD/issues/JUD-009.md); [JUD-011](areas/JUD/issues/JUD-011.md); [EMOL-015](areas/EMOL/issues/EMOL-015.md); [REG-001](areas/REG/issues/REG-001.md) |
+| Federal courts, including D.D.C. and the D.C. Circuit | **[A-04](areas/JUD/README.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [JUD-005](areas/JUD/issues/JUD-005.md); [JUD-009](areas/JUD/issues/JUD-009.md); [JUD-011](areas/JUD/issues/JUD-011.md); [EMOL-015](areas/EMOL/issues/EMOL-015.md); [REG-001](areas/REG/issues/REG-001.md) |
 | Federal criminal investigations into elections | **[ELEC-014](areas/ELEC/issues/ELEC-014.md)**; [DOJ-002](areas/DOJ/issues/DOJ-002.md); [DOJ-003](areas/DOJ/issues/DOJ-003.md); [ELEC-004](areas/ELEC/issues/ELEC-004.md) |
 | Federal Election Commission (FEC) | **[ELEC-012](areas/ELEC/issues/ELEC-012.md)**; [ELEC-013](areas/ELEC/issues/ELEC-013.md); [REG-001](areas/REG/issues/REG-001.md) |
 | Federal law-enforcement surveillance; procurement; deployment | **[DOM-009](areas/DOM/issues/DOM-009.md)**; [A-22](areas/PRESS/README.md); [A-24](areas/RIGHTS/README.md) |
