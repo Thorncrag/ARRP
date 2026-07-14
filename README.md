@@ -200,6 +200,10 @@ Common descriptors are interpreted as follows:
 | `state-level-pathway` | The proposal is more viable through state action or state models. |
 | `unassessed` | The electoral environment has not yet been assessed. |
 
+## Complete Printable Edition
+
+Legislators, legislative staff, and government officials who would like a complete printable edition of the project for legislative, oversight, or institutional review may contact Benjamin Smith at <smith.benjamin.j@icloud.com> to request the current compiled version.
+
 ## Find a Topic or Institution
 
 Readers looking for a particular subject, department, agency, office, court, acronym, or common term should begin with the [Subject and Institution Index](SUBJECT_INDEX.md). Readers who prefer the project's ordered institutional structure may instead browse the [Project Areas](areas/README.md).
