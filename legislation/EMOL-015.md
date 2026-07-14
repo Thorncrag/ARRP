@@ -25,7 +25,7 @@ This Act may be cited as the "Executive Self-Litigation and Settlement Conflict 
 
 ## SEC. 2. PURPOSES.
 
-The purposes of this Act are to:
+The purposes of this Act are to—
 
 1. prevent personal financial or legal self-dealing by covered executive officials during service;
 2. preserve genuine claims without allowing conflicted settlement, compromise, payment, or litigation control while the conflict exists;
@@ -335,17 +335,21 @@ If protected information cannot lawfully be disclosed or adequately substituted,
 
 ### (f) Appellate review.
 
-1. A final judgment or dismissal under section 4 or this section is appealable under section 1291 of title 28, United States Code.
-2. A court of appeals has jurisdiction over an interlocutory appeal from an order that determines coverage or genuine adversity under section 4, imposes or continues controlled maintenance, grants or denies relief under section 4(h) or 4(i), or grants or denies preliminary relief under this section. The notice of appeal shall be filed not later than 14 days after entry of the order.
-3. An appeal from a filing court lies in the court of appeals for the regional circuit. An appeal from the United States District Court for the District of Columbia lies in the United States Court of Appeals for the District of Columbia Circuit.
-4. The court of appeals shall expedite the appeal. An appeal does not automatically stay the statutory prohibitions or the order under review, but either court may grant a tailored stay under otherwise applicable standards.
-5. An attempted voluntary dismissal does not moot review of a screening determination, interim prohibition, sanction, or other collateral order that remains legally operative.
+1. **Final orders.** A final judgment or dismissal under section 4 or this section is appealable under section 1291 of title 28, United States Code.
+2. **Interlocutory orders.** A court of appeals has jurisdiction over an interlocutory appeal from an order that determines coverage or genuine adversity under section 4, imposes or continues controlled maintenance, grants or denies relief under section 4(h) or 4(i), or grants or denies preliminary relief under this section. The notice of appeal shall be filed not later than 14 days after entry of the order.
+3. **Proper court of appeals.** An appeal from a filing court lies in the court of appeals for the regional circuit. An appeal from the United States District Court for the District of Columbia lies in the United States Court of Appeals for the District of Columbia Circuit.
+4. **Expedition and stay.** The court of appeals shall expedite the appeal. An appeal does not automatically stay the statutory prohibitions or the order under review, but either court may grant a tailored stay under otherwise applicable standards.
+5. **Continuing collateral matters.** An attempted voluntary dismissal does not moot review of a screening determination, interim prohibition, sanction, or other collateral order that remains legally operative.
 
-## SEC. 10. EFFECTIVE DATE; APPLICATION.
+## SEC. 10. AUTHORIZATION OF APPROPRIATIONS.
+
+There are authorized to be appropriated for each of fiscal years 2027 through 2033 such sums as may be necessary for the Administrative Office of the United States Courts, the Department of Justice, the Department of the Treasury, the Internal Revenue Service, and the Treasury Inspector General for Tax Administration to carry out this Act. This section provides no budget authority and no authority to obligate or expend funds in advance of an appropriation.
+
+## SEC. 11. EFFECTIVE DATE; APPLICATION.
 
 This Act shall apply to a covered civil action pending on the date of enactment and to a covered civil action initiated thereafter. It does not reopen a final judgment, a dismissal effective before enactment, or a settlement fully performed before enactment, and it does not revive a claim for which the applicable time limit expired before tolling began. A pending potentially covered action is subject to the statutory interim prohibition upon enactment, and the court shall complete section 4 screening not later than 30 days thereafter, except that the court may extend that period once for not more than 15 days upon particularized good-cause findings. No damages, penalty, or repayment liability arises under this Act solely from conduct completed before enactment; sections 5 and 7 apply to prospective implementation occurring after enactment as otherwise provided.
 
-## SEC. 11. SEVERABILITY.
+## SEC. 12. SEVERABILITY.
 
 If any provision of this Act, or the application of such provision to any person or circumstance, is held invalid, the remainder of this Act and the application of its provisions to any other person or circumstance shall not be affected. Congress intends the following rules to remain independently operative to the maximum constitutional extent:
 
@@ -355,13 +359,9 @@ If any provision of this Act, or the application of such provision to any person
 4. the section 7217 amendment is severable from the executive self-litigation provisions; and
 5. the invalidity of the Rule 41 treatment in a particular application does not invalidate the statutory prohibitions, tolling, reporting, or prospective tax-administration rules.
 
-## SEC. 12. AUTHORIZATION OF APPROPRIATIONS.
-
-There are authorized to be appropriated for each of fiscal years 2027 through 2033 such sums as may be necessary for the Administrative Office of the United States Courts, the Department of Justice, the Department of the Treasury, the Internal Revenue Service, and the Treasury Inspector General for Tax Administration to carry out this Act. This section provides no budget authority and no authority to obligate or expend funds in advance of an appropriation.
-
 ## Budgetary Impact Statement
 
-The bill creates no new office, judgeship, direct spending authority, or mandatory appropriation. Incremental workload may fall on filing courts, the District Court for the District of Columbia, DOJ, affected agencies, Treasury, IRS, TIGTA, and congressional committees. The fiscal year 2027 Judiciary request totals $9.7 billion in discretionary funding, and TIGTA's fiscal year 2027 justification identifies a $137.661 million request for 508 FTE while reporting substantial mandatory-review and staffing pressure; those systemwide figures are capacity comparators, not estimates of this bill's cost. Because no reliable source establishes the number of covered actions, attempted instruments, staff hours, protected notices, or enforcement cases, section 12 authorizes such sums as may be necessary for fiscal years 2027 through 2033 but provides no budget authority. AOUSC, Treasury, TIGTA, IRS, DOJ, CBO, OMB, and appropriators should develop a workload estimate before enactment.
+The bill creates no new office, judgeship, direct spending authority, or mandatory appropriation. Incremental workload may fall on filing courts, the District Court for the District of Columbia, DOJ, affected agencies, Treasury, IRS, TIGTA, and congressional committees. The fiscal year 2027 Judiciary request totals $9.7 billion in discretionary funding, and TIGTA's fiscal year 2027 justification identifies a $137.661 million request for 508 FTE while reporting substantial mandatory-review and staffing pressure; those systemwide figures are capacity comparators, not estimates of this bill's cost. Because no reliable source establishes the number of covered actions, attempted instruments, staff hours, protected notices, or enforcement cases, section 10 authorizes such sums as may be necessary for fiscal years 2027 through 2033 but provides no budget authority. AOUSC, Treasury, TIGTA, IRS, DOJ, CBO, OMB, and appropriators should develop a workload estimate before enactment.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
@@ -380,11 +380,12 @@ The bill creates no new office, judgeship, direct spending authority, or mandato
 - Section 7 amends 26 U.S.C. § 7217 for every taxpayer and Federal actor, including the Attorney General and persons acting for the United States. A prohibited prospective or categorical audit-immunity term is void from inception, cannot support consideration or estoppel, and must be disregarded by the IRS. The amendment deliberately does not extend section 7217(d)'s five-year felony to the broader instrument and reporting provisions; TIGTA instead reviews attempted terms and makes corrective or misconduct referrals under otherwise applicable law.
 - The § 7217 amendment preserves case-specific finality under sections 7121 and 7122, final judgments, limitations periods, and ordinary neutral IRS enforcement discretion. Those exceptions do not permit restrictions concerning unidentified matters or future taxable periods.
 - The amendment reaches prospective implementation after enactment of a pre-enactment audit-immunity term without reopening completed closing agreements, completed compromises, or final judgments.
-- T4 should verify the completed nonmonetary emergency-relief, controlled-maintenance, repayment-process, and protected-information provisions at publication level.
+- The T4 publication pass verified the nonmonetary emergency-relief, controlled-maintenance, repayment-process, protected-information, appeal, prospective-application, authorization, and severability provisions and found no broken operative cross-reference.
 
 ## Source Notes
 
 - Existing-law review should include the Judgment Fund under [31 U.S.C. § 1304](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title31-section1304&num=0&edition=prelim), DOJ judgment and compromise-payment mechanics under [28 U.S.C. § 2414](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section2414&num=0&edition=prelim), tax-return confidentiality remedies under [26 U.S.C. § 7431](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title26-section7431&num=0&edition=prelim), executive audit-interference restrictions under [26 U.S.C. § 7217](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title26-section7217), closing agreements under [26 U.S.C. § 7121](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title26-section7121), and compromises under [26 U.S.C. § 7122](https://uscode.house.gov/view.xhtml?edition=prelim&f=treesort&jumpTo=true&num=0&req=%28title%3A26+section%3A7122+edition%3Aprelim%29+OR+%28granuleid%3AUSC-prelim-title26-section7122%29).
 - The June 24, 2026 amendment in the nature of a substitute to H.R. 7007 supplies the official text of the NO CARTE BLANCHE Act. It combines H.R. 8914 and H.R. 9210, restricts Judgment Fund payments, and proposes 28 U.S.C. § 2414a judicial review of presidential settlements. EMOL-015 adds automatic filing-stage screening, non-adversity dismissal, controlled maintenance, a broader covered-official conflict rule, and a universal categorical audit-immunity prohibition.
-- T4 should refresh the related docket entries in *Trump v. Internal Revenue Service*, No. 1:26-cv-20609-KMW (S.D. Fla.), and test the completed procedural design against any appeal, reconsideration, fee, or disciplinary ruling.
+- Docket entry 106 issued on the T4 review date. No same-day public record can responsibly establish the outcome of an appeal, reconsideration, fee, or disciplinary process; those matters require refresh immediately before circulation.
+- The T4 publication pass checked the operative text against Federal Rules of Civil Procedure 12 and 41; 5 U.S.C. chapter 7; 26 U.S.C. §§ 6103, 7121, 7122, 7217, and 7431; 28 U.S.C. §§ 1291, 1292, 1331, and 2414; and 31 U.S.C. § 1304. Legislative counsel must repeat the current-Code and rule check at introduction.
 - Constitutional review should test Article II, due process, access to courts, sovereign immunity, justiciability, separation of powers, and Congress's appropriations authority.

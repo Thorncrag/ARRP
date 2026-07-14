@@ -6,15 +6,20 @@ status: developed
 priority: high
 remedy_type: conflict-of-interest-litigation-and-payment-guardrail
 legislative_proposal: "../../../legislation/EMOL-015.md"
-audit_status: "T3 readiness audit complete; Review Ready"
-audit_score: 81
-audit_last_type: "T3 readiness audit"
+audit_status: "T4 publication-ready audit complete; qualified review pending"
+audit_score: 83
+audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-07-13"
-audit_next: "T4 publication-ready audit"
+audit_next: "Qualified constitutional, federal-courts, tax, appropriations, judicial-administration, and legislative-counsel review"
 audit_rubric_version: 2026-06-27.2
 audit_rebaseline_status: current
 change_audit_needed: false
 change_audit_reason: null
+external_review_status: "not-reviewed"
+external_review_type: null
+external_review_date: null
+external_review_reviewer_role: null
+external_review_notes: "No qualified constitutional, federal-courts, tax, appropriations, judicial-administration, or legislative-counsel review has been incorporated."
 adoption_score: 4
 adoption_friction_score: 80
 adoption_friction_band: High Resistance
@@ -128,15 +133,15 @@ The proposal creates no new office, judgeship, direct spending authority, or man
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[81 / 100](EMOL-015.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[83 / 100](EMOL-015.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T3 readiness audit complete; Review Ready<br />**Last Audit:** T3 readiness audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [EMOL-015 audit history](EMOL-015.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; qualified review pending<br />**Last Audit:** T4 publication-ready audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** Qualified constitutional, federal-courts, tax, appropriations, judicial-administration, and legislative-counsel review<br />**Full Audit History:** [EMOL-015 audit history](EMOL-015.audit.md)
 
 ## Annotation
 
-**Basis and Evidence.** The current source record supports the existence of President Trump's tax-information lawsuit, the statutory background for tax-return confidentiality claims, DOJ's announced Judgment Fund-based Anti-Weaponization Fund, and a July 13, 2026 district-court ruling finding no genuine adverseness, no Article III case or controversy, an improper litigation purpose, and bad faith. The order imposed sanctions that include prohibiting use of the purported agreement as evidence of a settlement reached in the case, but expressly declined to decide the agreement's underlying validity or enforceability, Judgment Fund legality, or purported immunity provisions. T2 verifies the official H.R. 7007 substitute, its H.R. 8914 and H.R. 9210 components, S. 4791, controlling Supreme Court collateral-authority decisions, published Eleventh Circuit Rule 41 law, federal-question jurisdiction, the Rules Enabling Act, and current Judiciary and TIGTA budget context. The same-day posture does not yet support a conclusion about appeal, reconsideration, fee, or disciplinary outcomes.
+**Basis and Evidence.** The retained record supports the lawsuit, tax-confidentiality cause, announced Judgment Fund structure, and July 13 district-court ruling. The primary order controls: it found no genuine adverseness or Article III controversy, found improper purpose and bad faith, imposed sanctions, and barred use of the purported agreement as evidence of a settlement reached in the case, but did not decide the agreement's validity, Judgment Fund legality, or purported immunity provisions. T4 verified the material claims against that order, official statutory and judicial sources, and direct congressional comparators. The same-day posture does not support a conclusion about appeal, reconsideration, fees, discipline, agreement enforcement, or payment implementation.
 
 **Qualification.** This proposal does not assume that a sitting President or executive official lacks a valid underlying claim. It addresses the separate institutional conflict created when the claimant controls, supervises, or can influence the defendant agency, defense officials, settlement authority, or payment authority. The preferred remedy preserves post-tenure access to court.
 
@@ -148,11 +153,11 @@ The proposal creates no new office, judgeship, direct spending authority, or man
 
 **Tax-Administration Integrity.** The § 7217 amendment is intentionally universal rather than limited to the President, Vice President, or another covered claimant. No executive-branch settlement or undertaking should be able to purchase prospective immunity from lawful tax administration for any identified taxpayer. The amendment distinguishes categorical immunity from lawful closure of specified liabilities and periods, preserves ordinary neutral IRS discretion, covers the Attorney General and persons acting for the United States, and applies to prospective implementation of pre-enactment instruments without reopening final judgments or completed tax resolutions.
 
-**Judicial Scrutiny.** [T3 analysis](../../../research/EMOL-015-procedural-and-enforcement-analysis.md) distinguishes threshold, collateral, enforcement, standing, and appeal lanes. *Steel Co.*, *Anago*, *O'Neal*, *Cooter & Gell*, *Willy*, and *Kokkonen* support the screen's basic architecture without converting collateral authority into merits power. *Raines* bars individual-Member standing; *Virginia House* requires a legislative body to prove its own injury; and *House v. Mnuchin* supports, but does not guarantee, a full chamber's standing for an express appropriations injury. T3 narrows the chamber lane, creates 180-day and annual controlled-maintenance review, adds a claimant dismissal option, limits repayment to a United States action with recipient process and existing recovery law, prescribes protected-information substitutes, and supplies express final and interlocutory appellate routes. Appointment and removal of any independent defense counsel must comply with Article II.
+**Judicial Scrutiny.** The [procedural analysis](../../../research/EMOL-015-procedural-and-enforcement-analysis.md) distinguishes threshold, collateral, enforcement, standing, and appeal lanes. The draft does not claim that Congress can create Article III adversity. It makes Rule 41 filings ineffective under an applicable federal statute until screening, mandates dismissal without prejudice when adversity is absent, and places continuing prohibitions and tolling in statute rather than residual merits jurisdiction. Chamber authorization does not manufacture standing; presidential relief runs through responsible subordinate officers; and protected-information, repayment, appeal, controlled-maintenance, and Article II counsel provisions are bounded. Qualified review must still test those applications.
 
-**Budgetary Impact.** No proposal-specific caseload, staff-hour, or cost source exists. The Judiciary and TIGTA figures remain system-capacity comparators only. The bill creates no office, judgeship, direct spending, or mandatory appropriation. T3 adds a seven-year authorization of such sums as may be necessary, expressly provides no budget authority, and leaves annual amounts to institution-specific workload development and appropriations.
+**Budgetary Impact.** No proposal-specific caseload, staff-hour, or cost source exists. Judiciary and TIGTA figures remain capacity comparators only. The bill creates no office, judgeship, direct spending, or mandatory appropriation. Section 10 supplies a seven-year authorization of such sums as may be necessary, provides no budget authority, and leaves actual amounts to institutional workload development, CBO and OMB analysis, and annual appropriations.
 
-**Quality Score.** The 81/100 T3 score reflects chamber-standing analysis, explicit appellate routes, controlled-maintenance review and exit, recipient due process, protected-information procedures, Article II counsel language, prospective-only application, application-specific severability, an authorization of appropriations, and claim-by-claim issue-to-bill reconciliation. The proposal remains capped by same-day docket immaturity, unresolved application-specific standing and Article II risk, no proposal-specific fiscal estimate, and no qualified external validation.
+**Quality Score.** The 83/100 T4 score reflects publication-level source, claim, legislative-form, definition, cross-reference, deadline, appeal, effective-date, authorization, severability, and issue-to-bill verification. The proposal remains capped by same-day docket immaturity, application-specific Article III and Article II risk, uncertain repayment and protected-information operation, no proposal-specific fiscal estimate, limited adoption evidence, and no qualified external validation.
 
 **Adoption Score.** The 4/12 score reflects H.R. 7007's official substitute, its H.R. 8914 and H.R. 9210 components, S. 4791 with 24 listed cosponsors, a bipartisan House fund-restriction proposal, and a current judicial predicate. None establishes enactment, committee approval, proposal-specific bipartisan support for EMOL-015, polling, or external legal validation.
 

@@ -1,14 +1,14 @@
 ---
 issue_id: EMOL-015
 title: "Procedural and Enforcement Analysis"
-status: working-research
+status: review-ready-research
 print_levels:
   - full-technical
 ---
 
 # EMOL-015 Procedural and Enforcement Analysis
 
-This memorandum records the T2 legal-development basis for the automatic adversity screen, Rule 41 treatment, collateral authority, separate D.D.C. action, and principal constitutional limits. It is not a judicial opinion or substitute for qualified counsel review.
+This memorandum records the cumulative T2-through-T4 legal-development basis for the automatic adversity screen, Rule 41 treatment, collateral authority, separate D.D.C. action, and principal constitutional limits. It is not a judicial opinion or substitute for qualified counsel review.
 
 ## Controlling and Direct Authority
 
@@ -34,7 +34,7 @@ The separate action cannot manufacture standing. It therefore limits eligible pl
 
 The cause runs against responsible subordinate officers, not the President or Vice President. Relief is declaratory or prospective, with repayment available only from a recipient properly before the court and only to the extent independently authorized. The court may not award damages, choose audit outcomes, supervise general executive operations, or coerce the President.
 
-T3 further limits repayment to an action brought by the United States against a named and served recipient, after notice and an opportunity to be heard, for post-enactment payments recoverable under otherwise applicable debt-collection or restitution law. This avoids converting the general enforcement action into a new damages or clawback regime.
+The completed draft limits repayment to an action brought by the United States against a named and served recipient, after notice and an opportunity to be heard, for post-enactment payments recoverable under otherwise applicable debt-collection or restitution law. This avoids converting the general enforcement action into a new damages or clawback regime.
 
 ## Automatic but Constitutionally Bounded Features
 
@@ -53,6 +53,6 @@ T3 further limits repayment to an action brought by the United States against a 
 - whether one year of post-service Federal tolling is calibrated across tax, tort, contract, and constitutional claims;
 - whether controlled maintenance or liability-only adjudication creates Article II or access-to-courts burdens in a particular case;
 - whether chamber standing exists for each appropriations or notice injury under current D.C. Circuit and Supreme Court doctrine;
-- whether a repayment remedy requires additional recipient process or an express debt-collection rule;
-- whether section 6103, classified-information, privilege, and grand-jury channels need claim-specific procedures; and
-- whether Treasury, IRS, TIGTA, DOJ, and Judiciary workload warrants a dedicated authorization rather than annual incremental appropriations.
+- whether existing debt-collection or restitution law supports repayment in every intended post-enactment application;
+- whether section 6103, classified-information, privilege, and grand-jury channels require additional claim-specific procedures; and
+- what Treasury, IRS, TIGTA, DOJ, and Judiciary workload would require under the enacted seven-year authorization and annual appropriations.
