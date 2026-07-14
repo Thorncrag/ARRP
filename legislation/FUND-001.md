@@ -85,11 +85,7 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 ## "SEC. 1022. EXECUTIVE DIRECTIVE IMPOUNDMENT REVIEW PERIOD.
 
-"(a) Trigger.—An Executive Directive Impoundment Review Period shall begin when, during any 24-month period, there are—
-
-"(1) three or more trigger findings involving three or more distinct directives issued during the then-current presidential term by the President then serving; or
-
-"(2) two or more trigger findings involving two or more distinct directives issued during the then-current presidential term by the President then serving if at least one finding concerns withholding, delaying, deferring, conditioning, redirecting, or refusing to obligate budget authority contrary to an appropriations Act.
+"(a) Trigger.—An Executive Directive Impoundment Review Period shall begin when, during any 36-month period, there are two or more trigger findings involving two or more distinct directives issued during the then-current presidential term by the President then serving, if at least one finding concerns withholding, delaying, deferring, conditioning, redirecting, or refusing to obligate budget authority contrary to an appropriations Act.
 
 "(b) Commencement.—The review period begins on the date of the final trigger finding necessary to satisfy subsection (a).
 
@@ -207,7 +203,7 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 ## "SEC. 1026. EXPEDITED JUDICIAL REVIEW.
 
-"(a) Cause of action.—A person described in subsection (b) has an express cause of action in the United States District Court for the District of Columbia to enforce this part, to declare a covered executive directive fiscally inert as to its covered scope, to compel release or obligation of unlawfully withheld budget authority, or to enjoin a covered implementation action. The proper defendants are the United States, an implementing agency, the Director of the Office of Management and Budget, or another officer responsible for implementation. This section does not authorize coercive relief directly against the President.
+"(a) Cause of action and exclusive jurisdiction.—A person described in subsection (b) has an express cause of action to enforce this part, to declare a covered executive directive fiscally inert as to its covered scope, to compel release or obligation of unlawfully withheld budget authority, or to enjoin a covered implementation action. Notwithstanding section 704 of title 5 and sections 1346(a)(2) and 1491(a) of title 28, the United States District Court for the District of Columbia shall have exclusive original jurisdiction of an action arising under this part. The proper defendants are the United States, an implementing agency, the Director of the Office of Management and Budget, or another officer responsible for implementation. This section does not authorize coercive relief directly against the President.
 
 "(b) Plaintiffs.—An action under this section may be brought by—
 
@@ -219,7 +215,7 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(4) any other person authorized to sue under otherwise applicable law that independently satisfies article III of the Constitution.
 
-"Statutory authorization under this subsection does not dispense with article III injury, causation, redressability, or other constitutional requirements. The Comptroller General retains the separate authority provided by section 1016 and other applicable law.
+"Statutory authorization under this subsection does not dispense with article III injury, causation, redressability, or other constitutional requirements. A plaintiff described in paragraph (1) or (2) is within the zone of interests protected by this part only to the extent the alleged injury arises from an effect within the covered scope. The Comptroller General retains the separate authority provided by section 1016 and other applicable law.
 
 "(c) Three-judge district court.—An action under this section shall be heard by a three-judge court convened in the United States District Court for the District of Columbia under section 2284 of title 28, United States Code.
 
@@ -229,9 +225,15 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(f) Appellate review.—Notwithstanding section 1253 of title 28, United States Code, review of a final judgment or an appealable interlocutory order shall lie in the United States Court of Appeals for the District of Columbia Circuit under sections 1291 and 1292 of title 28, United States Code, and shall be expedited. Supreme Court review remains available under section 1254 of title 28, United States Code.
 
-"(g) Sovereign immunity and relief.—The United States waives sovereign immunity for an action under this section seeking relief other than money damages. The court may grant declaratory relief, injunctive relief, mandamus relief for a clear nondiscretionary duty, vacatur of a covered implementation action, release of budget authority, compliance reporting, or other appropriate relief. Any mandatory or injunctive decree shall identify by name or official title the officer or officers responsible for compliance. This subsection does not authorize compensatory, punitive, or retrospective monetary damages.
+"(g) Sovereign immunity and relief.—The United States waives sovereign immunity for an action under this section seeking relief other than money damages. The court may grant declaratory relief, injunctive relief, mandamus relief for a clear nondiscretionary duty, vacatur of a covered implementation action, release or prospective obligation of budget authority, compliance reporting, or other appropriate specific relief. An action shall not be dismissed or transferred solely because compliance with a prospective decree requires the payment of money from budget authority that Congress made available for the program or recipient at issue. Any mandatory or injunctive decree shall identify by name or official title the officer or officers responsible for compliance. This subsection does not authorize compensatory, punitive, retrospective monetary, contract-damages, or grant-termination damages.
 
-"(h) No bar to other review.—This section does not preclude review under chapter 7 of title 5, United States Code, this title, an appropriations Act, or any other provision of law.
+"(h) Relationship to other review.—
+
+"(1) This section does not preclude a cause of action arising under chapter 7 of title 5, this title, an appropriations Act, or another provision of law, but a plaintiff seeking relief created by this part shall proceed under this section.
+
+"(2) A claim arising solely under a contract, grant agreement, procurement statute, civil-service statute, labor-management statute, or other law remains subject to the jurisdictional and administrative-review requirements otherwise applicable to that claim.
+
+"(3) Nothing in this section authorizes retrospective damages or permits a plaintiff to evade a specialized statutory review scheme by relabeling a claim that does not independently allege a violation of this part.
 
 "(i) Existing mandates and continuing conduct.—This part applies to covered implementation occurring after enactment and to a withholding, suspension, delay, or other covered implementation action that remains ongoing on the effective date, without regard to whether the underlying appropriation or statutory program was enacted before, on, or after this part.
 
@@ -311,7 +313,7 @@ The table of contents in section 1(b) of the Congressional Budget and Impoundmen
 
 (a) Effective date.—This Act and the amendments made by this Act take effect on the date of enactment.
 
-(b) Existing judgments and ongoing implementation.—A trigger finding entered during the 24-month period preceding enactment may count under section 1022 of the Impoundment Control Act of 1974, as added by this Act, only if—
+(b) Existing judgments and ongoing implementation.—A trigger finding entered during the 36-month period preceding enactment may count under section 1022 of the Impoundment Control Act of 1974, as added by this Act, only if—
 
 (1) the directive was issued during the then-current presidential term by the President serving on the date of enactment;
 
@@ -335,7 +337,7 @@ If any provision of this Act, an amendment made by this Act, or the application 
 
 ## Budgetary Impact Statement
 
-Administrative and litigation workload is likely for OMB, GAO, affected agencies, and the federal courts. Section 6 authorizes such sums as may be necessary for fiscal years 2027 through 2031 but does not directly appropriate funds. Implementation costs would depend on the frequency of qualifying final judgments, the number of covered directives requiring certification, and resulting litigation. As scale comparators rather than estimates of this bill, GAO's fiscal year 2026 request sought $933.9 million in appropriations for an agency-wide workload exceeding 550 legal decisions in fiscal year 2024, while H.R. 5220—the closest current congressional analogue—has no published CBO estimate. A proposal-specific CBO score and GAO, OMB, and Judiciary workload estimates remain necessary before appropriators should select a fixed amount.
+Administrative and litigation workload is likely for OMB, GAO, affected agencies, and the federal courts. Section 6 authorizes such sums as may be necessary for fiscal years 2027 through 2031 but does not directly appropriate funds. Implementation costs would depend on the frequency of qualifying final judgments, the number of covered directives requiring certification, and resulting litigation. As scale comparators rather than estimates of this bill, GAO's fiscal year 2026 request sought $933.9 million in appropriations for an agency-wide workload exceeding 550 legal decisions in fiscal year 2024; OMB's federal-program inventory covered more than 2,600 programs and $7 trillion in spending; and the Judiciary's fiscal year 2026 request attributed $17.2 million and 170 full-time-equivalent positions to projected court-support workload changes across the federal courts. H.R. 5220—the closest current congressional analogue—has no published CBO estimate. None of those government-wide figures isolates FUND-001's incremental cost, so a proposal-specific CBO score and GAO, OMB, and Judiciary workload estimates remain necessary before appropriators should select a fixed amount.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
@@ -343,8 +345,9 @@ Administrative and litigation workload is likely for OMB, GAO, affected agencies
 
 - This draft regulates agency implementation and appropriated funds rather than directly invalidating executive orders.
 - T2 retains the new part in title X because H.R. 5314 and H.R. 5220 use the same Impoundment Control Act vehicle for prudent-obligation, apportionment-reporting, GAO-access, enforcement, and penalty reforms. Legislative counsel should still test whether selected GAO-access provisions belong in title 31.
-- T2 limits trigger credit to qualifying final judicial judgments involving distinct directives; GAO findings remain advisory and retain existing statutory enforcement functions, reducing the separation-of-powers risk identified in *Bowsher v. Synar*.
-- T2 aligns panel formation and single-judge temporary relief with 28 U.S.C. § 2284, expressly routes appeals through 28 U.S.C. §§ 1291 and 1292 notwithstanding § 1253, and preserves Supreme Court certiorari under § 1254.
-- T2 confines the express plaintiff route to concretely injured parties and Congress acting with both Houses' authorization and independent Article III standing; qualified review remains necessary because legislation can confer a cause of action but cannot eliminate constitutional standing requirements.
+- T3 limits trigger credit to qualifying final judicial judgments involving distinct directives; GAO findings remain advisory and retain existing statutory enforcement functions, reducing the separation-of-powers risk identified in *Bowsher v. Synar*. The trigger window is 36 months because the 2018 federal-workforce litigation and the 2025 foreign-assistance litigation show that jurisdictional and appellate disputes can consume many months before finality.
+- T3 aligns panel formation and single-judge temporary relief with 28 U.S.C. § 2284, expressly routes appeals through 28 U.S.C. §§ 1291 and 1292 notwithstanding § 1253, and preserves Supreme Court certiorari under § 1254.
+- T3 confines the express plaintiff route to concretely injured parties and Congress acting with both Houses' authorization and independent Article III standing; qualified review remains necessary because legislation can confer a cause of action but cannot eliminate constitutional standing requirements.
+- T3 gives D.D.C. exclusive original jurisdiction over claims arising under this part notwithstanding the APA adequate-remedy rule and the Tucker Act grants in 28 U.S.C. §§ 1346(a)(2) and 1491(a). It distinguishes prospective release or obligation of identified budget authority from retrospective damages, preserves specialized review for claims arising solely under contracts, grants, procurement, civil-service, or labor statutes, and prevents relabeling of claims that do not independently violate this part.
 - This bill is the independent FUND-001 alternative. It neither invokes nor depends on the [Interbranch Review Framework Act (JUD-011)](JUD-011.md) or another ARRP proposal.
-- T3 should test the final-judgment threshold against historical case timelines, review the 15-, 30-, 90-, and 180-day deadlines with OMB and program administrators, verify codification and authorization language with legislative counsel, and obtain workload estimates from GAO, OMB, and the Judiciary.
+- T4 should obtain legislative-counsel review of the section 1026 jurisdictional override and codification; test the 15-, 30-, 90-, and 180-day deadlines with OMB and program administrators; refresh the current impoundment cases; and obtain proposal-specific workload estimates from GAO, OMB, and the Judiciary.

@@ -14,6 +14,55 @@ This file preserves the full audit history for [FUND-001](FUND-001.md). The issu
 
 Entries are maintained newest first. Change Audits preserve the existing score unless the audit identifies a score-bearing defect and recalculates the proposal under the current rubric.
 
+### 2026-07-13 — T3 readiness audit
+
+**Audit type:** Full T3 readiness audit under rubric `2026-06-27.2`.
+
+**Score:** 81/100, Review Ready.
+
+**Component score:** Structural 8/8; Evidence 10/12; Legal Fit 9/10; Prior-Proposal 7/8; Remedy 11/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0.
+
+**Scope:** Reproduced the T2 readiness result through claim-by-claim and citation review; current impoundment-case and jurisdictional refresh; APA preclusion, zone-of-interests, Tucker Act, Court of Federal Claims, specialized-review, and specific-relief analysis; trigger-duration testing; bill-to-issue alignment; budget and workload analogue review; adoption and opposition review; and qualified-scrutiny planning.
+
+**Current-status and pending-case finding:** The problem remains live. The D.C. Circuit's amended order in *Global Health Council v. Trump* states that the existing ICA does not give grantees an APA cause of action to enforce the ICA, while leaving open APA claims under appropriations Acts. The Supreme Court's *AIDS Vaccine Advocacy Coalition* stay remains expressly preliminary rather than a final trigger finding. These authorities sharpen the remedial defect rather than mooting it: current law leaves forum and cause-of-action uncertainty precisely when expiring appropriations make delay consequential.
+
+**Claim-channeling and jurisdiction correction:** Section 1026 now creates an express FUND-001 cause and assigns exclusive original jurisdiction to D.D.C. notwithstanding the APA adequate-remedy rule and the Tucker Act jurisdictional grants in 28 U.S.C. §§ 1346(a)(2) and 1491(a). The draft distinguishes prospective release or obligation of identified budget authority from retrospective damages under *Bowen v. Massachusetts*; states that prospective compliance is not transferred or dismissed solely because it requires payment; and excludes compensatory, punitive, retrospective monetary, contract-damages, and grant-termination damages.
+
+**Specialized-review safeguard:** The D.C. Circuit's 2019 federal-workforce executive-order decision required unions to proceed through the Civil Service Reform Act labor-management scheme. FUND-001 therefore preserves otherwise applicable jurisdictional and administrative channels for claims arising solely under contracts, grants, procurement law, civil-service law, labor law, or other specialized statutes. A plaintiff cannot evade another scheme by relabeling a claim that does not independently allege a FUND-001 violation. The bill also limits enumerated plaintiffs' zone of interests to injuries arising from the covered fiscal or program scope.
+
+**Trigger-duration correction:** The narrow comparator has not identified a reliable series of rapid, final, merits judgments against distinct executive directives. The 2018 federal-workforce litigation reached a district-court merits ruling within months but was reversed on jurisdiction in July 2019; the 2025 foreign-assistance dispute generated multiple appellate and emergency-stage rulings without a final merits trigger. T3 therefore changed the trigger from the T2 24-month structure to two qualifying final judgments involving distinct current-term directives within 36 months, including at least one appropriations-specific judgment. The same 36-month window applies to pre-enactment judgments. Finality, distinctness, current-term, no-stay/no-vacatur, and procedural-only exclusions remain.
+
+**Deadline and administration finding:** The 15-day new-directive wait, 30-day lookback inventory, 90-day certification deadline, and 180-day backstop form a coherent staged sequence and include emergency and judicial-extension mechanisms. Public sources do not establish that OMB and affected agencies could inventory and certify every covered implementation within those periods after a high-volume trigger. T3 therefore treats the sequence as facially administrable but explicitly reserves agency, recipient, and legislative-counsel validation for T4 rather than presenting the deadlines as empirically settled.
+
+**Budget and workload finding:** GAO's $933.9 million agency-wide fiscal year 2026 request and more than 550 fiscal year 2024 legal decisions remain scale comparators. T3 adds two more bounded comparators: GAO reports that OMB's federal-program inventory covers more than 2,600 programs and $7 trillion in spending, and the Judiciary's fiscal year 2026 request attributed $17.2 million and 170 FTEs to projected court-support workload changes across the federal courts. None isolates FUND-001's incremental cost. The bill therefore retains a five-year authorization of such sums rather than inventing a fixed appropriation, and the issue continues to require proposal-specific CBO and affected-institution estimates.
+
+**Adoption and opposition finding:** Adoption remains 4/12. H.R. 5314 supplies House-passed precedent and H.R. 5220 supplies a current multi-committee vehicle with 21 Democratic cosponsors, but the record remains overwhelmingly partisan and no Senate path, stakeholder coalition, public-opinion evidence, committee action, or CBO estimate was identified. Expected opposition includes presidential-control and separation-of-powers objections, resistance to D.D.C.-exclusive review and three-judge panels, concern that the trigger chills lawful administration, appropriator concern over open-ended authorization, and institutional objections from specialized adjudicatory systems. The 36-month, current-term, final-judgment, covered-scope, emergency, no-direct-presidential-relief, and specialized-review limits answer but do not eliminate those objections.
+
+**Verified claims:**
+
+| Claim | T3 result |
+| --- | --- |
+| Existing ICA enforcement does not itself furnish these private plaintiffs an APA cause to enforce the ICA | Verified against the official D.C. Circuit amended order; current Supreme Court stay remains preliminary. |
+| Congress can supply an express federal cause and district-court jurisdiction | Verified against 28 U.S.C. § 1331 as the general baseline; the bill's later, specific jurisdiction language is explicit. |
+| Tucker Act and specialized-review regimes create real channeling risk | Verified against 28 U.S.C. § 1491, *Department of Education v. California*, and *AFGE v. Trump*. |
+| Specific relief can include prospective payment of identified program funds | Verified as an existing doctrinal basis in *Bowen*; current Court treatment makes precise drafting and external review necessary. |
+| Current workload sources support scale but not a fixed FUND-001 cost | Verified; all cited figures remain labeled government-wide comparators. |
+
+**Unresolved claims and qualified scrutiny:**
+
+| Unresolved matter | T4 or external need |
+| --- | --- |
+| Whether the section 1026 override fully and cleanly controls every relevant Tucker Act, APA, grant, contract, and specialized-review interaction | Legislative counsel plus appropriations, administrative-law, and federal-courts review. |
+| Whether 15-, 30-, 90-, and 180-day periods match OMB, agency, court, grantee, and recipient operating realities | OMB, agency program-administrator, recipient, GAO, and judicial-administration input. |
+| Whether two final judgments in 36 months is optimally calibrated | Complete case-level comparator and test additional administrations and directive types. |
+| Incremental cost and staffing | CBO plus GAO, OMB, affected-agency, and Administrative Office estimates. |
+| Current impoundment merits posture | Refresh the foreign-assistance and grant cases at T4 and before circulation. |
+| Political pathway | Senate analogue, committee movement, bipartisan validators, stakeholder positions, and opposition record. |
+
+**Score effect:** Increased from 76 to 81. Evidence increased for official current-case, channeling, and workload sources; Legal Fit increased for claim-specific jurisdiction analysis; Remedy and Implementation increased for a more reachable but still objective trigger and an explicit judicial route; Drafting reached 8 after adding the jurisdictional override, specific-relief/damages boundary, zone-of-interests limitation, and specialized-review safeguard. Advanced Review Ready remains unavailable because external review is 0, deadline calibration and proposal-specific cost remain unvalidated, current merits litigation remains unsettled, and adoption support remains limited.
+
+**Next audit:** T4 publication-ready audit. Complete publication-level source and quotation checks; refresh the pending merits cases and H.R. 5220; test title X codification and section 1026 with legislative counsel standards; finish a broader historical trigger comparator; assess judicial-designation and deadline administration; deepen adoption and opposition evidence; prepare final verified and unresolved-claims tables; and identify the precise questions for qualified appropriations, administrative-law, federal-courts, budget, OMB, GAO, program-administration, and legislative-counsel reviewers.
+
 ### 2026-07-13 — T2 development audit
 
 **Audit type:** Full T2 development audit under rubric `2026-06-27.2`.

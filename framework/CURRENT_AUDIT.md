@@ -15,16 +15,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Active |
 | Active issue/task | FUND-001 — Addressing Executive Order Abuse |
-| Audit type/tier | Autonomous successive audit sequence; FUND-001 T3 readiness audit active |
+| Audit type/tier | Autonomous successive audit sequence; FUND-001 T3 readiness audit completed and awaiting synchronization, commit, and push |
 | Started | 2026-07-13 18:59:40 -0400 |
-| Last checkpoint | 2026-07-13 20:25:27 -0400 |
+| Last checkpoint | 2026-07-13 20:36:41 -0400 |
 | User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
 | Scope | FUND-001 issue page, independent Executive-Order Abuse Impoundment Control Act, JUD-011 preferred-remedy fit, audit sidecar, Impoundment Control Act and appropriations authorities, trigger and comparator evidence, standing and three-judge-court mechanics, implementation and budget evidence, source and audit inventories, dashboard, GitHub Project fields, and issue update surface. Later authorized units: FUND-001 T3-T4, REG-001 T1-T4, and EMOL-015 T1-T4. |
-| Files touched | None yet for T3. |
-| Completed steps | Completed, validated, committed, and pushed FUND-001 T2 as `81974ef`; raised the score from 60 to 76 / 100 Review Ready; verified current law, current GAO manifestations, H.R. 5314 and H.R. 5220 analogues, adoption posture, and provisional workload comparators; narrowed the trigger to final judgments involving distinct current-term directives; removed self-executing GAO and complaint-filing effects; corrected section 2284 panel mechanics, appellate routing, sovereign immunity, standing language, emergency certification, employee protection, current-term and pre-enactment applicability, and authorization of appropriations; aligned the comparator methodology; and confirmed persisted GitHub Project fields in the Project table. |
-| Next step | Run the FUND-001 T3 readiness audit: complete claim-by-claim and citation verification; test claim-channeling, Tucker Act, Court of Federal Claims, and current merits-case implications; strengthen historical trigger-duration, workload, budget, adoption, and opposition evidence; revise the draft as warranted; then synchronize, validate, commit, push, and post the issue update. |
+| Files touched | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md` |
+| Completed steps | Completed FUND-001 T3 and raised the score from 76 to 81 / 100 Review Ready; reproduced claim and citation support; verified the current ICA cause-of-action problem and specialized-review precedent; added explicit D.D.C. jurisdiction notwithstanding APA and Tucker Act routing, a specific-relief/damages boundary, a covered-scope zone-of-interests limit, and anti-relabeling protection; extended the final-judgment window from 24 to 36 months after timing review; added OMB-program and Judiciary workload comparators; documented opposition, verified claims, unresolved claims, and qualified-review needs; and synchronized the issue, bill, audit sidecar, comparator, area summary, and source inventory. |
+| Next step | Commit and push the validated FUND-001 T3 substantive unit; record and push provenance; post the issue update; then activate FUND-001 T4. |
 | Blockers/questions | Local GitHub CLI authentication remains invalid, but the signed-in GitHub interface supplied completion-critical Project synchronization and readback. No substantive policy blocker identified. |
-| Validation status | FUND-001 T2 passed YAML parsing, source-inventory width and unique-ID checks, local-link validation, score/status consistency, dashboard tests, `git diff --check`, and Project-table persistence readback; substantive commit `81974ef` is pushed. FUND-001 T3 validation not started. |
+| Validation status | FUND-001 T3 passed `git diff --check`; YAML parsing; source-inventory width, unique-ID, and row-count checks; local-link validation; score/status consistency scans; Review Ready dashboard tests; and signed-in GitHub Project persistence readback for Status, Score, Runs, Last audit, and Next audit. Commit and push pending. |
 
 ## Handoff Rules
 
