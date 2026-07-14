@@ -17,6 +17,8 @@ print_levels:
 
 To require automatic judicial screening and dismissal of constitutionally non-adverse executive self-litigation; to prevent covered executive officials from settling with or receiving payment or other personal benefit from executive agencies, officers, employees, funds, accounts, or payment authorities subject to their supervision while in office; to prohibit prospective or categorical immunity from Federal tax audits and investigations; to preserve valid claims after service; and for other purposes.
 
+Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
+
 ## SECTION 1. SHORT TITLE.
 
 This Act may be cited as the "Executive Self-Litigation and Settlement Conflict Act".
@@ -214,8 +216,7 @@ The notice may be classified, redacted, or submitted in camera where required by
 
 Section 7217 of the Internal Revenue Code of 1986 is amended—
 
-1. in subsection (d), by striking “subsection (a) or fails to report under subsection (b)” and inserting “subsection (a) or (f), or fails to report under subsection (b) or (j)”; and
-2. by adding at the end the following:
+by adding at the end the following:
 
 “(f) Categorical audit immunity prohibited.—
 
@@ -271,6 +272,8 @@ Section 7217 of the Internal Revenue Code of 1986 is amended—
 
 “(3) Affiliated person or entity.—The term ‘affiliated person or entity’ means a spouse, dependent, immediate family member, related taxpayer within the meaning of section 267(b) or 707(b)(1), entity under common ownership or control, trust, representative, agent, successor, assignee, or other person or entity through which the taxpayer would receive the benefit of a prohibited audit-immunity term.”.
 
+“(l) Inspector General review and corrective referral.—The Treasury Inspector General for Tax Administration shall review each report received under subsection (j), determine whether a prohibited audit-immunity term was attempted or implemented, recommend corrective action, and refer apparent willful misconduct to the appropriate inspector general, ethics official, disciplinary authority, or law-enforcement authority under otherwise applicable law. Nothing in subsections (f) through (l) creates or expands criminal liability under subsection (d).”.
+
 ### (b) Effective date and continuing instruments.
 
 The amendments made by subsection (a) apply to:
@@ -296,7 +299,7 @@ Nothing in this Act shall be construed to:
 
 ### (a) Filing court.
 
-The federal court in which a potentially covered civil action is filed has jurisdiction and a mandatory duty to conduct the screening required by section 4, enforce the automatic interim stay, dismiss a constitutionally non-adverse action, and apply the controlled-maintenance, tolling, preservation, and payment-bar requirements of this Act. This limited authority to determine jurisdiction and enforce the statutory screening process survives an attempted notice or stipulation of dismissal filed before completion of screening.
+The federal court in which a potentially covered civil action is filed shall determine its jurisdiction and has a mandatory duty, to the extent consistent with article III of the Constitution, to conduct the screening required by section 4, enforce the automatic interim stay, dismiss a constitutionally non-adverse action, and apply the controlled-maintenance, tolling, preservation, and payment-bar requirements of this Act. The court retains authority to determine its jurisdiction and to enforce collateral statutory requirements that survive dismissal. A notice or stipulation of dismissal filed before completion of screening does not prevent the court from completing those threshold and collateral determinations.
 
 ### (b) District of Columbia enforcement jurisdiction.
 
@@ -336,7 +339,7 @@ Administrative workload is possible for automatic screening, TIGTA referrals, an
 - The court-permitted adjudication exception is designed for legitimate injuries, including preexisting claims or adverse actions initiated by actors outside the official's control. It requires both an independent tribunal and genuinely independent authority to defend the United States; tribunal independence alone does not create adverse parties. Liability adjudication is separated from damages, settlement, and payment unless the court makes separate heightened findings.
 - The injunctive-relief safety valve is designed to stop ongoing or imminent harm without allowing damages, settlement, reimbursement, indemnification, offset, public funds, or compensation funds during covered service.
 - The payment bar is designed to prevent litigation from becoming a substitute for express congressional authorization of a compensation fund.
-- Section 7 amends 26 U.S.C. § 7217 for every taxpayer and Federal actor, including the Attorney General and persons acting for the United States. A prohibited prospective or categorical audit-immunity term is void from inception, cannot support consideration or estoppel, and must be disregarded by the IRS.
+- Section 7 amends 26 U.S.C. § 7217 for every taxpayer and Federal actor, including the Attorney General and persons acting for the United States. A prohibited prospective or categorical audit-immunity term is void from inception, cannot support consideration or estoppel, and must be disregarded by the IRS. The amendment deliberately does not extend section 7217(d)'s five-year felony to the broader instrument and reporting provisions; TIGTA instead reviews attempted terms and makes corrective or misconduct referrals under otherwise applicable law.
 - The § 7217 amendment preserves case-specific finality under sections 7121 and 7122, final judgments, limitations periods, and ordinary neutral IRS enforcement discretion. Those exceptions do not permit restrictions concerning unidentified matters or future taxable periods.
 - The amendment reaches prospective implementation after enactment of a pre-enactment audit-immunity term without reopening completed closing agreements, completed compromises, or final judgments.
 - T1/T2 should test whether the covered-action definition needs a narrow exception for nonmonetary emergency relief that cannot safely wait until the official leaves office.
@@ -344,6 +347,6 @@ Administrative workload is possible for automatic screening, TIGTA referrals, an
 ## Source Notes
 
 - Existing-law review should include the Judgment Fund under [31 U.S.C. § 1304](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title31-section1304&num=0&edition=prelim), DOJ judgment and compromise-payment mechanics under [28 U.S.C. § 2414](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section2414&num=0&edition=prelim), tax-return confidentiality remedies under [26 U.S.C. § 7431](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title26-section7431&num=0&edition=prelim), executive audit-interference restrictions under [26 U.S.C. § 7217](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title26-section7217), closing agreements under [26 U.S.C. § 7121](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title26-section7121), and compromises under [26 U.S.C. § 7122](https://uscode.house.gov/view.xhtml?edition=prelim&f=treesort&jumpTo=true&num=0&req=%28title%3A26+section%3A7122+edition%3Aprelim%29+OR+%28granuleid%3AUSC-prelim-title26-section7122%29).
-- Source development should verify the Raskin NO CARTE BLANCHE Act text, bill number, sponsorship, committee posture, and relation to the reported Anti-Weaponization Fund.
+- The June 24, 2026 amendment in the nature of a substitute to H.R. 7007 supplies the official text of the NO CARTE BLANCHE Act. It combines H.R. 8914 and H.R. 9210, restricts Judgment Fund payments, and proposes 28 U.S.C. § 2414a judicial review of presidential settlements. EMOL-015 adds automatic filing-stage screening, non-adversity dismissal, controlled maintenance, a broader covered-official conflict rule, and a universal categorical audit-immunity prohibition.
 - T1 should review the related docket entries in *Trump v. Internal Revenue Service*, No. 1:26-cv-20609-KMW (S.D. Fla.), test the automatic-screening and Rule 41 provisions against controlling appellate law, and determine whether the Act should separately prohibit prospective audit immunity for any taxpayer.
 - Constitutional review should test Article II, due process, access to courts, sovereign immunity, justiciability, separation of powers, and Congress's appropriations authority.

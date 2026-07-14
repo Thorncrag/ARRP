@@ -35,6 +35,6 @@ The constitutional and statutory framework does not adequately prevent a preside
 
 ## Notes
 
-EMOL-015 is developed as a conflict-of-interest and settlement-authority proposal. The President is expressly included in the proposed coverage and is not excluded by title, office, or implication.
+EMOL-015 is a 65/100 T1 Developed Draft conflict-of-interest and settlement-authority proposal. The President and Vice President are expressly included in the proposed coverage and are not excluded by title, office, or implication. Its automatic adversity screen, controlled-maintenance rule, payment restrictions, and universal categorical audit-immunity amendment require full T2 legal, procedural, implementation, fiscal, and adoption development.
 
 Other EMOL issues remain provisional inventory pending full source development.

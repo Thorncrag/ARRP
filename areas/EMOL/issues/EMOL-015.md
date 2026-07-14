@@ -6,13 +6,16 @@ status: developed
 priority: high
 remedy_type: conflict-of-interest-litigation-and-payment-guardrail
 legislative_proposal: "../../../legislation/EMOL-015.md"
-audit_status: Initial developed draft; T1 framework check pending
-audit_score: 60
-audit_last_type: Initial development
-audit_last_date: 2026-06-28
-audit_next: T1 framework check
+audit_status: "T1 framework and quality audit complete"
+audit_score: 65
+audit_last_type: "T1 framework and quality audit"
+audit_last_date: "2026-07-13"
+audit_next: "Full T2 development audit"
 audit_rubric_version: 2026-06-27.2
-audit_rebaseline_status: hard-rebaseline-needed
+audit_rebaseline_status: current
+change_audit_needed: false
+change_audit_reason: null
+adoption_score: 3
 adoption_friction_score: 80
 adoption_friction_band: High Resistance
 required_electoral_environment: sixty-vote-senate
@@ -73,7 +76,7 @@ The Vice President presents a related loophole. The Vice President may not forma
 
 ## Proposal Survey
 
-Representative prior and adjacent models include the Judgment Fund's statutory payment limitations, DOJ compromise-settlement authority, Rule 11 and inherent judicial sanctions, professional-discipline referrals, ordinary conflict-of-interest principles, and congressional power to condition appropriations. Section 7217 supplies the direct anti-interference hook, while sections 7121 and 7122 demonstrate how Congress can preserve case-specific tax finality without conferring prospective immunity. Rep. Jamie Raskin's reported NO CARTE BLANCHE Act is a direct incident-specific comparator because it responds to the reported "Anti-Weaponization Fund," but the ARRP remedy is broader: it targets the structural self-litigation and settlement-conflict pathway rather than only one fund or one administration. The July 2026 ruling is an enforcement backstop and factual validator, not a substitute for a prospective conflict rule.
+Representative prior and adjacent models include the Judgment Fund's statutory payment limitations, DOJ compromise-settlement authority, Rule 11 and inherent judicial sanctions, professional-discipline referrals, ordinary conflict-of-interest principles, and congressional power to condition appropriations. Section 7217 supplies the direct anti-interference hook, while sections 7121 and 7122 demonstrate how Congress can preserve case-specific tax finality without conferring prospective immunity. The official June 24, 2026 [NO CARTE BLANCHE Act substitute to H.R. 7007](https://democrats-judiciary.house.gov/sites/evo-subsites/democrats-judiciary.house.gov/files/evo-media-document/hr7007_ans.pdf) combines H.R. 8914 and H.R. 9210. It would restrict specified Judgment Fund payments and create 28 U.S.C. § 2414a, under which a presidential settlement is void unless a court finds adversity, good-faith defense consideration, no collusion or fraud, and an interest-of-justice basis. [House Judiciary Committee materials](https://democrats-judiciary.house.gov/media-center/press-releases/ranking-member-raskin-to-file-discharge-petition-to-block-trump-s-18-billion-slush-fund-prevent-all-such-corrupt-self-dealing-settlement-payouts-and-end-unprecedented-super-pardon-for-trump-his-family-and-his-businesses) identify the component bills and announced discharge effort. S. 4791 supplies a narrower Senate fund-abolition comparator. EMOL-015 is broader and more prospective: it screens at filing, dismisses non-adverse self-suits, preserves genuine claims, covers additional executive officials, and categorically bars prospective tax-audit immunity. The July 2026 ruling is an enforcement backstop and factual validator, not a substitute for a prospective conflict rule.
 
 ## Least-Complex Adequate Remedy
 
@@ -124,15 +127,15 @@ Administrative workload is possible; no new appropriation is specified.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](EMOL-015.audit.md)** (Developed Draft)<br />**Adoption Score:** 3 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[65 / 100](EMOL-015.audit.md)** (Developed Draft)<br />**Adoption Score:** 3 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** Initial developed draft; T1 framework check pending<br />**Last Audit:** Initial development<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `hard-rebaseline-needed`<br />**Next Audit:** T1 framework check<br />**Full Audit History:** [EMOL-015 audit history](EMOL-015.audit.md)
+> **Audit Status:** T1 framework and quality audit complete<br />**Last Audit:** T1 framework and quality audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** Full T2 development audit<br />**Full Audit History:** [EMOL-015 audit history](EMOL-015.audit.md)
 
 ## Annotation
 
-**Basis and Evidence.** The current source record supports the existence of President Trump's tax-information lawsuit, the statutory background for tax-return confidentiality claims, DOJ's announced Judgment Fund-based Anti-Weaponization Fund, and a July 13, 2026 district-court ruling finding no genuine adverseness, no Article III case or controversy, an improper litigation purpose, and bad faith. The order imposed sanctions that include prohibiting use of the purported agreement as evidence of a settlement reached in the case, but expressly declined to decide the agreement's underlying validity or enforceability, Judgment Fund legality, or purported immunity provisions. The ruling materially strengthens the manifestation but does not complete the needed T1 or T2 review of the appellate posture, fee proceedings, settlement mechanics, Raskin bill text, Judgment Fund availability, DOJ/Treasury authority, or the legal status of every attempted audit or enforcement restriction.
+**Basis and Evidence.** The current source record supports the existence of President Trump's tax-information lawsuit, the statutory background for tax-return confidentiality claims, DOJ's announced Judgment Fund-based Anti-Weaponization Fund, and a July 13, 2026 district-court ruling finding no genuine adverseness, no Article III case or controversy, an improper litigation purpose, and bad faith. The order imposed sanctions that include prohibiting use of the purported agreement as evidence of a settlement reached in the case, but expressly declined to decide the agreement's underlying validity or enforceability, Judgment Fund legality, or purported immunity provisions. T1 also verifies the official H.R. 7007 substitute, its H.R. 8914 and H.R. 9210 components, and S. 4791 as current direct comparators. T2 must still review the appellate posture, fee proceedings, underlying complaint and dismissal papers, Judgment Fund availability, DOJ/Treasury authority, and the legal status of every attempted audit or enforcement restriction.
 
 **Qualification.** This proposal does not assume that a sitting President or executive official lacks a valid underlying claim. It addresses the separate institutional conflict created when the claimant controls, supervises, or can influence the defendant agency, defense officials, settlement authority, or payment authority. The preferred remedy preserves post-tenure access to court.
 
@@ -144,11 +147,11 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Tax-Administration Integrity.** The § 7217 amendment is intentionally universal rather than limited to the President, Vice President, or another covered claimant. No executive-branch settlement or undertaking should be able to purchase prospective immunity from lawful tax administration for any identified taxpayer. The amendment distinguishes categorical immunity from lawful closure of specified liabilities and periods, preserves ordinary neutral IRS discretion, covers the Attorney General and persons acting for the United States, and applies to prospective implementation of pre-enactment instruments without reopening final judgments or completed tax resolutions.
 
-**Judicial Scrutiny.** The strongest design begins with automatic jurisdictional screening rather than retaining a constitutionally non-adverse action on the docket. A court finding no genuine Article III adversity must dismiss without prejudice; statutory tolling, not continuing judicial control, preserves any still-timely claim. If adversity exists, controlled maintenance remains necessary because constitutional adversity does not eliminate practical influence over DOJ, settlement, payment, records, or litigation strategy. A court-permitted liability-adjudication exception therefore requires both an independent tribunal and genuinely independent defense authority. Bifurcating damages and payment until post-office addresses the remaining conflict without allowing the official to receive money, settlement leverage, offsets, indemnification, reimbursement, or a compensation fund while still able to influence the executive branch. Narrow injunctive relief remains available only in a genuinely adverse action. T1/T2 should test Article II objections, Rule 41 interaction, separation-of-powers limits, standing, sovereign immunity, Judgment Fund doctrine, and whether the injunctive-relief exception needs additional limits.
+**Judicial Scrutiny.** The strongest design begins with automatic jurisdictional screening rather than retaining a constitutionally non-adverse action on the docket. A court finding no genuine Article III adversity must dismiss without prejudice; statutory tolling, not continuing judicial control, preserves any still-timely claim. If adversity exists, controlled maintenance remains necessary because constitutional adversity does not eliminate practical influence over DOJ, settlement, payment, records, or litigation strategy. T1 corrected the filing-court clause so it does not purport to create Article III jurisdiction where none exists and removed the draft's unintended extension of section 7217(d)'s five-year felony to the much broader categorical-immunity rule. T2 must test Rule 41 interaction, collateral jurisdiction, Article II, access to courts, sovereign immunity, D.D.C. enforcement standing and remedies, Judgment Fund doctrine, and whether the injunctive-relief exception needs additional limits.
 
 **Budgetary Impact.** The proposal creates no new office and specifies no appropriation. Administrative workload may arise from automatic screening, expedited jurisdictional submissions, amicus appointments, congressional notices, certification, payment screening, TIGTA referrals, and protected congressional reporting concerning attempted audit-immunity terms. No dollar estimate is assigned because no CBO, OMB, agency, legislative-counsel, historical appropriation, or audited program-cost source has been identified for this proposal.
 
-**Quality Score.** The 60/100 score is a placeholder Developed Draft score because the issue has a basic proposal framework and linked draft legislation but has not yet received a T1 framework check, T2 source audit, existing-law fit audit, prior-proposal review, or judicial-scrutiny audit.
+**Quality Score.** The 65/100 T1 score recognizes complete issue architecture, a coherent two-gate remedy, verified primary manifestation and direct-bill evidence, a functioning standalone draft, strong internal fit, and correction of the felony and jurisdictional overclaims. It remains below Review Ready because controlling procedural doctrine, a complete D.D.C. enforcement cause and waiver, Judgment Fund mechanics, implementation and cost evidence, current docket review, adoption support, and external review remain incomplete.
 
 **Adoption Score.** The 3/12 score is weak because the proposal has a clear statutory vehicle and a timely source predicate, but it lacks sponsor mapping, committee posture, proposal-specific polling, bipartisan validator support, direct prior bill text comparison, or external legal review.
 
