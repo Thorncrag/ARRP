@@ -208,11 +208,12 @@ If no validation script exists, perform a manual validation checklist before mar
 2. confirm issue front matter matches the visible Proposal Scoring section;
 3. confirm the sibling audit-history file contains a new entry for the completed audit;
 4. confirm the issue page, sibling audit-history file, and GitHub Project fields agree where they overlap;
-5. confirm [`inventory/sources.csv`](../inventory/sources.csv) parses and includes any source used for audit credit;
-6. run a whitespace or formatting check where available;
-7. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md); and
-8. if the unit changed goal-relevant Project fields, confirm the Review Ready dashboard workflow completed and the generated page reflects the new state, or record the exact blocker; and
-9. confirm no unintended files remain changed for that unit, including generated PDF, DOCX, XLSX, or similar export files unless the user requested an export refresh, the export is the deliverable, export tooling is being tested, or the work is expressly part of a release/publication pass.
+5. for T1 or a routing-affecting change, confirm the project-area contents, affected area contents, Subject and Institution Index, and GitHub issue registry are synchronized under the Navigation Synchronization Check;
+6. confirm [`inventory/sources.csv`](../inventory/sources.csv) parses and includes any source used for audit credit;
+7. run a whitespace or formatting check where available;
+8. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md); and
+9. if the unit changed goal-relevant Project fields, confirm the Review Ready dashboard workflow completed and the generated page reflects the new state, or record the exact blocker; and
+10. confirm no unintended files remain changed for that unit, including generated PDF, DOCX, XLSX, or similar export files unless the user requested an export refresh, the export is the deliverable, export tooling is being tested, or the work is expressly part of a release/publication pass.
 
 If a validation check is skipped, record the skipped check and reason in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md), in the issue audit history when relevant, or in the final user-facing report. A unit should not be marked complete if validation fails, except when the only failure is an explicitly documented environment or tooling limitation and the work has been preserved for human review.
 

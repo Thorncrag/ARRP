@@ -153,9 +153,17 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Whistleblowers | See *Inspectors General; Council of the Inspectors General on Integrity and Efficiency (CIGIE); whistleblowers; internal oversight*. |
 | White House interference with criminal matters | See *DOJ independence; White House contacts; case-specific interference*. |
 
-## Maintenance Standard
+## Indexing and Contents Synchronization Standard
 
 Update this index when work creates or materially changes a useful reader lookup term or its preferred destination. Classify nothing as an entity or topic; add the term where a reader would alphabetically expect to find it.
+
+Treat the ordinary contents and this index as one navigation bundle:
+
+- [`areas/README.md`](areas/README.md) is the project-area table of contents;
+- each `areas/AREA/README.md` is that area's issue-level table of contents; and
+- this file is the cross-area lookup by subject, institution, acronym, and alias.
+
+Update the affected contents page or pages and this index in the same change whenever an area or issue is created, renamed, moved, merged, retired, or promoted, or whenever its primary ownership or useful reader search terms change. An ordinary source, analysis, or drafting edit does not require navigation changes unless it changes one of those routing facts. T1 must verify this navigation bundle as part of project integration. T0 should flag obvious drift for an existing stable record but should not index an unadmitted Horizon candidate.
 
 Keep entries short and navigational:
 
