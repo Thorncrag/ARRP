@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Active |
-| Active issue/task | FUND-001 — Addressing Executive Order Abuse |
-| Audit type/tier | Autonomous successive audit sequence; FUND-001 T4 publication-ready audit completed and awaiting synchronization, validation, commit, and push |
+| Active issue/task | REG-001 — Agency Independence and Functional Nullification |
+| Audit type/tier | Autonomous successive audit sequence; REG-001 T1 framework and quality audit active |
 | Started | 2026-07-13 18:59:40 -0400 |
-| Last checkpoint | 2026-07-13 20:43:06 -0400 |
+| Last checkpoint | 2026-07-13 20:43:44 -0400 |
 | User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
-| Scope | FUND-001 issue page, independent Executive-Order Abuse Impoundment Control Act, JUD-011 preferred-remedy fit, audit sidecar, Impoundment Control Act and appropriations authorities, trigger and comparator evidence, standing and three-judge-court mechanics, implementation and budget evidence, source and audit inventories, dashboard, GitHub Project fields, and issue update surface. Later authorized units: FUND-001 T3-T4, REG-001 T1-T4, and EMOL-015 T1-T4. |
-| Files touched | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md` |
-| Completed steps | Completed cumulative FUND-001 T4 and raised the score from 81 to 83 / 100 Review Ready; confirmed T1-T3 criteria; refreshed H.R. 5220, GAO, current-case, codification, legal-durability, fiscal, adoption, and opposition findings; completed a section-level direct-analogue comparison; added protected-information certification and annex procedures; bounded emergency judicial extensions by standard, duration, and renewed showing; finalized verified and unresolved-claims and expert-review tables; and synchronized the issue, bill, audit sidecar, comparator, area summary, and source inventory. |
-| Next step | Commit and push the validated FUND-001 T4 substantive unit; add and push provenance; post the issue update; then activate REG-001 at its next required audit tier. |
+| Scope | REG-001 issue page, independent Congressional Institutional Continuity and Anti-Nullification Act, JUD-011 preferred-remedy fit, audit sidecar, agency-independence and functional-nullification catalog, post-*Slaughter* and *Cook* doctrine, two-tier statutory test, standing and review mechanics, implementation and budget evidence, source and audit inventories, dashboard, GitHub Project fields, and issue update surface. Later authorized units: REG-001 T2-T4 and EMOL-015 T1-T4. |
+| Files touched | None yet for REG-001 T1. |
+| Completed steps | Completed, validated, committed, and pushed cumulative FUND-001 T4 as `b9dbfca`; FUND-001 stands at 83 / 100 Review Ready after T1-T4, with qualified review next. |
+| Next step | Run REG-001 T1 framework and quality audit from its fixed-zero candidate baseline; confirm structure, current status, source posture, issue-to-bill alignment, enactment pathway, preliminary legal fit, implementation, budget, adoption, component score, and next-tier needs; then synchronize, validate, commit, push, and post the issue update. |
 | Blockers/questions | Local GitHub CLI authentication remains invalid, but the signed-in GitHub interface supplied completion-critical Project synchronization and readback. No substantive policy blocker identified. |
-| Validation status | FUND-001 T4 passed `git diff --check`; YAML parsing; source-inventory width, unique-ID, and row-count checks; local-link validation; score/status and stale-marker scans; Review Ready dashboard tests; and signed-in GitHub Project persistence readback for Status, Score, Runs, Last audit, and Next audit. Commit and push pending. |
+| Validation status | FUND-001 T4 passed `git diff --check`; YAML parsing; source-inventory width, unique-ID, and row-count checks; local-link validation; score/status and stale-marker scans; Review Ready dashboard tests; and signed-in GitHub Project persistence readback for Status, Score, Runs, Last audit, and Next audit; substantive commit `b9dbfca` is pushed. REG-001 T1 validation not started. |
 
 ## Handoff Rules
 

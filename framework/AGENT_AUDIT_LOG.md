@@ -1227,3 +1227,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `4ea3d5b` to roll back the substantive T3 unit; separately revert the provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. FUND-001 advanced from 76 to 81 / 100 Review Ready after current-case, claim-channeling, Tucker Act, Court of Federal Claims, specialized-review, trigger-duration, workload, fiscal, opposition, and legislative-drafting review. T4 must complete publication-level source and form review, refresh pending litigation, broaden the historical comparator, test deadlines and codification, deepen adoption and opposition evidence, and document qualified-review questions. |
+
+### 2026-07-13 — FUND-001 — T4 publication-ready audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 20:43:44 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | FUND-001 |
+| Issue page | [Issue](../areas/FUND/issues/FUND-001.md) |
+| Audit history | [Audit](../areas/FUND/issues/FUND-001.audit.md) |
+| Proposal page | [Bill](../legislation/FUND-001.md) |
+| Tier | T4 publication-ready audit |
+| Files changed | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md` |
+| Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
+| Commit | `Run FUND-001 T4 audit` (`b9dbfca`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `b9dbfca` to roll back the substantive T4 unit; separately revert the provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. FUND-001 advanced from 81 to 83 / 100 and remains Review Ready after cumulative publication-level current-status, direct-analogue, codification, protected-information, emergency-extension, legal-durability, fiscal, adoption, opposition, verified-claims, and unresolved-claims review. Further advancement requires qualified appropriations, federal-courts, administrative-law, budget, program-administration, national-security, and legislative-counsel review; proposal-specific workload evidence; a complete cross-administration comparator; and current merits-case refresh. |
