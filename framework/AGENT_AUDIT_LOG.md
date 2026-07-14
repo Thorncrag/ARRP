@@ -1353,3 +1353,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `ff39abd` to roll back the substantive T2 unit; separately revert this provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. EMOL-015 advanced from 65 to 76 / 100 Review Ready after controlling Rule 41, Article III, collateral-authority, settlement-enforcement, direct-proposal, standing, cause, waiver, defendant, remedy, protected-information, scope, implementation, budget, adoption, and bill-consistency development. T3 must test chamber standing, exact appeal routes, repayment process, section 6103 and classified-information procedures, controlled-maintenance duration, Article II, access to courts, severability, effective date, and claim-by-claim verification. |
+
+### 2026-07-13 — EMOL-015 — T3 readiness audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 21:47:02 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | EMOL-015 |
+| Issue page | [Issue](../areas/EMOL/issues/EMOL-015.md) |
+| Audit history | [Audit](../areas/EMOL/issues/EMOL-015.audit.md) |
+| Proposal page | [Bill](../legislation/EMOL-015.md) |
+| Tier | T3 readiness audit |
+| Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md` |
+| Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker scan; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
+| Commit | `Run EMOL-015 T3 audit` (`f2169d5`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `f2169d5` to roll back the substantive T3 unit; separately revert this provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. EMOL-015 advanced from 76 to 81 / 100 Review Ready after chamber-standing, controlled-maintenance, claimant-exit, Article II counsel, appeal, recipient-process, protected-information, prospective-application, severability, authorization, and bipartisan-source development. T4 must complete publication-level claim, source, legislative-form, cross-reference, deadline, authorization, severability, verified-claims, unresolved-claims, and qualified-review checks. |
