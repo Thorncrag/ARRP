@@ -1317,3 +1317,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `b49f45e` to roll back the substantive T4 unit; separately revert this provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. REG-001 advanced from 81 to 83 / 100 and remains Review Ready after publication-level claim verification, official EAC baseline development, party/status refresh, cross-branch appropriation-administration correction, filing-guidance and report deadlines, effective-date clarification, and final verified/unresolved claims. Further advancement requires qualified constitutional, administrative-law, federal-courts, congressional-litigation, agency-operations, records, appropriations, budget, judicial-administration, and legislative-counsel review. |
+
+### 2026-07-13 — EMOL-015 — T1 framework and quality audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 21:27:37 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | EMOL-015 |
+| Issue page | [Issue](../areas/EMOL/issues/EMOL-015.md) |
+| Audit history | [Audit](../areas/EMOL/issues/EMOL-015.audit.md) |
+| Proposal page | [Bill](../legislation/EMOL-015.md) |
+| Tier | T1 framework and quality audit |
+| Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md` |
+| Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker scan; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
+| Commit | `Run EMOL-015 T1 audit` (`6b52227`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `6b52227` to roll back the substantive T1 unit; separately revert this provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. EMOL-015 advanced from a provisional 60 to a current 65 / 100 Developed Draft after framework, primary manifestation, existing-law, direct-comparator, remedy-fit, preliminary legal, budget, adoption, and bill-consistency review. T1 corrected the filing-court jurisdiction overclaim, missing enacting clause, Code-amendment structure, and unintended extension of section 7217(d)'s five-year felony. T2 must complete controlling procedural law, D.D.C. cause, waiver, standing, defendants and remedies, Article II, access-to-courts, Judgment Fund, implementation, workload, budget, adoption, and opposition development. |

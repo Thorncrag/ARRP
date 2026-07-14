@@ -15,16 +15,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Active |
 | Active issue/task | EMOL-015 — Executive Self-Dealing Litigation and Tax-Administration Conflicts |
-| Audit type/tier | Autonomous successive audit sequence; EMOL-015 T1 framework and quality audit complete; T2 next |
+| Audit type/tier | Autonomous successive audit sequence; EMOL-015 T2 development audit active |
 | Started | 2026-07-13 18:59:40 -0400 |
-| Last checkpoint | 2026-07-13 22:32:00 -0400 |
+| Last checkpoint | 2026-07-13 21:27:37 -0400 |
 | User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
 | Scope | EMOL-015 issue page, proposed legislation and amendment materials, automatic no-adversary screening and self-litigation bar, tax-administration conflict and 26 U.S.C. § 7217 categorical exemption, standing and jurisdiction, current July 2026 litigation, implementation and budget evidence, source inventories, area summary, dashboard, GitHub Project fields, and issue update surface. |
 | Files touched | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`. |
-| Completed steps | Established a 65 / 100 T1 baseline; verified primary order, existing-law hooks, H.R. 7007 substitute, component-bill history, and S. 4791; corrected the filing-court jurisdiction overclaim, unintended section 7217 felony expansion, Code-amendment structure, and missing enacting clause; updated issue, audit, area, bill, sources, and signed-in GitHub Project fields. |
-| Next step | Validate, commit, push, post, and log EMOL-015 T1; then begin the full T2 development audit focused on controlling procedure, a complete D.D.C. enforcement action, Article II and access-to-courts limits, Judgment Fund mechanics, implementation, budget, adoption, and opposition evidence. |
+| Completed steps | Completed, validated, synchronized, committed, pushed, and posted EMOL-015 T1 as `6b52227`; established a current 65 / 100 baseline; verified primary order, existing-law hooks, H.R. 7007 substitute, component-bill history, and S. 4791; and corrected the filing-court jurisdiction overclaim, unintended section 7217 felony expansion, Code-amendment structure, and missing enacting clause. |
+| Next step | Run the full T2 development audit focused on controlling procedure, a complete D.D.C. enforcement action with eligible plaintiffs, waiver, defendants and remedies, Article II and access-to-courts limits, Judgment Fund mechanics, implementation, budget, adoption, and opposition evidence. |
 | Blockers/questions | Local GitHub CLI authentication remains invalid, but the signed-in GitHub interface supplied completion-critical Project synchronization and readback. No substantive policy blocker identified. |
-| Validation status | EMOL-015 T1 passed `git diff --check`, source-inventory width and unique-ID checks, dashboard tests, score sum, and signed-in GitHub Project persistence readback. YAML and local-link checks remain before commit. |
+| Validation status | EMOL-015 T1 passed all listed checks; signed-in GitHub Project persistence verified; substantive commit `6b52227` pushed; issue #73 updated. EMOL-015 T2 validation not started. |
 
 ## Handoff Rules
 
