@@ -19,7 +19,7 @@ Presidents can invoke broadly worded emergency statutes to unlock extraordinary 
 
 - **EMERG-001** — Open-ended national-emergency declarations _(status: Candidate; priority: High)_
 - **EMERG-002** — Use of emergency authority to redirect appropriated funds _(status: Candidate; priority: High)_
-- **EMERG-003** — Emergency economic powers used beyond immediate crises _(status: Candidate; priority: High)_
+- [**EMERG-003** — Emergency Economic Powers as a Substitute for Legislation](issues/EMERG-003.md) _(status: Candidate; priority: High)_
 - **EMERG-004** — Border or immigration emergency declarations _(status: Candidate; priority: High)_
 - **EMERG-005** — Weak congressional termination procedures _(status: Candidate; priority: High)_
 - **EMERG-006** — Indefinite renewal of emergencies _(status: Candidate; priority: High)_
@@ -28,4 +28,4 @@ Presidents can invoke broadly worded emergency statutes to unlock extraordinary 
 
 ## Notes
 
-Provisional inventory; full source development pending.
+Most issues remain in provisional inventory. EMERG-003 now has a developed issue page and first statutory draft; its T1 audit remains pending.

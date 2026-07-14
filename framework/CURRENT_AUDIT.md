@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | Successive four-proposal T1-through-T4 goal complete |
-| Audit type/tier | Cumulative audit sequence complete through T4 |
-| Started | 2026-07-13 18:59:40 -0400 |
-| Last checkpoint | 2026-07-13 21:59:58 -0400 |
-| User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
-| Scope | EMOL-015 issue page, proposed legislation and amendment materials, automatic no-adversary screening and self-litigation bar, tax-administration conflict and 26 U.S.C. § 7217 categorical exemption, standing and jurisdiction, current July 2026 litigation, implementation and budget evidence, source inventories, area summary, dashboard, GitHub Project fields, and issue update surface. |
-| Files touched | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md`. |
-| Completed steps | Completed every remaining audit tier through cumulative T4 for JUD-011 (82), FUND-001 (83), REG-001 (83), and EMOL-015 (83); synchronized issue pages, legislation, audit sidecars, research or source-development files, area summaries, source inventory, GitHub Project fields, and issue updates; committed and pushed every substantive and provenance unit. EMOL-015 T4 substantive commit is `a1b17eb`. |
-| Next step | No active autonomous audit. Each proposal's issue page identifies its qualified-review and refresh requirements. |
-| Blockers/questions | None. Local GitHub CLI authentication remained invalid, but the signed-in GitHub interface supplied Project synchronization and hard readback, and the GitHub connector supplied issue comments. |
-| Validation status | All four proposals passed their recorded tier validations. EMOL-015 T4 passed `git diff --check`, YAML parse, source CSV width and unique-ID checks, local-link check, source-URL inventory, score and front-matter consistency, section-order and cross-reference scans, stale-marker scan, Review Ready dashboard tests, and signed-in GitHub Project persistence verification; issue #73 was updated after push. |
+| Active issue/task | HOR-030 adjudication and integration into EMERG-003 |
+| Audit type/tier | Horizon adjudication / T0 issue development |
+| Started | 2026-07-14 |
+| Last checkpoint | 2026-07-14; implementation complete |
+| User request | Incorporate the ICC emergency-powers analysis into the project and promote it to a full issue. |
+| Scope | Existing EMERG-003 proposal, HOR-030 horizon record, IEEPA and NEA statutory authorities, ASPA congressional baseline, H.R. 23 legislative history, Executive Order 14203 and implementation, proposed legislation, source inventory, area and legislation indexes, GitHub issue wrappers, and Project metadata. |
+| Files touched | `areas/EMERG/README.md`; `areas/EMERG/issues/EMERG-003.md`; `areas/EMERG/issues/EMERG-003.audit.md`; `framework/CURRENT_AUDIT.md`; `framework/HORIZON_SCAN_LOG.md`; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; `legislation/EMERG-003.md`; `legislation/README.md`; GitHub proposal issue #105 and Project fields; GitHub horizon issue #250. |
+| Completed steps | Integrated HOR-030 into existing EMERG-003; created the developed issue page, T0 audit history, and first statutory draft; preserved the political-policy boundary; added 22 source records; synchronized area, legislation, horizon, and GitHub registries; updated and read back proposal issue #105 and its Project fields; preserved and closed horizon issue #250 as integrated. |
+| Next step | Conduct EMERG-003 T1 review of IEEPA scope, direct-nexus and specific-authorization standards, independent misconduct, INA coordination, D.D.C. review, classified records, transition relief, and implementation cost. |
+| Blockers/questions | None. |
+| Validation status | Passed `git diff --check`, front-matter YAML parse, source CSV width and unique-ID checks, repository-wide local-link check, issue-URL source-inventory check, issue-architecture scan, and signed-in GitHub issue/Project readback. No progress-dashboard dispatch was required because proposal eligibility, Project Status, and Score did not change. |
 
 ## Handoff Rules
 
