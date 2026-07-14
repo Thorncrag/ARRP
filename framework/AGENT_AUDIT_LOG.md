@@ -1263,3 +1263,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `b30acd6` to roll back the substantive T1 unit; separately revert the provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. REG-001 advanced from fixed-zero candidate status to 63 / 100 Developed Draft after framework, current-status, source, preliminary legal-fit, remedy-fit, budget, enactment-pathway, adoption, and issue-to-bill review. T2 must complete primary manifestation and organic-statute verification; cause, jurisdiction, waiver, standing, panel, appeal, relief, Comptroller General, APA, specialized-review, and Article II analysis; prior-proposal, implementation, workload, budget, adoption, and opposition development. |
+
+### 2026-07-13 — REG-001 — T2 development audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 21:14:00 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | REG-001 |
+| Issue page | [Issue](../areas/REG/issues/REG-001.md) |
+| Audit history | [Audit](../areas/REG/issues/REG-001.audit.md) |
+| Proposal page | [Bill](../legislation/REG-001.md) |
+| Tier | T2 development audit |
+| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `source-development/REG-001-independent-agency-removal-catalog.md` |
+| Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
+| Commit | `Run REG-001 T2 audit` (`b576485`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `b576485` to roll back the substantive T2 unit; separately revert this provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. REG-001 advanced from 63 to 75 / 100 Review Ready after primary organic-statute, current-workforce, direct-analogue, jurisdiction, waiver, standing, panel, temporary-relief, appeal, specialized-review, preservation, scope, presidential-relief, implementation, workload, budget, adoption, and opposition development. T3 must complete claim-by-claim verification, refresh current litigation and bill status, test deadlines and emergency procedures, inspect protected-information and procedural mechanics, verify legislative form, and resolve publication-blocking ambiguity. |
