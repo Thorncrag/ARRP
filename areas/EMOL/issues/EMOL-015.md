@@ -6,11 +6,11 @@ status: developed
 priority: high
 remedy_type: conflict-of-interest-litigation-and-payment-guardrail
 legislative_proposal: "../../../legislation/EMOL-015.md"
-audit_status: "T2 development audit complete; Review Ready"
-audit_score: 76
-audit_last_type: "T2 development audit"
+audit_status: "T3 readiness audit complete; Review Ready"
+audit_score: 81
+audit_last_type: "T3 readiness audit"
 audit_last_date: "2026-07-13"
-audit_next: "Full T3 readiness audit"
+audit_next: "T4 publication-ready audit"
 audit_rubric_version: 2026-06-27.2
 audit_rebaseline_status: current
 change_audit_needed: false
@@ -122,17 +122,17 @@ The remedy should:
 
 ## Budgetary Impact Statement
 
-The proposal creates no new office, judgeship, direct spending authority, or mandatory appropriation. Incremental workload may fall on filing courts, D.D.C., DOJ, affected agencies, Treasury, IRS, TIGTA, and congressional committees. The Judiciary's [fiscal year 2027 request](https://www.uscourts.gov/sites/default/files/document/fy-2027-congressional-budget-summary.pdf) totals $9.7 billion in discretionary funding. TIGTA's [fiscal year 2027 justification](https://home.treasury.gov/system/files/266/09.-TIGTA-FY-2027-CJ.pdf) requests $137.661 million and 508 FTE while reporting pressure from mandatory reviews and constrained staffing. Those systemwide figures show capacity context only; neither estimates EMOL-015's caseload or cost. No fixed amount is proposed pending AOUSC, Treasury, TIGTA, IRS, DOJ, CBO, OMB, and appropriations review.
+The proposal creates no new office, judgeship, direct spending authority, or mandatory appropriation. Incremental workload may fall on filing courts, D.D.C., DOJ, affected agencies, Treasury, IRS, TIGTA, and congressional committees. The Judiciary's [fiscal year 2027 request](https://www.uscourts.gov/sites/default/files/document/fy-2027-congressional-budget-summary.pdf) totals $9.7 billion in discretionary funding. TIGTA's [fiscal year 2027 justification](https://home.treasury.gov/system/files/266/09.-TIGTA-FY-2027-CJ.pdf) requests $137.661 million and 508 FTE while reporting pressure from mandatory reviews and constrained staffing. Those systemwide figures show capacity context only; neither estimates EMOL-015's caseload or cost. The bill authorizes such sums as may be necessary for fiscal years 2027 through 2033 but provides no budget authority; actual amounts await AOUSC, Treasury, TIGTA, IRS, DOJ, CBO, OMB, and appropriations review.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[76 / 100](EMOL-015.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[81 / 100](EMOL-015.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T2 development audit complete; Review Ready<br />**Last Audit:** T2 development audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** Full T3 readiness audit<br />**Full Audit History:** [EMOL-015 audit history](EMOL-015.audit.md)
+> **Audit Status:** T3 readiness audit complete; Review Ready<br />**Last Audit:** T3 readiness audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** T4 publication-ready audit<br />**Full Audit History:** [EMOL-015 audit history](EMOL-015.audit.md)
 
 ## Annotation
 
@@ -148,11 +148,11 @@ The proposal creates no new office, judgeship, direct spending authority, or man
 
 **Tax-Administration Integrity.** The § 7217 amendment is intentionally universal rather than limited to the President, Vice President, or another covered claimant. No executive-branch settlement or undertaking should be able to purchase prospective immunity from lawful tax administration for any identified taxpayer. The amendment distinguishes categorical immunity from lawful closure of specified liabilities and periods, preserves ordinary neutral IRS discretion, covers the Attorney General and persons acting for the United States, and applies to prospective implementation of pre-enactment instruments without reopening final judgments or completed tax resolutions.
 
-**Judicial Scrutiny.** [T2 analysis](../../../research/EMOL-015-procedural-and-enforcement-analysis.md) distinguishes four lanes. *Steel Co.* bars hypothetical merits jurisdiction; a non-adverse case must therefore be dismissed. Rule 41(a)(1)(A) is expressly subject to an applicable federal statute, so Congress can make a dismissal filing ineffective pending a threshold screen; *Anago* supplies the ordinary self-executing baseline, while the 2026 *O'Neal* concurrence supplies a current in-circuit functional analogue. *Cooter & Gell* and *Willy* preserve sanctions and other collateral authority, not merits relief. *Kokkonen* requires an independent basis to enforce a settlement after dismissal. Section 9 now responds with a bounded D.D.C. cause, section 1331 jurisdiction, express waiver, eligible plaintiffs, responsible subordinate defendants, prospective remedies, no generalized standing, and no coercive relief against the President or Vice President. T3 must test this design against current chamber-standing, Article II, tolling, access-to-courts, repayment, and protected-information doctrine.
+**Judicial Scrutiny.** [T3 analysis](../../../research/EMOL-015-procedural-and-enforcement-analysis.md) distinguishes threshold, collateral, enforcement, standing, and appeal lanes. *Steel Co.*, *Anago*, *O'Neal*, *Cooter & Gell*, *Willy*, and *Kokkonen* support the screen's basic architecture without converting collateral authority into merits power. *Raines* bars individual-Member standing; *Virginia House* requires a legislative body to prove its own injury; and *House v. Mnuchin* supports, but does not guarantee, a full chamber's standing for an express appropriations injury. T3 narrows the chamber lane, creates 180-day and annual controlled-maintenance review, adds a claimant dismissal option, limits repayment to a United States action with recipient process and existing recovery law, prescribes protected-information substitutes, and supplies express final and interlocutory appellate routes. Appointment and removal of any independent defense counsel must comply with Article II.
 
-**Budgetary Impact.** No proposal-specific caseload, staff-hour, or cost source exists. T2 therefore uses the Judiciary's $9.7 billion fiscal year 2027 discretionary request and TIGTA's $137.661 million, 508-FTE request only as system-capacity comparators. The bill creates no office or judgeship and assigns no fixed appropriation; annual appropriations should follow workload estimates from the institutions that would administer screening, enforcement, protected notice, and TIGTA review.
+**Budgetary Impact.** No proposal-specific caseload, staff-hour, or cost source exists. The Judiciary and TIGTA figures remain system-capacity comparators only. The bill creates no office, judgeship, direct spending, or mandatory appropriation. T3 adds a seven-year authorization of such sums as may be necessary, expressly provides no budget authority, and leaves annual amounts to institution-specific workload development and appropriations.
 
-**Quality Score.** The 76/100 T2 score reaches Review Ready after controlling procedural-law analysis, direct current comparator development, a complete D.D.C. enforcement design, scope and standing limits, protected tax-information handling, Code-definition and materiality corrections, a source-backed workload statement, and proposal-to-bill verification. Remaining limits are qualified constitutional, tax, appropriations, litigation, agency-operations, and legislative-counsel review; same-day docket immaturity; no proposal-specific fiscal model; and no external validation.
+**Quality Score.** The 81/100 T3 score reflects chamber-standing analysis, explicit appellate routes, controlled-maintenance review and exit, recipient due process, protected-information procedures, Article II counsel language, prospective-only application, application-specific severability, an authorization of appropriations, and claim-by-claim issue-to-bill reconciliation. The proposal remains capped by same-day docket immaturity, unresolved application-specific standing and Article II risk, no proposal-specific fiscal estimate, and no qualified external validation.
 
 **Adoption Score.** The 4/12 score reflects H.R. 7007's official substitute, its H.R. 8914 and H.R. 9210 components, S. 4791 with 24 listed cosponsors, a bipartisan House fund-restriction proposal, and a current judicial predicate. None establishes enactment, committee approval, proposal-specific bipartisan support for EMOL-015, polling, or external legal validation.
 

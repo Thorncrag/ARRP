@@ -133,6 +133,8 @@ If the court finds genuine article III adverseness and determines that the actio
 
 If an action becomes covered because the claimant assumes a covered office while the action is pending, the interim stay and screening requirements apply immediately upon assumption of office.
 
+The court shall review a controlled-maintenance order not later than 180 days after entry and at least annually thereafter. At each review, the court shall determine whether coverage, adversity, preservation needs, and the statutory conflict continue; narrow or terminate unnecessary restrictions; and establish the least burdensome schedule consistent with this Act. On the claimant's request, the court shall dismiss the action without prejudice unless a short preservation period is necessary to protect another party's concrete rights. Tolling under subsection (e) continues after such a dismissal.
+
 ### (g) Preservation orders.
 
 After finding article III jurisdiction, a court may enter orders necessary to preserve evidence, prevent spoliation, maintain the status quo, protect privilege, protect classified information, or prevent irreparable loss of the claim, provided that such orders do not confer personal monetary relief, settlement benefit, or merits adjudication on the covered executive official except as provided in subsection (h) or (i). Before that finding, the court's authority is limited as provided in subsection (b). An agency may preserve records or take other nonadjudicatory preservation action required by otherwise applicable law.
@@ -145,7 +147,7 @@ A court may permit a covered civil action to proceed to liability adjudication d
 2. the claim existed before the covered executive official assumed the conflicted office or arose from conduct by an adverse actor not subject to the covered executive official's supervision or control;
 3. continued deferral would cause substantial injustice that tolling, preservation orders, neutral investigation, or post-tenure adjudication cannot adequately prevent;
 4. the action continues to present genuinely adverse legal interests sufficient for article III throughout the proposed adjudication;
-5. liability adjudication can proceed before an independent tribunal and the defense of the United States is controlled by counsel with authority, independent of the covered executive official, to investigate facts, assert defenses, conduct discovery, determine litigation strategy, reject settlement, and seek appellate review;
+5. liability adjudication can proceed before an independent tribunal and the defense of the United States is controlled by counsel, appointed and removable consistently with article II of the Constitution and otherwise applicable law, who possesses authority independent of the covered executive official to investigate facts, assert defenses, conduct discovery, determine litigation strategy, reject settlement, and seek appellate review;
 6. the covered executive official cannot control, direct, influence, or receive nonpublic strategic advantage from the defense, settlement, payment, records, privilege, classification, or litigation posture of the United States; and
 7. any judgment, settlement, compromise, payment, offset, indemnification, reimbursement, or compensation fund remains subject to section 5 and section 6.
 
@@ -304,7 +306,7 @@ The federal court in which a potentially covered civil action is filed shall det
 A civil action may be brought in the United States District Court for the District of Columbia to enforce section 5, section 6, or section 7 by:
 
 1. a person suffering a concrete and particularized injury caused by a violation or imminent violation of the provision to be enforced;
-2. the House of Representatives or the Senate, if the action is authorized by resolution of the chamber and the chamber alleges a concrete institutional injury to its appropriations, notice, or legislative authority; or
+2. the House of Representatives or the Senate, if the action is authorized by resolution of the chamber and alleges that an imminent or completed expenditure violates an express statutory condition on Federal funds or that denial of information expressly required to be provided to that chamber concretely impairs an identified appropriations or legislative function; or
 3. the United States acting through an officer expressly authorized by law to bring the action.
 
 This subsection creates no standing based solely on status as a taxpayer, voter, citizen, Member of Congress, or beneficiary of lawful tax administration. It does not deem an injury sufficient under article III, and it does not authorize one House, a committee, or a Member to sue without the chamber authorization required by paragraph (2).
@@ -317,27 +319,49 @@ Neither the President nor the Vice President may be named as a defendant or subj
 
 ### (d) Remedies and limits.
 
-If article III jurisdiction and a violation are established, the court may declare coverage; enjoin an unlawful payment or prospective implementation; compel a notice or report; require preservation of relevant agency records; order return of an unlawful payment from a recipient properly before the court to the extent authorized by law; or grant other prospective relief no broader than necessary to enforce this Act. The court may not award damages under this Act, supervise ordinary executive operations, direct the discretionary outcome of a lawful audit or investigation, or order relief against the President or Vice President.
+If article III jurisdiction and a violation are established, the court may declare coverage; enjoin an unlawful payment or prospective implementation; compel a notice or report; require preservation of relevant agency records; or grant other prospective relief no broader than necessary to enforce this Act. The court may order return of a payment only in an action brought by the United States, from a recipient named and served as a party, after notice and an opportunity to be heard, and only for a payment made on or after enactment that is recoverable under otherwise applicable Federal debt-collection or restitution law. The court may not award damages under this Act, supervise ordinary executive operations, direct the discretionary outcome of a lawful audit or investigation, or order relief against the President or Vice President.
 
 ### (e) Expedition and protected information.
 
-Review under this section shall be expedited. A court may consider sealed, privileged, classified, tax-return, protected, or in camera material under procedures adequate to prevent unauthorized disclosure.
+Review under this section shall be expedited. A court may consider sealed, privileged, classified, tax-return, protected, or in camera material under procedures adequate to prevent unauthorized disclosure. The court shall:
+
+1. require use of a secure or otherwise lawful channel for protected material;
+2. permit ex parte or in camera submission only to the extent necessary to protect an interest recognized by law;
+3. use an unclassified summary, redacted filing, stipulation, substitute, or other less restrictive alternative when it can permit fair adjudication without unlawful disclosure;
+4. make particularized findings before sealing or restricting access; and
+5. refrain from ordering disclosure of return information except as authorized by section 6103 of the Internal Revenue Code of 1986 or of classified, privileged, grand-jury, or other protected information except as authorized by otherwise applicable law.
+
+If protected information cannot lawfully be disclosed or adequately substituted, the court shall resolve the matter through a lawful burden allocation, narrower relief, or dismissal rather than direct an unauthorized disclosure.
 
 ### (f) Appellate review.
 
-An order under section 4 or this section is subject to appellate review under otherwise applicable law. An attempted voluntary dismissal does not moot review of the screening determination, interim stay, sanctions, or another collateral order that remains legally operative.
+1. A final judgment or dismissal under section 4 or this section is appealable under section 1291 of title 28, United States Code.
+2. A court of appeals has jurisdiction over an interlocutory appeal from an order that determines coverage or genuine adversity under section 4, imposes or continues controlled maintenance, grants or denies relief under section 4(h) or 4(i), or grants or denies preliminary relief under this section. The notice of appeal shall be filed not later than 14 days after entry of the order.
+3. An appeal from a filing court lies in the court of appeals for the regional circuit. An appeal from the United States District Court for the District of Columbia lies in the United States Court of Appeals for the District of Columbia Circuit.
+4. The court of appeals shall expedite the appeal. An appeal does not automatically stay the statutory prohibitions or the order under review, but either court may grant a tailored stay under otherwise applicable standards.
+5. An attempted voluntary dismissal does not moot review of a screening determination, interim prohibition, sanction, or other collateral order that remains legally operative.
 
 ## SEC. 10. EFFECTIVE DATE; APPLICATION.
 
-This Act shall apply to any covered civil action pending on or after the date of enactment and to any covered civil action initiated after the date of enactment. A pending potentially covered action is automatically stayed upon enactment, and the court shall complete section 4 screening not later than 30 days thereafter. This Act does not reopen a final judgment or revive a claim for which the applicable time limit expired before tolling began.
+This Act shall apply to a covered civil action pending on the date of enactment and to a covered civil action initiated thereafter. It does not reopen a final judgment, a dismissal effective before enactment, or a settlement fully performed before enactment, and it does not revive a claim for which the applicable time limit expired before tolling began. A pending potentially covered action is subject to the statutory interim prohibition upon enactment, and the court shall complete section 4 screening not later than 30 days thereafter, except that the court may extend that period once for not more than 15 days upon particularized good-cause findings. No damages, penalty, or repayment liability arises under this Act solely from conduct completed before enactment; sections 5 and 7 apply to prospective implementation occurring after enactment as otherwise provided.
 
 ## SEC. 11. SEVERABILITY.
 
-If any provision of this Act, or the application of such provision to any person or circumstance, is held invalid, the remainder of this Act and the application of its provisions to any other person or circumstance shall not be affected.
+If any provision of this Act, or the application of such provision to any person or circumstance, is held invalid, the remainder of this Act and the application of its provisions to any other person or circumstance shall not be affected. Congress intends the following rules to remain independently operative to the maximum constitutional extent:
+
+1. the automatic screening and mandatory dismissal rules are severable from controlled maintenance and the adjudication exceptions;
+2. the statutory settlement, payment, release, immunity, and funding prohibitions are severable from a court's authority to enforce them in a particular action;
+3. each plaintiff category and remedy in section 9 is severable from every other category and remedy;
+4. the section 7217 amendment is severable from the executive self-litigation provisions; and
+5. the invalidity of the Rule 41 treatment in a particular application does not invalidate the statutory prohibitions, tolling, reporting, or prospective tax-administration rules.
+
+## SEC. 12. AUTHORIZATION OF APPROPRIATIONS.
+
+There are authorized to be appropriated for each of fiscal years 2027 through 2033 such sums as may be necessary for the Administrative Office of the United States Courts, the Department of Justice, the Department of the Treasury, the Internal Revenue Service, and the Treasury Inspector General for Tax Administration to carry out this Act. This section provides no budget authority and no authority to obligate or expend funds in advance of an appropriation.
 
 ## Budgetary Impact Statement
 
-The bill creates no new office, judgeship, direct spending authority, or mandatory appropriation. Incremental workload may fall on filing courts, the District Court for the District of Columbia, DOJ, affected agencies, Treasury, IRS, TIGTA, and congressional committees. The fiscal year 2027 Judiciary request totals $9.7 billion in discretionary funding, and TIGTA's fiscal year 2027 justification identifies a $137.661 million request for 508 FTE while reporting substantial mandatory-review and staffing pressure; those systemwide figures are capacity comparators, not estimates of this bill's cost. Because no reliable source establishes the number of covered actions, attempted instruments, staff hours, protected notices, or enforcement cases, the bill authorizes no fixed amount. AOUSC, Treasury, TIGTA, IRS, DOJ, CBO, OMB, and appropriators should develop a workload estimate before enactment, and Congress may provide such sums as are later determined necessary through annual appropriations.
+The bill creates no new office, judgeship, direct spending authority, or mandatory appropriation. Incremental workload may fall on filing courts, the District Court for the District of Columbia, DOJ, affected agencies, Treasury, IRS, TIGTA, and congressional committees. The fiscal year 2027 Judiciary request totals $9.7 billion in discretionary funding, and TIGTA's fiscal year 2027 justification identifies a $137.661 million request for 508 FTE while reporting substantial mandatory-review and staffing pressure; those systemwide figures are capacity comparators, not estimates of this bill's cost. Because no reliable source establishes the number of covered actions, attempted instruments, staff hours, protected notices, or enforcement cases, section 12 authorizes such sums as may be necessary for fiscal years 2027 through 2033 but provides no budget authority. AOUSC, Treasury, TIGTA, IRS, DOJ, CBO, OMB, and appropriators should develop a workload estimate before enactment.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
@@ -356,11 +380,11 @@ The bill creates no new office, judgeship, direct spending authority, or mandato
 - Section 7 amends 26 U.S.C. § 7217 for every taxpayer and Federal actor, including the Attorney General and persons acting for the United States. A prohibited prospective or categorical audit-immunity term is void from inception, cannot support consideration or estoppel, and must be disregarded by the IRS. The amendment deliberately does not extend section 7217(d)'s five-year felony to the broader instrument and reporting provisions; TIGTA instead reviews attempted terms and makes corrective or misconduct referrals under otherwise applicable law.
 - The § 7217 amendment preserves case-specific finality under sections 7121 and 7122, final judgments, limitations periods, and ordinary neutral IRS enforcement discretion. Those exceptions do not permit restrictions concerning unidentified matters or future taxable periods.
 - The amendment reaches prospective implementation after enactment of a pre-enactment audit-immunity term without reopening completed closing agreements, completed compromises, or final judgments.
-- T3 should test the nonmonetary emergency-relief exception, controlled-maintenance burdens, repayment process, and claim-specific protected-information procedures.
+- T4 should verify the completed nonmonetary emergency-relief, controlled-maintenance, repayment-process, and protected-information provisions at publication level.
 
 ## Source Notes
 
 - Existing-law review should include the Judgment Fund under [31 U.S.C. § 1304](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title31-section1304&num=0&edition=prelim), DOJ judgment and compromise-payment mechanics under [28 U.S.C. § 2414](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section2414&num=0&edition=prelim), tax-return confidentiality remedies under [26 U.S.C. § 7431](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title26-section7431&num=0&edition=prelim), executive audit-interference restrictions under [26 U.S.C. § 7217](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title26-section7217), closing agreements under [26 U.S.C. § 7121](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title26-section7121), and compromises under [26 U.S.C. § 7122](https://uscode.house.gov/view.xhtml?edition=prelim&f=treesort&jumpTo=true&num=0&req=%28title%3A26+section%3A7122+edition%3Aprelim%29+OR+%28granuleid%3AUSC-prelim-title26-section7122%29).
 - The June 24, 2026 amendment in the nature of a substitute to H.R. 7007 supplies the official text of the NO CARTE BLANCHE Act. It combines H.R. 8914 and H.R. 9210, restricts Judgment Fund payments, and proposes 28 U.S.C. § 2414a judicial review of presidential settlements. EMOL-015 adds automatic filing-stage screening, non-adversity dismissal, controlled maintenance, a broader covered-official conflict rule, and a universal categorical audit-immunity prohibition.
-- T3 should refresh the related docket entries in *Trump v. Internal Revenue Service*, No. 1:26-cv-20609-KMW (S.D. Fla.), and test the completed T2 procedural design against any appeal, reconsideration, fee, or disciplinary ruling.
+- T4 should refresh the related docket entries in *Trump v. Internal Revenue Service*, No. 1:26-cv-20609-KMW (S.D. Fla.), and test the completed procedural design against any appeal, reconsideration, fee, or disciplinary ruling.
 - Constitutional review should test Article II, due process, access to courts, sovereign immunity, justiciability, separation of powers, and Congress's appropriations authority.

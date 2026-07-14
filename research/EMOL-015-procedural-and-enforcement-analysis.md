@@ -22,12 +22,19 @@ This memorandum records the T2 legal-development basis for the automatic adversi
 | *Willy v. Coastal Corp.*, 503 U.S. 131 (1992) | Rule 11 sanctions may survive a later determination that subject-matter jurisdiction was absent because they regulate proceedings and do not adjudicate the merits. | The bill may preserve court-process sanctions and records but should not call a merits injunction collateral. |
 | *Kokkonen v. Guardian Life Insurance Co.*, 511 U.S. 375 (1994) | Enforcement of a settlement ordinarily needs retained jurisdiction or an independent jurisdictional basis. | The bill supplies a separate federal cause, section 1331 jurisdiction, and waiver for eligible plaintiffs rather than assuming the filing court can enforce an agreement after dismissal. |
 | 28 U.S.C. §§ 1331 and 2072; 5 U.S.C. § 702 | Congress supplies federal-question jurisdiction; the Rules Enabling Act governs federal rules; section 702 illustrates express nonmonetary sovereign-immunity waiver. | Section 9 states its own cause and waiver, preserves other review, and avoids treating a procedural rule as an independent source of jurisdiction. |
+| *Raines v. Byrd*, 521 U.S. 811 (1997) | Individual Members do not obtain standing from an abstract dilution of legislative power. | EMOL-015 disclaims Member standing and requires authorization by a full chamber plus a concrete institutional injury. |
+| *Virginia House of Delegates v. Bethune-Hill*, 587 U.S. 658 (2019) | A single legislative body cannot automatically represent another sovereign's interests and must prove its own injury. | Chamber authorization is not deemed sufficient; the chamber must prove its own appropriations or information injury. |
+| *United States House of Representatives v. Mnuchin*, 976 F.3d 1 (D.C. Cir. 2020) | The House had standing to pursue an alleged injury to its Appropriations Clause authority, while the decision did not create universal legislative standing. | The chamber lane is narrowed to express funding conditions or concrete denial of information tied to an identified legislative function. |
+| 28 U.S.C. §§ 1291 and 1292 | Final judgments and specified or certified interlocutory orders follow established appellate routes. | T3 adds an express 14-day interlocutory appeal for coverage, adversity, controlled-maintenance, exception, and preliminary-relief orders, routed to the regional circuit or D.C. Circuit as appropriate. |
+| 26 U.S.C. § 6103 | Return information is confidential and may be disclosed only through statutory exceptions and channels. | The bill does not independently authorize disclosure, requires secure handling and substitutes, and directs narrower disposition if lawful disclosure is unavailable. |
 
 ## D.D.C. Enforcement Design
 
 The separate action cannot manufacture standing. It therefore limits eligible plaintiffs to a person with concrete and particularized injury, a full chamber acting by resolution and alleging its own institutional injury, or the United States through an officer independently authorized by law. Taxpayer, voter, citizen, Member, or generalized rule-of-law status is insufficient. Chamber authorization does not guarantee Article III standing.
 
 The cause runs against responsible subordinate officers, not the President or Vice President. Relief is declaratory or prospective, with repayment available only from a recipient properly before the court and only to the extent independently authorized. The court may not award damages, choose audit outcomes, supervise general executive operations, or coerce the President.
+
+T3 further limits repayment to an action brought by the United States against a named and served recipient, after notice and an opportunity to be heard, for post-enactment payments recoverable under otherwise applicable debt-collection or restitution law. This avoids converting the general enforcement action into a new damages or clawback regime.
 
 ## Automatic but Constitutionally Bounded Features
 
@@ -37,6 +44,8 @@ The cause runs against responsible subordinate officers, not the President or Vi
 4. Tolling preserves a still-live Federal claim without retaining a non-adverse case.
 5. If genuine adversity exists, controlled maintenance and narrow exceptions remain available, but independent defense and anti-influence findings are required.
 6. A nonjudicial categorical audit-immunity term is void by statute and must be disregarded administratively; court enforcement still requires a plaintiff with standing.
+7. Controlled-maintenance orders receive 180-day and annual review, and the claimant may elect dismissal without prejudice while statutory tolling continues.
+8. Final and specified interlocutory orders receive explicit appellate review without an automatic stay.
 
 ## Remaining Qualified-Review Questions
 

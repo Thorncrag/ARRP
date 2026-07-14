@@ -15,16 +15,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Active |
 | Active issue/task | EMOL-015 — Executive Self-Dealing Litigation and Tax-Administration Conflicts |
-| Audit type/tier | Autonomous successive audit sequence; EMOL-015 T3 readiness audit active |
+| Audit type/tier | Autonomous successive audit sequence; EMOL-015 T3 readiness audit complete; commit pending |
 | Started | 2026-07-13 18:59:40 -0400 |
 | Last checkpoint | 2026-07-13 21:38:52 -0400 |
 | User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
 | Scope | EMOL-015 issue page, proposed legislation and amendment materials, automatic no-adversary screening and self-litigation bar, tax-administration conflict and 26 U.S.C. § 7217 categorical exemption, standing and jurisdiction, current July 2026 litigation, implementation and budget evidence, source inventories, area summary, dashboard, GitHub Project fields, and issue update surface. |
 | Files touched | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md`. |
-| Completed steps | Completed, validated, synchronized, committed, pushed, and posted EMOL-015 T2 as `ff39abd`; advanced EMOL-015 from 65 to 76 / 100 Review Ready; developed controlling procedure and complete D.D.C. enforcement architecture; narrowed scope and standing; added protected-information and workload treatment; and synchronized all repo and GitHub surfaces. |
-| Next step | Run the T3 readiness audit: refresh current posture; test chamber standing, exact appeal routes, repayment and recipient process, section 6103 and classified-material channels, controlled-maintenance duration, Article II and access-to-courts limits, severability, effective date, and claim-by-claim source and bill consistency. |
+| Completed steps | Drafted T3 advancement from 76 to 81 / 100 Review Ready; added Supreme Court and D.C. Circuit chamber-standing analysis; controlled-maintenance review and claimant exit; Article II counsel language; final and interlocutory appeals; recipient due process; secure protected-information procedures; prospective application; application-specific severability; a seven-year authorization without budget authority; and synchronized issue, audit, bill, research, area, and sources. |
+| Next step | Commit and push T3, post issue #73, log provenance, and activate T4. |
 | Blockers/questions | Local GitHub CLI authentication remains invalid, but the signed-in GitHub interface supplied completion-critical Project synchronization and readback. No substantive policy blocker identified. |
-| Validation status | EMOL-015 T2 passed all listed checks; signed-in GitHub Project persistence verified; substantive commit `ff39abd` pushed; issue #73 updated. EMOL-015 T3 validation not started. |
+| Validation status | EMOL-015 T3 passed `git diff --check`, YAML parse, source-inventory width and unique-ID checks, local-link checks, score sum, stale-marker scan, dashboard tests, and signed-in GitHub Project persistence readback. |
 
 ## Handoff Rules
 
