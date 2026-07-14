@@ -41,7 +41,7 @@ The table is a snapshot of every tracked removal, attempted removal, resignation
 | 2025-01 | EEOC (Equal Employment Opportunity Commission) | Premature removals | Effective; later challenge withdrawn | [1](#t1-eeoc) |
 | 2025-02 | FLRA (Federal Labor Relations Authority) | Member removal | Effective; protection unverified | [2](#t1-flra) |
 | 2025-03-18 | FTC (Federal Trade Commission) | Two commissioner removals | Effective after *Slaughter* | [3](#t1-ftc) |
-| 2026-07-10 | EAC (Election Assistance Commission) | Removals plus vacancies | Commission left without members | [4](#t1-eac) |
+| 2026-07-10 | EAC (Election Assistance Commission) | Removals plus vacancies | Commission left without members; organic structure verified | [4](#t1-eac) |
 | 2025-03 | USIP (U.S. Institute of Peace) | Board removals and DOGE takeover | Operations ceased; appellate stay favored takeover | [14](#t1-usip) |
 | 2025-02 | FEC (Federal Election Commission) | Purported removal | Contested; later quorum loss | [5](#t1-fec) |
 | 2025-01 | PCLOB (Privacy and Civil Liberties Oversight Board) | Resignation demands and terminations | Temporary relief; quorum impairment remained | [6](#t1-pclob) |
@@ -59,7 +59,7 @@ Where DOGE/USDS or another repurposed cross-agency unit is the mechanism, this c
 | Date | Institution | Reported action | Snapshot | Sources |
 | --- | --- | --- | --- | --- |
 | 2025-03 onward | ED (Department of Education) | Closure directive and major RIF | Prime Tier Two repurposing/disablement test | [11](#t2-ed) |
-| 2025-01 onward | USAID (U.S. Agency for International Development) | Stop-work, terminations, reductions, and absorption | Strong lead; primary verification incomplete | [12](#t2-usaid) |
+| 2025-01 onward | USAID (U.S. Agency for International Development) | Stop-work, terminations, reductions, and absorption | Strong lead; preservation bill verified, operational proof incomplete | [12](#t2-usaid) |
 | 2025-02 onward | CFPB (Consumer Financial Protection Bureau) | Stop-work and operational restrictions | Bridge between independence and disablement | [13](#t2-cfpb) |
 | 2025-03 onward | USAGM (U.S. Agency for Global Media) / VOA (Voice of America) | Major downsizing and attempted shuttering | Court found unresolved statutory-performance defects | [15](#t2-usagm) |
 | 2025-03 onward | IMLS (Institute of Museum and Library Services) | Staff leave and grant terminations | Protected by injunction; restoration ordered | [16](#t2-reduction-eo-cluster) |
@@ -87,7 +87,7 @@ Alvaro Bedoya and Rebecca Kelly Slaughter were removed, and *Trump v. Slaughter*
 <a id="t1-eac"></a>
 ### 4. EAC (Election Assistance Commission)
 
-Thomas Hicks and Benjamin Hovland were removed after Donald Palmer had stepped down and Christy McCormick resigned, reportedly leaving the four-member commission without commissioners. HAVA party-balance, holdover, quorum, and removal provisions require primary review. REG-001 owns the independence and continuity problem; ELEC-001 and ELEC-013 receive election-administration and candidate-access cross-references. Source: Associated Press, [*Donald Trump ousts election commission members in latest push to reshape US voting process*](https://apnews.com/article/0dc1f37c3990398b3085f22a14ea239a).
+Thomas Hicks and Benjamin Hovland were removed after Donald Palmer had stepped down and Christy McCormick resigned, reportedly leaving the four-member commission without commissioners. The organic statute verifies four Senate-confirmed members, political-balance and congressional-recommendation rules, fixed terms, and service after term expiration until a successor takes office. The removal notices, current roster, quorum rule, and post-*Slaughter* legal effect still require primary verification. REG-001 owns the independence and continuity problem; ELEC-001 and ELEC-013 receive election-administration and candidate-access cross-references. Sources: U.S. Code, [52 U.S.C. § 20923](https://uscode.house.gov/view.xhtml?req=%28title%3A52+section%3A20923+edition%3Aprelim%29); Associated Press, [*Donald Trump ousts election commission members in latest push to reshape US voting process*](https://apnews.com/article/0dc1f37c3990398b3085f22a14ea239a).
 
 <a id="t1-fec"></a>
 ### 5. FEC (Federal Election Commission)
@@ -127,7 +127,7 @@ Executive Order 14242 directed steps toward departmental closure and returning a
 <a id="t2-usaid"></a>
 ### 12. USAID (U.S. Agency for International Development)
 
-Reporting described stop-work and funding actions, major program terminations, personnel reductions, and moves to absorb or dismantle USAID. Source development must test the Foreign Assistance Act, appropriations, transfer and reorganization authority, congressional-notice requirements, impoundment law, and litigation, as well as effects on overseas, contract, grant, and humanitarian capacity. Current catalog evidence is secondary and requires official, congressional, GAO, inspector-general, and judicial verification. Sources: The Guardian, [*Marco Rubio says 83 percent of USAid programs terminated*](https://www.theguardian.com/us-news/2025/mar/10/marco-rubio-usaid-funding); Washington Post, [*Trump administration moves to formally dismantle USAID*](https://www.washingtonpost.com/politics/2025/03/28/trump-usaid-abolish-earthquake-congress/).
+Reporting described stop-work and funding actions, major program terminations, personnel reductions, and moves to absorb or dismantle USAID. H.R. 1196 supplies a primary congressional response: it would prohibit federal funding from eliminating USAID's independent-establishment status, require five annual certifications, and state that only an Act of Congress may eliminate the agency. The bill verifies a direct legislative analogue, not the operational facts or their legality. Source development must still test the Foreign Assistance Act, appropriations, transfer and reorganization authority, congressional-notice requirements, impoundment law, litigation, and effects on overseas, contract, grant, and humanitarian capacity. Sources: Congress.gov, [H.R. 1196, Protect U.S. National Security Act](https://www.congress.gov/bill/119th-congress/house-bill/1196); The Guardian, [*Marco Rubio says 83 percent of USAid programs terminated*](https://www.theguardian.com/us-news/2025/mar/10/marco-rubio-usaid-funding); Washington Post, [*Trump administration moves to formally dismantle USAID*](https://www.washingtonpost.com/politics/2025/03/28/trump-usaid-abolish-earthquake-congress/).
 
 <a id="t2-cfpb"></a>
 ### 13. CFPB (Consumer Financial Protection Bureau)
@@ -155,6 +155,8 @@ Executive Order 14238 separately directed IMLS, MBDA, and FMCS to eliminate nons
 AmeriCorps placed approximately 85 percent of staff on administrative leave and initiated a reduction in force, closed more than 1,000 grant-funded programs, and removed NCCC members from service while the FY2026 budget proposed agency elimination. The district court treated the mass program closures and NCCC demobilization as discrete final agency actions and enjoined them in part, but did not grant comparable staffing relief. This is a strong Tier Two example because the record identifies concrete effects on congressionally authorized national-service and disaster-response functions while preserving separate questions about standing, grants, staffing, and final merits. Source: U.S. District Court for the District of Maryland, [*Maryland v. Corporation for National and Community Service*, memorandum opinion](https://law.justia.com/cases/federal/district-courts/maryland/mddce/1%3A2025cv01363/581470/148/).
 
 ## Verification Needs
+
+T2 verified the EAC membership and holdover statute, a direct USAID-preservation bill, a contrary legislated Education-liquidation bill, cross-government workforce scale, GAO's agency-reform framework, and GAO's prior-consultation decision. Those sources improve the framework and analogue record but do not convert every catalog row into a verified violation.
 
 - Removal letters, resignation letters, and White House notices for each agency.
 - Agency commissioner rosters before and after each action.
