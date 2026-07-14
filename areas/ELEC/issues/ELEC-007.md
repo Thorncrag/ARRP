@@ -43,25 +43,9 @@ Existing law strongly disfavors troops at polling places and military participat
 
 ## Manifestations of the Failure
 
-### Federal-force presence near voting, counting, or certification sites
+### Statutory coverage gap for modern federal personnel and election sites
 
-Federal personnel physically present near election sites may intimidate voters or election workers, create the appearance of federal supervision, or chill lawful election participation even if no overt order is given.
-
-### Emergency response becoming election participation
-
-A bomb threat, active threat, violent incident, cyberattack, or other emergency may justify non-election law-enforcement response. But without clear statutory limits, emergency responders could remain in election spaces, observe election processes, question personnel, influence reopening decisions, access materials, or otherwise participate in election administration.
-
-### State-capacity failure as a narrow predicate for assistance
-
-Federal assistance may be appropriate only where a state can demonstrably not handle a specific extraordinary emergency adequately without federal help. The state should identify the particular capacity gap, such as insufficient explosives response, cyber-forensics, multi-site security, interstate-threat coordination, specialized technical assistance, or disaster-continuity capacity.
-
-### Election-material custody and federal process
-
-Federal law-enforcement process directed at ballots, voting equipment, pollbooks, tabulators, memory devices, election records, or result-transmission materials can disrupt chain of custody, statutory deadlines, recounts, audits, and certification. Election materials should not be accessed, imaged, copied, moved, or seized absent separate, narrow judicial authorization and election-specific safeguards.
-
-### Federal law enforcement as a pretext for election supervision
-
-Investigations, threat response, federal-facility protection, or emergency assistance can be misused as a pretext to pressure state or local officials, influence election timing, create public doubt, or support claims that federal officials are validating or invalidating the election.
+Federal law already prohibits specified military presence at polling places and limits use of the armed forces to execute domestic law. See [18 U.S.C. § 592](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section592&num=0&edition=prelim) and [18 U.S.C. § 1385](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section1385&num=0&edition=prelim). Those provisions document an established anti-interference principle but do not clearly address the full modern risk involving federal agents, federalized forces, emergency responders, technical personnel, counting and certification sites, or election-material custody. ELEC-007 is prophylactic beyond that demonstrated statutory gap and does not presently claim a named modern incident as proof of every covered scenario.
 
 ## Resulting Damage
 
@@ -141,6 +125,14 @@ Administrative workload is possible; no new appropriation is specified.
 > **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-007 audit history](ELEC-007.audit.md)
 
 ## Annotation
+
+**Covered scenarios and safeguards.** These scenarios define the proposal's preventive coverage and should not be treated as separate documented manifestations:
+
+- **Federal-force presence near voting, counting, or certification sites.** Federal personnel physically present near election sites may intimidate voters or election workers, create the appearance of federal supervision, or chill lawful election participation even if no overt order is given.
+- **Emergency response becoming election participation.** A bomb threat, active threat, violent incident, cyberattack, or other emergency may justify non-election law-enforcement response. But without clear statutory limits, emergency responders could remain in election spaces, observe election processes, question personnel, influence reopening decisions, access materials, or otherwise participate in election administration.
+- **State-capacity failure as a narrow predicate for assistance.** Federal assistance may be appropriate only where a state can demonstrably not handle a specific extraordinary emergency adequately without federal help. The state should identify the particular capacity gap, such as insufficient explosives response, cyber-forensics, multi-site security, interstate-threat coordination, specialized technical assistance, or disaster-continuity capacity.
+- **Election-material custody and federal process.** Federal law-enforcement process directed at ballots, voting equipment, pollbooks, tabulators, memory devices, election records, or result-transmission materials can disrupt chain of custody, statutory deadlines, recounts, audits, and certification. Election materials should not be accessed, imaged, copied, moved, or seized absent separate, narrow judicial authorization and election-specific safeguards.
+- **Federal law enforcement as a pretext for election supervision.** Investigations, threat response, federal-facility protection, or emergency assistance can be misused as a pretext to pressure state or local officials, influence election timing, create public doubt, or support claims that federal officials are validating or invalidating the election.
 
 **Core Rule.** Federal agents may respond to the emergency; they may not become part of the election.
 

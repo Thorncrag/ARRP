@@ -30,7 +30,7 @@ Area and issue tracking now lives in the [ARRP GitHub Project](https://github.co
 
 ## Audit Tracking Scope
 
-The proposal-quality score is a provisional planning value, not a claim that the issue is publication-ready or externally validated. Audit runs may support a higher score only when the audit resolves findings, broadens review, verifies sources, improves legal fit, improves drafting, or strengthens adoption prospects.
+The proposal-quality score is a provisional planning value, not a claim that the issue is publication-ready or externally validated. The GitHub Project **Runs** field counts only completed, separately recorded T0–T4 issue-quality audits; Change Audits, source-development and drafting passes, formatting checks, predicate checks, and validation reruns do not increment it. Audit runs may support a higher score only when the audit resolves findings, broadens review, verifies sources, improves legal fit, improves drafting, or strengthens adoption prospects.
 
 GitHub Project fields are the compact reader-facing tracker for cross-issue audit status and release triage. They should not replace issue-page Proposal Scoring summaries, sibling audit-history sidecars, or separate Change/Horizon/Agent logs.
 

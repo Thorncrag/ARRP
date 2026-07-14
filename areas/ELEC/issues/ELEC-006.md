@@ -51,10 +51,6 @@ The 2000 presidential election demonstrated that even good-faith legal uncertain
 
 The 2020 transition demonstrated a different failure mode: transition access can be delayed when statutory operation depends too heavily on discretionary recognition by a single official or small number of political actors. Even if Congress later applies oversight pressure, the delay itself may already have impaired readiness. GSA ascertained the Biden-Harris transition on November 23, 2020, after weeks of dispute over access. See [Axios, *Key government agency says Biden transition can formally begin*](https://www.axios.com/2020/11/23/gsa-biden-transition).
 
-### Congressional oversight as a politically contingent remedy
-
-Congressional oversight is an inadequate emergency backstop when transition access is delayed. Oversight pressure may be effective only if congressional leaders and committees are institutionally willing to oppose the delay. If Congress is passive, divided, aligned with the delaying actor, or complicit in the delay, hearings, subpoenas, appropriations pressure, and public accountability may not occur in time to protect continuity of government.
-
 ### Transition-team noncompliance and delayed agreements
 
 A transition may also be impaired when the apparent incoming administration delays or refuses to execute transition agreements, ethics commitments, donor-disclosure obligations, information-security protocols, or arrangements necessary for background checks and clearances. This failure mode is distinct from GSA ascertainment delay and requires a different statutory response. In 2024, the Trump-Vance transition delayed signing the Justice Department agreement permitting FBI background checks and security-clearance processing and declined a GSA agreement for federal funding and support. See [Politico, *Trump transition green-lights FBI background checks for incoming staff*](https://www.politico.com/news/2024/12/03/trump-transition-doj-agreement-00192451).
@@ -133,6 +129,8 @@ Administrative workload is possible; no new appropriation is specified.
 > **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-006 audit history](ELEC-006.audit.md)
 
 ## Annotation
+
+**Politically contingent oversight.** Congressional oversight is an inadequate emergency backstop when transition access is delayed. Oversight pressure may be effective only if congressional leaders and committees are institutionally willing to oppose the delay. If Congress is passive, divided, aligned with the delaying actor, or complicit in the delay, hearings, subpoenas, appropriations pressure, and public accountability may not occur in time to protect continuity of government. This is a remedy limitation rather than a separate manifestation.
 
 **Norm-Preserving Design.** The proposal should preserve the historical norm-based transition model and add statutory backstops only where recent manifestations show that norms can fail.
 

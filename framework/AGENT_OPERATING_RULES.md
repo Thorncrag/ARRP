@@ -268,6 +268,8 @@ Autonomous agents must not force-push. Rollback should normally occur through a 
 
 Agents should not treat repeated audit runs as proof of quality. Scores increase only when the record improves under the methodology: better sources, better legal fit, clearer drafting, stronger implementation analysis, resolved defects, stronger adoption evidence, or documented external review.
 
+Increment the GitHub Project **Runs** field only for a completed, separately recorded T0, T1, T2, T3, or T4 issue-quality audit. Change Audits, Internal Remedy-Fit Audits, Horizon Scans, source-development or drafting passes, formatting checks, predicate checks, validation reruns, and continuation of the same open tier do not count as separate runs.
+
 When two reasonable auditors could differ, use the lower score and document why.
 
 ## No-Hallucination Rule

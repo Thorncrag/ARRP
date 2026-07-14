@@ -38,15 +38,13 @@ Under the Impoundment Control Act, the President may propose rescission of budge
 
 This creates the same practical effect as a line-item veto or unilateral cancellation while preserving the appearance of a formal rescission process.
 
+GAO's decision in [*Impoundment Control Act—Withholding of Funds through Their Date of Expiration*, B-330330](https://www.gao.gov/products/b-330330) supplies the principal source-development anchor for this category.
+
 ### Strategic apportionment and obligation delay
 
 Strategic delay can also occur without a formal rescission message. OMB or agencies may withhold apportionment, slow award decisions, pause grant processing, order legal or policy review, or impose temporary conditions until the remaining obligation period is too short for meaningful implementation.
 
-The Ukraine security-assistance impoundment dispute is a source-development lead for this problem. GAO concluded in 2020 that OMB violated the Impoundment Control Act when it withheld funds for policy reasons. FUND-002 should test how the timing, apportionment, and policy-review features of that dispute illuminate broader anti-delay safeguards.
-
-### End-of-year pressure
-
-The risk is greatest when funds are near expiration, when grant cycles require lead time, when statutory deadlines or seasonal conditions matter, or when recipients cannot restore lost program capacity after a late release. A court order or GAO finding may arrive too late if the relevant fiscal year, obligation window, application period, construction season, benefit period, or staffing cycle has already passed.
+The Ukraine security-assistance impoundment dispute is a source-development lead for this problem. GAO concluded in [*Office of Management and Budget—Withholding of Ukraine Security Assistance*, B-331564](https://www.gao.gov/products/b-331564) that OMB violated the Impoundment Control Act when it withheld funds for policy reasons. FUND-002 should test how the timing, apportionment, and policy-review features of that dispute illuminate broader anti-delay safeguards.
 
 ## Resulting Damage
 
@@ -133,6 +131,8 @@ No reliable estimate yet. The proposal would likely affect OMB, GAO, agency budg
 > **Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** Initial candidate development<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [FUND-002 audit history](FUND-002.audit.md)
 
 ## Annotation
+
+**End-of-year pressure.** The risk is greatest when funds are near expiration, when grant cycles require lead time, when statutory deadlines or seasonal conditions matter, or when recipients cannot restore lost program capacity after a late release. A court order or GAO finding may arrive too late if the relevant fiscal year, obligation window, application period, construction season, benefit period, or staffing cycle has already passed. This explains the proposed timing safeguards but is not independently presented as a documented manifestation.
 
 FUND-002 is a candidate issue promoted from A-11 inventory. It receives a proposal-quality score of 0 until source development, existing-law analysis, and a basic legislative framework are complete.
 

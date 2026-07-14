@@ -42,6 +42,8 @@ Plurality elections can penalize voters for supporting their first-choice candid
 
 Ranked-choice voting is designed to reduce that pressure by allowing voters to rank candidates and by transferring votes under defined rules if no candidate has enough support to win initially. The mechanism can reduce first-round spoiler fears, but it also introduces implementation demands that ordinary plurality systems do not have.
 
+The current research is mixed rather than conclusive. See MIT Election Data + Science Lab, [*Ranked Choice Voting: Instant Runoff Voting Use in the United States*](https://electionlab.mit.edu/research/ranked-choice-voting-instant-runoff-voting-use-united-states), and New America, [*What We Know About Ranked-Choice Voting*](https://www.newamerica.org/political-reform/reports/what-we-know-about-ranked-choice-voting/). ELEC-015 therefore treats reduced spoiler pressure as a proposition for continued testing, not a proven universal effect.
+
 ### Implementation complexity and voter comprehension
 
 RCV and other majority-choice systems are not self-executing. Voters need clear ballot instructions, accessible materials, examples, error-prevention design, language assistance, and public education before Election Day. Election officials need tabulation rules, software or central-count procedures, public reporting formats, recount rules, and a way to explain exhausted ballots and transfer rounds without making the result appear opaque.

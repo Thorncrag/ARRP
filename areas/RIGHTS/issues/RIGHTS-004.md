@@ -36,29 +36,7 @@ ARRP should treat comprehensive immigration reform as a structural-governance is
 
 ## Manifestations of the Failure
 
-### Removal and detention pressure
-
-Rapid removal, expanded interior enforcement, mandatory or prolonged detention, expedited procedures, courthouse or workplace enforcement, and federal-state enforcement cooperation can create practical pressure to surrender claims, waive hearings, or accept removal before meaningful review occurs.
-
-### Adjudication backlog and capacity failure
-
-Immigration courts, asylum offices, visa agencies, consular systems, and status-adjustment processes can become so backlogged that formally available relief becomes functionally unavailable. Delay can operate as denial for families, employers, refugees, children, lawful residents, and people with colorable claims to status or protection.
-
-### Humanitarian protection instability
-
-[RIGHTS-002](RIGHTS-002.md) separately owns Temporary Protected Status, asylum-access triggers, and humanitarian reviewability. RIGHTS-004 should incorporate those issues only at the comprehensive-system level: a broad immigration reform bill should not leave humanitarian protection as an unreviewable or purely discretionary exception to ordinary lawful administration.
-
-### Citizenship and identity-record instability
-
-[RIGHTS-003](RIGHTS-003.md) separately owns birthright citizenship, statutory recognition, and federal identity-record continuity. RIGHTS-004 should cross-reference that work where comprehensive reform affects nationality, citizenship records, passports, Social Security records, or state vital-record reliance.
-
-### Enforcement technology, domestic deployment, and federalism pressure
-
-Immigration enforcement can become a vehicle for surveillance procurement, data-broker use, domestic law-enforcement deployment, federalized enforcement pressure, state-local coercion, or emergency-power leverage. [DOM-009](../../DOM/issues/DOM-009.md), [A-14](../../DOM/README.md), [A-20](../../FED/README.md), and [A-10](../../EMERG/README.md) should continue to own those mechanisms when enforcement power, domestic deployment, federalism coercion, or emergency authority is the central defect.
-
-### Project 2025 immigration-structure gap
-
-The [Project 2025 / ARRP Crosswalk](../../../source-development/project-2025-arrp-crosswalk.md) already flags DHS reorganization, mass deportation, interior enforcement expansion, asylum and refugee restrictions, detention, federalism, and immigration-adjudication integrity as coverage gaps. RIGHTS-004 admits that gap as a RIGHTS proposal while preserving the existing boundaries for enforcement, federalism, emergency powers, and surveillance issues.
+No manifestation is yet treated as established for proposal-scoring purposes. RIGHTS-004 remains a candidate pending primary-source development of removal, detention, adjudication-capacity, lawful-status, and system-integrity examples. Preliminary coverage categories and adjacent-issue boundaries are preserved in Annotation rather than presented as documented manifestations.
 
 ## Resulting Damage
 
@@ -170,6 +148,15 @@ No reliable estimate yet. A comprehensive immigration-system reform could have s
 RIGHTS-004 is a candidate issue admitted to preserve a comprehensive immigration-reform lane inside A-24. It receives a proposal-quality score of 0 because no statutory vehicle, amendment structure, cost model, source-developed record, or adoption pathway has been selected.
 
 The issue should remain institutionally neutral. It should ask whether immigration administration has enough process, review, capacity, records integrity, lawful-pathway coherence, humanitarian protection, and federalism boundaries to resist abuse across administrations. It should not become a general repository for every immigration policy preference or enforcement dispute.
+
+**Preliminary manifestation categories.** These categories remain source-development hypotheses rather than evidence-backed manifestations:
+
+- **Removal and detention pressure.** Rapid removal, expanded interior enforcement, mandatory or prolonged detention, expedited procedures, courthouse or workplace enforcement, and federal-state enforcement cooperation can create practical pressure to surrender claims, waive hearings, or accept removal before meaningful review occurs.
+- **Adjudication backlog and capacity failure.** Immigration courts, asylum offices, visa agencies, consular systems, and status-adjustment processes can become so backlogged that formally available relief becomes functionally unavailable. Delay can operate as denial for families, employers, refugees, children, lawful residents, and people with colorable claims to status or protection.
+- **Humanitarian protection instability.** [RIGHTS-002](RIGHTS-002.md) separately owns Temporary Protected Status, asylum-access triggers, and humanitarian reviewability. RIGHTS-004 should incorporate those issues only at the comprehensive-system level: a broad immigration reform bill should not leave humanitarian protection as an unreviewable or purely discretionary exception to ordinary lawful administration.
+- **Citizenship and identity-record instability.** [RIGHTS-003](RIGHTS-003.md) separately owns birthright citizenship, statutory recognition, and federal identity-record continuity. RIGHTS-004 should cross-reference that work where comprehensive reform affects nationality, citizenship records, passports, Social Security records, or state vital-record reliance.
+- **Enforcement technology, domestic deployment, and federalism pressure.** Immigration enforcement can become a vehicle for surveillance procurement, data-broker use, domestic law-enforcement deployment, federalized enforcement pressure, state-local coercion, or emergency-power leverage. [DOM-009](../../DOM/issues/DOM-009.md), [A-14](../../DOM/README.md), [A-20](../../FED/README.md), and [A-10](../../EMERG/README.md) should continue to own those mechanisms when enforcement power, domestic deployment, federalism coercion, or emergency authority is the central defect.
+- **Project 2025 immigration-structure gap.** The [Project 2025 / ARRP Crosswalk](../../../source-development/project-2025-arrp-crosswalk.md) flags DHS reorganization, mass deportation, interior enforcement expansion, asylum and refugee restrictions, detention, federalism, and immigration-adjudication integrity as coverage gaps. RIGHTS-004 admits that gap as a RIGHTS proposal while preserving the existing boundaries for enforcement, federalism, emergency powers, and surveillance issues.
 
 ## Source Notes
 

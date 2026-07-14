@@ -125,20 +125,6 @@ The statute must preserve ordinary political advocacy, public criticism, lawful 
 
 - [Federal Executive Election Noninterference Act](../../../legislation/ELEC-001.md)
 
-## Enforcement Architecture
-
-The eventual legislation should provide layered enforcement:
-
-- immediate three-judge-court review and emergency injunctive relief;
-- mandatory contact records, preservation orders, and narrow authorization for state election officials to record covered official communications;
-- OSC, OIG, Public Integrity, and DOJ-007 referral according to jurisdiction and conflict;
-- administrative discipline and disqualification from delegated election-related functions for subordinate officials;
-- substantial civil penalties and reimbursement of state or local response costs;
-- calibrated criminal penalties distinguishing attempted pressure, coercive use of federal powers, and completed alteration or falsification; and
-- mandatory congressional reporting for substantiated violations involving senior officials.
-
-Courts and investigators should not determine the winner of an election or substitute their policy judgment for lawful state election administration. Their role is to prevent and remedy misuse of federal executive authority.
-
 ## Relationship to Adjacent Proposals
 
 ELEC-001 concerns civilian executive interference through presidential authority, agencies, investigations, funding, regulation, intelligence, administrative process, or official influence.
@@ -160,6 +146,18 @@ Administrative workload is possible; no new appropriation is specified.
 > **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
 
 ## Annotation
+
+**Enforcement architecture.** The eventual legislation should provide layered enforcement:
+
+- immediate three-judge-court review and emergency injunctive relief;
+- mandatory contact records, preservation orders, and narrow authorization for state election officials to record covered official communications;
+- OSC, OIG, Public Integrity, and DOJ-007 referral according to jurisdiction and conflict;
+- administrative discipline and disqualification from delegated election-related functions for subordinate officials;
+- substantial civil penalties and reimbursement of state or local response costs;
+- calibrated criminal penalties distinguishing attempted pressure, coercive use of federal powers, and completed alteration or falsification; and
+- mandatory congressional reporting for substantiated violations involving senior officials.
+
+Courts and investigators should not determine the winner of an election or substitute their policy judgment for lawful state election administration. Their role is to prevent and remedy misuse of federal executive authority.
 
 **Basis and Evidence.** The Hatch Act already embodies the principle that federal employees may not use official authority or influence to interfere with or affect an election. Its exclusion of the President and Vice President and its employment-centered remedial structure leave the principal conduct identified here inadequately covered. The call between President Trump and Raffensperger is a representative manifestation because the requested numerical alteration corresponded to the margin necessary to reverse the state’s certified result. HOR-001 was integrated into this issue because the federal citizenship-list and voter-data architecture is a later manifestation of the same core defect: federal executive authority being used to control, pressure, or restructure state election administration outside ordinary constitutional channels.
 

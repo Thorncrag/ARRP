@@ -51,6 +51,8 @@ The working source-development table for civil suits, Voting Section letters, ad
 
 Frivolous or abusive pre-election challenges may seek emergency rule changes, voter-list disruption, ballot-design changes, candidate-access changes, broad election-office discovery, or access to sensitive election-system materials. These proceedings may be especially damaging when filed close enough to the election to interfere with ballot preparation, equipment programming, voter notices, mail-ballot processing, staffing, or other election-administration tasks.
 
+The [ELEC-004 Civil Process and State Election Records Catalog](../../../source-development/ELEC-004-civil-process-catalog.md) collects the current source-development record for this recurring category.
+
 ### 2020 post-election litigation and emergency-relief wave
 
 After the 2020 presidential election, numerous lawsuits were filed challenging procedures, vote counting, certification, or state results. Many were dismissed for lack of standing, laches, lack of evidence, failure to state a claim, or absence of a legally available remedy. Even when unsuccessful, such filings imposed emergency burdens on courts and election officials and could be used publicly to claim that results remained legally contested.
@@ -64,6 +66,8 @@ After the 2020 presidential election, numerous lawsuits were filed challenging p
 ### Cross-cycle civil subpoena, audit, and inspection mechanisms
 
 Election pressure may also appear as civil subpoenas, public-records demands, nonstatutory audits, legislative or administrative demands, or inspection demands for ballots, equipment, voter data, source code, logs, chain-of-custody records, or security-sensitive materials. Such demands may be legitimate when grounded in lawful authority and material evidence, but they can also be used to burden officials, expose sensitive systems, or imply fraud without proof.
+
+The [civil-process catalog](../../../source-development/ELEC-004-civil-process-catalog.md) distinguishes those channels from the criminal-process matters assigned to ELEC-014 and preserves the source record for further verification.
 
 ### 2025-2026 civil voter-data and state-record demand campaign
 
@@ -142,12 +146,6 @@ ELEC-004 does not regulate ordinary citizen complaints, reports of suspected irr
 
 The screening procedure applies to proceedings or demands that seek coercive, disruptive, or sensitive-material relief, regardless of whether the filer is a candidate, party, official, organization, attorney, or private plaintiff.
 
-### Legislation Crosswalk
-
-The federal and model state bills are intended to mirror one another while respecting institutional differences. ELEC-004 applies to federal courts and federal election proceedings; ELEC-004-state adapts the same architecture for state courts, state election tribunals, state civil subpoenas, administrative or legislative demands, and state-law election contests. The federal bill currently preserves federal criminal investigation and prosecution. Federal criminal investigative searches, interviews, and subpoenas directed at election-related civic participation, state election administration, ballots, voter data, or voting infrastructure are now treated as [ELEC-014](ELEC-014.md) source-development material rather than ELEC-004 remedies. Future revisions should check the corresponding federal or state draft before materially changing definitions, timing, special-motion procedure, stays, emergency-relief findings, sensitive-material protections, sanctions, later-discovered sanctions, expedited review, savings clauses, uniform application, relation-to-law provisions, or severability.
-
-The remedy architecture addresses abusive pre-election challenges through the 180-day timing bar, relief-based trigger, special screening motion, stay, and emergency-relief findings; unsupported public fraud narratives through evidentiary, materiality, remedy-fit, and sanctions requirements; post-election disruption through no fixed post-election cutoff and emergency-relief findings; sensitive-material demands through stay and protective-order requirements; broad subpoenas, audits, inspections, or forensic demands through screening, narrowing, quashing, conditioning, and sanctions; later-discovered coordination through the post-disposition sanctions mechanism; and good-faith-report chilling through preserved-activity provisions.
-
 ## Proposed Legislation
 
 - [Federal Election Proceedings Integrity Act](../../../legislation/ELEC-004.md)
@@ -181,6 +179,10 @@ Administrative workload is possible; no new appropriation is specified.
 > **Audit Status:** Manifestations reorganized by chronology and type; review-ready score preserved while external legal review and additional primary-source expansion remain needed<br />**Last Audit:** Manifestation chronology and type reorganization<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`; **Change Audit Needed:** no<br />**Next Audit:** Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review<br />**Full Audit History:** [ELEC-004 audit history](ELEC-004.audit.md)
 
 ## Annotation
+
+**Legislation crosswalk.** The federal and model state bills are intended to mirror one another while respecting institutional differences. ELEC-004 applies to federal courts and federal election proceedings; ELEC-004-state adapts the same architecture for state courts, state election tribunals, state civil subpoenas, administrative or legislative demands, and state-law election contests. The federal bill currently preserves federal criminal investigation and prosecution. Federal criminal investigative searches, interviews, and subpoenas directed at election-related civic participation, state election administration, ballots, voter data, or voting infrastructure are now treated as [ELEC-014](ELEC-014.md) source-development material rather than ELEC-004 remedies. Future revisions should check the corresponding federal or state draft before materially changing definitions, timing, special-motion procedure, stays, emergency-relief findings, sensitive-material protections, sanctions, later-discovered sanctions, expedited review, savings clauses, uniform application, relation-to-law provisions, or severability.
+
+The remedy architecture addresses abusive pre-election challenges through the 180-day timing bar, relief-based trigger, special screening motion, stay, and emergency-relief findings; unsupported public fraud narratives through evidentiary, materiality, remedy-fit, and sanctions requirements; post-election disruption through no fixed post-election cutoff and emergency-relief findings; sensitive-material demands through stay and protective-order requirements; broad subpoenas, audits, inspections, or forensic demands through screening, narrowing, quashing, conditioning, and sanctions; later-discovered coordination through the post-disposition sanctions mechanism; and good-faith-report chilling through preserved-activity provisions.
 
 **Anti-SLAPP Analogy.** This issue expressly borrows from Anti-SLAPP architecture: early screening, discovery stay, burden clarification, fee-shifting, and sanctions. The model is adapted for public-law election proceedings rather than ordinary civil claims affecting speech or petitioning.
 

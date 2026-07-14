@@ -59,10 +59,6 @@ At least some jurisdictions confronted questions about whether existing state st
 
 A narrow category of contingent elector or disputed-result preservation activity may be legitimate where a real recount, contest, or litigation proceeding remains unresolved and the document is clearly conditional and nonoperative. The absence of clear federal labeling and transmission rules permits abusive documents to mimic lawful official result documents while claiming after the fact to be merely contingent. Post-2020 defenses have repeatedly invoked contingent-elector theories and Hawaii 1960 comparisons, making a narrow safe harbor important to avoid overcriminalizing lawful preservation activity while still prohibiting false present-tense use. See [The Guardian, *The fake elector defense: what Trump allies are saying to justify the 2020 scheme*](https://www.theguardian.com/us-news/article/2024/jun/05/wisconsin-2020-trump-fake-electors-defense).
 
-### Transmission and official-receipt vulnerability
-
-False or unauthorized presidential result-transmission documents become most dangerous when sent to Congress, the President of the Senate, the Archivist, NARA, federal courts, or other federal recipients. Without explicit receipt duties, such documents may be preserved, circulated, cited, or publicly described in a way that creates legal uncertainty or supports pressure on federal actors.
-
 ## Resulting Damage
 
 False or unauthorized presidential result-transmission documents can manufacture ambiguity, support congressional objections, pressure federal officials, create public confusion, burden courts and election officials, and provide a predicate for efforts to obstruct or distort the lawful presidential result-recognition process.
@@ -134,6 +130,8 @@ Administrative workload is possible; no new appropriation is specified.
 > **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-005 audit history](ELEC-005.audit.md)
 
 ## Annotation
+
+**Transmission and official-receipt vulnerability.** False or unauthorized presidential result-transmission documents become most dangerous when sent to Congress, the President of the Senate, the Archivist, NARA, federal courts, or other federal recipients. Without explicit receipt duties, such documents may be preserved, circulated, cited, or publicly described in a way that creates legal uncertainty or supports pressure on federal actors. This is the remedial rationale for federal recipient duties, not a separate documented manifestation.
 
 **Existing Remedies.** This issue does not assume that false result-transmission conduct is otherwise lawful. Existing fraud, forgery, false-statement, obstruction, conspiracy, perjury, and state election statutes may apply. The proposed reform addresses the structural need for a federal-channel document-integrity rule.
 

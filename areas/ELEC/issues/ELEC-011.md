@@ -50,6 +50,8 @@ The institutional defect is not that district lines must be drawn. The defect is
 
 Traditional redistricting often begins with human-drawn maps. By the time the public sees a proposal, the baseline may already embed partisan, incumbent-protection, community-splitting, or vote-dilution choices. Public comment then reacts to an already selected political map rather than comparing it to a neutral starting point.
 
+Iowa's enacted alternative helps document the contrast: [Iowa Code chapter 42](https://www.legis.iowa.gov/docs/code/2026/42.pdf) assigns plan preparation to a nonpartisan legislative agency, prescribes public criteria and disclosures, and prohibits use of incumbent addresses, party-registration data, and prior election results.
+
 ### Representation safeguards after *Louisiana v. Callais*
 
 ELEC-011 was admitted after *Louisiana v. Callais* sharpened the need to distinguish constitutionally permissible representation safeguards from legally vulnerable race-predominant districting. The project source inventory currently treats *Callais* as the anchor source for redistricting, Voting Rights Act Section 2, racial-gerrymandering, and representation-safeguard source development. See [*Louisiana v. Callais*](https://www.supremecourt.gov/opinions/25pdf/24-109_21o3.pdf).
