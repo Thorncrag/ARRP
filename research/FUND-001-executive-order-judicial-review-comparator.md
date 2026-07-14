@@ -1,6 +1,6 @@
 ---
 title: "FUND-001 Executive Order Judicial Review Comparator"
-status: t3-readiness-development
+status: t4-public-source-review-complete
 associated_issue: FUND-001
 print_levels:
   - full-technical
@@ -65,11 +65,11 @@ When populated, the comparator should use a case-level CSV or table with these f
 | `fund_001_trigger_credit` | Yes, no, partial, or unresolved under the proposed FUND-001 trigger. |
 | `notes` | Caveats, source limits, and relationship to FUND-001. |
 
-## T3 Status
+## T4 Status
 
-No complete official comparator has been identified. T3 verified the D.C. Circuit's 2019 federal-workforce decision and 2025 foreign-assistance amended order as channeling and timing authorities, not trigger-credit judgments. The former reversed a district-court executive-order ruling on Civil Service Reform Act jurisdictional grounds; the latter treated the existing ICA as precluding the grantees' APA cause to enforce the ICA while leaving appropriations-Act claims open. Together they confirm that preliminary or district-court success can be displaced by later jurisdictional review and that finality can consume many months. The bill therefore uses two qualifying final judgments involving distinct current-term directives within 36 months, including one appropriations-specific judgment, while retaining every finality and duplicate-counting safeguard.
+No complete official comparator has been identified. T4 reconfirmed the D.C. Circuit's 2019 federal-workforce decision and 2025 foreign-assistance amended order as channeling and timing authorities, not trigger-credit judgments. The former reversed a district-court executive-order ruling on Civil Service Reform Act jurisdictional grounds; the latter treated the existing ICA as precluding the grantees' APA cause to enforce the ICA while leaving appropriations-Act claims open. The Supreme Court's publicly available No. 25A269 docket still reflects emergency-stage relief rather than a later merits disposition. Together the records confirm that preliminary or district-court success can be displaced by later jurisdictional review and that finality can consume many months. The bill therefore uses two qualifying final judgments involving distinct current-term directives within 36 months, including one appropriations-specific judgment, while retaining every finality and duplicate-counting safeguard.
 
-T4 should broaden the official case pilot beyond the D.C. courts and first Trump term, normalize directive type and implementation-action coding, verify Federal Register denominators as of a fixed date, and determine whether the 36-month calibration remains justified across administrations. Existing trackers still use incompatible denominators and finality rules and cannot be imported as a statutory trigger table.
+The public-source comparator is adequate to justify the bill's conservative finality rules and 36-month window as a review-ready calibration, but not to claim empirical optimality. Before circulation or any future score increase, qualified research should broaden the official case pilot beyond the D.C. courts and first Trump term, normalize directive type and implementation-action coding, verify Federal Register denominators as of a fixed date, and determine whether the calibration holds across administrations. Existing trackers use incompatible denominators and finality rules and cannot be imported as a statutory trigger table.
 
 Candidate entries should not be treated as trigger-credit entries until the legal finding, finality posture, and implementation relationship are verified.
 

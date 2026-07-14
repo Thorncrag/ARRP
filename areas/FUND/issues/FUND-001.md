@@ -8,11 +8,11 @@ remedy_type: federal-legislation
 legislative_status: working-draft
 legislative_proposal: "../../../legislation/JUD-011.md"
 alternative_legislative_proposal: "../../../legislation/FUND-001.md"
-audit_status: "T3 readiness audit complete; T4 publication-ready audit pending"
-audit_score: 81
-audit_last_type: "T3 readiness audit"
+audit_status: "T4 publication-ready audit complete; qualified review pending"
+audit_score: 83
+audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-07-13"
-audit_next: "Full T4 publication-ready audit"
+audit_next: "Qualified appropriations, federal-courts, budget, and legislative-counsel review"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -127,6 +127,8 @@ The official U.S. Code confirms that [2 U.S.C. § 687](https://uscode.house.gov/
 
 The closest direct legislative analogues are the House-passed [Protecting Our Democracy Act, H.R. 5314 (117th Congress)](https://www.congress.gov/bill/117th-congress/house-bill/5314) and the pending [Congressional Power of the Purse Act, H.R. 5220 (119th Congress)](https://www.congress.gov/bill/119th-congress/house-bill/5220). Both use the Impoundment Control Act vehicle for prudent-obligation, apportionment-transparency, GAO-access, enforcement, or penalty reforms. H.R. 5314 passed the House 220-208 in 2021, with one Republican voting in favor; H.R. 5220 was introduced September 9, 2025, has 21 Democratic cosponsors, remains referred to seven House committees, and has no published CBO estimate. Those records establish a real legislative pathway and substantial drafting precedent, but they also show strong partisan and committee-jurisdiction friction.
 
+T4 reviewed the introduced text of H.R. 5220 section by section. It would add prudent-obligation and expiring-funds rules as section 1018 of the Impoundment Control Act, apportionment reporting as section 1019, penalties as section 1020, expanded GAO access and D.D.C. litigation, and protected-information rules for published Office of Legal Counsel opinions. That confirms the title X amendment and D.D.C. enforcement vehicles used here. FUND-001 remains materially different: it creates a repeated-final-judgment trigger, temporary certification regime, injured-party cause of action, three-judge procedure, and prospective specific relief rather than relying principally on GAO litigation, reporting, and penalties. Congress.gov still reports no action after September 9, 2025, no CBO estimate, 21 Democratic cosponsors, and referral to seven House committees.
+
 GAO's current [Impoundment Control Act decision index](https://www.gao.gov/legal/appropriations-law/impoundment-control-act) reports both violation and no-violation decisions concerning fiscal year 2025 program pauses, grant funding, agency reductions, and a presidential wind-energy memorandum. The mixed results matter: they demonstrate both a current enforcement problem and the need to preserve good-faith apportionment and program administration rather than treating every pause or directive as abuse.
 
 ### T3 readiness findings
@@ -198,17 +200,17 @@ The Interbranch Review Framework Act (JUD-011) carries the two additional D.D.C.
 
 ### Independent alternative — standalone FUND-001
 
-The independent FUND-001 bill separately authorizes such sums as may be necessary for fiscal years 2027 through 2031 for OMB, affected agencies, GAO, and judicial administration; the authorization does not itself provide budget authority. Workload depends on qualifying final judgments, certifications, and litigation volume. As scale comparators rather than a bill estimate, [GAO's fiscal year 2026 request](https://files.gao.gov/reports/GAO-25-108401/index.html) sought $933.9 million in appropriations for its entire agency-wide mission, a companion [GAO budget submission](https://files.gao.gov/reports/GAO-25-108440/index.html) reported more than 550 legal decisions in fiscal year 2024, [OMB's federal-program inventory](https://www.gao.gov/products/gao-26-107551) covered more than 2,600 programs and $7 trillion in spending, and the [Judiciary's fiscal year 2026 budget summary](https://www.uscourts.gov/sites/default/files/document/fy-2026-congressional-budget-summary.pdf) attributed $17.2 million and 170 full-time-equivalent positions to projected court-support workload changes across the federal courts. The closest current legislative analogue, H.R. 5220, has no published CBO estimate. Those government-wide figures do not isolate FUND-001's incremental cost; a proposal-specific CBO score and affected-institution workload estimates remain necessary before Congress selects a fixed appropriation.
+The independent FUND-001 bill separately authorizes such sums as may be necessary for fiscal years 2027 through 2031 for OMB, affected agencies, GAO, and judicial administration; the authorization does not itself provide budget authority. Workload depends on qualifying final judgments, certifications, protected-information handling, and litigation volume. As scale comparators rather than a bill estimate, [GAO's fiscal year 2026 request](https://files.gao.gov/reports/GAO-25-108401/index.html) sought $933.9 million in appropriations for its entire agency-wide mission, a companion [GAO budget submission](https://files.gao.gov/reports/GAO-25-108440/index.html) reported more than 550 legal decisions in fiscal year 2024, [OMB's federal-program inventory](https://www.gao.gov/products/gao-26-107551) covered more than 2,600 programs and $7 trillion in spending, and the [Judiciary's fiscal year 2026 budget summary](https://www.uscourts.gov/sites/default/files/document/fy-2026-congressional-budget-summary.pdf) attributed $17.2 million and 170 full-time-equivalent positions to projected court-support workload changes across the federal courts. The closest current legislative analogue, H.R. 5220, has no published CBO estimate. Those government-wide figures do not isolate FUND-001's incremental cost; a proposal-specific CBO score and affected-institution workload estimates remain necessary before Congress selects a fixed appropriation.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[81 / 100](FUND-001.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 82 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[83 / 100](FUND-001.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 82 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T3 readiness audit complete; T4 publication-ready audit pending<br />**Last Audit:** T3 readiness audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Change Audit:** Current for JUD-011 coverage, the standalone alternative, and both budget pathways<br />**Next Audit:** Full T4 publication-ready audit<br />**Full Audit History:** [FUND-001 audit history](FUND-001.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; qualified review pending<br />**Last Audit:** T4 publication-ready audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Change Audit:** Current for JUD-011 coverage, the standalone alternative, and both budget pathways<br />**Next Audit:** Qualified appropriations, federal-courts, budget, and legislative-counsel review<br />**Full Audit History:** [FUND-001 audit history](FUND-001.audit.md)
 
 ## Annotation
 
@@ -222,13 +224,15 @@ The independent FUND-001 bill separately authorizes such sums as may be necessar
 
 **Appropriations Hook.** The strongest statutory authority is Congress's control over appropriated funds, program terms, apportionment conditions, and agency implementation. The draft should avoid overclaiming Congress's ability to regulate the President's issuance of executive orders directly.
 
-**Emergency Exception Risk.** Any emergency exception must be narrow. A broad exception could swallow the rule by allowing the same administration that triggered review to recast covered directives as urgent program-management decisions.
+**Emergency Exception Risk.** Any emergency exception must be narrow. T4 retains the initial 14-day period but permits a judicial extension only for 30 days on clear and convincing evidence of continuing imminent harm, likely lawful authority, no narrower lawful measure, and necessity; each additional extension requires a fresh showing. This reduces, but cannot eliminate, the risk that the administration recasts policy preference as emergency program management.
+
+**Protected Information.** Certifications must publicly identify every legal authority and provide a meaningful unclassified explanation. Protected facts may be placed only in a minimum-necessary annex transmitted to the relevant committees, GAO, and the reviewing court under lawful safeguards. The public record must identify the category and legal basis of withholding and provide a segregable unclassified summary; secrecy cannot conceal the existence of legal authority, a material budget effect, or the responsible official's title.
 
 **Standing and Review.** The bill separates statutory authorization from constitutional standing. Concretely injured states and program participants supply the principal enforcement path; Congress requires authorization by both Houses plus independent Article III standing; and GAO retains its separate section 1016 authority. T3 adds a covered-scope zone-of-interests limitation and an express D.D.C. route for FUND-001 claims, distinguishes prospective specific relief from retrospective damages, preserves specialized review schemes for claims arising solely under other laws, and prevents relabeling. Legislative counsel and appropriations-law reviewers should scrutinize those overrides at T4.
 
 **Preferred and Independent Remedies.** The Interbranch Review Framework Act (JUD-011) alone is the preferred general remedy; it does not require FUND-001 to opt in. FUND-001 is the independent alternative and now contains no JUD-011 routing or dependency. Its own cause of action, plaintiff categories, trigger, fiscal-inertness rules, emergency exception, three-judge D.D.C. procedure, relief, and expedited D.C. Circuit review operate if Congress enacts FUND-001 by itself.
 
-**Quality Score.** The 81/100 T3 score under rubric `2026-06-27.2` remains Review Ready: Structural 8/8; Evidence 10/12; Legal Fit 9/10; Prior-Proposal 7/8; Remedy 11/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. T3 reproduced the readiness result through official claim and citation review, timing tests, claim-channeling and Tucker Act analysis, jurisdictional drafting, current-case review, and source-backed workload comparators. Advanced Review Ready remains unavailable because the proposal lacks qualified external review, proposal-specific cost estimates, deadline validation, a bipartisan adoption coalition, and a final merits resolution of the current impoundment cases.
+**Quality Score.** The 83/100 T4 score under rubric `2026-06-27.2` remains Review Ready: Structural 8/8; Evidence 11/12; Legal Fit 9/10; Prior-Proposal 7/8; Remedy 11/12; Implementation 7/8; Abuse Resistance 8/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. T4 completed the public-source work reasonably available for current litigation, direct analogue comparison, codification, protected information, emergency extensions, workload, adoption, opposition, and legal durability. Advanced Review Ready remains unavailable because the proposal lacks qualified external review, proposal-specific cost estimates, deadline validation, a bipartisan adoption coalition, a complete cross-administration trigger comparator, and a final merits resolution of the current impoundment cases.
 
 **Adoption Score.** The score is 4/12 (Limited Adoption Basis). H.R. 5314 reached House passage and H.R. 5220 supplies a current 21-cosponsor vehicle, but the former passed almost entirely along party lines and the latter has only Democratic cosponsors, no committee action, and no CBO estimate. That supports a real but presently weak ordinary-legislation pathway, not a bipartisan coalition claim.
 

@@ -14,6 +14,61 @@ This file preserves the full audit history for [FUND-001](FUND-001.md). The issu
 
 Entries are maintained newest first. Change Audits preserve the existing score unless the audit identifies a score-bearing defect and recalculates the proposal under the current rubric.
 
+### 2026-07-13 — T4 publication-ready audit
+
+**Audit type:** Cumulative T4 publication-ready audit under rubric `2026-06-27.2`.
+
+**Score:** 83/100, Review Ready.
+
+**Component score:** Structural 8/8; Evidence 11/12; Legal Fit 9/10; Prior-Proposal 7/8; Remedy 11/12; Implementation 7/8; Abuse Resistance 8/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0.
+
+**Publication-readiness determination:** FUND-001 is suitable for knowledgeable external critique but not ready to be represented as externally validated or empirically costed. T4 confirmed or expressly carried forward the cumulative T1-T3 framework, format, current-status, existing-law, pending-case, prior-proposal, functional-analogue, budget, remedy-fit, legislation-alignment, source, adoption, and unresolved-claim criteria. No public-source defect requires withdrawal from Review Ready. Advanced Review Ready and Publication Ready remain unavailable because external review is zero and several questions require institutional or professional input rather than additional general web research.
+
+**Current-status and mootness refresh:** Congress.gov still lists H.R. 5220 as introduced, with 21 Democratic cosponsors, seven House committee referrals, no action after September 9, 2025, and no CBO estimate. The Supreme Court's public No. 25A269 docket and the official D.C. Circuit materials reviewed for the foreign-assistance cases did not disclose a later final merits disposition that would resolve the ICA cause-of-action problem or qualify as a FUND-001 trigger. GAO's refreshed ICA index continues to show a mixed current record of violation and no-violation decisions; no enacted successor displaced the proposal.
+
+**Direct prior-proposal comparison:** T4 reviewed H.R. 5220's introduced text rather than only its summary. The bill would add prudent-obligation and expiring-funds rules as ICA section 1018, apportionment reporting as section 1019, penalties as section 1020, expanded Comptroller General access and D.D.C. litigation authority, and protected-information rules for publication of OLC opinions. These provisions validate the ICA/title X amendment, section 1(b) table-of-contents amendment, D.D.C. forum, apportionment, reporting, and protected-summary vehicles. FUND-001 does not duplicate them: its distinctive response is a repeated-final-judgment trigger, temporary fiscal-inertness and certification regime, injured-party cause, three-judge review, and prospective specific relief.
+
+**Legislative-form and codification finding:** The current analogue confirms use of section 1(b) for the Act's table of contents and addition of new numbered ICA sections after section 1017. FUND-001's choice to create a new part C beginning with section 1021 remains coherent because H.R. 5220 uses sections 1018 through 1020. The draft consistently assigns operative duties, deadlines, defendants, forum, panel formation, relief, appeal, effective date, authorization, and severability. Formal House or Senate legislative counsel should still decide whether the final vehicle should create part C as drafted, integrate with enacted or concurrently proposed sections 1018-1020, or relocate GAO-access provisions to title 31.
+
+**Protected-information correction:** A public certification could otherwise compel disclosure of classified facts, privileged communications, personally identifiable information, procurement-sensitive material, or trade secrets. Section 1024 now requires public identification of every legal authority and a meaningful unclassified explanation while allowing only minimum-necessary protected annexes. Annexes go to the relevant committees and GAO subject to law and to the reviewing court under protective procedures; the public filing must identify the withholding category and legal basis where lawful and provide a reasonably segregable summary. Secrecy cannot conceal the existence of a relied-upon legal authority, a material budget effect, or the responsible official's title.
+
+**Emergency-extension correction:** The prior draft allowed a three-judge court to extend the 14-day emergency period without an express merits standard or maximum. T4 limits each extension to 30 days and requires clear and convincing evidence of continuing imminent and concrete harm, likely lawful authority, no narrower lawful measure, and necessity. Each further extension requires a new showing. This closes the most important remaining self-certification escape valve without preventing a court from protecting genuine emergencies.
+
+**Legal-durability analysis:** The strongest basis remains Congress's appropriations and Necessary and Proper powers applied to agencies, OMB, budget authority, and statutory program execution rather than direct control of presidential speech. Final Article III judgments supply the trigger; GAO remains advisory and retains separately enacted litigation roles; binding consequences arise from the statute itself; direct coercive relief against the President is excluded; Article III standing remains required; and specialized statutory review survives for claims not independently arising under FUND-001. Principal remaining litigation risks are the section 1026 override's interaction with Tucker Act and specialized regimes, whether prospective payment relief is treated as specific relief in a future case, breadth of covered directive and implementation definitions, section 2284 and appellate-route design, and whether particular applications intrude on exclusive Article II authority. Severability and covered-scope limits reduce the consequence of an application-specific holding.
+
+**Fiscal and implementation review:** Every affirmative dollar or workload statement is tied to an official government source and labeled as a scale comparator. The five-year authorization of such sums supplies an appropriations vehicle without claiming budget authority or an unsupported fixed cost. Protected-annex handling adds some administrative burden but does not provide a basis for a new numeric estimate. Proposal-specific CBO, OMB, GAO, affected-agency, and Administrative Office estimates remain necessary. The 15-, 30-, 90-, and 180-day sequence remains facially coherent, but publication-level empirical validation requires affected-institution input.
+
+**Adoption and opposition analysis:** Adoption remains 4/12 and the required environment remains `sixty-vote-senate`. The House-passed H.R. 5314 and introduced H.R. 5220 prove a legislative vehicle and organized support, but not a current bipartisan or Senate coalition. Likely objections include executive-branch institutional resistance across parties; chilling of lawful supervision; D.D.C. concentration and three-judge-panel burden; open-ended authorization; possible forum displacement; certification exposure of sensitive information; and opportunistic litigation. T4's final-judgment, distinct-directive, current-term, appropriations-specific, covered-scope, protected-annex, emergency-extension, standing, anti-relabeling, and no-direct-presidential-relief rules materially answer those objections without making the political path easy.
+
+**Final verified-claims table:**
+
+| Publication claim | Status |
+| --- | --- |
+| Existing law regulates rescissions and deferrals and authorizes Comptroller General D.D.C. enforcement | Verified against official 2 U.S.C. §§ 683, 684, and 687. |
+| GAO cannot itself exercise binding executive power under this trigger design | Verified doctrinal risk against *Bowsher*; the bill makes GAO outputs non-triggering and advisory. |
+| Existing ICA structure can preclude private APA enforcement of the ICA | Verified against the official D.C. Circuit amended order; current Supreme Court stay is expressly preliminary. |
+| Congress has used the ICA/title X, D.D.C., apportionment, GAO-access, penalty, and protected-summary vehicles in direct proposals | Verified against H.R. 5314 and section-level review of H.R. 5220. |
+| The bill supplies rather than assumes a private cause, waiver, forum, and prospective remedy | Verified in section 1026, subject to external legal-durability review. |
+| Current public sources support government-wide scale but not a fixed incremental cost | Verified and expressly bounded. |
+
+**Final unresolved-claims and expert-review table:**
+
+| Matter | Required reviewer or evidence |
+| --- | --- |
+| Section 1026 interaction with the APA, Tucker Act, Court of Federal Claims, grant, contract, procurement, CSRA, and other channeling regimes | Federal-courts, administrative-law, appropriations-law, and legislative-counsel review. |
+| Article II boundary in national-security, diplomacy, and military-command applications | Constitutional and executive-power review. |
+| Part C and sections 1021-1029 placement if Congress also advances H.R. 5220-style sections 1018-1020 | House or Senate legislative counsel. |
+| Protected-annex access, privilege, classification, and adversarial-process mechanics | National-security counsel, congressional security officers, GAO, and federal-courts review. |
+| 15-, 30-, 90-, and 180-day operational feasibility | OMB, affected agencies, GAO, courts, grantees, recipients, and program administrators. |
+| Two-final-judgment/36-month empirical calibration | Completed cross-administration case comparator and qualified empirical review. |
+| Incremental cost and staffing | CBO and affected-institution estimates. |
+| Adoption pathway and opposition | Senate analogue, committee action, bipartisan validators, stakeholder positions, and proposal-specific public evidence. |
+| Current foreign-assistance and grant merits posture | Docket refresh immediately before circulation. |
+
+**Score effect:** Increased from 81 to 83. Evidence increased for section-level analogue, current-status, and final publication claim verification; Abuse Resistance increased after the protected-information and bounded emergency-extension corrections. Other components remain unchanged. Further internal score inflation would be unjustified without the external, empirical, fiscal, operational, and current-case work listed above.
+
+**Next audit:** Qualified appropriations, federal-courts, administrative-law, budget, program-administration, national-security, and legislative-counsel review. Refresh current litigation and H.R. 5220 immediately before external circulation. A later Change Audit is required if JUD-011, the independent bill, the ICA baseline, or pending judicial doctrine materially changes.
+
 ### 2026-07-13 — T3 readiness audit
 
 **Audit type:** Full T3 readiness audit under rubric `2026-06-27.2`.
