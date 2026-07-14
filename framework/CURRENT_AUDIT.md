@@ -15,16 +15,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Active |
 | Active issue/task | FUND-001 — Addressing Executive Order Abuse |
-| Audit type/tier | Autonomous successive audit sequence; full T2 development audit active |
+| Audit type/tier | Autonomous successive audit sequence; FUND-001 T2 development audit completed and awaiting commit/push |
 | Started | 2026-07-13 18:59:40 -0400 |
-| Last checkpoint | 2026-07-13 20:04:55 -0400 |
+| Last checkpoint | 2026-07-13 20:23:22 -0400 |
 | User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
 | Scope | FUND-001 issue page, independent Executive-Order Abuse Impoundment Control Act, JUD-011 preferred-remedy fit, audit sidecar, Impoundment Control Act and appropriations authorities, trigger and comparator evidence, standing and three-judge-court mechanics, implementation and budget evidence, source and audit inventories, dashboard, GitHub Project fields, and issue update surface. Later authorized units: FUND-001 T3-T4, REG-001 T1-T4, and EMOL-015 T1-T4. |
-| Files touched | None yet for FUND-001. JUD-011 T1-T4 substantive units are committed and pushed through `dc6279a`. |
-| Completed steps | Completed, validated, Project-synchronized, committed, and pushed JUD-011 T1 through cumulative T4; JUD-011 is 82 / 100 Review Ready. Began FUND-001 orientation from its 60 / 100 T1 and JUD-011 Change Audit baseline and confirmed that the issue presents JUD-011 as the preferred general remedy and FUND-001 as a complete independent alternative. |
-| Next step | Run FUND-001 T2 source, legal-fit, comparator, trigger, standing, procedural, implementation, fiscal, adoption, and legislative-form review; revise the independent bill where warranted; score and synchronize the completed unit. |
+| Files touched | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md` |
+| Completed steps | Completed and validated FUND-001 T2; raised the score from 60 to 76 / 100 Review Ready; verified current law, current GAO manifestations, H.R. 5314 and H.R. 5220 analogues, adoption posture, and provisional workload comparators; narrowed the trigger to final judgments involving distinct current-term directives; removed self-executing GAO and complaint-filing effects; corrected section 2284 panel mechanics, appellate routing, sovereign immunity, standing language, emergency certification, employee protection, current-term and pre-enactment applicability, and authorization of appropriations; aligned the comparator methodology; and confirmed persisted GitHub Project fields in the Project table. |
+| Next step | Commit and push the FUND-001 T2 substantive unit; add provenance and the issue update; then activate and run FUND-001 T3 readiness audit. |
 | Blockers/questions | Local GitHub CLI authentication remains invalid, but the signed-in GitHub interface supplied completion-critical Project synchronization and readback. No substantive policy blocker identified. |
-| Validation status | JUD-011 T1-T4 passed, was committed and pushed, and its T4 Project fields were independently read back. FUND-001 T2 validation has not yet started. |
+| Validation status | FUND-001 T2 passed YAML parsing, source-inventory width and unique-ID checks, local-link validation, score/status consistency, dashboard tests, `git diff --check`, and Project-table persistence readback. Substantive commit and push remain. |
 
 ## Handoff Rules
 

@@ -29,11 +29,11 @@ The purposes of this Act are to—
 1. protect Congress's constitutional power of the purse;
 2. prevent executive orders, presidential memoranda, OMB directives, or comparable executive directives from being used to effectuate unlawful impoundment, nonexecution, program suspension, grant coercion, or statutory evasion;
 3. preserve lawful executive supervision and administration while limiting the use of appropriated funds to implement covered directives after repeated unlawful conduct;
-4. create an objective trigger based on judicial or Comptroller General findings rather than partisan accusation;
+4. create an objective trigger based on final judicial judgments involving distinct directives rather than partisan accusation, while preserving the Comptroller General's investigative, reporting, and existing enforcement authorities;
 5. ensure that new covered directives are fiscally inert as to their covered scope during a review period unless lawful authority is publicly certified or judicial review permits implementation;
 6. require review of continuing implementation under earlier covered directives issued in the same presidential term;
 7. provide expedited review before unlawful directive-based implementation creates facts on the ground; and
-8. protect officers and employees who decline to implement covered directives that do not satisfy this Act.
+8. protect covered employees who decline to implement covered directives that do not satisfy this Act without restricting constitutionally protected presidential removal authority.
 
 ## SEC. 3. EXECUTIVE DIRECTIVE IMPOUNDMENT REVIEW.
 
@@ -45,7 +45,7 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "In this part:
 
-"(1) **Covered executive directive.** The term 'covered executive directive' means any executive order, presidential memorandum, national security memorandum, homeland security directive, Office of Management and Budget directive, apportionment instruction, agency directive issued to implement a presidential directive, or comparable written or unwritten instruction from the President, the Executive Office of the President, the Office of Management and Budget, or an officer acting under presidential direction that materially affects—
+"(1) **Covered executive directive.** The term 'covered executive directive' means any executive order, presidential memorandum, national security memorandum, homeland security directive, Office of Management and Budget directive, apportionment instruction, agency directive issued to implement a presidential directive, or comparable written or recorded instruction from the President, the Executive Office of the President, the Office of Management and Budget, or an officer acting under presidential direction that materially affects—
 
 "(A) the obligation, expenditure, withholding, delay, deferral, apportionment, reapportionment, reprogramming, transfer, cancellation, or conditioning of budget authority;
 
@@ -61,15 +61,15 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(2) **Covered implementation action.** The term 'covered implementation action' means any action or inaction by an agency, officer, employee, contractor, grantee, or recipient taken to implement, enforce, carry out, give effect to, or comply with a covered executive directive.
 
-"(3) **Trigger finding.** The term 'trigger finding' means—
+"(3) **Trigger finding.** The term 'trigger finding' means a judgment of a court of the United States that—
 
-"(A) a final judgment of a court of the United States holding that a covered executive directive or covered implementation action is unlawful, unconstitutional, in excess of statutory authority, contrary to an appropriations Act, contrary to this title, arbitrary and capricious, or otherwise not in accordance with law;
+"(A) finally holds that a covered executive directive or covered implementation action violates an appropriations Act or another express statutory command, effects a rescission or deferral not authorized by this title, or exceeds statutory or constitutional authority in a manner that materially impairs execution of a statutory program;
 
-"(B) a decision of a three-judge district court under section 1026 holding that a covered executive directive or covered implementation action is likely unlawful and granting declaratory or injunctive relief after notice and an opportunity to be heard;
+"(B) is a judgment of a court of appeals, a judgment of the Supreme Court, or a district-court judgment for which the time to appeal has expired or all appeals have been dismissed;
 
-"(C) a written decision, report, or opinion of the Comptroller General finding that a covered executive directive or covered implementation action violates this title, an appropriations Act, or another statute governing budget authority; or
+"(C) has not been vacated and is not stayed when used to commence or extend a review period; and
 
-"(D) a final judgment enforcing release, obligation, or expenditure of budget authority withheld, delayed, deferred, conditioned, or redirected under a covered executive directive.
+"(D) does not rest solely on a procedural defect under chapter 7 of title 5, United States Code, unless the judgment also makes a holding described in subparagraph (A).
 
 "(4) **Review period.** The term 'review period' means the Executive Directive Impoundment Review Period established under section 1022.
 
@@ -81,21 +81,25 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(8) **Emergency implementation certification.** The term 'emergency implementation certification' means a written certification under section 1025.
 
+"(9) **Distinct directive.** The term 'distinct directive' means a covered executive directive that is not merely a republication, implementing instrument, or component of another directive involved in a trigger finding arising from the same nucleus of operative facts.
+
 ## "SEC. 1022. EXECUTIVE DIRECTIVE IMPOUNDMENT REVIEW PERIOD.
 
 "(a) Trigger.—An Executive Directive Impoundment Review Period shall begin when, during any 24-month period, there are—
 
-"(1) three or more trigger findings involving covered executive directives issued by the same President; or
+"(1) three or more trigger findings involving three or more distinct directives issued during the then-current presidential term by the President then serving; or
 
-"(2) two or more trigger findings involving covered executive directives issued by the same President if at least one finding concerns withholding, delaying, deferring, conditioning, redirecting, or refusing to obligate budget authority contrary to an appropriations Act.
+"(2) two or more trigger findings involving two or more distinct directives issued during the then-current presidential term by the President then serving if at least one finding concerns withholding, delaying, deferring, conditioning, redirecting, or refusing to obligate budget authority contrary to an appropriations Act.
 
 "(b) Commencement.—The review period begins on the date of the final trigger finding necessary to satisfy subsection (a).
 
 "(c) Duration.—The review period shall last for 180 days, except that—
 
-"(1) the period shall be extended for an additional 180 days if a new trigger finding occurs during the review period; and
+"(1) the period shall be extended for an additional 180 days if a new trigger finding involving another distinct directive occurs during the review period; and
 
-"(2) the period shall terminate early if a three-judge district court determines under section 1026 that the trigger requirements were not satisfied.
+"(2) the period shall terminate early if a three-judge district court determines under section 1026 that the trigger requirements were not satisfied; and
+
+"(3) the period shall terminate not later than the end of the presidential term in which it began.
 
 "(d) Publication.—Not later than 3 days after a review period begins, the Director of the Office of Management and Budget shall publish in the Federal Register and transmit to Congress a notice identifying the trigger findings, the covered executive directives involved, the date the review period begins, the date the review period is scheduled to end, and the process for identifying lookback directives subject to continuing-implementation review.
 
@@ -103,15 +107,17 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(f) Lookback inventory.—Not later than 30 days after a review period begins, the Director of the Office of Management and Budget shall publish in the Federal Register and transmit to Congress an inventory of known lookback directives and the affected appropriations, accounts, programs, grants, benefits, contracts, loans, apportionments, or agency operations. Failure to identify a directive in the inventory does not exempt the directive or any covered implementation action from this part.
 
+"(g) Comptroller General notice.—A decision, report, or opinion of the Comptroller General may identify a potential trigger finding, support an action under section 1016 or 1026, or inform congressional oversight, but does not by itself commence or extend a review period or impose a binding duty on an executive-branch officer.
+
 ## "SEC. 1023. FISCAL INERTNESS OF COVERED EXECUTIVE DIRECTIVES DURING REVIEW PERIOD.
 
 "(a) New covered directives.—During a review period, any covered executive directive issued after the review period begins is fiscally inert as to its covered scope unless—
 
 "(1) the Director of the Office of Management and Budget and the head of each implementing agency publish a certification under section 1024;
 
-"(2) the waiting period under section 1024 has expired without an action filed under section 1026;
+"(2) the waiting period under section 1024 has expired;
 
-"(3) if an action is filed under section 1026, the court has denied interim relief or entered judgment permitting implementation; and
+"(3) no temporary restraining order, preliminary injunction, or final judgment prohibits implementation; and
 
 "(4) no other provision of law prohibits the covered implementation action.
 
@@ -119,9 +125,9 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(1) not later than 90 days after the review period begins, the Director of the Office of Management and Budget and the head of each implementing agency publish a certification under section 1024 for continued implementation;
 
-"(2) the waiting period under section 1024 has expired without an action filed under section 1026;
+"(2) the waiting period under section 1024 has expired;
 
-"(3) if an action is filed under section 1026, the court has denied interim relief or entered judgment permitting continued implementation; and
+"(3) no temporary restraining order, preliminary injunction, or final judgment prohibits continued implementation; and
 
 "(4) no other provision of law prohibits the covered implementation action.
 
@@ -179,7 +185,7 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 ## "SEC. 1025. EMERGENCY IMPLEMENTATION.
 
-"(a) Limited emergency exception.—A covered executive directive may be implemented before expiration of the waiting period under section 1024 only if the President, the Director of the Office of Management and Budget, and the head of each implementing agency jointly publish an emergency implementation certification.
+"(a) Limited emergency exception.—A covered executive directive may be implemented before expiration of the waiting period under section 1024 only if the Director of the Office of Management and Budget and the head of each implementing agency jointly publish an emergency implementation certification. If the certification relies on authority vested by the Constitution directly in the President, it shall attach any written presidential determination on which the implementing officers rely, but this subsection does not create a judicially enforceable duty running directly against the President.
 
 "(b) Contents.—The certification shall state with specificity—
 
@@ -201,43 +207,43 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 ## "SEC. 1026. EXPEDITED JUDICIAL REVIEW.
 
-"(a) Cause of action.—A civil action may be brought in the United States District Court for the District of Columbia to enforce this part, to declare a covered executive directive fiscally inert as to its covered scope, to compel release or obligation of unlawfully withheld budget authority, or to enjoin a covered implementation action.
+"(a) Cause of action.—A person described in subsection (b) has an express cause of action in the United States District Court for the District of Columbia to enforce this part, to declare a covered executive directive fiscally inert as to its covered scope, to compel release or obligation of unlawfully withheld budget authority, or to enjoin a covered implementation action. The proper defendants are the United States, an implementing agency, the Director of the Office of Management and Budget, or another officer responsible for implementation. This section does not authorize coercive relief directly against the President.
 
 "(b) Plaintiffs.—An action under this section may be brought by—
 
-"(1) either House of Congress, upon authorization by that House;
+"(1) a State, territory, Tribal government, or political subdivision that alleges a concrete injury caused by the covered implementation action;
 
-"(2) the Comptroller General;
+"(2) a recipient, applicant, beneficiary, contractor, grantee, program administrator, or other person that alleges a concrete injury caused by the covered implementation action;
 
-"(3) a committee of either House with jurisdiction over an affected appropriation or program, upon authorization by that House;
+"(3) Congress, acting through counsel designated after each House adopts a resolution authorizing the same action, if Congress alleges a concrete institutional injury independently sufficient under article III of the Constitution; or
 
-"(4) a State, territory, Tribal government, or political subdivision affected by the directive;
+"(4) any other person authorized to sue under otherwise applicable law that independently satisfies article III of the Constitution.
 
-"(5) a recipient, applicant, beneficiary, contractor, grantee, or other person materially affected by the covered implementation action; or
-
-"(6) any other person authorized to sue under otherwise applicable law.
+"Statutory authorization under this subsection does not dispense with article III injury, causation, redressability, or other constitutional requirements. The Comptroller General retains the separate authority provided by section 1016 and other applicable law.
 
 "(c) Three-judge district court.—An action under this section shall be heard by a three-judge court convened in the United States District Court for the District of Columbia under section 2284 of title 28, United States Code.
 
-"(d) Panel formation and temporary relief.—The chief judge of the district court, or a judge designated by the chief judge, shall request designation of the additional judges not later than 2 days after filing. Before the three-judge court is convened, the district judge to whom the action is initially assigned may grant temporary relief necessary to preserve the court's ability to provide effective relief. Any such order shall remain in effect only until modified or dissolved by the three-judge court.
+"(d) Panel formation and temporary relief.—The district judge to whom the action is initially assigned shall, unless that judge determines that the asserted claim is wholly insubstantial or frivolous, immediately notify the chief judge of the United States Court of Appeals for the District of Columbia Circuit, who shall designate the additional judges in accordance with section 2284(b)(1) of title 28, United States Code. Before the three-judge court is convened, the initially assigned judge may issue a temporary restraining order only as authorized by section 2284(b)(3) of title 28 and rule 65(b) of the Federal Rules of Civil Procedure. A single judge may not grant or deny a preliminary or permanent injunction.
 
-"(e) Expedition.—The court shall expedite the action to the greatest possible extent and shall rule on any request for interim relief not later than 10 days after the request is fully briefed, unless the court finds that extraordinary circumstances require additional time.
+"(e) Expedition.—The court shall expedite the action to the greatest possible extent and shall rule on any request for interim relief not later than 10 days after the request is fully briefed, unless the court finds that additional time is required to protect due process, classified or privileged information, indispensable fact development, or another extraordinary interest of justice. The court shall state the reason publicly to the extent lawful and set the shortest feasible revised deadline.
 
-"(f) Appellate review.—An appeal from a final judgment, or from an order granting or denying interlocutory injunctive relief, shall lie to the United States Court of Appeals for the District of Columbia Circuit and shall be expedited. Section 1253 of title 28, United States Code, shall not apply to an action under this section.
+"(f) Appellate review.—Notwithstanding section 1253 of title 28, United States Code, review of a final judgment or an appealable interlocutory order shall lie in the United States Court of Appeals for the District of Columbia Circuit under sections 1291 and 1292 of title 28, United States Code, and shall be expedited. Supreme Court review remains available under section 1254 of title 28, United States Code.
 
-"(g) Relief.—The court may grant declaratory relief, injunctive relief, mandamus relief, vacatur of a covered implementation action, release of budget authority, compliance reporting, or other appropriate relief.
+"(g) Sovereign immunity and relief.—The United States waives sovereign immunity for an action under this section seeking relief other than money damages. The court may grant declaratory relief, injunctive relief, mandamus relief for a clear nondiscretionary duty, vacatur of a covered implementation action, release of budget authority, compliance reporting, or other appropriate relief. Any mandatory or injunctive decree shall identify by name or official title the officer or officers responsible for compliance. This subsection does not authorize compensatory, punitive, or retrospective monetary damages.
 
 "(h) No bar to other review.—This section does not preclude review under chapter 7 of title 5, United States Code, this title, an appropriations Act, or any other provision of law.
 
 "(i) Existing mandates and continuing conduct.—This part applies to covered implementation occurring after enactment and to a withholding, suspension, delay, or other covered implementation action that remains ongoing on the effective date, without regard to whether the underlying appropriation or statutory program was enacted before, on, or after this part.
 
-## "SEC. 1027. OFFICER AND EMPLOYEE SAFE HARBOR.
+## "SEC. 1027. COVERED-EMPLOYEE SAFE HARBOR.
 
-"(a) Safe harbor.—An officer or employee of the United States may not be removed, demoted, suspended, reassigned, denied promotion, denied pay, disciplined, threatened, or otherwise retaliated against for refusing in good faith to implement a covered executive directive during a review period if the directive has not satisfied section 1023(a) or section 1023(b), as applicable.
+"(a) Covered employee.—In this section, the term 'covered employee' means an employee of the United States other than an officer appointed by the President, by and with the advice and consent of the Senate, or a noncareer appointee whose removal is constitutionally committed to the President or the head of an executive agency.
 
-"(b) Reporting.—An officer or employee may report a suspected violation of this part to the Comptroller General, an Inspector General, the Office of Special Counsel, Congress, or a court with jurisdiction.
+"(b) Safe harbor.—A covered employee may not be removed, demoted, suspended, reassigned, denied promotion, denied pay, disciplined, threatened, or otherwise retaliated against for refusing in good faith to implement a covered executive directive during a review period if the directive has not satisfied section 1023(a) or section 1023(b), as applicable.
 
-"(c) Existing rights preserved.—This section does not limit any right, remedy, or protection under whistleblower, civil-service, appropriations, Inspector General, or other law.
+"(c) Reporting.—An officer or employee may report a suspected violation of this part to the Comptroller General, an Inspector General, the Office of Special Counsel, Congress, or a court with jurisdiction.
+
+"(d) Existing rights and removal authority preserved.—This section does not limit any right, remedy, or protection under whistleblower, civil-service, appropriations, Inspector General, or other law and does not restrict removal authority vested by the Constitution in the President.
 
 ## "SEC. 1028. COMPTROLLER GENERAL REPORTING.
 
@@ -246,6 +252,8 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 "(b) Agency cooperation.—Each agency shall provide the Comptroller General timely access to records, apportionments, legal memoranda, program instructions, grant conditions, and other materials necessary to review compliance, consistent with law governing classified, privileged, or protected information.
 
 "(c) Reports to Congress.—The Comptroller General shall report significant findings under this part to the Committees on Appropriations and the Budget of the House of Representatives and the Senate, each authorizing committee with jurisdiction over an affected program, and any other committee of jurisdiction.
+
+"(d) No executive power.—A decision, report, or opinion under this section is advisory to Congress and the courts and does not itself commence or extend a review period, prohibit implementation, or otherwise execute this part against an executive-branch officer.
 
 ## "SEC. 1029. RULES OF CONSTRUCTION.
 
@@ -269,7 +277,11 @@ Title X of the Congressional Budget and Impoundment Control Act of 1974 (2 U.S.C
 
 "(9) limit any remedy available under other law; or
 
-"(10) affect any executive directive outside its covered scope.".
+"(10) affect any executive directive outside its covered scope;
+
+"(11) authorize a court to compel or enjoin the President in the performance of a discretionary constitutional or executive duty; or
+
+"(12) displace article III standing, causation, redressability, mootness, ripeness, or other constitutional limits on judicial power.".
 
 ## SEC. 4. CONFORMING AMENDMENT.
 
@@ -289,26 +301,50 @@ The table of contents in section 1(b) of the Congressional Budget and Impoundmen
 
 "Sec. 1026. Expedited judicial review.
 
-"Sec. 1027. Officer and employee safe harbor.
+"Sec. 1027. Covered-employee safe harbor.
 
 "Sec. 1028. Comptroller General reporting.
 
 "Sec. 1029. Rules of construction.".
 
-## SEC. 5. SEVERABILITY.
+## SEC. 5. EFFECTIVE DATE AND APPLICABILITY.
+
+(a) Effective date.—This Act and the amendments made by this Act take effect on the date of enactment.
+
+(b) Existing judgments and ongoing implementation.—A trigger finding entered during the 24-month period preceding enactment may count under section 1022 of the Impoundment Control Act of 1974, as added by this Act, only if—
+
+(1) the directive was issued during the then-current presidential term by the President serving on the date of enactment;
+
+(2) the directive has an ongoing or future covered implementation action on or after the date of enactment; and
+
+(3) the judgment otherwise satisfies sections 1021 and 1022 of that Act.
+
+(c) Completed conduct.—Nothing in this section independently invalidates a completed obligation, expenditure, personnel action, grant award, contract, benefit payment, or other completed action or disturbs a vested third-party right.
+
+## SEC. 6. AUTHORIZATION OF APPROPRIATIONS.
+
+(a) In general.—There are authorized to be appropriated to the Government Accountability Office, the Office of Management and Budget, the Administrative Office of the United States Courts, and affected executive agencies such sums as may be necessary for fiscal years 2027 through 2031 to carry out the amendments made by this Act.
+
+(b) Availability.—Amounts appropriated pursuant to subsection (a) may remain available until expended and shall supplement, not supplant, amounts otherwise available for the same purposes.
+
+(c) No direct appropriation.—This section is an authorization of appropriations and does not itself provide budget authority.
+
+## SEC. 7. SEVERABILITY.
 
 If any provision of this Act, an amendment made by this Act, or the application of such provision or amendment to any person or circumstance is held invalid, the remainder of this Act, the amendments made by this Act, and the application of such provision or amendment to any other person or circumstance shall not be affected.
 
 ## Budgetary Impact Statement
 
-Administrative and litigation workload is likely for OMB, GAO, affected agencies, congressional committees, and the federal courts. No new standing appropriation is specified. Implementation costs would depend on the frequency of trigger findings and covered executive directives. FUND-001 is a complete standalone remedy and therefore must account for all incremental OMB, GAO, agency, fiscal-release, compliance, and three-judge-court costs attributable to the Act.
+Administrative and litigation workload is likely for OMB, GAO, affected agencies, and the federal courts. Section 6 authorizes such sums as may be necessary for fiscal years 2027 through 2031 but does not directly appropriate funds. Implementation costs would depend on the frequency of qualifying final judgments, the number of covered directives requiring certification, and resulting litigation. As scale comparators rather than estimates of this bill, GAO's fiscal year 2026 request sought $933.9 million in appropriations for an agency-wide workload exceeding 550 legal decisions in fiscal year 2024, while H.R. 5220—the closest current congressional analogue—has no published CBO estimate. A proposal-specific CBO score and GAO, OMB, and Judiciary workload estimates remain necessary before appropriators should select a fixed amount.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Drafting Notes
 
 - This draft regulates agency implementation and appropriated funds rather than directly invalidating executive orders.
-- T2 should verify whether the new part should be codified in 2 U.S.C. chapter 17B, a new title 31 provision, annual appropriations riders, or a combination.
-- T2 should test congressional-plaintiff standing, Comptroller General enforcement, emergency exceptions, D.C. Circuit appellate review, and the standalone three-judge-D.D.C. route.
+- T2 retains the new part in title X because H.R. 5314 and H.R. 5220 use the same Impoundment Control Act vehicle for prudent-obligation, apportionment-reporting, GAO-access, enforcement, and penalty reforms. Legislative counsel should still test whether selected GAO-access provisions belong in title 31.
+- T2 limits trigger credit to qualifying final judicial judgments involving distinct directives; GAO findings remain advisory and retain existing statutory enforcement functions, reducing the separation-of-powers risk identified in *Bowsher v. Synar*.
+- T2 aligns panel formation and single-judge temporary relief with 28 U.S.C. § 2284, expressly routes appeals through 28 U.S.C. §§ 1291 and 1292 notwithstanding § 1253, and preserves Supreme Court certiorari under § 1254.
+- T2 confines the express plaintiff route to concretely injured parties and Congress acting with both Houses' authorization and independent Article III standing; qualified review remains necessary because legislation can confer a cause of action but cannot eliminate constitutional standing requirements.
 - This bill is the independent FUND-001 alternative. It neither invokes nor depends on the [Interbranch Review Framework Act (JUD-011)](JUD-011.md) or another ARRP proposal.
-- T2 should review whether preliminary-injunction findings should count as trigger findings or whether only final judgments and Comptroller General decisions should count.
+- T3 should test the final-judgment threshold against historical case timelines, review the 15-, 30-, 90-, and 180-day deadlines with OMB and program administrators, verify codification and authorization language with legislative counsel, and obtain workload estimates from GAO, OMB, and the Judiciary.

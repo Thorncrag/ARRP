@@ -1,6 +1,6 @@
 ---
 title: "FUND-001 Executive Order Judicial Review Comparator"
-status: source-development
+status: t2-source-development
 associated_issue: FUND-001
 print_levels:
   - full-technical
@@ -11,7 +11,7 @@ print_levels:
 This comparator supports [FUND-001](../areas/FUND/issues/FUND-001.md) by separating two questions:
 
 1. how many executive orders were issued during a presidency or term; and
-2. how many executive orders or covered implementation actions were later found unlawful by a court or the Comptroller General.
+2. how many executive orders or covered implementation actions later received an adverse final judicial judgment or an adverse Comptroller General opinion.
 
 The first question supplies a neutral denominator. The second supplies a possible abuse-risk numerator. Neither should be used alone as proof of executive-order abuse.
 
@@ -19,16 +19,20 @@ The first question supplies a neutral denominator. The second supplies a possibl
 
 The denominator source is the Federal Register's executive-order disposition tables. See [Executive Orders](https://www.federalregister.gov/presidential-documents/executive-orders), Office of the Federal Register.
 
-T2 should verify the count date, publication lag, and whether comparison should use full administrations, individual terms, calendar years, or orders per day in office.
+T3 should verify the count date, publication lag, and whether comparison should use full administrations, individual terms, calendar years, or orders per day in office.
 
 ## Numerator Inclusion Rule
 
-An executive order or covered executive directive should be included in the numerator only if source review identifies one of the following:
+An executive order or covered executive directive should receive **FUND-001 trigger credit** only if source review identifies a final judicial judgment that satisfies every element of the revised bill's trigger definition. The broader research numerator may separately retain non-trigger adverse legal findings, but must label them accordingly.
 
-1. a final judgment holding the executive order, directive, or covered implementation action unlawful;
-2. a three-judge-court decision granting relief after a merits finding that the order or implementation action is likely unlawful;
-3. a Comptroller General decision finding that the order or implementation action violated the Impoundment Control Act, an appropriations Act, or another budget-authority statute;
-4. a final judgment compelling release, obligation, or expenditure of budget authority withheld, delayed, conditioned, or redirected under the order or implementation action.
+Trigger-credit entries must show:
+
+1. a final judicial judgment involving an appropriations violation, express statutory command, unauthorized rescission or deferral, or material excess of statutory or constitutional authority;
+2. appellate finality, expiration or dismissal of appeal, no vacatur, and no operative stay;
+3. a distinct directive issued during the current term by the President then serving; and
+4. ongoing or future covered implementation if the judgment predates enactment.
+
+Preliminary relief, procedural-only APA rulings, duplicate judgments arising from the same directive and facts, and Comptroller General opinions receive no trigger credit. GAO opinions remain separately valuable as investigation, oversight, notice, and litigation-support evidence.
 
 Entries should distinguish:
 
@@ -61,9 +65,9 @@ When populated, the comparator should use a case-level CSV or table with these f
 | `fund_001_trigger_credit` | Yes, no, partial, or unresolved under the proposed FUND-001 trigger. |
 | `notes` | Caveats, source limits, and relationship to FUND-001. |
 
-## Initial Status
+## T2 Status
 
-No complete official comparator has been identified. The project should construct the numerator during T2 source development from court decisions, Comptroller General decisions, Federal Register records, OMB materials, and agency implementation records.
+No complete official comparator has been identified. T2 verified that existing trackers use incompatible denominators and finality rules and therefore cannot be imported as a statutory trigger table. T3 should continue construction from court decisions, Comptroller General decisions, Federal Register records, OMB materials, and agency implementation records while keeping final judicial trigger credit separate from GAO and preliminary-relief indicators.
 
 Candidate entries should not be treated as trigger-credit entries until the legal finding, finality posture, and implementation relationship are verified.
 
@@ -87,7 +91,7 @@ Potential fields:
 | `litigation_or_legal_context` | Whether public sources connect the disposition to litigation, legal vulnerability, statutory conflict, or court/GAO findings. |
 | `fund_001_value` | Denominator analog, litigation-pressure proxy, or possible source-development lead. |
 
-T2 should test whether the Federal Register bulk CSV/JSON files include disposition metadata in a machine-readable form. If not, the same-administration analog may require text parsing of disposition notes or individual EO pages.
+T3 should test whether the Federal Register bulk CSV/JSON files include disposition metadata in a machine-readable form. If not, the same-administration analog may require text parsing of disposition notes or individual EO pages.
 
 ### Trump Second-Term Quick Scan
 
@@ -119,7 +123,7 @@ Initial public-source review did not identify a complete all-presidents dataset 
 - **First Trump presidency lists.** Public lists exist for major lawsuits concerning first-term executive orders, proclamations, and memoranda, but they do not appear to provide a structured all-EO denominator-to-outcome dataset.
 - **Clinton, George W. Bush, Obama, and Biden.** No public all-EO legal-outcome comparator was identified in this initial search.
 
-T2 should therefore treat public trackers as source leads and construct a normalized project comparator rather than importing any one tracker wholesale.
+T3 should therefore treat public trackers as source leads and construct a normalized project comparator rather than importing any one tracker wholesale.
 
 ## Candidate Tracker Check
 
@@ -140,7 +144,7 @@ The following user-identified trackers should be treated as follows:
 | AttorneysGeneral.org State Lawsuits Database | Verified. Provides a searchable table of state AG lawsuits against the federal government from 1980 to present, with administration, litigation target, judicial action, injunction, outcome, court, citation/docket, and causes-of-action fields. Methodology page verified. | Strong structured case-level comparator lead. A June 29, 2026 quick scan of the May 25, 2025 public table data found 134 multistate Biden-administration rows, including 23 national injunctions issued, 23 local injunctions issued, and 2 pending injunction motions. | Not EO-specific; methodology covers cases with at least two AGs as direct parties against federal defendants; counts local and national injunction categories that are broader than CRS nationwide-injunction counts; requires case-level normalization before front-table substitution. |
 | Ballotpedia Biden multistate lawsuits | Verified. Tracks multistate lawsuits against the federal government during the Biden Administration and appears to provide injunction/status leads for individual cases. | Useful Biden-era litigation routing layer, state-plaintiff comparator lead, and audit source for testing the CRS Biden count. | Not EO-specific; direct page extraction was blocked during the June 29, 2026 re-scan, so case and outcome coding still requires primary docket and opinion verification. |
 
-T2 should prioritize Just Security and CourtListener for pilot coding, use Littler for labor/employment EO identification, and treat NYT, LDF, Cohen/House, and Wikipedia as routing sources unless directly verified and reconciled with primary docket materials.
+T3 should prioritize Just Security and CourtListener for pilot coding, use Littler for labor/employment EO identification, and treat NYT, LDF, Cohen/House, and Wikipedia as routing sources unless directly verified and reconciled with primary docket materials.
 
 CRS R48467 should be treated as the best currently identified public cross-administration comparator, but for nationwide injunctions rather than EO-specific judicial-review outcomes. The front-page issue table therefore compares Federal Register EO counts against CRS appendix nationwide-injunction counts where available, and uses the higher CRS-reported DOJ-cited count for George W. Bush and Obama with a notation that CRS did not provide appendix counts for those administrations. Harvard Law Review-cited counts remain source-note and T2 verification leads. The Trump second-term AP figure is not a nationwide-injunction count; it is displayed as a caveated temporary proxy in the "Unlawful" column because it reports court blocks of executive actions rather than final EO-specific merits outcomes.
 
@@ -152,12 +156,12 @@ The CRS report's source trail is relevant, but it does not appear to solve the E
 | --- | --- | --- |
 | CRS appendix analysis | Most reliable identified public count for the report's covered administrations: 86 nationwide-injunction cases under the first Trump Administration and 28 under the Biden Administration. CRS also codes subject matter and issuing-court geography. | Use as the strongest public cross-administration comparator currently identified, with the caveat that it is nationwide-injunction data rather than EO-specific final unlawfulness data. |
 | Department of Justice nationwide-injunction counts cited by CRS | CRS reports DOJ historical counts for George W. Bush, Obama, and the first Trump Administration. These are useful because they extend the comparison beyond the CRS appendix period. | Use as a CRS-cited comparator lead, but label as DOJ-cited counts because DOJ has an institutional litigation position against nationwide injunctions. |
-| Harvard Law Review nationwide-injunction counts cited by CRS | CRS reports Harvard Law Review counts for George W. Bush, Obama, the first Trump Administration, and the first three years of the Biden Administration. These are useful because they provide an academic comparator series across multiple administrations. | Use as a strong T2 verification target. If the underlying Harvard table or methodology is accessible, it may become the preferred non-governmental comparator series for the front-page table. |
+| Harvard Law Review nationwide-injunction counts cited by CRS | CRS reports Harvard Law Review counts for George W. Bush, Obama, the first Trump Administration, and the first three years of the Biden Administration. These are useful because they provide an academic comparator series across multiple administrations. | Use as a strong T3 verification target. If the underlying Harvard table or methodology is accessible, it may become the preferred non-governmental comparator series for the front-page table. |
 | CRS case list and subject-matter coding | Potentially useful for building a pilot dataset of federal-policy blocks by administration and subject matter. | Treat as a bridge dataset: it can help classify litigation pressure, but each case would still need separate coding for EO number, implementation action, finality, and appropriations relevance. |
 | AttorneysGeneral.org State Lawsuits Database | Strongest structured public case-level source identified so far for state AG litigation across administrations; includes administration, injunction, outcome, court, citation/docket, causes of action, and target fields. | Treat as the main audit layer for reconciling Biden and other administrations against CRS, Harvard, DOJ, Ballotpedia, and primary dockets. Do not import aggregate counts directly into the front-page table until the project decides whether the comparator counts only nationwide injunctions, all injunctions, merits wins, or EO-linked implementation-action outcomes. |
 | Ballotpedia Biden multistate-lawsuit case list | Potentially useful for checking Biden-era injunction/status outcomes at the case level and identifying state-plaintiff litigation not obvious from EO-denominator searches. | Treat as a Biden-specific audit layer for the injunction comparator. Do not import its numbers directly into the front-page table until each case is normalized against CRS categories, docket records, EO or implementation-action links, finality, and appropriations relevance. |
 
-Research assessment: these CRS source leads are relevant enough to remain integrated in the front-page table, but they should be kept in a separate "nationwide injunction" comparator column. They do not replace the stricter FUND-001 trigger question: whether an executive order or covered implementation action was later found unlawful by a final court judgment, qualifying three-judge-court determination, or Comptroller General finding.
+Research assessment: these CRS source leads are relevant enough to remain integrated in the front-page table, but they should be kept in a separate "nationwide injunction" comparator column. They do not replace the stricter FUND-001 trigger question: whether a distinct executive directive or covered implementation action produced a qualifying final judicial judgment under the revised statutory test.
 
 ## State-Led Suit Comparator
 
@@ -206,7 +210,7 @@ Coding implication:
 | --- | --- | ---: | --- |
 | Trump first term | Final SCOTUS merits opinions holding an executive order itself unlawful | 0 | Preliminary pilot result; does not include lower-court injunctions, emergency orders, implementation-only cases, mooted cases, or Supreme Court decisions upholding presidential directives. |
 
-T2 should verify this pilot with Supreme Court docket searches for EO number variants, order titles, Federal Register citations, and known litigation names before treating the zero as final.
+T3 should verify this pilot with Supreme Court docket searches for EO number variants, order titles, Federal Register citations, and known litigation names before treating the zero as final.
 
 ## Narrow D.C. Circuit Pilot: Trump First Term
 
@@ -224,7 +228,7 @@ Coding implication:
 | --- | --- | ---: | --- |
 | Trump first term | Final D.C. Circuit opinions holding an executive order itself unlawful | 0 | Preliminary pilot result; does not include district-court orders, preliminary injunctions, implementation-only cases, jurisdictional reversals, mooted cases, or cases in other circuits. |
 
-T2 should verify this pilot with CourtListener, official D.C. Circuit opinions, Federal Register EO-number searches, and known case names before treating the zero as final.
+T3 should verify this pilot with CourtListener, official D.C. Circuit opinions, Federal Register EO-number searches, and known case names before treating the zero as final.
 
 ## Narrow D.D.C. Pilot: Trump First Term
 
@@ -246,7 +250,7 @@ Coding implication:
 | Trump first term | Final D.D.C. opinions holding an executive order itself unlawful before appellate review | 1 identified | Preliminary pilot result; principal example is federal workforce/union EO litigation, later reversed by the D.C. Circuit on jurisdictional/CSRA-channeling grounds. |
 | Trump first term | Durable D.D.C. EO invalidations surviving appellate review | 0 identified | Preliminary pilot result; requires primary-source verification. |
 
-T2 should verify the district-court opinion, D.C. Circuit reversal, docket posture, and exact scope of relief before treating these counts as final.
+T3 should verify the district-court opinion, D.C. Circuit reversal, docket posture, and exact scope of relief before treating these counts as final.
 
 ## AP News Tracker Proxy: Trump Second Term
 
@@ -270,4 +274,4 @@ Applied pilot coding for the issue-page table:
 | Trump second term | Executive actions not impeded by courts as of May 1, 2025 | Nearly 50 | Use only as broad context. |
 | Trump second term | Pending executive-action cases as of May 1, 2025 | Dozens | Use only as broad context. |
 
-T2 should try to locate the live AP tracker page or underlying AP dataset, reconcile it with Just Security and CourtListener, and then code only entries that can be mapped to EO number, directive title, implementation action, court, posture, and finality.
+T3 should try to locate the live AP tracker page or underlying AP dataset, reconcile it with Just Security and CourtListener, and then code only entries that can be mapped to EO number, directive title, implementation action, court, posture, and finality.

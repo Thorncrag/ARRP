@@ -8,11 +8,11 @@ remedy_type: federal-legislation
 legislative_status: working-draft
 legislative_proposal: "../../../legislation/JUD-011.md"
 alternative_legislative_proposal: "../../../legislation/FUND-001.md"
-audit_status: "T1 complete; JUD-011 cross-issue consistency Change Audit complete; full T2 development audit pending"
-audit_score: 60
-audit_last_type: "JUD-011 cross-issue consistency Change Audit"
+audit_status: "T2 development audit complete; T3 readiness audit pending"
+audit_score: 76
+audit_last_type: "T2 development audit"
 audit_last_date: "2026-07-13"
-audit_next: "Full T2 development audit"
+audit_next: "Full T3 readiness audit"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -121,6 +121,24 @@ The proposal draws from those sources but adds a new pattern-response mechanism.
 
 Lisa Manheim and Kathryn A. Watts's article [Reviewing Presidential Orders](https://lawreview.uchicago.edu/print-archive/reviewing-presidential-orders) provides an important scholarly frame for this proposal. The article explains that presidents increasingly rely on executive orders and other unilateral written directives to influence agency policymaking, while courts lack a coherent framework for direct review of presidential orders. It also distinguishes the traditional route of challenging agency implementation under administrative-law doctrines from newer direct challenges to presidential orders. FUND-001 uses that distinction by regulating agency implementation and appropriated funds rather than attempting to invalidate presidential orders directly.
 
+### Current-law and prior-proposal findings
+
+The official U.S. Code confirms that [2 U.S.C. § 687](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title2-section687) already authorizes the Comptroller General to sue in D.D.C. to require unlawfully withheld budget authority to be made available after congressional notice. FUND-001 preserves that separate authority but no longer lets a GAO opinion itself activate binding constraints on later executive action. That change responds to [*Bowsher v. Synar*](https://www.govinfo.gov/app/details/USREPORTS-478/USREPORTS-478-714), which bars an officer subject to congressional removal from executing the laws, while retaining GAO's established investigative, reporting, and litigation roles.
+
+The closest direct legislative analogues are the House-passed [Protecting Our Democracy Act, H.R. 5314 (117th Congress)](https://www.congress.gov/bill/117th-congress/house-bill/5314) and the pending [Congressional Power of the Purse Act, H.R. 5220 (119th Congress)](https://www.congress.gov/bill/119th-congress/house-bill/5220). Both use the Impoundment Control Act vehicle for prudent-obligation, apportionment-transparency, GAO-access, enforcement, or penalty reforms. H.R. 5314 passed the House 220-208 in 2021, with one Republican voting in favor; H.R. 5220 was introduced September 9, 2025, has 21 Democratic cosponsors, remains referred to seven House committees, and has no published CBO estimate. Those records establish a real legislative pathway and substantial drafting precedent, but they also show strong partisan and committee-jurisdiction friction.
+
+GAO's current [Impoundment Control Act decision index](https://www.gao.gov/legal/appropriations-law/impoundment-control-act) reports both violation and no-violation decisions concerning fiscal year 2025 program pauses, grant funding, agency reductions, and a presidential wind-energy memorandum. The mixed results matter: they demonstrate both a current enforcement problem and the need to preserve good-faith apportionment and program administration rather than treating every pause or directive as abuse.
+
+### T2 legal-fit corrections
+
+The independent bill now requires final judicial judgments involving distinct directives issued during the current term by the President then serving before the pattern trigger activates, and the review period ends no later than that term. Preliminary injunctions, procedural-only APA rulings, multiple judgments arising from the same directive, and GAO opinions standing alone do not count. Filing a complaint also no longer freezes implementation; after the 15-day certification period, implementation may proceed unless a court grants relief. Qualifying judgments entered during the 24 months before enactment may count if the same President remains in office and covered implementation is ongoing, so the reform reaches existing problems without undoing completed conduct or vested rights.
+
+The judicial-review section now tracks [28 U.S.C. § 2284](https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A2284+edition%3Aprelim%29): the initially assigned district judge notifies the chief judge of the D.C. Circuit, a single judge is limited to a Rule 65(b) temporary restraining order, and the panel decides preliminary and permanent relief. Appeals proceed to the D.C. Circuit under sections 1291 and 1292 notwithstanding [28 U.S.C. § 1253](https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A1253+edition%3Aprelim%29), with ordinary Supreme Court certiorari preserved.
+
+The statute supplies an express cause of action and waives sovereign immunity for non-damages relief, but it does not purport to manufacture Article III standing. Concretely injured states, grantees, beneficiaries, contractors, and program administrators are the primary plaintiffs. Congress may sue only after both Houses authorize the same action and only if it independently establishes constitutional injury, causation, and redressability. [*Raines v. Byrd*](https://www.govinfo.gov/app/details/USREPORTS-521/USREPORTS-521-811) forecloses reliance on generalized institutional disagreement by individual legislators, while *Train* demonstrates the stronger route through a government or recipient denied congressionally directed funds.
+
+A current remedial warning comes from the Supreme Court's stay order in [*Department of State v. AIDS Vaccine Advocacy Coalition*, No. 25A269](https://www.supremecourt.gov/opinions/24pdf/25a269_bp7c.pdf). The Court's preliminary assessment treated the Impoundment Control Act as likely precluding the plaintiffs' APA theory and treated mandamus as unavailable on the record before it. The order is not a final merits judgment, but it strengthens the case for FUND-001's express cause of action, express non-damages waiver, identified responsible defendants, and limited mandamus language while leaving claim-channeling and Court of Federal Claims issues for T3.
+
 ## Least-Complex Adequate Remedy
 
 The preferred remedy is the [Interbranch Review Framework Act (JUD-011)](../../../legislation/JUD-011.md) alone because its generally applicable anti-nullification claim reaches substantial and sustained executive displacement of enacted appropriations and program mandates without a subject-matter opt-in. If Congress rejects that general framework, the least-complex independent alternative is FUND-001: federal legislation amending the Impoundment Control Act and related appropriations-enforcement rules. A constitutional amendment should be reserved only if Congress seeks to directly invalidate executive orders, impose presidential disabilities, or regulate the President's issuance authority rather than agency implementation and appropriated funds.
@@ -132,7 +150,7 @@ Congress should create an **Executive Directive Impoundment Review** regime.
 The statute should:
 
 1. define covered executive directives to include executive orders, presidential memoranda, OMB directives, and other presidential or Executive Office instructions that materially affect appropriated funds, statutory program execution, grants, benefits, apportionment, reprogramming, enforcement capacity, or state-administered programs;
-2. define trigger findings to include final court judgments, three-judge-court determinations, and Comptroller General findings that a covered directive or covered implementation action was unlawful;
+2. limit trigger findings to qualifying final judicial judgments involving distinct directives, while using Comptroller General findings as notice, evidence, and support for existing enforcement rather than as self-executing triggers;
 3. activate a temporary review period after a specified number of trigger findings within a defined time window;
 4. make new covered directives fiscally inert as to their covered scope during the review period;
 5. require lookback review of continuing implementation actions under earlier covered directives issued in the same presidential term;
@@ -140,7 +158,7 @@ The statute should:
 7. require a public legal-authority certification from OMB and the implementing agency;
 8. provide expedited three-judge review with D.C. Circuit appeal and certiorari review;
 9. preserve emergency implementation only for narrow, time-limited, certified circumstances;
-10. protect officials who decline implementation where the directive lacks required certification or review clearance;
+10. protect career and other covered employees who decline implementation where the directive lacks required certification or review clearance without restricting presidential removal of constitutionally removable appointees;
 11. preserve ordinary executive orders that do not affect appropriations, statutory program execution, or covered democratic/federalism structures.
 
 ## Proposed Legislation
@@ -180,17 +198,17 @@ The Interbranch Review Framework Act (JUD-011) carries the two additional D.D.C.
 
 ### Independent alternative — standalone FUND-001
 
-The independent FUND-001 bill must separately account for OMB, agency, GAO, congressional-notice, compliance-monitoring, fiscal-release, and three-judge-court costs. It does not create a new benefits program or presently specify a standing appropriation; T2 should determine whether a protected judicial-administration appropriation is required.
+The independent FUND-001 bill separately authorizes such sums as may be necessary for fiscal years 2027 through 2031 for OMB, affected agencies, GAO, and judicial administration; the authorization does not itself provide budget authority. Workload depends on qualifying final judgments, certifications, and litigation volume. As scale comparators rather than a bill estimate, [GAO's fiscal year 2026 request](https://files.gao.gov/reports/GAO-25-108401/index.html) sought $933.9 million in appropriations for its entire agency-wide mission, and a companion [GAO budget submission](https://files.gao.gov/reports/GAO-25-108440/index.html) reported more than 550 legal decisions in fiscal year 2024. The closest current legislative analogue, H.R. 5220, has no published CBO estimate. A proposal-specific CBO score and GAO, OMB, and Judiciary workload estimates remain necessary before Congress selects a fixed appropriation.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[60 / 100](FUND-001.audit.md)** (Developed Draft)<br />**Adoption Score:** 3 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 82 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[76 / 100](FUND-001.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 82 / 100 (Extreme Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 complete; JUD-011 cross-issue consistency Change Audit complete; full T2 development audit pending<br />**Last Audit:** JUD-011 cross-issue consistency Change Audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Change Audit:** Current for JUD-011 coverage, the standalone alternative, and both budget pathways<br />**Next Audit:** Full T2 development audit<br />**Full Audit History:** [FUND-001 audit history](FUND-001.audit.md)
+> **Audit Status:** T2 development audit complete; T3 readiness audit pending<br />**Last Audit:** T2 development audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Change Audit:** Current for JUD-011 coverage, the standalone alternative, and both budget pathways<br />**Next Audit:** Full T3 readiness audit<br />**Full Audit History:** [FUND-001 audit history](FUND-001.audit.md)
 
 ## Annotation
 
@@ -198,19 +216,21 @@ The independent FUND-001 bill must separately account for OMB, agency, GAO, cong
 
 **No Blanket Nullification.** The proposal does not declare executive orders void. It makes new covered directives, and continuing implementation of lookback-period covered directives, fiscally inert as to their covered scope during a review period. The President may still issue orders; agencies may not use or withhold appropriated funds to implement covered directives without satisfying the statutory process.
 
-**Lookback Review.** The lookback rule addresses first-day or early-term executive orders that are already in force when the trigger occurs. It should apply only to ongoing or future covered implementation actions, not automatically unwind completed acts or vested third-party rights. The draft uses a 30-day inventory deadline, 90-day certification deadline, and 180-day fiscal-inertness backstop for continuing implementation, while blocking new covered implementation under lookback directives unless certified. T2 should test whether those periods are sufficient for agency review, state and grantee reliance interests, expedited litigation, and judicial capacity.
+**Lookback Review.** The lookback rule addresses first-day or early-term executive orders that are already in force when the trigger occurs. It applies only to ongoing or future covered implementation actions, not automatically unwind completed acts or vested third-party rights. The draft uses a 30-day inventory deadline, 90-day certification deadline, and 180-day fiscal-inertness backstop for continuing implementation, while blocking new covered implementation under lookback directives unless certified. T3 should test those periods against historical program-review and litigation timelines and obtain agency and recipient input.
 
-**Objective Trigger.** The trigger should rest on external legal findings, not partisan congressional accusation alone. T2 should test whether final judgments, three-judge-court determinations, preliminary injunctions after merits findings, Comptroller General decisions, or combinations of those findings are the right trigger inputs.
+**Objective Trigger.** The trigger rests on qualifying final judicial judgments involving distinct directives issued during the current term by the President then serving, not partisan congressional accusation. Preliminary injunctions and GAO opinions may expose urgent violations and support immediate ordinary relief, but they do not activate the broader pattern-response regime. This sacrifices speed at the trigger stage to reduce false positives, duplicate-counting, successor-administration spillover, and *Bowsher* risk. The pre-enactment lookback for qualifying judgments prevents the statute from being prospective-only.
 
 **Appropriations Hook.** The strongest statutory authority is Congress's control over appropriated funds, program terms, apportionment conditions, and agency implementation. The draft should avoid overclaiming Congress's ability to regulate the President's issuance of executive orders directly.
 
 **Emergency Exception Risk.** Any emergency exception must be narrow. A broad exception could swallow the rule by allowing the same administration that triggered review to recast covered directives as urgent program-management decisions.
 
-**Standing and Review.** T2 should test who may sue, whether GAO may initiate enforcement, whether either House or designated congressional officers may sue, and whether states, grantees, beneficiaries, contractors, and program administrators have adequate causes of action.
+**Standing and Review.** The bill now separates statutory authorization from constitutional standing. Concretely injured states and program participants supply the principal enforcement path; Congress requires authorization by both Houses plus independent Article III standing; and GAO retains its separate section 1016 authority. T3 should test zone-of-interests, claim-channeling, reviewability, and appropriations-remedy questions against current merits litigation.
 
 **Preferred and Independent Remedies.** The Interbranch Review Framework Act (JUD-011) alone is the preferred general remedy; it does not require FUND-001 to opt in. FUND-001 is the independent alternative and now contains no JUD-011 routing or dependency. Its own cause of action, plaintiff categories, trigger, fiscal-inertness rules, emergency exception, three-judge D.D.C. procedure, relief, and expedited D.C. Circuit review operate if Congress enacts FUND-001 by itself.
 
-**Quality Score.** The 60/100 score is an initial development score under rubric `2026-06-27.2`: Structural 8/8; Evidence 6/12; Legal Fit 6/10; Prior-Proposal 4/8; Remedy 8/12; Implementation 5/8; Abuse Resistance 6/8; Drafting 5/8; Cogency 6/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0. The issue has a coherent statutory hook, issue framework, draft vehicle, neutral executive-order-volume manifestation, a judicial-review comparator scaffold, and a strong scholarly source for the presidential-order review gap, but T2 must verify existing-law fit, GAO enforcement mechanics, statutory standing, Youngstown/Train doctrine, Chadha constraints, OMB apportionment practice, emergency exceptions, implementation burden, public-support evidence, and prior legislative analogues.
+**Quality Score.** The 76/100 T2 score under rubric `2026-06-27.2` is Review Ready: Structural 8/8; Evidence 9/12; Legal Fit 8/10; Prior-Proposal 7/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4; Penalties 0. T2 verified the statutory vehicle, current GAO practice, constitutional constraints, standing distinction, direct legislative analogues, panel mechanics, appeal route, sovereign-immunity language, emergency design, employee protection, and provisional funding vehicle. T3 must still reproduce the readiness determination through claim verification, final-judgment timeline testing, live-case channeling review, source-backed workload development, adoption strategy, and qualified-scrutiny planning.
+
+**Adoption Score.** The score is 4/12 (Limited Adoption Basis). H.R. 5314 reached House passage and H.R. 5220 supplies a current 21-cosponsor vehicle, but the former passed almost entirely along party lines and the latter has only Democratic cosponsors, no committee action, and no CBO estimate. That supports a real but presently weak ordinary-legislation pathway, not a bipartisan coalition claim.
 
 **Adoption Friction.** The 82/100 score is Extreme Resistance because the proposal responds to presidential abuse of executive orders, constrains OMB and agency implementation after repeated unlawful conduct, may be opposed by presidents of both parties, and would likely draw separation-of-powers, standing, expedited-review, emergency-authority, and appropriations-process objections.
 

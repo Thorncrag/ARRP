@@ -17,7 +17,7 @@ The executive branch can delay, condition, redirect, or refuse congressionally a
 
 ## Issues
 
-- [FUND-001 — Addressing Executive Order Abuse](issues/FUND-001.md) _(status: Developed; priority: Medium)_
+- [FUND-001 — Addressing Executive Order Abuse](issues/FUND-001.md) _(status: Review Ready; T2 score: 76; priority: Medium)_
 - [FUND-002 — Pocket Rescissions and Strategic Delay](issues/FUND-002.md) _(status: Candidate; priority: Medium)_
 - **FUND-003** — Agency closure or program nullification through nonspending _(status: Candidate; priority: Medium)_
 - **FUND-004** — Politically selective withholding of grants or aid _(status: Candidate; priority: Medium)_
@@ -28,4 +28,4 @@ The executive branch can delay, condition, redirect, or refuse congressionally a
 
 ## Notes
 
-FUND-001 has an initial developed draft. FUND-002 has a candidate issue framework. Remaining FUND issues remain provisional inventory pending full source development.
+FUND-001 has completed T2 development review at 76/100 (Review Ready); T3 must reproduce that readiness determination and resolve the identified claim-channeling, timing, workload, adoption, and external-review gaps. FUND-002 has a candidate issue framework. Remaining FUND issues remain provisional inventory pending full source development.
