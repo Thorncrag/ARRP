@@ -108,8 +108,11 @@ For each issue:
 4. stop tier progression for that issue if a material unresolved finding requires human review;
 5. update the issue page, audit-history file, GitHub Project fields, and source records;
 6. validate the changed files;
-7. commit and push the completed issue audit; and
-8. move to the next eligible issue.
+7. commit and push the completed issue audit;
+8. when the audit changes an eligible proposal's Project `Status`, `Score`, or goal eligibility, manually dispatch the Review Ready progress-dashboard workflow after Project readback and push, wait for completion, and verify the generated `progress-dashboard/PROGRESS.md` reflects the new portfolio state; and
+9. move to the next eligible issue.
+
+For an expressly authorized batch containing multiple scored audit units, one final dashboard dispatch after the last synchronized Project update and push is sufficient if every unit is already committed and pushed and the generated-page readback confirms the complete batch. The daily schedule is a recovery backstop, not a substitute for audit closeout. Do not edit the generated branch manually.
 
 An agent should not spend the entire autonomous run trying to perfect one issue. If an issue reaches a blocker, document it, preserve it, and proceed.
 
@@ -182,9 +185,12 @@ Each completed issue audit should leave:
 3. updated GitHub Project fields where applicable;
 4. updated `sources.csv` for sources used for audit credit;
 5. validation notes; and
-6. a commit pushed to GitHub.
+6. a commit pushed to GitHub; and
+7. when the audit changes an eligible proposal's Project `Status`, `Score`, or goal eligibility, a successful Review Ready progress-dashboard refresh and generated-page readback, or an explicit recorded blocker identifying the failed workflow or stale generated state.
 
 GitHub Project fields are a completion-critical surface for audit work. If the Project row should change but cannot be updated because of authentication, permissions, API, tooling, sandbox, or connector limitations, the agent must notify the user clearly as soon as the failure is known, identify the exact field or row that remains unsynced, and treat the task as blocked or only partially complete until the Project row is updated or the user explicitly accepts a repo-only interim state. Updating the GitHub issue body may be used as a temporary visibility fallback, but it does not replace the required Project-field update.
+
+The Review Ready progress dashboard is a derived completion surface whenever an audit changes goal-relevant Project status, score, or eligibility. After the authoritative Project row has been updated and read back and the audit commit has been pushed, dispatch the workflow, wait for a successful run, and read back the generated page. If dispatch, authentication, workflow execution, publication, or generated-page verification fails, preserve the audit work, identify the stale dashboard value, record the exact remaining sync step in `CURRENT_AUDIT.md`, and do not describe the dashboard as updated. In a multi-unit batch, one verified final refresh may close the whole batch as provided above.
 
 If validation cannot be completed because of a tool or environment failure, preserve the work if possible, record the skipped check, and notify the user.
 
@@ -205,7 +211,8 @@ If no validation script exists, perform a manual validation checklist before mar
 5. confirm [`inventory/sources.csv`](../inventory/sources.csv) parses and includes any source used for audit credit;
 6. run a whitespace or formatting check where available;
 7. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md); and
-8. confirm no unintended files remain changed for that unit, including generated PDF, DOCX, XLSX, or similar export files unless the user requested an export refresh, the export is the deliverable, export tooling is being tested, or the work is expressly part of a release/publication pass.
+8. if the unit changed goal-relevant Project fields, confirm the Review Ready dashboard workflow completed and the generated page reflects the new state, or record the exact blocker; and
+9. confirm no unintended files remain changed for that unit, including generated PDF, DOCX, XLSX, or similar export files unless the user requested an export refresh, the export is the deliverable, export tooling is being tested, or the work is expressly part of a release/publication pass.
 
 If a validation check is skipped, record the skipped check and reason in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md), in the issue audit history when relevant, or in the final user-facing report. A unit should not be marked complete if validation fails, except when the only failure is an explicitly documented environment or tooling limitation and the work has been preserved for human review.
 
