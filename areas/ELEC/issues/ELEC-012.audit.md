@@ -14,11 +14,11 @@ This file preserves the full audit history for [ELEC-012](ELEC-012.md). The issu
 
 The entries below preserve issue-specific audit history and source-development checkpoints.
 
-### 2026-07-04 — T4/T5 FECA drafting-conversion follow-up
+### 2026-07-04 — T4 FECA Drafting-Conversion Follow-Up
 
-**Audit tier:** T4/T5 drafting-conversion and score-check follow-up
+**Audit tier:** T4 drafting-conversion and score-check follow-up
 
-**Audit status:** T4/T5 FECA drafting-conversion follow-up complete; enabling legislation now uses FECA conforming amendments, but full merits-document review, cost model, amendment-tailoring, and external review remain blockers
+**Audit status:** T4 FECA drafting-conversion follow-up complete; enabling legislation now uses FECA conforming amendments, but full merits-document review, cost model, amendment-tailoring, and external review remain blockers
 
 **Proposal-quality score:** 75/100 (Review Ready)
 
@@ -58,7 +58,7 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Score effect:** Score increased from 69 to 72. Evidence increased from 8 to 9 because T4 located official Hawaii status/text sources and Maine docket metadata. Legal Fit increased from 6 to 7 because the audit now ties state comparators and live litigation to primary or docket-level records with explicit unresolved limits. Prior-Proposal increased from 6 to 7 because T4 refreshed H.J.Res. 54/H.J.Res. 13/S.J.Res. 45 posture and converted Hawaii from a routing lead to an official comparator. Drafting remains 6/8 and Implementation remains 6/8 because the FECA conforming-amendment rewrite has not been completed. Adoption remains 5/12, External Review remains 0/4, and Adoption Friction remains 96/100.
 
-**Next audit need:** T4/T5 drafting-conversion follow-up focused on direct FECA conforming amendments, full *Dinner Table Action* merits-document review, Hawaii Act 011 legal-theory comparison, H.J.Res. 54 narrowing or rule-of-construction language, source-backed federal cost model, proposal-specific adoption strategy, and qualified external constitutional-law/election-law review.
+**Next audit need:** T4 drafting-conversion follow-up focused on direct FECA conforming amendments, full *Dinner Table Action* merits-document review, Hawaii Act 011 legal-theory comparison, H.J.Res. 54 narrowing or rule-of-construction language, source-backed federal cost model, proposal-specific adoption strategy, and qualified external constitutional-law/election-law review.
 
 ### 2026-07-04 — T3 source and legal-readiness audit
 
@@ -114,7 +114,7 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Unresolved findings:** T3 should verify primary docket materials for the Maine litigation, obtain official Hawaii and Montana texts, decide FECA codification structure, compare H.J.Res. 54 and H.J.Res. 13/S.J.Res. 45 section by section, test whether H.J.Res. 54 should be narrowed or clarified around artificial entities outside election spending, develop proposal-specific adoption evidence, test the 18-month state transition against election cycles and legislative sessions, locate fiscal analogues for FEC/database/state support, and seek external constitutional-law and election-law review.
 
-### 2026-07-02 — T2 remedy-selection drafting pass
+### 2026-07-02 — Remedy-Selection Drafting Pass
 
 **Audit status:** Remedy selected; H.J.Res. 54 supported with recommended enforcement/federalism clarification and initial enabling legislation drafted; legal-durability review pending
 
@@ -140,9 +140,9 @@ The entries below preserve issue-specific audit history and source-development c
 
 **Next audit need:** Run a T2 legal-durability and implementation review focused on whether the enabling act conforms to H.J.Res. 54 as clarified by ARRP's recommended Section 4, how it would need to change under H.J.Res. 13, whether the proposed enforcement/federalism section is sufficient to support the statewide-election floor, whether the 18-month statewide transition period is too short, too long, or needs election-cycle exceptions, whether the contingent-safeguards trigger is overbroad or underinclusive, whether FEC deadlock repair belongs here or in a companion proposal, how disclosure and privacy safeguards should be calibrated, whether foreign-influenced entity provisions should borrow from or avoid Maine's design, and which DISCLOSE Act, For the People Act, Freedom to Vote Act, and digital-ad provisions should be incorporated.
 
-### 2026-07-02 — T1-style issue-admission/source-development pass
+### 2026-07-02 — Issue-Admission and Source-Development Pass
 
-**Audit status:** T1-style issue-admission/source-development pass complete; remedy selection pending
+**Audit status:** Issue-admission and source-development pass complete; remedy selection pending
 
 **Proposal-quality score:** 0
 

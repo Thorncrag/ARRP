@@ -68,7 +68,7 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 **Audit process feedback:** Future score changes should identify the precise component movement. External-review credit remains 0 until qualified review is documented and incorporated.
 
-### 2026-07-04 — Targeted T4 Source / State-Comparator Follow-Up
+### 2026-07-04 — T4 Targeted Source / State-Comparator Follow-Up
 
 **Audit status:** Targeted source/comparator follow-up complete; same-day score recalibration later moved ELEC-004 to Review Ready
 
@@ -88,7 +88,7 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 **Next audit need:** Obtain qualified federal-courts, election-law, or legislative-counsel review; retrieve a primary Nevada disposition/order or narrow Nevada language; replace or supplement the Wisconsin opinion mirror with the official Seventh Circuit PDF if available; expand representative-state comparison beyond Nevada; decide title 28 codification or other final procedural vehicle; and complete deeper Petition Clause / First Amendment review before moving the proposal beyond Review Ready.
 
-**Audit process feedback:** This was a useful targeted follow-up, not a full T5 or publication-clearance audit. Future ELEC-004 work should prioritize finishing the remaining primary-source and legal-authority blockers before adding new manifestations.
+**Audit process feedback:** This was a useful targeted T4 follow-up, not a publication-clearance audit. Future ELEC-004 work should prioritize finishing the remaining primary-source and legal-authority blockers before adding new manifestations.
 
 ### 2026-07-03 — T4 Follow-Up / Legal-Source Validation
 

@@ -68,7 +68,7 @@ This file preserves the full audit history for [ELEC-008](ELEC-008.md). The issu
 
 **Next audit need:** External validation and targeted revisions based on qualified review. Future score movement should come from expert-backed legal revisions, fiscal/workload sourcing, docket-posture verification, or stress-tested safe-harbor language.
 
-### 2026-07-04 — External-Validation Substitute / T4 Follow-Up
+### 2026-07-04 — T4 Follow-Up / External-Validation Substitute
 
 **Audit status:** T4 follow-up complete; external validation still needed before circulation
 

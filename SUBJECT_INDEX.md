@@ -103,6 +103,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Judicial capacity; emergency dockets; judgeships; court funding | **[JUD-010](areas/JUD/README.md)**; [A-04](areas/JUD/README.md); [JUD-011](areas/JUD/issues/JUD-011.md) |
 | Judicial recusal; judges appointed by a litigant-president | **[JUD-009](areas/JUD/issues/JUD-009.md)**; [EMOL-015](areas/EMOL/issues/EMOL-015.md) |
 | Justice Department (U.S. Department of Justice; DOJ) | **[A-01](areas/DOJ/README.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [DOM-005](areas/DOM/issues/DOM-005.md); [ELEC-014](areas/ELEC/issues/ELEC-014.md); [EMOL-015](areas/EMOL/issues/EMOL-015.md) |
+| Justice Department career personnel; politically motivated removal or reassignment | **[DOJ-004](areas/DOJ/issues/DOJ-004.md)**; [A-08](areas/CIV/README.md) |
 | Justice Department Office of Inspector General (DOJ OIG) | **[DOJ-003](areas/DOJ/issues/DOJ-003.md)**; [DOJ-005](areas/DOJ/issues/DOJ-005.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
 | Justice Department Office of Professional Responsibility (OPR) | **[DOJ-005](areas/DOJ/issues/DOJ-005.md)**; [DOJ-003](areas/DOJ/issues/DOJ-003.md); [DOJ-009](areas/DOJ/issues/DOJ-009.md) |
 | Law-enforcement use of force | See *Critical incidents; federal officer shootings; evidence preservation; State investigative access*. |

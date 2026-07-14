@@ -3,6 +3,8 @@ title: "General Anti-Nullification Review Framework"
 status: governing-framework
 primary_issue: "JUD-011"
 last_updated: "2026-07-13"
+print_levels:
+  - full-technical
 ---
 
 # General Anti-Nullification Review Framework

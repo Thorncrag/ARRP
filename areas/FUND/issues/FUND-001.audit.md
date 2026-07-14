@@ -188,7 +188,7 @@ Entries are maintained newest first. Change Audits preserve the existing score u
 
 **Score effect:** No change; 60/100 remains the current T1-derived score. The architecture correction does not supply the missing current-source, standing, GAO-authority, emergency, implementation, prior-proposal, budget, and adoption work required for a full T2 score recalculation.
 
-### 2026-06-29 — Initial development and T1 framework check
+### 2026-06-29 — T1 Framework Check and Initial Development
 
 **Audit type:** Initial development / T1 framework check.
 

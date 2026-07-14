@@ -20,6 +20,7 @@ framework/                         Governing methodology, tracking logs, and ope
   AGENT_OPERATING_RULES.md         Agent-assisted audit and batch-audit rules
   CURRENT_AUDIT.md                 Current long-running audit handoff checkpoint
   CHANGE_AUDIT_LOG.md              Cumulative project-wide Change Audit history
+  PROJECT_CONSISTENCY_AUDIT.md     Latest project-wide structural and integration audit
   HORIZON_SCAN_LOG.md              Cumulative horizon-scan disposition and integration log
   AGENT_AUDIT_LOG.md               Autonomous-agent provenance, commits, and rollback references
   INTERBRANCH_REVIEW_FRAMEWORK.md
@@ -58,4 +59,5 @@ archive/                           Superseded or migrated source snapshots
 - The public website is generated from the canonical Markdown rather than maintained as a second copy. `website/README.md` owns the publication boundary; `scripts/prepare_public_site.py` admits only `public-proposal` pages within the approved root, `areas/`, and `legislation/` paths; and the Pages workflow uploads only the validated generated artifact.
 - The `progress-dashboard` branch remains repository-visible but is excluded from the website artifact, navigation, search index, and sitemap.
 - `framework/CURRENT_AUDIT.md` is the active handoff checkpoint for long audits and should be read before resuming vague follow-up instructions.
+- `framework/PROJECT_CONSISTENCY_AUDIT.md` records the latest non-scoring cross-project structural and integration check; it does not replace proposal-specific T-audits or Change Audits.
 - Audit rules and scoring live in `METHODOLOGY.md`; print assembly rules live in `PRINT_ASSEMBLY.md`; remedy categories and trigger stages live in `REMEDY_FRAMEWORK.md`.

@@ -240,7 +240,9 @@ This Act does not enact or incorporate the standalone DOJ-007 alternative. If JU
 
 Invalidity of one provision does not affect the remainder, except that no appointment may occur without the constitutional amendment and a lawfully operating Investigative Counsel Panel.
 
-## Budgetary Impact Statement — Preferred Shared-Framework Path
+## Budgetary Impact Statement
+
+**Preferred shared-framework path.**
 
 This Act avoids duplicating JUD-011's two additional D.D.C. judgeships, national roster, clerk, facilities, technology, cybersecurity, secure-record, procurement, and general administrative capacity. JUD-011's base appropriation may cover incremental judicial administration after express authorization by this Act. Investigation-specific counsel, personnel, litigation, experts, travel, security, and records costs require additional separately accounted appropriations. No dollar estimate is assigned pending AOUSC, CBO, GAO, appropriations, PAYGO, and legislative-counsel review.
 

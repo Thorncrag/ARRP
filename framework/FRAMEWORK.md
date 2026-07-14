@@ -22,6 +22,7 @@ The project's public-facing premise, mission, scope, and governing principles ar
 - [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md) contains agent-assisted audit and autonomous batch-audit operating rules.
 - [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) contains autonomous, batched, or scheduled agent commit provenance and rollback references.
 - [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) contains cumulative project-wide Change Audit history.
+- [`PROJECT_CONSISTENCY_AUDIT.md`](PROJECT_CONSISTENCY_AUDIT.md) contains the latest non-scoring cross-project structural and integration audit.
 - [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) contains cumulative horizon-scan disposition and integration history.
 - [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) contains the repository map for human orientation.
 - `research/` contains ARRP-created project-development work product, including analyses, legal memoranda, crosswalks, catalogs, transformed datasets, comparison tables, and project-generated visualizations. A work product remains here whether it is preliminary, active, or already integrated into an issue.

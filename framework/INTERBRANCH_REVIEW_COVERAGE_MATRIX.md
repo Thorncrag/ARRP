@@ -3,6 +3,8 @@ title: "Interbranch Review Coverage and Independent Alternatives Matrix"
 status: governing-matrix
 primary_issue: "JUD-011"
 last_updated: "2026-07-13"
+print_levels:
+  - full-technical
 ---
 
 # Interbranch Review Coverage and Independent Alternatives Matrix

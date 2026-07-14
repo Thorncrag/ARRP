@@ -10,7 +10,9 @@ print_levels:
 
 This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issue page keeps only the compact Proposal Scoring summary.
 
-## 2026-06-28 — Initial Development
+## Audit History
+
+### 2026-06-28 — Initial Development
 
 **Audit scope:** Initial issue development only. This was not a T1 framework check or formula audit.
 
@@ -22,7 +24,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit need:** Run T1 framework check. Prioritize issue-admission fit, source inventory, Raskin bill text verification, docket posture, Judgment Fund and settlement-authority fit, Article II/access-to-courts concerns, and whether any emergency injunctive-relief exception is necessary.
 
-## 2026-06-28 — Anti-Evasion Clarification
+### 2026-06-28 — Anti-Evasion Clarification
 
 **Change scope:** Targeted substantive clarification to prevent official-capacity labels from defeating EMOL-015 when the practical effect is personal or affiliated benefit.
 
@@ -32,7 +34,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit need:** T1 should test whether the anti-evasion definition is narrow enough to preserve legitimate official-capacity litigation while catching disguised personal-benefit claims.
 
-## 2026-06-28 — Legitimate-Injury Adjudication Exception
+### 2026-06-28 — Legitimate-Injury Adjudication Exception
 
 **Change scope:** Targeted substantive clarification to avoid reducing a legitimately injured covered official's remedy to resignation or delayed post-tenure litigation.
 
@@ -42,7 +44,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit need:** T1 should test whether the adjudication exception is narrow enough to protect legitimate claims while still preventing manufactured adverseness, collusive settlements, Judgment Fund misuse, and settlement-created compensation funds.
 
-## 2026-06-28 — Vice President Coverage Clarification
+### 2026-06-28 — Vice President Coverage Clarification
 
 **Change scope:** Targeted substantive clarification to close a formal-supervision loophole for the Vice President.
 
@@ -52,7 +54,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit need:** T1 should test whether the Vice President coverage language is constitutionally and practically calibrated, especially where the Vice President has influence but not formal agency command.
 
-## 2026-06-28 — Bifurcated Liability and Damages Clarification
+### 2026-06-28 — Bifurcated Liability and Damages Clarification
 
 **Change scope:** Targeted substantive clarification to reduce the non-adversarial risk remaining after court-permitted adjudication.
 
@@ -62,7 +64,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit need:** T1 should test whether bifurcation is feasible for the likely claim types, including statutory damages claims, equitable claims, declaratory relief, and claims where liability and damages evidence overlap.
 
-## 2026-06-28 — Injunctive-Relief Safety Valve
+### 2026-06-28 — Injunctive-Relief Safety Valve
 
 **Change scope:** Targeted substantive clarification to preserve judicial authority to stop ongoing or imminent harm while a covered official remains in office.
 
@@ -72,7 +74,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit need:** T1 should test whether the injunctive-relief exception is narrow enough to stop continuing harm without becoming a path to executive self-dealing or judicial management of ordinary executive operations.
 
-## 2026-07-13 — Trump–IRS Court-Order Source Development
+### 2026-07-13 — Trump–IRS Court-Order Source Development
 
 **Change scope:** Targeted source-development and Internal Remedy-Fit review prompted by current reporting on the July 13 order in *Trump v. Internal Revenue Service*, No. 1:26-cv-20609-KMW (S.D. Fla.). This was not a T1 framework check or formula audit.
 
@@ -86,7 +88,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit need:** T1 should review the related docket entries, distinguish sanctions imposed from disciplinary referrals and later fee determinations, track any appeal or reconsideration, and test whether EMOL-015 should expressly address audit, examination, enforcement, release, immunity, and nonprosecution benefits in addition to monetary payment. It should also test an automatic sua sponte adverseness screen, the effect of Rule 41 dismissal notices during that screen, and whether tolling should follow a jurisdictional dismissal without prejudice rather than retaining a constitutionally non-adverse action on the docket.
 
-## 2026-07-13 — Primary-Order Disposition Correction
+### 2026-07-13 — Primary-Order Disposition Correction
 
 **Change scope:** Targeted factual correction after full review of docket entry 106. This was not a score-bearing audit.
 
@@ -96,7 +98,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Score effect:** No change. The proposal remains at 60/100 pending T1 framework review and formula rebaseline.
 
-## 2026-07-13 — Automatic Adverseness Screening and Rule 41 Guardrail
+### 2026-07-13 — Automatic Adverseness Screening and Rule 41 Guardrail
 
 **Development scope:** Substantive remedy redesign prompted by the primary order in *Trump v. Internal Revenue Service*. This entry records ongoing drafting development; it is not a separate Change Audit or score-bearing audit. Review is consolidated into the already-pending T1 framework check.
 
@@ -112,7 +114,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit need:** T1 should test whether Congress may make Rule 41 notices ineffective in this form, whether the filing-court screening authority is fully collateral to its jurisdictional inquiry, whether the claimant and government disclosure duties are administrable, whether 1 year is the correct post-service refiling period, and whether independent defense authority can be established consistently with Article II. It should separately evaluate a generally applicable prohibition on prospective IRS audit immunity.
 
-## 2026-07-13 — Universal Categorical Audit-Immunity Prohibition
+### 2026-07-13 — Universal Categorical Audit-Immunity Prohibition
 
 **Development scope:** Substantive statutory expansion implementing the connected tax-administration safeguard identified during review of the purported Trump–IRS agreement. This entry records ongoing drafting development; it is not a separate Change Audit or score-bearing audit. Review is consolidated into the already-pending T1 framework check.
 
@@ -130,7 +132,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit need:** Review the amendment's definition of Federal actor, materiality and severability treatment, interaction with DOJ tax settlements and judicial injunctions, TIGTA jurisdiction and confidentiality procedures, mens rea under § 7217(d), temporal application to unperformed agreement terms, and whether the existing $5,000 maximum fine should be modernized.
 
-## 2026-07-13 — T1 framework and quality audit
+### 2026-07-13 — T1 framework and quality audit
 
 **Audit type:** First scored T1 framework and quality audit under rubric `2026-06-27.2`.
 
@@ -154,7 +156,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit:** Full T2 development audit. Complete controlling Supreme Court and circuit review; verify the current Code amendment; create a constitutional D.D.C. enforcement cause with eligible plaintiffs, waiver, defendants, and remedies; test Article II, Rule 41, tolling, access-to-courts, protected-information, and independent-defense issues; review the complaint, dismissal papers, collateral proceedings, Judgment Fund and compromise pathways; develop implementation, workload, budget, adoption, and opposition evidence; revise the bill; and recalculate.
 
-## 2026-07-13 — T2 development audit
+### 2026-07-13 — T2 development audit
 
 **Audit type:** Full T2 development audit under rubric `2026-06-27.2`.
 
@@ -180,7 +182,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit:** Full T3 readiness audit. Refresh the docket and bill postures; test chamber standing, Rule 41 timing, controlled maintenance, independent defense, access to courts, Federal tolling, repayment and recipient process, section 6103 and other protected-information channels, appealability, severability, effective date, and litigation against subordinate officers; perform claim-by-claim verification and proposal-to-bill cross-reference review; and recalculate without credit for unresolved applications.
 
-## 2026-07-13 — T3 readiness audit
+### 2026-07-13 — T3 readiness audit
 
 **Audit type:** Full T3 readiness audit under rubric `2026-06-27.2`.
 
@@ -208,7 +210,7 @@ This file preserves the full audit history for [EMOL-015](EMOL-015.md). The issu
 
 **Next audit:** T4 publication-ready audit. Refresh current case and bill status; verify every material factual and legal claim against the retained source rows; inspect legislative form, definitions, cross-references, deadlines, appeal routes, prospective application, authorization, and severability; create final verified-claims and unresolved-claims tables; state qualified-review dependencies; and recalculate conservatively.
 
-## 2026-07-13 — T4 publication-ready audit
+### 2026-07-13 — T4 publication-ready audit
 
 **Audit type:** Cumulative T4 publication-ready audit under rubric `2026-06-27.2`.
 

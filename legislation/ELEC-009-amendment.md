@@ -1,5 +1,5 @@
 ---
-proposal_id: ELEC-009
+proposal_id: ELEC-009-amendment
 issue_id: ELEC-009
 title: "Direct Election of the President and Vice President Amendment"
 status: working-draft

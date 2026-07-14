@@ -1,5 +1,5 @@
 ---
-proposal_id: ELEC-002
+proposal_id: ELEC-002-state
 issue_id: ELEC-002
 title: "Model State Election Certification and Automatic Substitution Act"
 status: working-draft

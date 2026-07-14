@@ -222,12 +222,12 @@ This Act shall be implemented using amounts otherwise available for sanctions ad
 
 If any provision of this Act or an amendment made by this Act, or the application of that provision or amendment to any person or circumstance, is held invalid, the remainder of this Act and the application of its provisions and amendments to other persons or circumstances shall not be affected.
 
+## Budgetary Impact Statement
+
+**Preliminary classification: Low administrative and litigation impact.** The draft adds transition review, individualized explanations, record production, and expedited judicial review within existing sanctions, visa, Justice Department, and court functions. It establishes no new program-delivery obligation or adjudicative institution and directs implementation from otherwise available appropriations. A reliable dollar estimate requires OFAC, State Department, DOJ, and Administrative Office workload data and a T1 implementation review.
+
 ## Drafting Notes
 
 - The draft amends the substantive scope of delegated authority. It does not replace the separate EMERG-005 and EMERG-006 questions concerning congressional approval, termination, and renewal of emergencies.
 - The “specific authorization” rule permits Congress to enact the same sanctions policy. It does not treat the failure of H.R. 23 or any other bill as a legal prohibition.
 - T1 review should test the subsection placements, INA cross-references, review standards, classified-record procedure, transition treatment, and whether further conforming amendments are needed in 31 C.F.R. part 528 or related statutory notes.
-
-## Budgetary Impact Statement
-
-**Preliminary classification: Low administrative and litigation impact.** The draft adds transition review, individualized explanations, record production, and expedited judicial review within existing sanctions, visa, Justice Department, and court functions. It establishes no new program-delivery obligation or adjudicative institution and directs implementation from otherwise available appropriations. A reliable dollar estimate requires OFAC, State Department, DOJ, and Administrative Office workload data and a T1 implementation review.

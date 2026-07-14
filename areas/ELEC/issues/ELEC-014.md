@@ -9,7 +9,7 @@ audit_score: 0
 audit_status: "Deferred pending unsealed or otherwise available primary criminal-process instruments; fixed-zero preserved until statutory predicates, legitimacy concerns, and remedy fit can be assessed"
 audit_last_type: "Civil record-demand routing to ELEC-004"
 audit_last_date: "2026-07-09"
-audit_next: "Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, or congressional records; then identify statutory predicates and run T2 remedy-selection and legitimacy assessment"
+audit_next: "Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, congressional records, and Arizona lead verification; then identify exact alleged statutes or offense theories and run T2 remedy-selection and legitimacy assessment"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 print_levels:
@@ -150,7 +150,7 @@ Administrative workload is possible; no new appropriation is specified pending s
 >
 > —
 >
-> **Audit Status:** Deferred pending unsealed or otherwise available primary criminal-process instruments; fixed-zero preserved until statutory predicates, legitimacy concerns, and remedy fit can be assessed<br />**Last Audit:** Civil record-demand routing to ELEC-004<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, or congressional records; then identify statutory predicates and run T2 remedy-selection and legitimacy assessment<br />**Full Audit History:** [ELEC-014 audit history](ELEC-014.audit.md)
+> **Audit Status:** Deferred pending unsealed or otherwise available primary criminal-process instruments; fixed-zero preserved until statutory predicates, legitimacy concerns, and remedy fit can be assessed<br />**Last Audit:** Civil record-demand routing to ELEC-004<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, congressional records, and Arizona lead verification; then identify exact alleged statutes or offense theories and run T2 remedy-selection and legitimacy assessment<br />**Full Audit History:** [ELEC-014 audit history](ELEC-014.audit.md)
 
 ## Annotation
 
