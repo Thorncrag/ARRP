@@ -51,7 +51,16 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn('"Subject and Institution Index": SUBJECT_INDEX.md', config)
         self.assertIn('"A-01 / DOJ — Department of Justice"', config)
         self.assertIn('"Proposed Legislation"', config)
+        self.assertIn("git-revision-date-localized:", config)
+        self.assertIn("../website/git_revision_dates.py", config)
         self.assertTrue((self.docs / "legislation" / "index.md").exists())
+
+    def test_generated_legislation_index_has_revision_date(self):
+        index = (self.docs / "legislation" / "index.md").read_text(encoding="utf-8")
+        self.assertRegex(
+            index,
+            r'(?m)^git_revision_date_localized: "[A-Z][a-z]+ [1-9][0-9]?, 20[0-9]{2}"$',
+        )
 
     def test_manifest_is_written(self):
         written = json.loads((ROOT / ".site-build" / "public-manifest.json").read_text())

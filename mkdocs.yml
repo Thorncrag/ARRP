@@ -39,6 +39,18 @@ theme:
 plugins:
   - search:
       lang: en
+  - git-revision-date-localized:
+      type: date
+      enable_parallel_processing: false
+      strict: false
+      exclude:
+        - 404.md
+        - legislation/index.md
+
+# The hook maps allowlisted staging copies back to their canonical repository
+# sources before the revision-date plugin queries Git history.
+hooks:
+  - ../website/git_revision_dates.py
 
 markdown_extensions:
   - admonition

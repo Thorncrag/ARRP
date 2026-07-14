@@ -13,7 +13,9 @@ import json
 import os
 import re
 import shutil
+import subprocess
 from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -85,6 +87,27 @@ def page_title(path: Path) -> str:
         return value.strip("'\"")
     heading = re.search(r"(?m)^#\s+(.+?)\s*$", text)
     return heading.group(1) if heading else path.stem
+
+
+def git_revision_timestamp(path: Path) -> int:
+    """Return the last committed revision time for a canonical source file."""
+    result = subprocess.run(
+        ["git", "log", "-1", "--format=%at", "--", relative(path).as_posix()],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    value = result.stdout.strip()
+    if not value:
+        raise SystemExit(f"No Git revision history found for public source: {relative(path)}")
+    return int(value)
+
+
+def localized_revision_date(timestamp: int) -> str:
+    """Format a stable English calendar date for Material's source footer."""
+    rendered = datetime.fromtimestamp(timestamp, tz=timezone.utc).strftime("%B %d, %Y")
+    return rendered.replace(" 0", " ")
 
 
 def is_approved_markdown(path: Path) -> bool:
@@ -219,6 +242,7 @@ def write_legislation_index(legislation: list[Path], areas: list[tuple[str, str,
     lines = [
         "---",
         'title: "Proposed Legislation"',
+        f'git_revision_date_localized: "{localized_revision_date(max(git_revision_timestamp(path) for path in legislation))}"',
         "---",
         "",
         "# Proposed Legislation",
