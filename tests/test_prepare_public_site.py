@@ -53,7 +53,17 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn('"Proposed Legislation"', config)
         self.assertIn("git-revision-date-localized:", config)
         self.assertIn("../website/git_revision_dates.py", config)
+        self.assertIn("navigation.path", config)
+        self.assertIn("navigation.tracking", config)
+        self.assertIn("toc.follow", config)
+        self.assertIn("search.share", config)
         self.assertTrue((self.docs / "legislation" / "index.md").exists())
+
+    def test_public_page_action_assets_are_staged(self):
+        self.assertTrue((self.docs / "assets" / "javascripts" / "site.js").exists())
+        stylesheet = (self.docs / "assets" / "stylesheets" / "extra.css").read_text()
+        self.assertIn(".arrp-issue-status", stylesheet)
+        self.assertIn(".arrp-page-actions", stylesheet)
 
     def test_generated_legislation_index_has_revision_date(self):
         index = (self.docs / "legislation" / "index.md").read_text(encoding="utf-8")

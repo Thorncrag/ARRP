@@ -42,6 +42,8 @@ The generated source tree, manifest, MkDocs configuration, and output site live 
 
 Published pages display a localized **Last modified** date in the page footer. The revision-date plugin reads the most recent commit affecting each canonical Markdown source; `website/git_revision_dates.py` temporarily maps the allowlisted staging copy back to that source during the build and supplies the visible label. The generated legislation index uses the newest committed revision among the legislation pages it lists. The deployment checkout must retain full Git history so these dates remain accurate.
 
+The same build hook adds a metadata-driven project-status notice to issue pages and supplies page-level print and feedback actions. Developed issues use the Proposal Quality Score band recorded in canonical front matter; candidate, deferred, and adjudication-dependent issues receive status-specific language that avoids presenting them as affirmative recommendations. The feedback action opens a pre-addressed email containing the current page title and URL and does not collect site data. `website/site.js` supplies the print and email behavior. Breadcrumbs, active-heading URL tracking, table-of-contents following, and shareable searches are enabled through Material configuration.
+
 ## Deployment
 
 `.github/workflows/public-site.yml` repeats the preparation and strict build on every push to `main`, uploads only `.site-build/site`, and deploys that artifact to GitHub Pages. The workflow may also be started manually.

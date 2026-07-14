@@ -34,6 +34,7 @@ PUBLIC_DIRECTORIES = {"areas", "legislation"}
 PUBLIC_SUPPORT_FILES = {Path("CITATION.cff")}
 WEBSITE_FILES = {
     Path("website/extra.css"): Path("assets/stylesheets/extra.css"),
+    Path("website/site.js"): Path("assets/javascripts/site.js"),
     Path("website/robots.txt"): Path("robots.txt"),
     Path("website/404.md"): Path("404.md"),
 }

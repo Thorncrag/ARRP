@@ -16,8 +16,12 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.indexes
+    - navigation.path
+    - navigation.tracking
     - navigation.top
+    - toc.follow
     - search.highlight
+    - search.share
     - search.suggest
     - content.code.copy
   palette:
@@ -63,6 +67,9 @@ markdown_extensions:
 
 extra_css:
   - assets/stylesheets/extra.css
+
+extra_javascript:
+  - assets/javascripts/site.js
 
 copyright: Copyright &copy; 2026 Benjamin Smith. All rights reserved.
 
