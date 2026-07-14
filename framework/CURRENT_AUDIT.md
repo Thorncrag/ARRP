@@ -15,16 +15,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Active |
 | Active issue/task | REG-001 — Agency Independence and Functional Nullification |
-| Audit type/tier | Autonomous successive audit sequence; REG-001 T1 framework and quality audit completed and awaiting synchronization, validation, commit, and push |
+| Audit type/tier | Autonomous successive audit sequence; REG-001 T2 development audit active |
 | Started | 2026-07-13 18:59:40 -0400 |
-| Last checkpoint | 2026-07-13 20:50:55 -0400 |
+| Last checkpoint | 2026-07-13 20:51:33 -0400 |
 | User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
 | Scope | REG-001 issue page, independent Congressional Institutional Continuity and Anti-Nullification Act, JUD-011 preferred-remedy fit, audit sidecar, agency-independence and functional-nullification catalog, post-*Slaughter* and *Cook* doctrine, two-tier statutory test, standing and review mechanics, implementation and budget evidence, source and audit inventories, dashboard, GitHub Project fields, and issue update surface. Later authorized units: REG-001 T2-T4 and EMOL-015 T1-T4. |
-| Files touched | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `legislation/REG-001.md`; `framework/CURRENT_AUDIT.md` |
-| Completed steps | Completed REG-001 T1 and replaced the fixed-zero candidate status with 63 / 100 Developed Draft; confirmed the complete issue and bill architecture, current post-*Slaughter* need, preliminary source and legal posture, preferred JUD-011 and independent REG-001 fit, issue boundaries, enactment pathway, adoption and friction scores, and next-tier needs; corrected the bill's purposes list; removed unsupported fixed direct-appropriation placeholders; and synchronized the issue, bill, audit sidecar, area summary, and handoff. |
-| Next step | Commit and push the validated REG-001 T1 substantive unit; add and push provenance; post the issue update; then activate REG-001 T2. |
+| Files touched | None yet for REG-001 T2. |
+| Completed steps | Completed, validated, committed, and pushed REG-001 T1 as `b30acd6`; replaced the fixed-zero candidate status with 63 / 100 Developed Draft; confirmed the complete issue and bill architecture, current post-*Slaughter* need, preliminary source and legal posture, preferred JUD-011 and independent REG-001 fit, issue boundaries, enactment pathway, adoption and friction scores, and next-tier needs; corrected the bill's purposes list; removed unsupported fixed direct-appropriation placeholders; and synchronized the issue, bill, audit sidecar, area summary, handoff, and GitHub Project fields. |
+| Next step | Run REG-001 T2: verify representative Tier One and Tier Two organic statutes and current cases; resolve cause, jurisdiction, waiver, standing, panel, appeal, relief, Comptroller General, APA, specialized-review, and Article II issues; identify direct and functional prior proposals; test operating deadlines; develop budget and workload analogues; assess adoption and opposition; revise as warranted; and recalculate. |
 | Blockers/questions | Local GitHub CLI authentication remains invalid, but the signed-in GitHub interface supplied completion-critical Project synchronization and readback. No substantive policy blocker identified. |
-| Validation status | REG-001 T1 passed `git diff --check`; YAML parsing; local-link validation; score/status and stale-marker scans; Review Ready dashboard tests; and signed-in GitHub Project persistence readback for Status, Score, Runs, Last audit, and Next audit. Commit and push pending. |
+| Validation status | REG-001 T1 passed `git diff --check`; YAML parsing; local-link validation; score/status and stale-marker scans; Review Ready dashboard tests; and signed-in GitHub Project persistence readback for Status, Score, Runs, Last audit, and Next audit; substantive commit `b30acd6` is pushed. REG-001 T2 validation not started. |
 
 ## Handoff Rules
 

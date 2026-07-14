@@ -1245,3 +1245,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `b9dbfca` to roll back the substantive T4 unit; separately revert the provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. FUND-001 advanced from 81 to 83 / 100 and remains Review Ready after cumulative publication-level current-status, direct-analogue, codification, protected-information, emergency-extension, legal-durability, fiscal, adoption, opposition, verified-claims, and unresolved-claims review. Further advancement requires qualified appropriations, federal-courts, administrative-law, budget, program-administration, national-security, and legislative-counsel review; proposal-specific workload evidence; a complete cross-administration comparator; and current merits-case refresh. |
+
+### 2026-07-13 — REG-001 — T1 framework and quality audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 20:51:33 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | REG-001 |
+| Issue page | [Issue](../areas/REG/issues/REG-001.md) |
+| Audit history | [Audit](../areas/REG/issues/REG-001.audit.md) |
+| Proposal page | [Bill](../legislation/REG-001.md) |
+| Tier | T1 framework and quality audit |
+| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `legislation/REG-001.md` |
+| Validation | `git diff --check`; YAML parse; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
+| Commit | `Run REG-001 T1 audit` (`b30acd6`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `b30acd6` to roll back the substantive T1 unit; separately revert the provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. REG-001 advanced from fixed-zero candidate status to 63 / 100 Developed Draft after framework, current-status, source, preliminary legal-fit, remedy-fit, budget, enactment-pathway, adoption, and issue-to-bill review. T2 must complete primary manifestation and organic-statute verification; cause, jurisdiction, waiver, standing, panel, appeal, relief, Comptroller General, APA, specialized-review, and Article II analysis; prior-proposal, implementation, workload, budget, adoption, and opposition development. |
