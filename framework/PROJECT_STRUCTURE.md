@@ -40,7 +40,7 @@ archive/                           Superseded or migrated source snapshots
 
 - A defect has one primary issue file.
 - `SUBJECT_INDEX.md` maps organizations, subjects, acronyms, and aliases in one alphabetical sequence to concise linked record identifiers, with the preferred route first and common alternate terms redirected through **See** entries, without changing issue ownership.
-- `areas/README.md`, the affected area README, `SUBJECT_INDEX.md`, and the GitHub issue registry form the reader-navigation bundle and are synchronized immediately for routing changes, with mandatory verification at T1.
+- `README.md`, `areas/README.md`, the affected area README, `SUBJECT_INDEX.md`, and the GitHub issue registry form the reader-navigation bundle and are synchronized immediately for routing changes, with mandatory verification at T1. The root README exposes both topic-first and area-first discovery near its opening.
 - Related areas cross-reference the primary file instead of duplicating analysis.
 - Legislative drafts use the corresponding issue identifier.
 - GitHub Projects is the authoritative area, issue, status, milestone, roadmap, and horizon-queue tracker.

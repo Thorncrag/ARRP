@@ -208,7 +208,7 @@ If no validation script exists, perform a manual validation checklist before mar
 2. confirm issue front matter matches the visible Proposal Scoring section;
 3. confirm the sibling audit-history file contains a new entry for the completed audit;
 4. confirm the issue page, sibling audit-history file, and GitHub Project fields agree where they overlap;
-5. for T1 or a routing-affecting change, confirm the project-area contents, affected area contents, Subject and Institution Index, and GitHub issue registry are synchronized under the Navigation Synchronization Check;
+5. for T1 or a routing-affecting change, confirm the repository front door, project-area contents, affected area contents, Subject and Institution Index, and GitHub issue registry are synchronized under the Navigation Synchronization Check;
 6. confirm [`inventory/sources.csv`](../inventory/sources.csv) parses and includes any source used for audit credit;
 7. run a whitespace or formatting check where available;
 8. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md); and

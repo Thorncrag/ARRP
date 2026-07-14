@@ -58,20 +58,21 @@ When updating the project, check whether the change requires inventory maintenan
 
 ## Area and Issue Index Rules
 
-The ordered project-area index is maintained in [`../areas/README.md`](../areas/README.md). Cross-area lookup by subject, department, agency, office, court, acronym, alias, or other institutional body is maintained in one alphabetical sequence in [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). Current status, lifecycle, workstream, milestone, and horizon-queue metadata are maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). Area pages and issue pages should carry stable repository links for human navigation; GitHub Project items should carry clickable canonical-page links where practical. The subject index should contain only concise, ordered record identifiers and must not become a relationship narrative or a parallel status, score, priority, or audit tracker. Edition-specific print page locators are generated during the two-pass export process and are not maintained manually in the canonical index.
+The root [`../README.md`](../README.md) is the public repository front door and must expose both topic-first and area-first discovery prominently. The ordered project-area index is maintained in [`../areas/README.md`](../areas/README.md). Cross-area lookup by subject, department, agency, office, court, acronym, alias, or other institutional body is maintained in one alphabetical sequence in [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). Current status, lifecycle, workstream, milestone, and horizon-queue metadata are maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). Area pages and issue pages should carry stable repository links for human navigation; GitHub Project items should carry clickable canonical-page links where practical. The subject index should contain only concise, ordered record identifiers and must not become a relationship narrative or a parallel status, score, priority, or audit tracker. Edition-specific print page locators are generated during the two-pass export process and are not maintained manually in the canonical index.
 
 ### Navigation Synchronization Check
 
 Treat the following as one reader-navigation bundle:
 
-1. [`../areas/README.md`](../areas/README.md), the project-area table of contents;
-2. the affected `areas/AREA/README.md`, the issue-level table of contents for that area;
-3. [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md), the cross-area subject and institution lookup; and
-4. [`../inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv), the stable GitHub-to-canonical-record navigation registry.
+1. [`../README.md`](../README.md), the public repository front door and its topic-first and area-first routes;
+2. [`../areas/README.md`](../areas/README.md), the project-area table of contents;
+3. the affected `areas/AREA/README.md`, the issue-level table of contents for that area;
+4. [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md), the cross-area subject and institution lookup; and
+5. [`../inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv), the stable GitHub-to-canonical-record navigation registry.
 
 Update the affected surfaces immediately when an area or issue is created, renamed, moved, merged, retired, promoted, or materially rerouted. Do not wait for the next audit to repair known navigation drift. A source, analysis, scoring, or drafting edit need not change the navigation bundle unless it changes an identifier, title, area ownership, canonical page, disposition, or useful reader lookup route.
 
-T1 is the mandatory verification gate because it is the first tier designed to test framework and project integration. A T1 Navigation Synchronization Check must confirm that the issue appears once in the correct area contents page; the project-area contents remains correct if an area changed; the Subject and Institution Index follows its canonical conventions and points to the correct stable record; the GitHub registry identifies the correct canonical page; and affected local links resolve. T0 should flag an obvious navigation defect for an already existing stable record, but a T0 triage scan does not add an unadmitted Horizon candidate to the contents or subject index. If T0 leads to an approved admission, promotion, move, merger, retirement, or other routing decision, update the navigation bundle immediately as part of implementing that decision.
+T1 is the mandatory verification gate because it is the first tier designed to test framework and project integration. A T1 Navigation Synchronization Check must confirm that the repository front door provides prominent topic-first and area-first routes; the issue appears once in the correct area contents page; the project-area contents remains correct if an area changed; the Subject and Institution Index follows its canonical conventions and points to the correct stable record; the GitHub registry identifies the correct canonical page; and affected local links resolve. T0 should flag an obvious navigation defect for an already existing stable record, but a T0 triage scan does not add an unadmitted Horizon candidate to the contents or subject index. If T0 leads to an approved admission, promotion, move, merger, retirement, or other routing decision, update the navigation bundle immediately as part of implementing that decision.
 
 ## Source Inventory Rules
 
@@ -258,7 +259,7 @@ At minimum, the preflight should check:
 Tier scaling:
 
 - **T0:** check the most recent audit entry, visible front matter, Issue Snapshot, Budgetary Impact Statement, Proposal Scoring box, and audit-history link; flag obvious navigation drift only for an existing stable record.
-- **T1:** perform the T0 checks and the Navigation Synchronization Check for the project-area contents, affected area contents, Subject and Institution Index, GitHub issue registry, and affected local links.
+- **T1:** perform the T0 checks and the Navigation Synchronization Check for the repository front door, project-area contents, affected area contents, Subject and Institution Index, GitHub issue registry, and affected local links.
 - **T2:** also check GitHub Project field alignment, proposal-to-legislation link shape, annotation scoring labels, and whether prior format findings were carried forward.
 - **T3/T4:** also check the audit-history sidecar, source-inventory references affected by visible citations, legislation-page budget/source-note structure, and any template changes adopted since the prior audit.
 

@@ -31,8 +31,9 @@ The compiled proposal document should use the following order.
 3. rights and reuse notice from [`../README.md`](../README.md) and [`../LICENSE.md`](../LICENSE.md);
 4. citation notice from [`../README.md`](../README.md) and [`../CITATION.cff`](../CITATION.cff);
 5. authorship notice from [`../AUTHORS.md`](../AUTHORS.md);
-6. table of contents generated from the assembled document; and
-7. optional one-page executive summary when one is later drafted.
+6. a short **Find a Topic or Institution** notice that links directly to the Subject and Institution Index in digital editions and identifies its resolved page number in print editions;
+7. table of contents generated from the assembled document; and
+8. optional one-page executive summary when one is later drafted.
 
 ### Main Proposal Body
 
@@ -80,6 +81,8 @@ Issue audit-history files named `ISSUE-ID.audit.md` are technical sidecars. They
 
 Public-proposal and full-technical editions should end with a generated **Subject and Institution Index** based on [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). The canonical index supplies one alphabetical sequence of entities, subjects, acronyms, and aliases together with ordered stable identifiers, digital links, a marked preferred route, and conventional **See** redirects for especially common alternate terms. The export layer supplies the page numbers for the particular edition.
 
+Keeping the complete index in back matter does not make it a secondary discovery path. The opening front matter must point readers to it prominently, and digital navigation should make it reachable directly without requiring readers to traverse the linear table of contents.
+
 ## Area and Issue Ordering Rules
 
 Area order is controlled by area identifiers:
@@ -118,7 +121,7 @@ Issue pages that refer to proposed legislation should identify the appendix dest
 Final public, legislative, and technical editions should support stable appendix references with resolved page numbers. Because page numbers are known only after pagination, the export workflow should eventually use a two-pass build:
 
 1. generate the document and record the start page for each major section, area, developed issue, legislation appendix item, and technical appendix item;
-2. regenerate the document with page-numbered cross-references, a page-numbered table of contents or appendix index, and references such as `Appendix A-1, DOJ-001 proposed legislation, p. 10`.
+2. regenerate the document with the opening Subject and Institution Index pointer, page-numbered cross-references, a page-numbered table of contents or appendix index, and references such as `Appendix A-1, DOJ-001 proposed legislation, p. 10`.
 
 Manual page-number references should not be maintained in canonical Markdown because they will drift whenever content changes. Canonical issue pages should keep stable links and identifiers; the export layer should resolve those identifiers into appendix labels and page numbers for final print products.
 

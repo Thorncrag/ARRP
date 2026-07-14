@@ -157,8 +157,11 @@ This first edition emphasizes developed proposals and high-value candidate routi
 
 Update this index when work creates or materially changes a useful reader lookup term or its preferred destination. Classify nothing as an entity or topic; add the term where a reader would alphabetically expect to find it.
 
+Treat the index as a primary reader-entry route rather than only back matter. The repository homepage, the Project Areas page, and any future public website or comparable digital edition should link it prominently in their opening navigation. A compiled print edition should retain the full index at the back while providing an opening front-matter pointer whose page number is resolved during export.
+
 Treat the ordinary contents and this index as one navigation bundle:
 
+- [`README.md`](README.md) is the public repository front door and should expose both topic-first and area-first discovery;
 - [`areas/README.md`](areas/README.md) is the project-area table of contents;
 - each `areas/AREA/README.md` is that area's issue-level table of contents; and
 - this file is the cross-area lookup by subject, institution, acronym, and alias.

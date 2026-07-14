@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | Unified subject and institution index; navigation synchronization and audit integration |
+| Active issue/task | Subject and Institution Index; front-door discovery convention |
 | Audit type/tier | Project-level Change Audit |
 | Started | 2026-07-14 |
-| Last checkpoint | 2026-07-14; indexing conventions centralized and navigation synchronization attached to T1 |
-| User request | Memorialize all subject-index conventions; update the index with the ordinary table of contents; and attach formal verification to T0 or T1 using the best-fitting audit design. |
-| Scope | `SUBJECT_INDEX.md`; project-area and area-level contents ownership; framework, methodology, GitHub workflow, agent validation, project structure, and consolidated same-day Change Audit history. |
-| Files touched | `SUBJECT_INDEX.md`; `framework/FRAMEWORK.md`; `framework/METHODOLOGY.md`; `framework/AGENT_OPERATING_RULES.md`; `framework/GITHUB_WORKFLOW.md`; `framework/PROJECT_STRUCTURE.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Preserved the prior streamlined single-table, common-term redirect, functional-name, and centralized-disposition conventions; consolidated all reader-index rules in the index's `Indexing and Contents Synchronization Standard`; identified `areas/README.md`, the affected area README, `SUBJECT_INDEX.md`, and the GitHub issue registry as one navigation bundle; required immediate same-change updates for routing events; made T1 the mandatory Navigation Synchronization Check within project integration and formatting preflight; limited T0 to flagging obvious drift for existing stable records; prohibited indexing unadmitted Horizon candidates; and synchronized framework, methodology, workflow, agent-validation, structure, and Change Audit rules. |
-| Next step | Apply the Navigation Synchronization Check at T1 and update the navigation bundle immediately whenever routing changes rather than waiting for an audit. |
+| Last checkpoint | 2026-07-14; subject index elevated to a primary opening discovery route |
+| User request | Make the Subject and Institution Index readily accessible in the first pages because many readers will look for a topic before learning the project-area taxonomy. |
+| Scope | Repository and Project Areas front doors; canonical index convention; print and digital assembly; navigation-bundle ownership; T1 verification; and consolidated same-day Change Audit history. |
+| Files touched | `README.md`; `areas/README.md`; `SUBJECT_INDEX.md`; `framework/PRINT_ASSEMBLY.md`; `framework/FRAMEWORK.md`; `framework/METHODOLOGY.md`; `framework/AGENT_OPERATING_RULES.md`; `framework/GITHUB_WORKFLOW.md`; `framework/PROJECT_STRUCTURE.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Added a prominent topic-first entry route near the beginning of the repository homepage; elevated the index above the Project Areas list; required future websites and comparable digital editions to expose the index in opening navigation; retained the complete print index in back matter while requiring a resolved front-matter pointer; added the root README to the navigation bundle; and synchronized T1, workflow, structure, agent-validation, and Change Audit conventions. |
+| Next step | Carry this front-door convention into the public-website architecture when that framework is implemented. |
 | Blockers/questions | None. |
-| Validation status | Passed: eight changed files have valid YAML front matter; the subject index contains 133 alphabetized entries, including 88 canonical entries and 45 `See` entries whose 46 references all resolve to canonical terms; all local links resolve across 177 Markdown files; the project-area contents matches all 24 area directories; the GitHub issue registry parses as 245 seven-column records; T0/T1 navigation rules are present on the governing surfaces; and `git diff --check` passes. No GitHub Project or progress-dashboard sync is required because no proposal lifecycle, score, audit, eligibility, or Project field changes. |
+| Validation status | Passed: all 11 changed Markdown files have valid YAML front matter; the repository and Project Areas front doors expose the Subject and Institution Index within their opening lines; the repository front door also exposes area-first discovery; the index remains alphabetized with 133 entries, 88 canonical terms, and 45 valid `See` entries; the front-matter print-pointer and two-pass resolution rules are present; the root README is included consistently in the T1 navigation bundle; all local links resolve across 177 Markdown files; and `git diff --check` passes. No GitHub Project or progress-dashboard sync is required because no proposal lifecycle, score, audit, eligibility, or Project field changes. |
 
 ## Handoff Rules
 

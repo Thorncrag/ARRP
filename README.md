@@ -10,6 +10,10 @@ print_levels:
 
 **A Roadmap for Repairing Institutional Damage, Restoring Trustworthy Government, and Preventing Future Personalist Capture**
 
+## Find a Topic or Institution
+
+Readers looking for a particular subject, department, agency, office, court, acronym, or common term should begin with the [Subject and Institution Index](SUBJECT_INDEX.md). Readers who prefer the project's ordered institutional structure may instead browse the [Project Areas](areas/README.md).
+
 ## Reader notice
 
 The author is an independent researcher and does not have formal legal training. This project is a policy-reform research and drafting exercise, not legal advice. Proposed legislation, model acts, constitutional amendments, and administrative language in this repository are illustrative working drafts. They have not been reviewed or approved by an attorney, legislative counsel, legal scholar, public official, or affected institution, and should not be treated as final or ready-to-introduce legislative text.
@@ -25,8 +29,6 @@ The project is not limited to incidents from President Trump's administrations. 
 The full neutrality, language, coalition-reality, and political-language audit rules are maintained in the technical framework and project methodology. See [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#neutrality-and-language-guidelines) and [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#political-language-and-coalition-appeal-audit).
 
 The project is also a living research draft. Sources, citations, examples, issue classifications, and proposed remedies may be incomplete, provisional, or later revised as the work develops.
-
-Readers may browse the project through the ordered [Project Areas index](areas/README.md) or use the living [Subject and Institution Index](SUBJECT_INDEX.md) to locate work by subject, department, agency, office, court, or other institutional body.
 
 The project is author-directed. The author has set the research agenda, selected and organized the issues, made the editorial judgments, and remained in charge of the project's structure and development. Large language model tools, including ChatGPT, have been used extensively for research organization, drafting assistance, revision, comparison, and issue spotting, but the project was not generated from scratch by an LLM. The author asserts authorship of the project as a whole and remains responsible for its editorial choices, judgments, omissions, and errors.
 
