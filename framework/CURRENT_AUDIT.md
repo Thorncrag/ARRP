@@ -15,16 +15,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Active |
 | Active issue/task | FUND-001 — Addressing Executive Order Abuse |
-| Audit type/tier | Autonomous successive audit sequence; FUND-001 T2 development audit completed and awaiting commit/push |
+| Audit type/tier | Autonomous successive audit sequence; FUND-001 T3 readiness audit active |
 | Started | 2026-07-13 18:59:40 -0400 |
-| Last checkpoint | 2026-07-13 20:23:22 -0400 |
+| Last checkpoint | 2026-07-13 20:25:27 -0400 |
 | User request | Advance JUD-011, FUND-001, REG-001, and EMOL-015 successively through every remaining audit tier to T4 while the user is away. |
 | Scope | FUND-001 issue page, independent Executive-Order Abuse Impoundment Control Act, JUD-011 preferred-remedy fit, audit sidecar, Impoundment Control Act and appropriations authorities, trigger and comparator evidence, standing and three-judge-court mechanics, implementation and budget evidence, source and audit inventories, dashboard, GitHub Project fields, and issue update surface. Later authorized units: FUND-001 T3-T4, REG-001 T1-T4, and EMOL-015 T1-T4. |
-| Files touched | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md` |
-| Completed steps | Completed and validated FUND-001 T2; raised the score from 60 to 76 / 100 Review Ready; verified current law, current GAO manifestations, H.R. 5314 and H.R. 5220 analogues, adoption posture, and provisional workload comparators; narrowed the trigger to final judgments involving distinct current-term directives; removed self-executing GAO and complaint-filing effects; corrected section 2284 panel mechanics, appellate routing, sovereign immunity, standing language, emergency certification, employee protection, current-term and pre-enactment applicability, and authorization of appropriations; aligned the comparator methodology; and confirmed persisted GitHub Project fields in the Project table. |
-| Next step | Commit and push the FUND-001 T2 substantive unit; add provenance and the issue update; then activate and run FUND-001 T3 readiness audit. |
+| Files touched | None yet for T3. |
+| Completed steps | Completed, validated, committed, and pushed FUND-001 T2 as `81974ef`; raised the score from 60 to 76 / 100 Review Ready; verified current law, current GAO manifestations, H.R. 5314 and H.R. 5220 analogues, adoption posture, and provisional workload comparators; narrowed the trigger to final judgments involving distinct current-term directives; removed self-executing GAO and complaint-filing effects; corrected section 2284 panel mechanics, appellate routing, sovereign immunity, standing language, emergency certification, employee protection, current-term and pre-enactment applicability, and authorization of appropriations; aligned the comparator methodology; and confirmed persisted GitHub Project fields in the Project table. |
+| Next step | Run the FUND-001 T3 readiness audit: complete claim-by-claim and citation verification; test claim-channeling, Tucker Act, Court of Federal Claims, and current merits-case implications; strengthen historical trigger-duration, workload, budget, adoption, and opposition evidence; revise the draft as warranted; then synchronize, validate, commit, push, and post the issue update. |
 | Blockers/questions | Local GitHub CLI authentication remains invalid, but the signed-in GitHub interface supplied completion-critical Project synchronization and readback. No substantive policy blocker identified. |
-| Validation status | FUND-001 T2 passed YAML parsing, source-inventory width and unique-ID checks, local-link validation, score/status consistency, dashboard tests, `git diff --check`, and Project-table persistence readback. Substantive commit and push remain. |
+| Validation status | FUND-001 T2 passed YAML parsing, source-inventory width and unique-ID checks, local-link validation, score/status consistency, dashboard tests, `git diff --check`, and Project-table persistence readback; substantive commit `81974ef` is pushed. FUND-001 T3 validation not started. |
 
 ## Handoff Rules
 

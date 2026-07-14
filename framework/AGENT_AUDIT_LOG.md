@@ -1191,3 +1191,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `dc6279a` to roll back the substantive T4 unit; separately revert the provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. JUD-011 advanced from 80 to 82 / 100 and remains Review Ready after publication-level claim verification, judicial-designation and assignment correction, initial-screening and reassignment clarification, interim-deadline flexibility, pending-case and prior-proposal refresh, legal-durability review, and unresolved-claims documentation. Publication Ready remains unavailable because qualified constitutional, legislative-counsel, judicial-administration, appropriations, and CBO review has not occurred. |
+
+### 2026-07-13 — FUND-001 — T2 development audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 20:25:27 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | FUND-001 |
+| Issue page | [Issue](../areas/FUND/issues/FUND-001.md) |
+| Audit history | [Audit](../areas/FUND/issues/FUND-001.audit.md) |
+| Proposal page | [Bill](../legislation/FUND-001.md) |
+| Tier | T2 development audit |
+| Files changed | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md` |
+| Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; `git diff --check`; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
+| Commit | `Run FUND-001 T2 audit` (`81974ef`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `81974ef` to roll back the substantive T2 unit; separately revert the provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. FUND-001 advanced from 60 to 76 / 100 Review Ready after current-law, analogue, trigger, standing, panel-mechanics, sovereign-immunity, applicability, implementation, budget, and adoption review. T3 must complete claim-by-claim and citation verification; claim-channeling, Tucker Act, Court of Federal Claims, and current-case analysis; historical trigger-duration evidence; workload and budget development; and adoption and opposition analysis. |
