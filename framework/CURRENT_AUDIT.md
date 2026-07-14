@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | HOR-030 adjudication and integration into EMERG-003 |
-| Audit type/tier | Horizon adjudication / T0 issue development |
+| Active issue/task | Subject and institution index architecture |
+| Audit type/tier | Project-level Change Audit |
 | Started | 2026-07-14 |
 | Last checkpoint | 2026-07-14; implementation complete |
-| User request | Incorporate the ICC emergency-powers analysis into the project and promote it to a full issue. |
-| Scope | Existing EMERG-003 proposal, HOR-030 horizon record, IEEPA and NEA statutory authorities, ASPA congressional baseline, H.R. 23 legislative history, Executive Order 14203 and implementation, proposed legislation, source inventory, area and legislation indexes, GitHub issue wrappers, and Project metadata. |
-| Files touched | `areas/EMERG/README.md`; `areas/EMERG/issues/EMERG-003.md`; `areas/EMERG/issues/EMERG-003.audit.md`; `framework/CURRENT_AUDIT.md`; `framework/HORIZON_SCAN_LOG.md`; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; `legislation/EMERG-003.md`; `legislation/README.md`; GitHub proposal issue #105 and Project fields; GitHub horizon issue #250. |
-| Completed steps | Integrated HOR-030 into existing EMERG-003; created the developed issue page, T0 audit history, and first statutory draft; preserved the political-policy boundary; added 22 source records; synchronized area, legislation, horizon, and GitHub registries; updated and read back proposal issue #105 and its Project fields; preserved and closed horizon issue #250 as integrated. |
-| Next step | Conduct EMERG-003 T1 review of IEEPA scope, direct-nexus and specific-authorization standards, independent misconduct, INA coordination, D.D.C. review, classified records, transition relief, and implementation cost. |
+| User request | Begin a project-wide subject index, including organization, department, and agency lookup, and preserve eventual print-edition page locators. |
+| Scope | Root and area navigation; subject, agency, office, court, international-body, and State-institution routing; framework and methodology ownership; inventory boundaries; print assembly; first-pass PDF compiler; and Change Audit history. |
+| Files touched | `SUBJECT_INDEX.md`; `README.md`; `areas/README.md`; `inventory/README.md`; `framework/FRAMEWORK.md`; `framework/METHODOLOGY.md`; `framework/PRINT_ASSEMBLY.md`; `framework/PROJECT_STRUCTURE.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`; `scripts/build_compiled_pdf.py`. |
+| Completed steps | Created and seeded the many-to-many digital index; linked it from project navigation; required ongoing maintenance during proposal and source integration; preserved area/issue ownership and GitHub Project workflow authority; assigned public and technical print treatment; documented two-pass page and page-range resolution; and added the canonical index to the first-pass compiler's back matter and contents list. |
+| Next step | Expand terms incrementally as remaining proposals are developed; implement edition-specific locator resolution during the next print/export tooling pass. |
 | Blockers/questions | None. |
-| Validation status | Passed `git diff --check`, front-matter YAML parse, source CSV width and unique-ID checks, repository-wide local-link check, issue-URL source-inventory check, issue-architecture scan, and signed-in GitHub issue/Project readback. No progress-dashboard dispatch was required because proposal eligibility, Project Status, and Score did not change. |
+| Validation status | Passed front-matter parsing, repository-wide local-link checks, index table-shape and identifier-existence checks, `git diff --check`, Python syntax parsing, and bundled-runtime compiler import, 24-area discovery, and index-flowable construction. No GitHub Project or progress-dashboard sync is required because no proposal lifecycle, score, audit, eligibility, or Project field changed. |
 
 ## Handoff Rules
 

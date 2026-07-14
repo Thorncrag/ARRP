@@ -26,6 +26,8 @@ The full neutrality, language, coalition-reality, and political-language audit r
 
 The project is also a living research draft. Sources, citations, examples, issue classifications, and proposed remedies may be incomplete, provisional, or later revised as the work develops.
 
+Readers may browse the project through the ordered [Project Areas index](areas/README.md) or use the living [Subject and Institution Index](SUBJECT_INDEX.md) to locate work by subject, department, agency, office, court, or other institutional body.
+
 The project is author-directed. The author has set the research agenda, selected and organized the issues, made the editorial judgments, and remained in charge of the project's structure and development. Large language model tools, including ChatGPT, have been used extensively for research organization, drafting assistance, revision, comparison, and issue spotting, but the project was not generated from scratch by an LLM. The author asserts authorship of the project as a whole and remains responsible for its editorial choices, judgments, omissions, and errors.
 
 For a dedicated authorship, stakeholder-input, and contact statement, see [`AUTHORS.md`](AUTHORS.md).

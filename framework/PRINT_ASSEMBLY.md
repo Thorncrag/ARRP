@@ -76,6 +76,10 @@ Relation-to-law provisions, rules of construction, severability clauses, definit
 
 Issue audit-history files named `ISSUE-ID.audit.md` are technical sidecars. They should be included only in full technical editions or audit-specific exports unless the user deliberately chooses to publish audit provenance. Public proposal editions should generally keep only the issue page's compact Proposal Scoring section and omit the full audit-history sidecars.
 
+### Back Matter
+
+Public-proposal and full-technical editions should end with a generated **Subject and Institution Index** based on [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). The canonical index supplies terms, aliases, stable identifiers, digital links, and primary-versus-related routing. The export layer supplies the page numbers for the particular edition.
+
 ## Area and Issue Ordering Rules
 
 Area order is controlled by area identifiers:
@@ -117,6 +121,18 @@ Final public, legislative, and technical editions should support stable appendix
 2. regenerate the document with page-numbered cross-references, a page-numbered table of contents or appendix index, and references such as `Appendix A-1, DOJ-001 proposed legislation, p. 10`.
 
 Manual page-number references should not be maintained in canonical Markdown because they will drift whenever content changes. Canonical issue pages should keep stable links and identifiers; the export layer should resolve those identifiers into appendix labels and page numbers for final print products.
+
+## Subject-Index Assembly
+
+The subject and institution index requires edition-specific page locators and should use the same two-pass principle as other resolved cross-references:
+
+1. during the first pass, record the start and end pages for every area page, developed issue, legislation item, and selected appendix item;
+2. map each stable target linked from [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md) to the page or page range where that target appears in the assembled edition;
+3. when a candidate issue has no standalone page, resolve its locator to the page containing the candidate entry on the applicable area page;
+4. during the second pass, render a conventional alphabetical back-of-book index with comma-separated pages or page ranges while preserving clickable links in digital PDF and DOCX editions; and
+5. collapse duplicate locators and omit targets not included in the selected edition, without changing the canonical subject-to-issue mapping.
+
+The printed index may distinguish a term's primary analytical home typographically from related references, but it should not reproduce proposal status, score, priority, or audit metadata. If pagination changes, regenerate the index rather than editing page numbers in `SUBJECT_INDEX.md`.
 
 ## Heading Levels
 

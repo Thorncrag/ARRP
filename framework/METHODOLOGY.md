@@ -20,6 +20,8 @@ The authoritative project-tracking surfaces are:
 - [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2) — area, issue, lifecycle-status, milestone, roadmap, workstream, and horizon-queue tracking.
 - [`sources.csv`](../inventory/sources.csv) — source-tracking records.
 
+The reader-facing [Subject and Institution Index](../SUBJECT_INDEX.md) is a navigation surface, not an authoritative project tracker or retained inventory CSV.
+
 ## Inventory Rules
 
 1. Each substantive issue should have a stable issue identifier, such as `DOJ-001`.
@@ -32,6 +34,7 @@ The authoritative project-tracking surfaces are:
 8. GitHub Project, source inventory, and page updates should be made in the same change as the substantive project update that requires them.
 9. GitHub Project fields, not labels or issue-body metadata, are authoritative for `Area`, `Workstream`, `Priority`, `Release blocker`, `Status`, `Score`, `Runs`, `Last audit`, `Next audit`, `Rebaseline status`, `Change audit needed`, `Canonical page`, and parent/sub-issue tracking.
 10. Labels should be limited to issue kind or temporary triage that is not already represented by a Project field.
+11. The Subject and Institution Index should map plain-language terms and institutional names to stable area and issue homes without duplicating volatile Project fields or creating a second issue taxonomy.
 
 ## Project-Update Checklist
 
@@ -51,10 +54,11 @@ When updating the project, check whether the change requires inventory maintenan
 12. If a Markdown page is created, moved, promoted, retired, or repurposed, update its `print_levels` metadata under the rules in [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
 13. If a roadmap, backlog, or to-do item is added or revised, update the GitHub Project issue/milestone/roadmap item; framework files should link to GitHub rather than maintaining separate task lists.
 14. If a roadmap, governance, audit, release, or publication task has meaningful child tasks, use GitHub native sub-issues rather than Markdown-only checklist substitutes.
+15. If proposal development, horizon integration, or a material source update introduces a department, agency, office, court, other institutional body, acronym, alias, or plain-language subject that would help readers find the relevant work, add or revise the corresponding route in [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). If a term's primary issue home changes, update the index in the same change.
 
 ## Area and Issue Index Rules
 
-The ordered project-area index is maintained in [`../areas/README.md`](../areas/README.md). Current status, lifecycle, workstream, milestone, and horizon-queue metadata are maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). Area pages and issue pages should carry stable repository links for human navigation; GitHub Project items should carry clickable canonical-page links where practical.
+The ordered project-area index is maintained in [`../areas/README.md`](../areas/README.md). Cross-area lookup by subject, department, agency, office, court, acronym, alias, or other institutional body is maintained in [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). Current status, lifecycle, workstream, milestone, and horizon-queue metadata are maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). Area pages and issue pages should carry stable repository links for human navigation; GitHub Project items should carry clickable canonical-page links where practical. The subject index should identify primary and related homes but must not become a parallel status, score, priority, or audit tracker. Edition-specific print page locators are generated during the two-pass export process and are not maintained manually in the canonical index.
 
 ## Source Inventory Rules
 

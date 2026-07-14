@@ -7,6 +7,7 @@ print_levels:
 # Repository Structure
 
 ```text
+SUBJECT_INDEX.md                   Cross-area subject and institutional-body lookup
 framework/                         Governing methodology, tracking logs, and operating rules
   FRAMEWORK.md                     Project framework and file-ownership rules
   METHODOLOGY.md                   Audit rules, scoring rules, and workflow rules
@@ -38,6 +39,7 @@ archive/                           Superseded or migrated source snapshots
 ## File ownership
 
 - A defect has one primary issue file.
+- `SUBJECT_INDEX.md` maps organizations and subjects to primary and related issue homes without changing that ownership.
 - Related areas cross-reference the primary file instead of duplicating analysis.
 - Legislative drafts use the corresponding issue identifier.
 - GitHub Projects is the authoritative area, issue, status, milestone, roadmap, and horizon-queue tracker.

@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Build a first-pass compiled ARRP proposal PDF.
 
-The generator follows framework/PRINT_ASSEMBLY.md and intentionally keeps the
-format conservative: readable typography, stable ordering, page numbers, and
-legislation in appendices.
+The generator follows the first-pass structure in framework/PRINT_ASSEMBLY.md
+and intentionally keeps the format conservative: readable typography, stable
+ordering, page numbers, legislation in appendices, and the canonical subject
+index as back matter. Edition-specific subject-index locator resolution remains
+part of the documented two-pass publication workflow.
 """
 
 from __future__ import annotations
@@ -430,6 +432,7 @@ def toc_entries(areas: list[Area], issue_order: dict[str, list[str]]) -> list[st
         [
             "Appendix A - Proposed Federal Legislation and Constitutional Amendments",
             "Appendix B - Model State Legislation",
+            "Subject and Institution Index",
         ]
     )
     return entries
@@ -482,6 +485,9 @@ def build_story(styles: dict[str, ParagraphStyle]) -> list:
     for path in state_bills:
         story.append(PageBreak())
         story.extend(markdown_to_flowables(read(path), styles, heading_offset=0))
+
+    story.append(PageBreak())
+    story.extend(markdown_to_flowables(read(ROOT / "SUBJECT_INDEX.md"), styles, heading_offset=0))
 
     return story
 

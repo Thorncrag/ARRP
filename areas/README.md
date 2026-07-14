@@ -8,6 +8,8 @@ print_levels:
 
 # Project Areas
 
+For cross-area lookup by topic, department, agency, office, court, or other institutional body, see the [Subject and Institution Index](../SUBJECT_INDEX.md).
+
 - [A-01 / DOJ — Department of Justice](DOJ/README.md)
 - [A-02 / ELEC — Election Integrity](ELEC/README.md)
 - [A-03 / WAR — War Powers and Military Force](WAR/README.md)
