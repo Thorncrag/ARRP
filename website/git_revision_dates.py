@@ -51,3 +51,12 @@ def on_page_content(html, *, page, **_kwargs):
     if staged is not None:
         page.file.abs_src_path = staged
     return html
+
+
+@event_priority(100)
+def on_page_context(context, *, page, **_kwargs):
+    """Give the footer date a visible, self-explanatory label."""
+    revision_date = page.meta.get("git_revision_date_localized")
+    if revision_date and not str(revision_date).startswith("Last modified:"):
+        page.meta["git_revision_date_localized"] = f"Last modified: {revision_date}"
+    return context

@@ -40,7 +40,7 @@ python3 -m mkdocs build --strict --config-file .site-build/mkdocs.yml
 
 The generated source tree, manifest, MkDocs configuration, and output site live under `.site-build/`, which is ignored by Git. The manifest records every canonical Markdown source admitted to the build and every internal link demoted because its target is outside the publication boundary.
 
-Published pages display a localized **Last update** date in the page footer. The revision-date plugin reads the most recent commit affecting each canonical Markdown source; `website/git_revision_dates.py` temporarily maps the allowlisted staging copy back to that source during the build. The generated legislation index uses the newest committed revision among the legislation pages it lists. The deployment checkout must retain full Git history so these dates remain accurate.
+Published pages display a localized **Last modified** date in the page footer. The revision-date plugin reads the most recent commit affecting each canonical Markdown source; `website/git_revision_dates.py` temporarily maps the allowlisted staging copy back to that source during the build and supplies the visible label. The generated legislation index uses the newest committed revision among the legislation pages it lists. The deployment checkout must retain full Git history so these dates remain accurate.
 
 ## Deployment
 
