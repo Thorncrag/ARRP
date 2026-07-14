@@ -36,7 +36,7 @@ body:
         - Audit needed
         - Review ready
         - Release candidate
-        - Done / Published
+        - Completed within scope
         - Deferred / Parked
         - Blocked
     validations:

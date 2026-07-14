@@ -12,7 +12,7 @@
     "baselineTotal": 4,
     "targetDate": "2026-12-31",
     "reviewReadyScore": 75,
-    "readyStatuses": ["Review ready", "Advanced review ready", "Proposal ready", "Publication ready", "Fully validated", "Release candidate", "Done / Published"],
+    "readyStatuses": ["Review ready", "Advanced review ready", "Proposal ready", "Publication ready", "Fully validated", "Release candidate", "Completed within scope"],
     "velocityWindowDays": 28,
     "minimumForecastDays": 7
   }

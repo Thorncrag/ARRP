@@ -28,7 +28,7 @@
       "Publication ready",
       "Fully validated",
       "Release candidate",
-      "Done / Published"
+      "Completed within scope"
     ],
     "velocityWindowDays": 28,
     "minimumForecastDays": 7

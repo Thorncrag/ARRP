@@ -74,7 +74,7 @@ class ReviewReadyDashboardTests(unittest.TestCase):
             },
             {
                 "__typename": "ProjectV2ItemFieldSingleSelectValue",
-                "name": "Done / Published",
+                "name": "Completed within scope",
                 "field": {"name": "Status"},
             },
         ]
@@ -97,6 +97,18 @@ class ReviewReadyDashboardTests(unittest.TestCase):
         self.assertTrue(ready["ready"])
         self.assertIsNone(ready["score"])
         self.assertIn("missing a Project score", ready["warnings"][0])
+
+    def test_completed_within_scope_preserves_terminal_readiness_without_score_threshold_warning(self):
+        raw = deepcopy(self.raw)
+        nodes = raw["items"][1]["fieldValues"]["nodes"]
+        for node in nodes:
+            if (node.get("field") or {}).get("name") == "Status":
+                node["name"] = "Completed within scope"
+        _, items = MODULE.parse_items(raw, self.config, self.registry)
+        completed = next(item for item in items if item["identifier"] == "REG-001")
+        self.assertTrue(completed["ready"])
+        self.assertEqual(completed["score"], 68)
+        self.assertEqual(completed["warnings"], [])
 
     def test_retrospective_seed_extends_history_without_replacing_live_dates(self):
         config = deepcopy(self.config)

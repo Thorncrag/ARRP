@@ -281,7 +281,7 @@ def parse_items(
             warnings.append(
                 "Ready status is missing a Project score, so threshold consistency cannot be verified."
             )
-        if is_ready and score is not None and score < threshold and normalize(status) != normalize("Done / Published"):
+        if is_ready and score is not None and score < threshold and normalize(status) != normalize("Completed within scope"):
             warnings.append("Ready status is paired with a score below the Review Ready threshold.")
         if not is_ready and score is not None and score >= threshold:
             warnings.append("Score meets the Review Ready threshold but status is not Review ready or higher.")

@@ -16,6 +16,8 @@ Each active ARRP proposal or active horizon item should have a GitHub issue. The
 
 GitHub issues are durable records and should not be deleted unless they were created erroneously. When an issue is merged, integrated, retired, or otherwise adjudicated, close the issue and preserve its stable number, title, links, and disposition record. If no active work remains on that record, remove only its card from the active GitHub Project; removing a Project item does not delete or alter the underlying issue. Preserve the disposition in the Horizon Scan Log, relevant area page, audit sidecar, registry, or other canonical record as applicable.
 
+When a Horizon candidate is admitted independently, convert its existing issue into the area-specific proposal issue: assign and retitle it with the new `AREA-###` identifier, replace `kind: horizon` with `kind: proposal`, preserve its original `HOR-###` provenance in the issue body and Horizon Scan Log, update the registry row in place, and keep the issue open. Do not create a duplicate proposal issue. When a Horizon candidate is merged, integrated, retired, or rejected, retain the `HOR-###` prefix, append the precise bracketed disposition, add a dated final-disposition section that supersedes active-intake language, synchronize the registry and Horizon Scan Log, close the issue if no independent work remains, and remove only its Project card. Read back all affected surfaces before closeout.
+
 Milestones should not be assigned automatically to every proposal. A milestone means the issue is an obligation for that release phase. Proposal and horizon issues may remain unmilestoned until they are pulled into a specific release path.
 
 ## Project Fields
@@ -35,7 +37,7 @@ Use GitHub Project fields as the authoritative structured workflow metadata:
 
 Do not duplicate these fields as issue-body metadata or as labels. If a field value changes, update the GitHub Project field directly.
 
-Use `Done / Published` for work that was actually completed or published within its own scope. Do not use it as a substitute for `Merged`, `Integrated`, `Retired`, or another archival disposition. A closed adjudicated record with no active work should ordinarily leave the active Project instead of occupying a misleading terminal-status card.
+Use `Completed within scope` only when the item's defined obligation is actually complete. Do not use it as a substitute for `Merged`, `Integrated`, `Retired`, another archival disposition, or merely publishing an unfinished item. A closed adjudicated record with no active work should ordinarily leave the active Project instead of occupying a misleading terminal-status card.
 
 Project-field updates are not optional bookkeeping. When audit work changes a proposal's score, status, run count, last-audit note, next-audit note, rebaseline status, change-audit marker, priority, release-blocker posture, or canonical page, the corresponding GitHub Project row must be updated before the task is reported complete. If the agent cannot update a Project field, it must tell the user immediately, identify the affected issue and field values, preserve the repo work, and either fix the Project access problem with the user or report the work as partially complete. The issue body may carry a temporary snapshot, but the Project field remains the authoritative workflow tracker.
 

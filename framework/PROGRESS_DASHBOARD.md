@@ -26,7 +26,7 @@ The dashboard uses the GitHub Project `Status` field as the lifecycle authority.
 - `Publication ready`;
 - `Fully validated`;
 - `Release candidate`; or
-- `Done / Published`.
+- `Completed within scope`.
 
 The score threshold remains 75. The dashboard flags, but does not silently repair, a proposal whose score is at least 75 while its status remains below Review Ready, whose Review Ready status is paired with a lower score, or whose Review Ready status has no Project score with which to verify the threshold. This preserves the Project readback rule and makes tracking drift visible.
 
