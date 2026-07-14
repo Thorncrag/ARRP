@@ -26,6 +26,10 @@ The federal government can use funding, enforcement discretion, emergency author
 - **FED-007** — Retaliatory investigations or audits _(status: Candidate; priority: Medium)_
 - **FED-008** — Abuse of waiver and approval authority _(status: Candidate; priority: Medium)_
 
+## Issue Boundaries
+
+- **Political-status boundary.** District of Columbia statehood and the choice of Puerto Rico's final political status are outside ARRP's scope as substantive political decisions. A-20 may still address a separable federalism defect involving coercion, displacement of local functions, emergency or National Guard control, selective enforcement, grant conditions, or waiver authority when the remedy operates independently of any statehood or final-status choice.
+
 ## Notes
 
 Provisional inventory; full source development pending.

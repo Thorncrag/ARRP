@@ -129,9 +129,17 @@ Frame issues around institutional weakness, structural damage, and legal repair.
 
 ### Resilience and Temporal Scope
 
-Do not reject an issue merely because it is not tied to President Trump's administrations, Project 2025, or a current partisan conflict. Those events are principal case studies and stress tests, not the project's outer boundary. Older, continuing, or future-facing defects remain within scope when they bear on democratic resilience, institutional legitimacy, equal political membership, lawful administration, representation, disenfranchisement, or the system's capacity for self-correction.
+Do not reject an issue merely because it is not tied to President Trump's administrations, Project 2025, or a current partisan conflict. Those events are principal case studies and stress tests, not the project's outer boundary. Older, continuing, or future-facing defects remain within scope when they identify a repairable legal, structural, administrative, remedial, or institutional weakness affecting democratic resilience, institutional legitimacy, equal political membership, lawful administration, representation, disenfranchisement, or the system's capacity for self-correction.
 
 Preventive resilience is sufficient for scope when the issue identifies a concrete legal, structural, administrative, or institutional vulnerability that could enable future abuse. A future-facing issue should still be tied to a repairable institutional weakness, not a general policy preference.
+
+### Political-Failure Boundary
+
+ARRP does not treat every harmful, unjust, unpopular, neglected, or democratically consequential outcome as an institutional failure. A **strictly political failure** exists when the ordinary constitutional decision process remains legally and practically available, but voters, officeholders, parties, or lawmakers do not build the coalition, make the compromise, assign the priority, or enact the policy needed to produce a preferred outcome. Political disagreement, legislative inaction, an adverse vote, or repeated failure to enact a proposal does not by itself establish a defect for ARRP to repair.
+
+An issue crosses into ARRP's scope only when it identifies an independently repairable defect in the decision or implementation system—for example, unlawful nullification of an enacted mandate, coercion, corrupted administration, disabling delay, unavailable review, distorted representation rules, suppressed evidence, or a legal structure that prevents the ordinary process from operating as represented. The remedy must target that defect neutrally; it may not compel adoption of the preferred substantive policy merely because ordinary politics has not produced it.
+
+District of Columbia statehood and the selection of Puerto Rico's final political status, including statehood, are outside scope under this rule. Congress and the affected electorates retain political and constitutional avenues for considering those choices, and ARRP has not identified an independent process defect whose repair would determine the result without substituting the project's judgment for the political decision. Narrower issues involving either jurisdiction may still qualify when they identify a separable institutional defect and a remedy that does not presuppose statehood or another final-status outcome.
 
 When an issue turns on political tradition, voluntary restraint, unwritten norms, informal interbranch accommodation, or underspecified legal guidance, identify that dependence directly. The analysis should ask whether the vulnerable norm can remain informal, should be codified, should be made reviewable, should receive an enforcement or transparency mechanism, or requires constitutional clarification.
 
@@ -195,7 +203,7 @@ Before promoting a candidate into a standalone issue, ask:
 
 If not, merge it into a broader issue, treat it as a manifestation or example, cross-reference it, or retain it only in the research inventory.
 
-An issue may satisfy the test even when its main evidence is not drawn from President Trump's administrations. The relevant question is whether the candidate identifies a repairable structural defect. Representation and disenfranchisement issues, including District of Columbia statehood, Puerto Rico status, territorial representation, or other durable political-membership defects, may qualify where they materially affect democratic legitimacy or long-term institutional resilience.
+An issue may satisfy the test even when its main evidence is not drawn from President Trump's administrations. The relevant question is whether the candidate identifies a repairable structural defect rather than only a preferred political outcome that has not prevailed through ordinary constitutional politics. Democratic consequence, unequal political influence, or durable legislative inaction may justify further inquiry, but they do not alone satisfy the test. District of Columbia statehood and the choice of Puerto Rico's final political status are excluded under the Political-Failure Boundary; a narrower issue involving either jurisdiction must identify a separable defect and neutral remedy independent of that status choice.
 
 Candidate issues may be retired or merged when the issue-admission test shows substantial duplication. A status such as **Awaiting merits adjudication** identifies a deliberately paused issue whose remedy depends materially on pending judicial resolution.
 

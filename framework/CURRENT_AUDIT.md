@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | Subject and institution index architecture |
+| Status | Active |
+| Active issue/task | Political-failure scope boundary; HOR-020 and HOR-021 retirement |
 | Audit type/tier | Project-level Change Audit |
 | Started | 2026-07-14 |
-| Last checkpoint | 2026-07-14; implementation complete |
-| User request | Begin a project-wide subject index, including organization, department, and agency lookup, and preserve eventual print-edition page locators. |
-| Scope | Root and area navigation; subject, agency, office, court, international-body, and State-institution routing; framework and methodology ownership; inventory boundaries; print assembly; first-pass PDF compiler; and Change Audit history. |
-| Files touched | `SUBJECT_INDEX.md`; `README.md`; `areas/README.md`; `inventory/README.md`; `framework/FRAMEWORK.md`; `framework/METHODOLOGY.md`; `framework/PRINT_ASSEMBLY.md`; `framework/PROJECT_STRUCTURE.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`; `scripts/build_compiled_pdf.py`. |
-| Completed steps | Created and seeded the many-to-many digital index; linked it from project navigation; required ongoing maintenance during proposal and source integration; preserved area/issue ownership and GitHub Project workflow authority; assigned public and technical print treatment; documented two-pass page and page-range resolution; and added the canonical index to the first-pass compiler's back matter and contents list. |
-| Next step | Expand terms incrementally as remaining proposals are developed; implement edition-specific locator resolution during the next print/export tooling pass. |
+| Last checkpoint | 2026-07-14; repository changes drafted; GitHub synchronization pending |
+| User request | Clarify that strictly political failures are outside project scope and classify District of Columbia and Puerto Rico statehood issues as political failures outside scope. |
+| Scope | Public and technical scope rules; issue-admission and Horizon adjudication tests; A-02, A-20, and A-24 boundaries; subject index; HOR-020 and HOR-021 durable dispositions; GitHub issue registry; GitHub issues #18 and #19; active Project cards; and Change Audit history. |
+| Files touched | `README.md`; `SUBJECT_INDEX.md`; `areas/ELEC/README.md`; `areas/FED/README.md`; `areas/RIGHTS/README.md`; `framework/FRAMEWORK.md`; `framework/METHODOLOGY.md`; `framework/HORIZON_SCAN_LOG.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`; `inventory/github_issue_registry.csv`. |
+| Completed steps | Defined the political-failure boundary; excluded D.C. statehood and Puerto Rico final-status selection; preserved status-neutral routes for separable institutional defects; retired HOR-020 and HOR-021 in the Horizon log; and updated area, index, and registry routing. |
+| Next step | Validate repository changes; commit and push; update and close GitHub issues #18 and #19 as not planned; remove their inactive Project cards; and read back both records. |
 | Blockers/questions | None. |
-| Validation status | Passed front-matter parsing, repository-wide local-link checks, index table-shape and identifier-existence checks, `git diff --check`, Python syntax parsing, and bundled-runtime compiler import, 24-area discovery, and index-flowable construction. No GitHub Project or progress-dashboard sync is required because no proposal lifecycle, score, audit, eligibility, or Project field changed. |
+| Validation status | In progress. No progress-dashboard dispatch is required because HOR-020 and HOR-021 are horizon records and no proposal lifecycle, score, audit, eligibility, or Project field changed. |
 
 ## Handoff Rules
 

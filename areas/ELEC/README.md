@@ -35,6 +35,8 @@ The election system remains vulnerable to federal executive interference, delegi
 
 ## Issue Boundaries
 
+- **Political-status boundary.** District of Columbia statehood and the choice of Puerto Rico's final political status are political outcomes outside ARRP's scope. A-02 may still address election administration, ballot access, certification, voter protection, campaign finance, redistricting, or another neutral election-system defect affecting either jurisdiction when the remedy does not presuppose statehood or another final-status result.
+
 - **ELEC-001** concerns civilian executive interference through presidential authority, agencies, investigations, funding, regulation, intelligence, administrative process, or official influence.
 - **ELEC-002** concerns the vulnerability of state and local canvassing and certification mechanisms to refusal, deadlock, delay, or unauthorized discretion, regardless of the source of pressure or motive.
 - **ELEC-003** concerns politically neutral protection of election personnel and continuity of election operations, with state administration and only narrowly limited federal financial support.
