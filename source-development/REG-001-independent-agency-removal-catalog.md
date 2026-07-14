@@ -22,9 +22,9 @@ The pattern is broader than the July 2026 Election Assistance Commission episode
 REG-001 should use this catalog to separate six questions:
 
 1. whether the President can remove members of a particular board or commission at will after *Slaughter*;
-2. whether removal, resignation demands, or vacancy management functionally disable statutory missions even if formal removal is lawful; and
-3. whether some attempted removals failed or were delayed because of agency-specific protections, statutory process, judicial interim relief, or historically distinct constitutional treatment; and
-4. whether removal plus refusal to nominate or refill vacancies can functionally disable a congressionally created agency while bypassing formal repeal; and
+2. whether removal, resignation demands, or vacancy management functionally disable statutory missions even if formal removal is lawful;
+3. whether some attempted removals failed or were delayed because of agency-specific protections, statutory process, judicial interim relief, or historically distinct constitutional treatment;
+4. whether removal plus refusal to nominate or refill vacancies can functionally disable a congressionally created agency while bypassing formal repeal;
 5. whether operational changes at executive-controlled agencies merely alter lawful policy and management or instead eliminate the capacity to perform mandatory statutory duties; and
 6. whether some bodies require agency-specific remedies because of election administration, labor rights, civil service adjudication, civil-rights enforcement, consumer safety, privacy/civil-liberties oversight, campaign-finance enforcement, central banking, education, foreign assistance, consumer finance, or other statutory functions.
 
