@@ -78,7 +78,7 @@ Issue audit-history files named `ISSUE-ID.audit.md` are technical sidecars. They
 
 ### Back Matter
 
-Public-proposal and full-technical editions should end with a generated **Subject and Institution Index** based on [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). The canonical index supplies terms, aliases, ordered stable identifiers, digital links, and a marked preferred route. The export layer supplies the page numbers for the particular edition.
+Public-proposal and full-technical editions should end with a generated **Subject and Institution Index** based on [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). The canonical index supplies one alphabetical sequence of entities, subjects, acronyms, and aliases together with ordered stable identifiers, digital links, and a marked preferred route. The export layer supplies the page numbers for the particular edition.
 
 ## Area and Issue Ordering Rules
 

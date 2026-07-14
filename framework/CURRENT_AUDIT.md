@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | Subject and institution index streamlining |
+| Active issue/task | Unified subject and institution index |
 | Audit type/tier | Project-level Change Audit |
 | Started | 2026-07-14 |
-| Last checkpoint | 2026-07-14; concise two-column schema implemented and governing rules synchronized |
-| User request | Trim and streamline the subject index, replace full proposal titles with precise identifiers, and remove the unclear `Material related issues` structure. |
+| Last checkpoint | 2026-07-14; entity and topic tables merged into one alphabetical lookup sequence |
+| User request | Trim and streamline the subject index, replace full proposal titles with precise identifiers, remove the unclear `Material related issues` structure, and merge entity and topic entries so readers need not check two tables. |
 | Scope | `SUBJECT_INDEX.md`; governing index rules in the framework, methodology, and print-assembly instructions; consolidated same-day Change Audit history. |
 | Files touched | `SUBJECT_INDEX.md`; `framework/FRAMEWORK.md`; `framework/METHODOLOGY.md`; `framework/PRINT_ASSEMBLY.md`; `framework/PROJECT_STRUCTURE.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Collapsed both index tables to two columns; replaced full destination titles and explanatory prose with linked record identifiers; marked the preferred destination first; retained alternate routes only when useful; kept scope-boundary terms as direct framework routes; and synchronized governing and print-assembly rules. |
-| Next step | Maintain the concise identifier-only format as proposals and lookup terms are added or rerouted. |
+| Completed steps | Replaced full destination titles and explanatory prose with linked record identifiers; removed the primary/related schema; merged entities, topics, acronyms, and aliases into one alphabetical table; consolidated closely overlapping ICC, Inspector General, and IRS entries; marked the preferred destination first; retained alternate routes only when useful; kept scope-boundary terms as direct framework routes; and synchronized governing and print-assembly rules. |
+| Next step | Maintain the single alphabetical, identifier-only format as proposals and lookup terms are added or rerouted. |
 | Blockers/questions | None. |
-| Validation status | Passed front-matter parsing, all 96 two-column table rows, repository-wide local-link validation across 177 Markdown files, compiled-PDF parsing, stale-schema scans, and `git diff --check`. The index decreased from 31,807 to 17,593 bytes. No GitHub Project or progress-dashboard sync is required because no proposal lifecycle, score, audit, eligibility, or Project field changes. |
+| Validation status | Passed front-matter parsing, alphabetical-order and duplicate-term checks across 89 unique entries, two-column table-shape validation, repository-wide local-link validation across 177 Markdown files, stale-schema scans, and `git diff --check`. No GitHub Project or progress-dashboard sync is required because no proposal lifecycle, score, audit, eligibility, or Project field changes. |
 
 ## Handoff Rules
 

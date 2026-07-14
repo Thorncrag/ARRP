@@ -39,7 +39,7 @@ archive/                           Superseded or migrated source snapshots
 ## File ownership
 
 - A defect has one primary issue file.
-- `SUBJECT_INDEX.md` maps organizations and subjects to concise linked record identifiers, with the preferred route first, without changing issue ownership.
+- `SUBJECT_INDEX.md` maps organizations, subjects, acronyms, and aliases in one alphabetical sequence to concise linked record identifiers, with the preferred route first, without changing issue ownership.
 - Related areas cross-reference the primary file instead of duplicating analysis.
 - Legislative drafts use the corresponding issue identifier.
 - GitHub Projects is the authoritative area, issue, status, milestone, roadmap, and horizon-queue tracker.
