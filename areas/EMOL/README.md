@@ -35,6 +35,6 @@ The constitutional and statutory framework does not adequately prevent a preside
 
 ## Notes
 
-EMOL-015 is a 65/100 T1 Developed Draft conflict-of-interest and settlement-authority proposal. The President and Vice President are expressly included in the proposed coverage and are not excluded by title, office, or implication. Its automatic adversity screen, controlled-maintenance rule, payment restrictions, and universal categorical audit-immunity amendment require full T2 legal, procedural, implementation, fiscal, and adoption development.
+EMOL-015 is a 76/100 Review Ready conflict-of-interest and settlement-authority proposal through T2. The President and a more narrowly defined Vice President lane are expressly covered. The bill supplies automatic adversity screening, controlled maintenance, payment restrictions, a bounded D.D.C. enforcement action, and a universal categorical audit-immunity amendment. T3 must test remaining Article II, standing, tolling, repayment, protected-information, implementation, fiscal, and drafting questions.
 
 Other EMOL issues remain provisional inventory pending full source development.

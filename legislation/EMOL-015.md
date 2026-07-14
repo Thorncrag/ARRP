@@ -61,11 +61,11 @@ The term **covered civil action** means a civil action, administrative claim, de
 
 1. the claimant is a covered executive official acting in a personal capacity;
 2. the defendant, respondent, payer, settling entity, or materially affected entity is the United States, an executive agency, an executive office, a component thereof, an officer or employee subject to the covered executive official's supervision, or a fund, account, appropriation, or payment authority administered by an entity subject to the covered executive official's supervision; and
-3. the relief sought would confer a personal financial, legal, reputational, declaratory, or litigation benefit on the covered executive official.
+3. the relief sought would confer a material and particularized personal financial or legal benefit on the covered executive official or an affiliated person or entity.
 
-For a covered executive official who is the President or Vice President, paragraph (2) is satisfied if the defendant, respondent, payer, settling entity, materially affected entity, fund, account, appropriation, or payment authority is within the executive branch or subject to executive-branch litigation, settlement, payment, or defense authority, whether or not the President or Vice President has formal agency-head supervision over the specific entity.
+For the President, paragraph (2) is satisfied if the defendant, respondent, payer, settling entity, materially affected entity, fund, account, appropriation, or payment authority is within the executive branch or subject to executive-branch litigation, settlement, payment, or defense authority. For the Vice President, paragraph (2) is satisfied only if the Vice President possesses formal authority over, has been delegated a function concerning, or has personally participated in or directed the defense, settlement, payment, records, privilege, classification, or litigation decision at issue. Political alignment, access to White House personnel, or the title of Vice President, standing alone, does not establish coverage.
 
-A civil action, administrative claim, demand, request, or proceeding is not excluded from the definition of covered civil action merely because it is styled as an official-capacity action if its practical effect is to confer a personal financial, legal, reputational, reimbursement, indemnification, settlement, or affiliated-entity benefit on the covered executive official.
+A civil action, administrative claim, demand, request, or proceeding is not excluded from the definition of covered civil action merely because it is styled as an official-capacity action if its practical effect is to confer a material and particularized personal financial, legal, reimbursement, indemnification, settlement, or affiliated-entity benefit on the covered executive official. Reputational, political, precedential, or litigation-strategy effects incidental to bona fide official-capacity litigation do not establish coverage.
 
 ### (c) Personal capacity.
 
@@ -73,7 +73,7 @@ The term **personal capacity** means a capacity other than an official capacity 
 
 ### (d) Affiliated person or entity.
 
-The term **affiliated person or entity** means a spouse, dependent, immediate family member, business entity, trust, campaign committee, legal-defense fund, nonprofit organization, political organization, or other person or entity through which a covered executive official would receive a material financial, legal, reputational, reimbursement, indemnification, settlement, or comparable personal benefit.
+The term **affiliated person or entity** means a spouse, dependent, immediate family member, business entity, trust, campaign committee, legal-defense fund, nonprofit organization, political organization, or other person or entity that is owned or controlled by the covered executive official or through which the official would receive a material and particularized financial, legal, reimbursement, indemnification, settlement, or comparable personal benefit. Ideological affinity, political support, membership, or an incidental reputational effect alone does not establish affiliation.
 
 ### (e) Public funds.
 
@@ -102,7 +102,7 @@ From the filing of a potentially covered civil action until entry of the written
 2. notwithstanding Rule 41 of the Federal Rules of Civil Procedure, a notice or stipulation of dismissal, whether with or without prejudice, is ineffective unless and until the court completes the screening required by this section and enters an order giving effect to the dismissal; and
 3. no agreement, dismissal notice, stipulation, payment authorization, release, or other act taken during the interim stay may moot, terminate, or divest the court of authority to complete the screening.
 
-The interim stay does not prevent the court from dismissing the action for lack of jurisdiction under subsection (d), issuing a preservation order under subsection (g), or addressing an emergency necessary to protect life, physical safety, privileged or classified information, or the court's own proceedings.
+The interim stay is a self-executing statutory prohibition. Before finding article III jurisdiction, the court may determine its jurisdiction, require the screening submissions, preserve its own records and proceedings, address privilege or protected-information handling, dismiss under subsection (d), and exercise otherwise lawful collateral authority. It may not adjudicate the merits or issue coercive merits relief merely because this Act applies.
 
 ### (c) Screening submissions and timing.
 
@@ -123,7 +123,7 @@ If the court determines that genuinely adverse legal interests sufficient for ar
 
 ### (e) Post-dismissal and restricted-period tolling.
 
-If an action is dismissed under subsection (d), or if a claim would be a covered civil action if filed during the covered executive official's service, any unexpired limitations period, exhaustion deadline, presentment deadline, or other time limit for commencing or preserving the claim shall be tolled during the official's service in the office creating the conflict and until 1 year after that service ends.
+If an action is dismissed under subsection (d), or if a claim would be a covered civil action if filed during the covered executive official's service, any unexpired limitations period, exhaustion deadline, presentment deadline, or other time limit established by Federal law for commencing or preserving the claim against the United States, an executive agency, or an officer or employee thereof shall be tolled during the official's service in the office creating the conflict and until 1 year after that service ends.
 
 For a covered action that remains pending under subsection (f), litigation and adjudicatory deadlines shall be tolled for the restricted period unless the court permits a particular deadline to run under subsection (h) or (i). This subsection does not revive a claim for which the applicable time limit expired before tolling began and does not determine the merits of a preserved claim.
 
@@ -135,7 +135,7 @@ If an action becomes covered because the claimant assumes a covered office while
 
 ### (g) Preservation orders.
 
-During screening or controlled maintenance, a court or agency may enter orders necessary to preserve evidence, prevent spoliation, maintain the status quo, protect privilege, protect classified information, or prevent irreparable loss of the claim, provided that such orders do not confer personal monetary relief, settlement benefit, or merits adjudication on the covered executive official except as provided in subsection (h) or (i).
+After finding article III jurisdiction, a court may enter orders necessary to preserve evidence, prevent spoliation, maintain the status quo, protect privilege, protect classified information, or prevent irreparable loss of the claim, provided that such orders do not confer personal monetary relief, settlement benefit, or merits adjudication on the covered executive official except as provided in subsection (h) or (i). Before that finding, the court's authority is limited as provided in subsection (b). An agency may preserve records or take other nonadjudicatory preservation action required by otherwise applicable law.
 
 ### (h) Court-permitted liability adjudication.
 
@@ -177,7 +177,7 @@ During the covered executive official's service in the office creating the confl
 3. authorize payment from the Judgment Fund or agency funds;
 4. file, join, accept, implement, or give effect to a notice or stipulation of dismissal contrary to section 4(b), or dismiss an action in exchange for a personal legal or settlement benefit to the covered executive official;
 5. approve, create, implement, or recognize a release, immunity, nonenforcement assurance, audit restriction, investigation restriction, or materially equivalent protection arising from the covered claim;
-6. create, administer, or fund a compensation program, class fund, claims facility, settlement fund, or comparable payment mechanism for the covered executive official, an affiliated person or entity, or a politically, personally, or associationally defined class connected to the covered executive official; or
+6. create, administer, or fund, as consideration for resolving the covered claim, a compensation program, class fund, claims facility, settlement fund, or comparable payment mechanism for the covered executive official, an affiliated person or entity, or a beneficiary class selected or controlled by the covered executive official; or
 7. take any materially equivalent action that resolves the claim for the personal or affiliated benefit of the covered executive official.
 
 ### (b) Express later authorization.
@@ -208,15 +208,13 @@ The notice shall identify the covered executive official, the defendant or respo
 
 Not later than 3 business days after entry of an unsealed screening order under section 4(d), the clerk of the court shall transmit a copy to those committees. A sealed screening order shall be transmitted through a lawful protected channel with only those redactions necessary to comply with law and the court's particularized findings.
 
-The notice may be classified, redacted, or submitted in camera where required by law, court order, privilege, grand-jury secrecy, tax-return confidentiality, privacy, or national-security protection, but the Attorney General shall provide an unclassified or publicly releasable summary to the maximum extent permitted by law.
+The notice may be classified, redacted, or submitted in camera where required by law, court order, privilege, grand-jury secrecy, tax-return confidentiality, privacy, or national-security protection, but the Attorney General shall provide an unclassified or publicly releasable summary to the maximum extent permitted by law. Return information may be disclosed only through a channel authorized by section 6103 of the Internal Revenue Code of 1986, including subsection (f) of that section where applicable; this Act does not independently authorize its disclosure.
 
 ## SEC. 7. PROHIBITION ON CATEGORICAL AUDIT IMMUNITY.
 
 ### (a) Amendment to the Internal Revenue Code.
 
-Section 7217 of the Internal Revenue Code of 1986 is amended—
-
-by adding at the end the following:
+Section 7217 of the Internal Revenue Code of 1986 is amended by adding at the end the following:
 
 “(f) Categorical audit immunity prohibited.—
 
@@ -260,17 +258,17 @@ by adding at the end the following:
 
 “(k) Definitions.—In this section:
 
-“(1) Federal actor.—The term ‘Federal actor’ means the President, the Vice President, any officer or employee of the executive branch, any executive department or agency, and any person acting or purporting to act on behalf of the executive branch, including the Attorney General and any officer, employee, representative, counsel, or agent of the Department of Justice, the Department of the Treasury, or the Internal Revenue Service.
+“(1) Federal actor.—The term ‘Federal actor’ means the President, the Vice President, an officer or employee of the executive branch, an executive department or agency, or a contractor, representative, counsel, or agent acting within actual or apparent authority delegated by the executive branch, including the Attorney General and an authorized officer, employee, representative, counsel, or agent of the Department of Justice, the Department of the Treasury, or the Internal Revenue Service.
 
-“(2) Prohibited audit-immunity term.—The term ‘prohibited audit-immunity term’ means a term, promise, commitment, or undertaking that, except as provided in subsection (h), directly or indirectly:
+“(2) Prohibited audit-immunity term.—The term ‘prohibited audit-immunity term’ means a term, promise, commitment, or undertaking that, except as provided in subsection (h), has the material purpose or effect of directly or indirectly—
 
-“(A) prohibits, prevents, delays, restricts, conditions, terminates, or penalizes an audit, examination, investigation, assessment, collection action, information request, summons, referral, or other lawful tax-administration action concerning an identified taxpayer or affiliated person or entity;
+“(A) prohibiting, preventing, delaying, restricting, conditioning, terminating, or penalizing an audit, examination, investigation, assessment, collection action, information request, summons, referral, or other lawful tax-administration action concerning an identified taxpayer or affiliated person or entity;
 
-“(B) promises that an identified taxpayer or affiliated person or entity will not be selected or considered for such an action concerning a matter or taxable period not specifically and lawfully resolved under subsection (h); or
+“(B) promising that an identified taxpayer or affiliated person or entity will not be selected or considered for such an action concerning a matter or taxable period not specifically and lawfully resolved under subsection (h); or
 
-“(C) confers preferred, exempt, immune, or nonenforcement status in Federal tax administration based on identity, office, affiliation, relationship, political status, settlement, release, or an asserted grievance against the United States.
+“(C) conferring preferred, exempt, immune, or nonenforcement status in Federal tax administration based on identity, office, affiliation, relationship, political status, settlement, release, or an asserted grievance against the United States.
 
-“(3) Affiliated person or entity.—The term ‘affiliated person or entity’ means a spouse, dependent, immediate family member, related taxpayer within the meaning of section 267(b) or 707(b)(1), entity under common ownership or control, trust, representative, agent, successor, assignee, or other person or entity through which the taxpayer would receive the benefit of a prohibited audit-immunity term.”.
+“(3) Affiliated person or entity.—The term ‘affiliated person or entity’ means a spouse, dependent, immediate family member, related taxpayer within the meaning of section 267(b) or 707(b)(1), entity under common ownership or control, trust, representative, agent, successor, assignee, or other person or entity through which the taxpayer would receive the benefit of a prohibited audit-immunity term.
 
 “(l) Inspector General review and corrective referral.—The Treasury Inspector General for Tax Administration shall review each report received under subsection (j), determine whether a prohibited audit-immunity term was attempted or implemented, recommend corrective action, and refer apparent willful misconduct to the appropriate inspector general, ethics official, disciplinary authority, or law-enforcement authority under otherwise applicable law. Nothing in subsections (f) through (l) creates or expands criminal liability under subsection (d).”.
 
@@ -293,23 +291,39 @@ Nothing in this Act shall be construed to:
 4. limit ordinary official-capacity litigation by the United States or an executive officer acting solely on behalf of the United States;
 5. prohibit criminal investigation or prosecution authorized by law;
 6. authorize payment from public funds otherwise prohibited by law; or
-7. create a private right of action against any person other than the automatic-screening, controlled-maintenance, tolling, notice, and payment-bar mechanisms provided by this Act.
+7. displace review otherwise available under chapter 7 of title 5, United States Code, or another Act of Congress, except to the extent this Act supplies a more specific rule.
 
 ## SEC. 9. JUDICIAL REVIEW.
 
 ### (a) Filing court.
 
-The federal court in which a potentially covered civil action is filed shall determine its jurisdiction and has a mandatory duty, to the extent consistent with article III of the Constitution, to conduct the screening required by section 4, enforce the automatic interim stay, dismiss a constitutionally non-adverse action, and apply the controlled-maintenance, tolling, preservation, and payment-bar requirements of this Act. The court retains authority to determine its jurisdiction and to enforce collateral statutory requirements that survive dismissal. A notice or stipulation of dismissal filed before completion of screening does not prevent the court from completing those threshold and collateral determinations.
+The federal court in which a potentially covered civil action is filed shall determine its jurisdiction and has a mandatory duty, to the extent consistent with article III of the Constitution, to conduct the screening required by section 4 and dismiss a constitutionally non-adverse action. If jurisdiction exists, the court shall apply the controlled-maintenance, preservation, and payment-bar requirements of this Act. The automatic interim stay and tolling rules operate by statute. The court retains authority to determine its jurisdiction and to address sanctions, court records, fees, costs, contempt, protected-information handling, and other collateral matters within its lawful authority. A notice or stipulation of dismissal filed before completion of screening is ineffective under section 4(b) and Rule 41(a)(1)(A) of the Federal Rules of Civil Procedure.
 
-### (b) District of Columbia enforcement jurisdiction.
+### (b) Civil enforcement action.
 
-The United States District Court for the District of Columbia shall have jurisdiction, in an action otherwise satisfying article III of the Constitution, to determine coverage of an administrative claim, demand, payment request, or other nonjudicial proceeding and to enforce the tolling, notice, settlement, payment, release, immunity, audit-restriction, investigation-restriction, or funding provisions of this Act.
+A civil action may be brought in the United States District Court for the District of Columbia to enforce section 5, section 6, or section 7 by:
 
-### (c) Expedition and protected information.
+1. a person suffering a concrete and particularized injury caused by a violation or imminent violation of the provision to be enforced;
+2. the House of Representatives or the Senate, if the action is authorized by resolution of the chamber and the chamber alleges a concrete institutional injury to its appropriations, notice, or legislative authority; or
+3. the United States acting through an officer expressly authorized by law to bring the action.
+
+This subsection creates no standing based solely on status as a taxpayer, voter, citizen, Member of Congress, or beneficiary of lawful tax administration. It does not deem an injury sufficient under article III, and it does not authorize one House, a committee, or a Member to sue without the chamber authorization required by paragraph (2).
+
+### (c) Cause of action, jurisdiction, and waiver.
+
+An eligible plaintiff under subsection (b) has a cause of action for declaratory or prospective injunctive relief against the agency head, fund-certifying officer, payment official, or other subordinate officer responsible for the alleged violation. The district court has jurisdiction under section 1331 of title 28, United States Code. The United States waives sovereign immunity for relief authorized by this section. Final agency action and exhaustion are not required if the challenged agreement, payment, release, immunity, audit restriction, investigation restriction, fund creation, or notice failure is final, operative, or imminently enforceable and delay would defeat effective review.
+
+Neither the President nor the Vice President may be named as a defendant or subjected to coercive relief under this section. Relief shall run against a subordinate officer responsible for implementation.
+
+### (d) Remedies and limits.
+
+If article III jurisdiction and a violation are established, the court may declare coverage; enjoin an unlawful payment or prospective implementation; compel a notice or report; require preservation of relevant agency records; order return of an unlawful payment from a recipient properly before the court to the extent authorized by law; or grant other prospective relief no broader than necessary to enforce this Act. The court may not award damages under this Act, supervise ordinary executive operations, direct the discretionary outcome of a lawful audit or investigation, or order relief against the President or Vice President.
+
+### (e) Expedition and protected information.
 
 Review under this section shall be expedited. A court may consider sealed, privileged, classified, tax-return, protected, or in camera material under procedures adequate to prevent unauthorized disclosure.
 
-### (d) Appellate review.
+### (f) Appellate review.
 
 An order under section 4 or this section is subject to appellate review under otherwise applicable law. An attempted voluntary dismissal does not moot review of the screening determination, interim stay, sanctions, or another collateral order that remains legally operative.
 
@@ -323,7 +337,7 @@ If any provision of this Act, or the application of such provision to any person
 
 ## Budgetary Impact Statement
 
-Administrative workload is possible for automatic screening, TIGTA referrals, and protected congressional notice; no new appropriation is specified.
+The bill creates no new office, judgeship, direct spending authority, or mandatory appropriation. Incremental workload may fall on filing courts, the District Court for the District of Columbia, DOJ, affected agencies, Treasury, IRS, TIGTA, and congressional committees. The fiscal year 2027 Judiciary request totals $9.7 billion in discretionary funding, and TIGTA's fiscal year 2027 justification identifies a $137.661 million request for 508 FTE while reporting substantial mandatory-review and staffing pressure; those systemwide figures are capacity comparators, not estimates of this bill's cost. Because no reliable source establishes the number of covered actions, attempted instruments, staff hours, protected notices, or enforcement cases, the bill authorizes no fixed amount. AOUSC, Treasury, TIGTA, IRS, DOJ, CBO, OMB, and appropriators should develop a workload estimate before enactment, and Congress may provide such sums as are later determined necessary through annual appropriations.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
@@ -334,7 +348,7 @@ Administrative workload is possible for automatic screening, TIGTA referrals, an
 - A constitutionally non-adverse action must be dismissed without prejudice rather than retained on the docket. Statutory tolling preserves any still-timely underlying claim through the conflicted service and for 1 year afterward without reviving a claim already time-barred when tolling began.
 - Controlled maintenance applies only after the court finds genuine Article III adversity but determines that a separate statutory self-litigation conflict remains.
 - The President and Vice President are expressly included as covered executive officials, and displacement of the rule requires a later Act of Congress that expressly states whether it applies to the identified office.
-- Vice President coverage does not depend solely on ordinary agency-head supervision; it is tied to executive-branch litigation, settlement, payment, or defense authority.
+- Vice President coverage requires formal authority, delegated responsibility, or actual participation or direction concerning the defense, settlement, payment, records, privilege, classification, or litigation decision at issue; title, political alignment, or access alone is insufficient.
 - The official-capacity savings clause is limited to litigation exercised solely on behalf of the United States or the office. It should not protect a claim that practically confers personal or affiliated benefit.
 - The court-permitted adjudication exception is designed for legitimate injuries, including preexisting claims or adverse actions initiated by actors outside the official's control. It requires both an independent tribunal and genuinely independent authority to defend the United States; tribunal independence alone does not create adverse parties. Liability adjudication is separated from damages, settlement, and payment unless the court makes separate heightened findings.
 - The injunctive-relief safety valve is designed to stop ongoing or imminent harm without allowing damages, settlement, reimbursement, indemnification, offset, public funds, or compensation funds during covered service.
@@ -342,11 +356,11 @@ Administrative workload is possible for automatic screening, TIGTA referrals, an
 - Section 7 amends 26 U.S.C. § 7217 for every taxpayer and Federal actor, including the Attorney General and persons acting for the United States. A prohibited prospective or categorical audit-immunity term is void from inception, cannot support consideration or estoppel, and must be disregarded by the IRS. The amendment deliberately does not extend section 7217(d)'s five-year felony to the broader instrument and reporting provisions; TIGTA instead reviews attempted terms and makes corrective or misconduct referrals under otherwise applicable law.
 - The § 7217 amendment preserves case-specific finality under sections 7121 and 7122, final judgments, limitations periods, and ordinary neutral IRS enforcement discretion. Those exceptions do not permit restrictions concerning unidentified matters or future taxable periods.
 - The amendment reaches prospective implementation after enactment of a pre-enactment audit-immunity term without reopening completed closing agreements, completed compromises, or final judgments.
-- T1/T2 should test whether the covered-action definition needs a narrow exception for nonmonetary emergency relief that cannot safely wait until the official leaves office.
+- T3 should test the nonmonetary emergency-relief exception, controlled-maintenance burdens, repayment process, and claim-specific protected-information procedures.
 
 ## Source Notes
 
 - Existing-law review should include the Judgment Fund under [31 U.S.C. § 1304](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title31-section1304&num=0&edition=prelim), DOJ judgment and compromise-payment mechanics under [28 U.S.C. § 2414](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section2414&num=0&edition=prelim), tax-return confidentiality remedies under [26 U.S.C. § 7431](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title26-section7431&num=0&edition=prelim), executive audit-interference restrictions under [26 U.S.C. § 7217](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title26-section7217), closing agreements under [26 U.S.C. § 7121](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title26-section7121), and compromises under [26 U.S.C. § 7122](https://uscode.house.gov/view.xhtml?edition=prelim&f=treesort&jumpTo=true&num=0&req=%28title%3A26+section%3A7122+edition%3Aprelim%29+OR+%28granuleid%3AUSC-prelim-title26-section7122%29).
 - The June 24, 2026 amendment in the nature of a substitute to H.R. 7007 supplies the official text of the NO CARTE BLANCHE Act. It combines H.R. 8914 and H.R. 9210, restricts Judgment Fund payments, and proposes 28 U.S.C. § 2414a judicial review of presidential settlements. EMOL-015 adds automatic filing-stage screening, non-adversity dismissal, controlled maintenance, a broader covered-official conflict rule, and a universal categorical audit-immunity prohibition.
-- T1 should review the related docket entries in *Trump v. Internal Revenue Service*, No. 1:26-cv-20609-KMW (S.D. Fla.), test the automatic-screening and Rule 41 provisions against controlling appellate law, and determine whether the Act should separately prohibit prospective audit immunity for any taxpayer.
+- T3 should refresh the related docket entries in *Trump v. Internal Revenue Service*, No. 1:26-cv-20609-KMW (S.D. Fla.), and test the completed T2 procedural design against any appeal, reconsideration, fee, or disciplinary ruling.
 - Constitutional review should test Article II, due process, access to courts, sovereign immunity, justiciability, separation of powers, and Congress's appropriations authority.

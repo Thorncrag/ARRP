@@ -6,16 +6,16 @@ status: developed
 priority: high
 remedy_type: conflict-of-interest-litigation-and-payment-guardrail
 legislative_proposal: "../../../legislation/EMOL-015.md"
-audit_status: "T1 framework and quality audit complete"
-audit_score: 65
-audit_last_type: "T1 framework and quality audit"
+audit_status: "T2 development audit complete; Review Ready"
+audit_score: 76
+audit_last_type: "T2 development audit"
 audit_last_date: "2026-07-13"
-audit_next: "Full T2 development audit"
+audit_next: "Full T3 readiness audit"
 audit_rubric_version: 2026-06-27.2
 audit_rebaseline_status: current
 change_audit_needed: false
 change_audit_reason: null
-adoption_score: 3
+adoption_score: 4
 adoption_friction_score: 80
 adoption_friction_band: High Resistance
 required_electoral_environment: sixty-vote-senate
@@ -110,6 +110,7 @@ The remedy should:
 ## Proposed Legislation
 
 - [Executive Self-Litigation and Settlement Conflict Act](../../../legislation/EMOL-015.md)
+- [Procedural and enforcement analysis](../../../research/EMOL-015-procedural-and-enforcement-analysis.md)
 
 ## Relationship to Adjacent Proposals
 
@@ -121,39 +122,39 @@ The remedy should:
 
 ## Budgetary Impact Statement
 
-Administrative workload is possible; no new appropriation is specified.
+The proposal creates no new office, judgeship, direct spending authority, or mandatory appropriation. Incremental workload may fall on filing courts, D.D.C., DOJ, affected agencies, Treasury, IRS, TIGTA, and congressional committees. The Judiciary's [fiscal year 2027 request](https://www.uscourts.gov/sites/default/files/document/fy-2027-congressional-budget-summary.pdf) totals $9.7 billion in discretionary funding. TIGTA's [fiscal year 2027 justification](https://home.treasury.gov/system/files/266/09.-TIGTA-FY-2027-CJ.pdf) requests $137.661 million and 508 FTE while reporting pressure from mandatory reviews and constrained staffing. Those systemwide figures show capacity context only; neither estimates EMOL-015's caseload or cost. No fixed amount is proposed pending AOUSC, Treasury, TIGTA, IRS, DOJ, CBO, OMB, and appropriations review.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** **[65 / 100](EMOL-015.audit.md)** (Developed Draft)<br />**Adoption Score:** 3 / 12 (Weak Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
+> **Proposal Quality Score:** **[76 / 100](EMOL-015.audit.md)** (Review Ready)<br />**Adoption Score:** 4 / 12 (Limited Adoption Basis)<br />**Adoption Friction:** 80 / 100 (High Resistance)<br />**Required Electoral Environment:** `sixty-vote-senate`<br />**Development Priority:** `active`
 >
 > —
 >
-> **Audit Status:** T1 framework and quality audit complete<br />**Last Audit:** T1 framework and quality audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** Full T2 development audit<br />**Full Audit History:** [EMOL-015 audit history](EMOL-015.audit.md)
+> **Audit Status:** T2 development audit complete; Review Ready<br />**Last Audit:** T2 development audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** Full T3 readiness audit<br />**Full Audit History:** [EMOL-015 audit history](EMOL-015.audit.md)
 
 ## Annotation
 
-**Basis and Evidence.** The current source record supports the existence of President Trump's tax-information lawsuit, the statutory background for tax-return confidentiality claims, DOJ's announced Judgment Fund-based Anti-Weaponization Fund, and a July 13, 2026 district-court ruling finding no genuine adverseness, no Article III case or controversy, an improper litigation purpose, and bad faith. The order imposed sanctions that include prohibiting use of the purported agreement as evidence of a settlement reached in the case, but expressly declined to decide the agreement's underlying validity or enforceability, Judgment Fund legality, or purported immunity provisions. T1 also verifies the official H.R. 7007 substitute, its H.R. 8914 and H.R. 9210 components, and S. 4791 as current direct comparators. T2 must still review the appellate posture, fee proceedings, underlying complaint and dismissal papers, Judgment Fund availability, DOJ/Treasury authority, and the legal status of every attempted audit or enforcement restriction.
+**Basis and Evidence.** The current source record supports the existence of President Trump's tax-information lawsuit, the statutory background for tax-return confidentiality claims, DOJ's announced Judgment Fund-based Anti-Weaponization Fund, and a July 13, 2026 district-court ruling finding no genuine adverseness, no Article III case or controversy, an improper litigation purpose, and bad faith. The order imposed sanctions that include prohibiting use of the purported agreement as evidence of a settlement reached in the case, but expressly declined to decide the agreement's underlying validity or enforceability, Judgment Fund legality, or purported immunity provisions. T2 verifies the official H.R. 7007 substitute, its H.R. 8914 and H.R. 9210 components, S. 4791, controlling Supreme Court collateral-authority decisions, published Eleventh Circuit Rule 41 law, federal-question jurisdiction, the Rules Enabling Act, and current Judiciary and TIGTA budget context. The same-day posture does not yet support a conclusion about appeal, reconsideration, fee, or disciplinary outcomes.
 
 **Qualification.** This proposal does not assume that a sitting President or executive official lacks a valid underlying claim. It addresses the separate institutional conflict created when the claimant controls, supervises, or can influence the defendant agency, defense officials, settlement authority, or payment authority. The preferred remedy preserves post-tenure access to court.
 
 **President Included.** The President is expressly included. The proposal should not permit an argument that the President is excluded because ordinary conflict-of-interest statutes sometimes exempt the President or because Article II gives the President supervisory authority over the executive branch.
 
-**Vice President Included.** The Vice President is also expressly included. Coverage should not depend solely on formal agency-supervision doctrine because the Vice President may exercise practical influence through White House channels, administration alignment, litigation strategy access, settlement pressure, or payment-routing influence.
+**Vice President Included.** The Vice President remains expressly included, but T2 narrows coverage to formal authority, delegated responsibility, or personal participation or direction concerning the decision at issue. Political alignment, White House access, or title alone is insufficient. This preserves anti-evasion coverage without restricting a claim based on speculative influence.
 
-**Anti-Evasion.** Official-capacity litigation remains available when the official acts solely on behalf of the United States or the office. But the operative question should be functional, not caption-based. A claim should remain covered if its practical effect is personal benefit to the official or an affiliated person or entity.
+**Anti-Evasion.** Official-capacity litigation remains available when the official acts solely on behalf of the United States or the office. Coverage requires a material and particularized personal or affiliated benefit, ownership or control, or an equivalent concrete benefit. Incidental reputation, precedent, ideology, political support, membership, access, or litigation strategy does not suffice.
 
 **Tax-Administration Integrity.** The § 7217 amendment is intentionally universal rather than limited to the President, Vice President, or another covered claimant. No executive-branch settlement or undertaking should be able to purchase prospective immunity from lawful tax administration for any identified taxpayer. The amendment distinguishes categorical immunity from lawful closure of specified liabilities and periods, preserves ordinary neutral IRS discretion, covers the Attorney General and persons acting for the United States, and applies to prospective implementation of pre-enactment instruments without reopening final judgments or completed tax resolutions.
 
-**Judicial Scrutiny.** The strongest design begins with automatic jurisdictional screening rather than retaining a constitutionally non-adverse action on the docket. A court finding no genuine Article III adversity must dismiss without prejudice; statutory tolling, not continuing judicial control, preserves any still-timely claim. If adversity exists, controlled maintenance remains necessary because constitutional adversity does not eliminate practical influence over DOJ, settlement, payment, records, or litigation strategy. T1 corrected the filing-court clause so it does not purport to create Article III jurisdiction where none exists and removed the draft's unintended extension of section 7217(d)'s five-year felony to the much broader categorical-immunity rule. T2 must test Rule 41 interaction, collateral jurisdiction, Article II, access to courts, sovereign immunity, D.D.C. enforcement standing and remedies, Judgment Fund doctrine, and whether the injunctive-relief exception needs additional limits.
+**Judicial Scrutiny.** [T2 analysis](../../../research/EMOL-015-procedural-and-enforcement-analysis.md) distinguishes four lanes. *Steel Co.* bars hypothetical merits jurisdiction; a non-adverse case must therefore be dismissed. Rule 41(a)(1)(A) is expressly subject to an applicable federal statute, so Congress can make a dismissal filing ineffective pending a threshold screen; *Anago* supplies the ordinary self-executing baseline, while the 2026 *O'Neal* concurrence supplies a current in-circuit functional analogue. *Cooter & Gell* and *Willy* preserve sanctions and other collateral authority, not merits relief. *Kokkonen* requires an independent basis to enforce a settlement after dismissal. Section 9 now responds with a bounded D.D.C. cause, section 1331 jurisdiction, express waiver, eligible plaintiffs, responsible subordinate defendants, prospective remedies, no generalized standing, and no coercive relief against the President or Vice President. T3 must test this design against current chamber-standing, Article II, tolling, access-to-courts, repayment, and protected-information doctrine.
 
-**Budgetary Impact.** The proposal creates no new office and specifies no appropriation. Administrative workload may arise from automatic screening, expedited jurisdictional submissions, amicus appointments, congressional notices, certification, payment screening, TIGTA referrals, and protected congressional reporting concerning attempted audit-immunity terms. No dollar estimate is assigned because no CBO, OMB, agency, legislative-counsel, historical appropriation, or audited program-cost source has been identified for this proposal.
+**Budgetary Impact.** No proposal-specific caseload, staff-hour, or cost source exists. T2 therefore uses the Judiciary's $9.7 billion fiscal year 2027 discretionary request and TIGTA's $137.661 million, 508-FTE request only as system-capacity comparators. The bill creates no office or judgeship and assigns no fixed appropriation; annual appropriations should follow workload estimates from the institutions that would administer screening, enforcement, protected notice, and TIGTA review.
 
-**Quality Score.** The 65/100 T1 score recognizes complete issue architecture, a coherent two-gate remedy, verified primary manifestation and direct-bill evidence, a functioning standalone draft, strong internal fit, and correction of the felony and jurisdictional overclaims. It remains below Review Ready because controlling procedural doctrine, a complete D.D.C. enforcement cause and waiver, Judgment Fund mechanics, implementation and cost evidence, current docket review, adoption support, and external review remain incomplete.
+**Quality Score.** The 76/100 T2 score reaches Review Ready after controlling procedural-law analysis, direct current comparator development, a complete D.D.C. enforcement design, scope and standing limits, protected tax-information handling, Code-definition and materiality corrections, a source-backed workload statement, and proposal-to-bill verification. Remaining limits are qualified constitutional, tax, appropriations, litigation, agency-operations, and legislative-counsel review; same-day docket immaturity; no proposal-specific fiscal model; and no external validation.
 
-**Adoption Score.** The 3/12 score is weak because the proposal has a clear statutory vehicle and a timely source predicate, but it lacks sponsor mapping, committee posture, proposal-specific polling, bipartisan validator support, direct prior bill text comparison, or external legal review.
+**Adoption Score.** The 4/12 score reflects H.R. 7007's official substitute, its H.R. 8914 and H.R. 9210 components, S. 4791 with 24 listed cosponsors, a bipartisan House fund-restriction proposal, and a current judicial predicate. None establishes enactment, committee approval, proposal-specific bipartisan support for EMOL-015, polling, or external legal validation.
 
 **Adoption Friction.** The 80/100 score is high because the proposal directly constrains presidential and senior executive personal litigation benefits, limits settlement discretion, affects Judgment Fund and agency payment practices, and would likely draw Article II, access-to-courts, and partisan-retaliation objections.
 
