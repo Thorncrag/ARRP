@@ -27,11 +27,11 @@ The compiled proposal document should use the following order.
 ### Front Matter
 
 1. cover page using the project title and subtitle from [`../README.md`](../README.md);
-2. reader notice from [`../README.md`](../README.md);
-3. rights and reuse notice from [`../README.md`](../README.md) and [`../LICENSE.md`](../LICENSE.md);
-4. citation notice from [`../README.md`](../README.md) and [`../CITATION.cff`](../CITATION.cff);
-5. authorship notice from [`../AUTHORS.md`](../AUTHORS.md);
-6. a short **Find a Topic or Institution** notice that links directly to the Subject and Institution Index in digital editions and identifies its resolved page number in print editions;
+2. **About This Project** from [`../README.md`](../README.md);
+3. citation notice from [`../README.md`](../README.md) and [`../CITATION.cff`](../CITATION.cff);
+4. authorship notice from [`../AUTHORS.md`](../AUTHORS.md);
+5. a short **Find a Topic or Institution** notice that links directly to the Subject and Institution Index in digital editions and identifies its resolved page number in print editions;
+6. rights and reuse notice from [`../README.md`](../README.md) and [`../LICENSE.md`](../LICENSE.md);
 7. table of contents generated from the assembled document; and
 8. optional one-page executive summary when one is later drafted.
 

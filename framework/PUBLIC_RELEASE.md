@@ -22,7 +22,7 @@ A release should:
 
 Before creating a public release, complete a final review of:
 
-1. [`README.md`](../README.md), including the reader notice, rights notice, citation pointer, and project status;
+1. [`README.md`](../README.md), including About This Project, the topic-and-institution index route, rights notice, citation pointer, and project status;
 2. [`LICENSE.md`](../LICENSE.md), including the all-rights-reserved status and planned future public reuse license note;
 3. [`AUTHORS.md`](../AUTHORS.md), including the author-directed project statement;
 4. [`CITATION.cff`](../CITATION.cff), including author, title, repository URL, abstract, and citation message;

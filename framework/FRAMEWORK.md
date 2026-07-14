@@ -12,7 +12,7 @@ The project's public-facing premise, mission, scope, and governing principles ar
 
 ## Repository Architecture
 
-- [`../README.md`](../README.md) contains the public-facing proposal front matter, including the reader notice, foundational premise, mission, scope, governing principles, rights notice, citation pointer, and technical-framework pointer.
+- [`../README.md`](../README.md) contains the public-facing proposal front matter, including About This Project, foundational premise, mission, scope, governing principles, topic-and-institution discovery, rights notice, citation pointer, and technical-framework pointer.
 - [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md) is the living reader-facing lookup by subject, department, agency, office, court, and other institutional body.
 - `framework/` contains governing methodology and cross-cutting remedial architecture.
 - `areas/` contains one directory per project area, area README indexes, developed issue pages, and sibling issue audit-history files.

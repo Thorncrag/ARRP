@@ -10,13 +10,9 @@ print_levels:
 
 **A Roadmap for Repairing Institutional Damage, Restoring Trustworthy Government, and Preventing Future Personalist Capture**
 
-## Find a Topic or Institution
+## About This Project
 
-Readers looking for a particular subject, department, agency, office, court, acronym, or common term should begin with the [Subject and Institution Index](SUBJECT_INDEX.md). Readers who prefer the project's ordered institutional structure may instead browse the [Project Areas](areas/README.md).
-
-## Reader notice
-
-The author is an independent researcher and does not have formal legal training. This project is a policy-reform research and drafting exercise, not legal advice. Proposed legislation, model acts, constitutional amendments, and administrative language in this repository are illustrative working drafts. They have not been reviewed or approved by an attorney, legislative counsel, legal scholar, public official, or affected institution, and should not be treated as final or ready-to-introduce legislative text.
+The author is an independent researcher and does not have formal legal training. This project is a policy-reform research and drafting exercise, not legal advice. Proposed legislation, model acts, constitutional amendments, and administrative language in this repository are illustrative working drafts. They have not yet been reviewed or approved by an attorney, legislative counsel, legal scholar, public official, or affected institution, and should not yet be treated as final or ready-to-introduce legislative text.
 
 This project is intended to be institution-focused and nonpartisan in its standards, methods, and proposed remedies. It is not neutral about institutional abuse, democratic backsliding, corruption, personalist capture, rule-of-law failure, or unitary executive theory, and it is transparent about seeking to reverse, repair, and prevent institutional outcomes associated with Project 2025 and similar efforts to subordinate public institutions to personal or factional control. The project uses real-world examples to identify structural vulnerabilities and possible repairs, not to advance a party program or defend or condemn any person, party, administration, or ideology as such. Proposed remedies are meant to apply prospectively and evenhandedly across parties, officeholders, and political circumstances.
 
@@ -24,7 +20,7 @@ The project does not claim or intend to function as a Democratic Party agenda. A
 
 The project does not avoid naming public actors, including President Trump, where specific conduct is relevant to identifying institutional damage, structural vulnerability, or necessary repair. Such references are not included as partisan argument or personal condemnation for its own sake, but because the project depends on concrete examples of how institutions were damaged, tested, or exploited. The same standards should apply to any officeholder, party, administration, or movement that creates comparable institutional risk.
 
-The project is not limited to incidents from President Trump's administrations. Those incidents are a principal case study because they exposed how many parts of the constitutional and administrative system depended on political traditions, voluntary restraint, unwritten norms, and underspecified legal guidelines. The project also includes older, continuing, or future-facing institutional weaknesses where they bear on democratic resilience, including representation, disenfranchisement, territorial status, and other structural conditions that affect whether the system can remain self-correcting over time.
+The project is not limited to incidents from President Trump's administrations. Those incidents are a principal case study because they exposed how many parts of the constitutional and administrative system depended on political traditions, voluntary restraint, unwritten norms, and underspecified legal guidelines. The project also includes older, continuing, or future-facing institutional weaknesses where they bear on democratic resilience, including representation, disenfranchisement, and other structural conditions that affect whether the system can remain self-correcting over time.
 
 The full neutrality, language, coalition-reality, and political-language audit rules are maintained in the technical framework and project methodology. See [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#neutrality-and-language-guidelines) and [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#political-language-and-coalition-appeal-audit).
 
@@ -59,7 +55,7 @@ The project concerns systems, structures, institutions, laws, and policies. It d
 
 The scope is not limited to President Trump, Project 2025, or any single political period. Those examples may reveal urgent vulnerabilities, but the project may also address long-running structural defects whose democratic-resilience consequences are independent of any one administration. A long-running condition is not within scope merely because it is unjust, harmful, democratically consequential, or unresolved. The project must identify a distinct legal, structural, administrative, remedial, or institutional defect rather than only a failure by voters or lawmakers to choose and enact a preferred lawful policy.
 
-ARRP therefore excludes **strictly political failures**: failures of persuasion, coalition formation, electoral choice, legislative priority, compromise, or ordinary lawmaking when the constitutional decision process remains available and no separate institutional defect prevents it from functioning. District of Columbia statehood and the choice of Puerto Rico's final political status, including statehood, are outside the project's scope on that basis. This boundary does not categorically exclude narrower institutional defects involving either jurisdiction—such as election administration, adjudicatory access, rights-bearing records, emergency or National Guard control, federal coercion, or displacement of local functions—when the proposed issue identifies a defect and remedy independent of the statehood or final-status outcome.
+ARRP therefore excludes **strictly political failures**: failures of persuasion, coalition formation, electoral choice, legislative priority, compromise, or ordinary lawmaking when the constitutional decision process remains available and no separate institutional defect prevents it from functioning.
 
 Preventive resilience is within scope when a topic identifies a concrete legal, structural, administrative, or institutional vulnerability that could enable future abuse, even if the proposed reform is more forward-looking than reparative.
 
@@ -201,6 +197,10 @@ Common descriptors are interpreted as follows:
 | `constitutional-amendment-environment` | Adoption would require Article V-level national and state support. |
 | `state-level-pathway` | The proposal is more viable through state action or state models. |
 | `unassessed` | The electoral environment has not yet been assessed. |
+
+## Find a Topic or Institution
+
+Readers looking for a particular subject, department, agency, office, court, acronym, or common term should begin with the [Subject and Institution Index](SUBJECT_INDEX.md). Readers who prefer the project's ordered institutional structure may instead browse the [Project Areas](areas/README.md).
 
 ## Rights and reuse
 
