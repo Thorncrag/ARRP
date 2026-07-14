@@ -1371,3 +1371,21 @@ Template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `f2169d5` to roll back the substantive T3 unit; separately revert this provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. EMOL-015 advanced from 76 to 81 / 100 Review Ready after chamber-standing, controlled-maintenance, claimant-exit, Article II counsel, appeal, recipient-process, protected-information, prospective-application, severability, authorization, and bipartisan-source development. T4 must complete publication-level claim, source, legislative-form, cross-reference, deadline, authorization, severability, verified-claims, unresolved-claims, and qualified-review checks. |
+
+### 2026-07-13 — EMOL-015 — T4 publication-ready audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-13 21:59:58 -0400 |
+| Run/agent | Codex autonomous goal |
+| Issue/task | EMOL-015 |
+| Issue page | [Issue](../areas/EMOL/issues/EMOL-015.md) |
+| Audit history | [Audit](../areas/EMOL/issues/EMOL-015.audit.md) |
+| Proposal page | [Bill](../legislation/EMOL-015.md) |
+| Tier | T4 publication-ready audit |
+| Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md` |
+| Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID checks; local Markdown-link check; source-URL inventory; score-component sum and front-matter consistency; section-order, cross-reference, deadline, authorization, severability, and stale-marker scans; Review Ready dashboard tests; signed-in GitHub Project persistence readback |
+| Commit | `Run EMOL-015 T4 audit` (`a1b17eb`) |
+| Push status | Pushed to `origin/main` |
+| Rollback notes | Revert `a1b17eb` to roll back the substantive T4 unit; separately revert this provenance commit if needed. |
+| Blockers/skipped checks | No substantive blocker. EMOL-015 advanced from 81 to 83 / 100 and remains Review Ready after publication-level source and claim verification, legislative-form and cross-reference review, final verified/unresolved claims, criminal-scope preservation, protected-information reconciliation, prospective-application review, and qualified-review definition. Further advancement requires qualified constitutional, federal-courts, tax, appropriations, judicial-administration, and legislative-counsel review, plus refresh of the same-day case and implementation posture. |
