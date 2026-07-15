@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
-| Active issue/task | Topic-page rejected-concept routing clarification |
-| Audit type/tier | Project-level Change Audit continuation |
-| Started | 2026-07-15 |
-| Last checkpoint | 2026-07-15; user clarified that deferred and merged/integrated records should not receive separate topic-page disposition listings |
-| User request | Keep deferred records in ordinary routing until rejected; omit merged or integrated topic listings because their current authoritative homes already provide discovery. |
-| Scope | Topic Page Standard; Project 2025 guide; compliance test; consolidated Change Audit entry; GitHub issue #8. |
-| Files touched | `framework/CURRENT_AUDIT.md` |
-| Completed steps | Determined that the separate topic-page exception should be limited to rejected, retired, or outside-scope concepts. Deferred records remain ordinary live routes, while merged or integrated records appear only through their current authoritative homes. |
-| Next step | Narrow the methodology and framework language, remove the Project 2025 disposition table, update the test and consolidated audit entry, synchronize GitHub issue #8, validate, commit, push, and verify Pages. |
-| Blockers/questions | None. No proposal substance or workflow field is affected. |
-| Validation status | In progress. |
+| Status | Inactive |
+| Active issue/task | None |
+| Audit type/tier | None |
+| Started | — |
+| Last checkpoint | 2026-07-15; topic-page rejected-concept routing clarification completed |
+| User request | — |
+| Scope | — |
+| Files touched | — |
+| Completed steps | Limited separate topic-page adverse-record treatment to concepts finally rejected, retired, or held outside scope. Deferred or parked records remain ordinary live routes; merged or integrated records appear only through their current authoritative homes. Removed the redundant HOR-011/HOR-015/HOR-018 disposition table from Project 2025, tightened the guide index and governing files, updated the compliance test and consolidated Change Audit entry, synchronized and read back GitHub issue #8, and pushed commit `381e573` to `origin/main`. |
+| Next step | None. Add a rejected-concepts section to a topic page only when a materially related final adverse decision exists. |
+| Blockers/questions | None. No proposal substance, score, lifecycle status, rebaseline status, or T-audit Runs changed. |
+| Validation status | Passed: 19 repository tests; strict MkDocs build; public-site preparation; Python syntax checks; changed-page local links; rejected/merged disposition-exclusion checks; `git diff --check`; GitHub issue #8 readback; and successful push to `origin/main`. |
 
 ## Handoff Rules
 
