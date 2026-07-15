@@ -504,7 +504,7 @@ Administrative workload is possible; no new appropriation is specified.
 - It should be reviewed carefully for Article I, Section 5 and Speech or Debate Clause concerns in congressional-election applications.
 - Obstruction-related predicates should be reviewed under *Fischer v. United States* and should remain tied to independently unlawful conduct rather than generalized disruption or political pressure.
 - Section 631 is designed to complement ARRP's presidential-immunity reform, not to solve immunity by itself.
-- T4 follow-up identified H.R. 8873, S. 4573/ECRA, S. 1840, and H.R. 5314 as direct or adjacent congressional comparators, but none appears to supply the full scheme-level framework drafted here.
+- follow-up internal review identified H.R. 8873, S. 4573/ECRA, S. 1840, and H.R. 5314 as direct or adjacent congressional comparators, but none appears to supply the full scheme-level framework drafted here.
 - Further review should compare state anti-subversion proposals, election-crime statutes, obstruction statutes, RICO doctrine, First Amendment doctrine, Petition Clause doctrine, Speech or Debate Clause doctrine, ECRA, federalism limits, Article I Section 5 doctrine, presidential-immunity doctrine, and legislative-counsel feedback on the chapter 29A codification choice.
 
 ## Source Notes

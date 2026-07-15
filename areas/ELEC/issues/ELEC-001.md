@@ -143,7 +143,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-001 audit history](ELEC-001.audit.md)
+> **Internal Review Status:** Internal project review complete; external validation pending<br />**Last Internal Review:** Internal project review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** External validation / follow-up internal review<br />**Full Review History:** [ELEC-001 review history](ELEC-001.audit.md)
 
 ## Annotation
 
@@ -165,12 +165,12 @@ Courts and investigators should not determine the winner of an election or subst
 
 **Remedial Alternatives and Constraints.** A wholly freestanding statute would permit cleaner organization but would duplicate the Hatch Act’s established official-authority principle and enforcement institutions. Amending only the Hatch Act would remain inadequate because OSC–MSPB proceedings cannot supply rapid state-initiated injunctions and should not convert every administrative violation into a felony. The least-complex adequate solution is therefore a Hatch Act amendment with companion civil and criminal titles.
 
-**Quality Score.** The 77/100 score reflects a Review Ready draft suitable for knowledgeable external critique. T4 verified the Hatch Act anchor, official OSC baseline, companion 18 U.S.C. § 595A concept, adjacent rights-statute comparators, three-judge-court source, current EO 14399 source lead, issue-to-legislation alignment, budget caveat, and adoption/friction posture. The score remains below publication-ready because primary court orders for the 2026 litigation, fuller prior-proposal research, state-plaintiff standing analysis, criminal-law narrowing, budgetary-source development, and external election-law review remain incomplete.
+**Quality Score.** The 77/100 score reflects a Review Ready draft suitable for knowledgeable external critique. The internal project review verified the Hatch Act anchor, official OSC baseline, companion 18 U.S.C. § 595A concept, adjacent rights-statute comparators, three-judge-court source, current EO 14399 source lead, issue-to-legislation alignment, budget caveat, and adoption/friction posture. The score remains below publication-ready because primary court orders for the 2026 litigation, fuller prior-proposal research, state-plaintiff standing analysis, criminal-law narrowing, budgetary-source development, and external election-law review remain incomplete.
 
-**Adoption Score.** The 5/12 score is limited. ELEC-001 has strong institutional salience, an existing-law anchor in the Hatch Act, and neutral election-integrity framing, but T1 did not identify proposal-specific polling, active sponsors, a bipartisan prior bill, state attorney-general coalition support, or external election-law validation for the full mechanism.
+**Adoption Score.** The 5/12 score is limited. ELEC-001 has strong institutional salience, an existing-law anchor in the Hatch Act, and neutral election-integrity framing, but the internal project review did not identify proposal-specific polling, active sponsors, a bipartisan prior bill, state attorney-general coalition support, or external election-law validation for the full mechanism.
 
 **Adoption Friction.** The 88/100 score is Extreme Resistance. The proposal would regulate presidential and senior executive conduct in election administration, create state-initiated emergency litigation, add criminal exposure, and interact with presidential-immunity doctrine, making organized partisan, executive-power, and constitutional opposition highly likely.
 
 **Required Electoral Environment.** The required environment is `sixty-vote-senate`, with Pathway Viability `plausible-after-wave` and Pathway Adjustment `stage`. The bill is ordinary federal legislation and does not require constitutional amendment, but adoption likely requires a Senate environment capable of overcoming filibuster constraints or an unusually strong post-election-abuse mandate.
 
-**Development Priority.** The priority is `active` because the proposal addresses a high-salience electoral-institution vulnerability, has a concrete draft, and can be substantially improved through T2 source development, existing-law fit review, and prior-proposal research.
+**Development Priority.** The priority is `active` because the proposal addresses a high-salience electoral-institution vulnerability, has a concrete draft, and can be substantially improved through internal source development, existing-law fit review, and prior-proposal research.

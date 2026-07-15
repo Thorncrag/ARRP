@@ -180,7 +180,7 @@ Treat the ordinary contents and this index as one navigation bundle:
 - each `areas/AREA/README.md` is that area's issue-level table of contents; and
 - this file is the cross-area lookup by subject, institution, acronym, and alias.
 
-Update the affected contents page or pages and this index in the same change whenever an area or issue is created, renamed, moved, merged, retired, or promoted, or whenever its primary ownership or useful reader search terms change. An ordinary source, analysis, or drafting edit does not require navigation changes unless it changes one of those routing facts. T1 must verify this navigation bundle as part of project integration. T0 should flag obvious drift for an existing stable record but should not index an unadmitted Horizon candidate.
+Update the affected contents page or pages and this index in the same change whenever an area or issue is created, renamed, moved, merged, retired, or promoted, or whenever its primary ownership or useful reader search terms change. An ordinary source, analysis, or drafting edit does not require navigation changes unless it changes one of those routing facts. Formal issue review must verify this navigation bundle as part of project integration. Preliminary review should flag obvious drift for an existing stable record but should not index an unadmitted Horizon candidate.
 
 Keep entries short and navigational:
 
@@ -192,4 +192,4 @@ Keep entries short and navigational:
 6. label canonical destinations only with stable record identifiers or a stable project-record label;
 7. place the preferred route first and bold it;
 8. add alternate identifiers only when they materially improve discovery; and
-9. leave relationship analysis, scope explanations, lifecycle status, scores, priorities, and audit metadata to the linked project records.
+9. leave relationship analysis, scope explanations, lifecycle status, scores, priorities, and review metadata to the linked project records.

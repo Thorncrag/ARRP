@@ -7,9 +7,9 @@ priority: high
 remedy_type: federal-legislation
 legislative_status: working-draft
 federal_legislative_proposal: "../../../legislation/ELEC-008.md"
-audit_status: "Check audit complete; Title 18 amendment structure corrected; external validation still needed before circulation"
+audit_status: "Internal check complete; Title 18 amendment structure corrected; external validation still needed before circulation"
 audit_score: 75
-audit_last_type: "Check audit of Title 18 amendment restructure"
+audit_last_type: "Internal check of Title 18 amendment restructure"
 audit_last_date: "2026-07-04"
 audit_next: "Qualified criminal-law, election-law, federal-courts, First Amendment, Speech or Debate, and legislative-counsel review; then targeted source-backed revisions if review identifies concrete fixes"
 audit_rubric_version: "2026-06-27.2"
@@ -165,7 +165,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** Check audit complete; Title 18 amendment structure corrected; external validation still needed before circulation<br />**Last Audit:** Check audit of Title 18 amendment restructure<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** Qualified criminal-law, election-law, federal-courts, First Amendment, Speech or Debate, and legislative-counsel review; then targeted source-backed revisions if review identifies concrete fixes<br />**Full Audit History:** [ELEC-008 audit history](ELEC-008.audit.md)
+> **Internal Review Status:** Internal check complete; Title 18 amendment structure corrected; external validation still needed before circulation<br />**Last Internal Review:** Internal check of Title 18 amendment restructure<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** Qualified criminal-law, election-law, federal-courts, First Amendment, Speech or Debate, and legislative-counsel review; then targeted source-backed revisions if review identifies concrete fixes<br />**Full Review History:** [ELEC-008 review history](ELEC-008.audit.md)
 
 ## Annotation
 
@@ -241,15 +241,15 @@ The target is not election denial, political speech, litigation, recounts, or la
 
 **Title 18 Amendment Structure.** The July 4 amendment pass converts ELEC-008 from a freestanding accountability act into a title 18 amendment adding a new chapter 29A for coordinated federal election subversion. This keeps the proposal in the criminal-law title, adjacent to existing election and political-activity offenses, while preserving its RICO-analogue structure without importing ordinary RICO's broader civil-damages model.
 
-**Check Audit Correction.** The July 4 check audit preserved the chapter 29A vehicle but corrected the proposed section range from 6201-6216 to 618-633 so the new chapter sits numerically between [18 U.S.C. chapter 29](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter29&edition=prelim)'s election-and-political-activity provisions and [18 U.S.C. chapter 31](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter31&edition=prelim).
+**Internal Check Correction.** The July 4 internal check preserved the chapter 29A vehicle but corrected the proposed section range from 6201-6216 to 618-633 so the new chapter sits numerically between [18 U.S.C. chapter 29](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter29&edition=prelim)'s election-and-political-activity provisions and [18 U.S.C. chapter 31](https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter31&edition=prelim).
 
-**T4 Follow-Up Source Review.** The July 4, 2026 follow-up added direct prior-proposal comparators for the Presidential Election Reform Act and the Deceptive Practices and Voter Intimidation Prevention Act, and associated the Protecting Our Democracy Act with ELEC-008 as an adjacent presidential-accountability and election-integrity comparator. These sources confirm that Congress has considered narrower procedural, deceptive-practice, voter-interference, White House/DOJ-contact, and electoral-count reforms. They do not supply a complete scheme-level election-subversion framework, so ELEC-008's residual-gap theory remains plausible but still needs expert validation.
+**Follow-Up Source Review.** The July 4, 2026 follow-up added direct prior-proposal comparators for the Presidential Election Reform Act and the Deceptive Practices and Voter Intimidation Prevention Act, and associated the Protecting Our Democracy Act with ELEC-008 as an adjacent presidential-accountability and election-integrity comparator. These sources confirm that Congress has considered narrower procedural, deceptive-practice, voter-interference, White House/DOJ-contact, and electoral-count reforms. They do not supply a complete scheme-level election-subversion framework, so ELEC-008's residual-gap theory remains plausible but still needs expert validation.
 
 **State Backstop Controls.** The amendment draft now makes the state-attorney-general and election-official backstop more abuse-resistant by requiring contemporaneous notice to the United States, recognizing federal intervention as of right, allowing federal statements of interest, consolidation, transfer, or dismissal requests, and directing dismissal or sanctions where an action is primarily partisan, chilling, duplicative, or contrary to the chapter's safe harbors.
 
 **Source Development Pending.** Further source development should review state anti-subversion proposals, Protect Democracy and other reform proposals, post-2020 federal and state prosecutions, congressional election-contest procedures, Article I Section 5 doctrine, Speech or Debate doctrine, fiscal/workload analogues, safe-harbor stress testing, and ARRP's presidential-immunity reform.
 
-**Quality Score.** The proposal is 75/100 after the July 4 Title 18 amendment restructure and check audit. Component score: Structural 8/8; Evidence 11/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. The score movement comes from improving the draft, not changing the rubric: the bill now selects a Title 18 codification strategy, adds chapter-and-table amendment language, and strengthens state-backstop anti-weaponization controls. External review remains 0/4, so the proposal should be treated as ready for expert critique rather than ready for public circulation.
+**Quality Score.** The proposal is 75/100 after the July 4 Title 18 amendment restructure and internal check. Component score: Structural 8/8; Evidence 11/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. The score movement comes from improving the draft, not changing the scoring standard: the bill now selects a Title 18 codification strategy, adds chapter-and-table amendment language, and strengthens state-backstop anti-weaponization controls. External review remains 0/4, so the proposal should be treated as ready for expert critique rather than ready for public circulation.
 
 **Legal Fit.** Existing conspiracy, voting-rights, and obstruction statutes provide component-law support, but *Fischer* cautions against unbounded obstruction theories and *Trump v. United States* requires official-act and evidence-use limits for presidential applications. ELEC-008 should therefore remain predicate-act-based, safe-harbor-heavy, and complementary to IMM-001 rather than relying on a general obstruction or election-denial theory.
 

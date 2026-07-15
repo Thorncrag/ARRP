@@ -131,7 +131,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-002 audit history](ELEC-002.audit.md)
+> **Internal Review Status:** Internal project review complete; external validation pending<br />**Last Internal Review:** Internal project review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** External validation / follow-up internal review<br />**Full Review History:** [ELEC-002 review history](ELEC-002.audit.md)
 
 ## Annotation
 
@@ -141,9 +141,9 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Qualification.** Certification must not become automatic in the sense of ignoring a demonstrated defect that state law assigns the certifier to resolve. The model statute therefore permits narrow, written identification of defects within the official’s lawful authority while prohibiting generalized investigation or relitigation through the certification process.
 
-**Quality Score.** The 76/100 score reflects a Review Ready draft suitable for knowledgeable external critique. T4 verified the model-state vehicle, ministerial-duty theory, automatic substitution design, manifestation source coverage, ECRA background treatment, issue-to-legislation alignment, budget caveat, and state-by-state adoption posture. The score remains below publication-ready because primary court orders or official state records, representative state statutory comparisons, administrator/stakeholder validation, federal-floor analysis, optional appropriation language, and penalty calibration remain incomplete.
+**Quality Score.** The 76/100 score reflects a Review Ready draft suitable for knowledgeable external critique. The internal project review verified the model-state vehicle, ministerial-duty theory, automatic substitution design, manifestation source coverage, ECRA background treatment, issue-to-legislation alignment, budget caveat, and state-by-state adoption posture. The score remains below publication-ready because primary court orders or official state records, representative state statutory comparisons, administrator/stakeholder validation, federal-floor analysis, optional appropriation language, and penalty calibration remain incomplete.
 
-**Adoption Score.** The 5/12 score is limited. ELEC-002 has a plausible state-level model-law path and concrete recent examples, but T1 did not identify proposal-specific polling, state sponsor coalitions, election-administrator endorsements, bipartisan adoption records, or comparable enacted model-law uptake.
+**Adoption Score.** The 5/12 score is limited. ELEC-002 has a plausible state-level model-law path and concrete recent examples, but the internal project review did not identify proposal-specific polling, state sponsor coalitions, election-administrator endorsements, bipartisan adoption records, or comparable enacted model-law uptake.
 
 **Adoption Friction.** The 58/100 score is Significant Resistance. The proposal is less nationally partisan than federal executive-election-interference reforms and preserves lawful defect correction, but it constrains local certification officials, may draw state-level election-administration opposition, and will be resisted where certification discretion is treated as a partisan leverage point.
 

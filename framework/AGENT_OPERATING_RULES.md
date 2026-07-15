@@ -122,7 +122,7 @@ For an expressly authorized batch containing multiple scored audit units, one fi
 
 Complete the selected tier for one issue before proceeding. If an issue reaches a genuine evidentiary, access, external-review, or human-review blocker, document it, preserve it, and proceed.
 
-If an agent adds or materially changes a source, manifestation, institutional framing, damage theory, weakness theory, remedy language, repair/prevention language, or proposal vehicle for a developed issue without running the targeted Change Audit required by the methodology, the agent must mark the issue as needing a targeted Change Audit and Internal Remedy-Fit Audit before treating the score as fully current. The marker should appear in issue front matter, the visible Proposal Scoring or Next Audit line, the issue audit-history file, and any corresponding GitHub Project field.
+If an agent adds or materially changes a source, manifestation, institutional framing, damage theory, weakness theory, remedy language, repair/prevention language, or proposal vehicle for a developed issue without running the targeted Change Audit required by the methodology, the agent must mark the issue as needing a targeted Change Audit and Internal Remedy-Fit Audit before treating the score as fully current. The marker should appear in issue front matter, the visible **Proposal Scoring** or **Next Review** line, the issue audit-history file, and any corresponding GitHub Project field. Reader-facing wording should follow the terminology convention in the methodology while technical records preserve the exact audit terms.
 
 ### Permitted Autonomous Corrections
 

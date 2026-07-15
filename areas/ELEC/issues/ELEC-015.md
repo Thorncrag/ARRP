@@ -160,7 +160,7 @@ Budget authority may be required for voter education, ballot redesign, election-
 >
 > —
 >
-> **Audit Status:** Deferred pending additional certified election-outcome data and additional election-method, ballot-access, party-system, and implementation input; fixed-zero preserved until remedy value and fit can be reassessed<br />**Last Audit:** Deferred status update<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`; **Change Audit Needed:** no<br />**Next Audit:** After the next midterm election cycle, update certified outcome data for RCV jurisdictions and obtain additional expert or stakeholder input; then reassess whether ELEC-015 should remain deferred, become an implementation-safeguards issue, or be retired in favor of upstream competition reforms<br />**Full Audit History:** [ELEC-015 audit history](ELEC-015.audit.md)
+> **Internal Review Status:** Deferred pending additional certified election-outcome data and additional election-method, ballot-access, party-system, and implementation input; zero score preserved until remedy value and fit can be reassessed<br />**Last Internal Review:** Deferred status update<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status; **Revision Review Needed:** No<br />**Next Review:** After the next midterm election cycle, update certified outcome data for RCV jurisdictions and obtain additional expert or stakeholder input; then reassess whether ELEC-015 should remain deferred, become an implementation-safeguards issue, or be retired in favor of upstream competition reforms<br />**Full Review History:** [ELEC-015 review history](ELEC-015.audit.md)
 
 ## Annotation
 
@@ -172,7 +172,7 @@ Budget authority may be required for voter education, ballot redesign, election-
 
 **Future Data Checkpoint.** Revisit ELEC-015 after the next midterm election cycle with certified outcome data. The update should specifically test whether RCV jurisdictions produced third-party or independent winners, materially changed alternative vote expression, or otherwise supplied evidence that the major bottleneck is not upstream ballot access, debate access, primary structure, fundraising, media visibility, or district design.
 
-**Preflight Notice.** Any future audit should begin by notifying the user that ELEC-015 has no proposed legislation yet unless a draft has been added before that audit. Without drafting, the audit should be limited to source development, issue admission, remedy selection, and fixed-zero candidate review.
+**Preflight Notice.** Any future internal review should begin by noting that ELEC-015 has no proposed legislation yet unless a draft has been added before that review. Without drafting, the review should be limited to source development, issue admission, remedy selection, and unscored candidate review.
 
 **Implementation Caution.** RCV and related election-method reforms can lose legitimacy if voters experience them as confusing, opaque, expensive, or imposed. The source-development priority is therefore not simply whether RCV is desirable; it is whether a specific implementation model can be explained, audited, recounted, funded, and administered.
 

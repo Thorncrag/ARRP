@@ -22,7 +22,7 @@ The project does not avoid naming public actors, including President Trump, wher
 
 The project is not limited to incidents from President Trump's administrations. Those incidents are a principal case study because they exposed how many parts of the constitutional and administrative system depended on political traditions, voluntary restraint, unwritten norms, and underspecified legal guidelines. The project also includes older, continuing, or future-facing institutional weaknesses where they bear on democratic resilience, including representation, disenfranchisement, and other structural conditions that affect whether the system can remain self-correcting over time.
 
-The full neutrality, language, coalition-reality, and political-language audit rules are maintained in the technical framework and project methodology. See [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#neutrality-and-language-guidelines) and [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#political-language-and-coalition-appeal-audit).
+The full neutrality, language, coalition-reality, and political-language review rules are maintained in the technical framework and project methodology. See [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#neutrality-and-language-guidelines) and [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#political-language-and-coalition-appeal-audit).
 
 The project is also a living research draft. Sources, citations, examples, issue classifications, and proposed remedies may be incomplete, provisional, or later revised as the work develops.
 
@@ -125,9 +125,9 @@ Developed issue pages are designed to move from problem to remedy before turning
 - **Adoption Viability Note:** why a legally available vehicle may still require a future or amenable actor.
 - **Relationship to Adjacent Proposals:** how overlapping ARRP proposals differ, merge, or complement one another.
 - **Budgetary Impact Statement:** preliminary fiscal or workload classification, not an official cost score.
-- **Proposal Scoring:** compact readiness, adoption, friction, pathway, review, and audit-status summary.
+- **Proposal Scoring:** compact readiness, adoption, friction, pathway, and internal-review summary.
 - **Annotation:** evidence, qualifications, legal analysis, alternatives, implementation limits, and score explanations.
-- **Audit History:** linked technical sidecar preserving the full audit record.
+- **Review History:** linked technical sidecar preserving the full internal review record.
 
 ## Proposal Scores
 
@@ -139,7 +139,7 @@ Score bands are interpreted as follows:
 | --- | --- |
 | 0 | **Not Scored:** retired, merged, moot, pending development, or awaiting a controlling finding. |
 | 1-49 | **Early/Partial Draft:** major unresolved source, legal, remedy, or structure issues. |
-| 50-64 | **Developed Draft:** meaningful structure but incomplete audit support. |
+| 50-64 | **Developed Draft:** meaningful structure but incomplete review support. |
 | 65-74 | **Substantially Developed Draft:** useful internally but still has material unresolved issues. |
 | 75-84 | **Review Ready:** strong enough for knowledgeable external critique, but not yet proposal-ready. |
 | 85-89 | **Advanced Review Ready:** most internal checks are complete, but key validation remains. |
@@ -147,7 +147,7 @@ Score bands are interpreted as follows:
 | 95-99 | **Publication Ready:** rare and heavily validated. |
 | 100 | **Fully Validated:** theoretically possible but not expected for most reforms. |
 
-The full scoring formula and audit rules are maintained in [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#audit-rules-and-proposal-quality-scoring).
+The full scoring formula and internal-review rules are maintained in [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#audit-rules-and-proposal-quality-scoring).
 
 Some issue pages also show an **Adoption Score** from 0 to 12. This is part of the Proposal Quality Score, not a separate score. It measures whether the proposal has a realistic, evidence-supported adoption path, including likely audiences, good-faith objections, coalition strategy, current support evidence, and the required electoral environment.
 
@@ -162,9 +162,9 @@ Adoption score bands are interpreted as follows:
 | 10-11 | **Strong Adoption Basis:** adoption path is well developed and well supported. |
 | 12 | **Exceptional Adoption Basis:** adoption path is unusually complete and strongly evidenced. |
 
-Some issue pages also show **Coalition Support Estimates** for Democratic, Republican, independent, or bipartisan audiences. These percentages are provisional planning judgments, not polling claims. They estimate how likely each audience is to find the proposal supportable in principle based on the proposal's framing, institutional purpose, current public evidence, prior legislative behavior, stakeholder signals, good-faith objections, and audit judgment. They should be revised when better polling, expert review, legislative behavior, stakeholder feedback, or coalition analysis becomes available.
+Some issue pages also show **Coalition Support Estimates** for Democratic, Republican, independent, or bipartisan audiences. These percentages are provisional planning judgments, not polling claims. They estimate how likely each audience is to find the proposal supportable in principle based on the proposal's framing, institutional purpose, current public evidence, prior legislative behavior, stakeholder signals, good-faith objections, and internal review. They should be revised when better polling, expert review, legislative behavior, stakeholder feedback, or coalition analysis becomes available.
 
-Some issue pages may also show **External Review Status** when a qualified professional or institutional reviewer has reviewed the proposal. External review can increase the Proposal Quality Score only when the review is documented, within the reviewer's domain, and incorporated into the audit record. Qualified reviewers may include relevant attorneys, legislative counsel, legislators or legislative staff, law professors, public-law scholars, government practitioners, inspectors general or ethics professionals, subject-matter experts, or affected institutional stakeholders. External review is not a guarantee that a proposal is legally valid, final, or certain to pass.
+Some issue pages may also show **External Review Status** when a qualified professional or institutional reviewer has reviewed the proposal. External review can increase the Proposal Quality Score only when the review is documented, within the reviewer's domain, and incorporated into the project record. Qualified reviewers may include relevant attorneys, legislative counsel, legislators or legislative staff, law professors, public-law scholars, government practitioners, inspectors general or ethics professionals, subject-matter experts, or affected institutional stakeholders. External review is not a guarantee that a proposal is legally valid, final, or certain to pass.
 
 Some issue pages also include an **Adoption Friction Score** from 0 to 100. This is separate from Proposal Quality. It estimates how much resistance, litigation risk, procedural blockade, public misunderstanding, or institutional opposition a proposal is likely to face. A higher friction score does not mean the proposal is worse; it means adoption will likely require more coalition work, explanation, staging, or litigation planning.
 
@@ -222,12 +222,12 @@ For citation metadata, see [`CITATION.cff`](CITATION.cff). The preferred citatio
 
 The project framework, repository structure, file conventions, contribution process, and development backlog are maintained in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md).
 
-The project methodology, audit rules, scoring rules, and inventory maintenance rules are maintained in [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md).
+The project methodology, internal-review rules, scoring rules, and inventory maintenance rules are maintained in [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md).
 
-Agent-assisted audit and autonomous batch-audit operating rules are maintained in [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md).
+Agent-assisted and autonomous batch-review operating rules are maintained in [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md).
 
-Autonomous, batched, or scheduled agent commit provenance and rollback references are maintained in [`framework/AGENT_AUDIT_LOG.md`](framework/AGENT_AUDIT_LOG.md). Human-invoked audits use the issue audit-history sidecar, issue-page metadata, and GitHub Project fields instead.
+Autonomous, batched, or scheduled agent commit provenance and rollback references are maintained in [`framework/AGENT_AUDIT_LOG.md`](framework/AGENT_AUDIT_LOG.md). Human-invoked internal reviews use the technical review-history sidecar, issue-page metadata, and GitHub Project fields instead.
 
-The cumulative Change Audit history is maintained in [`framework/CHANGE_AUDIT_LOG.md`](framework/CHANGE_AUDIT_LOG.md).
+The cumulative project revision history is maintained in [`framework/CHANGE_AUDIT_LOG.md`](framework/CHANGE_AUDIT_LOG.md).
 
 The Horizon Scan Log is maintained in [`framework/HORIZON_SCAN_LOG.md`](framework/HORIZON_SCAN_LOG.md).

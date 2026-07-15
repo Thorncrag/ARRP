@@ -159,7 +159,7 @@ No reliable estimate yet. Early remedies may require compliance, records, review
 >
 > —
 >
-> **Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** SCOTUS doctrine update<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Post-*B.P.J.* source-development pass<br />**Full Audit History:** [RIGHTS-001 audit history](RIGHTS-001.audit.md)
+> **Internal Review Status:** Pending development; no proposal-quality score assigned<br />**Last Internal Review:** SCOTUS doctrine update<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Current unscored status<br />**Next Review:** Post-*B.P.J.* source-development pass<br />**Full Review History:** [RIGHTS-001 review history](RIGHTS-001.audit.md)
 
 ## Annotation
 

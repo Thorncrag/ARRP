@@ -139,7 +139,7 @@ No reliable estimate yet. Reviewability, record-preparation, transition, and adj
 >
 > —
 >
-> **Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** Horizon integration decision<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [RIGHTS-002 audit history](RIGHTS-002.audit.md)
+> **Internal Review Status:** Pending development; no proposal-quality score assigned<br />**Last Internal Review:** Horizon integration decision<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Current unscored status<br />**Next Review:** Source-development pass<br />**Full Review History:** [RIGHTS-002 review history](RIGHTS-002.audit.md)
 
 ## Annotation
 

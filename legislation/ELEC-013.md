@@ -405,7 +405,7 @@ Budget authority may be required for Election Assistance Commission form develop
 - The debate provisions avoid compelled private hosting and editorial control. They condition FEC debate treatment and defined Federal public benefits on transparent criteria and alternative objective qualification paths.
 - The debate-cycle remedy now includes an expedited review request and a public post-debate notice if FEC deadlock, quorum, or timing prevents pre-debate action; it still needs direct FEC matter-file and First Amendment review.
 - The candidate-civil-action section now includes diligence, laches, anti-disruption, and no-automatic-ballot-placement limits to reduce late-election litigation risk.
-- The next check audit should test the revised HAVA fit, FECA fit, EAC/FEC/DOJ role allocation, First Amendment and press-freedom limits, Article II and Elections Clause authority, Spending Clause support, state-administration burden, cost, and interaction with ELEC-012 and ELEC-015.
+- The next internal check should test the revised HAVA fit, FECA fit, EAC/FEC/DOJ role allocation, First Amendment and press-freedom limits, Article II and Elections Clause authority, Spending Clause support, state-administration burden, cost, and interaction with ELEC-012 and ELEC-015.
 
 ## Source Notes
 

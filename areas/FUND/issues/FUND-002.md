@@ -128,7 +128,7 @@ No reliable estimate yet. The proposal would likely affect OMB, GAO, agency budg
 >
 > —
 >
-> **Audit Status:** Pending development; no proposal-quality score assigned<br />**Last Audit:** Initial candidate development<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Source-development pass<br />**Full Audit History:** [FUND-002 audit history](FUND-002.audit.md)
+> **Internal Review Status:** Pending development; no proposal-quality score assigned<br />**Last Internal Review:** Initial candidate development<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Current unscored status<br />**Next Review:** Source-development pass<br />**Full Review History:** [FUND-002 review history](FUND-002.audit.md)
 
 ## Annotation
 

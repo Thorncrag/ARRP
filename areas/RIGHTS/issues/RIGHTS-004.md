@@ -141,7 +141,7 @@ No reliable estimate yet. A comprehensive immigration-system reform could have s
 >
 > —
 >
-> **Audit Status:** Initial issue admitted; no proposal-quality score assigned<br />**Last Audit:** Issue admission and source-development framing<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Source-develop comprehensive immigration reform architecture and decide whether to draft one modular bill or split sub-vehicles<br />**Full Audit History:** [RIGHTS-004 audit history](RIGHTS-004.audit.md)
+> **Internal Review Status:** Initial issue admitted; no proposal-quality score assigned<br />**Last Internal Review:** Issue admission and source-development framing<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Current unscored status<br />**Next Review:** Source-develop comprehensive immigration reform architecture and decide whether to draft one modular bill or split sub-vehicles<br />**Full Review History:** [RIGHTS-004 review history](RIGHTS-004.audit.md)
 
 ## Annotation
 

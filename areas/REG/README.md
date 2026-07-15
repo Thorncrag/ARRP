@@ -17,7 +17,7 @@ The constitutional and statutory position of independent agencies is increasingl
 
 ## Issues
 
-- [**REG-001** — Agency Independence and Functional Nullification](issues/REG-001.md) _(status: Review Ready; T4 score: 83; priority: High)_
+- [**REG-001** — Agency Independence and Functional Nullification](issues/REG-001.md) _(status: Review Ready; score following the internal project review: 83; priority: High)_
 - **REG-002** — Politicized enforcement or nonenforcement _(status: Candidate; priority: Medium)_
 - **REG-003** — Control of administrative adjudication _(status: Candidate; priority: Medium)_
 - **REG-004** — Suspension or dismantling of agency operations _(status: Merged into REG-001)_
@@ -30,7 +30,7 @@ The constitutional and statutory position of independent agencies is increasingl
 
 - [REG-001](issues/REG-001.md) is the primary home for a two-tier agency-independence and functional-continuity framework. Tier One applies heightened review where Congress intended meaningful independence, using statutory structure rather than an agency label alone. Tier Two applies a narrower continuity floor where presidential action or deliberate inaction substantially and sustainably disables an ordinary executive agency or mandatory statutory function. The shared concern is practical repeal or suspension without legislation, not ordinary presidential supervision or policy disagreement.
 
-- REG-001 now presents two independent enactment choices. The preferred remedy is the [Interbranch Review Framework Act (JUD-011)](../../legislation/JUD-011.md) alone, whose generally applicable anti-nullification claim requires no REG-001 opt-in. The alternative is the standalone [Congressional Institutional Continuity and Anti-Nullification Act](../../legislation/REG-001.md), which supplies its own substantive and three-judge D.D.C. remedy without relying on JUD-011. REG-001 completed T4 at 83/100 (Review Ready); qualified review is next.
+- REG-001 now presents two independent enactment choices. The preferred remedy is the [Interbranch Review Framework Act (JUD-011)](../../legislation/JUD-011.md) alone, whose generally applicable anti-nullification claim requires no REG-001 opt-in. The alternative is the standalone [Congressional Institutional Continuity and Anti-Nullification Act](../../legislation/REG-001.md), which supplies its own substantive and three-judge D.D.C. remedy without relying on JUD-011. REG-001 received an 83/100 score after internal project review (Review Ready); qualified review is next.
 
 - The [independent-agency removal and vacancy catalog](../../research/REG-001-independent-agency-removal-catalog.md) remains the Tier One source-development record. *Trump v. Slaughter*, *Trump v. Cook*, and the July 2026 Election Assistance Commission collapse are primary independence and vacancy manifestations. REG-004 and REG-005 are merged into REG-001 because operational dismantling and vacancy manipulation are mechanisms of the same anti-nullification defect.
 
@@ -42,4 +42,4 @@ The constitutional and statutory position of independent agencies is increasingl
 
 ## Notes
 
-REG-001 was promoted after *Trump v. Slaughter*, expanded on July 10, 2026, to consolidate REG-004 and REG-005 under a two-tier agency-independence and functional-continuity framework, received its first working statutory draft on July 13, 2026, and completed T4 at 83/100 (Review Ready). Remaining unmerged issues are provisional inventory; full source development pending.
+REG-001 was promoted after *Trump v. Slaughter*, expanded on July 10, 2026, to consolidate REG-004 and REG-005 under a two-tier agency-independence and functional-continuity framework, received its first working statutory draft on July 13, 2026, and completed internal project review at 83/100 (Review Ready). Remaining unmerged issues are provisional inventory; full source development pending.

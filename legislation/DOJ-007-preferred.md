@@ -125,7 +125,7 @@ Selection shall be merit-based. Counsel shall take the constitutional oath and s
 
 ## SEC. 8. JURISDICTION.
 
-Jurisdiction includes the matters identified in the appointment order; federal offenses arising from the same course of conduct; obstruction, retaliation, false statements, witness tampering, evidence destruction, and concealment affecting the investigation; persons who aid or conspire in such conduct; and serious use or attempted use of federal investigative or prosecutorial authority for a sham, pretextual, retaliatory, protective, personal, electoral, or partisan case-specific purpose.
+Jurisdiction includes the matters identified in the appointment order; federal offenses arising from the same course of conduct; obstruction, retaliation, false statements, witness tampering, evidence destruction, and concealment affecting the investigation; persons who aid or conspire in such conduct; and serious use or attempted use of federal investigative or prosecutorial authority without a good-faith lawful factual predicate or for a retaliatory, protective, personal, electoral, partisan, or other improper case-specific purpose.
 
 Covered misuse may include seeking investigation or prosecution of an opponent for an improper purpose; seeking protection, dismissal, leniency, or nonenforcement for an ally; obtaining confidential investigative information for personal or political use; manipulating staffing, jurisdiction, resources, or timing to obtain a desired result; directing materially false representations; or retaliating against resistance to such conduct.
 

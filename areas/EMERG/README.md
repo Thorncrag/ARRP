@@ -28,4 +28,4 @@ Presidents can invoke broadly worded emergency statutes to unlock extraordinary 
 
 ## Notes
 
-Most issues remain in provisional inventory. EMERG-003 now has a developed issue page and first statutory draft; its T1 audit remains pending.
+Most issues remain in provisional inventory. EMERG-003 now has a developed issue page and first statutory draft; its internal project review remains pending.

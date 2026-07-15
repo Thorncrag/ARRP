@@ -131,15 +131,15 @@ Prospectively, the statute would force the political branch constitutionally res
 
 ## Budgetary Impact Statement
 
-**Preliminary classification: Low administrative and litigation impact.** Treasury, State, Justice, and the federal courts already administer designations, licenses, visa restrictions, reports, and sanctions litigation. The proposal adds individualized explanations, transition review, and expedited cases but creates no new agency, tribunal, judgeship, grant program, or entitlement. The first draft directs implementation from otherwise available appropriations. T1 should test likely review volume and whether a narrow authorization is needed for temporary staffing or systems changes.
+**Preliminary classification: Low administrative and litigation impact.** Treasury, State, Justice, and the federal courts already administer designations, licenses, visa restrictions, reports, and sanctions litigation. The proposal adds individualized explanations, transition review, and expedited cases but creates no new agency, tribunal, judgeship, grant program, or entitlement. The first draft directs implementation from otherwise available appropriations. The further internal review should test likely review volume and whether a narrow authorization is needed for temporary staffing or systems changes.
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** 0 / 100 (Fixed-zero candidate)<br />**Required Electoral Environment:** Unified congressional enactment or sufficient cross-party support to overcome presidential opposition<br />**Development Priority:** High
+> **Proposal Quality Score:** 0 / 100 (Unscored candidate)<br />**Required Electoral Environment:** Unified congressional enactment or sufficient cross-party support to overcome presidential opposition<br />**Development Priority:** High
 >
 > —
 >
-> **Audit Status:** First statutory draft complete; T1 audit pending<br />**Last Audit:** HOR-030 integration and initial statutory draft<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** T1 review of statutory scope, immigration coordination, judicial review, transition, and implementation<br />**Full Audit History:** [EMERG-003 audit history](EMERG-003.audit.md)
+> **Internal Review Status:** First statutory draft complete; internal project review pending<br />**Last Internal Review:** HOR-030 integration and initial statutory draft<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status<br />**Next Review:** Internal project review of statutory scope, immigration coordination, judicial review, transition, and implementation<br />**Full Review History:** [EMERG-003 review history](EMERG-003.audit.md)
 
 ## Annotation
 

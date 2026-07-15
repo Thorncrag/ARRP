@@ -129,7 +129,7 @@ No reliable estimate yet. Records, notice, review, document-continuity, and liti
 >
 > —
 >
-> **Audit Status:** Post-*Barbara* source-development update complete; no proposal-quality score assigned<br />**Last Audit:** Post-*Barbara* statutory-vulnerability update<br />**Rubric Version:** `2026-06-27.1`; **Rebaseline:** `current-fixed-status`<br />**Next Audit:** Draft or source-develop a statutory citizenship-recognition and records-continuity backstop<br />**Full Audit History:** [RIGHTS-003 audit history](RIGHTS-003.audit.md)
+> **Internal Review Status:** Post-*Barbara* source-development update complete; no proposal-quality score assigned<br />**Last Internal Review:** Post-*Barbara* statutory-vulnerability update<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Current unscored status<br />**Next Review:** Draft or source-develop a statutory citizenship-recognition and records-continuity backstop<br />**Full Review History:** [RIGHTS-003 review history](RIGHTS-003.audit.md)
 
 ## Annotation
 

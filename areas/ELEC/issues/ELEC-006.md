@@ -126,7 +126,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-006 audit history](ELEC-006.audit.md)
+> **Internal Review Status:** Internal project review complete; external validation pending<br />**Last Internal Review:** Internal project review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** External validation / follow-up internal review<br />**Full Review History:** [ELEC-006 review history](ELEC-006.audit.md)
 
 ## Annotation
 
@@ -142,9 +142,9 @@ Administrative workload is possible; no new appropriation is specified.
 
 **Congressional Nondependence.** Congressional oversight should be preserved, but transition continuity should not depend on Congress being willing or able to oppose delay.
 
-**Source Development Pending.** T4 attempted official-source substitution for the 2020 ascertainment delay and 2024 transition-agreement/background-check delay but did not locate stable official records through the public paths checked. External validation or T4 follow-up should continue seeking official GSA, congressional, transition-team, White House, DOJ, FBI, or oversight records; complete a direct prior-proposal or legislative-history survey; and add transition-law or national-security practitioner review.
+**Source Development Pending.** The internal project review attempted official-source substitution for the 2020 ascertainment delay and 2024 transition-agreement/background-check delay but did not locate stable official records through the public paths checked. External validation or a follow-up internal review should continue seeking official GSA, congressional, transition-team, White House, DOJ, FBI, or oversight records; complete a direct prior-proposal or legislative-history survey; and add transition-law or national-security practitioner review.
 
-**Quality Score.** The proposal is 76/100 after T4. Component score: Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. T4 did not change the score because it did not resolve the remaining publication blockers: official 2020/2024 event records, direct prior-proposal research, exact amendment placement, budget/workload analogues, and external review. The proposal remains Review Ready for knowledgeable external critique.
+**Quality Score.** The proposal is 76/100 after the internal project review. Component score: Structural 8/8; Evidence 9/12; Legal Fit 7/10; Prior Proposal 6/8; Remedy 10/12; Implementation 7/8; Abuse Resistance 7/8; Drafting 7/8; Cogency 6/6; Adoption 5/12; Project Integration 4/4; External Review 0/4. The internal project review did not change the score because it did not resolve the remaining publication blockers: official 2020/2024 event records, direct prior-proposal research, exact amendment placement, budget/workload analogues, and external review. The proposal remains Review Ready for knowledgeable external critique.
 
 **Adoption Score.** Adoption Score is 5/12. Presidential-transition continuity has bipartisan institutional logic and an enacted 2022 reform baseline, but ELEC-006 does not yet cite proposal-specific polling, current sponsor coalitions, committee activity, transition-practitioner endorsement, or external validation for its full automaticity package.
 

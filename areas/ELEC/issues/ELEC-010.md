@@ -185,7 +185,7 @@ Budget authority may be required if the chosen remedy funds postage, tracking, o
 >
 > —
 >
-> **Audit Status:** T4 publication-ready audit complete; external validation pending<br />**Last Audit:** T4 publication-ready audit<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Next Audit:** External validation / T4 follow-up<br />**Full Audit History:** [ELEC-010 audit history](ELEC-010.audit.md)
+> **Internal Review Status:** Internal project review complete; external validation pending<br />**Last Internal Review:** Internal project review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** External validation / follow-up internal review<br />**Full Review History:** [ELEC-010 review history](ELEC-010.audit.md)
 
 ## Annotation
 
@@ -235,7 +235,7 @@ HOR-001 was integrated into this issue only for the mail-ballot and USPS compone
 
 **Remedial Alternatives and Constraints.** A federal statute requiring no-excuse mail voting nationwide would maximize uniform access but would create larger federalism and administrative questions. A model state act would be useful but slower and less uniform for federal-election vulnerabilities. A purely advisory best-practices guide would be simpler but inadequate where rejection, postal disruption, or cure disparities recur. The least-complex adequate approach is a federal floor for federal-election mail ballots plus federal postal-performance standards for election mail.
 
-**Quality Score.** The proposal is 77/100 after T4. Component score: Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 7/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. T4 verifies the published Federal Register/GovInfo proposed-rule record and confirms issue-to-bill alignment, but official court orders, Senate hearing materials, full prior-bill comparison, budget/workload support, final private-enforcement design, and external election-law or postal-operation review remain unresolved.
+**Quality Score.** The proposal is 77/100 after the internal project review. Component score: Structural 8/8; Evidence 10/12; Legal Fit 7/10; Prior Proposal 7/8; Remedy 10/12; Implementation 6/8; Abuse Resistance 7/8; Drafting 8/8; Cogency 6/6; Adoption 4/12; Project Integration 4/4; External Review 0/4. The internal project review verifies the published Federal Register/GovInfo proposed-rule record and confirms issue-to-bill alignment, but official court orders, Senate hearing materials, full prior-bill comparison, budget/workload support, final private-enforcement design, and external election-law or postal-operation review remain unresolved.
 
 **Adoption Score.** Adoption Score is 4/12 because ELEC-010 has a plausible federal statutory vehicle, identifiable prior-proposal families, and both access and integrity framing, but lacks proposal-specific polling, active sponsor support for this narrower framework, bipartisan coalition evidence, state election-official validation, USPS operational validation, or external election-law review.
 

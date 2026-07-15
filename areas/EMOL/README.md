@@ -35,6 +35,6 @@ The constitutional and statutory framework does not adequately prevent a preside
 
 ## Notes
 
-EMOL-015 is an 83/100 Review Ready conflict-of-interest and settlement-authority proposal through T4. The President and a narrowly defined Vice President lane are expressly covered. The bill supplies automatic adversity screening, controlled maintenance with periodic review, payment restrictions, a bounded D.D.C. enforcement action, recipient process, protected-information procedures, explicit appeals, and a universal categorical audit-immunity amendment. Publication-form verification is complete; qualified constitutional, federal-courts, tax, appropriations, judicial-administration, and legislative-counsel review remains required.
+EMOL-015 is an 83/100 Review Ready conflict-of-interest and settlement-authority proposal after internal project review. The President and a narrowly defined Vice President lane are expressly covered. The bill supplies automatic adversity screening, controlled maintenance with periodic review, payment restrictions, a bounded D.D.C. enforcement action, recipient process, protected-information procedures, explicit appeals, and a universal categorical audit-immunity amendment. Publication-form verification is complete; qualified constitutional, federal-courts, tax, appropriations, judicial-administration, and legislative-counsel review remains required.
 
 Other EMOL issues remain provisional inventory pending full source development.
