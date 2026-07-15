@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
+| Status | Inactive |
 | Active issue/task | Issue-development lifecycle automation and JUD-005 status correction |
 | Audit type/tier | Project-level Change Audit / workflow implementation; no T-audit |
 | Started | 2026-07-15 |
-| Last checkpoint | 2026-07-15; governing files and dashboard warning logic inspected |
+| Last checkpoint | 2026-07-15; lifecycle workflow implemented, published, and verified |
 | User request | Implement the proposed durable workflow so ordinary requests to focus on an issue reliably trigger lifecycle-status review, and correct JUD-005's stale status. |
 | Scope | Root Codex guidance; methodology and GitHub lifecycle rules; dashboard drift warning and tests; JUD-005 Project status, readback, dashboard refresh, validation, commit, and push. |
-| Files touched | `framework/CURRENT_AUDIT.md` so far. |
-| Completed steps | Confirmed JUD-005 has a complete issue page and concrete legislative vehicle, remains unscored with zero T-audit runs, and should move from `Pending development` to `Audit needed` without a score or Runs change. |
-| Next step | Add root `AGENTS.md`, codify lifecycle transitions, and add the stale-status warning and test. |
+| Files touched | `AGENTS.md`; `.github/ISSUE_TEMPLATE/proposal_tracking.yml`; `framework/AGENT_OPERATING_RULES.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`; `framework/GITHUB_WORKFLOW.md`; `framework/METHODOLOGY.md`; `framework/PROGRESS_DASHBOARD.md`; `scripts/build_review_ready_dashboard.py`; `tests/test_review_ready_dashboard.py`. |
+| Completed steps | Added durable root guidance and governing lifecycle rules; added and tested the stale `Pending development` dashboard warning; corrected JUD-005 to `Audit needed` with score 0 and Runs 0 preserved; read back the Project row; committed and pushed the implementation; and verified successful dashboard and public-site workflows. |
+| Next step | JUD-005 T1 audit when requested. |
 | Blockers/questions | None. |
-| Validation status | Not started. |
+| Validation status | Passed: `git diff --check`; 18 repository tests; public-site preparation with 105 canonical pages, one generated page, and no dashboard publication; JUD-005 Project readback; dashboard workflow run 29413077120; generated dashboard row; and public-site workflow run 29413077013. |
 
 ## Handoff Rules
 
