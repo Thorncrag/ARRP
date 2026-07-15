@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | None |
-| Audit type/tier | None |
-| Started | — |
-| Last checkpoint | 2026-07-15; concise topic-page standard and compliant Project 2025 guide completed |
-| User request | — |
-| Scope | — |
-| Files touched | — |
-| Completed steps | Added the reusable Topic Page Standard to the main methodology, including admission, nonauthority, required sections, concise crosswalk fields, canonical disposition treatment, source discipline, the verbatim-transfer ownership test, and prohibited content. Tightened framework and repository ownership summaries. Replaced the Project 2025 development memorandum with a concise overview, routing table, three-column crosswalk, documented HOR-011/HOR-015/HOR-018 dispositions, scope boundary, and source/currency note. Added a regression test, consolidated the work into the existing July 15 topic-guide Change Audit entry, synchronized and read back GitHub issue #8, and pushed commit `a65684f` to `origin/main`. |
-| Next step | None. Future topic pages should follow the Topic Page Standard and synchronize any documented dispositions from their authoritative records. |
-| Blockers/questions | None. This governance and navigation pass did not alter proposal substance, score, lifecycle status, rebaseline status, or T-audit Runs. |
-| Validation status | Passed: 19 repository tests; strict MkDocs build; public-manifest and generated-navigation checks; Python syntax checks; CSV integrity; changed-page local links; topic-guide compliance assertions; `git diff --check`; GitHub issue #8 readback; and successful push to `origin/main`. |
+| Status | Active |
+| Active issue/task | Topic-page rejected-concept routing clarification |
+| Audit type/tier | Project-level Change Audit continuation |
+| Started | 2026-07-15 |
+| Last checkpoint | 2026-07-15; user clarified that deferred and merged/integrated records should not receive separate topic-page disposition listings |
+| User request | Keep deferred records in ordinary routing until rejected; omit merged or integrated topic listings because their current authoritative homes already provide discovery. |
+| Scope | Topic Page Standard; Project 2025 guide; compliance test; consolidated Change Audit entry; GitHub issue #8. |
+| Files touched | `framework/CURRENT_AUDIT.md` |
+| Completed steps | Determined that the separate topic-page exception should be limited to rejected, retired, or outside-scope concepts. Deferred records remain ordinary live routes, while merged or integrated records appear only through their current authoritative homes. |
+| Next step | Narrow the methodology and framework language, remove the Project 2025 disposition table, update the test and consolidated audit entry, synchronize GitHub issue #8, validate, commit, push, and verify Pages. |
+| Blockers/questions | None. No proposal substance or workflow field is affected. |
+| Validation status | In progress. |
 
 ## Handoff Rules
 

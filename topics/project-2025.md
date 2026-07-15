@@ -2,7 +2,7 @@
 title: "Project 2025"
 page_type: topic-guide
 status: maintained
-purpose: "Route readers from commonly recognized Project 2025 themes to the ARRP records and dispositions that govern their treatment."
+purpose: "Route readers from commonly recognized Project 2025 themes to the ARRP records that govern their treatment."
 last_reviewed: "2026-07-15"
 print_levels:
   - public-proposal
@@ -15,7 +15,7 @@ print_levels:
 
 Project 2025 is a collection of policy, personnel, administrative, and institutional proposals associated with *Mandate for Leadership: The Conservative Promise*. ARRP considers those proposals only when they reveal, depend on, or could exploit a legal, structural, administrative, remedial, or institutional weakness. It does not treat Project 2025 as a single ARRP issue or regard every policy recommendation as an institutional failure.
 
-This page is a nonauthoritative reader guide. It maps commonly recognized Project 2025 themes to the ARRP records that own the relevant analysis and preserves concise links to Project 2025-related intake dispositions. The linked issue, area, legislation, Horizon, and GitHub records remain authoritative.
+This page is a nonauthoritative reader guide. It maps commonly recognized Project 2025 themes to the ARRP records that own the relevant analysis. The linked issue, area, and legislation records remain authoritative.
 
 ## Relevant ARRP Records
 
@@ -43,20 +43,10 @@ This page is a nonauthoritative reader guide. It maps commonly recognized Projec
 | Government pressure on media, platforms, or protected public information | [A-22 — Press and Information Ecosystem](../areas/PRESS/README.md) | A-22 is the reader route when the defect concerns press freedom, government coercion, or the public information environment. |
 | Tax rates, benefit levels, energy production, or other ordinary policy choices | [Scope Boundary](#scope-boundary) | ARRP takes no position through this guide unless a separate institutional defect satisfies the project's admission rules. |
 
-## Prior ARRP Dispositions
-
-| Record | Disposition | Reason and authoritative route |
-| --- | --- | --- |
-| HOR-011 — Schedule F / Schedule Policy-Career | Integrated into CIV-001 | [A-08 already owns political reclassification of career positions](../areas/CIV/README.md), so a second issue would duplicate that record. |
-| HOR-015 — federal sex-definition, identity-record, and related civil-rights administration policy | Admitted as RIGHTS-001 | [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) provides the distinct civil-rights administration and identity-records home that factual-integrity treatment alone could not supply. |
-| HOR-018 — agency continuity and executive anti-nullification | Integrated into REG-001 | [REG-001](../areas/REG/issues/REG-001.md) already owns functional nullification of congressionally assigned agency duties; the [closed intake record](https://github.com/Thorncrag/ARRP/issues/16) preserves the disposition. |
-
-No additional Project 2025-specific rejection is listed without a canonical adjudication record. The general exclusion of ordinary policy disagreement is a scope boundary, not an invented candidate disposition.
-
 ## Scope Boundary
 
 ARRP addresses Project 2025 only where a proposal identifies or uses a separable institutional defect. Disagreement over lawful tax, spending, benefit, energy, health, education, immigration, or social policy does not enter ARRP merely because Project 2025 takes a position. A topic may enter only through the authoritative issue-admission process when the concern is a legal, structural, administrative, remedial, or institutional weakness rather than a failure to enact a preferred policy outcome.
 
 ## Sources and Currency
 
-The source baseline is the Heritage Foundation's [Mandate for Leadership page](https://www.heritage.org/mandate) and [Project 2025 policy entry point](https://www.project2025.org/policy/). The [DocumentCloud copy](https://www.documentcloud.org/documents/24088042-project-2025s-mandate-for-leadership-the-conservative-promise/) is a searchable retrieval aid, not the originating publisher. This routing guide reflects ARRP records reviewed through July 15, 2026; later source or disposition changes should be made first in their authoritative records and then synchronized here.
+The source baseline is the Heritage Foundation's [Mandate for Leadership page](https://www.heritage.org/mandate) and [Project 2025 policy entry point](https://www.project2025.org/policy/). The [DocumentCloud copy](https://www.documentcloud.org/documents/24088042-project-2025s-mandate-for-leadership-the-conservative-promise/) is a searchable retrieval aid, not the originating publisher. This routing guide reflects ARRP records reviewed through July 15, 2026; later source or routing changes should be made first in their authoritative records and then synchronized here.

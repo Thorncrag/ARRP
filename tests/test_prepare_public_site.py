@@ -89,7 +89,6 @@ class PublicSitePreparationTests(unittest.TestCase):
             "## Topic Overview",
             "## Relevant ARRP Records",
             "## Topic Crosswalk",
-            "## Prior ARRP Dispositions",
             "## Scope Boundary",
         ):
             self.assertIn(heading, guide)
@@ -100,6 +99,10 @@ class PublicSitePreparationTests(unittest.TestCase):
             "### Highest-priority gaps",
             "## Proposal Scoring",
             "## Budgetary Impact",
+            "## Prior ARRP Dispositions",
+            "HOR-011",
+            "HOR-015",
+            "HOR-018",
         ):
             self.assertNotIn(disallowed, guide)
 
