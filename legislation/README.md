@@ -42,6 +42,7 @@ Working statutory and administrative language is maintained separately from the 
 - [EMERG-003 — Emergency Economic Powers Specificity and Adjudicative Independence Act](EMERG-003.md)
 - [FUND-001 — Executive-Order Abuse Impoundment Control Act](FUND-001.md)
 - [JUD-001 — Executive Compliance and Civil Contempt Accountability Act](JUD-001.md)
+- [JUD-005 — Judicial Noncompliance Notice and Public Accountability Act](JUD-005.md)
 - [JUD-009 — Appointer-President Recusal Act](JUD-009.md)
 - [Interbranch Review Framework Act (JUD-011)](JUD-011.md)
 - [REG-001 — Congressional Institutional Continuity and Anti-Nullification Act](REG-001.md)

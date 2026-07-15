@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | Issue-development lifecycle automation and JUD-005 status correction |
-| Audit type/tier | Project-level Change Audit / workflow implementation; no T-audit |
-| Started | 2026-07-15 |
-| Last checkpoint | 2026-07-15; lifecycle workflow implemented, published, and verified |
-| User request | Implement the proposed durable workflow so ordinary requests to focus on an issue reliably trigger lifecycle-status review, and correct JUD-005's stale status. |
-| Scope | Root Codex guidance; methodology and GitHub lifecycle rules; dashboard drift warning and tests; JUD-005 Project status, readback, dashboard refresh, validation, commit, and push. |
-| Files touched | `AGENTS.md`; `.github/ISSUE_TEMPLATE/proposal_tracking.yml`; `framework/AGENT_OPERATING_RULES.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`; `framework/GITHUB_WORKFLOW.md`; `framework/METHODOLOGY.md`; `framework/PROGRESS_DASHBOARD.md`; `scripts/build_review_ready_dashboard.py`; `tests/test_review_ready_dashboard.py`. |
-| Completed steps | Added durable root guidance and governing lifecycle rules; added and tested the stale `Pending development` dashboard warning; corrected JUD-005 to `Audit needed` with score 0 and Runs 0 preserved; read back the Project row; committed and pushed the implementation; and verified successful dashboard and public-site workflows. |
-| Next step | JUD-005 T1 audit when requested. |
-| Blockers/questions | None. |
-| Validation status | Passed: `git diff --check`; 18 repository tests; public-site preparation with 105 canonical pages, one generated page, and no dashboard publication; JUD-005 Project readback; dashboard workflow run 29413077120; generated dashboard row; and public-site workflow run 29413077013. |
+| Status | Active |
+| Active issue/task | JUD-005 |
+| Audit type/tier | T1 framework check |
+| Started | 2026-07-15 08:14:58 -0400 |
+| Last checkpoint | 2026-07-15; substantive T1 complete and locally validated; GitHub Project synchronization pending |
+| User request | Run JUD-005's recorded next audit. |
+| Scope | JUD-005 issue page, independent legislation, audit sidecar, preferred JUD-001 and conditional DOJ-007 fit, sources, navigation, GitHub issue and Project fields, validation, publication, and dashboard readback. |
+| Files touched | `areas/JUD/README.md`; `areas/JUD/issues/JUD-001.md`; `areas/JUD/issues/JUD-001.audit.md`; `areas/JUD/issues/JUD-005.md`; `areas/JUD/issues/JUD-005.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-001.md`; `legislation/JUD-005.md`; `legislation/README.md`. |
+| Completed steps | Completed the T1 framework, current-law, statutory-placement, navigation, pathway, budget, and internal-fit review; assigned 63/100; promoted JUD-005 to Developed Draft; revised the standalone bill; completed the companion JUD-001 Change Audit; added sources and navigation; passed local validation; and updated/read back GitHub issue 44 through the connected GitHub app. |
+| Next step | Commit and push the repository changes; set JUD-005 Project fields to Developed draft, Score 63, Runs 1, current rebaseline, no Change Audit, and the recorded T1/T2 audit summaries; update JUD-001's Last audit field; then refresh and verify the dashboard and public-site workflows. |
+| Blockers/questions | GitHub CLI authentication for `Thorncrag` is invalid. The connected GitHub app can update the issue wrapper but does not expose Projects v2 fields. |
+| Validation status | Passed: `git diff --check`; 18 repository tests; source CSV shape and unique-ID check; public-site preparation with 105 canonical pages, one generated page, and no dashboard publication. GitHub issue 44 update read back successfully. |
 
 ## Handoff Rules
 
