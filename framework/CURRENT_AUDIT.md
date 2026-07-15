@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
-| Active issue/task | Topic-page methodology and Project 2025 guide |
-| Audit type/tier | Project-level Change Audit continuation |
-| Started | 2026-07-15 |
-| Last checkpoint | 2026-07-15; topic-page standard codified and Project 2025 guide rewritten |
-| User request | Codify concise, nonauthoritative topic-page methodology; track canonical rejected or otherwise adjudicated records and reasons; move reusable methodology off the Project 2025 page; bring that page into compliance. |
-| Scope | `topics/`; governing topic-page conventions; Project 2025 crosswalk and documented dispositions; related tests, records, and GitHub governance wrapper. |
-| Files touched | `framework/CURRENT_AUDIT.md`; `framework/METHODOLOGY.md`; `framework/FRAMEWORK.md`; `framework/PROJECT_STRUCTURE.md`; `framework/CHANGE_AUDIT_LOG.md`; `topics/README.md`; `topics/project-2025.md`; `tests/test_prepare_public_site.py` |
-| Completed steps | Added the reusable Topic Page Standard to the main methodology, including admission, nonauthority, required sections, concise crosswalk fields, canonical disposition treatment, source discipline, the verbatim-transfer ownership test, and prohibited content. Tightened framework and repository ownership summaries. Replaced the Project 2025 development memorandum with a concise overview, routing table, three-column crosswalk, documented HOR-011/HOR-015/HOR-018 dispositions, scope boundary, and source/currency note. Added a regression test and consolidated the work into the existing July 15 topic-guide Change Audit entry. |
-| Next step | Validate repository and public-site output, synchronize and read back GitHub issue #8, then commit, push, and verify the Pages deployment. |
-| Blockers/questions | None. This governance and navigation pass does not alter proposal substance, score, lifecycle status, rebaseline status, or T-audit Runs. |
-| Validation status | In progress. |
+| Status | Inactive |
+| Active issue/task | None |
+| Audit type/tier | None |
+| Started | — |
+| Last checkpoint | 2026-07-15; concise topic-page standard and compliant Project 2025 guide completed |
+| User request | — |
+| Scope | — |
+| Files touched | — |
+| Completed steps | Added the reusable Topic Page Standard to the main methodology, including admission, nonauthority, required sections, concise crosswalk fields, canonical disposition treatment, source discipline, the verbatim-transfer ownership test, and prohibited content. Tightened framework and repository ownership summaries. Replaced the Project 2025 development memorandum with a concise overview, routing table, three-column crosswalk, documented HOR-011/HOR-015/HOR-018 dispositions, scope boundary, and source/currency note. Added a regression test, consolidated the work into the existing July 15 topic-guide Change Audit entry, synchronized and read back GitHub issue #8, and pushed commit `a65684f` to `origin/main`. |
+| Next step | None. Future topic pages should follow the Topic Page Standard and synchronize any documented dispositions from their authoritative records. |
+| Blockers/questions | None. This governance and navigation pass did not alter proposal substance, score, lifecycle status, rebaseline status, or T-audit Runs. |
+| Validation status | Passed: 19 repository tests; strict MkDocs build; public-manifest and generated-navigation checks; Python syntax checks; CSV integrity; changed-page local links; topic-guide compliance assertions; `git diff --check`; GitHub issue #8 readback; and successful push to `origin/main`. |
 
 ## Handoff Rules
 
