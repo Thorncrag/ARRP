@@ -30,7 +30,7 @@ PUBLIC_ROOT_PAGES = {
     Path("AUTHORS.md"),
     Path("LICENSE.md"),
 }
-PUBLIC_DIRECTORIES = {"areas", "legislation"}
+PUBLIC_DIRECTORIES = {"areas", "legislation", "topics"}
 PUBLIC_SUPPORT_FILES = {Path("CITATION.cff")}
 WEBSITE_FILES = {
     Path("website/extra.css"): Path("assets/stylesheets/extra.css"),
@@ -274,10 +274,36 @@ def generate_navigation(
     lines = [
         "nav:",
         f"  - {yaml_label('Home')}: index.md",
-        f"  - {yaml_label('Subject and Institution Index')}: SUBJECT_INDEX.md",
-        f"  - {yaml_label('Project Areas')}: ",
-        f"      - {yaml_label('Overview')}: areas/index.md",
     ]
+
+    topic_pages = sorted(
+        (
+            path
+            for path in public_markdown
+            if relative(path).parts[0] == "topics"
+        ),
+        key=lambda path: page_title(path).casefold(),
+    )
+    if topic_pages:
+        lines.append(f"  - {yaml_label('Topics')}:")
+        topic_overview = by_relative.get(Path("topics") / "README.md")
+        if topic_overview is not None:
+            lines.append(f"      - {yaml_label('Overview')}: topics/index.md")
+        for path in topic_pages:
+            if path == topic_overview:
+                continue
+            lines.append(
+                f"      - {yaml_label(page_title(path))}: "
+                f"{staged_markdown_path(path).relative_to(DOCS_ROOT).as_posix()}"
+            )
+
+    lines.extend(
+        [
+            f"  - {yaml_label('Subject and Institution Index')}: SUBJECT_INDEX.md",
+            f"  - {yaml_label('Project Areas')}: ",
+            f"      - {yaml_label('Overview')}: areas/index.md",
+        ]
+    )
 
     for area_id, code, area_title in areas:
         area_source = Path("areas") / code / "README.md"

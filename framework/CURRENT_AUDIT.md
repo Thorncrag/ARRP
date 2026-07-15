@@ -17,14 +17,14 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Active issue/task | None |
 | Audit type/tier | None |
 | Started | — |
-| Last checkpoint | 2026-07-15; Epstein Files manifestation and cross-reference update completed |
+| Last checkpoint | 2026-07-15; canonical Project 2025 topic-guide conversion and topic-index architecture completed |
 | User request | — |
 | Scope | — |
 | Files touched | — |
-| Completed steps | Added the Epstein Files Transparency Act episode to JUD-011, JUD-001, JUD-005, and DOJ-007 with stage-specific limits; added the subject-index route and four source records; preserved scores and Runs; queued targeted Change Audits; synchronized and read back the four GitHub Project rows. |
-| Next step | None. Future work should begin from the recorded targeted Change Audit on each affected proposal. |
-| Blockers/questions | None. The current docket does not yet contain an express contempt finding, so later audits must refresh the posture before treating JUD-001 or JUD-005 as triggered. |
-| Validation status | Passed: repository test suite, strict public-site build, YAML/front-matter checks, source CSV integrity, changed-page local links, `git diff --check`, and signed-in Project readback. |
+| Completed steps | Moved and converted the existing Project 2025 crosswalk into the single canonical public `topics/project-2025.md` guide; added a lightweight `topics/README.md` index beside the Subject Index link; redirected all references and registries; added top-level site navigation, print-builder support, governance conventions, tests, and a consolidated Change Audit entry; retitled and read back GitHub issue #8. The governance issue has no active ARRP Project card, so no Project field required synchronization. |
+| Next step | None. Future public-interest topic guides should follow the recorded single-home convention and update the topic index, Subject Index, and authoritative proposal links together. |
+| Blockers/questions | None. Proposal scores, statuses, rebaseline fields, and T-audit Runs were unaffected. |
+| Validation status | Passed: 18 repository tests; strict MkDocs build; public-manifest and generated-navigation checks; Python syntax checks; compiled-PDF topic discovery; CSV integrity; changed-page local links; stale-path scan; `git diff --check`; and signed-in GitHub issue readback. |
 
 ## Handoff Rules
 

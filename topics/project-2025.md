@@ -1,16 +1,35 @@
 ---
-title: "Project 2025 / ARRP Crosswalk"
-status: initial-source-development
-purpose: "Map Project 2025 initiatives to ARRP guardrail areas and identify coverage gaps."
+title: "Project 2025 — ARRP Topic Guide and Crosswalk"
+page_type: topic-guide
+status: maintained
+purpose: "Explain ARRP's treatment of Project 2025 and map its initiatives to institutional vulnerabilities, project areas, and proposals."
+last_reviewed: "2026-07-15"
 print_levels:
+  - public-proposal
   - full-technical
 ---
 
-# Project 2025 / ARRP Crosswalk
+# Project 2025 — ARRP Topic Guide and Crosswalk
 
-## Purpose
+## Topic Overview
 
-This crosswalk treats Project 2025 as a source-development map for institutional vulnerabilities. ARRP is not framed as a partisan response to a political movement. It is framed as a rule-of-law, constitutional-resilience, and institutional-guardrails project designed to prevent any administration from converting federal power into personal, partisan, retaliatory, or anti-institutional control.
+Project 2025 is a collection of policy, personnel, administrative, and institutional proposals associated with *Mandate for Leadership: The Conservative Promise*. ARRP examines those proposals only where they identify, depend upon, or could exploit a legal, structural, administrative, remedial, or institutional weakness. This page is ARRP's single canonical Project 2025 guide: it combines a reader overview with the project's initiative-level crosswalk rather than maintaining separate topic and research pages.
+
+ARRP is not framed as a partisan counter-platform. It does not treat every Project 2025 recommendation as an institutional failure, and it does not include ordinary policy disagreements merely because the project supports or opposes a particular outcome. Its concern is whether a proposal exposes a weakness that could permit any administration to convert federal power into personal, partisan, retaliatory, or anti-institutional control.
+
+## Principal ARRP Routes
+
+| Institutional question | Principal ARRP routes |
+| --- | --- |
+| Presidential control of DOJ, investigations, and enforcement | [A-01 — Department of Justice](../areas/DOJ/README.md), including [DOJ-003](../areas/DOJ/issues/DOJ-003.md) and [DOJ-007](../areas/DOJ/issues/DOJ-007.md) |
+| Executive nullification of statutes, agencies, programs, or appropriations | [JUD-011](../areas/JUD/issues/JUD-011.md), [REG-001](../areas/REG/issues/REG-001.md), and [FUND-001](../areas/FUND/issues/FUND-001.md) |
+| Civil-service control, acting officials, and loyalty-based appointments | [A-08 — Civil Service](../areas/CIV/README.md) and [A-12 — Appointments](../areas/APPT/README.md) |
+| Emergency authorities and domestic enforcement | [A-10 — Emergency Powers](../areas/EMERG/README.md) and [A-14 — Domestic Deployment](../areas/DOM/README.md) |
+| Government information, science, statistics, and civil-rights administration | [A-18 — Factual Integrity](../areas/FACT/README.md) and [A-24 — Civil Rights Administration](../areas/RIGHTS/README.md) |
+
+The routes above are starting points, not an exhaustive substitute for the detailed crosswalk or the [Subject and Institution Index](../SUBJECT_INDEX.md). Individual issue pages remain authoritative for ARRP's institutional diagnosis, proposed remedy, development status, and audit record.
+
+## How ARRP Uses the Crosswalk
 
 Project 2025 should be analyzed at the initiative level. Each proposal should be mapped to:
 
@@ -22,9 +41,9 @@ Project 2025 should be analyzed at the initiative level. Each proposal should be
 
 ## Methodology
 
-This is an initial crosswalk. It uses major publicly documented Project 2025 themes as a starting point. A later pass should verify every item against the primary Project 2025 Mandate chapter text, page references, and related implementation materials.
+This remains a developing crosswalk. It uses major publicly documented Project 2025 themes as a starting point. Every item should ultimately be verified against the primary Project 2025 Mandate chapter text, page references, and related implementation materials. Coverage descriptions in the present matrix reflect the project record reviewed through July 15, 2026.
 
-Authoritative Project 2025 sourcing should start with Heritage-controlled sources. The Heritage Foundation's Mandate for Leadership page identifies the latest edition, *Mandate for Leadership: The Conservative Promise*, as a Heritage product released in April 2023 and links to the Project 2025 policy page. That Project 2025 policy page currently redirects to `mandateforleadership.org`, which presents the Mandate for Leadership series as a product of The Heritage Foundation. When a searchable PDF or page-text copy is needed for page-level verification, a stable mirror such as DocumentCloud may be used as a retrieval aid, but the citation record should preserve the official Heritage/Project source hierarchy and note when the searchable copy is a mirror rather than the originating publisher.
+Authoritative Project 2025 sourcing should start with Heritage-controlled sources. The Heritage Foundation's [Mandate for Leadership page](https://www.heritage.org/mandate) identifies the latest edition, *Mandate for Leadership: The Conservative Promise*, as a Heritage product released in April 2023 and links to the [Project 2025 policy page](https://www.project2025.org/policy/). That policy page currently redirects to `mandateforleadership.org`, which presents the Mandate for Leadership series as a product of The Heritage Foundation. When a searchable PDF or page-text copy is needed for page-level verification, the [DocumentCloud copy](https://www.documentcloud.org/documents/24088042-project-2025s-mandate-for-leadership-the-conservative-promise/) may be used as a retrieval aid, but the citation record should preserve the official Heritage/Project source hierarchy and identify the searchable copy as a mirror rather than the originating publisher.
 
 The repository preserves a local fallback copy at [`project-2025-mandate-for-leadership-2023-documentcloud-backup.pdf`](../sources/project-2025-mandate-for-leadership-2023-documentcloud-backup.pdf), downloaded from the DocumentCloud mirror on June 27, 2026. SHA-256: `162a04033c68ecc2825968deeaf7492609de18464d1c6c009dbe20b4a4c43f89`. Use this file only if official Heritage/Project sources or the stable mirror become unavailable, and identify it as a local fallback copy rather than an originating publisher source.
 
@@ -39,7 +58,7 @@ For each Project 2025 initiative, the crosswalk should distinguish:
 
 ## Summary Matrix
 
-| Project 2025 initiative / theme | Structural vulnerability implicated | ARRP area / issue coverage | Current ARRP status | Gap / next action |
+| Project 2025 initiative / theme | Structural vulnerability implicated | ARRP area / issue coverage | ARRP coverage at last review | Gap / next action |
 |---|---|---|---|---|
 | Reclassify or replace large numbers of career civil servants; revive Schedule F-style personnel control | Converts professional civil service into presidential-loyalty apparatus; weakens neutral administration | A-12 Appointments and Civil Service; A-15 Congressional Oversight; A-18 Factual Integrity | Candidate area coverage only | Develop civil-service independence issue and model legislation |
 | Centralize executive control through OMB and presidential budget control | Impoundment risk, centralized spending coercion, agency subordination | A-11 Funding and Spending; A-15 Congressional Power; A-09 Oversight | Candidate area coverage only | Develop anti-impoundment / budget-execution guardrail issue |
@@ -74,7 +93,7 @@ For each Project 2025 initiative, the crosswalk should distinguish:
 | Restrict data collection on gender, abortion, climate, public health, or civil rights | Factual integrity and evidence suppression | A-18 Factual Integrity | Candidate coverage | Strong A-18 fit |
 | Reframe federal agencies as ideological/culture-war instruments | Professional expertise displacement; factual manipulation; agency capture | A-17; A-18; A-12 | Candidate coverage | Develop cross-cutting factual-integrity and agency-professionalism safeguards |
 
-## Initial ARRP Coverage Assessment
+## ARRP Coverage Assessment
 
 ### Strong existing coverage
 
@@ -121,6 +140,6 @@ Project 2025 proposals should be evaluated according to whether they represent o
 
 Do not equate "not implemented" with "not relevant." Proposed Project 2025 vehicles may still expose structural weaknesses that ARRP should repair prospectively. Conversely, implementation alone does not prove ARRP relevance unless the proposal implicates a structural weakness rather than an ordinary policy choice.
 
-## Backlog Reference
+## Maintenance
 
-Roadmap, backlog, and to-do items are maintained only in [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md). This crosswalk records source-development context and should not maintain a separate task list.
+This topic guide is a living reader-navigation and crosswalk page, not a separate proposal, scorecard, or project tracker. Proposal status, scoring, and remedy language remain authoritative on the linked issue pages and GitHub Project. When Project 2025 source development or ARRP proposal development materially changes a mapping, this page should be updated in the same navigation-synchronization pass.

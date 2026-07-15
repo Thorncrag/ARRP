@@ -2,7 +2,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 1,https://github.com/Thorncrag/ARRP/issues/1,,governance,Review and develop all undeveloped issues,areas/README.md,7
 6,https://github.com/Thorncrag/ARRP/issues/6,,governance,Conduct cross-proposal unitary-executive review,,7
 7,https://github.com/Thorncrag/ARRP/issues/7,,governance,Pre-publication final audit,,
-8,https://github.com/Thorncrag/ARRP/issues/8,,governance,Project 2025-ARRP crosswalk,research/project-2025-arrp-crosswalk.md,7
+8,https://github.com/Thorncrag/ARRP/issues/8,,governance,Project 2025 — ARRP Topic Guide and Crosswalk,topics/project-2025.md,7
 9,https://github.com/Thorncrag/ARRP/issues/9,,governance,Pre-publication technical,,
 10,https://github.com/Thorncrag/ARRP/issues/10,,governance,Implement release-ready PDF/DOCX export,,9
 11,https://github.com/Thorncrag/ARRP/issues/11,,governance,Improve GitHub/web navigation and project table of contents,README.md,9

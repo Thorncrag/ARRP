@@ -30,7 +30,7 @@ The compiled proposal document should use the following order.
 2. **About This Project** from [`../README.md`](../README.md);
 3. citation notice from [`../README.md`](../README.md) and [`../CITATION.cff`](../CITATION.cff);
 4. authorship notice from [`../AUTHORS.md`](../AUTHORS.md);
-5. a short **Find a Topic or Institution** notice that links directly to the Subject and Institution Index in digital editions and identifies its resolved page number in print editions;
+5. a short **Find a Topic or Institution** notice that identifies the Topic Guides index, links directly to it and the Subject and Institution Index in digital editions, and identifies their resolved page numbers in print editions;
 6. rights and reuse notice from [`../README.md`](../README.md) and [`../LICENSE.md`](../LICENSE.md);
 7. table of contents generated from the assembled document; and
 8. optional one-page executive summary when one is later drafted.
@@ -40,10 +40,11 @@ The compiled proposal document should use the following order.
 The main body should then include:
 
 1. foundational premise, mission, scope, and governing principles from [`../README.md`](../README.md);
-2. project areas in the order listed in [`../areas/README.md`](../areas/README.md);
-3. for each area, the area README as the area introduction;
-4. for each area, existing issue pages in issue-identifier order;
-5. within each issue, the issue page's existing heading structure, including Issue Snapshot, Institutional Anomaly, Manifestation of the Failure, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation where present, Proposed Constitutional Amendment and Proposed Enabling Legislation where present, Adoption Viability Note where present, Relationship to Adjacent Proposals where present, Budgetary Impact Statement, Proposal Scoring, Annotation, source notes, and internal cross-references where present.
+2. selected public topic guides from [`../topics/`](../topics/) when they materially improve cross-proposal navigation, in alphabetical order unless an edition-specific editorial plan requires another order;
+3. project areas in the order listed in [`../areas/README.md`](../areas/README.md);
+4. for each area, the area README as the area introduction;
+5. for each area, existing issue pages in issue-identifier order;
+6. within each issue, the issue page's existing heading structure, including Issue Snapshot, Institutional Anomaly, Manifestation of the Failure, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation where present, Proposed Constitutional Amendment and Proposed Enabling Legislation where present, Adoption Viability Note where present, Relationship to Adjacent Proposals where present, Budgetary Impact Statement, Proposal Scoring, Annotation, source notes, and internal cross-references where present.
 
 If an issue exists only in the inventory or area README and does not yet have its own issue page, it should remain summarized in the area page and should not be expanded artificially in the compiled document.
 
@@ -178,7 +179,7 @@ Use the metadata key `print_levels` with one or more of these stable values:
 
 | Metadata value | Visible label | Use |
 | --- | --- | --- |
-| `public-proposal` | Public proposal edition | Main public-facing proposal pages, area pages, developed issue pages, and legislation appendices used by the public proposal edition. |
+| `public-proposal` | Public proposal edition | Main public-facing proposal pages, topic guides, area pages, developed issue pages, and legislation appendices used by the public proposal edition. |
 | `full-technical` | Full technical edition | All pages that should remain available in the complete technical record, including framework, inventory, audit, research, archive, and process pages. External files retained in `sources/` are not included unless an export plan deliberately selects a source facsimile. |
 | `legislative-appendix` | Legislative appendix edition | Proposed legislation pages and legislation-index pages intended for a legislation-only export. |
 | `executive-summary` | Executive summary edition | Front-matter and area-summary pages that can support a short summary edition. |

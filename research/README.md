@@ -28,6 +28,7 @@ Covered work product includes legal and policy memoranda, crosswalks, catalogs, 
 - [Jack Smith Volume One / ARRP Crosswalk](jack-smith-volume-1-arrp-crosswalk.md)
 - [Jack Smith Volume Two / Source Status and ARRP Crosswalk](jack-smith-volume-2-source-status-and-arrp-crosswalk.md)
 - [Mueller Report / ARRP Crosswalk](mueller-report-arrp-crosswalk.md)
-- [Project 2025 / ARRP Crosswalk](project-2025-arrp-crosswalk.md)
+
+The former Project 2025 research crosswalk has been converted, without duplication, into the public [Project 2025 — ARRP Topic Guide and Crosswalk](../topics/project-2025.md).
 
 The external works analyzed by these files are recorded in [`../inventory/sources.csv`](../inventory/sources.csv). Local copies, when retained, live in [`../sources/`](../sources/); most cited sources remain external links only.

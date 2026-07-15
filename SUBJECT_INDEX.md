@@ -7,7 +7,7 @@ print_levels:
 
 # ARRP Subject and Institution Index
 
-This is a living lookup index for finding the ARRP record that addresses a subject, government body, or other institution. It supplements the ordered [Project Areas index](areas/README.md); it does not create issue boundaries or replace issue pages, area pages, the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2), or the [GitHub issue registry](inventory/github_issue_registry.csv).
+This is a living lookup index for finding the ARRP record that addresses a subject, government body, or other institution. Readers seeking explanatory synthesis across multiple proposals may instead begin with the [Topic Guides](topics/README.md). Both routes supplement the ordered [Project Areas index](areas/README.md); neither creates issue boundaries or replaces issue pages, area pages, the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2), or the [GitHub issue registry](inventory/github_issue_registry.csv).
 
 Entities, topics, acronyms, and common aliases appear together in one alphabetical sequence so readers do not need to decide which kind of term they are searching. Canonical entries provide one or more linked ARRP identifiers; **See** entries redirect especially common alternate terms to the canonical listing rather than duplicating its destinations. In a canonical entry, the **bold first identifier** is the preferred route. Additional identifiers appear only when they provide a useful alternate route; they do not imply shared issue ownership. An `A-##` identifier routes to an area page when the term is broader than a single issue or no standalone issue page exists.
 
@@ -131,7 +131,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Presidential records | See *Government records; presidential records; archives; private messaging*. |
 | Presidential transition; ascertainment; agency cooperation | **[ELEC-006](areas/ELEC/issues/ELEC-006.md)**; [A-13](areas/REC/README.md) |
 | Press freedom | See *Freedom of the press; press access; reporter subpoenas; source protection*. |
-| Project 2025; Mandate for Leadership; institutional-risk crosswalk | **[Project 2025 / ARRP Crosswalk](https://github.com/Thorncrag/ARRP/blob/main/research/project-2025-arrp-crosswalk.md)**; [ARRP treatment](README.md#foundational-premise) |
+| Project 2025; Mandate for Leadership; institutional-risk crosswalk | **[Project 2025 — ARRP Topic Guide and Crosswalk](topics/project-2025.md)**; [ARRP treatment](README.md#foundational-premise) |
 | Puerto Rico government and territorial institutions | **[A-20](areas/FED/README.md)**; [A-02](areas/ELEC/README.md); [A-24](areas/RIGHTS/README.md) |
 | Ranked-choice voting; runoffs; majority-choice election methods | **[ELEC-015](areas/ELEC/issues/ELEC-015.md)**; [ELEC-013](areas/ELEC/issues/ELEC-013.md) |
 | Redistricting; gerrymandering; vote dilution; representation safeguards | **[ELEC-011](areas/ELEC/issues/ELEC-011.md)**; [A-24](areas/RIGHTS/README.md) |
@@ -165,7 +165,8 @@ Treat the index as a primary reader-entry route rather than only back matter. Th
 
 Treat the ordinary contents and this index as one navigation bundle:
 
-- [`README.md`](README.md) is the public repository front door and should expose both topic-first and area-first discovery;
+- [`README.md`](README.md) is the public repository front door and should expose topic-guide, subject-index, and area-first discovery;
+- canonical pages under [`topics/`](topics/) provide selective explanatory synthesis for major public subjects and should be the preferred index route when they materially improve navigation;
 - [`areas/README.md`](areas/README.md) is the project-area table of contents;
 - each `areas/AREA/README.md` is that area's issue-level table of contents; and
 - this file is the cross-area lookup by subject, institution, acronym, and alias.

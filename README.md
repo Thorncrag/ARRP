@@ -206,7 +206,7 @@ Legislators, legislative staff, and government officials who would like a comple
 
 ## Find a Topic or Institution
 
-Readers looking for a particular subject, department, agency, office, court, acronym, or common term should begin with the [Subject and Institution Index](SUBJECT_INDEX.md). Readers who prefer the project's ordered institutional structure may instead browse the [Project Areas](areas/README.md).
+Readers may browse the [Topic Guides](topics/README.md) for concise explanations of major public subjects that span several institutional failures or remedies, or use the [Subject and Institution Index](SUBJECT_INDEX.md) to find a particular subject, department, agency, office, court, acronym, or common term. Readers who prefer the project's ordered institutional structure may instead browse the [Project Areas](areas/README.md).
 
 ## Rights and reuse
 

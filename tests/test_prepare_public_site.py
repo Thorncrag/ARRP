@@ -25,11 +25,14 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertGreater(len(sources), 100)
         self.assertIn("README.md", sources)
         self.assertIn("SUBJECT_INDEX.md", sources)
+        self.assertIn("topics/README.md", sources)
+        self.assertIn("topics/project-2025.md", sources)
         self.assertTrue(
             all(
                 source in {"README.md", "SUBJECT_INDEX.md", "AUTHORS.md", "LICENSE.md"}
                 or source.startswith("areas/")
                 or source.startswith("legislation/")
+                or source.startswith("topics/")
                 for source in sources
             )
         )
@@ -50,6 +53,12 @@ class PublicSitePreparationTests(unittest.TestCase):
 
     def test_reader_navigation_is_generated(self):
         config = (ROOT / ".site-build" / "mkdocs.yml").read_text(encoding="utf-8")
+        self.assertIn('"Topics"', config)
+        self.assertIn('"Overview": topics/index.md', config)
+        self.assertIn(
+            '"Project 2025 — ARRP Topic Guide and Crosswalk": topics/project-2025.md',
+            config,
+        )
         self.assertIn('"Subject and Institution Index": SUBJECT_INDEX.md', config)
         self.assertIn('"A-01 / DOJ — Department of Justice"', config)
         self.assertIn('"Proposed Legislation"', config)

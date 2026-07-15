@@ -77,6 +77,22 @@ def legislation_files() -> tuple[list[Path], list[Path]]:
     return federal, state
 
 
+def topic_files() -> list[Path]:
+    topic_dir = ROOT / "topics"
+    if not topic_dir.exists():
+        return []
+    return sorted(path for path in topic_dir.glob("*.md") if path.name != "README.md")
+
+
+def document_title(path: Path) -> str:
+    text = read(path)
+    match = re.search(r'(?m)^title:\s*["\']?(.+?)["\']?\s*$', text)
+    if match:
+        return match.group(1).strip('"\'')
+    heading = re.search(r"(?m)^#\s+(.+?)\s*$", text)
+    return heading.group(1) if heading else path.stem.replace("-", " ").title()
+
+
 def strip_front_matter(text: str) -> str:
     if text.startswith("---\n"):
         end = text.find("\n---\n", 4)
@@ -420,8 +436,15 @@ def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
-def toc_entries(areas: list[Area], issue_order: dict[str, list[str]]) -> list[str]:
+def toc_entries(
+    areas: list[Area],
+    issue_order: dict[str, list[str]],
+    topics: list[Path],
+) -> list[str]:
     entries = ["Front Matter", "Foundational Premise, Mission, Scope, and Governing Principles"]
+    if topics:
+        entries.append("Topic Guides")
+        entries.extend(f"  {document_title(path)}" for path in topics)
     for area in areas:
         entries.append(f"{area.area_id} - {area.title}")
         for issue_id in issue_order.get(area.area_id, []):
@@ -441,6 +464,7 @@ def toc_entries(areas: list[Area], issue_order: dict[str, list[str]]) -> list[st
 def build_story(styles: dict[str, ParagraphStyle]) -> list:
     areas = load_areas()
     issue_order = load_issue_order(areas)
+    topics = topic_files()
     federal_bills, state_bills = legislation_files()
     story = []
 
@@ -456,12 +480,20 @@ def build_story(styles: dict[str, ParagraphStyle]) -> list:
     story.append(PageBreak())
 
     story.append(Paragraph("Table of Contents", styles["H1"]))
-    for entry in toc_entries(areas, issue_order):
+    for entry in toc_entries(areas, issue_order, topics):
         story.append(Paragraph(inline_markup(entry), styles["Body"]))
     story.append(PageBreak())
 
     story.extend(markdown_to_flowables(read(ROOT / "README.md"), styles, heading_offset=0))
     story.append(PageBreak())
+
+    if topics:
+        story.append(Paragraph("Topic Guides", styles["H1"]))
+        for index, path in enumerate(topics):
+            if index:
+                story.append(PageBreak())
+            story.extend(markdown_to_flowables(read(path), styles, heading_offset=0))
+        story.append(PageBreak())
 
     story.append(Paragraph("Project Areas and Issues", styles["H1"]))
     for area in areas:

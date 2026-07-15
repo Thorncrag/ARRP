@@ -34,6 +34,8 @@ areas/                             One directory per project area
     issues/
       DOJ-001.md                   Developed issue analysis
 legislation/                       Proposed statutory language keyed to issue ID
+topics/                            Public reader guides and cross-proposal topic crosswalks
+  README.md                        Selective public topic-guide index
 website/                           Public-site policy and website-only presentation assets
 inventory/                         Structured source and GitHub issue registries
 research/                          ARRP-created analyses and development work product
@@ -46,17 +48,18 @@ archive/                           Superseded or migrated source snapshots
 ## File ownership
 
 - A defect has one primary issue file.
+- A major public subject may have one canonical topic page under `topics/` that synthesizes and routes to authoritative issue pages without acquiring proposal ownership, independent scoring, or a duplicate audit record. If an existing ARRP research crosswalk becomes the public topic page, move and convert that file rather than retaining parallel copies.
 - `SUBJECT_INDEX.md` maps organizations, subjects, acronyms, and aliases in one alphabetical sequence to concise linked record identifiers, with the preferred route first and common alternate terms redirected through **See** entries, without changing issue ownership.
-- `README.md`, `areas/README.md`, the affected area README, `SUBJECT_INDEX.md`, and the GitHub issue registry form the reader-navigation bundle and are synchronized immediately for routing changes, with mandatory verification at T1. The root README exposes both topic-first and area-first discovery near its opening.
+- `README.md`, `areas/README.md`, the affected area README, `SUBJECT_INDEX.md`, any affected canonical topic page, and the GitHub issue registry form the reader-navigation bundle and are synchronized immediately for routing changes, with mandatory verification at T1. The root README exposes topic-guide, subject-index, and area-first discovery near its opening.
 - Related areas cross-reference the primary file instead of duplicating analysis.
 - Legislative drafts use the corresponding issue identifier.
 - GitHub Projects is the authoritative area, issue, status, milestone, roadmap, and horizon-queue tracker.
-- Source records in `inventory/sources.csv` may be associated with issues, areas, framework files, research files, or project-level pages.
-- Authorship controls the research/source boundary: ARRP-created analyses, crosswalks, catalogs, transformed datasets, and visualizations belong in `research/`; external reports, filings, raw downloads, and backup copies belong in `sources/` when local retention is useful and appropriate.
+- Source records in `inventory/sources.csv` may be associated with issues, areas, framework files, research files, topic guides, or project-level pages.
+- Authorship controls the research/source boundary: unpublished ARRP-created analyses, crosswalks, catalogs, transformed datasets, and visualizations belong in `research/`; a project-authored synthesis selected as a canonical public topic guide belongs in `topics/`; external reports, filings, raw downloads, and backup copies belong in `sources/` when local retention is useful and appropriate.
 - `inventory/sources.csv` remains the citation catalog for external sources whether or not a local copy is retained. The repository does not download every cited source merely because it appears in the inventory.
 - GitHub Project items/fields, retained source inventory, audit-history sidecars, and affected Markdown pages should be updated in the same change that adds, removes, renames, merges, retires, or materially revises an area, issue, legislative proposal, audit status, or cited source.
 - GitHub Project fields provide the compact cross-issue workflow, audit-status, and release-triage view.
-- The public website is generated from the canonical Markdown rather than maintained as a second copy. `website/README.md` owns the publication boundary; `scripts/prepare_public_site.py` admits only `public-proposal` pages within the approved root, `areas/`, and `legislation/` paths; and the Pages workflow uploads only the validated generated artifact.
+- The public website is generated from the canonical Markdown rather than maintained as a second copy. `website/README.md` owns the publication boundary; `scripts/prepare_public_site.py` admits only `public-proposal` pages within the approved root, `areas/`, `legislation/`, and `topics/` paths; and the Pages workflow uploads only the validated generated artifact.
 - The `progress-dashboard` branch remains repository-visible but is excluded from the website artifact, navigation, search index, and sitemap.
 - `framework/CURRENT_AUDIT.md` is the active handoff checkpoint for long audits and should be read before resuming vague follow-up instructions.
 - `framework/PROJECT_CONSISTENCY_AUDIT.md` records the latest non-scoring cross-project structural and integration check; it does not replace proposal-specific T-audits or Change Audits.

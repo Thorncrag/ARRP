@@ -15,11 +15,11 @@ The live site is [https://thorncrag.github.io/ARRP/](https://thorncrag.github.io
 The website build uses two gates:
 
 1. a Markdown file must declare `public-proposal` in its `print_levels` metadata; and
-2. it must be one of the approved root pages or live under `areas/` or `legislation/`.
+2. it must be one of the approved root pages or live under `areas/`, `legislation/`, or `topics/`.
 
-The approved root pages are `README.md`, `SUBJECT_INDEX.md`, `AUTHORS.md`, and `LICENSE.md`. `CITATION.cff` is copied as an explicitly approved supporting file. Website styling, `robots.txt`, and the not-found page come from this directory.
+The approved root pages are `README.md`, `SUBJECT_INDEX.md`, `AUTHORS.md`, and `LICENSE.md`. Public pages may also live under `areas/`, `legislation/`, or `topics/`. `CITATION.cff` is copied as an explicitly approved supporting file. Website styling, `robots.txt`, and the not-found page come from this directory.
 
-This excludes the progress dashboard, GitHub Project configuration, audit sidecars, framework files, inventories, ARRP research, locally retained external sources, archives, tests, scripts, exports, local secrets, and repository administration files. Links from published pages to excluded Markdown are rendered as plain text in the generated copy so the site does not create broken links or promote internal working apparatus.
+This excludes the progress dashboard, GitHub Project configuration, audit sidecars, framework files, inventories, unpublished ARRP research, locally retained external sources, archives, tests, scripts, exports, local secrets, and repository administration files. A project-authored analysis selected for public topic treatment is moved into `topics/` rather than duplicated in `research/`. Links from published pages to excluded Markdown are rendered as plain text in the generated copy so the site does not create broken links or promote internal working apparatus.
 
 The dashboard remains available on the `progress-dashboard` branch to a reader who deliberately browses the GitHub repository. It is not copied into the Pages artifact, linked from the public website, or included in the website navigation, search index, or sitemap.
 
