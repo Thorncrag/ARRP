@@ -14,17 +14,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | JUD-005 |
-| Audit type/tier | T1 framework check |
-| Started | 2026-07-15 08:14:58 -0400 |
-| Last checkpoint | 2026-07-15; T1 completed, published, synchronized, and verified |
-| User request | Run JUD-005's recorded next audit. |
-| Scope | JUD-005 issue page, independent legislation, audit sidecar, preferred JUD-001 and conditional DOJ-007 fit, sources, navigation, GitHub issue and Project fields, validation, publication, and dashboard readback. |
-| Files touched | `areas/JUD/README.md`; `areas/JUD/issues/JUD-001.md`; `areas/JUD/issues/JUD-001.audit.md`; `areas/JUD/issues/JUD-005.md`; `areas/JUD/issues/JUD-005.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-001.md`; `legislation/JUD-005.md`; `legislation/README.md`. |
-| Completed steps | Completed the T1 framework, current-law, statutory-placement, navigation, pathway, budget, and internal-fit review; assigned 63/100; promoted JUD-005 to Developed Draft; revised the standalone bill; completed the companion JUD-001 Change Audit; added sources and navigation; passed local validation; updated/read back GitHub issue 44; committed and pushed the audit; synchronized/read back JUD-005 and JUD-001 Project fields; and refreshed/read back the Review Ready dashboard. |
-| Next step | JUD-005 T2 source and legal-fit audit when requested. |
-| Blockers/questions | None. The initial CLI authentication warning was caused by sandbox keychain isolation; the authenticated CLI worked outside the sandbox and required no user credential change. |
-| Validation status | Passed: `git diff --check`; 18 repository tests; source CSV shape and unique-ID check; public-site preparation with 105 canonical pages, one generated page, and no dashboard publication; GitHub issue 44 readback; JUD-005 Project readback at Developed draft, Score 63, Runs 1, Current, Change audit No; JUD-001 Last audit readback; public-site workflow run 29415538154; dashboard workflow run 29415665582; and generated-dashboard JUD-005 row readback. |
+| Active issue/task | None |
+| Audit type/tier | None |
+| Started | — |
+| Last checkpoint | 2026-07-15; Epstein Files manifestation and cross-reference update completed |
+| User request | — |
+| Scope | — |
+| Files touched | — |
+| Completed steps | Added the Epstein Files Transparency Act episode to JUD-011, JUD-001, JUD-005, and DOJ-007 with stage-specific limits; added the subject-index route and four source records; preserved scores and Runs; queued targeted Change Audits; synchronized and read back the four GitHub Project rows. |
+| Next step | None. Future work should begin from the recorded targeted Change Audit on each affected proposal. |
+| Blockers/questions | None. The current docket does not yet contain an express contempt finding, so later audits must refresh the posture before treating JUD-001 or JUD-005 as triggered. |
+| Validation status | Passed: repository test suite, strict public-site build, YAML/front-matter checks, source CSV integrity, changed-page local links, `git diff --check`, and signed-in Project readback. |
 
 ## Handoff Rules
 

@@ -67,6 +67,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Emergency economic powers; IEEPA; sanctions; asset blocking | **[EMERG-003](areas/EMERG/issues/EMERG-003.md)**; [EMERG-001](areas/EMERG/README.md); [EMERG-002](areas/EMERG/README.md) |
 | Emergency powers | See *National emergency declarations*. See also *Emergency economic powers; IEEPA; sanctions; asset blocking*. |
 | Emoluments; presidential conflicts of interest; private financial benefit | **[A-06](areas/EMOL/README.md)**; [EMOL-015](areas/EMOL/issues/EMOL-015.md); [HER-003](areas/HER/README.md) |
+| Epstein files; Epstein Files Transparency Act; DOJ disclosure compliance | **[JUD-011](areas/JUD/issues/JUD-011.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [JUD-005](areas/JUD/issues/JUD-005.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
 | Executive noncompliance | See *Congressional mandates; executive noncompliance; anti-nullification review*. |
 | Executive noncompliance with judicial orders; congressional notice; public register | **[JUD-005](areas/JUD/issues/JUD-005.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
 | Executive Office of the President (EOP) and White House | **[DOJ-002](areas/DOJ/issues/DOJ-002.md)**; [FUND-001](areas/FUND/issues/FUND-001.md); [JUD-011](areas/JUD/issues/JUD-011.md); [REG-001](areas/REG/issues/REG-001.md); [EMOL-015](areas/EMOL/issues/EMOL-015.md) |
