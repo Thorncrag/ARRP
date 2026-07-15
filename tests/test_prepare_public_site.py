@@ -83,6 +83,26 @@ class PublicSitePreparationTests(unittest.TestCase):
             r'(?m)^git_revision_date_localized: "[A-Z][a-z]+ [1-9][0-9]?, 20[0-9]{2}"$',
         )
 
+    def test_topic_guide_is_a_nonauthoritative_routing_page(self):
+        guide = (ROOT / "topics" / "project-2025.md").read_text(encoding="utf-8")
+        for heading in (
+            "## Topic Overview",
+            "## Relevant ARRP Records",
+            "## Topic Crosswalk",
+            "## Prior ARRP Dispositions",
+            "## Scope Boundary",
+        ):
+            self.assertIn(heading, guide)
+        for disallowed in (
+            "## Methodology",
+            "Gap / next action",
+            "## ARRP Coverage Assessment",
+            "### Highest-priority gaps",
+            "## Proposal Scoring",
+            "## Budgetary Impact",
+        ):
+            self.assertNotIn(disallowed, guide)
+
     def test_manifest_is_written(self):
         written = json.loads((ROOT / ".site-build" / "public-manifest.json").read_text())
         self.assertEqual(written["canonicalSources"], self.manifest["canonicalSources"])

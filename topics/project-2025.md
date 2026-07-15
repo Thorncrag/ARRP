@@ -2,7 +2,7 @@
 title: "Project 2025"
 page_type: topic-guide
 status: maintained
-purpose: "Explain ARRP's treatment of Project 2025 and map its initiatives to institutional vulnerabilities, project areas, and proposals."
+purpose: "Route readers from commonly recognized Project 2025 themes to the ARRP records and dispositions that govern their treatment."
 last_reviewed: "2026-07-15"
 print_levels:
   - public-proposal
@@ -13,133 +13,50 @@ print_levels:
 
 ## Topic Overview
 
-Project 2025 is a collection of policy, personnel, administrative, and institutional proposals associated with *Mandate for Leadership: The Conservative Promise*. ARRP examines those proposals only where they identify, depend upon, or could exploit a legal, structural, administrative, remedial, or institutional weakness. This page is ARRP's single canonical Project 2025 guide: it combines a reader overview with the project's initiative-level crosswalk rather than maintaining separate topic and research pages.
+Project 2025 is a collection of policy, personnel, administrative, and institutional proposals associated with *Mandate for Leadership: The Conservative Promise*. ARRP considers those proposals only when they reveal, depend on, or could exploit a legal, structural, administrative, remedial, or institutional weakness. It does not treat Project 2025 as a single ARRP issue or regard every policy recommendation as an institutional failure.
 
-ARRP is not framed as a partisan counter-platform. It does not treat every Project 2025 recommendation as an institutional failure, and it does not include ordinary policy disagreements merely because the project supports or opposes a particular outcome. Its concern is whether a proposal exposes a weakness that could permit any administration to convert federal power into personal, partisan, retaliatory, or anti-institutional control.
+This page is a nonauthoritative reader guide. It maps commonly recognized Project 2025 themes to the ARRP records that own the relevant analysis and preserves concise links to Project 2025-related intake dispositions. The linked issue, area, legislation, Horizon, and GitHub records remain authoritative.
 
-## Principal ARRP Routes
+## Relevant ARRP Records
 
-| Institutional question | Principal ARRP routes |
+| Reader concern | Authoritative ARRP routes |
 | --- | --- |
-| Presidential control of DOJ, investigations, and enforcement | [A-01 — Department of Justice](../areas/DOJ/README.md), including [DOJ-003](../areas/DOJ/issues/DOJ-003.md) and [DOJ-007](../areas/DOJ/issues/DOJ-007.md) |
+| Presidential control of DOJ, investigations, or enforcement | [DOJ-003](../areas/DOJ/issues/DOJ-003.md), [DOJ-007](../areas/DOJ/issues/DOJ-007.md), and [A-01 — Department of Justice](../areas/DOJ/README.md) |
 | Executive nullification of statutes, agencies, programs, or appropriations | [JUD-011](../areas/JUD/issues/JUD-011.md), [REG-001](../areas/REG/issues/REG-001.md), and [FUND-001](../areas/FUND/issues/FUND-001.md) |
-| Civil-service control, acting officials, and loyalty-based appointments | [A-08 — Civil Service](../areas/CIV/README.md) and [A-12 — Appointments](../areas/APPT/README.md) |
-| Emergency authorities and domestic enforcement | [A-10 — Emergency Powers](../areas/EMERG/README.md) and [A-14 — Domestic Deployment](../areas/DOM/README.md) |
-| Government information, science, statistics, and civil-rights administration | [A-18 — Factual Integrity](../areas/FACT/README.md) and [A-24 — Civil Rights Administration](../areas/RIGHTS/README.md) |
+| Career-service control and loyalty-based appointments | [A-08 — Civil Service](../areas/CIV/README.md) and [A-12 — Appointments](../areas/APPT/README.md) |
+| Emergency authority and domestic enforcement | [A-10 — Emergency Powers](../areas/EMERG/README.md), [A-14 — Domestic Deployment](../areas/DOM/README.md), and [WAR-001](../areas/WAR/issues/WAR-001.md) |
+| Government information, science, and civil-rights administration | [A-18 — Factual Integrity](../areas/FACT/README.md) and [A-24 — Civil Rights Administration](../areas/RIGHTS/README.md) |
 
-The routes above are starting points, not an exhaustive substitute for the detailed crosswalk or the [Subject and Institution Index](../SUBJECT_INDEX.md). Individual issue pages remain authoritative for ARRP's institutional diagnosis, proposed remedy, development status, and audit record.
+## Topic Crosswalk
 
-## How ARRP Uses the Crosswalk
+| Project 2025 initiative or theme | ARRP route | Treatment |
+| --- | --- | --- |
+| Schedule F-style reclassification or loyalty-based control of career officials | [A-08 — Civil Service](../areas/CIV/README.md) | CIV-001 owns political reclassification of protected career positions. |
+| Centralized OMB control, impoundment, or refusal to execute appropriations | [FUND-001](../areas/FUND/issues/FUND-001.md) and [JUD-011](../areas/JUD/issues/JUD-011.md) | These records govern congressional-mandate and appropriations-execution failures. |
+| Presidential control of DOJ or retaliatory enforcement | [DOJ-003](../areas/DOJ/issues/DOJ-003.md) and [DOJ-007](../areas/DOJ/issues/DOJ-007.md) | These records own selective enforcement and independent-investigation remedies. |
+| Immigration, asylum, detention, or large-scale interior enforcement | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md), [RIGHTS-004](../areas/RIGHTS/issues/RIGHTS-004.md), and [A-14](../areas/DOM/README.md) | The linked records divide humanitarian reviewability, comprehensive system reform, and domestic-enforcement structure. |
+| Abolition, closure, or functional disabling of congressionally created agencies | [REG-001](../areas/REG/issues/REG-001.md) | REG-001 owns agency continuity and executive anti-nullification treatment. |
+| Government-wide sex definitions, identity records, or civil-rights administration | [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) | RIGHTS-001 owns the distinct civil-rights administration and identity-records issue. |
+| Suppression or distortion of government science, statistics, or public information | [A-18 — Factual Integrity](../areas/FACT/README.md) | A-18 is the primary route when the institutional defect concerns the integrity or availability of government facts. |
+| Subordination of independent regulators or expansion of presidential removal control | [REG-001](../areas/REG/issues/REG-001.md) and [A-12 — Appointments](../areas/APPT/README.md) | The route depends on whether the defect is functional nullification, appointment control, or removal control. |
+| Emergency or national-security authority used to bypass ordinary limits | [A-10 — Emergency Powers](../areas/EMERG/README.md), [A-14 — Domestic Deployment](../areas/DOM/README.md), and [WAR-001](../areas/WAR/issues/WAR-001.md) | The linked records own emergency, domestic-force, and external-force questions respectively. |
+| Government pressure on media, platforms, or protected public information | [A-22 — Press and Information Ecosystem](../areas/PRESS/README.md) | A-22 is the reader route when the defect concerns press freedom, government coercion, or the public information environment. |
+| Tax rates, benefit levels, energy production, or other ordinary policy choices | [Scope Boundary](#scope-boundary) | ARRP takes no position through this guide unless a separate institutional defect satisfies the project's admission rules. |
 
-Project 2025 should be analyzed at the initiative level. Each proposal should be mapped to:
+## Prior ARRP Dispositions
 
-1. the federal institution affected;
-2. the structural vulnerability implicated;
-3. the ARRP area or issue that already addresses it;
-4. whether additional ARRP development is needed;
-5. whether the proposal raises ordinary policy disagreement or structural-rule-of-law risk.
+| Record | Disposition | Reason and authoritative route |
+| --- | --- | --- |
+| HOR-011 — Schedule F / Schedule Policy-Career | Integrated into CIV-001 | [A-08 already owns political reclassification of career positions](../areas/CIV/README.md), so a second issue would duplicate that record. |
+| HOR-015 — federal sex-definition, identity-record, and related civil-rights administration policy | Admitted as RIGHTS-001 | [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) provides the distinct civil-rights administration and identity-records home that factual-integrity treatment alone could not supply. |
+| HOR-018 — agency continuity and executive anti-nullification | Integrated into REG-001 | [REG-001](../areas/REG/issues/REG-001.md) already owns functional nullification of congressionally assigned agency duties; the [closed intake record](https://github.com/Thorncrag/ARRP/issues/16) preserves the disposition. |
 
-## Methodology
+No additional Project 2025-specific rejection is listed without a canonical adjudication record. The general exclusion of ordinary policy disagreement is a scope boundary, not an invented candidate disposition.
 
-This remains a developing crosswalk. It uses major publicly documented Project 2025 themes as a starting point. Every item should ultimately be verified against the primary Project 2025 Mandate chapter text, page references, and related implementation materials. Coverage descriptions in the present matrix reflect the project record reviewed through July 15, 2026.
+## Scope Boundary
 
-Authoritative Project 2025 sourcing should start with Heritage-controlled sources. The Heritage Foundation's [Mandate for Leadership page](https://www.heritage.org/mandate) identifies the latest edition, *Mandate for Leadership: The Conservative Promise*, as a Heritage product released in April 2023 and links to the [Project 2025 policy page](https://www.project2025.org/policy/). That policy page currently redirects to `mandateforleadership.org`, which presents the Mandate for Leadership series as a product of The Heritage Foundation. When a searchable PDF or page-text copy is needed for page-level verification, the [DocumentCloud copy](https://www.documentcloud.org/documents/24088042-project-2025s-mandate-for-leadership-the-conservative-promise/) may be used as a retrieval aid, but the citation record should preserve the official Heritage/Project source hierarchy and identify the searchable copy as a mirror rather than the originating publisher.
+ARRP addresses Project 2025 only where a proposal identifies or uses a separable institutional defect. Disagreement over lawful tax, spending, benefit, energy, health, education, immigration, or social policy does not enter ARRP merely because Project 2025 takes a position. A topic may enter only through the authoritative issue-admission process when the concern is a legal, structural, administrative, remedial, or institutional weakness rather than a failure to enact a preferred policy outcome.
 
-The repository preserves a local fallback copy at [`project-2025-mandate-for-leadership-2023-documentcloud-backup.pdf`](../sources/project-2025-mandate-for-leadership-2023-documentcloud-backup.pdf), downloaded from the DocumentCloud mirror on June 27, 2026. SHA-256: `162a04033c68ecc2825968deeaf7492609de18464d1c6c009dbe20b4a4c43f89`. Use this file only if official Heritage/Project sources or the stable mirror become unavailable, and identify it as a local fallback copy rather than an originating publisher source.
+## Sources and Currency
 
-The crosswalk is not limited to Project 2025 proposals that have already been enacted, attempted, litigated, or adopted. A proposal may be important because it identifies a weakness vehicle: a legal authority, statutory gap, administrative process, personnel mechanism, funding condition, records practice, enforcement theory, or institutional norm that could be exploited by any administration. Implementation status should be recorded because it affects urgency and evidentiary weight, but a lack of implementation should not by itself remove an initiative from ARRP analysis.
-
-For each Project 2025 initiative, the crosswalk should distinguish:
-
-1. **Implementation status:** whether the initiative is proposed, attempted, enacted, enjoined, abandoned, superseded, or uncertain.
-2. **Weakness vehicle:** the legal or institutional pathway the initiative would use.
-3. **ARRP relevance:** whether the weakness vehicle reveals a guardrail gap ARRP should cure even if the specific Project 2025 initiative never proceeds.
-4. **Manifestation evidence:** whether current events provide concrete proof of use, attempted use, or institutional stress.
-
-## Summary Matrix
-
-| Project 2025 initiative / theme | Structural vulnerability implicated | ARRP area / issue coverage | ARRP coverage at last review | Gap / next action |
-|---|---|---|---|---|
-| Reclassify or replace large numbers of career civil servants; revive Schedule F-style personnel control | Converts professional civil service into presidential-loyalty apparatus; weakens neutral administration | A-12 Appointments and Civil Service; A-15 Congressional Oversight; A-18 Factual Integrity | Candidate area coverage only | Develop civil-service independence issue and model legislation |
-| Centralize executive control through OMB and presidential budget control | Impoundment risk, centralized spending coercion, agency subordination | A-11 Funding and Spending; A-15 Congressional Power; A-09 Oversight | Candidate area coverage only | Develop anti-impoundment / budget-execution guardrail issue |
-| Expand presidential control over DOJ and FBI | Politicized prosecution, retaliatory enforcement, loyalty-based law enforcement | A-01 DOJ, including DOJ-001, DOJ-003, DOJ-005, DOJ-007, DOJ-009 | Multiple developed DOJ issues | Cross-check whether FBI-specific independence needs separate DOJ issue |
-| Use DOJ/FBI to target alleged ideological enemies or reshape enforcement priorities | Selective enforcement, retaliation, politicized investigations | DOJ-003, DOJ-005, DOJ-007, DOJ-009 | Partly developed | Add source-development examples and FBI-specific remedy if needed |
-| Dismantle or substantially reorganize DHS / immigration agencies | Concentrates enforcement power; weakens process, federalism, and oversight | [RIGHTS-004](../areas/RIGHTS/issues/RIGHTS-004.md); A-14 Domestic Deployment / Enforcement; A-20 Federalism | Candidate issue admitted | Source-develop immigration-system integrity, adjudication capacity, oversight, and federalism boundaries without duplicating A-14 enforcement-structure work |
-| Mass deportation / interior enforcement expansion | Due process, detention, federalism, military/domestic-enforcement risks | [RIGHTS-004](../areas/RIGHTS/issues/RIGHTS-004.md); A-14; A-20 | Candidate issue admitted | Develop removal due process, detention-process safeguards, lawful-pathway pressure valves, and federalized-enforcement boundaries |
-| Reduce asylum/refugee protections or increase procedural barriers | Due process and statutory-rights erosion | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md); [RIGHTS-004](../areas/RIGHTS/issues/RIGHTS-004.md); A-20 Federalism | Candidate issue admitted | Coordinate RIGHTS-002 humanitarian reviewability with RIGHTS-004 comprehensive immigration-system reform |
-| Abolish or shrink Department of Education; transfer or eliminate programs | Federalism/policy question unless tied to civil-rights enforcement, congressional spending conditions, or functional nullification of a congressionally created agency | [REG-001](../areas/REG/issues/REG-001.md); [HOR-018](https://github.com/Thorncrag/ARRP/issues/16); [A-24 Civil Rights Administration](../areas/RIGHTS/README.md); A-11 Funding; A-20 Federalism | Integrated into REG-001 Tier Two through HOR-018 | Apply REG-001's lower-review continuity threshold when executive action substantially and sustainably impairs mandatory statutory duties; distinguish ordinary policy and lawful management from functional nullification and structural civil-rights enforcement risk |
-| Eliminate DEI and gender-identity protections across agencies | Civil-rights rollback, factual integrity, anti-discrimination enforcement, and funding/contractor targeting risk | [A-24 Civil Rights Administration](../areas/RIGHTS/README.md); [RET-006](../areas/RET/README.md); A-18 Factual Integrity; A-17 Regulatory Independence | Candidate coverage through [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) and RET-006 source development | Develop civil-rights enforcement continuity, identity-record, grant-condition, contractor-certification, and privacy safeguards without duplicating A-18 factual-integrity remedies |
-| Restrict Title IX gender-identity policies and related federal guidance | Civil-rights interpretation instability; agency factual/legal integrity | [A-24 Civil Rights Administration](../areas/RIGHTS/README.md); A-18 Factual Integrity; A-17 Regulatory Independence | Candidate coverage through [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) | Use neutral administrative-law framing and review Title IX, Title VII, Bostock, Skrmetti, Spending Clause, APA, and agency-guidance doctrine before drafting |
-| Roll back climate regulation and climate-science work | Scientific integrity, regulatory independence, suppression of factual expertise | A-17 Regulatory Independence; A-18 Factual Integrity | Candidate coverage | Develop scientific integrity / federal factual integrity issue |
-| Expand fossil-fuel production and reduce environmental enforcement | Ordinary policy plus potential regulatory-capture/factual-integrity risks | A-17, A-18, possibly A-20 | Candidate coverage | Separate policy disagreement from process/factual-integrity risks |
-| Reorient NIH, CDC, HHS, and public-health agencies around ideological priorities | Scientific-advisory independence, factual integrity, public-health data transparency | A-18 Factual Integrity; A-17 Regulatory Independence | Candidate coverage | COVID-era and public-health factual integrity likely belong here |
-| Restrict medication abortion and reproductive-health policy through agency action | Civil liberties, agency science, FDA integrity, statutory interpretation | [A-24 Civil Rights Administration](../areas/RIGHTS/README.md) if rights-administration framing is admitted; A-17 Regulatory Independence; A-18 Factual Integrity | Candidate coverage | Decide whether ARRP includes reproductive-rights institutional guardrails |
-| Use Comstock Act or agency action to restrict abortion-related medication/mail | Executive statutory reinterpretation; DOJ enforcement discretion | A-01 DOJ; A-17 Regulatory Independence; possible civil-rights-administration issue | Candidate/partial | Potential DOJ enforcement-discretion issue may be needed |
-| Expand religious-conscience exemptions in civil-rights/health contexts | Balancing civil rights and religious liberty; agency discretion | [A-24 Civil Rights Administration](../areas/RIGHTS/README.md); A-17 Regulatory Independence | Candidate coverage | Requires careful neutral treatment; not all proposals are structural abuse |
-| Criminalize or suppress pornography / adult content | Speech, due process, federal criminal-law expansion | A-01 DOJ; [A-22 Press / Information Ecosystem](../areas/PRESS/README.md) if protected speech or platform pressure is implicated | Candidate coverage | Need speech/enforcement guardrail issue if in ARRP scope |
-| Increase FCC pressure on technology platforms and content moderation | Speech, administrative coercion, platform regulation, factual-integrity governance | A-17 Regulatory Independence; A-18 Factual Integrity; [A-22 Press / Information Ecosystem](../areas/PRESS/README.md) if applicable | Candidate coverage | Crosswalk to PRESS-001 et seq. after review |
-| Attack or restructure independent agencies such as FTC/FCC/SEC | Independent-agency subordination; removal power; regulatory independence | A-17 Regulatory Independence; A-12 Appointments; A-15 Congress | Candidate coverage | Need independent-agency insulation issue |
-| Expand presidential removal/control over independent regulators | Unitary-executive expansion; collapse of quasi-independent statutory functions | A-17; A-12; A-15 | Candidate coverage | Source-development against Seila Law, Humphrey's Executor, etc. |
-| Use Schedule F/personnel vetting to ensure ideological alignment | Loyalty testing; civil-service capture; expertise displacement | A-12; A-18 | Candidate coverage | High priority ARRP issue needed |
-| Require loyalty-focused personnel database and training academy | Personnel pipeline designed for rapid executive capture | A-12; A-15; A-18 | Candidate coverage | Add Project 2025 as concrete manifestation in civil-service issue |
-| Expand presidential emergency powers or use emergencies to implement policy | Emergency-powers abuse, bypassing Congress | A-10 Emergency Powers; A-15 Congress | Candidate coverage | Need detailed emergency-powers reform |
-| Use national-security framing to justify domestic policy changes | Emergency/national-security pretext; domestic deployment risk | A-10; A-14; A-24 if civil-rights administration is implicated | Candidate coverage | Crosswalk with WAR-001 if foreign/domestic force involved |
-| Restrict or restructure intelligence agencies | Intelligence politicization, legal-opinion secrecy, factual manipulation | A-18 Factual Integrity; A-09 Oversight; A-15 Congress | Candidate coverage | Need intelligence integrity/oversight issue |
-| Reduce federal employee union protections | Civil-service vulnerability; labor-policy question | A-12; A-18; A-15 | Candidate coverage | Determine ARRP scope: structural if tied to loyalty/capture |
-| Tax reforms / flat tax / corporate tax cuts | Mostly ordinary fiscal policy unless process abuse, impoundment, or enforcement capture | A-11 Funding; A-01 DOJ/IRS enforcement if targeted | Candidate coverage | Usually not ARRP unless institutional-process abuse is implicated |
-| Medicare/Medicaid cuts or restructuring | Mostly substantive policy unless executive implementation bypasses statutory limits | A-11; A-15; A-17 | Candidate coverage | Usually outside ARRP unless process/rights integrity issue arises |
-| Veterans disability reform | Mostly substantive policy; potential due-process/admin adjudication risk | A-17; A-20; possible benefits-adjudication issue | Candidate coverage | Treat only if adjudication/procedural integrity is threatened |
-| Federal disaster funding conditionality or retaliation against disfavored jurisdictions | Spending coercion, federalism, retaliation | A-11 Funding; A-20 Federalism; A-09 Oversight | Candidate coverage | Need anti-retaliatory grants/funding issue |
-| Restrict data collection on gender, abortion, climate, public health, or civil rights | Factual integrity and evidence suppression | A-18 Factual Integrity | Candidate coverage | Strong A-18 fit |
-| Reframe federal agencies as ideological/culture-war instruments | Professional expertise displacement; factual manipulation; agency capture | A-17; A-18; A-12 | Candidate coverage | Develop cross-cutting factual-integrity and agency-professionalism safeguards |
-
-## ARRP Coverage Assessment
-
-### Strong existing coverage
-
-ARRP already has meaningful developed coverage for DOJ politicization and professional legitimacy:
-
-- DOJ-001: appointment of recent presidential personal counsel to senior DOJ leadership.
-- DOJ-003: politically selective enforcement, charging, and favoritism.
-- DOJ-005: DOJ recusal and internal control weaknesses.
-- DOJ-007: independent investigation of presidential and senior executive misconduct.
-- DOJ-009: senior DOJ legal-officer professional qualification and good standing.
-
-ARRP also now has a developed comprehensive war-powers framework:
-
-- WAR-001: comprehensive war powers and use-of-force authorization reform.
-
-### Partial or candidate coverage
-
-Most Project 2025 initiatives outside DOJ and war powers map to ARRP areas that remain candidate-level:
-
-- A-08 Civil Service and Professional Administration.
-- A-24 Civil Rights Administration and Identity Records.
-- A-10 Emergency Powers.
-- A-11 Funding and Spending.
-- A-12 Appointments and Civil Service.
-- A-15 Congressional Oversight and Power.
-- A-17 Regulatory Independence.
-- A-18 Factual Integrity.
-- A-20 Federalism.
-- A-22 Press / Information Ecosystem, if relevant.
-
-### Highest-priority gaps
-
-1. **Civil-service capture / Schedule F.** ARRP needs a developed issue addressing loyalty-based reclassification, removal, and replacement of career officials.
-2. **OMB / impoundment / budget execution.** ARRP needs a developed anti-impoundment and appropriations-execution guardrail.
-3. **Factual and scientific integrity.** A-18 should be developed to address public-health, climate, civil-rights data, and expert-agency integrity.
-4. **Emergency-powers abuse.** A-10 should be developed to address emergency authority as a bypass mechanism.
-5. **Independent-agency/regulatory subordination.** A-17 should be developed to address presidential capture of independent regulatory functions.
-6. **Federalism and retaliatory funding.** A-20/A-11 should address coercive or retaliatory treatment of states and localities.
-7. **Civil-rights enforcement continuity.** A-08 should address durable civil-rights enforcement and anti-discrimination guardrails if within ARRP scope.
-
-## Working Principle
-
-Project 2025 proposals should be evaluated according to whether they represent ordinary policy disagreement or structural institutional vulnerability. ARRP should focus on structural vulnerabilities: loyalty-based capture, retaliation, politicized enforcement, executive evasion of Congress, suppression or distortion of facts, abuse of emergency powers, and collapse of professional or independent legal checks.
-
-Do not equate "not implemented" with "not relevant." Proposed Project 2025 vehicles may still expose structural weaknesses that ARRP should repair prospectively. Conversely, implementation alone does not prove ARRP relevance unless the proposal implicates a structural weakness rather than an ordinary policy choice.
-
-## Maintenance
-
-This topic guide is a living reader-navigation and crosswalk page, not a separate proposal, scorecard, or project tracker. Proposal status, scoring, and remedy language remain authoritative on the linked issue pages and GitHub Project. When Project 2025 source development or ARRP proposal development materially changes a mapping, this page should be updated in the same navigation-synchronization pass.
+The source baseline is the Heritage Foundation's [Mandate for Leadership page](https://www.heritage.org/mandate) and [Project 2025 policy entry point](https://www.project2025.org/policy/). The [DocumentCloud copy](https://www.documentcloud.org/documents/24088042-project-2025s-mandate-for-leadership-the-conservative-promise/) is a searchable retrieval aid, not the originating publisher. This routing guide reflects ARRP records reviewed through July 15, 2026; later source or disposition changes should be made first in their authoritative records and then synchronized here.

@@ -35,7 +35,7 @@ The reader-facing [Subject and Institution Index](../SUBJECT_INDEX.md) and selec
 9. GitHub Project fields, not labels or issue-body metadata, are authoritative for `Area`, `Workstream`, `Priority`, `Release blocker`, `Status`, `Score`, `Runs`, `Last audit`, `Next audit`, `Rebaseline status`, `Change audit needed`, `Canonical page`, and parent/sub-issue tracking.
 10. Labels should be limited to issue kind or temporary triage that is not already represented by a Project field.
 11. The Subject and Institution Index should map plain-language terms and institutional names to stable area and issue homes without duplicating volatile Project fields or creating a second issue taxonomy.
-12. A major public subject may receive one canonical topic guide when it spans multiple proposals or areas and explanatory synthesis materially improves navigation. Use the topic's name as commonly known to the public for the visible page title and navigation label; describe `topic guide`, `crosswalk`, or other functions in metadata or introductory text rather than appending them to the title. Topic pages route to authoritative issue pages and must not duplicate proposal scores, audit histories, or remedy ownership. Convert and move an existing project-authored crosswalk when it becomes the topic guide rather than maintaining parallel versions.
+12. A major public subject may receive one canonical topic guide when it spans multiple proposals or areas and explanatory synthesis materially improves navigation. Use the topic's name as commonly known to the public for the visible page title and navigation label. Topic pages are concise, nonauthoritative routing surfaces governed by the [Topic Page Standard](#topic-page-standard); they do not own proposal substance, dispositions, scores, audits, or workflow state. Convert and move an existing project-authored crosswalk when it becomes the topic guide rather than maintaining parallel versions.
 
 ## Issue-Development Lifecycle Check
 
@@ -77,6 +77,28 @@ When updating the project, check whether the change requires inventory maintenan
 ## Area and Issue Index Rules
 
 The root [`../README.md`](../README.md) is the public repository front door and must expose topic-guide, subject-index, and area-first discovery prominently. Selective public topic guides live in [`../topics/`](../topics/); the ordered project-area index is maintained in [`../areas/README.md`](../areas/README.md). Cross-area lookup by subject, department, agency, office, court, acronym, alias, or other institutional body is maintained in one alphabetical sequence in [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). Current status, lifecycle, workstream, milestone, and horizon-queue metadata are maintained in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). Topic, area, and issue pages should carry stable repository links for human navigation; GitHub Project items should carry clickable canonical-page links where practical. Topic guides may explain relationships among linked proposals but must not duplicate volatile Project fields. The subject index should contain only concise, ordered routes and must not become a relationship narrative or a parallel status, score, priority, or audit tracker. Edition-specific print page locators are generated during the two-pass export process and are not maintained manually in the canonical index.
+
+### Topic Page Standard
+
+A topic page exists to help a reader who knows a public subject but does not yet know ARRP's taxonomy. It is a selective navigation and synthesis layer, not an independent research memorandum, issue page, proposal, cross-project status report, or source of authoritative dispositions. Admit one only when the subject is commonly recognizable, spans more than one ARRP record or area, materially benefits from synthesis, and has enough verified source support to describe the subject accurately.
+
+Apply this ownership test during drafting and review: **if a passage could be moved verbatim into an issue page as diagnosis, manifestations, legal analysis, remedy analysis, proposed legislation, implementation design, or proposal development work, it does not belong on the topic page.** Move or preserve that material in the record that owns it; do not delete a unique supported proposition merely to shorten the guide.
+
+Each topic page should ordinarily contain, in this order:
+
+1. **Topic Overview** — normally 100–200 words identifying the public subject and explaining why readers may encounter it across ARRP;
+2. **Relevant ARRP Records** — concise links to the authoritative issue, area, legislation, research, or other records that own the work;
+3. **Topic Crosswalk**, when useful — a compact mapping such as `Public initiative or theme | ARRP route | Treatment or disposition`, with one sentence per row and no development-task list;
+4. **Prior ARRP Dispositions** — only topic-related candidates that have actually been admitted, merged, integrated, retired, rejected, or held outside scope, each with its stable identifier or concept, precise disposition, one-sentence reason, and a link to the authoritative record; and
+5. **Scope Boundary** — a short statement distinguishing in-scope institutional defects from ordinary policy or political disagreement.
+
+A short **Sources and Currency** or **Maintenance** note may follow when the subject changes over time or the guide relies on a defined source hierarchy. Topic pages should use nearby citations for material factual claims and the ordinary source-inventory rules, but detailed source methodology, backup-file administration, audit procedure, and reusable crosswalk rules belong in this methodology or the source inventory rather than on the public guide.
+
+The **Prior ARRP Dispositions** section is a discovery aid, not a second disposition log. Include only records materially connected to the topic; reproduce neither the full Horizon Scan analysis nor every rejected project idea. The Horizon Scan Log, closed GitHub issue, admitted issue page, or other designated record remains authoritative. If no topic-related disposition has been formally recorded, say so or omit the section rather than inventing one. General scope boundaries may be stated separately but must not be presented as individualized rejection decisions.
+
+Topic pages must not carry Proposal Quality Scores, Adoption Scores, audit histories, Project lifecycle fields, budget analyses, legislative text, independent remedy recommendations, priority rankings, gap lists, next-action lists, or claims that the topic page itself adopts or rejects a proposal. When implementation status is useful to explain routing, use only sourced concise terms such as `proposed`, `attempted`, `enacted`, `enjoined`, `abandoned`, `superseded`, or `uncertain`; do not turn the guide into an implementation tracker. Keep headings, tables, and prose as short as accurate routing permits.
+
+Each subject has one canonical topic page. Describe `topic guide`, `crosswalk`, or similar functions in metadata or introductory prose, not in the visible public title. When an existing ARRP-created crosswalk is selected for topic treatment, move and convert it into `topics/` rather than retaining a parallel research copy. Issue pages remain authoritative for diagnosis and remedies; legislation pages for proposed text; the Horizon Scan Log and closed or converted records for dispositions; the source inventory for citation administration; and the GitHub Project for live status.
 
 ### Navigation Synchronization Check
 
