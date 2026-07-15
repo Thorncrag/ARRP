@@ -1,5 +1,5 @@
 ---
-title: "Project 2025 — ARRP Topic Guide and Crosswalk"
+title: "Project 2025"
 page_type: topic-guide
 status: maintained
 purpose: "Explain ARRP's treatment of Project 2025 and map its initiatives to institutional vulnerabilities, project areas, and proposals."
@@ -9,7 +9,7 @@ print_levels:
   - full-technical
 ---
 
-# Project 2025 — ARRP Topic Guide and Crosswalk
+# Project 2025
 
 ## Topic Overview
 

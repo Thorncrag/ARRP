@@ -56,7 +56,7 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn('"Topics"', config)
         self.assertIn('"Overview": topics/index.md', config)
         self.assertIn(
-            '"Project 2025 — ARRP Topic Guide and Crosswalk": topics/project-2025.md',
+            '"Project 2025": topics/project-2025.md',
             config,
         )
         self.assertIn('"Subject and Institution Index": SUBJECT_INDEX.md', config)

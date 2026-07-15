@@ -14,6 +14,6 @@ Topic guides explain major subjects of public interest that span multiple ARRP a
 
 ## Available Guides
 
-- [Project 2025 — ARRP Topic Guide and Crosswalk](project-2025.md) — explains ARRP's scope and maps Project 2025 initiatives to institutional vulnerabilities, project areas, and proposals.
+- [Project 2025](project-2025.md) — explains ARRP's scope and maps Project 2025 initiatives to institutional vulnerabilities, project areas, and proposals.
 
 Additional guides will be added selectively when a recognizable public subject crosses multiple proposals or areas and explanatory synthesis materially improves navigation.

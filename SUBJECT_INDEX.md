@@ -131,7 +131,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Presidential records | See *Government records; presidential records; archives; private messaging*. |
 | Presidential transition; ascertainment; agency cooperation | **[ELEC-006](areas/ELEC/issues/ELEC-006.md)**; [A-13](areas/REC/README.md) |
 | Press freedom | See *Freedom of the press; press access; reporter subpoenas; source protection*. |
-| Project 2025; Mandate for Leadership; institutional-risk crosswalk | **[Project 2025 — ARRP Topic Guide and Crosswalk](topics/project-2025.md)**; [ARRP treatment](README.md#foundational-premise) |
+| Project 2025; Mandate for Leadership; institutional-risk crosswalk | **[Project 2025](topics/project-2025.md)** |
 | Puerto Rico government and territorial institutions | **[A-20](areas/FED/README.md)**; [A-02](areas/ELEC/README.md); [A-24](areas/RIGHTS/README.md) |
 | Ranked-choice voting; runoffs; majority-choice election methods | **[ELEC-015](areas/ELEC/issues/ELEC-015.md)**; [ELEC-013](areas/ELEC/issues/ELEC-013.md) |
 | Redistricting; gerrymandering; vote dilution; representation safeguards | **[ELEC-011](areas/ELEC/issues/ELEC-011.md)**; [A-24](areas/RIGHTS/README.md) |
