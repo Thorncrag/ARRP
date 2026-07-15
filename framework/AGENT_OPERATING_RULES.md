@@ -20,13 +20,13 @@ If substantive work begins from `Pending development`, change the Project status
 
 ## Purpose
 
-Agent work should improve the project carefully, conservatively, and reproducibly. The goal is not maximum speed. The goal is reliable stewardship of the project record, the user's attention, and GPT/account resources.
+Agent work should improve the project carefully, conservatively, and reproducibly. The goal is not maximum speed. The goal is reliable stewardship of the project record and the user's attention.
 
-Agents should prefer steady, bounded work over broad speculative work. When an agent can complete a reasonable check in less time or with fewer sources than allocated, it should stop rather than fill the available time.
+Agents should prefer focused, evidence-bearing work over broad speculative work. Once the selected audit tier's required question has been responsibly answered, stop rather than adding duplicative research; no audit should be truncated or downgraded merely to conserve tokens, account usage, elapsed time, or subscription resources.
 
-## Resource Stewardship
+## Research Proportionality
 
-Agents should use the least resource-intensive method that can responsibly satisfy the assigned task.
+Agents should use a proportionate and reliable method that fully satisfies the assigned task.
 
 1. Start with local project files before using external searches.
 2. Use targeted searches rather than broad repeated queries.
@@ -36,7 +36,7 @@ Agents should use the least resource-intensive method that can responsibly satis
 6. Do not run multiple agents on the same files or same unresolved question.
 7. Do not continue researching after the audit tier's question has been responsibly answered.
 8. If a source path or theory is not producing useful results, document the limitation and move on.
-9. If a proposal is blocked by a human-review issue, document the blocker and advance to the next eligible item rather than spending the batch budget on speculative repair.
+9. If a proposal is blocked by a human-review issue, document the blocker and advance to the next eligible item rather than attempting speculative repair.
 10. Commit and push completed units promptly so work is preserved and later agents do not repeat it.
 
 ## Context Handoff
@@ -84,7 +84,7 @@ If the issue ID is unclear, ask the user before running the audit.
 
 Autonomous Batch Audit Mode is used only when the user expressly asks for autonomous batch auditing.
 
-The batch objective is to move eligible developed proposals toward T4 readiness while conserving resources and avoiding unsupervised substantive overreach.
+The batch objective is to move eligible developed proposals toward T4 readiness while avoiding unsupervised substantive overreach.
 
 ### Batch Preflight
 
@@ -94,7 +94,7 @@ Before starting an autonomous batch run, the agent must:
 2. confirm the current branch and remote target are understood;
 3. confirm the repository can read the latest local project rules, including this file, [`FRAMEWORK.md`](FRAMEWORK.md), [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md), [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md);
 4. check the latest relevant audit record before each issue and skip any issue with unresolved human-review blockers unless the user has expressly authorized proceeding; and
-5. if the run is scheduled inside a defined work window, confirm that the first planned unit can reasonably fit inside the remaining window.
+5. if the user expressly scheduled the run inside a defined work window, respect that user-defined boundary when selecting the next audit unit.
 
 If the preflight fails, do not begin autonomous edits. Record the reason in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) when appropriate and notify the user.
 
@@ -120,7 +120,7 @@ For each issue:
 
 For an expressly authorized batch containing multiple scored audit units, one final dashboard dispatch after the last synchronized Project update and push is sufficient if every unit is already committed and pushed and the generated-page readback confirms the complete batch. The daily schedule is a recovery backstop, not a substitute for audit closeout. Do not edit the generated branch manually.
 
-An agent should not spend the entire autonomous run trying to perfect one issue. If an issue reaches a blocker, document it, preserve it, and proceed.
+Complete the selected tier for one issue before proceeding. If an issue reaches a genuine evidentiary, access, external-review, or human-review blocker, document it, preserve it, and proceed.
 
 If an agent adds or materially changes a source, manifestation, institutional framing, damage theory, weakness theory, remedy language, repair/prevention language, or proposal vehicle for a developed issue without running the targeted Change Audit required by the methodology, the agent must mark the issue as needing a targeted Change Audit and Internal Remedy-Fit Audit before treating the score as fully current. The marker should appear in issue front matter, the visible Proposal Scoring or Next Audit line, the issue audit-history file, and any corresponding GitHub Project field.
 
@@ -167,18 +167,18 @@ Multiple agents may be used only for separable work with non-overlapping respons
 
 Agents should not edit the same file set at the same time unless a coordinator assigns a clear merge responsibility. A coordinating agent remains responsible for final consistency, validation, commit, and push.
 
-## Resource Budgeting
+## Audit Completion and Batch Boundaries
 
-Batch work should apply the audit tier time estimates as planning ceilings, not obligations. If a tier is complete early, stop early. If a tier is running long, finish only if it is likely to complete within the methodology's overage limit and is not crowding out the rest of the batch.
+Audit tiers are defined by required depth and output, not by elapsed-time ceilings, token allowances, account-usage limits, or subscription-driven resource budgets. Complete the selected tier before moving to the next issue unless a genuine evidentiary, access, external-review, human-review, or user-defined boundary prevents completion.
 
-For scheduled batch windows, the agent should stop before beginning a new audit unit that cannot reasonably be completed, validated, committed, pushed, and logged inside the remaining window. If a unit is already near completion when the window is ending, the agent may finish the current validation/commit/push cycle if doing so is safer than leaving partial work, but should not start a new issue.
+For a batch window expressly defined by the user, do not begin a new audit unit that cannot reasonably be completed, validated, committed, pushed, and logged inside the remaining user-defined window. If a unit is already near completion when that window ends, preserve the work and follow the user's stated stopping instruction; absent an express window, no default time boundary applies.
 
 When deciding whether to continue research, ask:
 
 1. Will this likely change the score, remedy, source reliability, or next-audit need?
-2. Is there a primary source likely to answer the question quickly?
+2. Is there a primary source likely to answer the question reliably?
 3. Has the issue already hit a human-review stop condition?
-4. Would the same time be better spent documenting the blocker and moving to the next issue?
+4. Has further research become duplicative, or has the question reached a genuine blocker that should be documented?
 
 If the answer favors stopping, stop.
 

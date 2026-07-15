@@ -375,7 +375,7 @@ Triggers are not a universal solution and do not organize or subsume the rest of
 
 Before an issue or proposal is treated as ready for external circulation, it should undergo a quality audit. The framework requirement is structural: developed issue pages must expose a compact **Proposal Scoring** section, link to the sibling full audit-history file, and keep scoring visible without overloading the main issue page.
 
-The canonical audit rules, resource tiers, Horizon Scan procedure, hallucination-resistance protocol, scoring formula, adoption-score formula, international-support score, output requirements, and audit-preservation rules are maintained in [`METHODOLOGY.md`](METHODOLOGY.md#audit-rules-and-proposal-quality-scoring).
+The canonical audit rules, depth tiers, Horizon Scan procedure, hallucination-resistance protocol, scoring formula, adoption-score formula, international-support score, output requirements, and audit-preservation rules are maintained in [`METHODOLOGY.md`](METHODOLOGY.md#audit-rules-and-proposal-quality-scoring).
 
 The **Proposal Scoring** section should group all scores and viability indicators at the top, followed by an em dash divider and then audit status, routing fields, rubric version, rebaseline status, and the audit-history link. GitHub Project fields provide the compact cross-issue view.
 
