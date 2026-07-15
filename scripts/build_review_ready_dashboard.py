@@ -24,6 +24,15 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 GRAPHQL_URL = "https://api.github.com/graphql"
 REST_ROOT = "https://api.github.com"
 USER_AGENT = "ARRP-review-ready-dashboard/1.0"
+PROPOSAL_VEHICLE_FIELDS = {
+    "alternative_legislative_proposal",
+    "constitutional_proposal",
+    "federal_legislative_proposal",
+    "legislative_proposal",
+    "model_state_legislative_proposal",
+    "proposal_legislation",
+    "state_legislative_proposal",
+}
 
 PROJECT_QUERY = r"""
 query($owner: String!, $number: Int!, $cursor: String) {
@@ -220,8 +229,48 @@ def canonical_key(value: Any, repository: str) -> str:
     return text.lstrip("./")
 
 
+def has_concrete_proposal_vehicle(repository_root: Path, canonical_record: str) -> bool:
+    """Return whether an issue front matter links to an existing local proposal vehicle."""
+    root = repository_root.resolve()
+    issue_path = (root / canonical_record).resolve()
+    try:
+        issue_path.relative_to(root)
+    except ValueError:
+        return False
+    if not issue_path.is_file():
+        return False
+    try:
+        lines = issue_path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return False
+    if not lines or lines[0].strip() != "---":
+        return False
+    for line in lines[1:]:
+        if line.strip() == "---":
+            break
+        if ":" not in line:
+            continue
+        key, raw_value = line.split(":", 1)
+        if key.strip() not in PROPOSAL_VEHICLE_FIELDS:
+            continue
+        value = raw_value.strip().strip("\"'")
+        if not value:
+            continue
+        vehicle_path = (issue_path.parent / value).resolve()
+        try:
+            vehicle_path.relative_to(root)
+        except ValueError:
+            continue
+        if vehicle_path.is_file():
+            return True
+    return False
+
+
 def parse_items(
-    raw: Dict[str, Any], config: Dict[str, Any], registry: Sequence[Dict[str, str]]
+    raw: Dict[str, Any],
+    config: Dict[str, Any],
+    registry: Sequence[Dict[str, str]],
+    repository_root: Optional[Path] = None,
 ) -> Tuple[str, List[Dict[str, Any]]]:
     fields = config["projectFields"]
     ready_statuses = {normalize(value) for value in config["goal"]["readyStatuses"]}
@@ -285,6 +334,15 @@ def parse_items(
             warnings.append("Ready status is paired with a score below the Review Ready threshold.")
         if not is_ready and score is not None and score >= threshold:
             warnings.append("Score meets the Review Ready threshold but status is not Review ready or higher.")
+        if (
+            repository_root is not None
+            and normalize(status) == normalize("Pending development")
+            and has_concrete_proposal_vehicle(repository_root, record)
+        ):
+            warnings.append(
+                "Pending development may be stale because the canonical issue page links to an existing "
+                "proposal vehicle; review whether the status should be In development or Audit needed."
+            )
         parsed.append(
             {
                 "number": int(registry_row["GitHub Number"]),
@@ -1085,7 +1143,8 @@ def main() -> int:
                 "Missing {}. Add a repository secret containing a token with read:project access.".format(args.token_env)
             )
         raw = fetch_project(config, token)
-    project_title, items = parse_items(raw, config, registry)
+    repository_root = registry_path.resolve().parent.parent
+    project_title, items = parse_items(raw, config, registry, repository_root)
     if not items:
         raise RuntimeError("No eligible proposal issues were returned; refusing to publish an empty dashboard.")
     retained_history = load_history(config, args.history)

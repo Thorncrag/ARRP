@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | JUD-005 development and coordinated-remedy integration |
-| Audit type/tier | Initial development / issue-admission review; targeted Change Audits for JUD-001 and DOJ-007 |
-| Started | 2026-07-14 |
-| Last checkpoint | 2026-07-14; JUD-005 implementation, Change Audits, and Project synchronization complete |
-| User request | Develop JUD-005 with JUD-001 and DOJ-007 as the preferred coordinated remedy and a narrow, fully independent public-notice statute as the alternative. |
-| Scope | JUD-005 issue, legislation, and audit record; JUD-001 public-notice integration; DOJ-007 conditional-escalation guardrail; navigation, source inventory, GitHub wrapper/Project fields, validation, and publication. |
-| Files touched | `areas/JUD/issues/JUD-005.md`; `areas/JUD/issues/JUD-005.audit.md`; `legislation/JUD-005.md`; JUD-001 and DOJ-007 issue, audit, and legislation pages; `areas/JUD/README.md`; `SUBJECT_INDEX.md`; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; `framework/CURRENT_AUDIT.md`. |
-| Completed steps | Developed the fixed-zero JUD-005 candidate and standalone statute; integrated its preferred public-notice route into JUD-001; added the DOJ-007 nonautomatic-escalation guardrail to both enactment paths; completed targeted Change Audits with no score or Runs changes; synchronized navigation, sources, issue #44, and the three affected Project rows. |
-| Next step | JUD-005 T1 audit; JUD-001 and DOJ-007 retain external validation / T4 follow-up. |
+| Status | Active |
+| Active issue/task | Issue-development lifecycle automation and JUD-005 status correction |
+| Audit type/tier | Project-level Change Audit / workflow implementation; no T-audit |
+| Started | 2026-07-15 |
+| Last checkpoint | 2026-07-15; governing files and dashboard warning logic inspected |
+| User request | Implement the proposed durable workflow so ordinary requests to focus on an issue reliably trigger lifecycle-status review, and correct JUD-005's stale status. |
+| Scope | Root Codex guidance; methodology and GitHub lifecycle rules; dashboard drift warning and tests; JUD-005 Project status, readback, dashboard refresh, validation, commit, and push. |
+| Files touched | `framework/CURRENT_AUDIT.md` so far. |
+| Completed steps | Confirmed JUD-005 has a complete issue page and concrete legislative vehicle, remains unscored with zero T-audit runs, and should move from `Pending development` to `Audit needed` without a score or Runs change. |
+| Next step | Add root `AGENTS.md`, codify lifecycle transitions, and add the stale-status warning and test. |
 | Blockers/questions | None. |
-| Validation status | Passed: `git diff --check`; 17 repository tests; public-site preparation with 105 canonical pages, one generated page, and no internal-dashboard publication; both CSV inventories parse; GitHub issue #44 and affected Project rows read back correctly. Local strict MkDocs execution was unavailable because the system Python lacks MkDocs; verify the authoritative GitHub Pages workflow after push. |
+| Validation status | Not started. |
 
 ## Handoff Rules
 

@@ -28,6 +28,7 @@ body:
     id: workflow-status
     attributes:
       label: Suggested Project status
+      description: Use Pending development before active drafting, In development for active or incomplete work, and Audit needed when an unscored issue-and-vehicle package is ready for its next T-audit.
       options:
         - Horizon / Intake
         - Pending development

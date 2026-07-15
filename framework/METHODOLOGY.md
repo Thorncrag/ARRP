@@ -36,6 +36,22 @@ The reader-facing [Subject and Institution Index](../SUBJECT_INDEX.md) is a navi
 10. Labels should be limited to issue kind or temporary triage that is not already represented by a Project field.
 11. The Subject and Institution Index should map plain-language terms and institutional names to stable area and issue homes without duplicating volatile Project fields or creating a second issue taxonomy.
 
+## Issue-Development Lifecycle Check
+
+Any request to focus on, research, develop, draft, revise, or otherwise work substantively on an issue triggers a lifecycle check even if the user does not invoke an audit workflow. Before substantive work, read the canonical issue page, concrete proposal vehicle if any, latest audit entry, next step, and authoritative GitHub Project row.
+
+If substantive work begins while the Project status is `Pending development`, update it to `In development` and read the row back. Do not regress a scored or later-stage proposal merely because revision begins. If the revision is material, preserve its score-based lifecycle status and use the separate `Change audit needed` field under the Change Audit rules until the review is resolved.
+
+At closeout:
+
+1. an admitted proposal without an actively complete initial issue-and-vehicle package remains `In development`;
+2. an unscored initial issue page with a concrete proposal vehicle complete enough for the next T-audit moves to `Audit needed`, without changing `Score` or `Runs`;
+3. a completed T-audit score of 1–49 uses `In development` in the Project while retaining the exact `Early/Partial Draft` threshold label on the issue page;
+4. a completed T-audit score of 50–74 uses `Developed draft` in the Project while retaining the exact `Developed Draft` or `Substantially Developed Draft` threshold label on the issue page; and
+5. scores of 75 or higher use the corresponding Review Ready or higher lifecycle rules.
+
+These transitions are workflow maintenance, not audit events. Research, drafting, source development, a lifecycle check, a Change Audit, and other non-T-audit work do not independently assign a formula score or increment `Runs`. Detailed Project-field definitions and readback requirements are maintained in [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md#issue-development-lifecycle).
+
 ## Project-Update Checklist
 
 When updating the project, check whether the change requires inventory maintenance:

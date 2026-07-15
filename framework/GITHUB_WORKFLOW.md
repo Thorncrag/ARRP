@@ -37,6 +37,24 @@ Use GitHub Project fields as the authoritative structured workflow metadata:
 
 Do not duplicate these fields as issue-body metadata or as labels. If a field value changes, update the GitHub Project field directly.
 
+## Issue-Development Lifecycle
+
+The lifecycle check applies whenever the user asks to focus on, research, develop, draft, revise, or otherwise work substantively on an issue. The user does not need to request an audit or separately mention status maintenance.
+
+Use the Project `Status` options as follows:
+
+- `Horizon / Intake` — an active candidate has not yet been admitted as an independent proposal.
+- `Pending development` — an admitted proposal is not in active drafting and does not yet have a complete initial issue-and-vehicle package.
+- `In development` — substantive work is active or the initial issue-and-vehicle package remains incomplete. A completed T-audit score of 1–49 also uses this status because the available Project vocabulary intentionally consolidates both Early/Partial Draft score bands.
+- `Audit needed` — an unscored initial issue page and concrete proposal vehicle are complete enough for the next T-audit. The status does not itself assign a score or increment `Runs`.
+- `Developed draft` — a completed score-bearing T-audit produces a score of 50–74. The exact issue-page threshold label remains `Developed Draft` at 50–64 and `Substantially Developed Draft` at 65–74.
+- `Review ready` and higher — use the score bands and release rules in the methodology.
+- `Deferred / Parked`, `Blocked`, and `Completed within scope` — use only when their stated routing or terminal conditions actually apply.
+
+At the start of substantive work, read the current Project row, canonical page, linked vehicle, latest audit record, and next step. If work begins from `Pending development`, move the item to `In development` and read back the change. Do not regress an already scored or later-stage proposal merely because material revision begins; preserve its score-based status and set `Change audit needed` as required until the targeted review is resolved.
+
+At closeout, keep an incomplete initial package `In development`; move an unscored initial package with a sufficiently complete issue page and concrete vehicle to `Audit needed`; or apply the score-based lifecycle status after a completed T-audit. Research, drafting, source development, status review, Change Audits, and other non-T-audit work do not change `Score` or increment `Runs`.
+
 The **Runs** field counts only completed and separately recorded T0, T1, T2, T3, or T4 issue-quality audits. Do not increment it for Change Audits, Internal Remedy-Fit Audits, Horizon Scans, source development, drafting, formatting reviews, predicate checks, external-review intake, validation or dashboard reruns, bookkeeping, or continuation of the same open tier. A cumulative T4 is one run unless lower tiers were separately completed and recorded; a successive multi-tier sequence counts each tier actually completed and separately memorialized.
 
 Use `Completed within scope` only when the item's defined obligation is actually complete. Do not use it as a substitute for `Merged`, `Integrated`, `Retired`, another archival disposition, or merely publishing an unfinished item. A closed adjudicated record with no active work should ordinarily leave the active Project instead of occupying a misleading terminal-status card.

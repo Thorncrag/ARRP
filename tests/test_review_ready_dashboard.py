@@ -98,6 +98,23 @@ class ReviewReadyDashboardTests(unittest.TestCase):
         self.assertIsNone(ready["score"])
         self.assertIn("missing a Project score", ready["warnings"][0])
 
+    def test_pending_status_with_existing_vehicle_emits_lifecycle_warning(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            issue = root / "areas" / "DOM" / "issues" / "DOM-005.md"
+            vehicle = root / "legislation" / "DOM-005.md"
+            issue.parent.mkdir(parents=True)
+            vehicle.parent.mkdir(parents=True)
+            issue.write_text(
+                "---\nlegislative_proposal: \"../../../legislation/DOM-005.md\"\n---\n",
+                encoding="utf-8",
+            )
+            vehicle.write_text("# Proposed legislation\n", encoding="utf-8")
+            _, items = MODULE.parse_items(self.raw, self.config, self.registry, root)
+        pending = next(item for item in items if item["identifier"] == "DOM-005")
+        self.assertEqual(len(pending["warnings"]), 1)
+        self.assertIn("review whether the status should be In development or Audit needed", pending["warnings"][0])
+
     def test_completed_within_scope_preserves_terminal_readiness_without_score_threshold_warning(self):
         raw = deepcopy(self.raw)
         nodes = raw["items"][1]["fieldValues"]["nodes"]

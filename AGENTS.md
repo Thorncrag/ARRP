@@ -1,0 +1,20 @@
+# ARRP Codex Guidance
+
+Before substantive ARRP work, read [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md), [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md), [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md), and [`framework/CURRENT_AUDIT.md`](framework/CURRENT_AUDIT.md). Read [`framework/GITHUB_WORKFLOW.md`](framework/GITHUB_WORKFLOW.md) whenever GitHub issues, Project fields, or lifecycle status may be affected.
+
+Any request to focus on, research, develop, draft, revise, or otherwise work substantively on an issue invokes the issue-development lifecycle check even when the user does not mention an audit or status update.
+
+At the start of issue work:
+
+1. Read the canonical issue page, linked proposal vehicle, latest audit entry, next step, and authoritative GitHub Project row.
+2. If substantive development begins while the Project status is `Pending development`, change it to `In development` and read it back. Do not regress a later lifecycle status merely because revision begins.
+3. Do not change `Score` or `Runs` for research, drafting, source development, a Change Audit, or other non-T-audit work.
+
+At closeout:
+
+1. Leave an incomplete initial issue-and-vehicle package `In development`.
+2. Set an unscored initial package to `Audit needed` once the issue page and concrete proposal vehicle are complete enough for the next T-audit.
+3. After a completed score-bearing T-audit, apply the score and lifecycle rules in the methodology. For a materially revised scored proposal, preserve the score-based status and use `Change audit needed` until the required review is complete.
+4. Synchronize and read back all affected GitHub Project fields. Refresh and verify the Review Ready dashboard whenever its governing workflow requires it.
+
+The GitHub Project is the lifecycle-status authority. Detailed transition, audit, validation, preservation, and publication rules remain in the linked governing files; this file routes Codex into those rules and does not replace them.

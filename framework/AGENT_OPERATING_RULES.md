@@ -12,6 +12,12 @@ Autonomous run provenance is maintained in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LO
 
 Active long-running audit handoff state is maintained in [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md). Before resuming from a vague instruction such as "continue," "follow up," or "resume the audit," agents must read that file and use it as the active-task pointer. If `CURRENT_AUDIT.md` is inactive, stale, missing, or inconsistent with the user's latest instruction, ask for the active issue or task instead of inferring from recent commits, GitHub Project rows, or nearby audit markers.
 
+## Issue-Development Lifecycle Trigger
+
+Any request to focus on, research, develop, draft, revise, or otherwise work substantively on an issue invokes the issue-development lifecycle workflow even when the user does not mention an audit or status update. Before editing, read the canonical issue page, linked vehicle, latest audit entry, next step, and authoritative GitHub Project row.
+
+If substantive work begins from `Pending development`, change the Project status to `In development` and read it back. At closeout, leave an incomplete initial package `In development`, or move an unscored issue-and-vehicle package that is complete enough for the next T-audit to `Audit needed`. Do not change `Score` or `Runs` merely because drafting or source work occurred. Do not regress an already scored or later-stage proposal when revision begins; preserve its score-based status and use `Change audit needed` for a material revision until the required targeted review is complete. Apply the exact transition rules in [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md#issue-development-lifecycle) and [`METHODOLOGY.md`](METHODOLOGY.md#issue-development-lifecycle-check).
+
 ## Purpose
 
 Agent work should improve the project carefully, conservatively, and reproducibly. The goal is not maximum speed. The goal is reliable stewardship of the project record, the user's attention, and GPT/account resources.
