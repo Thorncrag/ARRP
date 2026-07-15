@@ -1,5 +1,5 @@
 ---
-title: "Topic Guides"
+title: "Explore by Topic"
 page_type: topic-index
 status: maintained
 print_levels:
@@ -8,12 +8,64 @@ print_levels:
   - executive-summary
 ---
 
-# Topic Guides
+# Explore by Topic
 
-Topic guides provide concise, nonauthoritative routes through major subjects of public interest that span multiple ARRP records. They point to the pages that own the analysis and, when useful, to canonical records for topic-related concepts the project finally rejected, retired, or held outside scope. Deferred records remain ordinary routes, and merged or integrated records appear through their current homes. Topic guides are not separate proposals, research memoranda, scorecards, status trackers, or substitutes for the records they link.
+These pages help readers begin with a familiar public subject and find the ARRP proposals that address it. Each page briefly explains how common questions connect to one or more proposals; the linked proposal pages contain the detailed analysis and recommendations.
 
-## Available Guides
+Topic pages do not create additional recommendations or track project status. When ARRP has formally decided not to pursue a closely related idea, the page may briefly explain that decision and link to its documentation.
 
-- [Project 2025](project-2025.md) — maps commonly recognized Project 2025 themes to the ARRP records that govern their treatment.
+## Topics
 
-Additional guides will be added selectively when a recognizable public subject crosses multiple proposals or areas and explanatory synthesis materially improves navigation.
+- **[Campaign Finance](campaign-finance.md)**
+
+    Connects constitutional, disclosure, coordination, public-financing, and enforcement concerns to ELEC-012.
+
+- **[Civil Rights](civil-rights.md)**
+
+    Connects civil-rights administration, identity and citizenship records, humanitarian protection, immigration due process, voting access, and representation to the relevant proposals.
+
+- **[DOGE and Agency Dismantling](doge-and-agency-dismantling.md)**
+
+    Separates cross-agency operational control, workforce displacement, nonspending, and functional dismantling of federal agencies.
+
+- **[Elections](elections.md)**
+
+    Connects federal interference, election-fraud claims, administration, certification, subversion, access, representation, and competition to the relevant proposals.
+
+- **[Epstein Files](epstein-files.md)**
+
+    Separates compliance with the disclosure law, enforcement of court orders, public notice, and the conditions for an independent investigation.
+
+- **[Executive Orders and Presidential Power](executive-orders-and-presidential-power.md)**
+
+    Distinguishes lawful presidential direction from refusal to execute statutes, appropriations, agency mandates, judicial commands, emergency limits, or war-powers requirements.
+
+- **[Federal Pressure on States and Cities](federal-pressure-on-states-and-cities.md)**
+
+    Separates funding pressure, selective enforcement, displacement of State functions, force deployments, election interference, and retaliatory investigations.
+
+- **[Government Spending and Impoundment](government-spending-and-impoundment.md)**
+
+    Connects withheld appropriations, delayed rescissions, agency closure through nonspending, selective grants, reprogramming, and judicial enforcement.
+
+- **[Immigration Enforcement](immigration-enforcement.md)**
+
+    Separates humanitarian review, removal due process, surveillance and force, sanctuary-policy retaliation, and State investigative access.
+
+- **[January 6](january-6.md)**
+
+    Connects the distinct election, transition, accountability, investigation, immunity, and pardon issues associated with January 6 and the 2020 election aftermath.
+
+- **[Presidential Accountability](presidential-accountability.md)**
+
+    Separates presidential immunity, independent investigation, judicial enforcement and recusal, conflicts of interest, and pardon abuse.
+
+- **[Project 2025](project-2025.md)**
+
+    Connects commonly recognized Project 2025 themes to the ARRP proposals that address them.
+
+- **[Weaponization of Justice](weaponization-of-justice.md)**
+
+    Maps possible political misuse of federal investigation, prosecution, enforcement, personnel, and supervisory authority.
+
+Additional topics will be added selectively when a familiar public subject crosses multiple proposals and a short explanation would materially improve navigation.

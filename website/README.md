@@ -44,6 +44,8 @@ Published pages display a localized **Last modified** date in the page footer. T
 
 The same build hook adds a metadata-driven project-status notice to issue pages and supplies page-level print and feedback actions. Developed issues use the Proposal Quality Score band recorded in canonical front matter; candidate, deferred, and adjudication-dependent issues receive status-specific language that avoids presenting them as affirmative recommendations. The feedback action opens a pre-addressed email containing the current page title and URL and does not collect site data. `website/site.js` supplies the print and email behavior. Breadcrumbs, active-heading URL tracking, table-of-contents following, and shareable searches are enabled through Material configuration.
 
+The **Explore by Topic** index remains a semantic Markdown list in the canonical repository and compiled editions. On the website, `website/extra.css` presents that list as a restrained two-column card grid, collapses it to one column on narrow screens, and restores an ordinary list for printing.
+
 ## Deployment
 
 `.github/workflows/public-site.yml` repeats the preparation and strict build on every push to `main`, uploads only `.site-build/site`, and deploys that artifact to GitHub Pages. The workflow may also be started manually.

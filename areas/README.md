@@ -10,7 +10,7 @@ print_levels:
 
 ## Find a Topic or Institution
 
-Readers may browse the [Topic Guides](../topics/README.md) for explanatory treatment of major public subjects or use the [Subject and Institution Index](../SUBJECT_INDEX.md) to find a particular subject, department, agency, office, court, acronym, or common term.
+Readers may [Explore by Topic](../topics/README.md) for explanatory treatment of major public subjects or use the [Subject and Institution Index](../SUBJECT_INDEX.md) to find a particular subject, department, agency, office, court, acronym, or common term.
 
 ## Browse by Project Area
 

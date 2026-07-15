@@ -19,7 +19,7 @@ The federal government can use funding, enforcement discretion, emergency author
 
 - **FED-001** — Conditioning disaster or infrastructure aid _(status: Candidate; priority: Medium)_
 - **FED-002** — Selective enforcement against disfavored states _(status: Candidate; priority: Medium)_
-- **FED-003** — Coercive grant conditions _(status: Candidate; priority: Medium)_
+- **[FED-003](issues/FED-003.md)** — Coercive grant conditions _(status: In development; priority: Medium)_
 - **FED-004** — Federal takeover or displacement of state functions _(status: Candidate; priority: Medium)_
 - **FED-005** — Deployment of federal forces over state objection _(status: Candidate; priority: Medium)_
 - **FED-006** — Interference with state election systems _(status: Candidate; priority: Medium)_

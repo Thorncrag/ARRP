@@ -8,11 +8,11 @@ remedy_type: federal-legislation
 legislative_status: working-draft
 legislative_proposal: "../../../legislation/JUD-011.md"
 alternative_legislative_proposal: "../../../legislation/FUND-001.md"
-audit_status: "T4 publication-ready audit complete; qualified review pending"
+audit_status: "T4 publication-ready audit complete; NASA anticipatory-implementation manifestation change-audited; qualified review pending"
 audit_score: 83
-audit_last_type: "T4 publication-ready audit"
-audit_last_date: "2026-07-13"
-audit_next: "Qualified appropriations, federal-courts, budget, and legislative-counsel review"
+audit_last_type: "NASA manifestation targeted Change Audit"
+audit_last_date: "2026-07-15"
+audit_next: "Qualified appropriations, federal-courts, budget, and legislative-counsel review; obtain NASA program-level apportionment, reprogramming, and obligation records"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -55,6 +55,10 @@ An executive order may purport to reorder spending, program eligibility, enforce
 ### Impoundment by directive rather than by formal rescission or deferral
 
 The Impoundment Control Act already regulates [rescissions](https://uscode.house.gov/view.xhtml?req=%28title%3A2+section%3A683+edition%3Aprelim%29) and [deferrals](https://uscode.house.gov/view.xhtml?req=%28title%3A2+section%3A684+edition%3Aprelim%29), but a President may try to achieve similar effects through directives framed as policy review, apportionment management, grant-condition revision, emergency implementation, legal-position review, or agency reorganization. This can turn nonspending into a practical veto of statutory programs. In [*Train v. City of New York*](https://www.govinfo.gov/app/details/USREPORTS-420/USREPORTS-420-35), the Supreme Court rejected executive nonspending that frustrated Congress's statutory allotment direction.
+
+### Anticipatory implementation of rejected NASA cuts
+
+NASA's fiscal year 2026 [budget request](https://www.nasa.gov/fy-2026-budget-request/) proposed $18.8 billion, down from about $24.8 billion in fiscal year 2025, but Congress later provided roughly $24.4 billion. A [House Science Committee Democratic staff report](https://democrats-science.house.gov/imo/media/doc/SST%20Minority%20Staff%20Report%20-%20NASA%20Implementation%20of%20FY26%20PBR%20-%20April%202026.pdf) stated that NASA officials nevertheless began implementing requested reductions during 2025, including terminating work and dispersing personnel on the Electrified Powertrain Flight Demonstration after the request proposed no funding; NASA's later [spending plan](https://www.nasa.gov/wp-content/uploads/2026/07/nasa-fy2026-spending-plan-for-appropriations-provided-by-pl11974.pdf) included $40 million for the project. The episode illustrates how anticipatory program-execution decisions can impair Congress's ability to preserve a program even when it rejects a proposed cut. No court or GAO has found an Impoundment Control Act violation in this episode, and program-level apportionment, reprogramming, and obligation records remain necessary to establish unlawful withholding.
 
 ### Executive-order volume and judicial-review comparator
 
@@ -176,7 +180,7 @@ Budget authority is likely required. The standalone bill authorizes necessary OM
 >
 > —
 >
-> **Audit Status:** T4 publication-ready audit complete; qualified review pending<br />**Last Audit:** T4 publication-ready audit (2026-07-13)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Change Audit:** Current for JUD-011 coverage, the standalone alternative, and both budget pathways<br />**Next Audit:** Qualified appropriations, federal-courts, budget, and legislative-counsel review<br />**Full Audit History:** [FUND-001 audit history](FUND-001.audit.md)
+> **Audit Status:** T4 publication-ready audit complete; NASA anticipatory-implementation manifestation change-audited; qualified review pending<br />**Last Audit:** NASA manifestation targeted Change Audit (2026-07-15)<br />**Rubric Version:** `2026-06-27.2`; **Rebaseline:** `current`<br />**Change Audit:** Current for the NASA manifestation, JUD-011 coverage, the standalone alternative, and both budget pathways<br />**Next Audit:** Qualified appropriations, federal-courts, budget, and legislative-counsel review; obtain NASA program-level apportionment, reprogramming, and obligation records<br />**Full Audit History:** [FUND-001 audit history](FUND-001.audit.md)
 
 ## Annotation
 

@@ -27,6 +27,18 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn("SUBJECT_INDEX.md", sources)
         self.assertIn("topics/README.md", sources)
         self.assertIn("topics/project-2025.md", sources)
+        self.assertIn("topics/campaign-finance.md", sources)
+        self.assertIn("topics/civil-rights.md", sources)
+        self.assertIn("topics/doge-and-agency-dismantling.md", sources)
+        self.assertIn("topics/elections.md", sources)
+        self.assertIn("topics/epstein-files.md", sources)
+        self.assertIn("topics/executive-orders-and-presidential-power.md", sources)
+        self.assertIn("topics/federal-pressure-on-states-and-cities.md", sources)
+        self.assertIn("topics/government-spending-and-impoundment.md", sources)
+        self.assertIn("topics/immigration-enforcement.md", sources)
+        self.assertIn("topics/january-6.md", sources)
+        self.assertIn("topics/presidential-accountability.md", sources)
+        self.assertIn("topics/weaponization-of-justice.md", sources)
         self.assertTrue(
             all(
                 source in {"README.md", "SUBJECT_INDEX.md", "AUTHORS.md", "LICENSE.md"}
@@ -59,6 +71,39 @@ class PublicSitePreparationTests(unittest.TestCase):
             '"Project 2025": topics/project-2025.md',
             config,
         )
+        self.assertIn('"Campaign Finance": topics/campaign-finance.md', config)
+        self.assertIn('"Civil Rights": topics/civil-rights.md', config)
+        self.assertIn(
+            '"DOGE and Agency Dismantling": topics/doge-and-agency-dismantling.md',
+            config,
+        )
+        self.assertIn('"Elections": topics/elections.md', config)
+        self.assertIn('"Epstein Files": topics/epstein-files.md', config)
+        self.assertIn(
+            '"Executive Orders and Presidential Power": topics/executive-orders-and-presidential-power.md',
+            config,
+        )
+        self.assertIn(
+            '"Federal Pressure on States and Cities": topics/federal-pressure-on-states-and-cities.md',
+            config,
+        )
+        self.assertIn(
+            '"Government Spending and Impoundment": topics/government-spending-and-impoundment.md',
+            config,
+        )
+        self.assertIn(
+            '"Immigration Enforcement": topics/immigration-enforcement.md',
+            config,
+        )
+        self.assertIn('"January 6": topics/january-6.md', config)
+        self.assertIn(
+            '"Presidential Accountability": topics/presidential-accountability.md',
+            config,
+        )
+        self.assertIn(
+            '"Weaponization of Justice": topics/weaponization-of-justice.md',
+            config,
+        )
         self.assertIn('"Subject and Institution Index": SUBJECT_INDEX.md', config)
         self.assertIn('"A-01 / DOJ — Department of Justice"', config)
         self.assertIn('"Proposed Legislation"', config)
@@ -75,6 +120,8 @@ class PublicSitePreparationTests(unittest.TestCase):
         stylesheet = (self.docs / "assets" / "stylesheets" / "extra.css").read_text()
         self.assertIn(".arrp-issue-status", stylesheet)
         self.assertIn(".arrp-page-actions", stylesheet)
+        self.assertIn("h1#explore-by-topic", stylesheet)
+        self.assertIn("grid-template-columns: repeat(2", stylesheet)
 
     def test_generated_legislation_index_has_revision_date(self):
         index = (self.docs / "legislation" / "index.md").read_text(encoding="utf-8")
@@ -84,27 +131,61 @@ class PublicSitePreparationTests(unittest.TestCase):
         )
 
     def test_topic_guide_is_a_nonauthoritative_routing_page(self):
-        guide = (ROOT / "topics" / "project-2025.md").read_text(encoding="utf-8")
-        for heading in (
-            "## Topic Overview",
-            "## Relevant ARRP Records",
-            "## Topic Crosswalk",
-            "## Scope Boundary",
-        ):
-            self.assertIn(heading, guide)
-        for disallowed in (
-            "## Methodology",
-            "Gap / next action",
-            "## ARRP Coverage Assessment",
-            "### Highest-priority gaps",
-            "## Proposal Scoring",
-            "## Budgetary Impact",
-            "## Prior ARRP Dispositions",
-            "HOR-011",
-            "HOR-015",
-            "HOR-018",
-        ):
-            self.assertNotIn(disallowed, guide)
+        guides = sorted((ROOT / "topics").glob("*.md"))
+        guides = [guide for guide in guides if guide.name != "README.md"]
+        for path in guides:
+            with self.subTest(guide=path.name):
+                guide = path.read_text(encoding="utf-8")
+                for heading in (
+                    "## Overview",
+                    "## Relevant Proposals",
+                    "## What ARRP Does and Does Not Address",
+                ):
+                    self.assertIn(heading, guide)
+                self.assertIn("| Public concern | Applicable proposals |", guide)
+                if "## How Concerns Map to Proposals" in guide:
+                    self.assertIn(
+                        "| Public concern | Applicable proposals | How ARRP addresses it |",
+                        guide,
+                    )
+                for heading in (
+                    "## Relevant Proposals",
+                    "## How Concerns Map to Proposals",
+                ):
+                    if heading not in guide:
+                        continue
+                    routing_table = guide.split(heading, 1)[1].split("\n## ", 1)[0]
+                    self.assertNotRegex(
+                        routing_table,
+                        r"\]\(\.\./areas/[^)]+/README\.md\)",
+                    )
+                for disallowed in (
+                    "Reader concern",
+                    "## Topic Overview",
+                    "## Relevant ARRP Records",
+                    "## Topic Crosswalk",
+                    "## Scope Boundary",
+                    "## Sources and Currency",
+                    "## Rejected or Outside-Scope Concepts",
+                    "Authoritative ARRP route",
+                    "nonauthoritative reader guide",
+                    "records that own",
+                    "proposal vehicles",
+                    "institutional homes",
+                    "| Public concern | ARRP route |",
+                    "| Record | Function |",
+                    "## Methodology",
+                    "Gap / next action",
+                    "## ARRP Coverage Assessment",
+                    "### Highest-priority gaps",
+                    "## Proposal Scoring",
+                    "## Budgetary Impact",
+                    "## Prior ARRP Dispositions",
+                    "HOR-011",
+                    "HOR-015",
+                    "HOR-018",
+                ):
+                    self.assertNotIn(disallowed, guide)
 
     def test_manifest_is_written(self):
         written = json.loads((ROOT / ".site-build" / "public-manifest.json").read_text())

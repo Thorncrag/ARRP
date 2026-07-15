@@ -7,7 +7,7 @@ print_levels:
 
 # ARRP Subject and Institution Index
 
-This is a living lookup index for finding the ARRP record that addresses a subject, government body, or other institution. Readers seeking explanatory synthesis across multiple proposals may instead begin with the [Topic Guides](topics/README.md). Both routes supplement the ordered [Project Areas index](areas/README.md); neither creates issue boundaries or replaces issue pages, area pages, the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2), or the [GitHub issue registry](inventory/github_issue_registry.csv).
+This is a living lookup index for finding the ARRP proposal that addresses a subject, government body, or other institution. Readers starting with a broad public subject may instead [Explore by Topic](topics/README.md). Both routes supplement the ordered [Project Areas index](areas/README.md); neither creates issue boundaries or replaces issue pages, area pages, the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2), or the [GitHub issue registry](inventory/github_issue_registry.csv).
 
 Entities, topics, acronyms, and common aliases appear together in one alphabetical sequence so readers do not need to decide which kind of term they are searching. Canonical entries provide one or more linked ARRP identifiers; **See** entries redirect especially common alternate terms to the canonical listing rather than duplicating its destinations. In a canonical entry, the **bold first identifier** is the preferred route. Additional identifiers appear only when they provide a useful alternate route; they do not imply shared issue ownership. An `A-##` identifier routes to an area page when the term is broader than a single issue or no standalone issue page exists.
 
@@ -23,16 +23,17 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Administrative Office of the United States Courts (AOUSC) | **[A-04](areas/JUD/README.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [JUD-005](areas/JUD/issues/JUD-005.md); [JUD-011](areas/JUD/issues/JUD-011.md) |
 | Agency abolition, closure, dismantlement, hollowing out, or functional nullification | **[REG-001](areas/REG/issues/REG-001.md)**; [FUND-003](areas/FUND/README.md); [CIV-008](areas/CIV/README.md); [JUD-011](areas/JUD/issues/JUD-011.md) |
 | Agency independence; independent commissions; removal protection | **[REG-001](areas/REG/issues/REG-001.md)**; [A-21](areas/FRB/README.md) |
-| Appropriations; impoundment; rescissions; withholding; reprogramming | **[A-11](areas/FUND/README.md)**; [FUND-001](areas/FUND/issues/FUND-001.md); [FUND-002](areas/FUND/issues/FUND-002.md); [JUD-011](areas/JUD/issues/JUD-011.md) |
+| Appropriations; impoundment; rescissions; withholding; reprogramming | **[Government Spending and Impoundment](topics/government-spending-and-impoundment.md)**; [A-11](areas/FUND/README.md); [FUND-001](areas/FUND/issues/FUND-001.md); [FUND-002](areas/FUND/issues/FUND-002.md); [JUD-011](areas/JUD/issues/JUD-011.md) |
 | Asylum; Temporary Protected Status (TPS); humanitarian review | **[RIGHTS-002](areas/RIGHTS/issues/RIGHTS-002.md)**; [RIGHTS-004](areas/RIGHTS/issues/RIGHTS-004.md) |
 | Audit immunity, presidential | See *Internal Revenue Service (IRS); audit immunity; presidential tax administration; executive self-litigation*. |
 | Authorization for Use of Military Force (AUMF) | See *War powers; AUMFs; hostilities; military force*. |
 | Ballot access; candidate access; presidential debates | **[ELEC-013](areas/ELEC/issues/ELEC-013.md)**; [ELEC-015](areas/ELEC/issues/ELEC-015.md) |
 | Birthright citizenship; citizenship records; federal identity documents | **[RIGHTS-003](areas/RIGHTS/issues/RIGHTS-003.md)**; [RIGHTS-001](areas/RIGHTS/issues/RIGHTS-001.md) |
 | Bureau of Justice Statistics (BJS) | **[DOJ-003](areas/DOJ/issues/DOJ-003.md)** |
-| Campaign finance; corporate political spending; dark money; super PACs | **[ELEC-012](areas/ELEC/issues/ELEC-012.md)**; [A-06](areas/EMOL/README.md) |
+| Campaign finance; corporate political spending; dark money; super PACs | **[Campaign Finance](topics/campaign-finance.md)**; [ELEC-012](areas/ELEC/issues/ELEC-012.md); [A-06](areas/EMOL/README.md) |
 | Candidate access | See *Ballot access; candidate access; presidential debates*. |
 | Charging decisions; selective prosecution; politically selective enforcement | **[DOJ-003](areas/DOJ/issues/DOJ-003.md)**; [DOJ-002](areas/DOJ/issues/DOJ-002.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
+| Civil rights; anti-discrimination; identity and citizenship records; humanitarian protection | **[Civil Rights](topics/civil-rights.md)**; [RIGHTS-001](areas/RIGHTS/issues/RIGHTS-001.md); [RIGHTS-002](areas/RIGHTS/issues/RIGHTS-002.md); [RIGHTS-003](areas/RIGHTS/issues/RIGHTS-003.md); [RIGHTS-004](areas/RIGHTS/issues/RIGHTS-004.md) |
 | Civil service; Schedule F or Schedule Policy/Career; loyalty tests; reductions in force | **[A-08](areas/CIV/README.md)**; [REG-001](areas/REG/issues/REG-001.md) |
 | Classification; declassification; security clearances; national-security information | **[A-07](areas/CLASS/README.md)**; [RET-007](areas/RET/README.md); [A-13](areas/REC/README.md) |
 | Classified information | See *Classification; declassification; security clearances; national-security information*. |
@@ -50,16 +51,17 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Dark money | See *Campaign finance; corporate political spending; dark money; super PACs*. |
 | Debate gatekeeping | **[ELEC-013](areas/ELEC/issues/ELEC-013.md)**; [ELEC-012](areas/ELEC/issues/ELEC-012.md) |
 | Defense Department (U.S. Department of Defense; DOD), Armed Forces, and National Guard | **[WAR-001](areas/WAR/issues/WAR-001.md)**; [A-14](areas/DOM/README.md) |
-| District of Columbia government | **[A-20](areas/FED/README.md)**; [A-02](areas/ELEC/README.md); [A-24](areas/RIGHTS/README.md) |
-| DOGE (Department of Government Efficiency) and United States DOGE Service | **[CIV-009](areas/CIV/README.md)**; [REG-001](areas/REG/issues/REG-001.md) |
+| District of Columbia government | **[A-20](areas/FED/README.md)**; [A-02](areas/ELEC/README.md); [A-24](areas/RIGHTS/README.md); [Civil Rights](topics/civil-rights.md) |
+| DOGE (Department of Government Efficiency) and United States DOGE Service | **[DOGE and Agency Dismantling](topics/doge-and-agency-dismantling.md)**; [CIV-009](areas/CIV/README.md); [REG-001](areas/REG/issues/REG-001.md) |
 | DOJ independence; White House contacts; case-specific interference | **[DOJ-002](areas/DOJ/issues/DOJ-002.md)**; [DOJ-001](areas/DOJ/issues/DOJ-001.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
 | DOJ OIG | See *Justice Department Office of Inspector General (DOJ OIG)*. |
 | DOJ professional qualifications; discipline; recusal | **[DOJ-005](areas/DOJ/issues/DOJ-005.md)**; [DOJ-009](areas/DOJ/issues/DOJ-009.md); [DOJ-001](areas/DOJ/issues/DOJ-001.md) |
 | Education Department (U.S. Department of Education; ED) | **[REG-001](areas/REG/issues/REG-001.md)**; [RIGHTS-001](areas/RIGHTS/issues/RIGHTS-001.md); [A-11](areas/FUND/README.md) |
-| Election administration; federal interference; State and local officials | **[ELEC-001](areas/ELEC/issues/ELEC-001.md)**; [ELEC-002](areas/ELEC/issues/ELEC-002.md); [ELEC-007](areas/ELEC/issues/ELEC-007.md); [ELEC-014](areas/ELEC/issues/ELEC-014.md) |
+| Elections; election administration; election integrity; federal interference | **[Elections](topics/elections.md)**; [ELEC-001](areas/ELEC/issues/ELEC-001.md); [FED-003](areas/FED/issues/FED-003.md); [ELEC-002](areas/ELEC/issues/ELEC-002.md); [ELEC-007](areas/ELEC/issues/ELEC-007.md); [ELEC-014](areas/ELEC/issues/ELEC-014.md) |
 | Election Assistance Commission (EAC) | **[A-02](areas/ELEC/README.md)**; [REG-001](areas/REG/issues/REG-001.md); [ELEC-001](areas/ELEC/issues/ELEC-001.md); [ELEC-003](areas/ELEC/issues/ELEC-003.md); [ELEC-013](areas/ELEC/issues/ELEC-013.md) |
 | Election certification and canvassing | **[ELEC-002](areas/ELEC/issues/ELEC-002.md)**; [ELEC-005](areas/ELEC/issues/ELEC-005.md); [ELEC-008](areas/ELEC/issues/ELEC-008.md) |
-| Election interference | See *Election administration; federal interference; State and local officials*. |
+| Election fraud; voter fraud | See *Elections; election administration; election integrity; federal interference*. |
+| Election interference | See *Elections; election administration; election integrity; federal interference*. |
 | Election litigation; civil subpoenas; audits; inspection demands | **[ELEC-004](areas/ELEC/issues/ELEC-004.md)**; [ELEC-014](areas/ELEC/issues/ELEC-014.md) |
 | Election officials | See *State and local election officials, canvassing boards, and certification bodies*. |
 | Election workers; threats; protection; continuity | **[ELEC-003](areas/ELEC/issues/ELEC-003.md)**; [ELEC-007](areas/ELEC/issues/ELEC-007.md) |
@@ -67,11 +69,11 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Emergency economic powers; IEEPA; sanctions; asset blocking | **[EMERG-003](areas/EMERG/issues/EMERG-003.md)**; [EMERG-001](areas/EMERG/README.md); [EMERG-002](areas/EMERG/README.md) |
 | Emergency powers | See *National emergency declarations*. See also *Emergency economic powers; IEEPA; sanctions; asset blocking*. |
 | Emoluments; presidential conflicts of interest; private financial benefit | **[A-06](areas/EMOL/README.md)**; [EMOL-015](areas/EMOL/issues/EMOL-015.md); [HER-003](areas/HER/README.md) |
-| Epstein files; Epstein Files Transparency Act; DOJ disclosure compliance | **[JUD-011](areas/JUD/issues/JUD-011.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [JUD-005](areas/JUD/issues/JUD-005.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
+| Epstein files; Epstein Files Transparency Act; DOJ disclosure compliance | **[Epstein Files](topics/epstein-files.md)**; [JUD-011](areas/JUD/issues/JUD-011.md); [JUD-001](areas/JUD/issues/JUD-001.md); [JUD-005](areas/JUD/issues/JUD-005.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
 | Executive noncompliance | See *Congressional mandates; executive noncompliance; anti-nullification review*. |
 | Executive noncompliance with judicial orders; congressional notice; public register | **[JUD-005](areas/JUD/issues/JUD-005.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
 | Executive Office of the President (EOP) and White House | **[DOJ-002](areas/DOJ/issues/DOJ-002.md)**; [FUND-001](areas/FUND/issues/FUND-001.md); [JUD-011](areas/JUD/issues/JUD-011.md); [REG-001](areas/REG/issues/REG-001.md); [EMOL-015](areas/EMOL/issues/EMOL-015.md) |
-| Executive orders; unilateral domestic policy | **[FUND-001](areas/FUND/issues/FUND-001.md)**; [JUD-011](areas/JUD/issues/JUD-011.md); [REG-001](areas/REG/issues/REG-001.md) |
+| Executive orders; unilateral domestic policy; presidential power | **[Executive Orders and Presidential Power](topics/executive-orders-and-presidential-power.md)**; [FUND-001](areas/FUND/issues/FUND-001.md); [JUD-011](areas/JUD/issues/JUD-011.md); [REG-001](areas/REG/issues/REG-001.md) |
 | Executive privilege | See *Congressional oversight; subpoenas; executive privilege; testimonial immunity*. |
 | Executive self-litigation | See *Internal Revenue Service (IRS); audit immunity; presidential tax administration; executive self-litigation*. |
 | Federal Bureau of Investigation (FBI) | **[A-01](areas/DOJ/README.md)**; [DOM-005](areas/DOM/issues/DOM-005.md); [DOJ-002](areas/DOJ/issues/DOJ-002.md); [DOJ-003](areas/DOJ/issues/DOJ-003.md); [ELEC-014](areas/ELEC/issues/ELEC-014.md) |
@@ -84,7 +86,8 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Federal Reserve Board and Federal Reserve System | **[A-21](areas/FRB/README.md)** |
 | Federal Trade Commission (FTC) | **[REG-001](areas/REG/issues/REG-001.md)**; [REG-002](areas/REG/README.md); [REG-006](areas/REG/README.md) |
 | Federal workforce | See *Civil service; Schedule F or Schedule Policy/Career; loyalty tests; reductions in force*. |
-| Federalism; State coercion; State investigative authority | **[A-20](areas/FED/README.md)**; [DOM-005](areas/DOM/issues/DOM-005.md); [ELEC-001](areas/ELEC/issues/ELEC-001.md); [ELEC-003](areas/ELEC/issues/ELEC-003.md) |
+| Federal grant conditions; funding leverage; State coercion | **[FED-003](areas/FED/issues/FED-003.md)**; [A-11](areas/FUND/README.md) |
+| Federal pressure on States and cities; federalism; State coercion; State investigative authority | **[Federal Pressure on States and Cities](topics/federal-pressure-on-states-and-cities.md)**; [A-20](areas/FED/README.md); [FED-003](areas/FED/issues/FED-003.md); [DOM-005](areas/DOM/issues/DOM-005.md); [ELEC-001](areas/ELEC/issues/ELEC-001.md) |
 | Foreign sanctions | See *Emergency economic powers; IEEPA; sanctions; asset blocking*. |
 | Freedom of the press; press access; reporter subpoenas; source protection | **[A-22](areas/PRESS/README.md)**; [DOJ-002](areas/DOJ/issues/DOJ-002.md); [RET-006](areas/RET/README.md) |
 | General Services Administration (GSA) | **[ELEC-006](areas/ELEC/issues/ELEC-006.md)** |
@@ -92,16 +95,18 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Government Accountability Office (GAO) | **[A-11](areas/FUND/README.md)**; [FUND-001](areas/FUND/issues/FUND-001.md); [FUND-002](areas/FUND/issues/FUND-002.md); [REG-001](areas/REG/issues/REG-001.md); [DOJ-003](areas/DOJ/issues/DOJ-003.md) |
 | Government records; presidential records; archives; private messaging | **[A-13](areas/REC/README.md)**; [A-07](areas/CLASS/README.md); [A-18](areas/FACT/README.md) |
 | Historic federal property; White House alteration; civic heritage | **[A-23](areas/HER/README.md)**; [A-06](areas/EMOL/README.md); [A-10](areas/EMERG/README.md) |
-| Homeland Security Department (U.S. Department of Homeland Security; DHS) | **[A-14](areas/DOM/README.md)**; [DOM-005](areas/DOM/issues/DOM-005.md); [DOM-009](areas/DOM/issues/DOM-009.md); [ELEC-007](areas/ELEC/issues/ELEC-007.md); [A-24](areas/RIGHTS/README.md) |
+| Homeland Security Department (U.S. Department of Homeland Security; DHS) | **[A-14](areas/DOM/README.md)**; [FED-003](areas/FED/issues/FED-003.md); [DOM-005](areas/DOM/issues/DOM-005.md); [DOM-009](areas/DOM/issues/DOM-009.md); [ELEC-007](areas/ELEC/issues/ELEC-007.md); [A-24](areas/RIGHTS/README.md) |
+| Homeland Security Grant Program (HSGP) | **[FED-003](areas/FED/issues/FED-003.md)** |
 | IEEPA (International Emergency Economic Powers Act) | See *Emergency economic powers; IEEPA; sanctions; asset blocking*. |
-| Immigration and Customs Enforcement (ICE), Customs and Border Protection (CBP), and Homeland Security Investigations (HSI) | **[A-14](areas/DOM/README.md)**; [DOM-005](areas/DOM/issues/DOM-005.md); [DOM-009](areas/DOM/issues/DOM-009.md); [RIGHTS-004](areas/RIGHTS/issues/RIGHTS-004.md) |
-| Immigration; removal due process; system integrity | **[RIGHTS-004](areas/RIGHTS/issues/RIGHTS-004.md)**; [RIGHTS-002](areas/RIGHTS/issues/RIGHTS-002.md); [A-14](areas/DOM/README.md) |
+| Immigration and Customs Enforcement (ICE), Customs and Border Protection (CBP), and Homeland Security Investigations (HSI) | **[A-14](areas/DOM/README.md)**; [FED-003](areas/FED/issues/FED-003.md); [DOM-005](areas/DOM/issues/DOM-005.md); [DOM-009](areas/DOM/issues/DOM-009.md); [RIGHTS-004](areas/RIGHTS/issues/RIGHTS-004.md) |
+| Immigration enforcement; removal due process; sanctuary policies; system integrity | **[Immigration Enforcement](topics/immigration-enforcement.md)**; [RIGHTS-004](areas/RIGHTS/issues/RIGHTS-004.md); [RIGHTS-002](areas/RIGHTS/issues/RIGHTS-002.md); [FED-003](areas/FED/issues/FED-003.md); [A-14](areas/DOM/README.md) |
 | Impoundment | See *Appropriations; impoundment; rescissions; withholding; reprogramming*. |
 | Independent agencies | See *Agency independence; independent commissions; removal protection*. |
 | Independent counsel; investigation of presidential or senior executive misconduct | **[DOJ-007](areas/DOJ/issues/DOJ-007.md)**; [IMM-001](areas/IMM/issues/IMM-001.md); [JUD-011](areas/JUD/issues/JUD-011.md) |
 | Inspectors General; Council of the Inspectors General on Integrity and Efficiency (CIGIE); whistleblowers; internal oversight | **[A-09](areas/OVS/README.md)**; [DOJ-003](areas/DOJ/issues/DOJ-003.md); [DOJ-005](areas/DOJ/issues/DOJ-005.md); [REG-001](areas/REG/issues/REG-001.md) |
 | Internal Revenue Service (IRS); audit immunity; presidential tax administration; executive self-litigation | **[EMOL-015](areas/EMOL/issues/EMOL-015.md)**; [A-06](areas/EMOL/README.md); [RET-005](areas/RET/README.md) |
 | International Criminal Court (ICC); sanctions; international criminal accountability | **[EMERG-003](areas/EMERG/issues/EMERG-003.md)** |
+| January 6; 2020 election aftermath; election subversion | **[January 6](topics/january-6.md)**; [ELEC-001](areas/ELEC/issues/ELEC-001.md); [ELEC-002](areas/ELEC/issues/ELEC-002.md); [ELEC-005](areas/ELEC/issues/ELEC-005.md); [ELEC-008](areas/ELEC/issues/ELEC-008.md); [IMM-001](areas/IMM/issues/IMM-001.md) |
 | Judicial capacity; emergency dockets; judgeships; court funding | **[JUD-010](areas/JUD/README.md)**; [A-04](areas/JUD/README.md); [JUD-011](areas/JUD/issues/JUD-011.md) |
 | Judicial recusal; judges appointed by a litigant-president | **[JUD-009](areas/JUD/issues/JUD-009.md)**; [EMOL-015](areas/EMOL/issues/EMOL-015.md) |
 | Justice Department (U.S. Department of Justice; DOJ) | **[A-01](areas/DOJ/README.md)**; [JUD-001](areas/JUD/issues/JUD-001.md); [DOM-005](areas/DOM/issues/DOM-005.md); [ELEC-014](areas/ELEC/issues/ELEC-014.md); [EMOL-015](areas/EMOL/issues/EMOL-015.md) |
@@ -125,19 +130,21 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Pardons; clemency; self-pardon; corrupt pardon use | **[A-05](areas/PAR/README.md)**; [A-16](areas/IMM/README.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
 | Political failures; legislative inaction; preferred policy outcomes | **[Scope boundary](framework/FRAMEWORK.md#political-failure-boundary)** |
 | Postal Service, U.S. (USPS) | **[ELEC-010](areas/ELEC/issues/ELEC-010.md)** |
+| Presidential accountability; immunity; independent investigation; pardon abuse | **[Presidential Accountability](topics/presidential-accountability.md)**; [IMM-001](areas/IMM/issues/IMM-001.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md); [JUD-001](areas/JUD/issues/JUD-001.md); [EMOL-015](areas/EMOL/issues/EMOL-015.md); [A-05](areas/PAR/README.md) |
 | Presidential debates | See *Ballot access; candidate access; presidential debates*. |
 | Presidential immunity; official acts; statutes of limitation | **[IMM-001](areas/IMM/issues/IMM-001.md)**; [A-16](areas/IMM/README.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
 | Presidential pardons | See *Pardons; clemency; self-pardon; corrupt pardon use*. |
 | Presidential records | See *Government records; presidential records; archives; private messaging*. |
 | Presidential transition; ascertainment; agency cooperation | **[ELEC-006](areas/ELEC/issues/ELEC-006.md)**; [A-13](areas/REC/README.md) |
 | Press freedom | See *Freedom of the press; press access; reporter subpoenas; source protection*. |
-| Project 2025; Mandate for Leadership; institutional-risk crosswalk | **[Project 2025](topics/project-2025.md)** |
-| Puerto Rico government and territorial institutions | **[A-20](areas/FED/README.md)**; [A-02](areas/ELEC/README.md); [A-24](areas/RIGHTS/README.md) |
+| Project 2025; Mandate for Leadership; proposal mapping | **[Project 2025](topics/project-2025.md)** |
+| Puerto Rico government and territorial institutions | **[A-20](areas/FED/README.md)**; [A-02](areas/ELEC/README.md); [A-24](areas/RIGHTS/README.md); [Civil Rights](topics/civil-rights.md) |
 | Ranked-choice voting; runoffs; majority-choice election methods | **[ELEC-015](areas/ELEC/issues/ELEC-015.md)**; [ELEC-013](areas/ELEC/issues/ELEC-013.md) |
 | Redistricting; gerrymandering; vote dilution; representation safeguards | **[ELEC-011](areas/ELEC/issues/ELEC-011.md)**; [A-24](areas/RIGHTS/README.md) |
 | Regulatory retaliation; politically selective grants, contracts, tax, or licensing pressure | **[A-19](areas/RET/README.md)**; [A-17](areas/REG/README.md); [A-22](areas/PRESS/README.md) |
 | Rejected, retired, and outside-scope candidates | **[HOR disposition log](framework/HORIZON_SCAN_LOG.md#horizon-integration-log)** |
 | Sanctions | See *Emergency economic powers; IEEPA; sanctions; asset blocking*. |
+| Sanctuary jurisdictions; sanctuary policies | See *Immigration enforcement; removal due process; sanctuary policies; system integrity*. |
 | Schedule F; Schedule Policy/Career | See *Civil service; Schedule F or Schedule Policy/Career; loyalty tests; reductions in force*. |
 | Scientific, statistical, and factual integrity; government information manipulation | **[A-18](areas/FACT/README.md)**; [A-13](areas/REC/README.md); [A-22](areas/PRESS/README.md) |
 | Self-pardon | See *Pardons; clemency; self-pardon; corrupt pardon use*. |
@@ -153,7 +160,9 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | USMS (U.S. Marshals Service) | See *Marshals Service, U.S. (USMS)*. |
 | USPS (U.S. Postal Service) | See *Postal Service, U.S. (USPS)*. |
 | Vote by mail; absentee voting | See *Mail-in and absentee voting; postal disruption; ballot cure*. |
+| Voting rights; voting access; representative fairness | **[Civil Rights](topics/civil-rights.md)**; [ELEC-010](areas/ELEC/issues/ELEC-010.md); [ELEC-011](areas/ELEC/issues/ELEC-011.md) |
 | War powers; AUMFs; hostilities; military force | **[WAR-001](areas/WAR/issues/WAR-001.md)**; [A-10](areas/EMERG/README.md); [A-11](areas/FUND/README.md) |
+| Weaponization of justice; politicized investigation, prosecution, or enforcement | **[Weaponization of Justice](topics/weaponization-of-justice.md)**; [DOJ-002](areas/DOJ/issues/DOJ-002.md); [DOJ-003](areas/DOJ/issues/DOJ-003.md); [DOJ-004](areas/DOJ/issues/DOJ-004.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md); [ELEC-014](areas/ELEC/issues/ELEC-014.md) |
 | Whistleblowers | See *Inspectors General; Council of the Inspectors General on Integrity and Efficiency (CIGIE); whistleblowers; internal oversight*. |
 | White House interference with criminal matters | See *DOJ independence; White House contacts; case-specific interference*. |
 

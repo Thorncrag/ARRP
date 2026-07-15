@@ -14,6 +14,22 @@ This file preserves the full audit history for [FUND-001](FUND-001.md). The issu
 
 Entries are maintained newest first. Change Audits preserve the existing score unless the audit identifies a score-bearing defect and recalculates the proposal under the current rubric.
 
+### 2026-07-15 — NASA manifestation targeted Change Audit
+
+**Audit type:** Targeted Change Audit and Internal Remedy-Fit Audit; not a T0-T4 run and no score recalculation.
+
+**Scope:** Added a concise NASA fiscal year 2026 manifestation distinguishing the administration's proposed reduction, Congress's later funding level, and alleged anticipatory program-execution effects. Reviewed the Institutional Anomaly, Manifestations, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, both legislative pathways, and Annotation for continued alignment.
+
+**Source and qualification finding:** Official NASA materials establish the $18.8 billion request and the later approximately $24.4 billion spending plan, including $40 million for the Electrified Powertrain Flight Demonstration. A House Science Committee Democratic staff report supplies the allegation that NASA officials began implementing the requested reductions before enactment, including terminating project work and dispersing personnel. The issue page identifies the report's institutional and partisan source, does not characterize its findings as adjudicated, and states that no court or GAO has found an Impoundment Control Act violation in the episode. Program-level apportionment, reprogramming, and obligation records remain an express evidentiary need.
+
+**Internal Remedy-Fit finding:** The episode remains within FUND-001 because it concerns alleged executive-branch direction implemented through program execution, contracts, personnel, and appropriated-fund administration in anticipation of a budget Congress had not enacted. It illustrates the existing facts-on-the-ground theory without expanding FUND-001 into a general NASA, workforce, or agency-capacity proposal. The manifestation does not itself satisfy FUND-001's repeated-final-judgment trigger, and the page makes no such claim. JUD-011 remains the preferred general remedy; the standalone FUND-001 bill remains the complete appropriations-specific alternative.
+
+**Style and section-fit finding:** The episode is confined to one titled manifestation paragraph with nearby citations and necessary limiting language. No program-by-program NASA analysis was added to the issue page or Annotation.
+
+**Score and run effect:** No score change. FUND-001 remains 83/100 (Review Ready) under rubric `2026-06-27.2`. The new manifestation adds a current concrete example but does not resolve the existing cross-administration comparator, program-record, qualified-review, fiscal-estimate, deadline-validation, or adoption gaps. This Change Audit does not increment Runs.
+
+**Next audit need:** Qualified appropriations, federal-courts, budget, program-administration, and legislative-counsel review; obtain and evaluate NASA program-level apportionment, reprogramming, obligation, and contract-termination records before asserting an ICA violation.
+
 ### 2026-07-13 — T4 publication-ready audit
 
 **Audit type:** Cumulative T4 publication-ready audit under rubric `2026-06-27.2`.
