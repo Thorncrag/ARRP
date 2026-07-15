@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
+| Status | Inactive |
 | Active issue/task | JUD-005 |
 | Audit type/tier | T1 framework check |
 | Started | 2026-07-15 08:14:58 -0400 |
-| Last checkpoint | 2026-07-15; substantive T1 complete and locally validated; GitHub Project synchronization pending |
+| Last checkpoint | 2026-07-15; T1 completed, published, synchronized, and verified |
 | User request | Run JUD-005's recorded next audit. |
 | Scope | JUD-005 issue page, independent legislation, audit sidecar, preferred JUD-001 and conditional DOJ-007 fit, sources, navigation, GitHub issue and Project fields, validation, publication, and dashboard readback. |
 | Files touched | `areas/JUD/README.md`; `areas/JUD/issues/JUD-001.md`; `areas/JUD/issues/JUD-001.audit.md`; `areas/JUD/issues/JUD-005.md`; `areas/JUD/issues/JUD-005.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-001.md`; `legislation/JUD-005.md`; `legislation/README.md`. |
-| Completed steps | Completed the T1 framework, current-law, statutory-placement, navigation, pathway, budget, and internal-fit review; assigned 63/100; promoted JUD-005 to Developed Draft; revised the standalone bill; completed the companion JUD-001 Change Audit; added sources and navigation; passed local validation; and updated/read back GitHub issue 44 through the connected GitHub app. |
-| Next step | Commit and push the repository changes; set JUD-005 Project fields to Developed draft, Score 63, Runs 1, current rebaseline, no Change Audit, and the recorded T1/T2 audit summaries; update JUD-001's Last audit field; then refresh and verify the dashboard and public-site workflows. |
-| Blockers/questions | GitHub CLI authentication for `Thorncrag` is invalid. The connected GitHub app can update the issue wrapper but does not expose Projects v2 fields. |
-| Validation status | Passed: `git diff --check`; 18 repository tests; source CSV shape and unique-ID check; public-site preparation with 105 canonical pages, one generated page, and no dashboard publication. GitHub issue 44 update read back successfully. |
+| Completed steps | Completed the T1 framework, current-law, statutory-placement, navigation, pathway, budget, and internal-fit review; assigned 63/100; promoted JUD-005 to Developed Draft; revised the standalone bill; completed the companion JUD-001 Change Audit; added sources and navigation; passed local validation; updated/read back GitHub issue 44; committed and pushed the audit; synchronized/read back JUD-005 and JUD-001 Project fields; and refreshed/read back the Review Ready dashboard. |
+| Next step | JUD-005 T2 source and legal-fit audit when requested. |
+| Blockers/questions | None. The initial CLI authentication warning was caused by sandbox keychain isolation; the authenticated CLI worked outside the sandbox and required no user credential change. |
+| Validation status | Passed: `git diff --check`; 18 repository tests; source CSV shape and unique-ID check; public-site preparation with 105 canonical pages, one generated page, and no dashboard publication; GitHub issue 44 readback; JUD-005 Project readback at Developed draft, Score 63, Runs 1, Current, Change audit No; JUD-001 Last audit readback; public-site workflow run 29415538154; dashboard workflow run 29415665582; and generated-dashboard JUD-005 row readback. |
 
 ## Handoff Rules
 
