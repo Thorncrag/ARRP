@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active — first approved portfolio-consolidation batch implemented locally; GitHub synchronization, validation, commit, push, and dashboard refresh pending |
+| Status | Inactive — first approved portfolio-consolidation batch complete, synchronized, validated, committed, pushed, and published |
 | Active issue/task | High-confidence proposal consolidation for EMOL, FRB, HER, REC, RET, PAR, and CONG, following the completed APPT architecture pass |
 | Audit type/tier | Issue-admission and portfolio-consolidation implementation; no T-audit run |
 | Started | 2026-07-16 |
-| Last checkpoint | 2026-07-16; local area, registry, route, source, methodology, and planning records updated for a 55-record reduction from 198 to 143 active proposals |
+| Last checkpoint | 2026-07-16; commit `4f586ac` pushed, GitHub records read back, dashboard refreshed, and public site deployed |
 | User request | Proceed with the recommended first high-confidence consolidation batch after systematically reviewing all remaining areas. |
 | Scope | EMOL, FRB, HER, REC, RET, PAR, and CONG receiving records and absorbed candidates; repository routes, registry classifications, GitHub issue wrappers and Project cards, planning denominator, and dashboard. APPT remains part of the same uncommitted architecture package. Existing unrelated working-tree changes preserved. |
 | Files touched | Area pages for APPT, EMOL, FRB, HER, REC, RET, PAR, and CONG; APPT issue and legislative files; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; framework and workflow records; affected topic, subject-index, issue, legislation, and research cross-references; portfolio review memorandum. |
-| Completed steps | Approved consolidation architecture applied locally; receiving records retitled and marked In development without score or Runs changes; 54 absorbed candidates classified as merged proposals; CONG-008 classified as a retired proposal because the asserted failure is political rather than independently remediable; old source and navigation routes redirected; compact area-page disposition tables added; preliminary portfolio memorandum marked partially implemented. |
-| Next step | Synchronize 62 affected GitHub issue wrappers and the seven receiving Project rows; remove 55 inactive Project cards; read back authoritative fields; rebuild generated review-console data; validate all totals and links; commit and push; refresh and verify the Review Ready dashboard at 143 total, 27 Review Ready, and 116 remaining. |
+| Completed steps | Approved consolidation architecture applied; 62 affected issue wrappers synchronized; seven receiving records retitled and marked In development without score or Runs changes; 54 absorbed candidates classified as merged proposals; CONG-008 classified as a retired proposal because the asserted failure is political rather than independently remediable; 55 inactive Project cards removed; Project fields and titles read back; old source and navigation routes redirected; compact area-page disposition tables added; review console rebuilt; CSV, JavaScript, publication-boundary, and strict site validations passed; commit `4f586ac` pushed; dashboard and public site workflows completed successfully. |
+| Next step | Select the next separately reviewable consolidation batch from the partially implemented portfolio memorandum. The recommended sequence is FUND, IMM, JUD, EMERG, DOM, and CIV, with source and vehicle checks before each receiving record is expanded. |
 | Blockers/questions | None for the approved batch. The remaining portfolio recommendations—including OVS-008, the REG process lanes, PRESS versus RET ownership, RIGHTS-004, HOR-027, and the final target denominator—remain pending user review. |
-| Validation status | In progress. Local registry target is 143 active proposals; GitHub synchronization and final validation remain pending. |
+| Validation status | Passed. Registry and Project reconcile to 143 active proposals; 27 are Review Ready and 116 remain; required pace is 4.83 per week; dashboard reports no warnings and On track with a current October 19 forecast; all inactive batch cards are absent; receiving Project rows preserve Score 0 and Runs 0; 795 source records and all research CSVs parse with unique IDs; generated console JavaScript passes syntax checks; `git diff --check`, the public-site preparation gate, and strict MkDocs build pass; public deployment succeeded. |
 
 ## Handoff Rules
 
