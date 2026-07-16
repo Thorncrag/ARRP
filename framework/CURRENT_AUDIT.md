@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: active
+status: inactive
 print_levels:
   - full-technical
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active — completing the remaining portfolio-consolidation review through the recommended full architecture |
-| Active issue/task | Remaining high-confidence and boundary-sensitive proposal consolidations after the completed APPT and first implementation batches |
+| Status | Inactive — portfolio-consolidation review complete |
+| Active issue/task | None |
 | Audit type/tier | Issue-admission, portfolio consolidation, and required targeted Change Audits; no T-audit run |
 | Started | 2026-07-16 |
-| Last checkpoint | 2026-07-16; user directed completion of the review in full before the next final dashboard refresh |
+| Last checkpoint | 2026-07-16; full architecture implemented, synchronized, validated, published, and dashboard-refreshed |
 | User request | Finish the systematic portfolio review and implementation in full before manually updating the progress dashboard. |
 | Scope | FUND, IMM, JUD, EMERG, DOM, CIV, CLASS, FACT, FED, OVS, PRESS, REG, and RIGHTS; no-change verification for DOJ, ELEC, and WAR; all receiving and absorbed records, developed-proposal Change Audits, repository routes, registry classifications, GitHub issue wrappers and Project cards, final denominator, and dashboard. |
-| Files touched | Area pages for APPT, EMOL, FRB, HER, REC, RET, PAR, and CONG; APPT issue and legislative files; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; framework and workflow records; affected topic, subject-index, issue, legislation, and research cross-references; portfolio review memorandum. |
-| Completed steps | Approved consolidation architecture applied; 62 affected issue wrappers synchronized; seven receiving records retitled and marked In development without score or Runs changes; 54 absorbed candidates classified as merged proposals; CONG-008 classified as a retired proposal because the asserted failure is political rather than independently remediable; 55 inactive Project cards removed; Project fields and titles read back; old source and navigation routes redirected; compact area-page disposition tables added; review console rebuilt; CSV, JavaScript, publication-boundary, and strict site validations passed; commit `4f586ac` pushed; dashboard and public site workflows completed successfully. |
-| Next step | Inventory every remaining receiving record, vehicle, audit state, and Project row; apply the recommended conservative boundary decisions; then synchronize, validate, commit, push, and run one final dashboard refresh. |
-| Blockers/questions | None. For previously identified boundary questions, use the memorandum's conservative recommendations: retain OVS-008; retain REG-002, REG-003, and REG-006; retain a press-specific PRESS-006 with RET-001 coordination; retire RIGHTS-004 in its current omnibus form while preserving its narrow routes; keep HOR-027 integrated for monitoring rather than creating another active proposal; use 77 active proposals as the implemented working architecture. |
-| Validation status | In progress. The interim dashboard was manually refreshed after the first batch, but final metrics will be regenerated only after the complete architecture is synchronized. |
+| Files touched | All affected area pages; developed receiving issue pages and audit sidecars; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; framework, topic, Subject Index, legislation, research, review-console, public-site, and dashboard-test surfaces documented in commit `c9da288`. |
+| Completed steps | Implemented the 77-proposal architecture; classified 127 records as merged and 2 as retired; preserved and closed all inactive GitHub issues without deletion; removed 66 obsolete Project cards; retained OVS-008, REG-002/003/006, and press-specific PRESS-006; retired RIGHTS-004 as an omnibus proposal; kept HOR-027 integrated and monitored; completed targeted Change Audits for developed receiving records without changing scores or Runs; synchronized Project fields and read them back; rebuilt the 1,361-record Horizon console with current display routes; passed all 19 tests, CSV and JavaScript checks, publication preparation, and strict site build; pushed commit `c9da288`; verified successful public-site and manual dashboard workflows. Final dashboard: 77 total, 27 Review Ready, 50 remaining, 2.08 required per week, no warnings. |
+| Next step | None. Await the user's next proposal or review priority. |
+| Blockers/questions | None. |
+| Validation status | Passed. GitHub issue, Project, public-site, and generated-dashboard readbacks completed. |
 
 ## Handoff Rules
 
