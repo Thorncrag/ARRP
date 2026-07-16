@@ -63,7 +63,8 @@ class HorizonIntakeTest(unittest.TestCase):
         queued_ids = [row["catalog_id"] for row in self.existing_issue_integration]
         active_ids = {row["catalog_id"] for row in self.catalog}
         source_ids = {row["Source ID"] for row in self.sources}
-        self.assertEqual(len(queued_ids), 54)
+        self.assertEqual(len(queued_ids), 2)
+        self.assertEqual(set(queued_ids), {"TAC-IPI1-005", "TAC-IPI1-170"})
         self.assertEqual(len(queued_ids), len(set(queued_ids)))
         self.assertFalse(set(queued_ids) & active_ids)
         for row in self.existing_issue_integration:
@@ -76,17 +77,23 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertTrue(canonical_ids <= source_ids)
         self.assertEqual(self.console["existing_issue_queue"], len(queued_ids))
 
-    def test_qualitatively_placed_pilot_sources_are_on_issue_pages(self) -> None:
+    def test_qualitatively_placed_sources_are_on_issue_pages(self) -> None:
         placements = {
-            "DOJ-002": "docs.justia.com/cases/federal/district-courts/district-of-columbia",
-            "REG-001": "fec.gov/documents/5867/usdcdc-mem-opinion-06-03-2025.pdf",
-            "RIGHTS-002": "law.justia.com/cases/federal/appellate-courts/ca9/18-16981",
+            "DOJ-002": ["docs.justia.com/cases/federal/district-courts/district-of-columbia"],
+            "REG-001": ["fec.gov/documents/5867/usdcdc-mem-opinion-06-03-2025.pdf"],
+            "RIGHTS-001": [
+                "law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2018cv01076",
+                "supremecourt.gov/opinions/19pdf/19-431_5i36.pdf",
+            ],
+            "RIGHTS-002": ["law.justia.com/cases/federal/appellate-courts/ca9/18-16981"],
         }
-        for issue_id, source_fragment in placements.items():
+        for issue_id, source_fragments in placements.items():
             area = issue_id.split("-", 1)[0]
             issue_path = ROOT / "areas" / area / "issues" / f"{issue_id}.md"
             evidence_path = ROOT / "areas" / area / "evidence" / f"{issue_id}-evidence.md"
-            self.assertIn(source_fragment, issue_path.read_text(encoding="utf-8"))
+            issue_text = issue_path.read_text(encoding="utf-8")
+            for source_fragment in source_fragments:
+                self.assertIn(source_fragment, issue_text)
             self.assertFalse(evidence_path.exists())
 
     def test_resolved_preliminary_candidates_leave_active_queue(self) -> None:

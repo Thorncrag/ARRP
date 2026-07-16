@@ -44,6 +44,10 @@ Project 2025 materials should be treated as a vulnerability map even where a par
 
 The existing Project 2025 crosswalk identifies proposals to eliminate DEI and gender-identity protections across agencies and to restrict Title IX gender-identity policies and related guidance as possible civil-rights, factual-integrity, and regulatory-neutrality vulnerabilities. See the [Project 2025 topic guide and crosswalk](../../../topics/project-2025.md) and the official [Heritage Mandate for Leadership Series](https://www.heritage.org/mandate).
 
+### Fair-housing implementation tools
+
+HUD withdrew a standardized local-government assessment tool used to administer the statutory duty to affirmatively further fair housing. A federal court dismissed the resulting challenge for lack of standing and also concluded that HUD had adequately explained the withdrawal; the underlying statutory duty remained. See [*National Fair Housing Alliance v. Carson*](https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2018cv01076/196383/47/). The episode illustrates how an executive agency may materially change the administrative method for carrying out a continuing civil-rights mandate without eliminating the mandate itself.
+
 ### DEI program, contractor, and grantee targeting
 
 Executive Order 14151 directs agencies to terminate federal diversity, equity, inclusion, and accessibility programs, positions, plans, grants, contracts, equity-related actions, and related environmental-justice offices. See [Executive Order 14151, 90 Fed. Reg. 8339 (Jan. 29, 2025)](https://www.federalregister.gov/documents/2025/01/29/2025-01953/ending-radical-and-wasteful-government-dei-programs-and-preferencing).
@@ -167,6 +171,8 @@ RIGHTS-001 is a candidate issue admitted from HOR-015. It receives a proposal-qu
 
 The page intentionally avoids deciding the merits of every sex-specific law, gender-identity policy, athletics policy, or civil-rights claim. Its current role is to isolate the institutional weakness: government-wide civil-rights administration can be rapidly redefined through executive definitions, records systems, funding leverage, guidance rescission, and privacy-sensitive enforcement tools.
 
+The issue must also preserve lawful policy-change authority. In [*Little Sisters of the Poor Saints Peter and Paul Home v. Pennsylvania*](https://www.supremecourt.gov/opinions/19pdf/19-431_5i36.pdf), the Supreme Court held that Congress had delegated broad authority to create contraceptive-coverage exemptions and that the agencies satisfied the challenged Administrative Procedure Act requirements. A future remedy should therefore focus on statutory boundaries, transparent procedure, reliance, records, and review—not freeze every prior civil-rights or benefits-administration policy.
+
 ## Source Notes
 
-Primary source development should begin with Executive Orders 14151, 14168, and 14173; *United States v. Skrmetti*; *West Virginia v. B. P. J.*; Project 2025 / Heritage materials; and the dockets behind the passport, DEI/grant-condition, contractor-certification, prison/detention, public-health-information, and medical-record cases. Secondary reporting may be used to identify events, but final drafting should rely on official orders, docket filings, statutes, regulations, agency guidance, and congressional materials wherever available.
+Primary source development should begin with Executive Orders 14151, 14168, and 14173; *United States v. Skrmetti*; *West Virginia v. B. P. J.*; *Little Sisters of the Poor*; *National Fair Housing Alliance v. Carson*; Project 2025 / Heritage materials; and the dockets behind the passport, DEI/grant-condition, contractor-certification, prison/detention, public-health-information, and medical-record cases. Secondary reporting may be used to identify events, but final drafting should rely on official orders, docket filings, statutes, regulations, agency guidance, and congressional materials wherever available.

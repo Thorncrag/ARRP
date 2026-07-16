@@ -13,7 +13,7 @@ This is a source-development intake for locating potentially repairable institut
 The first machine-normalized baseline contains **1,322 source records**: **776 first-term records** and **546 second-term records**. They come from seven differently structured trackers and therefore are not yet 1,322 unique government actions. Cross-source duplicates remain visible until the record, challenged action, and final judicial posture can be reconciled without losing provenance.
 
 - [Action-level legal-review catalog](trump-administration-legal-review-catalog.csv)
-- [Priority disposition review](trump-administration-priority-disposition-review.csv)
+- [Completed priority-disposition staging queue](trump-administration-priority-disposition-review.csv) (empty after adjudication)
 - [Media-supported episode intake](trump-administration-media-review-intake.csv)
 - [Source-universe and completeness ledger](trump-administration-source-universe.csv)
 - [Evidence-routing ledger](trump-administration-evidence-routing.csv)
@@ -62,7 +62,7 @@ This rule explains the catalog's current screening distribution:
 
 The totals are source records, not deduplicated actions.
 
-The separate priority worksheet applies only a provisional text classification to the 56 high-priority records: 25 appear to involve merits permission, 4 appear to turn on threshold or reviewability grounds, 8 appear to involve preliminary or remedial denials, 9 have mixed or later-modified outcomes, and 10 still require manual classification. These labels are navigation aids, not substitutes for the controlling opinions.
+The initial priority worksheet applied provisional text classifications to 56 high-priority records. It was a temporary work queue, not a permanent evidence ledger, and is now empty after adjudication. The review confirmed that outcome labels alone do not establish an institutional defect: most records reflected ordinary policy adjudication, preliminary-relief decisions, later-modified outcomes, or topical overlap without additional reader-facing value. The permanent results now reside in `inventory/sources.csv`, on the relevant issue pages, in the HOR-036 monitoring record, or—only where development remains incomplete—in the two-row [existing-issue integration queue](existing-issue-evidence-integration.csv).
 
 ## Present Source Coverage
 
@@ -156,14 +156,13 @@ An action that fits one of these lanes should normally become a manifestation, s
 
 ## Next Compilation Pass
 
-1. Review the per-record routes in the [evidence-routing ledger](trump-administration-evidence-routing.csv) by receiving proposal and verify the most useful evidence against primary materials. Apply the qualitative placement rule: strengthen the issue page when its material premise needs better support; use a linked evidence record only after the issue page is sufficiently evidenced and additional reader-useful material warrants separate treatment; retain merely cumulative material in `sources.csv` only with an express no-additional-reader-value finding; and keep incomplete work in the [existing-issue evidence integration queue](existing-issue-evidence-integration.csv) rather than manufacturing a placeholder.
-2. Complete controlling-opinion review of the 56 records in the [priority disposition review](trump-administration-priority-disposition-review.csv), replacing its preliminary text classification with verified merits, threshold, finality, and remedy coding.
-3. Reconcile semantic duplicates across the Just Security, immigration, Policy Integrity, retaliation, human-rights, Public Citizen, and science-integrity sources while preserving every source URL, the independently useful contribution of each record, and its issue or candidate route.
-4. Ingest official findings from GAO, OSC, inspectors general, congressional reports, and published judicial noncompliance records so the catalog is not litigation-plaintiff biased.
-5. Ingest specialist first-term ethics, conflicts, records, science, environmental, civil-rights, election, appointments, and war-powers sources from the completeness ledger.
-6. Continue the media lane across both terms using the two-independent-source threshold; retrieve primary instruments for qualified episodes before proposal-page use.
-7. Add stable official-action identifiers—Executive Order, proclamation, memorandum, Federal Register citation, rule identifier, agency directive, or docket—where available.
-8. Apply the full ARRP duplicate and issue-admission tests only after source and posture normalization. No catalog or media record should become a Horizon item automatically.
+1. Review the 1,266 per-record routes in the [evidence-routing ledger](trump-administration-evidence-routing.csv) by receiving proposal and verify the most useful evidence against primary materials. Apply the qualitative placement rule: strengthen the issue page when its material premise needs better support; use a linked evidence record only after the issue page is sufficiently evidenced and additional reader-useful material warrants separate treatment; retain merely cumulative material in `sources.csv` only with an express no-additional-reader-value finding; and keep incomplete work in the [existing-issue evidence integration queue](existing-issue-evidence-integration.csv) rather than manufacturing a placeholder. The queue presently retains only the OSHA reporting record for FACT-001 and the bump-stock rulemaking record for REG-006 because neither proposal yet has an issue page.
+2. Reconcile semantic duplicates across the Just Security, immigration, Policy Integrity, retaliation, human-rights, Public Citizen, and science-integrity sources while preserving every source URL, the independently useful contribution of each record, and its issue or candidate route.
+3. Ingest official findings from GAO, OSC, inspectors general, congressional reports, and published judicial noncompliance records so the catalog is not litigation-plaintiff biased.
+4. Ingest specialist first-term ethics, conflicts, records, science, environmental, civil-rights, election, appointments, and war-powers sources from the completeness ledger.
+5. Continue the media lane across both terms using the two-independent-source threshold; retrieve primary instruments for qualified episodes before proposal-page use.
+6. Add stable official-action identifiers—Executive Order, proclamation, memorandum, Federal Register citation, rule identifier, agency directive, or docket—where available.
+7. Apply the full ARRP duplicate and issue-admission tests only after source and posture normalization. No catalog or media record should become a Horizon item automatically.
 
 ## Maintenance Rule
 

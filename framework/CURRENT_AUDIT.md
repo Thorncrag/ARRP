@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: active
 print_levels:
   - full-technical
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — completed and pushed |
-| Active issue/task | None |
-| Audit type/tier | Project methodology and source development; no T-audit run |
+| Status | Active — validation and publication of the completed 54-record adjudication |
+| Active issue/task | Route-centered qualitative evidence review |
+| Audit type/tier | Source development and qualitative placement review; no T-audit run |
 | Started | 2026-07-16 |
-| Last checkpoint | 2026-07-16; qualitative evidence-placement correction committed as `2a29eae`, pushed to `origin/main`, and verified against the affected GitHub Project rows |
-| User request | Restore the previously established qualitative placement rule and correct the mechanical creation of one-item evidence pages. |
-| Scope | DOJ-002, REG-001, and RIGHTS-002 evidence placement; issue-evidence methodology and template; adjudication safeguards; source records; tests; and consolidated Change Audit documentation. |
-| Files touched | `areas/DOJ/evidence/DOJ-002-evidence.md` (removed); `areas/DOJ/issues/DOJ-002.md`; `areas/REG/evidence/REG-001-evidence.md` (removed); `areas/REG/issues/REG-001.md`; `areas/RIGHTS/evidence/RIGHTS-002-evidence.md` (removed); `areas/RIGHTS/issues/RIGHTS-002.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`; `framework/ISSUE_EVIDENCE_TEMPLATE.md`; `framework/METHODOLOGY.md`; `inventory/sources.csv`; `research/trump-administration-legal-review-intake.md`; `scripts/apply_source_adjudication.py`; `tests/test_horizon_intake.py`; `tests/test_source_adjudication.py`. |
-| Completed steps | Removed the three unwarranted one-item evidence pages; placed the DOJ-002 and REG-001 boundary decisions concisely in Annotation and the vacated RIGHTS-002 opinion in Source Notes; restored a qualitative sufficiency-and-reader-value standard throughout methodology, template, intake instructions, source records, automation, tests, and the consolidated Change Audit entry; retained the 54 incomplete episode tasks; and passed all 34 tests, public-site preparation, stale-link review, and diff validation. |
-| Next step | None. Apply the qualitative sufficiency-and-reader-value test during the next source-adjudication batch. |
+| Last checkpoint | 2026-07-16; all 54 routes adjudicated and local validation passed |
+| User request | Complete the 54-record existing-issue evidence integration queue before returning to the 1,266-record discovery catalog. |
+| Scope | All 54 queued judicial-disposition episodes; their current and possible receiving issues; controlling source verification; qualitative placement; source registry; queue reconciliation; affected issue pages; tests; and GitHub lifecycle fields. |
+| Files touched | `areas/RIGHTS/issues/RIGHTS-001.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `research/existing-issue-evidence-integration.csv`; `research/horizon-review-console/catalog-data.js`; `research/trump-administration-legal-review-intake.md`; `tests/test_horizon_intake.py`. |
+| Completed steps | Adjudicated all 54 routes; placed two controlling decisions on RIGHTS-001; retained two high-value records for future FACT-001 and REG-006 development; reconciled source associations; rebuilt the console; synchronized Project lifecycle statuses; and confirmed that scores, Runs, and Review Ready progress remain unchanged. |
+| Next step | Commit and push the validated batch, then close this handoff in a follow-up commit. |
 | Blockers/questions | None. |
-| Validation status | Passed: 34 unit tests, public-site preparation, stale evidence-link search, and `git diff --check`. |
+| Validation status | Passed: 34 unit tests, public-site preparation check, CSV integrity checks, console count reconciliation, and `git diff --check`. |
 
 ## Handoff Rules
 
