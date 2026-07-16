@@ -23,9 +23,9 @@ This page connects commonly recognized Project 2025 themes to the ARRP proposals
 | --- | --- |
 | Presidential control of DOJ, investigations, or enforcement | [DOJ-003](../areas/DOJ/issues/DOJ-003.md) and [DOJ-007](../areas/DOJ/issues/DOJ-007.md) |
 | Presidential refusal to carry out laws, maintain agencies or programs, or spend appropriated funds | [JUD-011](../areas/JUD/issues/JUD-011.md), [REG-001](../areas/REG/issues/REG-001.md), and [FUND-001](../areas/FUND/issues/FUND-001.md) |
-| Political control of career civil servants and circumvention of appointment safeguards | CIV-001, CIV-003, [APPT-001](../areas/APPT/issues/APPT-001.md), and APPT-004 |
-| Emergency authority and domestic enforcement | EMERG-001, [EMERG-003](../areas/EMERG/issues/EMERG-003.md), EMERG-004, DOM-001, DOM-004, and [WAR-001](../areas/WAR/issues/WAR-001.md) |
-| Government information, science, and civil-rights administration | FACT-001, FACT-002, FACT-004, FACT-006, and [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) |
+| Political control of career civil servants and circumvention of appointment safeguards | CIV-001, [APPT-001](../areas/APPT/issues/APPT-001.md), and APPT-004 |
+| Emergency authority and domestic enforcement | EMERG-001, [EMERG-003](../areas/EMERG/issues/EMERG-003.md), DOM-001, and [WAR-001](../areas/WAR/issues/WAR-001.md) |
+| Government information, science, and civil-rights administration | FACT-001 and [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) |
 
 ## How Concerns Map to Proposals
 
@@ -34,13 +34,13 @@ This page connects commonly recognized Project 2025 themes to the ARRP proposals
 | Schedule F-style reclassification or loyalty-based control of career officials | CIV-001 | Addresses political reclassification of protected career positions. |
 | Centralized Office of Management and Budget control, withholding funds, or refusal to spend appropriations | [FUND-001](../areas/FUND/issues/FUND-001.md) and [JUD-011](../areas/JUD/issues/JUD-011.md) | Address failures to carry out congressional mandates and appropriations. |
 | Presidential control of DOJ or retaliatory enforcement | [DOJ-003](../areas/DOJ/issues/DOJ-003.md) and [DOJ-007](../areas/DOJ/issues/DOJ-007.md) | Address selective enforcement and independent investigation. |
-| Immigration, asylum, detention, or large-scale interior enforcement | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) and [RIGHTS-004](../areas/RIGHTS/issues/RIGHTS-004.md) | Separate access to humanitarian review from comprehensive immigration-system reform. |
+| Immigration, asylum, detention, or large-scale interior enforcement | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) and DOM-001 | Separate access to humanitarian review from domestic deployment authority; broader immigration-policy choices remain outside ARRP absent a narrower institutional defect. |
 | Abolition, closure, or disabling of agencies created by Congress | [REG-001](../areas/REG/issues/REG-001.md) | Addresses agency continuity and presidential refusal to carry out enacted law. |
 | Government-wide sex definitions, identity records, or civil-rights administration | [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) | Addresses civil-rights administration and identity records. |
-| Suppression or distortion of government science, statistics, or public information | FACT-001, FACT-002, FACT-004, and FACT-006 | Separate scientific alteration, dataset suppression, statistical interference, and suppression of unfavorable findings. |
+| Suppression or distortion of government science, statistics, or public information | FACT-001 | Addresses scientific alteration, dataset suppression, statistical interference, and suppression of unfavorable findings within one technical-integrity framework. |
 | Presidential control over independent regulators or removal used to evade confirmation and succession safeguards | [REG-001](../areas/REG/issues/REG-001.md) and [APPT-001](../areas/APPT/issues/APPT-001.md) | REG-001 addresses protected independence and functional disablement; APPT-001 addresses removal only when combined with vacancy, delegation, or succession practices that defeat confirmation or an appointment backstop. |
-| Emergency or national-security authority used to bypass ordinary limits | EMERG-001, [EMERG-003](../areas/EMERG/issues/EMERG-003.md), EMERG-004, DOM-001, DOM-004, and [WAR-001](../areas/WAR/issues/WAR-001.md) | Separate open-ended emergencies, emergency powers used instead of legislation, border declarations, domestic force, and external force. |
-| Government pressure on media, platforms, or protected public information | PRESS-001, PRESS-004, PRESS-005, and PRESS-006 | Separate denial of access, regulatory retaliation, commercial pressure, and misuse of official power. |
+| Emergency or national-security authority used to bypass ordinary limits | EMERG-001, [EMERG-003](../areas/EMERG/issues/EMERG-003.md), DOM-001, and [WAR-001](../areas/WAR/issues/WAR-001.md) | Separates general emergencies, economic emergency powers, domestic force, and external force. |
+| Government pressure on media, platforms, or protected public information | PRESS-001 and PRESS-006 | Separates denial of access from governmental retaliation. |
 | Tax rates, benefit levels, energy production, or other ordinary policy choices | None | ARRP does not address those choices unless they reveal a separate institutional weakness. |
 
 ## What ARRP Does and Does Not Address

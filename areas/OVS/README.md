@@ -2,7 +2,7 @@
 area_id: A-09
 title: "Inspectors General, Whistleblowers, and Internal Oversight"
 status: active
-issue_count: 8
+issue_count: 3
 print_levels:
   - public-proposal
   - full-technical
@@ -15,17 +15,26 @@ print_levels:
 
 Internal watchdogs lack sufficient independence, access, tenure protection, remedial authority, and enforcement capacity to investigate executive misconduct when agency leadership or the president resists.
 
-## Issues
+## Active Issues
 
-- **OVS-001** — Removal or intimidation of inspectors general _(status: Candidate; priority: High)_
-- **OVS-002** — Use of acting officials to weaken independence _(status: Candidate; priority: High)_
-- **OVS-003** — Denial of records, access, or testimony _(status: Candidate; priority: High)_
-- **OVS-004** — Retaliation against whistleblowers _(status: Candidate; priority: High)_
-- **OVS-005** — Suppression or delay of reports _(status: Candidate; priority: High)_
-- **OVS-006** — Inability to enforce recommendations _(status: Candidate; priority: High)_
-- **OVS-007** — Weak congressional notification and follow-up _(status: Candidate; priority: High)_
-- **OVS-008** — Insufficient independence of internal ethics offices _(status: Candidate; priority: High)_
+- **OVS-001** — Inspector General Independence, Access, Reporting, and Follow-Through _(status: In development; priority: High)_
+- **OVS-004** — Retaliation Against Whistleblowers _(status: Candidate; priority: High)_
+- **OVS-008** — Independence of Internal Ethics Offices _(status: Candidate; priority: High)_
+
+## Undeveloped Candidate Dispositions
+
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+
+| Record | Disposition |
+| --- | --- |
+| OVS-002, OVS-003, OVS-005, OVS-006, OVS-007 | Merged into OVS-001 as acting-service, records-access, report, recommendation, congressional-notice, and follow-through components of one inspector-general framework. |
+
+## Issue Boundaries
+
+- **OVS-001** owns inspector-general appointment and acting service, removal, access, testimony, reporting, recommendation follow-through, and congressional notification. Cross-reference [APPT-001](../APPT/issues/APPT-001.md) for generally applicable acting-service rules.
+- **OVS-004** remains separate because whistleblower coverage, disclosures, retaliation, confidentiality, administrative exhaustion, and rapid individual relief require a different legal framework.
+- **OVS-008** remains separate because internal ethics offices have distinct advisory, disclosure, recusal, discipline, privilege, and enforcement functions that are not equivalent to statutory inspectors general.
 
 ## Notes
 
-Provisional inventory; full source development pending.
+OVS-001 is in development after consolidation. OVS-004 and OVS-008 remain unresolved candidates. Full source development and initial vehicles are pending.

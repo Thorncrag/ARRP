@@ -10,8 +10,8 @@ legislative_proposal: "../../../legislation/JUD-011.md"
 alternative_legislative_proposal: "../../../legislation/FUND-001.md"
 audit_status: "T4 publication-ready audit complete; fiscal-scope and title change-audited; qualified review pending"
 audit_score: 83
-audit_last_type: "Fiscal-scope and title targeted Change Audit"
-audit_last_date: "2026-07-15"
+audit_last_type: "Portfolio-consolidation targeted Change Audit"
+audit_last_date: "2026-07-16"
 audit_next: "Qualified appropriations, federal-courts, budget, and legislative-counsel review; obtain NASA program-level apportionment, reprogramming, and obligation records"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
@@ -124,9 +124,9 @@ FUND-001 is a complete appropriations-specific remedy Congress may enact if it r
 ## Relationship to Adjacent Proposals
 
 - **FUND-002** concerns pocket rescissions and strategic delay. FUND-001 owns the repeated-unlawful-directive trigger and fiscal-inertness mechanism.
-- The undeveloped FUND-003, FUND-005, FUND-006, FUND-007, and FUND-008 records remain candidates for later integration as program-nullification, reprogramming, standing, remedy, accountability, and reporting modules; no merger has yet been implemented.
-- FUND-004 remains the candidate home for politically selective withholding of grants or aid, subject to later boundary review with FED-003 and RET-001.
-- EMERG-002 remains the candidate home for emergency authority used to redirect appropriated funds, subject to later consolidation review.
+- FUND-003, FUND-005, FUND-006, FUND-007, and FUND-008 are integrated here as program-nullification, reprogramming, standing, remedy, accountability, and reporting components. The existing issue and standalone bill already address those mechanisms through covered fiscal actions, eligible plaintiffs, specific relief, protected employee reporting, GAO access, and congressional notice.
+- FUND-004 is integrated into [FED-003](../../FED/issues/FED-003.md) for state and local funding coercion and [RET-001](../../RET/README.md) for cross-sector retaliation. FUND-001 remains applicable when the same conduct violates an enacted appropriation or program mandate.
+- EMERG-002 is integrated here as the emergency-authority appropriation-redirection manifestation. [EMERG-001](../../EMERG/README.md) retains declaration, duration, renewal, and general emergency-review rules.
 - [JUD-005](../../JUD/issues/JUD-005.md) supplies automatic public notice after judicially established executive noncompliance; the project does not treat unified-government oversight inaction itself as an independently remediable institutional defect.
 - **FED-003** concerns coercive grant conditions imposed on states or local governments.
 - **JUD-001** concerns judicial enforcement after a court has issued an order requiring executive compliance.

@@ -2,7 +2,7 @@
 area_id: A-16
 title: "Presidential Immunity and Accountability for Official Misconduct"
 status: active
-issue_count: 8
+issue_count: 2
 print_levels:
   - public-proposal
   - full-technical
@@ -15,16 +15,20 @@ print_levels:
 
 The legal system lacks a sufficiently clear, timely, and enforceable framework for holding presidents accountable for criminal, civil, or constitutional misconduct committed while in office or under the asserted mantle of official authority.
 
-## Issues
+## Active Issues
 
 - [IMM-001 — Criminal Immunity for Presidential Official Acts](issues/IMM-001.md)
 - **IMM-002** — Civil immunity and remedial gaps _(status: Candidate; priority: High)_
-- **IMM-003** — Statutes of limitation during presidential tenure _(status: Candidate; priority: High)_
-- **IMM-004** — Restrictions on evidentiary use of official conduct _(status: Candidate; priority: High)_
-- **IMM-005** — Delay as de facto immunity _(status: Candidate; priority: High)_
-- **IMM-006** — Relationship between impeachment and criminal liability _(status: Candidate; priority: High)_
-- **IMM-007** — Self-protective use of presidential powers _(status: Candidate; priority: High)_
-- **IMM-008** — Independent investigation and prosecution mechanisms _(status: Candidate; priority: High)_
+
+## Undeveloped Candidate Dispositions
+
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+
+| Record | Disposition |
+| --- | --- |
+| IMM-003 through IMM-006 | Merged into [IMM-001](issues/IMM-001.md) as tolling, evidentiary-use, delay, and impeachment-prerequisite components of the criminal-immunity framework. |
+| IMM-007 | Integrated into IMM-001 for immunity arising from self-protective official acts and into [DOJ-007](../DOJ/issues/DOJ-007.md) for conflicted investigation and prosecution. |
+| IMM-008 | Merged into DOJ-007, which owns the independent investigative and prosecutorial institution. |
 
 ## Ownership and Cross-Reference
 
@@ -32,8 +36,8 @@ IMM-001 is the primary home for substantive reform of presidential criminal immu
 
 [DOJ-007](../DOJ/issues/DOJ-007.md) owns the independent institutional mechanism for investigation, evidence preservation, prosecution of other persons, and reporting to Congress. The two proposals are independently operable and mutually reinforcing.
 
-IMM-003, IMM-004, IMM-006, and IMM-008 may require later consolidation or narrowing because IMM-001 and DOJ-007 now address portions of their present candidate descriptions. The issue-admission test should be reapplied before separate development.
+IMM-001 incorporates tolling, evidentiary use, delay, impeachment prerequisites, and self-protective official-power applications. DOJ-007 independently owns investigation, evidence preservation, prosecution of other persons, and reporting to Congress. IMM-002 remains separate because civil damages, equitable remedies, statutory causes of action, official-capacity relief, and qualified-immunity interactions require a distinct framework.
 
 ## Notes
 
-IMM-001 is developed. Remaining issues are provisional and require full source development and overlap review.
+IMM-001 remains 78/100 and Review Ready after a targeted consolidation Change Audit confirmed that its amendment already addresses the absorbed criminal-immunity components. IMM-002 remains an unresolved candidate requiring source development.

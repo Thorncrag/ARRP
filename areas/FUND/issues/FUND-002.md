@@ -110,9 +110,7 @@ Future drafting should evaluate whether Congress should:
 
 [FUND-001](FUND-001.md) owns fiscal implementation of executive directives after an impoundment-based pattern trigger. FUND-002 owns pocket rescissions and strategic delay even when there is no executive-directive pattern trigger.
 
-FUND-003 should own agency closure or program nullification through nonspending where the central tactic is dismantling capacity rather than delaying expiring funds.
-
-FUND-006 should own standing and remedies if the primary issue becomes who can sue and what relief is available. FUND-002 should nevertheless include expedited review and availability-extension concepts if they are necessary to stop delay from mooting the appropriation.
+[FUND-001](FUND-001.md) owns agency closure or program nullification through nonspending, standing, and general remedies. FUND-002 remains narrower: it should include only the expedited review and availability-extension concepts necessary to stop strategic delay from mooting an expiring appropriation.
 
 [JUD-001](../../JUD/issues/JUD-001.md) is adjacent where courts issue orders that the executive branch delays or evades. FUND-002 is narrower: it concerns appropriations timing and budget authority.
 

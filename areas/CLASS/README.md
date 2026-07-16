@@ -2,7 +2,7 @@
 area_id: A-07
 title: "Classification, Declassification, and National-Security Information"
 status: active
-issue_count: 12
+issue_count: 4
 print_levels:
   - public-proposal
   - full-technical
@@ -15,21 +15,30 @@ print_levels:
 
 The classification system concentrates broad authority within the executive branch while lacking sufficiently clear, enforceable, and independently reviewable procedures governing presidential classification and declassification decisions, documentation, disclosure, retention, and misuse.
 
-## Issues
+## Active Issues
 
-- **CLASS-001** — Undocumented presidential declassification _(status: Candidate; priority: Medium)_
-- **CLASS-002** — Confusion between declassification and lawful possession _(status: Candidate; priority: Medium)_
-- **CLASS-003** — Unclear statutory exceptions such as Restricted Data _(status: Candidate; priority: Medium)_
-- **CLASS-004** — Classification used to conceal misconduct or embarrassment _(status: Candidate; priority: Medium)_
-- **CLASS-005** — Politically selective declassification _(status: Candidate; priority: Medium)_
-- **CLASS-006** — Inadequate protection against exposure of intelligence sources and methods _(status: Candidate; priority: Medium)_
-- **CLASS-007** — Weak archival and agency implementation procedures _(status: Candidate; priority: Medium)_
-- **CLASS-008** — Overclassification and excessive secrecy _(status: Candidate; priority: Medium)_
-- **CLASS-009** — Insufficient congressional access and oversight _(status: Candidate; priority: Medium)_
-- **CLASS-010** — Limited external review and judicial remedies _(status: Candidate; priority: Medium)_
-- **CLASS-011** — Politicized security-clearance authority _(status: Candidate; priority: Medium)_
-- **CLASS-012** — Inconsistent accountability for unauthorized retention or disclosure _(status: Candidate; priority: Medium)_
+- **CLASS-001** — Presidential Classification, Declassification, Documentation, and Custody _(status: In development; priority: Medium)_
+- **CLASS-004** — Overclassification, Concealment, and Independent Review _(status: In development; priority: Medium)_
+- **CLASS-006** — Protection of Classified Information, Sources, and Methods _(status: In development; priority: Medium)_
+- **CLASS-011** — Security-Clearance Integrity _(status: Candidate; priority: Medium)_
+
+## Undeveloped Candidate Dispositions
+
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+
+| Record | Disposition |
+| --- | --- |
+| CLASS-002, CLASS-003, CLASS-005, CLASS-007 | Merged into CLASS-001 as possession, statutory-exception, selective-declassification, implementation, documentation, and custody components. |
+| CLASS-008, CLASS-009, CLASS-010 | Merged into CLASS-004 as overclassification, congressional-access, external-review, and remedy components of one anti-concealment framework. |
+| CLASS-012 | Merged into CLASS-006 as the accountability component of protecting classified information, intelligence sources, and methods. |
+
+## Issue Boundaries
+
+- **CLASS-001** owns the legal and procedural consequences of presidential classification or declassification decisions, including documentation, custody, possession, statutory exceptions such as Restricted Data, archival implementation, and selective release.
+- **CLASS-004** owns improper secrecy, overclassification, concealment, congressional access, and independent or judicial review.
+- **CLASS-006** owns unauthorized exposure, retention, or disclosure that endangers classified information, intelligence sources, or methods.
+- **CLASS-011** remains separate because security-clearance eligibility and retaliation operate through distinct personnel and national-security processes; cross-reference [RET-001](../RET/README.md) when a clearance action is retaliatory.
 
 ## Notes
 
-Provisional inventory; full source development pending.
+CLASS-001, CLASS-004, and CLASS-006 are in development after consolidation. CLASS-011 remains an unresolved candidate. Full source development and initial vehicles are pending.

@@ -228,6 +228,6 @@ If any provision of this Act or an amendment made by this Act, or the applicatio
 
 ## Drafting Notes
 
-- The draft amends the substantive scope of delegated authority. It does not replace the separate EMERG-005 and EMERG-006 questions concerning congressional approval, termination, and renewal of emergencies.
+- The draft amends the substantive scope of delegated authority. It does not replace EMERG-001's general framework for congressional approval, termination, and renewal of emergencies.
 - The “specific authorization” rule permits Congress to enact the same sanctions policy. It does not treat the failure of H.R. 23 or any other bill as a legal prohibition.
 - The further internal review should test the subsection placements, INA cross-references, review standards, classified-record procedure, transition treatment, and whether further conforming amendments are needed in 31 C.F.R. part 528 or related statutory notes.

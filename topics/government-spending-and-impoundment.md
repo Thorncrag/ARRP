@@ -21,11 +21,11 @@ This page separates general impoundment, pocket rescissions, agency closure thro
 
 | Public concern | Applicable proposals |
 | --- | --- |
-| Executive withholding or redirection of appropriated funds | [FUND-001](../areas/FUND/issues/FUND-001.md), FUND-005, and FUND-008 |
+| Executive withholding, redirection, reprogramming, or reporting failures | [FUND-001](../areas/FUND/issues/FUND-001.md) |
 | Pocket rescissions and strategic delay | [FUND-002](../areas/FUND/issues/FUND-002.md) |
-| Agency closure or program nullification through nonspending | FUND-003 and [REG-001](../areas/REG/issues/REG-001.md) |
-| Politically selective grants or aid conditions | FUND-004 and [FED-003](../areas/FED/issues/FED-003.md) |
-| Standing, remedies, and enforcement of congressional spending mandates | FUND-006 and [JUD-011](../areas/JUD/issues/JUD-011.md) |
+| Agency closure or program nullification through nonspending | [FUND-001](../areas/FUND/issues/FUND-001.md) and [REG-001](../areas/REG/issues/REG-001.md) |
+| Politically selective grants or aid conditions | [FED-003](../areas/FED/issues/FED-003.md) |
+| Standing, remedies, and enforcement of congressional spending mandates | [FUND-001](../areas/FUND/issues/FUND-001.md) and [JUD-011](../areas/JUD/issues/JUD-011.md) |
 
 ## How Concerns Map to Proposals
 
@@ -33,11 +33,11 @@ This page separates general impoundment, pocket rescissions, agency closure thro
 | --- | --- | --- |
 | Refusal to obligate or spend funds Congress appropriated | [FUND-001](../areas/FUND/issues/FUND-001.md) | Addresses impoundment, legal justification, deadlines, reporting, and review. |
 | Rescission request made too late for Congress to act before funds expire | [FUND-002](../areas/FUND/issues/FUND-002.md) | Addresses pocket rescissions and strategic timing. |
-| Nonspending used to close an agency or terminate a mandatory program | FUND-003 and [REG-001](../areas/REG/issues/REG-001.md) | Separates appropriations execution from continuity of functions assigned by Congress. |
-| Grant or aid withholding used to obtain an unrelated policy change | FUND-004 and [FED-003](../areas/FED/issues/FED-003.md) | Addresses political selectivity, germaneness, notice, evidence, and review. |
-| Reprogramming funds beyond congressional intent | FUND-005 | Addresses transfer, reprogramming, notice, and purpose limits. |
-| Inability to obtain timely judicial enforcement | FUND-006 and [JUD-011](../areas/JUD/issues/JUD-011.md) | Addresses plaintiffs, forum, expedited proceedings, and effective remedies. |
-| Delayed or incomplete reporting to Congress and GAO | FUND-008 | Addresses real-time transparency needed for legislative response. |
+| Nonspending used to close an agency or terminate a mandatory program | [FUND-001](../areas/FUND/issues/FUND-001.md) and [REG-001](../areas/REG/issues/REG-001.md) | Separates appropriations execution from continuity of functions assigned by Congress. |
+| Grant or aid withholding used to obtain an unrelated policy change | [FED-003](../areas/FED/issues/FED-003.md) | Addresses political selectivity, germaneness, notice, evidence, and review. |
+| Reprogramming funds beyond congressional intent | [FUND-001](../areas/FUND/issues/FUND-001.md) | Addresses transfer, reprogramming, notice, and purpose limits. |
+| Inability to obtain timely judicial enforcement | [FUND-001](../areas/FUND/issues/FUND-001.md) and [JUD-011](../areas/JUD/issues/JUD-011.md) | Addresses plaintiffs, forum, expedited proceedings, and effective remedies. |
+| Delayed or incomplete reporting to Congress and GAO | [FUND-001](../areas/FUND/issues/FUND-001.md) | Addresses real-time transparency needed for legislative response. |
 
 ## What ARRP Does and Does Not Address
 

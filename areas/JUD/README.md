@@ -2,7 +2,7 @@
 area_id: A-04
 title: "Judicial Independence and Enforcement"
 status: active
-issue_count: 7
+issue_count: 5
 print_levels:
   - public-proposal
   - full-technical
@@ -19,8 +19,6 @@ The federal judiciary’s authority to interpret and apply law is not matched by
 
 - [JUD-001 — Executive Dependence of Judicial Enforcement](issues/JUD-001.md)
 - [JUD-005 — No Automatic Public Notice of Executive Noncompliance](issues/JUD-005.md)
-- **JUD-007** — Evasion through substitution, reorganization, or nominally revised directives _(status: Candidate; priority: High)_
-- **JUD-008** — Insufficient transparency and verification regarding compliance _(status: Candidate; priority: High)_
 - [JUD-009 — Appointer-President Recusal](issues/JUD-009.md)
 - **JUD-010** — Judicial Branch Capacity, Funding, and Emergency Docket Resilience _(status: Candidate; priority: High)_
 - [JUD-011 — Executive Nullification of Congressional Mandates](issues/JUD-011.md)
@@ -31,7 +29,8 @@ These provisional identifiers were adjudicated before development and are retain
 
 | Record | Disposition |
 | --- | --- |
-| JUD-002, JUD-003, JUD-004, JUD-006 | Merged into [JUD-001](issues/JUD-001.md). |
+| JUD-002, JUD-003, JUD-004, JUD-006, JUD-007 | Merged into [JUD-001](issues/JUD-001.md). JUD-007 supplies the evasion-through-substitution, reorganization, and nominally revised directive application. |
+| JUD-008 | Merged into [JUD-005](issues/JUD-005.md) for automatic public compliance verification, with JUD-001 retaining direct evidentiary and enforcement authority. |
 
 ## Issue Boundaries
 
@@ -43,6 +42,8 @@ The candidate was admitted from HOR-017 after a horizon check on judicial branch
 
 [JUD-005](issues/JUD-005.md) concerns the absence of automatic, simultaneous, and public notice after a court formally finds material or willful executive noncompliance. [JUD-001](issues/JUD-001.md) remains the home for direct enforcement and is JUD-005's preferred coordinated vehicle. DOJ-007 is only a conditional escalation path where its independent serious-misconduct and extraordinary-conflict criteria are satisfied. Congress's ultimate political response is outside JUD-005's scope.
 
+JUD-007 is integrated into JUD-001 because substitution of officials, reorganization, or a nominally revised directive is a method of evading an existing judicial command rather than a distinct enforcement institution. JUD-008 is integrated into JUD-005 because public compliance verification is the reporting and notice layer; evidence needed to determine compliance remains within JUD-001's direct enforcement process.
+
 ## Notes
 
-JUD-001, JUD-005, JUD-009, and JUD-011 are developed. JUD-005 received a 63 / 100 score after internal project review and next requires internal project review of Title 28 coverage, transmission mechanics, protected information, congressional distribution, current comparators, workload, and JUD-001 fit. JUD-011 received an 82 / 100 score after internal project review (Review Ready) after publication-level statutory, assignment, procedural, presidential-relief, current-case, prior-proposal, capacity, budget, opposition, and legislative-form review; it now requires qualified constitutional, legislative-counsel, judicial-administration, appropriations, and CBO review before Publication Ready status. JUD-002, JUD-003, JUD-004, and JUD-006 are retired as duplicative of JUD-001's civil-contempt and executive-compliance remedy. Remaining judicial-independence issues are provisional and require full source development.
+JUD-001, JUD-005, JUD-009, and JUD-011 are developed. Targeted consolidation Change Audits preserve JUD-001 at 78/100 and JUD-005 at 63/100 without increasing Runs. JUD-005 next requires T2 review of Title 28 coverage, transmission mechanics, protected information, congressional distribution, current comparators, workload, and JUD-001 fit. JUD-011 remains 82/100 and Review Ready pending qualified review. JUD-010 remains a provisional capacity proposal requiring full source development.

@@ -15,6 +15,38 @@ PRIORITY = ROOT / "research" / "trump-administration-priority-disposition-review
 MEDIA = ROOT / "research" / "trump-administration-media-review-intake.csv"
 OUTPUT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
 
+# Preserve the source catalogs as historical research records while presenting
+# current proposal routes in the review console after portfolio consolidation.
+ROUTE_ALIASES = {
+    "CIV-002": ["CIV-001"], "CIV-003": ["CIV-001"], "CIV-006": ["CIV-001"],
+    "CIV-007": ["CIV-001"], "CIV-008": ["CIV-005"],
+    "CLASS-002": ["CLASS-001"], "CLASS-003": ["CLASS-001"], "CLASS-005": ["CLASS-001"],
+    "CLASS-007": ["CLASS-001"], "CLASS-008": ["CLASS-004"], "CLASS-009": ["CLASS-004"],
+    "CLASS-010": ["CLASS-004"], "CLASS-012": ["CLASS-006"],
+    "DOM-002": ["DOM-001"], "DOM-003": ["DOM-001"], "DOM-004": ["DOM-001"],
+    "DOM-006": ["DOM-001"], "DOM-008": ["DOM-001"],
+    "EMERG-002": ["FUND-001"], "EMERG-004": ["EMERG-001"], "EMERG-005": ["EMERG-001"],
+    "EMERG-006": ["EMERG-001"], "EMERG-007": ["EMERG-001"], "EMERG-008": ["EMERG-001"],
+    "FACT-002": ["FACT-001"], "FACT-003": ["FACT-001"], "FACT-004": ["FACT-001"],
+    "FACT-005": ["FACT-001"], "FACT-006": ["FACT-001"], "FACT-008": ["FACT-001"],
+    "FED-001": ["FED-003"], "FED-005": ["DOM-001"], "FED-006": ["ELEC-014"],
+    "FED-007": ["FED-002"], "FED-008": ["FED-003"],
+    "FUND-003": ["FUND-001"], "FUND-004": ["FED-003", "RET-001"],
+    "FUND-005": ["FUND-001"], "FUND-006": ["FUND-001"], "FUND-007": ["FUND-001"],
+    "FUND-008": ["FUND-001"],
+    "IMM-003": ["IMM-001"], "IMM-004": ["IMM-001"], "IMM-005": ["IMM-001"],
+    "IMM-006": ["IMM-001"], "IMM-007": ["IMM-001", "DOJ-007"], "IMM-008": ["DOJ-007"],
+    "JUD-007": ["JUD-001"], "JUD-008": ["JUD-005"],
+    "OVS-002": ["OVS-001"], "OVS-003": ["OVS-001"], "OVS-005": ["OVS-001"],
+    "OVS-006": ["OVS-001"], "OVS-007": ["OVS-001"],
+    "PRESS-002": ["PRESS-001"], "PRESS-004": ["PRESS-006"], "PRESS-005": ["PRESS-006"],
+    "PRESS-007": ["FACT-001", "FACT-009"], "PRESS-008": ["PRESS-006"],
+    "PRESS-009": ["PRESS-003"], "PRESS-010": ["PRESS-006"], "PRESS-011": ["PRESS-006"],
+    "PRESS-012": ["PRESS-001", "PRESS-003", "PRESS-006"],
+    "REG-007": ["REG-001"], "REG-008": ["REG-001"],
+    "RIGHTS-004": ["RIGHTS-002", "A-14", "FED-003"],
+}
+
 
 PRELIMINARY_GAPS = [
     {
@@ -173,6 +205,18 @@ def link(label: str, url: str) -> dict[str, str] | None:
     return {"label": label, "url": url.strip()}
 
 
+def current_routes(raw: str) -> str:
+    """Translate historical candidate routes to active proposal homes for display."""
+    routes: list[str] = []
+    for route in (part.strip() for part in raw.split(";")):
+        if not route:
+            continue
+        for current in ROUTE_ALIASES.get(route, [route]):
+            if current not in routes:
+                routes.append(current)
+    return "; ".join(routes)
+
+
 def candidate_records() -> list[dict[str, object]]:
     records: list[dict[str, object]] = []
     for gap in PRELIMINARY_GAPS:
@@ -224,7 +268,7 @@ def source_records(priority_ids: set[str]) -> list[dict[str, object]]:
                 "screening": row["screening_track"],
                 "source_family": row["source_family"],
                 "coverage": row["arrp_coverage_status"],
-                "routes": row["provisional_arrp_routes"],
+                "routes": current_routes(row["provisional_arrp_routes"]),
                 "normalization": row["normalization_status"],
                 "priority": row["catalog_id"] in priority_ids,
                 "links": [item for item in links if item],
@@ -262,7 +306,7 @@ def media_records() -> list[dict[str, object]]:
                 "screening": row["screening_recommendation"],
                 "source_family": f"{row['source_1_name']} + {row['source_2_name']}",
                 "coverage": row["arrp_coverage_status"],
-                "routes": row["provisional_arrp_routes"],
+                "routes": current_routes(row["provisional_arrp_routes"]),
                 "normalization": row["primary_source_status"],
                 "priority": row["screening_recommendation"].startswith("advance-"),
                 "links": [item for item in links if item],

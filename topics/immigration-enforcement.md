@@ -22,22 +22,22 @@ ARRP does not use this page to choose a preferred immigration level or require S
 | Public concern | Applicable proposals |
 | --- | --- |
 | Humanitarian protection, asylum access, and review of status decisions | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) |
-| Removal due process, detention safeguards, lawful pathways, and system capacity | [RIGHTS-004](../areas/RIGHTS/issues/RIGHTS-004.md) |
+| Removal due process and humanitarian review | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) |
 | Funding threats tied to sanctuary or immigration-cooperation policies | [FED-003](../areas/FED/issues/FED-003.md) |
 | State access to evidence after a federal critical incident | [DOM-005](../areas/DOM/issues/DOM-005.md) |
 | Federal law-enforcement surveillance | [DOM-009](../areas/DOM/issues/DOM-009.md) |
-| Border emergencies or domestic-force deployments | EMERG-004, DOM-001, DOM-003, and DOM-004 |
+| Border emergencies or domestic-force deployments | EMERG-001 and DOM-001 |
 
 ## How Concerns Map to Proposals
 
 | Public concern | Applicable proposals | How ARRP addresses it |
 | --- | --- | --- |
 | Termination of Temporary Protected Status or barriers to asylum access | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) | Addresses statutory review, country-condition procedures, and access to humanitarian protection. |
-| Removal proceedings, detention process, or unstable lawful status | [RIGHTS-004](../areas/RIGHTS/issues/RIGHTS-004.md) | Addresses due process, adjudication capacity, detention safeguards, and durable lawful pathways. |
+| Removal proceedings, detention process, or unstable humanitarian status | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) | Addresses access to asylum and humanitarian review; broader immigration-policy choices remain outside ARRP absent a narrower institutional defect. |
 | Threat to withhold unrelated federal grants unless a jurisdiction changes sanctuary policy | [FED-003](../areas/FED/issues/FED-003.md) | Addresses authority, germaneness, notice, evidence, reporting, and review of coercive grant conditions. |
 | State investigation of a federal officer shooting or other critical incident | [DOM-005](../areas/DOM/issues/DOM-005.md) | Addresses evidence preservation and secure State investigative access without changing immunity or prosecution law. |
 | Procurement or use of federal surveillance systems | [DOM-009](../areas/DOM/issues/DOM-009.md) | Addresses authorization, procurement, deployment, retention, auditing, and oversight. |
-| Emergency declaration or domestic-force deployment tied to immigration | EMERG-004, DOM-001, DOM-003, and DOM-004 | Separates emergency predicates, military authority, National Guard control, and deployments around civil activity. |
+| Emergency declaration or domestic-force deployment tied to immigration | EMERG-001 and DOM-001 | Separates emergency predicates from military, National Guard, and domestic deployment authority. |
 
 ## What ARRP Does and Does Not Address
 

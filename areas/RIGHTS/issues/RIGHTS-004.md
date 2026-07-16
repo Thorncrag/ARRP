@@ -2,14 +2,14 @@
 issue_id: RIGHTS-004
 area_id: A-24
 title: "Comprehensive Immigration Reform, Removal Due Process, and Immigration System Integrity"
-status: candidate
+status: retired
 priority: high
 remedy_type: comprehensive-immigration-system-integrity
 audit_score: 0
-audit_status: Initial issue admitted; no proposal-quality score assigned
-audit_last_type: "Issue admission and source-development framing"
-audit_last_date: "2026-07-06"
-audit_next: "Source-develop comprehensive immigration reform architecture and decide whether to draft one modular bill or split sub-vehicles"
+audit_status: Retired as an independent proposal after portfolio issue-admission review
+audit_last_type: "Portfolio issue-admission disposition"
+audit_last_date: "2026-07-16"
+audit_next: "Preserve narrow source leads under RIGHTS-002, DOM, FED, and any later separately admitted adjudicatory-capacity issue"
 audit_rubric_version: "2026-06-27.1"
 audit_rebaseline_status: "current-fixed-status"
 change_audit_needed: false
@@ -21,6 +21,10 @@ audit_history: "RIGHTS-004.audit.md"
 ---
 
 # RIGHTS-004 — Comprehensive Immigration Reform, Removal Due Process, and Immigration System Integrity
+
+> **Final disposition — July 16, 2026:** Retired as an independent ARRP proposal. The record combined substantive immigration-policy choices with multiple institutional defects requiring different remedies. Its source leads and nonduplicative questions remain preserved below and are routed to [RIGHTS-002](RIGHTS-002.md), [DOM](../../DOM/README.md), [FED](../../FED/README.md), and any later narrowly admitted immigration-adjudication capacity proposal. Retirement does not reject immigration reform as policy; it applies ARRP's rule against treating a broad political-policy field as one institutional failure.
+
+The material below is an archived development record, not an active recommendation. Future work may reuse a source lead or narrowly framed institutional question only through an active proposal or a new issue-admission decision.
 
 > ## Issue Snapshot
 > **Problem:** Immigration law combines high-stakes status decisions with fragmented process, weak review, detention pressure, and unstable lawful pathways.<br />**Repair:** Build a rights-bearing, reviewable, capacity-backed immigration system with durable status, removal, detention, humanitarian, and federalism safeguards.<br />**Vehicle:** Pending source development.
@@ -36,7 +40,7 @@ ARRP should treat comprehensive immigration reform as a structural-governance is
 
 ## Manifestations of the Failure
 
-No manifestation is yet treated as established for proposal-scoring purposes. RIGHTS-004 remains a candidate pending primary-source development of removal, detention, adjudication-capacity, lawful-status, and system-integrity examples. Preliminary coverage categories and adjacent-issue boundaries are preserved in Annotation rather than presented as documented manifestations.
+No manifestation was treated as established for proposal-scoring purposes before retirement. Preliminary coverage categories and adjacent-issue boundaries are preserved in Annotation as historical development material rather than documented manifestations.
 
 ## Resulting Damage
 
@@ -141,11 +145,11 @@ No reliable estimate yet. A comprehensive immigration-system reform could have s
 >
 > —
 >
-> **Internal Review Status:** Initial issue admitted; no proposal-quality score assigned<br />**Last Internal Review:** Issue admission and source-development framing<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Current unscored status<br />**Next Review:** Source-develop comprehensive immigration reform architecture and decide whether to draft one modular bill or split sub-vehicles<br />**Full Review History:** [RIGHTS-004 review history](RIGHTS-004.audit.md)
+> **Internal Review Status:** Retired as an independent proposal after portfolio issue-admission review<br />**Last Internal Review:** Portfolio issue-admission disposition (2026-07-16)<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Fixed-zero unscored record; no T-audit completed<br />**Next Review:** Preserve narrow source leads under their active homes; do not reopen the omnibus record without a new issue-admission finding<br />**Full Review History:** [RIGHTS-004 review history](RIGHTS-004.audit.md)
 
 ## Annotation
 
-RIGHTS-004 is a candidate issue admitted to preserve a comprehensive immigration-reform lane inside A-24. It receives a proposal-quality score of 0 because no statutory vehicle, amendment structure, cost model, source-developed record, or adoption pathway has been selected.
+RIGHTS-004 was admitted to preserve a comprehensive immigration-reform lane inside A-24 and later retired after portfolio review found that it combined political-policy choices with distinct remedies already owned elsewhere. Its proposal-quality score remains 0 because no score-bearing T-audit or unified statutory vehicle was completed.
 
 The issue should remain institutionally neutral. It should ask whether immigration administration has enough process, review, capacity, records integrity, lawful-pathway coherence, humanitarian protection, and federalism boundaries to resist abuse across administrations. It should not become a general repository for every immigration policy preference or enforcement dispute.
 
@@ -156,7 +160,7 @@ The issue should remain institutionally neutral. It should ask whether immigrati
 - **Humanitarian protection instability.** [RIGHTS-002](RIGHTS-002.md) separately owns Temporary Protected Status, asylum-access triggers, and humanitarian reviewability. RIGHTS-004 should incorporate those issues only at the comprehensive-system level: a broad immigration reform bill should not leave humanitarian protection as an unreviewable or purely discretionary exception to ordinary lawful administration.
 - **Citizenship and identity-record instability.** [RIGHTS-003](RIGHTS-003.md) separately owns birthright citizenship, statutory recognition, and federal identity-record continuity. RIGHTS-004 should cross-reference that work where comprehensive reform affects nationality, citizenship records, passports, Social Security records, or state vital-record reliance.
 - **Enforcement technology, domestic deployment, and federalism pressure.** Immigration enforcement can become a vehicle for surveillance procurement, data-broker use, domestic law-enforcement deployment, federalized enforcement pressure, state-local coercion, or emergency-power leverage. [DOM-009](../../DOM/issues/DOM-009.md), [A-14](../../DOM/README.md), [A-20](../../FED/README.md), and [A-10](../../EMERG/README.md) should continue to own those mechanisms when enforcement power, domestic deployment, federalism coercion, or emergency authority is the central defect.
-- **Project 2025 immigration-structure gap.** The [Project 2025 topic guide and crosswalk](../../../topics/project-2025.md) flags DHS reorganization, mass deportation, interior enforcement expansion, asylum and refugee restrictions, detention, federalism, and immigration-adjudication integrity as coverage gaps. RIGHTS-004 admits that gap as a RIGHTS proposal while preserving the existing boundaries for enforcement, federalism, emergency powers, and surveillance issues.
+- **Project 2025 immigration-structure gap.** The [Project 2025 topic guide and crosswalk](../../../topics/project-2025.md) flags DHS reorganization, mass deportation, interior enforcement expansion, asylum and refugee restrictions, detention, federalism, and immigration-adjudication integrity for routing review. The retired record preserves that history without treating the combined field as one active proposal.
 
 ## Source Notes
 

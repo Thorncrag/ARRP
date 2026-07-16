@@ -153,14 +153,16 @@ class ReviewReadyDashboardTests(unittest.TestCase):
         self.assertFalse(payload["movement"]["scoresAvailable"])
         self.assertIn("Jun 24, 2026", MODULE.trajectory_svg(payload))
 
-    def test_repository_retrospective_seed_matches_documented_baseline(self):
+    def test_repository_retrospective_seed_preserves_baseline_after_scope_changes(self):
         seed = MODULE.read_json(ROOT / ".github" / "progress-history-seed.json")
         config = MODULE.read_json(ROOT / ".github" / "progress-dashboard.json")
         registry = MODULE.read_registry(ROOT / "inventory" / "github_issue_registry.csv")
         evidence = seed["attainmentEvidence"]
         identifiers = {entry["identifier"] for entry in evidence}
         active_proposals = [row for row in registry if MODULE.normalize(row["Kind"]) == "proposal"]
-        self.assertEqual(len(active_proposals), 204)
+        # The retrospective baseline remains historical even after proposal
+        # admission, merger, or retirement changes the live denominator.
+        self.assertEqual(len(active_proposals), 77)
         self.assertEqual(config["goal"]["baselineTotal"], 204)
         self.assertEqual(len(evidence), 23)
         self.assertEqual(len(identifiers), 23)

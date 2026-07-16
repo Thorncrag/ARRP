@@ -97,7 +97,7 @@ First, IEEPA itself contains categorical exceptions for communications, humanita
 
 Second, Congress often legislates sanctions expressly. For example, [50 U.S.C. § 1708](https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title50-section1708) identifies covered cyber-espionage conduct and authorizes IEEPA blocking against defined persons. H.R. 23 followed the same specific-authorization model for ICC sanctions, although it did not become law.
 
-Third, National Emergencies Act reform proposals have used a congressional-approval model for emergencies continuing beyond a short period. CRS identifies repeated proposals requiring a joint resolution of approval, including a 30-day model. That broader duration and termination question belongs primarily to EMERG-005 and EMERG-006. EMERG-003 instead addresses the narrower substantive question: whether general emergency power authorizes the particular sanctions category at all.
+Third, National Emergencies Act reform proposals have used a congressional-approval model for emergencies continuing beyond a short period. CRS identifies repeated proposals requiring a joint resolution of approval, including a 30-day model. That broader declaration, duration, termination, findings, and review framework is consolidated in EMERG-001. EMERG-003 instead addresses the narrower substantive question: whether general emergency power authorizes the particular sanctions category at all.
 
 ## Least-Complex Adequate Remedy
 
@@ -123,9 +123,7 @@ Prospectively, the statute would force the political branch constitutionally res
 
 ## Relationship to Adjacent Proposals
 
-- **EMERG-005 and EMERG-006** remain the primary homes for congressional termination procedures and indefinite emergency renewal.
-- **EMERG-007** remains the primary home for generally insufficient emergency findings; EMERG-003 adds only the findings needed to enforce its substantive limit.
-- **EMERG-008** remains the primary home for general emergency-powers judicial review; EMERG-003 supplies a narrow cause of action necessary to enforce this bill.
+- **EMERG-001** owns general emergency declarations, termination, renewal, findings, and judicial review. EMERG-003 supplies only the findings and cause of action needed to enforce its narrower substantive limit.
 - **CONG and WAR issues** may address international commitments or armed conflict, but this proposal does not regulate treaty withdrawal, military force, or ordinary diplomatic advocacy.
 - **JUD-011** is not the primary remedy. The defect is the scope of delegated emergency authority before a new congressional mandate exists, not executive nullification of an enacted mandate.
 

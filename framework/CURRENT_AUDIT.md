@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — first approved portfolio-consolidation batch complete, synchronized, validated, committed, pushed, and published |
-| Active issue/task | High-confidence proposal consolidation for EMOL, FRB, HER, REC, RET, PAR, and CONG, following the completed APPT architecture pass |
-| Audit type/tier | Issue-admission and portfolio-consolidation implementation; no T-audit run |
+| Status | Active — completing the remaining portfolio-consolidation review through the recommended full architecture |
+| Active issue/task | Remaining high-confidence and boundary-sensitive proposal consolidations after the completed APPT and first implementation batches |
+| Audit type/tier | Issue-admission, portfolio consolidation, and required targeted Change Audits; no T-audit run |
 | Started | 2026-07-16 |
-| Last checkpoint | 2026-07-16; commit `4f586ac` pushed, GitHub records read back, dashboard refreshed, and public site deployed |
-| User request | Proceed with the recommended first high-confidence consolidation batch after systematically reviewing all remaining areas. |
-| Scope | EMOL, FRB, HER, REC, RET, PAR, and CONG receiving records and absorbed candidates; repository routes, registry classifications, GitHub issue wrappers and Project cards, planning denominator, and dashboard. APPT remains part of the same uncommitted architecture package. Existing unrelated working-tree changes preserved. |
+| Last checkpoint | 2026-07-16; user directed completion of the review in full before the next final dashboard refresh |
+| User request | Finish the systematic portfolio review and implementation in full before manually updating the progress dashboard. |
+| Scope | FUND, IMM, JUD, EMERG, DOM, CIV, CLASS, FACT, FED, OVS, PRESS, REG, and RIGHTS; no-change verification for DOJ, ELEC, and WAR; all receiving and absorbed records, developed-proposal Change Audits, repository routes, registry classifications, GitHub issue wrappers and Project cards, final denominator, and dashboard. |
 | Files touched | Area pages for APPT, EMOL, FRB, HER, REC, RET, PAR, and CONG; APPT issue and legislative files; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; framework and workflow records; affected topic, subject-index, issue, legislation, and research cross-references; portfolio review memorandum. |
 | Completed steps | Approved consolidation architecture applied; 62 affected issue wrappers synchronized; seven receiving records retitled and marked In development without score or Runs changes; 54 absorbed candidates classified as merged proposals; CONG-008 classified as a retired proposal because the asserted failure is political rather than independently remediable; 55 inactive Project cards removed; Project fields and titles read back; old source and navigation routes redirected; compact area-page disposition tables added; review console rebuilt; CSV, JavaScript, publication-boundary, and strict site validations passed; commit `4f586ac` pushed; dashboard and public site workflows completed successfully. |
-| Next step | Select the next separately reviewable consolidation batch from the partially implemented portfolio memorandum. The recommended sequence is FUND, IMM, JUD, EMERG, DOM, and CIV, with source and vehicle checks before each receiving record is expanded. |
-| Blockers/questions | None for the approved batch. The remaining portfolio recommendations—including OVS-008, the REG process lanes, PRESS versus RET ownership, RIGHTS-004, HOR-027, and the final target denominator—remain pending user review. |
-| Validation status | Passed. Registry and Project reconcile to 143 active proposals; 27 are Review Ready and 116 remain; required pace is 4.83 per week; dashboard reports no warnings and On track with a current October 19 forecast; all inactive batch cards are absent; receiving Project rows preserve Score 0 and Runs 0; 795 source records and all research CSVs parse with unique IDs; generated console JavaScript passes syntax checks; `git diff --check`, the public-site preparation gate, and strict MkDocs build pass; public deployment succeeded. |
+| Next step | Inventory every remaining receiving record, vehicle, audit state, and Project row; apply the recommended conservative boundary decisions; then synchronize, validate, commit, push, and run one final dashboard refresh. |
+| Blockers/questions | None. For previously identified boundary questions, use the memorandum's conservative recommendations: retain OVS-008; retain REG-002, REG-003, and REG-006; retain a press-specific PRESS-006 with RET-001 coordination; retire RIGHTS-004 in its current omnibus form while preserving its narrow routes; keep HOR-027 integrated for monitoring rather than creating another active proposal; use 77 active proposals as the implemented working architecture. |
+| Validation status | In progress. The interim dashboard was manually refreshed after the first batch, but final metrics will be regenerated only after the complete architecture is synchronized. |
 
 ## Handoff Rules
 

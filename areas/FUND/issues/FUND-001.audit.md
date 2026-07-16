@@ -14,6 +14,16 @@ This file preserves the full audit history for [FUND-001](FUND-001.md). The issu
 
 Entries are maintained newest first. Change Audits preserve the existing score unless the audit identifies a score-bearing defect and recalculates the proposal under the current rubric.
 
+### 2026-07-16 — Portfolio-consolidation targeted Change Audit
+
+**Audit type:** Targeted Change Audit and Internal Remedy-Fit Audit; not a T0–T4 run.
+
+**Scope and finding:** Reviewed whether FUND-003, FUND-005, FUND-006, FUND-007, FUND-008, EMERG-002, and FUND-004 identify independent institutional defects or components of existing remedies. Program nullification through nonspending, reprogramming, standing, specific relief, protected-official reporting, GAO access, congressional notice, and emergency fiscal implementation are already within FUND-001's issue theory and standalone bill. Their integration changes portfolio architecture but does not require new operative text. FUND-004 is routed to FED-003 for state and local funding coercion and RET-001 for cross-sector retaliation, while FUND-001 remains applicable to violations of enacted appropriations or program mandates.
+
+**Score and run effect:** No score change; FUND-001 remains 83/100 and Review Ready. The current bill already contains the absorbed mechanisms, no scored deficiency was cured, and this Change Audit does not increment Runs.
+
+**Next audit need:** Qualified appropriations, federal-courts, budget, program-administration, and legislative-counsel review; proposal-specific workload evidence and current-litigation refresh.
+
 ### 2026-07-15 — Fiscal-scope and title targeted Change Audit
 
 **Audit type:** Targeted Change Audit and Internal Remedy-Fit Audit; not a T0-T4 run and no score recalculation.

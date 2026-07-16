@@ -2,7 +2,7 @@
 area_id: A-08
 title: "Civil Service and Professional Administration"
 status: active
-issue_count: 9
+issue_count: 4
 print_levels:
   - public-proposal
   - full-technical
@@ -15,21 +15,29 @@ print_levels:
 
 The executive branch retains excessive practical capacity to convert career administration into a loyalty-based workforce through reclassification, removal, reassignment, hiring control, intimidation, and erosion of merit protections.
 
-## Issues
+## Active Issues
 
-- **CIV-001** — Political reclassification of career positions _(status: Candidate; priority: High)_
-- **CIV-002** — Removal or reassignment for disfavored professional judgments _(status: Candidate; priority: High)_
-- **CIV-003** — Loyalty tests and partisan hiring _(status: Candidate; priority: High)_
-- **CIV-004** — Weak protection for refusal of unlawful directives _(status: Candidate; priority: High)_
-- **CIV-005** — Loss of technical and institutional capacity _(status: Candidate; priority: High)_
-- **CIV-006** — Inadequate and delayed personnel remedies _(status: Candidate; priority: High)_
-- **CIV-007** — Politicized promotion and performance systems _(status: Candidate; priority: High)_
-- **CIV-008** — Mass reduction or hollowing of agency capacity _(status: Candidate; priority: High)_
-- **CIV-009** — Repurposed technical units as cross-agency operational control mechanisms _(status: Candidate; priority: High)_
+- **CIV-001** — Civil-Service Merit, Classification, and Anti-Politicization _(status: In development; priority: High)_
+- **CIV-004** — Protection for Refusal of Unlawful Directives _(status: Candidate; priority: High)_
+- **CIV-005** — Federal Workforce Capacity and Anti-Hollowing _(status: In development; priority: High)_
+- **CIV-009** — Repurposed Technical Units as Cross-Agency Operational Control Mechanisms _(status: Candidate; priority: High)_
+
+## Undeveloped Candidate Dispositions
+
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+
+| Record | Disposition |
+| --- | --- |
+| CIV-002, CIV-003, CIV-006, CIV-007 | Merged into CIV-001 as removal, reassignment, loyalty-based hiring, delayed-remedy, promotion, and performance-system components of one merit-system framework. |
+| CIV-008 | Merged into CIV-005 because mass reductions are a principal mechanism for degrading federal technical and institutional capacity. |
 
 ## Issue Boundaries
 
-- **CIV-001** is the primary home for Schedule F, Schedule Policy/Career, or similar reclassification systems that convert protected career roles into easier-to-remove policy-aligned positions. HOR-011 is integrated into CIV-001 as a source-development manifestation rather than a new issue because the existing candidate already covers political reclassification of career positions. It also supports CIV-002, CIV-003, and CIV-008 where reclassification is used to remove disfavored professional judgment, impose loyalty-aligned hiring or retention, or hollow out agency capacity. Initial source leads include [Executive Order 14171](https://www.federalregister.gov/documents/2025/01/31/2025-02095/restoring-accountability-to-policy-influencing-positions-within-the-federal-workforce), which reinstated and renamed the prior Schedule F framework as Schedule Policy/Career, and public reporting that OPM issued a rule to reclassify roughly 50,000 career employees with weaker job protections. See The Guardian, [*Trump administration issues rule that makes it easier to fire federal workers*](https://www.theguardian.com/us-news/2026/feb/05/trump-administration-federal-workers). Future source development should obtain the OPM final rule, Federal Register publication, litigation filings, union challenges, Office of Special Counsel and Merit Systems Protection Board implications, and prior legislation such as the Saving the Civil Service Act.
+- **CIV-001** is the primary home for Schedule F, Schedule Policy/Career, or similar reclassification systems; merit-based hiring, promotion, evaluation, discipline, and removal; retaliation for professional judgments; and remedies administered through Title 5, OPM, OSC, and MSPB. HOR-011 is integrated as a source-development manifestation. Initial source leads include [Executive Order 14171](https://www.federalregister.gov/documents/2025/01/31/2025-02095/restoring-accountability-to-policy-influencing-positions-within-the-federal-workforce) and reporting on OPM's later reclassification rule. See The Guardian, [*Trump administration issues rule that makes it easier to fire federal workers*](https://www.theguardian.com/us-news/2026/feb/05/trump-administration-federal-workers). Future development should obtain the final rule, litigation filings, union challenges, and prior legislative comparators.
+
+- **CIV-004** remains separate because protected refusal of unlawful directives and command responsibility require a narrower trigger than ordinary merit-system administration.
+
+- **CIV-005** owns workforce capacity, loss of technical expertise, and large-scale hollowing that impairs statutory functions. It should coordinate with [REG-001](../REG/issues/REG-001.md) when personnel measures functionally disable a congressionally mandated institution.
 
 - **CIV-009** concerns the use of an existing technical, digital-service, temporary, advisory, or White House-linked unit to exercise practical cross-agency control over personnel, data systems, software access, contracts, grants, payments, reductions in force, or agency operations without ordinary appointment, delegation, transparency, privacy, records, procurement, appropriations, and oversight safeguards. The DOGE repurposing of the United States Digital Service is the principal source-development example: Executive Order 14158 renamed the United States Digital Service as the United States DOGE Service, created a temporary DOGE organization, directed agency DOGE teams, and called for access to unclassified agency records, software systems, and IT systems. See [Executive Order 14158, 90 Fed. Reg. 8441 (Jan. 29, 2025)](https://www.federalregister.gov/documents/2025/01/29/2025-02005/establishing-and-implementing-the-presidents-department-of-government-efficiency).
 
@@ -39,4 +47,4 @@ The executive branch retains excessive practical capacity to convert career admi
 
 ## Notes
 
-Provisional inventory; full source development pending.
+CIV-001 and CIV-005 are in development after consolidation. CIV-004 and CIV-009 remain unresolved candidates. Full source development and initial vehicles are pending.

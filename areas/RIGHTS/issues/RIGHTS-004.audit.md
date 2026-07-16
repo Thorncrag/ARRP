@@ -12,6 +12,16 @@ This file preserves the full audit history for [RIGHTS-004](RIGHTS-004.md). The 
 
 ## Audit History
 
+### 2026-07-16 — Portfolio issue-admission disposition
+
+**Classification:** Issue-admission review and retirement disposition; not a T0–T4 run.
+
+**Finding:** RIGHTS-004 combines ordinary immigration-policy choices with adjudication capacity, removal due process, detention, humanitarian reviewability, lawful pathways, identity records, surveillance, deployment, emergency authority, and federalism. Those subjects do not share one least-complex adequate remedy. RIGHTS-002 already owns humanitarian status, asylum access, removal due process, and reviewability; DOM owns enforcement, detention operations, surveillance, and deployment; FED owns federalism; and a later narrow adjudicatory-capacity issue may be admitted if source development establishes a distinct structural defect.
+
+**Disposition:** Retired as an independent omnibus proposal. The substantive page and source leads are preserved for provenance; the GitHub issue is closed rather than deleted.
+
+**Score and run effect:** Score remains fixed at 0 because no score-bearing T-audit occurred. Runs remains zero.
+
 ### 2026-07-06 — Issue admission and source-development framing
 
 **Audit status:** Initial issue admitted; no proposal-quality score assigned

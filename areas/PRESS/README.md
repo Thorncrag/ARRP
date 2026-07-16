@@ -2,7 +2,7 @@
 area_id: A-22
 title: "Freedom and Independence of the Press"
 status: active
-issue_count: 12
+issue_count: 3
 print_levels:
   - public-proposal
   - full-technical
@@ -15,24 +15,33 @@ print_levels:
 
 Existing constitutional and statutory safeguards do not adequately prevent presidents and executive officials from using access, investigations, licensing, contracting, regulatory authority, funding, or public intimidation to punish disfavored news organizations, reward favorable coverage, or distort the public factual environment.
 
-## Issues
+## Active Issues
 
-- **PRESS-001** — Retaliatory denial of access _(status: Candidate; priority: High)_
-- **PRESS-002** — Selective exclusion from government events and information _(status: Candidate; priority: High)_
-- **PRESS-003** — Misuse of investigations, subpoenas, surveillance, or source demands _(status: Candidate; priority: Critical)_
-- **PRESS-004** — Regulatory retaliation _(status: Candidate; priority: Critical)_
-- **PRESS-005** — Contracting and commercial pressure _(status: Candidate; priority: High)_
-- **PRESS-006** — Misuse of official power to threaten or punish reporting _(status: Candidate; priority: High)_
-- **PRESS-007** — Manipulation of the factual record _(status: Candidate; priority: Critical)_
-- **PRESS-008** — Delegitimization combined with governmental coercive power _(status: Candidate; priority: High)_
-- **PRESS-009** — Weak protection for confidential sources _(status: Candidate; priority: High)_
-- **PRESS-010** — Public-broadcasting and funding retaliation _(status: Candidate; priority: High)_
-- **PRESS-011** — Discriminatory taxation or financial burdens _(status: Candidate; priority: High)_
-- **PRESS-012** — Lack of rapid remedies for time-sensitive press disputes _(status: Candidate; priority: High)_
+- **PRESS-001** — Equal Press Access and Rapid Review _(status: In development; priority: High)_
+- **PRESS-003** — Journalist Compulsory Process, Surveillance, and Source Protection _(status: In development; priority: Critical)_
+- **PRESS-006** — Governmental Retaliation Against the Press _(status: In development; priority: High)_
+
+## Undeveloped Candidate Dispositions
+
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+
+| Record | Disposition |
+| --- | --- |
+| PRESS-002 | Merged into PRESS-001 as the selective-exclusion application of equal-access rules. |
+| PRESS-009 | Merged into PRESS-003 as the confidential-source component of journalist compulsory-process and surveillance safeguards. |
+| PRESS-004, PRESS-005, PRESS-008, PRESS-010, PRESS-011 | Merged into PRESS-006 as regulatory, contracting, coercive, public-broadcasting, taxation, and financial instruments of governmental retaliation. |
+| PRESS-012 | Integrated across PRESS-001, PRESS-003, and PRESS-006 because rapid relief is a safeguard tailored to each underlying press dispute, not an independent institutional defect. |
+| PRESS-007 | Integrated into [FACT-001 or FACT-009](../FACT/README.md) according to whether official conduct alters technical substance or misrepresents legal or institutional reality. Protected criticism alone remains outside scope. |
+
+## Issue Boundaries
+
+- **PRESS-001** owns viewpoint-neutral access to government events, facilities, pools, briefings, and time-sensitive information, with rapid review when exclusion would make relief meaningless.
+- **PRESS-003** owns subpoenas, searches, surveillance, source demands, device seizures, approval rules, notice, exhaustion of alternatives, and source confidentiality.
+- **PRESS-006** owns use of governmental powers or benefits to punish, threaten, or extract concessions from press organizations because of reporting. It should coordinate with [RET-001](../RET/README.md), which supplies the cross-sector anti-retaliation machinery, while preserving press-specific First Amendment, newsgathering, and public-information concerns.
 
 ## Notes
 
-Distinguish protected criticism from governmental coercive or distributive action.
+PRESS-001, PRESS-003, and PRESS-006 are in development after consolidation. Distinguish protected criticism from governmental coercive or distributive action.
 
 ## Source-Development Notes
 

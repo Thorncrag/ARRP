@@ -22,9 +22,10 @@ This page does not evaluate whether a particular efficiency policy is wise. It h
 | Public concern | Applicable proposals |
 | --- | --- |
 | DOGE authority, staffing, delegation, systems access, privacy, and oversight | CIV-009 |
-| Career reclassification, personnel retaliation, and loss of agency capacity | CIV-001, CIV-002, and CIV-008 |
+| Career reclassification and personnel retaliation | CIV-001 |
+| Loss of agency capacity through workforce reductions | CIV-005 |
 | Agency closure, dismantling, or inability to perform duties assigned by Congress | [REG-001](../areas/REG/issues/REG-001.md) |
-| Withholding appropriated funds or refusing to execute funded programs | [FUND-001](../areas/FUND/issues/FUND-001.md) and FUND-003 |
+| Withholding appropriated funds or refusing to execute funded programs | [FUND-001](../areas/FUND/issues/FUND-001.md) |
 | Enforcement of congressional mandates | [JUD-011](../areas/JUD/issues/JUD-011.md) |
 
 ## How Concerns Map to Proposals
@@ -32,10 +33,10 @@ This page does not evaluate whether a particular efficiency policy is wise. It h
 | Public concern | Applicable proposals | How ARRP addresses it |
 | --- | --- | --- |
 | Creation or use of a cross-agency operational-control unit | CIV-009 | Addresses appointments, delegation, systems access, privacy, procurement, records, and oversight. |
-| Reclassification or removal of career employees | CIV-001 and CIV-002 | Separates political reclassification from retaliation for professional judgment. |
-| Large workforce reductions or loss of technical capacity | CIV-008 | Addresses whether personnel reductions hollow out the government’s ability to perform required functions. |
+| Reclassification or removal of career employees | CIV-001 | Addresses political reclassification and retaliation for professional judgment within one merit-system framework. |
+| Large workforce reductions or loss of technical capacity | CIV-005 | Addresses whether personnel reductions hollow out the government’s ability to perform required functions. |
 | Functional dismantling of an agency or mandatory program | [REG-001](../areas/REG/issues/REG-001.md) | Addresses substantial and sustained inability to perform duties assigned by Congress. |
-| Nonspending used to suspend an agency or program | [FUND-001](../areas/FUND/issues/FUND-001.md) and FUND-003 | Addresses appropriations execution and agency closure through nonspending. |
+| Nonspending used to suspend an agency or program | [FUND-001](../areas/FUND/issues/FUND-001.md) | Addresses appropriations execution and agency closure through nonspending. |
 | Broader refusal to carry out an enacted congressional mandate | [JUD-011](../areas/JUD/issues/JUD-011.md) | Supplies a general civil remedy when executive action or inaction functionally nullifies enacted law. |
 
 ## What ARRP Does and Does Not Address

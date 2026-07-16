@@ -12,7 +12,7 @@ Covered work product includes legal and policy memoranda, crosswalks, catalogs, 
 
 ## Issue Research and Maintained Work Product
 
-- [Portfolio Issue-Consolidation Review](portfolio-issue-consolidation-review.md) — preliminary portfolio-wide issue-admission recommendations and planning effects; the review does not itself change proposal lifecycle records.
+- [Portfolio Issue-Consolidation Review](portfolio-issue-consolidation-review.md) — implemented portfolio-wide issue-admission decisions and the basis for the 77-proposal working architecture.
 - [ELEC-004 Civil Process and State Election Records Catalog](ELEC-004-civil-process-catalog.md)
 - [ELEC-013 Presidential Debate and Ballot Access Explanatory Checklist](ELEC-013-presidential-debate-ballot-access-explainer.md)
 - [ELEC-014 Criminal-Process and State Election Records Catalog](ELEC-014-criminal-process-catalog.md)

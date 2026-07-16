@@ -128,7 +128,7 @@ The first scan already shows substantial overlap with developed or inventoried A
 - independent-agency control and functional dismantling — REG-001 and related REG issues;
 - spending freezes, grant conditions, and congressional-mandate nullification — A-11, FED-003, A-19, and JUD-011;
 - election interference and voter-data demands — A-02;
-- immigration status, asylum, birthright citizenship, removal process, and records — RIGHTS-002 through RIGHTS-004;
+- immigration status, asylum, birthright citizenship, removal process, and records — RIGHTS-002, RIGHTS-003, A-14, and A-20;
 - retaliatory investigations, prosecutions, grants, contracts, access, or clearances — A-01 and A-19;
 - civil-service reclassification, agency hollowing, and DOGE-style operational control — A-08;
 - records deletion, website removal, scientific suppression, and misleading official information — A-13 and A-18;

@@ -1,6 +1,6 @@
 ---
 title: "Portfolio Issue-Consolidation Review"
-status: partially-implemented
+status: implemented
 date: 2026-07-16
 print_levels:
   - full-technical
@@ -12,7 +12,7 @@ print_levels:
 
 This is an issue-admission and consolidation review of every active ARRP proposal area other than A-12, whose APPT candidates were separately adjudicated on July 16, 2026. It tests whether provisional records identify distinct institutional weaknesses requiring separate diagnosis and remedial analysis or instead describe manifestations, safeguards, enforcement provisions, implementation details, or cross-area applications of a broader proposal.
 
-The user approved the first high-confidence implementation batch on July 16, 2026. APPT was adjudicated separately; EMOL, FRB, HER, REC, RET, PAR, and CONG were then consolidated as recommended here. The remaining area recommendations are non-operative until separately approved and synchronized across the repository and GitHub.
+The user approved implementation on July 16, 2026. APPT was adjudicated separately; the remaining recommendations were then resolved across the repository and GitHub. This memorandum now records the basis for the adopted 77-proposal architecture rather than a pending planning option.
 
 ## Review Rules
 
@@ -29,9 +29,9 @@ Developed and scored proposals were presumptively retained. A recommendation aff
 
 ## Portfolio Effect
 
-The review baseline contained **198 active proposal records** after the separately approved APPT consolidation. Twenty-seven were Review Ready, leaving 171 active records below that threshold. The first approved implementation batch reduced the active portfolio by 55 records, to **143 active proposals**, with 27 Review Ready and 116 remaining below that threshold. If every still-pending recommendation below were ultimately approved, the active proposal portfolio would decline to approximately **77 proposals**, a total reduction of **121 records** from the review baseline. With the existing 27 Review Ready proposals preserved, approximately **50 proposals** would remain to reach Review Ready.
+The review baseline contained **198 active proposal records** after the separately approved APPT consolidation. Twenty-seven were Review Ready, leaving 171 active records below that threshold. Implementation reduced the active portfolio by 121 records to **77 active proposals**. The existing 27 Review Ready proposals were preserved, leaving **50 proposals** below that threshold.
 
-The 77-proposal figure remains an architectural planning estimate, not an approved denominator. The approved 143-proposal denominator requires approximately **4.83 additional proposals per week** from July 16 through December 31, 2026. If the remaining recommendations were approved, the 50-proposal remainder would require approximately **2.08 proposals per week**. These estimates assume no additional proposals and no later decision to retain a conditionally merged record independently.
+The adopted denominator requires approximately **2.08 additional proposals per week** from July 16 through December 31, 2026. This estimate assumes no additional proposals and no later decision to restore a merged or retired record as an independent proposal.
 
 | Area | Current | Recommended | Reduction | Review posture |
 | --- | ---: | ---: | ---: | --- |
@@ -59,7 +59,7 @@ The 77-proposal figure remains an architectural planning estimate, not an approv
 | RET | 8 | 1 | 7 | Cross-instrument anti-retaliation framework |
 | RIGHTS | 4 | 3 | 1 | Three rights-bearing lanes |
 | WAR | 1 | 1 | 0 | Developed |
-| **Total** | **198** | **77** | **121** | Preliminary only |
+| **Total** | **198** | **77** | **121** | Implemented July 16, 2026 |
 
 ## Area Recommendations
 
@@ -248,22 +248,22 @@ Retain WAR-001. It is developed and Review Ready, and the area has no undevelope
 
 **Result:** no change. **Confidence:** high.
 
-## Recommended Implementation Sequence
+## Implementation Record
 
-After user approval, implement in reviewable batches rather than closing 121 records at once:
+The approved review was implemented in reviewable batches:
 
 1. **Completed July 16, 2026 — high-confidence single-framework areas:** EMOL, FRB, HER, REC, RET, PAR, and CONG.
-2. **High-confidence existing-home consolidations:** FUND, IMM, JUD, EMERG, DOM, and CIV.
-3. **Boundary-sensitive areas:** CLASS, FACT, FED, OVS, PRESS, REG, and RIGHTS.
-4. **No-change readback:** DOJ, ELEC, and WAR.
+2. **Completed July 16, 2026 — high-confidence existing-home consolidations:** FUND, IMM, JUD, EMERG, DOM, and CIV.
+3. **Completed July 16, 2026 — boundary-sensitive areas:** CLASS, FACT, FED, OVS, PRESS, REG, and RIGHTS.
+4. **Completed July 16, 2026 — no-change readback:** DOJ, ELEC, and WAR.
 
-For each batch, confirm the receiving issue and vehicle; preserve all nonduplicative source leads and manifestations; update active lists and compact candidate-disposition tables; close but do not delete merged or rejected issues; remove inactive Project cards; synchronize the registry, Horizon log where applicable, Subject Index, topic routes, legislation index, research routes, and source inventory; read back Project rows; commit and push; then refresh and verify the dashboard. Scores and Runs do not change merely because of consolidation. A developed receiving proposal materially expanded by a batch requires a Change Audit and the appropriate Project marker.
+Implementation preserved nonduplicative source leads and manifestations, updated active lists and compact disposition tables, closed but did not delete inactive GitHub records, removed inactive Project cards, synchronized navigation and inventory surfaces, and required readback. Scores and Runs did not change merely because of consolidation. Developed receiving proposals materially affected by the review received targeted Change Audits.
 
-## Questions for User Review
+## Resolved Boundary Decisions
 
-1. Whether to use the **77-proposal architecture** as the working target or preserve a more conservative intermediate set until source development.
-2. Whether OVS-008 should remain independent from the inspector-general framework.
-3. Whether REG-002, REG-003, and REG-006 should remain separate because their statutory vehicles differ.
-4. Whether PRESS-006 should remain press-specific or become only an application of RET-001.
-5. Whether RIGHTS-004 should be retired now or first narrowed to a specific immigration-adjudication capacity defect.
-6. Whether HOR-027 warrants an independent official-communications proposal after REC-001 consolidation.
+1. The **77-proposal architecture** is the working portfolio denominator.
+2. OVS-008 remains independent from the inspector-general framework.
+3. REG-002, REG-003, and REG-006 remain separate because their institutional functions and likely statutory vehicles differ.
+4. PRESS-006 remains press-specific while coordinating benefit and regulatory machinery with RET-001.
+5. RIGHTS-004 is retired as an omnibus proposal; distinct rights-bearing components remain routed to their narrower homes.
+6. HOR-027 remains integrated and monitored rather than becoming an additional active proposal at this stage.

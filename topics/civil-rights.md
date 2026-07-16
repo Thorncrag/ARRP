@@ -22,7 +22,7 @@ This page connects common public concerns to the proposals that address them. It
 | Public concern | Applicable proposals |
 | --- | --- |
 | Civil-rights administration and identity or citizenship records | [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) and [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md) |
-| Humanitarian protection and immigration due process | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) and [RIGHTS-004](../areas/RIGHTS/issues/RIGHTS-004.md) |
+| Humanitarian protection and immigration due process | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) |
 | Voting access and representative fairness | [ELEC-010](../areas/ELEC/issues/ELEC-010.md) and [ELEC-011](../areas/ELEC/issues/ELEC-011.md) |
 
 ## How Concerns Map to Proposals
@@ -32,7 +32,7 @@ This page connects common public concerns to the proposals that address them. It
 | Government-wide civil-rights definitions, identity records, grant conditions, privacy, or detention classification | [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) | Addresses stable authority, records, privacy, procedures, and review across federal civil-rights administration. |
 | Temporary Protected Status, asylum access, or review of humanitarian decisions | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) | Addresses reviewable humanitarian-status decisions and access to statutory protection. |
 | Birthright citizenship, citizenship recognition, or federal identity documents | [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md) | Addresses statutory recognition, records continuity, benefits, and judicial review. |
-| Removal proceedings, detention process, lawful status pathways, or immigration-system integrity | [RIGHTS-004](../areas/RIGHTS/issues/RIGHTS-004.md) | Addresses due process, adjudication capacity, detention safeguards, status stability, and lawful pathways. |
+| Removal proceedings, detention process, or humanitarian status | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) | Addresses statutory humanitarian protection and review; broader immigration-policy choices remain outside ARRP absent a narrower institutional defect. |
 | Mail voting, voter access, or other barriers to casting and counting votes | [ELEC-010](../areas/ELEC/issues/ELEC-010.md) | Addresses reliable and accessible voting procedures without selecting partisan outcomes. |
 | Redistricting, gerrymandering, vote dilution, or representative fairness | [ELEC-011](../areas/ELEC/issues/ELEC-011.md) | Addresses neutral districting safeguards, representation, and remedies for unfair district structures. |
 

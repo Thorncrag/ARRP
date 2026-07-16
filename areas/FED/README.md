@@ -2,7 +2,7 @@
 area_id: A-20
 title: "Federalism and Presidential Coercion of States"
 status: active
-issue_count: 8
+issue_count: 3
 print_levels:
   - public-proposal
   - full-technical
@@ -15,16 +15,28 @@ print_levels:
 
 The federal government can use funding, enforcement discretion, emergency authority, deployment powers, waivers, and regulatory pressure to coerce state or local governments for partisan or personal purposes.
 
-## Issues
+## Active Issues
 
-- **FED-001** — Conditioning disaster or infrastructure aid _(status: Candidate; priority: Medium)_
-- **FED-002** — Selective enforcement against disfavored states _(status: Candidate; priority: Medium)_
-- **[FED-003](issues/FED-003.md)** — Coercive grant conditions _(status: In development; priority: Medium)_
-- **FED-004** — Federal takeover or displacement of state functions _(status: Candidate; priority: Medium)_
-- **FED-005** — Deployment of federal forces over state objection _(status: Candidate; priority: Medium)_
-- **FED-006** — Interference with state election systems _(status: Candidate; priority: Medium)_
-- **FED-007** — Retaliatory investigations or audits _(status: Candidate; priority: Medium)_
-- **FED-008** — Abuse of waiver and approval authority _(status: Candidate; priority: Medium)_
+- **FED-002** — Selective or Retaliatory Federal Administration Against States _(status: In development; priority: Medium)_
+- **[FED-003](issues/FED-003.md)** — Federal Funding, Waiver, and Approval Coercion of States _(status: In development; priority: Medium)_
+- **FED-004** — Federal Displacement of State Functions _(status: Candidate; priority: Medium)_
+
+## Undeveloped Candidate Dispositions
+
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+
+| Record | Disposition |
+| --- | --- |
+| FED-001, FED-008 | Merged into FED-003 as disaster-aid, infrastructure-aid, waiver, approval, and grant-condition instruments of federal coercion. |
+| FED-007 | Merged into FED-002 as the investigation-and-audit application of selective or retaliatory federal administration against states. |
+| FED-005 | Merged into [DOM-001](../DOM/README.md) as domestic deployment over state objection. |
+| FED-006 | Merged into [ELEC-014](../ELEC/README.md) as election-specific federal interference with state election administration; FED-004 retains the general federalism boundary. |
+
+## Issue Boundaries
+
+- **FED-002** owns selective or retaliatory enforcement, investigation, audit, and administrative treatment directed at a state or locality because of its lawful policies or political alignment.
+- **FED-003** owns federal funding, grant conditions, disaster or infrastructure aid, waivers, approvals, and similar benefits used to compel state or local policy change without a sufficiently clear congressional command.
+- **FED-004** owns takeover, anti-commandeering, preemption, and displacement of state functions when neither funding coercion nor selective enforcement is the principal mechanism.
 
 ## Issue Boundaries
 
@@ -32,4 +44,4 @@ The federal government can use funding, enforcement discretion, emergency author
 
 ## Notes
 
-Provisional inventory; full source development pending.
+FED-002 and FED-003 are in development after consolidation. FED-004 remains an unresolved candidate. Full source development and initial vehicle selection remain pending.
