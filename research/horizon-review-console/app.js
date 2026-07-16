@@ -7,16 +7,15 @@
     return;
   }
 
-  const STORAGE_KEY = "arrp-horizon-review-decisions-v1";
-  const PREFERENCES_KEY = "arrp-horizon-review-preferences-v1";
+  const STORAGE_KEY = "arrp-horizon-candidate-decisions-v2";
+  const PREFERENCES_KEY = "arrp-horizon-candidate-preferences-v2";
   const recordsById = new Map(data.records.map((record) => [record.id, record]));
   const state = {
-    queue: "candidates",
     index: 0,
     search: "",
     decisionFilter: "unreviewed",
     term: "all",
-    source: "all",
+    area: "all",
     decisions: loadJson(STORAGE_KEY, {}),
     preferences: loadJson(PREFERENCES_KEY, { autoAdvance: true }),
     filtered: [],
@@ -46,7 +45,7 @@
     search: document.querySelector("#search-input"),
     decisionFilter: document.querySelector("#decision-filter"),
     termFilter: document.querySelector("#term-filter"),
-    sourceFilter: document.querySelector("#source-filter"),
+    areaFilter: document.querySelector("#area-filter"),
     autoAdvance: document.querySelector("#auto-advance"),
     previous: document.querySelector("#previous-button"),
     next: document.querySelector("#next-button"),
@@ -81,21 +80,8 @@
     }
   }
 
-  function queueRecords(queue) {
-    switch (queue) {
-      case "candidates":
-        return data.records.filter((record) => record.kind === "candidate_question");
-      case "media":
-        return data.records.filter((record) => record.kind === "media_episode");
-      case "priority":
-        return data.records.filter((record) => record.kind === "source_record" && record.priority);
-      case "monitor":
-        return data.records.filter(
-          (record) => record.kind === "source_record" && String(record.screening).startsWith("monitor-")
-        );
-      default:
-        return data.records.filter((record) => record.kind === "source_record");
-    }
+  function queueRecords() {
+    return data.records.filter((record) => record.kind === "preliminary_candidate");
   }
 
   function matchesFilters(record) {
@@ -105,7 +91,7 @@
       return false;
     }
     if (state.term !== "all" && String(record.term) !== state.term) return false;
-    if (state.source !== "all" && record.source_family !== state.source) return false;
+    if (state.area !== "all" && record.proposed_area !== state.area) return false;
     if (!state.search) return true;
 
     const haystack = [
@@ -113,11 +99,11 @@
       record.title,
       record.category,
       record.summary,
-      record.actor,
-      record.posture,
-      record.source_family,
-      record.routes,
-      record.representative_case,
+      record.proposed_area,
+      record.coverage,
+      record.distinctness,
+      record.counterargument,
+      record.unresolved,
       saved.note,
     ]
       .filter(Boolean)
@@ -144,7 +130,7 @@
   }
 
   function decisionLabel(value) {
-    return { yes: "Yes — advance", no: "No — do not advance", defer: "Deferred" }[value] || "Unreviewed";
+    return { yes: "Yes — promote to Horizon", no: "No — decline", defer: "Deferred" }[value] || "Unreviewed";
   }
 
   function makeBadge(text, className) {
@@ -185,25 +171,10 @@
     elements.next.disabled = state.index >= state.filtered.length - 1;
 
     elements.recordBadges.replaceChildren();
-    const kindLabel =
-      record.kind === "candidate_question"
-        ? "Preliminary issue candidate"
-        : record.kind === "media_episode"
-          ? "Media-supported episode"
-          : humanize(record.category);
     elements.recordBadges.append(
-      makeBadge(kindLabel),
+      makeBadge("Preliminary issue candidate"),
       makeBadge(termLabel(record.term))
     );
-    if (record.priority && record.kind === "source_record") {
-      elements.recordBadges.append(makeBadge("Priority disposition", "priority"));
-    }
-    if (record.kind === "media_episode") {
-      const primaryLabel = String(record.normalization).startsWith("verified")
-        ? "Primary record verified"
-        : "Primary record follow-up";
-      elements.recordBadges.append(makeBadge(primaryLabel, String(record.normalization).startsWith("verified") ? "yes" : "defer"));
-    }
     if (saved.decision) {
       elements.recordBadges.append(makeBadge(decisionLabel(saved.decision), saved.decision));
     }
@@ -217,15 +188,14 @@
     elements.expandSummary.hidden = String(record.summary || "").length < 900;
 
     const details = [
-      detail("Review posture", humanize(record.screening)),
-      detail("Litigation status", record.posture),
-      detail("Likely ARRP routes", record.routes),
-      detail("Responsible actor or category", record.actor),
-      detail("Action period", record.period),
-      detail("Source family", record.source_family),
-      detail("Coverage status", humanize(record.coverage)),
-      detail("Normalization", record.normalization),
-      detail("Representative case", record.representative_case),
+      detail("Possible project area", record.proposed_area),
+      detail("Why it may be distinct", record.distinctness),
+      detail("Existing coverage considered", record.coverage),
+      detail("Best counterargument", record.counterargument),
+      detail("Unresolved questions", record.unresolved),
+      detail("Codex recommendation", humanize(record.recommendation)),
+      detail("Supporting catalog records", record.source_record_ids),
+      detail("Last reviewed", record.last_checked),
     ].filter(Boolean);
     elements.recordDetails.replaceChildren(...details);
 
@@ -241,7 +211,7 @@
     if (!record.links || !record.links.length) {
       const noLinks = document.createElement("span");
       noLinks.className = "eyebrow";
-      noLinks.textContent = "No direct external link recorded; consult the intake analysis.";
+      noLinks.textContent = "No direct source link is attached yet; consult the candidate record before promotion.";
       elements.sourceLinks.append(noLinks);
     }
 
@@ -262,7 +232,7 @@
     const percent = baseRecords.length ? (reviewed / baseRecords.length) * 100 : 0;
     elements.reviewedCount.textContent = reviewed.toLocaleString();
     elements.queueCount.textContent = baseRecords.length.toLocaleString();
-    elements.queueDescription.textContent = "records reviewed in this queue";
+    elements.queueDescription.textContent = "candidates reviewed";
     elements.progressFill.style.width = `${percent}%`;
     elements.yesCount.textContent = counts.yes.toLocaleString();
     elements.noCount.textContent = counts.no.toLocaleString();
@@ -272,7 +242,7 @@
   function refresh(options) {
     const settings = options || {};
     const previousId = settings.keepId ? currentRecord()?.id : null;
-    const base = queueRecords(state.queue);
+    const base = queueRecords();
     state.filtered = base.filter(matchesFilters);
     if (previousId) {
       const newIndex = state.filtered.findIndex((record) => record.id === previousId);
@@ -282,16 +252,6 @@
     }
     renderProgress(base);
     renderRecord(currentRecord());
-  }
-
-  function chooseQueue(queue) {
-    state.queue = queue;
-    state.index = 0;
-    document.querySelectorAll("[data-queue]").forEach((button) => {
-      button.classList.toggle("active", button.dataset.queue === queue);
-    });
-    populateSourceFilter();
-    refresh();
   }
 
   function setDecision(value) {
@@ -339,22 +299,22 @@
     renderRecord(currentRecord());
   }
 
-  function populateSourceFilter() {
-    const selected = state.source;
-    const sources = [...new Set(queueRecords(state.queue).map((record) => record.source_family).filter(Boolean))].sort();
-    elements.sourceFilter.replaceChildren();
+  function populateAreaFilter() {
+    const selected = state.area;
+    const areas = [...new Set(queueRecords().map((record) => record.proposed_area).filter(Boolean))].sort();
+    elements.areaFilter.replaceChildren();
     const all = document.createElement("option");
     all.value = "all";
-    all.textContent = "All sources";
-    elements.sourceFilter.append(all);
-    sources.forEach((source) => {
+    all.textContent = "All areas";
+    elements.areaFilter.append(all);
+    areas.forEach((area) => {
       const option = document.createElement("option");
-      option.value = source;
-      option.textContent = source;
-      elements.sourceFilter.append(option);
+      option.value = area;
+      option.textContent = area;
+      elements.areaFilter.append(option);
     });
-    state.source = sources.includes(selected) ? selected : "all";
-    elements.sourceFilter.value = state.source;
+    state.area = areas.includes(selected) ? selected : "all";
+    elements.areaFilter.value = state.area;
   }
 
   function showToast(message) {
@@ -407,9 +367,8 @@
       "reviewer_note",
       "reviewed_at",
       "term",
-      "screening_track",
-      "provisional_arrp_routes",
-      "source_family",
+      "proposed_area",
+      "existing_coverage_considered",
       "source_url",
     ];
     const rows = Object.entries(state.decisions)
@@ -425,9 +384,8 @@
           saved.note,
           saved.reviewed_at || saved.updated_at,
           record.term,
-          record.screening,
-          record.routes,
-          record.source_family,
+          record.proposed_area,
+          record.coverage,
           source,
         ];
       });
@@ -466,19 +424,12 @@
   }
 
   function initializeCounts() {
-    const monitor = data.records.filter(
-      (record) => record.kind === "source_record" && String(record.screening).startsWith("monitor-")
-    ).length;
     document.querySelector("#candidate-tab-count").textContent = data.candidate_questions.toLocaleString();
-    document.querySelector("#media-tab-count").textContent = data.media_episodes.toLocaleString();
-    document.querySelector("#priority-tab-count").textContent = data.priority_records.toLocaleString();
-    document.querySelector("#monitor-tab-count").textContent = monitor.toLocaleString();
-    document.querySelector("#all-tab-count").textContent = data.catalog_records.toLocaleString();
+    document.querySelector("#integration-count").textContent = data.existing_issue_queue.toLocaleString();
+    document.querySelector("#candidate-evidence-count").textContent = data.preliminary_candidate_evidence.toLocaleString();
+    document.querySelector("#retained-research-count").textContent = data.retained_research.toLocaleString();
+    document.querySelector("#agent-pending-count").textContent = data.agent_review_pending.toLocaleString();
   }
-
-  document.querySelectorAll("[data-queue]").forEach((button) => {
-    button.addEventListener("click", () => chooseQueue(button.dataset.queue));
-  });
   document.querySelector("#decision-yes").addEventListener("click", () => setDecision("yes"));
   document.querySelector("#decision-no").addEventListener("click", () => setDecision("no"));
   document.querySelector("#decision-defer").addEventListener("click", () => setDecision("defer"));
@@ -500,8 +451,8 @@
     state.index = 0;
     refresh();
   });
-  elements.sourceFilter.addEventListener("change", () => {
-    state.source = elements.sourceFilter.value;
+  elements.areaFilter.addEventListener("change", () => {
+    state.area = elements.areaFilter.value;
     state.index = 0;
     refresh();
   });
@@ -524,12 +475,12 @@
     state.search = "";
     state.decisionFilter = "unreviewed";
     state.term = "all";
-    state.source = "all";
+    state.area = "all";
     state.index = 0;
     elements.search.value = "";
     elements.decisionFilter.value = "unreviewed";
     elements.termFilter.value = "all";
-    elements.sourceFilter.value = "all";
+    elements.areaFilter.value = "all";
     refresh();
   });
   document.querySelector("#show-all-button").addEventListener("click", () => {
@@ -565,6 +516,6 @@
   window.addEventListener("beforeunload", saveNote);
 
   initializeCounts();
-  populateSourceFilter();
+  populateAreaFilter();
   refresh();
 })();

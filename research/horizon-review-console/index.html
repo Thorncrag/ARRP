@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <title>ARRP Horizon Intake Review</title>
+    <title>ARRP Preliminary Candidate Review</title>
     <meta
       name="description"
-      content="Internal ARRP interface for reviewing legal-action intake records before Horizon adjudication."
+      content="Internal ARRP interface for deciding whether synthesized preliminary candidates should become formal Horizon candidates."
     >
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -18,8 +18,8 @@
       <div class="brand-block">
         <span class="brand-mark" aria-hidden="true">ARRP</span>
         <div>
-          <h1>Horizon Intake Review</h1>
-          <p>Screen research records before formal Horizon adjudication.</p>
+          <h1>Preliminary Candidate Review</h1>
+          <p>Decide which synthesized institutional questions should enter the formal Horizon queue.</p>
         </div>
       </div>
       <div class="header-actions" aria-label="Review file actions">
@@ -35,7 +35,7 @@
         <div class="progress-copy">
           <span class="eyebrow" id="progress-heading">Review progress</span>
           <strong><span id="reviewed-count">0</span> of <span id="queue-count">0</span></strong>
-          <span id="queue-description">records reviewed in this queue</span>
+          <span id="queue-description">candidates reviewed</span>
         </div>
         <div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div>
         <div class="decision-totals" aria-label="Decision totals">
@@ -45,23 +45,13 @@
         </div>
       </section>
 
-      <nav class="queue-tabs" aria-label="Review queues">
-        <button type="button" data-queue="candidates" class="active">
-          Preliminary issue candidates <span id="candidate-tab-count">6</span>
-        </button>
-        <button type="button" data-queue="media">
-          Media-supported episodes <span id="media-tab-count">0</span>
-        </button>
-        <button type="button" data-queue="priority">
-          Priority cases <span id="priority-tab-count">56</span>
-        </button>
-        <button type="button" data-queue="monitor">
-          Monitor <span id="monitor-tab-count">0</span>
-        </button>
-        <button type="button" data-queue="all">
-          Full catalog <span id="all-tab-count">0</span>
-        </button>
-      </nav>
+      <section class="queue-tabs" aria-label="Intake synthesis status">
+        <span><b id="candidate-tab-count">0</b> preliminary candidates for your review</span>
+        <span><b id="integration-count">0</b> source records reviewed and routed to existing records</span>
+        <span><b id="candidate-evidence-count">0</b> source records supporting preliminary candidates</span>
+        <span><b id="retained-research-count">0</b> source records retained without a current issue route</span>
+        <span><b id="agent-pending-count">0</b> source records awaiting Codex review</span>
+      </section>
 
       <section class="workspace">
         <aside class="filters" aria-label="Filter review records">
@@ -72,15 +62,15 @@
 
           <label class="search-label" for="search-input">
             <span>Search</span>
-            <input id="search-input" type="search" placeholder="Title, actor, route, source…">
+            <input id="search-input" type="search" placeholder="Title, defect, issue, area…">
           </label>
 
           <label for="decision-filter">Decision</label>
           <select id="decision-filter">
             <option value="unreviewed">Unreviewed</option>
             <option value="all">All decisions</option>
-            <option value="yes">Yes — advance</option>
-            <option value="no">No — do not advance</option>
+            <option value="yes">Yes — promote to Horizon</option>
+            <option value="no">No — decline</option>
             <option value="defer">Deferred</option>
           </select>
 
@@ -92,9 +82,9 @@
             <option value="both">Spans both</option>
           </select>
 
-          <label for="source-filter">Source</label>
-          <select id="source-filter">
-            <option value="all">All sources</option>
+          <label for="area-filter">Possible project area</label>
+          <select id="area-filter">
+            <option value="all">All areas</option>
           </select>
 
           <label class="checkbox-row" for="auto-advance">
@@ -126,7 +116,7 @@
               <p class="review-prompt" id="review-prompt"></p>
 
               <section class="record-section" aria-labelledby="summary-heading">
-                <h3 id="summary-heading">Why it is in the intake</h3>
+                <h3 id="summary-heading">Possible institutional defect</h3>
                 <div class="clamped-copy" id="record-summary"></div>
                 <button class="text-button expand-button" id="expand-summary" type="button" hidden>Show full summary</button>
               </section>
@@ -140,7 +130,7 @@
                 <textarea
                   id="reviewer-notes"
                   rows="3"
-                  placeholder="Reason, duplicate, existing issue, research needed…"
+                  placeholder="Reason for promotion, rejection, deferral, or further research…"
                 ></textarea>
               </label>
             </div>
@@ -148,7 +138,7 @@
             <div class="empty-state" id="empty-state" hidden>
               <span class="completion-mark" aria-hidden="true">✓</span>
               <h2>Queue complete</h2>
-              <p>No records match the current filters. Change the decision filter to review completed items or move to another queue.</p>
+              <p>No candidates match the current filters. Change the decision filter to review completed items.</p>
               <button class="quiet-button" id="show-all-button" type="button">Show all decisions</button>
             </div>
           </article>
@@ -156,7 +146,7 @@
           <div class="decision-bar" id="decision-bar">
             <button class="decision-button no" id="decision-no" type="button">
               <span class="shortcut">N</span>
-              <span><b>No</b><small>Do not advance</small></span>
+              <span><b>No</b><small>Decline Horizon promotion</small></span>
             </button>
             <button class="decision-button defer" id="decision-defer" type="button">
               <span class="shortcut">D</span>
@@ -164,12 +154,12 @@
             </button>
             <button class="decision-button yes" id="decision-yes" type="button">
               <span class="shortcut">Y</span>
-              <span><b>Yes</b><small>Advance for adjudication</small></span>
+              <span><b>Yes</b><small>Promote to Horizon</small></span>
             </button>
           </div>
 
           <p class="method-note">
-            A Yes decision records a recommendation only. It does not assign a HOR number, create a GitHub issue, or admit a proposal.
+            A Yes decision records your approval to promote the preliminary question. Exported decisions must still be applied to the repository and GitHub; this local interface does not mutate project records automatically.
           </p>
         </section>
       </section>

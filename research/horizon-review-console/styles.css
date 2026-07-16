@@ -247,12 +247,28 @@ a:focus-visible {
 .status-dot.defer { background: var(--amber); }
 
 .queue-tabs {
-  display: flex;
-  gap: 0.35rem;
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.65rem;
   margin: 1rem 0;
-  padding: 0.2rem 0;
-  scrollbar-width: thin;
+  padding: 0;
+}
+
+.queue-tabs > span {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.queue-tabs > span b {
+  color: var(--navy-900);
+  font-size: 1rem;
 }
 
 .queue-tabs button {
@@ -728,6 +744,10 @@ kbd {
   }
 
   .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .queue-tabs {
     grid-template-columns: 1fr;
   }
 

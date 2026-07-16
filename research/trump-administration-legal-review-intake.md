@@ -8,7 +8,7 @@ print_levels:
 
 ## Purpose and Status
 
-This is a source-development intake for locating potentially repairable institutional weaknesses illustrated by actions of the first and second Trump administrations. It is deliberately broader than the active Horizon queue. It does **not** assign Horizon IDs, determine that an action was unlawful, admit a new ARRP issue, or treat political controversy as an institutional defect.
+This is a source-development intake for locating potentially repairable institutional weaknesses illustrated by actions of the first and second Trump administrations. It is deliberately broader than the active Horizon queue. It does **not automatically** assign Horizon IDs, determine that an action was unlawful, admit a new ARRP issue, or treat political controversy as an institutional defect. The preliminary-candidate ledger records a Horizon ID only after the user approves promotion and the ordinary Horizon workflow creates the formal candidate.
 
 The first machine-normalized baseline contains **1,322 source records**: **776 first-term records** and **546 second-term records**. They come from seven differently structured trackers and therefore are not yet 1,322 unique government actions. Cross-source duplicates remain visible until the record, challenged action, and final judicial posture can be reconciled without losing provenance.
 
@@ -16,7 +16,9 @@ The first machine-normalized baseline contains **1,322 source records**: **776 f
 - [Priority disposition review](trump-administration-priority-disposition-review.csv)
 - [Media-supported episode intake](trump-administration-media-review-intake.csv)
 - [Source-universe and completeness ledger](trump-administration-source-universe.csv)
-- [Horizon intake review console](horizon-review-console/README.md)
+- [Evidence-routing ledger](trump-administration-evidence-routing.csv)
+- [Preliminary candidate queue](trump-administration-preliminary-candidates.csv)
+- [Preliminary candidate review console](horizon-review-console/README.md)
 - [Rebuild script](../scripts/build_trump_legal_review_catalog.py)
 
 ## Inclusion Standard
@@ -75,11 +77,11 @@ The initial extraction normalizes:
 
 The [source-universe ledger](trump-administration-source-universe.csv) separately records official corpora, specialist trackers, oversight portals, and comparison sources that remain to be ingested. A source is not considered covered merely because it has been bookmarked.
 
-The separate [media-supported episode intake](trump-administration-media-review-intake.csv) presently records 33 independently corroborated episodes and exposes them through the review console. Two entries retain a primary-document retrieval flag: the Pentagon press-rotation memorandum and the FEMA grant instrument conditioning counterterrorism funding on state election practices.
+The separate [media-supported episode intake](trump-administration-media-review-intake.csv) presently records 33 independently corroborated episodes for the same evidence-routing process. It is not a separate user review queue. Two entries retain a primary-document retrieval flag: the Pentagon press-rotation memorandum and the FEMA grant instrument conditioning counterterrorism funding on state election practices.
 
-## Preliminary Possible Coverage Gaps
+## Preliminary Intake Dispositions
 
-These are provisional research questions, not Horizon findings. Each requires a full duplicate check, legal verification, political-failure analysis, and user-approved adjudication before it may receive a `HOR-###` identifier.
+These originated as synthesized preliminary research questions, not Horizon findings. Raw source records did not enter the user console. Each preliminary question stated the possible institutional defect, existing coverage considered, the distinctness rationale, the best counterargument, unresolved questions, and supporting evidence. On July 16, 2026, the user approved all six questions for promotion. They now carry `HOR-032` through `HOR-037` and enter the formal Horizon duplicate, legal, political-failure, and issue-admission workflow; promotion does not admit an area-specific proposal.
 
 ### Senior-official Hatch Act enforcement and use of official resources for campaigns
 
@@ -87,13 +89,13 @@ The current inventory has adjacent homes in A-08, OVS-008, and ELEC-012, but no 
 
 **Next review:** compare the president and vice president exclusions, OSC referral and adjudication authority, post-employment limits, appropriations restrictions, and existing proposals for independent civil enforcement.
 
-**Current treatment:** advance to formal Horizon duplicate and issue-admission review, principally through ELEC-012 and OVS-008. The fact that covered actors may be presidential appointees does not make this an APPT issue; the asserted defect is enforcement of election and official-resource restrictions.
+**Current treatment:** promoted as [HOR-032](../framework/HORIZON_SCAN_LOG.md) for formal duplicate and issue-admission review, principally through ELEC-012 and OVS-008. The fact that covered actors may be presidential appointees does not make this an APPT issue; the asserted defect is enforcement of election and official-resource restrictions.
 
 ### Accessible presidential and executive communications
 
 The underlying legal duty already exists. [Section 504 of the Rehabilitation Act](https://uscode.house.gov/view.xhtml?edition=prelim&req=granuleid:USC-prelim-title29-section794) prohibits disability-based exclusion from a program or activity conducted by an Executive agency, and Executive Office regulations expressly apply that obligation to the White House Office. In [2020](https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2020cv02107/220596/18/) and again in [November 2025](https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/164821.pdf), the U.S. District Court for the District of Columbia found the plaintiffs likely to succeed under that duty and ordered ASL access for specified White House briefings. The renewed dispute is narrower: the government has appealed while arguing that section 504 does not supply an enforceable private cause of action. The [ACLU of D.C. case page](https://www.acludc.org/cases/national-association-of-the-deaf-v-trump-asl-interpretation-during-white-house-press-briefings-protecting-the-rule-of-law-and-separation-of-powers-by-urging-the-d-c-circuit-to-apply-the/) describes that pending appellate question.
 
-**Current treatment:** monitor the appeal. Do not treat simple violation of the existing duty as a new institutional defect. Consider a new issue only if the litigation exposes a recurring enforcement gap, such as the absence of a clear cause of action, materially delayed prospective relief, or unresolved statutory coverage of particular presidential communications.
+**Current treatment:** promoted as [HOR-033](../framework/HORIZON_SCAN_LOG.md) and monitor the appeal. Cross-check HOR-027 because social media or another nontraditional channel may also carry covered presidential communications. Do not treat simple violation of the existing duty as a new institutional defect. Consider admission only if the litigation exposes a recurring enforcement gap, such as the absence of a clear cause of action, materially delayed prospective relief, or unresolved statutory coverage of particular presidential communications.
 
 ### Cross-agency repurposing of protected personal data
 
@@ -101,13 +103,7 @@ CIV-009 owns DOGE or another repurposed technical unit's cross-agency systems ac
 
 **Next review:** test whether the recurring defect is unauthorized secondary use, purpose incompatibility, interagency matching, bulk disclosure, political use, or absence of an independent approval and audit mechanism. If the defect is merely a DOGE access method, immigration policy, or election manifestation, merge it into the existing homes rather than creating a new issue.
 
-**Current treatment:** advance to formal Horizon duplicate and scope review, with a presumption in favor of expanding CIV-009 or an existing privacy home unless the evidence establishes a broader recurring defect. This is not principally an appointments issue.
-
-### Unofficial or inadequately supervised presidential representatives
-
-Reframed APPT-004 addresses a private individual, adviser, special government employee, presidential representative, or ambiguously designated official exercising sustained diplomatic or governmental authority without sufficiently clear appointment status, defined duties, ethics coverage, records duties, security review, departmental supervision, or public accountability. Existing law does specify appointment and reporting rules for some international representatives; for example, [22 U.S.C. § 3942](https://uscode.house.gov/view.xhtml?req=%28title%3A22+section%3A3942+edition%3Aprelim%29) governs specified presidential appointments and reporting involving ambassadorial rank.
-
-**Current treatment:** incorporated into APPT-004 source development. HOR-028 is integrated into that existing candidate rather than admitted as a third APPT proposal. The next review must distinguish lawful special envoys, temporary presidential agents, advisers, and private intermediaries from officers exercising continuing significant authority and must preserve the President's substantial constitutional foreign-relations authority.
+**Current treatment:** promoted as high-priority [HOR-034](../framework/HORIZON_SCAN_LOG.md) for formal duplicate and scope review, with a presumption in favor of expanding CIV-009 or an existing privacy home unless the evidence establishes a broader recurring defect. The danger of personal-information abuse supplies urgency but does not itself establish a separate proposal. This is not principally an appointments issue.
 
 ### Review evasion through withdrawal, replacement, settlement, or mootness
 
@@ -115,11 +111,27 @@ The first-term court roundup treats agency withdrawal after suit as an unsuccess
 
 **Next review:** isolate the catalog's withdrawal and mootness cases, identify whether the voluntary-cessation doctrine supplied review, and check whether JUD-001, JUD-011, REG-006, or a subject-specific remedy already addresses the problem. Admit a separate judicial-review issue only if the pattern is general, repeatable, and not adequately covered.
 
-### Threshold dismissal that leaves executive authority untested
+**Current treatment:** promoted as [HOR-035](../framework/HORIZON_SCAN_LOG.md). Litigation strategy is not inherently an institutional defect; admission requires evidence that review evasion became an egregious or standard practice rather than an isolated litigation choice or lawful correction.
 
-An action judicially “permitted” is not always a merits endorsement. Standing, ripeness, jurisdiction, reviewability, remedial limits, irreparable-harm findings, and emergency-docket stays can leave the legal authority unresolved while permitting the action to operate. The high-priority lane therefore requires disposition-level coding rather than a binary government win/loss label.
+### Executive action that may operate without timely merits review
 
-**Next review:** classify each of the 56 priority records by merits holding, statutory review bar, standing, jurisdiction, remedial standard, mootness, emergency relief, or mixed grounds. Only then decide whether the gap belongs in an existing subject proposal, a general judicial-review proposal, or no ARRP proposal at all.
+This candidate concerns a possible sequence rather than a conclusion about the legality of any policy. The executive takes consequential action; an affected party sues; but the court either cannot reach the legality of the action because of standing, jurisdiction, waiver, ripeness, reviewability, or mootness, or declines emergency relief while the merits remain unresolved. The action may then operate long enough to cause harm that a later judgment cannot fully repair.
+
+The present source set illustrates why controlling-opinion review is necessary. *Ramos v. Nielsen* held one Administrative Procedure Act claim unreviewable while rejecting a separate equal-protection claim. *Northern Alaska Environmental Center v. Department of the Interior* included a waiver holding but also some merits analysis. Four other retained records concern denials of a stay or preliminary injunction rather than final approval of executive authority. These are research leads, not proof of one general institutional defect. Records that plainly included merits determinations or had only been placed in broad “manual” or “mixed” text-classification groups have been returned to their subject-specific proposal queues.
+
+**Next review:** read the controlling opinions and determine, case by case, what claim remained untested, what rule prevented a timely merits decision, whether concrete and difficult-to-reverse harm occurred before final review, and whether later merits review supplied an adequate remedy. Only then decide whether any recurring gap belongs in an existing subject proposal, a general judicial-review proposal, or no ARRP proposal at all.
+
+**Current treatment:** promoted as [HOR-036](../framework/HORIZON_SCAN_LOG.md) for controlling-opinion and duplicate review. The six attached cases remain research leads rather than findings that executive conduct was unlawful or wholly unreviewed.
+
+### Immigration detention, removal-process, and access safeguards
+
+The combined immigration sources identify a possible process gap broader than any one substantive immigration policy: civil detention and removal may proceed without uniform access to counsel, prompt custody review, accurate hearing notice, preservation and disclosure of detention evidence, reliable access to adjudication, or sufficiently effective relief when officials disregard judicial commands. RIGHTS-002 owns TPS, asylum access, and humanitarian reviewability; DOM-001 owns domestic deployment authority; REG-003 owns administrative-adjudication control; JUD-001 owns enforcement of judicial commands; and HOR-010 owns courthouse-access chilling.
+
+The constitutional inquiry begins from personhood, not citizenship. The Fifth and Fourteenth Amendments protect “persons,” and [*Plyler v. Doe*](https://www.govinfo.gov/content/pkg/USREPORTS-457/pdf/USREPORTS-457-202.pdf) recognizes that people physically present within a state, including people unlawfully present, are protected by due process and equal protection. The Court connected protection to obligation under the civil and criminal laws. The remaining work is to identify the precise scope of each protection and any claim-specific distinction involving citizenship, initial admission, territory, custody, or status—not to entertain a general theory that noncitizens lack constitutional rights.
+
+**Next review:** determine whether those existing homes can collectively address the problem without fragmentation, or whether a narrow minimum-process and detention-accountability proposal is needed. Begin with person-based due-process and equal-protection guarantees; identify any limited doctrinal distinction claim by claim; and do not treat disagreement with immigration enforcement policy itself as an institutional defect.
+
+**Current treatment:** promoted as high-priority [HOR-037](../framework/HORIZON_SCAN_LOG.md) for constitutional, statutory, duplicate, and scope review.
 
 ## Existing Coverage That Should Not Be Recreated
 
@@ -137,18 +149,20 @@ The first scan already shows substantial overlap with developed or inventoried A
 - emergency tariffs and sanctions used as substitutes for legislation — EMERG-003;
 - conflicts of interest, government patronage, foreign benefits, and affiliated entities — A-06; and
 - court-order enforcement and public notice of executive noncompliance — JUD-001 and JUD-005.
+- unofficial or inadequately supervised governmental representatives — APPT-004, including the integrated HOR-028 source record.
 
 An action that fits one of these lanes should normally become a manifestation, source lead, litigation-status update, or reason to refine an existing remedy—not a new issue.
 
 ## Next Compilation Pass
 
-1. Complete controlling-opinion review of the 56 records in the [priority disposition review](trump-administration-priority-disposition-review.csv), replacing its preliminary text classification with verified merits, threshold, finality, and remedy coding.
-2. Reconcile duplicates across the Just Security, immigration, Policy Integrity, retaliation, human-rights, Public Citizen, and science-integrity sources while preserving every source URL.
-3. Ingest official findings from GAO, OSC, inspectors general, congressional reports, and published judicial noncompliance records so the catalog is not litigation-plaintiff biased.
-4. Ingest specialist first-term ethics, conflicts, records, science, environmental, civil-rights, election, appointments, and war-powers sources from the completeness ledger.
-5. Continue the media lane across both terms using the two-independent-source threshold; retrieve primary instruments for qualified episodes before proposal-page use.
-6. Add stable official-action identifiers—Executive Order, proclamation, memorandum, Federal Register citation, rule identifier, agency directive, or docket—where available.
-7. Apply the full ARRP duplicate and issue-admission tests only after source and posture normalization. No catalog or media record should become a Horizon item automatically.
+1. Review the per-record routes in the [evidence-routing ledger](trump-administration-evidence-routing.csv) by receiving proposal, verify the most useful evidence against primary materials, and integrate it through proposal-specific source-development or Change Audit batches rather than indiscriminately expanding issue pages.
+2. Complete controlling-opinion review of the 56 records in the [priority disposition review](trump-administration-priority-disposition-review.csv), replacing its preliminary text classification with verified merits, threshold, finality, and remedy coding.
+3. Reconcile semantic duplicates across the Just Security, immigration, Policy Integrity, retaliation, human-rights, Public Citizen, and science-integrity sources while preserving every source URL, the independently useful contribution of each record, and its issue or candidate route.
+4. Ingest official findings from GAO, OSC, inspectors general, congressional reports, and published judicial noncompliance records so the catalog is not litigation-plaintiff biased.
+5. Ingest specialist first-term ethics, conflicts, records, science, environmental, civil-rights, election, appointments, and war-powers sources from the completeness ledger.
+6. Continue the media lane across both terms using the two-independent-source threshold; retrieve primary instruments for qualified episodes before proposal-page use.
+7. Add stable official-action identifiers—Executive Order, proclamation, memorandum, Federal Register citation, rule identifier, agency directive, or docket—where available.
+8. Apply the full ARRP duplicate and issue-admission tests only after source and posture normalization. No catalog or media record should become a Horizon item automatically.
 
 ## Maintenance Rule
 
