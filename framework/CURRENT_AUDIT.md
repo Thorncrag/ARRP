@@ -13,16 +13,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active — validation and publication of the completed 54-record adjudication |
-| Active issue/task | Route-centered qualitative evidence review |
-| Audit type/tier | Source development and qualitative placement review; no T-audit run |
-| Started | 2026-07-16 |
-| Last checkpoint | 2026-07-16; all 54 routes adjudicated and local validation passed |
-| User request | Complete the 54-record existing-issue evidence integration queue before returning to the 1,266-record discovery catalog. |
-| Scope | All 54 queued judicial-disposition episodes; their current and possible receiving issues; controlling source verification; qualitative placement; source registry; queue reconciliation; affected issue pages; tests; and GitHub lifecycle fields. |
-| Files touched | `areas/RIGHTS/issues/RIGHTS-001.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `research/existing-issue-evidence-integration.csv`; `research/horizon-review-console/catalog-data.js`; `research/trump-administration-legal-review-intake.md`; `tests/test_horizon_intake.py`. |
-| Completed steps | Adjudicated all 54 routes; placed two controlling decisions on RIGHTS-001; retained two high-value records for future FACT-001 and REG-006 development; reconciled source associations; rebuilt the console; synchronized Project lifecycle statuses; and confirmed that scores, Runs, and Review Ready progress remain unchanged. |
-| Next step | Commit and push the validated batch, then close this handoff in a follow-up commit. |
+| Status | Inactive — prior task completed |
+| Active issue/task | None |
+| Audit type/tier | None |
+| Started | — |
+| Last checkpoint | 2026-07-16; 54-record qualitative evidence review completed and published |
+| User request | Completed: adjudicate the 54-record existing-issue evidence integration queue before returning to the 1,266-record discovery catalog. |
+| Scope | None active. |
+| Files touched | None active. |
+| Completed steps | The route review placed two controlling decisions on RIGHTS-001, retained two high-value records for future FACT-001 and REG-006 development, reconciled source associations, rebuilt the console, synchronized Project lifecycle statuses, passed validation, and was committed and pushed in `e183e0e`. Scores, Runs, and Review Ready progress remained unchanged. |
+| Next step | Begin route-centered qualitative review of the 1,266-record discovery catalog when directed. |
 | Blockers/questions | None. |
 | Validation status | Passed: 34 unit tests, public-site preparation check, CSV integrity checks, console count reconciliation, and `git diff --check`. |
 
