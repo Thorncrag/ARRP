@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: active
+status: inactive
 print_levels:
   - full-technical
 ---
@@ -13,16 +13,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active — restoring the established qualitative evidence-page standard |
-| Active issue/task | Evidence placement correction for DOJ-002, REG-001, and RIGHTS-002 |
+| Status | Inactive — completed and pushed |
+| Active issue/task | None |
 | Audit type/tier | Project methodology and source development; no T-audit run |
 | Started | 2026-07-16 |
-| Last checkpoint | 2026-07-16; user confirmed that evidence-page creation is governed by whether the issue page already contains sufficient strong support, not by evidence quantity |
+| Last checkpoint | 2026-07-16; qualitative evidence-placement correction committed as `2a29eae`, pushed to `origin/main`, and verified against the affected GitHub Project rows |
 | User request | Restore the previously established qualitative placement rule and correct the mechanical creation of one-item evidence pages. |
 | Scope | DOJ-002, REG-001, and RIGHTS-002 evidence placement; issue-evidence methodology and template; adjudication safeguards; source records; tests; and consolidated Change Audit documentation. |
 | Files touched | `areas/DOJ/evidence/DOJ-002-evidence.md` (removed); `areas/DOJ/issues/DOJ-002.md`; `areas/REG/evidence/REG-001-evidence.md` (removed); `areas/REG/issues/REG-001.md`; `areas/RIGHTS/evidence/RIGHTS-002-evidence.md` (removed); `areas/RIGHTS/issues/RIGHTS-002.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`; `framework/ISSUE_EVIDENCE_TEMPLATE.md`; `framework/METHODOLOGY.md`; `inventory/sources.csv`; `research/trump-administration-legal-review-intake.md`; `scripts/apply_source_adjudication.py`; `tests/test_horizon_intake.py`; `tests/test_source_adjudication.py`. |
 | Completed steps | Removed the three unwarranted one-item evidence pages; placed the DOJ-002 and REG-001 boundary decisions concisely in Annotation and the vacated RIGHTS-002 opinion in Source Notes; restored a qualitative sufficiency-and-reader-value standard throughout methodology, template, intake instructions, source records, automation, tests, and the consolidated Change Audit entry; retained the 54 incomplete episode tasks; and passed all 34 tests, public-site preparation, stale-link review, and diff validation. |
-| Next step | Commit and push the completed correction, verify the affected GitHub Project rows remain unchanged, and close this handoff. |
+| Next step | None. Apply the qualitative sufficiency-and-reader-value test during the next source-adjudication batch. |
 | Blockers/questions | None. |
 | Validation status | Passed: 34 unit tests, public-site preparation, stale evidence-link search, and `git diff --check`. |
 
