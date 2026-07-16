@@ -19,6 +19,7 @@ class HorizonIntakeTest(unittest.TestCase):
         cls.catalog = read_csv("trump-administration-legal-review-catalog.csv")
         cls.routing = read_csv("trump-administration-evidence-routing.csv")
         cls.existing_issue_integration = read_csv("existing-issue-evidence-integration.csv")
+        cls.litigation_monitoring = read_csv("trump-administration-litigation-monitoring.csv")
         cls.candidates = read_csv("trump-administration-preliminary-candidates.csv")
         with (ROOT / "inventory" / "sources.csv").open(newline="", encoding="utf-8") as handle:
             cls.sources = list(csv.DictReader(handle))
@@ -29,7 +30,6 @@ class HorizonIntakeTest(unittest.TestCase):
     def test_every_catalog_record_has_one_routing_record(self) -> None:
         catalog_ids = [row["catalog_id"] for row in self.catalog]
         routing_ids = [row["catalog_id"] for row in self.routing]
-        self.assertGreater(len(catalog_ids), 0)
         self.assertEqual(len(catalog_ids), len(set(catalog_ids)))
         self.assertCountEqual(catalog_ids, routing_ids)
 
@@ -60,11 +60,16 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_existing_issue_integration_queue_is_distinct_and_reconciled(self) -> None:
-        queued_ids = [row["catalog_id"] for row in self.existing_issue_integration]
+        queued_ids = [
+            catalog_id.strip()
+            for row in self.existing_issue_integration
+            for catalog_id in row["catalog_id"].split(";")
+            if catalog_id.strip()
+        ]
         active_ids = {row["catalog_id"] for row in self.catalog}
         source_ids = {row["Source ID"] for row in self.sources}
-        self.assertEqual(len(queued_ids), 2)
-        self.assertEqual(set(queued_ids), {"TAC-IPI1-005", "TAC-IPI1-170"})
+        self.assertGreaterEqual(len(queued_ids), 2)
+        self.assertTrue({"TAC-IPI1-005", "TAC-IPI1-170"} <= set(queued_ids))
         self.assertEqual(len(queued_ids), len(set(queued_ids)))
         self.assertFalse(set(queued_ids) & active_ids)
         for row in self.existing_issue_integration:
@@ -75,7 +80,7 @@ class HorizonIntakeTest(unittest.TestCase):
             }
             self.assertTrue(canonical_ids)
             self.assertTrue(canonical_ids <= source_ids)
-        self.assertEqual(self.console["existing_issue_queue"], len(queued_ids))
+        self.assertEqual(self.console["existing_issue_queue"], len(self.existing_issue_integration))
 
     def test_qualitatively_placed_sources_are_on_issue_pages(self) -> None:
         placements = {
@@ -95,6 +100,20 @@ class HorizonIntakeTest(unittest.TestCase):
             for source_fragment in source_fragments:
                 self.assertIn(source_fragment, issue_text)
             self.assertFalse(evidence_path.exists())
+
+    def test_litigation_monitor_has_sources_and_defined_revisit_predicates(self) -> None:
+        source_ids = {row["Source ID"] for row in self.sources}
+        monitor_ids = [row["monitor_id"] for row in self.litigation_monitoring]
+        self.assertEqual(len(monitor_ids), len(set(monitor_ids)))
+        for row in self.litigation_monitoring:
+            canonical_ids = {
+                source_id.strip()
+                for source_id in row["canonical_source_ids"].split(";")
+                if source_id.strip()
+            }
+            self.assertTrue(canonical_ids)
+            self.assertTrue(canonical_ids <= source_ids)
+            self.assertTrue(row["revisit_trigger"].strip())
 
     def test_resolved_preliminary_candidates_leave_active_queue(self) -> None:
         self.assertEqual(self.candidates, [])

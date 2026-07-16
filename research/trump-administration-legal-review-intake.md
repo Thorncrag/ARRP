@@ -18,9 +18,17 @@ The first machine-normalized baseline contains **1,322 source records**: **776 f
 - [Source-universe and completeness ledger](trump-administration-source-universe.csv)
 - [Evidence-routing ledger](trump-administration-evidence-routing.csv)
 - [Existing-issue evidence integration queue](existing-issue-evidence-integration.csv)
+- [Defined-predicate litigation monitor](trump-administration-litigation-monitoring.csv)
 - [Preliminary candidate queue](trump-administration-preliminary-candidates.csv)
 - [Preliminary candidate review console](horizon-review-console/README.md)
+- [Completed source-adjudication report](trump-administration-source-adjudication-report.md)
 - [Rebuild script](../scripts/build_trump_legal_review_catalog.py)
+
+## Completed Route-Centered Adjudication
+
+On July 16, 2026, the project completed qualitative route-centered review of all **1,266** records remaining after the priority batch. The review conservatively clustered them into **1,250** episodes, retained **160** records for qualitative integration, retained **178** records as **174** defined-predicate monitoring episodes, and removed **928** records as cumulative, topical-only, ordinary-policy, or insufficiently specific material. The active catalog and routing ledger are now empty; retained work appears only in the canonical source registry and the two active downstream queues linked above. See the [completed report](trump-administration-source-adjudication-report.md) for the reconciliation and source-family results.
+
+The downstream queues are not a second raw review burden for the user. Integration rows identify representative episodes that still require primary verification or reader-facing placement when the receiving proposal is developed. Monitoring rows reopen only upon a final merits ruling, controlling threshold decision, dismissal, settlement or withdrawal, or another material posture change. No new preliminary Horizon candidate resulted from this batch.
 
 ## Inclusion Standard
 
@@ -53,7 +61,7 @@ The catalog uses judicial posture to decide what should be reviewed first:
 | Voluntary cessation, withdrawal, replacement, settlement, or tactical concession | Preserve for review. Determine whether the government mooted the case or avoided precedent without repairing the underlying weakness. |
 | Human-rights, ethics, retaliation, or policy-tracker lead without a normalized legal posture | Verify the legal predicate and institutional defect before Horizon screening. |
 
-This rule explains the catalog's current screening distribution:
+This rule produced the initial screening distribution before route-centered adjudication:
 
 - **56** records: action permitted or challenge dismissed — priority review;
 - **181** records: open, interlocutory, or ongoing — monitoring;
@@ -62,7 +70,7 @@ This rule explains the catalog's current screening distribution:
 
 The totals are source records, not deduplicated actions.
 
-The initial priority worksheet applied provisional text classifications to 56 high-priority records. It was a temporary work queue, not a permanent evidence ledger, and is now empty after adjudication. The review confirmed that outcome labels alone do not establish an institutional defect: most records reflected ordinary policy adjudication, preliminary-relief decisions, later-modified outcomes, or topical overlap without additional reader-facing value. The permanent results now reside in `inventory/sources.csv`, on the relevant issue pages, in the HOR-036 monitoring record, or—only where development remains incomplete—in the two-row [existing-issue integration queue](existing-issue-evidence-integration.csv).
+The initial priority worksheet applied provisional text classifications to 56 high-priority records. It was a temporary work queue, not a permanent evidence ledger, and is now empty after adjudication. The review confirmed that outcome labels alone do not establish an institutional defect: most records reflected ordinary policy adjudication, preliminary-relief decisions, later-modified outcomes, or topical overlap without additional reader-facing value. The permanent results now reside in `inventory/sources.csv`, on relevant issue pages, in formal Horizon records, in the [existing-record integration queue](existing-issue-evidence-integration.csv), or in the [defined-predicate litigation monitor](trump-administration-litigation-monitoring.csv).
 
 ## Present Source Coverage
 
@@ -154,16 +162,14 @@ The first scan already shows substantial overlap with developed or inventoried A
 
 An action that fits one of these lanes should normally become a manifestation, source lead, litigation-status update, or reason to refine an existing remedy—not a new issue.
 
-## Next Compilation Pass
+## Next Source-Universe Pass
 
-1. Review the 1,266 per-record routes in the [evidence-routing ledger](trump-administration-evidence-routing.csv) by receiving proposal and verify the most useful evidence against primary materials. Apply the qualitative placement rule: strengthen the issue page when its material premise needs better support; use a linked evidence record only after the issue page is sufficiently evidenced and additional reader-useful material warrants separate treatment; retain merely cumulative material in `sources.csv` only with an express no-additional-reader-value finding; and keep incomplete work in the [existing-issue evidence integration queue](existing-issue-evidence-integration.csv) rather than manufacturing a placeholder. The queue presently retains only the OSHA reporting record for FACT-001 and the bump-stock rulemaking record for REG-006 because neither proposal yet has an issue page.
-2. Reconcile semantic duplicates across the Just Security, immigration, Policy Integrity, retaliation, human-rights, Public Citizen, and science-integrity sources while preserving every source URL, the independently useful contribution of each record, and its issue or candidate route.
-3. Ingest official findings from GAO, OSC, inspectors general, congressional reports, and published judicial noncompliance records so the catalog is not litigation-plaintiff biased.
-4. Ingest specialist first-term ethics, conflicts, records, science, environmental, civil-rights, election, appointments, and war-powers sources from the completeness ledger.
-5. Continue the media lane across both terms using the two-independent-source threshold; retrieve primary instruments for qualified episodes before proposal-page use.
-6. Add stable official-action identifiers—Executive Order, proclamation, memorandum, Federal Register citation, rule identifier, agency directive, or docket—where available.
-7. Apply the full ARRP duplicate and issue-admission tests only after source and posture normalization. No catalog or media record should become a Horizon item automatically.
+1. Work the [integration queue](existing-issue-evidence-integration.csv) by receiving record: verify primary materials, strengthen an issue page when a material premise needs better support, and use a linked evidence record only when additional verified material has qualitative reader-facing value.
+2. Revisit the [litigation monitor](trump-administration-litigation-monitoring.csv) only when its defined posture predicate occurs; do not treat open allegations or preliminary relief as final manifestations.
+3. Ingest official findings from GAO, OSC, inspectors general, congressional reports, and published judicial noncompliance records so the source universe is not litigation-plaintiff biased.
+4. Ingest specialist ethics, conflicts, records, environmental, civil-rights, election, appointments, and war-powers sources from the completeness ledger, and continue the two-source media lane across both terms.
+5. Apply the full ARRP duplicate and issue-admission tests only after source and posture normalization. No catalog or media record should become a Horizon item automatically.
 
 ## Maintenance Rule
 
-The catalog should retain a dated `last_checked` field and a source-family identifier. Refreshes should add or update source-normalized records first; a later adjudication pass may create a separate deduplicated action table keyed to stable official-action or litigation identifiers. Source URLs should never be discarded merely because several records are consolidated into one action.
+Future catalog refreshes should retain a dated `last_checked` field and source-family identifier. Add or update source-normalized records first, then complete route-centered adjudication before treating the refresh as integrated. Preserve independently useful source URLs when several reports are consolidated into one action; remove cumulative records only after the canonical source and qualitative placement decision are documented.

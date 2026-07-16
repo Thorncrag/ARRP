@@ -4,7 +4,7 @@ This internal interface supports user review of synthesized preliminary institut
 
 Open [`index.html`](index.html) in the **Codex in-app browser**. That is the console's intended review environment. The console contains only preliminary candidates that may warrant promotion into the formal Horizon queue. Each card states the possible institutional defect, why it may be distinct, existing coverage considered, the best counterargument, unresolved questions, and supporting sources.
 
-The underlying evidence remains in the [legal-review catalog](../trump-administration-legal-review-catalog.csv), [media-supported episode intake](../trump-administration-media-review-intake.csv), and [evidence-routing ledger](../trump-administration-evidence-routing.csv). The routing ledger preserves duplicate source records when they add corroboration, litigation posture, a primary instrument, or other evidentiary value. It separately identifies material likely to support an existing proposal and records still requiring agent review.
+Unadjudicated refreshes enter the [legal-review catalog](../trump-administration-legal-review-catalog.csv), [media-supported episode intake](../trump-administration-media-review-intake.csv), and [evidence-routing ledger](../trump-administration-evidence-routing.csv). After adjudication, retained sources move to the canonical source registry and either the [existing-record integration queue](../existing-issue-evidence-integration.csv) or [defined-predicate litigation monitor](../trump-administration-litigation-monitoring.csv); resolved raw rows leave the catalog and routing ledger. The [completed batch report](../trump-administration-source-adjudication-report.md) records the July 16, 2026 reconciliation.
 
 ## Decisions
 
@@ -29,4 +29,4 @@ python3 scripts/build_horizon_evidence_routing.py
 python3 scripts/build_horizon_review_console.py
 ```
 
-The generated `catalog-data.js` retains the stable preliminary candidate IDs used to associate saved or imported decisions with the refreshed candidate queue. The source-routing ledger remains separate from the console bundle.
+The generated `catalog-data.js` retains the stable preliminary candidate IDs used to associate saved or imported decisions with the refreshed candidate queue. Raw source routing, existing-record integration, and defined-predicate monitoring remain outside the user console.
