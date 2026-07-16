@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
-| Active issue/task | 1,266-record discovery-catalog adjudication |
-| Audit type/tier | Source development and route-centered adjudication; non-T-audit |
-| Started | 2026-07-16 |
-| Last checkpoint | 2026-07-16; full catalog reconciled and downstream queues generated |
-| User request | Process the full discovery catalog autonomously and reconcile every record. |
-| Scope | `research/trump-administration-legal-review-catalog.csv`; routing, decision, queue, candidate, source-registry, issue/evidence, monitoring, and batch-report surfaces; affected issue pages only where qualitative review warrants placement. |
-| Files touched | `framework/CURRENT_AUDIT.md`; `framework/METHODOLOGY.md` dependencies read; `inventory/sources.csv`; `research/trump-administration-legal-review-catalog.csv`; `research/trump-administration-evidence-routing.csv`; `research/existing-issue-evidence-integration.csv`; `research/trump-administration-litigation-monitoring.csv`; `research/trump-administration-source-adjudication-report.md`; `research/trump-administration-legal-review-intake.md`; `scripts/complete_source_catalog_adjudication.py`; `scripts/source_adjudication_common.py` |
-| Completed steps | Reconciled all 1,266 records as 1,250 episodes; retained 160 records for qualitative integration and 178 records as 174 defined-predicate monitoring episodes; removed 928 cumulative, topical-only, ordinary-policy, or insufficiently specific records; graduated 373 new canonical sources; pruned provisional multi-route associations to one accountable evidence home except formal Horizon boundary routes; created no new preliminary candidate. |
-| Next step | Run full CSV/source/link/test/public-site validation, inspect the diff, then commit and push the completed batch. |
-| Blockers/questions | None. Distinct unowned institutional candidates and material issue-theory changes will be reserved for user judgment. |
-| Validation status | In progress; batch reconciliation passed during generation. |
+| Status | Inactive — task completed |
+| Active issue/task | None |
+| Audit type/tier | None |
+| Started | — |
+| Last checkpoint | 2026-07-16; 1,266-record route-centered adjudication completed and published |
+| User request | Completed: process the full discovery catalog autonomously and reconcile every record. |
+| Scope | None active. |
+| Files touched | None active. |
+| Completed steps | All 1,266 records were reconciled as 1,250 episodes. The completed batch retained 160 records for qualitative integration and 178 records as 174 defined-predicate monitoring episodes, removed 928 cumulative or nonqualifying records, graduated 373 canonical sources, created no new preliminary candidate, and was committed and pushed in `832b0f3`. Scores, Runs, Project lifecycle fields, and Review Ready progress were unchanged. |
+| Next step | Work the 162-row existing-record integration queue by receiving record, beginning with a high-volume route such as FACT-001 or RIGHTS-002; revisit the separate 174-row litigation monitor only when a defined posture predicate occurs. |
+| Blockers/questions | None. |
+| Validation status | Passed: 37 unit tests, batch and CSV reconciliation, canonical-source and uniqueness checks, changed-document link checks, public-site preparation, and `git diff --check`. |
 
 ## Handoff Rules
 
