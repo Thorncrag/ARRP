@@ -56,10 +56,6 @@ NBC News reported that the Supreme Court allowed President Trump's administratio
 
 These reports should be used as current-event leads. Final drafting should rest primarily on the Supreme Court opinions, Federal Register notices, statutory text, country-condition records, agency consultation records if available, and congressional materials.
 
-## Supporting Evidence
-
-The separately maintained [RIGHTS-002 evidence record](../evidence/RIGHTS-002-evidence.md) preserves reviewed supporting evidence, counterevidence, judicial dispositions, and monitoring predicates without expanding this issue page.
-
 ## Resulting Damage
 
 Weak humanitarian reviewability can:
@@ -153,4 +149,4 @@ The page should not frame TPS or asylum as a guarantee of permanent immigration 
 
 ## Source Notes
 
-Primary source development should begin with *Mullin v. Doe / Trump v. Miot*, *Mullin v. Al Otro Lado*, the TPS statute, asylum-access provisions of the INA, Federal Register notices for Haiti and Syria TPS terminations, country-condition records, and agency consultation materials if public. Secondary reporting should be used to identify affected populations and implementation posture, not as the final legal basis for drafting.
+Primary source development should begin with *Mullin v. Doe / Trump v. Miot*, *Mullin v. Al Otro Lado*, the TPS statute, asylum-access provisions of the INA, Federal Register notices for Haiti and Syria TPS terminations, country-condition records, and agency consultation materials if public. The vacated panel opinion in [*Ramos v. Wolf*](https://law.justia.com/cases/federal/appellate-courts/ca9/18-16981/18-16981-2020-09-14.html) remains a historical lead concerning claim-specific TPS reviewability but is not current precedential authority. Secondary reporting should be used to identify affected populations and implementation posture, not as the final legal basis for drafting.

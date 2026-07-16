@@ -102,6 +102,20 @@ class SourceAdjudicationTest(unittest.TestCase):
             {"TAC-TEST-001"},
         )
 
+    def test_registry_only_corroboration_requires_explicit_qualitative_finding(self) -> None:
+        decision = {
+            "disposition": "corroborating-source",
+            "catalog_ids": ["TAC-TEST-001"],
+            "integration_targets": [],
+            "reader_facing_value": "no-additional-value",
+            "registry_only_rationale": "The issue page already cites the controlling opinion; this report adds no distinct proposition.",
+        }
+        validate_integration_targets(decision, set())
+
+        decision["registry_only_rationale"] = ""
+        with self.assertRaisesRegex(SystemExit, "explicit no-additional-reader-value"):
+            validate_integration_targets(decision, set())
+
 
 if __name__ == "__main__":
     unittest.main()

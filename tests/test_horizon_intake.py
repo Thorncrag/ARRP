@@ -76,16 +76,18 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertTrue(canonical_ids <= source_ids)
         self.assertEqual(self.console["existing_issue_queue"], len(queued_ids))
 
-    def test_developed_issue_evidence_records_are_linked(self) -> None:
-        records = {
-            "DOJ-002": ROOT / "areas" / "DOJ" / "evidence" / "DOJ-002-evidence.md",
-            "REG-001": ROOT / "areas" / "REG" / "evidence" / "REG-001-evidence.md",
-            "RIGHTS-002": ROOT / "areas" / "RIGHTS" / "evidence" / "RIGHTS-002-evidence.md",
+    def test_qualitatively_placed_pilot_sources_are_on_issue_pages(self) -> None:
+        placements = {
+            "DOJ-002": "docs.justia.com/cases/federal/district-courts/district-of-columbia",
+            "REG-001": "fec.gov/documents/5867/usdcdc-mem-opinion-06-03-2025.pdf",
+            "RIGHTS-002": "law.justia.com/cases/federal/appellate-courts/ca9/18-16981",
         }
-        for issue_id, evidence_path in records.items():
-            issue_path = ROOT / "areas" / issue_id.split("-", 1)[0] / "issues" / f"{issue_id}.md"
-            self.assertTrue(evidence_path.is_file())
-            self.assertIn(f"../evidence/{issue_id}-evidence.md", issue_path.read_text(encoding="utf-8"))
+        for issue_id, source_fragment in placements.items():
+            area = issue_id.split("-", 1)[0]
+            issue_path = ROOT / "areas" / area / "issues" / f"{issue_id}.md"
+            evidence_path = ROOT / "areas" / area / "evidence" / f"{issue_id}-evidence.md"
+            self.assertIn(source_fragment, issue_path.read_text(encoding="utf-8"))
+            self.assertFalse(evidence_path.exists())
 
     def test_resolved_preliminary_candidates_leave_active_queue(self) -> None:
         self.assertEqual(self.candidates, [])

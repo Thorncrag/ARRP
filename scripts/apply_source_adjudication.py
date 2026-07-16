@@ -60,6 +60,8 @@ RETAINED_EVIDENCE_DISPOSITIONS = {
     "different-existing-proposal",
 }
 
+REGISTRY_ONLY_DISPOSITIONS = {"corroborating-source"}
+
 
 def validate_integration_targets(
     decision: dict[str, object], existing_issue_queue_ids: set[str]
@@ -74,9 +76,19 @@ def validate_integration_targets(
         targets = [str(target) for target in raw_targets]
     targets = [target.strip() for target in targets if target.strip()]
     if not targets:
+        registry_only = decision.get("reader_facing_value") == "no-additional-value"
+        rationale = str(decision.get("registry_only_rationale", "")).strip()
+        if (
+            decision.get("disposition") in REGISTRY_ONLY_DISPOSITIONS
+            and registry_only
+            and rationale
+        ):
+            return
         raise SystemExit(
-            "Every retained-evidence decision requires an integration target; "
-            "a sources.csv association alone is not completed integration."
+            "Every retained-evidence decision requires an issue, evidence-record, "
+            "monitoring, or queue target unless cumulative corroboration has an "
+            "explicit no-additional-reader-value finding and rationale; a sources.csv "
+            "association alone is not completed integration."
         )
 
     queue_target = EXISTING_ISSUE_QUEUE.relative_to(ROOT).as_posix()
