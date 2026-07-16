@@ -17,19 +17,15 @@ Congressional oversight becomes ineffective when subpoenas, testimony demands, d
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| CONG-001 | Congressional Information and Subpoena Enforcement |
-| CONG-007 | Weak committee investigative capacity |
+- **CONG-001 — Congressional Information and Subpoena Enforcement**
+- **CONG-007 — Weak committee investigative capacity**
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| CONG-002 through CONG-006 | Merged into CONG-001 as privilege, testimonial-immunity, delay, contempt-routing, and expedited-review components of one congressional-access framework. |
-| CONG-008 | Retired as an independent proposal because unified-government inaction is principally a political failure. Automatic public notice of judicially established executive noncompliance remains addressed by [JUD-005](../JUD/issues/JUD-005.md). |
+- **CONG-002 through CONG-006** — Merged into CONG-001 as privilege, testimonial-immunity, delay, contempt-routing, and expedited-review components of one congressional-access framework.
+- **CONG-008** — Retired as an independent proposal because unified-government inaction is principally a political failure. Automatic public notice of judicially established executive noncompliance remains addressed by [JUD-005](../JUD/issues/JUD-005.md).
 
 ## Issue Boundaries
 

@@ -17,17 +17,13 @@ Record-preservation rules depend too heavily on executive compliance and lack su
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| REC-001 | Presidential and Executive Records Integrity, Custody, and Enforcement |
+- **REC-001 — Presidential and Executive Records Integrity, Custody, and Enforcement**
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| REC-002 through REC-008 | Merged into REC-001 as destruction, unofficial-system, Archives-authority, litigation, digital-preservation, classification, and transition-custody components of one records lifecycle. |
+- **REC-002 through REC-008** — Merged into REC-001 as destruction, unofficial-system, Archives-authority, litigation, digital-preservation, classification, and transition-custody components of one records lifecycle.
 
 ## Issue Boundaries
 

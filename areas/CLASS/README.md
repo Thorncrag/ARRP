@@ -17,22 +17,18 @@ The classification system concentrates broad authority within the executive bran
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| CLASS-001 | Presidential Classification, Declassification, Documentation, and Custody |
-| CLASS-004 | Overclassification, Concealment, and Independent Review |
-| CLASS-006 | Protection of Classified Information, Sources, and Methods |
-| CLASS-011 | Security-Clearance Integrity |
+- **CLASS-001 — Presidential Classification, Declassification, Documentation, and Custody**
+- **CLASS-004 — Overclassification, Concealment, and Independent Review**
+- **CLASS-006 — Protection of Classified Information, Sources, and Methods**
+- **CLASS-011 — Security-Clearance Integrity**
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| CLASS-002, CLASS-003, CLASS-005, CLASS-007 | Merged into CLASS-001 as possession, statutory-exception, selective-declassification, implementation, documentation, and custody components. |
-| CLASS-008, CLASS-009, CLASS-010 | Merged into CLASS-004 as overclassification, congressional-access, external-review, and remedy components of one anti-concealment framework. |
-| CLASS-012 | Merged into CLASS-006 as the accountability component of protecting classified information, intelligence sources, and methods. |
+- **CLASS-002, CLASS-003, CLASS-005, CLASS-007** — Merged into CLASS-001 as possession, statutory-exception, selective-declassification, implementation, documentation, and custody components.
+- **CLASS-008, CLASS-009, CLASS-010** — Merged into CLASS-004 as overclassification, congressional-access, external-review, and remedy components of one anti-concealment framework.
+- **CLASS-012** — Merged into CLASS-006 as the accountability component of protecting classified information, intelligence sources, and methods.
 
 ## Issue Boundaries
 

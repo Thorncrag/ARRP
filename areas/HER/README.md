@@ -17,17 +17,13 @@ Federal historic buildings, monuments, landscapes, civic spaces, museum-like int
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| HER-001 | Federal Civic Property Preservation and Public Review |
+- **HER-001 — Federal Civic Property Preservation and Public Review**
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| HER-002 through HER-008 | Merged into HER-001 as review, private-funding, commission-integrity, emergency-exception, commemorative-feature, notice, documentation, consultation, and timely-remedy components of one civic-property framework. |
+- **HER-002 through HER-008** — Merged into HER-001 as review, private-funding, commission-integrity, emergency-exception, commemorative-feature, notice, documentation, consultation, and timely-remedy components of one civic-property framework.
 
 ## Issue Boundaries
 

@@ -17,22 +17,18 @@ The federal judiciary’s authority to interpret and apply law is not matched by
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| [JUD-001](issues/JUD-001.md) | Executive Dependence of Judicial Enforcement |
-| [JUD-005](issues/JUD-005.md) | No Automatic Public Notice of Executive Noncompliance |
-| [JUD-009](issues/JUD-009.md) | Appointer-President Recusal |
-| JUD-010 | Judicial Branch Capacity, Funding, and Emergency Docket Resilience |
-| [JUD-011](issues/JUD-011.md) | Executive Nullification of Congressional Mandates |
+- [**JUD-001 — Executive Dependence of Judicial Enforcement**](issues/JUD-001.md)
+- [**JUD-005 — No Automatic Public Notice of Executive Noncompliance**](issues/JUD-005.md)
+- [**JUD-009 — Appointer-President Recusal**](issues/JUD-009.md)
+- **JUD-010 — Judicial Branch Capacity, Funding, and Emergency Docket Resilience**
+- [**JUD-011 — Executive Nullification of Congressional Mandates**](issues/JUD-011.md)
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| JUD-002, JUD-003, JUD-004, JUD-006, JUD-007 | Merged into [JUD-001](issues/JUD-001.md). JUD-007 supplies the evasion-through-substitution, reorganization, and nominally revised directive application. |
-| JUD-008 | Merged into [JUD-005](issues/JUD-005.md) for automatic public compliance verification, with JUD-001 retaining direct evidentiary and enforcement authority. |
+- **JUD-002, JUD-003, JUD-004, JUD-006, JUD-007** — Merged into [JUD-001](issues/JUD-001.md). JUD-007 supplies the evasion-through-substitution, reorganization, and nominally revised directive application.
+- **JUD-008** — Merged into [JUD-005](issues/JUD-005.md) for automatic public compliance verification, with JUD-001 retaining direct evidentiary and enforcement authority.
 
 ## Issue Boundaries
 

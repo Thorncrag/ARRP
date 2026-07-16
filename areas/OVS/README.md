@@ -17,19 +17,15 @@ Internal watchdogs lack sufficient independence, access, tenure protection, reme
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| OVS-001 | Inspector General Independence, Access, Reporting, and Follow-Through |
-| OVS-004 | Retaliation Against Whistleblowers |
-| OVS-008 | Independence of Internal Ethics Offices |
+- **OVS-001 — Inspector General Independence, Access, Reporting, and Follow-Through**
+- **OVS-004 — Retaliation Against Whistleblowers**
+- **OVS-008 — Independence of Internal Ethics Offices**
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| OVS-002, OVS-003, OVS-005, OVS-006, OVS-007 | Merged into OVS-001 as acting-service, records-access, report, recommendation, congressional-notice, and follow-through components of one inspector-general framework. |
+- **OVS-002, OVS-003, OVS-005, OVS-006, OVS-007** — Merged into OVS-001 as acting-service, records-access, report, recommendation, congressional-notice, and follow-through components of one inspector-general framework.
 
 ## Issue Boundaries
 

@@ -17,19 +17,15 @@ Presidents can invoke broadly worded emergency statutes to unlock extraordinary 
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| EMERG-001 | National-Emergency Declarations, Renewal, and Review |
-| [EMERG-003](issues/EMERG-003.md) | Emergency Economic Powers as a Substitute for Legislation |
+- **EMERG-001 — National-Emergency Declarations, Renewal, and Review**
+- [**EMERG-003 — Emergency Economic Powers as a Substitute for Legislation**](issues/EMERG-003.md)
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| EMERG-004 through EMERG-008 | Merged into EMERG-001 as subject-matter, termination, renewal, findings, and expedited-review components of the general national-emergency framework. |
-| EMERG-002 | Merged into [FUND-001](../FUND/issues/FUND-001.md) as the emergency-activated appropriation-redirection manifestation, with EMERG-001 retaining the declaration and review cross-reference. |
+- **EMERG-004 through EMERG-008** — Merged into EMERG-001 as subject-matter, termination, renewal, findings, and expedited-review components of the general national-emergency framework.
+- **EMERG-002** — Merged into [FUND-001](../FUND/issues/FUND-001.md) as the emergency-activated appropriation-redirection manifestation, with EMERG-001 retaining the declaration and review cross-reference.
 
 ## Issue Boundaries
 

@@ -17,21 +17,17 @@ The executive branch retains excessive practical capacity to convert career admi
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| CIV-001 | Civil-Service Merit, Classification, and Anti-Politicization |
-| CIV-004 | Protection for Refusal of Unlawful Directives |
-| CIV-005 | Federal Workforce Capacity and Anti-Hollowing |
-| CIV-009 | Repurposed Technical Units as Cross-Agency Operational Control Mechanisms |
+- **CIV-001 — Civil-Service Merit, Classification, and Anti-Politicization**
+- **CIV-004 — Protection for Refusal of Unlawful Directives**
+- **CIV-005 — Federal Workforce Capacity and Anti-Hollowing**
+- **CIV-009 — Repurposed Technical Units as Cross-Agency Operational Control Mechanisms**
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| CIV-002, CIV-003, CIV-006, CIV-007 | Merged into CIV-001 as removal, reassignment, loyalty-based hiring, delayed-remedy, promotion, and performance-system components of one merit-system framework. |
-| CIV-008 | Merged into CIV-005 because mass reductions are a principal mechanism for degrading federal technical and institutional capacity. |
+- **CIV-002, CIV-003, CIV-006, CIV-007** — Merged into CIV-001 as removal, reassignment, loyalty-based hiring, delayed-remedy, promotion, and performance-system components of one merit-system framework.
+- **CIV-008** — Merged into CIV-005 because mass reductions are a principal mechanism for degrading federal technical and institutional capacity.
 
 ## Issue Boundaries
 

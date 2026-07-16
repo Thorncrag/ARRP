@@ -17,20 +17,16 @@ Temporary-service, delegation, and informal-authority arrangements can weaken st
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| [APPT-001](issues/APPT-001.md) | Evasion of Senate Confirmation and Statutory Appointment Safeguards |
-| APPT-004 | Exercise of Governmental Authority by Unappointed or Insufficiently Accountable Individuals |
+- [**APPT-001 — Evasion of Senate Confirmation and Statutory Appointment Safeguards**](issues/APPT-001.md)
+- **APPT-004 — Exercise of Governmental Authority by Unappointed or Insufficiently Accountable Individuals**
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| APPT-002, APPT-003, APPT-007, APPT-008 | Merged into [APPT-001](issues/APPT-001.md). |
-| APPT-005 | Confirmation-backstop evasion rerouted to [APPT-001](issues/APPT-001.md); independent-agency removal rerouted to [REG-001](../REG/issues/REG-001.md); ordinary at-will removal held outside scope. |
-| APPT-006 | Authority manipulation merged into [APPT-001](issues/APPT-001.md); misleading public terminology rerouted to FACT-009 in [A-18](../FACT/README.md). |
+- **APPT-002, APPT-003, APPT-007, APPT-008** — Merged into [APPT-001](issues/APPT-001.md).
+- **APPT-005** — Confirmation-backstop evasion rerouted to [APPT-001](issues/APPT-001.md); independent-agency removal rerouted to [REG-001](../REG/issues/REG-001.md); ordinary at-will removal held outside scope.
+- **APPT-006** — Authority manipulation merged into [APPT-001](issues/APPT-001.md); misleading public terminology rerouted to FACT-009 in [A-18](../FACT/README.md).
 
 ## Issue Boundaries
 

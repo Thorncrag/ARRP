@@ -17,23 +17,21 @@ The election system remains vulnerable to federal executive interference, delegi
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| [ELEC-001](issues/ELEC-001.md) | Federal Executive Interference with State and Local Election Administration |
-| [ELEC-002](issues/ELEC-002.md) | Pressure on Certification and Canvassing Officials |
-| [ELEC-003](issues/ELEC-003.md) | Insufficient Protection for Election Workers and Officials |
-| [ELEC-004](issues/ELEC-004.md) | Abuse of Election Litigation and Civil Process |
-| [ELEC-005](issues/ELEC-005.md) | Weak Safeguards Against False Presidential Result-Transmission Documents |
-| [ELEC-006](issues/ELEC-006.md) | Insufficiently Automatic Presidential-Transition Procedures |
-| [ELEC-007](issues/ELEC-007.md) | Improper Federal-Force Presence in Election Administration |
-| [ELEC-008](issues/ELEC-008.md) | Accountability for Coordinated Federal Election-Subversion Schemes |
-| [ELEC-009](issues/ELEC-009.md) | Electoral College Structure and National Popular Vote |
-| [ELEC-010](issues/ELEC-010.md) | Mail-In Voting Access, Reliability, and Trust |
-| [ELEC-011](issues/ELEC-011.md) | Algorithmic Redistricting Baseline and Representation Safeguards |
-| [ELEC-012](issues/ELEC-012.md) | Campaign Finance, Dark Money, and Corporate Political Spending |
-| [ELEC-013](issues/ELEC-013.md) | Federal Candidate Access, Ballot Access, and Debate Gatekeeping |
-| [ELEC-014](issues/ELEC-014.md) | Limiting Federal Criminal Investigations into State-Administered Elections |
-| [ELEC-015](issues/ELEC-015.md) | Ranked-Choice Voting and Majority-Choice Election Methods |
+- [**ELEC-001 — Federal Executive Interference with State and Local Election Administration**](issues/ELEC-001.md)
+- [**ELEC-002 — Pressure on Certification and Canvassing Officials**](issues/ELEC-002.md)
+- [**ELEC-003 — Insufficient Protection for Election Workers and Officials**](issues/ELEC-003.md)
+- [**ELEC-004 — Abuse of Election Litigation and Civil Process**](issues/ELEC-004.md)
+- [**ELEC-005 — Weak Safeguards Against False Presidential Result-Transmission Documents**](issues/ELEC-005.md)
+- [**ELEC-006 — Insufficiently Automatic Presidential-Transition Procedures**](issues/ELEC-006.md)
+- [**ELEC-007 — Improper Federal-Force Presence in Election Administration**](issues/ELEC-007.md)
+- [**ELEC-008 — Accountability for Coordinated Federal Election-Subversion Schemes**](issues/ELEC-008.md)
+- [**ELEC-009 — Electoral College Structure and National Popular Vote**](issues/ELEC-009.md)
+- [**ELEC-010 — Mail-In Voting Access, Reliability, and Trust**](issues/ELEC-010.md)
+- [**ELEC-011 — Algorithmic Redistricting Baseline and Representation Safeguards**](issues/ELEC-011.md)
+- [**ELEC-012 — Campaign Finance, Dark Money, and Corporate Political Spending**](issues/ELEC-012.md)
+- [**ELEC-013 — Federal Candidate Access, Ballot Access, and Debate Gatekeeping**](issues/ELEC-013.md)
+- [**ELEC-014 — Limiting Federal Criminal Investigations into State-Administered Elections**](issues/ELEC-014.md)
+- [**ELEC-015 — Ranked-Choice Voting and Majority-Choice Election Methods**](issues/ELEC-015.md)
 
 ## Issue Boundaries
 

@@ -17,20 +17,16 @@ The legal system lacks a sufficiently clear, timely, and enforceable framework f
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| [IMM-001](issues/IMM-001.md) | Criminal Immunity for Presidential Official Acts |
-| IMM-002 | Civil immunity and remedial gaps |
+- [**IMM-001 — Criminal Immunity for Presidential Official Acts**](issues/IMM-001.md)
+- **IMM-002 — Civil immunity and remedial gaps**
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| IMM-003 through IMM-006 | Merged into [IMM-001](issues/IMM-001.md) as tolling, evidentiary-use, delay, and impeachment-prerequisite components of the criminal-immunity framework. |
-| IMM-007 | Integrated into IMM-001 for immunity arising from self-protective official acts and into [DOJ-007](../DOJ/issues/DOJ-007.md) for conflicted investigation and prosecution. |
-| IMM-008 | Merged into DOJ-007, which owns the independent investigative and prosecutorial institution. |
+- **IMM-003 through IMM-006** — Merged into [IMM-001](issues/IMM-001.md) as tolling, evidentiary-use, delay, and impeachment-prerequisite components of the criminal-immunity framework.
+- **IMM-007** — Integrated into IMM-001 for immunity arising from self-protective official acts and into [DOJ-007](../DOJ/issues/DOJ-007.md) for conflicted investigation and prosecution.
+- **IMM-008** — Merged into DOJ-007, which owns the independent investigative and prosecutorial institution.
 
 ## Ownership and Cross-Reference
 

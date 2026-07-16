@@ -17,22 +17,18 @@ The federal government can use funding, enforcement discretion, emergency author
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| FED-002 | Selective or Retaliatory Federal Administration Against States |
-| [FED-003](issues/FED-003.md) | Federal Funding, Waiver, and Approval Coercion of States |
-| FED-004 | Federal Displacement of State Functions |
+- **FED-002 — Selective or Retaliatory Federal Administration Against States**
+- [**FED-003 — Federal Funding, Waiver, and Approval Coercion of States**](issues/FED-003.md)
+- **FED-004 — Federal Displacement of State Functions**
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| FED-001, FED-008 | Merged into FED-003 as disaster-aid, infrastructure-aid, waiver, approval, and grant-condition instruments of federal coercion. |
-| FED-007 | Merged into FED-002 as the investigation-and-audit application of selective or retaliatory federal administration against states. |
-| FED-005 | Merged into [DOM-001](../DOM/README.md) as domestic deployment over state objection. |
-| FED-006 | Merged into [ELEC-014](../ELEC/README.md) as election-specific federal interference with state election administration; FED-004 retains the general federalism boundary. |
+- **FED-001, FED-008** — Merged into FED-003 as disaster-aid, infrastructure-aid, waiver, approval, and grant-condition instruments of federal coercion.
+- **FED-007** — Merged into FED-002 as the investigation-and-audit application of selective or retaliatory federal administration against states.
+- **FED-005** — Merged into [DOM-001](../DOM/README.md) as domestic deployment over state objection.
+- **FED-006** — Merged into [ELEC-014](../ELEC/README.md) as election-specific federal interference with state election administration; FED-004 retains the general federalism boundary.
 
 ## Issue Boundaries
 

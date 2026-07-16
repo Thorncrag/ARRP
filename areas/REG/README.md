@@ -17,20 +17,16 @@ The constitutional and statutory position of independent agencies is increasingl
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| [REG-001](issues/REG-001.md) | Agency Independence and Functional Nullification |
-| REG-002 | Politicized enforcement or nonenforcement |
-| REG-003 | Control of administrative adjudication |
-| REG-006 | Presidential control of rulemaking and legal positions |
+- [**REG-001 — Agency Independence and Functional Nullification**](issues/REG-001.md)
+- **REG-002 — Politicized enforcement or nonenforcement**
+- **REG-003 — Control of administrative adjudication**
+- **REG-006 — Presidential control of rulemaking and legal positions**
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| REG-004, REG-005, REG-007, REG-008 | Merged into [REG-001](issues/REG-001.md). Operational dismantling, vacancies, funding independence, and post-doctrine constitutional design are components of its two-tier independence and continuity framework. |
+- **REG-004, REG-005, REG-007, REG-008** — Merged into [REG-001](issues/REG-001.md). Operational dismantling, vacancies, funding independence, and post-doctrine constitutional design are components of its two-tier independence and continuity framework.
 
 ## Issue Boundaries
 

@@ -17,20 +17,16 @@ The executive branch can delay, condition, redirect, or refuse congressionally a
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| [FUND-001](issues/FUND-001.md) | Fiscal Implementation of Ultra Vires Executive Directives |
-| [FUND-002](issues/FUND-002.md) | Pocket Rescissions and Strategic Delay |
+- [**FUND-001 — Fiscal Implementation of Ultra Vires Executive Directives**](issues/FUND-001.md)
+- [**FUND-002 — Pocket Rescissions and Strategic Delay**](issues/FUND-002.md)
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| FUND-003, FUND-005, FUND-006, FUND-007, FUND-008 | Merged into [FUND-001](issues/FUND-001.md) as program-nullification, reprogramming, standing, remedy, accountability, and reporting components of its fiscal implementation framework. |
-| EMERG-002 | Integrated into FUND-001 as the emergency-authority appropriation-redirection manifestation. |
-| FUND-004 | Merged into [FED-003](../FED/issues/FED-003.md) for state and local funding coercion, with [RET-001](../RET/README.md) retaining the cross-sector retaliation mechanism and FUND-001 retaining enacted-appropriation enforcement. |
+- **FUND-003, FUND-005, FUND-006, FUND-007, FUND-008** — Merged into [FUND-001](issues/FUND-001.md) as program-nullification, reprogramming, standing, remedy, accountability, and reporting components of its fiscal implementation framework.
+- **EMERG-002** — Integrated into FUND-001 as the emergency-authority appropriation-redirection manifestation.
+- **FUND-004** — Merged into [FED-003](../FED/issues/FED-003.md) for state and local funding coercion, with [RET-001](../RET/README.md) retaining the cross-sector retaliation mechanism and FUND-001 retaining enacted-appropriation enforcement.
 
 ## Issue Boundaries
 

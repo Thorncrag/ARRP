@@ -17,23 +17,19 @@ Existing constitutional and statutory safeguards do not adequately prevent presi
 
 ## Active Issues
 
-| Record | Proposal |
-| --- | --- |
-| PRESS-001 | Equal Press Access and Rapid Review |
-| PRESS-003 | Journalist Compulsory Process, Surveillance, and Source Protection |
-| PRESS-006 | Governmental Retaliation Against the Press |
+- **PRESS-001 — Equal Press Access and Rapid Review**
+- **PRESS-003 — Journalist Compulsory Process, Surveillance, and Source Protection**
+- **PRESS-006 — Governmental Retaliation Against the Press**
 
 ## Undeveloped Candidate Dispositions
 
 These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-| Record | Disposition |
-| --- | --- |
-| PRESS-002 | Merged into PRESS-001 as the selective-exclusion application of equal-access rules. |
-| PRESS-009 | Merged into PRESS-003 as the confidential-source component of journalist compulsory-process and surveillance safeguards. |
-| PRESS-004, PRESS-005, PRESS-008, PRESS-010, PRESS-011 | Merged into PRESS-006 as regulatory, contracting, coercive, public-broadcasting, taxation, and financial instruments of governmental retaliation. |
-| PRESS-012 | Integrated across PRESS-001, PRESS-003, and PRESS-006 because rapid relief is a safeguard tailored to each underlying press dispute, not an independent institutional defect. |
-| PRESS-007 | Integrated into [FACT-001 or FACT-009](../FACT/README.md) according to whether official conduct alters technical substance or misrepresents legal or institutional reality. Protected criticism alone remains outside scope. |
+- **PRESS-002** — Merged into PRESS-001 as the selective-exclusion application of equal-access rules.
+- **PRESS-009** — Merged into PRESS-003 as the confidential-source component of journalist compulsory-process and surveillance safeguards.
+- **PRESS-004, PRESS-005, PRESS-008, PRESS-010, PRESS-011** — Merged into PRESS-006 as regulatory, contracting, coercive, public-broadcasting, taxation, and financial instruments of governmental retaliation.
+- **PRESS-012** — Integrated across PRESS-001, PRESS-003, and PRESS-006 because rapid relief is a safeguard tailored to each underlying press dispute, not an independent institutional defect.
+- **PRESS-007** — Integrated into [FACT-001 or FACT-009](../FACT/README.md) according to whether official conduct alters technical substance or misrepresents legal or institutional reality. Protected criticism alone remains outside scope.
 
 ## Issue Boundaries
 
