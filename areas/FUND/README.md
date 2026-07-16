@@ -1,6 +1,6 @@
 ---
 area_id: A-11
-title: "Congressional Power of the Purse and Impoundment"
+title: "Executive Impoundment and Departure from Congressional Spending Decisions"
 status: active
 issue_count: 2
 print_levels:
@@ -9,11 +9,11 @@ print_levels:
   - executive-summary
 ---
 
-# A-11 — Congressional Power of the Purse and Impoundment
+# A-11 — Executive Impoundment and Departure from Congressional Spending Decisions
 
 ## Generalized Institutional Concern
 
-The executive branch can delay, condition, redirect, or refuse congressionally appropriated spending while available enforcement mechanisms remain too slow, uncertain, or politically dependent.
+The executive branch can implement policy beyond or contrary to Congress's enacted spending decisions by delaying, conditioning, redirecting, or refusing appropriated funds, while available enforcement mechanisms remain too slow, uncertain, or politically dependent.
 
 ## Active Issues
 

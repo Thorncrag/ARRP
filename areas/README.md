@@ -24,7 +24,7 @@ Readers may [Explore by Topic](../topics/README.md) for explanatory treatment of
 - [A-08 / CIV — Civil Service and Professional Administration](CIV/README.md)
 - [A-09 / OVS — Inspectors General, Whistleblowers, and Internal Oversight](OVS/README.md)
 - [A-10 / EMERG — Emergency Powers and Domestic Executive Authority](EMERG/README.md)
-- [A-11 / FUND — Congressional Power of the Purse and Impoundment](FUND/README.md)
+- [A-11 / FUND — Executive Impoundment and Departure from Congressional Spending Decisions](FUND/README.md)
 - [A-12 / APPT — Appointments, Acting Officials, and Senate Confirmation](APPT/README.md)
 - [A-13 / REC — Presidential Records, Archives, and Government Information](REC/README.md)
 - [A-14 / DOM — Federal Law-Enforcement and Military Use Inside the United States](DOM/README.md)

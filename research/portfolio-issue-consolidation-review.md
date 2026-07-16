@@ -152,7 +152,7 @@ Distinct statutory titles and a severable constitutional fallback can remain wit
 
 **Result:** 8 to 1. **Confidence:** high.
 
-### FUND — Congressional Power of the Purse and Impoundment
+### FUND — Executive Impoundment and Departure from Congressional Spending Decisions
 
 - **Retain FUND-001** and absorb FUND-003, FUND-005, FUND-006, FUND-007, and FUND-008 as manifestations or modules concerning program nullification, reprogramming, standing, remedies, accountability, and reporting.
 - **Retain FUND-002** because expiration and release-runway rules address a distinct timing mechanism that can operate without FUND-001's directive-pattern trigger.
