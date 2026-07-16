@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: active
 print_levels:
   - full-technical
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — preliminary review decisions implemented |
-| Active issue/task | Trump-administration source catalog: evidence routing, deduplication, and preliminary-candidate synthesis |
-| Audit type/tier | Source development and Horizon pre-admission screening; no T-audit run |
+| Status | Active — automated source-adjudication workflow implementation and judicial pilot |
+| Active issue/task | Canonical source graduation, temporary-queue cleanup, and 56-record judicial disposition pilot |
+| Audit type/tier | Project methodology and source development; no T-audit run |
 | Started | 2026-07-16 |
-| Last checkpoint | 2026-07-16; the user's six exported Yes decisions and notes were implemented as HOR-032 through HOR-037, all GitHub and Project surfaces were read back, and the active preliminary console queue was cleared |
-| User request | Review the 1,322 source records through a synthesized preliminary-candidate console; preserve useful evidence; route existing-issue material; and, after the user approved all six exported candidates with notes, promote them into the formal Horizon workflow. |
-| Scope | The 1,322-record legal-review catalog, 33 media-supported episodes, six promoted preliminary questions, the current proposal architecture, Horizon Scan Log, source and GitHub registries, evidence provenance, and the internal Horizon review console. |
-| Files touched | `framework/CURRENT_AUDIT.md`; `framework/METHODOLOGY.md`; `framework/HORIZON_SCAN_LOG.md`; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; `research/trump-administration-legal-review-intake.md`; `research/trump-administration-evidence-routing.csv`; `research/trump-administration-preliminary-candidates.csv`; `research/horizon-review-console/README.md`; `research/horizon-review-console/index.html`; `research/horizon-review-console/app.js`; `research/horizon-review-console/styles.css`; `research/horizon-review-console/catalog-data.js`; `scripts/horizon_intake_common.py`; `scripts/build_horizon_evidence_routing.py`; `scripts/build_horizon_review_console.py`; `tests/test_horizon_intake.py` |
-| Completed steps | Replaced raw-record user review with a three-layer workflow; preserved all 1,322 catalog records; routed 1,279 records to existing proposal or Horizon homes; attached 37 records as evidence to six synthesized questions; retained 6 records without forcing an issue fit; left 0 records awaiting intake-level agent review; preserved evidence-group keys and source URLs; rebuilt the console and documented its decision semantics; narrowed the timely-merits candidate to six curated leads; imported the user's six Yes decisions and notes; promoted the records as HOR-032 through HOR-037; created and read back GitHub issues #252 through #257 and their Project cards; marked HOR-034 and HOR-037 High priority; cross-referenced HOR-033 with HOR-027; limited HOR-035 to a repeated or egregious practice; reframed HOR-037 around constitutional personhood rather than treating noncitizen rights as an open binary question; updated the Horizon Log, GitHub registry, and source inventory; and removed promoted records from the active console queue while retaining their preliminary provenance. |
-| Next step | Conduct formal duplicate, legal, political-failure, ripeness, and issue-admission review for HOR-032 through HOR-037 as separate later tasks. Separately process the existing-record integration ledger by receiving proposal, verify controlling opinions and primary sources before citation, and perform semantic duplicate clustering without discarding independently useful sources. |
+| Last checkpoint | 2026-07-16; implementation, pilot, and validation complete; commit, push, and GitHub wrapper sync remain |
+| User request | Automate review of the 1,322-record intake; graduate adjudicated external sources into `inventory/sources.csv`; organize verified supporting evidence on concise linked issue evidence pages; remove resolved records from temporary ledgers and preliminary queues; reserve user review for new Horizon candidates and material issue changes; and pilot the workflow on the 56 priority judicial records. |
+| Scope | Governing source and Horizon methodology; temporary catalog, routing, and candidate queues; canonical source inventory; automated migration and reconciliation tooling; the 56-record priority disposition set; and a first evidence-page model. |
+| Files touched | Governing framework, methodology, print-assembly rules, issue-evidence template, Horizon and Change Audit logs; canonical source inventory; active intake queues and console bundle; source-adjudication and routing scripts; automated tests; and the HOR-036 internal priority-case review. |
+| Completed steps | Memorialized the three-layer evidence architecture and route-centered two-pass workflow; removed resolved preliminary-candidate remnants; built packet, migration, normalized-identity, stable-CSV, reconciliation, and console-generation tooling; resolved the 56-record pilot; added nine primary sources and updated two tracker records; removed the 56 records from active intake queues; and documented the HOR-036 six-case finding. |
+| Next step | Run project validation, inspect the final diff, commit and push the completed batch, synchronize the HOR-036 GitHub wrapper, then clear this handoff to inactive in a closeout commit. |
 | Blockers/questions | None. |
-| Validation status | Passed all 24 repository tests, 1,322-row ledger parity and zero-pending assertions, CSV parsing, JavaScript syntax, whitespace checks, and GitHub issue/Project readback for HOR-032 through HOR-037. Repository changes are ready to commit and push. |
+| Validation status | Passed — 29 automated tests, Python compilation with a writable cache, catalog/routing reconciliation, empty priority and preliminary queues, no obsolete temporary identifiers, uniqueness of all nine new source URLs, focused whitespace validation, and public-site staging. |
 
 ## Handoff Rules
 

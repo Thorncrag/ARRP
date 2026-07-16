@@ -15,7 +15,7 @@ The project's public-facing premise, mission, scope, and governing principles ar
 - [`../README.md`](../README.md) contains the public-facing proposal front matter, including About This Project, foundational premise, mission, scope, governing principles, topic-and-institution discovery, rights notice, citation pointer, and technical-framework pointer.
 - [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md) is the living reader-facing lookup by subject, department, agency, office, court, and other institutional body.
 - `framework/` contains governing methodology and cross-cutting remedial architecture.
-- `areas/` contains one directory per project area, area README indexes, developed issue pages, and sibling issue audit-history files.
+- `areas/` contains one directory per project area, area README indexes, developed issue pages, sibling issue audit-history files, and selectively created reader-facing issue evidence records.
 - `legislation/` contains proposed statutory, constitutional, regulatory, procedural, and model-state language keyed to issue identifiers.
 - `inventory/` contains structured source records. GitHub Projects is the authoritative area, issue, lifecycle-status, milestone, and roadmap tracker.
 - [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) contains the active long-running audit handoff checkpoint used when chat context is interrupted or a new chat resumes prior work.
@@ -52,6 +52,7 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 - [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
 - [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) — active handoff checkpoint for long-running audits and source-development work
 - [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md) — agent-assisted audit and autonomous batch-audit operating rules
+- [`ISSUE_EVIDENCE_TEMPLATE.md`](ISSUE_EVIDENCE_TEMPLATE.md) — reader-facing evidence-record structure for proposals whose verified supporting record exceeds the concise issue page
 - [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) — autonomous, batched, or scheduled agent commit provenance and rollback references
 - [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md) — cumulative Change Audit history
 - [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md) — cumulative Horizon Scan disposition and integration log

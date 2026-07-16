@@ -79,30 +79,30 @@ def recommended_use(row: dict[str, str]) -> str:
     return "source-development-lead"
 
 
-PRELIMINARY_CANDIDATE_EVIDENCE = {
-    "TAC-IPT-138": "INTAKE-GAP-003",
-    "TAC-IPT-143": "INTAKE-GAP-003",
-    "TAC-IPT-154": "INTAKE-GAP-003",
-    "TAC-IPT-006": "INTAKE-GAP-007",
-    "TAC-IPT-043": "INTAKE-GAP-007",
-    "TAC-IPT-112": "INTAKE-GAP-007",
-    "TAC-IPT-220": "INTAKE-GAP-007",
-    "TAC-IPT-243": "INTAKE-GAP-007",
-    "TAC-IPT-248": "INTAKE-GAP-007",
-    "TAC-IPT-127": "INTAKE-GAP-007",
-    "TAC-IPT-202": "INTAKE-GAP-007",
-    "TAC-HRT1-005": "INTAKE-GAP-007",
-    "TAC-HRT1-007": "INTAKE-GAP-007",
-    "TAC-HRT1-015": "INTAKE-GAP-007",
-    "TAC-HRT1-016": "INTAKE-GAP-007",
-    "TAC-HRT1-017": "INTAKE-GAP-007",
-    "TAC-HRT1-018": "INTAKE-GAP-007",
-    "TAC-HRT1-019": "INTAKE-GAP-007",
-    "TAC-HRT1-022": "INTAKE-GAP-007",
-    "TAC-HRT1-025": "INTAKE-GAP-007",
-    "TAC-HRT1-026": "INTAKE-GAP-007",
-    "TAC-HRT1-044": "INTAKE-GAP-007",
-    "TAC-PCT2-038": "INTAKE-GAP-003",
+FORMAL_HORIZON_EVIDENCE = {
+    "TAC-IPT-138": "HOR-034",
+    "TAC-IPT-143": "HOR-034",
+    "TAC-IPT-154": "HOR-034",
+    "TAC-IPT-006": "HOR-037",
+    "TAC-IPT-043": "HOR-037",
+    "TAC-IPT-112": "HOR-037",
+    "TAC-IPT-220": "HOR-037",
+    "TAC-IPT-243": "HOR-037",
+    "TAC-IPT-248": "HOR-037",
+    "TAC-IPT-127": "HOR-037",
+    "TAC-IPT-202": "HOR-037",
+    "TAC-HRT1-005": "HOR-037",
+    "TAC-HRT1-007": "HOR-037",
+    "TAC-HRT1-015": "HOR-037",
+    "TAC-HRT1-016": "HOR-037",
+    "TAC-HRT1-017": "HOR-037",
+    "TAC-HRT1-018": "HOR-037",
+    "TAC-HRT1-019": "HOR-037",
+    "TAC-HRT1-022": "HOR-037",
+    "TAC-HRT1-025": "HOR-037",
+    "TAC-HRT1-026": "HOR-037",
+    "TAC-HRT1-044": "HOR-037",
+    "TAC-PCT2-038": "HOR-034",
 }
 
 PRIORITY_CLASS_BY_ID: dict[str, str] = {}
@@ -130,9 +130,9 @@ IPI_TIMELY_MERITS_REVIEW_IDS = {
 }
 
 
-JUST_SECURITY_CANDIDATES = {
-    "TAC-JS2-003": "INTAKE-GAP-002",
-    "TAC-JS2-010": "INTAKE-GAP-003",
+JUST_SECURITY_HORIZON_ROUTES = {
+    "TAC-JS2-003": "HOR-033",
+    "TAC-JS2-010": "HOR-034",
 }
 
 
@@ -179,9 +179,9 @@ JUST_SECURITY_ROUTE_RULES: list[tuple[tuple[str, ...], tuple[str, ...]]] = [
 
 def reviewed_just_security(row: dict[str, str]) -> tuple[list[str], str]:
     """Route the tracker action clusters after a title-by-title issue-fit pass."""
-    candidate_id = JUST_SECURITY_CANDIDATES.get(row["catalog_id"], "")
-    if candidate_id:
-        return [], candidate_id
+    horizon_id = JUST_SECURITY_HORIZON_ROUTES.get(row["catalog_id"], "")
+    if horizon_id:
+        return [], horizon_id
     title = row["action_or_policy"].lower()
     routes: list[str] = []
     for needles, rule_routes in JUST_SECURITY_ROUTE_RULES:
@@ -289,9 +289,9 @@ def reviewed_public_citizen(row: dict[str, str]) -> list[str]:
 def reviewed_policy_integrity(row: dict[str, str]) -> tuple[list[str], str]:
     """Route administrative-law cases while preserving disposition uncertainty."""
     if row["catalog_id"] in IPI_REVIEW_EVASION_IDS:
-        return [], "INTAKE-GAP-005"
+        return [], "HOR-035"
     if row["catalog_id"] in IPI_TIMELY_MERITS_REVIEW_IDS:
-        return [], "INTAKE-GAP-006"
+        return [], "HOR-036"
 
     category = row["responsible_actor_or_category"].lower()
     routes: list[str] = []
@@ -315,14 +315,14 @@ def reviewed_policy_integrity(row: dict[str, str]) -> tuple[list[str], str]:
 def disposition(
     row: dict[str, str], routes: list[str]
 ) -> tuple[str, list[str], str, str, str]:
-    candidate_id = PRELIMINARY_CANDIDATE_EVIDENCE.get(row["catalog_id"], "")
-    if candidate_id:
+    horizon_id = FORMAL_HORIZON_EVIDENCE.get(row["catalog_id"], "")
+    if horizon_id:
         return (
-            "preliminary-candidate-evidence",
-            routes,
-            "record reviewed as supporting evidence for the synthesized cross-agency secondary-use question",
-            "agent-reviewed-for-preliminary-candidate",
-            candidate_id,
+            "existing-record-integration",
+            list(dict.fromkeys([horizon_id, *routes])),
+            "promoted preliminary evidence rerouted to the formal Horizon candidate; final source graduation remains subject to route-fit and source verification",
+            "agent-reviewed-for-active-horizon-routing",
+            "",
         )
     if row["source_family"] == "Silencing Science Tracker":
         reviewed_routes = ["FACT-001", *routes]
@@ -343,14 +343,14 @@ def disposition(
             "",
         )
     if row["source_family"] == "Just Security litigation tracker":
-        reviewed_routes, candidate_id = reviewed_just_security(row)
-        if candidate_id:
+        reviewed_routes, horizon_id = reviewed_just_security(row)
+        if horizon_id:
             return (
-                "preliminary-candidate-evidence",
-                reviewed_routes,
-                "record-level action-cluster review assigned this source to an existing synthesized preliminary question",
-                "agent-reviewed-for-preliminary-candidate",
-                candidate_id,
+                "existing-record-integration",
+                list(dict.fromkeys([horizon_id, *reviewed_routes])),
+                "promoted preliminary evidence rerouted to the formal Horizon candidate; controlling source and route-fit verification remain required",
+                "agent-reviewed-for-active-horizon-routing",
+                "",
             )
         if reviewed_routes:
             return (
@@ -419,20 +419,20 @@ def disposition(
             "",
         )
     if row["source_family"] == "Institute for Policy Integrity Trump court roundup":
-        reviewed_routes, candidate_id = reviewed_policy_integrity(row)
-        if candidate_id:
+        reviewed_routes, horizon_id = reviewed_policy_integrity(row)
+        if horizon_id:
             basis = (
-                "disposition-level intake review retained this case as a lead for possible review evasion; "
+                "disposition-level intake review retained this case under HOR-035 as a lead for possible review evasion; "
                 "controlling-opinion verification remains required"
-                if candidate_id == "INTAKE-GAP-005"
-                else "curated disposition review retained this case as a lead for the possible timely-merits-review gap; controlling-opinion verification remains required"
+                if horizon_id == "HOR-035"
+                else "curated disposition review retained this case under HOR-036 as a lead for the possible timely-merits-review gap; controlling-opinion verification remains required"
             )
             return (
-                "preliminary-candidate-evidence",
-                reviewed_routes,
+                "existing-record-integration",
+                list(dict.fromkeys([horizon_id, *reviewed_routes])),
                 basis,
-                "agent-reviewed-for-preliminary-candidate",
-                candidate_id,
+                "agent-reviewed-for-active-horizon-routing",
+                "",
             )
         return (
             "existing-record-integration",
@@ -497,7 +497,7 @@ def main() -> None:
     pending = sum(row["disposition"] == "agent-review-needed" for row in rendered)
     print(
         f"Wrote {OUTPUT.relative_to(ROOT)}: {routed:,} reviewed and routed; "
-        f"{candidate_evidence:,} assigned to preliminary candidates; {pending:,} require agent review."
+        f"{candidate_evidence:,} assigned to unresolved preliminary candidates; {pending:,} require agent review."
     )
 
 

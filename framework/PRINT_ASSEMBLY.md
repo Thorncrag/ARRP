@@ -60,6 +60,8 @@ Appendices should use this order:
 4. Appendix D - Technical framework, contribution rules, and release process, if included in a technical edition; and
 5. Appendix E - issue audit-history files for full technical editions, when audit provenance is included.
 
+Reader-facing issue evidence records are supplemental rather than additional issue proposals. A public edition may place selected records in an evidence appendix when their inclusion materially supports the documented pattern without overloading the main issue page. A concise edition may omit them while retaining the issue page's anchor evidence and digital link. Full technical editions should preserve selected evidence records with other issue-supporting research according to the edition's explicit export plan.
+
 Appendix A should include legislation and constitutional-amendment files in issue-identifier order. For amendment-dependent proposals, place the amendment text before enabling legislation. When both preferred and independent implementing Acts exist, use amendment, preferred, then independent order—for example `DOJ-007-amendment.md`, `DOJ-007-preferred.md`, then `DOJ-007.md`. For ordinary federal proposals, use unsuffixed filenames first, for example `DOJ-001.md`, `ELEC-001.md`, `JUD-001.md`, and `WAR-001.md`.
 
 Appendix B should include model state legislation files in issue-identifier order, using `-state` filenames, for example `ELEC-002-state.md`.
@@ -77,6 +79,8 @@ Legislation pages should use a narrow publication structure:
 Relation-to-law provisions, rules of construction, severability clauses, definitions, and similar material should remain inside the proposed text when they are operative provisions. Explanatory crosswalks, manifestation-to-remedy mapping, implementation principles, and other analysis should live on the issue page, a research page, or a selected technical appendix rather than as standalone sections on the legislation page, unless the user deliberately creates a publication-specific appendix.
 
 Issue audit-history files named `ISSUE-ID.audit.md` are technical sidecars. They should be included only in full technical editions or audit-specific exports unless the user deliberately chooses to publish audit provenance. Public proposal editions should generally keep only the issue page's compact Proposal Scoring section and omit the full audit-history sidecars.
+
+Issue evidence records under `areas/AREA/evidence/` are reader-facing supplements, not audit sidecars. Their placement should follow the edition-specific evidence-appendix rule above; they should not be inserted automatically after their parent issue in a way that makes them appear to be an independent proposal.
 
 ### Back Matter
 
