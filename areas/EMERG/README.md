@@ -17,8 +17,10 @@ Presidents can invoke broadly worded emergency statutes to unlock extraordinary 
 
 ## Active Issues
 
-- **EMERG-001** — National-Emergency Declarations, Renewal, and Review _(status: In development; priority: High)_
-- [**EMERG-003** — Emergency Economic Powers as a Substitute for Legislation](issues/EMERG-003.md) _(status: Candidate; priority: High)_
+| Record | Proposal |
+| --- | --- |
+| EMERG-001 | National-Emergency Declarations, Renewal, and Review |
+| [EMERG-003](issues/EMERG-003.md) | Emergency Economic Powers as a Substitute for Legislation |
 
 ## Undeveloped Candidate Dispositions
 

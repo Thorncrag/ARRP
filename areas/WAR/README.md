@@ -15,21 +15,19 @@ print_levels:
 
 The existing allocation of war powers allows presidents to initiate, expand, and prolong significant military operations without timely, specific, informed, and politically effective congressional authorization or continuing oversight.
 
-## Issues
+## Active Issues
 
-- [WAR-001 — Comprehensive War Powers and Use-of-Force Authorization Reform](issues/WAR-001.md)
+| Record | Proposal |
+| --- | --- |
+| [WAR-001](issues/WAR-001.md) | Comprehensive War Powers and Use-of-Force Authorization Reform |
 
-## Collapsed Subcomponents
+## Undeveloped Candidate Dispositions
 
-WAR-001 incorporates the following former candidate issue tracks as subcomponents of a single comprehensive war-powers reform discussion:
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
 
-- **WAR-002** — Ineffective automatic termination under the War Powers framework _(retired—merged into WAR-001)_
-- **WAR-003** — Overbroad and indefinite authorizations for use of military force _(retired—merged into WAR-001)_
-- **WAR-004** — Executive control over legal interpretations of war, hostilities, self-defense, and authorization _(retired—merged into WAR-001)_
-- **WAR-005** — Partisan collapse of congressional oversight _(retired—merged into WAR-001)_
-- **WAR-006** — Insufficient information before military commitment _(retired—merged into WAR-001)_
-- **WAR-007** — Mission expansion beyond original authorization _(retired—merged into WAR-001)_
-- **WAR-008** — Treatment of appropriations as implied authorization _(retired—merged into WAR-001)_
+| Record | Disposition |
+| --- | --- |
+| WAR-002 through WAR-008 | Merged into [WAR-001](issues/WAR-001.md) as automatic-termination, AUMF, legal-interpretation, oversight, information, mission-expansion, and appropriations components of one comprehensive war-powers framework. |
 
 ## Issue Boundaries
 

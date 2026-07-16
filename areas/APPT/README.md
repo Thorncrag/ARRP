@@ -17,8 +17,10 @@ Temporary-service, delegation, and informal-authority arrangements can weaken st
 
 ## Active Issues
 
-- [**APPT-001** — Evasion of Senate Confirmation and Statutory Appointment Safeguards](issues/APPT-001.md) _(status: In development; priority: Medium)_
-- **APPT-004** — Exercise of Governmental Authority by Unappointed or Insufficiently Accountable Individuals _(status: In development—source and boundary review; priority: Medium)_
+| Record | Proposal |
+| --- | --- |
+| [APPT-001](issues/APPT-001.md) | Evasion of Senate Confirmation and Statutory Appointment Safeguards |
+| APPT-004 | Exercise of Governmental Authority by Unappointed or Insufficiently Accountable Individuals |
 
 ## Undeveloped Candidate Dispositions
 

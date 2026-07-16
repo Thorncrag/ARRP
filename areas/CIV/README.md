@@ -17,10 +17,12 @@ The executive branch retains excessive practical capacity to convert career admi
 
 ## Active Issues
 
-- **CIV-001** — Civil-Service Merit, Classification, and Anti-Politicization _(status: In development; priority: High)_
-- **CIV-004** — Protection for Refusal of Unlawful Directives _(status: Candidate; priority: High)_
-- **CIV-005** — Federal Workforce Capacity and Anti-Hollowing _(status: In development; priority: High)_
-- **CIV-009** — Repurposed Technical Units as Cross-Agency Operational Control Mechanisms _(status: Candidate; priority: High)_
+| Record | Proposal |
+| --- | --- |
+| CIV-001 | Civil-Service Merit, Classification, and Anti-Politicization |
+| CIV-004 | Protection for Refusal of Unlawful Directives |
+| CIV-005 | Federal Workforce Capacity and Anti-Hollowing |
+| CIV-009 | Repurposed Technical Units as Cross-Agency Operational Control Mechanisms |
 
 ## Undeveloped Candidate Dispositions
 

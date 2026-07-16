@@ -17,13 +17,15 @@ The Department of Justice lacks sufficient structural independence, external ove
 
 ## Active Issues
 
-- [DOJ-001 — Recent Presidential Personal Counsel in Senior DOJ Leadership](issues/DOJ-001.md)
-- [DOJ-002 — White House Direction or Interference in Particular Federal Criminal Matters](issues/DOJ-002.md)
-- [DOJ-003 — Politically Selective Enforcement, Charging, and Favoritism](issues/DOJ-003.md)
-- [DOJ-004 — Protection of Career DOJ Personnel from Politically Motivated Removal or Reassignment](issues/DOJ-004.md) _(status: Awaiting merits adjudication; priority: High)_
-- [DOJ-005 — Weak Enforcement and Internal Control of DOJ Recusal Duties](issues/DOJ-005.md)
-- [DOJ-007 — Independent Investigation of Presidential and Senior Executive Misconduct](issues/DOJ-007.md)
-- [DOJ-009 — Insufficient Professional-Qualification Requirements for Senior DOJ Leadership](issues/DOJ-009.md)
+| Record | Proposal |
+| --- | --- |
+| [DOJ-001](issues/DOJ-001.md) | Recent Presidential Personal Counsel in Senior DOJ Leadership |
+| [DOJ-002](issues/DOJ-002.md) | White House Direction or Interference in Particular Federal Criminal Matters |
+| [DOJ-003](issues/DOJ-003.md) | Politically Selective Enforcement, Charging, and Favoritism |
+| [DOJ-004](issues/DOJ-004.md) | Protection of Career DOJ Personnel from Politically Motivated Removal or Reassignment |
+| [DOJ-005](issues/DOJ-005.md) | Weak Enforcement and Internal Control of DOJ Recusal Duties |
+| [DOJ-007](issues/DOJ-007.md) | Independent Investigation of Presidential and Senior Executive Misconduct |
+| [DOJ-009](issues/DOJ-009.md) | Insufficient Professional-Qualification Requirements for Senior DOJ Leadership |
 
 ## Undeveloped Candidate Dispositions
 

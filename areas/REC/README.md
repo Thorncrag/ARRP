@@ -17,7 +17,9 @@ Record-preservation rules depend too heavily on executive compliance and lack su
 
 ## Active Issues
 
-- **REC-001** — Presidential and Executive Records Integrity, Custody, and Enforcement _(status: In development; priority: Medium)_
+| Record | Proposal |
+| --- | --- |
+| REC-001 | Presidential and Executive Records Integrity, Custody, and Enforcement |
 
 ## Undeveloped Candidate Dispositions
 

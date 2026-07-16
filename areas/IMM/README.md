@@ -17,8 +17,10 @@ The legal system lacks a sufficiently clear, timely, and enforceable framework f
 
 ## Active Issues
 
-- [IMM-001 — Criminal Immunity for Presidential Official Acts](issues/IMM-001.md)
-- **IMM-002** — Civil immunity and remedial gaps _(status: Candidate; priority: High)_
+| Record | Proposal |
+| --- | --- |
+| [IMM-001](issues/IMM-001.md) | Criminal Immunity for Presidential Official Acts |
+| IMM-002 | Civil immunity and remedial gaps |
 
 ## Undeveloped Candidate Dispositions
 

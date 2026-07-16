@@ -17,9 +17,11 @@ The federal government can use funding, enforcement discretion, emergency author
 
 ## Active Issues
 
-- **FED-002** — Selective or Retaliatory Federal Administration Against States _(status: In development; priority: Medium)_
-- **[FED-003](issues/FED-003.md)** — Federal Funding, Waiver, and Approval Coercion of States _(status: In development; priority: Medium)_
-- **FED-004** — Federal Displacement of State Functions _(status: Candidate; priority: Medium)_
+| Record | Proposal |
+| --- | --- |
+| FED-002 | Selective or Retaliatory Federal Administration Against States |
+| [FED-003](issues/FED-003.md) | Federal Funding, Waiver, and Approval Coercion of States |
+| FED-004 | Federal Displacement of State Functions |
 
 ## Undeveloped Candidate Dispositions
 

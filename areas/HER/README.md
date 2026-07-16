@@ -17,7 +17,9 @@ Federal historic buildings, monuments, landscapes, civic spaces, museum-like int
 
 ## Active Issues
 
-- **HER-001** — Federal Civic Property Preservation and Public Review _(status: In development; priority: High)_
+| Record | Proposal |
+| --- | --- |
+| HER-001 | Federal Civic Property Preservation and Public Review |
 
 ## Undeveloped Candidate Dispositions
 

@@ -17,9 +17,11 @@ Existing constitutional and statutory safeguards do not adequately prevent presi
 
 ## Active Issues
 
-- **PRESS-001** — Equal Press Access and Rapid Review _(status: In development; priority: High)_
-- **PRESS-003** — Journalist Compulsory Process, Surveillance, and Source Protection _(status: In development; priority: Critical)_
-- **PRESS-006** — Governmental Retaliation Against the Press _(status: In development; priority: High)_
+| Record | Proposal |
+| --- | --- |
+| PRESS-001 | Equal Press Access and Rapid Review |
+| PRESS-003 | Journalist Compulsory Process, Surveillance, and Source Protection |
+| PRESS-006 | Governmental Retaliation Against the Press |
 
 ## Undeveloped Candidate Dispositions
 

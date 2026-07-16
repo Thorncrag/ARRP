@@ -15,15 +15,19 @@ print_levels:
 
 Civil-rights enforcement, humanitarian protection, identity records, benefit access, federally funded services, detention classification, medical privacy, anti-discrimination guidance, and rights-bearing adjudication remain vulnerable to abrupt executive redefinition, selective enforcement, coercive grant conditions, records-system manipulation, unreviewable status decisions, and weak procedural safeguards.
 
-## Issues
+## Active Issues
 
-- [**RIGHTS-001** — Civil-Rights Administration, Identity Records, and Federal Definition Control](issues/RIGHTS-001.md) _(status: Candidate; priority: High)_
-- [**RIGHTS-002** — Temporary Protected Status, Asylum Access, and Humanitarian Reviewability](issues/RIGHTS-002.md) _(status: Candidate; priority: High)_
-- [**RIGHTS-003** — Birthright Citizenship Statutory Recognition and Federal Identity Records](issues/RIGHTS-003.md) _(status: Candidate; priority: High)_
+| Record | Proposal |
+| --- | --- |
+| [RIGHTS-001](issues/RIGHTS-001.md) | Civil-Rights Administration, Identity Records, and Federal Definition Control |
+| [RIGHTS-002](issues/RIGHTS-002.md) | Temporary Protected Status, Asylum Access, and Humanitarian Reviewability |
+| [RIGHTS-003](issues/RIGHTS-003.md) | Birthright Citizenship Statutory Recognition and Federal Identity Records |
 
-## Former Developed or Independently Reviewed Records
+## Former Developed Proposals
 
-- [**RIGHTS-004** — Comprehensive Immigration Reform, Removal Due Process, and Immigration System Integrity](issues/RIGHTS-004.md) _(retired as an independent proposal; retained for disposition history)_
+| Record | Disposition |
+| --- | --- |
+| [RIGHTS-004](issues/RIGHTS-004.md) | Retired as an independent proposal; retained for disposition history. |
 
 ## Issue Boundaries
 

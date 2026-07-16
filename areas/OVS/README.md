@@ -17,9 +17,11 @@ Internal watchdogs lack sufficient independence, access, tenure protection, reme
 
 ## Active Issues
 
-- **OVS-001** — Inspector General Independence, Access, Reporting, and Follow-Through _(status: In development; priority: High)_
-- **OVS-004** — Retaliation Against Whistleblowers _(status: Candidate; priority: High)_
-- **OVS-008** — Independence of Internal Ethics Offices _(status: Candidate; priority: High)_
+| Record | Proposal |
+| --- | --- |
+| OVS-001 | Inspector General Independence, Access, Reporting, and Follow-Through |
+| OVS-004 | Retaliation Against Whistleblowers |
+| OVS-008 | Independence of Internal Ethics Offices |
 
 ## Undeveloped Candidate Dispositions
 

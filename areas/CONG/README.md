@@ -17,8 +17,10 @@ Congressional oversight becomes ineffective when subpoenas, testimony demands, d
 
 ## Active Issues
 
-- **CONG-001** — Congressional Information and Subpoena Enforcement _(status: In development; priority: High)_
-- **CONG-007** — Weak committee investigative capacity _(status: Candidate; priority: High)_
+| Record | Proposal |
+| --- | --- |
+| CONG-001 | Congressional Information and Subpoena Enforcement |
+| CONG-007 | Weak committee investigative capacity |
 
 ## Undeveloped Candidate Dispositions
 

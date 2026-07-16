@@ -17,7 +17,9 @@ Presidents and political appointees possess sufficient influence over contracts,
 
 ## Active Issues
 
-- **RET-001** — Executive Retaliation Through Federal Benefits and Regulatory Power _(status: In development; priority: Medium)_
+| Record | Proposal |
+| --- | --- |
+| RET-001 | Executive Retaliation Through Federal Benefits and Regulatory Power |
 
 ## Undeveloped Candidate Dispositions
 

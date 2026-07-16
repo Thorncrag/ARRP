@@ -17,10 +17,12 @@ The constitutional and statutory position of independent agencies is increasingl
 
 ## Active Issues
 
-- [**REG-001** — Agency Independence and Functional Nullification](issues/REG-001.md) _(status: Review Ready; score following the internal project review: 83; priority: High)_
-- **REG-002** — Politicized enforcement or nonenforcement _(status: Candidate; priority: Medium)_
-- **REG-003** — Control of administrative adjudication _(status: Candidate; priority: Medium)_
-- **REG-006** — Presidential control of rulemaking and legal positions _(status: Candidate; priority: Medium)_
+| Record | Proposal |
+| --- | --- |
+| [REG-001](issues/REG-001.md) | Agency Independence and Functional Nullification |
+| REG-002 | Politicized enforcement or nonenforcement |
+| REG-003 | Control of administrative adjudication |
+| REG-006 | Presidential control of rulemaking and legal positions |
 
 ## Undeveloped Candidate Dispositions
 

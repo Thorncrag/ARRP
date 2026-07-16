@@ -17,7 +17,9 @@ The Federal Reserve’s operational independence remains vulnerable to president
 
 ## Active Issues
 
-- **FRB-001** — Federal Reserve Independence and Democratic Accountability _(status: In development; priority: Critical)_
+| Record | Proposal |
+| --- | --- |
+| FRB-001 | Federal Reserve Independence and Democratic Accountability |
 
 ## Undeveloped Candidate Dispositions
 

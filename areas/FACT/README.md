@@ -17,9 +17,11 @@ Official information, public-facing government terminology, data, scientific fin
 
 ## Active Issues
 
-- **FACT-001** — Scientific, Statistical, and Technical Integrity _(status: In development; priority: High)_
-- **FACT-007** — Official Historical Presentation Integrity _(status: Candidate; priority: High)_
-- **FACT-009** — Misleading Official Terminology, Titles, or Institutional Labels _(status: Candidate; priority: High)_
+| Record | Proposal |
+| --- | --- |
+| FACT-001 | Scientific, Statistical, and Technical Integrity |
+| FACT-007 | Official Historical Presentation Integrity |
+| FACT-009 | Misleading Official Terminology, Titles, or Institutional Labels |
 
 ## Undeveloped Candidate Dispositions
 

@@ -17,10 +17,12 @@ The president retains broad and partially ambiguous authority to deploy federal 
 
 ## Active Issues
 
-- **DOM-001** — Domestic Deployment Authorities and Safeguards _(status: In development; priority: Medium)_
-- [**DOM-005** — State Investigative Access to Federal Critical-Incident Evidence](issues/DOM-005.md) _(status: Candidate; priority: Medium)_
-- **DOM-007** — Domestic military intelligence activity _(status: Candidate; priority: Medium)_
-- [**DOM-009** — Federal Law-Enforcement Surveillance Procurement and Deployment](issues/DOM-009.md) _(status: Candidate; priority: High)_
+| Record | Proposal |
+| --- | --- |
+| DOM-001 | Domestic Deployment Authorities and Safeguards |
+| [DOM-005](issues/DOM-005.md) | State Investigative Access to Federal Critical-Incident Evidence |
+| DOM-007 | Domestic military intelligence activity |
+| [DOM-009](issues/DOM-009.md) | Federal Law-Enforcement Surveillance Procurement and Deployment |
 
 ## Undeveloped Candidate Dispositions
 

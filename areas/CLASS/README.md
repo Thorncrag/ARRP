@@ -17,10 +17,12 @@ The classification system concentrates broad authority within the executive bran
 
 ## Active Issues
 
-- **CLASS-001** — Presidential Classification, Declassification, Documentation, and Custody _(status: In development; priority: Medium)_
-- **CLASS-004** — Overclassification, Concealment, and Independent Review _(status: In development; priority: Medium)_
-- **CLASS-006** — Protection of Classified Information, Sources, and Methods _(status: In development; priority: Medium)_
-- **CLASS-011** — Security-Clearance Integrity _(status: Candidate; priority: Medium)_
+| Record | Proposal |
+| --- | --- |
+| CLASS-001 | Presidential Classification, Declassification, Documentation, and Custody |
+| CLASS-004 | Overclassification, Concealment, and Independent Review |
+| CLASS-006 | Protection of Classified Information, Sources, and Methods |
+| CLASS-011 | Security-Clearance Integrity |
 
 ## Undeveloped Candidate Dispositions
 

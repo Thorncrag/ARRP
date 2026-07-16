@@ -17,8 +17,10 @@ The executive branch can delay, condition, redirect, or refuse congressionally a
 
 ## Active Issues
 
-- [FUND-001 — Fiscal Implementation of Ultra Vires Executive Directives](issues/FUND-001.md) _(status: Review Ready; score following the internal project review: 83; priority: Medium)_
-- [FUND-002 — Pocket Rescissions and Strategic Delay](issues/FUND-002.md) _(status: Candidate; priority: Medium)_
+| Record | Proposal |
+| --- | --- |
+| [FUND-001](issues/FUND-001.md) | Fiscal Implementation of Ultra Vires Executive Directives |
+| [FUND-002](issues/FUND-002.md) | Pocket Rescissions and Strategic Delay |
 
 ## Undeveloped Candidate Dispositions
 

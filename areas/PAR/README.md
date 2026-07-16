@@ -17,8 +17,10 @@ The pardon power lacks adequate safeguards against use for personal protection, 
 
 ## Active Issues
 
-- **PAR-001** — Corrupt, Self-Protective, and Politically Abusive Clemency _(status: In development; priority: Medium)_
-- **PAR-005** — Self-pardon uncertainty _(status: Candidate; priority: Medium)_
+| Record | Proposal |
+| --- | --- |
+| PAR-001 | Corrupt, Self-Protective, and Politically Abusive Clemency |
+| PAR-005 | Self-pardon uncertainty |
 
 ## Undeveloped Candidate Dispositions
 
