@@ -41,9 +41,11 @@ The federal government should not become the primary administrator, supervisor, 
 
 ## Manifestations of the Failure
 
-### Ruby Freeman and Shaye Moss — Georgia, 2020–2022
+### Election workers, officials, and their families — Georgia, 2020–2022
 
 After false allegations accused Fulton County election workers Ruby Freeman and Wandrea “Shaye” Moss of manipulating ballots, both women and members of their family were subjected to sustained racist harassment and death threats. Freeman testified that the FBI advised her to leave her home through the presidential inauguration. Moss testified that people went to her grandmother’s home, attempted to push inside, and claimed that they intended to make a “citizen’s arrest.” Moss subsequently left election work. The episode demonstrates family targeting, forced displacement, career loss, and the inability of ordinary post hoc remedies to prevent severe personal and institutional damage. See U.S. House Select Committee to Investigate the January 6th Attack, *Final Report*, ch. 2 (2022); [fourth public hearing materials and testimony](https://www.govinfo.gov/content/pkg/GPO-J6-REPORT/pdf/GPO-J6-REPORT.pdf).
+
+Georgia Secretary of State Brad Raffensperger likewise testified that his personal information was disseminated, his wife received sexualized threats, and intruders entered the home of his widowed daughter-in-law after he refused efforts to alter Georgia’s certified result. Similar testimony described armed or threatening demonstrations outside other officials’ homes. These examples show the same institutional failure at different levels of election administration: political disputes were transferred to officials’ homes and families. See the Select Committee [Final Report](https://www.govinfo.gov/content/pkg/GPO-J6-REPORT/pdf/GPO-J6-REPORT.pdf) and [summary of fourth-hearing testimony](https://www.axios.com/2022/06/21/jan-6-hearing-violence-threats).
 
 ### Threats against bipartisan Arizona election officials — 2021–2025
 
@@ -52,10 +54,6 @@ Federal prosecutions have documented repeated threats against Arizona election o
 ### Election Day bomb threats and polling-place closures — 2024
 
 On November 5, 2024, bomb threats were directed at polling locations in multiple battleground states. The FBI stated that many appeared to originate from Russian email domains and that none had been determined credible at the time. At least two Fulton County, Georgia polling locations were evacuated and closed temporarily; officials sought extended voting hours to compensate for the interruption. Later research identified at least 227 threats against polling places and tabulation centers and found evidence that extending hours may not have fully cured turnout suppression at affected DeKalb County precincts. This episode demonstrates that even noncredible threats can disrupt voting, divert law-enforcement resources, expose workers to risk, and produce harm that cannot necessarily be repaired after the fact. See [Reuters, November 5, 2024](https://www.reuters.com/world/us/fake-bomb-threats-linked-russia-briefly-close-georgia-polling-locations-2024-11-05/); Sequoia Andrade & Philip B. Stark, [*Does Extending Polling Hours Compensate for Bomb Threats? Evidence from the 2024 Election in Georgia, USA*](https://arxiv.org/abs/2508.19442) (2025).
-
-### Doxxing and family-directed retaliation against senior election officials — 2020
-
-Georgia Secretary of State Brad Raffensperger testified that his personal information was disseminated, his wife received sexualized threats, and intruders broke into the home of his widowed daughter-in-law after he refused efforts to alter Georgia’s certified result. Similar testimony described armed or threatening demonstrations outside the homes of other state officials. Although some conduct overlapped with pressure on certification officials, the personal-security failure was distinct: existing institutions did not reliably prevent political disputes over election administration from being transferred to officials’ homes and families. See U.S. House Select Committee to Investigate the January 6th Attack, *Final Report*, ch. 2 (2022); [summary of fourth-hearing testimony](https://www.axios.com/2022/06/21/jan-6-hearing-violence-threats).
 
 ### Workforce attrition and recruitment damage — nationwide
 

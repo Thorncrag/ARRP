@@ -26,7 +26,7 @@ These questions are addressed by separate proposals. This page directs readers t
 | Enforcement and public notice when the executive defies a court | [JUD-001](../areas/JUD/issues/JUD-001.md) and [JUD-005](../areas/JUD/issues/JUD-005.md) |
 | Judicial recusal where the president appointed the judge | [JUD-009](../areas/JUD/issues/JUD-009.md) |
 | Presidential self-litigation, settlements, and audit immunity | [EMOL-015](../areas/EMOL/issues/EMOL-015.md) |
-| Pardons used for personal, political, obstructive, or self-protective purposes | PAR-001, PAR-002, PAR-004, PAR-005, and PAR-008 |
+| Pardons used for personal, political, obstructive, or self-protective purposes | PAR-001 and PAR-005 |
 
 ## How Concerns Map to Proposals
 
@@ -37,7 +37,7 @@ These questions are addressed by separate proposals. This page directs readers t
 | What happens when the executive branch does not carry out a judicial command | [JUD-001](../areas/JUD/issues/JUD-001.md) and [JUD-005](../areas/JUD/issues/JUD-005.md) | Separates practical execution from automatic congressional and public notice. |
 | Whether a judge appointed by a litigant-president should recuse | [JUD-009](../areas/JUD/issues/JUD-009.md) | Addresses neutral recusal standards without assuming bias from appointment alone. |
 | Whether the president can cause the government to sue itself, settle with itself, or receive audit immunity | [EMOL-015](../areas/EMOL/issues/EMOL-015.md) | Addresses adversity screening, settlement controls, payment restrictions, enforcement, and categorical rejection of audit immunity. |
-| Pardons that may protect the president, allies, witnesses, or participants in a common scheme | PAR-001, PAR-002, PAR-004, PAR-005, and PAR-008 | Separates personal benefit, obstruction, presidential interests, self-pardon uncertainty, and blanket pardons. |
+| Pardons that may protect the president, allies, witnesses, or participants in a common scheme | PAR-001 and PAR-005 | Separates general clemency abuse from the distinct self-pardon question. |
 
 ## What ARRP Does and Does Not Address
 

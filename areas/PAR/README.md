@@ -2,7 +2,7 @@
 area_id: A-05
 title: "Presidential Clemency and Pardon Power"
 status: active
-issue_count: 10
+issue_count: 2
 print_levels:
   - public-proposal
   - full-technical
@@ -15,19 +15,24 @@ print_levels:
 
 The pardon power lacks adequate safeguards against use for personal protection, political reward, obstruction, corruption, self-enrichment, or circumvention of ordinary justice processes, while the professional review process remains advisory and avoidable.
 
-## Issues
+## Active Issues
 
-- **PAR-001** — Personal or political benefit _(status: Candidate; priority: Medium)_
-- **PAR-002** — Obstruction or witness inducement _(status: Candidate; priority: Medium)_
-- **PAR-003** — Sale, brokerage, or monetization of pardons _(status: Candidate; priority: Medium)_
-- **PAR-004** — Pardons benefiting the president or presidential interests _(status: Candidate; priority: Medium)_
+- **PAR-001** — Corrupt, Self-Protective, and Politically Abusive Clemency _(status: In development; priority: Medium)_
 - **PAR-005** — Self-pardon uncertainty _(status: Candidate; priority: Medium)_
-- **PAR-006** — Bypass of professional clemency review _(status: Candidate; priority: Medium)_
-- **PAR-007** — Inadequate transparency _(status: Candidate; priority: Medium)_
-- **PAR-008** — Blanket or categorical pardons _(status: Candidate; priority: Medium)_
-- **PAR-009** — Transition-period pardons _(status: Candidate; priority: Medium)_
-- **PAR-010** — Weak remedies after corrupt use _(status: Candidate; priority: Medium)_
+
+## Undeveloped Candidate Dispositions
+
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+
+| Record | Disposition |
+| --- | --- |
+| PAR-002 through PAR-004; PAR-006 through PAR-010 | Merged into PAR-001 as obstruction, monetization, self-interest, professional-review, transparency, categorical-use, transition-period, and remedy components of one clemency framework. |
+
+## Issue Boundaries
+
+- **PAR-001** owns corrupt, self-protective, monetized, obstructive, or politically abusive clemency, together with professional review, transparency, categorical and transition-period use, and post-use remedies.
+- **PAR-005** remains separate because self-pardon validity presents a distinct constitutional question and may require a different vehicle from safeguards governing clemency for another person.
 
 ## Notes
 
-Provisional inventory; full source development pending.
+PAR-001 is in development; PAR-005 remains an unresolved candidate. Both require full source development before drafting.

@@ -1,7 +1,7 @@
 ---
 proposal_id: FUND-001
 issue_id: FUND-001
-title: "Executive-Order Abuse Impoundment Control Act"
+title: "Ultra Vires Executive Directive Fiscal Review Act"
 status: working-draft
 framework_issue: "../areas/FUND/issues/FUND-001.md"
 print_levels:
@@ -10,7 +10,7 @@ print_levels:
   - legislative-appendix
 ---
 
-# FUND-001 — Executive-Order Abuse Impoundment Control Act
+# FUND-001 — Ultra Vires Executive Directive Fiscal Review Act
 
 ## A BILL
 
@@ -20,7 +20,7 @@ Be it enacted by the Senate and House of Representatives of the United States of
 
 ## SECTION 1. SHORT TITLE.
 
-This Act may be cited as the **"Executive-Order Abuse Impoundment Control Act."**
+This Act may be cited as the **"Ultra Vires Executive Directive Fiscal Review Act."**
 
 ## SEC. 2. PURPOSES.
 

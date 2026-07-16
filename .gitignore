@@ -10,6 +10,8 @@ Thumbs.db
 .build/
 .tmp/
 .site-build/
+__pycache__/
+*.pyc
 
 # Local secrets
 .env

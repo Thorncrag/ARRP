@@ -108,7 +108,7 @@ Future drafting should evaluate whether Congress should:
 
 ## Relationship to Adjacent Proposals
 
-[FUND-001](FUND-001.md) owns executive-order abuse through an impoundment-based pattern trigger. FUND-002 owns pocket rescissions and strategic delay even when there is no executive-order pattern trigger.
+[FUND-001](FUND-001.md) owns fiscal implementation of executive directives after an impoundment-based pattern trigger. FUND-002 owns pocket rescissions and strategic delay even when there is no executive-directive pattern trigger.
 
 FUND-003 should own agency closure or program nullification through nonspending where the central tactic is dismantling capacity rather than delaying expiring funds.
 

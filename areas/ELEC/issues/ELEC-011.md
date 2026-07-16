@@ -52,18 +52,6 @@ Traditional redistricting often begins with human-drawn maps. By the time the pu
 
 Iowa's enacted alternative helps document the contrast: [Iowa Code chapter 42](https://www.legis.iowa.gov/docs/code/2026/42.pdf) assigns plan preparation to a nonpartisan legislative agency, prescribes public criteria and disclosures, and prohibits use of incumbent addresses, party-registration data, and prior election results.
 
-### Representation safeguards after *Louisiana v. Callais*
-
-ELEC-011 was admitted after *Louisiana v. Callais* sharpened the need to distinguish constitutionally permissible representation safeguards from legally vulnerable race-predominant districting. The project source inventory currently treats *Callais* as the anchor source for redistricting, Voting Rights Act Section 2, racial-gerrymandering, and representation-safeguard source development. See [*Louisiana v. Callais*](https://www.supremecourt.gov/opinions/25pdf/24-109_21o3.pdf).
-
-This issue should not assume that race-conscious remedies can be expanded without limit. It should ask how states can preserve fair representation, transparency, and anti-dilution safeguards while reducing partisan manipulation and avoiding legally vulnerable map-drawing rationales.
-
-### Existing nonpartisan and commission models
-
-Iowa supplies an important model because nonpartisan legislative staff draw congressional and legislative maps without political or election data, including incumbent addresses, while the legislature retains an up-or-down vote. NCSL describes Iowa as distinct from commission states and notes that commissions are not automatically less partisan; design matters. See NCSL, [*Redistricting Commissions: Congressional Plans*](https://www.ncsl.org/redistricting-and-census/redistricting-commissions-congressional-plans).
-
-The shortest splitline model supplies a more mechanical baseline concept. A 2007 redistricting methodology paper describes a modified shortest splitline approach as a simple equal-population districting method, while also considering administrative boundaries and geographic features as additional standards. See Pan Kai, Tan Yue, and Jiang Sheng, [*The study of a new gerrymandering methodology*](https://arxiv.org/abs/0708.2266).
-
 ## Resulting Damage
 
 Discretionary districting can:

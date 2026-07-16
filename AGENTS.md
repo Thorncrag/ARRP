@@ -2,6 +2,8 @@
 
 Before substantive ARRP work, read [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md), [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md), [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md), and [`framework/CURRENT_AUDIT.md`](framework/CURRENT_AUDIT.md). Read [`framework/GITHUB_WORKFLOW.md`](framework/GITHUB_WORKFLOW.md) whenever GitHub issues, Project fields, or lifecycle status may be affected.
 
+On this macOS workspace, GitHub CLI credentials are stored in the macOS Keychain, which sandboxed commands cannot read. Run authenticated `gh` commands, `gh auth status` diagnostics, and authenticated Git network operations in the approved host context. Do not treat a sandbox-only "invalid" result as a revoked credential, do not create a plaintext fallback token with `--insecure-storage`, and reauthorize only if the host-context check also fails.
+
 In project-authored reader-facing prose, apply the framework's neutral-characterization and reader-language rules: avoid unsupported conclusory shorthand such as `sham`, describe the relevant conduct or criteria, and translate unexplained `T0`–`T4` or audit-workflow terminology into reader-friendly prose. Preserve exact terms in internal technical records, machine-readable metadata, and attributed source material.
 
 Any request to focus on, research, develop, draft, revise, or otherwise work substantively on an issue invokes the issue-development lifecycle check even when the user does not mention an audit or status update.

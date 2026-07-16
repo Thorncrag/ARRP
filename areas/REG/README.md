@@ -2,7 +2,7 @@
 area_id: A-17
 title: "Independent Agencies and Regulatory Neutrality"
 status: active
-issue_count: 8
+issue_count: 6
 print_levels:
   - public-proposal
   - full-technical
@@ -15,16 +15,22 @@ print_levels:
 
 The constitutional and statutory position of independent agencies is increasingly unstable, while presidential control over removal, vacancies, personnel, funding, enforcement, adjudication, and reorganization may also disable institutions and mandatory functions that Congress did not design as independent but did require to operate.
 
-## Issues
+## Active Issues
 
 - [**REG-001** — Agency Independence and Functional Nullification](issues/REG-001.md) _(status: Review Ready; score following the internal project review: 83; priority: High)_
 - **REG-002** — Politicized enforcement or nonenforcement _(status: Candidate; priority: Medium)_
 - **REG-003** — Control of administrative adjudication _(status: Candidate; priority: Medium)_
-- **REG-004** — Suspension or dismantling of agency operations _(status: Merged into REG-001)_
-- **REG-005** — Manipulation of commissions through vacancies _(status: Merged into REG-001)_
 - **REG-006** — Presidential control of rulemaking and legal positions _(status: Candidate; priority: Medium)_
 - **REG-007** — Threats to independent funding _(status: Candidate; priority: Medium)_
 - **REG-008** — Unclear constitutional design options after recent doctrine _(status: Candidate; priority: Medium)_
+
+## Undeveloped Candidate Dispositions
+
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+
+| Record | Disposition |
+| --- | --- |
+| REG-004, REG-005 | Merged into [REG-001](issues/REG-001.md). |
 
 ## Issue Boundaries
 

@@ -10,6 +10,12 @@ GitHub is the project's authoritative workflow record. Active proposals, horizon
 
 The repository remains the authoritative substantive record. Proposal text, audit history, inventories, source records, proposed legislation, and framework rules belong in repo files and should be changed through normal repository edits or pull requests.
 
+## CLI Authentication Boundary
+
+The project's local macOS GitHub CLI credential should have one authoritative copy in the macOS Keychain. Sandboxed commands cannot read that credential and may report that the active account or token is invalid even when host-context authentication is healthy. Run authenticated `gh` commands, `gh auth status` diagnostics, GitHub Project synchronization, and authenticated Git network operations in the approved host context. Treat the host-context result as authoritative; do not begin another device authorization solely because a sandboxed diagnostic fails.
+
+Do not use `--insecure-storage` as a workaround or retain a second token in `~/.config/gh/hosts.yml`. A duplicate file-stored token can become stale and recreate the apparent recurring failure. Reauthorize only if `gh auth status` fails in the host context. After authorization, verify that the account is reported as Keychain-backed, required scopes include `repo`, `workflow`, and `project`, `hosts.yml` contains account routing but no `oauth_token`, and a new process can read both the repository API and Project 2.
+
 ## Tracking Rule
 
 Each active ARRP proposal or active horizon item should have a GitHub issue. The GitHub issue tracks discussion, assignment, contributor-facing workflow, and links back to the canonical repository record. The GitHub Project tracks structured workflow metadata. The canonical repo file records the adopted substance.
@@ -101,6 +107,6 @@ For the current public-release workflow, `Pre-publication final audit` and `Pre-
 
 ## Issue Registry
 
-The repository-side list of all GitHub issues is maintained at [`inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv). Add or update a row whenever an issue is created, renamed, reclassified, assigned a canonical record, or attached to a different native parent. The registry supplies stable issue-to-record relationships for navigation and future table-of-contents generation. Treat the repository front door, registry, affected contents, and Subject and Institution Index as a navigation bundle under the methodology's T1 Navigation Synchronization Check. Retain closed merged records in the registry and classify them as `merged proposal` rather than deleting the row or continuing to count them as active `proposal` records.
+The repository-side list of all GitHub issues is maintained at [`inventory/github_issue_registry.csv`](../inventory/github_issue_registry.csv). Add or update a row whenever an issue is created, renamed, reclassified, assigned a canonical record, or attached to a different parent. The registry supplies stable issue-to-record relationships for navigation and future table-of-contents generation. Treat the repository front door, registry, affected contents, and Subject and Institution Index as a navigation bundle under the methodology's T1 Navigation Synchronization Check. Retain closed merged records in the registry as `merged proposal` and closed independently rejected, retired, or outside-scope records as `retired proposal` rather than deleting the row or continuing to count either kind as active `proposal` records.
 
 Do not place live status, priority, labels, scores, audit fields, or release posture in the registry. GitHub Project fields remain authoritative for those values. Creating an admitted or otherwise reader-facing issue is incomplete until its registry row, required Project fields, area contents entry, and affected Subject and Institution Index routes all read back correctly. A newly triaged but unadmitted Horizon candidate remains in the Horizon workflow and should not be added to the reader-facing contents or subject index.

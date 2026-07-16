@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: active
 print_levels:
   - full-technical
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | None |
-| Audit type/tier | None |
-| Started | — |
-| Last checkpoint | 2026-07-15; topic-page rejected-concept routing clarification completed |
-| User request | — |
-| Scope | — |
-| Files touched | — |
-| Completed steps | Limited separate topic-page adverse-record treatment to concepts finally rejected, retired, or held outside scope. Deferred or parked records remain ordinary live routes; merged or integrated records appear only through their current authoritative homes. Removed the redundant HOR-011/HOR-015/HOR-018 disposition table from Project 2025, tightened the guide index and governing files, updated the compliance test and consolidated Change Audit entry, synchronized and read back GitHub issue #8, and pushed commit `381e573` to `origin/main`. |
-| Next step | None. Add a rejected-concepts section to a topic page only when a materially related final adverse decision exists. |
-| Blockers/questions | None. No proposal substance, score, lifecycle status, rebaseline status, or T-audit Runs changed. |
-| Validation status | Passed: 19 repository tests; strict MkDocs build; public-site preparation; Python syntax checks; changed-page local links; rejected/merged disposition-exclusion checks; `git diff --check`; GitHub issue #8 readback; and successful push to `origin/main`. |
+| Status | Active — first approved portfolio-consolidation batch implemented locally; GitHub synchronization, validation, commit, push, and dashboard refresh pending |
+| Active issue/task | High-confidence proposal consolidation for EMOL, FRB, HER, REC, RET, PAR, and CONG, following the completed APPT architecture pass |
+| Audit type/tier | Issue-admission and portfolio-consolidation implementation; no T-audit run |
+| Started | 2026-07-16 |
+| Last checkpoint | 2026-07-16; local area, registry, route, source, methodology, and planning records updated for a 55-record reduction from 198 to 143 active proposals |
+| User request | Proceed with the recommended first high-confidence consolidation batch after systematically reviewing all remaining areas. |
+| Scope | EMOL, FRB, HER, REC, RET, PAR, and CONG receiving records and absorbed candidates; repository routes, registry classifications, GitHub issue wrappers and Project cards, planning denominator, and dashboard. APPT remains part of the same uncommitted architecture package. Existing unrelated working-tree changes preserved. |
+| Files touched | Area pages for APPT, EMOL, FRB, HER, REC, RET, PAR, and CONG; APPT issue and legislative files; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; framework and workflow records; affected topic, subject-index, issue, legislation, and research cross-references; portfolio review memorandum. |
+| Completed steps | Approved consolidation architecture applied locally; receiving records retitled and marked In development without score or Runs changes; 54 absorbed candidates classified as merged proposals; CONG-008 classified as a retired proposal because the asserted failure is political rather than independently remediable; old source and navigation routes redirected; compact area-page disposition tables added; preliminary portfolio memorandum marked partially implemented. |
+| Next step | Synchronize 62 affected GitHub issue wrappers and the seven receiving Project rows; remove 55 inactive Project cards; read back authoritative fields; rebuild generated review-console data; validate all totals and links; commit and push; refresh and verify the Review Ready dashboard at 143 total, 27 Review Ready, and 116 remaining. |
+| Blockers/questions | None for the approved batch. The remaining portfolio recommendations—including OVS-008, the REG process lanes, PRESS versus RET ownership, RIGHTS-004, HOR-027, and the final target denominator—remain pending user review. |
+| Validation status | In progress. Local registry target is 143 active proposals; GitHub synchronization and final validation remain pending. |
 
 ## Handoff Rules
 

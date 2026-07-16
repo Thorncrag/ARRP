@@ -13,7 +13,7 @@ print_levels:
 
 ## Overview
 
-ARRP’s election work spans administration, certification, election-worker protection, litigation and investigative process, false result-transmission documents, transition continuity, federal-force activity, coordinated subversion, voting access, representation, campaign finance, and candidate competition. The primary institutional map is [Election Integrity](../areas/ELEC/README.md).
+ARRP’s election work spans administration, certification, election-worker protection, litigation and investigative process, false result-transmission documents, transition continuity, federal-force activity, coordinated subversion, voting access, gerrymandering and redistricting, representation, campaign finance, and candidate competition. The primary institutional map is [Election Integrity](../areas/ELEC/README.md).
 
 “Election fraud” can refer to an allegation, a request for an audit or records, a civil or criminal investigation, falsified official documents, or an adjudicated scheme. Those are not interchangeable. ARRP does not validate or reject disputed factual claims on this page. It directs readers to the proposal addressing the relevant process, evidentiary safeguard, official duty, or accountability mechanism. Federal interference is likewise divided by mechanism: civilian executive pressure, criminal process, use of federal forces, and threats to withhold federal funding are addressed by different proposals.
 
@@ -25,6 +25,7 @@ ARRP’s election work spans administration, certification, election-worker prot
 | Fraud allegations, audits, subpoenas, and civil lawsuits | [ELEC-004](../areas/ELEC/issues/ELEC-004.md) |
 | Federal criminal investigative process | [ELEC-014](../areas/ELEC/issues/ELEC-014.md) |
 | False documents purporting to transmit election results and coordinated subversion | [ELEC-005](../areas/ELEC/issues/ELEC-005.md) and [ELEC-008](../areas/ELEC/issues/ELEC-008.md) |
+| Gerrymandering, redistricting, and representation safeguards | [ELEC-011](../areas/ELEC/issues/ELEC-011.md) |
 | Campaign money and political spending | [ELEC-012](../areas/ELEC/issues/ELEC-012.md) |
 
 ## How Concerns Map to Proposals
@@ -39,7 +40,9 @@ ARRP’s election work spans administration, certification, election-worker prot
 | Certification pressure, false electoral documents, or coordinated subversion | [ELEC-002](../areas/ELEC/issues/ELEC-002.md), [ELEC-005](../areas/ELEC/issues/ELEC-005.md), and [ELEC-008](../areas/ELEC/issues/ELEC-008.md) | Separates official certification duties, false result-transmission records, and independently wrongful coordinated schemes. |
 | Election workers and peaceful transfer of power | [ELEC-003](../areas/ELEC/issues/ELEC-003.md) and [ELEC-006](../areas/ELEC/issues/ELEC-006.md) | Personnel protection, operational continuity, and automatic transition procedures. |
 | Mail voting, ballot access, and candidate or debate gatekeeping | [ELEC-010](../areas/ELEC/issues/ELEC-010.md) and [ELEC-013](../areas/ELEC/issues/ELEC-013.md) | Voting access and reliability are separated from candidate-access and debate rules. |
-| Electoral College, redistricting, and majority-choice methods | [ELEC-009](../areas/ELEC/issues/ELEC-009.md), [ELEC-011](../areas/ELEC/issues/ELEC-011.md), and [ELEC-015](../areas/ELEC/issues/ELEC-015.md) | Distinct structural questions concerning presidential selection, district representation, and election methods. |
+| Electoral College and national popular-vote selection | [ELEC-009](../areas/ELEC/issues/ELEC-009.md) | Addresses presidential-selection structure and a reserve national popular-vote amendment pathway. |
+| Gerrymandering, redistricting, vote dilution, and representation safeguards | [ELEC-011](../areas/ELEC/issues/ELEC-011.md) | Addresses district representation through model State legislation, neutral map-drawing safeguards, and reserve Federal vehicles. |
+| Majority-choice and ranked-choice election methods | [ELEC-015](../areas/ELEC/issues/ELEC-015.md) | Examines whether election methods reliably produce representative majority choice. |
 | Campaign finance, dark money, super PACs, and corporate spending | [ELEC-012](../areas/ELEC/issues/ELEC-012.md) | The separate [Campaign Finance](campaign-finance.md) page explains ELEC-012 and its proposed constitutional amendment and federal legislation. |
 
 ## What ARRP Does and Does Not Address

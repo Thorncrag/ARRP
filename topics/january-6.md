@@ -24,7 +24,7 @@ ARRP does not treat the episode as one proposal. Pressure on election officials,
 | Pressure on election administration, certification, or election workers | [ELEC-001](../areas/ELEC/issues/ELEC-001.md), [ELEC-002](../areas/ELEC/issues/ELEC-002.md), and [ELEC-003](../areas/ELEC/issues/ELEC-003.md) |
 | Litigation, false electoral documents, and coordinated subversion | [ELEC-004](../areas/ELEC/issues/ELEC-004.md), [ELEC-005](../areas/ELEC/issues/ELEC-005.md), and [ELEC-008](../areas/ELEC/issues/ELEC-008.md) |
 | Transition continuity and federal-force safeguards | [ELEC-006](../areas/ELEC/issues/ELEC-006.md) and [ELEC-007](../areas/ELEC/issues/ELEC-007.md) |
-| Presidential accountability and independent investigation | [IMM-001](../areas/IMM/issues/IMM-001.md), [DOJ-007](../areas/DOJ/issues/DOJ-007.md), PAR-001, PAR-002, PAR-004, and PAR-008 |
+| Presidential accountability and independent investigation | [IMM-001](../areas/IMM/issues/IMM-001.md), [DOJ-007](../areas/DOJ/issues/DOJ-007.md), PAR-001, and PAR-005 |
 
 ## How Concerns Map to Proposals
 
@@ -38,7 +38,7 @@ ARRP does not treat the episode as one proposal. Pressure on election officials,
 | Delayed transition access or agency cooperation | [ELEC-006](../areas/ELEC/issues/ELEC-006.md) | Addresses automatic transition procedures and enforcement. |
 | Improper federal-force activity around election administration | [ELEC-007](../areas/ELEC/issues/ELEC-007.md) | Addresses force presence, emergency response, and custody of election materials. |
 | Coordinated efforts using independently wrongful acts to overturn a lawful result | [ELEC-008](../areas/ELEC/issues/ELEC-008.md) | Addresses accountability for coordinated federal election-subversion schemes. |
-| Presidential immunity, independent investigation, or pardons | [IMM-001](../areas/IMM/issues/IMM-001.md), [DOJ-007](../areas/DOJ/issues/DOJ-007.md), PAR-001, PAR-002, PAR-004, and PAR-008 | Separates immunity rules, independent investigation, and possible abuse of the pardon power. |
+| Presidential immunity, independent investigation, or pardons | [IMM-001](../areas/IMM/issues/IMM-001.md), [DOJ-007](../areas/DOJ/issues/DOJ-007.md), PAR-001, and PAR-005 | Separates immunity rules, independent investigation, general clemency abuse, and the distinct self-pardon question. |
 
 ## What ARRP Does and Does Not Address
 

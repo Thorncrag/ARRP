@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>ARRP Horizon Intake Review</title>
+    <meta
+      name="description"
+      content="Internal ARRP interface for reviewing legal-action intake records before Horizon adjudication."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#review-card">Skip to review record</a>
+
+    <header class="app-header">
+      <div class="brand-block">
+        <span class="brand-mark" aria-hidden="true">ARRP</span>
+        <div>
+          <h1>Horizon Intake Review</h1>
+          <p>Screen research records before formal Horizon adjudication.</p>
+        </div>
+      </div>
+      <div class="header-actions" aria-label="Review file actions">
+        <button class="quiet-button" id="import-button" type="button">Import</button>
+        <button class="quiet-button" id="export-csv-button" type="button">Export CSV</button>
+        <button class="quiet-button primary-quiet" id="export-json-button" type="button">Export decisions</button>
+        <input id="import-file" type="file" accept="application/json,.json" hidden>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <section class="progress-panel" aria-labelledby="progress-heading">
+        <div class="progress-copy">
+          <span class="eyebrow" id="progress-heading">Review progress</span>
+          <strong><span id="reviewed-count">0</span> of <span id="queue-count">0</span></strong>
+          <span id="queue-description">records reviewed in this queue</span>
+        </div>
+        <div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div>
+        <div class="decision-totals" aria-label="Decision totals">
+          <span><i class="status-dot yes"></i><b id="yes-count">0</b> Yes</span>
+          <span><i class="status-dot no"></i><b id="no-count">0</b> No</span>
+          <span><i class="status-dot defer"></i><b id="defer-count">0</b> Deferred</span>
+        </div>
+      </section>
+
+      <nav class="queue-tabs" aria-label="Review queues">
+        <button type="button" data-queue="candidates" class="active">
+          Preliminary issue candidates <span id="candidate-tab-count">6</span>
+        </button>
+        <button type="button" data-queue="media">
+          Media-supported episodes <span id="media-tab-count">0</span>
+        </button>
+        <button type="button" data-queue="priority">
+          Priority cases <span id="priority-tab-count">56</span>
+        </button>
+        <button type="button" data-queue="monitor">
+          Monitor <span id="monitor-tab-count">0</span>
+        </button>
+        <button type="button" data-queue="all">
+          Full catalog <span id="all-tab-count">0</span>
+        </button>
+      </nav>
+
+      <section class="workspace">
+        <aside class="filters" aria-label="Filter review records">
+          <div class="filter-heading">
+            <h2>Review queue</h2>
+            <button type="button" class="text-button" id="clear-filters">Clear filters</button>
+          </div>
+
+          <label class="search-label" for="search-input">
+            <span>Search</span>
+            <input id="search-input" type="search" placeholder="Title, actor, route, source…">
+          </label>
+
+          <label for="decision-filter">Decision</label>
+          <select id="decision-filter">
+            <option value="unreviewed">Unreviewed</option>
+            <option value="all">All decisions</option>
+            <option value="yes">Yes — advance</option>
+            <option value="no">No — do not advance</option>
+            <option value="defer">Deferred</option>
+          </select>
+
+          <label for="term-filter">Term</label>
+          <select id="term-filter">
+            <option value="all">Both terms</option>
+            <option value="1">First term</option>
+            <option value="2">Second term</option>
+            <option value="both">Spans both</option>
+          </select>
+
+          <label for="source-filter">Source</label>
+          <select id="source-filter">
+            <option value="all">All sources</option>
+          </select>
+
+          <label class="checkbox-row" for="auto-advance">
+            <input id="auto-advance" type="checkbox" checked>
+            <span>Advance after each decision</span>
+          </label>
+
+          <div class="keyboard-card">
+            <strong>Keyboard</strong>
+            <span><kbd>Y</kbd> Yes <kbd>N</kbd> No <kbd>D</kbd> Defer</span>
+            <span><kbd>J</kbd>/<kbd>K</kbd> Next/previous <kbd>O</kbd> Source</span>
+          </div>
+        </aside>
+
+        <section class="review-stage" aria-live="polite">
+          <div class="stage-navigation">
+            <span id="record-position">Record 0 of 0</span>
+            <div>
+              <button class="icon-button" id="previous-button" type="button" aria-label="Previous record">←</button>
+              <button class="icon-button" id="next-button" type="button" aria-label="Next record">→</button>
+            </div>
+          </div>
+
+          <article class="review-card" id="review-card" tabindex="-1">
+            <div id="record-content">
+              <div class="record-badges" id="record-badges"></div>
+              <p class="record-id" id="record-id"></p>
+              <h2 id="record-title"></h2>
+              <p class="review-prompt" id="review-prompt"></p>
+
+              <section class="record-section" aria-labelledby="summary-heading">
+                <h3 id="summary-heading">Why it is in the intake</h3>
+                <div class="clamped-copy" id="record-summary"></div>
+                <button class="text-button expand-button" id="expand-summary" type="button" hidden>Show full summary</button>
+              </section>
+
+              <dl class="record-details" id="record-details"></dl>
+
+              <div class="source-links" id="source-links"></div>
+
+              <label class="notes-field" for="reviewer-notes">
+                <span>Reviewer note <small>optional</small></span>
+                <textarea
+                  id="reviewer-notes"
+                  rows="3"
+                  placeholder="Reason, duplicate, existing issue, research needed…"
+                ></textarea>
+              </label>
+            </div>
+
+            <div class="empty-state" id="empty-state" hidden>
+              <span class="completion-mark" aria-hidden="true">✓</span>
+              <h2>Queue complete</h2>
+              <p>No records match the current filters. Change the decision filter to review completed items or move to another queue.</p>
+              <button class="quiet-button" id="show-all-button" type="button">Show all decisions</button>
+            </div>
+          </article>
+
+          <div class="decision-bar" id="decision-bar">
+            <button class="decision-button no" id="decision-no" type="button">
+              <span class="shortcut">N</span>
+              <span><b>No</b><small>Do not advance</small></span>
+            </button>
+            <button class="decision-button defer" id="decision-defer" type="button">
+              <span class="shortcut">D</span>
+              <span><b>Defer</b><small>Needs more review</small></span>
+            </button>
+            <button class="decision-button yes" id="decision-yes" type="button">
+              <span class="shortcut">Y</span>
+              <span><b>Yes</b><small>Advance for adjudication</small></span>
+            </button>
+          </div>
+
+          <p class="method-note">
+            A Yes decision records a recommendation only. It does not assign a HOR number, create a GitHub issue, or admit a proposal.
+          </p>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="catalog-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

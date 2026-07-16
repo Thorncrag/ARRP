@@ -117,7 +117,7 @@ Alexander Hoehn-Saric, Mary T. Boyle, and Richard Trumka Jr. were removed. A dis
 <a id="t1-frb"></a>
 ### 10. FRB (Federal Reserve Board)
 
-The attempted removal of Lisa Cook was blocked at the interim stage in *Trump v. Cook*. The Court treated the Federal Reserve as historically distinct and emphasized statutory pretermination process. FRB-002 remains the primary home; REG-001 uses the case as a comparator rather than a general independent-agency safe harbor. Source: Supreme Court, [*Trump v. Cook*](https://www.supremecourt.gov/opinions/25pdf/25a312_5468.pdf).
+The attempted removal of Lisa Cook was blocked at the interim stage in *Trump v. Cook*. The Court treated the Federal Reserve as historically distinct and emphasized statutory pretermination process. FRB-001 remains the primary home; REG-001 uses the case as a comparator rather than a general independent-agency safe harbor. Source: Supreme Court, [*Trump v. Cook*](https://www.supremecourt.gov/opinions/25pdf/25a312_5468.pdf).
 
 <a id="t2-ed"></a>
 ### 11. ED (Department of Education)

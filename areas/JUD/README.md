@@ -2,7 +2,7 @@
 area_id: A-04
 title: "Judicial Independence and Enforcement"
 status: active
-issue_count: 11
+issue_count: 7
 print_levels:
   - public-proposal
   - full-technical
@@ -15,19 +15,23 @@ print_levels:
 
 The federal judiciary’s authority to interpret and apply law is not matched by a sufficiently independent, reliable, adequately resourced, and consistently routed enforcement structure capable of ensuring timely executive compliance during interbranch conflict, nor by sufficiently determinate recusal rules for unusually legitimacy-sensitive presidential-party litigation.
 
-## Issues
+## Active Issues
 
 - [JUD-001 — Executive Dependence of Judicial Enforcement](issues/JUD-001.md)
-- **JUD-002** — Inadequate remedies for executive noncompliance _(status: Retired—merged into JUD-001; priority: High)_
-- **JUD-003** — Delay as functional defiance _(status: Retired—merged into JUD-001; priority: High)_
-- **JUD-004** — Lack of an independent judicial enforcement officer or service _(status: Retired—merged into JUD-001; priority: High)_
 - [JUD-005 — No Automatic Public Notice of Executive Noncompliance](issues/JUD-005.md)
-- **JUD-006** — Uncertainty regarding contempt and coercive sanctions against senior executive officials _(status: Retired—merged into JUD-001; priority: High)_
 - **JUD-007** — Evasion through substitution, reorganization, or nominally revised directives _(status: Candidate; priority: High)_
 - **JUD-008** — Insufficient transparency and verification regarding compliance _(status: Candidate; priority: High)_
 - [JUD-009 — Appointer-President Recusal](issues/JUD-009.md)
 - **JUD-010** — Judicial Branch Capacity, Funding, and Emergency Docket Resilience _(status: Candidate; priority: High)_
 - [JUD-011 — Executive Nullification of Congressional Mandates](issues/JUD-011.md)
+
+## Undeveloped Candidate Dispositions
+
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+
+| Record | Disposition |
+| --- | --- |
+| JUD-002, JUD-003, JUD-004, JUD-006 | Merged into [JUD-001](issues/JUD-001.md). |
 
 ## Issue Boundaries
 

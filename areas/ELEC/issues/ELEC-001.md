@@ -42,11 +42,7 @@ The President and other federal executive officials possess substantial investig
 
 On January 2, 2021, President Trump called Georgia Secretary of State Brad Raffensperger after Georgia had certified its presidential election result and completed multiple reviews of the vote. President Trump asked Raffensperger to “find 11,780 votes,” the number necessary to reverse President Trump’s certified defeat, and invoked possible criminal consequences while urging state officials to act. See the U.S. House Select Committee to Investigate the January 6th Attack, [Final Report](https://www.govinfo.gov/content/pkg/GPO-J6-REPORT/pdf/GPO-J6-REPORT.pdf).
 
-The institutional significance does not depend on a final criminal judgment:
-
-> A sitting President used the authority and influence of federal executive office to seek a candidate-specific alteration of a state’s lawful election determination.
-
-The episode demonstrates that a President can exert federal executive influence directly upon a state election official without issuing a formal order, deploying an agency, or completing the requested alteration. Existing remedies did not supply an immediate, specialized mechanism to stop the pressure, preserve records, transfer investigation outside the presidential chain of command, or impose consequences tailored to misuse of federal office against a state election function.
+The institutional significance does not depend on a final criminal judgment: a sitting President used federal executive influence to seek a candidate-specific alteration of a state’s lawful election determination. The episode demonstrates that such pressure can occur without a formal order or agency action and without an immediate specialized mechanism to stop it, preserve records, or move investigation outside the presidential chain of command.
 
 ### Federal citizenship-list and voter-data architecture
 
@@ -55,8 +51,6 @@ In 2026, Executive Order 14399 directed DHS, USCIS, SSA, DOJ, and USPS toward a 
 Federal litigation then produced decisions blocking or rejecting key parts of that architecture. Public reporting described a federal court blocking an order aimed at creating a federal voter list and restricting mail-ballot distribution, a Sixth Circuit ruling against a demand for sensitive Michigan voter data, and dismissal of a DOJ lawsuit seeking detailed Maryland voter data. See Associated Press, [federal voter-list injunction](https://apnews.com/article/b28c3425c1dc968cd0f57c61fb7a684e), [Michigan voter-data appeal](https://apnews.com/article/b73d510dddaf9c96088904b6c44f919a), and [Maryland voter-data lawsuit](https://apnews.com/article/67c94fb8af9cbcf2a0947ad81de5eab4).
 
 The institutional significance is that federal executive power can be converted from case-specific enforcement into a centralized election-administration architecture. Even when courts block implementation, state and local officials must respond to federal data demands, reconcile federal database claims with state registration law, protect sensitive voter information, and litigate under election-time pressure.
-
-Related independent-agency source development belongs primarily in [REG-001](../../REG/issues/REG-001.md). The July 2026 Election Assistance Commission removal-and-vacancy episode should be cross-referenced here only if source development shows that EAC leadership collapse is part of a broader federal executive architecture pressuring state or local election administration, voter-registration administration, voting-system guidance, or federal election-support functions.
 
 ## Resulting Damage
 
@@ -130,6 +124,8 @@ The statute must preserve ordinary political advocacy, public criticism, lawful 
 ELEC-001 concerns civilian executive interference through presidential authority, agencies, investigations, funding, regulation, intelligence, administrative process, or official influence.
 
 ELEC-007 should be narrowed to military, National Guard, or armed federal-force intervention in polling, counting, canvassing, recount, certification, or custody of election materials.
+
+[REG-001](../../REG/issues/REG-001.md) owns independent-agency removal, vacancy, and functional-disablement concerns, including the July 2026 Election Assistance Commission episode. ELEC-001 should cross-reference that event only if further evidence shows that EAC leadership collapse formed part of a broader federal architecture pressuring state or local election administration.
 
 ## Budgetary Impact Statement
 

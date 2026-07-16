@@ -23,7 +23,7 @@ This page connects commonly recognized Project 2025 themes to the ARRP proposals
 | --- | --- |
 | Presidential control of DOJ, investigations, or enforcement | [DOJ-003](../areas/DOJ/issues/DOJ-003.md) and [DOJ-007](../areas/DOJ/issues/DOJ-007.md) |
 | Presidential refusal to carry out laws, maintain agencies or programs, or spend appropriated funds | [JUD-011](../areas/JUD/issues/JUD-011.md), [REG-001](../areas/REG/issues/REG-001.md), and [FUND-001](../areas/FUND/issues/FUND-001.md) |
-| Political control of career civil servants and loyalty-based appointments | CIV-001, CIV-003, and APPT-004 |
+| Political control of career civil servants and circumvention of appointment safeguards | CIV-001, CIV-003, [APPT-001](../areas/APPT/issues/APPT-001.md), and APPT-004 |
 | Emergency authority and domestic enforcement | EMERG-001, [EMERG-003](../areas/EMERG/issues/EMERG-003.md), EMERG-004, DOM-001, DOM-004, and [WAR-001](../areas/WAR/issues/WAR-001.md) |
 | Government information, science, and civil-rights administration | FACT-001, FACT-002, FACT-004, FACT-006, and [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) |
 
@@ -38,7 +38,7 @@ This page connects commonly recognized Project 2025 themes to the ARRP proposals
 | Abolition, closure, or disabling of agencies created by Congress | [REG-001](../areas/REG/issues/REG-001.md) | Addresses agency continuity and presidential refusal to carry out enacted law. |
 | Government-wide sex definitions, identity records, or civil-rights administration | [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) | Addresses civil-rights administration and identity records. |
 | Suppression or distortion of government science, statistics, or public information | FACT-001, FACT-002, FACT-004, and FACT-006 | Separate scientific alteration, dataset suppression, statistical interference, and suppression of unfavorable findings. |
-| Presidential control over independent regulators or removal of confirmed officials | [REG-001](../areas/REG/issues/REG-001.md) and APPT-005 | The applicable proposal depends on whether the concern is disabling an agency or removing and replacing a confirmed official. |
+| Presidential control over independent regulators or removal used to evade confirmation and succession safeguards | [REG-001](../areas/REG/issues/REG-001.md) and [APPT-001](../areas/APPT/issues/APPT-001.md) | REG-001 addresses protected independence and functional disablement; APPT-001 addresses removal only when combined with vacancy, delegation, or succession practices that defeat confirmation or an appointment backstop. |
 | Emergency or national-security authority used to bypass ordinary limits | EMERG-001, [EMERG-003](../areas/EMERG/issues/EMERG-003.md), EMERG-004, DOM-001, DOM-004, and [WAR-001](../areas/WAR/issues/WAR-001.md) | Separate open-ended emergencies, emergency powers used instead of legislation, border declarations, domestic force, and external force. |
 | Government pressure on media, platforms, or protected public information | PRESS-001, PRESS-004, PRESS-005, and PRESS-006 | Separate denial of access, regulatory retaliation, commercial pressure, and misuse of official power. |
 | Tax rates, benefit levels, energy production, or other ordinary policy choices | None | ARRP does not address those choices unless they reveal a separate institutional weakness. |
@@ -49,4 +49,4 @@ ARRP addresses Project 2025 only where a proposal identifies or uses a separate 
 
 ## Sources and Updates
 
-The principal sources are the Heritage Foundation's [Mandate for Leadership page](https://www.heritage.org/mandate) and [Project 2025 policy entry point](https://www.project2025.org/policy/). The [DocumentCloud copy](https://www.documentcloud.org/documents/24088042-project-2025s-mandate-for-leadership-the-conservative-promise/) provides a searchable copy. This page reflects ARRP proposals reviewed through July 15, 2026 and should be updated when those proposals or the underlying source material change.
+The principal sources are the Heritage Foundation's [Mandate for Leadership page](https://www.heritage.org/mandate) and [Project 2025 policy entry point](https://www.project2025.org/policy/). The [DocumentCloud copy](https://www.documentcloud.org/documents/24088042-project-2025s-mandate-for-leadership-the-conservative-promise/) provides a searchable copy. This page reflects ARRP proposals reviewed through July 16, 2026 and should be updated when those proposals or the underlying source material change.

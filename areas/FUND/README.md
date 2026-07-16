@@ -17,7 +17,7 @@ The executive branch can delay, condition, redirect, or refuse congressionally a
 
 ## Issues
 
-- [FUND-001 — Addressing Executive Order Abuse](issues/FUND-001.md) _(status: Review Ready; score following the internal project review: 83; priority: Medium)_
+- [FUND-001 — Fiscal Implementation of Ultra Vires Executive Directives](issues/FUND-001.md) _(status: Review Ready; score following the internal project review: 83; priority: Medium)_
 - [FUND-002 — Pocket Rescissions and Strategic Delay](issues/FUND-002.md) _(status: Candidate; priority: Medium)_
 - **FUND-003** — Agency closure or program nullification through nonspending _(status: Candidate; priority: Medium)_
 - **FUND-004** — Politically selective withholding of grants or aid _(status: Candidate; priority: Medium)_

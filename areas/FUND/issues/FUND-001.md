@@ -1,16 +1,16 @@
 ---
 issue_id: FUND-001
 area_id: A-11
-title: "Addressing Executive Order Abuse"
+title: "Fiscal Implementation of Ultra Vires Executive Directives"
 status: developed
 priority: medium
 remedy_type: federal-legislation
 legislative_status: working-draft
 legislative_proposal: "../../../legislation/JUD-011.md"
 alternative_legislative_proposal: "../../../legislation/FUND-001.md"
-audit_status: "T4 publication-ready audit complete; NASA anticipatory-implementation manifestation change-audited; qualified review pending"
+audit_status: "T4 publication-ready audit complete; fiscal-scope and title change-audited; qualified review pending"
 audit_score: 83
-audit_last_type: "NASA manifestation targeted Change Audit"
+audit_last_type: "Fiscal-scope and title targeted Change Audit"
 audit_last_date: "2026-07-15"
 audit_next: "Qualified appropriations, federal-courts, budget, and legislative-counsel review; obtain NASA program-level apportionment, reprogramming, and obligation records"
 audit_rubric_version: "2026-06-27.2"
@@ -30,15 +30,15 @@ print_levels:
 audit_history: "FUND-001.audit.md"
 ---
 
-# FUND-001 — Addressing Executive Order Abuse
+# FUND-001 — Fiscal Implementation of Ultra Vires Executive Directives
 
 > ## Issue Snapshot
-> **Problem:** Executive orders can convert unlawful nonexecution into facts on the ground.<br />**Repair:** Enforce enacted mandates before unlawful directives create irreversible facts.<br />**Vehicle:** [Interbranch Review Framework Act (JUD-011)](../../../legislation/JUD-011.md) alone (preferred); standalone [FUND-001](../../../legislation/FUND-001.md) (independent alternative).
+> **Problem:** Agencies may use spending, nonspending, or program administration to implement executive directives that exceed lawful authority.<br />**Repair:** Enforce enacted appropriations and program mandates before implementation of ultra vires directives—directives beyond lawful authority—creates irreversible facts.<br />**Vehicle:** [Interbranch Review Framework Act (JUD-011)](../../../legislation/JUD-011.md) alone (preferred); standalone [FUND-001](../../../legislation/FUND-001.md) (independent alternative).
 >
 
 ## Institutional Anomaly
 
-Executive orders and presidential memoranda can be lawful tools for supervising the executive branch, coordinating agency action, and implementing statutes. The structural danger arises when executive directives are used to evade Congress, suspend statutory programs, redirect or withhold appropriated funds, condition grants for partisan or ideological purposes, or create operational facts before courts or Congress can respond.
+Executive orders and presidential memoranda can be lawful tools for supervising the executive branch, coordinating agency action, and implementing statutes. FUND-001 addresses the narrower structural danger that arises when agencies use appropriated funds, nonspending, apportionment, grant administration, or statutory-program execution to implement executive directives beyond lawful authority. Its standalone trigger requires a pattern of qualifying final judicial judgments before the special fiscal constraints apply.
 
 Direct regulation of the President's issuance of executive orders would raise serious Article II and separation-of-powers questions. The more durable statutory hook is Congress's power of the purse. A presidential directive may exist as an internal instruction, but agencies should not be able to use appropriated funds, apportionment authority, grant administration, program execution, or nonspending to implement a pattern of directives that courts or the Comptroller General have already identified as unlawful.
 
@@ -46,47 +46,17 @@ FUND-001 therefore treats repeated unlawful covered executive directives as an a
 
 ## Manifestations of the Failure
 
-### Executive-order implementation as de facto lawmaking
+### *Youngstown* and *Train* — executive action displaced by congressional law
 
-An executive order may purport to reorder spending, program eligibility, enforcement capacity, or grant conditions in ways Congress did not authorize. Even if the order is later held unlawful, agencies may have already frozen funds, delayed benefits, redirected personnel, closed programs, or coerced recipients.
-
-[*Youngstown Sheet & Tube Co. v. Sawyer*](https://www.govinfo.gov/app/details/USREPORTS-343/USREPORTS-343-579) supplies the foundational example of an executive order set aside because it lacked statutory or constitutional authority and conflicted with Congress's allocation of power.
-
-### Impoundment by directive rather than by formal rescission or deferral
-
-The Impoundment Control Act already regulates [rescissions](https://uscode.house.gov/view.xhtml?req=%28title%3A2+section%3A683+edition%3Aprelim%29) and [deferrals](https://uscode.house.gov/view.xhtml?req=%28title%3A2+section%3A684+edition%3Aprelim%29), but a President may try to achieve similar effects through directives framed as policy review, apportionment management, grant-condition revision, emergency implementation, legal-position review, or agency reorganization. This can turn nonspending into a practical veto of statutory programs. In [*Train v. City of New York*](https://www.govinfo.gov/app/details/USREPORTS-420/USREPORTS-420-35), the Supreme Court rejected executive nonspending that frustrated Congress's statutory allotment direction.
+In [*Youngstown Sheet & Tube Co. v. Sawyer*](https://www.govinfo.gov/app/details/USREPORTS-343/USREPORTS-343-579), the Supreme Court set aside an executive order that lacked statutory or constitutional authority and conflicted with Congress's allocation of power. In [*Train v. City of New York*](https://www.govinfo.gov/app/details/USREPORTS-420/USREPORTS-420-35), it rejected executive nonspending that frustrated Congress's statutory allotment direction. The decisions illustrate the recurring problem that executive implementation can displace Congress's policy or spending command before judicial relief arrives.
 
 ### Anticipatory implementation of rejected NASA cuts
 
 NASA's fiscal year 2026 [budget request](https://www.nasa.gov/fy-2026-budget-request/) proposed $18.8 billion, down from about $24.8 billion in fiscal year 2025, but Congress later provided roughly $24.4 billion. A [House Science Committee Democratic staff report](https://democrats-science.house.gov/imo/media/doc/SST%20Minority%20Staff%20Report%20-%20NASA%20Implementation%20of%20FY26%20PBR%20-%20April%202026.pdf) stated that NASA officials nevertheless began implementing requested reductions during 2025, including terminating work and dispersing personnel on the Electrified Powertrain Flight Demonstration after the request proposed no funding; NASA's later [spending plan](https://www.nasa.gov/wp-content/uploads/2026/07/nasa-fy2026-spending-plan-for-appropriations-provided-by-pl11974.pdf) included $40 million for the project. The episode illustrates how anticipatory program-execution decisions can impair Congress's ability to preserve a program even when it rejects a proposed cut. No court or GAO has found an Impoundment Control Act violation in this episode, and program-level apportionment, reprogramming, and obligation records remain necessary to establish unlawful withholding.
 
-### Executive-order volume and judicial-review comparator
-
-**Important note:** The project would strongly prefer to include metrics evenly across all administrations. This would be an incredibly useful comparison in investigating abuse of executive orders. However, no public-facing source has yet been identified that directly tabulates executive-order-specific unlawfulness across administrations. The currently identified sources instead support narrower comparator tracks: CRS provides nationwide-injunction counts for the first Trump and Biden administrations, AttorneysGeneral.org provides a structured multistate-litigation database with administration and injunction fields, Ballotpedia provides a Biden-era multistate-litigation routing source, and the AP figure provides a second-Trump-administration court-blocking proxy.
-
-The project was able to locate some reliable data tracking nationwide injunctions issued in response to orders across administrations going back to George W. Bush. Therefore, the project provisionally offers nationwide injunctions as a potentially useful analog in analyzing the lawfulness of issued orders.
-
-Injunctions issued during the second Trump administration were not specifically tabulated from available sources. The project intends to tabulate this so that a direct comparison can be made. Until such time, the project treats the data presented as still useful in analyzing this issue. The project will continue to present data for the Trump administration regardless because it still serves as a concrete manifestation of the problem described.
-
-| President | EO count | Injunction count | Unlawful |
-| --- | ---: | ---: | ---: |
-| Clinton | 364 | TBD | TBD |
-| George W. Bush | 291 | 12† | TBD |
-| Obama | 277 | 19† | TBD |
-| Trump, first term | 220 | 86 | TBD |
-| Biden | 162 | 28 | TBD |
-| Trump, second term* | 267 | TBD | 70 |
-
-#### Sources and notes ####
-* *_Accessed June 29, 2026; AP proxy as of May 1, 2025_
-* †_For George W. Bush and Obama, CRS does not provide appendix counts in the reviewed report; the table uses the higher DOJ-cited count reported by CRS. CRS also cites lower Harvard Law Review counts for those administrations._
-* EO counts come from the [Federal Register executive-order disposition tables](https://www.federalregister.gov/presidential-documents/executive-orders). 
-* Injunction counts use CRS appendix counts from [Nationwide Injunctions Under the First Trump Administration and the Biden Administration](https://www.congress.gov/crs-product/R48467) where available. AttorneysGeneral.org's [State Lawsuits Database](https://attorneysgeneral.org/multistate-lawsuits-vs-the-federal-government/list-of-lawsuits-1980-present/) is retained as a structured case-level audit source, with [data-collection methods](https://attorneysgeneral.org/data-collection-methods/) defining the multistate-lawsuit dataset. A June 29, 2026 quick scan of the May 25, 2025 table data identified, among multistate Biden-administration rows, 23 national injunctions issued, 23 local injunctions issued, and 2 pending injunction motions. That figure is not substituted into the table because it is broader than the CRS nationwide-injunction count and still requires case-level normalization. Ballotpedia's [Biden multistate-lawsuit tracker](https://ballotpedia.org/Multistate_lawsuits_against_the_federal_government_during_the_Biden_administration) is retained as an additional routing source for checking Biden-era injunction and status coding, but it has not yet been normalized into an EO-specific numerator.
-* The Trump second-term proxy comes from the Associated Press report [Trump's agenda faces courtroom setbacks as Justice Department lawyers struggle to win over judges](https://apnews.com/article/5522245bc2140579d39a0a825b6db7af).
-
 ## Resulting Damage
 
-Executive-order abuse through impoundment damages Congress's power of the purse, statutory program reliability, federalism, equal administration, and democratic accountability. It lets the executive branch obtain time-sensitive policy results before legality is resolved, burdens states and private parties with emergency litigation, and can make judicial victory incomplete because funding, staffing, deadlines, or institutional capacity have already been disrupted.
+Fiscal implementation of ultra vires executive directives damages Congress's power of the purse, statutory program reliability, federalism, equal administration, and democratic accountability. It lets the executive branch obtain time-sensitive policy results before legality is resolved, burdens states and private parties with emergency litigation, and can make judicial victory incomplete because funding, staffing, deadlines, or institutional capacity have already been disrupted.
 
 ## Underlying Weakness
 
@@ -143,7 +113,7 @@ The Interbranch Review Framework Act (JUD-011) itself supplies the cause of acti
 
 ### Independent legislative alternative — enact FUND-001 alone
 
-- [FUND-001 — Executive-Order Abuse Impoundment Control Act](../../../legislation/FUND-001.md)
+- [FUND-001 — Ultra Vires Executive Directive Fiscal Review Act](../../../legislation/FUND-001.md)
 
 FUND-001 is a complete appropriations-specific remedy Congress may enact if it rejects the Interbranch Review Framework Act (JUD-011). It independently supplies the trigger, fiscal-inertness rules, certification process, cause of action, plaintiffs, relief, three-judge D.D.C. procedure, and D.C. Circuit review. It does not rely on JUD-011 or another ARRP proposal.
 
@@ -154,10 +124,10 @@ FUND-001 is a complete appropriations-specific remedy Congress may enact if it r
 ## Relationship to Adjacent Proposals
 
 - **FUND-002** concerns pocket rescissions and strategic delay. FUND-001 owns the repeated-unlawful-directive trigger and fiscal-inertness mechanism.
-- **FUND-003** concerns agency closure or program nullification through nonspending.
-- **FUND-004** concerns politically selective withholding of grants or aid.
-- **EMERG-002** concerns emergency authority used to redirect appropriated funds.
-- **CONG-008** concerns partisan collapse of oversight under unified government.
+- The undeveloped FUND-003, FUND-005, FUND-006, FUND-007, and FUND-008 records remain candidates for later integration as program-nullification, reprogramming, standing, remedy, accountability, and reporting modules; no merger has yet been implemented.
+- FUND-004 remains the candidate home for politically selective withholding of grants or aid, subject to later boundary review with FED-003 and RET-001.
+- EMERG-002 remains the candidate home for emergency authority used to redirect appropriated funds, subject to later consolidation review.
+- [JUD-005](../../JUD/issues/JUD-005.md) supplies automatic public notice after judicially established executive noncompliance; the project does not treat unified-government oversight inaction itself as an independently remediable institutional defect.
 - **FED-003** concerns coercive grant conditions imposed on states or local governments.
 - **JUD-001** concerns judicial enforcement after a court has issued an order requiring executive compliance.
 - The **Interbranch Review Framework Act (JUD-011)** is the preferred general anti-nullification remedy and applies without subject-matter designation. FUND-001 is a separate, complete appropriations-specific alternative.
@@ -180,9 +150,11 @@ Budget authority is likely required. The standalone bill authorizes necessary OM
 >
 > —
 >
-> **Internal Review Status:** Internal project review complete; NASA anticipatory-implementation manifestation reviewed after revision; qualified review pending<br />**Last Internal Review:** NASA manifestation targeted internal revision review (2026-07-15)<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Revision Review:** Current for the NASA manifestation, JUD-011 coverage, the standalone alternative, and both budget pathways<br />**Next Review:** Qualified appropriations, federal-courts, budget, and legislative-counsel review; obtain NASA program-level apportionment, reprogramming, and obligation records<br />**Full Review History:** [FUND-001 review history](FUND-001.audit.md)
+> **Internal Review Status:** Internal project review complete; fiscal-scope and title revision reviewed; qualified review pending<br />**Last Internal Review:** Fiscal-scope and title targeted internal revision review (2026-07-15)<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Revision Review:** Current for the fiscal-scope framing, NASA manifestation, JUD-011 coverage, the standalone alternative, and both budget pathways<br />**Next Review:** Qualified appropriations, federal-courts, budget, and legislative-counsel review; obtain NASA program-level apportionment, reprogramming, and obligation records<br />**Full Review History:** [FUND-001 review history](FUND-001.audit.md)
 
 ## Annotation
+
+**Executive-order comparator limits.** No identified source directly compares executive-order-specific unlawfulness across administrations. The retained sources support only non-equivalent proxies: the [Federal Register](https://www.federalregister.gov/presidential-documents/executive-orders) provides executive-order counts; CRS reports nationwide-injunction counts for the first Trump and Biden administrations in [*Nationwide Injunctions Under the First Trump Administration and the Biden Administration*](https://www.congress.gov/crs-product/R48467); [AttorneysGeneral.org](https://attorneysgeneral.org/multistate-lawsuits-vs-the-federal-government/list-of-lawsuits-1980-present/) and its [methodology](https://attorneysgeneral.org/data-collection-methods/) provide broader multistate-litigation data; [Ballotpedia](https://ballotpedia.org/Multistate_lawsuits_against_the_federal_government_during_the_Biden_administration) routes Biden-era cases; and the [Associated Press](https://apnews.com/article/5522245bc2140579d39a0a825b6db7af) supplies a second-Trump-administration court-blocking proxy. Because orders, cases, injunctions, and findings of unlawfulness are different denominators, the incomplete comparison is retained as a research limitation rather than presented as a manifestation or cross-administration conclusion.
 
 **Pattern trigger and lookback design.** Ordinary litigation can stop a single unlawful action, but it may not address a pattern. If several covered executive directives are found unlawful, the legal system has identified a repeat institutional failure. A repeated-failure trigger should not require impeachment before Congress can protect later appropriations from similar abuse. Because Presidents often issue numerous executive orders at the beginning of a term, a purely prospective trigger would leave first-day directives untouched even if later legal findings reveal a pattern of unlawful directive-based implementation. FUND-001 therefore requires a lookback review for covered directives issued earlier in the same presidential term that continue to affect appropriated funds, statutory programs, grants, benefits, apportionments, or agency operations after the trigger. The lookback mechanism does not retroactively void executive orders or unwind completed actions automatically; it requires continued implementation to be certified, narrowed, paused, or reviewed. These are remedy-design choices rather than separate manifestations.
 
@@ -216,7 +188,7 @@ The statute supplies an express cause of action and waives sovereign immunity fo
 
 The D.C. Circuit's amended order in the foreign-assistance cases held that the existing Impoundment Control Act did not give the grantees an APA cause of action to enforce the ICA, while expressly leaving open APA claims based on appropriations Acts. The Supreme Court's later stay order in [*Department of State v. AIDS Vaccine Advocacy Coalition*, No. 25A269](https://www.supremecourt.gov/opinions/24pdf/25a269_bp7c.pdf) similarly expressed only a preliminary view that the ICA precluded the APA theory and that mandamus was unavailable on that record. The internal project review therefore makes FUND-001's own cause of action and D.D.C. jurisdiction express, notwithstanding the APA adequate-remedy rule and the Tucker Act jurisdictional grants in [28 U.S.C. § 1491](https://uscode.house.gov/view.xhtml?edition=prelim&f=treesort&jumpTo=true&num=0&req=%28title%3A28+section%3A1491+edition%3Aprelim%29+OR+%28granuleid%3AUSC-prelim-title28-section1491%29). It treats prospective release or obligation of identified budget authority as specific relief, consistent with [*Bowen v. Massachusetts*](https://www.govinfo.gov/app/details/USREPORTS-487/USREPORTS-487-879), but preserves ordinary jurisdictional and administrative channels for claims arising solely under contracts, grants, procurement law, civil-service law, or labor law. That last limit responds directly to the D.C. Circuit's holding that federal unions could not bypass the Civil Service Reform Act review scheme merely by challenging executive orders in district court.
 
-**Naming.** The issue is named for executive-order abuse, not merely impoundment, because the institutional defect is directive-based executive circumvention. The legal hook remains appropriations and impoundment because direct statutory nullification of executive orders would raise harder constitutional questions.
+**Scope and naming.** *Ultra vires* means beyond lawful authority. The title identifies the proposal's limited concern: fiscal or program implementation of covered executive directives after qualifying final judicial judgments, not executive orders generally. JUD-011 remains the project home for the broader anti-nullification remedy. FUND-001 remains in the appropriations area because its independent legal hook is Congress's control over spending, nonspending, apportionment, and statutory-program execution; it does not directly nullify presidential directives.
 
 **No Blanket Nullification.** The proposal does not declare executive orders void. It makes new covered directives, and continuing implementation of lookback-period covered directives, fiscally inert as to their covered scope during a review period. The President may still issue orders; agencies may not use or withhold appropriated funds to implement covered directives without satisfying the statutory process.
 
@@ -238,6 +210,6 @@ The D.C. Circuit's amended order in the foreign-assistance cases held that the e
 
 **Adoption Score.** The score is 4/12 (Limited Adoption Basis). H.R. 5314 reached House passage and H.R. 5220 supplies a current 21-cosponsor vehicle, but the former passed almost entirely along party lines and the latter has only Democratic cosponsors, no committee action, and no CBO estimate. That supports a real but presently weak ordinary-legislation pathway, not a bipartisan coalition claim.
 
-**Adoption Friction.** The 82/100 score is Extreme Resistance because the proposal responds to presidential abuse of executive orders, constrains OMB and agency implementation after repeated unlawful conduct, may be opposed by presidents of both parties, and would likely draw separation-of-powers, standing, expedited-review, emergency-authority, and appropriations-process objections.
+**Adoption Friction.** The 82/100 score is Extreme Resistance because the proposal constrains OMB and agency implementation after repeated final judicial findings involving executive directives, may be opposed by presidents of both parties, and would likely draw separation-of-powers, standing, expedited-review, emergency-authority, and appropriations-process objections.
 
 **Required Electoral Environment.** The required environment is `sixty-vote-senate`, with Pathway Viability `plausible-after-wave` and Pathway Adjustment `stage`. A narrower first stage could focus on appropriations, grant conditions, OMB apportionment, GAO reporting, and expedited review without activating the full pattern-trigger regime.

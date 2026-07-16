@@ -11,6 +11,7 @@ Working statutory and administrative language is maintained separately from the 
 
 ## Proposals
 
+- [APPT-001 — Appointments Accountability and Confirmation Safeguards Act](APPT-001.md)
 - [DOJ-001 — Seven-Year Cooling-Off Rule for Attorney General Eligibility](DOJ-001.md)
 - [DOJ-002 — Proposed Justice Manual § 9-85.115: Politically Sensitive Criminal Matters](DOJ-002.md)
 - [DOJ-003 — Prosecutorial Neutrality Monitoring and Congressional Oversight Act](DOJ-003.md)
@@ -40,7 +41,7 @@ Working statutory and administrative language is maintained separately from the 
 - [ELEC-012-amendment — Campaign Finance Democratic Authority Amendment](ELEC-012-amendment.md)
 - [ELEC-013 — Federal Candidate Access and Debate Transparency Act](ELEC-013.md)
 - [EMERG-003 — Emergency Economic Powers Specificity and Adjudicative Independence Act](EMERG-003.md)
-- [FUND-001 — Executive-Order Abuse Impoundment Control Act](FUND-001.md)
+- [FUND-001 — Ultra Vires Executive Directive Fiscal Review Act](FUND-001.md)
 - [JUD-001 — Executive Compliance and Civil Contempt Accountability Act](JUD-001.md)
 - [JUD-005 — Judicial Noncompliance Notice and Public Accountability Act](JUD-005.md)
 - [JUD-009 — Appointer-President Recusal Act](JUD-009.md)

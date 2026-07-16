@@ -1,6 +1,6 @@
 ---
 issue_id: FUND-001
-title: "Addressing Executive Order Abuse — Audit History"
+title: "Fiscal Implementation of Ultra Vires Executive Directives — Audit History"
 source_issue: "FUND-001.md"
 print_levels:
   - full-technical
@@ -13,6 +13,22 @@ This file preserves the full audit history for [FUND-001](FUND-001.md). The issu
 ## Audit History
 
 Entries are maintained newest first. Change Audits preserve the existing score unless the audit identifies a score-bearing defect and recalculates the proposal under the current rubric.
+
+### 2026-07-15 — Fiscal-scope and title targeted Change Audit
+
+**Audit type:** Targeted Change Audit and Internal Remedy-Fit Audit; not a T0-T4 run and no score recalculation.
+
+**Scope:** Reviewed FUND-001's title, Issue Snapshot, Institutional Anomaly, Resulting Damage, Least-Complex Adequate Remedy, standalone legislation, adjacent-proposal boundaries, research routing, and navigation records after identifying that “Addressing Executive Order Abuse” implied a broader subject than the appropriations-specific independent remedy.
+
+**Scope and terminology finding:** Retitled the issue “Fiscal Implementation of Ultra Vires Executive Directives” and defined *ultra vires* in plain language as beyond lawful authority. The revised framing does not characterize executive directives generally as unlawful. It identifies the narrower institutional failure in which appropriated funds, nonspending, apportionment, grant administration, or statutory-program execution implements directives beyond lawful authority. The standalone Act was correspondingly retitled the “Ultra Vires Executive Directive Fiscal Review Act.”
+
+**Internal Remedy-Fit finding:** FUND-001 remains properly located in A-11 because its independent remedy regulates fiscal and statutory-program implementation through the Impoundment Control Act and Congress's appropriations authority. JUD-011 remains the project home for the broader anti-nullification remedy. No move to JUD or EMERG is warranted, and the preferred JUD-011 path and complete standalone FUND-001 path remain independently enactable and substantively unchanged.
+
+**Research-routing finding:** The state-led adverse-rulings scan reaches executive-directive litigation beyond impoundment and is therefore cross-project research rather than a FUND-owned substantive record. Its filename and research index label were generalized, while the FUND-001 comparator continues to use it as a triage source. RIGHTS-003 references were updated to describe the scan as cross-project research. Historical audit entries retain the terminology used when those audits occurred.
+
+**Score and run effect:** No score change. FUND-001 remains 83/100 (Review Ready) under rubric `2026-06-27.2`. The correction improves scope clarity and taxonomy but does not add evidence, alter the trigger, change the remedy, resolve an existing scoring gap, or increment Runs.
+
+**Next audit need:** Qualified appropriations, federal-courts, budget, program-administration, and legislative-counsel review; obtain and evaluate NASA program-level apportionment, reprogramming, obligation, and contract-termination records before asserting an ICA violation.
 
 ### 2026-07-15 — NASA manifestation targeted Change Audit
 

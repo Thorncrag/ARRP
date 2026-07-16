@@ -12,14 +12,16 @@ Covered work product includes legal and policy memoranda, crosswalks, catalogs, 
 
 ## Issue Research and Maintained Work Product
 
+- [Portfolio Issue-Consolidation Review](portfolio-issue-consolidation-review.md) — preliminary portfolio-wide issue-admission recommendations and planning effects; the review does not itself change proposal lifecycle records.
 - [ELEC-004 Civil Process and State Election Records Catalog](ELEC-004-civil-process-catalog.md)
 - [ELEC-013 Presidential Debate and Ballot Access Explanatory Checklist](ELEC-013-presidential-debate-ballot-access-explainer.md)
 - [ELEC-014 Criminal-Process and State Election Records Catalog](ELEC-014-criminal-process-catalog.md)
 - [ELEC-015 Maine RCV Participation Data](ELEC-015-maine-rcv-participation-data.md), with its project-generated [trend visualization](ELEC-015-maine-rcv-trend.svg)
 - [EMOL-015 Procedural and Enforcement Analysis](EMOL-015-procedural-and-enforcement-analysis.md)
 - [FUND-001 Executive Order Judicial Review Comparator](FUND-001-executive-order-judicial-review-comparator.md)
-- [FUND-001 State-Led Adverse Rulings Scan](FUND-001-state-led-adverse-rulings-scan.csv)
+- [Executive-Directive State-Led Adverse Rulings Scan](executive-directive-state-led-adverse-rulings-scan.csv)
 - [REG-001 Agency Independence and Functional Nullification Catalog](REG-001-independent-agency-removal-catalog.md)
+- [Trump Administration Legal-Review Intake](trump-administration-legal-review-intake.md), with its [Horizon intake review console](horizon-review-console/README.md), [media-supported episode intake](trump-administration-media-review-intake.csv), [action-level catalog](trump-administration-legal-review-catalog.csv), [priority disposition review](trump-administration-priority-disposition-review.csv), and [source-universe ledger](trump-administration-source-universe.csv)
 - [WAR-001 Source Development](WAR-001-source-development.md)
 
 ## Project Crosswalks

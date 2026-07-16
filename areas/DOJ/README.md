@@ -2,7 +2,7 @@
 area_id: A-01
 title: "Department of Justice"
 status: active
-issue_count: 9
+issue_count: 7
 print_levels:
   - public-proposal
   - full-technical
@@ -15,17 +15,24 @@ print_levels:
 
 The Department of Justice lacks sufficient structural independence, external oversight, and enforceable safeguards to prevent presidential use of its leadership, personnel, investigative authority, and prosecutorial discretion for personal protection, political retaliation, or partisan advantage.
 
-## Issues
+## Active Issues
 
 - [DOJ-001 — Recent Presidential Personal Counsel in Senior DOJ Leadership](issues/DOJ-001.md)
 - [DOJ-002 — White House Direction or Interference in Particular Federal Criminal Matters](issues/DOJ-002.md)
 - [DOJ-003 — Politically Selective Enforcement, Charging, and Favoritism](issues/DOJ-003.md)
 - [DOJ-004 — Protection of Career DOJ Personnel from Politically Motivated Removal or Reassignment](issues/DOJ-004.md) _(status: Awaiting merits adjudication; priority: High)_
 - [DOJ-005 — Weak Enforcement and Internal Control of DOJ Recusal Duties](issues/DOJ-005.md)
-- **DOJ-006** — Insufficiently enforceable limits on White House–DOJ contacts _(status: Retired—merged into DOJ-002 and DOJ-007)_
 - [DOJ-007 — Independent Investigation of Presidential and Senior Executive Misconduct](issues/DOJ-007.md)
-- **DOJ-008** — Weak external review of politicized charging or noncharging decisions _(status: Retired—merged into DOJ-003)_
 - [DOJ-009 — Insufficient Professional-Qualification Requirements for Senior DOJ Leadership](issues/DOJ-009.md)
+
+## Undeveloped Candidate Dispositions
+
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+
+| Record | Disposition |
+| --- | --- |
+| DOJ-006 | Merged into [DOJ-002](issues/DOJ-002.md) and [DOJ-007](issues/DOJ-007.md). |
+| DOJ-008 | Merged into [DOJ-003](issues/DOJ-003.md). |
 
 ## Issue Boundaries
 

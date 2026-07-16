@@ -44,25 +44,25 @@ The issue is directed principally at the design and conduct of state and local c
 
 On November 17, 2020, the four-member Wayne County Board of Canvassers initially deadlocked along party lines over certification of the county’s general-election results. The board later voted unanimously to certify. Two members subsequently sought to rescind their votes, although Michigan officials stated that no legal mechanism existed to undo the completed certification. See Associated Press, [*Tape reveals Donald Trump pressured Michigan officials not to certify 2020 vote*](https://apnews.com/article/05d0d0d7a0adbec796caecdc6862588b).
 
-This episode demonstrated that a small canvassing body could temporarily place the certification of a large jurisdiction at risk even after ordinary tabulation had been completed.
+The deadlock shows that a small canvassing body can temporarily place certification of a large jurisdiction at risk after ordinary tabulation is complete.
 
 ### Otero County, New Mexico — 2022
 
 On June 13, 2022, the Otero County Commission refused to certify the county’s primary-election results based on generalized concerns about voting machines rather than a demonstrated defect in the canvass. The New Mexico Secretary of State sought mandamus, and the New Mexico Supreme Court ordered certification. A majority ultimately complied, while one commissioner continued to refuse. See Axios, [*New Mexico Supreme Court orders GOP-led commission to certify primary vote*](https://www.axios.com/2022/06/15/new-mexico-secretary-state-commission-primary-vote).
 
-This episode demonstrated the need for a rule that generalized suspicion, intuition, or matters assigned to another review process do not authorize a certifying official to withhold a ministerial certification.
+The refusal required emergency mandamus even though the objections rested on generalized concerns rather than a demonstrated canvass defect.
 
 ### Cochise County, Arizona — 2022
 
 Cochise County supervisors failed to certify the 2022 general-election canvass by the statutory deadline while raising objections concerning voting-machine certification. A state court ordered the board to perform its legal duty, and the county certified after the order. One supervisor later pleaded guilty to a misdemeanor offense for failure or refusal to perform an election duty, and litigation concerning another supervisor confirmed that certification was an administrative rather than discretionary legislative act. See Associated Press, [*Two county officials in Arizona plead not guilty to charges for delaying 2022 election certification*](https://apnews.com/article/4a2aa0d180c3c7c3f1b17717e44f3ece), and Axios Phoenix, [*Cochise Supervisor Judd takes plea deal in case over delayed 2022 election certification*](https://www.axios.com/local/phoenix/2024/10/21/cochise-county-supervisor-judd-pleads-guilty-delayed-election-certification).
 
-This episode demonstrated the need for automatic substitution and immediate enforcement so statewide certification does not depend upon emergency litigation against local officials.
+The missed deadline forced emergency litigation before statewide certification could proceed and later produced individual criminal enforcement.
 
 ### Fulton County, Georgia — 2024
 
 A Fulton County election-board member sought a judicial declaration that local certifying officials possessed discretion to refuse certification based on perceived error or fraud. A Georgia court rejected that position and held that certification was mandatory, explaining that fraud concerns could be referred to appropriate authorities but could not be used to convert certifiers into investigators, prosecutors, judges, and juries. See Axios, [*Georgia counties must certify election results, judge rules*](https://www.axios.com/2024/10/15/georgia-elections-certification-judge-ruling), and Associated Press, [*Republican election official in crucial Georgia appeals order saying she must certify results*](https://apnews.com/article/daa0ee3836e0bc374fb61f6dad156890).
 
-This episode demonstrated the need to separate certification from investigation and election-contest adjudication expressly in statutory text.
+The litigation illustrates how a certifier may attempt to combine ministerial certification with investigative and adjudicative functions assigned elsewhere.
 
 ## Resulting Damage
 

@@ -2,7 +2,7 @@
 area_id: A-12
 title: "Appointments, Acting Officials, and Senate Confirmation"
 status: active
-issue_count: 8
+issue_count: 2
 print_levels:
   - public-proposal
   - full-technical
@@ -13,23 +13,33 @@ print_levels:
 
 ## Generalized Institutional Concern
 
-The executive can bypass or substantially weaken Senate confirmation through extended acting service, delegation of authority, vacancy manipulation, recess appointments, and reorganization of statutory duties.
+Temporary-service, delegation, and informal-authority arrangements can weaken statutory appointment safeguards when timely accountability depends on discretionary congressional opposition. The institutional concern is not ordinary personnel disagreement: it is whether appointment structures permit difficult-to-repair individual or democratic harm before elections, confirmation, oversight, or litigation can provide an effective correction.
 
-## Issues
+## Active Issues
 
-- **APPT-001** — Excessive reliance on acting officials _(status: Candidate; priority: Medium)_
-- **APPT-002** — Evasion of the Federal Vacancies Reform Act _(status: Candidate; priority: Medium)_
-- **APPT-003** — Delegation around expired acting service _(status: Candidate; priority: Medium)_
-- **APPT-004** — Installation of insufficiently vetted loyalists _(status: Candidate; priority: Medium)_
-- **APPT-005** — Removal and replacement of confirmed officers _(status: Candidate; priority: Medium)_
-- **APPT-006** — Manipulation of office titles and duties _(status: Candidate; priority: Medium)_
-- **APPT-007** — Weak consequences for unlawful service _(status: Candidate; priority: Medium)_
-- **APPT-008** — Inadequate transparency concerning succession and authority _(status: Candidate; priority: Medium)_
+- [**APPT-001** — Evasion of Senate Confirmation and Statutory Appointment Safeguards](issues/APPT-001.md) _(status: In development; priority: Medium)_
+- **APPT-004** — Exercise of Governmental Authority by Unappointed or Insufficiently Accountable Individuals _(status: In development—source and boundary review; priority: Medium)_
+
+## Undeveloped Candidate Dispositions
+
+These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+
+| Record | Disposition |
+| --- | --- |
+| APPT-002, APPT-003, APPT-007, APPT-008 | Merged into [APPT-001](issues/APPT-001.md). |
+| APPT-005 | Confirmation-backstop evasion rerouted to [APPT-001](issues/APPT-001.md); independent-agency removal rerouted to [REG-001](../REG/issues/REG-001.md); ordinary at-will removal held outside scope. |
+| APPT-006 | Authority manipulation merged into [APPT-001](issues/APPT-001.md); misleading public terminology rerouted to FACT-009 in [A-18](../FACT/README.md). |
 
 ## Issue Boundaries
 
-- **APPT-006** concerns executive manipulation of statutory office, department, component, or officer titles, duties, and public-facing labels in ways that may blur Congress's enacted office structure, Senate-confirmed role definitions, reporting lines, or legal accountability. Executive Order 14347 is a related source-development example because it authorized use of "Department of War" and "Secretary of War" as secondary titles while acknowledging that statutory references to the Department of Defense and Secretary of Defense remain controlling until changed by law. See [Executive Order 14347, 90 Fed. Reg. 43893 (Sept. 10, 2025)](https://www.federalregister.gov/documents/2025/09/10/2025-17508/restoring-the-united-states-department-of-war); [10 U.S.C. § 111](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title10-section111&num=0&edition=prelim). Primary ownership of misleading public-facing terminology or institutional labels belongs to [A-18](../FACT/README.md).
+- [APPT-001](issues/APPT-001.md) owns temporary-service, vacancy, delegation, succession, reporting, and enforcement mechanisms that can substitute for Senate confirmation or defeat an office-specific appointment backstop. It does not treat all acting service, delayed confirmation, or presidential removal as an institutional failure.
+
+- **APPT-004** is limited to a potentially distinct gap involving a private person, adviser, special government employee, representative, or ambiguously designated official who exercises continuing governmental authority without sufficiently clear appointment status, duties, supervision, ethics coverage, records obligations, security review, or public accountability. It does not presume that an outsider, relative, political ally, special envoy, or temporary presidential agent is unqualified or unlawfully serving. [HOR-028](https://github.com/Thorncrag/ARRP/issues/248) and preliminary intake question `INTAKE-GAP-004` are incorporated into this source-development lane. Promotion requires a legally supportable distinction among advice, representation, employment, and exercise of continuing significant federal authority.
+
+- Removal of an independent-agency officer or other officer possessing a constitutionally permissible tenure protection belongs primarily to [REG-001](../REG/issues/REG-001.md). Removal used together with temporary service, delegation, or repeated succession manipulation to defeat confirmation or an appointment backstop belongs to APPT-001. Ordinary removal of an officer serving at the President's pleasure remains a political personnel decision.
+
+- Misleading public-facing terminology or institutional labels belong primarily to [A-18](../FACT/README.md) and FACT-009. Authority reassignment or relabeling belongs to APPT-001 only when it changes legal accountability or functions as confirmation evasion. Executive Order 14347 remains a FACT-009 source-development example. See [Executive Order 14347, 90 Fed. Reg. 43893 (Sept. 10, 2025)](https://www.federalregister.gov/documents/2025/09/10/2025-17508/restoring-the-united-states-department-of-war); [10 U.S.C. § 111](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title10-section111&num=0&edition=prelim).
 
 ## Notes
 
-Provisional inventory; full source development pending.
+The July 16, 2026 issue-admission review consolidated the eight provisional candidates into one active statutory proposal and one source-development candidate. The consolidation applies without regard to party: appointment safeguards should operate when either party controls the presidency and Congress, while preserving lawful temporary continuity and recognizing that an opposition Senate may delay or reject nominees.
