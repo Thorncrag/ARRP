@@ -18,24 +18,23 @@ The official target date is stored in [`.github/progress-dashboard.json`](../.gi
 
 ## Review Ready Rule
 
-The dashboard uses the GitHub Project `Status` field as the lifecycle authority. An eligible proposal counts as complete for this goal when its status is one of:
+The dashboard uses the GitHub Project `Status` field as the lifecycle authority and the Project `Score` field as the attainment check. An eligible proposal counts as Review Ready for this goal only when both conditions are satisfied: its score is at least 75 and its status is one of:
 
 - `Review ready`;
 - `Advanced review ready`;
 - `Proposal ready`;
 - `Publication ready`;
 - `Fully validated`;
-- `Release candidate`; or
-- `Completed within scope`.
+- `Release candidate`.
 
-The score threshold remains 75. The dashboard flags, but does not silently repair, a proposal whose score is at least 75 while its status remains below Review Ready, whose Review Ready status is paired with a lower score, whose Review Ready status has no Project score with which to verify the threshold, or whose canonical issue page links to an existing concrete proposal vehicle while the Project status still says `Pending development`. The last warning requires lifecycle review rather than an automatic status choice because the correct result may be either `In development` or `Audit needed`. This preserves the Project readback rule and makes tracking drift visible.
+`Completed within scope` and comparable administrative dispositions do not count. Merging, integrating, retiring, rejecting, rerouting, or otherwise adjudicating a record may change the active portfolio, but it does not establish that a proposal completed a score-bearing audit at or above the Review Ready threshold. The dashboard flags, but does not silently repair or count, a proposal whose score is at least 75 while its status remains below Review Ready, whose ready-level status is paired with a lower score, whose ready-level status has no Project score with which to verify the threshold, or whose canonical issue page links to an existing concrete proposal vehicle while the Project status still says `Pending development`. The last warning requires lifecycle review rather than an automatic status choice because the correct result may be either `In development` or `Audit needed`. This preserves the Project readback rule and makes tracking drift visible.
 
 ## Metrics
 
 The dashboard reports:
 
 - eligible, Review Ready, and remaining proposal counts;
-- percent of the eligible portfolio at Review Ready or higher;
+- current active-portfolio coverage at Review Ready or higher, displayed separately from the count of proposals that attained Review Ready;
 - current scope growth or contraction relative to the July 13 baseline;
 - completions per week required to meet December 31;
 - rolling 28-day and since-baseline completion velocity once at least seven days of history exist;
@@ -53,15 +52,15 @@ The completion-date scenario table is exploratory only. It shows the date produc
 
 ## Forecast Method
 
-The required weekly pace is:
+The required weekly development pace is:
 
 `remaining eligible proposals / weeks remaining before the official target`.
 
-The rolling pace is the net change in Review Ready count over the configured 28-day window, expressed per week. The initial calculation may use the documented retrospective series rather than waiting seven days after dashboard activation. If fewer than seven days of supported history exist, the dashboard displays `Establishing pace` and withholds a rolling forecast. Once enough history exists, the forecast date is:
+The rolling audit-attainment pace is the net change in Review Ready count over the configured 28-day window, expressed per week. Administrative dispositions and denominator changes are excluded from that velocity. The initial calculation may use the documented retrospective series rather than waiting seven days after dashboard activation. If fewer than seven days of supported history exist, the dashboard displays `Establishing pace` and withholds a rolling forecast. Once enough history exists, the forecast date is:
 
 `current date + (remaining proposals / rolling weekly pace)`.
 
-The calculation uses net portfolio movement. A proposal that regresses below Review Ready reduces measured progress; newly admitted proposals increase the denominator and required pace. Daily snapshots also retain ready identifiers and scores so the page can distinguish newly completed work, regressions, and pre-completion score movement after two comparable snapshots exist. The retrospective seed retains supported ready identifiers but does not invent historical Project-score snapshots, so score-movement comparisons begin only when comparable automated scores exist. Score movement is an early pipeline indicator, not a measure of hours worked. The forecast is therefore a planning signal, not a promise or a substitute for proposal-level judgment.
+The calculation uses net Review Ready attainment. A proposal that regresses below Review Ready reduces measured progress; newly admitted proposals increase the active denominator and required pace. A merger, retirement, or other administrative adjudication may reduce the active denominator, remaining workload, required pace, or forecast horizon, but it does not increase the Review Ready numerator or rolling attainment velocity. The dashboard therefore labels the Review Ready percentage as current portfolio coverage rather than earned development progress. Daily snapshots also retain ready identifiers and scores so the page can distinguish newly completed work, regressions, and pre-completion score movement after two comparable snapshots exist. The retrospective seed retains supported ready identifiers but does not invent historical Project-score snapshots, so score-movement comparisons begin only when comparable automated scores exist. Score movement is an early pipeline indicator, not a measure of hours worked. The forecast is therefore a planning signal, not a promise or a substitute for proposal-level judgment.
 
 ## Retrospective Pace Evidence
 

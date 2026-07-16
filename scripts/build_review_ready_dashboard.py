@@ -319,20 +319,24 @@ def parse_items(
         except (TypeError, ValueError):
             score = None
         area = str(project_values.get(fields["area"]) or area_from_title(title))
-        is_ready = normalize(status) in ready_statuses
+        status_is_ready = normalize(status) in ready_statuses
+        threshold_is_met = score is not None and score >= threshold
+        is_ready = status_is_ready and threshold_is_met
         warnings: List[str] = []
         if identity_warning:
             warnings.append(identity_warning)
         if not project_values:
             if not identity_warning:
                 warnings.append("Proposal registry entry has no matching Project item by Title or Canonical page.")
-        if is_ready and score is None:
+        if status_is_ready and score is None:
             warnings.append(
-                "Ready status is missing a Project score, so threshold consistency cannot be verified."
+                "Ready status is missing a Project score and is not counted until the Review Ready threshold can be verified."
             )
-        if is_ready and score is not None and score < threshold and normalize(status) != normalize("Completed within scope"):
-            warnings.append("Ready status is paired with a score below the Review Ready threshold.")
-        if not is_ready and score is not None and score >= threshold:
+        if status_is_ready and score is not None and score < threshold:
+            warnings.append(
+                "Ready status is paired with a score below the Review Ready threshold and is not counted."
+            )
+        if not status_is_ready and score is not None and score >= threshold:
             warnings.append("Score meets the Review Ready threshold but status is not Review ready or higher.")
         if (
             repository_root is not None
@@ -875,10 +879,10 @@ def area_chart_svg(areas: Sequence[Dict[str, Any]]) -> str:
     label_x, bar_x, bar_width, count_x = 28, 150, 760, 1066
     parts = [
         '<svg xmlns="http://www.w3.org/2000/svg" width="{}" height="{}" viewBox="0 0 {} {}" role="img" aria-labelledby="title desc">'.format(width, height, width, height),
-        '<title id="title">Review Ready progress by ARRP area</title>',
-        '<desc id="desc">Percentage and count of eligible proposals at Review Ready or higher in each area.</desc>',
+        '<title id="title">Review Ready coverage by ARRP area</title>',
+        '<desc id="desc">Current active-portfolio percentage and count at Review Ready or higher in each area.</desc>',
         svg_style(),
-        '<text x="{}" y="28" font-size="17" font-weight="600">Progress by area</text>'.format(label_x),
+        '<text x="{}" y="28" font-size="17" font-weight="600">Review Ready coverage by area</text>'.format(label_x),
     ]
     for index, entry in enumerate(areas):
         y_position = 54 + index * row_height
@@ -906,7 +910,7 @@ def scenario_rows(payload: Dict[str, Any]) -> List[Tuple[str, float, str]]:
     as_of = date.fromisoformat(payload["asOf"])
     target = date.fromisoformat(payload["goal"]["targetDate"])
     named: List[Tuple[str, Optional[float]]] = [
-        ("Rolling 28-day pace", payload["metrics"].get("rollingWeeklyVelocity")),
+        ("Rolling audit-attainment pace", payload["metrics"].get("rollingWeeklyVelocity")),
         ("Pace required for official target", payload["metrics"].get("requiredPerWeek")),
         ("Two per week", 2.0),
         ("Four per week", 4.0),
@@ -944,33 +948,36 @@ def markdown_dashboard(payload: Dict[str, Any]) -> str:
             goal["name"], human_date(date.fromisoformat(goal["targetDate"]), full_month=True)
         ),
         "",
-        "| Progress | Remaining | Required pace | Rolling pace | Reforecast |",
-        "| ---: | ---: | ---: | ---: | --- |",
-        "| **{} / {} ({:.1f}%)** | **{}** | **{} / week** | **{}** | **{}** |".format(
+        "| Review Ready | Active portfolio | Remaining | Required development pace | Audit attainment pace | Reforecast |",
+        "| ---: | ---: | ---: | ---: | ---: | --- |",
+        "| **{}** | **{}** | **{}** | **{} / week** | **{}** | **{}** |".format(
             metrics["ready"],
             metrics["total"],
-            metrics["percentReady"],
             metrics["remaining"],
             metrics["requiredPerWeek"] if metrics["requiredPerWeek"] is not None else "—",
             (str(metrics["rollingWeeklyVelocity"]) + " / week") if metrics["rollingWeeklyVelocity"] is not None else "Establishing history",
             human_date(date.fromisoformat(metrics["forecastDate"])) if metrics.get("forecastDate") else metrics["forecastLabel"],
         ),
         "",
-        "**Tracking status:** {}  ".format(metrics["trackStatus"]),
-        "**Schedule variance:** {}  ".format(
+        "**Current-scope tracking status:** {}  ".format(metrics["trackStatus"]),
+        "**Current-scope schedule variance:** {}  ".format(
             "on the required path" if metrics["scheduleVariance"] == 0 else "{} proposal{} {} the required path".format(
                 abs(metrics["scheduleVariance"]),
                 "" if abs(metrics["scheduleVariance"]) == 1 else "s",
                 "ahead of" if metrics["scheduleVariance"] > 0 else "behind",
             )
         ),
+        "**Current active-portfolio coverage:** {:.1f}%  ".format(metrics["percentReady"]),
         "**Scope change:** {} relative to the {}-proposal baseline".format(
             "none" if metrics["scopeChange"] == 0 else "{:+d}".format(metrics["scopeChange"]), goal["baselineTotal"]
         ),
         "",
-        "![Actual Review Ready progress, required path, and rolling forecast](assets/trajectory.svg)",
+        "Administrative mergers, retirements, rerouting, and other scope adjudications may change the active portfolio and remaining workload, but they are not credited as Review Ready attainment or audit velocity.",
+        "Required pace and reforecast use the current active backlog, so they may change when project scope changes even though the progress numerator does not.",
         "",
-        "Legend: **green** is actual progress; **gold** is the path required for December 31; **purple dashes** are the rolling reforecast.",
+        "![Actual Review Ready attainment, current-scope required path, and rolling forecast](assets/trajectory.svg)",
+        "",
+        "Legend: **green** is actual Review Ready attainment; **gold** is the current-scope path required for December 31; **purple dashes** are the rolling reforecast.",
         "",
         "## Recent portfolio movement",
         "",
@@ -1047,9 +1054,9 @@ def markdown_dashboard(payload: Dict[str, Any]) -> str:
             "",
             "![Proposal counts by score proximity to Review Ready](assets/score-proximity.svg)",
             "",
-            "## Progress by area",
+            "## Review Ready coverage by area",
             "",
-            "![Review Ready progress by ARRP area](assets/area-progress.svg)",
+            "![Review Ready coverage by ARRP area](assets/area-progress.svg)",
             "",
             "| Area | Ready | Total | Remaining | Percent |",
             "| --- | ---: | ---: | ---: | ---: |",

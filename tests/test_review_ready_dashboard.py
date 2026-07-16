@@ -94,9 +94,9 @@ class ReviewReadyDashboardTests(unittest.TestCase):
         ]
         _, items = MODULE.parse_items(raw, self.config, self.registry)
         ready = next(item for item in items if item["identifier"] == "DOJ-007")
-        self.assertTrue(ready["ready"])
+        self.assertFalse(ready["ready"])
         self.assertIsNone(ready["score"])
-        self.assertIn("missing a Project score", ready["warnings"][0])
+        self.assertIn("is not counted", ready["warnings"][0])
 
     def test_pending_status_with_existing_vehicle_emits_lifecycle_warning(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -115,7 +115,7 @@ class ReviewReadyDashboardTests(unittest.TestCase):
         self.assertEqual(len(pending["warnings"]), 1)
         self.assertIn("review whether the status should be In development or Audit needed", pending["warnings"][0])
 
-    def test_completed_within_scope_preserves_terminal_readiness_without_score_threshold_warning(self):
+    def test_completed_within_scope_is_not_counted_as_development_progress(self):
         raw = deepcopy(self.raw)
         nodes = raw["items"][1]["fieldValues"]["nodes"]
         for node in nodes:
@@ -123,7 +123,7 @@ class ReviewReadyDashboardTests(unittest.TestCase):
                 node["name"] = "Completed within scope"
         _, items = MODULE.parse_items(raw, self.config, self.registry)
         completed = next(item for item in items if item["identifier"] == "REG-001")
-        self.assertTrue(completed["ready"])
+        self.assertFalse(completed["ready"])
         self.assertEqual(completed["score"], 68)
         self.assertEqual(completed["warnings"], [])
 
@@ -207,6 +207,8 @@ class ReviewReadyDashboardTests(unittest.TestCase):
             self.assertEqual(saved["metrics"]["total"], 4)
             markdown = (output / "PROGRESS.md").read_text(encoding="utf-8")
             self.assertIn("Official goal", markdown)
+            self.assertIn("Administrative mergers, retirements, rerouting", markdown)
+            self.assertIn("Audit attainment pace", markdown)
             self.assertIn("Completion-date scenarios", markdown)
 
     def test_publisher_collects_only_generated_branch_files(self):
