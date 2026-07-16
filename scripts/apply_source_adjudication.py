@@ -29,6 +29,7 @@ CATALOG = ROOT / "research" / "trump-administration-legal-review-catalog.csv"
 ROUTING = ROOT / "research" / "trump-administration-evidence-routing.csv"
 PRIORITY = ROOT / "research" / "trump-administration-priority-disposition-review.csv"
 SOURCES = ROOT / "inventory" / "sources.csv"
+EXISTING_ISSUE_QUEUE = ROOT / "research" / "existing-issue-evidence-integration.csv"
 
 ALLOWED_DISPOSITIONS = {
     "anchor-evidence",
@@ -49,6 +50,48 @@ UNRESOLVED_DISPOSITIONS = {
     "insufficiently-verified",
     "unresolved-legal-question",
 }
+
+RETAINED_EVIDENCE_DISPOSITIONS = {
+    "anchor-evidence",
+    "supporting-evidence",
+    "corroborating-source",
+    "comparator-or-counterexample",
+    "monitoring-item",
+    "different-existing-proposal",
+}
+
+
+def validate_integration_targets(
+    decision: dict[str, object], existing_issue_queue_ids: set[str]
+) -> None:
+    """Prevent source-inventory registration from masquerading as integration."""
+    if decision.get("disposition") not in RETAINED_EVIDENCE_DISPOSITIONS:
+        return
+    raw_targets = decision.get("integration_targets", [])
+    if isinstance(raw_targets, str):
+        targets = [raw_targets]
+    else:
+        targets = [str(target) for target in raw_targets]
+    targets = [target.strip() for target in targets if target.strip()]
+    if not targets:
+        raise SystemExit(
+            "Every retained-evidence decision requires an integration target; "
+            "a sources.csv association alone is not completed integration."
+        )
+
+    queue_target = EXISTING_ISSUE_QUEUE.relative_to(ROOT).as_posix()
+    for target in targets:
+        if target == queue_target:
+            missing = set(decision.get("catalog_ids", [])) - existing_issue_queue_ids
+            if missing:
+                raise SystemExit(
+                    "Existing-issue queue target is missing catalog records: "
+                    + ", ".join(sorted(missing))
+                )
+            continue
+        destination = ROOT / target
+        if not destination.is_file():
+            raise SystemExit(f"Integration target does not exist: {target}")
 
 
 def parse_args() -> argparse.Namespace:
@@ -79,6 +122,8 @@ def main() -> None:
     routing = read_csv(ROUTING)
     priority = read_csv(PRIORITY)
     sources = read_csv(SOURCES)
+    existing_issue_queue = read_csv(EXISTING_ISSUE_QUEUE)
+    existing_issue_queue_ids = {row["catalog_id"] for row in existing_issue_queue}
     original_ids = {row["catalog_id"] for row in catalog}
     routing_ids = {row["catalog_id"] for row in routing}
     if original_ids != routing_ids:
@@ -103,6 +148,7 @@ def main() -> None:
                 resolved_ids.append(catalog_id)
         if decision.get("material_issue_change"):
             raise SystemExit("Material issue changes require separate user approval and cannot be applied by this script.")
+        validate_integration_targets(decision, existing_issue_queue_ids)
 
     new_sources = deepcopy(sources)
     by_url = {normalize_url(row["URL"]): row for row in new_sources if normalize_url(row["URL"])}

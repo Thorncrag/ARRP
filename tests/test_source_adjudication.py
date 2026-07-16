@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
-from apply_source_adjudication import UNRESOLVED_DISPOSITIONS
+from apply_source_adjudication import UNRESOLVED_DISPOSITIONS, validate_integration_targets
 from source_adjudication_common import (
     merge_routes,
     normalize_url,
@@ -70,6 +70,37 @@ class SourceAdjudicationTest(unittest.TestCase):
 
         self.assertIn('SRC-0001,REG-001,"deliberately quoted"\n', result)
         self.assertIn('SRC-0002,REG-002; HOR-036,"line one\nline two"\n', result)
+
+    def test_retained_evidence_requires_reader_or_queue_target(self) -> None:
+        with self.assertRaisesRegex(SystemExit, "association alone"):
+            validate_integration_targets(
+                {
+                    "disposition": "supporting-evidence",
+                    "catalog_ids": ["TAC-TEST-001"],
+                    "integration_targets": [],
+                },
+                set(),
+            )
+
+    def test_existing_issue_queue_target_requires_catalog_row(self) -> None:
+        target = "research/existing-issue-evidence-integration.csv"
+        with self.assertRaisesRegex(SystemExit, "missing catalog records"):
+            validate_integration_targets(
+                {
+                    "disposition": "comparator-or-counterexample",
+                    "catalog_ids": ["TAC-TEST-001"],
+                    "integration_targets": [target],
+                },
+                set(),
+            )
+        validate_integration_targets(
+            {
+                "disposition": "comparator-or-counterexample",
+                "catalog_ids": ["TAC-TEST-001"],
+                "integration_targets": [target],
+            },
+            {"TAC-TEST-001"},
+        )
 
 
 if __name__ == "__main__":

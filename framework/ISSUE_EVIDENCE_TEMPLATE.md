@@ -6,7 +6,7 @@ print_levels:
 
 # Issue Evidence Record Template
 
-Use this structure only when the [source-adjudication standard](METHODOLOGY.md#automated-source-adjudication-and-issue-evidence-records) calls for a separate evidence record. Replace bracketed instructions, omit empty optional sections, and keep the page organized by institutional mechanism or manifestation rather than by source order.
+Use this structure only when the [source-adjudication standard](METHODOLOGY.md#automated-source-adjudication-and-issue-evidence-records) calls for a separate evidence record. Replace bracketed instructions, omit empty optional sections, and keep the page organized by institutional mechanism or manifestation rather than by source order. The canonical issue page must contain a short link to the evidence record; an association in `inventory/sources.csv` is not reader-facing integration.
 
 ```markdown
 ---
@@ -51,4 +51,4 @@ This page supplements [ISSUE-000 — Precise Issue Title](../issues/ISSUE-000.md
 All retained external materials are registered in [`inventory/sources.csv`](../../../inventory/sources.csv). This page selects evidence for reader use and does not reproduce the source inventory.
 ```
 
-An evidence record does not receive a proposal score, audit run, independent remedy, or separate GitHub proposal issue. Adding corroboration that leaves the issue theory unchanged is source development; changing the diagnosis, scope, or remedy remains subject to the ordinary Change Audit rules.
+An evidence record does not receive a proposal score, audit run, independent remedy, or separate GitHub proposal issue. Adding corroboration that leaves the issue theory unchanged is source development; changing the diagnosis, scope, or remedy remains subject to the ordinary Change Audit rules. If the receiving issue page has not yet been developed, preserve the episode in [`research/existing-issue-evidence-integration.csv`](../research/existing-issue-evidence-integration.csv) until that page and its evidence record exist; do not create an empty placeholder proposal.

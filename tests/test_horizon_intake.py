@@ -18,6 +18,7 @@ class HorizonIntakeTest(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.catalog = read_csv("trump-administration-legal-review-catalog.csv")
         cls.routing = read_csv("trump-administration-evidence-routing.csv")
+        cls.existing_issue_integration = read_csv("existing-issue-evidence-integration.csv")
         cls.candidates = read_csv("trump-administration-preliminary-candidates.csv")
         with (ROOT / "inventory" / "sources.csv").open(newline="", encoding="utf-8") as handle:
             cls.sources = list(csv.DictReader(handle))
@@ -57,6 +58,34 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(routed_candidate_ids <= candidate_ids)
         self.assertEqual(console_ids, active_candidate_ids)
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
+
+    def test_existing_issue_integration_queue_is_distinct_and_reconciled(self) -> None:
+        queued_ids = [row["catalog_id"] for row in self.existing_issue_integration]
+        active_ids = {row["catalog_id"] for row in self.catalog}
+        source_ids = {row["Source ID"] for row in self.sources}
+        self.assertEqual(len(queued_ids), 54)
+        self.assertEqual(len(queued_ids), len(set(queued_ids)))
+        self.assertFalse(set(queued_ids) & active_ids)
+        for row in self.existing_issue_integration:
+            canonical_ids = {
+                source_id.strip()
+                for source_id in row["canonical_source_ids"].split(";")
+                if source_id.strip()
+            }
+            self.assertTrue(canonical_ids)
+            self.assertTrue(canonical_ids <= source_ids)
+        self.assertEqual(self.console["existing_issue_queue"], len(queued_ids))
+
+    def test_developed_issue_evidence_records_are_linked(self) -> None:
+        records = {
+            "DOJ-002": ROOT / "areas" / "DOJ" / "evidence" / "DOJ-002-evidence.md",
+            "REG-001": ROOT / "areas" / "REG" / "evidence" / "REG-001-evidence.md",
+            "RIGHTS-002": ROOT / "areas" / "RIGHTS" / "evidence" / "RIGHTS-002-evidence.md",
+        }
+        for issue_id, evidence_path in records.items():
+            issue_path = ROOT / "areas" / issue_id.split("-", 1)[0] / "issues" / f"{issue_id}.md"
+            self.assertTrue(evidence_path.is_file())
+            self.assertIn(f"../evidence/{issue_id}-evidence.md", issue_path.read_text(encoding="utf-8"))
 
     def test_resolved_preliminary_candidates_leave_active_queue(self) -> None:
         self.assertEqual(self.candidates, [])

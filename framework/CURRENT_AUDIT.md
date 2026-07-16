@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: active
 print_levels:
   - full-technical
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — automated source-adjudication workflow and judicial pilot complete |
-| Active issue/task | Canonical source graduation, temporary-queue cleanup, and 56-record judicial disposition pilot |
+| Status | Active — correcting evidence-page integration for the judicial pilot |
+| Active issue/task | Linked evidence records and restoration of unresolved existing-issue evidence |
 | Audit type/tier | Project methodology and source development; no T-audit run |
 | Started | 2026-07-16 |
-| Last checkpoint | 2026-07-16; implementation and pilot committed and pushed in `5ec697c`; HOR-036 issue and Project fields synchronized and read back |
-| User request | Automate review of the 1,322-record intake; graduate adjudicated external sources into `inventory/sources.csv`; organize verified supporting evidence on concise linked issue evidence pages; remove resolved records from temporary ledgers and preliminary queues; reserve user review for new Horizon candidates and material issue changes; and pilot the workflow on the 56 priority judicial records. |
-| Scope | Governing source and Horizon methodology; temporary catalog, routing, and candidate queues; canonical source inventory; automated migration and reconciliation tooling; the 56-record priority disposition set; and a first evidence-page model. |
-| Files touched | Governing framework, methodology, print-assembly rules, issue-evidence template, Horizon and Change Audit logs; canonical source inventory; active intake queues and console bundle; source-adjudication and routing scripts; automated tests; and the HOR-036 internal priority-case review. |
-| Completed steps | Memorialized the three-layer evidence architecture and route-centered two-pass workflow; removed resolved preliminary-candidate remnants; built packet, migration, normalized-identity, stable-CSV, reconciliation, and console-generation tooling; resolved the 56-record pilot; added nine primary sources and updated two tracker records; removed the 56 records from active intake queues; and documented the HOR-036 six-case finding. |
-| Next step | Continue automated adjudication of the remaining 1,266 active intake records by receiving route. Present only new preliminary Horizon candidates or material proposal changes to the user. Conduct HOR-036's formal admission decision separately when requested. |
+| Last checkpoint | 2026-07-16; user correctly identified that source-inventory routing was not the linked evidence-subpage integration previously approved |
+| User request | Correct the pilot so retained evidence is placed on a concise evidence subpage linked from the receiving issue page, rather than treating `sources.csv` associations as completed integration. |
+| Scope | DOJ-002, REG-001, and RIGHTS-002 linked evidence records; the unresolved evidence for undeveloped receiving issues; governing source-adjudication methodology; migration safeguards; source associations; tests; and consolidated Change Audit documentation. |
+| Files touched | `areas/DOJ/evidence/DOJ-002-evidence.md`; `areas/DOJ/issues/DOJ-002.md`; `areas/REG/evidence/REG-001-evidence.md`; `areas/REG/issues/REG-001.md`; `areas/RIGHTS/evidence/RIGHTS-002-evidence.md`; `areas/RIGHTS/issues/RIGHTS-002.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/FRAMEWORK.md`; `framework/ISSUE_EVIDENCE_TEMPLATE.md`; `framework/METHODOLOGY.md`; `inventory/sources.csv`; `research/existing-issue-evidence-integration.csv`; `research/horizon-review-console/catalog-data.js`; `research/horizon-review-console/index.html`; `research/trump-administration-legal-review-intake.md`; `scripts/apply_source_adjudication.py`; `scripts/build_horizon_review_console.py`; `tests/test_horizon_intake.py`; `tests/test_source_adjudication.py`. |
+| Completed steps | Created and linked three reader-facing evidence records; restored 54 episode-level tasks to the undeveloped-or-unverified issue-integration queue; distinguished source registration from evidence integration throughout the governing rules; added a removal guard to the adjudication script; corrected console terminology and counts; synchronized the source registry; moved RIGHTS-002 to `In development` without changing its score or runs; passed all 33 tests, public-site preparation, and diff validation; and verified the affected GitHub Project rows. |
+| Next step | Commit and push the completed correction, then perform final repository and GitHub readback. |
 | Blockers/questions | None. |
-| Validation status | Passed — 29 automated tests, Python compilation with a writable cache, catalog/routing reconciliation, empty priority and preliminary queues, no obsolete temporary identifiers, uniqueness of all nine new source URLs, focused whitespace validation, and public-site staging. |
+| Validation status | Passed: 33 unit tests, public-site preparation, `git diff --check`, queue reconciliation, issue-to-evidence links, and GitHub Project readback. |
 
 ## Handoff Rules
 

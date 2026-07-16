@@ -17,6 +17,7 @@ The first machine-normalized baseline contains **1,322 source records**: **776 f
 - [Media-supported episode intake](trump-administration-media-review-intake.csv)
 - [Source-universe and completeness ledger](trump-administration-source-universe.csv)
 - [Evidence-routing ledger](trump-administration-evidence-routing.csv)
+- [Existing-issue evidence integration queue](existing-issue-evidence-integration.csv)
 - [Preliminary candidate queue](trump-administration-preliminary-candidates.csv)
 - [Preliminary candidate review console](horizon-review-console/README.md)
 - [Rebuild script](../scripts/build_trump_legal_review_catalog.py)
@@ -155,7 +156,7 @@ An action that fits one of these lanes should normally become a manifestation, s
 
 ## Next Compilation Pass
 
-1. Review the per-record routes in the [evidence-routing ledger](trump-administration-evidence-routing.csv) by receiving proposal, verify the most useful evidence against primary materials, and integrate it through proposal-specific source-development or Change Audit batches rather than indiscriminately expanding issue pages.
+1. Review the per-record routes in the [evidence-routing ledger](trump-administration-evidence-routing.csv) by receiving proposal, verify the most useful evidence against primary materials, and integrate it into a concise evidence subpage linked from the receiving issue page. When the receiving issue has no canonical page, retain the episode in the [existing-issue evidence integration queue](existing-issue-evidence-integration.csv) until development rather than manufacturing a placeholder or treating `sources.csv` association as completed integration.
 2. Complete controlling-opinion review of the 56 records in the [priority disposition review](trump-administration-priority-disposition-review.csv), replacing its preliminary text classification with verified merits, threshold, finality, and remedy coding.
 3. Reconcile semantic duplicates across the Just Security, immigration, Policy Integrity, retaliation, human-rights, Public Citizen, and science-integrity sources while preserving every source URL, the independently useful contribution of each record, and its issue or candidate route.
 4. Ingest official findings from GAO, OSC, inspectors general, congressional reports, and published judicial noncompliance records so the catalog is not litigation-plaintiff biased.

@@ -6,7 +6,7 @@ status: candidate
 priority: high
 remedy_type: humanitarian-status-review
 audit_score: 0
-audit_status: Pending development; no proposal-quality score assigned
+audit_status: In development; no proposal-quality score assigned
 audit_last_type: "Horizon integration decision"
 audit_last_date: "2026-06-25"
 audit_next: "Source-development pass"
@@ -55,6 +55,10 @@ This manifestation is related but not identical to TPS. It raises a statutory-tr
 NBC News reported that the Supreme Court allowed President Trump's administration to remove protections for thousands of Haitian and Syrian migrants. The Guardian similarly reported on the TPS decision and described broader consequences for Haitian and Syrian TPS holders. See NBC News, [*Supreme Court allows Trump to remove protections for thousands of Haitian and Syrian migrants*](https://www.nbcnews.com/politics/supreme-court/supreme-court-allows-trump-remove-protections-thousands-haitian-syrian-rcna263164), and The Guardian, [*US supreme court allows Trump administration to strip Haitians and Syrians of protected status*](https://www.theguardian.com/us-news/2026/jun/25/supreme-court-haitians-syrians-temporary-protected-status).
 
 These reports should be used as current-event leads. Final drafting should rest primarily on the Supreme Court opinions, Federal Register notices, statutory text, country-condition records, agency consultation records if available, and congressional materials.
+
+## Supporting Evidence
+
+The separately maintained [RIGHTS-002 evidence record](../evidence/RIGHTS-002-evidence.md) preserves reviewed supporting evidence, counterevidence, judicial dispositions, and monitoring predicates without expanding this issue page.
 
 ## Resulting Damage
 
@@ -139,7 +143,7 @@ No reliable estimate yet. Reviewability, record-preparation, transition, and adj
 >
 > —
 >
-> **Internal Review Status:** Pending development; no proposal-quality score assigned<br />**Last Internal Review:** Horizon integration decision<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Current unscored status<br />**Next Review:** Source-development pass<br />**Full Review History:** [RIGHTS-002 review history](RIGHTS-002.audit.md)
+> **Internal Review Status:** In development; no proposal-quality score assigned<br />**Last Internal Review:** Horizon integration decision<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Current unscored status<br />**Next Review:** Source-development pass<br />**Full Review History:** [RIGHTS-002 review history](RIGHTS-002.audit.md)
 
 ## Annotation
 

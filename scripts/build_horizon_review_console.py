@@ -15,6 +15,7 @@ CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.cs
 ROUTING = ROOT / "research" / "trump-administration-evidence-routing.csv"
 CATALOG = ROOT / "research" / "trump-administration-legal-review-catalog.csv"
 MEDIA = ROOT / "research" / "trump-administration-media-review-intake.csv"
+EXISTING_ISSUE_INTEGRATION = ROOT / "research" / "existing-issue-evidence-integration.csv"
 OUTPUT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
 
 
@@ -83,7 +84,8 @@ def main() -> None:
         "candidate_source": CANDIDATES.name,
         "candidate_questions": len(candidates),
         "evidence_records": len(routing),
-        "existing_issue_queue": routing_counts["existing-record-integration"],
+        "existing_issue_queue": len(read_csv(EXISTING_ISSUE_INTEGRATION)),
+        "automated_existing_issue_review": routing_counts["existing-record-integration"],
         "preliminary_candidate_evidence": routing_counts["preliminary-candidate-evidence"],
         "agent_review_pending": routing_counts["agent-review-needed"],
         "retained_research": routing_counts["research-retained-no-current-route"],

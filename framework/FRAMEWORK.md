@@ -62,7 +62,7 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 - [`../CITATION.cff`](../CITATION.cff) — citation metadata
 - [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — contribution expectations
 - [`PUBLIC_RELEASE.md`](PUBLIC_RELEASE.md) — public release process
-- [`../research/`](../research/) — ARRP-created analyses, crosswalks, catalogs, datasets, and other development work product
+- [`../research/`](../research/) — ARRP-created analyses, crosswalks, catalogs, datasets, other development work product, and the temporary [existing-issue evidence integration queue](../research/existing-issue-evidence-integration.csv)
 - [`../topics/`](../topics/) — public reader guides that synthesize major subjects and route readers to authoritative ARRP areas and proposals
 - [`../sources/`](../sources/) — locally retained external source and backup files
 - [`../scripts/`](../scripts/) — project-maintenance and export-generation scripts
