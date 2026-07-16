@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: active
+status: inactive
 print_levels:
   - full-technical
 ---
@@ -13,16 +13,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active — correcting evidence-page integration for the judicial pilot |
-| Active issue/task | Linked evidence records and restoration of unresolved existing-issue evidence |
+| Status | Inactive — completed and pushed |
+| Active issue/task | None |
 | Audit type/tier | Project methodology and source development; no T-audit run |
 | Started | 2026-07-16 |
-| Last checkpoint | 2026-07-16; user correctly identified that source-inventory routing was not the linked evidence-subpage integration previously approved |
+| Last checkpoint | 2026-07-16; correction committed as `07f4429` and pushed to `origin/main` |
 | User request | Correct the pilot so retained evidence is placed on a concise evidence subpage linked from the receiving issue page, rather than treating `sources.csv` associations as completed integration. |
 | Scope | DOJ-002, REG-001, and RIGHTS-002 linked evidence records; the unresolved evidence for undeveloped receiving issues; governing source-adjudication methodology; migration safeguards; source associations; tests; and consolidated Change Audit documentation. |
 | Files touched | `areas/DOJ/evidence/DOJ-002-evidence.md`; `areas/DOJ/issues/DOJ-002.md`; `areas/REG/evidence/REG-001-evidence.md`; `areas/REG/issues/REG-001.md`; `areas/RIGHTS/evidence/RIGHTS-002-evidence.md`; `areas/RIGHTS/issues/RIGHTS-002.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/FRAMEWORK.md`; `framework/ISSUE_EVIDENCE_TEMPLATE.md`; `framework/METHODOLOGY.md`; `inventory/sources.csv`; `research/existing-issue-evidence-integration.csv`; `research/horizon-review-console/catalog-data.js`; `research/horizon-review-console/index.html`; `research/trump-administration-legal-review-intake.md`; `scripts/apply_source_adjudication.py`; `scripts/build_horizon_review_console.py`; `tests/test_horizon_intake.py`; `tests/test_source_adjudication.py`. |
 | Completed steps | Created and linked three reader-facing evidence records; restored 54 episode-level tasks to the undeveloped-or-unverified issue-integration queue; distinguished source registration from evidence integration throughout the governing rules; added a removal guard to the adjudication script; corrected console terminology and counts; synchronized the source registry; moved RIGHTS-002 to `In development` without changing its score or runs; passed all 33 tests, public-site preparation, and diff validation; and verified the affected GitHub Project rows. |
-| Next step | Commit and push the completed correction, then perform final repository and GitHub readback. |
+| Next step | None. The next evidence-adjudication batch must use the linked evidence-page or active integration-queue requirement. |
 | Blockers/questions | None. |
 | Validation status | Passed: 33 unit tests, public-site preparation, `git diff --check`, queue reconciliation, issue-to-evidence links, and GitHub Project readback. |
 
