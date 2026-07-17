@@ -134,6 +134,11 @@
   }
 
   function setSubmitting(submitting) {
+    if (intake.mode === "paused") {
+      elements.button.disabled = true;
+      elements.button.textContent = "Intake temporarily unavailable";
+      return;
+    }
     elements.button.disabled = submitting;
     if (submitting) elements.button.textContent = isContactRoute() ? "Sending private message…" : "Submitting public input…";
     else if (intake.mode === "live") elements.button.textContent = isContactRoute() ? "Send private message" : "Submit public input";
@@ -171,9 +176,14 @@
     event.preventDefault();
     // This form preserves public input; the full ARRP admission test remains a
     // separate human-review step after a public Discussion is created.
+    if (intake.mode === "paused") {
+      elements.status.textContent = "This intake service is temporarily unavailable. Please try again later.";
+      elements.status.focus();
+      return;
+    }
     if (intake.mode !== "live") return renderReceipt({});
     if (isContactRoute() && !intake.contactEnabled) {
-      elements.status.textContent = "Private author contact is not configured yet.";
+      elements.status.textContent = "Private author contact is temporarily unavailable.";
       return;
     }
     if (!isContactRoute() && !turnstileToken()) {
@@ -235,13 +245,17 @@
     try {
       const response = await fetch(intakeEndpoint("config"), { cache: "no-store" });
       const config = await response.json();
-      if (!response.ok || config.mode !== "live") return;
-      intake.mode = "live";
+      if (!response.ok || (config.mode !== "live" && config.mode !== "paused")) return;
+      intake.mode = config.mode;
       intake.emailEnabled = Boolean(config.emailEnabled);
       intake.contactEnabled = Boolean(config.contactEnabled);
       document.querySelector(".prototype-label").textContent = "Public interaction";
       document.querySelector(".prototype-boundary").hidden = true;
       setRoute(intake.route);
+      if (intake.mode === "paused") {
+        elements.status.textContent = "This intake service is temporarily unavailable. Please try again later.";
+        return;
+      }
       loadTurnstile(config.turnstileSiteKey);
     } catch (_) {
       // Local file previews deliberately remain non-transmitting.

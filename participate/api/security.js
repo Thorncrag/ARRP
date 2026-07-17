@@ -9,6 +9,17 @@ const crypto = require("node:crypto");
 const buckets = new Map();
 const MAX_BUCKETS = 4096;
 
+function intakeMode() {
+  const mode = String(process.env.ARRP_INTAKE_MODE || "preview").trim().toLowerCase();
+  return mode === "live" || mode === "paused" ? mode : "preview";
+}
+
+function contactMode() {
+  return String(process.env.ARRP_CONTACT_MODE || "live").trim().toLowerCase() === "disabled"
+    ? "disabled"
+    : "live";
+}
+
 function clientIp(req) {
   return String(
     req.headers["x-vercel-forwarded-for"]
@@ -86,7 +97,9 @@ function setNoStore(res) {
 module.exports = {
   allowLocalBurst,
   clientIp,
+  contactMode,
   expectedTurnstile,
+  intakeMode,
   requestExceedsLimit,
   setNoStore,
   verifyTurnstile,

@@ -1,7 +1,7 @@
 "use strict";
 
 const { allowedOrigins, isAllowedOrigin } = require("./_shared");
-const { setNoStore } = require("./security");
+const { contactMode, intakeMode, setNoStore } = require("./security");
 
 module.exports = function config(req, res) {
   setNoStore(res);
@@ -15,18 +15,19 @@ module.exports = function config(req, res) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Vary", "Origin");
   }
-  const live = process.env.ARRP_INTAKE_MODE === "live";
+  const mode = intakeMode();
+  const live = mode === "live";
   const reviewEmail = String(process.env.ARRP_INTAKE_REVIEW_EMAIL || "").trim();
   const contactEmail = String(process.env.ARRP_CONTACT_EMAIL || reviewEmail).trim();
   res.status(200).json({
-    mode: live ? "live" : "preview",
+    mode,
     turnstileSiteKey: live ? (process.env.TURNSTILE_SITE_KEY || "") : "",
     emailEnabled: live && Boolean(
       process.env.RESEND_API_KEY
       && process.env.RESEND_FROM_EMAIL
       && reviewEmail,
     ),
-    contactEnabled: live && Boolean(
+    contactEnabled: live && contactMode() === "live" && Boolean(
       process.env.RESEND_API_KEY
       && process.env.RESEND_FROM_EMAIL
       && contactEmail,

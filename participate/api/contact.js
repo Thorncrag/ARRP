@@ -6,6 +6,8 @@ const { screenPrivateContact } = require("./safety");
 const {
   allowLocalBurst,
   clientIp,
+  contactMode,
+  intakeMode,
   requestExceedsLimit,
   setNoStore,
   verifyTurnstile,
@@ -78,7 +80,9 @@ module.exports = async function contact(req, res) {
     res.setHeader("Allow", "POST");
     return send(res, 405, { error: "Method not allowed." });
   }
-  if (process.env.ARRP_INTAKE_MODE !== "live") return send(res, 503, { error: "The contact service is not live yet." });
+  if (intakeMode() === "paused") return send(res, 503, { error: "Private author contact is temporarily unavailable." });
+  if (intakeMode() !== "live") return send(res, 503, { error: "The contact service is not live yet." });
+  if (contactMode() !== "live") return send(res, 503, { error: "Private author contact is temporarily unavailable." });
   if (requiredConfiguration().length) return send(res, 503, { error: "The private contact service is not configured." });
   if (!acceptedOrigin) return send(res, 403, { error: "This request did not come from an approved ARRP page." });
   if (!String(req.headers["content-type"] || "").toLowerCase().includes("application/json")) {
