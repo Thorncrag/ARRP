@@ -181,12 +181,12 @@ async function routeSubmission(submission, submissionId) {
   let discussion = await findCanonicalDiscussion(token, route);
   if (!discussion) {
     const created = await createCanonicalDiscussion(token, route);
-    // Concurrent first submissions can both create a Discussion. Re-read and
-    // consistently choose the oldest matching intake thread; remove the empty
-    // extra thread before a comment can be attached to it.
-    discussion = await findCanonicalDiscussion(token, route);
-    if (!discussion) throw intakeOperationError("github-discussion-lookup-response");
-    if (discussion.id !== created.id) await deleteDiscussion(token, created);
+    // Search indexing can lag immediately after creation. The mutation's
+    // returned Discussion is safe to use; if search has caught up and finds an
+    // older canonical thread, remove the empty extra thread before commenting.
+    const indexedDiscussion = await findCanonicalDiscussion(token, route);
+    discussion = indexedDiscussion || created;
+    if (indexedDiscussion && indexedDiscussion.id !== created.id) await deleteDiscussion(token, created);
   }
   const comment = await addSubmissionComment(token, discussion, submission, submissionId, route);
   return { discussion, comment, route };

@@ -114,6 +114,53 @@ test("canonical Discussion lookup chooses the oldest matching intake thread", as
   }
 });
 
+test("first submission uses GitHub's created Discussion before search indexing catches up", async () => {
+  const originalFetch = global.fetch;
+  const environmentKeys = [
+    "GITHUB_APP_ID",
+    "GITHUB_APP_INSTALLATION_ID",
+    "GITHUB_APP_PRIVATE_KEY",
+    "GITHUB_REPOSITORY_ID",
+    "GITHUB_DISCUSSION_CATEGORY_ID",
+  ];
+  const originalEnvironment = Object.fromEntries(environmentKeys.map((key) => [key, process.env[key]]));
+  const { privateKey } = crypto.generateKeyPairSync("rsa", { modulusLength: 2048 });
+  Object.assign(process.env, {
+    GITHUB_APP_ID: "123",
+    GITHUB_APP_INSTALLATION_ID: "456",
+    GITHUB_APP_PRIVATE_KEY: privateKey.export({ type: "pkcs1", format: "pem" }),
+    GITHUB_REPOSITORY_ID: "repository-id",
+    GITHUB_DISCUSSION_CATEGORY_ID: "category-id",
+  });
+  global.fetch = async (url, options = {}) => {
+    if (String(url).includes("/access_tokens")) {
+      return { ok: true, json: async () => ({ token: "installation-token" }) };
+    }
+    const request = JSON.parse(options.body);
+    if (request.query.includes("FindIntakeDiscussion")) {
+      return { ok: true, json: async () => ({ data: { viewer: { login: "arrp-public-intake[bot]" }, search: { nodes: [] } } }) };
+    }
+    if (request.query.includes("CreateCanonicalDiscussion")) {
+      return { ok: true, json: async () => ({ data: { createDiscussion: { discussion: { id: "created", number: 1, url: "https://github.com/Thorncrag/ARRP/discussions/1" } } } }) };
+    }
+    if (request.query.includes("AddIntakeComment")) {
+      return { ok: true, json: async () => ({ data: { addDiscussionComment: { comment: { url: "https://github.com/Thorncrag/ARRP/discussions/1#discussioncomment-1" } } } }) };
+    }
+    throw new Error("Unexpected GitHub request in test.");
+  };
+  try {
+    const routed = await submitEndpoint._test.routeSubmission({ title: "Test", body: "Test", context: {} }, "record-1");
+    assert.equal(routed.discussion.id, "created");
+    assert.match(routed.comment.url, /discussioncomment-1/);
+  } finally {
+    global.fetch = originalFetch;
+    for (const [key, value] of Object.entries(originalEnvironment)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+});
+
 test("submission validation requires explicit permission before email delivery", () => {
   const { errors } = validateSubmission({ title: "Concern", body: "Details", email: "reader@example.org" });
   assert.match(errors[0], /Confirm/);
