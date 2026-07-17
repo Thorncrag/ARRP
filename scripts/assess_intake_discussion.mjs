@@ -143,7 +143,8 @@ async function assess(openaiKey, model, comment) {
   const result = await response.json();
   const outputText = result.output_text || result.output?.flatMap((item) => item.content || [])
     .find((item) => item.type === "output_text")?.text;
-  if (!response.ok || !outputText) throw new Error("The assessment service did not return a usable structured report.");
+  if (!response.ok) throw new Error(`The assessment service returned HTTP ${response.status}.`);
+  if (!outputText) throw new Error("The assessment service did not return a usable structured report.");
   return assertAssessment(JSON.parse(outputText));
 }
 
