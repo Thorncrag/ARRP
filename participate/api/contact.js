@@ -80,9 +80,9 @@ module.exports = async function contact(req, res) {
     res.setHeader("Allow", "POST");
     return send(res, 405, { error: "Method not allowed." });
   }
-  if (intakeMode() === "paused") return send(res, 503, { error: "Private author contact is temporarily unavailable." });
+  if (intakeMode() === "paused") return send(res, 503, { error: "Private author contact is currently disabled by ARRP. Please do not retry at this time." });
   if (intakeMode() !== "live") return send(res, 503, { error: "The contact service is not live yet." });
-  if (contactMode() !== "live") return send(res, 503, { error: "Private author contact is temporarily unavailable." });
+  if (contactMode() !== "live") return send(res, 503, { error: "Private author contact is currently disabled by ARRP. Please do not retry at this time." });
   if (requiredConfiguration().length) return send(res, 503, { error: "The private contact service is not configured." });
   if (!acceptedOrigin) return send(res, 403, { error: "This request did not come from an approved ARRP page." });
   if (!String(req.headers["content-type"] || "").toLowerCase().includes("application/json")) {
