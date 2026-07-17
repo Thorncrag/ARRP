@@ -31,6 +31,15 @@ Copy [`.env.example`](.env.example) into Vercel's environment-variable interface
 
 `intake-runtime.js` contains no secret. Leave its endpoint blank when Vercel serves this folder itself. If an approved future GitHub Pages page uses this backend from a separate origin, set `window.ARRP_INTAKE_ENDPOINT` to the Vercel deployment origin and include that Pages origin in `ARRP_ALLOWED_ORIGINS`.
 
+### Emergency pause controls
+
+For an immediate, reversible service pause, change the relevant **Production** environment variable in Vercel and redeploy the current production deployment:
+
+- Set `ARRP_CONTACT_MODE=disabled` to suspend only private author contact. Public input remains available.
+- Set `ARRP_INTAKE_MODE=paused` to suspend both public input and private author contact. The form and endpoints return a neutral temporary-unavailable message instead of simulating a submission.
+
+Restore service by setting the affected variable back to `live` and redeploying. Do not use credential deletion as the ordinary pause mechanism.
+
 The formal candidate-admission decision remains a Codex workflow step. The intake service preserves and acknowledges public submissions; it does not classify them as preliminary candidates, create `HOR-###` records, modify issues, or trigger an agent.
 
 ## Privacy preflight and intake-agent prototype

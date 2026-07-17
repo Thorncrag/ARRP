@@ -14,6 +14,7 @@ const { screenPublicSubmission } = require("./safety");
 const {
   allowLocalBurst,
   clientIp,
+  intakeMode,
   requestExceedsLimit,
   setNoStore,
   verifyTurnstile,
@@ -208,7 +209,11 @@ module.exports = async function submit(req, res) {
     send(res, 405, { error: "Method not allowed." });
     return;
   }
-  if (process.env.ARRP_INTAKE_MODE !== "live") {
+  if (intakeMode() === "paused") {
+    send(res, 503, { error: "Public intake is temporarily unavailable." });
+    return;
+  }
+  if (intakeMode() !== "live") {
     send(res, 503, { error: "The public intake service is not live yet." });
     return;
   }
