@@ -109,26 +109,9 @@ async function createDiscussion(submission, submissionId) {
   return result.data.createDiscussion.discussion;
 }
 
-async function sendReceiptEmail(email, discussion) {
-  if (!email || !process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL) return false;
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      from: process.env.RESEND_FROM_EMAIL,
-      to: [email],
-      subject: "Your ARRP submission link",
-      text: `Your public ARRP submission is available at: ${discussion.url}\n\nKeep this link to follow responses. A GitHub account is optional; signed-in users can subscribe to the discussion for notifications.`,
-    }),
-  });
-  return response.ok;
-}
-
 async function sendReviewNotification(submission, discussion) {
-  if (!submission.email || !process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL || !process.env.ARRP_INTAKE_REVIEW_EMAIL) return false;
+  const reviewEmail = String(process.env.ARRP_INTAKE_REVIEW_EMAIL || "").trim();
+  if (!submission.email || !process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL || !reviewEmail) return false;
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -137,7 +120,7 @@ async function sendReviewNotification(submission, discussion) {
     },
     body: JSON.stringify({
       from: process.env.RESEND_FROM_EMAIL,
-      to: [process.env.ARRP_INTAKE_REVIEW_EMAIL],
+      to: [reviewEmail],
       subject: `ARRP public submission: ${discussion.title}`,
       text: `A contributor authorized ARRP to contact them about this submission.\n\nDiscussion: ${discussion.url}\nContributor email: ${submission.email}\nSubmission reference: ${submissionIdPlaceholder(discussion)}`,
     }),
@@ -202,15 +185,14 @@ module.exports = async function submit(req, res) {
     }
     const submissionId = crypto.randomUUID();
     const discussion = await createDiscussion(submission, submissionId);
-    let emailSent = false;
-    if (submission.email) {
-      try { emailSent = await sendReceiptEmail(submission.email, discussion); } catch (_) { emailSent = false; }
+    const followUpRequested = Boolean(submission.email && submission.emailConsent);
+    if (followUpRequested) {
       try { await sendReviewNotification(submission, discussion); } catch (_) { /* Public receipt remains available. */ }
     }
     send(res, 201, {
       discussion_url: discussion.url,
       discussion_title: discussion.title,
-      email_sent: emailSent,
+      follow_up_requested: followUpRequested,
     });
   } catch (error) {
     console.error("ARRP public intake failure", error.message);

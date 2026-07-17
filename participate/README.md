@@ -4,7 +4,7 @@ This folder contains the standalone prototype for ARRP's eventual public interac
 
 The prototype accepts a short title, a plain-language explanation, optional sources, and an optional related ARRP page. Its preview does not create a GitHub Discussion, send email, or modify any project record.
 
-The intended live submission response contains the direct link to the newly created public GitHub Discussion. It tells the contributor to keep and watch that post, explains that a signed-in GitHub user can subscribe for GitHub notifications, and advises a contributor without an account to bookmark the link. A contributor who provides an address must expressly authorize ARRP to use it for the public-link receipt and possible follow-up about that submission. Email addresses are never included in the GitHub Discussion. In local preview mode, the response is visibly labeled as a preview and links only to the ARRP Discussions index; it never claims that a post was created.
+The intended live submission response contains the direct link to the newly created public GitHub Discussion. It tells the contributor to keep and watch that post, explains that a signed-in GitHub user can subscribe for GitHub notifications, and advises a contributor without an account to bookmark the link. When the private follow-up service is configured, a contributor may also provide an address and expressly authorize ARRP to use it for private follow-up. Email addresses are never included in the GitHub Discussion, and the service does not send a receipt to the contributor. In local preview mode, the response is visibly labeled as a preview and links only to the ARRP Discussions index; it never claims that a post was created.
 
 Page-specific feedback and review links can pass `proposal`, `page_title`, and `page` query parameters. The prototype visibly confirms that context and prepopulates the related-page field.
 
@@ -13,7 +13,7 @@ Page-specific feedback and review links can pass `proposal`, `page_title`, and `
 This directory is a self-contained Vercel project. Deploy this directory—not the repository root—as the Vercel project root. Its static files serve the form and its two server-side functions implement:
 
 - `api/config` — exposes only the public runtime configuration needed by the browser;
-- `api/submit` — validates the request, checks the bot token, creates a GitHub Discussion through a narrowly scoped GitHub App, and, when an address is authorized, sends the public-link receipt and a private follow-up notice.
+- `api/submit` — validates the request, checks the bot token, creates a GitHub Discussion through a narrowly scoped GitHub App, and, when an address is authorized, sends it only to the private ARRP follow-up mailbox.
 
 The service is deliberately **preview-only** unless `ARRP_INTAKE_MODE=live`. In preview mode, `api/submit` rejects every request and the browser displays only its local receipt demonstration. Do not set live mode until every deployment gate below has been completed.
 
@@ -23,7 +23,7 @@ Create a GitHub App rather than using a personal access token. Install it only o
 
 Cloudflare Turnstile is mandatory in live mode. Store its secret key only in Vercel; the site key returned by `api/config` is intentionally public. Configure Vercel Firewall/WAF rate limiting before live activation, with a conservative per-IP rule for `POST /api/submit`. Turnstile and a honeypot reduce automated traffic; the rate rule protects against repeated valid-token submissions and excessive function use.
 
-Email delivery is optional. If enabled, configure a transactional provider supported by the endpoint (currently Resend) with `RESEND_API_KEY` and `RESEND_FROM_EMAIL`. Set `ARRP_INTAKE_REVIEW_EMAIL` only to a private project mailbox; it receives the contributor's address and public-discussion link only when the contributor expressly authorized possible follow-up. The endpoint creates the public Discussion first. A mail-delivery failure does not delete the Discussion or expose the contributor's address; the browser still receives the direct public link.
+Private follow-up is optional. If enabled, configure a transactional provider supported by the endpoint (currently Resend) with `RESEND_API_KEY` and `RESEND_FROM_EMAIL`. Set `ARRP_INTAKE_REVIEW_EMAIL` only to a private project mailbox; it receives the contributor's address and public-discussion link only when the contributor expressly authorized possible follow-up. The endpoint creates the public Discussion first. A mail-delivery failure does not delete the Discussion or expose the contributor's address; the browser still receives the direct public link. The service never sends an email to the contributor.
 
 Copy [`.env.example`](.env.example) into Vercel's environment-variable interface. Set `ARRP_ALLOWED_ORIGINS` to the exact origins permitted to call the service, including the Vercel deployment origin and, when the form is later included in GitHub Pages, `https://thorncrag.github.io`. Set `ARRP_INTAKE_MODE=live` last.
 

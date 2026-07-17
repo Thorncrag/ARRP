@@ -7,6 +7,7 @@
     body: document.querySelector("#submission-body"),
     sources: document.querySelector("#submission-sources"),
     related: document.querySelector("#submission-related"),
+    emailFollowup: document.querySelector("#email-followup-fields"),
     email: document.querySelector("#submission-email"),
     emailConsent: document.querySelector("#submission-email-consent"),
     website: document.querySelector("#submission-website"),
@@ -25,6 +26,16 @@
 
   const submissionContext = { title: "", url: "", proposal: "" };
   const intake = { mode: "preview", turnstileWidgetId: null };
+  function setEmailFollowup(enabled) {
+    elements.emailFollowup.hidden = !enabled;
+    elements.email.disabled = !enabled;
+    elements.emailConsent.disabled = !enabled;
+    if (!enabled) {
+      elements.email.value = "";
+      elements.emailConsent.checked = false;
+    }
+  }
+
   function renderSubmissionReceipt(result) {
     const discussionUrl = result && typeof result.discussion_url === "string"
       ? result.discussion_url.trim()
@@ -37,8 +48,8 @@
       elements.receiptSummary.textContent = "Use the direct link below to follow responses and continue the conversation.";
       elements.discussionLink.href = discussionUrl;
       elements.discussionLink.textContent = result.discussion_title || "Open your submission";
-      elements.status.textContent = result.email_sent
-        ? "A copy of this link was sent to the address you provided."
+      elements.status.textContent = result.follow_up_requested
+        ? "Your email was provided for private ARRP follow-up and was not posted publicly. Keep this public link to follow responses."
         : "Keep this public link to follow responses.";
     } else {
       elements.receiptLabel.textContent = "Prototype response";
@@ -81,6 +92,7 @@
 
   async function screenSubmission(event) {
     event.preventDefault();
+    // Posting preserves public input; the full ARRP admission test remains a separate review step.
     const title = elements.title.value.trim();
     const body = elements.body.value.trim();
     const sources = elements.sources.value.trim();
@@ -146,6 +158,7 @@
       if (!response.ok || config.mode !== "live") return;
       intake.mode = "live";
       setSubmitting(false);
+      setEmailFollowup(Boolean(config.emailEnabled));
       document.querySelector(".prototype-label").textContent = "Public input";
       document.querySelector(".prototype-boundary").hidden = true;
       loadTurnstile(config.turnstileSiteKey);
@@ -171,6 +184,7 @@
   }
 
   elements.form.addEventListener("submit", screenSubmission);
+  setEmailFollowup(false);
   initializeContext();
   initializeIntake();
 })();

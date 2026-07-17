@@ -14,10 +14,15 @@ module.exports = function config(req, res) {
     res.setHeader("Vary", "Origin");
   }
   const live = process.env.ARRP_INTAKE_MODE === "live";
+  const reviewEmail = String(process.env.ARRP_INTAKE_REVIEW_EMAIL || "").trim();
   res.setHeader("Cache-Control", "no-store");
   res.status(200).json({
     mode: live ? "live" : "preview",
     turnstileSiteKey: live ? (process.env.TURNSTILE_SITE_KEY || "") : "",
-    emailEnabled: live && Boolean(process.env.RESEND_API_KEY && process.env.RESEND_FROM_EMAIL),
+    emailEnabled: live && Boolean(
+      process.env.RESEND_API_KEY
+      && process.env.RESEND_FROM_EMAIL
+      && reviewEmail,
+    ),
   });
 };

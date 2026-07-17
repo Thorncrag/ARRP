@@ -85,15 +85,17 @@
             <input id="submission-related" name="related" type="text" placeholder="A proposal ID or page URL, if known">
           </label>
 
-          <label for="submission-email">
-            <span>Email for a link and possible follow-up <small>optional</small></span>
-            <input id="submission-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@example.org">
-          </label>
+          <div id="email-followup-fields" hidden>
+            <label for="submission-email">
+              <span>Email for possible private follow-up <small>optional</small></span>
+              <input id="submission-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@example.org">
+            </label>
 
-          <label class="checkbox-label" for="submission-email-consent">
-            <input id="submission-email-consent" name="email-consent" type="checkbox">
-            <span>I authorize ARRP to use this address to send the public discussion link and to contact me about this submission.</span>
-          </label>
+            <label class="checkbox-label" for="submission-email-consent">
+              <input id="submission-email-consent" name="email-consent" type="checkbox">
+              <span>I authorize ARRP to use this address to contact me privately about this submission.</span>
+            </label>
+          </div>
 
           <label class="honeypot" aria-hidden="true" for="submission-website">
             Website
@@ -103,7 +105,7 @@
           <div id="turnstile-container" class="turnstile-container" aria-live="polite"></div>
           <p id="submission-status" class="submission-status" role="status" aria-live="polite"></p>
           <button id="submission-button" type="submit">Preview submission response</button>
-          <p class="privacy-note">Submissions are public. Email is optional, is not posted to GitHub, and is used only to send the link or follow up about this submission. Do not include confidential information or personal contact details.</p>
+          <p class="privacy-note">Submissions are public. If available, email follow-up is optional, is not posted to GitHub, and is used only for private contact about this submission. Do not include confidential information or personal contact details.</p>
         </form>
       </div>
     </main>
