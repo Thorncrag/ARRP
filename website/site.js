@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const feedbackAddress = "smith.benjamin.j@icloud.com";
+  const participationUrl = "https://arrp-public-intake.vercel.app/";
 
   function pageTitle() {
     const heading = document.querySelector("article h1");
@@ -25,13 +25,12 @@
 
     document.querySelectorAll("[data-arrp-feedback]").forEach(function (link) {
       const title = pageTitle();
-      const subject = encodeURIComponent("ARRP feedback: " + title);
-      const body = encodeURIComponent(
-        "Page: " + title + "\n" +
-        "URL: " + window.location.href + "\n\n" +
-        "Feedback, correction, source, or review:\n"
-      );
-      link.href = "mailto:" + feedbackAddress + "?subject=" + subject + "&body=" + body;
+      const destination = new URL(participationUrl);
+      destination.searchParams.set("mode", "contact");
+      destination.searchParams.set("page_title", title);
+      destination.searchParams.set("page", window.location.href);
+      destination.searchParams.set("subject", "ARRP feedback: " + title);
+      link.href = destination.toString();
     });
   }
 

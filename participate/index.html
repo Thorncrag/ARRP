@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <title>Share Input with ARRP</title>
+    <title>Contact ARRP or Share Input</title>
     <meta
       name="description"
-      content="Prototype public input page for suggesting an issue, submitting feedback or sources, asking a question, or offering review to ARRP."
+      content="Contact the ARRP author privately or submit public input, sources, corrections, questions, or offers of review."
     >
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -18,7 +18,7 @@
       <div class="brand-mark" aria-hidden="true">ARRP</div>
       <div>
         <p>American Restoration and Resilience Project</p>
-        <strong>Share input</strong>
+          <strong>Contact or share input</strong>
       </div>
     </header>
 
@@ -26,14 +26,14 @@
       <section class="page-intro" aria-labelledby="page-title">
         <div>
           <span class="eyebrow">Public interaction prototype</span>
-          <h1 id="page-title">What should ARRP consider?</h1>
-          <p>Suggest an issue, identify a correction, share a source, ask a question, or offer to review. Ordinary language is fine.</p>
+          <h1 id="page-title">Contact ARRP or share input</h1>
+          <p>Send a private message to the author, or submit an issue, correction, source, question, or offer of review for public ARRP consideration.</p>
         </div>
         <span class="prototype-label">Local prototype</span>
       </section>
 
       <div class="prototype-boundary" role="note">
-        <b>This preview does not send anything.</b> A live submission would create one public GitHub discussion. A contributor may optionally request that link by email.
+        <b>This preview does not send anything.</b> A live public-input submission creates one public GitHub Discussion. A live author-contact message is sent privately to the author and creates no public post.
       </div>
 
       <section
@@ -47,22 +47,34 @@
         <span class="receipt-mark" aria-hidden="true">✓</span>
         <div>
           <span class="eyebrow" id="submission-receipt-label">Post-submission response</span>
-          <h2 id="submission-receipt-heading">Your public discussion link will appear here</h2>
+          <h2 id="submission-receipt-heading">Your response will appear here</h2>
           <p id="submission-receipt-summary">A live submission would create one public GitHub discussion and place its direct link in this response.</p>
-          <p class="discussion-link-row">
+          <p class="discussion-link-row" id="submission-discussion-row">
             <span>Your submission</span>
             <a id="submission-discussion-link" href="https://github.com/Thorncrag/ARRP/discussions" target="_blank" rel="noopener noreferrer">Open ARRP Discussions (prototype destination)</a>
           </p>
-          <p class="follow-up-note"><b>Keep this link and watch the post for responses.</b> If you have a GitHub account, sign in and use the discussion's <b>Subscribe</b> control to receive GitHub notifications more closely. Without an account, bookmark the direct link and return to it for updates.</p>
+          <p class="follow-up-note" id="submission-follow-up-note"><b>Keep this link and watch the post for responses.</b> If you have a GitHub account, sign in and use the discussion's <b>Subscribe</b> control to receive GitHub notifications more closely. Without an account, bookmark the direct link and return to it for updates.</p>
         </div>
       </section>
 
       <div class="submission-workspace">
         <form class="submission-form" id="submission-form">
-          <aside class="public-submission-notice" role="note" aria-label="Public-submission notice">
-            <strong>Your submission will be public.</strong>
-            <p>ARRP will post it in a public GitHub Discussion. Do not include private, sensitive, or identifying information—such as an address, phone number, government identifier, medical or financial information, or anyone else's personal details.</p>
-            <p>The optional email field is used only for private ARRP follow-up and is not included in the public post.</p>
+          <fieldset class="route-selector">
+            <legend>Choose a route</legend>
+            <label class="route-option" for="route-public-input">
+              <input id="route-public-input" name="route" type="radio" value="input" checked>
+              <span><strong>Submit public input</strong><small>Creates a public GitHub Discussion for ARRP review.</small></span>
+            </label>
+            <label class="route-option" for="route-contact-author">
+              <input id="route-contact-author" name="route" type="radio" value="contact">
+              <span><strong>Contact the author</strong><small>Sends a private message to the author; no public post is created.</small></span>
+            </label>
+          </fieldset>
+
+          <aside class="public-submission-notice" id="submission-notice" role="note" aria-label="Submission privacy notice">
+            <strong id="submission-notice-title">Your submission will be public.</strong>
+            <p id="submission-notice-body">ARRP will post it in a public GitHub Discussion. Do not include private, sensitive, or identifying information—such as an address, phone number, government identifier, medical or financial information, or anyone else's personal details.</p>
+            <p id="submission-notice-detail">The optional email field is used only for private ARRP follow-up and is not included in the public post.</p>
           </aside>
 
           <div class="submission-context" id="submission-context" hidden>
@@ -72,32 +84,32 @@
           </div>
 
           <label for="submission-title">
-            <span>Short title</span>
+            <span id="submission-title-label">Short title</span>
             <input id="submission-title" name="title" type="text" maxlength="140" required placeholder="What should ARRP look at?">
           </label>
 
           <label for="submission-body">
-            <span>What should ARRP consider?</span>
+            <span id="submission-body-label">What should ARRP consider?</span>
             <textarea id="submission-body" name="body" rows="9" required placeholder="Explain the event, concern, possible defect, correction, question, or offer to help. Ordinary language is fine."></textarea>
           </label>
 
-          <label for="submission-sources">
+          <label for="submission-sources" id="submission-sources-field">
             <span>Sources or links <small>optional</small></span>
             <textarea id="submission-sources" name="sources" rows="3" placeholder="Paste any supporting links, one per line."></textarea>
           </label>
 
-          <label for="submission-related">
+          <label for="submission-related" id="submission-related-field">
             <span>Related ARRP page <small>optional</small></span>
             <input id="submission-related" name="related" type="text" placeholder="A proposal ID or page URL, if known">
           </label>
 
           <div id="email-followup-fields" hidden>
             <label for="submission-email">
-              <span>Email for possible private follow-up <small>optional</small></span>
+              <span id="submission-email-label">Email for possible private follow-up <small>optional</small></span>
               <input id="submission-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@example.org">
             </label>
 
-            <label class="checkbox-label" for="submission-email-consent">
+            <label class="checkbox-label" id="submission-email-consent-field" for="submission-email-consent">
               <input id="submission-email-consent" name="email-consent" type="checkbox">
               <span>I authorize ARRP to use this address to contact me privately about this submission.</span>
             </label>
@@ -110,8 +122,8 @@
 
           <div id="turnstile-container" class="turnstile-container" aria-live="polite"></div>
           <p id="submission-status" class="submission-status" role="status" aria-live="polite"></p>
-          <button id="submission-button" type="submit">Preview submission response</button>
-          <p class="privacy-note"><strong>Public post:</strong> do not include personal or sensitive information. Optional email is private, is not posted to GitHub, and is used only for follow-up about this submission.</p>
+          <button id="submission-button" type="submit">Preview public-input response</button>
+          <p class="privacy-note" id="submission-privacy-note"><strong>Public post:</strong> do not include personal or sensitive information. Optional email is private, is not posted to GitHub, and is used only for follow-up about this submission.</p>
         </form>
       </div>
     </main>

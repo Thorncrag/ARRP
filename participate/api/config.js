@@ -15,6 +15,7 @@ module.exports = function config(req, res) {
   }
   const live = process.env.ARRP_INTAKE_MODE === "live";
   const reviewEmail = String(process.env.ARRP_INTAKE_REVIEW_EMAIL || "").trim();
+  const contactEmail = String(process.env.ARRP_CONTACT_EMAIL || reviewEmail).trim();
   res.setHeader("Cache-Control", "no-store");
   res.status(200).json({
     mode: live ? "live" : "preview",
@@ -23,6 +24,11 @@ module.exports = function config(req, res) {
       process.env.RESEND_API_KEY
       && process.env.RESEND_FROM_EMAIL
       && reviewEmail,
+    ),
+    contactEnabled: live && Boolean(
+      process.env.RESEND_API_KEY
+      && process.env.RESEND_FROM_EMAIL
+      && contactEmail,
     ),
   });
 };

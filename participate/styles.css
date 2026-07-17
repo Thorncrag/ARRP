@@ -241,6 +241,48 @@ h1 {
   font-weight: 700;
 }
 
+.route-selector {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.route-selector legend {
+  grid-column: 1 / -1;
+  margin-bottom: 0.05rem;
+  color: #3d4c56;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.route-option {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 0.58rem;
+  min-height: 100%;
+  padding: 0.76rem 0.8rem;
+  border: 1px solid #cbd5db;
+  border-radius: 0.48rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.route-option:has(input:checked) {
+  border-color: #6d8ca0;
+  background: #f1f6f8;
+}
+
+.route-option input { flex: 0 0 auto; margin-top: 0.2rem; }
+
+.route-option span { display: grid; gap: 0.14rem; }
+
+.route-option strong { color: var(--navy-900); font-size: 0.82rem; }
+
+.route-option small { color: var(--muted); font-size: 0.68rem; font-weight: 500; line-height: 1.35; }
+
 .public-submission-notice {
   padding: 0.9rem 0.95rem;
   border: 1px solid #d3a150;
@@ -260,6 +302,15 @@ h1 {
   margin: 0.35rem 0 0;
   font-size: 0.78rem;
 }
+
+.private-submission-notice {
+  border-color: #a7c9bd;
+  border-left-color: #26745b;
+  background: #eff8f4;
+  color: #21493c;
+}
+
+.private-submission-notice strong { color: #1d604b; }
 
 .checkbox-label {
   grid-template-columns: auto minmax(0, 1fr);
@@ -378,5 +429,7 @@ h1 {
   }
 
   .discussion-link-row a { text-align: left; }
+
+  .route-selector { grid-template-columns: 1fr; }
 
 }

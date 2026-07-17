@@ -46,4 +46,13 @@ function screenPublicSubmission(submission) {
   return { allowed: findings.length === 0, findings };
 }
 
-module.exports = { containsPaymentCard, screenPublicSubmission };
+function screenPrivateContact(contact) {
+  const value = [contact?.title, contact?.body].filter((item) => typeof item === "string").join("\n");
+  const findings = [];
+  if (SSN.test(value)) findings.push("government_identifier");
+  if (containsPaymentCard(value)) findings.push("payment_card");
+  if (SECRET.test(value)) findings.push("credential");
+  return { allowed: findings.length === 0, findings };
+}
+
+module.exports = { containsPaymentCard, screenPrivateContact, screenPublicSubmission };

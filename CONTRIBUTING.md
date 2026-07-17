@@ -8,7 +8,7 @@ print_levels:
 
 The American Restoration and Resilience Project is currently an author-directed public-policy research and drafting project. Public contributions may be invited to improve accuracy, sourcing, clarity, structure, and the quality of proposed institutional repairs.
 
-Stakeholder input is welcome. To offer feedback, propose a correction, identify a source, or discuss a possible contribution, contact Benjamin Smith at <smith.benjamin.j@icloud.com>. For the public authorship and stakeholder-input statement, see [AUTHORS.md](AUTHORS.md).
+Stakeholder input is welcome. To offer feedback, propose a correction, identify a source, or discuss a possible contribution, use the private [contact-the-author form](https://arrp-public-intake.vercel.app/?mode=contact). For the public authorship and stakeholder-input statement, see [AUTHORS.md](AUTHORS.md).
 
 ## GitHub Workflow
 

@@ -1,8 +1,8 @@
 # Public Input Prototype
 
-This folder contains the standalone prototype for ARRP's eventual public interaction entry point. It is deliberately separate from the read-only [`Candidate Issues and Source Intake`](../research/horizon-review-console/) dashboard.
+This folder contains ARRP's standalone public interaction entry point. It is deliberately separate from the read-only [`Candidate Issues and Source Intake`](../research/horizon-review-console/) dashboard.
 
-The prototype accepts a short title, a plain-language explanation, optional sources, and an optional related ARRP page. Its preview does not create a GitHub Discussion, send email, or modify any project record.
+The form presents two separate routes. **Submit public input** accepts a short title, plain-language explanation, optional sources, and optional related ARRP page; its live route creates one public GitHub Discussion. **Contact the author** sends a private message to the configured author mailbox and creates no public post, GitHub record, candidate, or project record. Local preview mode sends neither route.
 
 The intended live submission response contains the direct link to the newly created public GitHub Discussion. It tells the contributor to keep and watch that post, explains that a signed-in GitHub user can subscribe for GitHub notifications, and advises a contributor without an account to bookmark the link. When the private follow-up service is configured, a contributor may also provide an address and expressly authorize ARRP to use it for private follow-up. Email addresses are never included in the GitHub Discussion, and the service does not send a receipt to the contributor. In local preview mode, the response is visibly labeled as a preview and links only to the ARRP Discussions index; it never claims that a post was created.
 
@@ -23,7 +23,7 @@ Create a GitHub App rather than using a personal access token. Install it only o
 
 Cloudflare Turnstile is mandatory in live mode. Store its secret key only in Vercel; the site key returned by `api/config` is intentionally public. Configure Vercel Firewall/WAF rate limiting before live activation, with a conservative per-IP rule for `POST /api/submit`. Turnstile and a honeypot reduce automated traffic; the rate rule protects against repeated valid-token submissions and excessive function use.
 
-Private follow-up is optional. If enabled, configure a transactional provider supported by the endpoint (currently Resend) with `RESEND_API_KEY` and `RESEND_FROM_EMAIL`. Set `ARRP_INTAKE_REVIEW_EMAIL` only to a private project mailbox; it receives the contributor's address and public-discussion link only when the contributor expressly authorized possible follow-up. The endpoint creates the public Discussion first. A mail-delivery failure does not delete the Discussion or expose the contributor's address; the browser still receives the direct public link. The service never sends an email to the contributor.
+Private author contact requires a transactional provider supported by the endpoint (currently Resend), with `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ARRP_CONTACT_EMAIL` set only in Vercel's encrypted environment. The endpoint sends the message only to that private mailbox, uses an optional contributor address as the email reply target, and never creates a public post. `ARRP_INTAKE_REVIEW_EMAIL` remains a transitional fallback for the already-configured mailbox and optional public-input follow-up notices. The service never sends an email to a contributor.
 
 Copy [`.env.example`](.env.example) into Vercel's environment-variable interface. Set `ARRP_ALLOWED_ORIGINS` to the exact origins permitted to call the service, including the Vercel deployment origin and, when the form is later included in GitHub Pages, `https://thorncrag.github.io`. Set `ARRP_INTAKE_MODE=live` last.
 

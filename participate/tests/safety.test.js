@@ -2,7 +2,7 @@
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { containsPaymentCard, screenPublicSubmission } = require("../api/safety");
+const { containsPaymentCard, screenPrivateContact, screenPublicSubmission } = require("../api/safety");
 
 test("public privacy screen allows ordinary policy discussion", () => {
   const result = screenPublicSubmission({
@@ -34,4 +34,9 @@ test("public privacy screen blocks credentials and identifiers", () => {
   });
   assert.equal(result.allowed, false);
   assert.deepEqual(result.findings, ["government_identifier", "credential"]);
+});
+
+test("private contact allows an email but blocks financial or credential material", () => {
+  assert.equal(screenPrivateContact({ title: "Reply", body: "Reach me at reader@example.org." }).allowed, true);
+  assert.equal(screenPrivateContact({ title: "Private material", body: "Use 4111 1111 1111 1111." }).allowed, false);
 });

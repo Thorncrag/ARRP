@@ -47,6 +47,27 @@ function validateSubmission(value) {
   return { submission, errors };
 }
 
+function validateContact(value) {
+  const raw = value && typeof value === "object" ? value : {};
+  const contact = {
+    title: text(raw.title, LIMITS.title),
+    body: text(raw.body, LIMITS.body),
+    email: text(raw.email, LIMITS.email).toLowerCase(),
+    turnstileToken: text(raw.turnstileToken, 4096),
+    honeypot: text(raw.website, 256),
+    context: {
+      proposal: text(raw.context?.proposal, LIMITS.proposal),
+      pageTitle: text(raw.context?.pageTitle, LIMITS.pageTitle),
+      pageUrl: text(raw.context?.pageUrl, LIMITS.pageUrl),
+    },
+  };
+  const errors = [];
+  if (!contact.title) errors.push("Provide a short subject.");
+  if (!contact.body) errors.push("Write a message for the author.");
+  if (contact.email && !isEmail(contact.email)) errors.push("Provide a valid reply email address or leave it blank.");
+  return { contact, errors };
+}
+
 function allowedOrigins(value) {
   return new Set(String(value || "").split(",").map((item) => item.trim()).filter(Boolean));
 }
@@ -96,5 +117,6 @@ module.exports = {
   createAppJwt,
   discussionBody,
   isAllowedOrigin,
+  validateContact,
   validateSubmission,
 };

@@ -202,7 +202,7 @@ Common descriptors are interpreted as follows:
 
 ## Complete Printable Edition
 
-Legislators, legislative staff, and government officials who would like a complete printable edition of the project for legislative, oversight, or institutional review may contact Benjamin Smith at <smith.benjamin.j@icloud.com> to request the current compiled version.
+Legislators, legislative staff, and government officials who would like a complete printable edition of the project for legislative, oversight, or institutional review may [contact the author privately](https://arrp-public-intake.vercel.app/?mode=contact&subject=Printable%20edition%20request) to request the current compiled version.
 
 ## Find a Topic or Institution
 

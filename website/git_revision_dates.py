@@ -90,7 +90,7 @@ def page_actions() -> str:
         '<nav class="arrp-page-actions" aria-label="Page actions">\n'
         '  <button type="button" class="arrp-page-action" data-arrp-print>Print this page</button>\n'
         '  <a class="arrp-page-action" data-arrp-feedback '
-        'href="mailto:smith.benjamin.j@icloud.com">Report an error or offer review</a>\n'
+        'href="https://arrp-public-intake.vercel.app/?mode=contact">Contact the author or offer review</a>\n'
         "</nav>"
     )
 
