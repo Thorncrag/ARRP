@@ -275,9 +275,16 @@ h1 {
   background: #f1f6f8;
 }
 
-.route-option input { flex: 0 0 auto; margin-top: 0.2rem; }
+.route-option input {
+  flex: 0 0 1.25rem;
+  width: 1.25rem;
+  min-height: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.1rem;
+  padding: 0;
+}
 
-.route-option span { display: grid; gap: 0.14rem; }
+.route-option span { display: grid; flex: 1 1 auto; min-width: 0; gap: 0.14rem; }
 
 .route-option strong { color: var(--navy-900); font-size: 0.82rem; }
 
