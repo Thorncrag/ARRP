@@ -63,24 +63,30 @@ function requiredConfiguration() {
 }
 
 async function githubInstallationToken() {
-  let jwt;
   try {
-    jwt = createAppJwt(process.env.GITHUB_APP_ID, privateKey());
-  } catch (_) {
-    throw intakeOperationError("github-app-jwt");
+    let jwt;
+    try {
+      jwt = createAppJwt(process.env.GITHUB_APP_ID, privateKey());
+    } catch (_) {
+      throw intakeOperationError("github-app-jwt");
+    }
+    const response = await fetch(`${GITHUB_API}/app/installations/${process.env.GITHUB_APP_INSTALLATION_ID}/access_tokens`, {
+      method: "POST",
+      headers: {
+        accept: "application/vnd.github+json",
+        authorization: `Bearer ${jwt}`,
+        "user-agent": "ARRP-public-intake",
+        "x-github-api-version": "2022-11-28",
+      },
+    });
+    if (!response.ok) throw intakeOperationError("github-app-installation-token");
+    const result = await response.json();
+    if (!result?.token) throw intakeOperationError("github-app-installation-response");
+    return result.token;
+  } catch (error) {
+    if (error?.intakeOperation) throw error;
+    throw intakeOperationError("github-app-installation-request");
   }
-  const response = await fetch(`${GITHUB_API}/app/installations/${process.env.GITHUB_APP_INSTALLATION_ID}/access_tokens`, {
-    method: "POST",
-    headers: {
-      accept: "application/vnd.github+json",
-      authorization: `Bearer ${jwt}`,
-      "user-agent": "ARRP-public-intake",
-      "x-github-api-version": "2022-11-28",
-    },
-  });
-  if (!response.ok) throw intakeOperationError("github-app-installation-token");
-  const result = await response.json();
-  return result.token;
 }
 
 function githubHeaders(token) {
@@ -94,14 +100,19 @@ function githubHeaders(token) {
 }
 
 async function githubGraphql(token, operation, query, variables) {
-  const response = await fetch(`${GITHUB_API}/graphql`, {
-    method: "POST",
-    headers: githubHeaders(token),
-    body: JSON.stringify({ query, variables }),
-  });
-  const result = await response.json();
-  if (!response.ok || result.errors) throw intakeOperationError(`github-discussion-${operation}`);
-  return result.data;
+  try {
+    const response = await fetch(`${GITHUB_API}/graphql`, {
+      method: "POST",
+      headers: githubHeaders(token),
+      body: JSON.stringify({ query, variables }),
+    });
+    const result = await response.json();
+    if (!response.ok || result.errors) throw intakeOperationError(`github-discussion-${operation}`);
+    return result.data;
+  } catch (error) {
+    if (error?.intakeOperation) throw error;
+    throw intakeOperationError(`github-discussion-${operation}-request`);
+  }
 }
 
 function canonicalDiscussionTitle(route) {
@@ -140,7 +151,7 @@ async function createCanonicalDiscussion(token, route) {
     },
   });
   const discussion = data.createDiscussion?.discussion;
-  if (!discussion?.id || !discussion?.url) throw new Error("GitHub Discussion creation failed.");
+  if (!discussion?.id || !discussion?.url) throw intakeOperationError("github-discussion-create-response");
   return discussion;
 }
 
@@ -160,7 +171,7 @@ async function addSubmissionComment(token, discussion, submission, submissionId,
     },
   });
   const comment = data.addDiscussionComment?.comment;
-  if (!comment?.url) throw new Error("GitHub Discussion comment creation failed.");
+  if (!comment?.url) throw intakeOperationError("github-discussion-comment-response");
   return comment;
 }
 
@@ -174,7 +185,7 @@ async function routeSubmission(submission, submissionId) {
     // consistently choose the oldest matching intake thread; remove the empty
     // extra thread before a comment can be attached to it.
     discussion = await findCanonicalDiscussion(token, route);
-    if (!discussion) throw new Error("Canonical Discussion lookup failed.");
+    if (!discussion) throw intakeOperationError("github-discussion-lookup-response");
     if (discussion.id !== created.id) await deleteDiscussion(token, created);
   }
   const comment = await addSubmissionComment(token, discussion, submission, submissionId, route);
