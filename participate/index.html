@@ -27,13 +27,13 @@
         <div>
           <span class="eyebrow">Public interaction prototype</span>
           <h1 id="page-title">What should ARRP consider?</h1>
-          <p>Suggest an issue, identify a correction, share a source, ask a question, or offer to review. Ordinary language is fine—the screening process should do the classification.</p>
+          <p>Suggest an issue, identify a correction, share a source, ask a question, or offer to review. Ordinary language is fine.</p>
         </div>
         <span class="prototype-label">Local prototype</span>
       </section>
 
       <div class="prototype-boundary" role="note">
-        <b>This preview does not send anything.</b> The deployed version would preserve the submission in one public GitHub discussion and ask an agent to screen and route it before any project decision. A contributor may optionally request that single discussion link by email.
+        <b>This preview does not send anything.</b> A live submission would create one public GitHub discussion. A contributor may optionally request that link by email.
       </div>
 
       <section
@@ -86,13 +86,13 @@
           </label>
 
           <label for="submission-email">
-            <span>Email me the public discussion link <small>optional</small></span>
+            <span>Email for a link and possible follow-up <small>optional</small></span>
             <input id="submission-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@example.org">
           </label>
 
           <label class="checkbox-label" for="submission-email-consent">
             <input id="submission-email-consent" name="email-consent" type="checkbox">
-            <span>I authorize ARRP to use this address only to send the public discussion link.</span>
+            <span>I authorize ARRP to use this address to send the public discussion link and to contact me about this submission.</span>
           </label>
 
           <label class="honeypot" aria-hidden="true" for="submission-website">
@@ -102,39 +102,12 @@
 
           <div id="turnstile-container" class="turnstile-container" aria-live="polite"></div>
           <p id="submission-status" class="submission-status" role="status" aria-live="polite"></p>
-          <button id="submission-button" type="submit">Preview response and screening</button>
-          <p class="privacy-note">Submissions are public. Email is optional and is not posted to GitHub. Do not include confidential information or personal contact details.</p>
+          <button id="submission-button" type="submit">Preview submission response</button>
+          <p class="privacy-note">Submissions are public. Email is optional, is not posted to GitHub, and is used only to send the link or follow up about this submission. Do not include confidential information or personal contact details.</p>
         </form>
-
-        <aside class="screening-preview" aria-labelledby="screening-heading" aria-live="polite">
-          <div id="screening-empty">
-            <span class="eyebrow">What the agent would do</span>
-            <h2 id="screening-heading">Screen, compare, and route</h2>
-            <ol>
-              <li>Classify the input without requiring ARRP terminology.</li>
-              <li>Compare it with active proposals, proposed candidates, and likely duplicates.</li>
-              <li>Assign a provisional area and recommend the next project action.</li>
-            </ol>
-          </div>
-
-          <div id="screening-result" hidden>
-            <div class="screening-badges" id="screening-badges"></div>
-            <h2>Prototype screening result</h2>
-            <dl class="screening-details">
-              <div><dt>Input type</dt><dd id="screening-type"></dd></div>
-              <div><dt>Provisional area</dt><dd id="screening-area"></dd></div>
-              <div><dt>Likely related record</dt><dd id="screening-related"></dd></div>
-              <div><dt>Duplicate check</dt><dd id="screening-duplicate"></dd></div>
-              <div><dt>Recommended route</dt><dd id="screening-route"></dd></div>
-              <div><dt>Your attention</dt><dd id="screening-attention"></dd></div>
-            </dl>
-            <p class="prototype-disclaimer">This preview uses a simple matching routine. A live agent would verify sources, project scope, duplication, legal posture, and the full admission test before recommending formal action.</p>
-          </div>
-        </aside>
       </div>
     </main>
 
-    <script src="intake-data.js"></script>
     <script src="intake-runtime.js"></script>
     <script src="app.js"></script>
   </body>

@@ -109,7 +109,7 @@ async function createDiscussion(submission, submissionId) {
   return result.data.createDiscussion.discussion;
 }
 
-async function sendEmail(email, discussion) {
+async function sendReceiptEmail(email, discussion) {
   if (!email || !process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL) return false;
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -125,6 +125,28 @@ async function sendEmail(email, discussion) {
     }),
   });
   return response.ok;
+}
+
+async function sendReviewNotification(submission, discussion) {
+  if (!submission.email || !process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL || !process.env.ARRP_INTAKE_REVIEW_EMAIL) return false;
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      from: process.env.RESEND_FROM_EMAIL,
+      to: [process.env.ARRP_INTAKE_REVIEW_EMAIL],
+      subject: `ARRP public submission: ${discussion.title}`,
+      text: `A contributor authorized ARRP to contact them about this submission.\n\nDiscussion: ${discussion.url}\nContributor email: ${submission.email}\nSubmission reference: ${submissionIdPlaceholder(discussion)}`,
+    }),
+  });
+  return response.ok;
+}
+
+function submissionIdPlaceholder(discussion) {
+  return discussion.number ? `Discussion #${discussion.number}` : "See public discussion";
 }
 
 module.exports = async function submit(req, res) {
@@ -182,7 +204,8 @@ module.exports = async function submit(req, res) {
     const discussion = await createDiscussion(submission, submissionId);
     let emailSent = false;
     if (submission.email) {
-      try { emailSent = await sendEmail(submission.email, discussion); } catch (_) { emailSent = false; }
+      try { emailSent = await sendReceiptEmail(submission.email, discussion); } catch (_) { emailSent = false; }
+      try { await sendReviewNotification(submission, discussion); } catch (_) { /* Public receipt remains available. */ }
     }
     send(res, 201, {
       discussion_url: discussion.url,

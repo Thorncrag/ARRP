@@ -42,8 +42,8 @@ function validateSubmission(value) {
   if (!submission.title) errors.push("Provide a short title.");
   if (!submission.body) errors.push("Describe what ARRP should consider.");
   if (submission.email && !isEmail(submission.email)) errors.push("Provide a valid email address or leave it blank.");
-  if (submission.email && !submission.emailConsent) errors.push("Confirm that ARRP may send the public discussion link to this address.");
-  if (!submission.email && submission.emailConsent) errors.push("Enter an email address before requesting a link by email.");
+  if (submission.email && !submission.emailConsent) errors.push("Confirm that ARRP may use this address for the public discussion link and possible follow-up about this submission.");
+  if (!submission.email && submission.emailConsent) errors.push("Enter an email address before authorizing contact by email.");
   return { submission, errors };
 }
 
@@ -73,7 +73,7 @@ function discussionBody(submission, submissionId) {
     markdownSection("Related ARRP page", related),
     "## Intake record",
     `- Submission reference: \`${submissionId}\``,
-    "- Status: Received for ARRP screening",
+    "- Status: Received for ARRP review",
     "- Note: A public submission is not itself a project decision, preliminary candidate, or proposed candidate.",
   ].filter(Boolean).join("\n");
 }
