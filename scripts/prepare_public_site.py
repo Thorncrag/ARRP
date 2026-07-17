@@ -274,7 +274,6 @@ def generate_navigation(
     lines = [
         "nav:",
         f"  - {yaml_label('Home')}: index.md",
-        f"  - {yaml_label('Contact')}: https://arrp-public-intake.vercel.app/",
     ]
 
     topic_pages = sorted(
@@ -357,6 +356,7 @@ def generate_navigation(
             f"  - {yaml_label('About')}:",
             f"      - {yaml_label('Authorship')}: AUTHORS.md",
             f"      - {yaml_label('Rights and Reuse')}: LICENSE.md",
+            f"  - {yaml_label('Contact')}: https://arrp-public-intake.vercel.app/",
         ]
     )
     return "\n".join(lines) + "\n"

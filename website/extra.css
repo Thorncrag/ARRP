@@ -19,6 +19,14 @@
   font-weight: 650;
 }
 
+/* Contact is generated as the final top-level tab so it remains a distinct
+   action at the right edge instead of interrupting the reader-navigation set. */
+@media screen and (min-width: 60em) {
+  .md-tabs__item:last-child {
+    margin-left: auto;
+  }
+}
+
 .md-typeset h1 {
   color: var(--arrp-heading-color);
   font-weight: 650;
