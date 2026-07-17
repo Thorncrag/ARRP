@@ -184,7 +184,9 @@
   }
 
   elements.form.addEventListener("submit", screenSubmission);
-  setEmailFollowup(false);
+  // Keep the optional follow-up field visible in the preview so readers can
+  // see the complete submission form. Preview mode never transmits it.
+  setEmailFollowup(true);
   initializeContext();
   initializeIntake();
 })();
