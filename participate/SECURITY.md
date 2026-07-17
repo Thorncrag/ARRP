@@ -2,9 +2,9 @@
 
 This checklist governs the live Vercel public-intake service. Repository code can enforce request shape, privacy screening, Turnstile validation, output safety, and a local burst limit. Provider-side controls are the only reliable protection across serverless instances and networks.
 
-## Required before or during live operation
+## Deployment protections
 
-- **Vercel Firewall/WAF:** when the project's plan supports it, create production rate rules for `POST /api/submit` and `POST /api/contact`. Begin conservatively: no more than five public-input attempts and three contact attempts per IP address in ten minutes; block or challenge excess traffic. On July 17, 2026, the project was verified to be on Vercel Hobby, where the dashboard requires a Pro upgrade for rate limits and bot protection; no billing change was made. The service's in-memory burst limiter and Turnstile are therefore the active anti-abuse layers until that optional plan change or an equivalent managed rate-limit service is adopted.
+- **Firewall/WAF:** use provider-level rate limiting and bot protections where available. The service also applies application-level safeguards.
 - **Turnstile:** restrict the site key to `arrp-public-intake.vercel.app` (and only explicitly approved future domains). Set `ARRP_TURNSTILE_HOSTNAME` and `ARRP_TURNSTILE_ACTION` to the same hostname and `arrp_public_intake` action used by the browser. The endpoints reject a successful token whose hostname or action differs.
 - **GitHub App:** install it only on `Thorncrag/ARRP`; grant only **Discussions: Read and write**. Do not grant Contents, Issues, Actions, administration, organization, or user permissions. Rotate the private key if the App scope changes or a compromise is suspected.
 - **Vercel access:** keep the App private key, Turnstile secret, and Resend key as production-only encrypted environment values; restrict production deployment and environment access to the smallest maintainer set. Preview deployments must not inherit production secrets unless they are explicitly intended for controlled testing.
@@ -21,4 +21,4 @@ This checklist governs the live Vercel public-intake service. Repository code ca
 
 ## Operational review
 
-Review these controls after any provider change and at least quarterly: WAF rule activity (or the documented plan limitation), Turnstile hostname settings, GitHub App installation and permissions, Vercel project access, Resend sending activity, deployed response headers, and the current repository secret-scan result. If the service receives meaningful abuse or traffic, add a provider-level rate limit before continuing public operation at that scale.
+Review these controls after any provider change and at least quarterly: WAF rule activity, Turnstile hostname settings, GitHub App installation and permissions, Vercel project access, Resend sending activity, deployed response headers, and the current repository secret-scan result.
