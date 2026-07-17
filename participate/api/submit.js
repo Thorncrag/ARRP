@@ -22,6 +22,12 @@ const {
 
 const GITHUB_API = "https://api.github.com";
 
+function intakeOperationError(stage) {
+  const error = new Error("ARRP intake operation failed.");
+  error.intakeOperation = stage;
+  return error;
+}
+
 function send(res, status, body) {
   setNoStore(res);
   res.status(status).json(body);
@@ -57,7 +63,12 @@ function requiredConfiguration() {
 }
 
 async function githubInstallationToken() {
-  const jwt = createAppJwt(process.env.GITHUB_APP_ID, privateKey());
+  let jwt;
+  try {
+    jwt = createAppJwt(process.env.GITHUB_APP_ID, privateKey());
+  } catch (_) {
+    throw intakeOperationError("github-app-jwt");
+  }
   const response = await fetch(`${GITHUB_API}/app/installations/${process.env.GITHUB_APP_INSTALLATION_ID}/access_tokens`, {
     method: "POST",
     headers: {
@@ -67,7 +78,7 @@ async function githubInstallationToken() {
       "x-github-api-version": "2022-11-28",
     },
   });
-  if (!response.ok) throw new Error("GitHub App authentication failed.");
+  if (!response.ok) throw intakeOperationError("github-app-installation-token");
   const result = await response.json();
   return result.token;
 }
@@ -82,14 +93,14 @@ function githubHeaders(token) {
   };
 }
 
-async function githubGraphql(token, query, variables) {
+async function githubGraphql(token, operation, query, variables) {
   const response = await fetch(`${GITHUB_API}/graphql`, {
     method: "POST",
     headers: githubHeaders(token),
     body: JSON.stringify({ query, variables }),
   });
   const result = await response.json();
-  if (!response.ok || result.errors) throw new Error("GitHub Discussion request failed.");
+  if (!response.ok || result.errors) throw intakeOperationError(`github-discussion-${operation}`);
   return result.data;
 }
 
@@ -99,7 +110,7 @@ function canonicalDiscussionTitle(route) {
 
 async function findCanonicalDiscussion(token, route) {
   const marker = `ARRP-INTAKE-ROUTE:${route.key}`;
-  const data = await githubGraphql(token, `query FindIntakeDiscussion($query: String!) {
+  const data = await githubGraphql(token, "lookup", `query FindIntakeDiscussion($query: String!) {
     viewer { login }
     search(query: $query, type: DISCUSSION, first: 10) {
       nodes {
@@ -118,7 +129,7 @@ async function findCanonicalDiscussion(token, route) {
 }
 
 async function createCanonicalDiscussion(token, route) {
-  const data = await githubGraphql(token, `mutation CreateCanonicalDiscussion($input: CreateDiscussionInput!) {
+  const data = await githubGraphql(token, "create", `mutation CreateCanonicalDiscussion($input: CreateDiscussionInput!) {
     createDiscussion(input: $input) { discussion { id url number title } }
   }`, {
     input: {
@@ -134,13 +145,13 @@ async function createCanonicalDiscussion(token, route) {
 }
 
 async function deleteDiscussion(token, discussion) {
-  await githubGraphql(token, `mutation DeleteCanonicalDiscussion($input: DeleteDiscussionInput!) {
+  await githubGraphql(token, "delete", `mutation DeleteCanonicalDiscussion($input: DeleteDiscussionInput!) {
     deleteDiscussion(input: $input) { clientMutationId }
   }`, { input: { id: discussion.id } });
 }
 
 async function addSubmissionComment(token, discussion, submission, submissionId, route) {
-  const data = await githubGraphql(token, `mutation AddIntakeComment($input: AddDiscussionCommentInput!) {
+  const data = await githubGraphql(token, "comment", `mutation AddIntakeComment($input: AddDiscussionCommentInput!) {
     addDiscussionComment(input: $input) { comment { url } }
   }`, {
     input: {
@@ -273,9 +284,12 @@ module.exports = async function submit(req, res) {
       route_label: routed.route.label,
       follow_up_requested: followUpRequested,
     });
-  } catch (_) {
-    // Do not log request-derived error text. The public receipt is the only
-    // response surface for a submission that reaches this stage.
+  } catch (error) {
+    // Keep request-derived content and secrets out of logs. A fixed operation
+    // label permits an administrator to diagnose service configuration.
+    console.error("ARRP public intake GitHub operation failed", {
+      stage: error?.intakeOperation || "unexpected",
+    });
     send(res, 502, { error: "ARRP could not create the public discussion. Please try again later." });
   }
 };
