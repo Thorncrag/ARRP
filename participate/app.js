@@ -150,6 +150,10 @@
     return configured ? `${configured}/api/${path}` : `/api/${path}`;
   }
 
+  function sanitizeContextUrl(value) {
+    return window.ARRP_CONTEXT_URLS?.sanitizeContextUrl(value) || "";
+  }
+
   async function sendRequest(path, payload) {
     // Public input continues through intakeEndpoint("submit"); private author
     // contact uses the separate endpoint so it can never create a Discussion.
@@ -247,7 +251,7 @@
   function initializeContext() {
     const params = new URLSearchParams(window.location.search);
     submissionContext.title = params.get("page_title")?.trim() || "";
-    submissionContext.url = params.get("page")?.trim() || "";
+    submissionContext.url = sanitizeContextUrl(params.get("page"));
     submissionContext.proposal = params.get("proposal")?.trim().toLocaleUpperCase() || "";
     const requestedRoute = params.get("mode")?.trim().toLowerCase();
     if (requestedRoute === "contact") setRoute("contact");
