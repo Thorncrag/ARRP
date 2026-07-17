@@ -3,8 +3,16 @@
 const crypto = require("node:crypto");
 const { allowedOrigins, isAllowedOrigin, validateContact } = require("./_shared");
 const { screenPrivateContact } = require("./safety");
+const {
+  allowLocalBurst,
+  clientIp,
+  requestExceedsLimit,
+  setNoStore,
+  verifyTurnstile,
+} = require("./security");
 
 function send(res, status, body) {
+  setNoStore(res);
   res.status(status).json(body);
 }
 
@@ -31,20 +39,6 @@ function requiredConfiguration() {
   const missing = required.filter((key) => !process.env[key]);
   if (!contactMailbox()) missing.push("ARRP_CONTACT_EMAIL");
   return missing;
-}
-
-async function verifyTurnstile(token, remoteIp) {
-  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    headers: { "content-type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      secret: process.env.TURNSTILE_SECRET_KEY,
-      response: token,
-      ...(remoteIp ? { remoteip: remoteIp } : {}),
-    }),
-  });
-  if (!response.ok) return false;
-  return (await response.json()).success === true;
 }
 
 async function sendPrivateMessage(contact, contactId) {
@@ -74,6 +68,7 @@ async function sendPrivateMessage(contact, contactId) {
 }
 
 module.exports = async function contact(req, res) {
+  setNoStore(res);
   const acceptedOrigin = applyCors(req, res);
   if (req.method === "OPTIONS") {
     if (!acceptedOrigin) return send(res, 403, { error: "This request did not come from an approved ARRP page." });
@@ -89,7 +84,7 @@ module.exports = async function contact(req, res) {
   if (!String(req.headers["content-type"] || "").toLowerCase().includes("application/json")) {
     return send(res, 415, { error: "Use the ARRP contact form to send this request." });
   }
-  if (Number(req.headers["content-length"] || 0) > 12000) return send(res, 413, { error: "The message is too large." });
+  if (requestExceedsLimit(req, 12000)) return send(res, 413, { error: "The message is too large." });
 
   const { contact: message, errors } = validateContact(req.body);
   if (message.honeypot) return send(res, 202, { received: true });
@@ -98,7 +93,8 @@ module.exports = async function contact(req, res) {
     return send(res, 400, { error: "Remove financial, government-identifier, or credential information before sending this message." });
   }
 
-  const remoteIp = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  if (!allowLocalBurst(req, "contact")) return send(res, 429, { error: "Too many requests. Please wait and try again later." });
+  const remoteIp = clientIp(req);
   try {
     if (!await verifyTurnstile(message.turnstileToken, remoteIp)) {
       return send(res, 400, { error: "Please complete the verification check and try again." });

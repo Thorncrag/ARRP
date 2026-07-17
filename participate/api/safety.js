@@ -30,7 +30,15 @@ function containsPaymentCard(value) {
 }
 
 function publicText(submission) {
-  return [submission?.title, submission?.body, submission?.sources, submission?.related]
+  return [
+    submission?.title,
+    submission?.body,
+    submission?.sources,
+    submission?.related,
+    submission?.context?.proposal,
+    submission?.context?.pageTitle,
+    submission?.context?.pageUrl,
+  ]
     .filter((value) => typeof value === "string")
     .join("\n");
 }

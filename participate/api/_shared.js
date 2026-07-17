@@ -76,6 +76,20 @@ function isAllowedOrigin(origin, allowed) {
   return Boolean(origin) && allowed.has(origin);
 }
 
+function asIndentedCode(value) {
+  const lines = String(value || "").replace(/\r\n?/g, "\n").split("\n");
+  return lines.map((line) => `    ${line}`).join("\n");
+}
+
+function asSafeHeading(value) {
+  return String(value || "")
+    .replace(/\\/g, "\\\\")
+    .replace(/([`*_{}\[\]<>#|])/g, "\\$1")
+    .replace(/@/g, "@\u200b")
+    .replace(/[\r\n]+/g, " ")
+    .trim();
+}
+
 function markdownSection(title, content) {
   return content ? `\n## ${title}\n${content}\n` : "";
 }
@@ -93,18 +107,13 @@ function canonicalDiscussionBody(route) {
 }
 
 function discussionCommentBody(submission, submissionId, route) {
-  const related = [
-    submission.related,
-    submission.context.proposal,
-    submission.context.pageTitle,
-    submission.context.pageUrl,
-  ].filter(Boolean).join("\n");
   return [
     `<!-- ARRP-INTAKE-SUBMISSION:${submissionId} -->`,
-    `## ${submission.title}`,
-    submission.body,
-    markdownSection("Sources or links", submission.sources),
-    markdownSection("Related ARRP page", related),
+    `## ${asSafeHeading(submission.title)}`,
+    "",
+    asIndentedCode(submission.body),
+    markdownSection("Sources or links", submission.sources ? asIndentedCode(submission.sources) : ""),
+    markdownSection("Automatic ARRP route", asIndentedCode(route.label)),
     "## Intake record",
     `- Submission reference: \`${submissionId}\``,
     `- Automatic route: ${route.label}`,
@@ -128,6 +137,8 @@ function createAppJwt(appId, privateKey, now = Math.floor(Date.now() / 1000)) {
 
 module.exports = {
   allowedOrigins,
+  asIndentedCode,
+  asSafeHeading,
   canonicalDiscussionBody,
   createAppJwt,
   discussionCommentBody,

@@ -78,12 +78,12 @@
     elements.noticeDetail.textContent = contact
       ? "A reply email is optional. If you provide one, it is sent only to the author so they can reply to you."
       : "The optional email field is used only for private ARRP follow-up and is not included in the public post.";
-    elements.emailLabel.innerHTML = contact
-      ? "Email for a reply <small>optional</small>"
-      : "Email for possible private follow-up <small>optional</small>";
-    elements.privacyNote.innerHTML = contact
-      ? "<strong>Private message:</strong> it is sent to the author and is not posted publicly. Do not include sensitive information."
-      : "<strong>Public post:</strong> do not include personal or sensitive information. Optional email is private, is not posted to GitHub, and is used only for follow-up about this submission.";
+    elements.emailLabel.textContent = contact
+      ? "Email for a reply (optional)"
+      : "Email for possible private follow-up (optional)";
+    elements.privacyNote.textContent = contact
+      ? "Private message: it is sent to the author and is not posted publicly. Do not include sensitive information."
+      : "Public post: do not include personal or sensitive information. Optional email is private, is not posted to GitHub, and is used only for follow-up about this submission.";
     setEmailFields();
     setSubmitting(false);
   }
@@ -216,7 +216,12 @@
     script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
     script.async = true;
     script.defer = true;
-    script.onload = () => { intake.turnstileWidgetId = window.turnstile.render(elements.turnstile, { sitekey: siteKey }); };
+    script.onload = () => {
+      intake.turnstileWidgetId = window.turnstile.render(elements.turnstile, {
+        sitekey: siteKey,
+        action: "arrp_public_intake",
+      });
+    };
     script.onerror = () => { elements.status.textContent = "The verification check could not load. Please refresh and try again."; };
     document.head.append(script);
   }

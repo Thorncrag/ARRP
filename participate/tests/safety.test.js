@@ -36,6 +36,16 @@ test("public privacy screen blocks credentials and identifiers", () => {
   assert.deepEqual(result.findings, ["government_identifier", "credential"]);
 });
 
+test("public privacy screen includes all submitted page context", () => {
+  const result = screenPublicSubmission({
+    title: "Ordinary public input",
+    body: "The issue should be reviewed.",
+    context: { pageTitle: "synthetic@example.invalid" },
+  });
+  assert.equal(result.allowed, false);
+  assert.deepEqual(result.findings, ["email_address"]);
+});
+
 test("private contact allows an email but blocks financial or credential material", () => {
   assert.equal(screenPrivateContact({ title: "Reply", body: "Reach me at reader@example.org." }).allowed, true);
   assert.equal(screenPrivateContact({ title: "Private material", body: "Use 4111 1111 1111 1111." }).allowed, false);

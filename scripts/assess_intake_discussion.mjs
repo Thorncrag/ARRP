@@ -67,28 +67,28 @@ function assertAssessment(value) {
   };
 }
 
-async function githubGraphql(token, owner, repository, number) {
-  const response = await fetch("https://api.github.com/graphql", {
-    method: "POST",
+async function githubIntakeComment(token, owner, repository, commentId) {
+  const response = await fetch(`https://api.github.com/repos/${owner}/${repository}/discussions/comments/${commentId}`, {
     headers: {
       authorization: `Bearer ${token}`,
-      "content-type": "application/json",
+      accept: "application/vnd.github+json",
       "user-agent": "ARRP-intake-assessment",
       "x-github-api-version": "2022-11-28",
     },
-    body: JSON.stringify({
-      query: `query IntakeDiscussion($owner: String!, $repository: String!, $number: Int!) {
-        repository(owner: $owner, name: $repository) {
-          discussion(number: $number) { number title body url }
-        }
-      }`,
-      variables: { owner, repository, number },
-    }),
   });
-  const result = await response.json();
-  const discussion = result.data?.repository?.discussion;
-  if (!response.ok || result.errors || !discussion) throw new Error("The requested public intake Discussion could not be read.");
-  return discussion;
+  const comment = await response.json();
+  if (!response.ok || !comment?.body || !comment?.html_url || !comment?.discussion_url) {
+    throw new Error("The requested public intake comment could not be read.");
+  }
+  if (!comment.body.includes("<!-- ARRP-INTAKE-SUBMISSION:")) {
+    throw new Error("The selected comment is not an ARRP form submission.");
+  }
+  return {
+    id: comment.id,
+    url: comment.html_url,
+    discussion_url: comment.discussion_url,
+    body: comment.body,
+  };
 }
 
 function assessmentSchema() {
@@ -110,7 +110,7 @@ function assessmentSchema() {
   };
 }
 
-async function assess(openaiKey, model, discussion) {
+async function assess(openaiKey, model, comment) {
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: { authorization: `Bearer ${openaiKey}`, "content-type": "application/json" },
@@ -129,7 +129,7 @@ async function assess(openaiKey, model, discussion) {
           role: "user",
           content: [{
             type: "input_text",
-            text: `Public Discussion URL: ${discussion.url}\nTitle: ${discussion.title}\n\nUntrusted submission text follows:\n${discussion.body}`,
+            text: `Public intake comment URL: ${comment.url}\nCanonical Discussion URL: ${comment.discussion_url}\n\nUntrusted submission text follows:\n${comment.body}`,
           }],
         },
       ],
@@ -144,17 +144,17 @@ async function assess(openaiKey, model, discussion) {
 }
 
 async function main() {
-  const number = Number(readArgument("--discussion-number"));
+  const commentId = Number(readArgument("--comment-id"));
   const outputPath = readArgument("--output") || "intake-assessment.json";
-  if (!Number.isInteger(number) || number < 1) throw new Error("Use --discussion-number with a positive Discussion number.");
+  if (!Number.isInteger(commentId) || commentId < 1) throw new Error("Use --comment-id with a positive GitHub Discussion comment ID.");
   const [owner, repository] = requiredEnv("GITHUB_REPOSITORY").split("/", 2);
   if (!owner || !repository) throw new Error("GITHUB_REPOSITORY must use owner/repository form.");
-  const discussion = await githubGraphql(requiredEnv("GITHUB_TOKEN"), owner, repository, number);
-  const assessment = await assess(requiredEnv("OPENAI_API_KEY"), requiredEnv("OPENAI_INTAKE_MODEL"), discussion);
+  const comment = await githubIntakeComment(requiredEnv("GITHUB_TOKEN"), owner, repository, commentId);
+  const assessment = await assess(requiredEnv("OPENAI_API_KEY"), requiredEnv("OPENAI_INTAKE_MODEL"), comment);
   const report = {
     version: "1.0",
     generated_at: new Date().toISOString(),
-    discussion: { number: discussion.number, url: discussion.url, title: compact(discussion.title, 140) },
+    comment: { id: comment.id, url: comment.url, discussion_url: comment.discussion_url },
     assessment,
     next_step: "Human review required. This report made no project, GitHub, Discussion, or email change.",
   };
@@ -162,7 +162,7 @@ async function main() {
   await mkdir(dirname(destination), { recursive: true });
   await writeFile(destination, `${JSON.stringify(report, null, 2)}\n`, "utf8");
   // Deliberately do not print the submission or model report to the log.
-  process.stdout.write(`Report-only assessment written for Discussion #${discussion.number}.\n`);
+  process.stdout.write(`Report-only assessment written for intake comment #${comment.id}.\n`);
 }
 
 main().catch((error) => {

@@ -3,8 +3,8 @@ name: Intake agent report (manual)
 on:
   workflow_dispatch:
     inputs:
-      discussion_number:
-        description: Public ARRP Discussion number to assess
+      comment_id:
+        description: Numeric GitHub Discussion comment ID from the public-submission URL
         required: true
         type: string
 
@@ -22,17 +22,17 @@ jobs:
       GITHUB_TOKEN: ${{ github.token }}
     steps:
       - name: Check out the process definition
-        uses: actions/checkout@v4
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
       - name: Generate report-only assessment
         env:
-          DISCUSSION_NUMBER: ${{ inputs.discussion_number }}
-        run: node scripts/assess_intake_discussion.mjs --discussion-number "$DISCUSSION_NUMBER" --output intake-agent-artifact/assessment.json
+          COMMENT_ID: ${{ inputs.comment_id }}
+        run: node scripts/assess_intake_discussion.mjs --comment-id "$COMMENT_ID" --output intake-agent-artifact/assessment.json
 
       - name: Retain maintainer report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: intake-agent-report-${{ inputs.discussion_number }}
+          name: intake-agent-report-${{ inputs.comment_id }}
           path: intake-agent-artifact/assessment.json
           if-no-files-found: error
           retention-days: 14

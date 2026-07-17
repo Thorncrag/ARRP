@@ -11,10 +11,18 @@ const {
 } = require("./_shared");
 const { resolveRoute } = require("./route-index");
 const { screenPublicSubmission } = require("./safety");
+const {
+  allowLocalBurst,
+  clientIp,
+  requestExceedsLimit,
+  setNoStore,
+  verifyTurnstile,
+} = require("./security");
 
 const GITHUB_API = "https://api.github.com";
 
 function send(res, status, body) {
+  setNoStore(res);
   res.status(status).json(body);
 }
 
@@ -45,21 +53,6 @@ function requiredConfiguration() {
     "GITHUB_DISCUSSION_CATEGORY_ID",
   ];
   return required.filter((key) => !process.env[key]);
-}
-
-async function verifyTurnstile(token, remoteIp) {
-  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    headers: { "content-type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      secret: process.env.TURNSTILE_SECRET_KEY,
-      response: token,
-      ...(remoteIp ? { remoteip: remoteIp } : {}),
-    }),
-  });
-  if (!response.ok) return false;
-  const result = await response.json();
-  return result.success === true;
 }
 
 async function githubInstallationToken() {
@@ -116,11 +109,11 @@ async function findCanonicalDiscussion(token, route) {
     query: `repo:Thorncrag/ARRP "${marker}"`,
   });
   const expectedTitle = canonicalDiscussionTitle(route);
-  return data.search?.nodes?.find((discussion) => (
+  return data.search?.nodes?.filter((discussion) => (
     discussion?.title === expectedTitle
     && discussion?.body?.includes(marker)
     && discussion?.author?.login === data.viewer?.login
-  )) || null;
+  )).sort((left, right) => left.number - right.number)[0] || null;
 }
 
 async function createCanonicalDiscussion(token, route) {
@@ -137,6 +130,12 @@ async function createCanonicalDiscussion(token, route) {
   const discussion = data.createDiscussion?.discussion;
   if (!discussion?.id || !discussion?.url) throw new Error("GitHub Discussion creation failed.");
   return discussion;
+}
+
+async function deleteDiscussion(token, discussion) {
+  await githubGraphql(token, `mutation DeleteCanonicalDiscussion($input: DeleteDiscussionInput!) {
+    deleteDiscussion(input: $input) { clientMutationId }
+  }`, { input: { id: discussion.id } });
 }
 
 async function addSubmissionComment(token, discussion, submission, submissionId, route) {
@@ -157,7 +156,15 @@ async function routeSubmission(submission, submissionId) {
   const route = resolveRoute(submission);
   const token = await githubInstallationToken();
   let discussion = await findCanonicalDiscussion(token, route);
-  if (!discussion) discussion = await createCanonicalDiscussion(token, route);
+  if (!discussion) {
+    const created = await createCanonicalDiscussion(token, route);
+    // Concurrent first submissions can both create a Discussion. Re-read and
+    // consistently choose the oldest matching intake thread; remove the empty
+    // extra thread before a comment can be attached to it.
+    discussion = await findCanonicalDiscussion(token, route);
+    if (!discussion) throw new Error("Canonical Discussion lookup failed.");
+    if (discussion.id !== created.id) await deleteDiscussion(token, created);
+  }
   const comment = await addSubmissionComment(token, discussion, submission, submissionId, route);
   return { discussion, comment, route };
 }
@@ -186,6 +193,7 @@ function submissionIdPlaceholder(discussion) {
 }
 
 module.exports = async function submit(req, res) {
+  setNoStore(res);
   const acceptedOrigin = applyCors(req, res);
   if (req.method === "OPTIONS") {
     if (!acceptedOrigin) {
@@ -217,7 +225,7 @@ module.exports = async function submit(req, res) {
     send(res, 415, { error: "Use the ARRP submission form to send this request." });
     return;
   }
-  if (Number(req.headers["content-length"] || 0) > 20000) {
+  if (requestExceedsLimit(req, 20000)) {
     send(res, 413, { error: "The submission is too large." });
     return;
   }
@@ -237,7 +245,11 @@ module.exports = async function submit(req, res) {
     send(res, 400, { error: "Remove personal, financial, or credential information from the public fields before submitting." });
     return;
   }
-  const remoteIp = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  if (!allowLocalBurst(req, "public")) {
+    send(res, 429, { error: "Too many requests. Please wait and try again later." });
+    return;
+  }
+  const remoteIp = clientIp(req);
   try {
     if (!await verifyTurnstile(submission.turnstileToken, remoteIp)) {
       send(res, 400, { error: "Please complete the verification check and try again." });
@@ -269,5 +281,6 @@ module.exports._test = {
   canonicalDiscussionTitle,
   requiredConfiguration,
   resolveRoute,
+  routeSubmission,
   verifyTurnstile,
 };

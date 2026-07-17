@@ -32,6 +32,19 @@ test("submission validation retains public content and removes excess whitespace
   assert.match(canonicalDiscussionBody(route), /ARRP-INTAKE-ROUTE:PROPOSAL:DOJ-007/);
 });
 
+test("public comment rendering does not publish raw context or executable Markdown", () => {
+  const { submission } = validateSubmission({
+    title: "[Misleading](https://example.invalid)",
+    body: "![external image](https://example.invalid/pixel.png)",
+    sources: "https://example.invalid/source",
+    context: { pageTitle: "synthetic@example.invalid" },
+  });
+  const rendered = discussionCommentBody(submission, "record-1", { label: "General input" });
+  assert.doesNotMatch(rendered, /synthetic@example\.invalid/);
+  assert.match(rendered, /^    !\[external image\]/m);
+  assert.match(rendered, /Automatic ARRP route/);
+});
+
 test("route resolution uses the entered related page before the page where the form opened", () => {
   const route = resolveRoute({
     related: "https://thorncrag.github.io/ARRP/areas/REG/issues/REG-001/",
@@ -70,6 +83,32 @@ test("canonical Discussion lookup accepts only the intake app's marked thread", 
   try {
     const found = await submitEndpoint._test.findCanonicalDiscussion("test-token", route);
     assert.equal(found.id, "good");
+  } finally {
+    global.fetch = originalFetch;
+  }
+});
+
+test("canonical Discussion lookup chooses the oldest matching intake thread", async () => {
+  const originalFetch = global.fetch;
+  const route = resolveRoute({ context: { proposal: "DOJ-007" } });
+  const title = submitEndpoint._test.canonicalDiscussionTitle(route);
+  global.fetch = async () => ({
+    ok: true,
+    json: async () => ({
+      data: {
+        viewer: { login: "arrp-public-intake[bot]" },
+        search: {
+          nodes: [
+            { id: "later", number: 9, title, body: "<!-- ARRP-INTAKE-ROUTE:PROPOSAL:DOJ-007 -->", author: { login: "arrp-public-intake[bot]" }, url: "https://github.com/Thorncrag/ARRP/discussions/9" },
+            { id: "first", number: 4, title, body: "<!-- ARRP-INTAKE-ROUTE:PROPOSAL:DOJ-007 -->", author: { login: "arrp-public-intake[bot]" }, url: "https://github.com/Thorncrag/ARRP/discussions/4" },
+          ],
+        },
+      },
+    }),
+  });
+  try {
+    const found = await submitEndpoint._test.findCanonicalDiscussion("test-token", route);
+    assert.equal(found.id, "first");
   } finally {
     global.fetch = originalFetch;
   }

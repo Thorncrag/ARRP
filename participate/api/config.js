@@ -1,8 +1,10 @@
 "use strict";
 
 const { allowedOrigins, isAllowedOrigin } = require("./_shared");
+const { setNoStore } = require("./security");
 
 module.exports = function config(req, res) {
+  setNoStore(res);
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
     res.status(405).json({ error: "Method not allowed." });
@@ -16,7 +18,6 @@ module.exports = function config(req, res) {
   const live = process.env.ARRP_INTAKE_MODE === "live";
   const reviewEmail = String(process.env.ARRP_INTAKE_REVIEW_EMAIL || "").trim();
   const contactEmail = String(process.env.ARRP_CONTACT_EMAIL || reviewEmail).trim();
-  res.setHeader("Cache-Control", "no-store");
   res.status(200).json({
     mode: live ? "live" : "preview",
     turnstileSiteKey: live ? (process.env.TURNSTILE_SITE_KEY || "") : "",
