@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Share Input with ARRP</title>
+    <meta
+      name="description"
+      content="Prototype public input page for suggesting an issue, submitting feedback or sources, asking a question, or offering review to ARRP."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#submission-form">Skip to input form</a>
+
+    <header class="site-header">
+      <div class="brand-mark" aria-hidden="true">ARRP</div>
+      <div>
+        <p>American Restoration and Resilience Project</p>
+        <strong>Share input</strong>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-intro" aria-labelledby="page-title">
+        <div>
+          <span class="eyebrow">Public interaction prototype</span>
+          <h1 id="page-title">What should ARRP consider?</h1>
+          <p>Suggest an issue, identify a correction, share a source, ask a question, or offer to review. Ordinary language is fine—the screening process should do the classification.</p>
+        </div>
+        <span class="prototype-label">Local prototype</span>
+      </section>
+
+      <div class="prototype-boundary" role="note">
+        <b>This preview does not send anything.</b> The deployed version would preserve the submission in one public GitHub discussion and ask an agent to screen and route it before any project decision. A contributor may optionally request that single discussion link by email.
+      </div>
+
+      <section
+        class="submission-receipt"
+        id="submission-receipt"
+        aria-labelledby="submission-receipt-heading"
+        aria-live="polite"
+        tabindex="-1"
+        hidden
+      >
+        <span class="receipt-mark" aria-hidden="true">✓</span>
+        <div>
+          <span class="eyebrow" id="submission-receipt-label">Post-submission response</span>
+          <h2 id="submission-receipt-heading">Your public discussion link will appear here</h2>
+          <p id="submission-receipt-summary">A live submission would create one public GitHub discussion and place its direct link in this response.</p>
+          <p class="discussion-link-row">
+            <span>Your submission</span>
+            <a id="submission-discussion-link" href="https://github.com/Thorncrag/ARRP/discussions" target="_blank" rel="noopener noreferrer">Open ARRP Discussions (prototype destination)</a>
+          </p>
+          <p class="follow-up-note"><b>Keep this link and watch the post for responses.</b> If you have a GitHub account, sign in and use the discussion's <b>Subscribe</b> control to receive GitHub notifications more closely. Without an account, bookmark the direct link and return to it for updates.</p>
+        </div>
+      </section>
+
+      <div class="submission-workspace">
+        <form class="submission-form" id="submission-form">
+          <div class="submission-context" id="submission-context" hidden>
+            <span>Regarding this page</span>
+            <strong id="submission-context-title"></strong>
+            <a id="submission-context-link" target="_blank" rel="noopener noreferrer">Open referenced page</a>
+          </div>
+
+          <label for="submission-title">
+            <span>Short title</span>
+            <input id="submission-title" name="title" type="text" maxlength="140" required placeholder="What should ARRP look at?">
+          </label>
+
+          <label for="submission-body">
+            <span>What should ARRP consider?</span>
+            <textarea id="submission-body" name="body" rows="9" required placeholder="Explain the event, concern, possible defect, correction, question, or offer to help. Ordinary language is fine."></textarea>
+          </label>
+
+          <label for="submission-sources">
+            <span>Sources or links <small>optional</small></span>
+            <textarea id="submission-sources" name="sources" rows="3" placeholder="Paste any supporting links, one per line."></textarea>
+          </label>
+
+          <label for="submission-related">
+            <span>Related ARRP page <small>optional</small></span>
+            <input id="submission-related" name="related" type="text" placeholder="A proposal ID or page URL, if known">
+          </label>
+
+          <label for="submission-email">
+            <span>Email me the public discussion link <small>optional</small></span>
+            <input id="submission-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@example.org">
+          </label>
+
+          <label class="checkbox-label" for="submission-email-consent">
+            <input id="submission-email-consent" name="email-consent" type="checkbox">
+            <span>I authorize ARRP to use this address only to send the public discussion link.</span>
+          </label>
+
+          <label class="honeypot" aria-hidden="true" for="submission-website">
+            Website
+            <input id="submission-website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </label>
+
+          <div id="turnstile-container" class="turnstile-container" aria-live="polite"></div>
+          <p id="submission-status" class="submission-status" role="status" aria-live="polite"></p>
+          <button id="submission-button" type="submit">Preview response and screening</button>
+          <p class="privacy-note">Submissions are public. Email is optional and is not posted to GitHub. Do not include confidential information or personal contact details.</p>
+        </form>
+
+        <aside class="screening-preview" aria-labelledby="screening-heading" aria-live="polite">
+          <div id="screening-empty">
+            <span class="eyebrow">What the agent would do</span>
+            <h2 id="screening-heading">Screen, compare, and route</h2>
+            <ol>
+              <li>Classify the input without requiring ARRP terminology.</li>
+              <li>Compare it with active proposals, proposed candidates, and likely duplicates.</li>
+              <li>Assign a provisional area and recommend the next project action.</li>
+            </ol>
+          </div>
+
+          <div id="screening-result" hidden>
+            <div class="screening-badges" id="screening-badges"></div>
+            <h2>Prototype screening result</h2>
+            <dl class="screening-details">
+              <div><dt>Input type</dt><dd id="screening-type"></dd></div>
+              <div><dt>Provisional area</dt><dd id="screening-area"></dd></div>
+              <div><dt>Likely related record</dt><dd id="screening-related"></dd></div>
+              <div><dt>Duplicate check</dt><dd id="screening-duplicate"></dd></div>
+              <div><dt>Recommended route</dt><dd id="screening-route"></dd></div>
+              <div><dt>Your attention</dt><dd id="screening-attention"></dd></div>
+            </dl>
+            <p class="prototype-disclaimer">This preview uses a simple matching routine. A live agent would verify sources, project scope, duplication, legal posture, and the full admission test before recommending formal action.</p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script src="intake-data.js"></script>
+    <script src="intake-runtime.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
