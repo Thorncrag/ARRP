@@ -241,6 +241,26 @@ h1 {
   font-weight: 700;
 }
 
+.public-submission-notice {
+  padding: 0.9rem 0.95rem;
+  border: 1px solid #d3a150;
+  border-left: 4px solid #9b691d;
+  border-radius: 0.45rem;
+  background: #fff7e9;
+  color: #4d3817;
+}
+
+.public-submission-notice strong {
+  display: block;
+  color: #714b12;
+  font-size: 0.95rem;
+}
+
+.public-submission-notice p {
+  margin: 0.35rem 0 0;
+  font-size: 0.78rem;
+}
+
 .checkbox-label {
   grid-template-columns: auto minmax(0, 1fr);
   align-items: start;

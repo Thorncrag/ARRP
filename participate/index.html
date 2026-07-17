@@ -59,6 +59,12 @@
 
       <div class="submission-workspace">
         <form class="submission-form" id="submission-form">
+          <aside class="public-submission-notice" role="note" aria-label="Public-submission notice">
+            <strong>Your submission will be public.</strong>
+            <p>ARRP will post it in a public GitHub Discussion. Do not include private, sensitive, or identifying information—such as an address, phone number, government identifier, medical or financial information, or anyone else's personal details.</p>
+            <p>The optional email field is used only for private ARRP follow-up and is not included in the public post.</p>
+          </aside>
+
           <div class="submission-context" id="submission-context" hidden>
             <span>Regarding this page</span>
             <strong id="submission-context-title"></strong>
@@ -105,7 +111,7 @@
           <div id="turnstile-container" class="turnstile-container" aria-live="polite"></div>
           <p id="submission-status" class="submission-status" role="status" aria-live="polite"></p>
           <button id="submission-button" type="submit">Preview submission response</button>
-          <p class="privacy-note">Submissions are public. If available, email follow-up is optional, is not posted to GitHub, and is used only for private contact about this submission. Do not include confidential information or personal contact details.</p>
+          <p class="privacy-note"><strong>Public post:</strong> do not include personal or sensitive information. Optional email is private, is not posted to GitHub, and is used only for follow-up about this submission.</p>
         </form>
       </div>
     </main>
