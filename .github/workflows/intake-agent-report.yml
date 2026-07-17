@@ -7,6 +7,10 @@ on:
         description: Numeric GitHub Discussion comment ID from the public-submission URL
         required: true
         type: string
+      discussion_number:
+        description: GitHub Discussion number from the public-submission URL
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -27,7 +31,8 @@ jobs:
       - name: Generate report-only assessment
         env:
           COMMENT_ID: ${{ inputs.comment_id }}
-        run: node scripts/assess_intake_discussion.mjs --comment-id "$COMMENT_ID" --output intake-agent-artifact/assessment.json
+          DISCUSSION_NUMBER: ${{ inputs.discussion_number }}
+        run: node scripts/assess_intake_discussion.mjs --comment-id "$COMMENT_ID" --discussion-number "$DISCUSSION_NUMBER" --output intake-agent-artifact/assessment.json
 
       - name: Retain maintainer report
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

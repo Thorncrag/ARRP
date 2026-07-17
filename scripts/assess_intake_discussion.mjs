@@ -67,28 +67,32 @@ function assertAssessment(value) {
   };
 }
 
-async function githubIntakeComment(token, owner, repository, commentId) {
-  const response = await fetch(`https://api.github.com/repos/${owner}/${repository}/discussions/comments/${commentId}`, {
-    headers: {
-      authorization: `Bearer ${token}`,
-      accept: "application/vnd.github+json",
-      "user-agent": "ARRP-intake-assessment",
-      "x-github-api-version": "2022-11-28",
-    },
-  });
-  const comment = await response.json();
-  if (!response.ok || !comment?.body || !comment?.html_url || !comment?.discussion_url) {
-    throw new Error("The requested public intake comment could not be read.");
-  }
-  if (!comment.body.includes("<!-- ARRP-INTAKE-SUBMISSION:")) {
-    throw new Error("The selected comment is not an ARRP form submission.");
-  }
-  return {
-    id: comment.id,
-    url: comment.html_url,
-    discussion_url: comment.discussion_url,
-    body: comment.body,
+async function githubIntakeComment(token, owner, repository, discussionNumber, commentId) {
+  const headers = {
+    authorization: `Bearer ${token}`,
+    accept: "application/vnd.github+json",
+    "user-agent": "ARRP-intake-assessment",
+    "x-github-api-version": "2022-11-28",
   };
+  for (let page = 1; page <= 100; page += 1) {
+    const response = await fetch(`https://api.github.com/repos/${owner}/${repository}/discussions/${discussionNumber}/comments?per_page=100&page=${page}`, { headers });
+    const comments = await response.json();
+    if (!response.ok || !Array.isArray(comments)) break;
+    const comment = comments.find((item) => Number(item?.id) === commentId);
+    if (comment?.body && comment?.html_url) {
+      if (!comment.body.includes("<!-- ARRP-INTAKE-SUBMISSION:")) {
+        throw new Error("The selected comment is not an ARRP form submission.");
+      }
+      return {
+        id: comment.id,
+        url: comment.html_url,
+        discussion_url: `https://github.com/${owner}/${repository}/discussions/${discussionNumber}`,
+        body: comment.body,
+      };
+    }
+    if (comments.length < 100) break;
+  }
+  throw new Error("The requested public intake comment could not be read.");
 }
 
 function assessmentSchema() {
@@ -145,11 +149,13 @@ async function assess(openaiKey, model, comment) {
 
 async function main() {
   const commentId = Number(readArgument("--comment-id"));
+  const discussionNumber = Number(readArgument("--discussion-number"));
   const outputPath = readArgument("--output") || "intake-assessment.json";
   if (!Number.isInteger(commentId) || commentId < 1) throw new Error("Use --comment-id with a positive GitHub Discussion comment ID.");
+  if (!Number.isInteger(discussionNumber) || discussionNumber < 1) throw new Error("Use --discussion-number with a positive GitHub Discussion number.");
   const [owner, repository] = requiredEnv("GITHUB_REPOSITORY").split("/", 2);
   if (!owner || !repository) throw new Error("GITHUB_REPOSITORY must use owner/repository form.");
-  const comment = await githubIntakeComment(requiredEnv("GITHUB_TOKEN"), owner, repository, commentId);
+  const comment = await githubIntakeComment(requiredEnv("GITHUB_TOKEN"), owner, repository, discussionNumber, commentId);
   const assessment = await assess(requiredEnv("OPENAI_API_KEY"), requiredEnv("OPENAI_INTAKE_MODEL"), comment);
   const report = {
     version: "1.0",
