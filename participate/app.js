@@ -90,6 +90,7 @@
 
   function renderReceipt(result) {
     const discussionUrl = typeof result?.discussion_url === "string" ? result.discussion_url.trim() : "";
+    const submissionUrl = typeof result?.submission_url === "string" ? result.submission_url.trim() : discussionUrl;
     const isLiveDiscussion = /^https:\/\/github\.com\/Thorncrag\/ARRP\/discussions\/\d+(?:[/?#]|$)/i.test(discussionUrl);
     const privateContact = result?.contacted === true;
 
@@ -105,11 +106,13 @@
     } else if (isLiveDiscussion) {
       elements.receiptLabel.textContent = "Submission received";
       elements.receiptHeading.textContent = "Your submission is available in a public discussion";
-      elements.receiptSummary.textContent = "Use the direct link below to follow responses and continue the conversation.";
+      elements.receiptSummary.textContent = result.route_label
+        ? `It was added to the discussion for ${result.route_label}. Use the direct link below to follow responses.`
+        : "Use the direct link below to follow responses and continue the conversation.";
       elements.discussionRow.hidden = false;
       elements.followUpNote.hidden = false;
-      elements.discussionLink.href = discussionUrl;
-      elements.discussionLink.textContent = result.discussion_title || "Open your submission";
+      elements.discussionLink.href = submissionUrl;
+      elements.discussionLink.textContent = "Open your submission";
       elements.status.textContent = result.follow_up_requested
         ? "Your email was provided for private ARRP follow-up and was not posted publicly. Keep this public link to follow responses."
         : "Keep this public link to follow responses.";
@@ -120,7 +123,7 @@
     } else {
       elements.receiptLabel.textContent = "Prototype response";
       elements.receiptHeading.textContent = "Your public discussion link will appear here";
-      elements.receiptSummary.textContent = "This local preview did not send anything. A live submission would create one public GitHub Discussion and place its direct link here.";
+      elements.receiptSummary.textContent = "This local preview did not send anything. A live submission would appear in the matching public ARRP discussion and place its direct link here.";
       elements.discussionRow.hidden = false;
       elements.followUpNote.hidden = false;
       elements.discussionLink.href = "https://github.com/Thorncrag/ARRP/discussions";

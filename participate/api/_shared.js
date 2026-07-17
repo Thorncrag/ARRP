@@ -80,7 +80,19 @@ function markdownSection(title, content) {
   return content ? `\n## ${title}\n${content}\n` : "";
 }
 
-function discussionBody(submission, submissionId) {
+function canonicalDiscussionBody(route) {
+  return [
+    "# ARRP public input",
+    "",
+    `This Discussion collects public input related to **${route.label}**. Each submission appears as a separate comment below.`,
+    "",
+    "Public input is not itself a project decision, source admission, preliminary candidate, or proposed candidate.",
+    "",
+    `<!-- ARRP-INTAKE-ROUTE:${route.key} -->`,
+  ].join("\n");
+}
+
+function discussionCommentBody(submission, submissionId, route) {
   const related = [
     submission.related,
     submission.context.proposal,
@@ -88,12 +100,14 @@ function discussionBody(submission, submissionId) {
     submission.context.pageUrl,
   ].filter(Boolean).join("\n");
   return [
-    "## Public submission",
+    `<!-- ARRP-INTAKE-SUBMISSION:${submissionId} -->`,
+    `## ${submission.title}`,
     submission.body,
     markdownSection("Sources or links", submission.sources),
     markdownSection("Related ARRP page", related),
     "## Intake record",
     `- Submission reference: \`${submissionId}\``,
+    `- Automatic route: ${route.label}`,
     "- Status: Received for ARRP review",
     "- Note: A public submission is not itself a project decision, preliminary candidate, or proposed candidate.",
   ].filter(Boolean).join("\n");
@@ -114,8 +128,9 @@ function createAppJwt(appId, privateKey, now = Math.floor(Date.now() / 1000)) {
 
 module.exports = {
   allowedOrigins,
+  canonicalDiscussionBody,
   createAppJwt,
-  discussionBody,
+  discussionCommentBody,
   isAllowedOrigin,
   validateContact,
   validateSubmission,

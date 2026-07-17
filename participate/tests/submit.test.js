@@ -3,7 +3,15 @@
 const crypto = require("node:crypto");
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { createAppJwt, discussionBody, validateContact, validateSubmission } = require("../api/_shared");
+const {
+  canonicalDiscussionBody,
+  createAppJwt,
+  discussionCommentBody,
+  validateContact,
+  validateSubmission,
+} = require("../api/_shared");
+const { resolveRoute } = require("../api/route-index");
+const submitEndpoint = require("../api/submit");
 
 test("submission validation retains public content and removes excess whitespace", () => {
   const { submission, errors } = validateSubmission({
@@ -17,8 +25,54 @@ test("submission validation retains public content and removes excess whitespace
   assert.deepEqual(errors, []);
   assert.equal(submission.title, "A source to consider");
   assert.equal(submission.email, "reader@example.org");
-  assert.match(discussionBody(submission, "record-1"), /DOJ-007/);
-  assert.doesNotMatch(discussionBody(submission, "record-1"), /reader@example\.org/);
+  const route = resolveRoute(submission);
+  assert.equal(route.key, "PROPOSAL:DOJ-007");
+  assert.match(discussionCommentBody(submission, "record-1", route), /DOJ-007/);
+  assert.doesNotMatch(discussionCommentBody(submission, "record-1", route), /reader@example\.org/);
+  assert.match(canonicalDiscussionBody(route), /ARRP-INTAKE-ROUTE:PROPOSAL:DOJ-007/);
+});
+
+test("route resolution uses the entered related page before the page where the form opened", () => {
+  const route = resolveRoute({
+    related: "https://thorncrag.github.io/ARRP/areas/REG/issues/REG-001/",
+    context: {
+      proposal: "DOJ-007",
+      pageTitle: "DOJ-007 — Independent Investigation of Presidential and Senior Executive Misconduct",
+      pageUrl: "https://thorncrag.github.io/ARRP/areas/DOJ/issues/DOJ-007/",
+    },
+  });
+  assert.equal(route.key, "PROPOSAL:REG-001");
+});
+
+test("route resolution uses page context and sends unrecognized input to general intake", () => {
+  assert.equal(resolveRoute({ context: { pageUrl: "https://thorncrag.github.io/ARRP/areas/DOM/issues/DOM-005/" } }).key, "PROPOSAL:DOM-005");
+  assert.equal(resolveRoute({ related: "not an ARRP page", context: {} }).key, "GENERAL");
+});
+
+test("canonical Discussion lookup accepts only the intake app's marked thread", async () => {
+  const originalFetch = global.fetch;
+  const route = resolveRoute({ context: { proposal: "DOJ-007" } });
+  const title = submitEndpoint._test.canonicalDiscussionTitle(route);
+  global.fetch = async () => ({
+    ok: true,
+    json: async () => ({
+      data: {
+        viewer: { login: "arrp-public-intake[bot]" },
+        search: {
+          nodes: [
+            { id: "bad", title, body: "<!-- ARRP-INTAKE-ROUTE:PROPOSAL:DOJ-007 -->", author: { login: "someone-else" } },
+            { id: "good", title, body: "<!-- ARRP-INTAKE-ROUTE:PROPOSAL:DOJ-007 -->", author: { login: "arrp-public-intake[bot]" }, url: "https://github.com/Thorncrag/ARRP/discussions/1" },
+          ],
+        },
+      },
+    }),
+  });
+  try {
+    const found = await submitEndpoint._test.findCanonicalDiscussion("test-token", route);
+    assert.equal(found.id, "good");
+  } finally {
+    global.fetch = originalFetch;
+  }
 });
 
 test("submission validation requires explicit permission before email delivery", () => {

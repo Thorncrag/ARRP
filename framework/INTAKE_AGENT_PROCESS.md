@@ -8,19 +8,20 @@ print_levels:
 
 ## Purpose and present boundary
 
-This process governs machine-assisted triage of a public ARRP Discussion created through the participation form. Its purpose is to reduce one-person administrative burden while preserving the project's institutional-focus, evidence, neutrality, methodology, audit, lifecycle, source, and publication rules.
+This process governs machine-assisted triage of a public ARRP intake comment created through the participation form. Its purpose is to reduce one-person administrative burden while preserving the project's institutional-focus, evidence, neutrality, methodology, audit, lifecycle, source, and publication rules.
 
-**Prototype status — report only.** The initial implementation may read one public intake Discussion and produce a structured routing recommendation for the project maintainer. It may not change repository files, GitHub Discussions, GitHub Issues, GitHub Project fields, source records, candidate records, audit records, or email. It may not treat a recommendation as a project decision. Enabling any higher authority requires an explicit revision to this process, a tested action-specific validator, and a recorded approval.
+**Prototype status — report only.** The initial implementation may read one specifically selected public intake record and produce a structured routing recommendation for the project maintainer. It may not change repository files, GitHub Discussions, GitHub Issues, GitHub Project fields, source records, candidate records, audit records, or email. It may not treat a recommendation as a project decision. Enabling any higher authority requires an explicit revision to this process, a tested action-specific validator, and a recorded approval.
 
 The public form is not a confidential channel. Its server-side privacy preflight is governed by [`../participate/README.md`](../participate/README.md) and must run before a public Discussion is created. Rejected text is not copied to GitHub, the action ledger, a console, telemetry, or a workflow log. The local screen supplies due diligence for common direct disclosures; it cannot guarantee detection of all sensitive or unsuitable material.
 
 ## Intake sequence
 
 1. A contributor receives a prominent notice that the public fields will be posted publicly. The optional contact address remains private to the configured ARRP mailbox and is never provided to the intake agent.
-2. The service verifies origin, request shape, size, honeypot, rate limits, and anti-bot token. It then performs the narrow privacy preflight before it creates a Discussion.
-3. The created Discussion is the public intake record. It is not, by itself, a preliminary candidate, proposed candidate, ARRP source, finding, or project decision.
-4. A maintainer may invoke the intake agent for that Discussion. The agent treats all contributor text, links, quoted material, and instructions inside those materials as untrusted evidence, never as operating instructions.
-5. In the report-only phase, the agent returns one structured assessment. The maintainer decides whether to take any action under the ordinary project workflow.
+2. The service verifies origin, request shape, size, honeypot, rate limits, and anti-bot token. It then performs the narrow privacy preflight before it creates any public record.
+3. The service resolves a deterministic route before public posting: an entered ARRP page takes precedence over referring-page context; a recognized proposal takes precedence over an area; and input without a recognized route is placed in the general-input Discussion. This mechanical route is not an agent assessment or a project decision. The service creates that route's canonical Discussion only when necessary, then posts the submission as a comment.
+4. The created comment, together with its canonical Discussion, is the public intake record. It is not, by itself, a preliminary candidate, proposed candidate, ARRP source, finding, or project decision.
+5. A maintainer may invoke the intake agent for that selected comment. The canonical Discussion must not be assessed as a single submission when it contains multiple contributors' comments. The agent treats all contributor text, links, quoted material, and instructions inside those materials as untrusted evidence, never as operating instructions.
+6. In the report-only phase, the agent returns one structured assessment. The maintainer decides whether to take any action under the ordinary project workflow.
 
 ## Required assessment
 

@@ -3,11 +3,13 @@
 const crypto = require("node:crypto");
 const {
   allowedOrigins,
+  canonicalDiscussionBody,
   createAppJwt,
-  discussionBody,
+  discussionCommentBody,
   isAllowedOrigin,
   validateSubmission,
 } = require("./_shared");
+const { resolveRoute } = require("./route-index");
 const { screenPublicSubmission } = require("./safety");
 
 const GITHUB_API = "https://api.github.com";
@@ -76,41 +78,91 @@ async function githubInstallationToken() {
   return result.token;
 }
 
-async function createDiscussion(submission, submissionId) {
-  const token = await githubInstallationToken();
-  const response = await fetch(`${GITHUB_API}/graphql`, {
-    method: "POST",
-    headers: {
-      accept: "application/vnd.github+json",
-      authorization: `Bearer ${token}`,
-      "content-type": "application/json",
-      "user-agent": "ARRP-public-intake",
-      "x-github-api-version": "2022-11-28",
-    },
-    body: JSON.stringify({
-      query: `mutation CreateDiscussion($input: CreateDiscussionInput!) {
-        createDiscussion(input: $input) {
-          discussion { url number title }
-        }
-      }`,
-      variables: {
-        input: {
-          repositoryId: process.env.GITHUB_REPOSITORY_ID,
-          categoryId: process.env.GITHUB_DISCUSSION_CATEGORY_ID,
-          title: `Public submission — ${submission.title}`,
-          body: discussionBody(submission, submissionId),
-        },
-      },
-    }),
-  });
-  const result = await response.json();
-  if (!response.ok || result.errors || !result.data?.createDiscussion?.discussion?.url) {
-    throw new Error("GitHub Discussion creation failed.");
-  }
-  return result.data.createDiscussion.discussion;
+function githubHeaders(token) {
+  return {
+    accept: "application/vnd.github+json",
+    authorization: `Bearer ${token}`,
+    "content-type": "application/json",
+    "user-agent": "ARRP-public-intake",
+    "x-github-api-version": "2022-11-28",
+  };
 }
 
-async function sendReviewNotification(submission, discussion) {
+async function githubGraphql(token, query, variables) {
+  const response = await fetch(`${GITHUB_API}/graphql`, {
+    method: "POST",
+    headers: githubHeaders(token),
+    body: JSON.stringify({ query, variables }),
+  });
+  const result = await response.json();
+  if (!response.ok || result.errors) throw new Error("GitHub Discussion request failed.");
+  return result.data;
+}
+
+function canonicalDiscussionTitle(route) {
+  return `ARRP public input — ${route.label}`;
+}
+
+async function findCanonicalDiscussion(token, route) {
+  const marker = `ARRP-INTAKE-ROUTE:${route.key}`;
+  const data = await githubGraphql(token, `query FindIntakeDiscussion($query: String!) {
+    viewer { login }
+    search(query: $query, type: DISCUSSION, first: 10) {
+      nodes {
+        ... on Discussion { id url number title body author { login } }
+      }
+    }
+  }`, {
+    query: `repo:Thorncrag/ARRP "${marker}"`,
+  });
+  const expectedTitle = canonicalDiscussionTitle(route);
+  return data.search?.nodes?.find((discussion) => (
+    discussion?.title === expectedTitle
+    && discussion?.body?.includes(marker)
+    && discussion?.author?.login === data.viewer?.login
+  )) || null;
+}
+
+async function createCanonicalDiscussion(token, route) {
+  const data = await githubGraphql(token, `mutation CreateCanonicalDiscussion($input: CreateDiscussionInput!) {
+    createDiscussion(input: $input) { discussion { id url number title } }
+  }`, {
+    input: {
+      repositoryId: process.env.GITHUB_REPOSITORY_ID,
+      categoryId: process.env.GITHUB_DISCUSSION_CATEGORY_ID,
+      title: canonicalDiscussionTitle(route),
+      body: canonicalDiscussionBody(route),
+    },
+  });
+  const discussion = data.createDiscussion?.discussion;
+  if (!discussion?.id || !discussion?.url) throw new Error("GitHub Discussion creation failed.");
+  return discussion;
+}
+
+async function addSubmissionComment(token, discussion, submission, submissionId, route) {
+  const data = await githubGraphql(token, `mutation AddIntakeComment($input: AddDiscussionCommentInput!) {
+    addDiscussionComment(input: $input) { comment { url } }
+  }`, {
+    input: {
+      discussionId: discussion.id,
+      body: discussionCommentBody(submission, submissionId, route),
+    },
+  });
+  const comment = data.addDiscussionComment?.comment;
+  if (!comment?.url) throw new Error("GitHub Discussion comment creation failed.");
+  return comment;
+}
+
+async function routeSubmission(submission, submissionId) {
+  const route = resolveRoute(submission);
+  const token = await githubInstallationToken();
+  let discussion = await findCanonicalDiscussion(token, route);
+  if (!discussion) discussion = await createCanonicalDiscussion(token, route);
+  const comment = await addSubmissionComment(token, discussion, submission, submissionId, route);
+  return { discussion, comment, route };
+}
+
+async function sendReviewNotification(submission, routed) {
   const reviewEmail = String(process.env.ARRP_INTAKE_REVIEW_EMAIL || "").trim();
   if (!submission.email || !process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL || !reviewEmail) return false;
   const response = await fetch("https://api.resend.com/emails", {
@@ -122,8 +174,8 @@ async function sendReviewNotification(submission, discussion) {
     body: JSON.stringify({
       from: process.env.RESEND_FROM_EMAIL,
       to: [reviewEmail],
-      subject: `ARRP public submission: ${discussion.title}`,
-      text: `A contributor authorized ARRP to contact them about this submission.\n\nDiscussion: ${discussion.url}\nContributor email: ${submission.email}\nSubmission reference: ${submissionIdPlaceholder(discussion)}`,
+      subject: `ARRP public input: ${routed.route.label}`,
+      text: `A contributor authorized ARRP to contact them about this submission.\n\nPublic discussion: ${routed.discussion.url}\nSubmission: ${routed.comment.url}\nRoute: ${routed.route.label}\nContributor email: ${submission.email}\nSubmission reference: ${submissionIdPlaceholder(routed.discussion)}`,
     }),
   });
   return response.ok;
@@ -192,14 +244,16 @@ module.exports = async function submit(req, res) {
       return;
     }
     const submissionId = crypto.randomUUID();
-    const discussion = await createDiscussion(submission, submissionId);
+    const routed = await routeSubmission(submission, submissionId);
     const followUpRequested = Boolean(submission.email && submission.emailConsent);
     if (followUpRequested) {
-      try { await sendReviewNotification(submission, discussion); } catch (_) { /* Public receipt remains available. */ }
+      try { await sendReviewNotification(submission, routed); } catch (_) { /* Public receipt remains available. */ }
     }
     send(res, 201, {
-      discussion_url: discussion.url,
-      discussion_title: discussion.title,
+      discussion_url: routed.discussion.url,
+      discussion_title: routed.discussion.title,
+      submission_url: routed.comment.url,
+      route_label: routed.route.label,
       follow_up_requested: followUpRequested,
     });
   } catch (_) {
@@ -209,4 +263,11 @@ module.exports = async function submit(req, res) {
   }
 };
 
-module.exports._test = { applyCors, requiredConfiguration, verifyTurnstile };
+module.exports._test = {
+  applyCors,
+  findCanonicalDiscussion,
+  canonicalDiscussionTitle,
+  requiredConfiguration,
+  resolveRoute,
+  verifyTurnstile,
+};
