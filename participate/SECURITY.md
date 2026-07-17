@@ -9,7 +9,7 @@ This checklist governs the live Vercel public-intake service. Repository code ca
 - **GitHub App:** install it only on `Thorncrag/ARRP`; grant only **Discussions: Read and write**. Do not grant Contents, Issues, Actions, administration, organization, or user permissions. Rotate the private key if the App scope changes or a compromise is suspected.
 - **Vercel access:** keep the App private key, Turnstile secret, and Resend key as production-only encrypted environment values; restrict production deployment and environment access to the smallest maintainer set. Preview deployments must not inherit production secrets unless they are explicitly intended for controlled testing.
 - **Resend:** use a verified sender domain, a least-privileged API key, and provider alerts for unusual sending volume. The contributor's optional email is never posted publicly; it is delivered only to the configured private mailbox.
-- **GitHub Actions:** leave the intake agent manually dispatched and report-only. The workflow accepts a specific numeric public-intake comment ID, reads only that comment, and uses a read-only token. Do not add write permissions or automatic triggers without revising `framework/INTAKE_AGENT_PROCESS.md` and testing the action-specific validator.
+- **Intake review:** keep review manually initiated in Codex. No GitHub Action or separately billed external-model service is enabled. Do not add automatic triggers, public comments, write permissions, or an external-model integration without revising `framework/INTAKE_AGENT_PROCESS.md` and testing the action-specific validator.
 
 ## Application protections
 
