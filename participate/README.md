@@ -13,7 +13,7 @@ Page-specific feedback and review links can pass `proposal`, `page_title`, and `
 This directory is a self-contained Vercel project. Deploy this directory—not the repository root—as the Vercel project root. Its static files serve the form and its two server-side functions implement:
 
 - `api/config` — exposes only the public runtime configuration needed by the browser;
-- `api/submit` — validates the request, checks the bot token, creates a GitHub Discussion through a narrowly scoped GitHub App, and, when an address is authorized, sends it only to the private ARRP follow-up mailbox.
+- `api/submit` — validates the request, checks the bot token and a narrow server-side privacy preflight, creates a GitHub Discussion through a narrowly scoped GitHub App, and, when an address is authorized, sends it only to the private ARRP follow-up mailbox.
 
 The service is deliberately **preview-only** unless `ARRP_INTAKE_MODE=live`. In preview mode, `api/submit` rejects every request and the browser displays only its local receipt demonstration. Do not set live mode until every deployment gate below has been completed.
 
@@ -30,3 +30,11 @@ Copy [`.env.example`](.env.example) into Vercel's environment-variable interface
 `intake-runtime.js` contains no secret. Leave its endpoint blank when Vercel serves this folder itself. If an approved future GitHub Pages page uses this backend from a separate origin, set `window.ARRP_INTAKE_ENDPOINT` to the Vercel deployment origin and include that Pages origin in `ARRP_ALLOWED_ORIGINS`.
 
 The formal candidate-admission decision remains a Codex workflow step. The intake service preserves and acknowledges public submissions; it does not classify them as preliminary candidates, create `HOR-###` records, modify issues, or trigger an agent.
+
+## Privacy preflight and intake-agent prototype
+
+Before it creates a public Discussion, the service rejects common direct disclosures in the public fields: email addresses, telephone numbers, Social Security-number patterns, payment-card numbers with a valid checksum, and common credentials or private-key headers. It returns only a general correction message; it does not place matched text in a GitHub post, an intake log, or an endpoint log. The separately authorized optional email field is not part of that public-content screen and is never included in the Discussion.
+
+This is a due-diligence privacy screen, not a guarantee that every address, personal fact, sensitive narrative, or inappropriate statement can be recognized mechanically. The form’s public-warning language remains essential. A semantic moderation service will be added only after its retention settings, error handling, and review policy have been expressly approved.
+
+[`../framework/INTAKE_AGENT_PROCESS.md`](../framework/INTAKE_AGENT_PROCESS.md) defines the next-stage, report-only intake-agent prototype. Its manual [`../.github/workflows/intake-agent-report.yml`](../.github/workflows/intake-agent-report.yml) workflow can assess one public Discussion, use structured output to produce a short routing recommendation, and retain the report as a 14-day maintainer workflow artifact. It has no authority in this phase to edit ARRP records, create a candidate, alter a project field, comment publicly, or send mail. It remains inactive until the maintainer sets the `OPENAI_INTAKE_API_KEY` GitHub Actions secret and `OPENAI_INTAKE_MODEL` GitHub Actions variable; it is not triggered by a public submission. The future action ledger and console view are also specified there; they will be added after the current console redesign is committed so that this prototype does not overwrite in-progress intake-console work.

@@ -1,0 +1,38 @@
+name: Intake agent report (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      discussion_number:
+        description: Public ARRP Discussion number to assess
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  discussions: read
+
+jobs:
+  assess:
+    name: Generate report-only assessment
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_INTAKE_API_KEY }}
+      OPENAI_INTAKE_MODEL: ${{ vars.OPENAI_INTAKE_MODEL }}
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out the process definition
+        uses: actions/checkout@v4
+
+      - name: Generate report-only assessment
+        env:
+          DISCUSSION_NUMBER: ${{ inputs.discussion_number }}
+        run: node scripts/assess_intake_discussion.mjs --discussion-number "$DISCUSSION_NUMBER" --output intake-agent-artifact/assessment.json
+
+      - name: Retain maintainer report
+        uses: actions/upload-artifact@v4
+        with:
+          name: intake-agent-report-${{ inputs.discussion_number }}
+          path: intake-agent-artifact/assessment.json
+          if-no-files-found: error
+          retention-days: 14

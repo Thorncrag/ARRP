@@ -8,6 +8,7 @@ const {
   isAllowedOrigin,
   validateSubmission,
 } = require("./_shared");
+const { screenPublicSubmission } = require("./safety");
 
 const GITHUB_API = "https://api.github.com";
 
@@ -177,6 +178,13 @@ module.exports = async function submit(req, res) {
     send(res, 400, { error: errors[0] });
     return;
   }
+  // The public fields are screened before the GitHub Discussion exists. Do
+  // not log a match or return the matched material: this endpoint must not
+  // become a second place where sensitive content is retained.
+  if (!screenPublicSubmission(submission).allowed) {
+    send(res, 400, { error: "Remove personal, financial, or credential information from the public fields before submitting." });
+    return;
+  }
   const remoteIp = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
   try {
     if (!await verifyTurnstile(submission.turnstileToken, remoteIp)) {
@@ -194,8 +202,9 @@ module.exports = async function submit(req, res) {
       discussion_title: discussion.title,
       follow_up_requested: followUpRequested,
     });
-  } catch (error) {
-    console.error("ARRP public intake failure", error.message);
+  } catch (_) {
+    // Do not log request-derived error text. The public receipt is the only
+    // response surface for a submission that reaches this stage.
     send(res, 502, { error: "ARRP could not create the public discussion. Please try again later." });
   }
 };
