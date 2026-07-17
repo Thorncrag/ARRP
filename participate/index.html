@@ -59,8 +59,8 @@
 
       <div class="submission-workspace">
         <form class="submission-form" id="submission-form">
-          <fieldset class="route-selector">
-            <legend>Choose a route</legend>
+          <div class="route-selector" role="radiogroup" aria-label="Choose a route">
+            <p class="route-selector-heading">Choose a route</p>
             <label class="route-option" for="route-public-input">
               <input id="route-public-input" name="route" type="radio" value="input" checked>
               <span><strong>Submit public input</strong><small>Creates a public GitHub Discussion for ARRP review.</small></span>
@@ -69,7 +69,7 @@
               <input id="route-contact-author" name="route" type="radio" value="contact">
               <span><strong>Contact the author</strong><small>Sends a private message to the author; no public post is created.</small></span>
             </label>
-          </fieldset>
+          </div>
 
           <aside class="public-submission-notice" id="submission-notice" role="note" aria-label="Submission privacy notice">
             <strong id="submission-notice-title">Your submission will be public.</strong>

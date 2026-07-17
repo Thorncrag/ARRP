@@ -250,9 +250,9 @@ h1 {
   border: 0;
 }
 
-.route-selector legend {
+.route-selector-heading {
   grid-column: 1 / -1;
-  margin-bottom: 0.05rem;
+  margin: 0 0 0.05rem;
   color: #3d4c56;
   font-size: 0.78rem;
   font-weight: 700;
@@ -270,7 +270,7 @@ h1 {
   cursor: pointer;
 }
 
-.route-option:has(input:checked) {
+.route-option.is-selected {
   border-color: #6d8ca0;
   background: #f1f6f8;
 }

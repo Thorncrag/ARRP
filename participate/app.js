@@ -56,7 +56,11 @@
 
   function setRoute(route) {
     intake.route = route === "contact" ? "contact" : "input";
-    elements.routes.forEach((input) => { input.checked = input.value === intake.route; });
+    elements.routes.forEach((input) => {
+      const selected = input.value === intake.route;
+      input.checked = selected;
+      input.closest(".route-option")?.classList.toggle("is-selected", selected);
+    });
     const contact = isContactRoute();
     elements.sourcesField.hidden = contact;
     elements.relatedField.hidden = contact;
