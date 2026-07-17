@@ -232,7 +232,7 @@ module.exports = async function submit(req, res) {
     return;
   }
   if (intakeMode() === "paused") {
-    send(res, 503, { error: "Public intake is temporarily unavailable." });
+    send(res, 503, { error: "Public intake is currently disabled by ARRP. Please do not retry at this time." });
     return;
   }
   if (intakeMode() !== "live") {

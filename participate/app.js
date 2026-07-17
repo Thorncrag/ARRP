@@ -136,7 +136,7 @@
   function setSubmitting(submitting) {
     if (intake.mode === "paused") {
       elements.button.disabled = true;
-      elements.button.textContent = "Intake temporarily unavailable";
+      elements.button.textContent = "Intake currently disabled";
       return;
     }
     elements.button.disabled = submitting;
@@ -177,7 +177,7 @@
     // This form preserves public input; the full ARRP admission test remains a
     // separate human-review step after a public Discussion is created.
     if (intake.mode === "paused") {
-      elements.status.textContent = "This intake service is temporarily unavailable. Please try again later.";
+      elements.status.textContent = "This intake service is currently disabled by ARRP. Please do not retry at this time.";
       elements.status.focus();
       return;
     }
@@ -253,7 +253,7 @@
       document.querySelector(".prototype-boundary").hidden = true;
       setRoute(intake.route);
       if (intake.mode === "paused") {
-        elements.status.textContent = "This intake service is temporarily unavailable. Please try again later.";
+        elements.status.textContent = "This intake service is currently disabled by ARRP. Please do not retry at this time.";
         return;
       }
       loadTurnstile(config.turnstileSiteKey);
