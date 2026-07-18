@@ -167,9 +167,6 @@ def main() -> None:
 
     for issue_id, rows in groups.items():
         monitor_id = f"{issue_id}-MON"
-        if monitor_id in registry_by_id:
-            print(f"present {monitor_id}")
-            continue
         parent = registry_by_id.get(issue_id)
         if not parent:
             raise RuntimeError(f"No GitHub registry row for active monitoring route {issue_id}.")
@@ -178,14 +175,24 @@ def main() -> None:
             raise RuntimeError(f"No Project Area option configured for {issue_id}.")
         title = f"{monitor_id}: {issue_id} External Developments Watch"
         body = monitor_body(issue_id, parent["GitHub Number"], rows)
+        registered = registry_by_id.get(monitor_id)
         existing = github_monitors.get(monitor_id)
-        action = "adopt" if existing else "create"
+        if registered:
+            number = registered["GitHub Number"]
+            url = registered["GitHub Issue"]
+            action = "update"
+        elif existing:
+            number, url = existing
+            action = "adopt"
+        else:
+            number = ""
+            url = ""
+            action = "create"
         print(f"{action} {monitor_id} ({len(rows)} monitored matters; parent #{parent['GitHub Number']})")
         if not args.apply:
             continue
 
-        if existing:
-            number, url = existing
+        if action in {"update", "adopt"}:
             command([
                 "issue", "edit", number, "--repo", REPOSITORY, "--title", title,
                 "--body", body, "--add-label", "kind: source review", "--add-label", "needs: monitoring",
@@ -208,22 +215,26 @@ def main() -> None:
             ["--field-id", AREA_FIELD, "--single-select-option-id", AREA_OPTIONS[area]],
             ["--field-id", WORKSTREAM_FIELD, "--single-select-option-id", PROPOSAL_DEVELOPMENT],
             ["--field-id", CANONICAL_FIELD, "--text", url],
-            ["--field-id", LAST_AUDIT_FIELD, "--text", f"Monitoring baseline ({max(row['last_checked'] for row in rows)})"],
+            [
+                "--field-id", LAST_AUDIT_FIELD, "--text",
+                f"Monitoring {'record refreshed' if registered else 'baseline'} ({max(row['last_checked'] for row in rows)})",
+            ],
             ["--field-id", NEXT_AUDIT_FIELD, "--text", "Defined external trigger"],
         ]
         for edit in edits:
             command([
                 "project", "item-edit", "--project-id", PROJECT_ID, "--id", item_id, *edit,
             ], apply=True)
-        additions.append({
-            "GitHub Number": number,
-            "GitHub Issue": url,
-            "Object ID": monitor_id,
-            "Kind": "source review",
-            "GitHub Title": title,
-            "Canonical Record": "research/trump-administration-litigation-monitoring.csv",
-            "Parent GitHub Number": parent["GitHub Number"],
-        })
+        if not registered:
+            additions.append({
+                "GitHub Number": number,
+                "GitHub Issue": url,
+                "Object ID": monitor_id,
+                "Kind": "source review",
+                "GitHub Title": title,
+                "Canonical Record": "research/trump-administration-litigation-monitoring.csv",
+                "Parent GitHub Number": parent["GitHub Number"],
+            })
 
     if args.apply and additions:
         append_registry(registry_rows, fieldnames, additions)
@@ -266,7 +277,11 @@ def main() -> None:
                 continue
             page.write_text(updated, encoding="utf-8")
             print(f"wrote parent-page notice {issue_id}")
-    print(f"{'applied' if args.apply else 'planned'} {len(additions) if args.apply else len([key for key in groups if f'{key}-MON' not in registry_by_id])} monitor sub-issues")
+    print(
+        f"{'applied' if args.apply else 'planned'} {len(groups)} monitor sub-issue "
+        f"synchronization{'s' if len(groups) != 1 else ''}; {len(additions)} registry addition"
+        f"{'s' if len(additions) != 1 else ''}"
+    )
 
 
 if __name__ == "__main__":
