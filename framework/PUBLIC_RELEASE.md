@@ -27,7 +27,7 @@ Before creating a public release, complete a final review of:
 3. [`AUTHORS.md`](../AUTHORS.md), including the author-directed project statement;
 4. [`CITATION.cff`](../CITATION.cff), including author, title, repository URL, abstract, and citation message;
 5. source citations for named real-world events, public actors, legal materials, reports, and institutional examples;
-6. Git history, author metadata, and `.mailmap`;
+6. Git history and author metadata;
 7. repository settings for issues, discussions, pull requests, branch protection, and contributor permissions; and
 8. any draft material that should remain private, be archived, or be revised before publication.
 
