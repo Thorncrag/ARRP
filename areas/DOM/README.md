@@ -29,12 +29,12 @@ These provisional identifiers were adjudicated before development and are retain
 - **DOM-002, DOM-003, DOM-004, DOM-006, DOM-008** — Merged into DOM-001 as Posse Comitatus, Guard-federalization, protest or election deployment, federal-property, and expedited-review components of one domestic-deployment framework.
 - **FED-005** — Integrated into DOM-001 as the federalism application involving deployment over state objection.
 
-## Notes
-
-DOM-001 is in development after consolidation. DOM-005, DOM-007, and DOM-009 remain distinct because they address investigative evidence, domestic intelligence, and surveillance procurement rather than deployment authority. Full source development and an initial DOM-001 vehicle are pending.
-
 ## Issue Boundaries
 
 - **DOM-005** owns confidential officer identification, preservation of existing evidence, and secure State investigative access following a covered Federal critical incident. It does not create a recording mandate, public-disclosure right, prosecution authority, or immunity rule. It is agency-neutral and applies beyond immigration enforcement. [FED-004](../FED/README.md) is a secondary federalism cross-reference when exclusive Federal control of evidence displaces a State investigative function; DOM-001 supplies the expedited-review framework; [DOJ-007](../DOJ/issues/DOJ-007.md) remains limited to presidential and senior executive conflict.
 - **DOM-009** owns Federal law-enforcement surveillance procurement and deployment. DOM-005 owns preservation and investigative access when Federal recording or surveillance systems contain evidence of a covered use-of-force incident.
 - **DOM-001** owns Insurrection Act, Posse Comitatus, National Guard federalization, protest and election deployment, asserted federal-property authority, findings, duration, termination, and expedited judicial review. [FED-004](../FED/README.md) retains the general anti-commandeering and state-function-displacement framework.
+
+## Notes
+
+DOM-001 is in development after consolidation. DOM-005, DOM-007, and DOM-009 remain distinct because they address investigative evidence, domestic intelligence, and surveillance procurement rather than deployment authority. Full source development and an initial DOM-001 vehicle are pending.

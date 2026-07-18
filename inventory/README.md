@@ -16,7 +16,7 @@ The registry is not the live lifecycle, priority, label, score, audit, or releas
 
 GitHub Project fields summarize audit posture for meta-analysis and should be refreshed whenever an audit changes issue score, status band, run count, last audit type and date, next audit need, issue link, area, priority, rebaseline status, change-audit need, or release posture. Detailed audit fields remain in issue pages and issue audit histories.
 
-The Change Audit history is [`../framework/CHANGE_AUDIT_LOG.md`](../framework/CHANGE_AUDIT_LOG.md). It records project-wide rubric, template, scoring, and structural-consistency changes separately from GitHub Project workflow fields.
+Project-wide rubric, template, scoring, and structural-consistency improvements are incorporated into the governing framework and methodology. GitHub Project fields remain the separate workflow authority.
 
 The Agent Audit Log is [`../framework/AGENT_AUDIT_LOG.md`](../framework/AGENT_AUDIT_LOG.md). It records autonomous, batched, or scheduled agent commits, validation, blockers, and rollback references separately from GitHub Project workflow fields. It is not used for ordinary human-invoked audits.
 
@@ -34,7 +34,7 @@ The proposal-quality score is a provisional planning value, not a claim that the
 
 GitHub Project fields are the compact reader-facing tracker for cross-issue audit status and release triage. They should not replace issue-page Proposal Scoring summaries, sibling audit-history sidecars, or separate Change/Horizon/Agent logs.
 
-`CHANGE_AUDIT_LOG.md` is the cumulative reader-facing tracker for Change Audit history. It should not replace issue-page audit histories or GitHub Project status fields.
+Do not create a cumulative Change Audit ledger. Proposal-specific review history belongs in the affected issue's audit sidecar; durable project-wide lessons belong in the governing file, validation script, or test that owns the rule.
 
 `HORIZON_SCAN_LOG.md` is the cumulative reader-facing log for Horizon Scan findings and integration decisions. It should not replace issue-page source development, audit histories, GitHub Project tracking, or retained source records once a horizon item is admitted, merged, or retired.
 

@@ -46,4 +46,4 @@ These provisional identifiers were adjudicated before development and are retain
 
 ## Notes
 
-REG-001 was promoted after *Trump v. Slaughter*, expanded to consolidate operational, vacancy, funding, and constitutional-design components under a two-tier agency-independence and functional-continuity framework, and remains 83/100 and Review Ready after a targeted consolidation Change Audit. REG-002, REG-003, and REG-006 remain provisional because enforcement, adjudication, and rulemaking or litigation-position controls may require different statutory vehicles.
+REG-001 was promoted after *Trump v. Slaughter*, expanded to consolidate operational, vacancy, funding, and constitutional-design components under a two-tier agency-independence and functional-continuity framework, and remains 83/100 and Review Ready after a targeted consolidation review. REG-002, REG-003, and REG-006 remain provisional because enforcement, adjudication, and rulemaking or litigation-position controls may require different statutory vehicles.

@@ -350,7 +350,7 @@ If any provision of this Act or an amendment made by this Act, or the applicatio
 ## Drafting Notes
 
 - This is an initial statutory draft. Legislative counsel should verify subsection redesignations and cross-references throughout 5 U.S.C. §§ 3348 and 3349 and convert any remaining freestanding implementation directions into the preferred Code placement.
-- The definition of a substantially complete authority arrangement is intended to reach functional acting service without converting every lawful delegation into a confirmation requirement. T1 should test whether “predominant portion,” “significant,” and aggregation language are sufficiently determinate.
+- The definition of a substantially complete authority arrangement is intended to reach functional acting service without converting every lawful delegation into a confirmation requirement. Initial legal review should test whether “predominant portion,” “significant,” and aggregation language are sufficiently determinate.
 - Section 6 attempts to strengthen consequences without destabilizing routine payments, emergency measures, or innocent third-party reliance. The no-force, ratification, and material-effect standards require detailed review against current FVRA and Administrative Procedure Act doctrine.
 - Section 7 supplies an independent subject-specific remedy and does not rely on JUD-011. Article III standing remains constitutionally required.
 - Section 8 does not restrict presidential removal under 28 U.S.C. § 541(c). It makes the judicial appointment backstop continue after removal and prevents automatic revival of an expired Attorney General appointment. The First Assistant transition, interaction with the Vacancies Act, and any constitutional objection require specific review.

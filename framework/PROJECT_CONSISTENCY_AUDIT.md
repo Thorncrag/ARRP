@@ -1,66 +1,63 @@
 ---
-title: "Project Consistency Audit — July 14, 2026"
+title: "Project Consistency Audit — July 18, 2026"
 print_levels:
   - full-technical
 ---
 
-# Project Consistency Audit — July 14, 2026
+# Project Consistency Audit — July 18, 2026
+
+> **Historical record.** This July 18 snapshot is retained for provenance. Future Project Consistency Audits do not create a stand-alone report; they incorporate durable lessons into the governing method, validation scripts, or tests that own them.
 
 ## Scope and Authority
 
-This non-tier, non-scoring audit checked cross-project structure and integration. It covered current issue and audit files, legislation metadata and section architecture, area and subject navigation, source and GitHub registries, JUD-011 cross-issue treatment, audit-run nomenclature, GitHub Project alignment, and the public-site boundary. It did not reevaluate proposal merits or change any Proposal Quality Score, lifecycle status, or audit **Runs** count.
+This non-tier, non-scoring audit reviewed cross-project structure, logic, reader-facing language, methodology, automation, inventories, proposal routing, and GitHub workflow alignment. It did not reevaluate proposal merits or change a Proposal Quality Score, lifecycle status, or audit **Runs** count. Substantive legal, evidentiary, fiscal, remedy, and scoring questions remain proposal-specific work.
 
 ## Baseline
 
-- 38 current issue pages and 38 sibling audit-history files.
-- 37 proposed-legislation pages.
-- 24 area pages.
-- 245 GitHub issue-registry rows.
-- 731 source-inventory rows, sequentially numbered `SRC-0001` through `SRC-0731` without duplication.
-- 180 project Markdown files in the checked repository surface, excluding generated site environments and dependency files.
+- 41 issue pages and 41 sibling audit-history files.
+- 39 proposed-legislation, amendment, or model-act pages.
+- 24 area pages and 13 public topic guides.
+- 277 GitHub issue-registry rows.
+- 1,192 source-inventory records, sequentially numbered `SRC-0001` through `SRC-1192`.
 
 ## Checks Completed
 
 The audit confirmed:
 
-- all issue identifiers, area prefixes, filenames, sidecars, `source_issue` values, and audit-history links align;
-- all current issue pages contain the required core front matter;
-- all legislation pages identify an issue and a valid framework target;
-- all registry canonical paths exist, with no duplicate GitHub issue numbers or Project object identifiers;
-- every current issue is linked exactly once from its correct area page, and every area is linked correctly from the area index;
-- required issue-section order and Issue Snapshot placement pass on 37 of 38 pages;
-- JUD-011 treatment is consistent across REG-001, FUND-001, and DOJ-007, including independent alternatives and separate pathway budget presentations;
-- source/research ownership follows the authorship rule, with no remaining `source-development/` paths;
-- the public-site allowlist excludes internal framework, audit, progress-dashboard, research, and retained-source material as intended; and
-- repository scores, lifecycle statuses, and Change Audit flags match the GitHub Project for all 38 current issues.
+- every issue identifier, title heading, audit-history link, declared proposal route, legislation-to-issue route, and local reader-facing link resolves;
+- every developed issue contains the required reader architecture, while candidate, deferred, and paused records are not forced into a developed-page template prematurely;
+- every area page uses one ordered reader structure: concern, active issues, boundaries, and notes; optional candidate dispositions, former-developed-proposal lists, and source-development material remain distinct;
+- topic guides use the public-facing `Public concern` / `Applicable proposals` routing structure and retain their nonauthoritative role;
+- the unified **Supporting Record and Updates** subsection appears only at the end of Manifestations, with no legacy top-level monitoring or evidence headings;
+- public proposal surfaces avoid unexplained tier, Change Audit, rebaseline, and loaded shorthand terminology;
+- the JUD-011 architecture is coherent: REG-001 and FUND-001 use JUD-011 alone as the general preferred remedy and retain complete standalone alternatives; DOJ-007 uses only its separately authorized, firewalled shared-infrastructure pattern; listed exclusions are not presented as covered;
+- registry GitHub issue numbers and Project object identifiers are unique, source identifiers are continuous, and all registry canonical paths resolve;
+- all 40 automated tests pass, the public-site preparation succeeds, and `git diff --check` passes; and
+- the GitHub Project audit-control readback identified one stale field only: FED-003's `Rebaseline status`. It was corrected from the canonical issue-page record to `Current fixed status` and a second readback found no remaining planned audit-field changes.
 
 ## Mechanical Corrections
 
-The audit made only corrections traceable to an existing convention or authoritative record:
+The audit made only convention-governed or directly supported corrections:
 
-- added missing full-technical print metadata to the two governing JUD-011 framework files;
-- corrected variant proposal identifiers for `ELEC-002-state` and `ELEC-009-amendment`;
-- added the missing DOJ-004 route to the Subject and Institution Index;
-- normalized both DOJ-007 proposal pages to the required `Budgetary Impact Statement` heading while retaining a clear preferred-path or independent-alternative label;
-- restored the required section order on the EMERG-003 legislation page;
-- normalized EMOL-015's audit-history heading hierarchy;
-- clarified historical T-audit headings whose wording could incorrectly imply an extra or completed tier;
-- removed invalid `T5` terminology from ELEC-012 and recast the continuing work as a repeat T4 legal-readiness follow-up without changing its four completed runs; and
-- synchronized demonstrably stale GitHub Project rebaseline and Last/Next Audit fields to their authoritative repository records.
+- added a required Budgetary Impact Statement to the DOM-005 bill, consistent with its explicit authorization of appropriations and the issue-page classification;
+- added [`../scripts/audit_project_consistency.py`](../scripts/audit_project_consistency.py), a repeatable non-scoring linter for issue/vehicle metadata, reader architecture, area and topic conventions, supporting-record placement, local links, registry identities, source numbering, and reader-language drift;
+- incorporated that linter into the Project Consistency Audit method and retained the full test suite and public-site build as complementary validation;
+- translated internal audit shorthand from reader-facing area, issue, and legislative surfaces while preserving exact terminology in metadata, audit histories, and methodology records;
+- normalized the FED, DOM, HER, and IMM area-page heading order and boundary presentation; and
+- corrected the verified FED-003 Project rebaseline field without changing its score, lifecycle status, or Runs count.
 
-## Findings Reserved for Proposal-Specific Work
+## Follow-Up Requiring Source Reconciliation
 
-The following findings require judgment or substantive development and were not silently corrected:
-
-1. **DOM-009 architecture.** DOM-009 remains the single current page using its expressly retained candidate/source-development structure rather than the full developed-issue architecture. Its next source-development or T1 pass should migrate the page while preserving every proposition and citation.
-2. **Legislation support sections.** DOM-005 lacks a proposal-page Budgetary Impact Statement and Source/Authority Notes; EMERG-003 and FUND-001 lack proposal-page Source/Authority Notes. These should be completed during their next proposal-specific T1 or T4 work from verified sources rather than supplied as empty or invented sections.
-3. **Source-inventory reconciliation.** Exact URL comparison found 52 non-project citation targets without an exact inventory match. The set includes normalization variants, alternate official URLs, and potentially uncatalogued sources. A dedicated reconciliation pass should deduplicate equivalents and add only genuinely missing source records.
-4. **Snapshot concision judgment.** Six Issue Snapshots contain one or more cells longer than the ordinary concise-target guideline: DOJ-007, DOM-005, ELEC-008, ELEC-012, EMERG-003, and RIGHTS-004. Because the limit is advisory and the recent style audit already reviewed these pages, future issue-specific editing should tighten them only where precision and meaning are preserved.
+Normalized exact-URL comparison found 33 cited external URLs that do not currently have an exact match in `inventory/sources.csv` after excluding ARRP’s own GitHub, monitoring, Project, and public-contact links. The group includes alternate official or archival endpoints for sources already represented in the ledger, as well as citations that may need first-time source capture. This is a source-inventory reconciliation task, not a basis to weaken or expand any proposal now. A dedicated pass should compare source identity and proposition—not URL text alone—then either associate the existing canonical source, add a concise unreviewed capture record, or replace the page link with the already-registered canonical endpoint. The task should preserve the current qualitative evidence-placement rule and avoid creating unnecessary evidence pages.
 
 ## Audit-Count Result
 
-This Project Consistency Audit is not a T0–T4 issue-quality audit. It changes no **Runs** count. Historical heading corrections clarify the existing count; they do not create, erase, or relabel substantive work as a completed tier.
+This Project Consistency Audit does not increment **Runs**. It made no Proposal Quality Score, rubric, readiness, rebaseline, or lifecycle change other than the existing-record FED-003 Project-field synchronization described above.
 
 ## Validation
 
-Repository structure, links, metadata, registry and Project synchronization, source numbering, public-site boundary tests, and the strict site build were rerun after correction. Validation results are recorded in the completing commit and continuous-integration run.
+- `python3 scripts/audit_project_consistency.py` — 0 errors, 0 warnings.
+- `python3 -m unittest discover -s tests -v` — 40 tests passed.
+- `python3 scripts/prepare_public_site.py` — 123 canonical Markdown pages and one generated page prepared; 120 excluded internal links safely demoted in the staged public artifact.
+- `git diff --check` — passed.
+- `python3 scripts/sync_project_audit_fields.py` after the FED-003 correction — 0 planned changes.

@@ -7,11 +7,17 @@ print_levels:
 # Repository Structure
 
 ```text
+README.md                          Public project front door, scope, and reader navigation
 SUBJECT_INDEX.md                   Cross-area subject and institutional-body lookup
+AGENTS.md                          Repository-local operating instructions for Codex
+AUTHORS.md                         Authorship and stewardship information
+CONTRIBUTING.md                    Contribution and review expectations
+LICENSE.md                         Rights and reuse terms
+CITATION.cff                       Citation metadata
+.github/                           GitHub automation, issue templates, and dashboard configuration
 mkdocs.yml                         Public-site presentation and search configuration
 requirements-pages.txt             Pinned public-site build dependencies
-.github/workflows/public-site.yml  GitHub Pages artifact build and deployment
-framework/                         Governing methodology, tracking logs, and operating rules
+framework/                         Governing methodology, historical records, and operating rules
   FRAMEWORK.md                     Project framework and file-ownership rules
   METHODOLOGY.md                   Audit rules, scoring rules, and workflow rules
   REMEDY_FRAMEWORK.md              Remedy taxonomy and trigger stages
@@ -19,10 +25,10 @@ framework/                         Governing methodology, tracking logs, and ope
   GITHUB_WORKFLOW.md               GitHub Issues/Projects workflow rules
   AGENT_OPERATING_RULES.md         Agent-assisted audit and batch-audit rules
   CURRENT_AUDIT.md                 Current long-running audit handoff checkpoint
-  CHANGE_AUDIT_LOG.md              Cumulative project-wide Change Audit history
-  PROJECT_CONSISTENCY_AUDIT.md     Latest project-wide structural and integration audit
   HORIZON_SCAN_LOG.md              Cumulative horizon-scan disposition and integration log
   AGENT_AUDIT_LOG.md               Autonomous-agent provenance, commits, and rollback references
+  CHANGE_AUDIT_LOG.md              Read-only historical project-wide Change Audit record
+  PROJECT_CONSISTENCY_AUDIT.md     Read-only historical July 2026 consistency-audit record
   INTERBRANCH_REVIEW_FRAMEWORK.md
                                    Governing JUD-011 coverage and proposal-independence convention
   INTERBRANCH_REVIEW_COVERAGE_MATRIX.md
@@ -36,11 +42,13 @@ areas/                             One directory per project area
 legislation/                       Proposed statutory language keyed to issue ID
 topics/                            Public reader guides and cross-proposal topic crosswalks
   README.md                        Selective public topic-guide index
+participate/                       Separately deployed public-interaction service and minimal lookup data
 website/                           Public-site policy and website-only presentation assets
 inventory/                         Structured source and GitHub issue registries
-research/                          ARRP-created analyses and development work product
+research/                          ARRP-created analyses, crosswalks, catalogs, transformed datasets, and research tools
 sources/                           External source and backup files retained locally
-scripts/prepare_public_site.py     Allowlisted public-site staging and validation
+scripts/                           Repeatable maintenance, intake, synchronization, and publication utilities
+tests/                             Regression tests for project automation and repository conventions
 exports/                           Generated DOCX, PDF, and XLSX outputs
 archive/                           Superseded or migrated source snapshots
 ```
@@ -56,11 +64,15 @@ archive/                           Superseded or migrated source snapshots
 - GitHub Projects is the authoritative area, issue, status, milestone, roadmap, and horizon-queue tracker.
 - Source records in `inventory/sources.csv` may be associated with issues, areas, framework files, research files, topic guides, or project-level pages.
 - Authorship controls the research/source boundary: unpublished ARRP-created analyses, crosswalks, catalogs, transformed datasets, and visualizations belong in `research/`; a project-authored synthesis selected as a canonical public topic guide belongs in `topics/`; external reports, filings, raw downloads, and backup copies belong in `sources/` when local retention is useful and appropriate.
+- `research/` is work product, not a second proposal corpus: its analyses and tools may support an issue or topic guide, but the canonical public treatment remains on the owning issue or topic page. Its directory README identifies the maintained research products and routes readers to them.
+- `sources/` is deliberately selective local preservation, not a mirror of every citation. Its directory README identifies each retained external file and its source-inventory record.
+- `scripts/` and `tests/` are implementation support for repeatable project maintenance; they are not reader-facing project content. `.tmp/` (local dependency environment) and `.site-build/` (generated Pages staging artifact) are ignored local build products and are intentionally not cataloged as project materials.
 - `inventory/sources.csv` remains the citation catalog for external sources whether or not a local copy is retained. The repository does not download every cited source merely because it appears in the inventory.
 - GitHub Project items/fields, retained source inventory, audit-history sidecars, and affected Markdown pages should be updated in the same change that adds, removes, renames, merges, retires, or materially revises an area, issue, legislative proposal, audit status, or cited source.
 - GitHub Project fields provide the compact cross-issue workflow, audit-status, and release-triage view.
 - The public website is generated from the canonical Markdown rather than maintained as a second copy. `website/README.md` owns the publication boundary; `scripts/prepare_public_site.py` admits only `public-proposal` pages within the approved root, `areas/`, `legislation/`, and `topics/` paths; and the Pages workflow uploads only the validated generated artifact.
+- The separately deployed `participate/` service is separated from unpublished research tooling and contains no internal source, monitoring, history, or candidate-review queues. It remains outside the Pages artifact by design: its public-input route posts to a canonical GitHub Discussion, its author-contact route sends only to the configured private mailbox, and formal intake review remains manually initiated through Codex.
 - The `progress-dashboard` branch remains repository-visible but is excluded from the website artifact, navigation, search index, and sitemap.
 - `framework/CURRENT_AUDIT.md` is the active handoff checkpoint for long audits and should be read before resuming vague follow-up instructions.
-- `framework/PROJECT_CONSISTENCY_AUDIT.md` records the latest non-scoring cross-project structural and integration check; it does not replace proposal-specific T-audits or Change Audits.
+- Project-wide structural and integration checks update the governing files, validation scripts, and tests that own their durable findings; they do not create a new cumulative audit ledger or stand-alone report. Existing historical audit records remain preserved read-only.
 - Audit rules and scoring live in `METHODOLOGY.md`; print assembly rules live in `PRINT_ASSEMBLY.md`; remedy categories and trigger stages live in `REMEDY_FRAMEWORK.md`.

@@ -98,7 +98,7 @@ Before starting an autonomous batch run, the agent must:
 
 1. confirm the working tree is clean, or stop and report the existing uncommitted files without beginning new audit work;
 2. confirm the current branch and remote target are understood;
-3. confirm the repository can read the latest local project rules, including this file, [`FRAMEWORK.md`](FRAMEWORK.md), [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md), [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md);
+3. confirm the repository can read the latest local project rules, including this file, [`FRAMEWORK.md`](FRAMEWORK.md), [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md);
 4. check the latest relevant audit record before each issue and skip any issue with unresolved human-review blockers unless the user has expressly authorized proceeding; and
 5. if the user expressly scheduled the run inside a defined work window, respect that user-defined boundary when selecting the next audit unit.
 

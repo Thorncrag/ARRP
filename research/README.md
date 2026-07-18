@@ -21,7 +21,7 @@ Covered work product includes legal and policy memoranda, crosswalks, catalogs, 
 - [FUND-001 Executive Order Judicial Review Comparator](FUND-001-executive-order-judicial-review-comparator.md)
 - [Executive-Directive State-Led Adverse Rulings Scan](executive-directive-state-led-adverse-rulings-scan.csv)
 - [REG-001 Agency Independence and Functional Nullification Catalog](REG-001-independent-agency-removal-catalog.md)
-- [Trump Administration Legal-Review Intake](trump-administration-legal-review-intake.md), with its [completed source-adjudication report](trump-administration-source-adjudication-report.md), [existing-record integration queue](existing-issue-evidence-integration.csv), [defined-predicate litigation monitor](trump-administration-litigation-monitoring.csv), [Horizon intake review console](horizon-review-console/README.md), [media-supported episode intake](trump-administration-media-review-intake.csv), and [source-universe ledger](trump-administration-source-universe.csv)
+- [Candidate Issues and Source Intake Dashboard](horizon-review-console/index.html), the central operational view for formal Horizon issues, proposed candidates, the [legal-review intake](trump-administration-legal-review-intake.md), unified source work, monitoring, and intake history
 - [WAR-001 Source Development](WAR-001-source-development.md)
 
 ## Project Crosswalks

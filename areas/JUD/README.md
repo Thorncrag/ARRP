@@ -44,4 +44,4 @@ JUD-007 is integrated into JUD-001 because substitution of officials, reorganiza
 
 ## Notes
 
-JUD-001, JUD-005, JUD-009, and JUD-011 are developed. Targeted consolidation Change Audits preserve JUD-001 at 78/100 and JUD-005 at 63/100 without increasing Runs. JUD-005 next requires T2 review of Title 28 coverage, transmission mechanics, protected information, congressional distribution, current comparators, workload, and JUD-001 fit. JUD-011 remains 82/100 and Review Ready pending qualified review. JUD-010 remains a provisional capacity proposal requiring full source development.
+JUD-001, JUD-005, JUD-009, and JUD-011 are developed. Targeted consolidation reviews preserve JUD-001 at 78/100 and JUD-005 at 63/100 without changing their recorded review history. JUD-005 next requires a legal-and-implementation review of Title 28 coverage, transmission mechanics, protected information, congressional distribution, current comparators, workload, and JUD-001 fit. JUD-011 remains 82/100 and Review Ready pending qualified review. JUD-010 remains a provisional capacity proposal requiring full source development.

@@ -28,7 +28,7 @@ These provisional identifiers were adjudicated before development and are retain
 - **IMM-007** — Integrated into IMM-001 for immunity arising from self-protective official acts and into [DOJ-007](../DOJ/issues/DOJ-007.md) for conflicted investigation and prosecution.
 - **IMM-008** — Merged into DOJ-007, which owns the independent investigative and prosecutorial institution.
 
-## Ownership and Cross-Reference
+## Issue Boundaries
 
 IMM-001 is the primary home for substantive reform of presidential criminal immunity, including core powers, presumptive official-act immunity, motive evidence, admissibility of official conduct, impeachment prerequisites, and temporary sitting-President protections.
 
@@ -38,4 +38,4 @@ IMM-001 incorporates tolling, evidentiary use, delay, impeachment prerequisites,
 
 ## Notes
 
-IMM-001 remains 78/100 and Review Ready after a targeted consolidation Change Audit confirmed that its amendment already addresses the absorbed criminal-immunity components. IMM-002 remains an unresolved candidate requiring source development.
+IMM-001 remains 78/100 and Review Ready after a targeted consolidation review confirmed that its amendment already addresses the absorbed criminal-immunity components. IMM-002 remains an unresolved candidate requiring source development.

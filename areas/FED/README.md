@@ -36,8 +36,6 @@ These provisional identifiers were adjudicated before development and are retain
 - **FED-003** owns federal funding, grant conditions, disaster or infrastructure aid, waivers, approvals, and similar benefits used to compel state or local policy change without a sufficiently clear congressional command.
 - **FED-004** owns takeover, anti-commandeering, preemption, and displacement of state functions when neither funding coercion nor selective enforcement is the principal mechanism.
 
-## Issue Boundaries
-
 - **Political-status boundary.** District of Columbia statehood and the choice of Puerto Rico's final political status are outside ARRP's scope as substantive political decisions. A-20 may still address a separable federalism defect involving coercion, displacement of local functions, emergency or National Guard control, selective enforcement, grant conditions, or waiver authority when the remedy operates independently of any statehood or final-status choice.
 
 ## Notes

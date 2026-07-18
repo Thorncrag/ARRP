@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — monitoring framework, Manifestations links, and DOM-005 evidence record preserved |
-| Active issue/task | GitHub-native issue monitoring framework and migration |
+| Status | Awaiting commit/push decision — repository-hygiene and structure-map check complete locally |
+| Active issue/task | Project-wide consistency audit follow-up: file-creation bloat and structure-map review |
 | Audit type/tier | Project-governance Change Audit; no T-audit or score change |
 | Started | 2026-07-18 |
-| Last checkpoint | 2026-07-18; created and synchronized 24 proposal-level `ISSUE-ID-MON` records, preserved four Horizon-only records, placed the reader links at the end of Manifestations, and created the justified DOM-005 evidence record. |
-| User request | Apply the agreed evidence-record and monitoring-link convention across existing issue pages, including placing both links together at the end of Manifestations, then commit and push for inspection. |
-| Scope | Monitoring-governance rules; GitHub Project fields and view; native source-review sub-issues; monitoring inventory routing; reader-facing monitoring/evidence links; source-intake console synchronization. |
-| Files touched | `framework/GITHUB_WORKFLOW.md`; `framework/METHODOLOGY.md`; `framework/AGENT_OPERATING_RULES.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`; `inventory/github_issue_registry.csv`; `research/trump-administration-litigation-monitoring.csv`; `scripts/sync_issue_monitors.py`; `scripts/build_horizon_review_console.py`; refreshed console data; standardized monitoring sections on eligible parent pages; `areas/DOM/evidence/DOM-005-evidence.md`. |
-| Completed steps | Added Project Status `Monitoring`; created 24 native `ISSUE-ID-MON` source-review sub-issues (#275–#298) with required labels, parent relationships, Project fields, source-ledger links, current matters, last-checked dates, and defined triggers; registered every monitor; preserved Horizon candidates as their own monitors; and updated the console to link each source monitor to its GitHub home. Standardized one reader-facing **Supporting Record and Updates** subsection at the end of Manifestations on every developed monitored parent page, with **Watching for updates** and, where justified, **Additional supporting record** links. Created and linked DOM-005's evidence record after confirming that its source-identified official chronology is sufficiently supported and that a separate record improves organization; did not manufacture evidence annexes for pages whose additional materials remain unverified, cumulative, or not reader-useful. The existing Project Monitoring view remains the operating surface. |
-| Next step | None. Resume with a project-wide monitoring pass when a user requests an external-status refresh. |
-| Blockers/questions | Existing unrelated uncommitted files require selective preservation; do not stage or overwrite them incidentally. |
-| Validation status | Passed: GitHub Project readback for all 23 monitor cards; representative native-parent readback (#275 → #86); 11 Horizon intake tests; zero planned duplicate monitors; registry uniqueness and count checks; console monitor-link assertion; parent-notice count; public-site preparation (122 canonical pages); and `git diff --check`. |
+| Last checkpoint | 2026-07-18; confirmed tracked content has a defined home, distinguished intentional retained sources and ignored local build artifacts from repository bloat, and expanded the structure map to describe root governance files, GitHub automation, research, source preservation, scripts, tests, and generated-local directories at the appropriate component level. |
+| User request | Quickly check for file-creation bloat and ensure the project structure describes the purpose of meaningful repository components without becoming an exhaustive file manifest. |
+| Scope | Repository top-level structure; research/source boundary; automation/tests; local generated artifacts; project-structure documentation. |
+| Files touched | `framework/PROJECT_STRUCTURE.md`; `framework/CURRENT_AUDIT.md`. |
+| Completed steps | Found no uncataloged tracked corpus or duplicate active content. The only untracked project file is the new consistency checker. Identified `sources/` as intentional retained external material, `research/` as owned ARRP work product, `.tmp/` as an ignored local dependency environment, and `.site-build/` as ignored generated staging output. Expanded the structure map by component purpose rather than by every individual file. |
+| Next step | On request, commit and publish the combined audit batch; separately, run the bounded source-identity reconciliation for external citations that lack an exact `sources.csv` URL match. |
+| Blockers/questions | Existing unrelated uncommitted files remain preserved. The source-identity follow-up remains separate and needs careful equivalence review rather than bulk duplicate capture. |
+| Validation status | Passed: `audit_project_consistency.py` (0 errors, 0 warnings); `git diff --check`; and direct review of the updated structure map. The broader test suite and public-site preparation already passed during the immediately preceding audit follow-up; they must run sequentially because they share a staged artifact. |
 
 ## Handoff Rules
 

@@ -35,7 +35,7 @@ The agent must return a compact, machine-readable record with the following fiel
 | `possible_routes` | Zero or more existing proposal identifiers, area identifiers, or a plain-language possible route. A route is a lead, not a finding. |
 | `evidence_status` | `primary`, `multiple_reliable_reports`, `single_report`, `unsupported`, or `needs_verification`. |
 | `irreparable_harm_assessment` | `shown`, `plausible`, `not_shown`, or `needs_human_judgment`. |
-| `action_boundary` | `report_only`, `automatic_allowed_later`, or `human_decision_required`, with a reason. During this prototype it must always be `report_only`. |
+| `action_boundary` | `report_only`, `automatic_allowed_later`, or `human_decision_required`, with a reason. During the current manual-review phase it must always be `report_only`. |
 | `safety_flags` | Categories only: `none`, `privacy`, `abuse`, `instruction_injection`, `uncertain`. Never include matched content. |
 | `source_urls` | Links supplied or independently verified during the assessment. They do not become project sources until the applicable source workflow admits them. |
 
@@ -48,7 +48,7 @@ The agent must apply the project admission test: distinguish an institutional we
 | Relevant verified material for a current issue | Sources queue; later integrate under the source and evidence rules. | No for routable intake; yes for substantive issue revision. |
 | Event or litigation that needs a defined later development | Monitoring queue. | No for a clear monitoring entry. |
 | A distinct institutional weakness not already covered | Preliminary Candidates queue for human review. | Yes before it becomes a proposed candidate or receives a `HOR-###` record. |
-| A demonstrable factual, link, citation, formatting, or published-rule variance | Correction recommendation. | Yes during prototype; later only if the action is mechanical, verified, and within an approved authority band. |
+| A demonstrable factual, link, citation, formatting, or published-rule variance | Correction recommendation. | Yes during the current manual-review phase; later only if the action is mechanical, verified, and within an approved authority band. |
 | No supported ARRP-relevant action | Record a concise disposition only if an intake action was actually taken. | No. |
 
 `Preliminary Candidates` is the public-facing name for the early human-review queue. `Proposed Candidates` is the public-facing name for the active Horizon stage. Formal promotion, deferral, rejection, merge, retirement, issue creation, issue admission, theory selection, remedy selection, legislation, lifecycle status, scoring, audit disposition, and Project-field changes always require the ordinary human-controlled process unless a later explicit rule says otherwise.

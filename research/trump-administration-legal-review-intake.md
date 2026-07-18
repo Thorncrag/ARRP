@@ -12,6 +12,7 @@ This is a source-development intake for locating potentially repairable institut
 
 The first machine-normalized baseline contains **1,322 source records**: **776 first-term records** and **546 second-term records**. They come from seven differently structured trackers and therefore are not yet 1,322 unique government actions. Cross-source duplicates remain visible until the record, challenged action, and final judicial posture can be reconciled without losing provenance.
 
+- [Central source-intake dashboard and visual queue review](horizon-review-console/index.html)
 - [Action-level legal-review catalog](trump-administration-legal-review-catalog.csv)
 - [Completed priority-disposition staging queue](trump-administration-priority-disposition-review.csv) (empty after adjudication)
 - [Media-supported episode intake](trump-administration-media-review-intake.csv)
@@ -164,7 +165,7 @@ An action that fits one of these lanes should normally become a manifestation, s
 
 ## Next Source-Universe Pass
 
-1. Work the [integration queue](existing-issue-evidence-integration.csv) by receiving record: verify primary materials, strengthen an issue page when a material premise needs better support, and use a linked evidence record only when additional verified material has qualitative reader-facing value.
+1. Work the dashboard's unified [Sources queue](horizon-review-console/index.html) by receiving record: verify primary materials, strengthen an issue page when a material premise needs better support, route corroborated media episodes, and ingest planned source collections. The underlying machine records remain available in their source-specific CSVs, but they are one operational queue.
 2. Revisit the [litigation monitor](trump-administration-litigation-monitoring.csv) only when its defined posture predicate occurs; do not treat open allegations or preliminary relief as final manifestations.
 3. Ingest official findings from GAO, OSC, inspectors general, congressional reports, and published judicial noncompliance records so the source universe is not litigation-plaintiff biased.
 4. Ingest specialist ethics, conflicts, records, environmental, civil-rights, election, appointments, and war-powers sources from the completeness ledger, and continue the two-source media lane across both terms.

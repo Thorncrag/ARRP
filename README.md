@@ -228,6 +228,6 @@ Agent-assisted and autonomous batch-review operating rules are maintained in [`f
 
 Autonomous, batched, or scheduled agent commit provenance and rollback references are maintained in [`framework/AGENT_AUDIT_LOG.md`](framework/AGENT_AUDIT_LOG.md). Human-invoked internal reviews use the technical review-history sidecar, issue-page metadata, and GitHub Project fields instead.
 
-The cumulative project revision history is maintained in [`framework/CHANGE_AUDIT_LOG.md`](framework/CHANGE_AUDIT_LOG.md).
+Project-wide method improvements are incorporated into the governing framework and methodology; proposal-specific review history remains with the affected proposal.
 
 The Horizon Scan Log is maintained in [`framework/HORIZON_SCAN_LOG.md`](framework/HORIZON_SCAN_LOG.md).
