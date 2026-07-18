@@ -19,30 +19,70 @@ ARRP therefore uses this page as a guide to the individual institutional defects
 
 ## Relevant Proposals
 
-| Public concern | Applicable proposals |
-| --- | --- |
-| Humanitarian protection, citizenship, lawful pathways, detention, removal, and access to adjudication | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md), [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md), HOR-010, HOR-037, and HOR-039 |
-| Independence and review of immigration adjudication | REG-003, [JUD-001](../areas/JUD/issues/JUD-001.md), and [JUD-005](../areas/JUD/issues/JUD-005.md) |
-| Federal pressure on or displacement of State and local government | [FED-003](../areas/FED/issues/FED-003.md) and FED-004 |
-| Surveillance, personal data, force, and critical-incident evidence | [DOM-009](../areas/DOM/issues/DOM-009.md), HOR-034, and [DOM-005](../areas/DOM/issues/DOM-005.md) |
-| Emergency declarations and domestic deployments associated with immigration enforcement | EMERG-001 and DOM-001 |
+- **Public concern:** Humanitarian protection, citizenship, lawful pathways, detention, removal, and access to adjudication
+  - **Applicable proposals:** [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md), [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md), HOR-010, HOR-037, and HOR-039
+
+- **Public concern:** Independence and review of immigration adjudication
+  - **Applicable proposals:** REG-003, [JUD-001](../areas/JUD/issues/JUD-001.md), and [JUD-005](../areas/JUD/issues/JUD-005.md)
+
+- **Public concern:** Federal pressure on or displacement of State and local government
+  - **Applicable proposals:** [FED-003](../areas/FED/issues/FED-003.md) and FED-004
+
+- **Public concern:** Surveillance, personal data, force, and critical-incident evidence
+  - **Applicable proposals:** [DOM-009](../areas/DOM/issues/DOM-009.md), HOR-034, and [DOM-005](../areas/DOM/issues/DOM-005.md)
+
+- **Public concern:** Emergency declarations and domestic deployments associated with immigration enforcement
+  - **Applicable proposals:** EMERG-001 and DOM-001
 
 ## How Concerns Map to Proposals
 
-| Public concern | Applicable proposals | How ARRP addresses it |
-| --- | --- | --- |
-| Humanitarian status or asylum procedures can become inaccessible or practically unreviewable | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) | Examines statutory review, country-condition procedures, and access to humanitarian protection. |
-| Citizenship recognition and identity records can be destabilized before final judicial resolution | [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md) | Examines recognition continuity, records safeguards, reliance interests, and expedited review. |
-| Lawful immigration or residency pathways created by Congress can become functionally inaccessible through administrative delay, inadequate capacity, opaque queues, inconsistent standards, status loss, or ineffective review | HOR-039 | Separates administration of existing pathways from the political question of whether Congress should create or expand pathways, eligibility categories, or numerical levels. |
-| Detention or removal can cause difficult-to-repair harm before meaningful notice, counsel access, evidentiary testing, custody review, or appeal | HOR-037 | Tests whether existing detention and removal procedures provide effective safeguards before irreversible action. |
-| Executive control over administrative adjudication can compromise neutral and durable decisional process | REG-003 | Examines structural controls over administrative adjudication, including immigration adjudication where the same defect is present. |
-| Immigration activity at courthouses can deter access to courts or participation in judicial proceedings | HOR-010 | Examines whether courthouse access requires a distinct institutional safeguard or fits an existing proposal. |
-| Federal grants or approvals can pressure States and localities into immigration-policy changes Congress did not clearly require | [FED-003](../areas/FED/issues/FED-003.md) | Addresses statutory authority, germaneness, notice, objective findings, and timely review. |
-| Federal action can displace State functions or obscure the boundary between preemption and commandeering | FED-004 | Examines the authority and safeguards governing displacement of ordinary State functions. |
-| Federal surveillance systems and cross-agency use of personal data can expand without adequate authorization, purpose limits, audit, or review | [DOM-009](../areas/DOM/issues/DOM-009.md) and HOR-034 | Separates surveillance procurement and deployment from the broader question of repurposing personal data across agencies. |
-| States can be denied timely access to evidence needed to investigate a federal critical incident | [DOM-005](../areas/DOM/issues/DOM-005.md) | Addresses evidence preservation and secure State investigative access without changing immunity or prosecution law. |
-| Emergency declarations or domestic deployments can alter ordinary immigration enforcement without sufficiently demanding predicates, duration rules, or review | EMERG-001 and DOM-001 | Separates emergency-declaration safeguards from domestic deployment authority. |
-| The executive can ignore or evade judicial commands after a wrongful removal or comparable immigration action | [JUD-001](../areas/JUD/issues/JUD-001.md) and [JUD-005](../areas/JUD/issues/JUD-005.md) | Addresses judicial enforcement and public notice of executive noncompliance rather than immigration policy itself. |
+- **Public concern:** Humanitarian status or asylum procedures can become inaccessible or practically unreviewable
+  - **Applicable proposals:** [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md)
+  - **How ARRP addresses it:** Examines statutory review, country-condition procedures, and access to humanitarian protection.
+
+- **Public concern:** Citizenship recognition and identity records can be destabilized before final judicial resolution
+  - **Applicable proposals:** [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md)
+  - **How ARRP addresses it:** Examines recognition continuity, records safeguards, reliance interests, and expedited review.
+
+- **Public concern:** Lawful immigration or residency pathways created by Congress can become functionally inaccessible through administrative delay, inadequate capacity, opaque queues, inconsistent standards, status loss, or ineffective review
+  - **Applicable proposals:** HOR-039
+  - **How ARRP addresses it:** Separates administration of existing pathways from the political question of whether Congress should create or expand pathways, eligibility categories, or numerical levels.
+
+- **Public concern:** Detention or removal can cause difficult-to-repair harm before meaningful notice, counsel access, evidentiary testing, custody review, or appeal
+  - **Applicable proposals:** HOR-037
+  - **How ARRP addresses it:** Tests whether existing detention and removal procedures provide effective safeguards before irreversible action.
+
+- **Public concern:** Executive control over administrative adjudication can compromise neutral and durable decisional process
+  - **Applicable proposals:** REG-003
+  - **How ARRP addresses it:** Examines structural controls over administrative adjudication, including immigration adjudication where the same defect is present.
+
+- **Public concern:** Immigration activity at courthouses can deter access to courts or participation in judicial proceedings
+  - **Applicable proposals:** HOR-010
+  - **How ARRP addresses it:** Examines whether courthouse access requires a distinct institutional safeguard or fits an existing proposal.
+
+- **Public concern:** Federal grants or approvals can pressure States and localities into immigration-policy changes Congress did not clearly require
+  - **Applicable proposals:** [FED-003](../areas/FED/issues/FED-003.md)
+  - **How ARRP addresses it:** Addresses statutory authority, germaneness, notice, objective findings, and timely review.
+
+- **Public concern:** Federal action can displace State functions or obscure the boundary between preemption and commandeering
+  - **Applicable proposals:** FED-004
+  - **How ARRP addresses it:** Examines the authority and safeguards governing displacement of ordinary State functions.
+
+- **Public concern:** Federal surveillance systems and cross-agency use of personal data can expand without adequate authorization, purpose limits, audit, or review
+  - **Applicable proposals:** [DOM-009](../areas/DOM/issues/DOM-009.md) and HOR-034
+  - **How ARRP addresses it:** Separates surveillance procurement and deployment from the broader question of repurposing personal data across agencies.
+
+- **Public concern:** States can be denied timely access to evidence needed to investigate a federal critical incident
+  - **Applicable proposals:** [DOM-005](../areas/DOM/issues/DOM-005.md)
+  - **How ARRP addresses it:** Addresses evidence preservation and secure State investigative access without changing immunity or prosecution law.
+
+- **Public concern:** Emergency declarations or domestic deployments can alter ordinary immigration enforcement without sufficiently demanding predicates, duration rules, or review
+  - **Applicable proposals:** EMERG-001 and DOM-001
+  - **How ARRP addresses it:** Separates emergency-declaration safeguards from domestic deployment authority.
+
+- **Public concern:** The executive can ignore or evade judicial commands after a wrongful removal or comparable immigration action
+  - **Applicable proposals:** [JUD-001](../areas/JUD/issues/JUD-001.md) and [JUD-005](../areas/JUD/issues/JUD-005.md)
+  - **How ARRP addresses it:** Addresses judicial enforcement and public notice of executive noncompliance rather than immigration policy itself.
 
 ## Related Ideas Not Included
 

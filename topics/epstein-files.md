@@ -19,21 +19,35 @@ ARRP does not treat “the Epstein files” as one proposal. Different proposals
 
 ## Relevant Proposals
 
-| Public concern | Applicable proposals |
-| --- | --- |
-| Whether DOJ complied with the Act’s disclosure requirements | [JUD-011](../areas/JUD/issues/JUD-011.md) |
-| Enforcement of an injunction or later court order | [JUD-001](../areas/JUD/issues/JUD-001.md) |
-| Notice to Congress and the public if a court finds noncompliance | [JUD-005](../areas/JUD/issues/JUD-005.md) |
-| Independent investigation if verified evidence satisfies DOJ-007’s requirements | [DOJ-007](../areas/DOJ/issues/DOJ-007.md) |
+- **Public concern:** Whether DOJ complied with the Act’s disclosure requirements
+  - **Applicable proposals:** [JUD-011](../areas/JUD/issues/JUD-011.md)
+
+- **Public concern:** Enforcement of an injunction or later court order
+  - **Applicable proposals:** [JUD-001](../areas/JUD/issues/JUD-001.md)
+
+- **Public concern:** Notice to Congress and the public if a court finds noncompliance
+  - **Applicable proposals:** [JUD-005](../areas/JUD/issues/JUD-005.md)
+
+- **Public concern:** Independent investigation if verified evidence satisfies DOJ-007’s requirements
+  - **Applicable proposals:** [DOJ-007](../areas/DOJ/issues/DOJ-007.md)
 
 ## How Concerns Map to Proposals
 
-| Public concern | Applicable proposals | How ARRP addresses it |
-| --- | --- | --- |
-| Did Congress create an enforceable disclosure duty? | [JUD-011](../areas/JUD/issues/JUD-011.md) | Addresses standing, the right to sue, the proper court, expedited proceedings, and available remedies when the executive departs from a congressional mandate. |
-| What happens after a court orders compliance? | [JUD-001](../areas/JUD/issues/JUD-001.md) | Addresses enforcement when the executive branch controls execution of the court’s command. |
-| Would Congress and the public automatically learn of defiance? | [JUD-005](../areas/JUD/issues/JUD-005.md) | Applies only after the court makes the proposal’s qualifying noncompliance finding. |
-| Does the controversy automatically trigger an independent counsel? | [DOJ-007](../areas/DOJ/issues/DOJ-007.md) | No. A later application would require authenticated evidence and satisfaction of DOJ-007’s independent appointment criteria. |
+- **Public concern:** Did Congress create an enforceable disclosure duty?
+  - **Applicable proposals:** [JUD-011](../areas/JUD/issues/JUD-011.md)
+  - **How ARRP addresses it:** Addresses standing, the right to sue, the proper court, expedited proceedings, and available remedies when the executive departs from a congressional mandate.
+
+- **Public concern:** What happens after a court orders compliance?
+  - **Applicable proposals:** [JUD-001](../areas/JUD/issues/JUD-001.md)
+  - **How ARRP addresses it:** Addresses enforcement when the executive branch controls execution of the court’s command.
+
+- **Public concern:** Would Congress and the public automatically learn of defiance?
+  - **Applicable proposals:** [JUD-005](../areas/JUD/issues/JUD-005.md)
+  - **How ARRP addresses it:** Applies only after the court makes the proposal’s qualifying noncompliance finding.
+
+- **Public concern:** Does the controversy automatically trigger an independent counsel?
+  - **Applicable proposals:** [DOJ-007](../areas/DOJ/issues/DOJ-007.md)
+  - **How ARRP addresses it:** No. A later application would require authenticated evidence and satisfaction of DOJ-007’s independent appointment criteria.
 
 ## What ARRP Does and Does Not Address
 

@@ -19,25 +19,51 @@ This page concerns executive-branch administration of justice, including the Jus
 
 ## Relevant Proposals
 
-| Public concern | Applicable proposals |
-| --- | --- |
-| White House influence, personal loyalty, or insufficiently qualified leadership | [DOJ-001](../areas/DOJ/issues/DOJ-001.md), [DOJ-002](../areas/DOJ/issues/DOJ-002.md), and [DOJ-009](../areas/DOJ/issues/DOJ-009.md) |
-| Selective enforcement, recusal, or personnel retaliation | [DOJ-003](../areas/DOJ/issues/DOJ-003.md), [DOJ-004](../areas/DOJ/issues/DOJ-004.md), and [DOJ-005](../areas/DOJ/issues/DOJ-005.md) |
-| Independent investigation of senior executive misconduct | [DOJ-007](../areas/DOJ/issues/DOJ-007.md) |
-| Federal criminal process involving State-administered elections | [ELEC-014](../areas/ELEC/issues/ELEC-014.md) |
+- **Public concern:** White House influence, personal loyalty, or insufficiently qualified leadership
+  - **Applicable proposals:** [DOJ-001](../areas/DOJ/issues/DOJ-001.md), [DOJ-002](../areas/DOJ/issues/DOJ-002.md), and [DOJ-009](../areas/DOJ/issues/DOJ-009.md)
+
+- **Public concern:** Selective enforcement, recusal, or personnel retaliation
+  - **Applicable proposals:** [DOJ-003](../areas/DOJ/issues/DOJ-003.md), [DOJ-004](../areas/DOJ/issues/DOJ-004.md), and [DOJ-005](../areas/DOJ/issues/DOJ-005.md)
+
+- **Public concern:** Independent investigation of senior executive misconduct
+  - **Applicable proposals:** [DOJ-007](../areas/DOJ/issues/DOJ-007.md)
+
+- **Public concern:** Federal criminal process involving State-administered elections
+  - **Applicable proposals:** [ELEC-014](../areas/ELEC/issues/ELEC-014.md)
 
 ## How Concerns Map to Proposals
 
-| Public concern | Applicable proposals | How ARRP addresses it |
-| --- | --- | --- |
-| Appointment of a president’s recent personal counsel to senior DOJ leadership | [DOJ-001](../areas/DOJ/issues/DOJ-001.md) | Addresses heightened conflicts, screening, and safeguards for recent personal counsel. |
-| White House direction concerning a particular criminal matter | [DOJ-002](../areas/DOJ/issues/DOJ-002.md) | Addresses case-specific contacts, documentation, disclosure, and review. |
-| Politically selective charging, noncharging, or favoritism | [DOJ-003](../areas/DOJ/issues/DOJ-003.md) | Addresses neutral enforcement records, review, oversight, and corrective mechanisms. |
-| Removal or reassignment of career personnel for professional judgments | [DOJ-004](../areas/DOJ/issues/DOJ-004.md) | Addresses protection for career independence and lawful professional decision-making. |
-| Recusal failures or weak internal enforcement | [DOJ-005](../areas/DOJ/issues/DOJ-005.md) | Addresses enforceable screening, recusal, review, and discipline. |
-| Investigation of presidential or senior executive misconduct | [DOJ-007](../areas/DOJ/issues/DOJ-007.md) | Addresses independent appointment, authority, evidence preservation, and reporting. |
-| Qualifications for senior DOJ leadership | [DOJ-009](../areas/DOJ/issues/DOJ-009.md) | Addresses minimum professional qualifications and confirmation safeguards. |
-| Criminal searches, subpoenas, seizures, or investigations involving State elections | [ELEC-014](../areas/ELEC/issues/ELEC-014.md) | Addresses federal criminal-process safeguards without insulating election misconduct. |
+- **Public concern:** Appointment of a president’s recent personal counsel to senior DOJ leadership
+  - **Applicable proposals:** [DOJ-001](../areas/DOJ/issues/DOJ-001.md)
+  - **How ARRP addresses it:** Addresses heightened conflicts, screening, and safeguards for recent personal counsel.
+
+- **Public concern:** White House direction concerning a particular criminal matter
+  - **Applicable proposals:** [DOJ-002](../areas/DOJ/issues/DOJ-002.md)
+  - **How ARRP addresses it:** Addresses case-specific contacts, documentation, disclosure, and review.
+
+- **Public concern:** Politically selective charging, noncharging, or favoritism
+  - **Applicable proposals:** [DOJ-003](../areas/DOJ/issues/DOJ-003.md)
+  - **How ARRP addresses it:** Addresses neutral enforcement records, review, oversight, and corrective mechanisms.
+
+- **Public concern:** Removal or reassignment of career personnel for professional judgments
+  - **Applicable proposals:** [DOJ-004](../areas/DOJ/issues/DOJ-004.md)
+  - **How ARRP addresses it:** Addresses protection for career independence and lawful professional decision-making.
+
+- **Public concern:** Recusal failures or weak internal enforcement
+  - **Applicable proposals:** [DOJ-005](../areas/DOJ/issues/DOJ-005.md)
+  - **How ARRP addresses it:** Addresses enforceable screening, recusal, review, and discipline.
+
+- **Public concern:** Investigation of presidential or senior executive misconduct
+  - **Applicable proposals:** [DOJ-007](../areas/DOJ/issues/DOJ-007.md)
+  - **How ARRP addresses it:** Addresses independent appointment, authority, evidence preservation, and reporting.
+
+- **Public concern:** Qualifications for senior DOJ leadership
+  - **Applicable proposals:** [DOJ-009](../areas/DOJ/issues/DOJ-009.md)
+  - **How ARRP addresses it:** Addresses minimum professional qualifications and confirmation safeguards.
+
+- **Public concern:** Criminal searches, subpoenas, seizures, or investigations involving State elections
+  - **Applicable proposals:** [ELEC-014](../areas/ELEC/issues/ELEC-014.md)
+  - **How ARRP addresses it:** Addresses federal criminal-process safeguards without insulating election misconduct.
 
 ## What ARRP Does and Does Not Address
 

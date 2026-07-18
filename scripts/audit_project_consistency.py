@@ -202,8 +202,20 @@ def check_topic_pages(failures: list[str], warnings: list[str]) -> None:
         for heading in required:
             if not re.search(rf"^## {re.escape(heading)}$", body, re.MULTILINE):
                 report("ERROR", f"{path.relative_to(ROOT)} lacks topic-page heading: {heading}", failures, warnings)
-        if "| Public concern | Applicable proposals |" not in body:
-            report("ERROR", f"{path.relative_to(ROOT)} lacks the standard public-concern routing table", failures, warnings)
+        relevant = body.split("## Relevant Proposals", 1)[-1].split("\n## ", 1)[0]
+        if not re.search(
+            r"(?m)^- \*\*Public concern:\*\* .+\n  - \*\*Applicable proposals:\*\* .+$",
+            relevant,
+        ):
+            report("ERROR", f"{path.relative_to(ROOT)} lacks the standard public-concern routing list", failures, warnings)
+        mapped = body.split("## How Concerns Map to Proposals", 1)[-1].split("\n## ", 1)[0]
+        if not re.search(
+            r"(?m)^- \*\*Public concern:\*\* .+\n  - \*\*Applicable proposals:\*\* .+\n  - \*\*How ARRP addresses it:\*\* .+$",
+            mapped,
+        ):
+            report("ERROR", f"{path.relative_to(ROOT)} lacks the standard concern-to-proposal mapping list", failures, warnings)
+        if re.search(r"(?m)^\|", body):
+            report("ERROR", f"{path.relative_to(ROOT)} uses a table instead of the topic-page bullet convention", failures, warnings)
 
 
 def reader_pages() -> list[Path]:
