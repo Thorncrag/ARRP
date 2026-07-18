@@ -33,12 +33,15 @@ Prepare the allowlisted source tree and generated navigation:
 python3 scripts/prepare_public_site.py
 ```
 
-Install the pinned site dependencies and build with warnings treated as errors:
+Bootstrap the project-local website and document environment once, then build with warnings treated as errors:
 
 ```sh
-python3 -m pip install -r requirements-pages.txt
-python3 -m mkdocs build --strict --config-file .site-build/mkdocs.yml
+scripts/bootstrap_local_tools.sh
+.venv/bin/python scripts/prepare_public_site.py
+.venv/bin/python -m mkdocs build --strict --config-file .site-build/mkdocs.yml
 ```
+
+The bootstrap uses a stable host Python installation and does not depend on packages bundled inside the Codex application. On macOS it also identifies any missing Homebrew commands required for PDF extraction and rendering, OCR, document conversion, local JavaScript tests, and repository search. Sandboxed document commands should put `/opt/homebrew/bin` first and set `XDG_CACHE_HOME="$PWD/.tmp/cache"` so they use the stable host tools and keep Fontconfig's writable cache inside the ignored workspace. GitHub Actions independently installs `requirements-pages.txt` in a fresh environment before publication.
 
 The generated source tree, manifest, MkDocs configuration, and output site live under `.site-build/`, which is ignored by Git. The manifest records every canonical Markdown source admitted to the build and every internal link demoted because its target is outside the publication boundary.
 

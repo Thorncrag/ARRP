@@ -9,6 +9,7 @@ Thumbs.db
 # Local build products
 .build/
 .tmp/
+.venv/
 .site-build/
 __pycache__/
 *.pyc
