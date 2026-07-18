@@ -74,7 +74,13 @@ Before running a T-audit, an agent must identify:
 5. the sibling audit-history file;
 6. the relevant GitHub Project item;
 7. the relevant `sources.csv` rows; and
-8. any unresolved findings from the latest audit.
+8. every task in the Source Intake Dashboard's unified Sources queue routed to the issue; and
+9. any unresolved findings from the latest audit.
+10. the issue's open `ISSUE-ID-MON` monitoring sub-issue, if one exists, and every defined external predicate it carries.
+
+Apply the tier-scaled Sources-Queue Reconciliation rule in the methodology. T0 and T1 may inventory applicable tasks; development and T2-T4 work should resolve applicable tasks through verification, route and remedy-fit review, qualitative reader-facing placement, registry-only disposition, or a precise continuing predicate. Regenerate and verify the dashboard at closeout whenever source or monitoring rows change. This reconciliation does not create a separate audit run.
+
+A project-wide monitoring pass is a separate non-scoring workflow governed by [`METHODOLOGY.md`](METHODOLOGY.md#project-wide-monitoring-pass). Begin from the GitHub Project Monitoring view, not from the local console. Review each open monitor sub-issue against its defined predicate, update its source/evidence record and last-checked date, and close it when its obligation ends. Do not change a parent proposal's score or Runs unless a material result independently requires the ordinary targeted Change Audit and Internal Remedy-Fit review.
 
 Before starting substantive audit work, the agent must also check whether the issue has a linked proposed legislation file, constitutional amendment, enabling legislation, rule text, manual text, model act, or other concrete proposal vehicle. If the issue has only a `Pending development` placeholder or otherwise lacks concrete proposal text, stop and notify the user that no proposed legislation or equivalent vehicle exists yet. Ask for confirmation before proceeding, and make clear that the audit will be limited to source development, issue admission, remedy selection, or fixed-zero/candidate review unless the user wants drafting added to the scope. Do not assign a formula-based Proposal Quality Score until a concrete draft exists.
 

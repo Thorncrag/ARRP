@@ -132,7 +132,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 136,https://github.com/Thorncrag/ARRP/issues/136,DOM-002,merged proposal,DOM-002: Ambiguity in Posse Comitatus limitations [Merged into DOM-001],areas/DOM/README.md,
 137,https://github.com/Thorncrag/ARRP/issues/137,DOM-003,merged proposal,DOM-003: Federalization of the National Guard over state objection [Merged into DOM-001],areas/DOM/README.md,
 138,https://github.com/Thorncrag/ARRP/issues/138,DOM-004,merged proposal,DOM-004: Deployment around protests or elections [Merged into DOM-001],areas/DOM/README.md,
-139,https://github.com/Thorncrag/ARRP/issues/139,DOM-005,proposal,"DOM-005: State Investigative Access to Federal Critical-Incident Evidence",areas/DOM/issues/DOM-005.md,
+139,https://github.com/Thorncrag/ARRP/issues/139,DOM-005,proposal,DOM-005: State Investigative Access to Federal Critical-Incident Evidence,areas/DOM/issues/DOM-005.md,
 140,https://github.com/Thorncrag/ARRP/issues/140,DOM-006,merged proposal,DOM-006: Federal-property authority used as a pretext for broader operations [Merged into DOM-001],areas/DOM/README.md,
 141,https://github.com/Thorncrag/ARRP/issues/141,DOM-007,proposal,DOM-007: Domestic military intelligence activity,areas/DOM/README.md,
 142,https://github.com/Thorncrag/ARRP/issues/142,DOM-008,merged proposal,DOM-008: Insufficient expedited judicial review [Merged into DOM-001],areas/DOM/README.md,
@@ -251,3 +251,28 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 255,https://github.com/Thorncrag/ARRP/issues/255,HOR-035,horizon,"HOR-035: Executive Review Evasion Through Withdrawal, Replacement, Settlement, or Mootness",framework/HORIZON_SCAN_LOG.md,
 256,https://github.com/Thorncrag/ARRP/issues/256,HOR-036,horizon,HOR-036: Executive Action That May Operate Without Timely Merits Review,framework/HORIZON_SCAN_LOG.md,
 257,https://github.com/Thorncrag/ARRP/issues/257,HOR-037,horizon,"HOR-037: Immigration Detention, Removal Process, and Access Safeguards",framework/HORIZON_SCAN_LOG.md,
+274,https://github.com/Thorncrag/ARRP/issues/274,HOR-038,horizon,HOR-038: Endangered Species Act Regulatory-Boundary Monitoring,framework/HORIZON_SCAN_LOG.md,
+275,https://github.com/Thorncrag/ARRP/issues/275,CIV-001-MON,source review,CIV-001-MON: CIV-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,86
+276,https://github.com/Thorncrag/ARRP/issues/276,CIV-009-MON,source review,CIV-009-MON: CIV-009 External Developments Watch,research/trump-administration-litigation-monitoring.csv,94
+277,https://github.com/Thorncrag/ARRP/issues/277,DOJ-002-MON,source review,DOJ-002-MON: DOJ-002 External Developments Watch,research/trump-administration-litigation-monitoring.csv,23
+278,https://github.com/Thorncrag/ARRP/issues/278,DOJ-003-MON,source review,DOJ-003-MON: DOJ-003 External Developments Watch,research/trump-administration-litigation-monitoring.csv,24
+279,https://github.com/Thorncrag/ARRP/issues/279,DOM-001-MON,source review,DOM-001-MON: DOM-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,135
+280,https://github.com/Thorncrag/ARRP/issues/280,ELEC-001-MON,source review,ELEC-001-MON: ELEC-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,29
+281,https://github.com/Thorncrag/ARRP/issues/281,EMERG-003-MON,source review,EMERG-003-MON: EMERG-003 External Developments Watch,research/trump-administration-litigation-monitoring.csv,105
+282,https://github.com/Thorncrag/ARRP/issues/282,EMOL-001-MON,source review,EMOL-001-MON: EMOL-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,59
+283,https://github.com/Thorncrag/ARRP/issues/283,FACT-001-MON,source review,FACT-001-MON: FACT-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,168
+284,https://github.com/Thorncrag/ARRP/issues/284,FED-003-MON,source review,FED-003-MON: FED-003 External Developments Watch,research/trump-administration-litigation-monitoring.csv,187
+285,https://github.com/Thorncrag/ARRP/issues/285,FED-004-MON,source review,FED-004-MON: FED-004 External Developments Watch,research/trump-administration-litigation-monitoring.csv,188
+286,https://github.com/Thorncrag/ARRP/issues/286,FUND-001-MON,source review,FUND-001-MON: FUND-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,111
+287,https://github.com/Thorncrag/ARRP/issues/287,HER-001-MON,source review,HER-001-MON: HER-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,213
+288,https://github.com/Thorncrag/ARRP/issues/288,JUD-001-MON,source review,JUD-001-MON: JUD-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,43
+289,https://github.com/Thorncrag/ARRP/issues/289,OVS-001-MON,source review,OVS-001-MON: OVS-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,95
+290,https://github.com/Thorncrag/ARRP/issues/290,PRESS-001-MON,source review,PRESS-001-MON: PRESS-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,201
+291,https://github.com/Thorncrag/ARRP/issues/291,REC-001-MON,source review,REC-001-MON: REC-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,127
+292,https://github.com/Thorncrag/ARRP/issues/292,REG-001-MON,source review,REG-001-MON: REG-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,160
+293,https://github.com/Thorncrag/ARRP/issues/293,REG-002-MON,source review,REG-002-MON: REG-002 External Developments Watch,research/trump-administration-litigation-monitoring.csv,161
+294,https://github.com/Thorncrag/ARRP/issues/294,RET-001-MON,source review,RET-001-MON: RET-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,177
+295,https://github.com/Thorncrag/ARRP/issues/295,RIGHTS-001-MON,source review,RIGHTS-001-MON: RIGHTS-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,221
+296,https://github.com/Thorncrag/ARRP/issues/296,RIGHTS-002-MON,source review,RIGHTS-002-MON: RIGHTS-002 External Developments Watch,research/trump-administration-litigation-monitoring.csv,222
+297,https://github.com/Thorncrag/ARRP/issues/297,WAR-001-MON,source review,WAR-001-MON: WAR-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,42
+298,https://github.com/Thorncrag/ARRP/issues/298,DOM-005-MON,source review,DOM-005-MON: DOM-005 External Developments Watch,research/trump-administration-litigation-monitoring.csv,139

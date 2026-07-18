@@ -165,6 +165,10 @@ No reliable estimate yet. Early remedies may require compliance, records, review
 >
 > **Internal Review Status:** Pending development; no proposal-quality score assigned<br />**Last Internal Review:** SCOTUS doctrine update<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Current unscored status<br />**Next Review:** Post-*B.P.J.* source-development pass<br />**Full Review History:** [RIGHTS-001 review history](RIGHTS-001.audit.md)
 
+## Watching for Updates
+
+ARRP maintains an issue-specific [RIGHTS-001-MON](https://github.com/Thorncrag/ARRP/issues/295) record for pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
+
 ## Annotation
 
 RIGHTS-001 is a candidate issue admitted from HOR-015. It receives a proposal-quality score of 0 until a basic proposal framework is developed.

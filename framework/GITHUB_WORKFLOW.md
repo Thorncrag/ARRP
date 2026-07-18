@@ -49,7 +49,8 @@ The lifecycle check applies whenever the user asks to focus on, research, develo
 
 Use the Project `Status` options as follows:
 
-- `Horizon / Intake` — an active candidate has not yet been admitted as an independent proposal.
+- `Candidate issue` — an active candidate has not yet been admitted as an independent proposal.
+- `Monitoring` — an active `ISSUE-ID-MON` source-review sub-issue is waiting on a defined external development. It is not a lifecycle status for the parent proposal.
 - `Pending development` — an admitted proposal is not in active drafting and does not yet have a complete initial issue-and-vehicle package.
 - `In development` — substantive work is active or the initial issue-and-vehicle package remains incomplete. A completed T-audit score of 1–49 also uses this status because the available Project vocabulary intentionally consolidates both Early/Partial Draft score bands.
 - `Audit needed` — an unscored initial issue page and concrete proposal vehicle are complete enough for the next T-audit. The status does not itself assign a score or increment `Runs`.
@@ -102,6 +103,20 @@ Use labels sparingly. Labels should not duplicate Project fields.
 Use GitHub native sub-issues rather than Markdown task lists when a governance, release, audit, or publication item has meaningful child tasks. Parent issues should describe the umbrella objective and completion standard. Child issues should carry the executable work and close independently.
 
 A living repository surface may receive a maintenance sub-issue when it has a genuine recurring review obligation, such as an agency or event catalog, election dataset, litigation tracker, legislation survey, recurring crosswalk, or deferred evidence watch. The child issue must use a metadata-only body linking the canonical page and parent issue, state a review cadence or concrete event predicate, carry `kind: source review` and `needs: monitoring`, and remain separate from substantive analysis. Do not create maintenance sub-issues for static citations, ordinary adjacent pages, or every linked source. Close the child issue and remove `needs: monitoring` when the page is retired, absorbed into a nonrecurring record, or no longer requires periodic review.
+
+### Issue-Specific Monitoring Records
+
+When a live proposal has one coherent body of external matters awaiting a ruling, agency action, disclosure, scheduled event, or other defined predicate, create one native monitoring sub-issue named `ISSUE-ID-MON`, for example `DOJ-001-MON: DOJ-001 External Developments Watch`. It is the GitHub workflow wrapper for that proposal's monitoring work, not a new substantive proposal or a separate source record.
+
+Set the monitoring sub-issue's Project `Status` to `Monitoring`; apply `kind: source review` and `needs: monitoring`; set the proposal as its native GitHub parent; and use the parent proposal's Area and ordinary proposal-development workstream. The monitor body must state its parent, the primary evidence record or source inventory location, the monitored matters or a concise grouped index, their current posture, the last checked date, and the defined reassessment trigger. The `Canonical page` field points to the monitoring issue itself.
+
+The parent issue page stays concise. When a monitor is active, use a short **Watching for Updates** section immediately before **Annotation**, linking to the `ISSUE-ID-MON` record and stating that it tracks pending external developments without changing the proposal's current analysis. When a qualitatively warranted evidence record exists, use a neighboring **Additional Supporting Record** section with a direct link. Omit either section when its target does not exist; never create a placeholder. The evidence record holds the detailed account of individual cases or actions. The source inventory and monitoring ledger retain source IDs, primary and affected proposal routes, exact posture, source links, and checking history.
+
+A matter relevant to several proposals has one primary analytic home and any number of affected-issue links. Treat the primary monitor or evidence record as the detailed account; affected issue pages and monitoring records should cross-reference it with a tailored explanation rather than duplicate the case history. Do not create one monitor sub-issue per lawsuit, one monitor per raw source, or duplicate native sub-issues solely because a matter has more than one affected proposal. Create a second `ISSUE-ID-MON-02` record only when a distinct, long-lived monitoring stream cannot be managed coherently within the original monitor.
+
+Horizon candidates remain their own active monitoring records while unadmitted. Do not create `HOR-###-MON` merely to duplicate an active Horizon issue carrying `needs: monitoring`.
+
+The Project should maintain a dedicated **Monitoring** view filtered to `Status: Monitoring` and/or `needs: monitoring`. A project-wide monitoring pass reviews every open monitor in that view, refreshes the external posture and last-checked date, updates its source inventory and evidence placement, performs a targeted Change Audit when a result materially changes a developed proposal, and closes/removes resolved monitors without deleting their GitHub issues.
 
 For the current public-release workflow, `Pre-publication final audit` and `Pre-publication technical` are the parent governance issues. Their detailed work should remain attached through GitHub native sub-issues so the Project board can stay compact while preserving task detail.
 

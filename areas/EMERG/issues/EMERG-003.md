@@ -139,6 +139,10 @@ Prospectively, the statute would force the political branch constitutionally res
 >
 > **Internal Review Status:** First statutory draft complete; internal project review pending<br />**Last Internal Review:** HOR-030 integration and initial statutory draft<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status<br />**Next Review:** Internal project review of statutory scope, immigration coordination, judicial review, transition, and implementation<br />**Full Review History:** [EMERG-003 review history](EMERG-003.audit.md)
 
+## Watching for Updates
+
+ARRP maintains an issue-specific [EMERG-003-MON](https://github.com/Thorncrag/ARRP/issues/281) record for pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
+
 ## Annotation
 
 This proposal deliberately does not decide whether the United States should join the Rome Statute, recognize a particular ICC exercise of jurisdiction, cooperate with the ICC, fund the ICC, surrender a person, or support any particular investigation or prosecution. ASPA’s enacted noncooperation rules and its limited assistance authority remain in place.

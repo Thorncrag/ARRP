@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — task completed |
-| Active issue/task | None |
-| Audit type/tier | None |
-| Started | — |
-| Last checkpoint | 2026-07-16; 1,266-record route-centered adjudication completed and published |
-| User request | Completed: process the full discovery catalog autonomously and reconcile every record. |
-| Scope | None active. |
-| Files touched | None active. |
-| Completed steps | All 1,266 records were reconciled as 1,250 episodes. The completed batch retained 160 records for qualitative integration and 178 records as 174 defined-predicate monitoring episodes, removed 928 cumulative or nonqualifying records, graduated 373 canonical sources, created no new preliminary candidate, and was committed and pushed in `832b0f3`. Scores, Runs, Project lifecycle fields, and Review Ready progress were unchanged. |
-| Next step | Work the 162-row existing-record integration queue by receiving record, beginning with a high-volume route such as FACT-001 or RIGHTS-002; revisit the separate 174-row litigation monitor only when a defined posture predicate occurs. |
-| Blockers/questions | None. |
-| Validation status | Passed: 37 unit tests, batch and CSV reconciliation, canonical-source and uniqueness checks, changed-document link checks, public-site preparation, and `git diff --check`. |
+| Status | Inactive — monitoring framework, reader links, and DOM-005 evidence record preserved |
+| Active issue/task | GitHub-native issue monitoring framework and migration |
+| Audit type/tier | Project-governance Change Audit; no T-audit or score change |
+| Started | 2026-07-18 |
+| Last checkpoint | 2026-07-18; created and synchronized 24 proposal-level `ISSUE-ID-MON` records, preserved four Horizon-only records, standardized reader-facing monitoring sections, and created the justified DOM-005 evidence record. |
+| User request | Apply the agreed evidence-record and monitoring-link convention across existing issue pages, then commit and push for inspection. |
+| Scope | Monitoring-governance rules; GitHub Project fields and view; native source-review sub-issues; monitoring inventory routing; reader-facing monitoring/evidence links; source-intake console synchronization. |
+| Files touched | `framework/GITHUB_WORKFLOW.md`; `framework/METHODOLOGY.md`; `framework/AGENT_OPERATING_RULES.md`; `framework/CHANGE_AUDIT_LOG.md`; `framework/CURRENT_AUDIT.md`; `inventory/github_issue_registry.csv`; `research/trump-administration-litigation-monitoring.csv`; `scripts/sync_issue_monitors.py`; `scripts/build_horizon_review_console.py`; refreshed console data; standardized monitoring sections on eligible parent pages; `areas/DOM/evidence/DOM-005-evidence.md`. |
+| Completed steps | Added Project Status `Monitoring`; created 24 native `ISSUE-ID-MON` source-review sub-issues (#275–#298) with required labels, parent relationships, Project fields, source-ledger links, current matters, last-checked dates, and defined triggers; registered every monitor; preserved Horizon candidates as their own monitors; and updated the console to link each source monitor to its GitHub home. Standardized the reader-facing **Watching for Updates** section immediately before **Annotation** on every developed monitored parent page. Created and linked DOM-005's evidence record after confirming that its source-identified official chronology is sufficiently supported and that a separate record improves organization; did not manufacture evidence annexes for pages whose additional materials remain unverified, cumulative, or not reader-useful. The existing Project Monitoring view remains the operating surface. |
+| Next step | None. Resume with a project-wide monitoring pass when a user requests an external-status refresh. |
+| Blockers/questions | Existing unrelated uncommitted files require selective preservation; do not stage or overwrite them incidentally. |
+| Validation status | Passed: GitHub Project readback for all 23 monitor cards; representative native-parent readback (#275 → #86); 11 Horizon intake tests; zero planned duplicate monitors; registry uniqueness and count checks; console monitor-link assertion; parent-notice count; public-site preparation (122 canonical pages); and `git diff --check`. |
 
 ## Handoff Rules
 
