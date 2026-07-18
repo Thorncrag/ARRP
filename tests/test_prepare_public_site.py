@@ -35,7 +35,7 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn("topics/executive-orders-and-presidential-power.md", sources)
         self.assertIn("topics/federal-pressure-on-states-and-cities.md", sources)
         self.assertIn("topics/government-spending-and-impoundment.md", sources)
-        self.assertIn("topics/immigration-enforcement.md", sources)
+        self.assertIn("topics/immigration-system-reform.md", sources)
         self.assertIn("topics/january-6.md", sources)
         self.assertIn("topics/presidential-accountability.md", sources)
         self.assertIn("topics/weaponization-of-justice.md", sources)
@@ -92,7 +92,7 @@ class PublicSitePreparationTests(unittest.TestCase):
             config,
         )
         self.assertIn(
-            '"Immigration Enforcement": topics/immigration-enforcement.md',
+            '"Immigration System Reform": topics/immigration-system-reform.md',
             config,
         )
         self.assertIn('"January 6": topics/january-6.md', config)
