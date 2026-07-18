@@ -7,13 +7,13 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 10,https://github.com/Thorncrag/ARRP/issues/10,,governance,Implement release-ready PDF/DOCX export,,9
 11,https://github.com/Thorncrag/ARRP/issues/11,,governance,Improve GitHub/web navigation and project table of contents,README.md,9
 12,https://github.com/Thorncrag/ARRP/issues/12,,governance,Select public reuse license,LICENSE.md,9
-14,https://github.com/Thorncrag/ARRP/issues/14,,governance,Review and resolve horizon proposals,framework/HORIZON_SCAN_LOG.md,
-15,https://github.com/Thorncrag/ARRP/issues/15,HOR-010,horizon,HOR-010: Immigration-courthouse arrests and courthouse-access chilling,framework/HORIZON_SCAN_LOG.md,
-16,https://github.com/Thorncrag/ARRP/issues/16,HOR-018,horizon,HOR-018: Agency-continuity and executive anti-nullification review [Integrated into REG-001],framework/HORIZON_SCAN_LOG.md,
-17,https://github.com/Thorncrag/ARRP/issues/17,HOR-019,horizon,HOR-019: Supreme Court structure and legitimacy review,framework/HORIZON_SCAN_LOG.md,
-18,https://github.com/Thorncrag/ARRP/issues/18,HOR-020,horizon,HOR-020: District of Columbia statehood and home-rule review [Outside scope],framework/HORIZON_SCAN_LOG.md,
-19,https://github.com/Thorncrag/ARRP/issues/19,HOR-021,horizon,HOR-021: Puerto Rico status and democratic representation review [Outside scope],framework/HORIZON_SCAN_LOG.md,
-20,https://github.com/Thorncrag/ARRP/issues/20,HOR-022,horizon,HOR-022: Qualified immunity and constitutional-remedies review,framework/HORIZON_SCAN_LOG.md,
+14,https://github.com/Thorncrag/ARRP/issues/14,,governance,Review and resolve horizon proposals,framework/logs/HORIZON_SCAN_LOG.md,
+15,https://github.com/Thorncrag/ARRP/issues/15,HOR-010,horizon,HOR-010: Immigration-courthouse arrests and courthouse-access chilling,framework/logs/HORIZON_SCAN_LOG.md,
+16,https://github.com/Thorncrag/ARRP/issues/16,HOR-018,horizon,HOR-018: Agency-continuity and executive anti-nullification review [Integrated into REG-001],framework/logs/HORIZON_SCAN_LOG.md,
+17,https://github.com/Thorncrag/ARRP/issues/17,HOR-019,horizon,HOR-019: Supreme Court structure and legitimacy review,framework/logs/HORIZON_SCAN_LOG.md,
+18,https://github.com/Thorncrag/ARRP/issues/18,HOR-020,horizon,HOR-020: District of Columbia statehood and home-rule review [Outside scope],framework/logs/HORIZON_SCAN_LOG.md,
+19,https://github.com/Thorncrag/ARRP/issues/19,HOR-021,horizon,HOR-021: Puerto Rico status and democratic representation review [Outside scope],framework/logs/HORIZON_SCAN_LOG.md,
+20,https://github.com/Thorncrag/ARRP/issues/20,HOR-022,horizon,HOR-022: Qualified immunity and constitutional-remedies review,framework/logs/HORIZON_SCAN_LOG.md,
 21,https://github.com/Thorncrag/ARRP/issues/21,,governance,Complete proposal issue import from ledger,,
 22,https://github.com/Thorncrag/ARRP/issues/22,DOJ-001,proposal,DOJ-001: Recent Presidential Personal Counsel in Senior DOJ Leadership,areas/DOJ/issues/DOJ-001.md,
 23,https://github.com/Thorncrag/ARRP/issues/23,DOJ-002,proposal,DOJ-002: White House Direction or Interference in Particular Federal Criminal Matters,areas/DOJ/issues/DOJ-002.md,
@@ -219,7 +219,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 223,https://github.com/Thorncrag/ARRP/issues/223,RIGHTS-003,proposal,RIGHTS-003: Birthright Citizenship Statutory Recognition and Federal Identity Records,areas/RIGHTS/issues/RIGHTS-003.md,
 224,https://github.com/Thorncrag/ARRP/issues/224,,governance,Source and external-reference hardening,inventory/sources.csv,7
 225,https://github.com/Thorncrag/ARRP/issues/225,,governance,Neutrality and bipartisan adoption review,,7
-226,https://github.com/Thorncrag/ARRP/issues/226,,governance,Horizon proposal resolution for public release,framework/HORIZON_SCAN_LOG.md,7
+226,https://github.com/Thorncrag/ARRP/issues/226,,governance,Horizon proposal resolution for public release,framework/logs/HORIZON_SCAN_LOG.md,7
 227,https://github.com/Thorncrag/ARRP/issues/227,,governance,Release-blocker audit posture review,,7
 228,https://github.com/Thorncrag/ARRP/issues/228,,governance,Publication assembly workflow,,9
 229,https://github.com/Thorncrag/ARRP/issues/229,,governance,Final link and export validation,,9
@@ -227,31 +227,31 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 231,https://github.com/Thorncrag/ARRP/issues/231,,governance,Modify or add an audit to add an executive summary to each issue page,,
 232,https://github.com/Thorncrag/ARRP/issues/232,,source review,Jack Smith reports crosswalks,,
 233,https://github.com/Thorncrag/ARRP/issues/233,,governance,Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims,,
-234,https://github.com/Thorncrag/ARRP/issues/234,HOR-023,horizon,HOR-023: Foreign Election Interference and Campaign Counterintelligence Safeguards,framework/HORIZON_SCAN_LOG.md,
-235,https://github.com/Thorncrag/ARRP/issues/235,HOR-024,horizon,HOR-024: CFPB Operational Dismantling and Funding Leverage [Integrated into REG-001 and REG-007],framework/HORIZON_SCAN_LOG.md,
+234,https://github.com/Thorncrag/ARRP/issues/234,HOR-023,horizon,HOR-023: Foreign Election Interference and Campaign Counterintelligence Safeguards,framework/logs/HORIZON_SCAN_LOG.md,
+235,https://github.com/Thorncrag/ARRP/issues/235,HOR-024,horizon,HOR-024: CFPB Operational Dismantling and Funding Leverage [Integrated into REG-001 and REG-007],framework/logs/HORIZON_SCAN_LOG.md,
 236,https://github.com/Thorncrag/ARRP/issues/236,ELEC-014,proposal,ELEC-014: Limiting Federal Criminal Investigations into State-Administered Elections,areas/ELEC/issues/ELEC-014.md,
 237,https://github.com/Thorncrag/ARRP/issues/237,ELEC-015,proposal,ELEC-015: Ranked-Choice Voting and Majority-Choice Election Methods,areas/ELEC/issues/ELEC-015.md,
 238,https://github.com/Thorncrag/ARRP/issues/238,RIGHTS-004,retired proposal,"RIGHTS-004: Comprehensive Immigration Reform, Removal Due Process, and Immigration System Integrity [Retired as omnibus proposal]",areas/RIGHTS/issues/RIGHTS-004.md,
-239,https://github.com/Thorncrag/ARRP/issues/239,HOR-025,horizon,HOR-025: Political and Lobbyist Influence over DOJ Merger Enforcement,framework/HORIZON_SCAN_LOG.md,
+239,https://github.com/Thorncrag/ARRP/issues/239,HOR-025,horizon,HOR-025: Political and Lobbyist Influence over DOJ Merger Enforcement,framework/logs/HORIZON_SCAN_LOG.md,
 240,https://github.com/Thorncrag/ARRP/issues/240,REG-001-CATALOG-MONITOR,source review,REG-001 Monitor: Agency Independence and Functional Nullification Catalog,research/REG-001-independent-agency-removal-catalog.md,160
 241,https://github.com/Thorncrag/ARRP/issues/241,ELEC-004-CATALOG-MONITOR,source review,ELEC-004 Monitor: Civil Process and State Election Records Catalog,research/ELEC-004-civil-process-catalog.md,32
 242,https://github.com/Thorncrag/ARRP/issues/242,ELEC-013-EXPLAINER-MONITOR,source review,ELEC-013 Monitor: Presidential Debate and Ballot Access Explainer,research/ELEC-013-presidential-debate-ballot-access-explainer.md,41
 243,https://github.com/Thorncrag/ARRP/issues/243,ELEC-014-CATALOG-MONITOR,source review,ELEC-014 Monitor: Criminal Process and State Election Records Catalog,research/ELEC-014-criminal-process-catalog.md,236
 244,https://github.com/Thorncrag/ARRP/issues/244,ELEC-015-DATA-MONITOR,source review,ELEC-015 Monitor: Maine RCV Participation Dataset,research/ELEC-015-maine-rcv-participation-data.md,237
-245,https://github.com/Thorncrag/ARRP/issues/245,HOR-026,horizon,HOR-026: Presidential Withdrawal or Constructive Withdrawal from International Commitments,framework/HORIZON_SCAN_LOG.md,
+245,https://github.com/Thorncrag/ARRP/issues/245,HOR-026,horizon,HOR-026: Presidential Withdrawal or Constructive Withdrawal from International Commitments,framework/logs/HORIZON_SCAN_LOG.md,
 246,https://github.com/Thorncrag/ARRP/issues/246,JUD-011,proposal,JUD-011: Executive Nullification of Congressional Mandates,areas/JUD/issues/JUD-011.md,
-247,https://github.com/Thorncrag/ARRP/issues/247,HOR-027,horizon,HOR-027: Presidential Policymaking Through Privately Controlled Social Media,framework/HORIZON_SCAN_LOG.md,
-248,https://github.com/Thorncrag/ARRP/issues/248,HOR-028,horizon,HOR-028: Unofficial or Conflicted Presidential Foreign-Policy Representatives [Integrated into APPT-004],framework/HORIZON_SCAN_LOG.md,
-249,https://github.com/Thorncrag/ARRP/issues/249,HOR-029,horizon,HOR-029: Presidential Self-Dealing Through an Officially Favored Private Platform,framework/HORIZON_SCAN_LOG.md,
-250,https://github.com/Thorncrag/ARRP/issues/250,HOR-030,horizon,HOR-030: Executive Dismantlement of the International Criminal Court [Integrated into EMERG-003],framework/HORIZON_SCAN_LOG.md,
-251,https://github.com/Thorncrag/ARRP/issues/251,HOR-031,horizon,HOR-031: Durability and Revocation of National Monument Protections,framework/HORIZON_SCAN_LOG.md,
-252,https://github.com/Thorncrag/ARRP/issues/252,HOR-032,horizon,HOR-032: Senior-Official Hatch Act Enforcement,framework/HORIZON_SCAN_LOG.md,
-253,https://github.com/Thorncrag/ARRP/issues/253,HOR-033,horizon,HOR-033: Enforceability of Accessibility Duties for Presidential Communications,framework/HORIZON_SCAN_LOG.md,
-254,https://github.com/Thorncrag/ARRP/issues/254,HOR-034,horizon,HOR-034: Cross-Agency Repurposing of Protected Personal Data,framework/HORIZON_SCAN_LOG.md,
-255,https://github.com/Thorncrag/ARRP/issues/255,HOR-035,horizon,"HOR-035: Executive Review Evasion Through Withdrawal, Replacement, Settlement, or Mootness",framework/HORIZON_SCAN_LOG.md,
-256,https://github.com/Thorncrag/ARRP/issues/256,HOR-036,horizon,HOR-036: Executive Action That May Operate Without Timely Merits Review,framework/HORIZON_SCAN_LOG.md,
-257,https://github.com/Thorncrag/ARRP/issues/257,HOR-037,horizon,"HOR-037: Immigration Detention, Removal Process, and Access Safeguards",framework/HORIZON_SCAN_LOG.md,
-274,https://github.com/Thorncrag/ARRP/issues/274,HOR-038,horizon,HOR-038: Endangered Species Act Regulatory-Boundary Monitoring,framework/HORIZON_SCAN_LOG.md,
+247,https://github.com/Thorncrag/ARRP/issues/247,HOR-027,horizon,HOR-027: Presidential Policymaking Through Privately Controlled Social Media,framework/logs/HORIZON_SCAN_LOG.md,
+248,https://github.com/Thorncrag/ARRP/issues/248,HOR-028,horizon,HOR-028: Unofficial or Conflicted Presidential Foreign-Policy Representatives [Integrated into APPT-004],framework/logs/HORIZON_SCAN_LOG.md,
+249,https://github.com/Thorncrag/ARRP/issues/249,HOR-029,horizon,HOR-029: Presidential Self-Dealing Through an Officially Favored Private Platform,framework/logs/HORIZON_SCAN_LOG.md,
+250,https://github.com/Thorncrag/ARRP/issues/250,HOR-030,horizon,HOR-030: Executive Dismantlement of the International Criminal Court [Integrated into EMERG-003],framework/logs/HORIZON_SCAN_LOG.md,
+251,https://github.com/Thorncrag/ARRP/issues/251,HOR-031,horizon,HOR-031: Durability and Revocation of National Monument Protections,framework/logs/HORIZON_SCAN_LOG.md,
+252,https://github.com/Thorncrag/ARRP/issues/252,HOR-032,horizon,HOR-032: Senior-Official Hatch Act Enforcement,framework/logs/HORIZON_SCAN_LOG.md,
+253,https://github.com/Thorncrag/ARRP/issues/253,HOR-033,horizon,HOR-033: Enforceability of Accessibility Duties for Presidential Communications,framework/logs/HORIZON_SCAN_LOG.md,
+254,https://github.com/Thorncrag/ARRP/issues/254,HOR-034,horizon,HOR-034: Cross-Agency Repurposing of Protected Personal Data,framework/logs/HORIZON_SCAN_LOG.md,
+255,https://github.com/Thorncrag/ARRP/issues/255,HOR-035,horizon,"HOR-035: Executive Review Evasion Through Withdrawal, Replacement, Settlement, or Mootness",framework/logs/HORIZON_SCAN_LOG.md,
+256,https://github.com/Thorncrag/ARRP/issues/256,HOR-036,horizon,HOR-036: Executive Action That May Operate Without Timely Merits Review,framework/logs/HORIZON_SCAN_LOG.md,
+257,https://github.com/Thorncrag/ARRP/issues/257,HOR-037,horizon,"HOR-037: Immigration Detention, Removal Process, and Access Safeguards",framework/logs/HORIZON_SCAN_LOG.md,
+274,https://github.com/Thorncrag/ARRP/issues/274,HOR-038,horizon,HOR-038: Endangered Species Act Regulatory-Boundary Monitoring,framework/logs/HORIZON_SCAN_LOG.md,
 275,https://github.com/Thorncrag/ARRP/issues/275,CIV-001-MON,source review,CIV-001-MON: CIV-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,86
 276,https://github.com/Thorncrag/ARRP/issues/276,CIV-009-MON,source review,CIV-009-MON: CIV-009 External Developments Watch,research/trump-administration-litigation-monitoring.csv,94
 277,https://github.com/Thorncrag/ARRP/issues/277,DOJ-002-MON,source review,DOJ-002-MON: DOJ-002 External Developments Watch,research/trump-administration-litigation-monitoring.csv,23

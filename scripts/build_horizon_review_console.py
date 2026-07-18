@@ -22,7 +22,8 @@ EXISTING_ISSUE_INTEGRATION = ROOT / "research" / "existing-issue-evidence-integr
 LITIGATION_MONITORING = ROOT / "research" / "trump-administration-litigation-monitoring.csv"
 SOURCE_UNIVERSE = ROOT / "research" / "trump-administration-source-universe.csv"
 ISSUE_REGISTRY = ROOT / "inventory" / "github_issue_registry.csv"
-CANONICAL_SOURCES = ROOT / "inventory" / "sources.csv"
+CITED_SOURCES = ROOT / "inventory" / "sources.csv"
+PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 OUTPUT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
 PARTICIPATION_OUTPUT = ROOT / "participate" / "intake-data.js"
 
@@ -596,7 +597,8 @@ def main() -> None:
     media = read_csv(MEDIA)
     canonical_sources = {
         row["Source ID"].strip(): row
-        for row in read_csv(CANONICAL_SOURCES)
+        for source_path in (CITED_SOURCES, PENDING_SOURCES)
+        for row in read_csv(source_path)
         if row["Source ID"].strip()
     }
     routing_counts = Counter(row["disposition"] for row in routing)

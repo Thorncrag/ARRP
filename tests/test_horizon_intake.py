@@ -23,8 +23,10 @@ class HorizonIntakeTest(unittest.TestCase):
         cls.source_universe = read_csv("trump-administration-source-universe.csv")
         cls.media_intake = read_csv("trump-administration-media-review-intake.csv")
         cls.candidates = read_csv("trump-administration-preliminary-candidates.csv")
-        with (ROOT / "inventory" / "sources.csv").open(newline="", encoding="utf-8") as handle:
-            cls.sources = list(csv.DictReader(handle))
+        cls.sources = []
+        for name in ("sources.csv", "sources-pending.csv"):
+            with (ROOT / "inventory" / name).open(newline="", encoding="utf-8") as handle:
+                cls.sources.extend(csv.DictReader(handle))
         with (ROOT / "inventory" / "github_issue_registry.csv").open(newline="", encoding="utf-8") as handle:
             cls.issue_registry = list(csv.DictReader(handle))
         bundle = (RESEARCH / "horizon-review-console" / "catalog-data.js").read_text(encoding="utf-8")

@@ -44,7 +44,8 @@ ROUTING = ROOT / "research" / "trump-administration-evidence-routing.csv"
 PRIORITY = ROOT / "research" / "trump-administration-priority-disposition-review.csv"
 INTEGRATION = ROOT / "research" / "existing-issue-evidence-integration.csv"
 MONITORING = ROOT / "research" / "trump-administration-litigation-monitoring.csv"
-SOURCES = ROOT / "inventory" / "sources.csv"
+CITED_SOURCES = ROOT / "inventory" / "sources.csv"
+PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 REPORT = ROOT / "research" / "trump-administration-source-adjudication-report.md"
 
 TODAY = "2026-07-16"
@@ -466,19 +467,24 @@ def source_metadata(row: dict[str, str], kind: str, url: str) -> dict[str, str]:
         "Reliability Tier": reliability,
         "Reviewed?": "No",
         "Notes": (
-            f"Graduated from catalog record {row['catalog_id']} during the {TODAY} route-centered adjudication. "
+            f"Retained from catalog record {row['catalog_id']} during the {TODAY} route-centered adjudication. "
             "Retention does not establish illegality, motive, or final judicial posture."
         ),
     }
 
 
 def register_sources(
-    episodes: list[Episode], source_rows: list[dict[str, str]]
-) -> tuple[list[dict[str, str]], dict[str, list[str]], int, int]:
+    episodes: list[Episode], cited_rows: list[dict[str, str]], pending_rows: list[dict[str, str]]
+) -> tuple[list[dict[str, str]], list[dict[str, str]], dict[str, list[str]], int, int]:
     retained = {"integration", "monitoring"}
-    rows = [dict(row) for row in source_rows]
-    by_url = {normalize_url(row["URL"]): row for row in rows if normalize_url(row["URL"])}
-    next_id = next_source_number(rows)
+    new_cited = [dict(row) for row in cited_rows]
+    new_pending = [dict(row) for row in pending_rows]
+    by_url = {
+        normalize_url(row["URL"]): row
+        for row in [*new_cited, *new_pending]
+        if normalize_url(row["URL"])
+    }
+    next_id = next_source_number([*new_cited, *new_pending])
     episode_sources: dict[str, list[str]] = defaultdict(list)
     added = 0
     updated_ids: set[str] = set()
@@ -504,12 +510,12 @@ def register_sources(
                         "Associated Record IDs": "; ".join(episode.routes),
                         **metadata,
                     }
-                    rows.append(existing)
+                    new_pending.append(existing)
                     by_url[key] = existing
                     added += 1
                 if source_id not in episode_sources[episode.group]:
                     episode_sources[episode.group].append(source_id)
-    return rows, episode_sources, added, len(updated_ids)
+    return new_cited, new_pending, episode_sources, added, len(updated_ids)
 
 
 def integration_rows(
@@ -746,12 +752,22 @@ def main() -> None:
 
     episodes = cluster_records(catalog, routing)
     select_shortlists(episodes)
-    original_sources = read_csv(SOURCES)
-    new_sources, episode_sources, added, updated = register_sources(episodes, original_sources)
+    original_cited_sources = read_csv(CITED_SOURCES)
+    original_pending_sources = read_csv(PENDING_SOURCES)
+    new_cited_sources, new_pending_sources, episode_sources, added, updated = register_sources(
+        episodes, original_cited_sources, original_pending_sources
+    )
     original_integration = read_csv(INTEGRATION)
     new_integration = integration_rows(episodes, episode_sources, original_integration)
     new_monitoring = monitoring_rows(episodes, episode_sources)
-    validate(catalog, episodes, new_integration, new_monitoring, new_sources, original_sources)
+    validate(
+        catalog,
+        episodes,
+        new_integration,
+        new_monitoring,
+        [*new_cited_sources, *new_pending_sources],
+        [*original_cited_sources, *original_pending_sources],
+    )
     report = report_text(episodes, added, updated, len(new_integration), len(new_monitoring))
 
     counts = Counter(episode.disposition for episode in episodes)
@@ -762,7 +778,7 @@ def main() -> None:
     print("Episode dispositions:", dict(sorted(counts.items())))
     print("Record dispositions:", dict(sorted(record_counts.items())))
     print(
-        f"Would add {added:,} source rows, update {updated:,}, retain {len(new_integration):,} "
+        f"Would add {added:,} pending source rows, update {updated:,}, retain {len(new_integration):,} "
         f"integration rows, and create {len(new_monitoring):,} monitoring rows."
     )
     if not args.apply:
@@ -770,10 +786,17 @@ def main() -> None:
         return
 
     write_csv_preserving_unchanged(
-        SOURCES,
-        original_sources,
-        new_sources,
-        list(original_sources[0]),
+        CITED_SOURCES,
+        original_cited_sources,
+        new_cited_sources,
+        list(original_cited_sources[0]),
+        key_field="Source ID",
+    )
+    write_csv_preserving_unchanged(
+        PENDING_SOURCES,
+        original_pending_sources,
+        new_pending_sources,
+        list(original_pending_sources[0]),
         key_field="Source ID",
     )
     write_csv(INTEGRATION, new_integration, INTEGRATION_FIELDS)

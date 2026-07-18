@@ -99,13 +99,13 @@ The current inventory has adjacent homes in A-08, OVS-008, and ELEC-012, but no 
 
 **Next review:** compare the president and vice president exclusions, OSC referral and adjudication authority, post-employment limits, appropriations restrictions, and existing proposals for independent civil enforcement.
 
-**Current treatment:** promoted as [HOR-032](../framework/HORIZON_SCAN_LOG.md) for formal duplicate and issue-admission review, principally through ELEC-012 and OVS-008. The fact that covered actors may be presidential appointees does not make this an APPT issue; the asserted defect is enforcement of election and official-resource restrictions.
+**Current treatment:** promoted as [HOR-032](../framework/logs/HORIZON_SCAN_LOG.md) for formal duplicate and issue-admission review, principally through ELEC-012 and OVS-008. The fact that covered actors may be presidential appointees does not make this an APPT issue; the asserted defect is enforcement of election and official-resource restrictions.
 
 ### Accessible presidential and executive communications
 
 The underlying legal duty already exists. [Section 504 of the Rehabilitation Act](https://uscode.house.gov/view.xhtml?edition=prelim&req=granuleid:USC-prelim-title29-section794) prohibits disability-based exclusion from a program or activity conducted by an Executive agency, and Executive Office regulations expressly apply that obligation to the White House Office. In [2020](https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2020cv02107/220596/18/) and again in [November 2025](https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/164821.pdf), the U.S. District Court for the District of Columbia found the plaintiffs likely to succeed under that duty and ordered ASL access for specified White House briefings. The renewed dispute is narrower: the government has appealed while arguing that section 504 does not supply an enforceable private cause of action. The [ACLU of D.C. case page](https://www.acludc.org/cases/national-association-of-the-deaf-v-trump-asl-interpretation-during-white-house-press-briefings-protecting-the-rule-of-law-and-separation-of-powers-by-urging-the-d-c-circuit-to-apply-the/) describes that pending appellate question.
 
-**Current treatment:** promoted as [HOR-033](../framework/HORIZON_SCAN_LOG.md) and monitor the appeal. Cross-check HOR-027 because social media or another nontraditional channel may also carry covered presidential communications. Do not treat simple violation of the existing duty as a new institutional defect. Consider admission only if the litigation exposes a recurring enforcement gap, such as the absence of a clear cause of action, materially delayed prospective relief, or unresolved statutory coverage of particular presidential communications.
+**Current treatment:** promoted as [HOR-033](../framework/logs/HORIZON_SCAN_LOG.md) and monitor the appeal. Cross-check HOR-027 because social media or another nontraditional channel may also carry covered presidential communications. Do not treat simple violation of the existing duty as a new institutional defect. Consider admission only if the litigation exposes a recurring enforcement gap, such as the absence of a clear cause of action, materially delayed prospective relief, or unresolved statutory coverage of particular presidential communications.
 
 ### Cross-agency repurposing of protected personal data
 
@@ -113,7 +113,7 @@ CIV-009 owns DOGE or another repurposed technical unit's cross-agency systems ac
 
 **Next review:** test whether the recurring defect is unauthorized secondary use, purpose incompatibility, interagency matching, bulk disclosure, political use, or absence of an independent approval and audit mechanism. If the defect is merely a DOGE access method, immigration policy, or election manifestation, merge it into the existing homes rather than creating a new issue.
 
-**Current treatment:** promoted as high-priority [HOR-034](../framework/HORIZON_SCAN_LOG.md) for formal duplicate and scope review, with a presumption in favor of expanding CIV-009 or an existing privacy home unless the evidence establishes a broader recurring defect. The danger of personal-information abuse supplies urgency but does not itself establish a separate proposal. This is not principally an appointments issue.
+**Current treatment:** promoted as high-priority [HOR-034](../framework/logs/HORIZON_SCAN_LOG.md) for formal duplicate and scope review, with a presumption in favor of expanding CIV-009 or an existing privacy home unless the evidence establishes a broader recurring defect. The danger of personal-information abuse supplies urgency but does not itself establish a separate proposal. This is not principally an appointments issue.
 
 ### Review evasion through withdrawal, replacement, settlement, or mootness
 
@@ -121,7 +121,7 @@ The first-term court roundup treats agency withdrawal after suit as an unsuccess
 
 **Next review:** isolate the catalog's withdrawal and mootness cases, identify whether the voluntary-cessation doctrine supplied review, and check whether JUD-001, JUD-011, REG-006, or a subject-specific remedy already addresses the problem. Admit a separate judicial-review issue only if the pattern is general, repeatable, and not adequately covered.
 
-**Current treatment:** promoted as [HOR-035](../framework/HORIZON_SCAN_LOG.md). Litigation strategy is not inherently an institutional defect; admission requires evidence that review evasion became an egregious or standard practice rather than an isolated litigation choice or lawful correction.
+**Current treatment:** promoted as [HOR-035](../framework/logs/HORIZON_SCAN_LOG.md). Litigation strategy is not inherently an institutional defect; admission requires evidence that review evasion became an egregious or standard practice rather than an isolated litigation choice or lawful correction.
 
 ### Executive action that may operate without timely merits review
 
@@ -131,7 +131,7 @@ The present source set illustrates why controlling-opinion review is necessary. 
 
 **Next review:** read the controlling opinions and determine, case by case, what claim remained untested, what rule prevented a timely merits decision, whether concrete and difficult-to-reverse harm occurred before final review, and whether later merits review supplied an adequate remedy. Only then decide whether any recurring gap belongs in an existing subject proposal, a general judicial-review proposal, or no ARRP proposal at all.
 
-**Current treatment:** promoted as [HOR-036](../framework/HORIZON_SCAN_LOG.md) for controlling-opinion and duplicate review. The six attached cases remain research leads rather than findings that executive conduct was unlawful or wholly unreviewed.
+**Current treatment:** promoted as [HOR-036](../framework/logs/HORIZON_SCAN_LOG.md) for controlling-opinion and duplicate review. The six attached cases remain research leads rather than findings that executive conduct was unlawful or wholly unreviewed.
 
 ### Immigration detention, removal-process, and access safeguards
 
@@ -141,7 +141,7 @@ The constitutional inquiry begins from personhood, not citizenship. The Fifth an
 
 **Next review:** determine whether those existing homes can collectively address the problem without fragmentation, or whether a narrow minimum-process and detention-accountability proposal is needed. Begin with person-based due-process and equal-protection guarantees; identify any limited doctrinal distinction claim by claim; and do not treat disagreement with immigration enforcement policy itself as an institutional defect.
 
-**Current treatment:** promoted as high-priority [HOR-037](../framework/HORIZON_SCAN_LOG.md) for constitutional, statutory, duplicate, and scope review.
+**Current treatment:** promoted as high-priority [HOR-037](../framework/logs/HORIZON_SCAN_LOG.md) for constitutional, statutory, duplicate, and scope review.
 
 ## Existing Coverage That Should Not Be Recreated
 

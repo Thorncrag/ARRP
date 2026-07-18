@@ -8,7 +8,7 @@ print_levels:
 
 This file governs agent-assisted maintenance, audit execution, and autonomous batch-audit work. It does not replace the project framework or methodology. Agents must begin from [`FRAMEWORK.md`](FRAMEWORK.md), then follow [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), the relevant issue page, the linked proposed legislation, and the issue's audit-history file.
 
-Autonomous run provenance is maintained in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). Each autonomous batch unit should record its commits there. Ordinary human-invoked audit or drafting sessions should not update the agent audit log unless the user expressly converts the work into an autonomous, batched, or scheduled run.
+Autonomous run provenance is maintained in [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md). Each autonomous batch unit should record its commits there. Ordinary human-invoked audit or drafting sessions should not update the agent audit log unless the user expressly converts the work into an autonomous, batched, or scheduled run.
 
 Active long-running audit handoff state is maintained in [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md). Before resuming from a vague instruction such as "continue," "follow up," or "resume the audit," agents must read that file and use it as the active-task pointer. If `CURRENT_AUDIT.md` is inactive, stale, missing, or inconsistent with the user's latest instruction, ask for the active issue or task instead of inferring from recent commits, GitHub Project rows, or nearby audit markers.
 
@@ -98,11 +98,11 @@ Before starting an autonomous batch run, the agent must:
 
 1. confirm the working tree is clean, or stop and report the existing uncommitted files without beginning new audit work;
 2. confirm the current branch and remote target are understood;
-3. confirm the repository can read the latest local project rules, including this file, [`FRAMEWORK.md`](FRAMEWORK.md), [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md);
+3. confirm the repository can read the latest local project rules, including this file, [`FRAMEWORK.md`](FRAMEWORK.md), [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), [`HORIZON_SCAN_LOG.md`](logs/HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md);
 4. check the latest relevant audit record before each issue and skip any issue with unresolved human-review blockers unless the user has expressly authorized proceeding; and
 5. if the user expressly scheduled the run inside a defined work window, respect that user-defined boundary when selecting the next audit unit.
 
-If the preflight fails, do not begin autonomous edits. Record the reason in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) when appropriate and notify the user.
+If the preflight fails, do not begin autonomous edits. Record the reason in [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md) when appropriate and notify the user.
 
 ### Eligible Items
 
@@ -223,15 +223,15 @@ If no validation script exists, perform a manual validation checklist before mar
 5. for T1 or a routing-affecting change, confirm the repository front door, project-area contents, affected area contents, Subject and Institution Index, and GitHub issue registry are synchronized under the Navigation Synchronization Check;
 6. confirm [`inventory/sources.csv`](../inventory/sources.csv) parses and includes any source used for audit credit;
 7. run a whitespace or formatting check where available;
-8. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md); and
+8. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md); and
 9. if the unit changed goal-relevant Project fields, confirm the Review Ready dashboard workflow completed and the generated page reflects the new state, or record the exact blocker; and
 10. confirm no unintended files remain changed for that unit, including generated PDF, DOCX, XLSX, or similar export files unless the user requested an export refresh, the export is the deliverable, export tooling is being tested, or the work is expressly part of a release/publication pass.
 
-If a validation check is skipped, record the skipped check and reason in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md), in the issue audit history when relevant, or in the final user-facing report. A unit should not be marked complete if validation fails, except when the only failure is an explicitly documented environment or tooling limitation and the work has been preserved for human review.
+If a validation check is skipped, record the skipped check and reason in [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md), in the issue audit history when relevant, or in the final user-facing report. A unit should not be marked complete if validation fails, except when the only failure is an explicitly documented environment or tooling limitation and the work has been preserved for human review.
 
 ## Agent Audit Log
 
-Autonomous batch mode must maintain an independent agent audit log in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). This log is for operational provenance and rollback planning for unattended or autorun work. It should not replace issue audit histories, GitHub Project tracking, source records, `CURRENT_AUDIT.md` handoff checkpoints, or final user-facing reports.
+Autonomous batch mode must maintain an independent agent audit log in [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md). This log is for operational provenance and rollback planning for unattended or autorun work. It should not replace issue audit histories, GitHub Project tracking, source records, `CURRENT_AUDIT.md` handoff checkpoints, or final user-facing reports.
 
 For each autonomous issue unit, record:
 

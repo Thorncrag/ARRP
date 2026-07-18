@@ -24,6 +24,7 @@ ISSUE_PATH = ROOT / "areas"
 LEGISLATION_PATH = ROOT / "legislation"
 REGISTRY_PATH = ROOT / "inventory" / "github_issue_registry.csv"
 SOURCE_PATH = ROOT / "inventory" / "sources.csv"
+PENDING_SOURCE_PATH = ROOT / "inventory" / "sources-pending.csv"
 
 LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
 FRONT_MATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
@@ -214,14 +215,56 @@ def reader_pages() -> list[Path]:
     return sorted(set(pages))
 
 
+def framework_pages() -> list[Path]:
+    """Return technical framework pages for link-integrity checking only.
+
+    Framework documents may appropriately use internal audit terminology, so
+    they are intentionally excluded from the reader-language review.
+    """
+    return sorted(
+        path
+        for path in (ROOT / "framework").rglob("*.md")
+        if "templates" not in path.parts
+    )
+
+
 def check_markdown_links(failures: list[str], warnings: list[str]) -> None:
-    for path in reader_pages():
+    for path in [*reader_pages(), *framework_pages()]:
         if not path.exists():
             continue
         for raw_target in LINK_RE.findall(read(path)):
             target = local_target(path, raw_target)
             if target and not target.exists():
                 report("ERROR", f"broken local link in {path.relative_to(ROOT)}: {raw_target}", failures, warnings)
+
+
+def source_citation_corpus() -> str:
+    """Return project-authored Markdown in which a source may be cited.
+
+    Queue CSVs deliberately do not count: a retained lead, monitoring record,
+    or source identifier is not a reader-facing ARRP citation.
+    """
+    paths = [ROOT / "README.md", ROOT / "SUBJECT_INDEX.md"]
+    paths.extend((ROOT / "areas").rglob("*.md"))
+    paths.extend(LEGISLATION_PATH.glob("*.md"))
+    paths.extend((ROOT / "topics").glob("*.md"))
+    paths.extend((ROOT / "research").glob("*.md"))
+    return "\n".join(read(path) for path in sorted(set(paths)) if path.exists())
+
+
+def normalized_citation_url(url: str) -> str:
+    return url.strip().replace("&amp;", "&").split("#", 1)[0].split("?", 1)[0].rstrip("/")
+
+
+def mechanically_cited_source_ids(rows: list[dict[str, str]], corpus: str) -> set[str]:
+    referenced_ids = set(re.findall(r"\bSRC-\d{4}\b", corpus))
+    cited: set[str] = set()
+    for row in rows:
+        source_id = row.get("Source ID", "").strip()
+        url = normalized_citation_url(row.get("URL", ""))
+        if source_id in referenced_ids or (url and url in corpus):
+            cited.add(source_id)
+    return cited
 
 
 def check_registry_and_sources(issue_map: dict[str, Path], failures: list[str], warnings: list[str]) -> None:
@@ -237,21 +280,45 @@ def check_registry_and_sources(issue_map: dict[str, Path], failures: list[str], 
             report("ERROR", f"duplicate GitHub Project object identifier in registry: {value}", failures, warnings)
     for row in rows:
         canonical = row.get("Canonical Record", "").strip()
-        if canonical.startswith(("areas/", "legislation/", "topics/")) and not (ROOT / canonical).exists():
+        if canonical.startswith(("areas/", "legislation/", "topics/", "framework/")) and not (ROOT / canonical).exists():
             report("ERROR", f"registry canonical record is missing: {canonical}", failures, warnings)
     with SOURCE_PATH.open(newline="", encoding="utf-8") as handle:
         source_rows = list(csv.DictReader(handle))
-    source_ids = [row.get("Source ID", "") for row in source_rows if row.get("Source ID")]
+    with PENDING_SOURCE_PATH.open(newline="", encoding="utf-8") as handle:
+        pending_rows = list(csv.DictReader(handle))
+    if source_rows and pending_rows and set(source_rows[0]) != set(pending_rows[0]):
+        report("ERROR", "sources.csv and sources-pending.csv use different columns", failures, warnings)
+    source_ids = [row.get("Source ID", "") for row in [*source_rows, *pending_rows] if row.get("Source ID")]
     for value, count in Counter(source_ids).items():
         if count > 1:
-            report("ERROR", f"duplicate source identifier: {value}", failures, warnings)
+            report("ERROR", f"duplicate source identifier across source catalogs: {value}", failures, warnings)
     numeric_source_ids = sorted(
         int(value.removeprefix("SRC-"))
         for value in source_ids
         if re.fullmatch(r"SRC-\d{4}", value)
     )
     if numeric_source_ids and numeric_source_ids != list(range(1, numeric_source_ids[-1] + 1)):
-        report("ERROR", "source identifiers are not a continuous SRC-0001 sequence", failures, warnings)
+        report("ERROR", "source identifiers across both catalogs are not a continuous SRC-0001 sequence", failures, warnings)
+    corpus = source_citation_corpus()
+    cited_catalog = mechanically_cited_source_ids(source_rows, corpus)
+    uncited_catalog = [row["Source ID"] for row in source_rows if row.get("Source ID") not in cited_catalog]
+    if uncited_catalog:
+        sample = ", ".join(uncited_catalog[:10])
+        report(
+            "WARNING",
+            f"{len(uncited_catalog)} cited-catalog source row(s) lack a machine-detectable Markdown citation; reconcile before treating them as confirmed citations (for example: {sample})",
+            failures,
+            warnings,
+        )
+    cited_pending = mechanically_cited_source_ids(pending_rows, corpus)
+    if cited_pending:
+        report(
+            "ERROR",
+            "pending source row(s) appear in ARRP Markdown and must move to sources.csv: "
+            + ", ".join(sorted(cited_pending)),
+            failures,
+            warnings,
+        )
 
 
 def check_reader_language(failures: list[str], warnings: list[str]) -> None:

@@ -142,7 +142,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Ranked-choice voting; runoffs; majority-choice election methods | **[ELEC-015](areas/ELEC/issues/ELEC-015.md)**; [ELEC-013](areas/ELEC/issues/ELEC-013.md) |
 | Redistricting; gerrymandering; vote dilution; representation safeguards | **[ELEC-011](areas/ELEC/issues/ELEC-011.md)**; [A-24](areas/RIGHTS/README.md) |
 | Regulatory retaliation; politically selective grants, contracts, tax, or licensing pressure | **[A-19](areas/RET/README.md)**; [A-17](areas/REG/README.md); [A-22](areas/PRESS/README.md) |
-| Rejected, retired, and outside-scope candidates | **[HOR disposition log](framework/HORIZON_SCAN_LOG.md#horizon-integration-log)** |
+| Rejected, retired, and outside-scope candidates | **[HOR disposition log](framework/logs/HORIZON_SCAN_LOG.md#horizon-integration-log)** |
 | Sanctions | See *Emergency economic powers; IEEPA; sanctions; asset blocking*. |
 | Sanctuary jurisdictions; sanctuary policies | See *Immigration enforcement; removal due process; sanctuary policies; system integrity*. |
 | Schedule F; Schedule Policy/Career | See *Civil service; Schedule F or Schedule Policy/Career; loyalty tests; reductions in force*. |
