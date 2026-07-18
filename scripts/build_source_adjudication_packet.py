@@ -20,7 +20,8 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "research" / "trump-administration-legal-review-catalog.csv"
 ROUTING = ROOT / "research" / "trump-administration-evidence-routing.csv"
 PRIORITY = ROOT / "research" / "trump-administration-priority-disposition-review.csv"
-SOURCES = ROOT / "inventory" / "sources.csv"
+CITED_SOURCES = ROOT / "inventory" / "sources.csv"
+PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 
 
 def parse_args() -> argparse.Namespace:
@@ -38,10 +39,11 @@ def main() -> None:
     routing = {row["catalog_id"]: row for row in read_csv(ROUTING)}
     priority = {row["catalog_id"]: row for row in read_csv(PRIORITY)}
     source_index: dict[str, list[str]] = defaultdict(list)
-    for row in read_csv(SOURCES):
-        key = normalize_url(row["URL"])
-        if key:
-            source_index[key].append(row["Source ID"])
+    for source_path in (CITED_SOURCES, PENDING_SOURCES):
+        for row in read_csv(source_path):
+            key = normalize_url(row["URL"])
+            if key:
+                source_index[key].append(row["Source ID"])
 
     selected_ids = list(catalog)
     if args.priority_only:

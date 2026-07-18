@@ -44,7 +44,8 @@ ROUTING = ROOT / "research" / "trump-administration-evidence-routing.csv"
 PRIORITY = ROOT / "research" / "trump-administration-priority-disposition-review.csv"
 INTEGRATION = ROOT / "research" / "existing-issue-evidence-integration.csv"
 MONITORING = ROOT / "research" / "trump-administration-litigation-monitoring.csv"
-SOURCES = ROOT / "inventory" / "sources.csv"
+CITED_SOURCES = ROOT / "inventory" / "sources.csv"
+PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 REPORT = ROOT / "research" / "trump-administration-source-adjudication-report.md"
 
 TODAY = "2026-07-16"
@@ -56,7 +57,7 @@ MONITOR_FIELDS = [
     "integration_routes",
     "action_or_policy",
     "litigation_posture",
-    "canonical_source_ids",
+    "source_record_ids",
     "source_family",
     "monitoring_status",
     "revisit_trigger",
@@ -66,7 +67,7 @@ MONITOR_FIELDS = [
 
 INTEGRATION_FIELDS = [
     "catalog_id",
-    "canonical_source_ids",
+    "source_record_ids",
     "integration_routes",
     "integration_status",
     "action_or_policy",
@@ -385,7 +386,7 @@ def select_shortlists(episodes: list[Episode]) -> None:
                 episode.disposition = "integration"
                 episode.reason = "Strong official or litigation record retained for qualitative proposal placement."
             else:
-                episode.disposition = "registry-only"
+                episode.disposition = "no-additional-value"
                 episode.reason = (
                     "The canonical tracker preserves the adjudicated posture; this entry adds no distinct "
                     "reader-facing value beyond existing proposal evidence."
@@ -466,19 +467,24 @@ def source_metadata(row: dict[str, str], kind: str, url: str) -> dict[str, str]:
         "Reliability Tier": reliability,
         "Reviewed?": "No",
         "Notes": (
-            f"Graduated from catalog record {row['catalog_id']} during the {TODAY} route-centered adjudication. "
+            f"Retained from catalog record {row['catalog_id']} during the {TODAY} route-centered adjudication. "
             "Retention does not establish illegality, motive, or final judicial posture."
         ),
     }
 
 
 def register_sources(
-    episodes: list[Episode], source_rows: list[dict[str, str]]
-) -> tuple[list[dict[str, str]], dict[str, list[str]], int, int]:
+    episodes: list[Episode], cited_rows: list[dict[str, str]], pending_rows: list[dict[str, str]]
+) -> tuple[list[dict[str, str]], list[dict[str, str]], dict[str, list[str]], int, int]:
     retained = {"integration", "monitoring"}
-    rows = [dict(row) for row in source_rows]
-    by_url = {normalize_url(row["URL"]): row for row in rows if normalize_url(row["URL"])}
-    next_id = next_source_number(rows)
+    new_cited = [dict(row) for row in cited_rows]
+    new_pending = [dict(row) for row in pending_rows]
+    by_url = {
+        normalize_url(row["URL"]): row
+        for row in [*new_cited, *new_pending]
+        if normalize_url(row["URL"])
+    }
+    next_id = next_source_number([*new_cited, *new_pending])
     episode_sources: dict[str, list[str]] = defaultdict(list)
     added = 0
     updated_ids: set[str] = set()
@@ -504,12 +510,12 @@ def register_sources(
                         "Associated Record IDs": "; ".join(episode.routes),
                         **metadata,
                     }
-                    rows.append(existing)
+                    new_pending.append(existing)
                     by_url[key] = existing
                     added += 1
                 if source_id not in episode_sources[episode.group]:
                     episode_sources[episode.group].append(source_id)
-    return rows, episode_sources, added, len(updated_ids)
+    return new_cited, new_pending, episode_sources, added, len(updated_ids)
 
 
 def integration_rows(
@@ -527,7 +533,7 @@ def integration_rows(
         rows.append(
             {
                 "catalog_id": catalog_ids,
-                "canonical_source_ids": "; ".join(episode_sources[episode.group]),
+                "source_record_ids": "; ".join(episode_sources[episode.group]),
                 "integration_routes": "; ".join(episode.routes),
                 "integration_status": "awaiting-primary-verification-and-reader-placement",
                 "action_or_policy": primary["action_or_policy"],
@@ -561,7 +567,7 @@ def monitoring_rows(
                 "integration_routes": "; ".join(episode.routes),
                 "action_or_policy": primary["action_or_policy"],
                 "litigation_posture": primary["litigation_posture"],
-                "canonical_source_ids": "; ".join(episode_sources[episode.group]),
+                "source_record_ids": "; ".join(episode_sources[episode.group]),
                 "source_family": "; ".join(sorted({row["source_family"] for row in episode.records})),
                 "monitoring_status": "active-defined-predicate",
                 "revisit_trigger": (
@@ -587,7 +593,7 @@ def report_text(
     for episode in episodes:
         episodes_by_disposition[episode.disposition] += 1
         records_by_disposition[episode.disposition] += len(episode.records)
-        if episode.disposition in {"rejected", "redundant", "registry-only"}:
+        if episode.disposition in {"rejected", "redundant", "no-additional-value"}:
             rejection_reasons[episode.reason] += len(episode.records)
         for row in episode.records:
             family_counts[row["source_family"]][episode.disposition] += 1
@@ -626,11 +632,11 @@ def report_text(
     labels = {
         "integration": "Pending qualitative integration",
         "monitoring": "Defined-predicate monitoring",
-        "registry-only": "Registry-only; no additional reader value",
+        "no-additional-value": "No additional reader value",
         "redundant": "Redundant without additional evidentiary value",
         "rejected": "Political, topical-only, cumulative, or insufficiently specific",
     }
-    for key in ("integration", "monitoring", "registry-only", "redundant", "rejected"):
+    for key in ("integration", "monitoring", "no-additional-value", "redundant", "rejected"):
         lines.append(
             f"| {labels[key]} | {records_by_disposition[key]:,} | {episodes_by_disposition[key]:,} |"
         )
@@ -638,7 +644,7 @@ def report_text(
         [
             f"| **Total** | **{record_total:,}** | **{len(episodes):,}** |",
             "",
-            f"Canonical sources added: **{source_added:,}**. Existing source rows associated with additional "
+            f"Pending source records added: **{source_added:,}**. Existing source rows associated with additional "
             f"routes: **{source_updated:,}**. Active integration rows after the migration: **{integration_count:,}**. "
             f"Active monitoring rows: **{monitor_count:,}**.",
             "",
@@ -648,7 +654,7 @@ def report_text(
             "",
             "## Source-family results",
             "",
-            "| Source family | Integration | Monitoring | Registry-only | Redundant | Rejected |",
+            "| Source family | Integration | Monitoring | No additional value | Redundant | Rejected |",
             "| --- | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
@@ -656,7 +662,7 @@ def report_text(
         count = family_counts[family]
         lines.append(
             f"| {family} | {count['integration']:,} | {count['monitoring']:,} | "
-            f"{count['registry-only']:,} | {count['redundant']:,} | {count['rejected']:,} |"
+            f"{count['no-additional-value']:,} | {count['redundant']:,} | {count['rejected']:,} |"
         )
     lines.extend(
         [
@@ -716,10 +722,10 @@ def validate(
         raise SystemExit("At least one episode lacks a disposition.")
     source_ids = {row["Source ID"] for row in sources}
     for row in integration:
-        if not set(split_routes(row["canonical_source_ids"])).issubset(source_ids):
+        if not set(split_routes(row["source_record_ids"])).issubset(source_ids):
             raise SystemExit(f"Integration row has unknown source ID: {row['catalog_id']}")
     for row in monitoring:
-        if not set(split_routes(row["canonical_source_ids"])).issubset(source_ids):
+        if not set(split_routes(row["source_record_ids"])).issubset(source_ids):
             raise SystemExit(f"Monitoring row has unknown source ID: {row['monitor_id']}")
         if not row["revisit_trigger"].strip():
             raise SystemExit(f"Monitoring row lacks a revisit trigger: {row['monitor_id']}")
@@ -746,12 +752,22 @@ def main() -> None:
 
     episodes = cluster_records(catalog, routing)
     select_shortlists(episodes)
-    original_sources = read_csv(SOURCES)
-    new_sources, episode_sources, added, updated = register_sources(episodes, original_sources)
+    original_cited_sources = read_csv(CITED_SOURCES)
+    original_pending_sources = read_csv(PENDING_SOURCES)
+    new_cited_sources, new_pending_sources, episode_sources, added, updated = register_sources(
+        episodes, original_cited_sources, original_pending_sources
+    )
     original_integration = read_csv(INTEGRATION)
     new_integration = integration_rows(episodes, episode_sources, original_integration)
     new_monitoring = monitoring_rows(episodes, episode_sources)
-    validate(catalog, episodes, new_integration, new_monitoring, new_sources, original_sources)
+    validate(
+        catalog,
+        episodes,
+        new_integration,
+        new_monitoring,
+        [*new_cited_sources, *new_pending_sources],
+        [*original_cited_sources, *original_pending_sources],
+    )
     report = report_text(episodes, added, updated, len(new_integration), len(new_monitoring))
 
     counts = Counter(episode.disposition for episode in episodes)
@@ -762,7 +778,7 @@ def main() -> None:
     print("Episode dispositions:", dict(sorted(counts.items())))
     print("Record dispositions:", dict(sorted(record_counts.items())))
     print(
-        f"Would add {added:,} source rows, update {updated:,}, retain {len(new_integration):,} "
+        f"Would add {added:,} pending source rows, update {updated:,}, retain {len(new_integration):,} "
         f"integration rows, and create {len(new_monitoring):,} monitoring rows."
     )
     if not args.apply:
@@ -770,10 +786,17 @@ def main() -> None:
         return
 
     write_csv_preserving_unchanged(
-        SOURCES,
-        original_sources,
-        new_sources,
-        list(original_sources[0]),
+        CITED_SOURCES,
+        original_cited_sources,
+        new_cited_sources,
+        list(original_cited_sources[0]),
+        key_field="Source ID",
+    )
+    write_csv_preserving_unchanged(
+        PENDING_SOURCES,
+        original_pending_sources,
+        new_pending_sources,
+        list(original_pending_sources[0]),
         key_field="Source ID",
     )
     write_csv(INTEGRATION, new_integration, INTEGRATION_FIELDS)

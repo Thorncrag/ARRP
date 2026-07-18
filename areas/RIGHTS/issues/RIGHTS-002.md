@@ -56,6 +56,10 @@ NBC News reported that the Supreme Court allowed President Trump's administratio
 
 These reports should be used as current-event leads. Final drafting should rest primarily on the Supreme Court opinions, Federal Register notices, statutory text, country-condition records, agency consultation records if available, and congressional materials.
 
+### Supporting Record and Updates
+
+- **Watching for updates:** [RIGHTS-002-MON](https://github.com/Thorncrag/ARRP/issues/296) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
+
 ## Resulting Damage
 
 Weak humanitarian reviewability can:

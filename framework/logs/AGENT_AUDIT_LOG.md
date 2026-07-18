@@ -8,7 +8,7 @@ print_levels:
 
 This file records autonomous, batched, or scheduled agent audit runs, commits, push status, blockers, and rollback references. It is an operational provenance log for unattended or autorun work.
 
-This file is not the log for ordinary human-invoked audits or drafting sessions. Human-directed audit results belong in the relevant issue audit-history sidecar, issue page audit metadata, GitHub Project fields, [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) while work is active, and the final user-facing report. Do not add entries here merely because Codex or another agent assisted a human-directed task.
+This file is not the log for ordinary human-invoked audits or drafting sessions. Human-directed audit results belong in the relevant issue audit-history sidecar, issue page audit metadata, GitHub Project fields, [`CURRENT_AUDIT.md`](../CURRENT_AUDIT.md) while work is active, and the final user-facing report. Do not add entries here merely because Codex or another agent assisted a human-directed task.
 
 Entries for autonomous, batched, or scheduled runs should be append-only. If a bad autonomous edit is later reverted, add a new entry identifying the revert commit and the original commit it reverses.
 
@@ -47,9 +47,9 @@ Template:
 | Date/time | 2026-06-27 21:55:11 -0400 |
 | Run/agent | Codex autonomous pilot |
 | Issue/task | JUD-001 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-001.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-001.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-001.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-001.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-001.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-001.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-001.md`; `areas/JUD/issues/JUD-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate check; stale JUD-001 audit-field scan; working-tree scope check |
@@ -65,9 +65,9 @@ Template:
 | Date/time | 2026-06-27 21:59:59 -0400 |
 | Run/agent | Codex autonomous pilot |
 | Issue/task | JUD-009 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-009.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-009.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-009.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-009.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-009.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-009.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-009.md`; `areas/JUD/issues/JUD-009.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate check; stale JUD-009 audit-field scan; working-tree scope check |
@@ -83,9 +83,9 @@ Template:
 | Date/time | 2026-06-27 22:39:48 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-001 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-001.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-001.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-001.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-001.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-001.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-001.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-001.md`; `areas/JUD/issues/JUD-001.audit.md`; `legislation/JUD-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; source-row reliability check; dashboard row and aggregate update; issue/legislation/audit-history consistency scan |
@@ -101,9 +101,9 @@ Template:
 | Date/time | 2026-06-27 22:44:49 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-001 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-001.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-001.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-001.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-001.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-001.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-001.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-001.md`; `areas/JUD/issues/JUD-001.audit.md`; `legislation/JUD-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; stale JUD-001 audit-field scan; source-row reliability check; dashboard row and aggregate update |
@@ -119,9 +119,9 @@ Template:
 | Date/time | 2026-06-27 22:48:26 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-001 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-001.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-001.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-001.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-001.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-001.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-001.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-001.md`; `areas/JUD/issues/JUD-001.audit.md`; `legislation/JUD-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; source-row reliability check; dashboard row and aggregate update; issue/legislation/audit-history consistency scan |
@@ -137,9 +137,9 @@ Template:
 | Date/time | 2026-06-27 22:52:10 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-009 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-009.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-009.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-009.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-009.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-009.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-009.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-009.md`; `areas/JUD/issues/JUD-009.audit.md`; `legislation/JUD-009.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; source-row reliability check; dashboard row and aggregate update; issue/legislation/audit-history consistency scan |
@@ -155,9 +155,9 @@ Template:
 | Date/time | 2026-06-27 22:55:52 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-009 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-009.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-009.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-009.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-009.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-009.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-009.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-009.md`; `areas/JUD/issues/JUD-009.audit.md`; `legislation/JUD-009.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; source-row reliability check; dashboard row and aggregate update; issue/legislation/audit-history consistency scan |
@@ -173,9 +173,9 @@ Template:
 | Date/time | 2026-06-27 22:59:49 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-009 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-009.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-009.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-009.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-009.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-009.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-009.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/JUD/issues/JUD-009.md`; `areas/JUD/issues/JUD-009.audit.md`; `legislation/JUD-009.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; source-row reliability check; dashboard row and aggregate update; issue/legislation/audit-history consistency scan |
@@ -191,9 +191,9 @@ Template:
 | Date/time | 2026-06-27 23:17:47 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | DOJ-005 |
-| Issue page | [Issue](../areas/DOJ/issues/DOJ-005.md) |
-| Audit history | [Audit](../areas/DOJ/issues/DOJ-005.audit.md) |
-| Proposal page | [Bill](../legislation/DOJ-005.md) |
+| Issue page | [Issue](../../areas/DOJ/issues/DOJ-005.md) |
+| Audit history | [Audit](../../areas/DOJ/issues/DOJ-005.audit.md) |
+| Proposal page | [Bill](../../legislation/DOJ-005.md) |
 | Tier | T2 blocker review |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/DOJ/issues/DOJ-005.md`; `areas/DOJ/issues/DOJ-005.audit.md`; `inventory/audits.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`; issue/dashboard/inventory consistency scan |
@@ -209,9 +209,9 @@ Template:
 | Date/time | 2026-06-27 23:24:07 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | DOJ-007 |
-| Issue page | [Issue](../areas/DOJ/issues/DOJ-007.md) |
-| Audit history | [Audit](../areas/DOJ/issues/DOJ-007.audit.md) |
-| Proposal page | [Amendment](../legislation/DOJ-007-amendment.md); [Act](../legislation/DOJ-007.md) |
+| Issue page | [Issue](../../areas/DOJ/issues/DOJ-007.md) |
+| Audit history | [Audit](../../areas/DOJ/issues/DOJ-007.audit.md) |
+| Proposal page | [Amendment](../../legislation/DOJ-007-amendment.md); [Act](../../legislation/DOJ-007.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/DOJ/issues/DOJ-007.md`; `areas/DOJ/issues/DOJ-007.audit.md`; `legislation/DOJ-007.md`; `legislation/DOJ-007-amendment.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; source-row reliability check; issue/legislation/audit-history/dashboard consistency scan |
@@ -227,9 +227,9 @@ Template:
 | Date/time | 2026-06-27 23:32:04 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | DOJ-009 |
-| Issue page | [Issue](../areas/DOJ/issues/DOJ-009.md) |
-| Audit history | [Audit](../areas/DOJ/issues/DOJ-009.audit.md) |
-| Proposal page | [Bill](../legislation/DOJ-009.md) |
+| Issue page | [Issue](../../areas/DOJ/issues/DOJ-009.md) |
+| Audit history | [Audit](../../areas/DOJ/issues/DOJ-009.audit.md) |
+| Proposal page | [Bill](../../legislation/DOJ-009.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/DOJ/issues/DOJ-009.md`; `areas/DOJ/issues/DOJ-009.audit.md`; `legislation/DOJ-009.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; source-row reliability check; issue/legislation/audit-history/dashboard consistency scan |
@@ -245,9 +245,9 @@ Template:
 | Date/time | 2026-06-27 23:35:37 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | DOJ-009 |
-| Issue page | [Issue](../areas/DOJ/issues/DOJ-009.md) |
-| Audit history | [Audit](../areas/DOJ/issues/DOJ-009.audit.md) |
-| Proposal page | [Bill](../legislation/DOJ-009.md) |
+| Issue page | [Issue](../../areas/DOJ/issues/DOJ-009.md) |
+| Audit history | [Audit](../../areas/DOJ/issues/DOJ-009.audit.md) |
+| Proposal page | [Bill](../../legislation/DOJ-009.md) |
 | Tier | T2 blocker review |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/DOJ/issues/DOJ-009.md`; `areas/DOJ/issues/DOJ-009.audit.md`; `legislation/DOJ-009.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; issue/dashboard/inventory/source consistency scan |
@@ -263,9 +263,9 @@ Template:
 | Date/time | 2026-06-27 23:40:14 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-001 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-001.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-001.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-001.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-001.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-001.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-001.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-001.md`; `areas/ELEC/issues/ELEC-001.audit.md`; `legislation/ELEC-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; source-row reliability check; issue/legislation/audit-history/dashboard consistency scan |
@@ -281,9 +281,9 @@ Template:
 | Date/time | 2026-06-27 23:45:10 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-001 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-001.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-001.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-001.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-001.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-001.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-001.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-001.md`; `areas/ELEC/issues/ELEC-001.audit.md`; `legislation/ELEC-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; source-row reliability check; issue/legislation/audit-history/dashboard consistency scan |
@@ -299,9 +299,9 @@ Template:
 | Date/time | 2026-06-27 23:48:57 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-001 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-001.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-001.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-001.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-001.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-001.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-001.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-001.md`; `areas/ELEC/issues/ELEC-001.audit.md`; `legislation/ELEC-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; source-row reliability check; issue/legislation/audit-history/dashboard consistency scan |
@@ -317,9 +317,9 @@ Template:
 | Date/time | 2026-06-27 23:52:25 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-001 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-001.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-001.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-001.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-001.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-001.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-001.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-001.md`; `areas/ELEC/issues/ELEC-001.audit.md`; `inventory/audits.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; issue/dashboard/audit-history consistency scan |
@@ -335,9 +335,9 @@ Template:
 | Date/time | 2026-06-27 23:59:21 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-002 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-002.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-002.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-002-state.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-002.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-002.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-002-state.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-002.md`; `areas/ELEC/issues/ELEC-002.audit.md`; `legislation/ELEC-002-state.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; source-row reliability check; issue/legislation/audit-history/dashboard consistency scan |
@@ -353,9 +353,9 @@ Template:
 | Date/time | 2026-06-28 00:02:36 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-002 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-002.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-002.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-002-state.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-002.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-002.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-002-state.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-002.md`; `areas/ELEC/issues/ELEC-002.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; source-row reliability check; issue/dashboard/audit-history consistency scan |
@@ -371,9 +371,9 @@ Template:
 | Date/time | 2026-06-28 00:06:35 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-002 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-002.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-002.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-002-state.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-002.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-002.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-002-state.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-002.md`; `areas/ELEC/issues/ELEC-002.audit.md`; `inventory/audits.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; issue/dashboard/audit-history consistency scan |
@@ -389,9 +389,9 @@ Template:
 | Date/time | 2026-06-28 00:09:40 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-002 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-002.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-002.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-002-state.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-002.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-002.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-002-state.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-002.md`; `areas/ELEC/issues/ELEC-002.audit.md`; `inventory/audits.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; issue/dashboard/audit-history consistency scan |
@@ -407,9 +407,9 @@ Template:
 | Date/time | 2026-06-28 00:16:55 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-003 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-003.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-003.audit.md) |
-| Proposal page | [Bill 1](../legislation/ELEC-003-state.md)<br />[Bill 2](../legislation/ELEC-003.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-003.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-003.audit.md) |
+| Proposal page | [Bill 1](../../legislation/ELEC-003-state.md)<br />[Bill 2](../../legislation/ELEC-003.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-003.md`; `areas/ELEC/issues/ELEC-003.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard pathway/friction count check; issue/legislation/audit-history/dashboard consistency scan |
@@ -425,9 +425,9 @@ Template:
 | Date/time | 2026-06-28 00:23:24 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-003 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-003.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-003.audit.md) |
-| Proposal page | [Bill 1](../legislation/ELEC-003-state.md)<br />[Bill 2](../legislation/ELEC-003.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-003.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-003.audit.md) |
+| Proposal page | [Bill 1](../../legislation/ELEC-003-state.md)<br />[Bill 2](../../legislation/ELEC-003.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-003.md`; `areas/ELEC/issues/ELEC-003.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; issue/legislation/audit-history/dashboard consistency scan |
@@ -443,9 +443,9 @@ Template:
 | Date/time | 2026-06-28 00:27:38 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-003 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-003.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-003.audit.md) |
-| Proposal page | [Bill 1](../legislation/ELEC-003-state.md)<br />[Bill 2](../legislation/ELEC-003.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-003.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-003.audit.md) |
+| Proposal page | [Bill 1](../../legislation/ELEC-003-state.md)<br />[Bill 2](../../legislation/ELEC-003.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-003.md`; `areas/ELEC/issues/ELEC-003.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; issue/legislation/audit-history/dashboard consistency scan |
@@ -461,9 +461,9 @@ Template:
 | Date/time | 2026-06-28 00:32:18 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-003 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-003.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-003.audit.md) |
-| Proposal page | [Bill 1](../legislation/ELEC-003-state.md)<br />[Bill 2](../legislation/ELEC-003.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-003.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-003.audit.md) |
+| Proposal page | [Bill 1](../../legislation/ELEC-003-state.md)<br />[Bill 2](../../legislation/ELEC-003.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-003.md`; `areas/ELEC/issues/ELEC-003.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; issue/legislation/audit-history/source consistency scan |
@@ -479,9 +479,9 @@ Template:
 | Date/time | 2026-06-28 00:36:53 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-004 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-004.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-004.audit.md) |
-| Proposal page | [Bill 1](../legislation/ELEC-004-state.md)<br />[Bill 2](../legislation/ELEC-004.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-004.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-004.audit.md) |
+| Proposal page | [Bill 1](../../legislation/ELEC-004-state.md)<br />[Bill 2](../../legislation/ELEC-004.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-004.md`; `areas/ELEC/issues/ELEC-004.audit.md`; `inventory/audits.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard pathway/friction count check; issue/legislation/audit-history/dashboard consistency scan |
@@ -497,9 +497,9 @@ Template:
 | Date/time | 2026-06-28 00:41:47 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-004 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-004.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-004.audit.md) |
-| Proposal page | [Bill 1](../legislation/ELEC-004-state.md)<br />[Bill 2](../legislation/ELEC-004.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-004.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-004.audit.md) |
+| Proposal page | [Bill 1](../../legislation/ELEC-004-state.md)<br />[Bill 2](../../legislation/ELEC-004.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-004.md`; `areas/ELEC/issues/ELEC-004.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; issue/legislation/audit-history/dashboard consistency scan |
@@ -515,9 +515,9 @@ Template:
 | Date/time | 2026-06-28 00:45:26 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-004 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-004.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-004.audit.md) |
-| Proposal page | [Bill 1](../legislation/ELEC-004-state.md)<br />[Bill 2](../legislation/ELEC-004.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-004.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-004.audit.md) |
+| Proposal page | [Bill 1](../../legislation/ELEC-004-state.md)<br />[Bill 2](../../legislation/ELEC-004.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-004.md`; `areas/ELEC/issues/ELEC-004.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; issue/legislation/audit-history/dashboard consistency scan |
@@ -533,9 +533,9 @@ Template:
 | Date/time | 2026-06-28 00:48:53 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-004 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-004.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-004.audit.md) |
-| Proposal page | [Bill 1](../legislation/ELEC-004-state.md)<br />[Bill 2](../legislation/ELEC-004.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-004.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-004.audit.md) |
+| Proposal page | [Bill 1](../../legislation/ELEC-004-state.md)<br />[Bill 2](../../legislation/ELEC-004.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-004.md`; `areas/ELEC/issues/ELEC-004.audit.md`; `inventory/audits.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard aggregate count check; issue/legislation/audit-history/dashboard consistency scan |
@@ -551,9 +551,9 @@ Template:
 | Date/time | 2026-06-28 00:53 EDT |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-005 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-005.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-005.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-005.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-005.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-005.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-005.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-005.md`; `areas/ELEC/issues/ELEC-005.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; source-row count check; dashboard pathway/friction/queue count check; working-tree scope check |
@@ -569,9 +569,9 @@ Template:
 | Date/time | 2026-06-28 01:06:51 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-005 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-005.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-005.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-005.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-005.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-005.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-005.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-005.md`; `areas/ELEC/issues/ELEC-005.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; source-row count check; dashboard score-band/rebaseline/queue count check; issue/legislation/audit-history consistency scan |
@@ -587,9 +587,9 @@ Template:
 | Date/time | 2026-06-28 01:11:51 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-005 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-005.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-005.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-005.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-005.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-005.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-005.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-005.md`; `areas/ELEC/issues/ELEC-005.audit.md`; `inventory/audits.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard score-band/queue count check; issue/legislation/audit-history consistency scan |
@@ -605,9 +605,9 @@ Template:
 | Date/time | 2026-06-28 01:15:53 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-005 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-005.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-005.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-005.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-005.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-005.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-005.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-005.md`; `areas/ELEC/issues/ELEC-005.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard queue count check; issue/legislation/audit-history/source consistency scan |
@@ -623,9 +623,9 @@ Template:
 | Date/time | 2026-06-28 01:22:44 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-006 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-006.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-006.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-006.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-006.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-006.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-006.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-006.md`; `areas/ELEC/issues/ELEC-006.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard pathway/friction/queue count check; issue/audit-history/dashboard/inventory consistency scan |
@@ -641,9 +641,9 @@ Template:
 | Date/time | 2026-06-28 01:29:57 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-006 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-006.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-006.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-006.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-006.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-006.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-006.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-006.md`; `areas/ELEC/issues/ELEC-006.audit.md`; `legislation/ELEC-006.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard score-band/rebaseline/queue count check; issue/legislation/audit-history/source consistency scan |
@@ -659,9 +659,9 @@ Template:
 | Date/time | 2026-06-28 01:35:25 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-006 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-006.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-006.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-006.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-006.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-006.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-006.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-006.md`; `areas/ELEC/issues/ELEC-006.audit.md`; `legislation/ELEC-006.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard score-band/queue count check; issue/legislation/audit-history/source consistency scan |
@@ -677,9 +677,9 @@ Template:
 | Date/time | 2026-06-28 01:39:34 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-006 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-006.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-006.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-006.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-006.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-006.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-006.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-006.md`; `areas/ELEC/issues/ELEC-006.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard queue count check; issue/audit-history/source consistency scan |
@@ -695,9 +695,9 @@ Template:
 | Date/time | 2026-06-28 01:46:04 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-007 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-007.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-007.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-007.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-007.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-007.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-007.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-007.md`; `areas/ELEC/issues/ELEC-007.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard pathway/friction/queue count check; issue/audit-history/dashboard/inventory consistency scan |
@@ -713,9 +713,9 @@ Template:
 | Date/time | 2026-06-28 01:51:19 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-007 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-007.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-007.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-007.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-007.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-007.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-007.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-007.md`; `areas/ELEC/issues/ELEC-007.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard score-band/rebaseline/queue count check; issue/audit-history/source consistency scan |
@@ -731,9 +731,9 @@ Template:
 | Date/time | 2026-06-28 01:55:37 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-007 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-007.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-007.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-007.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-007.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-007.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-007.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-007.md`; `areas/ELEC/issues/ELEC-007.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard score-band/queue count check; issue/audit-history/source consistency scan |
@@ -749,9 +749,9 @@ Template:
 | Date/time | 2026-06-28 01:59:39 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-007 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-007.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-007.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-007.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-007.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-007.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-007.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-007.md`; `areas/ELEC/issues/ELEC-007.audit.md`; `legislation/ELEC-007.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard queue count check; issue/legislation/audit-history/source consistency scan |
@@ -767,9 +767,9 @@ Template:
 | Date/time | 2026-06-28 02:03:06 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-008 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-008.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-008.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-008.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-008.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-008.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-008.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-008.md`; `areas/ELEC/issues/ELEC-008.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard pathway/friction/queue count check; issue/audit-history/dashboard/inventory consistency scan |
@@ -785,9 +785,9 @@ Template:
 | Date/time | 2026-06-28 02:08:36 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-008 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-008.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-008.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-008.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-008.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-008.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-008.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-008.md`; `areas/ELEC/issues/ELEC-008.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; issue/dashboard/audit-history/source consistency scan |
@@ -803,9 +803,9 @@ Template:
 | Date/time | 2026-06-28 02:16:16 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-008 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-008.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-008.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-008.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-008.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-008.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-008.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-008.md`; `areas/ELEC/issues/ELEC-008.audit.md`; `legislation/ELEC-008.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard/issue/audit-history/source consistency scan; working-tree scope check |
@@ -821,9 +821,9 @@ Template:
 | Date/time | 2026-06-28 02:21:40 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-008 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-008.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-008.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-008.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-008.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-008.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-008.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-008.md`; `areas/ELEC/issues/ELEC-008.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard/issue/audit-history/source consistency scan; T4 source and posture checks |
@@ -839,9 +839,9 @@ Template:
 | Date/time | 2026-06-28 02:27:01 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-009 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-009.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-009.audit.md) |
-| Proposal page | [Amendment](../legislation/ELEC-009-amendment.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-009.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-009.audit.md) |
+| Proposal page | [Amendment](../../legislation/ELEC-009-amendment.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-009.md`; `areas/ELEC/issues/ELEC-009.audit.md`; `inventory/audits.csv`; `inventory/contents.csv`; `inventory/sources.csv`; `legislation/README.md`; `legislation/ELEC-009-amendment.md` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; stale-link scan; rename existence check |
@@ -857,9 +857,9 @@ Template:
 | Date/time | 2026-06-28 02:32:40 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-009 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-009.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-009.audit.md) |
-| Proposal page | [Amendment](../legislation/ELEC-009-amendment.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-009.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-009.audit.md) |
+| Proposal page | [Amendment](../../legislation/ELEC-009-amendment.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-009.md`; `areas/ELEC/issues/ELEC-009.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; dashboard/issue/audit-history/source consistency scan |
@@ -875,9 +875,9 @@ Template:
 | Date/time | 2026-06-28 02:39:34 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-009 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-009.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-009.audit.md) |
-| Proposal page | [Amendment](../legislation/ELEC-009-amendment.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-009.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-009.audit.md) |
+| Proposal page | [Amendment](../../legislation/ELEC-009-amendment.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-009.md`; `areas/ELEC/issues/ELEC-009.audit.md`; `legislation/ELEC-009-amendment.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard/issue/audit-history/source consistency scan |
@@ -893,9 +893,9 @@ Template:
 | Date/time | 2026-06-28 02:47:53 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-009 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-009.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-009.audit.md) |
-| Proposal page | [Amendment](../legislation/ELEC-009-amendment.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-009.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-009.audit.md) |
+| Proposal page | [Amendment](../../legislation/ELEC-009-amendment.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-009.md`; `areas/ELEC/issues/ELEC-009.audit.md`; `legislation/ELEC-009-amendment.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv` and `sources.csv`; dashboard/issue/audit-history/source consistency scan; official FEC source-file check for 2000 and 2016 divergence examples |
@@ -911,9 +911,9 @@ Template:
 | Date/time | 2026-06-28 02:52:44 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-010 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-010.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-010.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-010.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-010.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-010.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-010.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-010.md`; `areas/ELEC/issues/ELEC-010.audit.md`; `inventory/audits.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; dashboard/issue/audit-history/inventory consistency scan |
@@ -929,9 +929,9 @@ Template:
 | Date/time | 2026-06-28 02:59:49 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-010 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-010.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-010.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-010.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-010.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-010.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-010.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-010.md`; `areas/ELEC/issues/ELEC-010.audit.md`; `legislation/ELEC-010.md`; `legislation/README.md`; `inventory/audits.csv`; `inventory/contents.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; official statutory hook checks for HAVA, UOCAVA, and title 39; issue/bill/dashboard/source consistency scan |
@@ -947,9 +947,9 @@ Template:
 | Date/time | 2026-06-28 03:03:51 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-010 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-010.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-010.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-010.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-010.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-010.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-010.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-010.md`; `areas/ELEC/issues/ELEC-010.audit.md`; `legislation/ELEC-010.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; dashboard/issue/bill/audit-history/source consistency scan; official USPS proposed-rule source check |
@@ -965,9 +965,9 @@ Template:
 | Date/time | 2026-06-28 03:09:57 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | ELEC-010 |
-| Issue page | [Issue](../areas/ELEC/issues/ELEC-010.md) |
-| Audit history | [Audit](../areas/ELEC/issues/ELEC-010.audit.md) |
-| Proposal page | [Bill](../legislation/ELEC-010.md) |
+| Issue page | [Issue](../../areas/ELEC/issues/ELEC-010.md) |
+| Audit history | [Audit](../../areas/ELEC/issues/ELEC-010.audit.md) |
+| Proposal page | [Bill](../../legislation/ELEC-010.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/ELEC/issues/ELEC-010.md`; `areas/ELEC/issues/ELEC-010.audit.md`; `legislation/ELEC-010.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; Federal Register API/GovInfo proposed-rule verification; issue/bill/dashboard/audit-history/source consistency scan |
@@ -983,9 +983,9 @@ Template:
 | Date/time | 2026-06-28 03:16:18 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | WAR-001 |
-| Issue page | [Issue](../areas/WAR/issues/WAR-001.md) |
-| Audit history | [Audit](../areas/WAR/issues/WAR-001.audit.md) |
-| Proposal page | [Bill](../legislation/WAR-001.md) |
+| Issue page | [Issue](../../areas/WAR/issues/WAR-001.md) |
+| Audit history | [Audit](../../areas/WAR/issues/WAR-001.audit.md) |
+| Proposal page | [Bill](../../legislation/WAR-001.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/WAR/issues/WAR-001.md`; `areas/WAR/issues/WAR-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; issue/dashboard/audit-history/source consistency scan; official War Powers and prior-proposal source capture |
@@ -1001,9 +1001,9 @@ Template:
 | Date/time | 2026-06-28 03:23:03 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | WAR-001 |
-| Issue page | [Issue](../areas/WAR/issues/WAR-001.md) |
-| Audit history | [Audit](../areas/WAR/issues/WAR-001.audit.md) |
-| Proposal page | [Bill](../legislation/WAR-001.md) |
+| Issue page | [Issue](../../areas/WAR/issues/WAR-001.md) |
+| Audit history | [Audit](../../areas/WAR/issues/WAR-001.audit.md) |
+| Proposal page | [Bill](../../legislation/WAR-001.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/WAR/issues/WAR-001.md`; `areas/WAR/issues/WAR-001.audit.md`; `legislation/WAR-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; audit-history ordering check; official GovInfo/U.S. Code/Library of Congress/OLC source verification; issue/bill/dashboard/audit-history/source consistency scan |
@@ -1019,9 +1019,9 @@ Template:
 | Date/time | 2026-06-28 03:28:50 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | WAR-001 |
-| Issue page | [Issue](../areas/WAR/issues/WAR-001.md) |
-| Audit history | [Audit](../areas/WAR/issues/WAR-001.audit.md) |
-| Proposal page | [Bill](../legislation/WAR-001.md) |
+| Issue page | [Issue](../../areas/WAR/issues/WAR-001.md) |
+| Audit history | [Audit](../../areas/WAR/issues/WAR-001.audit.md) |
+| Proposal page | [Bill](../../legislation/WAR-001.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/WAR/issues/WAR-001.md`; `areas/WAR/issues/WAR-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; dashboard summary recount; official House history and GovInfo prior-bill checks; issue/dashboard/audit-history/source consistency scan |
@@ -1037,9 +1037,9 @@ Template:
 | Date/time | 2026-06-28 03:33:27 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | WAR-001 |
-| Issue page | [Issue](../areas/WAR/issues/WAR-001.md) |
-| Audit history | [Audit](../areas/WAR/issues/WAR-001.audit.md) |
-| Proposal page | [Bill](../legislation/WAR-001.md) |
+| Issue page | [Issue](../../areas/WAR/issues/WAR-001.md) |
+| Audit history | [Audit](../../areas/WAR/issues/WAR-001.audit.md) |
+| Proposal page | [Bill](../../legislation/WAR-001.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/WAR/issues/WAR-001.md`; `areas/WAR/issues/WAR-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; dashboard queue/count recount; Congress.gov direct PDF checks for S.2391 and H.R.5410; archived Libya source attempt documented; issue/dashboard/audit-history/source consistency scan |
@@ -1055,9 +1055,9 @@ Template:
 | Date/time | 2026-06-28 03:40:06 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | IMM-001 |
-| Issue page | [Issue](../areas/IMM/issues/IMM-001.md) |
-| Audit history | [Audit](../areas/IMM/issues/IMM-001.audit.md) |
-| Proposal page | [Bill](../legislation/IMM-001.md) |
+| Issue page | [Issue](../../areas/IMM/issues/IMM-001.md) |
+| Audit history | [Audit](../../areas/IMM/issues/IMM-001.audit.md) |
+| Proposal page | [Bill](../../legislation/IMM-001.md) |
 | Tier | T1 framework check |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/IMM/issues/IMM-001.md`; `areas/IMM/issues/IMM-001.audit.md`; `inventory/audits.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; issue/dashboard/audit-history consistency scan; official Supreme Court citation substitution |
@@ -1073,9 +1073,9 @@ Template:
 | Date/time | 2026-06-28 03:47:40 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | IMM-001 |
-| Issue page | [Issue](../areas/IMM/issues/IMM-001.md) |
-| Audit history | [Audit](../areas/IMM/issues/IMM-001.audit.md) |
-| Proposal page | [Bill](../legislation/IMM-001.md) |
+| Issue page | [Issue](../../areas/IMM/issues/IMM-001.md) |
+| Audit history | [Audit](../../areas/IMM/issues/IMM-001.audit.md) |
+| Proposal page | [Bill](../../legislation/IMM-001.md) |
 | Tier | T2 development audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/IMM/issues/IMM-001.md`; `areas/IMM/issues/IMM-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; official Supreme Court PDF text check; dashboard summary recount; issue/dashboard/audit-history/source consistency scan |
@@ -1091,9 +1091,9 @@ Template:
 | Date/time | 2026-06-28 03:53:58 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | IMM-001 |
-| Issue page | [Issue](../areas/IMM/issues/IMM-001.md) |
-| Audit history | [Audit](../areas/IMM/issues/IMM-001.audit.md) |
-| Proposal page | [Bill](../legislation/IMM-001.md) |
+| Issue page | [Issue](../../areas/IMM/issues/IMM-001.md) |
+| Audit history | [Audit](../../areas/IMM/issues/IMM-001.audit.md) |
+| Proposal page | [Bill](../../legislation/IMM-001.md) |
 | Tier | T3 readiness audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/IMM/issues/IMM-001.md`; `areas/IMM/issues/IMM-001.audit.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; official H.J.Res. 193 GovInfo/Congress.gov PDF checks; issue/dashboard/audit-history/source consistency scan |
@@ -1109,9 +1109,9 @@ Template:
 | Date/time | 2026-06-28 04:03:30 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | IMM-001 |
-| Issue page | [Issue](../areas/IMM/issues/IMM-001.md) |
-| Audit history | [Audit](../areas/IMM/issues/IMM-001.audit.md) |
-| Proposal page | [Bill](../legislation/IMM-001.md) |
+| Issue page | [Issue](../../areas/IMM/issues/IMM-001.md) |
+| Audit history | [Audit](../../areas/IMM/issues/IMM-001.audit.md) |
+| Proposal page | [Bill](../../legislation/IMM-001.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `AUDIT_DASHBOARD.md`; `areas/IMM/issues/IMM-001.md`; `areas/IMM/issues/IMM-001.audit.md`; `legislation/IMM-001.md`; `inventory/audits.csv`; `inventory/sources.csv` |
 | Validation | `git diff --check`; CSV parse for `audits.csv`, `sources.csv`, and `contents.csv`; official Congress.gov H.J.Res. 193 PDF check; official Supreme Court PDF check; Congress.gov API/search limitation check; issue/amendment/dashboard/audit-history/source consistency scan |
@@ -1127,9 +1127,9 @@ Template:
 | Date/time | 2026-07-13 19:09:26 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-011 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-011.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-011.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-011.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-011.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-011.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-011.md) |
 | Tier | T1 framework check |
 | Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv` |
 | Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; `git diff --check`; signed-in GitHub Project readback of Status, Score, Runs, Last audit, Next audit, Change audit needed, and Rebaseline status |
@@ -1145,9 +1145,9 @@ Template:
 | Date/time | 2026-07-13 19:21:13 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-011 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-011.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-011.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-011.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-011.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-011.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-011.md) |
 | Tier | T2 development audit |
 | Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
 | Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; `git diff --check`; signed-in GitHub Project readback of Score, Runs, Last audit, Next audit, and Rebaseline status |
@@ -1163,9 +1163,9 @@ Template:
 | Date/time | 2026-07-13 19:43:37 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-011 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-011.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-011.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-011.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-011.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-011.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-011.md) |
 | Tier | T3 readiness audit |
 | Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
 | Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; source-row count check; `git diff --check`; signed-in GitHub Project readback of Status, Score, Runs, Last audit, Next audit, Change audit needed, and Rebaseline status |
@@ -1181,9 +1181,9 @@ Template:
 | Date/time | 2026-07-13 20:04:55 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | JUD-011 |
-| Issue page | [Issue](../areas/JUD/issues/JUD-011.md) |
-| Audit history | [Audit](../areas/JUD/issues/JUD-011.audit.md) |
-| Proposal page | [Bill](../legislation/JUD-011.md) |
+| Issue page | [Issue](../../areas/JUD/issues/JUD-011.md) |
+| Audit history | [Audit](../../areas/JUD/issues/JUD-011.audit.md) |
+| Proposal page | [Bill](../../legislation/JUD-011.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
 | Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; `git diff --check`; Review Ready dashboard test suite; signed-in GitHub Project persistence readback; fresh issue-sidebar readback |
@@ -1199,9 +1199,9 @@ Template:
 | Date/time | 2026-07-13 20:25:27 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | FUND-001 |
-| Issue page | [Issue](../areas/FUND/issues/FUND-001.md) |
-| Audit history | [Audit](../areas/FUND/issues/FUND-001.audit.md) |
-| Proposal page | [Bill](../legislation/FUND-001.md) |
+| Issue page | [Issue](../../areas/FUND/issues/FUND-001.md) |
+| Audit history | [Audit](../../areas/FUND/issues/FUND-001.audit.md) |
+| Proposal page | [Bill](../../legislation/FUND-001.md) |
 | Tier | T2 development audit |
 | Files changed | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md` |
 | Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; `git diff --check`; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
@@ -1217,9 +1217,9 @@ Template:
 | Date/time | 2026-07-13 20:37:15 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | FUND-001 |
-| Issue page | [Issue](../areas/FUND/issues/FUND-001.md) |
-| Audit history | [Audit](../areas/FUND/issues/FUND-001.audit.md) |
-| Proposal page | [Bill](../legislation/FUND-001.md) |
+| Issue page | [Issue](../../areas/FUND/issues/FUND-001.md) |
+| Audit history | [Audit](../../areas/FUND/issues/FUND-001.audit.md) |
+| Proposal page | [Bill](../../legislation/FUND-001.md) |
 | Tier | T3 readiness audit |
 | Files changed | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; front-matter/displayed-score consistency scan; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
@@ -1235,9 +1235,9 @@ Template:
 | Date/time | 2026-07-13 20:43:44 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | FUND-001 |
-| Issue page | [Issue](../areas/FUND/issues/FUND-001.md) |
-| Audit history | [Audit](../areas/FUND/issues/FUND-001.audit.md) |
-| Proposal page | [Bill](../legislation/FUND-001.md) |
+| Issue page | [Issue](../../areas/FUND/issues/FUND-001.md) |
+| Audit history | [Audit](../../areas/FUND/issues/FUND-001.audit.md) |
+| Proposal page | [Bill](../../legislation/FUND-001.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
@@ -1253,9 +1253,9 @@ Template:
 | Date/time | 2026-07-13 20:51:33 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | REG-001 |
-| Issue page | [Issue](../areas/REG/issues/REG-001.md) |
-| Audit history | [Audit](../areas/REG/issues/REG-001.audit.md) |
-| Proposal page | [Bill](../legislation/REG-001.md) |
+| Issue page | [Issue](../../areas/REG/issues/REG-001.md) |
+| Audit history | [Audit](../../areas/REG/issues/REG-001.audit.md) |
+| Proposal page | [Bill](../../legislation/REG-001.md) |
 | Tier | T1 framework and quality audit |
 | Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `legislation/REG-001.md` |
 | Validation | `git diff --check`; YAML parse; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
@@ -1271,9 +1271,9 @@ Template:
 | Date/time | 2026-07-13 21:14:00 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | REG-001 |
-| Issue page | [Issue](../areas/REG/issues/REG-001.md) |
-| Audit history | [Audit](../areas/REG/issues/REG-001.audit.md) |
-| Proposal page | [Bill](../legislation/REG-001.md) |
+| Issue page | [Issue](../../areas/REG/issues/REG-001.md) |
+| Audit history | [Audit](../../areas/REG/issues/REG-001.audit.md) |
+| Proposal page | [Bill](../../legislation/REG-001.md) |
 | Tier | T2 development audit |
 | Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
@@ -1289,9 +1289,9 @@ Template:
 | Date/time | 2026-07-13 21:38:00 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | REG-001 |
-| Issue page | [Issue](../areas/REG/issues/REG-001.md) |
-| Audit history | [Audit](../areas/REG/issues/REG-001.audit.md) |
-| Proposal page | [Bill](../legislation/REG-001.md) |
+| Issue page | [Issue](../../areas/REG/issues/REG-001.md) |
+| Audit history | [Audit](../../areas/REG/issues/REG-001.audit.md) |
+| Proposal page | [Bill](../../legislation/REG-001.md) |
 | Tier | T3 readiness audit |
 | Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker and definition scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
@@ -1307,9 +1307,9 @@ Template:
 | Date/time | 2026-07-13 22:05:00 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | REG-001 |
-| Issue page | [Issue](../areas/REG/issues/REG-001.md) |
-| Audit history | [Audit](../areas/REG/issues/REG-001.audit.md) |
-| Proposal page | [Bill](../legislation/REG-001.md) |
+| Issue page | [Issue](../../areas/REG/issues/REG-001.md) |
+| Audit history | [Audit](../../areas/REG/issues/REG-001.audit.md) |
+| Proposal page | [Bill](../../legislation/REG-001.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; score-component sum and front-matter consistency; statutory-form, deadline, appropriation, verified-claim, and stale-marker scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
@@ -1325,9 +1325,9 @@ Template:
 | Date/time | 2026-07-13 21:27:37 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | EMOL-015 |
-| Issue page | [Issue](../areas/EMOL/issues/EMOL-015.md) |
-| Audit history | [Audit](../areas/EMOL/issues/EMOL-015.audit.md) |
-| Proposal page | [Bill](../legislation/EMOL-015.md) |
+| Issue page | [Issue](../../areas/EMOL/issues/EMOL-015.md) |
+| Audit history | [Audit](../../areas/EMOL/issues/EMOL-015.audit.md) |
+| Proposal page | [Bill](../../legislation/EMOL-015.md) |
 | Tier | T1 framework and quality audit |
 | Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker scan; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
@@ -1343,9 +1343,9 @@ Template:
 | Date/time | 2026-07-13 21:38:52 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | EMOL-015 |
-| Issue page | [Issue](../areas/EMOL/issues/EMOL-015.md) |
-| Audit history | [Audit](../areas/EMOL/issues/EMOL-015.audit.md) |
-| Proposal page | [Bill](../legislation/EMOL-015.md) |
+| Issue page | [Issue](../../areas/EMOL/issues/EMOL-015.md) |
+| Audit history | [Audit](../../areas/EMOL/issues/EMOL-015.audit.md) |
+| Proposal page | [Bill](../../legislation/EMOL-015.md) |
 | Tier | T2 development audit |
 | Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker scan; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
@@ -1361,9 +1361,9 @@ Template:
 | Date/time | 2026-07-13 21:47:02 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | EMOL-015 |
-| Issue page | [Issue](../areas/EMOL/issues/EMOL-015.md) |
-| Audit history | [Audit](../areas/EMOL/issues/EMOL-015.audit.md) |
-| Proposal page | [Bill](../legislation/EMOL-015.md) |
+| Issue page | [Issue](../../areas/EMOL/issues/EMOL-015.md) |
+| Audit history | [Audit](../../areas/EMOL/issues/EMOL-015.audit.md) |
+| Proposal page | [Bill](../../legislation/EMOL-015.md) |
 | Tier | T3 readiness audit |
 | Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker scan; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
@@ -1379,9 +1379,9 @@ Template:
 | Date/time | 2026-07-13 21:59:58 -0400 |
 | Run/agent | Codex autonomous goal |
 | Issue/task | EMOL-015 |
-| Issue page | [Issue](../areas/EMOL/issues/EMOL-015.md) |
-| Audit history | [Audit](../areas/EMOL/issues/EMOL-015.audit.md) |
-| Proposal page | [Bill](../legislation/EMOL-015.md) |
+| Issue page | [Issue](../../areas/EMOL/issues/EMOL-015.md) |
+| Audit history | [Audit](../../areas/EMOL/issues/EMOL-015.audit.md) |
+| Proposal page | [Bill](../../legislation/EMOL-015.md) |
 | Tier | T4 publication-ready audit |
 | Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID checks; local Markdown-link check; source-URL inventory; score-component sum and front-matter consistency; section-order, cross-reference, deadline, authorization, severability, and stale-marker scans; Review Ready dashboard tests; signed-in GitHub Project persistence readback |

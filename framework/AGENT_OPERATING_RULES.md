@@ -8,7 +8,7 @@ print_levels:
 
 This file governs agent-assisted maintenance, audit execution, and autonomous batch-audit work. It does not replace the project framework or methodology. Agents must begin from [`FRAMEWORK.md`](FRAMEWORK.md), then follow [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), the relevant issue page, the linked proposed legislation, and the issue's audit-history file.
 
-Autonomous run provenance is maintained in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). Each autonomous batch unit should record its commits there. Ordinary human-invoked audit or drafting sessions should not update the agent audit log unless the user expressly converts the work into an autonomous, batched, or scheduled run.
+Autonomous run provenance is maintained in [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md). Each autonomous batch unit should record its commits there. Ordinary human-invoked audit or drafting sessions should not update the agent audit log unless the user expressly converts the work into an autonomous, batched, or scheduled run.
 
 Active long-running audit handoff state is maintained in [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md). Before resuming from a vague instruction such as "continue," "follow up," or "resume the audit," agents must read that file and use it as the active-task pointer. If `CURRENT_AUDIT.md` is inactive, stale, missing, or inconsistent with the user's latest instruction, ask for the active issue or task instead of inferring from recent commits, GitHub Project rows, or nearby audit markers.
 
@@ -23,6 +23,14 @@ If substantive work begins from `Pending development`, change the Project status
 Agent work should improve the project carefully, conservatively, and reproducibly. The goal is not maximum speed. The goal is reliable stewardship of the project record and the user's attention.
 
 Agents should prefer focused, evidence-bearing work over broad speculative work. Once the selected audit tier's required question has been responsibly answered, stop rather than adding duplicative research; no audit should be truncated or downgraded merely to conserve tokens, account usage, elapsed time, or subscription resources.
+
+## User-Framing Neutrality Check
+
+Treat a user's candid political judgment as context or an analytical hypothesis, not automatically as project-ready language or an established factual premise. If an instruction appears to rest on partisan preference, collective blame, unsupported motive attribution, a loaded characterization, or a standard that would change under reversed party control, identify the concern before implementing it and propose a neutral formulation, narrower institutional question, stronger evidentiary requirement, or political-failure disposition. Push back when the requested framing would violate the Framework even if the requested substantive outcome is understandable or consistent with the user's stated views.
+
+This check does not require false equivalence. When authoritative evidence establishes material asymmetry, identify the responsible actors, conduct, dates, decisions, and consequences accurately rather than manufacturing equal blame. Distinguish supported descriptions of who sponsored, opposed, blocked, abandoned, implemented, or benefited from an action from claims about collective motive or intent. Attribute motive only when supported by statements, records, findings, or other evidence adequate for that proposition. Apply the same evidentiary, legal, admission, and remedial standards regardless of which party or coalition would benefit from the conclusion.
+
+Do not treat informal language used during discussion as approved reader-facing prose merely because the user used it candidly. Preserve the substance of the concern, explain any neutrality problem, and obtain or reasonably infer approval for the compliant formulation before committing it to the project record.
 
 ## Research Proportionality
 
@@ -74,7 +82,13 @@ Before running a T-audit, an agent must identify:
 5. the sibling audit-history file;
 6. the relevant GitHub Project item;
 7. the relevant `sources.csv` rows; and
-8. any unresolved findings from the latest audit.
+8. every task in the Source Intake Dashboard's unified Sources queue routed to the issue; and
+9. any unresolved findings from the latest audit.
+10. the issue's open `ISSUE-ID-MON` monitoring sub-issue, if one exists, and every defined external predicate it carries.
+
+Apply the tier-scaled Sources-Queue Reconciliation rule in the methodology. T0 and T1 may inventory applicable tasks; development and T2-T4 work should resolve applicable tasks through verification, route and remedy-fit review, qualitative reader-facing placement, a documented no-additional-value disposition, or a precise continuing predicate. Regenerate and verify the dashboard at closeout whenever source or monitoring rows change. This reconciliation does not create a separate audit run.
+
+A project-wide monitoring pass is a separate non-scoring workflow governed by [`METHODOLOGY.md`](METHODOLOGY.md#project-wide-monitoring-pass). Begin from the GitHub Project Monitoring view, not from the local console. Review each open monitor sub-issue against its defined predicate, update its source/evidence record and last-checked date, and close it when its obligation ends. Do not change a parent proposal's score or Runs unless a material result independently requires the ordinary targeted Change Audit and Internal Remedy-Fit review.
 
 Before starting substantive audit work, the agent must also check whether the issue has a linked proposed legislation file, constitutional amendment, enabling legislation, rule text, manual text, model act, or other concrete proposal vehicle. If the issue has only a `Pending development` placeholder or otherwise lacks concrete proposal text, stop and notify the user that no proposed legislation or equivalent vehicle exists yet. Ask for confirmation before proceeding, and make clear that the audit will be limited to source development, issue admission, remedy selection, or fixed-zero/candidate review unless the user wants drafting added to the scope. Do not assign a formula-based Proposal Quality Score until a concrete draft exists.
 
@@ -92,11 +106,11 @@ Before starting an autonomous batch run, the agent must:
 
 1. confirm the working tree is clean, or stop and report the existing uncommitted files without beginning new audit work;
 2. confirm the current branch and remote target are understood;
-3. confirm the repository can read the latest local project rules, including this file, [`FRAMEWORK.md`](FRAMEWORK.md), [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), [`CHANGE_AUDIT_LOG.md`](CHANGE_AUDIT_LOG.md), [`HORIZON_SCAN_LOG.md`](HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md);
+3. confirm the repository can read the latest local project rules, including this file, [`FRAMEWORK.md`](FRAMEWORK.md), [`METHODOLOGY.md`](METHODOLOGY.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), [`HORIZON_SCAN_LOG.md`](logs/HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md);
 4. check the latest relevant audit record before each issue and skip any issue with unresolved human-review blockers unless the user has expressly authorized proceeding; and
 5. if the user expressly scheduled the run inside a defined work window, respect that user-defined boundary when selecting the next audit unit.
 
-If the preflight fails, do not begin autonomous edits. Record the reason in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md) when appropriate and notify the user.
+If the preflight fails, do not begin autonomous edits. Record the reason in [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md) when appropriate and notify the user.
 
 ### Eligible Items
 
@@ -217,15 +231,15 @@ If no validation script exists, perform a manual validation checklist before mar
 5. for T1 or a routing-affecting change, confirm the repository front door, project-area contents, affected area contents, Subject and Institution Index, and GitHub issue registry are synchronized under the Navigation Synchronization Check;
 6. confirm [`inventory/sources.csv`](../inventory/sources.csv) parses and includes any source used for audit credit;
 7. run a whitespace or formatting check where available;
-8. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md); and
+8. confirm the commit hash is recorded in [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md); and
 9. if the unit changed goal-relevant Project fields, confirm the Review Ready dashboard workflow completed and the generated page reflects the new state, or record the exact blocker; and
 10. confirm no unintended files remain changed for that unit, including generated PDF, DOCX, XLSX, or similar export files unless the user requested an export refresh, the export is the deliverable, export tooling is being tested, or the work is expressly part of a release/publication pass.
 
-If a validation check is skipped, record the skipped check and reason in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md), in the issue audit history when relevant, or in the final user-facing report. A unit should not be marked complete if validation fails, except when the only failure is an explicitly documented environment or tooling limitation and the work has been preserved for human review.
+If a validation check is skipped, record the skipped check and reason in [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md), in the issue audit history when relevant, or in the final user-facing report. A unit should not be marked complete if validation fails, except when the only failure is an explicitly documented environment or tooling limitation and the work has been preserved for human review.
 
 ## Agent Audit Log
 
-Autonomous batch mode must maintain an independent agent audit log in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). This log is for operational provenance and rollback planning for unattended or autorun work. It should not replace issue audit histories, GitHub Project tracking, source records, `CURRENT_AUDIT.md` handoff checkpoints, or final user-facing reports.
+Autonomous batch mode must maintain an independent agent audit log in [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md). This log is for operational provenance and rollback planning for unattended or autorun work. It should not replace issue audit histories, GitHub Project tracking, source records, `CURRENT_AUDIT.md` handoff checkpoints, or final user-facing reports.
 
 For each autonomous issue unit, record:
 

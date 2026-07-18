@@ -36,4 +36,4 @@ These provisional identifiers were adjudicated before development and are retain
 
 ## Notes
 
-FUND-001 remains 83/100 and Review Ready after a targeted consolidation Change Audit found that its current issue and standalone bill already cover the absorbed fiscal mechanisms. FUND-002 has a candidate issue framework. Further FUND-001 advancement requires qualified appropriations, federal-courts, budget, program-administration, and legislative-counsel review plus proposal-specific workload evidence and a current-litigation refresh before circulation.
+FUND-001 remains 83/100 and Review Ready after a targeted consolidation review found that its current issue and standalone bill already cover the absorbed fiscal mechanisms. FUND-002 has a candidate issue framework. Further FUND-001 advancement requires qualified appropriations, federal-courts, budget, program-administration, and legislative-counsel review plus proposal-specific workload evidence and a current-litigation refresh before circulation.

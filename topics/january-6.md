@@ -19,26 +19,55 @@ ARRP does not treat the episode as one proposal. Pressure on election officials,
 
 ## Relevant Proposals
 
-| Public concern | Applicable proposals |
-| --- | --- |
-| Pressure on election administration, certification, or election workers | [ELEC-001](../areas/ELEC/issues/ELEC-001.md), [ELEC-002](../areas/ELEC/issues/ELEC-002.md), and [ELEC-003](../areas/ELEC/issues/ELEC-003.md) |
-| Litigation, false electoral documents, and coordinated subversion | [ELEC-004](../areas/ELEC/issues/ELEC-004.md), [ELEC-005](../areas/ELEC/issues/ELEC-005.md), and [ELEC-008](../areas/ELEC/issues/ELEC-008.md) |
-| Transition continuity and federal-force safeguards | [ELEC-006](../areas/ELEC/issues/ELEC-006.md) and [ELEC-007](../areas/ELEC/issues/ELEC-007.md) |
-| Presidential accountability and independent investigation | [IMM-001](../areas/IMM/issues/IMM-001.md), [DOJ-007](../areas/DOJ/issues/DOJ-007.md), PAR-001, and PAR-005 |
+- **Public concern:** Pressure on election administration, certification, or election workers
+  - **Applicable proposals:** [ELEC-001](../areas/ELEC/issues/ELEC-001.md), [ELEC-002](../areas/ELEC/issues/ELEC-002.md), and [ELEC-003](../areas/ELEC/issues/ELEC-003.md)
+
+- **Public concern:** Litigation, false electoral documents, and coordinated subversion
+  - **Applicable proposals:** [ELEC-004](../areas/ELEC/issues/ELEC-004.md), [ELEC-005](../areas/ELEC/issues/ELEC-005.md), and [ELEC-008](../areas/ELEC/issues/ELEC-008.md)
+
+- **Public concern:** Transition continuity and federal-force safeguards
+  - **Applicable proposals:** [ELEC-006](../areas/ELEC/issues/ELEC-006.md) and [ELEC-007](../areas/ELEC/issues/ELEC-007.md)
+
+- **Public concern:** Presidential accountability and independent investigation
+  - **Applicable proposals:** [IMM-001](../areas/IMM/issues/IMM-001.md), [DOJ-007](../areas/DOJ/issues/DOJ-007.md), PAR-001, and PAR-005
 
 ## How Concerns Map to Proposals
 
-| Public concern | Applicable proposals | How ARRP addresses it |
-| --- | --- | --- |
-| Federal pressure on State or local election administration | [ELEC-001](../areas/ELEC/issues/ELEC-001.md) | Addresses civilian executive interference with State and local election administration. |
-| Pressure on canvassing or certification officials | [ELEC-002](../areas/ELEC/issues/ELEC-002.md) | Addresses clear official duties, deadlines, review, and continuity when certification is threatened. |
-| Threats against election workers or officials | [ELEC-003](../areas/ELEC/issues/ELEC-003.md) | Addresses protection, continuity, reporting, and support for election personnel. |
-| Abusive lawsuits, subpoenas, audits, or inspection demands | [ELEC-004](../areas/ELEC/issues/ELEC-004.md) | Addresses safeguards against misuse of election-related civil process. |
-| False documents purporting to transmit electoral votes | [ELEC-005](../areas/ELEC/issues/ELEC-005.md) | Addresses federal receipt, preservation, notice, and treatment of unauthorized electoral documents. |
-| Delayed transition access or agency cooperation | [ELEC-006](../areas/ELEC/issues/ELEC-006.md) | Addresses automatic transition procedures and enforcement. |
-| Improper federal-force activity around election administration | [ELEC-007](../areas/ELEC/issues/ELEC-007.md) | Addresses force presence, emergency response, and custody of election materials. |
-| Coordinated efforts using independently wrongful acts to overturn a lawful result | [ELEC-008](../areas/ELEC/issues/ELEC-008.md) | Addresses accountability for coordinated federal election-subversion schemes. |
-| Presidential immunity, independent investigation, or pardons | [IMM-001](../areas/IMM/issues/IMM-001.md), [DOJ-007](../areas/DOJ/issues/DOJ-007.md), PAR-001, and PAR-005 | Separates immunity rules, independent investigation, general clemency abuse, and the distinct self-pardon question. |
+- **Public concern:** Federal pressure on State or local election administration
+  - **Applicable proposals:** [ELEC-001](../areas/ELEC/issues/ELEC-001.md)
+  - **How ARRP addresses it:** Addresses civilian executive interference with State and local election administration.
+
+- **Public concern:** Pressure on canvassing or certification officials
+  - **Applicable proposals:** [ELEC-002](../areas/ELEC/issues/ELEC-002.md)
+  - **How ARRP addresses it:** Addresses clear official duties, deadlines, review, and continuity when certification is threatened.
+
+- **Public concern:** Threats against election workers or officials
+  - **Applicable proposals:** [ELEC-003](../areas/ELEC/issues/ELEC-003.md)
+  - **How ARRP addresses it:** Addresses protection, continuity, reporting, and support for election personnel.
+
+- **Public concern:** Abusive lawsuits, subpoenas, audits, or inspection demands
+  - **Applicable proposals:** [ELEC-004](../areas/ELEC/issues/ELEC-004.md)
+  - **How ARRP addresses it:** Addresses safeguards against misuse of election-related civil process.
+
+- **Public concern:** False documents purporting to transmit electoral votes
+  - **Applicable proposals:** [ELEC-005](../areas/ELEC/issues/ELEC-005.md)
+  - **How ARRP addresses it:** Addresses federal receipt, preservation, notice, and treatment of unauthorized electoral documents.
+
+- **Public concern:** Delayed transition access or agency cooperation
+  - **Applicable proposals:** [ELEC-006](../areas/ELEC/issues/ELEC-006.md)
+  - **How ARRP addresses it:** Addresses automatic transition procedures and enforcement.
+
+- **Public concern:** Improper federal-force activity around election administration
+  - **Applicable proposals:** [ELEC-007](../areas/ELEC/issues/ELEC-007.md)
+  - **How ARRP addresses it:** Addresses force presence, emergency response, and custody of election materials.
+
+- **Public concern:** Coordinated efforts using independently wrongful acts to overturn a lawful result
+  - **Applicable proposals:** [ELEC-008](../areas/ELEC/issues/ELEC-008.md)
+  - **How ARRP addresses it:** Addresses accountability for coordinated federal election-subversion schemes.
+
+- **Public concern:** Presidential immunity, independent investigation, or pardons
+  - **Applicable proposals:** [IMM-001](../areas/IMM/issues/IMM-001.md), [DOJ-007](../areas/DOJ/issues/DOJ-007.md), PAR-001, and PAR-005
+  - **How ARRP addresses it:** Separates immunity rules, independent investigation, general clemency abuse, and the distinct self-pardon question.
 
 ## What ARRP Does and Does Not Address
 

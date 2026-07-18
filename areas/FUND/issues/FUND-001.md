@@ -54,6 +54,10 @@ In [*Youngstown Sheet & Tube Co. v. Sawyer*](https://www.govinfo.gov/app/details
 
 NASA's fiscal year 2026 [budget request](https://www.nasa.gov/fy-2026-budget-request/) proposed $18.8 billion, down from about $24.8 billion in fiscal year 2025, but Congress later provided roughly $24.4 billion. A [House Science Committee Democratic staff report](https://democrats-science.house.gov/imo/media/doc/SST%20Minority%20Staff%20Report%20-%20NASA%20Implementation%20of%20FY26%20PBR%20-%20April%202026.pdf) stated that NASA officials nevertheless began implementing requested reductions during 2025, including terminating work and dispersing personnel on the Electrified Powertrain Flight Demonstration after the request proposed no funding; NASA's later [spending plan](https://www.nasa.gov/wp-content/uploads/2026/07/nasa-fy2026-spending-plan-for-appropriations-provided-by-pl11974.pdf) included $40 million for the project. The episode illustrates how anticipatory program-execution decisions can impair Congress's ability to preserve a program even when it rejects a proposed cut. No court or GAO has found an Impoundment Control Act violation in this episode, and program-level apportionment, reprogramming, and obligation records remain necessary to establish unlawful withholding.
 
+### Supporting Record and Updates
+
+- **Watching for updates:** [FUND-001-MON](https://github.com/Thorncrag/ARRP/issues/286) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
+
 ## Resulting Damage
 
 Fiscal implementation of ultra vires executive directives damages Congress's power of the purse, statutory program reliability, federalism, equal administration, and democratic accountability. It lets the executive branch obtain time-sensitive policy results before legality is resolved, burdens states and private parties with emergency litigation, and can make judicial victory incomplete because funding, staffing, deadlines, or institutional capacity have already been disrupted.

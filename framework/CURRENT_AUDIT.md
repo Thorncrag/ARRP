@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: active
+status: inactive
 print_levels:
   - full-technical
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — task completed |
-| Active issue/task | None |
-| Audit type/tier | None |
-| Started | — |
-| Last checkpoint | 2026-07-16; 1,266-record route-centered adjudication completed and published |
-| User request | Completed: process the full discovery catalog autonomously and reconcile every record. |
-| Scope | None active. |
-| Files touched | None active. |
-| Completed steps | All 1,266 records were reconciled as 1,250 episodes. The completed batch retained 160 records for qualitative integration and 178 records as 174 defined-predicate monitoring episodes, removed 928 cumulative or nonqualifying records, graduated 373 canonical sources, created no new preliminary candidate, and was committed and pushed in `832b0f3`. Scores, Runs, Project lifecycle fields, and Review Ready progress were unchanged. |
-| Next step | Work the 162-row existing-record integration queue by receiving record, beginning with a high-volume route such as FACT-001 or RIGHTS-002; revisit the separate 174-row litigation monitor only when a defined posture predicate occurs. |
+| Status | Inactive — source-catalog boundary reconciliation completed and validated |
+| Active issue/task | Split cited sources from pending source-adjudication records |
+| Audit type/tier | Project-governance Change Audit; no T-audit or score change |
+| Started | 2026-07-18 |
+| Last checkpoint | 2026-07-18; `sources.csv` contains 750 cited records and `sources-pending.csv` contains 442 uncited source-development, monitoring, verification, or placement records. Stable IDs remain globally unique and continuous through `SRC-1192`. The consistency checker owns the citation boundary, and the former stand-alone consistency-audit report remains consolidated into the existing Change Audit Log. |
+| User request | Keep `sources.csv` limited to sources actually cited in ARRP; extract unused but tracked sources into `sources-pending.csv`. |
+| Scope | `inventory/sources.csv`; new `inventory/sources-pending.csv`; source-inventory documentation; source-adjudication and console scripts; tests and consistency checks. |
+| Files touched | `inventory/sources.csv`; `inventory/sources-pending.csv`; source-inventory documentation; source-adjudication, console, and consistency scripts; source-intake tests; Change Audit Log; Horizon Scan Log; and this handoff. |
+| Completed steps | Split cited from uncited retained sources without renumbering IDs; renamed queue references to `source_record_ids`; updated source workflows to resolve both catalogs and register new unplaced sources in the pending catalog; exposed every pending source through an integration, monitoring, or generated verification task in the console's single Sources queue; reconciled all citation-boundary warnings; strengthened source-ID, citation, and pending-source drift checks; and documented the completed governance change in the consolidated Change Audit Log. |
+| Next step | None. Begin the next user-directed project task. |
 | Blockers/questions | None. |
-| Validation status | Passed: 37 unit tests, batch and CSV reconciliation, canonical-source and uniqueness checks, changed-document link checks, public-site preparation, and `git diff --check`. |
+| Validation status | Passed: byte-compilation of affected scripts; `python3 -m unittest discover -s tests -v` (40 tests); `python3 scripts/audit_project_consistency.py` (0 errors and 0 warnings); `python3 scripts/prepare_public_site.py`; strict MkDocs build; `git diff --check`; and source-ID/count readback. |
 
 ## Handoff Rules
 

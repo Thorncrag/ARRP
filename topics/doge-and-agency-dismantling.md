@@ -19,25 +19,49 @@ This page does not evaluate whether a particular efficiency policy is wise. It h
 
 ## Relevant Proposals
 
-| Public concern | Applicable proposals |
-| --- | --- |
-| DOGE authority, staffing, delegation, systems access, privacy, and oversight | CIV-009 |
-| Career reclassification and personnel retaliation | CIV-001 |
-| Loss of agency capacity through workforce reductions | CIV-005 |
-| Agency closure, dismantling, or inability to perform duties assigned by Congress | [REG-001](../areas/REG/issues/REG-001.md) |
-| Withholding appropriated funds or refusing to execute funded programs | [FUND-001](../areas/FUND/issues/FUND-001.md) |
-| Enforcement of congressional mandates | [JUD-011](../areas/JUD/issues/JUD-011.md) |
+- **Public concern:** DOGE authority, staffing, delegation, systems access, privacy, and oversight
+  - **Applicable proposals:** CIV-009
+
+- **Public concern:** Career reclassification and personnel retaliation
+  - **Applicable proposals:** CIV-001
+
+- **Public concern:** Loss of agency capacity through workforce reductions
+  - **Applicable proposals:** CIV-005
+
+- **Public concern:** Agency closure, dismantling, or inability to perform duties assigned by Congress
+  - **Applicable proposals:** [REG-001](../areas/REG/issues/REG-001.md)
+
+- **Public concern:** Withholding appropriated funds or refusing to execute funded programs
+  - **Applicable proposals:** [FUND-001](../areas/FUND/issues/FUND-001.md)
+
+- **Public concern:** Enforcement of congressional mandates
+  - **Applicable proposals:** [JUD-011](../areas/JUD/issues/JUD-011.md)
 
 ## How Concerns Map to Proposals
 
-| Public concern | Applicable proposals | How ARRP addresses it |
-| --- | --- | --- |
-| Creation or use of a cross-agency operational-control unit | CIV-009 | Addresses appointments, delegation, systems access, privacy, procurement, records, and oversight. |
-| Reclassification or removal of career employees | CIV-001 | Addresses political reclassification and retaliation for professional judgment within one merit-system framework. |
-| Large workforce reductions or loss of technical capacity | CIV-005 | Addresses whether personnel reductions hollow out the government’s ability to perform required functions. |
-| Functional dismantling of an agency or mandatory program | [REG-001](../areas/REG/issues/REG-001.md) | Addresses substantial and sustained inability to perform duties assigned by Congress. |
-| Nonspending used to suspend an agency or program | [FUND-001](../areas/FUND/issues/FUND-001.md) | Addresses appropriations execution and agency closure through nonspending. |
-| Broader refusal to carry out an enacted congressional mandate | [JUD-011](../areas/JUD/issues/JUD-011.md) | Supplies a general civil remedy when executive action or inaction functionally nullifies enacted law. |
+- **Public concern:** Creation or use of a cross-agency operational-control unit
+  - **Applicable proposals:** CIV-009
+  - **How ARRP addresses it:** Addresses appointments, delegation, systems access, privacy, procurement, records, and oversight.
+
+- **Public concern:** Reclassification or removal of career employees
+  - **Applicable proposals:** CIV-001
+  - **How ARRP addresses it:** Addresses political reclassification and retaliation for professional judgment within one merit-system framework.
+
+- **Public concern:** Large workforce reductions or loss of technical capacity
+  - **Applicable proposals:** CIV-005
+  - **How ARRP addresses it:** Addresses whether personnel reductions hollow out the government’s ability to perform required functions.
+
+- **Public concern:** Functional dismantling of an agency or mandatory program
+  - **Applicable proposals:** [REG-001](../areas/REG/issues/REG-001.md)
+  - **How ARRP addresses it:** Addresses substantial and sustained inability to perform duties assigned by Congress.
+
+- **Public concern:** Nonspending used to suspend an agency or program
+  - **Applicable proposals:** [FUND-001](../areas/FUND/issues/FUND-001.md)
+  - **How ARRP addresses it:** Addresses appropriations execution and agency closure through nonspending.
+
+- **Public concern:** Broader refusal to carry out an enacted congressional mandate
+  - **Applicable proposals:** [JUD-011](../areas/JUD/issues/JUD-011.md)
+  - **How ARRP addresses it:** Supplies a general civil remedy when executive action or inaction functionally nullifies enacted law.
 
 ## What ARRP Does and Does Not Address
 

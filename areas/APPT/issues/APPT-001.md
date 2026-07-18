@@ -119,7 +119,7 @@ Prospectively, the proposal would convert passive acquiescence into an affirmati
 
 ## Budgetary Impact Statement
 
-**Preliminary classification: Low-to-moderate administrative and litigation impact.** GAO, OPM, agencies, and federal courts already perform the relevant reporting, publication, compliance, and review functions. The draft adds data reconciliation, written legal explanations, compliance determinations, and expedited litigation but establishes no new agency, tribunal, or judgeship. A T1 review should examine GAO and OPM workload and determine whether implementation from existing appropriations is realistic or whether a limited authorization is necessary.
+**Preliminary classification: Low-to-moderate administrative and litigation impact.** GAO, OPM, agencies, and federal courts already perform the relevant reporting, publication, compliance, and review functions. The draft adds data reconciliation, written legal explanations, compliance determinations, and expedited litigation but establishes no new agency, tribunal, or judgeship. An initial review should examine GAO and OPM workload and determine whether implementation from existing appropriations is realistic or whether a limited authorization is necessary.
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
@@ -129,7 +129,7 @@ Prospectively, the proposal would convert passive acquiescence into an affirmati
 >
 > —
 >
-> **Internal Review Status:** Initial consolidated issue and statutory framework drafted; internal project review required<br />**Last Internal Review:** Candidate consolidation and initial statutory draft<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current fixed-zero development status<br />**Next Review:** T1 review of statutory scope, continuity, consequences, judicial review, and office-specific backstops<br />**Full Review History:** [APPT-001 review history](APPT-001.audit.md)
+> **Internal Review Status:** Initial consolidated issue and statutory framework drafted; internal project review required<br />**Last Internal Review:** Candidate consolidation and initial statutory draft<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current fixed-zero development status<br />**Next Review:** Initial legal-and-implementation review of statutory scope, continuity, consequences, judicial review, and office-specific backstops<br />**Full Review History:** [APPT-001 review history](APPT-001.audit.md)
 
 ## Annotation
 

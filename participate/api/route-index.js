@@ -575,78 +575,85 @@ const records = Object.freeze([
     "id": "HOR-025",
     "title": "Political and Lobbyist Influence over DOJ Merger Enforcement",
     "area": "REG",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/239"
   },
   {
     "id": "HOR-026",
     "title": "Presidential Withdrawal or Constructive Withdrawal from International Commitments",
     "area": "CONG",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/245"
   },
   {
     "id": "HOR-027",
     "title": "Presidential Policymaking Through Privately Controlled Social Media",
     "area": "REC",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/247"
   },
   {
     "id": "HOR-029",
     "title": "Presidential Self-Dealing Through an Officially Favored Private Platform",
     "area": "EMOL",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/249"
   },
   {
     "id": "HOR-031",
     "title": "Durability and Revocation of National Monument Protections",
     "area": "HER",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/251"
   },
   {
     "id": "HOR-032",
     "title": "Senior-Official Hatch Act Enforcement",
     "area": "ELEC",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/252"
   },
   {
     "id": "HOR-033",
     "title": "Enforceability of Accessibility Duties for Presidential Communications",
     "area": "RIGHTS",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/253"
   },
   {
     "id": "HOR-034",
     "title": "Cross-Agency Repurposing of Protected Personal Data",
     "area": "CIV",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/254"
   },
   {
     "id": "HOR-035",
     "title": "Executive Review Evasion Through Withdrawal, Replacement, Settlement, or Mootness",
     "area": "JUD",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/255"
   },
   {
     "id": "HOR-036",
     "title": "Executive Action That May Operate Without Timely Merits Review",
     "area": "JUD",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/256"
   },
   {
     "id": "HOR-037",
     "title": "Immigration Detention, Removal Process, and Access Safeguards",
     "area": "RIGHTS",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/257"
+  },
+  {
+    "id": "HOR-038",
+    "title": "Endangered Species Act Regulatory-Boundary Monitoring",
+    "area": "Cross-cutting",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/274",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/274"
   }
 ]);
 

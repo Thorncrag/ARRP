@@ -12,6 +12,22 @@ This file preserves the full audit history for [ELEC-001](ELEC-001.md). The issu
 
 ## Audit History
 
+### 2026-07-18 — Targeted Source and Remedy-Fit Review
+
+**Audit status:** Targeted source and remedy-fit review complete; T4 score preserved; external validation pending
+
+**Scope:** Reviewed the July 17, 2026 DHS voter-roll announcement, the linked bill, the current ELEC-001 issue page, the latest T4 entry, the authoritative GitHub Project row, and the supporting Associated Press and ABC News reports.
+
+**Source finding:** DHS Secretary Markwayne Mullin publicly stated that state officials who did not participate in DHS's expanded SAVE-based voter-roll program could face fines, penalties, or prison, and linked election-related federal assistance or reimbursement to cooperation. The record supports describing a public threat and stated funding pressure. It does not identify a filed criminal charge, a particular enforcement target, a legally operative funding decision, the full legal authority asserted, or proof that any official acted with the bill's required purpose of securing a preferred electoral outcome.
+
+**Internal Remedy-Fit finding:** The episode belongs in ELEC-001 as a new, concise manifestation of federal executive pressure on state election administration. It does not require a new issue, a new remedy, or a change to the bill. The existing draft already covers threatened investigation, prosecution, funding, or other governmental authority when used for the prohibited electoral purpose, while preserving good-faith enforcement of valid federal law. The new text expressly preserves that limiting distinction.
+
+**Issue-to-legislation finding:** No material discrepancy found. The issue's added manifestation aligns with 5 U.S.C. § 7323A(b)(5), (b)(8), and (b)(9) as proposed, and with the bill's lawful-function limitation. The bill remains intentionally narrower than a general prohibition on any federal election-law request or enforcement action.
+
+**Score and lifecycle effect:** Proposal Quality Score remains 77/100; Runs remains 4. The existing T4 status, Review Ready Project status, and current rebaseline posture remain appropriate. The targeted review resolved the temporary Change Audit marker without a score recalculation.
+
+**Corrections and next review:** Added the manifestation, source-inventory rows, current review metadata, and this audit entry. External review should obtain the DHS statement or letters, the legal authority and funding-program terms relied upon, any state responses, and any subsequent enforcement or litigation record before treating the episode as evidence of an unlawful enforcement action or as proof of prohibited electoral purpose.
+
 ### 2026-06-28 — T4 Publication-Ready Audit
 
 **Audit status:** T4 publication-ready audit complete; external validation pending

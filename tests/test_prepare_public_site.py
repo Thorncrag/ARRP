@@ -35,7 +35,7 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn("topics/executive-orders-and-presidential-power.md", sources)
         self.assertIn("topics/federal-pressure-on-states-and-cities.md", sources)
         self.assertIn("topics/government-spending-and-impoundment.md", sources)
-        self.assertIn("topics/immigration-enforcement.md", sources)
+        self.assertIn("topics/immigration-system-reform.md", sources)
         self.assertIn("topics/january-6.md", sources)
         self.assertIn("topics/presidential-accountability.md", sources)
         self.assertIn("topics/weaponization-of-justice.md", sources)
@@ -92,7 +92,7 @@ class PublicSitePreparationTests(unittest.TestCase):
             config,
         )
         self.assertIn(
-            '"Immigration Enforcement": topics/immigration-enforcement.md',
+            '"Immigration System Reform": topics/immigration-system-reform.md',
             config,
         )
         self.assertIn('"January 6": topics/january-6.md', config)
@@ -142,11 +142,16 @@ class PublicSitePreparationTests(unittest.TestCase):
                     "## What ARRP Does and Does Not Address",
                 ):
                     self.assertIn(heading, guide)
-                self.assertIn("| Public concern | Applicable proposals |", guide)
+                relevant = guide.split("## Relevant Proposals", 1)[1].split("\n## ", 1)[0]
+                self.assertRegex(
+                    relevant,
+                    r"(?m)^- \*\*Public concern:\*\* .+\n  - \*\*Applicable proposals:\*\* .+$",
+                )
                 if "## How Concerns Map to Proposals" in guide:
-                    self.assertIn(
-                        "| Public concern | Applicable proposals | How ARRP addresses it |",
-                        guide,
+                    mapped = guide.split("## How Concerns Map to Proposals", 1)[1].split("\n## ", 1)[0]
+                    self.assertRegex(
+                        mapped,
+                        r"(?m)^- \*\*Public concern:\*\* .+\n  - \*\*Applicable proposals:\*\* .+\n  - \*\*How ARRP addresses it:\*\* .+$",
                     )
                 for heading in (
                     "## Relevant Proposals",
@@ -154,11 +159,12 @@ class PublicSitePreparationTests(unittest.TestCase):
                 ):
                     if heading not in guide:
                         continue
-                    routing_table = guide.split(heading, 1)[1].split("\n## ", 1)[0]
+                    routing_list = guide.split(heading, 1)[1].split("\n## ", 1)[0]
                     self.assertNotRegex(
-                        routing_table,
+                        routing_list,
                         r"\]\(\.\./areas/[^)]+/README\.md\)",
                     )
+                self.assertNotRegex(guide, r"(?m)^\|")
                 for disallowed in (
                     "Reader concern",
                     "## Topic Overview",

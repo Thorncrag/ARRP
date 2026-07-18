@@ -66,6 +66,10 @@ This is not the first IEEPA sanctions program aimed at ICC-associated persons. E
 
 That sequence demonstrates the institutional problem independently of the merits: a consequential international sanctions policy can be created, rescinded, and recreated by successive Presidents without new legislation.
 
+### Supporting Record and Updates
+
+- **Watching for updates:** [EMERG-003-MON](https://github.com/Thorncrag/ARRP/issues/281) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
+
 ## Resulting Damage
 
 Using general emergency authority as a substitute for specific legislation can:

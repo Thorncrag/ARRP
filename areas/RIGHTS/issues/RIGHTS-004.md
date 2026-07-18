@@ -22,7 +22,7 @@ audit_history: "RIGHTS-004.audit.md"
 
 # RIGHTS-004 — Comprehensive Immigration Reform, Removal Due Process, and Immigration System Integrity
 
-> **Final disposition — July 16, 2026:** Retired as an independent ARRP proposal. The record combined substantive immigration-policy choices with multiple institutional defects requiring different remedies. Its source leads and nonduplicative questions remain preserved below and are routed to [RIGHTS-002](RIGHTS-002.md), [DOM](../../DOM/README.md), [FED](../../FED/README.md), and any later narrowly admitted immigration-adjudication capacity proposal. Retirement does not reject immigration reform as policy; it applies ARRP's rule against treating a broad political-policy field as one institutional failure.
+> **Final disposition — July 16, 2026; navigation update — July 18, 2026:** Retired as an independent ARRP proposal. The record combined substantive immigration-policy choices with multiple institutional defects requiring different remedies. Its system-wide navigational function is now preserved by the [Immigration System Reform](../../../topics/immigration-system-reform.md) topic page, while substantive questions remain routed to [RIGHTS-002](RIGHTS-002.md), [RIGHTS-003](RIGHTS-003.md), [DOM](../../DOM/README.md), [FED](../../FED/README.md), and other narrowly defined proposals or candidates. Retirement does not reject immigration reform as policy; it applies ARRP's rule against treating a broad political-policy field as one institutional failure.
 
 The material below is an archived development record, not an active recommendation. Future work may reuse a source lead or narrowly framed institutional question only through an active proposal or a new issue-admission decision.
 
@@ -149,7 +149,7 @@ No reliable estimate yet. A comprehensive immigration-system reform could have s
 
 ## Annotation
 
-RIGHTS-004 was admitted to preserve a comprehensive immigration-reform lane inside A-24 and later retired after portfolio review found that it combined political-policy choices with distinct remedies already owned elsewhere. Its proposal-quality score remains 0 because no score-bearing T-audit or unified statutory vehicle was completed.
+RIGHTS-004 was admitted to preserve a comprehensive immigration-reform lane inside A-24 and later retired after portfolio review found that it combined political-policy choices with distinct remedies already owned elsewhere. Its system-wide routing function was preserved by converting the existing immigration guide into the [Immigration System Reform](../../../topics/immigration-system-reform.md) topic page. Its proposal-quality score remains 0 because no score-bearing T-audit or unified statutory vehicle was completed.
 
 The issue should remain institutionally neutral. It should ask whether immigration administration has enough process, review, capacity, records integrity, lawful-pathway coherence, humanitarian protection, and federalism boundaries to resist abuse across administrations. It should not become a general repository for every immigration policy preference or enforcement dispute.
 

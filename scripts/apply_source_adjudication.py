@@ -28,7 +28,8 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "research" / "trump-administration-legal-review-catalog.csv"
 ROUTING = ROOT / "research" / "trump-administration-evidence-routing.csv"
 PRIORITY = ROOT / "research" / "trump-administration-priority-disposition-review.csv"
-SOURCES = ROOT / "inventory" / "sources.csv"
+CITED_SOURCES = ROOT / "inventory" / "sources.csv"
+PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 EXISTING_ISSUE_QUEUE = ROOT / "research" / "existing-issue-evidence-integration.csv"
 
 ALLOWED_DISPOSITIONS = {
@@ -60,7 +61,7 @@ RETAINED_EVIDENCE_DISPOSITIONS = {
     "different-existing-proposal",
 }
 
-REGISTRY_ONLY_DISPOSITIONS = {"corroborating-source"}
+NO_ADDITIONAL_VALUE_DISPOSITIONS = {"corroborating-source"}
 
 
 def validate_integration_targets(
@@ -76,18 +77,18 @@ def validate_integration_targets(
         targets = [str(target) for target in raw_targets]
     targets = [target.strip() for target in targets if target.strip()]
     if not targets:
-        registry_only = decision.get("reader_facing_value") == "no-additional-value"
-        rationale = str(decision.get("registry_only_rationale", "")).strip()
+        no_additional_value = decision.get("reader_facing_value") == "no-additional-value"
+        rationale = str(decision.get("no_additional_value_rationale", "")).strip()
         if (
-            decision.get("disposition") in REGISTRY_ONLY_DISPOSITIONS
-            and registry_only
+            decision.get("disposition") in NO_ADDITIONAL_VALUE_DISPOSITIONS
+            and no_additional_value
             and rationale
         ):
             return
         raise SystemExit(
             "Every retained-evidence decision requires an issue, evidence-record, "
             "monitoring, or queue target unless cumulative corroboration has an "
-            "explicit no-additional-reader-value finding and rationale; a sources.csv "
+            "explicit no-additional-reader-value finding and rationale; a source-inventory "
             "association alone is not completed integration."
         )
 
@@ -133,7 +134,8 @@ def main() -> None:
     catalog = read_csv(CATALOG)
     routing = read_csv(ROUTING)
     priority = read_csv(PRIORITY)
-    sources = read_csv(SOURCES)
+    cited_sources = read_csv(CITED_SOURCES)
+    pending_sources = read_csv(PENDING_SOURCES)
     existing_issue_queue = read_csv(EXISTING_ISSUE_QUEUE)
     existing_issue_queue_ids = {row["catalog_id"] for row in existing_issue_queue}
     original_ids = {row["catalog_id"] for row in catalog}
@@ -162,9 +164,14 @@ def main() -> None:
             raise SystemExit("Material issue changes require separate user approval and cannot be applied by this script.")
         validate_integration_targets(decision, existing_issue_queue_ids)
 
-    new_sources = deepcopy(sources)
-    by_url = {normalize_url(row["URL"]): row for row in new_sources if normalize_url(row["URL"])}
-    next_id = next_source_number(new_sources)
+    new_cited_sources = deepcopy(cited_sources)
+    new_pending_sources = deepcopy(pending_sources)
+    by_url = {
+        normalize_url(row["URL"]): row
+        for row in [*new_cited_sources, *new_pending_sources]
+        if normalize_url(row["URL"])
+    }
+    next_id = next_source_number([*new_cited_sources, *new_pending_sources])
     added = 0
     updated = 0
     touched_existing: set[str] = set()
@@ -209,7 +216,7 @@ def main() -> None:
             }
             next_id += 1
             added += 1
-            new_sources.append(row)
+            new_pending_sources.append(row)
             by_url[normalized] = row
 
     resolved = set(resolved_ids)
@@ -223,7 +230,7 @@ def main() -> None:
 
     print(
         f"Validated {len(decided_ids):,} decisions: {len(resolved):,} resolved records, "
-        f"{len(decided_ids) - len(resolved):,} unresolved records retained, {added:,} canonical sources added, "
+        f"{len(decided_ids) - len(resolved):,} unresolved records retained, {added:,} pending sources added, "
         f"{updated:,} existing source rows updated, {len(remaining_catalog):,} intake rows remain."
     )
     if not args.apply:
@@ -231,16 +238,23 @@ def main() -> None:
         return
 
     write_csv_preserving_unchanged(
-        SOURCES,
-        sources,
-        new_sources,
-        list(sources[0]),
+        CITED_SOURCES,
+        cited_sources,
+        new_cited_sources,
+        list(cited_sources[0]),
+        key_field="Source ID",
+    )
+    write_csv_preserving_unchanged(
+        PENDING_SOURCES,
+        pending_sources,
+        new_pending_sources,
+        list(pending_sources[0]),
         key_field="Source ID",
     )
     write_csv(CATALOG, remaining_catalog, list(catalog[0]))
     write_csv(ROUTING, remaining_routing, list(routing[0]))
     write_csv(PRIORITY, remaining_priority, list(priority[0]))
-    print("Applied source graduation and removed resolved records from temporary queues.")
+    print("Applied source adjudication and removed resolved records from temporary queues.")
 
 
 if __name__ == "__main__":

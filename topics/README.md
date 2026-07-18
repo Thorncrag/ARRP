@@ -48,9 +48,9 @@ Topic pages do not create additional recommendations or track project status. Wh
 
     Connects withheld appropriations, delayed rescissions, agency closure through nonspending, selective grants, reprogramming, and judicial enforcement.
 
-- **[Immigration Enforcement](immigration-enforcement.md)**
+- **[Immigration System Reform](immigration-system-reform.md)**
 
-    Separates humanitarian review, removal due process, surveillance and force, sanctuary-policy retaliation, and State investigative access.
+    Identifies the distinct institutional defects ARRP addresses across immigration administration without presenting a comprehensive immigration-policy platform.
 
 - **[January 6](january-6.md)**
 

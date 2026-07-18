@@ -6,13 +6,14 @@ status: developed
 priority: high
 remedy_type: hatch-act-amendment-and-companion-enforcement
 legislative_proposal: "../../../legislation/ELEC-001.md"
-audit_status: "T4 publication-ready audit complete; external validation pending"
+audit_status: "T4 publication-ready audit complete; July 2026 targeted source and remedy-fit review complete; external validation pending"
 audit_score: 77
-audit_last_type: "T4 publication-ready audit"
-audit_last_date: "2026-06-28"
+audit_last_type: "Targeted source and remedy-fit review"
+audit_last_date: "2026-07-18"
 audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
+change_audit_needed: false
 adoption_score: 5
 adoption_friction_score: 88
 adoption_friction_band: "Extreme Resistance"
@@ -50,7 +51,15 @@ In 2026, Executive Order 14399 directed DHS, USCIS, SSA, DOJ, and USPS toward a 
 
 Federal litigation then produced decisions blocking or rejecting key parts of that architecture. Public reporting described a federal court blocking an order aimed at creating a federal voter list and restricting mail-ballot distribution, a Sixth Circuit ruling against a demand for sensitive Michigan voter data, and dismissal of a DOJ lawsuit seeking detailed Maryland voter data. See Associated Press, [federal voter-list injunction](https://apnews.com/article/b28c3425c1dc968cd0f57c61fb7a684e), [Michigan voter-data appeal](https://apnews.com/article/b73d510dddaf9c96088904b6c44f919a), and [Maryland voter-data lawsuit](https://apnews.com/article/67c94fb8af9cbcf2a0947ad81de5eab4).
 
-The institutional significance is that federal executive power can be converted from case-specific enforcement into a centralized election-administration architecture. Even when courts block implementation, state and local officials must respond to federal data demands, reconcile federal database claims with state registration law, protect sensitive voter information, and litigate under election-time pressure.
+### DHS threat of penalties and funding consequences
+
+On July 17, 2026, DHS Secretary Markwayne Mullin said that state election officials who did not participate in DHS's expanded SAVE-based voter-roll program could face fines, penalties, or prison. He also linked federal election-related support or reimbursement to state cooperation. The announcement did not identify a charging instrument, a particular official subject to enforcement, or a legally operative funding decision. See Associated Press, [*Mullin pushes states to comply with election demands*](https://apnews.com/article/trump-elections-mullin-dhs-voter-fraud-save-6871e13d3f0e2caadaf56f9b2bc1580d), and ABC News, [*Mullin threatens to withhold aid from states that don't comply with DHS election directives*](https://abcnews.com/Politics/mullin-threatens-withhold-aid-states-dont-comply-dhs/story?id=134854708).
+
+The institutional significance is that federal executive power can be converted from case-specific enforcement into a centralized election-administration architecture and reinforced through threatened investigations, penalties, or funding consequences. Even when courts block implementation or no enforcement action follows, state and local officials must respond to federal data demands, reconcile federal database claims with state registration law, protect sensitive voter information, and make election-administration decisions under time pressure.
+
+### Supporting Record and Updates
+
+- **Watching for updates:** [ELEC-001-MON](https://github.com/Thorncrag/ARRP/issues/280) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
 
 ## Resulting Damage
 
@@ -139,7 +148,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Internal Review Status:** Internal project review complete; external validation pending<br />**Last Internal Review:** Internal project review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** External validation / follow-up internal review<br />**Full Review History:** [ELEC-001 review history](ELEC-001.audit.md)
+> **Internal Review Status:** Internal project review complete; external validation pending<br />**Last Internal Review:** July 18, 2026 targeted source and remedy-fit review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** External validation / follow-up internal review<br />**Full Review History:** [ELEC-001 review history](ELEC-001.audit.md)
 
 ## Annotation
 
@@ -155,7 +164,7 @@ Administrative workload is possible; no new appropriation is specified.
 
 Courts and investigators should not determine the winner of an election or substitute their policy judgment for lawful state election administration. Their role is to prevent and remedy misuse of federal executive authority.
 
-**Basis and Evidence.** The Hatch Act already embodies the principle that federal employees may not use official authority or influence to interfere with or affect an election. Its exclusion of the President and Vice President and its employment-centered remedial structure leave the principal conduct identified here inadequately covered. The call between President Trump and Raffensperger is a representative manifestation because the requested numerical alteration corresponded to the margin necessary to reverse the state’s certified result. HOR-001 was integrated into this issue because the federal citizenship-list and voter-data architecture is a later manifestation of the same core defect: federal executive authority being used to control, pressure, or restructure state election administration outside ordinary constitutional channels.
+**Basis and Evidence.** The Hatch Act already embodies the principle that federal employees may not use official authority or influence to interfere with or affect an election. Its exclusion of the President and Vice President and its employment-centered remedial structure leave the principal conduct identified here inadequately covered. The call between President Trump and Raffensperger is a representative manifestation because the requested numerical alteration corresponded to the margin necessary to reverse the state’s certified result. HOR-001 was integrated into this issue because the federal citizenship-list and voter-data architecture is a later manifestation of the same core defect: federal executive authority being used to control, pressure, or restructure state election administration outside ordinary constitutional channels. The July 2026 DHS announcement adds a documented public threat of penalties and funding consequences tied to state voter-roll cooperation; it supports the coercion concern but does not itself establish a statutory violation or the bill's required electoral-purpose element.
 
 **Qualification.** Federal executive officials retain lawful responsibilities concerning voting rights, election crimes, campaign finance, foreign interference, cybersecurity, federal judicial process, and other functions assigned by the Constitution or Congress. The proposal regulates misuse of federal office, not political speech, criticism, litigation, or good-faith execution of federal law. The term “partisan” is deliberately not used as an operative limitation because prohibited conduct may be personal, candidate-specific, retaliatory, factional, or otherwise result-directed without fitting a narrow partisan classification.
 

@@ -19,25 +19,49 @@ These questions are addressed by separate proposals. This page directs readers t
 
 ## Relevant Proposals
 
-| Public concern | Applicable proposals |
-| --- | --- |
-| Criminal immunity for presidential official acts | [IMM-001](../areas/IMM/issues/IMM-001.md) |
-| Independent investigation of presidential or senior executive misconduct | [DOJ-007](../areas/DOJ/issues/DOJ-007.md) |
-| Enforcement and public notice when the executive defies a court | [JUD-001](../areas/JUD/issues/JUD-001.md) and [JUD-005](../areas/JUD/issues/JUD-005.md) |
-| Judicial recusal where the president appointed the judge | [JUD-009](../areas/JUD/issues/JUD-009.md) |
-| Presidential self-litigation, settlements, and audit immunity | [EMOL-015](../areas/EMOL/issues/EMOL-015.md) |
-| Pardons used for personal, political, obstructive, or self-protective purposes | PAR-001 and PAR-005 |
+- **Public concern:** Criminal immunity for presidential official acts
+  - **Applicable proposals:** [IMM-001](../areas/IMM/issues/IMM-001.md)
+
+- **Public concern:** Independent investigation of presidential or senior executive misconduct
+  - **Applicable proposals:** [DOJ-007](../areas/DOJ/issues/DOJ-007.md)
+
+- **Public concern:** Enforcement and public notice when the executive defies a court
+  - **Applicable proposals:** [JUD-001](../areas/JUD/issues/JUD-001.md) and [JUD-005](../areas/JUD/issues/JUD-005.md)
+
+- **Public concern:** Judicial recusal where the president appointed the judge
+  - **Applicable proposals:** [JUD-009](../areas/JUD/issues/JUD-009.md)
+
+- **Public concern:** Presidential self-litigation, settlements, and audit immunity
+  - **Applicable proposals:** [EMOL-015](../areas/EMOL/issues/EMOL-015.md)
+
+- **Public concern:** Pardons used for personal, political, obstructive, or self-protective purposes
+  - **Applicable proposals:** PAR-001 and PAR-005
 
 ## How Concerns Map to Proposals
 
-| Public concern | Applicable proposals | How ARRP addresses it |
-| --- | --- | --- |
-| Whether official presidential conduct may be investigated, used as evidence, or prosecuted | [IMM-001](../areas/IMM/issues/IMM-001.md) | Addresses criminal immunity, core powers, evidence, timing, and temporary protections during presidential tenure. |
-| Who investigates presidential or senior executive misconduct | [DOJ-007](../areas/DOJ/issues/DOJ-007.md) | Addresses independent appointment, authority, removal, evidence preservation, reporting, and judicial review. |
-| What happens when the executive branch does not carry out a judicial command | [JUD-001](../areas/JUD/issues/JUD-001.md) and [JUD-005](../areas/JUD/issues/JUD-005.md) | Separates practical execution from automatic congressional and public notice. |
-| Whether a judge appointed by a litigant-president should recuse | [JUD-009](../areas/JUD/issues/JUD-009.md) | Addresses neutral recusal standards without assuming bias from appointment alone. |
-| Whether the president can cause the government to sue itself, settle with itself, or receive audit immunity | [EMOL-015](../areas/EMOL/issues/EMOL-015.md) | Addresses adversity screening, settlement controls, payment restrictions, enforcement, and categorical rejection of audit immunity. |
-| Pardons that may protect the president, allies, witnesses, or participants in a common scheme | PAR-001 and PAR-005 | Separates general clemency abuse from the distinct self-pardon question. |
+- **Public concern:** Whether official presidential conduct may be investigated, used as evidence, or prosecuted
+  - **Applicable proposals:** [IMM-001](../areas/IMM/issues/IMM-001.md)
+  - **How ARRP addresses it:** Addresses criminal immunity, core powers, evidence, timing, and temporary protections during presidential tenure.
+
+- **Public concern:** Who investigates presidential or senior executive misconduct
+  - **Applicable proposals:** [DOJ-007](../areas/DOJ/issues/DOJ-007.md)
+  - **How ARRP addresses it:** Addresses independent appointment, authority, removal, evidence preservation, reporting, and judicial review.
+
+- **Public concern:** What happens when the executive branch does not carry out a judicial command
+  - **Applicable proposals:** [JUD-001](../areas/JUD/issues/JUD-001.md) and [JUD-005](../areas/JUD/issues/JUD-005.md)
+  - **How ARRP addresses it:** Separates practical execution from automatic congressional and public notice.
+
+- **Public concern:** Whether a judge appointed by a litigant-president should recuse
+  - **Applicable proposals:** [JUD-009](../areas/JUD/issues/JUD-009.md)
+  - **How ARRP addresses it:** Addresses neutral recusal standards without assuming bias from appointment alone.
+
+- **Public concern:** Whether the president can cause the government to sue itself, settle with itself, or receive audit immunity
+  - **Applicable proposals:** [EMOL-015](../areas/EMOL/issues/EMOL-015.md)
+  - **How ARRP addresses it:** Addresses adversity screening, settlement controls, payment restrictions, enforcement, and categorical rejection of audit immunity.
+
+- **Public concern:** Pardons that may protect the president, allies, witnesses, or participants in a common scheme
+  - **Applicable proposals:** PAR-001 and PAR-005
+  - **How ARRP addresses it:** Separates general clemency abuse from the distinct self-pardon question.
 
 ## What ARRP Does and Does Not Address
 

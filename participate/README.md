@@ -1,16 +1,16 @@
-# Public Input Prototype
+# Public Interaction Service
 
-This folder contains ARRP's standalone public interaction entry point. It is deliberately separate from the read-only [`Candidate Issues and Source Intake`](../research/horizon-review-console/) dashboard.
+This folder contains ARRP's separately deployed public interaction service, available at [arrp-public-intake.vercel.app](https://arrp-public-intake.vercel.app/). It is deliberately separate from the read-only [`Candidate Issues and Source Intake`](../research/horizon-review-console/) dashboard.
 
 The form presents two separate routes. **Submit public input** accepts a short title, plain-language explanation, optional sources, and optional related ARRP page; its live route adds the submission as a comment in one canonical public GitHub Discussion. **Contact the author** sends a private message to the configured author mailbox and creates no public post, GitHub record, candidate, or project record. Local preview mode sends neither route.
 
 The route is deterministic and does not use an agent: an explicitly entered related ARRP page takes precedence; otherwise the page context passed by the referring ARRP page is used. A recognized proposal routes to its proposal Discussion, a recognized area routes to its area Discussion, and unrecognized material goes to the general-input Discussion. The service creates the canonical Discussion only when its route has none, then adds the public submission as a comment. Its stable title and hidden route marker prevent title-based duplicate matching. The live receipt links directly to the contributor's comment and tells the contributor to keep and watch that post, explains that a signed-in GitHub user can subscribe for GitHub notifications, and advises a contributor without an account to bookmark the direct link. When the private follow-up service is configured, a contributor may also provide an address and expressly authorize ARRP to use it for private follow-up. Email addresses are never included in the GitHub Discussion, and the service does not send a receipt to the contributor. In local preview mode, the response is visibly labeled as a preview and links only to the ARRP Discussions index; it never claims that a post was created.
 
-Page-specific feedback and review links can pass `proposal`, `page_title`, and `page` query parameters. The prototype visibly confirms that context and prepopulates the related-page field.
+Page-specific feedback and review links can pass `proposal`, `page_title`, and `page` query parameters. The service visibly confirms that context and prepopulates the related-page field.
 
 After the participation lookup is regenerated, run `python3 scripts/build_participation_route_index.py` from the repository root before deployment. It derives the small server-side route index from `participate/intake-data.js`, so a newly admitted proposal, proposed candidate, area route, title, canonical path, or GitHub issue link remains routable without trusting arbitrary user-entered identifiers.
 
-## Vercel Prototype
+## Vercel Service
 
 This directory is a self-contained Vercel project. Deploy this directory—not the repository root—as the Vercel project root. Its static files serve the form and its two server-side functions implement:
 
@@ -27,7 +27,7 @@ Cloudflare Turnstile is mandatory in live mode. Store its secret key only in Ver
 
 Private author contact requires a transactional provider supported by the endpoint (currently Resend), with `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ARRP_CONTACT_EMAIL` set only in Vercel's encrypted environment. The endpoint sends the message only to that private mailbox, uses an optional contributor address as the email reply target, and never creates a public post. `ARRP_INTAKE_REVIEW_EMAIL` remains a transitional fallback for the already-configured mailbox and optional public-input follow-up notices. The service never sends an email to a contributor.
 
-Copy [`.env.example`](.env.example) into Vercel's environment-variable interface. Set `ARRP_ALLOWED_ORIGINS` to the exact origins permitted to call the service, including the Vercel deployment origin and, when the form is later included in GitHub Pages, `https://thorncrag.github.io`. Set `ARRP_INTAKE_MODE=live` last.
+Copy [`.env.example`](.env.example) into Vercel's environment-variable interface. Set `ARRP_ALLOWED_ORIGINS` to the exact origins permitted to call the service, including the Vercel deployment origin and any separately approved future origin. Set `ARRP_INTAKE_MODE=live` last.
 
 `intake-runtime.js` contains no secret. Leave its endpoint blank when Vercel serves this folder itself. If an approved future GitHub Pages page uses this backend from a separate origin, set `window.ARRP_INTAKE_ENDPOINT` to the Vercel deployment origin and include that Pages origin in `ARRP_ALLOWED_ORIGINS`.
 
