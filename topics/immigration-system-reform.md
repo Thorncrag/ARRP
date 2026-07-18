@@ -21,7 +21,7 @@ ARRP therefore uses this page as a guide to the individual institutional defects
 
 | Public concern | Applicable proposals |
 | --- | --- |
-| Humanitarian protection, citizenship, detention, removal, and access to adjudication | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md), [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md), HOR-010, and HOR-037 |
+| Humanitarian protection, citizenship, lawful pathways, detention, removal, and access to adjudication | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md), [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md), HOR-010, HOR-037, and HOR-039 |
 | Independence and review of immigration adjudication | REG-003, [JUD-001](../areas/JUD/issues/JUD-001.md), and [JUD-005](../areas/JUD/issues/JUD-005.md) |
 | Federal pressure on or displacement of State and local government | [FED-003](../areas/FED/issues/FED-003.md) and FED-004 |
 | Surveillance, personal data, force, and critical-incident evidence | [DOM-009](../areas/DOM/issues/DOM-009.md), HOR-034, and [DOM-005](../areas/DOM/issues/DOM-005.md) |
@@ -33,6 +33,7 @@ ARRP therefore uses this page as a guide to the individual institutional defects
 | --- | --- | --- |
 | Humanitarian status or asylum procedures can become inaccessible or practically unreviewable | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) | Examines statutory review, country-condition procedures, and access to humanitarian protection. |
 | Citizenship recognition and identity records can be destabilized before final judicial resolution | [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md) | Examines recognition continuity, records safeguards, reliance interests, and expedited review. |
+| Lawful immigration or residency pathways created by Congress can become functionally inaccessible through administrative delay, inadequate capacity, opaque queues, inconsistent standards, status loss, or ineffective review | HOR-039 | Separates administration of existing pathways from the political question of whether Congress should create or expand pathways, eligibility categories, or numerical levels. |
 | Detention or removal can cause difficult-to-repair harm before meaningful notice, counsel access, evidentiary testing, custody review, or appeal | HOR-037 | Tests whether existing detention and removal procedures provide effective safeguards before irreversible action. |
 | Executive control over administrative adjudication can compromise neutral and durable decisional process | REG-003 | Examines structural controls over administrative adjudication, including immigration adjudication where the same defect is present. |
 | Immigration activity at courthouses can deter access to courts or participation in judicial proceedings | HOR-010 | Examines whether courthouse access requires a distinct institutional safeguard or fits an existing proposal. |
@@ -49,4 +50,6 @@ ARRP therefore uses this page as a guide to the individual institutional defects
 
 ## What ARRP Does and Does Not Address
 
-ARRP addresses institutional design: due process, humanitarian review, adjudicatory integrity, records continuity, lawful executive authority, surveillance and data controls, evidence access, judicial compliance, funding leverage, and federalism. It does not determine how many people should be admitted or removed, select a preferred visa or legalization program, require or prohibit sanctuary policies as a political preference, prevent lawful federal enforcement, or presume that every enforcement action is unlawful.
+ARRP addresses institutional design: due process, humanitarian review, adjudicatory integrity, administration of enacted pathways, records continuity, lawful executive authority, surveillance and data controls, evidence access, judicial compliance, funding leverage, and federalism. It does not determine how many people should be admitted or removed, select a preferred visa or legalization program, require or prohibit sanctuary policies as a political preference, prevent lawful federal enforcement, or presume that every enforcement action is unlawful.
+
+Whether Congress should create or expand lawful residency pathways is principally a political-policy question. ARRP may document who supported, blocked, abandoned, or changed particular legislation when authoritative records support that account, and neutrality does not require obscuring genuine partisan asymmetry. Legislative inaction or partisan responsibility is not itself the institutional defect, however, and motive should not be attributed without evidence. HOR-039 is limited to whether pathways Congress already enacted remain functionally accessible and whether any remedy can improve their administration without compelling a preferred immigration policy.

@@ -24,6 +24,14 @@ Agent work should improve the project carefully, conservatively, and reproducibl
 
 Agents should prefer focused, evidence-bearing work over broad speculative work. Once the selected audit tier's required question has been responsibly answered, stop rather than adding duplicative research; no audit should be truncated or downgraded merely to conserve tokens, account usage, elapsed time, or subscription resources.
 
+## User-Framing Neutrality Check
+
+Treat a user's candid political judgment as context or an analytical hypothesis, not automatically as project-ready language or an established factual premise. If an instruction appears to rest on partisan preference, collective blame, unsupported motive attribution, a loaded characterization, or a standard that would change under reversed party control, identify the concern before implementing it and propose a neutral formulation, narrower institutional question, stronger evidentiary requirement, or political-failure disposition. Push back when the requested framing would violate the Framework even if the requested substantive outcome is understandable or consistent with the user's stated views.
+
+This check does not require false equivalence. When authoritative evidence establishes material asymmetry, identify the responsible actors, conduct, dates, decisions, and consequences accurately rather than manufacturing equal blame. Distinguish supported descriptions of who sponsored, opposed, blocked, abandoned, implemented, or benefited from an action from claims about collective motive or intent. Attribute motive only when supported by statements, records, findings, or other evidence adequate for that proposition. Apply the same evidentiary, legal, admission, and remedial standards regardless of which party or coalition would benefit from the conclusion.
+
+Do not treat informal language used during discussion as approved reader-facing prose merely because the user used it candidly. Preserve the substance of the concern, explain any neutrality problem, and obtain or reasonably infer approval for the compliant formulation before committing it to the project record.
+
 ## Research Proportionality
 
 Agents should use a proportionate and reliable method that fully satisfies the assigned task.
