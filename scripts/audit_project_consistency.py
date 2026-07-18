@@ -249,6 +249,7 @@ def source_citation_corpus() -> str:
     paths.extend(LEGISLATION_PATH.glob("*.md"))
     paths.extend((ROOT / "topics").glob("*.md"))
     paths.extend((ROOT / "research").glob("*.md"))
+    paths.extend(framework_pages())
     return "\n".join(read(path) for path in sorted(set(paths)) if path.exists())
 
 
@@ -256,13 +257,46 @@ def normalized_citation_url(url: str) -> str:
     return url.strip().replace("&amp;", "&").split("#", 1)[0].split("?", 1)[0].rstrip("/")
 
 
-def mechanically_cited_source_ids(rows: list[dict[str, str]], corpus: str) -> set[str]:
-    referenced_ids = set(re.findall(r"\bSRC-\d{4}\b", corpus))
+def normalized_source_label(value: str) -> str:
+    """Normalize a source title or citation for conservative prose matching."""
+    return " ".join(re.sub(r"[^a-z0-9]+", " ", value.lower()).split())
+
+
+def source_label_is_distinctive(value: str) -> bool:
+    """Reject labels too short or generic to identify a source reliably."""
+    normalized = normalized_source_label(value)
+    tokens = normalized.split()
+    legal_citation = re.search(
+        r"(?:U\.S\.C\.|C\.F\.R\.|Federal Rule|\bv\.)", value, re.IGNORECASE
+    )
+    return bool(legal_citation) or (len(normalized) >= 16 and len(tokens) >= 3)
+
+
+def mechanically_cited_source_ids(
+    rows: list[dict[str, str]],
+    corpus: str,
+    *,
+    count_identifier_references: bool = True,
+    count_label_references: bool = True,
+) -> set[str]:
+    referenced_ids = set(re.findall(r"\bSRC-\d{4}\b", corpus)) if count_identifier_references else set()
+    corpus_lower = corpus.lower()
+    normalized_corpus = normalized_source_label(corpus)
     cited: set[str] = set()
     for row in rows:
         source_id = row.get("Source ID", "").strip()
         url = normalized_citation_url(row.get("URL", ""))
-        if source_id in referenced_ids or (url and url in corpus):
+        labels = [row.get("Title or Description", "").strip()]
+        label_match = count_label_references and any(
+            source_label_is_distinctive(label)
+            and (
+                label.lower() in corpus_lower
+                or normalized_source_label(label) in normalized_corpus
+            )
+            for label in labels
+            if label
+        )
+        if source_id in referenced_ids or (url and url in corpus) or label_match:
             cited.add(source_id)
     return cited
 
@@ -310,7 +344,12 @@ def check_registry_and_sources(issue_map: dict[str, Path], failures: list[str], 
             failures,
             warnings,
         )
-    cited_pending = mechanically_cited_source_ids(pending_rows, corpus)
+    cited_pending = mechanically_cited_source_ids(
+        pending_rows,
+        corpus,
+        count_identifier_references=False,
+        count_label_references=False,
+    )
     if cited_pending:
         report(
             "ERROR",

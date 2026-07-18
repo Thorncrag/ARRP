@@ -388,6 +388,18 @@
         recordField("Known limitation", record.limitation),
         recordField("Last checked", record.date),
       ];
+    } else if (kind === "pending-source") {
+      values = [
+        recordField("Work stage", record.stage),
+        recordField("Owner", record.owner),
+        recordField("Next action", record.next_action),
+        recordField("Your attention", record.user_attention),
+        recordField("Proposition to assess", record.question),
+        recordField("Current posture", record.posture),
+        recordField("Publisher or authority", record.family),
+        recordField("Source type", record.source_type),
+        recordField("Date", record.date),
+      ];
     } else {
       values = [
         recordField("Work stage", record.stage),
@@ -632,7 +644,7 @@
     setText("#adjudicated-records", summary.baseline_records);
     setText("#adjudication-total", summary.baseline_records + data.catalog_records);
     setText("#history-main-batch-count", summary.records);
-    setText("#canonical-sources-added", summary.canonical_sources_added);
+    setText("#source-records-added", summary.source_records_added);
     setText("#closed-horizon-count", data.closed_horizon_issue_count);
     setText("#horizon-nav-count", data.horizon_issue_count);
     setText("#review-nav-count", data.candidate_questions);

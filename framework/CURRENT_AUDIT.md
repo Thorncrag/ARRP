@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: paused
+status: inactive
 print_levels:
   - full-technical
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Paused — source-catalog boundary reconciliation complete; awaiting user review/commit decision |
+| Status | Inactive — source-catalog boundary reconciliation completed and validated |
 | Active issue/task | Split cited sources from pending source-adjudication records |
 | Audit type/tier | Project-governance Change Audit; no T-audit or score change |
 | Started | 2026-07-18 |
-| Last checkpoint | 2026-07-18; `sources.csv` now contains 814 cited-catalog records and `sources-pending.csv` contains 378 queue-only source-development, monitoring, or adjudication records. Stable IDs remain globally unique and continuous through `SRC-1192`. The consistency checker now owns citation-boundary checking, and the former stand-alone consistency-audit report has been consolidated into the existing Change Audit Log. |
+| Last checkpoint | 2026-07-18; `sources.csv` contains 750 cited records and `sources-pending.csv` contains 442 uncited source-development, monitoring, verification, or placement records. Stable IDs remain globally unique and continuous through `SRC-1192`. The consistency checker owns the citation boundary, and the former stand-alone consistency-audit report remains consolidated into the existing Change Audit Log. |
 | User request | Keep `sources.csv` limited to sources actually cited in ARRP; extract unused but tracked sources into `sources-pending.csv`. |
 | Scope | `inventory/sources.csv`; new `inventory/sources-pending.csv`; source-inventory documentation; source-adjudication and console scripts; tests and consistency checks. |
-| Files touched | `inventory/sources.csv`; `inventory/sources-pending.csv`; source-inventory documentation; source-adjudication, console, and consistency scripts; source-intake tests; Change Audit Log; prior organization-pass files remain uncommitted. |
-| Completed steps | Split demonstrated queue-only sources without renumbering IDs; updated source workflows to resolve both catalogs and register new unplaced sources in the pending catalog; regenerated console data; added a durable consistency check for source-ID integrity, pending-source promotion drift, and catalog citation reconciliation; and consolidated the historical Project Consistency Audit into the Change Audit Log. |
-| Next step | User review; later reconcile the 105 catalog rows without a machine-detectable citation, then commit and push the completed organization and source-boundary passes if approved. |
-| Blockers/questions | The 105 mechanically ambiguous cited-catalog rows remain until a later citation-equivalence review; automated URL/ID matching cannot safely decide every conventional textual citation. |
-| Validation status | Passed: byte-compilation of affected scripts; `python3 -m unittest discover -s tests -v` (40 tests); `python3 scripts/prepare_public_site.py`; `.tmp/pages-venv/bin/python -m mkdocs build --strict --config-file .site-build/mkdocs.yml`; `git diff --check`; and source-ID readback. `python3 scripts/audit_project_consistency.py` reports 0 errors and the expected single citation-reconciliation warning for 105 rows. |
+| Files touched | `inventory/sources.csv`; `inventory/sources-pending.csv`; source-inventory documentation; source-adjudication, console, and consistency scripts; source-intake tests; Change Audit Log; Horizon Scan Log; and this handoff. |
+| Completed steps | Split cited from uncited retained sources without renumbering IDs; renamed queue references to `source_record_ids`; updated source workflows to resolve both catalogs and register new unplaced sources in the pending catalog; exposed every pending source through an integration, monitoring, or generated verification task in the console's single Sources queue; reconciled all citation-boundary warnings; strengthened source-ID, citation, and pending-source drift checks; and documented the completed governance change in the consolidated Change Audit Log. |
+| Next step | None. Begin the next user-directed project task. |
+| Blockers/questions | None. |
+| Validation status | Passed: byte-compilation of affected scripts; `python3 -m unittest discover -s tests -v` (40 tests); `python3 scripts/audit_project_consistency.py` (0 errors and 0 warnings); `python3 scripts/prepare_public_site.py`; strict MkDocs build; `git diff --check`; and source-ID/count readback. |
 
 ## Handoff Rules
 

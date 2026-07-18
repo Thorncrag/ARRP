@@ -26,7 +26,10 @@ class HorizonIntakeTest(unittest.TestCase):
         cls.sources = []
         for name in ("sources.csv", "sources-pending.csv"):
             with (ROOT / "inventory" / name).open(newline="", encoding="utf-8") as handle:
-                cls.sources.extend(csv.DictReader(handle))
+                rows = list(csv.DictReader(handle))
+                cls.sources.extend(rows)
+                if name == "sources-pending.csv":
+                    cls.pending_sources = rows
         with (ROOT / "inventory" / "github_issue_registry.csv").open(newline="", encoding="utf-8") as handle:
             cls.issue_registry = list(csv.DictReader(handle))
         bundle = (RESEARCH / "horizon-review-console" / "catalog-data.js").read_text(encoding="utf-8")
@@ -86,7 +89,7 @@ class HorizonIntakeTest(unittest.TestCase):
         for row in self.existing_issue_integration:
             canonical_ids = {
                 source_id.strip()
-                for source_id in row["canonical_source_ids"].split(";")
+                for source_id in row["source_record_ids"].split(";")
                 if source_id.strip()
             }
             self.assertTrue(canonical_ids)
@@ -131,10 +134,36 @@ class HorizonIntakeTest(unittest.TestCase):
             len(self.media_intake),
         )
         source_queue = self.console["source_queue_records"]
-        self.assertEqual(self.console["source_queue_count"], 206)
+        pending_ids = {row["Source ID"] for row in self.pending_sources}
+        represented_pending_ids = {
+            source_id.strip()
+            for row in [*self.existing_issue_integration, *self.litigation_monitoring]
+            for source_id in row["source_record_ids"].split(";")
+            if source_id.strip() in pending_ids
+        }
+        unassigned_pending_count = sum(
+            row["Source ID"] not in represented_pending_ids
+            for row in self.pending_sources
+        )
+        self.assertEqual(self.console["source_queue_count"], len(source_queue))
         self.assertEqual(
-            {kind: sum(row["record_kind"] == kind for row in source_queue) for kind in {"integration", "media", "source"}},
-            {"integration": 162, "media": 31, "source": 13},
+            {
+                kind: sum(row["record_kind"] == kind for row in source_queue)
+                for kind in {"integration", "media", "source", "pending-source"}
+            },
+            {
+                "integration": 162,
+                "media": 31,
+                "source": 13,
+                "pending-source": unassigned_pending_count,
+            },
+        )
+        queued_pending_ids = {
+            row["id"] for row in source_queue if row["record_kind"] == "pending-source"
+        }
+        self.assertEqual(
+            pending_ids,
+            represented_pending_ids | queued_pending_ids,
         )
         self.assertFalse(
             any(
@@ -273,7 +302,7 @@ class HorizonIntakeTest(unittest.TestCase):
         for row in self.litigation_monitoring:
             canonical_ids = {
                 source_id.strip()
-                for source_id in row["canonical_source_ids"].split(";")
+                for source_id in row["source_record_ids"].split(";")
                 if source_id.strip()
             }
             self.assertTrue(canonical_ids)

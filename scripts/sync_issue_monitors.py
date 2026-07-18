@@ -72,7 +72,7 @@ def monitor_body(issue_id: str, parent_number: str, rows: list[dict[str, str]]) 
     last_checked = max(row["last_checked"] for row in rows)
     entries = "\n".join(
         f"- `{row['monitor_id']}` — {row['action_or_policy']} "
-        f"({row['litigation_posture']}; sources: {row['canonical_source_ids']})."
+        f"({row['litigation_posture']}; sources: {row['source_record_ids']})."
         for row in rows
     )
     triggers = sorted({row["revisit_trigger"] for row in rows})

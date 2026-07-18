@@ -78,7 +78,7 @@ Before running a T-audit, an agent must identify:
 9. any unresolved findings from the latest audit.
 10. the issue's open `ISSUE-ID-MON` monitoring sub-issue, if one exists, and every defined external predicate it carries.
 
-Apply the tier-scaled Sources-Queue Reconciliation rule in the methodology. T0 and T1 may inventory applicable tasks; development and T2-T4 work should resolve applicable tasks through verification, route and remedy-fit review, qualitative reader-facing placement, registry-only disposition, or a precise continuing predicate. Regenerate and verify the dashboard at closeout whenever source or monitoring rows change. This reconciliation does not create a separate audit run.
+Apply the tier-scaled Sources-Queue Reconciliation rule in the methodology. T0 and T1 may inventory applicable tasks; development and T2-T4 work should resolve applicable tasks through verification, route and remedy-fit review, qualitative reader-facing placement, a documented no-additional-value disposition, or a precise continuing predicate. Regenerate and verify the dashboard at closeout whenever source or monitoring rows change. This reconciliation does not create a separate audit run.
 
 A project-wide monitoring pass is a separate non-scoring workflow governed by [`METHODOLOGY.md`](METHODOLOGY.md#project-wide-monitoring-pass). Begin from the GitHub Project Monitoring view, not from the local console. Review each open monitor sub-issue against its defined predicate, update its source/evidence record and last-checked date, and close it when its obligation ends. Do not change a parent proposal's score or Runs unless a material result independently requires the ordinary targeted Change Audit and Internal Remedy-Fit review.
 

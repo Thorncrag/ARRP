@@ -39,7 +39,7 @@ COMPLETED_ADJUDICATION = {
     "monitoring_episodes": 174,
     "redundant_records": 109,
     "excluded_records": 819,
-    "canonical_sources_added": 373,
+    "source_records_added": 373,
 }
 
 
@@ -419,9 +419,51 @@ def integration_records(rows: list[dict[str, str]]) -> list[dict[str, object]]:
     return records
 
 
+def inventory_routes(raw: str) -> list[str]:
+    """Extract stable proposal or Horizon identifiers from inventory associations."""
+    return list(dict.fromkeys(re.findall(r"\b(?:HOR|[A-Z]{2,})-\d{3}\b", raw)))
+
+
+def pending_source_records(
+    rows: list[dict[str, str]], represented_source_ids: set[str]
+) -> list[dict[str, object]]:
+    """Expose pending sources not already owned by an integration or monitor task."""
+    records: list[dict[str, object]] = []
+    for row in rows:
+        source_id = row["Source ID"].strip()
+        if not source_id or source_id in represented_source_ids:
+            continue
+        records.append(
+            {
+                "id": source_id,
+                "title": row["Title or Description"].strip() or source_id,
+                "question": row["Proposition Supported"].strip(),
+                "posture": "Retained source record; citation or disposition remains pending.",
+                "routes": inventory_routes(row["Associated Record IDs"]),
+                "status": "pending-source-placement",
+                "stage": "Verify and assess for placement",
+                "owner": "Codex",
+                "next_action": (
+                    "During work on the routed proposal or candidate, verify whether this source materially "
+                    "strengthens the record; cite it where genuinely used, retain it pending with a precise "
+                    "predicate, or remove it after a documented no-additional-value disposition."
+                ),
+                "user_attention": "None unless review reveals an unresolved scope or policy choice.",
+                "record_kind": "pending-source",
+                "work_type": "Source verification and placement",
+                "family": row["Authority / Publisher"].strip(),
+                "source_type": row["Source Type"].strip(),
+                "note": row["Notes"].strip(),
+                "date": row["Date"].strip(),
+                "links": labeled_links(("Source", row["URL"])),
+            }
+        )
+    return records
+
+
 def monitoring_records(
     rows: list[dict[str, str]],
-    canonical_sources: dict[str, dict[str, str]],
+    source_records: dict[str, dict[str, str]],
 ) -> list[dict[str, object]]:
     registry = {
         row["Object ID"].strip(): row["GitHub Issue"].strip()
@@ -438,8 +480,8 @@ def monitoring_records(
                 links.append({"label": f"{route} monitoring record", "url": monitor_url})
             elif route.startswith("HOR-") and registry.get(route):
                 links.append({"label": f"{route} candidate", "url": registry[route]})
-        for source_id in split_routes(row["canonical_source_ids"]):
-            source = canonical_sources.get(source_id)
+        for source_id in split_routes(row["source_record_ids"]):
+            source = source_records.get(source_id)
             if not source or not source["URL"].strip():
                 continue
             authority = source["Authority / Publisher"].strip()
@@ -595,22 +637,32 @@ def main() -> None:
     source_universe = read_csv(SOURCE_UNIVERSE)
     catalog = read_csv(CATALOG)
     media = read_csv(MEDIA)
-    canonical_sources = {
+    cited_sources = read_csv(CITED_SOURCES)
+    pending_sources = read_csv(PENDING_SOURCES)
+    source_records = {
         row["Source ID"].strip(): row
-        for source_path in (CITED_SOURCES, PENDING_SOURCES)
-        for row in read_csv(source_path)
+        for row in [*cited_sources, *pending_sources]
         if row["Source ID"].strip()
     }
     routing_counts = Counter(row["disposition"] for row in routing)
     rendered_integration = integration_records(integration)
     rendered_sources = source_universe_records(source_universe)
     rendered_media = media_records(media)
+    represented_source_ids = {
+        source_id
+        for row in [*integration, *monitoring]
+        for source_id in split_routes(row["source_record_ids"])
+    }
+    rendered_pending_sources = pending_source_records(
+        pending_sources, represented_source_ids
+    )
     rendered_monitoring = [
-        *monitoring_records(monitoring, canonical_sources),
+        *monitoring_records(monitoring, source_records),
         *media_monitoring_records(rendered_media),
     ]
     source_queue = [
         *rendered_integration,
+        *rendered_pending_sources,
         *[
             record
             for record in rendered_media
