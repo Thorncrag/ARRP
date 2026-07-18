@@ -101,13 +101,18 @@ On a project-wide monitoring pass, refresh each listed matter. Close this sub-is
 """
 
 
-def parent_notice(issue_id: str, monitor_url: str) -> str:
-    return (
-        "## Watching for Updates\n\n"
-        f"ARRP maintains an issue-specific [{issue_id}-MON]({monitor_url}) record "
-        "for pending litigation, agency action, disclosures, and other defined events "
-        "that could affect this proposal. It does not alter the proposal's current analysis.\n"
+def parent_notice(issue_id: str, monitor_url: str, evidence_link: str | None) -> str:
+    lines = ["### Supporting Record and Updates", ""]
+    if evidence_link:
+        lines.append(
+            f"- **Additional supporting record:** [{issue_id} Evidence Record]({evidence_link})."
+        )
+    lines.append(
+        f"- **Watching for updates:** [{issue_id}-MON]({monitor_url}) tracks pending litigation, "
+        "agency action, disclosures, and other defined events that could affect this proposal. "
+        "It does not alter the proposal's current analysis."
     )
+    return "\n".join(lines) + "\n"
 
 
 def append_registry(
@@ -236,32 +241,30 @@ def main() -> None:
             if not page.exists() or page.suffix != ".md" or "issues" not in page.parts:
                 print(f"no parent-page notice for {issue_id} (no canonical Markdown issue page)")
                 continue
-            marker = f"[{issue_id}-MON]({monitor['GitHub Issue']})"
-            annotation = "## Annotation\n"
-            text = page.read_text(encoding="utf-8")
-            standard = parent_notice(issue_id, monitor["GitHub Issue"])
-            misplaced = annotation + "\n" + standard
-            if misplaced in text:
-                page.write_text(text.replace(misplaced, standard + "\n" + annotation, 1), encoding="utf-8")
-                print(f"relocated parent-page notice {issue_id}")
+            original = page.read_text(encoding="utf-8")
+            text = original
+            area = issue_id.split("-", 1)[0]
+            evidence = ROOT / "areas" / area / "evidence" / f"{issue_id}-evidence.md"
+            evidence_link = f"../evidence/{evidence.name}" if evidence.exists() else None
+            standard = parent_notice(issue_id, monitor["GitHub Issue"], evidence_link)
+            generated_sections = re.compile(
+                r"(?ms)^(?:## (?:Additional Supporting Record|Watching for Updates)|### Supporting Record and Updates)\n\n.*?(?=^## |\Z)"
+            )
+            text = generated_sections.sub("", text)
+            manifestation = re.search(r"^## Manifestation(?:s)? of the Failure\s*$", text, re.MULTILINE)
+            if not manifestation:
+                print(f"no parent-page notice for {issue_id} (issue page lacks a Manifestation section)")
                 continue
-            if standard in text:
+            following = re.search(r"^## ", text[manifestation.end():], re.MULTILINE)
+            if not following:
+                print(f"no parent-page notice for {issue_id} (no section after Manifestations)")
+                continue
+            insert_at = manifestation.end() + following.start()
+            updated = text[:insert_at].rstrip() + "\n\n" + standard + "\n" + text[insert_at:]
+            if updated == original:
                 print(f"parent-page notice present {issue_id}")
                 continue
-            legacy = (
-                f"**Ongoing monitoring.** ARRP maintains an issue-specific {marker} "
-                "external-developments watch. It records pending external matters and their "
-                "defined reassessment triggers; it does not alter this proposal's current analysis.\n"
-            )
-            legacy_block = annotation + "\n" + legacy
-            if legacy_block in text:
-                page.write_text(text.replace(legacy_block, standard + "\n" + annotation, 1), encoding="utf-8")
-                print(f"standardized parent-page notice {issue_id}")
-                continue
-            if annotation not in text:
-                print(f"no parent-page notice for {issue_id} (issue page lacks an Annotation section)")
-                continue
-            page.write_text(text.replace(annotation, standard + "\n" + annotation, 1), encoding="utf-8")
+            page.write_text(updated, encoding="utf-8")
             print(f"wrote parent-page notice {issue_id}")
     print(f"{'applied' if args.apply else 'planned'} {len(additions) if args.apply else len([key for key in groups if f'{key}-MON' not in registry_by_id])} monitor sub-issues")
 

@@ -66,6 +66,10 @@ This is not the first IEEPA sanctions program aimed at ICC-associated persons. E
 
 That sequence demonstrates the institutional problem independently of the merits: a consequential international sanctions policy can be created, rescinded, and recreated by successive Presidents without new legislation.
 
+### Supporting Record and Updates
+
+- **Watching for updates:** [EMERG-003-MON](https://github.com/Thorncrag/ARRP/issues/281) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
+
 ## Resulting Damage
 
 Using general emergency authority as a substitute for specific legislation can:
@@ -138,10 +142,6 @@ Prospectively, the statute would force the political branch constitutionally res
 > —
 >
 > **Internal Review Status:** First statutory draft complete; internal project review pending<br />**Last Internal Review:** HOR-030 integration and initial statutory draft<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status<br />**Next Review:** Internal project review of statutory scope, immigration coordination, judicial review, transition, and implementation<br />**Full Review History:** [EMERG-003 review history](EMERG-003.audit.md)
-
-## Watching for Updates
-
-ARRP maintains an issue-specific [EMERG-003-MON](https://github.com/Thorncrag/ARRP/issues/281) record for pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
 
 ## Annotation
 

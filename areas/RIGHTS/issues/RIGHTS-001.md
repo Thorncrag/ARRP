@@ -80,6 +80,10 @@ The Supreme Court's decision in [*United States v. Skrmetti*](https://www.suprem
 
 The Supreme Court's decision in [*West Virginia v. B. P. J.*](https://www.supremecourt.gov/opinions/25pdf/24-43_2b35.pdf) adds a second caution for Title IX and Equal Protection claims involving school athletics and sex-specific classifications. RIGHTS-001 should not assume that Title IX requires gender-identity-inclusive athletics rules or that every sex-definition policy is constitutionally invalid. The remaining institutional question is whether civil-rights administration, identity records, grant conditions, privacy, detention classification, and agency guidance should have clearer statutory authority, transition rules, record preservation, individualized process, and review safeguards when executive definitions change.
 
+### Supporting Record and Updates
+
+- **Watching for updates:** [RIGHTS-001-MON](https://github.com/Thorncrag/ARRP/issues/295) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
+
 ## Resulting Damage
 
 Government-wide civil-rights redefinition can:
@@ -164,10 +168,6 @@ No reliable estimate yet. Early remedies may require compliance, records, review
 > —
 >
 > **Internal Review Status:** Pending development; no proposal-quality score assigned<br />**Last Internal Review:** SCOTUS doctrine update<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Current unscored status<br />**Next Review:** Post-*B.P.J.* source-development pass<br />**Full Review History:** [RIGHTS-001 review history](RIGHTS-001.audit.md)
-
-## Watching for Updates
-
-ARRP maintains an issue-specific [RIGHTS-001-MON](https://github.com/Thorncrag/ARRP/issues/295) record for pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
 
 ## Annotation
 

@@ -57,6 +57,10 @@ On July 17, 2026, DHS Secretary Markwayne Mullin said that state election offici
 
 The institutional significance is that federal executive power can be converted from case-specific enforcement into a centralized election-administration architecture and reinforced through threatened investigations, penalties, or funding consequences. Even when courts block implementation or no enforcement action follows, state and local officials must respond to federal data demands, reconcile federal database claims with state registration law, protect sensitive voter information, and make election-administration decisions under time pressure.
 
+### Supporting Record and Updates
+
+- **Watching for updates:** [ELEC-001-MON](https://github.com/Thorncrag/ARRP/issues/280) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
+
 ## Resulting Damage
 
 Federal executive interference can distort or delay lawful election administration, coerce state and local officials, undermine federalism, convert federal law-enforcement or administrative powers into electoral leverage, chill resistance to unlawful demands, and damage public confidence that election outcomes are determined by lawful votes rather than federal executive pressure.
@@ -145,10 +149,6 @@ Administrative workload is possible; no new appropriation is specified.
 > —
 >
 > **Internal Review Status:** Internal project review complete; external validation pending<br />**Last Internal Review:** July 18, 2026 targeted source and remedy-fit review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** External validation / follow-up internal review<br />**Full Review History:** [ELEC-001 review history](ELEC-001.audit.md)
-
-## Watching for Updates
-
-ARRP maintains an issue-specific [ELEC-001-MON](https://github.com/Thorncrag/ARRP/issues/280) record for pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
 
 ## Annotation
 
