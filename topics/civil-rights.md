@@ -3,7 +3,7 @@ title: "Civil Rights"
 page_type: topic-guide
 status: maintained
 purpose: "Help readers find the ARRP proposals addressing civil-rights administration, anti-discrimination safeguards, identity records, and citizenship recognition."
-last_reviewed: "2026-07-18"
+last_reviewed: "2026-07-19"
 print_levels:
   - public-proposal
   - full-technical
@@ -25,6 +25,7 @@ Immigration-specific humanitarian protection, detention, removal, and adjudicati
 | --- | --- | --- |
 | Government-wide civil-rights definitions, identity records, grant conditions, privacy, or detention classification | [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) | Establishes stable authority, records, privacy, procedures, and review across federal civil-rights administration. |
 | Birthright citizenship, citizenship recognition, or federal identity documents | [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md) | Protects recognition continuity, federal records, reliance interests, benefits administration, and timely judicial review. |
+| Constitutional injury by federal officials with no effective judicial remedy | [JUD-012](../areas/JUD/issues/JUD-012.md) | Examines causes of action and other review barriers without changing the underlying substantive right. |
 
 
 </div>

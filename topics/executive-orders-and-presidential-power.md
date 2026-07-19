@@ -3,7 +3,7 @@ title: "Executive Orders and Presidential Power"
 page_type: topic-guide
 status: maintained
 purpose: "Help readers distinguish lawful presidential direction from refusal to execute statutes, appropriations, agency mandates, judicial commands, emergency limits, or war-powers requirements."
-last_reviewed: "2026-07-18"
+last_reviewed: "2026-07-19"
 print_levels:
   - public-proposal
   - full-technical
@@ -24,6 +24,7 @@ This page separates those questions and directs readers to the proposal addressi
 | Public concern | Proposal | How ARRP addresses it |
 | --- | --- | --- |
 | Executive order or directive that functionally nullifies enacted law | [JUD-011](../areas/JUD/issues/JUD-011.md) | Addresses standing, forum, expedited review, and remedies for executive departure from congressional mandates. |
+| Legally consequential federal action with no effective route to decide its legality | [JUD-012](../areas/JUD/issues/JUD-012.md) | Addresses cross-cutting review barriers without treating ordinary policy disagreement or adverse merits rulings as defects. |
 | Refusal to spend appropriated funds | [FUND-001](../areas/FUND/issues/FUND-001.md) | Addresses impoundment, reporting, timing, and judicial enforcement. |
 | Delayed rescission request timed to prevent congressional action | [FUND-002](../areas/FUND/issues/FUND-002.md) | Addresses pocket rescissions and strategic delay. |
 | Closure or disabling of an agency Congress created | [REG-001](../areas/REG/issues/REG-001.md) | Addresses agency independence and continuity of mandatory functions. |
