@@ -50,6 +50,89 @@
     return anchor;
   }
 
+  function dossierSection(label, value, className = "") {
+    const section = element("section", `dossier-summary ${className}`.trim());
+    section.append(element("h4", "", label), element("p", "", text(value)));
+    return section;
+  }
+
+  function detailsPanel(label, count, open = false) {
+    const panel = element("details", "dossier-panel");
+    panel.open = open;
+    const summary = element("summary");
+    summary.append(element("span", "", label));
+    if (count !== undefined) summary.append(element("span", "panel-count", String(count)));
+    panel.append(summary);
+    return panel;
+  }
+
+  function sourceEntry(source) {
+    const item = element("article", "evidence-record");
+    const heading = element("div", "evidence-heading");
+    const title = source.url
+      ? linkButton(source.title || source.id, source.url, true)
+      : element("strong", "", text(source.title, source.id));
+    heading.append(element("span", "record-id", source.id), title);
+    const meta = element("p", "evidence-meta",
+      [source.publisher, source.date, source.type, source.reliability, source.inventory_status]
+        .filter(Boolean).join(" · "));
+    item.append(heading, meta);
+    if (source.proposition) item.append(element("p", "evidence-proposition", source.proposition));
+    if (source.notes) item.append(element("p", "evidence-note", source.notes));
+    return item;
+  }
+
+  function catalogEntry(record) {
+    const item = element("article", "evidence-record");
+    const heading = element("div", "evidence-heading");
+    heading.append(element("span", "record-id", record.id), element("strong", "", record.title));
+    item.append(heading, element("p", "evidence-meta",
+      [termLabel(record.term), record.date, record.type, record.actor].filter(Boolean).join(" · ")));
+    if (record.legal_question) item.append(element("p", "evidence-proposition", record.legal_question));
+    if (record.litigation_posture) item.append(element("p", "evidence-note", `Posture: ${record.litigation_posture}`));
+    const links = element("div", "inline-links");
+    (record.links || []).forEach((link) => links.append(linkButton(link.label, link.url, true)));
+    if (links.children.length) item.append(links);
+    return item;
+  }
+
+  function researchEntry(record) {
+    const item = element("article", "research-record");
+    item.append(linkButton(record.title, record.url, true), element("code", "", record.path));
+    return item;
+  }
+
+  function evidencePanels(record) {
+    const fragment = document.createDocumentFragment();
+    const sources = record.supporting_sources || [];
+    const catalog = record.evidence_records || [];
+    const research = record.research_records || [];
+
+    const sourcePanel = detailsPanel("Source inventory records", sources.length, sources.length <= 4);
+    const sourceList = element("div", "evidence-list");
+    if (sources.length) sources.forEach((source) => sourceList.append(sourceEntry(source)));
+    else sourceList.append(element("p", "muted panel-empty", "No source-inventory record is currently associated by identifier."));
+    sourcePanel.append(sourceList);
+    fragment.append(sourcePanel);
+
+    if (catalog.length) {
+      const catalogPanel = detailsPanel("Supporting evidence catalog", catalog.length);
+      const catalogList = element("div", "evidence-list");
+      catalog.forEach((item) => catalogList.append(catalogEntry(item)));
+      catalogPanel.append(catalogList);
+      fragment.append(catalogPanel);
+    }
+
+    if (research.length) {
+      const researchPanel = detailsPanel("Project research mentioning this candidate", research.length);
+      const researchList = element("div", "research-list");
+      research.forEach((item) => researchList.append(researchEntry(item)));
+      researchPanel.append(researchList);
+      fragment.append(researchPanel);
+    }
+    return fragment;
+  }
+
   function preliminaryCard(record) {
     const card = element("article", "candidate-card");
     const header = element("div", "card-header");
@@ -75,16 +158,8 @@
       labeledValue("Current recommendation", record.recommendation)
     );
 
-    const sources = element("section", "supporting-sources");
-    const sourceCount = (record.supporting_sources || []).length || (record.links || []).length;
-    sources.append(element("h4", "", `Supporting sources (${sourceCount})`));
-    const sourceList = element("div", "source-list");
-    if ((record.links || []).length) {
-      record.links.forEach((item) => sourceList.append(linkButton(item.label, item.url, true)));
-    } else {
-      sourceList.append(element("p", "muted", "Supporting catalog records are attached; no direct URL is available."));
-    }
-    sources.append(sourceList);
+    const sources = element("section", "dossier-panels");
+    sources.append(evidencePanels(record));
 
     const footer = element("div", "card-footer");
     footer.append(
@@ -108,19 +183,61 @@
     heading.append(badges, element("p", "record-id", record.id), element("h3", "", record.title));
     header.append(heading);
 
-    const details = element("dl", "candidate-details compact");
-    details.append(
-      labeledValue("Next review", record.next_audit),
+    const history = record.horizon_history || {};
+    const summary = element("div", "dossier-grid");
+    summary.append(
+      dossierSection("Institutional question", history.original_concern || "The Horizon Scan Log does not yet contain a structured concern statement.", "wide"),
+      dossierSection("Current intake posture", history.decision || record.status),
+      dossierSection("Possible home and overlap", history.integrated_into || "Not recorded"),
+      dossierSection("Why it may be distinct—or not", history.rationale || "Not recorded", "wide"),
+      dossierSection("Open questions and next review", record.next_audit),
+      dossierSection("Follow-up from intake history", history.follow_up || "Not recorded")
+    );
+
+    const lifecycle = element("dl", "candidate-details compact");
+    lifecycle.append(
+      labeledValue("Project status", record.status),
       labeledValue("Last internal review", record.last_audit),
       labeledValue("Release blocker", record.release_blocker),
       labeledValue("Last GitHub update", formatDate(record.updated_at))
     );
-    const links = element("div", "source-list");
+
+    const panels = element("section", "dossier-panels");
+    panels.append(evidencePanels(record));
+
+    if ((history.links || []).length) {
+      const historyPanel = detailsPanel("Links preserved in the Horizon intake history", history.links.length);
+      const historyLinks = element("div", "source-list compact-links");
+      history.links.forEach((item) => historyLinks.append(linkButton(item.label, item.url, true)));
+      historyPanel.append(historyLinks);
+      panels.append(historyPanel);
+    }
+
+    const issueBody = (record.issue_body_lines || []).join("\n");
+    const issuePanel = detailsPanel("GitHub intake record", issueBody ? 1 : 0);
+    issuePanel.append(issueBody
+      ? element("pre", "issue-body", issueBody)
+      : element("p", "muted panel-empty", "The issue body is not present in this snapshot. Run a GitHub refresh to include it."));
+    panels.append(issuePanel);
+
+    const gaps = record.dossier_gaps || [];
+    const recordCheck = element("section", gaps.length ? "record-check warning" : "record-check complete");
+    recordCheck.append(element("h4", "", "Decision-record check"));
+    if (gaps.length) {
+      const list = element("ul");
+      gaps.forEach((gap) => list.append(element("li", "", gap)));
+      recordCheck.append(list);
+    } else {
+      recordCheck.append(element("p", "", "The configured authoritative inputs are represented in this dossier."));
+    }
+
+    const links = element("div", "source-list dossier-actions");
     links.append(linkButton("Open GitHub issue", record.issue_url));
     if (record.canonical_page && record.canonical_page !== record.issue_url) {
       links.append(linkButton("Open canonical page", record.canonical_page, true));
     }
-    card.append(header, details, links);
+    links.append(linkButton("Open Horizon intake history", record.horizon_log_url, true));
+    card.append(header, summary, lifecycle, panels, recordCheck, links);
     return card;
   }
 
@@ -161,7 +278,14 @@
       if (proposedState.status !== "all" && record.status !== proposedState.status) return false;
       if (proposedState.area !== "all" && record.area !== proposedState.area) return false;
       if (!query) return true;
-      return [record.id, record.title, record.status, record.area, record.priority, ...(record.labels || [])]
+      const history = record.horizon_history || {};
+      return [record.id, record.title, record.status, record.area, record.priority,
+        record.next_audit, record.last_audit, history.original_concern, history.decision,
+        history.integrated_into, history.rationale, history.follow_up,
+        ...(record.labels || []),
+        ...(record.supporting_sources || []).flatMap((item) => [item.id, item.title, item.publisher, item.proposition]),
+        ...(record.evidence_records || []).flatMap((item) => [item.id, item.title, item.legal_question]),
+        ...(record.research_records || []).flatMap((item) => [item.title, item.path])]
         .filter(Boolean).join(" ").toLowerCase().includes(query);
     });
     byId("proposed-list").replaceChildren(...records.map(proposedCard));
