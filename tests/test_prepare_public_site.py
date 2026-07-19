@@ -132,6 +132,10 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn("grid-template-columns: repeat(2", stylesheet)
         self.assertIn(".arrp-topic-guide-title", stylesheet)
         self.assertIn(".arrp-topic-table", stylesheet)
+        self.assertRegex(
+            stylesheet,
+            r"\.md-nav \.md-status\s*\{\s*display: none;\s*\}",
+        )
 
     def test_generated_legislation_index_has_revision_date(self):
         index = (self.docs / "legislation" / "index.md").read_text(encoding="utf-8")
