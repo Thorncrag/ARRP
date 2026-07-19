@@ -162,7 +162,7 @@ class ReviewReadyDashboardTests(unittest.TestCase):
         active_proposals = [row for row in registry if MODULE.normalize(row["Kind"]) == "proposal"]
         # The retrospective baseline remains historical even after proposal
         # admission, merger, or retirement changes the live denominator.
-        self.assertEqual(len(active_proposals), 77)
+        self.assertEqual(len(active_proposals), 78)
         self.assertEqual(config["goal"]["baselineTotal"], 204)
         self.assertEqual(len(evidence), 23)
         self.assertEqual(len(identifiers), 23)

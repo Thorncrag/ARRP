@@ -12,7 +12,7 @@ print_levels:
 
 ## About This Project
 
-The author is an independent researcher and does not have formal legal training. This project is a policy-reform research and drafting exercise, not legal advice. Proposed legislation, model acts, constitutional amendments, and administrative language in this repository are illustrative working drafts. They have not yet been reviewed or approved by an attorney, legislative counsel, legal scholar, public official, or affected institution, and should not yet be treated as final or ready-to-introduce legislative text.
+The author is an independent researcher. This project is a policy-reform research and drafting exercise, not legal advice. Proposed legislation, model acts, constitutional amendments, and administrative language in this repository are illustrative working drafts. They have not yet been reviewed or approved by an attorney, legislative counsel, legal scholar, public official, or affected institution, and should not yet be treated as final or ready-to-introduce legislative text.
 
 This project is intended to be institution-focused and nonpartisan in its standards, methods, and proposed remedies. It is not neutral about institutional abuse, democratic backsliding, corruption, personalist capture, rule-of-law failure, or unitary executive theory, and it is transparent about seeking to reverse, repair, and prevent institutional outcomes associated with Project 2025 and similar efforts to subordinate public institutions to personal or factional control. The project uses real-world examples to identify structural vulnerabilities and possible repairs, not to advance a party program or defend or condemn any person, party, administration, or ideology as such. Proposed remedies are meant to apply prospectively and evenhandedly across parties, officeholders, and political circumstances.
 
@@ -32,19 +32,19 @@ For a dedicated authorship, stakeholder-input, and contact statement, see [`AUTH
 
 ## Foundational Premise
 
-The American system of government is broken because it failed to prevent President Trump and the MAGA movement from subordinating constitutional duty, institutional independence, factual adjudication, and the peaceful transfer of power to personal loyalty. The damage must be repaired, the weaknesses that enabled it must be corrected, and stronger safeguards must be established against future personalist capture.
+The American system of government suffered serious failures because its safeguards did not adequately constrain conduct by President Trump and MAGA-aligned actors that placed personal loyalty above constitutional duty, institutional independence, factual adjudication, and the peaceful transfer of power. The damage must be repaired, the weaknesses that enabled it must be corrected, and stronger safeguards must be established against future personalist capture.
 
 This project was not devised as a partisan response to partisan policy preferences, nor as a counter-platform to Project 2025. It analyzes outcomes associated with President Trump's administration, MAGA-aligned efforts, Project 2025, and other partisan or ideological projects only where they reveal, exploit, accelerate, or manifest institutional damage. The project’s concern is the legal, structural, administrative, and institutional vulnerability, not the partisan identity of the actor or the ordinary policy preference at issue.
 
 The project treats democratic resilience as more than emergency resistance to a single officeholder. A resilient system should not depend so heavily on officeholders honoring informal traditions, adhering to voluntary norms, or declining to exploit legal ambiguity. Where such traditions proved load-bearing, the project asks whether they should be clarified, hardened, made reviewable, or paired with credible correction mechanisms.
 
-The project is designed for readers who accept the project's underlying premise and foundational diagnosis. Its purpose is not to repeatedly prove that the system is broken, but to determine how the failure occurred, what damage followed, which weaknesses allowed it, what must be repaired, and what reforms can prevent recurrence.
+The project is designed primarily for readers who accept, or are willing to seriously consider, its underlying premise and foundational diagnosis. It does not attempt to repeatedly persuade readers who categorically reject the project's factual and institutional premises. It does seek to make its analysis accessible to independents, former supporters of President Trump or MAGA-aligned political efforts, politically cross-pressured conservatives, and other readers who remain open to evidence and institutional arguments. Its purpose is to determine how the failure occurred, what damage followed, which weaknesses allowed it, what must be repaired, and what reforms can prevent recurrence.
 
 ## Mission
 
 The project will:
 
-1. identify the principal institutional damage caused, accelerated, revealed, or exploited by President Trump, the MAGA movement, Project 2025, or comparable efforts;
+1. identify the principal institutional damage caused, accelerated, revealed, or exploited by conduct associated with President Trump's administration, MAGA-aligned actors, Project 2025, or comparable efforts;
 2. identify the legal, structural, administrative, and policy weaknesses that made that damage possible;
 3. distinguish repair of existing damage from prevention of recurrence; and
 4. develop a durable roadmap for restoring lawful and trustworthy government and strengthening institutional resilience against future abuse.
@@ -111,23 +111,17 @@ Institutional corrigibility is not an excuse for weak reform. Preventive safegua
 
 ## How to Read an Issue Page
 
-Developed issue pages are designed to move from problem to remedy before turning to scoring and technical notes. Common sections include:
+Issue pages are designed to move from the institutional problem to the proposed remedy, with detailed legal and evidentiary support reserved for the end of the page.
 
-- **Issue Snapshot:** brief problem, repair, and vehicle summary.
-- **Institutional Anomaly:** the structural defect the issue addresses.
-- **Manifestation of the Failure:** representative facts showing the defect in operation.
-- **Resulting Damage:** institutional, legal, administrative, or legitimacy harm.
-- **Underlying Weakness:** the law, structure, procedure, remedy, or norm that failed.
-- **Proposal Survey:** existing law, prior proposals, or adjacent models considered.
-- **Least-Complex Adequate Remedy:** the preferred remedy and why it is sufficient.
-- **Repair and Prevention:** how the proposal repairs damage and reduces recurrence.
-- **Proposed Legislation:** linked draft bill, rule, amendment, manual text, or procedural vehicle.
-- **Adoption Viability Note:** why a legally available vehicle may still require a future or amenable actor.
-- **Relationship to Adjacent Proposals:** how overlapping ARRP proposals differ, merge, or complement one another.
-- **Budgetary Impact Statement:** preliminary fiscal or workload classification, not an official cost score.
-- **Proposal Scoring:** compact readiness, adoption, friction, pathway, and internal-review summary.
-- **Annotation:** evidence, qualifications, legal analysis, alternatives, implementation limits, and score explanations.
-- **Review History:** linked technical sidecar preserving the full internal review record.
+1. **Check the project status.** On the public website, the notice beneath the title identifies whether the page is a candidate, working draft, or proposal developed enough for external review. A candidate or deferred page is not an affirmative project recommendation. Even a **Review Ready** proposal remains a working draft awaiting knowledgeable critique.
+2. **Start with the Issue Snapshot.** Its three lines identify the problem, the core repair, and the proposed legal or institutional vehicle.
+3. **Read the diagnosis.** **Institutional Anomaly**, **Manifestation of the Failure**, **Resulting Damage**, and **Underlying Weakness** explain the structural defect, representative evidence, resulting harm, and the safeguard that failed. When additional evidence or litigation is maintained elsewhere, **Supporting Record and Updates** links to that material without overloading the issue page.
+4. **Follow the remedy analysis.** **Proposal Survey** compares existing law and prior or adjacent models. **Least-Complex Adequate Remedy** identifies the smallest sufficient reform, while **Repair and Prevention** explains how it would correct existing damage and reduce recurrence.
+5. **Open the proposal vehicle.** **Proposed Legislation** links to the separate draft bill, rule, amendment, manual provision, or procedural text. Some issues identify a preferred shared framework and a complete independent alternative; those are separate enactment choices, not bills that must be adopted together. Amendment-dependent issues separately identify the proposed constitutional amendment and enabling legislation.
+6. **Review costs, readiness, and practical constraints.** The **Budgetary Impact Statement** is a preliminary workload or fiscal classification, not an official government cost estimate. **Proposal Scoring** summarizes development readiness, adoption prospects, resistance, the likely political or institutional pathway, and the next review need. A high quality score measures development and testing—not importance, popularity, certainty, or likelihood of enactment.
+7. **Use the Annotation for technical depth.** The final section contains supporting authority, qualifications, competing arguments, constitutional and implementation risks, alternatives, and explanations that would make the main sections unnecessarily long. The linked review history preserves the complete internal audit record.
+
+Optional sections such as **Adoption Viability Note** and **Relationship to Adjacent Proposals** appear only when they materially clarify who could adopt the remedy or how nearby proposals differ. Headings may vary slightly where a different title makes the analysis easier to understand, but the same problem-to-remedy sequence should remain visible.
 
 ## Proposal Scores
 
