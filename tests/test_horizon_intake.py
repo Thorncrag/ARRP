@@ -102,7 +102,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 self.assertTrue(row[field].strip(), (row["catalog_id"], field))
 
     def test_console_is_candidate_only(self) -> None:
-        self.assertEqual(self.console["schema_version"], 5)
+        self.assertEqual(self.console["schema_version"], 6)
         self.assertEqual(
             set(self.console),
             {
@@ -168,6 +168,33 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["issue_url"].startswith("https://github.com/Thorncrag/ARRP/issues/") for row in active))
         self.assertFalse(any(row["status"] == "Project status unavailable" for row in active))
 
+    def test_proposed_candidate_dossiers_are_derived_from_authoritative_records(self) -> None:
+        active = self.console["active_horizon_records"]
+        self.assertTrue(active)
+        required = {
+            "issue_body_lines",
+            "horizon_history",
+            "horizon_log_url",
+            "supporting_sources",
+            "evidence_records",
+            "research_records",
+            "dossier_gaps",
+        }
+        for row in active:
+            self.assertTrue(required <= set(row), row["id"])
+            self.assertTrue(row["horizon_log_url"].endswith("#horizon-integration-log"))
+            self.assertIsInstance(row["supporting_sources"], list)
+            self.assertIsInstance(row["evidence_records"], list)
+            self.assertIsInstance(row["research_records"], list)
+            self.assertIsInstance(row["dossier_gaps"], list)
+        self.assertTrue(any(row["horizon_history"] for row in active))
+        self.assertTrue(any(row["supporting_sources"] for row in active))
+        self.assertTrue(any(row["evidence_records"] for row in active))
+
+        methodology = (ROOT / "framework" / "METHODOLOGY.md").read_text(encoding="utf-8")
+        self.assertIn("decision dossier assembled from existing authoritative records", methodology)
+        self.assertIn("must not become a manually maintained narrative ledger", methodology)
+
     def test_standalone_submission_prototype_has_minimal_lookup_and_page_context(self) -> None:
         expected = {
             row["Object ID"]
@@ -217,6 +244,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Proposed candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("This console is read-only", console_html)
+        self.assertIn("Decision dossiers", console_html)
         self.assertNotIn("Sources <span", console_html)
         self.assertNotIn("Monitor <span", console_html)
         self.assertNotIn("History", console_html)
@@ -233,6 +261,9 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn("screenSubmission", console_app)
         self.assertNotIn("setDecision", console_app)
         self.assertNotIn("localStorage", console_app)
+        self.assertIn("GitHub intake record", console_app)
+        self.assertIn("Source inventory records", console_app)
+        self.assertIn("Project research mentioning this candidate", console_app)
         self.assertIn('data-interface-theme="arrp-tool"', console_html)
         for variable in ("--ink:", "--blue:", "--gold:", "--green:", "--shadow:"):
             self.assertIn(variable, participation_css)
