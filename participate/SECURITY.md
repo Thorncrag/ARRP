@@ -1,3 +1,9 @@
+---
+title: "Public Intake Security Controls"
+print_levels:
+  - full-technical
+---
+
 # Public Intake Security Controls
 
 This checklist governs the live Vercel public-intake service. Repository code can enforce request shape, privacy screening, Turnstile validation, output safety, and a local burst limit. Provider-side controls are the only reliable protection across serverless instances and networks.

@@ -12,7 +12,7 @@ print_levels:
 
 These pages help readers begin with a familiar public subject and find the ARRP proposals that address it. Each page briefly explains how common questions connect to one or more proposals; the linked proposal pages contain the detailed analysis and recommendations.
 
-Topic pages do not create additional recommendations or track project status. When ARRP has formally decided not to pursue a closely related idea, the page may briefly explain that decision and link to its documentation.
+Topic pages do not create additional recommendations or duplicate project lifecycle status. `Pending` means only that a listed public concern has no stable proposal or candidate route yet. When ARRP has formally decided not to pursue a closely related idea, the page may briefly explain that decision and link to its documentation.
 
 ## Topics
 
@@ -22,7 +22,11 @@ Topic pages do not create additional recommendations or track project status. Wh
 
 - **[Civil Rights](civil-rights.md)**
 
-    Connects civil-rights administration, identity and citizenship records, humanitarian protection, immigration due process, voting access, and representation to the relevant proposals.
+    Connects government-wide civil-rights administration, anti-discrimination safeguards, identity records, and citizenship recognition to the relevant proposals.
+
+- **[Classified Documents](classified-documents.md)**
+
+    Separates classification authority, records custody, information protection, independent investigation, and accountability questions associated with classified documents.
 
 - **[DOGE and Agency Dismantling](doge-and-agency-dismantling.md)**
 

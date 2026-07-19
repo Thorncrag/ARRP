@@ -177,7 +177,7 @@ Before version 1.0, compiled PDF, DOCX, XLSX, and similar export files are not e
 
 ## Print Assignment Metadata
 
-Every Markdown page should identify the compiled edition or editions in which it belongs. The assignment belongs in page metadata so it is available to export tooling and review workflows without adding repetitive visible text to rendered pages.
+Every project-content or project-documentation Markdown page should identify the compiled edition or editions in which it belongs. The assignment belongs in page metadata so it is available to export tooling and review workflows without adding repetitive visible text to rendered pages. Tool-discovered control files such as root `AGENTS.md` and website-only assets such as `website/404.md` are not compiled-edition pages and are exempt.
 
 Use the metadata key `print_levels` with one or more of these stable values:
 
