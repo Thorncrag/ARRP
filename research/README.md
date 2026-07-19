@@ -21,15 +21,16 @@ Covered work product includes legal and policy memoranda, crosswalks, catalogs, 
 - [FUND-001 Executive Order Judicial Review Comparator](FUND-001-executive-order-judicial-review-comparator.md)
 - [Executive-Directive State-Led Adverse Rulings Scan](executive-directive-state-led-adverse-rulings-scan.csv)
 - [REG-001 Agency Independence and Functional Nullification Catalog](REG-001-independent-agency-removal-catalog.md)
-- [Candidate Issues and Source Intake Dashboard](horizon-review-console/index.html), the central operational view for formal Horizon issues, proposed candidates, the [legal-review intake](trump-administration-legal-review-intake.md), unified source work, monitoring, and intake history
+- [Trump Administration Legal-Review Intake](trump-administration-legal-review-intake.md) — central source-adjudication record linking the retained catalogs, issue-integration work, monitoring source ledger, preliminary candidates, completed reconciliation report, and official presidential-directive completeness scan
+- [Candidate Issue Intake](horizon-review-console/index.html), the read-only review view for source-supported preliminary candidates and GitHub-authoritative formal proposed candidates
 - [WAR-001 Source Development](WAR-001-source-development.md)
 
 ## Project Crosswalks
 
-- [Durham Report / ARRP Crosswalk](durham-report-arrp-crosswalk.md)
-- [Jack Smith Volume One / ARRP Crosswalk](jack-smith-volume-1-arrp-crosswalk.md)
-- [Jack Smith Volume Two / Source Status and ARRP Crosswalk](jack-smith-volume-2-source-status-and-arrp-crosswalk.md)
-- [Mueller Report / ARRP Crosswalk](mueller-report-arrp-crosswalk.md)
+- [Durham Report / ARRP Crosswalk](durham-report-arrp-crosswalk.md) — public topic home: [Weaponization of Justice](../topics/weaponization-of-justice.md)
+- [Jack Smith Volume One / ARRP Crosswalk](jack-smith-volume-1-arrp-crosswalk.md) — public topic home: [January 6](../topics/january-6.md)
+- [Jack Smith Volume Two / Source Status and ARRP Crosswalk](jack-smith-volume-2-source-status-and-arrp-crosswalk.md) — public topic home: [Classified Documents](../topics/classified-documents.md)
+- [Mueller Report / ARRP Crosswalk](mueller-report-arrp-crosswalk.md) — public topic home: [Presidential Accountability](../topics/presidential-accountability.md)
 
 The former Project 2025 research crosswalk has been converted, without duplication, into the public [Project 2025 — ARRP Topic Guide and Crosswalk](../topics/project-2025.md).
 

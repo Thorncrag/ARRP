@@ -8,18 +8,18 @@ print_levels:
 
 ## Purpose and Status
 
-This is a source-development intake for locating potentially repairable institutional weaknesses illustrated by actions of the first and second Trump administrations. It is deliberately broader than the active Horizon queue. It does **not automatically** assign Horizon IDs, determine that an action was unlawful, admit a new ARRP issue, or treat political controversy as an institutional defect. The preliminary-candidate ledger records a Horizon ID only after the user approves promotion and the ordinary Horizon workflow creates the formal candidate.
+This is a source-development intake for locating potentially repairable institutional weaknesses illustrated by actions of the first and second Trump administrations. It is deliberately broader than the active Horizon queue. It does **not automatically** assign Horizon IDs, determine that an action was unlawful, admit a new ARRP issue, or treat political controversy as an institutional defect. When the user approves promotion, the ordinary Horizon workflow creates a separate formal proposed-candidate record and removes the preliminary row.
 
 The first machine-normalized baseline contains **1,322 source records**: **776 first-term records** and **546 second-term records**. They come from seven differently structured trackers and therefore are not yet 1,322 unique government actions. Cross-source duplicates remain visible until the record, challenged action, and final judicial posture can be reconciled without losing provenance.
 
-- [Central source-intake dashboard and visual queue review](horizon-review-console/index.html)
-- [Action-level legal-review catalog](trump-administration-legal-review-catalog.csv)
-- [Completed priority-disposition staging queue](trump-administration-priority-disposition-review.csv) (empty after adjudication)
+- [Candidate Issue Intake](horizon-review-console/index.html), the read-only view of preliminary and formal proposed candidates
+- [Action-level legal-review catalog](trump-administration-legal-review-catalog.csv), presently containing only presidential-directive evidence owned by formal Horizon candidates
+- [Priority-disposition staging schema](trump-administration-priority-disposition-review.csv) (empty after adjudication but retained for repeatable tooling)
 - [Media-supported episode intake](trump-administration-media-review-intake.csv)
 - [Source-universe and completeness ledger](trump-administration-source-universe.csv)
-- [Evidence-routing ledger](trump-administration-evidence-routing.csv)
+- [Evidence-routing records](trump-administration-evidence-routing.csv), reconciled one-to-one with the remaining candidate-owned catalog records
 - [Existing-issue evidence integration queue](existing-issue-evidence-integration.csv)
-- [Defined-predicate litigation monitor](trump-administration-litigation-monitoring.csv)
+- [Defined-predicate source-and-posture ledger](trump-administration-litigation-monitoring.csv); GitHub monitor issues and the Project Monitoring view own workflow status
 - [Preliminary candidate queue](trump-administration-preliminary-candidates.csv)
 - [Preliminary candidate review console](horizon-review-console/README.md)
 - [Completed source-adjudication report](trump-administration-source-adjudication-report.md)
@@ -27,9 +27,9 @@ The first machine-normalized baseline contains **1,322 source records**: **776 f
 
 ## Completed Route-Centered Adjudication
 
-On July 16, 2026, the project completed qualitative route-centered review of all **1,266** records remaining after the priority batch. The review conservatively clustered them into **1,250** episodes, retained **160** records for qualitative integration, retained **178** records as **174** defined-predicate monitoring episodes, and removed **928** records as cumulative, topical-only, ordinary-policy, or insufficiently specific material. The active catalog and routing ledger are now empty; retained work appears only in the canonical source registry and the two active downstream queues linked above. See the [completed report](trump-administration-source-adjudication-report.md) for the reconciliation and source-family results.
+On July 16, 2026, the project completed qualitative route-centered review of all **1,266** records remaining after the priority batch. The review conservatively clustered them into **1,250** episodes, retained **160** records for qualitative integration, retained **178** records as **174** defined-predicate monitoring episodes, and removed **928** records as cumulative, topical-only, ordinary-policy, or insufficiently specific material. All tracker records left the catalog and routing staging files; retained work moved to the canonical source inventories, issue-owned integration records, and the source-and-posture ledger linked above, with monitoring workflow maintained in GitHub. The catalog and routing files now contain only **111** later-added presidential-directive records owned by five formal Horizon candidates. See the [completed report](trump-administration-source-adjudication-report.md) for the reconciliation and source-family results.
 
-The downstream queues are not a second raw review burden for the user. Integration rows identify representative episodes that still require primary verification or reader-facing placement when the receiving proposal is developed. Monitoring rows reopen only upon a final merits ruling, controlling threshold decision, dismissal, settlement or withdrawal, or another material posture change. No new preliminary Horizon candidate resulted from this batch.
+The downstream records are not a second raw review burden for the user and do not appear as separate console queues. Integration rows identify representative episodes that still require primary verification or reader-facing placement when the receiving proposal is developed. Source-and-posture rows support issue-linked GitHub monitors, which reopen work only upon a final merits ruling, controlling threshold decision, dismissal, settlement or withdrawal, or another material posture change. A future source that plausibly identifies a distinct unowned institutional weakness must create or update one clustered preliminary candidate rather than remain an orphaned source. No new preliminary Horizon candidate resulted from this batch.
 
 ## Inclusion Standard
 
@@ -71,7 +71,7 @@ This rule produced the initial screening distribution before route-centered adju
 
 The totals are source records, not deduplicated actions.
 
-The initial priority worksheet applied provisional text classifications to 56 high-priority records. It was a temporary work queue, not a permanent evidence ledger, and is now empty after adjudication. The review confirmed that outcome labels alone do not establish an institutional defect: most records reflected ordinary policy adjudication, preliminary-relief decisions, later-modified outcomes, or topical overlap without additional reader-facing value. The permanent results now reside in `inventory/sources.csv`, on relevant issue pages, in formal Horizon records, in the [existing-record integration queue](existing-issue-evidence-integration.csv), or in the [defined-predicate litigation monitor](trump-administration-litigation-monitoring.csv).
+The initial priority worksheet applied provisional text classifications to 56 high-priority records. It was a temporary work queue, not a permanent evidence ledger, and is now empty after adjudication. The review confirmed that outcome labels alone do not establish an institutional defect: most records reflected ordinary policy adjudication, preliminary-relief decisions, later-modified outcomes, or topical overlap without additional reader-facing value. The permanent results now reside in the canonical cited-source inventory, on relevant issue pages, in formal Horizon records, in the [existing-record integration queue](existing-issue-evidence-integration.csv), or in the [defined-predicate source-and-posture ledger](trump-administration-litigation-monitoring.csv) supporting GitHub monitoring records.
 
 ## Present Source Coverage
 
@@ -88,6 +88,49 @@ The initial extraction normalizes:
 The [source-universe ledger](trump-administration-source-universe.csv) separately records official corpora, specialist trackers, oversight portals, and comparison sources that remain to be ingested. A source is not considered covered merely because it has been bookmarked.
 
 The separate [media-supported episode intake](trump-administration-media-review-intake.csv) presently records 33 independently corroborated episodes for the same evidence-routing process. It is not a separate user review queue. Two entries retain a primary-document retrieval flag: the Pentagon press-rotation memorandum and the FEMA grant instrument conditioning counterterrorism funding on state election practices.
+
+## Official Presidential-Directive Completeness Pass
+
+On July 18, 2026, the project implemented a signing-date-based [Federal Register presidential-directive gap scanner](../scripts/build_presidential_directive_gap_scan.py). It covers executive orders, proclamations, determinations, memoranda, notices, presidential orders, other presidential documents, and corrections. Federal Register document number is the primary identity key; numbered-instrument identity, normalized Federal Register or GovInfo URL, and signing date plus normalized title provide secondary matching. Corrections are attached to the corrected instrument rather than counted as new directives.
+
+The non-mutating workload pilots produced:
+
+| Term | Official documents | Exact active-project matches | Presumptively ceremonial | Corrections | Unmatched for substantive review |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| First term | 1,125 | 3 | 479 | 1 | 642 |
+| Second term through July 18, 2026 | 579 | 46 | 105 | 1 | 427 |
+
+These are workload measurements, not issue counts or findings of illegality. An exact match means that the active project corpus already contains the official document identity; it does not establish that the current placement is sufficient. An unmatched record means only that the directive requires the first substantive and independent challenge passes. The review must route it to an existing issue, evidence record, or defined GitHub monitor; create or update one clustered preliminary candidate when a plausible distinct unowned institutional weakness remains; or document why no project action is warranted. The scanner writes only to the existing temporary catalog and routing schemas when `--apply` is deliberately supplied. Normal batch reconciliation removes existing-route and no-action rows while retaining candidate evidence only under an accountable candidate owner.
+
+The substantive and independent challenge passes for both Federal Register batches were completed on July 18. The first-term pass routed **315** records to existing project mechanisms, found **243** warranting no further project action, and retained **84** as evidence for four clustered candidate questions. Together with the completed second-term pass, the reconciliation is:
+
+| Term | Existing project mechanism | No project action | Candidate evidence | Unmatched records reviewed |
+| --- | ---: | ---: | ---: | ---: |
+| First term | 315 | 243 | 84 | 642 |
+| Second term through July 18, 2026 | 219 | 181 | 27 | 427 |
+| **Both terms** | **534** | **424** | **111** | **1,069** |
+
+Existing-route and no-action records were not copied into a permanent directive queue. The user promoted all five clustered questions to formal Horizon candidates on July 18, 2026. The 111 supporting directives remain in the canonical catalog and routing files under those formal candidates so the evidence is not orphaned or duplicated:
+
+| Formal Horizon candidate | Supporting directives | Threshold question |
+| --- | ---: | --- |
+| [`HOR-040`](https://github.com/Thorncrag/ARRP/issues/302) — Safeguards for Broad Presidential Tariff Delegations | 51 | Whether non-IEEPA trade delegations require safeguards beyond those already supplied by trade statutes and review doctrine. |
+| [`HOR-041`](https://github.com/Thorncrag/ARRP/issues/303) — Safeguards for Class-Based Presidential Entry Suspensions | 21 | Whether INA section 212(f) contains durable, reviewable safeguards adequate for broad class-entry suspensions. |
+| [`HOR-042`](https://github.com/Thorncrag/ARRP/issues/304) — Minimum Safeguards for Presidential Statutory Waivers | 26 | Whether any cross-statutory minimum is justified after comparing each waiver provision's existing safeguards. |
+| [`HOR-043`](https://github.com/Thorncrag/ARRP/issues/305) — Presidential Recognition of International Bodies With Domestic Legal Privileges | 1 | Whether executive recognition, participation, and IOIA designation expose an unowned authorization or accountability gap. |
+| [`HOR-044`](https://github.com/Thorncrag/ARRP/issues/306) — Statutory Framework for Presidential Cross-Border Infrastructure Permits | 12 | Whether facility types lacking express statutory authority require uniform criteria, procedures, consultation, and review. |
+
+Representative sources retained in the cited-source registry are:
+
+- `HOR-040`: [SRC-1198](https://www.govinfo.gov/content/pkg/FR-2025-02-18/pdf/2025-02832.pdf); [SRC-1199](https://www.govinfo.gov/content/pkg/FR-2025-08-05/pdf/2025-14893.pdf); [SRC-1205](https://www.govinfo.gov/content/pkg/FR-2018-01-25/pdf/2018-01592.pdf); [SRC-1206](https://www.govinfo.gov/content/pkg/FR-2018-03-15/pdf/2018-05478.pdf); [SRC-1207](https://www.govinfo.gov/content/pkg/FR-2018-03-27/pdf/2018-06304.pdf).
+- `HOR-041`: [SRC-0909](https://immpolicytracking.org/policies/president-trump-and-uscis-announce-100000-h-1b-fee/); [SRC-1095](https://www.whitehouse.gov/presidential-actions/2025/09/restriction-on-entry-of-certain-nonimmigrant-workers/); [SRC-1096](https://www.courtlistener.com/docket/71541425/global-nurse-force-v-trump/); [SRC-1200](https://www.govinfo.gov/content/pkg/FR-2025-06-10/pdf/2025-10669.pdf); [SRC-1208](https://www.govinfo.gov/content/pkg/FR-2017-02-01/pdf/2017-02281.pdf); [SRC-1209](https://www.govinfo.gov/content/pkg/FR-2019-10-09/pdf/2019-22225.pdf); [SRC-1210](https://www.govinfo.gov/content/pkg/FR-2020-06-04/pdf/2020-12217.pdf).
+- `HOR-042`: [SRC-0871](https://immpolicytracking.org/policies/dhs-waives-statutory-requirements-to-expedite-border-wall-projects-in-san-diego-california/); [SRC-0877](https://immpolicytracking.org/policies/dhs-waives-statutory-requirements-to-expedite-border-wall-projects-in-big-bend-sector/); [SRC-0889](https://immpolicytracking.org/policies/dhs-waives-statutory-requirements-to-expedite-border-wall-projects-in-el-paso-yuma-and-tucscon/); [SRC-0943](https://www.federalregister.gov/documents/2026/02/17/2026-02994/determination-pursuant-to-section-102-of-the-illegal-immigration-reform-and-immigrant-responsibility); [SRC-0944](https://www.courtlistener.com/docket/73199706/friends-of-the-ruidosa-church-v-mullin-etal/); [SRC-0995](https://www.whitehouse.gov/presidential-actions/2025/07/regulatory-relief-for-certain-stationary-sources-to-promote-american-security-with-respect-to-sterile-medical-equipment/); [SRC-0996](https://www.courtlistener.com/docket/72197186/cleanaire-nc-v-trump/); [SRC-1201](https://www.govinfo.gov/content/pkg/FR-2025-06-04/pdf/2025-10322.pdf); [SRC-1202](https://www.govinfo.gov/content/pkg/FR-2026-04-23/pdf/2026-08009.pdf); [SRC-1203](https://www.govinfo.gov/content/pkg/FR-2026-07-01/pdf/2026-13408.pdf); [SRC-1211](https://www.govinfo.gov/content/pkg/FR-2017-06-21/pdf/2017-13115.pdf); [SRC-1212](https://www.govinfo.gov/content/pkg/FR-2017-10-23/pdf/2017-23145.pdf); [SRC-1213](https://www.govinfo.gov/content/pkg/FR-2020-02-06/pdf/2020-02473.pdf); [SRC-1214](https://www.govinfo.gov/content/pkg/FR-2017-08-28/pdf/2017-18291.pdf).
+- `HOR-043`: [SRC-1204](https://www.govinfo.gov/content/pkg/FR-2026-01-22/pdf/2026-01271.pdf).
+- `HOR-044`: [SRC-0931](https://www.courtlistener.com/docket/72241676/state-of-california-v-pipeline-and-hazardous-materials-safety/); [SRC-1215](https://www.govinfo.gov/content/pkg/FR-2019-04-15/pdf/2019-07645.pdf); [SRC-1216](https://www.govinfo.gov/content/pkg/FR-2019-04-03/pdf/2019-06654.pdf); [SRC-1217](https://www.govinfo.gov/content/pkg/FR-2020-08-03/pdf/2020-17040.pdf); [SRC-1218](https://www.congress.gov/crs_external_products/R/PDF/R43261/R43261.11.pdf).
+
+This remains five questions, not 111 proposed issues, and promotion does not admit any area-specific proposal. The first-term material expanded the questions now carried by `HOR-040`, `HOR-041`, and `HOR-042`; it did not add evidence to the second-term-only `HOR-043`; and it created the narrow cross-border-permit question now carried by `HOR-044`. The representative official and congressional sources reside in `sources.csv`, and every supporting directive remains associated with its formal candidate through the catalog and routing records. The preliminary queue and `sources-pending.csv` are empty. REG-003 receives the Ambler Road presidential appellate decision as existing administrative-adjudication coverage rather than a separate candidate. The Federal Register batches are complete; the White House and GovInfo completeness cross-check remains open.
+
+The Federal Register remains the structured discovery backbone and supplies links to official GovInfo PDFs. After the Federal Register batches close, compare the current White House presidential-action collection, the archived first-term White House collection, and GovInfo's Compilation of Presidential Documents for unnumbered or otherwise omitted official actions. Do not create a second directive queue for those sources; route any gap through the same process.
 
 ## Preliminary Intake Dispositions
 
@@ -165,11 +208,12 @@ An action that fits one of these lanes should normally become a manifestation, s
 
 ## Next Source-Universe Pass
 
-1. Work the dashboard's unified [Sources queue](horizon-review-console/index.html) by receiving record: verify primary materials, strengthen an issue page when a material premise needs better support, route corroborated media episodes, and ingest planned source collections. The underlying machine records remain available in their source-specific CSVs, but they are one operational queue.
-2. Revisit the [litigation monitor](trump-administration-litigation-monitoring.csv) only when its defined posture predicate occurs; do not treat open allegations or preliminary relief as final manifestations.
-3. Ingest official findings from GAO, OSC, inspectors general, congressional reports, and published judicial noncompliance records so the source universe is not litigation-plaintiff biased.
-4. Ingest specialist ethics, conflicts, records, environmental, civil-rights, election, appointments, and war-powers sources from the completeness ledger, and continue the two-source media lane across both terms.
-5. Apply the full ARRP duplicate and issue-admission tests only after source and posture normalization. No catalog or media record should become a Horizon item automatically.
+1. Cross-check the completed Federal Register presidential-directive batches against the current White House presidential-action collection, the archived first-term White House collection, and GovInfo's Compilation of Presidential Documents. Deduplicate any omissions against existing project records before substantive review. An unmatched operative directive that plausibly exposes a distinct unowned institutional weakness creates or updates one clustered preliminary candidate; ceremonial, routine, political-only, duplicative, and no-additional-value material leaves no retained directive queue.
+2. Work retained sources by their accountable owner: verify primary materials, strengthen an issue page when a material premise needs better support, route corroborated media episodes to the appropriate issue or evidence record, and attach external predicates to the owning GitHub monitor. A genuinely unowned institutional weakness creates or updates one preliminary candidate rather than an orphaned source record.
+3. Begin recurring review from the GitHub Project Monitoring view and each issue-linked monitor. When its defined posture predicate occurs, update the [source-and-posture ledger](trump-administration-litigation-monitoring.csv) and the owning issue or evidence record; do not treat open allegations or preliminary relief as final manifestations.
+4. Ingest official findings from GAO, OSC, inspectors general, congressional reports, and published judicial noncompliance records so the source universe is not litigation-plaintiff biased.
+5. Ingest specialist ethics, conflicts, records, environmental, civil-rights, election, appointments, and war-powers sources from the completeness ledger, and continue the two-source media lane across both terms.
+6. Apply the full ARRP duplicate and issue-admission tests only after source and posture normalization. No catalog, media, or directive record should become a formal proposed candidate automatically; a source-supported preliminary candidate remains subject to human review and the ordinary promotion workflow.
 
 ## Maintenance Rule
 

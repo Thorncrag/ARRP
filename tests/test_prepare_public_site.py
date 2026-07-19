@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -122,6 +123,8 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn(".arrp-page-actions", stylesheet)
         self.assertIn("h1#explore-by-topic", stylesheet)
         self.assertIn("grid-template-columns: repeat(2", stylesheet)
+        self.assertIn(".arrp-topic-guide-title", stylesheet)
+        self.assertIn(".arrp-topic-table", stylesheet)
 
     def test_generated_legislation_index_has_revision_date(self):
         index = (self.docs / "legislation" / "index.md").read_text(encoding="utf-8")
@@ -138,33 +141,58 @@ class PublicSitePreparationTests(unittest.TestCase):
                 guide = path.read_text(encoding="utf-8")
                 for heading in (
                     "## Overview",
-                    "## Relevant Proposals",
+                    "## Applicable Proposals",
                     "## What ARRP Does and Does Not Address",
                 ):
                     self.assertIn(heading, guide)
-                relevant = guide.split("## Relevant Proposals", 1)[1].split("\n## ", 1)[0]
-                self.assertRegex(
-                    relevant,
-                    r"(?m)^- \*\*Public concern:\*\* .+\n  - \*\*Applicable proposals:\*\* .+$",
+                self.assertRegex(guide, r"(?m)^# .+ \{\.arrp-topic-guide-title\}$")
+                self.assertNotIn("## Relevant Proposals", guide)
+                self.assertNotIn("## How Concerns Map to Proposals", guide)
+
+                applicable = guide.split("## Applicable Proposals", 1)[1].split("\n## ", 1)[0]
+                self.assertIn(
+                    '<div class="arrp-topic-table arrp-topic-table--map" markdown>',
+                    applicable,
                 )
-                if "## How Concerns Map to Proposals" in guide:
-                    mapped = guide.split("## How Concerns Map to Proposals", 1)[1].split("\n## ", 1)[0]
-                    self.assertRegex(
-                        mapped,
-                        r"(?m)^- \*\*Public concern:\*\* .+\n  - \*\*Applicable proposals:\*\* .+\n  - \*\*How ARRP addresses it:\*\* .+$",
+                self.assertIn(
+                    "| Public concern | Proposal | How ARRP addresses it |",
+                    applicable,
+                )
+                self.assertIn("</div>", applicable)
+                self.assertGreaterEqual(
+                    len([line for line in applicable.splitlines() if line.startswith("|")]),
+                    3,
+                )
+                table_rows = [line for line in applicable.splitlines() if line.startswith("|")]
+                for row in table_rows[2:]:
+                    cells = [cell.strip() for cell in row.strip().strip("|").split("|")]
+                    self.assertEqual(len(cells), 3)
+                    proposal_ids = set(re.findall(r"\b[A-Z]+-\d{3}\b", cells[1]))
+                    self.assertTrue(
+                        len(proposal_ids) == 1 or (cells[1] == "Pending" and not proposal_ids),
+                        msg=f"{path.name} must identify exactly one proposal or Pending per row: {row}",
                     )
-                for heading in (
-                    "## Relevant Proposals",
-                    "## How Concerns Map to Proposals",
-                ):
-                    if heading not in guide:
-                        continue
-                    routing_list = guide.split(heading, 1)[1].split("\n## ", 1)[0]
-                    self.assertNotRegex(
-                        routing_list,
-                        r"\]\(\.\./areas/[^)]+/README\.md\)",
+                self.assertNotRegex(applicable, r"\]\(\.\./areas/[^)]+/README\.md\)")
+
+                if "## Related Ideas Not Included" in guide:
+                    related = guide.split("## Related Ideas Not Included", 1)[1].split("\n## ", 1)[0]
+                    self.assertIn(
+                        '<div class="arrp-topic-table arrp-topic-table--related" markdown>',
+                        related,
                     )
-                self.assertNotRegex(guide, r"(?m)^\|")
+                    self.assertIn(
+                        "| Idea | Record | Why it is not included |",
+                        related,
+                    )
+                    self.assertIn("</div>", related)
+                    self.assertGreaterEqual(
+                        len([line for line in related.splitlines() if line.startswith("|")]),
+                        3,
+                    )
+                self.assertEqual(
+                    guide.count('<div class="arrp-topic-table'),
+                    guide.count("</div>"),
+                )
                 for disallowed in (
                     "Reader concern",
                     "## Topic Overview",

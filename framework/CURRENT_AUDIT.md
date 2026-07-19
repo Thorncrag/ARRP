@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — source-catalog boundary reconciliation completed and validated |
-| Active issue/task | Split cited sources from pending source-adjudication records |
-| Audit type/tier | Project-governance Change Audit; no T-audit or score change |
+| Status | Inactive — five preliminary candidates promoted and validated |
+| Active issue/task | Promote `INTAKE-GAP-008` through `INTAKE-GAP-012` as `HOR-040` through `HOR-044` |
+| Audit type/tier | Horizon preliminary-candidate promotion; no T-audit or score change |
 | Started | 2026-07-18 |
-| Last checkpoint | 2026-07-18; `sources.csv` contains 750 cited records and `sources-pending.csv` contains 442 uncited source-development, monitoring, verification, or placement records. Stable IDs remain globally unique and continuous through `SRC-1192`. The consistency checker owns the citation boundary, and the former stand-alone consistency-audit report remains consolidated into the existing Change Audit Log. |
-| User request | Keep `sources.csv` limited to sources actually cited in ARRP; extract unused but tracked sources into `sources-pending.csv`. |
-| Scope | `inventory/sources.csv`; new `inventory/sources-pending.csv`; source-inventory documentation; source-adjudication and console scripts; tests and consistency checks. |
-| Files touched | `inventory/sources.csv`; `inventory/sources-pending.csv`; source-inventory documentation; source-adjudication, console, and consistency scripts; source-intake tests; Change Audit Log; Horizon Scan Log; and this handoff. |
-| Completed steps | Split cited from uncited retained sources without renumbering IDs; renamed queue references to `source_record_ids`; updated source workflows to resolve both catalogs and register new unplaced sources in the pending catalog; exposed every pending source through an integration, monitoring, or generated verification task in the console's single Sources queue; reconciled all citation-boundary warnings; strengthened source-ID, citation, and pending-source drift checks; and documented the completed governance change in the consolidated Change Audit Log. |
-| Next step | None. Begin the next user-directed project task. |
+| Last checkpoint | 2026-07-18; completed and validated all five promotions and read back the authoritative GitHub Project fields. |
+| User request | Advance all five active preliminary candidates to formal proposed-candidate issues. |
+| Scope | `INTAKE-GAP-008` through `INTAKE-GAP-012`; GitHub issues and Project items; Horizon Scan Log; issue registry; source and directive routes; candidate console; related intake documentation. |
+| Files touched | `framework/logs/HORIZON_SCAN_LOG.md`; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; `research/trump-administration-preliminary-candidates.csv`; `research/trump-administration-evidence-routing.csv`; `research/trump-administration-legal-review-catalog.csv`; `research/trump-administration-legal-review-intake.md`; `research/trump-administration-source-adjudication-report.md`; generated console data; this handoff. |
+| Completed steps | Created GitHub issues `#302`–`#306` for `HOR-040`–`HOR-044`; configured and read back Candidate issue, area, workstream, priority, release-blocker, audit, next-step, and canonical-page fields; added the Horizon log and registry records; removed all five rows from the preliminary queue; rerouted 111 directive records and representative sources to their formal HOR owners; rebuilt the console with zero preliminary candidates and 22 active formal candidates; passed the full 57-test suite and project consistency audit with no errors or warnings. Promotion does not admit area-specific proposals. |
+| Next step | None for this promotion. Begin the formal duplicate, legal, political-failure, and issue-admission review when the user selects a proposed candidate. |
 | Blockers/questions | None. |
-| Validation status | Passed: byte-compilation of affected scripts; `python3 -m unittest discover -s tests -v` (40 tests); `python3 scripts/audit_project_consistency.py` (0 errors and 0 warnings); `python3 scripts/prepare_public_site.py`; strict MkDocs build; `git diff --check`; and source-ID/count readback. |
+| Validation status | Passed — GitHub Project readback correct; 57 tests passed; project consistency audit reported 0 errors and 0 warnings. |
 
 ## Handoff Rules
 
