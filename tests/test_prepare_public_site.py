@@ -111,10 +111,17 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn("git-revision-date-localized:", config)
         self.assertIn("../website/git_revision_dates.py", config)
         self.assertIn("navigation.path", config)
+        self.assertIn("custom_dir: ../website/overrides", config)
         self.assertIn("navigation.tracking", config)
         self.assertIn("toc.follow", config)
         self.assertIn("search.share", config)
         self.assertTrue((self.docs / "legislation" / "index.md").exists())
+        path_template = ROOT / "website" / "overrides" / "partials" / "path.html"
+        path_item_template = ROOT / "website" / "overrides" / "partials" / "path-item.html"
+        self.assertTrue(path_template.exists())
+        self.assertTrue(path_item_template.exists())
+        self.assertIn('aria-current="page"', path_template.read_text(encoding="utf-8"))
+        self.assertIn('title.startswith("A-")', path_item_template.read_text(encoding="utf-8"))
 
     def test_public_page_action_assets_are_staged(self):
         self.assertTrue((self.docs / "assets" / "javascripts" / "site.js").exists())

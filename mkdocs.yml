@@ -11,6 +11,7 @@ use_directory_urls: true
 
 theme:
   name: material
+  custom_dir: ../website/overrides
   language: en
   features:
     - navigation.tabs
