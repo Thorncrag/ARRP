@@ -203,9 +203,13 @@ Where Project 2025-style unitary executive theory is discussed, distinguish foun
 
 Avoid loaded collective labels that imply every Republican, conservative, Trump voter, Democrat, progressive, independent, or other broad political group supports the conduct or institutional weakness being analyzed. Use narrower sourced formulations such as `MAGA-aligned`, `Project 2025-associated`, `President Trump's administration`, `the administration`, `the proposal's sponsors`, or `identified supporters` only when analytically necessary.
 
+Do not characterize an institutional failure as a failure to prevent a political movement from existing or participating in lawful political activity. Identify instead the governmental conduct, officeholders, organizations, or initiatives that exposed or exploited the institutional weakness. Political association alone is not the institutional harm.
+
 ### Coalition Reality
 
 The project should not describe itself as a Democratic Party agenda or allow likely audience interest to substitute for institutional analysis. It may, however, acknowledge that certain proposals are likely to be more immediately interesting to Democratic, independent, civil-libertarian, good-government, institutionalist, or other audiences because of the present political alignment of the abuses being studied. That coalition reality should inform adoption analysis, objection handling, and framing, but it should not change the evidentiary standard, legal analysis, remedy design, or neutrality of application.
+
+ARRP is not designed primarily to persuade readers who categorically reject its factual and institutional premises. Relevant cross-partisan audiences nevertheless include independents, former supporters of President Trump or MAGA-aligned movements, politically cross-pressured Republicans and conservatives, institutional conservatives, libertarians, federalists, and other readers willing to evaluate new evidence or reciprocal institutional arguments. Treat receptiveness as a reader posture rather than an attribute automatically assigned by political identity: do not assume that every current supporter is unreachable, and do not divert substantial project space into relitigating the foundational premise for readers who decline to engage it. Framing should allow a receptive reader outside the project's likely coalition to understand the institutional question without requiring the project to soften supported findings or manufacture political symmetry.
 
 ### Advocacy Tone
 

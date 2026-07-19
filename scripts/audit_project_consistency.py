@@ -12,11 +12,13 @@ remain issue-specific audit work.
 from __future__ import annotations
 
 import csv
+import json
 import re
+import subprocess
 import sys
 from collections import Counter
 from pathlib import Path
-from urllib.parse import unquote
+from urllib.parse import unquote, urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,6 +28,7 @@ REGISTRY_PATH = ROOT / "inventory" / "github_issue_registry.csv"
 SOURCE_PATH = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCE_PATH = ROOT / "inventory" / "sources-pending.csv"
 PRELIMINARY_CANDIDATE_PATH = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
+GITHUB_REPOSITORY = "Thorncrag/ARRP"
 AUTHORITATIVE_SOURCE_RECORDS = (
     (
         ROOT / "research" / "existing-issue-evidence-integration.csv",
@@ -61,9 +64,35 @@ CURRENT_INTAKE_WORKFLOW_FILES = (
     ROOT / "website" / "README.md",
 )
 
-LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
+MARKDOWN_LINK_RE = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
+MARKDOWN_FENCE_RE = re.compile(r"^(?:```|~~~).*?^(?:```|~~~)\s*$", re.MULTILINE | re.DOTALL)
+HTML_LINK_RE = re.compile(r"(?:href|src)\s*=\s*([\"'])(.*?)\1", re.IGNORECASE)
+GITHUB_REPOSITORY_URL_RE = re.compile(
+    r"https://(?:github\.com/Thorncrag/ARRP/(?:blob|tree)|raw\.githubusercontent\.com/Thorncrag/ARRP)/"
+    r"(?P<ref>[^/\s)<>\"',\]}]+)/(?P<path>[^\s)<>\"',\]}]+)"
+)
 FRONT_MATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 ISSUE_ID_RE = re.compile(r"^[A-Z]+-\d{3}$")
+
+ACTIVE_TREE_EXCLUSIONS = {
+    ".git",
+    ".site-build",
+    ".tmp",
+    ".venv",
+    "__pycache__",
+    "archive",
+}
+REPOSITORY_LINK_TEXT_SUFFIXES = {
+    ".csv",
+    ".html",
+    ".js",
+    ".json",
+    ".md",
+    ".toml",
+    ".txt",
+    ".yaml",
+    ".yml",
+}
 
 REQUIRED_ISSUE_HEADINGS = (
     "Institutional Anomaly",
@@ -114,7 +143,22 @@ def local_target(path: Path, raw_target: str) -> Path | None:
     target = unquote(target.split("#", 1)[0])
     if not target:
         return None
-    return (path.parent / target).resolve()
+    if path == ROOT / "website" / "404.md" and target == "index.md":
+        return ROOT / "README.md"
+    link_base = ROOT if path == ROOT / "website" / "404.md" else path.parent
+    return (link_base / target).resolve()
+
+
+def active_project_files(*suffixes: str) -> list[Path]:
+    """Return files in the active project tree, excluding generated and historical copies."""
+    allowed = set(suffixes)
+    return sorted(
+        path
+        for path in ROOT.rglob("*")
+        if path.is_file()
+        and path.suffix.lower() in allowed
+        and not ACTIVE_TREE_EXCLUSIONS.intersection(path.relative_to(ROOT).parts)
+    )
 
 
 def issue_pages() -> list[Path]:
@@ -302,11 +346,7 @@ def reader_pages() -> list[Path]:
 
 
 def framework_pages() -> list[Path]:
-    """Return technical framework pages for link-integrity checking only.
-
-    Framework documents may appropriately use internal audit terminology, so
-    they are intentionally excluded from the reader-language review.
-    """
+    """Return technical framework pages used by source-citation checks."""
     return sorted(
         path
         for path in (ROOT / "framework").rglob("*.md")
@@ -315,13 +355,118 @@ def framework_pages() -> list[Path]:
 
 
 def check_markdown_links(failures: list[str], warnings: list[str]) -> None:
-    for path in [*reader_pages(), *framework_pages()]:
-        if not path.exists():
-            continue
-        for raw_target in LINK_RE.findall(read(path)):
+    """Validate relative links and images in every active project Markdown file."""
+    for path in active_project_files(".md"):
+        body = MARKDOWN_FENCE_RE.sub("", read(path))
+        for raw_target in MARKDOWN_LINK_RE.findall(body):
             target = local_target(path, raw_target)
             if target and not target.exists():
                 report("ERROR", f"broken local link in {path.relative_to(ROOT)}: {raw_target}", failures, warnings)
+
+
+def check_html_links(failures: list[str], warnings: list[str]) -> None:
+    """Validate static relative href and src targets in active project HTML."""
+    for path in active_project_files(".html"):
+        for _, raw_target in HTML_LINK_RE.findall(read(path)):
+            if "{{" in raw_target or "{%" in raw_target:
+                continue
+            target = local_target(path, raw_target)
+            if target and not target.exists():
+                report("ERROR", f"broken local link in {path.relative_to(ROOT)}: {raw_target}", failures, warnings)
+
+
+def github_repository_targets(body: str) -> list[tuple[str, str, Path]]:
+    """Return main-branch ARRP repository targets embedded in an issue body."""
+    targets: list[tuple[str, str, Path]] = []
+    for match in GITHUB_REPOSITORY_URL_RE.finditer(body):
+        ref = unquote(match.group("ref"))
+        if ref != "main":
+            continue
+        raw_url = match.group(0)
+        target_text = unquote(urlsplit(raw_url).path)
+        if target_text.startswith("/Thorncrag/ARRP/"):
+            target_text = re.sub(
+                r"^/Thorncrag/ARRP/(?:blob|tree)/main/",
+                "",
+                target_text,
+            )
+        elif target_text.startswith("/Thorncrag/ARRP/main/"):
+            target_text = target_text.removeprefix("/Thorncrag/ARRP/main/")
+        else:
+            continue
+        targets.append((raw_url, target_text, (ROOT / target_text).resolve()))
+    return targets
+
+
+def check_embedded_repository_links(failures: list[str], warnings: list[str]) -> None:
+    """Validate main-branch ARRP repository URLs stored anywhere in the active tree."""
+    for path in active_project_files(*REPOSITORY_LINK_TEXT_SUFFIXES):
+        for raw_url, target_text, target in github_repository_targets(read(path)):
+            if not target.exists():
+                report(
+                    "ERROR",
+                    f"broken repository link in {path.relative_to(ROOT)}: {raw_url} (missing {target_text})",
+                    failures,
+                    warnings,
+                )
+
+
+def check_github_issue_links(failures: list[str], warnings: list[str]) -> None:
+    """Validate main-branch repository links embedded in all GitHub issue bodies."""
+    command = [
+        "gh",
+        "issue",
+        "list",
+        "--repo",
+        GITHUB_REPOSITORY,
+        "--state",
+        "all",
+        "--limit",
+        "1000",
+        "--json",
+        "number,title,body,url",
+    ]
+    try:
+        completed = subprocess.run(command, capture_output=True, text=True, check=False)
+    except FileNotFoundError:
+        report(
+            "WARNING",
+            "GitHub issue-body link check skipped because the gh CLI is unavailable",
+            failures,
+            warnings,
+        )
+        return
+    if completed.returncode:
+        detail = completed.stderr.strip().splitlines()
+        suffix = f": {detail[-1]}" if detail else ""
+        report(
+            "WARNING",
+            "GitHub issue-body link check could not query the repository; rerun the consistency audit "
+            f"in the authenticated host context{suffix}",
+            failures,
+            warnings,
+        )
+        return
+    try:
+        issues = json.loads(completed.stdout)
+    except json.JSONDecodeError as error:
+        report(
+            "ERROR",
+            f"GitHub issue-body link check received invalid JSON: {error}",
+            failures,
+            warnings,
+        )
+        return
+    for issue in issues:
+        for raw_url, target_text, target in github_repository_targets(issue.get("body") or ""):
+            if not target.exists():
+                report(
+                    "ERROR",
+                    f"broken repository link in GitHub issue #{issue.get('number')}: {raw_url} "
+                    f"(missing {target_text})",
+                    failures,
+                    warnings,
+                )
 
 
 def source_citation_corpus() -> str:
@@ -702,6 +847,9 @@ def main() -> int:
     check_issue_layout(issue_map, failures, warnings)
     check_topic_pages(failures, warnings)
     check_markdown_links(failures, warnings)
+    check_html_links(failures, warnings)
+    check_embedded_repository_links(failures, warnings)
+    check_github_issue_links(failures, warnings)
     check_registry_and_sources(issue_map, failures, warnings)
     check_reader_language(failures, warnings)
     check_tool_interface_theme(failures, warnings)

@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this form for a new concern that may belong in the Horizon Scan. If accepted for formal review, maintainers will assign a static HOR-### identifier, track active status in GitHub, and preserve final disposition in framework/HORIZON_SCAN_LOG.md.
+        Use this form for a new concern that may belong in the Horizon Scan. If accepted for formal review, maintainers will assign a static HOR-### identifier, track active status in GitHub, and preserve final disposition in framework/logs/HORIZON_SCAN_LOG.md.
   - type: textarea
     id: concern
     attributes:

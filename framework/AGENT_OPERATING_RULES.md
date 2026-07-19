@@ -142,7 +142,7 @@ If an agent adds or materially changes a source, manifestation, institutional fr
 
 In batch mode, agents may autonomously fix defects that are mechanical, framework-governed, or directly supported by existing project records, including:
 
-1. broken internal links;
+1. broken internal links, including stale repository paths embedded in GitHub issue bodies;
 2. missing audit metadata;
 3. GitHub Project field and retained source-inventory inconsistencies;
 4. missing or stale source-inventory capture;
