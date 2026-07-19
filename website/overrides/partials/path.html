@@ -1,0 +1,36 @@
+{% import "partials/path-item.html" as item with context %}
+{% if page.meta and page.meta.hide %}
+  {% set hidden = "hidden" if "path" in page.meta.hide %}
+{% endif %}
+{% set depth = page.ancestors | length %}
+{% if nav.homepage %}
+  {% set depth = depth + 1 %}
+{% endif %}
+{% if depth > 1 %}
+  <nav class="md-path" aria-label="{{ lang.t('nav') }}" {{ hidden }}>
+    <ol class="md-path__list">
+      {% set segments = page.url.rstrip("/").split("/") %}
+      {% if nav.homepage %}
+        {{ item.render(nav.homepage) }}
+      {% endif %}
+      {% for nav_item in page.ancestors | reverse %}
+        {% set current_area_index = segments | length == 2 and segments[0] == "areas" and nav_item.title.startswith("A-") %}
+        {% set legislation_group = segments | length > 1 and segments[0] == "legislation" and nav_item.title == segments[-1].split("-", 1)[0] %}
+        {% if not current_area_index and not legislation_group %}
+          {{ item.render(nav_item) }}
+        {% endif %}
+      {% endfor %}
+      <li class="md-path__item" aria-current="page">
+        <span class="md-path__link">
+          <span class="md-ellipsis">
+            {% if "issues" in segments or (segments | length > 1 and segments[0] == "legislation") or (segments | length == 2 and segments[0] == "areas") %}
+              {{ segments[-1] }}
+            {% else %}
+              {{ page.title }}
+            {% endif %}
+          </span>
+        </span>
+      </li>
+    </ol>
+  </nav>
+{% endif %}

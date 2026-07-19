@@ -9,7 +9,14 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
-from apply_source_adjudication import UNRESOLVED_DISPOSITIONS, validate_integration_targets
+from apply_source_adjudication import (
+    UNRESOLVED_DISPOSITIONS,
+    apply_pending_source_decisions,
+    historical_candidate_ids,
+    upsert_preliminary_candidate,
+    validate_integration_targets,
+    validate_monitoring_owner,
+)
 from complete_source_catalog_adjudication import (
     Episode,
     placement_routes,
@@ -71,12 +78,57 @@ class SourceAdjudicationTest(unittest.TestCase):
     def test_unresolved_dispositions_remain_in_temporary_queue(self) -> None:
         self.assertEqual(
             UNRESOLVED_DISPOSITIONS,
-            {
-                "preliminary-horizon-candidate",
-                "insufficiently-verified",
-                "unresolved-legal-question",
-            },
+            {"preliminary-horizon-candidate"},
         )
+
+    def test_preliminary_disposition_creates_and_clusters_candidate(self) -> None:
+        decision = {
+            "candidate": {
+                "title": "Agency records withheld from state investigators",
+                "term": "2",
+                "proposed_area": "DOM",
+                "institutional_defect": "Federal evidence control may prevent a competent state investigation.",
+                "distinctness_rationale": "No existing issue owns the initial access question.",
+                "existing_coverage_considered": "Compared with DOM-005 and DOJ-001.",
+                "counterargument": "Ordinary discovery and immunity litigation may be adequate.",
+                "unresolved_questions": "Whether existing statutes already compel timely disclosure.",
+                "recommendation": "Defer pending statutory review.",
+                "last_reviewed": "2026-07-18",
+            }
+        }
+        rows: list[dict[str, str]] = []
+        candidate_id, row = upsert_preliminary_candidate(rows, decision)
+        self.assertEqual(candidate_id, "INTAKE-GAP-001")
+        self.assertEqual(row["review_status"], "preliminary-candidate")
+
+        second_id, second_row = upsert_preliminary_candidate(rows, decision)
+        self.assertEqual(second_id, candidate_id)
+        self.assertIs(second_row, row)
+        self.assertEqual(len(rows), 1)
+
+    def test_resolved_preliminary_identifiers_are_not_reused(self) -> None:
+        decision = {
+            "candidate": {
+                "title": "New institutional review question",
+                "term": "2",
+                "proposed_area": "CONG",
+                "institutional_defect": "A distinct safeguard may be missing.",
+                "distinctness_rationale": "No current proposal owns the question.",
+                "existing_coverage_considered": "Compared with current proposal routes.",
+                "counterargument": "Existing political checks may be adequate.",
+                "unresolved_questions": "Whether durable harm occurs before ordinary correction.",
+                "recommendation": "Review as a preliminary candidate.",
+                "last_reviewed": "2026-07-18",
+            }
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            log = root / "framework" / "logs" / "HORIZON_SCAN_LOG.md"
+            log.parent.mkdir(parents=True)
+            log.write_text("Promoted from INTAKE-GAP-007.\n", encoding="utf-8")
+            reserved = historical_candidate_ids(root)
+        candidate_id, _ = upsert_preliminary_candidate([], decision, reserved)
+        self.assertEqual(candidate_id, "INTAKE-GAP-008")
 
     def test_source_writer_preserves_unchanged_record_text(self) -> None:
         original_text = (
@@ -101,6 +153,74 @@ class SourceAdjudicationTest(unittest.TestCase):
 
         self.assertIn('SRC-0001,REG-001,"deliberately quoted"\n', result)
         self.assertIn('SRC-0002,REG-002; HOR-036,"line one\nline two"\n', result)
+
+    def test_pending_source_batch_graduates_or_removes_every_record(self) -> None:
+        fields = {
+            "Source Type": "Official Government Record",
+            "Authority / Publisher": "Agency",
+            "Title or Description": "Record",
+            "Date": "2026-07-18",
+            "Proposition Supported": "Supports a routed research question.",
+            "Reliability Tier": "Primary",
+            "Reviewed?": "Yes",
+            "Notes": "Pending review.",
+        }
+        pending = [
+            {
+                "Source ID": "SRC-0001",
+                "Associated Record IDs": "REG-001",
+                "URL": "https://example.com/one",
+                **fields,
+            },
+            {
+                "Source ID": "SRC-0002",
+                "Associated Record IDs": "ELEC-004",
+                "URL": "https://example.com/two",
+                **fields,
+            },
+        ]
+        cited, remaining, result = apply_pending_source_decisions(
+            [
+                {
+                    "source_id": "SRC-0001",
+                    "action": "move-to-cited",
+                    "owner": "REG-001; HOR-036",
+                    "integration_target": "research/trump-administration-preliminary-candidates.csv",
+                    "rationale": "The routed research record uses this source.",
+                },
+                {
+                    "source_id": "SRC-0002",
+                    "action": "remove",
+                    "owner": "",
+                    "integration_target": "",
+                    "rationale": "An official source supersedes this secondary record.",
+                },
+            ],
+            [],
+            pending,
+            True,
+        )
+        self.assertEqual([row["Source ID"] for row in cited], ["SRC-0001"])
+        self.assertEqual(cited[0]["Associated Record IDs"], "REG-001; HOR-036")
+        self.assertEqual(remaining, [])
+        self.assertEqual(result, {"decided": 2, "moved": 1, "removed": 1})
+
+    def test_pending_source_complete_batch_rejects_missing_decision(self) -> None:
+        pending = [{
+            "Source ID": "SRC-0001",
+            "Associated Record IDs": "REG-001",
+            "Source Type": "Official Government Record",
+            "Authority / Publisher": "Agency",
+            "Title or Description": "Record",
+            "Date": "2026-07-18",
+            "URL": "https://example.com/one",
+            "Proposition Supported": "Supports a routed research question.",
+            "Reliability Tier": "Primary",
+            "Reviewed?": "Yes",
+            "Notes": "Pending review.",
+        }]
+        with self.assertRaisesRegex(SystemExit, "incomplete"):
+            apply_pending_source_decisions([], [], pending, True)
 
     def test_retained_evidence_requires_reader_or_queue_target(self) -> None:
         with self.assertRaisesRegex(SystemExit, "association alone"):
@@ -131,6 +251,35 @@ class SourceAdjudicationTest(unittest.TestCase):
                 "integration_targets": [target],
             },
             {"TAC-TEST-001"},
+        )
+
+    def test_monitoring_disposition_requires_defined_github_owner_and_predicate(self) -> None:
+        decision = {
+            "disposition": "monitoring-item",
+            "catalog_ids": ["TAC-TEST-001"],
+            "primary_route": "REG-001",
+        }
+        target = "research/trump-administration-litigation-monitoring.csv"
+        row = {
+            "catalog_ids": "TAC-TEST-001",
+            "integration_routes": "REG-001",
+            "monitoring_status": "active-defined-predicate",
+            "revisit_trigger": "Final merits ruling or another material posture change.",
+        }
+        with self.assertRaisesRegex(SystemExit, "established ISSUE-ID-MON"):
+            validate_monitoring_owner(decision, [target], [row], set())
+        with self.assertRaisesRegex(SystemExit, "defined revisit predicate"):
+            validate_monitoring_owner(
+                decision,
+                [target],
+                [{**row, "revisit_trigger": ""}],
+                {"REG-001-MON"},
+            )
+        validate_monitoring_owner(
+            decision,
+            [target],
+            [row],
+            {"REG-001-MON"},
         )
 
     def test_no_additional_value_corroboration_requires_explicit_qualitative_finding(self) -> None:

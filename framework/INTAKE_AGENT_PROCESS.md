@@ -1,14 +1,14 @@
 ---
-title: "Public-Intake Agent Process"
+title: "Public-Intake Review Process"
 print_levels:
   - full-technical
 ---
 
-# Public-Intake Agent Process
+# Public-Intake Review Process
 
 ## Purpose and present boundary
 
-This process governs machine-assisted triage of a public ARRP intake comment created through the participation form. Its purpose is to reduce one-person administrative burden while preserving the project's institutional-focus, evidence, neutrality, methodology, audit, lifecycle, source, and publication rules.
+This process governs Codex-assisted review of a public ARRP intake comment created through the participation form and establishes the boundary for any later automation. Its purpose is to reduce one-person administrative burden while preserving the project's institutional-focus, evidence, neutrality, methodology, audit, lifecycle, source, and publication rules.
 
 **Current operation — manual Codex review.** A maintainer may ask Codex to review one specifically selected public intake record and produce a structured routing recommendation. No GitHub Action or other automated external-model service is currently enabled for intake review. A review may not change repository files, GitHub Discussions, GitHub Issues, GitHub Project fields, source records, candidate records, audit records, or email. It may not treat a recommendation as a project decision. Enabling higher authority or a separately billed automated model requires an explicit revision to this process, a tested action-specific validator, and a recorded approval.
 
@@ -45,11 +45,11 @@ The agent must apply the project admission test: distinguish an institutional we
 
 | Finding | Ordinary next record | Human decision required? |
 | --- | --- | --- |
-| Relevant verified material for a current issue | Sources queue; later integrate under the source and evidence rules. | No for routable intake; yes for substantive issue revision. |
-| Event or litigation that needs a defined later development | Monitoring queue. | No for a clear monitoring entry. |
+| Relevant verified material for a current issue | Owning issue, linked evidence record when warranted, and the appropriate relied-upon or pending source inventory. | Yes during the current report-only phase; later authority must follow the source and evidence rules. |
+| Event or litigation that needs a defined later development | An `ISSUE-ID-MON` GitHub monitoring record attached to the owning issue or formal candidate, with the substantive record retained at its primary analytic home. | Yes during the current report-only phase; later authority requires an approved monitoring validator. |
 | A distinct institutional weakness not already covered | Preliminary Candidates queue for human review. | Yes before it becomes a proposed candidate or receives a `HOR-###` record. |
 | A demonstrable factual, link, citation, formatting, or published-rule variance | Correction recommendation. | Yes during the current manual-review phase; later only if the action is mechanical, verified, and within an approved authority band. |
-| No supported ARRP-relevant action | Record a concise disposition only if an intake action was actually taken. | No. |
+| No supported ARRP-relevant action | No repository action; the structured assessment supplies the review result. | No additional project decision unless later evidence warrants reconsideration. |
 
 `Preliminary Candidates` is the public-facing name for the early human-review queue. `Proposed Candidates` is the public-facing name for the active Horizon stage. Formal promotion, deferral, rejection, merge, retirement, issue creation, issue admission, theory selection, remedy selection, legislation, lifecycle status, scoring, audit disposition, and Project-field changes always require the ordinary human-controlled process unless a later explicit rule says otherwise.
 
@@ -57,8 +57,8 @@ The agent must apply the project admission test: distinguish an institutional we
 
 After the manual review process succeeds, the project may authorize only these bounded actions when their facts and destination are unambiguous:
 
-- create or update a source-queue entry that points to a verified external source and an existing issue;
-- create or update a monitoring entry with a defined event predicate;
+- route a verified external source to an existing issue, its evidence record when qualitatively warranted, and the appropriate relied-upon or pending source inventory;
+- create or update an issue-linked GitHub monitoring record with a defined event predicate and primary analytic home;
 - create a preliminary-candidate entry for a genuinely distinct institutional question;
 - make a verifiable non-substantive correction; or
 - correct a clear variance from published project methodology.
@@ -86,7 +86,7 @@ When any non-review action is later authorized, create exactly one append-only r
 }
 ```
 
-The short `IA-…` code is the required rollback reference. A rollback must be a new ledger entry that identifies the original code, explains the correction, reverses only the authorized change, validates the result, and never deletes the original provenance record. The intake console will display these entries after its current redesign is committed; it will not be treated as the authority over the ledger, GitHub Project, or canonical repository records.
+The short `IA-…` code is the required rollback reference. A rollback must be a new ledger entry that identifies the original code, explains the correction, reverses only the authorized change, validates the result, and never deletes the original provenance record. The ledger remains a separate internal provenance record. The Candidate Issue Intake console displays only preliminary and proposed candidates and does not display, own, or mutate ledger entries.
 
 ## Security, privacy, and operating controls
 
@@ -100,6 +100,6 @@ The short `IA-…` code is the required rollback reference. A rollback must be a
 
 ## Promotion criteria for the next phase
 
-Any future automated or expanded review mechanism may be adopted only after it has been tested on representative submissions and shows that it: (1) routes clear source, monitoring, and preliminary-candidate examples correctly; (2) defers ambiguity; (3) does not create or expose sensitive content; (4) produces a concise assessment that a human can verify; (5) survives malformed and instruction-injection input; and (6) has an action-specific validator and rollback path for each newly authorized action.
+Any future automated or expanded review mechanism may be adopted only after it has been tested on representative submissions and shows that it: (1) routes clear existing-issue evidence, issue-linked monitoring, and preliminary-candidate examples correctly; (2) defers ambiguity; (3) does not create or expose sensitive content; (4) produces a concise assessment that a human can verify; (5) survives malformed and instruction-injection input; and (6) has an action-specific validator and rollback path for each newly authorized action.
 
 Until then, the project maintainer uses the report as an aid and performs the corresponding ARRP workflow from Codex.

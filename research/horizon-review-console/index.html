@@ -4,297 +4,81 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <title>ARRP Candidate Issues and Source Intake</title>
-    <meta
-      name="description"
-      content="ARRP dashboard for proposed candidates, preliminary candidates, source intake, monitoring, and intake history."
-    >
+    <title>ARRP Candidate Issue Intake</title>
+    <meta name="description" content="ARRP review console for preliminary and formal proposed candidate issues.">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
-    <a class="skip-link" href="#horizon-view">Skip to proposed candidates</a>
+  <body data-interface-theme="arrp-tool">
+    <a class="skip-link" href="#preliminary-candidates">Skip to preliminary candidates</a>
 
     <header class="app-header">
       <div class="brand-block">
         <span class="brand-mark" aria-hidden="true">ARRP</span>
         <div>
-          <h1>Candidate Issues and Source Intake</h1>
-          <p>Proposed candidates, preliminary candidates, source work, monitoring, and intake history.</p>
+          <h1>Candidate Issue Intake</h1>
+          <p>Potential institutional defects requiring human review before formal project treatment.</p>
         </div>
       </div>
+      <a class="header-link" href="../../participate/index.html">Submit public input ↗</a>
     </header>
 
     <main class="app-shell">
-      <nav class="view-switch" aria-label="Dashboard views">
-        <button class="view-button active" id="show-horizon" type="button" aria-pressed="true">
-          Proposed candidates <span id="horizon-nav-count">0</span>
-        </button>
-        <button class="view-button" id="show-review" type="button" aria-pressed="false">
-          Preliminary candidates <span id="review-nav-count">0</span>
-        </button>
-        <button class="view-button" id="show-sources" type="button" aria-pressed="false">
-          Sources <span id="sources-nav-count">0</span>
-        </button>
-        <button class="view-button" id="show-monitoring" type="button" aria-pressed="false">
-          Monitor <span id="monitoring-nav-count">0</span>
-        </button>
-        <button class="view-button" id="show-history" type="button" aria-pressed="false">History</button>
-        <a class="view-button prototype-link" href="../../participate/index.html">Public input prototype ↗</a>
-      </nav>
-
-      <section class="queue-view" id="horizon-view" aria-labelledby="horizon-heading">
-        <div class="queue-view-header">
-          <div>
-            <span class="eyebrow">Formal candidate-issue queue</span>
-            <h2 id="horizon-heading">Active proposed candidates</h2>
-            <p>Each proposed candidate has a formal <code>HOR-###</code> record and an open GitHub issue. Lifecycle status and workflow fields come from the ARRP GitHub Project; the repository remains authoritative for substantive analysis.</p>
-          </div>
-          <p class="refresh-note">GitHub synchronized <time id="github-synced-at"></time></p>
+      <section class="workflow-summary" aria-labelledby="workflow-heading">
+        <div>
+          <span class="eyebrow">One candidate-centered workflow</span>
+          <h2 id="workflow-heading">Sources support decisions; they are not a separate review queue.</h2>
         </div>
-        <div class="queue-guide" aria-label="Proposed candidate responsibility">
-          <div><span>Purpose</span><b>Track formal proposed candidates awaiting admission, merger, monitoring, or retirement</b></div>
-          <div><span>Workflow authority</span><b>GitHub Issues and Project status</b></div>
-          <div><span>Related work</span><b>Source and monitoring tasks are linked by the internal Horizon ID</b></div>
-          <div><span>Your attention</span><b>Use Codex when a formal disposition is ready for review</b></div>
-        </div>
-        <div class="queue-controls three-controls">
-          <label for="horizon-search">Search proposed candidates<input id="horizon-search" type="search" placeholder="Issue, area, status, or next step…"></label>
-          <label for="horizon-status-filter">Project status<select id="horizon-status-filter"><option value="all">All statuses</option></select></label>
-          <label for="horizon-area-filter">Area<select id="horizon-area-filter"><option value="all">All areas</option></select></label>
-        </div>
-        <p class="result-count"><b id="horizon-visible-count">0</b> of <span id="horizon-total-count">0</span> active proposed candidates shown</p>
-        <div class="record-list" id="horizon-record-list"></div>
+        <ol>
+          <li><b>Discover</b><span>Normalize and cluster reports, primary records, and litigation.</span></li>
+          <li><b>Route</b><span>Send evidence to an existing issue, its GitHub monitor, or one preliminary candidate.</span></li>
+          <li><b>Review</b><span>Use Codex to promote, merge, defer, or reject a synthesized candidate.</span></li>
+        </ol>
       </section>
 
-      <section id="history-view" hidden aria-labelledby="dashboard-heading">
-        <div class="dashboard-intro">
-          <div>
-            <span class="eyebrow">Historical record</span>
-            <h2 id="dashboard-heading">Intake history and reconciliation log</h2>
-            <p>This section preserves the completed source-review baseline, disposition totals, and closed proposed-candidate records. Current work is organized in the operational tabs.</p>
-          </div>
-          <p class="refresh-note">Data refreshed <time id="generated-at"></time></p>
-        </div>
-
-        <div class="summary-grid" aria-label="Current intake summary">
-          <article class="summary-card complete">
-            <span>Source baseline reviewed</span>
-            <strong><span id="adjudicated-records">0</span> of <span id="adjudication-total">0</span></strong>
-            <small id="catalog-review-status">56 priority + 1,266 main-batch records</small>
-          </article>
-          <article class="summary-card complete">
-            <span>Main batch adjudicated</span>
-            <strong id="history-main-batch-count">0</strong>
-            <small>records assigned a documented disposition</small>
-          </article>
-          <article class="summary-card complete">
-            <span>Source records added</span>
-            <strong id="source-records-added">0</strong>
-            <small>retained external sources registered after review</small>
-          </article>
-          <article class="summary-card complete">
-            <span>Closed proposed-candidate records</span>
-            <strong id="closed-horizon-count">0</strong>
-            <small>durable GitHub issues retained below</small>
-          </article>
-        </div>
-
-        <section class="dashboard-section" aria-labelledby="disposition-heading">
-          <div class="section-heading">
-            <div>
-              <span class="eyebrow">Completed review</span>
-              <h2 id="disposition-heading">Disposition of the 1,266-record main batch</h2>
-            </div>
-            <span class="section-total">after a separate 56-record priority review</span>
-          </div>
-          <div class="disposition-chart" id="disposition-chart" role="img" aria-label="Disposition of reviewed source records"></div>
-          <div class="chart-legend" id="disposition-legend"></div>
-        </section>
-
-        <div class="dashboard-columns">
-          <section class="dashboard-section" aria-labelledby="workflow-heading">
-            <div class="section-heading">
-              <div>
-                <span class="eyebrow">Recorded process</span>
-                <h2 id="workflow-heading">How the completed intake became current queues</h2>
-              </div>
-            </div>
-            <ol class="workflow-list">
-              <li class="workflow-step done">
-                <span class="step-marker">1</span>
-                <div><strong>Discovery baseline assembled</strong><span>The priority and main batches established the initial source universe.</span></div>
-              </li>
-              <li class="workflow-step done">
-                <span class="step-marker">2</span>
-                <div><strong>Records normalized and adjudicated</strong><span>Duplicates, political-only matters, existing-issue evidence, monitoring items, and distinct candidate questions received separate dispositions.</span></div>
-              </li>
-              <li class="workflow-step done">
-                <span class="step-marker">3</span>
-                <div><strong>Unfinished work transferred</strong><span>Source work, external-predicate monitoring, preliminary candidates, and formal proposed candidates now appear only in their current operational tabs.</span></div>
-              </li>
-            </ol>
-          </section>
-
-          <section class="dashboard-section" aria-labelledby="routes-heading">
-            <div class="section-heading">
-              <div>
-                <span class="eyebrow">Historical routing</span>
-                <h2 id="routes-heading">Largest destinations from the completed source review</h2>
-              </div>
-            </div>
-            <div class="route-chart" id="route-chart" aria-label="Largest evidence integration destinations"></div>
-          </section>
-        </div>
-
-        <section class="dashboard-section" aria-labelledby="closed-horizon-heading">
-          <div class="section-heading">
-            <div>
-              <span class="eyebrow">Durable disposition record</span>
-              <h2 id="closed-horizon-heading">Closed proposed-candidate records</h2>
-            </div>
-            <span class="section-total">closed GitHub issues remain available and are never deleted merely because adjudication ended</span>
-          </div>
-          <div class="record-list" id="closed-horizon-list"></div>
-        </section>
-
-      </section>
-
-      <section class="queue-view" id="sources-view" hidden aria-labelledby="sources-queue-heading">
+      <section class="queue-view attention-queue" id="preliminary-candidates" aria-labelledby="preliminary-heading">
         <div class="queue-view-header">
           <div>
-            <span class="eyebrow">All unresolved source work</span>
-            <h2 id="sources-queue-heading">Source queue</h2>
-            <p>One queue contains every source-related task regardless of whether it began as an evidence record, media-supported episode, or planned source ingestion.</p>
+            <span class="eyebrow">Human review queue</span>
+            <h2 id="preliminary-heading">Preliminary candidates <span class="count-pill" id="preliminary-count">0</span></h2>
+            <p>Distinct possible institutional weaknesses with no formal <code>HOR-###</code> record. Supporting sources are grouped inside each candidate so you review the issue, not a stack of articles.</p>
           </div>
+          <p class="attention-note" id="attention-note">No preliminary candidates currently require review.</p>
         </div>
-        <div class="queue-guide" aria-label="Source queue responsibility">
-          <div><span>Purpose</span><b>Resolve every outstanding source task through one workflow</b></div>
-          <div><span>Owner</span><b>Codex</b></div>
-          <div><span>Next action</span><b>Verify, route, ingest, or place each item according to its stated work stage</b></div>
-          <div class="no-attention"><span>Your attention</span><b>None currently required</b></div>
-        </div>
-        <p class="why-pending"><b>How this queue closes:</b> evidence-placement items are resolved through issue development or audit; media episodes are verified and routed; planned source scans are ingested and screened. Resolved work leaves this queue. Matters waiting on an external event move to Monitoring, and genuinely distinct unowned issues move first to Preliminary Candidates and then, after formal review in Codex, to Proposed Candidates.</p>
-        <div class="queue-controls sources-controls">
-          <label for="sources-search">Search sources<input id="sources-search" type="search" placeholder="Action, issue, source, episode, or legal question…"></label>
-          <label for="sources-type-filter">Work type<select id="sources-type-filter"><option value="all">All source work</option></select></label>
-          <label for="sources-route-filter">Receiving proposal<select id="sources-route-filter"><option value="all">All proposals</option></select></label>
-        </div>
-        <p class="result-count"><b id="sources-visible-count">0</b> of <span id="sources-total-count">0</span> source tasks shown</p>
-        <div class="record-list" id="sources-record-list"></div>
-      </section>
 
-      <section class="queue-view" id="monitoring-view" hidden aria-labelledby="monitoring-heading">
-        <div class="queue-view-header">
-          <div>
-            <span class="eyebrow">No action until the predicate occurs</span>
-            <h2 id="monitoring-heading">Defined-predicate litigation monitor</h2>
-            <p>Open or unresolved episodes preserved for later review. Each record states the event that must occur before the project revisits it.</p>
-          </div>
-        </div>
-        <div class="queue-guide" aria-label="Monitoring queue responsibility">
-          <div><span>Purpose</span><b>Preserve unresolved matters without overstating their legal posture</b></div>
-          <div><span>Owner</span><b>Codex after the trigger</b></div>
-          <div><span>Next action</span><b>None until the specified external event occurs</b></div>
-          <div class="no-attention"><span>Your attention</span><b>None currently required</b></div>
-        </div>
         <div class="queue-controls">
-          <label for="monitoring-search">Search episodes<input id="monitoring-search" type="search" placeholder="Action, route, posture, or trigger…"></label>
-          <label for="monitoring-route-filter">Potential receiving proposal<select id="monitoring-route-filter"><option value="all">All proposals</option></select></label>
+          <label for="preliminary-search">Search<input id="preliminary-search" type="search" placeholder="Candidate, defect, source, or area…"></label>
+          <label for="preliminary-term">Term<select id="preliminary-term"><option value="all">All terms</option><option value="1">First term</option><option value="2">Second term</option><option value="both">Both terms</option></select></label>
+          <label for="preliminary-area">Possible area<select id="preliminary-area"><option value="all">All areas</option></select></label>
         </div>
-        <p class="result-count"><b id="monitoring-visible-count">0</b> of <span id="monitoring-total-count">0</span> episodes shown</p>
-        <div class="record-list" id="monitoring-record-list"></div>
+        <p class="result-count"><b id="preliminary-visible">0</b> candidates shown</p>
+        <div class="record-list" id="preliminary-list"></div>
+        <div class="empty-state" id="preliminary-empty" hidden>
+          <span aria-hidden="true">✓</span>
+          <h3>No preliminary candidates</h3>
+          <p>New, unowned institutional defects will appear here automatically after source screening and clustering.</p>
+        </div>
       </section>
 
-      <section id="review-view" hidden>
+      <section class="queue-view" id="proposed-candidates" aria-labelledby="proposed-heading">
         <div class="queue-view-header">
           <div>
-            <span class="eyebrow">Read-only preliminary queue</span>
-            <h2>Preliminary candidates</h2>
-            <p>These are synthesized questions that do not yet have a formal <code>HOR-###</code> record or GitHub issue. The dashboard presents them for review; any formal disposition is conducted in Codex under the project methodology.</p>
+            <span class="eyebrow">GitHub-authoritative queue</span>
+            <h2 id="proposed-heading">Proposed candidates <span class="count-pill" id="proposed-count">0</span></h2>
+            <p>Formal open <code>HOR-###</code> records. GitHub Issues and the ARRP Project remain authoritative for status, monitoring, and disposition.</p>
           </div>
-        </div>
-        <div class="queue-guide candidate-guide" aria-label="Preliminary candidate responsibility">
-          <div><span>Purpose</span><b>Present distinct unresolved questions before a formal proposed-candidate record exists</b></div>
-          <div><span>Owner</span><b>ARRP review conducted in Codex</b></div>
-          <div><span>Next action</span><b>Inspect the record here, then conduct any disposition through Codex</b></div>
-          <div class="no-attention"><span>Your attention</span><b id="candidate-attention-status">None—this queue is empty</b></div>
+          <p class="refresh-note">GitHub synchronized <time id="github-synced-at">—</time></p>
         </div>
 
-        <section class="queue-tabs" aria-label="Preliminary candidate status">
-          <span><b id="candidate-tab-count">0</b> preliminary candidates available for review</span>
-        </section>
-
-        <section class="workspace">
-          <aside class="filters" aria-label="Filter preliminary candidates">
-            <div class="filter-heading">
-              <h2>Candidate list</h2>
-              <button type="button" class="text-button" id="clear-filters">Clear filters</button>
-            </div>
-
-            <label class="search-label" for="search-input">
-              <span>Search</span>
-              <input id="search-input" type="search" placeholder="Title, defect, issue, area…">
-            </label>
-
-            <label for="term-filter">Term</label>
-            <select id="term-filter">
-              <option value="all">Both terms</option>
-              <option value="1">First term</option>
-              <option value="2">Second term</option>
-              <option value="both">Spans both</option>
-            </select>
-
-            <label for="area-filter">Possible project area</label>
-            <select id="area-filter">
-              <option value="all">All areas</option>
-            </select>
-
-            <div class="keyboard-card">
-              <strong>Keyboard</strong>
-              <span><kbd>J</kbd>/<kbd>K</kbd> Next/previous</span>
-              <span><kbd>O</kbd> Open first source</span>
-            </div>
-          </aside>
-
-          <section class="review-stage" aria-live="polite">
-            <div class="stage-navigation">
-              <span id="record-position">Record 0 of 0</span>
-              <div>
-                <button class="icon-button" id="previous-button" type="button" aria-label="Previous record">←</button>
-                <button class="icon-button" id="next-button" type="button" aria-label="Next record">→</button>
-              </div>
-            </div>
-
-            <article class="review-card" id="review-card" tabindex="-1">
-              <div id="record-content">
-                <div class="record-badges" id="record-badges"></div>
-                <p class="record-id" id="record-id"></p>
-                <h2 id="record-title"></h2>
-                <p class="review-prompt" id="review-prompt"></p>
-
-                <section class="record-section" aria-labelledby="summary-heading">
-                  <h3 id="summary-heading">Possible institutional defect</h3>
-                  <div class="clamped-copy" id="record-summary"></div>
-                  <button class="text-button expand-button" id="expand-summary" type="button" hidden>Show full summary</button>
-                </section>
-
-                <dl class="record-details" id="record-details"></dl>
-                <div class="source-links" id="source-links"></div>
-              </div>
-
-              <div class="empty-state" id="empty-state" hidden>
-                <span class="completion-mark" aria-hidden="true">✓</span>
-                <h2>No matching candidates</h2>
-                <p>No preliminary candidates match the current filters.</p>
-              </div>
-            </article>
-
-            <p class="method-note">
-              This dashboard is read-only. It does not invoke an agent, record a disposition, or modify GitHub. Proposed-candidate promotion, deferral, merger, rejection, and admission are reviewed and implemented in Codex under the established project methodology.
-            </p>
-          </section>
-        </section>
+        <div class="queue-controls">
+          <label for="proposed-search">Search<input id="proposed-search" type="search" placeholder="Issue, title, area, or status…"></label>
+          <label for="proposed-status">Project status<select id="proposed-status"><option value="all">All statuses</option></select></label>
+          <label for="proposed-area">Area<select id="proposed-area"><option value="all">All areas</option></select></label>
+        </div>
+        <p class="result-count"><b id="proposed-visible">0</b> candidates shown</p>
+        <div class="record-list formal-list" id="proposed-list"></div>
       </section>
+
+      <p class="method-note">This console is read-only. Candidate promotion, merger, deferral, rejection, and admission are reviewed and implemented in Codex under the project methodology.</p>
     </main>
 
     <script src="catalog-data.js"></script>

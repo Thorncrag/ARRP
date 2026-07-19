@@ -36,7 +36,8 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Civil rights; anti-discrimination; identity and citizenship records; humanitarian protection | **[Civil Rights](topics/civil-rights.md)**; [RIGHTS-001](areas/RIGHTS/issues/RIGHTS-001.md); [RIGHTS-002](areas/RIGHTS/issues/RIGHTS-002.md); [RIGHTS-003](areas/RIGHTS/issues/RIGHTS-003.md) |
 | Civil service; Schedule F or Schedule Policy/Career; loyalty tests; reductions in force | **[A-08](areas/CIV/README.md)**; [REG-001](areas/REG/issues/REG-001.md) |
 | Classification; declassification; security clearances; national-security information | **[A-07](areas/CLASS/README.md)**; [RET-001](areas/RET/README.md); [A-13](areas/REC/README.md) |
-| Classified information | See *Classification; declassification; security clearances; national-security information*. |
+| Classified documents | **[Classified Documents](topics/classified-documents.md)**; [A-07](areas/CLASS/README.md); [A-13](areas/REC/README.md) |
+| Classified information | See *Classified documents*. |
 | Confirmation evasion | See *Acting officials; vacancies; confirmation evasion*. |
 | Congress and congressional committees | **[A-15](areas/CONG/README.md)**; [A-11](areas/FUND/README.md); [JUD-011](areas/JUD/issues/JUD-011.md); [WAR-001](areas/WAR/issues/WAR-001.md) |
 | Congressional mandates; executive noncompliance; anti-nullification review | **[JUD-011](areas/JUD/issues/JUD-011.md)**; [REG-001](areas/REG/issues/REG-001.md); [FUND-001](areas/FUND/issues/FUND-001.md) |

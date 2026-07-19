@@ -81,12 +81,12 @@ Before running a T-audit, an agent must identify:
 4. the linked legislation page or pages;
 5. the sibling audit-history file;
 6. the relevant GitHub Project item;
-7. the relevant `sources.csv` rows; and
-8. every task in the Source Intake Dashboard's unified Sources queue routed to the issue; and
-9. any unresolved findings from the latest audit.
+7. the relevant `sources.csv` rows;
+8. every pending-source or evidence-integration record owned by or cross-referenced to the issue;
+9. any unresolved findings from the latest audit; and
 10. the issue's open `ISSUE-ID-MON` monitoring sub-issue, if one exists, and every defined external predicate it carries.
 
-Apply the tier-scaled Sources-Queue Reconciliation rule in the methodology. T0 and T1 may inventory applicable tasks; development and T2-T4 work should resolve applicable tasks through verification, route and remedy-fit review, qualitative reader-facing placement, a documented no-additional-value disposition, or a precise continuing predicate. Regenerate and verify the dashboard at closeout whenever source or monitoring rows change. This reconciliation does not create a separate audit run.
+Apply the tier-scaled Source Reconciliation rule in the methodology. T0 and T1 may inventory applicable tasks; development and T2-T4 work should resolve applicable tasks through verification, route and remedy-fit review, qualitative reader-facing placement, a documented no-additional-value disposition, or a precise continuing predicate. Update and read back any issue-linked GitHub monitor when its state changes. Rebuild the Candidate Issue Intake console only when preliminary- or proposed-candidate data changes. This reconciliation does not create a separate audit run.
 
 A project-wide monitoring pass is a separate non-scoring workflow governed by [`METHODOLOGY.md`](METHODOLOGY.md#project-wide-monitoring-pass). Begin from the GitHub Project Monitoring view, not from the local console. Review each open monitor sub-issue against its defined predicate, update its source/evidence record and last-checked date, and close it when its obligation ends. Do not change a parent proposal's score or Runs unless a material result independently requires the ordinary targeted Change Audit and Internal Remedy-Fit review.
 
@@ -173,13 +173,13 @@ When a stop condition appears, record the finding in the issue's audit-history f
 
 ## Multi-Agent Use
 
-Multiple agents may be used only for separable work with non-overlapping responsibilities. Examples include:
+Use multiple agents by default when work can be separated into non-overlapping responsibilities and parallel execution is expected to improve speed, coverage, or independent verification. Do not limit delegation because of historical subscription-usage assumptions or impose an arbitrary agent, time, token, or resource cap. Use one agent when the work is inherently sequential, requires repeated judgment over the same files, or would incur more coordination risk than benefit. Examples of suitable parallel work include:
 
 1. one agent checking source sufficiency while another checks GitHub Project/source-inventory consistency;
 2. one agent surveying prior legislation while another checks issue-to-legislation alignment; or
 3. one agent validating links while another prepares a narrow issue-page cleanup.
 
-Agents should not edit the same file set at the same time unless a coordinator assigns a clear merge responsibility. A coordinating agent remains responsible for final consistency, validation, commit, and push.
+Agents should not edit the same file set at the same time unless a coordinator assigns a clear merge responsibility. A coordinating agent remains responsible for reconciling findings, reviewing all edits, resolving conflicts, running final consistency checks, validating the complete worktree, and handling any commit and push.
 
 ## Audit Completion and Batch Boundaries
 

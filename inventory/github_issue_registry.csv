@@ -277,3 +277,8 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 297,https://github.com/Thorncrag/ARRP/issues/297,WAR-001-MON,source review,WAR-001-MON: WAR-001 External Developments Watch,research/trump-administration-litigation-monitoring.csv,42
 298,https://github.com/Thorncrag/ARRP/issues/298,DOM-005-MON,source review,DOM-005-MON: DOM-005 External Developments Watch,research/trump-administration-litigation-monitoring.csv,139
 300,https://github.com/Thorncrag/ARRP/issues/300,HOR-039,horizon,HOR-039: Functional Accessibility of Existing Lawful Immigration and Residency Pathways,framework/logs/HORIZON_SCAN_LOG.md,
+302,https://github.com/Thorncrag/ARRP/issues/302,HOR-040,horizon,HOR-040: Safeguards for Broad Presidential Tariff Delegations,framework/logs/HORIZON_SCAN_LOG.md,
+303,https://github.com/Thorncrag/ARRP/issues/303,HOR-041,horizon,HOR-041: Safeguards for Class-Based Presidential Entry Suspensions,framework/logs/HORIZON_SCAN_LOG.md,
+304,https://github.com/Thorncrag/ARRP/issues/304,HOR-042,horizon,HOR-042: Minimum Safeguards for Presidential Statutory Waivers,framework/logs/HORIZON_SCAN_LOG.md,
+305,https://github.com/Thorncrag/ARRP/issues/305,HOR-043,horizon,HOR-043: Presidential Recognition of International Bodies With Domestic Legal Privileges,framework/logs/HORIZON_SCAN_LOG.md,
+306,https://github.com/Thorncrag/ARRP/issues/306,HOR-044,horizon,HOR-044: Statutory Framework for Presidential Cross-Border Infrastructure Permits,framework/logs/HORIZON_SCAN_LOG.md,

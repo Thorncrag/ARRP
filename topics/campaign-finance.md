@@ -3,13 +3,13 @@ title: "Campaign Finance"
 page_type: topic-guide
 status: maintained
 purpose: "Help readers find the ARRP proposals addressing constitutional authority, disclosure, coordination, public financing, and organizational political spending."
-last_reviewed: "2026-07-15"
+last_reviewed: "2026-07-18"
 print_levels:
   - public-proposal
   - full-technical
 ---
 
-# Campaign Finance
+# Campaign Finance {.arrp-topic-guide-title}
 
 ## Overview
 
@@ -17,32 +17,19 @@ Campaign finance includes contributions, political spending described as indepen
 
 [ELEC-012](../areas/ELEC/issues/ELEC-012.md) contains the detailed analysis. It separates constitutional limits associated with *Citizens United* and related doctrine from statutory measures that may improve transparency, coordination rules, identification of the actual source of funds, public financing, and enforcement against evasion. Its linked constitutional amendment and federal legislation provide different ways to implement the proposal. This page helps readers find that work without repeating it.
 
-## Relevant Proposals
+## Applicable Proposals
 
-- **Public concern:** Campaign finance, dark money, super PACs, and corporate political spending
-  - **Applicable proposals:** [ELEC-012](../areas/ELEC/issues/ELEC-012.md)
+<div class="arrp-topic-table arrp-topic-table--map" markdown>
 
-## How Concerns Map to Proposals
+| Public concern | Proposal | How ARRP addresses it |
+| --- | --- | --- |
+| Corporate, union, nonprofit, or other organizational spending | [ELEC-012](../areas/ELEC/issues/ELEC-012.md) | Constitutional authority and safeguards for regulating election spending by organizations. |
+| Dark money, shell entities, pass-through funding, and true-source disclosure | [ELEC-012](../areas/ELEC/issues/ELEC-012.md) | Disclosure, tracing, privacy, anti-evasion, and public-database questions. |
+| Super PAC contributions and candidate or party coordination | [ELEC-012](../areas/ELEC/issues/ELEC-012.md) | Constitutional limits and statutory rules for super PACs and coordination. |
+| Public financing and small-donor systems | [ELEC-012](../areas/ELEC/issues/ELEC-012.md) | Optional public-financing and implementation models. |
+| FEC deadlock, delay, forms, databases, and enforcement | [ELEC-012](../areas/ELEC/issues/ELEC-012.md) | Administrative and judicial backstops for statutory duties. |
 
-- **Public concern:** Corporate, union, nonprofit, or other organizational spending
-  - **Applicable proposals:** [ELEC-012](../areas/ELEC/issues/ELEC-012.md)
-  - **How ARRP addresses it:** Constitutional authority and safeguards for regulating election spending by organizations.
-
-- **Public concern:** Dark money, shell entities, pass-through funding, and true-source disclosure
-  - **Applicable proposals:** [ELEC-012](../areas/ELEC/issues/ELEC-012.md)
-  - **How ARRP addresses it:** Disclosure, tracing, privacy, anti-evasion, and public-database questions.
-
-- **Public concern:** Super PAC contributions and candidate or party coordination
-  - **Applicable proposals:** [ELEC-012](../areas/ELEC/issues/ELEC-012.md)
-  - **How ARRP addresses it:** Constitutional limits and statutory rules for super PACs and coordination.
-
-- **Public concern:** Public financing and small-donor systems
-  - **Applicable proposals:** [ELEC-012](../areas/ELEC/issues/ELEC-012.md)
-  - **How ARRP addresses it:** Optional public-financing and implementation models.
-
-- **Public concern:** FEC deadlock, delay, forms, databases, and enforcement
-  - **Applicable proposals:** [ELEC-012](../areas/ELEC/issues/ELEC-012.md)
-  - **How ARRP addresses it:** Administrative and judicial backstops for statutory duties.
+</div>
 
 ## What ARRP Does and Does Not Address
 

@@ -1,5 +1,6 @@
 import csv
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -82,8 +83,6 @@ class HorizonIntakeTest(unittest.TestCase):
         ]
         active_ids = {row["catalog_id"] for row in self.catalog}
         source_ids = {row["Source ID"] for row in self.sources}
-        self.assertGreaterEqual(len(queued_ids), 2)
-        self.assertTrue({"TAC-IPI1-005", "TAC-IPI1-170"} <= set(queued_ids))
         self.assertEqual(len(queued_ids), len(set(queued_ids)))
         self.assertFalse(set(queued_ids) & active_ids)
         for row in self.existing_issue_integration:
@@ -94,127 +93,80 @@ class HorizonIntakeTest(unittest.TestCase):
             }
             self.assertTrue(canonical_ids)
             self.assertTrue(canonical_ids <= source_ids)
-        self.assertEqual(self.console["existing_issue_queue"], len(self.existing_issue_integration))
+            for field in (
+                "integration_routes",
+                "action_or_policy",
+                "legal_question_or_outcome",
+                "review_note",
+            ):
+                self.assertTrue(row[field].strip(), (row["catalog_id"], field))
 
-    def test_console_dashboard_reconciles_completed_and_active_work(self) -> None:
-        adjudication = self.console["adjudication"]
-        self.assertEqual(adjudication["baseline_records"], 1322)
+    def test_console_is_candidate_only(self) -> None:
+        self.assertEqual(self.console["schema_version"], 5)
         self.assertEqual(
-            adjudication["baseline_records"],
-            adjudication["priority_records"] + adjudication["records"],
-        )
-        self.assertEqual(adjudication["records"], 1266)
-        self.assertEqual(
-            adjudication["records"],
-            adjudication["integration_records"]
-            + adjudication["monitoring_records"]
-            + adjudication["redundant_records"]
-            + adjudication["excluded_records"],
-        )
-        self.assertEqual(
-            self.console["litigation_monitoring_queue"],
-            len(self.litigation_monitoring) + 1,
-        )
-        self.assertEqual(
-            len(self.console["integration_records"]),
-            len(self.existing_issue_integration),
-        )
-        self.assertEqual(
-            len(self.console["monitoring_records"]),
-            len(self.litigation_monitoring) + 1,
-        )
-        self.assertIn("MEDIA-024", {row["id"] for row in self.console["monitoring_records"]})
-        self.assertTrue(all(row["links"] for row in self.console["monitoring_records"]))
-        self.assertEqual(
-            len(self.console["source_universe_records"]),
-            len(self.source_universe),
-        )
-        self.assertEqual(
-            len(self.console["media_records"]),
-            len(self.media_intake),
-        )
-        source_queue = self.console["source_queue_records"]
-        pending_ids = {row["Source ID"] for row in self.pending_sources}
-        represented_pending_ids = {
-            source_id.strip()
-            for row in [*self.existing_issue_integration, *self.litigation_monitoring]
-            for source_id in row["source_record_ids"].split(";")
-            if source_id.strip() in pending_ids
-        }
-        unassigned_pending_count = sum(
-            row["Source ID"] not in represented_pending_ids
-            for row in self.pending_sources
-        )
-        self.assertEqual(self.console["source_queue_count"], len(source_queue))
-        self.assertEqual(
+            set(self.console),
             {
-                kind: sum(row["record_kind"] == kind for row in source_queue)
-                for kind in {"integration", "media", "source", "pending-source"}
-            },
-            {
-                "integration": 162,
-                "media": 31,
-                "source": 13,
-                "pending-source": unassigned_pending_count,
+                "schema_version",
+                "generated_at",
+                "github_synced_at",
+                "candidate_questions",
+                "horizon_issue_count",
+                "records",
+                "active_horizon_records",
+                "horizon_records",
             },
         )
-        queued_pending_ids = {
-            row["id"] for row in source_queue if row["record_kind"] == "pending-source"
-        }
-        self.assertEqual(
-            pending_ids,
-            represented_pending_ids | queued_pending_ids,
+        for legacy_queue in {
+            "source_queue_records",
+            "monitoring_records",
+            "integration_records",
+            "media_records",
+            "source_universe_records",
+            "adjudication",
+        }:
+            self.assertNotIn(legacy_queue, self.console)
+
+    def test_current_workflow_docs_do_not_restore_legacy_console_queues(self) -> None:
+        current_docs = (
+            ROOT / "framework" / "METHODOLOGY.md",
+            ROOT / "framework" / "AGENT_OPERATING_RULES.md",
+            ROOT / "framework" / "INTAKE_AGENT_PROCESS.md",
+            ROOT / "participate" / "README.md",
+            ROOT / "research" / "horizon-review-console" / "README.md",
+            ROOT / "research" / "trump-administration-legal-review-intake.md",
+            ROOT / "website" / "README.md",
         )
-        self.assertFalse(
-            any(
-                row.get("stage") in {"Already incorporated", "Monitor through an existing Horizon record"}
-                for row in source_queue
+        stale_phrases = (
+            "unified Sources queue",
+            "Source Intake Dashboard",
+            "Monitoring queue",
+            "candidate-and-source dashboard",
+            "Candidate Issues and Source Intake",
+        )
+        for path in current_docs:
+            content = path.read_text(encoding="utf-8").lower()
+            for phrase in stale_phrases:
+                self.assertNotIn(phrase.lower(), content, f"{phrase!r} remains in {path}")
+
+    def test_every_pending_source_has_an_accountable_owner(self) -> None:
+        stable_id = re.compile(r"\b(?:INTAKE-GAP|HOR|[A-Z]{2,})-\d{3}(?:-MON)?\b")
+        for row in self.pending_sources:
+            owner = row["Associated Record IDs"].strip()
+            self.assertTrue(owner, row["Source ID"])
+            has_project_record = bool(stable_id.search(owner))
+            has_research_owner = any(
+                part.strip().startswith("research/")
+                for part in owner.split(";")
             )
-        )
-        self.assertTrue(
-            all(
-                row["owner"] == "Codex" and row["stage"] and row["next_action"]
-                for row in self.console["integration_records"]
-            )
-        )
-        self.assertTrue(
-            all(
-                row["role"]
-                and "registered" not in row["role"].lower()
-                and "adjudicated" not in row["role"].lower()
-                for row in self.console["source_universe_records"]
-            )
-        )
-        self.assertTrue(
-            all(
-                row["stage"]
-                and "existing-manifestation" not in row["stage"]
-                for row in self.console["media_records"]
-            )
-        )
-        route_counts = {
-            row["route"]: row["records"]
-            for row in self.console["integration_routes"]
-        }
-        self.assertEqual(route_counts["FACT-001"], 44)
-        self.assertEqual(route_counts["RIGHTS-002"], 23)
+            self.assertTrue(has_project_record or has_research_owner, row["Source ID"])
 
     def test_horizon_dashboard_uses_github_issue_and_project_snapshot(self) -> None:
         active = self.console["active_horizon_records"]
-        closed = self.console["closed_horizon_records"]
         self.assertEqual(self.console["horizon_issue_count"], len(active))
-        self.assertEqual(self.console["closed_horizon_issue_count"], len(closed))
-        self.assertEqual(len(self.console["horizon_records"]), len(active) + len(closed))
         self.assertTrue(self.console["github_synced_at"])
         self.assertTrue(all(row["issue_state"] == "Open" for row in active))
-        self.assertTrue(all(row["issue_state"] == "Closed" for row in closed))
         self.assertTrue(all(row["issue_url"].startswith("https://github.com/Thorncrag/ARRP/issues/") for row in active))
         self.assertFalse(any(row["status"] == "Project status unavailable" for row in active))
-        for row in self.console["horizon_records"]:
-            expected_sources = sum(row["id"] in item.get("routes", []) for item in self.console["source_queue_records"])
-            expected_monitoring = sum(row["id"] in item.get("routes", []) for item in self.console["monitoring_records"])
-            self.assertEqual(row["source_task_count"], expected_sources)
-            self.assertEqual(row["monitoring_task_count"], expected_monitoring)
 
     def test_standalone_submission_prototype_has_minimal_lookup_and_page_context(self) -> None:
         expected = {
@@ -235,6 +187,7 @@ class HorizonIntakeTest(unittest.TestCase):
         participation_dir = ROOT / "participate"
         html = (participation_dir / "index.html").read_text(encoding="utf-8")
         app = (participation_dir / "app.js").read_text(encoding="utf-8")
+        participation_css = (participation_dir / "styles.css").read_text(encoding="utf-8")
         for field_id in {"submission-title", "submission-body", "submission-sources", "submission-related"}:
             self.assertIn(f'id="{field_id}"', html)
         self.assertIn('id="submission-context"', html)
@@ -254,14 +207,19 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue((participation_dir / "vercel.json").exists())
         self.assertTrue((participation_dir / "api" / "submit.js").exists())
         self.assertTrue((participation_dir / ".env.example").exists())
+        self.assertIn('data-interface-theme="arrp-tool"', html)
 
         console_dir = RESEARCH / "horizon-review-console"
         console_html = (console_dir / "index.html").read_text(encoding="utf-8")
         console_app = (console_dir / "app.js").read_text(encoding="utf-8")
+        console_css = (console_dir / "styles.css").read_text(encoding="utf-8")
         self.assertIn("../../participate/index.html", console_html)
         self.assertIn("Proposed candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
-        self.assertIn("This dashboard is read-only", console_html)
+        self.assertIn("This console is read-only", console_html)
+        self.assertNotIn("Sources <span", console_html)
+        self.assertNotIn("Monitor <span", console_html)
+        self.assertNotIn("History", console_html)
         self.assertNotIn('id="submission-view"', console_html)
         for control_id in {
             "decision-yes",
@@ -275,6 +233,10 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn("screenSubmission", console_app)
         self.assertNotIn("setDecision", console_app)
         self.assertNotIn("localStorage", console_app)
+        self.assertIn('data-interface-theme="arrp-tool"', console_html)
+        for variable in ("--ink:", "--blue:", "--gold:", "--green:", "--shadow:"):
+            self.assertIn(variable, participation_css)
+            self.assertIn(variable, console_css)
 
     def test_qualitatively_placed_sources_are_on_issue_pages(self) -> None:
         placements = {
@@ -291,9 +253,12 @@ class HorizonIntakeTest(unittest.TestCase):
             issue_path = ROOT / "areas" / area / "issues" / f"{issue_id}.md"
             evidence_path = ROOT / "areas" / area / "evidence" / f"{issue_id}-evidence.md"
             issue_text = issue_path.read_text(encoding="utf-8")
+            evidence_text = evidence_path.read_text(encoding="utf-8") if evidence_path.exists() else ""
             for source_fragment in source_fragments:
-                self.assertIn(source_fragment, issue_text)
-            self.assertFalse(evidence_path.exists())
+                self.assertIn(source_fragment, issue_text + evidence_text)
+            if evidence_path.exists():
+                self.assertIn("Additional supporting record", issue_text)
+                self.assertIn(evidence_path.name, issue_text)
 
     def test_litigation_monitor_has_sources_and_defined_revisit_predicates(self) -> None:
         source_ids = {row["Source ID"] for row in self.sources}
@@ -307,26 +272,52 @@ class HorizonIntakeTest(unittest.TestCase):
             }
             self.assertTrue(canonical_ids)
             self.assertTrue(canonical_ids <= source_ids)
-            self.assertTrue(row["revisit_trigger"].strip())
+            for field in (
+                "integration_routes",
+                "action_or_policy",
+                "litigation_posture",
+                "revisit_trigger",
+            ):
+                self.assertTrue(row[field].strip(), (row["monitor_id"], field))
+
+    def test_preliminary_candidate_sources_support_substantive_records(self) -> None:
+        source_ids = {row["Source ID"] for row in self.sources}
+        for row in self.candidates:
+            candidate_sources = [
+                source_id.strip()
+                for source_id in row["source_record_ids"].split(";")
+                if source_id.strip()
+            ]
+            source_links = [
+                source_link.strip()
+                for source_link in row["source_links"].split("||")
+                if source_link.strip()
+            ]
+            self.assertTrue(candidate_sources, row["candidate_id"])
+            self.assertTrue(set(candidate_sources) <= source_ids)
+            self.assertEqual(len(candidate_sources), len(source_links), row["candidate_id"])
+            self.assertTrue(row["institutional_defect"].strip(), row["candidate_id"])
+            self.assertTrue(row["recommendation"].strip(), row["candidate_id"])
 
     def test_resolved_preliminary_candidates_leave_active_queue(self) -> None:
-        self.assertEqual(self.candidates, [])
-        self.assertFalse(any(row["candidate_id"] for row in self.routing))
-        rendered_routes = {
-            route.strip()
-            for row in self.routing
-            for route in row["integration_routes"].split(";")
-            if route.strip()
+        active_candidate_ids = {
+            row["candidate_id"]
+            for row in self.candidates
+            if row["review_status"] == "preliminary-candidate"
         }
-        source_routes = {
+        self.assertTrue(all(row["review_status"] == "preliminary-candidate" for row in self.candidates))
+        self.assertTrue(all(not row["horizon_id"] for row in self.candidates))
+        routed_candidate_ids = {
+            row["candidate_id"] for row in self.routing if row["candidate_id"]
+        }
+        source_candidate_ids = {
             route.strip()
             for row in self.sources
             for route in row["Associated Record IDs"].split(";")
-            if route.strip()
+            if route.strip().startswith("INTAKE-GAP-")
         }
-        self.assertFalse(any(route.startswith("INTAKE-GAP-") for route in rendered_routes | source_routes))
-        for horizon_id in ("HOR-033", "HOR-034", "HOR-035", "HOR-036", "HOR-037"):
-            self.assertIn(horizon_id, rendered_routes | source_routes)
+        self.assertTrue(routed_candidate_ids <= active_candidate_ids)
+        self.assertTrue(source_candidate_ids <= active_candidate_ids)
 
 
 if __name__ == "__main__":

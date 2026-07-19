@@ -3,13 +3,13 @@ title: "Executive Orders and Presidential Power"
 page_type: topic-guide
 status: maintained
 purpose: "Help readers distinguish lawful presidential direction from refusal to execute statutes, appropriations, agency mandates, judicial commands, emergency limits, or war-powers requirements."
-last_reviewed: "2026-07-15"
+last_reviewed: "2026-07-18"
 print_levels:
   - public-proposal
   - full-technical
 ---
 
-# Executive Orders and Presidential Power
+# Executive Orders and Presidential Power {.arrp-topic-guide-title}
 
 ## Overview
 
@@ -17,55 +17,22 @@ Presidents need substantial authority to direct the executive branch, respond to
 
 This page separates those questions and directs readers to the proposal addressing each kind of presidential action.
 
-## Relevant Proposals
+## Applicable Proposals
 
-- **Public concern:** Refusal to execute statutes or other congressional mandates
-  - **Applicable proposals:** [JUD-011](../areas/JUD/issues/JUD-011.md)
+<div class="arrp-topic-table arrp-topic-table--map" markdown>
 
-- **Public concern:** Withholding appropriations or delaying rescissions
-  - **Applicable proposals:** [FUND-001](../areas/FUND/issues/FUND-001.md) and [FUND-002](../areas/FUND/issues/FUND-002.md)
+| Public concern | Proposal | How ARRP addresses it |
+| --- | --- | --- |
+| Executive order or directive that functionally nullifies enacted law | [JUD-011](../areas/JUD/issues/JUD-011.md) | Addresses standing, forum, expedited review, and remedies for executive departure from congressional mandates. |
+| Refusal to spend appropriated funds | [FUND-001](../areas/FUND/issues/FUND-001.md) | Addresses impoundment, reporting, timing, and judicial enforcement. |
+| Delayed rescission request timed to prevent congressional action | [FUND-002](../areas/FUND/issues/FUND-002.md) | Addresses pocket rescissions and strategic delay. |
+| Closure or disabling of an agency Congress created | [REG-001](../areas/REG/issues/REG-001.md) | Addresses agency independence and continuity of mandatory functions. |
+| Emergency economic authority used to make major policy without legislation | [EMERG-003](../areas/EMERG/issues/EMERG-003.md) | Addresses statutory predicates, congressional approval, duration, and review. |
+| Execution of judicial commands | [JUD-001](../areas/JUD/issues/JUD-001.md) | Addresses practical enforcement when the executive does not carry out a court order. |
+| Notice of executive noncompliance | [JUD-005](../areas/JUD/issues/JUD-005.md) | Addresses automatic congressional and public notice after a qualifying judicial finding. |
+| Unilateral or indefinite use of military force | [WAR-001](../areas/WAR/issues/WAR-001.md) | Addresses authorization, reporting, termination, appropriations, and mission expansion. |
 
-- **Public concern:** Disabling congressionally created agencies or mandatory functions
-  - **Applicable proposals:** [REG-001](../areas/REG/issues/REG-001.md)
-
-- **Public concern:** Emergency authority used instead of legislation
-  - **Applicable proposals:** [EMERG-003](../areas/EMERG/issues/EMERG-003.md) and EMERG-001
-
-- **Public concern:** Defiance of judicial commands or failure to disclose noncompliance
-  - **Applicable proposals:** [JUD-001](../areas/JUD/issues/JUD-001.md) and [JUD-005](../areas/JUD/issues/JUD-005.md)
-
-- **Public concern:** Military force without adequate authorization or termination rules
-  - **Applicable proposals:** [WAR-001](../areas/WAR/issues/WAR-001.md)
-
-## How Concerns Map to Proposals
-
-- **Public concern:** Executive order or directive that functionally nullifies enacted law
-  - **Applicable proposals:** [JUD-011](../areas/JUD/issues/JUD-011.md)
-  - **How ARRP addresses it:** Addresses standing, forum, expedited review, and remedies for executive departure from congressional mandates.
-
-- **Public concern:** Refusal to spend appropriated funds
-  - **Applicable proposals:** [FUND-001](../areas/FUND/issues/FUND-001.md)
-  - **How ARRP addresses it:** Addresses impoundment, reporting, timing, and judicial enforcement.
-
-- **Public concern:** Delayed rescission request timed to prevent congressional action
-  - **Applicable proposals:** [FUND-002](../areas/FUND/issues/FUND-002.md)
-  - **How ARRP addresses it:** Addresses pocket rescissions and strategic delay.
-
-- **Public concern:** Closure or disabling of an agency Congress created
-  - **Applicable proposals:** [REG-001](../areas/REG/issues/REG-001.md)
-  - **How ARRP addresses it:** Addresses agency independence and continuity of mandatory functions.
-
-- **Public concern:** Emergency economic authority used to make major policy without legislation
-  - **Applicable proposals:** [EMERG-003](../areas/EMERG/issues/EMERG-003.md)
-  - **How ARRP addresses it:** Addresses statutory predicates, congressional approval, duration, and review.
-
-- **Public concern:** Failure to comply with a court order
-  - **Applicable proposals:** [JUD-001](../areas/JUD/issues/JUD-001.md) and [JUD-005](../areas/JUD/issues/JUD-005.md)
-  - **How ARRP addresses it:** Separates execution of judicial commands from automatic notice of noncompliance.
-
-- **Public concern:** Unilateral or indefinite use of military force
-  - **Applicable proposals:** [WAR-001](../areas/WAR/issues/WAR-001.md)
-  - **How ARRP addresses it:** Addresses authorization, reporting, termination, appropriations, and mission expansion.
+</div>
 
 ## What ARRP Does and Does Not Address
 

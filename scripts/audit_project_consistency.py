@@ -25,6 +25,41 @@ LEGISLATION_PATH = ROOT / "legislation"
 REGISTRY_PATH = ROOT / "inventory" / "github_issue_registry.csv"
 SOURCE_PATH = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCE_PATH = ROOT / "inventory" / "sources-pending.csv"
+PRELIMINARY_CANDIDATE_PATH = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
+AUTHORITATIVE_SOURCE_RECORDS = (
+    (
+        ROOT / "research" / "existing-issue-evidence-integration.csv",
+        ("source_record_ids", "integration_routes", "action_or_policy", "legal_question_or_outcome", "review_note"),
+    ),
+    (
+        ROOT / "research" / "trump-administration-litigation-monitoring.csv",
+        ("source_record_ids", "integration_routes", "action_or_policy", "litigation_posture", "revisit_trigger"),
+    ),
+    (
+        PRELIMINARY_CANDIDATE_PATH,
+        ("source_record_ids", "source_links", "institutional_defect", "recommendation"),
+    ),
+)
+TOOL_INTERFACES = (
+    (
+        ROOT / "research" / "horizon-review-console" / "index.html",
+        ROOT / "research" / "horizon-review-console" / "styles.css",
+    ),
+    (ROOT / "participate" / "index.html", ROOT / "participate" / "styles.css"),
+)
+CURRENT_INTAKE_WORKFLOW_FILES = (
+    ROOT / "framework" / "FRAMEWORK.md",
+    ROOT / "framework" / "METHODOLOGY.md",
+    ROOT / "framework" / "AGENT_OPERATING_RULES.md",
+    ROOT / "framework" / "INTAKE_AGENT_PROCESS.md",
+    ROOT / "framework" / "PROJECT_STRUCTURE.md",
+    ROOT / "participate" / "README.md",
+    ROOT / "participate" / "SECURITY.md",
+    ROOT / "research" / "README.md",
+    ROOT / "research" / "horizon-review-console" / "README.md",
+    ROOT / "research" / "trump-administration-legal-review-intake.md",
+    ROOT / "website" / "README.md",
+)
 
 LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
 FRONT_MATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
@@ -138,6 +173,15 @@ def check_legislation(issue_map: dict[str, Path], failures: list[str], warnings:
         if path.name == "README.md":
             continue
         data = front_matter(path)
+        front_matter_match = FRONT_MATTER_RE.match(read(path))
+        front_matter_text = front_matter_match.group(1) if front_matter_match else ""
+        if not re.search(r"^\s+- legislative-appendix$", front_matter_text, re.MULTILINE):
+            report(
+                "ERROR",
+                f"{path.relative_to(ROOT)} lacks legislative-appendix print assignment",
+                failures,
+                warnings,
+            )
         proposal_id = data.get("proposal_id", "")
         issue_id = re.sub(r"-(?:state|amendment|preferred)$", "", proposal_id)
         if not ISSUE_ID_RE.fullmatch(issue_id):
@@ -194,28 +238,58 @@ def check_issue_layout(issue_map: dict[str, Path], failures: list[str], warnings
 
 
 def check_topic_pages(failures: list[str], warnings: list[str]) -> None:
-    required = ("Overview", "Relevant Proposals", "How Concerns Map to Proposals", "What ARRP Does and Does Not Address")
+    required = ("Overview", "Applicable Proposals", "What ARRP Does and Does Not Address")
+    map_wrapper = '<div class="arrp-topic-table arrp-topic-table--map" markdown>'
+    map_header = "| Public concern | Proposal | How ARRP addresses it |"
+    related_wrapper = '<div class="arrp-topic-table arrp-topic-table--related" markdown>'
+    related_header = "| Idea | Record | Why it is not included |"
     for path in sorted((ROOT / "topics").glob("*.md")):
         if path.name == "README.md":
             continue
         body = markdown_body(path)
+        relative = path.relative_to(ROOT)
+        if not re.search(r"^# .+ \{\.arrp-topic-guide-title\}$", body, re.MULTILINE):
+            report("ERROR", f"{relative} lacks the standard topic-guide title class", failures, warnings)
         for heading in required:
             if not re.search(rf"^## {re.escape(heading)}$", body, re.MULTILINE):
-                report("ERROR", f"{path.relative_to(ROOT)} lacks topic-page heading: {heading}", failures, warnings)
-        relevant = body.split("## Relevant Proposals", 1)[-1].split("\n## ", 1)[0]
-        if not re.search(
-            r"(?m)^- \*\*Public concern:\*\* .+\n  - \*\*Applicable proposals:\*\* .+$",
-            relevant,
-        ):
-            report("ERROR", f"{path.relative_to(ROOT)} lacks the standard public-concern routing list", failures, warnings)
-        mapped = body.split("## How Concerns Map to Proposals", 1)[-1].split("\n## ", 1)[0]
-        if not re.search(
-            r"(?m)^- \*\*Public concern:\*\* .+\n  - \*\*Applicable proposals:\*\* .+\n  - \*\*How ARRP addresses it:\*\* .+$",
-            mapped,
-        ):
-            report("ERROR", f"{path.relative_to(ROOT)} lacks the standard concern-to-proposal mapping list", failures, warnings)
-        if re.search(r"(?m)^\|", body):
-            report("ERROR", f"{path.relative_to(ROOT)} uses a table instead of the topic-page bullet convention", failures, warnings)
+                report("ERROR", f"{relative} lacks topic-page heading: {heading}", failures, warnings)
+        for legacy_heading in ("Relevant Proposals", "How Concerns Map to Proposals"):
+            if re.search(rf"^## {re.escape(legacy_heading)}$", body, re.MULTILINE):
+                report("ERROR", f"{relative} retains legacy topic-page heading: {legacy_heading}", failures, warnings)
+
+        applicable = body.split("## Applicable Proposals", 1)[-1].split("\n## ", 1)[0]
+        if map_wrapper not in applicable or map_header not in applicable or "</div>" not in applicable:
+            report("ERROR", f"{relative} lacks the standard Applicable Proposals table", failures, warnings)
+        else:
+            table_rows = [line for line in applicable.splitlines() if line.startswith("|")]
+            if len(table_rows) < 3:
+                report("ERROR", f"{relative} has no Applicable Proposals data row", failures, warnings)
+            for row in table_rows[2:]:
+                cells = [cell.strip() for cell in row.strip().strip("|").split("|")]
+                if len(cells) != 3:
+                    continue
+                proposal_ids = set(re.findall(r"\b[A-Z]+-\d{3}\b", cells[1]))
+                pending = cells[1] == "Pending"
+                if (len(proposal_ids) != 1 or pending) and not (pending and not proposal_ids):
+                    report(
+                        "ERROR",
+                        f"{relative} Applicable Proposals row must identify exactly one proposal or Pending: {cells[0]}",
+                        failures,
+                        warnings,
+                    )
+        if re.search(r"\]\(\.\./areas/[^)]+/README\.md\)", applicable):
+            report("ERROR", f"{relative} routes an Applicable Proposals row through an area page", failures, warnings)
+
+        if re.search(r"^## Related Ideas Not Included$", body, re.MULTILINE):
+            related = body.split("## Related Ideas Not Included", 1)[-1].split("\n## ", 1)[0]
+            if related_wrapper not in related or related_header not in related or "</div>" not in related:
+                report("ERROR", f"{relative} lacks the standard Related Ideas table", failures, warnings)
+            else:
+                related_rows = [line for line in related.splitlines() if line.startswith("|")]
+                if len(related_rows) < 3:
+                    report("ERROR", f"{relative} has no Related Ideas data row", failures, warnings)
+        if body.count('<div class="arrp-topic-table') != body.count("</div>"):
+            report("ERROR", f"{relative} has unbalanced topic-table wrappers", failures, warnings)
 
 
 def reader_pages() -> list[Path]:
@@ -251,11 +325,7 @@ def check_markdown_links(failures: list[str], warnings: list[str]) -> None:
 
 
 def source_citation_corpus() -> str:
-    """Return project-authored Markdown in which a source may be cited.
-
-    Queue CSVs deliberately do not count: a retained lead, monitoring record,
-    or source identifier is not a reader-facing ARRP citation.
-    """
+    """Return project-authored Markdown in which a source may be cited."""
     paths = [ROOT / "README.md", ROOT / "SUBJECT_INDEX.md"]
     paths.extend((ROOT / "areas").rglob("*.md"))
     paths.extend(LEGISLATION_PATH.glob("*.md"))
@@ -263,6 +333,61 @@ def source_citation_corpus() -> str:
     paths.extend((ROOT / "research").glob("*.md"))
     paths.extend(framework_pages())
     return "\n".join(read(path) for path in sorted(set(paths)) if path.exists())
+
+
+def structured_source_citation_ids(failures: list[str], warnings: list[str]) -> set[str]:
+    """Return citations from accountable structured records with real assertions."""
+    cited: set[str] = set()
+    for path, required_fields in AUTHORITATIVE_SOURCE_RECORDS:
+        with path.open(newline="", encoding="utf-8") as handle:
+            rows = list(csv.DictReader(handle))
+        for row_number, row in enumerate(rows, start=2):
+            missing = [field for field in required_fields if not row.get(field, "").strip()]
+            source_ids = [
+                value.strip()
+                for value in row.get("source_record_ids", "").split(";")
+                if value.strip()
+            ]
+            malformed = [value for value in source_ids if not re.fullmatch(r"SRC-\d{4}", value)]
+            if missing:
+                report(
+                    "ERROR",
+                    f"incomplete structured source citation in {path.relative_to(ROOT)}:{row_number}; missing "
+                    + ", ".join(missing),
+                    failures,
+                    warnings,
+                )
+            if not source_ids:
+                report(
+                    "ERROR",
+                    f"structured source citation has no source IDs in {path.relative_to(ROOT)}:{row_number}",
+                    failures,
+                    warnings,
+                )
+            if malformed:
+                report(
+                    "ERROR",
+                    f"malformed structured source citation in {path.relative_to(ROOT)}:{row_number}: "
+                    + ", ".join(malformed),
+                    failures,
+                    warnings,
+                )
+            if path == PRELIMINARY_CANDIDATE_PATH:
+                source_links = [
+                    value.strip()
+                    for value in row.get("source_links", "").split("||")
+                    if value.strip()
+                ]
+                if len(source_links) != len(source_ids):
+                    report(
+                        "ERROR",
+                        f"preliminary-candidate source ID/link mismatch in {path.relative_to(ROOT)}:{row_number}",
+                        failures,
+                        warnings,
+                    )
+            if not missing and source_ids and not malformed:
+                cited.update(source_ids)
+    return cited
 
 
 def normalized_citation_url(url: str) -> str:
@@ -338,15 +463,26 @@ def check_registry_and_sources(issue_map: dict[str, Path], failures: list[str], 
     for value, count in Counter(source_ids).items():
         if count > 1:
             report("ERROR", f"duplicate source identifier across source catalogs: {value}", failures, warnings)
-    numeric_source_ids = sorted(
-        int(value.removeprefix("SRC-"))
-        for value in source_ids
-        if re.fullmatch(r"SRC-\d{4}", value)
-    )
-    if numeric_source_ids and numeric_source_ids != list(range(1, numeric_source_ids[-1] + 1)):
-        report("ERROR", "source identifiers across both catalogs are not a continuous SRC-0001 sequence", failures, warnings)
+    malformed_source_ids = [value for value in source_ids if not re.fullmatch(r"SRC-\d{4}", value)]
+    if malformed_source_ids:
+        report(
+            "ERROR",
+            "malformed source identifier(s): " + ", ".join(sorted(malformed_source_ids)),
+            failures,
+            warnings,
+        )
     corpus = source_citation_corpus()
-    cited_catalog = mechanically_cited_source_ids(source_rows, corpus)
+    structured_citations = structured_source_citation_ids(failures, warnings)
+    unknown_structured_sources = structured_citations - set(source_ids)
+    if unknown_structured_sources:
+        report(
+            "ERROR",
+            "structured records cite source IDs absent from both source catalogs: "
+            + ", ".join(sorted(unknown_structured_sources)),
+            failures,
+            warnings,
+        )
+    cited_catalog = mechanically_cited_source_ids(source_rows, corpus) | structured_citations
     uncited_catalog = [row["Source ID"] for row in source_rows if row.get("Source ID") not in cited_catalog]
     if uncited_catalog:
         sample = ", ".join(uncited_catalog[:10])
@@ -361,7 +497,7 @@ def check_registry_and_sources(issue_map: dict[str, Path], failures: list[str], 
         corpus,
         count_identifier_references=False,
         count_label_references=False,
-    )
+    ) | ({row.get("Source ID", "") for row in pending_rows} & structured_citations)
     if cited_pending:
         report(
             "ERROR",
@@ -371,6 +507,70 @@ def check_registry_and_sources(issue_map: dict[str, Path], failures: list[str], 
             warnings,
         )
 
+    accountable_id = re.compile(r"\b(?:INTAKE-GAP|HOR|[A-Z]{2,})-\d{3}(?:-MON)?\b")
+    for row in pending_rows:
+        association = row.get("Associated Record IDs", "").strip()
+        research_owners = [
+            part.strip()
+            for part in association.split(";")
+            if part.strip().startswith("research/")
+        ]
+        valid_research_owner = any((ROOT / owner).exists() for owner in research_owners)
+        if not association or not (accountable_id.search(association) or valid_research_owner):
+            report(
+                "ERROR",
+                f"pending source {row.get('Source ID', '<unknown>')} lacks an accountable issue, monitor, candidate, or research-record owner",
+                failures,
+                warnings,
+            )
+
+    with PRELIMINARY_CANDIDATE_PATH.open(newline="", encoding="utf-8") as handle:
+        candidates = list(csv.DictReader(handle))
+    known_source_ids = set(source_ids)
+    required_candidate_fields = (
+        "candidate_id",
+        "title",
+        "term",
+        "proposed_area",
+        "institutional_defect",
+        "distinctness_rationale",
+        "existing_coverage_considered",
+        "counterargument",
+        "unresolved_questions",
+        "recommendation",
+    )
+    for row in candidates:
+        if row.get("review_status") != "preliminary-candidate":
+            continue
+        missing = [field for field in required_candidate_fields if not row.get(field, "").strip()]
+        if missing:
+            report(
+                "ERROR",
+                f"preliminary candidate {row.get('candidate_id', '<unknown>')} lacks: {', '.join(missing)}",
+                failures,
+                warnings,
+            )
+        attached_sources = {
+            source_id.strip()
+            for source_id in row.get("source_record_ids", "").split(";")
+            if source_id.strip()
+        }
+        if not attached_sources and not row.get("source_links", "").strip():
+            report(
+                "ERROR",
+                f"preliminary candidate {row.get('candidate_id', '<unknown>')} has no supporting source",
+                failures,
+                warnings,
+            )
+        unknown = attached_sources - known_source_ids
+        if unknown:
+            report(
+                "ERROR",
+                f"preliminary candidate {row.get('candidate_id', '<unknown>')} references unknown sources: {', '.join(sorted(unknown))}",
+                failures,
+                warnings,
+            )
+
 
 def check_reader_language(failures: list[str], warnings: list[str]) -> None:
     for path in reader_pages():
@@ -378,6 +578,119 @@ def check_reader_language(failures: list[str], warnings: list[str]) -> None:
         for label, pattern in READER_LANGUAGE_PATTERNS.items():
             if pattern.search(body):
                 report("WARNING", f"{label} in reader-facing {path.relative_to(ROOT)}", failures, warnings)
+
+
+def check_tool_interface_theme(failures: list[str], warnings: list[str]) -> None:
+    required_variables = (
+        "--ink:",
+        "--muted:",
+        "--line:",
+        "--soft:",
+        "--blue:",
+        "--blue-soft:",
+        "--gold:",
+        "--gold-soft:",
+        "--green:",
+        "--shadow:",
+    )
+    for html_path, css_path in TOOL_INTERFACES:
+        if not html_path.exists() or not css_path.exists():
+            report(
+                "ERROR",
+                f"project-operated interface is missing HTML or CSS: {html_path.relative_to(ROOT)}",
+                failures,
+                warnings,
+            )
+            continue
+        if 'data-interface-theme="arrp-tool"' not in read(html_path):
+            report(
+                "ERROR",
+                f"{html_path.relative_to(ROOT)} lacks the ARRP tool-interface theme marker",
+                failures,
+                warnings,
+            )
+        css = read(css_path)
+        missing = [variable for variable in required_variables if variable not in css]
+        if missing:
+            report(
+                "ERROR",
+                f"{css_path.relative_to(ROOT)} lacks interface variables: {', '.join(missing)}",
+                failures,
+                warnings,
+            )
+        if "linear-gradient(120deg, #152743, #244c85)" not in css:
+            report(
+                "ERROR",
+                f"{css_path.relative_to(ROOT)} lacks the standard tool-interface header gradient",
+                failures,
+                warnings,
+            )
+
+
+def check_duplicate_copy_artifacts(failures: list[str], warnings: list[str]) -> None:
+    """Flag common Finder-style copies when the unsuffixed sibling still exists."""
+    excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
+    copy_suffix = re.compile(r"(?: copy| \([0-9]+\)| [0-9]+)$", re.IGNORECASE)
+    for path in ROOT.rglob("*"):
+        if not path.is_file() or excluded_roots.intersection(path.relative_to(ROOT).parts):
+            continue
+        canonical_stem = copy_suffix.sub("", path.stem)
+        if canonical_stem == path.stem:
+            continue
+        canonical = path.with_name(f"{canonical_stem}{path.suffix}")
+        if canonical.exists():
+            report(
+                "WARNING",
+                f"possible duplicate-copy artifact {path.relative_to(ROOT)} has canonical sibling {canonical.relative_to(ROOT)}",
+                failures,
+                warnings,
+            )
+
+
+def check_intake_workflow_language(failures: list[str], warnings: list[str]) -> None:
+    stale_phrases = (
+        "unified Sources queue",
+        "Source Intake Dashboard",
+        "Monitoring queue",
+        "candidate-and-source dashboard",
+        "Candidate Issues and Source Intake",
+    )
+    for path in CURRENT_INTAKE_WORKFLOW_FILES:
+        if not path.exists():
+            report(
+                "ERROR",
+                f"current intake-workflow file is missing: {path.relative_to(ROOT)}",
+                failures,
+                warnings,
+            )
+            continue
+        content = read(path)
+        for phrase in stale_phrases:
+            if phrase.lower() in content.lower():
+                report(
+                    "ERROR",
+                    f"stale intake-workflow phrase {phrase!r} in {path.relative_to(ROOT)}",
+                    failures,
+                    warnings,
+                )
+
+
+def check_print_assignment_metadata(failures: list[str], warnings: list[str]) -> None:
+    excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
+    explicit_exceptions = {
+        ROOT / "AGENTS.md",
+        ROOT / "website" / "404.md",
+    }
+    for path in ROOT.rglob("*.md"):
+        if excluded_roots.intersection(path.relative_to(ROOT).parts) or path in explicit_exceptions:
+            continue
+        if "print_levels" not in front_matter(path):
+            report(
+                "ERROR",
+                f"{path.relative_to(ROOT)} lacks required print_levels metadata",
+                failures,
+                warnings,
+            )
 
 
 def main() -> int:
@@ -391,6 +704,10 @@ def main() -> int:
     check_markdown_links(failures, warnings)
     check_registry_and_sources(issue_map, failures, warnings)
     check_reader_language(failures, warnings)
+    check_tool_interface_theme(failures, warnings)
+    check_duplicate_copy_artifacts(failures, warnings)
+    check_intake_workflow_language(failures, warnings)
+    check_print_assignment_metadata(failures, warnings)
     print(f"Checked {len(issue_map)} issue pages, {len(list(LEGISLATION_PATH.glob('*.md'))) - 1} proposal pages, and project links/inventories.")
     for line in failures + warnings:
         print(line)

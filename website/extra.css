@@ -38,6 +38,97 @@
   background: color-mix(in srgb, var(--md-primary-fg-color) 12%, transparent);
 }
 
+/* Canonical compact routing tables for public topic guides. */
+.md-typeset h1.arrp-topic-guide-title ~ h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.md-typeset .arrp-topic-table .md-typeset__scrollwrap {
+  width: 100%;
+  margin: 0;
+}
+
+.md-typeset .arrp-topic-table .md-typeset__table {
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+.md-typeset .arrp-topic-table table {
+  display: table;
+  width: 100%;
+  max-width: none;
+  margin: 0.55rem 0 1rem;
+  border: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: transparent;
+  box-shadow: none;
+  font-size: 0.69rem;
+  line-height: 1.35;
+}
+
+.md-typeset .arrp-topic-table table th {
+  padding: 0.35rem 0.5rem;
+  border: 0;
+  border-bottom: 0.08rem solid color-mix(in srgb, var(--md-primary-fg-color) 42%, transparent);
+  background: transparent;
+  color: var(--arrp-heading-color);
+  font-size: 0.61rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.md-typeset .arrp-topic-table table td {
+  padding: 0.4rem 0.5rem;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--md-default-fg-color) 14%, transparent);
+  overflow-wrap: break-word;
+  vertical-align: top;
+}
+
+.md-typeset .arrp-topic-table table tbody tr:last-child td {
+  border-bottom-color: color-mix(in srgb, var(--md-default-fg-color) 24%, transparent);
+}
+
+.md-typeset .arrp-topic-table table a {
+  font-weight: 650;
+}
+
+.md-typeset .arrp-topic-table--map table th:first-child {
+  width: 31%;
+}
+
+.md-typeset .arrp-topic-table--map table th:nth-child(2) {
+  width: 17%;
+}
+
+.md-typeset .arrp-topic-table--related table th:first-child {
+  width: 31%;
+}
+
+.md-typeset .arrp-topic-table--related table th:nth-child(2) {
+  width: 17%;
+}
+
+@media screen and (max-width: 44rem) {
+  .md-typeset .arrp-topic-table table {
+    font-size: 0.64rem;
+  }
+
+  .md-typeset .arrp-topic-table table th {
+    padding: 0.3rem 0.35rem;
+    font-size: 0.56rem;
+  }
+
+  .md-typeset .arrp-topic-table table td {
+    padding: 0.35rem;
+  }
+}
+
 .md-typeset h1#explore-by-topic ~ h2#topics + ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -170,5 +261,45 @@
     border: 0;
     background: transparent;
     box-shadow: none;
+  }
+
+  .md-typeset .arrp-topic-table table {
+    min-width: 0;
+    margin: 0.12in 0 0.18in;
+    color: #000;
+    font-size: 8.5pt;
+    line-height: 1.25;
+  }
+
+  .md-typeset .arrp-topic-table table thead {
+    display: table-header-group;
+  }
+
+  .md-typeset .arrp-topic-table table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .md-typeset h2#related-ideas-not-included {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .md-typeset .arrp-topic-table--related {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .md-typeset .arrp-topic-table table th {
+    padding: 0.05in 0.07in;
+    border-bottom: 1pt solid #4b5563;
+    background: transparent;
+    color: #000;
+    font-size: 7.5pt;
+  }
+
+  .md-typeset .arrp-topic-table table td {
+    padding: 0.055in 0.07in;
+    border-bottom: 0.4pt solid #c7cbd1;
   }
 }

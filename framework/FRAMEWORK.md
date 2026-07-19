@@ -53,7 +53,9 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 - [`../legislation/`](../legislation/) — draft statutory and administrative language keyed to issue identifiers
 - [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) — active handoff checkpoint for long-running audits and source-development work
 - [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md) — agent-assisted audit and autonomous batch-audit operating rules
+- [`INTAKE_AGENT_PROCESS.md`](INTAKE_AGENT_PROCESS.md) — manual public-intake review process and boundary for any later automation
 - [`ISSUE_EVIDENCE_TEMPLATE.md`](templates/ISSUE_EVIDENCE_TEMPLATE.md) — reader-facing evidence-record structure for proposals whose verified supporting record exceeds the concise issue page
+- [`TOPIC_PAGE_TEMPLATE.md`](templates/TOPIC_PAGE_TEMPLATE.md) — canonical public topic-guide structure and compact routing-table wrappers
 - [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md) — autonomous, batched, or scheduled agent commit provenance and rollback references
 - [`HORIZON_SCAN_LOG.md`](logs/HORIZON_SCAN_LOG.md) — cumulative Horizon Scan disposition and integration log
 - [`CHANGE_AUDIT_LOG.md`](logs/CHANGE_AUDIT_LOG.md) — read-only historical project-wide Change and Consistency Audit record
@@ -115,7 +117,7 @@ Examples:
 - `DOJ-007-preferred.md` — preferred enabling legislation using shared JUD-011 infrastructure.
 - `DOJ-007.md` — standalone enabling legislation retained as the independent alternative.
 
-Every Markdown page must carry `print_levels` metadata under [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata).
+Every project-content or project-documentation Markdown page must carry `print_levels` metadata under [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md#print-assignment-metadata). Tool-discovered control files such as root `AGENTS.md` and website-only assets such as `website/404.md` are not compiled-edition pages and are exempt.
 
 ## Compiled Appendix Catalog
 
@@ -355,7 +357,7 @@ Every factual, legal, and causal proposition must remain independently supportab
 
 Indictments, criminal complaints, informations, prosecutorial reports, press releases describing charges, and comparable advocacy-position records may be used to identify alleged fact patterns, procedural posture, source leads, and potential institutional weaknesses. They must not be used as evidentiary support for the truth of an allegation unless the project separately verifies the allegation through specific cited evidence, admitted records, judicial findings, official records, or other reliable corroboration. When used, label them as allegations, prosecution assessments, charging documents, or source-development leads rather than adjudicated facts.
 
-Source inventory updates are required whenever a new external source is cited or an existing cited source is repurposed for a materially different proposition. [`../inventory/sources.csv`](../inventory/sources.csv) is the citation catalog; a source may remain marked `Reviewed?` as `No` until verification is complete, but the citation should still be captured promptly. [`../inventory/sources-pending.csv`](../inventory/sources-pending.csv) holds source-development, monitoring, and adjudication records that are not yet cited in ARRP prose; move the stable record into `sources.csv` only when it becomes a cited project source.
+Source inventory updates are required whenever a new external source is affirmatively relied upon or an existing source is repurposed for a materially different proposition. [`../inventory/sources.csv`](../inventory/sources.csv) is the relied-upon source registry; a source may remain marked `Reviewed?` as `No` when the project carefully attributes a provisional assertion or monitoring posture, but the supported proposition and verification status must remain clear. [`../inventory/sources-pending.csv`](../inventory/sources-pending.csv) holds potentially useful source-development and adjudication leads not yet used to support a substantive project assertion; move the stable record into `sources.csv` only when an accountable project record actually relies on it.
 
 When referring to another page in this project, use a relative Markdown link whenever the target page exists. If the referenced issue exists only as an inventory or area-index entry, link to the nearest project page that contains that entry.
 
