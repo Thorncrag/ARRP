@@ -19,6 +19,13 @@
   font-weight: 650;
 }
 
+/* ARRP uses front-matter status values for project lifecycle metadata, not
+   reader-facing navigation badges. Material otherwise renders each value as
+   an unexplained information icon beside the corresponding sidebar link. */
+.md-nav .md-status {
+  display: none;
+}
+
 .md-typeset h1 {
   color: var(--arrp-heading-color);
   font-weight: 650;

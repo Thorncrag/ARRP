@@ -3,6 +3,7 @@
 
   const elements = {
     form: document.querySelector("#submission-form"),
+    backLink: document.querySelector("#back-link"),
     routes: [...document.querySelectorAll('input[name="route"]')],
     title: document.querySelector("#submission-title"),
     titleLabel: document.querySelector("#submission-title-label"),
@@ -159,6 +160,19 @@
     return window.ARRP_CONTEXT_URLS?.sanitizeContextUrl(value) || "";
   }
 
+  function initializeBackLink() {
+    const params = new URLSearchParams(window.location.search);
+    const target = window.ARRP_CONTEXT_URLS?.resolveReturnTarget(document.referrer, params.get("page"));
+    if (!target || !elements.backLink) return;
+    elements.backLink.href = target.url;
+    if (!target.useHistory || window.history.length <= 1) return;
+    elements.backLink.addEventListener("click", (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      window.history.back();
+    });
+  }
+
   async function sendRequest(path, payload) {
     // Public input continues through intakeEndpoint("submit"); private author
     // contact uses the separate endpoint so it can never create a Discussion.
@@ -283,6 +297,7 @@
   elements.form.addEventListener("submit", screenSubmission);
   elements.routes.forEach((input) => input.addEventListener("change", () => setRoute(input.value)));
   setRoute("input");
+  initializeBackLink();
   initializeContext();
   initializeIntake();
 })();
