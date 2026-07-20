@@ -118,6 +118,8 @@ Horizon candidates remain their own active monitoring records while unadmitted. 
 
 The Project should maintain a dedicated **Monitoring** view filtered to `Status: Monitoring` and/or `needs: monitoring`. A project-wide monitoring pass reviews every open monitor in that view, refreshes the external posture and last-checked date, updates its source inventory and evidence placement, performs a targeted Change Audit when a result materially changes a developed proposal, and closes/removes resolved monitors without deleting their GitHub issues.
 
+The scheduled deterministic monitoring pilot may add one rolling `## Automated monitoring check` comment to a configured monitor and update that same comment on later runs. The comment stores only source fingerprints and concise structured observations needed to compare runs. A temporary `needs: monitor review` label means the configured source fields changed or the automated check failed repeatedly; it is a triage signal, not a finding that the monitor's legal or factual reassessment trigger occurred. A substantive reviewer decides significance and performs any required repository, source, monitoring, or Change Audit updates. After that review, removing `needs: monitor review` acknowledges the current structured observation as the next automated baseline. The automation never removes `needs: monitoring`, closes an issue, modifies Project fields, or edits substantive repository content.
+
 For the current public-release workflow, `Pre-publication final audit` and `Pre-publication technical` are the parent governance issues. Their detailed work should remain attached through GitHub native sub-issues so the Project board can stay compact while preserving task detail.
 
 ## Issue Registry

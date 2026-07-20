@@ -22,9 +22,9 @@ The classification system concentrates broad authority within the executive bran
 - **CLASS-006 — Protection of Classified Information, Sources, and Methods**
 - **CLASS-011 — Security-Clearance Integrity**
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **CLASS-002, CLASS-003, CLASS-005, CLASS-007** — Merged into CLASS-001 as possession, statutory-exception, selective-declassification, implementation, documentation, and custody components.
 - **CLASS-008, CLASS-009, CLASS-010** — Merged into CLASS-004 as overclassification, congressional-access, external-review, and remedy components of one anti-concealment framework.

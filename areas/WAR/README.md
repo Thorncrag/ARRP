@@ -19,9 +19,9 @@ The existing allocation of war powers allows presidents to initiate, expand, and
 
 - [**WAR-001 — Comprehensive War Powers and Use-of-Force Authorization Reform**](issues/WAR-001.md)
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **WAR-002 through WAR-008** — Merged into [**WAR-001 — Comprehensive War Powers and Use-of-Force Authorization Reform**](issues/WAR-001.md) as automatic-termination, AUMF, legal-interpretation, oversight, information, mission-expansion, and appropriations components of one comprehensive war-powers framework.
 

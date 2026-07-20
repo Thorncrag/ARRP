@@ -25,9 +25,9 @@ The Department of Justice lacks sufficient structural independence, external ove
 - [**DOJ-007 — Independent Investigation of Presidential and Senior Executive Misconduct**](issues/DOJ-007.md)
 - [**DOJ-009 — Insufficient Professional-Qualification Requirements for Senior DOJ Leadership**](issues/DOJ-009.md)
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **DOJ-006** — Merged into [DOJ-002](issues/DOJ-002.md) and [DOJ-007](issues/DOJ-007.md).
 - **DOJ-008** — Merged into [DOJ-003](issues/DOJ-003.md).

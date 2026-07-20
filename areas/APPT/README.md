@@ -20,9 +20,9 @@ Temporary-service, delegation, and informal-authority arrangements can weaken st
 - [**APPT-001 — Evasion of Senate Confirmation and Statutory Appointment Safeguards**](issues/APPT-001.md)
 - **APPT-004 — Exercise of Governmental Authority by Unappointed or Insufficiently Accountable Individuals**
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **APPT-002, APPT-003, APPT-007, APPT-008** — Merged into [APPT-001](issues/APPT-001.md).
 - **APPT-005** — Confirmation-backstop evasion rerouted to [APPT-001](issues/APPT-001.md); independent-agency removal rerouted to [REG-001](../REG/issues/REG-001.md); ordinary at-will removal held outside scope.

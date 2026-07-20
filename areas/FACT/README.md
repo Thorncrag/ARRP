@@ -21,9 +21,9 @@ Official information, public-facing government terminology, data, scientific fin
 - **FACT-007 — Official Historical Presentation Integrity**
 - **FACT-009 — Misleading Official Terminology, Titles, or Institutional Labels**
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **FACT-002 through FACT-006; FACT-008** — Merged into FACT-001 as dataset, publication-schedule, statistical-agency, terminology, unfavorable-finding, archival-preservation, and methodology-protection components of one technical-integrity framework.
 - **PRESS-007** — Integrated into FACT-001 or FACT-009 according to whether the conduct alters technical substance or misrepresents legal or institutional reality. Protected presidential criticism of the press remains outside the proposal.

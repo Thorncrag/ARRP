@@ -20,9 +20,9 @@ The constitutional and statutory framework does not adequately prevent a preside
 - **EMOL-001 — Presidential Financial Conflicts, Emoluments, and Self-Dealing**
 - [**EMOL-015 — Executive Self-Litigation and Settlement Conflicts**](issues/EMOL-015.md)
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **EMOL-002 through EMOL-014** — Merged into EMOL-001 as substantive definitions, manifestations, disclosure and consent rules, enforcement mechanisms, remedies, or anti-circumvention safeguards.
 

@@ -59,6 +59,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | DOJ professional qualifications; discipline; recusal | **[DOJ-005](areas/DOJ/issues/DOJ-005.md)**; [DOJ-009](areas/DOJ/issues/DOJ-009.md); [DOJ-001](areas/DOJ/issues/DOJ-001.md) |
 | Education Department (U.S. Department of Education; ED) | **[REG-001](areas/REG/issues/REG-001.md)**; [RIGHTS-001](areas/RIGHTS/issues/RIGHTS-001.md); [A-11](areas/FUND/README.md) |
 | Elections; election administration; election integrity; federal interference | **[Elections](topics/elections.md)**; [ELEC-001](areas/ELEC/issues/ELEC-001.md); [FED-003](areas/FED/issues/FED-003.md); [ELEC-002](areas/ELEC/issues/ELEC-002.md); [ELEC-007](areas/ELEC/issues/ELEC-007.md); [ELEC-014](areas/ELEC/issues/ELEC-014.md) |
+| Hatch Act; political activity by federal officials; campaign use of official authority or resources | **[OVS-009](areas/OVS/issues/OVS-009.md)**; [ELEC-001](areas/ELEC/issues/ELEC-001.md) |
 | Election Assistance Commission (EAC) | **[A-02](areas/ELEC/README.md)**; [REG-001](areas/REG/issues/REG-001.md); [ELEC-001](areas/ELEC/issues/ELEC-001.md); [ELEC-003](areas/ELEC/issues/ELEC-003.md); [ELEC-013](areas/ELEC/issues/ELEC-013.md) |
 | Election certification and canvassing | **[ELEC-002](areas/ELEC/issues/ELEC-002.md)**; [ELEC-005](areas/ELEC/issues/ELEC-005.md); [ELEC-008](areas/ELEC/issues/ELEC-008.md) |
 | Election fraud; voter fraud | See *Elections; election administration; election integrity; federal interference*. |
@@ -100,6 +101,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Homeland Security Grant Program (HSGP) | **[FED-003](areas/FED/issues/FED-003.md)** |
 | IEEPA (International Emergency Economic Powers Act) | See *Emergency economic powers; IEEPA; sanctions; asset blocking*. |
 | Immigration and Customs Enforcement (ICE), Customs and Border Protection (CBP), and Homeland Security Investigations (HSI) | **[A-14](areas/DOM/README.md)**; [FED-003](areas/FED/issues/FED-003.md); [DOM-005](areas/DOM/issues/DOM-005.md); [DOM-009](areas/DOM/issues/DOM-009.md); [RIGHTS-002](areas/RIGHTS/issues/RIGHTS-002.md) |
+| Immigration courts; immigration judges; Executive Office for Immigration Review (EOIR) | **[REG-003](areas/REG/issues/REG-003.md)**; [Immigration System Reform](topics/immigration-system-reform.md) |
 | Immigration enforcement; immigration reform; removal due process; sanctuary policies; system integrity | **[Immigration System Reform](topics/immigration-system-reform.md)**; [RIGHTS-002](areas/RIGHTS/issues/RIGHTS-002.md); [FED-003](areas/FED/issues/FED-003.md); [A-14](areas/DOM/README.md) |
 | Impoundment | See *Appropriations; impoundment; rescissions; withholding; reprogramming*. |
 | Independent agencies | See *Agency independence; independent commissions; removal protection*. |
@@ -118,7 +120,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Law-enforcement use of force | See *Critical incidents; federal officer shootings; evidence preservation; State investigative access*. |
 | Mail-in and absentee voting; postal disruption; ballot cure | **[ELEC-010](areas/ELEC/issues/ELEC-010.md)**; [ELEC-003](areas/ELEC/issues/ELEC-003.md) |
 | Marshals Service, U.S. (USMS) | **[JUD-001](areas/JUD/issues/JUD-001.md)** |
-| Merit Systems Protection Board (MSPB), Office of Personnel Management (OPM), and Office of Special Counsel (OSC) | **[A-08](areas/CIV/README.md)**; [REG-001](areas/REG/issues/REG-001.md) |
+| Merit Systems Protection Board (MSPB), Office of Personnel Management (OPM), and Office of Special Counsel (OSC) | **[OVS-009](areas/OVS/issues/OVS-009.md)**; [A-08](areas/CIV/README.md); [REG-001](areas/REG/issues/REG-001.md) |
 | Military force | See *War powers; AUMFs; hostilities; military force*. |
 | Minnesota Bureau of Criminal Apprehension (BCA), State attorneys general, State prosecutors, and comparable State investigative bodies | **[DOM-005](areas/DOM/issues/DOM-005.md)** |
 | National Archives and Records Administration (NARA) | **[A-13](areas/REC/README.md)** |
@@ -157,6 +159,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Supremacy Clause immunity | See *Federal officer immunity; Supremacy Clause immunity*. |
 | Surveillance, federal law enforcement | See *Federal law-enforcement surveillance; procurement; deployment*. |
 | Temporary Protected Status (TPS) | See *Asylum; Temporary Protected Status (TPS); humanitarian review*. |
+| Tina Peters; Colorado federal-retaliation litigation | **[FED-002](areas/FED/issues/FED-002.md)**; [FED-003](areas/FED/issues/FED-003.md) |
 | TIGTA (Treasury Inspector General for Tax Administration) | **[EMOL-015](areas/EMOL/issues/EMOL-015.md)** |
 | Treasury Department (U.S. Department of the Treasury) | **[EMERG-003](areas/EMERG/issues/EMERG-003.md)**; [EMOL-015](areas/EMOL/issues/EMOL-015.md) |
 | USAID (U.S. Agency for International Development) | **[REG-001](areas/REG/issues/REG-001.md)**; [FUND-001](areas/FUND/issues/FUND-001.md) |

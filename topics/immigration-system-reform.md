@@ -27,7 +27,7 @@ ARRP therefore uses this page as a guide to the individual institutional defects
 | Citizenship and identity records | [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md) | Examines recognition continuity, records safeguards, reliance interests, and expedited review. |
 | Lawful immigration pathways | HOR-039 | Separates administration of existing pathways from the political question of whether Congress should create or expand pathways, eligibility categories, or numerical levels. |
 | Immigration detention and removal | HOR-037 | Tests whether existing detention and removal procedures provide effective safeguards before irreversible action. |
-| Immigration-court independence | REG-003 | Examines structural controls over administrative adjudication, including immigration adjudication where the same defect is present. |
+| Immigration-court independence | [REG-003](../areas/REG/issues/REG-003.md) | Examines appointments, removal, assignments, performance controls, and decisional independence in executive-branch adjudication. |
 | Courthouse immigration enforcement | HOR-010 | Examines whether courthouse access requires a distinct institutional safeguard or fits an existing proposal. |
 | Immigration-related funding conditions | [FED-003](../areas/FED/issues/FED-003.md) | Addresses statutory authority, germaneness, notice, objective findings, and timely review. |
 | Federal preemption and State authority | FED-004 | Examines the authority and safeguards governing displacement of ordinary State functions. |

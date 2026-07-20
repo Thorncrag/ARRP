@@ -20,9 +20,9 @@ The legal system lacks a sufficiently clear, timely, and enforceable framework f
 - [**IMM-001 — Criminal Immunity for Presidential Official Acts**](issues/IMM-001.md)
 - **IMM-002 — Civil immunity and remedial gaps**
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **IMM-003 through IMM-006** — Merged into [IMM-001](issues/IMM-001.md) as tolling, evidentiary-use, delay, and impeachment-prerequisite components of the criminal-immunity framework.
 - **IMM-007** — Integrated into IMM-001 for immunity arising from self-protective official acts and into [DOJ-007](../DOJ/issues/DOJ-007.md) for conflicted investigation and prosecution.

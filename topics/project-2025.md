@@ -39,7 +39,7 @@ This page connects commonly recognized Project 2025 themes to the ARRP proposals
 | Religious-conscience exemptions | Pending | Requires review to determine whether administration exposes a structural rights or process defect beyond substantive policy balancing. |
 | Adult-content enforcement and speech safeguards | Pending | Requires review to determine whether a distinct enforcement, due-process, or protected-speech defect exists. |
 | Intelligence-agency politicization | Pending | Requires review to determine whether existing oversight and factual-integrity proposals adequately address the concern. |
-| Veterans-benefits adjudication | REG-003 | Routes procedural independence and adjudication safeguards separately from substantive benefit policy. |
+| Veterans-benefits adjudication | [REG-003](../areas/REG/issues/REG-003.md) | Routes procedural independence and adjudication safeguards separately from substantive benefit policy. |
 | Removal or control of independent regulators | [REG-001](../areas/REG/issues/REG-001.md) | Addresses protected independence and functional disablement. |
 | Vacancy and succession practices that evade confirmation | [APPT-001](../areas/APPT/issues/APPT-001.md) | Addresses removal combined with vacancy, delegation, or succession practices that defeat confirmation safeguards. |
 | General emergency declarations | EMERG-001 | Addresses declaration predicates, findings, duration, renewal, and review. |

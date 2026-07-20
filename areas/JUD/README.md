@@ -24,9 +24,9 @@ The federal judiciary’s authority to interpret and apply law is not matched by
 - [**JUD-011 — Executive Nullification of Congressional Mandates**](issues/JUD-011.md)
 - [**JUD-012 — Government Action Insulated from Judicial Review**](issues/JUD-012.md)
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **JUD-002, JUD-003, JUD-004, JUD-006, JUD-007** — Merged into [JUD-001](issues/JUD-001.md). JUD-007 supplies the evasion-through-substitution, reorganization, and nominally revised directive application.
 - **JUD-008** — Merged into [JUD-005](issues/JUD-005.md) for automatic public compliance verification, with JUD-001 retaining direct evidentiary and enforcement authority.

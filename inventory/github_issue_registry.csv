@@ -155,7 +155,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 159,https://github.com/Thorncrag/ARRP/issues/159,IMM-008,merged proposal,IMM-008: Independent investigation and prosecution mechanisms [Merged into DOJ-007],areas/IMM/README.md,
 160,https://github.com/Thorncrag/ARRP/issues/160,REG-001,proposal,REG-001: Agency Independence and Functional Nullification,areas/REG/issues/REG-001.md,
 161,https://github.com/Thorncrag/ARRP/issues/161,REG-002,proposal,REG-002: Politicized enforcement or nonenforcement,areas/REG/README.md,
-162,https://github.com/Thorncrag/ARRP/issues/162,REG-003,proposal,REG-003: Control of administrative adjudication,areas/REG/README.md,
+162,https://github.com/Thorncrag/ARRP/issues/162,REG-003,proposal,REG-003: Control of Administrative Adjudication,areas/REG/issues/REG-003.md,
 163,https://github.com/Thorncrag/ARRP/issues/163,REG-004,merged proposal,REG-004: Suspension or dismantling of agency operations [Merged into REG-001],areas/REG/README.md,
 164,https://github.com/Thorncrag/ARRP/issues/164,REG-005,merged proposal,REG-005: Manipulation of commissions through vacancies [Merged into REG-001],areas/REG/README.md,
 165,https://github.com/Thorncrag/ARRP/issues/165,REG-006,proposal,REG-006: Presidential control of rulemaking and legal positions,areas/REG/README.md,
@@ -179,7 +179,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 183,https://github.com/Thorncrag/ARRP/issues/183,RET-007,merged proposal,RET-007: Security-clearance or access retaliation [Merged into RET-001],areas/RET/README.md,
 184,https://github.com/Thorncrag/ARRP/issues/184,RET-008,merged proposal,RET-008: Weak emergency remedies and evidentiary transparency [Merged into RET-001],areas/RET/README.md,
 185,https://github.com/Thorncrag/ARRP/issues/185,FED-001,merged proposal,FED-001: Conditioning disaster or infrastructure aid [Merged into FED-003],areas/FED/README.md,
-186,https://github.com/Thorncrag/ARRP/issues/186,FED-002,proposal,FED-002: Selective or Retaliatory Federal Administration Against States,areas/FED/README.md,
+186,https://github.com/Thorncrag/ARRP/issues/186,FED-002,proposal,FED-002: Selective or Retaliatory Federal Administration Against States,areas/FED/issues/FED-002.md,
 187,https://github.com/Thorncrag/ARRP/issues/187,FED-003,proposal,"FED-003: Federal Funding, Waiver, and Approval Coercion of States",areas/FED/issues/FED-003.md,
 188,https://github.com/Thorncrag/ARRP/issues/188,FED-004,proposal,FED-004: Federal Displacement of State Functions,areas/FED/README.md,
 189,https://github.com/Thorncrag/ARRP/issues/189,FED-005,merged proposal,FED-005: Deployment of federal forces over state objection [Merged into DOM-001],areas/FED/README.md,
@@ -245,7 +245,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 249,https://github.com/Thorncrag/ARRP/issues/249,HOR-029,horizon,HOR-029: Presidential Self-Dealing Through an Officially Favored Private Platform,framework/logs/HORIZON_SCAN_LOG.md,
 250,https://github.com/Thorncrag/ARRP/issues/250,HOR-030,horizon,HOR-030: Executive Dismantlement of the International Criminal Court [Integrated into EMERG-003],framework/logs/HORIZON_SCAN_LOG.md,
 251,https://github.com/Thorncrag/ARRP/issues/251,HOR-031,horizon,HOR-031: Durability and Revocation of National Monument Protections,framework/logs/HORIZON_SCAN_LOG.md,
-252,https://github.com/Thorncrag/ARRP/issues/252,HOR-032,horizon,HOR-032: Senior-Official Hatch Act Enforcement,framework/logs/HORIZON_SCAN_LOG.md,
+252,https://github.com/Thorncrag/ARRP/issues/252,OVS-009,proposal,OVS-009: Enforcement of Political-Activity Restrictions for Senior Officials,areas/OVS/issues/OVS-009.md,
 253,https://github.com/Thorncrag/ARRP/issues/253,HOR-033,horizon,HOR-033: Enforceability of Accessibility Duties for Presidential Communications,framework/logs/HORIZON_SCAN_LOG.md,
 254,https://github.com/Thorncrag/ARRP/issues/254,HOR-034,horizon,HOR-034: Cross-Agency Repurposing of Protected Personal Data,framework/logs/HORIZON_SCAN_LOG.md,
 255,https://github.com/Thorncrag/ARRP/issues/255,HOR-035,horizon,"HOR-035: Executive Review Evasion Through Withdrawal, Replacement, Settlement, or Mootness",framework/logs/HORIZON_SCAN_LOG.md,
@@ -283,3 +283,5 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 305,https://github.com/Thorncrag/ARRP/issues/305,HOR-043,horizon,HOR-043: Presidential Recognition of International Bodies With Domestic Legal Privileges,framework/logs/HORIZON_SCAN_LOG.md,
 306,https://github.com/Thorncrag/ARRP/issues/306,HOR-044,horizon,HOR-044: Statutory Framework for Presidential Cross-Border Infrastructure Permits,framework/logs/HORIZON_SCAN_LOG.md,
 311,https://github.com/Thorncrag/ARRP/issues/311,HOR-045,horizon,HOR-045: Immigration-Enforcement Vehicle-Stop Safeguards,framework/logs/HORIZON_SCAN_LOG.md,
+314,https://github.com/Thorncrag/ARRP/issues/314,FED-002-MON,source review,FED-002-MON: FED-002 External Developments Watch,research/trump-administration-litigation-monitoring.csv,186
+315,https://github.com/Thorncrag/ARRP/issues/315,REG-003-MON,source review,REG-003-MON: REG-003 External Developments Watch,research/trump-administration-litigation-monitoring.csv,162

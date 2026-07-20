@@ -142,7 +142,7 @@ The current inventory has adjacent homes in A-08, OVS-008, and ELEC-012, but no 
 
 **Next review:** compare the president and vice president exclusions, OSC referral and adjudication authority, post-employment limits, appropriations restrictions, and existing proposals for independent civil enforcement.
 
-**Current treatment:** promoted as [HOR-032](../framework/logs/HORIZON_SCAN_LOG.md) for formal duplicate and issue-admission review, principally through ELEC-012 and OVS-008. The fact that covered actors may be presidential appointees does not make this an APPT issue; the asserted defect is enforcement of election and official-resource restrictions.
+**Current treatment:** admitted as [OVS-009](../areas/OVS/issues/OVS-009.md) after cross-administration review showed a distinct senior-official enforcement gap. The fact that covered actors may be presidential appointees does not make this an APPT issue; the asserted defect is the oversight and enforcement route for political-activity restrictions. ELEC-012 and OVS-008 retain campaign-finance and internal-ethics-office questions respectively.
 
 ### Accessible presidential and executive communications
 

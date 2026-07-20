@@ -20,9 +20,9 @@ The executive branch can implement policy beyond or contrary to Congress's enact
 - [**FUND-001 — Fiscal Implementation of Ultra Vires Executive Directives**](issues/FUND-001.md)
 - [**FUND-002 — Pocket Rescissions and Strategic Delay**](issues/FUND-002.md)
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **FUND-003, FUND-005, FUND-006, FUND-007, FUND-008** — Merged into [FUND-001](issues/FUND-001.md) as program-nullification, reprogramming, standing, remedy, accountability, and reporting components of its fiscal implementation framework.
 - **EMERG-002** — Integrated into FUND-001 as the emergency-authority appropriation-redirection manifestation.
