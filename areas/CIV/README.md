@@ -22,9 +22,9 @@ The executive branch retains excessive practical capacity to convert career admi
 - **CIV-005 — Federal Workforce Capacity and Anti-Hollowing**
 - **CIV-009 — Repurposed Technical Units as Cross-Agency Operational Control Mechanisms**
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **CIV-002, CIV-003, CIV-006, CIV-007** — Merged into CIV-001 as removal, reassignment, loyalty-based hiring, delayed-remedy, promotion, and performance-system components of one merit-system framework.
 - **CIV-008** — Merged into CIV-005 because mass reductions are a principal mechanism for degrading federal technical and institutional capacity.

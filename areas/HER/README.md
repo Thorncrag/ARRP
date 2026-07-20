@@ -19,9 +19,9 @@ Federal historic buildings, monuments, landscapes, civic spaces, museum-like int
 
 - **HER-001 — Federal Civic Property Preservation and Public Review**
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **HER-002 through HER-008** — Merged into HER-001 as review, private-funding, commission-integrity, emergency-exception, commemorative-feature, notice, documentation, consultation, and timely-remedy components of one civic-property framework.
 

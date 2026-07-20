@@ -21,9 +21,9 @@ Existing constitutional and statutory safeguards do not adequately prevent presi
 - **PRESS-003 — Journalist Compulsory Process, Surveillance, and Source Protection**
 - **PRESS-006 — Governmental Retaliation Against the Press**
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **PRESS-002** — Merged into PRESS-001 as the selective-exclusion application of equal-access rules.
 - **PRESS-009** — Merged into PRESS-003 as the confidential-source component of journalist compulsory-process and surveillance safeguards.

@@ -19,9 +19,9 @@ Presidents and political appointees possess sufficient influence over contracts,
 
 - **RET-001 — Executive Retaliation Through Federal Benefits and Regulatory Power**
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **RET-002 through RET-008** — Merged into RET-001 as contracting, regulatory, licensing, enforcement, target-class, clearance, access, evidentiary, and emergency-remedy components of one anti-retaliation framework.
 

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "enabled": true,
+  "reviewLabel": "needs: monitor review",
+  "reviewLabelColor": "FBCA04",
+  "reviewLabelDescription": "Automated monitoring detected a relevant source change or repeated check failure requiring review.",
+  "source": {
+    "type": "just-security-tablepress-42",
+    "url": "https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/",
+    "allowedHosts": [
+      "www.justsecurity.org"
+    ],
+    "maximumBytes": 8388608
+  },
+  "targets": [
+    {
+      "recordId": "HOR-033",
+      "routeId": "HOR-033",
+      "monitorIds": [
+        "MON-0001"
+      ]
+    },
+    {
+      "recordId": "EMERG-003-MON",
+      "routeId": "EMERG-003",
+      "monitorIds": [
+        "MON-0004"
+      ]
+    },
+    {
+      "recordId": "REG-001-MON",
+      "routeId": "REG-001",
+      "monitorIds": [
+        "MON-0005"
+      ]
+    },
+    {
+      "recordId": "FACT-001-MON",
+      "routeId": "FACT-001",
+      "monitorIds": [
+        "MON-0022"
+      ]
+    },
+    {
+      "recordId": "ELEC-001-MON",
+      "routeId": "ELEC-001",
+      "monitorIds": [
+        "MON-0025"
+      ]
+    }
+  ]
+}

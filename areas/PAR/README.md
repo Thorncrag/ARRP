@@ -20,9 +20,9 @@ The pardon power lacks adequate safeguards against use for personal protection, 
 - **PAR-001 — Corrupt, Self-Protective, and Politically Abusive Clemency**
 - **PAR-005 — Self-pardon uncertainty**
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **PAR-002 through PAR-004; PAR-006 through PAR-010** — Merged into PAR-001 as obstruction, monetization, self-interest, professional-review, transparency, categorical-use, transition-period, and remedy components of one clemency framework.
 

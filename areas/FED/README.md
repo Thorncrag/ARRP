@@ -17,13 +17,13 @@ The federal government can use funding, enforcement discretion, emergency author
 
 ## Active Issues
 
-- **FED-002 — Selective or Retaliatory Federal Administration Against States**
+- [**FED-002 — Selective or Retaliatory Federal Administration Against States**](issues/FED-002.md)
 - [**FED-003 — Federal Funding, Waiver, and Approval Coercion of States**](issues/FED-003.md)
 - **FED-004 — Federal Displacement of State Functions**
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **FED-001, FED-008** — Merged into FED-003 as disaster-aid, infrastructure-aid, waiver, approval, and grant-condition instruments of federal coercion.
 - **FED-007** — Merged into FED-002 as the investigation-and-audit application of selective or retaliatory federal administration against states.
@@ -32,7 +32,7 @@ These provisional identifiers were adjudicated before development and are retain
 
 ## Issue Boundaries
 
-- **FED-002** owns selective or retaliatory enforcement, investigation, audit, and administrative treatment directed at a state or locality because of its lawful policies or political alignment.
+- [**FED-002**](issues/FED-002.md) owns selective or retaliatory enforcement, investigation, audit, and administrative treatment directed at a state or locality because of its lawful policies or political alignment.
 - **FED-003** owns federal funding, grant conditions, disaster or infrastructure aid, waivers, approvals, and similar benefits used to compel state or local policy change without a sufficiently clear congressional command.
 - **FED-004** owns takeover, anti-commandeering, preemption, and displacement of state functions when neither funding coercion nor selective enforcement is the principal mechanism.
 
@@ -40,4 +40,4 @@ These provisional identifiers were adjudicated before development and are retain
 
 ## Notes
 
-FED-002 and FED-003 are in development after consolidation. FED-004 remains an unresolved candidate. Full source development and initial vehicle selection remain pending.
+FED-002 and FED-003 are in development after consolidation and initial source development. FED-004 remains an unresolved candidate. Vehicle selection remains pending.

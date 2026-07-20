@@ -22,9 +22,9 @@ The president retains broad and partially ambiguous authority to deploy federal 
 - **DOM-007 — Domestic military intelligence activity**
 - [**DOM-009 — Federal Law-Enforcement Surveillance Procurement and Deployment**](issues/DOM-009.md)
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **DOM-002, DOM-003, DOM-004, DOM-006, DOM-008** — Merged into DOM-001 as Posse Comitatus, Guard-federalization, protest or election deployment, federal-property, and expedited-review components of one domestic-deployment framework.
 - **FED-005** — Integrated into DOM-001 as the federalism application involving deployment over state objection.

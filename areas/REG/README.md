@@ -19,12 +19,12 @@ The constitutional and statutory position of independent agencies is increasingl
 
 - [**REG-001 — Agency Independence and Functional Nullification**](issues/REG-001.md)
 - **REG-002 — Politicized enforcement or nonenforcement**
-- **REG-003 — Control of administrative adjudication**
+- [**REG-003 — Control of Administrative Adjudication**](issues/REG-003.md)
 - **REG-006 — Presidential control of rulemaking and legal positions**
 
-## Undeveloped Candidate Dispositions
+## Prior Issue Numbers
 
-These provisional identifiers were adjudicated before development and are retained only to explain numbering gaps.
+These numbers were assigned during preliminary review but did not become separate proposals. They are listed only to explain gaps in the sequence.
 
 - **REG-004, REG-005, REG-007, REG-008** — Merged into [REG-001](issues/REG-001.md). Operational dismantling, vacancies, funding independence, and post-doctrine constitutional design are components of its two-tier independence and continuity framework.
 
@@ -44,6 +44,8 @@ These provisional identifiers were adjudicated before development and are retain
 
 - [HOR-025](https://github.com/Thorncrag/ARRP/issues/239) is an active monitoring item routed primarily to REG-002 for reported political or lobbyist influence over DOJ merger enforcement. The present record supports monitoring, process mapping, and preservation of source leads, not a finding of corruption. REG-001 receives a Tier Two cross-reference only if later evidence shows categorical or functional disablement of neutral merger enforcement. Renew substantive review upon congressional or inspector-general investigation, judicial or state discovery, whistleblower documentation, merger-contact disclosures, ethics records, or comparable primary evidence.
 
+- [REG-003](issues/REG-003.md) owns executive control of administrative adjudication. Immigration-court removals, adjudicatory-pressure allegations, and the San Francisco court consolidation provide an initial manifestation while preserving lawful performance management, backlog reduction, and substantive immigration policymaking.
+
 ## Notes
 
-REG-001 was promoted after *Trump v. Slaughter*, expanded to consolidate operational, vacancy, funding, and constitutional-design components under a two-tier agency-independence and functional-continuity framework, and remains 83/100 and Review Ready after a targeted consolidation review. REG-002, REG-003, and REG-006 remain provisional because enforcement, adjudication, and rulemaking or litigation-position controls may require different statutory vehicles.
+REG-001 was promoted after *Trump v. Slaughter*, expanded to consolidate operational, vacancy, funding, and constitutional-design components under a two-tier agency-independence and functional-continuity framework, and remains 83/100 and Review Ready after a targeted consolidation review. REG-003 is in source development; REG-002 and REG-006 remain provisional because enforcement, adjudication, and rulemaking or litigation-position controls may require different statutory vehicles.
