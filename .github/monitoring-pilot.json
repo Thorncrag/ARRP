@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "enabled": true,
+  "enabled": false,
   "reviewLabel": "needs: monitor review",
   "reviewLabelColor": "FBCA04",
   "reviewLabelDescription": "Automated monitoring detected a relevant source change or repeated check failure requiring review.",
