@@ -4,6 +4,8 @@ import re
 import unittest
 from pathlib import Path
 
+from scripts.build_horizon_review_console import research_for_record
+
 
 ROOT = Path(__file__).resolve().parents[1]
 RESEARCH = ROOT / "research"
@@ -17,17 +19,13 @@ def read_csv(name: str) -> list[dict[str, str]]:
 class HorizonIntakeTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.catalog = read_csv("trump-administration-legal-review-catalog.csv")
-        cls.routing = read_csv("trump-administration-evidence-routing.csv")
-        cls.existing_issue_integration = read_csv("existing-issue-evidence-integration.csv")
-        cls.litigation_monitoring = read_csv("trump-administration-litigation-monitoring.csv")
-        cls.source_universe = read_csv("trump-administration-source-universe.csv")
-        cls.media_intake = read_csv("trump-administration-media-review-intake.csv")
         cls.candidates = read_csv("trump-administration-preliminary-candidates.csv")
         cls.sources = []
+        cls.source_catalogs = {}
         for name in ("sources.csv", "sources-pending.csv"):
             with (ROOT / "inventory" / name).open(newline="", encoding="utf-8") as handle:
                 rows = list(csv.DictReader(handle))
+                cls.source_catalogs[name] = rows
                 cls.sources.extend(rows)
                 if name == "sources-pending.csv":
                     cls.pending_sources = rows
@@ -42,24 +40,23 @@ class HorizonIntakeTest(unittest.TestCase):
             participation_bundle.removeprefix(participation_prefix).removesuffix(";\n")
         )
 
-    def test_every_catalog_record_has_one_routing_record(self) -> None:
-        catalog_ids = [row["catalog_id"] for row in self.catalog]
-        routing_ids = [row["catalog_id"] for row in self.routing]
-        self.assertEqual(len(catalog_ids), len(set(catalog_ids)))
-        self.assertCountEqual(catalog_ids, routing_ids)
-
-    def test_intake_level_review_has_no_pending_records(self) -> None:
-        self.assertFalse(any(row["review_status"].endswith("pending") for row in self.routing))
-        self.assertFalse(any(row["disposition"] == "agent-review-needed" for row in self.routing))
-
-    def test_routes_use_current_record_identifiers(self) -> None:
-        routes = {
-            route.strip()
-            for row in self.routing
-            for route in row["integration_routes"].split(";")
-            if route.strip()
+    def test_two_catalog_architecture_has_no_legacy_source_ledgers(self) -> None:
+        legacy_files = {
+            "existing-issue-evidence-integration.csv",
+            "trump-administration-evidence-routing.csv",
+            "trump-administration-legal-review-catalog.csv",
+            "trump-administration-litigation-monitoring.csv",
+            "trump-administration-media-review-intake.csv",
+            "trump-administration-priority-disposition-review.csv",
+            "trump-administration-source-universe.csv",
         }
-        self.assertFalse(any(route.startswith("A-") for route in routes))
+        self.assertFalse(any((RESEARCH / name).exists() for name in legacy_files))
+        cited = self.source_catalogs["sources.csv"]
+        pending = self.source_catalogs["sources-pending.csv"]
+        self.assertEqual(set(cited[0]), set(pending[0]))
+        cited_ids = {row["Source ID"] for row in cited}
+        pending_ids = {row["Source ID"] for row in pending}
+        self.assertFalse(cited_ids & pending_ids)
 
     def test_console_contains_only_known_preliminary_candidates(self) -> None:
         candidate_ids = {row["candidate_id"] for row in self.candidates}
@@ -68,41 +65,13 @@ class HorizonIntakeTest(unittest.TestCase):
             for row in self.candidates
             if row["review_status"] == "preliminary-candidate"
         }
-        routed_candidate_ids = {row["candidate_id"] for row in self.routing if row["candidate_id"]}
         console_ids = {row["id"] for row in self.console["records"]}
-        self.assertTrue(routed_candidate_ids <= candidate_ids)
+        self.assertTrue(console_ids <= candidate_ids)
         self.assertEqual(console_ids, active_candidate_ids)
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
-    def test_existing_issue_integration_queue_is_distinct_and_reconciled(self) -> None:
-        queued_ids = [
-            catalog_id.strip()
-            for row in self.existing_issue_integration
-            for catalog_id in row["catalog_id"].split(";")
-            if catalog_id.strip()
-        ]
-        active_ids = {row["catalog_id"] for row in self.catalog}
-        source_ids = {row["Source ID"] for row in self.sources}
-        self.assertEqual(len(queued_ids), len(set(queued_ids)))
-        self.assertFalse(set(queued_ids) & active_ids)
-        for row in self.existing_issue_integration:
-            canonical_ids = {
-                source_id.strip()
-                for source_id in row["source_record_ids"].split(";")
-                if source_id.strip()
-            }
-            self.assertTrue(canonical_ids)
-            self.assertTrue(canonical_ids <= source_ids)
-            for field in (
-                "integration_routes",
-                "action_or_policy",
-                "legal_question_or_outcome",
-                "review_note",
-            ):
-                self.assertTrue(row[field].strip(), (row["catalog_id"], field))
-
     def test_console_is_candidate_only(self) -> None:
-        self.assertEqual(self.console["schema_version"], 6)
+        self.assertEqual(self.console["schema_version"], 7)
         self.assertEqual(
             set(self.console),
             {
@@ -126,6 +95,14 @@ class HorizonIntakeTest(unittest.TestCase):
         }:
             self.assertNotIn(legacy_queue, self.console)
 
+    def test_formal_candidate_research_discovers_area_records(self) -> None:
+        paths = {record["path"] for record in research_for_record("JUD-012")}
+
+        self.assertIn(
+            "areas/JUD/research/JUD-012-judicial-review-foreclosure-case-review.md",
+            paths,
+        )
+
     def test_current_workflow_docs_do_not_restore_legacy_console_queues(self) -> None:
         current_docs = (
             ROOT / "framework" / "METHODOLOGY.md",
@@ -133,7 +110,7 @@ class HorizonIntakeTest(unittest.TestCase):
             ROOT / "framework" / "INTAKE_AGENT_PROCESS.md",
             ROOT / "participate" / "README.md",
             ROOT / "research" / "horizon-review-console" / "README.md",
-            ROOT / "research" / "trump-administration-legal-review-intake.md",
+            ROOT / "research" / "trump-administration-legal-review-summary.md",
             ROOT / "website" / "README.md",
         )
         stale_phrases = (
@@ -189,7 +166,7 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertIsInstance(row["dossier_gaps"], list)
         self.assertTrue(any(row["horizon_history"] for row in active))
         self.assertTrue(any(row["supporting_sources"] for row in active))
-        self.assertTrue(any(row["evidence_records"] for row in active))
+        self.assertTrue(all(not row["evidence_records"] for row in active))
 
         methodology = (ROOT / "framework" / "METHODOLOGY.md").read_text(encoding="utf-8")
         self.assertIn("decision dossier assembled from existing authoritative records", methodology)
@@ -291,25 +268,15 @@ class HorizonIntakeTest(unittest.TestCase):
                 self.assertIn("Additional supporting record", issue_text)
                 self.assertIn(evidence_path.name, issue_text)
 
-    def test_litigation_monitor_has_sources_and_defined_revisit_predicates(self) -> None:
-        source_ids = {row["Source ID"] for row in self.sources}
-        monitor_ids = [row["monitor_id"] for row in self.litigation_monitoring]
-        self.assertEqual(len(monitor_ids), len(set(monitor_ids)))
-        for row in self.litigation_monitoring:
-            canonical_ids = {
-                source_id.strip()
-                for source_id in row["source_record_ids"].split(";")
-                if source_id.strip()
-            }
-            self.assertTrue(canonical_ids)
-            self.assertTrue(canonical_ids <= source_ids)
-            for field in (
-                "integration_routes",
-                "action_or_policy",
-                "litigation_posture",
-                "revisit_trigger",
-            ):
-                self.assertTrue(row[field].strip(), (row["monitor_id"], field))
+    def test_monitoring_records_are_owned_by_github_issues(self) -> None:
+        monitor_rows = [
+            row
+            for row in self.issue_registry
+            if row["Kind"] == "source review" and row["Object ID"].endswith("-MON")
+        ]
+        self.assertTrue(monitor_rows)
+        self.assertTrue(all(row["Canonical Record"] == row["GitHub Issue"] for row in monitor_rows))
+        self.assertTrue(all(row["Parent GitHub Number"] for row in monitor_rows))
 
     def test_preliminary_candidate_sources_support_substantive_records(self) -> None:
         source_ids = {row["Source ID"] for row in self.sources}
@@ -338,16 +305,12 @@ class HorizonIntakeTest(unittest.TestCase):
         }
         self.assertTrue(all(row["review_status"] == "preliminary-candidate" for row in self.candidates))
         self.assertTrue(all(not row["horizon_id"] for row in self.candidates))
-        routed_candidate_ids = {
-            row["candidate_id"] for row in self.routing if row["candidate_id"]
-        }
         source_candidate_ids = {
             route.strip()
             for row in self.sources
             for route in row["Associated Record IDs"].split(";")
             if route.strip().startswith("INTAKE-GAP-")
         }
-        self.assertTrue(routed_candidate_ids <= active_candidate_ids)
         self.assertTrue(source_candidate_ids <= active_candidate_ids)
 
 

@@ -8,7 +8,7 @@ print_levels:
 
 # FUND-001 Executive Order Judicial Review Comparator
 
-This comparator supports [FUND-001](../areas/FUND/issues/FUND-001.md) by separating two questions:
+This comparator supports [FUND-001](../issues/FUND-001.md) by separating two questions:
 
 1. how many executive orders were issued during a presidency or term; and
 2. how many executive orders or covered implementation actions later received an adverse final judicial judgment or an adverse Comptroller General opinion.

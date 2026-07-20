@@ -1,6 +1,6 @@
 ---
 title: "ELEC-015 Maine RCV Participation Data"
-source_issue: "../areas/ELEC/issues/ELEC-015.md"
+source_issue: "../issues/ELEC-015.md"
 jurisdiction: Maine
 print_levels:
   - full-technical

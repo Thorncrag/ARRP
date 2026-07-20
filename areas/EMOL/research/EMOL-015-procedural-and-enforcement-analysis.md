@@ -1,5 +1,6 @@
 ---
 issue_id: EMOL-015
+source_issue: "../issues/EMOL-015.md"
 title: "Procedural and Enforcement Analysis"
 status: review-ready-research
 print_levels:

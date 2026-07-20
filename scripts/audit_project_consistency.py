@@ -18,7 +18,7 @@ import subprocess
 import sys
 from collections import Counter
 from pathlib import Path
-from urllib.parse import unquote, urlsplit
+from urllib.parse import parse_qs, unquote, urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,14 +30,6 @@ PENDING_SOURCE_PATH = ROOT / "inventory" / "sources-pending.csv"
 PRELIMINARY_CANDIDATE_PATH = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
 GITHUB_REPOSITORY = "Thorncrag/ARRP"
 AUTHORITATIVE_SOURCE_RECORDS = (
-    (
-        ROOT / "research" / "existing-issue-evidence-integration.csv",
-        ("source_record_ids", "integration_routes", "action_or_policy", "legal_question_or_outcome", "review_note"),
-    ),
-    (
-        ROOT / "research" / "trump-administration-litigation-monitoring.csv",
-        ("source_record_ids", "integration_routes", "action_or_policy", "litigation_posture", "revisit_trigger"),
-    ),
     (
         PRELIMINARY_CANDIDATE_PATH,
         ("source_record_ids", "source_links", "institutional_defect", "recommendation"),
@@ -60,7 +52,7 @@ CURRENT_INTAKE_WORKFLOW_FILES = (
     ROOT / "participate" / "SECURITY.md",
     ROOT / "research" / "README.md",
     ROOT / "research" / "horizon-review-console" / "README.md",
-    ROOT / "research" / "trump-administration-legal-review-intake.md",
+    ROOT / "research" / "trump-administration-legal-review-summary.md",
     ROOT / "website" / "README.md",
 )
 
@@ -163,6 +155,24 @@ def active_project_files(*suffixes: str) -> list[Path]:
 
 def issue_pages() -> list[Path]:
     return sorted(path for path in ISSUE_PATH.glob("*/issues/*.md") if not path.name.endswith(".audit.md"))
+
+
+def research_files(*suffixes: str) -> list[Path]:
+    """Return maintained cross-project and area-owned research files."""
+    allowed = set(suffixes)
+    paths = [
+        path
+        for path in (ROOT / "research").rglob("*")
+        if path.is_file()
+        and path.suffix.lower() in allowed
+        and "horizon-review-console" not in path.relative_to(ROOT).parts
+    ]
+    paths.extend(
+        path
+        for path in (ROOT / "areas").glob("*/research/*")
+        if path.is_file() and path.suffix.lower() in allowed
+    )
+    return sorted(set(paths))
 
 
 def report(category: str, message: str, failures: list[str], warnings: list[str]) -> None:
@@ -411,8 +421,8 @@ def check_embedded_repository_links(failures: list[str], warnings: list[str]) ->
                 )
 
 
-def check_github_issue_links(failures: list[str], warnings: list[str]) -> None:
-    """Validate main-branch repository links embedded in all GitHub issue bodies."""
+def check_github_issue_links(failures: list[str], warnings: list[str]) -> str:
+    """Validate issue-body repository links and return bodies for source reconciliation."""
     command = [
         "gh",
         "issue",
@@ -435,7 +445,7 @@ def check_github_issue_links(failures: list[str], warnings: list[str]) -> None:
             failures,
             warnings,
         )
-        return
+        return ""
     if completed.returncode:
         detail = completed.stderr.strip().splitlines()
         suffix = f": {detail[-1]}" if detail else ""
@@ -446,7 +456,7 @@ def check_github_issue_links(failures: list[str], warnings: list[str]) -> None:
             failures,
             warnings,
         )
-        return
+        return ""
     try:
         issues = json.loads(completed.stdout)
     except json.JSONDecodeError as error:
@@ -456,7 +466,7 @@ def check_github_issue_links(failures: list[str], warnings: list[str]) -> None:
             failures,
             warnings,
         )
-        return
+        return ""
     for issue in issues:
         for raw_url, target_text, target in github_repository_targets(issue.get("body") or ""):
             if not target.exists():
@@ -467,17 +477,39 @@ def check_github_issue_links(failures: list[str], warnings: list[str]) -> None:
                     failures,
                     warnings,
                 )
+    return "\n".join(issue.get("body") or "" for issue in issues)
 
 
-def source_citation_corpus() -> str:
-    """Return project-authored Markdown in which a source may be cited."""
+def source_citation_corpus(github_issue_bodies: str = "") -> str:
+    """Return maintained prose and structured records in which a source may be cited."""
     paths = [ROOT / "README.md", ROOT / "SUBJECT_INDEX.md"]
     paths.extend((ROOT / "areas").rglob("*.md"))
     paths.extend(LEGISLATION_PATH.glob("*.md"))
     paths.extend((ROOT / "topics").glob("*.md"))
-    paths.extend((ROOT / "research").glob("*.md"))
+    paths.extend(research_files(".md", ".csv"))
+    paths.append(ROOT / "research" / "horizon-review-console" / "catalog-data.js")
     paths.extend(framework_pages())
-    return "\n".join(read(path) for path in sorted(set(paths)) if path.exists())
+    corpus = "\n".join(read(path) for path in sorted(set(paths)) if path.exists())
+    return corpus + ("\n" + github_issue_bodies if github_issue_bodies else "")
+
+
+def check_research_placement(failures: list[str], warnings: list[str]) -> None:
+    """Keep single-area research beside its owning issue while allowing cross-project work centrally."""
+    for path in research_files(".md", ".csv", ".svg"):
+        relative = path.relative_to(ROOT)
+        issue_match = re.match(r"^([A-Z]+-\d{3})(?:-|\.)", path.name)
+        if not issue_match:
+            continue
+        issue_id = issue_match.group(1)
+        area = issue_id.split("-", 1)[0]
+        expected_parent = ROOT / "areas" / area / "research"
+        if path.parent != expected_parent:
+            report(
+                "ERROR",
+                f"issue-specific research {relative} should be under areas/{area}/research/",
+                failures,
+                warnings,
+            )
 
 
 def structured_source_citation_ids(failures: list[str], warnings: list[str]) -> set[str]:
@@ -539,6 +571,19 @@ def normalized_citation_url(url: str) -> str:
     return url.strip().replace("&amp;", "&").split("#", 1)[0].split("?", 1)[0].rstrip("/")
 
 
+def normalized_source_url(url: str) -> str:
+    """Normalize bibliographic identity while preserving document-selecting queries."""
+    clean = url.strip().replace("&amp;", "&").split("#", 1)[0].rstrip("/")
+    parsed = urlsplit(clean)
+    host = (parsed.hostname or "").lower()
+    query = parse_qs(parsed.query)
+    if host == "scholar.google.com" and parsed.path == "/scholar_case" and query.get("case"):
+        return f"https://scholar.google.com/scholar_case?case={query['case'][0]}"
+    if host == "www.supremecourt.gov" and parsed.path.lower() == "/search.aspx" and query.get("filename"):
+        return "https://www.supremecourt.gov" + unquote(query["filename"][0]).lower()
+    return clean
+
+
 def normalized_source_label(value: str) -> str:
     """Normalize a source title or citation for conservative prose matching."""
     return " ".join(re.sub(r"[^a-z0-9]+", " ", value.lower()).split())
@@ -583,7 +628,12 @@ def mechanically_cited_source_ids(
     return cited
 
 
-def check_registry_and_sources(issue_map: dict[str, Path], failures: list[str], warnings: list[str]) -> None:
+def check_registry_and_sources(
+    issue_map: dict[str, Path],
+    failures: list[str],
+    warnings: list[str],
+    github_issue_bodies: str = "",
+) -> None:
     with REGISTRY_PATH.open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
     numbers = [row.get("GitHub Issue Number", "") for row in rows if row.get("GitHub Issue Number")]
@@ -616,7 +666,20 @@ def check_registry_and_sources(issue_map: dict[str, Path], failures: list[str], 
             failures,
             warnings,
         )
-    corpus = source_citation_corpus()
+    normalized_urls: dict[str, list[tuple[str, str]]] = {}
+    for catalog_name, catalog_rows in (("sources.csv", source_rows), ("sources-pending.csv", pending_rows)):
+        for row in catalog_rows:
+            normalized = normalized_source_url(row.get("URL", ""))
+            if normalized:
+                normalized_urls.setdefault(normalized, []).append((catalog_name, row.get("Source ID", "")))
+    duplicate_urls = {
+        url: records for url, records in normalized_urls.items() if len(records) > 1
+    }
+    for url, records in sorted(duplicate_urls.items()):
+        labels = ", ".join(f"{catalog}:{source_id}" for catalog, source_id in records)
+        report("ERROR", f"duplicate source URL across catalogs: {url} ({labels})", failures, warnings)
+
+    corpus = source_citation_corpus(github_issue_bodies)
     structured_citations = structured_source_citation_ids(failures, warnings)
     unknown_structured_sources = structured_citations - set(source_ids)
     if unknown_structured_sources:
@@ -651,6 +714,31 @@ def check_registry_and_sources(issue_map: dict[str, Path], failures: list[str], 
             failures,
             warnings,
         )
+
+    research_paths = [
+        path
+        for suffix in ("*.md", "*.csv")
+        for path in (ROOT / "research").glob(suffix)
+        if path.name != "trump-administration-preliminary-candidates.csv"
+    ]
+    url_pattern = re.compile(r"https?://[^\s<>'\"\]\),]+")
+    ignored_hosts = {"127.0.0.1", "localhost", "www.w3.org"}
+    for path in sorted(research_paths):
+        for raw_url in url_pattern.findall(read(path)):
+            url = raw_url.rstrip(".,;:")
+            parsed = urlsplit(url)
+            if parsed.hostname in ignored_hosts:
+                continue
+            if parsed.hostname in {"github.com", "raw.githubusercontent.com"} and "/Thorncrag/ARRP" in parsed.path:
+                continue
+            normalized = normalized_source_url(url)
+            if normalized and normalized not in normalized_urls:
+                report(
+                    "ERROR",
+                    f"research source URL is absent from both source catalogs in {path.relative_to(ROOT)}: {url}",
+                    failures,
+                    warnings,
+                )
 
     accountable_id = re.compile(r"\b(?:INTAKE-GAP|HOR|[A-Z]{2,})-\d{3}(?:-MON)?\b")
     for row in pending_rows:
@@ -820,6 +908,28 @@ def check_intake_workflow_language(failures: list[str], warnings: list[str]) -> 
                 )
 
 
+def check_retired_monitor_identifiers(
+    github_issue_bodies: str, failures: list[str], warnings: list[str]
+) -> None:
+    """Prevent restoration of the retired standalone monitoring-row identifier series."""
+    retired = re.compile(r"\bMON-" r"\d{4}\b")
+    for path in active_project_files(".csv", ".js", ".json", ".md", ".py", ".yml", ".yaml"):
+        if retired.search(read(path)):
+            report(
+                "ERROR",
+                f"retired standalone monitoring identifier remains in {path.relative_to(ROOT)}",
+                failures,
+                warnings,
+            )
+    if retired.search(github_issue_bodies):
+        report(
+            "ERROR",
+            "retired standalone monitoring identifier remains in an open GitHub issue body",
+            failures,
+            warnings,
+        )
+
+
 def check_print_assignment_metadata(failures: list[str], warnings: list[str]) -> None:
     excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
     explicit_exceptions = {
@@ -849,12 +959,14 @@ def main() -> int:
     check_markdown_links(failures, warnings)
     check_html_links(failures, warnings)
     check_embedded_repository_links(failures, warnings)
-    check_github_issue_links(failures, warnings)
-    check_registry_and_sources(issue_map, failures, warnings)
+    github_issue_bodies = check_github_issue_links(failures, warnings)
+    check_registry_and_sources(issue_map, failures, warnings, github_issue_bodies)
+    check_research_placement(failures, warnings)
     check_reader_language(failures, warnings)
     check_tool_interface_theme(failures, warnings)
     check_duplicate_copy_artifacts(failures, warnings)
     check_intake_workflow_language(failures, warnings)
+    check_retired_monitor_identifiers(github_issue_bodies, failures, warnings)
     check_print_assignment_metadata(failures, warnings)
     print(f"Checked {len(issue_map)} issue pages, {len(list(LEGISLATION_PATH.glob('*.md'))) - 1} proposal pages, and project links/inventories.")
     for line in failures + warnings:

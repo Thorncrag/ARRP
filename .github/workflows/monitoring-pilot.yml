@@ -3,11 +3,12 @@ name: Check monitored external developments
 on:
   workflow_dispatch:
   schedule:
-    - cron: "43 11 * * *"
+    - cron: "13 0 * * *"
+      timezone: "America/New_York"
 
 concurrency:
   group: arrp-monitoring-pilot
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -26,7 +27,9 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Check configured monitoring records
+      - name: Check the complete live monitoring set
+        id: monitor
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: >-
@@ -35,13 +38,43 @@ jobs:
           --summary "${RUNNER_TEMP}/monitoring-summary.md"
           --report-json "${RUNNER_TEMP}/monitoring-report.json"
 
+      - name: Verify the signal-only boundary
+        id: read_only
+        if: always()
+        run: |
+          git diff --quiet "${GITHUB_SHA}" -- .
+
       - name: Publish the run summary
         if: always()
         run: |
           if [ -f "${RUNNER_TEMP}/monitoring-summary.md" ]; then
             cat "${RUNNER_TEMP}/monitoring-summary.md" >> "${GITHUB_STEP_SUMMARY}"
           else
-            echo "## ARRP automated monitoring pilot" >> "${GITHUB_STEP_SUMMARY}"
+            echo "## ARRP automated monitoring prototype" >> "${GITHUB_STEP_SUMMARY}"
             echo >> "${GITHUB_STEP_SUMMARY}"
             echo "The monitoring script did not produce a summary. Review the failed step log." >> "${GITHUB_STEP_SUMMARY}"
           fi
+
+      - name: Notify the project owner
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          notification_issue="$(python -c 'import json; print(json.load(open(".github/monitoring-pilot.json"))["notification"]["issueNumber"])')"
+          notification_mention="$(python -c 'import json; print(json.load(open(".github/monitoring-pilot.json"))["notification"]["mention"])')"
+          notification_body="${RUNNER_TEMP}/monitoring-notification.md"
+
+          printf '%s\n\n' "${notification_mention} — monitor-bot run completed with check outcome: **${{ steps.monitor.outcome }}**." > "${notification_body}"
+          if [ -f "${RUNNER_TEMP}/monitoring-summary.md" ]; then
+            cat "${RUNNER_TEMP}/monitoring-summary.md" >> "${notification_body}"
+          else
+            printf '%s\n' "The monitoring check did not produce a summary. Review the workflow log." >> "${notification_body}"
+          fi
+          printf '\n**Repository changes:** None. This monitoring workflow is signal-only and read-only.\n' >> "${notification_body}"
+          printf '\n[View this GitHub Actions run](%s/%s/actions/runs/%s)\n' "${GITHUB_SERVER_URL}" "${GITHUB_REPOSITORY}" "${GITHUB_RUN_ID}" >> "${notification_body}"
+
+          gh issue comment "${notification_issue}" --repo "${GITHUB_REPOSITORY}" --body-file "${notification_body}"
+
+      - name: Preserve a failed monitoring outcome
+        if: always() && (steps.monitor.outcome == 'failure' || steps.read_only.outcome == 'failure')
+        run: exit 1

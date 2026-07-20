@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: active
 print_levels:
   - full-technical
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — five preliminary candidates promoted and validated |
-| Active issue/task | Promote `INTAKE-GAP-008` through `INTAKE-GAP-012` as `HOR-040` through `HOR-044` |
-| Audit type/tier | Horizon preliminary-candidate promotion; no T-audit or score change |
-| Started | 2026-07-18 |
-| Last checkpoint | 2026-07-18; completed and validated all five promotions and read back the authoritative GitHub Project fields. |
-| User request | Advance all five active preliminary candidates to formal proposed-candidate issues. |
-| Scope | `INTAKE-GAP-008` through `INTAKE-GAP-012`; GitHub issues and Project items; Horizon Scan Log; issue registry; source and directive routes; candidate console; related intake documentation. |
-| Files touched | `framework/logs/HORIZON_SCAN_LOG.md`; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; `research/trump-administration-preliminary-candidates.csv`; `research/trump-administration-evidence-routing.csv`; `research/trump-administration-legal-review-catalog.csv`; `research/trump-administration-legal-review-intake.md`; `research/trump-administration-source-adjudication-report.md`; generated console data; this handoff. |
-| Completed steps | Created GitHub issues `#302`–`#306` for `HOR-040`–`HOR-044`; configured and read back Candidate issue, area, workstream, priority, release-blocker, audit, next-step, and canonical-page fields; added the Horizon log and registry records; removed all five rows from the preliminary queue; rerouted 111 directive records and representative sources to their formal HOR owners; rebuilt the console with zero preliminary candidates and 22 active formal candidates; passed the full 57-test suite and project consistency audit with no errors or warnings. Promotion does not admit area-specific proposals. |
-| Next step | None for this promotion. Begin the formal duplicate, legal, political-failure, and issue-admission review when the user selects a proposed candidate. |
+| Status | Active — completed locally; awaiting commit and GitHub reconciliation |
+| Active issue/task | Consolidate retained sources, remove redundant ledgers, and colocate single-area research with its owning area |
+| Audit type/tier | Project-wide source and structure reconciliation; no T-audit or score change |
+| Started | 2026-07-20 |
+| Last checkpoint | 2026-07-20; two-catalog migration, obsolete-file cleanup, complete monitor-bot migration, area-research relocation, console rebuild, and validation completed locally. |
+| User request | Review every research-directory document, route all sources into the two canonical catalogs, clean up obsolete files, and move issue-specific research into its most relevant area. |
+| Scope | Root and area `research/` directories; source inventories; candidate console; monitoring automation and GitHub monitor wrappers; governing methodology, structure, tests, and internal links. |
+| Files touched | `inventory/sources.csv`; `inventory/sources-pending.csv`; central and area research; governing framework; console builder; consistency audit; monitoring configuration and tests; obsolete research and source-adjudication files. |
+| Completed steps | Classified the research directory; consolidated 34 duplicate source IDs; reconciled every retained source into one of the two catalogs; removed obsolete source, media, litigation, integration, and directive queues and their dedicated tooling; made GitHub monitoring issues authoritative; replaced the five-record monitor pilot with dynamic discovery of all 37 open `needs: monitoring` records and permanent `SRC-####` mappings; retired the obsolete standalone monitor-row identifiers from the repository and live issue descriptions; moved eleven single-area research assets into six area `research/` directories; updated local and GitHub links and source locators; expanded console and consistency-check discovery to area research; rebuilt the candidate console; and verified that every `sources.csv` row is used while every pending row has an accountable owner. |
+| Next step | Commit and reconcile the completed pass with GitHub, manually dispatch the complete monitor workflow, and verify all rolling comments, owner notification, and read-only safeguards before the first scheduled run. |
 | Blockers/questions | None. |
-| Validation status | Passed — GitHub Project readback correct; 57 tests passed; project consistency audit reported 0 errors and 0 warnings. |
+| Validation status | Complete locally: 46 tests passed; the full 37-record read-only monitor test completed with 22 adapter-supported and 15 manual-only records; authenticated consistency audit returned 0 errors and 0 warnings; strict public-site build passed; `git diff --check` passed. |
 
 ## Handoff Rules
 

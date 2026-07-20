@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministically check configured ARRP monitoring records for source changes.
 
-The pilot is deliberately signal-only. It compares structured source fields with
+The prototype is deliberately signal-only. It compares structured source fields with
 the previously observed baseline stored in one rolling GitHub issue comment. It
 does not interpret legal significance, revise project prose, or alter proposal
 status, scores, audit counts, source inventories, or monitoring dispositions.
@@ -30,10 +30,11 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / ".github" / "monitoring-pilot.json"
-DEFAULT_LEDGER = ROOT / "research" / "trump-administration-litigation-monitoring.csv"
 DEFAULT_REGISTRY = ROOT / "inventory" / "github_issue_registry.csv"
+DEFAULT_SOURCES = ROOT / "inventory" / "sources.csv"
+DEFAULT_PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 STATE_MARKER = "arrp-monitor-bot-state:v1"
-USER_AGENT = "ARRP deterministic monitoring pilot/0.1"
+USER_AGENT = "ARRP deterministic monitoring prototype/0.2"
 
 
 def normalize_text(value: str) -> str:
@@ -184,12 +185,44 @@ def parse_just_security(html_text: str) -> dict[str, dict[str, Any]]:
     return observations
 
 
+def docket_key(url: str) -> str:
+    """Return a stable CourtListener docket key without query or slug variance."""
+    parsed = urllib.parse.urlsplit(url.strip())
+    if parsed.hostname != "www.courtlistener.com":
+        return ""
+    match = re.search(r"/docket/(\d+)(?:/|$)", parsed.path)
+    return f"courtlistener:{match.group(1)}" if match else ""
+
+
+def tracker_cases_by_docket(
+    action_observations: dict[str, dict[str, Any]],
+) -> dict[str, dict[str, str]]:
+    """Flatten the tracker into source-level docket observations."""
+    output: dict[str, dict[str, str]] = {}
+    for action, observation in action_observations.items():
+        for case in observation["cases"]:
+            key = docket_key(case["docket_url"])
+            if not key:
+                continue
+            material = {
+                "action": action,
+                "case": case["case"],
+                "status": case["status"],
+                "last_update": case["last_update"],
+                "docket_url": case["docket_url"],
+                "updates_hash": case["updates_hash"],
+            }
+            material["fingerprint"] = fingerprint(material)
+            output[key] = material
+    return output
+
+
 def read_csv(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8") as handle:
         return list(csv.DictReader(handle))
 
 
-def read_json(path: Path) -> dict[str, Any]:
+def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -222,47 +255,71 @@ def fetch_source(source: dict[str, Any]) -> str:
         return payload.decode(charset, errors="replace")
 
 
-def split_routes(raw: str) -> set[str]:
-    return {part.strip() for part in raw.split(";") if part.strip()}
+def split_associations(raw: str) -> set[str]:
+    return {value.strip() for value in raw.split(";") if value.strip()}
 
 
 def build_targets(
-    config: dict[str, Any], ledger_rows: list[dict[str, str]], registry_rows: list[dict[str, str]]
+    config: dict[str, Any],
+    source_rows: list[dict[str, str]],
+    registry_rows: list[dict[str, str]],
+    monitoring_issues: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    ledger = {row["monitor_id"]: row for row in ledger_rows if row.get("monitor_id")}
-    registry = {row["Object ID"]: row for row in registry_rows if row.get("Object ID")}
+    """Build the complete live monitoring set without a hand-curated target list."""
+    registry_by_number = {
+        int(row["GitHub Number"]): row
+        for row in registry_rows
+        if row.get("GitHub Number", "").isdigit()
+    }
+    supported_hosts = set(config.get("supportedSourceHosts", []))
     output: list[dict[str, Any]] = []
-    seen_records: set[str] = set()
-    for target in config.get("targets", []):
-        record_id = target["recordId"]
-        route_id = target["routeId"]
-        if record_id in seen_records:
-            raise ValueError(f"duplicate monitoring target record: {record_id}")
-        seen_records.add(record_id)
-        registry_row = registry.get(record_id)
+    seen_numbers: set[int] = set()
+    for issue in sorted(monitoring_issues, key=lambda item: int(item["number"])):
+        number = int(issue["number"])
+        if number in seen_numbers:
+            raise ValueError(f"duplicate live monitoring issue: #{number}")
+        seen_numbers.add(number)
+        registry_row = registry_by_number.get(number)
         if not registry_row:
-            raise ValueError(f"monitoring target is missing from the issue registry: {record_id}")
+            raise ValueError(f"live monitoring issue #{number} is missing from the issue registry")
+        record_id = registry_row.get("Object ID", "").strip()
+        if not record_id:
+            raise ValueError(f"live monitoring issue #{number} has no stable object identifier")
+
+        associated = [
+            row
+            for row in source_rows
+            if record_id in split_associations(row.get("Associated Record IDs", ""))
+        ]
         matters: list[dict[str, str]] = []
-        for monitor_id in target.get("monitorIds", []):
-            row = ledger.get(monitor_id)
-            if not row:
-                raise ValueError(f"configured monitoring matter is missing from the ledger: {monitor_id}")
-            if row.get("monitoring_status") != "active-defined-predicate":
-                raise ValueError(f"configured monitoring matter is not active: {monitor_id}")
-            if route_id not in split_routes(row.get("integration_routes", "")):
-                raise ValueError(f"{monitor_id} is not routed to {route_id}")
-            if "Just Security litigation tracker" not in row.get("source_family", ""):
-                raise ValueError(f"pilot matter does not use the configured source family: {monitor_id}")
-            matters.append(row)
-        if not matters:
-            raise ValueError(f"monitoring target has no configured matters: {record_id}")
+        unsupported: list[dict[str, str]] = []
+        for row in associated:
+            source_id = row.get("Source ID", "").strip()
+            url = row.get("URL", "").strip()
+            host = urllib.parse.urlsplit(url).hostname or ""
+            key = docket_key(url) if host in supported_hosts else ""
+            payload = {
+                "matter_id": source_id,
+                "title": row.get("Title", "").strip() or source_id,
+                "url": url,
+                "inventory": row.get("_inventory", "source inventory"),
+            }
+            if key:
+                matters.append({**payload, "docket_key": key})
+            else:
+                unsupported.append(payload)
         output.append(
             {
                 "record_id": record_id,
-                "route_id": route_id,
-                "issue_number": int(registry_row["GitHub Number"]),
+                "issue_number": number,
                 "issue_url": registry_row["GitHub Issue"],
+                "issue_title": issue.get("title", registry_row.get("GitHub Title", record_id)),
+                "labels": [
+                    label.get("name", "") if isinstance(label, dict) else str(label)
+                    for label in issue.get("labels", [])
+                ],
                 "matters": matters,
+                "unsupported": unsupported,
             }
         )
     return output
@@ -274,13 +331,12 @@ def observations_for_target(
     observations: dict[str, dict[str, Any]] = {}
     errors: list[str] = []
     for matter in target["matters"]:
-        monitor_id = matter["monitor_id"]
-        action = matter["action_or_policy"]
-        observation = source_observations.get(action)
+        matter_id = matter["matter_id"]
+        observation = source_observations.get(matter["docket_key"])
         if not observation:
-            errors.append(f"{monitor_id}: configured action was not found in the current tracker")
+            errors.append(f"{matter_id}: configured docket was not found in the current tracker")
             continue
-        observations[monitor_id] = observation
+        observations[matter_id] = observation
     return observations, errors
 
 
@@ -311,9 +367,18 @@ def evaluate_target(
     prior_baseline = dict((previous or {}).get("baseline", {}))
     prior_review_required = bool((previous or {}).get("review_required"))
     prior_status = (previous or {}).get("status", "")
+    prior_schema = int((previous or {}).get("schema_version", 0))
 
     acknowledged = prior_review_required and not review_label_present
-    if previous is None and not errors:
+    if not observations and not errors:
+        baseline = prior_baseline
+        status = "manual_only"
+        failures = 0
+    elif previous is not None and prior_schema < 2 and not errors:
+        baseline = current
+        status = "baseline_migrated"
+        failures = 0
+    elif previous is None and not errors:
         baseline = current
         status = "baseline_established"
         failures = 0
@@ -335,7 +400,7 @@ def evaluate_target(
     )
     review_required = review_label_present or needs_new_label
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "checked_at": checked_at,
         "source_url": source_url,
         "status": status,
@@ -351,7 +416,9 @@ def evaluate_target(
 
 STATUS_LABELS = {
     "baseline_established": "Baseline established",
+    "baseline_migrated": "Baseline migrated to permanent source identifiers",
     "baseline_acknowledged": "Reviewed baseline accepted",
+    "manual_only": "Manual monitoring required",
     "no_change": "No relevant change detected",
     "update_detected": "Possible update detected — review required",
     "check_failed": "Automated check failed",
@@ -364,22 +431,43 @@ def render_comment(
     state_json = json.dumps(state, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     rows: list[str] = []
     for matter in target["matters"]:
-        monitor_id = matter["monitor_id"]
-        observation = observations.get(monitor_id)
+        matter_id = matter["matter_id"]
+        observation = observations.get(matter_id)
         if observation:
-            baseline = state["baseline"].get(monitor_id)
+            baseline = state["baseline"].get(matter_id)
             result = "Unchanged" if baseline == observation["fingerprint"] else "Changed"
             rows.append(
-                f"| `{monitor_id}` | {result} | {observation['case_count']} | "
-                f"{markdown_cell(observation['status_summary'])} | "
+                f"| [`{matter_id}`]({matter['url']}) | {markdown_cell(matter['title'])} | {result} | "
+                f"{markdown_cell(observation['status'])} | "
                 f"{markdown_cell(observation['last_update'] or 'Not stated')} |"
             )
         else:
-            rows.append(f"| `{monitor_id}` | Check failed | — | — | — |")
+            rows.append(
+                f"| [`{matter_id}`]({matter['url']}) | {markdown_cell(matter['title'])} | "
+                "Check failed | — | — |"
+            )
+    displayed_rows = rows[:40]
+    omitted = len(rows) - len(displayed_rows)
+    if omitted:
+        displayed_rows.append(f"| — | {omitted} additional automated sources | See run summary | — | — |")
     error_section = ""
     if state["errors"]:
-        error_section = "\n\n### Check errors\n\n" + "\n".join(
-            f"- {error}" for error in state["errors"]
+        visible_errors = state["errors"][:20]
+        error_section = "\n\n### Check errors\n\n" + "\n".join(f"- {error}" for error in visible_errors)
+        if len(state["errors"]) > len(visible_errors):
+            error_section += f"\n- {len(state['errors']) - len(visible_errors)} additional errors are listed in the workflow report."
+    unsupported_section = ""
+    if target["unsupported"]:
+        unsupported_section = (
+            "\n\n### Sources requiring manual review\n\n"
+            f"This monitor has **{len(target['unsupported'])}** associated source record(s) for which "
+            "the current prototype has no deterministic adapter. They remain part of the human monitoring pass."
+        )
+    elif not target["matters"]:
+        unsupported_section = (
+            "\n\n### Manual predicate\n\n"
+            "No associated source currently has a deterministic adapter. The monitoring record remains "
+            "in the complete run so its defined predicate is visible and must be checked manually."
         )
     acknowledgement = ""
     if state["review_required"]:
@@ -388,6 +476,13 @@ def render_comment(
             "the `needs: monitor review` label. The next successful run will accept the "
             "reviewed observation as the new baseline."
         )
+    table = ""
+    if displayed_rows:
+        table = f"""
+
+| Source | Record | Signal | Current tracker status | Latest tracker date |
+| --- | --- | --- | --- | --- |
+{chr(10).join(displayed_rows)}"""
     return f"""<!-- {STATE_MARKER}
 {state_json}
 -->
@@ -399,11 +494,11 @@ def render_comment(
 
 **Source:** [Just Security litigation tracker]({state['source_url']})
 
-This signal-only check compares structured tracker fields with the last acknowledged baseline. It does not determine legal significance, alter the proposal, or satisfy the project's substantive monitoring review.
+This signal-only check discovered this record through the live `needs: monitoring` label and compared each supported source with the last acknowledged baseline. It does not determine legal significance, alter the proposal, or satisfy the project's substantive monitoring review.
 
-| Matter | Signal | Cases | Current tracker status | Latest tracker date |
-| --- | --- | ---: | --- | --- |
-{chr(10).join(rows)}{error_section}{acknowledgement}
+**Automatically checked sources:** {len(target['matters'])}<br>
+**Sources requiring manual review:** {len(target['unsupported'])}
+{table}{error_section}{unsupported_section}{acknowledgement}
 """
 
 
@@ -442,6 +537,18 @@ class GitHubClient:
     def issue(self, number: int) -> dict[str, Any]:
         return self.request("GET", f"/issues/{number}")
 
+    def monitoring_issues(self, label: str) -> list[dict[str, Any]]:
+        output: list[dict[str, Any]] = []
+        encoded = urllib.parse.quote(label, safe="")
+        for page in range(1, 11):
+            batch = self.request(
+                "GET", f"/issues?state=open&labels={encoded}&per_page=100&page={page}"
+            )
+            output.extend(issue for issue in batch if "pull_request" not in issue)
+            if len(batch) < 100:
+                break
+        return output
+
     def comments(self, number: int) -> list[dict[str, Any]]:
         output: list[dict[str, Any]] = []
         for page in range(1, 11):
@@ -479,19 +586,20 @@ def find_bot_comment(comments: list[dict[str, Any]]) -> dict[str, Any] | None:
 def render_summary(results: list[dict[str, Any]], *, checked_at: str, source_url: str) -> str:
     counts = Counter(result["state"]["status"] for result in results)
     lines = [
-        "## ARRP automated monitoring pilot",
+        "## ARRP automated monitoring prototype",
         "",
         f"Checked at: **{checked_at}**  ",
         f"Source: [{source_url}]({source_url})",
         "",
-        "| Monitoring record | GitHub issue | Result | Matters checked |",
-        "| --- | --- | --- | ---: |",
+        "| Monitoring record | GitHub issue | Result | Automated sources | Manual sources |",
+        "| --- | --- | --- | ---: | ---: |",
     ]
     for result in results:
         target = result["target"]
         lines.append(
             f"| `{target['record_id']}` | [#{target['issue_number']}]({target['issue_url']}) | "
-            f"{STATUS_LABELS[result['state']['status']]} | {len(target['matters'])} |"
+            f"{STATUS_LABELS[result['state']['status']]} | {len(target['matters'])} | "
+            f"{len(target['unsupported'])} |"
         )
     lines.extend(
         [
@@ -503,7 +611,7 @@ def render_summary(results: list[dict[str, Any]], *, checked_at: str, source_url
                 for key, value in sorted(counts.items())
             ],
             "",
-            "The pilot reports source signals only. It does not adjudicate a monitoring trigger or revise project records.",
+            "The prototype reports source signals only. It does not adjudicate a monitoring trigger or revise project records.",
         ]
     )
     return "\n".join(lines) + "\n"
@@ -512,13 +620,24 @@ def render_summary(results: list[dict[str, Any]], *, checked_at: str, source_url
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
-    parser.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER)
+    parser.add_argument("--sources", type=Path, default=DEFAULT_SOURCES)
+    parser.add_argument("--pending-sources", type=Path, default=DEFAULT_PENDING_SOURCES)
     parser.add_argument("--registry", type=Path, default=DEFAULT_REGISTRY)
+    parser.add_argument(
+        "--monitoring-issues-json",
+        type=Path,
+        help="Use a saved GitHub issues JSON array for a non-applying local run.",
+    )
     parser.add_argument("--repository", default=os.environ.get("GITHUB_REPOSITORY", "Thorncrag/ARRP"))
     parser.add_argument("--source-html", type=Path, help="Use a local source snapshot instead of downloading.")
     parser.add_argument("--summary", type=Path, help="Write the Markdown run summary to this path.")
     parser.add_argument("--report-json", type=Path, help="Write a machine-readable run report.")
     parser.add_argument("--apply", action="store_true", help="Update rolling GitHub comments and review labels.")
+    parser.add_argument(
+        "--refresh-github",
+        action="store_true",
+        help="Discover the live monitoring set from GitHub without applying comments or labels.",
+    )
     parser.add_argument("--checked-at", help="Override the UTC check timestamp for deterministic tests.")
     return parser.parse_args()
 
@@ -540,17 +659,36 @@ def github_token() -> str:
 def main() -> int:
     args = parse_args()
     config = read_json(args.config)
-    if config.get("schemaVersion") != 1:
+    if config.get("schemaVersion") != 2:
         raise SystemExit("unsupported monitoring-pilot schemaVersion")
     if not config.get("enabled", False):
-        summary = "## ARRP automated monitoring pilot\n\nPilot disabled by configuration.\n"
+        summary = "## ARRP automated monitoring prototype\n\nPrototype disabled by configuration.\n"
         if args.summary:
             args.summary.write_text(summary, encoding="utf-8")
         print(summary, end="")
         return 0
 
-    targets = build_targets(config, read_csv(args.ledger), read_csv(args.registry))
     checked_at = args.checked_at or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    discovery_client = (
+        GitHubClient(args.repository, github_token()) if args.apply or args.refresh_github else None
+    )
+    if discovery_client:
+        monitoring_issues = discovery_client.monitoring_issues(config["targetLabel"])
+    elif args.monitoring_issues_json:
+        monitoring_issues = read_json(args.monitoring_issues_json)
+        if not isinstance(monitoring_issues, list):
+            raise SystemExit("--monitoring-issues-json must contain a JSON array")
+    else:
+        raise SystemExit("a complete dry run requires --monitoring-issues-json")
+
+    source_rows = [
+        {**row, "_inventory": args.sources.name} for row in read_csv(args.sources)
+    ]
+    source_rows.extend(
+        {**row, "_inventory": args.pending_sources.name}
+        for row in read_csv(args.pending_sources)
+    )
+    targets = build_targets(config, source_rows, read_csv(args.registry), monitoring_issues)
     source = config["source"]
     global_error = ""
     source_observations: dict[str, dict[str, Any]] = {}
@@ -562,13 +700,12 @@ def main() -> int:
         )
         if source["type"] != "just-security-tablepress-42":
             raise ValueError(f"unsupported monitoring source type: {source['type']}")
-        source_observations = parse_just_security(html_text)
+        source_observations = tracker_cases_by_docket(parse_just_security(html_text))
     except (OSError, ValueError, urllib.error.URLError) as exc:
         global_error = f"source check failed: {exc}"
 
-    client = None
-    if args.apply:
-        client = GitHubClient(args.repository, github_token())
+    client = discovery_client if args.apply else None
+    if client:
         client.ensure_label(
             config["reviewLabel"],
             config["reviewLabelColor"],
@@ -578,18 +715,13 @@ def main() -> int:
     results: list[dict[str, Any]] = []
     for target in targets:
         observations, errors = observations_for_target(target, source_observations)
-        if global_error:
+        if global_error and target["matters"]:
             errors = [global_error]
         previous = None
         review_label_present = False
         bot_comment = None
         if client:
-            issue = client.issue(target["issue_number"])
-            label_names = {label["name"] for label in issue.get("labels", [])}
-            if issue.get("state") != "open" or "needs: monitoring" not in label_names:
-                raise RuntimeError(
-                    f"configured target #{target['issue_number']} is not an open issue marked needs: monitoring"
-                )
+            label_names = set(target["labels"])
             review_label_present = config["reviewLabel"] in label_names
             bot_comment = find_bot_comment(client.comments(target["issue_number"]))
             previous = state_from_comment(bot_comment["body"]) if bot_comment else None
@@ -619,7 +751,7 @@ def main() -> int:
     if args.report_json:
         args.report_json.parent.mkdir(parents=True, exist_ok=True)
         report = {
-            "schema_version": 1,
+            "schema_version": 2,
             "checked_at": checked_at,
             "source_url": source["url"],
             "apply": args.apply,
@@ -627,8 +759,11 @@ def main() -> int:
                 {
                     "record_id": result["target"]["record_id"],
                     "issue_number": result["target"]["issue_number"],
-                    "monitor_ids": [
-                        matter["monitor_id"] for matter in result["target"]["matters"]
+                    "source_ids": [
+                        matter["matter_id"] for matter in result["target"]["matters"]
+                    ],
+                    "manual_source_ids": [
+                        matter["matter_id"] for matter in result["target"]["unsupported"]
                     ],
                     "state": result["state"],
                 }

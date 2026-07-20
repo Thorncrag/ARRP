@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the ARRP Trump-administration legal-review intake catalog.
+"""Build a temporary tracker-extraction catalog for ARRP source review.
 
 The script transforms locally downloaded HTML snapshots from four public
 trackers into a common CSV. It deliberately preserves source-level records;

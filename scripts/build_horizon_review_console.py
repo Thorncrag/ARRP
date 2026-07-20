@@ -14,8 +14,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
-ROUTING = ROOT / "research" / "trump-administration-evidence-routing.csv"
-EVIDENCE_CATALOG = ROOT / "research" / "trump-administration-legal-review-catalog.csv"
 HORIZON_LOG = ROOT / "framework" / "logs" / "HORIZON_SCAN_LOG.md"
 ISSUE_REGISTRY = ROOT / "inventory" / "github_issue_registry.csv"
 CITED_SOURCES = ROOT / "inventory" / "sources.csv"
@@ -112,49 +110,6 @@ def sources_for_record(record_id: str) -> list[dict[str, str]]:
     return sorted(matches, key=lambda row: row["id"])
 
 
-def catalog_payload(row: dict[str, str]) -> dict[str, object]:
-    links = []
-    for label, field in (
-        ("Source entry", "source_entry_url"),
-        ("Representative case", "representative_case_url"),
-        ("Official action", "official_action_url"),
-    ):
-        url = row[field].strip()
-        if url and all(link["url"] != url for link in links):
-            links.append({"label": label, "url": url})
-    return {
-        "id": row["catalog_id"].strip(),
-        "term": row["term"].strip(),
-        "type": row["record_type"].strip(),
-        "title": row["action_or_policy"].strip(),
-        "date": row["action_date_or_period"].strip(),
-        "actor": row["responsible_actor_or_category"].strip(),
-        "legal_question": row["legal_question_or_outcome"].strip(),
-        "litigation_posture": row["litigation_posture"].strip(),
-        "source_family": row["source_family"].strip(),
-        "last_checked": row["last_checked"].strip(),
-        "notes": row["notes"].strip(),
-        "links": links,
-    }
-
-
-def evidence_catalog_index() -> dict[str, dict[str, object]]:
-    return {
-        row["catalog_id"].strip(): catalog_payload(row)
-        for row in read_csv(EVIDENCE_CATALOG)
-        if row["catalog_id"].strip()
-    }
-
-
-def evidence_for_record(record_id: str) -> list[dict[str, object]]:
-    records = [
-        catalog_payload(row)
-        for row in read_csv(EVIDENCE_CATALOG)
-        if record_id in associated_record_ids(row["provisional_arrp_routes"])
-    ]
-    return sorted(records, key=lambda row: str(row["id"]))
-
-
 def strip_markdown(value: str) -> str:
     value = re.sub(r"\[([^]]+)\]\([^)]+\)", r"\1", value)
     value = value.replace("`", "")
@@ -209,10 +164,17 @@ def markdown_title(path: Path, content: str) -> str:
     return heading_match.group(1).strip() if heading_match else path.stem.replace("-", " ").title()
 
 
+def research_markdown_files() -> list[Path]:
+    """Return maintained central and area-owned research records."""
+    paths = list((ROOT / "research").rglob("*.md"))
+    paths.extend((ROOT / "areas").glob("*/research/*.md"))
+    return sorted(set(paths))
+
+
 def research_for_record(record_id: str) -> list[dict[str, str]]:
     records: list[dict[str, str]] = []
     identifier = re.compile(rf"(?<![A-Z0-9-]){re.escape(record_id)}(?![A-Z0-9-])")
-    for path in sorted((ROOT / "research").rglob("*.md")):
+    for path in research_markdown_files():
         relative = path.relative_to(ROOT)
         if "horizon-review-console" in relative.parts or relative.name == "README.md":
             continue
@@ -229,15 +191,8 @@ def research_for_record(record_id: str) -> list[dict[str, str]]:
     return records
 
 
-def candidate_records(routing: list[dict[str, str]]) -> list[dict[str, object]]:
-    evidence_ids: dict[str, list[str]] = {}
-    for item in routing:
-        candidate_id = item["candidate_id"].strip()
-        if candidate_id:
-            evidence_ids.setdefault(candidate_id, []).append(item["catalog_id"])
-
+def candidate_records() -> list[dict[str, object]]:
     sources = source_index()
-    catalog = evidence_catalog_index()
     records: list[dict[str, object]] = []
     for row in read_csv(CANDIDATES):
         if row["review_status"] != "preliminary-candidate":
@@ -258,10 +213,9 @@ def candidate_records(routing: list[dict[str, str]]) -> list[dict[str, object]]:
                 label = f"{source['id']} · {source['publisher'] or source['title']}"
                 links.append({"label": label, "url": source["url"]})
                 seen_urls.add(source["url"])
-        catalog_ids = evidence_ids.get(row["candidate_id"], [])
-        if not source_ids and not links and not catalog_ids:
+        if not source_ids and not links:
             raise RuntimeError(
-                f"Preliminary candidate {row['candidate_id']} has no supporting source or catalog record."
+                f"Preliminary candidate {row['candidate_id']} has no supporting source."
             )
         records.append(
             {
@@ -277,12 +231,7 @@ def candidate_records(routing: list[dict[str, str]]) -> list[dict[str, object]]:
                 "unresolved": row["unresolved_questions"],
                 "recommendation": row["recommendation"],
                 "source_record_ids": source_ids,
-                "catalog_ids": catalog_ids,
-                "evidence_records": [
-                    catalog[catalog_id]
-                    for catalog_id in catalog_ids
-                    if catalog_id in catalog
-                ],
+                "evidence_records": [],
                 "supporting_sources": supporting_sources,
                 "links": links,
                 "last_checked": row["last_reviewed"],
@@ -431,13 +380,12 @@ def enrich_horizon_records(
         record["issue_body_lines"] = issue_body.splitlines()
         history = history_by_id.get(record_id)
         sources = sources_for_record(record_id)
-        evidence_records = evidence_for_record(record_id)
         research = research_for_record(record_id)
         gaps: list[str] = []
         if not history:
             gaps.append("No Horizon Scan Log entry was found for this active candidate.")
-        if not sources and not evidence_records:
-            gaps.append("No supporting source or evidence-catalog record is associated with this candidate.")
+        if not sources:
+            gaps.append("No supporting source is associated with this candidate in either source catalog.")
         if not research:
             gaps.append("No identifier-linked research memorandum is currently available.")
         if str(record.get("next_audit", "")).strip() in {"", "Not recorded"}:
@@ -449,7 +397,7 @@ def enrich_horizon_records(
                 "horizon_history": history or {},
                 "horizon_log_url": HORIZON_LOG_URL,
                 "supporting_sources": sources,
-                "evidence_records": evidence_records,
+                "evidence_records": [],
                 "research_records": research,
                 "dossier_gaps": gaps,
             }
@@ -460,7 +408,7 @@ def enrich_horizon_records(
 
 def main() -> None:
     args = parse_args()
-    candidates = candidate_records(read_csv(ROUTING))
+    candidates = candidate_records()
     horizon_records, github_synced_at = horizon_snapshot(args.refresh_github)
     horizon_records = enrich_horizon_records(horizon_records)
     active_horizon_records = [
@@ -468,7 +416,7 @@ def main() -> None:
     ]
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
-        "schema_version": 6,
+        "schema_version": 7,
         "generated_at": generated_at,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),

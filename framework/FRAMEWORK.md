@@ -25,7 +25,7 @@ The project's public-facing premise, mission, scope, and governing principles ar
 - [`HORIZON_SCAN_LOG.md`](logs/HORIZON_SCAN_LOG.md) contains cumulative horizon-scan disposition and integration history.
 - [`CHANGE_AUDIT_LOG.md`](logs/CHANGE_AUDIT_LOG.md) is the retained historical project-wide Change and Consistency Audit record; future durable audit lessons are incorporated in the files that own them.
 - [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) contains the repository map for human orientation.
-- `research/` contains unpublished ARRP-created project-development work product, including analyses, legal memoranda, crosswalks, catalogs, transformed datasets, comparison tables, and project-generated visualizations. A work product remains here whether it is preliminary, active, or already integrated into an issue unless the project deliberately converts it into the single canonical public topic guide under `topics/`.
+- ARRP-created research work product—including analyses, legal memoranda, crosswalks, catalogs, transformed datasets, comparison tables, and project-generated visualizations—lives under `areas/<AREA>/research/` when one area owns it and under `research/` when it spans areas or supports project-wide research infrastructure. A work product remains research material whether it is preliminary, active, or already integrated into an issue unless the project deliberately converts it into the single canonical public topic guide under `topics/`.
 - `sources/` contains external material not created by ARRP and retained locally for citation support, verification, preservation, or backup. The directory policy README is the sole ordinary project-authored exception.
 - `scripts/` contains project-maintenance and export-generation scripts.
 - `website/` contains the public-site publication policy and website-only presentation assets.
@@ -65,7 +65,7 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 - [`../CITATION.cff`](../CITATION.cff) — citation metadata
 - [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — contribution expectations
 - [`PUBLIC_RELEASE.md`](PUBLIC_RELEASE.md) — public release process
-- [`../research/`](../research/) — ARRP-created analyses, crosswalks, catalogs, datasets, other development work product, and the temporary [existing-issue evidence integration queue](../research/existing-issue-evidence-integration.csv)
+- [`../research/`](../research/) and area `research/` directories — cross-project and issue-specific ARRP-created work product respectively; external-source workflow remains exclusively in the two source inventories and GitHub monitoring records
 - [`../topics/`](../topics/) — public reader guides that synthesize major subjects and route readers to authoritative ARRP areas and proposals
 - [`../sources/`](../sources/) — locally retained external source and backup files
 - [`../scripts/`](../scripts/) — project-maintenance and export-generation scripts

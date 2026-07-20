@@ -6,24 +6,19 @@ print_levels:
 
 # ARRP Research and Development Work Product
 
-This directory contains material created by ARRP during project development. Placement is based on authorship, not development stage: an ARRP-created analysis remains here whether it is preliminary, actively maintained, fully integrated into an issue, or retained as technical support.
+This directory contains cross-project material and research infrastructure created by ARRP during project development. Issue-specific work product that belongs to one area lives in that area's `research/` subdirectory so it can be found beside the issues it supports. An ARRP-created analysis remains research work product whether it is preliminary, actively maintained, fully integrated into an issue, or retained as technical support.
 
 Covered work product includes legal and policy memoranda, crosswalks, catalogs, explanatory checklists, comparison tables, transformed datasets, and project-generated visualizations. External reports, filings, raw downloads, and backup copies belong in [`../sources/`](../sources/) when local retention is useful and appropriate.
 
-## Issue Research and Maintained Work Product
+## Cross-Project Research and Maintained Work Product
 
 - [Portfolio Issue-Consolidation Review](portfolio-issue-consolidation-review.md) — implemented portfolio-wide issue-admission decisions and the basis for the 77-proposal working architecture.
-- [ELEC-004 Civil Process and State Election Records Catalog](ELEC-004-civil-process-catalog.md)
-- [ELEC-013 Presidential Debate and Ballot Access Explanatory Checklist](ELEC-013-presidential-debate-ballot-access-explainer.md)
-- [ELEC-014 Criminal-Process and State Election Records Catalog](ELEC-014-criminal-process-catalog.md)
-- [ELEC-015 Maine RCV Participation Data](ELEC-015-maine-rcv-participation-data.md), with its project-generated [trend visualization](ELEC-015-maine-rcv-trend.svg)
-- [EMOL-015 Procedural and Enforcement Analysis](EMOL-015-procedural-and-enforcement-analysis.md)
-- [FUND-001 Executive Order Judicial Review Comparator](FUND-001-executive-order-judicial-review-comparator.md)
-- [Executive-Directive State-Led Adverse Rulings Scan](executive-directive-state-led-adverse-rulings-scan.csv)
-- [REG-001 Agency Independence and Functional Nullification Catalog](REG-001-independent-agency-removal-catalog.md)
-- [Trump Administration Legal-Review Intake](trump-administration-legal-review-intake.md) — central source-adjudication record linking the retained catalogs, issue-integration work, monitoring source ledger, preliminary candidates, completed reconciliation report, and official presidential-directive completeness scan
+- [Trump Administration Legal-Review Research Summary](trump-administration-legal-review-summary.md) — retained methodology, aggregate findings, limitations, and formal-candidate results from the completed first- and second-term source review
 - [Candidate Issue Intake](horizon-review-console/index.html), the read-only review view for source-supported preliminary candidates and GitHub-authoritative formal proposed candidates
-- [WAR-001 Source Development](WAR-001-source-development.md)
+
+## Area Research
+
+Single-area analyses, catalogs, datasets, and visualizations are maintained under `areas/<AREA>/research/` and linked from their owning issue or area page. Current area-research collections are [Elections](../areas/ELEC/research/), [Emoluments](../areas/EMOL/research/), [Funding](../areas/FUND/research/), [Judicial Reform](../areas/JUD/research/), [Regulatory Agencies](../areas/REG/research/), and [War Powers](../areas/WAR/research/).
 
 ## Project Crosswalks
 
@@ -34,4 +29,4 @@ Covered work product includes legal and policy memoranda, crosswalks, catalogs, 
 
 The former Project 2025 research crosswalk has been converted, without duplication, into the public [Project 2025 — ARRP Topic Guide and Crosswalk](../topics/project-2025.md).
 
-The external works analyzed by these files are recorded in [`../inventory/sources.csv`](../inventory/sources.csv). Local copies, when retained, live in [`../sources/`](../sources/); most cited sources remain external links only.
+External works affirmatively relied upon by central or area research files are recorded in [`../inventory/sources.csv`](../inventory/sources.csv). Relevant source-development, verification, monitoring, and placement leads remain in [`../inventory/sources-pending.csv`](../inventory/sources-pending.csv) until a substantive record actually relies on them. Research files do not maintain parallel source ledgers. Local copies, when retained, live in [`../sources/`](../sources/); most sources remain external links only.

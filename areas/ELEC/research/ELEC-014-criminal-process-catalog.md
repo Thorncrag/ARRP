@@ -9,7 +9,7 @@ print_levels:
 
 > **Maintenance tracking:** [GitHub sub-issue #243](https://github.com/Thorncrag/ARRP/issues/243) under [ELEC-014 issue #236](https://github.com/Thorncrag/ARRP/issues/236). Review at least quarterly and upon the event predicates stated in the monitoring issue.
 
-This catalog supports [ELEC-014](../areas/ELEC/issues/ELEC-014.md). It records known federal criminal probes, warrants, grand-jury subpoenas, criminal subpoenas, prosecution-threat communications, and criminal-investigative state-election-record demands relevant to election-sensitive federal criminal process.
+This catalog supports [ELEC-014](../issues/ELEC-014.md). It records known federal criminal probes, warrants, grand-jury subpoenas, criminal subpoenas, prosecution-threat communications, and criminal-investigative state-election-record demands relevant to election-sensitive federal criminal process.
 
 The catalog is factual and source-development oriented. It does not decide motive, partisan purpose, legality, or legitimacy. Those judgments require the next-stage T2 remedy-selection and legitimacy assessment, using primary records wherever available.
 

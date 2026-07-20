@@ -1,6 +1,7 @@
 ---
 issue_id: WAR-001
 area_id: A-03
+source_issue: "../issues/WAR-001.md"
 title: "Source Development — Comprehensive War Powers and Use-of-Force Authorization Reform"
 status: working-notes
 print_levels:

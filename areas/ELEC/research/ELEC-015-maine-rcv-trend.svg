@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="680" viewBox="0 0 1000 680" role="img" aria-labelledby="title desc">
-  <title id="title">Maine RCV turnout and alternative vote-expression trend</title>
+  <title id="title">ELEC-015 Maine RCV turnout and alternative vote-expression trend</title>
   <desc id="desc">Two line charts showing alternative vote expression in general elections and voter turnout by election series, with presidential years shaded and 2018 marked as the first year of Maine RCV use.</desc>
   <rect width="1000" height="680" fill="#ffffff"/>
   <text x="80" y="38" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#1f2937">Maine Election Participation and Alternative Vote Expression</text>

@@ -1,6 +1,11 @@
 import unittest
 
-from scripts.audit_project_consistency import ROOT, active_project_files, github_repository_targets
+from scripts.audit_project_consistency import (
+    ROOT,
+    active_project_files,
+    github_repository_targets,
+    research_files,
+)
 
 
 class GitHubIssueLinkTests(unittest.TestCase):
@@ -26,6 +31,15 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertIn("research/README.md", relative_paths)
         self.assertTrue(any(path.startswith("framework/templates/") for path in relative_paths))
         self.assertFalse(any(path.startswith("archive/") for path in relative_paths))
+
+    def test_research_scope_includes_central_and_area_records(self):
+        relative_paths = {path.relative_to(ROOT).as_posix() for path in research_files(".md")}
+
+        self.assertIn("research/portfolio-issue-consolidation-review.md", relative_paths)
+        self.assertIn(
+            "areas/JUD/research/JUD-012-judicial-review-foreclosure-case-review.md",
+            relative_paths,
+        )
 
 
 if __name__ == "__main__":

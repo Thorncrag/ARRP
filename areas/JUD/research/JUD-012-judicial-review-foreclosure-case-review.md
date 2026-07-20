@@ -1,12 +1,12 @@
 ---
-title: "HOR-036 / JUD-012 Judicial Review Foreclosure Case Review"
+title: "JUD-012 Judicial Review Foreclosure Case Review"
 status: source-development-expanded
 reviewed: 2026-07-19
 print_levels:
   - full-technical
 ---
 
-# HOR-036 / JUD-012 Judicial Review Foreclosure Case Review
+# JUD-012 Judicial Review Foreclosure Case Review
 
 This internal source-development memorandum records the review that supported admission of HOR-036 as JUD-012. The inquiry is whether legally consequential federal action can remain without judicial adjudication of its legality because no viable cause of action, plaintiff, evidence procedure, or review route exists. It does not assume that unadjudicated allegations are true, that challenged action was unlawful, or that every threshold dismissal identifies an institutional defect.
 

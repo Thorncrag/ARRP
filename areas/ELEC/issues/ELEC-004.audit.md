@@ -36,7 +36,7 @@ This file preserves the full audit history for [ELEC-004](ELEC-004.md). The issu
 
 **Scope:** Moved the civil suits and noncriminal state-election-record demand table out of the ELEC-014 criminal-process catalog and into a standalone ELEC-004 source-development catalog.
 
-**Catalog effect:** Added [`research/ELEC-004-civil-process-catalog.md`](../../../research/ELEC-004-civil-process-catalog.md) for DOJ civil voter-data requests, voter-roll lawsuits, information-sharing proposals, and noncriminal state-election-record demands. ELEC-014 now links to that file instead of carrying the civil table inside its criminal-process catalog.
+**Catalog effect:** Added [`research/ELEC-004-civil-process-catalog.md`](../research/ELEC-004-civil-process-catalog.md) for DOJ civil voter-data requests, voter-roll lawsuits, information-sharing proposals, and noncriminal state-election-record demands. ELEC-014 now links to that file instead of carrying the civil table inside its criminal-process catalog.
 
 **Score effect:** No score change. ELEC-004 remains 75/100 (Review Ready). The split improves source-development organization and issue-boundary clarity but does not complete primary-record review, external legal review, representative-state comparison, title 28 codification review, or Petition Clause analysis.
 
