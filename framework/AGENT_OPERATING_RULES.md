@@ -82,7 +82,7 @@ Before running a T-audit, an agent must identify:
 5. the sibling audit-history file;
 6. the relevant GitHub Project item;
 7. the relevant `sources.csv` rows;
-8. every pending-source or evidence-integration record owned by or cross-referenced to the issue;
+8. every `sources-pending.csv` record owned by or cross-referenced to the issue;
 9. any unresolved findings from the latest audit; and
 10. the issue's open `ISSUE-ID-MON` monitoring sub-issue, if one exists, and every defined external predicate it carries.
 
@@ -257,6 +257,8 @@ For each autonomous issue unit, record:
 12. push status;
 13. rollback target or revert notes; and
 14. any blockers, skipped checks, or human-review stop conditions.
+
+Scheduled or autonomous checks that make no repository change do not append a no-change entry to the Agent Audit Log. When a separately authorized autonomous run adds, updates, moves, or removes a source record, the same source-changing pull request must append one log entry identifying the affected stable source IDs, the action and reason, the destination and proposition or citation supported, the originating Actions run, validation, commit and push status, and rollback reference.
 
 The agent audit log should be append-only. If a commit is later reverted, add a new log entry identifying the revert commit and the original commit it reverses. Do not erase the original log entry.
 

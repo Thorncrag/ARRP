@@ -12,6 +12,8 @@ This file is not the log for ordinary human-invoked audits or drafting sessions.
 
 Entries for autonomous, batched, or scheduled runs should be append-only. If a bad autonomous edit is later reverted, add a new entry identifying the revert commit and the original commit it reverses.
 
+A scheduled or autonomous check that makes no repository change does not add a no-change entry here. If a separately authorized autonomous run adds, updates, moves, or removes a source record, its source-changing pull request must append an entry identifying the affected stable source IDs, action and reason, destination and proposition or citation supported, originating Actions run, validation, commit and push status, and rollback reference.
+
 ## Log Format
 
 Each log entry should be recorded as its own short section with an independent two-column table. Use newest-at-bottom ordering unless the file is intentionally reorganized as part of a readability pass. Do not combine unrelated audit units into a single table. Each issue-specific entry should link the issue page, the issue audit-history file, and the linked proposal, legislation, amendment, rule, or model text where one exists. Date/time fields should include the local time and timezone when available.

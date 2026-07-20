@@ -61,6 +61,13 @@ class MonitoringUpdateTests(unittest.TestCase):
         )["Accessibility"]["fingerprint"]
         self.assertNotEqual(baseline, changed)
 
+    def test_tracker_cases_are_keyed_by_permanent_docket_identity(self):
+        cases = MODULE.tracker_cases_by_docket(MODULE.parse_just_security(tracker_html()))
+
+        self.assertEqual(set(cases), {"courtlistener:100", "courtlistener:101"})
+        self.assertEqual(cases["courtlistener:100"]["case"], "Example One")
+        self.assertEqual(len(cases["courtlistener:100"]["fingerprint"]), 64)
+
     def test_untrusted_display_text_is_markdown_escaped(self):
         escaped = MODULE.markdown_cell("<img src=x> [click](https://example.test) | value")
         self.assertNotIn("<img", escaped)
@@ -69,7 +76,7 @@ class MonitoringUpdateTests(unittest.TestCase):
 
     def test_evaluation_requires_review_until_label_acknowledgment(self):
         observation = MODULE.parse_just_security(tracker_html())["Accessibility"]
-        current = {"MON-0001": observation}
+        current = {"SRC-0913": observation}
         first = MODULE.evaluate_target(
             None,
             current,
@@ -85,7 +92,7 @@ class MonitoringUpdateTests(unittest.TestCase):
         )["Accessibility"]
         changed = MODULE.evaluate_target(
             first,
-            {"MON-0001": changed_observation},
+            {"SRC-0913": changed_observation},
             [],
             review_label_present=False,
             checked_at="2026-07-21T00:00:00+00:00",
@@ -97,7 +104,7 @@ class MonitoringUpdateTests(unittest.TestCase):
 
         waiting = MODULE.evaluate_target(
             changed,
-            {"MON-0001": changed_observation},
+            {"SRC-0913": changed_observation},
             [],
             review_label_present=True,
             checked_at="2026-07-22T00:00:00+00:00",
@@ -108,7 +115,7 @@ class MonitoringUpdateTests(unittest.TestCase):
 
         acknowledged = MODULE.evaluate_target(
             waiting,
-            {"MON-0001": changed_observation},
+            {"SRC-0913": changed_observation},
             [],
             review_label_present=False,
             checked_at="2026-07-23T00:00:00+00:00",
@@ -116,6 +123,28 @@ class MonitoringUpdateTests(unittest.TestCase):
         )
         self.assertEqual(acknowledged["status"], "baseline_acknowledged")
         self.assertEqual(acknowledged["baseline"], acknowledged["observed"])
+
+    def test_pre_source_schema_baseline_migrates_without_false_alert(self):
+        observation = MODULE.parse_just_security(tracker_html())["Accessibility"]
+        previous = {
+            "schema_version": 1,
+            "baseline": {"legacy-key": observation["fingerprint"]},
+            "review_required": False,
+            "status": "no_change",
+        }
+
+        migrated = MODULE.evaluate_target(
+            previous,
+            {"SRC-0913": observation},
+            [],
+            review_label_present=False,
+            checked_at="2026-07-20T00:00:00+00:00",
+            source_url="https://example.test/",
+        )
+
+        self.assertEqual(migrated["status"], "baseline_migrated")
+        self.assertFalse(migrated["add_review_label"])
+        self.assertEqual(migrated["baseline"], migrated["observed"])
 
     def test_check_failure_labels_only_after_two_consecutive_failures(self):
         first = MODULE.evaluate_target(
@@ -139,39 +168,76 @@ class MonitoringUpdateTests(unittest.TestCase):
         self.assertTrue(second["add_review_label"])
         self.assertEqual(second["consecutive_failures"], 2)
 
-    def test_pilot_configuration_routes_to_registered_active_monitors(self):
+    def test_complete_target_discovery_is_not_limited_by_configuration(self):
         config = json.loads((ROOT / ".github" / "monitoring-pilot.json").read_text())
+        registry = MODULE.read_csv(ROOT / "inventory" / "github_issue_registry.csv")
+        monitoring_issues = [
+            {
+                "number": int(row["GitHub Number"]),
+                "title": row["GitHub Title"],
+                "labels": [{"name": "needs: monitoring"}],
+            }
+            for row in registry
+            if row["Kind"] == "source review" and row["Object ID"]
+        ]
+        sources = [
+            {**row, "_inventory": "sources.csv"}
+            for row in MODULE.read_csv(ROOT / "inventory" / "sources.csv")
+        ]
+        sources.extend(
+            {**row, "_inventory": "sources-pending.csv"}
+            for row in MODULE.read_csv(ROOT / "inventory" / "sources-pending.csv")
+        )
         targets = MODULE.build_targets(
             config,
-            MODULE.read_csv(ROOT / "research" / "trump-administration-litigation-monitoring.csv"),
-            MODULE.read_csv(ROOT / "inventory" / "github_issue_registry.csv"),
+            sources,
+            registry,
+            monitoring_issues,
         )
-        self.assertEqual(len(targets), 5)
-        self.assertEqual(sum(len(target["matters"]) for target in targets), 5)
+        self.assertEqual(len(targets), len(monitoring_issues))
+        self.assertGreater(sum(len(target["matters"]) for target in targets), 500)
+        self.assertTrue(
+            all(matter["matter_id"].startswith("SRC-") for target in targets for matter in target["matters"])
+        )
         self.assertTrue(all(target["issue_number"] for target in targets))
+        self.assertNotIn("targets", config)
 
     def test_workflow_uses_minimum_permissions_and_no_repository_write(self):
         workflow = (ROOT / ".github" / "workflows" / "monitoring-pilot.yml").read_text()
+        config = json.loads((ROOT / ".github" / "monitoring-pilot.json").read_text())
         self.assertIn("contents: read", workflow)
         self.assertIn("issues: write", workflow)
         self.assertNotIn("contents: write", workflow)
         self.assertNotIn("pull-requests: write", workflow)
         self.assertIn("scripts/check_monitoring_updates.py", workflow)
+        self.assertIn('cron: "13 0 * * *"', workflow)
+        self.assertIn('timezone: "America/New_York"', workflow)
+        self.assertIn("continue-on-error: true", workflow)
+        self.assertIn("if: always()", workflow)
+        self.assertIn("gh issue comment", workflow)
+        self.assertIn("Verify the signal-only boundary", workflow)
+        self.assertIn('git diff --quiet "${GITHUB_SHA}" -- .', workflow)
+        self.assertIn("This monitoring workflow is signal-only and read-only", workflow)
+        self.assertIn("steps.monitor.outcome == 'failure' || steps.read_only.outcome == 'failure'", workflow)
+        self.assertEqual(config["notification"]["issueNumber"], 317)
+        self.assertEqual(config["notification"]["mention"], "@Thorncrag")
+        self.assertEqual(config["targetLabel"], "needs: monitoring")
 
     def test_local_dry_run_writes_a_complete_summary(self):
         config = {
-            "schemaVersion": 1,
+            "schemaVersion": 2,
             "enabled": True,
             "reviewLabel": "needs: monitor review",
             "reviewLabelColor": "FBCA04",
             "reviewLabelDescription": "Review required.",
+            "targetLabel": "needs: monitoring",
             "source": {
                 "type": "just-security-tablepress-42",
                 "url": "https://www.justsecurity.org/example/",
                 "allowedHosts": ["www.justsecurity.org"],
                 "maximumBytes": 100000,
             },
-            "targets": [],
+            "supportedSourceHosts": ["www.courtlistener.com"],
         }
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory)
@@ -179,8 +245,10 @@ class MonitoringUpdateTests(unittest.TestCase):
             source_path = path / "source.html"
             summary_path = path / "summary.md"
             report_path = path / "report.json"
+            issues_path = path / "issues.json"
             config_path.write_text(json.dumps(config))
             source_path.write_text(tracker_html())
+            issues_path.write_text("[]")
             old_argv = MODULE.sys.argv
             try:
                 MODULE.sys.argv = [
@@ -189,6 +257,8 @@ class MonitoringUpdateTests(unittest.TestCase):
                     str(config_path),
                     "--source-html",
                     str(source_path),
+                    "--monitoring-issues-json",
+                    str(issues_path),
                     "--summary",
                     str(summary_path),
                     "--report-json",
@@ -200,7 +270,7 @@ class MonitoringUpdateTests(unittest.TestCase):
                     self.assertEqual(MODULE.main(), 0)
             finally:
                 MODULE.sys.argv = old_argv
-            self.assertIn("ARRP automated monitoring pilot", summary_path.read_text())
+            self.assertIn("ARRP automated monitoring prototype", summary_path.read_text())
             self.assertEqual(json.loads(report_path.read_text())["results"], [])
 
 

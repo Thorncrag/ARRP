@@ -9,7 +9,7 @@ print_levels:
 
 > **Maintenance tracking:** [GitHub sub-issue #241](https://github.com/Thorncrag/ARRP/issues/241) under [ELEC-004 issue #32](https://github.com/Thorncrag/ARRP/issues/32). Review at least quarterly and upon the event predicates stated in the monitoring issue.
 
-This catalog supports [ELEC-004](../areas/ELEC/issues/ELEC-004.md). It records civil litigation, Voting Section letters, administrative requests, information-sharing proposals, noncriminal subpoenas, voter-data lawsuits, and state-election-record demands that may burden election administration, expose sensitive election material, or create public uncertainty without operating as criminal process.
+This catalog supports [ELEC-004](../issues/ELEC-004.md). It records civil litigation, Voting Section letters, administrative requests, information-sharing proposals, noncriminal subpoenas, voter-data lawsuits, and state-election-record demands that may burden election administration, expose sensitive election material, or create public uncertainty without operating as criminal process.
 
 This catalog is factual and source-development oriented. It does not decide motive, partisan purpose, legality, or legitimacy. Those judgments require primary letters, complaints, orders, state responses, protective-order materials, privacy objections, and federalism arguments.
 
@@ -17,7 +17,7 @@ This catalog is factual and source-development oriented. It does not decide moti
 
 **Included as ELEC-004 civil-process material:** election litigation, civil subpoenas, public-records demands, nonstatutory audits, legislative or administrative demands, Voting Section letters, civil voter-roll lawsuits, information-sharing proposals, and noncriminal state-election-record demands seeking voter rolls, voter identifiers, election-worker records, ballots, election documents, retained election records, or sensitive election-system material.
 
-**Excluded from ELEC-004 core scope:** federal criminal search warrants, criminal subpoenas, grand-jury process, federal law-enforcement interviews, device seizures, criminal investigative data demands, and prosecution-threat communications. Those belong in [ELEC-014](../areas/ELEC/issues/ELEC-014.md) unless the criminal-process hook is absent or disproven.
+**Excluded from ELEC-004 core scope:** federal criminal search warrants, criminal subpoenas, grand-jury process, federal law-enforcement interviews, device seizures, criminal investigative data demands, and prosecution-threat communications. Those belong in [ELEC-014](../issues/ELEC-014.md) unless the criminal-process hook is absent or disproven.
 
 **Cross-reference rule:** ELEC-001 and ELEC-010 may remain cross-references where the broader federal election-control or voter-data architecture is the more central defect. ELEC-014 remains a cross-reference only when a civil record demand appears to precede, overlap with, or become federal criminal process.
 

@@ -8,7 +8,7 @@ print_levels:
 
 This directory holds the local structured records that support source tracking and stable GitHub navigation; it is not a second workflow or proposal record.
 
-- [`sources.csv`](sources.csv) is the relied-upon source registry for external sources affirmatively used to support an assertion in a project-authored substantive record, whether reader-facing prose or an accountable research, monitoring, evidence-integration, or candidate record.
+- [`sources.csv`](sources.csv) is the relied-upon source registry for external sources affirmatively used to support an assertion in a project-authored substantive record, whether reader-facing prose or an accountable research, GitHub monitoring, evidence, or candidate record.
 - [`sources-pending.csv`](sources-pending.csv) holds stable-ID sources that may be useful but are not yet relied upon in a substantive project assertion. Move a row into `sources.csv` only when an accountable project record actually uses it.
 - [`github_issue_registry.csv`](github_issue_registry.csv) preserves stable GitHub issue navigation: number, URL, Project object ID where available, kind, title, canonical repository record, and parent relationship.
 
