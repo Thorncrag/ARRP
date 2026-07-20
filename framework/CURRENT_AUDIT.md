@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: active
+status: inactive
 print_levels:
   - full-technical
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active — completed locally; awaiting commit and GitHub reconciliation |
+| Status | Inactive — source reconciliation and complete monitor deployment finished |
 | Active issue/task | Consolidate retained sources, remove redundant ledgers, and colocate single-area research with its owning area |
 | Audit type/tier | Project-wide source and structure reconciliation; no T-audit or score change |
 | Started | 2026-07-20 |
-| Last checkpoint | 2026-07-20; two-catalog migration, obsolete-file cleanup, complete monitor-bot migration, area-research relocation, console rebuild, and validation completed locally. |
+| Last checkpoint | 2026-07-20; PR #318 merged, public-site publication passed, and the complete 37-record monitor workflow passed its manual pre-schedule run. |
 | User request | Review every research-directory document, route all sources into the two canonical catalogs, clean up obsolete files, and move issue-specific research into its most relevant area. |
 | Scope | Root and area `research/` directories; source inventories; candidate console; monitoring automation and GitHub monitor wrappers; governing methodology, structure, tests, and internal links. |
 | Files touched | `inventory/sources.csv`; `inventory/sources-pending.csv`; central and area research; governing framework; console builder; consistency audit; monitoring configuration and tests; obsolete research and source-adjudication files. |
 | Completed steps | Classified the research directory; consolidated 34 duplicate source IDs; reconciled every retained source into one of the two catalogs; removed obsolete source, media, litigation, integration, and directive queues and their dedicated tooling; made GitHub monitoring issues authoritative; replaced the five-record monitor pilot with dynamic discovery of all 37 open `needs: monitoring` records and permanent `SRC-####` mappings; retired the obsolete standalone monitor-row identifiers from the repository and live issue descriptions; moved eleven single-area research assets into six area `research/` directories; updated local and GitHub links and source locators; expanded console and consistency-check discovery to area research; rebuilt the candidate console; and verified that every `sources.csv` row is used while every pending row has an accountable owner. |
-| Next step | Commit and reconcile the completed pass with GitHub, manually dispatch the complete monitor workflow, and verify all rolling comments, owner notification, and read-only safeguards before the first scheduled run. |
+| Next step | None for this pass. Review issue #317 after each scheduled run; substantively reassess only records receiving `needs: monitor review` or otherwise requiring manual review. |
 | Blockers/questions | None. |
-| Validation status | Complete locally: 46 tests passed; the full 37-record read-only monitor test completed with 22 adapter-supported and 15 manual-only records; authenticated consistency audit returned 0 errors and 0 warnings; strict public-site build passed; `git diff --check` passed. |
+| Validation status | Passed: 46 tests; full 37-record live run with 22 adapter-supported and 15 manual-only records; 37 of 37 rolling comments verified; no obsolete identifiers or false review labels; owner notification posted; authenticated consistency audit returned 0 errors and 0 warnings; strict public-site build and GitHub Pages publication passed; local `main` matched `origin/main`. |
 
 ## Handoff Rules
 
