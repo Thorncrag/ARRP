@@ -12,6 +12,14 @@ This file preserves the full audit history for [FUND-001](FUND-001.md). The issu
 
 ## Audit History
 
+### 2026-07-21 — Targeted source-adjudication Change Audit
+
+**Scope:** Added concise, disposition-level records concerning the foreign-assistance pause, NPR/PBS funding directive, NEVI Formula Program suspension, and the First Circuit's partial affirmance and narrowing of grant-pause relief.
+
+**Finding:** The sources materially reinforce FUND-001's existing theory that executive directives can disrupt congressionally governed funding before ordinary litigation supplies program-specific relief. The examples rest on distinct constitutional, statutory, and remedial grounds and are not presented as interchangeable impoundment holdings. The preferred JUD-011 route and independent FUND-001 vehicle remain aligned with the issue.
+
+**Score and run effect:** No score-bearing T-audit occurred. Score remains 83 and Runs is unchanged.
+
 Entries are maintained newest first. Change Audits preserve the existing score unless the audit identifies a score-bearing defect and recalculates the proposal under the current rubric.
 
 ### 2026-07-16 — Portfolio-consolidation targeted Change Audit

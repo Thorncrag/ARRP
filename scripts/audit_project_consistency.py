@@ -61,7 +61,7 @@ MARKDOWN_FENCE_RE = re.compile(r"^(?:```|~~~).*?^(?:```|~~~)\s*$", re.MULTILINE 
 HTML_LINK_RE = re.compile(r"(?:href|src)\s*=\s*([\"'])(.*?)\1", re.IGNORECASE)
 GITHUB_REPOSITORY_URL_RE = re.compile(
     r"https://(?:github\.com/Thorncrag/ARRP/(?:blob|tree)|raw\.githubusercontent\.com/Thorncrag/ARRP)/"
-    r"(?P<ref>[^/\s)<>\"',\]}]+)/(?P<path>[^\s)<>\"',\]}]+)"
+    r"(?P<ref>[^/\\\s)<>\"',\]}]+)/(?P<path>[^\\\s)<>\"',\]}]+)"
 )
 FRONT_MATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 ISSUE_ID_RE = re.compile(r"^[A-Z]+-\d{3}$")
@@ -197,6 +197,55 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
         if not re.search(rf"^# {re.escape(issue_id)}\s+—\s+", body, re.MULTILINE):
             report("ERROR", f"{issue_id} title heading does not begin with its identifier", failures, warnings)
         sidecar = path.with_name(f"{issue_id}.audit.md")
+        if data.get("record_type") == "source-development":
+            front_matter_match = FRONT_MATTER_RE.match(read(path))
+            front_matter_text = front_matter_match.group(1) if front_matter_match else ""
+            if "public-proposal" in front_matter_text:
+                report(
+                    "ERROR",
+                    f"{issue_id} source-development shell must remain full-technical only",
+                    failures,
+                    warnings,
+                )
+            if sidecar.exists():
+                report(
+                    "ERROR",
+                    f"{issue_id} source-development shell must not have an audit sidecar",
+                    failures,
+                    warnings,
+                )
+            if "**Source-development record only.**" not in body:
+                report(
+                    "ERROR",
+                    f"{issue_id} source-development shell lacks the required development notice",
+                    failures,
+                    warnings,
+                )
+            for heading in ("Scope Under Review", "Source-Development Record", "Next Development Step"):
+                if not re.search(rf"^## {re.escape(heading)}$", body, re.MULTILINE):
+                    report(
+                        "ERROR",
+                        f"{issue_id} source-development shell lacks required heading: {heading}",
+                        failures,
+                        warnings,
+                    )
+            for heading in (
+                "Issue Snapshot",
+                "Manifestation of the Failure",
+                "Manifestations of the Failure",
+                "Proposed Legislation",
+                "Budgetary Impact Statement",
+                "Proposal Scoring",
+                "Annotation",
+            ):
+                if re.search(rf"^## {re.escape(heading)}$", body, re.MULTILINE):
+                    report(
+                        "ERROR",
+                        f"{issue_id} source-development shell improperly uses mature issue heading: {heading}",
+                        failures,
+                        warnings,
+                    )
+            continue
         if not sidecar.exists():
             report("ERROR", f"{issue_id} lacks sibling audit-history file", failures, warnings)
         elif front_matter(sidecar).get("issue_id") != issue_id:
@@ -487,7 +536,6 @@ def source_citation_corpus(github_issue_bodies: str = "") -> str:
     paths.extend(LEGISLATION_PATH.glob("*.md"))
     paths.extend((ROOT / "topics").glob("*.md"))
     paths.extend(research_files(".md", ".csv"))
-    paths.append(ROOT / "research" / "horizon-review-console" / "catalog-data.js")
     paths.extend(framework_pages())
     corpus = "\n".join(read(path) for path in sorted(set(paths)) if path.exists())
     return corpus + ("\n" + github_issue_bodies if github_issue_bodies else "")
@@ -502,6 +550,8 @@ def check_research_placement(failures: list[str], warnings: list[str]) -> None:
             continue
         issue_id = issue_match.group(1)
         area = issue_id.split("-", 1)[0]
+        if area == "HOR" and path.parent == ROOT / "research" / "horizon-source-records":
+            continue
         expected_parent = ROOT / "areas" / area / "research"
         if path.parent != expected_parent:
             report(
@@ -652,8 +702,74 @@ def check_registry_and_sources(
         source_rows = list(csv.DictReader(handle))
     with PENDING_SOURCE_PATH.open(newline="", encoding="utf-8") as handle:
         pending_rows = list(csv.DictReader(handle))
+    source_workflow_fields = {
+        "Retention Rationale",
+        "Pending Reason",
+        "Next Action",
+        "Blocker",
+        "Monitoring Rationale",
+        "Monitoring Group",
+    }
+    for catalog_name, catalog_rows in (
+        ("sources.csv", source_rows),
+        ("sources-pending.csv", pending_rows),
+    ):
+        if catalog_rows:
+            missing_fields = source_workflow_fields - set(catalog_rows[0])
+            if missing_fields:
+                report(
+                    "ERROR",
+                    f"{catalog_name} lacks source-workflow field(s): "
+                    + ", ".join(sorted(missing_fields)),
+                    failures,
+                    warnings,
+                )
     if source_rows and pending_rows and set(source_rows[0]) != set(pending_rows[0]):
         report("ERROR", "sources.csv and sources-pending.csv use different columns", failures, warnings)
+    for row in pending_rows:
+        source_id = row.get("Source ID", "unnumbered pending source")
+        for field in ("Retention Rationale", "Pending Reason", "Next Action"):
+            if not row.get(field, "").strip():
+                report(
+                    "ERROR",
+                    f"{source_id} lacks required pending-source field: {field}",
+                    failures,
+                    warnings,
+                )
+    for catalog_name, catalog_rows in (
+        ("sources.csv", source_rows),
+        ("sources-pending.csv", pending_rows),
+    ):
+        for row in catalog_rows:
+            tracker_status = re.search(
+                r"tracker status:\s*([^.;]+(?:\([^)]*\))?)",
+                row.get("Proposition Supported", ""),
+                flags=re.IGNORECASE,
+            )
+            if (
+                row.get("Source Type", "").strip() == "Court Docket or Judicial Record"
+                and tracker_status
+                and not tracker_status.group(1).casefold().startswith("case closed")
+                and row.get("Monitoring", "").strip() != "Yes"
+            ):
+                report(
+                    "ERROR",
+                    f"{row.get('Source ID', 'unnumbered source')} in {catalog_name} "
+                    "is an open tracker case record but is not marked for monitoring",
+                    failures,
+                    warnings,
+                )
+            if row.get("Monitoring", "").strip() != "Yes":
+                continue
+            source_id = row.get("Source ID", "unnumbered monitored source")
+            for field in ("Monitoring Rationale", "Monitoring Group"):
+                if not row.get(field, "").strip():
+                    report(
+                        "ERROR",
+                        f"{source_id} in {catalog_name} lacks required monitored-source field: {field}",
+                        failures,
+                        warnings,
+                    )
     source_ids = [row.get("Source ID", "") for row in [*source_rows, *pending_rows] if row.get("Source ID")]
     for value, count in Counter(source_ids).items():
         if count > 1:
@@ -743,6 +859,11 @@ def check_registry_and_sources(
     accountable_id = re.compile(r"\b(?:INTAKE-GAP|HOR|[A-Z]{2,})-\d{3}(?:-MON)?\b")
     for row in pending_rows:
         association = row.get("Associated Record IDs", "").strip()
+        possible_destinations = {
+            match.group(0)
+            for match in accountable_id.finditer(association)
+            if not match.group(0).endswith("-MON")
+        }
         research_owners = [
             part.strip()
             for part in association.split(";")
@@ -753,6 +874,24 @@ def check_registry_and_sources(
             report(
                 "ERROR",
                 f"pending source {row.get('Source ID', '<unknown>')} lacks an accountable issue, monitor, candidate, or research-record owner",
+                failures,
+                warnings,
+            )
+        elif len(possible_destinations) < 2 and not valid_research_owner:
+            report(
+                "ERROR",
+                f"pending source {row.get('Source ID', '<unknown>')} has a single clear destination and must be cited by that owner and moved to sources.csv",
+                failures,
+                warnings,
+            )
+        routing_action = row.get("Next Action", "").casefold()
+        if not routing_action or not any(
+            term in routing_action
+            for term in ("route", "choose", "determine", "identify")
+        ):
+            report(
+                "ERROR",
+                f"pending source {row.get('Source ID', '<unknown>')} lacks an explicit routing decision in Next Action",
                 failures,
                 warnings,
             )

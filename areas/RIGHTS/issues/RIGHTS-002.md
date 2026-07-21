@@ -1,6 +1,7 @@
 ---
 issue_id: RIGHTS-002
 area_id: A-24
+source_development_record: "../research/RIGHTS-002-source-development.md"
 title: "Temporary Protected Status, Asylum Access, and Humanitarian Reviewability"
 status: candidate
 priority: high
@@ -55,10 +56,6 @@ This manifestation is related but not identical to TPS. It raises a statutory-tr
 NBC News reported that the Supreme Court allowed President Trump's administration to remove protections for thousands of Haitian and Syrian migrants. The Guardian similarly reported on the TPS decision and described broader consequences for Haitian and Syrian TPS holders. See NBC News, [*Supreme Court allows Trump to remove protections for thousands of Haitian and Syrian migrants*](https://www.nbcnews.com/politics/supreme-court/supreme-court-allows-trump-remove-protections-thousands-haitian-syrian-rcna263164), and The Guardian, [*US supreme court allows Trump administration to strip Haitians and Syrians of protected status*](https://www.theguardian.com/us-news/2026/jun/25/supreme-court-haitians-syrians-temporary-protected-status).
 
 These reports should be used as current-event leads. Final drafting should rest primarily on the Supreme Court opinions, Federal Register notices, statutory text, country-condition records, agency consultation records if available, and congressional materials.
-
-### Supporting Record and Updates
-
-- **Watching for updates:** [RIGHTS-002-MON](https://github.com/Thorncrag/ARRP/issues/296) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
 
 ## Resulting Damage
 

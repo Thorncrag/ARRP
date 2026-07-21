@@ -10,10 +10,10 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 14,https://github.com/Thorncrag/ARRP/issues/14,,governance,Review and resolve horizon proposals,framework/logs/HORIZON_SCAN_LOG.md,
 15,https://github.com/Thorncrag/ARRP/issues/15,HOR-010,horizon,HOR-010: Immigration-courthouse arrests and courthouse-access chilling,framework/logs/HORIZON_SCAN_LOG.md,
 16,https://github.com/Thorncrag/ARRP/issues/16,HOR-018,horizon,HOR-018: Agency-continuity and executive anti-nullification review [Integrated into REG-001],framework/logs/HORIZON_SCAN_LOG.md,
-17,https://github.com/Thorncrag/ARRP/issues/17,HOR-019,horizon,HOR-019: Supreme Court structure and legitimacy review,framework/logs/HORIZON_SCAN_LOG.md,
+17,https://github.com/Thorncrag/ARRP/issues/17,HOR-019,merged horizon,HOR-019: Supreme Court structure and legitimacy review [Merged into JUD-009],framework/logs/HORIZON_SCAN_LOG.md,
 18,https://github.com/Thorncrag/ARRP/issues/18,HOR-020,horizon,HOR-020: District of Columbia statehood and home-rule review [Outside scope],framework/logs/HORIZON_SCAN_LOG.md,
 19,https://github.com/Thorncrag/ARRP/issues/19,HOR-021,horizon,HOR-021: Puerto Rico status and democratic representation review [Outside scope],framework/logs/HORIZON_SCAN_LOG.md,
-20,https://github.com/Thorncrag/ARRP/issues/20,HOR-022,horizon,HOR-022: Qualified immunity and constitutional-remedies review,framework/logs/HORIZON_SCAN_LOG.md,
+20,https://github.com/Thorncrag/ARRP/issues/20,RIGHTS-005,proposal,RIGHTS-005: Civil and Criminal Accountability for Law-Enforcement Constitutional Violations,areas/RIGHTS/issues/RIGHTS-005.md,
 21,https://github.com/Thorncrag/ARRP/issues/21,,governance,Complete proposal issue import from ledger,,
 22,https://github.com/Thorncrag/ARRP/issues/22,DOJ-001,proposal,DOJ-001: Recent Presidential Personal Counsel in Senior DOJ Leadership,areas/DOJ/issues/DOJ-001.md,
 23,https://github.com/Thorncrag/ARRP/issues/23,DOJ-002,proposal,DOJ-002: White House Direction or Interference in Particular Federal Criminal Matters,areas/DOJ/issues/DOJ-002.md,
@@ -40,9 +40,9 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 44,https://github.com/Thorncrag/ARRP/issues/44,JUD-005,proposal,JUD-005: No Automatic Public Notice of Executive Noncompliance,areas/JUD/issues/JUD-005.md,
 45,https://github.com/Thorncrag/ARRP/issues/45,JUD-007,merged proposal,"JUD-007: Evasion through substitution, reorganization, or nominally revised directives [Merged into JUD-001]",areas/JUD/README.md,
 46,https://github.com/Thorncrag/ARRP/issues/46,JUD-008,merged proposal,JUD-008: Insufficient transparency and verification regarding compliance [Merged into JUD-005],areas/JUD/README.md,
-47,https://github.com/Thorncrag/ARRP/issues/47,JUD-009,proposal,JUD-009: Appointer-President Recusal,areas/JUD/issues/JUD-009.md,
+47,https://github.com/Thorncrag/ARRP/issues/47,JUD-009,proposal,"JUD-009: Supreme Court Ethics, Recusal, and Transparency",areas/JUD/issues/JUD-009.md,
 48,https://github.com/Thorncrag/ARRP/issues/48,JUD-010,proposal,"JUD-010: Judicial Branch Capacity, Funding, and Emergency Docket Resilience",areas/JUD/README.md,
-49,https://github.com/Thorncrag/ARRP/issues/49,PAR-001,proposal,"PAR-001: Corrupt, Self-Protective, and Politically Abusive Clemency",areas/PAR/README.md,
+49,https://github.com/Thorncrag/ARRP/issues/49,PAR-001,proposal,"PAR-001: Corrupt, Self-Protective, and Politically Abusive Clemency",areas/PAR/issues/PAR-001.md,
 50,https://github.com/Thorncrag/ARRP/issues/50,PAR-002,merged proposal,PAR-002: Obstruction or witness inducement [Merged into PAR-001],areas/PAR/README.md,
 51,https://github.com/Thorncrag/ARRP/issues/51,PAR-003,merged proposal,"PAR-003: Sale, brokerage, or monetization of pardons [Merged into PAR-001]",areas/PAR/README.md,
 52,https://github.com/Thorncrag/ARRP/issues/52,PAR-004,merged proposal,PAR-004: Pardons benefiting the president or presidential interests [Merged into PAR-001],areas/PAR/README.md,
@@ -52,7 +52,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 56,https://github.com/Thorncrag/ARRP/issues/56,PAR-008,merged proposal,PAR-008: Blanket or categorical pardons [Merged into PAR-001],areas/PAR/README.md,
 57,https://github.com/Thorncrag/ARRP/issues/57,PAR-009,merged proposal,PAR-009: Transition-period pardons [Merged into PAR-001],areas/PAR/README.md,
 58,https://github.com/Thorncrag/ARRP/issues/58,PAR-010,merged proposal,PAR-010: Weak remedies after corrupt use [Merged into PAR-001],areas/PAR/README.md,
-59,https://github.com/Thorncrag/ARRP/issues/59,EMOL-001,proposal,"EMOL-001: Presidential Financial Conflicts, Emoluments, and Self-Dealing",areas/EMOL/README.md,
+59,https://github.com/Thorncrag/ARRP/issues/59,EMOL-001,proposal,"EMOL-001: Presidential Financial Conflicts, Emoluments, and Self-Dealing",areas/EMOL/issues/EMOL-001.md,
 60,https://github.com/Thorncrag/ARRP/issues/60,EMOL-002,merged proposal,EMOL-002: Presidential exemption from ordinary conflict-of-interest law [Merged into EMOL-001],areas/EMOL/README.md,
 61,https://github.com/Thorncrag/ARRP/issues/61,EMOL-003,merged proposal,EMOL-003: Absence of a designated enforcement institution [Merged into EMOL-001],areas/EMOL/README.md,
 62,https://github.com/Thorncrag/ARRP/issues/62,EMOL-004,merged proposal,EMOL-004: Standing barriers [Merged into EMOL-001],areas/EMOL/README.md,
@@ -77,9 +77,9 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 81,https://github.com/Thorncrag/ARRP/issues/81,CLASS-008,merged proposal,CLASS-008: Overclassification and excessive secrecy [Merged into CLASS-004],areas/CLASS/README.md,
 82,https://github.com/Thorncrag/ARRP/issues/82,CLASS-009,merged proposal,CLASS-009: Insufficient congressional access and oversight [Merged into CLASS-004],areas/CLASS/README.md,
 83,https://github.com/Thorncrag/ARRP/issues/83,CLASS-010,merged proposal,CLASS-010: Limited external review and judicial remedies [Merged into CLASS-004],areas/CLASS/README.md,
-84,https://github.com/Thorncrag/ARRP/issues/84,CLASS-011,proposal,CLASS-011: Security-Clearance Integrity,areas/CLASS/README.md,
+84,https://github.com/Thorncrag/ARRP/issues/84,CLASS-011,proposal,CLASS-011: Security-Clearance Integrity,areas/CLASS/issues/CLASS-011.md,
 85,https://github.com/Thorncrag/ARRP/issues/85,CLASS-012,merged proposal,CLASS-012: Inconsistent accountability for unauthorized retention or disclosure [Merged into CLASS-006],areas/CLASS/README.md,
-86,https://github.com/Thorncrag/ARRP/issues/86,CIV-001,proposal,"CIV-001: Civil-Service Merit, Classification, and Anti-Politicization",areas/CIV/README.md,
+86,https://github.com/Thorncrag/ARRP/issues/86,CIV-001,proposal,"CIV-001: Civil-Service Merit, Classification, and Anti-Politicization",areas/CIV/issues/CIV-001.md,
 87,https://github.com/Thorncrag/ARRP/issues/87,CIV-002,merged proposal,CIV-002: Removal or reassignment for disfavored professional judgments [Merged into CIV-001],areas/CIV/README.md,
 88,https://github.com/Thorncrag/ARRP/issues/88,CIV-003,merged proposal,CIV-003: Loyalty tests and partisan hiring [Merged into CIV-001],areas/CIV/README.md,
 89,https://github.com/Thorncrag/ARRP/issues/89,CIV-004,proposal,CIV-004: Protection for Refusal of Unlawful Directives,areas/CIV/README.md,
@@ -87,8 +87,8 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 91,https://github.com/Thorncrag/ARRP/issues/91,CIV-006,merged proposal,CIV-006: Inadequate and delayed personnel remedies [Merged into CIV-001],areas/CIV/README.md,
 92,https://github.com/Thorncrag/ARRP/issues/92,CIV-007,merged proposal,CIV-007: Politicized promotion and performance systems [Merged into CIV-001],areas/CIV/README.md,
 93,https://github.com/Thorncrag/ARRP/issues/93,CIV-008,merged proposal,CIV-008: Mass reduction or hollowing of agency capacity [Merged into CIV-005],areas/CIV/README.md,
-94,https://github.com/Thorncrag/ARRP/issues/94,CIV-009,proposal,CIV-009: Repurposed technical units as cross-agency operational control mechanisms,areas/CIV/README.md,
-95,https://github.com/Thorncrag/ARRP/issues/95,OVS-001,proposal,"OVS-001: Inspector General Independence, Access, Reporting, and Follow-Through",areas/OVS/README.md,
+94,https://github.com/Thorncrag/ARRP/issues/94,CIV-009,proposal,CIV-009: Repurposed technical units as cross-agency operational control mechanisms,areas/CIV/issues/CIV-009.md,
+95,https://github.com/Thorncrag/ARRP/issues/95,OVS-001,proposal,"OVS-001: Inspector General Independence, Access, Reporting, and Follow-Through",areas/OVS/issues/OVS-001.md,
 96,https://github.com/Thorncrag/ARRP/issues/96,OVS-002,merged proposal,OVS-002: Use of acting officials to weaken independence [Merged into OVS-001],areas/OVS/README.md,
 97,https://github.com/Thorncrag/ARRP/issues/97,OVS-003,merged proposal,"OVS-003: Denial of records, access, or testimony [Merged into OVS-001]",areas/OVS/README.md,
 98,https://github.com/Thorncrag/ARRP/issues/98,OVS-004,proposal,OVS-004: Retaliation Against Whistleblowers,areas/OVS/README.md,
@@ -120,7 +120,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 124,https://github.com/Thorncrag/ARRP/issues/124,APPT-006,merged proposal,APPT-006: Manipulation of office titles and duties [Merged and rerouted],areas/APPT/README.md,
 125,https://github.com/Thorncrag/ARRP/issues/125,APPT-007,merged proposal,APPT-007: Weak consequences for unlawful service [Merged into APPT-001],areas/APPT/README.md,
 126,https://github.com/Thorncrag/ARRP/issues/126,APPT-008,merged proposal,APPT-008: Inadequate transparency concerning succession and authority [Merged into APPT-001],areas/APPT/README.md,
-127,https://github.com/Thorncrag/ARRP/issues/127,REC-001,proposal,"REC-001: Presidential and Executive Records Integrity, Custody, and Enforcement",areas/REC/README.md,
+127,https://github.com/Thorncrag/ARRP/issues/127,REC-001,proposal,"REC-001: Presidential and Executive Records Integrity, Custody, and Enforcement",areas/REC/issues/REC-001.md,
 128,https://github.com/Thorncrag/ARRP/issues/128,REC-002,merged proposal,REC-002: Destruction or deletion of records [Merged into REC-001],areas/REC/README.md,
 129,https://github.com/Thorncrag/ARRP/issues/129,REC-003,merged proposal,REC-003: Use of private messaging or unofficial systems [Merged into REC-001],areas/REC/README.md,
 130,https://github.com/Thorncrag/ARRP/issues/130,REC-004,merged proposal,REC-004: Weak National Archives enforcement authority [Merged into REC-001],areas/REC/README.md,
@@ -128,7 +128,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 132,https://github.com/Thorncrag/ARRP/issues/132,REC-006,merged proposal,"REC-006: Preservation of websites, datasets, and digital records [Merged into REC-001]",areas/REC/README.md,
 133,https://github.com/Thorncrag/ARRP/issues/133,REC-007,merged proposal,REC-007: Ambiguous separation of personal and presidential records [Merged into REC-001],areas/REC/README.md,
 134,https://github.com/Thorncrag/ARRP/issues/134,REC-008,merged proposal,REC-008: Insufficient transition-period custody controls [Merged into REC-001],areas/REC/README.md,
-135,https://github.com/Thorncrag/ARRP/issues/135,DOM-001,proposal,DOM-001: Domestic Deployment Authorities and Safeguards,areas/DOM/README.md,
+135,https://github.com/Thorncrag/ARRP/issues/135,DOM-001,proposal,DOM-001: Domestic Deployment Authorities and Safeguards,areas/DOM/issues/DOM-001.md,
 136,https://github.com/Thorncrag/ARRP/issues/136,DOM-002,merged proposal,DOM-002: Ambiguity in Posse Comitatus limitations [Merged into DOM-001],areas/DOM/README.md,
 137,https://github.com/Thorncrag/ARRP/issues/137,DOM-003,merged proposal,DOM-003: Federalization of the National Guard over state objection [Merged into DOM-001],areas/DOM/README.md,
 138,https://github.com/Thorncrag/ARRP/issues/138,DOM-004,merged proposal,DOM-004: Deployment around protests or elections [Merged into DOM-001],areas/DOM/README.md,
@@ -154,14 +154,14 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 158,https://github.com/Thorncrag/ARRP/issues/158,IMM-007,merged proposal,IMM-007: Self-protective use of presidential powers [Integrated into IMM-001 and DOJ-007],areas/IMM/README.md,
 159,https://github.com/Thorncrag/ARRP/issues/159,IMM-008,merged proposal,IMM-008: Independent investigation and prosecution mechanisms [Merged into DOJ-007],areas/IMM/README.md,
 160,https://github.com/Thorncrag/ARRP/issues/160,REG-001,proposal,REG-001: Agency Independence and Functional Nullification,areas/REG/issues/REG-001.md,
-161,https://github.com/Thorncrag/ARRP/issues/161,REG-002,proposal,REG-002: Politicized enforcement or nonenforcement,areas/REG/README.md,
+161,https://github.com/Thorncrag/ARRP/issues/161,REG-002,proposal,REG-002: Executive Influence over Federal Regulatory Enforcement,areas/REG/issues/REG-002.md,
 162,https://github.com/Thorncrag/ARRP/issues/162,REG-003,proposal,REG-003: Control of Administrative Adjudication,areas/REG/issues/REG-003.md,
 163,https://github.com/Thorncrag/ARRP/issues/163,REG-004,merged proposal,REG-004: Suspension or dismantling of agency operations [Merged into REG-001],areas/REG/README.md,
 164,https://github.com/Thorncrag/ARRP/issues/164,REG-005,merged proposal,REG-005: Manipulation of commissions through vacancies [Merged into REG-001],areas/REG/README.md,
-165,https://github.com/Thorncrag/ARRP/issues/165,REG-006,proposal,REG-006: Presidential control of rulemaking and legal positions,areas/REG/README.md,
+165,https://github.com/Thorncrag/ARRP/issues/165,REG-006,proposal,REG-006: Presidential control of rulemaking and legal positions,areas/REG/issues/REG-006.md,
 166,https://github.com/Thorncrag/ARRP/issues/166,REG-007,merged proposal,REG-007: Threats to independent funding [Merged into REG-001],areas/REG/README.md,
 167,https://github.com/Thorncrag/ARRP/issues/167,REG-008,merged proposal,REG-008: Unclear constitutional design options after recent doctrine [Merged into REG-001],areas/REG/README.md,
-168,https://github.com/Thorncrag/ARRP/issues/168,FACT-001,proposal,"FACT-001: Scientific, Statistical, and Technical Integrity",areas/FACT/README.md,
+168,https://github.com/Thorncrag/ARRP/issues/168,FACT-001,proposal,"FACT-001: Scientific, Statistical, and Technical Integrity",areas/FACT/issues/FACT-001.md,
 169,https://github.com/Thorncrag/ARRP/issues/169,FACT-002,merged proposal,FACT-002: Removal or suppression of datasets [Merged into FACT-001],areas/FACT/README.md,
 170,https://github.com/Thorncrag/ARRP/issues/170,FACT-003,merged proposal,FACT-003: Manipulation of publication schedules [Merged into FACT-001],areas/FACT/README.md,
 171,https://github.com/Thorncrag/ARRP/issues/171,FACT-004,merged proposal,FACT-004: Interference with statistical agencies [Merged into FACT-001],areas/FACT/README.md,
@@ -170,7 +170,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 174,https://github.com/Thorncrag/ARRP/issues/174,FACT-007,proposal,FACT-007: Official Historical Presentation Integrity,areas/FACT/README.md,
 175,https://github.com/Thorncrag/ARRP/issues/175,FACT-008,merged proposal,FACT-008: Insufficient independent archival preservation and methodology protection [Merged into FACT-001],areas/FACT/README.md,
 176,https://github.com/Thorncrag/ARRP/issues/176,FACT-009,proposal,"FACT-009: Misleading Official Terminology, Titles, or Institutional Labels",areas/FACT/README.md,
-177,https://github.com/Thorncrag/ARRP/issues/177,RET-001,proposal,RET-001: Executive Retaliation Through Federal Benefits and Regulatory Power,areas/RET/README.md,
+177,https://github.com/Thorncrag/ARRP/issues/177,RET-001,proposal,RET-001: Executive Retaliation Through Federal Benefits and Regulatory Power,areas/RET/issues/RET-001.md,
 178,https://github.com/Thorncrag/ARRP/issues/178,RET-002,merged proposal,RET-002: Contracting favoritism or retaliation [Merged into RET-001],areas/RET/README.md,
 179,https://github.com/Thorncrag/ARRP/issues/179,RET-003,merged proposal,RET-003: Selective regulatory scrutiny [Merged into RET-001],areas/RET/README.md,
 180,https://github.com/Thorncrag/ARRP/issues/180,RET-004,merged proposal,RET-004: Licensing or approval pressure [Merged into RET-001],areas/RET/README.md,
@@ -194,19 +194,19 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 198,https://github.com/Thorncrag/ARRP/issues/198,FRB-006,merged proposal,FRB-006: Political retaliation against Federal Reserve officials [Merged into FRB-001],areas/FRB/README.md,
 199,https://github.com/Thorncrag/ARRP/issues/199,FRB-007,merged proposal,FRB-007: Pre-election monetary manipulation [Merged into FRB-001],areas/FRB/README.md,
 200,https://github.com/Thorncrag/ARRP/issues/200,FRB-008,merged proposal,FRB-008: Preservation of accountability alongside instrument independence [Merged into FRB-001],areas/FRB/README.md,
-201,https://github.com/Thorncrag/ARRP/issues/201,PRESS-001,proposal,PRESS-001: Equal Press Access and Rapid Review,areas/PRESS/README.md,
+201,https://github.com/Thorncrag/ARRP/issues/201,PRESS-001,proposal,PRESS-001: Equal Press Access and Rapid Review,areas/PRESS/issues/PRESS-001.md,
 202,https://github.com/Thorncrag/ARRP/issues/202,PRESS-002,merged proposal,PRESS-002: Selective exclusion from government events and information [Merged into PRESS-001],areas/PRESS/README.md,
 203,https://github.com/Thorncrag/ARRP/issues/203,PRESS-003,proposal,"PRESS-003: Journalist Compulsory Process, Surveillance, and Source Protection",areas/PRESS/README.md,
 204,https://github.com/Thorncrag/ARRP/issues/204,PRESS-004,merged proposal,PRESS-004: Regulatory retaliation [Merged into PRESS-006],areas/PRESS/README.md,
 205,https://github.com/Thorncrag/ARRP/issues/205,PRESS-005,merged proposal,PRESS-005: Contracting and commercial pressure [Merged into PRESS-006],areas/PRESS/README.md,
-206,https://github.com/Thorncrag/ARRP/issues/206,PRESS-006,proposal,PRESS-006: Governmental Retaliation Against the Press,areas/PRESS/README.md,
+206,https://github.com/Thorncrag/ARRP/issues/206,PRESS-006,proposal,PRESS-006: Governmental Retaliation Against the Press,areas/PRESS/issues/PRESS-006.md,
 207,https://github.com/Thorncrag/ARRP/issues/207,PRESS-007,merged proposal,PRESS-007: Manipulation of the factual record [Integrated into FACT-001 and FACT-009],areas/PRESS/README.md,
 208,https://github.com/Thorncrag/ARRP/issues/208,PRESS-008,merged proposal,PRESS-008: Delegitimization combined with governmental coercive power [Merged into PRESS-006],areas/PRESS/README.md,
 209,https://github.com/Thorncrag/ARRP/issues/209,PRESS-009,merged proposal,PRESS-009: Weak protection for confidential sources [Merged into PRESS-003],areas/PRESS/README.md,
 210,https://github.com/Thorncrag/ARRP/issues/210,PRESS-010,merged proposal,PRESS-010: Public-broadcasting and funding retaliation [Merged into PRESS-006],areas/PRESS/README.md,
 211,https://github.com/Thorncrag/ARRP/issues/211,PRESS-011,merged proposal,PRESS-011: Discriminatory taxation or financial burdens [Merged into PRESS-006],areas/PRESS/README.md,
 212,https://github.com/Thorncrag/ARRP/issues/212,PRESS-012,merged proposal,PRESS-012: Lack of rapid remedies for time-sensitive press disputes [Integrated into PRESS-001/PRESS-003/PRESS-006],areas/PRESS/README.md,
-213,https://github.com/Thorncrag/ARRP/issues/213,HER-001,proposal,HER-001: Federal Civic Property Preservation and Public Review,areas/HER/README.md,
+213,https://github.com/Thorncrag/ARRP/issues/213,HER-001,proposal,HER-001: Federal Civic Property Preservation and Public Review,areas/HER/issues/HER-001.md,
 214,https://github.com/Thorncrag/ARRP/issues/214,HER-002,merged proposal,"HER-002: Bypass of historic-preservation, planning, arts-commission, environmental, or public-comment review [Merged into HER-001]",areas/HER/README.md,
 215,https://github.com/Thorncrag/ARRP/issues/215,HER-003,merged proposal,HER-003: Privately funded or donor-influenced alteration of federal civic property [Merged into HER-001],areas/HER/README.md,
 216,https://github.com/Thorncrag/ARRP/issues/216,HER-004,merged proposal,"HER-004: Manipulation of planning, preservation, or fine-arts review bodies [Merged into HER-001]",areas/HER/README.md,
@@ -232,7 +232,7 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 236,https://github.com/Thorncrag/ARRP/issues/236,ELEC-014,proposal,ELEC-014: Limiting Federal Criminal Investigations into State-Administered Elections,areas/ELEC/issues/ELEC-014.md,
 237,https://github.com/Thorncrag/ARRP/issues/237,ELEC-015,proposal,ELEC-015: Ranked-Choice Voting and Majority-Choice Election Methods,areas/ELEC/issues/ELEC-015.md,
 238,https://github.com/Thorncrag/ARRP/issues/238,RIGHTS-004,retired proposal,"RIGHTS-004: Comprehensive Immigration Reform, Removal Due Process, and Immigration System Integrity [Retired as omnibus proposal]",areas/RIGHTS/issues/RIGHTS-004.md,
-239,https://github.com/Thorncrag/ARRP/issues/239,HOR-025,horizon,HOR-025: Political and Lobbyist Influence over DOJ Merger Enforcement,framework/logs/HORIZON_SCAN_LOG.md,
+239,https://github.com/Thorncrag/ARRP/issues/239,HOR-025,merged horizon,HOR-025: Political and Lobbyist Influence over DOJ Merger Enforcement [Integrated into REG-002],framework/logs/HORIZON_SCAN_LOG.md,
 240,https://github.com/Thorncrag/ARRP/issues/240,REG-001-CATALOG-MONITOR,source review,REG-001 Monitor: Agency Independence and Functional Nullification Catalog,areas/REG/research/REG-001-independent-agency-removal-catalog.md,160
 241,https://github.com/Thorncrag/ARRP/issues/241,ELEC-004-CATALOG-MONITOR,source review,ELEC-004 Monitor: Civil Process and State Election Records Catalog,areas/ELEC/research/ELEC-004-civil-process-catalog.md,32
 242,https://github.com/Thorncrag/ARRP/issues/242,ELEC-013-EXPLAINER-MONITOR,source review,ELEC-013 Monitor: Presidential Debate and Ballot Access Explainer,areas/ELEC/research/ELEC-013-presidential-debate-ballot-access-explainer.md,41
@@ -252,30 +252,6 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 256,https://github.com/Thorncrag/ARRP/issues/256,JUD-012,proposal,JUD-012: Government Action Insulated from Judicial Review,areas/JUD/issues/JUD-012.md,
 257,https://github.com/Thorncrag/ARRP/issues/257,HOR-037,horizon,"HOR-037: Immigration Detention, Removal Process, and Access Safeguards",framework/logs/HORIZON_SCAN_LOG.md,
 274,https://github.com/Thorncrag/ARRP/issues/274,HOR-038,horizon,HOR-038: Endangered Species Act Regulatory-Boundary Monitoring,framework/logs/HORIZON_SCAN_LOG.md,
-275,https://github.com/Thorncrag/ARRP/issues/275,CIV-001-MON,source review,CIV-001-MON: CIV-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/275,86
-276,https://github.com/Thorncrag/ARRP/issues/276,CIV-009-MON,source review,CIV-009-MON: CIV-009 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/276,94
-277,https://github.com/Thorncrag/ARRP/issues/277,DOJ-002-MON,source review,DOJ-002-MON: DOJ-002 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/277,23
-278,https://github.com/Thorncrag/ARRP/issues/278,DOJ-003-MON,source review,DOJ-003-MON: DOJ-003 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/278,24
-279,https://github.com/Thorncrag/ARRP/issues/279,DOM-001-MON,source review,DOM-001-MON: DOM-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/279,135
-280,https://github.com/Thorncrag/ARRP/issues/280,ELEC-001-MON,source review,ELEC-001-MON: ELEC-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/280,29
-281,https://github.com/Thorncrag/ARRP/issues/281,EMERG-003-MON,source review,EMERG-003-MON: EMERG-003 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/281,105
-282,https://github.com/Thorncrag/ARRP/issues/282,EMOL-001-MON,source review,EMOL-001-MON: EMOL-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/282,59
-283,https://github.com/Thorncrag/ARRP/issues/283,FACT-001-MON,source review,FACT-001-MON: FACT-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/283,168
-284,https://github.com/Thorncrag/ARRP/issues/284,FED-003-MON,source review,FED-003-MON: FED-003 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/284,187
-285,https://github.com/Thorncrag/ARRP/issues/285,FED-004-MON,source review,FED-004-MON: FED-004 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/285,188
-286,https://github.com/Thorncrag/ARRP/issues/286,FUND-001-MON,source review,FUND-001-MON: FUND-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/286,111
-287,https://github.com/Thorncrag/ARRP/issues/287,HER-001-MON,source review,HER-001-MON: HER-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/287,213
-288,https://github.com/Thorncrag/ARRP/issues/288,JUD-001-MON,source review,JUD-001-MON: JUD-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/288,43
-289,https://github.com/Thorncrag/ARRP/issues/289,OVS-001-MON,source review,OVS-001-MON: OVS-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/289,95
-290,https://github.com/Thorncrag/ARRP/issues/290,PRESS-001-MON,source review,PRESS-001-MON: PRESS-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/290,201
-291,https://github.com/Thorncrag/ARRP/issues/291,REC-001-MON,source review,REC-001-MON: REC-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/291,127
-292,https://github.com/Thorncrag/ARRP/issues/292,REG-001-MON,source review,REG-001-MON: REG-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/292,160
-293,https://github.com/Thorncrag/ARRP/issues/293,REG-002-MON,source review,REG-002-MON: REG-002 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/293,161
-294,https://github.com/Thorncrag/ARRP/issues/294,RET-001-MON,source review,RET-001-MON: RET-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/294,177
-295,https://github.com/Thorncrag/ARRP/issues/295,RIGHTS-001-MON,source review,RIGHTS-001-MON: RIGHTS-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/295,221
-296,https://github.com/Thorncrag/ARRP/issues/296,RIGHTS-002-MON,source review,RIGHTS-002-MON: RIGHTS-002 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/296,222
-297,https://github.com/Thorncrag/ARRP/issues/297,WAR-001-MON,source review,WAR-001-MON: WAR-001 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/297,42
-298,https://github.com/Thorncrag/ARRP/issues/298,DOM-005-MON,source review,DOM-005-MON: DOM-005 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/298,139
 300,https://github.com/Thorncrag/ARRP/issues/300,HOR-039,horizon,HOR-039: Functional Accessibility of Existing Lawful Immigration and Residency Pathways,framework/logs/HORIZON_SCAN_LOG.md,
 302,https://github.com/Thorncrag/ARRP/issues/302,HOR-040,horizon,HOR-040: Safeguards for Broad Presidential Tariff Delegations,framework/logs/HORIZON_SCAN_LOG.md,
 303,https://github.com/Thorncrag/ARRP/issues/303,HOR-041,horizon,HOR-041: Safeguards for Class-Based Presidential Entry Suspensions,framework/logs/HORIZON_SCAN_LOG.md,
@@ -283,6 +259,4 @@ GitHub Number,GitHub Issue,Object ID,Kind,GitHub Title,Canonical Record,Parent G
 305,https://github.com/Thorncrag/ARRP/issues/305,HOR-043,horizon,HOR-043: Presidential Recognition of International Bodies With Domestic Legal Privileges,framework/logs/HORIZON_SCAN_LOG.md,
 306,https://github.com/Thorncrag/ARRP/issues/306,HOR-044,horizon,HOR-044: Statutory Framework for Presidential Cross-Border Infrastructure Permits,framework/logs/HORIZON_SCAN_LOG.md,
 311,https://github.com/Thorncrag/ARRP/issues/311,HOR-045,horizon,HOR-045: Immigration-Enforcement Vehicle-Stop Safeguards,framework/logs/HORIZON_SCAN_LOG.md,
-314,https://github.com/Thorncrag/ARRP/issues/314,FED-002-MON,source review,FED-002-MON: FED-002 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/314,186
-315,https://github.com/Thorncrag/ARRP/issues/315,REG-003-MON,source review,REG-003-MON: REG-003 External Developments Watch,https://github.com/Thorncrag/ARRP/issues/315,162
-317,https://github.com/Thorncrag/ARRP/issues/317,,governance,Monitor-bot run reports,.github/workflows/monitoring-pilot.yml,
+317,https://github.com/Thorncrag/ARRP/issues/317,,governance,Automated watcher run reports,framework/GITHUB_WORKFLOW.md,

@@ -17,7 +17,7 @@ Federal historic buildings, monuments, landscapes, civic spaces, museum-like int
 
 ## Active Issues
 
-- **HER-001 — Federal Civic Property Preservation and Public Review**
+- [**HER-001 — Federal Civic Property Preservation and Public Review**](issues/HER-001.md)
 
 ## Prior Issue Numbers
 

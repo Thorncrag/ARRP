@@ -1,6 +1,7 @@
 ---
 issue_id: EMOL-015
 area_id: A-06
+source_development_record: "../research/EMOL-015-source-development.md"
 title: "Executive Self-Litigation and Settlement Conflicts"
 status: developed
 priority: high

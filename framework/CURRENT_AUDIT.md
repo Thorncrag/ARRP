@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: active
 print_levels:
   - full-technical
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — source reconciliation and complete monitor deployment finished |
-| Active issue/task | Consolidate retained sources, remove redundant ledgers, and colocate single-area research with its owning area |
-| Audit type/tier | Project-wide source and structure reconciliation; no T-audit or score change |
-| Started | 2026-07-20 |
-| Last checkpoint | 2026-07-20; PR #318 merged, public-site publication passed, and the complete 37-record monitor workflow passed its manual pre-schedule run. |
-| User request | Review every research-directory document, route all sources into the two canonical catalogs, clean up obsolete files, and move issue-specific research into its most relevant area. |
-| Scope | Root and area `research/` directories; source inventories; candidate console; monitoring automation and GitHub monitor wrappers; governing methodology, structure, tests, and internal links. |
-| Files touched | `inventory/sources.csv`; `inventory/sources-pending.csv`; central and area research; governing framework; console builder; consistency audit; monitoring configuration and tests; obsolete research and source-adjudication files. |
-| Completed steps | Classified the research directory; consolidated 34 duplicate source IDs; reconciled every retained source into one of the two catalogs; removed obsolete source, media, litigation, integration, and directive queues and their dedicated tooling; made GitHub monitoring issues authoritative; replaced the five-record monitor pilot with dynamic discovery of all 37 open `needs: monitoring` records and permanent `SRC-####` mappings; retired the obsolete standalone monitor-row identifiers from the repository and live issue descriptions; moved eleven single-area research assets into six area `research/` directories; updated local and GitHub links and source locators; expanded console and consistency-check discovery to area research; rebuilt the candidate console; and verified that every `sources.csv` row is used while every pending row has an accountable owner. |
-| Next step | None for this pass. Review issue #317 after each scheduled run; substantively reassess only records receiving `needs: monitor review` or otherwise requiring manual review. |
-| Blockers/questions | None. |
-| Validation status | Passed: 46 tests; full 37-record live run with 22 adapter-supported and 15 manual-only records; 37 of 37 rolling comments verified; no obsolete identifiers or false review labels; owner notification posted; authenticated consistency audit returned 0 errors and 0 warnings; strict public-site build and GitHub Pages publication passed; local `main` matched `origin/main`. |
+| Status | Paused — REG-002 integration complete; Project score-field restoration requires explicit authorization |
+| Active issue/task | REG-002 — Executive Influence over Federal Regulatory Enforcement |
+| Audit type/tier | Horizon integration, initial proposal development, and targeted Change Audit; no T-audit run |
+| Started | 2026-07-21 |
+| Last checkpoint | 2026-07-21; REG-002 was retitled, narrowed, developed, cross-referenced, source-routed, and synchronized to GitHub. HOR-025 was closed as integrated and removed from the Project. A Project-item refresh corrected GitHub's stale duplicated title but cleared the numerical Score and Runs fields; restoring their unchanged zero values requires explicit user authorization after the host safety gate declined the non-audit write. |
+| User request | Promote HOR-025 into REG-002, retitle REG-002 as Executive Influence over Federal Regulatory Enforcement, prevent institution-by-institution scope creep, and integrate the two private Paramount matters without treating the state antitrust challenge as a manifestation. |
+| Scope | REG-002 issue, audit sidecar, source-development record, source inventory, A-17 and subject navigation, adjacent REG/DOJ/topic boundaries, Horizon log, GitHub issue and Project fields, and candidate console. |
+| Files touched | `areas/REG/issues/REG-002.md`; `areas/REG/issues/REG-002.audit.md`; `areas/REG/research/REG-002-source-development.md`; `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/research/REG-001-independent-agency-removal-catalog.md`; `areas/DOJ/README.md`; `topics/weaponization-of-justice.md`; `SUBJECT_INDEX.md`; `inventory/sources.csv`; `inventory/github_issue_registry.csv`; `framework/logs/HORIZON_SCAN_LOG.md`; `scripts/build_horizon_review_console.py`; console-generated data; tests; this handoff. |
+| Completed steps | Established the narrowed issue and remedy direction; integrated the HPE–Juniper and pertinent Paramount records with neutrality qualifications; excluded the ordinary state antitrust action; recorded the non-score-bearing Change Audit; rerouted legacy sources and cross-references; moved REG-002 to In development; closed HOR-025 as integrated; removed its inactive Project card; rebuilt the console; and completed GitHub readback. |
+| Next step | With explicit authorization, restore the refreshed REG-002 Project row's unchanged Score and Runs values to `0`; then commit and publish the accumulated worktree when requested. |
+| Blockers/questions | Host safety review requires explicit user approval before writing `0` back to the Score and Runs fields after the Project-card refresh. No T-audit occurred and no score or run increment is proposed. |
+| Validation status | Targeted unit tests passed (25 tests). Authenticated project-consistency check found 0 errors and one pre-existing cited-source warning cluster unrelated to the REG-002 evidence added here. `git diff --check` passed. |
 
 ## Handoff Rules
 

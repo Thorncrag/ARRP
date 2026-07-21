@@ -17,7 +17,7 @@ Internal watchdogs lack sufficient independence, access, tenure protection, reme
 
 ## Active Issues
 
-- **OVS-001 — Inspector General Independence, Access, Reporting, and Follow-Through**
+- [**OVS-001 — Inspector General Independence, Access, Reporting, and Follow-Through**](issues/OVS-001.md)
 - **OVS-004 — Retaliation Against Whistleblowers**
 - **OVS-008 — Independence of Internal Ethics Offices**
 - **[OVS-009 — Enforcement of Political-Activity Restrictions for Senior Officials](issues/OVS-009.md)**

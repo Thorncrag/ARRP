@@ -1,0 +1,88 @@
+name: Presidential directives watcher
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Approximately midnight America/New_York year-round (00:27 EDT / 23:27 EST).
+    - cron: "27 4 * * *"
+
+concurrency:
+  group: arrp-presidential-directives-bot
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+
+      - name: Compare official presidential-directive metadata
+        id: compare
+        continue-on-error: true
+        run: >-
+          python scripts/check_presidential_directives.py
+          --summary "${RUNNER_TEMP}/directives-summary.md"
+          --report-json "${RUNNER_TEMP}/directives-report.json"
+          --proposed-csv "${RUNNER_TEMP}/presidential-directives-proposed.csv"
+
+      - name: Verify the read-only boundary
+        id: read_only
+        if: always()
+        run: git diff --quiet "${GITHUB_SHA}" -- .
+
+      - name: Publish the run summary
+        if: always()
+        run: |
+          if [ -f "${RUNNER_TEMP}/directives-summary.md" ]; then
+            cat "${RUNNER_TEMP}/directives-summary.md" >> "${GITHUB_STEP_SUMMARY}"
+          else
+            printf '%s\n' "## Presidential-directives watcher" >> "${GITHUB_STEP_SUMMARY}"
+            printf '%s\n' "The comparison did not produce a summary; review the workflow log." >> "${GITHUB_STEP_SUMMARY}"
+          fi
+
+      - name: Preserve the machine-readable report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: presidential-directives-report
+          path: |
+            ${{ runner.temp }}/directives-summary.md
+            ${{ runner.temp }}/directives-report.json
+            ${{ runner.temp }}/presidential-directives-proposed.csv
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Notify the project owner
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          notification_issue="$(python -c 'import json; print(json.load(open(".github/presidential-directives-bot.json"))["notification"]["issueNumber"])')"
+          notification_mention="$(python -c 'import json; print(json.load(open(".github/presidential-directives-bot.json"))["notification"]["mention"])')"
+          notification_body="${RUNNER_TEMP}/directives-notification.md"
+
+          printf '%s\n\n' "${notification_mention} — presidential-directives watcher completed with comparison outcome: **${{ steps.compare.outcome }}**." > "${notification_body}"
+          if [ -f "${RUNNER_TEMP}/directives-summary.md" ]; then
+            cat "${RUNNER_TEMP}/directives-summary.md" >> "${notification_body}"
+          else
+            printf '%s\n' "The comparison did not produce a summary. Review the workflow log." >> "${notification_body}"
+          fi
+          printf '\n**Repository changes:** None. This watcher is signal-only and repository-read-only.\n' >> "${notification_body}"
+          printf '\n[View this GitHub Actions run](%s/%s/actions/runs/%s)\n' "${GITHUB_SERVER_URL}" "${GITHUB_REPOSITORY}" "${GITHUB_RUN_ID}" >> "${notification_body}"
+
+          gh issue comment "${notification_issue}" --repo "${GITHUB_REPOSITORY}" --body-file "${notification_body}"
+
+      - name: Preserve a failed comparison outcome
+        if: always() && (steps.compare.outcome == 'failure' || steps.read_only.outcome == 'failure')
+        run: exit 1

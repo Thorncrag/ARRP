@@ -1,6 +1,7 @@
 ---
 issue_id: ELEC-001
 area_id: A-02
+source_development_record: "../research/ELEC-001-source-development.md"
 title: "Federal Executive Interference with State and Local Election Administration"
 status: developed
 priority: high
@@ -56,10 +57,6 @@ Federal litigation then produced decisions blocking or rejecting key parts of th
 On July 17, 2026, DHS Secretary Markwayne Mullin said that state election officials who did not participate in DHS's expanded SAVE-based voter-roll program could face fines, penalties, or prison. He also linked federal election-related support or reimbursement to state cooperation. The announcement did not identify a charging instrument, a particular official subject to enforcement, or a legally operative funding decision. See Associated Press, [*Mullin pushes states to comply with election demands*](https://apnews.com/article/trump-elections-mullin-dhs-voter-fraud-save-6871e13d3f0e2caadaf56f9b2bc1580d), and ABC News, [*Mullin threatens to withhold aid from states that don't comply with DHS election directives*](https://abcnews.com/Politics/mullin-threatens-withhold-aid-states-dont-comply-dhs/story?id=134854708).
 
 The institutional significance is that federal executive power can be converted from case-specific enforcement into a centralized election-administration architecture and reinforced through threatened investigations, penalties, or funding consequences. Even when courts block implementation or no enforcement action follows, state and local officials must respond to federal data demands, reconcile federal database claims with state registration law, protect sensitive voter information, and make election-administration decisions under time pressure.
-
-### Supporting Record and Updates
-
-- **Watching for updates:** [ELEC-001-MON](https://github.com/Thorncrag/ARRP/issues/280) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
 
 ## Resulting Damage
 

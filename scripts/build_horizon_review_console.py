@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""Build the candidate-only intake console and public-input lookup."""
+"""Build the candidate-and-source intake console and public-input lookup."""
 
 from __future__ import annotations
 
 import argparse
 import csv
+import html
 import json
 import re
 import subprocess
+import urllib.parse
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -18,6 +20,9 @@ HORIZON_LOG = ROOT / "framework" / "logs" / "HORIZON_SCAN_LOG.md"
 ISSUE_REGISTRY = ROOT / "inventory" / "github_issue_registry.csv"
 CITED_SOURCES = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
+DIRECTIVES = ROOT / "inventory" / "presidential-directives.csv"
+CASE_MONITOR_CONFIG = ROOT / ".github" / "case-monitor-bot.json"
+DIRECTIVE_MONITOR_CONFIG = ROOT / ".github" / "presidential-directives-bot.json"
 OUTPUT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
 PARTICIPATION_OUTPUT = ROOT / "participate" / "intake-data.js"
 GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/"
@@ -77,20 +82,79 @@ def source_index() -> dict[str, dict[str, str]]:
     return {row["Source ID"].strip(): row for row in all_source_records()}
 
 
-def source_payload(row: dict[str, str]) -> dict[str, str]:
+def source_payload(row: dict[str, str]) -> dict[str, object]:
+    def value(key: str, default: str = "") -> str:
+        return (row.get(key) or default).strip()
+
     return {
-        "id": row["Source ID"].strip(),
+        "id": value("Source ID"),
+        "record_ids": sorted(associated_record_ids(value("Associated Record IDs"))),
+        "monitoring": value("Monitoring", "No") or "No",
         "inventory_status": row.get("_inventory_status", "Relied upon"),
-        "type": row["Source Type"].strip(),
-        "publisher": row["Authority / Publisher"].strip(),
-        "title": row["Title or Description"].strip(),
-        "date": row["Date"].strip(),
-        "url": row["URL"].strip(),
-        "proposition": row["Proposition Supported"].strip(),
-        "reliability": row["Reliability Tier"].strip(),
-        "reviewed": row["Reviewed?"].strip(),
-        "notes": row["Notes"].strip(),
+        "type": value("Source Type"),
+        "publisher": value("Authority / Publisher"),
+        "title": value("Title or Description"),
+        "date": value("Date"),
+        "url": value("URL"),
+        "proposition": value("Proposition Supported"),
+        "reliability": value("Reliability Tier"),
+        "reviewed": value("Reviewed?"),
+        "notes": value("Notes"),
+        "retention_rationale": value("Retention Rationale"),
+        "pending_reason": value("Pending Reason"),
+        "next_action": value("Next Action"),
+        "blocker": value("Blocker"),
+        "monitoring_rationale": value("Monitoring Rationale"),
+        "monitoring_group": value("Monitoring Group"),
     }
+
+
+def catalog_source_records(
+    path: Path, inventory_status: str
+) -> list[dict[str, object]]:
+    records = [
+        source_payload({**row, "_inventory_status": inventory_status})
+        for row in read_csv(path)
+        if row["Source ID"].strip()
+    ]
+    return sorted(records, key=lambda row: str(row["id"]))
+
+
+def presidential_directive_records() -> list[dict[str, object]]:
+    if not DIRECTIVES.exists():
+        return []
+    records: list[dict[str, object]] = []
+    for row in read_csv(DIRECTIVES):
+        directive_id = row.get("Directive ID", "").strip()
+        if not directive_id:
+            continue
+        records.append(
+            {
+                "id": directive_id,
+                "administration": row.get("Administration", "").strip(),
+                "president": row.get("President", "").strip(),
+                "type": row.get("Directive Type", "").strip(),
+                "number": row.get("Number", "").strip(),
+                "title": row.get("Title", "").strip(),
+                "signed_date": row.get("Signed Date", "").strip(),
+                "published_date": row.get("Published Date", "").strip(),
+                "citation": row.get("Federal Register Citation", "").strip(),
+                "official_url": (
+                    row.get("Official PDF URL", "").strip()
+                    or row.get("Federal Register URL", "").strip()
+                ),
+                "federal_register_url": row.get("Federal Register URL", "").strip(),
+                "related_directive_ids": split_values(row.get("Related Directive IDs", "")),
+                "first_seen": row.get("First Seen", "").strip(),
+                "last_changed": row.get("Last Changed", "").strip(),
+                "review_status": row.get("Review Status", "").strip() or "New since baseline screening",
+                "arrp_record_ids": split_values(row.get("ARRP Record IDs", "")),
+                "source_ids": split_values(row.get("Source IDs", "")),
+                "disposition_rationale": row.get("Disposition Rationale", "").strip(),
+                "reviewed_date": row.get("Reviewed Date", "").strip(),
+            }
+        )
+    return sorted(records, key=lambda row: (str(row["signed_date"]), str(row["id"])))
 
 
 def associated_record_ids(raw: str) -> set[str]:
@@ -114,6 +178,224 @@ def strip_markdown(value: str) -> str:
     value = re.sub(r"\[([^]]+)\]\([^)]+\)", r"\1", value)
     value = value.replace("`", "")
     return re.sub(r"\s+", " ", value).strip()
+
+
+SAFE_LINK_SCHEMES = {"http", "https", "mailto"}
+
+
+def safe_markdown_url(raw_url: str) -> str | None:
+    """Return a safe Markdown-link target or None for unsafe protocols."""
+    value = html.unescape(raw_url.strip())
+    parsed = urllib.parse.urlsplit(value)
+    if parsed.scheme:
+        return value if parsed.scheme.casefold() in SAFE_LINK_SCHEMES else None
+    if value.startswith(("#", "/", "./", "../")):
+        return value
+    return None
+
+
+def render_markdown_inline(value: str) -> str:
+    """Render a deliberately small, escaped GitHub-style inline Markdown subset."""
+    replacements: list[str] = []
+
+    def preserve(rendered: str) -> str:
+        token = f"\x00{len(replacements)}\x00"
+        replacements.append(rendered)
+        return token
+
+    def code_replacement(match: re.Match[str]) -> str:
+        return preserve(f"<code>{html.escape(match.group(1))}</code>")
+
+    protected = re.sub(r"`([^`\n]+)`", code_replacement, value)
+
+    def link_replacement(match: re.Match[str]) -> str:
+        label = render_markdown_inline(match.group(1))
+        target = safe_markdown_url(match.group(2))
+        if not target:
+            return preserve(label)
+        return preserve(
+            f'<a href="{html.escape(target, quote=True)}" target="_blank" '
+            f'rel="noopener noreferrer">{label}</a>'
+        )
+
+    protected = re.sub(r"\[([^]\n]+)\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)", link_replacement, protected)
+    rendered = html.escape(protected)
+    rendered = re.sub(r"\*\*([^*\n]+)\*\*", r"<strong>\1</strong>", rendered)
+    rendered = re.sub(r"__([^_\n]+)__", r"<strong>\1</strong>", rendered)
+    rendered = re.sub(r"(?<!\*)\*([^*\n]+)\*(?!\*)", r"<em>\1</em>", rendered)
+    rendered = re.sub(r"(?<!_)_([^_\n]+)_(?!_)", r"<em>\1</em>", rendered)
+    rendered = re.sub(r"~~([^~\n]+)~~", r"<del>\1</del>", rendered)
+    for index, replacement in enumerate(replacements):
+        rendered = rendered.replace(f"\x00{index}\x00", replacement)
+    return rendered
+
+
+def markdown_table_cells(line: str) -> list[str]:
+    return [cell.strip() for cell in line.strip().strip("|").split("|")]
+
+
+def is_markdown_table_separator(line: str) -> bool:
+    cells = markdown_table_cells(line)
+    return bool(cells) and all(re.fullmatch(r":?-{3,}:?", cell) for cell in cells)
+
+
+def render_markdown_safe(value: str) -> str:
+    """Render useful GitHub-style Markdown while escaping all source HTML.
+
+    The console is intentionally dependency-free and works from ``file://``.
+    Only tags emitted by this function can enter the generated data bundle.
+    """
+    lines = value.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    output: list[str] = []
+    index = 0
+
+    def starts_block(position: int) -> bool:
+        if position >= len(lines):
+            return False
+        line = lines[position]
+        return bool(
+            not line.strip()
+            or re.match(r"^#{1,6}\s+", line)
+            or re.match(r"^\s*```", line)
+            or re.match(r"^\s*>\s?", line)
+            or re.match(r"^\s*[-+*]\s+", line)
+            or re.match(r"^\s*\d+[.)]\s+", line)
+            or re.match(r"^\s*(?:-{3,}|\*{3,}|_{3,})\s*$", line)
+            or (
+                position + 1 < len(lines)
+                and "|" in line
+                and is_markdown_table_separator(lines[position + 1])
+            )
+        )
+
+    while index < len(lines):
+        line = lines[index]
+        if not line.strip():
+            index += 1
+            continue
+
+        fence = re.match(r"^\s*```\s*([A-Za-z0-9_-]*)\s*$", line)
+        if fence:
+            language = fence.group(1)
+            index += 1
+            code_lines: list[str] = []
+            while index < len(lines) and not re.match(r"^\s*```\s*$", lines[index]):
+                code_lines.append(lines[index])
+                index += 1
+            if index < len(lines):
+                index += 1
+            class_name = f' class="language-{language}"' if language else ""
+            output.append(
+                f"<pre><code{class_name}>{html.escape(chr(10).join(code_lines))}</code></pre>"
+            )
+            continue
+
+        heading = re.match(r"^(#{1,6})\s+(.+?)\s*#*\s*$", line)
+        if heading:
+            level = len(heading.group(1))
+            output.append(f"<h{level}>{render_markdown_inline(heading.group(2))}</h{level}>")
+            index += 1
+            continue
+
+        if re.match(r"^\s*(?:-{3,}|\*{3,}|_{3,})\s*$", line):
+            output.append("<hr>")
+            index += 1
+            continue
+
+        if re.match(r"^\s*>\s?", line):
+            quoted: list[str] = []
+            while index < len(lines):
+                match = re.match(r"^\s*>\s?(.*)$", lines[index])
+                if not match:
+                    break
+                quoted.append(match.group(1))
+                index += 1
+            output.append(f"<blockquote>{render_markdown_safe(chr(10).join(quoted))}</blockquote>")
+            continue
+
+        if index + 1 < len(lines) and "|" in line and is_markdown_table_separator(lines[index + 1]):
+            headers = markdown_table_cells(line)
+            index += 2
+            rows: list[list[str]] = []
+            while index < len(lines) and lines[index].strip() and "|" in lines[index]:
+                rows.append(markdown_table_cells(lines[index]))
+                index += 1
+            head = "".join(f"<th>{render_markdown_inline(cell)}</th>" for cell in headers)
+            body_rows = []
+            for row in rows:
+                padded = row[: len(headers)] + [""] * max(0, len(headers) - len(row))
+                body_rows.append(
+                    "<tr>" + "".join(f"<td>{render_markdown_inline(cell)}</td>" for cell in padded) + "</tr>"
+                )
+            output.append(
+                f"<div class=\"markdown-table-wrap\"><table><thead><tr>{head}</tr></thead>"
+                f"<tbody>{''.join(body_rows)}</tbody></table></div>"
+            )
+            continue
+
+        unordered = re.match(r"^\s*[-+*]\s+(.+)$", line)
+        ordered = re.match(r"^\s*\d+[.)]\s+(.+)$", line)
+        if unordered or ordered:
+            list_tag = "ul" if unordered else "ol"
+            pattern = r"^\s*[-+*]\s+(.+)$" if unordered else r"^\s*\d+[.)]\s+(.+)$"
+            items: list[str] = []
+            while index < len(lines):
+                item = re.match(pattern, lines[index])
+                if not item:
+                    break
+                content = item.group(1)
+                task = re.match(r"^\[([ xX])\]\s*(.*)$", content)
+                if task:
+                    checked = " checked" if task.group(1).casefold() == "x" else ""
+                    rendered_item = (
+                        f'<input type="checkbox" disabled{checked}> '
+                        f"{render_markdown_inline(task.group(2))}"
+                    )
+                else:
+                    rendered_item = render_markdown_inline(content)
+                items.append(f"<li>{rendered_item}</li>")
+                index += 1
+            output.append(f"<{list_tag}>{''.join(items)}</{list_tag}>")
+            continue
+
+        paragraph = [line.strip()]
+        index += 1
+        while index < len(lines) and not starts_block(index):
+            paragraph.append(lines[index].strip())
+            index += 1
+        output.append(f"<p>{render_markdown_inline(' '.join(paragraph))}</p>")
+
+    return "\n".join(output)
+
+
+def monitoring_rationale_for_record(registry_row: dict[str, str], issue_body: str = "") -> str:
+    """Return the most specific available human-authored monitoring instruction."""
+    canonical = registry_row.get("Canonical Record", "").strip()
+    if canonical:
+        path = ROOT / canonical
+        if path.is_file():
+            content = path.read_text(encoding="utf-8")
+            match = re.search(r'^audit_next:\s*["\']?(.*?)["\']?\s*$', content, re.MULTILINE)
+            if match and match.group(1).strip():
+                return strip_markdown(match.group(1))
+            section = re.search(
+                r"^##\s+(?:Watching for updates|Defined monitoring and research triggers|Next step)\s*$"
+                r"(.*?)(?=^##\s+|\Z)",
+                content,
+                re.MULTILINE | re.DOTALL | re.IGNORECASE,
+            )
+            if section:
+                return strip_markdown(section.group(1))
+    if issue_body:
+        section = re.search(
+            r"^##\s+(?:Watching for updates|Defined monitoring and research triggers|Next step)\s*$"
+            r"(.*?)(?=^##\s+|\Z)",
+            issue_body,
+            re.MULTILINE | re.DOTALL | re.IGNORECASE,
+        )
+        if section:
+            return strip_markdown(section.group(1))
+    return "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
 
 
 def markdown_links(value: str) -> list[dict[str, str]]:
@@ -271,21 +553,214 @@ def run_gh_json(arguments: list[str]) -> object:
     return json.loads(completed.stdout)
 
 
-def existing_horizon_snapshot() -> tuple[list[dict[str, object]], str]:
+def existing_console_payload() -> dict[str, object]:
     if not OUTPUT.exists():
-        return [], ""
+        return {}
     text = OUTPUT.read_text(encoding="utf-8")
     prefix = (
         "/* Generated by scripts/build_horizon_review_console.py. */\n"
         "window.ARRP_HORIZON_REVIEW_DATA="
     )
     if not text.startswith(prefix):
-        return [], ""
+        return {}
     try:
-        payload = json.loads(text.removeprefix(prefix).removesuffix(";\n"))
+        return json.loads(text.removeprefix(prefix).removesuffix(";\n"))
     except json.JSONDecodeError:
-        return [], ""
-    return payload.get("horizon_records", []), payload.get("github_synced_at", "")
+        return {}
+
+
+def existing_horizon_snapshot() -> tuple[list[dict[str, object]], str]:
+    payload = existing_console_payload()
+    return payload.get("horizon_records", []), str(payload.get("github_synced_at", ""))
+
+
+def source_count_for_record(record_id: str) -> int:
+    return sum(
+        record_id in associated_record_ids(row["Associated Record IDs"])
+        for row in all_source_records()
+    )
+
+
+def monitoring_issue_snapshot(refresh: bool) -> list[dict[str, object]]:
+    if not refresh:
+        records = existing_console_payload().get("monitoring_issues", [])
+        if isinstance(records, list):
+            registry_by_id = {
+                row["Object ID"].strip(): row
+                for row in read_csv(ISSUE_REGISTRY)
+                if row["Object ID"].strip()
+            }
+            enriched: list[dict[str, object]] = []
+            for record in records:
+                record_id = str(record.get("id", ""))
+                sources = sources_for_record(record_id)
+                registry = registry_by_id.get(record_id, {})
+                enriched.append(
+                    {
+                        **record,
+                        "source_count": len(sources),
+                        "sources": sources,
+                        "monitoring_rationale": monitoring_rationale_for_record(registry),
+                    }
+                )
+            return enriched
+        raise RuntimeError(
+            "No preserved GitHub monitoring snapshot exists. Re-run with "
+            "--refresh-github in an authenticated host context."
+        )
+
+    issues = run_gh_json(
+        [
+            "issue", "list", "--repo", "Thorncrag/ARRP", "--label",
+            "needs: monitoring", "--state", "open", "--limit", "200", "--json",
+            "number,title,state,url,labels,updatedAt,body",
+        ]
+    )
+    project = run_gh_json(
+        [
+            "project", "item-list", "2", "--owner", "Thorncrag", "--limit", "500",
+            "--format", "json",
+        ]
+    )
+    project_by_number = {
+        item.get("content", {}).get("number"): item
+        for item in project.get("items", [])
+        if item.get("content", {}).get("type") == "Issue"
+    }
+    registry_by_number = {
+        int(row["GitHub Number"]): row
+        for row in read_csv(ISSUE_REGISTRY)
+        if row["GitHub Number"].strip().isdigit()
+    }
+    kind_labels = {
+        "proposal": "Proposal",
+        "horizon": "Candidate",
+        "source review": "Maintained research",
+    }
+    records: list[dict[str, object]] = []
+    for issue in issues:
+        registry = registry_by_number.get(issue["number"], {})
+        project_item = project_by_number.get(issue["number"], {})
+        record_id = registry.get("Object ID", "").strip()
+        if not record_id:
+            match = re.search(r"\b(?:HOR|[A-Z]{2,})-\d{3}\b", issue["title"])
+            record_id = match.group(0) if match else f"Issue #{issue['number']}"
+        title = re.sub(rf"^{re.escape(record_id)}\s*:\s*", "", issue["title"]).strip()
+        records.append(
+            {
+                "id": record_id,
+                "number": issue["number"],
+                "title": title,
+                "kind": kind_labels.get(registry.get("Kind", "").strip(), "Project record"),
+                "area": project_item.get("area") or (
+                    record_id.split("-", 1)[0] if "-" in record_id else "Unassigned"
+                ),
+                "status": project_item.get("status") or "Project status unavailable",
+                "priority": project_item.get("priority") or "Unassigned",
+                "source_count": source_count_for_record(record_id),
+                "sources": sources_for_record(record_id),
+                "monitoring_rationale": monitoring_rationale_for_record(
+                    registry, issue.get("body", "")
+                ),
+                "issue_url": issue["url"],
+                "updated_at": issue["updatedAt"],
+            }
+        )
+    return sorted(records, key=lambda row: (str(row["kind"]), str(row["id"])))
+
+
+def case_watcher_snapshot(
+    monitoring_issues: list[dict[str, object]],
+) -> tuple[list[dict[str, object]], dict[str, object]]:
+    """Project court sources eligible for tracker-assisted mapping and verification."""
+    if not CASE_MONITOR_CONFIG.exists():
+        return [], {"enabled": False, "mode": "Not configured"}
+    config = json.loads(CASE_MONITOR_CONFIG.read_text(encoding="utf-8"))
+    eligible_types = {
+        str(value).strip().casefold()
+        for value in config.get(
+            "eligibleSourceTypes",
+            [
+                "Court Docket or Judicial Record",
+                "Court Filing or Judicial Record",
+                "Court Docket",
+                "Judicial Docket",
+                "Supreme Court Docket",
+                "Federal Court Docket",
+                "Official court record",
+            ],
+        )
+    }
+    verification = config.get("verification", config.get("provider", {}))
+    allowed_hosts = set(verification.get("allowedHosts", []))
+    records: list[dict[str, object]] = []
+    for issue in monitoring_issues:
+        for source in issue.get("sources", []):
+            if source.get("monitoring") != "Yes":
+                continue
+            if str(source.get("type", "")).strip().casefold() not in eligible_types:
+                continue
+            host = urllib.parse.urlsplit(str(source.get("url", ""))).hostname or ""
+            if host not in allowed_hosts:
+                continue
+            rationale = (
+                source.get("monitoring_rationale")
+                or issue.get("monitoring_rationale")
+                or source.get("proposition")
+            )
+            records.append(
+                {
+                    **source,
+                    "owner_id": issue["id"],
+                    "owner_title": issue["title"],
+                    "owner_kind": issue["kind"],
+                    "owner_status": issue["status"],
+                    "owner_issue_url": issue["issue_url"],
+                    "monitoring_rationale": rationale,
+                    "monitoring_group": source.get("monitoring_group") or issue["id"],
+                    "coverage": "Eligible for tracker-assisted mapping and targeted verification",
+                }
+            )
+    records.sort(key=lambda row: (str(row["owner_id"]), str(row["monitoring_group"]), str(row["id"])))
+    schedule = config.get("schedule", {})
+    metadata = {
+        "enabled": bool(config.get("enabled", False)),
+        "mode": (
+            "Manual dispatch only"
+            if not config.get("enabled", False)
+            else schedule.get("description", "Scheduled; manual dispatch available")
+        ),
+        "bot_name": config.get("botName", "case-monitor-bot"),
+        "provider": " + ".join(
+            value
+            for value in (
+                config.get("tracker", {}).get("type", ""),
+                verification.get("type", ""),
+            )
+            if value
+        )
+        or "Not configured",
+        "workflow_url": "https://github.com/Thorncrag/ARRP/actions/workflows/case-monitor-bot.yml",
+    }
+    return records, metadata
+
+
+def directive_watcher_metadata() -> dict[str, object]:
+    if not DIRECTIVE_MONITOR_CONFIG.exists():
+        return {"enabled": False, "mode": "Not configured"}
+    config = json.loads(DIRECTIVE_MONITOR_CONFIG.read_text(encoding="utf-8"))
+    schedule = config.get("schedule", {})
+    return {
+        "enabled": bool(config.get("enabled", False)),
+        "mode": (
+            "Manual dispatch only"
+            if not config.get("enabled", False)
+            else schedule.get("description", "Scheduled; manual dispatch available")
+        ),
+        "bot_name": config.get("botName", "presidential-directives-bot"),
+        "provider": config.get("provider", {}).get("type", "Not configured"),
+        "workflow_url": "https://github.com/Thorncrag/ARRP/actions/workflows/presidential-directives-bot.yml",
+    }
 
 
 def horizon_snapshot(refresh: bool) -> tuple[list[dict[str, object]], str]:
@@ -378,6 +853,7 @@ def enrich_horizon_records(
         record_id = str(record["id"])
         issue_body = str(record.pop("issue_body", ""))
         record["issue_body_lines"] = issue_body.splitlines()
+        record["issue_body_html"] = render_markdown_safe(issue_body) if issue_body.strip() else ""
         history = history_by_id.get(record_id)
         sources = sources_for_record(record_id)
         research = research_for_record(record_id)
@@ -409,20 +885,36 @@ def enrich_horizon_records(
 def main() -> None:
     args = parse_args()
     candidates = candidate_records()
+    cited_sources = catalog_source_records(CITED_SOURCES, "Relied upon")
+    pending_sources = catalog_source_records(
+        PENDING_SOURCES, "Pending verification or placement"
+    )
+    presidential_directives = presidential_directive_records()
     horizon_records, github_synced_at = horizon_snapshot(args.refresh_github)
+    monitoring_issues = monitoring_issue_snapshot(args.refresh_github)
+    court_watch_sources, case_watcher_metadata = case_watcher_snapshot(monitoring_issues)
     horizon_records = enrich_horizon_records(horizon_records)
     active_horizon_records = [
         record for record in horizon_records if record["issue_state"] == "Open"
     ]
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
-        "schema_version": 7,
+        "schema_version": 11,
         "generated_at": generated_at,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),
         "horizon_issue_count": len(active_horizon_records),
         "records": candidates,
         "active_horizon_records": active_horizon_records,
+        "cited_sources": cited_sources,
+        "monitoring_issues": monitoring_issues,
+        "court_watch_sources": court_watch_sources,
+        "presidential_directives": presidential_directives,
+        "watcher_metadata": {
+            "case_monitor": case_watcher_metadata,
+            "presidential_directives": directive_watcher_metadata(),
+        },
+        "pending_sources": pending_sources,
         # The full snapshot is retained only so an ordinary rebuild can preserve
         # authoritative GitHub state without requiring Keychain access.
         "horizon_records": horizon_records,
@@ -438,7 +930,10 @@ def main() -> None:
     if args.console_only:
         print(
             f"Wrote {OUTPUT.relative_to(ROOT)} with {len(candidates)} preliminary "
-            f"candidates and {len(active_horizon_records)} active proposed candidates."
+            f"candidates, {len(active_horizon_records)} active proposed candidates, "
+            f"{len(cited_sources)} cited sources, {len(monitoring_issues)} monitored "
+            f"issues, {len(pending_sources)} pending sources, and "
+            f"{len(presidential_directives)} presidential directives."
         )
         return
 
@@ -469,7 +964,10 @@ def main() -> None:
     print(
         f"Wrote {OUTPUT.relative_to(ROOT)} and {PARTICIPATION_OUTPUT.relative_to(ROOT)} "
         f"with {len(candidates)} preliminary candidates and "
-        f"{len(active_horizon_records)} active proposed candidates."
+        f"{len(active_horizon_records)} active proposed candidates, "
+        f"{len(cited_sources)} cited sources, {len(monitoring_issues)} monitored "
+        f"issues, {len(pending_sources)} pending sources, and "
+        f"{len(presidential_directives)} presidential directives."
     )
 
 

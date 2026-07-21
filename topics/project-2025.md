@@ -23,7 +23,7 @@ This page connects commonly recognized Project 2025 themes to the ARRP proposals
 
 | Public concern | Proposal | How ARRP addresses it |
 | --- | --- | --- |
-| Schedule F-style reclassification or loyalty-based control of career officials | CIV-001 | Addresses political reclassification of protected career positions. |
+| Schedule F-style reclassification or loyalty-based control of career officials | [CIV-001](../areas/CIV/issues/CIV-001.md) | Addresses political reclassification of protected career positions. |
 | Federal employee union protections | Pending | Requires review to distinguish ordinary labor policy from a structural civil-service independence defect. |
 | Withholding or refusing to spend appropriations | [FUND-001](../areas/FUND/issues/FUND-001.md) | Addresses impoundment and failure to execute enacted spending requirements. |
 | Executive nullification of enacted mandates | [JUD-011](../areas/JUD/issues/JUD-011.md) | Supplies general expedited review when executive conduct functionally nullifies enacted law. |
@@ -31,10 +31,10 @@ This page connects commonly recognized Project 2025 themes to the ARRP proposals
 | Politically selective or retaliatory enforcement | [DOJ-003](../areas/DOJ/issues/DOJ-003.md) | Addresses neutral enforcement records, review, oversight, and correction. |
 | Conflicted investigations of presidential misconduct | [DOJ-007](../areas/DOJ/issues/DOJ-007.md) | Addresses independent appointment, authority, evidence preservation, and reporting. |
 | Asylum and humanitarian review | [RIGHTS-002](../areas/RIGHTS/issues/RIGHTS-002.md) | Addresses access to statutory review and humanitarian protection. |
-| Large-scale domestic enforcement deployments | DOM-001 | Addresses domestic deployment authority and safeguards. |
+| Large-scale domestic enforcement deployments | [DOM-001](../areas/DOM/issues/DOM-001.md) | Addresses domestic deployment authority and safeguards. |
 | Abolition, closure, or disabling of agencies created by Congress | [REG-001](../areas/REG/issues/REG-001.md) | Addresses agency continuity and presidential refusal to carry out enacted law. |
 | Government-wide sex definitions, identity records, or civil-rights administration | [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) | Addresses civil-rights administration and identity records. |
-| Suppression or distortion of government science, statistics, or public information | FACT-001 | Addresses scientific alteration, dataset suppression, statistical interference, and suppression of unfavorable findings within one technical-integrity framework. |
+| Suppression or distortion of government science, statistics, or public information | [FACT-001](../areas/FACT/issues/FACT-001.md) | Addresses scientific alteration, dataset suppression, statistical interference, and suppression of unfavorable findings within one technical-integrity framework. |
 | Reproductive-health restrictions through agency action | Pending | Requires review to distinguish substantive policy from a statutory-authority, scientific-integrity, or procedural defect. |
 | Religious-conscience exemptions | Pending | Requires review to determine whether administration exposes a structural rights or process defect beyond substantive policy balancing. |
 | Adult-content enforcement and speech safeguards | Pending | Requires review to determine whether a distinct enforcement, due-process, or protected-speech defect exists. |
@@ -44,10 +44,10 @@ This page connects commonly recognized Project 2025 themes to the ARRP proposals
 | Vacancy and succession practices that evade confirmation | [APPT-001](../areas/APPT/issues/APPT-001.md) | Addresses removal combined with vacancy, delegation, or succession practices that defeat confirmation safeguards. |
 | General emergency declarations | EMERG-001 | Addresses declaration predicates, findings, duration, renewal, and review. |
 | Emergency economic powers | [EMERG-003](../areas/EMERG/issues/EMERG-003.md) | Addresses emergency economic authority used as a substitute for legislation. |
-| Domestic deployment of federal forces | DOM-001 | Addresses domestic deployment authority and safeguards. |
+| Domestic deployment of federal forces | [DOM-001](../areas/DOM/issues/DOM-001.md) | Addresses domestic deployment authority and safeguards. |
 | Unilateral or indefinite military force | [WAR-001](../areas/WAR/issues/WAR-001.md) | Addresses authorization, reporting, termination, appropriations, and mission expansion. |
-| Denial of government access to disfavored media | PRESS-001 | Addresses viewpoint-neutral access and rapid review. |
-| Government retaliation against media or platforms | PRESS-006 | Addresses governmental powers or benefits used to punish or pressure protected reporting. |
+| Denial of government access to disfavored media | [PRESS-001](../areas/PRESS/issues/PRESS-001.md) | Addresses viewpoint-neutral access and rapid review. |
+| Government retaliation against media or platforms | [PRESS-006](../areas/PRESS/issues/PRESS-006.md) | Addresses governmental powers or benefits used to punish or pressure protected reporting. |
 
 </div>
 

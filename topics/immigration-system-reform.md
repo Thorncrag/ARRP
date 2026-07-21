@@ -3,7 +3,7 @@ title: "Immigration System Reform"
 page_type: topic-guide
 status: maintained
 purpose: "Help readers find the distinct institutional defects ARRP has identified in immigration administration without presenting a comprehensive immigration-policy platform."
-last_reviewed: "2026-07-19"
+last_reviewed: "2026-07-21"
 print_levels:
   - public-proposal
   - full-technical
@@ -34,9 +34,10 @@ ARRP therefore uses this page as a guide to the individual institutional defects
 | Immigration-surveillance technology | [DOM-009](../areas/DOM/issues/DOM-009.md) | Addresses federal law-enforcement surveillance procurement and deployment. |
 | Interagency immigration-data sharing | HOR-034 | Examines the repurposing of personal data across agencies. |
 | Access to federal incident evidence | [DOM-005](../areas/DOM/issues/DOM-005.md) | Addresses evidence preservation and secure State investigative access without changing immunity or prosecution law. |
+| Personal accountability for constitutional violations by immigration officers | [RIGHTS-005](../areas/RIGHTS/issues/RIGHTS-005.md) | Addresses civil remedies, aggravated personal financial responsibility, and Federal or lawful State criminal accountability without prescribing immigration policy. |
 | Immigration action insulated from legality review | [JUD-012](../areas/JUD/issues/JUD-012.md) | Addresses absent causes of action and statutory review barriers while leaving immigration policy and underlying rights with their specific proposals. |
 | Emergency declarations for immigration enforcement | EMERG-001 | Addresses declaration predicates, findings, duration, renewal, and review. |
-| Domestic deployments for immigration enforcement | DOM-001 | Addresses federal-force authority, safeguards, duration, and review. |
+| Domestic deployments for immigration enforcement | [DOM-001](../areas/DOM/issues/DOM-001.md) | Addresses federal-force authority, safeguards, duration, and review. |
 | Enforcement of immigration-related court orders | [JUD-001](../areas/JUD/issues/JUD-001.md) | Addresses practical execution of judicial commands rather than immigration policy itself. |
 | Notice of executive noncompliance in immigration cases | [JUD-005](../areas/JUD/issues/JUD-005.md) | Addresses congressional and public notice after a qualifying judicial finding. |
 

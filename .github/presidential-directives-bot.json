@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "enabled": true,
+  "botName": "presidential-directives-bot",
+  "catalogPath": "inventory/presidential-directives.csv",
+  "notification": {
+    "issueNumber": 317,
+    "mention": "@Thorncrag"
+  },
+  "schedule": {
+    "cron": "27 4 * * *",
+    "description": "Daily at approximately midnight Eastern (12:27 a.m. EDT / 11:27 p.m. EST)"
+  },
+  "provider": {
+    "type": "federal-register-api-v1",
+    "apiRoot": "https://www.federalregister.gov/api/v1",
+    "allowedHosts": [
+      "www.federalregister.gov"
+    ],
+    "presidentialDocumentType": "PRESDOCU",
+    "pageSize": 1000,
+    "maxPagesPerQuery": 20
+  },
+  "scope": [
+    {
+      "administration": "Trump I",
+      "presidentIdentifier": "donald-trump",
+      "presidentName": "Donald Trump",
+      "signedOnOrAfter": "2017-01-20",
+      "signedOnOrBefore": "2021-01-19"
+    },
+    {
+      "administration": "Biden",
+      "presidentIdentifier": "joe-biden",
+      "presidentName": "Joseph R. Biden Jr.",
+      "signedOnOrAfter": "2021-01-20",
+      "signedOnOrBefore": "2025-01-19"
+    },
+    {
+      "administration": "Trump II",
+      "presidentIdentifier": "donald-trump",
+      "presidentName": "Donald Trump",
+      "signedOnOrAfter": "2025-01-20"
+    }
+  ]
+}

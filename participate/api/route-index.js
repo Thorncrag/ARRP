@@ -22,7 +22,7 @@ const records = Object.freeze([
     "id": "CIV-001",
     "title": "Civil-Service Merit, Classification, and Anti-Politicization",
     "area": "CIV",
-    "canonical_page": "../areas/CIV/README.md",
+    "canonical_page": "../areas/CIV/issues/CIV-001.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/86"
   },
   {
@@ -43,7 +43,7 @@ const records = Object.freeze([
     "id": "CIV-009",
     "title": "Repurposed technical units as cross-agency operational control mechanisms",
     "area": "CIV",
-    "canonical_page": "../areas/CIV/README.md",
+    "canonical_page": "../areas/CIV/issues/CIV-009.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/94"
   },
   {
@@ -71,7 +71,7 @@ const records = Object.freeze([
     "id": "CLASS-011",
     "title": "Security-Clearance Integrity",
     "area": "CLASS",
-    "canonical_page": "../areas/CLASS/README.md",
+    "canonical_page": "../areas/CLASS/issues/CLASS-011.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/84"
   },
   {
@@ -141,7 +141,7 @@ const records = Object.freeze([
     "id": "DOM-001",
     "title": "Domestic Deployment Authorities and Safeguards",
     "area": "DOM",
-    "canonical_page": "../areas/DOM/README.md",
+    "canonical_page": "../areas/DOM/issues/DOM-001.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/135"
   },
   {
@@ -288,7 +288,7 @@ const records = Object.freeze([
     "id": "EMOL-001",
     "title": "Presidential Financial Conflicts, Emoluments, and Self-Dealing",
     "area": "EMOL",
-    "canonical_page": "../areas/EMOL/README.md",
+    "canonical_page": "../areas/EMOL/issues/EMOL-001.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/59"
   },
   {
@@ -302,7 +302,7 @@ const records = Object.freeze([
     "id": "FACT-001",
     "title": "Scientific, Statistical, and Technical Integrity",
     "area": "FACT",
-    "canonical_page": "../areas/FACT/README.md",
+    "canonical_page": "../areas/FACT/issues/FACT-001.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/168"
   },
   {
@@ -323,7 +323,7 @@ const records = Object.freeze([
     "id": "FED-002",
     "title": "Selective or Retaliatory Federal Administration Against States",
     "area": "FED",
-    "canonical_page": "../areas/FED/README.md",
+    "canonical_page": "../areas/FED/issues/FED-002.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/186"
   },
   {
@@ -365,7 +365,7 @@ const records = Object.freeze([
     "id": "HER-001",
     "title": "Federal Civic Property Preservation and Public Review",
     "area": "HER",
-    "canonical_page": "../areas/HER/README.md",
+    "canonical_page": "../areas/HER/issues/HER-001.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/213"
   },
   {
@@ -398,7 +398,7 @@ const records = Object.freeze([
   },
   {
     "id": "JUD-009",
-    "title": "Appointer-President Recusal",
+    "title": "Supreme Court Ethics, Recusal, and Transparency",
     "area": "JUD",
     "canonical_page": "../areas/JUD/issues/JUD-009.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/47"
@@ -418,10 +418,17 @@ const records = Object.freeze([
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/246"
   },
   {
+    "id": "JUD-012",
+    "title": "Government Action Insulated from Judicial Review",
+    "area": "JUD",
+    "canonical_page": "../areas/JUD/issues/JUD-012.md",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/256"
+  },
+  {
     "id": "OVS-001",
     "title": "Inspector General Independence, Access, Reporting, and Follow-Through",
     "area": "OVS",
-    "canonical_page": "../areas/OVS/README.md",
+    "canonical_page": "../areas/OVS/issues/OVS-001.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/95"
   },
   {
@@ -439,10 +446,17 @@ const records = Object.freeze([
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/102"
   },
   {
+    "id": "OVS-009",
+    "title": "Enforcement of Political-Activity Restrictions for Senior Officials",
+    "area": "OVS",
+    "canonical_page": "../areas/OVS/issues/OVS-009.md",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/252"
+  },
+  {
     "id": "PAR-001",
     "title": "Corrupt, Self-Protective, and Politically Abusive Clemency",
     "area": "PAR",
-    "canonical_page": "../areas/PAR/README.md",
+    "canonical_page": "../areas/PAR/issues/PAR-001.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/49"
   },
   {
@@ -456,7 +470,7 @@ const records = Object.freeze([
     "id": "PRESS-001",
     "title": "Equal Press Access and Rapid Review",
     "area": "PRESS",
-    "canonical_page": "../areas/PRESS/README.md",
+    "canonical_page": "../areas/PRESS/issues/PRESS-001.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/201"
   },
   {
@@ -470,14 +484,14 @@ const records = Object.freeze([
     "id": "PRESS-006",
     "title": "Governmental Retaliation Against the Press",
     "area": "PRESS",
-    "canonical_page": "../areas/PRESS/README.md",
+    "canonical_page": "../areas/PRESS/issues/PRESS-006.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/206"
   },
   {
     "id": "REC-001",
     "title": "Presidential and Executive Records Integrity, Custody, and Enforcement",
     "area": "REC",
-    "canonical_page": "../areas/REC/README.md",
+    "canonical_page": "../areas/REC/issues/REC-001.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/127"
   },
   {
@@ -491,28 +505,28 @@ const records = Object.freeze([
     "id": "REG-002",
     "title": "Politicized enforcement or nonenforcement",
     "area": "REG",
-    "canonical_page": "../areas/REG/README.md",
+    "canonical_page": "../areas/REG/issues/REG-002.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/161"
   },
   {
     "id": "REG-003",
-    "title": "Control of administrative adjudication",
+    "title": "Control of Administrative Adjudication",
     "area": "REG",
-    "canonical_page": "../areas/REG/README.md",
+    "canonical_page": "../areas/REG/issues/REG-003.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/162"
   },
   {
     "id": "REG-006",
     "title": "Presidential control of rulemaking and legal positions",
     "area": "REG",
-    "canonical_page": "../areas/REG/README.md",
+    "canonical_page": "../areas/REG/issues/REG-006.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/165"
   },
   {
     "id": "RET-001",
     "title": "Executive Retaliation Through Federal Benefits and Regulatory Power",
     "area": "RET",
-    "canonical_page": "../areas/RET/README.md",
+    "canonical_page": "../areas/RET/issues/RET-001.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/177"
   },
   {
@@ -549,13 +563,6 @@ const records = Object.freeze([
     "area": "DOM",
     "canonical_page": "https://github.com/Thorncrag/ARRP/issues/15",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/15"
-  },
-  {
-    "id": "HOR-019",
-    "title": "Supreme Court structure and legitimacy review",
-    "area": "JUD",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/17",
-    "issue_url": "https://github.com/Thorncrag/ARRP/issues/17"
   },
   {
     "id": "HOR-022",
@@ -607,13 +614,6 @@ const records = Object.freeze([
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/251"
   },
   {
-    "id": "HOR-032",
-    "title": "Senior-Official Hatch Act Enforcement",
-    "area": "ELEC",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
-    "issue_url": "https://github.com/Thorncrag/ARRP/issues/252"
-  },
-  {
     "id": "HOR-033",
     "title": "Enforceability of Accessibility Duties for Presidential Communications",
     "area": "RIGHTS",
@@ -635,13 +635,6 @@ const records = Object.freeze([
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/255"
   },
   {
-    "id": "HOR-036",
-    "title": "Executive Action That May Operate Without Timely Merits Review",
-    "area": "JUD",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
-    "issue_url": "https://github.com/Thorncrag/ARRP/issues/256"
-  },
-  {
     "id": "HOR-037",
     "title": "Immigration Detention, Removal Process, and Access Safeguards",
     "area": "RIGHTS",
@@ -654,6 +647,55 @@ const records = Object.freeze([
     "area": "Cross-cutting",
     "canonical_page": "https://github.com/Thorncrag/ARRP/issues/274",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/274"
+  },
+  {
+    "id": "HOR-039",
+    "title": "Functional Accessibility of Existing Lawful Immigration and Residency Pathways",
+    "area": "RIGHTS",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/300",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/300"
+  },
+  {
+    "id": "HOR-040",
+    "title": "Safeguards for Broad Presidential Tariff Delegations",
+    "area": "EMERG",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/302"
+  },
+  {
+    "id": "HOR-041",
+    "title": "Safeguards for Class-Based Presidential Entry Suspensions",
+    "area": "RIGHTS",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/303"
+  },
+  {
+    "id": "HOR-042",
+    "title": "Minimum Safeguards for Presidential Statutory Waivers",
+    "area": "CONG",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/304"
+  },
+  {
+    "id": "HOR-043",
+    "title": "Presidential Recognition of International Bodies With Domestic Legal Privileges",
+    "area": "CONG",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/305"
+  },
+  {
+    "id": "HOR-044",
+    "title": "Statutory Framework for Presidential Cross-Border Infrastructure Permits",
+    "area": "REG",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/306"
+  },
+  {
+    "id": "HOR-045",
+    "title": "Immigration-Enforcement Vehicle-Stop Safeguards",
+    "area": "DOM",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/311",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/311"
   }
 ]);
 

@@ -26,6 +26,7 @@ This page concerns executive-branch administration of justice, including the Jus
 | Appointment of a president’s recent personal counsel to senior DOJ leadership | [DOJ-001](../areas/DOJ/issues/DOJ-001.md) | Addresses heightened conflicts, screening, and safeguards for recent personal counsel. |
 | White House direction concerning a particular criminal matter | [DOJ-002](../areas/DOJ/issues/DOJ-002.md) | Addresses case-specific contacts, documentation, disclosure, and review. |
 | Politically selective charging, noncharging, or favoritism | [DOJ-003](../areas/DOJ/issues/DOJ-003.md) | Addresses neutral enforcement records, review, oversight, and corrective mechanisms. |
+| Political or personal influence over a particular noncriminal regulatory matter | [REG-002](../areas/REG/issues/REG-002.md) | Addresses contacts, conflicts, contrary professional analysis, explanations, preservation, and independent review without dictating the regulatory outcome. |
 | Removal or reassignment of career personnel for professional judgments | [DOJ-004](../areas/DOJ/issues/DOJ-004.md) | Addresses protection for career independence and lawful professional decision-making. |
 | Recusal failures or weak internal enforcement | [DOJ-005](../areas/DOJ/issues/DOJ-005.md) | Addresses enforceable screening, recusal, review, and discipline. |
 | Investigation of presidential or senior executive misconduct | [DOJ-007](../areas/DOJ/issues/DOJ-007.md) | Addresses independent appointment, authority, evidence preservation, and reporting. |

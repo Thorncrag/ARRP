@@ -10,26 +10,6 @@ print_levels:
 
 **A Roadmap for Repairing Institutional Damage, Restoring Trustworthy Government, and Preventing Future Personalist Capture**
 
-## About This Project
-
-The author is an independent researcher. This project is a policy-reform research and drafting exercise, not legal advice. Proposed legislation, model acts, constitutional amendments, and administrative language in this repository are illustrative working drafts. They have not yet been reviewed or approved by an attorney, legislative counsel, legal scholar, public official, or affected institution, and should not yet be treated as final or ready-to-introduce legislative text.
-
-This project is intended to be institution-focused and nonpartisan in its standards, methods, and proposed remedies. It is not neutral about institutional abuse, democratic backsliding, corruption, personalist capture, rule-of-law failure, or unitary executive theory, and it is transparent about seeking to reverse, repair, and prevent institutional outcomes associated with Project 2025 and similar efforts to subordinate public institutions to personal or factional control. The project uses real-world examples to identify structural vulnerabilities and possible repairs, not to advance a party program or defend or condemn any person, party, administration, or ideology as such. Proposed remedies are meant to apply prospectively and evenhandedly across parties, officeholders, and political circumstances.
-
-The project does not claim or intend to function as a Democratic Party agenda. At the same time, it does not ignore the practical reality that some readers, lawmakers, advocates, or institutions may be more receptive to the project because of the present political alignment of the abuses it studies. That likely audience does not define the project’s standards. The project should remain candid about coalition realities while continuing to frame proposals as institutional repairs that can be evaluated, improved, supported, or criticized on their merits.
-
-The project does not avoid naming public actors, including President Trump, where specific conduct is relevant to identifying institutional damage, structural vulnerability, or necessary repair. Such references are not included as partisan argument or personal condemnation for its own sake, but because the project depends on concrete examples of how institutions were damaged, tested, or exploited. The same standards should apply to any officeholder, party, administration, or movement that creates comparable institutional risk.
-
-The project is not limited to incidents from President Trump's administrations. Those incidents are a principal case study because they exposed how many parts of the constitutional and administrative system depended on political traditions, voluntary restraint, unwritten norms, and underspecified legal guidelines. The project also includes older, continuing, or future-facing institutional weaknesses where they bear on democratic resilience, including representation, disenfranchisement, and other structural conditions that affect whether the system can remain self-correcting over time.
-
-The full neutrality, language, coalition-reality, and political-language review rules are maintained in the technical framework and project methodology. See [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#neutrality-and-language-guidelines) and [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#political-language-and-coalition-appeal-audit).
-
-The project is also a living research draft. Sources, citations, examples, issue classifications, and proposed remedies may be incomplete, provisional, or later revised as the work develops.
-
-The project is author-directed. The author has set the research agenda, selected and organized the issues, made the editorial judgments, and remained in charge of the project's structure and development. Large language model tools, including ChatGPT, have been used extensively for research organization, drafting assistance, revision, comparison, and issue spotting, but the project was not generated from scratch by an LLM. The author asserts authorship of the project as a whole and remains responsible for its editorial choices, judgments, omissions, and errors.
-
-For a dedicated authorship, stakeholder-input, and contact statement, see [`AUTHORS.md`](AUTHORS.md).
-
 ## Foundational Premise
 
 The American system of government suffered serious failures because its safeguards did not adequately constrain conduct by President Trump and MAGA-aligned actors that placed personal loyalty above constitutional duty, institutional independence, factual adjudication, and the peaceful transfer of power. The damage must be repaired, the weaknesses that enabled it must be corrected, and stronger safeguards must be established against future personalist capture.
@@ -108,6 +88,26 @@ Not every institutional abuse can be prevented without impairing legitimate gove
 A remedy may therefore be adequate even when it cannot prevent the first violation, provided it creates a credible and durable avenue for institutional self-correction. The analysis should distinguish prevention, detection, correction, deterrence, and containment rather than treating them as interchangeable.
 
 Institutional corrigibility is not an excuse for weak reform. Preventive safeguards remain preferable where they are lawful, workable, and proportionate. Corrigibility becomes central where stronger front-end control would destroy necessary discretion, create unconstitutional supervision, or impose a cure more damaging than the underlying risk.
+
+## About This Project
+
+The author is an independent researcher. This project is a policy-reform research and drafting exercise, not legal advice. Proposed legislation, model acts, constitutional amendments, and administrative language in this repository are illustrative working drafts. They have not yet been reviewed or approved by an attorney, legislative counsel, legal scholar, public official, or affected institution, and should not yet be treated as final or ready-to-introduce legislative text.
+
+This project is intended to be institution-focused and nonpartisan in its standards, methods, and proposed remedies. It is not neutral about institutional abuse, democratic backsliding, corruption, personalist capture, rule-of-law failure, or unitary executive theory, and it is transparent about seeking to reverse, repair, and prevent institutional outcomes associated with Project 2025 and similar efforts to subordinate public institutions to personal or factional control. The project uses real-world examples to identify structural vulnerabilities and possible repairs, not to advance a party program or defend or condemn any person, party, administration, or ideology as such. Proposed remedies are meant to apply prospectively and evenhandedly across parties, officeholders, and political circumstances.
+
+The project does not claim or intend to function as a Democratic Party agenda. At the same time, it does not ignore the practical reality that some readers, lawmakers, advocates, or institutions may be more receptive to the project because of the present political alignment of the abuses it studies. That likely audience does not define the project’s standards. The project should remain candid about coalition realities while continuing to frame proposals as institutional repairs that can be evaluated, improved, supported, or criticized on their merits.
+
+The project does not avoid naming public actors, including President Trump, where specific conduct is relevant to identifying institutional damage, structural vulnerability, or necessary repair. Such references are not included as partisan argument or personal condemnation for its own sake, but because the project depends on concrete examples of how institutions were damaged, tested, or exploited. The same standards should apply to any officeholder, party, administration, or movement that creates comparable institutional risk.
+
+The project is not limited to incidents from President Trump's administrations. Those incidents are a principal case study because they exposed how many parts of the constitutional and administrative system depended on political traditions, voluntary restraint, unwritten norms, and underspecified legal guidelines. The project also includes older, continuing, or future-facing institutional weaknesses where they bear on democratic resilience, including representation, disenfranchisement, and other structural conditions that affect whether the system can remain self-correcting over time.
+
+The full neutrality, language, coalition-reality, and political-language review rules are maintained in the technical framework and project methodology. See [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#neutrality-and-language-guidelines) and [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#political-language-and-coalition-appeal-audit).
+
+The project is also a living research draft. Sources, citations, examples, issue classifications, and proposed remedies may be incomplete, provisional, or later revised as the work develops.
+
+The project is author-directed. The author has set the research agenda, selected and organized the issues, made the editorial judgments, and remained in charge of the project's structure and development. Large language model tools, including ChatGPT, have been used extensively for research organization, drafting assistance, revision, comparison, and issue spotting, but the project was not generated from scratch by an LLM. The author asserts authorship of the project as a whole and remains responsible for its editorial choices, judgments, omissions, and errors.
+
+For a dedicated authorship, stakeholder-input, and contact statement, see [`AUTHORS.md`](AUTHORS.md).
 
 ## How to Read an Issue Page
 

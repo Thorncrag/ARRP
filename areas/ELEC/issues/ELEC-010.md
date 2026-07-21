@@ -1,6 +1,7 @@
 ---
 issue_id: ELEC-010
 area_id: A-02
+source_development_record: "../research/ELEC-010-source-development.md"
 title: "Mail-In Voting Access, Reliability, and Trust"
 status: developed
 priority: high

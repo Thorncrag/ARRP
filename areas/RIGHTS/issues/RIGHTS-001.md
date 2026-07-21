@@ -1,6 +1,7 @@
 ---
 issue_id: RIGHTS-001
 area_id: A-24
+source_development_record: "../research/RIGHTS-001-source-development.md"
 title: "Civil-Rights Administration, Identity Records, and Federal Definition Control"
 status: candidate
 priority: high
@@ -83,10 +84,6 @@ This manifestation is not yet developed into a remedial theory. It flags a sourc
 The Supreme Court's decision in [*United States v. Skrmetti*](https://www.supremecourt.gov/opinions/24pdf/23-477_2cp3.pdf) is a necessary doctrinal caution. It does not settle every federal civil-rights administration question raised here, but it affects how future proposals should be framed, especially where equal-protection arguments, sex classifications, age, medical care, Title IX, Title VII, and agency authority intersect.
 
 The Supreme Court's decision in [*West Virginia v. B. P. J.*](https://www.supremecourt.gov/opinions/25pdf/24-43_2b35.pdf) adds a second caution for Title IX and Equal Protection claims involving school athletics and sex-specific classifications. RIGHTS-001 should not assume that Title IX requires gender-identity-inclusive athletics rules or that every sex-definition policy is constitutionally invalid. The remaining institutional question is whether civil-rights administration, identity records, grant conditions, privacy, detention classification, and agency guidance should have clearer statutory authority, transition rules, record preservation, individualized process, and review safeguards when executive definitions change.
-
-### Supporting Record and Updates
-
-- **Watching for updates:** [RIGHTS-001-MON](https://github.com/Thorncrag/ARRP/issues/295) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
 
 ## Resulting Damage
 

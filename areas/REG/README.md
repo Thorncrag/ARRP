@@ -18,9 +18,9 @@ The constitutional and statutory position of independent agencies is increasingl
 ## Active Issues
 
 - [**REG-001 — Agency Independence and Functional Nullification**](issues/REG-001.md)
-- **REG-002 — Politicized enforcement or nonenforcement**
+- [**REG-002 — Executive Influence over Federal Regulatory Enforcement**](issues/REG-002.md)
 - [**REG-003 — Control of Administrative Adjudication**](issues/REG-003.md)
-- **REG-006 — Presidential control of rulemaking and legal positions**
+- [**REG-006 — Presidential control of rulemaking and legal positions**](issues/REG-006.md)
 
 ## Prior Issue Numbers
 
@@ -38,14 +38,14 @@ These numbers were assigned during preliminary review but did not become separat
 
 - [HOR-018](https://github.com/Thorncrag/ARRP/issues/16) supplies REG-001's Tier Two source-development lane for USAID, the Department of Education, reductions in force, transfers, funding freezes, program termination, and closure of operational capacity. Education-specific civil-rights or federalism questions may cross-reference A-24, A-11, and A-20; mechanism-specific personnel and funding remedies remain in CIV and FUND.
 
-- [HOR-024](https://github.com/Thorncrag/ARRP/issues/235) supplies a CFPB bridge manifestation for REG-001. Funding structure is one independence indicator and possible disablement mechanism within REG-001; REG-002 and REG-006 retain enforcement, nonenforcement, rulemaking, and agency legal-position control.
+- [HOR-024](https://github.com/Thorncrag/ARRP/issues/235) supplies a CFPB bridge manifestation for REG-001. Funding structure is one independence indicator and possible disablement mechanism within REG-001; REG-002 retains case-specific executive influence over noncriminal regulatory enforcement, while REG-006 retains rulemaking and agency legal-position control.
 
 - Independent funding is treated within REG-001 because it is one indicator and one potential mechanism of institutional independence or disablement, not a separate institutional failure. Constitutional design alternatives after recent removal-power doctrine remain in REG-001's proposal survey and annotations rather than occupying a separate proposal record.
 
-- [HOR-025](https://github.com/Thorncrag/ARRP/issues/239) is an active monitoring item routed primarily to REG-002 for reported political or lobbyist influence over DOJ merger enforcement. The present record supports monitoring, process mapping, and preservation of source leads, not a finding of corruption. REG-001 receives a Tier Two cross-reference only if later evidence shows categorical or functional disablement of neutral merger enforcement. Renew substantive review upon congressional or inspector-general investigation, judicial or state discovery, whistleblower documentation, merger-contact disclosures, ethics records, or comparable primary evidence.
+- [HOR-025](https://github.com/Thorncrag/ARRP/issues/239) was integrated into [REG-002](issues/REG-002.md) after private litigation placed alleged political “horse trading,” promised private benefits, and regulatory contacts within potentially discoverable records. Integration does not establish corruption. REG-002 now owns the process-integrity question for particular noncriminal regulatory-enforcement matters; REG-001 applies only if later evidence shows categorical or functional disablement of neutral enforcement.
 
 - [REG-003](issues/REG-003.md) owns executive control of administrative adjudication. Immigration-court removals, adjudicatory-pressure allegations, and the San Francisco court consolidation provide an initial manifestation while preserving lawful performance management, backlog reduction, and substantive immigration policymaking.
 
 ## Notes
 
-REG-001 was promoted after *Trump v. Slaughter*, expanded to consolidate operational, vacancy, funding, and constitutional-design components under a two-tier agency-independence and functional-continuity framework, and remains 83/100 and Review Ready after a targeted consolidation review. REG-003 is in source development; REG-002 and REG-006 remain provisional because enforcement, adjudication, and rulemaking or litigation-position controls may require different statutory vehicles.
+REG-001 was promoted after *Trump v. Slaughter*, expanded to consolidate operational, vacancy, funding, and constitutional-design components under a two-tier agency-independence and functional-continuity framework, and remains 83/100 and Review Ready after a targeted consolidation review. REG-002 and REG-003 are in development; REG-006 remains provisional. Enforcement, adjudication, and rulemaking or litigation-position controls remain separate because they may require different statutory vehicles.

@@ -17,7 +17,7 @@ Official information, public-facing government terminology, data, scientific fin
 
 ## Active Issues
 
-- **FACT-001 — Scientific, Statistical, and Technical Integrity**
+- [**FACT-001 — Scientific, Statistical, and Technical Integrity**](issues/FACT-001.md)
 - **FACT-007 — Official Historical Presentation Integrity**
 - **FACT-009 — Misleading Official Terminology, Titles, or Institutional Labels**
 

@@ -28,9 +28,9 @@ These questions are addressed by separate proposals. This page directs readers t
 | Execution of judicial commands | [JUD-001](../areas/JUD/issues/JUD-001.md) | Addresses practical enforcement when the executive does not carry out a court order. |
 | Presidential or federal action that cannot receive legality review | [JUD-012](../areas/JUD/issues/JUD-012.md) | Addresses absent causes of action, statutory review bars, and other threshold barriers while preserving Article III and political-question limits. |
 | Notice of executive noncompliance | [JUD-005](../areas/JUD/issues/JUD-005.md) | Addresses automatic congressional and public notice after a qualifying judicial finding. |
-| Whether a judge appointed by a litigant-president should recuse | [JUD-009](../areas/JUD/issues/JUD-009.md) | Addresses neutral recusal standards without assuming bias from appointment alone. |
+| Judicial ethics or recusal in presidential-party litigation | [JUD-009](../areas/JUD/issues/JUD-009.md) | Establishes neutral ethics, disclosure, complaint-review, and recusal procedures without assuming bias from appointment alone. |
 | Whether the president can cause the government to sue itself, settle with itself, or receive audit immunity | [EMOL-015](../areas/EMOL/issues/EMOL-015.md) | Addresses adversity screening, settlement controls, payment restrictions, enforcement, and categorical rejection of audit immunity. |
-| Clemency protecting allies, witnesses, or participants | PAR-001 | Addresses corrupt, self-protective, obstructive, or politically abusive clemency. |
+| Clemency protecting allies, witnesses, or participants | [PAR-001](../areas/PAR/issues/PAR-001.md) | Addresses corrupt, self-protective, obstructive, or politically abusive clemency. |
 | Presidential self-pardons | PAR-005 | Addresses the distinct constitutional uncertainty surrounding self-pardons. |
 
 </div>

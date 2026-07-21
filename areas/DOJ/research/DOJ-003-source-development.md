@@ -1,0 +1,22 @@
+---
+issue_id: DOJ-003
+title: "Source Development — DOJ-003"
+status: working-notes
+print_levels:
+  - full-technical
+---
+
+# DOJ-003 Source Development
+
+This record is source-development work, not a completed finding or a substitute for the proposal’s verified manifestations, analysis, or citations. It preserves sources routed to this proposal for later source-specific review and integration.
+
+## Routed Sources
+
+- **[SRC-0958](<https://www.courtlistener.com/docket/70445695/baraka-v-habba/>) — Criminal Arrests and Prosecutions.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Criminal Arrests and Prosecutions; tracker status: Case Pending. Reviewed: **No**. Monitoring: **Yes — Baraka concerns allegedly selective/retaliatory prosecution, not White House-contact controls. Monitor for a charging/noncharging or independent-review proposition.**
+- **[SRC-1143](<https://storage.courtlistener.com/recap/gov.uscourts.ca8.113669/gov.uscourts.ca8.113669.00805439026.2.pdff>) — Minnesota Church Protesters Nekima Levy Armstrong Chauntyll Louisa Allen William Kelly “DaWokeFarmer” Don Lemon Jerome Richardson Jamael Lundy Trahern Crews Georgia Fort Ian Davis Austin.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Reviewed: **No**. Monitoring: **Yes — Criminal investigation/prosecution of protesters belongs in selective-enforcement comparator review; normalize operative ruling.**
+- **[SRC-1147](<https://storage.courtlistener.com/recap/gov.uscourts.nysd.646893/gov.uscourts.nysd.646893.77.0.pdf>) — Brad Lander Former NYC Comptroller.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Reviewed: **No**.
+- **[SRC-1149](<https://www.courtlistener.com/docket/70515005/20/1/united-states-v-mciver/>) — LaMonica McIver United States Representative.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Reviewed: **No**. Monitoring: **Yes — McIver is a charging comparator; cite only after final merits/appellate posture is normalized.**
+- **[SRC-2020](<https://www.courtlistener.com/docket/73562893/brennan-v-blanche/>) — Brennan v. Blanche (D.D.C.) 1:26-cv-02323.** Proposition supported: Potentially supports monitoring of Criminal Arrests and Prosecutions; tracker status: Case Pending. Reviewed: **No**. Monitoring: **Yes — Live Brennan case concerns allegedly selective or retaliatory investigation/prosecution, not White House-contact controls. Monitor for a merits order revealing charging/noncharging standards or reviewability. Normalize URL to https://www.courtlistener.com/docket/73562893/brennan-v-blanche/ .**
+- **[SRC-2538](<https://www.courtlistener.com/docket/72003579/aaron-v-bondi>) — Aaron v. Bondi (D.D.C.) 1:25-cv-04250.** Proposition supported: Potentially supports monitoring of Retaliation Against Protected Speech; tracker status: Case Pending. Reviewed: **No**. Monitoring: **Yes — Prosecutorial/investigatory protected-speech case; normalize comparator and holding.**
+- **[SRC-2544](<https://www.courtlistener.com/docket/73334240/demster-v-blanche>) — Demster v. Blanche (W.D. Tenn.) 2:26-cv-02546.** Proposition supported: Potentially supports monitoring of Retaliation Against Protected Speech; tracker status: Case Pending. Reviewed: **No**. Monitoring: **Yes — Federal prosecution/investigation case; normalize charging comparator and disposition.**
+- **[SRC-2557](<https://www.courtlistener.com/docket/72259284/rosado-v-bondi>) — Rosado v. Bondi (N.D. Ill.) 1:26-cv-01532.** Proposition supported: Potentially supports monitoring of Retaliation Against Protected Speech; tracker status: Government Action Temporarily Blocked. Reviewed: **No**. Monitoring: **Yes — Federal prosecution/investigation action; normalize comparator and holding.**

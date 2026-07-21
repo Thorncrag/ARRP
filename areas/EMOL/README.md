@@ -17,7 +17,7 @@ The constitutional and statutory framework does not adequately prevent a preside
 
 ## Active Issues
 
-- **EMOL-001 — Presidential Financial Conflicts, Emoluments, and Self-Dealing**
+- [**EMOL-001 — Presidential Financial Conflicts, Emoluments, and Self-Dealing**](issues/EMOL-001.md)
 - [**EMOL-015 — Executive Self-Litigation and Settlement Conflicts**](issues/EMOL-015.md)
 
 ## Prior Issue Numbers

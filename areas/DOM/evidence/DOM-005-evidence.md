@@ -3,7 +3,7 @@ issue_id: DOM-005
 title: "DOM-005 Evidence Record"
 record_type: issue-evidence
 canonical_issue: "../issues/DOM-005.md"
-last_evidence_review: 2026-07-18
+last_evidence_review: 2026-07-21
 print_levels:
   - public-proposal
   - full-technical
@@ -35,17 +35,20 @@ The State access problem is distinct from whether a Federal agency has a general
 
 ## Comparators and Limits
 
+- **Disputed July 2026 FBI-HSI reassignment.** Reporting based on written guidance stated that lead responsibility for alleged assaults involving DHS personnel was shifted from FBI field offices to Homeland Security Investigations, with FBI assistance remaining available on request. DOJ and DHS denied that policy had changed, and the underlying directive is not public. See the [New York Times report republished by the *Philadelphia Inquirer*](https://www.inquirer.com/news/nation-world/fbi-stop-investigation-homeland-security-ice-shooting-confrontation-assault-federal-officer-blanche-trump-20260719.html) and [CBS News](https://www.cbsnews.com/news/fbi-immigration-agent-cases-deferred-hsi/). Existing official materials continue to identify the [FBI's civil-rights program](https://www.fbi.gov/investigate/civil-rights) and [DOJ Civil Rights Division](https://www.justice.gov/crt/law-enforcement-misconduct) as Federal mechanisms for color-of-law review. A [2019 joint DOJ-DHS inspector-general report](https://www.oversight.gov/sites/default/files/documents/reports/2019-08/e1903.pdf) had already identified outdated policy, inconsistent interpretation, information-sharing failures, and the absence of a national agreement for overlapping FBI-HSI investigations. The 2026 reporting should therefore be monitored as a disputed change in investigative allocation, not treated as proof that HSI cannot investigate or that evidence was concealed.
+
 - **Biddeford, Maine.** Reporting on the July 2026 fatal shooting identifies an unresolved factual dispute about the vehicle and the claimed threat. Maine law assigns the Attorney General responsibility for covered officer-involved deadly-force investigations and turns deadly-force justification on fact-dependent necessity and reasonableness. See [Associated Press](https://apnews.com/article/ice-shooting-maine-immigration-dhs-f26f8c2256aa6f0748582ea4adbb515c), [5 M.R.S. § 200-A](https://legislature.maine.gov/statutes/5/title5sec200-A.html), and [17-A M.R.S. § 107](https://legislature.maine.gov/statutes/17-a/title17-Asec107.html). The record does not establish what evidence Maine has received or whether any Federal account is inaccurate.
 
 - **Texas comparison.** Reporting indicates that Texas Rangers investigated the Martinez shooting and that a grand jury did not return indictments, while a separate Houston incident involved developing questions about identification, recordings, and local investigative access. These are constrained comparators: a delayed public account, a State investigative record, and the lawfulness of force are distinct questions. See [Associated Press on Martinez](https://apnews.com/article/texas-ice-shooting-ruben-ray-martinez-death-646df2f1212fa48d14a9b270f04c3f76), [Associated Press on the grand-jury decision](https://apnews.com/article/e4882b787c7251cbf494be08976dbedd), and [Associated Press on Houston](https://apnews.com/article/ice-shooting-houston-lorenzo-salgado-araugo-10cf77f29d4559f0f3796342b946031a).
 
 ## Monitoring Items
 
-The [DOM-005 external-developments record](https://github.com/Thorncrag/ARRP/issues/298) tracks three defined reassessment paths:
+The [DOM-005 proposal issue](https://github.com/Thorncrag/ARRP/issues/139) carries the monitoring designation for three defined reassessment paths:
 
 - the D.D.C. case and any public record clarifying Minnesota's access to evidence;
 - official investigative, disclosure, charging, or immunity developments in the Biddeford matter; and
 - official records clarifying the Texas comparison, including the Houston evidence-access posture.
+- release, rescission, confirmation, or implementation evidence concerning the reported July 2026 FBI-HSI investigative-responsibility guidance.
 
 ## Source Note
 

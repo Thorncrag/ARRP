@@ -43,10 +43,10 @@ The main body should then include:
 2. selected public topic guides from [`../topics/`](../topics/) when they materially improve cross-proposal navigation, in alphabetical order unless an edition-specific editorial plan requires another order;
 3. project areas in the order listed in [`../areas/README.md`](../areas/README.md);
 4. for each area, the area README as the area introduction;
-5. for each area, existing issue pages in issue-identifier order;
+5. for each area, existing substantive issue pages in issue-identifier order, excluding internal source-development shells;
 6. within each issue, the issue page's existing heading structure, including Issue Snapshot, Institutional Anomaly, Manifestation of the Failure, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation where present, Proposed Constitutional Amendment and Proposed Enabling Legislation where present, Adoption Viability Note where present, Relationship to Adjacent Proposals where present, Budgetary Impact Statement, Proposal Scoring, Annotation, source notes, and internal cross-references where present.
 
-If an issue exists only in the inventory or area README and does not yet have its own issue page, it should remain summarized in the area page and should not be expanded artificially in the compiled document.
+If an issue exists only in the inventory or area README and does not yet have its own substantive issue page, it should remain summarized in the area page and should not be expanded artificially in the compiled document. A `record_type: source-development` shell is an internal routing record, not a substantive issue page: it remains `full-technical` only, is excluded from the public proposal body and public website, and does not count as developed, audited, scored, review ready, or otherwise mature for print or progress reporting. A full-technical export may place such shells with internal research-routing material, but must not insert them among substantive issue pages in a way that implies completed analysis.
 
 ### Appendices
 
@@ -103,9 +103,9 @@ DOJ-001, DOJ-002, DOJ-003, ...
 ELEC-001, ELEC-002, ELEC-003, ...
 ```
 
-Developed issues should be included in full when an issue page exists.
+Developed issues should be included in full when a substantive issue page exists.
 
-Candidate issues without issue pages should not be expanded into placeholder sections in the compiled document. Their inventory descriptions remain visible through the area page unless and until developed issue pages are created.
+Candidate issues without substantive issue pages should not be expanded into placeholder sections in the compiled document. Their inventory descriptions remain visible through the area page unless and until developed issue pages are created. Internal source-development shells do not change this rule.
 
 Retired issues should be included only where necessary to preserve explanatory context. They should not receive standalone main-body sections unless a specific historical or cross-reference appendix is later created.
 

@@ -13,13 +13,13 @@ print_levels:
 
 ## Generalized Institutional Concern
 
-The federal judiciary’s authority to interpret and apply law is not matched by a sufficiently independent, reliable, adequately resourced, and consistently routed enforcement structure capable of ensuring timely executive compliance during interbranch conflict, nor by sufficiently determinate recusal rules for unusually legitimacy-sensitive presidential-party litigation.
+The federal judiciary’s authority to interpret and apply law is not matched by a sufficiently independent, reliable, adequately resourced, and consistently routed enforcement structure capable of ensuring timely executive compliance during interbranch conflict, nor by a complete Supreme Court ethics, disclosure, complaint-review, and recusal framework.
 
 ## Active Issues
 
 - [**JUD-001 — Executive Dependence of Judicial Enforcement**](issues/JUD-001.md)
 - [**JUD-005 — No Automatic Public Notice of Executive Noncompliance**](issues/JUD-005.md)
-- [**JUD-009 — Appointer-President Recusal**](issues/JUD-009.md)
+- [**JUD-009 — Supreme Court Ethics, Recusal, and Transparency**](issues/JUD-009.md)
 - **JUD-010 — Judicial Branch Capacity, Funding, and Emergency Docket Resilience**
 - [**JUD-011 — Executive Nullification of Congressional Mandates**](issues/JUD-011.md)
 - [**JUD-012 — Government Action Insulated from Judicial Review**](issues/JUD-012.md)
@@ -33,7 +33,7 @@ These numbers were assigned during preliminary review but did not become separat
 
 ## Issue Boundaries
 
-JUD-010 concerns whether judicial-branch appropriations, judgeships, support staffing, court security, magistrate and special-master capacity, court technology, and emergency-docket procedures are sufficient for timely constitutional and statutory adjudication during high-volume executive-branch litigation. It is distinct from [JUD-001](issues/JUD-001.md), which concerns enforcement of court orders after judgment or injunction, and [JUD-009](issues/JUD-009.md), which concerns recusal in presidential-party litigation.
+JUD-010 concerns whether judicial-branch appropriations, judgeships, support staffing, court security, magistrate and special-master capacity, court technology, and emergency-docket procedures are sufficient for timely constitutional and statutory adjudication during high-volume executive-branch litigation. It is distinct from [JUD-001](issues/JUD-001.md), which concerns enforcement of court orders after judgment or injunction, and [JUD-009](issues/JUD-009.md), which concerns Supreme Court ethics, disclosure, complaint review, and recusal, including presidential-party litigation.
 
 The candidate was admitted from HOR-017 after a horizon check on judicial branch appropriations, court capacity, and whether increased judicial bandwidth is needed to prevent court delay from becoming a practical limit on constitutional enforcement. Initial source leads include the vetoed bipartisan [JUDGES Act of 2024](https://www.congress.gov/bill/118th-congress/senate-bill/4199), which would have added federal district judgeships over time; [Business Insider reporting](https://www.businessinsider.com/congress-federal-judges-safety-at-risk-increased-threats-us-judiciary-2025-4) that the judiciary's FY2025 appropriation fell below the Judicial Conference request while security funding remained flat; and [Washington Post reporting](https://www.washingtonpost.com/politics/2025/11/25/judges-security-funding-congress-supreme-court/) that lower federal courts sought additional security funding that was not provided on the same terms as Supreme Court security funding.
 
@@ -47,4 +47,4 @@ JUD-007 is integrated into JUD-001 because substitution of officials, reorganiza
 
 ## Notes
 
-JUD-001, JUD-005, JUD-009, and JUD-011 are developed. Targeted consolidation reviews preserve JUD-001 at 78/100 and JUD-005 at 63/100 without changing their recorded review history. JUD-005 next requires a legal-and-implementation review of Title 28 coverage, transmission mechanics, protected information, congressional distribution, current comparators, workload, and JUD-001 fit. JUD-011 remains 82/100 and Review Ready pending qualified review. JUD-010 remains a provisional capacity proposal requiring full source development. JUD-012 is in development and unscored; additional supporting cases must be sought before remedy selection to test whether its effects and any coherent cross-cutting remedy are sufficiently broad.
+JUD-001, JUD-005, JUD-009, and JUD-011 are developed. Targeted consolidation reviews preserve JUD-001 at 78/100 and JUD-005 at 63/100 without changing their recorded review history. JUD-009 was materially expanded through consolidation of HOR-019 and retains its historical 77/100 score only provisionally pending a targeted internal revision and remedy-fit review. JUD-005 next requires a legal-and-implementation review of Title 28 coverage, transmission mechanics, protected information, congressional distribution, current comparators, workload, and JUD-001 fit. JUD-011 remains 82/100 and Review Ready pending qualified review. JUD-010 remains a provisional capacity proposal requiring full source development. JUD-012 is in development and unscored; additional supporting cases must be sought before remedy selection to test whether its effects and any coherent cross-cutting remedy are sufficiently broad.
