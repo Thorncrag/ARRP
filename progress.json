@@ -967,7 +967,7 @@
       "warnings": []
     }
   ],
-  "generatedAt": "2026-07-21T21:19:29+00:00",
+  "generatedAt": "2026-07-21T23:50:00+00:00",
   "goal": {
     "baselineDate": "2026-07-13",
     "baselineReady": 23,
@@ -1147,6 +1147,1744 @@
       "readyIssues": [],
       "scores": {},
       "total": 204
+    },
+    {
+      "byArea": {
+        "APPT": {
+          "ready": 0,
+          "total": 8
+        },
+        "CIV": {
+          "ready": 0,
+          "total": 9
+        },
+        "CLASS": {
+          "ready": 0,
+          "total": 12
+        },
+        "CONG": {
+          "ready": 0,
+          "total": 8
+        },
+        "DOJ": {
+          "ready": 6,
+          "total": 7
+        },
+        "DOM": {
+          "ready": 0,
+          "total": 9
+        },
+        "ELEC": {
+          "ready": 13,
+          "total": 15
+        },
+        "EMERG": {
+          "ready": 0,
+          "total": 8
+        },
+        "EMOL": {
+          "ready": 1,
+          "total": 15
+        },
+        "FACT": {
+          "ready": 0,
+          "total": 9
+        },
+        "FED": {
+          "ready": 0,
+          "total": 8
+        },
+        "FRB": {
+          "ready": 0,
+          "total": 8
+        },
+        "FUND": {
+          "ready": 1,
+          "total": 8
+        },
+        "HER": {
+          "ready": 0,
+          "total": 8
+        },
+        "IMM": {
+          "ready": 1,
+          "total": 8
+        },
+        "JUD": {
+          "ready": 3,
+          "total": 7
+        },
+        "OVS": {
+          "ready": 0,
+          "total": 8
+        },
+        "PAR": {
+          "ready": 0,
+          "total": 10
+        },
+        "PRESS": {
+          "ready": 0,
+          "total": 12
+        },
+        "REC": {
+          "ready": 0,
+          "total": 8
+        },
+        "REG": {
+          "ready": 1,
+          "total": 6
+        },
+        "RET": {
+          "ready": 0,
+          "total": 8
+        },
+        "RIGHTS": {
+          "ready": 0,
+          "total": 4
+        },
+        "WAR": {
+          "ready": 1,
+          "total": 1
+        }
+      },
+      "date": "2026-07-14",
+      "detailAvailable": true,
+      "ready": 27,
+      "readyIssues": [
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "EMOL-015",
+        "FUND-001",
+        "IMM-001",
+        "JUD-001",
+        "JUD-009",
+        "JUD-011",
+        "REG-001",
+        "WAR-001"
+      ],
+      "scores": {
+        "APPT-001": 0,
+        "APPT-002": 0,
+        "APPT-003": 0,
+        "APPT-004": 0,
+        "APPT-005": 0,
+        "APPT-006": 0,
+        "APPT-007": 0,
+        "APPT-008": 0,
+        "CIV-001": 0,
+        "CIV-002": 0,
+        "CIV-003": 0,
+        "CIV-004": 0,
+        "CIV-005": 0,
+        "CIV-006": 0,
+        "CIV-007": 0,
+        "CIV-008": 0,
+        "CIV-009": 0,
+        "CLASS-001": 0,
+        "CLASS-002": 0,
+        "CLASS-003": 0,
+        "CLASS-004": 0,
+        "CLASS-005": 0,
+        "CLASS-006": 0,
+        "CLASS-007": 0,
+        "CLASS-008": 0,
+        "CLASS-009": 0,
+        "CLASS-010": 0,
+        "CLASS-011": 0,
+        "CLASS-012": 0,
+        "CONG-001": 0,
+        "CONG-002": 0,
+        "CONG-003": 0,
+        "CONG-004": 0,
+        "CONG-005": 0,
+        "CONG-006": 0,
+        "CONG-007": 0,
+        "CONG-008": 0,
+        "DOJ-001": 82,
+        "DOJ-002": 78,
+        "DOJ-003": 82,
+        "DOJ-004": 0,
+        "DOJ-005": 76,
+        "DOJ-007": 78,
+        "DOJ-009": 77,
+        "DOM-001": 0,
+        "DOM-002": 0,
+        "DOM-003": 0,
+        "DOM-004": 0,
+        "DOM-005": 0,
+        "DOM-006": 0,
+        "DOM-007": 0,
+        "DOM-008": 0,
+        "DOM-009": 0,
+        "ELEC-001": 77,
+        "ELEC-002": 76,
+        "ELEC-003": 77,
+        "ELEC-004": 75,
+        "ELEC-005": 78,
+        "ELEC-006": 76,
+        "ELEC-007": 78,
+        "ELEC-008": 75,
+        "ELEC-009": 75,
+        "ELEC-010": 77,
+        "ELEC-011": 77,
+        "ELEC-012": 75,
+        "ELEC-013": 75,
+        "ELEC-014": 0,
+        "ELEC-015": 0,
+        "EMERG-001": 0,
+        "EMERG-002": 0,
+        "EMERG-003": 0,
+        "EMERG-004": 0,
+        "EMERG-005": 0,
+        "EMERG-006": 0,
+        "EMERG-007": 0,
+        "EMERG-008": 0,
+        "EMOL-001": 0,
+        "EMOL-002": 0,
+        "EMOL-003": 0,
+        "EMOL-004": 0,
+        "EMOL-005": 0,
+        "EMOL-006": 0,
+        "EMOL-007": 0,
+        "EMOL-008": 0,
+        "EMOL-009": 0,
+        "EMOL-010": 0,
+        "EMOL-011": 0,
+        "EMOL-012": 0,
+        "EMOL-013": 0,
+        "EMOL-014": 0,
+        "EMOL-015": 83,
+        "FACT-001": 0,
+        "FACT-002": 0,
+        "FACT-003": 0,
+        "FACT-004": 0,
+        "FACT-005": 0,
+        "FACT-006": 0,
+        "FACT-007": 0,
+        "FACT-008": 0,
+        "FACT-009": 0,
+        "FED-001": 0,
+        "FED-002": 0,
+        "FED-003": 0,
+        "FED-004": 0,
+        "FED-005": 0,
+        "FED-006": 0,
+        "FED-007": 0,
+        "FED-008": 0,
+        "FRB-001": 0,
+        "FRB-002": 0,
+        "FRB-003": 0,
+        "FRB-004": 0,
+        "FRB-005": 0,
+        "FRB-006": 0,
+        "FRB-007": 0,
+        "FRB-008": 0,
+        "FUND-001": 83,
+        "FUND-002": 0,
+        "FUND-003": 0,
+        "FUND-004": 0,
+        "FUND-005": 0,
+        "FUND-006": 0,
+        "FUND-007": 0,
+        "FUND-008": 0,
+        "HER-001": 0,
+        "HER-002": 0,
+        "HER-003": 0,
+        "HER-004": 0,
+        "HER-005": 0,
+        "HER-006": 0,
+        "HER-007": 0,
+        "HER-008": 0,
+        "IMM-001": 78,
+        "IMM-002": 0,
+        "IMM-003": 0,
+        "IMM-004": 0,
+        "IMM-005": 0,
+        "IMM-006": 0,
+        "IMM-007": 0,
+        "IMM-008": 0,
+        "JUD-001": 78,
+        "JUD-005": 0,
+        "JUD-007": 0,
+        "JUD-008": 0,
+        "JUD-009": 77,
+        "JUD-010": 0,
+        "JUD-011": 82,
+        "OVS-001": 0,
+        "OVS-002": 0,
+        "OVS-003": 0,
+        "OVS-004": 0,
+        "OVS-005": 0,
+        "OVS-006": 0,
+        "OVS-007": 0,
+        "OVS-008": 0,
+        "PAR-001": 0,
+        "PAR-002": 0,
+        "PAR-003": 0,
+        "PAR-004": 0,
+        "PAR-005": 0,
+        "PAR-006": 0,
+        "PAR-007": 0,
+        "PAR-008": 0,
+        "PAR-009": 0,
+        "PAR-010": 0,
+        "PRESS-001": 0,
+        "PRESS-002": 0,
+        "PRESS-003": 0,
+        "PRESS-004": 0,
+        "PRESS-005": 0,
+        "PRESS-006": 0,
+        "PRESS-007": 0,
+        "PRESS-008": 0,
+        "PRESS-009": 0,
+        "PRESS-010": 0,
+        "PRESS-011": 0,
+        "PRESS-012": 0,
+        "REC-001": 0,
+        "REC-002": 0,
+        "REC-003": 0,
+        "REC-004": 0,
+        "REC-005": 0,
+        "REC-006": 0,
+        "REC-007": 0,
+        "REC-008": 0,
+        "REG-001": 83,
+        "REG-002": 0,
+        "REG-003": 0,
+        "REG-006": 0,
+        "REG-007": 0,
+        "REG-008": 0,
+        "RET-001": 0,
+        "RET-002": 0,
+        "RET-003": 0,
+        "RET-004": 0,
+        "RET-005": 0,
+        "RET-006": 0,
+        "RET-007": 0,
+        "RET-008": 0,
+        "RIGHTS-001": 0,
+        "RIGHTS-002": 0,
+        "RIGHTS-003": 0,
+        "RIGHTS-004": 0,
+        "WAR-001": 77
+      },
+      "total": 204
+    },
+    {
+      "byArea": {
+        "APPT": {
+          "ready": 0,
+          "total": 8
+        },
+        "CIV": {
+          "ready": 0,
+          "total": 9
+        },
+        "CLASS": {
+          "ready": 0,
+          "total": 12
+        },
+        "CONG": {
+          "ready": 0,
+          "total": 8
+        },
+        "DOJ": {
+          "ready": 6,
+          "total": 7
+        },
+        "DOM": {
+          "ready": 0,
+          "total": 9
+        },
+        "ELEC": {
+          "ready": 13,
+          "total": 15
+        },
+        "EMERG": {
+          "ready": 0,
+          "total": 8
+        },
+        "EMOL": {
+          "ready": 1,
+          "total": 15
+        },
+        "FACT": {
+          "ready": 0,
+          "total": 9
+        },
+        "FED": {
+          "ready": 0,
+          "total": 8
+        },
+        "FRB": {
+          "ready": 0,
+          "total": 8
+        },
+        "FUND": {
+          "ready": 1,
+          "total": 8
+        },
+        "HER": {
+          "ready": 0,
+          "total": 8
+        },
+        "IMM": {
+          "ready": 1,
+          "total": 8
+        },
+        "JUD": {
+          "ready": 3,
+          "total": 7
+        },
+        "OVS": {
+          "ready": 0,
+          "total": 8
+        },
+        "PAR": {
+          "ready": 0,
+          "total": 10
+        },
+        "PRESS": {
+          "ready": 0,
+          "total": 12
+        },
+        "REC": {
+          "ready": 0,
+          "total": 8
+        },
+        "REG": {
+          "ready": 1,
+          "total": 6
+        },
+        "RET": {
+          "ready": 0,
+          "total": 8
+        },
+        "RIGHTS": {
+          "ready": 0,
+          "total": 4
+        },
+        "WAR": {
+          "ready": 1,
+          "total": 1
+        }
+      },
+      "date": "2026-07-15",
+      "detailAvailable": true,
+      "ready": 27,
+      "readyIssues": [
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "EMOL-015",
+        "FUND-001",
+        "IMM-001",
+        "JUD-001",
+        "JUD-009",
+        "JUD-011",
+        "REG-001",
+        "WAR-001"
+      ],
+      "scores": {
+        "APPT-001": 0,
+        "APPT-002": 0,
+        "APPT-003": 0,
+        "APPT-004": 0,
+        "APPT-005": 0,
+        "APPT-006": 0,
+        "APPT-007": 0,
+        "APPT-008": 0,
+        "CIV-001": 0,
+        "CIV-002": 0,
+        "CIV-003": 0,
+        "CIV-004": 0,
+        "CIV-005": 0,
+        "CIV-006": 0,
+        "CIV-007": 0,
+        "CIV-008": 0,
+        "CIV-009": 0,
+        "CLASS-001": 0,
+        "CLASS-002": 0,
+        "CLASS-003": 0,
+        "CLASS-004": 0,
+        "CLASS-005": 0,
+        "CLASS-006": 0,
+        "CLASS-007": 0,
+        "CLASS-008": 0,
+        "CLASS-009": 0,
+        "CLASS-010": 0,
+        "CLASS-011": 0,
+        "CLASS-012": 0,
+        "CONG-001": 0,
+        "CONG-002": 0,
+        "CONG-003": 0,
+        "CONG-004": 0,
+        "CONG-005": 0,
+        "CONG-006": 0,
+        "CONG-007": 0,
+        "CONG-008": 0,
+        "DOJ-001": 82,
+        "DOJ-002": 78,
+        "DOJ-003": 82,
+        "DOJ-004": 0,
+        "DOJ-005": 76,
+        "DOJ-007": 78,
+        "DOJ-009": 77,
+        "DOM-001": 0,
+        "DOM-002": 0,
+        "DOM-003": 0,
+        "DOM-004": 0,
+        "DOM-005": 0,
+        "DOM-006": 0,
+        "DOM-007": 0,
+        "DOM-008": 0,
+        "DOM-009": 0,
+        "ELEC-001": 77,
+        "ELEC-002": 76,
+        "ELEC-003": 77,
+        "ELEC-004": 75,
+        "ELEC-005": 78,
+        "ELEC-006": 76,
+        "ELEC-007": 78,
+        "ELEC-008": 75,
+        "ELEC-009": 75,
+        "ELEC-010": 77,
+        "ELEC-011": 77,
+        "ELEC-012": 75,
+        "ELEC-013": 75,
+        "ELEC-014": 0,
+        "ELEC-015": 0,
+        "EMERG-001": 0,
+        "EMERG-002": 0,
+        "EMERG-003": 0,
+        "EMERG-004": 0,
+        "EMERG-005": 0,
+        "EMERG-006": 0,
+        "EMERG-007": 0,
+        "EMERG-008": 0,
+        "EMOL-001": 0,
+        "EMOL-002": 0,
+        "EMOL-003": 0,
+        "EMOL-004": 0,
+        "EMOL-005": 0,
+        "EMOL-006": 0,
+        "EMOL-007": 0,
+        "EMOL-008": 0,
+        "EMOL-009": 0,
+        "EMOL-010": 0,
+        "EMOL-011": 0,
+        "EMOL-012": 0,
+        "EMOL-013": 0,
+        "EMOL-014": 0,
+        "EMOL-015": 83,
+        "FACT-001": 0,
+        "FACT-002": 0,
+        "FACT-003": 0,
+        "FACT-004": 0,
+        "FACT-005": 0,
+        "FACT-006": 0,
+        "FACT-007": 0,
+        "FACT-008": 0,
+        "FACT-009": 0,
+        "FED-001": 0,
+        "FED-002": 0,
+        "FED-003": 0,
+        "FED-004": 0,
+        "FED-005": 0,
+        "FED-006": 0,
+        "FED-007": 0,
+        "FED-008": 0,
+        "FRB-001": 0,
+        "FRB-002": 0,
+        "FRB-003": 0,
+        "FRB-004": 0,
+        "FRB-005": 0,
+        "FRB-006": 0,
+        "FRB-007": 0,
+        "FRB-008": 0,
+        "FUND-001": 83,
+        "FUND-002": 0,
+        "FUND-003": 0,
+        "FUND-004": 0,
+        "FUND-005": 0,
+        "FUND-006": 0,
+        "FUND-007": 0,
+        "FUND-008": 0,
+        "HER-001": 0,
+        "HER-002": 0,
+        "HER-003": 0,
+        "HER-004": 0,
+        "HER-005": 0,
+        "HER-006": 0,
+        "HER-007": 0,
+        "HER-008": 0,
+        "IMM-001": 78,
+        "IMM-002": 0,
+        "IMM-003": 0,
+        "IMM-004": 0,
+        "IMM-005": 0,
+        "IMM-006": 0,
+        "IMM-007": 0,
+        "IMM-008": 0,
+        "JUD-001": 78,
+        "JUD-005": 63,
+        "JUD-007": 0,
+        "JUD-008": 0,
+        "JUD-009": 77,
+        "JUD-010": 0,
+        "JUD-011": 82,
+        "OVS-001": 0,
+        "OVS-002": 0,
+        "OVS-003": 0,
+        "OVS-004": 0,
+        "OVS-005": 0,
+        "OVS-006": 0,
+        "OVS-007": 0,
+        "OVS-008": 0,
+        "PAR-001": 0,
+        "PAR-002": 0,
+        "PAR-003": 0,
+        "PAR-004": 0,
+        "PAR-005": 0,
+        "PAR-006": 0,
+        "PAR-007": 0,
+        "PAR-008": 0,
+        "PAR-009": 0,
+        "PAR-010": 0,
+        "PRESS-001": 0,
+        "PRESS-002": 0,
+        "PRESS-003": 0,
+        "PRESS-004": 0,
+        "PRESS-005": 0,
+        "PRESS-006": 0,
+        "PRESS-007": 0,
+        "PRESS-008": 0,
+        "PRESS-009": 0,
+        "PRESS-010": 0,
+        "PRESS-011": 0,
+        "PRESS-012": 0,
+        "REC-001": 0,
+        "REC-002": 0,
+        "REC-003": 0,
+        "REC-004": 0,
+        "REC-005": 0,
+        "REC-006": 0,
+        "REC-007": 0,
+        "REC-008": 0,
+        "REG-001": 83,
+        "REG-002": 0,
+        "REG-003": 0,
+        "REG-006": 0,
+        "REG-007": 0,
+        "REG-008": 0,
+        "RET-001": 0,
+        "RET-002": 0,
+        "RET-003": 0,
+        "RET-004": 0,
+        "RET-005": 0,
+        "RET-006": 0,
+        "RET-007": 0,
+        "RET-008": 0,
+        "RIGHTS-001": 0,
+        "RIGHTS-002": 0,
+        "RIGHTS-003": 0,
+        "RIGHTS-004": 0,
+        "WAR-001": 77
+      },
+      "total": 204
+    },
+    {
+      "byArea": {
+        "APPT": {
+          "ready": 0,
+          "total": 2
+        },
+        "CIV": {
+          "ready": 0,
+          "total": 4
+        },
+        "CLASS": {
+          "ready": 0,
+          "total": 4
+        },
+        "CONG": {
+          "ready": 0,
+          "total": 2
+        },
+        "DOJ": {
+          "ready": 6,
+          "total": 7
+        },
+        "DOM": {
+          "ready": 0,
+          "total": 4
+        },
+        "ELEC": {
+          "ready": 13,
+          "total": 15
+        },
+        "EMERG": {
+          "ready": 0,
+          "total": 2
+        },
+        "EMOL": {
+          "ready": 1,
+          "total": 2
+        },
+        "FACT": {
+          "ready": 0,
+          "total": 3
+        },
+        "FED": {
+          "ready": 0,
+          "total": 3
+        },
+        "FRB": {
+          "ready": 0,
+          "total": 1
+        },
+        "FUND": {
+          "ready": 1,
+          "total": 2
+        },
+        "HER": {
+          "ready": 0,
+          "total": 1
+        },
+        "IMM": {
+          "ready": 1,
+          "total": 2
+        },
+        "JUD": {
+          "ready": 3,
+          "total": 5
+        },
+        "OVS": {
+          "ready": 0,
+          "total": 3
+        },
+        "PAR": {
+          "ready": 0,
+          "total": 2
+        },
+        "PRESS": {
+          "ready": 0,
+          "total": 3
+        },
+        "REC": {
+          "ready": 0,
+          "total": 1
+        },
+        "REG": {
+          "ready": 1,
+          "total": 4
+        },
+        "RET": {
+          "ready": 0,
+          "total": 1
+        },
+        "RIGHTS": {
+          "ready": 0,
+          "total": 3
+        },
+        "WAR": {
+          "ready": 1,
+          "total": 1
+        }
+      },
+      "date": "2026-07-16",
+      "detailAvailable": true,
+      "ready": 27,
+      "readyIssues": [
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "EMOL-015",
+        "FUND-001",
+        "IMM-001",
+        "JUD-001",
+        "JUD-009",
+        "JUD-011",
+        "REG-001",
+        "WAR-001"
+      ],
+      "scores": {
+        "APPT-001": 0,
+        "APPT-004": 0,
+        "CIV-001": 0,
+        "CIV-004": 0,
+        "CIV-005": 0,
+        "CIV-009": 0,
+        "CLASS-001": 0,
+        "CLASS-004": 0,
+        "CLASS-006": 0,
+        "CLASS-011": 0,
+        "CONG-001": 0,
+        "CONG-007": 0,
+        "DOJ-001": 82,
+        "DOJ-002": 78,
+        "DOJ-003": 82,
+        "DOJ-004": 0,
+        "DOJ-005": 76,
+        "DOJ-007": 78,
+        "DOJ-009": 77,
+        "DOM-001": 0,
+        "DOM-005": 0,
+        "DOM-007": 0,
+        "DOM-009": 0,
+        "ELEC-001": 77,
+        "ELEC-002": 76,
+        "ELEC-003": 77,
+        "ELEC-004": 75,
+        "ELEC-005": 78,
+        "ELEC-006": 76,
+        "ELEC-007": 78,
+        "ELEC-008": 75,
+        "ELEC-009": 75,
+        "ELEC-010": 77,
+        "ELEC-011": 77,
+        "ELEC-012": 75,
+        "ELEC-013": 75,
+        "ELEC-014": 0,
+        "ELEC-015": 0,
+        "EMERG-001": 0,
+        "EMERG-003": 0,
+        "EMOL-001": 0,
+        "EMOL-015": 83,
+        "FACT-001": 0,
+        "FACT-007": 0,
+        "FACT-009": 0,
+        "FED-002": 0,
+        "FED-003": 0,
+        "FED-004": 0,
+        "FRB-001": 0,
+        "FUND-001": 83,
+        "FUND-002": 0,
+        "HER-001": 0,
+        "IMM-001": 78,
+        "IMM-002": 0,
+        "JUD-001": 78,
+        "JUD-005": 63,
+        "JUD-009": 77,
+        "JUD-010": 0,
+        "JUD-011": 82,
+        "OVS-001": 0,
+        "OVS-004": 0,
+        "OVS-008": 0,
+        "PAR-001": 0,
+        "PAR-005": 0,
+        "PRESS-001": 0,
+        "PRESS-003": 0,
+        "PRESS-006": 0,
+        "REC-001": 0,
+        "REG-001": 83,
+        "REG-002": 0,
+        "REG-003": 0,
+        "REG-006": 0,
+        "RET-001": 0,
+        "RIGHTS-001": 0,
+        "RIGHTS-002": 0,
+        "RIGHTS-003": 0,
+        "WAR-001": 77
+      },
+      "total": 77
+    },
+    {
+      "byArea": {
+        "APPT": {
+          "ready": 0,
+          "total": 2
+        },
+        "CIV": {
+          "ready": 0,
+          "total": 4
+        },
+        "CLASS": {
+          "ready": 0,
+          "total": 4
+        },
+        "CONG": {
+          "ready": 0,
+          "total": 2
+        },
+        "DOJ": {
+          "ready": 6,
+          "total": 7
+        },
+        "DOM": {
+          "ready": 0,
+          "total": 4
+        },
+        "ELEC": {
+          "ready": 13,
+          "total": 15
+        },
+        "EMERG": {
+          "ready": 0,
+          "total": 2
+        },
+        "EMOL": {
+          "ready": 1,
+          "total": 2
+        },
+        "FACT": {
+          "ready": 0,
+          "total": 3
+        },
+        "FED": {
+          "ready": 0,
+          "total": 3
+        },
+        "FRB": {
+          "ready": 0,
+          "total": 1
+        },
+        "FUND": {
+          "ready": 1,
+          "total": 2
+        },
+        "HER": {
+          "ready": 0,
+          "total": 1
+        },
+        "IMM": {
+          "ready": 1,
+          "total": 2
+        },
+        "JUD": {
+          "ready": 3,
+          "total": 5
+        },
+        "OVS": {
+          "ready": 0,
+          "total": 3
+        },
+        "PAR": {
+          "ready": 0,
+          "total": 2
+        },
+        "PRESS": {
+          "ready": 0,
+          "total": 3
+        },
+        "REC": {
+          "ready": 0,
+          "total": 1
+        },
+        "REG": {
+          "ready": 1,
+          "total": 4
+        },
+        "RET": {
+          "ready": 0,
+          "total": 1
+        },
+        "RIGHTS": {
+          "ready": 0,
+          "total": 3
+        },
+        "WAR": {
+          "ready": 1,
+          "total": 1
+        }
+      },
+      "date": "2026-07-17",
+      "detailAvailable": true,
+      "ready": 27,
+      "readyIssues": [
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "EMOL-015",
+        "FUND-001",
+        "IMM-001",
+        "JUD-001",
+        "JUD-009",
+        "JUD-011",
+        "REG-001",
+        "WAR-001"
+      ],
+      "scores": {
+        "APPT-001": 0,
+        "APPT-004": 0,
+        "CIV-001": 0,
+        "CIV-004": 0,
+        "CIV-005": 0,
+        "CIV-009": 0,
+        "CLASS-001": 0,
+        "CLASS-004": 0,
+        "CLASS-006": 0,
+        "CLASS-011": 0,
+        "CONG-001": 0,
+        "CONG-007": 0,
+        "DOJ-001": 82,
+        "DOJ-002": 78,
+        "DOJ-003": 82,
+        "DOJ-004": 0,
+        "DOJ-005": 76,
+        "DOJ-007": 78,
+        "DOJ-009": 77,
+        "DOM-001": 0,
+        "DOM-005": 0,
+        "DOM-007": 0,
+        "DOM-009": 0,
+        "ELEC-001": 77,
+        "ELEC-002": 76,
+        "ELEC-003": 77,
+        "ELEC-004": 75,
+        "ELEC-005": 78,
+        "ELEC-006": 76,
+        "ELEC-007": 78,
+        "ELEC-008": 75,
+        "ELEC-009": 75,
+        "ELEC-010": 77,
+        "ELEC-011": 77,
+        "ELEC-012": 75,
+        "ELEC-013": 75,
+        "ELEC-014": 0,
+        "ELEC-015": 0,
+        "EMERG-001": 0,
+        "EMERG-003": 0,
+        "EMOL-001": 0,
+        "EMOL-015": 83,
+        "FACT-001": 0,
+        "FACT-007": 0,
+        "FACT-009": 0,
+        "FED-002": 0,
+        "FED-003": 0,
+        "FED-004": 0,
+        "FRB-001": 0,
+        "FUND-001": 83,
+        "FUND-002": 0,
+        "HER-001": 0,
+        "IMM-001": 78,
+        "IMM-002": 0,
+        "JUD-001": 78,
+        "JUD-005": 63,
+        "JUD-009": 77,
+        "JUD-010": 0,
+        "JUD-011": 82,
+        "OVS-001": 0,
+        "OVS-004": 0,
+        "OVS-008": 0,
+        "PAR-001": 0,
+        "PAR-005": 0,
+        "PRESS-001": 0,
+        "PRESS-003": 0,
+        "PRESS-006": 0,
+        "REC-001": 0,
+        "REG-001": 83,
+        "REG-002": 0,
+        "REG-003": 0,
+        "REG-006": 0,
+        "RET-001": 0,
+        "RIGHTS-001": 0,
+        "RIGHTS-002": 0,
+        "RIGHTS-003": 0,
+        "WAR-001": 77
+      },
+      "total": 77
+    },
+    {
+      "byArea": {
+        "APPT": {
+          "ready": 0,
+          "total": 2
+        },
+        "CIV": {
+          "ready": 0,
+          "total": 4
+        },
+        "CLASS": {
+          "ready": 0,
+          "total": 4
+        },
+        "CONG": {
+          "ready": 0,
+          "total": 2
+        },
+        "DOJ": {
+          "ready": 6,
+          "total": 7
+        },
+        "DOM": {
+          "ready": 0,
+          "total": 4
+        },
+        "ELEC": {
+          "ready": 13,
+          "total": 15
+        },
+        "EMERG": {
+          "ready": 0,
+          "total": 2
+        },
+        "EMOL": {
+          "ready": 1,
+          "total": 2
+        },
+        "FACT": {
+          "ready": 0,
+          "total": 3
+        },
+        "FED": {
+          "ready": 0,
+          "total": 3
+        },
+        "FRB": {
+          "ready": 0,
+          "total": 1
+        },
+        "FUND": {
+          "ready": 1,
+          "total": 2
+        },
+        "HER": {
+          "ready": 0,
+          "total": 1
+        },
+        "IMM": {
+          "ready": 1,
+          "total": 2
+        },
+        "JUD": {
+          "ready": 3,
+          "total": 5
+        },
+        "OVS": {
+          "ready": 0,
+          "total": 3
+        },
+        "PAR": {
+          "ready": 0,
+          "total": 2
+        },
+        "PRESS": {
+          "ready": 0,
+          "total": 3
+        },
+        "REC": {
+          "ready": 0,
+          "total": 1
+        },
+        "REG": {
+          "ready": 1,
+          "total": 4
+        },
+        "RET": {
+          "ready": 0,
+          "total": 1
+        },
+        "RIGHTS": {
+          "ready": 0,
+          "total": 3
+        },
+        "WAR": {
+          "ready": 1,
+          "total": 1
+        }
+      },
+      "date": "2026-07-18",
+      "detailAvailable": true,
+      "ready": 27,
+      "readyIssues": [
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "EMOL-015",
+        "FUND-001",
+        "IMM-001",
+        "JUD-001",
+        "JUD-009",
+        "JUD-011",
+        "REG-001",
+        "WAR-001"
+      ],
+      "scores": {
+        "APPT-001": 0,
+        "APPT-004": 0,
+        "CIV-001": 0,
+        "CIV-004": 0,
+        "CIV-005": 0,
+        "CIV-009": 0,
+        "CLASS-001": 0,
+        "CLASS-004": 0,
+        "CLASS-006": 0,
+        "CLASS-011": 0,
+        "CONG-001": 0,
+        "CONG-007": 0,
+        "DOJ-001": 82,
+        "DOJ-002": 78,
+        "DOJ-003": 82,
+        "DOJ-004": 0,
+        "DOJ-005": 76,
+        "DOJ-007": 78,
+        "DOJ-009": 77,
+        "DOM-001": 0,
+        "DOM-005": 0,
+        "DOM-007": 0,
+        "DOM-009": 0,
+        "ELEC-001": 77,
+        "ELEC-002": 76,
+        "ELEC-003": 77,
+        "ELEC-004": 75,
+        "ELEC-005": 78,
+        "ELEC-006": 76,
+        "ELEC-007": 78,
+        "ELEC-008": 75,
+        "ELEC-009": 75,
+        "ELEC-010": 77,
+        "ELEC-011": 77,
+        "ELEC-012": 75,
+        "ELEC-013": 75,
+        "ELEC-014": 0,
+        "ELEC-015": 0,
+        "EMERG-001": 0,
+        "EMERG-003": 0,
+        "EMOL-001": 0,
+        "EMOL-015": 83,
+        "FACT-001": 0,
+        "FACT-007": 0,
+        "FACT-009": 0,
+        "FED-002": 0,
+        "FED-003": 0,
+        "FED-004": 0,
+        "FRB-001": 0,
+        "FUND-001": 83,
+        "FUND-002": 0,
+        "HER-001": 0,
+        "IMM-001": 78,
+        "IMM-002": 0,
+        "JUD-001": 78,
+        "JUD-005": 63,
+        "JUD-009": 77,
+        "JUD-010": 0,
+        "JUD-011": 82,
+        "OVS-001": 0,
+        "OVS-004": 0,
+        "OVS-008": 0,
+        "PAR-001": 0,
+        "PAR-005": 0,
+        "PRESS-001": 0,
+        "PRESS-003": 0,
+        "PRESS-006": 0,
+        "REC-001": 0,
+        "REG-001": 83,
+        "REG-002": 0,
+        "REG-003": 0,
+        "REG-006": 0,
+        "RET-001": 0,
+        "RIGHTS-001": 0,
+        "RIGHTS-002": 0,
+        "RIGHTS-003": 0,
+        "WAR-001": 77
+      },
+      "total": 77
+    },
+    {
+      "byArea": {
+        "APPT": {
+          "ready": 0,
+          "total": 2
+        },
+        "CIV": {
+          "ready": 0,
+          "total": 4
+        },
+        "CLASS": {
+          "ready": 0,
+          "total": 4
+        },
+        "CONG": {
+          "ready": 0,
+          "total": 2
+        },
+        "DOJ": {
+          "ready": 6,
+          "total": 7
+        },
+        "DOM": {
+          "ready": 0,
+          "total": 4
+        },
+        "ELEC": {
+          "ready": 13,
+          "total": 15
+        },
+        "EMERG": {
+          "ready": 0,
+          "total": 2
+        },
+        "EMOL": {
+          "ready": 1,
+          "total": 2
+        },
+        "FACT": {
+          "ready": 0,
+          "total": 3
+        },
+        "FED": {
+          "ready": 0,
+          "total": 3
+        },
+        "FRB": {
+          "ready": 0,
+          "total": 1
+        },
+        "FUND": {
+          "ready": 1,
+          "total": 2
+        },
+        "HER": {
+          "ready": 0,
+          "total": 1
+        },
+        "IMM": {
+          "ready": 1,
+          "total": 2
+        },
+        "JUD": {
+          "ready": 3,
+          "total": 6
+        },
+        "OVS": {
+          "ready": 0,
+          "total": 3
+        },
+        "PAR": {
+          "ready": 0,
+          "total": 2
+        },
+        "PRESS": {
+          "ready": 0,
+          "total": 3
+        },
+        "REC": {
+          "ready": 0,
+          "total": 1
+        },
+        "REG": {
+          "ready": 1,
+          "total": 4
+        },
+        "RET": {
+          "ready": 0,
+          "total": 1
+        },
+        "RIGHTS": {
+          "ready": 0,
+          "total": 3
+        },
+        "WAR": {
+          "ready": 1,
+          "total": 1
+        }
+      },
+      "date": "2026-07-19",
+      "detailAvailable": true,
+      "ready": 27,
+      "readyIssues": [
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "EMOL-015",
+        "FUND-001",
+        "IMM-001",
+        "JUD-001",
+        "JUD-009",
+        "JUD-011",
+        "REG-001",
+        "WAR-001"
+      ],
+      "scores": {
+        "APPT-001": 0,
+        "APPT-004": 0,
+        "CIV-001": 0,
+        "CIV-004": 0,
+        "CIV-005": 0,
+        "CIV-009": 0,
+        "CLASS-001": 0,
+        "CLASS-004": 0,
+        "CLASS-006": 0,
+        "CLASS-011": 0,
+        "CONG-001": 0,
+        "CONG-007": 0,
+        "DOJ-001": 82,
+        "DOJ-002": 78,
+        "DOJ-003": 82,
+        "DOJ-004": 0,
+        "DOJ-005": 76,
+        "DOJ-007": 78,
+        "DOJ-009": 77,
+        "DOM-001": 0,
+        "DOM-005": 0,
+        "DOM-007": 0,
+        "DOM-009": 0,
+        "ELEC-001": 77,
+        "ELEC-002": 76,
+        "ELEC-003": 77,
+        "ELEC-004": 75,
+        "ELEC-005": 78,
+        "ELEC-006": 76,
+        "ELEC-007": 78,
+        "ELEC-008": 75,
+        "ELEC-009": 75,
+        "ELEC-010": 77,
+        "ELEC-011": 77,
+        "ELEC-012": 75,
+        "ELEC-013": 75,
+        "ELEC-014": 0,
+        "ELEC-015": 0,
+        "EMERG-001": 0,
+        "EMERG-003": 0,
+        "EMOL-001": 0,
+        "EMOL-015": 83,
+        "FACT-001": 0,
+        "FACT-007": 0,
+        "FACT-009": 0,
+        "FED-002": 0,
+        "FED-003": 0,
+        "FED-004": 0,
+        "FRB-001": 0,
+        "FUND-001": 83,
+        "FUND-002": 0,
+        "HER-001": 0,
+        "IMM-001": 78,
+        "IMM-002": 0,
+        "JUD-001": 78,
+        "JUD-005": 63,
+        "JUD-009": 77,
+        "JUD-010": 0,
+        "JUD-011": 82,
+        "OVS-001": 0,
+        "OVS-004": 0,
+        "OVS-008": 0,
+        "PAR-001": 0,
+        "PAR-005": 0,
+        "PRESS-001": 0,
+        "PRESS-003": 0,
+        "PRESS-006": 0,
+        "REC-001": 0,
+        "REG-001": 83,
+        "REG-002": 0,
+        "REG-003": 0,
+        "REG-006": 0,
+        "RET-001": 0,
+        "RIGHTS-001": 0,
+        "RIGHTS-002": 0,
+        "RIGHTS-003": 0,
+        "WAR-001": 77
+      },
+      "total": 78
+    },
+    {
+      "byArea": {
+        "APPT": {
+          "ready": 0,
+          "total": 2
+        },
+        "CIV": {
+          "ready": 0,
+          "total": 4
+        },
+        "CLASS": {
+          "ready": 0,
+          "total": 4
+        },
+        "CONG": {
+          "ready": 0,
+          "total": 2
+        },
+        "DOJ": {
+          "ready": 6,
+          "total": 7
+        },
+        "DOM": {
+          "ready": 0,
+          "total": 4
+        },
+        "ELEC": {
+          "ready": 13,
+          "total": 15
+        },
+        "EMERG": {
+          "ready": 0,
+          "total": 2
+        },
+        "EMOL": {
+          "ready": 1,
+          "total": 2
+        },
+        "FACT": {
+          "ready": 0,
+          "total": 3
+        },
+        "FED": {
+          "ready": 0,
+          "total": 3
+        },
+        "FRB": {
+          "ready": 0,
+          "total": 1
+        },
+        "FUND": {
+          "ready": 1,
+          "total": 2
+        },
+        "HER": {
+          "ready": 0,
+          "total": 1
+        },
+        "IMM": {
+          "ready": 1,
+          "total": 2
+        },
+        "JUD": {
+          "ready": 3,
+          "total": 6
+        },
+        "OVS": {
+          "ready": 0,
+          "total": 3
+        },
+        "PAR": {
+          "ready": 0,
+          "total": 2
+        },
+        "PRESS": {
+          "ready": 0,
+          "total": 3
+        },
+        "REC": {
+          "ready": 0,
+          "total": 1
+        },
+        "REG": {
+          "ready": 1,
+          "total": 4
+        },
+        "RET": {
+          "ready": 0,
+          "total": 1
+        },
+        "RIGHTS": {
+          "ready": 0,
+          "total": 3
+        },
+        "WAR": {
+          "ready": 1,
+          "total": 1
+        }
+      },
+      "date": "2026-07-20",
+      "detailAvailable": true,
+      "ready": 27,
+      "readyIssues": [
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "EMOL-015",
+        "FUND-001",
+        "IMM-001",
+        "JUD-001",
+        "JUD-009",
+        "JUD-011",
+        "REG-001",
+        "WAR-001"
+      ],
+      "scores": {
+        "APPT-001": 0,
+        "APPT-004": 0,
+        "CIV-001": 0,
+        "CIV-004": 0,
+        "CIV-005": 0,
+        "CIV-009": 0,
+        "CLASS-001": 0,
+        "CLASS-004": 0,
+        "CLASS-006": 0,
+        "CLASS-011": 0,
+        "CONG-001": 0,
+        "CONG-007": 0,
+        "DOJ-001": 82,
+        "DOJ-002": 78,
+        "DOJ-003": 82,
+        "DOJ-004": 0,
+        "DOJ-005": 76,
+        "DOJ-007": 78,
+        "DOJ-009": 77,
+        "DOM-001": 0,
+        "DOM-005": 0,
+        "DOM-007": 0,
+        "DOM-009": 0,
+        "ELEC-001": 77,
+        "ELEC-002": 76,
+        "ELEC-003": 77,
+        "ELEC-004": 75,
+        "ELEC-005": 78,
+        "ELEC-006": 76,
+        "ELEC-007": 78,
+        "ELEC-008": 75,
+        "ELEC-009": 75,
+        "ELEC-010": 77,
+        "ELEC-011": 77,
+        "ELEC-012": 75,
+        "ELEC-013": 75,
+        "ELEC-014": 0,
+        "ELEC-015": 0,
+        "EMERG-001": 0,
+        "EMERG-003": 0,
+        "EMOL-001": 0,
+        "EMOL-015": 83,
+        "FACT-001": 0,
+        "FACT-007": 0,
+        "FACT-009": 0,
+        "FED-002": 0,
+        "FED-003": 0,
+        "FED-004": 0,
+        "FRB-001": 0,
+        "FUND-001": 83,
+        "FUND-002": 0,
+        "HER-001": 0,
+        "IMM-001": 78,
+        "IMM-002": 0,
+        "JUD-001": 78,
+        "JUD-005": 63,
+        "JUD-009": 77,
+        "JUD-010": 0,
+        "JUD-011": 82,
+        "OVS-001": 0,
+        "OVS-004": 0,
+        "OVS-008": 0,
+        "PAR-001": 0,
+        "PAR-005": 0,
+        "PRESS-001": 0,
+        "PRESS-003": 0,
+        "PRESS-006": 0,
+        "REC-001": 0,
+        "REG-001": 83,
+        "REG-002": 0,
+        "REG-003": 0,
+        "REG-006": 0,
+        "RET-001": 0,
+        "RIGHTS-001": 0,
+        "RIGHTS-002": 0,
+        "RIGHTS-003": 0,
+        "WAR-001": 77
+      },
+      "total": 78
     },
     {
       "byArea": {
