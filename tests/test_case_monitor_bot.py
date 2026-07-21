@@ -374,6 +374,7 @@ class CaseMonitorBotTests(unittest.TestCase):
         self.assertIn('echo "new_change=false"', workflow)
         self.assertIn('echo "new_change=true"', workflow)
         self.assertIn("preserves unresolved changes staged by an earlier run", workflow)
+        self.assertIn("the earlier unresolved branch change remains pending", workflow)
 
 
 if __name__ == "__main__":
