@@ -14,6 +14,7 @@ concurrency:
 permissions:
   contents: write
   pull-requests: write
+  issues: write # Required only to assign the pull request to the project owner.
 
 jobs:
   check:
@@ -93,7 +94,7 @@ jobs:
       - name: Create or update the review pull request
         if: steps.commit.outputs.needs_pr == 'true'
         env:
-          GH_TOKEN: ${{ secrets.ARRP_PROJECT_TOKEN || github.token }}
+          GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           title="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["pullRequestTitle"])')"

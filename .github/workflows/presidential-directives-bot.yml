@@ -13,6 +13,7 @@ concurrency:
 permissions:
   contents: write
   pull-requests: write
+  issues: write # Required only to assign the pull request to the project owner.
 
 jobs:
   compare:
@@ -119,7 +120,7 @@ jobs:
       - name: Create or update the review pull request
         if: steps.pending.outputs.exists == 'true'
         env:
-          GH_TOKEN: ${{ secrets.ARRP_PROJECT_TOKEN || github.token }}
+          GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           pr_url="$(gh pr list --repo "${GITHUB_REPOSITORY}" --head "${BOT_BRANCH}" --state open --json url --jq '.[0].url // empty')"

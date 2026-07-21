@@ -367,8 +367,8 @@ class CaseMonitorBotTests(unittest.TestCase):
         workflow = (ROOT / ".github" / "workflows" / "case-monitor-bot.yml").read_text()
         self.assertIn("contents: write", workflow)
         self.assertIn("pull-requests: write", workflow)
-        self.assertNotIn("issues: write", workflow)
-        self.assertIn("ARRP_PROJECT_TOKEN", workflow)
+        self.assertIn("issues: write", workflow)
+        self.assertNotIn("ARRP_PROJECT_TOKEN", workflow)
         self.assertNotIn("317", workflow)
 
 
