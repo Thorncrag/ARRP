@@ -161,7 +161,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Tariffs
 
 - **[SRC-1086 — Tariffs](<https://www.courtlistener.com/docket/69927142/learning-resources-inc-v-trump/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Tariffs; tracker status: Government Action Blocked.
+  - Current proposition: Candidate-specific verification question: does this source define the scope, procedural limits, or judicial review of delegated presidential tariff authority? Potentially supports monitoring of Tariffs; tracker status: Government Action Blocked.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Learning Resources is a live tariff-authority case and belongs to the tariff-delegation candidate, not ICC-specific EMERG-003. Monitor controlling appellate/final disposition.
 - **[SRC-2569 — Atmus Filtration, Inc. v. United States (Ct. Int’l Trade) 1:26-cv-01259](<https://www.courtlistener.com/docket/72339861/atmus-filtration-inc-v-united-states>)**

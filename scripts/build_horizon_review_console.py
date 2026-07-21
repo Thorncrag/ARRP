@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the candidate-and-source intake console and public-input lookup."""
+"""Build the ARRP Project Console and public-input lookup."""
 
 from __future__ import annotations
 
@@ -27,6 +27,19 @@ OUTPUT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
 PARTICIPATION_OUTPUT = ROOT / "participate" / "intake-data.js"
 GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/"
 HORIZON_LOG_URL = GITHUB_BLOB_ROOT + "framework/logs/HORIZON_SCAN_LOG.md#horizon-integration-log"
+PROGRESS_DATA_REF = "origin/project-console-data:progress.json"
+PRINT_LEVEL_ORDER = (
+    "public-proposal",
+    "full-technical",
+    "legislative-appendix",
+    "executive-summary",
+)
+PRINT_LEVEL_LABELS = {
+    "public-proposal": "Public proposal edition",
+    "full-technical": "Full technical edition",
+    "legislative-appendix": "Legislative appendix edition",
+    "executive-summary": "Executive summary edition",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -39,7 +52,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--console-only",
         action="store_true",
-        help="Rebuild the candidate console without rewriting the public-input lookup.",
+        help="Rebuild the ARRP Project Console without rewriting the public-input lookup.",
     )
     return parser.parse_args()
 
@@ -157,7 +170,96 @@ def presidential_directive_records() -> list[dict[str, object]]:
                 "reviewed_date": row.get("Reviewed Date", "").strip(),
             }
         )
-    return sorted(records, key=lambda row: (str(row["signed_date"]), str(row["id"])))
+    return sorted(
+        records,
+        key=lambda row: (
+            str(row["signed_date"] or row["published_date"]),
+            str(row["id"]),
+        ),
+        reverse=True,
+    )
+
+
+def markdown_front_matter(content: str) -> dict[str, object]:
+    """Parse the small title/list subset used by ARRP page metadata."""
+    if not content.startswith("---\n"):
+        return {}
+    end = content.find("\n---\n", 4)
+    if end < 0:
+        return {}
+    values: dict[str, object] = {}
+    active_list: str | None = None
+    for raw_line in content[4:end].splitlines():
+        if raw_line.startswith("  - ") and active_list:
+            value = raw_line[4:].strip().strip('"\'')
+            cast = values.setdefault(active_list, [])
+            if isinstance(cast, list) and value:
+                cast.append(value)
+            continue
+        active_list = None
+        if not raw_line or raw_line.startswith(" ") or ":" not in raw_line:
+            continue
+        key, raw_value = raw_line.split(":", 1)
+        key = key.strip()
+        value = raw_value.strip().strip('"\'')
+        if value:
+            values[key] = value
+        else:
+            values[key] = []
+            active_list = key
+    return values
+
+
+def page_section(relative: Path) -> str:
+    parts = relative.parts
+    if relative == Path("README.md"):
+        return "Front matter"
+    if not parts:
+        return "Root"
+    labels = {
+        "areas": "Areas and proposals",
+        "framework": "Framework and process",
+        "legislation": "Legislation",
+        "topics": "Topic guides",
+        "research": "Research",
+        "inventory": "Inventory",
+        "website": "Website support",
+        "participate": "Public participation",
+        "sources": "Retained sources",
+        "exports": "Exports",
+    }
+    return labels.get(parts[0], "Root project pages")
+
+
+def page_inventory_records() -> list[dict[str, object]]:
+    """Return every compiled-edition Markdown page and its print assignments."""
+    excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
+    explicit_exceptions = {ROOT / "AGENTS.md", ROOT / "website" / "404.md"}
+    records: list[dict[str, object]] = []
+    for path in ROOT.rglob("*.md"):
+        relative = path.relative_to(ROOT)
+        if excluded_roots.intersection(relative.parts) or path in explicit_exceptions:
+            continue
+        content = path.read_text(encoding="utf-8")
+        metadata = markdown_front_matter(content)
+        raw_levels = metadata.get("print_levels", [])
+        levels = raw_levels if isinstance(raw_levels, list) else [str(raw_levels)]
+        ordered_levels = [level for level in PRINT_LEVEL_ORDER if level in levels]
+        ordered_levels.extend(sorted(set(levels) - set(ordered_levels)))
+        records.append(
+            {
+                "title": str(metadata.get("title") or markdown_title(path, content)),
+                "path": relative.as_posix(),
+                "section": page_section(relative),
+                "print_levels": ordered_levels,
+                "print_level_labels": [
+                    PRINT_LEVEL_LABELS.get(level, level.replace("-", " ").title())
+                    for level in ordered_levels
+                ],
+                "github_url": GITHUB_BLOB_ROOT + relative.as_posix(),
+            }
+        )
+    return sorted(records, key=lambda row: (str(row["section"]), str(row["title"])))
 
 
 def associated_record_ids(raw: str) -> set[str]:
@@ -572,6 +674,26 @@ def existing_console_payload() -> dict[str, object]:
         return {}
 
 
+def progress_snapshot() -> dict[str, object]:
+    """Read the latest generated progress data without making it authoritative."""
+    try:
+        completed = subprocess.run(
+            ["git", "show", PROGRESS_DATA_REF],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        payload = json.loads(completed.stdout)
+        if isinstance(payload, dict):
+            return payload
+    except (subprocess.CalledProcessError, json.JSONDecodeError):
+        pass
+    existing = existing_console_payload()
+    cached = existing.get("progress", existing.get("progress_dashboard", {}))
+    return cached if isinstance(cached, dict) else {}
+
+
 def existing_horizon_snapshot() -> tuple[list[dict[str, object]], str]:
     payload = existing_console_payload()
     return payload.get("horizon_records", []), str(payload.get("github_synced_at", ""))
@@ -884,13 +1006,15 @@ def main() -> None:
     horizon_records, github_synced_at = horizon_snapshot(args.refresh_github)
     monitoring_issues = monitoring_issue_snapshot(args.refresh_github)
     court_watch_sources, case_watcher_metadata = case_watcher_snapshot()
+    page_inventory = page_inventory_records()
+    progress = progress_snapshot()
     horizon_records = enrich_horizon_records(horizon_records)
     active_horizon_records = [
         record for record in horizon_records if record["issue_state"] == "Open"
     ]
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
-        "schema_version": 12,
+        "schema_version": 14,
         "generated_at": generated_at,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),
@@ -906,6 +1030,8 @@ def main() -> None:
             "presidential_directives": directive_watcher_metadata(),
         },
         "pending_sources": pending_sources,
+        "page_inventory": page_inventory,
+        "progress": progress,
         # The full snapshot is retained only so an ordinary rebuild can preserve
         # authoritative GitHub state without requiring Keychain access.
         "horizon_records": horizon_records,
@@ -924,7 +1050,8 @@ def main() -> None:
             f"candidates, {len(active_horizon_records)} active proposed candidates, "
             f"{len(cited_sources)} cited sources, {len(monitoring_issues)} monitored "
             f"issues, {len(pending_sources)} pending sources, and "
-            f"{len(presidential_directives)} presidential directives."
+            f"{len(presidential_directives)} presidential directives, plus "
+            f"{len(page_inventory)} print-assigned pages."
         )
         return
 
@@ -958,7 +1085,8 @@ def main() -> None:
         f"{len(active_horizon_records)} active proposed candidates, "
         f"{len(cited_sources)} cited sources, {len(monitoring_issues)} monitored "
         f"issues, {len(pending_sources)} pending sources, and "
-        f"{len(presidential_directives)} presidential directives."
+        f"{len(presidential_directives)} presidential directives, plus "
+        f"{len(page_inventory)} print-assigned pages."
     )
 
 

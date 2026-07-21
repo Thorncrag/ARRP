@@ -50,7 +50,7 @@ class PublicSitePreparationTests(unittest.TestCase):
             )
         )
 
-    def test_dashboard_and_internal_apparatus_are_absent(self):
+    def test_project_console_and_internal_apparatus_are_absent(self):
         self.assertFalse((self.docs / "framework").exists())
         self.assertFalse((self.docs / ".github").exists())
         self.assertFalse((self.docs / "inventory").exists())
@@ -61,8 +61,7 @@ class PublicSitePreparationTests(unittest.TestCase):
             for path in self.docs.rglob("*")
             if path.is_file()
         )
-        self.assertNotIn("progress-dashboard", staged_text)
-        self.assertNotIn("progress dashboard", staged_text)
+        self.assertNotIn("project-console-data", staged_text)
 
     def test_reader_navigation_is_generated(self):
         config = (ROOT / ".site-build" / "mkdocs.yml").read_text(encoding="utf-8")

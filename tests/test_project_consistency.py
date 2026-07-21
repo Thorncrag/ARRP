@@ -53,7 +53,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertEqual(targets[0][1], "framework/logs/HORIZON_SCAN_LOG.md")
 
     def test_ignores_non_main_branch_target(self):
-        body = "https://github.com/Thorncrag/ARRP/blob/progress-dashboard/PROGRESS.md"
+        body = "https://github.com/Thorncrag/ARRP/blob/project-console-data/progress.json"
 
         self.assertEqual(github_repository_targets(body), [])
 

@@ -1,0 +1,65 @@
+name: Project Console progress data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 10 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/project-console-progress.json"
+      - ".github/progress-history-seed.json"
+      - ".github/workflows/project-console-progress.yml"
+      - "scripts/build_project_console_progress.py"
+      - "scripts/publish_project_console_progress.py"
+
+concurrency:
+  group: project-console-progress
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Check Project credential configuration
+        id: project-auth
+        env:
+          ARRP_PROJECT_TOKEN: ${{ secrets.ARRP_PROJECT_TOKEN }}
+        run: |
+          if [ -n "${ARRP_PROJECT_TOKEN}" ]; then
+            echo "configured=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "configured=false" >> "${GITHUB_OUTPUT}"
+            echo "::notice::ARRP_PROJECT_TOKEN is not configured; Project Console progress refresh is inactive."
+          fi
+
+      - name: Check out the repository
+        if: steps.project-auth.outputs.configured == 'true'
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          persist-credentials: false
+
+      - name: Build Project Console progress data
+        if: steps.project-auth.outputs.configured == 'true'
+        env:
+          ARRP_PROJECT_TOKEN: ${{ secrets.ARRP_PROJECT_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python3 scripts/build_project_console_progress.py
+          --config .github/project-console-progress.json
+          --registry inventory/github_issue_registry.csv
+          --output "${RUNNER_TEMP}/arrp-project-console-progress"
+
+      - name: Publish the generated data branch
+        if: steps.project-auth.outputs.configured == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python3 scripts/publish_project_console_progress.py
+          --source "${RUNNER_TEMP}/arrp-project-console-progress"
+          --repository Thorncrag/ARRP
+          --branch project-console-data

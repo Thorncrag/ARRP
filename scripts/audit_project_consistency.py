@@ -1035,6 +1035,8 @@ def check_intake_workflow_language(failures: list[str], warnings: list[str]) -> 
         "Monitoring queue",
         "candidate-and-source dashboard",
         "Candidate Issues and Source Intake",
+        "Candidate and Source Intake",
+        "Candidate Issue Intake",
     )
     for path in CURRENT_INTAKE_WORKFLOW_FILES:
         if not path.exists():
