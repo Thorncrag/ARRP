@@ -4,8 +4,8 @@ area_id: A-03
 source_issue: "../issues/WAR-001.md"
 title: "Source Development — Comprehensive War Powers and Use-of-Force Authorization Reform"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # WAR-001 Source Development — Manifestations and Examples

@@ -3,8 +3,8 @@ issue_id: CLASS-011
 area_id: A-07
 title: "Security-Clearance Integrity"
 record_type: source-development
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # CLASS-011 — Security-Clearance Integrity

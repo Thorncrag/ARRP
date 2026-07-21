@@ -3,8 +3,8 @@ issue_id: PRESS-001
 area_id: A-22
 title: "Equal Press Access and Rapid Review"
 record_type: source-development
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # PRESS-001 — Equal Press Access and Rapid Review

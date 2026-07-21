@@ -2,8 +2,8 @@
 issue_id: DOM-001
 title: "Source Development — DOM-001"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # DOM-001 Source Development

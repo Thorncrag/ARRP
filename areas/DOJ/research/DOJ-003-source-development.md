@@ -2,8 +2,8 @@
 issue_id: DOJ-003
 title: "Source Development — DOJ-003"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # DOJ-003 Source Development

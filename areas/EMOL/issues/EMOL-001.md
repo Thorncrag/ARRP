@@ -3,8 +3,8 @@ issue_id: EMOL-001
 area_id: A-06
 title: "Presidential Financial Conflicts, Emoluments, and Self-Dealing"
 record_type: source-development
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # EMOL-001 — Presidential Financial Conflicts, Emoluments, and Self-Dealing

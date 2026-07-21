@@ -1,7 +1,7 @@
 ---
 title: "Locally Retained External Sources"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal workflow or tool documentation."
 ---
 
 # Locally Retained External Sources

@@ -2,8 +2,8 @@
 title: "Portfolio Issue-Consolidation Review"
 status: implemented
 date: 2026-07-16
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal planning record."
 ---
 
 # Portfolio Issue-Consolidation Review

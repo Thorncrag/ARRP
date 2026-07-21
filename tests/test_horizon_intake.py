@@ -4,7 +4,8 @@ import re
 import unittest
 from pathlib import Path
 
-from scripts.build_horizon_review_console import render_markdown_safe, research_for_record
+from scripts.build_horizon_review_console import project_log_views, render_markdown_safe, research_for_record
+from scripts.build_project_integrity_feed import build_feed
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -153,7 +154,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 14)
+        self.assertEqual(self.console["schema_version"], 18)
         self.assertEqual(
             set(self.console),
             {
@@ -171,6 +172,9 @@ class HorizonIntakeTest(unittest.TestCase):
                 "watcher_metadata",
                 "pending_sources",
                 "page_inventory",
+                "publication",
+                "integrity",
+                "project_logs",
                 "progress",
                 "horizon_records",
             },
@@ -188,6 +192,34 @@ class HorizonIntakeTest(unittest.TestCase):
             len(self.presidential_directives),
         )
         self.assertTrue(self.console["page_inventory"])
+        self.assertEqual(
+            {edition["id"] for edition in self.console["publication"]["manifest"]["editions"]},
+            {"public-proposal", "full-technical", "legislative-appendix", "executive-summary"},
+        )
+        for edition in self.console["publication"]["manifest"]["editions"]:
+            assigned = [
+                row for row in self.console["page_inventory"]
+                if edition["id"] in row["print_levels"]
+            ]
+            self.assertTrue(assigned, edition["id"])
+            self.assertTrue(
+                all(edition["id"] in row["assembly_sections"] for row in assigned),
+                edition["id"],
+            )
+        self.assertEqual(self.console["project_logs"], project_log_views())
+        self.assertEqual(
+            [record["id"] for record in self.console["project_logs"]],
+            ["horizon", "agents", "source-monitor", "changes"],
+        )
+        self.assertTrue(all(record["entries"] for record in self.console["project_logs"]))
+        self.assertTrue(
+            all(record["source_url"].startswith("https://github.com/Thorncrag/ARRP/blob/main/framework/logs/")
+                for record in self.console["project_logs"])
+        )
+        for record in self.console["project_logs"]:
+            self.assertTrue(record["columns"])
+            self.assertTrue(record["entries"])
+            self.assertTrue(all(entry["details_html"] for entry in record["entries"]))
         self.assertTrue(self.console["progress"].get("metrics"))
         directive_dates = [
             row["signed_date"] or row["published_date"]
@@ -216,6 +248,26 @@ class HorizonIntakeTest(unittest.TestCase):
         }:
             self.assertNotIn(legacy_queue, self.console)
 
+    def test_integrity_feed_retains_unique_recent_runs(self) -> None:
+        report = {
+            "generated_at": "2026-07-21T05:35:00+00:00",
+            "revision": "abc",
+            "result": "clean",
+            "counts": {"findings": 0},
+            "duration_seconds": 1.2,
+            "findings": [],
+        }
+        existing = {
+            "history": [
+                {"generated_at": "2026-07-20T05:35:00+00:00", "result": "findings", "counts": {"findings": 2}},
+                {"generated_at": "2026-07-19T05:35:00+00:00", "result": "clean", "counts": {"findings": 0}},
+            ]
+        }
+        feed = build_feed(report, existing, 2)
+        self.assertEqual(feed["current"], report)
+        self.assertEqual(len(feed["history"]), 2)
+        self.assertEqual(feed["history"][0]["generated_at"], report["generated_at"])
+
     def test_print_level_inventory_matches_compiled_markdown_pages(self) -> None:
         excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
         explicit_exceptions = {ROOT / "AGENTS.md", ROOT / "website" / "404.md"}
@@ -227,7 +279,37 @@ class HorizonIntakeTest(unittest.TestCase):
         }
         actual = {row["path"] for row in self.console["page_inventory"]}
         self.assertEqual(actual, expected)
-        self.assertTrue(all(row["print_levels"] for row in self.console["page_inventory"]))
+        dispositions = {row["publication_disposition"] for row in self.console["page_inventory"]}
+        self.assertEqual(dispositions, {"included", "excluded"})
+        self.assertTrue(
+            all(
+                bool(row["print_levels"]) != (row["publication_disposition"] == "excluded")
+                for row in self.console["page_inventory"]
+            )
+        )
+        self.assertTrue(
+            all(
+                row["print_exclusion_reason"]
+                for row in self.console["page_inventory"]
+                if row["publication_disposition"] == "excluded"
+            )
+        )
+        expected_counts = {
+            disposition: sum(
+                row["publication_disposition"] == disposition
+                for row in self.console["page_inventory"]
+            )
+            for disposition in ("included", "excluded", "unclassified", "conflict")
+        }
+        self.assertEqual(self.console["publication"]["disposition_counts"], expected_counts)
+        self.assertGreater(expected_counts["excluded"], 0)
+        self.assertEqual(expected_counts["unclassified"], 0)
+        self.assertEqual(expected_counts["conflict"], 0)
+        for row in self.console["page_inventory"]:
+            self.assertIn("document_type", row)
+            self.assertIn("estimated_pages", row)
+            self.assertIn("assembly_sections", row)
+            self.assertIn("internal_links", row)
 
     def test_horizon_source_records_state_candidate_specific_questions(self) -> None:
         generic = "Source-development record for the described government action"
@@ -384,7 +466,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
-        for tab in {"progress", "actions", "candidates", "sources", "publication"}:
+        for tab in {"progress", "actions", "candidates", "sources", "integrity", "logs", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)
         for subtab in {"candidate-tab-formal", "candidate-tab-preliminary", "source-tab-catalog", "source-tab-pending", "source-tab-watchers"}:
@@ -392,16 +474,31 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("This console is read-only", console_html)
         self.assertIn("Decision dossiers", console_html)
         self.assertIn("Project bibliography", console_html)
-        self.assertIn("Manual monitoring", console_html)
+        self.assertIn("Issues being monitored", console_html)
         self.assertIn("Court-case watcher", console_html)
         self.assertIn("Presidential-directives watcher", console_html)
         self.assertIn("Central review inbox", console_html)
+        for log_id in {"horizon", "agents", "source-monitor", "changes"}:
+            self.assertIn(f'id="log-tab-{log_id}"', console_html)
+            self.assertIn(f'id="log-panel-{log_id}"', console_html)
+            self.assertIn(f'id="log-{log_id}-search"', console_html)
+            self.assertIn(f'id="log-{log_id}-group"', console_html)
+            self.assertIn(f'id="log-{log_id}-table"', console_html)
+        self.assertIn("Open authoritative log", console_html)
+        self.assertIn("Change Audit · Historical", console_html)
         self.assertIn('id="action-items-grid"', console_html)
         self.assertNotIn('id="watcher-tab-overview"', console_html)
         self.assertNotIn('id="watcher-panel-overview"', console_html)
         self.assertIn('id="court-watch-update"', console_html)
         self.assertIn('id="directive-watch-update"', console_html)
-        self.assertIn("Pages by print level", console_html)
+        self.assertIn("Publication disposition", console_html)
+        self.assertIn("Page print assignments", console_html)
+        self.assertIn("Edition analysis", console_html)
+        self.assertIn("Document builder", console_html)
+        self.assertIn("Project integrity", console_html)
+        self.assertIn("Open current report", console_html)
+        self.assertIn("PROJECT_INTEGRITY_REPORT.md", console_html)
+        self.assertIn('id="scroll-to-top"', console_html)
         self.assertIn('id="print-change-count"', console_html)
         self.assertIn('id="export-print-changes"', console_html)
         self.assertIn('id="reset-print-changes"', console_html)
@@ -411,15 +508,40 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("monitoredSourcesFirst", console_app)
         self.assertIn("sortableHeader", console_app)
         self.assertIn("printLevelDrafts", console_app)
+        self.assertIn("printExclusionDrafts", console_app)
         self.assertIn("effectivePrintLevels", console_app)
+        self.assertIn("effectivePublicationDisposition", console_app)
+        self.assertIn("Exclude from print…", console_app)
         self.assertIn("exportPrintLevelChanges", console_app)
         self.assertIn("renderActionItems", console_app)
+        self.assertIn("renderProjectLog", console_app)
+        self.assertIn("projectLogTable", console_app)
+        self.assertIn('initializeSectionTabs("logs", "horizon")', console_app)
+        render_action_items = console_app.split("function renderActionItems()", 1)[1].split(
+            "function parseCount", 1
+        )[0]
+        self.assertNotIn('label: "Manual monitoring"', render_action_items)
+        self.assertNotIn("const manual = data.monitoring_issues.length", render_action_items)
+        self.assertNotIn('label: "Staged print changes"', render_action_items)
+        self.assertNotIn("const printChanges", render_action_items)
         self.assertIn("refreshBotReviewSignals", console_app)
         self.assertIn("bot/case-monitor-updates", console_app)
         self.assertIn("Add print level…", console_app)
         self.assertIn("print-level-remove", console_app)
+        self.assertIn("renderEditionAnalysis", console_app)
+        self.assertIn("renderDocumentBuilder", console_app)
+        self.assertIn("exportAssemblyChanges", console_app)
+        self.assertIn("initializeScrollToTop", console_app)
+        self.assertIn("renderIntegrity", console_app)
+        self.assertIn("refreshLiveIntegrity", console_app)
         self.assertIn('setAttribute("aria-sort"', console_app)
         self.assertIn("sort-button", console_css)
+        self.assertIn("project-log-table", console_css)
+        self.assertIn("log-entry-expanded", console_css)
+        self.assertIn("publication-builder-grid", console_css)
+        self.assertIn("scroll-to-top", console_css)
+        self.assertIn("integrity-finding-group", console_css)
+        self.assertIn('toggle.setAttribute("aria-expanded"', console_app)
         self.assertIn("Pending sources", console_html)
         self.assertNotIn("History", console_html)
         self.assertNotIn('id="submission-view"', console_html)
@@ -471,14 +593,17 @@ class HorizonIntakeTest(unittest.TestCase):
         obsolete_monitor_ids = {
             row["Object ID"]
             for row in self.issue_registry
-            if re.fullmatch(r"[A-Z]+-\d{3}-MON", row["Object ID"])
+            if re.fullmatch(r"[A-Z]+-\d{3}-(?:MON|[A-Z]+-MONITOR)", row["Object ID"])
         }
         self.assertFalse(obsolete_monitor_ids)
         self.assertTrue(any(row["Monitoring"] == "Yes" for row in self.sources))
         self.assertTrue(all(row["Monitoring"] in {"Yes", "No"} for row in self.sources))
         self.assertTrue(self.console["monitoring_issues"])
         self.assertFalse(
-            any(re.fullmatch(r"[A-Z]+-\d{3}-MON", row["id"]) for row in self.console["monitoring_issues"])
+            any(
+                re.fullmatch(r"[A-Z]+-\d{3}-(?:MON|[A-Z]+-MONITOR)", row["id"])
+                for row in self.console["monitoring_issues"]
+            )
         )
 
     def test_preliminary_candidate_sources_support_substantive_records(self) -> None:

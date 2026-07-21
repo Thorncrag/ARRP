@@ -1,8 +1,8 @@
 ---
 title: "Current Audit Handoff"
 status: active
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal workflow or tool documentation."
 ---
 
 # Current Audit Handoff

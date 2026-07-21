@@ -1,8 +1,8 @@
 ---
 title: "Source Development — HOR-037"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # HOR-037 — Immigration Detention, Removal Process, and Access Safeguards

@@ -1,7 +1,7 @@
 ---
 title: "Print Assembly Framework"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal workflow or tool documentation."
 ---
 
 # Print Assembly Framework
@@ -9,6 +9,8 @@ print_levels:
 This file defines how the modular Markdown project should be assembled into a single proposal document for printing, PDF generation, DOCX export, or other linear publication.
 
 Markdown files, GitHub Project records, issue audit-history files, and the retained source inventory remain canonical within their respective scopes. Generated print, PDF, DOCX, and other compiled editions are convenience exports.
+
+[`print-assembly.json`](print-assembly.json) is the machine-readable companion to this framework. Page-level publication-disposition metadata determines whether a page belongs in one or more editions or is deliberately excluded from print; the manifest determines each edition's named sections, default routing, and explicit placement or order overrides. The Project Console may stage a revised disposition or sequence and export it for Codex review, but neither the browser draft nor a generated table of contents changes the manifest or page metadata directly.
 
 ## Assembly Objectives
 
@@ -177,18 +179,33 @@ Before version 1.0, compiled PDF, DOCX, XLSX, and similar export files are not e
 
 ## Print Assignment Metadata
 
-Every project-content or project-documentation Markdown page should identify the compiled edition or editions in which it belongs. The assignment belongs in page metadata so it is available to export tooling and review workflows without adding repetitive visible text to rendered pages. Tool-discovered control files such as root `AGENTS.md` and website-only assets such as `website/404.md` are not compiled-edition pages and are exempt.
+Every publication-controlled Markdown page must carry exactly one of two dispositions: inclusion in one or more compiled editions, or explicit exclusion from print with a reason. The disposition belongs in page metadata so it is available to export tooling and review workflows without adding repetitive visible text to rendered pages. Tool-discovered control files such as root `AGENTS.md` and website-only assets such as `website/404.md` are not publication-controlled pages and are exempt.
 
 Use the metadata key `print_levels` with one or more of these stable values:
 
 | Metadata value | Visible label | Use |
 | --- | --- | --- |
 | `public-proposal` | Public proposal edition | Main public-facing proposal pages, topic guides, area pages, developed issue pages, and legislation appendices used by the public proposal edition. |
-| `full-technical` | Full technical edition | All pages that should remain available in the complete technical record, including framework, inventory, audit, research, archive, and process pages. External files retained in `sources/` are not included unless an export plan deliberately selects a source facsimile. |
+| `full-technical` | Full technical edition | Curated framework, audit, research, evidence, and proposal material needed for the complete technical publication. It is not a repository archive. External files retained in `sources/` are not included unless an export plan deliberately selects a source facsimile. |
 | `legislative-appendix` | Legislative appendix edition | Proposed legislation pages and legislation-index pages intended for a legislation-only export. |
 | `executive-summary` | Executive summary edition | Front-matter and area-summary pages that can support a short summary edition. |
 
-Pages may belong to multiple levels. The metadata values should follow the order shown above. If a page is not appropriate for the public proposal, legislative appendix, or executive summary editions, assign it to `full-technical` only rather than omitting the print assignment.
+Pages may belong to multiple levels. The metadata values should follow the order shown above. The full technical edition is curated: include framework, audit, research, or evidence material only when it materially supports the technical document.
+
+If a page is not suitable for any compiled edition, omit `print_levels` and record both:
+
+```yaml
+print_status: excluded
+print_exclusion_reason: "Internal workflow or tool documentation."
+```
+
+Do not combine `print_status: excluded` with `print_levels`. An excluded page must state a concise reason. A page with neither an edition assignment nor an exclusion is **unclassified** and blocks publication preflight; a page with both dispositions is a metadata conflict and likewise blocks preflight. Typical exclusions include internal logs, templates, source-development records, tooling instructions, and working-process files. Exclusion from print does not remove a file from the repository or necessarily from the public website.
+
+## Publication Analysis and Assembly Preview
+
+The Project Console Publication workspace provides three non-authoritative views: complete page dispositions, edition-level composition and preflight analysis, and a section-by-section document builder. Its assignment view must separately count and filter pages included in each edition, pages explicitly excluded with reasons, unclassified pages, and conflicting metadata so the effect of publication decisions is visible at a glance. Estimated pages are planning approximations based on source length; an actual PDF page count, when available, is authoritative only for that generated snapshot. The preflight should surface unclassified or conflicting dispositions, missing exclusion reasons, invalid metadata, unplaced pages, unusually long pages, wide Markdown tables, heading anomalies, and stale generated builds without automatically rewriting source material.
+
+The document builder derives a proposed table of contents and appendix sequence from the manifest and current page assignments. Section and page moves remain local until exported. Codex must validate any export, update the manifest or page front matter as appropriate, rebuild the console, and run the ordinary project-consistency checks before treating the change as canonical.
 
 ## Backlog Reference
 

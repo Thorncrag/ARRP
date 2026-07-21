@@ -1,8 +1,8 @@
 ---
 title: "Source Development — HOR-040"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # HOR-040 — Safeguards for Broad Presidential Tariff Delegations

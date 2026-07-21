@@ -1,7 +1,7 @@
 ---
 title: "Public Intake Security Controls"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal workflow or tool documentation."
 ---
 
 # Public Intake Security Controls

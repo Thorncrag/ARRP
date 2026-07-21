@@ -1,8 +1,8 @@
 ---
 title: "Source Development — HOR-031"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # HOR-031 — Durability and Revocation of National Monument Protections

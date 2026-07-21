@@ -5,6 +5,7 @@ from scripts.audit_project_consistency import (
     ROOT,
     active_project_files,
     github_repository_targets,
+    markdown_report,
     research_files,
     source_citation_corpus,
 )
@@ -30,6 +31,28 @@ SOURCE_DEVELOPMENT_STUB_IDS = {
 
 
 class GitHubIssueLinkTests(unittest.TestCase):
+    def test_integrity_markdown_report_is_a_stable_current_snapshot(self):
+        report = markdown_report(
+            {
+                "generated_at": "2026-07-21T12:00:00+00:00",
+                "revision": "abc123",
+                "counts": {
+                    "errors": 0,
+                    "warnings": 0,
+                    "issue_pages": 61,
+                    "proposal_pages": 40,
+                },
+                "scope": ["Internal repository links"],
+                "findings": [],
+            }
+        )
+
+        self.assertIn("# Current Project Integrity Report", report)
+        self.assertIn("**Result:** Clean", report)
+        self.assertIn("No repeatable integrity findings", report)
+        self.assertNotIn("2026-07-21T12:00:00", report)
+        self.assertNotIn("abc123", report)
+
     def test_extracts_main_branch_blob_target(self):
         body = (
             "[Horizon log](https://github.com/Thorncrag/ARRP/blob/main/"
@@ -89,7 +112,9 @@ class GitHubIssueLinkTests(unittest.TestCase):
 
         self.assertEqual(set(shells), SOURCE_DEVELOPMENT_STUB_IDS)
         for issue_id, (path, text) in shells.items():
-            self.assertIn("  - full-technical", text, issue_id)
+            self.assertIn("print_status: excluded", text, issue_id)
+            self.assertIn('print_exclusion_reason: "Internal source-development record."', text, issue_id)
+            self.assertNotIn("  - full-technical", text, issue_id)
             self.assertNotIn("  - public-proposal", text, issue_id)
             self.assertFalse(path.with_name(f"{issue_id}.audit.md").exists(), issue_id)
             self.assertIn("**Source-development record only.**", text, issue_id)

@@ -1,8 +1,8 @@
 ---
 title: "Source Development — HOR-034"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # HOR-034 — Cross-Agency Repurposing of Protected Personal Data

@@ -2,8 +2,8 @@
 issue_id: FUND-001
 title: "Source Development — FUND-001"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # FUND-001 Source Development

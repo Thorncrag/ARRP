@@ -2,8 +2,8 @@
 issue_id: REG-001
 title: "Source Development — REG-001"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # REG-001 Source Development

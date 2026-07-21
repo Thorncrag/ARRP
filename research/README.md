@@ -1,7 +1,7 @@
 ---
 title: "ARRP Research and Development Work Product"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal workflow or tool documentation."
 ---
 
 # ARRP Research and Development Work Product
@@ -14,7 +14,7 @@ Covered work product includes legal and policy memoranda, crosswalks, catalogs, 
 
 - [Portfolio Issue-Consolidation Review](portfolio-issue-consolidation-review.md) — implemented portfolio-wide issue-admission decisions and the basis for the 77-proposal working architecture.
 - [Trump Administration Legal-Review Research Summary](trump-administration-legal-review-summary.md) — retained methodology, aggregate findings, limitations, and formal-candidate results from the completed first- and second-term source review
-- [ARRP Project Console](horizon-review-console/index.html), the central non-authoritative view for Review Ready progress, a linked action-item inbox, proposed and preliminary candidates, cited and pending sources, monitoring, presidential directives, and print-level page assignments, with a local export workflow for staged print-level changes
+- [ARRP Project Console](horizon-review-console/index.html), the central non-authoritative view for Review Ready progress, a linked action-item inbox, proposed and preliminary candidates, cited and pending sources, monitoring, presidential directives, automated integrity findings, canonical project logs, edition analysis, and local publication-planning exports
 - [`horizon-source-records/`](horizon-source-records/) — internal candidate-specific source-development records that state the proposition or question under review, verification posture, and monitoring qualification for sources already routed to formal `HOR-###` candidates
 
 ## Area Research

@@ -1,7 +1,7 @@
 ---
 title: "Topic Page Template"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal drafting template."
 ---
 
 # Topic Page Template

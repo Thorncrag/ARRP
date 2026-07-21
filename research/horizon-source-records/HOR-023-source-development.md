@@ -1,8 +1,8 @@
 ---
 title: "Source Development — HOR-023"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # HOR-023 — Foreign Election Interference and Campaign Counterintelligence Safeguards
