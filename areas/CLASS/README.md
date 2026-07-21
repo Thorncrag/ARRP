@@ -20,7 +20,7 @@ The classification system concentrates broad authority within the executive bran
 - **CLASS-001 — Presidential Classification, Declassification, Documentation, and Custody**
 - **CLASS-004 — Overclassification, Concealment, and Independent Review**
 - **CLASS-006 — Protection of Classified Information, Sources, and Methods**
-- **CLASS-011 — Security-Clearance Integrity**
+- [**CLASS-011 — Security-Clearance Integrity**](issues/CLASS-011.md)
 
 ## Prior Issue Numbers
 

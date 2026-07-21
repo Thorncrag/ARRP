@@ -1,6 +1,7 @@
 ---
 issue_id: FUND-001
 area_id: A-11
+source_development_record: "../research/FUND-001-source-development.md"
 title: "Fiscal Implementation of Ultra Vires Executive Directives"
 status: developed
 priority: medium
@@ -8,10 +9,10 @@ remedy_type: federal-legislation
 legislative_status: working-draft
 legislative_proposal: "../../../legislation/JUD-011.md"
 alternative_legislative_proposal: "../../../legislation/FUND-001.md"
-audit_status: "T4 publication-ready audit complete; fiscal-scope and title change-audited; qualified review pending"
+audit_status: "T4 publication-ready audit complete; directive-funding source update change-audited; qualified review pending"
 audit_score: 83
-audit_last_type: "Portfolio-consolidation targeted Change Audit"
-audit_last_date: "2026-07-16"
+audit_last_type: "Targeted source-adjudication Change Audit"
+audit_last_date: "2026-07-21"
 audit_next: "Qualified appropriations, federal-courts, budget, and legislative-counsel review; obtain NASA program-level apportionment, reprogramming, and obligation records"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
@@ -54,9 +55,9 @@ In [*Youngstown Sheet & Tube Co. v. Sawyer*](https://www.govinfo.gov/app/details
 
 NASA's fiscal year 2026 [budget request](https://www.nasa.gov/fy-2026-budget-request/) proposed $18.8 billion, down from about $24.8 billion in fiscal year 2025, but Congress later provided roughly $24.4 billion. A [House Science Committee Democratic staff report](https://democrats-science.house.gov/imo/media/doc/SST%20Minority%20Staff%20Report%20-%20NASA%20Implementation%20of%20FY26%20PBR%20-%20April%202026.pdf) stated that NASA officials nevertheless began implementing requested reductions during 2025, including terminating work and dispersing personnel on the Electrified Powertrain Flight Demonstration after the request proposed no funding; NASA's later [spending plan](https://www.nasa.gov/wp-content/uploads/2026/07/nasa-fy2026-spending-plan-for-appropriations-provided-by-pl11974.pdf) included $40 million for the project. The episode illustrates how anticipatory program-execution decisions can impair Congress's ability to preserve a program even when it rejects a proposed cut. No court or GAO has found an Impoundment Control Act violation in this episode, and program-level apportionment, reprogramming, and obligation records remain necessary to establish unlawful withholding.
 
-### Supporting Record and Updates
+### Directive-based funding suspensions
 
-- **Watching for updates:** [FUND-001-MON](https://github.com/Thorncrag/ARRP/issues/286) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
+Executive Order 14169 imposed a [90-day pause on new foreign-assistance obligations and disbursements](https://www.federalregister.gov/documents/2025/01/30/2025-02091/reevaluating-and-realigning-united-states-foreign-aid), subject to review and waivers. Other directive-based suspensions produced merits rulings: a D.D.C. court [permanently enjoined](https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2025cv01674/280953/81/) enforcement of an order barring federal funding for NPR and PBS; a W.D. Washington court [vacated the suspension of State electric-vehicle infrastructure plans](https://docs.justia.com/cases/federal/district-courts/washington/wawdce/2%3A2025cv00848/347944/175); and the First Circuit [affirmed enforcement against FEMA in part](https://law.justia.com/cases/federal/appellate-courts/ca1/25-1236/25-1236-2026-03-16.html) while narrowing relief that directly compelled grant disbursements. The decisions rest on different constitutional, statutory, and remedial grounds. Together they show the recurring gap FUND-001 addresses: implementation can begin before Congress changes the governing funding law, while ordinary litigation may provide program-specific and differently bounded relief.
 
 ## Resulting Damage
 

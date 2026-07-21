@@ -23,7 +23,7 @@ The completed review established several methodological limits:
 - tracker entries are discovery aids and do not replace underlying dockets, orders, official instruments, or final findings;
 - several records can concern one action, while one action can affect several proposals;
 - litigation over ordinary policy implementation does not itself establish an institutional defect;
-- open and interlocutory cases ordinarily belong in a defined GitHub monitor rather than proposal prose;
+- open and interlocutory cases ordinarily remain in the source catalogs while the owning proposal or formal-candidate GitHub issue carries `needs: monitoring`, rather than being expanded prematurely in proposal prose;
 - cumulative reporting should not inflate either the number of manifestations or the number of candidate issues; and
 - a source remains in `sources-pending.csv` until an accountable project record actually relies on it.
 
@@ -53,16 +53,16 @@ Each retained directive now has its own stable `sources.csv` entry associated wi
 
 The completed intake now resolves into the project's ordinary records:
 
-- `inventory/sources.csv` contains external sources affirmatively relied upon by an issue, topic, research record, formal candidate, or GitHub monitor;
+- `inventory/sources.csv` contains external sources affirmatively relied upon by an issue, topic, research record, or formal candidate;
 - `inventory/sources-pending.csv` contains useful source-development, verification, monitoring, and placement leads not yet relied upon;
 - GitHub proposed-candidate issues own candidate status and decision questions;
-- `ISSUE-ID-MON` GitHub issues own current posture, last-checked dates, and reassessment triggers; and
+- existing proposal and formal-candidate GitHub issues carry `needs: monitoring` when the whole issue warrants recurring review, while both source catalogs use `Monitoring` for changing records such as live dockets; and
 - issue pages and evidence records contain reader-facing analysis only when the qualitative placement standard is satisfied.
 
 No separate litigation ledger, source-universe ledger, media intake, evidence-integration queue, or candidate-evidence routing table is authoritative. Git history preserves those completed intermediate states.
 
 ## Remaining Completeness Work
 
-Future scans should begin with the canonical source catalogs and GitHub monitoring records so they do not recreate resolved queues. Useful remaining lanes include official findings from GAO, the Office of Special Counsel, inspectors general, congressional reports, judicial noncompliance records, and specialized ethics, environmental, civil-rights, election, appointments, records, and war-powers sources.
+Future scans should begin with the canonical source catalogs and the existing GitHub issues carrying `needs: monitoring` so they do not recreate resolved queues. Useful remaining lanes include official findings from GAO, the Office of Special Counsel, inspectors general, congressional reports, judicial noncompliance records, and specialized ethics, environmental, civil-rights, election, appointments, records, and war-powers sources.
 
-A newly discovered source must leave review in one of three conditions: relied upon by a substantive record, GitHub monitor, or candidate dossier and placed in `sources.csv`; retained with an accountable owner in `sources-pending.csv`; or removed after a documented finding that it is duplicative, irrelevant, political-only, or adds no material evidentiary value.
+A newly discovered source must leave review in one of three conditions: relied upon by a substantive record or candidate dossier and placed in `sources.csv`; retained with an accountable owner in `sources-pending.csv`; or removed after a documented finding that it is duplicative, irrelevant, political-only, or adds no material evidentiary value. A changing source independently warranting recurring review is marked `Yes` in `Monitoring` regardless of which catalog owns it.

@@ -1,6 +1,7 @@
 ---
 issue_id: RIGHTS-003
 area_id: A-24
+source_development_record: "../research/RIGHTS-003-source-development.md"
 title: "Birthright Citizenship Statutory Recognition and Federal Identity Records"
 status: candidate
 priority: high

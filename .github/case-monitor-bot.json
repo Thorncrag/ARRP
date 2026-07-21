@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 4,
+  "enabled": true,
+  "botName": "case-monitor-bot",
+  "reviewLabel": "needs: monitor review",
+  "reviewLabelColor": "FBCA04",
+  "reviewLabelDescription": "Case-monitor-bot detected a tracker change requiring human review.",
+  "targetLabel": "needs: monitoring",
+  "sourceMonitoringField": "Monitoring",
+  "eligibleSourceTypes": [
+    "Court Docket or Judicial Record",
+    "Court Filing or Judicial Record",
+    "Court Docket",
+    "Judicial Docket",
+    "Supreme Court Docket",
+    "Federal Court Docket",
+    "Official court record"
+  ],
+  "notification": {
+    "issueNumber": 317,
+    "mention": "@Thorncrag"
+  },
+  "tracker": {
+    "type": "just-security-litigation-tracker",
+    "url": "https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/",
+    "allowedHosts": [
+      "www.justsecurity.org"
+    ],
+    "tableId": "tablepress-42",
+    "minimumEntries": 500,
+    "maximumEntries": 2500,
+    "maximumRemovalFraction": 0.1,
+    "maximumResponseBytes": 10000000
+  },
+  "verification": {
+    "type": "courtlistener-rest-v4",
+    "apiRoot": "https://www.courtlistener.com/api/rest/v4",
+    "allowedHosts": [
+      "www.courtlistener.com"
+    ],
+    "maxDocketsPerRun": 20,
+    "requestIntervalSeconds": 13
+  },
+  "schedule": {
+    "cron": "17 4 * * *",
+    "description": "Daily at approximately midnight Eastern (12:17 a.m. EDT / 11:17 p.m. EST)"
+  }
+}

@@ -45,8 +45,8 @@ The agent must apply the project admission test: distinguish an institutional we
 
 | Finding | Ordinary next record | Human decision required? |
 | --- | --- | --- |
-| Relevant verified material for a current issue | Owning issue, linked evidence record when warranted, and the appropriate relied-upon or pending source inventory. | Yes during the current report-only phase; later authority must follow the source and evidence rules. |
-| Event or litigation that needs a defined later development | An `ISSUE-ID-MON` GitHub monitoring record attached to the owning issue or formal candidate, with the substantive record retained at its primary analytic home. | Yes during the current report-only phase; later authority requires an approved monitoring validator. |
+| Relevant material for a current issue | Owning issue or its internal source-development record, linked public evidence record when warranted, and `sources.csv` with verification status stated. | Yes during the current report-only phase; later authority must follow the source and evidence rules. |
+| Event or litigation that needs a defined later development | The owning proposal or formal-candidate GitHub issue, marked `needs: monitoring` without changing its lifecycle status; a changing source such as a live docket is also marked `Yes` in the catalogs' `Monitoring` field. | Yes during the current report-only phase; later authority requires an approved monitoring validator. |
 | A distinct institutional weakness not already covered | Preliminary Candidates queue for human review. | Yes before it becomes a proposed candidate or receives a `HOR-###` record. |
 | A demonstrable factual, link, citation, formatting, or published-rule variance | Correction recommendation. | Yes during the current manual-review phase; later only if the action is mechanical, verified, and within an approved authority band. |
 | No supported ARRP-relevant action | No repository action; the structured assessment supplies the review result. | No additional project decision unless later evidence warrants reconsideration. |
@@ -57,8 +57,8 @@ The agent must apply the project admission test: distinguish an institutional we
 
 After the manual review process succeeds, the project may authorize only these bounded actions when their facts and destination are unambiguous:
 
-- route a verified external source to an existing issue, its evidence record when qualitatively warranted, and the appropriate relied-upon or pending source inventory;
-- create or update an issue-linked GitHub monitoring record with a defined event predicate and primary analytic home;
+- route a relevant external source to an existing issue, its internal source-development or public evidence record as appropriate, and `sources.csv`; use `sources-pending.csv` only when ownership remains genuinely unclear;
+- apply, update, or remove `needs: monitoring` on an existing proposal or formal-candidate issue and update any source-level `Monitoring` designation, without creating a monitoring-only child issue;
 - create a preliminary-candidate entry for a genuinely distinct institutional question;
 - make a verifiable non-substantive correction; or
 - correct a clear variance from published project methodology.
@@ -86,7 +86,7 @@ When any non-review action is later authorized, create exactly one append-only r
 }
 ```
 
-The short `IA-…` code is the required rollback reference. A rollback must be a new ledger entry that identifies the original code, explains the correction, reverses only the authorized change, validates the result, and never deletes the original provenance record. The ledger remains a separate internal provenance record. The Candidate Issue Intake console displays only preliminary and proposed candidates and does not display, own, or mutate ledger entries.
+The short `IA-…` code is the required rollback reference. A rollback must be a new ledger entry that identifies the original code, explains the correction, reverses only the authorized change, validates the result, and never deletes the original provenance record. The ledger remains a separate internal provenance record. The Candidate and Source Intake console displays candidate dossiers and read-only projections of the canonical source catalogs, labeled parent issues, watcher coverage, and presidential-directive registry; it does not display, own, or mutate ledger entries.
 
 ## Security, privacy, and operating controls
 

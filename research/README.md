@@ -14,7 +14,7 @@ Covered work product includes legal and policy memoranda, crosswalks, catalogs, 
 
 - [Portfolio Issue-Consolidation Review](portfolio-issue-consolidation-review.md) — implemented portfolio-wide issue-admission decisions and the basis for the 77-proposal working architecture.
 - [Trump Administration Legal-Review Research Summary](trump-administration-legal-review-summary.md) — retained methodology, aggregate findings, limitations, and formal-candidate results from the completed first- and second-term source review
-- [Candidate Issue Intake](horizon-review-console/index.html), the read-only review view for source-supported preliminary candidates and GitHub-authoritative formal proposed candidates
+- [Candidate and Source Intake](horizon-review-console/index.html), the read-only review view for proposed candidates, preliminary candidates, cited and pending sources, and a consolidated Watchers workspace for court cases, presidential directives, and manual monitoring
 
 ## Area Research
 
@@ -29,4 +29,4 @@ Single-area analyses, catalogs, datasets, and visualizations are maintained unde
 
 The former Project 2025 research crosswalk has been converted, without duplication, into the public [Project 2025 — ARRP Topic Guide and Crosswalk](../topics/project-2025.md).
 
-External works affirmatively relied upon by central or area research files are recorded in [`../inventory/sources.csv`](../inventory/sources.csv). Relevant source-development, verification, monitoring, and placement leads remain in [`../inventory/sources-pending.csv`](../inventory/sources-pending.csv) until a substantive record actually relies on them. Research files do not maintain parallel source ledgers. Local copies, when retained, live in [`../sources/`](../sources/); most sources remain external links only.
+External works affirmatively relied upon by central or area research files are recorded in [`../inventory/sources.csv`](../inventory/sources.csv). A clearly routed but unreviewed or monitored source is cited provisionally in its owner's source-development record and remains in `sources.csv`; [`../inventory/sources-pending.csv`](../inventory/sources-pending.csv) is limited to material whose accountable destination is genuinely unclear. Research files do not maintain parallel source ledgers. Local copies, when retained, live in [`../sources/`](../sources/); most sources remain external links only.

@@ -33,7 +33,7 @@ ARRP does not treat the episode as one proposal. Pressure on election officials,
 | Coordinated efforts using independently wrongful acts to overturn a lawful result | [ELEC-008](../areas/ELEC/issues/ELEC-008.md) | Addresses accountability for coordinated federal election-subversion schemes. |
 | Presidential criminal immunity | [IMM-001](../areas/IMM/issues/IMM-001.md) | Addresses whether official-act immunity bars investigation, evidence, prosecution, or punishment. |
 | Independent investigation of presidential misconduct | [DOJ-007](../areas/DOJ/issues/DOJ-007.md) | Addresses conflicted investigation, evidence preservation, prosecution, and reporting. |
-| Clemency protecting participants or witnesses | PAR-001 | Addresses corrupt, self-protective, obstructive, or politically abusive clemency. |
+| Clemency protecting participants or witnesses | [PAR-001](../areas/PAR/issues/PAR-001.md) | Addresses corrupt, self-protective, obstructive, or politically abusive clemency. |
 | Presidential self-pardons | PAR-005 | Addresses the distinct constitutional uncertainty surrounding self-pardons. |
 
 </div>

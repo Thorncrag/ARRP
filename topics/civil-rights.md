@@ -2,8 +2,8 @@
 title: "Civil Rights"
 page_type: topic-guide
 status: maintained
-purpose: "Help readers find the ARRP proposals addressing civil-rights administration, anti-discrimination safeguards, identity records, and citizenship recognition."
-last_reviewed: "2026-07-19"
+purpose: "Help readers find the ARRP proposals addressing civil-rights administration, constitutional remedies, anti-discrimination safeguards, identity records, and citizenship recognition."
+last_reviewed: "2026-07-21"
 print_levels:
   - public-proposal
   - full-technical
@@ -13,7 +13,7 @@ print_levels:
 
 ## Overview
 
-ARRP’s civil-rights work focuses on whether government institutions administer rights through clear authority, stable records, fair procedures, neutral enforcement, and effective remedies. This page concentrates on government-wide civil-rights administration, anti-discrimination safeguards, identity records, and citizenship recognition. The primary institutional map is [Civil Rights Administration and Identity Records](../areas/RIGHTS/README.md).
+ARRP’s civil-rights work focuses on whether government institutions administer rights through clear authority, stable records, fair procedures, neutral enforcement, effective remedies, and accountable enforcement. This page concentrates on government-wide civil-rights administration, constitutional remedies, anti-discrimination safeguards, identity records, and citizenship recognition. The primary institutional map is [Civil Rights Administration, Remedies, and Identity Records](../areas/RIGHTS/README.md).
 
 Immigration-specific humanitarian protection, detention, removal, and adjudication are organized under [Immigration System Reform](immigration-system-reform.md). Voting administration, access, redistricting, and representation are organized under [Elections](elections.md). Those subjects can implicate civil rights, but repeating their full proposal maps here would make the topic routes less clear.
 
@@ -25,6 +25,7 @@ Immigration-specific humanitarian protection, detention, removal, and adjudicati
 | --- | --- | --- |
 | Government-wide civil-rights definitions, identity records, grant conditions, privacy, or detention classification | [RIGHTS-001](../areas/RIGHTS/issues/RIGHTS-001.md) | Establishes stable authority, records, privacy, procedures, and review across federal civil-rights administration. |
 | Birthright citizenship, citizenship recognition, or federal identity documents | [RIGHTS-003](../areas/RIGHTS/issues/RIGHTS-003.md) | Protects recognition continuity, federal records, reliance interests, benefits administration, and timely judicial review. |
+| Law-enforcement constitutional violations | [RIGHTS-005](../areas/RIGHTS/issues/RIGHTS-005.md) | Establishes civil remedies and calibrated personal civil and criminal accountability across Federal, State, and local law enforcement. |
 | Constitutional injury by federal officials with no effective judicial remedy | [JUD-012](../areas/JUD/issues/JUD-012.md) | Examines causes of action and other review barriers without changing the underlying substantive right. |
 
 

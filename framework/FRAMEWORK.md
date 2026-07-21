@@ -18,7 +18,7 @@ The project's public-facing premise, mission, scope, and governing principles ar
 - `framework/logs/` contains cross-project operational and historical logs; `framework/templates/` contains reusable project-authored drafting templates.
 - `areas/` contains one directory per project area, area README indexes, developed issue pages, sibling issue audit-history files, and selectively created reader-facing issue evidence records.
 - `legislation/` contains proposed statutory, constitutional, regulatory, procedural, and model-state language keyed to issue identifiers.
-- `inventory/` contains structured source records. GitHub Projects is the authoritative area, issue, lifecycle-status, milestone, and roadmap tracker.
+- `inventory/` contains structured source records, stable GitHub navigation, and the non-bibliographic presidential-directives discovery-and-screening registry. GitHub Projects is the authoritative area, issue, lifecycle-status, milestone, and roadmap tracker.
 - [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) contains the active long-running audit handoff checkpoint used when chat context is interrupted or a new chat resumes prior work.
 - [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md) contains agent-assisted audit and autonomous batch-audit operating rules.
 - [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md) contains autonomous, batched, or scheduled agent commit provenance and rollback references.
@@ -42,7 +42,9 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 - [`FRAMEWORK.md`](FRAMEWORK.md) — technical framework, repository conventions, and development status
 - [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2) — authoritative area, issue, lifecycle-status, milestone, roadmap, and horizon-tracking surface
 - [ARRP Review Ready Progress Dashboard](https://github.com/Thorncrag/ARRP/blob/progress-dashboard/PROGRESS.md) — repository-visible derived goal, pace, forecast, portfolio-composition, and area-progress visualization excluded from the public website
-- [`../inventory/sources.csv`](../inventory/sources.csv) — source-tracking table
+- [`../inventory/sources.csv`](../inventory/sources.csv) — relied-upon external-source registry
+- [`../inventory/sources-pending.csv`](../inventory/sources-pending.csv) — temporary routing queue limited to retained sources whose accountable proposal, candidate, or research destination is genuinely unclear
+- [`../inventory/presidential-directives.csv`](../inventory/presidential-directives.csv) — presidential-instrument discovery, deduplication, and screening registry; not a source bibliography
 - [`METHODOLOGY.md`](METHODOLOGY.md) — inventory maintenance, audit procedure, scoring rules, and Horizon Scan rules
 - [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md) — GitHub Issues, GitHub Project fields, labels, milestones, and sub-issue workflow rules
 - [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md) — remedy categories, trigger stages, and cross-cutting remedial options
@@ -65,7 +67,7 @@ Until the project reaches version 1.0 or enters an explicit release, export, pub
 - [`../CITATION.cff`](../CITATION.cff) — citation metadata
 - [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — contribution expectations
 - [`PUBLIC_RELEASE.md`](PUBLIC_RELEASE.md) — public release process
-- [`../research/`](../research/) and area `research/` directories — cross-project and issue-specific ARRP-created work product respectively; external-source workflow remains exclusively in the two source inventories and GitHub monitoring records
+- [`../research/`](../research/) and area `research/` directories — cross-project and issue-specific ARRP-created work product respectively; external-source workflow remains exclusively in the two source inventories and the existing proposal or candidate GitHub issues carrying `needs: monitoring`
 - [`../topics/`](../topics/) — public reader guides that synthesize major subjects and route readers to authoritative ARRP areas and proposals
 - [`../sources/`](../sources/) — locally retained external source and backup files
 - [`../scripts/`](../scripts/) — project-maintenance and export-generation scripts
@@ -361,7 +363,7 @@ Every factual, legal, and causal proposition must remain independently supportab
 
 Indictments, criminal complaints, informations, prosecutorial reports, press releases describing charges, and comparable advocacy-position records may be used to identify alleged fact patterns, procedural posture, source leads, and potential institutional weaknesses. They must not be used as evidentiary support for the truth of an allegation unless the project separately verifies the allegation through specific cited evidence, admitted records, judicial findings, official records, or other reliable corroboration. When used, label them as allegations, prosecution assessments, charging documents, or source-development leads rather than adjudicated facts.
 
-Source inventory updates are required whenever a new external source is affirmatively relied upon or an existing source is repurposed for a materially different proposition. [`../inventory/sources.csv`](../inventory/sources.csv) is the relied-upon source registry; a source may remain marked `Reviewed?` as `No` when the project carefully attributes a provisional assertion or monitoring posture, but the supported proposition and verification status must remain clear. [`../inventory/sources-pending.csv`](../inventory/sources-pending.csv) holds potentially useful source-development and adjudication leads not yet used to support a substantive project assertion; move the stable record into `sources.csv` only when an accountable project record actually relies on it.
+Source inventory updates are required whenever a new external source is affirmatively relied upon or an existing source is repurposed for a materially different proposition. [`../inventory/sources.csv`](../inventory/sources.csv) is the relied-upon source registry; a source may remain marked `Reviewed?` as `No` when the project carefully attributes a provisional assertion or monitoring posture, but the supported proposition and verification status must remain clear. [`../inventory/sources-pending.csv`](../inventory/sources-pending.csv) is only a temporary routing queue for retained sources whose accountable destination cannot yet be selected with confidence. Once an existing proposal, undeveloped proposal, formal candidate, preliminary candidate, or project-authored research record clearly owns the source, cite it in that record, move its stable row into `sources.csv`, and preserve incomplete verification through `Reviewed?`, Notes, or a defined monitoring field rather than leaving it pending.
 
 When referring to another page in this project, use a relative Markdown link whenever the target page exists. If the referenced issue exists only as an inventory or area-index entry, link to the nearest project page that contains that entry.
 

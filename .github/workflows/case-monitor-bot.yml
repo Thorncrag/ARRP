@@ -1,13 +1,14 @@
-name: Check monitored external developments
+name: Case monitor bot
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "13 0 * * *"
-      timezone: "America/New_York"
+    # GitHub cron uses UTC. This is approximately midnight Eastern:
+    # 12:17 a.m. EDT and 11:17 p.m. EST.
+    - cron: "17 4 * * *"
 
 concurrency:
-  group: arrp-monitoring-pilot
+  group: arrp-case-monitor-bot
   cancel-in-progress: false
 
 permissions:
@@ -17,7 +18,7 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Check out the repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
@@ -27,13 +28,14 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Check the complete live monitoring set
+      - name: Check the litigation tracker and verify changed dockets
         id: monitor
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
         run: >-
-          python scripts/check_monitoring_updates.py
+          python scripts/check_case_updates.py
           --apply
           --summary "${RUNNER_TEMP}/monitoring-summary.md"
           --report-json "${RUNNER_TEMP}/monitoring-report.json"
@@ -50,21 +52,33 @@ jobs:
           if [ -f "${RUNNER_TEMP}/monitoring-summary.md" ]; then
             cat "${RUNNER_TEMP}/monitoring-summary.md" >> "${GITHUB_STEP_SUMMARY}"
           else
-            echo "## ARRP automated monitoring prototype" >> "${GITHUB_STEP_SUMMARY}"
+            echo "## ARRP case-monitor-bot" >> "${GITHUB_STEP_SUMMARY}"
             echo >> "${GITHUB_STEP_SUMMARY}"
             echo "The monitoring script did not produce a summary. Review the failed step log." >> "${GITHUB_STEP_SUMMARY}"
           fi
+
+      - name: Preserve the machine-readable report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: case-monitor-report
+          path: |
+            ${{ runner.temp }}/monitoring-summary.md
+            ${{ runner.temp }}/monitoring-report.json
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Notify the project owner
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          notification_issue="$(python -c 'import json; print(json.load(open(".github/monitoring-pilot.json"))["notification"]["issueNumber"])')"
-          notification_mention="$(python -c 'import json; print(json.load(open(".github/monitoring-pilot.json"))["notification"]["mention"])')"
+          notification_issue="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["notification"]["issueNumber"])')"
+          notification_mention="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["notification"]["mention"])')"
           notification_body="${RUNNER_TEMP}/monitoring-notification.md"
 
-          printf '%s\n\n' "${notification_mention} — monitor-bot run completed with check outcome: **${{ steps.monitor.outcome }}**." > "${notification_body}"
+          check_outcome="${{ steps.monitor.outcome }}"
+          printf '%s\n\n' "${notification_mention} — case-monitor-bot run completed with check outcome: **${check_outcome}**." > "${notification_body}"
           if [ -f "${RUNNER_TEMP}/monitoring-summary.md" ]; then
             cat "${RUNNER_TEMP}/monitoring-summary.md" >> "${notification_body}"
           else

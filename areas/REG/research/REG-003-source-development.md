@@ -1,0 +1,21 @@
+---
+issue_id: REG-003
+title: "Source Development — REG-003"
+status: working-notes
+print_levels:
+  - full-technical
+---
+
+# REG-003 Source Development
+
+This record is source-development work, not a completed finding or a substitute for the proposal’s verified manifestations, analysis, or citations. It preserves sources routed to this proposal for later source-specific review and integration.
+
+## Routed Sources
+
+- **[SRC-0900](<https://www.justice.gov/eoir/media/1414836/dl?inline=>) — Acting Regional Deputy Chief IJ issues, and EOIR subsequently withdraws, guidance to IJs regarding DHS motions to dismiss/terminate.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Reviewed: **Yes**.
+- **[SRC-1031](<https://www.federalregister.gov/documents/2026/02/06/2026-02326/appellate-procedures-for-the-board-of-immigration-appeals>) — Issuance of New Rules in Immigration Proceedings.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Reviewed: **No**.
+- **[SRC-1032](<https://www.courtlistener.com/docket/72338638/amica-center-for-immigrant-rights-v-executive-office-for-immigration/>) — Issuance of New Rules in Immigration Proceedings.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Issuance of New Rules in Immigration Proceedings; tracker status: Government Action Blocked. Reviewed: **No**. Monitoring: **Yes — Watch the live docket for a merits, appellate, or final ruling addressing Issuance of New Rules in Immigration Proceedings; the result will determine whether this source can support REG-003's treatment of that matter.**
+- **[SRC-1075](<https://www.courtlistener.com/docket/72497116/arias-v-us-immigration-and-customs-enforcement/>) — Restriction of Public Access to Immigration Proceedings.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Restriction of Public Access to Immigration Proceedings; tracker status: Government Action Temporarily Blocked in Part; Temporary Block Denied in Part. Reviewed: **No**. Monitoring: **Yes — Watch the live docket for a merits, appellate, or final ruling addressing Restriction of Public Access to Immigration Proceedings; the result will determine whether this source can support REG-003's treatment of that matter.**
+- **[SRC-2360](<https://www.courtlistener.com/docket/73294104/espinoza-v-blanche>) — Espinoza v. Blanche (N.D. Ill.) 1:26-cv-05157.** Proposition supported: Potentially supports monitoring of Removal of Career Personnel; tracker status: Case Pending. Reviewed: **No**. Monitoring: **Yes — Rerouted to REG-003 pending review for immigration-adjudicator personnel control; remove if it adds no distinct mechanism beyond the existing adjudicatory-independence record.**
+- **[SRC-2362](<https://www.courtlistener.com/docket/71976190/nemer-v-bondi>) — Nemer v. Bondi (D.D.C.) 1:25-cv-04170.** Proposition supported: Potentially supports monitoring of Removal of Career Personnel; tracker status: Case Pending. Reviewed: **No**. Monitoring: **Yes — Rerouted to REG-003 pending review for immigration-adjudicator personnel control; remove if it adds no distinct mechanism beyond the existing adjudicatory-independence record.**
+- **[SRC-2363](<https://www.courtlistener.com/docket/73341545/pappas-v-blanche>) — Pappas v. Blanche (D. Mass.) 1:26-cv-12194.** Proposition supported: Potentially supports monitoring of Removal of Career Personnel; tracker status: Case Pending. Reviewed: **No**. Monitoring: **Yes — Rerouted to REG-003 pending review for immigration-adjudicator personnel control; remove if it adds no distinct mechanism beyond the existing adjudicatory-independence record.**

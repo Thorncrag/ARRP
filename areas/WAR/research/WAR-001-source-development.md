@@ -106,3 +106,9 @@ Further review should prioritize:
 8. OLC opinions on Kosovo, Libya, Syria, and other military operations;
 9. CRS reports on war-powers practice, AUMFs, and presidential reporting;
 10. funding-cutoff and appropriations precedents.
+
+## Routed Source-Inventory Record
+
+The following entry is source-development work, not a completed finding or a substitute for the proposal’s verified manifestations, analysis, or citations.
+
+- **[SRC-0998](<https://www.courtlistener.com/docket/72191479/burnley-v-united-states/>) — Extrajudicial Killings.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Extrajudicial Killings; tracker status: Case Pending. Reviewed: **No**. Monitoring: **Yes — Watch the live docket for a merits, appellate, or final ruling addressing Extrajudicial Killings; the result will determine whether this source can support WAR-001's treatment of that matter.**

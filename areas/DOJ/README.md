@@ -40,6 +40,7 @@ These numbers were assigned during preliminary review but did not become separat
 - **DOJ-005** owns senior-official recusal administration and enforcement.
 - **DOJ-007** owns independent investigation, evidence preservation, and congressional reporting when presidential or senior executive conflict makes ordinary DOJ accountability unreliable.
 - **DOJ-009** owns baseline professional eligibility, good standing, disciplinary disclosure, and post-appointment discipline consequences for senior DOJ legal offices.
+- [**REG-002**](../REG/issues/REG-002.md) owns case-specific executive influence over DOJ Antitrust and other noncriminal regulatory-enforcement matters; DOJ-002 and DOJ-003 remain limited to criminal investigation, prosecution, charging, and noncharging.
 
 ## Notes
 

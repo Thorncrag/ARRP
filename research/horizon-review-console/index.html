@@ -4,19 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <title>ARRP Candidate Issue Intake</title>
-    <meta name="description" content="ARRP review console for preliminary and formal proposed candidate issues.">
+    <title>ARRP Candidate and Source Intake</title>
+    <meta name="description" content="ARRP review console for candidate issues and source records.">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body data-interface-theme="arrp-tool">
-    <a class="skip-link" href="#preliminary-candidates">Skip to preliminary candidates</a>
+    <a class="skip-link" href="#console-tabs">Skip to console tabs</a>
 
     <header class="app-header">
       <div class="brand-block">
         <span class="brand-mark" aria-hidden="true">ARRP</span>
         <div>
-          <h1>Candidate Issue Intake</h1>
-          <p>Potential institutional defects requiring human review before formal project treatment.</p>
+          <h1>Candidate and Source Intake</h1>
+          <p>Candidate decisions and the source records that support project development.</p>
         </div>
       </div>
       <a class="header-link" href="../../participate/index.html">Submit public input ↗</a>
@@ -25,16 +25,48 @@
     <main class="app-shell">
       <section class="workflow-summary" aria-labelledby="workflow-heading">
         <div>
-          <span class="eyebrow">One candidate-centered workflow</span>
-          <h2 id="workflow-heading">Sources support decisions; they are not a separate review queue.</h2>
+          <span class="eyebrow">One read-only console</span>
+          <h2 id="workflow-heading">Review candidates and inspect each canonical source catalog.</h2>
         </div>
         <ol>
           <li><b>Discover</b><span>Normalize and cluster reports, primary records, and litigation.</span></li>
-          <li><b>Route</b><span>Send evidence to an existing issue, its GitHub monitor, or one preliminary candidate.</span></li>
-          <li><b>Review</b><span>Use Codex to promote, merge, defer, or reject a synthesized candidate.</span></li>
+          <li><b>Route</b><span>Send evidence to an existing issue or one preliminary candidate.</span></li>
+          <li><b>Review</b><span>Use Codex to decide candidates or update the owning source and issue records.</span></li>
         </ol>
       </section>
 
+      <nav class="console-tabs" id="console-tabs" aria-label="Intake console views">
+        <div class="tab-list" role="tablist" aria-label="Candidate and source views">
+          <button type="button" id="tab-candidates" role="tab" aria-selected="true" aria-controls="panel-candidates" data-tab="candidates">Candidates <span class="tab-count" id="tab-candidates-count">0</span></button>
+          <button type="button" id="tab-preliminaries" role="tab" aria-selected="false" aria-controls="panel-preliminaries" data-tab="preliminaries" tabindex="-1">Preliminaries <span class="tab-count" id="tab-preliminaries-count">0</span></button>
+          <button type="button" id="tab-sources" role="tab" aria-selected="false" aria-controls="panel-sources" data-tab="sources" tabindex="-1">Sources <span class="tab-count" id="tab-sources-count">0</span></button>
+          <button type="button" id="tab-pending" role="tab" aria-selected="false" aria-controls="panel-pending" data-tab="pending" tabindex="-1">Pending <span class="tab-count" id="tab-pending-count">0</span></button>
+          <button type="button" id="tab-watchers" role="tab" aria-selected="false" aria-controls="panel-watchers" data-tab="watchers" tabindex="-1">Watchers <span class="tab-count" id="tab-watchers-count">0</span></button>
+        </div>
+      </nav>
+
+      <section class="tab-panel" id="panel-candidates" role="tabpanel" aria-labelledby="tab-candidates" tabindex="0">
+      <section class="queue-view" id="proposed-candidates" aria-labelledby="proposed-heading">
+        <div class="queue-view-header">
+          <div>
+            <span class="eyebrow">GitHub-authoritative queue</span>
+            <h2 id="proposed-heading">Candidates <span class="count-pill" id="proposed-count">0</span></h2>
+            <p>Decision dossiers for formal open <code>HOR-###</code> records. Each view assembles the GitHub issue and Project status, Horizon intake history, supporting sources and research, overlap analysis, and unresolved questions without replacing those authoritative records.</p>
+          </div>
+          <p class="refresh-note">GitHub synchronized <time id="github-synced-at">—</time></p>
+        </div>
+
+        <div class="queue-controls">
+          <label for="proposed-search">Search<input id="proposed-search" type="search" placeholder="Issue, title, area, or status…"></label>
+          <label for="proposed-status">Project status<select id="proposed-status"><option value="all">All statuses</option></select></label>
+          <label for="proposed-area">Area<select id="proposed-area"><option value="all">All areas</option></select></label>
+        </div>
+        <p class="result-count"><b id="proposed-visible">0</b> candidates shown</p>
+        <div class="record-list formal-list" id="proposed-list"></div>
+      </section>
+      </section>
+
+      <section class="tab-panel" id="panel-preliminaries" role="tabpanel" aria-labelledby="tab-preliminaries" tabindex="0" hidden>
       <section class="queue-view attention-queue" id="preliminary-candidates" aria-labelledby="preliminary-heading">
         <div class="queue-view-header">
           <div>
@@ -58,27 +90,120 @@
           <p>New, unowned institutional defects will appear here automatically after source screening and clustering.</p>
         </div>
       </section>
-
-      <section class="queue-view" id="proposed-candidates" aria-labelledby="proposed-heading">
-        <div class="queue-view-header">
-          <div>
-            <span class="eyebrow">GitHub-authoritative queue</span>
-            <h2 id="proposed-heading">Proposed candidates <span class="count-pill" id="proposed-count">0</span></h2>
-            <p>Decision dossiers for formal open <code>HOR-###</code> records. Each view assembles the GitHub issue and Project status, Horizon intake history, supporting sources and research, overlap analysis, and unresolved questions without replacing those authoritative records.</p>
-          </div>
-          <p class="refresh-note">GitHub synchronized <time id="github-synced-at">—</time></p>
-        </div>
-
-        <div class="queue-controls">
-          <label for="proposed-search">Search<input id="proposed-search" type="search" placeholder="Issue, title, area, or status…"></label>
-          <label for="proposed-status">Project status<select id="proposed-status"><option value="all">All statuses</option></select></label>
-          <label for="proposed-area">Area<select id="proposed-area"><option value="all">All areas</option></select></label>
-        </div>
-        <p class="result-count"><b id="proposed-visible">0</b> candidates shown</p>
-        <div class="record-list formal-list" id="proposed-list"></div>
       </section>
 
-      <p class="method-note">This console is read-only. Candidate promotion, merger, deferral, rejection, and admission are reviewed and implemented in Codex under the project methodology.</p>
+      <section class="tab-panel" id="panel-sources" role="tabpanel" aria-labelledby="tab-sources" tabindex="0" hidden>
+      <section class="queue-view source-view" aria-labelledby="sources-heading">
+        <div class="queue-view-header">
+          <div>
+            <span class="eyebrow">Project bibliography</span>
+            <h2 id="sources-heading">Sources <span class="count-pill" id="sources-count">0</span></h2>
+            <p>Every source presently cataloged in <code>inventory/sources.csv</code> as supporting an assertion or analysis used by the project.</p>
+          </div>
+        </div>
+        <div class="queue-controls source-controls">
+          <label for="sources-search">Search<input id="sources-search" type="search" placeholder="Source, title, publisher, or record…"></label>
+          <label for="sources-type">Source type<select id="sources-type"><option value="all">All types</option></select></label>
+        </div>
+        <p class="result-count"><b id="sources-visible">0</b> sources match</p>
+        <div id="sources-table"></div>
+        <nav class="pagination" id="sources-pagination" aria-label="Sources pages"></nav>
+      </section>
+      </section>
+
+      <section class="tab-panel" id="panel-pending" role="tabpanel" aria-labelledby="tab-pending" tabindex="0" hidden>
+      <section class="queue-view source-view" aria-labelledby="pending-heading">
+        <div class="queue-view-header">
+          <div>
+            <span class="eyebrow">Retained for further work</span>
+            <h2 id="pending-heading">Pending sources <span class="count-pill" id="pending-count">0</span></h2>
+            <p>Sources whose accountable ARRP destination remains genuinely unclear. Each entry identifies the competing routes, explains the uncertainty, and states the next routing decision.</p>
+          </div>
+        </div>
+        <div class="queue-controls">
+          <label for="pending-search">Search<input id="pending-search" type="search" placeholder="Source, owner, rationale, or next action…"></label>
+          <label for="pending-owner">Possible destination<select id="pending-owner"><option value="all">All possible destinations</option></select></label>
+        </div>
+        <p class="result-count"><b id="pending-visible">0</b> sources still require a routing decision</p>
+        <div class="evidence-list pending-routing-list" id="pending-list"></div>
+      </section>
+      </section>
+
+      <section class="tab-panel" id="panel-watchers" role="tabpanel" aria-labelledby="tab-watchers" tabindex="0" hidden>
+      <section class="queue-view source-view" aria-labelledby="watchers-heading">
+        <div class="queue-view-header">
+          <div>
+            <span class="eyebrow">Changing external records</span>
+            <h2 id="watchers-heading">Watchers <span class="count-pill" id="watchers-count">0</span></h2>
+            <p>One coordinated view of the matters ARRP is monitoring, why each matters, and whether a deterministic watcher or a future human review must detect the relevant development.</p>
+          </div>
+        </div>
+
+        <nav class="watcher-tabs" aria-label="Watcher views">
+          <div class="watcher-tab-list" role="tablist" aria-label="Watcher and bot views">
+            <button type="button" id="watcher-tab-overview" role="tab" aria-selected="true" aria-controls="watcher-panel-overview" data-watcher-tab="overview">Overview</button>
+            <button type="button" id="watcher-tab-courts" role="tab" aria-selected="false" aria-controls="watcher-panel-courts" data-watcher-tab="courts" tabindex="-1">Court cases <span class="tab-count" id="court-watch-count">0</span></button>
+            <button type="button" id="watcher-tab-directives" role="tab" aria-selected="false" aria-controls="watcher-panel-directives" data-watcher-tab="directives" tabindex="-1">Presidential directives <span class="tab-count" id="directive-watch-count">0</span></button>
+            <button type="button" id="watcher-tab-manual" role="tab" aria-selected="false" aria-controls="watcher-panel-manual" data-watcher-tab="manual" tabindex="-1">Manual monitoring <span class="tab-count" id="manual-watch-count">0</span></button>
+          </div>
+        </nav>
+
+        <section class="watcher-panel" id="watcher-panel-overview" role="tabpanel" aria-labelledby="watcher-tab-overview" tabindex="0">
+          <div class="watcher-summary-grid" id="watcher-summary-grid"></div>
+          <div class="watcher-explanation">
+            <h3>How to read this view</h3>
+            <dl class="candidate-details compact">
+              <div class="detail-item"><dt>Why monitored</dt><dd>The legal or factual development that could materially change ARRP's treatment.</dd></div>
+              <div class="detail-item"><dt>How monitored</dt><dd>The deterministic watcher, or the human research process, capable of observing it.</dd></div>
+              <div class="detail-item"><dt>Current posture</dt><dd>The latest known review state; an automated signal never establishes legal significance.</dd></div>
+              <div class="detail-item"><dt>Authoritative record</dt><dd>The owning GitHub issue and source catalogs remain authoritative; this console is a projection.</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="watcher-panel" id="watcher-panel-courts" role="tabpanel" aria-labelledby="watcher-tab-courts" tabindex="0" hidden>
+          <div class="watcher-panel-header">
+            <div><h3>Court-case watcher</h3><p><b id="case-watcher-mode">Current mode: loading.</b> The watcher compares Just Security's litigation tracker daily and uses CourtListener only to verify changed linked cases. This view identifies ARRP court sources eligible for tracker-assisted mapping; tracker gaps and unlisted matters remain part of the human monitoring pass.</p></div>
+            <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/case-monitor-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a>
+          </div>
+          <div class="queue-controls source-controls">
+            <label for="court-watch-search">Search<input id="court-watch-search" type="search" placeholder="Case, docket, issue, or monitoring reason…"></label>
+            <label for="court-watch-owner">ARRP owner<select id="court-watch-owner"><option value="all">All owners</option></select></label>
+          </div>
+          <p class="result-count"><b id="court-watch-visible">0</b> distinct court sources match</p>
+          <div class="monitoring-list" id="court-watch-list"></div>
+        </section>
+
+        <section class="watcher-panel" id="watcher-panel-directives" role="tabpanel" aria-labelledby="watcher-tab-directives" tabindex="0" hidden>
+          <div class="watcher-panel-header">
+            <div><h3>Presidential-directives watcher</h3><p><b id="directive-watcher-mode">Current mode: loading.</b> The completed baseline covers official Federal Register presidential documents across Trump I, Biden, and Trump II. Deterministic discovery is separated from later LLM screening of new or changed records.</p></div>
+            <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/presidential-directives-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a>
+          </div>
+          <div class="queue-controls">
+            <label for="directive-search">Search<input id="directive-search" type="search" placeholder="Title, number, president, or ARRP record…"></label>
+            <label for="directive-administration">Administration<select id="directive-administration"><option value="all">All administrations</option></select></label>
+            <label for="directive-status">Screening status<select id="directive-status"><option value="all">All statuses</option></select></label>
+          </div>
+          <p class="result-count"><b id="directive-visible">0</b> directives match</p>
+          <div id="directive-table"></div>
+          <nav class="pagination" id="directive-pagination" aria-label="Presidential directive pages"></nav>
+        </section>
+
+        <section class="watcher-panel" id="watcher-panel-manual" role="tabpanel" aria-labelledby="watcher-tab-manual" tabindex="0" hidden>
+          <div class="watcher-panel-header">
+            <div><h3>Manual monitoring</h3><p>GitHub issues carrying <code>needs: monitoring</code>, including active-search obligations and changing sources that no deterministic watcher currently covers.</p></div>
+          </div>
+          <div class="queue-controls source-controls">
+            <label for="manual-watch-search">Search<input id="manual-watch-search" type="search" placeholder="Issue, title, area, trigger, or source…"></label>
+            <label for="manual-watch-kind">Issue type<select id="manual-watch-kind"><option value="all">All issue types</option></select></label>
+          </div>
+          <p class="result-count"><b id="manual-watch-visible">0</b> monitored issues match</p>
+          <div class="monitoring-list" id="manual-watch-list"></div>
+        </section>
+      </section>
+      </section>
+
+      <p class="method-note">This console is read-only. Candidate decisions and source-record changes are reviewed and implemented in Codex under the project methodology.</p>
     </main>
 
     <script src="catalog-data.js"></script>

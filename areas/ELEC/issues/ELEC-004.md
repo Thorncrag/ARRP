@@ -1,6 +1,7 @@
 ---
 issue_id: ELEC-004
 area_id: A-02
+source_development_record: "../research/ELEC-004-source-development.md"
 title: "Abuse of Election Litigation and Civil Process"
 status: developed
 priority: high

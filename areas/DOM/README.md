@@ -17,7 +17,7 @@ The president retains broad and partially ambiguous authority to deploy federal 
 
 ## Active Issues
 
-- **DOM-001 — Domestic Deployment Authorities and Safeguards**
+- [**DOM-001 — Domestic Deployment Authorities and Safeguards**](issues/DOM-001.md)
 - [**DOM-005 — State Investigative Access to Federal Critical-Incident Evidence**](issues/DOM-005.md)
 - **DOM-007 — Domestic military intelligence activity**
 - [**DOM-009 — Federal Law-Enforcement Surveillance Procurement and Deployment**](issues/DOM-009.md)
@@ -32,6 +32,7 @@ These numbers were assigned during preliminary review but did not become separat
 ## Issue Boundaries
 
 - **DOM-005** owns confidential officer identification, preservation of existing evidence, and secure State investigative access following a covered Federal critical incident. It does not create a recording mandate, public-disclosure right, prosecution authority, or immunity rule. It is agency-neutral and applies beyond immigration enforcement. [FED-004](../FED/README.md) is a secondary federalism cross-reference when exclusive Federal control of evidence displaces a State investigative function; DOM-001 supplies the expedited-review framework; [DOJ-007](../DOJ/issues/DOJ-007.md) remains limited to presidential and senior executive conflict.
+- [**RIGHTS-005**](../RIGHTS/issues/RIGHTS-005.md) owns personal civil and criminal accountability for law-enforcement constitutional violations. DOM-005 supplies evidence preservation and authorized State investigative access but does not determine liability, authorize prosecution, or alter immunity.
 - **DOM-009** owns Federal law-enforcement surveillance procurement and deployment. DOM-005 owns preservation and investigative access when Federal recording or surveillance systems contain evidence of a covered use-of-force incident.
 - **DOM-001** owns Insurrection Act, Posse Comitatus, National Guard federalization, protest and election deployment, asserted federal-property authority, findings, duration, termination, and expedited judicial review. [FED-004](../FED/README.md) retains the general anti-commandeering and state-function-displacement framework.
 

@@ -17,9 +17,9 @@ Existing constitutional and statutory safeguards do not adequately prevent presi
 
 ## Active Issues
 
-- **PRESS-001 — Equal Press Access and Rapid Review**
+- [**PRESS-001 — Equal Press Access and Rapid Review**](issues/PRESS-001.md)
 - **PRESS-003 — Journalist Compulsory Process, Surveillance, and Source Protection**
-- **PRESS-006 — Governmental Retaliation Against the Press**
+- [**PRESS-006 — Governmental Retaliation Against the Press**](issues/PRESS-006.md)
 
 ## Prior Issue Numbers
 

@@ -23,8 +23,8 @@ This page does not evaluate whether a particular efficiency policy is wise. It h
 
 | Public concern | Proposal | How ARRP addresses it |
 | --- | --- | --- |
-| Creation or use of a cross-agency operational-control unit | CIV-009 | Addresses appointments, delegation, systems access, privacy, procurement, records, and oversight. |
-| Reclassification or removal of career employees | CIV-001 | Addresses political reclassification and retaliation for professional judgment within one merit-system framework. |
+| Creation or use of a cross-agency operational-control unit | [CIV-009](../areas/CIV/issues/CIV-009.md) | Addresses appointments, delegation, systems access, privacy, procurement, records, and oversight. |
+| Reclassification or removal of career employees | [CIV-001](../areas/CIV/issues/CIV-001.md) | Addresses political reclassification and retaliation for professional judgment within one merit-system framework. |
 | Large workforce reductions or loss of technical capacity | CIV-005 | Addresses whether personnel reductions hollow out the government’s ability to perform required functions. |
 | Functional dismantling of an agency or mandatory program | [REG-001](../areas/REG/issues/REG-001.md) | Addresses substantial and sustained inability to perform duties assigned by Congress. |
 | Nonspending used to suspend an agency or program | [FUND-001](../areas/FUND/issues/FUND-001.md) | Addresses appropriations execution and agency closure through nonspending. |

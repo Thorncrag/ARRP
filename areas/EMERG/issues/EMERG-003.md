@@ -1,6 +1,7 @@
 ---
 issue_id: EMERG-003
 area_id: A-10
+source_development_record: "../research/EMERG-003-source-development.md"
 title: "Emergency Economic Powers as a Substitute for Legislation"
 status: candidate
 priority: high
@@ -65,10 +66,6 @@ On July 13, 2026, Reuters reported that a State Department official described a 
 This is not the first IEEPA sanctions program aimed at ICC-associated persons. Executive Order 13928 created an ICC program in 2020; Executive Order 14022 terminated it in 2021; Executive Order 14203 created a new program in 2025. The Congressional Research Service records both episodes within the broader expansion of IEEPA from country-based emergencies to sanctions against groups and individuals. See [CRS, *The International Emergency Economic Powers Act: Origins, Evolution, and Use*](https://www.congress.gov/crs-product/R45618).
 
 That sequence demonstrates the institutional problem independently of the merits: a consequential international sanctions policy can be created, rescinded, and recreated by successive Presidents without new legislation.
-
-### Supporting Record and Updates
-
-- **Watching for updates:** [EMERG-003-MON](https://github.com/Thorncrag/ARRP/issues/281) tracks pending litigation, agency action, disclosures, and other defined events that could affect this proposal. It does not alter the proposal's current analysis.
 
 ## Resulting Damage
 
