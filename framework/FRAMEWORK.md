@@ -32,7 +32,6 @@ The project's public-facing premise, mission, scope, and governing principles ar
 - `website/` contains the public-site publication policy and website-only presentation assets.
 - `participate/` contains the separately deployed public-interaction service and its minimal proposal-and-Horizon lookup. The service is publicly available through its Vercel deployment but remains outside the GitHub Pages artifact; it provides distinct public-input and private-author-contact routes while formal intake review remains a manual Codex workflow.
 - `exports/` contains generated DOCX, PDF, and XLSX editions.
-- `archive/` contains superseded snapshots retained for provenance.
 
 Markdown files, GitHub Project records, issue audit-history files, and the retained source inventory are authoritative within their respective scopes. Binary Office and PDF files are generated outputs.
 
