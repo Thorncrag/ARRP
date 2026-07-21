@@ -108,8 +108,10 @@ jobs:
           printf '%s\n\n' "@${assignee}, this branch contains observable changes in cataloged court-case sources requiring review." > "${body_file}"
           if [ "${{ steps.commit.outputs.new_change }}" != "true" ]; then
             printf '%s\n\n' "The current run found no additional changes. This pull request preserves unresolved changes staged by an earlier run; review the Files changed tab and the pending Source Monitor Log entry before merging." >> "${body_file}"
+            sed 's/No repository update or pull request is needed\./No additional repository update was produced by this run; the earlier unresolved branch change remains pending./' "${RUNNER_TEMP}/monitoring-summary.md" >> "${body_file}"
+          else
+            cat "${RUNNER_TEMP}/monitoring-summary.md" >> "${body_file}"
           fi
-          cat "${RUNNER_TEMP}/monitoring-summary.md" >> "${body_file}"
           printf '\n[View the workflow run](%s)\n' "${RUN_URL}" >> "${body_file}"
           if [ -z "${pr_number}" ]; then
             pr_url="$(gh pr create --repo "${GITHUB_REPOSITORY}" --base "${BASE_BRANCH}" --head "${BOT_BRANCH}" --title "${title}" --body-file "${body_file}" --assignee "${assignee}")"
