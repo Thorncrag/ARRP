@@ -40,6 +40,8 @@ jobs:
           base_branch="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["baseBranch"])')"
           source_monitor_log="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["logPath"])')"
           printf 'BOT_BRANCH=%s\nBASE_BRANCH=%s\nSOURCE_MONITOR_LOG=%s\n' "${bot_branch}" "${base_branch}" "${source_monitor_log}" >> "${GITHUB_ENV}"
+          git config user.name "arrp-case-monitor[bot]"
+          git config user.email "arrp-case-monitor[bot]@users.noreply.github.com"
           git fetch origin "${base_branch}"
           if git fetch origin "${bot_branch}:refs/remotes/origin/${bot_branch}" 2>/dev/null; then
             git checkout -B "${bot_branch}" "origin/${bot_branch}"
