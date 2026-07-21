@@ -163,7 +163,7 @@
 
         <section class="watcher-panel" id="watcher-panel-courts" role="tabpanel" aria-labelledby="watcher-tab-courts" tabindex="0" hidden>
           <div class="watcher-panel-header">
-            <div><h3>Court-case watcher</h3><p><b id="case-watcher-mode">Current mode: loading.</b> The watcher compares Just Security's litigation tracker daily and uses CourtListener only to verify changed linked cases. This view identifies ARRP court sources eligible for tracker-assisted mapping; tracker gaps and unlisted matters remain part of the human monitoring pass.</p></div>
+            <div><h3>Court-case watcher</h3><p><b id="case-watcher-mode">Current mode: loading.</b> The watcher compares cataloged, mapped court sources with Just Security's litigation tracker and uses CourtListener only to verify changed linked cases. Accepted baselines live on the individual source rows. New cases, tracker gaps, and unlisted matters remain part of source intake and the human monitoring pass.</p></div>
             <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/case-monitor-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a>
           </div>
           <div class="queue-controls source-controls">
@@ -176,7 +176,7 @@
 
         <section class="watcher-panel" id="watcher-panel-directives" role="tabpanel" aria-labelledby="watcher-tab-directives" tabindex="0" hidden>
           <div class="watcher-panel-header">
-            <div><h3>Presidential-directives watcher</h3><p><b id="directive-watcher-mode">Current mode: loading.</b> The completed baseline covers official Federal Register presidential documents across Trump I, Biden, and Trump II. Deterministic discovery is separated from later LLM screening of new or changed records.</p></div>
+            <div><h3>Presidential-directives watcher</h3><p><b id="directive-watcher-mode">Current mode: loading.</b> The completed baseline covers official Federal Register presidential documents across Trump I, Biden, and Trump II. Material metadata changes are proposed in an owner-assigned pull request; substantive LLM screening remains separate.</p></div>
             <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/presidential-directives-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a>
           </div>
           <div class="queue-controls">

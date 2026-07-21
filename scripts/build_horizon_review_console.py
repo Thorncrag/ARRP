@@ -106,6 +106,9 @@ def source_payload(row: dict[str, str]) -> dict[str, object]:
         "blocker": value("Blocker"),
         "monitoring_rationale": value("Monitoring Rationale"),
         "monitoring_group": value("Monitoring Group"),
+        # The console exposes whether an accepted watcher baseline exists, not
+        # the raw fingerprint itself.
+        "monitoring_baseline_present": bool(value("Monitoring Baseline")),
     }
 
 
@@ -669,58 +672,46 @@ def monitoring_issue_snapshot(refresh: bool) -> list[dict[str, object]]:
     return sorted(records, key=lambda row: (str(row["kind"]), str(row["id"])))
 
 
-def case_watcher_snapshot(
-    monitoring_issues: list[dict[str, object]],
-) -> tuple[list[dict[str, object]], dict[str, object]]:
-    """Project court sources eligible for tracker-assisted mapping and verification."""
+def case_watcher_snapshot() -> tuple[list[dict[str, object]], dict[str, object]]:
+    """Cataloged court sources covered by the tracker-assisted watcher."""
     if not CASE_MONITOR_CONFIG.exists():
         return [], {"enabled": False, "mode": "Not configured"}
     config = json.loads(CASE_MONITOR_CONFIG.read_text(encoding="utf-8"))
-    eligible_types = {
-        str(value).strip().casefold()
-        for value in config.get(
-            "eligibleSourceTypes",
-            [
-                "Court Docket or Judicial Record",
-                "Court Filing or Judicial Record",
-                "Court Docket",
-                "Judicial Docket",
-                "Supreme Court Docket",
-                "Federal Court Docket",
-                "Official court record",
-            ],
-        )
-    }
     verification = config.get("verification", config.get("provider", {}))
     allowed_hosts = set(verification.get("allowedHosts", []))
+    registry_by_id = {
+        row.get("Object ID", "").strip(): row
+        for row in read_csv(ISSUE_REGISTRY)
+        if row.get("Object ID", "").strip()
+    }
     records: list[dict[str, object]] = []
-    for issue in monitoring_issues:
-        for source in issue.get("sources", []):
-            if source.get("monitoring") != "Yes":
-                continue
-            if str(source.get("type", "")).strip().casefold() not in eligible_types:
-                continue
-            host = urllib.parse.urlsplit(str(source.get("url", ""))).hostname or ""
-            if host not in allowed_hosts:
-                continue
-            rationale = (
-                source.get("monitoring_rationale")
-                or issue.get("monitoring_rationale")
-                or source.get("proposition")
-            )
-            records.append(
-                {
-                    **source,
-                    "owner_id": issue["id"],
-                    "owner_title": issue["title"],
-                    "owner_kind": issue["kind"],
-                    "owner_status": issue["status"],
-                    "owner_issue_url": issue["issue_url"],
-                    "monitoring_rationale": rationale,
-                    "monitoring_group": source.get("monitoring_group") or issue["id"],
-                    "coverage": "Eligible for tracker-assisted mapping and targeted verification",
-                }
-            )
+    for raw in all_source_records():
+        source = source_payload(raw)
+        if source.get("monitoring") != "Yes":
+            continue
+        host = urllib.parse.urlsplit(str(source.get("url", ""))).hostname or ""
+        if host not in allowed_hosts:
+            continue
+        owner_ids = list(source.get("record_ids", []))
+        owner_id = owner_ids[0] if owner_ids else "Unassigned"
+        registry = registry_by_id.get(owner_id, {})
+        records.append(
+            {
+                **source,
+                "owner_id": owner_id,
+                "owner_title": registry.get("GitHub Title", "").strip() or owner_id,
+                "owner_kind": registry.get("Kind", "").strip() or "Project record",
+                "owner_status": "Source-level monitoring",
+                "owner_issue_url": registry.get("GitHub Issue", "").strip(),
+                "monitoring_rationale": source.get("monitoring_rationale") or source.get("proposition"),
+                "monitoring_group": source.get("monitoring_group") or owner_id,
+                "coverage": (
+                    "Accepted per-source baseline"
+                    if source.get("monitoring_baseline_present")
+                    else "Baseline initialization required"
+                ),
+            }
+        )
     records.sort(key=lambda row: (str(row["owner_id"]), str(row["monitoring_group"]), str(row["id"])))
     schedule = config.get("schedule", {})
     metadata = {
@@ -892,14 +883,14 @@ def main() -> None:
     presidential_directives = presidential_directive_records()
     horizon_records, github_synced_at = horizon_snapshot(args.refresh_github)
     monitoring_issues = monitoring_issue_snapshot(args.refresh_github)
-    court_watch_sources, case_watcher_metadata = case_watcher_snapshot(monitoring_issues)
+    court_watch_sources, case_watcher_metadata = case_watcher_snapshot()
     horizon_records = enrich_horizon_records(horizon_records)
     active_horizon_records = [
         record for record in horizon_records if record["issue_state"] == "Open"
     ]
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
-        "schema_version": 11,
+        "schema_version": 12,
         "generated_at": generated_at,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),

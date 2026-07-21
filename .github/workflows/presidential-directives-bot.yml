@@ -11,8 +11,8 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
-  issues: write
+  contents: write
+  pull-requests: write
 
 jobs:
   compare:
@@ -21,25 +21,122 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
 
+      - name: Load watcher configuration
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          config = json.loads(Path(".github/presidential-directives-bot.json").read_text())
+          automation = config["automation"]
+          with Path(os.environ["GITHUB_ENV"]).open("a", encoding="utf-8") as output:
+              output.write(f"BOT_BRANCH={automation['branch']}\n")
+              output.write(f"ASSIGNEE={automation['assignee']}\n")
+              output.write(f"MONITOR_LOG={automation['logPath']}\n")
+          PY
+
+      - name: Prepare the persistent watcher branch
+        run: |
+          git fetch origin main
+          if git ls-remote --exit-code --heads origin "${BOT_BRANCH}" >/dev/null 2>&1; then
+            git fetch origin "${BOT_BRANCH}"
+            git checkout -B "${BOT_BRANCH}" FETCH_HEAD
+            git rebase origin/main
+          else
+            git checkout -b "${BOT_BRANCH}" origin/main
+          fi
+
       - name: Compare official presidential-directive metadata
         id: compare
-        continue-on-error: true
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: >-
           python scripts/check_presidential_directives.py
+          --apply
+          --log "${MONITOR_LOG}"
+          --run-url "${RUN_URL}"
           --summary "${RUNNER_TEMP}/directives-summary.md"
           --report-json "${RUNNER_TEMP}/directives-report.json"
-          --proposed-csv "${RUNNER_TEMP}/presidential-directives-proposed.csv"
 
-      - name: Verify the read-only boundary
-        id: read_only
-        if: always()
-        run: git diff --quiet "${GITHUB_SHA}" -- .
+      - name: Determine whether a material update was staged
+        id: material
+        run: |
+          material="$(python -c 'import json, os; print(str(json.load(open(os.environ["REPORT"]))["material_update"]).lower())' )"
+          printf 'changed=%s\n' "${material}" >> "${GITHUB_OUTPUT}"
+        env:
+          REPORT: ${{ runner.temp }}/directives-report.json
+
+      - name: Verify the change boundary
+        if: steps.material.outputs.changed == 'true'
+        run: |
+          python - <<'PY'
+          import subprocess
+          allowed = {
+              "inventory/presidential-directives.csv",
+              "framework/logs/SOURCE_MONITOR_LOG.md",
+          }
+          changed = {
+              line[3:]
+              for line in subprocess.check_output(
+                  ["git", "status", "--short"], text=True
+              ).splitlines()
+              if len(line) >= 4
+          }
+          unexpected = changed - allowed
+          if unexpected:
+              raise SystemExit(f"watcher changed files outside its boundary: {sorted(unexpected)}")
+          if not changed:
+              raise SystemExit("watcher reported a material update without a repository change")
+          PY
+
+      - name: Commit and push the material update
+        if: steps.material.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add inventory/presidential-directives.csv framework/logs/SOURCE_MONITOR_LOG.md
+          git commit -m "chore: record presidential directive updates"
+          git push --set-upstream origin "${BOT_BRANCH}"
+
+      - name: Detect a pending review branch
+        id: pending
+        run: |
+          if git diff --quiet origin/main...HEAD -- inventory/presidential-directives.csv framework/logs/SOURCE_MONITOR_LOG.md; then
+            printf 'exists=false\n' >> "${GITHUB_OUTPUT}"
+          else
+            printf 'exists=true\n' >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Create or update the review pull request
+        if: steps.pending.outputs.exists == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.ARRP_PROJECT_TOKEN || github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          pr_url="$(gh pr list --repo "${GITHUB_REPOSITORY}" --head "${BOT_BRANCH}" --state open --json url --jq '.[0].url // empty')"
+          body_file="${RUNNER_TEMP}/directives-pr.md"
+          printf '%s\n\n' "@${ASSIGNEE}, this branch contains official directive-metadata changes requiring review." > "${body_file}"
+          if [ "${{ steps.material.outputs.changed }}" = "true" ]; then
+            cat "${RUNNER_TEMP}/directives-summary.md" >> "${body_file}"
+          else
+            printf '%s\n' "The current run found no additional changes; this pull request preserves changes staged by an earlier run." >> "${body_file}"
+          fi
+          printf '\n[View the workflow run](%s)\n' "${RUN_URL}" >> "${body_file}"
+          if [ -z "${pr_url}" ]; then
+            pr_url="$(gh pr create --repo "${GITHUB_REPOSITORY}" --base main --head "${BOT_BRANCH}" --title "Review presidential directive updates" --body-file "${body_file}")"
+          else
+            gh pr edit "${pr_url}" --repo "${GITHUB_REPOSITORY}" --body-file "${body_file}"
+          fi
+          gh pr edit "${pr_url}" --repo "${GITHUB_REPOSITORY}" --add-assignee "${ASSIGNEE}"
 
       - name: Publish the run summary
         if: always()
@@ -59,30 +156,5 @@ jobs:
           path: |
             ${{ runner.temp }}/directives-summary.md
             ${{ runner.temp }}/directives-report.json
-            ${{ runner.temp }}/presidential-directives-proposed.csv
           if-no-files-found: warn
           retention-days: 14
-
-      - name: Notify the project owner
-        if: always()
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          notification_issue="$(python -c 'import json; print(json.load(open(".github/presidential-directives-bot.json"))["notification"]["issueNumber"])')"
-          notification_mention="$(python -c 'import json; print(json.load(open(".github/presidential-directives-bot.json"))["notification"]["mention"])')"
-          notification_body="${RUNNER_TEMP}/directives-notification.md"
-
-          printf '%s\n\n' "${notification_mention} — presidential-directives watcher completed with comparison outcome: **${{ steps.compare.outcome }}**." > "${notification_body}"
-          if [ -f "${RUNNER_TEMP}/directives-summary.md" ]; then
-            cat "${RUNNER_TEMP}/directives-summary.md" >> "${notification_body}"
-          else
-            printf '%s\n' "The comparison did not produce a summary. Review the workflow log." >> "${notification_body}"
-          fi
-          printf '\n**Repository changes:** None. This watcher is signal-only and repository-read-only.\n' >> "${notification_body}"
-          printf '\n[View this GitHub Actions run](%s/%s/actions/runs/%s)\n' "${GITHUB_SERVER_URL}" "${GITHUB_REPOSITORY}" "${GITHUB_RUN_ID}" >> "${notification_body}"
-
-          gh issue comment "${notification_issue}" --repo "${GITHUB_REPOSITORY}" --body-file "${notification_body}"
-
-      - name: Preserve a failed comparison outcome
-        if: always() && (steps.compare.outcome == 'failure' || steps.read_only.outcome == 'failure')
-        run: exit 1

@@ -146,7 +146,7 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
             payload = json.loads(report.read_text())
             self.assertEqual(payload["counts"]["new"], 1)
             self.assertEqual(payload["mode"], "read-only-comparison")
-            self.assertIn("No project files", summary.read_text())
+            self.assertIn("No catalog or log update was necessary", summary.read_text())
             with proposed.open(newline="") as handle:
                 rows = list(csv.DictReader(handle))
             self.assertEqual(rows[0]["Directive ID"], "2025-01900")
@@ -164,6 +164,74 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
                 ]
             )
 
+    def test_apply_updates_registry_and_material_log_once(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            temp = Path(temporary)
+            registry = temp / "registry.csv"
+            fixture = temp / "fixture.json"
+            summary = temp / "summary.md"
+            report = temp / "report.json"
+            log = temp / "SOURCE_MONITOR_LOG.md"
+            MODULE.write_registry(registry, [])
+            fixture.write_text(json.dumps({"results": [result()]}))
+
+            arguments = [
+                "--registry",
+                str(registry),
+                "--fixture",
+                str(fixture),
+                "--summary",
+                str(summary),
+                "--report-json",
+                str(report),
+                "--apply",
+                "--log",
+                str(log),
+                "--run-url",
+                "https://github.com/Thorncrag/ARRP/actions/runs/1",
+                "--as-of",
+                "2026-07-21T00:00:00+00:00",
+            ]
+            self.assertEqual(MODULE.main(arguments), 0)
+            self.assertEqual(len(MODULE.read_registry(registry)), 1)
+            log_text = log.read_text()
+            self.assertIn("# Source Monitor Log", log_text)
+            self.assertIn("PDM-", log_text)
+            self.assertIn("Added directives: **1**", log_text)
+            self.assertIn("actions/runs/1", log_text)
+            payload = json.loads(report.read_text())
+            self.assertTrue(payload["material_update"])
+            self.assertTrue(payload["applied"])
+            self.assertEqual(payload["mode"], "baseline-update")
+
+            self.assertEqual(MODULE.main(arguments), 0)
+            self.assertEqual(log.read_text(), log_text)
+            payload = json.loads(report.read_text())
+            self.assertFalse(payload["material_update"])
+            self.assertFalse(payload["applied"])
+
+    def test_apply_fails_closed_when_existing_directive_disappears(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            temp = Path(temporary)
+            registry = temp / "registry.csv"
+            fixture = temp / "fixture.json"
+            row = MODULE.normalize_result(result(), self.config["scope"], "2026-07-20")
+            MODULE.write_registry(registry, [row])
+            fixture.write_text(json.dumps({"results": []}))
+            with self.assertRaises(SystemExit) as raised:
+                MODULE.main(
+                    [
+                        "--registry",
+                        str(registry),
+                        "--fixture",
+                        str(fixture),
+                        "--apply",
+                        "--log",
+                        str(temp / "log.md"),
+                    ]
+                )
+            self.assertIn("absent from discovery", str(raised.exception))
+
     def test_checked_in_baseline_has_completed_screening_dispositions(self):
         rows = MODULE.read_registry(ROOT / "inventory" / "presidential-directives.csv")
         self.assertEqual(len(rows), 3007)
@@ -178,25 +246,37 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
             if row["Review Status"] == "Routed":
                 self.assertTrue(row["Source IDs"])
 
-    def test_workflow_is_scheduled_read_only_and_preserves_reports(self):
+    def test_workflow_is_scheduled_and_opens_a_narrow_review_pr(self):
         workflow = (
             ROOT / ".github" / "workflows" / "presidential-directives-bot.yml"
         ).read_text()
         self.assertIn("workflow_dispatch:", workflow)
         self.assertIn("schedule:", workflow)
         self.assertIn('cron: "27 4 * * *"', workflow)
-        self.assertIn("contents: read", workflow)
-        self.assertNotIn("contents: write", workflow)
-        self.assertIn("issues: write", workflow)
+        self.assertIn("contents: write", workflow)
+        self.assertIn("pull-requests: write", workflow)
+        self.assertNotIn("issues: write", workflow)
         self.assertIn("scripts/check_presidential_directives.py", workflow)
-        self.assertIn("Verify the read-only boundary", workflow)
-        self.assertIn('git diff --quiet "${GITHUB_SHA}" -- .', workflow)
+        self.assertIn("--apply", workflow)
+        self.assertIn("Verify the change boundary", workflow)
+        self.assertIn("inventory/presidential-directives.csv", workflow)
+        self.assertIn("framework/logs/SOURCE_MONITOR_LOG.md", workflow)
         self.assertIn("actions/upload-artifact@", workflow)
-        self.assertIn("Notify the project owner", workflow)
+        self.assertIn("gh pr create", workflow)
+        self.assertIn("--add-assignee", workflow)
+        self.assertIn("ARRP_PROJECT_TOKEN", workflow)
+        self.assertIn("Detect a pending review branch", workflow)
+        self.assertIn("steps.pending.outputs.exists == 'true'", workflow)
+        self.assertIn("preserves changes staged by an earlier run", workflow)
+        self.assertNotIn("issue comment", workflow)
+        self.assertNotIn("317", workflow)
         self.assertIn("if: always()", workflow)
-        self.assertIn("Preserve a failed comparison outcome", workflow)
         self.assertTrue(self.config["enabled"])
-        self.assertEqual(self.config["notification"]["issueNumber"], 317)
+        self.assertNotIn("notification", self.config)
+        self.assertEqual(
+            self.config["automation"]["branch"],
+            "automation/presidential-directives-monitor",
+        )
 
 
 if __name__ == "__main__":

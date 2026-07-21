@@ -1,25 +1,9 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "enabled": true,
   "botName": "case-monitor-bot",
-  "reviewLabel": "needs: monitor review",
-  "reviewLabelColor": "FBCA04",
-  "reviewLabelDescription": "Case-monitor-bot detected a tracker change requiring human review.",
-  "targetLabel": "needs: monitoring",
   "sourceMonitoringField": "Monitoring",
-  "eligibleSourceTypes": [
-    "Court Docket or Judicial Record",
-    "Court Filing or Judicial Record",
-    "Court Docket",
-    "Judicial Docket",
-    "Supreme Court Docket",
-    "Federal Court Docket",
-    "Official court record"
-  ],
-  "notification": {
-    "issueNumber": 317,
-    "mention": "@Thorncrag"
-  },
+  "sourceBaselineField": "Monitoring Baseline",
   "tracker": {
     "type": "just-security-litigation-tracker",
     "url": "https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/",
@@ -29,7 +13,6 @@
     "tableId": "tablepress-42",
     "minimumEntries": 500,
     "maximumEntries": 2500,
-    "maximumRemovalFraction": 0.1,
     "maximumResponseBytes": 10000000
   },
   "verification": {
@@ -40,6 +23,13 @@
     ],
     "maxDocketsPerRun": 20,
     "requestIntervalSeconds": 13
+  },
+  "automation": {
+    "branch": "bot/case-monitor-updates",
+    "baseBranch": "main",
+    "assignee": "Thorncrag",
+    "pullRequestTitle": "Case-monitor source updates",
+    "logPath": "framework/logs/SOURCE_MONITOR_LOG.md"
   },
   "schedule": {
     "cron": "17 4 * * *",
