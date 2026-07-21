@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Discover and compare presidential directives without mutating ARRP records.
+"""Discover, compare, and optionally stage presidential-directive baselines.
 
 The scheduled watcher reads public Federal Register API metadata for presidential
 documents issued during Trump I, Biden, and Trump II. It deduplicates records by
-Federal Register document number, compares discovery-controlled fields with the
-committed registry, and writes a report plus an optional *proposed* CSV to a caller-
-selected path. It never writes the canonical registry, source catalogs, issue pages,
-GitHub issues, or project fields.
+Federal Register document number and compares discovery-controlled fields with the
+committed registry. In its default mode it writes only caller-selected reports. With
+``--apply``, it updates the canonical registry's per-row fingerprints and appends one
+material event to the source-monitor log; the workflow then presents those changes in
+a narrow pull request.
 
 Substantive ARRP relevance and routing remain human/LLM screening functions. The bot
 does not classify a directive as an institutional defect merely because it exists.
@@ -33,6 +34,7 @@ from typing import Any, Iterable
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / ".github" / "presidential-directives-bot.json"
 DEFAULT_REGISTRY = ROOT / "inventory" / "presidential-directives.csv"
+DEFAULT_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
 USER_AGENT = "ARRP presidential-directives-watcher/1.0"
 
 CSV_FIELDS = [
@@ -389,7 +391,7 @@ def render_summary(report: dict[str, Any]) -> str:
     lines = [
         "## ARRP presidential-directives watcher",
         "",
-        "Read-only comparison against the presidential-directives registry.",
+        "Comparison against the committed presidential-directives registry baseline.",
         "",
         f"- Discovered in scope: **{counts['discovered']}**",
         f"- New: **{counts['new']}**",
@@ -398,7 +400,11 @@ def render_summary(report: dict[str, Any]) -> str:
         f"- Existing rows not seen: **{counts['not_seen']}**",
         f"- Filtered outside the three-administration scope: **{counts['out_of_scope']}**",
         "",
-        "No project files, issues, source catalogs, or lifecycle fields were changed.",
+        (
+            "A catalog-and-log update was staged for review in a pull request."
+            if report.get("applied")
+            else "No catalog or log update was necessary."
+        ),
     ]
     by_administration = Counter(row["Administration"] for row in report["directives"])
     by_type = Counter(row["Directive Type"] for row in report["directives"])
@@ -432,10 +438,10 @@ def build_report(
     merged: dict[str, Any], config: dict[str, Any], generated_at: str
 ) -> dict[str, Any]:
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "bot_name": config["botName"],
         "generated_at": generated_at,
-        "mode": "read-only-comparison",
+        "mode": "baseline-update" if merged.get("applied") else "read-only-comparison",
         "scope": config["scope"],
         "counts": {
             "raw_results": merged["raw_result_count"],
@@ -452,6 +458,70 @@ def build_report(
     }
 
 
+def render_log_entry(report: dict[str, Any], run_url: str = "") -> str:
+    """Render one concise, auditable entry for a material catalog update."""
+
+    changes = report["changes"]
+    new_ids = [
+        row["Directive ID"]
+        for row in report["directives"]
+        if row["Bot Status"] == "new"
+    ]
+    changed_ids = [item["directive_id"] for item in changes]
+    digest_material = {
+        "new": sorted(new_ids),
+        "changed": sorted(changed_ids),
+        "fingerprints": {
+            row["Directive ID"]: row["Content Fingerprint"]
+            for row in report["directives"]
+            if row["Bot Status"] in {"new", "changed"}
+        },
+    }
+    activity_code = "PDM-" + hashlib.sha256(
+        canonical_json(digest_material).encode("utf-8")
+    ).hexdigest()[:10].upper()
+    lines = [
+        f"## {report['generated_at']} — Presidential directives watcher ({activity_code})",
+        "",
+        f"- Added directives: **{len(new_ids)}**",
+        f"- Changed directives: **{len(changed_ids)}**",
+    ]
+    if new_ids:
+        listed = ", ".join(markdown_cell(value) for value in sorted(new_ids))
+        lines.append(f"- Added IDs: {listed}")
+    if changed_ids:
+        lines.append(
+            f"- Changed IDs: {', '.join(markdown_cell(value) for value in sorted(changed_ids))}"
+        )
+    if run_url:
+        lines.append(f"- Workflow run: {run_url}")
+    lines.extend(
+        [
+            "- Action: Updated machine-observed Federal Register metadata and per-row baselines for human review.",
+            "- Boundary: No substantive ARRP classification or disposition was performed.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def append_log(path: Path, entry: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        existing = path.read_text(encoding="utf-8")
+        separator = "" if not existing or existing.endswith("\n\n") else "\n"
+        path.write_text(existing + separator + entry, encoding="utf-8")
+    else:
+        path.write_text(
+            '---\ntitle: "Source Monitor Log"\nprint_levels:\n  - full-technical\n---\n\n'
+            "# Source Monitor Log\n\n"
+            "This log records material updates proposed by automated source watchers. "
+            "Routine no-change runs remain in GitHub Actions.\n\n"
+            + entry,
+            encoding="utf-8",
+        )
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
@@ -459,7 +529,20 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--fixture", type=Path, help="Use deterministic API fixture data")
     parser.add_argument("--summary", type=Path, help="Write a Markdown run summary")
     parser.add_argument("--report-json", type=Path, help="Write console-ready JSON state")
-    parser.add_argument("--proposed-csv", type=Path, help="Write proposed registry to a noncanonical path")
+    parser.add_argument(
+        "--proposed-csv",
+        type=Path,
+        help="Write proposed registry to a noncanonical path",
+    )
+    parser.add_argument(
+        "--apply",
+        action="store_true",
+        help="Write material changes to the registry and append the source-monitor log",
+    )
+    parser.add_argument("--log", type=Path, default=DEFAULT_LOG)
+    parser.add_argument(
+        "--run-url", default="", help="Actions URL recorded in a material log entry"
+    )
     parser.add_argument("--as-of", help="Override the UTC observation timestamp for tests")
     return parser.parse_args(argv)
 
@@ -470,13 +553,26 @@ def main(argv: list[str] | None = None) -> int:
     registry_path = args.registry.resolve()
     proposed_path = args.proposed_csv.resolve() if args.proposed_csv else None
     if proposed_path == registry_path:
-        raise SystemExit("refusing to write the canonical registry; choose a proposed output path")
-    generated_at = args.as_of or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+        raise SystemExit(
+            "refusing to write the canonical registry; choose a proposed output path"
+        )
+    generated_at = args.as_of or datetime.now(timezone.utc).replace(
+        microsecond=0
+    ).isoformat()
     seen_on = generated_at[:10]
     rows = read_registry(args.registry)
     raw_results = fixture_results(args.fixture) if args.fixture else discover_live(config)
     merged = merge_discovery(rows, raw_results, config, seen_on)
+    material = bool(merged["new_ids"] or merged["changes"])
+    if args.apply and merged["missing_ids"]:
+        raise SystemExit(
+            "refusing to update the baseline because existing directives were absent "
+            "from discovery"
+        )
+    merged["applied"] = bool(args.apply and material)
     report = build_report(merged, config, generated_at)
+    report["material_update"] = material
+    report["applied"] = merged["applied"]
     summary = render_summary(report)
 
     if args.summary:
@@ -484,9 +580,14 @@ def main(argv: list[str] | None = None) -> int:
         args.summary.write_text(summary, encoding="utf-8")
     if args.report_json:
         args.report_json.parent.mkdir(parents=True, exist_ok=True)
-        args.report_json.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        args.report_json.write_text(
+            json.dumps(report, indent=2) + "\n", encoding="utf-8"
+        )
     if args.proposed_csv:
         write_registry(args.proposed_csv, merged["proposed_rows"])
+    if args.apply and material:
+        write_registry(args.registry, merged["proposed_rows"])
+        append_log(args.log, render_log_entry(report, args.run_url))
     if not args.summary:
         print(summary, end="")
     return 0

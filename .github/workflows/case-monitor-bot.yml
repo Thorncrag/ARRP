@@ -12,8 +12,8 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
-  issues: write
+  contents: write
+  pull-requests: write
 
 jobs:
   check:
@@ -22,29 +22,94 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
 
-      - name: Check the litigation tracker and verify changed dockets
+      - name: Prepare the deterministic bot branch
+        id: branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          bot_branch="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["branch"])')"
+          base_branch="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["baseBranch"])')"
+          source_monitor_log="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["logPath"])')"
+          printf 'BOT_BRANCH=%s\nBASE_BRANCH=%s\nSOURCE_MONITOR_LOG=%s\n' "${bot_branch}" "${base_branch}" "${source_monitor_log}" >> "${GITHUB_ENV}"
+          git fetch origin "${base_branch}"
+          if git fetch origin "${bot_branch}:refs/remotes/origin/${bot_branch}" 2>/dev/null; then
+            git checkout -B "${bot_branch}" "origin/${bot_branch}"
+            git rebase "origin/${base_branch}"
+          else
+            git checkout -b "${bot_branch}" "origin/${base_branch}"
+          fi
+
+      - name: Check cataloged litigation sources
         id: monitor
         continue-on-error: true
         env:
-          GITHUB_TOKEN: ${{ github.token }}
           COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
         run: >-
           python scripts/check_case_updates.py
           --apply
+          --log "${SOURCE_MONITOR_LOG}"
           --summary "${RUNNER_TEMP}/monitoring-summary.md"
           --report-json "${RUNNER_TEMP}/monitoring-report.json"
 
-      - name: Verify the signal-only boundary
-        id: read_only
-        if: always()
+      - name: Verify the update boundary
+        id: boundary
+        if: steps.monitor.outcome == 'success'
         run: |
-          git diff --quiet "${GITHUB_SHA}" -- .
+          unexpected="$(git diff --name-only | grep -Ev '^(inventory/sources\.csv|inventory/sources-pending\.csv|framework/logs/SOURCE_MONITOR_LOG\.md)$' || true)"
+          if [ -n "${unexpected}" ]; then
+            printf 'Unexpected files changed:\n%s\n' "${unexpected}" >&2
+            exit 1
+          fi
+
+      - name: Commit catalog updates
+        id: commit
+        if: steps.monitor.outcome == 'success' && steps.boundary.outcome == 'success'
+        run: |
+          git config user.name "arrp-case-monitor[bot]"
+          git config user.email "arrp-case-monitor[bot]@users.noreply.github.com"
+          git add inventory/sources.csv inventory/sources-pending.csv "${SOURCE_MONITOR_LOG}"
+          if git diff --cached --quiet; then
+            ahead="$(git rev-list --count "origin/${BASE_BRANCH}..HEAD")"
+            if [ "${ahead}" -gt 0 ]; then
+              git push --force-with-lease origin "HEAD:${BOT_BRANCH}"
+              echo "needs_pr=true" >> "${GITHUB_OUTPUT}"
+            else
+              echo "needs_pr=false" >> "${GITHUB_OUTPUT}"
+            fi
+          else
+            git commit -m "Record case-monitor source updates"
+            git push --force-with-lease origin "HEAD:${BOT_BRANCH}"
+            echo "needs_pr=true" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Create or update the review pull request
+        if: steps.commit.outputs.needs_pr == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.ARRP_PROJECT_TOKEN || github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["pullRequestTitle"])')"
+          assignee="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["assignee"])')"
+          pr_number="$(gh pr list --repo "${GITHUB_REPOSITORY}" --state open --head "${BOT_BRANCH}" --json number --jq '.[0].number // empty')"
+          body_file="${RUNNER_TEMP}/case-monitor-pr.md"
+          printf '%s\n\n' "@${assignee}, this branch contains observable changes in cataloged court-case sources requiring review." > "${body_file}"
+          cat "${RUNNER_TEMP}/monitoring-summary.md" >> "${body_file}"
+          printf '\n[View the workflow run](%s)\n' "${RUN_URL}" >> "${body_file}"
+          if [ -z "${pr_number}" ]; then
+            pr_url="$(gh pr create --repo "${GITHUB_REPOSITORY}" --base "${BASE_BRANCH}" --head "${BOT_BRANCH}" --title "${title}" --body-file "${body_file}" --assignee "${assignee}")"
+          else
+            gh pr edit "${pr_number}" --repo "${GITHUB_REPOSITORY}" --title "${title}" --body-file "${body_file}" --add-assignee "${assignee}"
+            pr_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/pull/${pr_number}"
+          fi
+          printf '\nReview pull request: %s\n' "${pr_url}" >> "${RUNNER_TEMP}/monitoring-summary.md"
 
       - name: Publish the run summary
         if: always()
@@ -68,27 +133,6 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-      - name: Notify the project owner
-        if: always()
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          notification_issue="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["notification"]["issueNumber"])')"
-          notification_mention="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["notification"]["mention"])')"
-          notification_body="${RUNNER_TEMP}/monitoring-notification.md"
-
-          check_outcome="${{ steps.monitor.outcome }}"
-          printf '%s\n\n' "${notification_mention} — case-monitor-bot run completed with check outcome: **${check_outcome}**." > "${notification_body}"
-          if [ -f "${RUNNER_TEMP}/monitoring-summary.md" ]; then
-            cat "${RUNNER_TEMP}/monitoring-summary.md" >> "${notification_body}"
-          else
-            printf '%s\n' "The monitoring check did not produce a summary. Review the workflow log." >> "${notification_body}"
-          fi
-          printf '\n**Repository changes:** None. This monitoring workflow is signal-only and read-only.\n' >> "${notification_body}"
-          printf '\n[View this GitHub Actions run](%s/%s/actions/runs/%s)\n' "${GITHUB_SERVER_URL}" "${GITHUB_REPOSITORY}" "${GITHUB_RUN_ID}" >> "${notification_body}"
-
-          gh issue comment "${notification_issue}" --repo "${GITHUB_REPOSITORY}" --body-file "${notification_body}"
-
       - name: Preserve a failed monitoring outcome
-        if: always() && (steps.monitor.outcome == 'failure' || steps.read_only.outcome == 'failure')
+        if: always() && (steps.monitor.outcome == 'failure' || steps.boundary.outcome == 'failure')
         run: exit 1

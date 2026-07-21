@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "enabled": true,
   "botName": "presidential-directives-bot",
   "catalogPath": "inventory/presidential-directives.csv",
-  "notification": {
-    "issueNumber": 317,
-    "mention": "@Thorncrag"
+  "automation": {
+    "branch": "automation/presidential-directives-monitor",
+    "assignee": "Thorncrag",
+    "logPath": "framework/logs/SOURCE_MONITOR_LOG.md"
   },
   "schedule": {
     "cron": "27 4 * * *",

@@ -1,31 +1,32 @@
 #!/usr/bin/env python3
-"""Detect Just Security tracker changes and selectively verify changed court dockets.
+"""Detect litigation-tracker changes and prepare source-catalog updates.
 
-The watcher fetches the Just Security Trump administration litigation tracker once,
-compares stable tracker-entry fingerprints with a compressed rolling baseline stored in
-one GitHub issue comment, and reports added, changed, or removed entries. CourtListener
-is queried only for added or changed entries that link to a supported docket, subject
-to a conservative cap and pacing. Signals never decide legal significance or modify
-repository content, Project fields, source inventories, proposals, or issue status.
+The watcher compares the Just Security Trump-administration litigation tracker with
+case-specific baselines stored on monitored CourtListener rows in the source
+catalogs. When an observable source changes, ``--apply`` updates those catalog fields
+and appends a material event to ``framework/logs/SOURCE_MONITOR_LOG.md``. GitHub
+Actions, rather than this script, commits the changes and creates or updates a narrow
+review PR. Discovery of entirely new cases remains part of the separate intake scan;
+this watcher does not turn unmatched tracker rows into source records.
+
+This is source-change detection only. It does not interpret legal significance,
+alter proposal analysis, or make admission or disposition decisions.
 """
 
 from __future__ import annotations
 
 import argparse
-import base64
 import csv
 import hashlib
 import html as html_lib
 import json
 import os
 import re
-import subprocess
 import sys
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
-import zlib
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from html.parser import HTMLParser
@@ -35,13 +36,11 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / ".github" / "case-monitor-bot.json"
-DEFAULT_REGISTRY = ROOT / "inventory" / "github_issue_registry.csv"
 DEFAULT_SOURCES = ROOT / "inventory" / "sources.csv"
 DEFAULT_PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
-BASELINE_MARKER = "arrp-case-monitor-tracker-state:v1"
-ISSUE_SIGNAL_MARKER = "arrp-case-monitor-tracker-signal:v1"
-USER_AGENT = "ARRP case-monitor-bot/0.2"
-MAX_COMMENT_BYTES = 60_000
+DEFAULT_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
+USER_AGENT = "ARRP case-monitor-bot/0.3"
+STATE_PREFIX = "arrp-case-monitor:v1:"
 
 
 def normalize_text(value: str, limit: int = 4000) -> str:
@@ -71,13 +70,20 @@ def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def read_csv(path: Path) -> list[dict[str, str]]:
+def read_csv_table(path: Path) -> tuple[list[str], list[dict[str, str]]]:
     with path.open(newline="", encoding="utf-8") as handle:
-        return list(csv.DictReader(handle))
+        reader = csv.DictReader(handle)
+        if not reader.fieldnames:
+            raise ValueError(f"{path} has no CSV header")
+        return list(reader.fieldnames), list(reader)
 
 
-def split_associations(raw: str) -> set[str]:
-    return {value.strip() for value in raw.split(";") if value.strip()}
+def write_csv_table(path: Path, fields: list[str], rows: list[dict[str, str]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 def docket_key(url: str) -> str:
@@ -88,21 +94,14 @@ def docket_key(url: str) -> str:
     return f"courtlistener:{match.group(1)}" if match else ""
 
 
-def docket_id(url: str) -> int | None:
-    key = docket_key(url)
-    return int(key.split(":", 1)[1]) if key else None
-
-
 def normalize_docket_identity(value: str) -> str:
-    """Normalize displayed docket text for use in a row-level composite key."""
-
     return re.sub(r"\s+", "", normalize_text(value, 100)).casefold()
 
 
 def primary_docket_key(entry: dict[str, Any] | None) -> str:
     if not entry:
         return ""
-    return docket_key(str(entry.get("courtlistener_url") or ""))
+    return str(entry.get("primary_docket_key") or docket_key(str(entry.get("courtlistener_url") or "")))
 
 
 def normalize_docket_observation(payload: dict[str, Any], expected_id: int) -> dict[str, Any]:
@@ -233,33 +232,24 @@ def tracker_entry(cells: dict[str, dict[str, Any]]) -> dict[str, Any]:
         identity = f"{case_name.casefold()}|{displayed_identity}"
         key = "tracker:" + hashlib.sha256(identity.encode("utf-8")).hexdigest()[:24]
     case_updates = normalize_text(cells["Case Updates"]["text"], 100_000)
-    case_summary = normalize_text(cells.get("Case Summary", {}).get("text", ""), 100_000)
-    summary_hash = hashlib.sha256(case_summary.encode("utf-8")).hexdigest()
-    updates_hash = hashlib.sha256(case_updates.encode("utf-8")).hexdigest()
-    entry = {
-        "key": key,
-        "primary_docket_key": primary_key,
+    case_summary = normalize_text(cells["Case Summary"]["text"], 100_000)
+    material = {
         "case_name": case_name or "Unnamed tracker entry",
         "docket_number": normalize_text(docket_number, 100),
         "courtlistener_url": courtlistener_url,
         "status": normalize_text(cells["Case Status"]["text"], 300),
         "last_case_update": normalize_text(cells["Last Case Update"]["text"], 100),
-        "case_summary_hash": summary_hash,
-        "case_updates_hash": updates_hash,
-        "case_update_excerpt": normalize_text(case_updates, 800),
+        "case_summary": case_summary,
+        "case_updates": case_updates,
     }
-    entry["fingerprint"] = fingerprint(
-        {
-            "case_name": entry["case_name"],
-            "docket_number": entry["docket_number"],
-            "courtlistener_url": entry["courtlistener_url"],
-            "status": entry["status"],
-            "last_case_update": entry["last_case_update"],
-            "case_summary": case_summary,
-            "case_updates": case_updates,
-        }
-    )
-    return entry
+    return {
+        "key": key,
+        "primary_docket_key": primary_key,
+        **material,
+        "fingerprint": fingerprint(material),
+        "case_update_excerpt": normalize_text(case_updates, 800),
+        "date_case_filed": normalize_text(cells["Date Case Filed"]["text"], 100),
+    }
 
 
 def declared_tracker_snapshot(
@@ -303,8 +293,7 @@ def parse_tracker_html(document: str, config: dict[str, Any]) -> dict[str, dict[
     for row in parser.rows[1:]:
         if len(row) != len(headings):
             raise ValueError("tracker table contains a row with an unexpected column count")
-        cells = dict(zip(headings, row))
-        entry = tracker_entry(cells)
+        entry = tracker_entry(dict(zip(headings, row)))
         if entry["key"] in entries:
             raise ValueError(f"tracker table contains duplicate identity {entry['key']}")
         entries[entry["key"]] = entry
@@ -319,9 +308,7 @@ def parse_tracker_html(document: str, config: dict[str, Any]) -> dict[str, dict[
         document, config["tableId"], actual_statuses
     )
     if declared_total != len(entries):
-        raise ValueError(
-            f"tracker declared {declared_total} entries but parser found {len(entries)}"
-        )
+        raise ValueError(f"tracker declared {declared_total} entries but parser found {len(entries)}")
     mismatches = {
         status: (declared_statuses[status], count)
         for status, count in actual_statuses.items()
@@ -338,31 +325,14 @@ def parse_tracker_html(document: str, config: dict[str, Any]) -> dict[str, dict[
     return entries
 
 
-def compact_snapshot(entries: dict[str, dict[str, Any]]) -> dict[str, dict[str, str]]:
-    return {
-        key: {
-            "s": entry["status"],
-            "l": entry["last_case_update"],
-            # A 128-bit prefix keeps the GitHub comment comfortably bounded while
-            # still representing the exact normalized row, including both narratives.
-            "f": entry["fingerprint"][:32],
-        }
-        for key, entry in sorted(entries.items())
-    }
-
-
 def expand_snapshot_entry(key: str, value: dict[str, str]) -> dict[str, str]:
     primary = key.split("|docket:", 1)[0] if key.startswith("courtlistener:") else ""
-    displayed = key.split("|docket:", 1)[1] if "|docket:" in key else ""
-    courtlistener_url = ""
-    if primary:
-        courtlistener_url = f"https://www.courtlistener.com/docket/{primary.split(':', 1)[1]}/"
     return {
         "key": key,
         "primary_docket_key": primary,
-        "case_name": "Removed tracker entry",
-        "docket_number": displayed,
-        "courtlistener_url": courtlistener_url,
+        "case_name": value.get("n", "Removed tracker entry"),
+        "docket_number": value.get("d", ""),
+        "courtlistener_url": value.get("u", ""),
         "status": value.get("s", ""),
         "last_case_update": value.get("l", ""),
         "fingerprint": value.get("f", ""),
@@ -422,47 +392,17 @@ def compare_snapshots(
     return ("changes_detected" if changes else "no_change"), changes
 
 
-def encode_baseline(snapshot: dict[str, dict[str, str]]) -> str:
-    raw = canonical_json({"v": 2, "e": snapshot}).encode("utf-8")
-    return base64.urlsafe_b64encode(zlib.compress(raw, level=9)).decode("ascii")
+def encode_state(kind: str, payload: Any) -> str:
+    return STATE_PREFIX + canonical_json({"kind": kind, "payload": payload})
 
 
-def decode_baseline(value: str) -> dict[str, dict[str, str]]:
-    payload = json.loads(zlib.decompress(base64.urlsafe_b64decode(value)).decode("utf-8"))
-    if payload.get("v") == 2 and isinstance(payload.get("e"), dict):
-        return payload["e"]
-    if payload.get("schema_version") == 1 and isinstance(payload.get("entries"), dict):
-        return payload["entries"]
-    raise ValueError("unsupported tracker baseline schema")
-
-
-def baseline_from_comment(body: str) -> dict[str, dict[str, str]] | None:
-    match = re.search(
-        rf"<!--\s*{re.escape(BASELINE_MARKER)}\s*\n([A-Za-z0-9_=-]+)\s*\n-->", body
-    )
-    return decode_baseline(match.group(1)) if match else None
-
-
-def render_baseline_comment(
-    snapshot: dict[str, dict[str, str]], checked_at: str, status: str, change_count: int
-) -> str:
-    encoded = encode_baseline(snapshot)
-    body = f"""<!-- {BASELINE_MARKER}
-{encoded}
--->
-## Case-monitor tracker baseline
-
-**Last successful tracker check:** {checked_at}
-
-**Tracker entries:** {len(snapshot)}
-**Run result:** {status.replace('_', ' ')}
-**Changed entries reported:** {change_count}
-
-This compressed state supports deterministic change detection. It is not a legal finding, source record, or project disposition.
-"""
-    if len(body.encode("utf-8")) > MAX_COMMENT_BYTES:
-        raise ValueError("compressed tracker baseline exceeds the safe GitHub comment size")
-    return body
+def decode_state(value: str, expected_kind: str) -> Any:
+    if not value.startswith(STATE_PREFIX):
+        raise ValueError("unsupported monitoring-baseline format")
+    payload = json.loads(value[len(STATE_PREFIX) :])
+    if payload.get("kind") != expected_kind:
+        raise ValueError(f"expected {expected_kind} monitoring baseline")
+    return payload.get("payload")
 
 
 class TrackerClient:
@@ -475,12 +415,10 @@ class TrackerClient:
 
     def fetch(self) -> str:
         request = urllib.request.Request(
-            self.url,
-            headers={"Accept": "text/html", "User-Agent": USER_AGENT},
+            self.url, headers={"Accept": "text/html", "User-Agent": USER_AGENT}
         )
         with urllib.request.urlopen(request, timeout=45) as response:
-            content_type = response.headers.get_content_type()
-            if content_type not in {"text/html", "application/xhtml+xml"}:
+            if response.headers.get_content_type() not in {"text/html", "application/xhtml+xml"}:
                 raise ValueError("tracker returned a non-HTML response")
             payload = response.read(self.maximum + 1)
             if len(payload) > self.maximum:
@@ -511,110 +449,20 @@ class CourtListenerClient:
                     raise ValueError("CourtListener returned a non-JSON response")
                 payload = json.load(response)
         except urllib.error.HTTPError as exc:
-            raise RuntimeError(f"CourtListener docket {number} failed with HTTP {exc.code}") from exc
+            raise RuntimeError(
+                f"CourtListener docket {number} failed with HTTP {exc.code}"
+            ) from exc
         if not isinstance(payload, dict):
             raise ValueError(f"CourtListener docket {number} returned invalid JSON")
         return payload
-
-
-class GitHubClient:
-    def __init__(self, repository: str, token: str) -> None:
-        if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository):
-            raise ValueError("invalid GitHub repository name")
-        if not token:
-            raise ValueError("GITHUB_TOKEN is required for GitHub state access")
-        self.repository = repository
-        self.token = token
-        self.root = f"https://api.github.com/repos/{repository}"
-
-    def request(self, method: str, path: str, payload: Any | None = None) -> Any:
-        data = None if payload is None else json.dumps(payload).encode("utf-8")
-        request = urllib.request.Request(
-            self.root + path,
-            data=data,
-            method=method,
-            headers={
-                "Accept": "application/vnd.github+json",
-                "Authorization": f"Bearer {self.token}",
-                "User-Agent": USER_AGENT,
-                "X-GitHub-Api-Version": "2022-11-28",
-                "Content-Type": "application/json",
-            },
-        )
-        try:
-            with urllib.request.urlopen(request, timeout=30) as response:
-                body = response.read()
-        except urllib.error.HTTPError as exc:
-            detail = exc.read().decode("utf-8", errors="replace")[:300]
-            raise RuntimeError(f"GitHub API {method} {path} failed: {exc.code} {detail}") from exc
-        return json.loads(body) if body else None
-
-    def comments(self, number: int) -> list[dict[str, Any]]:
-        output: list[dict[str, Any]] = []
-        for page in range(1, 11):
-            batch = self.request("GET", f"/issues/{number}/comments?per_page=100&page={page}")
-            output.extend(batch)
-            if len(batch) < 100:
-                break
-        return output
-
-    def monitoring_issues(self, label: str) -> list[dict[str, Any]]:
-        output: list[dict[str, Any]] = []
-        encoded = urllib.parse.quote(label, safe="")
-        for page in range(1, 11):
-            batch = self.request(
-                "GET", f"/issues?state=open&labels={encoded}&per_page=100&page={page}"
-            )
-            output.extend(issue for issue in batch if "pull_request" not in issue)
-            if len(batch) < 100:
-                break
-        return output
-
-    def ensure_label(self, name: str, color: str, description: str) -> None:
-        encoded = urllib.parse.quote(name, safe="")
-        try:
-            self.request("GET", f"/labels/{encoded}")
-        except RuntimeError as exc:
-            if "failed: 404" not in str(exc):
-                raise
-            self.request("POST", "/labels", {"name": name, "color": color, "description": description})
-
-    def add_label(self, number: int, label: str) -> None:
-        self.request("POST", f"/issues/{number}/labels", {"labels": [label]})
-
-    def create_comment(self, number: int, body: str) -> dict[str, Any]:
-        return self.request("POST", f"/issues/{number}/comments", {"body": body})
-
-    def update_comment(self, comment_id: int, body: str) -> dict[str, Any]:
-        return self.request("PATCH", f"/issues/comments/{comment_id}", {"body": body})
-
-
-def github_token() -> str:
-    token = os.environ.get("GITHUB_TOKEN", "").strip()
-    if token:
-        return token
-    completed = subprocess.run(
-        ["gh", "auth", "token"], cwd=ROOT, check=True, capture_output=True, text=True
-    )
-    return completed.stdout.strip()
-
-
-def marked_comment(comments: list[dict[str, Any]], marker: str) -> dict[str, Any] | None:
-    return next((comment for comment in comments if marker in comment.get("body", "")), None)
 
 
 def source_map(rows: list[dict[str, str]]) -> dict[str, list[dict[str, Any]]]:
     output: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in rows:
         key = docket_key(row.get("URL", ""))
-        if not key:
-            continue
-        output[key].append(
-            {
-                "source_id": normalize_text(row.get("Source ID", ""), 100),
-                "record_ids": sorted(split_associations(row.get("Associated Record IDs", ""))),
-            }
-        )
+        if key:
+            output[key].append(row)
     return output
 
 
@@ -622,7 +470,18 @@ def attach_source_matches(
     changes: list[dict[str, Any]], mapping: dict[str, list[dict[str, Any]]]
 ) -> None:
     for change in changes:
-        change["source_matches"] = mapping.get(primary_docket_key(change_entry(change)), [])
+        entry = change.get("current") or change.get("previous")
+        change["source_matches"] = [
+            {
+                "source_id": normalize_text(row.get("Source ID", ""), 100),
+                "record_ids": sorted(
+                    value.strip()
+                    for value in row.get("Associated Record IDs", "").split(";")
+                    if value.strip()
+                ),
+            }
+            for row in mapping.get(primary_docket_key(entry), [])
+        ]
 
 
 def verify_changed_dockets(
@@ -642,7 +501,6 @@ def verify_changed_dockets(
     )
     maximum = int(config["maxDocketsPerRun"])
     selected = set(keys[:maximum])
-    results: dict[str, dict[str, Any]] = {}
     if not token and fixture is None:
         return {
             key: {"outcome": "unverified", "reason": "CourtListener token unavailable"}
@@ -650,12 +508,15 @@ def verify_changed_dockets(
         }
     client = None if fixture is not None else CourtListenerClient(token, config["apiRoot"])
     interval = float(config.get("requestIntervalSeconds", 0))
-    for position, key in enumerate(keys):
+    results: dict[str, dict[str, Any]] = {}
+    queried = 0
+    for key in keys:
         if key not in selected:
             results[key] = {"outcome": "unverified", "reason": "per-run verification cap reached"}
             continue
-        if client is not None and position and interval > 0:
+        if client is not None and queried and interval > 0:
             time.sleep(interval)
+        queried += 1
         number = int(key.split(":", 1)[1])
         try:
             payload = fixture.get(str(number)) if fixture is not None else client.docket(number)
@@ -670,88 +531,244 @@ def verify_changed_dockets(
     return results
 
 
-def registry_issue_map(rows: list[dict[str, str]]) -> dict[str, dict[str, Any]]:
-    output: dict[str, dict[str, Any]] = {}
-    for row in rows:
-        if row.get("GitHub Number", "").isdigit() and row.get("Object ID", "").strip():
-            output[row["Object ID"].strip()] = {
-                "number": int(row["GitHub Number"]),
-                "url": row.get("GitHub Issue", ""),
-                "title": row.get("GitHub Title", ""),
-            }
-    return output
-
-
-def mapped_issue_signals(
-    changes: list[dict[str, Any]],
-    registry: dict[str, dict[str, Any]],
-    monitoring_issues: list[dict[str, Any]],
-) -> dict[int, dict[str, Any]]:
-    live = {int(issue["number"]): issue for issue in monitoring_issues}
-    output: dict[int, dict[str, Any]] = {}
-    for change in changes:
-        record_ids = {
-            record_id
-            for match in change.get("source_matches", [])
-            for record_id in match["record_ids"]
-        }
-        for record_id in sorted(record_ids):
-            issue = registry.get(record_id)
-            if not issue or issue["number"] not in live:
-                continue
-            signal = output.setdefault(
-                issue["number"],
-                {"record_id": record_id, "issue": issue, "changes": []},
-            )
-            if change not in signal["changes"]:
-                signal["changes"].append(change)
-    return output
-
-
-def change_entry(change: dict[str, Any]) -> dict[str, Any]:
-    entry = change["current"] or change["previous"]
-    return entry
-
-
 def verification_for_change(
     change: dict[str, Any], verification: dict[str, dict[str, Any]]
 ) -> dict[str, Any]:
-    key = primary_docket_key(change.get("current"))
-    return verification.get(key, {"outcome": "not applicable"})
+    return verification.get(
+        primary_docket_key(change.get("current")), {"outcome": "not applicable"}
+    )
 
 
-def render_issue_signal(signal: dict[str, Any], checked_at: str, verification: dict[str, Any]) -> str:
-    rows = []
-    for change in signal["changes"][:25]:
-        entry = change_entry(change)
-        source_ids = sorted(
-            {
-                match["source_id"]
-                for match in change.get("source_matches", [])
-                if match["source_id"]
-            }
+def require_catalog_schema(fields: list[str], baseline_field: str, path: Path) -> None:
+    required = {"Source ID", "Associated Record IDs", "Monitoring", "URL", baseline_field}
+    missing = sorted(required - set(fields))
+    if missing:
+        raise ValueError(f"{path} is missing required columns: {', '.join(missing)}")
+
+
+def entries_by_docket(entries: dict[str, dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for entry in entries.values():
+        if entry["primary_docket_key"]:
+            grouped[entry["primary_docket_key"]].append(entry)
+    for values in grouped.values():
+        values.sort(key=lambda entry: entry["key"])
+    return grouped
+
+
+def compact_case_baseline(entries: list[dict[str, Any]]) -> list[dict[str, str]]:
+    return [
+        {
+            "k": entry["key"],
+            "n": entry["case_name"],
+            "d": entry["docket_number"],
+            "u": entry["courtlistener_url"],
+            "s": entry["status"],
+            "l": entry["last_case_update"],
+            "f": entry["fingerprint"][:32],
+        }
+        for entry in entries
+    ]
+
+
+def monitored_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
+    return [
+        row
+        for row in rows
+        if row.get("Monitoring", "").strip().casefold() == "yes" and docket_key(row.get("URL", ""))
+    ]
+
+
+def baseline_to_snapshot(value: str) -> dict[str, dict[str, str]]:
+    observations = decode_state(value, "case")
+    if not isinstance(observations, list):
+        raise ValueError("case monitoring baseline must contain an observation list")
+    output: dict[str, dict[str, str]] = {}
+    for observation in observations:
+        if not isinstance(observation, dict) or not observation.get("k"):
+            raise ValueError("case monitoring baseline contains an invalid observation")
+        key = str(observation["k"])
+        if key in output:
+            raise ValueError(f"case monitoring baseline contains duplicate identity {key}")
+        output[key] = {
+            "n": str(observation.get("n", "")),
+            "d": str(observation.get("d", "")),
+            "u": str(observation.get("u", "")),
+            "s": str(observation.get("s", "")),
+            "l": str(observation.get("l", "")),
+            "f": str(observation.get("f", "")),
+        }
+    return output
+
+
+def evaluate_catalog_sources(
+    *,
+    entries: dict[str, dict[str, Any]],
+    sources_rows: list[dict[str, str]],
+    pending_rows: list[dict[str, str]],
+    baseline_field: str,
+    initialize: bool,
+) -> tuple[str, list[dict[str, Any]], dict[str, Any]]:
+    grouped = entries_by_docket(entries)
+    rows = monitored_rows(sources_rows + pending_rows)
+    by_docket = source_map(rows)
+    mapped_keys = sorted(set(by_docket) & set(grouped))
+    uncovered_keys = sorted(set(by_docket) - set(grouped))
+    initialized = 0
+    updated = 0
+    changes_by_identity: dict[tuple[str, str], dict[str, Any]] = {}
+    blank_sources: list[str] = []
+
+    for key in mapped_keys:
+        current_entries = {entry["key"]: entry for entry in grouped[key]}
+        encoded = encode_state("case", compact_case_baseline(grouped[key]))
+        baselines = {
+            row.get(baseline_field, "").strip()
+            for row in by_docket[key]
+            if row.get(baseline_field, "").strip()
+        }
+        blank_rows = [row for row in by_docket[key] if not row.get(baseline_field, "").strip()]
+        if initialize:
+            for row in blank_rows:
+                row[baseline_field] = encoded
+                initialized += 1
+            continue
+        if blank_rows:
+            blank_sources.extend(row.get("Source ID", "") or "unnamed source" for row in blank_rows)
+            continue
+        if len(baselines) != 1:
+            ids = ", ".join(row.get("Source ID", "") for row in by_docket[key])
+            raise ValueError(f"monitored source baselines disagree for {key}: {ids}")
+        previous = baseline_to_snapshot(next(iter(baselines)))
+        _, docket_changes = compare_snapshots(previous, current_entries, 1.0)
+        if docket_changes:
+            for row in by_docket[key]:
+                if row.get(baseline_field, "") != encoded:
+                    row[baseline_field] = encoded
+                    updated += 1
+            for change in docket_changes:
+                changes_by_identity[(change["kind"], change["key"])] = change
+
+    for key in uncovered_keys:
+        rows_with_baseline = [
+            row for row in by_docket[key] if row.get(baseline_field, "").strip()
+        ]
+        if rows_with_baseline:
+            ids = ", ".join(row.get("Source ID", "") for row in rows_with_baseline)
+            raise ValueError(
+                f"previously mapped monitored source disappeared from the tracker ({key}: {ids})"
+            )
+
+    if blank_sources and not initialize:
+        preview = ", ".join(blank_sources[:12])
+        suffix = f" and {len(blank_sources) - 12} more" if len(blank_sources) > 12 else ""
+        raise ValueError(
+            "mapped monitored sources have blank Monitoring Baseline values; run "
+            f"--initialize-baselines deliberately first: {preview}{suffix}"
         )
-        verify = verification_for_change(change, verification)["outcome"]
-        rows.append(
-            f"| {markdown_text(change['kind'].title(), 20)} | {markdown_text(entry['case_name'])} | "
-            f"{markdown_text(entry['docket_number'] or 'Not stated', 100)} | "
-            f"{markdown_text(', '.join(source_ids) or 'No matched source', 200)} | {markdown_text(verify, 50)} |"
+
+    changes = list(changes_by_identity.values())
+    attach_source_matches(changes, by_docket)
+    status = "baselines_initialized" if initialize else ("changes_detected" if changes else "no_change")
+    coverage = {
+        "monitored_catalog_rows": len(rows),
+        "mapped_catalog_rows": sum(len(by_docket[key]) for key in mapped_keys),
+        "mapped_docket_families": len(mapped_keys),
+        "uncovered_catalog_rows": sum(len(by_docket[key]) for key in uncovered_keys),
+        "uncovered_docket_families": len(uncovered_keys),
+        "tracker_entries_outside_catalog_scope": len(entries)
+        - sum(len(grouped[key]) for key in mapped_keys),
+        "case_baselines_initialized": initialized,
+        "case_baselines_updated": updated,
+    }
+    return status, changes, coverage
+
+
+def change_entry(change: dict[str, Any]) -> dict[str, Any]:
+    return change["current"] or change["previous"]
+
+
+def render_log_entry(
+    checked_at: str,
+    status: str,
+    changes: list[dict[str, Any]],
+    coverage: dict[str, Any],
+    verification: dict[str, dict[str, Any]],
+) -> str:
+    counts = Counter(change["kind"] for change in changes)
+    verification_counts = Counter(result["outcome"] for result in verification.values())
+    source_ids = sorted(
+        {
+            match["source_id"]
+            for change in changes
+            for match in change.get("source_matches", [])
+            if match["source_id"]
+        }
+    )
+    activity_hash = fingerprint(
+        {"checked_at": checked_at, "changes": [(change["kind"], change["key"]) for change in changes]}
+    )[:8].upper()
+    date_code = re.sub(r"[^0-9]", "", checked_at)[:14]
+    activity_code = f"CASE-{date_code}-{activity_hash}"
+    run_id = os.environ.get("GITHUB_RUN_ID", "").strip()
+    repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
+    server = os.environ.get("GITHUB_SERVER_URL", "https://github.com").rstrip("/")
+    run_reference = (
+        f"[{run_id}]({server}/{repository}/actions/runs/{run_id})"
+        if run_id and repository
+        else "Local or manually invoked run"
+    )
+    lines = [
+        f"## {checked_at} — Case monitor bot",
+        "",
+        f"- Activity code: `{activity_code}`",
+        f"- Originating workflow run: {run_reference}",
+        f"- Result: `{status}`",
+        f"- Affected source IDs: {', '.join(source_ids) or 'None'}",
+        f"- Tracker changes: {counts['added']} added; {counts['changed']} changed; {counts['removed']} removed",
+        f"- Case baselines updated: {coverage['case_baselines_updated']}",
+        f"- Coverage: {coverage['mapped_catalog_rows']} mapped monitored CourtListener rows; {coverage['uncovered_catalog_rows']} monitored CourtListener rows outside tracker coverage",
+        f"- Targeted CourtListener checks: {verification_counts['queried']} queried; {verification_counts['failed']} failed; {verification_counts['unverified']} unverified",
+        "- Interpretation: source-change signal only; no legal significance or project disposition determined.",
+    ]
+    if changes:
+        lines.extend(["", "| Change | Case | Docket | Previous observation | Current observation | Catalog match |", "| --- | --- | --- | --- | --- | --- |"])
+        for change in changes[:100]:
+            entry = change_entry(change)
+            previous = change.get("previous") or {}
+            current = change.get("current") or {}
+            previous_observation = "; ".join(
+                part for part in [previous.get("status", ""), previous.get("last_case_update", "")] if part
+            ) or "Not present"
+            current_observation = "; ".join(
+                part for part in [current.get("status", ""), current.get("last_case_update", "")] if part
+            ) or "Not present"
+            matches = ", ".join(
+                match["source_id"] for match in change.get("source_matches", []) if match["source_id"]
+            ) or "None"
+            lines.append(
+                f"| {markdown_text(change['kind'].title(), 20)} | {markdown_text(entry['case_name'])} | "
+                f"{markdown_text(entry['docket_number'] or 'Not stated', 100)} | "
+                f"{markdown_text(previous_observation, 250)} | {markdown_text(current_observation, 250)} | "
+                f"{markdown_text(matches, 250)} |"
+            )
+        if len(changes) > 100:
+            lines.append(f"\n{len(changes) - 100} additional changes are retained in the workflow artifact.")
+    return "\n".join(lines) + "\n\n"
+
+
+def append_material_log(path: Path, entry: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        existing = path.read_text(encoding="utf-8")
+    else:
+        existing = (
+            '---\ntitle: "Source Monitor Log"\nprint_levels:\n  - full-technical\n---\n\n'
+            "# Source Monitor Log\n\nMaterial source-monitor activity is recorded here; "
+            "routine no-change runs remain in GitHub Actions.\n\n"
         )
-    omitted = len(signal["changes"]) - len(rows)
-    omission = f"\n\n{omitted} additional mapped changes are listed in the workflow report." if omitted else ""
-    return f"""<!-- {ISSUE_SIGNAL_MARKER} -->
-## Automated tracker-change signal
-
-**Last tracker check:** {checked_at}
-
-The Just Security litigation tracker changed for source records associated with this monitored issue. This is a routing signal only: it does not establish that a filing is legally significant, alter ARRP's analysis, or satisfy the required human monitoring review.
-
-| Tracker change | Case | Docket | Matched source | CourtListener check |
-| --- | --- | --- | --- | --- |
-{chr(10).join(rows)}{omission}
-
-Review the tracker change and controlling record, then remove `needs: monitor review` after acknowledgment.
-"""
+    separator = "" if existing.endswith("\n") else "\n"
+    path.write_text(existing + separator + entry, encoding="utf-8")
 
 
 def render_summary(
@@ -762,10 +779,19 @@ def render_summary(
     entry_count: int,
     changes: list[dict[str, Any]],
     verification: dict[str, dict[str, Any]],
-    mapped_signals: dict[int, dict[str, Any]],
+    coverage: dict[str, Any],
+    applied: bool,
 ) -> str:
     counts = Counter(change["kind"] for change in changes)
     verification_counts = Counter(result["outcome"] for result in verification.values())
+    affected_source_ids = sorted(
+        {
+            match["source_id"]
+            for change in changes
+            for match in change.get("source_matches", [])
+            if match.get("source_id")
+        }
+    )
     lines = [
         "## ARRP case-monitor-bot",
         "",
@@ -774,12 +800,18 @@ def render_summary(
         f"Parsed tracker entries: **{entry_count}**  ",
         f"Result: **{status.replace('_', ' ')}**",
         "",
-        "### Tracker changes",
+        "### Source observations",
         "",
-        f"- Added: **{counts['added']}**",
-        f"- Changed: **{counts['changed']}**",
-        f"- Removed: **{counts['removed']}**",
-        f"- Mapped monitored ARRP issues signaled: **{len(mapped_signals)}**",
+        f"- Added tracker entries: **{counts['added']}**",
+        f"- Changed tracker entries: **{counts['changed']}**",
+        f"- Removed tracker entries: **{counts['removed']}**",
+        f"- Eligible monitored CourtListener rows: **{coverage['monitored_catalog_rows']}**",
+        f"- Mapped monitored CourtListener rows: **{coverage['mapped_catalog_rows']}**",
+        f"- Monitored CourtListener rows outside tracker coverage: **{coverage['uncovered_catalog_rows']}**",
+        f"- Tracker entries outside catalog-monitor scope: **{coverage['tracker_entries_outside_catalog_scope']}**",
+        f"- Case baselines initialized: **{coverage['case_baselines_initialized']}**",
+        f"- Case baselines updated: **{coverage['case_baselines_updated']}**",
+        f"- Affected source IDs: **{', '.join(affected_source_ids) or 'None'}**",
         "",
         "### Targeted CourtListener checks",
         "",
@@ -787,54 +819,47 @@ def render_summary(
         f"- Failed: **{verification_counts['failed']}**",
         f"- Unverified: **{verification_counts['unverified']}**",
     ]
+    if status == "no_change":
+        lines.extend(["", "No repository update or pull request is needed."])
+    elif status == "baselines_initialized":
+        lines.extend(
+            [
+                "",
+                "Deliberate local initialization only. Blank baselines were populated without classifying any observation as a change; this mode must not create an automated monitoring PR.",
+            ]
+        )
+    elif applied:
+        lines.extend(
+            [
+                "",
+                "Catalog and material-log updates were prepared in the worktree. The workflow will commit them to the deterministic bot branch and create or update a review pull request.",
+            ]
+        )
+    else:
+        lines.extend(["", "Dry run only; no repository files were changed."])
     if changes:
         lines.extend(
             [
                 "",
-                "| Change | Case | Docket | Tracker status | Last case update | ARRP source match | CourtListener |",
+                "| Change | Case | Docket | Status | Last case update | Catalog source | CourtListener |",
                 "| --- | --- | --- | --- | --- | --- | --- |",
             ]
         )
         for change in changes[:40]:
             entry = change_entry(change)
-            source_ids = sorted(
-                {
-                    match["source_id"]
-                    for match in change.get("source_matches", [])
-                    if match["source_id"]
-                }
-            )
-            verify = verification_for_change(change, verification)["outcome"]
+            source_ids = ", ".join(
+                match["source_id"] for match in change.get("source_matches", []) if match["source_id"]
+            ) or "None"
             lines.append(
                 f"| {markdown_text(change['kind'].title(), 20)} | {markdown_text(entry['case_name'])} | "
                 f"{markdown_text(entry['docket_number'] or 'Not stated', 100)} | "
                 f"{markdown_text(entry['status'] or 'Not stated', 200)} | "
                 f"{markdown_text(entry['last_case_update'] or 'Not stated', 100)} | "
-                f"{markdown_text(', '.join(source_ids) or 'None', 200)} | {markdown_text(verify, 50)} |"
+                f"{markdown_text(source_ids, 200)} | "
+                f"{markdown_text(verification_for_change(change, verification)['outcome'], 50)} |"
             )
         if len(changes) > 40:
-            lines.append(f"\n{len(changes) - 40} additional changes are retained in the JSON report.")
-    unmapped_added = [
-        change
-        for change in changes
-        if change["kind"] == "added" and not change.get("source_matches")
-    ]
-    if unmapped_added:
-        lines.extend(
-            [
-                "",
-                "### Unmatched added entries",
-                "",
-                "These are later intake leads only. The bot did not create a candidate or make an admission decision.",
-                "",
-            ]
-        )
-        lines.extend(
-            f"- {markdown_text(change['current']['case_name'])} — {markdown_text(change['current']['docket_number'] or 'docket not stated', 100)}"
-            for change in unmapped_added[:25]
-        )
-        if len(unmapped_added) > 25:
-            lines.append(f"- {len(unmapped_added) - 25} additional unmatched additions are in the JSON report.")
+            lines.append(f"\n{len(changes) - 40} additional changes are retained in the JSON artifact.")
     lines.extend(
         [
             "",
@@ -854,7 +879,6 @@ def report_change(change: dict[str, Any], verification: dict[str, Any]) -> dict[
         "courtlistener_url": entry["courtlistener_url"],
         "tracker_status": normalize_text(entry["status"], 300),
         "last_case_update": normalize_text(entry["last_case_update"], 100),
-        "case_update_excerpt": normalize_text(entry.get("case_update_excerpt", ""), 800),
         "changed_fields": change.get("changed_fields", []),
         "source_matches": change.get("source_matches", []),
         "courtlistener_verification": verification_for_change(change, verification),
@@ -866,28 +890,31 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--sources", type=Path, default=DEFAULT_SOURCES)
     parser.add_argument("--pending-sources", type=Path, default=DEFAULT_PENDING_SOURCES)
-    parser.add_argument("--registry", type=Path, default=DEFAULT_REGISTRY)
+    parser.add_argument("--log", type=Path, default=DEFAULT_LOG)
     parser.add_argument("--tracker-html", type=Path, help="Use a saved tracker HTML fixture.")
-    parser.add_argument("--baseline-json", type=Path, help="Use a saved compact baseline for a dry run.")
     parser.add_argument("--docket-json", type=Path, help="Use CourtListener responses keyed by docket ID.")
-    parser.add_argument(
-        "--monitoring-issues-json", type=Path, help="Use a saved GitHub monitoring-issues array."
-    )
-    parser.add_argument("--repository", default=os.environ.get("GITHUB_REPOSITORY", "Thorncrag/ARRP"))
     parser.add_argument("--summary", type=Path)
     parser.add_argument("--report-json", type=Path)
     parser.add_argument("--checked-at")
-    parser.add_argument("--apply", action="store_true", help="Update rolling GitHub state and signals.")
     parser.add_argument(
-        "--refresh-github", action="store_true", help="Read the live baseline and monitoring issues without applying."
+        "--apply",
+        action="store_true",
+        help="Write changed catalog baselines and append the material source-monitor log.",
+    )
+    parser.add_argument(
+        "--initialize-baselines",
+        action="store_true",
+        help="Deliberately populate blank baselines for currently mapped monitored sources; writes catalogs but does not log a detected change.",
     )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+    if args.apply and args.initialize_baselines:
+        raise SystemExit("--apply and --initialize-baselines are separate modes")
     config = read_json(args.config)
-    if config.get("schemaVersion") != 4:
+    if config.get("schemaVersion") != 5:
         raise SystemExit("unsupported case-monitor-bot schemaVersion")
     if not config.get("enabled", False):
         summary = "## ARRP case-monitor-bot\n\nBot disabled by configuration.\n"
@@ -896,35 +923,24 @@ def main() -> int:
         print(summary, end="")
         return 0
     checked_at = args.checked_at or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-    client = GitHubClient(args.repository, github_token()) if args.apply or args.refresh_github else None
-    notification_issue = int(config["notification"]["issueNumber"])
-
-    previous: dict[str, dict[str, str]] | None = None
-    baseline_comment = None
-    if args.baseline_json:
-        loaded = read_json(args.baseline_json)
-        previous = loaded.get("entries", loaded)
-    elif client:
-        baseline_comment = marked_comment(client.comments(notification_issue), BASELINE_MARKER)
-        if baseline_comment:
-            previous = baseline_from_comment(baseline_comment["body"])
-
-    if args.tracker_html:
-        tracker_document = args.tracker_html.read_text(encoding="utf-8")
-    else:
-        tracker_document = TrackerClient(config["tracker"]).fetch()
+    baseline_field = config["sourceBaselineField"]
+    source_fields, source_rows = read_csv_table(args.sources)
+    pending_fields, pending_rows = read_csv_table(args.pending_sources)
+    require_catalog_schema(source_fields, baseline_field, args.sources)
+    require_catalog_schema(pending_fields, baseline_field, args.pending_sources)
+    tracker_document = (
+        args.tracker_html.read_text(encoding="utf-8")
+        if args.tracker_html
+        else TrackerClient(config["tracker"]).fetch()
+    )
     entries = parse_tracker_html(tracker_document, config["tracker"])
-    status, changes = compare_snapshots(
-        previous, entries, float(config["tracker"]["maximumRemovalFraction"])
+    status, changes, coverage = evaluate_catalog_sources(
+        entries=entries,
+        sources_rows=source_rows,
+        pending_rows=pending_rows,
+        baseline_field=baseline_field,
+        initialize=args.initialize_baselines,
     )
-
-    rows = [{**row, "_inventory": args.sources.name} for row in read_csv(args.sources)]
-    rows.extend(
-        {**row, "_inventory": args.pending_sources.name}
-        for row in read_csv(args.pending_sources)
-    )
-    attach_source_matches(changes, source_map(rows))
-
     fixture = read_json(args.docket_json) if args.docket_json else None
     verification = verify_changed_dockets(
         changes,
@@ -933,39 +949,16 @@ def main() -> int:
         fixture,
     )
 
-    if args.monitoring_issues_json:
-        monitoring_issues = read_json(args.monitoring_issues_json)
-    elif client:
-        monitoring_issues = client.monitoring_issues(config["targetLabel"])
-    else:
-        monitoring_issues = []
-    issue_signals = mapped_issue_signals(
-        changes, registry_issue_map(read_csv(args.registry)), monitoring_issues
-    )
-
-    snapshot = compact_snapshot(entries)
-    if args.apply and client:
-        if issue_signals:
-            client.ensure_label(
-                config["reviewLabel"],
-                config["reviewLabelColor"],
-                config["reviewLabelDescription"],
-            )
-        for issue_number, signal in issue_signals.items():
-            body = render_issue_signal(signal, checked_at, verification)
-            existing = marked_comment(client.comments(issue_number), ISSUE_SIGNAL_MARKER)
-            if existing:
-                client.update_comment(int(existing["id"]), body)
-            else:
-                client.create_comment(issue_number, body)
-            client.add_label(issue_number, config["reviewLabel"])
-        # Advance the baseline only after every affected issue signal succeeds.
-        # A partial GitHub failure must not suppress the same signal next run.
-        baseline_body = render_baseline_comment(snapshot, checked_at, status, len(changes))
-        if baseline_comment:
-            client.update_comment(int(baseline_comment["id"]), baseline_body)
-        else:
-            client.create_comment(notification_issue, baseline_body)
+    material = status == "changes_detected"
+    should_write_catalogs = (args.apply and material) or args.initialize_baselines
+    if should_write_catalogs:
+        write_csv_table(args.sources, source_fields, source_rows)
+        write_csv_table(args.pending_sources, pending_fields, pending_rows)
+    if args.apply and material:
+        append_material_log(
+            args.log,
+            render_log_entry(checked_at, status, changes, coverage, verification),
+        )
 
     summary = render_summary(
         status=status,
@@ -974,7 +967,8 @@ def main() -> int:
         entry_count=len(entries),
         changes=changes,
         verification=verification,
-        mapped_signals=issue_signals,
+        coverage=coverage,
+        applied=args.apply and material,
     )
     if args.summary:
         args.summary.parent.mkdir(parents=True, exist_ok=True)
@@ -982,18 +976,21 @@ def main() -> int:
     if args.report_json:
         args.report_json.parent.mkdir(parents=True, exist_ok=True)
         report = {
-            "schema_version": 4,
+            "schema_version": 5,
             "checked_at": checked_at,
             "status": status,
             "tracker_url": config["tracker"]["url"],
             "tracker_entry_count": len(entries),
             "change_counts": dict(Counter(change["kind"] for change in changes)),
-            "mapped_issue_numbers": sorted(issue_signals),
             "changes": [report_change(change, verification) for change in changes],
-            "repository_changes": [],
+            "coverage": coverage,
+            "repository_changes_prepared": args.apply and material,
+            "baseline_initialization_mode": args.initialize_baselines,
             "legal_significance_determined": False,
         }
-        args.report_json.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        args.report_json.write_text(
+            json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
     print(summary, end="")
     return 0
 

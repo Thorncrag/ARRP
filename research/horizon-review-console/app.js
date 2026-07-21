@@ -120,6 +120,12 @@
     return item;
   }
 
+  function monitoredSourcesFirst(left, right) {
+    const monitoringOrder = Number(right.monitoring === "Yes") - Number(left.monitoring === "Yes");
+    if (monitoringOrder) return monitoringOrder;
+    return String(left.id || "").localeCompare(String(right.id || ""));
+  }
+
   function catalogEntry(record) {
     const item = element("article", "evidence-record");
     const heading = element("div", "evidence-heading");
@@ -148,7 +154,7 @@
 
     const sourcePanel = detailsPanel("Source inventory records", sources.length, sources.length <= 4);
     const sourceList = element("div", "evidence-list");
-    if (sources.length) sources.forEach((source) => sourceList.append(sourceEntry(source)));
+    if (sources.length) [...sources].sort(monitoredSourcesFirst).forEach((source) => sourceList.append(sourceEntry(source)));
     else sourceList.append(element("p", "muted panel-empty", "No source-inventory record is currently associated by identifier."));
     sourcePanel.append(sourceList);
     fragment.append(sourcePanel);
@@ -404,6 +410,11 @@
       ));
       if (record.monitoring === "Yes") {
         monitoringCell.append(element("small", "", record.monitoring_rationale || "No source-specific rationale recorded"));
+        monitoringCell.append(element(
+          "small",
+          "",
+          record.monitoring_baseline_present ? "Watcher baseline accepted" : "No automated baseline"
+        ));
       }
       const linkCell = element("td", "source-link-cell");
       linkCell.append(record.url ? inlineLink("Open ↗", record.url) : element("span", "muted", "No link"));
@@ -438,7 +449,7 @@
     const filtered = records.filter((record) => {
       if (state.filter !== "all" && record[filterField] !== state.filter) return false;
       return !query || sourceSearchText(record).includes(query);
-    });
+    }).sort(monitoredSourcesFirst);
     const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
     state.page = Math.min(state.page, pages);
     const start = (state.page - 1) * PAGE_SIZE;
@@ -469,7 +480,7 @@
     );
     if ((record.sources || []).length) {
       const sourceList = element("div", "evidence-list monitoring-sources");
-      record.sources.forEach((source) => sourceList.append(sourceEntry(source)));
+      [...record.sources].sort(monitoredSourcesFirst).forEach((source) => sourceList.append(sourceEntry(source)));
       body.append(sourceList);
     } else {
       body.append(element("p", "muted panel-empty", "No source-inventory records are currently associated with this issue."));
@@ -513,7 +524,7 @@
     });
     byId("pending-visible").textContent = filtered.length;
     byId("pending-list").replaceChildren(
-      ...filtered.sort((left, right) => left.id.localeCompare(right.id)).map(sourceEntry)
+      ...filtered.sort(monitoredSourcesFirst).map(sourceEntry)
     );
   }
 
@@ -530,11 +541,18 @@
     summary.append(identity, metadata);
     const body = element("div", "monitoring-body");
     body.append(dossierSection("Why monitored", records[0].monitoring_rationale || "A structured source-specific rationale has not yet been recorded.", "wide"));
+    body.append(dossierSection(
+      "Watcher baseline",
+      records.every((record) => record.monitoring_baseline_present)
+        ? "Accepted for every listed source. A later material change will be proposed through a review pull request."
+        : "Initialization is still required for at least one listed source before normal scheduled comparison can proceed.",
+      "wide"
+    ));
     const links = element("div", "source-list compact-links");
-    links.append(linkButton("Open owning GitHub issue", records[0].owner_issue_url));
+    if (records[0].owner_issue_url) links.append(linkButton("Open owning GitHub issue", records[0].owner_issue_url));
     body.append(links);
     const list = element("div", "evidence-list");
-    records.forEach((source) => list.append(sourceEntry(source)));
+    [...records].sort(monitoredSourcesFirst).forEach((source) => list.append(sourceEntry(source)));
     body.append(list);
     details.append(summary, body);
     return details;
@@ -624,7 +642,7 @@
     byId("watcher-summary-grid").replaceChildren(
       watcherSummaryCard("Issue-level monitoring", data.monitoring_issues.length, "GitHub issues requiring a complete monitoring pass."),
       watcherSummaryCard("Changing source records", monitoredSources, "Dockets and other sources whose own contents may change."),
-      watcherSummaryCard("Tracker-assisted cases", distinctSourceCount(data.court_watch_sources), "Court sources eligible for mapping when the litigation tracker reports a change."),
+      watcherSummaryCard("Tracker-assisted cases", distinctSourceCount(data.court_watch_sources), "Cataloged court sources covered by per-source watcher baselines."),
       watcherSummaryCard("Directive follow-up", directiveFollowUp, "New or changed directives awaiting another project screening pass.")
     );
   }

@@ -57,6 +57,7 @@ class HorizonIntakeTest(unittest.TestCase):
         pending = self.source_catalogs["sources-pending.csv"]
         self.assertEqual(set(cited[0]), set(pending[0]))
         self.assertIn("Monitoring", cited[0])
+        self.assertIn("Monitoring Baseline", cited[0])
         cited_ids = {row["Source ID"] for row in cited}
         pending_ids = {row["Source ID"] for row in pending}
         self.assertFalse(cited_ids & pending_ids)
@@ -69,6 +70,7 @@ class HorizonIntakeTest(unittest.TestCase):
             "Blocker",
             "Monitoring Rationale",
             "Monitoring Group",
+            "Monitoring Baseline",
         }
         for rows in self.source_catalogs.values():
             self.assertTrue(workflow_fields <= set(rows[0]))
@@ -151,7 +153,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 11)
+        self.assertEqual(self.console["schema_version"], 12)
         self.assertEqual(
             set(self.console),
             {
@@ -185,6 +187,13 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         self.assertTrue(all(row["monitoring"] in {"Yes", "No"} for row in self.console["cited_sources"]))
         self.assertTrue(all(row["monitoring"] in {"Yes", "No"} for row in self.console["pending_sources"]))
+        for row in self.console["cited_sources"] + self.console["pending_sources"]:
+            self.assertIsInstance(row["monitoring_baseline_present"], bool)
+            self.assertNotIn("monitoring_baseline", row)
+        self.assertTrue(self.console["court_watch_sources"])
+        self.assertTrue(
+            all(row["monitoring"] == "Yes" for row in self.console["court_watch_sources"])
+        )
         for issue in self.console["monitoring_issues"]:
             self.assertTrue(issue["issue_url"].startswith("https://github.com/Thorncrag/ARRP/issues/"))
             self.assertEqual(issue["source_count"], len(issue["sources"]))
@@ -347,6 +356,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Manual monitoring", console_html)
         self.assertIn("Court-case watcher", console_html)
         self.assertIn("Presidential-directives watcher", console_html)
+        self.assertIn("monitoredSourcesFirst", console_app)
         self.assertIn("Pending sources", console_html)
         self.assertNotIn("History", console_html)
         self.assertNotIn('id="submission-view"', console_html)

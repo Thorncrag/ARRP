@@ -709,6 +709,7 @@ def check_registry_and_sources(
         "Blocker",
         "Monitoring Rationale",
         "Monitoring Group",
+        "Monitoring Baseline",
     }
     for catalog_name, catalog_rows in (
         ("sources.csv", source_rows),
@@ -770,6 +771,14 @@ def check_registry_and_sources(
                         failures,
                         warnings,
                     )
+            baseline = row.get("Monitoring Baseline", "").strip()
+            if baseline and not baseline.startswith("arrp-case-monitor:v1:"):
+                report(
+                    "ERROR",
+                    f"{source_id} in {catalog_name} has an unrecognized Monitoring Baseline format",
+                    failures,
+                    warnings,
+                )
     source_ids = [row.get("Source ID", "") for row in [*source_rows, *pending_rows] if row.get("Source ID")]
     for value, count in Counter(source_ids).items():
         if count > 1:
