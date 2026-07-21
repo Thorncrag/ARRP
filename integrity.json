@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "current": {
+    "schema_version": 1,
+    "generated_at": "2026-07-21T23:50:12+00:00",
+    "revision": "4a15fe15d1a8db26ed572d1064cd6190877cd11b",
+    "result": "clean",
+    "counts": {
+      "errors": 0,
+      "warnings": 0,
+      "findings": 0,
+      "issue_pages": 61,
+      "proposal_pages": 40
+    },
+    "duration_seconds": 8.322,
+    "scope": [
+      "Issue and proposal structure",
+      "Area and topic routing",
+      "Internal repository links",
+      "Orphaned Markdown pages",
+      "Page metadata and heading hierarchy",
+      "GitHub record references",
+      "Source and citation catalogs",
+      "Research placement",
+      "Reader-facing language",
+      "Tool-interface conventions",
+      "Intake-workflow terminology",
+      "Publication-disposition metadata"
+    ],
+    "findings": []
+  },
+  "history": [
+    {
+      "generated_at": "2026-07-21T23:50:12+00:00",
+      "revision": "4a15fe15d1a8db26ed572d1064cd6190877cd11b",
+      "result": "clean",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "findings": 0,
+        "issue_pages": 61,
+        "proposal_pages": 40
+      },
+      "duration_seconds": 8.322
+    }
+  ]
+}
