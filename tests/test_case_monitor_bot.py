@@ -370,6 +370,7 @@ class CaseMonitorBotTests(unittest.TestCase):
         self.assertIn("issues: write", workflow)
         self.assertNotIn("ARRP_PROJECT_TOKEN", workflow)
         self.assertNotIn("317", workflow)
+        self.assertLess(workflow.index("git config user.name"), workflow.index("git rebase"))
 
 
 if __name__ == "__main__":

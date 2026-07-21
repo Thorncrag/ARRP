@@ -265,6 +265,7 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
         self.assertIn("gh pr create", workflow)
         self.assertIn("--add-assignee", workflow)
         self.assertNotIn("ARRP_PROJECT_TOKEN", workflow)
+        self.assertLess(workflow.index("git config user.name"), workflow.index("git rebase"))
         self.assertIn("Detect a pending review branch", workflow)
         self.assertIn("steps.pending.outputs.exists == 'true'", workflow)
         self.assertIn("preserves changes staged by an earlier run", workflow)

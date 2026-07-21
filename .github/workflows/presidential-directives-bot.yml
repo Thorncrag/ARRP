@@ -47,6 +47,8 @@ jobs:
 
       - name: Prepare the persistent watcher branch
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
           if git ls-remote --exit-code --heads origin "${BOT_BRANCH}" >/dev/null 2>&1; then
             git fetch origin "${BOT_BRANCH}"
