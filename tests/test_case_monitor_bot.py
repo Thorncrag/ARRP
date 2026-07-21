@@ -371,6 +371,9 @@ class CaseMonitorBotTests(unittest.TestCase):
         self.assertNotIn("ARRP_PROJECT_TOKEN", workflow)
         self.assertNotIn("317", workflow)
         self.assertLess(workflow.index("git config user.name"), workflow.index("git rebase"))
+        self.assertIn('echo "new_change=false"', workflow)
+        self.assertIn('echo "new_change=true"', workflow)
+        self.assertIn("preserves unresolved changes staged by an earlier run", workflow)
 
 
 if __name__ == "__main__":
