@@ -14,16 +14,16 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Access of Lawyers to Immigrants in Detention (Executive Order 14159)
 
 - **[SRC-1023 — Access of Lawyers to Immigrants in Detention (Executive Order 14159)](<https://www.courtlistener.com/docket/69599829/amica-center-for-immigrant-rights-v-united-states-department-of-justice/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap?
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Live removal/detention/access-to-counsel or expedited-removal case. Monitor for notice, counsel, custody review, evidence access, statutory process, or effective-remedy holdings.
 
 ## Alien Enemies Act Removals
 
 - **[SRC-0925 — Alien Enemies Act Removals (Presidential Proclamation 10903)](<https://www.courtlistener.com/docket/15867241/jop-v-us-department-of-homeland-security/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Alien Enemies Act Removals (Presidential Proclamation 10903); tracker status: Government Action Blocked Pending Appeal.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap? Potentially supports monitoring of Alien Enemies Act Removals (Presidential Proclamation 10903); tracker status: Government Action Blocked Pending Appeal.
   - Reviewed: **No**
-  - Monitoring qualification: **Yes** — Live Alien Enemies Act/removal docket; monitor for notice, counsel, custody review, or effective-remedy holdings. It does not belong in the cited bibliography until an exact proposition is used.
+  - Monitoring qualification: **Yes** — Live Alien Enemies Act/removal docket; monitor for notice, counsel, custody review, or effective-remedy holdings. Retain it as qualified source-development evidence, but do not use it as final merits support until the controlling proposition is verified.
 - **[SRC-1938 — A.S.R. v. Trump (W.D. Pa.) 3:25-cv-00113](<https://www.courtlistener.com/docket/69893393/asr-v-trump>)**
   - Current proposition: Potentially supports monitoring of Alien Enemies Act Removals (Presidential Proclamation 10903); tracker status: Government Action Temporarily Blocked in Part; Temporary Block Denied in Part.
   - Reviewed: **No**
@@ -72,14 +72,14 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Contract Termination for Services to Unaccompanied Minors
 
 - **[SRC-0957 — Contract Termination for Services to Unaccompanied Minors](<https://www.courtlistener.com/docket/69799154/community-legal-services-in-east-palo-alto-v-united-states-department-of/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Contract Termination for Services to Unaccompanied Minors; tracker status: Government Action Blocked Pending Appeal.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap? Potentially supports monitoring of Contract Termination for Services to Unaccompanied Minors; tracker status: Government Action Blocked Pending Appeal.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Live unaccompanied-minor services case. Monitor for a statutory counsel/access/custody-services holding; route FUND-001 only if the dispositive issue is enacted funding nullification.
 
 ## DHS/ICE actions toward U.S. citizens
 
 - **[SRC-0962 — DHS/ICE actions toward U.S. citizens](<https://www.courtlistener.com/docket/69940863/v-m-l-v-harper/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of DHS/ICE actions toward U.S. citizens; tracker status: Case Closed.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap? Potentially supports monitoring of DHS/ICE actions toward U.S. citizens; tracker status: Case Closed.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Watch the live docket for a merits, appellate, or final ruling addressing DHS/ICE actions toward U.S. citizens; the result will determine whether this source can support HOR-037's treatment of that matter.
 - **[SRC-2044 — Chavarria v. U.S. Department of Homeland Security (D.D.C.) 1:25-cv-04289](<https://www.courtlistener.com/docket/72014766/chavarria-v-us-department-of-homeland-security>)**
@@ -109,7 +109,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## General source development
 
 - **[SRC-1048 — Policy on Unaccompanied Minors](<https://www.federalregister.gov/documents/2025/03/25/2025-04971/unaccompanied-children-program-foundational-rule-update-to-accord-with-statutory-requirements>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap?
   - Reviewed: **Yes**
 - **[SRC-1888 — Family-separation implementation and failures to track and reunify families — primary record](<https://www.oig.dhs.gov/sites/default/files/assets/2018-10/OIG-18-84-Sep18.pdf>)**
   - Current proposition: Potentially supports the episode and institutional question: Whether interagency enforcement policy may proceed without integrated identity tracking reunification duties and accountable implementation review
@@ -124,7 +124,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Immigration Detention Facilities
 
 - **[SRC-1016 — Immigration Detention Facilities](<https://www.courtlistener.com/docket/70695499/van-schaick-v-desantis/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Immigration Detention Facilities; tracker status: Case Pending.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap? Potentially supports monitoring of Immigration Detention Facilities; tracker status: Case Pending.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Watch the live docket for a merits, appellate, or final ruling addressing Immigration Detention Facilities; the result will determine whether this source can support HOR-037's treatment of that matter.
 - **[SRC-2253 — Angye v. United States Immigration and Customs Enforcement (ICE) (W.D. Tex.) 3:26-cv-01515](<https://www.courtlistener.com/docket/73417799/angye-v-united-states-immigration-and-customs-enforcement-ice>)**
@@ -195,7 +195,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Immigration Detention Policy
 
 - **[SRC-1017 — Immigration Detention Policy](<https://www.courtlistener.com/docket/70895584/lazaro-maldonado-bautista-v-ernesto-santacruz-jr/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Immigration Detention Policy; tracker status: Government Action Not Blocked (Pending Appeal).
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap? Potentially supports monitoring of Immigration Detention Policy; tracker status: Government Action Not Blocked (Pending Appeal).
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Watch the live docket for a merits, appellate, or final ruling addressing Immigration Detention Policy; the result will determine whether this source can support HOR-037's treatment of that matter.
 - **[SRC-2270 — A. v. Noem (D. Mass.) 3:26-cv-30031](<https://www.courtlistener.com/docket/72343601/a-v-noem>)**
@@ -262,7 +262,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Immigration Enforcement Against Places of Worship and Schools
 
 - **[SRC-1018 — Immigration Enforcement Against Places of Worship and Schools (Policy Memo)](<https://www.courtlistener.com/docket/69580474/philadelphia-yearly-meeting-of-the-religious-society-of-friends-v-us/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Immigration Enforcement Against Places of Worship and Schools (Policy Memo); tracker status: Government Action Temporarily Blocked.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap? Potentially supports monitoring of Immigration Enforcement Against Places of Worship and Schools (Policy Memo); tracker status: Government Action Temporarily Blocked.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Watch the live docket for a merits, appellate, or final ruling addressing Immigration Enforcement Against Places of Worship and Schools; the result will determine whether this source can support HOR-037's treatment of that matter.
 - **[SRC-2286 — Fridley Public School District, Independent School District 14 v. Mullin (D. Minn.) 0:26-cv-01023](<https://www.courtlistener.com/docket/72229130/fridley-public-school-district-independent-school-district-14-v-noem>)**
@@ -281,14 +281,14 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Immigration Policy - Civil Monetary Penalties
 
 - **[SRC-1020 — Immigration Policy - Civil Monetary Penalties](<https://www.courtlistener.com/docket/73587222/doe-v-mullin/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Immigration Policy - Civil Monetary Penalties; tracker status: Case Pending.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap? Potentially supports monitoring of Immigration Policy - Civil Monetary Penalties; tracker status: Case Pending.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Live removal/detention/access-to-counsel or expedited-removal case. Monitor for notice, counsel, custody review, evidence access, statutory process, or effective-remedy holdings.
 
 ## Immigration Policy - Expedited Removal
 
 - **[SRC-1024 — Immigration Policy - Expedited Removal (Executive Order 14159)](<https://www.courtlistener.com/docket/69566723/make-the-road-new-york-v-huffman/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Immigration Policy - Expedited Removal (Executive Order 14159); tracker status: Temporary Block of Government Action Denied.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap? Potentially supports monitoring of Immigration Policy - Expedited Removal (Executive Order 14159); tracker status: Temporary Block of Government Action Denied.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Live removal/detention/access-to-counsel or expedited-removal case. Monitor for notice, counsel, custody review, evidence access, statutory process, or effective-remedy holdings.
 
@@ -354,7 +354,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Migrant Transfers to Guantánamo
 
 - **[SRC-1037 — Migrant Transfers to Guantánamo (Presidential Memorandum)](<https://www.courtlistener.com/docket/69162304/perez-parra-v-castro/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Migrant Transfers to Guantánamo (Presidential Memorandum); tracker status: Case Closed.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap? Potentially supports monitoring of Migrant Transfers to Guantánamo (Presidential Memorandum); tracker status: Case Closed.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Watch the live docket for a merits, appellate, or final ruling addressing Migrant Transfers to Guantánamo; the result will determine whether this source can support HOR-037's treatment of that matter.
 - **[SRC-2327 — Las Americas Immigrant Advocacy Center v. Noem (D.D.C.) 1:25-cv-00418](<https://www.courtlistener.com/docket/69633721/las-americas-immigrant-advocacy-center-v-noem>)**
@@ -369,7 +369,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Other Habeas and Removal Actions
 
 - **[SRC-1045 — Other Habeas and Removal Actions](<https://www.courtlistener.com/docket/69683411/united-farm-workers-v-noem/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Other Habeas and Removal Actions; tracker status: Government Action Temporarily Blocked.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap? Potentially supports monitoring of Other Habeas and Removal Actions; tracker status: Government Action Temporarily Blocked.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Live removal/detention/access-to-counsel or expedited-removal case. Monitor for notice, counsel, custody review, evidence access, statutory process, or effective-remedy holdings.
 - **[SRC-2330 — Campos Leon v. Forestal, Marion County Sheriff (S.D. Ind.) 1:25-cv-01774](<https://www.courtlistener.com/docket/71282225/campos-leon-v-forestal-marion-county-sheriff>)**
@@ -420,7 +420,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Policy on Unaccompanied Minors
 
 - **[SRC-1049 — Policy on Unaccompanied Minors](<https://www.courtlistener.com/docket/70225239/s-v-us-department-of-health-and-human-services/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Policy on Unaccompanied Minors; tracker status: Government Action Temporarily Blocked in Part; Temporary Block Denied in Part.
+  - Current proposition: Candidate-specific verification question: does this source identify a detention, removal, counsel-access, notice, or custody safeguard whose absence or evasion creates an institutional protection gap? Potentially supports monitoring of Policy on Unaccompanied Minors; tracker status: Government Action Temporarily Blocked in Part; Temporary Block Denied in Part.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Live removal/detention/access-to-counsel or expedited-removal case. Monitor for notice, counsel, custody review, evidence access, statutory process, or effective-remedy holdings.
 - **[SRC-2348 — A.C.R. v. Noem (E.D.N.Y.) 1:25-cv-03962](<https://www.courtlistener.com/docket/70826540/acr-v-noem>)**

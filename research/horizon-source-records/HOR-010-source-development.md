@@ -14,7 +14,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## General source development
 
 - **[SRC-0899 — ICE arrests and detains noncitizens attending immigration-court hearings](<https://immpolicytracking.org/policies/ice-arrests-and-detains-noncitizens-attending-immigration-court-hearings/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture.
+  - Current proposition: Candidate-specific verification question: does this source document a courthouse immigration-arrest policy or practice capable of deterring attendance at immigration hearings, and what directive or ruling defines its legality and scope?
   - Reviewed: **No**
 
 ## Immigration Raids and Arrests

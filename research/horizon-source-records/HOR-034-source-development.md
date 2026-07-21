@@ -14,7 +14,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Agency Data Sharing for Immigration Enforcement Purposes
 
 - **[SRC-0924 — Agency Data Sharing for Immigration Enforcement Purposes (Executive Order 14165) (Executive Order 14159) (Executive Order 14158)](<https://www.courtlistener.com/docket/69714586/centro-de-trabajadores-unidos-v-bessent/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Agency Data Sharing for Immigration Enforcement Purposes (Executive Order 14165) (Executive Order 14159) (Executive Order 14158); tracker status: Temporary Block of Government Action Denied.
+  - Current proposition: Candidate-specific verification question: does this source show personal data collected for one federal program being disclosed or used for a materially different executive purpose, and what law governs purpose limitation, notice, and remedy? Potentially supports monitoring of Agency Data Sharing for Immigration Enforcement Purposes (Executive Order 14165) (Executive Order 14159) (Executive Order 14158); tracker status: Temporary Block of Government Action Denied.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Next merits/appellate order on cross-agency disclosure authority, purpose limitation, and remedy.
 - **[SRC-1935 — Community Economic Development Center of Southeastern Massachusetts v. Bessent (D. Mass.) 1:25-cv-12822](<https://www.courtlistener.com/docket/71498800/community-economic-development-center-of-southeastern-massachusetts-v>)**
@@ -33,7 +33,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Disclosure of Civil Servant Personnel Records
 
 - **[SRC-0972 — Disclosure of Civil Servant Personnel Records](<https://www.courtlistener.com/docket/69702272/comans-v-department-of-homeland-security/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Disclosure of Civil Servant Personnel Records; tracker status: Case Pending.
+  - Current proposition: Candidate-specific verification question: does this source show personal data collected for one federal program being disclosed or used for a materially different executive purpose, and what law governs purpose limitation, notice, and remedy? Potentially supports monitoring of Disclosure of Civil Servant Personnel Records; tracker status: Case Pending.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Live personnel-record disclosure case. Monitor for a cross-agency purpose-limitation, Privacy Act, notice, or remedy holding; CIV-001 is a personnel cross-reference.
 

@@ -6,7 +6,7 @@ print_levels:
 
 # Public Interaction Service
 
-This folder contains ARRP's separately deployed public interaction service, available at [arrp-public-intake.vercel.app](https://arrp-public-intake.vercel.app/). It is deliberately separate from the read-only [`Candidate Issue Intake`](../research/horizon-review-console/) console. Both application-like surfaces use the [project-operated interface visual standard](../framework/METHODOLOGY.md#project-operated-interface-visual-standard); that standard does not replace the main GitHub Pages or print themes.
+This folder contains ARRP's separately deployed public interaction service, available at [arrp-public-intake.vercel.app](https://arrp-public-intake.vercel.app/). It is deliberately separate from the read-only [`ARRP Project Console`](../research/horizon-review-console/) console. Both application-like surfaces use the [project-operated interface visual standard](../framework/METHODOLOGY.md#project-operated-interface-visual-standard); that standard does not replace the main GitHub Pages or print themes.
 
 The form presents two separate routes. **Submit public input** accepts a short title, plain-language explanation, optional sources, and optional related ARRP page; its live route adds the submission as a comment in one canonical public GitHub Discussion. **Contact the author** sends a private message to the configured author mailbox and creates no public post, GitHub record, candidate, or project record. Local preview mode sends neither route.
 
@@ -54,6 +54,6 @@ Before it creates a public Discussion, the service rejects common direct disclos
 
 This is a due-diligence privacy screen, not a guarantee that every address, personal fact, sensitive narrative, or inappropriate statement can be recognized mechanically. The form’s public-warning language remains essential. A semantic moderation service will be added only after its retention settings, error handling, and review policy have been expressly approved.
 
-[`../framework/INTAKE_AGENT_PROCESS.md`](../framework/INTAKE_AGENT_PROCESS.md) governs manual Codex review of a selected public-intake comment. No GitHub Action or separately billed external-model service currently assesses submissions. A review may recommend a route, but it has no authority to edit ARRP records, create a candidate, alter a project field, comment publicly, or send mail. The process specifies a separate action ledger for any later, expressly approved automation; the Candidate Issue Intake console remains limited to preliminary and proposed candidates.
+[`../framework/INTAKE_AGENT_PROCESS.md`](../framework/INTAKE_AGENT_PROCESS.md) governs manual Codex review of a selected public-intake comment. No GitHub Action or separately billed external-model service currently assesses submissions. A review may recommend a route, but it has no authority to edit ARRP records, create a candidate, alter a project field, comment publicly, or send mail. The process specifies a separate action ledger for any later, expressly approved automation; the ARRP Project Console remains limited to preliminary and proposed candidates.
 
 See [`SECURITY.md`](SECURITY.md) for the live-service controls and account-side verification checklist.

@@ -39,8 +39,7 @@ WEBSITE_FILES = {
     Path("website/404.md"): Path("404.md"),
 }
 FORBIDDEN_TERMS = (
-    "progress-dashboard",
-    "progress dashboard",
+    "project-console-data",
     "arrp_project_token",
     "progress-history-seed",
 )

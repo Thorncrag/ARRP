@@ -153,7 +153,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 12)
+        self.assertEqual(self.console["schema_version"], 14)
         self.assertEqual(
             set(self.console),
             {
@@ -170,6 +170,8 @@ class HorizonIntakeTest(unittest.TestCase):
                 "presidential_directives",
                 "watcher_metadata",
                 "pending_sources",
+                "page_inventory",
+                "progress",
                 "horizon_records",
             },
         )
@@ -185,6 +187,13 @@ class HorizonIntakeTest(unittest.TestCase):
             len(self.console["presidential_directives"]),
             len(self.presidential_directives),
         )
+        self.assertTrue(self.console["page_inventory"])
+        self.assertTrue(self.console["progress"].get("metrics"))
+        directive_dates = [
+            row["signed_date"] or row["published_date"]
+            for row in self.console["presidential_directives"]
+        ]
+        self.assertEqual(directive_dates, sorted(directive_dates, reverse=True))
         self.assertTrue(all(row["monitoring"] in {"Yes", "No"} for row in self.console["cited_sources"]))
         self.assertTrue(all(row["monitoring"] in {"Yes", "No"} for row in self.console["pending_sources"]))
         for row in self.console["cited_sources"] + self.console["pending_sources"]:
@@ -206,6 +215,31 @@ class HorizonIntakeTest(unittest.TestCase):
             "adjudication",
         }:
             self.assertNotIn(legacy_queue, self.console)
+
+    def test_print_level_inventory_matches_compiled_markdown_pages(self) -> None:
+        excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
+        explicit_exceptions = {ROOT / "AGENTS.md", ROOT / "website" / "404.md"}
+        expected = {
+            path.relative_to(ROOT).as_posix()
+            for path in ROOT.rglob("*.md")
+            if not excluded_roots.intersection(path.relative_to(ROOT).parts)
+            and path not in explicit_exceptions
+        }
+        actual = {row["path"] for row in self.console["page_inventory"]}
+        self.assertEqual(actual, expected)
+        self.assertTrue(all(row["print_levels"] for row in self.console["page_inventory"]))
+
+    def test_horizon_source_records_state_candidate_specific_questions(self) -> None:
+        generic = "Source-development record for the described government action"
+        source_ids = {row["Source ID"] for row in self.source_catalogs["sources.csv"]}
+        records = sorted((RESEARCH / "horizon-source-records").glob("HOR-*-source-development.md"))
+        self.assertEqual(len(records), 13)
+        for path in records:
+            content = path.read_text(encoding="utf-8")
+            self.assertNotIn(generic, content, path.name)
+            self.assertNotIn("does not belong in the cited bibliography", content, path.name)
+            for source_id in re.findall(r"\bSRC-\d{4}\b", content):
+                self.assertIn(source_id, source_ids, f"{path.name}: {source_id}")
 
     def test_formal_candidate_research_discovers_area_records(self) -> None:
         paths = {record["path"] for record in research_for_record("JUD-012")}
@@ -231,6 +265,8 @@ class HorizonIntakeTest(unittest.TestCase):
             "Monitoring queue",
             "candidate-and-source dashboard",
             "Candidate Issues and Source Intake",
+            "Candidate and Source Intake",
+            "Candidate Issue Intake",
         )
         for path in current_docs:
             content = path.read_text(encoding="utf-8").lower()
@@ -344,19 +380,46 @@ class HorizonIntakeTest(unittest.TestCase):
         console_html = (console_dir / "index.html").read_text(encoding="utf-8")
         console_app = (console_dir / "app.js").read_text(encoding="utf-8")
         console_css = (console_dir / "styles.css").read_text(encoding="utf-8")
-        self.assertIn("../../participate/index.html", console_html)
+        self.assertNotIn("../../participate/index.html", console_html)
         self.assertIn("Candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
-        for tab in {"candidates", "preliminaries", "sources", "pending", "watchers"}:
+        self.assertIn("ARRP Project Console", console_html)
+        for tab in {"progress", "actions", "candidates", "sources", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)
+        for subtab in {"candidate-tab-formal", "candidate-tab-preliminary", "source-tab-catalog", "source-tab-pending", "source-tab-watchers"}:
+            self.assertIn(f'id="{subtab}"', console_html)
         self.assertIn("This console is read-only", console_html)
         self.assertIn("Decision dossiers", console_html)
         self.assertIn("Project bibliography", console_html)
         self.assertIn("Manual monitoring", console_html)
         self.assertIn("Court-case watcher", console_html)
         self.assertIn("Presidential-directives watcher", console_html)
+        self.assertIn("Central review inbox", console_html)
+        self.assertIn('id="action-items-grid"', console_html)
+        self.assertNotIn('id="watcher-tab-overview"', console_html)
+        self.assertNotIn('id="watcher-panel-overview"', console_html)
+        self.assertIn('id="court-watch-update"', console_html)
+        self.assertIn('id="directive-watch-update"', console_html)
+        self.assertIn("Pages by print level", console_html)
+        self.assertIn('id="print-change-count"', console_html)
+        self.assertIn('id="export-print-changes"', console_html)
+        self.assertIn('id="reset-print-changes"', console_html)
+        self.assertIn("Project progress", console_html)
+        self.assertIn("Review Ready trajectory", console_html)
+        self.assertNotIn('id="pages-pagination"', console_html)
         self.assertIn("monitoredSourcesFirst", console_app)
+        self.assertIn("sortableHeader", console_app)
+        self.assertIn("printLevelDrafts", console_app)
+        self.assertIn("effectivePrintLevels", console_app)
+        self.assertIn("exportPrintLevelChanges", console_app)
+        self.assertIn("renderActionItems", console_app)
+        self.assertIn("refreshBotReviewSignals", console_app)
+        self.assertIn("bot/case-monitor-updates", console_app)
+        self.assertIn("Add print level…", console_app)
+        self.assertIn("print-level-remove", console_app)
+        self.assertIn('setAttribute("aria-sort"', console_app)
+        self.assertIn("sort-button", console_css)
         self.assertIn("Pending sources", console_html)
         self.assertNotIn("History", console_html)
         self.assertNotIn('id="submission-view"', console_html)

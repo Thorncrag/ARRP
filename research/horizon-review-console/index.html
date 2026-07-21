@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <title>ARRP Candidate and Source Intake</title>
-    <meta name="description" content="ARRP review console for candidate issues and source records.">
+    <title>ARRP Project Console</title>
+    <meta name="description" content="Read-only ARRP project progress, candidate, source, monitoring, and print-planning console.">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body data-interface-theme="arrp-tool">
@@ -15,37 +15,96 @@
       <div class="brand-block">
         <span class="brand-mark" aria-hidden="true">ARRP</span>
         <div>
-          <h1>Candidate and Source Intake</h1>
-          <p>Candidate decisions and the source records that support project development.</p>
+          <h1>ARRP Project Console</h1>
+          <p>Progress, candidate review, source development, monitoring, and print planning.</p>
         </div>
       </div>
-      <a class="header-link" href="../../participate/index.html">Submit public input ↗</a>
     </header>
 
     <main class="app-shell">
       <section class="workflow-summary" aria-labelledby="workflow-heading">
         <div>
-          <span class="eyebrow">One read-only console</span>
-          <h2 id="workflow-heading">Review candidates and inspect each canonical source catalog.</h2>
+          <span class="eyebrow">One read-only project workspace</span>
+          <h2 id="workflow-heading">See what is complete, what needs review, and where every record belongs.</h2>
         </div>
         <ol>
-          <li><b>Discover</b><span>Normalize and cluster reports, primary records, and litigation.</span></li>
-          <li><b>Route</b><span>Send evidence to an existing issue or one preliminary candidate.</span></li>
-          <li><b>Review</b><span>Use Codex to decide candidates or update the owning source and issue records.</span></li>
+          <li><b>Track</b><span>Review portfolio progress and the path to the year-end goal.</span></li>
+          <li><b>Develop</b><span>Inspect candidates, sources, and matters awaiting further work.</span></li>
+          <li><b>Assemble</b><span>Verify which pages belong in each planned print edition.</span></li>
         </ol>
       </section>
 
-      <nav class="console-tabs" id="console-tabs" aria-label="Intake console views">
-        <div class="tab-list" role="tablist" aria-label="Candidate and source views">
-          <button type="button" id="tab-candidates" role="tab" aria-selected="true" aria-controls="panel-candidates" data-tab="candidates">Candidates <span class="tab-count" id="tab-candidates-count">0</span></button>
-          <button type="button" id="tab-preliminaries" role="tab" aria-selected="false" aria-controls="panel-preliminaries" data-tab="preliminaries" tabindex="-1">Preliminaries <span class="tab-count" id="tab-preliminaries-count">0</span></button>
-          <button type="button" id="tab-sources" role="tab" aria-selected="false" aria-controls="panel-sources" data-tab="sources" tabindex="-1">Sources <span class="tab-count" id="tab-sources-count">0</span></button>
-          <button type="button" id="tab-pending" role="tab" aria-selected="false" aria-controls="panel-pending" data-tab="pending" tabindex="-1">Pending <span class="tab-count" id="tab-pending-count">0</span></button>
-          <button type="button" id="tab-watchers" role="tab" aria-selected="false" aria-controls="panel-watchers" data-tab="watchers" tabindex="-1">Watchers <span class="tab-count" id="tab-watchers-count">0</span></button>
+      <nav class="console-tabs" id="console-tabs" aria-label="Project console views">
+        <div class="tab-list" role="tablist" aria-label="Project views">
+          <button type="button" id="tab-progress" role="tab" aria-selected="true" aria-controls="panel-progress" data-tab="progress">Progress <span class="tab-count" id="tab-progress-count">0</span></button>
+          <button type="button" id="tab-actions" role="tab" aria-selected="false" aria-controls="panel-actions" data-tab="actions" tabindex="-1">Action Items <span class="tab-count" id="tab-actions-count">0</span></button>
+          <button type="button" id="tab-candidates" role="tab" aria-selected="false" aria-controls="panel-candidates" data-tab="candidates" tabindex="-1">Candidates <span class="tab-count" id="tab-candidates-count">0</span><span class="tab-update-count" id="tab-candidates-update" hidden>0</span></button>
+          <button type="button" id="tab-sources" role="tab" aria-selected="false" aria-controls="panel-sources" data-tab="sources" tabindex="-1">Sources <span class="tab-count" id="tab-sources-count">0</span><span class="tab-update-count" id="tab-sources-update" hidden>0</span></button>
+          <button type="button" id="tab-publication" role="tab" aria-selected="false" aria-controls="panel-publication" data-tab="publication" tabindex="-1">Publication <span class="tab-count" id="tab-publication-count">0</span></button>
         </div>
       </nav>
 
+      <section class="tab-panel" id="panel-progress" role="tabpanel" aria-labelledby="tab-progress" tabindex="0">
+        <section class="queue-view progress-view" aria-labelledby="progress-heading">
+          <div class="queue-view-header">
+            <div>
+              <span class="eyebrow">Review Ready goal</span>
+              <h2 id="progress-heading">Project progress</h2>
+              <p>Current portfolio progress toward bringing every eligible proposal to Review Ready by the official target date. GitHub Project fields remain authoritative.</p>
+            </div>
+            <p class="refresh-note">Progress data as of <time id="progress-as-of">—</time></p>
+          </div>
+          <div class="progress-summary-grid" id="progress-summary-grid"></div>
+          <section class="goal-progress" aria-labelledby="goal-progress-heading">
+            <div><h3 id="goal-progress-heading">Current portfolio coverage</h3><p id="progress-status-note">Loading progress data…</p></div>
+            <div class="progress-track" role="progressbar" aria-label="Review Ready portfolio coverage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-track"><span id="progress-fill"></span></div>
+          </section>
+          <section class="progress-trajectory-card" aria-labelledby="progress-trajectory-heading">
+            <div class="progress-chart-heading">
+              <div><h3 id="progress-trajectory-heading">Review Ready trajectory</h3><p>Actual attainment compared with the pace needed to reach the official target.</p></div>
+              <div class="progress-chart-legend" aria-label="Chart legend"><span class="actual">Actual</span><span class="target">Target pace</span></div>
+            </div>
+            <div id="progress-trajectory" class="progress-trajectory" role="img" aria-label="Review Ready progress trajectory"></div>
+          </section>
+          <div class="progress-layout">
+            <section>
+              <h3>Review Ready coverage by area</h3>
+              <div id="progress-area-list" class="progress-area-list"></div>
+            </section>
+            <section>
+              <h3>Closest to Review Ready</h3>
+              <div id="progress-backlog-list" class="progress-backlog-list"></div>
+            </section>
+          </div>
+          <div class="source-list dossier-actions">
+            <a class="record-link secondary" href="https://github.com/users/Thorncrag/projects/2" target="_blank" rel="noopener noreferrer">Open authoritative GitHub Project ↗</a>
+          </div>
+        </section>
+      </section>
+
+      <section class="tab-panel" id="panel-actions" role="tabpanel" aria-labelledby="tab-actions" tabindex="0" hidden>
+        <section class="queue-view action-items-view" aria-labelledby="action-items-heading">
+          <div class="queue-view-header">
+            <div>
+              <span class="eyebrow">Central review inbox</span>
+              <h2 id="action-items-heading">Action items</h2>
+              <p>Everything presently awaiting a decision, routing choice, monitoring pass, bot-update review, or staged publication edit. Each item opens its complete working view.</p>
+            </div>
+            <p class="attention-note" id="action-items-note">Loading review queues…</p>
+          </div>
+          <div class="action-items-grid" id="action-items-grid"></div>
+          <p class="method-note" id="action-items-live-note">Bot-update counts refresh from the repository when network access is available; all other counts come from the checked-in console data.</p>
+        </section>
+      </section>
+
       <section class="tab-panel" id="panel-candidates" role="tabpanel" aria-labelledby="tab-candidates" tabindex="0">
+      <nav class="section-tabs" aria-label="Candidate views">
+        <div class="section-tab-list" role="tablist" aria-label="Candidate views">
+          <button type="button" id="candidate-tab-formal" role="tab" aria-selected="true" aria-controls="candidate-panel-formal" data-subtab-group="candidates" data-subtab="formal">Candidates <span class="tab-count" id="candidate-formal-count">0</span></button>
+          <button type="button" id="candidate-tab-preliminary" role="tab" aria-selected="false" aria-controls="candidate-panel-preliminary" data-subtab-group="candidates" data-subtab="preliminary" tabindex="-1">Preliminary candidates <span class="tab-count" id="candidate-preliminary-count">0</span></button>
+        </div>
+      </nav>
+      <div class="section-panel" id="candidate-panel-formal" role="tabpanel" aria-labelledby="candidate-tab-formal" tabindex="0">
       <section class="queue-view" id="proposed-candidates" aria-labelledby="proposed-heading">
         <div class="queue-view-header">
           <div>
@@ -64,9 +123,8 @@
         <p class="result-count"><b id="proposed-visible">0</b> candidates shown</p>
         <div class="record-list formal-list" id="proposed-list"></div>
       </section>
-      </section>
-
-      <section class="tab-panel" id="panel-preliminaries" role="tabpanel" aria-labelledby="tab-preliminaries" tabindex="0" hidden>
+      </div>
+      <div class="section-panel" id="candidate-panel-preliminary" role="tabpanel" aria-labelledby="candidate-tab-preliminary" tabindex="0" hidden>
       <section class="queue-view attention-queue" id="preliminary-candidates" aria-labelledby="preliminary-heading">
         <div class="queue-view-header">
           <div>
@@ -90,9 +148,18 @@
           <p>New, unowned institutional defects will appear here automatically after source screening and clustering.</p>
         </div>
       </section>
+      </div>
       </section>
 
       <section class="tab-panel" id="panel-sources" role="tabpanel" aria-labelledby="tab-sources" tabindex="0" hidden>
+      <nav class="section-tabs" aria-label="Source views">
+        <div class="section-tab-list" role="tablist" aria-label="Source and monitoring views">
+          <button type="button" id="source-tab-catalog" role="tab" aria-selected="true" aria-controls="source-panel-catalog" data-subtab-group="sources" data-subtab="catalog">Sources <span class="tab-count" id="source-catalog-count">0</span></button>
+          <button type="button" id="source-tab-pending" role="tab" aria-selected="false" aria-controls="source-panel-pending" data-subtab-group="sources" data-subtab="pending" tabindex="-1">Pending sources <span class="tab-count" id="source-pending-count">0</span></button>
+          <button type="button" id="source-tab-watchers" role="tab" aria-selected="false" aria-controls="source-panel-watchers" data-subtab-group="sources" data-subtab="watchers" tabindex="-1">Watchers and bots <span class="tab-count" id="source-watchers-count">0</span><span class="tab-update-count" id="source-watchers-update" hidden>0</span></button>
+        </div>
+      </nav>
+      <div class="section-panel" id="source-panel-catalog" role="tabpanel" aria-labelledby="source-tab-catalog" tabindex="0">
       <section class="queue-view source-view" aria-labelledby="sources-heading">
         <div class="queue-view-header">
           <div>
@@ -109,9 +176,8 @@
         <div id="sources-table"></div>
         <nav class="pagination" id="sources-pagination" aria-label="Sources pages"></nav>
       </section>
-      </section>
-
-      <section class="tab-panel" id="panel-pending" role="tabpanel" aria-labelledby="tab-pending" tabindex="0" hidden>
+      </div>
+      <div class="section-panel" id="source-panel-pending" role="tabpanel" aria-labelledby="source-tab-pending" tabindex="0" hidden>
       <section class="queue-view source-view" aria-labelledby="pending-heading">
         <div class="queue-view-header">
           <div>
@@ -127,9 +193,8 @@
         <p class="result-count"><b id="pending-visible">0</b> sources still require a routing decision</p>
         <div class="evidence-list pending-routing-list" id="pending-list"></div>
       </section>
-      </section>
-
-      <section class="tab-panel" id="panel-watchers" role="tabpanel" aria-labelledby="tab-watchers" tabindex="0" hidden>
+      </div>
+      <div class="section-panel" id="source-panel-watchers" role="tabpanel" aria-labelledby="source-tab-watchers" tabindex="0" hidden>
       <section class="queue-view source-view" aria-labelledby="watchers-heading">
         <div class="queue-view-header">
           <div>
@@ -141,27 +206,13 @@
 
         <nav class="watcher-tabs" aria-label="Watcher views">
           <div class="watcher-tab-list" role="tablist" aria-label="Watcher and bot views">
-            <button type="button" id="watcher-tab-overview" role="tab" aria-selected="true" aria-controls="watcher-panel-overview" data-watcher-tab="overview">Overview</button>
-            <button type="button" id="watcher-tab-courts" role="tab" aria-selected="false" aria-controls="watcher-panel-courts" data-watcher-tab="courts" tabindex="-1">Court cases <span class="tab-count" id="court-watch-count">0</span></button>
-            <button type="button" id="watcher-tab-directives" role="tab" aria-selected="false" aria-controls="watcher-panel-directives" data-watcher-tab="directives" tabindex="-1">Presidential directives <span class="tab-count" id="directive-watch-count">0</span></button>
+            <button type="button" id="watcher-tab-courts" role="tab" aria-selected="true" aria-controls="watcher-panel-courts" data-watcher-tab="courts">Court cases <span class="tab-count" id="court-watch-count">0</span><span class="tab-update-count" id="court-watch-update" hidden>0</span></button>
+            <button type="button" id="watcher-tab-directives" role="tab" aria-selected="false" aria-controls="watcher-panel-directives" data-watcher-tab="directives" tabindex="-1">Presidential directives <span class="tab-count" id="directive-watch-count">0</span><span class="tab-update-count" id="directive-watch-update" hidden>0</span></button>
             <button type="button" id="watcher-tab-manual" role="tab" aria-selected="false" aria-controls="watcher-panel-manual" data-watcher-tab="manual" tabindex="-1">Manual monitoring <span class="tab-count" id="manual-watch-count">0</span></button>
           </div>
         </nav>
 
-        <section class="watcher-panel" id="watcher-panel-overview" role="tabpanel" aria-labelledby="watcher-tab-overview" tabindex="0">
-          <div class="watcher-summary-grid" id="watcher-summary-grid"></div>
-          <div class="watcher-explanation">
-            <h3>How to read this view</h3>
-            <dl class="candidate-details compact">
-              <div class="detail-item"><dt>Why monitored</dt><dd>The legal or factual development that could materially change ARRP's treatment.</dd></div>
-              <div class="detail-item"><dt>How monitored</dt><dd>The deterministic watcher, or the human research process, capable of observing it.</dd></div>
-              <div class="detail-item"><dt>Current posture</dt><dd>The latest known review state; an automated signal never establishes legal significance.</dd></div>
-              <div class="detail-item"><dt>Authoritative record</dt><dd>The owning GitHub issue and source catalogs remain authoritative; this console is a projection.</dd></div>
-            </dl>
-          </div>
-        </section>
-
-        <section class="watcher-panel" id="watcher-panel-courts" role="tabpanel" aria-labelledby="watcher-tab-courts" tabindex="0" hidden>
+        <section class="watcher-panel" id="watcher-panel-courts" role="tabpanel" aria-labelledby="watcher-tab-courts" tabindex="0">
           <div class="watcher-panel-header">
             <div><h3>Court-case watcher</h3><p><b id="case-watcher-mode">Current mode: loading.</b> The watcher compares cataloged, mapped court sources with Just Security's litigation tracker and uses CourtListener only to verify changed linked cases. Accepted baselines live on the individual source rows. New cases, tracker gaps, and unlisted matters remain part of source intake and the human monitoring pass.</p></div>
             <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/case-monitor-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a>
@@ -201,9 +252,42 @@
           <div class="monitoring-list" id="manual-watch-list"></div>
         </section>
       </section>
+      </div>
       </section>
 
-      <p class="method-note">This console is read-only. Candidate decisions and source-record changes are reviewed and implemented in Codex under the project methodology.</p>
+      <section class="tab-panel" id="panel-publication" role="tabpanel" aria-labelledby="tab-publication" tabindex="0" hidden>
+        <section class="queue-view source-view" aria-labelledby="pages-heading">
+          <div class="queue-view-header">
+            <div>
+              <span class="eyebrow">Print assembly</span>
+              <h2 id="pages-heading">Pages by print level <span class="count-pill" id="pages-count">0</span></h2>
+              <p>Every project Markdown page assigned to a compiled edition. Filter the complete inventory, stage additions or removals, and export one change list for validation and application.</p>
+            </div>
+          </div>
+          <div class="print-level-summary" id="print-level-summary"></div>
+          <section class="print-change-toolbar" aria-labelledby="print-change-heading">
+            <div>
+              <h3 id="print-change-heading">Staged print-level changes</h3>
+              <p>Select × to stage a removal or use “Add print level…” on a page row to stage an addition. Export the change list and provide it to Codex; this console does not edit page metadata directly.</p>
+            </div>
+            <div class="print-change-actions">
+              <strong><span id="print-change-count">0</span> staged</strong>
+              <button type="button" id="export-print-changes" disabled>Export changes</button>
+              <button type="button" id="reset-print-changes" class="secondary" disabled>Reset</button>
+            </div>
+            <div class="print-change-list" id="print-change-list" aria-live="polite"></div>
+          </section>
+          <div class="queue-controls">
+            <label for="pages-search">Search<input id="pages-search" type="search" placeholder="Page title, path, section, or print level…"></label>
+            <label for="pages-level">Print level<select id="pages-level"><option value="all">All print levels</option></select></label>
+            <label for="pages-section">Project section<select id="pages-section"><option value="all">All sections</option></select></label>
+          </div>
+          <p class="result-count"><b id="pages-visible">0</b> pages match</p>
+          <div id="pages-table"></div>
+        </section>
+      </section>
+
+      <p class="method-note">This console is read-only. Correct information in its authoritative GitHub, repository, or source record and rebuild the console.</p>
     </main>
 
     <script src="catalog-data.js"></script>

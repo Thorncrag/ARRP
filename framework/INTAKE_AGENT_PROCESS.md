@@ -86,7 +86,7 @@ When any non-review action is later authorized, create exactly one append-only r
 }
 ```
 
-The short `IA-…` code is the required rollback reference. A rollback must be a new ledger entry that identifies the original code, explains the correction, reverses only the authorized change, validates the result, and never deletes the original provenance record. The ledger remains a separate internal provenance record. The Candidate and Source Intake console displays candidate dossiers and read-only projections of the canonical source catalogs, labeled parent issues, watcher coverage, and presidential-directive registry; it does not display, own, or mutate ledger entries.
+The short `IA-…` code is the required rollback reference. A rollback must be a new ledger entry that identifies the original code, explains the correction, reverses only the authorized change, validates the result, and never deletes the original provenance record. The ledger remains a separate internal provenance record. The ARRP Project Console displays candidate dossiers and read-only projections of progress data, canonical source catalogs, labeled parent issues, watcher coverage, presidential-directive registry, and print assignments; it does not display, own, or mutate ledger entries.
 
 ## Security, privacy, and operating controls
 

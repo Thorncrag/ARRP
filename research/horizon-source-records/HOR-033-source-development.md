@@ -14,7 +14,7 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## Accessibility
 
 - **[SRC-0913 — Accessibility](<https://www.courtlistener.com/docket/70391563/national-association-of-the-deaf-v-trump/>)**
-  - Current proposition: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Accessibility; tracker status: Government Action Temporarily Blocked.
+  - Current proposition: Candidate-specific verification question: does this source establish an enforceable accessibility duty for presidential communications and a remedy when inaccessible channels exclude disabled users? Potentially supports monitoring of Accessibility; tracker status: Government Action Temporarily Blocked.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Next D.C. Circuit or dispositive district-court ruling on section 504 cause of action and contemporaneous accessibility relief.
 
