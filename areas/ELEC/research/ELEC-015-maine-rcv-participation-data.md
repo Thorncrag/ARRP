@@ -8,7 +8,7 @@ print_levels:
 
 # ELEC-015 Maine RCV Participation Data
 
-> **Maintenance tracking:** [GitHub sub-issue #244](https://github.com/Thorncrag/ARRP/issues/244) under [ELEC-015 issue #237](https://github.com/Thorncrag/ARRP/issues/237). Review after each Maine statewide primary and general election and upon the official-data predicates stated in the monitoring issue.
+> **Living research record:** This dataset supports [ELEC-015 issue #237](https://github.com/Thorncrag/ARRP/issues/237) and is reviewed through that proposal's issue-level monitoring.
 
 This file compares Maine election events using official Maine Secretary of State result data. The comparison unit is the election event, not each individual municipal row, candidate subtotal, cast-vote-record line, or tabulation round.
 

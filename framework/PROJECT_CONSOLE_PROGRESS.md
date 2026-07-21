@@ -1,7 +1,7 @@
 ---
 title: "Project Console Progress"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal workflow or tool documentation."
 ---
 
 # Project Console Progress

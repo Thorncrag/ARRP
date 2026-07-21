@@ -2,8 +2,8 @@
 issue_id: PRESS-006
 title: "Source Development — PRESS-006"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # PRESS-006 Source Development

@@ -11,12 +11,16 @@ remain issue-specific audit work.
 
 from __future__ import annotations
 
+import argparse
 import csv
 import json
+import os
 import re
 import subprocess
 import sys
+import time
 from collections import Counter
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlsplit
 
@@ -65,6 +69,12 @@ GITHUB_REPOSITORY_URL_RE = re.compile(
 )
 FRONT_MATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 ISSUE_ID_RE = re.compile(r"^[A-Z]+-\d{3}$")
+PRINT_LEVELS = {
+    "public-proposal",
+    "full-technical",
+    "legislative-appendix",
+    "executive-summary",
+}
 
 ACTIVE_TREE_EXCLUSIONS = {
     ".git",
@@ -121,6 +131,27 @@ def front_matter(path: Path) -> dict[str, str]:
             continue
         key, value = line.split(":", 1)
         values[key.strip()] = value.strip().strip('"')
+    return values
+
+
+def front_matter_list(path: Path, key: str) -> list[str]:
+    """Return a simple YAML list from the project's constrained front matter."""
+    match = FRONT_MATTER_RE.match(read(path))
+    if not match:
+        return []
+    values: list[str] = []
+    active = False
+    for line in match.group(1).splitlines():
+        if line == f"{key}:":
+            active = True
+            continue
+        if active and line.startswith("  - "):
+            value = line[4:].strip().strip('"\'')
+            if value:
+                values.append(value)
+            continue
+        if active:
+            break
     return values
 
 
@@ -200,10 +231,10 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
         if data.get("record_type") == "source-development":
             front_matter_match = FRONT_MATTER_RE.match(read(path))
             front_matter_text = front_matter_match.group(1) if front_matter_match else ""
-            if "public-proposal" in front_matter_text:
+            if data.get("print_status") != "excluded" or "public-proposal" in front_matter_text:
                 report(
                     "ERROR",
-                    f"{issue_id} source-development shell must remain full-technical only",
+                    f"{issue_id} source-development shell must remain explicitly excluded from print",
                     failures,
                     warnings,
                 )
@@ -432,6 +463,144 @@ def check_html_links(failures: list[str], warnings: list[str]) -> None:
             target = local_target(path, raw_target)
             if target and not target.exists():
                 report("ERROR", f"broken local link in {path.relative_to(ROOT)}: {raw_target}", failures, warnings)
+
+
+def check_orphaned_markdown_pages(failures: list[str], warnings: list[str]) -> None:
+    """Report active Markdown pages with no inbound project link."""
+    pages = active_project_files(".md")
+    page_set = {path.resolve() for path in pages}
+    incoming: dict[Path, int] = {path.resolve(): 0 for path in pages}
+    for source in pages:
+        body = MARKDOWN_FENCE_RE.sub("", read(source))
+        for raw_target in MARKDOWN_LINK_RE.findall(body):
+            target = local_target(source, raw_target)
+            if target and target.resolve() in incoming:
+                incoming[target.resolve()] += 1
+    for source in active_project_files(".html"):
+        for _, raw_target in HTML_LINK_RE.findall(read(source)):
+            target = local_target(source, raw_target)
+            if target and target.resolve() in incoming:
+                incoming[target.resolve()] += 1
+    for source in active_project_files(*REPOSITORY_LINK_TEXT_SUFFIXES):
+        for _, _, target in github_repository_targets(read(source)):
+            if target.resolve() in incoming:
+                incoming[target.resolve()] += 1
+
+    entry_points = {
+        (ROOT / "README.md").resolve(),
+        (ROOT / "AGENTS.md").resolve(),
+        (ROOT / "website" / "404.md").resolve(),
+    }
+    for path in pages:
+        resolved = path.resolve()
+        if resolved in entry_points or resolved not in page_set:
+            continue
+        if incoming[resolved] == 0:
+            report(
+                "WARNING",
+                f"orphaned Markdown page has no inbound project link: {path.relative_to(ROOT)}",
+                failures,
+                warnings,
+            )
+
+
+def check_markdown_metadata_and_headings(
+    failures: list[str], warnings: list[str]
+) -> None:
+    """Check universal page metadata and objectively testable heading hierarchy."""
+    metadata_exceptions = {ROOT / "AGENTS.md", ROOT / "website" / "404.md"}
+    for path in active_project_files(".md"):
+        relative = path.relative_to(ROOT)
+        if path not in metadata_exceptions and not front_matter(path).get("title"):
+            report(
+                "ERROR",
+                f"{relative} lacks required title metadata",
+                failures,
+                warnings,
+            )
+        body = MARKDOWN_FENCE_RE.sub("", markdown_body(path))
+        headings = [
+            (len(match.group(1)), match.group(2).strip(), body.count("\n", 0, match.start()) + 1)
+            for match in re.finditer(r"^(#{1,6})\s+(.+?)\s*$", body, re.MULTILINE)
+        ]
+        if not headings:
+            report("ERROR", f"{relative} has no Markdown heading", failures, warnings)
+            continue
+        if headings[0][0] != 1:
+            report(
+                "ERROR",
+                f"{relative} begins with heading level {headings[0][0]} instead of H1",
+                failures,
+                warnings,
+            )
+        if relative.parts[0] != "legislation":
+            h1_count = sum(level == 1 for level, _, _ in headings)
+            if h1_count != 1:
+                report(
+                    "ERROR",
+                    f"{relative} contains {h1_count} H1 headings; non-legislation pages require exactly one",
+                    failures,
+                    warnings,
+                )
+        previous_level = headings[0][0]
+        for level, title, line_number in headings[1:]:
+            if level > previous_level + 1:
+                report(
+                    "ERROR",
+                    f"{relative} skips heading level {previous_level} to {level} at line {line_number}: {title}",
+                    failures,
+                    warnings,
+                )
+            previous_level = level
+
+
+def check_reader_navigation_coverage(
+    issue_map: dict[str, Path], failures: list[str], warnings: list[str]
+) -> None:
+    """Check deterministic issue coverage in the subject index and topic guides."""
+    subject_index = read(ROOT / "SUBJECT_INDEX.md")
+    topic_corpus = "\n".join(read(path) for path in sorted((ROOT / "topics").glob("*.md")))
+    for issue_id, path in issue_map.items():
+        metadata = front_matter(path)
+        if metadata.get("record_type") == "source-development":
+            continue
+        if metadata.get("status") != "retired" and not re.search(
+            rf"\b{re.escape(issue_id)}\b", subject_index
+        ):
+            report(
+                "ERROR",
+                f"{issue_id} is missing from SUBJECT_INDEX.md",
+                failures,
+                warnings,
+            )
+
+        coverage = metadata.get("topic_coverage", "")
+        coverage_reason = metadata.get("topic_coverage_reason", "")
+        if coverage and coverage != "institution-specific":
+            report(
+                "ERROR",
+                f"{issue_id} has invalid topic_coverage {coverage!r}",
+                failures,
+                warnings,
+            )
+        if coverage == "institution-specific" and not coverage_reason:
+            report(
+                "ERROR",
+                f"{issue_id} uses institution-specific topic coverage without topic_coverage_reason",
+                failures,
+                warnings,
+            )
+        if (
+            metadata.get("status") == "developed"
+            and coverage != "institution-specific"
+            and not re.search(rf"\b{re.escape(issue_id)}\b", topic_corpus)
+        ):
+            report(
+                "WARNING",
+                f"{issue_id} is a developed issue missing from every topic guide",
+                failures,
+                warnings,
+            )
 
 
 def github_repository_targets(body: str) -> list[tuple[str, str, Path]]:
@@ -1089,16 +1258,219 @@ def check_print_assignment_metadata(failures: list[str], warnings: list[str]) ->
     for path in ROOT.rglob("*.md"):
         if excluded_roots.intersection(path.relative_to(ROOT).parts) or path in explicit_exceptions:
             continue
-        if "print_levels" not in front_matter(path):
+        metadata = front_matter(path)
+        levels = front_matter_list(path, "print_levels")
+        status = metadata.get("print_status", "")
+        reason = metadata.get("print_exclusion_reason", "")
+        invalid_levels = sorted(set(levels) - PRINT_LEVELS)
+        if invalid_levels:
             report(
                 "ERROR",
-                f"{path.relative_to(ROOT)} lacks required print_levels metadata",
+                f"{path.relative_to(ROOT)} has invalid print level(s): {', '.join(invalid_levels)}",
+                failures,
+                warnings,
+            )
+        if status and status != "excluded":
+            report(
+                "ERROR",
+                f"{path.relative_to(ROOT)} has invalid print_status {status!r}",
+                failures,
+                warnings,
+            )
+        if levels and status == "excluded":
+            report(
+                "ERROR",
+                f"{path.relative_to(ROOT)} has conflicting publication disposition: print levels and excluded status",
+                failures,
+                warnings,
+            )
+        elif not levels and status != "excluded":
+            report(
+                "ERROR",
+                f"{path.relative_to(ROOT)} is unclassified for publication: add print_levels or print_status excluded",
+                failures,
+                warnings,
+            )
+        elif status == "excluded" and not reason:
+            report(
+                "ERROR",
+                f"{path.relative_to(ROOT)} is excluded from print without a print_exclusion_reason",
+                failures,
+                warnings,
+            )
+        elif status != "excluded" and reason:
+            report(
+                "ERROR",
+                f"{path.relative_to(ROOT)} has a print_exclusion_reason without excluded print_status",
                 failures,
                 warnings,
             )
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--json-output",
+        type=Path,
+        help="Write a structured integrity report for the Project Console.",
+    )
+    parser.add_argument(
+        "--markdown-output",
+        type=Path,
+        help="Write a deterministic current-findings snapshot in Markdown.",
+    )
+    parser.add_argument(
+        "--exit-zero-on-findings",
+        action="store_true",
+        help="Report detected findings without failing an automated observation run.",
+    )
+    return parser.parse_args()
+
+
+def finding_category(message: str) -> str:
+    lowered = message.lower()
+    categories = (
+        ("Internal links", ("broken local link", "repository link", "orphaned markdown")),
+        ("Sources and citations", ("source", "citation", "bibliograph")),
+        ("GitHub records", ("github issue", "project object", "registry")),
+        ("Print metadata", ("print_levels", "print level", "print_status", "publication disposition", "print exclusion")),
+        ("Issue structure", ("issue page", "required heading", "heading level", "h1 headings", "audit-history", "title metadata")),
+        ("Topic guides", ("topic", "applicable proposals", "related ideas", "subject_index")),
+        ("Research placement", ("research", "source-development")),
+        ("Reader-facing language", ("reader-facing", "sham", "audit-tier", "rebaseline")),
+        ("Tool interfaces", ("interface", "theme", "console", "participat")),
+        ("Intake workflow", ("intake", "candidate", "horizon")),
+    )
+    for label, signals in categories:
+        if any(signal in lowered for signal in signals):
+            return label
+    return "Project structure"
+
+
+def finding_path(message: str) -> str:
+    match = re.search(
+        r"(?<![\w.-])((?:areas|framework|inventory|legislation|participate|research|scripts|tests|topics|website)/[^\s:,)]+)",
+        message,
+    )
+    return match.group(1).rstrip(".\"'") if match else ""
+
+
+def git_revision() -> str:
+    configured = os.environ.get("GITHUB_SHA", "").strip()
+    if configured:
+        return configured
+    try:
+        return subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+    except subprocess.CalledProcessError:
+        return ""
+
+
+def structured_report(
+    failures: list[str],
+    warnings: list[str],
+    issue_count: int,
+    proposal_count: int,
+    duration_seconds: float,
+) -> dict[str, object]:
+    findings = []
+    for severity, messages in (("error", failures), ("warning", warnings)):
+        for position, message in enumerate(messages, start=1):
+            clean = re.sub(r"^(?:ERROR|WARNING):\s*", "", message)
+            findings.append(
+                {
+                    "id": f"{severity}-{position:04d}",
+                    "severity": severity,
+                    "category": finding_category(clean),
+                    "message": clean,
+                    "path": finding_path(clean),
+                }
+            )
+    return {
+        "schema_version": 1,
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "revision": git_revision(),
+        "result": "findings" if findings else "clean",
+        "counts": {
+            "errors": len(failures),
+            "warnings": len(warnings),
+            "findings": len(findings),
+            "issue_pages": issue_count,
+            "proposal_pages": proposal_count,
+        },
+        "duration_seconds": round(duration_seconds, 3),
+        "scope": [
+            "Issue and proposal structure",
+            "Area and topic routing",
+            "Internal repository links",
+            "Orphaned Markdown pages",
+            "Page metadata and heading hierarchy",
+            "GitHub record references",
+            "Source and citation catalogs",
+            "Research placement",
+            "Reader-facing language",
+            "Tool-interface conventions",
+            "Intake-workflow terminology",
+            "Publication-disposition metadata",
+        ],
+        "findings": findings,
+    }
+
+
+def markdown_report(report_data: dict[str, object]) -> str:
+    """Render a stable current-state report without accumulating run history."""
+    counts = report_data.get("counts", {})
+    findings = report_data.get("findings", [])
+    lines = [
+        "---",
+        'title: "Current Project Integrity Report"',
+        "print_status: excluded",
+        'print_exclusion_reason: "Internal operational report."',
+        "---",
+        "",
+        "# Current Project Integrity Report",
+        "",
+        "> This file is an overwritten current-state snapshot, not a running log or an audit tier. "
+        "GitHub Actions and the Project Console retain the latest run time and bounded run history. "
+        "The file changes only when the finding set, checked-page counts, or check scope changes.",
+        "",
+        "## Current Result",
+        "",
+        f"- **Result:** {'Findings require review' if findings else 'Clean'}",
+        f"- **Errors:** {int(counts.get('errors', 0))}",
+        f"- **Warnings:** {int(counts.get('warnings', 0))}",
+        f"- **Issue pages checked:** {int(counts.get('issue_pages', 0))}",
+        f"- **Proposal pages checked:** {int(counts.get('proposal_pages', 0))}",
+        "",
+        "## Current Findings",
+        "",
+    ]
+    if not findings:
+        lines.append("No repeatable integrity findings are currently reported.")
+    else:
+        grouped: dict[str, list[dict[str, object]]] = {}
+        for finding in findings:
+            grouped.setdefault(str(finding.get("category", "Project structure")), []).append(finding)
+        for category in sorted(grouped):
+            lines.extend([f"### {category}", ""])
+            for finding in grouped[category]:
+                severity = str(finding.get("severity", "warning")).upper()
+                message = str(finding.get("message", "Unspecified finding"))
+                lines.append(f"- **{severity}:** {message}")
+            lines.append("")
+    lines.extend(["## Checks Included", ""])
+    lines.extend(f"- {item}" for item in report_data.get("scope", []))
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def main() -> int:
+    args = parse_args()
+    started = time.monotonic()
     failures: list[str] = []
     warnings: list[str] = []
     issue_map = check_issue_pages(failures, warnings)
@@ -1109,6 +1481,9 @@ def main() -> int:
     check_markdown_links(failures, warnings)
     check_html_links(failures, warnings)
     check_embedded_repository_links(failures, warnings)
+    check_orphaned_markdown_pages(failures, warnings)
+    check_markdown_metadata_and_headings(failures, warnings)
+    check_reader_navigation_coverage(issue_map, failures, warnings)
     github_issue_bodies = check_github_issue_links(failures, warnings)
     check_registry_and_sources(issue_map, failures, warnings, github_issue_bodies)
     check_research_placement(failures, warnings)
@@ -1118,11 +1493,30 @@ def main() -> int:
     check_intake_workflow_language(failures, warnings)
     check_retired_monitor_identifiers(github_issue_bodies, failures, warnings)
     check_print_assignment_metadata(failures, warnings)
-    print(f"Checked {len(issue_map)} issue pages, {len(list(LEGISLATION_PATH.glob('*.md'))) - 1} proposal pages, and project links/inventories.")
+    proposal_count = len(list(LEGISLATION_PATH.glob("*.md"))) - 1
+    print(f"Checked {len(issue_map)} issue pages, {proposal_count} proposal pages, and project links/inventories.")
     for line in failures + warnings:
         print(line)
     print(f"Result: {len(failures)} error(s), {len(warnings)} warning(s).")
-    return 1 if failures else 0
+    report_data = structured_report(
+        failures,
+        warnings,
+        len(issue_map),
+        proposal_count,
+        time.monotonic() - started,
+    )
+    if args.json_output:
+        args.json_output.parent.mkdir(parents=True, exist_ok=True)
+        args.json_output.write_text(
+            json.dumps(report_data, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        print(f"Wrote structured report to {args.json_output}.")
+    if args.markdown_output:
+        args.markdown_output.parent.mkdir(parents=True, exist_ok=True)
+        args.markdown_output.write_text(markdown_report(report_data), encoding="utf-8")
+        print(f"Wrote current Markdown report to {args.markdown_output}.")
+    return 1 if failures and not args.exit_zero_on_findings else 0
 
 
 if __name__ == "__main__":

@@ -2,8 +2,8 @@
 issue_id: FED-002
 title: "Source Development — FED-002"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # FED-002 Source Development

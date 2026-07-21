@@ -2,8 +2,8 @@
 issue_id: ELEC-010
 title: "Source Development — ELEC-010"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # ELEC-010 Source Development

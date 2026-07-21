@@ -1,7 +1,7 @@
 ---
 title: "Change Audit Log"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal operational log."
 ---
 
 # Change Audit Log

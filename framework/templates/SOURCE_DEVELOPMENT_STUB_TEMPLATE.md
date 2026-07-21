@@ -3,8 +3,8 @@ issue_id: AREA-000
 area_id: A-00
 title: "Issue title"
 record_type: source-development
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal drafting template."
 ---
 
 # AREA-000 — Issue title

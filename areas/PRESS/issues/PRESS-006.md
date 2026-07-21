@@ -3,8 +3,8 @@ issue_id: PRESS-006
 area_id: A-22
 title: "Governmental Retaliation Against the Press"
 record_type: source-development
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # PRESS-006 — Governmental Retaliation Against the Press

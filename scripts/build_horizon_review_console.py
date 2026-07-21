@@ -7,6 +7,7 @@ import argparse
 import csv
 import html
 import json
+import math
 import re
 import subprocess
 import urllib.parse
@@ -17,17 +18,24 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
 HORIZON_LOG = ROOT / "framework" / "logs" / "HORIZON_SCAN_LOG.md"
+CHANGE_AUDIT_LOG = ROOT / "framework" / "logs" / "CHANGE_AUDIT_LOG.md"
+AGENT_AUDIT_LOG = ROOT / "framework" / "logs" / "AGENT_AUDIT_LOG.md"
+SOURCE_MONITOR_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
 ISSUE_REGISTRY = ROOT / "inventory" / "github_issue_registry.csv"
 CITED_SOURCES = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 DIRECTIVES = ROOT / "inventory" / "presidential-directives.csv"
 CASE_MONITOR_CONFIG = ROOT / ".github" / "case-monitor-bot.json"
 DIRECTIVE_MONITOR_CONFIG = ROOT / ".github" / "presidential-directives-bot.json"
+PRINT_ASSEMBLY_MANIFEST = ROOT / "framework" / "print-assembly.json"
+PUBLIC_PROPOSAL_PDF = ROOT / "exports" / "pdf" / "ARRP-public-proposal-draft.pdf"
 OUTPUT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
 PARTICIPATION_OUTPUT = ROOT / "participate" / "intake-data.js"
 GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/"
 HORIZON_LOG_URL = GITHUB_BLOB_ROOT + "framework/logs/HORIZON_SCAN_LOG.md#horizon-integration-log"
 PROGRESS_DATA_REF = "origin/project-console-data:progress.json"
+INTEGRITY_DATA_REF = "origin/project-console-data:integrity.json"
+LOCAL_INTEGRITY_FEED = ROOT / ".tmp" / "project-console-integrity.json"
 PRINT_LEVEL_ORDER = (
     "public-proposal",
     "full-technical",
@@ -231,11 +239,159 @@ def page_section(relative: Path) -> str:
     return labels.get(parts[0], "Root project pages")
 
 
+def markdown_body(content: str) -> str:
+    if not content.startswith("---\n"):
+        return content
+    end = content.find("\n---\n", 4)
+    return content[end + 5 :] if end >= 0 else content
+
+
+def publication_document_type(relative: Path, metadata: dict[str, object]) -> str:
+    if relative in {Path("README.md"), Path("AUTHORS.md"), Path("LICENSE.md")}:
+        return "front-matter"
+    if relative == Path("SUBJECT_INDEX.md"):
+        return "back-matter"
+    parts = relative.parts
+    if not parts:
+        return "technical"
+    if parts[0] == "topics":
+        return "topic-guide"
+    if parts[0] == "legislation":
+        if relative.name == "README.md":
+            return "legislation-index"
+        return "state-legislation" if relative.stem.endswith("-state") else "federal-legislation"
+    if parts[0] == "areas":
+        if relative.name == "README.md":
+            return "area-summary"
+        if relative.name.endswith(".audit.md"):
+            return "audit-history"
+        if "evidence" in parts:
+            return "evidence"
+        if "research" in parts or metadata.get("record_type") == "source-development":
+            return "research"
+        if "issues" in parts:
+            return "issue"
+    if parts[0] == "research":
+        return "research"
+    return "technical"
+
+
+def publication_sort_key(relative: Path, document_type: str, title: str) -> str:
+    front_order = {"README.md": "000", "AUTHORS.md": "010", "LICENSE.md": "020"}
+    if document_type == "front-matter":
+        return front_order.get(relative.as_posix(), f"900-{title.casefold()}")
+    if document_type == "back-matter":
+        return "999-subject-index"
+    if document_type == "topic-guide":
+        return f"000-{title.casefold()}" if relative.name == "README.md" else f"100-{title.casefold()}"
+    if document_type in {"area-summary", "issue", "audit-history", "evidence", "research"} and relative.parts[0] == "areas":
+        area = relative.parts[1] if len(relative.parts) > 1 else ""
+        category = {
+            "area-summary": "000",
+            "issue": "100",
+            "evidence": "200",
+            "research": "300",
+            "audit-history": "400",
+        }.get(document_type, "900")
+        return f"{area}-{category}-{relative.stem.casefold()}"
+    if document_type in {"federal-legislation", "state-legislation"}:
+        stem = relative.stem
+        base = re.match(r"([A-Z]+-\d{3})", stem)
+        vehicle_order = (
+            "000" if stem.endswith("-amendment") else
+            "010" if stem.endswith("-preferred") else
+            "030" if stem.endswith("-state") else "020"
+        )
+        return f"{base.group(1) if base else stem}-{vehicle_order}-{stem}"
+    return f"{relative.parent.as_posix()}-{title.casefold()}"
+
+
+def publication_page_metrics(content: str, words_per_page: int) -> dict[str, object]:
+    body = markdown_body(content)
+    text_only = re.sub(r"\[([^]]+)\]\([^)]+\)", r"\1", body)
+    text_only = re.sub(r"<[^>]+>", " ", text_only)
+    text_only = re.sub(r"[`*_>#|~-]", " ", text_only)
+    word_count = len(re.findall(r"\b[\w’'-]+\b", text_only))
+    table_dividers = 0
+    max_table_columns = 0
+    for line in body.splitlines():
+        if line.strip().startswith("|") and line.strip().endswith("|"):
+            cells = markdown_table_cells(line)
+            max_table_columns = max(max_table_columns, len(cells))
+            if is_markdown_table_separator(line):
+                table_dividers += 1
+    heading_issues = 0
+    prior_level = 0
+    for match in re.finditer(r"^(#{1,6})\s+", body, re.MULTILINE):
+        level = len(match.group(1))
+        if (not prior_level and level > 1) or (prior_level and level > prior_level + 1):
+            heading_issues += 1
+        prior_level = level
+    without_targets = re.sub(r"\]\([^)]+\)", "]", body)
+    longest_token = max((len(token) for token in re.findall(r"\S+", without_targets)), default=0)
+    return {
+        "word_count": word_count,
+        "estimated_pages": max(1, math.ceil(word_count / max(1, words_per_page))),
+        "table_count": table_dividers,
+        "max_table_columns": max_table_columns,
+        "heading_issue_count": heading_issues,
+        "longest_unbroken_token": longest_token,
+    }
+
+
+def internal_markdown_links(relative: Path, content: str) -> list[dict[str, object]]:
+    links: list[dict[str, object]] = []
+    seen: set[str] = set()
+    for raw_target in re.findall(r"\[[^]\n]+\]\(([^)\s]+)", content):
+        target = html.unescape(raw_target).strip("<>")
+        parsed = urllib.parse.urlsplit(target)
+        if parsed.scheme or target.startswith("#"):
+            continue
+        path_part = urllib.parse.unquote(parsed.path)
+        if not path_part or not path_part.lower().endswith(".md"):
+            continue
+        candidate = (ROOT / path_part.lstrip("/")) if path_part.startswith("/") else (ROOT / relative.parent / path_part)
+        try:
+            target_relative = candidate.resolve().relative_to(ROOT.resolve()).as_posix()
+        except ValueError:
+            continue
+        if target_relative in seen:
+            continue
+        seen.add(target_relative)
+        links.append({"path": target_relative, "exists": (ROOT / target_relative).exists()})
+    return links
+
+
+def publication_manifest() -> dict[str, object]:
+    return json.loads(PRINT_ASSEMBLY_MANIFEST.read_text(encoding="utf-8"))
+
+
+def default_assembly_sections(
+    relative: Path, document_type: str, manifest: dict[str, object]
+) -> dict[str, str]:
+    placements: dict[str, str] = {}
+    for edition in manifest.get("editions", []):
+        if not isinstance(edition, dict):
+            continue
+        edition_id = str(edition.get("id", ""))
+        overrides = edition.get("placement_overrides", {})
+        if isinstance(overrides, dict) and relative.as_posix() in overrides:
+            placements[edition_id] = str(overrides[relative.as_posix()])
+            continue
+        for section in edition.get("sections", []):
+            if isinstance(section, dict) and document_type in section.get("accepts", []):
+                placements[edition_id] = str(section.get("id", ""))
+                break
+    return placements
+
+
 def page_inventory_records() -> list[dict[str, object]]:
-    """Return every compiled-edition Markdown page and its print assignments."""
+    """Return every publication-controlled Markdown page and its disposition."""
     excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
     explicit_exceptions = {ROOT / "AGENTS.md", ROOT / "website" / "404.md"}
     records: list[dict[str, object]] = []
+    manifest = publication_manifest()
+    words_per_page = int(manifest.get("words_per_estimated_page", 650))
     for path in ROOT.rglob("*.md"):
         relative = path.relative_to(ROOT)
         if excluded_roots.intersection(relative.parts) or path in explicit_exceptions:
@@ -246,20 +402,99 @@ def page_inventory_records() -> list[dict[str, object]]:
         levels = raw_levels if isinstance(raw_levels, list) else [str(raw_levels)]
         ordered_levels = [level for level in PRINT_LEVEL_ORDER if level in levels]
         ordered_levels.extend(sorted(set(levels) - set(ordered_levels)))
+        print_status = str(metadata.get("print_status", "")).strip()
+        exclusion_reason = str(metadata.get("print_exclusion_reason", "")).strip()
+        if ordered_levels and print_status == "excluded":
+            publication_disposition = "conflict"
+        elif ordered_levels:
+            publication_disposition = "included"
+        elif print_status == "excluded":
+            publication_disposition = "excluded"
+        else:
+            publication_disposition = "unclassified"
+        relative_path = relative.as_posix()
+        title = str(metadata.get("title") or markdown_title(path, content))
+        document_type = publication_document_type(relative, metadata)
         records.append(
             {
-                "title": str(metadata.get("title") or markdown_title(path, content)),
-                "path": relative.as_posix(),
+                "title": title,
+                "path": relative_path,
                 "section": page_section(relative),
                 "print_levels": ordered_levels,
                 "print_level_labels": [
                     PRINT_LEVEL_LABELS.get(level, level.replace("-", " ").title())
                     for level in ordered_levels
                 ],
-                "github_url": GITHUB_BLOB_ROOT + relative.as_posix(),
+                "print_status": print_status,
+                "print_exclusion_reason": exclusion_reason,
+                "publication_disposition": publication_disposition,
+                "github_url": GITHUB_BLOB_ROOT + relative_path,
+                "document_type": document_type,
+                "print_metadata_present": "print_levels" in metadata or "print_status" in metadata,
+                "invalid_print_levels": sorted(set(levels) - set(PRINT_LEVEL_ORDER)),
+                "assembly_sections": default_assembly_sections(relative, document_type, manifest),
+                "assembly_sort_key": publication_sort_key(relative, document_type, title),
+                "internal_links": internal_markdown_links(relative, content),
+                **publication_page_metrics(content, words_per_page),
             }
         )
     return sorted(records, key=lambda row: (str(row["section"]), str(row["title"])))
+
+
+def pdf_page_count(path: Path) -> int | None:
+    if not path.exists():
+        return None
+    try:
+        result = subprocess.run(
+            ["pdfinfo", str(path)], capture_output=True, text=True, check=True, timeout=20
+        )
+    except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
+        return None
+    match = re.search(r"^Pages:\s+(\d+)\s*$", result.stdout, re.MULTILINE)
+    return int(match.group(1)) if match else None
+
+
+def publication_data(page_inventory: list[dict[str, object]]) -> dict[str, object]:
+    manifest = publication_manifest()
+    builds: list[dict[str, object]] = []
+    if PUBLIC_PROPOSAL_PDF.exists():
+        modified = PUBLIC_PROPOSAL_PDF.stat().st_mtime
+        assigned_paths = [
+            ROOT / str(record["path"])
+            for record in page_inventory
+            if "public-proposal" in record.get("print_levels", [])
+        ]
+        latest_source = max((path.stat().st_mtime for path in assigned_paths if path.exists()), default=0)
+        builds.append(
+            {
+                "edition_id": "public-proposal",
+                "label": "Existing public-proposal draft PDF",
+                "path": PUBLIC_PROPOSAL_PDF.relative_to(ROOT).as_posix(),
+                "github_url": GITHUB_BLOB_ROOT + PUBLIC_PROPOSAL_PDF.relative_to(ROOT).as_posix(),
+                "page_count": pdf_page_count(PUBLIC_PROPOSAL_PDF),
+                "modified_at": datetime.fromtimestamp(modified, timezone.utc).isoformat(timespec="seconds"),
+                "stale": latest_source > modified,
+            }
+        )
+    disposition_counts = {
+        disposition: sum(
+            1 for record in page_inventory
+            if record.get("publication_disposition") == disposition
+        )
+        for disposition in ("included", "excluded", "unclassified", "conflict")
+    }
+    exclusion_reasons: dict[str, int] = {}
+    for record in page_inventory:
+        if record.get("publication_disposition") != "excluded":
+            continue
+        reason = str(record.get("print_exclusion_reason") or "Reason not recorded")
+        exclusion_reasons[reason] = exclusion_reasons.get(reason, 0) + 1
+    return {
+        "manifest": manifest,
+        "builds": builds,
+        "disposition_counts": disposition_counts,
+        "exclusion_reasons": exclusion_reasons,
+    }
 
 
 def associated_record_ids(raw: str) -> set[str]:
@@ -337,6 +572,266 @@ def render_markdown_inline(value: str) -> str:
 
 def markdown_table_cells(line: str) -> list[str]:
     return [cell.strip() for cell in line.strip().strip("|").split("|")]
+
+
+def markdown_table_records(
+    content: str, required_headers: tuple[str, ...]
+) -> list[dict[str, str]]:
+    """Return rows from the first Markdown table matching the requested headers."""
+    lines = content.replace("\r\n", "\n").replace("\r", "\n").splitlines()
+    for index in range(len(lines) - 1):
+        if "|" not in lines[index] or not is_markdown_table_separator(lines[index + 1]):
+            continue
+        headers = markdown_table_cells(lines[index])
+        if tuple(headers) != required_headers:
+            continue
+        rows: list[dict[str, str]] = []
+        index += 2
+        while index < len(lines) and lines[index].strip() and "|" in lines[index]:
+            cells = markdown_table_cells(lines[index])
+            cells = cells[: len(headers)] + [""] * max(0, len(headers) - len(cells))
+            rows.append(dict(zip(headers, cells)))
+            index += 1
+        return rows
+    return []
+
+
+def log_entry(
+    entry_id: str,
+    values: dict[str, str],
+    raw_values: dict[str, str],
+    details_markdown: str,
+) -> dict[str, object]:
+    return {
+        "id": entry_id,
+        "values": values,
+        "values_html": {
+            key: render_markdown_inline(raw_values.get(key, value))
+            for key, value in values.items()
+        },
+        "details_html": render_markdown_safe(details_markdown),
+        "search_text": " ".join(
+            [entry_id, *values.values(), *(strip_markdown(value) for value in raw_values.values())]
+        ),
+    }
+
+
+def horizon_disposition(decision: str) -> str:
+    value = strip_markdown(decision).casefold()
+    if "deferred" in value or "monitor" in value:
+        return "Deferred or monitoring"
+    if any(term in value for term in ("rejected", "retired", "outside scope")):
+        return "Rejected or retired"
+    if any(term in value for term in ("merged", "integrated", "folded")):
+        return "Integrated or merged"
+    if any(term in value for term in ("admitted", "promoted")):
+        return "Admitted or promoted"
+    return "Other disposition"
+
+
+def horizon_log_view() -> dict[str, object]:
+    headers = (
+        "Horizon ID", "Decision date", "Original concern", "Decision",
+        "Integrated into", "Rationale", "Follow-up",
+    )
+    entries: list[dict[str, object]] = []
+    for row in markdown_table_records(HORIZON_LOG.read_text(encoding="utf-8"), headers):
+        disposition = horizon_disposition(row["Decision"])
+        values = {
+            "record": strip_markdown(row["Horizon ID"]),
+            "date": strip_markdown(row["Decision date"]),
+            "disposition": disposition,
+            "destination": strip_markdown(row["Integrated into"]),
+        }
+        details = "\n".join(
+            f"- **{label}:** {row[label]}" for label in headers[2:]
+        )
+        entries.append(log_entry(values["record"], values, {
+            "record": row["Horizon ID"],
+            "date": row["Decision date"],
+            "disposition": disposition,
+            "destination": row["Integrated into"],
+        }, details))
+    return {
+        "id": "horizon",
+        "title": "Horizon Scan Log",
+        "description": "Candidate intake, disposition, integration, and follow-up history.",
+        "source_url": GITHUB_BLOB_ROOT + "framework/logs/HORIZON_SCAN_LOG.md",
+        "columns": [
+            {"key": "record", "label": "Record"},
+            {"key": "date", "label": "Decision date"},
+            {"key": "disposition", "label": "Disposition"},
+            {"key": "destination", "label": "Current route"},
+        ],
+        "group_options": [
+            {"key": "disposition", "label": "Disposition"},
+            {"key": "date", "label": "Decision date"},
+        ],
+        "default_sort": {"key": "record", "direction": "desc"},
+        "entries": entries,
+    }
+
+
+def change_audit_log_view() -> dict[str, object]:
+    headers = (
+        "Date", "Change audited", "Scope", "Score/rebaseline effect",
+        "Findings and corrections",
+    )
+    entries: list[dict[str, object]] = []
+    for index, row in enumerate(
+        markdown_table_records(CHANGE_AUDIT_LOG.read_text(encoding="utf-8"), headers), 1
+    ):
+        values = {
+            "date": strip_markdown(row["Date"]),
+            "change": strip_markdown(row["Change audited"]),
+            "scope": strip_markdown(row["Scope"]),
+            "effect": strip_markdown(row["Score/rebaseline effect"]),
+        }
+        details = "\n".join(
+            f"- **{label}:** {row[label]}" for label in headers[1:]
+        )
+        entries.append(log_entry(f"change-{index:03d}", values, {
+            "date": row["Date"],
+            "change": row["Change audited"],
+            "scope": row["Scope"],
+            "effect": row["Score/rebaseline effect"],
+        }, details))
+    return {
+        "id": "changes",
+        "title": "Change Audit Log",
+        "description": "Retained project-wide methodology, structure, and consistency changes.",
+        "source_url": GITHUB_BLOB_ROOT + "framework/logs/CHANGE_AUDIT_LOG.md",
+        "columns": [
+            {"key": "date", "label": "Date"},
+            {"key": "change", "label": "Change audited"},
+            {"key": "scope", "label": "Scope"},
+            {"key": "effect", "label": "Score or rebaseline effect"},
+        ],
+        "group_options": [{"key": "date", "label": "Date"}],
+        "default_sort": {"key": "date", "direction": "desc"},
+        "entries": entries,
+    }
+
+
+def section_records(content: str, heading_level: int, start_heading: str = "") -> list[tuple[str, str]]:
+    """Split Markdown into titled sections, optionally beginning after an exact heading."""
+    if start_heading:
+        match = re.search(rf"^{re.escape(start_heading)}\s*$", content, re.MULTILINE)
+        content = content[match.end():] if match else ""
+    marker = "#" * heading_level
+    matches = list(re.finditer(rf"^{re.escape(marker)}\s+(.+?)\s*$", content, re.MULTILINE))
+    return [
+        (match.group(1).strip(), content[match.end(): matches[index + 1].start() if index + 1 < len(matches) else len(content)].strip())
+        for index, match in enumerate(matches)
+    ]
+
+
+def two_column_fields(content: str) -> dict[str, str]:
+    rows = markdown_table_records(content, ("Field", "Entry"))
+    return {strip_markdown(row["Field"]): row["Entry"] for row in rows}
+
+
+def agent_audit_log_view() -> dict[str, object]:
+    entries: list[dict[str, object]] = []
+    content = AGENT_AUDIT_LOG.read_text(encoding="utf-8")
+    for index, (title, body) in enumerate(section_records(content, 3, "## Log"), 1):
+        fields = two_column_fields(body)
+        if not fields:
+            continue
+        header_parts = [part.strip() for part in title.split("—")]
+        values = {
+            "date": strip_markdown(fields.get("Date/time", header_parts[0] if header_parts else "")),
+            "record": strip_markdown(fields.get("Issue/task", header_parts[1] if len(header_parts) > 1 else "")),
+            "tier": strip_markdown(fields.get("Tier", header_parts[2] if len(header_parts) > 2 else "")),
+            "agent": strip_markdown(fields.get("Run/agent", "")),
+            "status": strip_markdown(fields.get("Push status", "")),
+        }
+        entries.append(log_entry(f"agent-{index:03d}", values, {
+            "date": fields.get("Date/time", ""),
+            "record": fields.get("Issue/task", ""),
+            "tier": fields.get("Tier", ""),
+            "agent": fields.get("Run/agent", ""),
+            "status": fields.get("Push status", ""),
+        }, body))
+    return {
+        "id": "agents",
+        "title": "Agent Audit Log",
+        "description": "Autonomous, batched, and scheduled agent-run provenance and rollback records.",
+        "source_url": GITHUB_BLOB_ROOT + "framework/logs/AGENT_AUDIT_LOG.md",
+        "columns": [
+            {"key": "date", "label": "Date and time"},
+            {"key": "record", "label": "Issue or task"},
+            {"key": "tier", "label": "Tier or task"},
+            {"key": "agent", "label": "Run or agent"},
+            {"key": "status", "label": "Push status"},
+        ],
+        "group_options": [
+            {"key": "tier", "label": "Tier or task"},
+            {"key": "record", "label": "Issue or task"},
+            {"key": "agent", "label": "Run or agent"},
+        ],
+        "default_sort": {"key": "date", "direction": "desc"},
+        "entries": entries,
+    }
+
+
+def bullet_fields(content: str) -> dict[str, str]:
+    return {
+        strip_markdown(match.group(1)): match.group(2).strip()
+        for match in re.finditer(r"^-\s+([^:\n]+):\s*(.+)$", content, re.MULTILINE)
+    }
+
+
+def source_monitor_log_view() -> dict[str, object]:
+    entries: list[dict[str, object]] = []
+    content = SOURCE_MONITOR_LOG.read_text(encoding="utf-8")
+    for index, (title, body) in enumerate(section_records(content, 2), 1):
+        if not re.match(r"\d{4}-\d{2}-\d{2}", title):
+            continue
+        parts = [part.strip() for part in title.split("—", 1)]
+        fields = bullet_fields(body)
+        values = {
+            "date": strip_markdown(parts[0]),
+            "watcher": strip_markdown(parts[1] if len(parts) > 1 else ""),
+            "result": strip_markdown(fields.get("Result", "")),
+            "affected": strip_markdown(fields.get("Affected source IDs", fields.get("Affected directive IDs", ""))),
+            "activity": strip_markdown(fields.get("Activity code", "")),
+        }
+        entries.append(log_entry(f"source-monitor-{index:03d}", values, {
+            "date": parts[0],
+            "watcher": parts[1] if len(parts) > 1 else "",
+            "result": fields.get("Result", ""),
+            "affected": fields.get("Affected source IDs", fields.get("Affected directive IDs", "")),
+            "activity": fields.get("Activity code", ""),
+        }, body))
+    return {
+        "id": "source-monitor",
+        "title": "Source Monitor Log",
+        "description": "Material changes detected by deterministic source and directive watchers.",
+        "source_url": GITHUB_BLOB_ROOT + "framework/logs/SOURCE_MONITOR_LOG.md",
+        "columns": [
+            {"key": "date", "label": "Date and time"},
+            {"key": "watcher", "label": "Watcher"},
+            {"key": "result", "label": "Result"},
+            {"key": "affected", "label": "Affected records"},
+            {"key": "activity", "label": "Activity code"},
+        ],
+        "group_options": [
+            {"key": "watcher", "label": "Watcher"},
+            {"key": "result", "label": "Result"},
+        ],
+        "default_sort": {"key": "date", "direction": "desc"},
+        "entries": entries,
+    }
+
+
+def project_log_views() -> list[dict[str, object]]:
+    return [
+        horizon_log_view(),
+        agent_audit_log_view(),
+        source_monitor_log_view(),
+        change_audit_log_view(),
+    ]
 
 
 def is_markdown_table_separator(line: str) -> bool:
@@ -694,6 +1189,33 @@ def progress_snapshot() -> dict[str, object]:
     return cached if isinstance(cached, dict) else {}
 
 
+def integrity_snapshot() -> dict[str, object]:
+    """Read the latest generated integrity feed without making it authoritative."""
+    if LOCAL_INTEGRITY_FEED.exists():
+        try:
+            payload = json.loads(LOCAL_INTEGRITY_FEED.read_text(encoding="utf-8"))
+            if isinstance(payload, dict):
+                return payload
+        except json.JSONDecodeError:
+            pass
+    try:
+        completed = subprocess.run(
+            ["git", "show", INTEGRITY_DATA_REF],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        payload = json.loads(completed.stdout)
+        if isinstance(payload, dict):
+            return payload
+    except (subprocess.CalledProcessError, json.JSONDecodeError):
+        pass
+    existing = existing_console_payload()
+    cached = existing.get("integrity", {})
+    return cached if isinstance(cached, dict) else {}
+
+
 def existing_horizon_snapshot() -> tuple[list[dict[str, object]], str]:
     payload = existing_console_payload()
     return payload.get("horizon_records", []), str(payload.get("github_synced_at", ""))
@@ -707,6 +1229,7 @@ def source_count_for_record(record_id: str) -> int:
 
 
 def monitoring_issue_snapshot(refresh: bool) -> list[dict[str, object]]:
+    eligible_kinds = {"proposal", "horizon"}
     if not refresh:
         records = existing_console_payload().get("monitoring_issues", [])
         if isinstance(records, list):
@@ -718,8 +1241,10 @@ def monitoring_issue_snapshot(refresh: bool) -> list[dict[str, object]]:
             enriched: list[dict[str, object]] = []
             for record in records:
                 record_id = str(record.get("id", ""))
-                sources = sources_for_record(record_id)
                 registry = registry_by_id.get(record_id, {})
+                if registry.get("Kind", "").strip() not in eligible_kinds:
+                    continue
+                sources = sources_for_record(record_id)
                 enriched.append(
                     {
                         **record,
@@ -757,14 +1282,12 @@ def monitoring_issue_snapshot(refresh: bool) -> list[dict[str, object]]:
         for row in read_csv(ISSUE_REGISTRY)
         if row["GitHub Number"].strip().isdigit()
     }
-    kind_labels = {
-        "proposal": "Proposal",
-        "horizon": "Candidate",
-        "source review": "Maintained research",
-    }
+    kind_labels = {"proposal": "Proposal", "horizon": "Candidate"}
     records: list[dict[str, object]] = []
     for issue in issues:
         registry = registry_by_number.get(issue["number"], {})
+        if registry.get("Kind", "").strip() not in eligible_kinds:
+            continue
         project_item = project_by_number.get(issue["number"], {})
         record_id = registry.get("Object ID", "").strip()
         if not record_id:
@@ -1007,14 +1530,17 @@ def main() -> None:
     monitoring_issues = monitoring_issue_snapshot(args.refresh_github)
     court_watch_sources, case_watcher_metadata = case_watcher_snapshot()
     page_inventory = page_inventory_records()
+    publication = publication_data(page_inventory)
+    project_logs = project_log_views()
     progress = progress_snapshot()
+    integrity = integrity_snapshot()
     horizon_records = enrich_horizon_records(horizon_records)
     active_horizon_records = [
         record for record in horizon_records if record["issue_state"] == "Open"
     ]
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
-        "schema_version": 14,
+        "schema_version": 18,
         "generated_at": generated_at,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),
@@ -1031,7 +1557,10 @@ def main() -> None:
         },
         "pending_sources": pending_sources,
         "page_inventory": page_inventory,
+        "publication": publication,
+        "project_logs": project_logs,
         "progress": progress,
+        "integrity": integrity,
         # The full snapshot is retained only so an ordinary rebuild can preserve
         # authoritative GitHub state without requiring Keychain access.
         "horizon_records": horizon_records,
@@ -1051,7 +1580,8 @@ def main() -> None:
             f"{len(cited_sources)} cited sources, {len(monitoring_issues)} monitored "
             f"issues, {len(pending_sources)} pending sources, and "
             f"{len(presidential_directives)} presidential directives, plus "
-            f"{len(page_inventory)} print-assigned pages."
+            f"{len(page_inventory)} publication-controlled pages and "
+            f"{sum(len(log['entries']) for log in project_logs)} project-log entries."
         )
         return
 
@@ -1086,7 +1616,8 @@ def main() -> None:
         f"{len(cited_sources)} cited sources, {len(monitoring_issues)} monitored "
         f"issues, {len(pending_sources)} pending sources, and "
         f"{len(presidential_directives)} presidential directives, plus "
-        f"{len(page_inventory)} print-assigned pages."
+        f"{len(page_inventory)} publication-controlled pages and "
+        f"{sum(len(log['entries']) for log in project_logs)} project-log entries."
     )
 
 

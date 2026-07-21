@@ -2,8 +2,8 @@
 issue_id: EMOL-001
 title: "Source Development — EMOL-001"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # EMOL-001 Source Development

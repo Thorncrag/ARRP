@@ -1,0 +1,81 @@
+name: Project integrity check
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Approximately 1:35 a.m. Eastern during daylight-saving time.
+    - cron: "35 5 * * *"
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: project-integrity
+  cancel-in-progress: true
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      issues: read
+      pull-requests: write
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          persist-credentials: false
+
+      - name: Run the project integrity checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          python3 scripts/audit_project_consistency.py
+          --json-output "${RUNNER_TEMP}/integrity-report.json"
+          --markdown-output framework/logs/PROJECT_INTEGRITY_REPORT.md
+          --exit-zero-on-findings
+
+      - name: Build the console integrity feed
+        run: >-
+          python3 scripts/build_project_integrity_feed.py
+          --report "${RUNNER_TEMP}/integrity-report.json"
+          --existing-url "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/integrity.json"
+          --output "${RUNNER_TEMP}/arrp-project-integrity/integrity.json"
+
+      - name: Publish the integrity feed
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python3 scripts/publish_project_console_progress.py
+          --source "${RUNNER_TEMP}/arrp-project-integrity"
+          --repository Thorncrag/ARRP
+          --branch project-console-data
+
+      - name: Propose a changed current report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- framework/logs/PROJECT_INTEGRITY_REPORT.md; then
+            echo "The current integrity report is unchanged."
+            exit 0
+          fi
+          branch="bot/project-integrity-report"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$branch"
+          git add framework/logs/PROJECT_INTEGRITY_REPORT.md
+          git commit -m "Refresh current project integrity report"
+          gh auth setup-git
+          git push --force origin "HEAD:$branch"
+          if [ "$(gh pr list --head "$branch" --state open --json number --jq 'length')" = "0" ]; then
+            gh pr create \
+              --base main \
+              --head "$branch" \
+              --title "Refresh current project integrity report" \
+              --body "Updates the overwritten current-state integrity report. The Project Console data feed retains run timestamps and bounded history."
+          fi
+
+      - name: Summarize the run
+        run: |
+          python3 -c 'import json, os, pathlib; p=json.load(open(os.environ["RUNNER_TEMP"]+"/integrity-report.json")); c=p["counts"]; s=os.environ["GITHUB_STEP_SUMMARY"]; pathlib.Path(s).write_text("## ARRP project integrity\n\nResult: **{}**  \nErrors: **{}** · Warnings: **{}** · Findings: **{}**  \nChecked {} issue pages and {} proposal pages.\n".format(p["result"], c["errors"], c["warnings"], c["findings"], c["issue_pages"], c["proposal_pages"]), encoding="utf-8")'

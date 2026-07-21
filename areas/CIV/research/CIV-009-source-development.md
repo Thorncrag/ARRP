@@ -2,8 +2,8 @@
 issue_id: CIV-009
 title: "Source Development — CIV-009"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # CIV-009 Source Development

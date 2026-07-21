@@ -8,7 +8,7 @@ print_levels:
 
 # ELEC-013 Presidential Debate and Ballot Access Explanatory Checklist
 
-> **Maintenance tracking:** [GitHub sub-issue #242](https://github.com/Thorncrag/ARRP/issues/242) under [ELEC-013 issue #41](https://github.com/Thorncrag/ARRP/issues/41). Review at least annually, before each presidential cycle, and upon the event predicates stated in the monitoring issue.
+> **Living research record:** This explainer supports [ELEC-013 issue #41](https://github.com/Thorncrag/ARRP/issues/41) and is reviewed through that proposal's issue-level monitoring.
 
 Working source-development explainer for [ELEC-013](../issues/ELEC-013.md). This is not legal advice and does not replace current state law, official election-office guidance, campaign counsel, FEC regulations, advisory opinions, court orders, or debate-sponsor criteria. Exact signature counts, filing windows, elector forms, certification dates, and challenge procedures must be verified against current-cycle official sources before use.
 

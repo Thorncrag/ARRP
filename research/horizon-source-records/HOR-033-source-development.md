@@ -1,8 +1,8 @@
 ---
 title: "Source Development — HOR-033"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # HOR-033 — Enforceability of Accessibility Duties for Presidential Communications

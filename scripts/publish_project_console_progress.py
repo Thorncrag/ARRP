@@ -94,19 +94,37 @@ def publish(source: Path, repository: str, branch: str, token: str) -> str:
         ) or {}
         tree_entries.append({"path": path, "mode": "100644", "type": "blob", "sha": blob["sha"]})
 
+    tree_payload: Dict[str, Any] = {"tree": tree_entries}
+    if parents:
+        parent_commit = api_request(
+            token,
+            "GET",
+            "/repos/{}/git/commits/{}".format(repository, parents[0]),
+        ) or {}
+        if parent_commit.get("tree", {}).get("sha"):
+            tree_payload["base_tree"] = parent_commit["tree"]["sha"]
     tree = api_request(
         token,
         "POST",
         "/repos/{}/git/trees".format(repository),
-        {"tree": tree_entries},
+        tree_payload,
     ) or {}
-    progress_data = json.loads((source / "progress.json").read_text(encoding="utf-8"))
+    if (source / "progress.json").exists():
+        data = json.loads((source / "progress.json").read_text(encoding="utf-8"))
+        label = "progress {}".format(data.get("asOf", "data"))
+    elif (source / "integrity.json").exists():
+        data = json.loads((source / "integrity.json").read_text(encoding="utf-8"))
+        label = "integrity {}".format(
+            (data.get("current") or {}).get("generated_at", "data")
+        )
+    else:
+        label = "data"
     commit = api_request(
         token,
         "POST",
         "/repos/{}/git/commits".format(repository),
         {
-            "message": "Refresh Project Console progress {}".format(progress_data["asOf"]),
+            "message": "Refresh Project Console {}".format(label),
             "tree": tree["sha"],
             "parents": parents,
         },

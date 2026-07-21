@@ -1,8 +1,8 @@
 ---
 title: "Source Development — HOR-044"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # HOR-044 — Statutory Framework for Presidential Cross-Border Infrastructure Permits

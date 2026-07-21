@@ -2,8 +2,8 @@
 issue_id: RET-001
 title: "Source Development — RET-001"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # RET-001 Source Development

@@ -2,8 +2,8 @@
 issue_id: PAR-001
 title: "Source Development — PAR-001"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # PAR-001 Source Development

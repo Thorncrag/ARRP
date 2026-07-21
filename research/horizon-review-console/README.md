@@ -1,22 +1,24 @@
 ---
 title: "ARRP Project Console"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal workflow or tool documentation."
 ---
 
 # ARRP Project Console
 
-This non-authoritative interface centralizes five coordinated project areas:
+This non-authoritative interface centralizes seven coordinated project areas:
 
 - **Progress** is the sole human-facing Review Ready planning view. It shows the current goal, trajectory graph, pace, forecast, area coverage, and closest-to-ready backlog while leaving GitHub Project fields authoritative. The checked-in bundle preserves an offline snapshot; when network access is available, the view refreshes from the data-only `project-console-data` feed.
 
-- **Action Items**, immediately after Progress, is the central inbox for non-deferred candidate decisions, preliminary-candidate review, unresolved source routing, issue-level manual monitoring, new or changed watcher records, and locally staged print-level edits. Every card opens the complete owning view; the inbox does not create a second workflow authority.
+- **Action Items**, immediately after Progress, is the central inbox for non-deferred candidate decisions, preliminary-candidate review, unresolved source routing, and new or changed watcher records requiring review. Routine issue monitoring is excluded; it remains in Sources unless an LLM-assisted monitoring pass produces a decision or exception requiring attention. Locally staged print-level changes remain exclusively in Publication. Every card opens the complete owning view, and the inbox does not create a second workflow authority.
 
 - **Candidates** contains formal open `HOR-###` decision dossiers and a separate **Preliminary candidates** view for synthesized possible institutional defects that do not yet have a formal record.
-- **Sources** contains the cited bibliography, the deliberately small unresolved-routing queue, and **Watchers and bots**. The watcher workspace opens directly to Court Cases and also includes Presidential Directives and Manual Monitoring; the duplicative overview screen is omitted.
-- **Publication** begins with one complete, sortable, unpaginated inventory of every compiled-edition Markdown page and its `print_levels` assignments. Each row can stage an added level or an × removal. The resulting JSON export is an instruction list for Codex to validate and apply; reloading the console clears the staged changes, and page front matter remains authoritative throughout.
+- **Sources** contains the cited bibliography, the deliberately small unresolved-routing queue, and **Watchers and bots**. The watcher workspace opens directly to Court Cases and also includes Presidential Directives and Issues being monitored; the duplicative overview screen is omitted.
+- **Integrity** presents the latest scheduled project-consistency report, grouped repair targets, the check scope, and a bounded run history. It links to the overwritten current snapshot in `framework/logs/PROJECT_INTEGRITY_REPORT.md`; that snapshot is not a running audit ledger. The view does not create a new audit tier or authorize automatic content changes.
+- **Logs** provides searchable, sortable, groupable, unpaginated views of the canonical Horizon Scan, Agent Audit, Source Monitor, and historical Change Audit logs. Each entry expands to show its complete recorded detail, while the Markdown log remains authoritative.
+- **Publication** contains one complete publication-disposition inventory, edition-level composition and preflight analysis, and a section-by-section document builder with a generated table-of-contents preview. It separately counts and filters pages included in editions, explicitly excluded with reasons, unclassified, or conflicting. It can stage disposition or assembly-order changes and export instructions for Codex; reloading clears those drafts, while page front matter and `framework/print-assembly.json` remain authoritative.
 
-Every view is an assembled projection, not a new narrative or tracking authority. GitHub Issues and the ARRP Project remain authoritative for lifecycle and workflow state; the Horizon Scan Log remains authoritative for intake and disposition history; source inventories remain authoritative for retained external sources; page front matter controls print assignment; and linked research files remain the project-authored analysis. Correct information at its owning record and rebuild the console rather than editing `catalog-data.js` by hand.
+Every view is an assembled projection, not a new narrative or tracking authority. GitHub Issues and the ARRP Project remain authoritative for lifecycle and workflow state; the Horizon Scan Log remains authoritative for intake and disposition history; source inventories remain authoritative for retained external sources; page front matter controls edition inclusion or documented exclusion from print; and linked research files remain the project-authored analysis. Correct information at its owning record and rebuild the console rather than editing `catalog-data.js` by hand.
 
 Every tabular view uses sortable column-header buttons. The active column exposes ascending or descending order to assistive technology and shows a direction indicator; each table retains a task-appropriate default order until another header is selected. Presidential directives therefore open with the most recent signed or published date first.
 
@@ -28,33 +30,41 @@ One canonical source row may support more than one proposed candidate by naming 
 
 The cited and pending source views are streamlined catalog projections, not additional manually maintained ledgers. Every console view that presents source records sorts `Monitoring = Yes` entries first so changing records remain conspicuous; this presentation order does not rewrite either catalog. A pending row is incomplete unless it identifies the competing destinations, the reason the project cannot yet choose among them, and the next routing decision. Once ownership is clear, cite the source in the proposal's or candidate's substantive or internal source-development record and move the stable row into `sources.csv`, even if `Reviewed?` remains `No` or the source is still monitored. Irrelevant, political-only, redundant, and no-additional-value material receives a documented disposition and leaves temporary intake.
 
-The **Watchers and bots** source view does not replace GitHub issue-level monitoring or source-level `Monitoring` designations. GitHub supplies the proposal and formal-candidate issues carrying `needs: monitoring`; the two source catalogs identify changing sources; the Court Cases view identifies cataloged records covered by the daily Just Security comparison and whether an accepted per-source baseline exists; and Manual Monitoring preserves every issue-wide search, tracker exclusion, new-case discovery, or unsupported source obligation that automation does not cover. Material watcher changes appear as owner-assigned pull requests and stable-coded entries in the Source Monitor Log; the console itself remains non-mutating.
+The **Watchers and bots** source view does not replace GitHub issue-level monitoring or source-level `Monitoring` designations. GitHub supplies the proposal and formal-candidate issues carrying `needs: monitoring`; the two source catalogs identify changing sources; the Court Cases view identifies cataloged records covered by the daily Just Security comparison and whether an accepted per-source baseline exists; and **Issues being monitored** preserves each complete issue-wide review obligation, including active searches, tracker exclusions, new-case discovery, and unsupported sources. Routine monitoring is reserved for LLM-assisted review rather than the human Action Items inbox. Material watcher changes appear as owner-assigned pull requests and stable-coded entries in the Source Monitor Log; the console itself remains non-mutating.
 
 The Presidential Directives view is generated from `inventory/presidential-directives.csv`, the durable discovery-and-screening registry covering the first Trump administration, the Biden administration, and the second Trump administration. The baseline corpus has already been screened: `Routed` identifies directives cross-referenced to retained ARRP source-development records, while `Screened — no separate action` means the baseline pass selected no distinct project action or retained route. Registry inclusion is not a project finding or source citation. The scheduled watcher may discover, normalize, deduplicate, and detect changes in official instruments. Material deterministic metadata changes are proposed through an owner-assigned pull request and recorded in the Source Monitor Log; later LLM-assisted screening decides project relevance, routing, preliminary-candidate creation, deferral, or no project action.
 
 Open [`index.html`](index.html) in the Codex in-app browser. The separate [public interaction service](https://arrp-public-intake.vercel.app/) remains the submission surface. The console contains no promote, defer, reject, agent-invocation, or GitHub-mutation controls; its publication controls only produce a local change-list download. Conduct every candidate disposition and canonical metadata edit in Codex under the applicable workflow.
 
-## Print-level change export
+## Publication-disposition change export
 
-Use the × on an existing assignment to stage its removal, or select **Add print level…** to stage an additional assignment. The summary cards, filters, and inventory immediately reflect the proposed state. **Undo page changes** restores one page; **Reset** clears the full draft. **Export changes** downloads this schema:
+Use the × on an existing assignment to stage its removal, select **Add print level…** to stage an additional assignment, or choose **Exclude from print…** and a reason. The summary cards, filters, and inventory immediately reflect the proposed state. **Undo page changes** restores one page; **Reset** clears the full draft. **Export changes** downloads this schema:
 
 ```json
 {
-  "schema_version": 1,
-  "purpose": "ARRP print-level metadata changes",
+  "schema_version": 2,
+  "purpose": "ARRP publication-disposition metadata changes",
   "exported_at": "2026-07-21T00:00:00.000Z",
   "changes": [
     {
       "path": "areas/AREA/ISSUE.md",
       "title": "Page title",
       "add": ["executive-summary"],
-      "remove": ["full-technical"]
+      "remove": ["full-technical"],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation."
     }
   ]
 }
 ```
 
-Give the exported file to Codex. Before applying it, Codex must confirm that every path and print-level value is valid, preserve unrelated front matter, rebuild the Project Console, and run the ordinary consistency checks. The browser does not save drafts in local storage or modify the repository.
+Give the exported file to Codex. Before applying it, Codex must confirm that every path, print-level value, disposition, and exclusion reason is valid, preserve unrelated front matter, rebuild the Project Console, and run the ordinary consistency checks. The browser does not save drafts in local storage or modify the repository.
+
+Assembly-order exports follow the same rule: they are complete proposed edition structures, not direct edits. Codex validates the page set and section routing before updating `framework/print-assembly.json`.
+
+## Integrity feed
+
+The `Project integrity check` GitHub Action runs the repeatable consistency checker daily at approximately 1:35 a.m. Eastern and on manual dispatch. It publishes `integrity.json` to the data-only `project-console-data` branch, retaining the current detailed report and up to 30 compact run summaries. Findings do not fail the observation workflow or trigger automatic repairs; execution failures still fail the Action. The console refreshes this feed when online and preserves its latest embedded snapshot for offline use.
 
 ## Candidate lifecycle
 
@@ -78,7 +88,7 @@ The ordinary build preserves the latest checked-in GitHub snapshot. Refresh form
 python3 scripts/build_horizon_review_console.py --refresh-github
 ```
 
-The generated `catalog-data.js` contains the print-level page inventory, an offline progress snapshot, preliminary candidates, enriched formal candidate views, source-catalog views, watcher projections, and the preserved GitHub snapshots needed for later refreshes. The generated enrichment is rebuilt from page metadata, the data-only Project Console progress feed, the Horizon Scan Log, both source inventories, the presidential-directives registry, the GitHub issue registry, watcher configuration, and identifier-linked research. Canonical source records remain in their owning inventories; directive identity and review history remains in its registry; and issue-level monitoring workflow remains on the labeled parent issues and in the Project Monitoring view.
+The generated `catalog-data.js` contains the page inventory, publication analysis, assembly manifest, offline progress and integrity snapshots, preliminary candidates, enriched formal candidate views, source-catalog views, watcher projections, read-only project-log views, and the preserved GitHub snapshots needed for later refreshes. The generated enrichment is rebuilt from page metadata, `framework/print-assembly.json`, the data-only Project Console feeds, the four canonical project logs, both source inventories, the presidential-directives registry, the GitHub issue registry, watcher configuration, and identifier-linked research. Canonical logs and source records remain in their owning files; directive identity and review history remains in its registry; and issue-level monitoring workflow remains on the labeled parent issues and in the Project Monitoring view.
 
 For console-only presentation work that should not rewrite the separately deployed public-input lookup, use:
 

@@ -1,7 +1,7 @@
 ---
 title: "ARRP Agent Operating Rules"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal workflow or tool documentation."
 ---
 
 # ARRP Agent Operating Rules
@@ -86,7 +86,7 @@ Before running a T-audit, an agent must identify:
 9. any unresolved findings from the latest audit; and
 10. whether the issue's parent GitHub issue carries `needs: monitoring`, the current reason for that label, and every associated source marked `Yes` in the catalogs' `Monitoring` field, including whether a validated watcher covers it and whether its accepted `Monitoring Baseline` is present.
 
-Apply the tier-scaled Source Reconciliation rule in the methodology. T0 and T1 may inventory applicable tasks; development and T2-T4 work should resolve applicable tasks through verification, route and remedy-fit review, qualitative reader-facing placement, a documented no-additional-value disposition, or a precise continuing predicate. Update and read back the parent GitHub issue when its `needs: monitoring` state changes. Rebuild the ARRP Project Console whenever candidate data, either canonical source catalog, a source-level `Monitoring` value, an issue-level monitoring label, the presidential-directives registry, watcher configuration, or page-level `print_levels` metadata changes. This reconciliation does not create a separate audit run.
+Apply the tier-scaled Source Reconciliation rule in the methodology. T0 and T1 may inventory applicable tasks; development and T2-T4 work should resolve applicable tasks through verification, route and remedy-fit review, qualitative reader-facing placement, a documented no-additional-value disposition, or a precise continuing predicate. Update and read back the parent GitHub issue when its `needs: monitoring` state changes. Rebuild the ARRP Project Console whenever candidate data, either canonical source catalog, a source-level `Monitoring` value, an issue-level monitoring label, the presidential-directives registry, watcher configuration, a canonical project log, page-level publication-disposition metadata, or `framework/print-assembly.json` changes. This reconciliation does not create a separate audit run.
 
 A project-wide monitoring pass is a separate non-scoring workflow governed by [`METHODOLOGY.md`](METHODOLOGY.md#project-wide-monitoring-pass). Begin from the GitHub Project Monitoring view, not from the local console. For each labeled proposal or formal candidate, review all associated sources in `sources.csv`, actively search for material new developments, and record the dated result on the existing parent issue. A monitored source does not remain pending once its owner is known. Remove `needs: monitoring` when the issue no longer warrants recurring review. Do not change a proposal's lifecycle status, score, or Runs unless a material result independently requires the ordinary targeted Change Audit and Internal Remedy-Fit review.
 

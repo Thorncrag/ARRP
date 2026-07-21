@@ -1,7 +1,7 @@
 ---
 title: "ARRP Agent Audit Log"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal operational log."
 ---
 
 # ARRP Agent Audit Log

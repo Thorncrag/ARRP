@@ -7,7 +7,7 @@ print_levels:
 
 # ELEC-014 Criminal-Process and State Election Records Catalog
 
-> **Maintenance tracking:** [GitHub sub-issue #243](https://github.com/Thorncrag/ARRP/issues/243) under [ELEC-014 issue #236](https://github.com/Thorncrag/ARRP/issues/236). Review at least quarterly and upon the event predicates stated in the monitoring issue.
+> **Living research record:** This catalog supports [ELEC-014 issue #236](https://github.com/Thorncrag/ARRP/issues/236) and is reviewed through that proposal's issue-level monitoring.
 
 This catalog supports [ELEC-014](../issues/ELEC-014.md). It records known federal criminal probes, warrants, grand-jury subpoenas, criminal subpoenas, prosecution-threat communications, and criminal-investigative state-election-record demands relevant to election-sensitive federal criminal process.
 

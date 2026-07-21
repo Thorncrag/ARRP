@@ -1,8 +1,8 @@
 ---
 title: "Source Development — HOR-039"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # HOR-039 — Functional Accessibility of Existing Lawful Immigration and Residency Pathways

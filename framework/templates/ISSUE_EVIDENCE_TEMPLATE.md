@@ -1,7 +1,7 @@
 ---
 title: "Issue Evidence Record Template"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal drafting template."
 ---
 
 # Issue Evidence Record Template

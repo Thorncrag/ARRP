@@ -1,8 +1,8 @@
 ---
 title: "Source Development — HOR-010"
 status: working-notes
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal source-development record."
 ---
 
 # HOR-010 — Immigration-courthouse arrests and courthouse-access chilling
