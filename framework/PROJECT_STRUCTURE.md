@@ -63,7 +63,6 @@ sources/                           External source and backup files retained loc
 scripts/                           Repeatable maintenance, intake, synchronization, and publication utilities
 tests/                             Regression tests for project automation and repository conventions
 exports/                           Generated DOCX, PDF, and XLSX outputs
-archive/                           Superseded or migrated source snapshots
 ```
 
 ## File ownership
