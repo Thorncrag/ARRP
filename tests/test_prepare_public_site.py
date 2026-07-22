@@ -127,10 +127,18 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertTrue((self.docs / "legislation" / "index.md").exists())
         path_template = ROOT / "website" / "overrides" / "partials" / "path.html"
         path_item_template = ROOT / "website" / "overrides" / "partials" / "path-item.html"
+        toc_template = ROOT / "website" / "overrides" / "partials" / "toc.html"
         self.assertTrue(path_template.exists())
         self.assertTrue(path_item_template.exists())
+        self.assertTrue(toc_template.exists())
         self.assertIn('aria-current="page"', path_template.read_text(encoding="utf-8"))
         self.assertIn('title.startswith("A-")', path_item_template.read_text(encoding="utf-8"))
+        toc = toc_template.read_text(encoding="utf-8")
+        self.assertIn('class="arrp-page-tools"', toc)
+        self.assertIn("arrp-page-action--contact", toc)
+        self.assertIn("Contact or review", toc)
+        self.assertIn('data-arrp-print', toc)
+        self.assertIn('data-arrp-feedback', toc)
 
     def test_public_page_action_assets_are_staged(self):
         self.assertTrue((ROOT / "assets" / "branding" / "arrp-emblem-master.png").exists())
@@ -143,6 +151,8 @@ class PublicSitePreparationTests(unittest.TestCase):
         stylesheet = (self.docs / "assets" / "stylesheets" / "extra.css").read_text()
         self.assertIn(".arrp-issue-status", stylesheet)
         self.assertIn(".arrp-page-actions", stylesheet)
+        self.assertIn(".arrp-page-tools", stylesheet)
+        self.assertIn(".arrp-page-action--contact::before", stylesheet)
         self.assertIn("h1#explore-by-topic", stylesheet)
         self.assertIn("grid-template-columns: repeat(2", stylesheet)
         self.assertIn(".arrp-topic-guide-title", stylesheet)
