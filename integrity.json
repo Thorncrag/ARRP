@@ -2,8 +2,8 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-22T11:45:56+00:00",
-    "revision": "cc8cf6122871d0f1e1a703d6c8c09e87eb631b5c",
+    "generated_at": "2026-07-22T15:07:03+00:00",
+    "revision": "95c4ec04c61a404410ba99b81c1cbbdde5aa6c9a",
     "result": "findings",
     "counts": {
       "errors": 2,
@@ -12,7 +12,7 @@
       "issue_pages": 61,
       "proposal_pages": 40
     },
-    "duration_seconds": 12.818,
+    "duration_seconds": 10.967,
     "scope": [
       "Issue and proposal structure",
       "Area and topic routing",
@@ -37,19 +37,32 @@
         "id": "error-0001",
         "severity": "error",
         "category": "Internal links",
-        "message": "broken repository link in GitHub issue #14: https://github.com/Thorncrag/ARRP/blob/main/framework/METHODOLOGY.md#horizon-candidate-adjudication-workflow (missing framework/METHODOLOGY.md)",
-        "path": "framework/METHODOLOGY.md#horizon-candidate-adjudication-workflow"
+        "message": "broken repository link in GitHub issue #203: https://github.com/Thorncrag/ARRP/blob/main/areas/PRESS/issues/PRESS-003.md (missing areas/PRESS/issues/PRESS-003.md)",
+        "path": "areas/PRESS/issues/PRESS-003.md"
       },
       {
         "id": "error-0002",
         "severity": "error",
-        "category": "Internal links",
-        "message": "broken repository link in GitHub issue #8: https://github.com/Thorncrag/ARRP/blob/main/framework/METHODOLOGY.md#topic-page-standard (missing framework/METHODOLOGY.md)",
-        "path": "framework/METHODOLOGY.md#topic-page-standard"
+        "category": "Project structure",
+        "message": "Project canonical page for issue #203 is 'https://github.com/Thorncrag/ARRP/blob/main/areas/PRESS/issues/PRESS-003.md'; expected one of https://github.com/Thorncrag/ARRP/blob/main/areas/PRESS/README.md",
+        "path": "areas/PRESS/issues/PRESS-003.md';"
       }
     ]
   },
   "history": [
+    {
+      "generated_at": "2026-07-22T15:07:03+00:00",
+      "revision": "95c4ec04c61a404410ba99b81c1cbbdde5aa6c9a",
+      "result": "findings",
+      "counts": {
+        "errors": 2,
+        "warnings": 0,
+        "findings": 2,
+        "issue_pages": 61,
+        "proposal_pages": 40
+      },
+      "duration_seconds": 10.967
+    },
     {
       "generated_at": "2026-07-22T11:45:56+00:00",
       "revision": "cc8cf6122871d0f1e1a703d6c8c09e87eb631b5c",
