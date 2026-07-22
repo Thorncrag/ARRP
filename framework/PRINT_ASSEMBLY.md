@@ -28,7 +28,7 @@ The compiled proposal document should use the following order.
 
 ### Front Matter
 
-1. cover page using the project title and subtitle from [`../README.md`](../README.md);
+1. cover page using the official ARRP emblem and the project title and subtitle from [`../README.md`](../README.md); the emblem is decorative branding, while the project name remains live text;
 2. [`../ABOUT.md`](../ABOUT.md), containing the reader notice, project approach, authorship, technical-record access, contact, citation, and reuse routes;
 3. [`../PRINT_READERS_GUIDE.md`](../PRINT_READERS_GUIDE.md), with the generated quick issue lookup and online technical-record notice;
 4. table of contents generated from the assembled document; and

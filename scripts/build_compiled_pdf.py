@@ -22,6 +22,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.platypus import (
+    Image,
     PageBreak,
     Paragraph,
     Preformatted,
@@ -370,6 +371,24 @@ def make_styles() -> dict[str, ParagraphStyle]:
         alignment=TA_CENTER,
         spaceAfter=16,
     )
+    styles["CoverLabel"] = ParagraphStyle(
+        "ARRPCoverLabel",
+        parent=base["Heading2"],
+        fontName="Times-Bold",
+        fontSize=12.5,
+        leading=14.5,
+        alignment=TA_CENTER,
+        spaceBefore=7,
+        spaceAfter=4,
+    )
+    styles["CoverNote"] = ParagraphStyle(
+        "ARRPCoverNote",
+        parent=base["BodyText"],
+        fontName="Times-Roman",
+        fontSize=9,
+        leading=10.6,
+        alignment=TA_CENTER,
+    )
     styles["H1"] = ParagraphStyle(
         "ARRPH1",
         parent=base["Heading1"],
@@ -491,6 +510,15 @@ def build_story(styles: dict[str, ParagraphStyle]) -> list:
     federal_bills, state_bills = legislation_files()
     story = []
 
+    emblem_path = ROOT / "assets" / "branding" / "arrp-emblem-print.png"
+    story.append(
+        Image(
+            str(emblem_path),
+            width=1.9 * inch,
+            height=3.02 * inch,
+        )
+    )
+    story.append(Spacer(1, 0.16 * inch))
     story.append(Paragraph("American Restoration and Resilience Project", styles["Title"]))
     story.append(
         Paragraph(
@@ -498,8 +526,8 @@ def build_story(styles: dict[str, ParagraphStyle]) -> list:
             styles["Subtitle"],
         )
     )
-    story.append(Paragraph("Public Proposal Draft", styles["H2"]))
-    story.append(Paragraph("Generated from canonical Markdown sources.", styles["Body"]))
+    story.append(Paragraph("Public Proposal Draft", styles["CoverLabel"]))
+    story.append(Paragraph("Generated from canonical Markdown sources.", styles["CoverNote"]))
     story.append(PageBreak())
 
     story.extend(markdown_to_flowables(read(ROOT / "ABOUT.md"), styles, heading_offset=0))
@@ -566,6 +594,10 @@ def draw_footer(canvas, doc) -> None:
     canvas.restoreState()
 
 
+def draw_cover(_canvas, _doc) -> None:
+    """Keep the title page visually separate from the running publication."""
+
+
 def main() -> None:
     EXPORT_DIR.mkdir(parents=True, exist_ok=True)
     styles = make_styles()
@@ -579,7 +611,7 @@ def main() -> None:
         title="American Restoration and Resilience Project - Public Proposal Draft",
         author="Benjamin Smith",
     )
-    doc.build(build_story(styles), onFirstPage=draw_footer, onLaterPages=draw_footer)
+    doc.build(build_story(styles), onFirstPage=draw_cover, onLaterPages=draw_footer)
     print(OUTPUT)
 
 
