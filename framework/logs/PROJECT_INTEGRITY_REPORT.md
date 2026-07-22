@@ -10,15 +10,18 @@ print_exclusion_reason: "Internal operational report."
 
 ## Current Result
 
-- **Result:** Clean
-- **Errors:** 0
+- **Result:** Findings require review
+- **Errors:** 2
 - **Warnings:** 0
 - **Issue pages checked:** 61
 - **Proposal pages checked:** 40
 
 ## Current Findings
 
-No repeatable integrity findings are currently reported.
+### Internal links
+
+- **ERROR:** broken repository link in GitHub issue #14: https://github.com/Thorncrag/ARRP/blob/main/framework/METHODOLOGY.md#horizon-candidate-adjudication-workflow (missing framework/METHODOLOGY.md)
+- **ERROR:** broken repository link in GitHub issue #8: https://github.com/Thorncrag/ARRP/blob/main/framework/METHODOLOGY.md#topic-page-standard (missing framework/METHODOLOGY.md)
 
 ## Checks Included
 
