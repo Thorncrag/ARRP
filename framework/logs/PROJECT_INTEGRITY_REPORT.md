@@ -10,15 +10,17 @@ print_exclusion_reason: "Internal operational report."
 
 ## Current Result
 
-- **Result:** Clean
+- **Result:** Findings require review
 - **Errors:** 0
-- **Warnings:** 0
+- **Warnings:** 1
 - **Issue pages checked:** 61
 - **Proposal pages checked:** 40
 
 ## Current Findings
 
-No repeatable integrity findings are currently reported.
+### Project structure
+
+- **WARNING:** GitHub Project synchronization check skipped; rerun in the authenticated host context: unknown owner type
 
 ## Checks Included
 
