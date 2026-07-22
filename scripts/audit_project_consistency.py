@@ -1035,29 +1035,94 @@ def fetch_github_issues(failures: list[str], warnings: list[str]) -> list[dict[s
 
 
 def fetch_github_project_items(failures: list[str], warnings: list[str]) -> list[dict[str, object]] | None:
-    command = [
-        "gh",
-        "project",
-        "item-list",
-        str(GITHUB_PROJECT_NUMBER),
-        "--owner",
-        GITHUB_PROJECT_OWNER,
-        "--format",
-        "json",
-        "--limit",
-        "1000",
-    ]
-    payload, error = run_gh_json(command)
-    if payload is None:
-        report(
-            "WARNING",
-            "GitHub Project synchronization check skipped; rerun in the authenticated host context: " + error,
-            failures,
-            warnings,
-        )
-        return None
-    items = payload.get("items", []) if isinstance(payload, dict) else []
-    return list(items) if isinstance(items, list) else []
+    """Read the user-owned Project directly, avoiding gh owner-type discovery in Actions."""
+    query = """
+query($owner:String!,$number:Int!,$after:String){
+  user(login:$owner){
+    projectV2(number:$number){
+      items(first:100,after:$after){
+        pageInfo{hasNextPage endCursor}
+        nodes{
+          id
+          content{... on Issue{number title url}}
+          fieldValues(first:50){
+            nodes{
+              ... on ProjectV2ItemFieldTextValue{text field{... on ProjectV2Field{name}}}
+              ... on ProjectV2ItemFieldNumberValue{number field{... on ProjectV2Field{name}}}
+              ... on ProjectV2ItemFieldSingleSelectValue{name field{... on ProjectV2SingleSelectField{name}}}
+            }
+          }
+        }
+      }
+    }
+  }
+}
+""".strip()
+    after = ""
+    items: list[dict[str, object]] = []
+    while True:
+        command = [
+            "gh",
+            "api",
+            "graphql",
+            "-F",
+            f"owner={GITHUB_PROJECT_OWNER}",
+            "-F",
+            f"number={GITHUB_PROJECT_NUMBER}",
+            "-f",
+            f"query={query}",
+        ]
+        if after:
+            command.extend(["-F", f"after={after}"])
+        payload, error = run_gh_json(command)
+        if payload is None:
+            report(
+                "WARNING",
+                "GitHub Project synchronization check skipped; rerun in the authenticated host context: " + error,
+                failures,
+                warnings,
+            )
+            return None
+        try:
+            page = payload["data"]["user"]["projectV2"]["items"]
+        except (KeyError, TypeError):
+            report(
+                "WARNING",
+                "GitHub Project synchronization check skipped; the Project GraphQL response was incomplete",
+                failures,
+                warnings,
+            )
+            return None
+        for node in page.get("nodes") or []:
+            item: dict[str, object] = {
+                "id": node.get("id"),
+                "content": node.get("content") or {},
+            }
+            for value in (node.get("fieldValues") or {}).get("nodes") or []:
+                field = value.get("field") or {}
+                field_name = str(field.get("name") or "").casefold()
+                if not field_name:
+                    continue
+                if "text" in value:
+                    item[field_name] = value.get("text")
+                elif "number" in value:
+                    item[field_name] = value.get("number")
+                elif "name" in value:
+                    item[field_name] = value.get("name")
+            items.append(item)
+        page_info = page.get("pageInfo") or {}
+        if not page_info.get("hasNextPage"):
+            break
+        after = str(page_info.get("endCursor") or "")
+        if not after:
+            report(
+                "WARNING",
+                "GitHub Project synchronization check stopped at an invalid pagination cursor",
+                failures,
+                warnings,
+            )
+            return None
+    return items
 
 
 def check_github_issue_links(
