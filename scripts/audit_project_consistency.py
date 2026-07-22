@@ -60,9 +60,17 @@ PROJECT_REBASELINE_VALUES = {
     "rebaseline-complete": "Rebaseline complete",
     "soft-rebaseline-needed": "Soft rebaseline needed",
 }
-READY_PROJECT_STATUSES = {
+READY_PROJECT_DEVELOPMENT_LEVELS = {
     "release candidate",
     "review ready",
+}
+PROJECT_DEVELOPMENT_LEVELS = {
+    "candidate",
+    "admitted / undeveloped",
+    "defined proposal",
+    "developed proposal",
+    "review ready",
+    "release candidate",
 }
 AUTHORITATIVE_SOURCE_RECORDS = (
     (
@@ -192,7 +200,7 @@ def local_target(path: Path, raw_target: str) -> Path | None:
     target = raw_target.strip().strip("<>").split(" ", 1)[0]
     if not target or target.startswith(("#", "http://", "https://", "mailto:", "data:")):
         return None
-    target = unquote(target.split("#", 1)[0])
+    target = unquote(target.split("#", 1)[0].split("?", 1)[0])
     if not target:
         return None
     if path == ROOT / "website" / "404.md" and target == "index.md":
@@ -1223,19 +1231,23 @@ def check_github_issue_links(
     return "\n".join(str(issue.get("body") or "") for issue in issues)
 
 
-def expected_project_status(metadata: dict[str, str]) -> set[str]:
-    """Return unambiguous Project status values implied by canonical issue metadata."""
+def expected_project_development_level(metadata: dict[str, str]) -> set[str]:
+    """Return unambiguous Project maturity values implied by canonical issue metadata."""
     status = metadata.get("status", "")
     try:
         score = int(metadata.get("audit_score", "0"))
     except ValueError:
         score = 0
     if status == "developed" and score >= 75:
-        return READY_PROJECT_STATUSES
-    if status == "developed" and 50 <= score <= 74:
-        return {"developed draft"}
-    if status == "developed" and 1 <= score <= 49:
-        return {"in development"}
+        return READY_PROJECT_DEVELOPMENT_LEVELS
+    if status == "developed" and 1 <= score <= 74:
+        return {"developed proposal"}
+    return set()
+
+
+def expected_project_workflow_status(metadata: dict[str, str]) -> set[str]:
+    """Return workflow states that are unambiguously implied by canonical metadata."""
+    status = metadata.get("status", "")
     return {
         "awaiting-merits-adjudication": {"deferred / parked", "blocked"},
         "deferred": {"deferred / parked"},
@@ -1369,6 +1381,35 @@ def check_github_synchrony(
                     failures,
                     warnings,
                 )
+        project_level = normalized_text(project_item.get("development level"))
+        if not project_level:
+            report(
+                "ERROR",
+                f"active {kind} {object_id or '#' + number_text} lacks a Project Development level",
+                failures,
+                warnings,
+            )
+        elif project_level not in PROJECT_DEVELOPMENT_LEVELS:
+            report(
+                "ERROR",
+                f"active {kind} {object_id or '#' + number_text} has unknown Project Development level {project_item.get('development level')!r}",
+                failures,
+                warnings,
+            )
+        elif kind == "horizon" and project_level != "candidate":
+            report(
+                "ERROR",
+                f"active horizon {object_id or '#' + number_text} has Development level {project_item.get('development level')!r}; expected 'Candidate'",
+                failures,
+                warnings,
+            )
+        elif kind == "proposal" and project_level == "candidate":
+            report(
+                "ERROR",
+                f"active proposal {object_id or '#' + number_text} cannot use Development level 'Candidate'",
+                failures,
+                warnings,
+            )
         if not metadata or metadata.get("record_type") == "source-development":
             continue
         if metadata.get("audit_score"):
@@ -1385,7 +1426,16 @@ def check_github_synchrony(
                     failures,
                     warnings,
                 )
-        allowed_statuses = expected_project_status(metadata)
+        allowed_levels = expected_project_development_level(metadata)
+        project_level = normalized_text(project_item.get("development level"))
+        if allowed_levels and project_level not in allowed_levels:
+            report(
+                "ERROR",
+                f"Project Development level for {object_id} is {project_item.get('development level')!r}; repository metadata implies {', '.join(sorted(allowed_levels))}",
+                failures,
+                warnings,
+            )
+        allowed_statuses = expected_project_workflow_status(metadata)
         project_status = normalized_text(project_item.get("status"))
         if allowed_statuses and project_status not in allowed_statuses:
             report(

@@ -6,8 +6,10 @@ from pathlib import Path
 from scripts.audit_project_consistency import (
     ROOT,
     active_project_files,
-    expected_project_status,
+    expected_project_development_level,
+    expected_project_workflow_status,
     github_repository_targets,
+    local_target,
     markdown_anchor_ids,
     markdown_report,
     research_files,
@@ -36,6 +38,13 @@ SOURCE_DEVELOPMENT_STUB_IDS = {
 
 
 class GitHubIssueLinkTests(unittest.TestCase):
+    def test_local_link_queries_do_not_change_filesystem_target(self):
+        source = ROOT / "research" / "horizon-review-console" / "index.html"
+        self.assertEqual(
+            local_target(source, "app.js?v=20"),
+            (source.parent / "app.js").resolve(),
+        )
+
     def test_markdown_anchor_inventory_supports_generated_and_explicit_ids(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "page.md"
@@ -53,21 +62,25 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertIn("repeated-1", anchors)
         self.assertIn("manual-anchor", anchors)
 
-    def test_project_status_is_inferred_only_when_methodology_is_unambiguous(self):
+    def test_project_maturity_and_workflow_are_inferred_independently(self):
         self.assertEqual(
-            expected_project_status({"status": "developed", "audit_score": "77"}),
+            expected_project_development_level({"status": "developed", "audit_score": "77"}),
             {
                 "release candidate",
                 "review ready",
             },
         )
         self.assertEqual(
-            expected_project_status({"status": "developed", "audit_score": "63"}),
-            {"developed draft"},
+            expected_project_development_level({"status": "developed", "audit_score": "63"}),
+            {"developed proposal"},
         )
         self.assertEqual(
-            expected_project_status({"status": "candidate", "audit_score": "0"}),
+            expected_project_development_level({"status": "candidate", "audit_score": "0"}),
             set(),
+        )
+        self.assertEqual(
+            expected_project_workflow_status({"status": "deferred", "audit_score": "0"}),
+            {"deferred / parked"},
         )
 
     def test_integrity_markdown_report_is_a_stable_current_snapshot(self):

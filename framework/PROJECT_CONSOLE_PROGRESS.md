@@ -6,7 +6,7 @@ print_exclusion_reason: "Internal workflow or tool documentation."
 
 # Project Console Progress
 
-The **Progress** tab in the internal [ARRP Project Console](../research/horizon-review-console/index.html) is the project's sole human-facing progress dashboard. It visualizes the goal of bringing every eligible proposal to at least **Review Ready** by **December 31, 2026**. It does not replace the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2), which remains the lifecycle authority, or repository issue pages and audit sidecars, which remain the substantive and audit authorities.
+The **Progress** tab in the internal [ARRP Project Console](../research/horizon-review-console/index.html) is the project's sole human-facing progress dashboard. It visualizes the goal of bringing every eligible proposal to at least **Review Ready** by **December 31, 2026** and includes a compact six-stage development board. It does not replace the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2), whose `Development level` and `Status` fields remain authoritative, or repository issue pages and audit sidecars, which remain the substantive and audit authorities.
 
 ARRP does not maintain a second Markdown dashboard on GitHub. Automation publishes only `progress.json` and `history.json` to the data-only `project-console-data` branch. The console consumes that feed and retains a checked-in offline snapshot. The data branch is infrastructure, not a second reader interface, and must not contain a rendered dashboard, narrative page, or chart files.
 
@@ -20,18 +20,24 @@ The official target and calculation settings are stored in [`.github/project-con
 
 ## Review Ready rule
 
-An eligible proposal counts toward the goal only when its GitHub Project score is at least 75 and its Project status is one of the two current lifecycle values that represent at least Review Ready:
+An eligible proposal counts toward the goal only when its GitHub Project score is at least 75 and its `Development level` is one of the two maturity values that represent at least Review Ready:
 
 - `Review ready`;
 - `Release candidate`.
 
-The issue page retains the more precise score-band label—such as `Advanced Review Ready`, `Proposal Ready`, `Publication Ready`, or `Fully Validated`—without inventing Project status values that do not exist in the authoritative field.
+The issue page retains the more precise score-band label—such as `Advanced Review Ready`, `Proposal Ready`, `Publication Ready`, or `Fully Validated`—without inventing additional Project maturity values. The separate workflow `Status` does not change the Review Ready count; it explains what action, hold, or review comes next.
 
-`Completed within scope` and other administrative dispositions do not count as development progress. Merging, integrating, retiring, rejecting, or rerouting a record may change the active denominator, but it does not increase the Review Ready numerator or attainment velocity. The calculation flags status/score inconsistencies and undeveloped lifecycle drift but never repairs Project data automatically.
+`Completed within scope` and other administrative dispositions do not count as development progress. Merging, integrating, retiring, rejecting, or rerouting a record may change the active denominator, but it does not increase the Review Ready numerator or attainment velocity. The calculation flags development-level/score inconsistencies and workflow drift but never repairs Project data automatically.
+
+## Development board
+
+The Progress tab's read-only board places every formal candidate and active proposal into one of six columns: `Candidate`, `Admitted / undeveloped`, `Defined proposal`, `Developed proposal`, `Review ready`, and `Release candidate`. All six columns remain visible in one desktop row rather than reproducing GitHub's horizontally scrolling Kanban. Each compact card displays only the stable identifier, its current score when available, and links to the live proposal page and authoritative GitHub issue. The workflow `Status` remains available as a compact cue and accessible label but does not create another board column.
+
+The board is a visualization of Project and registry data, not an editable or competing tracker. Candidates come from active Horizon records; proposals come from active `proposal` registry rows. A missing or unrecognized development level appears in a visible unassigned warning rather than being silently inferred.
 
 ## Metrics and forecast
 
-The console reports eligible, Review Ready, and remaining counts; current portfolio coverage; scope change from baseline; required and rolling weekly pace; forecast completion; schedule variance; area coverage; closest-to-ready proposals; and tracking warnings. Its trajectory graph compares actual attainment with the pace required to reach the official target.
+The console reports eligible, Review Ready, and remaining counts; current portfolio coverage; scope change from baseline; required and rolling weekly pace; forecast completion; schedule variance; area coverage; closest-to-ready proposals; the six-stage development board; and tracking warnings. Its trajectory graph compares actual attainment with the pace required to reach the official target.
 
 Required weekly pace is:
 
@@ -56,7 +62,7 @@ The [`Project Console progress data`](../.github/workflows/project-console-progr
 5. calculates the metrics, forecast, area results, backlog, and warnings; and
 6. publishes only `progress.json` and `history.json` to `project-console-data` through non-forced Git data API updates.
 
-The ordinary `main` push trigger watches implementation and configuration files, not every issue or audit. When a scored audit changes an eligible proposal's Project `Status`, `Score`, or goal eligibility, audit closeout must dispatch this workflow after Project readback and the repository push, wait for success, and verify `project-console-data/progress.json`. One final verified dispatch may close an expressly authorized multi-issue or successive-tier batch. The daily schedule is a recovery backstop.
+The ordinary `main` push trigger watches implementation and configuration files, not every issue or audit. When a scored audit changes an eligible proposal's Project `Development level`, workflow `Status`, `Score`, or goal eligibility, audit closeout must dispatch this workflow after Project readback and the repository push, wait for success, and verify `project-console-data/progress.json`. One final verified dispatch may close an expressly authorized multi-issue or successive-tier batch. The daily schedule is a recovery backstop.
 
 History remains off `main` so automated daily snapshots do not create ordinary development commits. If retained history is unavailable or invalid, the builder safely restarts from the supported retrospective seed and current snapshot. Never edit the data branch manually.
 

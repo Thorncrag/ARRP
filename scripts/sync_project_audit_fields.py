@@ -19,6 +19,7 @@ REGISTRY_PATH = ROOT / "inventory" / "github_issue_registry.csv"
 
 REBASELINE_FIELD = "Rebaseline status"
 CHANGE_AUDIT_FIELD = "Change audit needed"
+DEVELOPMENT_LEVEL_FIELD = "Development level"
 
 REBASELINE_MAP = {
     "current": "Current",
@@ -36,6 +37,21 @@ CHANGE_AUDIT_MAP = {
     "yes": "Yes",
     "1": "Yes",
 }
+
+
+def development_level_from_metadata(meta: dict[str, str], current: str) -> str:
+    """Return only maturity values that canonical metadata establishes unambiguously."""
+    try:
+        score = int(meta.get("audit_score", "0"))
+    except ValueError:
+        score = 0
+    if score >= 75:
+        return "Release candidate" if current == "Release candidate" else "Review ready"
+    if score >= 1:
+        return "Developed proposal"
+    if meta.get("foundation_status", "").strip().lower() == "approved":
+        return "Defined proposal"
+    return ""
 
 
 def run_gh(args: list[str]) -> str:
@@ -259,6 +275,7 @@ def main() -> int:
     registry = registry_rows()
     rebaseline_field = fields[REBASELINE_FIELD]
     change_field = fields[CHANGE_AUDIT_FIELD]
+    development_field = fields[DEVELOPMENT_LEVEL_FIELD]
 
     planned = 0
     updated = 0
@@ -337,6 +354,19 @@ def main() -> int:
                         value=score,
                         label=f"{label} Score",
                     )
+            current_level = str(item.get(DEVELOPMENT_LEVEL_FIELD.lower()) or "")
+            development_level = development_level_from_metadata(meta, current_level)
+            if development_level and current_level != development_level:
+                planned += 1
+                updated += set_select(
+                    apply=args.apply,
+                    project_id=project_id,
+                    item_id=item["id"],
+                    field_id=development_field["id"],
+                    option=development_level,
+                    option_id_value=option_id(development_field, development_level),
+                    label=f"{label} {DEVELOPMENT_LEVEL_FIELD}",
+                )
 
         rebaseline_raw = meta.get("audit_rebaseline_status", "").strip().lower()
         rebaseline_option = REBASELINE_MAP.get(rebaseline_raw)

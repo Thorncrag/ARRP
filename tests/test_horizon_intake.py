@@ -154,7 +154,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 19)
+        self.assertEqual(self.console["schema_version"], 20)
         self.assertEqual(
             set(self.console),
             {
@@ -385,7 +385,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(self.console["github_synced_at"])
         self.assertTrue(all(row["issue_state"] == "Open" for row in active))
         self.assertTrue(all(row["issue_url"].startswith("https://github.com/Thorncrag/ARRP/issues/") for row in active))
-        self.assertFalse(any(row["status"] == "Project status unavailable" for row in active))
+        self.assertFalse(any(row["development_level"] == "Development level unavailable" for row in active))
+        self.assertFalse(any(row["workflow_status"] == "Workflow status unavailable" for row in active))
 
     def test_proposed_candidate_dossiers_are_derived_from_authoritative_records(self) -> None:
         active = self.console["active_horizon_records"]
@@ -492,6 +493,9 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Court-case watcher", console_html)
         self.assertIn("Presidential-directives watcher", console_html)
         self.assertIn("Central review inbox", console_html)
+        self.assertIn('id="development-board"', console_html)
+        self.assertIn("Development level", console_html)
+        self.assertIn("workflowStatus", console_app)
         for log_id in {"horizon", "agents", "source-monitor", "changes"}:
             self.assertIn(f'id="log-tab-{log_id}"', console_html)
             self.assertIn(f'id="log-panel-{log_id}"', console_html)

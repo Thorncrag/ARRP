@@ -52,7 +52,7 @@
             <div>
               <span class="eyebrow">Review Ready goal</span>
               <h2 id="progress-heading">Project progress</h2>
-              <p>Current portfolio progress toward bringing every eligible proposal to Review Ready by the official target date. GitHub Project fields remain authoritative.</p>
+              <p>Current portfolio progress toward bringing every eligible proposal to Review Ready by the official target date. Development level and score govern maturity; workflow status identifies the next action. GitHub Project fields remain authoritative.</p>
             </div>
             <p class="refresh-note">Progress data as of <time id="progress-as-of">—</time></p>
           </div>
@@ -78,6 +78,13 @@
               <div id="progress-backlog-list" class="progress-backlog-list"></div>
             </section>
           </div>
+          <section class="development-board-section" aria-labelledby="development-board-heading">
+            <div class="progress-chart-heading">
+              <div><h3 id="development-board-heading">Development board</h3><p>All formal candidates and active proposals across the six substantive stages. Cards show the stable identifier, score, live page, GitHub issue, and current workflow cue.</p></div>
+            </div>
+            <p class="attention-note development-board-warning" id="development-board-warning" hidden></p>
+            <div class="development-board" id="development-board"></div>
+          </section>
           <div class="source-list dossier-actions">
             <a class="record-link secondary" href="https://github.com/users/Thorncrag/projects/2" target="_blank" rel="noopener noreferrer">Open authoritative GitHub Project ↗</a>
           </div>
@@ -112,14 +119,15 @@
           <div>
             <span class="eyebrow">GitHub-authoritative queue</span>
             <h2 id="proposed-heading">Candidates <span class="count-pill" id="proposed-count">0</span></h2>
-            <p>Decision dossiers for formal open <code>HOR-###</code> records. Each view assembles the GitHub issue and Project status, Horizon intake history, supporting sources and research, overlap analysis, and unresolved questions without replacing those authoritative records.</p>
+            <p>Decision dossiers for formal open <code>HOR-###</code> records. Each view assembles the GitHub issue, substantive development level, workflow status, Horizon intake history, supporting sources and research, overlap analysis, and unresolved questions without replacing those authoritative records.</p>
           </div>
           <p class="refresh-note">GitHub synchronized <time id="github-synced-at">—</time></p>
         </div>
 
-        <div class="queue-controls">
-          <label for="proposed-search">Search<input id="proposed-search" type="search" placeholder="Issue, title, area, or status…"></label>
-          <label for="proposed-status">Project status<select id="proposed-status"><option value="all">All statuses</option></select></label>
+        <div class="queue-controls formal-controls">
+          <label for="proposed-search">Search<input id="proposed-search" type="search" placeholder="Issue, title, area, level, or workflow…"></label>
+          <label for="proposed-level">Development level<select id="proposed-level"><option value="all">All levels</option></select></label>
+          <label for="proposed-status">Workflow status<select id="proposed-status"><option value="all">All statuses</option></select></label>
           <label for="proposed-area">Area<select id="proposed-area"><option value="all">All areas</option></select></label>
         </div>
         <p class="result-count"><b id="proposed-visible">0</b> candidates shown</p>
@@ -441,7 +449,7 @@
 
     <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
 
-    <script src="catalog-data.js"></script>
-    <script src="app.js"></script>
+    <script src="catalog-data.js?v=20"></script>
+    <script src="app.js?v=20"></script>
   </body>
 </html>

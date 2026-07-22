@@ -26,7 +26,7 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         self.history = MODULE.read_json(ROOT / "tests" / "fixtures" / "progress-history.json")
         self.registry = MODULE.read_registry(ROOT / "tests" / "fixtures" / "progress-registry.csv")
 
-    def test_filters_to_proposals_and_uses_status_as_readiness_authority(self):
+    def test_filters_to_proposals_and_uses_development_level_as_readiness_authority(self):
         title, items = MODULE.parse_items(self.raw, self.config, self.registry)
         self.assertEqual(title, "American Restoration and Resilience Project")
         self.assertEqual(len(items), 4)
@@ -47,7 +47,8 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         missing = next(item for item in items if item["identifier"] == "TEST-999")
         self.assertEqual(len(items), 5)
         self.assertFalse(missing["ready"])
-        self.assertEqual(missing["status"], "Unspecified")
+        self.assertEqual(missing["developmentLevel"], "Unspecified")
+        self.assertEqual(missing["workflowStatus"], "Unspecified")
         self.assertIn("no matching Project item", missing["warnings"][0])
 
     def test_title_identifier_wins_when_merged_items_share_canonical_page(self):
@@ -65,7 +66,7 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         merged["fieldValues"]["nodes"] = [
             node
             for node in merged["fieldValues"]["nodes"]
-            if (node.get("field") or {}).get("name") not in {"Title", "Status", "Score"}
+            if (node.get("field") or {}).get("name") not in {"Title", "Status", "Development level", "Score"}
         ] + [
             {
                 "__typename": "ProjectV2ItemFieldTextValue",
@@ -81,12 +82,13 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         raw["items"].append(merged)
         _, items = MODULE.parse_items(raw, self.config, self.registry)
         proposal = next(item for item in items if item["identifier"] == "REG-001")
-        self.assertEqual(proposal["status"], "Developed draft")
+        self.assertEqual(proposal["developmentLevel"], "Developed proposal")
+        self.assertEqual(proposal["workflowStatus"], "Audit needed")
         self.assertEqual(proposal["score"], 68)
         self.assertFalse(proposal["ready"])
         self.assertEqual(proposal["warnings"], [])
 
-    def test_ready_status_without_score_emits_consistency_warning(self):
+    def test_ready_development_level_without_score_emits_consistency_warning(self):
         raw = deepcopy(self.raw)
         nodes = raw["items"][0]["fieldValues"]["nodes"]
         raw["items"][0]["fieldValues"]["nodes"] = [
@@ -98,7 +100,7 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         self.assertIsNone(ready["score"])
         self.assertIn("is not counted", ready["warnings"][0])
 
-    def test_pending_status_with_existing_vehicle_emits_lifecycle_warning(self):
+    def test_pending_workflow_status_with_existing_vehicle_emits_lifecycle_warning(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             issue = root / "areas" / "DOM" / "issues" / "DOM-005.md"
@@ -115,16 +117,17 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         self.assertEqual(len(pending["warnings"]), 1)
         self.assertIn("review whether the status should be In development or Audit needed", pending["warnings"][0])
 
-    def test_completed_within_scope_is_not_counted_as_development_progress(self):
+    def test_workflow_status_does_not_change_development_progress(self):
         raw = deepcopy(self.raw)
-        nodes = raw["items"][1]["fieldValues"]["nodes"]
+        nodes = raw["items"][0]["fieldValues"]["nodes"]
         for node in nodes:
             if (node.get("field") or {}).get("name") == "Status":
                 node["name"] = "Completed within scope"
         _, items = MODULE.parse_items(raw, self.config, self.registry)
-        completed = next(item for item in items if item["identifier"] == "REG-001")
-        self.assertFalse(completed["ready"])
-        self.assertEqual(completed["score"], 68)
+        completed = next(item for item in items if item["identifier"] == "DOJ-007")
+        self.assertTrue(completed["ready"])
+        self.assertEqual(completed["developmentLevel"], "Review ready")
+        self.assertEqual(completed["workflowStatus"], "Completed within scope")
         self.assertEqual(completed["warnings"], [])
 
     def test_retrospective_seed_extends_history_without_replacing_live_dates(self):

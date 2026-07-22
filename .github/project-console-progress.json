@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "projectOwner": "Thorncrag",
   "projectNumber": 2,
   "repository": "Thorncrag/ARRP",
@@ -7,6 +7,7 @@
   "projectFields": {
     "title": "Title",
     "area": "Area",
+    "developmentLevel": "Development level",
     "status": "Status",
     "score": "Score",
     "lastAudit": "Last audit",
@@ -21,7 +22,7 @@
     "baselineTotal": 204,
     "targetDate": "2026-12-31",
     "reviewReadyScore": 75,
-    "readyStatuses": [
+    "readyDevelopmentLevels": [
       "Review ready",
       "Release candidate"
     ],
