@@ -104,19 +104,22 @@ a { color: var(--blue); }
 .workflow-summary li span { display: block; margin-top: .15rem; color: var(--muted); font-size: .88rem; }
 
 .console-tabs {
+  width: 100%;
   margin-top: 1.25rem;
   padding: .45rem;
   overflow-x: auto;
 }
 .tab-list {
   display: grid;
-  grid-template-columns: repeat(6, minmax(140px, 1fr));
+  width: 100%;
+  grid-template-columns: .9fr 1.15fr 1.05fr .85fr .9fr .7fr 1fr;
   gap: .35rem;
-  min-width: 900px;
+  min-width: 860px;
 }
 .tab-list button {
   min-height: 3rem;
-  padding: .65rem .8rem;
+  min-width: 0;
+  padding: .65rem clamp(.45rem, .8vw, .8rem);
   border: 1px solid transparent;
   border-radius: .65rem;
   color: var(--muted);
@@ -124,6 +127,7 @@ a { color: var(--blue); }
   cursor: pointer;
   font: inherit;
   font-weight: 750;
+  white-space: nowrap;
 }
 .tab-list button:hover { color: var(--blue); background: var(--soft); }
 .tab-list button[aria-selected="true"] {
