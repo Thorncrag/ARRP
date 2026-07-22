@@ -24,6 +24,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--repository", required=True)
     parser.add_argument("--branch", required=True)
     parser.add_argument("--token-env", default="GITHUB_TOKEN")
+    parser.add_argument(
+        "--vercel-config",
+        type=Path,
+        help="Include a Vercel branch-deployment control file at participate/vercel.json.",
+    )
     return parser.parse_args()
 
 
@@ -59,13 +64,17 @@ def api_request(
         raise RuntimeError("GitHub REST request failed: {} {}".format(exc.code, detail))
 
 
-def collect_files(source: Path) -> List[Tuple[str, str]]:
+def collect_files(source: Path, vercel_config: Optional[Path] = None) -> List[Tuple[str, str]]:
     if not source.is_dir():
         raise RuntimeError("Progress-data source directory does not exist: {}".format(source))
     files = []
     for path in sorted(candidate for candidate in source.rglob("*") if candidate.is_file()):
         relative = path.relative_to(source).as_posix()
         files.append((relative, path.read_text(encoding="utf-8")))
+    if vercel_config is not None:
+        if not vercel_config.is_file():
+            raise RuntimeError("Vercel deployment-control file does not exist: {}".format(vercel_config))
+        files.append(("participate/vercel.json", vercel_config.read_text(encoding="utf-8")))
     if not files:
         raise RuntimeError("Progress-data source directory is empty: {}".format(source))
     return files
@@ -79,8 +88,14 @@ def update_ref_path(repository: str, branch: str) -> str:
     return "/repos/{}/git/refs/heads/{}".format(repository, urllib.parse.quote(branch, safe=""))
 
 
-def publish(source: Path, repository: str, branch: str, token: str) -> str:
-    files = collect_files(source)
+def publish(
+    source: Path,
+    repository: str,
+    branch: str,
+    token: str,
+    vercel_config: Optional[Path] = None,
+) -> str:
+    files = collect_files(source, vercel_config)
     existing = api_request(token, "GET", get_ref_path(repository, branch), allow_not_found=True)
     parents = [str((existing.get("object") or {})["sha"])] if existing else []
 
@@ -153,7 +168,13 @@ def main() -> int:
     token = os.environ.get(args.token_env, "").strip()
     if not token:
         raise RuntimeError("Missing {} for progress-data publication.".format(args.token_env))
-    commit_sha = publish(args.source, args.repository, args.branch, token)
+    commit_sha = publish(
+        args.source,
+        args.repository,
+        args.branch,
+        token,
+        args.vercel_config,
+    )
     print("Published {} to {} at {}".format(args.source, args.branch, commit_sha[:12]))
     return 0
 

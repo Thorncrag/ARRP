@@ -202,42 +202,64 @@ class ProjectConsoleProgressTests(unittest.TestCase):
             saved = json.loads((output / "progress.json").read_text(encoding="utf-8"))
             self.assertEqual(saved["metrics"]["total"], 4)
 
-    def test_publisher_collects_only_generated_data_files(self):
+    def test_publisher_collects_generated_data_and_optional_deployment_control(self):
         with tempfile.TemporaryDirectory() as directory:
-            source = Path(directory)
+            source = Path(directory) / "data"
+            source.mkdir()
             (source / "progress.json").write_text("{}\n", encoding="utf-8")
             (source / "history.json").write_text("{}\n", encoding="utf-8")
-            files = PUBLISH_MODULE.collect_files(source)
-            self.assertEqual([path for path, _ in files], ["history.json", "progress.json"])
+            vercel_config = Path(directory) / "vercel-control.json"
+            vercel_config.write_text('{"git":{"deploymentEnabled":false}}\n', encoding="utf-8")
+            files = PUBLISH_MODULE.collect_files(source, vercel_config)
+            self.assertEqual(
+                [path for path, _ in files],
+                ["history.json", "progress.json", "participate/vercel.json"],
+            )
 
     def test_publisher_creates_isolated_generated_branch_tree(self):
         with tempfile.TemporaryDirectory() as directory:
-            source = Path(directory)
+            source = Path(directory) / "data"
+            source.mkdir()
             (source / "progress.json").write_text(
                 json.dumps({"asOf": "2026-07-15"}), encoding="utf-8"
             )
             (source / "history.json").write_text(
                 json.dumps({"schemaVersion": 1, "snapshots": []}), encoding="utf-8"
             )
+            vercel_config = Path(directory) / "vercel-control.json"
+            vercel_config.write_text('{"git":{"deploymentEnabled":false}}\n', encoding="utf-8")
             responses = [
                 None,
                 {"sha": "blob-one"},
                 {"sha": "blob-two"},
+                {"sha": "blob-three"},
                 {"sha": "tree-sha"},
                 {"sha": "commit-sha"},
                 {"ref": "refs/heads/project-console-data"},
             ]
             with mock.patch.object(PUBLISH_MODULE, "api_request", side_effect=responses) as request:
                 commit = PUBLISH_MODULE.publish(
-                    source, "Thorncrag/ARRP", "project-console-data", "token"
+                    source,
+                    "Thorncrag/ARRP",
+                    "project-console-data",
+                    "token",
+                    vercel_config,
                 )
             self.assertEqual(commit, "commit-sha")
-            tree_payload = request.call_args_list[3].args[3]
+            tree_payload = request.call_args_list[4].args[3]
             self.assertNotIn("base_tree", tree_payload)
-            commit_payload = request.call_args_list[4].args[3]
+            self.assertEqual(
+                [entry["path"] for entry in tree_payload["tree"]],
+                ["history.json", "progress.json", "participate/vercel.json"],
+            )
+            commit_payload = request.call_args_list[5].args[3]
             self.assertEqual(commit_payload["parents"], [])
-            create_ref_payload = request.call_args_list[5].args[3]
+            create_ref_payload = request.call_args_list[6].args[3]
             self.assertEqual(create_ref_payload["ref"], "refs/heads/project-console-data")
+
+    def test_vercel_config_excludes_data_branch_from_application_previews(self):
+        config = json.loads((ROOT / "participate" / "vercel.json").read_text(encoding="utf-8"))
+        self.assertFalse(config["git"]["deploymentEnabled"]["project-console-data"])
 
 
 if __name__ == "__main__":
