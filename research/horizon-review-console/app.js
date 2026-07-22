@@ -13,7 +13,7 @@
 
   const byId = (id) => document.getElementById(id);
   const preliminaryState = { search: "", term: "all", area: "all" };
-  const proposedState = { search: "", status: "all", area: "all" };
+  const proposedState = { search: "", level: "all", status: "all", area: "all" };
   const sourceStates = {
     sources: { search: "", filter: "all", page: 1, sortKey: null, sortDirection: "asc" }
   };
@@ -64,6 +64,15 @@
   const LIVE_INTEGRITY_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/integrity.json";
   const LIVE_PULL_REQUESTS_URL = "https://api.github.com/repos/Thorncrag/ARRP/pulls?state=open&per_page=100";
   const GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/";
+  const LIVE_SITE_ROOT = "https://thorncrag.github.io/ARRP/";
+  const DEVELOPMENT_LEVELS = [
+    "Candidate",
+    "Admitted / undeveloped",
+    "Defined proposal",
+    "Developed proposal",
+    "Review ready",
+    "Release candidate"
+  ];
   const reviewSignals = {
     courts: { count: 0, url: "", ids: new Set() },
     directives: {
@@ -313,7 +322,8 @@
     const heading = element("div");
     const badges = element("div", "badges");
     badges.append(
-      element("span", "badge formal", text(record.status)),
+      element("span", "badge formal", text(record.development_level, "Development level unavailable")),
+      element("span", "badge", text(record.workflow_status, "Workflow status unavailable")),
       element("span", "badge", text(record.area, "Area unassigned")),
       element("span", "badge", text(record.priority, "Priority unassigned"))
     );
@@ -324,7 +334,7 @@
     const summary = element("div", "dossier-grid");
     summary.append(
       dossierSection("Institutional question", history.original_concern || "The Horizon Scan Log does not yet contain a structured concern statement.", "wide"),
-      dossierSection("Current intake posture", history.decision || record.status),
+      dossierSection("Current intake posture", history.decision || record.workflow_status),
       dossierSection("Possible home and overlap", history.integrated_into || "Not recorded"),
       dossierSection("Why it may be distinct—or not", history.rationale || "Not recorded", "wide"),
       dossierSection("Open questions and next review", record.next_audit),
@@ -333,7 +343,8 @@
 
     const lifecycle = element("dl", "candidate-details compact");
     lifecycle.append(
-      labeledValue("Project status", record.status),
+      labeledValue("Development level", record.development_level),
+      labeledValue("Workflow status", record.workflow_status),
       labeledValue("Last internal review", record.last_audit),
       labeledValue("Release blocker", record.release_blocker),
       labeledValue("Last GitHub update", formatDate(record.updated_at))
@@ -612,7 +623,8 @@
     metadata.append(
       element("span", "badge formal", record.kind),
       element("span", "badge", record.area),
-      element("span", "badge", record.status),
+      element("span", "badge formal", record.development_level),
+      element("span", "badge", record.workflow_status),
       element("span", "badge", `${record.source_count} source${record.source_count === 1 ? "" : "s"}`)
     );
     summary.append(identity, metadata);
@@ -639,7 +651,7 @@
     const records = data.monitoring_issues.filter((record) => {
       if (manualWatchState.kind !== "all" && record.kind !== manualWatchState.kind) return false;
       if (!query) return true;
-      return [record.id, record.title, record.kind, record.area, record.status, record.monitoring_rationale,
+      return [record.id, record.title, record.kind, record.area, record.development_level, record.workflow_status, record.monitoring_rationale,
         ...(record.sources || []).flatMap((source) => [sourceSearchText(source)])]
         .filter(Boolean).join(" ").toLowerCase().includes(query);
     });
@@ -947,7 +959,7 @@
   }
 
   function formalCandidatesAwaitingReview() {
-    return data.active_horizon_records.filter((record) => !/deferred|parked/i.test(record.status || ""));
+    return data.active_horizon_records.filter((record) => !/deferred|parked/i.test(record.workflow_status || ""));
   }
 
   function navigateToConsoleTarget(target) {
@@ -1161,6 +1173,69 @@
     host.setAttribute("aria-label", `Review Ready trajectory from ${startText} through ${endText}; ${metrics.ready || 0} of ${metrics.total || 0} eligible proposals are currently Review Ready.`);
   }
 
+  function proposalLiveUrl(record) {
+    let path = String(record.canonicalRecord || "").trim();
+    path = path.replace(/^https:\/\/github\.com\/Thorncrag\/ARRP\/blob\/(?:main|master)\//, "");
+    if (!path || !path.endsWith(".md")) return "";
+    if (path.endsWith("/README.md")) path = path.slice(0, -"README.md".length);
+    else path = `${path.slice(0, -3)}/`;
+    return `${LIVE_SITE_ROOT}${path}`;
+  }
+
+  function developmentBoardCard(record) {
+    const card = element("article", "development-card");
+    card.title = record.title || record.identifier;
+    const identity = element("div", "development-card-identity");
+    const workflow = element("span", "workflow-dot", "●");
+    workflow.title = `Workflow: ${text(record.workflowStatus, "Not recorded")}`;
+    workflow.setAttribute("aria-label", workflow.title);
+    identity.append(
+      element("strong", "", record.identifier),
+      workflow,
+      element("span", "development-score", record.score == null || Number(record.score) <= 0 ? "Score —" : `Score ${record.score}`)
+    );
+    const links = element("div", "development-card-links");
+    const liveUrl = proposalLiveUrl(record);
+    if (liveUrl) links.append(linkButton("Live", liveUrl, true));
+    if (record.url) links.append(linkButton("Issue", record.url, true));
+    card.append(identity, links);
+    return card;
+  }
+
+  function renderDevelopmentBoard(snapshot) {
+    const proposals = Array.isArray(snapshot.proposals) ? snapshot.proposals : [];
+    const candidates = data.active_horizon_records.map((record) => ({
+      identifier: record.id,
+      title: record.title,
+      developmentLevel: record.development_level,
+      workflowStatus: record.workflow_status,
+      score: null,
+      canonicalRecord: "",
+      url: record.issue_url
+    }));
+    const records = [...candidates, ...proposals];
+    const recognized = new Set(DEVELOPMENT_LEVELS);
+    const unassigned = records.filter((record) => !recognized.has(record.developmentLevel));
+    const board = byId("development-board");
+    board.replaceChildren(...DEVELOPMENT_LEVELS.map((level) => {
+      const column = element("section", "development-column");
+      const stageRecords = records
+        .filter((record) => record.developmentLevel === level)
+        .sort((left, right) => left.identifier.localeCompare(right.identifier));
+      const heading = element("div", "development-column-heading");
+      heading.append(element("h4", "", level), element("span", "count-pill", stageRecords.length));
+      const list = element("div", "development-card-list");
+      list.replaceChildren(...stageRecords.map(developmentBoardCard));
+      column.append(heading, list);
+      return column;
+    }));
+    const warning = byId("development-board-warning");
+    warning.hidden = unassigned.length === 0;
+    warning.textContent = unassigned.length
+      ? `${unassigned.length} record${unassigned.length === 1 ? " has" : "s have"} no recognized Development level and cannot be placed on the board.`
+      : "";
+  }
+
   function renderProgress() {
     const snapshot = data.progress || {};
     const metrics = snapshot.metrics || {};
@@ -1178,6 +1253,7 @@
       renderProgressTrajectory(snapshot);
       byId("progress-area-list").replaceChildren(element("p", "muted", "Area data unavailable."));
       byId("progress-backlog-list").replaceChildren(element("p", "muted", "Backlog data unavailable."));
+      byId("development-board").replaceChildren(element("p", "muted", "Development-level data unavailable."));
       return;
     }
 
@@ -1193,6 +1269,7 @@
     byId("progress-fill").style.width = `${percent}%`;
     byId("progress-track").setAttribute("aria-valuenow", String(percent));
     renderProgressTrajectory(snapshot);
+    renderDevelopmentBoard(snapshot);
 
     const areaRows = [...areas].sort((left, right) => right.remaining - left.remaining || left.area.localeCompare(right.area));
     byId("progress-area-list").replaceChildren(...areaRows.map((area) => {
@@ -1211,7 +1288,10 @@
     byId("progress-backlog-list").replaceChildren(...closest.map((record) => {
       const row = element("article", "progress-backlog-row");
       const heading = element("div");
-      heading.append(inlineLink(record.identifier, record.url), element("span", "", `${record.area} · ${record.status}`));
+      heading.append(
+        inlineLink(record.identifier, record.url),
+        element("span", "", `${record.area} · ${record.developmentLevel} · ${record.workflowStatus}`)
+      );
       const score = element("strong", "", record.score == null ? "Unscored" : String(record.score));
       row.append(heading, score);
       if (record.nextAudit) row.append(element("p", "", record.nextAudit));
@@ -1224,7 +1304,8 @@
       const response = await fetch(LIVE_PROGRESS_URL, { cache: "no-store" });
       if (!response.ok) return;
       const snapshot = await response.json();
-      if (!snapshot || typeof snapshot !== "object" || !snapshot.metrics) return;
+      if (!snapshot || typeof snapshot !== "object" || !snapshot.metrics
+          || !Array.isArray(snapshot.proposals) || Number(snapshot.schemaVersion || 0) < 2) return;
       data.progress = snapshot;
       renderProgress();
     } catch (_error) {
@@ -2121,11 +2202,12 @@
   function renderProposed() {
     const query = proposedState.search.toLowerCase();
     const records = data.active_horizon_records.filter((record) => {
-      if (proposedState.status !== "all" && record.status !== proposedState.status) return false;
+      if (proposedState.level !== "all" && record.development_level !== proposedState.level) return false;
+      if (proposedState.status !== "all" && record.workflow_status !== proposedState.status) return false;
       if (proposedState.area !== "all" && record.area !== proposedState.area) return false;
       if (!query) return true;
       const history = record.horizon_history || {};
-      return [record.id, record.title, record.status, record.area, record.priority,
+      return [record.id, record.title, record.development_level, record.workflow_status, record.area, record.priority,
         record.next_audit, record.last_audit, history.original_concern, history.decision,
         history.integrated_into, history.rationale, history.follow_up,
         ...(record.labels || []),
@@ -2166,7 +2248,8 @@
     byId("directive-watcher-mode").textContent = `Current mode: ${(data.watcher_metadata.presidential_directives || {}).mode || "Not configured"}.`;
 
     populateSelect(byId("preliminary-area"), [...new Set(data.records.map((record) => record.proposed_area))], "All areas");
-    populateSelect(byId("proposed-status"), [...new Set(data.active_horizon_records.map((record) => record.status))], "All statuses");
+    populateSelect(byId("proposed-level"), [...new Set(data.active_horizon_records.map((record) => record.development_level))], "All levels");
+    populateSelect(byId("proposed-status"), [...new Set(data.active_horizon_records.map((record) => record.workflow_status))], "All statuses");
     populateSelect(byId("proposed-area"), [...new Set(data.active_horizon_records.map((record) => record.area))], "All areas");
     populateSelect(byId("sources-type"), [...new Set(data.cited_sources.map((record) => record.type))], "All types");
     populateSelect(byId("pending-owner"), [...new Set(data.pending_sources.flatMap((record) => record.record_ids || []))], "All possible destinations");
@@ -2211,6 +2294,7 @@
     byId("preliminary-term").addEventListener("change", (event) => { preliminaryState.term = event.target.value; renderPreliminary(); });
     byId("preliminary-area").addEventListener("change", (event) => { preliminaryState.area = event.target.value; renderPreliminary(); });
     byId("proposed-search").addEventListener("input", (event) => { proposedState.search = event.target.value; renderProposed(); });
+    byId("proposed-level").addEventListener("change", (event) => { proposedState.level = event.target.value; renderProposed(); });
     byId("proposed-status").addEventListener("change", (event) => { proposedState.status = event.target.value; renderProposed(); });
     byId("proposed-area").addEventListener("change", (event) => { proposedState.area = event.target.value; renderProposed(); });
     [["sources", data.cited_sources, "type"]]

@@ -14,21 +14,30 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Status | Inactive |
-| Active issue/task | None |
-| Audit type/tier | None; WAR-009 admission and initial drafting completed without a T-audit run |
+| Active issue/task | Project-wide GitHub lifecycle-field separation |
+| Audit type/tier | Project-level Change Audit; no T-audit run |
 | Started | 2026-07-22 |
-| Last checkpoint | 2026-07-22; WAR-009 initial package completed, synchronized, and validated. |
-| User request | Completed: admit and develop the distinct lethal-targeting and accountability defect exposed by alleged drug-vessel strikes and threats against civilian or dual-use infrastructure. |
-| Scope | Closed. The canonical package is WAR-009, its audit history, source-development record, and federal legislative vehicle. |
-| Files touched | None pending. The completed change is recorded in the WAR-009 audit history and Git history. |
-| Completed steps | Created and validated the independent WAR-009 package; preserved the WAR-001 authorization boundary; added verified sources and monitoring predicates; synchronized GitHub issue #347 and its Project row; updated reader navigation and generated Console data. |
-| Next step | WAR-009 is ready for a T0 triage scan when selected for audit. |
-| Blockers/questions | None. Constitutional, operational, criminal-jurisdiction, classified-information, and fiscal questions are expressly queued for the first audits rather than treated as resolved. |
-| Validation status | Passed: 75 unit tests; strict public-site build; diff hygiene; deterministic and authenticated consistency checks with zero errors; GitHub issue and Project readback. |
+| Last checkpoint | 2026-07-22; field migration, Console board, deterministic checks, authenticated readback, and local publication validation completed. |
+| User request | Separate proposal-development maturity from workflow status so audit tasks do not obscure how developed an issue is. |
+| Scope | Add and populate a `Development level` Project field; convert `Status` to next-action workflow; update governing rules, integrity checks, progress calculation, Console data and presentation, fixtures, and tests. |
+| Files touched | Governing lifecycle rules, Project workflow guidance, progress and Console builders, Project synchronization and integrity scripts, Console interface/data, fixtures, and tests. |
+| Completed steps | Added and populated `Development level`; converted `Status` to workflow-only values; migrated and read back all active Project items; added the six-stage scored Console board; updated calculations, checks, guidance, generated data, and tests. |
+| Next step | No unfinished task. Future issue work should update `Development level` and `Status` independently under the revised workflow. |
+| Blockers/questions | None. GitHub Project view layout remains a user-configurable presentation concern; the Console now supplies the requested non-scrolling six-stage view. |
+| Validation status | Passed: 76 Python tests, JavaScript syntax checks, authenticated Project/issue/Pages consistency readback, zero deterministic integrity errors, strict MkDocs build, and desktop visual verification of all 99 board records with no horizontal overflow. |
 
 ## Detailed Findings and Corrections
 
 The Project Console renders this current-audit section as the explanatory companion to the integrity bot's unresolved findings. It records what the comprehensive review found, why the defect mattered, what was changed, and what remains rather than treating a short edit count as a sufficient audit explanation.
+
+### Development maturity and workflow status
+
+- **Disposition:** Corrected
+- **Problem:** The GitHub Project's former `Status` field combined substantive proposal maturity with the next workflow action, so an audit task could obscure whether an issue was undeveloped, developed, or Review Ready.
+- **Why it mattered:** A single Kanban field could not answer both "how developed is this proposal?" and "what should happen next?" without replacing one answer with the other.
+- **Correction:** Added `Development level` with six substantive stages; converted `Status` to workflow-only values; migrated and read back 99 active proposal and candidate records; updated the governing rules, progress calculation, synchronization scripts, and deterministic integrity checks; and added a six-column Project Console board whose cards show the identifier, review score, live route, GitHub issue, and compact workflow cue.
+- **Effect:** Proposal maturity remains visible while audit, development, external-review, monitoring, and publication work moves independently. The Project Console displays every stage in one desktop row without GitHub's horizontal Kanban scrolling.
+- **Remaining work:** `Defined proposal` and `Release candidate` are presently empty because no active record has yet been affirmatively classified at those thresholds. Future transitions should follow the recorded human-foundation and release-candidate rules rather than being inferred from workflow status alone.
 
 ### Governance and lifecycle authority
 

@@ -8,7 +8,7 @@ On this macOS workspace, GitHub CLI credentials are stored in the macOS Keychain
 
 Use the project-local `.venv` and host tools provisioned by [`scripts/bootstrap_local_tools.sh`](scripts/bootstrap_local_tools.sh) for reproducible website, PDF, OCR, and document validation. GitHub Actions remains the publication authority.
 
-Any substantive issue work invokes the issue-development lifecycle check in the Framework and GitHub workflow even when the user does not mention status or audit work. Do not change `Score` or `Runs` for research, drafting, source development, Change Audits, or other non-T-audit work.
+Any substantive issue work invokes the issue-development lifecycle check in the Framework and GitHub workflow even when the user does not mention status or audit work. Read and synchronize both `Development level` (substantive maturity) and `Status` (current workflow action or hold); never use one as a substitute for the other. Do not change `Score` or `Runs` for research, drafting, source development, Change Audits, or other non-T-audit work.
 
 Apply neutral characterization and reader-friendly language in project-authored public prose. Preserve exact internal terminology in technical records, machine-readable metadata, and attributed source material.
 

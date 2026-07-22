@@ -8,6 +8,7 @@ import csv
 import html
 import json
 import math
+import os
 import re
 import subprocess
 import urllib.parse
@@ -1180,6 +1181,14 @@ def existing_console_payload() -> dict[str, object]:
 
 def progress_snapshot() -> dict[str, object]:
     """Read the latest generated progress data without making it authoritative."""
+    local_progress = os.environ.get("ARRP_PROGRESS_SNAPSHOT", "").strip()
+    if local_progress:
+        try:
+            payload = json.loads(Path(local_progress).read_text(encoding="utf-8"))
+            if isinstance(payload, dict):
+                return payload
+        except (OSError, json.JSONDecodeError):
+            pass
     try:
         completed = subprocess.run(
             ["git", "show", PROGRESS_DATA_REF],
@@ -1342,7 +1351,8 @@ def monitoring_issue_snapshot(refresh: bool) -> list[dict[str, object]]:
                 "area": project_item.get("area") or (
                     record_id.split("-", 1)[0] if "-" in record_id else "Unassigned"
                 ),
-                "status": project_item.get("status") or "Project status unavailable",
+                "development_level": project_item.get("development level") or "Development level unavailable",
+                "workflow_status": project_item.get("status") or "Workflow status unavailable",
                 "priority": project_item.get("priority") or "Unassigned",
                 "source_count": source_count_for_record(record_id),
                 "sources": sources_for_record(record_id),
@@ -1495,8 +1505,10 @@ def horizon_snapshot(refresh: bool) -> tuple[list[dict[str, object]], str]:
                 "title": re.sub(r"^HOR-\d+:\s*", "", issue["title"]).strip(),
                 "full_title": issue["title"],
                 "issue_state": issue["state"].title(),
-                "status": project_item.get("status")
-                or ("Closed" if issue["state"] == "CLOSED" else "Project status unavailable"),
+                "development_level": project_item.get("development level")
+                or ("Closed" if issue["state"] == "CLOSED" else "Development level unavailable"),
+                "workflow_status": project_item.get("status")
+                or ("Closed" if issue["state"] == "CLOSED" else "Workflow status unavailable"),
                 "area": project_item.get("area") or "Unassigned",
                 "priority": project_item.get("priority") or "Unassigned",
                 "release_blocker": project_item.get("release blocker") or "Unassigned",
@@ -1579,7 +1591,7 @@ def main() -> None:
     ]
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
-        "schema_version": 19,
+        "schema_version": 20,
         "generated_at": generated_at,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),

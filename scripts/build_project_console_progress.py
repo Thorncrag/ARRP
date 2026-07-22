@@ -272,7 +272,7 @@ def parse_items(
     repository_root: Optional[Path] = None,
 ) -> Tuple[str, List[Dict[str, Any]]]:
     fields = config["projectFields"]
-    ready_statuses = {normalize(value) for value in config["goal"]["readyStatuses"]}
+    ready_levels = {normalize(value) for value in config["goal"]["readyDevelopmentLevels"]}
     threshold = float(config["goal"]["reviewReadyScore"])
     parsed: List[Dict[str, Any]] = []
     project_values_by_identifier: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
@@ -311,35 +311,38 @@ def parse_items(
             )
         else:
             project_values = {}
-        status = str(project_values.get(fields["status"], "Unspecified"))
+        workflow_status = str(project_values.get(fields["status"], "Unspecified"))
+        development_level = str(project_values.get(fields["developmentLevel"], "Unspecified"))
         score_value = project_values.get(fields["score"])
         try:
             score = float(score_value) if score_value is not None else None
         except (TypeError, ValueError):
             score = None
         area = str(project_values.get(fields["area"]) or area_from_title(title))
-        status_is_ready = normalize(status) in ready_statuses
+        level_is_ready = normalize(development_level) in ready_levels
         threshold_is_met = score is not None and score >= threshold
-        is_ready = status_is_ready and threshold_is_met
+        is_ready = level_is_ready and threshold_is_met
         warnings: List[str] = []
         if identity_warning:
             warnings.append(identity_warning)
         if not project_values:
             if not identity_warning:
                 warnings.append("Proposal registry entry has no matching Project item by Title or Canonical page.")
-        if status_is_ready and score is None:
+        if normalize(development_level) == normalize("Unspecified"):
+            warnings.append("Project Development level is missing; the proposal is not counted as ready.")
+        if level_is_ready and score is None:
             warnings.append(
-                "Ready status is missing a Project score and is not counted until the Review Ready threshold can be verified."
+                "Ready development level is missing a Project score and is not counted until the Review Ready threshold can be verified."
             )
-        if status_is_ready and score is not None and score < threshold:
+        if level_is_ready and score is not None and score < threshold:
             warnings.append(
-                "Ready status is paired with a score below the Review Ready threshold and is not counted."
+                "Ready development level is paired with a score below the Review Ready threshold and is not counted."
             )
-        if not status_is_ready and score is not None and score >= threshold:
-            warnings.append("Score meets the Review Ready threshold but status is not Review ready or higher.")
+        if not level_is_ready and score is not None and score >= threshold:
+            warnings.append("Score meets the Review Ready threshold but Development level is not Review ready or higher.")
         if (
             repository_root is not None
-            and normalize(status) == normalize("Pending development")
+            and normalize(workflow_status) == normalize("Pending development")
             and has_concrete_proposal_vehicle(repository_root, record)
         ):
             warnings.append(
@@ -355,7 +358,8 @@ def parse_items(
                 "state": None,
                 "canonicalRecord": record,
                 "area": area,
-                "status": status,
+                "developmentLevel": development_level,
+                "workflowStatus": workflow_status,
                 "score": score,
                 "lastAudit": project_values.get(fields["lastAudit"]),
                 "nextAudit": project_values.get(fields["nextAudit"]),
@@ -635,7 +639,8 @@ def build_progress_payload(
     threshold = float(goal["reviewReadyScore"])
     snapshot = build_snapshot(items, as_of)
     merged_history = merge_history(history, snapshot, config)
-    status_counts = Counter(item["status"] for item in items)
+    workflow_status_counts = Counter(item["workflowStatus"] for item in items)
+    development_level_counts = Counter(item["developmentLevel"] for item in items)
     band_counts = Counter(score_band(item, threshold) for item in items)
     area_counts: Dict[str, Dict[str, int]] = defaultdict(lambda: {"total": 0, "ready": 0, "remaining": 0})
     warnings: List[Dict[str, Any]] = []
@@ -662,7 +667,7 @@ def build_progress_payload(
         ),
     )
     payload = {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "asOf": as_of.isoformat(),
         "project": {
@@ -673,13 +678,19 @@ def build_progress_payload(
         "goal": goal,
         "metrics": compute_metrics(snapshot, merged_history, config, as_of),
         "history": merged_history["snapshots"],
-        "statusDistribution": [{"status": name, "count": count} for name, count in status_counts.most_common()],
+        "workflowStatusDistribution": [
+            {"status": name, "count": count} for name, count in workflow_status_counts.most_common()
+        ],
+        "developmentLevelDistribution": [
+            {"level": name, "count": count} for name, count in development_level_counts.most_common()
+        ],
         "scoreBands": [{"band": name, "count": band_counts.get(name, 0)} for name in (
             "Review Ready or higher", "Within 15 points", "Below 60", "Unscored or fixed zero"
         )],
         "areas": areas,
         "movement": portfolio_movement(items, merged_history, as_of, int(goal["velocityWindowDays"])),
         "warnings": warnings,
+        "proposals": sorted(items, key=lambda item: (item["developmentLevel"], item["identifier"])),
         "backlog": backlog,
     }
     return payload

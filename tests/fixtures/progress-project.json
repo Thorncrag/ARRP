@@ -4,7 +4,8 @@
     {
       "id": "PVTI_1",
       "fieldValues": {"nodes": [
-        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Review ready", "field": {"name": "Status"}},
+        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "External review needed", "field": {"name": "Status"}},
+        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Review ready", "field": {"name": "Development level"}},
         {"__typename": "ProjectV2ItemFieldNumberValue", "number": 78, "field": {"name": "Score"}},
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "DOJ", "field": {"name": "Area"}},
         {"__typename": "ProjectV2ItemFieldTextValue", "text": "External validation", "field": {"name": "Next audit"}},
@@ -15,7 +16,8 @@
     {
       "id": "PVTI_2",
       "fieldValues": {"nodes": [
-        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Developed draft", "field": {"name": "Status"}},
+        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Audit needed", "field": {"name": "Status"}},
+        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Developed proposal", "field": {"name": "Development level"}},
         {"__typename": "ProjectV2ItemFieldNumberValue", "number": 68, "field": {"name": "Score"}},
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "REG", "field": {"name": "Area"}},
         {"__typename": "ProjectV2ItemFieldTextValue", "text": "T2 audit", "field": {"name": "Next audit"}},
@@ -27,6 +29,7 @@
       "id": "PVTI_3",
       "fieldValues": {"nodes": [
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Pending development", "field": {"name": "Status"}},
+        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Admitted / undeveloped", "field": {"name": "Development level"}},
         {"__typename": "ProjectV2ItemFieldNumberValue", "number": 0, "field": {"name": "Score"}},
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "DOM", "field": {"name": "Area"}},
         {"__typename": "ProjectV2ItemFieldTextValue", "text": "T1 structural audit", "field": {"name": "Next audit"}},
@@ -38,6 +41,7 @@
       "id": "PVTI_4",
       "fieldValues": {"nodes": [
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Audit needed", "field": {"name": "Status"}},
+        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Developed proposal", "field": {"name": "Development level"}},
         {"__typename": "ProjectV2ItemFieldNumberValue", "number": 75, "field": {"name": "Score"}},
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "JUD", "field": {"name": "Area"}},
         {"__typename": "ProjectV2ItemFieldTextValue", "text": "areas/JUD/issues/JUD-011.md", "field": {"name": "Canonical page"}}
@@ -47,7 +51,8 @@
     {
       "id": "PVTI_5",
       "fieldValues": {"nodes": [
-        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Horizon / Intake", "field": {"name": "Status"}},
+        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Awaiting decision", "field": {"name": "Status"}},
+        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Candidate", "field": {"name": "Development level"}},
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "EMOL", "field": {"name": "Area"}}
       ]},
       "content": {"number": 240, "title": "HOR-029: Official Social-Media Conflicts", "url": "https://github.com/Thorncrag/ARRP/issues/240", "state": "OPEN", "repository": {"nameWithOwner": "Thorncrag/ARRP"}, "labels": {"nodes": [{"name": "kind: horizon"}]}}

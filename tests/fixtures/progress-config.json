@@ -1,10 +1,10 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "projectOwner": "Thorncrag",
   "projectNumber": 2,
   "repository": "Thorncrag/ARRP",
   "registryPath": "tests/fixtures/progress-registry.csv",
-  "projectFields": {"area": "Area", "status": "Status", "score": "Score", "lastAudit": "Last audit", "nextAudit": "Next audit", "canonicalPage": "Canonical page"},
+  "projectFields": {"area": "Area", "developmentLevel": "Development level", "status": "Status", "score": "Score", "lastAudit": "Last audit", "nextAudit": "Next audit", "canonicalPage": "Canonical page"},
   "goal": {
     "name": "Test goal",
     "baselineDate": "2026-07-01",
@@ -12,7 +12,7 @@
     "baselineTotal": 4,
     "targetDate": "2026-12-31",
     "reviewReadyScore": 75,
-    "readyStatuses": ["Review ready", "Release candidate"],
+    "readyDevelopmentLevels": ["Review ready", "Release candidate"],
     "velocityWindowDays": 28,
     "minimumForecastDays": 7
   }

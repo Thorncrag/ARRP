@@ -34,7 +34,8 @@ Use GitHub Project fields as the authoritative structured workflow metadata:
 - `Workstream` distinguishes proposal development from project governance and operations.
 - `Priority` records the current project priority.
 - `Release blocker` records whether the item blocks the active release.
-- `Status` records lifecycle and workflow position.
+- `Development level` records substantive proposal maturity independently of the next task or temporary hold.
+- `Status` records the current workflow action, hold, monitoring posture, or terminal condition.
 - `Score`, `Runs`, `Last audit`, and `Next audit` provide compact audit-status summaries.
 - `Rebaseline status` records whether the proposal score is current under the governing rubric or needs a soft/hard rebaseline.
 - `Change audit needed` records whether a developed proposal has an unresolved targeted Change Audit / Internal Remedy-Fit Audit marker.
@@ -47,31 +48,42 @@ Do not duplicate these fields as issue-body metadata or as labels. If a field va
 
 The lifecycle check applies whenever the user asks to focus on, research, develop, draft, revise, or otherwise work substantively on an issue. The user does not need to request an audit or separately mention status maintenance.
 
-The substantive lifecycle, Defined Proposal threshold, four-part human-governed foundation, delegated-development authority, uncertainty rule, tier-readiness guidelines, and recurring autonomous work order are maintained in [`FRAMEWORK.md`](FRAMEWORK.md#issue-lifecycle-discovery-through-publication-and-maintenance). This section implements those judgments through GitHub status and audit-control fields; it does not redefine them. `Defined Proposal` is not a separate Project status: the ordinary `Pending development`, `In development`, `Audit needed`, and score-derived statuses continue to describe operational position. For an unscored issue, the canonical page's `foundation_status`, `foundation_approved_date`, and optional `foundation_approval_note` preserve the human approval that makes scheduled development permissible; GitHub status alone does not establish that approval.
+The substantive lifecycle, Defined Proposal threshold, four-part human-governed foundation, delegated-development authority, uncertainty rule, tier-readiness guidelines, and recurring autonomous work order are maintained in [`FRAMEWORK.md`](FRAMEWORK.md#issue-lifecycle-discovery-through-publication-and-maintenance). This section implements those judgments through separate maturity, workflow, and audit-control fields; it does not redefine them. For an unscored proposal, the canonical page's `foundation_status`, `foundation_approved_date`, and optional `foundation_approval_note` preserve the human approval supporting `Development level: Defined proposal`. Workflow `Status` alone does not establish that approval.
 
-Use the Project `Status` options as follows:
+Use the Project `Development level` options as follows:
 
-- `Candidate issue` — an active candidate has not yet been admitted as an independent proposal.
+- `Candidate` — a formal active `HOR-###` candidate has not yet been admitted as an independent proposal.
+- `Admitted / undeveloped` — an area-specific proposal has been admitted, but the four-part foundation or initial proposal architecture remains unresolved.
+- `Defined proposal` — the human has approved the institutional failure, at least one manifestation, the remedy, and the remedy vehicle; development may proceed within that foundation.
+- `Developed proposal` — the initial issue-and-vehicle package is complete enough for meaningful T-audit review, or a completed T-audit has assigned a score below Review Ready.
+- `Review ready` — the proposal has a score of at least 75 under the current rubric and is strong enough for knowledgeable external critique.
+- `Release candidate` — the separate release-candidate requirements have been affirmatively satisfied; a score alone does not establish this level.
+
+Leave `Development level` blank for governance, publication, export, source-review, and other nonproposal Project items. A hold or revision does not automatically reduce an established development level. If the evidence supporting a maturity value is inconsistent, use the lower defensible level and flag the discrepancy for review.
+
+Use the Project `Status` options as workflow states:
+
+- `Awaiting decision` — a candidate or other item requires a human disposition or foundational decision.
 - `Monitoring` — an independently managed non-proposal research, governance, or maintenance item is waiting on a defined external development. Proposal and Horizon monitoring does not use this status; the existing parent issue retains its ordinary lifecycle status and carries `needs: monitoring`.
-- `Pending development` — an admitted proposal is not in active drafting and does not yet have a complete initial issue-and-vehicle package.
-- `In development` — substantive work is active or the initial issue-and-vehicle package remains incomplete. A completed T-audit score of 1–49 also uses this status because the available Project vocabulary intentionally consolidates both Early/Partial Draft score bands.
-- `Audit needed` — an unscored initial issue page and concrete proposal vehicle are complete enough for the next T-audit. The status does not itself assign a score or increment `Runs`.
-- `Developed draft` — a completed score-bearing T-audit produces a score of 50–74. The exact issue-page threshold label remains `Developed Draft` at 50–64 and `Substantially Developed Draft` at 65–74.
-- `Review ready` — use for a score of 75 or higher unless the item has separately entered the release-candidate workflow. The issue page preserves the more precise `Review Ready`, `Advanced Review Ready`, `Proposal Ready`, `Publication Ready`, or `Fully Validated` score-band label.
-- `Release candidate` — use only when the separate release rules are satisfied; a high score alone does not establish release-candidate status.
+- `Pending development` — admitted or defined work is queued but not presently active.
+- `In development` — substantive drafting, research, or structural work is the present action.
+- `Audit needed` — the next required action is an initial or successive T-audit, Change Audit, Internal Remedy-Fit Audit, or other identified internal review.
+- `Audit in progress` — an expressly opened audit remains underway and incomplete.
+- `External review needed` — a Review Ready proposal is awaiting knowledgeable outside critique or validation.
+- `Publication review needed` — a release candidate is awaiting final publication or release approval.
 - `Deferred / Parked`, `Blocked`, and `Completed within scope` — use only when their stated routing or terminal conditions actually apply.
 
-At the start of substantive work, read the current Project row, canonical page, linked vehicle, latest audit record, and next step. If work begins from `Pending development`, move the item to `In development` and read back the change. Do not regress an already scored or later-stage proposal merely because material revision begins; preserve its score-based status and set `Change audit needed` as required until the targeted review is resolved.
+At the start of substantive work, read the current Project row, canonical page, linked vehicle, latest audit record, and next step. If work begins from `Pending development`, move `Status` to `In development` and read back the change. Do not reduce `Development level` merely because material revision begins; preserve its established maturity and set `Change audit needed` and the appropriate workflow `Status` until the targeted review is resolved.
 
-At closeout, keep an incomplete initial package `In development`; move an unscored initial package with a sufficiently complete issue page and concrete vehicle to `Audit needed`; or apply the score-based lifecycle status after a completed T-audit. Research, drafting, source development, status review, Change Audits, and other non-T-audit work do not change `Score` or increment `Runs`.
+At closeout, synchronize both fields. Keep an incomplete active package at `Status: In development` and its established maturity level; move an unscored audit-ready package to `Development level: Developed proposal` and `Status: Audit needed`; after a completed T-audit, update the development level from the score band and use `Status` for the actual next action. Research, drafting, source development, status review, Change Audits, and other non-T-audit work do not change `Score` or increment `Runs`.
 
 The **Runs** field counts only completed and separately recorded T0, T1, T2, T3, or T4 issue-quality audits. Do not increment it for Change Audits, Internal Remedy-Fit Audits, Horizon Scans, source development, drafting, formatting reviews, predicate checks, external-review intake, validation or dashboard reruns, bookkeeping, or continuation of the same open tier. A cumulative T4 is one run unless lower tiers were separately completed and recorded; a successive multi-tier sequence counts each tier actually completed and separately memorialized.
 
 Use `Completed within scope` only when the item's defined obligation is actually complete. Do not use it as a substitute for `Merged`, `Integrated`, `Retired`, another archival disposition, or merely publishing an unfinished item. A closed adjudicated record with no active work should ordinarily leave the active Project instead of occupying a misleading terminal-status card.
 
-Project-field updates are not optional bookkeeping. When audit work changes a proposal's score, status, run count, last-audit note, next-audit note, rebaseline status, change-audit marker, priority, release-blocker posture, or canonical page, the corresponding GitHub Project row must be updated before the task is reported complete. If the agent cannot update a Project field, it must tell the user immediately, identify the affected issue and field values, preserve the repo work, and either fix the Project access problem with the user or report the work as partially complete. The issue body may carry a temporary snapshot, but the Project field remains the authoritative workflow tracker.
+Project-field updates are not optional bookkeeping. When audit or development work changes a proposal's development level, workflow status, score, run count, last-audit note, next-audit note, rebaseline status, change-audit marker, priority, release-blocker posture, or canonical page, the corresponding GitHub Project row must be updated before the task is reported complete. If the agent cannot update a Project field, it must tell the user immediately, identify the affected issue and field values, preserve the repo work, and either fix the Project access problem with the user or report the work as partially complete. The issue body may carry a temporary snapshot, but the Project fields remain authoritative.
 
-After updating a GitHub issue wrapper or GitHub Project row for an issue-status or audit-control change, perform a readback before closeout. The readback should verify that the GitHub issue body and Project fields match the repository issue metadata for status, score, run count, last audit, next audit, rebaseline status, change-audit flag, canonical page, and release-blocker posture where those fields are in scope. Do not report the task complete until any mismatch is corrected or explicitly disclosed as a blocked sync item.
+After updating a GitHub issue wrapper or GitHub Project row for a maturity, workflow, or audit-control change, perform a readback before closeout. The readback should verify development level, status, score, run count, last audit, next audit, rebaseline status, change-audit flag, canonical page, and release-blocker posture where those fields are in scope. Do not report the task complete until any mismatch is corrected or explicitly disclosed as a blocked sync item.
 
 Use these options for audit-control fields:
 
@@ -82,7 +94,7 @@ Use these options for audit-control fields:
 
 The **Progress** tab in the internal [ARRP Project Console](../research/horizon-review-console/index.html) is the sole human-facing planning view derived from the GitHub Project. It measures proposal records in the issue registry against the Review Ready goal without closing issues, assigning artificial milestones, or adding daily generated commits to `main`. Automation retains only machine-readable progress and history on the data-only `project-console-data` branch; it does not publish a second Markdown dashboard.
 
-The Project `Status` field remains the lifecycle authority. The dashboard may use `Score` to detect status/score drift, but it must not infer or write a new status from the score alone. Governance, horizon, source-review, and other non-proposal items are excluded. Newly admitted proposal issues enlarge the tracked scope automatically and must be reported as scope change rather than hidden by resetting the baseline.
+The Project `Development level` field is the substantive maturity authority; `Status` remains the workflow authority. The dashboard requires both `Development level: Review ready` or `Release candidate` and a score of at least 75 for goal attainment, and it may detect but must not silently repair maturity/score drift. Governance, horizon, source-review, and other non-proposal items are excluded from the Review Ready denominator. Newly admitted proposal issues enlarge the tracked scope automatically and must be reported as scope change rather than hidden by resetting the baseline.
 
 The progress view's registry-based eligibility rule, readiness statuses, baseline, target date, forecast window, and Project field mappings are maintained in [`.github/project-console-progress.json`](../.github/project-console-progress.json). The proposal identifier in the built-in Project `Title` joins each active proposal to its registry record, with `Canonical page` used only as a unique fallback; unmatched or ambiguous proposals remain visible as tracking warnings. The governing definitions, metrics, data-only retention boundary, and change-control rules are documented in [`PROJECT_CONSOLE_PROGRESS.md`](PROJECT_CONSOLE_PROGRESS.md). Changes to eligibility, the readiness rule, or the official target require a project-level Change Audit.
 
@@ -109,7 +121,7 @@ A living repository surface may receive a maintenance sub-issue when it has a ge
 
 ### Issue-Specific Monitoring
 
-Monitor a proposal or formal Horizon candidate on its existing GitHub issue. Apply `needs: monitoring` to that parent issue and preserve its ordinary Project lifecycle status, canonical page, Area, and workstream. Do not create a monitoring-only child issue. The label indicates that a project-wide pass must revisit the whole issue; it does not establish a new proposal, source record, or workflow identity.
+Monitor a proposal or formal Horizon candidate on its existing GitHub issue. Apply `needs: monitoring` to that parent issue and preserve its Project development level, ordinary workflow status, canonical page, Area, and workstream. Do not create a monitoring-only child issue. The label indicates that a project-wide pass must revisit the whole issue; it does not establish a new proposal, source record, or workflow identity.
 
 The parent issue is the monitoring-workflow record. Its wrapper should state the present reason for monitoring and, after each pass, retain a concise dated result or link to the resulting project change. A monitoring pass reviews every source associated with the issue in both source catalogs and performs an active search for material new developments; it is not limited to sources individually marked for monitoring. Remove `needs: monitoring` only when no defined continuing need remains. The proposal's repository issue page stays focused on the substantive analysis and does not receive a generic administrative monitoring link or section.
 

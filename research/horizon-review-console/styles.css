@@ -355,6 +355,51 @@ a { color: var(--blue); }
 .progress-backlog-row div span { display: block; margin-top: .1rem; color: var(--muted); font-size: .72rem; }
 .progress-backlog-row > strong { color: var(--blue); font-size: 1.1rem; }
 .progress-backlog-row p { grid-column: 1 / -1; margin: .15rem 0 0; color: var(--muted); font-size: .75rem; }
+.development-board-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .8rem;
+  background: white;
+}
+.development-board-warning { margin: .75rem 0 0; }
+.development-board {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: .55rem;
+  margin-top: .8rem;
+}
+.development-column {
+  min-width: 0;
+  padding: .5rem;
+  border: 1px solid var(--line);
+  border-radius: .65rem;
+  background: var(--soft);
+}
+.development-column-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 2.5rem;
+  gap: .25rem;
+  padding: .15rem .1rem .5rem;
+}
+.development-column-heading h4 { margin: 0; font-size: .72rem; line-height: 1.25; }
+.development-column-heading .count-pill { flex: 0 0 auto; padding: .05rem .35rem; font-size: .62rem; }
+.development-card-list { display: grid; gap: .35rem; max-height: 34rem; overflow-y: auto; scrollbar-width: thin; }
+.development-card {
+  min-width: 0;
+  padding: .42rem;
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+  background: white;
+}
+.development-card-identity { display: flex; align-items: center; min-width: 0; gap: .28rem; }
+.development-card-identity strong { min-width: 0; overflow: hidden; font-size: .72rem; text-overflow: ellipsis; white-space: nowrap; }
+.workflow-dot { flex: 0 0 auto; color: var(--gold); font-size: .58rem; cursor: help; }
+.development-score { margin-left: auto; color: var(--muted); font-size: .58rem; white-space: nowrap; }
+.development-card-links { display: flex; gap: .25rem; margin-top: .3rem; }
+.development-card-links .record-link { flex: 1 1 0; padding: .12rem .2rem; border-radius: .3rem; font-size: .58rem; text-align: center; }
 .watcher-explanation { margin-top: .9rem; }
 .watcher-explanation h3 { margin: 0 0 .5rem; font-size: 1rem; }
 
@@ -399,6 +444,7 @@ a { color: var(--blue); }
   background: var(--soft);
 }
 .queue-controls.source-controls { grid-template-columns: minmax(260px, 2fr) minmax(180px, .8fr); }
+.queue-controls.formal-controls { grid-template-columns: minmax(220px, 1.45fr) repeat(3, minmax(130px, .7fr)); }
 .queue-controls label { color: var(--muted); font-size: .75rem; font-weight: 700; }
 .queue-controls input,
 .queue-controls select {
@@ -1184,7 +1230,7 @@ th[aria-sort="descending"] .sort-indicator { color: var(--blue); }
   .workflow-summary { grid-template-columns: 1fr; gap: 1rem; }
   .workflow-summary ol { grid-template-columns: 1fr; }
   .workflow-summary li { border-left: 0; border-top: 1px solid var(--line); padding: .7rem 0; }
-  .queue-controls, .queue-controls.source-controls { grid-template-columns: 1fr; }
+  .queue-controls, .queue-controls.source-controls, .queue-controls.formal-controls { grid-template-columns: 1fr; }
   .queue-view-header { display: block; }
   .attention-note, .refresh-note { display: inline-block; margin-top: .75rem !important; }
   .candidate-details, .candidate-details.compact { grid-template-columns: 1fr; }
@@ -1194,6 +1240,7 @@ th[aria-sort="descending"] .sort-indicator { color: var(--blue); }
   .action-items-grid { grid-template-columns: repeat(2, minmax(220px, 1fr)); }
   .progress-summary-grid { grid-template-columns: repeat(2, minmax(180px, 1fr)); }
   .progress-layout { grid-template-columns: 1fr; }
+  .development-board { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .print-level-summary { grid-template-columns: repeat(2, minmax(170px, 1fr)); }
   .watcher-panel-header { display: block; }
   .watcher-panel-header .record-link { display: inline-block; margin-top: .7rem; }
@@ -1243,4 +1290,5 @@ th[aria-sort="descending"] .sort-indicator { color: var(--blue); }
   .assembly-page-controls { margin-top: .55rem; }
   .scroll-to-top span { display: none; }
   .progress-area-row { grid-template-columns: minmax(100px, 1fr) minmax(100px, 1.2fr) 3rem; }
+  .development-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
