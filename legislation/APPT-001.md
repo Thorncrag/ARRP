@@ -1,5 +1,6 @@
 ---
 proposal_id: APPT-001
+issue_id: APPT-001
 title: "Appointments Accountability and Confirmation Safeguards Act"
 status: initial-draft
 linked_issue: "../areas/APPT/issues/APPT-001.md"
@@ -9,7 +10,7 @@ print_levels:
   - legislative-appendix
 ---
 
-# Appointments Accountability and Confirmation Safeguards Act
+# APPT-001 — Appointments Accountability and Confirmation Safeguards Act
 
 ## A BILL
 

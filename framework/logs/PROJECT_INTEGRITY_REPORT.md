@@ -19,17 +19,23 @@ print_exclusion_reason: "Internal operational report."
 ## Current Findings
 
 No repeatable integrity findings are currently reported.
+
 ## Checks Included
 
 - Issue and proposal structure
 - Area and topic routing
 - Internal repository links
+- Markdown heading anchors
 - Orphaned Markdown pages
 - Page metadata and heading hierarchy
 - GitHub record references
+- GitHub Issue and Project synchronization
+- GitHub Pages deployment synchronization
 - Source and citation catalogs
 - Research placement
 - Reader-facing language
 - Tool-interface conventions
 - Intake-workflow terminology
 - Publication-disposition metadata
+- Print-assembly configuration
+- Structured-file and repository hygiene

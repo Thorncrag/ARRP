@@ -1,10 +1,14 @@
 import csv
+import tempfile
 import unittest
+from pathlib import Path
 
 from scripts.audit_project_consistency import (
     ROOT,
     active_project_files,
+    expected_project_status,
     github_repository_targets,
+    markdown_anchor_ids,
     markdown_report,
     research_files,
     source_citation_corpus,
@@ -31,6 +35,44 @@ SOURCE_DEVELOPMENT_STUB_IDS = {
 
 
 class GitHubIssueLinkTests(unittest.TestCase):
+    def test_markdown_anchor_inventory_supports_generated_and_explicit_ids(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "page.md"
+            path.write_text(
+                "# Main Title\n\n## Budgetary Impact Statement\n\n"
+                "## Repeated\n\n## Repeated\n\n<h2 id=\"manual-anchor\">Manual</h2>\n",
+                encoding="utf-8",
+            )
+
+            anchors = markdown_anchor_ids(path)
+
+        self.assertIn("main-title", anchors)
+        self.assertIn("budgetary-impact-statement", anchors)
+        self.assertIn("repeated", anchors)
+        self.assertIn("repeated-1", anchors)
+        self.assertIn("manual-anchor", anchors)
+
+    def test_project_status_is_inferred_only_when_methodology_is_unambiguous(self):
+        self.assertEqual(
+            expected_project_status({"status": "developed", "audit_score": "77"}),
+            {
+                "advanced review ready",
+                "fully validated",
+                "proposal ready",
+                "publication ready",
+                "release candidate",
+                "review ready",
+            },
+        )
+        self.assertEqual(
+            expected_project_status({"status": "developed", "audit_score": "63"}),
+            {"developed draft"},
+        )
+        self.assertEqual(
+            expected_project_status({"status": "candidate", "audit_score": "0"}),
+            set(),
+        )
+
     def test_integrity_markdown_report_is_a_stable_current_snapshot(self):
         report = markdown_report(
             {

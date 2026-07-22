@@ -20,7 +20,7 @@ import subprocess
 import sys
 import time
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlsplit
 
@@ -33,6 +33,39 @@ SOURCE_PATH = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCE_PATH = ROOT / "inventory" / "sources-pending.csv"
 PRELIMINARY_CANDIDATE_PATH = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
 GITHUB_REPOSITORY = "Thorncrag/ARRP"
+GITHUB_PROJECT_OWNER = "Thorncrag"
+GITHUB_PROJECT_NUMBER = 2
+GITHUB_BLOB_PREFIX = f"https://github.com/{GITHUB_REPOSITORY}/blob/main/"
+VALID_ISSUE_STATUSES = {
+    "awaiting-merits-adjudication",
+    "candidate",
+    "deferred",
+    "developed",
+    "in-development",
+    "retired",
+}
+VALID_REBASELINE_STATUSES = {
+    "current",
+    "current-fixed-status",
+    "hard-rebaseline-needed",
+    "rebaseline-complete",
+    "soft-rebaseline-needed",
+}
+PROJECT_REBASELINE_VALUES = {
+    "current": "Current",
+    "current-fixed-status": "Current fixed status",
+    "hard-rebaseline-needed": "Hard rebaseline needed",
+    "rebaseline-complete": "Rebaseline complete",
+    "soft-rebaseline-needed": "Soft rebaseline needed",
+}
+READY_PROJECT_STATUSES = {
+    "advanced review ready",
+    "fully validated",
+    "proposal ready",
+    "publication ready",
+    "release candidate",
+    "review ready",
+}
 AUTHORITATIVE_SOURCE_RECORDS = (
     (
         PRELIMINARY_CANDIDATE_PATH,
@@ -210,6 +243,62 @@ def report(category: str, message: str, failures: list[str], warnings: list[str]
     (failures if category == "ERROR" else warnings).append(f"{category}: {message}")
 
 
+def normalized_text(value: object) -> str:
+    """Normalize controlled prose fields without erasing substantive wording."""
+    return " ".join(str(value or "").strip().casefold().split())
+
+
+def markdown_heading_title(path: Path) -> str:
+    match = re.search(r"^#\s+(?:[A-Z]+-\d{3}\s+[—-]\s+)?(.+?)\s*$", markdown_body(path), re.MULTILINE)
+    return match.group(1).strip() if match else ""
+
+
+def markdown_anchor_ids(path: Path) -> set[str]:
+    """Return conservative GitHub/MkDocs-compatible anchors for a Markdown page."""
+    body = MARKDOWN_FENCE_RE.sub("", markdown_body(path))
+    anchors = set(re.findall(r"\bid=[\"']([^\"']+)[\"']", body))
+    counts: Counter[str] = Counter()
+    for match in re.finditer(r"^#{1,6}\s+(.+?)\s*$", body, re.MULTILINE):
+        heading = match.group(1).strip()
+        explicit = re.search(r"\{#([^}\s]+)[^}]*\}\s*$", heading)
+        if explicit:
+            anchors.add(explicit.group(1))
+            heading = heading[: explicit.start()].strip()
+        heading = re.sub(r"\s+\{[^}]+\}\s*$", "", heading)
+        heading = re.sub(r"!?(?:\[([^]]*)\])\([^)]*\)", r"\1", heading)
+        heading = re.sub(r"[`*_~]", "", heading)
+        heading = re.sub(r"<[^>]+>", "", heading)
+        slug = re.sub(r"[^\w\- ]", "", heading.casefold(), flags=re.UNICODE)
+        slug = re.sub(r"[\s\-]+", "-", slug).strip("-")
+        if not slug:
+            continue
+        occurrence = counts[slug]
+        counts[slug] += 1
+        anchors.add(slug if occurrence == 0 else f"{slug}-{occurrence}")
+        anchors.add(slug if occurrence == 0 else f"{slug}_{occurrence}")
+    return anchors
+
+
+def check_markdown_fragment(
+    target: Path,
+    fragment: str,
+    source_label: str,
+    failures: list[str],
+    warnings: list[str],
+) -> None:
+    if not fragment or target.suffix.lower() != ".md" or not target.exists():
+        return
+    decoded = unquote(fragment).strip()
+    if decoded and decoded not in markdown_anchor_ids(target):
+        report(
+            "ERROR",
+            f"broken Markdown heading anchor in {source_label}: #{decoded} "
+            f"(missing in {target.relative_to(ROOT)})",
+            failures,
+            warnings,
+        )
+
+
 def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Path]:
     pages = issue_pages()
     known: dict[str, Path] = {}
@@ -225,8 +314,29 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
             report("ERROR", f"duplicate issue page identifier {issue_id}", failures, warnings)
         known[issue_id] = path
         body = markdown_body(path)
+        relative = path.relative_to(ROOT)
+        area = path.parents[1].name
+        if issue_id.split("-", 1)[0] != area:
+            report("ERROR", f"{relative} is stored under the wrong area directory", failures, warnings)
+        area_readme = path.parents[1] / "README.md"
+        expected_area_id = front_matter(area_readme).get("area_id") if area_readme.exists() else ""
+        if data.get("area_id") and expected_area_id and data.get("area_id") != expected_area_id:
+            report(
+                "ERROR",
+                f"{issue_id} area_id {data.get('area_id')} does not match {expected_area_id}",
+                failures,
+                warnings,
+            )
         if not re.search(rf"^# {re.escape(issue_id)}\s+—\s+", body, re.MULTILINE):
             report("ERROR", f"{issue_id} title heading does not begin with its identifier", failures, warnings)
+        heading_title = markdown_heading_title(path)
+        if data.get("title") and heading_title != data.get("title"):
+            report(
+                "ERROR",
+                f"{issue_id} title metadata does not match its H1: {data.get('title')!r} != {heading_title!r}",
+                failures,
+                warnings,
+            )
         sidecar = path.with_name(f"{issue_id}.audit.md")
         if data.get("record_type") == "source-development":
             front_matter_match = FRONT_MATTER_RE.match(read(path))
@@ -277,6 +387,49 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
                         warnings,
                     )
             continue
+        required_metadata = (
+            "area_id",
+            "title",
+            "status",
+            "audit_score",
+            "audit_status",
+            "audit_last_type",
+            "audit_last_date",
+            "audit_next",
+            "audit_rubric_version",
+            "audit_rebaseline_status",
+        )
+        missing_metadata = [field for field in required_metadata if not data.get(field)]
+        if missing_metadata:
+            report(
+                "ERROR",
+                f"{issue_id} lacks required issue metadata: {', '.join(missing_metadata)}",
+                failures,
+                warnings,
+            )
+        if data.get("status") and data.get("status") not in VALID_ISSUE_STATUSES:
+            report("ERROR", f"{issue_id} has invalid status {data.get('status')!r}", failures, warnings)
+        try:
+            score = int(data.get("audit_score", ""))
+            if not 0 <= score <= 100:
+                raise ValueError
+        except ValueError:
+            report("ERROR", f"{issue_id} has invalid audit_score {data.get('audit_score')!r}", failures, warnings)
+        try:
+            if data.get("audit_last_date"):
+                date.fromisoformat(data["audit_last_date"])
+        except ValueError:
+            report("ERROR", f"{issue_id} has invalid audit_last_date {data.get('audit_last_date')!r}", failures, warnings)
+        rebaseline = data.get("audit_rebaseline_status")
+        if rebaseline and rebaseline not in VALID_REBASELINE_STATUSES:
+            report("ERROR", f"{issue_id} has invalid audit_rebaseline_status {rebaseline!r}", failures, warnings)
+        if data.get("change_audit_needed") not in (None, "true", "false"):
+            report(
+                "ERROR",
+                f"{issue_id} has invalid change_audit_needed {data.get('change_audit_needed')!r}",
+                failures,
+                warnings,
+            )
         if not sidecar.exists():
             report("ERROR", f"{issue_id} lacks sibling audit-history file", failures, warnings)
         elif front_matter(sidecar).get("issue_id") != issue_id:
@@ -303,6 +456,12 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
 
 
 def check_legislation(issue_map: dict[str, Path], failures: list[str], warnings: list[str]) -> None:
+    index = read(LEGISLATION_PATH / "README.md")
+    indexed_targets = {
+        target.resolve()
+        for raw_target in MARKDOWN_LINK_RE.findall(index)
+        if (target := local_target(LEGISLATION_PATH / "README.md", raw_target))
+    }
     for path in sorted(LEGISLATION_PATH.glob("*.md")):
         if path.name == "README.md":
             continue
@@ -317,12 +476,28 @@ def check_legislation(issue_map: dict[str, Path], failures: list[str], warnings:
                 warnings,
             )
         proposal_id = data.get("proposal_id", "")
+        if proposal_id != path.stem:
+            report(
+                "ERROR",
+                f"{path.relative_to(ROOT)} proposal_id {proposal_id!r} does not match filename",
+                failures,
+                warnings,
+            )
         issue_id = re.sub(r"-(?:state|amendment|preferred)$", "", proposal_id)
         if not ISSUE_ID_RE.fullmatch(issue_id):
             report("ERROR", f"{path.relative_to(ROOT)} lacks a valid issue_id", failures, warnings)
             continue
         if issue_id not in issue_map:
             report("ERROR", f"{path.relative_to(ROOT)} identifies unknown issue {issue_id}", failures, warnings)
+        if data.get("issue_id") != issue_id:
+            report(
+                "ERROR",
+                f"{path.relative_to(ROOT)} issue_id {data.get('issue_id')!r} does not match {issue_id}",
+                failures,
+                warnings,
+            )
+        if path.resolve() not in indexed_targets:
+            report("ERROR", f"{path.relative_to(ROOT)} is missing from legislation/README.md", failures, warnings)
         framework_issue = (data.get("framework_issue") or data.get("linked_issue") or "").strip('"')
         if not framework_issue:
             report("ERROR", f"{path.relative_to(ROOT)} lacks framework_issue metadata", failures, warnings)
@@ -331,8 +506,57 @@ def check_legislation(issue_map: dict[str, Path], failures: list[str], warnings:
             if target and not target.exists():
                 report("ERROR", f"{path.relative_to(ROOT)} framework_issue target is missing", failures, warnings)
         body = markdown_body(path)
+        visible_ids = {issue_id, proposal_id}
+        expected_h1 = (
+            rf"^# (?:{'|'.join(re.escape(value) for value in sorted(visible_ids))})\s+[—-]\s+"
+            rf"{re.escape(data.get('title', ''))}(?:\s+\((?:Preferred|Independent Alternative)\))?$"
+        )
+        if not re.search(expected_h1, body, re.MULTILINE):
+            report("ERROR", f"{path.relative_to(ROOT)} title metadata does not match its H1", failures, warnings)
         if not re.search(r"^## Budgetary Impact Statement$", body, re.MULTILINE):
             report("WARNING", f"{path.relative_to(ROOT)} lacks Budgetary Impact Statement", failures, warnings)
+
+    for issue_id, issue_path in issue_map.items():
+        data = front_matter(issue_path)
+        if data.get("record_type") == "source-development":
+            continue
+        declared: dict[str, Path] = {}
+        for field, raw_value in data.items():
+            if not (field.endswith("legislative_proposal") or field == "constitutional_proposal"):
+                continue
+            target = local_target(issue_path, raw_value.strip('"'))
+            if target:
+                declared[field] = target
+        body_targets = {
+            target.resolve()
+            for raw_target in MARKDOWN_LINK_RE.findall(markdown_body(issue_path))
+            if (target := local_target(issue_path, raw_target))
+        }
+        for field, target in declared.items():
+            if target.exists() and target.resolve() not in body_targets:
+                report(
+                    "ERROR",
+                    f"{issue_id} declares {field} but does not link it in the issue page: {target.relative_to(ROOT)}",
+                    failures,
+                    warnings,
+                )
+        preferred = declared.get("legislative_proposal") or declared.get("federal_legislative_proposal")
+        if issue_id != "JUD-011" and preferred and preferred.name == "JUD-011.md":
+            alternative = declared.get("alternative_legislative_proposal")
+            if not alternative or not alternative.exists():
+                report(
+                    "ERROR",
+                    f"{issue_id} uses JUD-011 as its preferred remedy without a valid standalone alternative",
+                    failures,
+                    warnings,
+                )
+            if not re.search(r"^## Budgetary Impact Statements$", markdown_body(issue_path), re.MULTILINE):
+                report(
+                    "ERROR",
+                    f"{issue_id} uses JUD-011 as its preferred remedy without separate Budgetary Impact Statements",
+                    failures,
+                    warnings,
+                )
 
 
 def check_area_indexes(issue_map: dict[str, Path], failures: list[str], warnings: list[str]) -> None:
@@ -345,7 +569,8 @@ def check_area_indexes(issue_map: dict[str, Path], failures: list[str], warnings
             report("ERROR", f"{issue_id} is absent from {area_readme.relative_to(ROOT)}", failures, warnings)
 
     for area_readme in sorted(ROOT.glob("areas/*/README.md")):
-        headings = re.findall(r"^## (.+)$", markdown_body(area_readme), re.MULTILINE)
+        body = markdown_body(area_readme)
+        headings = re.findall(r"^## (.+)$", body, re.MULTILINE)
         for heading in ("Generalized Institutional Concern", "Active Issues", "Issue Boundaries", "Notes"):
             if headings.count(heading) != 1:
                 report("ERROR", f"{area_readme.relative_to(ROOT)} must contain one {heading!r} heading", failures, warnings)
@@ -353,6 +578,83 @@ def check_area_indexes(issue_map: dict[str, Path], failures: list[str], warnings
             order = [headings.index(heading) for heading in ("Generalized Institutional Concern", "Active Issues", "Issue Boundaries", "Notes")]
             if order != sorted(order):
                 report("ERROR", f"{area_readme.relative_to(ROOT)} has out-of-order standard headings", failures, warnings)
+        active_match = re.search(r"^## Active Issues\s*$([\s\S]*?)(?=^## |\Z)", body, re.MULTILINE)
+        active = active_match.group(1) if active_match else ""
+        active_entries = re.findall(
+            r"^- \[\*\*([A-Z]+-\d{3}) — ([^*]+)\*\*\]\(([^)]+)\)\s*$",
+            active,
+            re.MULTILINE,
+        )
+        plain_active_entries = re.findall(
+            r"^- \*\*([A-Z]+-\d{3}) — ([^*]+)\*\*\s*$",
+            active,
+            re.MULTILINE,
+        )
+        active_ids = {entry[0] for entry in active_entries} | {
+            entry[0] for entry in plain_active_entries
+        }
+        all_active_ids = set(re.findall(r"\b[A-Z]+-\d{3}\b", active))
+        malformed = sorted(all_active_ids - active_ids)
+        if malformed:
+            report(
+                "ERROR",
+                f"{area_readme.relative_to(ROOT)} has nonstandard Active Issues entries: {', '.join(malformed)}",
+                failures,
+                warnings,
+            )
+        raw_count = front_matter(area_readme).get("issue_count", "")
+        try:
+            declared_count = int(raw_count)
+        except ValueError:
+            declared_count = -1
+        if declared_count != len(active_ids):
+            report(
+                "ERROR",
+                f"{area_readme.relative_to(ROOT)} issue_count is {raw_count!r}; Active Issues contains {len(active_ids)} record(s)",
+                failures,
+                warnings,
+            )
+        for issue_id, title, raw_target in active_entries:
+            target = local_target(area_readme, raw_target)
+            if not target or not target.exists():
+                continue
+            target_data = front_matter(target)
+            if target.stem != issue_id:
+                report(
+                    "ERROR",
+                    f"{area_readme.relative_to(ROOT)} routes {issue_id} to {target.relative_to(ROOT)}",
+                    failures,
+                    warnings,
+                )
+            if target_data.get("title") and title.strip() != target_data.get("title"):
+                report(
+                    "ERROR",
+                    f"{area_readme.relative_to(ROOT)} title for {issue_id} does not match its issue page",
+                    failures,
+                    warnings,
+                )
+        area = area_readme.parent.name
+        for issue_id, page in issue_map.items():
+            if page.parents[1].name != area:
+                continue
+            status = front_matter(page).get("status")
+            if status == "retired":
+                former_match = re.search(r"^## Former Developed Proposals\s*$([\s\S]*?)(?=^## |\Z)", body, re.MULTILINE)
+                former = former_match.group(1) if former_match else ""
+                if not re.search(rf"\b{re.escape(issue_id)}\b", former):
+                    report(
+                        "ERROR",
+                        f"{issue_id} is retired but is not listed under Former Developed Proposals",
+                        failures,
+                        warnings,
+                    )
+            elif issue_id not in active_ids:
+                report(
+                    "ERROR",
+                    f"{issue_id} is an active issue page but is not in the area's Active Issues section",
+                    failures,
+                    warnings,
+                )
 
 
 def check_issue_layout(issue_map: dict[str, Path], failures: list[str], warnings: list[str]) -> None:
@@ -390,6 +692,38 @@ def check_topic_pages(failures: list[str], warnings: list[str]) -> None:
         for legacy_heading in ("Relevant Proposals", "How Concerns Map to Proposals"):
             if re.search(rf"^## {re.escape(legacy_heading)}$", body, re.MULTILINE):
                 report("ERROR", f"{relative} retains legacy topic-page heading: {legacy_heading}", failures, warnings)
+        prohibited_headings = (
+            "Budgetary Impact Statement",
+            "Budgetary Impact Statements",
+            "Proposal Scoring",
+            "Proposed Legislation",
+            "Proposed Constitutional Amendment",
+            "Next Action",
+            "Next Steps",
+            "Audit History",
+        )
+        for heading in prohibited_headings:
+            if re.search(rf"^## {re.escape(heading)}$", body, re.MULTILINE):
+                report(
+                    "ERROR",
+                    f"{relative} contains methodology-prohibited topic-page section: {heading}",
+                    failures,
+                    warnings,
+                )
+        prohibited_phrases = (
+            "Authoritative ARRP route",
+            "Reader concern",
+            "Project lifecycle",
+            "Development priority",
+        )
+        for phrase in prohibited_phrases:
+            if phrase.casefold() in body.casefold():
+                report(
+                    "ERROR",
+                    f"{relative} contains methodology-prohibited topic-page terminology: {phrase}",
+                    failures,
+                    warnings,
+                )
 
         applicable = body.split("## Applicable Proposals", 1)[-1].split("\n## ", 1)[0]
         if map_wrapper not in applicable or map_header not in applicable or "</div>" not in applicable:
@@ -452,6 +786,18 @@ def check_markdown_links(failures: list[str], warnings: list[str]) -> None:
             target = local_target(path, raw_target)
             if target and not target.exists():
                 report("ERROR", f"broken local link in {path.relative_to(ROOT)}: {raw_target}", failures, warnings)
+            link_text = raw_target.strip().strip("<>").split(" ", 1)[0]
+            if link_text.startswith(("http://", "https://", "mailto:", "data:")):
+                continue
+            fragment = link_text.split("#", 1)[1] if "#" in link_text else ""
+            fragment_target = target or path
+            check_markdown_fragment(
+                fragment_target,
+                fragment,
+                str(path.relative_to(ROOT)),
+                failures,
+                warnings,
+            )
 
 
 def check_html_links(failures: list[str], warnings: list[str]) -> None:
@@ -637,10 +983,32 @@ def check_embedded_repository_links(failures: list[str], warnings: list[str]) ->
                     failures,
                     warnings,
                 )
+            fragment = urlsplit(raw_url.replace("\\/", "/")).fragment
+            check_markdown_fragment(
+                target,
+                fragment,
+                str(path.relative_to(ROOT)),
+                failures,
+                warnings,
+            )
 
 
-def check_github_issue_links(failures: list[str], warnings: list[str]) -> str:
-    """Validate issue-body repository links and return bodies for source reconciliation."""
+def run_gh_json(command: list[str]) -> tuple[object | None, str]:
+    """Run a read-only gh command and return parsed JSON plus a concise failure."""
+    try:
+        completed = subprocess.run(command, capture_output=True, text=True, check=False)
+    except FileNotFoundError:
+        return None, "the gh CLI is unavailable"
+    if completed.returncode:
+        detail = completed.stderr.strip().splitlines()
+        return None, detail[-1] if detail else "the GitHub query failed"
+    try:
+        return json.loads(completed.stdout), ""
+    except json.JSONDecodeError as error:
+        return None, f"GitHub returned invalid JSON: {error}"
+
+
+def fetch_github_issues(failures: list[str], warnings: list[str]) -> list[dict[str, object]] | None:
     command = [
         "gh",
         "issue",
@@ -652,38 +1020,53 @@ def check_github_issue_links(failures: list[str], warnings: list[str]) -> str:
         "--limit",
         "1000",
         "--json",
-        "number,title,body,url",
+        "number,title,body,url,state,labels",
     ]
-    try:
-        completed = subprocess.run(command, capture_output=True, text=True, check=False)
-    except FileNotFoundError:
+    payload, error = run_gh_json(command)
+    if payload is None:
         report(
             "WARNING",
-            "GitHub issue-body link check skipped because the gh CLI is unavailable",
+            "GitHub issue synchronization check skipped; rerun in the authenticated host context: " + error,
             failures,
             warnings,
         )
-        return ""
-    if completed.returncode:
-        detail = completed.stderr.strip().splitlines()
-        suffix = f": {detail[-1]}" if detail else ""
+        return None
+    return list(payload) if isinstance(payload, list) else []
+
+
+def fetch_github_project_items(failures: list[str], warnings: list[str]) -> list[dict[str, object]] | None:
+    command = [
+        "gh",
+        "project",
+        "item-list",
+        str(GITHUB_PROJECT_NUMBER),
+        "--owner",
+        GITHUB_PROJECT_OWNER,
+        "--format",
+        "json",
+        "--limit",
+        "1000",
+    ]
+    payload, error = run_gh_json(command)
+    if payload is None:
         report(
             "WARNING",
-            "GitHub issue-body link check could not query the repository; rerun the consistency audit "
-            f"in the authenticated host context{suffix}",
+            "GitHub Project synchronization check skipped; rerun in the authenticated host context: " + error,
             failures,
             warnings,
         )
-        return ""
-    try:
-        issues = json.loads(completed.stdout)
-    except json.JSONDecodeError as error:
-        report(
-            "ERROR",
-            f"GitHub issue-body link check received invalid JSON: {error}",
-            failures,
-            warnings,
-        )
+        return None
+    items = payload.get("items", []) if isinstance(payload, dict) else []
+    return list(items) if isinstance(items, list) else []
+
+
+def check_github_issue_links(
+    issues: list[dict[str, object]] | None,
+    failures: list[str],
+    warnings: list[str],
+) -> str:
+    """Validate issue-body repository links and return bodies for source reconciliation."""
+    if issues is None:
         return ""
     for issue in issues:
         for raw_url, target_text, target in github_repository_targets(issue.get("body") or ""):
@@ -695,7 +1078,285 @@ def check_github_issue_links(failures: list[str], warnings: list[str]) -> str:
                     failures,
                     warnings,
                 )
-    return "\n".join(issue.get("body") or "" for issue in issues)
+            fragment = urlsplit(raw_url.replace("\\/", "/")).fragment
+            check_markdown_fragment(
+                target,
+                fragment,
+                f"GitHub issue #{issue.get('number')}",
+                failures,
+                warnings,
+            )
+    return "\n".join(str(issue.get("body") or "") for issue in issues)
+
+
+def expected_project_status(metadata: dict[str, str]) -> set[str]:
+    """Return unambiguous Project status values implied by canonical issue metadata."""
+    status = metadata.get("status", "")
+    try:
+        score = int(metadata.get("audit_score", "0"))
+    except ValueError:
+        score = 0
+    if status == "developed" and score >= 75:
+        return READY_PROJECT_STATUSES
+    if status == "developed" and 50 <= score <= 74:
+        return {"developed draft"}
+    if status == "developed" and 1 <= score <= 49:
+        return {"in development"}
+    return {
+        "awaiting-merits-adjudication": {"deferred / parked", "blocked"},
+        "deferred": {"deferred / parked"},
+    }.get(status, set())
+
+
+def check_github_synchrony(
+    issue_map: dict[str, Path],
+    issues: list[dict[str, object]] | None,
+    project_items: list[dict[str, object]] | None,
+    failures: list[str],
+    warnings: list[str],
+) -> None:
+    """Compare registry, GitHub Issue, Project, and canonical issue metadata."""
+    with REGISTRY_PATH.open(newline="", encoding="utf-8") as handle:
+        registry = list(csv.DictReader(handle))
+    issues_by_number = {
+        int(issue["number"]): issue
+        for issue in issues or []
+        if str(issue.get("number", "")).isdigit()
+    }
+    project_by_number: dict[int, dict[str, object]] = {}
+    for item in project_items or []:
+        content = item.get("content") or {}
+        if isinstance(content, dict) and str(content.get("number", "")).isdigit():
+            project_by_number[int(content["number"])] = item
+
+    for row in registry:
+        number_text = row.get("GitHub Number", "").strip()
+        if not number_text.isdigit():
+            continue
+        number = int(number_text)
+        expected_issue_url = f"https://github.com/{GITHUB_REPOSITORY}/issues/{number}"
+        if row.get("GitHub Issue", "").strip() != expected_issue_url:
+            report("ERROR", f"registry issue #{number} has a noncanonical GitHub Issue URL", failures, warnings)
+        issue = issues_by_number.get(number)
+        if issues is not None and not issue:
+            report("ERROR", f"registry issue #{number} does not exist on GitHub", failures, warnings)
+            continue
+        if issue:
+            live_title = str(issue.get("title") or "")
+            if live_title != row.get("GitHub Title", ""):
+                report(
+                    "ERROR",
+                    f"registry title for GitHub issue #{number} differs from GitHub: {row.get('GitHub Title')!r} != {live_title!r}",
+                    failures,
+                    warnings,
+                )
+            if str(issue.get("url") or "") != expected_issue_url:
+                report("ERROR", f"GitHub issue #{number} returned a noncanonical URL", failures, warnings)
+
+        kind = row.get("Kind", "").strip()
+        active_kind = kind in {"proposal", "horizon"}
+        object_id = row.get("Object ID", "").strip()
+        canonical = row.get("Canonical Record", "").strip()
+        canonical_url = GITHUB_BLOB_PREFIX + canonical if canonical else ""
+        metadata: dict[str, str] = {}
+        if object_id in issue_map:
+            page = issue_map[object_id]
+            metadata = front_matter(page)
+            expected_record = page.relative_to(ROOT).as_posix()
+            if canonical != expected_record:
+                report(
+                    "ERROR",
+                    f"registry canonical record for {object_id} is {canonical!r}; expected {expected_record}",
+                    failures,
+                    warnings,
+                )
+            expected_title = f"{object_id}: {metadata.get('title', '')}"
+            if kind == "proposal" and row.get("GitHub Title") != expected_title:
+                report(
+                    "ERROR",
+                    f"registry title for {object_id} does not match canonical issue metadata",
+                    failures,
+                    warnings,
+                )
+
+        if issue and active_kind:
+            labels = {
+                str(label.get("name") if isinstance(label, dict) else label)
+                for label in issue.get("labels") or []
+            }
+            required_label = f"kind: {kind}"
+            if required_label not in labels:
+                report("ERROR", f"GitHub issue #{number} lacks required label {required_label!r}", failures, warnings)
+            if str(issue.get("state") or "").upper() != "OPEN":
+                report("ERROR", f"active {kind} GitHub issue #{number} is not open", failures, warnings)
+            body = str(issue.get("body") or "")
+            if kind == "proposal" and canonical_url and canonical_url not in body:
+                report(
+                    "ERROR",
+                    f"GitHub issue #{number} does not link its canonical record {canonical}",
+                    failures,
+                    warnings,
+                )
+            if object_id and object_id not in body:
+                report("ERROR", f"GitHub issue #{number} body does not identify Object ID {object_id}", failures, warnings)
+
+        if not active_kind:
+            continue
+        project_item = project_by_number.get(number)
+        if project_items is not None and not project_item:
+            report("ERROR", f"active {kind} GitHub issue #{number} is absent from Project {GITHUB_PROJECT_NUMBER}", failures, warnings)
+            continue
+        if not project_item:
+            continue
+        project_content = project_item.get("content") or {}
+        project_title = str(
+            project_content.get("title") if isinstance(project_content, dict) else ""
+        )
+        if project_title != row.get("GitHub Title", ""):
+            report("ERROR", f"Project title for issue #{number} differs from the registry", failures, warnings)
+        project_canonical = str(project_item.get("canonical page") or "")
+        allowed_canonical_pages = {canonical_url} if canonical_url else set()
+        if kind == "horizon":
+            allowed_canonical_pages.add(expected_issue_url)
+        if allowed_canonical_pages and project_canonical not in allowed_canonical_pages:
+            report(
+                "ERROR",
+                f"Project canonical page for issue #{number} is {project_canonical!r}; expected one of {', '.join(sorted(allowed_canonical_pages))}",
+                failures,
+                warnings,
+            )
+        if kind == "proposal" and object_id and "-" in object_id:
+            project_area = str(project_item.get("area") or "")
+            expected_area = object_id.split("-", 1)[0]
+            if project_area != expected_area:
+                report(
+                    "ERROR",
+                    f"Project Area for {object_id} is {project_area!r}; expected {expected_area}",
+                    failures,
+                    warnings,
+                )
+        if not metadata or metadata.get("record_type") == "source-development":
+            continue
+        if metadata.get("audit_score"):
+            try:
+                project_score = int(float(str(project_item.get("score"))))
+                repository_score = int(metadata["audit_score"])
+            except (TypeError, ValueError):
+                project_score = -1
+                repository_score = int(metadata["audit_score"])
+            if project_score != repository_score:
+                report(
+                    "ERROR",
+                    f"Project Score for {object_id} is {project_item.get('score')!r}; repository audit_score is {repository_score}",
+                    failures,
+                    warnings,
+                )
+        allowed_statuses = expected_project_status(metadata)
+        project_status = normalized_text(project_item.get("status"))
+        if allowed_statuses and project_status not in allowed_statuses:
+            report(
+                "ERROR",
+                f"Project Status for {object_id} is {project_item.get('status')!r}; repository metadata implies {', '.join(sorted(allowed_statuses))}",
+                failures,
+                warnings,
+            )
+        expected_last = f"{metadata.get('audit_last_type', '')} ({metadata.get('audit_last_date', '')})"
+        if normalized_text(project_item.get("last audit")) != normalized_text(expected_last):
+            report(
+                "ERROR",
+                f"Project Last audit for {object_id} differs from repository audit metadata",
+                failures,
+                warnings,
+            )
+        if normalized_text(project_item.get("next audit")) != normalized_text(metadata.get("audit_next")):
+            report(
+                "ERROR",
+                f"Project Next audit for {object_id} differs from repository audit_next",
+                failures,
+                warnings,
+            )
+        rebaseline = metadata.get("audit_rebaseline_status")
+        expected_rebaseline = PROJECT_REBASELINE_VALUES.get(rebaseline, "")
+        if expected_rebaseline and normalized_text(project_item.get("rebaseline status")) != normalized_text(expected_rebaseline):
+            report(
+                "ERROR",
+                f"Project Rebaseline status for {object_id} differs from repository metadata",
+                failures,
+                warnings,
+            )
+        change_needed = metadata.get("change_audit_needed")
+        if change_needed in {"true", "false"}:
+            expected_change = "Yes" if change_needed == "true" else "No"
+            if normalized_text(project_item.get("change audit needed")) != normalized_text(expected_change):
+                report(
+                    "ERROR",
+                    f"Project Change audit needed for {object_id} differs from repository metadata",
+                    failures,
+                    warnings,
+                )
+
+
+def check_github_pages_deployment(failures: list[str], warnings: list[str]) -> None:
+    """Verify that the successful Pages deployment tracks canonical main after a grace period."""
+    deployments, error = run_gh_json(
+        [
+            "gh",
+            "api",
+            f"repos/{GITHUB_REPOSITORY}/deployments?environment=github-pages&per_page=1",
+        ]
+    )
+    if deployments is None:
+        report(
+            "WARNING",
+            "GitHub Pages synchronization check skipped; rerun in the authenticated host context: " + error,
+            failures,
+            warnings,
+        )
+        return
+    if not isinstance(deployments, list) or not deployments:
+        report("ERROR", "GitHub Pages has no recorded deployment", failures, warnings)
+        return
+    deployment = deployments[0]
+    deployment_id = deployment.get("id")
+    deployed_sha = str(deployment.get("sha") or "")
+    statuses, status_error = run_gh_json(
+        ["gh", "api", f"repos/{GITHUB_REPOSITORY}/deployments/{deployment_id}/statuses?per_page=1"]
+    )
+    if statuses is None:
+        report(
+            "WARNING",
+            "GitHub Pages deployment-status check skipped: " + status_error,
+            failures,
+            warnings,
+        )
+    elif not statuses or str(statuses[0].get("state") or "") != "success":
+        state = statuses[0].get("state") if statuses else "missing"
+        report("ERROR", f"latest GitHub Pages deployment is not successful: {state}", failures, warnings)
+
+    current_sha = git_revision()
+    if not current_sha or not deployed_sha or deployed_sha == current_sha:
+        return
+    try:
+        committed_at = int(
+            subprocess.run(
+                ["git", "show", "-s", "--format=%ct", current_sha],
+                cwd=ROOT,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+        )
+    except (subprocess.CalledProcessError, ValueError):
+        committed_at = 0
+    age_seconds = int(datetime.now(timezone.utc).timestamp()) - committed_at if committed_at else 999999
+    if age_seconds <= 1800:
+        return
+    report(
+        "ERROR",
+        f"GitHub Pages deployment is stale: deployed {deployed_sha[:12]}, canonical main is {current_sha[:12]}",
+        failures,
+        warnings,
+    )
 
 
 def source_citation_corpus(github_issue_bodies: str = "") -> str:
@@ -855,7 +1516,7 @@ def check_registry_and_sources(
 ) -> None:
     with REGISTRY_PATH.open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
-    numbers = [row.get("GitHub Issue Number", "") for row in rows if row.get("GitHub Issue Number")]
+    numbers = [row.get("GitHub Number", "") for row in rows if row.get("GitHub Number")]
     for value, count in Counter(numbers).items():
         if count > 1:
             report("ERROR", f"duplicate GitHub issue number in registry: {value}", failures, warnings)
@@ -1307,6 +1968,130 @@ def check_print_assignment_metadata(failures: list[str], warnings: list[str]) ->
             )
 
 
+def check_front_door_routes(failures: list[str], warnings: list[str]) -> None:
+    """Require the three reader-discovery routes named by the methodology."""
+    root = ROOT / "README.md"
+    targets = {
+        target.resolve()
+        for raw_target in MARKDOWN_LINK_RE.findall(markdown_body(root))
+        if (target := local_target(root, raw_target))
+    }
+    required = {
+        ROOT / "SUBJECT_INDEX.md": "Subject and Institution Index",
+        ROOT / "topics" / "README.md": "Explore by Topic",
+        ROOT / "areas" / "README.md": "area-first discovery",
+    }
+    for path, label in required.items():
+        if path.resolve() not in targets:
+            report("ERROR", f"README.md lacks the required {label} route", failures, warnings)
+
+
+def check_structured_files_and_repository_hygiene(
+    failures: list[str], warnings: list[str]
+) -> None:
+    """Validate deterministic file formats and common repository hygiene rules."""
+    for path in active_project_files(".json"):
+        try:
+            json.loads(read(path))
+        except json.JSONDecodeError as error:
+            report(
+                "ERROR",
+                f"invalid JSON in {path.relative_to(ROOT)}:{error.lineno}: {error.msg}",
+                failures,
+                warnings,
+            )
+    for path in active_project_files(".csv"):
+        try:
+            with path.open(newline="", encoding="utf-8") as handle:
+                reader = csv.DictReader(handle)
+                fields = reader.fieldnames or []
+                if not fields or any(not field for field in fields):
+                    report("ERROR", f"{path.relative_to(ROOT)} has an empty CSV header", failures, warnings)
+                    continue
+                duplicates = sorted(field for field, count in Counter(fields).items() if count > 1)
+                if duplicates:
+                    report(
+                        "ERROR",
+                        f"{path.relative_to(ROOT)} has duplicate CSV columns: {', '.join(duplicates)}",
+                        failures,
+                        warnings,
+                    )
+                for row_number, row in enumerate(reader, start=2):
+                    if None in row:
+                        report(
+                            "ERROR",
+                            f"{path.relative_to(ROOT)}:{row_number} has more values than CSV columns",
+                            failures,
+                            warnings,
+                        )
+        except csv.Error as error:
+            report("ERROR", f"invalid CSV in {path.relative_to(ROOT)}: {error}", failures, warnings)
+
+    for path in reader_pages():
+        content = read(path)
+        if re.search(r"(?:file:///|/Users/[^\s)]+)", content):
+            report(
+                "ERROR",
+                f"reader-facing {path.relative_to(ROOT)} contains a local filesystem reference",
+                failures,
+                warnings,
+            )
+
+    try:
+        tracked = subprocess.run(
+            ["git", "ls-files", "-z"],
+            cwd=ROOT,
+            capture_output=True,
+            check=False,
+        ).stdout.decode("utf-8", errors="replace").split("\0")
+    except FileNotFoundError:
+        tracked = []
+    forbidden_names = {".DS_Store", ".env", ".env.local"}
+    for value in tracked:
+        if not value:
+            continue
+        name = Path(value).name
+        if name in forbidden_names or name.endswith((".bak", ".orig", ".rej", "~")):
+            report("ERROR", f"tracked repository artifact should not be committed: {value}", failures, warnings)
+
+
+def check_print_assembly_configuration(failures: list[str], warnings: list[str]) -> None:
+    path = ROOT / "framework" / "print-assembly.json"
+    try:
+        config = json.loads(read(path))
+    except (OSError, json.JSONDecodeError):
+        return
+    editions = config.get("editions") or []
+    edition_ids = [str(edition.get("id") or "") for edition in editions]
+    duplicates = sorted(value for value, count in Counter(edition_ids).items() if value and count > 1)
+    if duplicates:
+        report("ERROR", f"print-assembly.json has duplicate edition IDs: {', '.join(duplicates)}", failures, warnings)
+    missing = PRINT_LEVELS - set(edition_ids)
+    extra = set(edition_ids) - PRINT_LEVELS
+    if missing or extra:
+        report(
+            "ERROR",
+            "print-assembly.json edition IDs differ from allowed print levels"
+            + (f"; missing {', '.join(sorted(missing))}" if missing else "")
+            + (f"; unexpected {', '.join(sorted(extra))}" if extra else ""),
+            failures,
+            warnings,
+        )
+    for edition in editions:
+        sections = edition.get("sections") or []
+        section_ids = [str(section.get("id") or "") for section in sections]
+        if not section_ids or any(not value for value in section_ids):
+            report("ERROR", f"print edition {edition.get('id')!r} has an unnamed or empty section", failures, warnings)
+        repeated = sorted(value for value, count in Counter(section_ids).items() if value and count > 1)
+        if repeated:
+            report(
+                "ERROR",
+                f"print edition {edition.get('id')!r} has duplicate sections: {', '.join(repeated)}",
+                failures,
+                warnings,
+            )
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -1332,7 +2117,7 @@ def finding_category(message: str) -> str:
     categories = (
         ("Internal links", ("broken local link", "repository link", "orphaned markdown")),
         ("Sources and citations", ("source", "citation", "bibliograph")),
-        ("GitHub records", ("github issue", "project object", "registry")),
+        ("GitHub records", ("github issue", "github pages", "project object", "registry", "deployment")),
         ("Print metadata", ("print_levels", "print level", "print_status", "publication disposition", "print exclusion")),
         ("Issue structure", ("issue page", "required heading", "heading level", "h1 headings", "audit-history", "title metadata")),
         ("Topic guides", ("topic", "applicable proposals", "related ideas", "subject_index")),
@@ -1408,15 +2193,20 @@ def structured_report(
             "Issue and proposal structure",
             "Area and topic routing",
             "Internal repository links",
+            "Markdown heading anchors",
             "Orphaned Markdown pages",
             "Page metadata and heading hierarchy",
             "GitHub record references",
+            "GitHub Issue and Project synchronization",
+            "GitHub Pages deployment synchronization",
             "Source and citation catalogs",
             "Research placement",
             "Reader-facing language",
             "Tool-interface conventions",
             "Intake-workflow terminology",
             "Publication-disposition metadata",
+            "Print-assembly configuration",
+            "Structured-file and repository hygiene",
         ],
         "findings": findings,
     }
@@ -1451,7 +2241,7 @@ def markdown_report(report_data: dict[str, object]) -> str:
         "",
     ]
     if not findings:
-        lines.append("No repeatable integrity findings are currently reported.")
+        lines.extend(["No repeatable integrity findings are currently reported.", ""])
     else:
         grouped: dict[str, list[dict[str, object]]] = {}
         for finding in findings:
@@ -1484,7 +2274,12 @@ def main() -> int:
     check_orphaned_markdown_pages(failures, warnings)
     check_markdown_metadata_and_headings(failures, warnings)
     check_reader_navigation_coverage(issue_map, failures, warnings)
-    github_issue_bodies = check_github_issue_links(failures, warnings)
+    check_front_door_routes(failures, warnings)
+    github_issues = fetch_github_issues(failures, warnings)
+    project_items = fetch_github_project_items(failures, warnings)
+    github_issue_bodies = check_github_issue_links(github_issues, failures, warnings)
+    check_github_synchrony(issue_map, github_issues, project_items, failures, warnings)
+    check_github_pages_deployment(failures, warnings)
     check_registry_and_sources(issue_map, failures, warnings, github_issue_bodies)
     check_research_placement(failures, warnings)
     check_reader_language(failures, warnings)
@@ -1493,6 +2288,8 @@ def main() -> int:
     check_intake_workflow_language(failures, warnings)
     check_retired_monitor_identifiers(github_issue_bodies, failures, warnings)
     check_print_assignment_metadata(failures, warnings)
+    check_print_assembly_configuration(failures, warnings)
+    check_structured_files_and_repository_hygiene(failures, warnings)
     proposal_count = len(list(LEGISLATION_PATH.glob("*.md"))) - 1
     print(f"Checked {len(issue_map)} issue pages, {proposal_count} proposal pages, and project links/inventories.")
     for line in failures + warnings:
