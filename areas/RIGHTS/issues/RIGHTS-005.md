@@ -16,7 +16,6 @@ change_audit_needed: false
 change_audit_reason: null
 print_levels:
   - public-proposal
-  - full-technical
 audit_history: "RIGHTS-005.audit.md"
 ---
 

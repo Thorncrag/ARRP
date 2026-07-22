@@ -2,8 +2,8 @@
 title: "JUD-012 Judicial Review Foreclosure Case Review"
 status: source-development-expanded
 reviewed: 2026-07-19
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # JUD-012 Judicial Review Foreclosure Case Review

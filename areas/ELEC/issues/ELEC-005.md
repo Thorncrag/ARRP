@@ -23,7 +23,6 @@ development_priority: "active"
 pathway_adjustment: "proceed"
 print_levels:
   - public-proposal
-  - full-technical
 audit_history: "ELEC-005.audit.md"
 ---
 

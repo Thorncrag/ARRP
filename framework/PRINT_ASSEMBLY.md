@@ -29,13 +29,10 @@ The compiled proposal document should use the following order.
 ### Front Matter
 
 1. cover page using the project title and subtitle from [`../README.md`](../README.md);
-2. **About This Project** from [`../README.md`](../README.md);
-3. citation notice from [`../README.md`](../README.md) and [`../CITATION.cff`](../CITATION.cff);
-4. authorship notice from [`../AUTHORS.md`](../AUTHORS.md);
-5. a short **Find a Topic or Institution** notice that identifies the Topic Guides index, links directly to it and the Subject and Institution Index in digital editions, and identifies their resolved page numbers in print editions;
-6. rights and reuse notice from [`../README.md`](../README.md) and [`../LICENSE.md`](../LICENSE.md);
-7. table of contents generated from the assembled document; and
-8. optional one-page executive summary when one is later drafted.
+2. [`../ABOUT.md`](../ABOUT.md), containing the reader notice, project approach, authorship, technical-record access, contact, citation, and reuse routes;
+3. [`../PRINT_READERS_GUIDE.md`](../PRINT_READERS_GUIDE.md), with the generated quick issue lookup and online technical-record notice;
+4. table of contents generated from the assembled document; and
+5. optional one-page executive summary when one is later drafted.
 
 ### Main Proposal Body
 
@@ -48,7 +45,7 @@ The main body should then include:
 5. for each area, existing substantive issue pages in issue-identifier order, excluding internal source-development shells;
 6. within each issue, the issue page's existing heading structure, including Issue Snapshot, Institutional Anomaly, Manifestation of the Failure, Resulting Damage, Underlying Weakness, Proposal Survey, Least-Complex Adequate Remedy, Repair and Prevention, Proposed Legislation where present, Proposed Constitutional Amendment and Proposed Enabling Legislation where present, Adoption Viability Note where present, Relationship to Adjacent Proposals where present, Budgetary Impact Statement, Proposal Scoring, Annotation, source notes, and internal cross-references where present.
 
-If an issue exists only in the inventory or area README and does not yet have its own substantive issue page, it should remain summarized in the area page and should not be expanded artificially in the compiled document. A `record_type: source-development` shell is an internal routing record, not a substantive issue page: it remains `full-technical` only, is excluded from the public proposal body and public website, and does not count as developed, audited, scored, review ready, or otherwise mature for print or progress reporting. A full-technical export may place such shells with internal research-routing material, but must not insert them among substantive issue pages in a way that implies completed analysis.
+If an issue exists only in the inventory or area README and does not yet have its own substantive issue page, it should remain summarized in the area page and should not be expanded artificially in the compiled document. A `record_type: source-development` shell is an internal routing record, is excluded from compiled editions and the public website, and does not count as developed, audited, scored, review ready, or otherwise mature for print or progress reporting.
 
 ### Appendices
 
@@ -58,11 +55,9 @@ Appendices should use this order:
 
 1. Appendix A - Proposed Federal Legislation and Constitutional Amendments;
 2. Appendix B - Model State Legislation;
-3. Appendix C - ARRP research, crosswalks, catalogs, or other project work product selected for publication;
-4. Appendix D - Technical framework, contribution rules, and release process, if included in a technical edition; and
-5. Appendix E - issue audit-history files for full technical editions, when audit provenance is included.
+3. Appendix C - reader-useful ARRP evidence, research, crosswalks, catalogs, or other project work product deliberately selected for publication.
 
-Reader-facing issue evidence records are supplemental rather than additional issue proposals. A public edition may place selected records in an evidence appendix when their inclusion materially supports the documented pattern without overloading the main issue page. A concise edition may omit them while retaining the issue page's anchor evidence and digital link. Full technical editions should preserve selected evidence records with other issue-supporting research according to the edition's explicit export plan.
+Reader-facing issue evidence records are supplemental rather than additional issue proposals. A public edition may place selected records in an evidence appendix when their inclusion materially supports the documented pattern without overloading the main issue page. A concise edition may omit them while retaining the issue page's anchor evidence and digital link.
 
 Appendix A should include legislation and constitutional-amendment files in issue-identifier order. For amendment-dependent proposals, place the amendment text before enabling legislation. When both preferred and independent implementing Acts exist, use amendment, preferred, then independent order—for example `DOJ-007-amendment.md`, `DOJ-007-preferred.md`, then `DOJ-007.md`. For ordinary federal proposals, use unsuffixed filenames first, for example `DOJ-001.md`, `ELEC-001.md`, `JUD-001.md`, and `WAR-001.md`.
 
@@ -78,15 +73,15 @@ Legislation pages should use a narrow publication structure:
 4. `Drafting Notes`; and
 5. `Source Notes`, or `Authority Notes` where the proposal specifically needs a legal-authority or statutory-hook map.
 
-Relation-to-law provisions, rules of construction, severability clauses, definitions, and similar material should remain inside the proposed text when they are operative provisions. Explanatory crosswalks, manifestation-to-remedy mapping, implementation principles, and other analysis should live on the issue page, a research page, or a selected technical appendix rather than as standalone sections on the legislation page, unless the user deliberately creates a publication-specific appendix.
+Relation-to-law provisions, rules of construction, severability clauses, definitions, and similar material should remain inside the proposed text when they are operative provisions. Explanatory crosswalks, manifestation-to-remedy mapping, implementation principles, and other analysis should live on the issue page, a research page, or a deliberately selected reader appendix rather than as standalone sections on the legislation page, unless the user creates a publication-specific appendix.
 
-Issue audit-history files named `ISSUE-ID.audit.md` are technical sidecars. They should be included only in full technical editions or audit-specific exports unless the user deliberately chooses to publish audit provenance. Public proposal editions should generally keep only the issue page's compact Proposal Scoring section and omit the full audit-history sidecars.
+Issue audit-history files named `ISSUE-ID.audit.md` are online technical sidecars and are omitted from ordinary compiled editions. A separately requested audit-specific export may include them without creating a permanent technical-edition classification. Public proposal editions keep only the issue page's compact Proposal Scoring section.
 
 Issue evidence records under `areas/AREA/evidence/` are reader-facing supplements, not audit sidecars. Their placement should follow the edition-specific evidence-appendix rule above; they should not be inserted automatically after their parent issue in a way that makes them appear to be an independent proposal.
 
 ### Back Matter
 
-Public-proposal and full-technical editions should end with a generated **Subject and Institution Index** based on [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). The canonical index supplies one alphabetical sequence of entities, subjects, acronyms, and aliases together with ordered stable identifiers, digital links, a marked preferred route, and conventional **See** redirects for especially common alternate terms. The export layer supplies the page numbers for the particular edition.
+The public-proposal edition should end with a generated **Subject and Institution Index** based on [`../SUBJECT_INDEX.md`](../SUBJECT_INDEX.md). The canonical index supplies one alphabetical sequence of entities, subjects, acronyms, and aliases together with ordered stable identifiers, digital links, a marked preferred route, and conventional **See** redirects for especially common alternate terms. The export layer supplies the page numbers for the particular edition.
 
 Keeping the complete index in back matter does not make it a secondary discovery path. The opening front matter must point readers to it prominently, and digital navigation should make it reachable directly without requiring readers to traverse the linear table of contents.
 
@@ -125,10 +120,10 @@ See Appendix A, ELEC-005, p. 42.
 
 Issue pages that refer to proposed legislation should identify the appendix destination when practical, but the canonical Markdown may continue to link to the legislation file.
 
-Final public, legislative, and technical editions should support stable appendix references with resolved page numbers. Because page numbers are known only after pagination, the export workflow should eventually use a two-pass build:
+Final public, legislative-appendix, and executive-summary editions should support stable references with resolved page numbers where their contents require them. Because page numbers are known only after pagination, the export workflow should use a two-pass build:
 
-1. generate the document and record the start page for each major section, area, developed issue, legislation appendix item, and technical appendix item;
-2. regenerate the document with the opening Subject and Institution Index pointer, page-numbered cross-references, a page-numbered table of contents or appendix index, and references such as `Appendix A-1, DOJ-001 proposed legislation, p. 10`.
+1. generate the document and record the start page for each major section, area, developed issue, legislation appendix item, and selected appendix item;
+2. regenerate the document with the opening quick issue lookup in [`../PRINT_READERS_GUIDE.md`](../PRINT_READERS_GUIDE.md), the Subject and Institution Index pointer, page-numbered cross-references, a page-numbered table of contents or appendix index, and references such as `Appendix A-1, DOJ-001 proposed legislation, p. 10`.
 
 Manual page-number references should not be maintained in canonical Markdown because they will drift whenever content changes. Canonical issue pages should keep stable links and identifiers; the export layer should resolve those identifiers into appendix labels and page numbers for final print products.
 
@@ -166,12 +161,13 @@ Source-development notes may be included in the main body, moved to a source app
 
 ## Export Variants
 
-The project may later maintain more than one compiled edition:
+The project may maintain three compiled editions:
 
-1. **Full technical edition** - includes front matter, all area pages, all developed issue pages, legislation appendices, selected ARRP research appendices, and technical framework appendices.
-2. **Public proposal edition** - includes front matter, area pages, developed issue pages, and legislation appendices, but omits technical repository-process materials.
-3. **Legislative appendix edition** - includes only proposed legislation and related drafting notes.
-4. **Executive summary edition** - includes front matter, brief area summaries, selected priority issues, and references to the full edition.
+1. **Public proposal edition** - includes front matter, topic guides, area pages, developed issue pages, legislation appendices, and deliberately selected reader-useful evidence or research, while omitting technical repository-process materials.
+2. **Legislative appendix edition** - includes proposed legislation and related drafting notes.
+3. **Executive summary edition** - includes front matter, brief area summaries, selected priority issues, and references to the public proposal.
+
+The repository and public website provide the complete technical record. Audit histories or other specialized technical materials may be assembled on request without maintaining a permanent technical print edition or assigning every online record to print.
 
 Unless otherwise specified, "compiled proposal document" means the public proposal edition.
 
@@ -186,11 +182,10 @@ Use the metadata key `print_levels` with one or more of these stable values:
 | Metadata value | Visible label | Use |
 | --- | --- | --- |
 | `public-proposal` | Public proposal edition | Main public-facing proposal pages, topic guides, area pages, developed issue pages, and legislation appendices used by the public proposal edition. |
-| `full-technical` | Full technical edition | Curated framework, audit, research, evidence, and proposal material needed for the complete technical publication. It is not a repository archive. External files retained in `sources/` are not included unless an export plan deliberately selects a source facsimile. |
 | `legislative-appendix` | Legislative appendix edition | Proposed legislation pages and legislation-index pages intended for a legislation-only export. |
 | `executive-summary` | Executive summary edition | Front-matter and area-summary pages that can support a short summary edition. |
 
-Pages may belong to multiple levels. The metadata values should follow the order shown above. The full technical edition is curated: include framework, audit, research, or evidence material only when it materially supports the technical document.
+Pages may belong to multiple levels. The metadata values should follow the order shown above. Evidence or research receives `public-proposal` only when its inclusion materially improves the reader edition; otherwise it remains available online and is explicitly excluded from print.
 
 If a page is not suitable for any compiled edition, omit `print_levels` and record both:
 
@@ -209,4 +204,4 @@ The document builder derives a proposed table of contents and appendix sequence 
 
 ## Backlog Reference
 
-Roadmap, backlog, and to-do items are maintained only in [`FRAMEWORK.md`](FRAMEWORK.md). This file records print-assembly rules and should not maintain a separate roadmap.
+Roadmap, backlog, and to-do items are maintained in the GitHub Project and Issues under [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md). This file records print-assembly rules and does not maintain a separate roadmap.

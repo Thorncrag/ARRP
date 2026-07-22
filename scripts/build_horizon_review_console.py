@@ -38,13 +38,11 @@ INTEGRITY_DATA_REF = "origin/project-console-data:integrity.json"
 LOCAL_INTEGRITY_FEED = ROOT / ".tmp" / "project-console-integrity.json"
 PRINT_LEVEL_ORDER = (
     "public-proposal",
-    "full-technical",
     "legislative-appendix",
     "executive-summary",
 )
 PRINT_LEVEL_LABELS = {
     "public-proposal": "Public proposal edition",
-    "full-technical": "Full technical edition",
     "legislative-appendix": "Legislative appendix edition",
     "executive-summary": "Executive summary edition",
 }
@@ -247,7 +245,12 @@ def markdown_body(content: str) -> str:
 
 
 def publication_document_type(relative: Path, metadata: dict[str, object]) -> str:
-    if relative in {Path("README.md"), Path("AUTHORS.md"), Path("LICENSE.md")}:
+    if relative in {
+        Path("README.md"),
+        Path("ABOUT.md"),
+        Path("PRINT_READERS_GUIDE.md"),
+        Path("LICENSE.md"),
+    }:
         return "front-matter"
     if relative == Path("SUBJECT_INDEX.md"):
         return "back-matter"
@@ -277,7 +280,12 @@ def publication_document_type(relative: Path, metadata: dict[str, object]) -> st
 
 
 def publication_sort_key(relative: Path, document_type: str, title: str) -> str:
-    front_order = {"README.md": "000", "AUTHORS.md": "010", "LICENSE.md": "020"}
+    front_order = {
+        "README.md": "000",
+        "ABOUT.md": "010",
+        "PRINT_READERS_GUIDE.md": "020",
+        "LICENSE.md": "030",
+    }
     if document_type == "front-matter":
         return front_order.get(relative.as_posix(), f"900-{title.casefold()}")
     if document_type == "back-matter":

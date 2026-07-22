@@ -6,7 +6,6 @@ status: working-draft
 framework_issue: "../areas/RIGHTS/issues/RIGHTS-005.md"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

@@ -194,7 +194,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(self.console["page_inventory"])
         self.assertEqual(
             {edition["id"] for edition in self.console["publication"]["manifest"]["editions"]},
-            {"public-proposal", "full-technical", "legislative-appendix", "executive-summary"},
+            {"public-proposal", "legislative-appendix", "executive-summary"},
         )
         for edition in self.console["publication"]["manifest"]["editions"]:
             assigned = [
@@ -333,7 +333,7 @@ class HorizonIntakeTest(unittest.TestCase):
 
     def test_current_workflow_docs_do_not_restore_legacy_console_queues(self) -> None:
         current_docs = (
-            ROOT / "framework" / "METHODOLOGY.md",
+            ROOT / "framework" / "FRAMEWORK.md",
             ROOT / "framework" / "AGENT_OPERATING_RULES.md",
             ROOT / "framework" / "INTAKE_AGENT_PROCESS.md",
             ROOT / "participate" / "README.md",
@@ -399,7 +399,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(any(row["supporting_sources"] for row in active))
         self.assertTrue(all(not row["evidence_records"] for row in active))
 
-        methodology = (ROOT / "framework" / "METHODOLOGY.md").read_text(encoding="utf-8")
+        methodology = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
         self.assertIn("decision dossier assembled from existing authoritative records", methodology)
         self.assertIn("must not become a manually maintained narrative ledger", methodology)
 
@@ -493,6 +493,12 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn('id="watcher-panel-overview"', console_html)
         self.assertIn('id="court-watch-update"', console_html)
         self.assertIn('id="directive-watch-update"', console_html)
+        self.assertIn('id="court-watch-update-banner"', console_html)
+        self.assertIn('id="court-watch-updated-only"', console_html)
+        self.assertIn('id="directive-watch-update-banner"', console_html)
+        self.assertIn('id="directive-watch-updated-only"', console_html)
+        console_readme = (console_dir / "README.md").read_text(encoding="utf-8")
+        self.assertIn("Whenever a `+N` badge represents only part of a larger list", console_readme)
         self.assertIn("Publication disposition", console_html)
         self.assertIn("Page print assignments", console_html)
         self.assertIn("Edition analysis", console_html)
@@ -528,6 +534,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn("const printChanges", render_action_items)
         self.assertIn("refreshBotReviewSignals", console_app)
         self.assertIn("bot/case-monitor-updates", console_app)
+        self.assertIn("reviewSignals.courts.ids", console_app)
+        self.assertIn("renderWatcherUpdateBanner", console_app)
         self.assertIn("Add print level…", console_app)
         self.assertIn("print-level-remove", console_app)
         self.assertIn("renderEditionAnalysis", console_app)

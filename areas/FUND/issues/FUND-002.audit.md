@@ -2,8 +2,8 @@
 issue_id: FUND-002
 title: "Pocket Rescissions and Strategic Delay — Audit History"
 source_issue: "FUND-002.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # FUND-002 — Audit History

@@ -2,8 +2,8 @@
 issue_id: ELEC-012
 title: "Campaign Finance, Dark Money, and Corporate Political Spending — Audit History"
 source_issue: "ELEC-012.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-012 — Audit History

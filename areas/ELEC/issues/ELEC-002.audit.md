@@ -2,8 +2,8 @@
 issue_id: ELEC-002
 title: "Pressure on Certification and Canvassing Officials — Audit History"
 source_issue: "ELEC-002.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-002 — Audit History

@@ -2,8 +2,8 @@
 issue_id: APPT-001
 title: "Evasion of Senate Confirmation and Statutory Appointment Safeguards — Audit History"
 source_issue: "APPT-001.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # APPT-001 — Audit History

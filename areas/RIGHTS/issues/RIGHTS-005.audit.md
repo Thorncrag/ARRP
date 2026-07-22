@@ -2,8 +2,8 @@
 issue_id: RIGHTS-005
 title: "Civil and Criminal Accountability for Law-Enforcement Constitutional Violations — Audit History"
 source_issue: "RIGHTS-005.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # RIGHTS-005 — Audit History

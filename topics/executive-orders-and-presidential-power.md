@@ -6,7 +6,6 @@ purpose: "Help readers distinguish lawful presidential direction from refusal to
 last_reviewed: "2026-07-19"
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # Executive Orders and Presidential Power {.arrp-topic-guide-title}

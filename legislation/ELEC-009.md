@@ -8,7 +8,6 @@ constitutional_amendment: "ELEC-009-amendment.md"
 framework_issue: "../areas/ELEC/issues/ELEC-009.md"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

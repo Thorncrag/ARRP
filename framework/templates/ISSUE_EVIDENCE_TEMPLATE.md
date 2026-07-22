@@ -6,7 +6,7 @@ print_exclusion_reason: "Internal drafting template."
 
 # Issue Evidence Record Template
 
-Use this structure only after the [source-adjudication standard](../METHODOLOGY.md#automated-source-adjudication-and-issue-evidence-records) determines qualitatively that the issue page already contains sufficiently strong evidence and additional material warrants reader-facing treatment outside the concise issue page. No source-count or episode-count threshold applies. Replace bracketed instructions, omit empty optional sections, and keep the page organized by institutional mechanism or manifestation rather than by source order. The canonical issue page must contain a short link to the evidence record.
+Use this structure only after the [source-adjudication standard](../FRAMEWORK.md#automated-source-adjudication-and-issue-evidence-records) determines qualitatively that the issue page already contains sufficiently strong evidence and additional material warrants reader-facing treatment outside the concise issue page. No source-count or episode-count threshold applies. Replace bracketed instructions, omit empty optional sections, and keep the page organized by institutional mechanism or manifestation rather than by source order. The canonical issue page must contain a short link to the evidence record.
 
 ```markdown
 ---
@@ -17,7 +17,6 @@ canonical_issue: "../issues/ISSUE-000.md"
 last_evidence_review: YYYY-MM-DD
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # ISSUE-000 Evidence Record
@@ -51,4 +50,4 @@ This page supplements [ISSUE-000 — Precise Issue Title](../issues/ISSUE-000.md
 All retained external materials are registered in [`inventory/sources.csv`](../../../inventory/sources.csv). This page selects evidence for reader use and does not reproduce the source inventory.
 ```
 
-An evidence record does not receive a proposal score, audit run, independent remedy, or separate GitHub proposal issue. Do not create one merely because an intake routed evidence to an issue. A stronger or necessary source belongs on the issue page. Additional material belongs on a reader-facing evidence page only when separate treatment adds meaningful clarity, organization, or monitoring value; otherwise, retained source-development material belongs in the issue's internal source-development record and [`inventory/sources.csv`](../../inventory/sources.csv). Adding corroboration that leaves the issue theory unchanged is source development; changing the diagnosis, scope, or remedy remains subject to the ordinary Change Audit rules. If the receiving issue is undeveloped or the episode still requires verification, create or use its internal full-technical source-development shell, cite the source there, and express incomplete verification through the source record rather than the pending queue. [`inventory/sources-pending.csv`](../../inventory/sources-pending.csv) is reserved for sources whose accountable destination is genuinely unclear.
+An evidence record does not receive a proposal score, audit run, independent remedy, or separate GitHub proposal issue. Do not create one merely because an intake routed evidence to an issue. A stronger or necessary source belongs on the issue page. Additional material belongs on a reader-facing evidence page only when separate treatment adds meaningful clarity, organization, or monitoring value; otherwise, retained source-development material belongs in the issue's internal source-development record and [`inventory/sources.csv`](../../inventory/sources.csv). Adding corroboration that leaves the issue theory unchanged is source development; changing the diagnosis, scope, or remedy remains subject to the ordinary Change Audit rules. If the receiving issue is undeveloped or the episode still requires verification, create or use its internal print-excluded source-development shell, cite the source there, and express incomplete verification through the source record rather than the pending queue. [`inventory/sources-pending.csv`](../../inventory/sources-pending.csv) is reserved for sources whose accountable destination is genuinely unclear.

@@ -9,31 +9,57 @@
       "label": "Public proposal edition",
       "description": "The complete public-facing proposal with legislation, selected supporting material, and the subject index.",
       "sections": [
-        {"id": "front-matter", "title": "Front Matter", "accepts": ["front-matter"]},
-        {"id": "topic-guides", "title": "Topic Guides", "accepts": ["topic-guide"]},
-        {"id": "main-body", "title": "Project Areas and Proposals", "accepts": ["area-summary", "issue"]},
-        {"id": "appendix-a-federal", "title": "Appendix A — Proposed Federal Legislation and Constitutional Amendments", "accepts": ["federal-legislation"]},
-        {"id": "appendix-b-state", "title": "Appendix B — Model State Legislation", "accepts": ["state-legislation"]},
-        {"id": "appendix-c-research", "title": "Appendix C — Selected Evidence and ARRP Research", "accepts": ["evidence", "research"]},
-        {"id": "back-matter", "title": "Subject and Institution Index", "accepts": ["back-matter"]}
-      ],
-      "placement_overrides": {},
-      "order_overrides": []
-    },
-    {
-      "id": "full-technical",
-      "label": "Full technical edition",
-      "description": "A curated technical publication containing proposal text, supporting research, framework material, and audit provenance without internal repository operations.",
-      "sections": [
-        {"id": "front-matter", "title": "Front Matter", "accepts": ["front-matter"]},
-        {"id": "topic-guides", "title": "Topic Guides", "accepts": ["topic-guide"]},
-        {"id": "main-body", "title": "Project Areas and Proposals", "accepts": ["area-summary", "issue"]},
-        {"id": "appendix-a-federal", "title": "Appendix A — Proposed Federal Legislation and Constitutional Amendments", "accepts": ["federal-legislation"]},
-        {"id": "appendix-b-state", "title": "Appendix B — Model State Legislation", "accepts": ["state-legislation"]},
-        {"id": "appendix-c-research", "title": "Appendix C — ARRP Research, Evidence, Crosswalks, and Catalogs", "accepts": ["evidence", "research"]},
-        {"id": "appendix-d-technical", "title": "Appendix D — Technical Framework", "accepts": ["technical", "legislation-index"]},
-        {"id": "appendix-e-audits", "title": "Appendix E — Issue Audit Histories", "accepts": ["audit-history"]},
-        {"id": "back-matter", "title": "Subject and Institution Index", "accepts": ["back-matter"]}
+        {
+          "id": "front-matter",
+          "title": "Front Matter",
+          "accepts": [
+            "front-matter"
+          ]
+        },
+        {
+          "id": "topic-guides",
+          "title": "Topic Guides",
+          "accepts": [
+            "topic-guide"
+          ]
+        },
+        {
+          "id": "main-body",
+          "title": "Project Areas and Proposals",
+          "accepts": [
+            "area-summary",
+            "issue"
+          ]
+        },
+        {
+          "id": "appendix-a-federal",
+          "title": "Appendix A — Proposed Federal Legislation and Constitutional Amendments",
+          "accepts": [
+            "federal-legislation"
+          ]
+        },
+        {
+          "id": "appendix-b-state",
+          "title": "Appendix B — Model State Legislation",
+          "accepts": [
+            "state-legislation"
+          ]
+        },
+        {
+          "id": "appendix-c-research",
+          "title": "Appendix C — Selected Evidence and ARRP Research",
+          "accepts": [
+            "evidence",
+            "research"
+          ]
+        },
+        {
+          "id": "back-matter",
+          "title": "Subject and Institution Index",
+          "accepts": [
+            "back-matter"
+          ]
+        }
       ],
       "placement_overrides": {},
       "order_overrides": []
@@ -43,9 +69,28 @@
       "label": "Legislative appendix edition",
       "description": "A legislation-only edition containing federal, constitutional, and model-state proposal text.",
       "sections": [
-        {"id": "front-matter", "title": "Front Matter and Legislation Index", "accepts": ["front-matter", "legislation-index"]},
-        {"id": "appendix-a-federal", "title": "Appendix A — Proposed Federal Legislation and Constitutional Amendments", "accepts": ["federal-legislation"]},
-        {"id": "appendix-b-state", "title": "Appendix B — Model State Legislation", "accepts": ["state-legislation"]}
+        {
+          "id": "front-matter",
+          "title": "Front Matter and Legislation Index",
+          "accepts": [
+            "front-matter",
+            "legislation-index"
+          ]
+        },
+        {
+          "id": "appendix-a-federal",
+          "title": "Appendix A — Proposed Federal Legislation and Constitutional Amendments",
+          "accepts": [
+            "federal-legislation"
+          ]
+        },
+        {
+          "id": "appendix-b-state",
+          "title": "Appendix B — Model State Legislation",
+          "accepts": [
+            "state-legislation"
+          ]
+        }
       ],
       "placement_overrides": {},
       "order_overrides": []
@@ -55,10 +100,34 @@
       "label": "Executive summary edition",
       "description": "A concise front-door edition built from project front matter, topic navigation, and area summaries.",
       "sections": [
-        {"id": "front-matter", "title": "Front Matter", "accepts": ["front-matter"]},
-        {"id": "topic-guides", "title": "Topic Guides", "accepts": ["topic-guide"]},
-        {"id": "area-summaries", "title": "Project Area Summaries", "accepts": ["area-summary"]},
-        {"id": "back-matter", "title": "Subject and Institution Index", "accepts": ["back-matter"]}
+        {
+          "id": "front-matter",
+          "title": "Front Matter",
+          "accepts": [
+            "front-matter"
+          ]
+        },
+        {
+          "id": "topic-guides",
+          "title": "Topic Guides",
+          "accepts": [
+            "topic-guide"
+          ]
+        },
+        {
+          "id": "area-summaries",
+          "title": "Project Area Summaries",
+          "accepts": [
+            "area-summary"
+          ]
+        },
+        {
+          "id": "back-matter",
+          "title": "Subject and Institution Index",
+          "accepts": [
+            "back-matter"
+          ]
+        }
       ],
       "placement_overrides": {},
       "order_overrides": []

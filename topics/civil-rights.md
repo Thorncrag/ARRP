@@ -6,7 +6,6 @@ purpose: "Help readers find the ARRP proposals addressing civil-rights administr
 last_reviewed: "2026-07-21"
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # Civil Rights {.arrp-topic-guide-title}

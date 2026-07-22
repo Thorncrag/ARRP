@@ -2,7 +2,6 @@
 title: "Rights and Reuse Notice"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
   - executive-summary
 ---

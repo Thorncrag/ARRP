@@ -6,7 +6,6 @@ purpose: "Help readers find the ARRP proposals addressing constitutional authori
 last_reviewed: "2026-07-18"
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # Campaign Finance {.arrp-topic-guide-title}

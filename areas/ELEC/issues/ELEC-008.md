@@ -24,7 +24,6 @@ development_priority: "active"
 pathway_adjustment: "stage"
 print_levels:
   - public-proposal
-  - full-technical
 audit_history: "ELEC-008.audit.md"
 ---
 

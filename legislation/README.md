@@ -1,7 +1,6 @@
 ---
 title: "Legislative Drafting Proposals"
 print_levels:
-  - full-technical
   - legislative-appendix
 ---
 

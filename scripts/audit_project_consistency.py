@@ -81,7 +81,6 @@ TOOL_INTERFACES = (
 )
 CURRENT_INTAKE_WORKFLOW_FILES = (
     ROOT / "framework" / "FRAMEWORK.md",
-    ROOT / "framework" / "METHODOLOGY.md",
     ROOT / "framework" / "AGENT_OPERATING_RULES.md",
     ROOT / "framework" / "INTAKE_AGENT_PROCESS.md",
     ROOT / "framework" / "PROJECT_STRUCTURE.md",
@@ -104,7 +103,6 @@ FRONT_MATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 ISSUE_ID_RE = re.compile(r"^[A-Z]+-\d{3}$")
 PRINT_LEVELS = {
     "public-proposal",
-    "full-technical",
     "legislative-appendix",
     "executive-summary",
 }

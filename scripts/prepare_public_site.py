@@ -26,8 +26,9 @@ SITE_ROOT = BUILD_ROOT / "site"
 PUBLIC_LEVEL = "public-proposal"
 PUBLIC_ROOT_PAGES = {
     Path("README.md"),
+    Path("PRINT_READERS_GUIDE.md"),
     Path("SUBJECT_INDEX.md"),
-    Path("AUTHORS.md"),
+    Path("ABOUT.md"),
     Path("LICENSE.md"),
 }
 PUBLIC_DIRECTORIES = {"areas", "legislation", "topics"}
@@ -353,7 +354,9 @@ def generate_navigation(
     lines.extend(
         [
             f"  - {yaml_label('About')}:",
-            f"      - {yaml_label('Authorship')}: AUTHORS.md",
+            f"      - {yaml_label('About the Project')}: ABOUT.md",
+            f"      - {yaml_label('Using a Print Edition')}: PRINT_READERS_GUIDE.md",
+            f"      - {yaml_label('Technical Record on GitHub')}: https://github.com/Thorncrag/ARRP",
             f"      - {yaml_label('Rights and Reuse')}: LICENSE.md",
             f"  - {yaml_label('Contact')}: https://arrp-public-intake.vercel.app/",
         ]

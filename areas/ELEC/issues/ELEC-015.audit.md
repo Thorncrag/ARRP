@@ -2,8 +2,8 @@
 issue_id: ELEC-015
 title: "Ranked-Choice Voting and Majority-Choice Election Methods — Audit History"
 source_issue: "ELEC-015.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-015 — Audit History

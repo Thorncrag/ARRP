@@ -2,7 +2,6 @@
 title: "American Restoration and Resilience Project (ARRP)"
 print_levels:
   - public-proposal
-  - full-technical
   - executive-summary
 ---
 
@@ -101,13 +100,13 @@ The project does not avoid naming public actors, including President Trump, wher
 
 The project is not limited to incidents from President Trump's administrations. Those incidents are a principal case study because they exposed how many parts of the constitutional and administrative system depended on political traditions, voluntary restraint, unwritten norms, and underspecified legal guidelines. The project also includes older, continuing, or future-facing institutional weaknesses where they bear on democratic resilience, including representation, disenfranchisement, and other structural conditions that affect whether the system can remain self-correcting over time.
 
-The full neutrality, language, coalition-reality, and political-language review rules are maintained in the technical framework and project methodology. See [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#neutrality-and-language-guidelines) and [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#political-language-and-coalition-appeal-audit).
+The full neutrality, language, coalition-reality, and political-language review rules are maintained in the [Framework and Methodology](framework/FRAMEWORK.md#neutrality-and-language-guidelines), including its [political-language audit](framework/FRAMEWORK.md#political-language-and-coalition-appeal-audit).
 
 The project is also a living research draft. Sources, citations, examples, issue classifications, and proposed remedies may be incomplete, provisional, or later revised as the work develops.
 
 The project is author-directed. The author has set the research agenda, selected and organized the issues, made the editorial judgments, and remained in charge of the project's structure and development. Large language model tools, including ChatGPT, have been used extensively for research organization, drafting assistance, revision, comparison, and issue spotting, but the project was not generated from scratch by an LLM. The author asserts authorship of the project as a whole and remains responsible for its editorial choices, judgments, omissions, and errors.
 
-For a dedicated authorship, stakeholder-input, and contact statement, see [`AUTHORS.md`](AUTHORS.md).
+For authorship, stakeholder input, technical-record access, and contact information, see [About the Project](ABOUT.md).
 
 ## How to Read an Issue Page
 
@@ -141,7 +140,7 @@ Score bands are interpreted as follows:
 | 95-99 | **Publication Ready:** rare and heavily validated. |
 | 100 | **Fully Validated:** theoretically possible but not expected for most reforms. |
 
-The full scoring formula and internal-review rules are maintained in [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md#audit-rules-and-proposal-quality-scoring).
+The full scoring formula and internal-review rules are maintained in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md#audit-rules-and-proposal-quality-scoring).
 
 Some issue pages also show an **Adoption Score** from 0 to 12. This is part of the Proposal Quality Score, not a separate score. It measures whether the proposal has a realistic, evidence-supported adoption path, including likely audiences, good-faith objections, coalition strategy, current support evidence, and the required electoral environment.
 
@@ -212,16 +211,14 @@ The project is planned to be released at a later date, in whole or in part, unde
 
 For citation metadata, see [`CITATION.cff`](CITATION.cff). The preferred citation may be updated when the project is formally released for broader public use.
 
-## Technical Framework
+## Technical Records
 
-The project framework, repository structure, file conventions, contribution process, and development backlog are maintained in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md).
-
-The project methodology, internal-review rules, scoring rules, and inventory maintenance rules are maintained in [`framework/METHODOLOGY.md`](framework/METHODOLOGY.md).
+The complete framework, methodology, issue-admission standards, internal-review rules, scoring rules, and source-governance rules are maintained in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md). Repository directories and file purposes are maintained in [`framework/PROJECT_STRUCTURE.md`](framework/PROJECT_STRUCTURE.md).
 
 Agent-assisted and autonomous batch-review operating rules are maintained in [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md).
 
 Autonomous, batched, or scheduled agent commit provenance and rollback references are maintained in [`framework/logs/AGENT_AUDIT_LOG.md`](framework/logs/AGENT_AUDIT_LOG.md). Human-invoked internal reviews use the technical review-history sidecar, issue-page metadata, and GitHub Project fields instead.
 
-Project-wide method improvements are incorporated into the governing framework and methodology; proposal-specific review history remains with the affected proposal.
+Project-wide method improvements are incorporated into the governing Framework and Methodology; proposal-specific review history remains with the affected proposal.
 
 The Horizon Scan Log is maintained in [`framework/logs/HORIZON_SCAN_LOG.md`](framework/logs/HORIZON_SCAN_LOG.md).

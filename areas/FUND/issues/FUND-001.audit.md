@@ -2,8 +2,8 @@
 issue_id: FUND-001
 title: "Fiscal Implementation of Ultra Vires Executive Directives — Audit History"
 source_issue: "FUND-001.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # FUND-001 — Audit History

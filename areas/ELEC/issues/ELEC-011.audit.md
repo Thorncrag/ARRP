@@ -2,8 +2,8 @@
 issue_id: ELEC-011
 title: "Algorithmic Redistricting Baseline and Representation Safeguards — Audit History"
 source_issue: "ELEC-011.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-011 — Audit History
@@ -122,7 +122,7 @@ This file preserves the full audit history for [ELEC-011](ELEC-011.md). The issu
 
 **Component score:** Structural 8/8; Evidence 6/12; Legal Fit 5/10; Prior Proposal 4/8; Remedy 8/12; Implementation 5/8; Abuse Resistance 6/8; Drafting 5/8; Cogency 6/6; Adoption 3/12; Project Integration 4/4; External Review 0/4; Penalties 0.
 
-**Audit scope:** Reviewed `framework/FRAMEWORK.md`, `framework/METHODOLOGY.md`, `framework/REMEDY_FRAMEWORK.md`, ELEC-011 issue page, model State act, reserve constitutional amendment, reserve enabling act, sibling audit history, audit dashboard, contents inventory, audit inventory, issue inventory, source inventory, and focused local links. Conducted a T1-level current-source refresh for obvious mootness, material reframing, pending judicial vulnerability, and current source leads.
+**Audit scope:** Reviewed `framework/FRAMEWORK.md`, `framework/FRAMEWORK.md`, `framework/REMEDY_FRAMEWORK.md`, ELEC-011 issue page, model State act, reserve constitutional amendment, reserve enabling act, sibling audit history, audit dashboard, contents inventory, audit inventory, issue inventory, source inventory, and focused local links. Conducted a T1-level current-source refresh for obvious mootness, material reframing, pending judicial vulnerability, and current source leads.
 
 **Framework compliance:** ELEC-011 has the required developed-issue architecture, Issue Snapshot, titled manifestations, proposal survey, least-complex adequate remedy, repair/prevention section, linked model State act, linked reserve amendment, linked reserve enabling act, Budgetary Impact Statement, Proposal Scoring box, annotation, source notes, print metadata, audit sidecar, inventory rows, and dashboard row.
 

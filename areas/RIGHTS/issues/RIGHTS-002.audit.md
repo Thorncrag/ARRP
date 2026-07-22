@@ -2,8 +2,8 @@
 issue_id: RIGHTS-002
 title: "Temporary Protected Status, Asylum Access, and Humanitarian Reviewability — Audit History"
 source_issue: "RIGHTS-002.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # RIGHTS-002 — Audit History

@@ -8,7 +8,7 @@ print_exclusion_reason: "Internal operational log."
 
 This file records autonomous, batched, or scheduled agent audit runs, commits, push status, blockers, and rollback references. It is an operational provenance log for unattended or autorun work.
 
-This file is not the log for ordinary human-invoked audits or drafting sessions. Human-directed audit results belong in the relevant issue audit-history sidecar, issue page audit metadata, GitHub Project fields, [`CURRENT_AUDIT.md`](../CURRENT_AUDIT.md) while work is active, and the final user-facing report. Do not add entries here merely because Codex or another agent assisted a human-directed task.
+This file is not the log for ordinary human-invoked audits or drafting sessions. Human-directed audit results belong in the relevant issue audit-history sidecar, issue page audit metadata, GitHub Project fields, [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) while work is active, and the final user-facing report. Do not add entries here merely because Codex or another agent assisted a human-directed task.
 
 Entries for autonomous, batched, or scheduled runs should be append-only. If a bad autonomous edit is later reverted, add a new entry identifying the revert commit and the original commit it reverses.
 
@@ -1133,7 +1133,7 @@ Template:
 | Audit history | [Audit](../../areas/JUD/issues/JUD-011.audit.md) |
 | Proposal page | [Bill](../../legislation/JUD-011.md) |
 | Tier | T1 framework check |
-| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv` |
+| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv` |
 | Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; `git diff --check`; signed-in GitHub Project readback of Status, Score, Runs, Last audit, Next audit, Change audit needed, and Rebaseline status |
 | Commit | `Run JUD-011 T1 audit` (`4fe57bc`) |
 | Push status | Pushed to `origin/main` |
@@ -1151,7 +1151,7 @@ Template:
 | Audit history | [Audit](../../areas/JUD/issues/JUD-011.audit.md) |
 | Proposal page | [Bill](../../legislation/JUD-011.md) |
 | Tier | T2 development audit |
-| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
+| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
 | Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; `git diff --check`; signed-in GitHub Project readback of Score, Runs, Last audit, Next audit, and Rebaseline status |
 | Commit | `Run JUD-011 T2 audit` (`d108f28`) |
 | Push status | Pushed to `origin/main` |
@@ -1169,7 +1169,7 @@ Template:
 | Audit history | [Audit](../../areas/JUD/issues/JUD-011.audit.md) |
 | Proposal page | [Bill](../../legislation/JUD-011.md) |
 | Tier | T3 readiness audit |
-| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
+| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
 | Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; source-row count check; `git diff --check`; signed-in GitHub Project readback of Status, Score, Runs, Last audit, Next audit, Change audit needed, and Rebaseline status |
 | Commit | `Run JUD-011 T3 audit` (`429b494`) |
 | Push status | Pushed to `origin/main` |
@@ -1187,7 +1187,7 @@ Template:
 | Audit history | [Audit](../../areas/JUD/issues/JUD-011.audit.md) |
 | Proposal page | [Bill](../../legislation/JUD-011.md) |
 | Tier | T4 publication-ready audit |
-| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
+| Files changed | `areas/JUD/README.md`; `areas/JUD/issues/JUD-011.md`; `areas/JUD/issues/JUD-011.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/JUD-011.md` |
 | Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; `git diff --check`; Review Ready dashboard test suite; signed-in GitHub Project persistence readback; fresh issue-sidebar readback |
 | Commit | `Run JUD-011 T4 audit` (`dc6279a`) |
 | Push status | Pushed to `origin/main` |
@@ -1205,7 +1205,7 @@ Template:
 | Audit history | [Audit](../../areas/FUND/issues/FUND-001.audit.md) |
 | Proposal page | [Bill](../../legislation/FUND-001.md) |
 | Tier | T2 development audit |
-| Files changed | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md` |
+| Files changed | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md` |
 | Validation | YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score consistency scan; `git diff --check`; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run FUND-001 T2 audit` (`81974ef`) |
 | Push status | Pushed to `origin/main` |
@@ -1223,7 +1223,7 @@ Template:
 | Audit history | [Audit](../../areas/FUND/issues/FUND-001.audit.md) |
 | Proposal page | [Bill](../../legislation/FUND-001.md) |
 | Tier | T3 readiness audit |
-| Files changed | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md` |
+| Files changed | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; front-matter/displayed-score consistency scan; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run FUND-001 T3 audit` (`4ea3d5b`) |
 | Push status | Pushed to `origin/main` |
@@ -1241,7 +1241,7 @@ Template:
 | Audit history | [Audit](../../areas/FUND/issues/FUND-001.audit.md) |
 | Proposal page | [Bill](../../legislation/FUND-001.md) |
 | Tier | T4 publication-ready audit |
-| Files changed | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md` |
+| Files changed | `areas/FUND/README.md`; `areas/FUND/issues/FUND-001.md`; `areas/FUND/issues/FUND-001.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/FUND-001.md`; `research/FUND-001-executive-order-judicial-review-comparator.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run FUND-001 T4 audit` (`b9dbfca`) |
 | Push status | Pushed to `origin/main` |
@@ -1259,7 +1259,7 @@ Template:
 | Audit history | [Audit](../../areas/REG/issues/REG-001.audit.md) |
 | Proposal page | [Bill](../../legislation/REG-001.md) |
 | Tier | T1 framework and quality audit |
-| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `legislation/REG-001.md` |
+| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `legislation/REG-001.md` |
 | Validation | `git diff --check`; YAML parse; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run REG-001 T1 audit` (`b30acd6`) |
 | Push status | Pushed to `origin/main` |
@@ -1277,7 +1277,7 @@ Template:
 | Audit history | [Audit](../../areas/REG/issues/REG-001.audit.md) |
 | Proposal page | [Bill](../../legislation/REG-001.md) |
 | Tier | T2 development audit |
-| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
+| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID parse; local Markdown-link check; front-matter/displayed-score and stale-marker consistency scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run REG-001 T2 audit` (`b576485`) |
 | Push status | Pushed to `origin/main` |
@@ -1295,7 +1295,7 @@ Template:
 | Audit history | [Audit](../../areas/REG/issues/REG-001.audit.md) |
 | Proposal page | [Bill](../../legislation/REG-001.md) |
 | Tier | T3 readiness audit |
-| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
+| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker and definition scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run REG-001 T3 audit` (`d81925f`) |
 | Push status | Pushed to `origin/main` |
@@ -1313,7 +1313,7 @@ Template:
 | Audit history | [Audit](../../areas/REG/issues/REG-001.audit.md) |
 | Proposal page | [Bill](../../legislation/REG-001.md) |
 | Tier | T4 publication-ready audit |
-| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
+| Files changed | `areas/REG/README.md`; `areas/REG/issues/REG-001.md`; `areas/REG/issues/REG-001.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/REG-001.md`; `research/REG-001-independent-agency-removal-catalog.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width, unique-ID, and row-count checks; local Markdown-link check; score-component sum and front-matter consistency; statutory-form, deadline, appropriation, verified-claim, and stale-marker scans; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run REG-001 T4 audit` (`b49f45e`) |
 | Push status | Pushed to `origin/main` |
@@ -1331,7 +1331,7 @@ Template:
 | Audit history | [Audit](../../areas/EMOL/issues/EMOL-015.audit.md) |
 | Proposal page | [Bill](../../legislation/EMOL-015.md) |
 | Tier | T1 framework and quality audit |
-| Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md` |
+| Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker scan; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run EMOL-015 T1 audit` (`6b52227`) |
 | Push status | Pushed to `origin/main` |
@@ -1349,7 +1349,7 @@ Template:
 | Audit history | [Audit](../../areas/EMOL/issues/EMOL-015.audit.md) |
 | Proposal page | [Bill](../../legislation/EMOL-015.md) |
 | Tier | T2 development audit |
-| Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md` |
+| Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker scan; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run EMOL-015 T2 audit` (`ff39abd`) |
 | Push status | Pushed to `origin/main` |
@@ -1367,7 +1367,7 @@ Template:
 | Audit history | [Audit](../../areas/EMOL/issues/EMOL-015.audit.md) |
 | Proposal page | [Bill](../../legislation/EMOL-015.md) |
 | Tier | T3 readiness audit |
-| Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md` |
+| Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID checks; local Markdown-link check; score-component sum and front-matter consistency; stale-marker scan; Review Ready dashboard test suite; signed-in GitHub Project persistence readback |
 | Commit | `Run EMOL-015 T3 audit` (`f2169d5`) |
 | Push status | Pushed to `origin/main` |
@@ -1385,7 +1385,7 @@ Template:
 | Audit history | [Audit](../../areas/EMOL/issues/EMOL-015.audit.md) |
 | Proposal page | [Bill](../../legislation/EMOL-015.md) |
 | Tier | T4 publication-ready audit |
-| Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md` |
+| Files changed | `areas/EMOL/README.md`; `areas/EMOL/issues/EMOL-015.md`; `areas/EMOL/issues/EMOL-015.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `inventory/sources.csv`; `legislation/EMOL-015.md`; `research/EMOL-015-procedural-and-enforcement-analysis.md` |
 | Validation | `git diff --check`; YAML parse; `sources.csv` width and unique-ID checks; local Markdown-link check; source-URL inventory; score-component sum and front-matter consistency; section-order, cross-reference, deadline, authorization, severability, and stale-marker scans; Review Ready dashboard tests; signed-in GitHub Project persistence readback |
 | Commit | `Run EMOL-015 T4 audit` (`a1b17eb`) |
 | Push status | Pushed to `origin/main` |

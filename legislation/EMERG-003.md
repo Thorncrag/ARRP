@@ -6,7 +6,6 @@ status: working-draft
 framework_issue: "../areas/EMERG/issues/EMERG-003.md"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

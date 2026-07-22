@@ -1,7 +1,7 @@
 ---
 title: "Trump Administration Legal-Review Research Summary"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # Trump Administration Legal-Review Research Summary

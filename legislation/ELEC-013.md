@@ -6,7 +6,6 @@ status: working-draft
 framework_issue: "../areas/ELEC/issues/ELEC-013.md"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

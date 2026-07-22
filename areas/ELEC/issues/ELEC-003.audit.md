@@ -2,8 +2,8 @@
 issue_id: ELEC-003
 title: "Insufficient Protection for Election Workers and Officials — Audit History"
 source_issue: "ELEC-003.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-003 — Audit History

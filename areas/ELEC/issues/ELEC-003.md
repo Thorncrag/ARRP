@@ -23,7 +23,6 @@ development_priority: "active"
 pathway_adjustment: "model-law-and-voluntary-federal-grant"
 print_levels:
   - public-proposal
-  - full-technical
 audit_history: "ELEC-003.audit.md"
 ---
 

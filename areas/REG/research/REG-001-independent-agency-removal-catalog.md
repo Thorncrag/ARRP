@@ -1,8 +1,8 @@
 ---
 title: "REG-001 Agency Independence and Functional Nullification Catalog"
 source_issue: "../issues/REG-001.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # REG-001 Agency Independence and Functional Nullification Catalog

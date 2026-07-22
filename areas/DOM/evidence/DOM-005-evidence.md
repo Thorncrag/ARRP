@@ -6,7 +6,6 @@ canonical_issue: "../issues/DOM-005.md"
 last_evidence_review: 2026-07-21
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # DOM-005 Evidence Record

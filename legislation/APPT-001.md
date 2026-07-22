@@ -6,7 +6,6 @@ status: initial-draft
 linked_issue: "../areas/APPT/issues/APPT-001.md"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

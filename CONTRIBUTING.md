@@ -8,7 +8,7 @@ print_exclusion_reason: "Internal workflow or tool documentation."
 
 The American Restoration and Resilience Project is currently an author-directed public-policy research and drafting project. Public contributions may be invited to improve accuracy, sourcing, clarity, structure, and the quality of proposed institutional repairs.
 
-Stakeholder input is welcome. To offer feedback, propose a correction, identify a source, or discuss a possible contribution, use the private [contact-the-author form](https://arrp-public-intake.vercel.app/?mode=contact). For the public authorship and stakeholder-input statement, see [AUTHORS.md](AUTHORS.md).
+Stakeholder input is welcome. To offer feedback, propose a correction, identify a source, or discuss a possible contribution, use the private [contact-the-author form](https://arrp-public-intake.vercel.app/?mode=contact). For the public authorship and stakeholder-input statement, see [ABOUT.md](ABOUT.md).
 
 ## GitHub Workflow
 
@@ -20,8 +20,7 @@ For the working conventions, Project field ownership, label rule, sub-issue rule
 
 Contributors should follow the project's current governing documents rather than treating this page as a complete rulebook. The controlling conventions for structure, method, sourcing, scoring, audit practice, neutrality, drafting, and publication are maintained in:
 
-- [Project Framework](framework/FRAMEWORK.md)
-- [Project Methodology](framework/METHODOLOGY.md)
+- [Framework and Methodology](framework/FRAMEWORK.md)
 - [GitHub Workflow](framework/GITHUB_WORKFLOW.md)
 - [Print Assembly Framework](framework/PRINT_ASSEMBLY.md)
 - [Project Structure](framework/PROJECT_STRUCTURE.md)

@@ -4,8 +4,8 @@ status: initial-source-development
 source_id: SRC-0283
 source_file: "../sources/report-of-special-counsel-smith-volume-1-january-2025.pdf"
 source_url: "https://www.justice.gov/storage/Report-of-Special-Counsel-Smith-Volume-1-January-2025.pdf"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # Jack Smith Volume One / ARRP Crosswalk

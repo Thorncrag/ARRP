@@ -2,8 +2,8 @@
 issue_id: ELEC-014
 title: "Limiting Federal Criminal Investigations into State-Administered Elections — Audit History"
 source_issue: "ELEC-014.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-014 — Audit History

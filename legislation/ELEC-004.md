@@ -7,7 +7,6 @@ framework_issue: "../areas/ELEC/issues/ELEC-004.md"
 model_state_legislation: "ELEC-004-state.md"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

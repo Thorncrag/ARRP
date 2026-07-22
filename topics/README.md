@@ -4,7 +4,6 @@ page_type: topic-index
 status: maintained
 print_levels:
   - public-proposal
-  - full-technical
   - executive-summary
 ---
 

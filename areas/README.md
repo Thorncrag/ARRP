@@ -2,7 +2,6 @@
 title: "Project Areas"
 print_levels:
   - public-proposal
-  - full-technical
   - executive-summary
 ---
 

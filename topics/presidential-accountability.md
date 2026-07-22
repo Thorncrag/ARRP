@@ -6,7 +6,6 @@ purpose: "Help readers find the ARRP proposals addressing presidential immunity,
 last_reviewed: "2026-07-19"
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # Presidential Accountability {.arrp-topic-guide-title}

@@ -6,7 +6,6 @@ purpose: "Help readers find the ARRP proposals addressing classification, custod
 last_reviewed: "2026-07-18"
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # Classified Documents {.arrp-topic-guide-title}

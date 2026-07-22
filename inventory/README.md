@@ -17,4 +17,4 @@ Both source catalogs use `Monitoring` to identify changing records. A monitored 
 
 The [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2) is authoritative for active lifecycle, priority, audit posture, and horizon workflow. Canonical issue pages and sibling audit histories own substantive analysis, scoring rationale, and detailed review history. The [Subject and Institution Index](../SUBJECT_INDEX.md) remains the reader-facing discovery layer.
 
-For maintenance and synchronization rules, see [`../framework/METHODOLOGY.md`](../framework/METHODOLOGY.md) and [`../framework/GITHUB_WORKFLOW.md`](../framework/GITHUB_WORKFLOW.md). Historical cross-project records are in [`../framework/logs/`](../framework/logs/).
+For maintenance and synchronization rules, see [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md) and [`../framework/GITHUB_WORKFLOW.md`](../framework/GITHUB_WORKFLOW.md). Historical cross-project records are in [`../framework/logs/`](../framework/logs/).

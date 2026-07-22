@@ -2,8 +2,8 @@
 title: "FUND-001 Executive Order Judicial Review Comparator"
 status: t4-public-source-review-complete
 associated_issue: FUND-001
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # FUND-001 Executive Order Judicial Review Comparator

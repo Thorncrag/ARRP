@@ -7,7 +7,6 @@ framework_issue: "../areas/ELEC/issues/ELEC-009.md"
 enabling_legislation: "ELEC-009.md"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

@@ -6,7 +6,6 @@ purpose: "Help readers find the ARRP proposals addressing commonly recognized Pr
 last_reviewed: "2026-07-18"
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # Project 2025 {.arrp-topic-guide-title}
