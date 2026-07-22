@@ -42,6 +42,7 @@
   data.watcher_metadata = data.watcher_metadata || {};
   data.progress = data.progress || {};
   data.integrity = data.integrity || {};
+  data.consistency_audit = data.consistency_audit || {};
 
   const PRINT_LEVEL_LABELS = {
     "public-proposal": "Public proposal edition",
@@ -1237,6 +1238,49 @@
     return card;
   }
 
+  function renderConsistencyAudit() {
+    const audit = data.consistency_audit || {};
+    const entries = Array.isArray(audit.entries) ? audit.entries : [];
+    const overview = byId("consistency-audit-overview");
+    const host = byId("consistency-audit-findings");
+    const link = byId("consistency-audit-link");
+    if (audit.source_url) link.href = audit.source_url;
+    if (!entries.length) {
+      overview.replaceChildren();
+      host.replaceChildren(element("p", "muted", "No explanatory consistency-audit record is embedded in this Console build."));
+      return;
+    }
+    overview.replaceChildren(
+      integrityMetric("Files examined", Number(audit.records_checked || 0).toLocaleString(), "tracked repository files"),
+      integrityMetric("Explanatory findings", entries.length.toLocaleString(), "corrected areas and disclosed limits"),
+      integrityMetric("Audit status", audit.status || "Current", audit.last_checkpoint || "Current repository checkpoint")
+    );
+    host.replaceChildren(...entries.map((entry, index) => {
+      const panel = element("details", "consistency-audit-finding");
+      panel.open = index === 0;
+      const summary = element("summary");
+      const disposition = entry.disposition || "Open";
+      const dispositionClass = /^corrected$/i.test(disposition) ? "ready" : /^partially/i.test(disposition) ? "warning" : "blocker";
+      summary.append(element("span", "", entry.title || "Audit finding"), element("span", `finding-level ${dispositionClass}`, disposition));
+      panel.append(summary);
+      const body = element("div", "consistency-audit-body");
+      [
+        ["Problem", entry.problem],
+        ["Why it mattered", entry.why_it_mattered],
+        ["Correction", entry.correction],
+        ["Effect", entry.effect],
+        ["Remaining work", entry.remaining_work]
+      ].forEach(([label, value]) => {
+        if (!value) return;
+        const field = element("section", "consistency-audit-field");
+        field.append(element("h4", "", label), element("p", "", value));
+        body.append(field);
+      });
+      panel.append(body);
+      return panel;
+    }));
+  }
+
   function renderIntegrity(feed = data.integrity) {
     const current = feed && typeof feed.current === "object" ? feed.current : {};
     const counts = current.counts || {};
@@ -1256,6 +1300,7 @@
       integrityMetric("Proposal pages", Number(counts.proposal_pages) || 0, "included in the structural pass"),
       integrityMetric("Run time", current.duration_seconds == null ? "—" : `${current.duration_seconds}s`, "automated inspection duration")
     );
+    renderConsistencyAudit();
 
     const grouped = new Map();
     findings.forEach((finding) => {

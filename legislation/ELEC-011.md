@@ -17,6 +17,8 @@ print_levels:
 
 To enforce and implement the Neutral Redistricting Baseline Amendment by establishing neutral baseline redistricting standards, public deviation procedures, representation safeguards, judicial review, and fallback remedies for congressional and state legislative districts.
 
+Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
+
 ## SECTION 1. SHORT TITLE.
 
 This Act may be cited as the **“Neutral Redistricting Baseline Enforcement Act.”**

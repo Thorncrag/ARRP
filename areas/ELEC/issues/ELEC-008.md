@@ -14,6 +14,8 @@ audit_last_date: "2026-07-04"
 audit_next: "Qualified criminal-law, election-law, federal-courts, First Amendment, Speech or Debate, and legislative-counsel review; then targeted source-backed revisions if review identifies concrete fixes"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
+change_audit_needed: false
+change_audit_reason: null
 adoption_score: 4
 adoption_score_band: "Limited Adoption Basis"
 adoption_friction_score: 85
@@ -144,13 +146,13 @@ A narrow statute could include:
 
 ## Relationship to Adjacent Proposals
 
-- **ELEC-002** addresses pressure on certification and canvassing officials.
-- **ELEC-004** addresses abusive election litigation, investigatory demands, subpoenas, audits, and extraordinary proceedings.
+- **[ELEC-002](ELEC-002.md)** addresses pressure on certification and canvassing officials.
+- **[ELEC-004](ELEC-004.md)** addresses abusive election litigation, investigatory demands, subpoenas, audits, and extraordinary proceedings.
 - **ELEC-005** addresses false or unauthorized presidential result-transmission documents.
 - **ELEC-006** addresses presidential-transition continuity and automaticity.
-- **ELEC-007** addresses improper federal-force presence and election-material custody safeguards.
+- **[ELEC-007](ELEC-007.md)** addresses improper federal-force presence and election-material custody safeguards.
 - **ELEC-008** is the capstone accountability framework for coordinated schemes using one or more of those narrower mechanisms.
-- **IMM-001** addresses criminal immunity for presidential official acts. ELEC-008 and IMM-001 are complementary: ELEC-008 defines a scheme-level accountability framework for coordinated election subversion, while IMM-001 is necessary to preserve a meaningful avenue for applying such accountability when presidential conduct or claimed official-act immunity would otherwise prevent adjudication.
+- **[IMM-001](../../IMM/issues/IMM-001.md)** addresses criminal immunity for presidential official acts. ELEC-008 and IMM-001 are complementary: ELEC-008 defines a scheme-level accountability framework for coordinated election subversion, while IMM-001 is necessary to preserve a meaningful avenue for applying such accountability when presidential conduct or claimed official-act immunity would otherwise prevent adjudication.
 
 ## Budgetary Impact Statement
 
@@ -214,7 +216,7 @@ The target is not election denial, political speech, litigation, recounts, or la
 | --- | --- | --- | --- |
 | Pressure on state or local officials to disregard, alter, delay, or refuse lawful certification or canvassing duties | ELEC-002 addresses certification and canvassing pressure | Pressure may be one part of a larger coordinated scheme involving other actors, documents, litigation, or federal channels | Treat corrupt pressure under color of office, coercion, threats, or unlawful inducement as predicate acts when materially connected to a coordinated federal election-subversion scheme |
 | False or unauthorized presidential-elector, certificate, or result-transmission documents | ELEC-005 addresses false presidential result-transmission documents | False documents may be used not only as standalone fraud but as one instrument in a broader scheme to create a pretext for official disregard of lawful results | Treat knowing creation, execution, transmission, or use of false or unauthorized federal-election result documents as predicate acts |
-| Attempted use of federal executive authority, federal investigations, or official pressure to induce state or federal actors to disregard lawful results | DOJ-002, DOJ-003, DOJ-005, and DOJ-007 address White House–DOJ interference, selective enforcement, recusals, and independent investigation | Existing DOJ controls address internal misuse, but may not connect such misuse to a broader election-subversion scheme | Treat corrupt use of official authority and misuse of federal channels as predicate acts when tied to the corrupt objective of nullifying, reversing, obstructing, delaying, or procuring disregard of a lawful federal-election result |
+| Attempted use of federal executive authority, federal investigations, or official pressure to induce state or federal actors to disregard lawful results | [DOJ-002](../../DOJ/issues/DOJ-002.md), [DOJ-003](../../DOJ/issues/DOJ-003.md), [DOJ-005](../../DOJ/issues/DOJ-005.md), and [DOJ-007](../../DOJ/issues/DOJ-007.md) address White House–DOJ interference, selective enforcement, recusals, and independent investigation | Existing DOJ controls address internal misuse, but may not connect such misuse to a broader election-subversion scheme | Treat corrupt use of official authority and misuse of federal channels as predicate acts when tied to the corrupt objective of nullifying, reversing, obstructing, delaying, or procuring disregard of a lawful federal-election result |
 | Pressure on the Vice President or Congress to reject, delay, or alter electoral-vote counting | ECRA addressed vice-presidential role, objection thresholds, and objection grounds | ECRA hardens procedures but does not itself create a scheme-level accountability framework for predicate conduct designed to corruptly exploit or obstruct those procedures | Preserve ECRA as baseline and treat independently wrongful pressure, false documents, obstruction, or bribery aimed at federal count procedures as predicate conduct |
 | Abusive litigation, subpoenas, audits, or investigatory demands used after factual and legal rejection | ELEC-004 addresses abusive election litigation and extraordinary process | A lawsuit, subpoena, or audit request may be lawful in isolation; the difficulty is identifying when adjudicated bad faith or improper purpose becomes one part of a coordinated scheme | Allow process abuse to serve as a predicate only after a court, tribunal, or authorized body finds bad faith, material falsity, improper purpose, contempt, sanctionable conduct, or knowing misuse |
 | Unauthorized access to election systems or materials | ELEC-007 addresses election-material custody and federal-force safeguards; other laws may address computer intrusion or election-material tampering | Unauthorized access may function as one predicate in a larger coordinated effort to manufacture doubt, obtain data, alter records, or justify official disregard | Treat unauthorized access, copying, imaging, custody, disclosure, or use of election materials or systems as predicate conduct when independently wrongful and materially connected to the scheme |

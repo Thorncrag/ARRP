@@ -23,10 +23,6 @@
     "reviewReadyScore": 75,
     "readyStatuses": [
       "Review ready",
-      "Advanced review ready",
-      "Proposal ready",
-      "Publication ready",
-      "Fully validated",
       "Release candidate"
     ],
     "velocityWindowDays": 28,

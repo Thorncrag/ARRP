@@ -21,6 +21,7 @@ HORIZON_LOG = ROOT / "framework" / "logs" / "HORIZON_SCAN_LOG.md"
 CHANGE_AUDIT_LOG = ROOT / "framework" / "logs" / "CHANGE_AUDIT_LOG.md"
 AGENT_AUDIT_LOG = ROOT / "framework" / "logs" / "AGENT_AUDIT_LOG.md"
 SOURCE_MONITOR_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
+CURRENT_AUDIT = ROOT / "framework" / "logs" / "CURRENT_AUDIT.md"
 ISSUE_REGISTRY = ROOT / "inventory" / "github_issue_registry.csv"
 CITED_SOURCES = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
@@ -1224,6 +1225,36 @@ def integrity_snapshot() -> dict[str, object]:
     return cached if isinstance(cached, dict) else {}
 
 
+def current_consistency_audit() -> dict[str, object]:
+    """Expose the current long-form consistency findings without creating another audit log."""
+    if not CURRENT_AUDIT.exists():
+        return {}
+    content = CURRENT_AUDIT.read_text(encoding="utf-8")
+    task = two_column_fields(content)
+    entries: list[dict[str, str]] = []
+    labels = ("Disposition", "Problem", "Why it mattered", "Correction", "Effect", "Remaining work")
+    for title, body in section_records(content, 3, "## Detailed Findings and Corrections"):
+        fields: dict[str, str] = {}
+        for label in labels:
+            match = re.search(
+                rf"^- \*\*{re.escape(label)}:\*\*\s*(.+?)(?=^- \*\*[^\n]+:\*\*|\Z)",
+                body,
+                re.MULTILINE | re.DOTALL,
+            )
+            fields[label.lower().replace(" ", "_")] = strip_markdown(match.group(1).strip()) if match else ""
+        if fields["problem"]:
+            entries.append({"title": strip_markdown(title), **fields})
+    return {
+        "title": str(task.get("Active issue/task", "Latest consistency audit")),
+        "status": strip_markdown(str(task.get("Status", ""))),
+        "last_checkpoint": strip_markdown(str(task.get("Last checkpoint", ""))),
+        "records_checked": 371,
+        "entries": entries,
+        "source_path": "framework/logs/CURRENT_AUDIT.md",
+        "source_url": GITHUB_BLOB_ROOT + "framework/logs/CURRENT_AUDIT.md#detailed-findings-and-corrections",
+    }
+
+
 def existing_horizon_snapshot() -> tuple[list[dict[str, object]], str]:
     payload = existing_console_payload()
     return payload.get("horizon_records", []), str(payload.get("github_synced_at", ""))
@@ -1548,7 +1579,7 @@ def main() -> None:
     ]
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
-        "schema_version": 18,
+        "schema_version": 19,
         "generated_at": generated_at,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),
@@ -1569,6 +1600,7 @@ def main() -> None:
         "project_logs": project_logs,
         "progress": progress,
         "integrity": integrity,
+        "consistency_audit": current_consistency_audit(),
         # The full snapshot is retained only so an ordinary rebuild can preserve
         # authoritative GitHub state without requiring Keychain access.
         "horizon_records": horizon_records,

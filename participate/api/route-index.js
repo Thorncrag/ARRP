@@ -477,7 +477,7 @@ const records = Object.freeze([
     "id": "PRESS-003",
     "title": "Journalist Compulsory Process, Surveillance, and Source Protection",
     "area": "PRESS",
-    "canonical_page": "../areas/PRESS/README.md",
+    "canonical_page": "../areas/PRESS/issues/PRESS-003.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/203"
   },
   {
@@ -503,7 +503,7 @@ const records = Object.freeze([
   },
   {
     "id": "REG-002",
-    "title": "Politicized enforcement or nonenforcement",
+    "title": "Executive Influence over Federal Regulatory Enforcement",
     "area": "REG",
     "canonical_page": "../areas/REG/issues/REG-002.md",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/161"
@@ -551,6 +551,13 @@ const records = Object.freeze([
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/223"
   },
   {
+    "id": "RIGHTS-005",
+    "title": "Civil and Criminal Accountability for Law-Enforcement Constitutional Violations",
+    "area": "RIGHTS",
+    "canonical_page": "../areas/RIGHTS/issues/RIGHTS-005.md",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/20"
+  },
+  {
     "id": "WAR-001",
     "title": "Comprehensive War Powers and Use-of-Force Authorization Reform",
     "area": "WAR",
@@ -565,25 +572,11 @@ const records = Object.freeze([
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/15"
   },
   {
-    "id": "HOR-022",
-    "title": "Qualified immunity and constitutional-remedies review",
-    "area": "RIGHTS",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/20",
-    "issue_url": "https://github.com/Thorncrag/ARRP/issues/20"
-  },
-  {
     "id": "HOR-023",
     "title": "Foreign Election Interference and Campaign Counterintelligence Safeguards",
     "area": "ELEC",
     "canonical_page": "https://github.com/Thorncrag/ARRP/issues/234",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/234"
-  },
-  {
-    "id": "HOR-025",
-    "title": "Political and Lobbyist Influence over DOJ Merger Enforcement",
-    "area": "REG",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
-    "issue_url": "https://github.com/Thorncrag/ARRP/issues/239"
   },
   {
     "id": "HOR-026",

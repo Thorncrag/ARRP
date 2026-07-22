@@ -133,7 +133,7 @@ No reliable estimate yet. Records, notice, review, document-continuity, and liti
 
 ## Annotation
 
-RIGHTS-003 is a candidate horizon issue admitted after birthright-citizenship executive-order litigation appeared in the state-led adverse-rulings comparator. After *Trump v. Barbara*, the issue should not be framed as if the core Citizenship Clause merits question remains unresolved. It also should not be treated as moot: the separate statutory analysis in the case identifies 8 U.S.C. § 1401(a) as an attack surface that Congress could try to narrow, even though any such statute would have to confront the majority's constitutional holding.
+RIGHTS-003 is a proposed issue admitted after birthright-citizenship executive-order litigation appeared in the state-led adverse-rulings comparator. After *Trump v. Barbara*, the issue should not be framed as if the core Citizenship Clause merits question remains unresolved. It also should not be treated as moot: the separate statutory analysis in the case identifies 8 U.S.C. § 1401(a) as an attack surface that Congress could try to narrow, even though any such statute would have to confront the majority's constitutional holding.
 
 The neutral institutional frame is that citizenship recognition and identity-record systems should not be destabilized by executive directive or statutory rollback attempt without clear constitutional authority, transparent implementation rules, reliance safeguards, and expedited review.
 

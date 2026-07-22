@@ -31,4 +31,4 @@ These numbers were assigned during preliminary review but did not become separat
 
 ## Notes
 
-REC-001 is in development. Full source development, a concrete records-reform vehicle, and a first T-audit remain pending.
+REC-001 is in development. Full source development, a concrete records-reform vehicle, and its first formal internal review remain pending.

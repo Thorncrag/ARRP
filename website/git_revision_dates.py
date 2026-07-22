@@ -63,6 +63,12 @@ def issue_status_notice(metadata: dict) -> str:
     elif status == "awaiting-merits-adjudication":
         label = "Awaiting merits adjudication"
         detail = "Development is paused pending a controlling merits decision; this is not an active recommendation."
+    elif status == "retired":
+        label = "Retired issue"
+        detail = (
+            "Independent proposal development has ended. Consult the recorded disposition "
+            "and linked active proposal or topic routes for the retained treatment."
+        )
     else:
         label, score = proposal_score_band(metadata.get("audit_score"))
         score_text = f"Proposal Quality Score: {score}/100. " if score is not None else ""

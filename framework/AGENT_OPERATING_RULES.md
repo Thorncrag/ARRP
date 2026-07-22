@@ -18,6 +18,8 @@ Any request to focus on, research, develop, draft, revise, or otherwise work sub
 
 If substantive work begins from `Pending development`, change the Project status to `In development` and read it back. At closeout, leave an incomplete initial package `In development`, or move an unscored issue-and-vehicle package that is complete enough for the next T-audit to `Audit needed`. Do not change `Score` or `Runs` merely because drafting or source work occurred. Do not regress an already scored or later-stage proposal when revision begins; preserve its score-based status and use `Change audit needed` for a material revision until the required targeted review is complete. Apply the exact transition rules in [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md#issue-development-lifecycle) and [`FRAMEWORK.md`](FRAMEWORK.md#issue-development-lifecycle-check).
 
+Apply the [`Human-Governed Foundation and Delegated Development`](FRAMEWORK.md#human-governed-foundation-and-delegated-development) rule before autonomous issue development. Once the human has approved the institutional failure, at least one manifestation, the remedy, and the remedy vehicle, the issue becomes a Defined Proposal and agents have broad authority to improve it within that foundation. Reserved foundational or materially consequential departures require human approval. When uncertain, document the question, skip only the disputed action or issue, request human review, preserve completed work, and continue other eligible batch work. Use the [`Audit-Readiness Assessment`](FRAMEWORK.md#audit-readiness-assessment) to determine whether a proposal should move to `Audit needed` or undergo its next expressly authorized T-audit. A recurring autonomous development run must follow the [`Recurring Autonomous Development Order`](FRAMEWORK.md#recurring-autonomous-development-order), resolving all actionable Change Audit flags before beginning ordinary T-audits or new proposal development.
+
 ## Purpose
 
 Agent work should improve the project carefully, conservatively, and reproducibly. The goal is not maximum speed. The goal is reliable stewardship of the project record and the user's attention.
@@ -108,7 +110,7 @@ Before starting an autonomous batch run, the agent must:
 
 1. confirm the working tree is clean, or stop and report the existing uncommitted files without beginning new audit work;
 2. confirm the current branch and remote target are understood;
-3. confirm the repository can read the latest local project rules, including this file, [`FRAMEWORK.md`](FRAMEWORK.md), [`FRAMEWORK.md`](FRAMEWORK.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), [`HORIZON_SCAN_LOG.md`](logs/HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md);
+3. confirm the repository can read the latest local project rules, including this file, [`FRAMEWORK.md`](FRAMEWORK.md), [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md), [`HORIZON_SCAN_LOG.md`](logs/HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md);
 4. check the latest relevant audit record before each issue and skip any issue with unresolved human-review blockers unless the user has expressly authorized proceeding; and
 5. if the user expressly scheduled the run inside a defined work window, respect that user-defined boundary when selecting the next audit unit.
 
@@ -116,7 +118,7 @@ If the preflight fails, do not begin autonomous edits. Record the reason in [`AG
 
 ### Eligible Items
 
-By default, include only developed issues with issue pages and linked proposal vehicles. Exclude retired, merged, candidate, pending-development, paused, or awaiting-finding issues unless the user expressly includes them.
+For an ordinary audit-only batch, include only developed issues with issue pages and linked proposal vehicles. Exclude retired, merged, candidate, undefined pending-development, paused, or awaiting-finding issues unless the user expressly includes them. An expressly authorized recurring development run may also include `Pending development` or `In development` issues whose canonical metadata records `foundation_status: approved`; those items are eligible for development under the Defined Proposal rule, not automatically for a score-bearing audit.
 
 Process issues in the GitHub Project queue unless the user gives a different queue. Use issue-page metadata and audit-history sidecars as the detailed audit-score and next-audit record.
 
@@ -165,7 +167,7 @@ In batch mode, agents must document and stop work on the affected issue before m
 4. rewriting proposed legislation into a materially different legal vehicle;
 5. converting a freestanding bill into amendments to existing law;
 6. adding a constitutional amendment or removing one;
-7. resolving a substantive discrepancy between an issue page and proposed legislation;
+7. resolving a substantive discrepancy between an issue page and proposed legislation when the correction would change a reserved foundation, materially contract the approved proposal, or make another human-reserved change;
 8. clearing a `change_audit_needed` marker without performing the targeted Change Audit and Internal Remedy-Fit Audit required by the methodology;
 9. making unsupported claims about real-world events, motives, legal effect, polling, or public support;
 10. increasing a score based on judgment rather than documented audit findings; or

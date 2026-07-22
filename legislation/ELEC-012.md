@@ -11,7 +11,7 @@ print_levels:
   - legislative-appendix
 ---
 
-# ELEC-012 - Campaign Finance Democratic Authority FECA Conforming Amendments Act
+# ELEC-012 — Campaign Finance Democratic Authority FECA Conforming Amendments Act
 
 This proposed enabling legislation depends on ratification of the [Campaign Finance Democratic Authority Amendment](ELEC-012-amendment.md), preferably through H.J.Res. 54, 119th Congress, with ARRP's recommended enforcement and federalism clarification, or a substantially similar amendment.
 
@@ -20,6 +20,8 @@ The draft is now structured as conforming amendments to the Federal Election Cam
 ## A BILL
 
 To amend the Federal Election Campaign Act of 1971 to implement constitutional authority to regulate campaign contributions, expenditures, artificial-entity political spending, true-source disclosure, public campaign-finance systems, federal elections, covered statewide elections, and covered statewide ballot measures after ratification of an authorizing constitutional amendment.
+
+Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
 
 ## SECTION 1. SHORT TITLE.
 

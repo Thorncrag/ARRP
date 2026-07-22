@@ -25,7 +25,7 @@ This Act may be cited as the **“Federal Election Subversion Accountability Act
 
 (a) **In General.**—Part I of title 18, United States Code, is amended by inserting after chapter 29 the following:
 
-# CHAPTER 29A—COORDINATED FEDERAL ELECTION SUBVERSION
+## CHAPTER 29A—COORDINATED FEDERAL ELECTION SUBVERSION
 
 ## § 618. Purposes.
 

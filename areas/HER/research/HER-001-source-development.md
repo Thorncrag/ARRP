@@ -10,6 +10,14 @@ print_exclusion_reason: "Internal source-development record."
 
 This record is source-development work, not a completed finding or a substitute for the proposal’s verified manifestations, analysis, or citations. It preserves sources routed to this proposal for later source-specific review and integration.
 
+## Principal Episodes and Legal Baseline
+
+- **[SRC-0001](https://apnews.com/article/57512e0d91432f75529946fddfbfe2c5) and [SRC-0077](https://www.theguardian.com/us-news/2025/dec/12/lawsuit-trump-white-house-ballroom) — White House East Wing and ballroom project.** Reporting and preservation litigation provide the principal source-development episode for whether safeguards operate before irreversible demolition or construction. The controlling statutes, approvals, commission records, financing records, and court orders still require primary-source verification.
+- **[SRC-0060](https://www.law.cornell.edu/uscode/text/3/110) — White House preservation authority.** Use 3 U.S.C. § 110 and its statutory notes as an initial legal baseline, then verify National Capital Planning Commission, Commission of Fine Arts, environmental, historic-preservation, appropriations, and donor-ethics authorities implicated by the project.
+- **[SRC-0148](https://www.theguardian.com/us-news/2026/jun/24/judge-kennedy-center-tarp) — Kennedy Center naming and facade dispute.** This episode may illustrate manipulation of a civic property's statutory name or visible commemorative features and the difficulty of obtaining timely relief. Cross-reference [JUD-001](../../JUD/issues/JUD-001.md) only if primary filings establish evasion or frustration of a court order rather than a dispute about construction, implementation, or building conditions.
+
+Next-source needs include the reported Kennedy Center opinion and later tarp or scaffolding order, appellate filings, Kennedy Center organic-statute materials, board records, and renovation or signage records.
+
 ## Routed Sources
 
 - **[SRC-0987](<https://www.courtlistener.com/docket/72285959/gilbert-baker-foundation-v-us-department-of-interior/>) — Display and Flying of Non-Agency Flags.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Reviewed: **No**. Monitoring: **Yes — Pending Stonewall-display merits/disposition showing whether durable public-review safeguards are implicated.**

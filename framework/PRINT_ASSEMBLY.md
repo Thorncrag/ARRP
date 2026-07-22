@@ -55,7 +55,8 @@ Appendices should use this order:
 
 1. Appendix A - Proposed Federal Legislation and Constitutional Amendments;
 2. Appendix B - Model State Legislation;
-3. Appendix C - reader-useful ARRP evidence, research, crosswalks, catalogs, or other project work product deliberately selected for publication.
+3. Appendix C - reader-useful ARRP evidence, research, crosswalks, catalogs, or other project work product deliberately selected for publication; and
+4. Appendix D - a generated Sources and Supporting Materials list that distinguishes external authority from cited ARRP-created work.
 
 Reader-facing issue evidence records are supplemental rather than additional issue proposals. A public edition may place selected records in an evidence appendix when their inclusion materially supports the documented pattern without overloading the main issue page. A concise edition may omit them while retaining the issue page's anchor evidence and digital link.
 
@@ -159,13 +160,24 @@ Citations should remain in the main body when they substantiate real-world event
 
 Source-development notes may be included in the main body, moved to a source appendix, or omitted from public-facing print editions depending on the intended audience. They should not be silently converted into unsupported claims.
 
+### Generated Sources and Supporting Materials List
+
+Every final compiled edition that contains substantive analysis must generate a consolidated list of the materials actually cited in that edition. The list must preserve two clearly labeled categories rather than treating project-authored analysis as independent external evidence:
+
+1. **External Authorities and Sources.** Generate this category from the cited records in [`../inventory/sources.csv`](../inventory/sources.csv), limited to external sources actually relied upon in the assembled edition. Preserve enough bibliographic information for a print reader to identify the authority even when a hyperlink is unavailable.
+2. **ARRP Research and Supporting Materials.** Generate this category from actual internal cross-references in the assembled edition. Include ARRP-created research, analyses, crosswalks, catalogs, evidence records, and comparable project work product that the edition cites but does not reproduce in full. Give each entry its project title and a durable online locator. Do not assign these internal materials an `SRC-####` identifier or mix them into `sources.csv` merely to make them appear in the print list.
+
+An internal ARRP record reproduced in full in the same compiled edition is ordinarily located through the table of contents, appendix listing, Subject and Institution Index, or resolved page cross-reference and need not be duplicated in the supporting-materials category. Internal work remains citable, but its factual and legal propositions must trace to the external authorities on which it relies. The export workflow should derive both categories from the edition's actual citations and selected contents rather than maintain a second manual bibliography.
+
+Publication preflight must report an internal citation whose target is neither included in the edition nor available through a durable online project route, and it must report an external citation used by the edition that cannot be reconciled to `sources.csv`. The final source list is generated during assembly, after edition selection but before release validation.
+
 ## Export Variants
 
 The project may maintain three compiled editions:
 
 1. **Public proposal edition** - includes front matter, topic guides, area pages, developed issue pages, legislation appendices, and deliberately selected reader-useful evidence or research, while omitting technical repository-process materials.
 2. **Legislative appendix edition** - includes proposed legislation and related drafting notes.
-3. **Executive summary edition** - includes front matter, brief area summaries, selected priority issues, and references to the public proposal.
+3. **Executive summary edition** - includes front matter, topic guides, brief area summaries, back matter, and references to the public proposal; it does not silently select full issue pages outside the manifest.
 
 The repository and public website provide the complete technical record. Audit histories or other specialized technical materials may be assembled on request without maintaining a permanent technical print edition or assigning every online record to print.
 

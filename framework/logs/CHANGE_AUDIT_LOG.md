@@ -14,7 +14,7 @@ Proposal-specific Change Audits are recorded in the affected proposal's sibling 
 
 Related changes made in rapid succession should be collapsed into one coherent log entry when doing so improves readability and still preserves the material changes, affected files or proposal, score or rebaseline effect, unresolved findings, and reason the edits are treated as one change set. Every logged Change Audit belongs in the standard table; do not place same-audit supplements, reruns, reconciliations, or explanatory exceptions as free-standing prose above or below it. Fold those details into the original row when practical or use one consolidated standard row when they materially exceed the original row's scope.
 
-Current cross-issue score, audit-status, and next-audit tracking lives in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). Change Audit rules are maintained in [Project Methodology](../FRAMEWORK.md#change-audit).
+Current cross-issue score, audit-status, and next-audit tracking lives in the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2). Change Audit rules are maintained in the [Framework and Methodology](../FRAMEWORK.md#change-audit).
 
 > **Quick Jump**
 >

@@ -13,6 +13,8 @@ audit_last_date: "2026-06-28"
 audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
+change_audit_needed: false
+change_audit_reason: null
 adoption_score: 5
 adoption_score_band: "Limited Adoption Basis"
 adoption_friction_score: 56
@@ -108,9 +110,9 @@ The reform should include:
 
 ## Relationship to Adjacent Proposals
 
-- **ELEC-005** concerns false or unauthorized presidential result-transmission documents entering federal channels.
+- **[ELEC-005](ELEC-005.md)** concerns false or unauthorized presidential result-transmission documents entering federal channels.
 - **ELEC-006** concerns continuity of government and automatic transition access after a presidential election.
-- **ELEC-009** concerns whether the Electoral College should be restructured or replaced.
+- **[ELEC-009](ELEC-009.md)** concerns whether the Electoral College should be restructured or replaced.
 - Judicial and congressional-enforcement issues may overlap where expedited review or oversight mechanisms are implicated.
 
 ## Budgetary Impact Statement

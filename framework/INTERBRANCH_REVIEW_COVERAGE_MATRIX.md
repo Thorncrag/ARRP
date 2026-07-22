@@ -45,9 +45,7 @@ The following current candidates foreseeably could benefit, but none should iden
 
 | Candidate | Question requiring development |
 | --- | --- |
-| FUND-001 — agency closure or program nullification through nonspending | Does the conduct substantially and sustainably defeat a specific enacted appropriation or mandatory program rather than exercise lawful spending discretion? |
 | [RET-001](../areas/RET/issues/RET-001.md) / [FED-003](../areas/FED/issues/FED-003.md) — selective withholding or coercive funding conditions | Is an enacted payment, grant, contract, or formula command being nullified, and does a concretely injured recipient or State have restorative relief? |
-| FUND-001 — emergency redirection of appropriated funds | Does the emergency action displace a specific enacted funding command without statutory authorization? |
 | [CIV-009](../areas/CIV/issues/CIV-009.md) — cross-agency operational control | Has the instrument substantially disabled a target agency's mandatory statutory function? JUD-011 would not govern the instrument's appointments, privacy, procurement, or delegation defects as such. |
 | [OVS-001](../areas/OVS/issues/OVS-001.md) and CONG-001 — denial of records, access, testimony, or reporting | Does a statute create a concrete affirmative access or reporting duty, and is there a plaintiff with judicially cognizable injury? Political oversight frustration alone is insufficient. |
 | [REC-001](../areas/REC/issues/REC-001.md) — concealment, destruction, or nonpublication of federal records and data | Does the conduct nullify an enacted preservation or publication command, and can prospective relief preserve or restore compliance? |

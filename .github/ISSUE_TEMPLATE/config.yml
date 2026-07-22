@@ -1,5 +1,5 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
-  - name: Project contact
-    url: mailto:smith.benjamin.j@icloud.com
-    about: Contact the project author for stakeholder input, corrections, sources, or possible contributions.
+  - name: Submit input or contact the author
+    url: https://arrp-public-intake.vercel.app/
+    about: Use the screened participation service for public input, corrections, sources, contributions, or private contact.

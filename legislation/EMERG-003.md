@@ -225,6 +225,8 @@ If any provision of this Act or an amendment made by this Act, or the applicatio
 
 **Preliminary classification: Low administrative and litigation impact.** The draft adds transition review, individualized explanations, record production, and expedited judicial review within existing sanctions, visa, Justice Department, and court functions. It establishes no new program-delivery obligation or adjudicative institution and directs implementation from otherwise available appropriations. A reliable dollar estimate requires OFAC, State Department, DOJ, and Administrative Office workload data and an internal implementation review.
 
+*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
+
 ## Drafting Notes
 
 - The draft amends the substantive scope of delegated authority. It does not replace EMERG-001's general framework for congressional approval, termination, and renewal of emergencies.

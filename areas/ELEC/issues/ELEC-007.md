@@ -13,6 +13,8 @@ audit_last_date: "2026-06-28"
 audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
+change_audit_needed: false
+change_audit_reason: null
 adoption_score: 5
 adoption_score_band: "Limited Adoption Basis"
 adoption_friction_score: 70
@@ -103,9 +105,9 @@ The statute should also make clear that inadvertent or unavoidable incidental co
 
 ## Relationship to Adjacent Proposals
 
-- **ELEC-001** concerns federal executive interference with state and local election administration generally.
-- **ELEC-003** concerns protection of election personnel from threats and operational disruption.
-- **ELEC-004** concerns abuse of election litigation and investigatory mechanisms.
+- **[ELEC-001](ELEC-001.md)** concerns federal executive interference with state and local election administration generally.
+- **[ELEC-003](ELEC-003.md)** concerns protection of election personnel from threats and operational disruption.
+- **[ELEC-004](ELEC-004.md)** concerns abuse of election litigation and investigatory mechanisms.
 - **ELEC-007** concerns federal-force presence, emergency response, and election-material custody around election administration.
 - Domestic-deployment and Insurrection Act issues belong primarily in the DOM-series area.
 

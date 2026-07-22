@@ -15,6 +15,8 @@ print_levels:
 
 To establish civil and criminal accountability for constitutional violations by law-enforcement officers, to preserve lawful Federal and State enforcement authority, and for other purposes.
 
+Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
+
 ## SECTION 1. SHORT TITLE.
 
 This Act may be cited as the “Law-Enforcement Constitutional Accountability Act”.
@@ -195,6 +197,6 @@ The first budget pass should distinguish Federal employer liability from State a
 
 *Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
-## Drafting Annotation
+## Drafting Notes
 
 This is an initial discussion draft, not final legislative counsel text. The civil and criminal titles are intentionally severable. Before scoring, the project should review Congress's section 5 enforcement basis, State sovereign immunity, municipal and Federal employer liability, the personal-contribution percentages, collective bargaining and insurance, the section 242 mens rea under *Screws*, State criminal jurisdiction and Supremacy Clause immunity, charging-review independence, evidence overlap with DOM-005, appropriations, and implementation costs.

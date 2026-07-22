@@ -12,7 +12,7 @@ print_levels:
   - legislative-appendix
 ---
 
-# ELEC-012 - Campaign Finance Democratic Authority Amendment
+# ELEC-012 — Campaign Finance Democratic Authority Amendment
 
 ARRP supports H.J.Res. 54, 119th Congress, as the primary constitutional-amendment vehicle for ELEC-012, with a recommended enforcement and federalism clarification described below. H.J.Res. 13, 118th Congress, is preserved as a narrower alternative vehicle if the broader natural-persons and artificial-entity approach in H.J.Res. 54 is not politically or legally viable.
 

@@ -25,59 +25,59 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## General source development
 
 - **[SRC-1263 — Continuation of U.S. Drug Interdiction Assistance to the Government of Colombia](<https://www.govinfo.gov/content/pkg/FR-2025-08-15/pdf/2025-15679.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1264 — Presidential Determination and Certification with Respect to the Child Soldiers Prevention Act of 2008](<https://www.govinfo.gov/content/pkg/FR-2025-08-15/pdf/2025-15680.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1265 — Extension of Waiver of Section 907 of the FREEDOM Support Act with Respect to Assistance to the Government of Azerbaijan](<https://www.govinfo.gov/content/pkg/FR-2025-08-15/pdf/2025-15682.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1268 — Presidential Determination With Respect to the Efforts of Foreign Governments Regarding Trafficking in Persons](<https://www.govinfo.gov/content/pkg/FR-2025-12-19/pdf/2025-23569.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1272 — Presidential Waiver of Statutory Requirements Pursuant to Section 303 of the Defense Production Act of 1950, as Amended](<https://www.govinfo.gov/content/pkg/FR-2026-02-19/pdf/2026-03380.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1277 — Presidential Determination on Assistance to Venezuela Consistent With the Trafficking Victims Protection Act of 2000](<https://www.govinfo.gov/content/pkg/FR-2026-07-06/pdf/2026-13631.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1282 — Presidential Determination With Respect to the Efforts of Foreign Governments Regarding Trafficking in Persons](<https://www.govinfo.gov/content/pkg/FR-2017-10-27/pdf/2017-23609.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1284 — Suspension of Limitations Under the Jerusalem Embassy Act](<https://www.govinfo.gov/content/pkg/FR-2017-12-26/pdf/2017-28027.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1295 — Suspension of Limitations Under the Jerusalem Embassy Act](<https://www.govinfo.gov/content/pkg/FR-2018-07-03/pdf/2018-14487.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1297 — Continuation of U.S. Drug Interdiction Assistance to the Government of Colombia](<https://www.govinfo.gov/content/pkg/FR-2018-08-09/pdf/2018-17261.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1301 — Presidential Determination With Respect to the Child Soldiers Prevention Act of 2008](<https://www.govinfo.gov/content/pkg/FR-2018-10-23/pdf/2018-23245.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1303 — Presidential Determination With Respect to the Efforts of Foreign Governments Regarding Trafficking in Persons](<https://www.govinfo.gov/content/pkg/FR-2018-12-20/pdf/2018-27696.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1304 — Suspension of Limitations Under the Jerusalem Embassy Act](<https://www.govinfo.gov/content/pkg/FR-2018-12-27/pdf/2018-28364.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1312 — Continuation of U.S. Drug Interdiction Assistance to the Government of Colombia](<https://www.govinfo.gov/content/pkg/FR-2019-08-05/pdf/2019-16862.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1316 — Presidential Determination and Certification With Respect to the Child Soldiers Prevention Act of 2008](<https://www.govinfo.gov/content/pkg/FR-2019-11-04/pdf/2019-24195.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1317 — Presidential Determination With Respect to the Efforts of Foreign Governments Regarding Trafficking in Persons](<https://www.govinfo.gov/content/pkg/FR-2019-11-04/pdf/2019-24196.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1330 — Continuation of U.S. Drug Interdiction Assistance to the Government of Colombia](<https://www.govinfo.gov/content/pkg/FR-2020-07-29/pdf/2020-16622.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1342 — Presidential Determination and Certification With Respect to the Child Soldiers Prevention Act of 2008](<https://www.govinfo.gov/content/pkg/FR-2020-10-30/pdf/2020-24292.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**
 - **[SRC-1344 — Presidential Determination With Respect to the Efforts of Foreign Governments Regarding Trafficking in Persons](<https://www.govinfo.gov/content/pkg/FR-2020-11-06/pdf/2020-24894.pdf>)**
-  - Current proposition: Supports HOR-042 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: what statute authorizes this waiver or determination, what requirement is displaced, and what findings, scope, duration, notice, reporting, and review safeguards apply?
   - Reviewed: **Yes**

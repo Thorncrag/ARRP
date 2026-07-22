@@ -34,4 +34,4 @@ These numbers were assigned during preliminary review but did not become separat
 
 ## Notes
 
-RET-001 is in development. Initial source leads include Harvard federal-funding litigation, Columbia grant and settlement pressure, executive orders targeting major law firms, and district-court rulings blocking or striking down law-firm orders. Full source development, neutral comparative triggers, a concrete vehicle, and a first T-audit remain pending.
+RET-001 is in development. Initial source leads include Harvard federal-funding litigation, Columbia grant and settlement pressure, executive orders targeting major law firms, and district-court rulings blocking or striking down law-firm orders. Full source development, neutral comparative triggers, a concrete vehicle, and its first formal internal review remain pending.

@@ -14,6 +14,8 @@ audit_last_date: "2026-06-28"
 audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
+change_audit_needed: false
+change_audit_reason: null
 adoption_score: 4
 adoption_score_band: "Limited Adoption Basis"
 adoption_friction_score: 72
