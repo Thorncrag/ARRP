@@ -13,16 +13,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Paused for human review and commit |
+| Status | Inactive — audit completed and reconciled |
 | Active issue/task | Comprehensive project-wide consistency, logic, process, linkage, descriptor, structure, and file-location audit |
 | Audit type/tier | Project Consistency Audit; no T-audit run |
 | Started | 2026-07-22 |
-| Last checkpoint | 2026-07-22; all 371 tracked files received manual or deterministic review, corrections were reconciled, and the authenticated integrity pass completed with no errors. |
+| Last checkpoint | 2026-07-22; the comprehensive audit was merged through PR #343, local and remote `main` were reconciled, and the completed findings were retained below for the Project Console. |
 | User request | Conduct a comprehensive and thorough project consistency, logic, and process check, including every project file, cross-reference, link, descriptor, project-structure entry, and file location. |
 | Scope | All 371 tracked repository files, including root pages, governance, areas and issues, legislation, topics, inventories, research, sources, scripts, tests, workflows, website/publication tooling, participation service, and retained exports. |
 | Files touched | Governance and workflow files; issue and area pages; proposed legislation; source inventories and records; participation routing; integrity automation and tests; generated Console data; current audit and integrity reports. See the working-tree diff for the complete file list. |
 | Completed steps | Reconciled lifecycle and Defined Proposal rules; repaired current descriptors, links, metadata, legislation form, public-intake routing, source placement, GitHub wrappers, and Project canonical-page data; extended deterministic integrity checks; regenerated the Console and participation indexes; refreshed the Console's embedded integrity feed with the current 29 findings and retained history; verified live Vercel security headers. |
-| Next step | Human review of the five unscored foundation-decision warnings, six candidate-dossier gaps, and the source-specific review queue, followed by commit and full GitHub/publication reconciliation when requested. |
+| Next step | Await user direction. The five unscored foundation decisions, six candidate-dossier gaps, and source-specific review queue remain visible as ordinary follow-up work rather than an active audit blocker. |
 | Blockers/questions | Human foundation decisions remain unrecorded for APPT-001, JUD-012, OVS-009, REG-002, and RIGHTS-005. HOR-023, HOR-026, HOR-027, HOR-029, HOR-038, and HOR-039 retain one or more Project next-review or linked-research dossier gaps already surfaced in the Console. Twenty-four area source-development records retain 148 generic propositions that require source-specific LLM review rather than mechanical replacement. External-source availability remains reserved for the separate source-link audit. |
 | Validation status | Passed: 0 deterministic errors; 29 explicit warnings; 75 Python tests; 22 Node tests; Python/JavaScript syntax; ShellCheck; CSV/YAML/JSON parsing; diff hygiene; strict public-site build; authenticated GitHub Issue, Project, and Pages synchronization; live Vercel HSTS/CSP/security-header check. |
 
