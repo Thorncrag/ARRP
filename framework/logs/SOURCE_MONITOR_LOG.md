@@ -25,3 +25,23 @@ Each entry must identify the watcher, a stable activity code, the affected sourc
 | --- | --- | --- | --- | --- | --- |
 | Added | State of California v\. Zeldin \(N\.D\. Cal\.\) | 4:26\-cv\-03500 | Not present | Case Pending; 2026\-04\-24 | SRC\-2009 |
 | Removed | State of California v\. Zeldin \(N\.D\. Cal\.\) | 3:26\-cv\-03500 | Case Pending; 2026\-04\-24 | Not present | SRC\-2009 |
+## 2026-07-22T06:42:26+00:00 — Case monitor bot
+
+- Activity code: `CASE-20260722064226-33462621`
+- Originating workflow run: [29897609217](https://github.com/Thorncrag/ARRP/actions/runs/29897609217)
+- Result: `changes_detected`
+- Affected source IDs: SRC-1952, SRC-2017, SRC-2038, SRC-2039, SRC-2235
+- Tracker changes: 0 added; 5 changed; 0 removed
+- Case baselines updated: 5
+- Coverage: 493 mapped monitored CourtListener rows; 7 monitored CourtListener rows outside tracker coverage
+- Targeted CourtListener checks: 0 queried; 0 failed; 5 unverified
+- Interpretation: source-change signal only; no legal significance or project disposition determined.
+
+| Change | Case | Docket | Previous observation | Current observation | Catalog match |
+| --- | --- | --- | --- | --- | --- |
+| Changed | Mahdawi v\. Trump \(D\. Vt\.\) | 2:25\-cv\-00389 | Government Action Blocked Pending Appeal; 2025\-09\-29 | Government Action Not Blocked \(Pending Appeal\); 2026\-07\-21 | SRC\-2235 |
+| Changed | Doe v\. Noem \(S\.D\.N\.Y\.\) | 1:26\-cv\-02103 | Government Action Temporarily Blocked; 2026\-05\-01 | Government Action Not Blocked \(Pending Appeal\); 2026\-07\-20 | SRC\-2038 |
+| Changed | Doe v\. Noem \(S\.D\.N\.Y\.\) | 1:26\-cv\-02280 | Government Action Temporarily Blocked; 2026\-05\-01 | Government Action Not Blocked \(Pending Appeal\); 2026\-07\-20 | SRC\-2039 |
+| Changed | National Parks Conservation Association v\. Burgum \(D\.D\.C\.\) | 1:26\-cv\-02103 | Case Pending; 2026\-06\-15 | Case Pending; 2026\-07\-20 | SRC\-2017 |
+| Changed | Venezuelan Association of Massachusetts v\. United States Citizenship and Immigration Services \(D\. Mass\.\) | 1:26\-cv\-13038 | Case Pending; 2026\-07\-01 | Case Pending; 2026\-07\-21 | SRC\-1952 |
+
