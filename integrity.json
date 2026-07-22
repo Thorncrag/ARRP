@@ -2,17 +2,17 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-22T15:07:03+00:00",
-    "revision": "95c4ec04c61a404410ba99b81c1cbbdde5aa6c9a",
+    "generated_at": "2026-07-22T15:10:53+00:00",
+    "revision": "48f7e089f38b9ab08cc3b5ed7920f9ff722197f3",
     "result": "findings",
     "counts": {
-      "errors": 2,
-      "warnings": 0,
-      "findings": 2,
-      "issue_pages": 61,
+      "errors": 0,
+      "warnings": 29,
+      "findings": 29,
+      "issue_pages": 62,
       "proposal_pages": 40
     },
-    "duration_seconds": 10.967,
+    "duration_seconds": 11.243,
     "scope": [
       "Issue and proposal structure",
       "Area and topic routing",
@@ -20,6 +20,7 @@
       "Markdown heading anchors",
       "Orphaned Markdown pages",
       "Page metadata and heading hierarchy",
+      "Cross-issue reference links",
       "GitHub record references",
       "GitHub Issue and Project synchronization",
       "GitHub Pages deployment synchronization",
@@ -34,34 +35,223 @@
     ],
     "findings": [
       {
-        "id": "error-0001",
-        "severity": "error",
-        "category": "Internal links",
-        "message": "broken repository link in GitHub issue #203: https://github.com/Thorncrag/ARRP/blob/main/areas/PRESS/issues/PRESS-003.md (missing areas/PRESS/issues/PRESS-003.md)",
-        "path": "areas/PRESS/issues/PRESS-003.md"
+        "id": "warning-0001",
+        "severity": "warning",
+        "category": "Project structure",
+        "message": "APPT-001 is an unscored in-development issue without a machine-readable foundation decision",
+        "path": ""
       },
       {
-        "id": "error-0002",
-        "severity": "error",
+        "id": "warning-0002",
+        "severity": "warning",
         "category": "Project structure",
-        "message": "Project canonical page for issue #203 is 'https://github.com/Thorncrag/ARRP/blob/main/areas/PRESS/issues/PRESS-003.md'; expected one of https://github.com/Thorncrag/ARRP/blob/main/areas/PRESS/README.md",
-        "path": "areas/PRESS/issues/PRESS-003.md';"
+        "message": "JUD-012 is an unscored in-development issue without a machine-readable foundation decision",
+        "path": ""
+      },
+      {
+        "id": "warning-0003",
+        "severity": "warning",
+        "category": "Project structure",
+        "message": "OVS-009 is an unscored in-development issue without a machine-readable foundation decision",
+        "path": ""
+      },
+      {
+        "id": "warning-0004",
+        "severity": "warning",
+        "category": "Project structure",
+        "message": "REG-002 is an unscored in-development issue without a machine-readable foundation decision",
+        "path": ""
+      },
+      {
+        "id": "warning-0005",
+        "severity": "warning",
+        "category": "Project structure",
+        "message": "RIGHTS-005 is an unscored in-development issue without a machine-readable foundation decision",
+        "path": ""
+      },
+      {
+        "id": "warning-0006",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/CIV/research/CIV-001-source-development.md contains 16 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/CIV/research/CIV-001-source-development.md"
+      },
+      {
+        "id": "warning-0007",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/CIV/research/CIV-009-source-development.md contains 2 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/CIV/research/CIV-009-source-development.md"
+      },
+      {
+        "id": "warning-0008",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/DOJ/research/DOJ-003-source-development.md contains 4 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/DOJ/research/DOJ-003-source-development.md"
+      },
+      {
+        "id": "warning-0009",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/DOM/research/DOM-001-source-development.md contains 2 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/DOM/research/DOM-001-source-development.md"
+      },
+      {
+        "id": "warning-0010",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/ELEC/research/ELEC-001-source-development.md contains 3 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/ELEC/research/ELEC-001-source-development.md"
+      },
+      {
+        "id": "warning-0011",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/ELEC/research/ELEC-004-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/ELEC/research/ELEC-004-source-development.md"
+      },
+      {
+        "id": "warning-0012",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/EMERG/research/EMERG-003-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/EMERG/research/EMERG-003-source-development.md"
+      },
+      {
+        "id": "warning-0013",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/FACT/research/FACT-001-source-development.md contains 7 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/FACT/research/FACT-001-source-development.md"
+      },
+      {
+        "id": "warning-0014",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/FED/research/FED-002-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/FED/research/FED-002-source-development.md"
+      },
+      {
+        "id": "warning-0015",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/FED/research/FED-003-source-development.md contains 2 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/FED/research/FED-003-source-development.md"
+      },
+      {
+        "id": "warning-0016",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/FUND/research/FUND-001-source-development.md contains 14 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/FUND/research/FUND-001-source-development.md"
+      },
+      {
+        "id": "warning-0017",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/HER/research/HER-001-source-development.md contains 10 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/HER/research/HER-001-source-development.md"
+      },
+      {
+        "id": "warning-0018",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/JUD/research/JUD-011-source-development.md contains 2 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/JUD/research/JUD-011-source-development.md"
+      },
+      {
+        "id": "warning-0019",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/OVS/research/OVS-001-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/OVS/research/OVS-001-source-development.md"
+      },
+      {
+        "id": "warning-0020",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/PRESS/research/PRESS-001-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/PRESS/research/PRESS-001-source-development.md"
+      },
+      {
+        "id": "warning-0021",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/REC/research/REC-001-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/REC/research/REC-001-source-development.md"
+      },
+      {
+        "id": "warning-0022",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/REG/research/REG-001-source-development.md contains 23 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/REG/research/REG-001-source-development.md"
+      },
+      {
+        "id": "warning-0023",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/REG/research/REG-003-source-development.md contains 4 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/REG/research/REG-003-source-development.md"
+      },
+      {
+        "id": "warning-0024",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/REG/research/REG-006-source-development.md contains 16 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/REG/research/REG-006-source-development.md"
+      },
+      {
+        "id": "warning-0025",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/RET/research/RET-001-source-development.md contains 2 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/RET/research/RET-001-source-development.md"
+      },
+      {
+        "id": "warning-0026",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/RIGHTS/research/RIGHTS-001-source-development.md contains 11 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/RIGHTS/research/RIGHTS-001-source-development.md"
+      },
+      {
+        "id": "warning-0027",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/RIGHTS/research/RIGHTS-002-source-development.md contains 22 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/RIGHTS/research/RIGHTS-002-source-development.md"
+      },
+      {
+        "id": "warning-0028",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/RIGHTS/research/RIGHTS-003-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/RIGHTS/research/RIGHTS-003-source-development.md"
+      },
+      {
+        "id": "warning-0029",
+        "severity": "warning",
+        "category": "Sources and citations",
+        "message": "areas/WAR/research/WAR-001-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review",
+        "path": "areas/WAR/research/WAR-001-source-development.md"
       }
     ]
   },
   "history": [
     {
-      "generated_at": "2026-07-22T15:07:03+00:00",
-      "revision": "95c4ec04c61a404410ba99b81c1cbbdde5aa6c9a",
+      "generated_at": "2026-07-22T15:10:53+00:00",
+      "revision": "48f7e089f38b9ab08cc3b5ed7920f9ff722197f3",
       "result": "findings",
       "counts": {
-        "errors": 2,
-        "warnings": 0,
-        "findings": 2,
-        "issue_pages": 61,
+        "errors": 0,
+        "warnings": 29,
+        "findings": 29,
+        "issue_pages": 62,
         "proposal_pages": 40
       },
-      "duration_seconds": 10.967
+      "duration_seconds": 11.243
     },
     {
       "generated_at": "2026-07-22T11:45:56+00:00",
