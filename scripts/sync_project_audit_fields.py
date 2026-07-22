@@ -50,7 +50,7 @@ def development_level_from_metadata(meta: dict[str, str], current: str) -> str:
     if score >= 1:
         return "Developed proposal"
     if meta.get("foundation_status", "").strip().lower() == "approved":
-        return "Defined proposal"
+        return "In development"
     return ""
 
 

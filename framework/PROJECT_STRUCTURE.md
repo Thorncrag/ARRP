@@ -55,7 +55,8 @@ Ignored local products such as `.venv/`, `.tmp/`, and `.site-build/` are not pro
 | `framework/INTERBRANCH_REVIEW_FRAMEWORK.md` | Governing JUD-011 coverage and proposal-independence convention. |
 | `framework/INTERBRANCH_REVIEW_COVERAGE_MATRIX.md` | Proposal inclusion, exclusion, and future-screening record for the interbranch framework. |
 | `framework/GITHUB_WORKFLOW.md` | GitHub Issues and Project authority, lifecycle transitions, synchronization, and authenticated-operation rules. |
-| `framework/AGENT_OPERATING_RULES.md` | Canonical detailed rules for ordinary and expressly authorized autonomous agent work. |
+| `framework/AGENT_OPERATING_RULES.md` | Canonical detailed rules for every agent and bot, including persistent and scheduled execution. |
+| `framework/agents/` | Registry and one authoritative configuration/runbook for every persistent named agent or bot. Runtime manifests and workflows are validated projections of these records. |
 | `framework/INTAKE_AGENT_PROCESS.md` | Security-sensitive manual public-intake review process and future-automation boundary. It remains separate from general agent rules because contributor content is untrusted and review authority is deliberately narrower. |
 | `framework/PRINT_ASSEMBLY.md` | Print-selection, ordering, locator, and export rules. |
 | `framework/print-assembly.json` | Machine-readable compiled-edition section and ordering manifest. |
@@ -70,8 +71,8 @@ Ignored local products such as `.venv/`, `.tmp/`, and `.site-build/` are not pro
 | `framework/logs/CURRENT_AUDIT.md` | Mutable handoff checkpoint for the current long-running audit or development task. It lives with logs for discoverability but is active state, not historical audit evidence. |
 | `framework/logs/HORIZON_SCAN_LOG.md` | Cumulative candidate disposition and integration history. |
 | `framework/logs/CHANGE_AUDIT_LOG.md` | Preserved historical project-wide Change Audit record. |
-| `framework/logs/AGENT_AUDIT_LOG.md` | Provenance and rollback references for autonomous, batched, or scheduled agent commits. |
-| `framework/logs/SOURCE_MONITOR_LOG.md` | Material deterministic watcher changes and workflow provenance. |
+| `framework/logs/AGENT_AUDIT_LOG.md` | Shared provenance and rollback ledger for material actions by every persistent agent and bot. |
+| `framework/logs/SOURCE_MONITOR_LOG.md` | Source-domain event record for accepted or proposed monitoring changes; it does not replace shared agent provenance. |
 | `framework/logs/PROJECT_INTEGRITY_REPORT.md` | Overwritten current integrity findings; not a running audit log. |
 | `framework/templates/` | Reusable project-authored drafting templates. Public input is routed through the separately deployed participation service rather than GitHub issue forms. |
 

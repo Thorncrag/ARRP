@@ -1,5 +1,9 @@
 {
   "schemaVersion": 2,
+  "agentId": "project-console-progress-bot",
+  "schedule": {
+    "cron": "17 10 * * *"
+  },
   "projectOwner": "Thorncrag",
   "projectNumber": 2,
   "repository": "Thorncrag/ARRP",

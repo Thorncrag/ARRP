@@ -12,4 +12,4 @@ This record is source-development work, not a completed finding or a substitute 
 
 ## Routed Sources
 
-- **[SRC-0888](<https://www.justice.gov/crt/media/1404606/dl>) — DOJ sues Orange County, CA registrar over refusal to provide voting records.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Reviewed: **Yes**.
+- **[SRC-0888](<https://www.justice.gov/crt/media/1404606/dl>) — DOJ sues Orange County, CA registrar over refusal to provide voting records.** Proposition supported: The cited record documents or describes DOJ sues Orange County, CA registrar over refusal to provide voting records; retain it as a source-development lead for ELEC-004, without treating the title or record alone as proof of illegality, motive, recurrence, or institutional defect. Reviewed: **Yes**.

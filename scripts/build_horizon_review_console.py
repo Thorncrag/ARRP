@@ -21,8 +21,10 @@ CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.cs
 HORIZON_LOG = ROOT / "framework" / "logs" / "HORIZON_SCAN_LOG.md"
 CHANGE_AUDIT_LOG = ROOT / "framework" / "logs" / "CHANGE_AUDIT_LOG.md"
 AGENT_AUDIT_LOG = ROOT / "framework" / "logs" / "AGENT_AUDIT_LOG.md"
+SOURCE_CHECKER_DATA = ROOT / "framework" / "reports" / "source-checker.json"
 SOURCE_MONITOR_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
 CURRENT_AUDIT = ROOT / "framework" / "logs" / "CURRENT_AUDIT.md"
+AGENT_RUNBOOKS = ROOT / "framework" / "agents"
 ISSUE_REGISTRY = ROOT / "inventory" / "github_issue_registry.csv"
 CITED_SOURCES = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
@@ -216,6 +218,54 @@ def markdown_front_matter(content: str) -> dict[str, object]:
             values[key] = []
             active_list = key
     return values
+
+
+def agent_registry_records() -> list[dict[str, object]]:
+    """Build the Console's operational registry from authoritative runbooks."""
+    if not AGENT_RUNBOOKS.exists():
+        return []
+    records: list[dict[str, object]] = []
+    for path in sorted(AGENT_RUNBOOKS.glob("*.md")):
+        if path.name == "README.md":
+            continue
+        content = path.read_text(encoding="utf-8")
+        metadata = markdown_front_matter(content)
+        agent_id = str(metadata.get("agent_id", "")).strip()
+        if not agent_id:
+            continue
+        body = content.split("\n---\n", 1)[-1]
+        description_match = re.search(r"^# .+?\n\n(.+?)(?=\n\n|\n#)", body, re.MULTILINE | re.DOTALL)
+        description = strip_markdown(description_match.group(1).strip()) if description_match else ""
+        runtime_id = str(metadata.get("runtime_id", "")).strip()
+        runtime_url = (
+            GITHUB_BLOB_ROOT + runtime_id
+            if runtime_id.startswith(".github/")
+            else ""
+        )
+        records.append(
+            {
+                "id": agent_id,
+                "name": str(metadata.get("display_name", agent_id)).strip(),
+                "type": str(metadata.get("agent_type", "")).strip(),
+                "status": str(metadata.get("status", "unknown")).strip(),
+                "trigger": str(metadata.get("trigger", "")).strip(),
+                "schedule": str(metadata.get("schedule", "")).strip(),
+                "runtime_id": runtime_id,
+                "runtime_url": runtime_url,
+                "execution_environment": str(metadata.get("execution_environment", "")).strip(),
+                "log_path": str(metadata.get("log_path", "")).strip(),
+                "description": description,
+                "runbook_path": str(path.relative_to(ROOT)),
+                "runbook_url": GITHUB_BLOB_ROOT + str(path.relative_to(ROOT)),
+            }
+        )
+    return sorted(
+        records,
+        key=lambda record: (
+            0 if record["id"] == "elim" else 1,
+            str(record["name"]),
+        ),
+    )
 
 
 def page_section(relative: Path) -> str:
@@ -749,19 +799,28 @@ def agent_audit_log_view() -> dict[str, object]:
         if not fields:
             continue
         header_parts = [part.strip() for part in title.split("—")]
+        raw_agent = strip_markdown(fields.get("Agent", fields.get("Run/agent", "")))
+        raw_run = strip_markdown(fields.get("Run ID", fields.get("Run/agent", "")))
+        raw_task = strip_markdown(fields.get("Task type", fields.get("Tier", header_parts[2] if len(header_parts) > 2 else "")))
+        blockers = strip_markdown(fields.get("Blockers/skipped checks", ""))
+        raw_outcome = strip_markdown(fields.get("Outcome", ""))
+        if not raw_outcome:
+            raw_outcome = "Blocked" if blockers and not blockers.lower().startswith("no blocker") else "Completed"
         values = {
             "date": strip_markdown(fields.get("Date/time", header_parts[0] if header_parts else "")),
             "record": strip_markdown(fields.get("Issue/task", header_parts[1] if len(header_parts) > 1 else "")),
-            "tier": strip_markdown(fields.get("Tier", header_parts[2] if len(header_parts) > 2 else "")),
-            "agent": strip_markdown(fields.get("Run/agent", "")),
-            "status": strip_markdown(fields.get("Push status", "")),
+            "task": raw_task,
+            "agent": raw_agent,
+            "run": raw_run,
+            "outcome": raw_outcome,
         }
         entries.append(log_entry(f"agent-{index:03d}", values, {
             "date": fields.get("Date/time", ""),
             "record": fields.get("Issue/task", ""),
-            "tier": fields.get("Tier", ""),
-            "agent": fields.get("Run/agent", ""),
-            "status": fields.get("Push status", ""),
+            "task": fields.get("Task type", fields.get("Tier", "")),
+            "agent": fields.get("Agent", fields.get("Run/agent", "")),
+            "run": fields.get("Run ID", fields.get("Run/agent", "")),
+            "outcome": fields.get("Outcome", raw_outcome),
         }, body))
     return {
         "id": "agents",
@@ -771,14 +830,17 @@ def agent_audit_log_view() -> dict[str, object]:
         "columns": [
             {"key": "date", "label": "Date and time"},
             {"key": "record", "label": "Issue or task"},
-            {"key": "tier", "label": "Tier or task"},
-            {"key": "agent", "label": "Run or agent"},
-            {"key": "status", "label": "Push status"},
+            {"key": "task", "label": "Task type"},
+            {"key": "agent", "label": "Agent"},
+            {"key": "run", "label": "Run ID"},
+            {"key": "outcome", "label": "Outcome"},
         ],
         "group_options": [
-            {"key": "tier", "label": "Tier or task"},
+            {"key": "task", "label": "Task type"},
             {"key": "record", "label": "Issue or task"},
-            {"key": "agent", "label": "Run or agent"},
+            {"key": "agent", "label": "Agent"},
+            {"key": "run", "label": "Run ID"},
+            {"key": "outcome", "label": "Outcome"},
         ],
         "default_sort": {"key": "date", "direction": "desc"},
         "entries": entries,
@@ -1585,13 +1647,15 @@ def main() -> None:
     project_logs = project_log_views()
     progress = progress_snapshot()
     integrity = integrity_snapshot()
+    source_checker = read_json(SOURCE_CHECKER_DATA) if SOURCE_CHECKER_DATA.exists() else {}
+    agent_registry = agent_registry_records()
     horizon_records = enrich_horizon_records(horizon_records)
     active_horizon_records = [
         record for record in horizon_records if record["issue_state"] == "Open"
     ]
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
-        "schema_version": 20,
+        "schema_version": 22,
         "generated_at": generated_at,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),
@@ -1612,6 +1676,8 @@ def main() -> None:
         "project_logs": project_logs,
         "progress": progress,
         "integrity": integrity,
+        "source_checker": source_checker,
+        "agent_registry": agent_registry,
         "consistency_audit": current_consistency_audit(),
         # The full snapshot is retained only so an ordinary rebuild can preserve
         # authoritative GitHub state without requiring Keychain access.

@@ -1,4 +1,4 @@
-name: Project Console progress data
+name: Project Console Progress Bot
 
 on:
   workflow_dispatch:

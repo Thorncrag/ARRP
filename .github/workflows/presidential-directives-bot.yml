@@ -1,4 +1,4 @@
-name: Presidential directives watcher
+name: Presidential Directives Bot
 
 on:
   workflow_dispatch:
@@ -86,6 +86,7 @@ jobs:
           allowed = {
               "inventory/presidential-directives.csv",
               "framework/logs/SOURCE_MONITOR_LOG.md",
+              "framework/logs/AGENT_AUDIT_LOG.md",
           }
           changed = {
               line[3:]
@@ -101,12 +102,26 @@ jobs:
               raise SystemExit("watcher reported a material update without a repository change")
           PY
 
+      - name: Record shared agent provenance
+        if: steps.material.outputs.changed == 'true'
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RUN_TRIGGER: ${{ github.event_name }}
+        run: >-
+          python scripts/append_agent_audit_log.py
+          --agent presidential-directives-bot --run-id "${RUN_URL}" --trigger "${RUN_TRIGGER}"
+          --task-type monitoring --outcome Completed --issue-task "Presidential-directive metadata monitoring"
+          --files-changed '`inventory/presidential-directives.csv`; `framework/logs/SOURCE_MONITOR_LOG.md`; `framework/logs/AGENT_AUDIT_LOG.md`'
+          --validation "Official metadata identity, fingerprint, and change-boundary checks passed."
+          --push-status "Proposed on automation/presidential-directives-monitor"
+          --rollback-notes "Close the automation pull request or revert its merge commit."
+
       - name: Commit and push the material update
         if: steps.material.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add inventory/presidential-directives.csv framework/logs/SOURCE_MONITOR_LOG.md
+          git add inventory/presidential-directives.csv framework/logs/SOURCE_MONITOR_LOG.md framework/logs/AGENT_AUDIT_LOG.md
           git commit -m "chore: record presidential directive updates"
           git push --set-upstream origin "${BOT_BRANCH}"
 

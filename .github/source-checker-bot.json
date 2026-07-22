@@ -1,0 +1,23 @@
+{
+  "agentId": "source-checker-bot",
+  "mode": "report-only",
+  "catalogs": [
+    "inventory/sources.csv",
+    "inventory/sources-pending.csv"
+  ],
+  "urlField": "URL",
+  "idField": "Source ID",
+  "titleField": "Title or Description",
+  "publisherField": "Authority / Publisher",
+  "request": {
+    "timeoutSeconds": 20,
+    "retries": 2,
+    "backoffSeconds": 1.0,
+    "minimumDomainIntervalSeconds": 0.15,
+    "workers": 8,
+    "maximumBytes": 262144
+  },
+  "historyLimit": 12,
+  "currentReport": "framework/reports/SOURCE_CHECKER_REPORT.md",
+  "currentData": "framework/reports/source-checker.json"
+}

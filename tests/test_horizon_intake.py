@@ -4,7 +4,7 @@ import re
 import unittest
 from pathlib import Path
 
-from scripts.build_horizon_review_console import project_log_views, render_markdown_safe, research_for_record
+from scripts.build_horizon_review_console import agent_audit_log_view, project_log_views, render_markdown_safe, research_for_record
 from scripts.build_project_integrity_feed import build_feed
 
 
@@ -23,10 +23,13 @@ class HorizonIntakeTest(unittest.TestCase):
         cls.candidates = read_csv("trump-administration-preliminary-candidates.csv")
         cls.sources = []
         cls.source_catalogs = {}
+        cls.source_catalog_fields = {}
         for name in ("sources.csv", "sources-pending.csv"):
             with (ROOT / "inventory" / name).open(newline="", encoding="utf-8") as handle:
-                rows = list(csv.DictReader(handle))
+                reader = csv.DictReader(handle)
+                rows = list(reader)
                 cls.source_catalogs[name] = rows
+                cls.source_catalog_fields[name] = set(reader.fieldnames or [])
                 cls.sources.extend(rows)
                 if name == "sources-pending.csv":
                     cls.pending_sources = rows
@@ -56,12 +59,39 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertFalse(any((RESEARCH / name).exists() for name in legacy_files))
         cited = self.source_catalogs["sources.csv"]
         pending = self.source_catalogs["sources-pending.csv"]
-        self.assertEqual(set(cited[0]), set(pending[0]))
-        self.assertIn("Monitoring", cited[0])
-        self.assertIn("Monitoring Baseline", cited[0])
+        self.assertEqual(
+            self.source_catalog_fields["sources.csv"],
+            self.source_catalog_fields["sources-pending.csv"],
+        )
+        self.assertIn("Monitoring", self.source_catalog_fields["sources.csv"])
+        self.assertIn("Monitoring Baseline", self.source_catalog_fields["sources.csv"])
         cited_ids = {row["Source ID"] for row in cited}
         pending_ids = {row["Source ID"] for row in pending}
         self.assertFalse(cited_ids & pending_ids)
+
+    def test_progress_board_accounts_for_every_current_record_exactly_once(self) -> None:
+        candidates = self.console["active_horizon_records"]
+        proposals = self.console["progress"]["proposals"]
+        records = candidates + proposals
+        identifiers = [record.get("id") or record.get("identifier") for record in records]
+        levels = [record.get("development_level") or record.get("developmentLevel") for record in records]
+        expected_levels = {
+            "Candidate", "Admitted / undeveloped", "In development",
+            "Developed proposal", "Review ready", "Release candidate",
+        }
+        self.assertEqual(len(records), 99)
+        self.assertEqual(len(identifiers), len(set(identifiers)))
+        self.assertTrue(set(levels) <= expected_levels)
+
+    def test_agent_log_exposes_structured_filter_fields(self) -> None:
+        log = agent_audit_log_view()
+        self.assertTrue(log["entries"])
+        self.assertEqual(
+            {column["key"] for column in log["columns"]},
+            {"date", "record", "task", "agent", "run", "outcome"},
+        )
+        self.assertTrue(all(entry["values"]["agent"] for entry in log["entries"]))
+        self.assertTrue(all(entry["values"]["outcome"] in {"Completed", "Blocked"} for entry in log["entries"]))
 
     def test_source_workflow_fields_explain_pending_and_monitoring_records(self) -> None:
         workflow_fields = {
@@ -73,8 +103,8 @@ class HorizonIntakeTest(unittest.TestCase):
             "Monitoring Group",
             "Monitoring Baseline",
         }
-        for rows in self.source_catalogs.values():
-            self.assertTrue(workflow_fields <= set(rows[0]))
+        for fields in self.source_catalog_fields.values():
+            self.assertTrue(workflow_fields <= fields)
         for row in self.pending_sources:
             for field in ("Retention Rationale", "Pending Reason", "Next Action"):
                 self.assertTrue(row[field].strip(), f"{row['Source ID']} lacks {field}")
@@ -108,21 +138,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 self.assertEqual(row["Monitoring"], "Yes", row["Source ID"])
 
     def test_pending_inventory_contains_only_genuinely_unrouted_sources(self) -> None:
-        expected_ids = {
-            "SRC-2003",
-            "SRC-2197",
-            "SRC-2202",
-            "SRC-2203",
-            "SRC-2204",
-            "SRC-2205",
-            "SRC-2310",
-            "SRC-2312",
-            "SRC-2347",
-            "SRC-2356",
-            "SRC-2531",
-            "SRC-2532",
-            "SRC-2597",
-        }
+        expected_ids = set()
         self.assertEqual({row["Source ID"] for row in self.pending_sources}, expected_ids)
         for row in self.pending_sources:
             possible_destinations = {
@@ -154,7 +170,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 20)
+        self.assertEqual(self.console["schema_version"], 22)
         self.assertEqual(
             set(self.console),
             {
@@ -174,6 +190,8 @@ class HorizonIntakeTest(unittest.TestCase):
                 "page_inventory",
                 "publication",
                 "integrity",
+                "source_checker",
+                "agent_registry",
                 "consistency_audit",
                 "project_logs",
                 "progress",
@@ -194,6 +212,41 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         self.assertTrue(self.console["page_inventory"])
         self.assertTrue(self.console["consistency_audit"]["entries"])
+        self.assertEqual(
+            {record["id"] for record in self.console["agent_registry"]},
+            {
+                "elim",
+                "project-integrity-bot",
+                "case-monitor-bot",
+                "presidential-directives-bot",
+                "project-console-progress-bot",
+                "source-checker-bot",
+            },
+        )
+        self.assertTrue(all(record["runbook_url"] for record in self.console["agent_registry"]))
+        self.assertTrue(
+            all(
+                record["id"].endswith("-bot")
+                for record in self.console["agent_registry"]
+                if "bot" in record["type"]
+            )
+        )
+
+    def test_console_navigation_and_current_record_accounting_are_complete(self) -> None:
+        html = (RESEARCH / "horizon-review-console" / "index.html").read_text(encoding="utf-8")
+        identifiers = re.findall(r'\sid="([^"]+)"', html)
+        self.assertEqual(len(identifiers), len(set(identifiers)), "Console element IDs must be unique")
+        controlled = set(re.findall(r'\saria-controls="([^"]+)"', html))
+        self.assertTrue(controlled <= set(identifiers))
+        labelled = set(re.findall(r'\saria-labelledby="([^"]+)"', html))
+        self.assertTrue(labelled <= set(identifiers))
+        expected_board_records = sum(
+            row["Kind"] in {"proposal", "horizon"} for row in self.issue_registry
+        )
+        self.assertEqual(
+            len(self.console["progress"]["proposals"]) + len(self.console["active_horizon_records"]),
+            expected_board_records,
+        )
         self.assertTrue(
             all(
                 entry["disposition"] and entry["problem"] and entry["correction"] and entry["effect"]
@@ -479,10 +532,13 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
-        for tab in {"progress", "actions", "candidates", "sources", "integrity", "logs", "publication"}:
+        self.assertIn("catalog-data.js?v=28", console_html)
+        self.assertIn("app.js?v=28", console_html)
+        self.assertIn("styles.css?v=28", console_html)
+        for tab in {"overview", "progress", "actions", "candidates", "sources", "integrity", "automation", "logs", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)
-        self.assertIn("grid-template-columns: .9fr 1.15fr 1.05fr .85fr .9fr .7fr 1fr", console_css)
+        self.assertIn("display: flex", console_css)
         self.assertIn("white-space: nowrap", console_css)
         for subtab in {"candidate-tab-formal", "candidate-tab-preliminary", "source-tab-catalog", "source-tab-pending", "source-tab-watchers"}:
             self.assertIn(f'id="{subtab}"', console_html)
@@ -490,10 +546,32 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Decision dossiers", console_html)
         self.assertIn("Project bibliography", console_html)
         self.assertIn("Issues being monitored", console_html)
+        self.assertIn('id="progress-monitoring"', console_html)
+        self.assertNotIn('id="watcher-tab-manual"', console_html)
+        self.assertNotIn('id="watcher-panel-manual"', console_html)
         self.assertIn("Court-case watcher", console_html)
         self.assertIn("Presidential-directives watcher", console_html)
         self.assertIn("Central review inbox", console_html)
         self.assertIn('id="development-board"', console_html)
+        self.assertIn('id="progress-holds"', console_html)
+        self.assertIn('class="progress-disclosure progress-holds-section progress-group-index"', console_html)
+        self.assertNotIn('<details class="progress-disclosure progress-holds-section"', console_html)
+        self.assertIn('element("details", "progress-hold-group")', console_app)
+        self.assertIn('`progress-hold-list-${layoutSlug(status)}`', console_app)
+        self.assertIn('class="progress-disclosure progress-monitoring-section progress-group-index"', console_html)
+        self.assertNotIn('<details class="progress-disclosure progress-monitoring-section"', console_html)
+        self.assertNotIn('data-disclosure-id="sources-court-results"', console_html)
+        self.assertIn('class="monitoring-list list-at-a-glance" id="court-watch-list"', console_html)
+        self.assertIn('`progress-monitoring-${record.id}`', console_app)
+        self.assertIn('`sources-court-${records[0].owner_id}`', console_app)
+        self.assertIn('class="progress-disclosure progress-area-section progress-group-index"', console_html)
+        self.assertNotIn('<details class="progress-disclosure progress-area-section"', console_html)
+        self.assertNotIn("sources.length <= 4", console_app)
+        self.assertNotIn("count > 0 && items.length <= 4", console_app)
+        self.assertNotIn("items.length <= 3", console_app)
+        self.assertNotIn('details.open = section.id === "unplaced"', console_app)
+        self.assertIn("Deferred / Parked", console_app)
+        self.assertIn("Missing: no explanation", console_app)
         self.assertIn("Development level", console_html)
         self.assertIn("workflowStatus", console_app)
         for log_id in {"horizon", "agents", "source-monitor", "changes"}:
@@ -508,6 +586,25 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn('id="watcher-tab-overview"', console_html)
         self.assertNotIn('id="watcher-panel-overview"', console_html)
         self.assertIn('id="court-watch-update"', console_html)
+        self.assertIn('id="watcher-tab-source-checker"', console_html)
+        self.assertIn('id="source-checker-classification"', console_html)
+        self.assertIn('id="source-checker-domain"', console_html)
+        self.assertIn('id="source-checker-owner"', console_html)
+        self.assertIn("grid-template-columns: repeat(4, minmax(0, 1fr))", console_css)
+        self.assertIn(".watcher-tab-list button", console_css)
+        self.assertIn("LIVE_SOURCE_CHECKER_URL", console_app)
+        self.assertIn('category: "Source integrity"', console_app)
+        self.assertIn('["broken", "identity mismatch", "review required"]', console_app)
+        self.assertIn("Complete exception inventory", console_html)
+        self.assertIn('id="progress-sections"', console_html)
+        self.assertLess(console_html.index('id="progress-summary-grid"'), console_html.index('id="progress-development-board"'))
+        self.assertLess(console_html.index('id="progress-development-board"'), console_html.index('id="progress-schedule"'))
+        self.assertNotIn("Closest to Review Ready", console_html)
+        self.assertIn(".progress-area-list { display: grid; grid-template-columns: repeat(4", console_css)
+        self.assertIn(".integrity-layout { display: grid; grid-template-columns: 1fr", console_css)
+        self.assertNotIn(".development-card-list { display: grid; gap: .35rem; max-height", console_css)
+        self.assertNotIn("max-height: 32rem", console_css)
+        self.assertNotIn("max-height: calc(100vh - 2rem)", console_css)
         self.assertIn('id="directive-watch-update"', console_html)
         self.assertIn('id="court-watch-update-banner"', console_html)
         self.assertIn('id="court-watch-updated-only"', console_html)
@@ -519,7 +616,26 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Page print assignments", console_html)
         self.assertIn("Edition analysis", console_html)
         self.assertIn("Document builder", console_html)
-        self.assertIn("Project integrity", console_html)
+        self.assertIn("Problems and integrity", console_html)
+        self.assertIn("Whole-project overview", console_html)
+        self.assertIn("Agents and bots", console_html)
+        self.assertIn('id="layout-edit-toggle"', console_html)
+        self.assertIn("LAYOUT_STORAGE_KEY", console_app)
+        self.assertIn("DISCLOSURE_STORAGE_KEY", console_app)
+        self.assertIn("initializePersonalLayout", console_app)
+        self.assertIn("refreshDisclosurePreferences", console_app)
+        self.assertIn('root.querySelectorAll("details")', console_app)
+        self.assertIn('element("button", "disclosure-default-toggle")', console_app)
+        self.assertIn('button.textContent = `Default: ${defaultOpen ? "open" : "collapsed"}`', console_app)
+        self.assertIn("current[key] = nextDefault", console_app)
+        self.assertNotIn('details.addEventListener("toggle"', console_app)
+        self.assertIn(".disclosure-default-toggle", console_css)
+        self.assertIn('element("details", `action-item-card', console_app)
+        self.assertIn('category: "Workflow explanation"', console_app)
+        self.assertIn("has no recorded explanation or reason", console_app)
+        self.assertIn("dense-data-disclosure", console_html)
+        self.assertIn("allProblemRecords", console_app)
+        self.assertIn("stableProblemReference", console_app)
         self.assertIn("Latest consistency audit", console_html)
         self.assertIn('id="consistency-audit-findings"', console_html)
         self.assertIn("Open current report", console_html)
@@ -540,6 +656,15 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Exclude from print…", console_app)
         self.assertIn("exportPrintLevelChanges", console_app)
         self.assertIn("renderActionItems", console_app)
+        self.assertIn('label: "Integrity decisions requiring you"', console_app)
+        self.assertIn("integrityFindingNeedsHuman", console_app)
+        self.assertNotIn('"foundation decision"', console_app)
+        self.assertIn('"human decision"', console_app)
+        self.assertIn("integrityHumanFindings.map", console_app)
+        self.assertIn('element("ol", "action-item-detail-list")', console_app)
+        self.assertIn("integrityActionLink", console_app)
+        self.assertIn("GITHUB_BLOB_ROOT", console_app)
+        self.assertIn("action-item-detail-list", console_css)
         self.assertIn("renderProjectLog", console_app)
         self.assertIn("projectLogTable", console_app)
         self.assertIn('initializeSectionTabs("logs", "horizon")', console_app)
@@ -560,6 +685,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("renderDocumentBuilder", console_app)
         self.assertIn("exportAssemblyChanges", console_app)
         self.assertIn("initializeScrollToTop", console_app)
+        self.assertIn("activeTopLevel === group", console_app)
         self.assertIn("renderIntegrity", console_app)
         self.assertIn("refreshLiveIntegrity", console_app)
         self.assertIn('setAttribute("aria-sort"', console_app)
@@ -584,7 +710,11 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertNotIn(f'id="{control_id}"', console_html)
         self.assertNotIn("screenSubmission", console_app)
         self.assertNotIn("setDecision", console_app)
-        self.assertNotIn("localStorage", console_app)
+        self.assertIn('const LAYOUT_STORAGE_KEY = "arrp-project-console-layout-v1"', console_app)
+        self.assertIn('const DISCLOSURE_STORAGE_KEY = "arrp-project-console-disclosures-v1"', console_app)
+        self.assertIn("window.localStorage.getItem(LAYOUT_STORAGE_KEY)", console_app)
+        self.assertIn("window.localStorage.setItem(LAYOUT_STORAGE_KEY", console_app)
+        self.assertNotIn("localStorage.setItem(\"arrp-publication", console_app)
         self.assertIn("PAGE_SIZE = 50", console_app)
         self.assertIn('inlineLink("Open ↗", record.url)', console_app)
         self.assertIn("GitHub intake record", console_app)

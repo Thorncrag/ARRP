@@ -1,4 +1,4 @@
-name: Project integrity check
+name: Project Integrity Bot
 
 on:
   workflow_dispatch:
@@ -69,14 +69,24 @@ jobs:
             echo "The current integrity report is unchanged."
             exit 0
           fi
+          python3 scripts/append_agent_audit_log.py \
+            --agent project-integrity-bot \
+            --run-id "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --trigger "${{ github.event_name }}" --task-type Integrity --outcome "Routed for human review" \
+            --issue-task "Current project integrity findings" \
+            --files-changed '`framework/logs/PROJECT_INTEGRITY_REPORT.md`; `framework/logs/AGENT_AUDIT_LOG.md`' \
+            --validation "Deterministic repository, GitHub Issue, and Project checks completed." \
+            --push-status "Proposed on bot/project-integrity-report" \
+            --rollback-notes "Close the report pull request or revert its merge commit."
           branch="bot/project-integrity-report"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$branch"
-          git add framework/logs/PROJECT_INTEGRITY_REPORT.md
+          git add framework/logs/PROJECT_INTEGRITY_REPORT.md framework/logs/AGENT_AUDIT_LOG.md
           git commit -m "Refresh current project integrity report"
           gh auth setup-git
-          git push --force origin "HEAD:$branch"
+          git fetch origin "$branch:refs/remotes/origin/$branch" || true
+          git push --force-with-lease origin "HEAD:$branch"
           if [ "$(gh pr list --head "$branch" --state open --json number --jq 'length')" = "0" ]; then
             gh pr create \
               --base main \

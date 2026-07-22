@@ -31,13 +31,13 @@ The issue page retains the more precise score-band label—such as `Advanced Rev
 
 ## Development board
 
-The Progress tab's read-only board places every formal candidate and active proposal into one of six columns: `Candidate`, `Admitted / undeveloped`, `Defined proposal`, `Developed proposal`, `Review ready`, and `Release candidate`. All six columns remain visible in one desktop row rather than reproducing GitHub's horizontally scrolling Kanban. Each compact card displays only the stable identifier, its current score when available, and links to the live proposal page and authoritative GitHub issue. The workflow `Status` remains available as a compact cue and accessible label but does not create another board column.
+The Progress tab's read-only board places every formal candidate and active proposal into one of six columns: `Candidate`, `Admitted / undeveloped`, `In development`, `Developed proposal`, `Review ready`, and `Release candidate`. All six columns remain visible in one desktop row rather than reproducing GitHub's horizontally scrolling Kanban. Each compact card displays only the stable identifier, its current score when available, and links to the live proposal page and authoritative GitHub issue. The workflow `Status` remains available as a compact cue and accessible label but does not create another board column.
 
 The board is a visualization of Project and registry data, not an editable or competing tracker. Candidates come from active Horizon records; proposals come from active `proposal` registry rows. A missing or unrecognized development level appears in a visible unassigned warning rather than being silently inferred.
 
 ## Metrics and forecast
 
-The console reports eligible, Review Ready, and remaining counts; current portfolio coverage; scope change from baseline; required and rolling weekly pace; forecast completion; schedule variance; area coverage; closest-to-ready proposals; the six-stage development board; and tracking warnings. Its trajectory graph compares actual attainment with the pace required to reach the official target.
+The console reports eligible, Review Ready, and remaining counts; current portfolio coverage; scope change from baseline; required and rolling weekly pace; forecast completion; schedule variance; compact area coverage; the six-stage development board; issue-level monitoring; workflow holds; and tracking warnings. The board is the primary record-level progress view; the former closest-to-ready list is not maintained as a separate Console presentation. The trajectory graph compares actual attainment with the pace required to reach the official target.
 
 Required weekly pace is:
 
@@ -53,7 +53,7 @@ The reconstructed series begins at zero on June 24, then records 1 on June 25, 3
 
 ## Automation and retention
 
-The [`Project Console progress data`](../.github/workflows/project-console-progress.yml) workflow runs daily, supports manual dispatch, and runs when its implementation or configuration changes. It:
+The [`Project Console Progress Bot`](../.github/workflows/project-console-progress.yml) workflow runs daily, supports manual dispatch, and runs when its implementation or configuration changes. It:
 
 1. reads GitHub Project fields through the GraphQL API;
 2. joins them to active proposal identity from the issue registry;

@@ -6,13 +6,16 @@ from pathlib import Path
 from scripts.audit_project_consistency import (
     ROOT,
     active_project_files,
+    check_agent_runbooks,
     expected_project_development_level,
     expected_project_workflow_status,
+    finding_attention_owner,
     github_repository_targets,
     local_target,
     markdown_anchor_ids,
     markdown_report,
     research_files,
+    requires_workflow_hold_reason,
     source_citation_corpus,
 )
 from scripts.prepare_public_site import discover_public_markdown
@@ -38,6 +41,15 @@ SOURCE_DEVELOPMENT_STUB_IDS = {
 
 
 class GitHubIssueLinkTests(unittest.TestCase):
+    def test_persistent_agent_runbooks_match_runtime_configuration(self):
+        failures: list[str] = []
+        warnings: list[str] = []
+
+        check_agent_runbooks(failures, warnings)
+
+        self.assertEqual(failures, [])
+        self.assertEqual(warnings, [])
+
     def test_local_link_queries_do_not_change_filesystem_target(self):
         source = ROOT / "research" / "horizon-review-console" / "index.html"
         self.assertEqual(
@@ -81,6 +93,33 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertEqual(
             expected_project_workflow_status({"status": "deferred", "audit_score": "0"}),
             {"deferred / parked"},
+        )
+        self.assertEqual(
+            expected_project_workflow_status({"status": "awaiting-decision", "audit_score": "0"}),
+            {"awaiting decision"},
+        )
+
+    def test_deferred_workflow_requires_machine_readable_hold_reason(self):
+        self.assertTrue(requires_workflow_hold_reason({"status": "deferred"}))
+        self.assertTrue(requires_workflow_hold_reason({"status": "awaiting-merits-adjudication"}))
+        self.assertFalse(requires_workflow_hold_reason({"status": "developed"}))
+
+    def test_integrity_findings_route_only_reserved_decisions_to_human_attention(self):
+        self.assertEqual(
+            finding_attention_owner("APPT-001 lacks a machine-readable foundation decision"),
+            "agent",
+        )
+        self.assertEqual(
+            finding_attention_owner("issue page X lacks nonblank workflow_hold_reason metadata"),
+            "human",
+        )
+        self.assertEqual(
+            finding_attention_owner("issue X lacks an explanation or reason for its hold"),
+            "human",
+        )
+        self.assertEqual(
+            finding_attention_owner("research record contains generic source-development propositions"),
+            "agent",
         )
 
     def test_integrity_markdown_report_is_a_stable_current_snapshot(self):

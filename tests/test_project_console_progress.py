@@ -117,6 +117,19 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         self.assertEqual(len(pending["warnings"]), 1)
         self.assertIn("review whether the status should be In development or Audit needed", pending["warnings"][0])
 
+    def test_progress_item_carries_canonical_workflow_hold_reason(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            issue = root / "areas" / "DOJ" / "issues" / "DOJ-007.md"
+            issue.parent.mkdir(parents=True)
+            issue.write_text(
+                '---\nworkflow_hold_reason: "Waiting for a controlling decision."\n---\n',
+                encoding="utf-8",
+            )
+            _, items = MODULE.parse_items(self.raw, self.config, self.registry, root)
+        record = next(item for item in items if item["identifier"] == "DOJ-007")
+        self.assertEqual(record["explanation"], "Waiting for a controlling decision.")
+
     def test_workflow_status_does_not_change_development_progress(self):
         raw = deepcopy(self.raw)
         nodes = raw["items"][0]["fieldValues"]["nodes"]
