@@ -169,7 +169,7 @@
       "total": 1
     }
   ],
-  "asOf": "2026-07-21",
+  "asOf": "2026-07-22",
   "backlog": [
     {
       "area": "JUD",
@@ -191,7 +191,7 @@
       "canonicalRecord": "areas/APPT/issues/APPT-001.md",
       "identifier": "APPT-001",
       "lastAudit": "Candidate consolidation and initial statutory draft (2026-07-16)",
-      "nextAudit": "Complete source development; T1 review of scope, continuity, consequences, judicial review, section 546, and implementation",
+      "nextAudit": "Complete source development and conduct T1 review of scope, continuity, consequences, judicial review, and office-specific backstops",
       "number": 119,
       "ready": false,
       "score": 0.0,
@@ -400,8 +400,8 @@
       "area": "DOM",
       "canonicalRecord": "areas/DOM/issues/DOM-005.md",
       "identifier": "DOM-005",
-      "lastAudit": "FBI-HSI investigative-responsibility Change Audit (2026-07-21)",
-      "nextAudit": "T1 audit of coverage, deadlines, withholding safeguards, remedies, and implementation",
+      "lastAudit": "FBI-HSI investigative-responsibility internal review (2026-07-21)",
+      "nextAudit": "Initial internal review of coverage, deadlines, withholding safeguards, remedies, and implementation",
       "number": 139,
       "ready": false,
       "score": 0.0,
@@ -446,7 +446,7 @@
       "canonicalRecord": "areas/ELEC/issues/ELEC-014.md",
       "identifier": "ELEC-014",
       "lastAudit": "Civil record-demand routing to ELEC-004 (2026-07-09)",
-      "nextAudit": "Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, congressional records, and Arizona lead verification; then identify exact alleged statutes or offense theories and run T2 remedy-selection and legitimacy assessment.",
+      "nextAudit": "Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, congressional records, and Arizona lead verification; then identify exact alleged statutes or offense theories and run T2 remedy-selection and legitimacy assessment",
       "number": 236,
       "ready": false,
       "score": 0.0,
@@ -460,8 +460,8 @@
       "area": "ELEC",
       "canonicalRecord": "areas/ELEC/issues/ELEC-015.md",
       "identifier": "ELEC-015",
-      "lastAudit": "Deferred status update",
-      "nextAudit": "After the next midterm election cycle, update certified outcome data for RCV jurisdictions and obtain additional expert or stakeholder input; then reassess whether ELEC-015 should remain deferred, become an implementation-safeguards issue, or be retired in favor of upstream competition reforms.",
+      "lastAudit": "Deferred status update (2026-07-10)",
+      "nextAudit": "After the next midterm election cycle, update certified outcome data for RCV jurisdictions and obtain additional expert or stakeholder input; then reassess whether ELEC-015 should remain deferred, become an implementation-safeguards issue, or be retired in favor of upstream competition reforms",
       "number": 237,
       "ready": false,
       "score": 0.0,
@@ -491,7 +491,7 @@
       "canonicalRecord": "areas/EMERG/issues/EMERG-003.md",
       "identifier": "EMERG-003",
       "lastAudit": "HOR-030 integration and initial statutory draft (2026-07-14)",
-      "nextAudit": "T1 statutory-scope, INA, judicial-review, transition, and implementation audit",
+      "nextAudit": "T1 audit of IEEPA scope, immigration-authority coordination, judicial review, transition, and implementation",
       "number": 105,
       "ready": false,
       "score": 0.0,
@@ -580,7 +580,7 @@
       "area": "FED",
       "canonicalRecord": "areas/FED/issues/FED-003.md",
       "identifier": "FED-003",
-      "lastAudit": "Issue-admission consolidation review (2026-07-16)",
+      "lastAudit": "Source-adjudication update (2026-07-21)",
       "nextAudit": "Existing-law, Spending Clause, delegation, waiver, approval, grant-condition, and remedy-selection review",
       "number": 187,
       "ready": false,
@@ -682,6 +682,21 @@
       "warnings": []
     },
     {
+      "area": "JUD",
+      "canonicalRecord": "areas/JUD/issues/JUD-012.md",
+      "identifier": "JUD-012",
+      "lastAudit": "Horizon candidate admission and source-development review (2026-07-19)",
+      "nextAudit": "Expand the supporting-case survey across subject areas, test whether the effects are sufficiently broad, and select the least-complex coherent remedy",
+      "number": 256,
+      "ready": false,
+      "score": 0.0,
+      "state": null,
+      "status": "In development",
+      "title": "JUD-012: Government Action Insulated from Judicial Review",
+      "url": "https://github.com/Thorncrag/ARRP/issues/256",
+      "warnings": []
+    },
+    {
       "area": "OVS",
       "canonicalRecord": "areas/OVS/issues/OVS-001.md",
       "identifier": "OVS-001",
@@ -730,8 +745,8 @@
       "area": "OVS",
       "canonicalRecord": "areas/OVS/issues/OVS-009.md",
       "identifier": "OVS-009",
-      "lastAudit": "Horizon admission review (2026-07-20)",
-      "nextAudit": "Existing-law, constitutional-fit, enforcement-history, and remedy-selection review",
+      "lastAudit": "Horizon candidate admission and source-development review (2026-07-20)",
+      "nextAudit": "Complete the constitutional-fit and existing-law review, then select and draft the least-complex adequate enforcement vehicle",
       "number": 252,
       "ready": false,
       "score": 0.0,
@@ -835,8 +850,8 @@
       "area": "REG",
       "canonicalRecord": "areas/REG/issues/REG-002.md",
       "identifier": "REG-002",
-      "lastAudit": "Internal scope and integration review (2026-07-21)",
-      "nextAudit": "Government-wide safeguards and statutory-authority comparison",
+      "lastAudit": "Horizon integration and scope Change Audit (2026-07-21)",
+      "nextAudit": "Government-wide safeguard and statutory-authority comparison",
       "number": 161,
       "ready": false,
       "score": 0.0,
@@ -850,7 +865,7 @@
       "area": "REG",
       "canonicalRecord": "areas/REG/issues/REG-003.md",
       "identifier": "REG-003",
-      "lastAudit": "Source-development review (2026-07-20)",
+      "lastAudit": "Source-adjudication update (2026-07-21)",
       "nextAudit": "Adjudicatory-system comparator and remedy-selection review",
       "number": 162,
       "ready": false,
@@ -937,21 +952,6 @@
       "warnings": []
     },
     {
-      "area": "JUD",
-      "canonicalRecord": "areas/JUD/issues/JUD-012.md",
-      "identifier": "JUD-012",
-      "lastAudit": "Horizon admission and source-development review (2026-07-19)",
-      "nextAudit": "Expand supporting cases across administrations, subjects, statutes, and doctrines; test breadth and select the least-complex coherent remedy.",
-      "number": 256,
-      "ready": false,
-      "score": null,
-      "state": null,
-      "status": "In development",
-      "title": "JUD-012: Government Action Insulated from Judicial Review",
-      "url": "https://github.com/Thorncrag/ARRP/issues/256",
-      "warnings": []
-    },
-    {
       "area": "RIGHTS",
       "canonicalRecord": "areas/RIGHTS/issues/RIGHTS-005.md",
       "identifier": "RIGHTS-005",
@@ -959,7 +959,7 @@
       "nextAudit": "Complete empirical, constitutional, fiscal, and stakeholder review before the first score-bearing audit",
       "number": 20,
       "ready": false,
-      "score": null,
+      "score": 0.0,
       "state": null,
       "status": "In development",
       "title": "RIGHTS-005: Civil and Criminal Accountability for Law-Enforcement Constitutional Violations",
@@ -967,7 +967,7 @@
       "warnings": []
     }
   ],
-  "generatedAt": "2026-07-21T23:50:00+00:00",
+  "generatedAt": "2026-07-22T00:40:30+00:00",
   "goal": {
     "baselineDate": "2026-07-13",
     "baselineReady": 23,
@@ -3098,6 +3098,221 @@
         "WAR-001": 77
       },
       "total": 80
+    },
+    {
+      "byArea": {
+        "APPT": {
+          "ready": 0,
+          "total": 2
+        },
+        "CIV": {
+          "ready": 0,
+          "total": 4
+        },
+        "CLASS": {
+          "ready": 0,
+          "total": 4
+        },
+        "CONG": {
+          "ready": 0,
+          "total": 2
+        },
+        "DOJ": {
+          "ready": 6,
+          "total": 7
+        },
+        "DOM": {
+          "ready": 0,
+          "total": 4
+        },
+        "ELEC": {
+          "ready": 13,
+          "total": 15
+        },
+        "EMERG": {
+          "ready": 0,
+          "total": 2
+        },
+        "EMOL": {
+          "ready": 1,
+          "total": 2
+        },
+        "FACT": {
+          "ready": 0,
+          "total": 3
+        },
+        "FED": {
+          "ready": 0,
+          "total": 3
+        },
+        "FRB": {
+          "ready": 0,
+          "total": 1
+        },
+        "FUND": {
+          "ready": 1,
+          "total": 2
+        },
+        "HER": {
+          "ready": 0,
+          "total": 1
+        },
+        "IMM": {
+          "ready": 1,
+          "total": 2
+        },
+        "JUD": {
+          "ready": 3,
+          "total": 6
+        },
+        "OVS": {
+          "ready": 0,
+          "total": 4
+        },
+        "PAR": {
+          "ready": 0,
+          "total": 2
+        },
+        "PRESS": {
+          "ready": 0,
+          "total": 3
+        },
+        "REC": {
+          "ready": 0,
+          "total": 1
+        },
+        "REG": {
+          "ready": 1,
+          "total": 4
+        },
+        "RET": {
+          "ready": 0,
+          "total": 1
+        },
+        "RIGHTS": {
+          "ready": 0,
+          "total": 4
+        },
+        "WAR": {
+          "ready": 1,
+          "total": 1
+        }
+      },
+      "date": "2026-07-22",
+      "detailAvailable": true,
+      "ready": 27,
+      "readyIssues": [
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "EMOL-015",
+        "FUND-001",
+        "IMM-001",
+        "JUD-001",
+        "JUD-009",
+        "JUD-011",
+        "REG-001",
+        "WAR-001"
+      ],
+      "scores": {
+        "APPT-001": 0,
+        "APPT-004": 0,
+        "CIV-001": 0,
+        "CIV-004": 0,
+        "CIV-005": 0,
+        "CIV-009": 0,
+        "CLASS-001": 0,
+        "CLASS-004": 0,
+        "CLASS-006": 0,
+        "CLASS-011": 0,
+        "CONG-001": 0,
+        "CONG-007": 0,
+        "DOJ-001": 82,
+        "DOJ-002": 78,
+        "DOJ-003": 82,
+        "DOJ-004": 0,
+        "DOJ-005": 76,
+        "DOJ-007": 78,
+        "DOJ-009": 77,
+        "DOM-001": 0,
+        "DOM-005": 0,
+        "DOM-007": 0,
+        "DOM-009": 0,
+        "ELEC-001": 77,
+        "ELEC-002": 76,
+        "ELEC-003": 77,
+        "ELEC-004": 75,
+        "ELEC-005": 78,
+        "ELEC-006": 76,
+        "ELEC-007": 78,
+        "ELEC-008": 75,
+        "ELEC-009": 75,
+        "ELEC-010": 77,
+        "ELEC-011": 77,
+        "ELEC-012": 75,
+        "ELEC-013": 75,
+        "ELEC-014": 0,
+        "ELEC-015": 0,
+        "EMERG-001": 0,
+        "EMERG-003": 0,
+        "EMOL-001": 0,
+        "EMOL-015": 83,
+        "FACT-001": 0,
+        "FACT-007": 0,
+        "FACT-009": 0,
+        "FED-002": 0,
+        "FED-003": 0,
+        "FED-004": 0,
+        "FRB-001": 0,
+        "FUND-001": 83,
+        "FUND-002": 0,
+        "HER-001": 0,
+        "IMM-001": 78,
+        "IMM-002": 0,
+        "JUD-001": 78,
+        "JUD-005": 63,
+        "JUD-009": 77,
+        "JUD-010": 0,
+        "JUD-011": 82,
+        "JUD-012": 0,
+        "OVS-001": 0,
+        "OVS-004": 0,
+        "OVS-008": 0,
+        "OVS-009": 0,
+        "PAR-001": 0,
+        "PAR-005": 0,
+        "PRESS-001": 0,
+        "PRESS-003": 0,
+        "PRESS-006": 0,
+        "REC-001": 0,
+        "REG-001": 83,
+        "REG-002": 0,
+        "REG-003": 0,
+        "REG-006": 0,
+        "RET-001": 0,
+        "RIGHTS-001": 0,
+        "RIGHTS-002": 0,
+        "RIGHTS-003": 0,
+        "RIGHTS-005": 0,
+        "WAR-001": 77
+      },
+      "total": 80
     }
   ],
   "metrics": {
@@ -3127,24 +3342,24 @@
         "plannedReady": 80
       }
     ],
-    "daysRemaining": 163,
-    "forecastDate": "2026-09-12",
-    "forecastLabel": "2026-09-12",
+    "daysRemaining": 162,
+    "forecastDate": "2026-09-15",
+    "forecastLabel": "2026-09-15",
     "percentReady": 33.8,
     "plannedReadyToday": 26,
     "ready": 27,
     "remaining": 53,
-    "requiredPerWeek": 2.28,
-    "rollingWeeklyVelocity": 7.0,
+    "requiredPerWeek": 2.29,
+    "rollingWeeklyVelocity": 6.75,
     "scheduleVariance": 1,
     "scopeChange": -124,
-    "sinceBaselineWeeklyVelocity": 3.5,
+    "sinceBaselineWeeklyVelocity": 3.11,
     "total": 80,
     "trackStatus": "On track"
   },
   "movement": {
     "available": true,
-    "elapsedDays": 27,
+    "elapsedDays": 28,
     "fellBelowReady": [],
     "netScoreChange": 0,
     "newlyReady": [
