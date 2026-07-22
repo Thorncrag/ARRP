@@ -32,6 +32,53 @@
   letter-spacing: -0.015em;
 }
 
+/* The homepage uses the full ARRP emblem as restrained introductory branding.
+   The project name remains live text, and the first substantive section clears
+   the emblem so the remainder of the document keeps the ordinary reading width. */
+.md-typeset figure.arrp-home-emblem {
+  float: right;
+  width: clamp(6.8rem, 17vw, 9.5rem);
+  margin: -0.6rem 0 0.8rem 1.5rem;
+  padding: 0.45rem;
+  border-radius: 0.35rem;
+  background: #fff;
+}
+
+.md-typeset figure.arrp-home-emblem img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.md-typeset figure.arrp-home-emblem .arrp-home-emblem__dark {
+  display: none;
+}
+
+[data-md-color-scheme="slate"] .md-typeset figure.arrp-home-emblem {
+  padding: 0;
+  background: transparent;
+}
+
+[data-md-color-scheme="slate"] .md-typeset figure.arrp-home-emblem .arrp-home-emblem__light {
+  display: none;
+}
+
+[data-md-color-scheme="slate"] .md-typeset figure.arrp-home-emblem .arrp-home-emblem__dark {
+  display: block;
+}
+
+.md-typeset figure.arrp-home-emblem ~ h2:first-of-type {
+  clear: both;
+}
+
+@media screen and (max-width: 44rem) {
+  .md-typeset figure.arrp-home-emblem {
+    float: none;
+    width: min(8.5rem, 42vw);
+    margin: 0 auto 0.8rem;
+  }
+}
+
 .md-typeset h2 {
   border-bottom: 1px solid color-mix(in srgb, var(--md-default-fg-color) 18%, transparent);
   padding-bottom: 0.2rem;
@@ -246,6 +293,21 @@
   .md-footer,
   .md-tabs,
   .arrp-page-actions {
+    display: none;
+  }
+
+  .md-typeset figure.arrp-home-emblem {
+    float: none;
+    width: 1.3in;
+    margin: 0 auto 0.12in;
+    padding: 0;
+  }
+
+  .md-typeset figure.arrp-home-emblem .arrp-home-emblem__light {
+    display: block;
+  }
+
+  .md-typeset figure.arrp-home-emblem .arrp-home-emblem__dark {
     display: none;
   }
 

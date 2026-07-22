@@ -133,7 +133,13 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn('title.startswith("A-")', path_item_template.read_text(encoding="utf-8"))
 
     def test_public_page_action_assets_are_staged(self):
+        self.assertTrue((ROOT / "assets" / "branding" / "arrp-emblem-master.png").exists())
+        self.assertTrue((ROOT / "assets" / "branding" / "arrp-emblem-print.png").exists())
+        self.assertTrue((ROOT / "assets" / "branding" / "arrp-emblem-dark.png").exists())
         self.assertTrue((self.docs / "assets" / "javascripts" / "site.js").exists())
+        self.assertTrue((self.docs / "assets" / "branding" / "arrp-emblem-dark.webp").exists())
+        self.assertTrue((self.docs / "assets" / "branding" / "arrp-emblem-web.webp").exists())
+        self.assertTrue((ROOT / "website" / "overrides" / "home.html").exists())
         stylesheet = (self.docs / "assets" / "stylesheets" / "extra.css").read_text()
         self.assertIn(".arrp-issue-status", stylesheet)
         self.assertIn(".arrp-page-actions", stylesheet)
@@ -141,6 +147,7 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn("grid-template-columns: repeat(2", stylesheet)
         self.assertIn(".arrp-topic-guide-title", stylesheet)
         self.assertIn(".arrp-topic-table", stylesheet)
+        self.assertIn(".arrp-home-emblem", stylesheet)
         self.assertRegex(
             stylesheet,
             r"\.md-nav \.md-status\s*\{\s*display: none;\s*\}",

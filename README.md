@@ -1,5 +1,6 @@
 ---
 title: "American Restoration and Resilience Project (ARRP)"
+template: home.html
 print_levels:
   - public-proposal
   - executive-summary

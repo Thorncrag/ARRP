@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+
+{% block content %}
+  <figure
+    class="arrp-home-emblem"
+    role="img"
+    aria-label="ARRP emblem depicting Lady Justice in an American flag mantle holding balanced scales and a sword"
+  >
+    <img
+      class="arrp-home-emblem__light"
+      src="{{ 'assets/branding/arrp-emblem-web.webp' | url }}"
+      alt=""
+      width="767"
+      height="1219"
+      fetchpriority="high"
+      aria-hidden="true"
+    >
+    <img
+      class="arrp-home-emblem__dark"
+      src="{{ 'assets/branding/arrp-emblem-dark.webp' | url }}"
+      alt=""
+      width="862"
+      height="1254"
+      fetchpriority="high"
+      aria-hidden="true"
+    >
+  </figure>
+  {{ super() }}
+{% endblock %}

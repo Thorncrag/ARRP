@@ -34,6 +34,8 @@ PUBLIC_ROOT_PAGES = {
 PUBLIC_DIRECTORIES = {"areas", "legislation", "topics"}
 PUBLIC_SUPPORT_FILES = {Path("CITATION.cff")}
 WEBSITE_FILES = {
+    Path("assets/branding/arrp-emblem-dark.webp"): Path("assets/branding/arrp-emblem-dark.webp"),
+    Path("assets/branding/arrp-emblem-web.webp"): Path("assets/branding/arrp-emblem-web.webp"),
     Path("website/extra.css"): Path("assets/stylesheets/extra.css"),
     Path("website/site.js"): Path("assets/javascripts/site.js"),
     Path("website/robots.txt"): Path("robots.txt"),
