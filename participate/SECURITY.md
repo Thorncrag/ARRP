@@ -8,6 +8,8 @@ print_exclusion_reason: "Internal workflow or tool documentation."
 
 This checklist governs the live Vercel public-intake service. Repository code can enforce request shape, privacy screening, Turnstile validation, output safety, and a local burst limit. Provider-side controls are the only reliable protection across serverless instances and networks.
 
+This is an operational checklist, not a reporting channel. Potential vulnerabilities must be submitted through the repository's [private security-reporting process](../.github/SECURITY.md), not through the public-input or private-author-contact form.
+
 ## Deployment protections
 
 - **Firewall/WAF:** use provider-level rate limiting and bot protections where available. The service also applies application-level safeguards.

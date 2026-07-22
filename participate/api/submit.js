@@ -64,13 +64,15 @@ function requiredConfiguration() {
 
 async function githubInstallationToken() {
   try {
+    const installationId = String(process.env.GITHUB_APP_INSTALLATION_ID || "").trim();
+    if (!/^\d+$/.test(installationId)) throw intakeOperationError("github-app-installation-id");
     let jwt;
     try {
       jwt = createAppJwt(process.env.GITHUB_APP_ID, privateKey());
     } catch (_) {
       throw intakeOperationError("github-app-jwt");
     }
-    const response = await fetch(`${GITHUB_API}/app/installations/${process.env.GITHUB_APP_INSTALLATION_ID}/access_tokens`, {
+    const response = await fetch(`${GITHUB_API}/app/installations/${installationId}/access_tokens`, {
       method: "POST",
       headers: {
         accept: "application/vnd.github+json",
