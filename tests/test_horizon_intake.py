@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 from scripts.build_horizon_review_console import agent_audit_log_view, project_log_views, render_markdown_safe, research_for_record
-from scripts.build_project_integrity_feed import build_feed
+from scripts.build_project_integrity_feed import build_feed, existing_feed
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -82,6 +82,17 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertEqual(len(records), 99)
         self.assertEqual(len(identifiers), len(set(identifiers)))
         self.assertTrue(set(levels) <= expected_levels)
+
+    def test_integrity_history_rejects_unapproved_network_locations(self) -> None:
+        self.assertEqual(existing_feed(None), {})
+        for url in (
+            "http://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/integrity.json",
+            "https://example.com/integrity.json",
+            "https://raw.githubusercontent.com/Other/Repo/project-console-data/integrity.json",
+            "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/integrity.json?redirect=1",
+        ):
+            with self.subTest(url=url), self.assertRaises(ValueError):
+                existing_feed(url)
 
     def test_agent_log_exposes_structured_filter_fields(self) -> None:
         log = agent_audit_log_view()

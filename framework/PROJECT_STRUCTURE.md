@@ -29,7 +29,7 @@ This file is the single authority for the purpose and placement of project direc
 
 | Path | Purpose |
 | --- | --- |
-| `.github/` | GitHub-native workflows and automation configuration. GitHub requires workflow files to remain here. |
+| `.github/` | GitHub-native community-health files, security reporting policy, workflows, and automation configuration. GitHub requires these recognized files to remain here. |
 | `assets/branding/` | Official project-emblem master and publication derivatives for the website and compiled editions. |
 | `areas/` | One directory per institutional area; each area contains its reader index, issue pages, audit sidecars, and area-owned research or evidence. |
 | `legislation/` | Proposed statutory, constitutional, regulatory, procedural, and model-state language keyed to issue identifiers. |

@@ -6,12 +6,15 @@ from __future__ import annotations
 import argparse
 import json
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any
 
 
 DEFAULT_HISTORY_LIMIT = 30
+ALLOWED_HISTORY_HOST = "raw.githubusercontent.com"
+ALLOWED_HISTORY_PATH = "/Thorncrag/ARRP/project-console-data/integrity.json"
 
 
 def parse_args() -> argparse.Namespace:
@@ -33,6 +36,18 @@ def read_json(path: Path) -> dict[str, Any]:
 def existing_feed(url: str | None) -> dict[str, Any]:
     if not url:
         return {}
+    parsed = urllib.parse.urlsplit(url)
+    if (
+        parsed.scheme != "https"
+        or parsed.hostname != ALLOWED_HISTORY_HOST
+        or parsed.port is not None
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.path != ALLOWED_HISTORY_PATH
+        or parsed.query
+        or parsed.fragment
+    ):
+        raise ValueError("Existing integrity feed URL is not the approved ARRP history endpoint")
     request = urllib.request.Request(url, headers={"User-Agent": "ARRP-integrity-feed/1.0"})
     try:
         with urllib.request.urlopen(request, timeout=20) as response:
