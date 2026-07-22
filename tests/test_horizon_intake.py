@@ -523,6 +523,10 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue((participation_dir / "api" / "submit.js").exists())
         self.assertTrue((participation_dir / ".env.example").exists())
         self.assertIn('data-interface-theme="arrp-tool"', html)
+        self.assertIn('.route-option input[type="radio"]', participation_css)
+        self.assertIn("min-width: 1.2rem", participation_css)
+        self.assertIn("max-width: 1.2rem", participation_css)
+        self.assertIn("overflow-wrap: anywhere", participation_css)
 
         console_dir = RESEARCH / "horizon-review-console"
         console_html = (console_dir / "index.html").read_text(encoding="utf-8")

@@ -278,9 +278,11 @@ h1 {
   box-shadow: inset 0 0 0 1px rgba(36, 76, 133, 0.08);
 }
 
-.route-option input {
+.route-option input[type="radio"] {
   flex: 0 0 1.2rem;
   width: 1.2rem;
+  min-width: 1.2rem;
+  max-width: 1.2rem;
   height: 1.2rem;
   min-height: 1.2rem;
   margin: 0.1rem 0 0;
@@ -288,7 +290,7 @@ h1 {
   accent-color: var(--blue);
 }
 
-.route-option span { display: grid; flex: 1 1 auto; min-width: 0; gap: 0.14rem; }
+.route-option span { display: grid; flex: 1 1 auto; min-width: 0; gap: 0.14rem; overflow-wrap: anywhere; }
 .route-option strong { color: var(--ink); font-size: 0.86rem; }
 .route-option small { color: var(--muted); font-size: 0.7rem; font-weight: 500; line-height: 1.38; }
 
