@@ -219,6 +219,10 @@
             <div><h3>Court-case watcher</h3><p><b id="case-watcher-mode">Current mode: loading.</b> The watcher compares cataloged, mapped court sources with Just Security's litigation tracker and uses CourtListener only to verify changed linked cases. Accepted baselines live on the individual source rows. New cases, tracker gaps, and unlisted matters remain part of source intake and the human monitoring pass.</p></div>
             <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/case-monitor-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a>
           </div>
+          <div class="watcher-update-banner" id="court-watch-update-banner" role="status" hidden>
+            <div><span class="eyebrow">Updates awaiting review</span><strong><span id="court-watch-update-count">0</span> court source updates detected</strong><p id="court-watch-update-detail">Updated records are marked and shown first.</p></div>
+            <div class="watcher-update-actions"><button type="button" id="court-watch-updated-only" class="record-link secondary" aria-pressed="false">Show updated only</button><a id="court-watch-review-pr" class="record-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Review update proposal ↗</a></div>
+          </div>
           <div class="queue-controls source-controls">
             <label for="court-watch-search">Search<input id="court-watch-search" type="search" placeholder="Case, docket, issue, or monitoring reason…"></label>
             <label for="court-watch-owner">ARRP owner<select id="court-watch-owner"><option value="all">All owners</option></select></label>
@@ -231,6 +235,10 @@
           <div class="watcher-panel-header">
             <div><h3>Presidential-directives watcher</h3><p><b id="directive-watcher-mode">Current mode: loading.</b> The completed baseline covers official Federal Register presidential documents across Trump I, Biden, and Trump II. Material metadata changes are proposed in an owner-assigned pull request; substantive LLM screening remains separate.</p></div>
             <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/presidential-directives-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a>
+          </div>
+          <div class="watcher-update-banner" id="directive-watch-update-banner" role="status" hidden>
+            <div><span class="eyebrow">Updates awaiting review</span><strong><span id="directive-watch-update-count">0</span> directive updates detected</strong><p id="directive-watch-update-detail">Updated directives are marked and shown first.</p></div>
+            <div class="watcher-update-actions"><button type="button" id="directive-watch-updated-only" class="record-link secondary" aria-pressed="false">Show updated only</button><a id="directive-watch-review-pr" class="record-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Review update proposal ↗</a></div>
           </div>
           <div class="queue-controls">
             <label for="directive-search">Search<input id="directive-search" type="search" placeholder="Title, number, president, or ARRP record…"></label>

@@ -1,8 +1,8 @@
 ---
 title: "ELEC-004 Civil Process and State Election Records Catalog"
 status: active
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # ELEC-004 Civil Process and State Election Records Catalog

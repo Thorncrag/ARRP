@@ -2,8 +2,8 @@
 issue_id: ELEC-009
 title: "Electoral College Structure and National Popular Vote — Audit History"
 source_issue: "ELEC-009.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-009 — Audit History

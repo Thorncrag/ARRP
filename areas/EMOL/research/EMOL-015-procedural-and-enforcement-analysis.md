@@ -3,8 +3,8 @@ issue_id: EMOL-015
 source_issue: "../issues/EMOL-015.md"
 title: "Procedural and Enforcement Analysis"
 status: review-ready-research
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # EMOL-015 Procedural and Enforcement Analysis

@@ -19,8 +19,8 @@
   };
   const pendingState = { search: "", owner: "all" };
   const manualWatchState = { search: "", kind: "all" };
-  const courtWatchState = { search: "", owner: "all" };
-  const directiveState = { search: "", administration: "all", status: "all", page: 1, sortKey: "date", sortDirection: "desc" };
+  const courtWatchState = { search: "", owner: "all", updatesOnly: false };
+  const directiveState = { search: "", administration: "all", status: "all", updatesOnly: false, page: 1, sortKey: "date", sortDirection: "desc" };
   const pageState = { search: "", level: "all", section: "all", sortKey: "section", sortDirection: "asc" };
   const publicationState = { edition: "public-proposal" };
   const publicationLengthState = { sortKey: "estimated_pages", sortDirection: "desc" };
@@ -45,7 +45,6 @@
 
   const PRINT_LEVEL_LABELS = {
     "public-proposal": "Public proposal edition",
-    "full-technical": "Full technical edition",
     "legislative-appendix": "Legislative appendix edition",
     "executive-summary": "Executive summary edition"
   };
@@ -65,10 +64,13 @@
   const LIVE_PULL_REQUESTS_URL = "https://api.github.com/repos/Thorncrag/ARRP/pulls?state=open&per_page=100";
   const GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/";
   const reviewSignals = {
-    courts: { count: 0, url: "" },
+    courts: { count: 0, url: "", ids: new Set() },
     directives: {
       count: data.presidential_directives.filter((record) => /^(New|Changed) since/.test(record.review_status || "")).length,
-      url: ""
+      url: "",
+      ids: new Set(data.presidential_directives
+        .filter((record) => /^(New|Changed) since/.test(record.review_status || ""))
+        .map((record) => record.id))
     }
   };
 
@@ -185,13 +187,14 @@
     return panel;
   }
 
-  function sourceEntry(source) {
-    const item = element("article", "evidence-record");
+  function sourceEntry(source, hasUpdate = false) {
+    const item = element("article", hasUpdate ? "evidence-record has-update" : "evidence-record");
     const heading = element("div", "evidence-heading");
     const title = source.url
       ? linkButton(source.title || source.id, source.url, true)
       : element("strong", "", text(source.title, source.id));
     heading.append(element("span", "record-id", source.id), title);
+    if (hasUpdate) heading.append(element("span", "badge update-badge", "Updated"));
     const meta = element("p", "evidence-meta",
       [source.publisher, source.date, source.type, source.reliability, source.inventory_status]
         .filter(Boolean).join(" · "));
@@ -670,12 +673,14 @@
   }
 
   function courtWatchCard(label, records) {
-    const details = element("details", "monitoring-issue");
+    const hasUpdate = records.some((record) => reviewSignals.courts.ids.has(record.id));
+    const details = element("details", hasUpdate ? "monitoring-issue has-update" : "monitoring-issue");
     const summary = element("summary");
     const identity = element("div", "monitoring-identity");
     identity.append(element("span", "record-id", records[0].owner_id), element("strong", "", label));
     const metadata = element("div", "monitoring-metadata");
     metadata.append(
+      ...(hasUpdate ? [element("span", "badge update-badge", "Updated")] : []),
       element("span", "badge formal", "Tracker-assisted"),
       element("span", "badge", `${records.length} docket${records.length === 1 ? "" : "s"}`)
     );
@@ -693,7 +698,10 @@
     if (records[0].owner_issue_url) links.append(linkButton("Open owning GitHub issue", records[0].owner_issue_url));
     body.append(links);
     const list = element("div", "evidence-list");
-    [...records].sort(monitoredSourcesFirst).forEach((source) => list.append(sourceEntry(source)));
+    [...records].sort((left, right) => {
+      const updateOrder = Number(reviewSignals.courts.ids.has(right.id)) - Number(reviewSignals.courts.ids.has(left.id));
+      return updateOrder || monitoredSourcesFirst(left, right);
+    }).forEach((source) => list.append(sourceEntry(source, reviewSignals.courts.ids.has(source.id))));
     body.append(list);
     details.append(summary, body);
     return details;
@@ -703,14 +711,21 @@
     const query = courtWatchState.search.toLowerCase();
     const filtered = data.court_watch_sources.filter((record) => {
       if (courtWatchState.owner !== "all" && record.owner_id !== courtWatchState.owner) return false;
+      if (courtWatchState.updatesOnly && !reviewSignals.courts.ids.has(record.id)) return false;
       return !query || [sourceSearchText(record), record.owner_id, record.owner_title, record.coverage]
         .filter(Boolean).join(" ").toLowerCase().includes(query);
     });
     const groups = groupRecords(filtered, (record) => `${record.owner_id}::${record.monitoring_group || record.owner_title}`);
     byId("court-watch-visible").textContent = distinctSourceCount(filtered);
-    byId("court-watch-list").replaceChildren(
-      ...[...groups.entries()].map(([, records]) => courtWatchCard(records[0].monitoring_group || records[0].owner_title, records))
-    );
+    const orderedGroups = [...groups.entries()].sort(([, left], [, right]) => {
+      const updateOrder = Number(right.some((record) => reviewSignals.courts.ids.has(record.id)))
+        - Number(left.some((record) => reviewSignals.courts.ids.has(record.id)));
+      if (updateOrder) return updateOrder;
+      return String(left[0].owner_id || "").localeCompare(String(right[0].owner_id || ""));
+    });
+    byId("court-watch-list").replaceChildren(...orderedGroups.map(([, records]) =>
+      courtWatchCard(records[0].monitoring_group || records[0].owner_title, records)
+    ));
   }
 
   function directiveSearchText(record) {
@@ -742,12 +757,14 @@
     const body = element("tbody");
     records.forEach((record) => {
       const row = element("tr");
+      const requiresFollowUp = reviewSignals.directives.ids.has(record.id)
+        || /^(New|Changed) since/.test(record.review_status || "");
+      if (requiresFollowUp) row.className = "has-update";
       const titleCell = element("td", "source-title-cell");
       titleCell.append(element("span", "record-id", record.number || record.id), element("strong", "", text(record.title, "Untitled directive")));
       const presidentCell = element("td", "", text(record.administration || record.president));
       const dateCell = element("td", "", text(record.published_date || record.signed_date));
       const statusCell = element("td");
-      const requiresFollowUp = /^(New|Changed) since/.test(record.review_status || "");
       statusCell.append(element("span", requiresFollowUp ? "monitoring-flag active" : "monitoring-flag", text(record.review_status)));
       const routingCell = element("td", "", (record.arrp_record_ids || []).join(" · ") || "—");
       const linkCell = element("td", "source-link-cell");
@@ -870,6 +887,8 @@
     const filtered = data.presidential_directives.filter((record) => {
       if (directiveState.administration !== "all" && record.administration !== directiveState.administration) return false;
       if (directiveState.status !== "all" && record.review_status !== directiveState.status) return false;
+      if (directiveState.updatesOnly && !reviewSignals.directives.ids.has(record.id)
+          && !/^(New|Changed) since/.test(record.review_status || "")) return false;
       return !query || directiveSearchText(record).includes(query);
     });
     const records = sortedRecords(filtered, directiveState, (record, key) => ({
@@ -879,7 +898,11 @@
       status: record.review_status,
       routing: (record.arrp_record_ids || []).join(" "),
       link: record.official_url
-    })[key]);
+    })[key]).sort((left, right) => {
+      const updateOrder = Number(reviewSignals.directives.ids.has(right.id) || /^(New|Changed) since/.test(right.review_status || ""))
+        - Number(reviewSignals.directives.ids.has(left.id) || /^(New|Changed) since/.test(left.review_status || ""));
+      return updateOrder;
+    });
     const pages = Math.max(1, Math.ceil(records.length / PAGE_SIZE));
     directiveState.page = Math.min(directiveState.page, pages);
     const start = (directiveState.page - 1) * PAGE_SIZE;
@@ -899,6 +922,27 @@
     badge.textContent = `+${count}`;
     badge.hidden = count === 0;
     badge.setAttribute("aria-label", `${count} new or updated`);
+  }
+
+  function renderWatcherUpdateBanner(kind, label) {
+    const signal = reviewSignals[kind];
+    const banner = byId(`${kind === "courts" ? "court" : "directive"}-watch-update-banner`);
+    const count = byId(`${kind === "courts" ? "court" : "directive"}-watch-update-count`);
+    const detail = byId(`${kind === "courts" ? "court" : "directive"}-watch-update-detail`);
+    const toggle = byId(`${kind === "courts" ? "court" : "directive"}-watch-updated-only`);
+    const review = byId(`${kind === "courts" ? "court" : "directive"}-watch-review-pr`);
+    const availableIds = kind === "courts"
+      ? new Set(data.court_watch_sources.map((record) => record.id))
+      : new Set(data.presidential_directives.map((record) => record.id));
+    const identifiable = [...signal.ids].filter((id) => availableIds.has(id)).length;
+    banner.hidden = signal.count === 0;
+    count.textContent = signal.count;
+    detail.textContent = identifiable
+      ? `${identifiable} ${label}${identifiable === 1 ? " is" : "s are"} marked below and shown first.`
+      : "The update proposal is available for review, but its records are not yet present in this checked-in view.";
+    toggle.hidden = identifiable === 0;
+    review.hidden = !signal.url;
+    if (signal.url) review.href = signal.url;
   }
 
   function formalCandidatesAwaitingReview() {
@@ -1002,6 +1046,10 @@
     setUpdateBadge("source-watchers-update", botUpdates);
     setUpdateBadge("court-watch-update", reviewSignals.courts.count);
     setUpdateBadge("directive-watch-update", reviewSignals.directives.count);
+    renderWatcherUpdateBanner("courts", "source");
+    renderWatcherUpdateBanner("directives", "directive");
+    renderCourtWatch();
+    renderDirectives();
     renderActionItems();
   }
 
@@ -1019,9 +1067,11 @@
         const affectedSources = new Set(String(court.body || "").match(/\bSRC-\d+\b/g) || []);
         reviewSignals.courts.count = affectedSources.size || 1;
         reviewSignals.courts.url = court.html_url || "";
+        reviewSignals.courts.ids = affectedSources;
       } else {
         reviewSignals.courts.count = 0;
         reviewSignals.courts.url = "";
+        reviewSignals.courts.ids = new Set();
       }
       if (directives) {
         const proposed = parseCount(directives.body, "Added directives")
@@ -2156,6 +2206,12 @@
       courtWatchState.owner = event.target.value;
       renderCourtWatch();
     });
+    byId("court-watch-updated-only").addEventListener("click", (event) => {
+      courtWatchState.updatesOnly = !courtWatchState.updatesOnly;
+      event.currentTarget.setAttribute("aria-pressed", String(courtWatchState.updatesOnly));
+      event.currentTarget.textContent = courtWatchState.updatesOnly ? "Show all court cases" : "Show updated only";
+      renderCourtWatch();
+    });
     byId("directive-search").addEventListener("input", (event) => {
       directiveState.search = event.target.value;
       directiveState.page = 1;
@@ -2169,6 +2225,13 @@
     byId("directive-status").addEventListener("change", (event) => {
       directiveState.status = event.target.value;
       directiveState.page = 1;
+      renderDirectives();
+    });
+    byId("directive-watch-updated-only").addEventListener("click", (event) => {
+      directiveState.updatesOnly = !directiveState.updatesOnly;
+      directiveState.page = 1;
+      event.currentTarget.setAttribute("aria-pressed", String(directiveState.updatesOnly));
+      event.currentTarget.textContent = directiveState.updatesOnly ? "Show all directives" : "Show updated only";
       renderDirectives();
     });
     byId("pages-search").addEventListener("input", (event) => {

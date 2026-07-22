@@ -1,7 +1,7 @@
 ---
 title: "Remedy Framework"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Online technical or workflow documentation."
 ---
 
 # Remedy Framework

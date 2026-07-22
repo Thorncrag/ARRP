@@ -2,8 +2,8 @@
 title: "ELEC-013 Presidential Debate and Ballot Access Explanatory Checklist"
 source_issue: "../issues/ELEC-013.md"
 status: active
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # ELEC-013 Presidential Debate and Ballot Access Explanatory Checklist

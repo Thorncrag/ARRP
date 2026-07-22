@@ -2,8 +2,8 @@
 issue_id: ELEC-013
 title: "Federal Candidate Access, Ballot Access, and Debate Gatekeeping — Audit History"
 source_issue: "ELEC-013.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-013 — Federal Candidate Access, Ballot Access, and Debate Gatekeeping — Audit History

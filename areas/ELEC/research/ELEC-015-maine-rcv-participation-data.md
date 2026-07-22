@@ -2,8 +2,8 @@
 title: "ELEC-015 Maine RCV Participation Data"
 source_issue: "../issues/ELEC-015.md"
 jurisdiction: Maine
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # ELEC-015 Maine RCV Participation Data

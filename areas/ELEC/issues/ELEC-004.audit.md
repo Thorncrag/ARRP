@@ -2,8 +2,8 @@
 issue_id: ELEC-004
 title: "Abuse of Election Litigation and Civil Process — Audit History"
 source_issue: "ELEC-004.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-004 — Audit History

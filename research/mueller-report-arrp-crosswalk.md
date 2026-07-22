@@ -4,8 +4,8 @@ status: initial-source-development
 source_id: SRC-0107
 source_file: "../sources/report-on-the-investigation-into-russian-interference-2016-election-2019.pdf"
 source_url: "https://www.justice.gov/archives/sco/file/1373816/dl"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # Mueller Report / ARRP Crosswalk

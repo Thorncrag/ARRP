@@ -17,7 +17,6 @@ change_audit_needed: false
 change_audit_reason: null
 print_levels:
   - public-proposal
-  - full-technical
 audit_history: "EMERG-003.audit.md"
 ---
 

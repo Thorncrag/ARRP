@@ -11,8 +11,8 @@ source_ids:
   - SRC-0389
   - SRC-0407
   - SRC-0408
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # Jack Smith Volume Two / Source Status and ARRP Crosswalk

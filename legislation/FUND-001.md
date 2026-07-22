@@ -6,7 +6,6 @@ status: working-draft
 framework_issue: "../areas/FUND/issues/FUND-001.md"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

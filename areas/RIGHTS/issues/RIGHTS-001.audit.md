@@ -2,8 +2,8 @@
 issue_id: RIGHTS-001
 title: "Civil-Rights Administration, Identity Records, and Federal Definition Control — Audit History"
 source_issue: "RIGHTS-001.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # RIGHTS-001 — Audit History

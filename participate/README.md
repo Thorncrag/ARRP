@@ -6,7 +6,7 @@ print_exclusion_reason: "Internal workflow or tool documentation."
 
 # Public Interaction Service
 
-This folder contains ARRP's separately deployed public interaction service, available at [arrp-public-intake.vercel.app](https://arrp-public-intake.vercel.app/). It is deliberately separate from the read-only [`ARRP Project Console`](../research/horizon-review-console/) console. Both application-like surfaces use the [project-operated interface visual standard](../framework/METHODOLOGY.md#project-operated-interface-visual-standard); that standard does not replace the main GitHub Pages or print themes.
+This folder contains ARRP's separately deployed public interaction service, available at [arrp-public-intake.vercel.app](https://arrp-public-intake.vercel.app/). It is deliberately separate from the read-only [`ARRP Project Console`](../research/horizon-review-console/) console. Both application-like surfaces use the [project-operated interface visual standard](../framework/FRAMEWORK.md#project-operated-interface-visual-standard); that standard does not replace the main GitHub Pages or print themes.
 
 The form presents two separate routes. **Submit public input** accepts a short title, plain-language explanation, optional sources, and optional related ARRP page; its live route adds the submission as a comment in one canonical public GitHub Discussion. **Contact the author** sends a private message to the configured author mailbox and creates no public post, GitHub record, candidate, or project record. Local preview mode sends neither route.
 

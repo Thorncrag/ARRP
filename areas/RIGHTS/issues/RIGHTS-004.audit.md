@@ -2,8 +2,8 @@
 issue_id: RIGHTS-004
 title: "Comprehensive Immigration Reform, Removal Due Process, and Immigration System Integrity — Audit History"
 source_issue: "RIGHTS-004.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # RIGHTS-004 — Audit History

@@ -2,8 +2,8 @@
 issue_id: ELEC-001
 title: "Federal Executive Interference with State and Local Election Administration — Audit History"
 source_issue: "ELEC-001.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-001 — Audit History

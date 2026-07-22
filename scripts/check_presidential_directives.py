@@ -513,7 +513,7 @@ def append_log(path: Path, entry: str) -> None:
         path.write_text(existing + separator + entry, encoding="utf-8")
     else:
         path.write_text(
-            '---\ntitle: "Source Monitor Log"\nprint_levels:\n  - full-technical\n---\n\n'
+            '---\ntitle: "Source Monitor Log"\nprint_status: excluded\nprint_exclusion_reason: "Operational monitoring log."\n---\n\n'
             "# Source Monitor Log\n\n"
             "This log records material updates proposed by automated source watchers. "
             "Routine no-change runs remain in GitHub Actions.\n\n"

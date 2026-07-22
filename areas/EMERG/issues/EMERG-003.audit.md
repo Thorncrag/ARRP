@@ -2,8 +2,8 @@
 issue_id: EMERG-003
 title: "Emergency Economic Powers as a Substitute for Legislation — Audit History"
 source_issue: "EMERG-003.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # EMERG-003 — Audit History

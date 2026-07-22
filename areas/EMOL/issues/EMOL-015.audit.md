@@ -3,8 +3,8 @@ issue_id: EMOL-015
 area_id: A-06
 title: "EMOL-015 Audit History"
 source_issue: "EMOL-015.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # EMOL-015 — Audit History

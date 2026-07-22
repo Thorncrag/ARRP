@@ -5,7 +5,6 @@ status: active
 issue_count: 1
 print_levels:
   - public-proposal
-  - full-technical
   - executive-summary
 ---
 

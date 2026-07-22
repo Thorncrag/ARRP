@@ -2,8 +2,8 @@
 issue_id: ELEC-005
 title: "Weak Safeguards Against False Presidential Result-Transmission Documents — Audit History"
 source_issue: "ELEC-005.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-005 — Audit History

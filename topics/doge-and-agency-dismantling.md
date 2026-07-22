@@ -6,7 +6,6 @@ purpose: "Help readers find the ARRP proposals addressing DOGE, cross-agency ope
 last_reviewed: "2026-07-18"
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # DOGE and Agency Dismantling {.arrp-topic-guide-title}

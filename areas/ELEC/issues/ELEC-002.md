@@ -22,7 +22,6 @@ development_priority: "active"
 pathway_adjustment: "model-law"
 print_levels:
   - public-proposal
-  - full-technical
 audit_history: "ELEC-002.audit.md"
 ---
 

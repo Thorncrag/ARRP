@@ -2,7 +2,6 @@
 title: "ARRP Subject and Institution Index"
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # ARRP Subject and Institution Index

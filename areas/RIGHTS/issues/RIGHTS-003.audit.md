@@ -2,8 +2,8 @@
 issue_id: RIGHTS-003
 title: "Birthright Citizenship Statutory Recognition and Federal Identity Records — Audit History"
 source_issue: "RIGHTS-003.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # RIGHTS-003 — Audit History

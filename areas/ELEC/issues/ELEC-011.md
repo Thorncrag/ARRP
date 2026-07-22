@@ -28,7 +28,6 @@ development_priority: "active"
 pathway_adjustment: "model-law-with-reserve-amendment"
 print_levels:
   - public-proposal
-  - full-technical
 audit_history: "ELEC-011.audit.md"
 ---
 

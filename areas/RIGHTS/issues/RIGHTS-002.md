@@ -15,7 +15,6 @@ audit_rubric_version: "2026-06-27.1"
 audit_rebaseline_status: "current-fixed-status"
 print_levels:
   - public-proposal
-  - full-technical
 audit_history: "RIGHTS-002.audit.md"
 ---
 

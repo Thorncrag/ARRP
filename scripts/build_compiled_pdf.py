@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build a first-pass compiled ARRP proposal PDF.
+"""Build a first-pass compiled ARRP public-proposal PDF.
 
 The generator follows the first-pass structure in framework/PRINT_ASSEMBLY.md
 and intentionally keeps the format conservative: readable typography, stable
 ordering, page numbers, legislation in appendices, and the canonical subject
-index as back matter. Edition-specific subject-index locator resolution remains
-part of the documented two-pass publication workflow.
+index as back matter. Final issue and subject-index page locators remain part of
+the documented two-pass publication workflow.
 """
 
 from __future__ import annotations
@@ -65,13 +65,21 @@ def load_issue_order(areas: list[Area]) -> dict[str, list[str]]:
     for area in areas:
         issue_dir = ROOT / "areas" / area.slug / "issues"
         if issue_dir.exists():
-            by_area[area.area_id] = sorted(path.stem for path in issue_dir.glob(f"{area.slug}-*.md"))
+            by_area[area.area_id] = sorted(
+                path.stem
+                for path in issue_dir.glob(f"{area.slug}-*.md")
+                if not path.name.endswith(".audit.md") and has_print_level(path, "public-proposal")
+            )
     return by_area
 
 
 def legislation_files() -> tuple[list[Path], list[Path]]:
     files = sorted((ROOT / "legislation").glob("*.md"))
-    files = [p for p in files if p.name != "README.md"]
+    files = [
+        path
+        for path in files
+        if path.name != "README.md" and has_print_level(path, "public-proposal")
+    ]
     state = [p for p in files if p.stem.endswith("-state")]
     federal = [p for p in files if not p.stem.endswith("-state")]
     return federal, state
@@ -81,7 +89,11 @@ def topic_files() -> list[Path]:
     topic_dir = ROOT / "topics"
     if not topic_dir.exists():
         return []
-    return sorted(path for path in topic_dir.glob("*.md") if path.name != "README.md")
+    return sorted(
+        path
+        for path in topic_dir.glob("*.md")
+        if path.name != "README.md" and has_print_level(path, "public-proposal")
+    )
 
 
 def document_title(path: Path) -> str:
@@ -99,6 +111,17 @@ def strip_front_matter(text: str) -> str:
         if end != -1:
             return text[end + 5 :].lstrip()
     return text
+
+
+def has_print_level(path: Path, level: str) -> bool:
+    text = read(path)
+    if not text.startswith("---\n"):
+        return False
+    end = text.find("\n---\n", 4)
+    if end < 0:
+        return False
+    metadata = text[4:end]
+    return bool(re.search(rf"(?m)^\s*-\s+{re.escape(level)}\s*$", metadata))
 
 
 def escape(text: str) -> str:
@@ -477,6 +500,16 @@ def build_story(styles: dict[str, ParagraphStyle]) -> list:
     )
     story.append(Paragraph("Public Proposal Draft", styles["H2"]))
     story.append(Paragraph("Generated from canonical Markdown sources.", styles["Body"]))
+    story.append(PageBreak())
+
+    story.extend(markdown_to_flowables(read(ROOT / "ABOUT.md"), styles, heading_offset=0))
+    story.append(PageBreak())
+
+    print_guide = read(ROOT / "PRINT_READERS_GUIDE.md").replace(
+        "<!-- ARRP:GENERATE_ISSUE_LOOKUP -->",
+        "Final page locators are inserted during the documented two-pass pagination step.",
+    )
+    story.extend(markdown_to_flowables(print_guide, styles, heading_offset=0))
     story.append(PageBreak())
 
     story.append(Paragraph("Table of Contents", styles["H1"]))

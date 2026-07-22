@@ -763,7 +763,7 @@ def append_material_log(path: Path, entry: str) -> None:
         existing = path.read_text(encoding="utf-8")
     else:
         existing = (
-            '---\ntitle: "Source Monitor Log"\nprint_levels:\n  - full-technical\n---\n\n'
+            '---\ntitle: "Source Monitor Log"\nprint_status: excluded\nprint_exclusion_reason: "Operational monitoring log."\n---\n\n'
             "# Source Monitor Log\n\nMaterial source-monitor activity is recorded here; "
             "routine no-change runs remain in GitHub Actions.\n\n"
         )

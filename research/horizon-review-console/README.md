@@ -22,7 +22,7 @@ Every view is an assembled projection, not a new narrative or tracking authority
 
 Every tabular view uses sortable column-header buttons. The active column exposes ascending or descending order to assistive technology and shows a direction indicator; each table retains a task-appropriate default order until another header is selected. Presidential directives therefore open with the most recent signed or published date first.
 
-Neutral count badges report each queue's complete size. Gold `+N` badges appear only for preliminary intake or genuinely new or changed bot records. The console checks the public repository's open bot pull requests when it loads so an unresolved case- or directive-watcher update can appear without waiting for a full data rebuild; the checked-in data remains available if that live request fails.
+Neutral count badges report each queue's complete size. Gold `+N` badges appear only for preliminary intake or genuinely new or changed bot records. Whenever a `+N` badge represents only part of a larger list, the complete owning view must identify those records, place them first, and provide an updated-only filter; a parent badge may instead route to a child view that supplies those features. Queues in which every record awaits review, and findings views already composed entirely of the counted records, do not need a redundant filter. The console checks the public repository's open bot pull requests when it loads so an unresolved case- or directive-watcher update can appear without waiting for a full data rebuild; the checked-in data remains available if that live request fails.
 
 GitHub issue bodies are rendered during the rebuild through the console's dependency-free, allowlisted Markdown renderer. Source HTML is escaped, unsafe link protocols are discarded, and the generated console retains the original Markdown as a plain-text fallback. The browser therefore makes no live Markdown-service request and the console continues to work from `file://`.
 
@@ -50,7 +50,7 @@ Use the × on an existing assignment to stage its removal, select **Add print le
       "path": "areas/AREA/ISSUE.md",
       "title": "Page title",
       "add": ["executive-summary"],
-      "remove": ["full-technical"],
+      "remove": ["executive-summary"],
       "print_status": "excluded",
       "print_exclusion_reason": "Internal workflow or tool documentation."
     }

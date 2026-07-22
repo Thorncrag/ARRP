@@ -9,7 +9,6 @@ primary_external_vehicle: "H.J.Res. 54, 119th Congress"
 alternative_external_vehicle: "H.J.Res. 13, 118th Congress"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

@@ -2,8 +2,8 @@
 issue_id: ELEC-008
 title: "Accountability for Coordinated Federal Election-Subversion Schemes — Audit History"
 source_issue: "ELEC-008.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-008 — Audit History

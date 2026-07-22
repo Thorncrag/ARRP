@@ -6,7 +6,6 @@ purpose: "Help readers find the distinct institutional defects ARRP has identifi
 last_reviewed: "2026-07-21"
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # Immigration System Reform {.arrp-topic-guide-title}

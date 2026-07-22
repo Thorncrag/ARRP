@@ -17,7 +17,6 @@ purpose: "Help readers find the ARRP proposals addressing [public subject]."
 last_reviewed: "YYYY-MM-DD"
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # [Public Topic Title] {.arrp-topic-guide-title}

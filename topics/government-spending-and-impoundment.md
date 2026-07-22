@@ -6,7 +6,6 @@ purpose: "Help readers find the ARRP proposals addressing withheld appropriation
 last_reviewed: "2026-07-18"
 print_levels:
   - public-proposal
-  - full-technical
 ---
 
 # Government Spending and Impoundment {.arrp-topic-guide-title}

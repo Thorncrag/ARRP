@@ -2,8 +2,8 @@
 issue_id: ELEC-007
 title: "Improper Federal-Force Presence in Election Administration — Audit History"
 source_issue: "ELEC-007.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-007 — Audit History

@@ -13,7 +13,6 @@ framework_issue: "../areas/DOJ/issues/DOJ-007.md"
 related_issue: "../areas/IMM/issues/IMM-001.md"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

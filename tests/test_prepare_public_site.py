@@ -25,6 +25,7 @@ class PublicSitePreparationTests(unittest.TestCase):
         sources = self.manifest["canonicalSources"]
         self.assertGreater(len(sources), 100)
         self.assertIn("README.md", sources)
+        self.assertIn("PRINT_READERS_GUIDE.md", sources)
         self.assertIn("SUBJECT_INDEX.md", sources)
         self.assertIn("topics/README.md", sources)
         self.assertIn("topics/project-2025.md", sources)
@@ -42,7 +43,13 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn("topics/weaponization-of-justice.md", sources)
         self.assertTrue(
             all(
-                source in {"README.md", "SUBJECT_INDEX.md", "AUTHORS.md", "LICENSE.md"}
+                source in {
+                    "README.md",
+                    "PRINT_READERS_GUIDE.md",
+                    "SUBJECT_INDEX.md",
+                    "ABOUT.md",
+                    "LICENSE.md",
+                }
                 or source.startswith("areas/")
                 or source.startswith("legislation/")
                 or source.startswith("topics/")
@@ -66,6 +73,9 @@ class PublicSitePreparationTests(unittest.TestCase):
     def test_reader_navigation_is_generated(self):
         config = (ROOT / ".site-build" / "mkdocs.yml").read_text(encoding="utf-8")
         self.assertIn('"Topics"', config)
+        self.assertIn('"About the Project": ABOUT.md', config)
+        self.assertIn('"Using a Print Edition": PRINT_READERS_GUIDE.md', config)
+        self.assertIn('"Technical Record on GitHub": https://github.com/Thorncrag/ARRP', config)
         self.assertIn('"Overview": topics/index.md', config)
         self.assertIn(
             '"Project 2025": topics/project-2025.md',

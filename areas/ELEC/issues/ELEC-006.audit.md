@@ -2,8 +2,8 @@
 issue_id: ELEC-006
 title: "Insufficiently Automatic Presidential-Transition Procedures — Audit History"
 source_issue: "ELEC-006.md"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Internal proposal-review history retained in the GitHub technical record."
 ---
 
 # ELEC-006 — Audit History

@@ -8,7 +8,6 @@ constitutional_amendment: "ELEC-011-amendment.md"
 state_model: "ELEC-011-state.md"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

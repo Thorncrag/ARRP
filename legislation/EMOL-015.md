@@ -7,7 +7,6 @@ proposal_type: federal-statute
 framework_issue: "../areas/EMOL/issues/EMOL-015.md"
 print_levels:
   - public-proposal
-  - full-technical
   - legislative-appendix
 ---
 

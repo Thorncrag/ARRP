@@ -5,8 +5,8 @@ source_id: SRC-0390
 source_file: "../sources/report-on-matters-related-to-intelligence-activities-2016-campaigns-durham-2023.pdf"
 source_url: "https://www.justice.gov/storage/durhamreport.pdf"
 archive_url: "https://www.justice.gov/archives/media/1381211/dl"
-print_levels:
-  - full-technical
+print_status: excluded
+print_exclusion_reason: "Supporting research retained in the GitHub technical record."
 ---
 
 # Durham Report / ARRP Crosswalk

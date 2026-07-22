@@ -24,12 +24,13 @@ Before creating a public release, complete a final review of:
 
 1. [`README.md`](../README.md), including About This Project, the topic-and-institution index route, rights notice, citation pointer, and project status;
 2. [`LICENSE.md`](../LICENSE.md), including the all-rights-reserved status and planned future public reuse license note;
-3. [`AUTHORS.md`](../AUTHORS.md), including the author-directed project statement;
-4. [`CITATION.cff`](../CITATION.cff), including author, title, repository URL, abstract, and citation message;
-5. source citations for named real-world events, public actors, legal materials, reports, and institutional examples;
-6. Git history and author metadata;
-7. repository settings for issues, discussions, pull requests, branch protection, and contributor permissions; and
-8. any draft material that should remain private, be archived, or be revised before publication.
+3. [`ABOUT.md`](../ABOUT.md), including the reader notice, authorship, and technical-record routes;
+4. [`PRINT_READERS_GUIDE.md`](../PRINT_READERS_GUIDE.md), including the generated issue-lookup and online-record notice;
+5. [`CITATION.cff`](../CITATION.cff), including author, title, repository URL, abstract, and citation message;
+6. source citations for named real-world events, public actors, legal materials, reports, and institutional examples;
+7. Git history and author metadata;
+8. repository settings for issues, discussions, pull requests, branch protection, and contributor permissions; and
+9. any draft material that should remain private, be archived, or be revised before publication.
 
 ## Suggested First Release
 
