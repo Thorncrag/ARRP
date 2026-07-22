@@ -10,15 +10,21 @@ print_exclusion_reason: "Internal operational report."
 
 ## Current Result
 
-- **Result:** Clean
-- **Errors:** 0
+- **Result:** Findings require review
+- **Errors:** 2
 - **Warnings:** 0
 - **Issue pages checked:** 61
 - **Proposal pages checked:** 40
 
 ## Current Findings
 
-No repeatable integrity findings are currently reported.
+### Internal links
+
+- **ERROR:** broken repository link in GitHub issue #203: https://github.com/Thorncrag/ARRP/blob/main/areas/PRESS/issues/PRESS-003.md (missing areas/PRESS/issues/PRESS-003.md)
+
+### Project structure
+
+- **ERROR:** Project canonical page for issue #203 is 'https://github.com/Thorncrag/ARRP/blob/main/areas/PRESS/issues/PRESS-003.md'; expected one of https://github.com/Thorncrag/ARRP/blob/main/areas/PRESS/README.md
 
 ## Checks Included
 
