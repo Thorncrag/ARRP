@@ -90,13 +90,19 @@ def issue_status_notice(metadata: dict) -> str:
     )
 
 
-def page_actions() -> str:
-    """Return static actions enhanced by the public-site JavaScript."""
+def page_actions(metadata: dict) -> str:
+    """Return the responsive page-action fallback enhanced by JavaScript."""
+    hidden = metadata.get("hide", [])
+    if isinstance(hidden, str):
+        hidden = [hidden]
+    force_content = " arrp-page-actions--force-content" if "toc" in hidden else ""
     return (
-        '<nav class="arrp-page-actions" aria-label="Page actions">\n'
-        '  <button type="button" class="arrp-page-action" data-arrp-print>Print this page</button>\n'
-        '  <a class="arrp-page-action" data-arrp-feedback '
-        'href="https://arrp-public-intake.vercel.app/?mode=contact">Contact the author or offer review</a>\n'
+        f'<nav class="arrp-page-actions arrp-page-actions--content{force_content}" '
+        'aria-label="Page tools">\n'
+        '  <button type="button" class="arrp-page-action arrp-page-action--print" '
+        'data-arrp-print>Print</button>\n'
+        '  <a class="arrp-page-action arrp-page-action--contact" data-arrp-feedback '
+        'href="https://arrp-public-intake.vercel.app/?mode=contact">Contact or review</a>\n'
         "</nav>"
     )
 
@@ -107,7 +113,7 @@ def add_public_page_tools(markdown: str, metadata: dict) -> str:
     if heading is None:
         return markdown
 
-    additions = [notice for notice in (issue_status_notice(metadata), page_actions()) if notice]
+    additions = [notice for notice in (issue_status_notice(metadata), page_actions(metadata)) if notice]
     return markdown[: heading.end()] + "\n" + "\n\n".join(additions) + "\n" + markdown[heading.end() :]
 
 
