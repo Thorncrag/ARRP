@@ -2,17 +2,17 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-22T10:36:52+00:00",
-    "revision": "33000ea1199ac1be9836fdb4ca0a0bc4c65ab12c",
-    "result": "clean",
+    "generated_at": "2026-07-22T11:42:13+00:00",
+    "revision": "0a6eeb1360cbdc90b29ccd7e9ed2eefd8da90280",
+    "result": "findings",
     "counts": {
-      "errors": 0,
+      "errors": 2,
       "warnings": 0,
-      "findings": 0,
+      "findings": 2,
       "issue_pages": 61,
       "proposal_pages": 40
     },
-    "duration_seconds": 11.567,
+    "duration_seconds": 10.793,
     "scope": [
       "Issue and proposal structure",
       "Area and topic routing",
@@ -32,9 +32,37 @@
       "Print-assembly configuration",
       "Structured-file and repository hygiene"
     ],
-    "findings": []
+    "findings": [
+      {
+        "id": "error-0001",
+        "severity": "error",
+        "category": "Internal links",
+        "message": "broken repository link in GitHub issue #14: https://github.com/Thorncrag/ARRP/blob/main/framework/METHODOLOGY.md#horizon-candidate-adjudication-workflow (missing framework/METHODOLOGY.md)",
+        "path": "framework/METHODOLOGY.md#horizon-candidate-adjudication-workflow"
+      },
+      {
+        "id": "error-0002",
+        "severity": "error",
+        "category": "Internal links",
+        "message": "broken repository link in GitHub issue #8: https://github.com/Thorncrag/ARRP/blob/main/framework/METHODOLOGY.md#topic-page-standard (missing framework/METHODOLOGY.md)",
+        "path": "framework/METHODOLOGY.md#topic-page-standard"
+      }
+    ]
   },
   "history": [
+    {
+      "generated_at": "2026-07-22T11:42:13+00:00",
+      "revision": "0a6eeb1360cbdc90b29ccd7e9ed2eefd8da90280",
+      "result": "findings",
+      "counts": {
+        "errors": 2,
+        "warnings": 0,
+        "findings": 2,
+        "issue_pages": 61,
+        "proposal_pages": 40
+      },
+      "duration_seconds": 10.793
+    },
     {
       "generated_at": "2026-07-22T10:36:52+00:00",
       "revision": "33000ea1199ac1be9836fdb4ca0a0bc4c65ab12c",
