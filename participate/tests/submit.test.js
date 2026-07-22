@@ -11,6 +11,7 @@ const {
   validateSubmission,
 } = require("../api/_shared");
 const { resolveRoute } = require("../api/route-index");
+const contactEndpoint = require("../api/contact");
 const submitEndpoint = require("../api/submit");
 
 test("submission validation retains public content and removes excess whitespace", () => {
@@ -19,7 +20,6 @@ test("submission validation retains public content and removes excess whitespace
     body: "  ARRP should consider this institutional question. ",
     sources: " https://example.org/source ",
     email: " Reader@example.org ",
-    emailConsent: true,
     context: { proposal: "DOJ-007", pageTitle: "Example", pageUrl: "https://example.org/page" },
   });
   assert.deepEqual(errors, []);
@@ -29,6 +29,7 @@ test("submission validation retains public content and removes excess whitespace
   assert.equal(route.key, "PROPOSAL:DOJ-007");
   assert.match(discussionCommentBody(submission, "record-1", route), /DOJ-007/);
   assert.doesNotMatch(discussionCommentBody(submission, "record-1", route), /reader@example\.org/);
+  assert.match(discussionCommentBody(submission, "record-1", route), /Private follow-up: Requested/);
   assert.match(canonicalDiscussionBody(route), /ARRP-INTAKE-ROUTE:PROPOSAL:DOJ-007/);
 });
 
@@ -43,6 +44,7 @@ test("public comment rendering does not publish raw context or executable Markdo
   assert.doesNotMatch(rendered, /synthetic@example\.invalid/);
   assert.match(rendered, /^    !\[external image\]/m);
   assert.match(rendered, /Automatic ARRP route/);
+  assert.match(rendered, /Private follow-up: Not requested/);
 });
 
 test("route resolution uses the entered related page before the page where the form opened", () => {
@@ -161,12 +163,13 @@ test("first submission uses GitHub's created Discussion before search indexing c
   }
 });
 
-test("submission validation requires explicit permission before email delivery", () => {
-  const { errors } = validateSubmission({ title: "Concern", body: "Details", email: "reader@example.org" });
-  assert.match(errors[0], /Confirm/);
+test("entering an optional public follow-up email is itself the contact request", () => {
+  const { submission, errors } = validateSubmission({ title: "Concern", body: "Details", email: "reader@example.org" });
+  assert.deepEqual(errors, []);
+  assert.equal(submission.email, "reader@example.org");
 });
 
-test("private author contact accepts an optional reply email without public-input consent", () => {
+test("private author contact retains an optional reply email", () => {
   const { contact, errors } = validateContact({
     title: "  Printable edition request ",
     body: " Please send information about the printable edition. ",
@@ -176,6 +179,51 @@ test("private author contact accepts an optional reply email without public-inpu
   assert.deepEqual(errors, []);
   assert.equal(contact.title, "Printable edition request");
   assert.equal(contact.email, "reader@example.org");
+});
+
+test("private author contact accepts a blank reply email", () => {
+  const { contact, errors } = validateContact({
+    title: "Printable edition request",
+    body: "Please send information about the printable edition.",
+    email: "",
+  });
+  assert.deepEqual(errors, []);
+  assert.equal(contact.email, "");
+});
+
+test("private author message clearly marks whether a reply email was supplied", async () => {
+  const originalFetch = global.fetch;
+  const originalMailbox = process.env.ARRP_CONTACT_EMAIL;
+  const sent = [];
+  process.env.ARRP_CONTACT_EMAIL = "author@example.org";
+  global.fetch = async (_url, options) => {
+    sent.push(JSON.parse(options.body));
+    return { ok: true };
+  };
+  try {
+    const noReply = validateContact({
+      title: "No reply address",
+      body: "Please review this message.",
+      email: "",
+    }).contact;
+    const permitted = validateContact({
+      title: "Permitted reply",
+      body: "Please review this message.",
+      email: "reader@example.org",
+    }).contact;
+    assert.equal(await contactEndpoint._test.sendPrivateMessage(noReply, "contact-1"), true);
+    assert.equal(await contactEndpoint._test.sendPrivateMessage(permitted, "contact-2"), true);
+    assert.equal(sent[0].reply_to, undefined);
+    assert.doesNotMatch(sent[0].text, /reader@example\.org/);
+    assert.match(sent[0].subject, /^\[NO CONTRIBUTOR REPLY\]/);
+    assert.match(sent[0].text, /DO NOT REPLY TO THE CONTRIBUTOR/);
+    assert.equal(sent[1].reply_to, "reader@example.org");
+    assert.match(sent[1].text, /REPLY AUTHORIZED/);
+  } finally {
+    global.fetch = originalFetch;
+    if (originalMailbox === undefined) delete process.env.ARRP_CONTACT_EMAIL;
+    else process.env.ARRP_CONTACT_EMAIL = originalMailbox;
+  }
 });
 
 test("GitHub App JWT has three compact components", () => {

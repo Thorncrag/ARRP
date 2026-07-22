@@ -284,9 +284,9 @@ module.exports = async function submit(req, res) {
     }
     const submissionId = crypto.randomUUID();
     const routed = await routeSubmission(submission, submissionId);
-    const followUpRequested = Boolean(submission.email && submission.emailConsent);
+    const followUpRequested = Boolean(submission.email);
     if (followUpRequested) {
-      try { await sendReviewNotification(submission, routed); } catch (_) { /* Public receipt remains available. */ }
+      try { await sendReviewNotification(submission, routed); } catch (_) { /* Public confirmation remains available. */ }
     }
     send(res, 201, {
       discussion_url: routed.discussion.url,

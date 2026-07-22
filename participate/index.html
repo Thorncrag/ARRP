@@ -107,13 +107,9 @@
           <div id="email-followup-fields" hidden>
             <label for="submission-email">
               <span id="submission-email-label">Email for possible private follow-up <small>optional</small></span>
-              <input id="submission-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@example.org">
+              <input id="submission-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="Leave blank if you do not want to be contacted" aria-describedby="submission-email-help">
             </label>
-
-            <label class="checkbox-label" id="submission-email-consent-field" for="submission-email-consent">
-              <input id="submission-email-consent" name="email-consent" type="checkbox">
-              <span>I authorize ARRP to use this address to contact me privately about this submission.</span>
-            </label>
+            <p class="privacy-note" id="submission-email-help">By entering an email address, you agree that ARRP may contact you privately about this submission. Leave it blank if you do not want to be contacted. Your address will not be posted publicly.</p>
           </div>
 
           <label class="honeypot" aria-hidden="true" for="submission-website">

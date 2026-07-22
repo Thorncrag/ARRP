@@ -29,7 +29,6 @@ function validateSubmission(value) {
     sources: text(raw.sources, LIMITS.sources),
     related: text(raw.related, LIMITS.related),
     email: text(raw.email, LIMITS.email).toLowerCase(),
-    emailConsent: raw.emailConsent === true,
     turnstileToken: text(raw.turnstileToken, 4096),
     honeypot: text(raw.website, 256),
     context: {
@@ -42,8 +41,6 @@ function validateSubmission(value) {
   if (!submission.title) errors.push("Provide a short title.");
   if (!submission.body) errors.push("Describe what ARRP should consider.");
   if (submission.email && !isEmail(submission.email)) errors.push("Provide a valid email address or leave it blank.");
-  if (submission.email && !submission.emailConsent) errors.push("Confirm that ARRP may use this address for the public discussion link and possible follow-up about this submission.");
-  if (!submission.email && submission.emailConsent) errors.push("Enter an email address before authorizing contact by email.");
   return { submission, errors };
 }
 
@@ -107,6 +104,9 @@ function canonicalDiscussionBody(route) {
 }
 
 function discussionCommentBody(submission, submissionId, route) {
+  const followUpStatus = submission.email
+    ? "Requested; the address was routed privately and is not included in this public post."
+    : "Not requested; no address was supplied.";
   return [
     `<!-- ARRP-INTAKE-SUBMISSION:${submissionId} -->`,
     `## ${asSafeHeading(submission.title)}`,
@@ -117,6 +117,7 @@ function discussionCommentBody(submission, submissionId, route) {
     "## Intake record",
     `- Submission reference: \`${submissionId}\``,
     `- Automatic route: ${route.label}`,
+    `- Private follow-up: ${followUpStatus}`,
     "- Status: Received for ARRP review",
     "- Note: A public submission is not itself a project decision, preliminary candidate, or proposed candidate.",
   ].filter(Boolean).join("\n");
