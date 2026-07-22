@@ -2,34 +2,60 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-21T23:50:12+00:00",
-    "revision": "4a15fe15d1a8db26ed572d1064cd6190877cd11b",
-    "result": "clean",
+    "generated_at": "2026-07-22T00:34:34+00:00",
+    "revision": "b3d7d62756c5853b71c60d1a9703938710d9045e",
+    "result": "findings",
     "counts": {
       "errors": 0,
-      "warnings": 0,
-      "findings": 0,
+      "warnings": 1,
+      "findings": 1,
       "issue_pages": 61,
       "proposal_pages": 40
     },
-    "duration_seconds": 8.322,
+    "duration_seconds": 7.724,
     "scope": [
       "Issue and proposal structure",
       "Area and topic routing",
       "Internal repository links",
+      "Markdown heading anchors",
       "Orphaned Markdown pages",
       "Page metadata and heading hierarchy",
       "GitHub record references",
+      "GitHub Issue and Project synchronization",
+      "GitHub Pages deployment synchronization",
       "Source and citation catalogs",
       "Research placement",
       "Reader-facing language",
       "Tool-interface conventions",
       "Intake-workflow terminology",
-      "Publication-disposition metadata"
+      "Publication-disposition metadata",
+      "Print-assembly configuration",
+      "Structured-file and repository hygiene"
     ],
-    "findings": []
+    "findings": [
+      {
+        "id": "warning-0001",
+        "severity": "warning",
+        "category": "Project structure",
+        "message": "GitHub Project synchronization check skipped; rerun in the authenticated host context: unknown owner type",
+        "path": ""
+      }
+    ]
   },
   "history": [
+    {
+      "generated_at": "2026-07-22T00:34:34+00:00",
+      "revision": "b3d7d62756c5853b71c60d1a9703938710d9045e",
+      "result": "findings",
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "findings": 1,
+        "issue_pages": 61,
+        "proposal_pages": 40
+      },
+      "duration_seconds": 7.724
+    },
     {
       "generated_at": "2026-07-21T23:50:12+00:00",
       "revision": "4a15fe15d1a8db26ed572d1064cd6190877cd11b",
