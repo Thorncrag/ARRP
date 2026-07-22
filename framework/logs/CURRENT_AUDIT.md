@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: active
+status: inactive
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,17 +13,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
-| Active issue/task | Project Console oversight, persistent layout, and agent-and-bot operational visibility |
+| Status | Inactive — implementation completed and reconciled |
+| Active issue/task | Agent-and-bot governance, source integrity, lifecycle reconciliation, and Project Console oversight |
 | Audit type/tier | Project-level Change Audit and automation implementation; no T-audit run |
 | Started | 2026-07-22 |
-| Last checkpoint | 2026-07-22; final local and authenticated validation passed, and the complete working set is ready for GitHub reconciliation after the user authorized commit. |
-| User request | Refine the Console oversight and disclosure behavior; restore the intuitive `Candidate` → `Admitted / undeveloped` → `In development` → `Developed proposal` → `Review ready` progression; retain the four-part foundation as the gate into development; and authorize both Elim and an interactive Codex agent working directly with the user to record a sufficiency determination from an already-complete canonical record. |
-| Scope | Action Items and Problems ownership; persistent layout and disclosure preferences; Progress organization; issue-monitoring placement; lifecycle terminology and authority; GitHub Project `Development level`; related framework documentation, scripts, tests, and generated Console data. |
-| Files touched | Console HTML, CSS, JavaScript, generated data, builder, documentation, tests, and this handoff on `codex/agent-bot-runbooks`; earlier runbook, workflow, source, lifecycle, and integrity changes remain in the same working branch. |
-| Completed steps | Added the original Overview, Problems, Agents and Bots, persistent layout, and 99-record accounting changes; standardized the at-a-glance index and collapsible-detail hierarchy; moved issue monitoring to Progress; restored `In development` as the third Kanban maturity column in place of `Defined proposal`; renamed the live GitHub Project option without moving any records; retained `foundation_status` as the four-part safety gate; and recorded parallel foundation-sufficiency authority for Elim and interactive Codex work with the user. |
-| Next step | Complete final validation, commit the whole reviewed working set, merge it through the repository pull-request workflow, verify affected live surfaces, then clear this handoff to inactive. |
-| Blockers/questions | None presently; automated in-app visual navigation of the local `file://` Console is prohibited by the browser security policy, so visual inspection remains a user review step. Elim runtime launch will remain disabled until its configuration and report-only pilot are verified. |
+| Last checkpoint | 2026-07-22; PR #351 merged as `34977e1`, local `main` matches `origin/main`, post-merge Integrity, Progress, Pages, and Vercel checks passed, and the affected live routes were verified. |
+| User request | Establish authoritative runbooks and shared logging for Elim and deterministic bots; add a report-only source checker; resolve integrity and routing defects; make human decisions and the complete problem inventory visible in the Console; add persistent, user-controlled layout and disclosure behavior; restore the intuitive `Candidate` → `Admitted / undeveloped` → `In development` → `Developed proposal` → `Review ready` progression; and retain the four-part foundation as the gate into development. |
+| Scope | Cross-cutting framework and agent rules; bot workflows and runbooks; source verification and routing; integrity automation; Action Items, Problems, Sources, Progress, and Agents and Bots views; persistent layout and disclosure preferences; lifecycle terminology and authority; GitHub Project `Development level`; generated Console and participation data; related records and tests. |
+| Files touched | Seventy-five files merged through PR #351, including governance, runbooks, workflows, source catalogs and records, issue metadata, shared logs, Console code and data, participation routing data, validation scripts, and tests; this final handoff-only closeout follows separately. |
+| Completed steps | Established the shared agent/bot operating model and authoritative runbooks; added the weekly report-only Source Checker Bot; resolved the current deterministic integrity and pending-source queues; expanded the Console's human-action and complete-problem views; added persistent rearrangement and disclosure controls; standardized at-a-glance group/list behavior; moved issue monitoring to Progress; accounted for all 99 active records; restored `In development` as the third maturity stage; synchronized the live GitHub Project without moving records; and preserved the four-part foundation gate with recorded Elim and interactive-agent sufficiency authority. |
+| Next step | Await user direction. Elim remains paused until its separate local isolated-worktree and usage-display pilot satisfies the runbook launch gate. |
+| Blockers/questions | None for the completed implementation and reconciliation. The future Elim pilot is a deliberate launch gate, not an unfinished part of this change set. |
 | Validation status | Passed after restoring `In development`: 91 repository tests; JavaScript and Python syntax; diff hygiene; strict public-site build; the current 99-record snapshot; live Project option and item-distribution readback; and the authenticated consistency audit with 0 errors and 0 warnings. |
 
 ## Detailed Findings and Corrections
