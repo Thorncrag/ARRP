@@ -565,6 +565,13 @@ const records = Object.freeze([
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/42"
   },
   {
+    "id": "WAR-009",
+    "title": "Executive Lethal Targeting and Accountability",
+    "area": "WAR",
+    "canonical_page": "../areas/WAR/issues/WAR-009.md",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/347"
+  },
+  {
     "id": "HOR-010",
     "title": "Immigration-courthouse arrests and courthouse-access chilling",
     "area": "DOM",
@@ -582,56 +589,56 @@ const records = Object.freeze([
     "id": "HOR-026",
     "title": "Presidential Withdrawal or Constructive Withdrawal from International Commitments",
     "area": "CONG",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/245",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/245"
   },
   {
     "id": "HOR-027",
     "title": "Presidential Policymaking Through Privately Controlled Social Media",
     "area": "REC",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/247",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/247"
   },
   {
     "id": "HOR-029",
     "title": "Presidential Self-Dealing Through an Officially Favored Private Platform",
     "area": "EMOL",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/249",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/249"
   },
   {
     "id": "HOR-031",
     "title": "Durability and Revocation of National Monument Protections",
     "area": "HER",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/251",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/251"
   },
   {
     "id": "HOR-033",
     "title": "Enforceability of Accessibility Duties for Presidential Communications",
     "area": "RIGHTS",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/253",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/253"
   },
   {
     "id": "HOR-034",
     "title": "Cross-Agency Repurposing of Protected Personal Data",
     "area": "CIV",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/254",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/254"
   },
   {
     "id": "HOR-035",
     "title": "Executive Review Evasion Through Withdrawal, Replacement, Settlement, or Mootness",
     "area": "JUD",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/255",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/255"
   },
   {
     "id": "HOR-037",
     "title": "Immigration Detention, Removal Process, and Access Safeguards",
     "area": "RIGHTS",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/257",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/257"
   },
   {
@@ -652,35 +659,35 @@ const records = Object.freeze([
     "id": "HOR-040",
     "title": "Safeguards for Broad Presidential Tariff Delegations",
     "area": "EMERG",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/302",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/302"
   },
   {
     "id": "HOR-041",
     "title": "Safeguards for Class-Based Presidential Entry Suspensions",
     "area": "RIGHTS",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/303",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/303"
   },
   {
     "id": "HOR-042",
     "title": "Minimum Safeguards for Presidential Statutory Waivers",
     "area": "CONG",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/304",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/304"
   },
   {
     "id": "HOR-043",
     "title": "Presidential Recognition of International Bodies With Domestic Legal Privileges",
     "area": "CONG",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/305",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/305"
   },
   {
     "id": "HOR-044",
     "title": "Statutory Framework for Presidential Cross-Border Infrastructure Permits",
     "area": "REG",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md",
+    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/306",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/306"
   },
   {

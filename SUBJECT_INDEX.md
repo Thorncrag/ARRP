@@ -51,7 +51,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | D.D.C.; United States District Court for the District of Columbia | See *Federal courts, including D.D.C. and the D.C. Circuit*. |
 | Dark money | See *Campaign finance; corporate political spending; dark money; super PACs*. |
 | Debate gatekeeping | **[ELEC-013](areas/ELEC/issues/ELEC-013.md)**; [ELEC-012](areas/ELEC/issues/ELEC-012.md) |
-| Defense Department (U.S. Department of Defense; DOD), Armed Forces, and National Guard | **[WAR-001](areas/WAR/issues/WAR-001.md)**; [A-14](areas/DOM/README.md) |
+| Defense Department (U.S. Department of Defense; DOD), Armed Forces, and National Guard | **[Military Force](topics/military-force.md)**; [WAR-001](areas/WAR/issues/WAR-001.md); [WAR-009](areas/WAR/issues/WAR-009.md); [A-14](areas/DOM/README.md) |
 | District of Columbia government | **[A-20](areas/FED/README.md)**; [A-02](areas/ELEC/README.md); [A-24](areas/RIGHTS/README.md); [Civil Rights](topics/civil-rights.md) |
 | DOGE (Department of Government Efficiency) and United States DOGE Service | **[DOGE and Agency Dismantling](topics/doge-and-agency-dismantling.md)**; [CIV-009](areas/CIV/issues/CIV-009.md); [REG-001](areas/REG/issues/REG-001.md) |
 | DOJ independence; White House contacts; case-specific interference | **[DOJ-002](areas/DOJ/issues/DOJ-002.md)**; [DOJ-001](areas/DOJ/issues/DOJ-001.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
@@ -119,11 +119,12 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Justice Department Office of Professional Responsibility (OPR) | **[DOJ-005](areas/DOJ/issues/DOJ-005.md)**; [DOJ-003](areas/DOJ/issues/DOJ-003.md); [DOJ-009](areas/DOJ/issues/DOJ-009.md) |
 | Law-enforcement accountability; civil remedies; criminal liability; qualified immunity; section 1983; section 242 | **[RIGHTS-005](areas/RIGHTS/issues/RIGHTS-005.md)**; [JUD-012](areas/JUD/issues/JUD-012.md); [DOM-005](areas/DOM/issues/DOM-005.md) |
 | Law-enforcement use of force | See *Law-enforcement accountability; civil remedies; criminal liability; qualified immunity; section 1983; section 242*. |
+| Lethal targeting; target verification; civilian casualties; civilian objects; extrajudicial killing | **[WAR-009](areas/WAR/issues/WAR-009.md)**; [Military Force](topics/military-force.md); [WAR-001](areas/WAR/issues/WAR-001.md) |
 | Mail-in and absentee voting; postal disruption; ballot cure | **[ELEC-010](areas/ELEC/issues/ELEC-010.md)**; [ELEC-003](areas/ELEC/issues/ELEC-003.md) |
 | Merger enforcement | See *Antitrust Division (DOJ); merger enforcement; executive influence over regulatory enforcement*. |
 | Marshals Service, U.S. (USMS) | **[JUD-001](areas/JUD/issues/JUD-001.md)** |
 | Merit Systems Protection Board (MSPB), Office of Personnel Management (OPM), and Office of Special Counsel (OSC) | **[OVS-009](areas/OVS/issues/OVS-009.md)**; [A-08](areas/CIV/README.md); [REG-001](areas/REG/issues/REG-001.md) |
-| Military force | See *War powers; AUMFs; hostilities; military force*. |
+| Military force | **[Military Force](topics/military-force.md)**; [WAR-001](areas/WAR/issues/WAR-001.md); [WAR-009](areas/WAR/issues/WAR-009.md) |
 | Minnesota Bureau of Criminal Apprehension (BCA), State attorneys general, State prosecutors, and comparable State investigative bodies | **[DOM-005](areas/DOM/issues/DOM-005.md)** |
 | National Archives and Records Administration (NARA) | **[A-13](areas/REC/README.md)** |
 | National emergency declarations | **[A-10](areas/EMERG/README.md)**; [EMERG-001](areas/EMERG/README.md); [EMERG-003](areas/EMERG/issues/EMERG-003.md) |
@@ -136,7 +137,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Pardons; clemency; self-pardon; corrupt pardon use | **[A-05](areas/PAR/README.md)**; [A-16](areas/IMM/README.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
 | Political failures; legislative inaction; preferred policy outcomes | **[Scope boundary](framework/FRAMEWORK.md#political-failure-boundary)** |
 | Postal Service, U.S. (USPS) | **[ELEC-010](areas/ELEC/issues/ELEC-010.md)** |
-| Presidential accountability; immunity; independent investigation; pardon abuse | **[Presidential Accountability](topics/presidential-accountability.md)**; [IMM-001](areas/IMM/issues/IMM-001.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md); [JUD-001](areas/JUD/issues/JUD-001.md); [EMOL-015](areas/EMOL/issues/EMOL-015.md); [A-05](areas/PAR/README.md) |
+| Presidential accountability; immunity; independent investigation; pardon abuse; war crimes | **[Presidential Accountability](topics/presidential-accountability.md)**; [IMM-001](areas/IMM/issues/IMM-001.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md); [JUD-001](areas/JUD/issues/JUD-001.md); [EMOL-015](areas/EMOL/issues/EMOL-015.md); [WAR-009](areas/WAR/issues/WAR-009.md); [A-05](areas/PAR/README.md) |
 | Presidential debates | See *Ballot access; candidate access; presidential debates*. |
 | Presidential immunity; official acts; statutes of limitation | **[IMM-001](areas/IMM/issues/IMM-001.md)**; [A-16](areas/IMM/README.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md) |
 | Presidential pardons | See *Pardons; clemency; self-pardon; corrupt pardon use*. |
@@ -170,7 +171,8 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | USPS (U.S. Postal Service) | See *Postal Service, U.S. (USPS)*. |
 | Vote by mail; absentee voting | See *Mail-in and absentee voting; postal disruption; ballot cure*. |
 | Voting rights; voting access; representative fairness | **[Civil Rights](topics/civil-rights.md)**; [ELEC-010](areas/ELEC/issues/ELEC-010.md); [ELEC-011](areas/ELEC/issues/ELEC-011.md) |
-| War powers; AUMFs; hostilities; military force | **[WAR-001](areas/WAR/issues/WAR-001.md)**; [A-10](areas/EMERG/README.md); [A-11](areas/FUND/README.md) |
+| War powers; AUMFs; hostilities; military force | **[Military Force](topics/military-force.md)**; [WAR-001](areas/WAR/issues/WAR-001.md); [WAR-009](areas/WAR/issues/WAR-009.md); [A-10](areas/EMERG/README.md); [A-11](areas/FUND/README.md) |
+| War crimes | See *Lethal targeting; target verification; civilian casualties; civilian objects; extrajudicial killing*. |
 | Weaponization of justice; politicized investigation, prosecution, or enforcement | **[Weaponization of Justice](topics/weaponization-of-justice.md)**; [DOJ-002](areas/DOJ/issues/DOJ-002.md); [DOJ-003](areas/DOJ/issues/DOJ-003.md); [DOJ-004](areas/DOJ/issues/DOJ-004.md); [DOJ-007](areas/DOJ/issues/DOJ-007.md); [ELEC-014](areas/ELEC/issues/ELEC-014.md) |
 | Whistleblowers | See *Inspectors General; Council of the Inspectors General on Integrity and Efficiency (CIGIE); whistleblowers; internal oversight*. |
 | White House interference with criminal matters | See *DOJ independence; White House contacts; case-specific interference*. |

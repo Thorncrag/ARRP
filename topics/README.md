@@ -59,6 +59,10 @@ Topic pages do not create additional recommendations or duplicate project lifecy
 
     Connects the distinct election, transition, accountability, investigation, immunity, and pardon issues associated with January 6 and the 2020 election aftermath.
 
+- **[Military Force](military-force.md)**
+
+    Separates congressional authorization of hostilities from target selection, civilian protection, evidence preservation, and accountability for lethal operations.
+
 - **[Presidential Accountability](presidential-accountability.md)**
 
     Separates presidential immunity, independent investigation, judicial enforcement and recusal, conflicts of interest, and pardon abuse.
