@@ -2,17 +2,17 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-22T00:34:34+00:00",
-    "revision": "b3d7d62756c5853b71c60d1a9703938710d9045e",
-    "result": "findings",
+    "generated_at": "2026-07-22T00:38:33+00:00",
+    "revision": "464840cb4c2f51ea52ef3a1d9957d71cab2a0f74",
+    "result": "clean",
     "counts": {
       "errors": 0,
-      "warnings": 1,
-      "findings": 1,
+      "warnings": 0,
+      "findings": 0,
       "issue_pages": 61,
       "proposal_pages": 40
     },
-    "duration_seconds": 7.724,
+    "duration_seconds": 11.567,
     "scope": [
       "Issue and proposal structure",
       "Area and topic routing",
@@ -32,17 +32,22 @@
       "Print-assembly configuration",
       "Structured-file and repository hygiene"
     ],
-    "findings": [
-      {
-        "id": "warning-0001",
-        "severity": "warning",
-        "category": "Project structure",
-        "message": "GitHub Project synchronization check skipped; rerun in the authenticated host context: unknown owner type",
-        "path": ""
-      }
-    ]
+    "findings": []
   },
   "history": [
+    {
+      "generated_at": "2026-07-22T00:38:33+00:00",
+      "revision": "464840cb4c2f51ea52ef3a1d9957d71cab2a0f74",
+      "result": "clean",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "findings": 0,
+        "issue_pages": 61,
+        "proposal_pages": 40
+      },
+      "duration_seconds": 11.567
+    },
     {
       "generated_at": "2026-07-22T00:34:34+00:00",
       "revision": "b3d7d62756c5853b71c60d1a9703938710d9045e",
