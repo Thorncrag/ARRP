@@ -1,0 +1,95 @@
+name: Source Checker Bot
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Weekly Sunday at 2:23 a.m. EDT / 1:23 a.m. EST (GitHub cron is UTC).
+    - cron: "23 6 * * 0"
+
+concurrency:
+  group: arrp-source-checker-bot
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Retrieve bounded prior history
+        continue-on-error: true
+        run: >-
+          curl --fail --silent --show-error
+          --output "${RUNNER_TEMP}/source-checker-existing.json"
+          "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/source-checker.json"
+
+      - name: Check every cataloged source URL
+        run: >-
+          python3 scripts/check_source_urls.py
+          --existing-json "${RUNNER_TEMP}/source-checker-existing.json"
+          --json-output "${RUNNER_TEMP}/arrp-source-checker/source-checker.json"
+          --markdown-output framework/reports/SOURCE_CHECKER_REPORT.md
+
+      - name: Publish Console-ready current data and bounded history
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python3 scripts/publish_project_console_progress.py
+          --source "${RUNNER_TEMP}/arrp-source-checker"
+          --repository Thorncrag/ARRP
+          --branch project-console-data
+          --vercel-config participate/vercel.json
+
+      - name: Propose a changed current report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- framework/reports/SOURCE_CHECKER_REPORT.md; then
+            echo "The current Source Checker Bot report is unchanged."
+            exit 0
+          fi
+          python3 scripts/append_agent_audit_log.py \
+            --agent source-checker-bot \
+            --run-id "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --trigger "${{ github.event_name }}" --task-type "source check" --outcome "Routed for human review" \
+            --issue-task "Catalog-wide source URL verification" \
+            --files-changed '`framework/reports/SOURCE_CHECKER_REPORT.md`; `framework/logs/AGENT_AUDIT_LOG.md`' \
+            --validation "All eligible catalog URLs were accounted for; the report-only scan completed without source mutation." \
+            --push-status "Proposed on bot/source-checker-report" \
+            --rollback-notes "Close the report pull request or revert its merge commit."
+          branch="bot/source-checker-report"
+          git config user.name "arrp-source-checker[bot]"
+          git config user.email "arrp-source-checker[bot]@users.noreply.github.com"
+          git switch -C "$branch"
+          git add framework/reports/SOURCE_CHECKER_REPORT.md framework/logs/AGENT_AUDIT_LOG.md
+          git commit -m "Refresh current source-checker report"
+          gh auth setup-git
+          git fetch origin "$branch:refs/remotes/origin/$branch" || true
+          git push --force-with-lease origin "HEAD:$branch"
+          if [ "$(gh pr list --head "$branch" --state open --json number --jq 'length')" = "0" ]; then
+            gh pr create --base main --head "$branch" --title "Refresh current source-checker report" --body "Updates the report-only Source Checker Bot findings. No cataloged citation or source identity is changed."
+          fi
+
+      - name: Publish run summary
+        if: always()
+        run: |
+          if [ -f framework/reports/SOURCE_CHECKER_REPORT.md ]; then
+            cat framework/reports/SOURCE_CHECKER_REPORT.md >> "${GITHUB_STEP_SUMMARY}"
+          else
+            echo "Source Checker Bot did not produce a report; review the failed step." >> "${GITHUB_STEP_SUMMARY}"
+          fi
+
+      - name: Preserve the complete machine-readable report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: source-checker-report
+          path: ${{ runner.temp }}/arrp-source-checker/source-checker.json
+          if-no-files-found: warn
+          retention-days: 30

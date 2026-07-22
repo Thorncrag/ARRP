@@ -3,6 +3,7 @@ issue_id: ELEC-014
 area_id: A-02
 title: "Limiting Federal Criminal Investigations into State-Administered Elections"
 status: deferred
+workflow_hold_reason: "Paused until reliable primary criminal-process records identify the statutory predicates, factual basis, and procedures sufficiently to assess legitimacy concerns and remedy fit."
 priority: high
 remedy_type: federal-election-criminal-process-guardrails
 audit_score: 0

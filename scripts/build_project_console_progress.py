@@ -265,6 +265,37 @@ def has_concrete_proposal_vehicle(repository_root: Path, canonical_record: str) 
     return False
 
 
+def canonical_front_matter_value(
+    repository_root: Optional[Path], canonical_record: str, field: str
+) -> str:
+    """Read one simple scalar from a canonical Markdown page without a YAML dependency."""
+    if repository_root is None:
+        return ""
+    root = repository_root.resolve()
+    path = (root / canonical_record).resolve()
+    try:
+        path.relative_to(root)
+    except ValueError:
+        return ""
+    if not path.is_file():
+        return ""
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return ""
+    if not lines or lines[0].strip() != "---":
+        return ""
+    for line in lines[1:]:
+        if line.strip() == "---":
+            break
+        if ":" not in line:
+            continue
+        key, raw_value = line.split(":", 1)
+        if key.strip() == field:
+            return raw_value.strip().strip("\"'")
+    return ""
+
+
 def parse_items(
     raw: Dict[str, Any],
     config: Dict[str, Any],
@@ -360,6 +391,9 @@ def parse_items(
                 "area": area,
                 "developmentLevel": development_level,
                 "workflowStatus": workflow_status,
+                "explanation": canonical_front_matter_value(
+                    repository_root, record, "workflow_hold_reason"
+                ),
                 "score": score,
                 "lastAudit": project_values.get(fields["lastAudit"]),
                 "nextAudit": project_values.get(fields["nextAudit"]),

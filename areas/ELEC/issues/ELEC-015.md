@@ -3,6 +3,7 @@ issue_id: ELEC-015
 area_id: A-02
 title: "Ranked-Choice Voting and Majority-Choice Election Methods"
 status: deferred
+workflow_hold_reason: "Paused until additional certified post-midterm outcome data and election-method, implementation, and expert or stakeholder evidence permit reassessment of whether a narrower remedy is warranted."
 priority: high
 remedy_type: election-method-reform
 audit_score: 0

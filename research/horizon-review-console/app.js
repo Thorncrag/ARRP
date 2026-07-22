@@ -21,15 +21,18 @@
   const manualWatchState = { search: "", kind: "all" };
   const courtWatchState = { search: "", owner: "all", updatesOnly: false };
   const directiveState = { search: "", administration: "all", status: "all", updatesOnly: false, page: 1, sortKey: "date", sortDirection: "desc" };
+  const sourceCheckerState = { search: "", classification: "all", domain: "all", owner: "all" };
   const pageState = { search: "", level: "all", section: "all", sortKey: "section", sortDirection: "asc" };
   const publicationState = { edition: "public-proposal" };
   const publicationLengthState = { sortKey: "estimated_pages", sortDirection: "desc" };
+  const problemState = { search: "", attention: "all", severity: "all", status: "all" };
   const assemblyDrafts = new Map();
   const logStates = Object.fromEntries(data.project_logs.map((log) => [
     log.id,
     {
       search: "",
       groupKey: "all",
+      filters: {},
       sortKey: (log.default_sort || {}).key || (log.columns[0] || {}).key || null,
       sortDirection: (log.default_sort || {}).direction || "asc"
     }
@@ -43,6 +46,14 @@
   data.progress = data.progress || {};
   data.integrity = data.integrity || {};
   data.consistency_audit = data.consistency_audit || {};
+  data.source_checker = data.source_checker || {};
+  data.agent_registry = Array.isArray(data.agent_registry) ? data.agent_registry : [];
+
+  const LAYOUT_STORAGE_KEY = "arrp-project-console-layout-v1";
+  const DISCLOSURE_STORAGE_KEY = "arrp-project-console-disclosures-v1";
+  const layoutZones = new Map();
+  let layoutEditing = false;
+  let draggedLayoutItem = null;
 
   const PRINT_LEVEL_LABELS = {
     "public-proposal": "Public proposal edition",
@@ -62,13 +73,14 @@
   ];
   const LIVE_PROGRESS_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/progress.json";
   const LIVE_INTEGRITY_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/integrity.json";
+  const LIVE_SOURCE_CHECKER_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/source-checker.json";
   const LIVE_PULL_REQUESTS_URL = "https://api.github.com/repos/Thorncrag/ARRP/pulls?state=open&per_page=100";
   const GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/";
   const LIVE_SITE_ROOT = "https://thorncrag.github.io/ARRP/";
   const DEVELOPMENT_LEVELS = [
     "Candidate",
     "Admitted / undeveloped",
-    "Defined proposal",
+    "In development",
     "Developed proposal",
     "Review ready",
     "Release candidate"
@@ -187,9 +199,8 @@
     return section;
   }
 
-  function detailsPanel(label, count, open = false) {
+  function detailsPanel(label, count) {
     const panel = element("details", "dossier-panel");
-    panel.open = open;
     const summary = element("summary");
     summary.append(element("span", "", label));
     if (count !== undefined) summary.append(element("span", "panel-count", String(count)));
@@ -254,7 +265,7 @@
     const catalog = record.evidence_records || [];
     const research = record.research_records || [];
 
-    const sourcePanel = detailsPanel("Source inventory records", sources.length, sources.length <= 4);
+    const sourcePanel = detailsPanel("Source inventory records", sources.length);
     const sourceList = element("div", "evidence-list");
     if (sources.length) [...sources].sort(monitoredSourcesFirst).forEach((source) => sourceList.append(sourceEntry(source)));
     else sourceList.append(element("p", "muted panel-empty", "No source-inventory record is currently associated by identifier."));
@@ -280,8 +291,9 @@
   }
 
   function preliminaryCard(record) {
-    const card = element("article", "candidate-card");
-    const header = element("div", "card-header");
+    const card = element("details", "candidate-card");
+    card.dataset.disclosureId = `candidates-preliminary-${record.id}`;
+    const header = element("summary", "card-header");
     const heading = element("div");
     const badges = element("div", "badges");
     badges.append(
@@ -317,8 +329,9 @@
   }
 
   function proposedCard(record) {
-    const card = element("article", "candidate-card formal-card");
-    const header = element("div", "card-header");
+    const card = element("details", "candidate-card formal-card");
+    card.dataset.disclosureId = `candidates-formal-${record.id}`;
+    const header = element("summary", "card-header");
     const heading = element("div");
     const badges = element("div", "badges");
     badges.append(
@@ -389,6 +402,303 @@
     return card;
   }
 
+  function readLayoutPreferences() {
+    try {
+      const parsed = JSON.parse(window.localStorage.getItem(LAYOUT_STORAGE_KEY) || "{}");
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (_error) {
+      return {};
+    }
+  }
+
+  function writeLayoutPreferences(preferences) {
+    try {
+      window.localStorage.setItem(LAYOUT_STORAGE_KEY, JSON.stringify(preferences));
+      return true;
+    } catch (_error) {
+      return false;
+    }
+  }
+
+  function readDisclosurePreferences() {
+    try {
+      const parsed = JSON.parse(window.localStorage.getItem(DISCLOSURE_STORAGE_KEY) || "{}");
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (_error) {
+      return {};
+    }
+  }
+
+  function writeDisclosurePreferences(preferences) {
+    try {
+      window.localStorage.setItem(DISCLOSURE_STORAGE_KEY, JSON.stringify(preferences));
+    } catch (_error) { /* the disclosure state remains valid until reload */ }
+  }
+
+  function disclosureIdentity(details) {
+    if (details.dataset.disclosureId) return details.dataset.disclosureId;
+    const view = details.closest(".tab-panel")?.id.replace(/^panel-/, "") || "console";
+    const ancestor = details.parentElement?.closest("details[data-disclosure-id]")?.dataset.disclosureId || "";
+    const summary = details.querySelector(":scope > summary");
+    const marker = summary?.querySelector(".record-id, .action-item-title, .progress-hold-group-title, code, h2, h3, h4, strong")?.textContent
+      || summary?.firstElementChild?.textContent
+      || summary?.textContent
+      || "details";
+    const context = details.closest("article[id], section[id]")?.id || "";
+    const parts = [view, ancestor, context, layoutSlug(marker)].filter(Boolean);
+    return parts.join("-") || "console-details";
+  }
+
+  function updateDisclosureDefaultButton(button, defaultOpen, label) {
+    button.dataset.defaultOpen = String(defaultOpen);
+    button.setAttribute("aria-pressed", String(defaultOpen));
+    button.textContent = `Default: ${defaultOpen ? "open" : "collapsed"}`;
+    button.setAttribute("aria-label", `${label}: ${defaultOpen ? "open" : "collapsed"} by default. Activate to use ${defaultOpen ? "collapsed" : "open"} by default.`);
+  }
+
+  function refreshDisclosurePreferences(root = document) {
+    const preferences = readDisclosurePreferences();
+    root.querySelectorAll("details").forEach((details) => {
+      if (!details.dataset.disclosureId) details.dataset.disclosureId = disclosureIdentity(details);
+      const key = details.dataset.disclosureId;
+      if (details.dataset.disclosurePreference) return;
+      const summary = details.querySelector(":scope > summary");
+      if (!summary) return;
+      const label = summary.querySelector(".record-id, .action-item-title, .progress-hold-group-title, h2, h3, h4, strong")?.textContent
+        || summary.firstElementChild?.textContent
+        || summary.textContent
+        || "Collapsible container";
+      const defaultOpen = typeof preferences[key] === "boolean" ? preferences[key] : details.open;
+      if (typeof preferences[key] === "boolean") details.open = defaultOpen;
+      const button = element("button", "disclosure-default-toggle");
+      button.type = "button";
+      updateDisclosureDefaultButton(button, defaultOpen, label.trim());
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const nextDefault = button.dataset.defaultOpen !== "true";
+        const current = readDisclosurePreferences();
+        current[key] = nextDefault;
+        writeDisclosurePreferences(current);
+        details.open = nextDefault;
+        updateDisclosureDefaultButton(button, nextDefault, label.trim());
+      });
+      button.addEventListener("keydown", (event) => event.stopPropagation());
+      summary.append(button);
+      details.classList.add("managed-disclosure");
+      details.dataset.disclosurePreference = "true";
+    });
+  }
+
+  function layoutIdentity(node, index) {
+    if (node.dataset.layoutId) return node.dataset.layoutId;
+    if (node.dataset.tab) return `tab-${node.dataset.tab}`;
+    if (node.dataset.subtab) return `subtab-${node.dataset.subtab}`;
+    if (node.dataset.watcherTab) return `watcher-${node.dataset.watcherTab}`;
+    if (node.id) return node.id;
+    const labeled = node.querySelector("[id]");
+    if (labeled?.id) return labeled.id;
+    const stableClass = [...node.classList].find((name) => !["layout-item", "warning", "error", "info"].includes(name));
+    return stableClass ? `${stableClass}-${index}` : `item-${index}`;
+  }
+
+  function layoutSlug(value) {
+    return String(value || "item").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  }
+
+  function layoutItems(config) {
+    return [...config.container.querySelectorAll(config.selector)]
+      .filter((node) => node.parentElement === config.container);
+  }
+
+  function saveLayoutZone(config) {
+    const preferences = readLayoutPreferences();
+    preferences[config.key] = layoutItems(config).map((node) => node.dataset.layoutId);
+    const saved = writeLayoutPreferences(preferences);
+    const status = byId("layout-status");
+    status.textContent = saved
+      ? "Layout saved in this browser."
+      : "This browser did not permit saving; the arrangement will last until reload.";
+  }
+
+  function refreshLayoutHandles(config) {
+    const items = layoutItems(config);
+    items.forEach((item, index) => {
+      item.draggable = layoutEditing;
+      item.classList.add("layout-item");
+      if (["A", "BUTTON", "DETAILS"].includes(item.tagName)) return;
+      let handle = [...item.children].find((child) => child.classList?.contains("layout-handle"));
+      if (!handle) {
+        handle = element("div", "layout-handle");
+        const label = element("span", "", "Drag to rearrange");
+        const actions = element("span", "layout-handle-actions");
+        const previous = element("button", "", config.axis === "horizontal" ? "←" : "↑");
+        const next = element("button", "", config.axis === "horizontal" ? "→" : "↓");
+        previous.type = next.type = "button";
+        previous.setAttribute("aria-label", "Move earlier");
+        next.setAttribute("aria-label", "Move later");
+        previous.addEventListener("click", () => moveLayoutItem(item, -1));
+        next.addEventListener("click", () => moveLayoutItem(item, 1));
+        actions.append(previous, next);
+        handle.append(label, actions);
+        item.prepend(handle);
+      }
+      const buttons = handle.querySelectorAll("button");
+      buttons[0].disabled = index === 0;
+      buttons[1].disabled = index === items.length - 1;
+    });
+  }
+
+  function applyLayoutZone(config) {
+    const items = layoutItems(config);
+    items.forEach((item, index) => { item.dataset.layoutId = layoutIdentity(item, index); });
+    const order = readLayoutPreferences()[config.key];
+    if (Array.isArray(order)) {
+      const byLayoutId = new Map(items.map((item) => [item.dataset.layoutId, item]));
+      order.forEach((id) => {
+        const item = byLayoutId.get(id);
+        if (item) config.container.append(item);
+      });
+      items.filter((item) => !order.includes(item.dataset.layoutId)).forEach((item) => config.container.append(item));
+    }
+    refreshLayoutHandles(config);
+  }
+
+  function moveLayoutItem(item, delta) {
+    const config = [...layoutZones.values()].find((candidate) => candidate.container === item.parentElement);
+    if (!config) return;
+    const items = layoutItems(config);
+    const index = items.indexOf(item);
+    const targetIndex = index + delta;
+    if (targetIndex < 0 || targetIndex >= items.length) return;
+    if (delta < 0) config.container.insertBefore(item, items[targetIndex]);
+    else config.container.insertBefore(items[targetIndex], item);
+    saveLayoutZone(config);
+    refreshLayoutHandles(config);
+  }
+
+  function registerLayoutZone(container, key, selector = ":scope > *", axis = "vertical") {
+    if (!container) return;
+    const config = { container, key, selector, axis };
+    layoutZones.set(key, config);
+    container.classList.add("layout-zone");
+    container.dataset.layoutZone = key;
+    container.dataset.layoutAxis = axis;
+    if (!container.dataset.layoutListeners) {
+      container.addEventListener("dragstart", (event) => {
+        if (!layoutEditing) return;
+        const item = event.target.closest("[data-layout-id]");
+        if (!item || item.parentElement !== container) return;
+        draggedLayoutItem = item;
+        item.classList.add("layout-dragging");
+        event.dataTransfer.effectAllowed = "move";
+      });
+      container.addEventListener("dragover", (event) => {
+        if (!layoutEditing || !draggedLayoutItem || draggedLayoutItem.parentElement !== container) return;
+        const target = event.target.closest("[data-layout-id]");
+        if (!target || target === draggedLayoutItem || target.parentElement !== container) return;
+        event.preventDefault();
+        const rect = target.getBoundingClientRect();
+        const after = axis === "horizontal"
+          ? event.clientX > rect.left + rect.width / 2
+          : event.clientY > rect.top + rect.height / 2;
+        container.insertBefore(draggedLayoutItem, after ? target.nextSibling : target);
+        [...container.querySelectorAll(".layout-drop-target")].forEach((node) => node.classList.remove("layout-drop-target"));
+        target.classList.add("layout-drop-target");
+      });
+      container.addEventListener("dragend", () => {
+        if (draggedLayoutItem?.parentElement === container) saveLayoutZone(config);
+        [...container.querySelectorAll(".layout-dragging, .layout-drop-target")]
+          .forEach((node) => node.classList.remove("layout-dragging", "layout-drop-target"));
+        draggedLayoutItem = null;
+        refreshLayoutHandles(config);
+      });
+      container.addEventListener("keydown", (event) => {
+        if (!layoutEditing || !event.altKey) return;
+        const item = event.target.closest("[data-layout-id]");
+        if (!item || item.parentElement !== container) return;
+        const backwards = event.key === "ArrowLeft" || event.key === "ArrowUp";
+        const forwards = event.key === "ArrowRight" || event.key === "ArrowDown";
+        if (!backwards && !forwards) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        moveLayoutItem(item, backwards ? -1 : 1);
+        item.focus();
+      });
+      container.dataset.layoutListeners = "true";
+    }
+    applyLayoutZone(config);
+  }
+
+  function refreshLayoutZones() {
+    layoutZones.forEach(applyLayoutZone);
+    refreshDisclosurePreferences();
+  }
+
+  function resetLayoutForCurrentView() {
+    const active = document.querySelector('[role="tab"][data-tab][aria-selected="true"]')?.dataset.tab || "overview";
+    const preferences = readLayoutPreferences();
+    Object.keys(preferences).forEach((key) => {
+      if (key.startsWith(`sections-${active}`) || key.startsWith(`cards-${active}`) || key === `subtabs-${active}`) delete preferences[key];
+      if (active === "sources" && key === "watcher-tabs") delete preferences[key];
+    });
+    writeLayoutPreferences(preferences);
+    const disclosures = readDisclosurePreferences();
+    Object.keys(disclosures).forEach((key) => {
+      if (key.startsWith(`${active}-`)) delete disclosures[key];
+    });
+    writeDisclosurePreferences(disclosures);
+    window.location.reload();
+  }
+
+  function initializePersonalLayout() {
+    registerLayoutZone(document.querySelector(".tab-list"), "main-tabs", ":scope > button", "horizontal");
+    ["candidates", "sources", "logs", "publication"].forEach((group) => {
+      registerLayoutZone(document.querySelector(`[data-subtab-group="${group}"]`)?.parentElement, `subtabs-${group}`, ":scope > button", "horizontal");
+    });
+    registerLayoutZone(document.querySelector(".watcher-tab-list"), "watcher-tabs", ":scope > button", "horizontal");
+    registerLayoutZone(document.querySelector(".overview-view"), "sections-overview", ":scope > .overview-section");
+    registerLayoutZone(byId("overview-metrics"), "cards-overview-metrics", ":scope > article");
+    registerLayoutZone(byId("overview-attention"), "cards-overview-attention", ":scope > a");
+    registerLayoutZone(byId("overview-operations"), "cards-overview-operations", ":scope > a");
+    registerLayoutZone(byId("overview-freshness"), "cards-overview-freshness", ":scope > a");
+    registerLayoutZone(byId("progress-sections"), "sections-progress-v2", ":scope > .development-board-section, :scope > .progress-disclosure");
+    registerLayoutZone(byId("progress-summary-grid"), "cards-progress-summary", ":scope > article");
+    registerLayoutZone(byId("action-items-grid"), "cards-actions", ":scope > .action-item-card");
+    registerLayoutZone(document.querySelector(".integrity-view"), "sections-integrity", ":scope > .consistency-audit-review, :scope > .integrity-layout");
+    registerLayoutZone(byId("integrity-metrics"), "cards-integrity-metrics", ":scope > article");
+    registerLayoutZone(byId("consistency-audit-overview"), "cards-integrity-consistency", ":scope > article");
+    registerLayoutZone(byId("source-checker-summary"), "cards-sources-source-checker", ":scope > article");
+    registerLayoutZone(byId("automation-grid"), "cards-automation", ":scope > .automation-card");
+    registerLayoutZone(byId("automation-summary"), "cards-automation-summary", ":scope > article");
+    registerLayoutZone(byId("print-level-summary"), "cards-publication-assignments", ":scope > button", "horizontal");
+    registerLayoutZone(byId("publication-metrics"), "cards-publication-metrics", ":scope > article");
+    registerLayoutZone(document.querySelector(".publication-analysis-view"), "sections-publication", ":scope > .publication-analysis-grid, :scope > section");
+    registerLayoutZone(document.querySelector(".publication-analysis-grid"), "cards-publication-analysis", ":scope > section");
+    registerLayoutZone(document.querySelector(".publication-builder-grid"), "cards-publication-builder", ":scope > section, :scope > aside");
+
+    const toggle = byId("layout-edit-toggle");
+    toggle.addEventListener("click", () => {
+      layoutEditing = !layoutEditing;
+      document.body.classList.toggle("layout-editing", layoutEditing);
+      toggle.setAttribute("aria-pressed", String(layoutEditing));
+      toggle.textContent = layoutEditing ? "Done arranging" : "Arrange layout";
+      byId("layout-status").classList.toggle("is-editing", layoutEditing);
+      byId("layout-status").textContent = layoutEditing
+        ? "Drag highlighted tabs and sections, use the arrow controls, or press Alt plus an arrow key. Changes save automatically."
+        : "Layout preferences are saved in this browser.";
+      refreshLayoutZones();
+    });
+    byId("layout-reset-view").addEventListener("click", resetLayoutForCurrentView);
+    byId("layout-reset-all").addEventListener("click", () => {
+      try {
+        window.localStorage.removeItem(LAYOUT_STORAGE_KEY);
+        window.localStorage.removeItem(DISCLOSURE_STORAGE_KEY);
+      } catch (_error) { /* no-op */ }
+      window.location.reload();
+    });
+  }
+
   function populateSelect(select, values, allLabel) {
     const selected = select.value;
     select.replaceChildren();
@@ -420,21 +730,23 @@
 
   function initializeTabs() {
     const tabs = [...document.querySelectorAll('[role="tab"][data-tab]')];
-    tabs.forEach((tab, index) => {
+    tabs.forEach((tab) => {
       tab.addEventListener("click", () => activateTab(tab.dataset.tab));
       tab.addEventListener("keydown", (event) => {
+        const orderedTabs = [...document.querySelectorAll('[role="tab"][data-tab]')];
+        const index = orderedTabs.indexOf(tab);
         let target = null;
-        if (event.key === "ArrowRight") target = tabs[(index + 1) % tabs.length];
-        if (event.key === "ArrowLeft") target = tabs[(index - 1 + tabs.length) % tabs.length];
-        if (event.key === "Home") target = tabs[0];
-        if (event.key === "End") target = tabs[tabs.length - 1];
+        if (event.key === "ArrowRight") target = orderedTabs[(index + 1) % orderedTabs.length];
+        if (event.key === "ArrowLeft") target = orderedTabs[(index - 1 + orderedTabs.length) % orderedTabs.length];
+        if (event.key === "Home") target = orderedTabs[0];
+        if (event.key === "End") target = orderedTabs[orderedTabs.length - 1];
         if (!target) return;
         event.preventDefault();
         activateTab(target.dataset.tab, true);
       });
     });
     const requested = window.location.hash.replace(/^#/, "").split(":", 1)[0];
-    activateTab(tabs.some((tab) => tab.dataset.tab === requested) ? requested : "progress");
+    activateTab(tabs.some((tab) => tab.dataset.tab === requested) ? requested : "overview");
   }
 
   function activateSectionTab(group, name, focus = false) {
@@ -447,21 +759,24 @@
       byId(tab.getAttribute("aria-controls")).hidden = !active;
     });
     if (focus) selected.focus();
-    if (!window.location.hash.startsWith(`#${group}:${selected.dataset.subtab}`)) {
+    const activeTopLevel = document.querySelector('[role="tab"][data-tab][aria-selected="true"]')?.dataset.tab;
+    if (activeTopLevel === group && !window.location.hash.startsWith(`#${group}:${selected.dataset.subtab}`)) {
       window.history.replaceState(null, "", `#${group}:${selected.dataset.subtab}`);
     }
   }
 
   function initializeSectionTabs(group, fallback) {
     const tabs = [...document.querySelectorAll(`[role="tab"][data-subtab-group="${group}"]`)];
-    tabs.forEach((tab, index) => {
+    tabs.forEach((tab) => {
       tab.addEventListener("click", () => activateSectionTab(group, tab.dataset.subtab));
       tab.addEventListener("keydown", (event) => {
+        const orderedTabs = [...document.querySelectorAll(`[role="tab"][data-subtab-group="${group}"]`)];
+        const index = orderedTabs.indexOf(tab);
         let target = null;
-        if (event.key === "ArrowRight") target = tabs[(index + 1) % tabs.length];
-        if (event.key === "ArrowLeft") target = tabs[(index - 1 + tabs.length) % tabs.length];
-        if (event.key === "Home") target = tabs[0];
-        if (event.key === "End") target = tabs[tabs.length - 1];
+        if (event.key === "ArrowRight") target = orderedTabs[(index + 1) % orderedTabs.length];
+        if (event.key === "ArrowLeft") target = orderedTabs[(index - 1 + orderedTabs.length) % orderedTabs.length];
+        if (event.key === "Home") target = orderedTabs[0];
+        if (event.key === "End") target = orderedTabs[orderedTabs.length - 1];
         if (!target) return;
         event.preventDefault();
         activateSectionTab(group, target.dataset.subtab, true);
@@ -489,14 +804,16 @@
 
   function initializeWatcherTabs() {
     const tabs = [...document.querySelectorAll('[role="tab"][data-watcher-tab]')];
-    tabs.forEach((tab, index) => {
+    tabs.forEach((tab) => {
       tab.addEventListener("click", () => activateWatcherTab(tab.dataset.watcherTab));
       tab.addEventListener("keydown", (event) => {
+        const orderedTabs = [...document.querySelectorAll('[role="tab"][data-watcher-tab]')];
+        const index = orderedTabs.indexOf(tab);
         let target = null;
-        if (event.key === "ArrowRight") target = tabs[(index + 1) % tabs.length];
-        if (event.key === "ArrowLeft") target = tabs[(index - 1 + tabs.length) % tabs.length];
-        if (event.key === "Home") target = tabs[0];
-        if (event.key === "End") target = tabs[tabs.length - 1];
+        if (event.key === "ArrowRight") target = orderedTabs[(index + 1) % orderedTabs.length];
+        if (event.key === "ArrowLeft") target = orderedTabs[(index - 1 + orderedTabs.length) % orderedTabs.length];
+        if (event.key === "Home") target = orderedTabs[0];
+        if (event.key === "End") target = orderedTabs[orderedTabs.length - 1];
         if (!target) return;
         event.preventDefault();
         activateWatcherTab(target.dataset.watcherTab, true);
@@ -616,6 +933,7 @@
 
   function monitoringIssueCard(record) {
     const details = element("details", "monitoring-issue");
+    details.dataset.disclosureId = `progress-monitoring-${record.id}`;
     const summary = element("summary");
     const identity = element("div", "monitoring-identity");
     identity.append(element("span", "record-id", record.id), element("strong", "", record.title));
@@ -688,6 +1006,7 @@
   function courtWatchCard(label, records) {
     const hasUpdate = records.some((record) => reviewSignals.courts.ids.has(record.id));
     const details = element("details", hasUpdate ? "monitoring-issue has-update" : "monitoring-issue");
+    details.dataset.disclosureId = `sources-court-${records[0].owner_id}`;
     const summary = element("summary");
     const identity = element("div", "monitoring-identity");
     identity.append(element("span", "record-id", records[0].owner_id), element("strong", "", label));
@@ -739,6 +1058,102 @@
     byId("court-watch-list").replaceChildren(...orderedGroups.map(([, records]) =>
       courtWatchCard(records[0].monitoring_group || records[0].owner_title, records)
     ));
+  }
+
+  function sourceCheckerRecords() {
+    const sourceIndex = new Map([...data.cited_sources, ...data.pending_sources].map((record) => [record.id, record]));
+    return (Array.isArray(data.source_checker.results) ? data.source_checker.results : []).map((record) => {
+      const source = sourceIndex.get(record.source_id) || {};
+      let domain = "Unknown domain";
+      try { domain = new URL(record.requested_url || record.final_url).hostname; } catch (_error) { /* keep fallback */ }
+      return { ...record, domain, publisher: source.publisher || "", owner_ids: source.record_ids || [] };
+    });
+  }
+
+  function renderSourceChecker() {
+    const report = data.source_checker || {};
+    const records = sourceCheckerRecords();
+    const counts = report.counts || {};
+    const exceptions = records.filter((record) => !["verified", "identity-preserving redirect"].includes(record.classification)).length;
+    byId("source-checker-count").textContent = report.eligible_urls || records.length || 0;
+    byId("source-checker-as-of").textContent = report.checked_at || "Awaiting first run";
+    byId("source-checker-mode").textContent = report.mode ? `Mode: ${report.mode}` : "Awaiting first run";
+    const classificationCards = Object.entries(counts).map(([classification, count]) =>
+      watcherSummaryCard(classification.replace(/(^|[- ])\w/g, (match) => match.toUpperCase()), count, "latest published classification count"));
+    byId("source-checker-summary").replaceChildren(
+      watcherSummaryCard("Eligible URLs", report.eligible_urls || 0, "across configured source catalogs"),
+      watcherSummaryCard("Exceptions", exceptions, "outside verified or identity-preserving redirect"),
+      ...classificationCards
+    );
+    const query = sourceCheckerState.search.toLowerCase();
+    const filtered = records.filter((record) => {
+      if (sourceCheckerState.classification !== "all" && record.classification !== sourceCheckerState.classification) return false;
+      if (sourceCheckerState.domain !== "all" && record.domain !== sourceCheckerState.domain) return false;
+      if (sourceCheckerState.owner !== "all" && !(record.owner_ids || []).includes(sourceCheckerState.owner)) return false;
+      return !query || [record.source_id, record.title, record.publisher, record.requested_url, record.final_url]
+        .filter(Boolean).join(" ").toLowerCase().includes(query);
+    });
+    byId("source-checker-visible").textContent = filtered.length;
+    const host = byId("source-checker-table");
+    if (!records.length) {
+      host.replaceChildren(element("p", "empty-state", "No Source Checker Bot result is available yet. The first successful published run will populate this view."));
+      return;
+    }
+    if (!filtered.length) {
+      host.replaceChildren(element("p", "empty-state", "No source checks match the current filters."));
+      return;
+    }
+    const wrapper = element("div", "source-table-wrap");
+    const table = element("table", "source-table source-checker-table");
+    const head = element("thead");
+    const headRow = element("tr");
+    ["Source", "Classification", "Domain", "HTTP", "Owner issue", "Observed destination"].forEach((label) => headRow.append(element("th", "", label)));
+    head.append(headRow);
+    const body = element("tbody");
+    filtered.sort((left, right) => {
+      const leftVerified = ["verified", "identity-preserving redirect"].includes(left.classification);
+      const rightVerified = ["verified", "identity-preserving redirect"].includes(right.classification);
+      return Number(leftVerified) - Number(rightVerified) || String(left.source_id).localeCompare(String(right.source_id));
+    }).forEach((record) => {
+      const row = element("tr");
+      const source = element("td", "source-title-cell");
+      source.append(element("span", "record-id", record.source_id), element("strong", "", text(record.title, "Untitled source")));
+      const destination = element("td", "source-link-cell");
+      destination.append(record.final_url ? inlineLink("Open ↗", record.final_url) : element("span", "muted", text(record.error, "Unavailable")));
+      row.append(
+        source,
+        element("td", "", text(record.classification)),
+        element("td", "", record.domain),
+        element("td", "", record.status_code == null ? "—" : String(record.status_code)),
+        element("td", "", (record.owner_ids || []).join(" · ") || "—"),
+        destination
+      );
+      body.append(row);
+    });
+    table.append(head, body); wrapper.append(table); host.replaceChildren(wrapper);
+  }
+
+  async function refreshLiveSourceChecker() {
+    try {
+      const response = await fetch(LIVE_SOURCE_CHECKER_URL, { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      if (!payload || !Array.isArray(payload.results)) throw new Error("Invalid Source Checker payload");
+      data.source_checker = payload;
+      populateSourceCheckerFilters();
+      renderSourceChecker();
+      renderIntegrity();
+      byId("source-checker-live-note").textContent = "Source Checker Bot data refreshed from the published Console data branch.";
+    } catch (_error) {
+      byId("source-checker-live-note").textContent = "Published Source Checker Bot data is not available yet; the checked-in snapshot remains shown.";
+    }
+  }
+
+  function populateSourceCheckerFilters() {
+    const records = sourceCheckerRecords();
+    populateSelect(byId("source-checker-classification"), [...new Set(records.map((record) => record.classification))], "All classifications");
+    populateSelect(byId("source-checker-domain"), [...new Set(records.map((record) => record.domain))], "All domains");
+    populateSelect(byId("source-checker-owner"), [...new Set(records.flatMap((record) => record.owner_ids || []))], "All owner issues");
   }
 
   function directiveSearchText(record) {
@@ -866,7 +1281,11 @@
     const state = logStates[logId];
     if (!log || !state) return;
     const query = state.search.toLowerCase();
-    const filtered = log.entries.filter((entry) => !query || String(entry.search_text || "").toLowerCase().includes(query));
+    const filtered = log.entries.filter((entry) => {
+      if (query && !String(entry.search_text || "").toLowerCase().includes(query)) return false;
+      return Object.entries(state.filters || {}).every(([key, selected]) =>
+        selected === "all" || String((entry.values || {})[key] || "Not recorded") === selected);
+    });
     const render = () => renderProjectLog(logId);
     const ordered = sortedRecords(filtered, state, (entry, key) => (entry.values || {})[key]);
     byId(`log-${logId}-visible`).textContent = ordered.length;
@@ -926,6 +1345,7 @@
 
   function watcherSummaryCard(label, value, detail) {
     const card = element("article", "watcher-summary-card");
+    card.dataset.layoutId = `metric-${layoutSlug(label)}`;
     card.append(element("span", "eyebrow", label), element("strong", "", String(value)), element("p", "", detail));
     return card;
   }
@@ -967,16 +1387,45 @@
     activateTab(parts[0]);
     if (parts[0] === "candidates" && parts[1]) activateSectionTab("candidates", parts[1]);
     if (parts[0] === "sources" && parts[1]) activateSectionTab("sources", parts[1]);
+    if (parts[0] === "logs" && parts[1]) activateSectionTab("logs", parts[1]);
+    if (parts[0] === "publication" && parts[1]) activateSectionTab("publication", parts[1]);
     if (parts[0] === "sources" && parts[1] === "watchers" && parts[2]) activateWatcherTab(parts[2]);
-    byId(`panel-${parts[0]}`).scrollIntoView({ behavior: "smooth", block: "start" });
+    let destination = byId(`panel-${parts[0]}`);
+    if (parts[0] === "progress" && parts[1]) {
+      const section = byId(`progress-${parts[1]}`);
+      if (section?.tagName === "DETAILS") section.open = true;
+      if (section) destination = section;
+    }
+    destination.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function actionItemCard({ label, count, detail, target, updateCount = 0, externalUrl = "" }) {
-    const card = element("article", `action-item-card${updateCount ? " has-update" : ""}`);
+  function navigateFromHash() {
+    const target = window.location.hash.replace(/^#/, "");
+    if (!target || !byId(`panel-${target.split(":")[0]}`)) return;
+    navigateToConsoleTarget(target);
+  }
+
+  function actionItemCard({ label, count, detail, target, updateCount = 0, externalUrl = "", items = [] }) {
+    const card = element("details", `action-item-card${updateCount ? " has-update" : ""}${items.length > 4 ? " dense" : ""}`);
+    const identity = `action-${layoutSlug(label)}`;
+    card.dataset.layoutId = identity;
+    card.dataset.disclosureId = `actions-${layoutSlug(label)}`;
+    const summary = element("summary", "action-item-summary");
     const heading = element("div", "action-item-heading");
-    heading.append(element("h3", "", label), element("strong", "action-item-count", String(count)));
+    heading.append(element("span", "action-item-title", label), element("strong", "action-item-count", String(count)));
     if (updateCount) heading.append(element("span", "tab-update-count action-update-count", `+${updateCount} new/updated`));
-    card.append(heading, element("p", "", detail));
+    summary.append(heading);
+    card.append(summary, element("p", "", detail));
+    if (items.length) {
+      const list = element("ol", "action-item-detail-list");
+      items.forEach((item) => {
+        const row = element("li");
+        if (item && typeof item === "object" && item.href) row.append(inlineLink(item.label, item.href));
+        else row.textContent = typeof item === "object" ? item.label : item;
+        list.append(row);
+      });
+      card.append(list);
+    }
     const actions = element("div", "action-item-links");
     const open = element("a", "record-link secondary", "Open full view →");
     open.href = `#${target}`;
@@ -996,13 +1445,216 @@
     return card;
   }
 
+  function integrityFindingNeedsHuman(finding) {
+    if (finding.attention === "human") return true;
+    const message = String(finding.message || "").toLowerCase();
+    return ["workflow_hold_reason", "missing explanation", "lacks an explanation", "missing reason", "lacks a reason", "human approval", "human decision", "human review required"]
+      .some((signal) => message.includes(signal));
+  }
+
+  function workflowHoldRecords() {
+    const proposals = Array.isArray(data.progress?.proposals) ? data.progress.proposals : [];
+    const candidates = data.active_horizon_records.map((record) => ({
+      identifier: record.id,
+      title: record.title,
+      developmentLevel: record.development_level,
+      workflowStatus: record.workflow_status,
+      nextAudit: record.next_audit,
+      canonicalRecord: "",
+      url: record.issue_url,
+      explanation: (record.horizon_history || {}).rationale || "",
+      followUp: (record.horizon_history || {}).follow_up || ""
+    }));
+    return [...candidates, ...proposals].filter((record) =>
+      ["Deferred / Parked", "Blocked", "Awaiting decision"].includes(record.workflowStatus));
+  }
+
+  function stableProblemReference(problem) {
+    const identity = [problem.category, problem.path, problem.source_id, problem.owner_ids, problem.message]
+      .flat().filter(Boolean).join("|");
+    let hash = 2166136261;
+    for (let index = 0; index < identity.length; index += 1) {
+      hash ^= identity.charCodeAt(index);
+      hash = Math.imul(hash, 16777619);
+    }
+    return `PRB-${(hash >>> 0).toString(16).toUpperCase().padStart(8, "0")}`;
+  }
+
+  function allProblemRecords(feed = data.integrity) {
+    const current = feed && typeof feed.current === "object" ? feed.current : {};
+    const problems = [];
+    const add = (problem) => {
+      const normalized = {
+        category: problem.category || "Project structure",
+        severity: problem.severity || "warning",
+        attention: problem.attention || "agent",
+        owner: problem.owner || (problem.attention === "human" ? "Human" : "Elim"),
+        status: problem.status || "Open",
+        detected_at: problem.detected_at || current.generated_at || data.generated_at,
+        checked_at: problem.checked_at || current.generated_at || data.generated_at,
+        ...problem
+      };
+      normalized.reference = problem.reference || stableProblemReference(normalized);
+      problems.push(normalized);
+    };
+
+    (Array.isArray(current.findings) ? current.findings : []).forEach((finding) => add({
+      ...finding,
+      attention: integrityFindingNeedsHuman(finding) ? "human" : (finding.attention || "agent"),
+      owner: integrityFindingNeedsHuman(finding) ? "Human" : (finding.owner || "Elim"),
+      status: finding.status || "Open"
+    }));
+
+    sourceCheckerRecords()
+      .filter((record) => ["broken", "identity mismatch", "review required"].includes(record.classification))
+      .forEach((record) => add({
+        category: "Source integrity",
+        severity: ["broken", "identity mismatch"].includes(record.classification) ? "error" : "warning",
+        attention: "agent",
+        owner: "Elim",
+        status: "Pending remediation",
+        source_id: record.source_id,
+        source_url: record.final_url || record.requested_url || "",
+        owner_ids: record.owner_ids || [],
+        message: `${record.classification}: ${record.error || "the observed URL or identity requires review against the cataloged source."}`,
+        detected_at: data.source_checker.generated_at,
+        checked_at: data.source_checker.generated_at
+      }));
+
+    (data.active_horizon_records || []).forEach((record) => {
+      (record.dossier_gaps || []).forEach((gap) => add({
+        category: "Candidate dossier completeness",
+        severity: "info",
+        attention: "agent",
+        owner: "Elim",
+        status: "Pending candidate work",
+        owner_ids: [record.id],
+        source_url: record.issue_url,
+        message: `${record.id}: ${gap}`,
+        detected_at: data.github_synced_at,
+        checked_at: data.github_synced_at
+      }));
+    });
+
+    (Array.isArray(data.progress?.warnings) ? data.progress.warnings : []).forEach((warning) => add({
+      category: "Project tracking",
+      severity: "warning",
+      attention: "agent",
+      owner: "Elim",
+      status: "Open",
+      message: typeof warning === "string" ? warning : (warning.message || JSON.stringify(warning)),
+      source_url: "https://github.com/users/Thorncrag/projects/2",
+      detected_at: data.progress.generatedAt || data.progress.asOf,
+      checked_at: data.progress.generatedAt || data.progress.asOf
+    }));
+
+    (data.progress?.proposals || [])
+      .filter((record) => record.workflowStatus === "Awaiting decision")
+      .forEach((record) => add({
+        category: "Lifecycle classification",
+        severity: "info",
+        attention: "agent",
+        owner: "Elim",
+        status: "Foundation check pending",
+        owner_ids: [record.identifier],
+        message: `${record.identifier} is contained at Awaiting decision pending Elim's four-criterion foundation-sufficiency check; it should reach the human inbox only if a genuine unresolved foundation remains.`,
+        source_url: record.canonicalRecord ? `${GITHUB_BLOB_ROOT}${record.canonicalRecord}` : record.url,
+        detected_at: data.progress.generatedAt || data.progress.asOf,
+        checked_at: data.progress.generatedAt || data.progress.asOf
+      }));
+
+    const currentFindingText = (Array.isArray(current.findings) ? current.findings : [])
+      .map((finding) => String(finding.message || "").toLowerCase());
+    workflowHoldRecords()
+      .filter((record) => !String(record.explanation || "").trim())
+      .filter((record) => !currentFindingText.some((message) =>
+        message.includes(String(record.identifier).toLowerCase())
+          && /workflow_hold_reason|explanation|reason/.test(message)))
+      .forEach((record) => add({
+        category: "Workflow explanation",
+        severity: "warning",
+        attention: "human",
+        owner: "Human",
+        status: "Explanation required",
+        owner_ids: [record.identifier],
+        message: `${record.identifier} is ${record.workflowStatus} but has no recorded explanation or reason; the project must not infer one.`,
+        source_url: record.canonicalRecord ? `${GITHUB_BLOB_ROOT}${record.canonicalRecord}` : record.url,
+        detected_at: data.progress.generatedAt || data.progress.asOf,
+        checked_at: data.progress.generatedAt || data.progress.asOf
+      }));
+
+    const dispositions = data.publication?.disposition_counts || {};
+    if (Number(dispositions.unclassified || 0)) add({
+      category: "Publication metadata",
+      severity: "error",
+      attention: "agent",
+      owner: "Elim",
+      status: "Open",
+      message: `${dispositions.unclassified} publication-controlled page${dispositions.unclassified === 1 ? " is" : "s are"} unclassified.`,
+      source_url: "#publication:assignments"
+    });
+    if (Number(dispositions.conflict || 0)) add({
+      category: "Publication metadata",
+      severity: "error",
+      attention: "agent",
+      owner: "Elim",
+      status: "Open",
+      message: `${dispositions.conflict} page${dispositions.conflict === 1 ? " has" : "s have"} conflicting publication metadata.`,
+      source_url: "#publication:assignments"
+    });
+
+    if (!data.source_checker.generated_at) add({
+      category: "Operational readiness",
+      severity: "info",
+      attention: "observed",
+      owner: "source-checker-bot",
+      status: "Baseline not established",
+      message: "Source Checker Bot has no complete Console baseline yet; its configured report-only pilot remains visible for oversight.",
+      source_url: "#sources:watchers:source-checker"
+    });
+
+    data.agent_registry
+      .filter((agent) => !/^enabled$/i.test(agent.status || ""))
+      .forEach((agent) => add({
+        category: "Operational readiness",
+        severity: "info",
+        attention: "observed",
+        owner: agent.id,
+        status: agent.status,
+        message: `${agent.name} is ${String(agent.status).replaceAll("-", " ")}.`,
+        source_url: agent.runbook_url
+      }));
+
+    return problems.sort((left, right) => {
+      const severityOrder = { error: 0, warning: 1, info: 2 };
+      return (severityOrder[left.severity] ?? 3) - (severityOrder[right.severity] ?? 3)
+        || left.category.localeCompare(right.category)
+        || left.reference.localeCompare(right.reference);
+    });
+  }
+
+  function integrityActionLink(finding) {
+    const message = String(finding.message || "Integrity finding requires review");
+    const identifier = message.match(/\b(?:HOR|[A-Z]{2,})-\d{3}\b/)?.[0] || "";
+    const proposal = (data.progress?.proposals || []).find((record) => record.identifier === identifier);
+    const candidate = (data.active_horizon_records || []).find((record) => record.id === identifier);
+    const canonical = String(proposal?.canonicalRecord || "").trim();
+    const href = finding.source_url || (canonical ? `${GITHUB_BLOB_ROOT}${canonical}` : (proposal?.url || candidate?.issue_url || ""));
+    return { label: `${finding.reference || "Problem"}: ${message}`, href };
+  }
+
   function renderActionItems() {
-    const formal = formalCandidatesAwaitingReview().length;
+    const formalRecords = formalCandidatesAwaitingReview();
+    const formal = formalRecords.length;
     const preliminary = data.records.length;
     const pending = data.pending_sources.length;
     const courtUpdates = reviewSignals.courts.count;
     const directiveUpdates = reviewSignals.directives.count;
-    const total = formal + preliminary + pending + courtUpdates + directiveUpdates;
+    const integrityHumanFindings = allProblemRecords()
+      .filter((finding) => finding.attention === "human")
+      .sort((left, right) => String(left.message || "").localeCompare(String(right.message || "")));
+    const integrityHuman = integrityHumanFindings.length;
+    const total = formal + preliminary + pending + courtUpdates + directiveUpdates + integrityHuman;
     const newOrUpdated = preliminary + courtUpdates + directiveUpdates;
     byId("tab-actions-count").textContent = total;
     byId("action-items-note").textContent = total
@@ -1010,23 +1662,35 @@
       : "No items currently await review or a decision.";
     byId("action-items-grid").replaceChildren(
       actionItemCard({
+        label: "Integrity decisions requiring you",
+        count: integrityHuman,
+        detail: integrityHuman
+          ? `${integrityHuman} Integrity finding${integrityHuman === 1 ? " requires" : "s require"} a reserved human decision or approval.`
+          : "No Integrity finding currently requires a reserved human decision.",
+        target: "integrity",
+        items: integrityHumanFindings.map(integrityActionLink)
+      }),
+      actionItemCard({
         label: "Proposed candidates",
         count: formal,
         detail: "Open candidate records awaiting admission, merger, rejection, or another substantive decision; deferred records are excluded.",
-        target: "candidates:formal"
+        target: "candidates:formal",
+        items: formalRecords.map((record) => ({ label: `ACT-${record.id}: ${record.title}`, href: record.issue_url }))
       }),
       actionItemCard({
         label: "Preliminary candidates",
         count: preliminary,
         updateCount: preliminary,
         detail: preliminary ? "New synthesized institutional questions awaiting human intake review." : "No preliminary intake questions await review.",
-        target: "candidates:preliminary"
+        target: "candidates:preliminary",
+        items: data.records.map((record) => ({ label: `ACT-${record.id}: ${record.title}`, href: record.links?.[0]?.url || "#candidates:preliminary" }))
       }),
       actionItemCard({
         label: "Pending source routing",
         count: pending,
         detail: pending ? "Sources still requiring a choice among plausible project destinations." : "No source-routing decisions are pending.",
-        target: "sources:pending"
+        target: "sources:pending",
+        items: data.pending_sources.map((record) => ({ label: `ACT-${record.id}: ${record.title}`, href: record.url }))
       }),
       actionItemCard({
         label: "Court-case updates",
@@ -1045,6 +1709,7 @@
         externalUrl: reviewSignals.directives.url
       })
     );
+    refreshLayoutZones();
   }
 
   function parseCount(body, label) {
@@ -1217,6 +1882,7 @@
     const recognized = new Set(DEVELOPMENT_LEVELS);
     const unassigned = records.filter((record) => !recognized.has(record.developmentLevel));
     const board = byId("development-board");
+    const warning = byId("development-board-warning");
     board.replaceChildren(...DEVELOPMENT_LEVELS.map((level) => {
       const column = element("section", "development-column");
       const stageRecords = records
@@ -1225,15 +1891,73 @@
       const heading = element("div", "development-column-heading");
       heading.append(element("h4", "", level), element("span", "count-pill", stageRecords.length));
       const list = element("div", "development-card-list");
-      list.replaceChildren(...stageRecords.map(developmentBoardCard));
+      list.replaceChildren(...(stageRecords.length
+        ? stageRecords.map(developmentBoardCard)
+        : [element("p", "development-column-empty", "No current records")]));
       column.append(heading, list);
       return column;
     }));
-    const warning = byId("development-board-warning");
+    const uniqueIdentifiers = new Set(records.map((record) => record.identifier));
+    const placed = records.length - unassigned.length;
+    if (uniqueIdentifiers.size !== records.length) {
+      byId("development-board-accounting").textContent = `${records.length} current rows loaded (${candidates.length} candidates and ${proposals.length} proposals), but identifier duplication prevents exact accounting.`;
+      warning.hidden = false;
+      warning.textContent = `${records.length - uniqueIdentifiers.size} duplicate identifier entr${records.length - uniqueIdentifiers.size === 1 ? "y" : "ies"} detected; rebuild the Console data after correcting the source records.`;
+      return;
+    }
+    byId("development-board-accounting").textContent = unassigned.length
+      ? `${placed} of ${records.length} current records are placed exactly once; ${unassigned.length} require Development level correction.`
+      : `${records.length} current records represented exactly once across the six columns (${candidates.length} candidates and ${proposals.length} proposals).`;
     warning.hidden = unassigned.length === 0;
     warning.textContent = unassigned.length
       ? `${unassigned.length} record${unassigned.length === 1 ? " has" : "s have"} no recognized Development level and cannot be placed on the board.`
       : "";
+  }
+
+  function renderProgressHolds(snapshot) {
+    const records = workflowHoldRecords();
+    const groups = [
+      ["Deferred / Parked", "Deferred or parked"],
+      ["Blocked", "Blocked"],
+      ["Awaiting decision", "Awaiting decision"]
+    ];
+    const host = byId("progress-holds");
+    byId("progress-holds-count").textContent = records.length;
+    host.replaceChildren(...groups.map(([status, label]) => {
+      const section = element("details", "progress-hold-group");
+      section.dataset.disclosureId = `progress-hold-list-${layoutSlug(status)}`;
+      const matching = records.filter((record) => record.workflowStatus === status)
+        .sort((left, right) => left.identifier.localeCompare(right.identifier));
+      const heading = element("summary", "section-heading-row");
+      const title = element("span", "progress-hold-group-title", label);
+      heading.append(title, element("span", "count-pill", matching.length));
+      section.append(heading);
+      if (!matching.length) {
+        section.append(element("p", "development-column-empty", "No current records"));
+        return section;
+      }
+      const list = element("div", "progress-hold-list");
+      matching.forEach((record) => {
+        const card = element("article", "progress-hold-card");
+        const header = element("div", "progress-hold-header");
+        header.append(element("strong", "record-id", record.identifier), element("span", "badge formal", text(record.developmentLevel, "Development level unavailable")), element("span", "badge", status));
+        const explanation = String(record.explanation || "").trim();
+        const nextAction = String(record.followUp || record.nextAudit || "").trim();
+        card.append(
+          header,
+          element("h5", "", text(record.title, record.identifier)),
+          dossierSection("Explanation / reason", explanation || "Missing: no explanation is available in the current authoritative Project or canonical metadata.", explanation ? "wide" : "wide warning"),
+          dossierSection("Next trigger / action", nextAction && nextAction !== "Not recorded" ? nextAction : "Missing: no next trigger or action is recorded.", nextAction && nextAction !== "Not recorded" ? "wide" : "wide warning")
+        );
+        const links = element("div", "source-list compact-links");
+        const liveUrl = proposalLiveUrl(record);
+        if (liveUrl) links.append(linkButton("Live", liveUrl, true));
+        if (record.url) links.append(linkButton("Issue", record.url, true));
+        card.append(links); list.append(card);
+      });
+      section.append(list); return section;
+    }));
+    refreshDisclosurePreferences(host);
   }
 
   function renderProgress() {
@@ -1241,7 +1965,6 @@
     const metrics = snapshot.metrics || {};
     const goal = snapshot.goal || {};
     const areas = Array.isArray(snapshot.areas) ? snapshot.areas : [];
-    const backlog = Array.isArray(snapshot.backlog) ? snapshot.backlog : [];
     byId("progress-as-of").textContent = snapshot.asOf || "Unavailable";
     byId("tab-progress-count").textContent = metrics.ready ?? 0;
 
@@ -1250,10 +1973,12 @@
         progressMetric("Progress unavailable", "—", "Refresh the Project Console progress data and rebuild this console.")
       );
       byId("progress-status-note").textContent = "No Project Console progress snapshot is available.";
+      byId("progress-schedule-summary").textContent = "Progress data unavailable";
+      byId("progress-area-summary").textContent = "Area data unavailable";
       renderProgressTrajectory(snapshot);
       byId("progress-area-list").replaceChildren(element("p", "muted", "Area data unavailable."));
-      byId("progress-backlog-list").replaceChildren(element("p", "muted", "Backlog data unavailable."));
       byId("development-board").replaceChildren(element("p", "muted", "Development-level data unavailable."));
+      renderProgressHolds(snapshot);
       return;
     }
 
@@ -1266,16 +1991,19 @@
     );
     const percent = Math.max(0, Math.min(100, Number(metrics.percentReady) || 0));
     byId("progress-status-note").textContent = `${metrics.trackStatus || "Status unavailable"} · ${percent}% of the current active portfolio is Review Ready or higher · ${metrics.scheduleVariance >= 0 ? `${metrics.scheduleVariance} ahead of` : `${Math.abs(metrics.scheduleVariance)} behind`} the required path.`;
+    byId("progress-schedule-summary").textContent = `${percent}% ready · ${metrics.trackStatus || "schedule status unavailable"}`;
+    byId("progress-area-summary").textContent = `${areas.length} areas · ${metrics.ready} of ${metrics.total} eligible proposals ready`;
     byId("progress-fill").style.width = `${percent}%`;
     byId("progress-track").setAttribute("aria-valuenow", String(percent));
     renderProgressTrajectory(snapshot);
     renderDevelopmentBoard(snapshot);
+    renderProgressHolds(snapshot);
 
     const areaRows = [...areas].sort((left, right) => right.remaining - left.remaining || left.area.localeCompare(right.area));
     byId("progress-area-list").replaceChildren(...areaRows.map((area) => {
       const row = element("div", "progress-area-row");
       const identity = element("div", "progress-area-identity");
-      identity.append(element("strong", "", area.area), element("span", "", `${area.ready} of ${area.total} ready`));
+      identity.append(element("strong", "", area.area), element("span", "", `${area.ready}/${area.total} ready`));
       const bar = element("div", "mini-progress-track");
       const fill = element("span");
       fill.style.width = `${Math.max(0, Math.min(100, Number(area.percentReady) || 0))}%`;
@@ -1283,20 +2011,131 @@
       row.append(identity, bar, element("span", "progress-area-percent", `${area.percentReady}%`));
       return row;
     }));
+    renderOverview();
+  }
 
-    const closest = backlog.filter((record) => !record.ready).slice(0, 15);
-    byId("progress-backlog-list").replaceChildren(...closest.map((record) => {
-      const row = element("article", "progress-backlog-row");
-      const heading = element("div");
-      heading.append(
-        inlineLink(record.identifier, record.url),
-        element("span", "", `${record.area} · ${record.developmentLevel} · ${record.workflowStatus}`)
-      );
-      const score = element("strong", "", record.score == null ? "Unscored" : String(record.score));
-      row.append(heading, score);
-      if (record.nextAudit) row.append(element("p", "", record.nextAudit));
-      return row;
+  function overviewCard(label, value, detail, target, tone = "") {
+    const card = element("a", `overview-card ${tone}`.trim());
+    card.dataset.layoutId = `overview-${layoutSlug(label)}`;
+    card.href = `#${target}`;
+    card.append(element("span", "eyebrow", label), element("strong", "", String(value)), element("p", "", detail));
+    return card;
+  }
+
+  function freshnessCard(label, value, target, thresholdHours = 48) {
+    const card = element("a", "freshness-card overview-card");
+    card.dataset.layoutId = `freshness-${layoutSlug(label)}`;
+    card.href = `#${target}`;
+    const parsed = Date.parse(value || "");
+    const ageHours = Number.isFinite(parsed) ? Math.max(0, (Date.now() - parsed) / 3600000) : null;
+    const state = ageHours == null ? "missing" : ageHours > thresholdHours ? "stale" : "current";
+    card.classList.add(state);
+    const description = ageHours == null
+      ? "No baseline available"
+      : ageHours < 1 ? "Updated within the last hour"
+        : `${Math.round(ageHours)} hours old`;
+    card.append(element("strong", "", label), element("p", "", state === "current" ? "Current" : state === "stale" ? "May be stale" : "Not established"), element("time", "", value ? formatDate(value) : description));
+    card.title = description;
+    return card;
+  }
+
+  function renderOverview() {
+    if (!byId("overview-metrics")) return;
+    const metrics = data.progress?.metrics || {};
+    const problems = allProblemRecords();
+    const humanProblems = problems.filter((problem) => problem.attention === "human").length;
+    const formal = formalCandidatesAwaitingReview().length;
+    const actionCount = humanProblems + formal + data.records.length + data.pending_sources.length
+      + reviewSignals.courts.count + reviewSignals.directives.count;
+    const dispositions = data.publication?.disposition_counts || {};
+    const publicationExceptions = Number(dispositions.unclassified || 0) + Number(dispositions.conflict || 0);
+    const currentRecordCount = (data.progress?.proposals || []).length + data.active_horizon_records.length;
+    byId("overview-generated-at").textContent = formatDate(data.generated_at);
+    byId("tab-overview-count").textContent = currentRecordCount;
+    byId("overview-metrics").replaceChildren(
+      watcherSummaryCard("Current records", currentRecordCount, `${(data.progress?.proposals || []).length} proposals plus ${data.active_horizon_records.length} active candidates in this build`),
+      watcherSummaryCard("Review Ready", metrics.ready ?? "—", `of ${metrics.total ?? "—"} eligible proposals`),
+      watcherSummaryCard("Remaining", metrics.remaining ?? "—", metrics.trackStatus || "Schedule unavailable"),
+      watcherSummaryCard("Human actions", actionCount, "decisions and reviews assigned to you"),
+      watcherSummaryCard("All problems", problems.length, `${problems.filter((problem) => problem.severity !== "info").length} errors or warnings`),
+      watcherSummaryCard("Monitored issues", data.monitoring_issues.length, "defined external predicates")
+    );
+    byId("overview-attention").replaceChildren(
+      overviewCard("Needs you", actionCount, "Human review, disposition, routing, or approval", "actions", actionCount ? "warning" : ""),
+      overviewCard("Problems", problems.length, `${humanProblems} human · ${problems.filter((problem) => problem.attention === "agent").length} agent · ${problems.filter((problem) => problem.attention === "observed").length} observed`, "integrity", problems.some((problem) => problem.severity === "error") ? "error" : ""),
+      overviewCard("Publication exceptions", publicationExceptions, publicationExceptions ? "Unclassified or conflicting page metadata" : "Every controlled page is classified", "publication:assignments", publicationExceptions ? "error" : "")
+    );
+
+    const proposalDistribution = new Map((data.progress?.developmentLevelDistribution || []).map((record) => [record.level, Number(record.count) || 0]));
+    proposalDistribution.set("Candidate", data.active_horizon_records.length);
+    const maxCount = Math.max(1, ...DEVELOPMENT_LEVELS.map((level) => proposalDistribution.get(level) || 0));
+    byId("overview-pipeline").replaceChildren(...DEVELOPMENT_LEVELS.map((level) => {
+      const count = proposalDistribution.get(level) || 0;
+      const stage = element("div", "pipeline-stage");
+      const bar = element("div", "pipeline-stage-bar", String(count));
+      bar.style.height = `${Math.max(1.5, 7 * count / maxCount)}rem`;
+      stage.append(bar, element("span", "", level));
+      return stage;
     }));
+
+    const enabledAgents = data.agent_registry.filter((agent) => /^enabled$/i.test(agent.status)).length;
+    const sourceResults = sourceCheckerRecords().length;
+    byId("overview-operations").replaceChildren(
+      overviewCard("Agents and bots", data.agent_registry.length, `${enabledAgents} enabled · ${data.agent_registry.length - enabledAgents} paused or pilot`, "automation"),
+      overviewCard("Issues monitored", data.monitoring_issues.length, "Project records with a defined monitoring predicate", "progress:monitoring"),
+      overviewCard("Watcher updates", reviewSignals.courts.count + reviewSignals.directives.count, "Detected external changes awaiting review", "sources:watchers", reviewSignals.courts.count + reviewSignals.directives.count ? "warning" : ""),
+      overviewCard("Source-check baseline", sourceResults || "—", sourceResults ? `${sourceResults} URLs represented in the latest run` : "Full baseline not yet established", "sources:watchers:source-checker", sourceResults ? "" : "warning")
+    );
+    byId("overview-freshness").replaceChildren(
+      freshnessCard("Console bundle", data.generated_at, "overview"),
+      freshnessCard("GitHub Project", data.github_synced_at, "progress"),
+      freshnessCard("Progress feed", data.progress.generatedAt || data.progress.asOf, "progress"),
+      freshnessCard("Integrity feed", data.integrity?.current?.generated_at, "integrity"),
+      freshnessCard("Source checks", data.source_checker.generated_at, "sources:watchers:source-checker", 192)
+    );
+    refreshLayoutZones();
+  }
+
+  function automationStatusClass(status) {
+    if (/^enabled$/i.test(status)) return "enabled";
+    if (/pilot/i.test(status)) return "pilot";
+    if (/paused/i.test(status)) return "paused";
+    return "";
+  }
+
+  function renderAutomation() {
+    const records = data.agent_registry;
+    const enabled = records.filter((record) => /^enabled$/i.test(record.status)).length;
+    const agents = records.filter((record) => /llm-agent/i.test(record.type)).length;
+    const bots = records.filter((record) => /bot/i.test(record.type)).length;
+    byId("tab-automation-count").textContent = records.length;
+    byId("automation-summary").replaceChildren(
+      integrityMetric("Registered", records.length, "persistent named workers"),
+      integrityMetric("Enabled", enabled, "currently enabled runbooks"),
+      integrityMetric("Agents", agents, "LLM-directed workers"),
+      integrityMetric("Bots", bots, "deterministic programs")
+    );
+    byId("automation-grid").replaceChildren(...records.map((record) => {
+      const card = element("article", "automation-card");
+      card.dataset.layoutId = `automation-${record.id}`;
+      const header = element("div", "automation-card-header");
+      header.append(element("h3", "", record.name), element("span", `status-badge ${automationStatusClass(record.status)}`, String(record.status).replaceAll("-", " ")));
+      const details = element("dl");
+      [
+        ["Identity", record.id],
+        ["Type", record.type.replaceAll("-", " ")],
+        ["Trigger", record.trigger.replaceAll("-", " ")],
+        ["Schedule", record.schedule || "Event or manual only"],
+        ["Environment", record.execution_environment.replaceAll("-", " ")],
+        ["Runtime", record.runtime_id]
+      ].forEach(([label, value]) => details.append(element("dt", "", label), element("dd", "", value || "Not recorded")));
+      const links = element("div", "source-list dossier-actions");
+      links.append(linkButton("Open runbook ↗", record.runbook_url, true));
+      if (record.runtime_url) links.append(linkButton("Open runtime ↗", record.runtime_url, true));
+      card.append(header, element("p", "", record.description || "Authoritative operating configuration."), details, links);
+      return card;
+    }));
+    refreshLayoutZones();
   }
 
   async function refreshLiveProgress() {
@@ -1306,6 +2145,9 @@
       const snapshot = await response.json();
       if (!snapshot || typeof snapshot !== "object" || !snapshot.metrics
           || !Array.isArray(snapshot.proposals) || Number(snapshot.schemaVersion || 0) < 2) return;
+      const embeddedAt = Date.parse(data.progress?.generatedAt || data.progress?.asOf || "");
+      const liveAt = Date.parse(snapshot.generatedAt || snapshot.asOf || "");
+      if (Number.isFinite(embeddedAt) && (!Number.isFinite(liveAt) || liveAt < embeddedAt)) return;
       data.progress = snapshot;
       renderProgress();
     } catch (_error) {
@@ -1315,6 +2157,7 @@
 
   function integrityMetric(label, value, detail) {
     const card = element("article", "integrity-metric");
+    card.dataset.layoutId = `metric-${layoutSlug(label)}`;
     card.append(element("span", "", label), element("strong", "", String(value)), element("p", "", detail));
     return card;
   }
@@ -1338,7 +2181,7 @@
     );
     host.replaceChildren(...entries.map((entry, index) => {
       const panel = element("details", "consistency-audit-finding");
-      panel.open = index === 0;
+      panel.dataset.disclosureId = `integrity-consistency-${layoutSlug(entry.title || index)}`;
       const summary = element("summary");
       const disposition = entry.disposition || "Open";
       const dispositionClass = /^corrected$/i.test(disposition) ? "ready" : /^partially/i.test(disposition) ? "warning" : "blocker";
@@ -1365,21 +2208,37 @@
   function renderIntegrity(feed = data.integrity) {
     const current = feed && typeof feed.current === "object" ? feed.current : {};
     const counts = current.counts || {};
-    const findings = Array.isArray(current.findings) ? current.findings : [];
+    const baseFindings = Array.isArray(current.findings) ? current.findings : [];
+    const problems = allProblemRecords(feed);
+    const query = problemState.search.toLowerCase();
+    const findings = problems.filter((finding) => {
+      if (problemState.attention !== "all" && finding.attention !== problemState.attention) return false;
+      if (problemState.severity !== "all" && finding.severity !== problemState.severity) return false;
+      if (problemState.status !== "all" && finding.status !== problemState.status) return false;
+      if (!query) return true;
+      return [finding.reference, finding.category, finding.message, finding.owner, finding.status,
+        finding.path, finding.source_id, ...(finding.owner_ids || [])]
+        .filter(Boolean).join(" ").toLowerCase().includes(query);
+    });
     const history = Array.isArray(feed.history) ? feed.history : [];
-    const findingCount = Number(counts.findings) || findings.length;
+    const findingCount = problems.length;
+    const allErrors = problems.filter((finding) => finding.severity === "error").length;
+    const allWarnings = problems.filter((finding) => finding.severity === "warning").length;
+    const humanCount = problems.filter((finding) => finding.attention === "human").length;
+    const agentCount = problems.filter((finding) => finding.attention === "agent").length;
     byId("tab-integrity-count").textContent = findingCount;
-    setUpdateBadge("tab-integrity-update", findingCount);
+    setUpdateBadge("tab-integrity-update", allErrors + allWarnings);
+    byId("problem-visible").textContent = findings.length;
     byId("integrity-as-of").textContent = current.generated_at ? formatDate(current.generated_at) : "Not yet run";
     const status = byId("integrity-status");
-    status.className = `status-badge ${findingCount ? "needs-review" : current.result === "clean" ? "ready" : ""}`.trim();
-    status.textContent = current.result === "clean" ? "No findings" : findingCount ? `${findingCount} finding${findingCount === 1 ? "" : "s"}` : "Awaiting first run";
+    status.className = `status-badge ${allErrors + allWarnings ? "needs-review" : "ready"}`.trim();
+    status.textContent = findingCount ? `${findingCount} visible problem${findingCount === 1 ? "" : "s"}` : "No problems";
     byId("integrity-metrics").replaceChildren(
-      integrityMetric("Errors", Number(counts.errors) || 0, "rule violations requiring correction"),
-      integrityMetric("Warnings", Number(counts.warnings) || 0, "credible drift requiring review"),
-      integrityMetric("Issue pages", Number(counts.issue_pages) || 0, "included in the structural pass"),
-      integrityMetric("Proposal pages", Number(counts.proposal_pages) || 0, "included in the structural pass"),
-      integrityMetric("Run time", current.duration_seconds == null ? "—" : `${current.duration_seconds}s`, "automated inspection duration")
+      integrityMetric("Needs you", humanCount, "reserved decisions or approvals"),
+      integrityMetric("Agent-owned", agentCount, "visible work assigned outside the human inbox"),
+      integrityMetric("Errors", allErrors, "confirmed rule or source-integrity violations"),
+      integrityMetric("Warnings", allWarnings, "credible drift requiring review"),
+      integrityMetric("Observed", problems.filter((finding) => finding.attention === "observed").length, "readiness and monitoring conditions")
     );
     renderConsistencyAudit();
 
@@ -1392,12 +2251,12 @@
     const findingHost = byId("integrity-findings");
     if (!findings.length) {
       const empty = element("div", "empty-state compact-empty");
-      empty.append(element("span", "", "✓"), element("h3", "", current.generated_at ? "No automated findings" : "No run data yet"), element("p", "", current.generated_at ? "The latest repeatable integrity checks completed without a reported error or warning." : "Run the integrity workflow manually or wait for its next scheduled pass."));
+      empty.append(element("span", "", "✓"), element("h3", "", problems.length ? "No problems match these filters" : "No current problems"), element("p", "", problems.length ? "Change or clear the filters to inspect the complete problem inventory." : "No current exception is represented in the available Console data."));
       findingHost.replaceChildren(empty);
     } else {
       findingHost.replaceChildren(...[...grouped.entries()].sort().map(([category, items]) => {
         const panel = element("details", "integrity-finding-group");
-        panel.open = true;
+        panel.dataset.disclosureId = `integrity-problems-${layoutSlug(category)}`;
         const summary = element("summary");
         summary.append(element("span", "", category), element("span", "panel-count", String(items.length)));
         panel.append(summary);
@@ -1405,9 +2264,32 @@
         items.forEach((finding) => {
           const record = element("article", `integrity-finding ${finding.severity || "warning"}`);
           const heading = element("div", "integrity-finding-heading");
-          heading.append(element("span", `finding-level ${finding.severity || "warning"}`, finding.severity || "warning"));
+          heading.append(
+            element("span", "problem-reference", finding.reference),
+            element("span", `finding-level ${finding.severity || "warning"}`, finding.severity || "warning")
+          );
           if (finding.path) heading.append(inlineLink(finding.path, `${GITHUB_BLOB_ROOT}${finding.path}`));
+          if (finding.source_id) heading.append(finding.source_url ? inlineLink(finding.source_id, finding.source_url) : element("span", "record-id", finding.source_id));
+          (finding.owner_ids || []).forEach((owner) => heading.append(element("span", "badge", owner)));
           record.append(heading, element("p", "", finding.message || "Unspecified integrity finding"));
+          const metadata = element("div", "problem-meta");
+          metadata.append(
+            element("span", "", `Owner: ${finding.owner}`),
+            element("span", "", `Responsibility: ${finding.attention}`),
+            element("span", "", `State: ${finding.status}`),
+            element("span", "", `Last checked: ${formatDate(finding.checked_at)}`)
+          );
+          record.append(metadata);
+          if (finding.source_url && !finding.source_id) {
+            const actions = element("div", "integrity-finding-actions");
+            const link = inlineLink("Open referenced record ↗", finding.source_url);
+            if (finding.source_url.startsWith("#")) {
+              link.target = "";
+              link.removeAttribute("rel");
+            }
+            actions.append(link);
+            record.append(actions);
+          }
           list.append(record);
         });
         panel.append(list);
@@ -1423,6 +2305,12 @@
       return row;
     }));
     byId("integrity-scope").replaceChildren(...(Array.isArray(current.scope) ? current.scope : []).map((item) => element("li", "", item)));
+    populateSelect(byId("problem-status"), [...new Set(problems.map((finding) => finding.status))], "All states");
+    const selectedStatusExists = [...byId("problem-status").options]
+      .some((option) => option.value === problemState.status);
+    if (!selectedStatusExists) problemState.status = "all";
+    byId("problem-status").value = problemState.status;
+    renderOverview();
   }
 
   async function refreshLiveIntegrity() {
@@ -1431,8 +2319,15 @@
       if (!response.ok) throw new Error(`GitHub returned ${response.status}`);
       const feed = await response.json();
       if (!feed || typeof feed !== "object" || !feed.current) return;
+      const checkedAt = Date.parse(data.integrity?.current?.generated_at || "");
+      const liveAt = Date.parse(feed.current.generated_at || "");
+      if (Number.isFinite(checkedAt) && (!Number.isFinite(liveAt) || liveAt < checkedAt)) {
+        byId("integrity-live-note").textContent = "The repository data branch is older than this checked snapshot; the newer snapshot remains displayed.";
+        return;
+      }
       data.integrity = feed;
       renderIntegrity(feed);
+      renderActionItems();
       byId("integrity-live-note").textContent = "Integrity findings and run history were refreshed from the repository data branch.";
     } catch (_error) {
       byId("integrity-live-note").textContent = "Live integrity data could not be refreshed; the checked-in snapshot remains available.";
@@ -1691,6 +2586,7 @@
     const cards = [];
     const includedCount = data.page_inventory.filter((record) => effectivePublicationDisposition(record) === "included").length;
     const includedCard = element("button", "print-level-card disposition-included");
+    includedCard.dataset.layoutId = "publication-included";
     includedCard.type = "button";
     includedCard.append(element("strong", "", String(includedCount)), element("span", "", "Included in print"));
     includedCard.addEventListener("click", () => {
@@ -1702,6 +2598,7 @@
     cards.push(...Object.entries(PRINT_LEVEL_LABELS).map(([level, label]) => {
       const count = data.page_inventory.filter((record) => effectivePrintLevels(record).includes(level)).length;
       const card = element("button", "print-level-card");
+      card.dataset.layoutId = `publication-${layoutSlug(level)}`;
       card.type = "button";
       card.append(element("strong", "", String(count)), element("span", "", label));
       card.addEventListener("click", () => {
@@ -1718,6 +2615,7 @@
     ].forEach(([disposition, label]) => {
       const count = data.page_inventory.filter((record) => effectivePublicationDisposition(record) === disposition).length;
       const card = element("button", `print-level-card disposition-${disposition}`);
+      card.dataset.layoutId = `publication-${layoutSlug(disposition)}`;
       card.type = "button";
       card.append(element("strong", "", String(count)), element("span", "", label));
       card.addEventListener("click", () => {
@@ -1900,6 +2798,7 @@
 
   function publicationMetric(label, value, detail) {
     const card = element("article", "publication-metric");
+    card.dataset.layoutId = `metric-${layoutSlug(label)}`;
     card.append(element("span", "eyebrow", label), element("strong", "", value), element("p", "", detail));
     return card;
   }
@@ -1911,6 +2810,7 @@
     card.append(header, element("p", "", detail));
     if (records.length) {
       const details = element("details", "publication-finding-details");
+      details.dataset.disclosureId = `publication-finding-${layoutSlug(title)}`;
       details.append(element("summary", "", `View ${records.length} affected record${records.length === 1 ? "" : "s"}`));
       const list = element("ul");
       records.slice(0, 30).forEach((record) => {
@@ -2088,7 +2988,7 @@
       );
       header.append(heading, sectionControls);
       const details = element("details", "assembly-section-pages");
-      details.open = section.id === "unplaced";
+      details.dataset.disclosureId = `publication-assembly-${edition.id}-${section.id}`;
       details.append(element("summary", "", `Show ${section.paths.length} page${section.paths.length === 1 ? "" : "s"}`));
       const list = element("ol", "assembly-page-list");
       section.paths.forEach((path, pageIndexValue) => {
@@ -2197,6 +3097,7 @@
     list.replaceChildren(...records.map(preliminaryCard));
     byId("preliminary-visible").textContent = records.length;
     byId("preliminary-empty").hidden = records.length !== 0;
+    refreshDisclosurePreferences(list);
   }
 
   function renderProposed() {
@@ -2218,6 +3119,7 @@
     });
     byId("proposed-list").replaceChildren(...records.map(proposedCard));
     byId("proposed-visible").textContent = records.length;
+    refreshDisclosurePreferences(byId("proposed-list"));
   }
 
   function initialize() {
@@ -2229,18 +3131,19 @@
     byId("github-synced-at").textContent = formatDate(data.github_synced_at);
     byId("sources-count").textContent = data.cited_sources.length;
     byId("pending-count").textContent = data.pending_sources.length;
-    byId("watchers-count").textContent = data.monitoring_issues.length;
+    byId("watchers-count").textContent = 3;
     byId("pages-count").textContent = data.page_inventory.length;
     byId("publication-assignments-count").textContent = data.page_inventory.length;
     byId("tab-candidates-count").textContent = data.active_horizon_records.length + data.records.length;
     byId("tab-sources-count").textContent = data.cited_sources.length + data.pending_sources.length;
     byId("tab-logs-count").textContent = data.project_logs.reduce((count, log) => count + log.entries.length, 0);
     byId("tab-publication-count").textContent = data.page_inventory.length;
+    byId("tab-automation-count").textContent = data.agent_registry.length;
     byId("candidate-formal-count").textContent = data.active_horizon_records.length;
     byId("candidate-preliminary-count").textContent = data.records.length;
     byId("source-catalog-count").textContent = data.cited_sources.length;
     byId("source-pending-count").textContent = data.pending_sources.length;
-    byId("source-watchers-count").textContent = data.monitoring_issues.length;
+    byId("source-watchers-count").textContent = 3;
     byId("court-watch-count").textContent = distinctSourceCount(data.court_watch_sources);
     byId("directive-watch-count").textContent = data.presidential_directives.length;
     byId("manual-watch-count").textContent = data.monitoring_issues.length;
@@ -2257,6 +3160,7 @@
     populateSelect(byId("court-watch-owner"), [...new Set(data.court_watch_sources.map((record) => record.owner_id))], "All owners");
     populateSelect(byId("directive-administration"), [...new Set(data.presidential_directives.map((record) => record.administration))], "All administrations");
     populateSelect(byId("directive-status"), [...new Set(data.presidential_directives.map((record) => record.review_status))], "All statuses");
+    populateSourceCheckerFilters();
     populateSelect(byId("pages-level"), [
       "__included", ...Object.keys(PRINT_LEVEL_LABELS), "__excluded", "__unclassified", "__conflict"
     ], "All publication dispositions");
@@ -2288,6 +3192,16 @@
         logStates[log.id].groupKey = event.target.value;
         renderProjectLog(log.id);
       });
+      if (log.id === "agents") {
+        [["agent", "All agents"], ["task", "All task types"], ["outcome", "All outcomes"]].forEach(([key, label]) => {
+          const select = byId(`log-agents-${key}`);
+          populateSelect(select, [...new Set(log.entries.map((entry) => (entry.values || {})[key]).filter(Boolean))], label);
+          select.addEventListener("change", (event) => {
+            logStates.agents.filters[key] = event.target.value;
+            renderProjectLog("agents");
+          });
+        });
+      }
     });
 
     byId("preliminary-search").addEventListener("input", (event) => { preliminaryState.search = event.target.value; renderPreliminary(); });
@@ -2363,6 +3277,14 @@
       event.currentTarget.textContent = directiveState.updatesOnly ? "Show all directives" : "Show updated only";
       renderDirectives();
     });
+    byId("source-checker-search").addEventListener("input", (event) => { sourceCheckerState.search = event.target.value; renderSourceChecker(); });
+    [["classification", "classification"], ["domain", "domain"], ["owner", "owner"]].forEach(([id, key]) => {
+      byId(`source-checker-${id}`).addEventListener("change", (event) => { sourceCheckerState[key] = event.target.value; renderSourceChecker(); });
+    });
+    byId("problem-search").addEventListener("input", (event) => { problemState.search = event.target.value; renderIntegrity(); });
+    byId("problem-attention").addEventListener("change", (event) => { problemState.attention = event.target.value; renderIntegrity(); });
+    byId("problem-severity").addEventListener("change", (event) => { problemState.severity = event.target.value; renderIntegrity(); });
+    byId("problem-status").addEventListener("change", (event) => { problemState.status = event.target.value; renderIntegrity(); });
     byId("pages-search").addEventListener("input", (event) => {
       pageState.search = event.target.value;
       renderPages();
@@ -2389,6 +3311,7 @@
       renderDocumentBuilder();
     });
 
+    initializePersonalLayout();
     initializeTabs();
     initializeSectionTabs("candidates", "formal");
     initializeSectionTabs("sources", "catalog");
@@ -2396,6 +3319,7 @@
     initializeSectionTabs("publication", "assignments");
     initializeWatcherTabs();
     initializeScrollToTop();
+    window.addEventListener("hashchange", navigateFromHash);
     renderPreliminary();
     renderProposed();
     renderSourceView("sources", data.cited_sources, "type");
@@ -2403,8 +3327,11 @@
     renderManualWatch();
     renderCourtWatch();
     renderDirectives();
+    renderSourceChecker();
     data.project_logs.forEach((log) => renderProjectLog(log.id));
     renderProgress();
+    renderAutomation();
+    renderOverview();
     renderPrintSummary();
     renderPrintChangeToolbar();
     renderReviewSignals();
@@ -2412,9 +3339,11 @@
     renderEditionAnalysis();
     renderDocumentBuilder();
     renderIntegrity();
+    refreshLayoutZones();
     refreshLiveProgress();
     refreshBotReviewSignals();
     refreshLiveIntegrity();
+    refreshLiveSourceChecker();
   }
 
   initialize();

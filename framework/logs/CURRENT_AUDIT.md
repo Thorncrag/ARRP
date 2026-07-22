@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | Project-wide GitHub lifecycle-field separation |
-| Audit type/tier | Project-level Change Audit; no T-audit run |
+| Status | Active |
+| Active issue/task | Project Console oversight, persistent layout, and agent-and-bot operational visibility |
+| Audit type/tier | Project-level Change Audit and automation implementation; no T-audit run |
 | Started | 2026-07-22 |
-| Last checkpoint | 2026-07-22; field migration, Console board, deterministic checks, authenticated readback, and local publication validation completed. |
-| User request | Separate proposal-development maturity from workflow status so audit tasks do not obscure how developed an issue is. |
-| Scope | Add and populate a `Development level` Project field; convert `Status` to next-action workflow; update governing rules, integrity checks, progress calculation, Console data and presentation, fixtures, and tests. |
-| Files touched | Governing lifecycle rules, Project workflow guidance, progress and Console builders, Project synchronization and integrity scripts, Console interface/data, fixtures, and tests. |
-| Completed steps | Added and populated `Development level`; converted `Status` to workflow-only values; migrated and read back all active Project items; added the six-stage scored Console board; updated calculations, checks, guidance, generated data, and tests. |
-| Next step | No unfinished task. Future issue work should update `Development level` and `Status` independently under the revised workflow. |
-| Blockers/questions | None. GitHub Project view layout remains a user-configurable presentation concern; the Console now supplies the requested non-scrolling six-stage view. |
-| Validation status | Passed: 76 Python tests, JavaScript syntax checks, authenticated Project/issue/Pages consistency readback, zero deterministic integrity errors, strict MkDocs build, and desktop visual verification of all 99 board records with no horizontal overflow. |
+| Last checkpoint | 2026-07-22; final local and authenticated validation passed, and the complete working set is ready for GitHub reconciliation after the user authorized commit. |
+| User request | Refine the Console oversight and disclosure behavior; restore the intuitive `Candidate` → `Admitted / undeveloped` → `In development` → `Developed proposal` → `Review ready` progression; retain the four-part foundation as the gate into development; and authorize both Elim and an interactive Codex agent working directly with the user to record a sufficiency determination from an already-complete canonical record. |
+| Scope | Action Items and Problems ownership; persistent layout and disclosure preferences; Progress organization; issue-monitoring placement; lifecycle terminology and authority; GitHub Project `Development level`; related framework documentation, scripts, tests, and generated Console data. |
+| Files touched | Console HTML, CSS, JavaScript, generated data, builder, documentation, tests, and this handoff on `codex/agent-bot-runbooks`; earlier runbook, workflow, source, lifecycle, and integrity changes remain in the same working branch. |
+| Completed steps | Added the original Overview, Problems, Agents and Bots, persistent layout, and 99-record accounting changes; standardized the at-a-glance index and collapsible-detail hierarchy; moved issue monitoring to Progress; restored `In development` as the third Kanban maturity column in place of `Defined proposal`; renamed the live GitHub Project option without moving any records; retained `foundation_status` as the four-part safety gate; and recorded parallel foundation-sufficiency authority for Elim and interactive Codex work with the user. |
+| Next step | Complete final validation, commit the whole reviewed working set, merge it through the repository pull-request workflow, verify affected live surfaces, then clear this handoff to inactive. |
+| Blockers/questions | None presently; automated in-app visual navigation of the local `file://` Console is prohibited by the browser security policy, so visual inspection remains a user review step. Elim runtime launch will remain disabled until its configuration and report-only pilot are verified. |
+| Validation status | Passed after restoring `In development`: 91 repository tests; JavaScript and Python syntax; diff hygiene; strict public-site build; the current 99-record snapshot; live Project option and item-distribution readback; and the authenticated consistency audit with 0 errors and 0 warnings. |
 
 ## Detailed Findings and Corrections
 
@@ -37,7 +37,7 @@ The Project Console renders this current-audit section as the explanatory compan
 - **Why it mattered:** A single Kanban field could not answer both "how developed is this proposal?" and "what should happen next?" without replacing one answer with the other.
 - **Correction:** Added `Development level` with six substantive stages; converted `Status` to workflow-only values; migrated and read back 99 active proposal and candidate records; updated the governing rules, progress calculation, synchronization scripts, and deterministic integrity checks; and added a six-column Project Console board whose cards show the identifier, review score, live route, GitHub issue, and compact workflow cue.
 - **Effect:** Proposal maturity remains visible while audit, development, external-review, monitoring, and publication work moves independently. The Project Console displays every stage in one desktop row without GitHub's horizontal Kanban scrolling.
-- **Remaining work:** `Defined proposal` and `Release candidate` are presently empty because no active record has yet been affirmatively classified at those thresholds. Future transitions should follow the recorded human-foundation and release-candidate rules rather than being inferred from workflow status alone.
+- **Remaining work:** `In development` replaces the unintuitive `Defined proposal` maturity label. Proposals enter it when the four-part foundation is established directly by the human or through a recorded Elim or interactive-agent sufficiency determination; `Release candidate` remains empty pending its separate requirements.
 
 ### Governance and lifecycle authority
 
@@ -46,7 +46,7 @@ The Project Console renders this current-audit section as the explanatory compan
 - **Why it mattered:** A scheduled agent could either stop unnecessarily or infer permission to make foundational policy choices that the project reserves to the human author.
 - **Correction:** Defined the four-part human-governed foundation, added machine-readable foundation approval fields, reconciled delegated development after approval, and treated a scheduled run as advance authority only for work already permitted by those rules.
 - **Effect:** Automated development can proceed predictably after the failure, manifestation, remedy, and vehicle have been approved without converting later drafting discretion into authority to redefine the proposal.
-- **Remaining work:** APPT-001, JUD-012, OVS-009, REG-002, and RIGHTS-005 still require a recorded human foundation decision.
+- **Remaining work:** APPT-001, JUD-012, OVS-009, REG-002, and RIGHTS-005 remain contained pending Elim's recorded four-criterion foundation-sufficiency check. They should reach the human Action Items queue only if that check identifies a genuinely absent, ambiguous, or inconsistent foundation.
 
 ### Change-audit metadata
 
@@ -104,12 +104,12 @@ The Project Console renders this current-audit section as the explanatory compan
 
 ### Remaining generic source-development propositions
 
-- **Disposition:** Open
+- **Disposition:** Corrected
 - **Problem:** Twenty-four area research records retain 148 descriptions that state only that a source relates to an issue or episode.
 - **Why it mattered:** A source can be routed correctly while still failing to identify the proposition it supports, its proper public placement, or whether it adds meaningful evidentiary value.
-- **Correction:** Added a deterministic warning that identifies each affected record and count instead of mechanically inventing source-specific propositions.
-- **Effect:** The unfinished qualitative work is visible in the Console and cannot be mistaken for completed evidentiary integration.
-- **Remaining work:** Each source requires LLM review for issue-page integration, evidence-page placement, internal retention, or documented removal as adding no material value.
+- **Correction:** Reviewed and replaced the generic statements with qualified source- and title-specific descriptions, synchronized the corresponding source-catalog propositions, and reran the deterministic checks.
+- **Effect:** The routed records now explain what each source contributes without presenting provisional material as a completed finding; the earlier 148-warning queue is cleared.
+- **Remaining work:** Ordinary proposal development must still decide whether each retained source belongs in reader-facing prose, an internal source-development record, or later documented removal. That qualitative placement is development work rather than a remaining metadata defect.
 
 ### Public intake and security boundary
 
@@ -136,7 +136,7 @@ The Project Console renders this current-audit section as the explanatory compan
 - **Why it mattered:** The same metadata, linkage, legislation-form, source-description, or generated-file drift could recur and again consume manual or LLM review time.
 - **Correction:** Added checks for YAML parsing, generated route synchronization, Change Audit field pairing, foundation decisions, legislation metadata and enacting clauses, H1 structure, source URL schemes, generic source-development language, cross-issue links, and authenticated GitHub synchronization.
 - **Effect:** Repeatable failures are now surfaced automatically while judgment-dependent questions remain explicit warnings for human or LLM review.
-- **Remaining work:** External URL availability remains reserved for a separate source-link audit because it requires different retry, archive, and false-positive handling.
+- **Remaining work:** Source Checker Bot now owns external URL availability through a report-only weekly pilot with separate retry, access-restriction, identity, archive, and false-positive handling. A complete baseline has not yet been established.
 
 ### Validation and scope boundaries
 
@@ -144,7 +144,7 @@ The Project Console renders this current-audit section as the explanatory compan
 - **Problem:** A large consistency pass could appear complete merely because edits were made, without proving that the repository still built or that automated interfaces remained functional.
 - **Why it mattered:** Structural cleanup can introduce broken tests, invalid structured data, publication failures, or deployment drift unrelated to the original defect.
 - **Correction:** Ran the full Python and Node test suites, language syntax checks, ShellCheck, structured-data parsing, diff hygiene, strict MkDocs build, authenticated GitHub synchronization checks, and a live Vercel security-header check.
-- **Effect:** The checked working tree completed with zero deterministic errors and 29 explicit warnings representing known judgment-dependent work.
+- **Effect:** After the subsequent source-routing, lifecycle, and metadata corrections in this working set, the authenticated consistency audit completes with zero deterministic errors and zero warnings.
 - **Remaining work:** The audit did not test the continuing availability of every external source URL, make unresolved human foundation decisions, or assign new proposal scores or T-audit runs.
 
 ## Handoff Rules

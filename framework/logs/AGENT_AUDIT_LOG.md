@@ -6,19 +6,19 @@ print_exclusion_reason: "Internal operational log."
 
 # ARRP Agent Audit Log
 
-This file records autonomous, batched, or scheduled agent audit runs, commits, push status, blockers, and rollback references. It is an operational provenance log for unattended or autorun work.
+This shared append-only file records material actions by every persistent ARRP agent and bot, including autonomous audit units, deterministic changes, routed findings, commits, push status, blockers, and rollback references. It is the project-wide operational provenance ledger for unattended or autorun work.
 
 This file is not the log for ordinary human-invoked audits or drafting sessions. Human-directed audit results belong in the relevant issue audit-history sidecar, issue page audit metadata, GitHub Project fields, [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) while work is active, and the final user-facing report. Do not add entries here merely because Codex or another agent assisted a human-directed task.
 
-Entries for autonomous, batched, or scheduled runs should be append-only. If a bad autonomous edit is later reverted, add a new entry identifying the revert commit and the original commit it reverses.
+Entries are append-only. If an automated edit is later reverted, add a new entry identifying the revert commit and the original commit it reverses. Preserve historical generic agent labels; do not retroactively attribute an older entry to a newly named agent without reliable evidence.
 
-A scheduled or autonomous check that makes no repository change does not add a no-change entry here. If a separately authorized autonomous run adds, updates, moves, or removes a source record, its source-changing pull request must append an entry identifying the affected stable source IDs, action and reason, destination and proposition or citation supported, originating Actions run, validation, commit and push status, and rollback reference.
+A completely clean no-change run remains in bounded Actions or Console history and does not add an entry here. A material detected or routed finding and any repository or external-state change must be recorded. Domain records such as the Source Monitor Log may preserve the evidentiary event, but they do not replace this agent-level provenance.
 
 ## Log Format
 
 Each log entry should be recorded as its own short section with an independent two-column table. Use newest-at-bottom ordering unless the file is intentionally reorganized as part of a readability pass. Do not combine unrelated audit units into a single table. Each issue-specific entry should link the issue page, the issue audit-history file, and the linked proposal, legislation, amendment, rule, or model text where one exists. Date/time fields should include the local time and timezone when available.
 
-Template:
+Prospective template:
 
 ```markdown
 ### YYYY-MM-DD — ISSUE-ID — Audit tier or task
@@ -26,12 +26,17 @@ Template:
 | Field | Entry |
 | --- | --- |
 | Date/time | YYYY-MM-DD HH:MM:SS ±TZ |
-| Run/agent | Agent or run label |
+| Agent | Stable agent ID |
+| Run ID | Stable execution identifier or Actions run URL |
+| Unit ID | Stable unit identifier, or `N/A` |
+| Trigger | Schedule / event / manual |
+| Task type | Integrity / Change Audit / T0-T4 / development / monitoring / source check / reconciliation |
+| Outcome | Completed / Blocked / Routed for human review / Failed / Reverted |
 | Issue/task | ISSUE-ID or project task |
 | Issue page | Link to issue page, or `N/A` |
 | Audit history | Link to issue audit-history file, or `N/A` |
 | Proposal page | Link to proposed legislation, amendment, rule, or model text; use `N/A` if none exists |
-| Tier | T1/T2/T3/T4/change/etc. |
+| Tier | T0/T1/T2/T3/T4/Change Audit/none |
 | Files changed | `path`; `path` |
 | Validation | Checks performed |
 | Commit | `Commit message` (`hash`) |

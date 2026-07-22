@@ -2,14 +2,15 @@
 issue_id: RIGHTS-005
 area_id: A-24
 title: "Civil and Criminal Accountability for Law-Enforcement Constitutional Violations"
-status: in-development
+status: awaiting-decision
+foundation_status: pending
 priority: high
 remedy_type: law-enforcement-civil-and-criminal-accountability
 audit_score: 0
-audit_status: "In development; admitted from HOR-022 with an initial severable legislative draft"
+audit_status: "Awaiting human foundation decision; agent-generated proposal and initial legislative draft preserved for review"
 audit_last_type: "Horizon candidate admission and initial drafting"
 audit_last_date: "2026-07-21"
-audit_next: "Complete empirical, constitutional, fiscal, and stakeholder review before the first score-bearing audit"
+audit_next: "Human decision on institutional failure, manifestation, remedy, and vehicle before further development"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 change_audit_needed: false
@@ -104,7 +105,7 @@ The initial draft would:
 
 - **Initial draft:** [Law-Enforcement Constitutional Accountability Act](../../../legislation/RIGHTS-005.md).
 - **Structure:** Severable civil-remedies, federal-criminal-accountability, State-jurisdiction, evidence, and reporting titles.
-- **Current status:** In development. The personal-contribution formula, State-sovereign-immunity basis, section 242 mens rea, federal charging-review mechanism, fiscal effects, and interaction with collective-bargaining and indemnification rules require further review.
+- **Current status:** Awaiting human foundation decision. The agent-generated personal-contribution formula, State-sovereign-immunity basis, section 242 mens rea, federal charging-review mechanism, fiscal effects, and interaction with collective-bargaining and indemnification rules are preserved for review but are not authorized for further autonomous development.
 
 ## Relationship to Adjacent Proposals
 
@@ -130,7 +131,7 @@ The next budget pass should separately estimate civil case volume, federal emplo
 >
 > —
 >
-> **Internal Review Status:** In development; admitted from HOR-022 with an initial severable legislative draft<br />**Last Internal Review:** Horizon candidate admission and initial drafting<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status; **Revision Review Needed:** No<br />**Next Review:** Complete empirical, constitutional, fiscal, and stakeholder review before the first score-bearing audit<br />**Full Review History:** [RIGHTS-005 review history](RIGHTS-005.audit.md)
+> **Internal Review Status:** Awaiting human foundation decision; agent-generated proposal and initial legislative draft preserved for review<br />**Last Internal Review:** Horizon candidate admission and initial drafting<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status; **Revision Review Needed:** No<br />**Next Review:** Human decision on institutional failure, manifestation, remedy, and vehicle before further development<br />**Full Review History:** [RIGHTS-005 review history](RIGHTS-005.audit.md)
 
 ## Annotation
 

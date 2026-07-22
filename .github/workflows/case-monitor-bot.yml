@@ -1,4 +1,4 @@
-name: Case monitor bot
+name: Case Monitor Bot
 
 on:
   workflow_dispatch:
@@ -72,13 +72,30 @@ jobs:
             exit 1
           fi
 
+      - name: Record shared agent provenance
+        if: steps.monitor.outcome == 'success' && steps.boundary.outcome == 'success'
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RUN_TRIGGER: ${{ github.event_name }}
+        run: |
+          if git diff --quiet -- inventory/sources.csv inventory/sources-pending.csv "${SOURCE_MONITOR_LOG}"; then
+            exit 0
+          fi
+          python scripts/append_agent_audit_log.py \
+            --agent case-monitor-bot --run-id "${RUN_URL}" --trigger "${RUN_TRIGGER}" \
+            --task-type monitoring --outcome Completed --issue-task "Cataloged litigation-source monitoring" \
+            --files-changed '`inventory/sources.csv`; `inventory/sources-pending.csv`; `framework/logs/SOURCE_MONITOR_LOG.md`; `framework/logs/AGENT_AUDIT_LOG.md`' \
+            --validation "Tracker structure, accepted baselines, change boundary, and configured docket verification passed." \
+            --push-status "Proposed on bot/case-monitor-updates" \
+            --rollback-notes "Close the automation pull request or revert its merge commit."
+
       - name: Commit catalog updates
         id: commit
         if: steps.monitor.outcome == 'success' && steps.boundary.outcome == 'success'
         run: |
           git config user.name "arrp-case-monitor[bot]"
           git config user.email "arrp-case-monitor[bot]@users.noreply.github.com"
-          git add inventory/sources.csv inventory/sources-pending.csv "${SOURCE_MONITOR_LOG}"
+          git add inventory/sources.csv inventory/sources-pending.csv "${SOURCE_MONITOR_LOG}" framework/logs/AGENT_AUDIT_LOG.md
           if git diff --cached --quiet; then
             echo "new_change=false" >> "${GITHUB_OUTPUT}"
             ahead="$(git rev-list --count "origin/${BASE_BRANCH}..HEAD")"

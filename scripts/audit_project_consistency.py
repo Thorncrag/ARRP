@@ -39,6 +39,7 @@ GITHUB_PROJECT_OWNER = "Thorncrag"
 GITHUB_PROJECT_NUMBER = 2
 GITHUB_BLOB_PREFIX = f"https://github.com/{GITHUB_REPOSITORY}/blob/main/"
 VALID_ISSUE_STATUSES = {
+    "awaiting-decision",
     "awaiting-merits-adjudication",
     "candidate",
     "deferred",
@@ -67,7 +68,7 @@ READY_PROJECT_DEVELOPMENT_LEVELS = {
 PROJECT_DEVELOPMENT_LEVELS = {
     "candidate",
     "admitted / undeveloped",
-    "defined proposal",
+    "in development",
     "developed proposal",
     "review ready",
     "release candidate",
@@ -341,6 +342,14 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
                 failures,
                 warnings,
             )
+        if requires_workflow_hold_reason(data) and not data.get("workflow_hold_reason", "").strip():
+            report(
+                "WARNING",
+                f"issue page {relative} is Deferred / Parked but lacks nonblank "
+                "workflow_hold_reason metadata",
+                failures,
+                warnings,
+            )
         sidecar = path.with_name(f"{issue_id}.audit.md")
         if data.get("record_type") == "source-development":
             front_matter_match = FRONT_MATTER_RE.match(read(path))
@@ -454,6 +463,13 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
             report(
                 "ERROR",
                 f"{issue_id} has approved foundations without foundation_approved_date",
+                failures,
+                warnings,
+            )
+        if foundation_status == "approved" and not data.get("foundation_approval_note"):
+            report(
+                "ERROR",
+                f"{issue_id} has approved foundations without foundation_approval_note",
                 failures,
                 warnings,
             )
@@ -1249,9 +1265,15 @@ def expected_project_workflow_status(metadata: dict[str, str]) -> set[str]:
     """Return workflow states that are unambiguously implied by canonical metadata."""
     status = metadata.get("status", "")
     return {
+        "awaiting-decision": {"awaiting decision"},
         "awaiting-merits-adjudication": {"deferred / parked", "blocked"},
         "deferred": {"deferred / parked"},
     }.get(status, set())
+
+
+def requires_workflow_hold_reason(metadata: dict[str, str]) -> bool:
+    """Return whether canonical status requires an explicit machine-readable hold reason."""
+    return "deferred / parked" in expected_project_workflow_status(metadata)
 
 
 def check_github_synchrony(
@@ -2371,6 +2393,83 @@ def check_print_assembly_configuration(failures: list[str], warnings: list[str])
             )
 
 
+def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
+    """Validate persistent-agent identities and deployed configuration projections."""
+    directory = ROOT / "framework" / "agents"
+    registry = directory / "README.md"
+    if not registry.exists():
+        report("ERROR", "persistent-agent registry is missing: framework/agents/README.md", failures, warnings)
+        return
+    registry_text = read(registry)
+    seen: set[str] = set()
+    required = {
+        "agent_id", "display_name", "agent_type", "status", "trigger", "schedule",
+        "runtime_id", "execution_environment", "log_path",
+    }
+    for path in sorted(directory.glob("*.md")):
+        if path.name == "README.md":
+            continue
+        values = front_matter(path)
+        missing = sorted(required - values.keys())
+        if missing:
+            report("ERROR", f"agent runbook {path.relative_to(ROOT)} lacks required fields: {', '.join(missing)}", failures, warnings)
+            continue
+        agent_id = values["agent_id"]
+        if agent_id in seen:
+            report("ERROR", f"duplicate persistent Agent ID: {agent_id}", failures, warnings)
+        seen.add(agent_id)
+        if agent_id not in registry_text or path.name not in registry_text:
+            report("ERROR", f"agent runbook {path.relative_to(ROOT)} is not registered by ID and path", failures, warnings)
+        runbook_text = read(path)
+        for required_section in ("## Inputs and permitted writes",):
+            if required_section not in runbook_text:
+                report(
+                    "ERROR",
+                    f"agent runbook {path.relative_to(ROOT)} lacks {required_section}",
+                    failures,
+                    warnings,
+                )
+        for required_topic in ("Publication", "Validation", "stop"):
+            if required_topic.casefold() not in runbook_text.casefold():
+                report(
+                    "ERROR",
+                    f"agent runbook {path.relative_to(ROOT)} lacks an explicit {required_topic} rule",
+                    failures,
+                    warnings,
+                )
+        if values["agent_type"] == "deterministic-bot" and not agent_id.endswith("-bot"):
+            report("ERROR", f"deterministic Agent ID lacks required -bot designation: {agent_id}", failures, warnings)
+        if values["log_path"] != "framework/logs/AGENT_AUDIT_LOG.md":
+            report("ERROR", f"agent runbook {path.relative_to(ROOT)} does not use the shared Agent Audit Log", failures, warnings)
+        runtime = values["runtime_id"]
+        if runtime not in {"pending"} and not runtime.startswith("codex-automation:"):
+            runtime_path = ROOT / runtime
+            if not runtime_path.exists():
+                report("ERROR", f"agent runbook {path.relative_to(ROOT)} points to missing runtime {runtime}", failures, warnings)
+            elif runtime_path.suffix in {".yml", ".yaml"}:
+                workflow_text = read(runtime_path)
+                cron_match = re.search(r'cron:\s*["\']([^"\']+)', workflow_text)
+                declared_cron = values["schedule"].split(" UTC", 1)[0]
+                if cron_match and declared_cron not in {"pending", cron_match.group(1)}:
+                    report("ERROR", f"agent runbook {path.relative_to(ROOT)} schedule differs from {runtime}", failures, warnings)
+        config = values.get("runtime_config")
+        if config:
+            config_path = ROOT / config
+            if not config_path.exists():
+                report("ERROR", f"agent runbook {path.relative_to(ROOT)} points to missing config {config}", failures, warnings)
+            else:
+                try:
+                    data = json.loads(read(config_path))
+                except json.JSONDecodeError:
+                    data = {}
+                configured_id = str(data.get("agentId") or data.get("botName") or "")
+                if configured_id != agent_id:
+                    report("ERROR", f"agent runbook {path.relative_to(ROOT)} ID differs from {config}", failures, warnings)
+                configured_cron = str((data.get("schedule") or {}).get("cron") or "")
+                if configured_cron and not values["schedule"].startswith(configured_cron):
+                    report("ERROR", f"agent runbook {path.relative_to(ROOT)} schedule differs from {config}", failures, warnings)
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -2419,6 +2518,22 @@ def finding_path(message: str) -> str:
     return match.group(1).rstrip(".\"'") if match else ""
 
 
+def finding_attention_owner(message: str) -> str:
+    """Route reserved decisions to the human inbox; other findings remain agent work."""
+    lowered = message.casefold()
+    human_signals = (
+        "workflow_hold_reason",
+        "missing explanation",
+        "lacks an explanation",
+        "missing reason",
+        "lacks a reason",
+        "human approval",
+        "human decision",
+        "human review required",
+    )
+    return "human" if any(signal in lowered for signal in human_signals) else "agent"
+
+
 def git_revision() -> str:
     configured = os.environ.get("GITHUB_SHA", "").strip()
     if configured:
@@ -2451,6 +2566,7 @@ def structured_report(
                     "id": f"{severity}-{position:04d}",
                     "severity": severity,
                     "category": finding_category(clean),
+                    "attention": finding_attention_owner(clean),
                     "message": clean,
                     "path": finding_path(clean),
                 }
@@ -2486,6 +2602,7 @@ def structured_report(
             "Intake-workflow terminology",
             "Publication-disposition metadata",
             "Print-assembly configuration",
+            "Persistent-agent runbooks and runtime configuration",
             "Structured-file and repository hygiene",
         ],
         "findings": findings,
@@ -2570,6 +2687,7 @@ def main() -> int:
     check_retired_monitor_identifiers(github_issue_bodies, failures, warnings)
     check_print_assignment_metadata(failures, warnings)
     check_print_assembly_configuration(failures, warnings)
+    check_agent_runbooks(failures, warnings)
     check_structured_files_and_repository_hygiene(failures, warnings)
     proposal_count = len(list(LEGISLATION_PATH.glob("*.md"))) - 1
     print(f"Checked {len(issue_map)} issue pages, {proposal_count} proposal pages, and project links/inventories.")

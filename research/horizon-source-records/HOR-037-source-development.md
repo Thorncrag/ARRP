@@ -446,3 +446,4 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
   - Current proposition: Potentially supports monitoring of Removal to El Salvador/Fear of Persecution; tracker status: Government Action Blocked.
   - Reviewed: **No**
   - Monitoring qualification: **Yes** — Rerouted principally to HOR-037 pending review for removal-process safeguards; route to JUD-001 only if an express judicial command was disobeyed.
+- **[SRC-2310](https://www.courtlistener.com/docket/73524472/state-of-new-york-v-the-us-department-of-justice) — State of New York v. U.S. Department of Justice.** Routed provisionally to HOR-037 as the accountable immigration-process owner. Retain `Reviewed: No` until the complaint and operative order are available for proposition-level extraction.
