@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: active
+status: inactive
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active — governance consolidation validated locally; repository and live publication reconciliation remain |
-| Active issue/task | Project governance, agent-rule, print-publication, and About-page consolidation |
+| Status | Inactive — governance and publication consolidation complete |
+| Active issue/task | None |
 | Audit type/tier | Project-wide structural and consistency change; no T-audit run |
 | Started | 2026-07-22 |
-| Last checkpoint | 2026-07-22; merged Framework and Methodology, moved this handoff into `framework/logs/`, established `PROJECT_STRUCTURE.md` as the repository map, retained one detailed agent manual plus the separate intake boundary, retired the full-technical edition, added print-reader and technical-access routes, and rebuilt the Project Console and public-site staging tree. |
+| Last checkpoint | 2026-07-22; PR #339 merged to `main`, GitHub Pages and integrity workflows passed, the public About and print-reader pages were verified live, and durable Codex memory was updated with the canonical paths and edition rules. |
 | User request | Consolidate governing files without rule loss, simplify agent-rule ownership, create early print-reader information, expose technical records through the public About route, implement the related print/publication changes, and update durable Codex memory. |
 | Scope | Root guidance and reader pages; framework, agent, GitHub, print, release, structure, log, and template records; print metadata; console/publication generators; GitHub Pages navigation; tests; durable memory. |
 | Files touched | Project-wide governance, publication metadata, console/public-site generation, tests, and this handoff; see the current Git diff for the complete mechanical metadata set. |
-| Completed steps | Local structural migration; link and generator updates; 75-test suite; integrity check with 0 errors; strict MkDocs build; console rebuild with 134 included, 149 excluded, 0 unclassified, and 0 conflicting publication dispositions. |
-| Next step | Review final diff, update durable memory, reconcile GitHub and Pages, verify live publication, then clear this handoff to inactive. |
-| Blockers/questions | No local blocker. Authenticated GitHub synchronization and live-site verification require the approved host context. |
-| Validation status | Local validation passed; authenticated remote checks and publication verification remain. |
+| Completed steps | Structural migration; complete link and generator update; 75-test suite; zero-error integrity check; strict MkDocs build; console rebuild with 134 included, 149 excluded, 0 unclassified, and 0 conflicting publication dispositions; GitHub merge; successful Actions; live-site verification; durable memory update. |
+| Next step | None for this task. Start a new checkpoint for the next long-running audit or development pass. |
+| Blockers/questions | None. |
+| Validation status | Passed locally and remotely; public About and print-reader routes verified live. |
 
 ## Handoff Rules
 
