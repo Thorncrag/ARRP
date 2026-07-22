@@ -16,8 +16,7 @@
     emailFollowup: document.querySelector("#email-followup-fields"),
     email: document.querySelector("#submission-email"),
     emailLabel: document.querySelector("#submission-email-label"),
-    emailConsent: document.querySelector("#submission-email-consent"),
-    emailConsentField: document.querySelector("#submission-email-consent-field"),
+    emailHelp: document.querySelector("#submission-email-help"),
     website: document.querySelector("#submission-website"),
     notice: document.querySelector("#submission-notice"),
     noticeTitle: document.querySelector("#submission-notice-title"),
@@ -50,9 +49,6 @@
     const visible = isContactRoute() || intake.emailEnabled;
     elements.emailFollowup.hidden = !visible;
     elements.email.disabled = !visible;
-    elements.emailConsentField.hidden = isContactRoute() || !visible;
-    elements.emailConsent.disabled = isContactRoute() || !visible;
-    if (isContactRoute()) elements.emailConsent.checked = false;
   }
 
   function setRoute(route) {
@@ -77,11 +73,14 @@
       ? "ARRP will send this message only to the project author. It will not create a GitHub Discussion or other public post. Do not include financial, government-identifier, credential, medical, or other sensitive information."
       : "ARRP will post it in a public GitHub Discussion. Do not include private, sensitive, or identifying information—such as an address, phone number, government identifier, medical or financial information, or anyone else's personal details.";
     elements.noticeDetail.textContent = contact
-      ? "A reply email is optional. If you provide one, it is sent only to the author so they can reply to you."
-      : "The optional email field is used only for private ARRP follow-up and is not included in the public post.";
+      ? "A reply email is optional. Entering an address allows the author to contact you; leave it blank if you do not want to be contacted."
+      : "The optional email field is used only for private ARRP follow-up and is not included in the public post. Leave it blank if you do not want to be contacted.";
     elements.emailLabel.textContent = contact
-      ? "Email for a reply (optional)"
+      ? "Email for a private reply (optional)"
       : "Email for possible private follow-up (optional)";
+    elements.emailHelp.textContent = contact
+      ? "By entering an email address, you agree that the author may contact you about this message. Leave it blank if you do not want to be contacted."
+      : "By entering an email address, you agree that ARRP may contact you privately about this submission. Leave it blank if you do not want to be contacted. Your address will not be posted publicly.";
     elements.privacyNote.textContent = contact
       ? "Private message: it is sent to the author and is not posted publicly. Do not include sensitive information."
       : "Public post: do not include personal or sensitive information. Optional email is private, is not posted to GitHub, and is used only for follow-up about this submission.";
@@ -103,7 +102,7 @@
       elements.receiptSummary.textContent = "No public post or GitHub Discussion was created.";
       elements.status.textContent = result.reply_email_provided
         ? "Your reply email was sent privately to the author."
-        : "No reply email was provided.";
+        : "No reply email was provided, so the author cannot contact you by email.";
     } else if (isLiveDiscussion) {
       elements.receiptLabel.textContent = "Submission received";
       elements.receiptHeading.textContent = "Your submission is available in a public discussion";
@@ -119,7 +118,7 @@
         : "Keep this public link to follow responses.";
     } else if (isContactRoute()) {
       elements.receiptLabel.textContent = "Prototype response";
-      elements.receiptHeading.textContent = "Your private-message receipt will appear here";
+      elements.receiptHeading.textContent = "Your private-message confirmation will appear here";
       elements.receiptSummary.textContent = "This local preview did not send anything. A live author-contact message would be sent privately and create no public post.";
     } else {
       elements.receiptLabel.textContent = "Prototype response";
@@ -213,7 +212,7 @@
     const payload = {
       title: elements.title.value.trim(),
       body: elements.body.value.trim(),
-      email: elements.email.value.trim(),
+      email: elements.email.disabled ? "" : elements.email.value.trim(),
       website: elements.website.value,
       turnstileToken: turnstileToken(),
       context: { proposal: submissionContext.proposal, pageTitle: submissionContext.title, pageUrl: submissionContext.url },
@@ -221,7 +220,6 @@
     if (!isContactRoute()) {
       payload.sources = elements.sources.value.trim();
       payload.related = elements.related.value.trim();
-      payload.emailConsent = elements.emailConsent.checked;
     }
     elements.status.textContent = isContactRoute() ? "Sending your private message…" : "Creating your public discussion…";
     setSubmitting(true);

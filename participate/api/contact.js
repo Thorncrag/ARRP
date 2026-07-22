@@ -45,6 +45,9 @@ function requiredConfiguration() {
 
 async function sendPrivateMessage(contact, contactId) {
   const context = [contact.context.proposal, contact.context.pageTitle, contact.context.pageUrl].filter(Boolean).join("\n");
+  const replyStatus = contact.email
+    ? `REPLY AUTHORIZED — contributor address: ${contact.email}`
+    : "DO NOT REPLY TO THE CONTRIBUTOR — no contributor email address was supplied.";
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -55,13 +58,13 @@ async function sendPrivateMessage(contact, contactId) {
       from: process.env.RESEND_FROM_EMAIL,
       to: [contactMailbox()],
       ...(contact.email ? { reply_to: contact.email } : {}),
-      subject: `ARRP author contact: ${contact.title}`,
+      subject: `${contact.email ? "" : "[NO CONTRIBUTOR REPLY] "}ARRP author contact: ${contact.title}`,
       text: [
         "Private message from the ARRP contact form.",
+        replyStatus,
         "",
         contact.body,
         context ? `\nRegarding:\n${context}` : "",
-        contact.email ? `\nReply email: ${contact.email}` : "\nNo reply email supplied.",
         `\nContact reference: ${contactId}`,
       ].filter(Boolean).join("\n"),
     }),
@@ -106,11 +109,14 @@ module.exports = async function contact(req, res) {
     if (!await sendPrivateMessage(message, crypto.randomUUID())) {
       return send(res, 502, { error: "ARRP could not send your private message. Please try again later." });
     }
-    return send(res, 201, { contacted: true, reply_email_provided: Boolean(message.email) });
+    return send(res, 201, {
+      contacted: true,
+      reply_email_provided: Boolean(message.email),
+    });
   } catch (_) {
     // No request-derived text is written to endpoint logs.
     return send(res, 502, { error: "ARRP could not send your private message. Please try again later." });
   }
 };
 
-module.exports._test = { contactMailbox, requiredConfiguration };
+module.exports._test = { contactMailbox, requiredConfiguration, sendPrivateMessage };
