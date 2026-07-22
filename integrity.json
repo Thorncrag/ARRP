@@ -2,17 +2,17 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-22T17:01:38+00:00",
-    "revision": "6104ba1c949d9d2a382eda2742ef23968d6dad73",
+    "generated_at": "2026-07-22T18:10:07+00:00",
+    "revision": "23cd15bc2a6860594434649d66370b4df24e9873",
     "result": "findings",
     "counts": {
       "errors": 0,
-      "warnings": 29,
-      "findings": 29,
-      "issue_pages": 62,
-      "proposal_pages": 40
+      "warnings": 28,
+      "findings": 28,
+      "issue_pages": 63,
+      "proposal_pages": 41
     },
-    "duration_seconds": 10.54,
+    "duration_seconds": 13.335,
     "scope": [
       "Issue and proposal structure",
       "Area and topic routing",
@@ -229,17 +229,23 @@
         "category": "Sources and citations",
         "message": "areas/RIGHTS/research/RIGHTS-003-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review",
         "path": "areas/RIGHTS/research/RIGHTS-003-source-development.md"
-      },
-      {
-        "id": "warning-0029",
-        "severity": "warning",
-        "category": "Sources and citations",
-        "message": "areas/WAR/research/WAR-001-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review",
-        "path": "areas/WAR/research/WAR-001-source-development.md"
       }
     ]
   },
   "history": [
+    {
+      "generated_at": "2026-07-22T18:10:07+00:00",
+      "revision": "23cd15bc2a6860594434649d66370b4df24e9873",
+      "result": "findings",
+      "counts": {
+        "errors": 0,
+        "warnings": 28,
+        "findings": 28,
+        "issue_pages": 63,
+        "proposal_pages": 41
+      },
+      "duration_seconds": 13.335
+    },
     {
       "generated_at": "2026-07-22T17:01:38+00:00",
       "revision": "6104ba1c949d9d2a382eda2742ef23968d6dad73",
