@@ -12,9 +12,9 @@ print_exclusion_reason: "Internal operational report."
 
 - **Result:** Findings require review
 - **Errors:** 0
-- **Warnings:** 29
-- **Issue pages checked:** 62
-- **Proposal pages checked:** 40
+- **Warnings:** 28
+- **Issue pages checked:** 63
+- **Proposal pages checked:** 41
 
 ## Current Findings
 
@@ -51,7 +51,6 @@ print_exclusion_reason: "Internal operational report."
 - **WARNING:** areas/RIGHTS/research/RIGHTS-001-source-development.md contains 11 generic source-development proposition(s) requiring source-specific review
 - **WARNING:** areas/RIGHTS/research/RIGHTS-002-source-development.md contains 22 generic source-development proposition(s) requiring source-specific review
 - **WARNING:** areas/RIGHTS/research/RIGHTS-003-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review
-- **WARNING:** areas/WAR/research/WAR-001-source-development.md contains 1 generic source-development proposition(s) requiring source-specific review
 
 ## Checks Included
 
