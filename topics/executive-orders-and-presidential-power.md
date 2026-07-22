@@ -31,6 +31,7 @@ This page separates those questions and directs readers to the proposal addressi
 | Execution of judicial commands | [JUD-001](../areas/JUD/issues/JUD-001.md) | Addresses practical enforcement when the executive does not carry out a court order. |
 | Notice of executive noncompliance | [JUD-005](../areas/JUD/issues/JUD-005.md) | Addresses automatic congressional and public notice after a qualifying judicial finding. |
 | Unilateral or indefinite use of military force | [WAR-001](../areas/WAR/issues/WAR-001.md) | Addresses authorization, reporting, termination, appropriations, and mission expansion. |
+| Planned lethal targeting without a stable law-enforcement or armed-conflict basis | [WAR-009](../areas/WAR/issues/WAR-009.md) | Requires a lawful classification, individualized basis, preserved evidence, and independent accountability. |
 
 </div>
 

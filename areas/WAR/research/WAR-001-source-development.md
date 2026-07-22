@@ -109,6 +109,6 @@ Further review should prioritize:
 
 ## Routed Source-Inventory Record
 
-The following entry is source-development work, not a completed finding or a substitute for the proposal’s verified manifestations, analysis, or citations.
+The following entry is now primarily owned by [WAR-009](../issues/WAR-009.md) for target classification, evidence, and accountability. It remains relevant here only to the distinct question whether Congress authorized the underlying hostilities.
 
-- **[SRC-0998](<https://www.courtlistener.com/docket/72191479/burnley-v-united-states/>) — Extrajudicial Killings.** Proposition supported: Source-development record for the described government action, litigation, or institutional episode; the individual legal and factual propositions remain subject to the stated verification posture. Potentially supports monitoring of Extrajudicial Killings; tracker status: Case Pending. Reviewed: **No**. Monitoring: **Yes — Watch the live docket for a merits, appellate, or final ruling addressing Extrajudicial Killings; the result will determine whether this source can support WAR-001's treatment of that matter.**
+- **[SRC-0998](<https://www.courtlistener.com/docket/72191479/burnley-v-united-states/>) — *Burnley v. United States*.** The pending challenge to an October 2025 vessel strike may clarify the asserted authority and reviewability of the operation. The pleadings are allegations, not adjudicated facts. Monitor for a merits, appellate, or final ruling; use WAR-009 as the primary substantive route and WAR-001 only for the authorization question.

@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — audit completed and reconciled |
-| Active issue/task | Comprehensive project-wide consistency, logic, process, linkage, descriptor, structure, and file-location audit |
-| Audit type/tier | Project Consistency Audit; no T-audit run |
+| Status | Inactive |
+| Active issue/task | None |
+| Audit type/tier | None; WAR-009 admission and initial drafting completed without a T-audit run |
 | Started | 2026-07-22 |
-| Last checkpoint | 2026-07-22; the comprehensive audit was merged through PR #343, local and remote `main` were reconciled, and the completed findings were retained below for the Project Console. |
-| User request | Conduct a comprehensive and thorough project consistency, logic, and process check, including every project file, cross-reference, link, descriptor, project-structure entry, and file location. |
-| Scope | All 371 tracked repository files, including root pages, governance, areas and issues, legislation, topics, inventories, research, sources, scripts, tests, workflows, website/publication tooling, participation service, and retained exports. |
-| Files touched | Governance and workflow files; issue and area pages; proposed legislation; source inventories and records; participation routing; integrity automation and tests; generated Console data; current audit and integrity reports. See the working-tree diff for the complete file list. |
-| Completed steps | Reconciled lifecycle and Defined Proposal rules; repaired current descriptors, links, metadata, legislation form, public-intake routing, source placement, GitHub wrappers, and Project canonical-page data; extended deterministic integrity checks; regenerated the Console and participation indexes; refreshed the Console's embedded integrity feed with the current 29 findings and retained history; verified live Vercel security headers. |
-| Next step | Await user direction. The five unscored foundation decisions, six candidate-dossier gaps, and source-specific review queue remain visible as ordinary follow-up work rather than an active audit blocker. |
-| Blockers/questions | Human foundation decisions remain unrecorded for APPT-001, JUD-012, OVS-009, REG-002, and RIGHTS-005. HOR-023, HOR-026, HOR-027, HOR-029, HOR-038, and HOR-039 retain one or more Project next-review or linked-research dossier gaps already surfaced in the Console. Twenty-four area source-development records retain 148 generic propositions that require source-specific LLM review rather than mechanical replacement. External-source availability remains reserved for the separate source-link audit. |
-| Validation status | Passed: 0 deterministic errors; 29 explicit warnings; 75 Python tests; 22 Node tests; Python/JavaScript syntax; ShellCheck; CSV/YAML/JSON parsing; diff hygiene; strict public-site build; authenticated GitHub Issue, Project, and Pages synchronization; live Vercel HSTS/CSP/security-header check. |
+| Last checkpoint | 2026-07-22; WAR-009 initial package completed, synchronized, and validated. |
+| User request | Completed: admit and develop the distinct lethal-targeting and accountability defect exposed by alleged drug-vessel strikes and threats against civilian or dual-use infrastructure. |
+| Scope | Closed. The canonical package is WAR-009, its audit history, source-development record, and federal legislative vehicle. |
+| Files touched | None pending. The completed change is recorded in the WAR-009 audit history and Git history. |
+| Completed steps | Created and validated the independent WAR-009 package; preserved the WAR-001 authorization boundary; added verified sources and monitoring predicates; synchronized GitHub issue #347 and its Project row; updated reader navigation and generated Console data. |
+| Next step | WAR-009 is ready for a T0 triage scan when selected for audit. |
+| Blockers/questions | None. Constitutional, operational, criminal-jurisdiction, classified-information, and fiscal questions are expressly queued for the first audits rather than treated as resolved. |
+| Validation status | Passed: 75 unit tests; strict public-site build; diff hygiene; deterministic and authenticated consistency checks with zero errors; GitHub issue and Project readback. |
 
 ## Detailed Findings and Corrections
 

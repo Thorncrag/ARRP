@@ -50,3 +50,4 @@ Working statutory and administrative language is maintained separately from the 
 - [RIGHTS-005 — Law-Enforcement Constitutional Accountability Act](RIGHTS-005.md)
 - [IMM-001 — Presidential Criminal Accountability Amendment](IMM-001.md)
 - [WAR-001 — War Powers and Use-of-Force Authorization Reform Act](WAR-001.md)
+- [WAR-009 — Executive Lethal Targeting Accountability Act](WAR-009.md)
