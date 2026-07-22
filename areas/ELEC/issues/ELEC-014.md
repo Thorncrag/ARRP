@@ -12,6 +12,8 @@ audit_last_date: "2026-07-09"
 audit_next: "Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, congressional records, and Arizona lead verification; then identify exact alleged statutes or offense theories and run T2 remedy-selection and legitimacy assessment"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
+change_audit_needed: false
+change_audit_reason: null
 print_levels:
   - public-proposal
 audit_history: "ELEC-014.audit.md"

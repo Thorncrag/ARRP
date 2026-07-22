@@ -154,7 +154,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 18)
+        self.assertEqual(self.console["schema_version"], 19)
         self.assertEqual(
             set(self.console),
             {
@@ -174,6 +174,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 "page_inventory",
                 "publication",
                 "integrity",
+                "consistency_audit",
                 "project_logs",
                 "progress",
                 "horizon_records",
@@ -192,6 +193,13 @@ class HorizonIntakeTest(unittest.TestCase):
             len(self.presidential_directives),
         )
         self.assertTrue(self.console["page_inventory"])
+        self.assertTrue(self.console["consistency_audit"]["entries"])
+        self.assertTrue(
+            all(
+                entry["disposition"] and entry["problem"] and entry["correction"] and entry["effect"]
+                for entry in self.console["consistency_audit"]["entries"]
+            )
+        )
         self.assertEqual(
             {edition["id"] for edition in self.console["publication"]["manifest"]["editions"]},
             {"public-proposal", "legislative-appendix", "executive-summary"},
@@ -312,13 +320,17 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertIn("internal_links", row)
 
     def test_horizon_source_records_state_candidate_specific_questions(self) -> None:
-        generic = "Source-development record for the described government action"
+        generic_phrases = (
+            "Source-development record for the described government action",
+            "Supports HOR-0",
+        )
         source_ids = {row["Source ID"] for row in self.source_catalogs["sources.csv"]}
         records = sorted((RESEARCH / "horizon-source-records").glob("HOR-*-source-development.md"))
         self.assertEqual(len(records), 13)
         for path in records:
             content = path.read_text(encoding="utf-8")
-            self.assertNotIn(generic, content, path.name)
+            for generic in generic_phrases:
+                self.assertNotIn(generic, content, path.name)
             self.assertNotIn("does not belong in the cited bibliography", content, path.name)
             for source_id in re.findall(r"\bSRC-\d{4}\b", content):
                 self.assertIn(source_id, source_ids, f"{path.name}: {source_id}")
@@ -504,6 +516,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Edition analysis", console_html)
         self.assertIn("Document builder", console_html)
         self.assertIn("Project integrity", console_html)
+        self.assertIn("Latest consistency audit", console_html)
+        self.assertIn('id="consistency-audit-findings"', console_html)
         self.assertIn("Open current report", console_html)
         self.assertIn("PROJECT_INTEGRITY_REPORT.md", console_html)
         self.assertIn('id="scroll-to-top"', console_html)

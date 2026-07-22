@@ -32,6 +32,9 @@ jobs:
           ARRP_PROJECT_TOKEN: ${{ secrets.ARRP_PROJECT_TOKEN }}
         run: test -n "${ARRP_PROJECT_TOKEN}"
 
+      - name: Install integrity-check dependencies
+        run: python3 -m pip install PyYAML==6.0.3
+
       - name: Run the project integrity checks
         env:
           GH_TOKEN: ${{ secrets.ARRP_PROJECT_TOKEN }}

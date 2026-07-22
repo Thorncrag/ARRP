@@ -31,13 +31,13 @@ The purposes of this Act are—
 4. to ensure that postal operations support, and do not secretly condition or veto, lawful State-created mail-ballot channels, including any State-law receipt window for ballots cast by election day; and
 5. to preserve election security, voter authentication, ballot custody, and timely finality through clear and auditable rules.
 
-# TITLE I — MAIL AND ABSENTEE BALLOT RELIABILITY STANDARDS
+## TITLE I — MAIL AND ABSENTEE BALLOT RELIABILITY STANDARDS
 
 ## SEC. 101. HELP AMERICA VOTE ACT AMENDMENTS.
 
 The Help America Vote Act of 2002 is amended by adding at the end the following new title:
 
-# TITLE XI — MAIL AND ABSENTEE BALLOT RELIABILITY
+## TITLE XI — MAIL AND ABSENTEE BALLOT RELIABILITY
 
 ## SEC. 1101. DEFINITIONS.
 
@@ -122,7 +122,7 @@ A court hearing an action under this section shall expedite proceedings to the g
 
 This section does not create a damages remedy against a State, political subdivision, election official, postal official, or election worker.
 
-# TITLE II — ELECTION MAIL STANDARDS
+## TITLE II — ELECTION MAIL STANDARDS
 
 ## SEC. 201. ELECTION MAIL SERVICE STANDARDS.
 
@@ -148,7 +148,7 @@ The table of sections for chapter 36 of title 39, United States Code, is amended
 
 > 3697. Election mail service standards.
 
-# TITLE III — AUTHORIZATION OF APPROPRIATIONS
+## TITLE III — AUTHORIZATION OF APPROPRIATIONS
 
 ## SEC. 301. AUTHORIZATION OF APPROPRIATIONS.
 

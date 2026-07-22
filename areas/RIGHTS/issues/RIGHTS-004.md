@@ -144,11 +144,11 @@ No reliable estimate yet. A comprehensive immigration-system reform could have s
 >
 > —
 >
-> **Internal Review Status:** Retired as an independent proposal after portfolio issue-admission review<br />**Last Internal Review:** Portfolio issue-admission disposition (2026-07-16)<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Fixed-zero unscored record; no T-audit completed<br />**Next Review:** Preserve narrow source leads under their active homes; do not reopen the omnibus record without a new issue-admission finding<br />**Full Review History:** [RIGHTS-004 review history](RIGHTS-004.audit.md)
+> **Internal Review Status:** Retired as an independent proposal after portfolio issue-admission review<br />**Last Internal Review:** Portfolio issue-admission disposition (2026-07-16)<br />**Scoring Standard:** `2026-06-27.1`; **Scoring Basis:** Unscored record; no formal proposal-quality audit completed<br />**Next Review:** Preserve narrow source leads under their active homes; do not reopen the omnibus record without a new issue-admission finding<br />**Full Review History:** [RIGHTS-004 review history](RIGHTS-004.audit.md)
 
 ## Annotation
 
-RIGHTS-004 was admitted to preserve a comprehensive immigration-reform lane inside A-24 and later retired after portfolio review found that it combined political-policy choices with distinct remedies already owned elsewhere. Its system-wide routing function was preserved by converting the existing immigration guide into the [Immigration System Reform](../../../topics/immigration-system-reform.md) topic page. Its proposal-quality score remains 0 because no score-bearing T-audit or unified statutory vehicle was completed.
+RIGHTS-004 was admitted to preserve a comprehensive immigration-reform lane inside A-24 and later retired after portfolio review found that it combined political-policy choices with distinct remedies already owned elsewhere. Its system-wide routing function was preserved by converting the existing immigration guide into the [Immigration System Reform](../../../topics/immigration-system-reform.md) topic page. Its proposal-quality score remains 0 because no score-bearing formal proposal audit or unified statutory vehicle was completed.
 
 The issue should remain institutionally neutral. It should ask whether immigration administration has enough process, review, capacity, records integrity, lawful-pathway coherence, humanitarian protection, and federalism boundaries to resist abuse across administrations. It should not become a general repository for every immigration policy preference or enforcement dispute.
 

@@ -9,6 +9,7 @@ print_exclusion_reason: "Internal operational log."
 This log records material source or presidential-directive metadata changes proposed by deterministic project watchers. Routine no-change checks remain in GitHub Actions and do not create repository commits or log entries.
 
 Each entry must identify the watcher, a stable activity code, the affected source or directive identifiers, the originating workflow run, the machine-observed change, and the automation boundary. The corresponding pull request is the unresolved review task; merging it accepts the proposed per-row baseline. No entry establishes legal significance, project relevance, or a substantive disposition.
+
 ## 2026-07-21T19:25:58+00:00 — Case monitor bot
 
 - Activity code: `CASE-20260721192558-9736B480`

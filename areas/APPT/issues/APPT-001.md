@@ -128,7 +128,7 @@ Prospectively, the proposal would convert passive acquiescence into an affirmati
 >
 > —
 >
-> **Internal Review Status:** Initial consolidated issue and statutory framework drafted; internal project review required<br />**Last Internal Review:** Candidate consolidation and initial statutory draft<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current fixed-zero development status<br />**Next Review:** Initial legal-and-implementation review of statutory scope, continuity, consequences, judicial review, and office-specific backstops<br />**Full Review History:** [APPT-001 review history](APPT-001.audit.md)
+> **Internal Review Status:** Initial consolidated issue and statutory framework drafted; internal project review required<br />**Last Internal Review:** Candidate consolidation and initial statutory draft<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored development status<br />**Next Review:** Initial legal-and-implementation review of statutory scope, continuity, consequences, judicial review, and office-specific backstops<br />**Full Review History:** [APPT-001 review history](APPT-001.audit.md)
 
 ## Annotation
 

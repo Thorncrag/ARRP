@@ -20,14 +20,12 @@ The official target and calculation settings are stored in [`.github/project-con
 
 ## Review Ready rule
 
-An eligible proposal counts toward the goal only when its GitHub Project score is at least 75 and its Project status is one of:
+An eligible proposal counts toward the goal only when its GitHub Project score is at least 75 and its Project status is one of the two current lifecycle values that represent at least Review Ready:
 
 - `Review ready`;
-- `Advanced review ready`;
-- `Proposal ready`;
-- `Publication ready`;
-- `Fully validated`; or
 - `Release candidate`.
+
+The issue page retains the more precise score-band label—such as `Advanced Review Ready`, `Proposal Ready`, `Publication Ready`, or `Fully Validated`—without inventing Project status values that do not exist in the authoritative field.
 
 `Completed within scope` and other administrative dispositions do not count as development progress. Merging, integrating, retiring, rejecting, or rerouting a record may change the active denominator, but it does not increase the Review Ready numerator or attainment velocity. The calculation flags status/score inconsistencies and undeveloped lifecycle drift but never repairs Project data automatically.
 

@@ -13,7 +13,7 @@ print_exclusion_reason: "Internal source-development record."
 
 ## Scope Under Review
 
-PRESS-006 presently covers use of governmental powers or benefits to punish, threaten, or extract concessions from press organizations because of reporting. The boundary between protected criticism, unlawful retaliation, and the broader RET-001 framework remains under development.
+PRESS-006 presently covers use of governmental powers or benefits to punish, threaten, or extract concessions from press organizations because of reporting. The boundary between protected criticism, unlawful retaliation, and the broader [RET-001](../../RET/issues/RET-001.md) framework remains under development.
 
 ## Source-Development Record
 

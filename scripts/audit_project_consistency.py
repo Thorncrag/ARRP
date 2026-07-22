@@ -24,6 +24,8 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlsplit
 
+import yaml
+
 
 ROOT = Path(__file__).resolve().parents[1]
 ISSUE_PATH = ROOT / "areas"
@@ -59,10 +61,6 @@ PROJECT_REBASELINE_VALUES = {
     "soft-rebaseline-needed": "Soft rebaseline needed",
 }
 READY_PROJECT_STATUSES = {
-    "advanced review ready",
-    "fully validated",
-    "proposal ready",
-    "publication ready",
     "release candidate",
     "review ready",
 }
@@ -428,6 +426,36 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
                 failures,
                 warnings,
             )
+        for field in ("change_audit_needed", "change_audit_reason"):
+            if field not in data:
+                report(
+                    "ERROR",
+                    f"{issue_id} lacks required audit-control metadata: {field}",
+                    failures,
+                    warnings,
+                )
+        foundation_status = data.get("foundation_status")
+        if foundation_status and foundation_status not in {"approved", "pending"}:
+            report(
+                "ERROR",
+                f"{issue_id} has invalid foundation_status {foundation_status!r}",
+                failures,
+                warnings,
+            )
+        if foundation_status == "approved" and not data.get("foundation_approved_date"):
+            report(
+                "ERROR",
+                f"{issue_id} has approved foundations without foundation_approved_date",
+                failures,
+                warnings,
+            )
+        if data.get("status") == "in-development" and data.get("audit_score") == "0" and not foundation_status:
+            report(
+                "WARNING",
+                f"{issue_id} is an unscored in-development issue without a machine-readable foundation decision",
+                failures,
+                warnings,
+            )
         if not sidecar.exists():
             report("ERROR", f"{issue_id} lacks sibling audit-history file", failures, warnings)
         elif front_matter(sidecar).get("issue_id") != issue_id:
@@ -496,7 +524,7 @@ def check_legislation(issue_map: dict[str, Path], failures: list[str], warnings:
             )
         if path.resolve() not in indexed_targets:
             report("ERROR", f"{path.relative_to(ROOT)} is missing from legislation/README.md", failures, warnings)
-        framework_issue = (data.get("framework_issue") or data.get("linked_issue") or "").strip('"')
+        framework_issue = data.get("framework_issue", "").strip('"')
         if not framework_issue:
             report("ERROR", f"{path.relative_to(ROOT)} lacks framework_issue metadata", failures, warnings)
         else:
@@ -504,6 +532,19 @@ def check_legislation(issue_map: dict[str, Path], failures: list[str], warnings:
             if target and not target.exists():
                 report("ERROR", f"{path.relative_to(ROOT)} framework_issue target is missing", failures, warnings)
         body = markdown_body(path)
+        if len(re.findall(r"^# ", body, re.MULTILINE)) != 1:
+            report("ERROR", f"{path.relative_to(ROOT)} must contain exactly one H1", failures, warnings)
+        if re.search(r"^## A BILL$", body, re.MULTILINE) and not re.search(
+            r"^Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,$",
+            body,
+            re.MULTILINE,
+        ):
+            report(
+                "ERROR",
+                f"{path.relative_to(ROOT)} is a federal bill draft without the standard enacting clause",
+                failures,
+                warnings,
+            )
         visible_ids = {issue_id, proposal_id}
         expected_h1 = (
             rf"^# (?:{'|'.join(re.escape(value) for value in sorted(visible_ids))})\s+[—-]\s+"
@@ -917,7 +958,6 @@ def check_reader_navigation_coverage(
                 failures,
                 warnings,
             )
-
         coverage = metadata.get("topic_coverage", "")
         coverage_reason = metadata.get("topic_coverage_reason", "")
         if coverage and coverage != "institution-specific":
@@ -946,6 +986,37 @@ def check_reader_navigation_coverage(
                 warnings,
             )
 
+
+def check_cross_issue_links(
+    issue_map: dict[str, Path], failures: list[str], warnings: list[str]
+) -> None:
+    """Require at least one link when a reader page names another existing issue."""
+    link_pattern = re.compile(r"\[([^\]]*)\]\(([^)]+)\)")
+    pages = sorted([*ROOT.glob("areas/*/README.md"), *issue_pages()])
+    for path in pages:
+        body = MARKDOWN_FENCE_RE.sub("", markdown_body(path))
+        own_id = front_matter(path).get("issue_id", "")
+        linked_ids: set[str] = set()
+        for label, target in link_pattern.findall(body):
+            linked_ids.update(re.findall(r"\b[A-Z]+-\d{3}\b", label))
+            linked_ids.update(re.findall(r"\b[A-Z]+-\d{3}\b", target))
+            local = local_target(path, target)
+            if local and local.stem in issue_map:
+                linked_ids.add(local.stem)
+        unlinked_text = link_pattern.sub("", body)
+        unlinked_text = re.sub(r"`[^`]*`", "", unlinked_text)
+        mentions = {
+            value
+            for value in re.findall(r"\b[A-Z]+-\d{3}\b", unlinked_text)
+            if value in issue_map and value != own_id
+        }
+        for issue_id in sorted(mentions - linked_ids):
+            report(
+                "ERROR",
+                f"reader-facing {path.relative_to(ROOT)} names {issue_id} without linking its existing issue page",
+                failures,
+                warnings,
+            )
 
 def github_repository_targets(body: str) -> list[tuple[str, str, Path]]:
     """Return main-branch ARRP repository targets embedded in an issue body."""
@@ -1635,6 +1706,14 @@ def check_registry_and_sources(
         ("sources-pending.csv", pending_rows),
     ):
         for row in catalog_rows:
+            source_url = row.get("URL", "").strip()
+            if source_url and not source_url.startswith(("http://", "https://")):
+                report(
+                    "ERROR",
+                    f"{row.get('Source ID', 'unnumbered source')} in {catalog_name} is not an external source URL",
+                    failures,
+                    warnings,
+                )
             tracker_status = re.search(
                 r"tracker status:\s*([^.;]+(?:\([^)]*\))?)",
                 row.get("Proposition Supported", ""),
@@ -2063,6 +2142,18 @@ def check_structured_files_and_repository_hygiene(
                 failures,
                 warnings,
             )
+    for path in active_project_files(".yml", ".yaml"):
+        try:
+            yaml.safe_load(read(path))
+        except yaml.YAMLError as error:
+            mark = getattr(error, "problem_mark", None)
+            location = f":{mark.line + 1}" if mark is not None else ""
+            report(
+                "ERROR",
+                f"invalid YAML in {path.relative_to(ROOT)}{location}: {getattr(error, 'problem', str(error))}",
+                failures,
+                warnings,
+            )
     for path in active_project_files(".csv"):
         try:
             with path.open(newline="", encoding="utf-8") as handle:
@@ -2096,6 +2187,81 @@ def check_structured_files_and_repository_hygiene(
             report(
                 "ERROR",
                 f"reader-facing {path.relative_to(ROOT)} contains a local filesystem reference",
+                failures,
+                warnings,
+            )
+
+    participation_source = ROOT / "participate" / "intake-data.js"
+    participation_index = ROOT / "participate" / "api" / "route-index.js"
+    try:
+        source_text = read(participation_source)
+        source_prefix = "window.ARRP_PARTICIPATION_DATA="
+        source_payload = json.loads(source_text.split(source_prefix, 1)[1].strip().removesuffix(";"))
+        expected_routes = [
+            {
+                "id": record["id"],
+                "title": record["title"],
+                "area": record["area"],
+                "canonical_page": record["canonical_page"],
+                "issue_url": record["issue_url"],
+            }
+            for record in [*source_payload["proposal_index"], *source_payload["horizon_index"]]
+        ]
+        index_text = read(participation_index)
+        index_match = re.search(
+            r"const records = Object\.freeze\((\[.*?\])\);\n\nconst proposals",
+            index_text,
+            re.DOTALL,
+        )
+        if not index_match:
+            raise ValueError("route-record marker is missing")
+        actual_routes = json.loads(index_match.group(1))
+        if actual_routes != expected_routes:
+            report(
+                "ERROR",
+                "participate/api/route-index.js is stale relative to participate/intake-data.js",
+                failures,
+                warnings,
+            )
+    except (IndexError, KeyError, json.JSONDecodeError, ValueError) as error:
+        report(
+            "ERROR",
+            f"participation route-index validation failed: {error}",
+            failures,
+            warnings,
+        )
+
+    generic_source_phrases = (
+        "Source-development record for the described government action",
+        "Supports HOR-0",
+    )
+    horizon_source_records = sorted(
+        (ROOT / "research" / "horizon-source-records").glob("HOR-*-source-development.md")
+    )
+    for path in horizon_source_records:
+        content = read(path)
+        for phrase in generic_source_phrases:
+            if phrase in content:
+                report(
+                    "ERROR",
+                    f"{path.relative_to(ROOT)} retains a generic source-development proposition beginning {phrase!r}",
+                    failures,
+                    warnings,
+                )
+
+    area_source_records = sorted(
+        path
+        for path in (ROOT / "areas").glob("*/research/*-source-development.md")
+        if path.is_file()
+    )
+    for path in area_source_records:
+        content = read(path)
+        matches = sum(content.count(phrase) for phrase in generic_source_phrases)
+        if matches:
+            report(
+                "WARNING",
+                f"{path.relative_to(ROOT)} contains {matches} generic source-development "
+                "proposition(s) requiring source-specific review",
                 failures,
                 warnings,
             )
@@ -2259,6 +2425,7 @@ def structured_report(
             "Markdown heading anchors",
             "Orphaned Markdown pages",
             "Page metadata and heading hierarchy",
+            "Cross-issue reference links",
             "GitHub record references",
             "GitHub Issue and Project synchronization",
             "GitHub Pages deployment synchronization",
@@ -2337,6 +2504,7 @@ def main() -> int:
     check_orphaned_markdown_pages(failures, warnings)
     check_markdown_metadata_and_headings(failures, warnings)
     check_reader_navigation_coverage(issue_map, failures, warnings)
+    check_cross_issue_links(issue_map, failures, warnings)
     check_front_door_routes(failures, warnings)
     github_issues = fetch_github_issues(failures, warnings)
     project_items = fetch_github_project_items(failures, warnings)

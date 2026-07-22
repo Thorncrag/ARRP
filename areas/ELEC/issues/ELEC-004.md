@@ -138,11 +138,11 @@ The screening procedure applies to proceedings or demands that seek coercive, di
 ## Relationship to Adjacent Proposals
 
 - **ELEC-001** concerns federal executive interference with state and local election administration.
-- **ELEC-002** concerns certification refusal, deadlock, delay, or unauthorized discretion by certification bodies.
-- **ELEC-003** concerns protection of election personnel from threats, harassment, doxxing, retaliation, and operational disruption.
+- **[ELEC-002](ELEC-002.md)** concerns certification refusal, deadlock, delay, or unauthorized discretion by certification bodies.
+- **[ELEC-003](ELEC-003.md)** concerns protection of election personnel from threats, harassment, doxxing, retaliation, and operational disruption.
 - **ELEC-004** concerns Anti-SLAPP-style control of abusive election litigation, civil subpoenas, audit requests, inspection demands, and extraordinary proceedings.
-- **ELEC-005** concerns alternate-elector or false-certification schemes.
-- **ELEC-008** concerns broader accountability for efforts to overturn lawful results.
+- **[ELEC-005](ELEC-005.md)** concerns alternate-elector or false-certification schemes.
+- **[ELEC-008](ELEC-008.md)** concerns broader accountability for efforts to overturn lawful results.
 - [**ELEC-014**](ELEC-014.md) concerns federal criminal investigative process directed at state-administered elections, election officials, voter-registration activity, voter data, ballots, voting systems, or voting-rights organizations.
 - [**DOJ-002**](../../DOJ/issues/DOJ-002.md) and [**DOJ-003**](../../DOJ/issues/DOJ-003.md) concern politicized federal law-enforcement direction, charging, enforcement, and favoritism.
 

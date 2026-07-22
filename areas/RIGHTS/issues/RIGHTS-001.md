@@ -13,6 +13,8 @@ audit_last_date: "2026-07-02"
 audit_next: "Post-B.P.J. source-development pass"
 audit_rubric_version: "2026-06-27.1"
 audit_rebaseline_status: "current-fixed-status"
+change_audit_needed: false
+change_audit_reason: null
 print_levels:
   - public-proposal
 audit_history: "RIGHTS-001.audit.md"

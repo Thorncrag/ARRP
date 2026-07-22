@@ -22,53 +22,53 @@ Each entry states the proposition presently under review. `Reviewed: No` means t
 ## General source development
 
 - **[SRC-1280 — Protecting the Nation From Foreign Terrorist Entry Into the United States](<https://www.govinfo.gov/content/pkg/FR-2017-03-09/pdf/2017-04837.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1283 — Resuming the United States Refugee Admissions Program With Enhanced Vetting Capabilities](<https://www.govinfo.gov/content/pkg/FR-2017-10-27/pdf/2017-23630.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1290 — Maintaining Enhanced Vetting Capabilities and Processes for Detecting Attempted Entry Into the United States by Terrorists or Other Public-Safety Threats](<https://www.govinfo.gov/content/pkg/FR-2018-04-13/pdf/2018-07864.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1302 — Addressing Mass Migration Through the Southern Border of the United States](<https://www.govinfo.gov/content/pkg/FR-2018-11-15/pdf/2018-25117.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1306 — Addressing Mass Migration Through the Southern Border of the United States](<https://www.govinfo.gov/content/pkg/FR-2019-02-12/pdf/2019-02303.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1307 — Addressing Mass Migration Through the Southern Border of the United States](<https://www.govinfo.gov/content/pkg/FR-2019-05-13/pdf/2019-09992.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1313 — Suspension of Entry as Immigrants and Nonimmigrants of Persons Responsible for Policies or Actions That Threaten Venezuela's Democratic Institutions](<https://www.govinfo.gov/content/pkg/FR-2019-09-30/pdf/2019-21398.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1314 — Suspension of Entry as Immigrants and Nonimmigrants of Senior Officials of the Government of Iran](<https://www.govinfo.gov/content/pkg/FR-2019-09-30/pdf/2019-21400.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1321 — Improving Enhanced Vetting Capabilities and Processes for Detecting Attempted Entry Into the United States by Terrorists or Other Public-Safety Threats](<https://www.govinfo.gov/content/pkg/FR-2020-02-05/pdf/2020-02422.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1322 — Suspension of Entry as Immigrants and Nonimmigrants of Persons Who Pose a Risk of Transmitting 2019 Novel Coronavirus and Other Appropriate Measures To Address This Risk](<https://www.govinfo.gov/content/pkg/FR-2020-02-05/pdf/2020-02424.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1323 — Suspension of Entry as Immigrants and Nonimmigrants of Certain Additional Persons Who Pose a Risk of Transmitting 2019 Novel Coronavirus](<https://www.govinfo.gov/content/pkg/FR-2020-03-04/pdf/2020-04595.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1324 — Suspension of Entry as Immigrants and Nonimmigrants of Certain Additional Persons Who Pose a Risk of Transmitting 2019 Novel Coronavirus](<https://www.govinfo.gov/content/pkg/FR-2020-03-16/pdf/2020-05578.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1325 — Suspension of Entry as Immigrants and Nonimmigrants of Certain Additional Persons Who Pose a Risk of Transmitting 2019 Novel Coronavirus](<https://www.govinfo.gov/content/pkg/FR-2020-03-18/pdf/2020-05797.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1326 — Suspension of Entry of Immigrants Who Present a Risk to the United States Labor Market During the Economic Recovery Following the 2019 Novel Coronavirus Outbreak](<https://www.govinfo.gov/content/pkg/FR-2020-04-27/pdf/2020-09068.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1327 — Suspension of Entry as Immigrants and Nonimmigrants of Certain Additional Persons Who Pose a Risk of Transmitting 2019 Novel Coronavirus](<https://www.govinfo.gov/content/pkg/FR-2020-05-28/pdf/2020-11616.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1328 — Suspension of Entry of Immigrants and Nonimmigrants Who Present a Risk to the United States Labor Market During the Economic Recovery Following the 2019 Novel Coronavirus Outbreak](<https://www.govinfo.gov/content/pkg/FR-2020-06-25/pdf/2020-13888.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**
 - **[SRC-1346 — Suspension of Entry of Immigrants and Nonimmigrants Who Continue To Present a Risk to the United States Labor Market During the Economic Recovery Following the 2019 Novel Coronavirus Outbreak](<https://www.govinfo.gov/content/pkg/FR-2021-01-06/pdf/2021-00039.pdf>)**
-  - Current proposition: Supports HOR-041 review of the statutory authority and safeguards described in the formal candidate record.
+  - Current proposition: Candidate-specific verification question: how does this entry suspension invoke INA section 212(f), and what nexus, findings, class definition, duration, exceptions, review, and termination safeguards does the instrument use?
   - Reviewed: **Yes**

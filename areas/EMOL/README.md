@@ -34,4 +34,4 @@ These numbers were assigned during preliminary review but did not become separat
 
 EMOL-015 is an 83/100 Review Ready conflict-of-interest and settlement-authority proposal after internal project review. The President and a narrowly defined Vice President lane are expressly covered. The bill supplies automatic adversity screening, controlled maintenance with periodic review, payment restrictions, a bounded D.D.C. enforcement action, recipient process, protected-information procedures, explicit appeals, and a universal categorical audit-immunity amendment. Publication-form verification is complete; qualified constitutional, federal-courts, tax, appropriations, judicial-administration, and legislative-counsel review remains required.
 
-EMOL-001 remains in development and next requires source development, a concrete comprehensive vehicle, and its first T-audit. EMOL-015 remains independently developed and Review Ready.
+EMOL-001 remains in development and next requires source development, a concrete comprehensive vehicle, and its first formal internal review. EMOL-015 remains independently developed and Review Ready.

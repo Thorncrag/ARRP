@@ -23,12 +23,13 @@ This file is the single authority for the purpose and placement of project direc
 | `mkdocs.yml` | Public-site presentation and search configuration. |
 | `requirements-pages.txt` | Pinned GitHub Pages build dependencies. |
 | `requirements-local-tools.txt` | Pinned local website and document-processing Python dependencies. |
+| `.gitignore` | Local-product, credential, cache, and generated-artifact exclusions for Git. |
 
 ## Directories
 
 | Path | Purpose |
 | --- | --- |
-| `.github/` | GitHub-native workflows, issue forms, and automation configuration. GitHub requires issue forms and workflow files to remain here. |
+| `.github/` | GitHub-native workflows and automation configuration. GitHub requires workflow files to remain here. |
 | `areas/` | One directory per institutional area; each area contains its reader index, issue pages, audit sidecars, and area-owned research or evidence. |
 | `legislation/` | Proposed statutory, constitutional, regulatory, procedural, and model-state language keyed to issue identifiers. |
 | `topics/` | Selective public guides connecting recognizable subjects to authoritative project proposals and final non-inclusion decisions. |
@@ -71,7 +72,7 @@ Ignored local products such as `.venv/`, `.tmp/`, and `.site-build/` are not pro
 | `framework/logs/AGENT_AUDIT_LOG.md` | Provenance and rollback references for autonomous, batched, or scheduled agent commits. |
 | `framework/logs/SOURCE_MONITOR_LOG.md` | Material deterministic watcher changes and workflow provenance. |
 | `framework/logs/PROJECT_INTEGRITY_REPORT.md` | Overwritten current integrity findings; not a running audit log. |
-| `framework/templates/` | Reusable project-authored drafting templates. GitHub-native issue forms remain in `.github/ISSUE_TEMPLATE/`. |
+| `framework/templates/` | Reusable project-authored drafting templates. Public input is routed through the separately deployed participation service rather than GitHub issue forms. |
 
 ## Content Placement Rules
 

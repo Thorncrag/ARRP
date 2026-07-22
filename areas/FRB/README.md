@@ -31,4 +31,4 @@ These numbers were assigned during preliminary review but did not become separat
 
 ## Notes
 
-FRB-001 is a high-priority systemic-risk proposal in development. Full source development, legal-vehicle analysis, and a first T-audit remain pending.
+FRB-001 is a high-priority systemic-risk proposal in development. Full source development, legal-vehicle analysis, and its first formal internal review remain pending.

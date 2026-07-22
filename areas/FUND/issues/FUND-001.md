@@ -127,13 +127,13 @@ FUND-001 is a complete appropriations-specific remedy Congress may enact if it r
 
 ## Relationship to Adjacent Proposals
 
-- **FUND-002** concerns pocket rescissions and strategic delay. FUND-001 owns the repeated-unlawful-directive trigger and fiscal-inertness mechanism.
+- **[FUND-002](FUND-002.md)** concerns pocket rescissions and strategic delay. FUND-001 owns the repeated-unlawful-directive trigger and fiscal-inertness mechanism.
 - FUND-003, FUND-005, FUND-006, FUND-007, and FUND-008 are integrated here as program-nullification, reprogramming, standing, remedy, accountability, and reporting components. The existing issue and standalone bill already address those mechanisms through covered fiscal actions, eligible plaintiffs, specific relief, protected employee reporting, GAO access, and congressional notice.
 - FUND-004 is integrated into [FED-003](../../FED/issues/FED-003.md) for state and local funding coercion and [RET-001](../../RET/README.md) for cross-sector retaliation. FUND-001 remains applicable when the same conduct violates an enacted appropriation or program mandate.
 - EMERG-002 is integrated here as the emergency-authority appropriation-redirection manifestation. [EMERG-001](../../EMERG/README.md) retains declaration, duration, renewal, and general emergency-review rules.
 - [JUD-005](../../JUD/issues/JUD-005.md) supplies automatic public notice after judicially established executive noncompliance; the project does not treat unified-government oversight inaction itself as an independently remediable institutional defect.
 - **FED-003** concerns coercive grant conditions imposed on states or local governments.
-- **JUD-001** concerns judicial enforcement after a court has issued an order requiring executive compliance.
+- **[JUD-001](../../JUD/issues/JUD-001.md)** concerns judicial enforcement after a court has issued an order requiring executive compliance.
 - The **Interbranch Review Framework Act (JUD-011)** is the preferred general anti-nullification remedy and applies without subject-matter designation. FUND-001 is a separate, complete appropriations-specific alternative.
 
 ## Budgetary Impact Statements

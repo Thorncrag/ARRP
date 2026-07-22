@@ -34,4 +34,4 @@ These numbers were assigned during preliminary review but did not become separat
 
 ## Notes
 
-EMERG-001 is in development after consolidation. EMERG-003 has a developed issue page and first statutory draft; its internal project review remains pending.
+EMERG-001 is in development after consolidation. EMERG-003 remains a candidate with a substantive issue page and first statutory draft; its admission-stage internal review remains pending.

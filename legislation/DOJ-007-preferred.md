@@ -26,6 +26,8 @@ If Congress rejects the Interbranch Review Framework Act (JUD-011), it may inste
 
 To implement the Independent Investigative Counsel Amendment through a separately firewalled component of the Interbranch Review Division, to provide for appointment, authority, independence, accountability, funding, and termination of independent investigative counsel in extraordinary cases of executive conflict, and for other purposes.
 
+Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
+
 ## SECTION 1. SHORT TITLE.
 
 This Act may be cited as the **“Independent Investigative Counsel Shared-Framework Implementation Act.”**

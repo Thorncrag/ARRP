@@ -9,7 +9,7 @@ print_levels:
   - legislative-appendix
 ---
 
-# ELEC-013 - Federal Candidate Access and Debate Transparency Act
+# ELEC-013 — Federal Candidate Access and Debate Transparency Act
 
 ## A BILL
 
@@ -33,13 +33,13 @@ The purposes of this Act are:
 6. to prevent debate criteria from using major-party nomination as a functional proxy while avoiding compelled private press hosting or editorial control; and
 7. to assign administration to the Election Assistance Commission, Federal Election Commission, Department of Justice, and courts according to their existing institutional roles.
 
-# TITLE I - FEDERAL CANDIDATE ACCESS FILING INTERFACE
+## TITLE I - FEDERAL CANDIDATE ACCESS FILING INTERFACE
 
 ## SEC. 101. HELP AMERICA VOTE ACT AMENDMENTS.
 
 The Help America Vote Act of 2002 is amended by adding at the end the following new title:
 
-# TITLE XII - FEDERAL CANDIDATE ACCESS INTERFACE
+## TITLE XII - FEDERAL CANDIDATE ACCESS INTERFACE
 
 ## SEC. 1201. DEFINITIONS.
 
@@ -253,7 +253,7 @@ This section does not create a damages remedy against a State, political subdivi
 
 Nothing in this title gives the Federal Election Commission jurisdiction over State ballot-access administration except as provided in the Federal Election Campaign Act of 1971 or another Act of Congress.
 
-# TITLE II - DEBATE-CRITERIA TRANSPARENCY AND PUBLIC-BENEFIT CONDITIONS
+## TITLE II - DEBATE-CRITERIA TRANSPARENCY AND PUBLIC-BENEFIT CONDITIONS
 
 ## SEC. 201. FEDERAL ELECTION CAMPAIGN ACT DEFINITIONS.
 
@@ -328,7 +328,7 @@ The Commission may refer knowing and willful violations to the Attorney General 
 
 Nothing in this section limits any statutory remedy available when the Commission dismisses a complaint, fails to act, lacks a quorum, or deadlocks under section 30109 of title 52, United States Code.
 
-# TITLE III - COORDINATION, REPORTS, EFFECTIVE DATES, AND RULES OF CONSTRUCTION
+## TITLE III - COORDINATION, REPORTS, EFFECTIVE DATES, AND RULES OF CONSTRUCTION
 
 ## SEC. 301. REPORTS TO CONGRESS.
 

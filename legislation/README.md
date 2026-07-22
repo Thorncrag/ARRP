@@ -11,7 +11,7 @@ Working statutory and administrative language is maintained separately from the 
 ## Proposals
 
 - [APPT-001 — Appointments Accountability and Confirmation Safeguards Act](APPT-001.md)
-- [DOJ-001 — Seven-Year Cooling-Off Rule for Attorney General Eligibility](DOJ-001.md)
+- [DOJ-001 — Seven-Year Cooling-Off Rule for Senior Justice Department Eligibility](DOJ-001.md)
 - [DOJ-002 — Proposed Justice Manual § 9-85.115: Politically Sensitive Criminal Matters](DOJ-002.md)
 - [DOJ-003 — Prosecutorial Neutrality Monitoring and Congressional Oversight Act](DOJ-003.md)
 - [DOJ-005 — Senior DOJ Recusal Review and Transparency Act](DOJ-005.md)

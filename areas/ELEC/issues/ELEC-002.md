@@ -13,6 +13,8 @@ audit_last_date: "2026-06-28"
 audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
+change_audit_needed: false
+change_audit_reason: null
 adoption_score: 5
 adoption_friction_score: 58
 adoption_friction_band: "Significant Resistance"
@@ -35,7 +37,7 @@ audit_history: "ELEC-002.audit.md"
 
 State election law does not always provide sufficiently clear ministerial certification duties, fixed deadlines, automatic substitution, and immediate judicial enforcement when a designated state or local canvassing or certification official refuses, delays, deadlocks, or exceeds the lawful scope of the certification function.
 
-The issue is directed principally at the design and conduct of state and local certification bodies, not at federal officials who pressure them. Federal executive interference is addressed separately in ELEC-001.
+The issue is directed principally at the design and conduct of state and local certification bodies, not at federal officials who pressure them. Federal executive interference is addressed separately in [ELEC-001](ELEC-001.md).
 
 ## Manifestations of the Failure
 
@@ -115,8 +117,8 @@ Each state should adopt a Model State Election Certification and Automatic Subst
 
 - **ELEC-001** regulates federal executive officials who interfere with state election administration.
 - **ELEC-002** makes the state certification mechanism resistant to refusal or deadlock regardless of the source or motive.
-- **ELEC-005** addresses alternate-elector and false-certification schemes.
-- **ELEC-008** addresses broader accountability for efforts to overturn lawful election results.
+- **[ELEC-005](ELEC-005.md)** addresses alternate-elector and false-certification schemes.
+- **[ELEC-008](ELEC-008.md)** addresses broader accountability for efforts to overturn lawful election results.
 
 ## Budgetary Impact Statement
 

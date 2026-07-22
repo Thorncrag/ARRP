@@ -11,13 +11,15 @@ print_levels:
   - legislative-appendix
 ---
 
-# ELEC-009 - Direct Presidential Election Implementation Act
+# ELEC-009 — Direct Presidential Election Implementation Act
 
 This proposed enabling legislation depends on ratification of the [Direct Election of the President and Vice President Amendment](ELEC-009-amendment.md), or a substantially similar constitutional amendment abolishing presidential electors and authorizing Congress to implement direct national election of the President and Vice President.
 
 ## A BILL
 
 To amend title 52, United States Code, to implement direct national election of the President and Vice President after ratification of a constitutional amendment abolishing presidential electors, and to make conforming amendments to title 3, United States Code.
+
+Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
 
 ## SECTION 1. SHORT TITLE.
 

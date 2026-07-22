@@ -39,4 +39,4 @@ These numbers were assigned during preliminary review but did not become separat
 
 ## Notes
 
-FED-002 and FED-003 are in development after consolidation and initial source development. FED-004 remains an unresolved candidate. Vehicle selection remains pending.
+FED-002 and FED-003 are active candidates after consolidation and initial source development. FED-004 remains an unresolved candidate. Vehicle selection remains pending.

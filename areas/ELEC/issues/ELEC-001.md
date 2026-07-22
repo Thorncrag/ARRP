@@ -15,6 +15,7 @@ audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
+change_audit_reason: null
 adoption_score: 5
 adoption_friction_score: 88
 adoption_friction_band: "Extreme Resistance"
@@ -97,7 +98,7 @@ Amend the Hatch Act rather than create an entirely separate primary regime. The 
 7. create a companion civil-enforcement title authorizing states and responsible election authorities to seek expedited declaratory, injunctive, preservation, and restorative relief; and
 8. enact a companion criminal provision, preferably 18 U.S.C. § 595A, for knowing, intentional, coercive, or result-directed violations.
 
-Where the President, Vice President, Attorney General, or another senior executive official creates a disabling investigative conflict, the matter should be referable to the independent investigative-counsel mechanism developed under DOJ-007. Criminal enforcement against presidential official acts remains subject to current immunity doctrine unless superseded by IMM-001.
+Where the President, Vice President, Attorney General, or another senior executive official creates a disabling investigative conflict, the matter should be referable to the independent investigative-counsel mechanism developed under [DOJ-007](../../DOJ/issues/DOJ-007.md). Criminal enforcement against presidential official acts remains subject to current immunity doctrine unless superseded by [IMM-001](../../IMM/issues/IMM-001.md).
 
 This package is less complex than a wholly freestanding election-administration code because it extends an existing federal principle, uses established OSC and MSPB structures, and regulates federal executive actors rather than the internal organization of state elections.
 
@@ -128,7 +129,7 @@ The statute must preserve ordinary political advocacy, public criticism, lawful 
 
 ELEC-001 concerns civilian executive interference through presidential authority, agencies, investigations, funding, regulation, intelligence, administrative process, or official influence.
 
-ELEC-007 should be narrowed to military, National Guard, or armed federal-force intervention in polling, counting, canvassing, recount, certification, or custody of election materials.
+[ELEC-007](ELEC-007.md) should be narrowed to military, National Guard, or armed federal-force intervention in polling, counting, canvassing, recount, certification, or custody of election materials.
 
 [REG-001](../../REG/issues/REG-001.md) owns independent-agency removal, vacancy, and functional-disablement concerns, including the July 2026 Election Assistance Commission episode. ELEC-001 should cross-reference that event only if further evidence shows that EAC leadership collapse formed part of a broader federal architecture pressuring state or local election administration.
 

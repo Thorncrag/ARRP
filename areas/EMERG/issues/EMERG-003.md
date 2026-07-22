@@ -125,11 +125,13 @@ Prospectively, the statute would force the political branch constitutionally res
 
 - **EMERG-001** owns general emergency declarations, termination, renewal, findings, and judicial review. EMERG-003 supplies only the findings and cause of action needed to enforce its narrower substantive limit.
 - **CONG and WAR issues** may address international commitments or armed conflict, but this proposal does not regulate treaty withdrawal, military force, or ordinary diplomatic advocacy.
-- **JUD-011** is not the primary remedy. The defect is the scope of delegated emergency authority before a new congressional mandate exists, not executive nullification of an enacted mandate.
+- **[JUD-011](../../JUD/issues/JUD-011.md)** is not the primary remedy. The defect is the scope of delegated emergency authority before a new congressional mandate exists, not executive nullification of an enacted mandate.
 
 ## Budgetary Impact Statement
 
 **Preliminary classification: Low administrative and litigation impact.** Treasury, State, Justice, and the federal courts already administer designations, licenses, visa restrictions, reports, and sanctions litigation. The proposal adds individualized explanations, transition review, and expedited cases but creates no new agency, tribunal, judgeship, grant program, or entitlement. The first draft directs implementation from otherwise available appropriations. The further internal review should test likely review volume and whether a narrow authorization is needed for temporary staffing or systems changes.
+
+*Note: Preliminary ARRP assessment only; not a CBO, OMB, agency, or legislative-counsel score.*
 
 ## Proposal Scoring
 

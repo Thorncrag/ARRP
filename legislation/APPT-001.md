@@ -3,7 +3,7 @@ proposal_id: APPT-001
 issue_id: APPT-001
 title: "Appointments Accountability and Confirmation Safeguards Act"
 status: initial-draft
-linked_issue: "../areas/APPT/issues/APPT-001.md"
+framework_issue: "../areas/APPT/issues/APPT-001.md"
 print_levels:
   - public-proposal
   - legislative-appendix
@@ -15,7 +15,7 @@ print_levels:
 
 To strengthen statutory limits on temporary service in offices requiring appointment by the President by and with the advice and consent of the Senate, prevent circumvention through substantially complete delegations of authority, improve public and congressional reporting, preserve office-specific appointment backstops, and provide timely judicial review.
 
-**Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,**
+Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
 
 ## SECTION 1. SHORT TITLE.
 

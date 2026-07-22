@@ -26,7 +26,7 @@ This Act may be cited as the **“Election Personnel Protection Amendments to th
 
 The Help America Vote Act of 2002 is amended by adding at the end the following new title:
 
-# TITLE X—ELECTION PERSONNEL PROTECTION PAYMENTS
+## TITLE X—ELECTION PERSONNEL PROTECTION PAYMENTS
 
 ## SEC. 1001. PURPOSES.
 

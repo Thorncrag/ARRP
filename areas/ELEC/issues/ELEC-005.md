@@ -13,6 +13,8 @@ audit_last_date: "2026-06-28"
 audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
+change_audit_needed: false
+change_audit_reason: null
 adoption_score: 5
 adoption_score_band: "Limited Adoption Basis"
 adoption_friction_score: 64
@@ -77,7 +79,7 @@ State forgery, false-instrument, and election-law statutes provide additional mo
 
 The least-complex adequate remedy within the existing Electoral College framework is a targeted federal amendment to Title 3 rather than a general federal regulation of state elector appointment. The amendment should protect only the federal receipt, preservation, and counting channel.
 
-A less complex and more complete structural remedy may be abolition of the Electoral College itself, because eliminating presidential electors would make false presidential-elector certificates moot. That broader structural reform belongs principally to ELEC-009. If a non-Electoral-College presidential election mechanism is adopted, however, the core principle of ELEC-005 should remain applicable to the official transmission of presidential-election results to federal officials. A replacement system would still require a protected federal channel for official state or national result documents, and knowingly false or unauthorized result-transmission documents should not be permitted to create federal procedural ambiguity.
+A less complex and more complete structural remedy may be abolition of the Electoral College itself, because eliminating presidential electors would make false presidential-elector certificates moot. That broader structural reform belongs principally to [ELEC-009](ELEC-009.md). If a non-Electoral-College presidential election mechanism is adopted, however, the core principle of ELEC-005 should remain applicable to the official transmission of presidential-election results to federal officials. A replacement system would still require a protected federal channel for official state or national result documents, and knowingly false or unauthorized result-transmission documents should not be permitted to create federal procedural ambiguity.
 
 ## Repair and Prevention
 
@@ -100,11 +102,11 @@ The federal amendment should:
 
 ## Relationship to Adjacent Proposals
 
-- **ELEC-002** concerns certification refusal, deadlock, delay, or unauthorized discretion by certification bodies.
-- **ELEC-004** concerns abusive election litigation, subpoenas, audits, and process leverage.
+- **[ELEC-002](ELEC-002.md)** concerns certification refusal, deadlock, delay, or unauthorized discretion by certification bodies.
+- **[ELEC-004](ELEC-004.md)** concerns abusive election litigation, subpoenas, audits, and process leverage.
 - **ELEC-005** concerns false or unauthorized presidential result-transmission documents entering federal channels.
 - **ELEC-009** concerns whether the Electoral College itself should be restructured or replaced by a national popular-vote system.
-- **ELEC-008** concerns broader accountability for efforts to overturn lawful results.
+- **[ELEC-008](ELEC-008.md)** concerns broader accountability for efforts to overturn lawful results.
 
 ## Budgetary Impact Statement
 

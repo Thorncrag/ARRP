@@ -27,6 +27,7 @@ SOURCE_DEVELOPMENT_STUB_IDS = {
     "OVS-001",
     "PAR-001",
     "PRESS-001",
+    "PRESS-003",
     "PRESS-006",
     "REC-001",
     "REG-006",
@@ -56,10 +57,6 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertEqual(
             expected_project_status({"status": "developed", "audit_score": "77"}),
             {
-                "advanced review ready",
-                "fully validated",
-                "proposal ready",
-                "publication ready",
                 "release candidate",
                 "review ready",
             },

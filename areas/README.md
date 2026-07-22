@@ -36,4 +36,4 @@ Readers may [Explore by Topic](../topics/README.md) for explanatory treatment of
 - [A-21 / FRB — Federal Reserve Independence and Monetary Policy](FRB/README.md)
 - [A-22 / PRESS — Freedom and Independence of the Press](PRESS/README.md)
 - [A-23 / HER — Federal Historic Property and Civic Heritage](HER/README.md)
-- [A-24 / RIGHTS — Civil Rights Administration and Identity Records](RIGHTS/README.md)
+- [A-24 / RIGHTS — Civil Rights Administration, Remedies, and Identity Records](RIGHTS/README.md)

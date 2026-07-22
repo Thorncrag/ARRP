@@ -126,9 +126,9 @@ The amendment should:
 
 ## Relationship to Adjacent Proposals
 
-- **ELEC-005** concerns false or unauthorized presidential result-transmission documents within the existing constitutional system. Direct election would remove elector-specific document vulnerabilities but still require secure national result-transmission rules.
-- **ELEC-006** concerns continuity and automatic operation of presidential transition procedures. Direct election would simplify some sources of uncertainty but would still require transition administration.
-- **ELEC-008** concerns coordinated federal election-subversion schemes. Direct election would reduce elector-specific attack surfaces while preserving the need for scheme-level accountability.
+- **[ELEC-005](ELEC-005.md)** concerns false or unauthorized presidential result-transmission documents within the existing constitutional system. Direct election would remove elector-specific document vulnerabilities but still require secure national result-transmission rules.
+- **[ELEC-006](ELEC-006.md)** concerns continuity and automatic operation of presidential transition procedures. Direct election would simplify some sources of uncertainty but would still require transition administration.
+- **[ELEC-008](ELEC-008.md)** concerns coordinated federal election-subversion schemes. Direct election would reduce elector-specific attack surfaces while preserving the need for scheme-level accountability.
 - **ELEC-009** concerns the constitutional presidential-selection mechanism itself.
 
 ## Budgetary Impact Statement

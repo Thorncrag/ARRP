@@ -15,6 +15,8 @@ print_levels:
 
 To amend the Hatch Act to prohibit the President, Vice President, and other federal executive officials from using official authority or influence to interfere with state or local election administration for a preferred electoral outcome; to provide expedited civil remedies, record-preservation requirements, administrative enforcement, and criminal penalties for knowing and coercive violations; and for other purposes.
 
+Be it enacted by the Senate and House of Representatives of the United States of America in Congress assembled,
+
 ## SECTION 1. SHORT TITLE.
 
 This Act may be cited as the **“Federal Executive Election Noninterference Act.”**
@@ -29,7 +31,7 @@ The purposes of this Act are—
 4. to provide rapid judicial protection before unlawful federal executive interference produces irreversible consequences; and
 5. to ensure documentation, independent investigation, and accountability when senior executive officials are implicated.
 
-# TITLE I — HATCH ACT AMENDMENTS
+## TITLE I — HATCH ACT AMENDMENTS
 
 ## SEC. 101. FEDERAL EXECUTIVE ELECTION NONINTERFERENCE.
 
@@ -128,7 +130,7 @@ No covered federal executive official may take or threaten a personnel, funding,
 3. sought judicial or administrative relief under this Act; or
 4. provided information to Congress, an Inspector General, the Office of Special Counsel, a court, or a lawful investigator.
 
-# TITLE II — EXPEDITED CIVIL ENFORCEMENT
+## TITLE II — EXPEDITED CIVIL ENFORCEMENT
 
 ## SEC. 201. CIVIL ACTION BY AFFECTED GOVERNMENTAL AUTHORITIES.
 
@@ -167,7 +169,7 @@ The United States may not reimburse a personal civil penalty imposed for a knowi
 
 This Act creates no general private damages action for individual voters.
 
-# TITLE III — CRIMINAL ENFORCEMENT
+## TITLE III — CRIMINAL ENFORCEMENT
 
 ## SEC. 301. FEDERAL EXECUTIVE INTERFERENCE WITH ELECTION ADMINISTRATION.
 
@@ -203,7 +205,7 @@ Section 595A of title 18 creates substantive criminal liability to the maximum e
 
 Investigation, evidence preservation, prosecution of nonimmune participants, and reporting to Congress may continue to the extent permitted by law notwithstanding a temporary or substantive bar to prosecution of a President.
 
-# TITLE IV — INDEPENDENT REFERRAL AND CONGRESSIONAL REPORTING
+## TITLE IV — INDEPENDENT REFERRAL AND CONGRESSIONAL REPORTING
 
 ## SEC. 401. INDEPENDENT REFERRAL.
 
@@ -226,7 +228,7 @@ Congress finds that the knowing use of presidential or vice-presidential authori
 
 Nothing in this section limits the sole constitutional authority of the House of Representatives to determine whether to impeach or of the Senate to determine whether to convict.
 
-# TITLE V — GENERAL PROVISIONS
+## TITLE V — GENERAL PROVISIONS
 
 ## SEC. 501. RELATION TO EXISTING LAW.
 

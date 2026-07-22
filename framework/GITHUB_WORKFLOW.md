@@ -47,6 +47,8 @@ Do not duplicate these fields as issue-body metadata or as labels. If a field va
 
 The lifecycle check applies whenever the user asks to focus on, research, develop, draft, revise, or otherwise work substantively on an issue. The user does not need to request an audit or separately mention status maintenance.
 
+The substantive lifecycle, Defined Proposal threshold, four-part human-governed foundation, delegated-development authority, uncertainty rule, tier-readiness guidelines, and recurring autonomous work order are maintained in [`FRAMEWORK.md`](FRAMEWORK.md#issue-lifecycle-discovery-through-publication-and-maintenance). This section implements those judgments through GitHub status and audit-control fields; it does not redefine them. `Defined Proposal` is not a separate Project status: the ordinary `Pending development`, `In development`, `Audit needed`, and score-derived statuses continue to describe operational position. For an unscored issue, the canonical page's `foundation_status`, `foundation_approved_date`, and optional `foundation_approval_note` preserve the human approval that makes scheduled development permissible; GitHub status alone does not establish that approval.
+
 Use the Project `Status` options as follows:
 
 - `Candidate issue` — an active candidate has not yet been admitted as an independent proposal.
@@ -55,7 +57,8 @@ Use the Project `Status` options as follows:
 - `In development` — substantive work is active or the initial issue-and-vehicle package remains incomplete. A completed T-audit score of 1–49 also uses this status because the available Project vocabulary intentionally consolidates both Early/Partial Draft score bands.
 - `Audit needed` — an unscored initial issue page and concrete proposal vehicle are complete enough for the next T-audit. The status does not itself assign a score or increment `Runs`.
 - `Developed draft` — a completed score-bearing T-audit produces a score of 50–74. The exact issue-page threshold label remains `Developed Draft` at 50–64 and `Substantially Developed Draft` at 65–74.
-- `Review ready` and higher — use the score bands and release rules in the methodology.
+- `Review ready` — use for a score of 75 or higher unless the item has separately entered the release-candidate workflow. The issue page preserves the more precise `Review Ready`, `Advanced Review Ready`, `Proposal Ready`, `Publication Ready`, or `Fully Validated` score-band label.
+- `Release candidate` — use only when the separate release rules are satisfied; a high score alone does not establish release-candidate status.
 - `Deferred / Parked`, `Blocked`, and `Completed within scope` — use only when their stated routing or terminal conditions actually apply.
 
 At the start of substantive work, read the current Project row, canonical page, linked vehicle, latest audit record, and next step. If work begins from `Pending development`, move the item to `In development` and read back the change. Do not regress an already scored or later-stage proposal merely because material revision begins; preserve its score-based status and set `Change audit needed` as required until the targeted review is resolved.

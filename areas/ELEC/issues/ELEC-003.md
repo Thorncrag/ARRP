@@ -14,6 +14,8 @@ audit_last_date: "2026-06-28"
 audit_next: "External validation / T4 follow-up"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
+change_audit_needed: false
+change_audit_reason: null
 adoption_score: 5
 adoption_friction_score: 58
 adoption_friction_band: "Significant Resistance"
@@ -144,11 +146,11 @@ Federal criminal jurisdiction should remain limited to independently defined fed
 
 ## Relationship to Adjacent Proposals
 
-- **ELEC-001** concerns federal executive interference with state and local election administration.
-- **ELEC-002** concerns the legal resilience of canvassing and certification mechanisms.
+- **[ELEC-001](ELEC-001.md)** concerns federal executive interference with state and local election administration.
+- **[ELEC-002](ELEC-002.md)** concerns the legal resilience of canvassing and certification mechanisms.
 - **ELEC-003** concerns the personal security and operational continuity of election personnel throughout the election process.
-- **ELEC-007** concerns military, National Guard, or armed federal-force intervention in election administration.
-- **ELEC-008** concerns broader accountability for efforts to overturn lawful election results.
+- **[ELEC-007](ELEC-007.md)** concerns military, National Guard, or armed federal-force intervention in election administration.
+- **[ELEC-008](ELEC-008.md)** concerns broader accountability for efforts to overturn lawful election results.
 
 A threat intended to compel a certification decision may implicate both ELEC-002 and ELEC-003. ELEC-002 owns the certification mechanism; ELEC-003 owns protection of the targeted person and continuity of election operations.
 
