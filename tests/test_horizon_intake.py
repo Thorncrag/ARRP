@@ -469,6 +469,8 @@ class HorizonIntakeTest(unittest.TestCase):
         for tab in {"progress", "actions", "candidates", "sources", "integrity", "logs", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)
+        self.assertIn("grid-template-columns: .9fr 1.15fr 1.05fr .85fr .9fr .7fr 1fr", console_css)
+        self.assertIn("white-space: nowrap", console_css)
         for subtab in {"candidate-tab-formal", "candidate-tab-preliminary", "source-tab-catalog", "source-tab-pending", "source-tab-watchers"}:
             self.assertIn(f'id="{subtab}"', console_html)
         self.assertIn("This console is read-only", console_html)
