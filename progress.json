@@ -1125,7 +1125,7 @@
       "level": "In development"
     }
   ],
-  "generatedAt": "2026-07-23T14:48:26+00:00",
+  "generatedAt": "2026-07-23T21:54:47+00:00",
   "goal": {
     "baselineDate": "2026-07-13",
     "baselineReady": 23,
@@ -5290,6 +5290,7 @@
     }
   ],
   "workflowStatuses": [
+    "Research",
     "Development",
     "Human decision needed",
     "Audit needed",
