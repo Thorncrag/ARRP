@@ -7,6 +7,7 @@ from unittest.mock import patch
 import scripts.audit_project_consistency as consistency
 from scripts.audit_project_consistency import (
     ISSUE_PAGE_STATUSES,
+    ISSUE_SNAPSHOT_WORD_GUIDELINE,
     PROJECT_WORKFLOW_STATUSES,
     ROOT,
     active_project_files,
@@ -20,6 +21,8 @@ from scripts.audit_project_consistency import (
     is_recognized_issue_page_status,
     is_recognized_project_status,
     issue_page_status_error,
+    issue_snapshot_fields,
+    issue_snapshot_word_counts,
     local_target,
     markdown_anchor_ids,
     markdown_report,
@@ -30,6 +33,7 @@ from scripts.audit_project_consistency import (
     research_files,
     requires_workflow_hold_reason,
     source_citation_corpus,
+    visible_markdown_word_count,
 )
 from scripts.prepare_public_site import discover_public_markdown
 
@@ -256,6 +260,58 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertTrue(
             any("lacks a valid issue_id" in value for value in failures),
             failures,
+        )
+
+    def test_issue_snapshot_word_counts_use_reader_visible_text(self):
+        body = (
+            "# TEST-001 — Snapshot test\n\n"
+            "> ## Issue Snapshot\n"
+            "> **Problem:** Executive orders can bypass Congress.<br />"
+            "**Repair:** Require congressional authorization and timely judicial review.<br />"
+            "**Vehicle:** [Institutional Safeguards Act](../../../legislation/TEST-001.md).\n"
+            ">\n\n"
+            "## Institutional Anomaly\n"
+        )
+
+        self.assertEqual(
+            issue_snapshot_fields(body),
+            {
+                "Problem": "Executive orders can bypass Congress.",
+                "Repair": "Require congressional authorization and timely judicial review.",
+                "Vehicle": "[Institutional Safeguards Act](../../../legislation/TEST-001.md).",
+            },
+        )
+        self.assertEqual(
+            issue_snapshot_word_counts(body),
+            {
+                "Problem": 5,
+                "Repair": 7,
+                "Vehicle": 3,
+            },
+        )
+        self.assertEqual(
+            visible_markdown_word_count(
+                "[Interbranch Review Framework Act (JUD-011)]"
+                "(../../../legislation/JUD-011.md) alone"
+            ),
+            6,
+        )
+        self.assertEqual(ISSUE_SNAPSHOT_WORD_GUIDELINE, 12)
+
+    def test_issue_snapshot_parser_exposes_missing_and_long_fields(self):
+        body = (
+            "> ## Issue Snapshot\n"
+            "> **Problem:** One two three four five six seven eight nine ten eleven twelve "
+            "thirteen.<br />**Repair:** Short repair.\n"
+            ">\n"
+        )
+
+        self.assertEqual(
+            issue_snapshot_word_counts(body),
+            {
+                "Problem": 13,
+                "Repair": 2,
+            },
         )
 
     def test_lifecycle_kind_workstream_area_and_development_applicability(self):

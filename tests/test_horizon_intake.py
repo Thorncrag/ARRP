@@ -110,7 +110,19 @@ class HorizonIntakeTest(unittest.TestCase):
             {"date", "record", "task", "agent", "run", "outcome"},
         )
         self.assertTrue(all(entry["values"]["agent"] for entry in log["entries"]))
-        self.assertTrue(all(entry["values"]["outcome"] in {"Completed", "Blocked"} for entry in log["entries"]))
+        self.assertTrue(
+            all(
+                entry["values"]["outcome"]
+                in {
+                    "Completed",
+                    "Blocked",
+                    "Routed for human review",
+                    "Failed",
+                    "Reverted",
+                }
+                for entry in log["entries"]
+            )
+        )
         reg_t4 = next(
             entry for entry in log["entries"]
             if entry["values"]["record"] == "REG-001"
