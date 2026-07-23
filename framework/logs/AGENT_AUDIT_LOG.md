@@ -1396,3 +1396,27 @@ Prospective template:
 | Push status | Pushed to `origin/main` |
 | Rollback notes | Revert `a1b17eb` to roll back the substantive T4 unit; separately revert this provenance commit if needed. |
 | Blockers/skipped checks | No substantive blocker. EMOL-015 advanced from 81 to 83 / 100 and remains Review Ready after publication-level source and claim verification, legislative-form and cross-reference review, final verified/unresolved claims, criminal-scope preservation, protected-information reconciliation, prospective-application review, and qualified-review definition. Further advancement requires qualified constitutional, federal-courts, tax, appropriations, judicial-administration, and legislative-counsel review, plus refresh of the same-day case and implementation posture. |
+
+
+### 2026-07-23 — Current project integrity findings — Integrity
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-23T14:48:37+00:00 |
+| Agent | project-integrity-bot |
+| Run ID | https://github.com/Thorncrag/ARRP/actions/runs/30017526500 |
+| Unit ID | N/A |
+| Trigger | push |
+| Task type | Integrity |
+| Outcome | Routed for human review |
+| Issue/task | Current project integrity findings |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | `framework/logs/PROJECT_INTEGRITY_REPORT.md`; `framework/logs/AGENT_AUDIT_LOG.md` |
+| Validation | Deterministic repository, GitHub Issue, and Project checks completed. |
+| Commit | This automation commit |
+| Push status | Proposed on bot/project-integrity-report |
+| Rollback notes | Close the report pull request or revert its merge commit. |
+| Blockers/skipped checks | None. |
