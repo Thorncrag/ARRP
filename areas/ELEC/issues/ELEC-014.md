@@ -2,12 +2,12 @@
 issue_id: ELEC-014
 area_id: A-02
 title: "Limiting Federal Criminal Investigations into State-Administered Elections"
-status: deferred
-workflow_hold_reason: "Paused until reliable primary criminal-process records identify the statutory predicates, factual basis, and procedures sufficiently to assess legitimacy concerns and remedy fit."
+status: blocked
+workflow_hold_reason: "Remedy selection and legitimacy analysis are blocked because reliable primary criminal-process records identifying the statutory predicates, factual basis, and procedures are indispensable prerequisites. Resume when the relevant instruments are unsealed or otherwise become available."
 priority: high
 remedy_type: federal-election-criminal-process-guardrails
 audit_score: 0
-audit_status: "Deferred pending unsealed or otherwise available primary criminal-process instruments; fixed-zero preserved until statutory predicates, legitimacy concerns, and remedy fit can be assessed"
+audit_status: "Blocked pending unsealed or otherwise available primary criminal-process instruments; fixed-zero preserved until statutory predicates, legitimacy concerns, and remedy fit can be assessed"
 audit_last_type: "Civil record-demand routing to ELEC-004"
 audit_last_date: "2026-07-09"
 audit_next: "Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, congressional records, and Arizona lead verification; then identify exact alleged statutes or offense theories and run T2 remedy-selection and legitimacy assessment"
@@ -23,7 +23,7 @@ audit_history: "ELEC-014.audit.md"
 # ELEC-014 — Limiting Federal Criminal Investigations into State-Administered Elections
 
 > ## Issue Snapshot
-> **Problem:** Federal criminal process can chill election participation and state election administration.<br />**Repair:** Defer remedy selection until primary instruments identify the defect.<br />**Vehicle:** Pending unsealed criminal-process records.
+> **Problem:** Federal criminal process can chill election participation and state election administration.<br />**Repair:** Resume remedy selection when primary instruments identify the defect.<br />**Vehicle:** Blocked pending unsealed criminal-process records.
 >
 
 ## Institutional Anomaly
@@ -105,7 +105,7 @@ The least-complex remedy is not yet selected. Future review should compare:
 
 ## Least-Complex Adequate Remedy
 
-The least-complex adequate remedy is deferred. Current public materials show criminal searches, a confirmed grand-jury subpoena, investigative-resource escalation, prosecution-warning letters, and unresolved criminal-process leads, but no located unsealed federal indictment arising from the 2025-2026 election-related investigations tracked here. The project should wait for unsealed indictments, warrants, affidavits, returns, subpoenas, court orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, or congressional records before selecting a final remedy.
+The least-complex adequate remedy cannot yet be selected. Current public materials show criminal searches, a confirmed grand-jury subpoena, investigative-resource escalation, prosecution-warning letters, and unresolved criminal-process leads, but no located unsealed federal indictment arising from the 2025-2026 election-related investigations tracked here. Further remedy selection is blocked until unsealed indictments, warrants, affidavits, returns, subpoenas, court orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, or congressional records supply the indispensable predicate.
 
 A plausible future remedy could require heightened written findings, supervisory approval, timing review, minimization, and after-action reporting before federal criminal investigative process may seek sensitive election materials or target state-administered election activity, voter-registration work, voting-rights organizations, election officials, ballots, voter data, or voting infrastructure. That remedy should not be selected until the primary records clarify whether the defect is selective or vindictive enforcement, abuse of investigative process, overbroad search or subpoena practice, grand-jury misuse, voter-data exposure, political direction, or simply lawful enforcement with poor optics.
 
@@ -152,11 +152,11 @@ Administrative workload is possible; no new appropriation is specified pending s
 >
 > —
 >
-> **Internal Review Status:** Deferred pending unsealed or otherwise available primary criminal-process instruments; zero score preserved until statutory predicates, legitimacy concerns, and remedy fit can be assessed<br />**Last Internal Review:** Civil record-demand routing to ELEC-004<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status<br />**Next Review:** Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, congressional records, and Arizona lead verification; then identify exact alleged statutes or offense theories and conduct a remedy-selection and legitimacy review<br />**Full Review History:** [ELEC-014 review history](ELEC-014.audit.md)
+> **Internal Review Status:** Blocked pending unsealed or otherwise available primary criminal-process instruments; zero score preserved until statutory predicates, legitimacy concerns, and remedy fit can be assessed<br />**Last Internal Review:** Civil record-demand routing to ELEC-004<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status<br />**Next Review:** Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, congressional records, and Arizona lead verification; then identify exact alleged statutes or offense theories and conduct a remedy-selection and legitimacy review<br />**Full Review History:** [ELEC-014 review history](ELEC-014.audit.md)
 
 ## Annotation
 
-**Deferred Status.** ELEC-014 is deferred after source development showed that the public record is not yet sufficient for remedy selection. It remains spun off from ELEC-004 because federal criminal investigative process does not fit ELEC-004's Anti-SLAPP-style civil-procedure remedy.
+**Blocked Status.** ELEC-014 is blocked because the currently unavailable primary criminal-process record is indispensable to selecting a legitimate, properly fitted remedy. It remains spun off from ELEC-004 because federal criminal investigative process does not fit ELEC-004's Anti-SLAPP-style civil-procedure remedy.
 
 **Review Status.** The July 3, 2026 internal project review confirms issue admission, area placement, and the civil/criminal boundary. ELEC-014 remains fixed at 0/100 because the least-complex adequate remedy and proposal vehicle have not yet been selected.
 

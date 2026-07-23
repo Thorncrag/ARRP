@@ -11,7 +11,7 @@ audit_status: "T4 publication-ready audit complete; qualified review pending"
 audit_score: 83
 audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-07-13"
-audit_next: "Qualified constitutional, federal-courts, tax, appropriations, judicial-administration, and legislative-counsel review"
+audit_next: "Qualified review by constitutional and federal-courts attorneys, a federal tax practitioner, an appropriations specialist, a judicial-administration practitioner, and legislative counsel focused on the automatic adversity screen and Rule 41 treatment, controlled maintenance and the D.D.C. cause of action, 26 U.S.C. § 7217 placement, remedy and protected-information boundaries, appellate routes, and workload and fiscal effects"
 audit_rubric_version: 2026-06-27.2
 audit_rebaseline_status: current
 change_audit_needed: false
@@ -121,7 +121,7 @@ Budget authority may be required for incremental court, agency, Treasury, IRS, T
 >
 > —
 >
-> **Internal Review Status:** Internal project review complete; qualified review pending<br />**Last Internal Review:** Internal project review (2026-07-13)<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** Qualified constitutional, federal-courts, tax, appropriations, judicial-administration, and legislative-counsel review<br />**Full Review History:** [EMOL-015 review history](EMOL-015.audit.md)
+> **Internal Review Status:** Internal project review complete; qualified review pending<br />**Last Internal Review:** Internal project review (2026-07-13)<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** Qualified review by constitutional and federal-courts attorneys, a federal tax practitioner, an appropriations specialist, a judicial-administration practitioner, and legislative counsel focused on the automatic adversity screen and Rule 41 treatment, controlled maintenance and the D.D.C. cause of action, 26 U.S.C. § 7217 placement, remedy and protected-information boundaries, appellate routes, and workload and fiscal effects<br />**Full Review History:** [EMOL-015 review history](EMOL-015.audit.md)
 
 ## Annotation
 

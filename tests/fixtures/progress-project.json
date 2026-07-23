@@ -4,7 +4,7 @@
     {
       "id": "PVTI_1",
       "fieldValues": {"nodes": [
-        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "External review needed", "field": {"name": "Status"}},
+        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "External review", "field": {"name": "Status"}},
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Review ready", "field": {"name": "Development level"}},
         {"__typename": "ProjectV2ItemFieldNumberValue", "number": 78, "field": {"name": "Score"}},
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "DOJ", "field": {"name": "Area"}},
@@ -28,7 +28,7 @@
     {
       "id": "PVTI_3",
       "fieldValues": {"nodes": [
-        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Pending development", "field": {"name": "Status"}},
+        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Development", "field": {"name": "Status"}},
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Admitted / undeveloped", "field": {"name": "Development level"}},
         {"__typename": "ProjectV2ItemFieldNumberValue", "number": 0, "field": {"name": "Score"}},
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "DOM", "field": {"name": "Area"}},
@@ -51,7 +51,7 @@
     {
       "id": "PVTI_5",
       "fieldValues": {"nodes": [
-        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Awaiting decision", "field": {"name": "Status"}},
+        {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Human decision needed", "field": {"name": "Status"}},
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "Candidate", "field": {"name": "Development level"}},
         {"__typename": "ProjectV2ItemFieldSingleSelectValue", "name": "EMOL", "field": {"name": "Area"}}
       ]},

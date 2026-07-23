@@ -2,6 +2,7 @@
 issue_id: PRESS-003
 area_id: A-22
 title: "Journalist Compulsory Process, Surveillance, and Source Protection"
+status: in-development
 record_type: source-development
 print_status: excluded
 print_exclusion_reason: "Internal source-development record."

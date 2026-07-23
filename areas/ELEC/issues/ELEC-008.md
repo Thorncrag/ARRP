@@ -11,7 +11,7 @@ audit_status: "Internal check complete; Title 18 amendment structure corrected; 
 audit_score: 75
 audit_last_type: "Internal check of Title 18 amendment restructure"
 audit_last_date: "2026-07-04"
-audit_next: "Qualified criminal-law, election-law, federal-courts, First Amendment, Speech or Debate, and legislative-counsel review; then targeted source-backed revisions if review identifies concrete fixes"
+audit_next: "Qualified review by criminal-law, election-law, and federal-courts attorneys, First Amendment and Speech or Debate Clause specialists, and legislative counsel focused on predicate-act definitions, mens rea and protected-advocacy boundaries, federalism and legislative-immunity limits, Title 18 placement, enforcement safeguards, and any source-backed revisions identified by the review"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -166,7 +166,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Internal Review Status:** Internal check complete; Title 18 amendment structure corrected; external validation still needed before circulation<br />**Last Internal Review:** Internal check of Title 18 amendment restructure<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** Qualified criminal-law, election-law, federal-courts, First Amendment, Speech or Debate, and legislative-counsel review; then targeted source-backed revisions if review identifies concrete fixes<br />**Full Review History:** [ELEC-008 review history](ELEC-008.audit.md)
+> **Internal Review Status:** Internal check complete; Title 18 amendment structure corrected; external validation still needed before circulation<br />**Last Internal Review:** Internal check of Title 18 amendment restructure<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** Qualified review by criminal-law, election-law, and federal-courts attorneys, First Amendment and Speech or Debate Clause specialists, and legislative counsel focused on predicate-act definitions, mens rea and protected-advocacy boundaries, federalism and legislative-immunity limits, Title 18 placement, enforcement safeguards, and any source-backed revisions identified by the review<br />**Full Review History:** [ELEC-008 review history](ELEC-008.audit.md)
 
 ## Annotation
 

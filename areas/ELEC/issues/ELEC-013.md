@@ -10,7 +10,7 @@ audit_score: 75
 audit_status: "External-review readiness push complete; ELEC-013 reaches Review Ready after direct prior-proposal comparators, budget analogues, and debate-enforcement leads strengthen the record, while FEC matter-file verification, broader state sampling, adoption evidence, and qualified external review remain disclosed next steps"
 audit_last_type: "External-review readiness push / Review Ready source-development review"
 audit_last_date: "2026-07-09"
-audit_next: "Qualified external review package focused on FEC matter files, broader official state sample, fiscal/workload validation, adoption evidence, and election-law, First Amendment, FEC/EAC, State-administration, fiscal, and legislative-counsel review"
+audit_next: "Qualified review by election-law and First Amendment attorneys, FEC and EAC practitioners, state election administrators, fiscal analysts, and legislative counsel focused on FEC matter-file verification, a broader official state sample, debate-sponsor and ballot-access administration, fiscal and workload validation, enforcement design, and proposal-specific adoption evidence"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -146,7 +146,7 @@ Budget authority may be required for election-administration support, reporting,
 >
 > —
 >
-> **Internal Review Status:** External-review readiness push complete; ELEC-013 reaches Review Ready after direct prior-proposal comparators, budget analogues, and debate-enforcement leads strengthen the record, while FEC matter-file verification, broader state sampling, adoption evidence, and qualified external review remain disclosed next steps<br />**Last Internal Review:** External-review readiness push / Review Ready source-development review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard; **Revision Review Needed:** No<br />**Next Review:** Qualified external review package focused on FEC matter files, broader official state sample, fiscal/workload validation, adoption evidence, and election-law, First Amendment, FEC/EAC, State-administration, fiscal, and legislative-counsel review<br />**Full Review History:** [ELEC-013 review history](ELEC-013.audit.md)
+> **Internal Review Status:** External-review readiness push complete; ELEC-013 reaches Review Ready after direct prior-proposal comparators, budget analogues, and debate-enforcement leads strengthen the record, while FEC matter-file verification, broader state sampling, adoption evidence, and qualified external review remain disclosed next steps<br />**Last Internal Review:** External-review readiness push / Review Ready source-development review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard; **Revision Review Needed:** No<br />**Next Review:** Qualified review by election-law and First Amendment attorneys, FEC and EAC practitioners, state election administrators, fiscal analysts, and legislative counsel focused on FEC matter-file verification, a broader official state sample, debate-sponsor and ballot-access administration, fiscal and workload validation, enforcement design, and proposal-specific adoption evidence<br />**Full Review History:** [ELEC-013 review history](ELEC-013.audit.md)
 
 ## Annotation
 

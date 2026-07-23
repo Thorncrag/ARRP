@@ -12,7 +12,7 @@ audit_status: "First draft enabling legislation complete; external validation an
 audit_score: 75
 audit_last_type: "First draft enabling legislation"
 audit_last_date: "2026-07-04"
-audit_next: "Qualified constitutional-law, election-law, election-administration, and legislative-counsel review; majority-mechanism selection or defense; official state-by-state compact verification; fiscal and workload analogues"
+audit_next: "Qualified review by constitutional-law and election-law attorneys, election administrators, and legislative counsel focused on selection and defense of the national-majority mechanism, contingent-election design, official state-by-state compact verification, ballot and counting administration, fiscal and workload analogues, and amendment-to-enabling-statute alignment"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -143,7 +143,7 @@ No direct appropriation is anticipated for the amendment itself; implementing le
 >
 > —
 >
-> **Internal Review Status:** First draft enabling legislation complete; external validation and majority-mechanism refinement still pending<br />**Last Internal Review:** First draft enabling legislation<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard; **Revision Review Needed:** No<br />**Next Review:** Qualified constitutional-law, election-law, election-administration, and legislative-counsel review; majority-mechanism selection or defense; official state-by-state compact verification; fiscal and workload analogues<br />**Full Review History:** [ELEC-009 review history](ELEC-009.audit.md)
+> **Internal Review Status:** First draft enabling legislation complete; external validation and majority-mechanism refinement still pending<br />**Last Internal Review:** First draft enabling legislation<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard; **Revision Review Needed:** No<br />**Next Review:** Qualified review by constitutional-law and election-law attorneys, election administrators, and legislative counsel focused on selection and defense of the national-majority mechanism, contingent-election design, official state-by-state compact verification, ballot and counting administration, fiscal and workload analogues, and amendment-to-enabling-statute alignment<br />**Full Review History:** [ELEC-009 review history](ELEC-009.audit.md)
 
 ## Annotation
 

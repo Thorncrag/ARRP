@@ -2,15 +2,15 @@
 issue_id: APPT-001
 area_id: A-12
 title: "Evasion of Senate Confirmation and Statutory Appointment Safeguards"
-status: awaiting-decision
+status: in-development
 foundation_status: pending
 priority: medium
 remedy_type: vacancies-confirmation-anti-evasion-and-public-accountability
 audit_score: 0
-audit_status: "Awaiting human foundation decision; agent-generated issue and statutory draft preserved for review"
+audit_status: "Pending internal foundation-sufficiency review; agent-generated issue and statutory draft preserved for review"
 audit_last_type: "Candidate consolidation and initial statutory draft"
 audit_last_date: "2026-07-16"
-audit_next: "Human decision on institutional failure, manifestation, remedy, and vehicle before further development"
+audit_next: "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 change_audit_needed: false
@@ -125,11 +125,11 @@ Prospectively, the proposal would convert passive acquiescence into an affirmati
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** 0 / 100 (Unscored; awaiting human foundation decision)<br />**Required Electoral Environment:** Enactment by Congress and presentment or sufficient support to overcome presidential opposition<br />**Development Priority:** Medium
+> **Proposal Quality Score:** 0 / 100 (Unscored; foundation review pending)<br />**Required Electoral Environment:** Enactment by Congress and presentment or sufficient support to overcome presidential opposition<br />**Development Priority:** Medium
 >
 > —
 >
-> **Internal Review Status:** Awaiting human foundation decision; agent-generated issue and statutory draft preserved for review<br />**Last Internal Review:** Candidate consolidation and initial statutory draft<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status<br />**Next Review:** Human decision on institutional failure, manifestation, remedy, and vehicle before further development<br />**Full Review History:** [APPT-001 review history](APPT-001.audit.md)
+> **Internal Review Status:** Pending internal foundation-sufficiency review; agent-generated issue and statutory draft preserved for review<br />**Last Internal Review:** Candidate consolidation and initial statutory draft<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status<br />**Next Review:** Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved<br />**Full Review History:** [APPT-001 review history](APPT-001.audit.md)
 
 ## Annotation
 

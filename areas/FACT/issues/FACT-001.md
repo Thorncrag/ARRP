@@ -2,6 +2,7 @@
 issue_id: FACT-001
 area_id: A-18
 title: "Scientific, Statistical, and Technical Integrity"
+status: in-development
 record_type: source-development
 print_status: excluded
 print_exclusion_reason: "Internal source-development record."

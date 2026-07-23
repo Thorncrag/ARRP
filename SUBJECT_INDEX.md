@@ -95,6 +95,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | General Services Administration (GSA) | **[ELEC-006](areas/ELEC/issues/ELEC-006.md)** |
 | Gerrymandering | See *Redistricting; gerrymandering; vote dilution; representation safeguards*. |
 | Government Accountability Office (GAO) | **[A-11](areas/FUND/README.md)**; [FUND-001](areas/FUND/issues/FUND-001.md); [FUND-002](areas/FUND/issues/FUND-002.md); [REG-001](areas/REG/issues/REG-001.md); [DOJ-003](areas/DOJ/issues/DOJ-003.md) |
+| Government-held personal data; Privacy Act; secondary use; interagency data sharing | **[CIV-010](areas/CIV/issues/CIV-010.md)**; [CIV-009](areas/CIV/issues/CIV-009.md); [DOM-009](areas/DOM/issues/DOM-009.md) |
 | Government records; presidential records; archives; private messaging | **[A-13](areas/REC/README.md)**; [A-07](areas/CLASS/README.md); [A-18](areas/FACT/README.md) |
 | Historic federal property; White House alteration; civic heritage | **[A-23](areas/HER/README.md)**; [A-06](areas/EMOL/README.md); [A-10](areas/EMERG/README.md) |
 | Homeland Security Department (U.S. Department of Homeland Security; DHS) | **[A-14](areas/DOM/README.md)**; [FED-003](areas/FED/issues/FED-003.md); [DOM-005](areas/DOM/issues/DOM-005.md); [DOM-009](areas/DOM/issues/DOM-009.md); [ELEC-007](areas/ELEC/issues/ELEC-007.md); [A-24](areas/RIGHTS/README.md) |
@@ -144,6 +145,7 @@ This first edition emphasizes developed proposals and high-value candidate routi
 | Presidential records | See *Government records; presidential records; archives; private messaging*. |
 | Presidential transition; ascertainment; agency cooperation | **[ELEC-006](areas/ELEC/issues/ELEC-006.md)**; [A-13](areas/REC/README.md) |
 | Press freedom | See *Freedom of the press; press access; reporter subpoenas; source protection*. |
+| Privacy Act | See *Government-held personal data; Privacy Act; secondary use; interagency data sharing*. |
 | Project 2025; Mandate for Leadership; proposal mapping | **[Project 2025](topics/project-2025.md)** |
 | Puerto Rico government and territorial institutions | **[A-20](areas/FED/README.md)**; [A-02](areas/ELEC/README.md); [A-24](areas/RIGHTS/README.md); [Civil Rights](topics/civil-rights.md) |
 | Ranked-choice voting; runoffs; majority-choice election methods | **[ELEC-015](areas/ELEC/issues/ELEC-015.md)**; [ELEC-013](areas/ELEC/issues/ELEC-013.md) |

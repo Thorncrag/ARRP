@@ -23,15 +23,16 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 GRAPHQL_URL = "https://api.github.com/graphql"
 REST_ROOT = "https://api.github.com"
 USER_AGENT = "ARRP-project-console-progress/1.0"
-PROPOSAL_VEHICLE_FIELDS = {
-    "alternative_legislative_proposal",
-    "constitutional_proposal",
-    "federal_legislative_proposal",
-    "legislative_proposal",
-    "model_state_legislative_proposal",
-    "proposal_legislation",
-    "state_legislative_proposal",
-}
+APPROVED_WORKFLOW_STATUSES = (
+    "Development",
+    "Human decision needed",
+    "Audit needed",
+    "Audit in progress",
+    "External review",
+    "Publication approval",
+    "Deferred",
+    "Blocked",
+)
 
 PROJECT_QUERY = r"""
 query($owner: String!, $number: Int!, $cursor: String) {
@@ -228,43 +229,6 @@ def canonical_key(value: Any, repository: str) -> str:
     return text.lstrip("./")
 
 
-def has_concrete_proposal_vehicle(repository_root: Path, canonical_record: str) -> bool:
-    """Return whether an issue front matter links to an existing local proposal vehicle."""
-    root = repository_root.resolve()
-    issue_path = (root / canonical_record).resolve()
-    try:
-        issue_path.relative_to(root)
-    except ValueError:
-        return False
-    if not issue_path.is_file():
-        return False
-    try:
-        lines = issue_path.read_text(encoding="utf-8").splitlines()
-    except OSError:
-        return False
-    if not lines or lines[0].strip() != "---":
-        return False
-    for line in lines[1:]:
-        if line.strip() == "---":
-            break
-        if ":" not in line:
-            continue
-        key, raw_value = line.split(":", 1)
-        if key.strip() not in PROPOSAL_VEHICLE_FIELDS:
-            continue
-        value = raw_value.strip().strip("\"'")
-        if not value:
-            continue
-        vehicle_path = (issue_path.parent / value).resolve()
-        try:
-            vehicle_path.relative_to(root)
-        except ValueError:
-            continue
-        if vehicle_path.is_file():
-            return True
-    return False
-
-
 def canonical_front_matter_value(
     repository_root: Optional[Path], canonical_record: str, field: str
 ) -> str:
@@ -304,6 +268,12 @@ def parse_items(
 ) -> Tuple[str, List[Dict[str, Any]]]:
     fields = config["projectFields"]
     ready_levels = {normalize(value) for value in config["goal"]["readyDevelopmentLevels"]}
+    workflow_statuses = tuple(
+        str(value).strip()
+        for value in config.get("workflowStatuses", APPROVED_WORKFLOW_STATUSES)
+        if str(value).strip()
+    )
+    approved_workflow_statuses = {normalize(value) for value in workflow_statuses}
     threshold = float(config["goal"]["reviewReadyScore"])
     parsed: List[Dict[str, Any]] = []
     project_values_by_identifier: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
@@ -371,14 +341,17 @@ def parse_items(
             )
         if not level_is_ready and score is not None and score >= threshold:
             warnings.append("Score meets the Review Ready threshold but Development level is not Review ready or higher.")
-        if (
-            repository_root is not None
-            and normalize(workflow_status) == normalize("Pending development")
-            and has_concrete_proposal_vehicle(repository_root, record)
-        ):
+        if normalize(workflow_status) == normalize("Unspecified"):
             warnings.append(
-                "Pending development may be stale because the canonical issue page links to an existing "
-                "proposal vehicle; review whether the status should be In development or Audit needed."
+                "Project Status is missing; assign one of the approved workflow statuses: "
+                + ", ".join(workflow_statuses)
+                + "."
+            )
+        elif normalize(workflow_status) not in approved_workflow_statuses:
+            warnings.append(
+                f'Project Status "{workflow_status}" is not an approved workflow status; assign one of: '
+                + ", ".join(workflow_statuses)
+                + ". Issue monitoring is represented independently by the needs: monitoring label."
             )
         parsed.append(
             {
@@ -709,6 +682,9 @@ def build_progress_payload(
             "url": "https://github.com/users/{}/projects/{}".format(config["projectOwner"], config["projectNumber"]),
             "repository": config["repository"],
         },
+        "workflowStatuses": list(
+            config.get("workflowStatuses", APPROVED_WORKFLOW_STATUSES)
+        ),
         "goal": goal,
         "metrics": compute_metrics(snapshot, merged_history, config, as_of),
         "history": merged_history["snapshots"],

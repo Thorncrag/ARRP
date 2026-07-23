@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: paused
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,22 +13,31 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive — implementation completed and reconciled |
-| Active issue/task | Agent-and-bot governance, source integrity, lifecycle reconciliation, and Project Console oversight |
-| Audit type/tier | Project-level Change Audit and automation implementation; no T-audit run |
-| Started | 2026-07-22 |
-| Last checkpoint | 2026-07-22; PR #351 merged as `34977e1`, local `main` matches `origin/main`, post-merge Integrity, Progress, Pages, and Vercel checks passed, and the affected live routes were verified. |
-| User request | Establish authoritative runbooks and shared logging for Elim and deterministic bots; add a report-only source checker; resolve integrity and routing defects; make human decisions and the complete problem inventory visible in the Console; add persistent, user-controlled layout and disclosure behavior; restore the intuitive `Candidate` → `Admitted / undeveloped` → `In development` → `Developed proposal` → `Review ready` progression; and retain the four-part foundation as the gate into development. |
-| Scope | Cross-cutting framework and agent rules; bot workflows and runbooks; source verification and routing; integrity automation; Action Items, Problems, Sources, Progress, and Agents and Bots views; persistent layout and disclosure preferences; lifecycle terminology and authority; GitHub Project `Development level`; generated Console and participation data; related records and tests. |
-| Files touched | Seventy-five files merged through PR #351, including governance, runbooks, workflows, source catalogs and records, issue metadata, shared logs, Console code and data, participation routing data, validation scripts, and tests; this final handoff-only closeout follows separately. |
-| Completed steps | Established the shared agent/bot operating model and authoritative runbooks; added the weekly report-only Source Checker Bot; resolved the current deterministic integrity and pending-source queues; expanded the Console's human-action and complete-problem views; added persistent rearrangement and disclosure controls; standardized at-a-glance group/list behavior; moved issue monitoring to Progress; accounted for all 99 active records; restored `In development` as the third maturity stage; synchronized the live GitHub Project without moving records; and preserved the four-part foundation gate with recorded Elim and interactive-agent sufficiency authority. |
-| Next step | Await user direction. Elim remains paused until its separate local isolated-worktree and usage-display pilot satisfies the runbook launch gate. |
-| Blockers/questions | None for the completed implementation and reconciliation. The future Elim pilot is a deliberate launch gate, not an unfinished part of this change set. |
-| Validation status | Passed after restoring `In development`: 91 repository tests; JavaScript and Python syntax; diff hygiene; strict public-site build; the current 99-record snapshot; live Project option and item-distribution readback; and the authenticated consistency audit with 0 errors and 0 warnings. |
+| Status | Active |
+| Active issue/task | Remaining formal Horizon-candidate adjudications; `HOR-034` admitted as `CIV-010` |
+| Audit type/tier | Horizon Candidate Adjudication; no T-audit run |
+| Started | 2026-07-23 |
+| Last checkpoint | 2026-07-23; `HOR-034` is fully admitted and synchronized as `CIV-010` in A-08 with an approved four-part foundation, open GitHub issue #254, `Development level: In development`, `Status: Development`, score and Runs 0, and issue-level monitoring. The human author also authorized Elim to post validated, self-identifying informative replies to public submissions and to create or update fully sourced preliminary candidates automatically; formal promotion, admission, rejection, moderation, deletion, private contact, and publication remain human-reserved. |
+| User request | Process the remaining Horizon issues. |
+| Scope | Formal `HOR-###` candidates in the live GitHub Project; candidate issue, Horizon Scan Log entry, source-development record, relevant existing proposals and sources, and approved disposition records for each selected candidate. |
+| Files touched | `areas/CIV/issues/CIV-010.md`; `areas/CIV/issues/CIV-010.audit.md`; `areas/CIV/research/CIV-010-source-development.md`; `areas/CIV/README.md`; `SUBJECT_INDEX.md`; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; `framework/logs/HORIZON_SCAN_LOG.md`; `framework/logs/CURRENT_AUDIT.md`; `framework/INTAKE_AGENT_PROCESS.md`; `framework/PROJECT_STRUCTURE.md`; `framework/agents/ELIM.md`; `participate/README.md`; `participate/SECURITY.md`; `scripts/validate_elim_discussion_reply.py`; `tests/test_elim_discussion_reply.py`; `tests/test_horizon_intake.py`; `tests/test_project_console_progress.py`; generated Console and participation lookup files; prior uncommitted project-consistency and Console work remains in the working tree and must be preserved. |
+| Completed steps | Read governing lifecycle and Horizon-adjudication rules; verified the live queue; confirmed there are no preliminary candidates; reviewed `HOR-034`'s live issue, Horizon record, source-development file, existing ARRP coverage, Privacy Act and matching framework, current manifestations, and prior-proposal analogues; distinguished the lawful statutory exception recognized for qualifying IRS address requests from allegedly noncompliant execution, the SNAP Act's narrower congressionally defined use limits, and general Privacy Act gaps involving systems of records, routine uses, exceptions, matching coverage, and remedies; obtained the human author's approval of the policy principle, transparency requirement, admission into CIV, and cross-cutting Privacy Act/conforming-amendment vehicle; created and synchronized `CIV-010`; converted existing GitHub issue #254 and every controlled Project field; read back the issue and Project; refreshed the 99-record Console board; reconciled the public-intake governance, Elim runbook, participation documentation, security boundary, candidate-creation authority, reply validator, tests, and route index. |
+| Next step | Preserve the completed CIV-010 admission and Elim intake-authority changes through the intentional repository workflow, then continue with the next active unheld Horizon candidate. |
+| Blockers/questions | No substantive admission question remains. The existing validated but uncommitted project-consistency and Console working set must not be overwritten or confused with candidate-adjudication changes. |
+| Validation status | Passed: authenticated Project Consistency Audit (0 errors, 0 warnings); 113 Python tests; 24 participation tests; public-site preparation (137 canonical pages, 1 generated page); focused GitHub issue and Project readback; `git diff --check`. GitHub's noneditable Project list cache still exposes the former HOR title in one top-level field, but the issue content title, registry title, Project content title, canonical-page fallback, lifecycle fields, Console route, and authenticated integrity check all resolve `CIV-010`. |
 
 ## Detailed Findings and Corrections
 
-The Project Console renders this current-audit section as the explanatory companion to the integrity bot's unresolved findings. It records what the comprehensive review found, why the defect mattered, what was changed, and what remains rather than treating a short edit count as a sufficient audit explanation.
+This section preserves durable findings from the most recent project-level reviews. The Project Console no longer renders this handoff record as a current problem source; current exceptions come from their owning feeds and records.
+
+### Project Console queue and data presentation
+
+- **Disposition:** Corrected locally; publication pending explicit instruction
+- **Problem:** The Console accumulated inconsistent mixtures of queue ownership, audit explanation, run history, check scope, dense datasets, counts, and always-expanded records.
+- **Why it mattered:** A user could not reliably tell whether a number represented work, inventory, history, or decoration; who owned a problem; or what remained behind a collapsed group.
+- **Correction:** Standardized current Problems around accountable-owner groups, moved integrity history to Logs, moved the check inventory to the bot runbook, exposed meaningful live counts on data-bearing groups, converted runbooks and grouped logs to disclosures, removed decorative mixed-workspace tab counts, and repaired saved disclosure/layout behavior after rerenders.
+- **Effect:** The Console now exposes compact indexes first and detailed data on demand, with the same owner, count, filter, link, and empty-state conventions across its principal queues and inventories.
+- **Remaining work:** The validated local changes have not been committed or pushed because this turn did not explicitly request the full GitHub publication workflow.
 
 ### Development maturity and workflow status
 

@@ -2,6 +2,7 @@
 issue_id: PRESS-001
 area_id: A-22
 title: "Equal Press Access and Rapid Review"
+status: in-development
 record_type: source-development
 print_status: excluded
 print_exclusion_reason: "Internal source-development record."

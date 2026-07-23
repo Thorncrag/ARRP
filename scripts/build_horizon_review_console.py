@@ -23,7 +23,6 @@ CHANGE_AUDIT_LOG = ROOT / "framework" / "logs" / "CHANGE_AUDIT_LOG.md"
 AGENT_AUDIT_LOG = ROOT / "framework" / "logs" / "AGENT_AUDIT_LOG.md"
 SOURCE_CHECKER_DATA = ROOT / "framework" / "reports" / "source-checker.json"
 SOURCE_MONITOR_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
-CURRENT_AUDIT = ROOT / "framework" / "logs" / "CURRENT_AUDIT.md"
 AGENT_RUNBOOKS = ROOT / "framework" / "agents"
 ISSUE_REGISTRY = ROOT / "inventory" / "github_issue_registry.csv"
 CITED_SOURCES = ROOT / "inventory" / "sources.csv"
@@ -237,6 +236,12 @@ def agent_registry_records() -> list[dict[str, object]]:
         description_match = re.search(r"^# .+?\n\n(.+?)(?=\n\n|\n#)", body, re.MULTILINE | re.DOTALL)
         description = strip_markdown(description_match.group(1).strip()) if description_match else ""
         runtime_id = str(metadata.get("runtime_id", "")).strip()
+        raw_checks = metadata.get("checks_included", [])
+        checks = (
+            [str(item).strip() for item in raw_checks if str(item).strip()]
+            if isinstance(raw_checks, list)
+            else []
+        )
         runtime_url = (
             GITHUB_BLOB_ROOT + runtime_id
             if runtime_id.startswith(".github/")
@@ -255,6 +260,7 @@ def agent_registry_records() -> list[dict[str, object]]:
                 "execution_environment": str(metadata.get("execution_environment", "")).strip(),
                 "log_path": str(metadata.get("log_path", "")).strip(),
                 "description": description,
+                "checks": checks,
                 "runbook_path": str(path.relative_to(ROOT)),
                 "runbook_url": GITHUB_BLOB_ROOT + str(path.relative_to(ROOT)),
             }
@@ -805,7 +811,8 @@ def agent_audit_log_view() -> dict[str, object]:
         blockers = strip_markdown(fields.get("Blockers/skipped checks", ""))
         raw_outcome = strip_markdown(fields.get("Outcome", ""))
         if not raw_outcome:
-            raw_outcome = "Blocked" if blockers and not blockers.lower().startswith("no blocker") else "Completed"
+            no_blocker_recorded = bool(re.match(r"^no\b[^.]{0,80}\bblockers?\b", blockers, re.IGNORECASE))
+            raw_outcome = "Blocked" if blockers and not no_blocker_recorded else "Completed"
         values = {
             "date": strip_markdown(fields.get("Date/time", header_parts[0] if header_parts else "")),
             "record": strip_markdown(fields.get("Issue/task", header_parts[1] if len(header_parts) > 1 else "")),
@@ -1040,9 +1047,36 @@ def render_markdown_safe(value: str) -> str:
     return "\n".join(output)
 
 
+MONITORING_SECTION_HEADING = re.compile(
+    r"^##[ \t]+(?:"
+    r"Watching for updates(?:[ \t]*[:—-][^\r\n]*)?"
+    r"|Defined monitoring(?:[ \t]+and[ \t]+research)?[ \t]+triggers"
+    r"|Monitoring status and (?:revisit[ \t]+trigger|next[ \t]+step)"
+    r"|Monitoring predicates?"
+    r"|Monitoring items?"
+    r"|Next step"
+    r")[ \t]*$"
+    r"(.*?)(?=^##\s+|\Z)",
+    re.MULTILINE | re.DOTALL | re.IGNORECASE,
+)
+
+
+def monitoring_section(value: str) -> str:
+    """Extract a monitoring instruction from one of the headings used by current records."""
+    section = MONITORING_SECTION_HEADING.search(value)
+    return strip_markdown(section.group(1)) if section else ""
+
+
 def monitoring_rationale_for_record(registry_row: dict[str, str], issue_body: str = "") -> str:
     """Return the most specific available human-authored monitoring instruction."""
     canonical = registry_row.get("Canonical Record", "").strip()
+    if issue_body and (
+        registry_row.get("Kind", "").strip() == "horizon"
+        or canonical == str(HORIZON_LOG.relative_to(ROOT))
+    ):
+        section = monitoring_section(issue_body)
+        if section:
+            return section
     if canonical:
         path = ROOT / canonical
         if path.is_file():
@@ -1050,23 +1084,13 @@ def monitoring_rationale_for_record(registry_row: dict[str, str], issue_body: st
             match = re.search(r'^audit_next:\s*["\']?(.*?)["\']?\s*$', content, re.MULTILINE)
             if match and match.group(1).strip():
                 return strip_markdown(match.group(1))
-            section = re.search(
-                r"^##\s+(?:Watching for updates|Defined monitoring and research triggers|Next step)\s*$"
-                r"(.*?)(?=^##\s+|\Z)",
-                content,
-                re.MULTILINE | re.DOTALL | re.IGNORECASE,
-            )
+            section = monitoring_section(content)
             if section:
-                return strip_markdown(section.group(1))
+                return section
     if issue_body:
-        section = re.search(
-            r"^##\s+(?:Watching for updates|Defined monitoring and research triggers|Next step)\s*$"
-            r"(.*?)(?=^##\s+|\Z)",
-            issue_body,
-            re.MULTILINE | re.DOTALL | re.IGNORECASE,
-        )
+        section = monitoring_section(issue_body)
         if section:
-            return strip_markdown(section.group(1))
+            return section
     return "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
 
 
@@ -1296,36 +1320,6 @@ def integrity_snapshot() -> dict[str, object]:
     return cached if isinstance(cached, dict) else {}
 
 
-def current_consistency_audit() -> dict[str, object]:
-    """Expose the current long-form consistency findings without creating another audit log."""
-    if not CURRENT_AUDIT.exists():
-        return {}
-    content = CURRENT_AUDIT.read_text(encoding="utf-8")
-    task = two_column_fields(content)
-    entries: list[dict[str, str]] = []
-    labels = ("Disposition", "Problem", "Why it mattered", "Correction", "Effect", "Remaining work")
-    for title, body in section_records(content, 3, "## Detailed Findings and Corrections"):
-        fields: dict[str, str] = {}
-        for label in labels:
-            match = re.search(
-                rf"^- \*\*{re.escape(label)}:\*\*\s*(.+?)(?=^- \*\*[^\n]+:\*\*|\Z)",
-                body,
-                re.MULTILINE | re.DOTALL,
-            )
-            fields[label.lower().replace(" ", "_")] = strip_markdown(match.group(1).strip()) if match else ""
-        if fields["problem"]:
-            entries.append({"title": strip_markdown(title), **fields})
-    return {
-        "title": str(task.get("Active issue/task", "Latest consistency audit")),
-        "status": strip_markdown(str(task.get("Status", ""))),
-        "last_checkpoint": strip_markdown(str(task.get("Last checkpoint", ""))),
-        "records_checked": 371,
-        "entries": entries,
-        "source_path": "framework/logs/CURRENT_AUDIT.md",
-        "source_url": GITHUB_BLOB_ROOT + "framework/logs/CURRENT_AUDIT.md#detailed-findings-and-corrections",
-    }
-
-
 def existing_horizon_snapshot() -> tuple[list[dict[str, object]], str]:
     payload = existing_console_payload()
     return payload.get("horizon_records", []), str(payload.get("github_synced_at", ""))
@@ -1338,8 +1332,17 @@ def source_count_for_record(record_id: str) -> int:
     )
 
 
-def monitoring_issue_snapshot(refresh: bool) -> list[dict[str, object]]:
+def monitoring_issue_snapshot(
+    refresh: bool, horizon_records: list[dict[str, object]] | None = None
+) -> list[dict[str, object]]:
     eligible_kinds = {"proposal", "horizon"}
+    horizon_issue_bodies: dict[str, str] = {}
+    for record in horizon_records or []:
+        body = str(record.get("issue_body", ""))
+        if not body and isinstance(record.get("issue_body_lines"), list):
+            body = "\n".join(str(line) for line in record["issue_body_lines"])
+        if body:
+            horizon_issue_bodies[str(record.get("id", ""))] = body
     if not refresh:
         records = existing_console_payload().get("monitoring_issues", [])
         if isinstance(records, list):
@@ -1360,7 +1363,9 @@ def monitoring_issue_snapshot(refresh: bool) -> list[dict[str, object]]:
                         **record,
                         "source_count": len(sources),
                         "sources": sources,
-                        "monitoring_rationale": monitoring_rationale_for_record(registry),
+                        "monitoring_rationale": monitoring_rationale_for_record(
+                            registry, horizon_issue_bodies.get(record_id, "")
+                        ),
                     }
                 )
             return enriched
@@ -1640,7 +1645,7 @@ def main() -> None:
     )
     presidential_directives = presidential_directive_records()
     horizon_records, github_synced_at = horizon_snapshot(args.refresh_github)
-    monitoring_issues = monitoring_issue_snapshot(args.refresh_github)
+    monitoring_issues = monitoring_issue_snapshot(args.refresh_github, horizon_records)
     court_watch_sources, case_watcher_metadata = case_watcher_snapshot()
     page_inventory = page_inventory_records()
     publication = publication_data(page_inventory)
@@ -1655,7 +1660,7 @@ def main() -> None:
     ]
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
-        "schema_version": 22,
+        "schema_version": 23,
         "generated_at": generated_at,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),
@@ -1678,7 +1683,6 @@ def main() -> None:
         "integrity": integrity,
         "source_checker": source_checker,
         "agent_registry": agent_registry,
-        "consistency_audit": current_consistency_audit(),
         # The full snapshot is retained only so an ordinary rebuild can preserve
         # authoritative GitHub state without requiring Keychain access.
         "horizon_records": horizon_records,

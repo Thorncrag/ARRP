@@ -47,6 +47,13 @@ const records = Object.freeze([
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/94"
   },
   {
+    "id": "CIV-010",
+    "title": "Congressional Authorization for Secondary Use of Government-Held Personal Data",
+    "area": "CIV",
+    "canonical_page": "../areas/CIV/issues/CIV-010.md",
+    "issue_url": "https://github.com/Thorncrag/ARRP/issues/254"
+  },
+  {
     "id": "CLASS-001",
     "title": "Presidential Classification, Declassification, Documentation, and Custody",
     "area": "CLASS",
@@ -619,13 +626,6 @@ const records = Object.freeze([
     "area": "RIGHTS",
     "canonical_page": "https://github.com/Thorncrag/ARRP/issues/253",
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/253"
-  },
-  {
-    "id": "HOR-034",
-    "title": "Cross-Agency Repurposing of Protected Personal Data",
-    "area": "CIV",
-    "canonical_page": "https://github.com/Thorncrag/ARRP/issues/254",
-    "issue_url": "https://github.com/Thorncrag/ARRP/issues/254"
   },
   {
     "id": "HOR-035",
