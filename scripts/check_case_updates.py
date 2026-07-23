@@ -137,6 +137,7 @@ class TrackerTableParser(HTMLParser):
         self.in_cell = False
         self.current_cell: dict[str, Any] | None = None
         self.current_row: list[dict[str, Any]] | None = None
+        self.current_link: dict[str, Any] | None = None
         self.rows: list[list[dict[str, Any]]] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
@@ -152,27 +153,40 @@ class TrackerTableParser(HTMLParser):
             self.current_row = []
         elif tag in {"th", "td"} and self.current_row is not None:
             self.in_cell = True
-            self.current_cell = {"text": [], "links": []}
+            self.current_cell = {"text": [], "links": [], "link_records": []}
         elif tag == "a" and self.current_cell is not None:
             href = normalize_text(attributes.get("href") or "", 2000)
             if href:
                 self.current_cell["links"].append(href)
+                self.current_link = {"href": href, "text": []}
 
     def handle_data(self, data: str) -> None:
         if self.in_cell and self.current_cell is not None:
             self.current_cell["text"].append(data)
+            if self.current_link is not None:
+                self.current_link["text"].append(data)
 
     def handle_endtag(self, tag: str) -> None:
         if not self.in_table:
             return
-        if tag in {"th", "td"} and self.current_cell is not None and self.current_row is not None:
+        if tag == "a" and self.current_link is not None and self.current_cell is not None:
+            self.current_cell["link_records"].append(
+                {
+                    "href": self.current_link["href"],
+                    "text": normalize_text(" ".join(self.current_link["text"]), 1500),
+                }
+            )
+            self.current_link = None
+        elif tag in {"th", "td"} and self.current_cell is not None and self.current_row is not None:
             self.current_row.append(
                 {
                     "text": normalize_text(" ".join(self.current_cell["text"])),
                     "links": list(dict.fromkeys(self.current_cell["links"])),
+                    "link_records": list(self.current_cell["link_records"]),
                 }
             )
             self.current_cell = None
+            self.current_link = None
             self.in_cell = False
         elif tag == "tr" and self.current_row is not None:
             if self.current_row:
@@ -216,17 +230,36 @@ EXPECTED_TRACKER_HEADINGS = [
 def tracker_entry(cells: dict[str, dict[str, Any]]) -> dict[str, Any]:
     case_cell = cells["Case Name"]
     case_text = normalize_text(case_cell["text"], 1500)
-    match = DOCKET_PATTERN.search(case_text)
-    docket_number = match.group(0) if match else ""
-    case_name = normalize_text(case_text[: match.start()] if match else case_text, 500)
     courtlistener_url = ""
-    for link in case_cell["links"]:
+    linked_case_name = ""
+    for link_record in case_cell.get("link_records") or []:
+        link = str(link_record.get("href") or "")
         if docket_key(link):
             parsed = urllib.parse.urlsplit(link)
             courtlistener_url = urllib.parse.urlunsplit(
                 ("https", "www.courtlistener.com", parsed.path, "", "")
             )
+            linked_case_name = normalize_text(str(link_record.get("text") or ""), 500)
             break
+    if not courtlistener_url:
+        for link in case_cell["links"]:
+            if docket_key(link):
+                parsed = urllib.parse.urlsplit(link)
+                courtlistener_url = urllib.parse.urlunsplit(
+                    ("https", "www.courtlistener.com", parsed.path, "", "")
+                )
+                break
+    docket_identity_confident = True
+    if linked_case_name and case_text.startswith(linked_case_name):
+        remainder = case_text[len(linked_case_name) :].strip()
+        match = DOCKET_PATTERN.search(remainder)
+        docket_identity_confident = bool(match and match.start() <= 40)
+        docket_number = match.group(0) if docket_identity_confident and match else ""
+        case_name = linked_case_name
+    else:
+        match = DOCKET_PATTERN.search(case_text)
+        docket_number = match.group(0) if match else ""
+        case_name = normalize_text(case_text[: match.start()] if match else case_text, 500)
     primary_key = docket_key(courtlistener_url)
     displayed_identity = normalize_docket_identity(docket_number)
     if primary_key:
@@ -252,6 +285,7 @@ def tracker_entry(cells: dict[str, dict[str, Any]]) -> dict[str, Any]:
     return {
         "key": key,
         "primary_docket_key": primary_key,
+        "docket_identity_confident": docket_identity_confident,
         **material,
         "fingerprint": fingerprint(material),
         "case_update_excerpt": normalize_text(case_updates, 800),
@@ -356,6 +390,53 @@ def changed_fields(previous: dict[str, str], current: dict[str, Any]) -> list[st
     if previous.get("f", "") != current["fingerprint"][:32] and not fields:
         fields.append("case name or narrative content")
     return fields
+
+
+def tracker_fingerprint(entry: dict[str, Any]) -> str:
+    return fingerprint(
+        {
+            "case_name": entry["case_name"],
+            "docket_number": entry["docket_number"],
+            "courtlistener_url": entry["courtlistener_url"],
+            "status": entry["status"],
+            "last_case_update": entry["last_case_update"],
+            "case_summary": entry.get("case_summary", ""),
+            "case_updates": entry.get("case_updates", ""),
+        }
+    )
+
+
+def reconcile_tracker_identity(
+    previous: dict[str, dict[str, str]],
+    current: dict[str, dict[str, Any]],
+    primary_key: str,
+) -> dict[str, dict[str, Any]]:
+    if set(previous) == set(current):
+        return current
+    if len(previous) == len(current) == 1:
+        previous_key, previous_entry = next(iter(previous.items()))
+        _, current_entry = next(iter(current.items()))
+        previous_name = normalize_text(previous_entry.get("n", ""), 500).casefold()
+        current_name = normalize_text(current_entry.get("case_name", ""), 500).casefold()
+        low_confidence = not current_entry.get("docket_identity_confident", True)
+        same_case = previous_name == current_name or (
+            low_confidence
+            and previous_name.startswith(current_name + " ")
+            and len(previous_name) - len(current_name) <= 50
+        )
+        if same_case and low_confidence:
+            corrected = {
+                **current_entry,
+                "key": previous_key,
+                "case_name": previous_entry.get("n", "") or current_entry["case_name"],
+                "docket_number": previous_entry.get("d", "") or current_entry["docket_number"],
+            }
+            corrected["fingerprint"] = tracker_fingerprint(corrected)
+            return {previous_key: corrected}
+    raise ValueError(
+        f"tracker composite identity changed ambiguously for {primary_key}; "
+        "refusing to replace an accepted monitored baseline"
+    )
 
 
 def compare_snapshots(
@@ -929,7 +1010,6 @@ def evaluate_catalog_sources(
 
     for key in mapped_keys:
         current_entries = {entry["key"]: entry for entry in grouped[key]}
-        encoded = encode_state("case", compact_case_baseline(grouped[key]))
         baselines = {
             row.get(baseline_field, "").strip()
             for row in by_docket[key]
@@ -937,6 +1017,7 @@ def evaluate_catalog_sources(
         }
         blank_rows = [row for row in by_docket[key] if not row.get(baseline_field, "").strip()]
         if initialize:
+            encoded = encode_state("case", compact_case_baseline(grouped[key]))
             for row in blank_rows:
                 row[baseline_field] = encoded
                 initialized += 1
@@ -948,6 +1029,10 @@ def evaluate_catalog_sources(
             ids = ", ".join(row.get("Source ID", "") for row in by_docket[key])
             raise ValueError(f"monitored source baselines disagree for {key}: {ids}")
         previous = baseline_to_snapshot(next(iter(baselines)))
+        current_entries = reconcile_tracker_identity(previous, current_entries, key)
+        encoded = encode_state(
+            "case", compact_case_baseline(list(current_entries.values()))
+        )
         _, docket_changes = compare_snapshots(previous, current_entries, 1.0)
         if docket_changes:
             for row in by_docket[key]:
