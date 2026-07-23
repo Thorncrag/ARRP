@@ -2,17 +2,17 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-23T07:57:30+00:00",
-    "revision": "c97bc2c11b80971b089347628dcfd2cf1ba6e663",
+    "generated_at": "2026-07-23T14:48:34+00:00",
+    "revision": "44d56fd7fe5918f5f1e7f691e83a3bd7d77c9760",
     "result": "clean",
     "counts": {
       "errors": 0,
       "warnings": 0,
       "findings": 0,
-      "issue_pages": 63,
+      "issue_pages": 64,
       "proposal_pages": 41
     },
-    "duration_seconds": 11.747,
+    "duration_seconds": 11.3,
     "scope": [
       "Issue and proposal structure",
       "Area and topic routing",
@@ -23,6 +23,7 @@
       "Cross-issue reference links",
       "GitHub record references",
       "GitHub Issue and Project synchronization",
+      "Lifecycle-field coherence and workflow explanations",
       "GitHub Pages deployment synchronization",
       "Source and citation catalogs",
       "Research placement",
@@ -37,6 +38,19 @@
     "findings": []
   },
   "history": [
+    {
+      "generated_at": "2026-07-23T14:48:34+00:00",
+      "revision": "44d56fd7fe5918f5f1e7f691e83a3bd7d77c9760",
+      "result": "clean",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "findings": 0,
+        "issue_pages": 64,
+        "proposal_pages": 41
+      },
+      "duration_seconds": 11.3
+    },
     {
       "generated_at": "2026-07-23T07:57:30+00:00",
       "revision": "c97bc2c11b80971b089347628dcfd2cf1ba6e663",
