@@ -24,6 +24,7 @@ GRAPHQL_URL = "https://api.github.com/graphql"
 REST_ROOT = "https://api.github.com"
 USER_AGENT = "ARRP-project-console-progress/1.0"
 APPROVED_WORKFLOW_STATUSES = (
+    "Research",
     "Development",
     "Human decision needed",
     "Audit needed",

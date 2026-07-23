@@ -76,6 +76,7 @@ PROJECT_DEVELOPMENT_LEVELS = {
     "release candidate",
 }
 PROJECT_WORKFLOW_STATUSES = {
+    "research",
     "development",
     "human decision needed",
     "audit needed",
@@ -1920,6 +1921,22 @@ def project_lifecycle_findings(
                     "WARNING",
                     f"Project item {label} uses Status 'Audit in progress' but canonical "
                     "audit_status does not record an audit in progress",
+                )
+            )
+
+    if status == "research":
+        if normalized_kind not in {"proposal", "horizon"}:
+            findings.append(
+                (
+                    "ERROR",
+                    f"nonproposal Project item {label} cannot use Status 'Research'",
+                )
+            )
+        if not meaningful_project_action(next_action):
+            findings.append(
+                (
+                    "WARNING",
+                    f"Project item {label} uses Status 'Research' but lacks a concrete Next audit",
                 )
             )
 

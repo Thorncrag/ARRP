@@ -19,6 +19,7 @@
     "canonicalPage": "Canonical page"
   },
   "workflowStatuses": [
+    "Research",
     "Development",
     "Human decision needed",
     "Audit needed",

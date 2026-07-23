@@ -160,6 +160,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertEqual(
             PROJECT_WORKFLOW_STATUSES,
             {
+                "research",
                 "development",
                 "human decision needed",
                 "audit needed",
@@ -204,6 +205,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             with self.subTest(status=status):
                 self.assertTrue(is_recognized_issue_page_status(status))
         for project_status in (
+            "research",
             "development",
             "human decision needed",
             "audit needed",
@@ -213,6 +215,34 @@ class GitHubIssueLinkTests(unittest.TestCase):
         ):
             with self.subTest(project_status=project_status):
                 self.assertFalse(is_recognized_issue_page_status(project_status))
+
+    def test_research_status_requires_a_defined_next_investigation(self):
+        missing = lifecycle_findings(
+            kind="horizon",
+            status="Research",
+            **{"development level": "Candidate", "next audit": ""},
+        )
+        self.assertTrue(
+            any(
+                severity == "WARNING"
+                and "Status 'Research' but lacks a concrete Next audit" in message
+                for severity, message in missing
+            ),
+            missing,
+        )
+
+        defined = lifecycle_findings(
+            kind="horizon",
+            status="Research",
+            **{
+                "development level": "Candidate",
+                "next audit": "Cross-administration docket study of review-evasion signals",
+            },
+        )
+        self.assertFalse(
+            any("Status 'Research'" in message for _, message in defined),
+            defined,
+        )
 
     def test_issue_page_status_check_flags_blank_and_nonstandard_values(self):
         relative = Path("areas/TEST/issues/TEST-001.md")
