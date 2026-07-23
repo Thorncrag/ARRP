@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
-"""Detect litigation-tracker changes and prepare source-catalog updates.
+"""Detect litigation-tracker changes and prepare source-development updates.
 
 The watcher compares the Just Security Trump-administration litigation tracker with
 case-specific baselines stored on monitored CourtListener rows in the source
 catalogs. When an observable source changes, ``--apply`` updates those catalog fields
-and appends a material event to ``framework/logs/SOURCE_MONITOR_LOG.md``. GitHub
-Actions, rather than this script, commits the changes and creates or updates a narrow
-review PR. Discovery of entirely new cases remains part of the separate intake scan;
-this watcher does not turn unmatched tracker rows into source records.
+and appends a material event to ``framework/logs/SOURCE_MONITOR_LOG.md``. Configured
+source-development modules may also project high-recall, machine-observed leads into
+an existing candidate or issue source-development record. GitHub Actions, rather
+than this script, commits the changes and creates or updates a narrow review PR.
 
 This is source-change detection only. It does not interpret legal significance,
-alter proposal analysis, or make admission or disposition decisions.
+turn leads into source-catalog records, alter proposal analysis, or make admission
+or disposition decisions.
 """
 
 from __future__ import annotations
@@ -41,6 +42,8 @@ DEFAULT_PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 DEFAULT_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
 USER_AGENT = "ARRP case-monitor-bot/0.3"
 STATE_PREFIX = "arrp-case-monitor:v1:"
+MODULE_MARKER_PREFIX = "case-monitor-bot:source-development"
+LEAD_ID_PREFIX = "CASELEAD"
 
 
 def normalize_text(value: str, limit: int = 4000) -> str:
@@ -52,6 +55,10 @@ def normalize_text(value: str, limit: int = 4000) -> str:
 def markdown_text(value: str, limit: int = 500) -> str:
     value = html_lib.escape(normalize_text(value, limit), quote=False)
     return re.sub(r"([\\`*_{}\[\]()#+.!|>-])", r"\\\1", value)
+
+
+def html_code(value: str, limit: int = 500) -> str:
+    return f"<code>{html_lib.escape(normalize_text(value, limit), quote=False)}</code>"
 
 
 def safe_error(value: str) -> str:
@@ -392,6 +399,307 @@ def compare_snapshots(
     return ("changes_detected" if changes else "no_change"), changes
 
 
+def source_development_marker(module_id: str, boundary: str) -> str:
+    normalized = normalize_text(module_id, 100)
+    if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", normalized):
+        raise ValueError(f"invalid source-development module ID {module_id!r}")
+    return f"<!-- {MODULE_MARKER_PREFIX}:{normalized}:{boundary} -->"
+
+
+def source_development_target(module: dict[str, Any], root: Path = ROOT) -> Path:
+    raw = str(module.get("targetPath") or "")
+    relative = Path(raw)
+    if not raw or relative.is_absolute() or ".." in relative.parts:
+        raise ValueError(f"source-development module target must be a safe relative path: {raw!r}")
+    path = (root / relative).resolve()
+    try:
+        canonical = path.relative_to(root.resolve()).as_posix()
+    except ValueError as exc:
+        raise ValueError(f"source-development module target escapes the repository: {raw!r}") from exc
+    allowed = bool(
+        re.fullmatch(r"research/horizon-source-records/HOR-\d{3}-source-development\.md", canonical)
+        or re.fullmatch(
+            r"areas/[A-Z]+/research/[A-Z]+-\d{3}-source-development\.md", canonical
+        )
+    )
+    if not allowed:
+        raise ValueError(
+            "source-development module target must use the established candidate or issue "
+            f"source-development convention: {canonical}"
+        )
+    if not path.is_file():
+        raise ValueError(f"source-development module target does not exist: {canonical}")
+    return path
+
+
+def matched_signal_groups(
+    entry: dict[str, Any], module: dict[str, Any]
+) -> list[dict[str, Any]]:
+    fields = module.get("matchFields") or []
+    allowed_fields = {"status", "case_summary", "case_updates"}
+    if not fields or any(field not in allowed_fields for field in fields):
+        raise ValueError("source-development module has invalid or empty matchFields")
+    haystack = "\n".join(normalize_text(str(entry.get(field) or ""), 100_000) for field in fields)
+    folded = haystack.casefold()
+    matches: list[dict[str, Any]] = []
+    seen_group_ids: set[str] = set()
+    for group in module.get("signalGroups") or []:
+        group_id = normalize_text(str(group.get("id") or ""), 100)
+        if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", group_id) or group_id in seen_group_ids:
+            raise ValueError(f"invalid or duplicate source-development signal group {group_id!r}")
+        seen_group_ids.add(group_id)
+        terms = [normalize_text(str(term), 100).casefold() for term in group.get("terms") or []]
+        if not terms or any(not term for term in terms):
+            raise ValueError(f"source-development signal group {group_id} has no valid terms")
+        matched_terms = sorted({term for term in terms if term in folded})
+        if matched_terms:
+            matches.append(
+                {
+                    "id": group_id,
+                    "terms": matched_terms,
+                    "supplemental": bool(group.get("supplemental", False)),
+                }
+            )
+    if not seen_group_ids:
+        raise ValueError("source-development module has no signal groups")
+    return matches
+
+
+def source_development_lead(
+    entry: dict[str, Any], module: dict[str, Any], matches: list[dict[str, Any]]
+) -> dict[str, Any]:
+    module_id = str(module["moduleId"])
+    stable_key = str(entry["key"])
+    lead_id = f"{LEAD_ID_PREFIX}-" + fingerprint(
+        {"module_id": module_id, "stable_key": stable_key}
+    )[:12].upper()
+    return {
+        "lead_id": lead_id,
+        "stable_key": stable_key,
+        "case_name": normalize_text(str(entry.get("case_name") or "Unnamed tracker entry"), 500),
+        "docket_number": normalize_text(str(entry.get("docket_number") or ""), 100),
+        "courtlistener_url": str(entry.get("courtlistener_url") or ""),
+        "tracker_status": normalize_text(str(entry.get("status") or ""), 300),
+        "last_case_update": normalize_text(str(entry.get("last_case_update") or ""), 100),
+        "signal_groups": matches,
+        "observation_fingerprint": str(entry.get("fingerprint") or "")[:16],
+    }
+
+
+def source_development_disposition_token(lead: dict[str, Any]) -> str:
+    return f"{lead['lead_id']}@{lead['observation_fingerprint']}"
+
+
+def collect_source_development_leads(
+    entries: dict[str, dict[str, Any]], module: dict[str, Any]
+) -> list[dict[str, Any]]:
+    leads: list[dict[str, Any]] = []
+    for entry in entries.values():
+        matches = matched_signal_groups(entry, module)
+        if matches and any(not match["supplemental"] for match in matches):
+            leads.append(source_development_lead(entry, module, matches))
+    leads.sort(
+        key=lambda lead: (
+            lead["case_name"].casefold(),
+            lead["docket_number"].casefold(),
+            lead["stable_key"],
+        )
+    )
+    maximum = int(module.get("maximumLeads") or 0)
+    if maximum <= 0:
+        raise ValueError("source-development module maximumLeads must be positive")
+    if len(leads) > maximum:
+        raise ValueError(
+            f"source-development module {module['moduleId']} found {len(leads)} leads, "
+            f"exceeding its configured maximum of {maximum}"
+        )
+    return leads
+
+
+def render_source_development_section(
+    module: dict[str, Any], leads: list[dict[str, Any]], tracker_url: str
+) -> str:
+    module_id = str(module["moduleId"])
+    record_id = normalize_text(str(module.get("recordId") or ""), 100)
+    if not re.fullmatch(r"(?:HOR|[A-Z]+)-\d{3}", record_id):
+        raise ValueError(f"source-development module has invalid recordId {record_id!r}")
+    start = source_development_marker(module_id, "start")
+    end = source_development_marker(module_id, "end")
+    lines = [
+        start,
+        "## Machine-observed litigation leads",
+        "",
+        "> **Unreviewed machine leads:** The Case Monitor Bot selected these records through "
+        "configured textual signals. Inclusion establishes only that a tracker record matched "
+        "one or more terms. It does not establish government-caused mootness, review evasion, "
+        "legal significance, recurrence, retained authority, unremedied harm, or an ARRP "
+        "institutional defect. Elim or an interactive agent must verify the primary record and "
+        "record a disposition.",
+        "",
+        f"- Module: `{module_id}`",
+        f"- Routed record: `{record_id}`",
+        f"- Discovery source: [Just Security litigation tracker]({tracker_url})",
+        "- Coverage limitation: this projection covers only records present in the configured "
+        "tracker; it is not an exhaustive or cross-administration case universe.",
+        f"- Current unreviewed leads: **{len(leads)}**",
+        "- Resolution convention: record the full `CASELEAD-…@fingerprint` disposition token "
+        "and the verified disposition outside these bot-owned markers. The next run removes "
+        "that observation from this unreviewed projection while preserving the agent-authored "
+        "disposition. A later material change produces a new fingerprint and re-queues the lead.",
+        "",
+    ]
+    if not leads:
+        lines.append("No current unreviewed tracker entries match the configured signals.")
+    for lead in leads:
+        groups = ", ".join(group["id"] for group in lead["signal_groups"])
+        terms = ", ".join(
+            sorted({term for group in lead["signal_groups"] for term in group["terms"]})
+        )
+        label = f"{lead['lead_id']} — {lead['case_name']}"
+        if lead["docket_number"]:
+            label += f" — {lead['docket_number']}"
+        lines.extend(
+            [
+                "<details>",
+                f"<summary>{html_lib.escape(label)}</summary>",
+                "",
+                "- Review status: **Unreviewed machine lead**",
+                f"- Matched signal groups: {html_code(groups, 500)}",
+                f"- Matched terms: {html_code(terms, 500)}",
+                f"- Tracker status: {html_code(lead['tracker_status'] or 'Not stated', 300)}",
+                f"- Last tracker update: {html_code(lead['last_case_update'] or 'Not stated', 100)}",
+                f"- Observation fingerprint: `{lead['observation_fingerprint']}`",
+                f"- Disposition token: `{source_development_disposition_token(lead)}`",
+            ]
+        )
+        if lead["courtlistener_url"]:
+            lines.append(f"- Primary docket lead: [CourtListener / RECAP]({lead['courtlistener_url']})")
+        else:
+            lines.append("- Primary docket lead: Not linked by the tracker")
+        lines.extend(
+            [
+                f"- Tracker record: [Open source tracker]({tracker_url})",
+                "",
+                "</details>",
+                "",
+            ]
+        )
+    lines.append(end)
+    return "\n".join(lines) + "\n"
+
+
+def replace_source_development_section(
+    document: str, module: dict[str, Any], section: str
+) -> str:
+    module_id = str(module["moduleId"])
+    start = source_development_marker(module_id, "start")
+    end = source_development_marker(module_id, "end")
+    start_count = document.count(start)
+    end_count = document.count(end)
+    if start_count != end_count or start_count > 1:
+        raise ValueError(f"source-development markers are malformed for module {module_id}")
+    if start_count == 1:
+        pattern = re.compile(re.escape(start) + r".*?" + re.escape(end) + r"\n?", re.DOTALL)
+        return pattern.sub(section, document, count=1)
+    heading = str(module.get("insertBeforeHeading") or "")
+    if not heading or document.count(heading) != 1:
+        raise ValueError(
+            f"source-development target must contain one insertion heading {heading!r}"
+        )
+    insertion = section + "\n"
+    return document.replace(heading, insertion + heading, 1)
+
+
+def existing_source_development_lead_ids(document: str, module_id: str) -> set[str]:
+    start = source_development_marker(module_id, "start")
+    end = source_development_marker(module_id, "end")
+    if start not in document or end not in document:
+        return set()
+    body = document.split(start, 1)[1].split(end, 1)[0]
+    return set(re.findall(rf"\b{LEAD_ID_PREFIX}-[A-F0-9]{{12}}\b", body))
+
+
+def reviewed_source_development_lead_tokens(document: str, module_id: str) -> set[str]:
+    start = source_development_marker(module_id, "start")
+    end = source_development_marker(module_id, "end")
+    outside = document
+    if start in document and end in document:
+        outside = document.split(start, 1)[0] + document.split(end, 1)[1]
+    return set(
+        re.findall(
+            rf"\b{LEAD_ID_PREFIX}-[A-F0-9]{{12}}@[a-f0-9]{{16}}\b",
+            outside,
+        )
+    )
+
+
+def evaluate_source_development_modules(
+    *,
+    entries: dict[str, dict[str, Any]],
+    config: dict[str, Any],
+    root: Path = ROOT,
+    selected_module_ids: set[str] | None = None,
+    apply: bool = False,
+) -> list[dict[str, Any]]:
+    modules = config.get("sourceDevelopmentModules") or []
+    configured_ids = {str(module.get("moduleId") or "") for module in modules}
+    if selected_module_ids:
+        unknown = sorted(selected_module_ids - configured_ids)
+        if unknown:
+            raise ValueError("unknown source-development module(s): " + ", ".join(unknown))
+    results: list[dict[str, Any]] = []
+    for module in modules:
+        module_id = str(module.get("moduleId") or "")
+        if not module.get("enabled", False):
+            continue
+        if selected_module_ids and module_id not in selected_module_ids:
+            continue
+        target = source_development_target(module, root)
+        document = target.read_text(encoding="utf-8")
+        all_leads = collect_source_development_leads(entries, module)
+        reviewed_tokens = reviewed_source_development_lead_tokens(document, module_id)
+        leads = [
+            lead
+            for lead in all_leads
+            if source_development_disposition_token(lead) not in reviewed_tokens
+        ]
+        section = render_source_development_section(module, leads, config["tracker"]["url"])
+        updated = replace_source_development_section(document, module, section)
+        old_ids = existing_source_development_lead_ids(document, module_id)
+        new_ids = {lead["lead_id"] for lead in leads}
+        signal_group_counts = Counter(
+            group["id"] for lead in leads for group in lead["signal_groups"]
+        )
+        changed = updated != document
+        if apply and changed:
+            target.write_text(updated, encoding="utf-8")
+        results.append(
+            {
+                "module_id": module_id,
+                "record_id": str(module["recordId"]),
+                "target_path": target.relative_to(root.resolve()).as_posix(),
+                "matched_lead_count": len(all_leads),
+                "lead_count": len(leads),
+                "reviewed_lead_count": len(
+                    {
+                        source_development_disposition_token(lead)
+                        for lead in all_leads
+                    }
+                    & reviewed_tokens
+                ),
+                "signal_group_counts": dict(sorted(signal_group_counts.items())),
+                "added_lead_ids": sorted(new_ids - old_ids),
+                "removed_lead_ids": sorted(old_ids - new_ids),
+                "content_changed": changed,
+                "applied": apply and changed,
+                "lead_fingerprint": fingerprint(
+                    [(lead["lead_id"], lead["observation_fingerprint"]) for lead in leads]
+                ),
+            }
+        )
+    return results
+
+
 def encode_state(kind: str, payload: Any) -> str:
     return STATE_PREFIX + canonical_json({"kind": kind, "payload": payload})
 
@@ -694,6 +1002,7 @@ def render_log_entry(
     changes: list[dict[str, Any]],
     coverage: dict[str, Any],
     verification: dict[str, dict[str, Any]],
+    module_results: list[dict[str, Any]],
 ) -> str:
     counts = Counter(change["kind"] for change in changes)
     verification_counts = Counter(result["outcome"] for result in verification.values())
@@ -706,7 +1015,15 @@ def render_log_entry(
         }
     )
     activity_hash = fingerprint(
-        {"checked_at": checked_at, "changes": [(change["kind"], change["key"]) for change in changes]}
+        {
+            "checked_at": checked_at,
+            "changes": [(change["kind"], change["key"]) for change in changes],
+            "modules": [
+                (result["module_id"], result["lead_fingerprint"])
+                for result in module_results
+                if result["content_changed"]
+            ],
+        }
     )[:8].upper()
     date_code = re.sub(r"[^0-9]", "", checked_at)[:14]
     activity_code = f"CASE-{date_code}-{activity_hash}"
@@ -729,8 +1046,16 @@ def render_log_entry(
         f"- Case baselines updated: {coverage['case_baselines_updated']}",
         f"- Coverage: {coverage['mapped_catalog_rows']} mapped monitored CourtListener rows; {coverage['uncovered_catalog_rows']} monitored CourtListener rows outside tracker coverage",
         f"- Targeted CourtListener checks: {verification_counts['queried']} queried; {verification_counts['failed']} failed; {verification_counts['unverified']} unverified",
+        f"- Source-development modules changed: {sum(1 for result in module_results if result['content_changed'])}",
         "- Interpretation: source-change signal only; no legal significance or project disposition determined.",
     ]
+    for result in module_results:
+        if result["content_changed"]:
+            lines.append(
+                f"- `{result['module_id']}` → `{result['target_path']}`: "
+                f"{result['lead_count']} current unreviewed leads; "
+                f"{len(result['added_lead_ids'])} added; {len(result['removed_lead_ids'])} removed."
+            )
     if changes:
         lines.extend(["", "| Change | Case | Docket | Previous observation | Current observation | Catalog match |", "| --- | --- | --- | --- | --- | --- |"])
         for change in changes[:100]:
@@ -780,6 +1105,7 @@ def render_summary(
     changes: list[dict[str, Any]],
     verification: dict[str, dict[str, Any]],
     coverage: dict[str, Any],
+    module_results: list[dict[str, Any]],
     applied: bool,
 ) -> str:
     counts = Counter(change["kind"] for change in changes)
@@ -813,12 +1139,31 @@ def render_summary(
         f"- Case baselines updated: **{coverage['case_baselines_updated']}**",
         f"- Affected source IDs: **{', '.join(affected_source_ids) or 'None'}**",
         "",
+        "### Source-development modules",
+        "",
+        f"- Configured modules evaluated: **{len(module_results)}**",
+        f"- Module records changed: **{sum(1 for result in module_results if result['content_changed'])}**",
+        f"- Current machine-observed leads: **{sum(result['lead_count'] for result in module_results)}**",
+        "",
         "### Targeted CourtListener checks",
         "",
         f"- Queried: **{verification_counts['queried']}**",
         f"- Failed: **{verification_counts['failed']}**",
         f"- Unverified: **{verification_counts['unverified']}**",
     ]
+    for result in module_results:
+        group_counts = ", ".join(
+            f"{group}: {count}"
+            for group, count in result["signal_group_counts"].items()
+        ) or "none"
+        lines.append(
+            f"- `{result['module_id']}` → `{result['target_path']}`: "
+            f"**{result['matched_lead_count']}** matched; "
+            f"**{result['lead_count']}** unreviewed; "
+            f"**{result['reviewed_lead_count']}** previously dispositioned; "
+            f"**{len(result['added_lead_ids'])}** added; "
+            f"**{len(result['removed_lead_ids'])}** removed; signals: {group_counts}"
+        )
     if status == "no_change":
         lines.extend(["", "No repository update or pull request is needed."])
     elif status == "baselines_initialized":
@@ -832,7 +1177,9 @@ def render_summary(
         lines.extend(
             [
                 "",
-                "Catalog and material-log updates were prepared in the worktree. The workflow will commit them to the deterministic bot branch and create or update a review pull request.",
+                "Authorized repository and material-log updates were prepared in the worktree. "
+                "In the scheduled workflow they are proposed through the deterministic bot branch "
+                "and its owner-assigned review pull request.",
             ]
         )
     else:
@@ -897,6 +1244,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--report-json", type=Path)
     parser.add_argument("--checked-at")
     parser.add_argument(
+        "--source-development-only",
+        action="store_true",
+        help="Evaluate configured source-development modules without changing source-catalog baselines.",
+    )
+    parser.add_argument(
+        "--module",
+        action="append",
+        dest="module_ids",
+        help="Limit source-development evaluation to a configured module ID; may be repeated.",
+    )
+    parser.add_argument(
         "--apply",
         action="store_true",
         help="Write changed catalog baselines and append the material source-monitor log.",
@@ -913,8 +1271,10 @@ def main() -> int:
     args = parse_args()
     if args.apply and args.initialize_baselines:
         raise SystemExit("--apply and --initialize-baselines are separate modes")
+    if args.source_development_only and args.initialize_baselines:
+        raise SystemExit("--source-development-only cannot initialize source baselines")
     config = read_json(args.config)
-    if config.get("schemaVersion") != 5:
+    if config.get("schemaVersion") != 6:
         raise SystemExit("unsupported case-monitor-bot schemaVersion")
     if not config.get("enabled", False):
         summary = "## ARRP case-monitor-bot\n\nBot disabled by configuration.\n"
@@ -924,40 +1284,78 @@ def main() -> int:
         return 0
     checked_at = args.checked_at or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     baseline_field = config["sourceBaselineField"]
-    source_fields, source_rows = read_csv_table(args.sources)
-    pending_fields, pending_rows = read_csv_table(args.pending_sources)
-    require_catalog_schema(source_fields, baseline_field, args.sources)
-    require_catalog_schema(pending_fields, baseline_field, args.pending_sources)
     tracker_document = (
         args.tracker_html.read_text(encoding="utf-8")
         if args.tracker_html
         else TrackerClient(config["tracker"]).fetch()
     )
     entries = parse_tracker_html(tracker_document, config["tracker"])
-    status, changes, coverage = evaluate_catalog_sources(
-        entries=entries,
-        sources_rows=source_rows,
-        pending_rows=pending_rows,
-        baseline_field=baseline_field,
-        initialize=args.initialize_baselines,
+    module_results = (
+        []
+        if args.initialize_baselines
+        else evaluate_source_development_modules(
+            entries=entries,
+            config=config,
+            selected_module_ids=set(args.module_ids or []),
+            apply=args.apply,
+        )
     )
-    fixture = read_json(args.docket_json) if args.docket_json else None
-    verification = verify_changed_dockets(
-        changes,
-        config["verification"],
-        os.environ.get("COURTLISTENER_API_TOKEN", "").strip(),
-        fixture,
-    )
+    if args.source_development_only:
+        source_fields: list[str] = []
+        source_rows: list[dict[str, str]] = []
+        pending_fields: list[str] = []
+        pending_rows: list[dict[str, str]] = []
+        changes: list[dict[str, Any]] = []
+        coverage = {
+            "monitored_catalog_rows": 0,
+            "mapped_catalog_rows": 0,
+            "mapped_docket_families": 0,
+            "uncovered_catalog_rows": 0,
+            "uncovered_docket_families": 0,
+            "tracker_entries_outside_catalog_scope": len(entries),
+            "case_baselines_initialized": 0,
+            "case_baselines_updated": 0,
+        }
+        verification: dict[str, dict[str, Any]] = {}
+        catalog_status = "no_change"
+    else:
+        source_fields, source_rows = read_csv_table(args.sources)
+        pending_fields, pending_rows = read_csv_table(args.pending_sources)
+        require_catalog_schema(source_fields, baseline_field, args.sources)
+        require_catalog_schema(pending_fields, baseline_field, args.pending_sources)
+        catalog_status, changes, coverage = evaluate_catalog_sources(
+            entries=entries,
+            sources_rows=source_rows,
+            pending_rows=pending_rows,
+            baseline_field=baseline_field,
+            initialize=args.initialize_baselines,
+        )
+        fixture = read_json(args.docket_json) if args.docket_json else None
+        verification = verify_changed_dockets(
+            changes,
+            config["verification"],
+            os.environ.get("COURTLISTENER_API_TOKEN", "").strip(),
+            fixture,
+        )
 
-    material = status == "changes_detected"
-    should_write_catalogs = (args.apply and material) or args.initialize_baselines
+    module_material = any(result["content_changed"] for result in module_results)
+    catalog_material = catalog_status == "changes_detected"
+    status = (
+        "baselines_initialized"
+        if catalog_status == "baselines_initialized"
+        else ("changes_detected" if catalog_material or module_material else "no_change")
+    )
+    material = catalog_material or module_material
+    should_write_catalogs = (args.apply and catalog_material) or args.initialize_baselines
     if should_write_catalogs:
         write_csv_table(args.sources, source_fields, source_rows)
         write_csv_table(args.pending_sources, pending_fields, pending_rows)
     if args.apply and material:
         append_material_log(
             args.log,
-            render_log_entry(checked_at, status, changes, coverage, verification),
+            render_log_entry(
+                checked_at, status, changes, coverage, verification, module_results
+            ),
         )
 
     summary = render_summary(
@@ -968,6 +1366,7 @@ def main() -> int:
         changes=changes,
         verification=verification,
         coverage=coverage,
+        module_results=module_results,
         applied=args.apply and material,
     )
     if args.summary:
@@ -976,7 +1375,7 @@ def main() -> int:
     if args.report_json:
         args.report_json.parent.mkdir(parents=True, exist_ok=True)
         report = {
-            "schema_version": 5,
+            "schema_version": 6,
             "checked_at": checked_at,
             "status": status,
             "tracker_url": config["tracker"]["url"],
@@ -984,6 +1383,7 @@ def main() -> int:
             "change_counts": dict(Counter(change["kind"] for change in changes)),
             "changes": [report_change(change, verification) for change in changes],
             "coverage": coverage,
+            "source_development_modules": module_results,
             "repository_changes_prepared": args.apply and material,
             "baseline_initialization_mode": args.initialize_baselines,
             "legal_significance_determined": False,

@@ -46,3 +46,17 @@ Each entry must identify the watcher, a stable activity code, the affected sourc
 | Changed | National Parks Conservation Association v\. Burgum \(D\.D\.C\.\) | 1:26\-cv\-02103 | Case Pending; 2026\-06\-15 | Case Pending; 2026\-07\-20 | SRC\-2017 |
 | Changed | Venezuelan Association of Massachusetts v\. United States Citizenship and Immigration Services \(D\. Mass\.\) | 1:26\-cv\-13038 | Case Pending; 2026\-07\-01 | Case Pending; 2026\-07\-21 | SRC\-1952 |
 
+## 2026-07-23T17:06:07+00:00 — Case monitor bot
+
+- Activity code: `CASE-20260723170607-BF336059`
+- Originating workflow run: Local or manually invoked run
+- Result: `changes_detected`
+- Affected source IDs: None
+- Tracker changes: 0 added; 0 changed; 0 removed
+- Case baselines updated: 0
+- Coverage: 0 mapped monitored CourtListener rows; 0 monitored CourtListener rows outside tracker coverage
+- Targeted CourtListener checks: 0 queried; 0 failed; 0 unverified
+- Source-development modules changed: 1
+- Interpretation: source-change signal only; no legal significance or project disposition determined.
+- `judicial-review-disposition-signals` → `research/horizon-source-records/HOR-035-source-development.md`: 213 current unreviewed leads; 213 added; 0 removed.
+- Review handoff: each disposition token binds the stable lead ID to the observed fingerprint so later material changes re-queue the case.
