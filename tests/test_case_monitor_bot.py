@@ -174,6 +174,78 @@ class CaseMonitorBotTests(unittest.TestCase):
         self.assertEqual(entry["primary_docket_key"], "courtlistener:100")
         self.assertNotIn("999", entry["key"])
 
+    def test_narrative_appeal_number_does_not_replace_accepted_district_identity(self):
+        original = MODULE.parse_tracker_html(tracker_html([row()]), parser_config())
+        baseline = MODULE.encode_state(
+            "case", MODULE.compact_case_baseline(list(original.values()))
+        )
+        malformed = row(status="Government Action Blocked")
+        malformed[0] = (
+            '<a href="https://www.courtlistener.com/docket/100/example/">'
+            "Example v. United States</a>"
+            "<p>Sept. 5, 2025: The district court dismissed the complaint. "
+            "Sept. 9, 2025: Plaintiff appealed to the circuit court, Case No. "
+            '<a href="https://www.courtlistener.com/docket/999/appeal/">25-2087</a>.</p>'
+        )
+        parsed = MODULE.parse_tracker_html(tracker_html([malformed]), parser_config())
+        raw_entry = next(iter(parsed.values()))
+        self.assertEqual(raw_entry["case_name"], "Example v. United States")
+        self.assertEqual(raw_entry["docket_number"], "")
+        self.assertFalse(raw_entry["docket_identity_confident"])
+
+        rows = [source(baseline=baseline)]
+        status, changes, _ = MODULE.evaluate_catalog_sources(
+            entries=parsed,
+            sources_rows=rows,
+            pending_rows=[],
+            baseline_field="Monitoring Baseline",
+            initialize=False,
+        )
+        self.assertEqual(status, "changes_detected")
+        self.assertEqual(len(changes), 1)
+        self.assertEqual(changes[0]["kind"], "changed")
+        self.assertEqual(changes[0]["key"], "courtlistener:100|docket:1:26-cv-00100")
+        self.assertEqual(changes[0]["current"]["docket_number"], "1:26-cv-00100")
+
+    def test_confident_composite_identity_change_fails_closed(self):
+        original = MODULE.parse_tracker_html(tracker_html([row()]), parser_config())
+        baseline = MODULE.encode_state(
+            "case", MODULE.compact_case_baseline(list(original.values()))
+        )
+        changed = MODULE.parse_tracker_html(
+            tracker_html([row(docket="2:26-cv-00200")]), parser_config()
+        )
+        with self.assertRaisesRegex(ValueError, "composite identity changed ambiguously"):
+            MODULE.evaluate_catalog_sources(
+                entries=changed,
+                sources_rows=[source(baseline=baseline)],
+                pending_rows=[],
+                baseline_field="Monitoring Baseline",
+                initialize=False,
+            )
+
+    def test_unrecognized_docket_suffix_preserves_accepted_missing_identity(self):
+        original = MODULE.parse_tracker_html(
+            tracker_html([row(name="Example v. United States 2:25-at-00931", docket="")]),
+            parser_config(),
+        )
+        baseline = MODULE.encode_state(
+            "case", MODULE.compact_case_baseline(list(original.values()))
+        )
+        current = MODULE.parse_tracker_html(
+            tracker_html([row(name="Example v. United States", docket="2:25-at-00931")]),
+            parser_config(),
+        )
+        status, changes, _ = MODULE.evaluate_catalog_sources(
+            entries=current,
+            sources_rows=[source(baseline=baseline)],
+            pending_rows=[],
+            baseline_field="Monitoring Baseline",
+            initialize=False,
+        )
+        self.assertEqual(status, "no_change")
+        self.assertEqual(changes, [])
+
     def test_declared_total_status_and_structure_fail_closed(self):
         with self.assertRaisesRegex(ValueError, "declared 2 entries"):
             MODULE.parse_tracker_html(tracker_html([row()], declared_total=2), parser_config())
