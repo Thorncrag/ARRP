@@ -43,11 +43,12 @@ jobs:
           git config user.name "arrp-case-monitor[bot]"
           git config user.email "arrp-case-monitor[bot]@users.noreply.github.com"
           git fetch origin "${base_branch}"
-          if git fetch origin "${bot_branch}:refs/remotes/origin/${bot_branch}" 2>/dev/null; then
+          open_pr="$(gh pr list --repo "${GITHUB_REPOSITORY}" --state open --head "${bot_branch}" --json number --jq '.[0].number // empty')"
+          if [ -n "${open_pr}" ] && git fetch origin "${bot_branch}:refs/remotes/origin/${bot_branch}" 2>/dev/null; then
             git checkout -B "${bot_branch}" "origin/${bot_branch}"
             git rebase "origin/${base_branch}"
           else
-            git checkout -b "${bot_branch}" "origin/${base_branch}"
+            git checkout -B "${bot_branch}" "origin/${base_branch}"
           fi
 
       - name: Check cataloged litigation sources
