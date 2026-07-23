@@ -93,6 +93,7 @@
     "Release candidate"
   ];
   const APPROVED_WORKFLOW_STATUSES = [
+    "Research",
     "Development",
     "Human decision needed",
     "Audit needed",
