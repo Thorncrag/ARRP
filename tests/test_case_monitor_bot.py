@@ -305,6 +305,7 @@ class CaseMonitorBotTests(unittest.TestCase):
         config["tracker"]["minimumEntries"] = 1
         config["tracker"]["maximumEntries"] = 10
         config["verification"]["requestIntervalSeconds"] = 0
+        config["sourceDevelopmentModules"] = []
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             paths = {name: root / name for name in ["config.json", "tracker.html", "sources.csv", "pending.csv", "summary.md", "report.json", "log.md"]}
@@ -359,10 +360,14 @@ class CaseMonitorBotTests(unittest.TestCase):
 
     def test_config_has_no_tracking_issue_dependency(self):
         config = json.loads((ROOT / ".github" / "case-monitor-bot.json").read_text())
-        self.assertEqual(config["schemaVersion"], 5)
+        self.assertEqual(config["schemaVersion"], 6)
         self.assertEqual(config["sourceBaselineField"], "Monitoring Baseline")
         self.assertNotIn("notification", config)
         self.assertEqual(config["automation"]["branch"], "bot/case-monitor-updates")
+        self.assertEqual(
+            config["sourceDevelopmentModules"][0]["targetPath"],
+            "research/horizon-source-records/HOR-035-source-development.md",
+        )
 
         workflow = (ROOT / ".github" / "workflows" / "case-monitor-bot.yml").read_text()
         self.assertIn("contents: write", workflow)
@@ -375,6 +380,131 @@ class CaseMonitorBotTests(unittest.TestCase):
         self.assertIn('echo "new_change=true"', workflow)
         self.assertIn("preserves unresolved changes staged by an earlier run", workflow)
         self.assertIn("the earlier unresolved branch change remains pending", workflow)
+        self.assertIn("source-development", workflow)
+        self.assertIn("source_development_targets", workflow)
+
+    def test_source_development_module_generates_stable_unreviewed_leads(self):
+        config = json.loads((ROOT / ".github" / "case-monitor-bot.json").read_text())
+        config["tracker"]["minimumEntries"] = 1
+        config["tracker"]["maximumEntries"] = 10
+        module = config["sourceDevelopmentModules"][0]
+        entries = MODULE.parse_tracker_html(
+            tracker_html(
+                [
+                    row(
+                        status="Case Dismissed",
+                        updates=html.escape(
+                            "The government rescinded the challenged rule and moved to dismiss "
+                            "the case as moot."
+                        ),
+                    ),
+                    row(
+                        name="Unmatched v. United States",
+                        docket="1:26-cv-00200",
+                        docket_id=200,
+                        updates=html.escape("The court set a briefing schedule."),
+                    ),
+                ]
+            ),
+            config["tracker"],
+        )
+        leads = MODULE.collect_source_development_leads(entries, module)
+        self.assertEqual(len(leads), 1)
+        self.assertEqual(
+            {group["id"] for group in leads[0]["signal_groups"]},
+            {"mootness", "withdrawal-or-rescission"},
+        )
+        section = MODULE.render_source_development_section(
+            module, leads, config["tracker"]["url"]
+        )
+        self.assertIn("Unreviewed machine lead", section)
+        self.assertIn("does not establish government-caused mootness", section)
+        self.assertNotIn("The government rescinded", section)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / module["targetPath"]
+            target.parent.mkdir(parents=True)
+            target.write_text("# Test\n\n## General source development\n", encoding="utf-8")
+            first = MODULE.evaluate_source_development_modules(
+                entries=entries,
+                config=config,
+                root=root,
+                apply=True,
+            )
+            self.assertTrue(first[0]["content_changed"])
+            self.assertTrue(first[0]["applied"])
+            written = target.read_text(encoding="utf-8")
+            self.assertIn("case-monitor-bot:source-development", written)
+            self.assertLess(
+                written.index("## Machine-observed litigation leads"),
+                written.index("## General source development"),
+            )
+            second = MODULE.evaluate_source_development_modules(
+                entries=entries,
+                config=config,
+                root=root,
+                apply=True,
+            )
+            self.assertFalse(second[0]["content_changed"])
+            self.assertFalse(second[0]["applied"])
+
+            disposition = (
+                "\n## Reviewed machine leads\n\n"
+                f"- `{MODULE.source_development_disposition_token(leads[0])}` — "
+                "retained as a negative control.\n"
+            )
+            target.write_text(target.read_text(encoding="utf-8") + disposition, encoding="utf-8")
+            third = MODULE.evaluate_source_development_modules(
+                entries=entries,
+                config=config,
+                root=root,
+                apply=True,
+            )
+            self.assertEqual(third[0]["matched_lead_count"], 1)
+            self.assertEqual(third[0]["reviewed_lead_count"], 1)
+            self.assertEqual(third[0]["lead_count"], 0)
+            self.assertTrue(third[0]["content_changed"])
+            self.assertIn(disposition.strip(), target.read_text(encoding="utf-8"))
+
+            changed_entries = MODULE.parse_tracker_html(
+                tracker_html(
+                    [
+                        row(
+                            status="Case Dismissed",
+                            updates=html.escape(
+                                "The government rescinded the challenged rule and moved to "
+                                "dismiss the case as moot. A later filing changed the record."
+                            ),
+                        )
+                    ]
+                ),
+                config["tracker"],
+            )
+            fourth = MODULE.evaluate_source_development_modules(
+                entries=changed_entries,
+                config=config,
+                root=root,
+                apply=False,
+            )
+            self.assertEqual(fourth[0]["reviewed_lead_count"], 0)
+            self.assertEqual(fourth[0]["lead_count"], 1)
+
+    def test_source_development_module_rejects_unsafe_or_unconventional_target(self):
+        config = json.loads((ROOT / ".github" / "case-monitor-bot.json").read_text())
+        module = dict(config["sourceDevelopmentModules"][0])
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            module["targetPath"] = "../outside.md"
+            with self.assertRaisesRegex(ValueError, "safe relative path"):
+                MODULE.source_development_target(module, root)
+
+            module["targetPath"] = "research/HOR-035.md"
+            target = root / module["targetPath"]
+            target.parent.mkdir(parents=True)
+            target.write_text("# Test\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "established candidate or issue"):
+                MODULE.source_development_target(module, root)
 
 
 if __name__ == "__main__":

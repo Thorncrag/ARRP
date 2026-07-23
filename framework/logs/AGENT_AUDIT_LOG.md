@@ -1444,3 +1444,27 @@ Prospective template:
 | Push status | Proposed on bot/project-integrity-report |
 | Rollback notes | Close the report pull request or revert its merge commit. |
 | Blockers/skipped checks | None. |
+
+
+### 2026-07-23 — HOR-035 machine-observed litigation disposition signal backfill — source-development-monitoring
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-23T13:08:13-04:00 |
+| Agent | case-monitor-bot |
+| Run ID | manual:2026-07-23-HOR-035-initial-backfill |
+| Unit ID | judicial-review-disposition-signals |
+| Trigger | manual-implementation |
+| Task type | source-development-monitoring |
+| Outcome | Completed |
+| Issue/task | HOR-035 machine-observed litigation disposition signal backfill |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | `research/horizon-source-records/HOR-035-source-development.md`; `framework/logs/SOURCE_MONITOR_LOG.md`; `framework/logs/AGENT_AUDIT_LOG.md` |
+| Validation | Parsed 903 tracker records; projected 213 marker-bounded unreviewed leads with fingerprint-bound disposition tokens; idempotence dry run reported no change; 117 tests passed; project consistency reported 0 errors. |
+| Commit | This automation commit |
+| Push status | Pending reviewed implementation commit and GitHub reconciliation |
+| Rollback notes | Revert the implementation commit; the marker-bounded generated section and associated log entries are removable without altering agent-authored source-development dispositions. |
+| Blockers/skipped checks | None. |

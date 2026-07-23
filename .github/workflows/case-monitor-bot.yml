@@ -66,7 +66,7 @@ jobs:
         id: boundary
         if: steps.monitor.outcome == 'success'
         run: |
-          unexpected="$(git diff --name-only | grep -Ev '^(inventory/sources\.csv|inventory/sources-pending\.csv|framework/logs/SOURCE_MONITOR_LOG\.md)$' || true)"
+          unexpected="$(git diff --name-only | grep -Ev '^(inventory/sources\.csv|inventory/sources-pending\.csv|framework/logs/SOURCE_MONITOR_LOG\.md|research/horizon-source-records/HOR-[0-9]{3}-source-development\.md|areas/[A-Z]+/research/[A-Z]+-[0-9]{3}-source-development\.md)$' || true)"
           if [ -n "${unexpected}" ]; then
             printf 'Unexpected files changed:\n%s\n' "${unexpected}" >&2
             exit 1
@@ -78,14 +78,14 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           RUN_TRIGGER: ${{ github.event_name }}
         run: |
-          if git diff --quiet -- inventory/sources.csv inventory/sources-pending.csv "${SOURCE_MONITOR_LOG}"; then
+          if git diff --quiet; then
             exit 0
           fi
           python scripts/append_agent_audit_log.py \
             --agent case-monitor-bot --run-id "${RUN_URL}" --trigger "${RUN_TRIGGER}" \
-            --task-type monitoring --outcome Completed --issue-task "Cataloged litigation-source monitoring" \
-            --files-changed '`inventory/sources.csv`; `inventory/sources-pending.csv`; `framework/logs/SOURCE_MONITOR_LOG.md`; `framework/logs/AGENT_AUDIT_LOG.md`' \
-            --validation "Tracker structure, accepted baselines, change boundary, and configured docket verification passed." \
+            --task-type monitoring --outcome Completed --issue-task "Cataloged litigation-source and configured source-development monitoring" \
+            --files-changed '`inventory/sources.csv`; `inventory/sources-pending.csv`; configured issue or candidate source-development records; `framework/logs/SOURCE_MONITOR_LOG.md`; `framework/logs/AGENT_AUDIT_LOG.md`' \
+            --validation "Tracker structure, accepted baselines, configured source-development modules, change boundary, and docket verification passed." \
             --push-status "Proposed on bot/case-monitor-updates" \
             --rollback-notes "Close the automation pull request or revert its merge commit."
 
@@ -95,7 +95,8 @@ jobs:
         run: |
           git config user.name "arrp-case-monitor[bot]"
           git config user.email "arrp-case-monitor[bot]@users.noreply.github.com"
-          git add inventory/sources.csv inventory/sources-pending.csv "${SOURCE_MONITOR_LOG}" framework/logs/AGENT_AUDIT_LOG.md
+          mapfile -t source_development_targets < <(python -c 'import json; c=json.load(open(".github/case-monitor-bot.json")); print("\n".join(m["targetPath"] for m in c.get("sourceDevelopmentModules", []) if m.get("enabled"))) ')
+          git add inventory/sources.csv inventory/sources-pending.csv "${SOURCE_MONITOR_LOG}" framework/logs/AGENT_AUDIT_LOG.md "${source_development_targets[@]}"
           if git diff --cached --quiet; then
             echo "new_change=false" >> "${GITHUB_OUTPUT}"
             ahead="$(git rev-list --count "origin/${BASE_BRANCH}..HEAD")"
@@ -122,7 +123,7 @@ jobs:
           assignee="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["assignee"])')"
           pr_number="$(gh pr list --repo "${GITHUB_REPOSITORY}" --state open --head "${BOT_BRANCH}" --json number --jq '.[0].number // empty')"
           body_file="${RUNNER_TEMP}/case-monitor-pr.md"
-          printf '%s\n\n' "@${assignee}, this branch contains observable changes in cataloged court-case sources requiring review." > "${body_file}"
+          printf '%s\n\n' "@${assignee}, this branch contains observable changes in cataloged court-case sources or configured machine-observed source-development leads requiring review." > "${body_file}"
           if [ "${{ steps.commit.outputs.new_change }}" != "true" ]; then
             printf '%s\n\n' "The current run found no additional changes. This pull request preserves unresolved changes staged by an earlier run; review the Files changed tab and the pending Source Monitor Log entry before merging." >> "${body_file}"
             sed 's/No repository update or pull request is needed\./No additional repository update was produced by this run; the earlier unresolved branch change remains pending./' "${RUNNER_TEMP}/monitoring-summary.md" >> "${body_file}"

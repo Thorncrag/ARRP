@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "enabled": true,
   "botName": "case-monitor-bot",
   "sourceMonitoringField": "Monitoring",
@@ -24,6 +24,73 @@
     "maxDocketsPerRun": 20,
     "requestIntervalSeconds": 13
   },
+  "sourceDevelopmentModules": [
+    {
+      "moduleId": "judicial-review-disposition-signals",
+      "recordId": "HOR-035",
+      "enabled": true,
+      "targetPath": "research/horizon-source-records/HOR-035-source-development.md",
+      "insertBeforeHeading": "## General source development",
+      "maximumLeads": 250,
+      "matchFields": [
+        "status",
+        "case_summary",
+        "case_updates"
+      ],
+      "signalGroups": [
+        {
+          "id": "mootness",
+          "terms": [
+            "moot",
+            "mootness",
+            "voluntary cessation"
+          ]
+        },
+        {
+          "id": "withdrawal-or-rescission",
+          "terms": [
+            "withdraw",
+            "withdrawn",
+            "withdrawal",
+            "rescind",
+            "rescinded",
+            "rescission"
+          ]
+        },
+        {
+          "id": "replacement-or-supersession",
+          "terms": [
+            "replace",
+            "replaced",
+            "replacement",
+            "supersede",
+            "superseded",
+            "superseding"
+          ]
+        },
+        {
+          "id": "settlement-or-stipulated-dismissal",
+          "terms": [
+            "settle",
+            "settled",
+            "settlement",
+            "stipulation of dismissal",
+            "stipulated dismissal"
+          ]
+        },
+        {
+          "id": "vacatur",
+          "supplemental": true,
+          "terms": [
+            "vacate",
+            "vacated",
+            "vacatur",
+            "munsingwear"
+          ]
+        }
+      ]
+    }
+  ],
   "automation": {
     "branch": "bot/case-monitor-updates",
     "baseBranch": "main",
