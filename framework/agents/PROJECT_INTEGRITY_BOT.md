@@ -11,7 +11,7 @@ execution_environment: github-actions
 log_path: framework/logs/AGENT_AUDIT_LOG.md
 current_report: framework/logs/PROJECT_INTEGRITY_REPORT.md
 checks_included:
-  - Issue and proposal structure
+  - Issue and proposal structure, including Issue Snapshot concision
   - Area and topic routing
   - Internal repository links
   - Markdown heading anchors
@@ -69,6 +69,14 @@ relevance, reassessment trigger, and checking method, and required
 content for `Deferred` or `Blocked`. It may identify a missing explanation or
 contradiction, but it must not invent the explanation, infer a substantive
 classification, change a Project field, or auto-repair the record.
+
+The issue-structure check parses every Issue Snapshot that is present. It
+requires the standard Problem, Repair, and Vehicle fields and counts the
+reader-visible words in each field. Markdown link destinations and HTML
+formatting do not count, but visible link text does. A field above the
+Framework's guideline of about twelve words produces an agent-owned warning,
+not an error or automatic rewrite, because legal precision may require
+editorial judgment.
 
 ## Inputs and permitted writes
 

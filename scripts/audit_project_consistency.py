@@ -100,6 +100,8 @@ PROJECT_STATUS_REASON_REQUIRED = {
     "deferred",
     "blocked",
 }
+ISSUE_SNAPSHOT_FIELDS = ("Problem", "Repair", "Vehicle")
+ISSUE_SNAPSHOT_WORD_GUIDELINE = 12
 AUDIT_PROJECT_STATUSES = {
     "audit needed",
     "audit in progress",
@@ -431,6 +433,66 @@ def check_markdown_fragment(
         )
 
 
+def issue_snapshot_fields(body: str) -> dict[str, str] | None:
+    """Return visible Issue Snapshot field text, or None when no snapshot exists."""
+    lines = body.splitlines()
+    try:
+        start = next(
+            index
+            for index, line in enumerate(lines)
+            if line.strip() == "> ## Issue Snapshot"
+        )
+    except StopIteration:
+        return None
+
+    quoted: list[str] = []
+    for line in lines[start + 1 :]:
+        if not line.startswith(">"):
+            break
+        value = line[1:].lstrip()
+        if not value:
+            break
+        quoted.append(value)
+
+    snapshot = "\n".join(quoted)
+    snapshot = re.sub(r"<br\s*/?>", "\n", snapshot, flags=re.IGNORECASE)
+    label_pattern = "|".join(re.escape(field) for field in ISSUE_SNAPSHOT_FIELDS)
+    fields: dict[str, str] = {}
+    for match in re.finditer(
+        rf"\*\*(?P<label>{label_pattern}):\*\*\s*"
+        rf"(?P<value>.*?)(?=\n\*\*(?:{label_pattern}):\*\*|\Z)",
+        snapshot,
+        flags=re.DOTALL,
+    ):
+        fields[match.group("label")] = re.sub(r"\s+", " ", match.group("value")).strip()
+    return fields
+
+
+def visible_markdown_word_count(value: str) -> int:
+    """Count reader-visible words without counting Markdown destinations or tags."""
+    visible = re.sub(r"!\[([^\]]*)\]\([^)]+\)", r"\1", value)
+    visible = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", visible)
+    visible = re.sub(r"https?://\S+", "", visible)
+    visible = re.sub(r"<[^>]+>", " ", visible)
+    visible = re.sub(r"[`*_~]", "", visible)
+    tokens = re.findall(
+        r"[^\W_]+(?:[.’'’-][^\W_]+)*|\d+(?:[.,]\d+)*",
+        visible,
+        flags=re.UNICODE,
+    )
+    return len(tokens)
+
+
+def issue_snapshot_word_counts(body: str) -> dict[str, int] | None:
+    fields = issue_snapshot_fields(body)
+    if fields is None:
+        return None
+    return {
+        field: visible_markdown_word_count(value)
+        for field, value in fields.items()
+    }
+
+
 def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Path]:
     pages = issue_pages()
     known: dict[str, Path] = {}
@@ -613,6 +675,30 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
                 failures,
                 warnings,
             )
+        snapshot_counts = issue_snapshot_word_counts(body)
+        if snapshot_counts is not None:
+            missing_snapshot_fields = [
+                field for field in ISSUE_SNAPSHOT_FIELDS if field not in snapshot_counts
+            ]
+            if missing_snapshot_fields:
+                report(
+                    "ERROR",
+                    f"issue page {relative} has an incomplete Issue Snapshot; missing "
+                    f"{', '.join(missing_snapshot_fields)}",
+                    failures,
+                    warnings,
+                )
+            for field in ISSUE_SNAPSHOT_FIELDS:
+                count = snapshot_counts.get(field)
+                if count is not None and count > ISSUE_SNAPSHOT_WORD_GUIDELINE:
+                    report(
+                        "WARNING",
+                        f"issue page {relative} Issue Snapshot {field} line is {count} words; "
+                        f"the concision guideline is about "
+                        f"{ISSUE_SNAPSHOT_WORD_GUIDELINE} words or fewer",
+                        failures,
+                        warnings,
+                    )
         if not sidecar.exists():
             report("ERROR", f"{issue_id} lacks sibling audit-history file", failures, warnings)
         elif front_matter(sidecar).get("issue_id") != issue_id:
