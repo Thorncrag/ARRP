@@ -169,7 +169,7 @@
       "total": 2
     }
   ],
-  "asOf": "2026-07-22",
+  "asOf": "2026-07-23",
   "backlog": [
     {
       "area": "JUD",
@@ -195,7 +195,7 @@
       "explanation": "",
       "identifier": "APPT-001",
       "lastAudit": "Candidate consolidation and initial statutory draft (2026-07-16)",
-      "nextAudit": "Human decision on institutional failure, manifestation, remedy, and vehicle before further development",
+      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
       "number": 119,
       "ready": false,
       "score": 0.0,
@@ -203,7 +203,7 @@
       "title": "APPT-001: Evasion of Senate Confirmation and Statutory Appointment Safeguards",
       "url": "https://github.com/Thorncrag/ARRP/issues/119",
       "warnings": [],
-      "workflowStatus": "Awaiting decision"
+      "workflowStatus": "Development"
     },
     {
       "area": "APPT",
@@ -220,7 +220,7 @@
       "title": "APPT-004: Exercise of Governmental Authority by Unappointed or Insufficiently Accountable Individuals",
       "url": "https://github.com/Thorncrag/ARRP/issues/122",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CIV",
@@ -237,7 +237,7 @@
       "title": "CIV-001: Civil-Service Merit, Classification, and Anti-Politicization",
       "url": "https://github.com/Thorncrag/ARRP/issues/86",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CIV",
@@ -246,7 +246,7 @@
       "explanation": "",
       "identifier": "CIV-004",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 89,
       "ready": false,
       "score": 0.0,
@@ -254,7 +254,7 @@
       "title": "CIV-004: Protection for Refusal of Unlawful Directives",
       "url": "https://github.com/Thorncrag/ARRP/issues/89",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CIV",
@@ -271,7 +271,7 @@
       "title": "CIV-005: Federal Workforce Capacity and Anti-Hollowing",
       "url": "https://github.com/Thorncrag/ARRP/issues/90",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CIV",
@@ -280,7 +280,7 @@
       "explanation": "",
       "identifier": "CIV-009",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 94,
       "ready": false,
       "score": 0.0,
@@ -288,7 +288,7 @@
       "title": "CIV-009: Repurposed technical units as cross-agency operational control mechanisms",
       "url": "https://github.com/Thorncrag/ARRP/issues/94",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CLASS",
@@ -305,7 +305,7 @@
       "title": "CLASS-001: Presidential Classification, Declassification, Documentation, and Custody",
       "url": "https://github.com/Thorncrag/ARRP/issues/74",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CLASS",
@@ -322,7 +322,7 @@
       "title": "CLASS-004: Overclassification, Concealment, and Independent Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/77",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CLASS",
@@ -339,7 +339,7 @@
       "title": "CLASS-006: Protection of Classified Information, Sources, and Methods",
       "url": "https://github.com/Thorncrag/ARRP/issues/79",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CLASS",
@@ -348,7 +348,7 @@
       "explanation": "",
       "identifier": "CLASS-011",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 84,
       "ready": false,
       "score": 0.0,
@@ -356,7 +356,7 @@
       "title": "CLASS-011: Security-Clearance Integrity",
       "url": "https://github.com/Thorncrag/ARRP/issues/84",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CONG",
@@ -373,7 +373,7 @@
       "title": "CONG-001: Congressional Information and Subpoena Enforcement",
       "url": "https://github.com/Thorncrag/ARRP/issues/144",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CONG",
@@ -382,7 +382,7 @@
       "explanation": "",
       "identifier": "CONG-007",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 150,
       "ready": false,
       "score": 0.0,
@@ -390,7 +390,7 @@
       "title": "CONG-007: Weak committee investigative capacity",
       "url": "https://github.com/Thorncrag/ARRP/issues/150",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "DOJ",
@@ -399,7 +399,7 @@
       "explanation": "Paused pending a merits ruling or other controlling finding clarifying how Article II affects statutory protections for career federal prosecutors.",
       "identifier": "DOJ-004",
       "lastAudit": "T1 predicate check (2026-06-27)",
-      "nextAudit": "Reassess predicate",
+      "nextAudit": "When a merits ruling or other controlling authority resolves the Article II predicate, reassess the available statutory remedy",
       "number": 25,
       "ready": false,
       "score": 0.0,
@@ -407,7 +407,7 @@
       "title": "DOJ-004: Protection of Career DOJ Personnel from Politically Motivated Removal or Reassignment",
       "url": "https://github.com/Thorncrag/ARRP/issues/25",
       "warnings": [],
-      "workflowStatus": "Deferred / Parked"
+      "workflowStatus": "Blocked"
     },
     {
       "area": "DOM",
@@ -424,7 +424,7 @@
       "title": "DOM-001: Domestic Deployment Authorities and Safeguards",
       "url": "https://github.com/Thorncrag/ARRP/issues/135",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "DOM",
@@ -450,7 +450,7 @@
       "explanation": "",
       "identifier": "DOM-007",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 141,
       "ready": false,
       "score": 0.0,
@@ -458,7 +458,7 @@
       "title": "DOM-007: Domestic military intelligence activity",
       "url": "https://github.com/Thorncrag/ARRP/issues/141",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "DOM",
@@ -475,7 +475,7 @@
       "title": "DOM-009: Federal Law-Enforcement Surveillance Procurement and Deployment",
       "url": "https://github.com/Thorncrag/ARRP/issues/143",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "ELEC",
@@ -492,7 +492,7 @@
       "title": "ELEC-014: Limiting Federal Criminal Investigations into State-Administered Elections",
       "url": "https://github.com/Thorncrag/ARRP/issues/236",
       "warnings": [],
-      "workflowStatus": "Deferred / Parked"
+      "workflowStatus": "Blocked"
     },
     {
       "area": "ELEC",
@@ -509,7 +509,7 @@
       "title": "ELEC-015: Ranked-Choice Voting and Majority-Choice Election Methods",
       "url": "https://github.com/Thorncrag/ARRP/issues/237",
       "warnings": [],
-      "workflowStatus": "Deferred / Parked"
+      "workflowStatus": "Deferred"
     },
     {
       "area": "EMERG",
@@ -526,7 +526,7 @@
       "title": "EMERG-001: National-Emergency Declarations, Renewal, and Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/103",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "EMERG",
@@ -560,7 +560,7 @@
       "title": "EMOL-001: Presidential Financial Conflicts, Emoluments, and Self-Dealing",
       "url": "https://github.com/Thorncrag/ARRP/issues/59",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FACT",
@@ -577,7 +577,7 @@
       "title": "FACT-001: Scientific, Statistical, and Technical Integrity",
       "url": "https://github.com/Thorncrag/ARRP/issues/168",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FACT",
@@ -586,7 +586,7 @@
       "explanation": "",
       "identifier": "FACT-007",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 174,
       "ready": false,
       "score": 0.0,
@@ -594,7 +594,7 @@
       "title": "FACT-007: Official Historical Presentation Integrity",
       "url": "https://github.com/Thorncrag/ARRP/issues/174",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FACT",
@@ -603,7 +603,7 @@
       "explanation": "",
       "identifier": "FACT-009",
       "lastAudit": "Horizon integration decision (2026-06-25)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 176,
       "ready": false,
       "score": 0.0,
@@ -611,7 +611,7 @@
       "title": "FACT-009: Misleading Official Terminology, Titles, or Institutional Labels",
       "url": "https://github.com/Thorncrag/ARRP/issues/176",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FED",
@@ -628,7 +628,7 @@
       "title": "FED-002: Selective or Retaliatory Federal Administration Against States",
       "url": "https://github.com/Thorncrag/ARRP/issues/186",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FED",
@@ -645,7 +645,7 @@
       "title": "FED-003: Federal Funding, Waiver, and Approval Coercion of States",
       "url": "https://github.com/Thorncrag/ARRP/issues/187",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FED",
@@ -654,7 +654,7 @@
       "explanation": "",
       "identifier": "FED-004",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 188,
       "ready": false,
       "score": 0.0,
@@ -662,7 +662,7 @@
       "title": "FED-004: Federal Displacement of State Functions",
       "url": "https://github.com/Thorncrag/ARRP/issues/188",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FRB",
@@ -679,7 +679,7 @@
       "title": "FRB-001: Federal Reserve Independence and Democratic Accountability",
       "url": "https://github.com/Thorncrag/ARRP/issues/193",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FUND",
@@ -696,7 +696,7 @@
       "title": "FUND-002: Pocket Rescissions and Strategic Delay",
       "url": "https://github.com/Thorncrag/ARRP/issues/112",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "HER",
@@ -713,7 +713,7 @@
       "title": "HER-001: Federal Civic Property Preservation and Public Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/213",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "IMM",
@@ -722,7 +722,7 @@
       "explanation": "",
       "identifier": "IMM-002",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 153,
       "ready": false,
       "score": 0.0,
@@ -730,7 +730,7 @@
       "title": "IMM-002: Civil immunity and remedial gaps",
       "url": "https://github.com/Thorncrag/ARRP/issues/153",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "JUD",
@@ -739,7 +739,7 @@
       "explanation": "",
       "identifier": "JUD-010",
       "lastAudit": "Horizon integration decision (2026-06-25)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 48,
       "ready": false,
       "score": 0.0,
@@ -747,7 +747,7 @@
       "title": "JUD-010: Judicial Branch Capacity, Funding, and Emergency Docket Resilience",
       "url": "https://github.com/Thorncrag/ARRP/issues/48",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "JUD",
@@ -756,7 +756,7 @@
       "explanation": "",
       "identifier": "JUD-012",
       "lastAudit": "Horizon candidate admission and source-development review (2026-07-19)",
-      "nextAudit": "Human decision on institutional failure, manifestation, remedy, and vehicle before further development",
+      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
       "number": 256,
       "ready": false,
       "score": 0.0,
@@ -764,7 +764,7 @@
       "title": "JUD-012: Government Action Insulated from Judicial Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/256",
       "warnings": [],
-      "workflowStatus": "Awaiting decision"
+      "workflowStatus": "Development"
     },
     {
       "area": "OVS",
@@ -781,7 +781,7 @@
       "title": "OVS-001: Inspector General Independence, Access, Reporting, and Follow-Through",
       "url": "https://github.com/Thorncrag/ARRP/issues/95",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "OVS",
@@ -790,7 +790,7 @@
       "explanation": "",
       "identifier": "OVS-004",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 98,
       "ready": false,
       "score": 0.0,
@@ -798,7 +798,7 @@
       "title": "OVS-004: Retaliation Against Whistleblowers",
       "url": "https://github.com/Thorncrag/ARRP/issues/98",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "OVS",
@@ -807,7 +807,7 @@
       "explanation": "",
       "identifier": "OVS-008",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 102,
       "ready": false,
       "score": 0.0,
@@ -815,7 +815,7 @@
       "title": "OVS-008: Independence of Internal Ethics Offices",
       "url": "https://github.com/Thorncrag/ARRP/issues/102",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "OVS",
@@ -824,7 +824,7 @@
       "explanation": "",
       "identifier": "OVS-009",
       "lastAudit": "Horizon candidate admission and source-development review (2026-07-20)",
-      "nextAudit": "Human decision on institutional failure, manifestation, remedy, and vehicle before further development",
+      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
       "number": 252,
       "ready": false,
       "score": 0.0,
@@ -832,7 +832,7 @@
       "title": "OVS-009: Enforcement of Political-Activity Restrictions for Senior Officials",
       "url": "https://github.com/Thorncrag/ARRP/issues/252",
       "warnings": [],
-      "workflowStatus": "Awaiting decision"
+      "workflowStatus": "Development"
     },
     {
       "area": "PAR",
@@ -849,7 +849,7 @@
       "title": "PAR-001: Corrupt, Self-Protective, and Politically Abusive Clemency",
       "url": "https://github.com/Thorncrag/ARRP/issues/49",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "PAR",
@@ -858,7 +858,7 @@
       "explanation": "",
       "identifier": "PAR-005",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 53,
       "ready": false,
       "score": 0.0,
@@ -866,7 +866,7 @@
       "title": "PAR-005: Self-pardon uncertainty",
       "url": "https://github.com/Thorncrag/ARRP/issues/53",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "PRESS",
@@ -883,7 +883,7 @@
       "title": "PRESS-001: Equal Press Access and Rapid Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/201",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "PRESS",
@@ -900,7 +900,7 @@
       "title": "PRESS-003: Journalist Compulsory Process, Surveillance, and Source Protection",
       "url": "https://github.com/Thorncrag/ARRP/issues/203",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "PRESS",
@@ -917,7 +917,7 @@
       "title": "PRESS-006: Governmental Retaliation Against the Press",
       "url": "https://github.com/Thorncrag/ARRP/issues/206",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "REC",
@@ -934,7 +934,7 @@
       "title": "REC-001: Presidential and Executive Records Integrity, Custody, and Enforcement",
       "url": "https://github.com/Thorncrag/ARRP/issues/127",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "REG",
@@ -943,7 +943,7 @@
       "explanation": "",
       "identifier": "REG-002",
       "lastAudit": "Horizon integration and scope Change Audit (2026-07-21)",
-      "nextAudit": "Human decision on institutional failure, manifestation, remedy, and vehicle before further development",
+      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
       "number": 161,
       "ready": false,
       "score": 0.0,
@@ -951,7 +951,7 @@
       "title": "REG-002: Executive Influence over Federal Regulatory Enforcement",
       "url": "https://github.com/Thorncrag/ARRP/issues/161",
       "warnings": [],
-      "workflowStatus": "Awaiting decision"
+      "workflowStatus": "Development"
     },
     {
       "area": "REG",
@@ -968,7 +968,7 @@
       "title": "REG-003: Control of Administrative Adjudication",
       "url": "https://github.com/Thorncrag/ARRP/issues/162",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "REG",
@@ -977,7 +977,7 @@
       "explanation": "",
       "identifier": "REG-006",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 165,
       "ready": false,
       "score": 0.0,
@@ -985,7 +985,7 @@
       "title": "REG-006: Presidential control of rulemaking and legal positions",
       "url": "https://github.com/Thorncrag/ARRP/issues/165",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "RET",
@@ -1002,7 +1002,7 @@
       "title": "RET-001: Executive Retaliation Through Federal Benefits and Regulatory Power",
       "url": "https://github.com/Thorncrag/ARRP/issues/177",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "RIGHTS",
@@ -1019,7 +1019,7 @@
       "title": "RIGHTS-001: Civil-Rights Administration, Identity Records, and Federal Definition Control",
       "url": "https://github.com/Thorncrag/ARRP/issues/221",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "RIGHTS",
@@ -1036,7 +1036,7 @@
       "title": "RIGHTS-002: Temporary Protected Status, Asylum Access, and Humanitarian Reviewability",
       "url": "https://github.com/Thorncrag/ARRP/issues/222",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "RIGHTS",
@@ -1053,7 +1053,7 @@
       "title": "RIGHTS-003: Birthright Citizenship Statutory Recognition and Federal Identity Records",
       "url": "https://github.com/Thorncrag/ARRP/issues/223",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "RIGHTS",
@@ -1062,7 +1062,7 @@
       "explanation": "",
       "identifier": "RIGHTS-005",
       "lastAudit": "Horizon candidate admission and initial drafting (2026-07-21)",
-      "nextAudit": "Human decision on institutional failure, manifestation, remedy, and vehicle before further development",
+      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
       "number": 20,
       "ready": false,
       "score": 0.0,
@@ -1070,7 +1070,7 @@
       "title": "RIGHTS-005: Civil and Criminal Accountability for Law-Enforcement Constitutional Violations",
       "url": "https://github.com/Thorncrag/ARRP/issues/20",
       "warnings": [],
-      "workflowStatus": "Awaiting decision"
+      "workflowStatus": "Development"
     },
     {
       "area": "WAR",
@@ -1104,7 +1104,7 @@
       "level": "Developed proposal"
     }
   ],
-  "generatedAt": "2026-07-22T22:21:11+00:00",
+  "generatedAt": "2026-07-23T12:02:17+00:00",
   "goal": {
     "baselineDate": "2026-07-13",
     "baselineReady": 23,
@@ -3447,6 +3447,222 @@
         "WAR-009": 0
       },
       "total": 81
+    },
+    {
+      "byArea": {
+        "APPT": {
+          "ready": 0,
+          "total": 2
+        },
+        "CIV": {
+          "ready": 0,
+          "total": 4
+        },
+        "CLASS": {
+          "ready": 0,
+          "total": 4
+        },
+        "CONG": {
+          "ready": 0,
+          "total": 2
+        },
+        "DOJ": {
+          "ready": 6,
+          "total": 7
+        },
+        "DOM": {
+          "ready": 0,
+          "total": 4
+        },
+        "ELEC": {
+          "ready": 13,
+          "total": 15
+        },
+        "EMERG": {
+          "ready": 0,
+          "total": 2
+        },
+        "EMOL": {
+          "ready": 1,
+          "total": 2
+        },
+        "FACT": {
+          "ready": 0,
+          "total": 3
+        },
+        "FED": {
+          "ready": 0,
+          "total": 3
+        },
+        "FRB": {
+          "ready": 0,
+          "total": 1
+        },
+        "FUND": {
+          "ready": 1,
+          "total": 2
+        },
+        "HER": {
+          "ready": 0,
+          "total": 1
+        },
+        "IMM": {
+          "ready": 1,
+          "total": 2
+        },
+        "JUD": {
+          "ready": 3,
+          "total": 6
+        },
+        "OVS": {
+          "ready": 0,
+          "total": 4
+        },
+        "PAR": {
+          "ready": 0,
+          "total": 2
+        },
+        "PRESS": {
+          "ready": 0,
+          "total": 3
+        },
+        "REC": {
+          "ready": 0,
+          "total": 1
+        },
+        "REG": {
+          "ready": 1,
+          "total": 4
+        },
+        "RET": {
+          "ready": 0,
+          "total": 1
+        },
+        "RIGHTS": {
+          "ready": 0,
+          "total": 4
+        },
+        "WAR": {
+          "ready": 1,
+          "total": 2
+        }
+      },
+      "date": "2026-07-23",
+      "detailAvailable": true,
+      "ready": 27,
+      "readyIssues": [
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "EMOL-015",
+        "FUND-001",
+        "IMM-001",
+        "JUD-001",
+        "JUD-009",
+        "JUD-011",
+        "REG-001",
+        "WAR-001"
+      ],
+      "scores": {
+        "APPT-001": 0,
+        "APPT-004": 0,
+        "CIV-001": 0,
+        "CIV-004": 0,
+        "CIV-005": 0,
+        "CIV-009": 0,
+        "CLASS-001": 0,
+        "CLASS-004": 0,
+        "CLASS-006": 0,
+        "CLASS-011": 0,
+        "CONG-001": 0,
+        "CONG-007": 0,
+        "DOJ-001": 82,
+        "DOJ-002": 78,
+        "DOJ-003": 82,
+        "DOJ-004": 0,
+        "DOJ-005": 76,
+        "DOJ-007": 78,
+        "DOJ-009": 77,
+        "DOM-001": 0,
+        "DOM-005": 0,
+        "DOM-007": 0,
+        "DOM-009": 0,
+        "ELEC-001": 77,
+        "ELEC-002": 76,
+        "ELEC-003": 77,
+        "ELEC-004": 75,
+        "ELEC-005": 78,
+        "ELEC-006": 76,
+        "ELEC-007": 78,
+        "ELEC-008": 75,
+        "ELEC-009": 75,
+        "ELEC-010": 77,
+        "ELEC-011": 77,
+        "ELEC-012": 75,
+        "ELEC-013": 75,
+        "ELEC-014": 0,
+        "ELEC-015": 0,
+        "EMERG-001": 0,
+        "EMERG-003": 0,
+        "EMOL-001": 0,
+        "EMOL-015": 83,
+        "FACT-001": 0,
+        "FACT-007": 0,
+        "FACT-009": 0,
+        "FED-002": 0,
+        "FED-003": 0,
+        "FED-004": 0,
+        "FRB-001": 0,
+        "FUND-001": 83,
+        "FUND-002": 0,
+        "HER-001": 0,
+        "IMM-001": 78,
+        "IMM-002": 0,
+        "JUD-001": 78,
+        "JUD-005": 63,
+        "JUD-009": 77,
+        "JUD-010": 0,
+        "JUD-011": 82,
+        "JUD-012": 0,
+        "OVS-001": 0,
+        "OVS-004": 0,
+        "OVS-008": 0,
+        "OVS-009": 0,
+        "PAR-001": 0,
+        "PAR-005": 0,
+        "PRESS-001": 0,
+        "PRESS-003": 0,
+        "PRESS-006": 0,
+        "REC-001": 0,
+        "REG-001": 83,
+        "REG-002": 0,
+        "REG-003": 0,
+        "REG-006": 0,
+        "RET-001": 0,
+        "RIGHTS-001": 0,
+        "RIGHTS-002": 0,
+        "RIGHTS-003": 0,
+        "RIGHTS-005": 0,
+        "WAR-001": 77,
+        "WAR-009": 0
+      },
+      "total": 81
     }
   ],
   "metrics": {
@@ -3476,18 +3692,18 @@
         "plannedReady": 81
       }
     ],
-    "daysRemaining": 162,
-    "forecastDate": "2026-09-16",
-    "forecastLabel": "2026-09-16",
+    "daysRemaining": 161,
+    "forecastDate": "2026-09-20",
+    "forecastLabel": "2026-09-20",
     "percentReady": 33.3,
     "plannedReadyToday": 27,
     "ready": 27,
     "remaining": 54,
-    "requiredPerWeek": 2.33,
-    "rollingWeeklyVelocity": 6.75,
+    "requiredPerWeek": 2.35,
+    "rollingWeeklyVelocity": 6.5,
     "scheduleVariance": 0,
     "scopeChange": -123,
-    "sinceBaselineWeeklyVelocity": 3.11,
+    "sinceBaselineWeeklyVelocity": 2.8,
     "total": 81,
     "trackStatus": "On track"
   },
@@ -3497,10 +3713,6 @@
     "fellBelowReady": [],
     "netScoreChange": 0,
     "newlyReady": [
-      {
-        "identifier": "DOJ-001",
-        "url": "https://github.com/Thorncrag/ARRP/issues/22"
-      },
       {
         "identifier": "DOJ-002",
         "url": "https://github.com/Thorncrag/ARRP/issues/23"
@@ -3606,7 +3818,7 @@
         "url": "https://github.com/Thorncrag/ARRP/issues/42"
       }
     ],
-    "periodStart": "2026-06-24",
+    "periodStart": "2026-06-25",
     "scoresAvailable": false,
     "scoresDeclined": 0,
     "scoresImproved": 0,
@@ -3625,7 +3837,7 @@
       "explanation": "",
       "identifier": "APPT-001",
       "lastAudit": "Candidate consolidation and initial statutory draft (2026-07-16)",
-      "nextAudit": "Human decision on institutional failure, manifestation, remedy, and vehicle before further development",
+      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
       "number": 119,
       "ready": false,
       "score": 0.0,
@@ -3633,7 +3845,7 @@
       "title": "APPT-001: Evasion of Senate Confirmation and Statutory Appointment Safeguards",
       "url": "https://github.com/Thorncrag/ARRP/issues/119",
       "warnings": [],
-      "workflowStatus": "Awaiting decision"
+      "workflowStatus": "Development"
     },
     {
       "area": "APPT",
@@ -3650,7 +3862,7 @@
       "title": "APPT-004: Exercise of Governmental Authority by Unappointed or Insufficiently Accountable Individuals",
       "url": "https://github.com/Thorncrag/ARRP/issues/122",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CIV",
@@ -3667,7 +3879,7 @@
       "title": "CIV-001: Civil-Service Merit, Classification, and Anti-Politicization",
       "url": "https://github.com/Thorncrag/ARRP/issues/86",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CIV",
@@ -3676,7 +3888,7 @@
       "explanation": "",
       "identifier": "CIV-004",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 89,
       "ready": false,
       "score": 0.0,
@@ -3684,7 +3896,7 @@
       "title": "CIV-004: Protection for Refusal of Unlawful Directives",
       "url": "https://github.com/Thorncrag/ARRP/issues/89",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CIV",
@@ -3701,7 +3913,7 @@
       "title": "CIV-005: Federal Workforce Capacity and Anti-Hollowing",
       "url": "https://github.com/Thorncrag/ARRP/issues/90",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CIV",
@@ -3710,7 +3922,7 @@
       "explanation": "",
       "identifier": "CIV-009",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 94,
       "ready": false,
       "score": 0.0,
@@ -3718,7 +3930,7 @@
       "title": "CIV-009: Repurposed technical units as cross-agency operational control mechanisms",
       "url": "https://github.com/Thorncrag/ARRP/issues/94",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CLASS",
@@ -3735,7 +3947,7 @@
       "title": "CLASS-001: Presidential Classification, Declassification, Documentation, and Custody",
       "url": "https://github.com/Thorncrag/ARRP/issues/74",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CLASS",
@@ -3752,7 +3964,7 @@
       "title": "CLASS-004: Overclassification, Concealment, and Independent Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/77",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CLASS",
@@ -3769,7 +3981,7 @@
       "title": "CLASS-006: Protection of Classified Information, Sources, and Methods",
       "url": "https://github.com/Thorncrag/ARRP/issues/79",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CLASS",
@@ -3778,7 +3990,7 @@
       "explanation": "",
       "identifier": "CLASS-011",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 84,
       "ready": false,
       "score": 0.0,
@@ -3786,7 +3998,7 @@
       "title": "CLASS-011: Security-Clearance Integrity",
       "url": "https://github.com/Thorncrag/ARRP/issues/84",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CONG",
@@ -3803,7 +4015,7 @@
       "title": "CONG-001: Congressional Information and Subpoena Enforcement",
       "url": "https://github.com/Thorncrag/ARRP/issues/144",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "CONG",
@@ -3812,7 +4024,7 @@
       "explanation": "",
       "identifier": "CONG-007",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 150,
       "ready": false,
       "score": 0.0,
@@ -3820,7 +4032,7 @@
       "title": "CONG-007: Weak committee investigative capacity",
       "url": "https://github.com/Thorncrag/ARRP/issues/150",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "DOJ",
@@ -3829,7 +4041,7 @@
       "explanation": "Paused pending a merits ruling or other controlling finding clarifying how Article II affects statutory protections for career federal prosecutors.",
       "identifier": "DOJ-004",
       "lastAudit": "T1 predicate check (2026-06-27)",
-      "nextAudit": "Reassess predicate",
+      "nextAudit": "When a merits ruling or other controlling authority resolves the Article II predicate, reassess the available statutory remedy",
       "number": 25,
       "ready": false,
       "score": 0.0,
@@ -3837,7 +4049,7 @@
       "title": "DOJ-004: Protection of Career DOJ Personnel from Politically Motivated Removal or Reassignment",
       "url": "https://github.com/Thorncrag/ARRP/issues/25",
       "warnings": [],
-      "workflowStatus": "Deferred / Parked"
+      "workflowStatus": "Blocked"
     },
     {
       "area": "DOM",
@@ -3854,7 +4066,7 @@
       "title": "DOM-001: Domestic Deployment Authorities and Safeguards",
       "url": "https://github.com/Thorncrag/ARRP/issues/135",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "DOM",
@@ -3863,7 +4075,7 @@
       "explanation": "",
       "identifier": "DOM-007",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 141,
       "ready": false,
       "score": 0.0,
@@ -3871,7 +4083,7 @@
       "title": "DOM-007: Domestic military intelligence activity",
       "url": "https://github.com/Thorncrag/ARRP/issues/141",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "DOM",
@@ -3888,7 +4100,7 @@
       "title": "DOM-009: Federal Law-Enforcement Surveillance Procurement and Deployment",
       "url": "https://github.com/Thorncrag/ARRP/issues/143",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "ELEC",
@@ -3905,7 +4117,7 @@
       "title": "ELEC-014: Limiting Federal Criminal Investigations into State-Administered Elections",
       "url": "https://github.com/Thorncrag/ARRP/issues/236",
       "warnings": [],
-      "workflowStatus": "Deferred / Parked"
+      "workflowStatus": "Blocked"
     },
     {
       "area": "ELEC",
@@ -3922,7 +4134,7 @@
       "title": "ELEC-015: Ranked-Choice Voting and Majority-Choice Election Methods",
       "url": "https://github.com/Thorncrag/ARRP/issues/237",
       "warnings": [],
-      "workflowStatus": "Deferred / Parked"
+      "workflowStatus": "Deferred"
     },
     {
       "area": "EMERG",
@@ -3939,7 +4151,7 @@
       "title": "EMERG-001: National-Emergency Declarations, Renewal, and Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/103",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "EMOL",
@@ -3956,7 +4168,7 @@
       "title": "EMOL-001: Presidential Financial Conflicts, Emoluments, and Self-Dealing",
       "url": "https://github.com/Thorncrag/ARRP/issues/59",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FACT",
@@ -3973,7 +4185,7 @@
       "title": "FACT-001: Scientific, Statistical, and Technical Integrity",
       "url": "https://github.com/Thorncrag/ARRP/issues/168",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FACT",
@@ -3982,7 +4194,7 @@
       "explanation": "",
       "identifier": "FACT-007",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 174,
       "ready": false,
       "score": 0.0,
@@ -3990,7 +4202,7 @@
       "title": "FACT-007: Official Historical Presentation Integrity",
       "url": "https://github.com/Thorncrag/ARRP/issues/174",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FACT",
@@ -3999,7 +4211,7 @@
       "explanation": "",
       "identifier": "FACT-009",
       "lastAudit": "Horizon integration decision (2026-06-25)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 176,
       "ready": false,
       "score": 0.0,
@@ -4007,7 +4219,7 @@
       "title": "FACT-009: Misleading Official Terminology, Titles, or Institutional Labels",
       "url": "https://github.com/Thorncrag/ARRP/issues/176",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FED",
@@ -4024,7 +4236,7 @@
       "title": "FED-002: Selective or Retaliatory Federal Administration Against States",
       "url": "https://github.com/Thorncrag/ARRP/issues/186",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FED",
@@ -4041,7 +4253,7 @@
       "title": "FED-003: Federal Funding, Waiver, and Approval Coercion of States",
       "url": "https://github.com/Thorncrag/ARRP/issues/187",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FED",
@@ -4050,7 +4262,7 @@
       "explanation": "",
       "identifier": "FED-004",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 188,
       "ready": false,
       "score": 0.0,
@@ -4058,7 +4270,7 @@
       "title": "FED-004: Federal Displacement of State Functions",
       "url": "https://github.com/Thorncrag/ARRP/issues/188",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FRB",
@@ -4075,7 +4287,7 @@
       "title": "FRB-001: Federal Reserve Independence and Democratic Accountability",
       "url": "https://github.com/Thorncrag/ARRP/issues/193",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "FUND",
@@ -4092,7 +4304,7 @@
       "title": "FUND-002: Pocket Rescissions and Strategic Delay",
       "url": "https://github.com/Thorncrag/ARRP/issues/112",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "HER",
@@ -4109,7 +4321,7 @@
       "title": "HER-001: Federal Civic Property Preservation and Public Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/213",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "IMM",
@@ -4118,7 +4330,7 @@
       "explanation": "",
       "identifier": "IMM-002",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 153,
       "ready": false,
       "score": 0.0,
@@ -4126,7 +4338,7 @@
       "title": "IMM-002: Civil immunity and remedial gaps",
       "url": "https://github.com/Thorncrag/ARRP/issues/153",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "JUD",
@@ -4135,7 +4347,7 @@
       "explanation": "",
       "identifier": "JUD-010",
       "lastAudit": "Horizon integration decision (2026-06-25)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 48,
       "ready": false,
       "score": 0.0,
@@ -4143,7 +4355,7 @@
       "title": "JUD-010: Judicial Branch Capacity, Funding, and Emergency Docket Resilience",
       "url": "https://github.com/Thorncrag/ARRP/issues/48",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "JUD",
@@ -4152,7 +4364,7 @@
       "explanation": "",
       "identifier": "JUD-012",
       "lastAudit": "Horizon candidate admission and source-development review (2026-07-19)",
-      "nextAudit": "Human decision on institutional failure, manifestation, remedy, and vehicle before further development",
+      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
       "number": 256,
       "ready": false,
       "score": 0.0,
@@ -4160,7 +4372,7 @@
       "title": "JUD-012: Government Action Insulated from Judicial Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/256",
       "warnings": [],
-      "workflowStatus": "Awaiting decision"
+      "workflowStatus": "Development"
     },
     {
       "area": "OVS",
@@ -4177,7 +4389,7 @@
       "title": "OVS-001: Inspector General Independence, Access, Reporting, and Follow-Through",
       "url": "https://github.com/Thorncrag/ARRP/issues/95",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "OVS",
@@ -4186,7 +4398,7 @@
       "explanation": "",
       "identifier": "OVS-004",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 98,
       "ready": false,
       "score": 0.0,
@@ -4194,7 +4406,7 @@
       "title": "OVS-004: Retaliation Against Whistleblowers",
       "url": "https://github.com/Thorncrag/ARRP/issues/98",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "OVS",
@@ -4203,7 +4415,7 @@
       "explanation": "",
       "identifier": "OVS-008",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 102,
       "ready": false,
       "score": 0.0,
@@ -4211,7 +4423,7 @@
       "title": "OVS-008: Independence of Internal Ethics Offices",
       "url": "https://github.com/Thorncrag/ARRP/issues/102",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "OVS",
@@ -4220,7 +4432,7 @@
       "explanation": "",
       "identifier": "OVS-009",
       "lastAudit": "Horizon candidate admission and source-development review (2026-07-20)",
-      "nextAudit": "Human decision on institutional failure, manifestation, remedy, and vehicle before further development",
+      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
       "number": 252,
       "ready": false,
       "score": 0.0,
@@ -4228,7 +4440,7 @@
       "title": "OVS-009: Enforcement of Political-Activity Restrictions for Senior Officials",
       "url": "https://github.com/Thorncrag/ARRP/issues/252",
       "warnings": [],
-      "workflowStatus": "Awaiting decision"
+      "workflowStatus": "Development"
     },
     {
       "area": "PAR",
@@ -4245,7 +4457,7 @@
       "title": "PAR-001: Corrupt, Self-Protective, and Politically Abusive Clemency",
       "url": "https://github.com/Thorncrag/ARRP/issues/49",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "PAR",
@@ -4254,7 +4466,7 @@
       "explanation": "",
       "identifier": "PAR-005",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 53,
       "ready": false,
       "score": 0.0,
@@ -4262,7 +4474,7 @@
       "title": "PAR-005: Self-pardon uncertainty",
       "url": "https://github.com/Thorncrag/ARRP/issues/53",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "PRESS",
@@ -4279,7 +4491,7 @@
       "title": "PRESS-001: Equal Press Access and Rapid Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/201",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "PRESS",
@@ -4296,7 +4508,7 @@
       "title": "PRESS-003: Journalist Compulsory Process, Surveillance, and Source Protection",
       "url": "https://github.com/Thorncrag/ARRP/issues/203",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "PRESS",
@@ -4313,7 +4525,7 @@
       "title": "PRESS-006: Governmental Retaliation Against the Press",
       "url": "https://github.com/Thorncrag/ARRP/issues/206",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "REC",
@@ -4330,7 +4542,7 @@
       "title": "REC-001: Presidential and Executive Records Integrity, Custody, and Enforcement",
       "url": "https://github.com/Thorncrag/ARRP/issues/127",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "REG",
@@ -4339,7 +4551,7 @@
       "explanation": "",
       "identifier": "REG-002",
       "lastAudit": "Horizon integration and scope Change Audit (2026-07-21)",
-      "nextAudit": "Human decision on institutional failure, manifestation, remedy, and vehicle before further development",
+      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
       "number": 161,
       "ready": false,
       "score": 0.0,
@@ -4347,7 +4559,7 @@
       "title": "REG-002: Executive Influence over Federal Regulatory Enforcement",
       "url": "https://github.com/Thorncrag/ARRP/issues/161",
       "warnings": [],
-      "workflowStatus": "Awaiting decision"
+      "workflowStatus": "Development"
     },
     {
       "area": "REG",
@@ -4364,7 +4576,7 @@
       "title": "REG-003: Control of Administrative Adjudication",
       "url": "https://github.com/Thorncrag/ARRP/issues/162",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "REG",
@@ -4373,7 +4585,7 @@
       "explanation": "",
       "identifier": "REG-006",
       "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Issue-admission test",
+      "nextAudit": "Source development and initial vehicle drafting",
       "number": 165,
       "ready": false,
       "score": 0.0,
@@ -4381,7 +4593,7 @@
       "title": "REG-006: Presidential control of rulemaking and legal positions",
       "url": "https://github.com/Thorncrag/ARRP/issues/165",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "RET",
@@ -4398,7 +4610,7 @@
       "title": "RET-001: Executive Retaliation Through Federal Benefits and Regulatory Power",
       "url": "https://github.com/Thorncrag/ARRP/issues/177",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "RIGHTS",
@@ -4415,7 +4627,7 @@
       "title": "RIGHTS-001: Civil-Rights Administration, Identity Records, and Federal Definition Control",
       "url": "https://github.com/Thorncrag/ARRP/issues/221",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "RIGHTS",
@@ -4432,7 +4644,7 @@
       "title": "RIGHTS-002: Temporary Protected Status, Asylum Access, and Humanitarian Reviewability",
       "url": "https://github.com/Thorncrag/ARRP/issues/222",
       "warnings": [],
-      "workflowStatus": "In development"
+      "workflowStatus": "Development"
     },
     {
       "area": "RIGHTS",
@@ -4449,7 +4661,7 @@
       "title": "RIGHTS-003: Birthright Citizenship Statutory Recognition and Federal Identity Records",
       "url": "https://github.com/Thorncrag/ARRP/issues/223",
       "warnings": [],
-      "workflowStatus": "Pending development"
+      "workflowStatus": "Development"
     },
     {
       "area": "RIGHTS",
@@ -4458,7 +4670,7 @@
       "explanation": "",
       "identifier": "RIGHTS-005",
       "lastAudit": "Horizon candidate admission and initial drafting (2026-07-21)",
-      "nextAudit": "Human decision on institutional failure, manifestation, remedy, and vehicle before further development",
+      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
       "number": 20,
       "ready": false,
       "score": 0.0,
@@ -4466,7 +4678,7 @@
       "title": "RIGHTS-005: Civil and Criminal Accountability for Law-Enforcement Constitutional Violations",
       "url": "https://github.com/Thorncrag/ARRP/issues/20",
       "warnings": [],
-      "workflowStatus": "Awaiting decision"
+      "workflowStatus": "Development"
     },
     {
       "area": "DOM",
@@ -4543,7 +4755,7 @@
       "explanation": "",
       "identifier": "DOJ-001",
       "lastAudit": "SCOTUS current-status update (2026-07-02)",
-      "nextAudit": "T4 follow-up on post-Slaughter enforcement design, J.G.G. contempt posture, official AG nomination record, and external review",
+      "nextAudit": "Qualified review by a constitutional-law attorney, a DOJ ethics practitioner, and legislative counsel focused on post-Slaughter enforcement design, J.G.G. contempt posture, the official Attorney General nomination record, closer prior-legislation analogues, and staged disclosure, oversight, or confirmation-process fallbacks",
       "number": 22,
       "ready": true,
       "score": 82.0,
@@ -4551,7 +4763,7 @@
       "title": "DOJ-001: Recent Presidential Personal Counsel in Senior DOJ Leadership",
       "url": "https://github.com/Thorncrag/ARRP/issues/22",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "DOJ",
@@ -4560,7 +4772,7 @@
       "explanation": "",
       "identifier": "DOJ-002",
       "lastAudit": "SCOTUS current-status update (2026-07-02)",
-      "nextAudit": "T4 follow-up or external-validation pass",
+      "nextAudit": "Qualified review by a DOJ Public Integrity or other career-component practitioner, a public-law attorney, and legislative counsel focused on reviewer assignment and workload, executive-privilege and grand-jury-secrecy safeguards, final Minnesota docket verification, and a narrower statutory or appropriations fallback for leadership refusal, suspension, or evasion",
       "number": 23,
       "ready": true,
       "score": 78.0,
@@ -4568,7 +4780,7 @@
       "title": "DOJ-002: White House Direction or Interference in Particular Federal Criminal Matters",
       "url": "https://github.com/Thorncrag/ARRP/issues/23",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "DOJ",
@@ -4577,7 +4789,7 @@
       "explanation": "",
       "identifier": "DOJ-003",
       "lastAudit": "Targeted source-adjudication Change Audit (2026-07-21)",
-      "nextAudit": "T4 follow-up / external validation",
+      "nextAudit": "Qualified criminal-law, prosecutorial-ethics, and equal-protection review focused on selective-enforcement standards, evidentiary thresholds, remedy fit, and abuse resistance; then a targeted follow-up internal review",
       "number": 24,
       "ready": true,
       "score": 82.0,
@@ -4585,7 +4797,7 @@
       "title": "DOJ-003: Politically Selective Enforcement, Charging, and Favoritism",
       "url": "https://github.com/Thorncrag/ARRP/issues/24",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "DOJ",
@@ -4594,7 +4806,7 @@
       "explanation": "",
       "identifier": "DOJ-005",
       "lastAudit": "T3 readiness audit (2026-06-28)",
-      "nextAudit": "T4 follow-up / external validation",
+      "nextAudit": "Qualified professional-responsibility, administrative-law, and DOJ-governance review focused on recusal triggers, enforcement independence, reviewability, and anti-evasion design; then a targeted follow-up internal review",
       "number": 26,
       "ready": true,
       "score": 76.0,
@@ -4602,7 +4814,7 @@
       "title": "DOJ-005: Weak Enforcement and Internal Control of DOJ Recusal Duties",
       "url": "https://github.com/Thorncrag/ARRP/issues/26",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "DOJ",
@@ -4611,7 +4823,7 @@
       "explanation": "",
       "identifier": "DOJ-007",
       "lastAudit": "Review Ready manifestation-polish Change Audit (2026-07-15)",
-      "nextAudit": "External validation / T4 follow-up",
+      "nextAudit": "Qualified criminal-law, executive-power, federal-courts, and special-counsel review focused on appointment design, independence, accountability, remedy fit, and constitutional risk; then a targeted follow-up internal review",
       "number": 27,
       "ready": true,
       "score": 78.0,
@@ -4619,7 +4831,7 @@
       "title": "DOJ-007: Independent Investigation of Presidential and Senior Executive Misconduct",
       "url": "https://github.com/Thorncrag/ARRP/issues/27",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "DOJ",
@@ -4628,7 +4840,7 @@
       "explanation": "",
       "identifier": "DOJ-009",
       "lastAudit": "T4 publication-ready audit (2026-07-02)",
-      "nextAudit": "Qualified public-law, legislative-counsel, and professional-responsibility review",
+      "nextAudit": "Qualified review by a public-law attorney, legislative counsel, and a professional-responsibility specialist focused on proposed 28 U.S.C. \u00a7 506A placement, Appointments Clause and nomination-authority limits, post-Slaughter removal-power risk, Federal Vacancies Reform Act and 28 U.S.C. \u00a7 508 interaction, reviewer assignment, professional definitions, and nonratification and action-validity rules",
       "number": 28,
       "ready": true,
       "score": 77.0,
@@ -4636,7 +4848,7 @@
       "title": "DOJ-009: Insufficient Professional-Qualification Requirements for Senior DOJ Leadership",
       "url": "https://github.com/Thorncrag/ARRP/issues/28",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4645,7 +4857,7 @@
       "explanation": "",
       "identifier": "ELEC-001",
       "lastAudit": "Targeted source and remedy-fit review (2026-07-18)",
-      "nextAudit": "External validation / T4 follow-up",
+      "nextAudit": "Qualified election-law, federalism, and state-election-administration review focused on federal-interference predicates, state remedies, implementation, and constitutional fit; then a targeted follow-up internal review",
       "number": 29,
       "ready": true,
       "score": 77.0,
@@ -4653,7 +4865,7 @@
       "title": "ELEC-001: Federal Executive Interference with State and Local Election Administration",
       "url": "https://github.com/Thorncrag/ARRP/issues/29",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4662,7 +4874,7 @@
       "explanation": "",
       "identifier": "ELEC-002",
       "lastAudit": "T4 publication-ready audit (2026-06-28)",
-      "nextAudit": "External validation / T4 follow-up",
+      "nextAudit": "Qualified election-law, criminal-law, and election-administration review focused on coercion definitions, certification safeguards, enforcement, and First Amendment constraints; then a targeted follow-up internal review",
       "number": 30,
       "ready": true,
       "score": 76.0,
@@ -4670,7 +4882,7 @@
       "title": "ELEC-002: Pressure on Certification and Canvassing Officials",
       "url": "https://github.com/Thorncrag/ARRP/issues/30",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4679,7 +4891,7 @@
       "explanation": "",
       "identifier": "ELEC-003",
       "lastAudit": "T4 publication-ready audit (2026-06-28)",
-      "nextAudit": "External validation / T4 follow-up",
+      "nextAudit": "Qualified election-law, criminal-law, workplace-safety, and election-administration review focused on threat coverage, enforcement, implementation, and federalism; then a targeted follow-up internal review",
       "number": 31,
       "ready": true,
       "score": 77.0,
@@ -4687,7 +4899,7 @@
       "title": "ELEC-003: Insufficient Protection for Election Workers and Officials",
       "url": "https://github.com/Thorncrag/ARRP/issues/31",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4696,7 +4908,7 @@
       "explanation": "",
       "identifier": "ELEC-004",
       "lastAudit": "Manifestation chronology and type reorganization (2026-07-09)",
-      "nextAudit": "Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review",
+      "nextAudit": "Qualified review by a federal-courts attorney, an election-law attorney, and legislative counsel focused on source verification for the DOJ civil voter-data and state-election-record demand campaign, retrieval of the Nevada primary order, a representative state comparison, Title 28 codification, and Petition Clause limits",
       "number": 32,
       "ready": true,
       "score": 75.0,
@@ -4704,7 +4916,7 @@
       "title": "ELEC-004: Abuse of Election Litigation and Civil Process",
       "url": "https://github.com/Thorncrag/ARRP/issues/32",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4713,7 +4925,7 @@
       "explanation": "",
       "identifier": "ELEC-005",
       "lastAudit": "T4 publication-ready audit (2026-06-28)",
-      "nextAudit": "External validation / T4 follow-up",
+      "nextAudit": "Qualified election-law, criminal-law, records-authentication, and legislative-counsel review focused on false result-transmission documents, coverage, penalties, and federalism; then a targeted follow-up internal review",
       "number": 33,
       "ready": true,
       "score": 78.0,
@@ -4721,7 +4933,7 @@
       "title": "ELEC-005: Weak Safeguards Against False Presidential Result-Transmission Documents",
       "url": "https://github.com/Thorncrag/ARRP/issues/33",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4730,7 +4942,7 @@
       "explanation": "",
       "identifier": "ELEC-006",
       "lastAudit": "T4 publication-ready audit (2026-06-28)",
-      "nextAudit": "External validation / T4 follow-up",
+      "nextAudit": "Qualified election-law, transition-administration, appropriations, and separation-of-powers review focused on automatic triggers, continuity, implementation, and enforcement; then a targeted follow-up internal review",
       "number": 34,
       "ready": true,
       "score": 76.0,
@@ -4738,7 +4950,7 @@
       "title": "ELEC-006: Insufficiently Automatic Presidential-Transition Procedures",
       "url": "https://github.com/Thorncrag/ARRP/issues/34",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4747,7 +4959,7 @@
       "explanation": "",
       "identifier": "ELEC-007",
       "lastAudit": "T4 publication-ready audit (2026-06-28)",
-      "nextAudit": "External validation / T4 follow-up",
+      "nextAudit": "Qualified election-law, domestic-deployment, federalism, and civil-liberties review focused on covered forces, activation triggers, enforcement, and emergency exceptions; then a targeted follow-up internal review",
       "number": 35,
       "ready": true,
       "score": 78.0,
@@ -4755,7 +4967,7 @@
       "title": "ELEC-007: Improper Federal-Force Presence in Election Administration",
       "url": "https://github.com/Thorncrag/ARRP/issues/35",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4764,7 +4976,7 @@
       "explanation": "",
       "identifier": "ELEC-008",
       "lastAudit": "Internal check of Title 18 amendment restructure (2026-07-04)",
-      "nextAudit": "Qualified criminal-law, election-law, federal-courts, First Amendment, Speech or Debate, and legislative-counsel review; then targeted source-backed revisions if review identifies concrete fixes",
+      "nextAudit": "Qualified review by criminal-law, election-law, and federal-courts attorneys, First Amendment and Speech or Debate Clause specialists, and legislative counsel focused on predicate-act definitions, mens rea and protected-advocacy boundaries, federalism and legislative-immunity limits, Title 18 placement, enforcement safeguards, and any source-backed revisions identified by the review",
       "number": 36,
       "ready": true,
       "score": 75.0,
@@ -4772,7 +4984,7 @@
       "title": "ELEC-008: Accountability for Coordinated Federal Election-Subversion Schemes",
       "url": "https://github.com/Thorncrag/ARRP/issues/36",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4781,7 +4993,7 @@
       "explanation": "",
       "identifier": "ELEC-009",
       "lastAudit": "First draft enabling legislation (2026-07-04)",
-      "nextAudit": "Qualified constitutional-law, election-law, election-administration, and legislative-counsel review; majority-mechanism selection or defense; official state-by-state compact verification; fiscal and workload analogues",
+      "nextAudit": "Qualified review by constitutional-law and election-law attorneys, election administrators, and legislative counsel focused on selection and defense of the national-majority mechanism, contingent-election design, official state-by-state compact verification, ballot and counting administration, fiscal and workload analogues, and amendment-to-enabling-statute alignment",
       "number": 37,
       "ready": true,
       "score": 75.0,
@@ -4789,7 +5001,7 @@
       "title": "ELEC-009: Electoral College Structure and National Popular Vote",
       "url": "https://github.com/Thorncrag/ARRP/issues/37",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4798,7 +5010,7 @@
       "explanation": "",
       "identifier": "ELEC-010",
       "lastAudit": "T4 publication-ready audit (2026-06-28)",
-      "nextAudit": "External validation / T4 follow-up",
+      "nextAudit": "Qualified election-administration, voting-rights, postal-operations, and election-security review focused on access, reliability standards, implementation costs, and federalism; then a targeted follow-up internal review",
       "number": 38,
       "ready": true,
       "score": 77.0,
@@ -4806,7 +5018,7 @@
       "title": "ELEC-010: Mail-In Voting Access, Reliability, and Trust",
       "url": "https://github.com/Thorncrag/ARRP/issues/38",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4815,7 +5027,7 @@
       "explanation": "",
       "identifier": "ELEC-011",
       "lastAudit": "T4 publication and external-review readiness review (2026-07-04)",
-      "nextAudit": "Qualified election-law, voting-rights, technical, fiscal, stakeholder, and legislative-counsel review; state-specific algorithm-certification and implementation package; proposal-specific adoption evidence",
+      "nextAudit": "Qualified review by election-law and voting-rights attorneys, redistricting-methodology and algorithm-audit specialists, state election administrators, fiscal analysts, affected stakeholders, and legislative counsel focused on state-specific algorithm certification, implementation and auditability, Voting Rights Act and constitutional safeguards, fiscal workload, and proposal-specific adoption evidence",
       "number": 39,
       "ready": true,
       "score": 77.0,
@@ -4823,7 +5035,7 @@
       "title": "ELEC-011: Algorithmic Redistricting Baseline and Representation Safeguards",
       "url": "https://github.com/Thorncrag/ARRP/issues/39",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4840,7 +5052,7 @@
       "title": "ELEC-012: Campaign Finance, Dark Money, and Corporate Political Spending",
       "url": "https://github.com/Thorncrag/ARRP/issues/40",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "ELEC",
@@ -4849,7 +5061,7 @@
       "explanation": "",
       "identifier": "ELEC-013",
       "lastAudit": "External-review readiness push / Review Ready source-development review (2026-07-09)",
-      "nextAudit": "Qualified external review package focused on FEC matter files, broader official state sample, fiscal/workload validation, adoption evidence, and election-law, First Amendment, FEC/EAC, State-administration, fiscal, and legislative-counsel review",
+      "nextAudit": "Qualified review by election-law and First Amendment attorneys, FEC and EAC practitioners, state election administrators, fiscal analysts, and legislative counsel focused on FEC matter-file verification, a broader official state sample, debate-sponsor and ballot-access administration, fiscal and workload validation, enforcement design, and proposal-specific adoption evidence",
       "number": 41,
       "ready": true,
       "score": 75.0,
@@ -4857,7 +5069,7 @@
       "title": "ELEC-013: Federal Candidate Access, Ballot Access, and Debate Gatekeeping",
       "url": "https://github.com/Thorncrag/ARRP/issues/41",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "EMOL",
@@ -4866,7 +5078,7 @@
       "explanation": "",
       "identifier": "EMOL-015",
       "lastAudit": "T4 publication-ready audit (2026-07-13)",
-      "nextAudit": "Qualified constitutional, federal-courts, tax, appropriations, judicial-administration, and legislative-counsel review",
+      "nextAudit": "Qualified review by constitutional and federal-courts attorneys, a federal tax practitioner, an appropriations specialist, a judicial-administration practitioner, and legislative counsel focused on the automatic adversity screen and Rule 41 treatment, controlled maintenance and the D.D.C. cause of action, 26 U.S.C. \u00a7 7217 placement, remedy and protected-information boundaries, appellate routes, and workload and fiscal effects",
       "number": 73,
       "ready": true,
       "score": 83.0,
@@ -4874,7 +5086,7 @@
       "title": "EMOL-015: Executive Self-Litigation and Settlement Conflicts",
       "url": "https://github.com/Thorncrag/ARRP/issues/73",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "FUND",
@@ -4883,7 +5095,7 @@
       "explanation": "",
       "identifier": "FUND-001",
       "lastAudit": "Targeted source-adjudication Change Audit (2026-07-21)",
-      "nextAudit": "Qualified appropriations, federal-courts, budget, and legislative-counsel review; obtain NASA program-level apportionment, reprogramming, and obligation records",
+      "nextAudit": "Qualified review by appropriations and administrative-law attorneys, a federal-courts attorney, OMB or GAO program-administration practitioners, a budget analyst, a national-security specialist, and legislative counsel focused on Impoundment Control Act and claim-channeling design, JUD-011 and standalone routes, NASA apportionment, reprogramming, obligation, and contract-termination records, deadline and workload effects, and current litigation",
       "number": 111,
       "ready": true,
       "score": 83.0,
@@ -4891,7 +5103,7 @@
       "title": "FUND-001: Fiscal Implementation of Ultra Vires Executive Directives",
       "url": "https://github.com/Thorncrag/ARRP/issues/111",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "IMM",
@@ -4900,7 +5112,7 @@
       "explanation": "",
       "identifier": "IMM-001",
       "lastAudit": "Portfolio-consolidation targeted Change Audit (2026-07-16)",
-      "nextAudit": "External validation / T4 follow-up",
+      "nextAudit": "Qualified constitutional-law, federal-courts, criminal-law, and separation-of-powers review focused on official-act immunity boundaries, remedies, reviewability, and abuse resistance; then a targeted follow-up internal review",
       "number": 152,
       "ready": true,
       "score": 78.0,
@@ -4908,7 +5120,7 @@
       "title": "IMM-001: Criminal Immunity for Presidential Official Acts",
       "url": "https://github.com/Thorncrag/ARRP/issues/152",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "JUD",
@@ -4917,7 +5129,7 @@
       "explanation": "",
       "identifier": "JUD-001",
       "lastAudit": "Portfolio-consolidation targeted Change Audit (2026-07-16)",
-      "nextAudit": "External validation / T4 follow-up, including public-register administration and continued Phang docket monitoring",
+      "nextAudit": "Qualified review by a federal-courts attorney, legislative counsel, a court-administration practitioner, and an appropriations specialist focused on civil-contempt standards and officer liability, the public register and protected-information procedures, Administrative Office workload, Judgment Fund and indemnification treatment, and continued Phang docket posture",
       "number": 43,
       "ready": true,
       "score": 78.0,
@@ -4925,7 +5137,7 @@
       "title": "JUD-001: Executive Dependence of Judicial Enforcement",
       "url": "https://github.com/Thorncrag/ARRP/issues/43",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "JUD",
@@ -4951,7 +5163,7 @@
       "explanation": "",
       "identifier": "JUD-011",
       "lastAudit": "Review Ready manifestation-polish Change Audit (2026-07-15)",
-      "nextAudit": "Qualified external review / T4 follow-up",
+      "nextAudit": "Qualified review by a constitutional and public-law attorney, legislative counsel, D.D.C. and D.C. Circuit practitioners, an Administrative Office or Judicial Conference practitioner, an appropriations specialist, and a CBO budget analyst focused on Article II and Article III, standing and presidential relief, codification and appellate jurisdiction, panel assignment and court administration, protected-record and facilities and technology workload, appropriations and PAYGO, current-case and Code currency, and proposal-specific cost",
       "number": 246,
       "ready": true,
       "score": 82.0,
@@ -4959,7 +5171,7 @@
       "title": "JUD-011: Executive Nullification of Congressional Mandates",
       "url": "https://github.com/Thorncrag/ARRP/issues/246",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "REG",
@@ -4968,7 +5180,7 @@
       "explanation": "",
       "identifier": "REG-001",
       "lastAudit": "Targeted source-adjudication Change Audit (2026-07-21)",
-      "nextAudit": "Qualified constitutional, administrative-law, federal-courts, agency-operations, budget, and legislative-counsel review",
+      "nextAudit": "Qualified review by constitutional and administrative-law attorneys, federal-courts and congressional-litigation specialists, affected-agency and records-security practitioners, judicial administrators, appropriations and budget analysts, and legislative counsel focused on Article II boundaries across organic statutes, standing, panel, and appeal design, mixed claims and relief, inventory, notice, and protected-information feasibility, workload and cost, current rosters and removal records, and alignment between JUD-011 and the standalone alternative",
       "number": 160,
       "ready": true,
       "score": 83.0,
@@ -4976,7 +5188,7 @@
       "title": "REG-001: Agency Independence and Functional Nullification",
       "url": "https://github.com/Thorncrag/ARRP/issues/160",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     },
     {
       "area": "WAR",
@@ -4985,7 +5197,7 @@
       "explanation": "",
       "identifier": "WAR-001",
       "lastAudit": "T4 publication-ready audit (2026-06-28)",
-      "nextAudit": "External validation / T4 follow-up",
+      "nextAudit": "Qualified constitutional war-powers, national-security, military-operations, and congressional-procedure review focused on authorization triggers, emergency response, enforcement, and judicial review; then a targeted follow-up internal review",
       "number": 42,
       "ready": true,
       "score": 77.0,
@@ -4993,7 +5205,7 @@
       "title": "WAR-001: Comprehensive War Powers and Use-of-Force Authorization Reform",
       "url": "https://github.com/Thorncrag/ARRP/issues/42",
       "warnings": [],
-      "workflowStatus": "External review needed"
+      "workflowStatus": "External review"
     }
   ],
   "schemaVersion": 2,
@@ -5018,28 +5230,24 @@
   "warnings": [],
   "workflowStatusDistribution": [
     {
-      "count": 26,
-      "status": "External review needed"
+      "count": 47,
+      "status": "Development"
     },
     {
       "count": 26,
-      "status": "In development"
-    },
-    {
-      "count": 16,
-      "status": "Pending development"
-    },
-    {
-      "count": 5,
-      "status": "Awaiting decision"
+      "status": "External review"
     },
     {
       "count": 5,
       "status": "Audit needed"
     },
     {
-      "count": 3,
-      "status": "Deferred / Parked"
+      "count": 2,
+      "status": "Blocked"
+    },
+    {
+      "count": 1,
+      "status": "Deferred"
     }
   ]
 }
