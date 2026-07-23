@@ -2,6 +2,7 @@
 issue_id: CLASS-011
 area_id: A-07
 title: "Security-Clearance Integrity"
+status: in-development
 record_type: source-development
 print_status: excluded
 print_exclusion_reason: "Internal source-development record."

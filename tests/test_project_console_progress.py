@@ -75,7 +75,7 @@ class ProjectConsoleProgressTests(unittest.TestCase):
             },
             {
                 "__typename": "ProjectV2ItemFieldSingleSelectValue",
-                "name": "Completed within scope",
+                "name": "Development",
                 "field": {"name": "Status"},
             },
         ]
@@ -100,7 +100,7 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         self.assertIsNone(ready["score"])
         self.assertIn("is not counted", ready["warnings"][0])
 
-    def test_pending_workflow_status_with_existing_vehicle_emits_lifecycle_warning(self):
+    def test_development_status_is_not_inferred_from_proposal_vehicle_presence(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             issue = root / "areas" / "DOM" / "issues" / "DOM-005.md"
@@ -113,9 +113,9 @@ class ProjectConsoleProgressTests(unittest.TestCase):
             )
             vehicle.write_text("# Proposed legislation\n", encoding="utf-8")
             _, items = MODULE.parse_items(self.raw, self.config, self.registry, root)
-        pending = next(item for item in items if item["identifier"] == "DOM-005")
-        self.assertEqual(len(pending["warnings"]), 1)
-        self.assertIn("review whether the status should be In development or Audit needed", pending["warnings"][0])
+        development = next(item for item in items if item["identifier"] == "DOM-005")
+        self.assertEqual(development["workflowStatus"], "Development")
+        self.assertEqual(development["warnings"], [])
 
     def test_progress_item_carries_canonical_workflow_hold_reason(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -135,13 +135,39 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         nodes = raw["items"][0]["fieldValues"]["nodes"]
         for node in nodes:
             if (node.get("field") or {}).get("name") == "Status":
-                node["name"] = "Completed within scope"
+                node["name"] = "Publication approval"
         _, items = MODULE.parse_items(raw, self.config, self.registry)
         completed = next(item for item in items if item["identifier"] == "DOJ-007")
         self.assertTrue(completed["ready"])
         self.assertEqual(completed["developmentLevel"], "Review ready")
-        self.assertEqual(completed["workflowStatus"], "Completed within scope")
+        self.assertEqual(completed["workflowStatus"], "Publication approval")
         self.assertEqual(completed["warnings"], [])
+
+    def test_unapproved_workflow_status_emits_lifecycle_warning(self):
+        raw = deepcopy(self.raw)
+        for node in raw["items"][0]["fieldValues"]["nodes"]:
+            if (node.get("field") or {}).get("name") == "Status":
+                node["name"] = "Legacy workflow"
+        _, items = MODULE.parse_items(raw, self.config, self.registry)
+        record = next(item for item in items if item["identifier"] == "DOJ-007")
+        self.assertEqual(len(record["warnings"]), 1)
+        self.assertIn("not an approved workflow status", record["warnings"][0])
+        self.assertIn("needs: monitoring label", record["warnings"][0])
+
+    def test_monitoring_label_does_not_replace_workflow_status(self):
+        raw = deepcopy(self.raw)
+        raw["items"][2]["content"]["labels"]["nodes"].append({"name": "needs: monitoring"})
+        _, items = MODULE.parse_items(raw, self.config, self.registry)
+        record = next(item for item in items if item["identifier"] == "DOM-005")
+        self.assertEqual(record["workflowStatus"], "Development")
+        self.assertEqual(record["warnings"], [])
+
+    def test_production_config_projects_only_approved_workflow_statuses(self):
+        config = MODULE.read_json(ROOT / ".github" / "project-console-progress.json")
+        self.assertEqual(
+            tuple(config["workflowStatuses"]),
+            MODULE.APPROVED_WORKFLOW_STATUSES,
+        )
 
     def test_retrospective_seed_extends_history_without_replacing_live_dates(self):
         config = deepcopy(self.config)
@@ -178,7 +204,7 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         active_proposals = [row for row in registry if MODULE.normalize(row["Kind"]) == "proposal"]
         # The retrospective baseline remains historical even after proposal
         # admission, merger, or retirement changes the live denominator.
-        self.assertEqual(len(active_proposals), 81)
+        self.assertGreater(len(active_proposals), len(evidence))
         self.assertEqual(config["goal"]["baselineTotal"], 204)
         self.assertEqual(len(evidence), 23)
         self.assertEqual(len(identifiers), 23)

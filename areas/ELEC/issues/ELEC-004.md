@@ -12,7 +12,7 @@ audit_status: "Manifestations reorganized by chronology and type; review-ready s
 audit_score: 75
 audit_last_type: "Manifestation chronology and type reorganization"
 audit_last_date: "2026-07-09"
-audit_next: "Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review"
+audit_next: "Qualified review by a federal-courts attorney, an election-law attorney, and legislative counsel focused on source verification for the DOJ civil voter-data and state-election-record demand campaign, retrieval of the Nevada primary order, a representative state comparison, Title 28 codification, and Petition Clause limits"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -160,7 +160,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Internal Review Status:** Manifestations reorganized by chronology and type; review-ready score preserved while external legal review and additional primary-source expansion remain needed<br />**Last Internal Review:** Manifestation chronology and type reorganization<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard; **Revision Review Needed:** No<br />**Next Review:** Qualified federal-courts/election-law review; source-develop DOJ civil voter-data and state-election-record demand campaign by chronology and process type through primary letters, complaints, orders, and state responses; retrieve Nevada primary order; complete representative state comparison beyond Nevada; decide title 28 codification; and complete Petition Clause review<br />**Full Review History:** [ELEC-004 review history](ELEC-004.audit.md)
+> **Internal Review Status:** Manifestations reorganized by chronology and type; review-ready score preserved while external legal review and additional primary-source expansion remain needed<br />**Last Internal Review:** Manifestation chronology and type reorganization<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard; **Revision Review Needed:** No<br />**Next Review:** Qualified review by a federal-courts attorney, an election-law attorney, and legislative counsel focused on source verification for the DOJ civil voter-data and state-election-record demand campaign, retrieval of the Nevada primary order, a representative state comparison, Title 28 codification, and Petition Clause limits<br />**Full Review History:** [ELEC-004 review history](ELEC-004.audit.md)
 
 ## Annotation
 

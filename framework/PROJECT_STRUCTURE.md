@@ -57,7 +57,7 @@ Ignored local products such as `.venv/`, `.tmp/`, and `.site-build/` are not pro
 | `framework/GITHUB_WORKFLOW.md` | GitHub Issues and Project authority, lifecycle transitions, synchronization, and authenticated-operation rules. |
 | `framework/AGENT_OPERATING_RULES.md` | Canonical detailed rules for every agent and bot, including persistent and scheduled execution. |
 | `framework/agents/` | Registry and one authoritative configuration/runbook for every persistent named agent or bot. Runtime manifests and workflows are validated projections of these records. |
-| `framework/INTAKE_AGENT_PROCESS.md` | Security-sensitive manual public-intake review process and future-automation boundary. It remains separate from general agent rules because contributor content is untrusted and review authority is deliberately narrower. |
+| `framework/INTAKE_AGENT_PROCESS.md` | Security-sensitive public-intake review process, limited Elim reply and preliminary-candidate authority, and future-automation boundary. It remains separate from general agent rules because contributor content is untrusted and review authority is deliberately narrower. |
 | `framework/PRINT_ASSEMBLY.md` | Print-selection, ordering, locator, and export rules. |
 | `framework/print-assembly.json` | Machine-readable compiled-edition section and ordering manifest. |
 | `framework/PROJECT_CONSOLE_PROGRESS.md` | Project Console progress calculation and display governance. |

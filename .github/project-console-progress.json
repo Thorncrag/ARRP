@@ -18,6 +18,16 @@
     "nextAudit": "Next audit",
     "canonicalPage": "Canonical page"
   },
+  "workflowStatuses": [
+    "Development",
+    "Human decision needed",
+    "Audit needed",
+    "Audit in progress",
+    "External review",
+    "Publication approval",
+    "Deferred",
+    "Blocked"
+  ],
   "goal": {
     "name": "All eligible ARRP proposals Review Ready",
     "historyStartDate": "2026-06-24",

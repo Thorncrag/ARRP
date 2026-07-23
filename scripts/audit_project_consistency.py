@@ -34,13 +34,15 @@ REGISTRY_PATH = ROOT / "inventory" / "github_issue_registry.csv"
 SOURCE_PATH = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCE_PATH = ROOT / "inventory" / "sources-pending.csv"
 PRELIMINARY_CANDIDATE_PATH = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
+PROJECT_INTEGRITY_RUNBOOK = ROOT / "framework" / "agents" / "PROJECT_INTEGRITY_BOT.md"
 GITHUB_REPOSITORY = "Thorncrag/ARRP"
 GITHUB_PROJECT_OWNER = "Thorncrag"
 GITHUB_PROJECT_NUMBER = 2
 GITHUB_BLOB_PREFIX = f"https://github.com/{GITHUB_REPOSITORY}/blob/main/"
-VALID_ISSUE_STATUSES = {
+ISSUE_PAGE_STATUSES = {
     "awaiting-decision",
     "awaiting-merits-adjudication",
+    "blocked",
     "candidate",
     "deferred",
     "developed",
@@ -73,6 +75,113 @@ PROJECT_DEVELOPMENT_LEVELS = {
     "review ready",
     "release candidate",
 }
+PROJECT_WORKFLOW_STATUSES = {
+    "development",
+    "human decision needed",
+    "audit needed",
+    "audit in progress",
+    "external review",
+    "publication approval",
+    "deferred",
+    "blocked",
+}
+PROJECT_LIFECYCLE_WORKSTREAMS = {
+    "proposal": "proposal development",
+    "horizon": "proposal development",
+    "governance": "project governance and operations",
+    "source review": "project governance and operations",
+}
+NONPROPOSAL_PROJECT_KINDS = {
+    "governance",
+    "source review",
+}
+PROJECT_STATUS_REASON_REQUIRED = {
+    "human decision needed",
+    "deferred",
+    "blocked",
+}
+AUDIT_PROJECT_STATUSES = {
+    "audit needed",
+    "audit in progress",
+}
+MONITORING_COMPONENT_LABELS = {
+    "watched matter": (
+        r"watched matter",
+        r"matter being watched",
+        r"monitoring target",
+    ),
+    "material relevance": (
+        r"material relevance",
+        r"why (?:it|this|the matter) (?:is )?material",
+        r"relevance to (?:future )?(?:issue |proposal )?development",
+    ),
+    "reassessment trigger": (
+        r"reassessment trigger",
+        r"trigger for reassessment",
+        r"reconsideration trigger",
+    ),
+    "checking method": (
+        r"checking method",
+        r"monitoring method",
+        r"how (?:the project|we) will check",
+    ),
+}
+MONITORING_NARRATIVE_PATTERNS = {
+    "watched matter": (
+        r"\b(?:monitor|watch|track)\b.{5,}",
+        r"\bwatching for updates\b",
+    ),
+    "material relevance": (
+        r"\bmaterial(?:ly)? relevant\b",
+        r"\b(?:could|would|may) (?:affect|alter|change|control|determine|bear on)\b",
+        r"\badvance only if\b",
+        r"\b(?:future|further) (?:development|drafting|analysis|remedy|admission)\b",
+    ),
+    "reassessment trigger": (
+        r"\b(?:reassess|reconsider|review again|revisit) (?:if|when|once|after|upon)\b",
+        r"\b(?:if|when|once|after|upon)\b.{5,80}\b(?:reassess|reconsider|revisit|advance|admit|revise)\b",
+        r"\badvance only if\b",
+        r"\btrigger(?:s|ed)? reassessment\b",
+    ),
+    "checking method": (
+        r"\b(?:check|review|search) (?:the |for )?(?:docket|tracker|filing|order|opinion|decision|record|report|database|source|update)",
+        r"\b(?:daily|weekly|monthly|quarterly|annual(?:ly)?)\b.{0,40}\b(?:check|review|search|monitor)\b",
+        r"\bsource-develop\b",
+        r"\bmonitor (?:the )?(?:docket|tracker|filing|order|opinion|decision|record|report|database|source|case)\b",
+    ),
+}
+DEFERRED_REASON_PATTERNS = (
+    r"\bbecause\b",
+    r"\bdue to\b",
+    r"\bpremature\b",
+    r"\bnuanced\b",
+    r"\bdependent on\b",
+    r"\brequires? (?:additional |further |broader )?(?:expert|stakeholder|evidence|data|input|review)",
+    r"\badditional\b.{0,80}\b(?:evidence|data|input|review)\b",
+)
+RECONSIDERATION_PATTERNS = (
+    r"\breconsider(?:ation|ed)?\b",
+    r"\breassess(?:ment|ed)?\b",
+    r"\bresume\b",
+    r"\b(?:until|when|once|after|upon)\b",
+    r"\b(?:on|by)\s+\d{4}-\d{2}-\d{2}\b",
+)
+BLOCKED_ACTION_PATTERNS = (
+    r"\bblocked action\b",
+    r"\b(?:development|drafting|analysis|review|audit|admission|remedy selection|publication|work)\b.{0,35}\b(?:is |are )?blocked\b",
+    r"\b(?:cannot|can not|may not|unable to) (?:proceed|continue|begin|complete)\b",
+)
+BLOCKED_PREREQUISITE_PATTERNS = (
+    r"\bindispensable prerequisites?\b",
+    r"\b(?:prerequisite|required record|required authority|required evidence)\b",
+    r"\b(?:awaiting|pending)\b.{0,60}\b(?:ruling|decision|order|record|evidence|authority|release|unsealing)\b",
+    r"\b(?:sealed|unavailable|not yet public|not public)\b",
+)
+UNBLOCK_TRIGGER_PATTERNS = (
+    r"\bunblock(?:ed|ing)?\b",
+    r"\bresume (?:when|once|after|upon)\b",
+    r"\b(?:when|once|after|upon)\b.{0,100}\b(?:available|issued|decided|released|published|unsealed|completed|obtained)\b",
+)
 AUTHORITATIVE_SOURCE_RECORDS = (
     (
         PRELIMINARY_CANDIDATE_PATH,
@@ -253,6 +362,24 @@ def normalized_text(value: object) -> str:
     return " ".join(str(value or "").strip().casefold().split())
 
 
+def is_recognized_issue_page_status(value: object) -> bool:
+    """Check canonical page maturity/disposition metadata, not Project workflow Status."""
+    return str(value or "").strip() in ISSUE_PAGE_STATUSES
+
+
+def issue_page_status_error(relative: Path, metadata: dict[str, str]) -> str:
+    """Return the deterministic issue-page status defect, if any."""
+    value = metadata.get("status", "").strip()
+    if not value:
+        return f"issue page {relative} lacks required nonblank issue-page status metadata"
+    if not is_recognized_issue_page_status(value):
+        return (
+            f"issue page {relative} has nonstandard issue-page status {value!r}; "
+            "issue-page status is distinct from GitHub Project Status"
+        )
+    return ""
+
+
 def markdown_heading_title(path: Path) -> str:
     match = re.search(r"^#\s+(?:[A-Z]+-\d{3}\s+[—-]\s+)?(.+?)\s*$", markdown_body(path), re.MULTILINE)
     return match.group(1).strip() if match else ""
@@ -309,9 +436,12 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
     known: dict[str, Path] = {}
     for path in pages:
         data = front_matter(path)
+        relative = path.relative_to(ROOT)
+        if status_error := issue_page_status_error(relative, data):
+            report("ERROR", status_error, failures, warnings)
         issue_id = data.get("issue_id", "")
         if not ISSUE_ID_RE.fullmatch(issue_id):
-            report("ERROR", f"{path.relative_to(ROOT)} lacks a valid issue_id", failures, warnings)
+            report("ERROR", f"{relative} lacks a valid issue_id", failures, warnings)
             continue
         if issue_id != path.stem:
             report("ERROR", f"{path.relative_to(ROOT)} issue_id {issue_id} does not match filename", failures, warnings)
@@ -319,7 +449,6 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
             report("ERROR", f"duplicate issue page identifier {issue_id}", failures, warnings)
         known[issue_id] = path
         body = markdown_body(path)
-        relative = path.relative_to(ROOT)
         area = path.parents[1].name
         if issue_id.split("-", 1)[0] != area:
             report("ERROR", f"{relative} is stored under the wrong area directory", failures, warnings)
@@ -342,11 +471,18 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
                 failures,
                 warnings,
             )
-        if requires_workflow_hold_reason(data) and not data.get("workflow_hold_reason", "").strip():
+        implied_statuses = expected_project_workflow_status(data)
+        hold_status = next(iter(implied_statuses & {"deferred", "blocked"}), "")
+        missing_hold_components = project_status_reason_missing_components(
+            hold_status,
+            data,
+            "",
+        )
+        if missing_hold_components:
             report(
                 "WARNING",
-                f"issue page {relative} is Deferred / Parked but lacks nonblank "
-                "workflow_hold_reason metadata",
+                f"issue page {relative} has incomplete workflow_hold_reason metadata "
+                f"for {hold_status.title()}; missing {', '.join(missing_hold_components)}",
                 failures,
                 warnings,
             )
@@ -403,7 +539,6 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
         required_metadata = (
             "area_id",
             "title",
-            "status",
             "audit_score",
             "audit_status",
             "audit_last_type",
@@ -420,8 +555,6 @@ def check_issue_pages(failures: list[str], warnings: list[str]) -> dict[str, Pat
                 failures,
                 warnings,
             )
-        if data.get("status") and data.get("status") not in VALID_ISSUE_STATUSES:
-            report("ERROR", f"{issue_id} has invalid status {data.get('status')!r}", failures, warnings)
         try:
             score = int(data.get("audit_score", ""))
             if not 0 <= score <= 100:
@@ -1265,15 +1398,533 @@ def expected_project_workflow_status(metadata: dict[str, str]) -> set[str]:
     """Return workflow states that are unambiguously implied by canonical metadata."""
     status = metadata.get("status", "")
     return {
-        "awaiting-decision": {"awaiting decision"},
-        "awaiting-merits-adjudication": {"deferred / parked", "blocked"},
-        "deferred": {"deferred / parked"},
+        "awaiting-decision": {"human decision needed"},
+        "awaiting-merits-adjudication": {"blocked"},
+        "blocked": {"blocked"},
+        "deferred": {"deferred"},
     }.get(status, set())
 
 
 def requires_workflow_hold_reason(metadata: dict[str, str]) -> bool:
     """Return whether canonical status requires an explicit machine-readable hold reason."""
-    return "deferred / parked" in expected_project_workflow_status(metadata)
+    return bool({"deferred", "blocked"} & expected_project_workflow_status(metadata))
+
+
+def is_recognized_project_status(value: object) -> bool:
+    """Return whether a Project Status is part of the approved workflow vocabulary."""
+    return normalized_text(value) in PROJECT_WORKFLOW_STATUSES
+
+
+def project_status_requires_reason(value: object) -> bool:
+    """Return whether a workflow state needs a recorded rationale or decision question."""
+    return normalized_text(value) in PROJECT_STATUS_REASON_REQUIRED
+
+
+def meaningful_project_action(value: object) -> bool:
+    """Reject blank and placeholder values where a concrete Project next action is required."""
+    return normalized_text(value) not in {
+        "",
+        "-",
+        "n/a",
+        "none",
+        "not applicable",
+        "not recorded",
+        "null",
+        "tbd",
+        "unknown",
+    }
+
+
+def markdown_section_content(body: str, heading_patterns: tuple[str, ...]) -> str:
+    """Return the first substantive status-specific Markdown section."""
+    if not body:
+        return ""
+    headings = "|".join(f"(?:{pattern})" for pattern in heading_patterns)
+    for match in re.finditer(rf"(?im)^#{{1,6}}\s+(?:{headings})\s*$", body):
+        section = re.split(r"(?m)^#{1,6}\s+", body[match.end() :], maxsplit=1)[0]
+        section = re.sub(r"<!--.*?-->", "", section, flags=re.DOTALL)
+        section = re.sub(r"[\s>*_`#-]+", " ", section).strip()
+        if len(section) >= 20:
+            return section
+    return ""
+
+
+def matches_any(value: object, patterns: tuple[str, ...]) -> bool:
+    """Return whether normalized prose contains any required semantic marker."""
+    return any(re.search(pattern, normalized_text(value), re.IGNORECASE | re.DOTALL) for pattern in patterns)
+
+
+def monitoring_wrapper_missing_components(issue_body: str) -> tuple[str, ...]:
+    """Identify missing parts of an issue-level ``needs: monitoring`` explanation."""
+    body = str(issue_body or "")
+    missing: list[str] = []
+    for component in (
+        "watched matter",
+        "material relevance",
+        "reassessment trigger",
+        "checking method",
+    ):
+        labels = "|".join(MONITORING_COMPONENT_LABELS[component])
+        labeled = bool(
+            re.search(
+                rf"(?im)^(?:[-+*]\s+)?(?:\*\*|__)?"
+                rf"(?:{labels})\s*:(?:\*\*|__)?\s*\S.+$",
+                body,
+            )
+        )
+        if not labeled and not matches_any(body, MONITORING_NARRATIVE_PATTERNS[component]):
+            missing.append(component)
+    return tuple(missing)
+
+
+def external_review_action_missing_components(value: object) -> tuple[str, ...]:
+    """Require an External-review action to name both reviewer type and review scope."""
+    action = normalized_text(value)
+    if not meaningful_project_action(action):
+        return ("reviewer type", "review scope")
+
+    reviewer_type = bool(
+        re.search(
+            r"\b(?:reviewer type|reviewer|expert|specialist|professional|legislative counsel)\b",
+            action,
+        )
+        or re.search(
+            r"\bqualified\s+(?!external\b|outside\b|review\b|validation\b).{3,160}\breview\b",
+            action,
+        )
+        or re.search(
+            r"\bexternal\s+(?!review\b|validation\b).{3,100}\breview\b",
+            action,
+        )
+    )
+    review_scope = bool(
+        re.search(
+            r"\b(?:review scope|scope of (?:the )?review|focused on|including|covering|"
+            r"to (?:assess|evaluate|examine|test|validate)|review of)\b",
+            action,
+        )
+    )
+    missing: list[str] = []
+    if not reviewer_type:
+        missing.append("reviewer type")
+    if not review_scope:
+        missing.append("review scope")
+    return tuple(missing)
+
+
+def status_reason_text(
+    status: object,
+    metadata: dict[str, str],
+    issue_body: str,
+) -> str:
+    """Return the canonical hold or decision explanation available for validation."""
+    metadata_reason = str(metadata.get("workflow_hold_reason") or "").strip()
+    normalized_status = normalized_text(status)
+    reason_heading_patterns = {
+        "deferred": (
+            r"why (?:this )?is deferred",
+            r"deferral rationale",
+            r"reason for deferral",
+        ),
+        "blocked": (
+            r"why (?:this )?is blocked",
+            r"blocking reason",
+            r"blocker",
+        ),
+        "human decision needed": (
+            r"decision needed",
+            r"required decision",
+            r"question for (?:human )?decision",
+            r"issue-admission result",
+        ),
+    }
+    companion_heading_patterns = {
+        "deferred": (
+            r"reconsideration conditions?",
+            r"reconsideration date",
+            r"reassessment trigger",
+            r"when to reconsider",
+        ),
+        "blocked": (
+            r"unblock trigger",
+            r"condition for unblocking",
+            r"when work can resume",
+        ),
+    }
+    parts = [metadata_reason] if meaningful_project_action(metadata_reason) else []
+    reason_section = markdown_section_content(
+        issue_body,
+        reason_heading_patterns.get(normalized_status, ()),
+    )
+    if not reason_section:
+        reason_section = markdown_section_content(
+            issue_body,
+            (r"current disposition",),
+        )
+    if reason_section:
+        parts.append(reason_section)
+    companion_section = markdown_section_content(
+        issue_body,
+        companion_heading_patterns.get(normalized_status, ()),
+    )
+    if companion_section:
+        parts.append(companion_section)
+    return " ".join(parts)
+
+
+def project_status_reason_missing_components(
+    status: object,
+    metadata: dict[str, str],
+    issue_body: str,
+) -> tuple[str, ...]:
+    """Return missing status-specific explanation components."""
+    normalized_status = normalized_text(status)
+    if normalized_status not in PROJECT_STATUS_REASON_REQUIRED:
+        return ()
+    reason = status_reason_text(status, metadata, issue_body)
+    if not meaningful_project_action(reason):
+        return ("explanation or reason",)
+    if normalized_status == "deferred":
+        missing: list[str] = []
+        if not matches_any(reason, DEFERRED_REASON_PATTERNS):
+            missing.append("reason for postponement")
+        if not matches_any(reason, RECONSIDERATION_PATTERNS):
+            missing.append("reconsideration condition or date")
+        return tuple(missing)
+    if normalized_status == "blocked":
+        missing = []
+        if not matches_any(reason, BLOCKED_ACTION_PATTERNS):
+            missing.append("blocked action")
+        if not matches_any(reason, BLOCKED_PREREQUISITE_PATTERNS):
+            missing.append("indispensable prerequisite")
+        if not matches_any(reason, UNBLOCK_TRIGGER_PATTERNS):
+            missing.append("unblock trigger")
+        return tuple(missing)
+    return ()
+
+
+def project_status_reason_is_present(
+    status: object,
+    metadata: dict[str, str],
+    issue_body: str,
+) -> bool:
+    """Return whether all required explanation components are present."""
+    return not project_status_reason_missing_components(status, metadata, issue_body)
+
+
+def numeric_project_score(value: object) -> int | None:
+    """Return an integral Project score, or None when the field is blank or malformed."""
+    if value is None or normalized_text(value) == "":
+        return None
+    try:
+        number = float(str(value))
+    except ValueError:
+        return None
+    return int(number) if number.is_integer() else None
+
+
+def project_lifecycle_findings(
+    *,
+    kind: str,
+    object_id: str,
+    metadata: dict[str, str],
+    project_item: dict[str, object],
+    issue_body: str = "",
+) -> list[tuple[str, str]]:
+    """Return deterministic Project lifecycle contradictions and stale-state warnings."""
+    findings: list[tuple[str, str]] = []
+    normalized_kind = normalized_text(kind)
+    label = object_id or f"issue #{(project_item.get('content') or {}).get('number', '?')}"
+    status = normalized_text(project_item.get("status"))
+    development_level = normalized_text(project_item.get("development level"))
+    workstream = normalized_text(project_item.get("workstream"))
+    area = normalized_text(project_item.get("area"))
+    next_action = project_item.get("next audit")
+    score = numeric_project_score(project_item.get("score"))
+    foundation_status = normalized_text(metadata.get("foundation_status"))
+
+    if not status:
+        findings.append(("ERROR", f"Project item {label} lacks a Project Status"))
+    elif not is_recognized_project_status(status):
+        findings.append(
+            (
+                "ERROR",
+                f"Project item {label} has unknown Project Status {project_item.get('status')!r}",
+            )
+        )
+
+    expected_workstream = PROJECT_LIFECYCLE_WORKSTREAMS.get(normalized_kind)
+    if expected_workstream:
+        if not workstream:
+            findings.append(
+                (
+                    "ERROR",
+                    f"Project item {label} lacks a Workstream; {kind} items require "
+                    f"{expected_workstream!r}",
+                )
+            )
+        elif workstream != expected_workstream:
+            findings.append(
+                (
+                    "ERROR",
+                    f"Project Workstream for {label} is {project_item.get('workstream')!r}; "
+                    f"{kind} items require {expected_workstream!r}",
+                )
+            )
+
+    if normalized_kind in NONPROPOSAL_PROJECT_KINDS:
+        if not area:
+            findings.append(
+                (
+                    "ERROR",
+                    f"nonproposal Project item {label} lacks an Area",
+                )
+            )
+        if development_level:
+            findings.append(
+                (
+                    "ERROR",
+                    f"nonproposal Project item {label} has Development level "
+                    f"{project_item.get('development level')!r}; nonproposal items must leave it blank",
+                )
+            )
+    elif normalized_kind in {"proposal", "horizon"}:
+        if not development_level:
+            findings.append(
+                (
+                    "ERROR",
+                    f"active {kind} {label} lacks a Project Development level",
+                )
+            )
+        elif development_level not in PROJECT_DEVELOPMENT_LEVELS:
+            findings.append(
+                (
+                    "ERROR",
+                    f"active {kind} {label} has unknown Project Development level "
+                    f"{project_item.get('development level')!r}",
+                )
+            )
+        elif normalized_kind == "horizon" and development_level != "candidate":
+            findings.append(
+                (
+                    "ERROR",
+                    f"active horizon {label} has Development level "
+                    f"{project_item.get('development level')!r}; expected 'Candidate'",
+                )
+            )
+        elif normalized_kind == "proposal" and development_level == "candidate":
+            findings.append(
+                (
+                    "ERROR",
+                    f"active proposal {label} cannot use Development level 'Candidate'",
+                )
+            )
+
+    if score is not None:
+        if not 0 <= score <= 100:
+            findings.append(("ERROR", f"Project Score for {label} is outside 0-100"))
+        elif development_level in {"candidate", "admitted / undeveloped", "in development"} and score > 0:
+            findings.append(
+                (
+                    "ERROR",
+                    f"Project item {label} has score {score} but Development level "
+                    f"{project_item.get('development level')!r} is below Developed proposal",
+                )
+            )
+        elif development_level == "developed proposal" and score >= 75:
+            findings.append(
+                (
+                    "ERROR",
+                    f"Project item {label} has score {score} but remains below Review ready",
+                )
+            )
+        elif development_level in READY_PROJECT_DEVELOPMENT_LEVELS and score < 75:
+            findings.append(
+                (
+                    "ERROR",
+                    f"Project item {label} uses Development level "
+                    f"{project_item.get('development level')!r} with score {score}, below 75",
+                )
+            )
+
+    if normalized_kind == "proposal" and development_level == "in development":
+        if foundation_status == "pending":
+            findings.append(
+                (
+                    "ERROR",
+                    f"Project item {label} is In development while its recorded foundation is pending",
+                )
+            )
+        elif foundation_status != "approved":
+            findings.append(
+                (
+                    "WARNING",
+                    f"Project item {label} is In development without a recorded approved foundation; "
+                    "Elim must reconcile the four-criterion foundation record",
+                )
+            )
+    elif (
+        normalized_kind == "proposal"
+        and development_level in {"developed proposal", "review ready", "release candidate"}
+        and foundation_status == "pending"
+    ):
+        findings.append(
+            (
+                "ERROR",
+                f"Project item {label} has mature Development level "
+                f"{project_item.get('development level')!r} while its recorded foundation is pending",
+            )
+        )
+    elif (
+        normalized_kind == "proposal"
+        and development_level == "admitted / undeveloped"
+        and foundation_status == "approved"
+    ):
+        findings.append(
+            (
+                "WARNING",
+                f"Project item {label} retains Admitted / undeveloped after its foundation was approved; "
+                "Elim should reconcile the stale Development level",
+            )
+        )
+
+    if status in AUDIT_PROJECT_STATUSES:
+        if normalized_kind == "horizon":
+            findings.append(
+                (
+                    "ERROR",
+                    f"Project horizon {label} cannot use Status {project_item.get('status')!r}",
+                )
+            )
+        elif normalized_kind == "proposal" and development_level not in {
+            "developed proposal",
+            "review ready",
+            "release candidate",
+        }:
+            findings.append(
+                (
+                    "ERROR",
+                    f"Project proposal {label} uses Status {project_item.get('status')!r} "
+                    f"before reaching Developed proposal",
+                )
+            )
+        if not meaningful_project_action(next_action):
+            findings.append(
+                (
+                    "WARNING",
+                    f"Project item {label} uses Status {project_item.get('status')!r} "
+                    "but lacks a concrete Next audit",
+                )
+            )
+        elif not re.search(r"\b(?:t[0-4]|audit|review)\b", normalized_text(next_action)):
+            findings.append(
+                (
+                    "WARNING",
+                    f"Project item {label} uses Status {project_item.get('status')!r} "
+                    f"but Next audit {next_action!r} does not identify an audit or review",
+                )
+            )
+        if (
+            status == "audit in progress"
+            and metadata
+            and "in progress" not in normalized_text(metadata.get("audit_status"))
+        ):
+            findings.append(
+                (
+                    "WARNING",
+                    f"Project item {label} uses Status 'Audit in progress' but canonical "
+                    "audit_status does not record an audit in progress",
+                )
+            )
+
+    if status == "external review":
+        if normalized_kind != "proposal":
+            findings.append(
+                (
+                    "ERROR",
+                    f"nonproposal Project item {label} cannot use Status 'External review'",
+                )
+            )
+        elif development_level not in READY_PROJECT_DEVELOPMENT_LEVELS:
+            findings.append(
+                (
+                    "ERROR",
+                    f"Project proposal {label} uses Status 'External review' without a "
+                    "Review ready or Release candidate Development level",
+                )
+            )
+        if not meaningful_project_action(next_action):
+            findings.append(
+                (
+                    "WARNING",
+                    f"Project item {label} uses Status 'External review' but lacks a concrete Next audit",
+                )
+            )
+        elif missing_review_components := external_review_action_missing_components(next_action):
+            findings.append(
+                (
+                    "WARNING",
+                    f"Project item {label} uses Status 'External review' but Next audit "
+                    f"{next_action!r} does not record: {', '.join(missing_review_components)}",
+                )
+            )
+
+    if status == "publication approval":
+        if normalized_kind != "proposal" or development_level != "release candidate":
+            findings.append(
+                (
+                    "ERROR",
+                    f"Project item {label} uses Status 'Publication approval' without a "
+                    "proposal Release candidate Development level",
+                )
+            )
+        if not meaningful_project_action(next_action):
+            findings.append(
+                (
+                    "WARNING",
+                    f"Project item {label} uses Status 'Publication approval' but lacks a concrete Next audit",
+                )
+            )
+
+    if (
+        normalized_kind == "proposal"
+        and development_level != "candidate"
+        and re.search(r"\bissue[- ]admission\b", normalized_text(next_action))
+    ):
+        findings.append(
+            (
+                "WARNING",
+                f"Project proposal {label} has stale Issue-admission Next audit {next_action!r} "
+                "after admission",
+            )
+        )
+
+    if project_status_requires_reason(status):
+        missing_reason_components = project_status_reason_missing_components(
+            status,
+            metadata,
+            issue_body,
+        )
+        if missing_reason_components:
+            if missing_reason_components == ("explanation or reason",):
+                detail = (
+                    f"Project item {label} uses Status {project_item.get('status')!r} but lacks "
+                    "an explanation or reason in its canonical metadata or GitHub issue record"
+                )
+            else:
+                detail = (
+                    f"Project item {label} uses Status {project_item.get('status')!r} but "
+                    "has an incomplete explanation or reason; missing "
+                    f"{', '.join(missing_reason_components)}"
+                )
+            findings.append(
+                (
+                    "WARNING",
+                    detail,
+                )
+            )
+
+    return findings
 
 
 def check_github_synchrony(
@@ -1358,6 +2009,17 @@ def check_github_synchrony(
             if str(issue.get("state") or "").upper() != "OPEN":
                 report("ERROR", f"active {kind} GitHub issue #{number} is not open", failures, warnings)
             body = str(issue.get("body") or "")
+            if "needs: monitoring" in {label.casefold() for label in labels}:
+                missing_monitoring_components = monitoring_wrapper_missing_components(body)
+                if missing_monitoring_components:
+                    report(
+                        "WARNING",
+                        f"GitHub issue #{number} ({object_id or kind}) carries "
+                        "'needs: monitoring' but its wrapper is missing "
+                        f"{', '.join(missing_monitoring_components)}",
+                        failures,
+                        warnings,
+                    )
             if kind == "proposal" and canonical_url and canonical_url not in body:
                 report(
                     "ERROR",
@@ -1368,13 +2030,22 @@ def check_github_synchrony(
             if object_id and object_id not in body:
                 report("ERROR", f"GitHub issue #{number} body does not identify Object ID {object_id}", failures, warnings)
 
-        if not active_kind:
-            continue
         project_item = project_by_number.get(number)
-        if project_items is not None and not project_item:
+        if active_kind and project_items is not None and not project_item:
             report("ERROR", f"active {kind} GitHub issue #{number} is absent from Project {GITHUB_PROJECT_NUMBER}", failures, warnings)
             continue
         if not project_item:
+            continue
+        if normalized_text(kind) in PROJECT_LIFECYCLE_WORKSTREAMS:
+            for severity, message in project_lifecycle_findings(
+                kind=kind,
+                object_id=object_id or f"#{number_text}",
+                metadata=metadata,
+                project_item=project_item,
+                issue_body=str(issue.get("body") or "") if issue else "",
+            ):
+                report(severity, message, failures, warnings)
+        if not active_kind:
             continue
         project_content = project_item.get("content") or {}
         project_title = str(
@@ -1403,35 +2074,6 @@ def check_github_synchrony(
                     failures,
                     warnings,
                 )
-        project_level = normalized_text(project_item.get("development level"))
-        if not project_level:
-            report(
-                "ERROR",
-                f"active {kind} {object_id or '#' + number_text} lacks a Project Development level",
-                failures,
-                warnings,
-            )
-        elif project_level not in PROJECT_DEVELOPMENT_LEVELS:
-            report(
-                "ERROR",
-                f"active {kind} {object_id or '#' + number_text} has unknown Project Development level {project_item.get('development level')!r}",
-                failures,
-                warnings,
-            )
-        elif kind == "horizon" and project_level != "candidate":
-            report(
-                "ERROR",
-                f"active horizon {object_id or '#' + number_text} has Development level {project_item.get('development level')!r}; expected 'Candidate'",
-                failures,
-                warnings,
-            )
-        elif kind == "proposal" and project_level == "candidate":
-            report(
-                "ERROR",
-                f"active proposal {object_id or '#' + number_text} cannot use Development level 'Candidate'",
-                failures,
-                warnings,
-            )
         if not metadata or metadata.get("record_type") == "source-development":
             continue
         if metadata.get("audit_score"):
@@ -2493,6 +3135,18 @@ def parse_args() -> argparse.Namespace:
 def finding_category(message: str) -> str:
     lowered = message.lower()
     categories = (
+        (
+            "Lifecycle",
+            (
+                "project status",
+                "uses status",
+                "development level",
+                "project workstream",
+                "recorded foundation",
+                "next audit",
+                "issue-admission",
+            ),
+        ),
         ("Internal links", ("broken local link", "repository link", "orphaned markdown")),
         ("Sources and citations", ("source", "citation", "bibliograph")),
         ("GitHub records", ("github issue", "github pages", "project object", "registry", "deployment")),
@@ -2528,7 +3182,7 @@ def finding_attention_owner(message: str) -> str:
         "missing reason",
         "lacks a reason",
         "human approval",
-        "human decision",
+        "human-reserved decision",
         "human review required",
     )
     return "human" if any(signal in lowered for signal in human_signals) else "agent"
@@ -2557,6 +3211,9 @@ def structured_report(
     proposal_count: int,
     duration_seconds: float,
 ) -> dict[str, object]:
+    check_scope = front_matter_list(PROJECT_INTEGRITY_RUNBOOK, "checks_included")
+    if not check_scope:
+        raise RuntimeError("Project Integrity Bot runbook lacks checks_included configuration")
     findings = []
     for severity, messages in (("error", failures), ("warning", warnings)):
         for position, message in enumerate(messages, start=1):
@@ -2584,27 +3241,7 @@ def structured_report(
             "proposal_pages": proposal_count,
         },
         "duration_seconds": round(duration_seconds, 3),
-        "scope": [
-            "Issue and proposal structure",
-            "Area and topic routing",
-            "Internal repository links",
-            "Markdown heading anchors",
-            "Orphaned Markdown pages",
-            "Page metadata and heading hierarchy",
-            "Cross-issue reference links",
-            "GitHub record references",
-            "GitHub Issue and Project synchronization",
-            "GitHub Pages deployment synchronization",
-            "Source and citation catalogs",
-            "Research placement",
-            "Reader-facing language",
-            "Tool-interface conventions",
-            "Intake-workflow terminology",
-            "Publication-disposition metadata",
-            "Print-assembly configuration",
-            "Persistent-agent runbooks and runtime configuration",
-            "Structured-file and repository hygiene",
-        ],
+        "scope": check_scope,
         "findings": findings,
     }
 
@@ -2650,8 +3287,12 @@ def markdown_report(report_data: dict[str, object]) -> str:
                 message = str(finding.get("message", "Unspecified finding"))
                 lines.append(f"- **{severity}:** {message}")
             lines.append("")
-    lines.extend(["## Checks Included", ""])
-    lines.extend(f"- {item}" for item in report_data.get("scope", []))
+    lines.extend([
+        "## Checks Included",
+        "",
+        "The authoritative check inventory is maintained in the "
+        "[Project Integrity Bot runbook](../agents/PROJECT_INTEGRITY_BOT.md#checks-included).",
+    ])
     return "\n".join(lines).rstrip() + "\n"
 
 

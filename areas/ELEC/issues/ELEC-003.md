@@ -11,7 +11,7 @@ audit_status: "T4 publication-ready audit complete; external validation pending"
 audit_score: 77
 audit_last_type: "T4 publication-ready audit"
 audit_last_date: "2026-06-28"
-audit_next: "External validation / T4 follow-up"
+audit_next: "Qualified election-law, criminal-law, workplace-safety, and election-administration review focused on threat coverage, enforcement, implementation, and federalism; then a targeted follow-up internal review"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -166,7 +166,7 @@ Budget authority is likely required; no dollar estimate is assigned pending sour
 >
 > —
 >
-> **Internal Review Status:** Internal project review complete; external validation pending<br />**Last Internal Review:** Internal project review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** External validation / follow-up internal review<br />**Full Review History:** [ELEC-003 review history](ELEC-003.audit.md)
+> **Internal Review Status:** Internal project review complete; external validation pending<br />**Last Internal Review:** Internal project review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** Qualified election-law, criminal-law, workplace-safety, and election-administration review focused on threat coverage, enforcement, implementation, and federalism; then a targeted follow-up internal review<br />**Full Review History:** [ELEC-003 review history](ELEC-003.audit.md)
 
 ## Annotation
 

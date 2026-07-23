@@ -10,6 +10,27 @@ runtime_id: .github/workflows/project-integrity.yml
 execution_environment: github-actions
 log_path: framework/logs/AGENT_AUDIT_LOG.md
 current_report: framework/logs/PROJECT_INTEGRITY_REPORT.md
+checks_included:
+  - Issue and proposal structure
+  - Area and topic routing
+  - Internal repository links
+  - Markdown heading anchors
+  - Orphaned Markdown pages
+  - Page metadata and heading hierarchy
+  - Cross-issue reference links
+  - GitHub record references
+  - GitHub Issue and Project synchronization
+  - Lifecycle-field coherence and workflow explanations
+  - GitHub Pages deployment synchronization
+  - Source and citation catalogs
+  - Research placement
+  - Reader-facing language
+  - Tool-interface conventions
+  - Intake-workflow terminology
+  - Publication-disposition metadata
+  - Print-assembly configuration
+  - Persistent-agent runbooks and runtime configuration
+  - Structured-file and repository hygiene
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
 ---
@@ -23,6 +44,31 @@ It publishes a structured current feed and bounded history to `project-console-d
 The bot may replace only its dedicated disposable report proposal branch using lease-protected replacement and may open or refresh the corresponding pull request. It may never force-push `main`, a protected branch, a human-owned branch, or a shared working branch.
 
 Runtime authority is limited to `.github/workflows/project-integrity.yml`, `scripts/audit_project_consistency.py`, and the associated report/feed builders. Runtime drift from this runbook must fail validation.
+
+## Checks included
+
+The machine-readable `checks_included` list in this runbook is the authoritative
+plain-language inventory displayed by the Project Console. The checker’s
+published run scope must match it. Adding, removing, or materially redefining a
+check requires updating both the implementation and this list in the same
+reviewed change.
+
+The lifecycle-field check distinguishes two separate authorities. Every
+canonical issue page must carry a nonblank lowercase front-matter `status`
+using the canonical issue-page metadata vocabulary: `awaiting-decision`,
+`awaiting-merits-adjudication`, `blocked`, `candidate`, `deferred`,
+`developed`, `in-development`, or `retired`. Missing, blank, or non-standard
+values are findings. This page metadata is not the GitHub Project workflow
+`Status`.
+
+For active Project items, the bot also reports missing or non-standard
+workflow Status values, incoherent `Development level` and Status
+combinations, monitoring designations without the watched matter, material
+relevance, reassessment trigger, and checking method, and required
+`workflow_hold_reason` explanations that do not supply the status-specific
+content for `Deferred` or `Blocked`. It may identify a missing explanation or
+contradiction, but it must not invent the explanation, infer a substantive
+classification, change a Project field, or auto-repair the record.
 
 ## Inputs and permitted writes
 

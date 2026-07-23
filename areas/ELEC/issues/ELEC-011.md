@@ -14,7 +14,7 @@ audit_score: 77
 audit_status: "T4 external-review readiness audit complete; review ready for qualified external critique, but publication blockers remain"
 audit_last_type: "T4 publication and external-review readiness review"
 audit_last_date: "2026-07-04"
-audit_next: "Qualified election-law, voting-rights, technical, fiscal, stakeholder, and legislative-counsel review; state-specific algorithm-certification and implementation package; proposal-specific adoption evidence"
+audit_next: "Qualified review by election-law and voting-rights attorneys, redistricting-methodology and algorithm-audit specialists, state election administrators, fiscal analysts, affected stakeholders, and legislative counsel focused on state-specific algorithm certification, implementation and auditability, Voting Rights Act and constitutional safeguards, fiscal workload, and proposal-specific adoption evidence"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -152,7 +152,7 @@ Administrative workload and possible technology, data, public-hearing, commissio
 >
 > —
 >
-> **Internal Review Status:** External-review readiness review complete; review ready for qualified external critique, but publication blockers remain<br />**Last Internal Review:** publication and external-review readiness review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** Qualified election-law, voting-rights, technical, fiscal, stakeholder, and legislative-counsel review; state-specific algorithm-certification and implementation package; proposal-specific adoption evidence<br />**Full Review History:** [ELEC-011 review history](ELEC-011.audit.md)
+> **Internal Review Status:** External-review readiness review complete; review ready for qualified external critique, but publication blockers remain<br />**Last Internal Review:** publication and external-review readiness review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** Qualified review by election-law and voting-rights attorneys, redistricting-methodology and algorithm-audit specialists, state election administrators, fiscal analysts, affected stakeholders, and legislative counsel focused on state-specific algorithm certification, implementation and auditability, Voting Rights Act and constitutional safeguards, fiscal workload, and proposal-specific adoption evidence<br />**Full Review History:** [ELEC-011 review history](ELEC-011.audit.md)
 
 ## Annotation
 

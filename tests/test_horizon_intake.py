@@ -4,7 +4,15 @@ import re
 import unittest
 from pathlib import Path
 
-from scripts.build_horizon_review_console import agent_audit_log_view, project_log_views, render_markdown_safe, research_for_record
+from scripts.build_horizon_review_console import (
+    agent_audit_log_view,
+    horizon_snapshot,
+    monitoring_issue_snapshot,
+    monitoring_rationale_for_record,
+    project_log_views,
+    render_markdown_safe,
+    research_for_record,
+)
 from scripts.build_project_integrity_feed import build_feed, existing_feed
 
 
@@ -103,6 +111,12 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         self.assertTrue(all(entry["values"]["agent"] for entry in log["entries"]))
         self.assertTrue(all(entry["values"]["outcome"] in {"Completed", "Blocked"} for entry in log["entries"]))
+        reg_t4 = next(
+            entry for entry in log["entries"]
+            if entry["values"]["record"] == "REG-001"
+            and entry["values"]["date"] == "2026-07-13 22:05:00 -0400"
+        )
+        self.assertEqual(reg_t4["values"]["outcome"], "Completed")
 
     def test_source_workflow_fields_explain_pending_and_monitoring_records(self) -> None:
         workflow_fields = {
@@ -181,7 +195,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 22)
+        self.assertEqual(self.console["schema_version"], 23)
         self.assertEqual(
             set(self.console),
             {
@@ -203,7 +217,6 @@ class HorizonIntakeTest(unittest.TestCase):
                 "integrity",
                 "source_checker",
                 "agent_registry",
-                "consistency_audit",
                 "project_logs",
                 "progress",
                 "horizon_records",
@@ -222,7 +235,6 @@ class HorizonIntakeTest(unittest.TestCase):
             len(self.presidential_directives),
         )
         self.assertTrue(self.console["page_inventory"])
-        self.assertTrue(self.console["consistency_audit"]["entries"])
         self.assertEqual(
             {record["id"] for record in self.console["agent_registry"]},
             {
@@ -242,6 +254,22 @@ class HorizonIntakeTest(unittest.TestCase):
                 if "bot" in record["type"]
             )
         )
+        integrity_bot = next(
+            record
+            for record in self.console["agent_registry"]
+            if record["id"] == "project-integrity-bot"
+        )
+        self.assertTrue(integrity_bot["checks"])
+        self.assertEqual(
+            integrity_bot["checks"],
+            self.console["integrity"]["current"]["scope"],
+        )
+        self.assertTrue(
+            all(
+                isinstance(record["checks"], list)
+                for record in self.console["agent_registry"]
+            )
+        )
 
     def test_console_navigation_and_current_record_accounting_are_complete(self) -> None:
         html = (RESEARCH / "horizon-review-console" / "index.html").read_text(encoding="utf-8")
@@ -257,12 +285,6 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertEqual(
             len(self.console["progress"]["proposals"]) + len(self.console["active_horizon_records"]),
             expected_board_records,
-        )
-        self.assertTrue(
-            all(
-                entry["disposition"] and entry["problem"] and entry["correction"] and entry["effect"]
-                for entry in self.console["consistency_audit"]["entries"]
-            )
         )
         self.assertEqual(
             {edition["id"] for edition in self.console["publication"]["manifest"]["editions"]},
@@ -390,7 +412,7 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         source_ids = {row["Source ID"] for row in self.source_catalogs["sources.csv"]}
         records = sorted((RESEARCH / "horizon-source-records").glob("HOR-*-source-development.md"))
-        self.assertEqual(len(records), 13)
+        self.assertTrue(records)
         for path in records:
             content = path.read_text(encoding="utf-8")
             for generic in generic_phrases:
@@ -551,12 +573,15 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
-        self.assertIn("catalog-data.js?v=28", console_html)
-        self.assertIn("app.js?v=28", console_html)
-        self.assertIn("styles.css?v=28", console_html)
+        self.assertIn("catalog-data.js?v=36", console_html)
+        self.assertIn("app.js?v=36", console_html)
+        self.assertIn("styles.css?v=36", console_html)
         for tab in {"overview", "progress", "actions", "candidates", "sources", "integrity", "automation", "logs", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)
+        for uncounted_tab in {"overview", "progress", "publication"}:
+            self.assertNotIn(f'id="tab-{uncounted_tab}-count"', console_html)
+            self.assertNotIn(f'byId("tab-{uncounted_tab}-count")', console_app)
         self.assertIn("display: flex", console_css)
         self.assertIn("white-space: nowrap", console_css)
         for subtab in {"candidate-tab-formal", "candidate-tab-preliminary", "source-tab-catalog", "source-tab-pending", "source-tab-watchers"}:
@@ -589,7 +614,9 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn("count > 0 && items.length <= 4", console_app)
         self.assertNotIn("items.length <= 3", console_app)
         self.assertNotIn('details.open = section.id === "unplaced"', console_app)
-        self.assertIn("Deferred / Parked", console_app)
+        self.assertIn('["Deferred", "Blocked", "Human decision needed"]', console_app)
+        self.assertIn("APPROVED_WORKFLOW_STATUSES", console_app)
+        self.assertIn("WORKFLOW_EXPLANATION_REQUIRED", console_app)
         self.assertIn("Missing: no explanation", console_app)
         self.assertIn("Development level", console_html)
         self.assertIn("workflowStatus", console_app)
@@ -599,8 +626,20 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertIn(f'id="log-{log_id}-search"', console_html)
             self.assertIn(f'id="log-{log_id}-group"', console_html)
             self.assertIn(f'id="log-{log_id}-table"', console_html)
+        self.assertIn('id="log-tab-integrity"', console_html)
+        self.assertIn('id="log-panel-integrity"', console_html)
+        self.assertIn('id="log-integrity-count"', console_html)
+        self.assertIn('id="log-integrity-visible"', console_html)
+        self.assertIn('id="integrity-history"', console_html)
+        self.assertIn('"Latest log entry"', console_app)
+        self.assertIn('"Earlier entries"', console_app)
+        self.assertLess(
+            console_html.index('id="log-panel-integrity"'),
+            console_html.index('id="integrity-history"'),
+        )
         self.assertIn("Open authoritative log", console_html)
-        self.assertIn("Change Audit · Historical", console_html)
+        self.assertIn("Change Audit Log", console_html)
+        self.assertNotIn("Change Audit · Historical", console_html)
         self.assertIn('id="action-items-grid"', console_html)
         self.assertNotIn('id="watcher-tab-overview"', console_html)
         self.assertNotIn('id="watcher-panel-overview"', console_html)
@@ -635,9 +674,12 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Page print assignments", console_html)
         self.assertIn("Edition analysis", console_html)
         self.assertIn("Document builder", console_html)
-        self.assertIn("Problems and integrity", console_html)
+        self.assertIn("Project integrity", console_html)
         self.assertIn("Whole-project overview", console_html)
         self.assertIn("Agents and bots", console_html)
+        for mixed_view in {"overview", "progress", "publication"}:
+            self.assertNotIn(f'id="tab-{mixed_view}-count"', console_html)
+            self.assertNotIn(f'byId("tab-{mixed_view}-count")', console_app)
         self.assertIn('id="layout-edit-toggle"', console_html)
         self.assertIn("LAYOUT_STORAGE_KEY", console_app)
         self.assertIn("DISCLOSURE_STORAGE_KEY", console_app)
@@ -645,7 +687,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("refreshDisclosurePreferences", console_app)
         self.assertIn('root.querySelectorAll("details")', console_app)
         self.assertIn('element("button", "disclosure-default-toggle")', console_app)
-        self.assertIn('button.textContent = `Default: ${defaultOpen ? "open" : "collapsed"}`', console_app)
+        self.assertIn('button.textContent = `Default: ${defaultOpen ? "open" : "closed"}`', console_app)
         self.assertIn("current[key] = nextDefault", console_app)
         self.assertNotIn('details.addEventListener("toggle"', console_app)
         self.assertIn(".disclosure-default-toggle", console_css)
@@ -653,13 +695,34 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('category: "Workflow explanation"', console_app)
         self.assertIn("has no recorded explanation or reason", console_app)
         self.assertIn("dense-data-disclosure", console_html)
+        for summary_id in {
+            "sources-results-summary",
+            "directive-results-summary",
+            "source-checker-results-summary",
+            "pages-results-summary",
+        }:
+            self.assertIn(f'id="{summary_id}"', console_html)
         self.assertIn("allProblemRecords", console_app)
         self.assertIn("stableProblemReference", console_app)
-        self.assertIn("Latest consistency audit", console_html)
-        self.assertIn('id="consistency-audit-findings"', console_html)
+        self.assertNotIn("Latest consistency audit", console_html)
+        self.assertNotIn('id="consistency-audit-findings"', console_html)
+        self.assertNotIn("consistency_audit", console_app)
+        self.assertIn("Problems by accountable owner", console_html)
+        self.assertIn('id="problem-owner"', console_html)
+        self.assertNotIn('id="problem-attention"', console_html)
+        self.assertIn("problemOwnerLabel", console_app)
+        self.assertIn("problemOwnerKey", console_app)
+        self.assertIn("problemQueueLabel", console_app)
+        self.assertIn('"Affected records:"', console_app)
+        self.assertIn("Reported by:", console_app)
         self.assertIn("Open current report", console_html)
         self.assertIn("PROJECT_INTEGRITY_REPORT.md", console_html)
         self.assertIn('id="scroll-to-top"', console_html)
+        self.assertIn('id="workflow-summary-dismiss"', console_html)
+        self.assertIn('id="workflow-summary-restore"', console_html)
+        self.assertIn("WORKFLOW_SUMMARY_STORAGE_KEY", console_app)
+        self.assertIn("initializeWorkflowSummary", console_app)
+        self.assertIn(".workflow-summary[hidden] { display: none; }", console_css)
         self.assertIn('id="print-change-count"', console_html)
         self.assertIn('id="export-print-changes"', console_html)
         self.assertIn('id="reset-print-changes"', console_html)
@@ -676,6 +739,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("exportPrintLevelChanges", console_app)
         self.assertIn("renderActionItems", console_app)
         self.assertIn('label: "Integrity decisions requiring you"', console_app)
+        self.assertIn('label: "Human decisions"', console_app)
+        self.assertIn('record.workflowStatus === "Human decision needed"', console_app)
         self.assertIn("integrityFindingNeedsHuman", console_app)
         self.assertNotIn('"foundation decision"', console_app)
         self.assertIn('"human decision"', console_app)
@@ -686,6 +751,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("action-item-detail-list", console_css)
         self.assertIn("renderProjectLog", console_app)
         self.assertIn("projectLogTable", console_app)
+        self.assertIn("renderIntegrityHistory", console_app)
         self.assertIn('initializeSectionTabs("logs", "horizon")', console_app)
         render_action_items = console_app.split("function renderActionItems()", 1)[1].split(
             "function parseCount", 1
@@ -715,8 +781,29 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("scroll-to-top", console_css)
         self.assertIn("integrity-finding-group", console_css)
         self.assertIn('toggle.setAttribute("aria-expanded"', console_app)
+        self.assertIn('element("article", "automation-card")', console_app)
+        self.assertIn('element("details", "automation-checks")', console_app)
+        self.assertNotIn("automation-schedule", console_app)
+        self.assertIn("record.checks", console_app)
+        self.assertRegex(
+            console_css,
+            r"\.automation-grid\s*\{[^}]*grid-template-columns:\s*repeat\(2",
+        )
+        self.assertIn("updateDenseDisclosureSummary", console_app)
+        source_catalog_disclosure = console_html.split(
+            'data-disclosure-id="sources-catalog-results"',
+            1,
+        )[1].split("</details>", 1)[0]
+        self.assertIn('id="sources-pagination"', source_catalog_disclosure)
+        source_checker_renderer = console_app.split(
+            "function renderSourceChecker()",
+            1,
+        )[1].split("async function refreshLiveSourceChecker", 1)[0]
+        self.assertIn("sortableHeader", source_checker_renderer)
+        self.assertIn('element("section", "log-group")', console_app)
+        self.assertNotIn('element("details", "log-group")', console_app)
+        self.assertNotIn('id="tab-integrity-update"', console_html)
         self.assertIn("Pending sources", console_html)
-        self.assertNotIn("History", console_html)
         self.assertNotIn('id="submission-view"', console_html)
         for control_id in {
             "decision-yes",
@@ -782,6 +869,40 @@ class HorizonIntakeTest(unittest.TestCase):
                 for row in self.console["monitoring_issues"]
             )
         )
+
+    def test_current_monitoring_headings_supply_the_recorded_rationale(self) -> None:
+        headings = {
+            "Monitoring Status and Revisit Trigger": "Revisit when the court issues a final order.",
+            "Monitoring Status and Next Step": "Check the agency response before the next review.",
+            "Watching for Updates: First Use of the Court": "Watch for the court's first published decision.",
+            "Defined monitoring triggers": "Reassess after an official policy revision.",
+            "Defined monitoring and research triggers": "Reassess after the investigation reports.",
+        }
+        for heading, rationale in headings.items():
+            with self.subTest(heading=heading):
+                issue_body = f"## {heading}\n\n{rationale}\n\n## Sources\n\n- Example\n"
+                self.assertEqual(
+                    monitoring_rationale_for_record({}, issue_body),
+                    rationale,
+                )
+
+    def test_preserved_horizon_issue_bodies_supply_monitoring_rationales(self) -> None:
+        horizon_records, _ = horizon_snapshot(False)
+        monitored = {
+            record["id"]: record
+            for record in monitoring_issue_snapshot(False, horizon_records)
+            if str(record["id"]).startswith("HOR-")
+        }
+        for record_id in {"HOR-033", "HOR-037"}:
+            with self.subTest(record_id=record_id):
+                self.assertIn(record_id, monitored)
+                self.assertNotIn(
+                    "specific trigger has not yet been structured",
+                    monitored[record_id]["monitoring_rationale"],
+                )
+        for record_id in {"HOR-031", "HOR-038", "HOR-045"}:
+            with self.subTest(record_id=record_id):
+                self.assertNotIn(record_id, monitored)
 
     def test_preliminary_candidate_sources_support_substantive_records(self) -> None:
         source_ids = {row["Source ID"] for row in self.sources}

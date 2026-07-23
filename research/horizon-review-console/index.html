@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>ARRP Project Console</title>
     <meta name="description" content="Read-only ARRP project progress, candidate, source, monitoring, log, and print-planning console.">
-    <link rel="stylesheet" href="styles.css?v=28">
+    <link rel="stylesheet" href="styles.css?v=36">
   </head>
   <body data-interface-theme="arrp-tool">
     <a class="skip-link" href="#console-tabs">Skip to console tabs</a>
@@ -20,6 +20,7 @@
         </div>
       </div>
       <div class="header-tools" aria-label="Console preferences">
+        <button type="button" id="workflow-summary-restore" class="secondary" hidden>Show intro</button>
         <button type="button" id="layout-edit-toggle" aria-pressed="false">Arrange layout</button>
         <button type="button" id="layout-reset-view" class="secondary">Reset this view</button>
         <button type="button" id="layout-reset-all" class="secondary">Reset all</button>
@@ -27,7 +28,8 @@
     </header>
 
     <main class="app-shell">
-      <section class="workflow-summary" aria-labelledby="workflow-heading">
+      <section class="workflow-summary" id="workflow-summary" aria-labelledby="workflow-heading">
+        <button type="button" class="workflow-summary-dismiss" id="workflow-summary-dismiss" aria-label="Close introductory banner">×</button>
         <div>
           <span class="eyebrow">One read-only project workspace</span>
           <h2 id="workflow-heading">See what is complete, what needs review, and where every record belongs.</h2>
@@ -41,15 +43,15 @@
 
       <nav class="console-tabs" id="console-tabs" aria-label="Project console views">
         <div class="tab-list" role="tablist" aria-label="Project views">
-          <button type="button" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview" data-tab="overview">Overview <span class="tab-count" id="tab-overview-count">0</span></button>
-          <button type="button" id="tab-progress" role="tab" aria-selected="false" aria-controls="panel-progress" data-tab="progress" tabindex="-1">Progress <span class="tab-count" id="tab-progress-count">0</span></button>
+          <button type="button" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview" data-tab="overview">Overview</button>
+          <button type="button" id="tab-progress" role="tab" aria-selected="false" aria-controls="panel-progress" data-tab="progress" tabindex="-1">Progress</button>
           <button type="button" id="tab-actions" role="tab" aria-selected="false" aria-controls="panel-actions" data-tab="actions" tabindex="-1">Action Items <span class="tab-count" id="tab-actions-count">0</span></button>
           <button type="button" id="tab-candidates" role="tab" aria-selected="false" aria-controls="panel-candidates" data-tab="candidates" tabindex="-1">Candidates <span class="tab-count" id="tab-candidates-count">0</span><span class="tab-update-count" id="tab-candidates-update" hidden>0</span></button>
           <button type="button" id="tab-sources" role="tab" aria-selected="false" aria-controls="panel-sources" data-tab="sources" tabindex="-1">Sources <span class="tab-count" id="tab-sources-count">0</span><span class="tab-update-count" id="tab-sources-update" hidden>0</span></button>
-          <button type="button" id="tab-integrity" role="tab" aria-selected="false" aria-controls="panel-integrity" data-tab="integrity" tabindex="-1">Problems <span class="tab-count" id="tab-integrity-count">0</span><span class="tab-update-count" id="tab-integrity-update" hidden>0</span></button>
+          <button type="button" id="tab-integrity" role="tab" aria-selected="false" aria-controls="panel-integrity" data-tab="integrity" tabindex="-1">Integrity <span class="tab-count" id="tab-integrity-count">0</span></button>
           <button type="button" id="tab-automation" role="tab" aria-selected="false" aria-controls="panel-automation" data-tab="automation" tabindex="-1">Agents &amp; Bots <span class="tab-count" id="tab-automation-count">0</span></button>
           <button type="button" id="tab-logs" role="tab" aria-selected="false" aria-controls="panel-logs" data-tab="logs" tabindex="-1">Logs <span class="tab-count" id="tab-logs-count">0</span></button>
-          <button type="button" id="tab-publication" role="tab" aria-selected="false" aria-controls="panel-publication" data-tab="publication" tabindex="-1">Publication <span class="tab-count" id="tab-publication-count">0</span></button>
+          <button type="button" id="tab-publication" role="tab" aria-selected="false" aria-controls="panel-publication" data-tab="publication" tabindex="-1">Publication</button>
         </div>
       </nav>
 
@@ -245,10 +247,10 @@
         </div>
         <p class="result-count"><b id="sources-visible">0</b> sources match</p>
         <details class="dense-data-disclosure" data-disclosure-id="sources-catalog-results">
-          <summary><span>Catalog results</span><span class="disclosure-summary-detail">Large result set; open to inspect the current page</span></summary>
+          <summary><span>Catalog results</span><span class="disclosure-summary-detail" id="sources-results-summary">0 sources</span></summary>
           <div id="sources-table"></div>
+          <nav class="pagination" id="sources-pagination" aria-label="Sources pages"></nav>
         </details>
-        <nav class="pagination" id="sources-pagination" aria-label="Sources pages"></nav>
       </section>
       </div>
       <div class="section-panel" id="source-panel-pending" role="tabpanel" aria-labelledby="source-tab-pending" tabindex="0" hidden>
@@ -319,7 +321,7 @@
           </div>
           <p class="result-count"><b id="directive-visible">0</b> directives match</p>
           <details class="dense-data-disclosure" data-disclosure-id="sources-directive-results">
-            <summary><span>Directive results</span><span class="disclosure-summary-detail">Large result set; open to inspect the current page</span></summary>
+            <summary><span>Directive results</span><span class="disclosure-summary-detail" id="directive-results-summary">0 directives</span></summary>
             <div id="directive-table"></div>
             <nav class="pagination" id="directive-pagination" aria-label="Presidential directive pages"></nav>
           </details>
@@ -339,7 +341,7 @@
           </div>
           <p class="result-count"><b id="source-checker-visible">0</b> source checks match</p>
           <details class="dense-data-disclosure" data-disclosure-id="sources-source-checker-results">
-            <summary><span>Source-check results</span><span class="disclosure-summary-detail">Open the filtered URL inventory</span></summary>
+            <summary><span>Source-check results</span><span class="disclosure-summary-detail" id="source-checker-results-summary">0 source checks</span></summary>
             <div id="source-checker-table"></div>
           </details>
           <p class="method-note" id="source-checker-live-note">The checked-in snapshot refreshes from the published Console data branch when network access is available.</p>
@@ -353,41 +355,24 @@
           <div class="queue-view-header">
             <div>
               <span class="eyebrow">Complete exception inventory</span>
-              <h2 id="integrity-heading">Problems and integrity</h2>
-              <p>Every currently observable problem remains inspectable here, whether it needs you, belongs to an agent or bot, is being monitored, or is still awaiting classification. The Action Items screen is only the human-attention subset.</p>
+              <h2 id="integrity-heading">Project integrity</h2>
+              <p>Every currently observable problem remains inspectable here and is grouped by the person, agent, bot, or observation state accountable for its next step. The Action Items screen is only the human-attention subset.</p>
             </div>
-            <div class="integrity-run-note"><span id="integrity-status" class="status-badge">Awaiting first run</span><p>Last checked <time id="integrity-as-of">—</time></p></div>
+            <div class="integrity-run-note"><span id="integrity-status" class="status-badge">Awaiting first run</span><p>Integrity feed checked <time id="integrity-as-of">—</time></p></div>
           </div>
           <div class="integrity-metrics" id="integrity-metrics"></div>
           <div class="queue-controls problem-controls">
             <label for="problem-search">Search<input id="problem-search" type="search" placeholder="Reference, issue, category, owner, or explanation…"></label>
-            <label for="problem-attention">Responsibility<select id="problem-attention"><option value="all">All responsibilities</option><option value="human">Needs you</option><option value="agent">Agent-owned</option><option value="bot">Bot-owned</option><option value="observed">Observed</option></select></label>
+            <label for="problem-owner">Accountable owner<select id="problem-owner"><option value="all">All owners</option></select></label>
             <label for="problem-severity">Severity<select id="problem-severity"><option value="all">All severities</option><option value="error">Error</option><option value="warning">Warning</option><option value="info">Information</option></select></label>
             <label for="problem-status">State<select id="problem-status"><option value="all">All states</option></select></label>
           </div>
           <p class="result-count"><b id="problem-visible">0</b> problems shown</p>
-          <section class="consistency-audit-review" aria-labelledby="consistency-audit-heading">
-            <div class="section-heading-row">
-              <div>
-                <h3 id="consistency-audit-heading">Latest consistency audit</h3>
-                <p>Completed corrections and limitations, explained as problem, significance, action, effect, and remaining work.</p>
-              </div>
-              <div class="section-heading-actions"><a id="consistency-audit-link" class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/CURRENT_AUDIT.md#detailed-findings-and-corrections" target="_blank" rel="noopener noreferrer">Open audit handoff ↗</a></div>
-            </div>
-            <div id="consistency-audit-overview" class="consistency-audit-overview"></div>
-            <div id="consistency-audit-findings" class="consistency-audit-findings"></div>
-          </section>
           <div class="integrity-layout">
             <section aria-labelledby="integrity-findings-heading">
-              <div class="section-heading-row"><div><h3 id="integrity-findings-heading">All current problems</h3><p>Grouped by category with stable references, ownership, state, and direct links.</p></div><div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/PROJECT_INTEGRITY_REPORT.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/project-integrity.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div></div>
+              <div class="section-heading-row"><div><h3 id="integrity-findings-heading">Problems by accountable owner</h3><p>Each owner group states its complete count. Category, affected records, reporting source, state, severity, and direct links remain visible on each problem.</p></div><div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/PROJECT_INTEGRITY_REPORT.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/project-integrity.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div></div>
               <div id="integrity-findings"></div>
             </section>
-            <aside aria-labelledby="integrity-history-heading">
-              <h3 id="integrity-history-heading">Run history</h3>
-              <p class="muted">The most recent scheduled and manual runs, retained in the console data feed.</p>
-              <div id="integrity-history"></div>
-              <details class="integrity-scope"><summary>Checks included</summary><ul id="integrity-scope"></ul></details>
-            </aside>
           </div>
           <p class="method-note" id="integrity-live-note">The checked-in snapshot refreshes from the repository data branch when network access is available.</p>
         </section>
@@ -419,7 +404,8 @@
             <button type="button" id="log-tab-horizon" role="tab" aria-selected="true" aria-controls="log-panel-horizon" data-subtab-group="logs" data-subtab="horizon">Horizon Scan <span class="tab-count" id="log-horizon-count">0</span></button>
             <button type="button" id="log-tab-agents" role="tab" aria-selected="false" aria-controls="log-panel-agents" data-subtab-group="logs" data-subtab="agents" tabindex="-1">Agent Audit <span class="tab-count" id="log-agents-count">0</span></button>
             <button type="button" id="log-tab-source-monitor" role="tab" aria-selected="false" aria-controls="log-panel-source-monitor" data-subtab-group="logs" data-subtab="source-monitor" tabindex="-1">Source Monitor <span class="tab-count" id="log-source-monitor-count">0</span></button>
-            <button type="button" id="log-tab-changes" role="tab" aria-selected="false" aria-controls="log-panel-changes" data-subtab-group="logs" data-subtab="changes" tabindex="-1">Change Audit · Historical <span class="tab-count" id="log-changes-count">0</span></button>
+            <button type="button" id="log-tab-integrity" role="tab" aria-selected="false" aria-controls="log-panel-integrity" data-subtab-group="logs" data-subtab="integrity" tabindex="-1">Integrity Runs <span class="tab-count" id="log-integrity-count">0</span></button>
+            <button type="button" id="log-tab-changes" role="tab" aria-selected="false" aria-controls="log-panel-changes" data-subtab-group="logs" data-subtab="changes" tabindex="-1">Change Audit <span class="tab-count" id="log-changes-count">0</span></button>
           </div>
         </nav>
 
@@ -431,7 +417,7 @@
             </div>
             <div class="queue-controls"><label for="log-horizon-search">Search<input id="log-horizon-search" type="search" placeholder="Record, concern, disposition, route, or rationale…"></label><label for="log-horizon-group">Group by<select id="log-horizon-group"><option value="all">No grouping</option></select></label></div>
             <p class="result-count"><b id="log-horizon-visible">0</b> entries match</p>
-            <details class="dense-data-disclosure" data-disclosure-id="logs-horizon-results"><summary><span>Horizon log entries</span><span class="disclosure-summary-detail">Open the filtered log</span></summary><div id="log-horizon-table"></div></details>
+            <div id="log-horizon-table"></div>
           </section>
         </div>
 
@@ -443,7 +429,7 @@
             </div>
             <div class="queue-controls"><label for="log-agents-search">Search<input id="log-agents-search" type="search" placeholder="Issue, task, tier, agent, run, commit, or blocker…"></label><label for="log-agents-agent">Agent<select id="log-agents-agent"><option value="all">All agents</option></select></label><label for="log-agents-task">Task type<select id="log-agents-task"><option value="all">All task types</option></select></label><label for="log-agents-outcome">Outcome<select id="log-agents-outcome"><option value="all">All outcomes</option></select></label><label for="log-agents-group">Group by<select id="log-agents-group"><option value="all">No grouping</option></select></label></div>
             <p class="result-count"><b id="log-agents-visible">0</b> entries match</p>
-            <details class="dense-data-disclosure" data-disclosure-id="logs-agents-results"><summary><span>Agent audit entries</span><span class="disclosure-summary-detail">Open the filtered log</span></summary><div id="log-agents-table"></div></details>
+            <div id="log-agents-table"></div>
           </section>
         </div>
 
@@ -455,19 +441,31 @@
             </div>
             <div class="queue-controls"><label for="log-source-monitor-search">Search<input id="log-source-monitor-search" type="search" placeholder="Watcher, activity code, result, or affected record…"></label><label for="log-source-monitor-group">Group by<select id="log-source-monitor-group"><option value="all">No grouping</option></select></label></div>
             <p class="result-count"><b id="log-source-monitor-visible">0</b> entries match</p>
-            <details class="dense-data-disclosure" data-disclosure-id="logs-source-monitor-results"><summary><span>Source-monitor entries</span><span class="disclosure-summary-detail">Open the filtered log</span></summary><div id="log-source-monitor-table"></div></details>
+            <div id="log-source-monitor-table"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-integrity" role="tabpanel" aria-labelledby="log-tab-integrity" tabindex="0" hidden>
+          <section class="queue-view log-view" aria-labelledby="log-integrity-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Deterministic check history</span><h2 id="log-integrity-heading">Project Integrity Bot runs</h2><p>The bounded history of scheduled, push-triggered, and manual integrity runs. Current unresolved findings remain in Integrity; the runbook owns the check inventory.</p></div>
+              <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/agents/PROJECT_INTEGRITY_BOT.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/project-integrity.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div>
+            </div>
+            <div class="integrity-log-summary" id="integrity-log-summary"></div>
+            <span id="log-integrity-visible" hidden>0</span>
+            <div class="integrity-history-list" id="integrity-history"></div>
           </section>
         </div>
 
         <div class="section-panel" id="log-panel-changes" role="tabpanel" aria-labelledby="log-tab-changes" tabindex="0" hidden>
           <section class="queue-view log-view" aria-labelledby="log-changes-heading">
             <div class="queue-view-header">
-              <div><span class="eyebrow">Read-only historical record</span><h2 id="log-changes-heading">Change Audit Log <span class="status-badge historical">Historical</span></h2><p>Preserved project-wide methodology, structure, and consistency changes through July 20, 2026. Current durable rules live in their governing files.</p></div>
+              <div><span class="eyebrow">Method and consistency history</span><h2 id="log-changes-heading">Change Audit Log</h2><p>Project-wide methodology, structure, and consistency changes are tracked here. Current durable rules live in their governing files.</p></div>
               <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/CHANGE_AUDIT_LOG.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
             </div>
             <div class="queue-controls"><label for="log-changes-search">Search<input id="log-changes-search" type="search" placeholder="Date, change, scope, effect, or correction…"></label><label for="log-changes-group">Group by<select id="log-changes-group"><option value="all">No grouping</option></select></label></div>
             <p class="result-count"><b id="log-changes-visible">0</b> entries match</p>
-            <details class="dense-data-disclosure" data-disclosure-id="logs-changes-results"><summary><span>Change-log entries</span><span class="disclosure-summary-detail">Open the filtered log</span></summary><div id="log-changes-table"></div></details>
+            <div id="log-changes-table"></div>
           </section>
         </div>
       </section>
@@ -510,7 +508,7 @@
           </div>
           <p class="result-count"><b id="pages-visible">0</b> pages match</p>
           <details class="dense-data-disclosure" data-disclosure-id="publication-page-results">
-            <summary><span>Publication page inventory</span><span class="disclosure-summary-detail">Large result set; open to inspect assignments</span></summary>
+            <summary><span>Publication page inventory</span><span class="disclosure-summary-detail" id="pages-results-summary">0 pages</span></summary>
             <div id="pages-table"></div>
           </details>
         </section>
@@ -554,7 +552,7 @@
 
     <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
 
-    <script src="catalog-data.js?v=28"></script>
-    <script src="app.js?v=28"></script>
+    <script src="catalog-data.js?v=36"></script>
+    <script src="app.js?v=36"></script>
   </body>
 </html>

@@ -2,7 +2,7 @@
 area_id: A-08
 title: "Civil Service and Professional Administration"
 status: active
-issue_count: 4
+issue_count: 5
 print_levels:
   - public-proposal
   - executive-summary
@@ -20,6 +20,7 @@ The executive branch retains excessive practical capacity to convert career admi
 - **CIV-004 — Protection for Refusal of Unlawful Directives**
 - **CIV-005 — Federal Workforce Capacity and Anti-Hollowing**
 - [**CIV-009 — Repurposed technical units as cross-agency operational control mechanisms**](issues/CIV-009.md)
+- [**CIV-010 — Congressional Authorization for Secondary Use of Government-Held Personal Data**](issues/CIV-010.md)
 
 ## Prior Issue Numbers
 
@@ -42,6 +43,8 @@ These numbers were assigned during preliminary review but did not become separat
 
   HOR-008 is integrated into CIV-009 as a source-development manifestation rather than a new issue. Public reporting on a DOJ court filing described DOGE access to sensitive Social Security Administration data, alleged improper sharing with an advocacy group seeking evidence of voter fraud or election reversal, possible Hatch Act referrals, and use of an unauthorized third-party server. See The Guardian, [*Doge improperly shared sensitive social security data, DoJ court filing reveals*](https://www.theguardian.com/us-news/2026/jan/21/doge-social-security-data). The election-purpose allegation overlaps with [ELEC-001](../ELEC/issues/ELEC-001.md), but the primary institutional defect remains CIV-009: irregular cross-agency technical control over sensitive systems without ordinary privacy, records, appointment, delegation, and oversight safeguards.
 
+- **CIV-010** concerns the separate **purpose-authorization** question: whether an agency, cross-agency unit, or other federal actor may use government-held personal data for a materially different purpose that Congress did not explicitly authorize. The proposal transparently adopts a stronger policy rule than existing law necessarily supplies in full. Its selected vehicle is a government-wide Privacy Act amendment plus necessary conforming amendments to program-specific collection, retention, use, and disclosure statutes. CIV-009 continues to own who obtained access and under what institutional authority; CIV-010 owns what governmental purpose may be served with the data.
+
 ## Notes
 
-CIV-001 and CIV-005 are in development after consolidation. CIV-004 and CIV-009 remain unresolved candidates. Full source development and initial vehicles are pending.
+CIV-001, CIV-005, and CIV-010 are in development. CIV-004 and CIV-009 remain unresolved candidates. Full source development and initial vehicles remain pending where identified on the individual records.

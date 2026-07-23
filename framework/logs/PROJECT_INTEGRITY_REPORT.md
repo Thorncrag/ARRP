@@ -22,22 +22,4 @@ No repeatable integrity findings are currently reported.
 
 ## Checks Included
 
-- Issue and proposal structure
-- Area and topic routing
-- Internal repository links
-- Markdown heading anchors
-- Orphaned Markdown pages
-- Page metadata and heading hierarchy
-- Cross-issue reference links
-- GitHub record references
-- GitHub Issue and Project synchronization
-- GitHub Pages deployment synchronization
-- Source and citation catalogs
-- Research placement
-- Reader-facing language
-- Tool-interface conventions
-- Intake-workflow terminology
-- Publication-disposition metadata
-- Print-assembly configuration
-- Persistent-agent runbooks and runtime configuration
-- Structured-file and repository hygiene
+The authoritative check inventory is maintained in the [Project Integrity Bot runbook](../agents/PROJECT_INTEGRITY_BOT.md#checks-included).

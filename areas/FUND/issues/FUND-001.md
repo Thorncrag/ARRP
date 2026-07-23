@@ -13,7 +13,7 @@ audit_status: "T4 publication-ready audit complete; directive-funding source upd
 audit_score: 83
 audit_last_type: "Targeted source-adjudication Change Audit"
 audit_last_date: "2026-07-21"
-audit_next: "Qualified appropriations, federal-courts, budget, and legislative-counsel review; obtain NASA program-level apportionment, reprogramming, and obligation records"
+audit_next: "Qualified review by appropriations and administrative-law attorneys, a federal-courts attorney, OMB or GAO program-administration practitioners, a budget analyst, a national-security specialist, and legislative counsel focused on Impoundment Control Act and claim-channeling design, JUD-011 and standalone routes, NASA apportionment, reprogramming, obligation, and contract-termination records, deadline and workload effects, and current litigation"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -154,7 +154,7 @@ Budget authority is likely required. The standalone bill authorizes necessary OM
 >
 > —
 >
-> **Internal Review Status:** Internal project review complete; fiscal-scope and title revision reviewed; qualified review pending<br />**Last Internal Review:** Fiscal-scope and title targeted internal revision review (2026-07-15)<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Revision Review:** Current for the fiscal-scope framing, NASA manifestation, JUD-011 coverage, the standalone alternative, and both budget pathways<br />**Next Review:** Qualified appropriations, federal-courts, budget, and legislative-counsel review; obtain NASA program-level apportionment, reprogramming, and obligation records<br />**Full Review History:** [FUND-001 review history](FUND-001.audit.md)
+> **Internal Review Status:** Internal project review complete; fiscal-scope and title revision reviewed; qualified review pending<br />**Last Internal Review:** Fiscal-scope and title targeted internal revision review (2026-07-15)<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Revision Review:** Current for the fiscal-scope framing, NASA manifestation, JUD-011 coverage, the standalone alternative, and both budget pathways<br />**Next Review:** Qualified review by appropriations and administrative-law attorneys, a federal-courts attorney, OMB or GAO program-administration practitioners, a budget analyst, a national-security specialist, and legislative counsel focused on Impoundment Control Act and claim-channeling design, JUD-011 and standalone routes, NASA apportionment, reprogramming, obligation, and contract-termination records, deadline and workload effects, and current litigation<br />**Full Review History:** [FUND-001 review history](FUND-001.audit.md)
 
 ## Annotation
 

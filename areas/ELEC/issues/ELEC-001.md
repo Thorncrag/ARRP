@@ -11,7 +11,7 @@ audit_status: "T4 publication-ready audit complete; July 2026 targeted source an
 audit_score: 77
 audit_last_type: "Targeted source and remedy-fit review"
 audit_last_date: "2026-07-18"
-audit_next: "External validation / T4 follow-up"
+audit_next: "Qualified election-law, federalism, and state-election-administration review focused on federal-interference predicates, state remedies, implementation, and constitutional fit; then a targeted follow-up internal review"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current"
 change_audit_needed: false
@@ -145,7 +145,7 @@ Administrative workload is possible; no new appropriation is specified.
 >
 > —
 >
-> **Internal Review Status:** Internal project review complete; external validation pending<br />**Last Internal Review:** July 18, 2026 targeted source and remedy-fit review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** External validation / follow-up internal review<br />**Full Review History:** [ELEC-001 review history](ELEC-001.audit.md)
+> **Internal Review Status:** Internal project review complete; external validation pending<br />**Last Internal Review:** July 18, 2026 targeted source and remedy-fit review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current project standard<br />**Next Review:** Qualified election-law, federalism, and state-election-administration review focused on federal-interference predicates, state remedies, implementation, and constitutional fit; then a targeted follow-up internal review<br />**Full Review History:** [ELEC-001 review history](ELEC-001.audit.md)
 
 ## Annotation
 
