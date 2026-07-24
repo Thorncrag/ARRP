@@ -2,6 +2,7 @@ import csv
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import scripts.audit_project_consistency as consistency
@@ -12,6 +13,7 @@ from scripts.audit_project_consistency import (
     ROOT,
     active_project_files,
     check_agent_runbooks,
+    check_github_pages_deployment,
     check_issue_pages,
     external_review_action_missing_components,
     expected_project_development_level,
@@ -92,6 +94,93 @@ class GitHubIssueLinkTests(unittest.TestCase):
         check_agent_runbooks(failures, warnings)
 
         self.assertEqual(failures, [])
+        self.assertEqual(warnings, [])
+
+    def test_pages_in_flight_during_current_publish_grace_is_not_an_error(self):
+        failures: list[str] = []
+        warnings: list[str] = []
+        current_sha = "a" * 40
+        committed_at = int(consistency.datetime.now(consistency.timezone.utc).timestamp()) - 60
+
+        with (
+            patch.object(
+                consistency,
+                "run_gh_json",
+                side_effect=[
+                    ([{"id": 123, "sha": current_sha}], ""),
+                    ([{"state": "in_progress"}], ""),
+                ],
+            ),
+            patch.object(consistency, "git_revision", return_value=current_sha),
+            patch.object(
+                consistency.subprocess,
+                "run",
+                return_value=SimpleNamespace(stdout=str(committed_at)),
+            ),
+        ):
+            check_github_pages_deployment(failures, warnings)
+
+        self.assertEqual(failures, [])
+        self.assertEqual(warnings, [])
+
+    def test_pages_terminal_failure_is_an_error_during_publish_grace(self):
+        failures: list[str] = []
+        warnings: list[str] = []
+        current_sha = "b" * 40
+        committed_at = int(consistency.datetime.now(consistency.timezone.utc).timestamp()) - 60
+
+        with (
+            patch.object(
+                consistency,
+                "run_gh_json",
+                side_effect=[
+                    ([{"id": 124, "sha": current_sha}], ""),
+                    ([{"state": "failure"}], ""),
+                ],
+            ),
+            patch.object(consistency, "git_revision", return_value=current_sha),
+            patch.object(
+                consistency.subprocess,
+                "run",
+                return_value=SimpleNamespace(stdout=str(committed_at)),
+            ),
+        ):
+            check_github_pages_deployment(failures, warnings)
+
+        self.assertEqual(
+            failures,
+            ["ERROR: latest GitHub Pages deployment is not successful: failure"],
+        )
+        self.assertEqual(warnings, [])
+
+    def test_pages_in_flight_beyond_publish_grace_is_an_error(self):
+        failures: list[str] = []
+        warnings: list[str] = []
+        current_sha = "c" * 40
+        committed_at = int(consistency.datetime.now(consistency.timezone.utc).timestamp()) - 1801
+
+        with (
+            patch.object(
+                consistency,
+                "run_gh_json",
+                side_effect=[
+                    ([{"id": 125, "sha": current_sha}], ""),
+                    ([{"state": "queued"}], ""),
+                ],
+            ),
+            patch.object(consistency, "git_revision", return_value=current_sha),
+            patch.object(
+                consistency.subprocess,
+                "run",
+                return_value=SimpleNamespace(stdout=str(committed_at)),
+            ),
+        ):
+            check_github_pages_deployment(failures, warnings)
+
+        self.assertEqual(
+            failures,
+            ["ERROR: latest GitHub Pages deployment is not successful: queued"],
+        )
         self.assertEqual(warnings, [])
 
     def test_local_link_queries_do_not_change_filesystem_target(self):

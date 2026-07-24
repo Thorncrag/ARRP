@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: paused
+status: active
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Paused |
-| Active issue/task | JUD-009 — Targeted Change Audit and Internal Remedy-Fit Audit for chain `arrp-20260724T164658Z`. |
-| Audit type/tier | Targeted Change Audit and Internal Remedy-Fit Audit; non-tier |
-| Started | 2026-07-24 12:52:11 -0400 |
-| Last checkpoint | 2026-07-24 13:43:31 -0400 |
+| Status | Active |
+| Active issue/task | GitHub Pages deployment-status integrity reconciliation for chain `arrp-20260724T184907Z` and work unit `INTEGRITY-74de064841ba`. |
+| Audit type/tier | Project integrity; non-tier |
+| Started | 2026-07-24 14:55:29 -0400 |
+| Last checkpoint | 2026-07-24 14:58:03 -0400 |
 | User request | Verify the refreshed deterministic chain and process its highest-priority eligible work unit. |
-| Scope | `areas/JUD/issues/JUD-009.md`; `areas/JUD/issues/JUD-009.audit.md`; `legislation/JUD-009.md`; associated sources and synchronized GitHub/Project/Console fields. |
-| Files touched | `framework/logs/CURRENT_AUDIT.md` only. No JUD-009 issue, audit, legislation, source, score, lifecycle, Project, or publication record changed. |
-| Completed steps | Verified the clean synchronized chain, preserved inputs, clean Integrity and intake results, current Review Epoch, JUD-009 queue priority, complete context provenance, linked legislation, and usage reserve. Elim completed read-only legal, remedy-fit, and drafting investigation and identified possible bounded corrections, but its Codex turn and host dispatcher were interrupted before any correction, audit result, validation, run report, or synchronization was completed. The interrupted task and JSONL output are preserved as incomplete evidence. |
-| Next step | After the current interactive foundational-principle and dispatcher-recovery work is merged and the repository is clean, launch a fresh current chain. Revalidate the preserved JUD-009 leads against current primary sources and canonical files before applying any correction or completing the targeted Change Audit. |
-| Blockers/questions | The prior Elim invocation is failed and cannot be resumed from its stale usage snapshot or treated as a completed audit. |
-| Validation status | Paused after preflight and read-only investigation. No substantive result was applied or validated. |
+| Scope | `scripts/audit_project_consistency.py`; focused consistency tests; GitHub Pages deployment and workflow readback; `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/ELIM_RUN_LOG.md`; generated Project Console. |
+| Files touched | `framework/logs/CURRENT_AUDIT.md`. |
+| Completed steps | Verified chain identity, repository freshness, all five preserved deterministic inputs, the pinned queue and context hashes, complete provenance, bot statuses, current Review Epoch, and a fresh passing usage snapshot. Confirmed that the pinned Integrity error captured deployment `5593757158` while it was `in_progress`, but the deployment for exact current `main` SHA `5a38cf2d0d842357aafeaa96046cdc5ba0a436f3` and workflow run `30118386502` both completed successfully. |
+| Next step | Add and test a bounded grace rule so a current nonterminal Pages deployment is not reported as an integrity error during the normal push-triggered publication window, while terminal failures and deployments stuck beyond the existing 30-minute grace remain errors. |
+| Blockers/questions | None. |
+| Validation status | In progress. |
 
 ## Handoff Rules
 

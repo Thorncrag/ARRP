@@ -1662,3 +1662,27 @@ Prospective template:
 | Push status | Pushed and reconciled through pull request [#391](https://github.com/Thorncrag/ARRP/pull/391) after required checks passed. |
 | Rollback notes | Revert the context resolver and its two regression tests, then rebuild the Console. Do not alter JUD-009 because substantive audit work did not begin. |
 | Blockers/skipped checks | Elim's managed sandbox could not write canonical Git metadata, so JUD-009 substantive work did not begin. The approved host session resolved that mechanical closeout limit through pull request [#391](https://github.com/Thorncrag/ARRP/pull/391); no substantive JUD-009 work was repeated or added. |
+
+
+### 2026-07-24 — GitHub Pages deployment-status grace repair — integrity
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-24T14:58:03-04:00 |
+| Agent | elim |
+| Run ID | arrp-20260724T184907Z |
+| Unit ID | INTEGRITY-74de064841ba |
+| Trigger | Run Coordinator chain; pinned Integrity finding |
+| Task type | integrity |
+| Outcome | Completed |
+| Issue/task | GitHub Pages deployment-status grace repair |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | `scripts/audit_project_consistency.py`; `tests/test_project_consistency.py`; `framework/logs/CURRENT_AUDIT.md`; `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/ELIM_RUN_LOG.md`; generated Project Console data |
+| Validation | Verified every preserved chain input, queue, and context hash; read back Pages deployment `5593757158` and public-site workflow run `30118386502` as successful for exact current `main`; added focused coverage for in-flight, terminal-failure, and over-grace states; 31 focused consistency tests passed; authenticated consistency rerun reported 0 errors and 0 warnings across 64 issue pages and 41 proposal pages. |
+| Commit | This unit commit on `codex/elim-pages-status-grace`; final reviewed closeout recorded in the Elim Run Log. |
+| Push status | Reviewed push, pull request, merge, and post-merge readback pending closeout. |
+| Rollback notes | Revert the deployment-status grace logic and its three focused tests, then rebuild the Project Console. No issue, score, Project field, source, intake, or Review Epoch record changed. |
+| Blockers/skipped checks | None. The pinned error was a transient state captured while the exact current deployment was running; terminal failures remain immediate errors, and nonterminal deployments become errors after the existing 30-minute publication grace. |
