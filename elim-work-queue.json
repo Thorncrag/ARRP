@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T20:51:18+00:00",
-  "repository_revision": "c2ee287497f592718d858ae3263f2debb931a8fb",
+  "generated_at": "2026-07-24T21:03:00+00:00",
+  "repository_revision": "da5e2cdb85c8d1d04a98b4165278c73636ffd2e4",
   "ready_for_elim": true,
   "launch_recommended": true,
   "problems": [],
   "counts": {
-    "total": 54,
-    "elim_eligible": 54,
+    "total": 53,
+    "elim_eligible": 53,
     "human": 0,
     "safety": 0
   },
@@ -20,37 +20,37 @@
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/integrity.json",
-      "sha256": "b62c2b17bf08336c4898038f3a9a2a156e80254930523c33b139f90df78ed843",
-      "bytes": 1478,
-      "modified_at": "2026-07-24T20:51:18+00:00",
-      "reported_at": "2026-07-24T20:50:57+00:00"
+      "sha256": "44d1b29f060164cd1e6aa0f1ae0d33c6a9d5df61ecfc73aa32f2eb41d1d71942",
+      "bytes": 1142,
+      "modified_at": "2026-07-24T21:03:00+00:00",
+      "reported_at": "2026-07-24T21:02:43+00:00"
     },
     "progress": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/progress.json",
-      "sha256": "d01f3be912fa13c9b0cdd98d3fb6d79b05f43be672eaa7892bb76968e08973bb",
+      "sha256": "903a636ba44bf10eafc755035730ad5991f1148f1e491a22bba41b3f57639835",
       "bytes": 161986,
-      "modified_at": "2026-07-24T20:51:18+00:00",
-      "reported_at": "2026-07-24T20:50:13+00:00"
+      "modified_at": "2026-07-24T21:02:59+00:00",
+      "reported_at": "2026-07-24T21:02:03+00:00"
     },
     "intake": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/intake.json",
-      "sha256": "79ce76b2ed4df0d649b823c73766b4983c7707c7656623aee9d58b08066d56a3",
+      "sha256": "263715186556e7ea0b69f1c4da329c7443d9e657ff96e059338a10e6fc3dfaba",
       "bytes": 241,
-      "modified_at": "2026-07-24T20:51:18+00:00",
-      "reported_at": "2026-07-24T20:50:26+00:00"
+      "modified_at": "2026-07-24T21:03:00+00:00",
+      "reported_at": "2026-07-24T21:02:16+00:00"
     },
     "chain": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/chain.json",
-      "sha256": "2937d291a1a97c2dd48c5151bd8cde259d5a76aca28b0caded12eb1bf1250cc3",
+      "sha256": "1a24ae2da82e29649102166a39e51069bd701b00236087053cb72943e6fea288",
       "bytes": 8049,
-      "modified_at": "2026-07-24T20:51:18+00:00",
-      "reported_at": "2026-07-24T20:51:17+00:00"
+      "modified_at": "2026-07-24T21:03:00+00:00",
+      "reported_at": "2026-07-24T21:02:59+00:00"
     },
     "recovery": {
       "required": false,
@@ -61,53 +61,27 @@
       "required": false,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/review-epoch.json",
-      "sha256": "64f021afa8c709dd52ad8a557ca45af5bb2948b855c9271b57385c55d3161523",
+      "sha256": "b8f7d654731c248d952630a6f943bc3b41618fdb257ae03af96e3b8dc1a735f9",
       "bytes": 307,
-      "modified_at": "2026-07-24T20:51:18+00:00",
-      "reported_at": "2026-07-24T20:51:17+00:00"
+      "modified_at": "2026-07-24T21:03:00+00:00",
+      "reported_at": "2026-07-24T21:02:59+00:00"
     }
   },
   "revision_evidence": {
-    "chain": "c2ee287497f592718d858ae3263f2debb931a8fb",
-    "integrity": "c2ee287497f592718d858ae3263f2debb931a8fb"
+    "chain": "da5e2cdb85c8d1d04a98b4165278c73636ffd2e4",
+    "integrity": "da5e2cdb85c8d1d04a98b4165278c73636ffd2e4"
   },
   "intake_cursor": {
     "last_processed_id": null,
     "pending_flag": false
   },
   "review_epoch": {
-    "epoch_id": "epoch-arrp-20260724T204958Z",
+    "epoch_id": "epoch-arrp-20260724T210147Z",
     "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
     "next_due_at": "2026-08-07T15:40:02+00:00",
     "unresolved_ids": []
   },
   "items": [
-    {
-      "id": "INTEGRITY-052a1d6d7b11",
-      "kind": "integrity",
-      "title": "1 cited-catalog source row(s) lack a machine-detectable Markdown citation; reconcile before treating them as confirmed citations (for example: SRC-0227)",
-      "owner": "agent",
-      "eligible_for_elim": true,
-      "requires_human": false,
-      "safety_class": 1,
-      "base_priority": 800,
-      "age_days": 0,
-      "fairness_boost": 0,
-      "priority_score": 800,
-      "reason": "warning integrity finding",
-      "source": {
-        "input": "integrity",
-        "finding": {
-          "id": "warning-0001",
-          "severity": "warning",
-          "category": "Sources and citations",
-          "attention": "agent",
-          "message": "1 cited-catalog source row(s) lack a machine-detectable Markdown citation; reconcile before treating them as confirmed citations (for example: SRC-0227)",
-          "path": ""
-        }
-      },
-      "recovery": null
-    },
     {
       "id": "ISSUE-AUDIT-d0c0d75d2729",
       "kind": "issue_audit",
