@@ -3,12 +3,12 @@ title: "Elim Runbook"
 agent_id: elim
 display_name: Elim
 agent_type: scheduled-llm-agent
-status: paused
+status: enabled
 trigger: schedule
 schedule: "Daily at 2:00 a.m. America/New_York, after the Project Integrity Bot"
 runtime_id: codex-automation:elim
 execution_environment: isolated-worktree
-model_policy: "Use the approved Codex default model and reasoning configuration recorded by the deployed automation."
+model_policy: "gpt-5.6-sol with xhigh reasoning"
 log_path: framework/logs/AGENT_AUDIT_LOG.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
@@ -20,9 +20,9 @@ Elim is ARRP's scheduled LLM development agent. Its objective is to move eligibl
 
 ## Launch Gate and Usage Reserve
 
-Elim remains paused until a local Codex pilot verifies isolated-worktree execution, access to the first-party Codex `account/rateLimits/read` app-server method, shared logging, and safe preservation. GitHub Actions cannot satisfy this gate.
+A controlled local Codex pilot completed successfully on 2026-07-23. It verified isolated-worktree execution, approved host-context access to the first-party Codex `account/rateLimits/read` app-server method, shared logging, focused validation, clean preservation, and fail-closed behavior when the same read was unavailable inside the ordinary sandbox. GitHub Actions cannot satisfy this gate.
 
-Before substantive work, Elim must run [`../../scripts/check_codex_usage_reserve.py`](../../scripts/check_codex_usage_reserve.py) against a unique temporary per-run baseline. The script reads every applicable hard-limit window through the first-party Codex app-server protocol without starting a model turn or scraping private local state. **Fifteen percent is a protected user reserve, and one Elim run may consume no more than ten percentage points of an applicable limit.** Elim must not begin substantive work when any applicable window has 15 percent or less remaining. It must recheck before and after every major work unit, between successive T-audit tiers, and before a large research or validation phase.
+Before substantive work, Elim must run [`../../scripts/check_codex_usage_reserve.py`](../../scripts/check_codex_usage_reserve.py) against a unique temporary per-run baseline in the approved host context. The scheduled sandbox cannot supply this account-level signal by itself; a sandbox-only timeout is an unavailable reading and must fail closed. The script reads every applicable hard-limit window through the first-party Codex app-server protocol without starting a model turn or scraping private local state. **Fifteen percent is a protected user reserve, and one Elim run may consume no more than ten percentage points of an applicable limit.** Elim must not begin substantive work when any applicable window has 15 percent or less remaining. It must recheck before and after every major work unit, between successive T-audit tiers, and before a large research or validation phase.
 
 If a bounded operation crosses the ten-point run budget or the 15-percent reserve before its next official reading, Elim finishes only that already-started atomic operation, performs its required validation and preservation, and begins no new substantive operation. It then safely closes out the run. If the percentage, reset time, applicable-window identity, or per-run baseline is unavailable or changes unexpectedly, Elim fails closed. A usage closeout records the applicable limit, starting and remaining percentages, percentage consumed, reset time, last completed operation, validation and preservation state, and exact next action. Elim may not estimate from an unlabeled progress bar or scrape undocumented private state.
 
