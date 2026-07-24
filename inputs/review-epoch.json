@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T15:31:43+00:00",
-  "epoch_id": "epoch-arrp-20260724T153028Z",
-  "baseline_revision": "f74d50318e815eae49b51f7194a324eff957d932",
-  "last_completed_at": null,
-  "next_due_at": "2026-07-24T15:30:28+00:00",
+  "generated_at": "2026-07-24T16:04:39+00:00",
+  "epoch_id": "epoch-arrp-20260724T160209Z",
+  "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
+  "last_completed_at": "2026-07-24T15:40:02+00:00",
+  "next_due_at": "2026-08-07T15:40:02+00:00",
   "unresolved_ids": []
 }
