@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260724T164658Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30110382388",
+  "chain_id": "arrp-20260724T184907Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30118386711",
   "trigger": "push",
-  "created_at": "2026-07-24T16:46:58+00:00",
-  "updated_at": "2026-07-24T16:48:31+00:00",
+  "created_at": "2026-07-24T18:49:07+00:00",
+  "updated_at": "2026-07-24T18:50:17+00:00",
   "status": "complete",
-  "baseline_commit": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
+  "baseline_commit": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
   "resume": {
     "count": 0,
     "from_run_id": null
@@ -16,12 +16,12 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260724T164658Z"
+    "owner_chain_id": "arrp-20260724T184907Z"
   },
   "repository": {
     "branch": "main",
-    "head": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
-    "origin_main": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
+    "head": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
+    "origin_main": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
     "clean": true,
     "dirty_paths": [],
     "dirty_path_count": 0,
@@ -74,7 +74,7 @@
       "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T16:46:58+00:00",
+      "completed_at": "2026-07-24T18:49:07+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -90,7 +90,7 @@
       "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T16:46:58+00:00",
+      "completed_at": "2026-07-24T18:49:07+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -106,7 +106,7 @@
       "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T16:46:58+00:00",
+      "completed_at": "2026-07-24T18:49:07+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -122,15 +122,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-24T16:48:30+00:00",
-      "last_success_at": "2026-07-24T16:48:30+00:00",
+      "completed_at": "2026-07-24T18:50:16+00:00",
+      "last_success_at": "2026-07-24T18:50:16+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:2a5b154f112637361914ab9b4567806ebe9e6fc90fdf3fa9793a599f352136c4"
+        "sha256": "sha256:c543392318ab1cd773cb956cda96621e6bce73c0f1c84b3c7deb1803e1b9e73c"
       },
       "work_count": 0
     },
@@ -142,15 +142,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-24T16:48:30+00:00",
-      "last_success_at": "2026-07-24T16:48:30+00:00",
+      "completed_at": "2026-07-24T18:50:16+00:00",
+      "last_success_at": "2026-07-24T18:50:16+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:60b0444a8f29cec006fbde5ad7bdecc79671a6c6fc5734b66953b4859b3257fb"
+        "sha256": "sha256:3ccec51164dd95e215c0599798f24d6e12008326a55a429c578ccaf19408160d"
       },
       "work_count": 0
     },
@@ -162,27 +162,27 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-24T16:48:30+00:00",
-      "last_success_at": "2026-07-24T16:48:30+00:00",
+      "completed_at": "2026-07-24T18:50:16+00:00",
+      "last_success_at": "2026-07-24T18:50:16+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:2d4b4e338be5a186eb34bcaa77bdf777719491a7245e30079cc163d8382d3df3"
+        "sha256": "sha256:b0081de865dbdb77fdbd8666f2ad7a1e14f925ad01248e5383a1bb55f39461d9"
       },
-      "work_count": 0
+      "work_count": 1
     }
   ],
   "failures": [],
   "degradations": [],
   "queue_counts": {
-    "integrity": 0,
+    "integrity": 1,
     "monitoring": 0,
     "sources": 0,
     "intake": 0,
-    "total": 54
+    "total": 55
   },
   "elim_decision": {
     "launch_recommended": false,
@@ -216,8 +216,8 @@
   },
   "next_action": "No Elim launch; wait for the next trigger.",
   "action_items": [],
-  "completed_at": "2026-07-24T16:48:30+00:00",
-  "final_revision": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
+  "completed_at": "2026-07-24T18:50:16+00:00",
+  "final_revision": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
   "bots": [
     {
       "id": "case-monitor-bot",
@@ -225,7 +225,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T16:46:58+00:00",
+      "completed_at": "2026-07-24T18:49:07+00:00",
       "error": null
     },
     {
@@ -234,7 +234,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T16:46:58+00:00",
+      "completed_at": "2026-07-24T18:49:07+00:00",
       "error": null
     },
     {
@@ -243,7 +243,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T16:46:58+00:00",
+      "completed_at": "2026-07-24T18:49:07+00:00",
       "error": null
     },
     {
@@ -252,7 +252,7 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-24T16:48:30+00:00",
+      "completed_at": "2026-07-24T18:50:16+00:00",
       "error": null
     },
     {
@@ -261,55 +261,58 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-24T16:48:30+00:00",
+      "completed_at": "2026-07-24T18:50:16+00:00",
       "error": null
     }
   ],
   "work_queue": {
     "path": "project-console-data:elim-work-queue.json",
-    "sha256": "sha256:a19255f9ed403e2de879dad129bcc0cdbd0384bb4237f8f60e079abb2c461241",
+    "sha256": "sha256:7b66abf5a39821e195a093acf546a7ecaa072ab3134c0a09c80ac4d4b23c2b46",
     "ready_for_elim": true,
     "launch_recommended": true,
     "counts": {
-      "total": 54,
-      "elim_eligible": 54,
+      "total": 55,
+      "elim_eligible": 55,
       "human": 0,
-      "safety": 0
+      "safety": 1
     },
     "problems": [],
     "next_item": {
-      "id": "CHANGE-AUDIT-77bd98919be7",
-      "kind": "change_audit",
-      "title": "JUD-009: Targeted Change Audit and Internal Remedy-Fit Audit",
+      "id": "INTEGRITY-74de064841ba",
+      "kind": "integrity",
+      "title": "latest GitHub Pages deployment is not successful: in_progress",
       "owner": "agent",
       "eligible_for_elim": true,
       "requires_human": false,
-      "safety_class": 1,
-      "base_priority": 700,
-      "age_days": 26,
-      "fairness_boost": 26,
-      "priority_score": 726,
-      "reason": "explicit workflow route: audit needed",
+      "safety_class": 0,
+      "base_priority": 900,
+      "age_days": 0,
+      "fairness_boost": 0,
+      "priority_score": 900,
+      "reason": "error integrity finding",
       "source": {
-        "input": "progress",
-        "identifier": "JUD-009",
-        "canonical_record": "areas/JUD/issues/JUD-009.md",
-        "workflow_status": "Audit needed",
-        "development_level": "Review ready",
-        "next_audit": "Targeted Change Audit and Internal Remedy-Fit Audit"
+        "input": "integrity",
+        "finding": {
+          "id": "error-0001",
+          "severity": "error",
+          "category": "GitHub records",
+          "attention": "agent",
+          "message": "latest GitHub Pages deployment is not successful: in_progress",
+          "path": ""
+        }
       },
       "recovery": null
     }
   },
   "context_packet": {
     "path": "project-console-data:elim-context.json",
-    "sha256": "sha256:7a8e0cc50d1611b7bbc6666fb54adef642ea9f1930261a40a3dff9208cb7b58a",
-    "profile": "change_audit",
-    "repository_revision": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
+    "sha256": "sha256:9b85b3be9488f45186758f87d2a747c389ec923aa97ffdf362ff38998ed06073",
+    "profile": "integrity_reconciliation",
+    "repository_revision": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
     "provenance_complete": true,
     "limits": {
-      "max_bytes": 180000,
-      "actual_bytes": 128630
+      "max_bytes": 90000,
+      "actual_bytes": 38936
     }
   }
 }

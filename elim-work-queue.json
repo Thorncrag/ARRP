@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T16:48:31+00:00",
-  "repository_revision": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
+  "generated_at": "2026-07-24T18:50:16+00:00",
+  "repository_revision": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
   "ready_for_elim": true,
   "launch_recommended": true,
   "problems": [],
   "counts": {
-    "total": 54,
-    "elim_eligible": 54,
+    "total": 55,
+    "elim_eligible": 55,
     "human": 0,
-    "safety": 0
+    "safety": 1
   },
   "fairness_policy": {
     "rule": "priority_score = base_priority + min(age_days, 365)",
@@ -20,37 +20,37 @@
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/integrity.json",
-      "sha256": "2d4b4e338be5a186eb34bcaa77bdf777719491a7245e30079cc163d8382d3df3",
-      "bytes": 1143,
-      "modified_at": "2026-07-24T16:48:31+00:00",
-      "reported_at": "2026-07-24T16:48:15+00:00"
+      "sha256": "b0081de865dbdb77fdbd8666f2ad7a1e14f925ad01248e5383a1bb55f39461d9",
+      "bytes": 1377,
+      "modified_at": "2026-07-24T18:50:16+00:00",
+      "reported_at": "2026-07-24T18:49:58+00:00"
     },
     "progress": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/progress.json",
-      "sha256": "2a5b154f112637361914ab9b4567806ebe9e6fc90fdf3fa9793a599f352136c4",
+      "sha256": "c543392318ab1cd773cb956cda96621e6bce73c0f1c84b3c7deb1803e1b9e73c",
       "bytes": 161812,
-      "modified_at": "2026-07-24T16:48:31+00:00",
-      "reported_at": "2026-07-24T16:47:14+00:00"
+      "modified_at": "2026-07-24T18:50:16+00:00",
+      "reported_at": "2026-07-24T18:49:20+00:00"
     },
     "intake": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/intake.json",
-      "sha256": "60b0444a8f29cec006fbde5ad7bdecc79671a6c6fc5734b66953b4859b3257fb",
+      "sha256": "3ccec51164dd95e215c0599798f24d6e12008326a55a429c578ccaf19408160d",
       "bytes": 241,
-      "modified_at": "2026-07-24T16:48:31+00:00",
-      "reported_at": "2026-07-24T16:47:32+00:00"
+      "modified_at": "2026-07-24T18:50:16+00:00",
+      "reported_at": "2026-07-24T18:49:31+00:00"
     },
     "chain": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/chain.json",
-      "sha256": "bbaf08dd38494dff14da90b637ee7639b2594667bf4aa527ce7d44d2d568be22",
+      "sha256": "78f48ee8fd83b8a00cebd7ba69b50b3e0a48baf974770db16f86655f29b2620f",
       "bytes": 8049,
-      "modified_at": "2026-07-24T16:48:31+00:00",
-      "reported_at": "2026-07-24T16:48:30+00:00"
+      "modified_at": "2026-07-24T18:50:16+00:00",
+      "reported_at": "2026-07-24T18:50:16+00:00"
     },
     "recovery": {
       "required": false,
@@ -61,27 +61,53 @@
       "required": false,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/review-epoch.json",
-      "sha256": "aed18652a882f1a6b6e3b79b1e516976a092b16f0f5aeaaba16d1cd4598db4a2",
+      "sha256": "7b70059dc29c7c22bbbd20870505881720befdeede3e683d64630bae2a5e1115",
       "bytes": 307,
-      "modified_at": "2026-07-24T16:48:31+00:00",
-      "reported_at": "2026-07-24T16:48:30+00:00"
+      "modified_at": "2026-07-24T18:50:16+00:00",
+      "reported_at": "2026-07-24T18:50:16+00:00"
     }
   },
   "revision_evidence": {
-    "chain": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
-    "integrity": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5"
+    "chain": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
+    "integrity": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3"
   },
   "intake_cursor": {
     "last_processed_id": null,
     "pending_flag": false
   },
   "review_epoch": {
-    "epoch_id": "epoch-arrp-20260724T164658Z",
+    "epoch_id": "epoch-arrp-20260724T184907Z",
     "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
     "next_due_at": "2026-08-07T15:40:02+00:00",
     "unresolved_ids": []
   },
   "items": [
+    {
+      "id": "INTEGRITY-74de064841ba",
+      "kind": "integrity",
+      "title": "latest GitHub Pages deployment is not successful: in_progress",
+      "owner": "agent",
+      "eligible_for_elim": true,
+      "requires_human": false,
+      "safety_class": 0,
+      "base_priority": 900,
+      "age_days": 0,
+      "fairness_boost": 0,
+      "priority_score": 900,
+      "reason": "error integrity finding",
+      "source": {
+        "input": "integrity",
+        "finding": {
+          "id": "error-0001",
+          "severity": "error",
+          "category": "GitHub records",
+          "attention": "agent",
+          "message": "latest GitHub Pages deployment is not successful: in_progress",
+          "path": ""
+        }
+      },
+      "recovery": null
+    },
     {
       "id": "CHANGE-AUDIT-77bd98919be7",
       "kind": "change_audit",
