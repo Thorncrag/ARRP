@@ -195,3 +195,7 @@ The approved host session preserved Elim's findings without repeating the compre
 7. Ran the focused and full validation floor and recorded the repair in the shared Agent Audit Log. No issue-level audit, source, Project, score, lifecycle, or public-surface change occurred.
 8. Attempted canonical fetch and staging. Both failed on read-only Git metadata, so no JUD-009 substantive work began.
 9. The required Codex task-archiving tool was unavailable in this execution environment; this housekeeping limitation is reported in the final structured result.
+
+#### Host reconciliation
+
+The approved host session preserved the completed context repair without beginning JUD-009's substantive audit, created canonical branch `codex/elim-linked-vehicle-context-repair`, and opened [pull request #391](https://github.com/Thorncrag/ARRP/pull/391). CodeQL for Actions, Python, and JavaScript and the Vercel preview passed before merge. This resolves the run's mechanical Git/GitHub closeout block; the original blocked run outcome remains above as an accurate account of Elim's own execution boundary.
