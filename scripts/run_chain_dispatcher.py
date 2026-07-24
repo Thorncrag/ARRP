@@ -193,6 +193,20 @@ def synchronize_canonical_repo(git: str, repo: Path) -> None:
     require_clean_repo(git, repo)
 
 
+def manifest_matches_current_repo(
+    git: str,
+    repo: Path,
+    payload: dict[str, Any],
+) -> bool:
+    expected = payload.get("final_revision") or payload.get("baseline_commit")
+    if not isinstance(expected, str) or not re.fullmatch(r"[0-9a-f]{40}", expected):
+        raise RuntimeError("run-chain manifest does not record a valid final revision")
+    head = command([git, "rev-parse", "HEAD"], cwd=repo)
+    if head.returncode != 0:
+        raise RuntimeError("could not read the current main revision")
+    return head.stdout.strip() == expected
+
+
 def trigger_chain(
     gh: str,
     repo: Path,
@@ -730,6 +744,12 @@ def main() -> int:
             manifest = fetch_latest_manifest(config, state_dir / "latest-run-chain.json")
         payload = read_json(manifest)
         payload["user_overrides"] = control.get("overrides", {})
+        if not manifest_matches_current_repo(git, repo, payload):
+            print(
+                "Latest run-chain manifest is older than current main; waiting for "
+                "the matching GitHub chain."
+            )
+            return 0
         if control.get("last_consumed_chain_id") == payload.get("chain_id"):
             return 0
         if (
