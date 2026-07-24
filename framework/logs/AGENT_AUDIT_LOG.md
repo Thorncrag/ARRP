@@ -1698,7 +1698,7 @@ Prospective template:
 | Unit ID | CHANGE-AUDIT-77bd98919be7 |
 | Trigger | Run Coordinator chain; highest-priority eligible work unit |
 | Task type | change-audit |
-| Outcome | Completed; human decision routed |
+| Outcome | Completed |
 | Issue/task | JUD-009 |
 | Issue page | [JUD-009](../../areas/JUD/issues/JUD-009.md) |
 | Audit history | [JUD-009 audit history](../../areas/JUD/issues/JUD-009.audit.md) |
@@ -1711,3 +1711,28 @@ Prospective template:
 | Push status | Pushed to `origin/codex/elim-jud009-change-audit` in [pull request #399](https://github.com/Thorncrag/ARRP/pull/399); reviewed merge and final synchronization pending. |
 | Rollback notes | Revert `e5180e0` and the accompanying provenance commit, rebuild the Console, remove `SRC-2648` and `SRC-2649`, restore the prior `SRC-0632` association, and restore JUD-009's pre-run Project and issue-wrapper audit fields if synchronization has occurred. |
 | Blockers/skipped checks | The completed audit does not answer the reserved application-under-different-control judgment. Human question: Would the project want the same categorical appointer-President rule when it disqualifies judges appointed by a President the author supports from proceedings involving that President? `Runs` remains 4. Public-intake and comprehensive-review recording scripts were not applicable. |
+
+
+### 2026-07-24 — JUD-009 final source and workflow synchronization — reconciliation
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-24 16:49:37 -0400 |
+| Agent | elim |
+| Run ID | arrp-20260724T201743Z |
+| Unit ID | CHANGE-AUDIT-77bd98919be7 |
+| Trigger | Required post-merge synchronization and readback for the completed JUD-009 Change Audit |
+| Task type | reconciliation |
+| Outcome | Completed |
+| Issue/task | JUD-009 |
+| Issue page | [JUD-009](../../areas/JUD/issues/JUD-009.md) |
+| Audit history | [JUD-009 audit history](../../areas/JUD/issues/JUD-009.audit.md) |
+| Proposal page | [Supreme Court Ethics, Recusal, and Transparency Act](../../legislation/JUD-009.md) |
+| Tier | none |
+| Files changed | `areas/JUD/issues/JUD-009.audit.md`; `inventory/sources.csv`; `framework/logs/CURRENT_AUDIT.md`; `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/ELIM_RUN_LOG.md`; generated Project Console data |
+| Source actions | Marked secondary reporting row `SRC-0227` `Superseded`, retained it as cited provenance, and confirmed official opinion row `SRC-2649` owns active support for the Eleventh Circuit disposition. |
+| Validation | Pull request #399 passed CodeQL and Vercel checks and squash-merged as `b769911`; Issue #47 and its Project row read back with `Review ready`, score 77, Runs 4, `Human decision needed`, `Rebaseline status: Current`, and `Change audit needed: No`; progress workflow run `30125230554` succeeded with no warnings; Pages deployment `5595074348` succeeded for the exact merge commit; authenticated consistency reported 0 errors and 0 warnings across 64 issue pages and 41 proposal pages; live issue, bill, and area pages contain the current result. Final repository validation also passed 203 Python tests, 24 participation-service tests, syntax checks, public-site preparation, CSV parsing, Console reconstruction, and diff hygiene. |
+| Commit | Source-accounting commit `87b01eb`; final run closeout is preserved in [pull request #401](https://github.com/Thorncrag/ARRP/pull/401). |
+| Push status | Unit pull request [#399](https://github.com/Thorncrag/ARRP/pull/399) merged and local `main` synchronized at `b769911`; source and run closeout pushed through pull request #401 after validation. |
+| Rollback notes | Revert `b769911` and the pull request #401 merge, rebuild the Console, restore `SRC-0227` only if active reliance is also restored, and restore issue #47 and Project fields from the pre-run values preserved in the preceding unit entry. |
+| Blockers/skipped checks | The human-only application-under-different-control judgment remains intentionally unanswered and is visible on issue #47 and the Project Action Items route. The task-archiving tool was unavailable. No public-intake assessment or comprehensive Review Epoch was performed, so the associated recording scripts were not applicable. |

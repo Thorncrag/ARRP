@@ -6786,7 +6786,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3799,
+      "word_count": 3810,
       "estimated_pages": 6,
       "table_count": 4,
       "max_table_columns": 2,
@@ -7565,9 +7565,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 15726,
-      "estimated_pages": 25,
-      "table_count": 88,
+      "word_count": 16448,
+      "estimated_pages": 26,
+      "table_count": 90,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
@@ -7765,7 +7765,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 40463,
+      "word_count": 40545,
       "estimated_pages": 63,
       "table_count": 22,
       "max_table_columns": 4,
@@ -7843,12 +7843,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 621,
+      "word_count": 607,
       "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 37
+      "longest_unbroken_token": 35
     },
     {
       "title": "Current Project Integrity Report",
@@ -7945,11 +7945,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "areas/WAR/issues/WAR-001.audit.md",
           "exists": true
+        },
+        {
+          "path": "areas/JUD/issues/JUD-009.audit.md",
+          "exists": true
         }
       ],
-      "word_count": 5792,
-      "estimated_pages": 9,
-      "table_count": 8,
+      "word_count": 6849,
+      "estimated_pages": 11,
+      "table_count": 9,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
