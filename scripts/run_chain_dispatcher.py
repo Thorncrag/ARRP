@@ -22,6 +22,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from arrp_context import ContextError, contained_path
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
@@ -30,26 +32,41 @@ THREAD_ID = re.compile(
     r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
     re.IGNORECASE,
 )
+EXECUTABLES = {
+    "pythonPath": "/opt/homebrew/bin/python3",
+    "gitPath": "/usr/bin/git",
+    "githubCliPath": "/opt/homebrew/bin/gh",
+    "codexPath": "/Applications/ChatGPT.app/Contents/Resources/codex",
+    "notificationPath": "/usr/bin/osascript",
+}
+ALLOWED_EXECUTABLES = frozenset(EXECUTABLES.values())
+REPOSITORY_NAME = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+WORKFLOW_NAME = re.compile(r"^[A-Za-z0-9_.-]+\.ya?ml$")
 
 
-def read_json(path: Path, default: Any = None) -> Any:
-    if not path.is_file():
+def read_json(path: Path, default: Any = None, root: Path = ROOT) -> Any:
+    safe_path = contained_path(path, root)
+    if not safe_path.is_file():
         return default
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(safe_path.read_text(encoding="utf-8"))
 
 
-def write_json(path: Path, payload: dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(path.suffix + ".tmp")
+def write_json(path: Path, payload: dict[str, Any], root: Path = ROOT) -> None:
+    safe_path = contained_path(path, root)
+    safe_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = safe_path.with_suffix(safe_path.suffix + ".tmp")
     temporary.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    temporary.replace(path)
+    temporary.replace(safe_path)
 
 
 def executable(config: dict[str, Any], key: str) -> str:
-    value = Path(config["hostDispatcher"][key])
-    if not value.is_absolute() or not value.is_file() or not os.access(value, os.X_OK):
-        raise RuntimeError(f"configured {key} is not an executable absolute path: {value}")
-    return str(value)
+    expected = EXECUTABLES[key]
+    configured = str(config["hostDispatcher"][key])
+    if configured != expected:
+        raise RuntimeError(f"configured {key} differs from the reviewed host path")
+    if not Path(expected).is_file() or not os.access(expected, os.X_OK):
+        raise RuntimeError(f"reviewed {key} is unavailable: {expected}")
+    return expected
 
 
 def alert_failures(
@@ -86,11 +103,11 @@ def alert_failures(
     control.setdefault("action_items", []).append(item)
     control["action_items"] = control["action_items"][-50:]
     control["alert_fingerprints"] = [*seen, fingerprint][-100:]
-    notification = Path(config["hostDispatcher"]["notificationPath"])
-    if notification.is_absolute() and notification.is_file() and os.access(notification, os.X_OK):
+    notification = executable(config, "notificationPath")
+    if os.access(notification, os.X_OK):
         command(
             [
-                str(notification),
+                notification,
                 "-e",
                 'display notification "Open the ARRP Console Action Items for details." '
                 'with title "ARRP automation requires attention"',
@@ -107,6 +124,10 @@ def command(
     stdin: str | None = None,
     capture: bool = True,
 ) -> subprocess.CompletedProcess[str]:
+    if not argv or argv[0] not in ALLOWED_EXECUTABLES:
+        raise RuntimeError("attempted to execute a command outside the reviewed allowlist")
+    if any(not isinstance(value, str) or "\0" in value for value in argv):
+        raise RuntimeError("command contains an invalid argument")
     return subprocess.run(
         argv,
         cwd=cwd,
@@ -165,6 +186,10 @@ def trigger_chain(
     intake: bool,
     comprehensive: bool,
 ) -> int:
+    if REPOSITORY_NAME.fullmatch(repository) is None:
+        raise RuntimeError("configured repository name is invalid")
+    if WORKFLOW_NAME.fullmatch(workflow) is None:
+        raise RuntimeError("configured workflow name is invalid")
     requested_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     result = command(
         [
@@ -468,6 +493,7 @@ def main() -> int:
     parser.add_argument("--trigger-chain", action="store_true")
     parser.add_argument("--launch-codex", action="store_true")
     args = parser.parse_args()
+    args.config = contained_path(args.config, ROOT)
     config = read_json(args.config)
     host = config["hostDispatcher"]
     repo = Path(host["repositoryPath"])
@@ -477,7 +503,10 @@ def main() -> int:
     git = executable(config, "gitPath")
     gh = executable(config, "githubCliPath")
     codex = executable(config, "codexPath")
-    state_dir = repo / host["stateDirectory"]
+    configured_state = str(host["stateDirectory"])
+    if configured_state != ".tmp/run-coordinator":
+        raise RuntimeError("configured dispatcher state directory is not approved")
+    state_dir = contained_path(repo / configured_state, repo)
     state_dir.mkdir(parents=True, exist_ok=True)
     lock = state_dir / "host-dispatch.lock"
     try:

@@ -9,7 +9,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from arrp_context import ContextError, build_work_queue
+from arrp_context import ContextError, ROOT, build_work_queue
 
 
 def parse_args() -> argparse.Namespace:
@@ -20,6 +20,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--chain", required=True, type=Path)
     parser.add_argument("--recovery", type=Path)
     parser.add_argument("--review-epoch", type=Path)
+    parser.add_argument(
+        "--input-root",
+        type=Path,
+        default=ROOT,
+        help="Reviewed root containing every queue input path.",
+    )
     parser.add_argument("--max-age-hours", type=int, default=36)
     parser.add_argument("--as-of", help="ISO-8601 timestamp for deterministic tests")
     return parser.parse_args()
@@ -42,6 +48,7 @@ def main() -> int:
             review_epoch_path=args.review_epoch,
             now=now,
             max_age_hours=args.max_age_hours,
+            input_root=args.input_root,
         )
         json.dump(value, sys.stdout, indent=2, ensure_ascii=False)
         sys.stdout.write("\n")

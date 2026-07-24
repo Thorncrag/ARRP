@@ -57,8 +57,9 @@ class RunCoordinatorControlTests(unittest.TestCase):
     def test_control_token_is_persistent_and_private(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "control.token"
-            token = MODULE.load_or_create_token(path)
-            self.assertEqual(MODULE.load_or_create_token(path), token)
+            root = Path(directory)
+            token = MODULE.load_or_create_token(path, root)
+            self.assertEqual(MODULE.load_or_create_token(path, root), token)
             self.assertGreaterEqual(len(token), 32)
             self.assertEqual(os.stat(path).st_mode & 0o777, 0o600)
 

@@ -247,6 +247,7 @@ class QueueTests(unittest.TestCase):
             recovery_path=recovery,
             review_epoch_path=epoch,
             now=self.now,
+            input_root=self.root,
         )
         self.assertTrue(queue["ready_for_elim"])
         self.assertEqual(queue["items"][0]["kind"], "bot_failure")
@@ -273,6 +274,7 @@ class QueueTests(unittest.TestCase):
             intake_path=intake,
             chain_path=chain,
             now=self.now,
+            input_root=self.root,
         )
         self.assertFalse(queue["ready_for_elim"])
         self.assertFalse(queue["launch_recommended"])

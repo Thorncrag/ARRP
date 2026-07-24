@@ -13,12 +13,17 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 
+from arrp_context import contained_path
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_STATE = ROOT / ".tmp" / "run-coordinator" / "control.json"
 DEFAULT_MANIFEST = ROOT / ".tmp" / "run-chain.json"
 DEFAULT_TOKEN_FILE = ROOT / ".tmp" / "run-coordinator" / "control.token"
-ALLOWED_ORIGINS = {"http://127.0.0.1:8765", "http://localhost:8765"}
+ALLOWED_ORIGIN_HEADERS = {
+    "http://127.0.0.1:8765": "http://127.0.0.1:8765",
+    "http://localhost:8765": "http://localhost:8765",
+}
 ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:@/-]{0,159}$")
 ACTIONS = {
     "request_run",
@@ -34,29 +39,36 @@ def now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
-def read_json(path: Path, default: Any) -> Any:
-    if not path.is_file():
+def read_json(path: Path, default: Any, root: Path = ROOT) -> Any:
+    safe_path = contained_path(path, root)
+    if not safe_path.is_file():
         return default
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(safe_path.read_text(encoding="utf-8"))
 
 
-def write_json(path: Path, payload: dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(path.suffix + ".tmp")
+def write_json(path: Path, payload: dict[str, Any], root: Path = ROOT) -> None:
+    safe_path = contained_path(path, root)
+    safe_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = safe_path.with_suffix(safe_path.suffix + ".tmp")
     temporary.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    temporary.replace(path)
+    temporary.replace(safe_path)
 
 
-def load_or_create_token(path: Path) -> str:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if path.is_file():
-        token = path.read_text(encoding="utf-8").strip()
+def load_or_create_token(path: Path, root: Path = ROOT) -> str:
+    safe_path = contained_path(path, root)
+    safe_path.parent.mkdir(parents=True, exist_ok=True)
+    if safe_path.is_file():
+        token = safe_path.read_text(encoding="utf-8").strip()
         if len(token) < 32:
             raise ValueError("stored coordinator control token is invalid")
-        path.chmod(0o600)
+        safe_path.chmod(0o600)
         return token
     token = secrets.token_urlsafe(32)
-    descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    descriptor = os.open(
+        safe_path,
+        os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0),
+        0o600,
+    )
     with os.fdopen(descriptor, "w", encoding="utf-8") as output:
         output.write(token + "\n")
     return token
@@ -127,9 +139,9 @@ def handler(
         server_version = "ARRPRunCoordinatorControl/1"
 
         def cors(self) -> None:
-            origin = self.headers.get("Origin")
-            if origin in ALLOWED_ORIGINS:
-                self.send_header("Access-Control-Allow-Origin", origin)
+            safe_origin = ALLOWED_ORIGIN_HEADERS.get(self.headers.get("Origin", ""))
+            if safe_origin:
+                self.send_header("Access-Control-Allow-Origin", safe_origin)
                 self.send_header("Vary", "Origin")
 
         def response(self, status: int, payload: dict[str, Any]) -> None:
@@ -143,8 +155,7 @@ def handler(
             self.wfile.write(body)
 
         def do_OPTIONS(self) -> None:
-            origin = self.headers.get("Origin")
-            if origin not in ALLOWED_ORIGINS:
+            if self.headers.get("Origin", "") not in ALLOWED_ORIGIN_HEADERS:
                 self.response(403, {"error": "origin not allowed"})
                 return
             self.send_response(204)
@@ -160,7 +171,7 @@ def handler(
             if self.path != "/v1/status":
                 self.response(404, {"error": "not found"})
                 return
-            if self.headers.get("Origin") not in ALLOWED_ORIGINS:
+            if self.headers.get("Origin", "") not in ALLOWED_ORIGIN_HEADERS:
                 self.response(403, {"error": "origin not allowed"})
                 return
             self.response(
@@ -176,6 +187,9 @@ def handler(
         def do_POST(self) -> None:
             if self.path != "/v1/control":
                 self.response(404, {"error": "not found"})
+                return
+            if self.headers.get("Origin", "") not in ALLOWED_ORIGIN_HEADERS:
+                self.response(403, {"error": "origin not allowed"})
                 return
             if self.headers.get("X-ARRP-Control-Token") != token:
                 self.response(403, {"error": "invalid control token"})
@@ -208,17 +222,13 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8766)
-    parser.add_argument("--state", type=Path, default=DEFAULT_STATE)
-    parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
-    parser.add_argument("--token")
-    parser.add_argument("--token-file", type=Path, default=DEFAULT_TOKEN_FILE)
     args = parser.parse_args()
     if args.host not in {"127.0.0.1", "localhost"}:
         raise SystemExit("control service may bind only to localhost")
-    token = args.token or load_or_create_token(args.token_file)
+    token = load_or_create_token(DEFAULT_TOKEN_FILE)
     print("ARRP coordinator control service ready.", flush=True)
     server = ThreadingHTTPServer(
-        (args.host, args.port), handler(args.state, args.manifest, token)
+        (args.host, args.port), handler(DEFAULT_STATE, DEFAULT_MANIFEST, token)
     )
     server.serve_forever()
     return 0

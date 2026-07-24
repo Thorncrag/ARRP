@@ -7,6 +7,7 @@ import csv
 import ast
 import hashlib
 import json
+import os
 import re
 import subprocess
 from dataclasses import dataclass
@@ -38,8 +39,19 @@ def sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
 
-def sha256_path(path: Path) -> str:
-    return sha256_bytes(path.read_bytes())
+def contained_path(path: Path, root: Path = ROOT) -> Path:
+    """Normalize a path and require it to remain inside one reviewed root."""
+    normalized_root = os.path.realpath(os.fspath(root))
+    normalized_path = os.path.realpath(os.fspath(path))
+    if normalized_path != normalized_root and not normalized_path.startswith(
+        normalized_root + os.sep
+    ):
+        raise ContextError(f"path escapes allowed root: {path}")
+    return Path(normalized_path)
+
+
+def sha256_path(path: Path, root: Path = ROOT) -> str:
+    return sha256_bytes(contained_path(path, root).read_bytes())
 
 
 def git_revision(root: Path = ROOT) -> str:
@@ -74,22 +86,21 @@ def path_is_excluded(relative: str, exclusions: Iterable[str]) -> bool:
     return False
 
 
-def load_json(path: Path) -> Any:
+def load_json(path: Path, root: Path = ROOT) -> Any:
+    safe_path = contained_path(path, root)
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        return json.loads(safe_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        raise ContextError(f"cannot read valid JSON from {path}: {exc}") from exc
+        raise ContextError(f"cannot read valid JSON from {safe_path}: {exc}") from exc
 
 
 def file_provenance(path: Path, root: Path = ROOT) -> dict[str, Any]:
-    stat = path.stat()
-    try:
-        display = path.resolve().relative_to(root.resolve()).as_posix()
-    except ValueError:
-        display = str(path.resolve())
+    safe_path = contained_path(path, root)
+    stat = safe_path.stat()
+    display = safe_path.relative_to(Path(os.path.realpath(os.fspath(root)))).as_posix()
     return {
         "path": display,
-        "sha256": sha256_path(path),
+        "sha256": sha256_path(safe_path, root),
         "bytes": stat.st_size,
         "modified_at": datetime.fromtimestamp(stat.st_mtime, timezone.utc).isoformat(timespec="seconds"),
     }
@@ -145,7 +156,8 @@ def extract_exact_heading(text: str, exact_heading: str) -> tuple[str, int, int]
 
 
 def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = True) -> dict[str, Any]:
-    manifest = load_json(path)
+    path = contained_path(path, root)
+    manifest = load_json(path, root)
     if manifest.get("schema_version") != 1:
         raise ContextError("context route manifest must use schema_version 1")
     documents = manifest.get("documents")
@@ -172,7 +184,7 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
         if verify_hashes:
             if expected in PLACEHOLDER_HASHES:
                 raise ContextError(f"document {name} has no integration-pinned sha256")
-            actual = sha256_path(source)
+            actual = sha256_path(source, root)
             if expected != actual:
                 raise ContextError(
                     f"document {name} hash changed: expected {expected}, found {actual}"
@@ -203,7 +215,7 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
 def manifest_hash_updates(path: Path, root: Path = ROOT) -> dict[str, str]:
     manifest = load_route_manifest(path, root=root, verify_hashes=False)
     return {
-        name: sha256_path(within_root(root, str(spec["path"])))
+        name: sha256_path(within_root(root, str(spec["path"])), root)
         for name, spec in sorted(manifest["documents"].items())
     }
 
@@ -337,11 +349,12 @@ def build_context_packet(
     review_epoch_path: Path | None = None,
     max_total_bytes: int | None = None,
 ) -> dict[str, Any]:
+    manifest_path = contained_path(manifest_path, root)
     manifest = load_route_manifest(manifest_path, root=root, verify_hashes=True)
     profile = manifest["profiles"].get(profile_name)
     if profile is None:
         raise ContextError(f"unknown context profile: {profile_name}")
-    manifest_sha = sha256_path(manifest_path)
+    manifest_sha = sha256_path(manifest_path, root)
     sections: list[dict[str, Any]] = []
     total = 0
     for route in profile["sections"]:
@@ -400,7 +413,7 @@ def build_context_packet(
                 {
                     **latest_audit,
                     "path": audit_path.relative_to(root.resolve()).as_posix(),
-                    "sha256": sha256_path(audit_path),
+                    "sha256": sha256_path(audit_path, root),
                 }
                 if latest_audit
                 else None
@@ -419,13 +432,14 @@ def build_context_packet(
         if path.is_file():
             logs[name] = {
                 "path": path.relative_to(root).as_posix(),
-                "sha256": sha256_path(path),
+                "sha256": sha256_path(path, root),
                 "entry": latest_markdown_entry(path, parent, 3, order),
             }
     total += len(canonical_json(logs))
     review_epoch = None
     if review_epoch_path:
-        review_epoch = load_json(review_epoch_path)
+        review_epoch_path = contained_path(review_epoch_path, root)
+        review_epoch = load_json(review_epoch_path, root)
         total += len(canonical_json(review_epoch))
     profile_limit = int(profile["max_bytes"])
     effective_limit = min(profile_limit, max_total_bytes) if max_total_bytes else profile_limit
@@ -437,7 +451,9 @@ def build_context_packet(
         "repository_revision": git_revision(root),
         "profile": profile_name,
         "manifest": {
-            "path": manifest_path.resolve().relative_to(root.resolve()).as_posix(),
+            "path": manifest_path.relative_to(
+                Path(os.path.realpath(os.fspath(root)))
+            ).as_posix(),
             "sha256": manifest_sha,
         },
         "limits": {"max_bytes": effective_limit, "actual_bytes": total},
@@ -517,12 +533,19 @@ def make_item(
     }
 
 
-def input_record(path: Path | None, required: bool, now: datetime, max_age_hours: int) -> dict[str, Any]:
+def input_record(
+    path: Path | None,
+    required: bool,
+    now: datetime,
+    max_age_hours: int,
+    root: Path,
+) -> dict[str, Any]:
     if path is None:
         return {"required": required, "status": "missing", "path": None}
-    if not path.is_file():
-        return {"required": required, "status": "missing", "path": str(path)}
-    data = load_json(path)
+    safe_path = contained_path(path, root)
+    if not safe_path.is_file():
+        return {"required": required, "status": "missing", "path": str(safe_path)}
+    data = load_json(safe_path, root)
     generated = (
         data.get("generated_at")
         or data.get("generatedAt")
@@ -537,7 +560,7 @@ def input_record(path: Path | None, required: bool, now: datetime, max_age_hours
     return {
         "required": required,
         "status": status,
-        **file_provenance(path),
+        **file_provenance(safe_path, root),
         "reported_at": generated,
         "data": data,
     }
@@ -553,15 +576,18 @@ def build_work_queue(
     review_epoch_path: Path | None = None,
     now: datetime | None = None,
     max_age_hours: int = 36,
+    input_root: Path = ROOT,
 ) -> dict[str, Any]:
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     records = {
-        "integrity": input_record(integrity_path, True, now, max_age_hours),
-        "progress": input_record(progress_path, True, now, max_age_hours),
-        "intake": input_record(intake_path, True, now, max_age_hours),
-        "chain": input_record(chain_path, True, now, max_age_hours),
-        "recovery": input_record(recovery_path, False, now, max_age_hours),
-        "review_epoch": input_record(review_epoch_path, False, now, max_age_hours * 40),
+        "integrity": input_record(integrity_path, True, now, max_age_hours, input_root),
+        "progress": input_record(progress_path, True, now, max_age_hours, input_root),
+        "intake": input_record(intake_path, True, now, max_age_hours, input_root),
+        "chain": input_record(chain_path, True, now, max_age_hours, input_root),
+        "recovery": input_record(recovery_path, False, now, max_age_hours, input_root),
+        "review_epoch": input_record(
+            review_epoch_path, False, now, max_age_hours * 40, input_root
+        ),
     }
     problems = [
         f"{name} input is {record['status']}"

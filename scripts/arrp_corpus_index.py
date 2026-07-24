@@ -144,7 +144,7 @@ def build_index(root: Path, output: Path) -> dict[str, object]:
         "schema_version": 1,
         "status": "built",
         "path": output.relative_to(root).as_posix(),
-        "sha256": sha256_path(output),
+        "sha256": sha256_path(output, root),
         "records": documents,
         "authority_notice": AUTHORITY_NOTICE,
     }
@@ -167,7 +167,7 @@ def verify_index(root: Path, connection: sqlite3.Connection) -> dict[str, str]:
         path = root / relative
         if not path.is_file():
             raise ContextError(f"indexed canonical input is missing: {relative}")
-        actual = sha256_path(path)
+        actual = sha256_path(path, root)
         if actual != expected:
             raise ContextError(f"corpus index is stale for {relative}; rebuild before querying")
     return dict(connection.execute("SELECT key, value FROM metadata"))

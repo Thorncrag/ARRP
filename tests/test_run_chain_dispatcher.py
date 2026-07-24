@@ -55,7 +55,6 @@ class RunChainDispatcherTests(unittest.TestCase):
             config = json.loads(
                 (ROOT / ".github" / "run-coordinator-bot.json").read_text()
             )
-            config["hostDispatcher"]["notificationPath"] = str(repo / "absent")
             control = {}
             manifest = {
                 "chain_id": "chain-1",
@@ -68,8 +67,9 @@ class RunChainDispatcherTests(unittest.TestCase):
                     }
                 ],
             }
-            self.assertTrue(MODULE.alert_failures(config, control, manifest, repo))
-            self.assertFalse(MODULE.alert_failures(config, control, manifest, repo))
+            with mock.patch.object(MODULE, "command"):
+                self.assertTrue(MODULE.alert_failures(config, control, manifest, repo))
+                self.assertFalse(MODULE.alert_failures(config, control, manifest, repo))
             self.assertEqual(len(control["action_items"]), 1)
 
     def test_thread_id_is_recovered_for_later_elim_runs(self):
