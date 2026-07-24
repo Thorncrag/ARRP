@@ -79,8 +79,18 @@ def alert_failures(
 ) -> bool:
     failures = list(manifest.get("failures") or [])
     problems = list((manifest.get("work_queue") or {}).get("problems") or [])
+    action_items = list(control.get("action_items") or [])
+    current_chain = manifest.get("chain_id")
+    retained = [
+        item
+        for item in action_items
+        if item.get("kind") != "automation_failure"
+        or item.get("chain_id") == current_chain
+    ]
+    changed = retained != action_items
+    control["action_items"] = retained
     if not failures and not problems and manifest.get("status") != "blocked":
-        return False
+        return changed
     material = json.dumps(
         {
             "chain_id": manifest.get("chain_id"),
@@ -92,7 +102,7 @@ def alert_failures(
     fingerprint = hashlib.sha256(material.encode()).hexdigest()[:20]
     seen = set(control.get("alert_fingerprints") or [])
     if fingerprint in seen:
-        return False
+        return changed
     item = {
         "id": "automation-failure-" + fingerprint,
         "chain_id": manifest.get("chain_id"),

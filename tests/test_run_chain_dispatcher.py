@@ -88,6 +88,16 @@ class RunChainDispatcherTests(unittest.TestCase):
                 self.assertTrue(MODULE.alert_failures(config, control, manifest, repo))
                 self.assertFalse(MODULE.alert_failures(config, control, manifest, repo))
             self.assertEqual(len(control["action_items"]), 1)
+            healthy = {
+                "chain_id": "chain-2",
+                "updated_at": "2026-07-24T13:00:00+00:00",
+                "status": "complete",
+                "failures": [],
+                "work_queue": {"problems": []},
+            }
+            self.assertTrue(MODULE.alert_failures(config, control, healthy, repo))
+            self.assertEqual(control["action_items"], [])
+            self.assertFalse(MODULE.alert_failures(config, control, healthy, repo))
 
     def test_thread_id_is_recovered_for_later_elim_runs(self):
         with tempfile.TemporaryDirectory() as directory:

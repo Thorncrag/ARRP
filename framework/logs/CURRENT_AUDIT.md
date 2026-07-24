@@ -13,12 +13,12 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
-| Active issue/task | Project-wide script-first automation and Run Coordinator activation |
-| Last closeout | Elim closed safely on 2026-07-24 after completing DOJ-002 and reconciling WAR-009; complete run detail is in [`ELIM_RUN_LOG.md`](ELIM_RUN_LOG.md) and material provenance is in [`AGENT_AUDIT_LOG.md`](AGENT_AUDIT_LOG.md). |
-| Exact next action | Commit and merge the validated Run Coordinator change set, verify the first serialized GitHub chain and Console projection, install the two local LaunchAgents, pause the superseded daily Elim automation, and clear this checkpoint. |
+| Status | Inactive |
+| Active issue/task | None. |
+| Last closeout | Project-wide script-first automation and Run Coordinator activation completed on 2026-07-24. The serialized GitHub chain, bounded public-intake collection, safe deterministic closeout, Console Automation Administration view, localhost controls, current-failure alerts, local dispatcher, and 15-percent Codex reserve gate were verified. The first full observation pass produced owner-review pull requests for Case Monitor, Presidential Directives, and Source Checker; the later verification chain completed successfully with no pending public intake or integrity findings. The superseded standalone Elim automation is paused. |
+| Exact next action | None. Resume ordinary interactive project work or review the open bot-generated pull requests through the Console. |
 | Blockers/questions | None. |
-| Validation status | 176 repository tests and 24 participation-service tests pass; workflow and structured-file parsing, Python and JavaScript syntax, diff hygiene, localhost Console controls, Integrity card scope, and the authenticated consistency audit all pass. GitHub and local activation remain. |
+| Validation status | 180 repository tests and 24 participation-service tests pass; Python and JavaScript syntax, diff hygiene, localhost Console controls, Console cascade and worker deep links, CodeQL for Actions/Python/JavaScript, Vercel preview and production publication, the authenticated consistency audit (0 errors, 0 warnings), and production chain run 30100820412 all pass. The local usage gate measured 6 percent remaining in the applicable Codex window and correctly prevented Elim from starting below the protected 15-percent reserve. |
 
 ## Handoff Rules
 
