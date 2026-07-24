@@ -2,17 +2,17 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-24T02:51:46+00:00",
-    "revision": "09a45665f2f874e11dd33e31dbef702741677d09",
-    "result": "findings",
+    "generated_at": "2026-07-24T06:22:23+00:00",
+    "revision": "789a12c03a3ad1e7b1796893ff468fd10093f3d8",
+    "result": "clean",
     "counts": {
       "errors": 0,
-      "warnings": 27,
-      "findings": 27,
+      "warnings": 0,
+      "findings": 0,
       "issue_pages": 64,
       "proposal_pages": 41
     },
-    "duration_seconds": 11.838,
+    "duration_seconds": 10.884,
     "scope": [
       "Issue and proposal structure, including Issue Snapshot concision",
       "Area and topic routing",
@@ -35,226 +35,22 @@
       "Persistent-agent runbooks and runtime configuration",
       "Structured-file and repository hygiene"
     ],
-    "findings": [
-      {
-        "id": "warning-0001",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/APPT/issues/APPT-001.md Issue Snapshot Problem line is 25 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/APPT/issues/APPT-001.md"
-      },
-      {
-        "id": "warning-0002",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/APPT/issues/APPT-001.md Issue Snapshot Repair line is 25 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/APPT/issues/APPT-001.md"
-      },
-      {
-        "id": "warning-0003",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/CIV/issues/CIV-010.md Issue Snapshot Problem line is 29 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/CIV/issues/CIV-010.md"
-      },
-      {
-        "id": "warning-0004",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/CIV/issues/CIV-010.md Issue Snapshot Repair line is 21 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/CIV/issues/CIV-010.md"
-      },
-      {
-        "id": "warning-0005",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/CIV/issues/CIV-010.md Issue Snapshot Vehicle line is 15 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/CIV/issues/CIV-010.md"
-      },
-      {
-        "id": "warning-0006",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/DOJ/issues/DOJ-007.md Issue Snapshot Vehicle line is 24 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/DOJ/issues/DOJ-007.md"
-      },
-      {
-        "id": "warning-0007",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/DOM/issues/DOM-005.md Issue Snapshot Problem line is 21 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/DOM/issues/DOM-005.md"
-      },
-      {
-        "id": "warning-0008",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/DOM/issues/DOM-005.md Issue Snapshot Repair line is 17 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/DOM/issues/DOM-005.md"
-      },
-      {
-        "id": "warning-0009",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/ELEC/issues/ELEC-008.md Issue Snapshot Vehicle line is 16 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/ELEC/issues/ELEC-008.md"
-      },
-      {
-        "id": "warning-0010",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/ELEC/issues/ELEC-012.md Issue Snapshot Vehicle line is 20 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/ELEC/issues/ELEC-012.md"
-      },
-      {
-        "id": "warning-0011",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/EMERG/issues/EMERG-003.md Issue Snapshot Problem line is 14 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/EMERG/issues/EMERG-003.md"
-      },
-      {
-        "id": "warning-0012",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/EMERG/issues/EMERG-003.md Issue Snapshot Repair line is 19 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/EMERG/issues/EMERG-003.md"
-      },
-      {
-        "id": "warning-0013",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/FUND/issues/FUND-001.md Issue Snapshot Problem line is 16 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/FUND/issues/FUND-001.md"
-      },
-      {
-        "id": "warning-0014",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/FUND/issues/FUND-001.md Issue Snapshot Repair line is 19 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/FUND/issues/FUND-001.md"
-      },
-      {
-        "id": "warning-0015",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/JUD/issues/JUD-005.md Issue Snapshot Problem line is 13 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/JUD/issues/JUD-005.md"
-      },
-      {
-        "id": "warning-0016",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/JUD/issues/JUD-005.md Issue Snapshot Vehicle line is 13 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/JUD/issues/JUD-005.md"
-      },
-      {
-        "id": "warning-0017",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/JUD/issues/JUD-009.md Issue Snapshot Problem line is 14 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/JUD/issues/JUD-009.md"
-      },
-      {
-        "id": "warning-0018",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/JUD/issues/JUD-012.md Issue Snapshot Problem line is 25 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/JUD/issues/JUD-012.md"
-      },
-      {
-        "id": "warning-0019",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/JUD/issues/JUD-012.md Issue Snapshot Repair line is 15 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/JUD/issues/JUD-012.md"
-      },
-      {
-        "id": "warning-0020",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/OVS/issues/OVS-009.md Issue Snapshot Problem line is 21 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/OVS/issues/OVS-009.md"
-      },
-      {
-        "id": "warning-0021",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/OVS/issues/OVS-009.md Issue Snapshot Repair line is 18 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/OVS/issues/OVS-009.md"
-      },
-      {
-        "id": "warning-0022",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/REG/issues/REG-002.md Issue Snapshot Problem line is 22 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/REG/issues/REG-002.md"
-      },
-      {
-        "id": "warning-0023",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/REG/issues/REG-002.md Issue Snapshot Repair line is 15 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/REG/issues/REG-002.md"
-      },
-      {
-        "id": "warning-0024",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/RIGHTS/issues/RIGHTS-004.md Issue Snapshot Problem line is 17 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/RIGHTS/issues/RIGHTS-004.md"
-      },
-      {
-        "id": "warning-0025",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/RIGHTS/issues/RIGHTS-004.md Issue Snapshot Repair line is 16 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/RIGHTS/issues/RIGHTS-004.md"
-      },
-      {
-        "id": "warning-0026",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/RIGHTS/issues/RIGHTS-005.md Issue Snapshot Problem line is 23 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/RIGHTS/issues/RIGHTS-005.md"
-      },
-      {
-        "id": "warning-0027",
-        "severity": "warning",
-        "category": "Issue structure",
-        "attention": "agent",
-        "message": "issue page areas/RIGHTS/issues/RIGHTS-005.md Issue Snapshot Repair line is 23 words; the concision guideline is about 12 words or fewer",
-        "path": "areas/RIGHTS/issues/RIGHTS-005.md"
-      }
-    ]
+    "findings": []
   },
   "history": [
+    {
+      "generated_at": "2026-07-24T06:22:23+00:00",
+      "revision": "789a12c03a3ad1e7b1796893ff468fd10093f3d8",
+      "result": "clean",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "findings": 0,
+        "issue_pages": 64,
+        "proposal_pages": 41
+      },
+      "duration_seconds": 10.884
+    },
     {
       "generated_at": "2026-07-24T02:51:46+00:00",
       "revision": "09a45665f2f874e11dd33e31dbef702741677d09",
@@ -631,19 +427,6 @@
         "proposal_pages": 40
       },
       "duration_seconds": 11.779
-    },
-    {
-      "generated_at": "2026-07-22T07:54:56+00:00",
-      "revision": "464840cb4c2f51ea52ef3a1d9957d71cab2a0f74",
-      "result": "clean",
-      "counts": {
-        "errors": 0,
-        "warnings": 0,
-        "findings": 0,
-        "issue_pages": 61,
-        "proposal_pages": 40
-      },
-      "duration_seconds": 10.053
     }
   ]
 }
