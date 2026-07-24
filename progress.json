@@ -169,7 +169,7 @@
       "total": 2
     }
   ],
-  "asOf": "2026-07-23",
+  "asOf": "2026-07-24",
   "backlog": [
     {
       "area": "JUD",
@@ -191,11 +191,11 @@
     {
       "area": "APPT",
       "canonicalRecord": "areas/APPT/issues/APPT-001.md",
-      "developmentLevel": "Admitted / undeveloped",
+      "developmentLevel": "In development",
       "explanation": "",
       "identifier": "APPT-001",
-      "lastAudit": "Candidate consolidation and initial statutory draft (2026-07-16)",
-      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
+      "lastAudit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+      "nextAudit": "Complete statutory and historical source development, then conduct T1 framework, legal-durability, enactment-pathway, evidence, abuse-resistance, drafting, fiscal, and issue-to-legislation review",
       "number": 119,
       "ready": false,
       "score": 0.0,
@@ -203,7 +203,7 @@
       "title": "APPT-001: Evasion of Senate Confirmation and Statutory Appointment Safeguards",
       "url": "https://github.com/Thorncrag/ARRP/issues/119",
       "warnings": [],
-      "workflowStatus": "Development"
+      "workflowStatus": "Research"
     },
     {
       "area": "APPT",
@@ -772,8 +772,8 @@
       "developmentLevel": "Admitted / undeveloped",
       "explanation": "",
       "identifier": "JUD-012",
-      "lastAudit": "Horizon candidate admission and source-development review (2026-07-19)",
-      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
+      "lastAudit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+      "nextAudit": "Expand the supporting-case survey and complete the statute-first review of existing review routes and barriers, then route remedy and vehicle selection",
       "number": 256,
       "ready": false,
       "score": 0.0,
@@ -781,7 +781,7 @@
       "title": "JUD-012: Government Action Insulated from Judicial Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/256",
       "warnings": [],
-      "workflowStatus": "Development"
+      "workflowStatus": "Research"
     },
     {
       "area": "OVS",
@@ -840,8 +840,8 @@
       "developmentLevel": "Admitted / undeveloped",
       "explanation": "",
       "identifier": "OVS-009",
-      "lastAudit": "Horizon candidate admission and source-development review (2026-07-20)",
-      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
+      "lastAudit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+      "nextAudit": "Review 5 U.S.C. chapters 12 and 73, MSPB jurisdiction, sanctions, judicial review, former-employee authority, covered categories, exclusions, and constitutional limits, then route remedy and vehicle selection",
       "number": 252,
       "ready": false,
       "score": 0.0,
@@ -849,7 +849,7 @@
       "title": "OVS-009: Enforcement of Political-Activity Restrictions for Senior Officials",
       "url": "https://github.com/Thorncrag/ARRP/issues/252",
       "warnings": [],
-      "workflowStatus": "Development"
+      "workflowStatus": "Research"
     },
     {
       "area": "PAR",
@@ -959,8 +959,8 @@
       "developmentLevel": "Admitted / undeveloped",
       "explanation": "",
       "identifier": "REG-002",
-      "lastAudit": "Horizon integration and scope Change Audit (2026-07-21)",
-      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
+      "lastAudit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+      "nextAudit": "Map executive-contact, ethics, recusal, inspector-general, whistleblower, Tunney Act, and confidentiality authorities across representative agencies, then test government-wide remedy and vehicle fit",
       "number": 161,
       "ready": false,
       "score": 0.0,
@@ -968,7 +968,7 @@
       "title": "REG-002: Executive Influence over Federal Regulatory Enforcement",
       "url": "https://github.com/Thorncrag/ARRP/issues/161",
       "warnings": [],
-      "workflowStatus": "Development"
+      "workflowStatus": "Research"
     },
     {
       "area": "REG",
@@ -1075,11 +1075,11 @@
     {
       "area": "RIGHTS",
       "canonicalRecord": "areas/RIGHTS/issues/RIGHTS-005.md",
-      "developmentLevel": "Admitted / undeveloped",
+      "developmentLevel": "In development",
       "explanation": "",
       "identifier": "RIGHTS-005",
-      "lastAudit": "Horizon candidate admission and initial drafting (2026-07-21)",
-      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
+      "lastAudit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+      "nextAudit": "Complete statute-first legal-durability and empirical source development, revise the initial bill, develop implementation and fiscal treatment, and then conduct the first score-bearing audit",
       "number": 20,
       "ready": false,
       "score": 0.0,
@@ -1087,7 +1087,7 @@
       "title": "RIGHTS-005: Civil and Criminal Accountability for Law-Enforcement Constitutional Violations",
       "url": "https://github.com/Thorncrag/ARRP/issues/20",
       "warnings": [],
-      "workflowStatus": "Development"
+      "workflowStatus": "Research"
     },
     {
       "area": "WAR",
@@ -1109,7 +1109,7 @@
   ],
   "developmentLevelDistribution": [
     {
-      "count": 50,
+      "count": 48,
       "level": "Admitted / undeveloped"
     },
     {
@@ -1121,11 +1121,11 @@
       "level": "Developed proposal"
     },
     {
-      "count": 1,
+      "count": 3,
       "level": "In development"
     }
   ],
-  "generatedAt": "2026-07-23T21:54:47+00:00",
+  "generatedAt": "2026-07-24T06:22:42+00:00",
   "goal": {
     "baselineDate": "2026-07-13",
     "baselineReady": 23,
@@ -3685,6 +3685,223 @@
         "WAR-009": 0
       },
       "total": 82
+    },
+    {
+      "byArea": {
+        "APPT": {
+          "ready": 0,
+          "total": 2
+        },
+        "CIV": {
+          "ready": 0,
+          "total": 5
+        },
+        "CLASS": {
+          "ready": 0,
+          "total": 4
+        },
+        "CONG": {
+          "ready": 0,
+          "total": 2
+        },
+        "DOJ": {
+          "ready": 6,
+          "total": 7
+        },
+        "DOM": {
+          "ready": 0,
+          "total": 4
+        },
+        "ELEC": {
+          "ready": 13,
+          "total": 15
+        },
+        "EMERG": {
+          "ready": 0,
+          "total": 2
+        },
+        "EMOL": {
+          "ready": 1,
+          "total": 2
+        },
+        "FACT": {
+          "ready": 0,
+          "total": 3
+        },
+        "FED": {
+          "ready": 0,
+          "total": 3
+        },
+        "FRB": {
+          "ready": 0,
+          "total": 1
+        },
+        "FUND": {
+          "ready": 1,
+          "total": 2
+        },
+        "HER": {
+          "ready": 0,
+          "total": 1
+        },
+        "IMM": {
+          "ready": 1,
+          "total": 2
+        },
+        "JUD": {
+          "ready": 3,
+          "total": 6
+        },
+        "OVS": {
+          "ready": 0,
+          "total": 4
+        },
+        "PAR": {
+          "ready": 0,
+          "total": 2
+        },
+        "PRESS": {
+          "ready": 0,
+          "total": 3
+        },
+        "REC": {
+          "ready": 0,
+          "total": 1
+        },
+        "REG": {
+          "ready": 1,
+          "total": 4
+        },
+        "RET": {
+          "ready": 0,
+          "total": 1
+        },
+        "RIGHTS": {
+          "ready": 0,
+          "total": 4
+        },
+        "WAR": {
+          "ready": 1,
+          "total": 2
+        }
+      },
+      "date": "2026-07-24",
+      "detailAvailable": true,
+      "ready": 27,
+      "readyIssues": [
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "EMOL-015",
+        "FUND-001",
+        "IMM-001",
+        "JUD-001",
+        "JUD-009",
+        "JUD-011",
+        "REG-001",
+        "WAR-001"
+      ],
+      "scores": {
+        "APPT-001": 0,
+        "APPT-004": 0,
+        "CIV-001": 0,
+        "CIV-004": 0,
+        "CIV-005": 0,
+        "CIV-009": 0,
+        "CIV-010": 0,
+        "CLASS-001": 0,
+        "CLASS-004": 0,
+        "CLASS-006": 0,
+        "CLASS-011": 0,
+        "CONG-001": 0,
+        "CONG-007": 0,
+        "DOJ-001": 82,
+        "DOJ-002": 78,
+        "DOJ-003": 82,
+        "DOJ-004": 0,
+        "DOJ-005": 76,
+        "DOJ-007": 78,
+        "DOJ-009": 77,
+        "DOM-001": 0,
+        "DOM-005": 0,
+        "DOM-007": 0,
+        "DOM-009": 0,
+        "ELEC-001": 77,
+        "ELEC-002": 76,
+        "ELEC-003": 77,
+        "ELEC-004": 75,
+        "ELEC-005": 78,
+        "ELEC-006": 76,
+        "ELEC-007": 78,
+        "ELEC-008": 75,
+        "ELEC-009": 75,
+        "ELEC-010": 77,
+        "ELEC-011": 77,
+        "ELEC-012": 75,
+        "ELEC-013": 75,
+        "ELEC-014": 0,
+        "ELEC-015": 0,
+        "EMERG-001": 0,
+        "EMERG-003": 0,
+        "EMOL-001": 0,
+        "EMOL-015": 83,
+        "FACT-001": 0,
+        "FACT-007": 0,
+        "FACT-009": 0,
+        "FED-002": 0,
+        "FED-003": 0,
+        "FED-004": 0,
+        "FRB-001": 0,
+        "FUND-001": 83,
+        "FUND-002": 0,
+        "HER-001": 0,
+        "IMM-001": 78,
+        "IMM-002": 0,
+        "JUD-001": 78,
+        "JUD-005": 63,
+        "JUD-009": 77,
+        "JUD-010": 0,
+        "JUD-011": 82,
+        "JUD-012": 0,
+        "OVS-001": 0,
+        "OVS-004": 0,
+        "OVS-008": 0,
+        "OVS-009": 0,
+        "PAR-001": 0,
+        "PAR-005": 0,
+        "PRESS-001": 0,
+        "PRESS-003": 0,
+        "PRESS-006": 0,
+        "REC-001": 0,
+        "REG-001": 83,
+        "REG-002": 0,
+        "REG-003": 0,
+        "REG-006": 0,
+        "RET-001": 0,
+        "RIGHTS-001": 0,
+        "RIGHTS-002": 0,
+        "RIGHTS-003": 0,
+        "RIGHTS-005": 0,
+        "WAR-001": 77,
+        "WAR-009": 0
+      },
+      "total": 82
     }
   ],
   "metrics": {
@@ -3714,24 +3931,24 @@
         "plannedReady": 82
       }
     ],
-    "daysRemaining": 161,
-    "forecastDate": "2026-09-21",
-    "forecastLabel": "2026-09-21",
+    "daysRemaining": 160,
+    "forecastDate": "2026-09-24",
+    "forecastLabel": "2026-09-24",
     "percentReady": 32.9,
     "plannedReadyToday": 27,
     "ready": 27,
     "remaining": 55,
-    "requiredPerWeek": 2.39,
-    "rollingWeeklyVelocity": 6.5,
+    "requiredPerWeek": 2.41,
+    "rollingWeeklyVelocity": 6.28,
     "scheduleVariance": 0,
     "scopeChange": -122,
-    "sinceBaselineWeeklyVelocity": 2.8,
+    "sinceBaselineWeeklyVelocity": 2.55,
     "total": 82,
     "trackStatus": "On track"
   },
   "movement": {
     "available": true,
-    "elapsedDays": 28,
+    "elapsedDays": 29,
     "fellBelowReady": [],
     "netScoreChange": 0,
     "newlyReady": [
@@ -3852,23 +4069,6 @@
     "url": "https://github.com/users/Thorncrag/projects/2"
   },
   "proposals": [
-    {
-      "area": "APPT",
-      "canonicalRecord": "areas/APPT/issues/APPT-001.md",
-      "developmentLevel": "Admitted / undeveloped",
-      "explanation": "",
-      "identifier": "APPT-001",
-      "lastAudit": "Candidate consolidation and initial statutory draft (2026-07-16)",
-      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
-      "number": 119,
-      "ready": false,
-      "score": 0.0,
-      "state": null,
-      "title": "APPT-001: Evasion of Senate Confirmation and Statutory Appointment Safeguards",
-      "url": "https://github.com/Thorncrag/ARRP/issues/119",
-      "warnings": [],
-      "workflowStatus": "Development"
-    },
     {
       "area": "APPT",
       "canonicalRecord": "areas/APPT/README.md",
@@ -4385,8 +4585,8 @@
       "developmentLevel": "Admitted / undeveloped",
       "explanation": "",
       "identifier": "JUD-012",
-      "lastAudit": "Horizon candidate admission and source-development review (2026-07-19)",
-      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
+      "lastAudit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+      "nextAudit": "Expand the supporting-case survey and complete the statute-first review of existing review routes and barriers, then route remedy and vehicle selection",
       "number": 256,
       "ready": false,
       "score": 0.0,
@@ -4394,7 +4594,7 @@
       "title": "JUD-012: Government Action Insulated from Judicial Review",
       "url": "https://github.com/Thorncrag/ARRP/issues/256",
       "warnings": [],
-      "workflowStatus": "Development"
+      "workflowStatus": "Research"
     },
     {
       "area": "OVS",
@@ -4453,8 +4653,8 @@
       "developmentLevel": "Admitted / undeveloped",
       "explanation": "",
       "identifier": "OVS-009",
-      "lastAudit": "Horizon candidate admission and source-development review (2026-07-20)",
-      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
+      "lastAudit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+      "nextAudit": "Review 5 U.S.C. chapters 12 and 73, MSPB jurisdiction, sanctions, judicial review, former-employee authority, covered categories, exclusions, and constitutional limits, then route remedy and vehicle selection",
       "number": 252,
       "ready": false,
       "score": 0.0,
@@ -4462,7 +4662,7 @@
       "title": "OVS-009: Enforcement of Political-Activity Restrictions for Senior Officials",
       "url": "https://github.com/Thorncrag/ARRP/issues/252",
       "warnings": [],
-      "workflowStatus": "Development"
+      "workflowStatus": "Research"
     },
     {
       "area": "PAR",
@@ -4572,8 +4772,8 @@
       "developmentLevel": "Admitted / undeveloped",
       "explanation": "",
       "identifier": "REG-002",
-      "lastAudit": "Horizon integration and scope Change Audit (2026-07-21)",
-      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
+      "lastAudit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+      "nextAudit": "Map executive-contact, ethics, recusal, inspector-general, whistleblower, Tunney Act, and confidentiality authorities across representative agencies, then test government-wide remedy and vehicle fit",
       "number": 161,
       "ready": false,
       "score": 0.0,
@@ -4581,7 +4781,7 @@
       "title": "REG-002: Executive Influence over Federal Regulatory Enforcement",
       "url": "https://github.com/Thorncrag/ARRP/issues/161",
       "warnings": [],
-      "workflowStatus": "Development"
+      "workflowStatus": "Research"
     },
     {
       "area": "REG",
@@ -4686,23 +4886,6 @@
       "workflowStatus": "Development"
     },
     {
-      "area": "RIGHTS",
-      "canonicalRecord": "areas/RIGHTS/issues/RIGHTS-005.md",
-      "developmentLevel": "Admitted / undeveloped",
-      "explanation": "",
-      "identifier": "RIGHTS-005",
-      "lastAudit": "Horizon candidate admission and initial drafting (2026-07-21)",
-      "nextAudit": "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved",
-      "number": 20,
-      "ready": false,
-      "score": 0.0,
-      "state": null,
-      "title": "RIGHTS-005: Civil and Criminal Accountability for Law-Enforcement Constitutional Violations",
-      "url": "https://github.com/Thorncrag/ARRP/issues/20",
-      "warnings": [],
-      "workflowStatus": "Development"
-    },
-    {
       "area": "DOM",
       "canonicalRecord": "areas/DOM/issues/DOM-005.md",
       "developmentLevel": "Developed proposal",
@@ -4771,6 +4954,23 @@
       "workflowStatus": "Audit needed"
     },
     {
+      "area": "APPT",
+      "canonicalRecord": "areas/APPT/issues/APPT-001.md",
+      "developmentLevel": "In development",
+      "explanation": "",
+      "identifier": "APPT-001",
+      "lastAudit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+      "nextAudit": "Complete statutory and historical source development, then conduct T1 framework, legal-durability, enactment-pathway, evidence, abuse-resistance, drafting, fiscal, and issue-to-legislation review",
+      "number": 119,
+      "ready": false,
+      "score": 0.0,
+      "state": null,
+      "title": "APPT-001: Evasion of Senate Confirmation and Statutory Appointment Safeguards",
+      "url": "https://github.com/Thorncrag/ARRP/issues/119",
+      "warnings": [],
+      "workflowStatus": "Research"
+    },
+    {
       "area": "CIV",
       "canonicalRecord": "areas/CIV/issues/CIV-010.md",
       "developmentLevel": "In development",
@@ -4786,6 +4986,23 @@
       "url": "https://github.com/Thorncrag/ARRP/issues/254",
       "warnings": [],
       "workflowStatus": "Development"
+    },
+    {
+      "area": "RIGHTS",
+      "canonicalRecord": "areas/RIGHTS/issues/RIGHTS-005.md",
+      "developmentLevel": "In development",
+      "explanation": "",
+      "identifier": "RIGHTS-005",
+      "lastAudit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+      "nextAudit": "Complete statute-first legal-durability and empirical source development, revise the initial bill, develop implementation and fiscal treatment, and then conduct the first score-bearing audit",
+      "number": 20,
+      "ready": false,
+      "score": 0.0,
+      "state": null,
+      "title": "RIGHTS-005: Civil and Criminal Accountability for Law-Enforcement Constitutional Violations",
+      "url": "https://github.com/Thorncrag/ARRP/issues/20",
+      "warnings": [],
+      "workflowStatus": "Research"
     },
     {
       "area": "DOJ",
@@ -4811,7 +5028,7 @@
       "explanation": "",
       "identifier": "DOJ-002",
       "lastAudit": "SCOTUS current-status update (2026-07-02)",
-      "nextAudit": "Qualified review by a DOJ Public Integrity or other career-component practitioner, a public-law attorney, and legislative counsel focused on reviewer assignment and workload, executive-privilege and grand-jury-secrecy safeguards, final Minnesota docket verification, and a narrower statutory or appropriations fallback for leadership refusal, suspension, or evasion",
+      "nextAudit": "Targeted Change Audit and Internal Remedy-Fit Audit for the July 23 New York Times subpoena withdrawal, followed by qualified review by a DOJ Public Integrity or other career-component practitioner, a public-law attorney, and legislative counsel",
       "number": 23,
       "ready": true,
       "score": 78.0,
@@ -4819,7 +5036,7 @@
       "title": "DOJ-002: White House Direction or Interference in Particular Federal Criminal Matters",
       "url": "https://github.com/Thorncrag/ARRP/issues/23",
       "warnings": [],
-      "workflowStatus": "External review"
+      "workflowStatus": "Audit needed"
     },
     {
       "area": "DOJ",
@@ -5269,16 +5486,20 @@
   "warnings": [],
   "workflowStatusDistribution": [
     {
-      "count": 48,
+      "count": 43,
       "status": "Development"
     },
     {
-      "count": 26,
+      "count": 25,
       "status": "External review"
     },
     {
-      "count": 5,
+      "count": 6,
       "status": "Audit needed"
+    },
+    {
+      "count": 5,
+      "status": "Research"
     },
     {
       "count": 2,
