@@ -31,6 +31,41 @@ The opening sections define the project’s neutral institutional posture, issue
 
 These standards define what the project studies, how it characterizes conduct, how issues and remedies are structured, and what evidence is sufficient for project-authored claims.
 
+## Guiding Principle
+
+**The architecture matters because people live underneath it.**
+
+> **No person should suffer grave, arbitrary harm merely because institutional design permits one officeholder to convert lawful public authority into an instrument of personal will.**
+
+Everything in ARRP derives from this principle. The project exists to identify and repair institutional defects because those defects expose human beings to arbitrary harm. **Unchecked public power eventually manifests as arbitrary injury to actual human beings.** Constitutional structure, institutional independence, lawful administration, review, correction, and democratic resilience are not ends pursued for institutional elegance alone; they matter because people live under the public power those arrangements organize.
+
+ARRP's corresponding constitutional claim is: **The first obligation of constitutional government is to ensure that no person suffers grave, arbitrary harm because institutional design permits lawful public authority to be exercised as personal power.** That obligation supplies the human purpose of constitutional architecture: **Government exists to exercise public authority in a manner that protects persons from arbitrary harm, and constitutional structure exists to ensure that public authority cannot be converted into personal power.**
+
+ARRP therefore treats grave arbitrary human harm caused or enabled by public authority as the human manifestation—and diagnostic symptom—of institutional failure. Analysis must identify the independently repairable legal, structural, administrative, procedural, or remedial defect that permitted the harm, made it likely, or left it without effective correction. The project may not call an outcome arbitrary merely because it is harmful, unjust, politically disfavored, or inconsistent with the author's preferred policy. In this framework, arbitrariness means that serious human harm is caused, enabled, or made practically uncorrectable by public power that is personalized, selectively applied without an adequate lawful basis, inadequately reasoned toward a legitimate public purpose, insufficiently constrained, or effectively insulated from review and correction. Grave harm includes acute or irreversible injury as well as cumulative or systematically distributed injury serious enough to warrant institutional repair.
+
+The [Political-Failure Boundary](#political-failure-boundary) remains part of this principle's discipline. Harm alone does not bring a topic within ARRP when the ordinary constitutional process remains available and no independently repairable defect prevents it from functioning. But once the record establishes arbitrary harm in the institutional sense defined here, the project should treat that harm as a symptom of institutional failure and locate the defect in authorization, constraint, administration, review, correction, or remedy rather than dismissing it as ordinary political disagreement.
+
+The principle also constrains ARRP's proposed repairs: **if the objective is to prevent arbitrary human harm, then reforms must not themselves become arbitrary instruments of power.** Neutral application, constitutional fidelity, institutional durability, abuse resistance, corrigibility, preservation of legitimate governmental discretion, and selection of the least-complex adequate remedy all follow from that recursive constraint. The existing issue architecture should collectively make the complete chain visible:
+
+1. the human harm or material risk;
+2. the institutional defect that permits, causes, or fails to correct it;
+3. the way public authority operates through that defect;
+4. the proposed repair and how it reduces the harm; and
+5. the safeguards that keep the repair from becoming a new source of arbitrary power.
+
+Every substantive issue-development pass and audit must also ask:
+
+- **Does this reform materially reduce the probability that lawful governmental authority can be converted into arbitrary injury against individuals?**
+- **Would we want this institutional design if our least-favored political opponent controlled it?**
+
+These questions are required analytical checks, not a new scoring component or mandatory reader-facing boilerplate. They do not alter the approved rubric or independently authorize a score, lifecycle, foundation, or candidate-disposition change. They state the governing purpose and causal logic that the existing methodology, audits, and remedies must apply.
+
+Where the evidence establishes a dangerous institutional arrangement but does not establish—or does not require resolution of—subjective intent, the following is an approved neutral analytical formulation:
+
+> **Regardless of intent, this institutional arrangement predictably allows arbitrary human harm, and here is a neutral reform that would reduce that risk under any future administration.**
+
+The scope rule follows from the same principle: **If an institutional design predictably permits arbitrary harm through concentrated public power, then that design should be examined and, if possible, repaired—whether today's beneficiaries are Democrats, Republicans, or anyone else.** The Political-Failure Boundary still requires an independently repairable institutional defect and does not convert ordinary adverse policy outcomes into ARRP issues.
+
 ## Neutrality and Language Guidelines
 
 The project applies neutral standards without pretending to be neutral about institutional harm. Language should help a skeptical but fair reader understand the project as structural reform analysis rather than campaign argument, while still naming abuse, corruption, illegality, coercion, falsehood, or institutional damage when the record supports those descriptions.

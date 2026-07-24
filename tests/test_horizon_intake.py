@@ -557,6 +557,58 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("decision dossier assembled from existing authoritative records", methodology)
         self.assertIn("must not become a manually maintained narrative ledger", methodology)
 
+    def test_foundational_principle_is_public_and_governing(self) -> None:
+        homepage = (ROOT / "README.md").read_text(encoding="utf-8")
+        framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
+        agent_rules = (
+            ROOT / "framework" / "AGENT_OPERATING_RULES.md"
+        ).read_text(encoding="utf-8")
+        principle = (
+            "No person should suffer grave, arbitrary harm merely because institutional "
+            "design permits one officeholder"
+        )
+        self.assertLess(
+            homepage.index("## Guiding Principle"),
+            homepage.index("## Foundational Premise"),
+        )
+        self.assertNotIn("The architecture matters because people live underneath it", homepage)
+        self.assertIn(principle, homepage)
+        self.assertIn(
+            "Where public power goes unchecked, arbitrary harm to human beings "
+            "eventually follows.",
+            homepage,
+        )
+        self.assertIn("institutional defects eventually become human injuries", homepage)
+        self.assertIn(
+            "traces how it permits public power to injure people",
+            homepage,
+        )
+        self.assertIn("## Guiding Principle", framework)
+        self.assertIn(principle, framework)
+        self.assertIn("diagnostic symptom", framework)
+        retained_language = (
+            "Unchecked public power eventually manifests as arbitrary injury to actual human beings.",
+            "The first obligation of constitutional government is to ensure that no person "
+            "suffers grave, arbitrary harm",
+            "reforms must not themselves become arbitrary instruments of power",
+            "Does this reform materially reduce the probability that lawful governmental "
+            "authority can be converted into arbitrary injury against individuals?",
+            "Regardless of intent, this institutional arrangement predictably allows "
+            "arbitrary human harm",
+            "Would we want this institutional design if our least-favored political "
+            "opponent controlled it?",
+            "Government exists to exercise public authority in a manner that protects "
+            "persons from arbitrary harm",
+            "If an institutional design predictably permits arbitrary harm through "
+            "concentrated public power",
+        )
+        for language in retained_language:
+            self.assertIn(language, framework)
+        self.assertIn("## Guiding-Principle Check", agent_rules)
+        self.assertIn("human manifestation and diagnostic symptom", agent_rules)
+        self.assertIn(retained_language[3], agent_rules)
+        self.assertIn(retained_language[5], agent_rules)
+
     def test_issue_markdown_renderer_formats_content_and_escapes_untrusted_html(self) -> None:
         rendered = render_markdown_safe(
             "## Heading\n\n- **Item** with [safe link](https://example.com)\n"
