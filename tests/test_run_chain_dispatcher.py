@@ -47,6 +47,17 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertNotIn('parser.add_argument("--config"', source)
         self.assertIn("config = read_json(CONFIG)", source)
 
+    def test_coordinator_reads_fresh_queue_inputs_through_github_api(self):
+        workflow = (
+            ROOT / ".github" / "workflows" / "run-coordinator-bot.yml"
+        ).read_text()
+        self.assertIn(
+            "https://api.github.com/repos/Thorncrag/ARRP/contents/${name}.json"
+            "?ref=project-console-data",
+            workflow,
+        )
+        self.assertIn("application/vnd.github.raw+json", workflow)
+
     def test_contained_path_rejects_parent_and_symlink_escape(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory) / "root"
