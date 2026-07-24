@@ -42,6 +42,23 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertEqual(profiles["substantive"]["model"], "gpt-5.6-sol")
         self.assertTrue(profiles["comprehensive"]["fullContext"])
 
+    def test_dispatcher_uses_only_the_reviewed_config_path(self):
+        source = (ROOT / "scripts" / "run_chain_dispatcher.py").read_text()
+        self.assertNotIn('parser.add_argument("--config"', source)
+        self.assertIn("config = read_json(CONFIG)", source)
+
+    def test_contained_path_rejects_parent_and_symlink_escape(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "root"
+            outside = Path(directory) / "outside"
+            root.mkdir()
+            outside.mkdir()
+            (root / "link").symlink_to(outside, target_is_directory=True)
+            with self.assertRaises(MODULE.ContextError):
+                MODULE.contained_path(root / ".." / "outside", root)
+            with self.assertRaises(MODULE.ContextError):
+                MODULE.contained_path(root / "link" / "payload.json", root)
+
     def test_comprehensive_epoch_proof_and_alerts_are_deduplicated(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)

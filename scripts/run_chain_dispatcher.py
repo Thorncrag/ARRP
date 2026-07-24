@@ -47,10 +47,10 @@ WORKFLOW_NAME = re.compile(r"^[A-Za-z0-9_.-]+\.ya?ml$")
 def read_json(path: Path, default: Any = None, root: Path = ROOT) -> Any:
     safe_path = contained_path(path, root)
     # safe_path has passed the symlink-aware repository-root containment check.
-    if not safe_path.is_file():  # lgtm[py/path-injection]
+    if not safe_path.is_file():
         return default
     # safe_path has passed the symlink-aware repository-root containment check.
-    return json.loads(safe_path.read_text(encoding="utf-8"))  # lgtm[py/path-injection]
+    return json.loads(safe_path.read_text(encoding="utf-8"))
 
 
 def write_json(path: Path, payload: dict[str, Any], root: Path = ROOT) -> None:
@@ -131,7 +131,7 @@ def command(
     if any(not isinstance(value, str) or "\0" in value for value in argv):
         raise RuntimeError("command contains an invalid argument")
     # argv[0] is one of the fixed absolute executables above; shell=False is implicit.
-    return subprocess.run(  # lgtm[py/command-line-injection]
+    return subprocess.run(
         argv,
         cwd=cwd,
         input=stdin,
@@ -492,12 +492,10 @@ def comprehensive_epoch_recorded(repo: Path, chain_id: str) -> bool:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config", type=Path, default=CONFIG)
     parser.add_argument("--trigger-chain", action="store_true")
     parser.add_argument("--launch-codex", action="store_true")
     args = parser.parse_args()
-    args.config = contained_path(args.config, ROOT)
-    config = read_json(args.config)
+    config = read_json(CONFIG)
     host = config["hostDispatcher"]
     repo = Path(host["repositoryPath"])
     if repo != ROOT or not repo.is_dir():
@@ -573,7 +571,7 @@ def main() -> int:
         payload = refinalize(
             python,
             repo,
-            args.config,
+            CONFIG,
             manifest,
             float(gate["lowestRemainingPercent"]),
         )

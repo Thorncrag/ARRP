@@ -43,16 +43,16 @@ def contained_path(path: Path, root: Path = ROOT) -> Path:
     """Normalize a path and require it to remain inside one reviewed root."""
     normalized_root = os.path.realpath(os.fspath(root))
     normalized_path = os.path.realpath(os.fspath(path))
-    if normalized_path != normalized_root and not normalized_path.startswith(
-        normalized_root + os.sep
-    ):
-        raise ContextError(f"path escapes allowed root: {path}")
-    return Path(normalized_path)
+    if normalized_path == normalized_root:
+        return Path(normalized_path)
+    if normalized_path.startswith(normalized_root + os.sep):
+        return Path(normalized_path)
+    raise ContextError(f"path escapes allowed root: {path}")
 
 
 def sha256_path(path: Path, root: Path = ROOT) -> str:
     # contained_path realpath-normalizes both operands and rejects root escape.
-    return sha256_bytes(contained_path(path, root).read_bytes())  # lgtm[py/path-injection]
+    return sha256_bytes(contained_path(path, root).read_bytes())
 
 
 def git_revision(root: Path = ROOT) -> str:
@@ -91,7 +91,7 @@ def load_json(path: Path, root: Path = ROOT) -> Any:
     safe_path = contained_path(path, root)
     try:
         # safe_path has passed the symlink-aware repository-root containment check.
-        return json.loads(safe_path.read_text(encoding="utf-8"))  # lgtm[py/path-injection]
+        return json.loads(safe_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise ContextError(f"cannot read valid JSON from {safe_path}: {exc}") from exc
 
@@ -99,7 +99,7 @@ def load_json(path: Path, root: Path = ROOT) -> Any:
 def file_provenance(path: Path, root: Path = ROOT) -> dict[str, Any]:
     safe_path = contained_path(path, root)
     # safe_path has passed the symlink-aware repository-root containment check.
-    stat = safe_path.stat()  # lgtm[py/path-injection]
+    stat = safe_path.stat()
     display = safe_path.relative_to(Path(os.path.realpath(os.fspath(root)))).as_posix()
     return {
         "path": display,
@@ -547,7 +547,7 @@ def input_record(
         return {"required": required, "status": "missing", "path": None}
     safe_path = contained_path(path, root)
     # safe_path has passed the symlink-aware repository-root containment check.
-    if not safe_path.is_file():  # lgtm[py/path-injection]
+    if not safe_path.is_file():
         return {"required": required, "status": "missing", "path": str(safe_path)}
     data = load_json(safe_path, root)
     generated = (
