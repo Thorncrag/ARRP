@@ -87,6 +87,87 @@ def lifecycle_findings(
 
 
 class GitHubIssueLinkTests(unittest.TestCase):
+    def test_current_audit_handoff_state_is_coherent(self):
+        current_audit = (ROOT / "framework/logs/CURRENT_AUDIT.md").read_text(
+            encoding="utf-8"
+        )
+        current_table = current_audit.split("## Current Task", 1)[1].split(
+            "## Handoff Rules", 1
+        )[0]
+        rows: dict[str, str] = {}
+        for line in current_table.splitlines():
+            if not line.startswith("| ") or line.startswith("| ---"):
+                continue
+            cells = [cell.strip() for cell in line.strip("|").split("|")]
+            if len(cells) == 2 and cells[0] != "Field":
+                rows[cells[0]] = cells[1]
+
+        state = rows["Handoff state"]
+        self.assertIn(state, {"Open", "Paused", "Blocked", "Inactive"})
+        if state == "Inactive":
+            for field in (
+                "Active issue/task",
+                "Audit type/tier",
+                "Started",
+                "User request",
+                "Scope",
+                "Files touched",
+                "Completed steps",
+                "Next step",
+                "Blockers/questions",
+            ):
+                self.assertEqual(rows[field], "None.", field)
+            self.assertEqual(rows["Validation status"], "Not applicable.")
+        else:
+            for field in (
+                "Active issue/task",
+                "Audit type/tier",
+                "Started",
+                "User request",
+                "Scope",
+                "Next step",
+            ):
+                self.assertNotIn(rows[field], {"", "None."}, field)
+            self.assertNotEqual(rows["Validation status"], "Not applicable.")
+            if state in {"Paused", "Blocked"}:
+                self.assertNotIn(
+                    rows["Blockers/questions"],
+                    {"", "None."},
+                    "Paused and Blocked handoffs require resumption or blocker details",
+                )
+        self.assertRegex(
+            rows["Last checkpoint"],
+            r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} [+-]\d{4}$",
+        )
+
+    def test_current_audit_rules_separate_handoff_from_runtime_liveness(self):
+        current_audit = (ROOT / "framework/logs/CURRENT_AUDIT.md").read_text(
+            encoding="utf-8"
+        )
+        agent_rules = (ROOT / "framework/AGENT_OPERATING_RULES.md").read_text(
+            encoding="utf-8"
+        )
+        framework = (ROOT / "framework/FRAMEWORK.md").read_text(encoding="utf-8")
+        elim = (ROOT / "framework/agents/ELIM.md").read_text(encoding="utf-8")
+        coordinator = (ROOT / "framework/agents/RUN_COORDINATOR_BOT.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn(
+            "| Handoff state | Open / Paused / Blocked / Inactive |",
+            current_audit,
+        )
+        self.assertNotIn("| Status | Active / Paused / Blocked / Inactive |", current_audit)
+        self.assertIn("records continuation state only", current_audit)
+        self.assertIn("It is not evidence that an agent", current_audit)
+        self.assertIn("This file is not a completion ledger.", current_audit)
+        self.assertIn("Successful task closeout requires", agent_rules)
+        self.assertIn("none establishes runtime liveness", agent_rules)
+        self.assertIn("Do not mark the handoff `Inactive`", framework)
+        self.assertIn("continuation state, not proof", elim)
+        self.assertIn("identifies unfinished continuation state only", coordinator)
+        self.assertIn("A successfully completed task requires an `Inactive` handoff", coordinator)
+
     def test_persistent_agent_runbooks_match_runtime_configuration(self):
         failures: list[str] = []
         warnings: list[str] = []

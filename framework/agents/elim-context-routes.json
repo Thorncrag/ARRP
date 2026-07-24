@@ -10,15 +10,15 @@
   "documents": {
     "agent_rules": {
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "d5d35e12bdae596cb05ce6ea78697241487e22e64d83971dd857e27df3dedd50"
+      "sha256": "1cfff9292d26467c5810d58a6a8a45a32fb4e7940d0bd6862207158e14ecf168"
     },
     "elim_runbook": {
       "path": "framework/agents/ELIM.md",
-      "sha256": "a6c52c49c3f66adf3eec35b9503552bd367b8ed942c15ce18fde51ab27d3e1a5"
+      "sha256": "b099dc397f9ae708e5124c186005f9001cc2f644f3bf72a60533f72a12ac8952"
     },
     "framework": {
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9"
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb"
     },
     "github_workflow": {
       "path": "framework/GITHUB_WORKFLOW.md",
