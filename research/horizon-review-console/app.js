@@ -136,7 +136,8 @@
       ids: new Set(data.presidential_directives
         .filter((record) => /^(New|Changed) since/.test(record.review_status || ""))
         .map((record) => record.id))
-    }
+    },
+    pullRequests: []
   };
 
   function text(value, fallback = "—") {
@@ -1928,19 +1929,35 @@
     return { label: `${finding.reference || "Problem"}: ${message}`, href };
   }
 
+  function pullRequestActionLink(pullRequest) {
+    const branch = String(pullRequest.head?.ref || "");
+    const kind = branch.startsWith("dependabot/")
+      ? "dependency update"
+      : /^(?:bot|automation)\//.test(branch)
+        ? "bot proposal"
+        : branch.startsWith("codex/")
+          ? "Codex change"
+          : "repository change";
+    const state = pullRequest.draft ? "draft" : kind;
+    return {
+      label: `PR #${pullRequest.number}: ${pullRequest.title} — ${state}`,
+      href: pullRequest.html_url
+    };
+  }
+
   function renderActionItems() {
     const decisionRecords = humanDecisionRecords();
     const decisions = decisionRecords.length;
     const preliminary = data.records.length;
     const pending = data.pending_sources.length;
-    const courtUpdates = reviewSignals.courts.count;
-    const directiveUpdates = reviewSignals.directives.count;
+    const openPullRequests = reviewSignals.pullRequests;
+    const pullRequests = openPullRequests.length;
     const integrityHumanFindings = allProblemRecords()
       .filter((finding) => finding.attention === "human")
       .sort((left, right) => String(left.message || "").localeCompare(String(right.message || "")));
     const integrityHuman = integrityHumanFindings.length;
-    const total = decisions + preliminary + pending + courtUpdates + directiveUpdates + integrityHuman;
-    const newOrUpdated = preliminary + courtUpdates + directiveUpdates;
+    const total = decisions + preliminary + pending + pullRequests + integrityHuman;
+    const newOrUpdated = preliminary;
     byId("tab-actions-count").textContent = total;
     byId("action-items-note").textContent = total
       ? `${total} item${total === 1 ? "" : "s"} awaiting review or a decision; ${newOrUpdated} new or updated.`
@@ -1968,6 +1985,15 @@
         }))
       }),
       actionItemCard({
+        label: "Open pull requests awaiting disposition",
+        count: pullRequests,
+        detail: pullRequests
+          ? "Every open repository change requiring review, merge, closure, or another explicit disposition."
+          : "No pull request currently awaits disposition.",
+        target: "automation:administration",
+        items: openPullRequests.map(pullRequestActionLink)
+      }),
+      actionItemCard({
         label: "Preliminary candidates",
         count: preliminary,
         updateCount: preliminary,
@@ -1981,22 +2007,6 @@
         detail: pending ? "Sources still requiring a choice among plausible project destinations." : "No source-routing decisions are pending.",
         target: "sources:pending",
         items: data.pending_sources.map((record) => ({ label: `ACT-${record.id}: ${record.title}`, href: record.url }))
-      }),
-      actionItemCard({
-        label: "Court-case updates",
-        count: courtUpdates,
-        updateCount: courtUpdates,
-        detail: courtUpdates ? `${courtUpdates} monitored source update${courtUpdates === 1 ? "" : "s"} await review.` : "No unresolved case-watcher update is currently reported.",
-        target: "sources:watchers:courts",
-        externalUrl: reviewSignals.courts.url
-      }),
-      actionItemCard({
-        label: "Presidential-directive updates",
-        count: directiveUpdates,
-        updateCount: directiveUpdates,
-        detail: directiveUpdates ? `${directiveUpdates} new or changed directive${directiveUpdates === 1 ? "" : "s"} await screening.` : "No new or changed directive currently awaits screening.",
-        target: "sources:watchers:directives",
-        externalUrl: reviewSignals.directives.url
       })
     );
     refreshLayoutZones();
@@ -2030,6 +2040,9 @@
       });
       if (!response.ok) throw new Error(`GitHub returned ${response.status}`);
       const pullRequests = await response.json();
+      reviewSignals.pullRequests = pullRequests
+        .filter((record) => record && Number.isInteger(record.number) && record.html_url)
+        .sort((left, right) => right.number - left.number);
       const court = pullRequests.find((record) => record.head?.ref === "bot/case-monitor-updates");
       const directives = pullRequests.find((record) => record.head?.ref === "automation/presidential-directives-monitor");
       if (court) {
@@ -2050,10 +2063,10 @@
       } else {
         reviewSignals.directives.url = "";
       }
-      byId("action-items-live-note").textContent = "Bot-update counts were refreshed from the repository. Other counts come from the checked-in console data.";
+      byId("action-items-live-note").textContent = "Open pull requests and bot-update counts were refreshed from GitHub. Other counts come from the checked-in Console data.";
       renderReviewSignals();
     } catch (_error) {
-      byId("action-items-live-note").textContent = "Live bot-update status could not be refreshed; checked-in queue counts remain available.";
+      byId("action-items-live-note").textContent = "Open pull requests and live bot-update status could not be refreshed; checked-in queue counts remain available.";
     }
   }
 
@@ -2335,7 +2348,7 @@
     const humanProblems = problems.filter((problem) => problem.attention === "human").length;
     const decisions = humanDecisionRecords().length;
     const actionCount = humanProblems + decisions + data.records.length + data.pending_sources.length
-      + reviewSignals.courts.count + reviewSignals.directives.count;
+      + reviewSignals.pullRequests.length;
     const dispositions = data.publication?.disposition_counts || {};
     const publicationExceptions = Number(dispositions.unclassified || 0) + Number(dispositions.conflict || 0);
     const currentRecordCount = (data.progress?.proposals || []).length + data.active_horizon_records.length;

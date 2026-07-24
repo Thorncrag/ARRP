@@ -17,14 +17,14 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Active issue/task | Surface open pull requests requiring human disposition in the Console Action Items view. |
 | Audit type/tier | Console administration and human-review routing |
 | Started | 2026-07-24 12:30:00 -0400 |
-| Last checkpoint | 2026-07-24 12:30:00 -0400 |
+| Last checkpoint | 2026-07-24 12:50:00 -0400 |
 | User request | Show unresolved pull or merge requests in Action Items so every human-review obligation is visible in one place. |
 | Scope | Console data generation and Action Items presentation; open ARRP pull requests; no automatic merge or disposition. |
-| Files touched | None yet for the new task. |
-| Completed steps | Host-reconciled Elim's linked-vehicle context repair through pull request [#391](https://github.com/Thorncrag/ARRP/pull/391) after its required checks passed. Identified four pre-existing open human-review pull requests: #381, #380, #378, and #361. |
-| Next step | Add a deterministic open-pull-request feed to Action Items, distinguish bot/dependency review from automation failure, link each item to GitHub, add regression coverage, rebuild the Console, validate, and reconcile through the reviewed workflow. |
+| Files touched | `research/horizon-review-console/app.js`; `tests/test_horizon_intake.py`; `framework/logs/CURRENT_AUDIT.md` |
+| Completed steps | Host-reconciled Elim's linked-vehicle context repair through merged pull request [#391](https://github.com/Thorncrag/ARRP/pull/391). Added every open GitHub pull request to a single collapsible Action Items queue, classified bot and dependency proposals, linked each entry directly to GitHub, removed duplicate court/directive Action Items cards, and updated Action Items and Overview totals. Live browser verification found the four expected open requests (#381, #380, #378, and #361), confirmed their links, and confirmed the queue expands correctly. Rebuilt the Console and completed focused, repository-wide, and authenticated consistency validation. |
+| Next step | Commit and push the reviewed branch, open a pull request, wait for required checks, merge, then mark this handoff inactive and perform final readback. |
 | Blockers/questions | None. |
-| Validation status | Linked-vehicle repair passed 194 repository tests, 24 participation-service tests, authenticated consistency with 0 errors and 0 warnings, CodeQL, Vercel, syntax, and diff hygiene. New Console work not yet started. |
+| Validation status | Passed: live Console interaction; JavaScript syntax; 28 focused Console tests; 194 repository tests; 24 participation-service tests; diff hygiene; authenticated consistency audit with 0 errors and 0 warnings. |
 
 ## Handoff Rules
 
