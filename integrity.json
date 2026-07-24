@@ -2,17 +2,17 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-24T06:35:41+00:00",
-    "revision": "45057af4499bb6cb957ff51c8818ba7d692b2949",
-    "result": "findings",
+    "generated_at": "2026-07-24T06:45:16+00:00",
+    "revision": "9c798bc31452c4f1ce08dcc8d3645874c4e97319",
+    "result": "clean",
     "counts": {
-      "errors": 3,
+      "errors": 0,
       "warnings": 0,
-      "findings": 3,
+      "findings": 0,
       "issue_pages": 64,
       "proposal_pages": 41
     },
-    "duration_seconds": 11.836,
+    "duration_seconds": 14.28,
     "scope": [
       "Issue and proposal structure, including Issue Snapshot concision",
       "Area and topic routing",
@@ -35,34 +35,22 @@
       "Persistent-agent runbooks and runtime configuration",
       "Structured-file and repository hygiene"
     ],
-    "findings": [
-      {
-        "id": "error-0001",
-        "severity": "error",
-        "category": "Project structure",
-        "attention": "agent",
-        "message": "Project Last audit for DOJ-002 differs from repository audit metadata",
-        "path": ""
-      },
-      {
-        "id": "error-0002",
-        "severity": "error",
-        "category": "Lifecycle",
-        "attention": "agent",
-        "message": "Project Next audit for DOJ-002 differs from repository audit_next",
-        "path": ""
-      },
-      {
-        "id": "error-0003",
-        "severity": "error",
-        "category": "Project structure",
-        "attention": "agent",
-        "message": "Project Change audit needed for DOJ-002 differs from repository metadata",
-        "path": ""
-      }
-    ]
+    "findings": []
   },
   "history": [
+    {
+      "generated_at": "2026-07-24T06:45:16+00:00",
+      "revision": "9c798bc31452c4f1ce08dcc8d3645874c4e97319",
+      "result": "clean",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "findings": 0,
+        "issue_pages": 64,
+        "proposal_pages": 41
+      },
+      "duration_seconds": 14.28
+    },
     {
       "generated_at": "2026-07-24T06:35:41+00:00",
       "revision": "45057af4499bb6cb957ff51c8818ba7d692b2949",
@@ -439,19 +427,6 @@
         "proposal_pages": 40
       },
       "duration_seconds": 12.818
-    },
-    {
-      "generated_at": "2026-07-22T11:42:13+00:00",
-      "revision": "0a6eeb1360cbdc90b29ccd7e9ed2eefd8da90280",
-      "result": "findings",
-      "counts": {
-        "errors": 2,
-        "warnings": 0,
-        "findings": 2,
-        "issue_pages": 61,
-        "proposal_pages": 40
-      },
-      "duration_seconds": 10.793
     }
   ]
 }
