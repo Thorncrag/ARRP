@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
-| Active issue/task | Elim run `ELIM-20260724T060145Z` |
-| Audit type/tier | Targeted Change Audit and Internal Remedy-Fit Audit |
+| Status | Inactive; Elim run safely closed on changed usage window |
+| Active issue/task | None |
+| Audit type/tier | Elim usage-stopped closeout |
 | Started | 2026-07-24 02:01:45 -0400 |
-| Last checkpoint | 2026-07-24 02:35:00 -0400; public-intake triage found no Discussions or submissions, and DOJ-002's targeted Change Audit passed local validation and was preserved at `aa16ce8`. The latest approved host-context usage check passed at Codex 33 percent remaining and Spark 99 percent remaining with 4 percentage points consumed. |
+| Last checkpoint | 2026-07-24 02:41:00 -0400; DOJ-002 is merged and synchronized, WAR-009 maturity is reconciled, and authenticated consistency is clean. The required post-unit usage check at 02:40 failed closed because the `codex:primary` window reset during the run; no later work unit began. |
 | User request | Run Elim in authoritative runbook order with fail-closed usage, validation, synchronization, and closeout controls. |
 | Scope | Unified Console Integrity and Source Checker review; admitted-unscored lifecycle reconciliation; then intake, Change Audits, T-audits, and highest-value eligible development while usage permits. |
-| Files touched | `areas/DOJ/issues/DOJ-002.md`, `areas/DOJ/issues/DOJ-002.audit.md`, and `framework/logs/CURRENT_AUDIT.md`; shared provenance and generated Console data remain to be appended after the unit commit. |
-| Completed steps | Completed unified Integrity and lifecycle reconciliation; confirmed Source Checker has no current report; found zero public-intake Discussions or submissions; verified DOJ-002's updated manifestation and source posture; confirmed issue-to-vehicle and internal remedy fit; preserved score 78 and four T-audit runs; drafted clearance of the Change Audit marker. |
-| Next step | Push and merge the reviewed DOJ-002 unit, synchronize and read back GitHub Issue/Project/Console state, then recheck official usage before JUD-009. |
-| Blockers/questions | Project built-in Title values for renamed issue-backed items cannot be edited through the Project API; live issue identities and canonical links are authoritative. No substantive blocker is presently established. |
-| Validation status | DOJ-002 local validation passed: live source and docket review; 131 repository tests; `git diff --check`; local Project Consistency Audit with 0 errors. Authenticated synchronization validation remains. |
+| Files touched | Complete run detail is in `framework/logs/ELIM_RUN_LOG.md`; material provenance is in `framework/logs/AGENT_AUDIT_LOG.md`. |
+| Completed steps | Cleared all Integrity warnings; reconciled admitted-unscored lifecycle state; confirmed no current Source Checker report; reviewed the empty intake queue; completed and merged DOJ-002's targeted revision and remedy-fit review without changing score or Runs; reconciled WAR-009 to its canonically recorded audit-ready maturity; synchronized Project and Console state. |
+| Next step | Start a fresh Elim run with a new baseline and resume before JUD-009's targeted Change Audit and Internal Remedy-Fit Audit. |
+| Blockers/questions | The official usage window changed during the run, which is a mandatory fail-closed stop. Project built-in Title values for renamed issue-backed items remain noneditable through the Project API; live issue identities and canonical links are authoritative. |
+| Validation status | Passed: 131 repository tests; `git diff --check`; authenticated Project Consistency Audit with 0 errors and 0 warnings; merged PR checks; Project field and generated Console readback. |
 
 ## Detailed Findings and Corrections
 
