@@ -21,6 +21,7 @@ CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.cs
 HORIZON_LOG = ROOT / "framework" / "logs" / "HORIZON_SCAN_LOG.md"
 CHANGE_AUDIT_LOG = ROOT / "framework" / "logs" / "CHANGE_AUDIT_LOG.md"
 AGENT_AUDIT_LOG = ROOT / "framework" / "logs" / "AGENT_AUDIT_LOG.md"
+ELIM_RUN_LOG = ROOT / "framework" / "logs" / "ELIM_RUN_LOG.md"
 SOURCE_CHECKER_DATA = ROOT / "framework" / "reports" / "source-checker.json"
 SOURCE_MONITOR_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
 AGENT_RUNBOOKS = ROOT / "framework" / "agents"
@@ -236,6 +237,7 @@ def agent_registry_records() -> list[dict[str, object]]:
         description_match = re.search(r"^# .+?\n\n(.+?)(?=\n\n|\n#)", body, re.MULTILINE | re.DOTALL)
         description = strip_markdown(description_match.group(1).strip()) if description_match else ""
         runtime_id = str(metadata.get("runtime_id", "")).strip()
+        run_log_path = str(metadata.get("run_log_path", "")).strip()
         raw_checks = metadata.get("checks_included", [])
         checks = (
             [str(item).strip() for item in raw_checks if str(item).strip()]
@@ -259,6 +261,8 @@ def agent_registry_records() -> list[dict[str, object]]:
                 "runtime_url": runtime_url,
                 "execution_environment": str(metadata.get("execution_environment", "")).strip(),
                 "log_path": str(metadata.get("log_path", "")).strip(),
+                "run_log_path": run_log_path,
+                "run_log_url": GITHUB_BLOB_ROOT + run_log_path if run_log_path else "",
                 "description": description,
                 "checks": checks,
                 "runbook_path": str(path.relative_to(ROOT)),
@@ -854,6 +858,52 @@ def agent_audit_log_view() -> dict[str, object]:
     }
 
 
+def elim_run_log_view() -> dict[str, object]:
+    entries: list[dict[str, object]] = []
+    content = ELIM_RUN_LOG.read_text(encoding="utf-8")
+    for index, (title, body) in enumerate(section_records(content, 3, "## Runs"), 1):
+        fields = two_column_fields(body)
+        if not fields:
+            continue
+        header_parts = [part.strip() for part in title.split("—")]
+        values = {
+            "date": strip_markdown(fields.get("Started", header_parts[0] if header_parts else "")),
+            "outcome": strip_markdown(fields.get("Outcome", header_parts[2] if len(header_parts) > 2 else "")),
+            "trigger": strip_markdown(fields.get("Trigger", "")),
+            "summary": strip_markdown(fields.get("Work summary", "")),
+            "usage": strip_markdown(fields.get("Usage", "")),
+            "next": strip_markdown(fields.get("Exact next action", "")),
+        }
+        entries.append(log_entry(f"elim-run-{index:03d}", values, {
+            "date": fields.get("Started", ""),
+            "outcome": fields.get("Outcome", ""),
+            "trigger": fields.get("Trigger", ""),
+            "summary": fields.get("Work summary", ""),
+            "usage": fields.get("Usage", ""),
+            "next": fields.get("Exact next action", ""),
+        }, body))
+    return {
+        "id": "elim",
+        "title": "Elim Run Log",
+        "description": "Complete per-run operational reports for ARRP's scheduled LLM agent.",
+        "source_url": GITHUB_BLOB_ROOT + "framework/logs/ELIM_RUN_LOG.md",
+        "columns": [
+            {"key": "date", "label": "Started"},
+            {"key": "outcome", "label": "Outcome"},
+            {"key": "trigger", "label": "Trigger"},
+            {"key": "summary", "label": "Work summary"},
+            {"key": "usage", "label": "Usage"},
+            {"key": "next", "label": "Exact next action"},
+        ],
+        "group_options": [
+            {"key": "outcome", "label": "Outcome"},
+            {"key": "trigger", "label": "Trigger"},
+        ],
+        "default_sort": {"key": "date", "direction": "desc"},
+        "entries": entries,
+    }
+
+
 def bullet_fields(content: str) -> dict[str, str]:
     return {
         strip_markdown(match.group(1)): match.group(2).strip()
@@ -907,6 +957,7 @@ def source_monitor_log_view() -> dict[str, object]:
 def project_log_views() -> list[dict[str, object]]:
     return [
         horizon_log_view(),
+        elim_run_log_view(),
         agent_audit_log_view(),
         source_monitor_log_view(),
         change_audit_log_view(),

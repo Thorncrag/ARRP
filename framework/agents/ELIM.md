@@ -10,6 +10,7 @@ runtime_id: codex-automation:elim
 execution_environment: isolated-worktree
 model_policy: "gpt-5.6-sol with xhigh reasoning"
 log_path: framework/logs/AGENT_AUDIT_LOG.md
+run_log_path: framework/logs/ELIM_RUN_LOG.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
 ---
@@ -29,13 +30,13 @@ If a bounded operation crosses the ten-point run budget or the 15-percent reserv
 ## Preflight
 
 1. Start from a clean, current isolated worktree, establish the unique temporary usage baseline, and confirm no incompatible active handoff.
-2. Read the governing files, current integrity report and Console findings, authoritative GitHub Project state, canonical foundation metadata, and shared Agent Audit Log.
+2. Read the governing files, current integrity report and Console findings, authoritative GitHub Project state, canonical foundation metadata, shared Agent Audit Log, and prior Elim Run Log closeout.
 3. Confirm authenticated GitHub and Project access, validation tools, branch target, runtime identity, and runbook/configuration agreement.
 4. Establish a Run ID and stop before edits if safe reconciliation is unavailable.
 
 ## Inputs and permitted writes
 
-Elim reads the governing files, its runbook, current Integrity and source-check findings, shared Agent Audit Log, public-intake comments made available under the Public-Intake Review Process, applicable candidate and canonical pages and vehicles, audit histories, source records, GitHub Issues, Project fields, and publication state. It may change only records required for an eligible runbook work unit and must remain inside either the approved proposal foundation or the candidate-investigation boundary below. It may not change credentials, runtime configuration, agent runbooks, scoring rubrics, foundational decisions, candidate dispositions, or unrelated work.
+Elim reads the governing files, its runbook, current Integrity and source-check findings, shared Agent Audit Log, prior [Elim Run Log](../logs/ELIM_RUN_LOG.md) closeout, public-intake comments made available under the Public-Intake Review Process, applicable candidate and canonical pages and vehicles, audit histories, source records, GitHub Issues, Project fields, and publication state. It may change only records required for an eligible runbook work unit and must remain inside either the approved proposal foundation or the candidate-investigation boundary below. It may not change credentials, runtime configuration, agent runbooks, scoring rubrics, foundational decisions, candidate dispositions, or unrelated work.
 
 ## Work Order
 
@@ -83,10 +84,10 @@ Across both workflows, Elim may not invent or replace an approved remedy or vehi
 
 ## Unit Completion and Closeout
 
-Each material unit updates and reads back every affected repository, GitHub Issue, Project, source, Console, and publication surface; runs applicable validation; preserves an intentional commit and rollback path; and appends the shared log entry. Commit, push, authentication, or validation failure stops new work after preservation.
+Each material unit updates and reads back every affected repository, GitHub Issue, Project, source, Console, and publication surface; runs applicable validation; preserves an intentional commit and rollback path; and appends its ordinary project-wide provenance entry to the shared Agent Audit Log. Detailed T-audit and Change Audit findings remain in the affected issue audit sidecar and synchronized issue, inventory, dashboard, and GitHub records. The shared entry links those records rather than replacing or restating them. Commit, push, authentication, or validation failure stops new work after preservation.
 
-The run report lists integrity findings, public-intake comments reviewed, informative replies posted with their direct URLs, recommended or authorized organization and routing actions, duplicate or split recommendations, categorical moderation flags, strictly political no-action dispositions, candidate investigations and their recommended dispositions, human-review questions, Change Audits, every completed tier, ladders paused, score or maturity changes, proposals reaching Review Ready, validation, commits, blockers, usage-preflight and per-run-budget results, and exact next actions. It does not reproduce flagged submission text. Completely clean no-change runs remain only in bounded automation history.
+At closeout, Elim appends exactly one complete run-level report to the [Elim Run Log](../logs/ELIM_RUN_LOG.md), including clean, productive, usage-stopped, blocked, and failed runs. The report lists integrity findings, public-intake comments reviewed, informative replies posted with their direct URLs, recommended or authorized organization and routing actions, duplicate or split recommendations, categorical moderation flags, strictly political no-action dispositions, candidate investigations and their recommended dispositions, human-review questions, Change Audits, every completed tier, ladders paused, score or maturity changes, proposals reaching Review Ready, validation, commits and synchronization, blockers, usage-preflight and per-run-budget results, stop reason, and exact next actions. It summarizes and links issue audit histories and shared Agent Audit Log entries without duplicating detailed audit findings. It does not reproduce flagged submission text.
 
 ## Publication, validation, stop, and notification
 
-Each completed unit follows the ordinary reviewed ARRP branch, commit, synchronization, and publication rules; Elim has no dedicated disposable force-replaced branch. It validates repository structure, sources, relevant tests, GitHub Issue and Project readback, Console data when affected, and live publication surfaces when affected. It stops before a new operation on the ten-point per-run budget, the 15-percent reserve, unreadable or unexpectedly changed usage state, dirty or incompatible repository state, missing authority, human-reserved judgment, authentication failure, unresolved merge risk, validation failure, or incomplete synchronization, after finishing and preserving only an already-started bounded operation and recording the exact continuation point. Failed runs notify the user; successful and clean runs remain available in the automation task and shared log according to the material-action rule.
+Each completed unit follows the ordinary reviewed ARRP branch, commit, synchronization, and publication rules; Elim has no dedicated disposable force-replaced branch. It validates repository structure, sources, relevant tests, GitHub Issue and Project readback, Console data when affected, and live publication surfaces when affected. It stops before a new operation on the ten-point per-run budget, the 15-percent reserve, unreadable or unexpectedly changed usage state, dirty or incompatible repository state, missing authority, human-reserved judgment, authentication failure, unresolved merge risk, validation failure, or incomplete synchronization, after finishing and preserving only an already-started bounded operation and recording the exact continuation point. Failed runs notify the user; every run remains available in the automation task and Elim Run Log, while only material units enter the shared Agent Audit Log.

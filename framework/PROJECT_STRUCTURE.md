@@ -74,6 +74,7 @@ Ignored local products such as `.venv/`, `.tmp/`, and `.site-build/` are not pro
 | `framework/logs/HORIZON_SCAN_LOG.md` | Cumulative candidate disposition and integration history. |
 | `framework/logs/CHANGE_AUDIT_LOG.md` | Preserved historical project-wide Change Audit record. |
 | `framework/logs/AGENT_AUDIT_LOG.md` | Shared provenance and rollback ledger for material actions by every persistent agent and bot. |
+| `framework/logs/ELIM_RUN_LOG.md` | Complete per-run operational reports for Elim, with links to issue audit histories and shared material-action provenance. |
 | `framework/logs/SOURCE_MONITOR_LOG.md` | Source-domain event record for accepted or proposed monitoring changes; it does not replace shared agent provenance. |
 | `framework/logs/PROJECT_INTEGRITY_REPORT.md` | Overwritten current integrity findings; not a running audit log. |
 | `framework/templates/` | Reusable project-authored drafting templates. Public input is routed through the separately deployed participation service rather than GitHub issue forms. |
