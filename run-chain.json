@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260724T142349Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30100820412",
+  "chain_id": "arrp-20260724T143014Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30101268948",
   "trigger": "push",
-  "created_at": "2026-07-24T14:23:49+00:00",
-  "updated_at": "2026-07-24T14:25:12+00:00",
-  "status": "complete",
-  "baseline_commit": "e5305cedc392c62cdb0fcf17d8edfb16e36d7990",
+  "created_at": "2026-07-24T14:30:14+00:00",
+  "updated_at": "2026-07-24T14:31:22+00:00",
+  "status": "blocked",
+  "baseline_commit": "1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07",
   "resume": {
     "count": 0,
     "from_run_id": null
@@ -16,12 +16,12 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260724T142349Z"
+    "owner_chain_id": "arrp-20260724T143014Z"
   },
   "repository": {
     "branch": "main",
-    "head": "e5305cedc392c62cdb0fcf17d8edfb16e36d7990",
-    "origin_main": "e5305cedc392c62cdb0fcf17d8edfb16e36d7990",
+    "head": "1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07",
+    "origin_main": "1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07",
     "clean": true,
     "dirty_paths": [],
     "dirty_path_count": 0,
@@ -74,7 +74,7 @@
       "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T14:23:49+00:00",
+      "completed_at": "2026-07-24T14:30:14+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -90,7 +90,7 @@
       "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T14:23:49+00:00",
+      "completed_at": "2026-07-24T14:30:14+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -106,7 +106,7 @@
       "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T14:23:49+00:00",
+      "completed_at": "2026-07-24T14:30:14+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -122,15 +122,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-24T14:25:11+00:00",
-      "last_success_at": "2026-07-24T14:25:11+00:00",
+      "completed_at": "2026-07-24T14:31:21+00:00",
+      "last_success_at": "2026-07-24T14:31:21+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:770cd79a0d7e8aee22be68869b96727abaa092838934e309b40af6a25f6746fc"
+        "sha256": "sha256:f0d66e0561ea84380dde30f6c8372915dd8c62bd1808afcb3593d047fd376152"
       },
       "work_count": 0
     },
@@ -142,15 +142,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-24T14:25:11+00:00",
-      "last_success_at": "2026-07-24T14:25:11+00:00",
+      "completed_at": "2026-07-24T14:31:21+00:00",
+      "last_success_at": "2026-07-24T14:31:21+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:858b0c6e7bc702810d18f54cab87b7efce5b6ab7429f4ebd6f316d5aba0a1a82"
+        "sha256": "sha256:8a5295754bffb5a50c0806b60a98f6466138256d410221e172f0da172faf1a6a"
       },
       "work_count": 0
     },
@@ -162,15 +162,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-24T14:25:11+00:00",
-      "last_success_at": "2026-07-24T14:25:11+00:00",
+      "completed_at": "2026-07-24T14:31:21+00:00",
+      "last_success_at": "2026-07-24T14:31:21+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:ee8922dec27c546eb9bb6c89d353563f31ac02f89458346a2fde04a943cfe544"
+        "sha256": "sha256:6b8e3db818e2634e7579bdc12335102713902e0f4be4802ca7d4ca72690e1b34"
       },
       "work_count": 0
     }
@@ -186,8 +186,10 @@
   },
   "elim_decision": {
     "launch_recommended": false,
-    "reason": "Codex usage reserve has not been measured.",
-    "blockers": [],
+    "reason": "Context Gateway blocked launch: integrity revision e5305cedc392c62cdb0fcf17d8edfb16e36d7990 differs from chain revision 1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07",
+    "blockers": [
+      "integrity revision e5305cedc392c62cdb0fcf17d8edfb16e36d7990 differs from chain revision 1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07"
+    ],
     "last_substantive_stage": true,
     "predecessors_complete": true,
     "profile": {
@@ -201,7 +203,7 @@
   "review_epoch": {
     "interval_days": 14,
     "last_completed_at": null,
-    "next_due_at": "2026-07-24T14:23:49+00:00",
+    "next_due_at": "2026-07-24T14:30:14+00:00",
     "due": true,
     "due_reason": "no completed review epoch",
     "boundary_commit": "f74d50318e815eae49b51f7194a324eff957d932",
@@ -214,10 +216,10 @@
     "remaining_percent": null,
     "status": "unknown"
   },
-  "next_action": "No Elim launch; wait for the next trigger.",
+  "next_action": "Refresh or repair the blocked Context Gateway input.",
   "action_items": [],
-  "completed_at": "2026-07-24T14:25:11+00:00",
-  "final_revision": "e5305cedc392c62cdb0fcf17d8edfb16e36d7990",
+  "completed_at": "2026-07-24T14:31:21+00:00",
+  "final_revision": "1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07",
   "bots": [
     {
       "id": "case-monitor-bot",
@@ -225,7 +227,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T14:23:49+00:00",
+      "completed_at": "2026-07-24T14:30:14+00:00",
       "error": null
     },
     {
@@ -234,7 +236,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T14:23:49+00:00",
+      "completed_at": "2026-07-24T14:30:14+00:00",
       "error": null
     },
     {
@@ -243,7 +245,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T14:23:49+00:00",
+      "completed_at": "2026-07-24T14:30:14+00:00",
       "error": null
     },
     {
@@ -252,7 +254,7 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-24T14:25:11+00:00",
+      "completed_at": "2026-07-24T14:31:21+00:00",
       "error": null
     },
     {
@@ -261,22 +263,24 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-24T14:25:11+00:00",
+      "completed_at": "2026-07-24T14:31:21+00:00",
       "error": null
     }
   ],
   "work_queue": {
     "path": "project-console-data:elim-work-queue.json",
-    "sha256": "sha256:500aafd4a21c197246c8f416b0009ab0230b9bd4e6b379de173d277d1f33d1c2",
-    "ready_for_elim": true,
-    "launch_recommended": true,
+    "sha256": "sha256:27b3c5f3b4cab8a4cc1093998dae443afed6f3de0de3b8700d6ae8ede85d802f",
+    "ready_for_elim": false,
+    "launch_recommended": false,
     "counts": {
       "total": 55,
       "elim_eligible": 55,
       "human": 0,
       "safety": 0
     },
-    "problems": [],
+    "problems": [
+      "integrity revision e5305cedc392c62cdb0fcf17d8edfb16e36d7990 differs from chain revision 1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07"
+    ],
     "next_item": {
       "id": "CHANGE-AUDIT-77bd98919be7",
       "kind": "change_audit",
@@ -303,9 +307,9 @@
   },
   "context_packet": {
     "path": "project-console-data:elim-context.json",
-    "sha256": "sha256:72392c915ce08ef5a356e6aef937d9e01a0a773bd913c02bdf91e058cb8bcd39",
+    "sha256": "sha256:d5559319813710dee749b1128e7a11bb2c89ee13c660f48e51695d7e61b56d0d",
     "profile": "change_audit",
-    "repository_revision": "e5305cedc392c62cdb0fcf17d8edfb16e36d7990",
+    "repository_revision": "1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07",
     "provenance_complete": true,
     "limits": {
       "max_bytes": 180000,
