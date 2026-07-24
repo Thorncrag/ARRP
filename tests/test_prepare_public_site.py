@@ -3,6 +3,7 @@ import json
 import re
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,6 +26,8 @@ class PublicSitePreparationTests(unittest.TestCase):
         sources = self.manifest["canonicalSources"]
         self.assertGreater(len(sources), 100)
         self.assertIn("README.md", sources)
+        self.assertIn("UNDER_REVIEW.md", sources)
+        self.assertIn("SUPPORT.md", sources)
         self.assertIn("PRINT_READERS_GUIDE.md", sources)
         self.assertIn("SUBJECT_INDEX.md", sources)
         self.assertIn("topics/README.md", sources)
@@ -45,6 +48,8 @@ class PublicSitePreparationTests(unittest.TestCase):
             all(
                 source in {
                     "README.md",
+                    "UNDER_REVIEW.md",
+                    "SUPPORT.md",
                     "PRINT_READERS_GUIDE.md",
                     "SUBJECT_INDEX.md",
                     "ABOUT.md",
@@ -73,7 +78,9 @@ class PublicSitePreparationTests(unittest.TestCase):
     def test_reader_navigation_is_generated(self):
         config = (ROOT / ".site-build" / "mkdocs.yml").read_text(encoding="utf-8")
         self.assertIn('"Topics"', config)
+        self.assertIn('"Under Review": UNDER_REVIEW.md', config)
         self.assertIn('"About the Project": ABOUT.md', config)
+        self.assertIn('"Support": SUPPORT.md', config)
         self.assertIn('"Using a Print Edition": PRINT_READERS_GUIDE.md', config)
         self.assertIn('"Technical Record on GitHub": https://github.com/Thorncrag/ARRP', config)
         self.assertIn('"Overview": topics/index.md', config)
@@ -117,6 +124,22 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn('"Subject and Institution Index": SUBJECT_INDEX.md', config)
         self.assertIn('"A-01 / DOJ — Department of Justice"', config)
         self.assertIn('"Proposed Legislation"', config)
+        self.assertLess(
+            config.index('"Proposed Legislation"'),
+            config.index('"Under Review": UNDER_REVIEW.md'),
+        )
+        self.assertLess(
+            config.index('"Under Review": UNDER_REVIEW.md'),
+            config.index('"About":'),
+        )
+        self.assertLess(
+            config.index('"About":'),
+            config.index('"Support": SUPPORT.md'),
+        )
+        self.assertLess(
+            config.index('"Support": SUPPORT.md'),
+            config.index('"Contact":'),
+        )
         self.assertIn("git-revision-date-localized:", config)
         self.assertIn("../website/git_revision_dates.py", config)
         self.assertIn("navigation.path", config)
@@ -140,6 +163,139 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn('data-arrp-print', toc)
         self.assertIn('data-arrp-feedback', toc)
 
+    def test_under_review_page_is_current_and_reader_safe(self):
+        page = (self.docs / "UNDER_REVIEW.md").read_text(encoding="utf-8")
+        data = MODULE.console_snapshot()
+        horizon = [
+            record
+            for record in data["active_horizon_records"]
+            if isinstance(record, dict)
+        ]
+        monitored = [
+            record
+            for record in data["monitoring_issues"]
+            if isinstance(record, dict)
+            and not str(record.get("id", "")).startswith("HOR-")
+        ]
+        investigations = [
+            record
+            for record in horizon
+            if str(record.get("workflow_status", "")).casefold() == "research"
+        ]
+        held = [
+            record
+            for record in horizon
+            if str(record.get("workflow_status", "")).casefold() in {"blocked", "deferred"}
+        ]
+        developing = [
+            record
+            for record in horizon
+            if record not in investigations and record not in held
+        ]
+        preliminary = [
+            record
+            for record in data["records"]
+            if isinstance(record, dict)
+            and str(record.get("kind", "")).casefold() == "preliminary_candidate"
+        ]
+
+        self.assertNotIn(MODULE.UNDER_REVIEW_DATA_MARKER, page)
+        self.assertIn("# Issues Under Review", page)
+        self.assertIn("Request an Issue or Submit New Evidence", page)
+        self.assertIn("Submit an issue or source", page)
+        self.assertIn("Contact the author privately", page)
+        self.assertIn("Appearing here does **not** mean", page)
+        self.assertIn(f"**{len(investigations)}** active investigations", page)
+        self.assertIn(f"**{len(developing)}** other formal candidates", page)
+        self.assertIn(f"**{len(held)}** candidates waiting on evidence", page)
+        if preliminary:
+            self.assertIn("## Early Review", page)
+            self.assertIn(
+                f"**{len(preliminary)}** preliminary candidates in early review",
+                page,
+            )
+        else:
+            self.assertNotIn("## Early Review", page)
+            self.assertNotIn("preliminary candidates in early review", page)
+        self.assertIn(
+            f"**{len(monitored)}** established issues watching external developments",
+            page,
+        )
+        for record in preliminary:
+            self.assertIn(f"{record['id']} — {record['title']}", page)
+        for record in horizon:
+            self.assertIn(
+                f"{record['id']} — {record['title']}",
+                page,
+            )
+        for record in monitored:
+            self.assertIn(
+                f"{record['id']} — {record['title']}",
+                page,
+            )
+        for forbidden in (
+            "project-console-data",
+            "ARRP_HORIZON_REVIEW_DATA",
+            "dossier_gaps",
+            "supporting_sources",
+            "issue_body_html",
+        ):
+            self.assertNotIn(forbidden, page)
+
+    def test_support_routes_through_one_reader_safe_page(self):
+        support = (self.docs / "SUPPORT.md").read_text(encoding="utf-8")
+        about = (self.docs / "ABOUT.md").read_text(encoding="utf-8")
+
+        self.assertIn("# Support ARRP", support)
+        self.assertIn("## Funding and Editorial Independence", support)
+        self.assertIn("## Public Access and Reuse", support)
+        self.assertIn("should not be treated as a tax-deductible", support)
+        self.assertIn("One-time support has a $3 minimum", support)
+        self.assertIn("Choose a one-time amount", support)
+        self.assertIn("Support monthly — $5/month", support)
+        self.assertIn(
+            "https://donate.stripe.com/7sY6oJ6So8CI9QndGY6Vq00",
+            support,
+        )
+        self.assertIn(
+            "https://buy.stripe.com/9B628tb8EdX29Qn46o6Vq01",
+            support,
+        )
+        self.assertNotIn("coming soon", support)
+        self.assertIn("[Support ARRP](SUPPORT.md){ .md-button }", about)
+
+    def test_preliminary_candidates_appear_only_when_present(self):
+        snapshot = {
+            "generated_at": "2026-07-23T22:20:11+00:00",
+            "github_synced_at": "2026-07-23T22:20:04+00:00",
+            "records": [
+                {
+                    "id": "PRE-999",
+                    "kind": "preliminary_candidate",
+                    "title": "Illustrative early-review concern",
+                    "summary": "A possible institutional weakness requiring initial screening.",
+                    "supporting_sources": [{"internal": "must not render"}],
+                    "unresolved": "Internal review notes must not render.",
+                }
+            ],
+            "active_horizon_records": [],
+            "monitoring_issues": [],
+        }
+        with mock.patch.object(MODULE, "console_snapshot", return_value=snapshot):
+            rendered = MODULE.render_under_review_data()
+        self.assertIn("## Early Review", rendered)
+        self.assertIn("**1** preliminary candidates in early review", rendered)
+        self.assertIn("PRE-999 — Illustrative early-review concern", rendered)
+        self.assertIn("A possible institutional weakness requiring initial screening.", rendered)
+        self.assertNotIn("supporting_sources", rendered)
+        self.assertNotIn("Internal review notes", rendered)
+
+        snapshot["records"] = []
+        with mock.patch.object(MODULE, "console_snapshot", return_value=snapshot):
+            rendered_without_preliminary = MODULE.render_under_review_data()
+        self.assertNotIn("## Early Review", rendered_without_preliminary)
+        self.assertNotIn("preliminary candidates in early review", rendered_without_preliminary)
+
     def test_public_page_action_assets_are_staged(self):
         self.assertTrue((ROOT / "assets" / "branding" / "arrp-emblem-master.png").exists())
         self.assertTrue((ROOT / "assets" / "branding" / "arrp-emblem-print.png").exists())
@@ -157,6 +313,12 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertIn("grid-template-columns: repeat(2", stylesheet)
         self.assertIn(".arrp-topic-guide-title", stylesheet)
         self.assertIn(".arrp-topic-table", stylesheet)
+        self.assertIn(".arrp-under-review-cta", stylesheet)
+        self.assertIn(".arrp-under-review-summary", stylesheet)
+        self.assertIn(".arrp-under-review-table", stylesheet)
+        self.assertIn(".arrp-support-cta", stylesheet)
+        self.assertIn(".arrp-support-panel", stylesheet)
+        self.assertIn(".arrp-support-actions", stylesheet)
         self.assertIn(".arrp-home-emblem", stylesheet)
         self.assertRegex(
             stylesheet,
