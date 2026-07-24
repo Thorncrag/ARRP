@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None |
-| Started | 2026-07-24 14:55:29 -0400 |
-| Last checkpoint | 2026-07-24 15:06:10 -0400 |
-| User request | Verify the refreshed deterministic chain and process its highest-priority eligible work unit. |
-| Scope | None. The Pages integrity unit is complete. |
-| Files touched | None pending. |
-| Completed steps | Verified the refreshed chain, all preserved artifacts, live Pages state, and usage reserve; repaired and tested the Pages deployment-status grace rule; reran authenticated integrity with 0 errors and 0 warnings; passed the complete validation floor; recorded the material unit; and merged pull request [#396](https://github.com/Thorncrag/ARRP/pull/396) as `fd7cfea` after CodeQL and Vercel passed. No JUD-009 work resumed in this chain because the higher-priority Integrity unit consumed the authorized work-unit scope. |
-| Next step | Start a fresh chain before taking the next queue item. The current Review Epoch remains due 2026-08-07T15:40:02Z. |
+| Status | Active |
+| Active issue/task | Consolidate the issue-admission and post-admission methodology around the Guiding Principle. |
+| Audit type/tier | Project-level Change Audit; non-tier |
+| Started | 2026-07-24 15:18:23 -0400 |
+| Last checkpoint | 2026-07-24 15:18:23 -0400 |
+| User request | Implement the approved admission screen, post-admission gates, human-only terminal-disposition and reversed-control rules, and release-candidate standard. |
+| Scope | `framework/FRAMEWORK.md`; `framework/AGENT_OPERATING_RULES.md`; `framework/GITHUB_WORKFLOW.md`; affected tests, routes, and Change Audit records. |
+| Files touched | `framework/logs/CURRENT_AUDIT.md`. |
+| Completed steps | Reassessed every admission and post-admission rule, obtained the user's substantive clarifications and approval, verified a clean current `main`, and created `codex/consolidate-admission-gates`. |
+| Next step | Consolidate the canonical Framework language and synchronize operational rules and validation. |
 | Blockers/questions | None. |
-| Validation status | Passed. |
+| Validation status | Not started. |
 
 ## Handoff Rules
 

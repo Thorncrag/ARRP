@@ -451,6 +451,48 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                 total += size
             self.assertLessEqual(total, profile["max_bytes"])
 
+        guiding_principle_route = ("agent_rules", "## Guiding-Principle Check")
+        for profile_name in (
+            "issue_development",
+            "issue_audit",
+            "change_audit",
+            "public_intake",
+        ):
+            routes = {
+                (route["document"], route["heading"])
+                for route in manifest["profiles"][profile_name]["sections"]
+            }
+            self.assertIn(guiding_principle_route, routes, profile_name)
+
+        development_gates_route = (
+            "framework",
+            "### Post-Admission Development Gates",
+        )
+        for profile_name in (
+            "issue_development",
+            "issue_audit",
+            "change_audit",
+            "github_sync",
+        ):
+            routes = {
+                (route["document"], route["heading"])
+                for route in manifest["profiles"][profile_name]["sections"]
+            }
+            self.assertIn(development_gates_route, routes, profile_name)
+
+        public_intake_routes = {
+            (route["document"], route["heading"])
+            for route in manifest["profiles"]["public_intake"]["sections"]
+        }
+        self.assertTrue(
+            {
+                ("framework", "## Analytical Method"),
+                ("framework", "### Issue-Admission Test"),
+            }
+            & public_intake_routes,
+            "public_intake must receive the canonical Issue-Admission Test",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

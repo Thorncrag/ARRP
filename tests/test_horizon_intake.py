@@ -607,7 +607,146 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("## Guiding-Principle Check", agent_rules)
         self.assertIn("human manifestation and diagnostic symptom", agent_rules)
         self.assertIn(retained_language[3], agent_rules)
-        self.assertIn(retained_language[5], agent_rules)
+
+    def test_issue_admission_is_single_canonical_three_part_screen(self) -> None:
+        framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
+
+        self.assertEqual(framework.count("### Issue-Admission Test"), 1)
+        self.assertNotIn("## Adding or Promoting Issues", framework)
+        admission_match = re.search(
+            r"(?ms)^### Issue-Admission Test\s*$\n(?P<body>.*?)(?=^#{1,3}\s|\Z)",
+            framework,
+        )
+        self.assertIsNotNone(admission_match)
+        admission = admission_match.group("body")
+        for concept in (
+            "**Human consequence.**",
+            "**Institutional cause and repairability.**",
+            "**Standalone fit.**",
+        ):
+            self.assertEqual(admission.count(concept), 1)
+
+    def test_reversed_control_and_permanent_disposition_are_human_only(self) -> None:
+        framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
+        agent_rules = (
+            ROOT / "framework" / "AGENT_OPERATING_RULES.md"
+        ).read_text(encoding="utf-8")
+        intake_process = (
+            ROOT / "framework" / "INTAKE_AGENT_PROCESS.md"
+        ).read_text(encoding="utf-8")
+        admission_match = re.search(
+            r"(?ms)^### Issue-Admission Test\s*$\n(?P<body>.*?)(?=^#{1,3}\s|\Z)",
+            framework,
+        )
+        self.assertIsNotNone(admission_match)
+        admission = admission_match.group("body")
+
+        self.assertIn("reserved exclusively to the human author", framework)
+        self.assertIn(
+            "A deterministic bot may verify only whether a human decision has been recorded.",
+            framework,
+        )
+        self.assertIn(
+            "An agent may apply a recorded human decision but may not originate, revise, or infer one.",
+            framework,
+        )
+        self.assertIn("may not answer the question or represent it as satisfied", framework)
+        self.assertIn("reversed-control question is a human-only judgment", agent_rules)
+        self.assertIn(
+            "A deterministic bot may verify only whether a record-specific human answer exists",
+            agent_rules,
+        )
+        self.assertIn(
+            "An agent may apply an already recorded human answer to the affected record.",
+            agent_rules,
+        )
+        self.assertIn("it may not answer the question", agent_rules)
+        self.assertIn("or infer the human's answer", agent_rules)
+
+        self.assertIn("Only the human author may approve", admission)
+        self.assertIn("or another permanent disposition", admission)
+        self.assertIn(
+            "approval must be recorded for that specific candidate or issue rather than "
+            "inferred from standing or class-wide authority",
+            admission,
+        )
+        self.assertIn("until that decision is recorded", admission)
+        self.assertIn("Agents and bots must preserve the record", admission)
+        self.assertIn("historically traceable and is not deleted", admission)
+        self.assertIn(
+            "Every terminal candidate or issue disposition requires a record-specific "
+            "human decision.",
+            framework,
+        )
+        self.assertIn(
+            "Standing, class-wide, or blanket authorization is insufficient.",
+            framework,
+        )
+        self.assertIn(
+            "Every terminal or permanent candidate or issue disposition requires a recorded "
+            "human decision that identifies the specific record and approved disposition.",
+            agent_rules,
+        )
+        self.assertIn(
+            "Blanket authority, standing authority, or class-level preauthorization "
+            "is insufficient.",
+            agent_rules,
+        )
+        self.assertIn(
+            "preserving the original identifier, provenance, decision rationale, and "
+            "disposition history",
+            agent_rules,
+        )
+        self.assertIn("`human_consequence_assessment`", intake_process)
+        self.assertIn("`material_risk_supported`", intake_process)
+        self.assertNotIn("`irreparable_harm_assessment`", intake_process)
+
+    def test_post_admission_development_gates_are_single_and_complete(self) -> None:
+        framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
+
+        self.assertEqual(framework.count("### Post-Admission Development Gates"), 1)
+        gates_match = re.search(
+            r"(?ms)^### Post-Admission Development Gates\s*$\n"
+            r"(?P<body>.*?)(?=^#{1,3}\s|\Z)",
+            framework,
+        )
+        self.assertIsNotNone(gates_match)
+        gates = gates_match.group("body")
+        for gate in (
+            "Foundation established — In development",
+            "Package complete — Developed proposal",
+            "Audit ready — Audit needed",
+            "Internally reviewable — Review ready",
+            "Ready for the human publication decision — Release candidate",
+        ):
+            self.assertIn(gate, gates)
+        self.assertIn("current score of at least 75", gates)
+        self.assertIn("current cumulative T4 with no later unresolved material change", gates)
+        self.assertIn("no unresolved publication blocker", gates)
+        self.assertIn("current alignment among governing law and sources", gates)
+        self.assertIn("preferred standard is a total score of at least 79", gates)
+        self.assertIn("External Review Score: 4 / 4", gates)
+        self.assertIn(
+            "a score of 79 or higher without those four points does not satisfy "
+            "the preferred standard",
+            gates,
+        )
+        self.assertIn(
+            "Whenever the preferred standard is not met, the human author must record "
+            "acceptance of the departure",
+            gates,
+        )
+
+        tier_match = re.search(
+            r"(?ms)^### Audit Depth Tiers\s*$\n(?P<body>.*?)(?=^#{1,3}\s|\Z)",
+            framework,
+        )
+        self.assertIsNotNone(tier_match)
+        tiers = tier_match.group("body")
+        self.assertIn("| Tier | Use when | Purpose | Required output |", tiers)
+        for tier in ("T0: Triage scan", "T1: Framework check", "T2: Development audit",
+                     "T3: Readiness audit", "T4: Publication-ready audit"):
+            self.assertIn(tier, tiers)
 
     def test_issue_markdown_renderer_formats_content_and_escapes_untrusted_html(self) -> None:
         rendered = render_markdown_safe(

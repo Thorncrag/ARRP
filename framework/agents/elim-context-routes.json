@@ -10,23 +10,23 @@
   "documents": {
     "agent_rules": {
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "44138cc202fabe9dfc6299808fc7bec3febaf8d4e006f81f5c6fe55e07a6ed74"
+      "sha256": "d5d35e12bdae596cb05ce6ea78697241487e22e64d83971dd857e27df3dedd50"
     },
     "elim_runbook": {
       "path": "framework/agents/ELIM.md",
-      "sha256": "6fe3fe8628e4d2eaa8ec77a3cec26331a262603e0a513be720590e4df435245f"
+      "sha256": "a6c52c49c3f66adf3eec35b9503552bd367b8ed942c15ce18fde51ab27d3e1a5"
     },
     "framework": {
       "path": "framework/FRAMEWORK.md",
-      "sha256": "6fe356ccb697c88dd4442b266bb23883da13b7df604ae13f31fb272ad7b0a946"
+      "sha256": "01b7c236aea590b4218c57ac4f2d11178068d7d60d70f5b94ec6d2475abfb226"
     },
     "github_workflow": {
       "path": "framework/GITHUB_WORKFLOW.md",
-      "sha256": "4e1d5d0d2c7477a674805ff09148121439bf145a1cd3d10dfc08f4158becfe37"
+      "sha256": "8427d3f88f19d059790504d914c467b387dcb5519423b23111741459479eb6c7"
     },
     "intake_process": {
       "path": "framework/INTAKE_AGENT_PROCESS.md",
-      "sha256": "c541056c00d192e79496511760a1493f464c5bb298cbc3b35af4b8137affa0d0"
+      "sha256": "4eb686ffce46038bf23ebd8e212f0e877d740c2aa8b79f518cbd76cccbdd7ac9"
     }
   },
   "profiles": {
@@ -79,6 +79,11 @@
           "max_bytes": 30000
         },
         {
+          "document": "agent_rules",
+          "heading": "## Guiding-Principle Check",
+          "max_bytes": 15000
+        },
+        {
           "document": "elim_runbook",
           "heading": "## Work Order",
           "max_bytes": 15000
@@ -112,6 +117,11 @@
           "document": "framework",
           "heading": "### Human-Governed Foundation and Delegated Development",
           "max_bytes": 30000
+        },
+        {
+          "document": "framework",
+          "heading": "### Post-Admission Development Gates",
+          "max_bytes": 20000
         }
       ]
     },
@@ -122,6 +132,11 @@
           "document": "agent_rules",
           "heading": "## Single-Issue Default",
           "max_bytes": 55000
+        },
+        {
+          "document": "agent_rules",
+          "heading": "## Guiding-Principle Check",
+          "max_bytes": 15000
         },
         {
           "document": "elim_runbook",
@@ -161,7 +176,12 @@
         {
           "document": "framework",
           "heading": "### Audit Depth Tiers",
-          "max_bytes": 5000
+          "max_bytes": 50000
+        },
+        {
+          "document": "framework",
+          "heading": "### Post-Admission Development Gates",
+          "max_bytes": 20000
         },
         {
           "document": "framework",
@@ -239,6 +259,11 @@
           "max_bytes": 15000
         },
         {
+          "document": "agent_rules",
+          "heading": "## Guiding-Principle Check",
+          "max_bytes": 15000
+        },
+        {
           "document": "elim_runbook",
           "heading": "## Work Order",
           "max_bytes": 15000
@@ -280,6 +305,11 @@
         },
         {
           "document": "framework",
+          "heading": "### Post-Admission Development Gates",
+          "max_bytes": 20000
+        },
+        {
+          "document": "framework",
           "heading": "### Hallucination-Resistance and Verification Protocol",
           "max_bytes": 15000
         }
@@ -292,6 +322,11 @@
           "document": "intake_process",
           "heading": "## Intake sequence",
           "max_bytes": 20000
+        },
+        {
+          "document": "agent_rules",
+          "heading": "## Guiding-Principle Check",
+          "max_bytes": 15000
         },
         {
           "document": "elim_runbook",
@@ -322,6 +357,11 @@
           "document": "intake_process",
           "heading": "## Automatic preliminary-candidate authority",
           "max_bytes": 25000
+        },
+        {
+          "document": "framework",
+          "heading": "### Issue-Admission Test",
+          "max_bytes": 25000
         }
       ]
     },
@@ -347,6 +387,11 @@
           "document": "github_workflow",
           "heading": "## Tracking Rule",
           "max_bytes": 50000
+        },
+        {
+          "document": "framework",
+          "heading": "### Post-Admission Development Gates",
+          "max_bytes": 20000
         }
       ]
     },

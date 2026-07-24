@@ -38,6 +38,7 @@ class ExecutionHelperTests(unittest.TestCase):
         }
 
     def test_score_calculator_only_accepts_rubric_ratings_and_does_arithmetic(self):
+        self.assertEqual(COMPONENTS["external_review"], 4)
         result = calculate_score(self.score_input())
         self.assertEqual(result["subtotal"], 50)
         self.assertEqual(result["final_score"], 49)
