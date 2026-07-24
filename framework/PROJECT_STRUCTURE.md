@@ -71,7 +71,7 @@ Ignored local products such as `.venv/`, `.tmp/`, and `.site-build/` are not pro
 
 | Path | Purpose |
 | --- | --- |
-| `framework/logs/CURRENT_AUDIT.md` | Mutable handoff checkpoint for the current long-running audit or development task. It lives with logs for discoverability but is active state, not historical audit evidence. |
+| `framework/logs/CURRENT_AUDIT.md` | Mutable continuation checkpoint for the current unfinished long-running audit or development task. It lives with logs for discoverability but is neither runtime-liveness state nor historical audit evidence. |
 | `framework/logs/HORIZON_SCAN_LOG.md` | Cumulative candidate disposition and integration history. |
 | `framework/logs/CHANGE_AUDIT_LOG.md` | Preserved historical project-wide Change Audit record. |
 | `framework/logs/AGENT_AUDIT_LOG.md` | Shared provenance and rollback ledger for material actions by every persistent agent and bot. |

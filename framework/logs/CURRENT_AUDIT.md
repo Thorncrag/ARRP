@@ -13,27 +13,31 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
+| Handoff state | Inactive |
 | Active issue/task | None. |
 | Audit type/tier | None. |
-| Started | 2026-07-24 16:22:58 -0400 |
-| Last checkpoint | 2026-07-24 16:49:37 -0400 |
-| User request | Process the highest-priority eligible unit from deterministic chain `arrp-20260724T201743Z`. |
-| Scope | None. The JUD-009 unit and its synchronization are complete. |
-| Files touched | None pending. |
-| Completed steps | Verified the deterministic chain and current official sources; completed and recorded the JUD-009 targeted Change Audit and Internal Remedy-Fit Audit; recalculated the consolidated proposal at 77/100; preserved Runs at 4; cleared the marker; corrected bounded legislative mechanics; reconciled `SRC-0227`, `SRC-0632`, `SRC-2648`, and `SRC-2649`; merged pull request #399 as `b769911`; synchronized and read back issue #47 and every affected Project field; verified progress workflow run `30125230554`, Pages deployment `5595074348`, and all three affected live pages. Final source-accounting and run closeout are preserved in pull request #401. |
-| Next step | Human author answers the exact application-under-different-control question recorded on issue #47; then route JUD-009 to qualified constitutional, judicial-administration, and legislative-counsel review. |
-| Blockers/questions | Human-only decision: Would the project want the same categorical appointer-President rule when it disqualifies judges appointed by a President the author supports from proceedings involving that President? |
-| Validation status | Passed: 203 repository tests, 24 participation tests, syntax checks, public-site preparation, authenticated consistency with 0 errors and 0 warnings, Project and Issue readback, progress-data readback, live publication, CSV parsing, Console reconstruction, and diff hygiene. |
+| Started | None. |
+| Last checkpoint | 2026-07-24 16:58:12 -0400 |
+| User request | None. |
+| Scope | None. |
+| Files touched | None. |
+| Completed steps | None. |
+| Next step | None. |
+| Blockers/questions | None. |
+| Validation status | Not applicable. |
 
 ## Handoff Rules
 
 1. Before starting or resuming a long audit, read this file after the governing Framework and Agent Operating Rules.
-2. If this file identifies an active issue or task, continue from that checkpoint unless the user gives newer contrary instructions.
+2. If this file identifies an `Open`, `Paused`, or `Blocked` issue or task, continue from that checkpoint unless the user gives newer contrary instructions.
 3. If this file is inactive or stale and the user says "continue," ask which issue or task to continue instead of inferring from nearby repo state.
 4. Update this file at the start of any long audit, after each major phase, before risky edits, and before any likely context handoff.
-5. Clear this file back to `Inactive` only after the task is complete, committed and pushed when a GitHub remote is available, the related GitHub issue wrapper and GitHub Project item have been updated or verified when the task changes tracked fields, and any unfinished sync step is either completed or explicitly paused with a final checkpoint.
-6. Do not use GitHub issue comments as the ordinary audit-history record. Keep substantive audit history in the issue's sibling audit-history file; use the GitHub issue wrapper and Project fields for workflow status, links, score, last audit, next audit, rebaseline status, and change-audit flags.
+5. This file records continuation state only. It is not evidence that an agent, bot, automation chain, Codex task, or operating-system process is currently running. Runtime liveness must come from the owning runtime; an automation chain requires current dispatcher or task state and a valid exclusive lock whose recorded process is alive and whose heartbeat is fresh.
+6. Use `Open` for an unfinished task with an exact continuation point; `Paused` when the same unfinished task is deliberately suspended with the responsible resumer and resumption condition recorded; `Blocked` when a concrete indispensable prerequisite prevents the next action, with the blocked action, prerequisite, and unblock trigger recorded; and `Inactive` only when no unfinished task handoff remains.
+7. Successful closeout requires `Inactive` before the final report. Set the inactive sentinels exactly as shown in the current table: `Active issue/task`, `Audit type/tier`, `Started`, `User request`, `Scope`, `Files touched`, `Completed steps`, `Next step`, and `Blockers/questions` are `None.`; `Validation status` is `Not applicable.`; `Last checkpoint` may retain the clearing timestamp. The cleared checkpoint must be committed and synchronized on the canonical branch; an uncommitted or branch-only copy is insufficient. This file is not a completion ledger.
+8. A required commit, push, review or merge, synchronization, publication, validation, or human-reserved decision that belongs to the same task keeps the handoff `Paused` or `Blocked`. If a required external step fails after an intended inactive closeout, reopen the checkpoint before ending.
+9. A separate future human-review question belongs in the appropriate Action Item and issue workflow status and does not keep an otherwise completed task open.
+10. Do not use GitHub issue comments as the ordinary audit-history record. Keep substantive audit history in the issue's sibling audit-history file; use the GitHub issue wrapper and Project fields for workflow status, links, score, last audit, next audit, rebaseline status, and change-audit flags.
 
 ## Checkpoint Template
 
@@ -42,7 +46,7 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active / Paused / Blocked / Inactive |
+| Handoff state | Open / Paused / Blocked / Inactive |
 | Active issue/task | ISSUE-ID or project task |
 | Audit type/tier | T0 / T1 / T2 / T3 / T4 / Change Audit / Horizon Scan / drafting |
 | Started | YYYY-MM-DD HH:MM:SS -0400 |

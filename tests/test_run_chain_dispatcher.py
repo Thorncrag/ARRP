@@ -17,6 +17,73 @@ SPEC.loader.exec_module(MODULE)
 
 
 class RunChainDispatcherTests(unittest.TestCase):
+    def write_current_audit(
+        self,
+        repo: Path,
+        *,
+        state: str,
+        next_step: str = "None.",
+        blocker: str = "None.",
+    ) -> None:
+        inactive = state == "Inactive"
+        values = {
+            "Handoff state": state,
+            "Active issue/task": "None." if inactive else "TEST-001",
+            "Audit type/tier": "None." if inactive else "Change Audit",
+            "Started": "None." if inactive else "2026-07-24 12:00:00 -0400",
+            "Last checkpoint": "2026-07-24 12:30:00 -0400",
+            "User request": "None." if inactive else "Complete the selected unit.",
+            "Scope": "None." if inactive else "TEST-001 records.",
+            "Files touched": "None." if inactive else "areas/TEST/issues/TEST-001.md",
+            "Completed steps": "None." if inactive else "Preserved partial work.",
+            "Next step": "None." if inactive else next_step,
+            "Blockers/questions": "None." if inactive else blocker,
+            "Validation status": "Not applicable." if inactive else "In progress.",
+        }
+        path = repo / "framework/logs/CURRENT_AUDIT.md"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        rows = "\n".join(f"| {name} | {value} |" for name, value in values.items())
+        path.write_text(
+            "# Current Audit Handoff\n\n"
+            "## Current Task\n\n"
+            "| Field | Entry |\n"
+            "| --- | --- |\n"
+            f"{rows}\n\n"
+            "## Handoff Rules\n",
+            encoding="utf-8",
+        )
+
+    def elim_result(
+        self,
+        *,
+        outcome: str = "completed",
+        continuation_state: str = "complete",
+        next_action=None,
+        human_questions=None,
+    ):
+        return {
+            "schema_version": 1,
+            "run_id": "chain-1",
+            "unit_id": "unit-1",
+            "work_type": "issue_development",
+            "outcome": outcome,
+            "authority": {
+                "classification": "delegated_judgment",
+                "basis": "runbook",
+            },
+            "issue_id": "TEST-001",
+            "files_touched": [],
+            "source_ids": [],
+            "validation": [],
+            "commit": "a" * 40,
+            "synchronization": [],
+            "human_questions": human_questions or [],
+            "continuation": {
+                "state": continuation_state,
+                "next_action": next_action,
+            },
+        }
+
     def test_prompt_preserves_elim_identity_and_comprehensive_mode(self):
         payload = {
             "chain_id": "chain-1",
@@ -257,6 +324,207 @@ class RunChainDispatcherTests(unittest.TestCase):
             self.assertEqual(value["chain_id"], "chain-1")
             self.assertFalse(Path(value["baseline_path"]).is_absolute())
             self.assertEqual(json.loads(status.read_text()), value)
+
+    def test_completed_elim_closeout_requires_inactive_cleared_handoff(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            self.write_current_audit(repo, state="Inactive")
+            complete, detail = MODULE.verify_elim_closeout(
+                repo,
+                self.elim_result(),
+            )
+            self.assertTrue(complete)
+            self.assertIn("verified", detail)
+
+            failed_validation = self.elim_result()
+            failed_validation["validation"] = [
+                {
+                    "check": "repository consistency",
+                    "status": "failed",
+                    "detail": "mismatch",
+                }
+            ]
+            with self.assertRaisesRegex(MODULE.ContextError, "failed validation"):
+                MODULE.verify_elim_closeout(repo, failed_validation)
+
+            self.write_current_audit(
+                repo,
+                state="Open",
+                next_step="Finish synchronization.",
+            )
+            with self.assertRaisesRegex(MODULE.ContextError, "state Inactive"):
+                MODULE.verify_elim_closeout(repo, self.elim_result())
+
+    def test_fully_routed_human_review_closes_inactive(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            self.write_current_audit(repo, state="Inactive")
+            complete, _ = MODULE.verify_elim_closeout(
+                repo,
+                self.elim_result(
+                    outcome="human_review",
+                    continuation_state="human_required",
+                    next_action="Human answers the recorded question in Action Items.",
+                    human_questions=["Would the same rule be acceptable under reversed control?"],
+                ),
+            )
+            self.assertTrue(complete)
+
+    def test_retryable_closeout_requires_paused_or_blocked_exact_continuation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            next_action = "Resume from source SRC-0001."
+            self.write_current_audit(
+                repo,
+                state="Paused",
+                next_step=next_action,
+                blocker="Usage reserve required safe closeout.",
+            )
+            complete, detail = MODULE.verify_elim_closeout(
+                repo,
+                self.elim_result(
+                    outcome="usage_stopped",
+                    continuation_state="retryable",
+                    next_action=next_action,
+                ),
+            )
+            self.assertFalse(complete)
+            self.assertIn("continuation is preserved", detail)
+
+            self.write_current_audit(
+                repo,
+                state="Blocked",
+                next_step="A different action.",
+                blocker="Required source is unavailable.",
+            )
+            with self.assertRaisesRegex(MODULE.ContextError, "does not match"):
+                MODULE.verify_elim_closeout(
+                    repo,
+                    self.elim_result(
+                        outcome="blocked",
+                        continuation_state="retryable",
+                        next_action=next_action,
+                    ),
+                )
+
+    def test_inactive_handoff_rejects_uncleared_task_fields(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            self.write_current_audit(repo, state="Inactive")
+            path = repo / "framework/logs/CURRENT_AUDIT.md"
+            path.write_text(
+                path.read_text(encoding="utf-8").replace(
+                    "| Completed steps | None. |",
+                    "| Completed steps | Work is complete. |",
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(MODULE.ContextError, "Completed steps"):
+                MODULE.verify_elim_closeout(repo, self.elim_result())
+
+    def test_elim_result_is_required_and_fails_closed_when_malformed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            missing = repo / ".tmp/missing.json"
+            with self.assertRaisesRegex(MODULE.ContextError, "did not emit"):
+                MODULE.read_elim_result(missing, repo)
+
+            malformed = repo / ".tmp/malformed.json"
+            malformed.parent.mkdir()
+            malformed.write_text('{"outcome":"completed"}\n', encoding="utf-8")
+            with self.assertRaisesRegex(MODULE.ContextError, "approved schema"):
+                MODULE.read_elim_result(malformed, repo)
+
+    def test_dispatcher_result_gate_controls_success_marking(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            result_path = repo / ".tmp/result.json"
+            result_path.parent.mkdir()
+            self.write_current_audit(repo, state="Inactive")
+            result_path.write_text(
+                json.dumps(self.elim_result()) + "\n",
+                encoding="utf-8",
+            )
+            outcome, complete, reason = MODULE.enforce_elim_result_closeout(
+                0,
+                repo=repo,
+                result_path=result_path,
+            )
+            self.assertEqual(outcome, 0)
+            self.assertTrue(complete)
+            self.assertEqual(reason, "")
+
+            self.write_current_audit(
+                repo,
+                state="Open",
+                next_step="Finish synchronization.",
+            )
+            outcome, complete, reason = MODULE.enforce_elim_result_closeout(
+                0,
+                repo=repo,
+                result_path=result_path,
+            )
+            self.assertEqual(outcome, 6)
+            self.assertFalse(complete)
+            self.assertIn("state Inactive", reason)
+
+            outcome, complete, reason = MODULE.enforce_elim_result_closeout(
+                0,
+                repo=repo,
+                result_path=repo / ".tmp/missing.json",
+            )
+            self.assertEqual(outcome, 6)
+            self.assertFalse(complete)
+            self.assertIn("did not emit", reason)
+
+    def test_success_gate_is_chain_bound_and_verifies_canonical_main(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            result_path = repo / ".tmp/result.json"
+            result_path.parent.mkdir()
+            self.write_current_audit(repo, state="Inactive")
+            result_path.write_text(
+                json.dumps(self.elim_result()) + "\n",
+                encoding="utf-8",
+            )
+            with mock.patch.object(MODULE, "synchronize_canonical_repo") as sync:
+                outcome, complete, reason = MODULE.enforce_elim_result_closeout(
+                    0,
+                    repo=repo,
+                    result_path=result_path,
+                    git="/usr/bin/git",
+                    expected_run_id="chain-1",
+                )
+            self.assertEqual((outcome, complete, reason), (0, True, ""))
+            sync.assert_called_once_with("/usr/bin/git", repo)
+
+            with mock.patch.object(MODULE, "synchronize_canonical_repo") as sync:
+                outcome, complete, reason = MODULE.enforce_elim_result_closeout(
+                    0,
+                    repo=repo,
+                    result_path=result_path,
+                    git="/usr/bin/git",
+                    expected_run_id="different-chain",
+                )
+            self.assertEqual(outcome, 6)
+            self.assertFalse(complete)
+            self.assertIn("current Chain ID", reason)
+            sync.assert_not_called()
+
+    def test_legacy_active_is_not_an_approved_handoff_state(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            self.write_current_audit(
+                repo,
+                state="Active",
+                next_step="Continue.",
+                blocker="None.",
+            )
+            with self.assertRaisesRegex(MODULE.ContextError, "invalid Handoff state"):
+                MODULE.read_current_audit(
+                    repo / "framework/logs/CURRENT_AUDIT.md",
+                    repo,
+                )
 
     def test_preserved_inputs_are_independently_rehashed(self):
         with tempfile.TemporaryDirectory() as directory:

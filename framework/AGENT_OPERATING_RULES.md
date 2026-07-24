@@ -10,7 +10,7 @@ This file is the canonical detailed manual for all agents and bots, including or
 
 Persistent-agent provenance is maintained in the shared [`AGENT_AUDIT_LOG.md`](logs/AGENT_AUDIT_LOG.md). Every material autonomous agent or bot unit records its action there under a stable Agent ID and Run ID. Ordinary human-invoked audit or drafting sessions should not update the agent audit log unless the user expressly converts the work into an autonomous, batched, or scheduled run.
 
-Active long-running audit handoff state is maintained in [`CURRENT_AUDIT.md`](logs/CURRENT_AUDIT.md). Before resuming from a vague instruction such as "continue," "follow up," or "resume the audit," agents must read that file and use it as the active-task pointer. If `CURRENT_AUDIT.md` is inactive, stale, missing, or inconsistent with the user's latest instruction, ask for the active issue or task instead of inferring from recent commits, GitHub Project rows, or nearby audit markers.
+Long-running audit handoff state is maintained in [`CURRENT_AUDIT.md`](logs/CURRENT_AUDIT.md). It is a continuation checkpoint, not evidence that an agent, bot, automation chain, Codex task, or operating-system process is currently running. Runtime liveness must come from the owning runtime; for the automation chain, that means the current dispatcher or task state together with a valid exclusive lock whose recorded process is alive and whose heartbeat is fresh. Before resuming from a vague instruction such as "continue," "follow up," or "resume the audit," agents must read the handoff and use it as the unfinished-task pointer. If `CURRENT_AUDIT.md` is inactive, stale, missing, or inconsistent with the user's latest instruction, ask for the task to continue instead of inferring one from recent commits, GitHub Project rows, nearby audit markers, or the handoff itself.
 
 ## Issue-Development Lifecycle Trigger
 
@@ -105,11 +105,13 @@ The checkpoint should identify:
 6. exact next step;
 7. blockers or open questions;
 8. validation status; and
-9. whether work is active, paused, blocked, complete, or inactive.
+9. whether the handoff is Open, Paused, Blocked, or Inactive.
+
+`Open` means an unfinished task has an exact continuation point. `Paused` means the same unfinished task has been deliberately suspended and records who or what will resume it and under what condition. `Blocked` means the unfinished task cannot proceed because a concrete indispensable prerequisite is unavailable and records the blocked action, prerequisite, and unblock trigger. `Inactive` means there is no unfinished task handoff. These are continuation states only; none establishes runtime liveness.
 
 When a user opens a new chat and asks to continue prior work, read `CURRENT_AUDIT.md` before inspecting recent commits or GitHub Project rows. Do not infer the active issue from the newest local commit, the most recent Project marker, or unrelated uncommitted changes. If no active checkpoint exists, ask the user which issue or task to continue.
 
-When the task is complete, clear `CURRENT_AUDIT.md` back to inactive or leave a final paused checkpoint if the user intends to resume later.
+Successful task closeout requires `CURRENT_AUDIT.md` to be `Inactive` before the final report. Clear the active issue or task, audit type or tier, start time, user request, scope, files touched, completed steps, next step, blockers or questions, and validation status to the inactive sentinels defined in that file; this mutable checkpoint is not a completion ledger. The cleared checkpoint must be included in the final committed and synchronized change—a working-tree-only or unmerged branch copy is insufficient. A required commit, push, review or merge, synchronization, publication, validation, or human-reserved decision that remains part of the same task means the task is not complete: leave a `Paused` or `Blocked` checkpoint with the exact continuation point. If a required external step fails after an intended inactive closeout, reopen the checkpoint before ending. A separate future human-review question belongs in the appropriate Action Item and issue workflow status and does not keep an otherwise completed task open.
 
 ## Single-Issue Default
 

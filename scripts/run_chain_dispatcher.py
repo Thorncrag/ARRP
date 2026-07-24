@@ -24,8 +24,10 @@ from typing import Any, Callable
 
 try:
     from arrp_context import ContextError, contained_path
+    from elim_execution import validate_work_unit
 except ModuleNotFoundError:  # Imported as scripts.run_chain_dispatcher.
     from scripts.arrp_context import ContextError, contained_path
+    from scripts.elim_execution import validate_work_unit
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -45,6 +47,40 @@ EXECUTABLES = {
 ALLOWED_EXECUTABLES = frozenset(EXECUTABLES.values())
 REPOSITORY_NAME = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 WORKFLOW_NAME = re.compile(r"^[A-Za-z0-9_.-]+\.ya?ml$")
+ELIM_RESULT_FIELDS = frozenset(
+    {
+        "schema_version",
+        "run_id",
+        "unit_id",
+        "work_type",
+        "outcome",
+        "authority",
+        "issue_id",
+        "files_touched",
+        "source_ids",
+        "validation",
+        "commit",
+        "synchronization",
+        "human_questions",
+        "continuation",
+    }
+)
+ELIM_RESULT_OUTCOMES = frozenset(
+    {"completed", "clean", "blocked", "failed", "human_review", "usage_stopped"}
+)
+CURRENT_AUDIT_STATES = frozenset({"Open", "Paused", "Blocked", "Inactive"})
+CURRENT_AUDIT_INACTIVE_FIELDS = {
+    "Active issue/task": "None.",
+    "Audit type/tier": "None.",
+    "Started": "None.",
+    "User request": "None.",
+    "Scope": "None.",
+    "Files touched": "None.",
+    "Completed steps": "None.",
+    "Next step": "None.",
+    "Blockers/questions": "None.",
+    "Validation status": "Not applicable.",
+}
 
 
 def read_json(path: Path, default: Any = None, root: Path = ROOT) -> Any:
@@ -62,6 +98,185 @@ def write_json(path: Path, payload: dict[str, Any], root: Path = ROOT) -> None:
     temporary = safe_path.with_suffix(safe_path.suffix + ".tmp")
     temporary.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     temporary.replace(safe_path)
+
+
+def read_elim_result(path: Path, repo: Path) -> dict[str, Any]:
+    safe_path = contained_path(path, repo)
+    if not safe_path.is_file():
+        raise ContextError("Elim did not emit its required structured result")
+    try:
+        value = json.loads(safe_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ContextError("Elim structured result is not valid JSON") from exc
+    if not isinstance(value, dict) or set(value) != ELIM_RESULT_FIELDS:
+        raise ContextError("Elim structured result fields do not match the approved schema")
+    try:
+        validate_work_unit(value)
+    except (AttributeError, TypeError) as exc:
+        raise ContextError("Elim structured result has invalid field types") from exc
+    if value.get("outcome") not in ELIM_RESULT_OUTCOMES:
+        raise ContextError("Elim structured result has an invalid outcome")
+    continuation = value.get("continuation")
+    if not isinstance(continuation, dict) or set(continuation) != {
+        "state",
+        "next_action",
+    }:
+        raise ContextError("Elim structured result has an invalid continuation")
+    if continuation["state"] not in {
+        "complete",
+        "retryable",
+        "human_required",
+        "none",
+    }:
+        raise ContextError("Elim structured result has an invalid continuation state")
+    if not isinstance(value.get("human_questions"), list):
+        raise ContextError("Elim structured result human_questions must be a list")
+    return value
+
+
+def read_current_audit(path: Path, repo: Path) -> dict[str, str]:
+    safe_path = contained_path(path, repo)
+    if not safe_path.is_file():
+        raise ContextError("CURRENT_AUDIT.md is missing")
+    body = safe_path.read_text(encoding="utf-8")
+    section = re.search(
+        r"^## Current Task\s*$([\s\S]*?)(?=^## |\Z)",
+        body,
+        re.MULTILINE,
+    )
+    if not section:
+        raise ContextError("CURRENT_AUDIT.md lacks its Current Task table")
+    fields: dict[str, str] = {}
+    for name, value in re.findall(
+        r"^\|\s*([^|\n]+?)\s*\|\s*([^|\n]+?)\s*\|\s*$",
+        section.group(1),
+        re.MULTILINE,
+    ):
+        if name in {"Field", "---"}:
+            continue
+        if name in fields:
+            raise ContextError(f"CURRENT_AUDIT.md repeats field {name!r}")
+        fields[name] = value.strip()
+    required = {"Handoff state", "Last checkpoint"} | set(
+        CURRENT_AUDIT_INACTIVE_FIELDS
+    )
+    if set(fields) != required:
+        raise ContextError("CURRENT_AUDIT.md fields do not match the approved handoff table")
+    if fields["Handoff state"] not in CURRENT_AUDIT_STATES:
+        raise ContextError(
+            f"CURRENT_AUDIT.md has invalid Handoff state {fields['Handoff state']!r}"
+        )
+    return fields
+
+
+def verify_elim_closeout(repo: Path, result: dict[str, Any]) -> tuple[bool, str]:
+    handoff = read_current_audit(
+        repo / "framework" / "logs" / "CURRENT_AUDIT.md",
+        repo,
+    )
+    outcome = result["outcome"]
+    continuation = result["continuation"]
+    state = continuation["state"]
+    next_action = continuation["next_action"]
+
+    if outcome in {"completed", "clean"}:
+        if state not in {"complete", "none"}:
+            raise ContextError(
+                f"Elim outcome {outcome!r} contradicts continuation state {state!r}"
+            )
+        complete = True
+    elif outcome == "human_review":
+        if state != "human_required" or not result["human_questions"]:
+            raise ContextError(
+                "Elim human_review closeout requires a routed human question"
+            )
+        if not isinstance(next_action, str) or not next_action.strip():
+            raise ContextError(
+                "Elim human_review closeout requires an exact routed next action"
+            )
+        complete = True
+    else:
+        if state != "retryable":
+            raise ContextError(
+                f"Elim outcome {outcome!r} requires a retryable continuation"
+            )
+        if not isinstance(next_action, str) or not next_action.strip():
+            raise ContextError(
+                f"Elim outcome {outcome!r} requires an exact continuation"
+            )
+        complete = False
+
+    if complete:
+        failed_checks = [
+            item.get("check")
+            for item in result["validation"]
+            if item.get("status") == "failed"
+        ]
+        if failed_checks:
+            raise ContextError(
+                "completed Elim work reports failed validation: "
+                + ", ".join(str(item) for item in failed_checks)
+            )
+        if handoff["Handoff state"] != "Inactive":
+            raise ContextError(
+                "completed Elim work requires CURRENT_AUDIT.md Handoff state Inactive"
+            )
+        uncleared = {
+            name: (handoff[name], expected)
+            for name, expected in CURRENT_AUDIT_INACTIVE_FIELDS.items()
+            if handoff[name] != expected
+        }
+        if uncleared:
+            names = ", ".join(sorted(uncleared))
+            raise ContextError(
+                f"inactive CURRENT_AUDIT.md has uncleared task fields: {names}"
+            )
+        return True, "Elim completed and the dispatcher verified its required closeout."
+
+    if handoff["Handoff state"] not in {"Paused", "Blocked"}:
+        raise ContextError(
+            f"Elim outcome {outcome!r} requires a Paused or Blocked handoff"
+        )
+    for name in ("Active issue/task", "Audit type/tier", "Scope", "Next step"):
+        if handoff[name] in {"", "None."}:
+            raise ContextError(
+                f"{handoff['Handoff state']} CURRENT_AUDIT.md lacks {name}"
+            )
+    if handoff["Blockers/questions"] in {"", "None."}:
+        raise ContextError(
+            f"{handoff['Handoff state']} CURRENT_AUDIT.md lacks blocker semantics"
+        )
+    if handoff["Next step"] != next_action.strip():
+        raise ContextError(
+            "CURRENT_AUDIT.md Next step does not match Elim's exact continuation"
+        )
+    return False, f"Elim safely closed with outcome {outcome!r}; continuation is preserved."
+
+
+def enforce_elim_result_closeout(
+    outcome: int,
+    *,
+    repo: Path,
+    result_path: Path,
+    git: str | None = None,
+    expected_run_id: str | None = None,
+) -> tuple[int, bool, str]:
+    if outcome != 0:
+        return outcome, False, ""
+    try:
+        result = read_elim_result(result_path, repo)
+        if expected_run_id is not None and result["run_id"] != expected_run_id:
+            raise ContextError(
+                "Elim structured result does not match the current Chain ID"
+            )
+        if result["outcome"] in {"completed", "clean", "human_review"} and git:
+            synchronize_canonical_repo(git, repo)
+        complete, detail = verify_elim_closeout(repo, result)
+    except (ContextError, OSError, TypeError, ValueError) as exc:
+        return 6, False, f"Elim closeout verification failed: {exc}"
+    if not complete:
+        return 6, False, detail
+    return 0, True, ""
 
 
 def executable(config: dict[str, Any], key: str) -> str:
@@ -1082,9 +1297,22 @@ def main() -> int:
         outcome = enforce_usage_monitor_closeout(outcome, final_gate)
         if elim_thread_id:
             control["elim_thread_id"] = elim_thread_id
+        outcome, semantic_closeout_complete, closeout_failure_reason = (
+            enforce_elim_result_closeout(
+                outcome,
+                repo=repo,
+                result_path=(
+                    state_dir
+                    / f"elim-{payload['chain_id']}-last-message.txt"
+                ),
+                git=git,
+                expected_run_id=payload["chain_id"],
+            )
+        )
         epoch_closeout_missing = False
         if (
             outcome == 0
+            and semantic_closeout_complete
             and payload["elim_decision"]["profile"]["full_context"]
             and not comprehensive_epoch_recorded(repo, payload["chain_id"])
         ):
@@ -1104,7 +1332,9 @@ def main() -> int:
         else:
             control["last_failed_chain_id"] = payload["chain_id"]
             control["last_failed_exit_code"] = outcome
-            if not epoch_closeout_missing:
+            if closeout_failure_reason:
+                control["last_failed_reason"] = closeout_failure_reason
+            elif not epoch_closeout_missing:
                 control["last_failed_reason"] = (
                     "The host usage monitor did not end in a passing state; inspect "
                     "the Elim Run Log and usage attestation."

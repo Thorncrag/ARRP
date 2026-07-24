@@ -9,7 +9,16 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from arrp_context import ContextError, ROOT, canonical_json, file_provenance, sha256_bytes
+try:
+    from arrp_context import ContextError, ROOT, canonical_json, file_provenance, sha256_bytes
+except ModuleNotFoundError:  # Imported as scripts.elim_execution.
+    from scripts.arrp_context import (
+        ContextError,
+        ROOT,
+        canonical_json,
+        file_provenance,
+        sha256_bytes,
+    )
 
 
 RUBRIC_VERSION = "2026-06-27.2"
