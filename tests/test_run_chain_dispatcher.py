@@ -58,6 +58,37 @@ class RunChainDispatcherTests(unittest.TestCase):
         )
         self.assertIn("application/vnd.github.raw+json", workflow)
 
+    def test_elim_result_schema_is_strict_structured_output_compatible(self):
+        schema = json.loads(
+            (
+                ROOT
+                / "framework"
+                / "agents"
+                / "elim-work-unit-result.schema.json"
+            ).read_text()
+        )
+        self.assertFalse(schema["additionalProperties"])
+        self.assertEqual(set(schema["required"]), set(schema["properties"]))
+        self.assertEqual(schema["properties"]["schema_version"]["type"], "integer")
+        for name in ("work_type", "outcome"):
+            self.assertEqual(schema["properties"][name]["type"], "string")
+        self.assertEqual(
+            schema["properties"]["authority"]["properties"]["classification"]["type"],
+            "string",
+        )
+        self.assertEqual(
+            schema["properties"]["validation"]["items"]["properties"]["status"]["type"],
+            "string",
+        )
+        self.assertEqual(
+            set(schema["properties"]["validation"]["items"]["required"]),
+            set(schema["properties"]["validation"]["items"]["properties"]),
+        )
+        self.assertEqual(
+            schema["properties"]["continuation"]["properties"]["state"]["type"],
+            "string",
+        )
+
     def test_contained_path_rejects_parent_and_symlink_escape(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory) / "root"
