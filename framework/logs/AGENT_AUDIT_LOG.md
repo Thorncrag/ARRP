@@ -10,6 +10,8 @@ This shared append-only file records material actions by every persistent ARRP a
 
 This file is not the log for ordinary human-invoked audits or drafting sessions. Human-directed audit results belong in the relevant issue audit-history sidecar, issue page audit metadata, GitHub Project fields, [`CURRENT_AUDIT.md`](CURRENT_AUDIT.md) while work is active, and the final user-facing report. Do not add entries here merely because Codex or another agent assisted a human-directed task.
 
+This file is also not a complete per-run journal for a persistent LLM agent. When an authoritative runbook defines a dedicated run log, that log accounts for every invocation and links the material units recorded here.
+
 Entries are append-only. If an automated edit is later reverted, add a new entry identifying the revert commit and the original commit it reverses. Preserve historical generic agent labels; do not retroactively attribute an older entry to a newly named agent without reliable evidence.
 
 A completely clean no-change run remains in bounded Actions or Console history and does not add an entry here. A material detected or routed finding and any repository or external-state change must be recorded. Domain records such as the Source Monitor Log may preserve the evidentiary event, but they do not replace this agent-level provenance.

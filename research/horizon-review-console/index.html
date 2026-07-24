@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>ARRP Project Console</title>
     <meta name="description" content="Read-only ARRP project progress, candidate, source, monitoring, log, and print-planning console.">
-    <link rel="stylesheet" href="styles.css?v=36">
+    <link rel="stylesheet" href="styles.css?v=37">
   </head>
   <body data-interface-theme="arrp-tool">
     <a class="skip-link" href="#console-tabs">Skip to console tabs</a>
@@ -393,7 +393,7 @@
           <section class="automation-guidance" aria-labelledby="automation-guidance-heading">
             <h3 id="automation-guidance-heading">Operating distinction</h3>
             <p>Agents use LLM judgment within their runbook authority. Bots execute deterministic programs and use the <code>-bot</code> designation. Every material action records shared provenance; human-reserved decisions remain in Action Items.</p>
-            <div class="source-list dossier-actions"><a class="record-link secondary" href="#logs:agents">Open Agent Audit Log →</a><a class="record-link secondary" href="#integrity">Open all problems →</a></div>
+            <div class="source-list dossier-actions"><a class="record-link secondary" href="#logs:elim">Open Elim run reports →</a><a class="record-link secondary" href="#logs:agents">Open autonomous actions →</a><a class="record-link secondary" href="#integrity">Open all problems →</a></div>
           </section>
         </section>
       </section>
@@ -401,11 +401,12 @@
       <section class="tab-panel" id="panel-logs" role="tabpanel" aria-labelledby="tab-logs" tabindex="0" hidden>
         <nav class="section-tabs" aria-label="Project log views">
           <div class="section-tab-list" role="tablist" aria-label="Project logs">
-            <button type="button" id="log-tab-horizon" role="tab" aria-selected="true" aria-controls="log-panel-horizon" data-subtab-group="logs" data-subtab="horizon">Horizon Scan <span class="tab-count" id="log-horizon-count">0</span></button>
-            <button type="button" id="log-tab-agents" role="tab" aria-selected="false" aria-controls="log-panel-agents" data-subtab-group="logs" data-subtab="agents" tabindex="-1">Agent Audit <span class="tab-count" id="log-agents-count">0</span></button>
-            <button type="button" id="log-tab-source-monitor" role="tab" aria-selected="false" aria-controls="log-panel-source-monitor" data-subtab-group="logs" data-subtab="source-monitor" tabindex="-1">Source Monitor <span class="tab-count" id="log-source-monitor-count">0</span></button>
-            <button type="button" id="log-tab-integrity" role="tab" aria-selected="false" aria-controls="log-panel-integrity" data-subtab-group="logs" data-subtab="integrity" tabindex="-1">Integrity Runs <span class="tab-count" id="log-integrity-count">0</span></button>
-            <button type="button" id="log-tab-changes" role="tab" aria-selected="false" aria-controls="log-panel-changes" data-subtab-group="logs" data-subtab="changes" tabindex="-1">Change Audit <span class="tab-count" id="log-changes-count">0</span></button>
+            <button type="button" id="log-tab-horizon" role="tab" aria-selected="true" aria-controls="log-panel-horizon" data-subtab-group="logs" data-subtab="horizon">Horizon <span class="tab-count" id="log-horizon-count">0</span></button>
+            <button type="button" id="log-tab-elim" role="tab" aria-selected="false" aria-controls="log-panel-elim" data-subtab-group="logs" data-subtab="elim" tabindex="-1">Elim Runs <span class="tab-count" id="log-elim-count">0</span></button>
+            <button type="button" id="log-tab-agents" role="tab" aria-selected="false" aria-controls="log-panel-agents" data-subtab-group="logs" data-subtab="agents" tabindex="-1">Actions <span class="tab-count" id="log-agents-count">0</span></button>
+            <button type="button" id="log-tab-source-monitor" role="tab" aria-selected="false" aria-controls="log-panel-source-monitor" data-subtab-group="logs" data-subtab="source-monitor" tabindex="-1">Source Log <span class="tab-count" id="log-source-monitor-count">0</span></button>
+            <button type="button" id="log-tab-integrity" role="tab" aria-selected="false" aria-controls="log-panel-integrity" data-subtab-group="logs" data-subtab="integrity" tabindex="-1">Integrity <span class="tab-count" id="log-integrity-count">0</span></button>
+            <button type="button" id="log-tab-changes" role="tab" aria-selected="false" aria-controls="log-panel-changes" data-subtab-group="logs" data-subtab="changes" tabindex="-1">Changes <span class="tab-count" id="log-changes-count">0</span></button>
           </div>
         </nav>
 
@@ -421,10 +422,22 @@
           </section>
         </div>
 
+        <div class="section-panel" id="log-panel-elim" role="tabpanel" aria-labelledby="log-tab-elim" tabindex="0" hidden>
+          <section class="queue-view log-view" aria-labelledby="log-elim-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Complete scheduled-agent history</span><h2 id="log-elim-heading">Elim Run Log</h2><p>Every Elim invocation, including usage, work examined, all actions taken, linked issue-audit records, validation, synchronization, human-review routing, stop reason, and exact continuation point.</p></div>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/ELIM_RUN_LOG.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+            </div>
+            <div class="queue-controls"><label for="log-elim-search">Search<input id="log-elim-search" type="search" placeholder="Run, action, outcome, usage, issue, blocker, or next action…"></label><label for="log-elim-group">Group by<select id="log-elim-group"><option value="all">No grouping</option></select></label></div>
+            <p class="result-count"><b id="log-elim-visible">0</b> runs match</p>
+            <div id="log-elim-table"></div>
+          </section>
+        </div>
+
         <div class="section-panel" id="log-panel-agents" role="tabpanel" aria-labelledby="log-tab-agents" tabindex="0" hidden>
           <section class="queue-view log-view" aria-labelledby="log-agents-heading">
             <div class="queue-view-header">
-              <div><span class="eyebrow">Autonomous-run provenance</span><h2 id="log-agents-heading">Agent Audit Log</h2><p>Autonomous, batched, and scheduled agent work, including validation, commits, rollback references, and unresolved blockers.</p></div>
+              <div><span class="eyebrow">Material-unit provenance</span><h2 id="log-agents-heading">Autonomous Action Ledger</h2><p>Cross-agent and bot material actions, validation, commits, rollback references, and unresolved blockers. Detailed issue audits and complete Elim run reports remain in their own records.</p></div>
               <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/AGENT_AUDIT_LOG.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
             </div>
             <div class="queue-controls"><label for="log-agents-search">Search<input id="log-agents-search" type="search" placeholder="Issue, task, tier, agent, run, commit, or blocker…"></label><label for="log-agents-agent">Agent<select id="log-agents-agent"><option value="all">All agents</option></select></label><label for="log-agents-task">Task type<select id="log-agents-task"><option value="all">All task types</option></select></label><label for="log-agents-outcome">Outcome<select id="log-agents-outcome"><option value="all">All outcomes</option></select></label><label for="log-agents-group">Group by<select id="log-agents-group"><option value="all">No grouping</option></select></label></div>
@@ -552,7 +565,7 @@
 
     <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
 
-    <script src="catalog-data.js?v=36"></script>
-    <script src="app.js?v=36"></script>
+    <script src="catalog-data.js?v=37"></script>
+    <script src="app.js?v=37"></script>
   </body>
 </html>

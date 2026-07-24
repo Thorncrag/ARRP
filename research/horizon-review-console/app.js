@@ -162,6 +162,12 @@
     return anchor;
   }
 
+  function consoleLinkButton(label, hash, secondary = true) {
+    const anchor = element("a", secondary ? "record-link secondary" : "record-link", label);
+    anchor.href = hash;
+    return anchor;
+  }
+
   function inlineLink(label, url) {
     const anchor = element("a", "inline-link", label);
     anchor.href = url;
@@ -2368,7 +2374,12 @@
       const links = element("div", "source-list dossier-actions");
       links.append(linkButton("Open runbook ↗", record.runbook_url, true));
       if (record.runtime_url) links.append(linkButton("Open runtime ↗", record.runtime_url, true));
-      if (record.log_path) links.append(linkButton("Open log ↗", `${GITHUB_BLOB_ROOT}${record.log_path}`, true));
+      if (record.run_log_path) links.append(consoleLinkButton("Open run reports →", `#logs:${record.id}`));
+      if (record.log_path === "framework/logs/AGENT_AUDIT_LOG.md") {
+        links.append(consoleLinkButton("Open activity ledger →", "#logs:agents"));
+      } else if (record.log_path) {
+        links.append(linkButton("Open activity log ↗", `${GITHUB_BLOB_ROOT}${record.log_path}`, true));
+      }
       body.append(element("p", "", record.description || "Authoritative operating configuration."), details);
       const checks = Array.isArray(record.checks) ? record.checks : [];
       const logHref = record.log_path ? `${GITHUB_BLOB_ROOT}${record.log_path}` : "";

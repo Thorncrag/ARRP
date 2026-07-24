@@ -237,6 +237,9 @@ a { color: var(--blue); }
   background: var(--blue-soft);
 }
 .section-tab-list button:focus-visible { outline: 3px solid rgba(36, 76, 133, .2); outline-offset: 2px; }
+#panel-logs .section-tab-list { gap: .15rem; }
+#panel-logs .section-tab-list button { padding-inline: .25rem; font-size: clamp(.66rem, .74vw, .82rem); }
+#panel-logs .section-tab-list .tab-count { margin-left: .12rem; padding: .06rem .28rem; font-size: .64rem; }
 .section-panel[hidden] { display: none; }
 .section-panel:focus { outline: none; }
 
@@ -1453,7 +1456,7 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
 /* Agent and bot registry */
 .automation-summary { grid-template-columns: repeat(4, minmax(160px, 1fr)); }
 .automation-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 1rem; }
-.automation-card { overflow: hidden; padding: 0; }
+.automation-card { display: flex; overflow: hidden; flex-direction: column; padding: 0; }
 .automation-card-summary {
   display: grid;
   grid-template-areas:
@@ -1496,7 +1499,8 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.automation-card-body { padding: .9rem 1rem; }
+.automation-card-body { display: flex; flex: 1 1 auto; flex-direction: column; padding: .9rem 1rem; }
+.automation-card-body > .dossier-actions { margin-top: auto; padding: .8rem 0 0; }
 .automation-card dl { display: grid; grid-template-columns: 8rem 1fr; gap: .3rem .7rem; margin: .8rem 0; font-size: .84rem; }
 .automation-card dt { color: var(--muted); font-weight: 750; }
 .automation-card dd { min-width: 0; margin: 0; overflow-wrap: anywhere; }

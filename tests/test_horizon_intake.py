@@ -259,6 +259,13 @@ class HorizonIntakeTest(unittest.TestCase):
             },
         )
         self.assertTrue(all(record["runbook_url"] for record in self.console["agent_registry"]))
+        elim = next(
+            record
+            for record in self.console["agent_registry"]
+            if record["id"] == "elim"
+        )
+        self.assertEqual(elim["run_log_path"], "framework/logs/ELIM_RUN_LOG.md")
+        self.assertTrue(elim["run_log_url"].endswith("/framework/logs/ELIM_RUN_LOG.md"))
         self.assertTrue(
             all(
                 record["id"].endswith("-bot")
@@ -315,7 +322,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertEqual(self.console["project_logs"], project_log_views())
         self.assertEqual(
             [record["id"] for record in self.console["project_logs"]],
-            ["horizon", "agents", "source-monitor", "changes"],
+            ["horizon", "elim", "agents", "source-monitor", "changes"],
         )
         self.assertTrue(all(record["entries"] for record in self.console["project_logs"]))
         self.assertTrue(
@@ -585,9 +592,9 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
-        self.assertIn("catalog-data.js?v=36", console_html)
-        self.assertIn("app.js?v=36", console_html)
-        self.assertIn("styles.css?v=36", console_html)
+        self.assertIn("catalog-data.js?v=37", console_html)
+        self.assertIn("app.js?v=37", console_html)
+        self.assertIn("styles.css?v=37", console_html)
         for tab in {"overview", "progress", "actions", "candidates", "sources", "integrity", "automation", "logs", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)
@@ -794,6 +801,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("integrity-finding-group", console_css)
         self.assertIn('toggle.setAttribute("aria-expanded"', console_app)
         self.assertIn('element("article", "automation-card")', console_app)
+        self.assertIn('consoleLinkButton("Open run reports →"', console_app)
+        self.assertIn('href="#logs:elim"', console_html)
         self.assertIn('element("details", "automation-checks")', console_app)
         self.assertNotIn("automation-schedule", console_app)
         self.assertIn("record.checks", console_app)

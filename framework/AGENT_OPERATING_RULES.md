@@ -282,6 +282,12 @@ The agent audit log should be append-only. If a commit is later reverted, add a 
 
 The canonical prospective entry template is maintained in the log itself. Preserve historical generic labels and schemas; do not retroactively attribute older runs to a newly named agent without reliable evidence.
 
+## Dedicated LLM-agent run logs
+
+A persistent scheduled LLM agent may define a dedicated `run_log_path` in its authoritative runbook. That log accounts for every invocation of that agent, including clean, productive, usage-stopped, blocked, and failed runs. It records the run's usage posture, work examined, all actions taken, skipped or routed work, material-unit links, validation, commits and synchronization, human-review questions, stop reason, and exact continuation point.
+
+The dedicated run log does not replace the shared Agent Audit Log. Material autonomous units still receive their ordinary project-wide provenance and rollback entry there. It also does not replace or duplicate issue audit histories: detailed T-audit and Change Audit findings remain in the affected issue audit sidecar and synchronized issue, inventory, dashboard, and GitHub records. The run report summarizes results and links those authoritative records. Sensitive or restricted intake content remains subject to its narrower privacy and moderation rules.
+
 Agents and bots must never force-push `main`, a protected branch, a human-owned branch, or any shared working branch. A deterministic bot may replace only its own dedicated, disposable report or proposal branch when its authoritative runbook expressly allows that behavior, and it must use `--force-with-lease` so an unexpected intervening change prevents the replacement. Rollback on shared or durable branches should normally occur through a revert commit so GitHub history remains intelligible.
 
 ## Conservative Scoring
