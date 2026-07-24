@@ -155,6 +155,159 @@ def command(
     )
 
 
+def process_is_alive(pid: int) -> bool:
+    if not isinstance(pid, int) or isinstance(pid, bool) or pid <= 0:
+        return False
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    except OSError:
+        return False
+    return True
+
+
+def write_dispatch_lock_owner(
+    lock: Path,
+    *,
+    repo: Path,
+    updates: dict[str, Any],
+) -> dict[str, Any]:
+    owner_path = lock / "owner.json"
+    owner = read_json(owner_path, {}, root=repo)
+    owner.update(updates)
+    owner["heartbeat_at"] = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    write_json(owner_path, owner, root=repo)
+    return owner
+
+
+def record_interrupted_dispatch(
+    *,
+    repo: Path,
+    config: dict[str, Any],
+    control: dict[str, Any],
+    owner: dict[str, Any],
+) -> None:
+    completed_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    manifest_path = repo / config["manifest"]["localFallback"]
+    payload = read_json(manifest_path, {}, root=repo)
+    chain_id = owner.get("chain_id") or payload.get("chain_id") or "unknown-chain"
+    output_path = owner.get("output_path")
+    if not output_path and chain_id != "unknown-chain":
+        output_path = f".tmp/run-coordinator/elim-{chain_id}.jsonl"
+    details = (
+        "Elim was interrupted before dispatcher-verified closeout. Its preserved "
+        "task and JSONL output may contain incomplete analysis, but no substantive "
+        "result may be treated as applied until the run is reconciled."
+    )
+    if output_path:
+        details += f" Preserved output: {output_path}."
+    runtime = {
+        "id": "elim",
+        "name": "Elim",
+        "status": "failed",
+        "chain_id": chain_id,
+        "started_at": owner.get("started_at"),
+        "completed_at": completed_at,
+        "exit_code": 130,
+        "details": details,
+    }
+    control["elim_runtime"] = runtime
+    control["last_failed_chain_id"] = chain_id
+    control["last_failed_exit_code"] = 130
+    control["last_failed_reason"] = details
+
+    payload["status"] = "failed"
+    payload["updated_at"] = completed_at
+    payload["elim_runtime"] = runtime
+    payload["next_action"] = (
+        "Review the interrupted Elim task and preserved output, reconcile any safe "
+        "partial work, clear the stale handoff, and launch a fresh current chain."
+    )
+    failures = [
+        item
+        for item in (payload.get("failures") or [])
+        if item.get("stage") != "elim"
+    ]
+    failures.append(
+        {
+            "stage": "elim",
+            "classification": "blocking",
+            "message": details,
+        }
+    )
+    payload["failures"] = failures
+    alert_failures(config, control, payload, repo)
+    write_json(manifest_path, payload, root=repo)
+
+
+def acquire_dispatch_lock(
+    lock: Path,
+    *,
+    repo: Path,
+    config: dict[str, Any],
+    control: dict[str, Any],
+) -> bool:
+    recovered = False
+    try:
+        lock.mkdir()
+    except FileExistsError as exc:
+        owner_path = lock / "owner.json"
+        owner = read_json(owner_path, {}, root=repo)
+        owner_pid = owner.get("pid")
+        owner_alive = process_is_alive(owner_pid) if isinstance(owner_pid, int) else False
+        age_seconds = max(0.0, time.time() - lock.stat().st_mtime)
+        stale_seconds = int(config["hostDispatcher"]["staleLockSeconds"])
+        recoverable = (isinstance(owner_pid, int) and not owner_alive) or (
+            not isinstance(owner_pid, int) and age_seconds >= stale_seconds
+        )
+        if not recoverable:
+            raise RuntimeError("another host dispatcher owns the run-chain lock") from exc
+        if owner_path.is_file():
+            owner_path.unlink()
+        try:
+            lock.rmdir()
+        except OSError as removal_error:
+            raise RuntimeError(
+                "stale run-chain lock contains unexpected files; human review required"
+            ) from removal_error
+        record_interrupted_dispatch(
+            repo=repo,
+            config=config,
+            control=control,
+            owner=owner,
+        )
+        lock.mkdir()
+        recovered = True
+    local_manifest = read_json(
+        repo / config["manifest"]["localFallback"],
+        {},
+        root=repo,
+    )
+    write_dispatch_lock_owner(
+        lock,
+        repo=repo,
+        updates={
+            "pid": os.getpid(),
+            "started_at": datetime.now(timezone.utc)
+            .replace(microsecond=0)
+            .isoformat(),
+            "status": "dispatcher-running",
+            "chain_id": local_manifest.get("chain_id"),
+        },
+    )
+    return recovered
+
+
+def release_dispatch_lock(lock: Path, *, repo: Path) -> None:
+    owner_path = lock / "owner.json"
+    if owner_path.is_file():
+        owner_path.unlink()
+    lock.rmdir()
+
+
 def require_clean_repo(git: str, repo: Path) -> None:
     status = command([git, "status", "--porcelain"], cwd=repo)
     if status.returncode != 0:
@@ -571,6 +724,7 @@ def launch_elim(
     usage_status_path: Path,
     usage_attestation_args: dict[str, Any],
     monitor_interval_seconds: int,
+    dispatcher_lock: Path,
     existing_thread_id: str | None = None,
 ) -> tuple[int, str | None, dict[str, Any]]:
     profile = payload["elim_decision"]["profile"]
@@ -612,6 +766,18 @@ def launch_elim(
             stdout=handle,
             stderr=subprocess.STDOUT,
         )
+        write_dispatch_lock_owner(
+            dispatcher_lock,
+            repo=repo,
+            updates={
+                "status": "elim-running",
+                "chain_id": chain_id,
+                "child_pid": process.pid,
+                "output_path": repo_relative(output, repo),
+                "last_message_path": repo_relative(last, repo),
+                "elim_thread_id": existing_thread_id,
+            },
+        )
         if process.stdin is None:
             process.kill()
             raise RuntimeError("Elim process did not expose its prompt input")
@@ -632,6 +798,17 @@ def launch_elim(
                     gate=gate,
                     **usage_attestation_args,
                 )
+                write_dispatch_lock_owner(
+                    dispatcher_lock,
+                    repo=repo,
+                    updates={
+                        "status": "elim-running",
+                        "elim_thread_id": (
+                            thread_id_from_jsonl(output) or existing_thread_id
+                        ),
+                        "usage_status_path": repo_relative(usage_status_path, repo),
+                    },
+                )
                 next_probe = time.monotonic() + monitor_interval_seconds
             time.sleep(min(1, max(0.1, next_probe - time.monotonic())))
         return_code = int(process.returncode or 0)
@@ -641,6 +818,15 @@ def launch_elim(
             usage_status_path,
             gate=final_gate,
             **usage_attestation_args,
+        )
+        write_dispatch_lock_owner(
+            dispatcher_lock,
+            repo=repo,
+            updates={
+                "status": "elim-closeout",
+                "elim_thread_id": thread_id_from_jsonl(output) or existing_thread_id,
+                "usage_status_path": repo_relative(usage_status_path, repo),
+            },
         )
     return (
         return_code,
@@ -702,6 +888,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--trigger-chain", action="store_true")
     parser.add_argument("--launch-codex", action="store_true")
+    parser.add_argument(
+        "--recover-stale-lock-only",
+        action="store_true",
+        help=(
+            "Recover and report only a provably abandoned dispatcher lock; "
+            "do not fetch, synchronize, trigger a chain, or launch Codex."
+        ),
+    )
     args = parser.parse_args()
     config = read_json(CONFIG)
     host = config["hostDispatcher"]
@@ -717,15 +911,21 @@ def main() -> int:
         raise RuntimeError("configured dispatcher state directory is not approved")
     state_dir = contained_path(repo / configured_state, repo)
     state_dir.mkdir(parents=True, exist_ok=True)
+    control_path = state_dir / "control.json"
+    control = read_json(control_path, {"requests": [], "overrides": {}})
     lock = state_dir / "host-dispatch.lock"
-    try:
-        lock.mkdir()
-    except FileExistsError as exc:
-        raise RuntimeError("another host dispatcher owns the run-chain lock") from exc
+    acquire_dispatch_lock(
+        lock,
+        repo=repo,
+        config=config,
+        control=control,
+    )
+    write_json(control_path, control)
+    if args.recover_stale_lock_only:
+        release_dispatch_lock(lock, repo=repo)
+        return 0
     try:
         synchronize_canonical_repo(git, repo)
-        control_path = state_dir / "control.json"
-        control = read_json(control_path, {"requests": [], "overrides": {}})
         requested = control.get("requested_run")
         comprehensive = control.get("requested_comprehensive_review")
         if args.trigger_chain or requested or comprehensive:
@@ -806,6 +1006,16 @@ def main() -> int:
             gate=gate,
             **attestation_args,
         )
+        write_dispatch_lock_owner(
+            lock,
+            repo=repo,
+            updates={
+                "chain_id": payload["chain_id"],
+                "invocation_id": invocation_id,
+                "status": "usage-gated",
+                "usage_status_path": repo_relative(usage_status_path, repo),
+            },
+        )
         payload.setdefault("usage", {}).update(
             {
                 "status": gate.get("status", "unavailable"),
@@ -866,6 +1076,7 @@ def main() -> int:
             monitor_interval_seconds=int(
                 config["usage"]["monitorIntervalSeconds"]
             ),
+            dispatcher_lock=lock,
             existing_thread_id=control.get("elim_thread_id"),
         )
         outcome = enforce_usage_monitor_closeout(outcome, final_gate)
@@ -910,7 +1121,7 @@ def main() -> int:
         write_json(control_path, control)
         return outcome
     finally:
-        lock.rmdir()
+        release_dispatch_lock(lock, repo=repo)
 
 
 if __name__ == "__main__":

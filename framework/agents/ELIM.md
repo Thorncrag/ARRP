@@ -66,6 +66,8 @@ T4 completion does not itself establish Review Ready. The governing score and su
 
 Comparable queue items are ordered by severity, contribution to Review Ready, release-blocker posture, readiness, age, and resolvability. Age must prevent lower-severity development, candidate research, or public intake from being postponed indefinitely. Interrupted work returns with its exact continuation point; repeated failures become Action Items instead of cycling silently. A human may suppress, reprioritize, manually launch, or require full canonical context for any unit, and the chain records that intervention.
 
+If the Codex task or host dispatcher terminates before Elim emits and validates its complete run result, the invocation is interrupted and failed regardless of how much read-only analysis occurred. Preserved task messages, subagent results, searches, JSONL events, and an open `CURRENT_AUDIT.md` checkpoint are incomplete evidence, not an applied audit or authorization to infer a score or disposition. The dispatcher must project the failure to the Console and human Action Items, preserve the exact task and output paths, release only a provably abandoned lock, and require reconciliation plus a fresh current chain before resuming substantive work.
+
 ## Comprehensive Review Epoch
 
 While the project's automation architecture and conventions are actively changing, Elim performs an intensive project-wide consistency review every two weeks. After several clean reviews demonstrate stability, the human may approve a monthly cadence. A material Framework, lifecycle, scoring, publication, agent-authority, or automation-architecture change triggers an off-cycle review.

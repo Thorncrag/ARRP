@@ -54,11 +54,14 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertTrue(profiles["comprehensive"]["fullContext"])
         self.assertEqual(config["usage"]["monitorIntervalSeconds"], 60)
         self.assertEqual(config["usage"]["snapshotMaxAgeSeconds"], 120)
+        self.assertEqual(config["hostDispatcher"]["staleLockSeconds"], 900)
 
     def test_dispatcher_uses_only_the_reviewed_config_path(self):
         source = (ROOT / "scripts" / "run_chain_dispatcher.py").read_text()
         self.assertNotIn('parser.add_argument("--config"', source)
         self.assertIn("config = read_json(CONFIG)", source)
+        self.assertIn('"--recover-stale-lock-only"', source)
+        self.assertIn("do not fetch, synchronize, trigger a chain", source)
 
     def test_coordinator_reads_fresh_queue_inputs_through_github_api(self):
         workflow = (
@@ -310,6 +313,94 @@ class RunChainDispatcherTests(unittest.TestCase):
             )
             self.assertEqual(projected["elim_runtime"]["id"], "elim")
             self.assertIn("Review Epoch", projected["elim_runtime"]["details"])
+
+    def test_dead_dispatch_owner_is_recovered_as_failed_elim_run(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            state = repo / ".tmp/run-coordinator"
+            lock = state / "host-dispatch.lock"
+            lock.mkdir(parents=True)
+            (lock / "owner.json").write_text(
+                json.dumps(
+                    {
+                        "pid": 999999,
+                        "chain_id": "chain-interrupted",
+                        "started_at": "2026-07-24T16:52:11+00:00",
+                        "output_path": (
+                            ".tmp/run-coordinator/"
+                            "elim-chain-interrupted.jsonl"
+                        ),
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            manifest = state / "run-chain.json"
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "chain_id": "chain-interrupted",
+                        "status": "complete",
+                        "failures": [],
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            config = json.loads(
+                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
+            )
+            config["manifest"]["localFallback"] = ".tmp/run-coordinator/run-chain.json"
+            control = {}
+            with (
+                mock.patch.object(MODULE, "process_is_alive", return_value=False),
+                mock.patch.object(MODULE, "command"),
+            ):
+                self.assertTrue(
+                    MODULE.acquire_dispatch_lock(
+                        lock,
+                        repo=repo,
+                        config=config,
+                        control=control,
+                    )
+                )
+            self.assertEqual(control["elim_runtime"]["status"], "failed")
+            self.assertEqual(
+                control["last_failed_chain_id"],
+                "chain-interrupted",
+            )
+            self.assertEqual(len(control["action_items"]), 1)
+            projected = json.loads(manifest.read_text(encoding="utf-8"))
+            self.assertEqual(projected["status"], "failed")
+            self.assertEqual(projected["failures"][-1]["stage"], "elim")
+            self.assertIn("interrupted", projected["elim_runtime"]["details"])
+            self.assertTrue((lock / "owner.json").is_file())
+            MODULE.release_dispatch_lock(lock, repo=repo)
+            self.assertFalse(lock.exists())
+
+    def test_live_dispatch_owner_cannot_be_recovered(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            lock = repo / ".tmp/run-coordinator/host-dispatch.lock"
+            lock.mkdir(parents=True)
+            (lock / "owner.json").write_text(
+                json.dumps({"pid": 1234}) + "\n",
+                encoding="utf-8",
+            )
+            config = json.loads(
+                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
+            )
+            with mock.patch.object(MODULE, "process_is_alive", return_value=True):
+                with self.assertRaisesRegex(
+                    RuntimeError,
+                    "another host dispatcher",
+                ):
+                    MODULE.acquire_dispatch_lock(
+                        lock,
+                        repo=repo,
+                        config=config,
+                        control={},
+                    )
 
     def test_nonpassing_final_usage_attestation_prevents_success(self):
         self.assertEqual(

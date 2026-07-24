@@ -7617,8 +7617,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 6898,
-      "estimated_pages": 11,
+      "word_count": 7352,
+      "estimated_pages": 12,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -7765,8 +7765,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 39370,
-      "estimated_pages": 61,
+      "word_count": 40092,
+      "estimated_pages": 62,
       "table_count": 22,
       "max_table_columns": 3,
       "heading_issue_count": 0,
@@ -7843,12 +7843,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 484,
+      "word_count": 633,
       "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 36
     },
     {
       "title": "Current Project Integrity Report",
@@ -7947,9 +7947,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4365,
-      "estimated_pages": 7,
-      "table_count": 6,
+      "word_count": 4992,
+      "estimated_pages": 8,
+      "table_count": 7,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
@@ -7991,8 +7991,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3841,
-      "estimated_pages": 6,
+      "word_count": 3940,
+      "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -8729,7 +8729,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-run coordinator bot runbook",
       "internal_links": [],
-      "word_count": 1423,
+      "word_count": 1516,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8864,11 +8864,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/FRAMEWORK.md",
+          "path": "ABOUT.md",
           "exists": true
         },
         {
-          "path": "ABOUT.md",
+          "path": "UNDER_REVIEW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/FRAMEWORK.md",
           "exists": true
         },
         {
@@ -8884,10 +8888,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "UNDER_REVIEW.md",
-          "exists": true
-        },
-        {
           "path": "LICENSE.md",
           "exists": true
         },
@@ -8898,22 +8898,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/AGENT_OPERATING_RULES.md",
           "exists": true
-        },
-        {
-          "path": "framework/logs/AGENT_AUDIT_LOG.md",
-          "exists": true
-        },
-        {
-          "path": "framework/logs/HORIZON_SCAN_LOG.md",
-          "exists": true
         }
       ],
-      "word_count": 3788,
-      "estimated_pages": 6,
-      "table_count": 4,
-      "max_table_columns": 2,
+      "word_count": 1841,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 43
+      "longest_unbroken_token": 37
     },
     {
       "title": "Structured Inventory",

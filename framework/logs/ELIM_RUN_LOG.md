@@ -199,3 +199,30 @@ The approved host session preserved Elim's findings without repeating the compre
 #### Host reconciliation
 
 The approved host session preserved the completed context repair without beginning JUD-009's substantive audit, created canonical branch `codex/elim-linked-vehicle-context-repair`, and opened [pull request #391](https://github.com/Thorncrag/ARRP/pull/391). CodeQL for Actions, Python, and JavaScript and the Vercel preview passed before merge. This resolves the run's mechanical Git/GitHub closeout block; the original blocked run outcome remains above as an accurate account of Elim's own execution boundary.
+
+### 2026-07-24 — arrp-20260724T164658Z — Failed
+
+| Field | Entry |
+| --- | --- |
+| Started | 2026-07-24 12:52:11 -0400 |
+| Ended | 2026-07-24 12:58:16 -0400 |
+| Run ID | `arrp-20260724T164658Z` |
+| Trigger | Push-triggered Run Coordinator chain with JUD-009's targeted Change Audit at the head of the eligible queue |
+| Outcome | Failed — Codex task and host dispatcher interrupted before verified closeout |
+| Usage | The approved host dispatcher created a unique baseline with Codex 86 percent and Spark 99 percent remaining. Every recorded host snapshot remained fresh and `pass`; the last heartbeat at 16:58:16 UTC still reported 86 and 99 percent remaining, for 0 recorded percentage points consumed. The interruption stopped the heartbeat, so no later reading or verified usage closeout exists. |
+| Work summary | Completed manifest, repository, preserved-input, context, and issue-vehicle preflight. Conducted read-only legal, remedy-fit, and drafting investigation for JUD-009 and identified possible bounded corrections. The Codex turn was then interrupted before editing JUD-009, validating or recording a Change Audit result, emitting the required structured closeout, or appending its own run report. |
+| Material units | None. Read-only investigation and provisional correction leads were not applied project work and receive no shared Agent Audit entry. |
+| Issue audit records | None. JUD-009's issue page, audit sidecar, legislation, sources, score, **Runs**, lifecycle, Project fields, and publication state were not changed. |
+| Commits and synchronization | None. Local `main`, `origin/main`, and the manifest revision matched `1bd2cd0c6c567bc144140c9ff007d069a755f0f5` at preflight. The only working-tree change was the open `CURRENT_AUDIT.md` checkpoint. The interrupted task is preserved as Codex task `019f948f-ab51-7ac1-8237-4d470576ab53`; its event stream is preserved at `.tmp/run-coordinator/elim-arrp-20260724T164658Z.jsonl`. |
+| Validation | Preflight repository, manifest, deterministic-input, usage, context-provenance, and linked-vehicle checks passed. Two read-only challenge passes agreed that the existing federal-legislation foundation remained viable and identified possible panel, codification, recusal-process, and tier-definition corrections. No final source reconciliation, complete repository validation, audit calculation, diff review, GitHub readback, or publication check occurred. |
+| Human review | None. No human-reserved decision was made. The interruption itself requires visibility and deterministic recovery, not a substantive JUD-009 judgment. |
+| Stop reason | The reusable Elim Codex task records the turn as `interrupted`. The host dispatcher terminated with it, stopped refreshing the usage attestation, did not record Elim runtime failure, and left an ownerless dispatch lock. Later scheduled invocations refused to overlap that lock but did not convert the abandoned launch into a Console error or Action Item. |
+| Exact next action | Reconcile the interrupted-run failure and stale lock through the dispatcher-recovery change. After the repository is clean, launch a fresh current chain with a new usage baseline and context hashes. Treat the preserved JUD-009 research only as leads: revalidate them against current primary sources and canonical files before applying any correction or completing the targeted Change Audit. |
+
+#### Actions and routing
+
+1. Verified chain `arrp-20260724T164658Z`, clean synchronized baseline `1bd2cd0c6c567bc144140c9ff007d069a755f0f5`, successful or current-not-due bot stages, all preserved deterministic-input hashes, a complete JUD-009 change-audit context packet, and a fresh host usage snapshot.
+2. Opened `CURRENT_AUDIT.md` for JUD-009 and performed read-only issue, legislation, audit, source, legal, remedy-fit, and drafting review.
+3. Used two independent read-only challenge passes. Their provisional findings were not incorporated into the issue, legislation, audit sidecar, source inventory, score, or Project.
+4. The Codex turn and dispatcher ended before the planned corrections began. No final structured result or last-message file was produced, and the ordinary dispatcher closeout did not run.
+5. Preserved the incomplete task and JSONL record, classified the invocation as failed, and paused the JUD-009 handoff at the last safe boundary. A fresh chain must revalidate rather than continue from the stale usage or context state.

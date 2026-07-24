@@ -67,6 +67,7 @@
     "notificationPath": "/usr/bin/osascript",
     "workflow": "run-coordinator-bot.yml",
     "stateDirectory": ".tmp/run-coordinator",
+    "staleLockSeconds": 900,
     "controlHost": "127.0.0.1",
     "controlPort": 8766
   },
