@@ -15,10 +15,10 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Inactive |
 | Active issue/task | None. |
-| Last closeout | Project-wide script-first automation and Run Coordinator activation completed on 2026-07-24. The serialized GitHub chain, bounded public-intake collection, safe deterministic closeout, Console Automation Administration view, localhost controls, current-failure alerts, local dispatcher, and 15-percent Codex reserve gate were verified. The first full observation pass produced owner-review pull requests for Case Monitor, Presidential Directives, and Source Checker; the later verification chain completed successfully with no pending public intake or integrity findings. The superseded standalone Elim automation is paused. |
+| Last closeout | Production Elim chain `arrp-20260724T153028Z` completed its comprehensive full-context review and recorded Review Epoch `epoch-arrp-20260724T153028Z`. The host session reconciled the sandbox-preserved closeout through [pull request #390](https://github.com/Thorncrag/ARRP/pull/390) after all required CodeQL and Vercel checks passed. The next comprehensive review is due 2026-08-07T15:40:02Z. |
 | Exact next action | None. Resume ordinary interactive project work or review the open bot-generated pull requests through the Console. |
 | Blockers/questions | None. |
-| Validation status | 180 repository tests and 24 participation-service tests pass; Python and JavaScript syntax, diff hygiene, localhost Console controls, Console cascade and worker deep links, CodeQL for Actions/Python/JavaScript, Vercel preview and production publication, the authenticated consistency audit (0 errors, 0 warnings), and production chain run 30100820412 all pass. The local usage gate measured 6 percent remaining in the applicable Codex window and correctly prevented Elim from starting below the protected 15-percent reserve. |
+| Validation status | Passed. Pinned authenticated Integrity reports 0 errors and 0 warnings. The final 192-test repository suite and 24 participation-service tests, Python and JavaScript syntax, public-site preparation, deterministic Console rebuild, Review Epoch schema and idempotence, diff hygiene, CodeQL for Actions/Python/JavaScript, and Vercel preview all pass. The host usage monitor closed with 91 percent remaining and 2 percentage points consumed. |
 
 ## Handoff Rules
 
