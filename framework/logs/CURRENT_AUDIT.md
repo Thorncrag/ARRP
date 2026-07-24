@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: active
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,12 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | None. |
-| Last closeout | Production Elim chain `arrp-20260724T153028Z` completed its comprehensive full-context review and recorded Review Epoch `epoch-arrp-20260724T153028Z`. The host session reconciled the sandbox-preserved closeout through [pull request #390](https://github.com/Thorncrag/ARRP/pull/390) after all required CodeQL and Vercel checks passed. The next comprehensive review is due 2026-08-07T15:40:02Z. |
-| Exact next action | None. Resume ordinary interactive project work or review the open bot-generated pull requests through the Console. |
+| Status | Active |
+| Active issue/task | Surface open pull requests requiring human disposition in the Console Action Items view. |
+| Audit type/tier | Console administration and human-review routing |
+| Started | 2026-07-24 12:30:00 -0400 |
+| Last checkpoint | 2026-07-24 12:30:00 -0400 |
+| User request | Show unresolved pull or merge requests in Action Items so every human-review obligation is visible in one place. |
+| Scope | Console data generation and Action Items presentation; open ARRP pull requests; no automatic merge or disposition. |
+| Files touched | None yet for the new task. |
+| Completed steps | Host-reconciled Elim's linked-vehicle context repair through pull request [#391](https://github.com/Thorncrag/ARRP/pull/391) after its required checks passed. Identified four pre-existing open human-review pull requests: #381, #380, #378, and #361. |
+| Next step | Add a deterministic open-pull-request feed to Action Items, distinguish bot/dependency review from automation failure, link each item to GitHub, add regression coverage, rebuild the Console, validate, and reconcile through the reviewed workflow. |
 | Blockers/questions | None. |
-| Validation status | Passed. Pinned authenticated Integrity reports 0 errors and 0 warnings. The final 192-test repository suite and 24 participation-service tests, Python and JavaScript syntax, public-site preparation, deterministic Console rebuild, Review Epoch schema and idempotence, diff hygiene, CodeQL for Actions/Python/JavaScript, and Vercel preview all pass. The host usage monitor closed with 91 percent remaining and 2 percentage points consumed. |
+| Validation status | Linked-vehicle repair passed 194 repository tests, 24 participation-service tests, authenticated consistency with 0 errors and 0 warnings, CodeQL, Vercel, syntax, and diff hygiene. New Console work not yet started. |
 
 ## Handoff Rules
 

@@ -164,3 +164,38 @@ Do not reproduce sensitive, vulgar, demeaning, privacy-screened, or otherwise re
 #### Host reconciliation
 
 The approved host session preserved Elim's findings without repeating the comprehensive review, created canonical branch `codex/elim-review-epoch-20260724T153028Z`, and opened [pull request #390](https://github.com/Thorncrag/ARRP/pull/390). CodeQL for Actions, Python, and JavaScript and the Vercel preview passed before merge. This resolves the run's mechanical Git/GitHub closeout block; the Elim invocation's original stop reason remains recorded above as an accurate account of its own execution boundary.
+
+### 2026-07-24 — arrp-20260724T160209Z — Blocked
+
+| Field | Entry |
+| --- | --- |
+| Started | 2026-07-24 12:14:18 -0400 |
+| Ended | 2026-07-24 12:20:45 -0400 |
+| Run ID | `arrp-20260724T160209Z` |
+| Trigger | Refreshed Run Coordinator chain with JUD-009's targeted Change Audit at the head of the eligible queue |
+| Outcome | Blocked after completed deterministic context repair |
+| Usage | The approved host dispatcher created the unique baseline at 16:14:18 UTC with Codex 89 percent and Spark 99 percent remaining. Every required snapshot read was fresh and `pass`; the 16:19:22 UTC closeout-phase snapshot reported Codex 88 percent and Spark 99 percent, for 1 percentage point consumed against the ten-point soft target. The one-second Codex reset-time variation remained within the permitted tolerance. Elim did not launch another Codex app-server or run a sandbox usage probe. |
+| Work summary | Preflight verified the current chain and every preserved input, then found that the supposedly complete JUD-009 Change Audit packet omitted its existing federal legislative vehicle. Repaired the deterministic resolver to recognize all canonical proposal-vehicle metadata aliases and fail closed when more than one distinct vehicle requires a future multi-vehicle profile. A rebuilt JUD-009 packet includes its legislation and passes validation. The queued substantive Change Audit did not begin because canonical Git preservation failed after the repair. |
+| Material units | One: [Elim linked-vehicle context provenance repair](AGENT_AUDIT_LOG.md#2026-07-24-elim-linked-vehicle-context-provenance-repair-bot-failure). |
+| Issue audit records | None. JUD-009's issue page, audit history, legislation, sources, score, and workflow fields were read but not changed. |
+| Commits and synchronization | Preflight local `main`, local `origin/main`, manifest baseline, and manifest final revision matched `2eec0d8680705b0092632e7dfeb97300b5dddc3d`. Canonical `git fetch` then could not write `.git/FETCH_HEAD`, and canonical `git add` could not create `.git/index.lock`. A temporary writable Git-metadata copy produced local-only branch `codex/elim-linked-vehicle-context-repair`, beginning at `35f8f6a`; the final structured result reports its latest preservation commit. It has not been pushed. No pull request, merge, Actions readback, Project update, or publication change occurred. |
+| Validation | All five preserved deterministic inputs, the work queue, and context packet independently matched their manifest hashes. Pinned authenticated Integrity reported 0 errors and 0 warnings; intake contained no pending submission; the Review Epoch is current until 2026-08-07. The repaired JUD-009 packet includes `legislation/JUD-009.md` at SHA-256 `14ba0bda81918ac17a26fb13f6cfc81c514da901a5c920e56fe7cc7aa7c59756` within the profile byte limit. Fifteen focused context tests, the complete 194-test repository suite, 24 participation-service tests, Python and JavaScript syntax, and `git diff --check` passed. Local consistency reported 0 errors; its three unavailable-network warnings were covered by the pinned authenticated Issue, Project, and Pages result. |
+| Human review | None. No substantive JUD-009 decision, Change Audit finding, score, **Runs** count, lifecycle field, Project field, or publication decision was made. |
+| Stop reason | Mandatory stop after a completed material repair could not be preserved in canonical Git metadata. Starting JUD-009 would have violated the rule that commit, push, authentication, or validation failure stops new work after preservation. |
+| Exact next action | In the approved writable host context, preserve and reconcile the context repair and this closeout through the ordinary branch and pull-request workflow, await applicable Actions, synchronize local `main`, then run a fresh chain so the hash-pinned JUD-009 context includes the linked legislation. Resume the targeted Change Audit only from that refreshed packet. |
+
+#### Actions and routing
+
+1. Verified chain `arrp-20260724T160209Z`, clean synchronized baseline `2eec0d8680705b0092632e7dfeb97300b5dddc3d`, comprehensive Review Epoch state, and every preserved deterministic-input, queue, and context hash.
+2. Confirmed the pinned Integrity result had no finding and the intake cursor had no pending content. No public-intake assessment or `scripts/record_intake_review.py` action was applicable; the comprehensive Review Epoch was not due.
+3. Confirmed JUD-009 was the highest-priority ordinary unit and the supplied packet used `profile: change_audit`, but found `linked_vehicle: null` despite the canonical `federal_legislative_proposal` link to an existing draft.
+4. Traced the contradiction to `resolve_linked_vehicle`, which recognized only `legislative_proposal` and could silently omit federal, constitutional, alternative, proposal, and enabling vehicle keys while still setting `provenance_complete: true`.
+5. Extended deterministic resolution across all canonical vehicle metadata aliases, deduplicated identical paths, and preserved the existing fail-closed rule when distinct multiple vehicles require a future multi-vehicle profile.
+6. Added regression coverage for every alias and for multiple-vehicle failure. Rebuilt the JUD-009 context and verified that it now includes the complete legislation file and remains inside the bounded profile.
+7. Ran the focused and full validation floor and recorded the repair in the shared Agent Audit Log. No issue-level audit, source, Project, score, lifecycle, or public-surface change occurred.
+8. Attempted canonical fetch and staging. Both failed on read-only Git metadata, so no JUD-009 substantive work began.
+9. The required Codex task-archiving tool was unavailable in this execution environment; this housekeeping limitation is reported in the final structured result.
+
+#### Host reconciliation
+
+The approved host session preserved the completed context repair without beginning JUD-009's substantive audit, created canonical branch `codex/elim-linked-vehicle-context-repair`, and opened [pull request #391](https://github.com/Thorncrag/ARRP/pull/391). CodeQL for Actions, Python, and JavaScript and the Vercel preview passed before merge. This resolves the run's mechanical Git/GitHub closeout block; the original blocked run outcome remains above as an accurate account of Elim's own execution boundary.

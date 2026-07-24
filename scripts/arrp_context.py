@@ -25,6 +25,15 @@ ROOT = Path(__file__).resolve().parents[1]
 ISSUE_ID_RE = re.compile(r"\b(?:[A-Z][A-Z0-9]*-\d{3}|HOR-\d{3})\b")
 HEADING_RE = re.compile(r"^(#{1,6})[ \t]+(.+?)[ \t]*#*[ \t]*$")
 PLACEHOLDER_HASHES = {"", "__SET_AT_INTEGRATION__", "AUTO", "PENDING"}
+LINKED_VEHICLE_FIELDS = (
+    "legislative_proposal",
+    "federal_legislative_proposal",
+    "federal_legislation",
+    "constitutional_proposal",
+    "alternative_legislative_proposal",
+    "proposal_legislation",
+    "enabling_legislation",
+)
 
 
 class ContextError(RuntimeError):
@@ -332,10 +341,11 @@ def find_issue_page(root: Path, issue_id: str) -> Path:
 
 
 def resolve_linked_vehicle(root: Path, issue_path: Path, metadata: dict[str, Any]) -> Path | None:
-    value = metadata.get("legislative_proposal")
-    if not value:
-        return None
-    candidates = value if isinstance(value, list) else [value]
+    candidates: list[Any] = []
+    for field in LINKED_VEHICLE_FIELDS:
+        value = metadata.get(field)
+        if value:
+            candidates.extend(value if isinstance(value, list) else [value])
     resolved: list[Path] = []
     for item in candidates:
         raw = str(item).strip()
@@ -346,7 +356,8 @@ def resolve_linked_vehicle(root: Path, issue_path: Path, metadata: dict[str, Any
             raise ContextError(f"linked vehicle escapes repository: {raw}")
         if not path.is_file():
             raise ContextError(f"linked vehicle is missing: {raw}")
-        resolved.append(path)
+        if path not in resolved:
+            resolved.append(path)
     if len(resolved) > 1:
         raise ContextError("multiple linked vehicles require an explicit future multi-vehicle profile")
     return resolved[0] if resolved else None
