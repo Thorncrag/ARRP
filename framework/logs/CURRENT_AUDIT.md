@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: active
+status: inactive
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
-| Active issue/task | GitHub Pages deployment-status integrity reconciliation for chain `arrp-20260724T184907Z` and work unit `INTEGRITY-74de064841ba`. |
-| Audit type/tier | Project integrity; non-tier |
+| Status | Inactive |
+| Active issue/task | None. |
+| Audit type/tier | None |
 | Started | 2026-07-24 14:55:29 -0400 |
-| Last checkpoint | 2026-07-24 14:58:03 -0400 |
+| Last checkpoint | 2026-07-24 15:06:10 -0400 |
 | User request | Verify the refreshed deterministic chain and process its highest-priority eligible work unit. |
-| Scope | `scripts/audit_project_consistency.py`; focused consistency tests; GitHub Pages deployment and workflow readback; `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/ELIM_RUN_LOG.md`; generated Project Console. |
-| Files touched | `framework/logs/CURRENT_AUDIT.md`. |
-| Completed steps | Verified chain identity, repository freshness, all five preserved deterministic inputs, the pinned queue and context hashes, complete provenance, bot statuses, current Review Epoch, and a fresh passing usage snapshot. Confirmed that the pinned Integrity error captured deployment `5593757158` while it was `in_progress`, but the deployment for exact current `main` SHA `5a38cf2d0d842357aafeaa96046cdc5ba0a436f3` and workflow run `30118386502` both completed successfully. |
-| Next step | Add and test a bounded grace rule so a current nonterminal Pages deployment is not reported as an integrity error during the normal push-triggered publication window, while terminal failures and deployments stuck beyond the existing 30-minute grace remain errors. |
+| Scope | None. The Pages integrity unit is complete. |
+| Files touched | None pending. |
+| Completed steps | Verified the refreshed chain, all preserved artifacts, live Pages state, and usage reserve; repaired and tested the Pages deployment-status grace rule; reran authenticated integrity with 0 errors and 0 warnings; passed the complete validation floor; recorded the material unit; and merged pull request [#396](https://github.com/Thorncrag/ARRP/pull/396) as `fd7cfea` after CodeQL and Vercel passed. No JUD-009 work resumed in this chain because the higher-priority Integrity unit consumed the authorized work-unit scope. |
+| Next step | Start a fresh chain before taking the next queue item. The current Review Epoch remains due 2026-08-07T15:40:02Z. |
 | Blockers/questions | None. |
-| Validation status | In progress. |
+| Validation status | Passed. |
 
 ## Handoff Rules
 
