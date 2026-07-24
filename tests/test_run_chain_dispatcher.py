@@ -1,6 +1,7 @@
 import importlib.util
 import hashlib
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -593,6 +594,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                     {
                         "pid": 999999,
                         "chain_id": "chain-interrupted",
+                        "status": "elim-running",
                         "started_at": "2026-07-24T16:52:11+00:00",
                         "output_path": (
                             ".tmp/run-coordinator/"
@@ -624,14 +626,13 @@ class RunChainDispatcherTests(unittest.TestCase):
                 mock.patch.object(MODULE, "process_is_alive", return_value=False),
                 mock.patch.object(MODULE, "command"),
             ):
-                self.assertTrue(
-                    MODULE.acquire_dispatch_lock(
-                        lock,
-                        repo=repo,
-                        config=config,
-                        control=control,
-                    )
+                recovered, lease = MODULE.acquire_dispatch_lock(
+                    lock,
+                    repo=repo,
+                    config=config,
+                    control=control,
                 )
+                self.assertTrue(recovered)
             self.assertEqual(control["elim_runtime"]["status"], "failed")
             self.assertEqual(
                 control["last_failed_chain_id"],
@@ -642,23 +643,25 @@ class RunChainDispatcherTests(unittest.TestCase):
             self.assertEqual(projected["status"], "failed")
             self.assertEqual(projected["failures"][-1]["stage"], "elim")
             self.assertIn("interrupted", projected["elim_runtime"]["details"])
-            self.assertTrue((lock / "owner.json").is_file())
-            MODULE.release_dispatch_lock(lock, repo=repo)
-            self.assertFalse(lock.exists())
+            self.assertTrue(lease.owner_path.is_file())
+            MODULE.release_dispatch_lock(lease)
+            self.assertTrue(lock.is_file())
+            self.assertFalse(lease.owner_path.exists())
 
     def test_live_dispatch_owner_cannot_be_recovered(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
             lock = repo / ".tmp/run-coordinator/host-dispatch.lock"
-            lock.mkdir(parents=True)
-            (lock / "owner.json").write_text(
-                json.dumps({"pid": 1234}) + "\n",
-                encoding="utf-8",
+            lock.parent.mkdir(parents=True)
+            first_descriptor = os.open(lock, os.O_RDWR | os.O_CREAT, 0o600)
+            MODULE.fcntl.flock(
+                first_descriptor,
+                MODULE.fcntl.LOCK_EX | MODULE.fcntl.LOCK_NB,
             )
             config = json.loads(
                 (ROOT / ".github" / "run-coordinator-bot.json").read_text()
             )
-            with mock.patch.object(MODULE, "process_is_alive", return_value=True):
+            try:
                 with self.assertRaisesRegex(
                     RuntimeError,
                     "another host dispatcher",
@@ -669,6 +672,121 @@ class RunChainDispatcherTests(unittest.TestCase):
                         config=config,
                         control={},
                     )
+            finally:
+                MODULE.fcntl.flock(first_descriptor, MODULE.fcntl.LOCK_UN)
+                os.close(first_descriptor)
+
+    def test_dispatch_owner_token_is_required_for_update_and_release(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            state = repo / ".tmp/run-coordinator"
+            state.mkdir(parents=True)
+            (state / "run-chain.json").write_text("{}\n", encoding="utf-8")
+            config = json.loads(
+                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
+            )
+            config["manifest"]["localFallback"] = ".tmp/run-coordinator/run-chain.json"
+            _, lease = MODULE.acquire_dispatch_lock(
+                state / "host-dispatch.lock",
+                repo=repo,
+                config=config,
+                control={},
+            )
+            owner = json.loads(lease.owner_path.read_text(encoding="utf-8"))
+            owner["owner_token"] = "different-acquisition"
+            lease.owner_path.write_text(json.dumps(owner) + "\n", encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "ownership changed"):
+                MODULE.write_dispatch_lock_owner(lease, updates={"status": "test"})
+            with self.assertRaisesRegex(RuntimeError, "another acquisition"):
+                MODULE.release_dispatch_lock(lease)
+            self.assertTrue(lease.owner_path.is_file())
+
+    def test_abandoned_pre_elim_owner_does_not_fabricate_elim_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            state = repo / ".tmp/run-coordinator"
+            state.mkdir(parents=True)
+            manifest = state / "run-chain.json"
+            manifest.write_text(
+                json.dumps({"chain_id": "chain-1", "failures": []}) + "\n",
+                encoding="utf-8",
+            )
+            owner_path = state / "host-dispatch.lock.owner.json"
+            owner_path.write_text(
+                json.dumps(
+                    {
+                        "owner_token": "abandoned",
+                        "chain_id": "chain-1",
+                        "status": "usage-gated",
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            config = json.loads(
+                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
+            )
+            config["manifest"]["localFallback"] = ".tmp/run-coordinator/run-chain.json"
+            control = {}
+            recovered, lease = MODULE.acquire_dispatch_lock(
+                state / "host-dispatch.lock",
+                repo=repo,
+                config=config,
+                control=control,
+            )
+            self.assertTrue(recovered)
+            self.assertNotIn("elim_runtime", control)
+            projected = json.loads(manifest.read_text(encoding="utf-8"))
+            self.assertEqual(projected["failures"][-1]["stage"], "run-coordinator")
+            self.assertNotIn("elim_runtime", projected)
+            MODULE.release_dispatch_lock(lease)
+
+    def test_legacy_lock_recovery_accepts_known_owner_temp_residue(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            state = repo / ".tmp/run-coordinator"
+            lock = state / "host-dispatch.lock"
+            lock.mkdir(parents=True)
+            (lock / "owner.json").write_text(
+                json.dumps({"pid": 999999, "status": "dispatcher-running"}) + "\n",
+                encoding="utf-8",
+            )
+            (lock / "owner.json.tmp").write_text("{}\n", encoding="utf-8")
+            (state / "run-chain.json").write_text(
+                json.dumps({"chain_id": "chain-1", "failures": []}) + "\n",
+                encoding="utf-8",
+            )
+            config = json.loads(
+                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
+            )
+            config["manifest"]["localFallback"] = ".tmp/run-coordinator/run-chain.json"
+            recovered, lease = MODULE.acquire_dispatch_lock(
+                lock,
+                repo=repo,
+                config=config,
+                control={},
+            )
+            self.assertTrue(recovered)
+            self.assertTrue(lock.is_file())
+            MODULE.release_dispatch_lock(lease)
+
+    def test_abnormal_elim_exit_reports_open_checkpoint_as_recovery_only(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            self.write_current_audit(
+                repo,
+                state="Open",
+                next_step="Resume the interrupted unit.",
+            )
+            outcome, complete, reason = MODULE.enforce_elim_result_closeout(
+                130,
+                repo=repo,
+                result_path=repo / "missing.json",
+            )
+            self.assertEqual(outcome, 130)
+            self.assertFalse(complete)
+            self.assertIn("unfinished-work evidence", reason)
+            self.assertIn("never runtime liveness", reason)
 
     def test_nonpassing_final_usage_attestation_prevents_success(self):
         self.assertEqual(
