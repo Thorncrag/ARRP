@@ -9344,7 +9344,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "decision": "Merged into JUD-009 after narrowing; static HOR ID and closed GitHub issue #17 retained as the permanent intake record.",
         "integrated_into": "JUD-009 — Supreme Court Ethics, Recusal, and Transparency.",
         "rationale": "Court expansion and changes to judicial tenure were excluded as political or constitutional-design questions not necessary to remedy the identified ethics-process weakness. The distinct institutional concern is that Supreme Court ethics, disclosure, complaint, and recusal obligations lack a complete neutral review and proportionate-response process. JUD-009 already owned the specialized appointer-president recusal component, so expanding that proposal avoids duplicative judicial frameworks.",
-        "follow_up": "Complete the targeted JUD-009 Change Audit and Internal Remedy-Fit Audit; verify the revised bill against S. 1814, H.R. 3513, title 28, constitutional limits, complaint safeguards, recusal administration, and budget needs.",
+        "follow_up": "Targeted JUD-009 Change Audit and Internal Remedy-Fit Audit completed July 24, 2026. Await the human reversed-control decision on the appointer-President rule, then obtain qualified constitutional, judicial-administration, and legislative-counsel review.",
         "links": [
           {
             "label": "#17",

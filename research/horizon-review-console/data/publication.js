@@ -4425,7 +4425,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 785,
+      "word_count": 804,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -6754,12 +6754,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1462,
+      "word_count": 1728,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 22
+      "longest_unbroken_token": 24
     },
     {
       "title": "Supreme Court Ethics, Recusal, and Transparency — Audit History",
@@ -6786,9 +6786,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2526,
-      "estimated_pages": 4,
-      "table_count": 3,
+      "word_count": 3799,
+      "estimated_pages": 6,
+      "table_count": 4,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 48
@@ -7617,7 +7617,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 7352,
+      "word_count": 7602,
       "estimated_pages": 12,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7765,10 +7765,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 40092,
-      "estimated_pages": 62,
+      "word_count": 40463,
+      "estimated_pages": 63,
       "table_count": 22,
-      "max_table_columns": 3,
+      "max_table_columns": 4,
       "heading_issue_count": 0,
       "longest_unbroken_token": 80
     },
@@ -7843,12 +7843,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 516,
+      "word_count": 621,
       "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 37
     },
     {
       "title": "Current Project Integrity Report",
@@ -7991,7 +7991,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3940,
+      "word_count": 4237,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8087,8 +8087,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3882,
-      "estimated_pages": 6,
+      "word_count": 4007,
+      "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -8299,7 +8299,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 8706,
+      "word_count": 8708,
       "estimated_pages": 14,
       "table_count": 1,
       "max_table_columns": 7,
@@ -8636,9 +8636,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "participate/README.md",
           "exists": true
+        },
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
         }
       ],
-      "word_count": 2636,
+      "word_count": 2907,
       "estimated_pages": 5,
       "table_count": 2,
       "max_table_columns": 3,
@@ -10460,8 +10464,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "JUD-009-020-JUD-009",
       "internal_links": [],
-      "word_count": 1857,
-      "estimated_pages": 3,
+      "word_count": 2502,
+      "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,

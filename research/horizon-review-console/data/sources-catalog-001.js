@@ -3139,6 +3139,31 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "monitoring_rationale": "",
       "monitoring_group": "",
       "monitoring_baseline_present": false
+    },
+    {
+      "id": "SRC-0139",
+      "record_ids": [
+        "HOR-016",
+        "RIGHTS-002"
+      ],
+      "monitoring": "No",
+      "inventory_status": "Relied upon",
+      "type": "News Reporting",
+      "publisher": "NBC News",
+      "title": "Supreme Court allows Trump to remove protections for thousands of Haitian and Syrian migrants",
+      "date": "Accessed June 25, 2026",
+      "url": "https://www.nbcnews.com/politics/supreme-court/supreme-court-allows-trump-remove-protections-thousands-haitian-syrian-rcna263164",
+      "proposition": "User-supplied news lead identifying the Supreme Court TPS decision as a current issue for horizon intake.",
+      "reliability": "Secondary",
+      "reviewed": "Partial",
+      "notes": "Use as a user-supplied current-news lead; pair with the Supreme Court opinion and additional reporting before relying on details.",
+      "retention_rationale": "",
+      "pending_reason": "",
+      "next_action": "",
+      "blocker": "",
+      "monitoring_rationale": "",
+      "monitoring_group": "",
+      "monitoring_baseline_present": false
     }
   ]
 });
