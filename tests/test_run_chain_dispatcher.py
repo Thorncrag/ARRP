@@ -69,6 +69,7 @@ class RunChainDispatcherTests(unittest.TestCase):
         )
         self.assertFalse(schema["additionalProperties"])
         self.assertEqual(set(schema["required"]), set(schema["properties"]))
+        self.assertNotIn("uniqueItems", json.dumps(schema))
         self.assertEqual(schema["properties"]["schema_version"]["type"], "integer")
         for name in ("work_type", "outcome"):
             self.assertEqual(schema["properties"][name]["type"], "string")
