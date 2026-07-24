@@ -5,7 +5,7 @@
   "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30104944702",
   "trigger": "push",
   "created_at": "2026-07-24T15:21:55+00:00",
-  "updated_at": "2026-07-24T15:23:08+00:00",
+  "updated_at": "2026-07-24T15:23:07+00:00",
   "status": "complete",
   "baseline_commit": "075318e498860804409853db769a3beb2dbbaea2",
   "resume": {
@@ -182,7 +182,7 @@
     "monitoring": 0,
     "sources": 0,
     "intake": 0,
-    "total": 55
+    "total": 0
   },
   "elim_decision": {
     "launch_recommended": false,
@@ -264,52 +264,5 @@
       "completed_at": "2026-07-24T15:23:07+00:00",
       "error": null
     }
-  ],
-  "work_queue": {
-    "path": "project-console-data:elim-work-queue.json",
-    "sha256": "sha256:6a2ad46ebc88fcf5c67c16599ea2077051b586144efca2daedb0f55821fee798",
-    "ready_for_elim": true,
-    "launch_recommended": true,
-    "counts": {
-      "total": 55,
-      "elim_eligible": 55,
-      "human": 0,
-      "safety": 0
-    },
-    "problems": [],
-    "next_item": {
-      "id": "CHANGE-AUDIT-77bd98919be7",
-      "kind": "change_audit",
-      "title": "JUD-009: Targeted Change Audit and Internal Remedy-Fit Audit",
-      "owner": "agent",
-      "eligible_for_elim": true,
-      "requires_human": false,
-      "safety_class": 1,
-      "base_priority": 700,
-      "age_days": 26,
-      "fairness_boost": 26,
-      "priority_score": 726,
-      "reason": "explicit workflow route: audit needed",
-      "source": {
-        "input": "progress",
-        "identifier": "JUD-009",
-        "canonical_record": "areas/JUD/issues/JUD-009.md",
-        "workflow_status": "Audit needed",
-        "development_level": "Review ready",
-        "next_audit": "Targeted Change Audit and Internal Remedy-Fit Audit"
-      },
-      "recovery": null
-    }
-  },
-  "context_packet": {
-    "path": "project-console-data:elim-context.json",
-    "sha256": "sha256:d80b93bf8d3faee07a984545e9f028be10462b0798f4a9ec925a0c14b0dc1085",
-    "profile": "comprehensive_review",
-    "repository_revision": "075318e498860804409853db769a3beb2dbbaea2",
-    "provenance_complete": true,
-    "limits": {
-      "max_bytes": 450000,
-      "actual_bytes": 415813
-    }
-  }
+  ]
 }

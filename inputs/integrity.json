@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-24T15:22:53+00:00",
+  "revision": "075318e498860804409853db769a3beb2dbbaea2",
+  "result": "clean",
+  "counts": {
+    "errors": 0,
+    "warnings": 0,
+    "findings": 0,
+    "issue_pages": 64,
+    "proposal_pages": 41
+  },
+  "duration_seconds": 13.901,
+  "scope": [
+    "Issue and proposal structure, including Issue Snapshot concision",
+    "Area and topic routing",
+    "Internal repository links",
+    "Markdown heading anchors",
+    "Orphaned Markdown pages",
+    "Page metadata and heading hierarchy",
+    "Cross-issue reference links",
+    "GitHub record references",
+    "GitHub Issue and Project synchronization",
+    "Lifecycle-field coherence and workflow explanations",
+    "GitHub Pages deployment synchronization",
+    "Source and citation catalogs",
+    "Research placement",
+    "Reader-facing language",
+    "Tool-interface conventions",
+    "Intake-workflow terminology",
+    "Publication-disposition metadata",
+    "Print-assembly configuration",
+    "Persistent-agent runbooks and runtime configuration",
+    "Structured-file and repository hygiene"
+  ],
+  "findings": []
+}

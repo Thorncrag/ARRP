@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T14:49:21+00:00",
-  "repository_revision": "6dc59640e7c4860464ca08bc5fb2caff84dda8f9",
+  "generated_at": "2026-07-24T15:23:08+00:00",
+  "repository_revision": "075318e498860804409853db769a3beb2dbbaea2",
   "ready_for_elim": true,
   "launch_recommended": true,
   "problems": [],
@@ -20,37 +20,37 @@
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/integrity.json",
-      "sha256": "05c79626e6939440a15f4f77fdace95ff387e0099611ee73bc3c767a05c1f347",
+      "sha256": "cf2904b3321d83ebdfab92581f819fd9675b351e3e1251f6e0d30c492caa2abd",
       "bytes": 1143,
-      "modified_at": "2026-07-24T14:49:21+00:00",
-      "reported_at": "2026-07-24T14:49:06+00:00"
+      "modified_at": "2026-07-24T15:23:08+00:00",
+      "reported_at": "2026-07-24T15:22:53+00:00"
     },
     "progress": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/progress.json",
-      "sha256": "fafa4a8335cf21ffe1ed7d78867d3f1ccaec4a36dfcd238e386a99d624ae40fc",
+      "sha256": "d99bea1cc10adc0263387dea31794f957d3c6e81b48244ceab89d9e889ca6a8b",
       "bytes": 161812,
-      "modified_at": "2026-07-24T14:49:21+00:00",
-      "reported_at": "2026-07-24T14:48:21+00:00"
+      "modified_at": "2026-07-24T15:23:07+00:00",
+      "reported_at": "2026-07-24T15:22:10+00:00"
     },
     "intake": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/intake.json",
-      "sha256": "eaf2a18841834f004e5b1795ac38543b8a527db4517e7e97a09c714c73460eb2",
+      "sha256": "ef7458b588f955918aa9c118c17f0ab0e2b289e4665bf19e7c1b6fb7eeeae29b",
       "bytes": 241,
-      "modified_at": "2026-07-24T14:49:21+00:00",
-      "reported_at": "2026-07-24T14:48:37+00:00"
+      "modified_at": "2026-07-24T15:23:08+00:00",
+      "reported_at": "2026-07-24T15:22:23+00:00"
     },
     "chain": {
       "required": true,
       "status": "current",
-      "path": ".tmp/run-coordinator-workflow/arrp-run-chain/run-chain.json",
-      "sha256": "4f511092f24967cff7b86b60bda0e5d537fdaa2ae054c9c1ab9009bd55dac4b0",
+      "path": ".tmp/run-coordinator-workflow/elim-inputs/chain.json",
+      "sha256": "6cc2fb7b0649be48408716c47de77f523a9fbfdfc255e9b6cf44e454803190db",
       "bytes": 8000,
-      "modified_at": "2026-07-24T14:49:20+00:00",
-      "reported_at": "2026-07-24T14:49:20+00:00"
+      "modified_at": "2026-07-24T15:23:08+00:00",
+      "reported_at": "2026-07-24T15:23:07+00:00"
     },
     "recovery": {
       "required": false,
@@ -61,24 +61,24 @@
       "required": false,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/review-epoch.json",
-      "sha256": "5b7ca1b767bd6cabea26417ec66b2a1fc5f74bfee395bd7e484a7626b3c592a5",
+      "sha256": "32002e0e6a7a28bf6a36c53c2ed4e63db78f7f79260034718b13ba5c84fe0986",
       "bytes": 284,
-      "modified_at": "2026-07-24T14:49:21+00:00",
-      "reported_at": "2026-07-24T14:49:20+00:00"
+      "modified_at": "2026-07-24T15:23:08+00:00",
+      "reported_at": "2026-07-24T15:23:07+00:00"
     }
   },
   "revision_evidence": {
-    "chain": "6dc59640e7c4860464ca08bc5fb2caff84dda8f9",
-    "integrity": "6dc59640e7c4860464ca08bc5fb2caff84dda8f9"
+    "chain": "075318e498860804409853db769a3beb2dbbaea2",
+    "integrity": "075318e498860804409853db769a3beb2dbbaea2"
   },
   "intake_cursor": {
     "last_processed_id": null,
     "pending_flag": false
   },
   "review_epoch": {
-    "epoch_id": "epoch-arrp-20260724T144804Z",
+    "epoch_id": "epoch-arrp-20260724T152155Z",
     "baseline_revision": "f74d50318e815eae49b51f7194a324eff957d932",
-    "next_due_at": "2026-07-24T14:48:04+00:00",
+    "next_due_at": "2026-07-24T15:21:55+00:00",
     "unresolved_ids": []
   },
   "items": [
@@ -106,7 +106,7 @@
       "recovery": null
     },
     {
-      "id": "COMPREHENSIVE-REVIEW-91446ddda865",
+      "id": "COMPREHENSIVE-REVIEW-8218ba21275a",
       "kind": "comprehensive_review",
       "title": "Run the due comprehensive consistency review",
       "owner": "agent",
@@ -120,9 +120,9 @@
       "reason": "periodic review boundary is due",
       "source": {
         "input": "review_epoch",
-        "epoch_id": "epoch-arrp-20260724T144804Z",
+        "epoch_id": "epoch-arrp-20260724T152155Z",
         "baseline_revision": "f74d50318e815eae49b51f7194a324eff957d932",
-        "next_due_at": "2026-07-24T14:48:04+00:00",
+        "next_due_at": "2026-07-24T15:21:55+00:00",
         "unresolved_ids": []
       },
       "recovery": null
