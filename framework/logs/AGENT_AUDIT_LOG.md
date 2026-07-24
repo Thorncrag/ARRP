@@ -1566,3 +1566,27 @@ Prospective template:
 | Push status | Preserved on codex/elim-20260724-intake; reviewed push and main synchronization pending |
 | Rollback notes | Revert aa16ce8 and this provenance commit; restore DOJ-002 Project Last audit, Next audit, Change audit needed, and Status to their pre-unit values if synchronization has occurred. |
 | Blockers/skipped checks | The July 23 primary withdrawal order and DOJ authorization record were not yet available on the accessible public docket; they remain the next source-verification task and do not prevent the bounded Change Audit finding. |
+
+
+### 2026-07-24 — WAR-009 audit-readiness maturity reconciliation — reconciliation
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-24T02:40:47-04:00 |
+| Agent | elim |
+| Run ID | ELIM-20260724T060145Z |
+| Unit ID | lifecycle-war-009-002 |
+| Trigger | schedule |
+| Task type | reconciliation |
+| Outcome | Completed |
+| Issue/task | WAR-009 audit-readiness maturity reconciliation |
+| Issue page | [WAR-009](../../areas/WAR/issues/WAR-009.md) |
+| Audit history | [WAR-009 audit history](../../areas/WAR/issues/WAR-009.audit.md) |
+| Proposal page | [Executive Lethal Targeting Accountability Act](../../legislation/WAR-009.md) |
+| Tier | none |
+| Files changed | GitHub Project Development level only; shared Agent Audit Log provenance |
+| Validation | Canonical issue and audit history already record the initial issue-and-vehicle package complete and T0-ready; Project readback showed Developed proposal, Audit needed, score 0, Runs 0; authenticated consistency passed with 0 errors and 0 warnings; Project Console progress run 30072904329 succeeded and showed no warning |
+| Commit | This Elim closeout commit records the Project-only reconciliation |
+| Push status | Project field synchronized and read back; shared provenance awaits closeout pull request |
+| Rollback notes | Restore WAR-009 Project Development level to In development only if the canonical audit-readiness finding is also reversed through the ordinary reviewed workflow. |
+| Blockers/skipped checks | None. |
