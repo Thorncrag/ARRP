@@ -18,7 +18,7 @@
     },
     "framework": {
       "path": "framework/FRAMEWORK.md",
-      "sha256": "01b7c236aea590b4218c57ac4f2d11178068d7d60d70f5b94ec6d2475abfb226"
+      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9"
     },
     "github_workflow": {
       "path": "framework/GITHUB_WORKFLOW.md",
