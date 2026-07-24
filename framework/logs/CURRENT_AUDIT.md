@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
-| Active issue/task | JUD-009 |
-| Audit type/tier | Targeted Change Audit and Internal Remedy-Fit Audit |
+| Status | Inactive |
+| Active issue/task | None. |
+| Audit type/tier | None. |
 | Started | 2026-07-24 16:22:58 -0400 |
-| Last checkpoint | 2026-07-24 16:37:31 -0400 |
+| Last checkpoint | 2026-07-24 16:49:37 -0400 |
 | User request | Process the highest-priority eligible unit from deterministic chain `arrp-20260724T201743Z`. |
-| Scope | Revalidate JUD-009 after methodology commit `88b70b8`; reconcile issue analysis, legislative text, sibling audit history, source inventory, GitHub issue/Project fields, and publication surfaces. |
-| Files touched | `areas/JUD/README.md`; `areas/JUD/issues/JUD-009.md`; `areas/JUD/issues/JUD-009.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `framework/logs/HORIZON_SCAN_LOG.md`; `inventory/sources.csv`; `legislation/JUD-009.md` |
-| Completed steps | Verified the deterministic chain and current legal sources; completed the targeted Change Audit and Internal Remedy-Fit Audit; recalculated the consolidated proposal at 77/100; corrected complaint, recusal-review, appointer-President, confidentiality, response, deadline, and legislative-form mechanics; added `SRC-2648` and `SRC-2649`; passed 41 focused tests, public-site preparation, CSV parsing, and diff hygiene. The score remains current, Runs remains 4, and the marker is cleared. |
-| Next step | Complete full validation, commit and push the unit branch, synchronize GitHub issue #47 and Project fields, merge after checks, refresh Console progress, verify live publication, then record closeout. |
-| Blockers/questions | Human-only decision remains: Would the project want the same categorical appointer-President rule when it disqualifies judges appointed by a President the author supports from proceedings involving that President? This does not block preservation of the completed audit; Project Status must become `Human decision needed`. |
-| Validation status | In progress. |
+| Scope | None. The JUD-009 unit and its synchronization are complete. |
+| Files touched | None pending. |
+| Completed steps | Verified the deterministic chain and current official sources; completed and recorded the JUD-009 targeted Change Audit and Internal Remedy-Fit Audit; recalculated the consolidated proposal at 77/100; preserved Runs at 4; cleared the marker; corrected bounded legislative mechanics; reconciled `SRC-0227`, `SRC-0632`, `SRC-2648`, and `SRC-2649`; merged pull request #399 as `b769911`; synchronized and read back issue #47 and every affected Project field; verified progress workflow run `30125230554`, Pages deployment `5595074348`, and all three affected live pages. Final source-accounting and run closeout are preserved in pull request #401. |
+| Next step | Human author answers the exact application-under-different-control question recorded on issue #47; then route JUD-009 to qualified constitutional, judicial-administration, and legislative-counsel review. |
+| Blockers/questions | Human-only decision: Would the project want the same categorical appointer-President rule when it disqualifies judges appointed by a President the author supports from proceedings involving that President? |
+| Validation status | Passed: 203 repository tests, 24 participation tests, syntax checks, public-site preparation, authenticated consistency with 0 errors and 0 warnings, Project and Issue readback, progress-data readback, live publication, CSV parsing, Console reconstruction, and diff hygiene. |
 
 ## Handoff Rules
 
