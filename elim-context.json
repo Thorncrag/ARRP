@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T20:45:09+00:00",
-  "repository_revision": "b7699119c2a26f164e8c117e35799739ba7901a4",
+  "generated_at": "2026-07-24T20:51:18+00:00",
+  "repository_revision": "c2ee287497f592718d858ae3263f2debb931a8fb",
   "profile": "integrity_reconciliation",
   "manifest": {
     "path": "framework/agents/elim-context-routes.json",
-    "sha256": "b39bc308ed17237b9381e00952835ec961b210288188a7b66708649cd7e04514"
+    "sha256": "9ec39c53899dc7c67b9b7039808a5c4c20739122389a9825c6d1693276a939cc"
   },
   "limits": {
     "max_bytes": 90000,
@@ -65,20 +65,20 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "01b7c236aea590b4218c57ac4f2d11178068d7d60d70f5b94ec6d2475abfb226",
+      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
       "heading": "## Inventory Files",
-      "start_line": 353,
-      "end_line": 362,
+      "start_line": 355,
+      "end_line": 364,
       "bytes": 762,
       "content": "## Inventory Files\n\nThe authoritative project-tracking surfaces are:\n\n- [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2) — area, issue, lifecycle-status, milestone, roadmap, workstream, and horizon-queue tracking.\n- [`sources.csv`](../inventory/sources.csv) — external sources affirmatively relied upon to support assertions in substantive ARRP records.\n- [`sources-pending.csv`](../inventory/sources-pending.csv) — temporary routing queue for retained external sources whose accountable project destination is genuinely unclear.\n\nThe reader-facing [Subject and Institution Index](../SUBJECT_INDEX.md) and selective [`topics/`](../topics/) guides are navigation surfaces, not authoritative project trackers or retained inventory CSVs.\n\n"
     },
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "01b7c236aea590b4218c57ac4f2d11178068d7d60d70f5b94ec6d2475abfb226",
+      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
       "heading": "## Inventory Rules",
-      "start_line": 363,
-      "end_line": 377,
+      "start_line": 365,
+      "end_line": 379,
       "bytes": 3507,
       "content": "## Inventory Rules\n\n1. Each substantive issue should have a stable issue identifier, such as `DOJ-001`.\n2. Each issue should have one primary area home.\n3. Candidate and horizon issues may remain GitHub Project items until they receive a developed issue page.\n4. Retired, merged, integrated, or otherwise adjudicated issues must remain traceable through their closed GitHub issue and the Horizon Scan Log, relevant area page, issue audit-history file, registry, or source record rather than disappearing silently. GitHub issues should not be deleted unless created erroneously. If an adjudicated record has no remaining active work, remove only its card from the active GitHub Project while preserving the closed issue and canonical disposition record.\n5. Area `issue_count` front matter counts active records only, including active candidates, deferred or blocked records, developing issues, and developed proposals. It excludes records finally merged, integrated, retired, rejected, or moved elsewhere. Update the count when any such transition occurs.\n6. Substantive maturity should use the GitHub Project `Development level` field, while the separate Project `Status` field records the current workflow action or hold. Monitoring is an independent `needs: monitoring` designation, not a Project Status. Every canonical issue page must also carry a nonblank lowercase `status` field in front matter. That issue-page field is substantive page/disposition metadata, not the GitHub Project workflow field; its canonical values are `awaiting-decision`, `awaiting-merits-adjudication`, `blocked`, `candidate`, `deferred`, `developed`, `in-development`, and `retired`. Do not copy Project Status values into that field merely because the words look similar, and do not use audit work, a hold, or a monitoring designation as a substitute for the proposal's development level. The Project Integrity Bot reports a missing, blank, or non-standard issue-page `status` rather than inferring one.\n7. Every developed proposal issue should carry audit front matter, a visible **Proposal Scoring** summary, and a sibling audit-history file.\n8. GitHub Project, source inventory, and page updates should be made in the same change as the substantive project update that requires them.\n9. GitHub Project fields, not labels or issue-body metadata, are authoritative for `Area`, `Workstream`, `Priority`, `Release blocker`, `Development level`, `Status`, `Score`, `Runs`, `Last audit`, `Next audit`, `Rebaseline status`, `Change audit needed`, `Canonical page`, and parent/sub-issue tracking.\n10. Labels should be limited to issue kind or temporary triage that is not already represented by a Project field.\n11. The Subject and Institution Index should map plain-language terms and institutional names to stable area and issue homes without duplicating volatile Project fields or creating a second issue taxonomy.\n12. A major public subject may receive one canonical topic guide when it spans multiple proposals or areas and explanatory synthesis materially improves navigation. Use the topic's name as commonly known to the public for the visible page title and navigation label. Topic pages are concise, nonauthoritative routing surfaces governed by the [Topic Page Standard](#topic-page-standard); they do not own proposal substance, rejection decisions, scores, audits, or workflow state. Convert and move an existing project-authored crosswalk when it becomes the topic guide rather than maintaining parallel versions.\n\n"
     }
@@ -108,8 +108,8 @@
   },
   "review_epoch": {
     "schema_version": 1,
-    "generated_at": "2026-07-24T20:45:07+00:00",
-    "epoch_id": "epoch-arrp-20260724T204357Z",
+    "generated_at": "2026-07-24T20:51:17+00:00",
+    "epoch_id": "epoch-arrp-20260724T204958Z",
     "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
     "last_completed_at": "2026-07-24T15:40:02+00:00",
     "next_due_at": "2026-08-07T15:40:02+00:00",
