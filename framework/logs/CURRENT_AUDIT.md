@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: active
+status: inactive
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,18 +13,12 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
-| Active issue/task | Surface open pull requests requiring human disposition in the Console Action Items view. |
-| Audit type/tier | Console administration and human-review routing |
-| Started | 2026-07-24 12:30:00 -0400 |
-| Last checkpoint | 2026-07-24 12:50:00 -0400 |
-| User request | Show unresolved pull or merge requests in Action Items so every human-review obligation is visible in one place. |
-| Scope | Console data generation and Action Items presentation; open ARRP pull requests; no automatic merge or disposition. |
-| Files touched | `research/horizon-review-console/app.js`; `tests/test_horizon_intake.py`; `framework/logs/CURRENT_AUDIT.md` |
-| Completed steps | Host-reconciled Elim's linked-vehicle context repair through merged pull request [#391](https://github.com/Thorncrag/ARRP/pull/391). Added every open GitHub pull request to a single collapsible Action Items queue, classified bot and dependency proposals, linked each entry directly to GitHub, removed duplicate court/directive Action Items cards, and updated Action Items and Overview totals. Live browser verification found the four expected open requests (#381, #380, #378, and #361), confirmed their links, and confirmed the queue expands correctly. Rebuilt the Console and completed focused, repository-wide, and authenticated consistency validation. |
-| Next step | Commit and push the reviewed branch, open a pull request, wait for required checks, merge, then mark this handoff inactive and perform final readback. |
+| Status | Inactive |
+| Active issue/task | None. |
+| Last closeout | Host-reconciled Elim's linked-vehicle context repair through merged pull request [#391](https://github.com/Thorncrag/ARRP/pull/391). Added every open GitHub pull request to a single collapsible Console Action Items queue through merged pull request [#392](https://github.com/Thorncrag/ARRP/pull/392), with direct links and without duplicate court/directive Action Items cards. The live queue displayed the four remaining open requests: #381, #380, #378, and #361. |
+| Exact next action | None. Resume ordinary interactive project work or review the four open pull requests through Console Action Items. |
 | Blockers/questions | None. |
-| Validation status | Passed: live Console interaction; JavaScript syntax; 28 focused Console tests; 194 repository tests; 24 participation-service tests; diff hygiene; authenticated consistency audit with 0 errors and 0 warnings. |
+| Validation status | Passed: live Console interaction; JavaScript syntax; 28 focused Console tests; 194 repository tests; 24 participation-service tests; diff hygiene; authenticated consistency audit with 0 errors and 0 warnings; CodeQL for Actions, Python, and JavaScript; Vercel preview. |
 
 ## Handoff Rules
 
