@@ -262,6 +262,23 @@ def validate_config(config: dict[str, Any]) -> None:
         raise ValueError("run-coordinator stage IDs must be unique")
     if ids[-1:] != ["project-integrity-bot"]:
         raise ValueError("project-integrity-bot must be the last deterministic stage")
+    launch_policy = config.get("llmLaunchPolicy") or {}
+    authorized = launch_policy.get("authorizedTriggers")
+    deterministic_only = launch_policy.get("deterministicOnlyTriggers")
+    if not isinstance(authorized, list) or not all(
+        isinstance(item, str) and item for item in authorized
+    ):
+        raise ValueError("llmLaunchPolicy authorizedTriggers must be a string list")
+    if not isinstance(deterministic_only, list) or not all(
+        isinstance(item, str) and item for item in deterministic_only
+    ):
+        raise ValueError(
+            "llmLaunchPolicy deterministicOnlyTriggers must be a string list"
+        )
+    if set(authorized) & set(deterministic_only):
+        raise ValueError("LLM-authorized and deterministic-only triggers must be disjoint")
+    if "push" not in deterministic_only:
+        raise ValueError("main-branch pushes must remain deterministic-only")
     usage = config.get("usage") or {}
     interval = usage.get("monitorIntervalSeconds")
     max_age = usage.get("snapshotMaxAgeSeconds")
@@ -319,6 +336,8 @@ def plan(args: argparse.Namespace) -> int:
         "chain_id": chain_id,
         "run_id": args.run_id or chain_id,
         "trigger": args.trigger,
+        "llm_launch_allowed": bool(signals.get("allow_elim_launch", False)),
+        "llm_launch_trigger": signals.get("elim_launch_trigger") or args.trigger,
         "created_at": previous.get("created_at", iso(now)) if is_resume else iso(now),
         "updated_at": iso(now),
         "status": "planned",
@@ -559,7 +578,13 @@ def finalize(args: argparse.Namespace) -> int:
         )
         or manifest["review_epoch"]["due"]
     )
-    if blockers:
+    if not manifest.get("llm_launch_allowed", False):
+        decision, reason = (
+            False,
+            "This trigger authorizes deterministic refresh only; Elim waits for "
+            "the daily schedule, an eligible event, or explicit manual dispatch.",
+        )
+    elif blockers:
         decision, reason = False, "Blocking bot or preflight failure requires correction."
     elif not prior_complete:
         decision, reason = False, "One or more due deterministic stages is incomplete."

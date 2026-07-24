@@ -806,6 +806,28 @@ class RunChainDispatcherTests(unittest.TestCase):
             4,
         )
 
+    def test_unspecified_launch_authority_is_fail_closed(self):
+        payload = {
+            "elim_decision": {
+                "launch_recommended": True,
+                "reason": "Queue contains work.",
+            }
+        }
+        result = MODULE.enforce_trigger_launch_boundary(payload)
+        self.assertFalse(result["elim_decision"]["launch_recommended"])
+        self.assertIn("unspecified trigger", result["elim_decision"]["reason"])
+
+    def test_authorized_trigger_preserves_launch_decision(self):
+        payload = {
+            "llm_launch_allowed": True,
+            "elim_decision": {
+                "launch_recommended": True,
+                "reason": "Queue contains work.",
+            },
+        }
+        result = MODULE.enforce_trigger_launch_boundary(payload)
+        self.assertTrue(result["elim_decision"]["launch_recommended"])
+
     def test_monitor_probe_converts_host_read_error_to_unavailable(self):
         result = MODULE.monitored_usage_probe(
             lambda: (_ for _ in ()).throw(RuntimeError("meter unavailable"))

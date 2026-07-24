@@ -42,6 +42,16 @@ class RunCoordinatorTests(unittest.TestCase):
             ROOT / ".github" / "workflows" / "run-coordinator-bot.yml"
         ).read_text()
         self.assertIn("  push:\n    branches:\n      - main", coordinator)
+        self.assertIn('"allow_elim_launch": allow_elim_launch', coordinator)
+        self.assertIn("launch_policy[\"authorizedTriggers\"]", coordinator)
+        self.assertIn(
+            "push",
+            self.config["llmLaunchPolicy"]["deterministicOnlyTriggers"],
+        )
+        self.assertNotIn(
+            "push",
+            self.config["llmLaunchPolicy"]["authorizedTriggers"],
+        )
         for name in ("project-integrity.yml", "project-console-progress.yml"):
             workflow = (ROOT / ".github" / "workflows" / name).read_text()
             self.assertNotIn("  push:\n", workflow)
@@ -175,6 +185,7 @@ class RunCoordinatorTests(unittest.TestCase):
                 "total": 1,
             },
             "review_epoch": {"due": True},
+            "llm_launch_allowed": True,
             "usage": {
                 "hard_reserve_percent": 15,
                 "soft_run_target_percent": 10,
@@ -214,6 +225,69 @@ class RunCoordinatorTests(unittest.TestCase):
         self.assertFalse(reserved["elim_decision"]["launch_recommended"])
         self.assertTrue(available["elim_decision"]["launch_recommended"])
         self.assertTrue(available["elim_decision"]["last_substantive_stage"])
+
+    def test_push_trigger_cannot_launch_elim_even_with_ready_work(self):
+        manifest = {
+            "schema_version": 1,
+            "trigger": "push",
+            "llm_launch_allowed": False,
+            "stages": [
+                {
+                    "id": stage["id"],
+                    "due": False,
+                    "status": "not_due",
+                    "failure_class": "none",
+                    "details": "",
+                }
+                for stage in self.config["stages"]
+            ],
+            "queue_counts": {
+                "integrity": 0,
+                "monitoring": 0,
+                "sources": 0,
+                "intake": 0,
+                "total": 1,
+            },
+            "work_queue": {
+                "ready_for_elim": True,
+                "launch_recommended": True,
+                "problems": [],
+            },
+            "review_epoch": {"due": False},
+            "usage": {
+                "hard_reserve_percent": 15,
+                "soft_run_target_percent": 10,
+            },
+            "failures": [],
+            "degradations": [],
+            "lock": {
+                "path": None,
+                "status": "github-concurrency",
+                "owner_chain_id": "chain",
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            path = directory / "manifest.json"
+            results = directory / "results.json"
+            path.write_text(json.dumps(manifest), encoding="utf-8")
+            results.write_text("{}", encoding="utf-8")
+            args = type(
+                "Args",
+                (),
+                {
+                    "config": ROOT / ".github" / "run-coordinator-bot.json",
+                    "manifest": path,
+                    "stage_results": results,
+                    "output": None,
+                    "usage_remaining": 90.0,
+                    "now": "2026-07-24T08:00:00+00:00",
+                },
+            )()
+            MODULE.finalize(args)
+            final = json.loads(path.read_text(encoding="utf-8"))
+        self.assertFalse(final["elim_decision"]["launch_recommended"])
+        self.assertIn("deterministic refresh only", final["elim_decision"]["reason"])
 
     def test_attach_context_rejects_wrong_profile_for_comprehensive_chain(self):
         manifest = {
