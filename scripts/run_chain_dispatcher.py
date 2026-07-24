@@ -352,14 +352,22 @@ def materialize_verified_inputs(
     queue = read_json(queue_path, root=repo)
     inputs = queue.get("inputs") or {}
     verified: dict[str, dict[str, Any]] = {}
+    filenames = {
+        "integrity": "integrity.json",
+        "progress": "progress.json",
+        "intake": "intake.json",
+        "review_epoch": "review-epoch.json",
+        "chain": "chain.json",
+    }
     for name in ("integrity", "progress", "intake", "review_epoch", "chain"):
         metadata = inputs.get(name) or {}
         digest = metadata.get("sha256")
         if not isinstance(digest, str) or not digest:
             raise RuntimeError(f"the Elim queue did not preserve a hash for {name}")
         expected = digest if digest.startswith("sha256:") else "sha256:" + digest
-        target = destination / f"{name}.json"
-        artifact = manifest_path.parent / "inputs" / f"{name}.json"
+        filename = filenames[name]
+        target = destination / filename
+        artifact = manifest_path.parent / "inputs" / filename
         if artifact.is_file():
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(artifact.read_bytes())
@@ -371,7 +379,7 @@ def materialize_verified_inputs(
         else:
             fetch_data_projection(
                 config,
-                f"inputs/{name}.json",
+                f"inputs/{filename}",
                 target,
                 expected,
             )

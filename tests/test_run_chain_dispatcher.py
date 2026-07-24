@@ -230,8 +230,15 @@ class RunChainDispatcherTests(unittest.TestCase):
             inputs = artifact / "inputs"
             inputs.mkdir(parents=True)
             queue_inputs = {}
-            for name in ("integrity", "progress", "intake", "review_epoch", "chain"):
-                path = inputs / f"{name}.json"
+            filenames = {
+                "integrity": "integrity.json",
+                "progress": "progress.json",
+                "intake": "intake.json",
+                "review_epoch": "review-epoch.json",
+                "chain": "chain.json",
+            }
+            for name, filename in filenames.items():
+                path = inputs / filename
                 path.write_text(json.dumps({"name": name}) + "\n", encoding="utf-8")
                 queue_inputs[name] = {
                     "sha256": hashlib.sha256(path.read_bytes()).hexdigest()
