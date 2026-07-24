@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T21:45:03+00:00",
-  "repository_revision": "0a9d79320bcaa532f001372c92a6bf51939d6fec",
+  "generated_at": "2026-07-24T21:58:24+00:00",
+  "repository_revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
   "ready_for_elim": true,
   "launch_recommended": true,
   "problems": [],
@@ -20,37 +20,37 @@
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/integrity.json",
-      "sha256": "357b19999fa55ee5eb21c5d86d7daee9e6124b8305063fd54662516595ffc2d8",
+      "sha256": "c4095161b3c2b3b65210360153049f939553892252132495eb96c2b41bc3bfa3",
       "bytes": 1143,
-      "modified_at": "2026-07-24T21:45:03+00:00",
-      "reported_at": "2026-07-24T21:44:48+00:00"
+      "modified_at": "2026-07-24T21:58:24+00:00",
+      "reported_at": "2026-07-24T21:58:09+00:00"
     },
     "progress": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/progress.json",
-      "sha256": "51212ec2b9cc3fa479c4ff6e003452be9366cadfe17e0a8d7e8452c4d754230d",
+      "sha256": "fe3c6c18f21d585d1d37b6b9f0f3afdbd7905aeb0abbed78ea4afd33fae15743",
       "bytes": 161986,
-      "modified_at": "2026-07-24T21:45:03+00:00",
-      "reported_at": "2026-07-24T21:44:01+00:00"
+      "modified_at": "2026-07-24T21:58:24+00:00",
+      "reported_at": "2026-07-24T21:57:24+00:00"
     },
     "intake": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/intake.json",
-      "sha256": "989dcb7a35b60bbf77bde1570a04c1fcf996345e626214b083c6c720389e112c",
+      "sha256": "eeabc2ed73d06e6c533b5c2cc2c815bfa4504700a24e6a2b32d282e063d36e3d",
       "bytes": 241,
-      "modified_at": "2026-07-24T21:45:03+00:00",
-      "reported_at": "2026-07-24T21:44:16+00:00"
+      "modified_at": "2026-07-24T21:58:24+00:00",
+      "reported_at": "2026-07-24T21:57:40+00:00"
     },
     "chain": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/chain.json",
-      "sha256": "017a492a0fd9d1648eb4758bc2e8ae6fe519a2495416cdafb127017e56fa6641",
+      "sha256": "ffab49f5dcceffefa8a7f2d5d9d861cc413f80ed39d914eda99385965d3d0853",
       "bytes": 8204,
-      "modified_at": "2026-07-24T21:45:03+00:00",
-      "reported_at": "2026-07-24T21:45:03+00:00"
+      "modified_at": "2026-07-24T21:58:24+00:00",
+      "reported_at": "2026-07-24T21:58:23+00:00"
     },
     "recovery": {
       "required": false,
@@ -61,22 +61,22 @@
       "required": false,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/review-epoch.json",
-      "sha256": "cdb27a7ad3b9c5a54991c11d64589cabecaf844ed6a1a54015054d615235683f",
+      "sha256": "619250fe22e2692ddba915c2c171f791d47bca4b807d12adda26b1e30059ce76",
       "bytes": 307,
-      "modified_at": "2026-07-24T21:45:03+00:00",
-      "reported_at": "2026-07-24T21:45:03+00:00"
+      "modified_at": "2026-07-24T21:58:24+00:00",
+      "reported_at": "2026-07-24T21:58:23+00:00"
     }
   },
   "revision_evidence": {
-    "chain": "0a9d79320bcaa532f001372c92a6bf51939d6fec",
-    "integrity": "0a9d79320bcaa532f001372c92a6bf51939d6fec"
+    "chain": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
+    "integrity": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24"
   },
   "intake_cursor": {
     "last_processed_id": null,
     "pending_flag": false
   },
   "review_epoch": {
-    "epoch_id": "epoch-arrp-20260724T214347Z",
+    "epoch_id": "epoch-arrp-20260724T215706Z",
     "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
     "next_due_at": "2026-08-07T15:40:02+00:00",
     "unresolved_ids": []
