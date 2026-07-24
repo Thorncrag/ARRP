@@ -206,7 +206,10 @@ jobs:
           "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/intake.json"
       - name: Collect privacy-minimized intake events
         env:
-          GH_TOKEN: ${{ github.token }}
+          # Discussion reads through GraphQL require the repository token used
+          # by authenticated project automation. Fall back to GITHUB_TOKEN for
+          # installations where it has sufficient Discussion access.
+          GH_TOKEN: ${{ secrets.ARRP_PROJECT_TOKEN || github.token }}
         run: >-
           python3 scripts/collect_public_intake.py
           --prior "${RUNNER_TEMP}/prior-intake.json"
@@ -369,23 +372,57 @@ jobs:
         run: |
           mkdir -p "${CHAIN_WORK}/elim-inputs"
           for name in integrity progress intake; do
-            curl --fail --silent --show-error \
+            if curl --fail --silent --show-error \
               --output "${CHAIN_WORK}/elim-inputs/${name}.json" \
-              "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/${name}.json"
+              "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/${name}.json"; then
+              continue
+            fi
+            rm -f "${CHAIN_WORK}/elim-inputs/${name}.json"
           done
           python3 - <<'PY'
           import json, os
           from pathlib import Path
           inputs = Path(os.environ["CHAIN_WORK"], "elim-inputs")
+          chain = json.loads(
+              Path(os.environ["CHAIN_WORK"], "arrp-run-chain", "run-chain.json").read_text()
+          )
+          generated = chain["completed_at"]
+          fallbacks = {
+              "integrity.json": {
+                  "schema_version": 1,
+                  "generated_at": generated,
+                  "revision": chain.get("final_revision"),
+                  "collection_status": "unavailable",
+                  "findings": [],
+              },
+              "progress.json": {
+                  "schemaVersion": 1,
+                  "generatedAt": generated,
+                  "repositoryRevision": chain.get("final_revision"),
+                  "collection_status": "unavailable",
+                  "proposals": [],
+              },
+              "intake.json": {
+                  "schema_version": 1,
+                  "generated_at": generated,
+                  "collection_status": "unavailable",
+                  "pending": False,
+                  "last_processed_id": None,
+                  "counts": {"eligible": 0, "pending": 0, "processed": 0},
+                  "items": [],
+                  "content_included": False,
+              },
+          }
+          for name, fallback in fallbacks.items():
+              path = inputs / name
+              if not path.is_file():
+                  path.write_text(json.dumps(fallback, indent=2) + "\n")
           integrity_path = inputs / "integrity.json"
           integrity_feed = json.loads(integrity_path.read_text())
           if isinstance(integrity_feed.get("current"), dict):
               integrity_path.write_text(
                   json.dumps(integrity_feed["current"], indent=2) + "\n"
               )
-          chain = json.loads(
-              Path(os.environ["CHAIN_WORK"], "arrp-run-chain", "run-chain.json").read_text()
-          )
           epoch = {
               "schema_version": 1,
               "generated_at": chain["completed_at"],

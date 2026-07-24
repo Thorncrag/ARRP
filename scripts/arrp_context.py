@@ -618,6 +618,8 @@ def build_work_queue(
     revisions: dict[str, str] = {}
     for name in ("integrity", "progress"):
         data = records[name].get("data") or {}
+        if data.get("collection_status") == "unavailable":
+            problems.append(f"{name} collection is unavailable")
         revision = str(data.get("revision") or data.get("repositoryRevision") or "")
         if revision:
             revisions[name] = revision
@@ -664,6 +666,8 @@ def build_work_queue(
             )
         )
     intake = records["intake"].get("data") or {}
+    if intake.get("collection_status") == "unavailable":
+        problems.append("intake collection is unavailable")
     cursor = str(intake.get("last_processed_id") or "")
     pending_submissions = []
     for submission in intake.get("items", []) if isinstance(intake, dict) else []:

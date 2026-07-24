@@ -161,7 +161,14 @@ def live_payload(token: str) -> dict[str, Any]:
     with urllib.request.urlopen(request, timeout=30) as response:
         payload = json.load(response)
     if payload.get("errors"):
-        raise ValueError("GitHub GraphQL returned errors")
+        messages = sorted(
+            {
+                str(error.get("message") or "unspecified GraphQL error")
+                for error in payload["errors"]
+                if isinstance(error, dict)
+            }
+        )
+        raise ValueError("GitHub GraphQL returned errors: " + "; ".join(messages))
     return payload
 
 

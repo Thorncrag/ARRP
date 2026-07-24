@@ -280,6 +280,48 @@ class QueueTests(unittest.TestCase):
         self.assertFalse(queue["launch_recommended"])
         self.assertTrue(any("revision" in problem for problem in queue["problems"]))
 
+    def test_unavailable_fallback_input_blocks_launch(self):
+        common = {"generated_at": "2026-07-24T11:00:00Z"}
+        integrity = self.path(
+            "integrity.json", {**common, "revision": "abc", "findings": []}
+        )
+        progress = self.path(
+            "progress.json",
+            {
+                **common,
+                "repositoryRevision": "abc",
+                "proposals": [],
+            },
+        )
+        intake = self.path(
+            "intake.json",
+            {
+                **common,
+                "collection_status": "unavailable",
+                "pending": False,
+                "items": [],
+            },
+        )
+        chain = self.path(
+            "chain.json",
+            {
+                **common,
+                "final_revision": "abc",
+                "bots": [],
+            },
+        )
+        queue = build_work_queue(
+            integrity_path=integrity,
+            progress_path=progress,
+            intake_path=intake,
+            chain_path=chain,
+            now=self.now,
+            input_root=self.root,
+        )
+        self.assertFalse(queue["ready_for_elim"])
+        self.assertFalse(queue["launch_recommended"])
+        self.assertIn("intake collection is unavailable", queue["problems"])
+
 
 class RepositorySearchBoundaryTests(unittest.TestCase):
     def test_generated_console_and_local_artifacts_are_excluded_from_ordinary_search(self):
