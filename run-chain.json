@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "bot_id": "run-coordinator-bot",
+  "chain_id": "arrp-20260724T141315Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30100082758",
+  "trigger": "push",
+  "created_at": "2026-07-24T14:13:15+00:00",
+  "updated_at": "2026-07-24T14:20:29+00:00",
+  "status": "blocked",
+  "baseline_commit": "f74d50318e815eae49b51f7194a324eff957d932",
+  "resume": {
+    "count": 0,
+    "from_run_id": null
+  },
+  "lock": {
+    "key": "arrp-run-chain",
+    "path": null,
+    "status": "released-by-workflow",
+    "owner_chain_id": "arrp-20260724T141315Z"
+  },
+  "repository": {
+    "branch": "main",
+    "head": "f74d50318e815eae49b51f7194a324eff957d932",
+    "origin_main": "f74d50318e815eae49b51f7194a324eff957d932",
+    "clean": true,
+    "dirty_paths": [],
+    "dirty_path_count": 0,
+    "ahead_of_origin_main": 0,
+    "behind_origin_main": 0,
+    "fresh": true
+  },
+  "workflow_health": {
+    "healthy": true,
+    "missing": [],
+    "checks": [
+      {
+        "stage": "case-monitor-bot",
+        "workflow": ".github/workflows/case-monitor-bot.yml",
+        "exists": true,
+        "sha256": "sha256:03d8643675f124b1864d6630a914446907a266ae7f5d6f5c96c48976c6f08662"
+      },
+      {
+        "stage": "presidential-directives-bot",
+        "workflow": ".github/workflows/presidential-directives-bot.yml",
+        "exists": true,
+        "sha256": "sha256:1cef9c12894fb5b05243e7e294becc894e8908e5500fbb63853730d5a0e58145"
+      },
+      {
+        "stage": "source-checker-bot",
+        "workflow": ".github/workflows/source-checker-bot.yml",
+        "exists": true,
+        "sha256": "sha256:de2974635b2c81740e8f5e967052be4c2d6dceb51febd490c9afc1fb615e8ede"
+      },
+      {
+        "stage": "project-console-progress-bot",
+        "workflow": ".github/workflows/project-console-progress.yml",
+        "exists": true,
+        "sha256": "sha256:9bdd01cb2866c33d9335cfb06bada5908039a599c7e37619a190a1b04c4323bc"
+      },
+      {
+        "stage": "project-integrity-bot",
+        "workflow": ".github/workflows/project-integrity.yml",
+        "exists": true,
+        "sha256": "sha256:98536e530240cdd83dc20790b5b2157cf3d45d47fc0cf99642b3422b4ab6a2d6"
+      }
+    ]
+  },
+  "stages": [
+    {
+      "id": "case-monitor-bot",
+      "order": 1,
+      "workflow": ".github/workflows/case-monitor-bot.yml",
+      "due": true,
+      "due_reason": "no recorded successful run",
+      "status": "succeeded",
+      "started_at": null,
+      "completed_at": "2026-07-24T14:20:28+00:00",
+      "last_success_at": "2026-07-24T14:20:28+00:00",
+      "retry_limit": 2,
+      "retries": [],
+      "failure_class": "none",
+      "details": "success",
+      "output": {
+        "path": "workflow-output",
+        "sha256": "sha256:0ce62711232cb1c440f87b5dee3c40068580f48d40becae780131439873b444c"
+      },
+      "work_count": 35
+    },
+    {
+      "id": "presidential-directives-bot",
+      "order": 2,
+      "workflow": ".github/workflows/presidential-directives-bot.yml",
+      "due": true,
+      "due_reason": "no recorded successful run",
+      "status": "succeeded",
+      "started_at": null,
+      "completed_at": "2026-07-24T14:20:28+00:00",
+      "last_success_at": "2026-07-24T14:20:28+00:00",
+      "retry_limit": 2,
+      "retries": [],
+      "failure_class": "none",
+      "details": "success",
+      "output": {
+        "path": "workflow-output",
+        "sha256": "sha256:544f815215edf41b78d987b7722bfd0c0e3df9fbeef6f77344a94c54b014cb1c"
+      },
+      "work_count": 8
+    },
+    {
+      "id": "source-checker-bot",
+      "order": 3,
+      "workflow": ".github/workflows/source-checker-bot.yml",
+      "due": true,
+      "due_reason": "no recorded successful run",
+      "status": "succeeded",
+      "started_at": null,
+      "completed_at": "2026-07-24T14:20:28+00:00",
+      "last_success_at": "2026-07-24T14:20:28+00:00",
+      "retry_limit": 2,
+      "retries": [],
+      "failure_class": "none",
+      "details": "success",
+      "output": {
+        "path": "workflow-output",
+        "sha256": "sha256:46707d215cfaa833a08f8fc74391e40732ed158a05796ee636c99464ed1bf1bc"
+      },
+      "work_count": 98
+    },
+    {
+      "id": "project-console-progress-bot",
+      "order": 4,
+      "workflow": ".github/workflows/project-console-progress.yml",
+      "due": true,
+      "due_reason": "forced",
+      "status": "succeeded",
+      "started_at": null,
+      "completed_at": "2026-07-24T14:20:28+00:00",
+      "last_success_at": "2026-07-24T14:20:28+00:00",
+      "retry_limit": 2,
+      "retries": [],
+      "failure_class": "none",
+      "details": "success",
+      "output": {
+        "path": "workflow-output",
+        "sha256": "sha256:4a490ab913fc63845350d17d40042f79c34cd508c73b17dc7a7621019509e6e4"
+      },
+      "work_count": 0
+    },
+    {
+      "id": "public-intake",
+      "order": 5,
+      "workflow": null,
+      "due": true,
+      "due_reason": "required every chain",
+      "status": "degraded",
+      "started_at": null,
+      "completed_at": "2026-07-24T14:20:28+00:00",
+      "last_success_at": null,
+      "retry_limit": 1,
+      "retries": [],
+      "failure_class": "degraded",
+      "details": "failure",
+      "output": null,
+      "work_count": 0
+    },
+    {
+      "id": "project-integrity-bot",
+      "order": 6,
+      "workflow": ".github/workflows/project-integrity.yml",
+      "due": true,
+      "due_reason": "forced",
+      "status": "succeeded",
+      "started_at": null,
+      "completed_at": "2026-07-24T14:20:28+00:00",
+      "last_success_at": "2026-07-24T14:20:28+00:00",
+      "retry_limit": 2,
+      "retries": [],
+      "failure_class": "none",
+      "details": "success",
+      "output": {
+        "path": "workflow-output",
+        "sha256": "sha256:72095ada48e35ec76852c65498734ceb0849c81d485aa7de452718f46f282378"
+      },
+      "work_count": 0
+    }
+  ],
+  "failures": [],
+  "degradations": [
+    {
+      "stage": "public-intake",
+      "classification": "degraded",
+      "message": "failure"
+    }
+  ],
+  "queue_counts": {
+    "integrity": 0,
+    "monitoring": 43,
+    "sources": 98,
+    "intake": 0,
+    "total": 55
+  },
+  "elim_decision": {
+    "launch_recommended": false,
+    "reason": "Context Gateway blocked launch: intake collection is unavailable",
+    "blockers": [
+      "intake collection is unavailable"
+    ],
+    "last_substantive_stage": true,
+    "predecessors_complete": true,
+    "profile": {
+      "id": "comprehensive",
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "xhigh",
+      "full_context": true,
+      "reason": "The periodic comprehensive review epoch is due."
+    }
+  },
+  "review_epoch": {
+    "interval_days": 14,
+    "last_completed_at": null,
+    "next_due_at": "2026-07-24T14:13:15+00:00",
+    "due": true,
+    "due_reason": "no completed review epoch",
+    "boundary_commit": null,
+    "epoch_id": null,
+    "stability_status": null
+  },
+  "usage": {
+    "hard_reserve_percent": 15,
+    "soft_run_target_percent": 10,
+    "remaining_percent": null,
+    "status": "unknown"
+  },
+  "next_action": "Refresh or repair the blocked Context Gateway input.",
+  "action_items": [],
+  "completed_at": "2026-07-24T14:20:28+00:00",
+  "final_revision": "f74d50318e815eae49b51f7194a324eff957d932",
+  "bots": [
+    {
+      "id": "case-monitor-bot",
+      "name": "case-monitor-bot",
+      "due": true,
+      "status": "completed",
+      "started_at": null,
+      "completed_at": "2026-07-24T14:20:28+00:00",
+      "error": null
+    },
+    {
+      "id": "presidential-directives-bot",
+      "name": "presidential-directives-bot",
+      "due": true,
+      "status": "completed",
+      "started_at": null,
+      "completed_at": "2026-07-24T14:20:28+00:00",
+      "error": null
+    },
+    {
+      "id": "source-checker-bot",
+      "name": "source-checker-bot",
+      "due": true,
+      "status": "completed",
+      "started_at": null,
+      "completed_at": "2026-07-24T14:20:28+00:00",
+      "error": null
+    },
+    {
+      "id": "project-console-progress-bot",
+      "name": "project-console-progress-bot",
+      "due": true,
+      "status": "completed",
+      "started_at": null,
+      "completed_at": "2026-07-24T14:20:28+00:00",
+      "error": null
+    },
+    {
+      "id": "project-integrity-bot",
+      "name": "project-integrity-bot",
+      "due": true,
+      "status": "completed",
+      "started_at": null,
+      "completed_at": "2026-07-24T14:20:28+00:00",
+      "error": null
+    }
+  ],
+  "work_queue": {
+    "path": "project-console-data:elim-work-queue.json",
+    "sha256": "sha256:ef184762fdc83fdfadb4bc182eebeab8fe7073b101c016887855ca81f02a4bcf",
+    "ready_for_elim": false,
+    "launch_recommended": false,
+    "counts": {
+      "total": 55,
+      "elim_eligible": 55,
+      "human": 0,
+      "safety": 0
+    },
+    "problems": [
+      "intake collection is unavailable"
+    ],
+    "next_item": {
+      "id": "CHANGE-AUDIT-77bd98919be7",
+      "kind": "change_audit",
+      "title": "JUD-009: Targeted Change Audit and Internal Remedy-Fit Audit",
+      "owner": "agent",
+      "eligible_for_elim": true,
+      "requires_human": false,
+      "safety_class": 1,
+      "base_priority": 700,
+      "age_days": 26,
+      "fairness_boost": 26,
+      "priority_score": 726,
+      "reason": "explicit workflow route: audit needed",
+      "source": {
+        "input": "progress",
+        "identifier": "JUD-009",
+        "canonical_record": "areas/JUD/issues/JUD-009.md",
+        "workflow_status": "Audit needed",
+        "development_level": "Review ready",
+        "next_audit": "Targeted Change Audit and Internal Remedy-Fit Audit"
+      },
+      "recovery": null
+    }
+  },
+  "context_packet": {
+    "path": "project-console-data:elim-context.json",
+    "sha256": "sha256:2ad37a64640397a833d385a687665edba450b12efa0331e822ca09415da0d689",
+    "profile": "change_audit",
+    "repository_revision": "f74d50318e815eae49b51f7194a324eff957d932",
+    "provenance_complete": true,
+    "limits": {
+      "max_bytes": 180000,
+      "actual_bytes": 113865
+    }
+  }
+}
