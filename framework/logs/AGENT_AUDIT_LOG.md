@@ -1686,3 +1686,28 @@ Prospective template:
 | Push status | Pushed, reviewed, merged, and read back on synchronized local `main` after CodeQL and Vercel passed. |
 | Rollback notes | Revert the deployment-status grace logic and its three focused tests, then rebuild the Project Console. No issue, score, Project field, source, intake, or Review Epoch record changed. |
 | Blockers/skipped checks | None. The pinned error was a transient state captured while the exact current deployment was running; terminal failures remain immediate errors, and nonterminal deployments become errors after the existing 30-minute publication grace. |
+
+
+### 2026-07-24 — JUD-009 targeted Change Audit and remedy-fit review — change-audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-24 16:41:07 -0400 |
+| Agent | elim |
+| Run ID | arrp-20260724T201743Z |
+| Unit ID | CHANGE-AUDIT-77bd98919be7 |
+| Trigger | Run Coordinator chain; highest-priority eligible work unit |
+| Task type | change-audit |
+| Outcome | Completed; human decision routed |
+| Issue/task | JUD-009 |
+| Issue page | [JUD-009](../../areas/JUD/issues/JUD-009.md) |
+| Audit history | [JUD-009 audit history](../../areas/JUD/issues/JUD-009.audit.md) |
+| Proposal page | [Supreme Court Ethics, Recusal, and Transparency Act](../../legislation/JUD-009.md) |
+| Tier | none |
+| Files changed | JUD-009 issue page, audit sidecar, legislative vehicle, JUD area page, Horizon disposition, `inventory/sources.csv`, `framework/logs/CURRENT_AUDIT.md`, and generated Project Console data |
+| Source actions | Associated `SRC-0632` with JUD-009 for section 2071 rulemaking mechanics; added `SRC-2648` for the Supreme Court's 2026 conflict-checking announcement and `SRC-2649` for the official Eleventh Circuit special-master opinion. These records support current-status, drafting, and manifestation claims without implying enforcement, peer review, actual bias, or enactment progress. |
+| Validation | Verified chain `arrp-20260724T201743Z`, every preserved deterministic input, current official sources, issue-to-vehicle alignment, and fresh host usage; passed 41 focused tests, the complete 203-test repository suite, 24 participation-service tests, Python and JavaScript syntax checks, public-site preparation, source CSV parsing, deterministic Console rebuilding, and `git diff --check`. Authenticated Project, issue, progress-data, and live-publication readback follow the reviewed merge. |
+| Commit | `Complete JUD-009 change audit` (`e5180e0`) |
+| Push status | Pushed to `origin/codex/elim-jud009-change-audit` in [pull request #399](https://github.com/Thorncrag/ARRP/pull/399); reviewed merge and final synchronization pending. |
+| Rollback notes | Revert `e5180e0` and the accompanying provenance commit, rebuild the Console, remove `SRC-2648` and `SRC-2649`, restore the prior `SRC-0632` association, and restore JUD-009's pre-run Project and issue-wrapper audit fields if synchronization has occurred. |
+| Blockers/skipped checks | The completed audit does not answer the reserved application-under-different-control judgment. Human question: Would the project want the same categorical appointer-President rule when it disqualifies judges appointed by a President the author supports from proceedings involving that President? `Runs` remains 4. Public-intake and comprehensive-review recording scripts were not applicable. |
