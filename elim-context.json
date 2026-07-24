@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T21:14:41+00:00",
-  "repository_revision": "14b9bf6e6213905bdbcc07688e42940085f79d63",
+  "generated_at": "2026-07-24T21:32:30+00:00",
+  "repository_revision": "5d57449693fc9893b9a980933248191e1327c41c",
   "profile": "issue_audit",
   "manifest": {
     "path": "framework/agents/elim-context-routes.json",
-    "sha256": "525a7f3a7f023e98aae48bb9bf56001acd71b0f375ad7c157ffb575cdfa2d2ee"
+    "sha256": "db1b390fe1ad82bc71a953c746f2b88df86a88748a1eef95fb2e2e4a268f3b01"
   },
   "limits": {
     "max_bytes": 220000,
@@ -15,7 +15,7 @@
     {
       "document": "agent_rules",
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "1cfff9292d26467c5810d58a6a8a45a32fb4e7940d0bd6862207158e14ecf168",
+      "sha256": "4277421afb26abfa9254f7b463716872027ad2c393b94e337bbb85c0622c6df7",
       "heading": "## Single-Issue Default",
       "start_line": 116,
       "end_line": 144,
@@ -25,7 +25,7 @@
     {
       "document": "agent_rules",
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "1cfff9292d26467c5810d58a6a8a45a32fb4e7940d0bd6862207158e14ecf168",
+      "sha256": "4277421afb26abfa9254f7b463716872027ad2c393b94e337bbb85c0622c6df7",
       "heading": "## Guiding-Principle Check",
       "start_line": 47,
       "end_line": 60,
@@ -35,7 +35,7 @@
     {
       "document": "elim_runbook",
       "path": "framework/agents/ELIM.md",
-      "sha256": "b099dc397f9ae708e5124c186005f9001cc2f644f3bf72a60533f72a12ac8952",
+      "sha256": "ae7ce1075722f3fdeb7733e0eb53a4687320f952c410ca536e62f342100e6602",
       "heading": "## Work Order",
       "start_line": 56,
       "end_line": 70,
@@ -45,7 +45,7 @@
     {
       "document": "elim_runbook",
       "path": "framework/agents/ELIM.md",
-      "sha256": "b099dc397f9ae708e5124c186005f9001cc2f644f3bf72a60533f72a12ac8952",
+      "sha256": "ae7ce1075722f3fdeb7733e0eb53a4687320f952c410ca536e62f342100e6602",
       "heading": "## Authority Boundary",
       "start_line": 115,
       "end_line": 122,
@@ -55,7 +55,7 @@
     {
       "document": "elim_runbook",
       "path": "framework/agents/ELIM.md",
-      "sha256": "b099dc397f9ae708e5124c186005f9001cc2f644f3bf72a60533f72a12ac8952",
+      "sha256": "ae7ce1075722f3fdeb7733e0eb53a4687320f952c410ca536e62f342100e6602",
       "heading": "## Unit Completion and Closeout",
       "start_line": 123,
       "end_line": 134,
@@ -65,7 +65,7 @@
     {
       "document": "agent_rules",
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "1cfff9292d26467c5810d58a6a8a45a32fb4e7940d0bd6862207158e14ecf168",
+      "sha256": "4277421afb26abfa9254f7b463716872027ad2c393b94e337bbb85c0622c6df7",
       "heading": "## Conservative Scoring",
       "start_line": 355,
       "end_line": 364,
@@ -75,7 +75,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Pre-Audit Orientation",
       "start_line": 702,
       "end_line": 715,
@@ -85,7 +85,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Audit Workflow",
       "start_line": 832,
       "end_line": 856,
@@ -95,7 +95,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Formatting Preflight",
       "start_line": 857,
       "end_line": 893,
@@ -105,7 +105,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Audit Depth Tiers",
       "start_line": 920,
       "end_line": 969,
@@ -115,7 +115,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Post-Admission Development Gates",
       "start_line": 455,
       "end_line": 468,
@@ -125,7 +125,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Audit Run Counting Rule",
       "start_line": 894,
       "end_line": 903,
@@ -135,7 +135,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Audit Output",
       "start_line": 1061,
       "end_line": 1098,
@@ -145,7 +145,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Hallucination-Resistance and Verification Protocol",
       "start_line": 1099,
       "end_line": 1133,
@@ -155,7 +155,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Proposal Quality Score",
       "start_line": 1134,
       "end_line": 1201,
@@ -165,7 +165,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### External Review Status and Qualified Reviewers",
       "start_line": 1202,
       "end_line": 1266,
@@ -175,7 +175,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Adoption Score Formula",
       "start_line": 1267,
       "end_line": 1300,
@@ -185,7 +185,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Enactment Pathway Check",
       "start_line": 1301,
       "end_line": 1348,
@@ -195,7 +195,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Score Consistency Rules",
       "start_line": 1421,
       "end_line": 1460,
@@ -205,7 +205,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Support and Adoption Audit",
       "start_line": 1461,
       "end_line": 1485,
@@ -215,7 +215,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Political-Language and Coalition-Appeal Audit",
       "start_line": 1486,
       "end_line": 1512,
@@ -225,7 +225,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Judicial and Scholarly Scrutiny Audit",
       "start_line": 1513,
       "end_line": 1542,
@@ -235,7 +235,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Existing-Law and Prior-Proposal Consistency Audit",
       "start_line": 1543,
       "end_line": 1575,
@@ -245,7 +245,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
+      "sha256": "4c732bf1463793239213f29d84a3bf981eb7dbce5f001690d5f546413d0c0d40",
       "heading": "### Functional Analogue Search",
       "start_line": 1576,
       "end_line": 1601,
@@ -259,7 +259,7 @@
       "path": "areas/EMERG/issues/EMERG-003.md",
       "sha256": "0cd1b2b6c4815677d8f5f01af6780f75fd490cca472e44d77913e4b7874d7250",
       "bytes": 19936,
-      "modified_at": "2026-07-24T21:14:38+00:00",
+      "modified_at": "2026-07-24T21:32:28+00:00",
       "front_matter": {
         "issue_id": "EMERG-003",
         "area_id": "A-10",
@@ -908,8 +908,8 @@
   },
   "review_epoch": {
     "schema_version": 1,
-    "generated_at": "2026-07-24T21:14:40+00:00",
-    "epoch_id": "epoch-arrp-20260724T211326Z",
+    "generated_at": "2026-07-24T21:32:29+00:00",
+    "epoch_id": "epoch-arrp-20260724T213114Z",
     "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
     "last_completed_at": "2026-07-24T15:40:02+00:00",
     "next_due_at": "2026-08-07T15:40:02+00:00",
