@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail closed when an official Codex rate-limit window reaches the user reserve."""
+"""Protect the user reserve and track Elim's soft per-run usage target."""
 
 from __future__ import annotations
 
@@ -11,17 +11,24 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 
 DEFAULT_RESERVE_PERCENT = 15
-DEFAULT_MAX_RUN_PERCENT = 10
+DEFAULT_SOFT_TARGET_PERCENT = 10
 DEFAULT_TIMEOUT_SECONDS = 20
+RESET_TIME_JITTER_SECONDS = 5
+WINDOW_CHANGE_RECHECKS = 2
+WINDOW_CHANGE_RECHECK_DELAY_SECONDS = 1
 CODEX_EXECUTABLE = Path("/Applications/ChatGPT.app/Contents/Resources/codex")
 
 
 class UsageGateError(RuntimeError):
     """Raised when the official rate-limit state cannot be read confidently."""
+
+
+class RateLimitWindowChanged(UsageGateError):
+    """Raised when a material window change requires confirmation."""
 
 
 def iso_timestamp(unix_seconds: int) -> str:
@@ -201,7 +208,7 @@ def window_key(window: dict[str, Any]) -> str:
 def apply_run_budget(
     result: dict[str, Any],
     baseline_path: Path,
-    max_run_percent: int,
+    soft_target_percent: int,
 ) -> dict[str, Any]:
     """Create or compare a per-run baseline without weakening the absolute reserve."""
     current_windows = {window_key(window): window for window in result["windows"]}
@@ -234,7 +241,7 @@ def apply_run_budget(
     if not isinstance(baseline_windows, dict) or not baseline_windows:
         raise UsageGateError("run-usage baseline contains no windows")
     if set(baseline_windows) != set(current_windows):
-        raise UsageGateError("applicable rate-limit windows changed during the run")
+        raise RateLimitWindowChanged("applicable rate-limit windows changed during the run")
 
     spent_by_window: dict[str, int] = {}
     for key, current in current_windows.items():
@@ -245,31 +252,87 @@ def apply_run_budget(
         starting_reset = starting.get("resetsAt")
         if not isinstance(starting_used, int) or not isinstance(starting_reset, int):
             raise UsageGateError(f"run-usage baseline window {key} is incomplete")
-        if current["resetsAt"] != starting_reset:
-            raise UsageGateError(f"rate-limit window {key} reset during the run")
+        reset_difference = abs(current["resetsAt"] - starting_reset)
+        if reset_difference > RESET_TIME_JITTER_SECONDS:
+            raise RateLimitWindowChanged(
+                f"rate-limit window {key} changed materially during the run"
+            )
         if current["usedPercent"] < starting_used:
-            raise UsageGateError(f"rate-limit usage for {key} moved backward during the run")
+            raise RateLimitWindowChanged(
+                f"rate-limit usage for {key} moved backward during the run"
+            )
         spent_by_window[key] = current["usedPercent"] - starting_used
 
     highest_spent = max(spent_by_window.values(), default=0)
     result["runBudget"] = {
         "baselinePath": str(baseline_path),
-        "maxPercent": max_run_percent,
+        "softTargetPercent": soft_target_percent,
         "highestSpentPercent": highest_spent,
         "spentPercentByWindow": spent_by_window,
     }
-    if highest_spent >= max_run_percent:
+    soft_target_reached = highest_spent >= soft_target_percent
+    reserve_buffer_floor = result["reservePercent"] + soft_target_percent
+    result["runBudget"]["softTargetReached"] = soft_target_reached
+    result["runBudget"]["reserveBufferFloorPercent"] = reserve_buffer_floor
+    if soft_target_reached and result["lowestRemainingPercent"] <= reserve_buffer_floor:
         result["status"] = "abort"
         result["blockers"].append(
-            f"per-run usage budget reached: {highest_spent}% spent of {max_run_percent}% allowed"
+            "soft per-run target reached within the protected reserve buffer: "
+            f"{highest_spent}% spent and {result['lowestRemainingPercent']}% remaining"
         )
     return result
+
+
+def read_usage_with_window_confirmation(
+    fetcher: Callable[[], dict[str, Any]],
+    reserve_percent: int,
+    baseline_path: Path | None,
+    soft_target_percent: int,
+    *,
+    window_change_rechecks: int = WINDOW_CHANGE_RECHECKS,
+    recheck_delay_seconds: float = WINDOW_CHANGE_RECHECK_DELAY_SECONDS,
+) -> dict[str, Any]:
+    """Retry only material window-change signals; never retry through a reserve hit."""
+    if window_change_rechecks < 0:
+        raise ValueError("window-change rechecks cannot be negative")
+
+    transient_window_changes = 0
+    for attempt in range(window_change_rechecks + 1):
+        payload = fetcher()
+        result = evaluate_rate_limits(payload, reserve_percent)
+
+        # The protected reserve and any backend hard-stop state take precedence
+        # over window-change confirmation and return immediately.
+        if result["status"] != "pass" or baseline_path is None:
+            return result
+
+        try:
+            result = apply_run_budget(result, baseline_path, soft_target_percent)
+        except RateLimitWindowChanged:
+            if attempt >= window_change_rechecks:
+                raise
+            transient_window_changes += 1
+            if recheck_delay_seconds:
+                time.sleep(recheck_delay_seconds)
+            continue
+
+        if transient_window_changes:
+            result["windowChangeRechecks"] = transient_window_changes
+        return result
+
+    raise AssertionError("window-change confirmation loop ended unexpectedly")
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--reserve-percent", type=int, default=DEFAULT_RESERVE_PERCENT)
-    parser.add_argument("--max-run-percent", type=int, default=DEFAULT_MAX_RUN_PERCENT)
+    parser.add_argument(
+        "--soft-target-percent",
+        "--max-run-percent",
+        dest="soft_target_percent",
+        type=int,
+        default=DEFAULT_SOFT_TARGET_PERCENT,
+    )
     parser.add_argument("--run-baseline", type=Path)
     parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
     return parser.parse_args()
@@ -280,8 +343,12 @@ def main() -> int:
     if not 0 <= args.reserve_percent <= 100:
         print(json.dumps({"status": "unavailable", "error": "reserve percent must be 0 through 100"}))
         return 3
-    if not 1 <= args.max_run_percent <= 100:
-        print(json.dumps({"status": "unavailable", "error": "max run percent must be 1 through 100"}))
+    if not 1 <= args.soft_target_percent <= 100:
+        print(
+            json.dumps(
+                {"status": "unavailable", "error": "soft target percent must be 1 through 100"}
+            )
+        )
         return 3
     if args.timeout_seconds <= 0:
         print(json.dumps({"status": "unavailable", "error": "timeout must be positive"}))
@@ -298,10 +365,12 @@ def main() -> int:
         return 3
 
     try:
-        payload = fetch_rate_limits(str(CODEX_EXECUTABLE), args.timeout_seconds)
-        result = evaluate_rate_limits(payload, args.reserve_percent)
-        if args.run_baseline is not None and result["status"] == "pass":
-            result = apply_run_budget(result, args.run_baseline, args.max_run_percent)
+        result = read_usage_with_window_confirmation(
+            lambda: fetch_rate_limits(str(CODEX_EXECUTABLE), args.timeout_seconds),
+            args.reserve_percent,
+            args.run_baseline,
+            args.soft_target_percent,
+        )
     except (OSError, UsageGateError) as error:
         result = {
             "status": "unavailable",

@@ -12,7 +12,7 @@ print_levels:
 
 ## Overview
 
-Project 2025 is a collection of policy, personnel, administrative, and institutional proposals associated with *Mandate for Leadership: The Conservative Promise*. ARRP considers those proposals only when they reveal, depend on, or could exploit a weakness in law, government structure, administration, enforcement, or available remedies. It does not treat Project 2025 as a single ARRP issue or regard every policy recommendation as an institutional failure.
+Project 2025 is a collection of policy, personnel, administrative, and institutional proposals associated with *Mandate for Leadership: The Conservative Promise* and the MAGA-aligned Republican political coalition. ARRP's criticism of portions of that program therefore has politically uneven implications and may reasonably be perceived as partisan. The project acknowledges that perception while evaluating each proposal according to its legal and institutional mechanism rather than its partisan source. It does not treat Project 2025 as a single ARRP issue or regard every policy recommendation as an institutional failure.
 
 This page connects commonly recognized Project 2025 themes to the ARRP proposals that address them. The linked proposal pages contain the detailed analysis and recommendations.
 
@@ -52,7 +52,7 @@ This page connects commonly recognized Project 2025 themes to the ARRP proposals
 
 ## What ARRP Does and Does Not Address
 
-ARRP addresses Project 2025 only where a proposal identifies or uses a separate institutional weakness. Disagreement over lawful tax, spending, benefit, energy, health, education, immigration, or social policy is not included merely because Project 2025 takes a position. ARRP includes a concern only when it involves a weakness in law, government structure, administration, enforcement, or available remedies rather than failure to enact a preferred policy outcome.
+ARRP addresses Project 2025 only where a proposal identifies or uses a separate institutional weakness. A tax, spending, benefit, energy, health, education, immigration, or social-policy proposal is not included merely because ARRP disagrees with the policy or because Project 2025 advances it. ARRP includes a concern only when it involves a weakness in law, government structure, administration, enforcement, or available remedies rather than failure to enact a preferred policy outcome.
 
 ## Sources and Updates
 
