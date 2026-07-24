@@ -2275,23 +2275,7 @@ def check_github_pages_deployment(failures: list[str], warnings: list[str]) -> N
     deployment = deployments[0]
     deployment_id = deployment.get("id")
     deployed_sha = str(deployment.get("sha") or "")
-    statuses, status_error = run_gh_json(
-        ["gh", "api", f"repos/{GITHUB_REPOSITORY}/deployments/{deployment_id}/statuses?per_page=1"]
-    )
-    if statuses is None:
-        report(
-            "WARNING",
-            "GitHub Pages deployment-status check skipped: " + status_error,
-            failures,
-            warnings,
-        )
-    elif not statuses or str(statuses[0].get("state") or "") != "success":
-        state = statuses[0].get("state") if statuses else "missing"
-        report("ERROR", f"latest GitHub Pages deployment is not successful: {state}", failures, warnings)
-
     current_sha = git_revision()
-    if not current_sha or not deployed_sha or deployed_sha == current_sha:
-        return
     try:
         committed_at = int(
             subprocess.run(
@@ -2305,6 +2289,26 @@ def check_github_pages_deployment(failures: list[str], warnings: list[str]) -> N
     except (subprocess.CalledProcessError, ValueError):
         committed_at = 0
     age_seconds = int(datetime.now(timezone.utc).timestamp()) - committed_at if committed_at else 999999
+    statuses, status_error = run_gh_json(
+        ["gh", "api", f"repos/{GITHUB_REPOSITORY}/deployments/{deployment_id}/statuses?per_page=1"]
+    )
+    if statuses is None:
+        report(
+            "WARNING",
+            "GitHub Pages deployment-status check skipped: " + status_error,
+            failures,
+            warnings,
+        )
+    elif not statuses:
+        report("ERROR", "latest GitHub Pages deployment is not successful: missing", failures, warnings)
+    else:
+        state = statuses[0].get("state") if statuses else "missing"
+        in_flight = str(state) in {"pending", "queued", "in_progress"}
+        if state != "success" and not (in_flight and age_seconds <= 1800):
+            report("ERROR", f"latest GitHub Pages deployment is not successful: {state}", failures, warnings)
+
+    if not current_sha or not deployed_sha or deployed_sha == current_sha:
+        return
     if age_seconds <= 1800:
         return
     report(

@@ -174,13 +174,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "run_chain": {
     "schema_version": 1,
     "bot_id": "run-coordinator-bot",
-    "chain_id": "arrp-20260724T164658Z",
-    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30110382388",
+    "chain_id": "arrp-20260724T184907Z",
+    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30118386711",
     "trigger": "push",
-    "created_at": "2026-07-24T16:46:58+00:00",
-    "updated_at": "2026-07-24T17:45:24+00:00",
-    "status": "failed",
-    "baseline_commit": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
+    "created_at": "2026-07-24T18:49:07+00:00",
+    "updated_at": "2026-07-24T18:55:29+00:00",
+    "status": "complete",
+    "baseline_commit": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
     "resume": {
       "count": 0,
       "from_run_id": null
@@ -189,12 +189,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "key": "arrp-run-chain",
       "path": null,
       "status": "released-by-workflow",
-      "owner_chain_id": "arrp-20260724T164658Z"
+      "owner_chain_id": "arrp-20260724T184907Z"
     },
     "repository": {
       "branch": "main",
-      "head": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
-      "origin_main": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
+      "head": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
+      "origin_main": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
       "clean": true,
       "dirty_paths": [],
       "dirty_path_count": 0,
@@ -247,7 +247,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T16:46:58+00:00",
+        "completed_at": "2026-07-24T18:49:07+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -263,7 +263,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T16:46:58+00:00",
+        "completed_at": "2026-07-24T18:49:07+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -279,7 +279,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T16:46:58+00:00",
+        "completed_at": "2026-07-24T18:49:07+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -295,15 +295,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "forced",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-24T16:48:30+00:00",
-        "last_success_at": "2026-07-24T16:48:30+00:00",
+        "completed_at": "2026-07-24T18:50:16+00:00",
+        "last_success_at": "2026-07-24T18:50:16+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:2a5b154f112637361914ab9b4567806ebe9e6fc90fdf3fa9793a599f352136c4"
+          "sha256": "sha256:c543392318ab1cd773cb956cda96621e6bce73c0f1c84b3c7deb1803e1b9e73c"
         },
         "work_count": 0
       },
@@ -315,15 +315,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-24T16:48:30+00:00",
-        "last_success_at": "2026-07-24T16:48:30+00:00",
+        "completed_at": "2026-07-24T18:50:16+00:00",
+        "last_success_at": "2026-07-24T18:50:16+00:00",
         "retry_limit": 1,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:60b0444a8f29cec006fbde5ad7bdecc79671a6c6fc5734b66953b4859b3257fb"
+          "sha256": "sha256:3ccec51164dd95e215c0599798f24d6e12008326a55a429c578ccaf19408160d"
         },
         "work_count": 0
       },
@@ -335,33 +335,27 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "forced",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-24T16:48:30+00:00",
-        "last_success_at": "2026-07-24T16:48:30+00:00",
+        "completed_at": "2026-07-24T18:50:16+00:00",
+        "last_success_at": "2026-07-24T18:50:16+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:2d4b4e338be5a186eb34bcaa77bdf777719491a7245e30079cc163d8382d3df3"
+          "sha256": "sha256:b0081de865dbdb77fdbd8666f2ad7a1e14f925ad01248e5383a1bb55f39461d9"
         },
-        "work_count": 0
+        "work_count": 1
       }
     ],
-    "failures": [
-      {
-        "stage": "elim",
-        "classification": "blocking",
-        "message": "Elim was interrupted before dispatcher-verified closeout. Its preserved task and JSONL output may contain incomplete analysis, but no substantive result may be treated as applied until the run is reconciled. Preserved output: .tmp/run-coordinator/elim-arrp-20260724T164658Z.jsonl."
-      }
-    ],
+    "failures": [],
     "degradations": [],
     "queue_counts": {
-      "integrity": 0,
+      "integrity": 1,
       "monitoring": 0,
       "sources": 0,
       "intake": 0,
-      "total": 0
+      "total": 1
     },
     "elim_decision": {
       "launch_recommended": true,
@@ -390,15 +384,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "usage": {
       "hard_reserve_percent": 15,
       "soft_run_target_percent": 10,
-      "remaining_percent": 86.0,
+      "remaining_percent": 81.0,
       "status": "available",
       "gate": {
         "blockers": [],
-        "checkedAtUtc": "2026-07-24T16:52:11+00:00",
-        "lowestRemainingPercent": 86,
+        "checkedAtUtc": "2026-07-24T18:55:29+00:00",
+        "lowestRemainingPercent": 81,
         "reservePercent": 15,
         "runBudget": {
-          "baselinePath": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/usage-arrp-20260724T164658Z-20260724T165210Z.json",
+          "baselinePath": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/usage-arrp-20260724T184907Z-20260724T185528Z.json",
           "highestSpentPercent": 0,
           "reserveBufferFloorPercent": 25,
           "softTargetPercent": 10,
@@ -413,10 +407,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           {
             "limitId": "codex",
             "limitName": "codex",
-            "remainingPercent": 86,
+            "remainingPercent": 81,
             "resetsAt": 1785508480,
             "resetsAtUtc": "2026-07-31T14:34:40+00:00",
-            "usedPercent": 14,
+            "usedPercent": 19,
             "window": "primary",
             "windowDurationMins": 10080
           },
@@ -434,16 +428,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "host_monitor": {
         "source": "approved-host-dispatcher",
-        "status_path": ".tmp/run-coordinator/arrp-20260724T164658Z/usage-status-arrp-20260724T164658Z-20260724T165210Z.json",
-        "baseline_path": ".tmp/run-coordinator/usage-arrp-20260724T164658Z-20260724T165210Z.json",
+        "status_path": ".tmp/run-coordinator/arrp-20260724T184907Z/usage-status-arrp-20260724T184907Z-20260724T185528Z.json",
+        "baseline_path": ".tmp/run-coordinator/usage-arrp-20260724T184907Z-20260724T185528Z.json",
         "monitor_interval_seconds": 60,
         "snapshot_max_age_seconds": 120
       }
     },
-    "next_action": "Review the interrupted Elim task and preserved output, reconcile any safe partial work, clear the stale handoff, and launch a fresh current chain.",
+    "next_action": "Authorized host dispatcher may launch Elim.",
     "action_items": [],
-    "completed_at": "2026-07-24T16:52:11+00:00",
-    "final_revision": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
+    "completed_at": "2026-07-24T18:55:29+00:00",
+    "final_revision": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
     "bots": [
       {
         "id": "case-monitor-bot",
@@ -451,7 +445,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T16:46:58+00:00",
+        "completed_at": "2026-07-24T18:49:07+00:00",
         "error": null
       },
       {
@@ -460,7 +454,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T16:46:58+00:00",
+        "completed_at": "2026-07-24T18:49:07+00:00",
         "error": null
       },
       {
@@ -469,7 +463,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T16:46:58+00:00",
+        "completed_at": "2026-07-24T18:49:07+00:00",
         "error": null
       },
       {
@@ -478,7 +472,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": true,
         "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-24T16:48:30+00:00",
+        "completed_at": "2026-07-24T18:50:16+00:00",
         "error": null
       },
       {
@@ -487,96 +481,89 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": true,
         "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-24T16:48:30+00:00",
+        "completed_at": "2026-07-24T18:50:16+00:00",
         "error": null
       }
     ],
     "work_queue": {
       "path": "project-console-data:elim-work-queue.json",
-      "sha256": "sha256:a19255f9ed403e2de879dad129bcc0cdbd0384bb4237f8f60e079abb2c461241",
+      "sha256": "sha256:7b66abf5a39821e195a093acf546a7ecaa072ab3134c0a09c80ac4d4b23c2b46",
       "ready_for_elim": true,
       "launch_recommended": true,
       "counts": {
-        "total": 54,
-        "elim_eligible": 54,
+        "total": 55,
+        "elim_eligible": 55,
         "human": 0,
-        "safety": 0
+        "safety": 1
       },
       "problems": [],
       "next_item": {
-        "id": "CHANGE-AUDIT-77bd98919be7",
-        "kind": "change_audit",
-        "title": "JUD-009: Targeted Change Audit and Internal Remedy-Fit Audit",
+        "id": "INTEGRITY-74de064841ba",
+        "kind": "integrity",
+        "title": "latest GitHub Pages deployment is not successful: in_progress",
         "owner": "agent",
         "eligible_for_elim": true,
         "requires_human": false,
-        "safety_class": 1,
-        "base_priority": 700,
-        "age_days": 26,
-        "fairness_boost": 26,
-        "priority_score": 726,
-        "reason": "explicit workflow route: audit needed",
+        "safety_class": 0,
+        "base_priority": 900,
+        "age_days": 0,
+        "fairness_boost": 0,
+        "priority_score": 900,
+        "reason": "error integrity finding",
         "source": {
-          "input": "progress",
-          "identifier": "JUD-009",
-          "canonical_record": "areas/JUD/issues/JUD-009.md",
-          "workflow_status": "Audit needed",
-          "development_level": "Review ready",
-          "next_audit": "Targeted Change Audit and Internal Remedy-Fit Audit"
+          "input": "integrity",
+          "finding": {
+            "id": "error-0001",
+            "severity": "error",
+            "category": "GitHub records",
+            "attention": "agent",
+            "message": "latest GitHub Pages deployment is not successful: in_progress",
+            "path": ""
+          }
         },
         "recovery": null
       },
-      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T164658Z/elim-work-queue.json"
+      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T184907Z/elim-work-queue.json"
     },
     "context_packet": {
       "path": "project-console-data:elim-context.json",
-      "sha256": "sha256:7a8e0cc50d1611b7bbc6666fb54adef642ea9f1930261a40a3dff9208cb7b58a",
-      "profile": "change_audit",
-      "repository_revision": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
+      "sha256": "sha256:9b85b3be9488f45186758f87d2a747c389ec923aa97ffdf362ff38998ed06073",
+      "profile": "integrity_reconciliation",
+      "repository_revision": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
       "provenance_complete": true,
       "limits": {
-        "max_bytes": 180000,
-        "actual_bytes": 128630
+        "max_bytes": 90000,
+        "actual_bytes": 38936
       },
-      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T164658Z/elim-context.json"
+      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T184907Z/elim-context.json"
     },
     "user_overrides": {},
     "verified_inputs": {
       "integrity": {
-        "path": ".tmp/run-coordinator/arrp-20260724T164658Z/inputs/integrity.json",
-        "sha256": "sha256:2d4b4e338be5a186eb34bcaa77bdf777719491a7245e30079cc163d8382d3df3",
-        "bytes": 1143
+        "path": ".tmp/run-coordinator/arrp-20260724T184907Z/inputs/integrity.json",
+        "sha256": "sha256:b0081de865dbdb77fdbd8666f2ad7a1e14f925ad01248e5383a1bb55f39461d9",
+        "bytes": 1377
       },
       "progress": {
-        "path": ".tmp/run-coordinator/arrp-20260724T164658Z/inputs/progress.json",
-        "sha256": "sha256:2a5b154f112637361914ab9b4567806ebe9e6fc90fdf3fa9793a599f352136c4",
+        "path": ".tmp/run-coordinator/arrp-20260724T184907Z/inputs/progress.json",
+        "sha256": "sha256:c543392318ab1cd773cb956cda96621e6bce73c0f1c84b3c7deb1803e1b9e73c",
         "bytes": 161812
       },
       "intake": {
-        "path": ".tmp/run-coordinator/arrp-20260724T164658Z/inputs/intake.json",
-        "sha256": "sha256:60b0444a8f29cec006fbde5ad7bdecc79671a6c6fc5734b66953b4859b3257fb",
+        "path": ".tmp/run-coordinator/arrp-20260724T184907Z/inputs/intake.json",
+        "sha256": "sha256:3ccec51164dd95e215c0599798f24d6e12008326a55a429c578ccaf19408160d",
         "bytes": 241
       },
       "review_epoch": {
-        "path": ".tmp/run-coordinator/arrp-20260724T164658Z/inputs/review-epoch.json",
-        "sha256": "sha256:aed18652a882f1a6b6e3b79b1e516976a092b16f0f5aeaaba16d1cd4598db4a2",
+        "path": ".tmp/run-coordinator/arrp-20260724T184907Z/inputs/review-epoch.json",
+        "sha256": "sha256:7b70059dc29c7c22bbbd20870505881720befdeede3e683d64630bae2a5e1115",
         "bytes": 307
       },
       "chain": {
-        "path": ".tmp/run-coordinator/arrp-20260724T164658Z/inputs/chain.json",
-        "sha256": "sha256:bbaf08dd38494dff14da90b637ee7639b2594667bf4aa527ce7d44d2d568be22",
+        "path": ".tmp/run-coordinator/arrp-20260724T184907Z/inputs/chain.json",
+        "sha256": "sha256:78f48ee8fd83b8a00cebd7ba69b50b3e0a48baf974770db16f86655f29b2620f",
         "bytes": 8049
       }
-    },
-    "elim_runtime": {
-      "id": "elim",
-      "name": "Elim",
-      "status": "failed",
-      "chain_id": "arrp-20260724T164658Z",
-      "started_at": null,
-      "completed_at": "2026-07-24T17:45:24+00:00",
-      "exit_code": 130,
-      "details": "Elim was interrupted before dispatcher-verified closeout. Its preserved task and JSONL output may contain incomplete analysis, but no substantive result may be treated as applied until the run is reconciled. Preserved output: .tmp/run-coordinator/elim-arrp-20260724T164658Z.jsonl."
     }
   }
 });
