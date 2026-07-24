@@ -59,7 +59,7 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Routed record: `HOR-035`
 - Discovery source: [Just Security litigation tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 - Coverage limitation: this projection covers only records present in the configured tracker; it is not an exhaustive or cross-administration case universe.
-- Current unreviewed leads: **213**
+- Current unreviewed leads: **214**
 - Resolution convention: record the full `CASELEAD-…@fingerprint` disposition token and the verified disposition outside these bot-owned markers. The next run removes that observation from this unreviewed projection while preserving the agent-authored disposition. A later material change produces a new fingerprint and re-queues the lead.
 
 <details>
@@ -265,8 +265,8 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Matched terms: <code>moot</code>
 - Tracker status: <code>Government Action Not Blocked (Pending Appeal)</code>
 - Last tracker update: <code>2025-08-05</code>
-- Observation fingerprint: `17fa6158e56c4e1d`
-- Disposition token: `CASELEAD-393B5FF6373D@17fa6158e56c4e1d`
+- Observation fingerprint: `9644a792d4c9a32f`
+- Disposition token: `CASELEAD-393B5FF6373D@9644a792d4c9a32f`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/69619544/american-federation-of-government-employees-v-trump/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
@@ -730,8 +730,8 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Matched terms: <code>moot</code>
 - Tracker status: <code>Government Action Temporarily Blocked</code>
 - Last tracker update: <code>2026-04-01</code>
-- Observation fingerprint: `423a4a80a533288b`
-- Disposition token: `CASELEAD-0BB62B8D6707@423a4a80a533288b`
+- Observation fingerprint: `22654201571b8fda`
+- Disposition token: `CASELEAD-0BB62B8D6707@22654201571b8fda`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/69646607/center-for-taxpayer-rights-v-internal-revenue-service/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
@@ -1823,10 +1823,10 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Review status: **Unreviewed machine lead**
 - Matched signal groups: <code>settlement-or-stipulated-dismissal</code>
 - Matched terms: <code>settle, settlement</code>
-- Tracker status: <code>Government Action Blocked Pending Appeal</code>
+- Tracker status: <code>Government Action Not Blocked (Pending Appeal)</code>
 - Last tracker update: <code>2026-07-17</code>
-- Observation fingerprint: `aa06aa735d405f56`
-- Disposition token: `CASELEAD-7F208DF4CCE5@aa06aa735d405f56`
+- Observation fingerprint: `75e4859a1575bca9`
+- Disposition token: `CASELEAD-7F208DF4CCE5@75e4859a1575bca9`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/17461792/national-association-for-the-advancement-of-colored-people-v-united-states/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
@@ -1885,8 +1885,8 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Matched terms: <code>withdraw</code>
 - Tracker status: <code>Government Action Temporarily Blocked</code>
 - Last tracker update: <code>2026-01-15</code>
-- Observation fingerprint: `04e070fc7de88faf`
-- Disposition token: `CASELEAD-4E9326D5EC5A@04e070fc7de88faf`
+- Observation fingerprint: `92706a3cb4118686`
+- Disposition token: `CASELEAD-4E9326D5EC5A@92706a3cb4118686`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/69708462/national-endowment-for-democracy-v-united-states-of-america/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
@@ -2289,9 +2289,9 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Matched signal groups: <code>mootness, vacatur</code>
 - Matched terms: <code>moot, vacate, vacated</code>
 - Tracker status: <code>Government Action Blocked</code>
-- Last tracker update: <code>2026-04-24</code>
-- Observation fingerprint: `0d574f6a50b56b9a`
-- Disposition token: `CASELEAD-0C7024CAE9F0@0d574f6a50b56b9a`
+- Last tracker update: <code>2026-07-23</code>
+- Observation fingerprint: `6c35131c52a924a1`
+- Disposition token: `CASELEAD-0C7024CAE9F0@6c35131c52a924a1`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/69606027/refugee-and-immigrant-center-for-education-and-legal-services-v-noem/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
@@ -2488,6 +2488,21 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Observation fingerprint: `3ac033e6de7528e2`
 - Disposition token: `CASELEAD-101327D1BEC9@3ac033e6de7528e2`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/69801190/slaughter-v-trump/)
+- Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
+
+</details>
+
+<details>
+<summary>CASELEAD-9A1C72733046 — Smart Approaches to Marijuana v. Kennedy (D.D.C.) — 1:26-cv-01081</summary>
+
+- Review status: **Unreviewed machine lead**
+- Matched signal groups: <code>mootness, vacatur</code>
+- Matched terms: <code>moot, vacate, vacated, vacatur</code>
+- Tracker status: <code>Government Action Not Blocked (Pending Appeal)</code>
+- Last tracker update: <code>2026-06-05</code>
+- Observation fingerprint: `1c23e3632cfdfb98`
+- Disposition token: `CASELEAD-9A1C72733046@1c23e3632cfdfb98`
+- Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/73116101/smart-approaches-to-marijuana-v-kennedy/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
 </details>
