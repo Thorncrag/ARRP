@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260724T152727Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30105347816",
+  "chain_id": "arrp-20260724T153028Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30105562627",
   "trigger": "push",
-  "created_at": "2026-07-24T15:27:27+00:00",
-  "updated_at": "2026-07-24T15:28:39+00:00",
+  "created_at": "2026-07-24T15:30:28+00:00",
+  "updated_at": "2026-07-24T15:31:44+00:00",
   "status": "complete",
-  "baseline_commit": "addfd85e247288f5c7b1967f479c6b37fc717a77",
+  "baseline_commit": "d31863cdd38b6ed258ac4754012c91867c8d9487",
   "resume": {
     "count": 0,
     "from_run_id": null
@@ -16,12 +16,12 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260724T152727Z"
+    "owner_chain_id": "arrp-20260724T153028Z"
   },
   "repository": {
     "branch": "main",
-    "head": "addfd85e247288f5c7b1967f479c6b37fc717a77",
-    "origin_main": "addfd85e247288f5c7b1967f479c6b37fc717a77",
+    "head": "d31863cdd38b6ed258ac4754012c91867c8d9487",
+    "origin_main": "d31863cdd38b6ed258ac4754012c91867c8d9487",
     "clean": true,
     "dirty_paths": [],
     "dirty_path_count": 0,
@@ -74,7 +74,7 @@
       "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T15:27:27+00:00",
+      "completed_at": "2026-07-24T15:30:28+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -90,7 +90,7 @@
       "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T15:27:27+00:00",
+      "completed_at": "2026-07-24T15:30:28+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -106,7 +106,7 @@
       "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T15:27:27+00:00",
+      "completed_at": "2026-07-24T15:30:28+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -122,15 +122,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-24T15:28:38+00:00",
-      "last_success_at": "2026-07-24T15:28:38+00:00",
+      "completed_at": "2026-07-24T15:31:43+00:00",
+      "last_success_at": "2026-07-24T15:31:43+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:a68437193478e1f29bff856ebd021f948c30add3ae2253cb96f3d5244666172d"
+        "sha256": "sha256:86004219c7baffb3bf0c22a553ff7c2924fc0700dd541c20da58cff39193ed7a"
       },
       "work_count": 0
     },
@@ -142,15 +142,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-24T15:28:38+00:00",
-      "last_success_at": "2026-07-24T15:28:38+00:00",
+      "completed_at": "2026-07-24T15:31:43+00:00",
+      "last_success_at": "2026-07-24T15:31:43+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:22f25f60af4fb29b9703b47919927dd5f6065a1405e284968053e664ad509db8"
+        "sha256": "sha256:753383f14c9fab5f35e9ebbc7c1910e694f9b05e4a070eb24941e07a652bd984"
       },
       "work_count": 0
     },
@@ -162,15 +162,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-24T15:28:38+00:00",
-      "last_success_at": "2026-07-24T15:28:38+00:00",
+      "completed_at": "2026-07-24T15:31:43+00:00",
+      "last_success_at": "2026-07-24T15:31:43+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:dab4790db609daa2e0f195c892e4ee52b13371c7f087b1b81c5367b3a65efef6"
+        "sha256": "sha256:6a0b11d4317f174b9148972ea58b8fd64392abc7a98e61d9750f1b78ef21504d"
       },
       "work_count": 0
     }
@@ -201,7 +201,7 @@
   "review_epoch": {
     "interval_days": 14,
     "last_completed_at": null,
-    "next_due_at": "2026-07-24T15:27:27+00:00",
+    "next_due_at": "2026-07-24T15:30:28+00:00",
     "due": true,
     "due_reason": "no completed review epoch",
     "boundary_commit": "f74d50318e815eae49b51f7194a324eff957d932",
@@ -216,8 +216,8 @@
   },
   "next_action": "No Elim launch; wait for the next trigger.",
   "action_items": [],
-  "completed_at": "2026-07-24T15:28:38+00:00",
-  "final_revision": "addfd85e247288f5c7b1967f479c6b37fc717a77",
+  "completed_at": "2026-07-24T15:31:43+00:00",
+  "final_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
   "bots": [
     {
       "id": "case-monitor-bot",
@@ -225,7 +225,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T15:27:27+00:00",
+      "completed_at": "2026-07-24T15:30:28+00:00",
       "error": null
     },
     {
@@ -234,7 +234,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T15:27:27+00:00",
+      "completed_at": "2026-07-24T15:30:28+00:00",
       "error": null
     },
     {
@@ -243,7 +243,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-24T15:27:27+00:00",
+      "completed_at": "2026-07-24T15:30:28+00:00",
       "error": null
     },
     {
@@ -252,7 +252,7 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-24T15:28:38+00:00",
+      "completed_at": "2026-07-24T15:31:43+00:00",
       "error": null
     },
     {
@@ -261,13 +261,13 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-24T15:28:38+00:00",
+      "completed_at": "2026-07-24T15:31:43+00:00",
       "error": null
     }
   ],
   "work_queue": {
     "path": "project-console-data:elim-work-queue.json",
-    "sha256": "sha256:5d2ba55c842a84ff045f552bfc6aec1cc006a4ad1d7b4d75eca85e95c271e026",
+    "sha256": "sha256:c64e684891808ec0519d63a717584d358cbb221043f474edbb973a588f50b36f",
     "ready_for_elim": true,
     "launch_recommended": true,
     "counts": {
@@ -303,9 +303,9 @@
   },
   "context_packet": {
     "path": "project-console-data:elim-context.json",
-    "sha256": "sha256:3f3c3e0cf58bcbcb9fdc0ce1a86ebc49ff59b12164062bdc4c44e02427ccc1b4",
+    "sha256": "sha256:2f9ec59dd162ee4303552b57e9c5af6f36583cb4ac875daed3081d27b4710232",
     "profile": "comprehensive_review",
-    "repository_revision": "addfd85e247288f5c7b1967f479c6b37fc717a77",
+    "repository_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
     "provenance_complete": true,
     "limits": {
       "max_bytes": 450000,
