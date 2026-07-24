@@ -28,6 +28,7 @@ test("submission validation retains public content and removes excess whitespace
   const route = resolveRoute(submission);
   assert.equal(route.key, "PROPOSAL:DOJ-007");
   assert.match(discussionCommentBody(submission, "record-1", route), /DOJ-007/);
+  assert.match(discussionCommentBody(submission, "record-1", route), /ARRP-INTAKE-ELIGIBLE:1/);
   assert.doesNotMatch(discussionCommentBody(submission, "record-1", route), /reader@example\.org/);
   assert.match(discussionCommentBody(submission, "record-1", route), /Private follow-up: Requested/);
   assert.match(canonicalDiscussionBody(route), /ARRP-INTAKE-ROUTE:PROPOSAL:DOJ-007/);

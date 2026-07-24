@@ -6,11 +6,12 @@
   "automation": {
     "branch": "automation/presidential-directives-monitor",
     "assignee": "Thorncrag",
-    "logPath": "framework/logs/SOURCE_MONITOR_LOG.md"
+    "eventProjection": "project-console-data:run-chain.json"
   },
   "schedule": {
-    "cron": "27 4 * * *",
-    "description": "Daily at approximately midnight Eastern (12:27 a.m. EDT / 11:27 p.m. EST)"
+    "mode": "run-chain",
+    "coordinator": ".github/workflows/run-coordinator-bot.yml",
+    "dueEveryHours": 24
   },
   "provider": {
     "type": "federal-register-api-v1",

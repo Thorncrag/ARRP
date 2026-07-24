@@ -1,0 +1,9 @@
+# Generated and local-only artifacts are excluded from ordinary repository searches.
+# Tools that intentionally inspect one of these paths may still address it explicitly.
+research/horizon-review-console/catalog-data.js
+research/horizon-review-console/data/
+.site-build/
+.tmp/
+.venv/
+**/__pycache__/
+*.pyc

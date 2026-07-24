@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "agentId": "run-coordinator-bot",
+  "enabled": true,
+  "repository": "Thorncrag/ARRP",
+  "schedule": {
+    "cron": "17 4 * * *",
+    "description": "One daily run-chain kickoff; individual bots have no independent schedule"
+  },
+  "concurrency": {
+    "group": "arrp-run-chain",
+    "cancelInProgress": false
+  },
+  "manifest": {
+    "dataBranch": "project-console-data",
+    "path": "run-chain.json",
+    "localFallback": ".tmp/run-chain.json",
+    "historyLimit": 24
+  },
+  "usage": {
+    "hardReservePercent": 15,
+    "softRunTargetPercent": 10
+  },
+  "llmRouting": {
+    "defaultProfile": "substantive",
+    "profiles": {
+      "read-heavy-triage": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "high",
+        "fullContext": false,
+        "eligibleQueueClasses": [
+          "monitoring",
+          "sources",
+          "intake"
+        ]
+      },
+      "substantive": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "xhigh",
+        "fullContext": false,
+        "eligibleQueueClasses": [
+          "integrity",
+          "audit",
+          "foundation",
+          "candidate",
+          "legal"
+        ]
+      },
+      "comprehensive": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "xhigh",
+        "fullContext": true,
+        "eligibleQueueClasses": [
+          "comprehensive-review"
+        ]
+      }
+    }
+  },
+  "hostDispatcher": {
+    "repositoryPath": "/Users/benjaminsmith/Documents/ARRP",
+    "pythonPath": "/opt/homebrew/bin/python3",
+    "gitPath": "/usr/bin/git",
+    "githubCliPath": "/opt/homebrew/bin/gh",
+    "codexPath": "/Applications/ChatGPT.app/Contents/Resources/codex",
+    "notificationPath": "/usr/bin/osascript",
+    "workflow": "run-coordinator-bot.yml",
+    "stateDirectory": ".tmp/run-coordinator",
+    "controlHost": "127.0.0.1",
+    "controlPort": 8766
+  },
+  "reviewEpoch": {
+    "intervalDays": 14
+  },
+  "stages": [
+    {
+      "id": "case-monitor-bot",
+      "workflow": ".github/workflows/case-monitor-bot.yml",
+      "due": {
+        "kind": "interval",
+        "hours": 24
+      },
+      "retry": {
+        "maximumAttempts": 2
+      },
+      "failureClass": "blocking"
+    },
+    {
+      "id": "presidential-directives-bot",
+      "workflow": ".github/workflows/presidential-directives-bot.yml",
+      "due": {
+        "kind": "interval",
+        "hours": 24
+      },
+      "retry": {
+        "maximumAttempts": 2
+      },
+      "failureClass": "blocking"
+    },
+    {
+      "id": "source-checker-bot",
+      "workflow": ".github/workflows/source-checker-bot.yml",
+      "due": {
+        "kind": "interval",
+        "hours": 168
+      },
+      "retry": {
+        "maximumAttempts": 2
+      },
+      "failureClass": "degraded"
+    },
+    {
+      "id": "project-console-progress-bot",
+      "workflow": ".github/workflows/project-console-progress.yml",
+      "due": {
+        "kind": "interval",
+        "hours": 24
+      },
+      "retry": {
+        "maximumAttempts": 2
+      },
+      "failureClass": "blocking"
+    },
+    {
+      "id": "public-intake",
+      "workflow": null,
+      "due": {
+        "kind": "always"
+      },
+      "retry": {
+        "maximumAttempts": 1
+      },
+      "failureClass": "degraded"
+    },
+    {
+      "id": "project-integrity-bot",
+      "workflow": ".github/workflows/project-integrity.yml",
+      "due": {
+        "kind": "always"
+      },
+      "retry": {
+        "maximumAttempts": 2
+      },
+      "failureClass": "blocking"
+    }
+  ]
+}

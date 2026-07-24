@@ -4,8 +4,8 @@ agent_id: case-monitor-bot
 display_name: Case Monitor Bot
 agent_type: deterministic-bot
 status: enabled
-trigger: schedule-or-manual
-schedule: "17 4 * * * UTC; approximately midnight Eastern"
+trigger: run-chain-or-manual
+schedule: "Due every 24 hours in the Run Coordinator chain; no independent schedule"
 runtime_id: .github/workflows/case-monitor-bot.yml
 execution_environment: github-actions
 runtime_config: .github/case-monitor-bot.json
@@ -17,11 +17,25 @@ print_exclusion_reason: "Internal automation configuration."
 
 # Case Monitor Bot Runbook
 
-The Case Monitor Bot performs one respectful daily comparison for cataloged `Monitoring = Yes` sources mapped to stable entries in the Just Security litigation tracker. It validates tracker structure and accepted baselines before comparing fingerprints. For a changed mapped CourtListener docket it may perform the configured narrow, paced metadata verification. It also evaluates explicitly configured source-development modules against the same validated tracker snapshot. A module may project high-recall, machine-observed leads into the existing source-development record for its named candidate or issue.
+The Case Monitor Bot performs one respectful comparison when its 24-hour
+Run Coordinator interval is due, or when manually requested, for cataloged
+`Monitoring = Yes` sources mapped to stable entries in the Just Security
+litigation tracker. It validates tracker structure and accepted baselines
+before comparing fingerprints. For a changed mapped CourtListener docket it
+may perform the configured narrow, paced metadata verification. It also
+evaluates explicitly configured source-development modules against the same
+validated tracker snapshot. A module may project high-recall, machine-observed
+leads into the existing source-development record for its named candidate or
+issue.
 
 It may update only authorized machine-observed source fields and bounded generated lead sections on `bot/case-monitor-updates`, record the domain event, and create or update the owner-assigned review pull request. A lead states only the matched signal, docket identity, source links, tracker posture, observation fingerprint, and unreviewed status. The bot does not create a source-catalog record merely because a textual signal matched. It may not discover every new case, interpret legal significance, characterize review evasion, revise project-authored analysis, change Project fields, create or admit a candidate, remove monitoring, or change a score, audit count, foundation, remedy, or disposition. Failures are closed; no-change runs create no commit.
 
-The JSON manifest and GitHub workflow are deployed projections of this runbook and must match its identity, status, cadence, branch, and log locations. Material actions use the shared Agent Audit Log in addition to any source-domain event required for evidentiary traceability.
+The JSON manifest and callable GitHub workflow are deployed projections of
+this runbook and must match its identity, status, due interval, branch, and
+log destinations. The bot does not edit shared Markdown logs from its proposal
+branch. It emits immutable structured stage and domain events to the Run
+Coordinator; accepted material changes are rendered or recorded in the shared
+Agent Audit Log and Source Monitor Log under the common provenance rule.
 
 ## Inputs and permitted writes
 
@@ -35,4 +49,4 @@ Material changes are committed only to the dedicated `bot/case-monitor-updates` 
 
 ## Validation, stop, and output
 
-Before publication, the bot validates tracker structure and bounds, source eligibility, accepted baselines, allowed hosts, docket identity, configured module IDs and signal groups, established target-path convention, exact marker ownership, configured lead ceilings, the 20-docket verification ceiling, 13-second CourtListener pacing, and the authorized change boundary. Missing or malformed inputs, identity ambiguity, malformed markers, an unsafe or absent target, signal volume above the configured ceiling, network/provider failure, boundary violations, commit/push failure, or validation failure stop the run without a misleading update. Outputs are the proposed catalog delta, generated source-development lead section, Source Monitor event, shared Agent Audit Log entry, Actions summary, and retained diagnostic artifact. Workflow failures use the configured GitHub failure notification; routed content changes rely on the assigned pull request.
+Before publication, the bot validates tracker structure and bounds, source eligibility, accepted baselines, allowed hosts, docket identity, configured module IDs and signal groups, established target-path convention, exact marker ownership, configured lead ceilings, the 20-docket verification ceiling, 13-second CourtListener pacing, and the authorized change boundary. Missing or malformed inputs, identity ambiguity, malformed markers, an unsafe or absent target, signal volume above the configured ceiling, network/provider failure, boundary violations, commit/push failure, or validation failure stop the run without a misleading update. Outputs are the proposed catalog delta, generated source-development lead section, immutable structured stage and source-domain events, Actions summary, and retained diagnostic artifact. Workflow failures enter the Run Coordinator failure state and notification path; routed content changes rely on the assigned pull request.

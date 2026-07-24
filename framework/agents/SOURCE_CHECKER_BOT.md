@@ -4,8 +4,8 @@ agent_id: source-checker-bot
 display_name: Source Checker Bot
 agent_type: deterministic-bot
 status: report-only-pilot
-trigger: schedule-or-manual
-schedule: "23 6 * * 0 UTC; weekly Sunday near 2:23 a.m. EDT / 1:23 a.m. EST"
+trigger: run-chain-or-manual
+schedule: "Due every 168 hours in the Run Coordinator chain; no independent schedule"
 runtime_id: .github/workflows/source-checker-bot.yml
 execution_environment: github-actions
 runtime_config: .github/source-checker-bot.json
@@ -27,7 +27,13 @@ Systematically check every nonblank URL in the designated source catalogs and re
 
 ## Operation
 
-The bot runs weekly and may be dispatched manually. It uses paced HTTP `GET` requests, follows redirects, retries transient failures with backoff, records final URLs and content types, and compares stable identifiers and available HTML title text with catalog metadata. It classifies each row as `verified`, `identity-preserving redirect`, `access restricted`, `transient failure`, `broken`, `identity mismatch`, or `review required`.
+The bot becomes due every 168 hours in the Run Coordinator chain and may also
+be requested manually. It has no independent clock. It uses paced HTTP `GET`
+requests, follows redirects, retries transient failures with backoff, records
+final URLs and content types, and compares stable identifiers and available
+HTML title text with catalog metadata. It classifies each row as `verified`,
+`identity-preserving redirect`, `access restricted`, `transient failure`,
+`broken`, `identity mismatch`, or `review required`.
 
 The configured mode is **report-only**. The bot may refresh its current Markdown and JSON reports and publish bounded Console-ready data. It must not edit a source row, replace a citation, alter a supported proposition, or infer that a merely similar document is an acceptable substitute. Ambiguity, access controls, identity changes, and possible replacements are routed for human or LLM review.
 
@@ -47,7 +53,7 @@ The reports contain no response bodies and store only bounded diagnostic text. M
 
 ## Inputs and permitted writes
 
-The bot reads every nonblank URL and its stable source metadata from `inventory/sources.csv` and `inventory/sources-pending.csv`, plus up to 12 prior run summaries from the data branch. It may write only the generated JSON feed/history, replaceable Markdown report, and shared provenance entry. It may not edit either source catalog, substitute a source, alter a proposition, or decide that a different document is equivalent.
+The bot reads every nonblank URL and its stable source metadata from `inventory/sources.csv` and `inventory/sources-pending.csv`, plus up to 12 prior run summaries from the data branch. It may write only the generated JSON feed/history and replaceable Markdown report, and it emits immutable structured provenance to the Run Coordinator. It does not edit the shared Markdown log from its proposal branch. It may not edit either source catalog, substitute a source, alter a proposition, or decide that a different document is equivalent.
 
 ## Publication and review
 
@@ -55,4 +61,4 @@ The structured feed publishes to `project-console-data`. A changed Markdown repo
 
 ## Validation, stop, and output
 
-The bot validates catalog schemas, complete URL accounting, allowed classification values, request bounds, per-domain pacing, retry behavior, final identity signals, output schema, bounded history, and the no-catalog-mutation boundary. Catalog/schema failure, incomplete accounting, scanner exception, output/publication failure, unauthorized file changes, or validation failure stops the run without publishing partial success. Outputs are the current JSON results, 12-run bounded history, current Markdown report proposal when changed, Integrity findings, Agent Audit Log entry for material routing, Actions summary, and retained artifact. Workflow failures use the configured GitHub failure notification; findings route through the Console and report pull request.
+The bot validates catalog schemas, complete URL accounting, allowed classification values, request bounds, per-domain pacing, retry behavior, final identity signals, output schema, bounded history, and the no-catalog-mutation boundary. Catalog/schema failure, incomplete accounting, scanner exception, output/publication failure, unauthorized file changes, or validation failure stops the run without publishing partial success. Outputs are the current JSON results, 12-run bounded history, current Markdown report proposal when changed, Integrity findings, immutable structured provenance, Actions summary, and retained artifact. Workflow failures enter the Run Coordinator failure state and notification path; findings route through the Console and report pull request.

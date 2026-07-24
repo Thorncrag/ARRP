@@ -22,6 +22,7 @@ This file is the single authority for the purpose and placement of project direc
 | `LICENSE.md` | Rights and reuse terms. |
 | `CITATION.cff` | Machine-readable citation metadata. |
 | `AGENTS.md` | Required root-level bootstrap and task router for Codex. It remains at the repository root because agent tooling discovers it there; detailed rules live under `framework/`. |
+| `.rgignore` | Search-performance exclusions for generated, dependency, cache, and bulk Console projections; it does not change Git tracking or publication. |
 | `mkdocs.yml` | Public-site presentation and search configuration. |
 | `requirements-pages.txt` | Pinned GitHub Pages build dependencies. |
 | `requirements-local-tools.txt` | Pinned local website and document-processing Python dependencies. |
@@ -77,6 +78,9 @@ Ignored local products such as `.venv/`, `.tmp/`, and `.site-build/` are not pro
 | `framework/logs/ELIM_RUN_LOG.md` | Complete per-run operational reports for Elim, with links to issue audit histories and shared material-action provenance. |
 | `framework/logs/SOURCE_MONITOR_LOG.md` | Source-domain event record for accepted or proposed monitoring changes; it does not replace shared agent provenance. |
 | `framework/logs/PROJECT_INTEGRITY_REPORT.md` | Overwritten current integrity findings; not a running audit log. |
+| `research/intake-review-ledger.jsonl` | Append-only, content-free processing cursor created after the first completed public-submission assessment; it prevents repeat review without copying submission text or private contact data. |
+| `research/intake-action-ledger.jsonl` | Append-only provenance for actions taken on public submissions; it is created only when the first action occurs. |
+| `research/review-epochs.jsonl` | Append-only boundaries for completed comprehensive automated reviews, including governing hashes, reviewed scope, unresolved exceptions, and the next due date. |
 | `framework/templates/` | Reusable project-authored drafting templates. Public input is routed through the separately deployed participation service rather than GitHub issue forms. |
 
 ## Content Placement Rules

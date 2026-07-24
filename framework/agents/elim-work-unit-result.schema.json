@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Thorncrag/ARRP/framework/agents/elim-work-unit-result.schema.json",
+  "title": "Elim work-unit result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "unit_id",
+    "work_type",
+    "outcome",
+    "authority",
+    "files_touched",
+    "validation",
+    "continuation"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "unit_id": { "type": "string", "minLength": 1 },
+    "work_type": {
+      "enum": [
+        "integrity",
+        "bot_failure",
+        "public_intake",
+        "change_audit",
+        "issue_audit",
+        "issue_development",
+        "comprehensive_review"
+      ]
+    },
+    "outcome": {
+      "enum": ["completed", "clean", "blocked", "failed", "human_review", "usage_stopped"]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "basis"],
+      "properties": {
+        "classification": {
+          "enum": ["mechanical", "delegated_judgment", "human_reserved"]
+        },
+        "basis": { "type": "string", "minLength": 1 }
+      }
+    },
+    "issue_id": { "type": ["string", "null"] },
+    "files_touched": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "source_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^SRC-[0-9]{4,}$" }
+    },
+    "validation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check", "status"],
+        "properties": {
+          "check": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["passed", "failed", "skipped"] },
+          "detail": { "type": "string" }
+        }
+      }
+    },
+    "commit": { "type": ["string", "null"] },
+    "synchronization": { "type": "array", "items": { "type": "string" } },
+    "human_questions": { "type": "array", "items": { "type": "string" } },
+    "continuation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "next_action"],
+      "properties": {
+        "state": { "enum": ["complete", "retryable", "human_required", "none"] },
+        "next_action": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

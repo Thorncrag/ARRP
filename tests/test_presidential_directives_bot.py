@@ -246,13 +246,13 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
             if row["Review Status"] == "Routed":
                 self.assertTrue(row["Source IDs"])
 
-    def test_workflow_is_scheduled_and_opens_a_narrow_review_pr(self):
+    def test_workflow_is_coordinated_and_opens_a_narrow_review_pr(self):
         workflow = (
             ROOT / ".github" / "workflows" / "presidential-directives-bot.yml"
         ).read_text()
         self.assertIn("workflow_dispatch:", workflow)
-        self.assertIn("schedule:", workflow)
-        self.assertIn('cron: "27 4 * * *"', workflow)
+        self.assertIn("workflow_call:", workflow)
+        self.assertNotIn("schedule:", workflow)
         self.assertIn("contents: write", workflow)
         self.assertIn("pull-requests: write", workflow)
         self.assertIn("issues: write", workflow)
@@ -260,7 +260,8 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
         self.assertIn("--apply", workflow)
         self.assertIn("Verify the change boundary", workflow)
         self.assertIn("inventory/presidential-directives.csv", workflow)
-        self.assertIn("framework/logs/SOURCE_MONITOR_LOG.md", workflow)
+        self.assertIn('${RUNNER_TEMP}/presidential-directives-event.md', workflow)
+        self.assertNotIn("framework/logs/AGENT_AUDIT_LOG.md", workflow)
         self.assertIn("actions/upload-artifact@", workflow)
         self.assertIn("gh pr create", workflow)
         self.assertIn("--add-assignee", workflow)

@@ -2,7 +2,9 @@
   "schemaVersion": 2,
   "agentId": "project-console-progress-bot",
   "schedule": {
-    "cron": "17 10 * * *"
+    "mode": "run-chain",
+    "coordinator": ".github/workflows/run-coordinator-bot.yml",
+    "dueEveryHours": 24
   },
   "projectOwner": "Thorncrag",
   "projectNumber": 2,

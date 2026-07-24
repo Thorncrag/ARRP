@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "generated_path_exclusions": [
+    "research/horizon-review-console/catalog-data.js",
+    "research/horizon-review-console/data",
+    ".site-build",
+    ".tmp",
+    ".venv"
+  ],
+  "documents": {
+    "agent_rules": {
+      "path": "framework/AGENT_OPERATING_RULES.md",
+      "sha256": "5fd3ea7ee6153bfafc2504582b78686c221793a7911e8019f830ad8278003837"
+    },
+    "elim_runbook": {
+      "path": "framework/agents/ELIM.md",
+      "sha256": "5d6bf7401d2176e2b3c0b3297d94d5bff41475b154c83b4ad2b604ab0985f9c6"
+    },
+    "framework": {
+      "path": "framework/FRAMEWORK.md",
+      "sha256": "ede460946d54f9762186a038f7cff9521fb541615910ee60ebede606ffbcf76e"
+    },
+    "github_workflow": {
+      "path": "framework/GITHUB_WORKFLOW.md",
+      "sha256": "4e1d5d0d2c7477a674805ff09148121439bf145a1cd3d10dfc08f4158becfe37"
+    },
+    "intake_process": {
+      "path": "framework/INTAKE_AGENT_PROCESS.md",
+      "sha256": "c541056c00d192e79496511760a1493f464c5bb298cbc3b35af4b8137affa0d0"
+    }
+  },
+  "profiles": {
+    "integrity_reconciliation": {
+      "max_bytes": 90000,
+      "sections": [
+        {
+          "document": "agent_rules",
+          "heading": "## Autonomous and Scheduled Execution",
+          "max_bytes": 50000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Preflight",
+          "max_bytes": 15000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Work Order",
+          "max_bytes": 15000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Authority Boundary",
+          "max_bytes": 10000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 15000
+        },
+        {
+          "document": "framework",
+          "heading": "## Inventory Files",
+          "max_bytes": 10000
+        },
+        {
+          "document": "framework",
+          "heading": "## Inventory Rules",
+          "max_bytes": 30000
+        }
+      ]
+    },
+    "issue_development": {
+      "max_bytes": 160000,
+      "sections": [
+        {
+          "document": "agent_rules",
+          "heading": "## Issue-Development Lifecycle Trigger",
+          "max_bytes": 30000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Work Order",
+          "max_bytes": 15000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Foundation Classification Authority",
+          "max_bytes": 15000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Authority Boundary",
+          "max_bytes": 10000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 15000
+        },
+        {
+          "document": "framework",
+          "heading": "## Analytical Method",
+          "max_bytes": 20000
+        },
+        {
+          "document": "framework",
+          "heading": "## Mandatory Issue Architecture",
+          "max_bytes": 70000
+        },
+        {
+          "document": "framework",
+          "heading": "### Human-Governed Foundation and Delegated Development",
+          "max_bytes": 30000
+        }
+      ]
+    },
+    "issue_audit": {
+      "max_bytes": 220000,
+      "sections": [
+        {
+          "document": "agent_rules",
+          "heading": "## Single-Issue Default",
+          "max_bytes": 55000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Work Order",
+          "max_bytes": 15000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Authority Boundary",
+          "max_bytes": 10000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 15000
+        },
+        {
+          "document": "agent_rules",
+          "heading": "## Conservative Scoring",
+          "max_bytes": 20000
+        },
+        {
+          "document": "framework",
+          "heading": "### Pre-Audit Orientation",
+          "max_bytes": 10000
+        },
+        {
+          "document": "framework",
+          "heading": "### Audit Workflow",
+          "max_bytes": 20000
+        },
+        {
+          "document": "framework",
+          "heading": "### Formatting Preflight",
+          "max_bytes": 20000
+        },
+        {
+          "document": "framework",
+          "heading": "### Audit Depth Tiers",
+          "max_bytes": 5000
+        },
+        {
+          "document": "framework",
+          "heading": "### Audit Run Counting Rule",
+          "max_bytes": 10000
+        },
+        {
+          "document": "framework",
+          "heading": "### Audit Output",
+          "max_bytes": 15000
+        },
+        {
+          "document": "framework",
+          "heading": "### Hallucination-Resistance and Verification Protocol",
+          "max_bytes": 15000
+        },
+        {
+          "document": "framework",
+          "heading": "### Proposal Quality Score",
+          "max_bytes": 15000
+        },
+        {
+          "document": "framework",
+          "heading": "### External Review Status and Qualified Reviewers",
+          "max_bytes": 15000
+        },
+        {
+          "document": "framework",
+          "heading": "### Adoption Score Formula",
+          "max_bytes": 10000
+        },
+        {
+          "document": "framework",
+          "heading": "### Enactment Pathway Check",
+          "max_bytes": 15000
+        },
+        {
+          "document": "framework",
+          "heading": "### Score Consistency Rules",
+          "max_bytes": 10000
+        },
+        {
+          "document": "framework",
+          "heading": "### Support and Adoption Audit",
+          "max_bytes": 15000
+        },
+        {
+          "document": "framework",
+          "heading": "### Political-Language and Coalition-Appeal Audit",
+          "max_bytes": 10000
+        },
+        {
+          "document": "framework",
+          "heading": "### Judicial and Scholarly Scrutiny Audit",
+          "max_bytes": 10000
+        },
+        {
+          "document": "framework",
+          "heading": "### Existing-Law and Prior-Proposal Consistency Audit",
+          "max_bytes": 10000
+        },
+        {
+          "document": "framework",
+          "heading": "### Functional Analogue Search",
+          "max_bytes": 10000
+        }
+      ]
+    },
+    "change_audit": {
+      "max_bytes": 180000,
+      "sections": [
+        {
+          "document": "agent_rules",
+          "heading": "## Single-Issue Default",
+          "max_bytes": 15000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Work Order",
+          "max_bytes": 15000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Authority Boundary",
+          "max_bytes": 10000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 15000
+        },
+        {
+          "document": "framework",
+          "heading": "### Pre-Audit Orientation",
+          "max_bytes": 10000
+        },
+        {
+          "document": "framework",
+          "heading": "### Change Audit",
+          "max_bytes": 25000
+        },
+        {
+          "document": "framework",
+          "heading": "### Audit Workflow",
+          "max_bytes": 20000
+        },
+        {
+          "document": "framework",
+          "heading": "### Formatting Preflight",
+          "max_bytes": 20000
+        },
+        {
+          "document": "framework",
+          "heading": "### Audit Output",
+          "max_bytes": 15000
+        },
+        {
+          "document": "framework",
+          "heading": "### Hallucination-Resistance and Verification Protocol",
+          "max_bytes": 15000
+        }
+      ]
+    },
+    "public_intake": {
+      "max_bytes": 100000,
+      "sections": [
+        {
+          "document": "intake_process",
+          "heading": "## Intake sequence",
+          "max_bytes": 20000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Public-Intake Triage Boundary",
+          "max_bytes": 20000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Authority Boundary",
+          "max_bytes": 10000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 15000
+        },
+        {
+          "document": "intake_process",
+          "heading": "## Required assessment",
+          "max_bytes": 30000
+        },
+        {
+          "document": "intake_process",
+          "heading": "## Limited informative reply authority",
+          "max_bytes": 25000
+        },
+        {
+          "document": "intake_process",
+          "heading": "## Automatic preliminary-candidate authority",
+          "max_bytes": 25000
+        }
+      ]
+    },
+    "github_sync": {
+      "max_bytes": 120000,
+      "sections": [
+        {
+          "document": "github_workflow",
+          "heading": "## Issue-Development Lifecycle",
+          "max_bytes": 70000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Authority Boundary",
+          "max_bytes": 10000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 15000
+        },
+        {
+          "document": "github_workflow",
+          "heading": "## Tracking Rule",
+          "max_bytes": 50000
+        }
+      ]
+    },
+    "comprehensive_review": {
+      "max_bytes": 450000,
+      "sections": [
+        {
+          "document": "framework",
+          "heading": "# American Restoration and Resilience Project — Framework and Methodology",
+          "max_bytes": 300000
+        },
+        {
+          "document": "agent_rules",
+          "heading": "# ARRP Agent Operating Rules",
+          "max_bytes": 60000
+        },
+        {
+          "document": "github_workflow",
+          "heading": "# GitHub Workflow",
+          "max_bytes": 40000
+        },
+        {
+          "document": "intake_process",
+          "heading": "# Public-Intake Review Process",
+          "max_bytes": 30000
+        },
+        {
+          "document": "elim_runbook",
+          "heading": "# Elim Runbook",
+          "max_bytes": 40000
+        }
+      ]
+    }
+  }
+}
