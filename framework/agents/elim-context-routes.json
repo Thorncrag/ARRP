@@ -18,11 +18,11 @@
     },
     "framework": {
       "path": "framework/FRAMEWORK.md",
-      "sha256": "c767ff4feb6751e8a11f96f327c7b7d29489ab99ee1af3adf786b1ef8d288b52"
+      "sha256": "858cb17e2e934db0d3c3336a2ecb277908483d9b8351d71c45d21da3db615ce2"
     },
     "github_workflow": {
       "path": "framework/GITHUB_WORKFLOW.md",
-      "sha256": "8427d3f88f19d059790504d914c467b387dcb5519423b23111741459479eb6c7"
+      "sha256": "03f3b0994e7f652fdf765e1746496360563789c37d28e4b4f188e49f75591fc3"
     },
     "intake_process": {
       "path": "framework/INTAKE_AGENT_PROCESS.md",
