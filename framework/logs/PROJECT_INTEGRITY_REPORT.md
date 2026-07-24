@@ -10,15 +10,22 @@ print_exclusion_reason: "Internal operational report."
 
 ## Current Result
 
-- **Result:** Clean
-- **Errors:** 0
+- **Result:** Findings require review
+- **Errors:** 3
 - **Warnings:** 0
 - **Issue pages checked:** 64
 - **Proposal pages checked:** 41
 
 ## Current Findings
 
-No repeatable integrity findings are currently reported.
+### Lifecycle
+
+- **ERROR:** Project Next audit for DOJ-002 differs from repository audit_next
+
+### Project structure
+
+- **ERROR:** Project Last audit for DOJ-002 differs from repository audit metadata
+- **ERROR:** Project Change audit needed for DOJ-002 differs from repository metadata
 
 ## Checks Included
 

@@ -1566,3 +1566,27 @@ Prospective template:
 | Push status | Preserved on codex/elim-20260724-intake; reviewed push and main synchronization pending |
 | Rollback notes | Revert aa16ce8 and this provenance commit; restore DOJ-002 Project Last audit, Next audit, Change audit needed, and Status to their pre-unit values if synchronization has occurred. |
 | Blockers/skipped checks | The July 23 primary withdrawal order and DOJ authorization record were not yet available on the accessible public docket; they remain the next source-verification task and do not prevent the bounded Change Audit finding. |
+
+
+### 2026-07-24 — Current project integrity findings — Integrity
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-24T06:35:43+00:00 |
+| Agent | project-integrity-bot |
+| Run ID | https://github.com/Thorncrag/ARRP/actions/runs/30072713725 |
+| Unit ID | N/A |
+| Trigger | push |
+| Task type | Integrity |
+| Outcome | Routed for human review |
+| Issue/task | Current project integrity findings |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | `framework/logs/PROJECT_INTEGRITY_REPORT.md`; `framework/logs/AGENT_AUDIT_LOG.md` |
+| Validation | Deterministic repository, GitHub Issue, and Project checks completed. |
+| Commit | This automation commit |
+| Push status | Proposed on bot/project-integrity-report |
+| Rollback notes | Close the report pull request or revert its merge commit. |
+| Blockers/skipped checks | None. |
