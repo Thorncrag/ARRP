@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-24T14:24:22+00:00",
+  "pending": false,
+  "last_processed_id": null,
+  "counts": {
+    "eligible": 0,
+    "pending": 0,
+    "processed": 0
+  },
+  "items": [],
+  "content_included": false
+}
