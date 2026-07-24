@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T15:23:07+00:00",
-  "epoch_id": "epoch-arrp-20260724T152155Z",
+  "generated_at": "2026-07-24T15:28:38+00:00",
+  "epoch_id": "epoch-arrp-20260724T152727Z",
   "baseline_revision": "f74d50318e815eae49b51f7194a324eff957d932",
   "last_completed_at": null,
-  "next_due_at": "2026-07-24T15:21:55+00:00",
+  "next_due_at": "2026-07-24T15:27:27+00:00",
   "unresolved_ids": []
 }
