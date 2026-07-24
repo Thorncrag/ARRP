@@ -1251,6 +1251,37 @@ class HorizonIntakeTest(unittest.TestCase):
             framework,
         )
 
+    def test_development_lifecycle_has_six_maturity_levels_only(self) -> None:
+        framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(
+            encoding="utf-8"
+        )
+        match = re.search(
+            r"(?ms)^### Development-Level Lifecycle\s*$\n"
+            r"(?P<body>.*?)(?=^### Intake Before the Development-Level Lifecycle)",
+            framework,
+        )
+        self.assertIsNotNone(match)
+        levels = re.findall(r"(?m)^\d+\. \*\*(.+?)\.\*\*", match.group("body"))
+        self.assertEqual(
+            levels,
+            [
+                "Candidate",
+                "Admitted / undeveloped",
+                "In development",
+                "Developed proposal",
+                "Review ready",
+                "Release candidate",
+            ],
+        )
+        self.assertIn(
+            "They are repeatable reviews, not development levels.",
+            framework,
+        )
+        console = (
+            ROOT / "research" / "horizon-review-console" / "index.html"
+        ).read_text(encoding="utf-8")
+        self.assertIn("Development-level board", console)
+
 
 if __name__ == "__main__":
     unittest.main()
