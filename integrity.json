@@ -2,17 +2,17 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-24T20:50:57+00:00",
-    "revision": "c2ee287497f592718d858ae3263f2debb931a8fb",
-    "result": "findings",
+    "generated_at": "2026-07-24T21:02:43+00:00",
+    "revision": "da5e2cdb85c8d1d04a98b4165278c73636ffd2e4",
+    "result": "clean",
     "counts": {
       "errors": 0,
-      "warnings": 1,
-      "findings": 1,
+      "warnings": 0,
+      "findings": 0,
       "issue_pages": 64,
       "proposal_pages": 41
     },
-    "duration_seconds": 12.91,
+    "duration_seconds": 13.04,
     "scope": [
       "Issue and proposal structure, including Issue Snapshot concision",
       "Area and topic routing",
@@ -35,18 +35,22 @@
       "Persistent-agent runbooks and runtime configuration",
       "Structured-file and repository hygiene"
     ],
-    "findings": [
-      {
-        "id": "warning-0001",
-        "severity": "warning",
-        "category": "Sources and citations",
-        "attention": "agent",
-        "message": "1 cited-catalog source row(s) lack a machine-detectable Markdown citation; reconcile before treating them as confirmed citations (for example: SRC-0227)",
-        "path": ""
-      }
-    ]
+    "findings": []
   },
   "history": [
+    {
+      "generated_at": "2026-07-24T21:02:43+00:00",
+      "revision": "da5e2cdb85c8d1d04a98b4165278c73636ffd2e4",
+      "result": "clean",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "findings": 0,
+        "issue_pages": 64,
+        "proposal_pages": 41
+      },
+      "duration_seconds": 13.04
+    },
     {
       "generated_at": "2026-07-24T20:50:57+00:00",
       "revision": "c2ee287497f592718d858ae3263f2debb931a8fb",
@@ -423,19 +427,6 @@
         "proposal_pages": 41
       },
       "duration_seconds": 10.808
-    },
-    {
-      "generated_at": "2026-07-23T21:55:00+00:00",
-      "revision": "c5ab23c589857d8312bbf2aa8758635185375b07",
-      "result": "findings",
-      "counts": {
-        "errors": 0,
-        "warnings": 27,
-        "findings": 27,
-        "issue_pages": 64,
-        "proposal_pages": 41
-      },
-      "duration_seconds": 12.811
     }
   ]
 }
