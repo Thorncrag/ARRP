@@ -1518,3 +1518,27 @@ Prospective template:
 | Push status | Pushed to origin/codex/elim-20260724; main reconciliation is recorded in the Elim Run Log |
 | Rollback notes | Revert c6c6cdf to roll back the repository unit; restore the five Project lifecycle rows from the pre-run values recorded in the Elim Run Log if the unit is reverted. |
 | Blockers/skipped checks | No substantive blocker. The GitHub API does not allow editing the built-in Title field for issue-backed Project items; live issue titles and canonical links remain authoritative. |
+
+
+### 2026-07-24 — Current project integrity findings — Integrity
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-24T06:22:25+00:00 |
+| Agent | project-integrity-bot |
+| Run ID | https://github.com/Thorncrag/ARRP/actions/runs/30072055524 |
+| Unit ID | N/A |
+| Trigger | push |
+| Task type | Integrity |
+| Outcome | Routed for human review |
+| Issue/task | Current project integrity findings |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | `framework/logs/PROJECT_INTEGRITY_REPORT.md`; `framework/logs/AGENT_AUDIT_LOG.md` |
+| Validation | Deterministic repository, GitHub Issue, and Project checks completed. |
+| Commit | This automation commit |
+| Push status | Proposed on bot/project-integrity-report |
+| Rollback notes | Close the report pull request or revert its merge commit. |
+| Blockers/skipped checks | None. |
