@@ -73,6 +73,15 @@ class PublicIntakeCollectorTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "pagination"):
             MODULE.collect(payload, {}, set())
 
+    def test_reply_pagination_fails_closed(self):
+        payload = fixture()
+        replies = payload["data"]["repository"]["discussions"]["nodes"][0][
+            "comments"
+        ]["nodes"][0]["replies"]
+        replies["pageInfo"]["hasNextPage"] = True
+        with self.assertRaisesRegex(ValueError, "more than 20 replies"):
+            MODULE.collect(payload, {}, set())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -35,7 +35,7 @@ query Intake($owner:String!, $name:String!) {
             url
             createdAt
             body
-            replies(first:100) {
+            replies(first:20) {
               pageInfo { hasNextPage }
               nodes { body }
             }
@@ -102,7 +102,7 @@ def collect(payload: dict[str, Any], prior: dict[str, Any], ledger: set[str]) ->
             if not isinstance(replies, dict) or not isinstance(replies.get("nodes"), list):
                 raise ValueError("eligible intake comment lacks reply nodes")
             if (replies.get("pageInfo") or {}).get("hasNextPage"):
-                raise ValueError("more than 100 replies requires reviewed pagination")
+                raise ValueError("more than 20 replies requires reviewed pagination")
             url = str(comment.get("url") or "")
             identity = str(comment.get("id") or "")
             created = str(comment.get("createdAt") or "")
