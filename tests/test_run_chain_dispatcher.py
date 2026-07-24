@@ -190,6 +190,38 @@ class RunChainDispatcherTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "not on main"):
                 MODULE.synchronize_canonical_repo("/usr/bin/git", Path("/tmp/repo"))
 
+    def test_manifest_must_match_current_main_before_launch(self):
+        with mock.patch.object(
+            MODULE,
+            "command",
+            return_value=MODULE.subprocess.CompletedProcess(
+                [],
+                0,
+                stdout="a" * 40 + "\n",
+                stderr="",
+            ),
+        ):
+            self.assertTrue(
+                MODULE.manifest_matches_current_repo(
+                    "/usr/bin/git",
+                    Path("/tmp/repo"),
+                    {"final_revision": "a" * 40},
+                )
+            )
+            self.assertFalse(
+                MODULE.manifest_matches_current_repo(
+                    "/usr/bin/git",
+                    Path("/tmp/repo"),
+                    {"final_revision": "b" * 40},
+                )
+            )
+        with self.assertRaisesRegex(RuntimeError, "valid final revision"):
+            MODULE.manifest_matches_current_repo(
+                "/usr/bin/git",
+                Path("/tmp/repo"),
+                {"final_revision": "main"},
+            )
+
     def test_host_usage_attestation_is_chain_bound_and_repo_relative(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
