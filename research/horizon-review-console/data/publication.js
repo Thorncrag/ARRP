@@ -6786,7 +6786,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3799,
+      "word_count": 3810,
       "estimated_pages": 6,
       "table_count": 4,
       "max_table_columns": 2,
@@ -7565,9 +7565,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 15726,
+      "word_count": 16076,
       "estimated_pages": 25,
-      "table_count": 88,
+      "table_count": 89,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75

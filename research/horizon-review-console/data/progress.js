@@ -1128,7 +1128,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "level": "In development"
       }
     ],
-    "generatedAt": "2026-07-24T20:18:02+00:00",
+    "generatedAt": "2026-07-24T20:45:01+00:00",
     "goal": {
       "baselineDate": "2026-07-13",
       "baselineReady": 23,
@@ -5404,8 +5404,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "developmentLevel": "Review ready",
         "explanation": "",
         "identifier": "JUD-009",
-        "lastAudit": "T4 publication-ready audit (2026-06-28)",
-        "nextAudit": "Targeted Change Audit and Internal Remedy-Fit Audit",
+        "lastAudit": "Targeted Change Audit and Internal Remedy-Fit Audit (2026-07-24)",
+        "nextAudit": "Human decision on applying the appointer-President rule under reversed political control; then qualified external review",
         "number": 47,
         "ready": true,
         "score": 77.0,
@@ -5413,7 +5413,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
         "url": "https://github.com/Thorncrag/ARRP/issues/47",
         "warnings": [],
-        "workflowStatus": "Audit needed"
+        "workflowStatus": "Human decision needed"
       },
       {
         "area": "JUD",
@@ -5501,12 +5501,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "status": "Research"
       },
       {
-        "count": 5,
+        "count": 4,
         "status": "Audit needed"
       },
       {
         "count": 2,
         "status": "Blocked"
+      },
+      {
+        "count": 1,
+        "status": "Human decision needed"
       },
       {
         "count": 1,

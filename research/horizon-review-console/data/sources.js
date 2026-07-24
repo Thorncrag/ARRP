@@ -4031,7 +4031,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/86",
       "updated_at": "2026-07-23T10:46:40Z"
     },
@@ -4384,7 +4384,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/94",
       "updated_at": "2026-07-23T10:47:58Z"
     },
@@ -4695,7 +4695,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "kind": "Proposal",
       "area": "DOJ",
       "development_level": "Review ready",
-      "workflow_status": "Audit needed",
+      "workflow_status": "Research",
       "priority": "High",
       "source_count": 19,
       "sources": [
@@ -6673,7 +6673,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/135",
       "updated_at": "2026-07-23T10:48:19Z"
     },
@@ -11671,7 +11671,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/168",
       "updated_at": "2026-07-23T10:48:24Z"
     },
@@ -13820,7 +13820,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/188",
       "updated_at": "2026-07-23T10:48:39Z"
     },
@@ -18667,7 +18667,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/95",
       "updated_at": "2026-07-23T10:48:04Z"
     },
@@ -18867,7 +18867,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/201",
       "updated_at": "2026-07-23T10:48:45Z"
     },
