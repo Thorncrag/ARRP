@@ -33,7 +33,7 @@ class RunCoordinatorTests(unittest.TestCase):
             ROOT / ".github" / "workflows" / "run-coordinator-bot.yml"
         ).read_text()
         self.assertIn(
-            '"comprehensive_review": "comprehensive_review"',
+            "scripts/select_elim_context_route.py",
             workflow,
         )
 
@@ -214,6 +214,58 @@ class RunCoordinatorTests(unittest.TestCase):
         self.assertFalse(reserved["elim_decision"]["launch_recommended"])
         self.assertTrue(available["elim_decision"]["launch_recommended"])
         self.assertTrue(available["elim_decision"]["last_substantive_stage"])
+
+    def test_attach_context_rejects_wrong_profile_for_comprehensive_chain(self):
+        manifest = {
+            "schema_version": 1,
+            "elim_decision": {"profile": {"full_context": True}},
+            "queue_counts": {"total": 0},
+            "review_epoch": {"due": True},
+            "status": "complete",
+        }
+        queue = {
+            "schema_version": 1,
+            "ready_for_elim": True,
+            "launch_recommended": True,
+            "counts": {"total": 1},
+            "items": [
+                {
+                    "id": "epoch-1",
+                    "kind": "comprehensive_review",
+                    "eligible_for_elim": True,
+                }
+            ],
+            "problems": [],
+        }
+        context = {
+            "schema_version": 1,
+            "status": "ready",
+            "profile": "change_audit",
+            "provenance_complete": True,
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            manifest_path = directory / "manifest.json"
+            queue_path = directory / "queue.json"
+            context_path = directory / "context.json"
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            queue_path.write_text(json.dumps(queue), encoding="utf-8")
+            context_path.write_text(json.dumps(context), encoding="utf-8")
+            args = type(
+                "Args",
+                (),
+                {
+                    "manifest": manifest_path,
+                    "queue": queue_path,
+                    "context": context_path,
+                    "output": None,
+                },
+            )()
+            with self.assertRaisesRegex(ValueError, "comprehensive full context"):
+                MODULE.attach_context(args)
+            args.context = None
+            with self.assertRaisesRegex(ValueError, "no context packet"):
+                MODULE.attach_context(args)
 
 
 if __name__ == "__main__":

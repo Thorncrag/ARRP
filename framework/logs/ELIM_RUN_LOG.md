@@ -97,3 +97,34 @@ Do not reproduce sensitive, vulgar, demeaning, privacy-screened, or otherwise re
 7. Corrected WAR-009 from stale admitted maturity to `Developed proposal`, as its canonical audit history already records the initial issue-and-vehicle package complete and ready for T0. Preserved `Status: Audit needed`, score 0, and Runs 0.
 8. The GitHub Project API would not edit stale built-in Title values on issue-backed items. No destructive item replacement was attempted; live GitHub issue titles and canonical page links remain authoritative.
 9. Did not begin JUD-009, EMERG-003, JUD-005, DOM-005, WAR-009's T0, another T-audit tier, or ordinary proposal/candidate development after the official window-change failure. JUD-009 is the exact continuation point.
+
+### 2026-07-24 — arrp-20260724T144804Z — Usage stopped
+
+| Field | Entry |
+| --- | --- |
+| Started | 2026-07-24 10:51:05 -0400 |
+| Ended | 2026-07-24 11:00:01 -0400 |
+| Run ID | `arrp-20260724T144804Z` |
+| Trigger | Push-triggered Run Coordinator chain with the comprehensive Review Epoch due |
+| Outcome | Usage stopped before substantive work |
+| Usage | The host-dispatch manifest reported the prior gate as available with 98 percent remaining. Elim then invoked the mandatory independent gate against unique path `/private/tmp/arrp-elim-20260724T144804Z.B789Lg/codex-usage-baseline.json`; at 14:51:05 UTC the trusted Codex app-server request timed out and returned `status: unavailable`. No per-run baseline was established, no consumption could be measured, the ten-point soft target could not be evaluated, and the 15-percent reserve therefore failed closed. |
+| Work summary | Performed read-only launch preflight only. Verified the chain identity, clean baseline, stage statuses, artifact hash lineage, governing hashes, workflow hashes, and downloaded queue/context hashes. Found a blocking contradiction: the manifest requires a comprehensive full-context review, while the supplied context packet is scoped to the JUD-009 Change Audit. No issue, audit, intake, source, Project, publication, or Review Epoch work began. |
+| Material units | One routed preflight finding: [Comprehensive-review launch preflight contradiction](AGENT_AUDIT_LOG.md#2026-07-24-comprehensive-review-launch-preflight-contradiction-bot-failure). |
+| Issue audit records | None. |
+| Commits and synchronization | Repository and manifest baseline were both `6dc59640e7c4860464ca08bc5fb2caff84dda8f9`, with local `main`, manifest `origin_main`, and manifest baseline aligned before closeout. The managed execution context could not write `.git/FETCH_HEAD` or create `.git/index.lock`, so remote fetch, closeout commit, push, pull request, merge, Actions readback, and final `origin/main` reconciliation were not performed. The two log entries and four regenerated Console data files remain local. No public or participation-service surface was affected. |
+| Validation | Manifest schema and chain identity passed; every due stage was `succeeded`, every not-due stage remained current, and the manifest listed no failure or degradation. Workflow and governing-record hashes matched the current checkout. Integrity, progress, and intake stage hashes matched the queue input hashes; the downloaded queue hash `0593284efe9a359ce339b1959934a496e4aad266c84ca2ee55a70fe8af343496` and context hash `ee43997669db375e2bc6c523280d0d8ecb58da54729a59e11f3fe531eab803ff` matched the manifest. The context-profile agreement check failed because the manifest selects comprehensive full context while the packet reports `change_audit` and contains JUD-009. The original ephemeral bot payload paths were not materialized in the worktree and could not be independently rehashed. Thirty-two focused automation tests and the complete 182-test repository suite passed after the required Project Console rebuild; `git diff --check` passed. |
+| Human review | Repair or regenerate the comprehensive context packet before relaunch. The Review Epoch remains due, and no human-reserved substantive decision was made. |
+| Stop reason | Mandatory fail-closed usage stop: the official Elim reserve reading was unavailable before substantive work. The contradictory context packet independently prevents a reliable comprehensive review. |
+| Exact next action | In an approved host context, correct the queue-to-context selection so a due comprehensive run supplies `profile: comprehensive_review` with full canonical provenance; rematerialize or otherwise make the bot payloads independently verifiable; then resume chain `arrp-20260724T144804Z` with a fresh unique usage baseline, conduct the comprehensive review, prepare the complete epoch record with `triggering_run_id: arrp-20260724T144804Z`, run `scripts/record_review_epoch.py`, append the completed run closeout, and finish the reviewed commit/PR/main reconciliation. |
+
+#### Actions and routing
+
+1. Confirmed local `main` was clean at `6dc59640e7c4860464ca08bc5fb2caff84dda8f9` and that the manifest recorded the same current baseline and `origin/main`.
+2. Verified all due deterministic stages reported success, all not-due stages remained current, and the manifest contained no declared failure or degradation.
+3. Recomputed the downloaded queue, context, governing-record, and workflow hashes and confirmed the stage-output hashes flowed unchanged into the queue inputs.
+4. Detected that the manifest's comprehensive full-context decision conflicts with the `change_audit` context packet and JUD-009 issue dossier. The queue builder listed the comprehensive unit, but the context builder selected the higher-priority JUD-009 Change Audit instead.
+5. Invoked the mandatory Elim usage gate with a unique path. The read timed out and failed closed before substantive work.
+6. Confirmed the pinned intake cursor reports no pending public submission. No structured assessment existed, so `scripts/record_intake_review.py` was not applicable.
+7. Did not create a Review Epoch input or run `scripts/record_review_epoch.py` because the comprehensive review was not completed.
+8. Ran 32 focused coordinator, context, usage-gate, and Review Epoch tests successfully, regenerated the Console data required by the canonical-log changes, and passed the complete 182-test repository suite. The attempted `pytest` invocation was skipped because the project `.venv` does not include pytest; the authoritative tests use `unittest`. Removed only the ignored `.site-build` artifact created by the public-site tests after validation.
+9. Preserved the material preflight finding in the shared Agent Audit Log and this complete invocation report in the Elim Run Log. `git fetch` failed because `.git/FETCH_HEAD` is not writable, and the final staging/commit attempt failed because `.git/index.lock` cannot be created. Git reconciliation remains blocked by the execution context's read-only Git metadata.

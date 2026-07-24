@@ -19,7 +19,9 @@
   },
   "usage": {
     "hardReservePercent": 15,
-    "softRunTargetPercent": 10
+    "softRunTargetPercent": 10,
+    "monitorIntervalSeconds": 60,
+    "snapshotMaxAgeSeconds": 120
   },
   "llmRouting": {
     "defaultProfile": "substantive",

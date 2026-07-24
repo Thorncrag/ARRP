@@ -171,5 +171,322 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/SOURCE_CHECKER_BOT.md"
     }
   ],
-  "run_chain": {}
+  "run_chain": {
+    "schema_version": 1,
+    "bot_id": "run-coordinator-bot",
+    "chain_id": "arrp-20260724T144804Z",
+    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30102539536",
+    "trigger": "push",
+    "created_at": "2026-07-24T14:48:04+00:00",
+    "updated_at": "2026-07-24T14:49:51+00:00",
+    "status": "complete",
+    "baseline_commit": "6dc59640e7c4860464ca08bc5fb2caff84dda8f9",
+    "resume": {
+      "count": 0,
+      "from_run_id": null
+    },
+    "lock": {
+      "key": "arrp-run-chain",
+      "path": null,
+      "status": "released-by-workflow",
+      "owner_chain_id": "arrp-20260724T144804Z"
+    },
+    "repository": {
+      "branch": "main",
+      "head": "6dc59640e7c4860464ca08bc5fb2caff84dda8f9",
+      "origin_main": "6dc59640e7c4860464ca08bc5fb2caff84dda8f9",
+      "clean": true,
+      "dirty_paths": [],
+      "dirty_path_count": 0,
+      "ahead_of_origin_main": 0,
+      "behind_origin_main": 0,
+      "fresh": true
+    },
+    "workflow_health": {
+      "healthy": true,
+      "missing": [],
+      "checks": [
+        {
+          "stage": "case-monitor-bot",
+          "workflow": ".github/workflows/case-monitor-bot.yml",
+          "exists": true,
+          "sha256": "sha256:03d8643675f124b1864d6630a914446907a266ae7f5d6f5c96c48976c6f08662"
+        },
+        {
+          "stage": "presidential-directives-bot",
+          "workflow": ".github/workflows/presidential-directives-bot.yml",
+          "exists": true,
+          "sha256": "sha256:1cef9c12894fb5b05243e7e294becc894e8908e5500fbb63853730d5a0e58145"
+        },
+        {
+          "stage": "source-checker-bot",
+          "workflow": ".github/workflows/source-checker-bot.yml",
+          "exists": true,
+          "sha256": "sha256:de2974635b2c81740e8f5e967052be4c2d6dceb51febd490c9afc1fb615e8ede"
+        },
+        {
+          "stage": "project-console-progress-bot",
+          "workflow": ".github/workflows/project-console-progress.yml",
+          "exists": true,
+          "sha256": "sha256:9bdd01cb2866c33d9335cfb06bada5908039a599c7e37619a190a1b04c4323bc"
+        },
+        {
+          "stage": "project-integrity-bot",
+          "workflow": ".github/workflows/project-integrity.yml",
+          "exists": true,
+          "sha256": "sha256:98536e530240cdd83dc20790b5b2157cf3d45d47fc0cf99642b3422b4ab6a2d6"
+        }
+      ]
+    },
+    "stages": [
+      {
+        "id": "case-monitor-bot",
+        "order": 1,
+        "workflow": ".github/workflows/case-monitor-bot.yml",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
+        "status": "not_due",
+        "started_at": null,
+        "completed_at": "2026-07-24T14:48:04+00:00",
+        "last_success_at": "2026-07-24T14:20:28+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "",
+        "output": null
+      },
+      {
+        "id": "presidential-directives-bot",
+        "order": 2,
+        "workflow": ".github/workflows/presidential-directives-bot.yml",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
+        "status": "not_due",
+        "started_at": null,
+        "completed_at": "2026-07-24T14:48:04+00:00",
+        "last_success_at": "2026-07-24T14:20:28+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "",
+        "output": null
+      },
+      {
+        "id": "source-checker-bot",
+        "order": 3,
+        "workflow": ".github/workflows/source-checker-bot.yml",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
+        "status": "not_due",
+        "started_at": null,
+        "completed_at": "2026-07-24T14:48:04+00:00",
+        "last_success_at": "2026-07-24T14:20:28+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "",
+        "output": null
+      },
+      {
+        "id": "project-console-progress-bot",
+        "order": 4,
+        "workflow": ".github/workflows/project-console-progress.yml",
+        "due": true,
+        "due_reason": "forced",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-24T14:49:20+00:00",
+        "last_success_at": "2026-07-24T14:49:20+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:fafa4a8335cf21ffe1ed7d78867d3f1ccaec4a36dfcd238e386a99d624ae40fc"
+        },
+        "work_count": 0
+      },
+      {
+        "id": "public-intake",
+        "order": 5,
+        "workflow": null,
+        "due": true,
+        "due_reason": "required every chain",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-24T14:49:20+00:00",
+        "last_success_at": "2026-07-24T14:49:20+00:00",
+        "retry_limit": 1,
+        "retries": [],
+        "failure_class": "none",
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:eaf2a18841834f004e5b1795ac38543b8a527db4517e7e97a09c714c73460eb2"
+        },
+        "work_count": 0
+      },
+      {
+        "id": "project-integrity-bot",
+        "order": 6,
+        "workflow": ".github/workflows/project-integrity.yml",
+        "due": true,
+        "due_reason": "forced",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-24T14:49:20+00:00",
+        "last_success_at": "2026-07-24T14:49:20+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:05c79626e6939440a15f4f77fdace95ff387e0099611ee73bc3c767a05c1f347"
+        },
+        "work_count": 0
+      }
+    ],
+    "failures": [],
+    "degradations": [],
+    "queue_counts": {
+      "integrity": 0,
+      "monitoring": 0,
+      "sources": 0,
+      "intake": 0,
+      "total": 0
+    },
+    "elim_decision": {
+      "launch_recommended": true,
+      "reason": "Comprehensive review is due.",
+      "blockers": [],
+      "last_substantive_stage": true,
+      "predecessors_complete": true,
+      "profile": {
+        "id": "comprehensive",
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "xhigh",
+        "full_context": true,
+        "reason": "The periodic comprehensive review epoch is due."
+      }
+    },
+    "review_epoch": {
+      "interval_days": 14,
+      "last_completed_at": null,
+      "next_due_at": "2026-07-24T14:48:04+00:00",
+      "due": true,
+      "due_reason": "no completed review epoch",
+      "boundary_commit": "f74d50318e815eae49b51f7194a324eff957d932",
+      "epoch_id": null,
+      "stability_status": null
+    },
+    "usage": {
+      "hard_reserve_percent": 15,
+      "soft_run_target_percent": 10,
+      "remaining_percent": 98.0,
+      "status": "available"
+    },
+    "next_action": "Authorized host dispatcher may launch Elim.",
+    "action_items": [],
+    "completed_at": "2026-07-24T14:49:51+00:00",
+    "final_revision": "6dc59640e7c4860464ca08bc5fb2caff84dda8f9",
+    "bots": [
+      {
+        "id": "case-monitor-bot",
+        "name": "case-monitor-bot",
+        "due": false,
+        "status": "not_due",
+        "started_at": null,
+        "completed_at": "2026-07-24T14:48:04+00:00",
+        "error": null
+      },
+      {
+        "id": "presidential-directives-bot",
+        "name": "presidential-directives-bot",
+        "due": false,
+        "status": "not_due",
+        "started_at": null,
+        "completed_at": "2026-07-24T14:48:04+00:00",
+        "error": null
+      },
+      {
+        "id": "source-checker-bot",
+        "name": "source-checker-bot",
+        "due": false,
+        "status": "not_due",
+        "started_at": null,
+        "completed_at": "2026-07-24T14:48:04+00:00",
+        "error": null
+      },
+      {
+        "id": "project-console-progress-bot",
+        "name": "project-console-progress-bot",
+        "due": true,
+        "status": "completed",
+        "started_at": null,
+        "completed_at": "2026-07-24T14:49:20+00:00",
+        "error": null
+      },
+      {
+        "id": "project-integrity-bot",
+        "name": "project-integrity-bot",
+        "due": true,
+        "status": "completed",
+        "started_at": null,
+        "completed_at": "2026-07-24T14:49:20+00:00",
+        "error": null
+      }
+    ],
+    "work_queue": {
+      "path": "project-console-data:elim-work-queue.json",
+      "sha256": "sha256:0593284efe9a359ce339b1959934a496e4aad266c84ca2ee55a70fe8af343496",
+      "ready_for_elim": true,
+      "launch_recommended": true,
+      "counts": {
+        "total": 55,
+        "elim_eligible": 55,
+        "human": 0,
+        "safety": 0
+      },
+      "problems": [],
+      "next_item": {
+        "id": "CHANGE-AUDIT-77bd98919be7",
+        "kind": "change_audit",
+        "title": "JUD-009: Targeted Change Audit and Internal Remedy-Fit Audit",
+        "owner": "agent",
+        "eligible_for_elim": true,
+        "requires_human": false,
+        "safety_class": 1,
+        "base_priority": 700,
+        "age_days": 26,
+        "fairness_boost": 26,
+        "priority_score": 726,
+        "reason": "explicit workflow route: audit needed",
+        "source": {
+          "input": "progress",
+          "identifier": "JUD-009",
+          "canonical_record": "areas/JUD/issues/JUD-009.md",
+          "workflow_status": "Audit needed",
+          "development_level": "Review ready",
+          "next_audit": "Targeted Change Audit and Internal Remedy-Fit Audit"
+        },
+        "recovery": null
+      },
+      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T144804Z/elim-work-queue.json"
+    },
+    "context_packet": {
+      "path": "project-console-data:elim-context.json",
+      "sha256": "sha256:ee43997669db375e2bc6c523280d0d8ecb58da54729a59e11f3fe531eab803ff",
+      "profile": "change_audit",
+      "repository_revision": "6dc59640e7c4860464ca08bc5fb2caff84dda8f9",
+      "provenance_complete": true,
+      "limits": {
+        "max_bytes": 180000,
+        "actual_bytes": 113903
+      },
+      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T144804Z/elim-context.json"
+    },
+    "user_overrides": {}
+  }
 });

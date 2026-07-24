@@ -10,11 +10,11 @@
   "documents": {
     "agent_rules": {
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "5fd3ea7ee6153bfafc2504582b78686c221793a7911e8019f830ad8278003837"
+      "sha256": "3115b45e5b50f02771ca89381bcc42d7880dd94a679c9125b5074f0152f533b7"
     },
     "elim_runbook": {
       "path": "framework/agents/ELIM.md",
-      "sha256": "5d6bf7401d2176e2b3c0b3297d94d5bff41475b154c83b4ad2b604ab0985f9c6"
+      "sha256": "eaf84898ba9c4f391d68c2680e1a3eb52780338f3fa4ec1135306a86c2bb0dc5"
     },
     "framework": {
       "path": "framework/FRAMEWORK.md",

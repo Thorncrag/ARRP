@@ -18,6 +18,11 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
+try:
+    from project_tree import iter_project_files
+except ModuleNotFoundError:  # Imported as scripts.prepare_public_site.
+    from scripts.project_tree import iter_project_files
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD_ROOT = ROOT / ".site-build"
@@ -343,7 +348,7 @@ def is_approved_markdown(path: Path) -> bool:
 
 def discover_public_markdown() -> list[Path]:
     marked: list[Path] = []
-    for path in ROOT.rglob("*.md"):
+    for path in iter_project_files(ROOT, "*.md"):
         rel = relative(path)
         if rel.parts[0] in {".git", ".site-build"}:
             continue

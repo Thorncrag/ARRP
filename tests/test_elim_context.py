@@ -18,6 +18,7 @@ from arrp_context import (  # noqa: E402
     load_route_manifest,
     stable_work_id,
 )
+from select_elim_context_route import select_context_route  # noqa: E402
 
 
 def write_json(path: Path, value: object) -> None:
@@ -321,6 +322,67 @@ class QueueTests(unittest.TestCase):
         self.assertFalse(queue["ready_for_elim"])
         self.assertFalse(queue["launch_recommended"])
         self.assertIn("intake collection is unavailable", queue["problems"])
+
+
+class ContextRouteTests(unittest.TestCase):
+    def test_comprehensive_chain_overrides_ordinary_queue_priority(self):
+        queue = {
+            "items": [
+                {
+                    "id": "change-1",
+                    "kind": "change_audit",
+                    "eligible_for_elim": True,
+                    "source": {"identifier": "JUD-009"},
+                },
+                {
+                    "id": "epoch-1",
+                    "kind": "comprehensive_review",
+                    "eligible_for_elim": True,
+                    "source": {"identifier": "EPOCH-1"},
+                },
+            ]
+        }
+        chain = {
+            "elim_decision": {"profile": {"full_context": True}}
+        }
+        route = select_context_route(queue, chain)
+        self.assertEqual(route["profile"], "comprehensive_review")
+        self.assertEqual(route["work_item_id"], "epoch-1")
+        self.assertEqual(route["issue"], "EPOCH-1")
+
+    def test_full_context_chain_without_comprehensive_unit_fails_closed(self):
+        queue = {
+            "items": [
+                {
+                    "id": "change-1",
+                    "kind": "change_audit",
+                    "eligible_for_elim": True,
+                }
+            ]
+        }
+        chain = {
+            "elim_decision": {"profile": {"full_context": True}}
+        }
+        with self.assertRaisesRegex(ValueError, "no eligible comprehensive"):
+            select_context_route(queue, chain)
+
+    def test_normal_chain_keeps_first_eligible_queue_item(self):
+        queue = {
+            "items": [
+                {
+                    "id": "change-1",
+                    "kind": "change_audit",
+                    "eligible_for_elim": True,
+                    "source": {"identifier": "JUD-009"},
+                }
+            ]
+        }
+        route = select_context_route(
+            queue,
+            {"elim_decision": {"profile": {"full_context": False}}},
+        )
+        self.assertEqual(route["profile"], "change_audit")
+        self.assertEqual(route["issue"], "JUD-009")
 
 
 class RepositorySearchBoundaryTests(unittest.TestCase):

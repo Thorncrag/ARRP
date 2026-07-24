@@ -15,6 +15,11 @@ import urllib.parse
 from datetime import datetime, timezone
 from pathlib import Path
 
+try:
+    from project_tree import iter_project_files
+except ModuleNotFoundError:  # Imported as scripts.build_horizon_review_console.
+    from scripts.project_tree import iter_project_files
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
@@ -470,7 +475,7 @@ def page_inventory_records() -> list[dict[str, object]]:
     records: list[dict[str, object]] = []
     manifest = publication_manifest()
     words_per_page = int(manifest.get("words_per_estimated_page", 650))
-    for path in ROOT.rglob("*.md"):
+    for path in iter_project_files(ROOT, "*.md"):
         relative = path.relative_to(ROOT)
         if excluded_roots.intersection(relative.parts) or path in explicit_exceptions:
             continue
