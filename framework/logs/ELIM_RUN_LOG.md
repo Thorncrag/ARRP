@@ -226,3 +226,34 @@ The approved host session preserved the completed context repair without beginni
 3. Used two independent read-only challenge passes. Their provisional findings were not incorporated into the issue, legislation, audit sidecar, source inventory, score, or Project.
 4. The Codex turn and dispatcher ended before the planned corrections began. No final structured result or last-message file was produced, and the ordinary dispatcher closeout did not run.
 5. Preserved the incomplete task and JSONL record, classified the invocation as failed, and paused the JUD-009 handoff at the last safe boundary. A fresh chain must revalidate rather than continue from the stale usage or context state.
+
+### 2026-07-24 — arrp-20260724T184907Z — Completed
+
+| Field | Entry |
+| --- | --- |
+| Started | 2026-07-24 14:55:29 -0400 |
+| Ended | 2026-07-24 15:06:10 -0400 |
+| Run ID | `arrp-20260724T184907Z` |
+| Trigger | Refreshed Run Coordinator chain after interrupted-run recovery |
+| Outcome | Completed |
+| Usage | The approved host dispatcher established the invocation baseline with Codex 81 percent and Spark 99 percent remaining. Every required snapshot read was fresh and `pass`; the final pre-commit reading reported Codex 79 percent and Spark 99 percent, for 2 percentage points consumed against the ten-point soft target. The 15-percent reserve remained protected. Elim did not launch another Codex app-server or run a sandbox usage probe. |
+| Work summary | Verified the complete deterministic chain, every preserved input, the pinned queue and integrity-reconciliation context, repository freshness, bot health, intake state, and Review Epoch state. Processed the highest-priority integrity unit. The pinned Integrity result captured the exact current GitHub Pages deployment while its newest status was `in_progress`; live readback showed that deployment and its public-site workflow had completed successfully. Repaired the detector so only nonterminal deployment states inside the existing 30-minute publication window receive grace; terminal failures and nonterminal states beyond that window remain errors. |
+| Material units | One: [GitHub Pages deployment-status grace repair](AGENT_AUDIT_LOG.md#2026-07-24-github-pages-deployment-status-grace-repair-integrity). |
+| Issue audit records | None. No JUD-009 or other issue, audit sidecar, legislation, score, **Runs** count, lifecycle field, Project field, source, or publication decision changed. |
+| Commits and synchronization | Unit commit `3039c7cd57f51fb740361fb1e100eea163895794` on `codex/elim-pages-status-grace` was pushed, reviewed, and squash-merged through [pull request #396](https://github.com/Thorncrag/ARRP/pull/396) as `fd7cfea9019a74ad5cd772bd7021e1e594685bdd`. CodeQL for Actions, Python, and JavaScript and the Vercel preview passed before merge. Local `main` was fast-forwarded to the merged `origin/main` and read back clean. This run report, inactive handoff, corrected shared provenance, and final Console projection are the closeout-only reconciliation following that fully merged unit. |
+| Validation | Independently matched all five preserved input hashes plus the queue and context hashes; confirmed complete context provenance and exact repository revision; read back Pages deployment `5593757158` and workflow run `30118386502` as successful; passed 31 focused consistency tests, the complete 200-test repository suite, 24 participation-service tests, Python and JavaScript syntax checks, public-site preparation, authenticated consistency with 0 errors and 0 warnings across 64 issue pages and 41 proposal pages, deterministic Console rebuilding, and `git diff --check`. |
+| Human review | None. The change is a mechanical treatment of a transient deployment state within an already existing grace period and changes no substantive project judgment. |
+| Stop reason | The highest-priority eligible unit completed, passed validation, and merged. The run consumed 2 points, below the ten-point soft target, but the user requested one highest-priority work unit rather than the full remaining queue. |
+| Exact next action | Start a fresh current chain. If chain health and integrity are clean, process the refreshed queue's next highest-priority eligible unit; the prior queue placed JUD-009's targeted Change Audit next. The comprehensive Review Epoch remains current until 2026-08-07T15:40:02Z. |
+
+#### Actions and routing
+
+1. Verified chain `arrp-20260724T184907Z`, clean synchronized baseline `5a38cf2d0d842357aafeaa96046cdc5ba0a436f3`, successful or current-not-due deterministic stages, every preserved-input hash, queue hash, context hash, complete context provenance, and a fresh passing host usage snapshot.
+2. Confirmed the pinned intake input contained no pending or eligible submission. No public-intake assessment, structured result, reply, moderation flag, candidate action, or `scripts/record_intake_review.py` call was applicable.
+3. Confirmed Review Epoch `epoch-arrp-20260724T153028Z` remains current until 2026-08-07T15:40:02Z with no unresolved IDs. This was not a comprehensive review, so no Review Epoch record or `scripts/record_review_epoch.py` call was applicable.
+4. Reproduced the Pages status race from the pinned error and read the live deployment status, public-site workflow, current commit, and authenticated GitHub state. Deployment `5593757158` for exact baseline SHA `5a38cf2d0d842357aafeaa96046cdc5ba0a436f3` had reached `success`.
+5. Reused the consistency check's existing 30-minute main-publication grace for `pending`, `queued`, and `in_progress` deployment states while preserving immediate errors for terminal failure states and delayed errors for stuck nonterminal states.
+6. Added three focused regression tests covering a current in-flight deployment, a terminal failure during the grace period, and an in-flight deployment beyond the grace period.
+7. Rebuilt the Project Console, recorded the unit in the shared Agent Audit Log, completed the full validation floor, pushed the reviewed branch, and merged pull request #396 after all applicable checks passed.
+8. Did not resume the interrupted JUD-009 investigation or use its provisional findings because the new chain assigned the higher-priority Integrity unit and authorized one highest-priority work unit.
+9. The required Codex task-archiving tool was unavailable in this execution environment. This housekeeping limitation does not affect the merged integrity repair or preserved run records and is reported in the final structured result.

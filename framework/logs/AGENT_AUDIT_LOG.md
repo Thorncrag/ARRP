@@ -1682,7 +1682,7 @@ Prospective template:
 | Tier | none |
 | Files changed | `scripts/audit_project_consistency.py`; `tests/test_project_consistency.py`; `framework/logs/CURRENT_AUDIT.md`; `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/ELIM_RUN_LOG.md`; generated Project Console data |
 | Validation | Verified every preserved chain input, queue, and context hash; read back Pages deployment `5593757158` and public-site workflow run `30118386502` as successful for exact current `main`; added focused coverage for in-flight, terminal-failure, and over-grace states; 31 focused consistency tests passed; authenticated consistency rerun reported 0 errors and 0 warnings across 64 issue pages and 41 proposal pages. |
-| Commit | This unit commit on `codex/elim-pages-status-grace`; final reviewed closeout recorded in the Elim Run Log. |
-| Push status | Reviewed push, pull request, merge, and post-merge readback pending closeout. |
+| Commit | Unit commit `3039c7c`; squash-merged as `fd7cfea` through pull request [#396](https://github.com/Thorncrag/ARRP/pull/396). |
+| Push status | Pushed, reviewed, merged, and read back on synchronized local `main` after CodeQL and Vercel passed. |
 | Rollback notes | Revert the deployment-status grace logic and its three focused tests, then rebuild the Project Console. No issue, score, Project field, source, intake, or Review Epoch record changed. |
 | Blockers/skipped checks | None. The pinned error was a transient state captured while the exact current deployment was running; terminal failures remain immediate errors, and nonterminal deployments become errors after the existing 30-minute publication grace. |

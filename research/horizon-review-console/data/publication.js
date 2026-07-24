@@ -7565,7 +7565,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 15729,
+      "word_count": 15726,
       "estimated_pages": 25,
       "table_count": 88,
       "max_table_columns": 2,
@@ -7843,12 +7843,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 566,
+      "word_count": 516,
       "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 42
+      "longest_unbroken_token": 21
     },
     {
       "title": "Current Project Integrity Report",
@@ -7947,9 +7947,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4992,
-      "estimated_pages": 8,
-      "table_count": 7,
+      "word_count": 5792,
+      "estimated_pages": 9,
+      "table_count": 8,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
