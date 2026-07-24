@@ -1494,3 +1494,27 @@ Prospective template:
 | Push status | Preserved in isolated pilot worktree |
 | Rollback notes | Revert the pilot commit to remove this launch-pilot log entry. |
 | Blockers/skipped checks | None. |
+
+
+### 2026-07-24 — Project Integrity and admitted-proposal lifecycle reconciliation — reconciliation
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-24T02:18:44-04:00 |
+| Agent | elim |
+| Run ID | ELIM-20260724T060145Z |
+| Unit ID | integrity-lifecycle-001 |
+| Trigger | schedule |
+| Task type | reconciliation |
+| Outcome | Completed |
+| Issue/task | Project Integrity and admitted-proposal lifecycle reconciliation |
+| Issue page | [APPT-001](../../areas/APPT/issues/APPT-001.md); [RIGHTS-005](../../areas/RIGHTS/issues/RIGHTS-005.md); [JUD-012](../../areas/JUD/issues/JUD-012.md); [OVS-009](../../areas/OVS/issues/OVS-009.md); [REG-002](../../areas/REG/issues/REG-002.md) |
+| Audit history | [APPT-001](../../areas/APPT/issues/APPT-001.audit.md); [RIGHTS-005](../../areas/RIGHTS/issues/RIGHTS-005.audit.md); [JUD-012](../../areas/JUD/issues/JUD-012.audit.md); [OVS-009](../../areas/OVS/issues/OVS-009.audit.md); [REG-002](../../areas/REG/issues/REG-002.audit.md) |
+| Proposal page | [APPT-001 bill](../../legislation/APPT-001.md); [RIGHTS-005 bill](../../legislation/RIGHTS-005.md) |
+| Tier | none |
+| Files changed | 15 issue pages with corrected Issue Snapshots; APPT-001, RIGHTS-005, JUD-012, OVS-009, and REG-002 issue pages and audit sidecars; DOJ-004, ELEC-014, and ELEC-015 foundation metadata; framework/logs/CURRENT_AUDIT.md |
+| Validation | 131 repository tests; git diff --check; authenticated Project Consistency Audit with 0 errors and 0 warnings; five Project lifecycle rows updated and read back |
+| Commit | Reconcile Elim integrity and lifecycle state (c6c6cdf) |
+| Push status | Pushed to origin/codex/elim-20260724; main reconciliation is recorded in the Elim Run Log |
+| Rollback notes | Revert c6c6cdf to roll back the repository unit; restore the five Project lifecycle rows from the pre-run values recorded in the Elim Run Log if the unit is reverted. |
+| Blockers/skipped checks | No substantive blocker. The GitHub API does not allow editing the built-in Title field for issue-backed Project items; live issue titles and canonical links remain authoritative. |

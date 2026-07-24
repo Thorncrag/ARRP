@@ -3,6 +3,7 @@ issue_id: ELEC-014
 area_id: A-02
 title: "Limiting Federal Criminal Investigations into State-Administered Elections"
 status: blocked
+foundation_status: pending
 workflow_hold_reason: "Remedy selection and legitimacy analysis are blocked because reliable primary criminal-process records identifying the statutory predicates, factual basis, and procedures are indispensable prerequisites. Resume when the relevant instruments are unsealed or otherwise become available."
 priority: high
 remedy_type: federal-election-criminal-process-guardrails

@@ -31,7 +31,7 @@ audit_history: "ELEC-012.audit.md"
 # ELEC-012 — Campaign Finance, Dark Money, and Corporate Political Spending
 
 > ## Issue Snapshot
-> **Problem:** Wealth and artificial entities can dominate political spending.<br />**Repair:** Restore democratic campaign-finance authority and transparency.<br />**Vehicle:** Support [H.J.Res. 54 with an enforcement/federalism clarification](../../../legislation/ELEC-012-amendment.md), preserve H.J.Res. 13 as an alternative, and enact [post-ratification FECA conforming-amendment legislation](../../../legislation/ELEC-012.md).
+> **Problem:** Wealth and artificial entities can dominate political spending.<br />**Repair:** Restore democratic campaign-finance authority and transparency.<br />**Vehicle:** [Clarified H.J.Res. 54](../../../legislation/ELEC-012-amendment.md) preferred; H.J.Res. 13 alternative; enact [post-ratification FECA legislation](../../../legislation/ELEC-012.md).
 >
 
 ## Institutional Anomaly

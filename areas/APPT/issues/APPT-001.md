@@ -3,14 +3,16 @@ issue_id: APPT-001
 area_id: A-12
 title: "Evasion of Senate Confirmation and Statutory Appointment Safeguards"
 status: in-development
-foundation_status: pending
+foundation_status: approved
+foundation_approved_date: "2026-07-24"
+foundation_approval_note: "Elim determined that the canonical issue states the bounded confirmation-evasion failure and manifestations, selects strengthened Vacancies Act safeguards as the remedy, and links the Appointments Accountability and Confirmation Safeguards Act as the concrete vehicle."
 priority: medium
 remedy_type: vacancies-confirmation-anti-evasion-and-public-accountability
 audit_score: 0
-audit_status: "Pending internal foundation-sufficiency review; agent-generated issue and statutory draft preserved for review"
-audit_last_type: "Candidate consolidation and initial statutory draft"
-audit_last_date: "2026-07-16"
-audit_next: "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved"
+audit_status: "Foundation approved; in development; statutory and historical source review is next"
+audit_last_type: "Foundation-sufficiency lifecycle review"
+audit_last_date: "2026-07-24"
+audit_next: "Complete statutory and historical source development, then conduct T1 framework, legal-durability, enactment-pathway, evidence, abuse-resistance, drafting, fiscal, and issue-to-legislation review"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 change_audit_needed: false
@@ -23,7 +25,7 @@ audit_history: "APPT-001.audit.md"
 # APPT-001 — Evasion of Senate Confirmation and Statutory Appointment Safeguards
 
 > ## Issue Snapshot
-> **Problem:** Temporary service, delegation, and office-specific succession arrangements can become practical substitutes for Senate confirmation while delayed political or judicial correction leaves consequential authority in place.<br />**Repair:** Strengthen the existing Vacancies Act, GAO, and public-reporting system with objective anti-evasion rules, automatic notice, independent findings, and timely remedies while preserving legitimate temporary continuity.<br />**Vehicle:** [Appointments Accountability and Confirmation Safeguards Act](../../../legislation/APPT-001.md).
+> **Problem:** Temporary service, delegation, and succession can bypass Senate confirmation safeguards.<br />**Repair:** Strengthen Vacancies Act anti-evasion rules, independent findings, and remedies preserving continuity.<br />**Vehicle:** [Appointments Accountability and Confirmation Safeguards Act](../../../legislation/APPT-001.md).
 >
 
 ## Institutional Anomaly
@@ -125,11 +127,11 @@ Prospectively, the proposal would convert passive acquiescence into an affirmati
 
 ## Proposal Scoring
 
-> **Proposal Quality Score:** 0 / 100 (Unscored; foundation review pending)<br />**Required Electoral Environment:** Enactment by Congress and presentment or sufficient support to overcome presidential opposition<br />**Development Priority:** Medium
+> **Proposal Quality Score:** 0 / 100 (Unscored; initial package in development)<br />**Required Electoral Environment:** Enactment by Congress and presentment or sufficient support to overcome presidential opposition<br />**Development Priority:** Medium
 >
 > —
 >
-> **Internal Review Status:** Pending internal foundation-sufficiency review; agent-generated issue and statutory draft preserved for review<br />**Last Internal Review:** Candidate consolidation and initial statutory draft<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status<br />**Next Review:** Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved<br />**Full Review History:** [APPT-001 review history](APPT-001.audit.md)
+> **Internal Review Status:** Foundation approved; in development; statutory and historical source review is next<br />**Last Internal Review:** Foundation-sufficiency lifecycle review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status; the initial package has not completed a score-bearing audit<br />**Next Review:** Complete statutory and historical source development, then conduct the first framework, legal-durability, enactment-pathway, evidence, abuse-resistance, drafting, fiscal, and issue-to-legislation review<br />**Full Review History:** [APPT-001 review history](APPT-001.audit.md)
 
 ## Annotation
 

@@ -26,7 +26,7 @@ audit_history: "RIGHTS-004.audit.md"
 The material below is an archived development record, not an active recommendation. Future work may reuse a source lead or narrowly framed institutional question only through an active proposal or a new issue-admission decision.
 
 > ## Issue Snapshot
-> **Problem:** Immigration law combines high-stakes status decisions with fragmented process, weak review, detention pressure, and unstable lawful pathways.<br />**Repair:** Build a rights-bearing, reviewable, capacity-backed immigration system with durable status, removal, detention, humanitarian, and federalism safeguards.<br />**Vehicle:** Pending source development.
+> **Problem:** Immigration decisions face fragmented process, weak review, detention pressure, and unstable pathways.<br />**Repair:** Build rights-bearing, reviewable, capacity-backed status, removal, detention, humanitarian, and federalism safeguards.<br />**Vehicle:** Pending source development.
 >
 
 ## Institutional Anomaly

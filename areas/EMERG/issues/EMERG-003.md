@@ -23,7 +23,7 @@ audit_history: "EMERG-003.audit.md"
 # EMERG-003 — Emergency Economic Powers as a Substitute for Legislation
 
 > ## Issue Snapshot
-> **Problem:** General emergency authority can become a substitute for congressional authorization of major sanctions policy.<br />**Repair:** Require a direct nexus to the declared threat and specific legislation before sanctions target adjudicative or related legal activity.<br />**Vehicle:** [Emergency Economic Powers Specificity and Adjudicative Independence Act](../../../legislation/EMERG-003.md).
+> **Problem:** General emergency authority can replace congressional authorization for major sanctions.<br />**Repair:** Require threat nexus and legislation for sanctions targeting legal or adjudicative activity.<br />**Vehicle:** [Emergency Economic Powers Specificity and Adjudicative Independence Act](../../../legislation/EMERG-003.md).
 >
 
 ## Institutional Anomaly

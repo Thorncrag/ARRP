@@ -32,7 +32,7 @@ audit_history: "ELEC-008.audit.md"
 # ELEC-008 — Accountability for Coordinated Federal Election-Subversion Schemes
 
 > ## Issue Snapshot
-> **Problem:** Coordinated subversion can evade scheme-level accountability.<br />**Repair:** Create narrow predicate-act accountability framework.<br />**Vehicle:** Title 18 amendment adding a new election-subversion chapter adjacent to existing election and political-activity offenses ([draft](../../../legislation/ELEC-008.md)).
+> **Problem:** Coordinated subversion can evade scheme-level accountability.<br />**Repair:** Create narrow predicate-act accountability framework.<br />**Vehicle:** Title 18 election-subversion chapter adjacent to election offenses ([draft](../../../legislation/ELEC-008.md)).
 >
 
 ## Institutional Anomaly

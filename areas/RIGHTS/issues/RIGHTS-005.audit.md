@@ -12,6 +12,18 @@ This file preserves the full review history for [RIGHTS-005](RIGHTS-005.md). The
 
 ## Audit History
 
+### 2026-07-24 — Foundation-sufficiency lifecycle review
+
+**Review type:** Lifecycle reconciliation, not a T0–T4 issue-quality audit. Score and `Runs` remain unchanged.
+
+**Four-part finding:** The canonical issue defines the bounded civil-and-criminal accountability failure and concrete remedy-gap manifestations; selects a modular and severable federal accountability statute; and links the Law-Enforcement Constitutional Accountability Act as the concrete vehicle. Elim therefore recorded `foundation_status: approved`.
+
+**Lifecycle effect:** RIGHTS-005 advances from `Admitted / undeveloped` to `In development`. The primary next workflow is research rather than a score-bearing audit.
+
+**Next work:** Complete statute-first legal-durability and empirical source development, revise the initial bill, develop implementation and fiscal treatment, and then conduct the first score-bearing audit.
+
+**Audit process feedback:** The foundation test properly recognizes a selected architecture without awarding premature score credit for unresolved doctrine, evidence, implementation, and fiscal work. No methodology change is recommended.
+
 ### 2026-07-21 — Horizon candidate admission and initial drafting
 
 **Audit status:** In development; no proposal-quality score assigned
