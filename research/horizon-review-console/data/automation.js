@@ -561,6 +561,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "sha256": "sha256:06fe7ca64e54f5e63be328ea3f99c53d6e6aa8d2c80889fc81735937c50881ad",
         "bytes": 8000
       }
+    },
+    "elim_runtime": {
+      "id": "elim",
+      "name": "Elim",
+      "status": "completed",
+      "chain_id": "arrp-20260724T153028Z",
+      "completed_at": "2026-07-24T15:54:13+00:00",
+      "exit_code": 0,
+      "details": "Elim completed and the dispatcher verified its required closeout."
     }
   }
 });

@@ -160,3 +160,7 @@ Do not reproduce sensitive, vulgar, demeaning, privacy-screened, or otherwise re
 8. Recorded the comprehensive review in the shared Agent Audit Log and this complete run report. No proposal score, **Runs** count, Development level, workflow Status, or GitHub Project field changed.
 9. The required Codex task-archiving tool was unavailable in this execution environment. This housekeeping limitation does not affect the preserved Review Epoch or run records and is reported in the final structured result.
 10. Canonical `git fetch` and `git add` failed on read-only `.git` files. Created preservation commit `ce44f38` through a temporary writable Git-metadata copy, but its push failed because sandbox DNS could not resolve GitHub. An authenticated GitHub tree-write fallback was canceled, so the reviewed branch, pull request, merge, Actions, and local-main reconciliation remain for the approved host dispatcher.
+
+#### Host reconciliation
+
+The approved host session preserved Elim's findings without repeating the comprehensive review, created canonical branch `codex/elim-review-epoch-20260724T153028Z`, and opened [pull request #390](https://github.com/Thorncrag/ARRP/pull/390). CodeQL for Actions, Python, and JavaScript and the Vercel preview passed before merge. This resolves the run's mechanical Git/GitHub closeout block; the Elim invocation's original stop reason remains recorded above as an accurate account of its own execution boundary.
