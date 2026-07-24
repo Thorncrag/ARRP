@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import json
 import select
-import shutil
 import subprocess
 import sys
 import time
@@ -18,6 +17,7 @@ from typing import Any
 DEFAULT_RESERVE_PERCENT = 15
 DEFAULT_MAX_RUN_PERCENT = 10
 DEFAULT_TIMEOUT_SECONDS = 20
+CODEX_EXECUTABLE = Path("/Applications/ChatGPT.app/Contents/Resources/codex")
 
 
 class UsageGateError(RuntimeError):
@@ -272,7 +272,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-run-percent", type=int, default=DEFAULT_MAX_RUN_PERCENT)
     parser.add_argument("--run-baseline", type=Path)
     parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
-    parser.add_argument("--codex", default=shutil.which("codex"))
     return parser.parse_args()
 
 
@@ -287,12 +286,19 @@ def main() -> int:
     if args.timeout_seconds <= 0:
         print(json.dumps({"status": "unavailable", "error": "timeout must be positive"}))
         return 3
-    if not args.codex:
-        print(json.dumps({"status": "unavailable", "error": "Codex executable was not found"}))
+    if not CODEX_EXECUTABLE.is_file():
+        print(
+            json.dumps(
+                {
+                    "status": "unavailable",
+                    "error": f"trusted Codex executable was not found at {CODEX_EXECUTABLE}",
+                }
+            )
+        )
         return 3
 
     try:
-        payload = fetch_rate_limits(args.codex, args.timeout_seconds)
+        payload = fetch_rate_limits(str(CODEX_EXECUTABLE), args.timeout_seconds)
         result = evaluate_rate_limits(payload, args.reserve_percent)
         if args.run_baseline is not None and result["status"] == "pass":
             result = apply_run_budget(result, args.run_baseline, args.max_run_percent)
