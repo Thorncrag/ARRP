@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T20:18:59+00:00",
-  "repository_revision": "88b70b8a54c7279385a8c83168eef75c278955f8",
+  "generated_at": "2026-07-24T20:45:08+00:00",
+  "repository_revision": "b7699119c2a26f164e8c117e35799739ba7901a4",
   "ready_for_elim": true,
   "launch_recommended": true,
   "problems": [],
@@ -20,37 +20,37 @@
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/integrity.json",
-      "sha256": "92312aec1e33c3f80369a5a2b7fbef21f41208e445067cee1d3bd8b731f6d774",
-      "bytes": 1143,
-      "modified_at": "2026-07-24T20:18:59+00:00",
-      "reported_at": "2026-07-24T20:18:42+00:00"
+      "sha256": "2908184a16e8d13d2c4382c9488b41b100bf1824dabd6a22d82f1d85ac4b7b73",
+      "bytes": 1479,
+      "modified_at": "2026-07-24T20:45:08+00:00",
+      "reported_at": "2026-07-24T20:44:48+00:00"
     },
     "progress": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/progress.json",
-      "sha256": "a1b486293694c61f3dc91943ab499f97d968739a7261c6fd65bb6dd9beea6eb6",
-      "bytes": 161812,
-      "modified_at": "2026-07-24T20:18:58+00:00",
-      "reported_at": "2026-07-24T20:18:02+00:00"
+      "sha256": "94f9dfa36c71900ae8a928971f79f7319915a969b4a5b85d3a86a97bdf7db2b8",
+      "bytes": 161986,
+      "modified_at": "2026-07-24T20:45:08+00:00",
+      "reported_at": "2026-07-24T20:45:01+00:00"
     },
     "intake": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/intake.json",
-      "sha256": "7f4997258df6683d897e5b4f595d68ebcf0b13b7f38a1cc79dcb75ce571822e5",
+      "sha256": "0fddb95d56c44c48c36d9bbfb788565cfad954b697b8eb8335aadbe2daed1bd2",
       "bytes": 241,
-      "modified_at": "2026-07-24T20:18:59+00:00",
-      "reported_at": "2026-07-24T20:18:16+00:00"
+      "modified_at": "2026-07-24T20:45:08+00:00",
+      "reported_at": "2026-07-24T20:44:23+00:00"
     },
     "chain": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/chain.json",
-      "sha256": "71deaaef14a857a9106ee82994d189bb1ef5632694f36a8367ee0fc4b21b91b4",
+      "sha256": "59f5347ba843ae8eeffaa73a1aa8c5106730369b95d52a4cb74cad2955e61ca5",
       "bytes": 8049,
-      "modified_at": "2026-07-24T20:18:59+00:00",
-      "reported_at": "2026-07-24T20:18:58+00:00"
+      "modified_at": "2026-07-24T20:45:08+00:00",
+      "reported_at": "2026-07-24T20:45:07+00:00"
     },
     "recovery": {
       "required": false,
@@ -61,47 +61,50 @@
       "required": false,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/review-epoch.json",
-      "sha256": "fb1cbfdcc6c5b55c40562f913fa86f88add8e60df60a49bab354dfd6b6d3d458",
+      "sha256": "9af00e7d9cac521f7b8d9c9509cd42fd6dc7526c2a87ac6a551fb748e75bebbc",
       "bytes": 307,
-      "modified_at": "2026-07-24T20:18:59+00:00",
-      "reported_at": "2026-07-24T20:18:58+00:00"
+      "modified_at": "2026-07-24T20:45:08+00:00",
+      "reported_at": "2026-07-24T20:45:07+00:00"
     }
   },
   "revision_evidence": {
-    "chain": "88b70b8a54c7279385a8c83168eef75c278955f8",
-    "integrity": "88b70b8a54c7279385a8c83168eef75c278955f8"
+    "chain": "b7699119c2a26f164e8c117e35799739ba7901a4",
+    "integrity": "b7699119c2a26f164e8c117e35799739ba7901a4"
   },
   "intake_cursor": {
     "last_processed_id": null,
     "pending_flag": false
   },
   "review_epoch": {
-    "epoch_id": "epoch-arrp-20260724T201743Z",
+    "epoch_id": "epoch-arrp-20260724T204357Z",
     "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
     "next_due_at": "2026-08-07T15:40:02+00:00",
     "unresolved_ids": []
   },
   "items": [
     {
-      "id": "CHANGE-AUDIT-77bd98919be7",
-      "kind": "change_audit",
-      "title": "JUD-009: Targeted Change Audit and Internal Remedy-Fit Audit",
+      "id": "INTEGRITY-052a1d6d7b11",
+      "kind": "integrity",
+      "title": "1 cited-catalog source row(s) lack a machine-detectable Markdown citation; reconcile before treating them as confirmed citations (for example: SRC-0227)",
       "owner": "agent",
       "eligible_for_elim": true,
       "requires_human": false,
       "safety_class": 1,
-      "base_priority": 700,
-      "age_days": 26,
-      "fairness_boost": 26,
-      "priority_score": 726,
-      "reason": "explicit workflow route: audit needed",
+      "base_priority": 800,
+      "age_days": 0,
+      "fairness_boost": 0,
+      "priority_score": 800,
+      "reason": "warning integrity finding",
       "source": {
-        "input": "progress",
-        "identifier": "JUD-009",
-        "canonical_record": "areas/JUD/issues/JUD-009.md",
-        "workflow_status": "Audit needed",
-        "development_level": "Review ready",
-        "next_audit": "Targeted Change Audit and Internal Remedy-Fit Audit"
+        "input": "integrity",
+        "finding": {
+          "id": "warning-0001",
+          "severity": "warning",
+          "category": "Sources and citations",
+          "attention": "agent",
+          "message": "1 cited-catalog source row(s) lack a machine-detectable Markdown citation; reconcile before treating them as confirmed citations (for example: SRC-0227)",
+          "path": ""
+        }
       },
       "recovery": null
     },

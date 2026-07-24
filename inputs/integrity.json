@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T20:18:42+00:00",
-  "revision": "88b70b8a54c7279385a8c83168eef75c278955f8",
-  "result": "clean",
+  "generated_at": "2026-07-24T20:44:48+00:00",
+  "revision": "b7699119c2a26f164e8c117e35799739ba7901a4",
+  "result": "findings",
   "counts": {
     "errors": 0,
-    "warnings": 0,
-    "findings": 0,
+    "warnings": 1,
+    "findings": 1,
     "issue_pages": 64,
     "proposal_pages": 41
   },
-  "duration_seconds": 11.076,
+  "duration_seconds": 12.732,
   "scope": [
     "Issue and proposal structure, including Issue Snapshot concision",
     "Area and topic routing",
@@ -33,5 +33,14 @@
     "Persistent-agent runbooks and runtime configuration",
     "Structured-file and repository hygiene"
   ],
-  "findings": []
+  "findings": [
+    {
+      "id": "warning-0001",
+      "severity": "warning",
+      "category": "Sources and citations",
+      "attention": "agent",
+      "message": "1 cited-catalog source row(s) lack a machine-detectable Markdown citation; reconcile before treating them as confirmed citations (for example: SRC-0227)",
+      "path": ""
+    }
+  ]
 }
