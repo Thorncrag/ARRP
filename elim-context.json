@@ -1,31 +1,31 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T21:03:00+00:00",
-  "repository_revision": "da5e2cdb85c8d1d04a98b4165278c73636ffd2e4",
+  "generated_at": "2026-07-24T21:14:41+00:00",
+  "repository_revision": "14b9bf6e6213905bdbcc07688e42940085f79d63",
   "profile": "issue_audit",
   "manifest": {
     "path": "framework/agents/elim-context-routes.json",
-    "sha256": "9ec39c53899dc7c67b9b7039808a5c4c20739122389a9825c6d1693276a939cc"
+    "sha256": "525a7f3a7f023e98aae48bb9bf56001acd71b0f375ad7c157ffb575cdfa2d2ee"
   },
   "limits": {
     "max_bytes": 220000,
-    "actual_bytes": 189300
+    "actual_bytes": 189895
   },
   "sections": [
     {
       "document": "agent_rules",
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "d5d35e12bdae596cb05ce6ea78697241487e22e64d83971dd857e27df3dedd50",
+      "sha256": "1cfff9292d26467c5810d58a6a8a45a32fb4e7940d0bd6862207158e14ecf168",
       "heading": "## Single-Issue Default",
-      "start_line": 114,
-      "end_line": 142,
+      "start_line": 116,
+      "end_line": 144,
       "bytes": 5771,
       "content": "## Single-Issue Default\n\nIssue-quality audits are single-issue workflows by default. An agent should not audit multiple issues in one pass unless the user expressly requests batch mode or a project-wide Change Audit.\n\nBefore running a T-audit, an agent must identify:\n\n1. the issue ID;\n2. the requested tier or the next tier shown by GitHub Project fields or the issue page;\n3. the issue page;\n4. the linked legislation page or pages;\n5. the sibling audit-history file;\n6. the relevant GitHub Project item;\n7. the relevant `sources.csv` rows;\n8. every `sources.csv` source-development record owned by or cross-referenced to the issue, plus any genuinely unrouted `sources-pending.csv` record listing the issue as one plausible destination;\n9. any unresolved findings from the latest audit; and\n10. whether the issue's parent GitHub issue carries `needs: monitoring`, whether its wrapper states the watched external matter, material relevance, reassessment trigger, and checking method, and every associated source marked `Yes` in the catalogs' `Monitoring` field, including whether a validated watcher covers it and whether its accepted `Monitoring Baseline` is present.\n\nApply the tier-scaled Source Reconciliation rule in the methodology. T0 and T1 may inventory applicable tasks; development and T2-T4 work should resolve applicable tasks through verification, route and remedy-fit review, qualitative reader-facing placement, a documented no-additional-value disposition, or a precise continuing predicate. Update and read back the parent GitHub issue when its `needs: monitoring` state changes. Rebuild the ARRP Project Console whenever candidate data, either canonical source catalog, a source-level `Monitoring` value, an issue-level monitoring label, the presidential-directives registry, watcher configuration, a canonical project log, page-level publication-disposition metadata, or `framework/print-assembly.json` changes. This reconciliation does not create a separate audit run.\n\nA project-wide monitoring pass is a separate non-scoring workflow governed by [`FRAMEWORK.md`](FRAMEWORK.md#project-wide-monitoring-pass). Begin from the GitHub Project Monitoring view, not from the local console. For each labeled proposal or formal candidate, confirm that the parent wrapper identifies the watched external matter, its material relevance to future issue development, the reassessment trigger, and the checking method; review all associated sources in `sources.csv`; actively search for material new developments; and record the dated result on the existing parent issue. A monitored source does not remain pending once its owner is known. Remove `needs: monitoring` when the issue no longer warrants recurring review. Monitoring does not change the ordinary Status, score, or Runs merely because the external matter remains open. Use `Blocked` only if intended work cannot proceed without a concrete indispensable prerequisite, `Deferred` only when the project affirmatively postpones work that could proceed, and `Human decision needed` for a human-reserved choice.\n\nA deterministic monitoring bot may place configured high-recall leads in a marker-bounded section of an existing issue or candidate source-development record when its runbook and configuration expressly authorize that target. Such a lead is an observed routing signal, not a source-catalog admission, verified manifestation, legal conclusion, issue disposition, or substitute for agent review. The bot must label every entry as unreviewed, preserve stable identity and provenance, write only through its reviewed proposal branch, and leave source verification, qualitative placement, analysis, and disposition to Elim, an interactive agent, and the human author as their respective authority allows.\n\nWhen reviewing a presidential-directive discovery batch, accept deterministic metadata and exact-match results only as routing aids. Apply the canonical Issue-Admission Test, the Political-Failure Boundary, duplicate and route-fit checks, and the least-complex-remedy rule; prepare neutral alternative-control analysis; and apply only an already recorded human reversed-control answer before assigning project relevance or recommending a disposition. If that answer is material and missing, route the exact question through `Human decision needed`. Record the result in `presidential-directives.csv`; route any directive actually used or retained as a lead to one stable source-catalog record; and create a preliminary candidate only for a plausible distinct institutional weakness without an existing owner. The validated watcher may propose only authorized deterministic registry metadata through its dedicated, owner-assigned pull request, may verify only whether any required human answer exists, and must record each material event in the Source Monitor Log. It may not perform the substantive review or disposition.\n\nBefore starting substantive audit work, the agent must also check whether the issue has a linked proposed legislation file, constitutional amendment, enabling legislation, rule text, manual text, model act, or other concrete proposal vehicle. If the issue has only the page-content placeholder `Pending development` or otherwise lacks concrete proposal text, stop and notify the user that no proposed legislation or equivalent vehicle exists yet. Ask for confirmation before proceeding, and make clear that the audit will be limited to source development, issue admission, remedy selection, or fixed-zero/candidate review unless the user wants drafting added to the scope. That placeholder is not a Project Status. Do not assign a formula-based Proposal Quality Score until a concrete draft exists.\n\nIf the issue ID is unclear, ask the user before running the audit.\n\n"
     },
     {
       "document": "agent_rules",
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "d5d35e12bdae596cb05ce6ea78697241487e22e64d83971dd857e27df3dedd50",
+      "sha256": "1cfff9292d26467c5810d58a6a8a45a32fb4e7940d0bd6862207158e14ecf168",
       "heading": "## Guiding-Principle Check",
       "start_line": 47,
       "end_line": 60,
@@ -35,7 +35,7 @@
     {
       "document": "elim_runbook",
       "path": "framework/agents/ELIM.md",
-      "sha256": "a6c52c49c3f66adf3eec35b9503552bd367b8ed942c15ce18fde51ab27d3e1a5",
+      "sha256": "b099dc397f9ae708e5124c186005f9001cc2f644f3bf72a60533f72a12ac8952",
       "heading": "## Work Order",
       "start_line": 56,
       "end_line": 70,
@@ -45,7 +45,7 @@
     {
       "document": "elim_runbook",
       "path": "framework/agents/ELIM.md",
-      "sha256": "a6c52c49c3f66adf3eec35b9503552bd367b8ed942c15ce18fde51ab27d3e1a5",
+      "sha256": "b099dc397f9ae708e5124c186005f9001cc2f644f3bf72a60533f72a12ac8952",
       "heading": "## Authority Boundary",
       "start_line": 115,
       "end_line": 122,
@@ -55,27 +55,27 @@
     {
       "document": "elim_runbook",
       "path": "framework/agents/ELIM.md",
-      "sha256": "a6c52c49c3f66adf3eec35b9503552bd367b8ed942c15ce18fde51ab27d3e1a5",
+      "sha256": "b099dc397f9ae708e5124c186005f9001cc2f644f3bf72a60533f72a12ac8952",
       "heading": "## Unit Completion and Closeout",
       "start_line": 123,
-      "end_line": 132,
-      "bytes": 2758,
-      "content": "## Unit Completion and Closeout\n\nEach material unit updates and reads back every affected repository, GitHub Issue, Project, source, Console, and publication surface; runs applicable validation; preserves an intentional commit and rollback path; and appends its ordinary project-wide provenance entry to the shared Agent Audit Log. Detailed T-audit and Change Audit findings remain in the affected issue audit sidecar and synchronized issue, inventory, dashboard, and GitHub records. The shared entry links those records rather than replacing or restating them. Commit, push, authentication, or validation failure stops new work after preservation.\n\nAt closeout, Elim emits the validated structured run result required by the chain and appends exactly one complete run-level report to the [Elim Run Log](../logs/ELIM_RUN_LOG.md), including clean, productive, usage-stopped, blocked, and failed runs. The report lists Chain ID and work-unit IDs; bot-health exceptions and repairs; integrity findings; public-intake comments reviewed; informative replies posted with their direct URLs; recommended or authorized organization and routing actions; duplicate or split recommendations; categorical moderation flags; strictly political no-action dispositions; candidate investigations and their recommended dispositions; human-review questions; Change Audits; every completed tier; ladders paused; score or maturity changes; proposals reaching Review Ready; Review Epoch state; validation; commits and synchronization; blockers; usage-preflight and per-run-budget results; stop reason; and exact next actions. It summarizes and links issue audit histories and shared Agent Audit Log entries without duplicating detailed audit findings. It does not reproduce flagged submission text.\n\nDeterministic rendering may turn immutable structured chain and unit events into the human-readable run report, shared provenance view, and Console. That rendering does not replace the canonical issue audit records or authorize a change. A stale, incomplete, or schema-invalid closeout fails validation and remains visibly incomplete.\n\nAfter the run report and all safely achievable preservation and synchronization are complete, Elim must call the Codex task-archiving tool with `archived: true` and no task identifier so the completed automation task archives itself. This applies to clean, productive, usage-stopped, blocked, and failed invocations. Archiving is reversible interface housekeeping: it must never delete the task, replace the Elim Run Log, conceal a failure, or determine whether the run succeeded. If the archiving tool is unavailable or fails, Elim reports that housekeeping failure in its final task message without disturbing the preserved project closeout.\n\n"
+      "end_line": 134,
+      "bytes": 3353,
+      "content": "## Unit Completion and Closeout\n\nEach material unit updates and reads back every affected repository, GitHub Issue, Project, source, Console, and publication surface; runs applicable validation; preserves an intentional commit and rollback path; and appends its ordinary project-wide provenance entry to the shared Agent Audit Log. Detailed T-audit and Change Audit findings remain in the affected issue audit sidecar and synchronized issue, inventory, dashboard, and GitHub records. The shared entry links those records rather than replacing or restating them. Commit, push, authentication, or validation failure stops new work after preservation.\n\nAt closeout, Elim emits the validated structured run result required by the chain and appends exactly one complete run-level report to the [Elim Run Log](../logs/ELIM_RUN_LOG.md), including clean, productive, usage-stopped, blocked, and failed runs. The report lists Chain ID and work-unit IDs; bot-health exceptions and repairs; integrity findings; public-intake comments reviewed; informative replies posted with their direct URLs; recommended or authorized organization and routing actions; duplicate or split recommendations; categorical moderation flags; strictly political no-action dispositions; candidate investigations and their recommended dispositions; human-review questions; Change Audits; every completed tier; ladders paused; score or maturity changes; proposals reaching Review Ready; Review Epoch state; validation; commits and synchronization; blockers; usage-preflight and per-run-budget results; stop reason; and exact next actions. It summarizes and links issue audit histories and shared Agent Audit Log entries without duplicating detailed audit findings. It does not reproduce flagged submission text.\n\nDeterministic rendering may turn immutable structured chain and unit events into the human-readable run report, shared provenance view, and Console. That rendering does not replace the canonical issue audit records or authorize a change. A stale, incomplete, or schema-invalid closeout fails validation and remains visibly incomplete.\n\nA successfully completed Elim task must leave `CURRENT_AUDIT.md` `Inactive` with its operational fields cleared before the final report. The dispatcher verifies that state only after returning to clean, synchronized `main`; an uncommitted or branch-only cleared copy is not a successful closeout. A usage stop, failure, or other interruption that leaves completion-critical work unfinished must instead leave an exact `Paused` or `Blocked` continuation checkpoint. A separate human-review question already routed to Action Items and the issue workflow does not keep a completed Elim task open.\n\nAfter the run report and all safely achievable preservation and synchronization are complete, Elim must call the Codex task-archiving tool with `archived: true` and no task identifier so the completed automation task archives itself. This applies to clean, productive, usage-stopped, blocked, and failed invocations. Archiving is reversible interface housekeeping: it must never delete the task, replace the Elim Run Log, conceal a failure, or determine whether the run succeeded. If the archiving tool is unavailable or fails, Elim reports that housekeeping failure in its final task message without disturbing the preserved project closeout.\n\n"
     },
     {
       "document": "agent_rules",
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "d5d35e12bdae596cb05ce6ea78697241487e22e64d83971dd857e27df3dedd50",
+      "sha256": "1cfff9292d26467c5810d58a6a8a45a32fb4e7940d0bd6862207158e14ecf168",
       "heading": "## Conservative Scoring",
-      "start_line": 353,
-      "end_line": 362,
+      "start_line": 355,
+      "end_line": 364,
       "bytes": 1056,
       "content": "## Conservative Scoring\n\nAgents should not treat repeated audit runs as proof of quality. Scores increase only when the record improves under the methodology: better sources, better legal fit, clearer drafting, stronger implementation analysis, resolved defects, stronger adoption evidence, or documented external review.\n\nAgents and bots may not change a scoring rubric, formula, component, weight, penalty, threshold, or score band without the recorded human approval and project-level Change Audit required by the Framework. They may never change a scoring rule to engineer a desired issue score or portfolio result.\n\nIncrement the GitHub Project **Runs** field only for a completed, separately recorded T0, T1, T2, T3, or T4 issue-quality audit. Change Audits, Internal Remedy-Fit Audits, Horizon Scans, source-development or drafting passes, formatting checks, predicate checks, validation reruns, and continuation of the same open tier do not count as separate runs.\n\nWhen two reasonable auditors could differ, use the lower score and document why.\n\n"
     },
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Pre-Audit Orientation",
       "start_line": 702,
       "end_line": 715,
@@ -85,7 +85,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Audit Workflow",
       "start_line": 832,
       "end_line": 856,
@@ -95,7 +95,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Formatting Preflight",
       "start_line": 857,
       "end_line": 893,
@@ -105,7 +105,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Audit Depth Tiers",
       "start_line": 920,
       "end_line": 969,
@@ -115,7 +115,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Post-Admission Development Gates",
       "start_line": 455,
       "end_line": 468,
@@ -125,7 +125,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Audit Run Counting Rule",
       "start_line": 894,
       "end_line": 903,
@@ -135,7 +135,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Audit Output",
       "start_line": 1061,
       "end_line": 1098,
@@ -145,7 +145,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Hallucination-Resistance and Verification Protocol",
       "start_line": 1099,
       "end_line": 1133,
@@ -155,7 +155,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Proposal Quality Score",
       "start_line": 1134,
       "end_line": 1201,
@@ -165,7 +165,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### External Review Status and Qualified Reviewers",
       "start_line": 1202,
       "end_line": 1266,
@@ -175,7 +175,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Adoption Score Formula",
       "start_line": 1267,
       "end_line": 1300,
@@ -185,7 +185,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Enactment Pathway Check",
       "start_line": 1301,
       "end_line": 1348,
@@ -195,7 +195,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Score Consistency Rules",
       "start_line": 1421,
       "end_line": 1460,
@@ -205,7 +205,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Support and Adoption Audit",
       "start_line": 1461,
       "end_line": 1485,
@@ -215,7 +215,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Political-Language and Coalition-Appeal Audit",
       "start_line": 1486,
       "end_line": 1512,
@@ -225,7 +225,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Judicial and Scholarly Scrutiny Audit",
       "start_line": 1513,
       "end_line": 1542,
@@ -235,7 +235,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Existing-Law and Prior-Proposal Consistency Audit",
       "start_line": 1543,
       "end_line": 1575,
@@ -245,7 +245,7 @@
     {
       "document": "framework",
       "path": "framework/FRAMEWORK.md",
-      "sha256": "260c8c29012dc028d14b9a188f2c006c79985de534ab27334981b988abe5e3a9",
+      "sha256": "1727afcc6a10d3b646eda934d8b2a20acf819c9d9d57c3e1b50693a9d8042ecb",
       "heading": "### Functional Analogue Search",
       "start_line": 1576,
       "end_line": 1601,
@@ -259,7 +259,7 @@
       "path": "areas/EMERG/issues/EMERG-003.md",
       "sha256": "0cd1b2b6c4815677d8f5f01af6780f75fd490cca472e44d77913e4b7874d7250",
       "bytes": 19936,
-      "modified_at": "2026-07-24T21:02:58+00:00",
+      "modified_at": "2026-07-24T21:14:38+00:00",
       "front_matter": {
         "issue_id": "EMERG-003",
         "area_id": "A-10",
@@ -908,8 +908,8 @@
   },
   "review_epoch": {
     "schema_version": 1,
-    "generated_at": "2026-07-24T21:02:59+00:00",
-    "epoch_id": "epoch-arrp-20260724T210147Z",
+    "generated_at": "2026-07-24T21:14:40+00:00",
+    "epoch_id": "epoch-arrp-20260724T211326Z",
     "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
     "last_completed_at": "2026-07-24T15:40:02+00:00",
     "next_due_at": "2026-08-07T15:40:02+00:00",
