@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: paused
+status: inactive
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Active |
-| Active issue/task | Remaining formal Horizon-candidate adjudications; `HOR-034` admitted as `CIV-010` |
-| Audit type/tier | Horizon Candidate Adjudication; no T-audit run |
+| Status | Inactive |
+| Active issue/task | None; remaining formal Horizon-candidate adjudications are available backlog, not an exclusive active handoff |
+| Audit type/tier | None |
 | Started | 2026-07-23 |
-| Last checkpoint | 2026-07-23; `HOR-034` is fully admitted and synchronized as `CIV-010` in A-08 with an approved four-part foundation, open GitHub issue #254, `Development level: In development`, `Status: Development`, score and Runs 0, and issue-level monitoring. The human author also authorized Elim to post validated, self-identifying informative replies to public submissions and to create or update fully sourced preliminary candidates automatically; formal promotion, admission, rejection, moderation, deletion, private contact, and publication remain human-reserved. |
-| User request | Process the remaining Horizon issues. |
-| Scope | Formal `HOR-###` candidates in the live GitHub Project; candidate issue, Horizon Scan Log entry, source-development record, relevant existing proposals and sources, and approved disposition records for each selected candidate. |
-| Files touched | `areas/CIV/issues/CIV-010.md`; `areas/CIV/issues/CIV-010.audit.md`; `areas/CIV/research/CIV-010-source-development.md`; `areas/CIV/README.md`; `SUBJECT_INDEX.md`; `inventory/github_issue_registry.csv`; `inventory/sources.csv`; `framework/logs/HORIZON_SCAN_LOG.md`; `framework/logs/CURRENT_AUDIT.md`; `framework/INTAKE_AGENT_PROCESS.md`; `framework/PROJECT_STRUCTURE.md`; `framework/agents/ELIM.md`; `participate/README.md`; `participate/SECURITY.md`; `scripts/validate_elim_discussion_reply.py`; `tests/test_elim_discussion_reply.py`; `tests/test_horizon_intake.py`; `tests/test_project_console_progress.py`; generated Console and participation lookup files; prior uncommitted project-consistency and Console work remains in the working tree and must be preserved. |
-| Completed steps | Read governing lifecycle and Horizon-adjudication rules; verified the live queue; confirmed there are no preliminary candidates; reviewed `HOR-034`'s live issue, Horizon record, source-development file, existing ARRP coverage, Privacy Act and matching framework, current manifestations, and prior-proposal analogues; distinguished the lawful statutory exception recognized for qualifying IRS address requests from allegedly noncompliant execution, the SNAP Act's narrower congressionally defined use limits, and general Privacy Act gaps involving systems of records, routine uses, exceptions, matching coverage, and remedies; obtained the human author's approval of the policy principle, transparency requirement, admission into CIV, and cross-cutting Privacy Act/conforming-amendment vehicle; created and synchronized `CIV-010`; converted existing GitHub issue #254 and every controlled Project field; read back the issue and Project; refreshed the 99-record Console board; reconciled the public-intake governance, Elim runbook, participation documentation, security boundary, candidate-creation authority, reply validator, tests, and route index. |
-| Next step | Preserve the completed CIV-010 admission and Elim intake-authority changes through the intentional repository workflow, then continue with the next active unheld Horizon candidate. |
-| Blockers/questions | No substantive admission question remains. The existing validated but uncommitted project-consistency and Console working set must not be overwritten or confused with candidate-adjudication changes. |
-| Validation status | Passed: authenticated Project Consistency Audit (0 errors, 0 warnings); 113 Python tests; 24 participation tests; public-site preparation (137 canonical pages, 1 generated page); focused GitHub issue and Project readback; `git diff --check`. GitHub's noneditable Project list cache still exposes the former HOR title in one top-level field, but the issue content title, registry title, Project content title, canonical-page fallback, lifecycle fields, Console route, and authenticated integrity check all resolve `CIV-010`. |
+| Last checkpoint | 2026-07-23; the prior `HOR-034` / `CIV-010` work and Elim intake authority are merged in `main`. Elim's controlled isolated-worktree launch pilot then passed three official host-context usage checks at Codex 41 percent remaining and Spark 99 percent remaining, consumed 0 percentage points, passed 8 focused tests and `git diff --check`, and preserved only its shared-log entry. |
+| User request | Enable Elim with a protected 15-percent reserve and a 10-percentage-point per-run closeout budget. |
+| Scope | Elim launch configuration, usage gate, pilot record, and activation reconciliation. |
+| Files touched | `framework/agents/ELIM.md`; `framework/agents/README.md`; `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/CURRENT_AUDIT.md`; `scripts/check_codex_usage_reserve.py`; `tests/test_codex_usage_reserve.py`. |
+| Completed steps | Added and validated the first-party Codex usage-reserve gate; merged the implementation; deployed and ran a controlled isolated-worktree pilot; verified fail-closed sandbox behavior and successful approved host-context readings; validated and preserved the pilot log entry; reconciled the runbook and registry for activation. |
+| Next step | No exclusive handoff. Elim may follow its authoritative runbook at the next scheduled run; interactive work may select any eligible backlog item. |
+| Blockers/questions | None. Formal Horizon-candidate dispositions remain human-reserved, but bounded candidate research is available to Elim under the runbook. |
+| Validation status | Pilot passed: three complete and stable official usage readings; Codex 41 percent remaining; Spark 99 percent remaining; 0 percentage points consumed; 8 focused tests; `git diff --check`; isolated worktree clean after commit. Activation reconciliation passed all 131 repository tests, refreshed the Console to include 165 project-log entries, and completed the authenticated Project Consistency Audit with 0 errors and 27 pre-existing Issue Snapshot concision warnings. |
 
 ## Detailed Findings and Corrections
 
