@@ -17,13 +17,13 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Active issue/task | None |
 | Audit type/tier | Elim usage-stopped closeout |
 | Started | 2026-07-24 02:01:45 -0400 |
-| Last checkpoint | 2026-07-24 02:41:00 -0400; DOJ-002 is merged and synchronized, WAR-009 maturity is reconciled, and authenticated consistency is clean. The required post-unit usage check at 02:40 failed closed because the `codex:primary` window reset during the run; no later work unit began. |
+| Last checkpoint | 2026-07-24; DOJ-002 is merged and synchronized, WAR-009 maturity is reconciled, and authenticated consistency is clean. The required 02:40 usage check failed closed on an apparent `codex:primary` reset-time change, so no later work unit began. A post-run diagnostic confirmed that the seven-day window did not actually reset and that the trigger was a transient reset-timestamp inconsistency. |
 | User request | Run Elim in authoritative runbook order with fail-closed usage, validation, synchronization, and closeout controls. |
 | Scope | Unified Console Integrity and Source Checker review; admitted-unscored lifecycle reconciliation; then intake, Change Audits, T-audits, and highest-value eligible development while usage permits. |
 | Files touched | Complete run detail is in `framework/logs/ELIM_RUN_LOG.md`; material provenance is in `framework/logs/AGENT_AUDIT_LOG.md`. |
 | Completed steps | Cleared all Integrity warnings; reconciled admitted-unscored lifecycle state; confirmed no current Source Checker report; reviewed the empty intake queue; completed and merged DOJ-002's targeted revision and remedy-fit review without changing score or Runs; reconciled WAR-009 to its canonically recorded audit-ready maturity; synchronized Project and Console state. |
 | Next step | Start a fresh Elim run with a new baseline and resume before JUD-009's targeted Change Audit and Internal Remedy-Fit Audit. |
-| Blockers/questions | The official usage window changed during the run, which is a mandatory fail-closed stop. Project built-in Title values for renamed issue-backed items remain noneditable through the Project API; live issue identities and canonical links are authoritative. |
+| Blockers/questions | No current Elim blocker. The original exact-match usage gate stopped conservatively on a transient reset-timestamp inconsistency; its replacement tolerates five seconds of jitter and requires two confirmation rechecks for a material change while preserving the absolute 15-percent reserve. Project built-in Title values for renamed issue-backed items remain noneditable through the Project API; live issue identities and canonical links are authoritative. |
 | Validation status | Passed: 131 repository tests; `git diff --check`; authenticated Project Consistency Audit with 0 errors and 0 warnings; merged PR checks; Project field and generated Console readback. |
 
 ## Detailed Findings and Corrections

@@ -18,6 +18,14 @@ This project is not legal advice. Proposed legislation, constitutional amendment
 
 ARRP examines institutional weaknesses that permit public authority to be converted into personal, partisan, or anti-democratic control, or that leave serious institutional damage difficult to detect, correct, or prevent. It uses concrete events to test structural safeguards and proposes prospective remedies intended to apply evenhandedly across parties, officeholders, and political circumstances. It distinguishes remediable institutional defects from disagreements that are fundamentally political and properly left to elections, legislation, and ordinary democratic debate.
 
+## Independence, Substantive Positions, and Political Context
+
+ARRP is independent of political parties and party-neutral in its evidentiary, legal, and remedial standards, but it is not positionless. It reaches and defends substantive judgments about conduct, legal theories, institutional arrangements, and proposed repairs. Applying those standards evenhandedly does not make every conclusion politically neutral in its present implications.
+
+The project's opposition to maximalist unitary executive theory, institutional capture, personalist control, and efforts to make public institutions resistant to legislative or judicial correction has clear present political implications. Because those concerns overlap materially with conduct associated with President Trump, MAGA-aligned actors, and portions of [Project 2025](topics/project-2025.md), a reasonable reader may perceive ARRP as aligned against the present MAGA-aligned Republican coalition. The project acknowledges that perception rather than using `nonpartisan` as a blanket answer. Its responsibility is to distinguish established facts, governing law, disputed interpretations, and its own institutional judgments; explain the basis for those judgments; and apply the same standards if control of the relevant institution is reversed.
+
+ARRP examines President Trump's conduct because of the institutional weaknesses it revealed or exploited—not merely because the project disagrees with a policy or political position. The same standards apply to any officeholder. Project 2025 is considered as a policy, personnel, administrative, and institutional program associated with the MAGA-aligned Republican political coalition, not as a single institutional failure or a body of proposals that ARRP opposes merely because of its partisan source.
+
 ## Authorship
 
 The American Restoration and Resilience Project is authored and directed by Benjamin Smith.

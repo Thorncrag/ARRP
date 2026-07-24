@@ -42,7 +42,7 @@ That order is a strong manifestation because it shows how a single executive def
 
 ### Project 2025 as vulnerability mapping
 
-Project 2025 materials should be treated as a vulnerability map even where a particular recommendation has not been enacted. The relevant question is whether the proposal identifies a legal, administrative, or institutional weak point that ARRP should consider repairing.
+Project 2025 is a policy, personnel, administrative, and institutional program associated with the MAGA-aligned Republican political coalition. Using it as a vulnerability map therefore has politically uneven implications and may reasonably be perceived as partisan. ARRP does not treat every recommendation as an institutional failure or oppose it merely because of its partisan source; the relevant question here is whether a proposal identifies a legal, administrative, or institutional weak point that ARRP should consider repairing.
 
 The existing Project 2025 crosswalk identifies proposals to eliminate DEI and gender-identity protections across agencies and to restrict Title IX gender-identity policies and related guidance as possible civil-rights, factual-integrity, and regulatory-neutrality vulnerabilities. See the [Project 2025 topic guide and crosswalk](../../../topics/project-2025.md) and the official [Heritage Mandate for Leadership Series](https://www.heritage.org/mandate).
 

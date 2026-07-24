@@ -44,6 +44,14 @@ This check does not require false equivalence. When authoritative evidence estab
 
 Do not treat informal language used during discussion as approved reader-facing prose merely because the user used it candidly. Preserve the substance of the concern, explain any neutrality problem, and obtain or reasonably infer approval for the compliant formulation before committing it to the project record.
 
+## Substantive-Position and Partisan-Perception Check
+
+Before finalizing reader-facing prose, distinguish material statements of fact, governing law, disputed interpretation or uncertainty, and ARRP's own institutional analysis or policy position. Do not present a project judgment as though it were a legally or factually compelled conclusion.
+
+When ARRP takes a substantive position, or when a reasonable reader could materially perceive the analysis as aligned with or against a current party, movement, administration, or ideological program, apply the Framework's disclosure rule. State the position candidly, acknowledge its present political alignment or likely partisan perception where material, explain the independent institutional principle supporting it, and confirm that the standard survives reversed party control. Do not use the label `nonpartisan` as a substitute for that explanation.
+
+On a standalone reader-facing page, add a concise qualifier when introductory text first presents President Trump as a central case-study subject or first substantively introduces Project 2025. Do not repeat the qualifier for later references on the same page or attach it mechanically to citations, case names, source titles, quotations, chronology, navigation labels, metadata, or technical records. When the fuller explanation already exists on an owning public page, a short statement with a clear link is sufficient.
+
 ## Research Proportionality
 
 Agents should use a proportionate and reliable method that fully satisfies the assigned task.
