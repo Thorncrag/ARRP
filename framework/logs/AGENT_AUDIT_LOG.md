@@ -1468,3 +1468,27 @@ Prospective template:
 | Push status | Pending reviewed implementation commit and GitHub reconciliation |
 | Rollback notes | Revert the implementation commit; the marker-bounded generated section and associated log entries are removable without altering agent-authored source-development dispositions. |
 | Blockers/skipped checks | None. |
+
+
+### 2026-07-23 — Controlled Elim launch pilot — launch-pilot
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-23T22:13:56-04:00 |
+| Agent | elim |
+| Run ID | elim-launch-pilot-host-retry-20260723T221318-0400-9NrNcZCg |
+| Unit ID | launch-pilot |
+| Trigger | manual-host-context-pilot |
+| Task type | launch-pilot |
+| Outcome | Completed |
+| Issue/task | Controlled Elim launch pilot |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | `framework/logs/AGENT_AUDIT_LOG.md` |
+| Validation | Two official host-context Codex usage-reserve checks using the same baseline; focused unit tests `python3 -m unittest tests.test_codex_usage_reserve tests.test_agent_audit_log`; `git diff --check`; final official host-context Codex usage-reserve check using the same baseline. |
+| Commit | `Record Elim launch pilot` (this pilot commit) |
+| Push status | Preserved in isolated pilot worktree |
+| Rollback notes | Revert the pilot commit to remove this launch-pilot log entry. |
+| Blockers/skipped checks | None. |
