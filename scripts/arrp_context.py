@@ -53,8 +53,6 @@ def contained_path(path: Path, root: Path = ROOT) -> Path:
 def sha256_path(path: Path, root: Path = ROOT) -> str:
     normalized_root = os.path.realpath(os.fspath(root))
     normalized_path = os.path.realpath(os.fspath(path))
-    if normalized_path == normalized_root:
-        return sha256_bytes(Path(normalized_path).read_bytes())
     if normalized_path.startswith(normalized_root + os.sep):
         return sha256_bytes(Path(normalized_path).read_bytes())
     raise ContextError(f"path escapes allowed root: {path}")
@@ -96,8 +94,6 @@ def load_json(path: Path, root: Path = ROOT) -> Any:
     normalized_root = os.path.realpath(os.fspath(root))
     normalized_path = os.path.realpath(os.fspath(path))
     try:
-        if normalized_path == normalized_root:
-            return json.loads(Path(normalized_path).read_text(encoding="utf-8"))
         if normalized_path.startswith(normalized_root + os.sep):
             return json.loads(Path(normalized_path).read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
@@ -108,10 +104,7 @@ def load_json(path: Path, root: Path = ROOT) -> Any:
 def file_provenance(path: Path, root: Path = ROOT) -> dict[str, Any]:
     normalized_root = os.path.realpath(os.fspath(root))
     normalized_path = os.path.realpath(os.fspath(path))
-    if normalized_path == normalized_root:
-        safe_path = Path(normalized_path)
-        stat = safe_path.stat()
-    elif normalized_path.startswith(normalized_root + os.sep):
+    if normalized_path.startswith(normalized_root + os.sep):
         safe_path = Path(normalized_path)
         stat = safe_path.stat()
     else:
@@ -563,10 +556,7 @@ def input_record(
         return {"required": required, "status": "missing", "path": None}
     normalized_root = os.path.realpath(os.fspath(root))
     normalized_path = os.path.realpath(os.fspath(path))
-    if normalized_path == normalized_root:
-        safe_path = Path(normalized_path)
-        exists = safe_path.is_file()
-    elif normalized_path.startswith(normalized_root + os.sep):
+    if normalized_path.startswith(normalized_root + os.sep):
         safe_path = Path(normalized_path)
         exists = safe_path.is_file()
     else:
