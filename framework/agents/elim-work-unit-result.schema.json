@@ -11,15 +11,21 @@
     "work_type",
     "outcome",
     "authority",
+    "issue_id",
     "files_touched",
+    "source_ids",
     "validation",
+    "commit",
+    "synchronization",
+    "human_questions",
     "continuation"
   ],
   "properties": {
-    "schema_version": { "const": 1 },
+    "schema_version": { "type": "integer", "const": 1 },
     "run_id": { "type": "string", "minLength": 1 },
     "unit_id": { "type": "string", "minLength": 1 },
     "work_type": {
+      "type": "string",
       "enum": [
         "integrity",
         "bot_failure",
@@ -31,6 +37,7 @@
       ]
     },
     "outcome": {
+      "type": "string",
       "enum": ["completed", "clean", "blocked", "failed", "human_review", "usage_stopped"]
     },
     "authority": {
@@ -39,6 +46,7 @@
       "required": ["classification", "basis"],
       "properties": {
         "classification": {
+          "type": "string",
           "enum": ["mechanical", "delegated_judgment", "human_reserved"]
         },
         "basis": { "type": "string", "minLength": 1 }
@@ -60,10 +68,13 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["check", "status"],
+        "required": ["check", "status", "detail"],
         "properties": {
           "check": { "type": "string", "minLength": 1 },
-          "status": { "enum": ["passed", "failed", "skipped"] },
+          "status": {
+            "type": "string",
+            "enum": ["passed", "failed", "skipped"]
+          },
           "detail": { "type": "string" }
         }
       }
@@ -76,7 +87,10 @@
       "additionalProperties": false,
       "required": ["state", "next_action"],
       "properties": {
-        "state": { "enum": ["complete", "retryable", "human_required", "none"] },
+        "state": {
+          "type": "string",
+          "enum": ["complete", "retryable", "human_required", "none"]
+        },
         "next_action": { "type": ["string", "null"] }
       }
     }
