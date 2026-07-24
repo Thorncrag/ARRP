@@ -1475,6 +1475,91 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
 /* Agent and bot registry */
 .automation-summary { grid-template-columns: repeat(4, minmax(160px, 1fr)); }
 .automation-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 1rem; }
+.automation-administration,
+.automation-rule-section,
+.automation-change-boundary {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .75rem;
+  background: white;
+}
+.automation-administration .section-heading-row,
+.automation-rule-section .section-heading-row { align-items: center; }
+.automation-administration .section-heading-row h3,
+.automation-rule-section .section-heading-row h3,
+.automation-change-boundary h3 { margin: .18rem 0 .3rem; font-size: 1.15rem; }
+.automation-administration .section-heading-row p,
+.automation-rule-section .section-heading-row p,
+.automation-change-boundary p { max-width: 800px; margin: 0; color: var(--muted); font-size: .84rem; }
+.automation-cascade {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem 1.25rem;
+  margin-top: 1rem;
+}
+.automation-cascade-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: .65rem;
+  min-width: 0;
+  padding: .8rem;
+  border: 1px solid #c7d4e5;
+  border-radius: .65rem;
+  background: linear-gradient(180deg, #f8fbff, #f1f5fa);
+}
+.automation-cascade-step:not(:nth-child(4n))::after {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: -1.1rem;
+  width: 1rem;
+  color: #7b91af;
+  content: "→";
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+  transform: translateY(-50%);
+}
+.automation-step-number {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border-radius: 999px;
+  color: white;
+  background: var(--blue);
+  font-size: .78rem;
+  font-weight: 900;
+}
+.automation-cascade-step .eyebrow { font-size: .58rem; }
+.automation-cascade-step h4,
+.automation-rule-grid h4 { margin: .12rem 0 .35rem; color: var(--ink); font-size: .88rem; line-height: 1.25; }
+.automation-cascade-step p,
+.automation-rule-grid p { margin: 0; color: var(--muted); font-size: .74rem; line-height: 1.48; }
+.automation-cascade-step code { font-size: .7rem; }
+.automation-rule-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .7rem;
+  margin-top: .8rem;
+}
+.automation-rule-grid article {
+  min-width: 0;
+  padding: .8rem;
+  border-left: 4px solid var(--gold);
+  border-radius: .45rem;
+  background: var(--gold-soft);
+}
+.automation-change-boundary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--soft);
+}
+.automation-change-boundary .dossier-actions { flex: 0 0 auto; margin: 0; }
 .automation-chain {
   margin-top: 1rem;
   padding: 1rem;
@@ -1618,6 +1703,9 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
 
 @media (max-width: 850px) {
   .automation-error-alert { align-items: stretch; flex-direction: column; }
+  .automation-cascade { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .automation-cascade-step::after { content: none !important; }
+  .automation-rule-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .workflow-summary { grid-template-columns: 1fr; gap: 1rem; }
   .workflow-summary ol { grid-template-columns: 1fr; }
   .workflow-summary li { border-left: 0; border-top: 1px solid var(--line); padding: .7rem 0; }
@@ -1667,6 +1755,10 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
 }
 
 @media (max-width: 620px) {
+  .automation-cascade,
+  .automation-rule-grid { grid-template-columns: 1fr; }
+  .automation-change-boundary { align-items: stretch; flex-direction: column; }
+  .automation-change-boundary .dossier-actions { flex: 1 1 auto; }
   .app-header { align-items: flex-start; flex-direction: column; padding: 1rem; }
   .brand-mark { display: none; }
   .header-link { font-size: .75rem; }

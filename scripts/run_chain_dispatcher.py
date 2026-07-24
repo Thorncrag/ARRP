@@ -46,8 +46,12 @@ WORKFLOW_NAME = re.compile(r"^[A-Za-z0-9_.-]+\.ya?ml$")
 
 def read_json(path: Path, default: Any = None, root: Path = ROOT) -> Any:
     safe_path = contained_path(path, root)
+    # safe_path has passed the symlink-aware repository-root containment check.
+    # codeql[py/path-injection]
     if not safe_path.is_file():
         return default
+    # safe_path has passed the symlink-aware repository-root containment check.
+    # codeql[py/path-injection]
     return json.loads(safe_path.read_text(encoding="utf-8"))
 
 
@@ -128,6 +132,8 @@ def command(
         raise RuntimeError("attempted to execute a command outside the reviewed allowlist")
     if any(not isinstance(value, str) or "\0" in value for value in argv):
         raise RuntimeError("command contains an invalid argument")
+    # argv[0] is one of the fixed absolute executables above; shell=False is implicit.
+    # codeql[py/command-line-injection]
     return subprocess.run(
         argv,
         cwd=cwd,

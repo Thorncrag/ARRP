@@ -1624,6 +1624,9 @@
     if (parts[0] === "sources" && parts[1]) activateSectionTab("sources", parts[1]);
     if (parts[0] === "logs" && parts[1]) activateSectionTab("logs", parts[1]);
     if (parts[0] === "publication" && parts[1]) activateSectionTab("publication", parts[1]);
+    if (parts[0] === "automation" && ["administration", "workers"].includes(parts[1])) {
+      activateSectionTab("automation", parts[1]);
+    }
     if (parts[0] === "sources" && parts[1] === "watchers" && parts[2]) activateWatcherTab(parts[2]);
     let destination = byId(`panel-${parts[0]}`);
     if (parts[0] === "progress" && parts[1]) {
@@ -1631,8 +1634,17 @@
       if (section?.tagName === "DETAILS") section.open = true;
       if (section) destination = section;
     }
-    if (parts[0] === "automation" && parts[1]) {
+    if (parts[0] === "automation" && parts[1] && !["administration", "workers"].includes(parts[1])) {
+      activateSectionTab("automation", "workers");
       const card = byId(`automation-card-${parts[1]}`);
+      if (card) {
+        destination = card;
+        card.setAttribute("tabindex", "-1");
+        window.setTimeout(() => card.focus({ preventScroll: true }), 350);
+      }
+    }
+    if (parts[0] === "automation" && parts[1] === "workers" && parts[2]) {
+      const card = byId(`automation-card-${parts[2]}`);
       if (card) {
         destination = card;
         card.setAttribute("tabindex", "-1");
@@ -2341,12 +2353,12 @@
       byId("overview-bot-alert-links").replaceChildren(...botFailures.map((stage) => {
         const record = data.agent_registry.find((agent) => agent.id === stage.id);
         const link = element("a", "record-link error-link", `Open ${record?.name || stage.id} →`);
-        link.href = `#automation:${stage.id}`;
+        link.href = `#automation:workers:${stage.id}`;
         link.setAttribute("aria-label", `Open ${record?.name || stage.id} error details on Agents and Bots`);
         link.addEventListener("click", (event) => {
           event.preventDefault();
-          window.history.replaceState(null, "", `#automation:${stage.id}`);
-          navigateToConsoleTarget(`automation:${stage.id}`);
+          window.history.replaceState(null, "", `#automation:workers:${stage.id}`);
+          navigateToConsoleTarget(`automation:workers:${stage.id}`);
         });
         return link;
       }));
@@ -2545,6 +2557,7 @@
     const agents = records.filter((record) => /llm-agent/i.test(record.type)).length;
     const bots = records.filter((record) => /bot/i.test(record.type)).length;
     byId("tab-automation-count").textContent = records.length;
+    byId("automation-workers-count").textContent = records.length;
     byId("automation-summary").replaceChildren(
       integrityMetric("Registered", records.length, "persistent named workers"),
       integrityMetric("Enabled", enabled, "currently enabled runbooks"),
@@ -4026,6 +4039,7 @@
     initializeTabs();
     initializeSectionTabs("candidates", "formal");
     initializeSectionTabs("sources", "catalog");
+    initializeSectionTabs("automation", "administration");
     initializeSectionTabs("logs", "horizon");
     initializeSectionTabs("publication", "assignments");
     initializeWatcherTabs();

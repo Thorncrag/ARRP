@@ -7852,7 +7852,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 476,
+      "word_count": 487,
       "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
@@ -10615,7 +10615,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/horizon-review-console-arrp project console",
       "internal_links": [],
-      "word_count": 2710,
+      "word_count": 2773,
       "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,

@@ -51,6 +51,8 @@ def contained_path(path: Path, root: Path = ROOT) -> Path:
 
 
 def sha256_path(path: Path, root: Path = ROOT) -> str:
+    # contained_path realpath-normalizes both operands and rejects root escape.
+    # codeql[py/path-injection]
     return sha256_bytes(contained_path(path, root).read_bytes())
 
 
@@ -89,6 +91,8 @@ def path_is_excluded(relative: str, exclusions: Iterable[str]) -> bool:
 def load_json(path: Path, root: Path = ROOT) -> Any:
     safe_path = contained_path(path, root)
     try:
+        # safe_path has passed the symlink-aware repository-root containment check.
+        # codeql[py/path-injection]
         return json.loads(safe_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise ContextError(f"cannot read valid JSON from {safe_path}: {exc}") from exc
@@ -96,6 +100,8 @@ def load_json(path: Path, root: Path = ROOT) -> Any:
 
 def file_provenance(path: Path, root: Path = ROOT) -> dict[str, Any]:
     safe_path = contained_path(path, root)
+    # safe_path has passed the symlink-aware repository-root containment check.
+    # codeql[py/path-injection]
     stat = safe_path.stat()
     display = safe_path.relative_to(Path(os.path.realpath(os.fspath(root)))).as_posix()
     return {
@@ -543,6 +549,8 @@ def input_record(
     if path is None:
         return {"required": required, "status": "missing", "path": None}
     safe_path = contained_path(path, root)
+    # safe_path has passed the symlink-aware repository-root containment check.
+    # codeql[py/path-injection]
     if not safe_path.is_file():
         return {"required": required, "status": "missing", "path": str(safe_path)}
     data = load_json(safe_path, root)
