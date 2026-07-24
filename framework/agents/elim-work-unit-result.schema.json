@@ -55,12 +55,10 @@
     "issue_id": { "type": ["string", "null"] },
     "files_touched": {
       "type": "array",
-      "uniqueItems": true,
       "items": { "type": "string", "minLength": 1 }
     },
     "source_ids": {
       "type": "array",
-      "uniqueItems": true,
       "items": { "type": "string", "pattern": "^SRC-[0-9]{4,}$" }
     },
     "validation": {
