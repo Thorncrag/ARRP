@@ -1614,3 +1614,27 @@ Prospective template:
 | Push status | Not pushed; closeout records remain local pending an approved writable Git/GitHub context. |
 | Rollback notes | Remove only these two appended closeout entries and regenerate the Project Console if this failed invocation is proven not to have occurred; do not alter any issue or Review Epoch record because none was created. |
 | Blockers/skipped checks | The required Elim usage-reserve read returned `status: unavailable` after the trusted Codex app-server request timed out against unique path `/private/tmp/arrp-elim-20260724T144804Z.B789Lg/codex-usage-baseline.json`. The comprehensive review, public-intake assessment, issue work, and Review Epoch recording did not begin. Repair or regenerate the context packet under the comprehensive profile and relaunch through an approved host context with a fresh unique usage baseline. |
+
+
+### 2026-07-24 — Comprehensive Review Epoch epoch-arrp-20260724T153028Z — comprehensive-review
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-24T11:41:19-04:00 |
+| Agent | elim |
+| Run ID | arrp-20260724T153028Z |
+| Unit ID | epoch-arrp-20260724T153028Z |
+| Trigger | Run Coordinator chain; biweekly comprehensive Review Epoch due |
+| Task type | comprehensive-review |
+| Outcome | Completed |
+| Issue/task | Comprehensive Review Epoch epoch-arrp-20260724T153028Z |
+| Issue page | N/A |
+| Audit history | [Review Epoch ledger](../../research/review-epochs.jsonl) |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | `research/review-epochs.jsonl`; `framework/logs/CURRENT_AUDIT.md`; `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/ELIM_RUN_LOG.md`; generated Project Console data |
+| Validation | Verified the manifest and five preserved deterministic inputs by hash; authenticated pinned Integrity reported 0 errors and 0 warnings; reviewed eight merged PRs since the epoch boundary and sampled DOJ-001, ELEC-004, FUND-001, JUD-011, and WAR-001; 192 repository tests and 24 participation-service tests passed; Python and JavaScript syntax, public-site preparation, and diff hygiene passed; record_review_epoch.py persisted record sha256:023da6f841402a739f769c25bada8f7ef0f3ec6e4d079664175dc6e8514c3310. |
+| Commit | Temporary preservation branch `codex/elim-review-epoch-20260724T153028Z`, beginning at `ce44f38`; the final structured result reports its latest local-only commit |
+| Push status | Not pushed. The canonical repository Git metadata is read-only in the managed Elim sandbox, sandbox Git cannot resolve `github.com`, and the authenticated GitHub tree-write fallback was canceled. |
+| Rollback notes | Revert the final closeout commit to remove this epoch and its logs; restore the prior .tmp current-epoch projection if required. Do not alter issue scores or Project fields because this review changed none. |
+| Blockers/skipped checks | `git fetch` could not write `.git/FETCH_HEAD`; canonical `git add` could not create `.git/index.lock`; a temporary writable copy of Git metadata created preservation commit `ce44f38`, but its push failed because the sandbox could not resolve `github.com`; the authenticated GitHub connector tree-write fallback returned `user cancelled MCP tool call`. Final branch, pull-request, merge, Actions, and local-main reconciliation require the approved host dispatcher or another writable authenticated host context. |

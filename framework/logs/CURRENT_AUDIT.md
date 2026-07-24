@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: paused
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,12 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | None. |
-| Last closeout | Project-wide script-first automation and Run Coordinator activation completed on 2026-07-24. The serialized GitHub chain, bounded public-intake collection, safe deterministic closeout, Console Automation Administration view, localhost controls, current-failure alerts, local dispatcher, and 15-percent Codex reserve gate were verified. The first full observation pass produced owner-review pull requests for Case Monitor, Presidential Directives, and Source Checker; the later verification chain completed successfully with no pending public intake or integrity findings. The superseded standalone Elim automation is paused. |
-| Exact next action | None. Resume ordinary interactive project work or review the open bot-generated pull requests through the Console. |
-| Blockers/questions | None. |
-| Validation status | 180 repository tests and 24 participation-service tests pass; Python and JavaScript syntax, diff hygiene, localhost Console controls, Console cascade and worker deep links, CodeQL for Actions/Python/JavaScript, Vercel preview and production publication, the authenticated consistency audit (0 errors, 0 warnings), and production chain run 30100820412 all pass. The local usage gate measured 6 percent remaining in the applicable Codex window and correctly prevented Elim from starting below the protected 15-percent reserve. |
+| Status | Paused |
+| Active issue/task | Comprehensive Review Epoch `epoch-arrp-20260724T153028Z` for Run Coordinator chain `arrp-20260724T153028Z`. |
+| Audit type/tier | Comprehensive full-context review |
+| Started | 2026-07-24 11:30:28 -0400 |
+| Last checkpoint | 2026-07-24 11:50:58 -0400 |
+| User request | Verify the completed deterministic chain and preserved inputs, conduct the due comprehensive review, establish the next Review Epoch, and close the run under the host-attested reserve controls. |
+| Scope | Changes since baseline `f74d50318e815eae49b51f7194a324eff957d932`; unresolved exceptions; governing and cross-project invariants; automation health; Project and registry snapshots; and a rotating sample of mature records. |
+| Files touched | `research/review-epochs.jsonl`; `framework/logs/CURRENT_AUDIT.md`; `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/ELIM_RUN_LOG.md`; `research/horizon-review-console/catalog-data.js`; `research/horizon-review-console/data/automation.js`; `research/horizon-review-console/data/logs.js`; `research/horizon-review-console/data/publication.js` |
+| Completed steps | Verified the manifest, repository and remote baseline, comprehensive context routing, every preserved deterministic input and hash, clean integrity output, empty public-intake queue, and fresh passing host usage snapshots. Reviewed the eight automation-focused pull requests since the epoch baseline, passed the cross-project invariant review and five-record mature sample, recorded Review Epoch `epoch-arrp-20260724T153028Z` with the next review due 2026-08-07T15:40:02Z, recorded canonical provenance, and rebuilt derived Console data. |
+| Next step | In the approved writable host context, stage the eight listed closeout files, create or recover branch `codex/elim-review-epoch-20260724T153028Z`, commit the final closeout, push it, open and merge the reviewed pull request, await applicable Actions, synchronize local `main` with `origin/main`, verify a clean worktree, and then clear this handoff to inactive. A temporary local-only preservation branch beginning at `ce44f38` exists under `/tmp/arrp-elim-git.qtxCQH/repo.git`; the canonical working-tree files remain authoritative until host reconciliation. |
+| Blockers/questions | Canonical `.git` is read-only (`FETCH_HEAD` and `index.lock` writes were denied); sandbox Git cannot resolve `github.com`; the authenticated GitHub tree-write fallback was canceled. No substantive or Review Epoch work is blocked, but final Git/GitHub synchronization remains incomplete. |
+| Validation status | Passed. Pinned authenticated Integrity reports 0 errors and 0 warnings; the final local consistency rerun reports 0 errors, with its three unavailable-network warnings covered by the pinned host result. The final 192-test repository suite and 24 participation-service tests, Python and JavaScript syntax, public-site preparation, deterministic Console rebuild, Review Epoch idempotence, and diff hygiene all pass. |
 
 ## Handoff Rules
 
