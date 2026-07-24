@@ -1638,3 +1638,27 @@ Prospective template:
 | Push status | Pushed and reconciled through pull request [#390](https://github.com/Thorncrag/ARRP/pull/390) after required checks passed. |
 | Rollback notes | Revert the final closeout commit to remove this epoch and its logs; restore the prior .tmp current-epoch projection if required. Do not alter issue scores or Project fields because this review changed none. |
 | Blockers/skipped checks | Elim's managed sandbox could not write canonical Git metadata or reach GitHub and its connector fallback was canceled. The approved host session resolved those mechanical closeout limits through pull request [#390](https://github.com/Thorncrag/ARRP/pull/390); no substantive review work was repeated. |
+
+
+### 2026-07-24 — Elim linked-vehicle context provenance repair — bot-failure
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-24T12:18:22-04:00 |
+| Agent | elim |
+| Run ID | arrp-20260724T160209Z |
+| Unit ID | bot-failure-linked-vehicle-context |
+| Trigger | Run Coordinator preflight before queued JUD-009 Change Audit |
+| Task type | bot-failure |
+| Outcome | Completed |
+| Issue/task | Elim linked-vehicle context provenance repair |
+| Issue page | [JUD-009](../../areas/JUD/issues/JUD-009.md) |
+| Audit history | N/A |
+| Proposal page | [JUD-009 legislation](../../legislation/JUD-009.md) |
+| Tier | none |
+| Files changed | `scripts/arrp_context.py`; `tests/test_elim_context.py`; `framework/logs/CURRENT_AUDIT.md`; `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/ELIM_RUN_LOG.md`; generated Project Console data |
+| Validation | Verified all five preserved deterministic inputs plus queue and context hashes; reproduced the missing linked vehicle; added canonical metadata-alias and fail-closed multi-vehicle coverage; rebuilt JUD-009 context with legislation/JUD-009.md hash 14ba0bda81918ac17a26fb13f6cfc81c514da901a5c920e56fe7cc7aa7c59756; 194 repository tests and 24 participation-service tests passed; Python and JavaScript syntax and diff hygiene passed; local consistency found 0 errors, with three network warnings covered by the pinned authenticated 0-warning Integrity input. |
+| Commit | Temporary local-only branch `codex/elim-linked-vehicle-context-repair`, beginning at `35f8f6a`; the final structured result reports its latest preservation commit |
+| Push status | Not pushed; approved host reconciliation required |
+| Rollback notes | Revert the context resolver and its two regression tests, then rebuild the Console. Do not alter JUD-009 because substantive audit work did not begin. |
+| Blockers/skipped checks | Canonical git fetch could not write .git/FETCH_HEAD and canonical git add could not create .git/index.lock. A local-only preservation branch exists under `/tmp/arrp-elim-context-repair.IvKQZx/repo.git`, but it has not been pushed. Per Elim stop rules, JUD-009 substantive work did not begin; the approved host must reconcile this completed bot repair before the queue resumes. |

@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: paused
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,12 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | None. |
-| Last closeout | Production Elim chain `arrp-20260724T153028Z` completed its comprehensive full-context review and recorded Review Epoch `epoch-arrp-20260724T153028Z`. The host session reconciled the sandbox-preserved closeout through [pull request #390](https://github.com/Thorncrag/ARRP/pull/390) after all required CodeQL and Vercel checks passed. The next comprehensive review is due 2026-08-07T15:40:02Z. |
-| Exact next action | None. Resume ordinary interactive project work or review the open bot-generated pull requests through the Console. |
-| Blockers/questions | None. |
-| Validation status | Passed. Pinned authenticated Integrity reports 0 errors and 0 warnings. The final 192-test repository suite and 24 participation-service tests, Python and JavaScript syntax, public-site preparation, deterministic Console rebuild, Review Epoch schema and idempotence, diff hygiene, CodeQL for Actions/Python/JavaScript, and Vercel preview all pass. The host usage monitor closed with 91 percent remaining and 2 percentage points consumed. |
+| Status | Paused |
+| Active issue/task | Run Coordinator chain `arrp-20260724T160209Z`: repair incomplete linked-vehicle provenance in the deterministic Elim context packet before JUD-009's queued Change Audit. |
+| Audit type/tier | Bot-failure repair; queued targeted Change Audit paused before substantive work |
+| Started | 2026-07-24 12:14:18 -0400 |
+| Last checkpoint | 2026-07-24 12:20:45 -0400 |
+| User request | Verify the refreshed chain and process its highest-priority eligible work unit under the host-attested reserve controls. |
+| Scope | `scripts/arrp_context.py`; focused context tests; current chain/context provenance; no JUD-009 substantive change until the deterministic repair is preserved. |
+| Files touched | `scripts/arrp_context.py`; `tests/test_elim_context.py`; `framework/logs/CURRENT_AUDIT.md`; `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/ELIM_RUN_LOG.md`; generated Project Console data pending rebuild |
+| Completed steps | Verified the clean synchronized chain, all preserved deterministic-input hashes, clean Integrity and intake outputs, current Review Epoch state, JUD-009 queue priority, and fresh host usage. Repaired linked-vehicle resolution for every canonical proposal metadata alias, added fail-closed multi-vehicle coverage, rebuilt the JUD-009 packet with `legislation/JUD-009.md`, and passed focused and full validation. Recorded the material repair in the shared Agent Audit Log. |
+| Next step | In the approved writable host context, recover the local-only branch `codex/elim-linked-vehicle-context-repair` from `/tmp/arrp-elim-context-repair.IvKQZx/repo.git` or stage the ten listed working-tree files, push and merge the repair through the reviewed workflow, await applicable Actions, synchronize local `main`, then run a fresh chain so the hash-pinned JUD-009 packet includes its legislation before resuming the queued Change Audit. |
+| Blockers/questions | Canonical `.git` is read-only in the Elim sandbox: `git fetch` could not write `.git/FETCH_HEAD`, and `git add` could not create `.git/index.lock`. Per the Elim stop rule, JUD-009 substantive work did not begin after this preservation failure. |
+| Validation status | Passed for the completed repair. The rebuilt JUD-009 packet includes `legislation/JUD-009.md` at SHA-256 `14ba0bda81918ac17a26fb13f6cfc81c514da901a5c920e56fe7cc7aa7c59756`; 194 repository tests and 24 participation-service tests, Python and JavaScript syntax, and diff hygiene pass. Local consistency reports 0 errors; its three sandbox-network warnings are covered by the pinned authenticated Integrity result with 0 warnings. |
 
 ## Handoff Rules
 

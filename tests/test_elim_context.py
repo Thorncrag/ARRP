@@ -105,6 +105,47 @@ class ExactContextTests(unittest.TestCase):
         self.assertIn("# Vehicle", packet["issue_dossier"]["linked_vehicle"]["content"])
         self.assertLessEqual(packet["limits"]["actual_bytes"], packet["limits"]["max_bytes"])
 
+    def test_context_packet_resolves_canonical_vehicle_metadata_aliases(self):
+        issue = self.root / "areas/TEST/issues/TEST-001.md"
+        for field in (
+            "federal_legislative_proposal",
+            "federal_legislation",
+            "constitutional_proposal",
+            "alternative_legislative_proposal",
+            "proposal_legislation",
+            "enabling_legislation",
+        ):
+            with self.subTest(field=field):
+                issue.write_text(
+                    "---\nissue_id: TEST-001\naudit_history: TEST-001.audit.md\n"
+                    f'{field}: "../../../legislation/TEST-001.md"\n---\n# TEST-001\n',
+                    encoding="utf-8",
+                )
+                packet = build_context_packet(
+                    self.manifest, "issue", root=self.root, issue_id="TEST-001"
+                )
+                self.assertEqual(
+                    packet["issue_dossier"]["linked_vehicle"]["path"],
+                    "legislation/TEST-001.md",
+                )
+
+    def test_context_packet_fails_closed_for_multiple_linked_vehicles(self):
+        issue = self.root / "areas/TEST/issues/TEST-001.md"
+        (self.root / "legislation/TEST-001-alt.md").write_text(
+            "# Alternative Vehicle\n", encoding="utf-8"
+        )
+        issue.write_text(
+            "---\nissue_id: TEST-001\naudit_history: TEST-001.audit.md\n"
+            'legislative_proposal: "../../../legislation/TEST-001.md"\n'
+            'alternative_legislative_proposal: "../../../legislation/TEST-001-alt.md"\n'
+            "---\n# TEST-001\n",
+            encoding="utf-8",
+        )
+        with self.assertRaisesRegex(ContextError, "multiple linked vehicles"):
+            build_context_packet(
+                self.manifest, "issue", root=self.root, issue_id="TEST-001"
+            )
+
     def test_changed_hash_fails_closed(self):
         self.document.write_text(self.document.read_text() + "\nchanged\n", encoding="utf-8")
         with self.assertRaisesRegex(ContextError, "hash changed"):
