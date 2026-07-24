@@ -650,6 +650,22 @@ class GitHubIssueLinkTests(unittest.TestCase):
             invalid_publication,
         )
 
+        below_release_floor = lifecycle_findings(
+            status="Publication approval",
+            **{
+                "development level": "Release candidate",
+                "score": 74,
+                "next audit": "Publication approval",
+            },
+        )
+        self.assertTrue(
+            any(
+                severity == "ERROR" and "below 75" in message
+                for severity, message in below_release_floor
+            ),
+            below_release_floor,
+        )
+
         valid_publication = lifecycle_findings(
             status="Publication approval",
             **{

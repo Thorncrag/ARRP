@@ -15,14 +15,14 @@ This file is the first place to check when an ARRP audit, source-development pas
 | --- | --- |
 | Status | Inactive |
 | Active issue/task | None. |
-| Audit type/tier | None |
-| Started | 2026-07-24 14:55:29 -0400 |
-| Last checkpoint | 2026-07-24 15:06:10 -0400 |
-| User request | Verify the refreshed deterministic chain and process its highest-priority eligible work unit. |
-| Scope | None. The Pages integrity unit is complete. |
+| Audit type/tier | None. |
+| Started | 2026-07-24 15:18:23 -0400 |
+| Last checkpoint | 2026-07-24 16:14:31 -0400 |
+| User request | Implement the approved admission screen, post-admission gates, human-only terminal-disposition and reversed-control rules, and release-candidate standard. |
+| Scope | None. The methodology consolidation is complete. |
 | Files touched | None pending. |
-| Completed steps | Verified the refreshed chain, all preserved artifacts, live Pages state, and usage reserve; repaired and tested the Pages deployment-status grace rule; reran authenticated integrity with 0 errors and 0 warnings; passed the complete validation floor; recorded the material unit; and merged pull request [#396](https://github.com/Thorncrag/ARRP/pull/396) as `fd7cfea` after CodeQL and Vercel passed. No JUD-009 work resumed in this chain because the higher-priority Integrity unit consumed the authorized work-unit scope. |
-| Next step | Start a fresh chain before taking the next queue item. The current Review Epoch remains due 2026-08-07T15:40:02Z. |
+| Completed steps | Consolidated and synchronized the admission test, four development foundations, post-admission gates, human-only authority boundaries, and Release-candidate standard; committed the implementation as `842964e`; opened PR #398; passed 203 repository tests, public-site preparation, all Elim context-route checks, and an authenticated Project consistency audit with 0 errors and 0 warnings; verified that no live Project item currently has `Development level: Release candidate`, so no migration or score rebaseline was required. |
+| Next step | None. |
 | Blockers/questions | None. |
 | Validation status | Passed. |
 
