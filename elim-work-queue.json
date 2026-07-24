@@ -1,12 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T14:31:21+00:00",
-  "repository_revision": "1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07",
-  "ready_for_elim": false,
-  "launch_recommended": false,
-  "problems": [
-    "integrity revision e5305cedc392c62cdb0fcf17d8edfb16e36d7990 differs from chain revision 1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07"
-  ],
+  "generated_at": "2026-07-24T14:36:45+00:00",
+  "repository_revision": "6fcca17ad39c5d6328dd497954aeb1ee22235f30",
+  "ready_for_elim": true,
+  "launch_recommended": true,
+  "problems": [],
   "counts": {
     "total": 55,
     "elim_eligible": 55,
@@ -22,37 +20,37 @@
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/integrity.json",
-      "sha256": "ee8922dec27c546eb9bb6c89d353563f31ac02f89458346a2fde04a943cfe544",
+      "sha256": "98313abb55a31c9fb3b61b1fec41792d4c1c9c92f8c088ccf6cda86db0d20a2d",
       "bytes": 1143,
-      "modified_at": "2026-07-24T14:31:21+00:00",
-      "reported_at": "2026-07-24T14:24:54+00:00"
+      "modified_at": "2026-07-24T14:36:45+00:00",
+      "reported_at": "2026-07-24T14:36:29+00:00"
     },
     "progress": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/progress.json",
-      "sha256": "f0d66e0561ea84380dde30f6c8372915dd8c62bd1808afcb3593d047fd376152",
+      "sha256": "7f8f8eea1adf6737ec9ea9bdfa6cf5d4b5739a48c9bfbd5841603d046b1eb75a",
       "bytes": 161812,
-      "modified_at": "2026-07-24T14:31:21+00:00",
-      "reported_at": "2026-07-24T14:30:31+00:00"
+      "modified_at": "2026-07-24T14:36:45+00:00",
+      "reported_at": "2026-07-24T14:35:45+00:00"
     },
     "intake": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/intake.json",
-      "sha256": "858b0c6e7bc702810d18f54cab87b7efce5b6ab7429f4ebd6f316d5aba0a1a82",
+      "sha256": "432a47dfe0cc142c413a0ac391018cc36bde4bbd51bd436f04c64b3921553c22",
       "bytes": 241,
-      "modified_at": "2026-07-24T14:31:21+00:00",
-      "reported_at": "2026-07-24T14:24:22+00:00"
+      "modified_at": "2026-07-24T14:36:45+00:00",
+      "reported_at": "2026-07-24T14:36:00+00:00"
     },
     "chain": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/arrp-run-chain/run-chain.json",
-      "sha256": "1103ace85fcca4c30472456d5ecaa61e88e326c7af04cbfccb9cd4e2e7988d73",
+      "sha256": "f65f0f962505dd57bdddba3924fc2f358a940c3636d9266e4d20afc6458514cd",
       "bytes": 8000,
-      "modified_at": "2026-07-24T14:31:21+00:00",
-      "reported_at": "2026-07-24T14:31:21+00:00"
+      "modified_at": "2026-07-24T14:36:44+00:00",
+      "reported_at": "2026-07-24T14:36:44+00:00"
     },
     "recovery": {
       "required": false,
@@ -63,24 +61,24 @@
       "required": false,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/review-epoch.json",
-      "sha256": "b14696d70df41e86e1044aa58055db2c18aefb328c204a3785642fa4e75dd566",
+      "sha256": "25b4d021e7cdbf5303a7c474229abbc9dd1038b95a340dac57c4d104982aada2",
       "bytes": 284,
-      "modified_at": "2026-07-24T14:31:21+00:00",
-      "reported_at": "2026-07-24T14:31:21+00:00"
+      "modified_at": "2026-07-24T14:36:45+00:00",
+      "reported_at": "2026-07-24T14:36:44+00:00"
     }
   },
   "revision_evidence": {
-    "chain": "1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07",
-    "integrity": "e5305cedc392c62cdb0fcf17d8edfb16e36d7990"
+    "chain": "6fcca17ad39c5d6328dd497954aeb1ee22235f30",
+    "integrity": "6fcca17ad39c5d6328dd497954aeb1ee22235f30"
   },
   "intake_cursor": {
     "last_processed_id": null,
     "pending_flag": false
   },
   "review_epoch": {
-    "epoch_id": "epoch-arrp-20260724T143014Z",
+    "epoch_id": "epoch-arrp-20260724T143530Z",
     "baseline_revision": "f74d50318e815eae49b51f7194a324eff957d932",
-    "next_due_at": "2026-07-24T14:30:14+00:00",
+    "next_due_at": "2026-07-24T14:35:30+00:00",
     "unresolved_ids": []
   },
   "items": [
@@ -108,7 +106,7 @@
       "recovery": null
     },
     {
-      "id": "COMPREHENSIVE-REVIEW-875989e10bf7",
+      "id": "COMPREHENSIVE-REVIEW-eac2aaaf2d15",
       "kind": "comprehensive_review",
       "title": "Run the due comprehensive consistency review",
       "owner": "agent",
@@ -122,9 +120,9 @@
       "reason": "periodic review boundary is due",
       "source": {
         "input": "review_epoch",
-        "epoch_id": "epoch-arrp-20260724T143014Z",
+        "epoch_id": "epoch-arrp-20260724T143530Z",
         "baseline_revision": "f74d50318e815eae49b51f7194a324eff957d932",
-        "next_due_at": "2026-07-24T14:30:14+00:00",
+        "next_due_at": "2026-07-24T14:35:30+00:00",
         "unresolved_ids": []
       },
       "recovery": null
