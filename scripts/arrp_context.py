@@ -51,8 +51,13 @@ def contained_path(path: Path, root: Path = ROOT) -> Path:
 
 
 def sha256_path(path: Path, root: Path = ROOT) -> str:
-    # contained_path realpath-normalizes both operands and rejects root escape.
-    return sha256_bytes(contained_path(path, root).read_bytes())
+    normalized_root = os.path.realpath(os.fspath(root))
+    normalized_path = os.path.realpath(os.fspath(path))
+    if normalized_path == normalized_root:
+        return sha256_bytes(Path(normalized_path).read_bytes())
+    if normalized_path.startswith(normalized_root + os.sep):
+        return sha256_bytes(Path(normalized_path).read_bytes())
+    raise ContextError(f"path escapes allowed root: {path}")
 
 
 def git_revision(root: Path = ROOT) -> str:
@@ -88,19 +93,30 @@ def path_is_excluded(relative: str, exclusions: Iterable[str]) -> bool:
 
 
 def load_json(path: Path, root: Path = ROOT) -> Any:
-    safe_path = contained_path(path, root)
+    normalized_root = os.path.realpath(os.fspath(root))
+    normalized_path = os.path.realpath(os.fspath(path))
     try:
-        # safe_path has passed the symlink-aware repository-root containment check.
-        return json.loads(safe_path.read_text(encoding="utf-8"))
+        if normalized_path == normalized_root:
+            return json.loads(Path(normalized_path).read_text(encoding="utf-8"))
+        if normalized_path.startswith(normalized_root + os.sep):
+            return json.loads(Path(normalized_path).read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        raise ContextError(f"cannot read valid JSON from {safe_path}: {exc}") from exc
+        raise ContextError(f"cannot read valid JSON from {normalized_path}: {exc}") from exc
+    raise ContextError(f"path escapes allowed root: {path}")
 
 
 def file_provenance(path: Path, root: Path = ROOT) -> dict[str, Any]:
-    safe_path = contained_path(path, root)
-    # safe_path has passed the symlink-aware repository-root containment check.
-    stat = safe_path.stat()
-    display = safe_path.relative_to(Path(os.path.realpath(os.fspath(root)))).as_posix()
+    normalized_root = os.path.realpath(os.fspath(root))
+    normalized_path = os.path.realpath(os.fspath(path))
+    if normalized_path == normalized_root:
+        safe_path = Path(normalized_path)
+        stat = safe_path.stat()
+    elif normalized_path.startswith(normalized_root + os.sep):
+        safe_path = Path(normalized_path)
+        stat = safe_path.stat()
+    else:
+        raise ContextError(f"path escapes allowed root: {path}")
+    display = safe_path.relative_to(Path(normalized_root)).as_posix()
     return {
         "path": display,
         "sha256": sha256_path(safe_path, root),
@@ -545,9 +561,17 @@ def input_record(
 ) -> dict[str, Any]:
     if path is None:
         return {"required": required, "status": "missing", "path": None}
-    safe_path = contained_path(path, root)
-    # safe_path has passed the symlink-aware repository-root containment check.
-    if not safe_path.is_file():
+    normalized_root = os.path.realpath(os.fspath(root))
+    normalized_path = os.path.realpath(os.fspath(path))
+    if normalized_path == normalized_root:
+        safe_path = Path(normalized_path)
+        exists = safe_path.is_file()
+    elif normalized_path.startswith(normalized_root + os.sep):
+        safe_path = Path(normalized_path)
+        exists = safe_path.is_file()
+    else:
+        raise ContextError(f"path escapes allowed root: {path}")
+    if not exists:
         return {"required": required, "status": "missing", "path": str(safe_path)}
     data = load_json(safe_path, root)
     generated = (
