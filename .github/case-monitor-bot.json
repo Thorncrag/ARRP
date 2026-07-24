@@ -96,10 +96,11 @@
     "baseBranch": "main",
     "assignee": "Thorncrag",
     "pullRequestTitle": "Case-monitor source updates",
-    "logPath": "framework/logs/SOURCE_MONITOR_LOG.md"
+    "eventProjection": "project-console-data:run-chain.json"
   },
   "schedule": {
-    "cron": "17 4 * * *",
-    "description": "Daily at approximately midnight Eastern (12:17 a.m. EDT / 11:17 p.m. EST)"
+    "mode": "run-chain",
+    "coordinator": ".github/workflows/run-coordinator-bot.yml",
+    "dueEveryHours": 24
   }
 }

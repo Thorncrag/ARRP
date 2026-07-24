@@ -109,6 +109,7 @@ function discussionCommentBody(submission, submissionId, route) {
     : "Not requested; no address was supplied.";
   return [
     `<!-- ARRP-INTAKE-SUBMISSION:${submissionId} -->`,
+    "<!-- ARRP-INTAKE-ELIGIBLE:1 -->",
     `## ${asSafeHeading(submission.title)}`,
     "",
     asIndentedCode(submission.body),

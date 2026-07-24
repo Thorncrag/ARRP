@@ -4,8 +4,8 @@ agent_id: project-console-progress-bot
 display_name: Project Console Progress Bot
 agent_type: deterministic-bot
 status: enabled
-trigger: schedule-manual-and-config-push
-schedule: "17 10 * * * UTC"
+trigger: run-chain-manual-and-config-push
+schedule: "Due every 24 hours in the Run Coordinator chain; no independent schedule"
 runtime_id: .github/workflows/project-console-progress.yml
 execution_environment: github-actions
 runtime_config: .github/project-console-progress.json
@@ -18,7 +18,12 @@ print_exclusion_reason: "Internal automation configuration."
 
 The Project Console Progress Bot reads the authoritative GitHub Project and issue registry, calculates the configured Review Ready progress metrics and six-stage board, and publishes generated data and bounded history to `project-console-data`. It does not mutate Project fields or substantive records and never edits the generated data branch by hand.
 
-A missing Project credential leaves the scheduled refresh inactive with an explicit notice. Schema, registry, identity, completeness, and publication failures fail closed. Material publication or routed failures use the shared Agent Audit Log; a clean refresh remains in Actions and bounded Console history.
+A missing Project credential fails the due refresh with an explicit notice.
+Schema, registry, identity, completeness, and publication failures fail closed.
+The bot emits immutable structured stage events to the Run Coordinator; accepted
+material provenance is rendered or recorded in the shared Agent Audit Log under
+the common rule. A clean refresh remains in Actions and bounded Console history.
+A configuration push remains an event/recovery trigger, not a second clock.
 
 The JSON manifest and GitHub workflow are deployed projections of this runbook and must match its identity, status, cadence, data branch, and source paths.
 

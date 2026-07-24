@@ -2,17 +2,14 @@ name: Project Console Progress Bot
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 10 * * *"
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/project-console-progress.json"
-      - ".github/progress-history-seed.json"
-      - ".github/workflows/project-console-progress.yml"
-      - "scripts/build_project_console_progress.py"
-      - "scripts/publish_project_console_progress.py"
+  workflow_call:
+    outputs:
+      work_count:
+        description: Progress tracking warnings requiring review.
+        value: ${{ jobs.refresh.outputs.work_count }}
+      output_hash:
+        description: SHA-256 of the generated progress projection.
+        value: ${{ jobs.refresh.outputs.output_hash }}
 
 concurrency:
   group: project-console-progress
@@ -20,6 +17,9 @@ concurrency:
 
 jobs:
   refresh:
+    outputs:
+      work_count: ${{ steps.chain-result.outputs.work_count }}
+      output_hash: ${{ steps.chain-result.outputs.output_hash }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -64,3 +64,24 @@ jobs:
           --repository Thorncrag/ARRP
           --branch project-console-data
           --vercel-config participate/vercel.json
+
+      - name: Expose run-chain result
+        id: chain-result
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          report = Path(os.environ["RUNNER_TEMP"]) / "arrp-project-console-progress" / "progress.json"
+          count = 0
+          digest = ""
+          if report.is_file():
+              payload = json.loads(report.read_text())
+              for key in ("warnings", "trackingWarnings", "tracking_warnings"):
+                  value = payload.get(key)
+                  if isinstance(value, list):
+                      count += len(value)
+              digest = "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest()
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a") as output:
+              output.write(f"work_count={count}\noutput_hash={digest}\n")
+          PY

@@ -1,0 +1,510 @@
+name: ARRP Run Coordinator Bot
+
+on:
+  workflow_dispatch:
+    inputs:
+      intake_pending:
+        description: Record that at least one public submission awaits review.
+        required: false
+        default: false
+        type: boolean
+      force_comprehensive_review:
+        description: Mark the next Elim unit as an intensive comprehensive review.
+        required: false
+        default: false
+        type: boolean
+      force_all_stages:
+        description: Run every deterministic stage regardless of its last success.
+        required: false
+        default: false
+        type: boolean
+  repository_dispatch:
+    types:
+      - arrp-public-submission
+      - arrp-run-chain
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "17 4 * * *"
+
+concurrency:
+  group: arrp-run-chain
+  cancel-in-progress: false
+
+permissions:
+  actions: read
+  contents: write
+  discussions: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      chain_id: ${{ steps.plan.outputs.chain_id }}
+      case_due: ${{ steps.plan.outputs.case_monitor_bot_due }}
+      directives_due: ${{ steps.plan.outputs.presidential_directives_bot_due }}
+      source_due: ${{ steps.plan.outputs.source_checker_bot_due }}
+      progress_due: ${{ steps.plan.outputs.project_console_progress_bot_due }}
+      intake_due: ${{ steps.plan.outputs.public_intake_due }}
+      integrity_due: ${{ steps.plan.outputs.project_integrity_bot_due }}
+      comprehensive_due: ${{ steps.plan.outputs.comprehensive_due }}
+    steps:
+      - name: Check out the canonical repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Retrieve the previous run-chain boundary
+        continue-on-error: true
+        run: >-
+          curl --fail --silent --show-error
+          --output "${RUNNER_TEMP}/previous-run-chain.json"
+          "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/run-chain.json"
+
+      - name: Build deterministic chain signals
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
+          INPUT_INTAKE: ${{ inputs.intake_pending }}
+          INPUT_COMPREHENSIVE: ${{ inputs.force_comprehensive_review }}
+          INPUT_FORCE_ALL: ${{ inputs.force_all_stages }}
+          CLIENT_INTAKE: ${{ github.event.client_payload.intake_pending }}
+          CLIENT_COMPREHENSIVE: ${{ github.event.client_payload.force_comprehensive_review }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          truth = {"1", "true", "yes", "on"}
+          enabled = lambda name: str(os.environ.get(name, "")).casefold() in truth
+          force = []
+          if enabled("INPUT_FORCE_ALL"):
+              force = [
+                  "case-monitor-bot",
+                  "presidential-directives-bot",
+                  "source-checker-bot",
+                  "project-console-progress-bot",
+                  "project-integrity-bot",
+              ]
+          elif os.environ.get("EVENT_NAME") == "push":
+              force = [
+                  "project-console-progress-bot",
+                  "project-integrity-bot",
+              ]
+          payload = {
+              "intake_pending": (
+                  os.environ.get("EVENT_NAME") == "repository_dispatch"
+                  and (
+                      enabled("CLIENT_INTAKE")
+                      or os.environ.get("EVENT_ACTION") == "arrp-public-submission"
+                  )
+              ) or enabled("INPUT_INTAKE"),
+              "force_comprehensive_review": enabled("INPUT_COMPREHENSIVE") or enabled("CLIENT_COMPREHENSIVE"),
+              "force_stages": force,
+          }
+          ledger = Path("research/review-epochs.jsonl")
+          if ledger.is_file():
+              rows = [line for line in ledger.read_text().splitlines() if line.strip()]
+              if rows:
+                  epoch = json.loads(rows[-1])
+                  payload.update({
+                      "comprehensive_review_completed_at": epoch["completed_at"],
+                      "comprehensive_review_next_due_at": epoch["next_due_at"],
+                      "comprehensive_review_boundary_commit": epoch["completion_commit"],
+                      "comprehensive_review_epoch_id": epoch["epoch_id"],
+                      "comprehensive_review_stability_status": epoch["stability_status"],
+                  })
+          Path(os.environ["RUNNER_TEMP"], "run-chain-signals.json").write_text(
+              json.dumps(payload, indent=2) + "\n"
+          )
+          PY
+
+      - name: Plan the run chain and acquire the workflow lock
+        id: plan
+        run: >-
+          python3 scripts/run_coordinator.py plan
+          --config .github/run-coordinator-bot.json
+          --previous "${RUNNER_TEMP}/previous-run-chain.json"
+          --signals "${RUNNER_TEMP}/run-chain-signals.json"
+          --output "${RUNNER_TEMP}/run-chain.json"
+          --github-output "${GITHUB_OUTPUT}"
+          --run-id "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          --trigger "${{ github.event_name }}"
+
+      - name: Preserve the planned manifest
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: run-chain-plan
+          path: ${{ runner.temp }}/run-chain.json
+          retention-days: 30
+
+  case:
+    needs: plan
+    if: needs.plan.outputs.case_due == 'true'
+    uses: ./.github/workflows/case-monitor-bot.yml
+    secrets: inherit
+
+  case_retry:
+    needs: [plan, case]
+    if: always() && needs.plan.outputs.case_due == 'true' && needs.case.result == 'failure'
+    uses: ./.github/workflows/case-monitor-bot.yml
+    secrets: inherit
+
+  directives:
+    needs: [plan, case, case_retry]
+    if: always() && needs.plan.result == 'success' && needs.plan.outputs.directives_due == 'true'
+    uses: ./.github/workflows/presidential-directives-bot.yml
+    secrets: inherit
+
+  directives_retry:
+    needs: [plan, directives]
+    if: always() && needs.plan.outputs.directives_due == 'true' && needs.directives.result == 'failure'
+    uses: ./.github/workflows/presidential-directives-bot.yml
+    secrets: inherit
+
+  source:
+    needs: [plan, directives, directives_retry]
+    if: always() && needs.plan.result == 'success' && needs.plan.outputs.source_due == 'true'
+    uses: ./.github/workflows/source-checker-bot.yml
+    secrets: inherit
+
+  source_retry:
+    needs: [plan, source]
+    if: always() && needs.plan.outputs.source_due == 'true' && needs.source.result == 'failure'
+    uses: ./.github/workflows/source-checker-bot.yml
+    secrets: inherit
+
+  progress:
+    needs: [plan, source, source_retry]
+    if: always() && needs.plan.result == 'success' && needs.plan.outputs.progress_due == 'true'
+    uses: ./.github/workflows/project-console-progress.yml
+    secrets: inherit
+
+  progress_retry:
+    needs: [plan, progress]
+    if: always() && needs.plan.outputs.progress_due == 'true' && needs.progress.result == 'failure'
+    uses: ./.github/workflows/project-console-progress.yml
+    secrets: inherit
+
+  intake:
+    needs: [plan, progress, progress_retry]
+    if: always() && needs.plan.result == 'success' && needs.plan.outputs.intake_due == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      work_count: ${{ steps.result.outputs.work_count }}
+      output_hash: ${{ steps.result.outputs.output_hash }}
+    steps:
+      - name: Check out the canonical repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - name: Retrieve the prior bounded intake cursor
+        continue-on-error: true
+        run: >-
+          curl --fail --silent --show-error
+          --output "${RUNNER_TEMP}/prior-intake.json"
+          "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/intake.json"
+      - name: Collect privacy-minimized intake events
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          python3 scripts/collect_public_intake.py
+          --prior "${RUNNER_TEMP}/prior-intake.json"
+          --ledger research/intake-action-ledger.jsonl
+          --review-ledger research/intake-review-ledger.jsonl
+          --output "${RUNNER_TEMP}/arrp-intake/intake.json"
+      - name: Publish the bounded intake signal
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python3 scripts/publish_project_console_progress.py
+          --source "${RUNNER_TEMP}/arrp-intake"
+          --repository Thorncrag/ARRP
+          --branch project-console-data
+          --vercel-config participate/vercel.json
+      - name: Expose intake result
+        id: result
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          report = Path(os.environ["RUNNER_TEMP"]) / "arrp-intake" / "intake.json"
+          count = 0
+          digest = ""
+          if report.is_file():
+              payload = json.loads(report.read_text())
+              count = int((payload.get("counts") or {}).get("pending", 0))
+              digest = "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest()
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a") as output:
+              output.write(f"work_count={count}\noutput_hash={digest}\n")
+          PY
+
+  integrity:
+    needs: [plan, intake]
+    if: always() && needs.plan.result == 'success' && needs.plan.outputs.integrity_due == 'true'
+    uses: ./.github/workflows/project-integrity.yml
+    secrets: inherit
+
+  integrity_retry:
+    needs: [plan, integrity]
+    if: always() && needs.plan.outputs.integrity_due == 'true' && needs.integrity.result == 'failure'
+    uses: ./.github/workflows/project-integrity.yml
+    secrets: inherit
+
+  close:
+    needs:
+      - plan
+      - case
+      - case_retry
+      - directives
+      - directives_retry
+      - source
+      - source_retry
+      - progress
+      - progress_retry
+      - intake
+      - integrity
+      - integrity_retry
+    if: always() && needs.plan.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the canonical repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Retrieve the planned manifest
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v8.0.1
+        with:
+          name: run-chain-plan
+          path: ${{ runner.temp }}/run-chain-plan
+
+      - name: Compile stage results
+        env:
+          CASE_DUE: ${{ needs.plan.outputs.case_due }}
+          CASE_RESULT: ${{ needs.case.result }}
+          CASE_RETRY_RESULT: ${{ needs.case_retry.result }}
+          CASE_COUNT: ${{ needs.case.outputs.work_count }}
+          CASE_RETRY_COUNT: ${{ needs.case_retry.outputs.work_count }}
+          CASE_HASH: ${{ needs.case.outputs.output_hash }}
+          CASE_RETRY_HASH: ${{ needs.case_retry.outputs.output_hash }}
+          DIRECTIVES_DUE: ${{ needs.plan.outputs.directives_due }}
+          DIRECTIVES_RESULT: ${{ needs.directives.result }}
+          DIRECTIVES_RETRY_RESULT: ${{ needs.directives_retry.result }}
+          DIRECTIVES_COUNT: ${{ needs.directives.outputs.work_count }}
+          DIRECTIVES_RETRY_COUNT: ${{ needs.directives_retry.outputs.work_count }}
+          DIRECTIVES_HASH: ${{ needs.directives.outputs.output_hash }}
+          DIRECTIVES_RETRY_HASH: ${{ needs.directives_retry.outputs.output_hash }}
+          SOURCE_DUE: ${{ needs.plan.outputs.source_due }}
+          SOURCE_RESULT: ${{ needs.source.result }}
+          SOURCE_RETRY_RESULT: ${{ needs.source_retry.result }}
+          SOURCE_COUNT: ${{ needs.source.outputs.work_count }}
+          SOURCE_RETRY_COUNT: ${{ needs.source_retry.outputs.work_count }}
+          SOURCE_HASH: ${{ needs.source.outputs.output_hash }}
+          SOURCE_RETRY_HASH: ${{ needs.source_retry.outputs.output_hash }}
+          PROGRESS_DUE: ${{ needs.plan.outputs.progress_due }}
+          PROGRESS_RESULT: ${{ needs.progress.result }}
+          PROGRESS_RETRY_RESULT: ${{ needs.progress_retry.result }}
+          PROGRESS_COUNT: ${{ needs.progress.outputs.work_count }}
+          PROGRESS_RETRY_COUNT: ${{ needs.progress_retry.outputs.work_count }}
+          PROGRESS_HASH: ${{ needs.progress.outputs.output_hash }}
+          PROGRESS_RETRY_HASH: ${{ needs.progress_retry.outputs.output_hash }}
+          INTAKE_DUE: ${{ needs.plan.outputs.intake_due }}
+          INTAKE_RESULT: ${{ needs.intake.result }}
+          INTAKE_COUNT: ${{ needs.intake.outputs.work_count }}
+          INTAKE_HASH: ${{ needs.intake.outputs.output_hash }}
+          INTEGRITY_DUE: ${{ needs.plan.outputs.integrity_due }}
+          INTEGRITY_RESULT: ${{ needs.integrity.result }}
+          INTEGRITY_RETRY_RESULT: ${{ needs.integrity_retry.result }}
+          INTEGRITY_COUNT: ${{ needs.integrity.outputs.work_count }}
+          INTEGRITY_RETRY_COUNT: ${{ needs.integrity_retry.outputs.work_count }}
+          INTEGRITY_HASH: ${{ needs.integrity.outputs.output_hash }}
+          INTEGRITY_RETRY_HASH: ${{ needs.integrity_retry.outputs.output_hash }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          def stage(prefix):
+              if os.environ.get(prefix + "_DUE") != "true":
+                  return None
+              first = os.environ.get(prefix + "_RESULT", "skipped")
+              retry = os.environ.get(prefix + "_RETRY_RESULT", "skipped")
+              use_retry = retry not in {"", "skipped"}
+              result = retry if use_retry else first
+              count = os.environ.get(prefix + ("_RETRY_COUNT" if use_retry else "_COUNT"), "0")
+              digest = os.environ.get(prefix + ("_RETRY_HASH" if use_retry else "_HASH"), "")
+              return {
+                  "result": result,
+                  "work_count": int(count or 0),
+                  "output_hash": digest,
+                  "retried": use_retry,
+                  "first_result": first,
+                  "details": (
+                      f"retry after {first}: {retry}" if use_retry else first
+                  ),
+              }
+          payload = {
+              "case-monitor-bot": stage("CASE"),
+              "presidential-directives-bot": stage("DIRECTIVES"),
+              "source-checker-bot": stage("SOURCE"),
+              "project-console-progress-bot": stage("PROGRESS"),
+              "project-integrity-bot": stage("INTEGRITY"),
+              "public-intake": stage("INTAKE"),
+          }
+          payload = {key: value for key, value in payload.items() if value is not None}
+          Path(os.environ["RUNNER_TEMP"], "stage-results.json").write_text(
+              json.dumps(payload, indent=2) + "\n"
+          )
+          PY
+
+      - name: Finalize without launching Codex
+        run: >-
+          python3 scripts/run_coordinator.py finalize
+          --manifest "${RUNNER_TEMP}/run-chain-plan/run-chain.json"
+          --stage-results "${RUNNER_TEMP}/stage-results.json"
+          --output "${RUNNER_TEMP}/arrp-run-chain/run-chain.json"
+
+      - name: Retrieve current deterministic queue inputs
+        run: |
+          mkdir -p "${RUNNER_TEMP}/elim-inputs"
+          for name in integrity progress intake; do
+            curl --fail --silent --show-error \
+              --output "${RUNNER_TEMP}/elim-inputs/${name}.json" \
+              "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/${name}.json"
+          done
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          inputs = Path(os.environ["RUNNER_TEMP"], "elim-inputs")
+          integrity_path = inputs / "integrity.json"
+          integrity_feed = json.loads(integrity_path.read_text())
+          if isinstance(integrity_feed.get("current"), dict):
+              integrity_path.write_text(
+                  json.dumps(integrity_feed["current"], indent=2) + "\n"
+              )
+          chain = json.loads(
+              Path(os.environ["RUNNER_TEMP"], "arrp-run-chain", "run-chain.json").read_text()
+          )
+          epoch = {
+              "schema_version": 1,
+              "generated_at": chain["completed_at"],
+              "epoch_id": "epoch-" + chain["chain_id"],
+              "baseline_revision": chain.get("review_epoch", {}).get("boundary_commit"),
+              "last_completed_at": chain.get("review_epoch", {}).get("last_completed_at"),
+              "next_due_at": chain.get("review_epoch", {}).get("next_due_at"),
+              "unresolved_ids": [],
+          }
+          (inputs / "review-epoch.json").write_text(
+              json.dumps(epoch, indent=2) + "\n"
+          )
+          PY
+
+      - name: Compile the bounded Elim work queue
+        run: |
+          set +e
+          python3 scripts/build_elim_work_queue.py \
+            --integrity "${RUNNER_TEMP}/elim-inputs/integrity.json" \
+            --progress "${RUNNER_TEMP}/elim-inputs/progress.json" \
+            --intake "${RUNNER_TEMP}/elim-inputs/intake.json" \
+            --chain "${RUNNER_TEMP}/arrp-run-chain/run-chain.json" \
+            --review-epoch "${RUNNER_TEMP}/elim-inputs/review-epoch.json" \
+            > "${RUNNER_TEMP}/arrp-run-chain/elim-work-queue.json"
+          status=$?
+          set -e
+          if [ "${status}" -ne 0 ] && [ "${status}" -ne 3 ]; then
+            exit "${status}"
+          fi
+
+      - name: Build the bounded context packet
+        id: context
+        run: |
+          readarray -t route < <(python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          queue = json.loads(
+              Path(os.environ["RUNNER_TEMP"], "arrp-run-chain", "elim-work-queue.json").read_text()
+          )
+          item = next((item for item in queue.get("items", []) if item.get("eligible_for_elim")), None)
+          if not item:
+              print("")
+              print("")
+          else:
+              profiles = {
+                  "bot_failure": "integrity_reconciliation",
+                  "integrity": "integrity_reconciliation",
+                  "public_intake": "public_intake",
+                  "change_audit": "change_audit",
+                  "issue_audit": "issue_audit",
+                  "issue_development": "issue_development",
+                  "comprehensive_review": "comprehensive_review",
+              }
+              print(profiles[item["kind"]])
+              print((item.get("source") or {}).get("identifier") or "")
+          PY
+          )
+          profile="${route[0]}"
+          issue="${route[1]}"
+          if [ -z "${profile}" ]; then
+            echo "path=" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+          args=(
+            --profile "${profile}"
+            --review-epoch "${RUNNER_TEMP}/elim-inputs/review-epoch.json"
+          )
+          if [ -n "${issue}" ]; then
+            args+=(--issue "${issue}")
+          fi
+          python3 scripts/build_elim_context.py "${args[@]}" \
+            > "${RUNNER_TEMP}/arrp-run-chain/elim-context.json"
+          echo "path=${RUNNER_TEMP}/arrp-run-chain/elim-context.json" >> "${GITHUB_OUTPUT}"
+
+      - name: Attach queue and packet provenance
+        run: |
+          args=(
+            attach-context
+            --manifest "${RUNNER_TEMP}/arrp-run-chain/run-chain.json"
+            --queue "${RUNNER_TEMP}/arrp-run-chain/elim-work-queue.json"
+          )
+          if [ -n "${{ steps.context.outputs.path }}" ]; then
+            args+=(--context "${{ steps.context.outputs.path }}")
+          fi
+          python3 scripts/run_coordinator.py "${args[@]}"
+
+      - name: Publish current run-chain projection
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python3 scripts/publish_project_console_progress.py
+          --source "${RUNNER_TEMP}/arrp-run-chain"
+          --repository Thorncrag/ARRP
+          --branch project-console-data
+          --vercel-config participate/vercel.json
+
+      - name: Preserve the completed manifest
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: run-chain-manifest
+          path: ${{ runner.temp }}/arrp-run-chain
+          retention-days: 30
+
+      - name: Summarize the chain
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          data = json.loads(
+              Path(os.environ["RUNNER_TEMP"], "arrp-run-chain", "run-chain.json").read_text()
+          )
+          rows = "\n".join(
+              f"| {stage['order']} | {stage['id']} | {'yes' if stage['due'] else 'no'} | {stage['status']} | {stage.get('work_count', 0)} |"
+              for stage in data["stages"]
+          )
+          text = (
+              f"## ARRP run chain `{data['chain_id']}`\n\n"
+              f"Status: **{data['status']}**  \n"
+              f"Elim decision: **{data['elim_decision']['reason']}**\n\n"
+              "| # | Stage | Due | Status | Work |\n|---:|---|---|---|---:|\n"
+              + rows + "\n"
+          )
+          Path(os.environ["GITHUB_STEP_SUMMARY"]).write_text(text)
+          PY

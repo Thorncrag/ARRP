@@ -2,12 +2,14 @@ name: Project Integrity Bot
 
 on:
   workflow_dispatch:
-  schedule:
-    # Daily at 1:35 a.m. EDT / 12:35 a.m. EST.
-    - cron: "35 5 * * *"
-  push:
-    branches:
-      - main
+  workflow_call:
+    outputs:
+      work_count:
+        description: Integrity findings requiring review.
+        value: ${{ jobs.inspect.outputs.work_count }}
+      output_hash:
+        description: SHA-256 of the structured integrity report.
+        value: ${{ jobs.inspect.outputs.output_hash }}
 
 concurrency:
   group: project-integrity
@@ -15,6 +17,9 @@ concurrency:
 
 jobs:
   inspect:
+    outputs:
+      work_count: ${{ steps.chain-result.outputs.work_count }}
+      output_hash: ${{ steps.chain-result.outputs.output_hash }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -36,6 +41,7 @@ jobs:
         run: python3 -m pip install PyYAML==6.0.3
 
       - name: Run the project integrity checks
+        id: integrity
         env:
           GH_TOKEN: ${{ secrets.ARRP_PROJECT_TOKEN }}
         run: >-
@@ -69,20 +75,11 @@ jobs:
             echo "The current integrity report is unchanged."
             exit 0
           fi
-          python3 scripts/append_agent_audit_log.py \
-            --agent project-integrity-bot \
-            --run-id "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            --trigger "${{ github.event_name }}" --task-type Integrity --outcome "Routed for human review" \
-            --issue-task "Current project integrity findings" \
-            --files-changed '`framework/logs/PROJECT_INTEGRITY_REPORT.md`; `framework/logs/AGENT_AUDIT_LOG.md`' \
-            --validation "Deterministic repository, GitHub Issue, and Project checks completed." \
-            --push-status "Proposed on bot/project-integrity-report" \
-            --rollback-notes "Close the report pull request or revert its merge commit."
           branch="bot/project-integrity-report"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$branch"
-          git add framework/logs/PROJECT_INTEGRITY_REPORT.md framework/logs/AGENT_AUDIT_LOG.md
+          git add framework/logs/PROJECT_INTEGRITY_REPORT.md
           git commit -m "Refresh current project integrity report"
           gh auth setup-git
           git fetch origin "$branch:refs/remotes/origin/$branch" || true
@@ -98,3 +95,21 @@ jobs:
       - name: Summarize the run
         run: |
           python3 -c 'import json, os, pathlib; p=json.load(open(os.environ["RUNNER_TEMP"]+"/integrity-report.json")); c=p["counts"]; s=os.environ["GITHUB_STEP_SUMMARY"]; pathlib.Path(s).write_text("## ARRP project integrity\n\nResult: **{}**  \nErrors: **{}** · Warnings: **{}** · Findings: **{}**  \nChecked {} issue pages and {} proposal pages.\n".format(p["result"], c["errors"], c["warnings"], c["findings"], c["issue_pages"], c["proposal_pages"]), encoding="utf-8")'
+
+      - name: Expose run-chain result
+        id: chain-result
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          report = Path(os.environ["RUNNER_TEMP"]) / "integrity-report.json"
+          count = 0
+          digest = ""
+          if report.is_file():
+              payload = json.loads(report.read_text())
+              count = int((payload.get("counts") or {}).get("findings", 0))
+              digest = "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest()
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a") as output:
+              output.write(f"work_count={count}\noutput_hash={digest}\n")
+          PY

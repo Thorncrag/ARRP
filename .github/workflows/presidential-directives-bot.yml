@@ -2,9 +2,14 @@ name: Presidential Directives Bot
 
 on:
   workflow_dispatch:
-  schedule:
-    # Approximately midnight America/New_York year-round (00:27 EDT / 23:27 EST).
-    - cron: "27 4 * * *"
+  workflow_call:
+    outputs:
+      work_count:
+        description: New or changed directives requiring screening.
+        value: ${{ jobs.compare.outputs.work_count }}
+      output_hash:
+        description: SHA-256 of the structured directive report.
+        value: ${{ jobs.compare.outputs.output_hash }}
 
 concurrency:
   group: arrp-presidential-directives-bot
@@ -17,6 +22,9 @@ permissions:
 
 jobs:
   compare:
+    outputs:
+      work_count: ${{ steps.chain-result.outputs.work_count }}
+      output_hash: ${{ steps.chain-result.outputs.output_hash }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -42,7 +50,6 @@ jobs:
           with Path(os.environ["GITHUB_ENV"]).open("a", encoding="utf-8") as output:
               output.write(f"BOT_BRANCH={automation['branch']}\n")
               output.write(f"ASSIGNEE={automation['assignee']}\n")
-              output.write(f"MONITOR_LOG={automation['logPath']}\n")
           PY
 
       - name: Prepare the persistent watcher branch
@@ -65,7 +72,7 @@ jobs:
         run: >-
           python scripts/check_presidential_directives.py
           --apply
-          --log "${MONITOR_LOG}"
+          --log "${RUNNER_TEMP}/presidential-directives-event.md"
           --run-url "${RUN_URL}"
           --summary "${RUNNER_TEMP}/directives-summary.md"
           --report-json "${RUNNER_TEMP}/directives-report.json"
@@ -85,8 +92,6 @@ jobs:
           import subprocess
           allowed = {
               "inventory/presidential-directives.csv",
-              "framework/logs/SOURCE_MONITOR_LOG.md",
-              "framework/logs/AGENT_AUDIT_LOG.md",
           }
           changed = {
               line[3:]
@@ -102,33 +107,19 @@ jobs:
               raise SystemExit("watcher reported a material update without a repository change")
           PY
 
-      - name: Record shared agent provenance
-        if: steps.material.outputs.changed == 'true'
-        env:
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          RUN_TRIGGER: ${{ github.event_name }}
-        run: >-
-          python scripts/append_agent_audit_log.py
-          --agent presidential-directives-bot --run-id "${RUN_URL}" --trigger "${RUN_TRIGGER}"
-          --task-type monitoring --outcome Completed --issue-task "Presidential-directive metadata monitoring"
-          --files-changed '`inventory/presidential-directives.csv`; `framework/logs/SOURCE_MONITOR_LOG.md`; `framework/logs/AGENT_AUDIT_LOG.md`'
-          --validation "Official metadata identity, fingerprint, and change-boundary checks passed."
-          --push-status "Proposed on automation/presidential-directives-monitor"
-          --rollback-notes "Close the automation pull request or revert its merge commit."
-
       - name: Commit and push the material update
         if: steps.material.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add inventory/presidential-directives.csv framework/logs/SOURCE_MONITOR_LOG.md framework/logs/AGENT_AUDIT_LOG.md
+          git add inventory/presidential-directives.csv
           git commit -m "chore: record presidential directive updates"
           git push --set-upstream origin "${BOT_BRANCH}"
 
       - name: Detect a pending review branch
         id: pending
         run: |
-          if git diff --quiet origin/main...HEAD -- inventory/presidential-directives.csv framework/logs/SOURCE_MONITOR_LOG.md; then
+          if git diff --quiet origin/main...HEAD -- inventory/presidential-directives.csv; then
             printf 'exists=false\n' >> "${GITHUB_OUTPUT}"
           else
             printf 'exists=true\n' >> "${GITHUB_OUTPUT}"
@@ -176,3 +167,22 @@ jobs:
             ${{ runner.temp }}/directives-report.json
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Expose run-chain result
+        id: chain-result
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          report = Path(os.environ["RUNNER_TEMP"]) / "directives-report.json"
+          count = 0
+          digest = ""
+          if report.is_file():
+              payload = json.loads(report.read_text())
+              counts = payload.get("counts") or {}
+              count = int(counts.get("new", 0)) + int(counts.get("changed", 0))
+              digest = "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest()
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a") as output:
+              output.write(f"work_count={count}\noutput_hash={digest}\n")
+          PY

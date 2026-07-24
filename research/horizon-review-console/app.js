@@ -2,6 +2,28 @@
   "use strict";
 
   const data = window.ARRP_HORIZON_REVIEW_DATA;
+  if (data && typeof data === "object") {
+    const sourceChunkKeys = Object.keys(data)
+      .filter((key) => key.startsWith("cited_sources_chunk_"))
+      .sort();
+    if (sourceChunkKeys.length) {
+      data.cited_sources = sourceChunkKeys.flatMap((key) => {
+        const records = Array.isArray(data[key]) ? data[key] : [];
+        delete data[key];
+        return records;
+      }).sort((left, right) => String(left.id || "").localeCompare(String(right.id || "")));
+    }
+    const directiveChunkKeys = Object.keys(data)
+      .filter((key) => key.startsWith("presidential_directives_chunk_"))
+      .sort();
+    if (directiveChunkKeys.length) {
+      data.presidential_directives = directiveChunkKeys.flatMap((key) => {
+        const records = Array.isArray(data[key]) ? data[key] : [];
+        delete data[key];
+        return records;
+      });
+    }
+  }
   if (!data || !Array.isArray(data.records) || !Array.isArray(data.active_horizon_records)
       || !Array.isArray(data.cited_sources) || !Array.isArray(data.monitoring_issues)
       || !Array.isArray(data.pending_sources) || !Array.isArray(data.page_inventory)
@@ -53,6 +75,7 @@
   data.progress = data.progress || {};
   data.integrity = data.integrity || {};
   data.source_checker = data.source_checker || {};
+  data.run_chain = data.run_chain || {};
   data.agent_registry = Array.isArray(data.agent_registry) ? data.agent_registry : [];
 
   const LAYOUT_STORAGE_KEY = "arrp-project-console-layout-v1";
@@ -81,6 +104,7 @@
   const LIVE_PROGRESS_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/progress.json";
   const LIVE_INTEGRITY_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/integrity.json";
   const LIVE_SOURCE_CHECKER_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/source-checker.json";
+  const LIVE_RUN_CHAIN_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/run-chain.json";
   const LIVE_PULL_REQUESTS_URL = "https://api.github.com/repos/Thorncrag/ARRP/pulls?state=open&per_page=100";
   const GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/";
   const LIVE_SITE_ROOT = "https://thorncrag.github.io/ARRP/";
@@ -1607,6 +1631,14 @@
       if (section?.tagName === "DETAILS") section.open = true;
       if (section) destination = section;
     }
+    if (parts[0] === "automation" && parts[1]) {
+      const card = byId(`automation-card-${parts[1]}`);
+      if (card) {
+        destination = card;
+        card.setAttribute("tabindex", "-1");
+        window.setTimeout(() => card.focus({ preventScroll: true }), 350);
+      }
+    }
     destination.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -1834,6 +1866,23 @@
       status: "Baseline not established",
       message: "Source Checker Bot has no complete Console baseline yet; its configured report-only pilot remains visible for oversight.",
       source_url: "#sources:watchers:source-checker"
+    });
+
+    failedBotStages().forEach((stage) => {
+      const record = data.agent_registry.find((agent) => agent.id === stage.id);
+      add({
+        category: "Automation failure",
+        severity: "error",
+        attention: "human",
+        owner: "Human",
+        reported_by: "Run Coordinator Bot",
+        status: String(stage.status || "Error").replaceAll("_", " "),
+        owner_ids: [stage.id],
+        message: `${record?.name || stage.id}: ${botFailureSummary(stage)}`,
+        source_url: `#automation:${stage.id}`,
+        detected_at: stage.completed_at || stage.updated_at || data.run_chain?.updated_at,
+        checked_at: data.run_chain?.updated_at || data.generated_at
+      });
     });
 
     data.agent_registry
@@ -2278,7 +2327,33 @@
     const dispositions = data.publication?.disposition_counts || {};
     const publicationExceptions = Number(dispositions.unclassified || 0) + Number(dispositions.conflict || 0);
     const currentRecordCount = (data.progress?.proposals || []).length + data.active_horizon_records.length;
+    const botFailures = failedBotStages();
     byId("overview-generated-at").textContent = formatDate(data.generated_at);
+    const botAlert = byId("overview-bot-alert");
+    botAlert.hidden = botFailures.length === 0;
+    if (botFailures.length) {
+      byId("overview-bot-alert-heading").textContent = botFailures.length === 1
+        ? "A bot failed or is blocking the run chain"
+        : `${botFailures.length} bots failed or are blocking the run chain`;
+      byId("overview-bot-alert-summary").textContent = botFailures
+        .map((stage) => `${stage.id}: ${botFailureSummary(stage)}`)
+        .join(" · ");
+      byId("overview-bot-alert-links").replaceChildren(...botFailures.map((stage) => {
+        const record = data.agent_registry.find((agent) => agent.id === stage.id);
+        const link = element("a", "record-link error-link", `Open ${record?.name || stage.id} →`);
+        link.href = `#automation:${stage.id}`;
+        link.setAttribute("aria-label", `Open ${record?.name || stage.id} error details on Agents and Bots`);
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          window.history.replaceState(null, "", `#automation:${stage.id}`);
+          navigateToConsoleTarget(`automation:${stage.id}`);
+        });
+        return link;
+      }));
+    } else {
+      byId("overview-bot-alert-summary").textContent = "";
+      byId("overview-bot-alert-links").replaceChildren();
+    }
     byId("overview-metrics").replaceChildren(
       watcherSummaryCard("Current records", currentRecordCount, `${(data.progress?.proposals || []).length} proposals plus ${data.active_horizon_records.length} active candidates in this build`),
       watcherSummaryCard("Review Ready", metrics.ready ?? "—", `of ${metrics.total ?? "—"} eligible proposals`),
@@ -2307,8 +2382,13 @@
 
     const enabledAgents = data.agent_registry.filter((agent) => /^enabled$/i.test(agent.status)).length;
     const sourceResults = sourceCheckerRecords().length;
+    const chain = data.run_chain || {};
+    const chainQueue = runChainQueue(chain);
+    const chainQueueTotal = runChainCount(chainQueue, "total")
+      || ["human", "llm", "agent", "bot", "blocked"].reduce((sum, key) => sum + runChainCount(chainQueue, key), 0);
     byId("overview-operations").replaceChildren(
       overviewCard("Agents and bots", data.agent_registry.length, `${enabledAgents} enabled · ${data.agent_registry.length - enabledAgents} paused or pilot`, "automation"),
+      overviewCard("Run chain", chain.status || "Awaiting baseline", `${chainQueueTotal} queued · ${chain.elim_decision?.reason || "Elim decision not recorded"}`, "automation", /fail|block|degrad|warn/i.test(chain.status || "") ? "warning" : ""),
       overviewCard("Issues monitored", data.monitoring_issues.length, "Project records with a defined monitoring predicate", "progress:monitoring"),
       overviewCard("Watcher updates", reviewSignals.courts.count + reviewSignals.directives.count, "Detected external changes awaiting review", "sources:watchers", reviewSignals.courts.count + reviewSignals.directives.count ? "warning" : ""),
       overviewCard("Source-check baseline", sourceResults || "—", sourceResults ? `${sourceResults} URLs represented in the latest run` : "Full baseline not yet established", "sources:watchers:source-checker", sourceResults ? "" : "warning")
@@ -2318,6 +2398,7 @@
       freshnessCard("GitHub Project", data.github_synced_at, "progress"),
       freshnessCard("Progress feed", data.progress.generatedAt || data.progress.asOf, "progress"),
       freshnessCard("Integrity feed", data.integrity?.current?.generated_at, "integrity"),
+      freshnessCard("Run chain", chain.updated_at || chain.created_at, "automation"),
       freshnessCard("Source checks", data.source_checker.generated_at, "sources:watchers:source-checker", 192)
     );
     refreshLayoutZones();
@@ -2330,8 +2411,136 @@
     return "";
   }
 
+  function runChainStages(chain) {
+    if (Array.isArray(chain.stages)) return chain.stages;
+    if (chain.stages && typeof chain.stages === "object") {
+      return Object.entries(chain.stages).map(([id, stage]) => ({ id, ...(stage || {}) }));
+    }
+    return [];
+  }
+
+  function failedBotStages(chain = data.run_chain || {}) {
+    const registeredBots = new Set(
+      data.agent_registry
+        .filter((record) => /bot/i.test(record.type || ""))
+        .map((record) => record.id)
+    );
+    const stageMap = new Map(runChainStages(chain).map((stage) => [stage.id, stage]));
+    [...(Array.isArray(chain.failures) ? chain.failures : []),
+      ...(Array.isArray(chain.degradations) ? chain.degradations : [])]
+      .filter((failure) => failure && typeof failure === "object")
+      .forEach((failure) => {
+        const id = failure.stage_id || failure.stage || failure.bot_id || failure.id;
+        if (registeredBots.has(id)) stageMap.set(id, { ...(stageMap.get(id) || { id }), ...failure, id });
+      });
+    return [...stageMap.values()].filter((stage) => {
+      if (!registeredBots.has(stage.id)) return false;
+      const status = String(stage.status || "").toLowerCase();
+      const classification = String(stage.failure_class || stage.classification || "").toLowerCase();
+      const explicitFailure = /fail|error|stale|block|timeout|timed.out|cancel/.test(status);
+      const blockingFailure = String(stage.failure_class || "").toLowerCase() === "blocking"
+        && !["", "pending", "not_due", "not due", "succeeded", "success", "completed", "healthy"].includes(status);
+      return explicitFailure || /fail|error|stale|block/.test(classification)
+        || stage.stale === true || stage.blocking === true || blockingFailure;
+    });
+  }
+
+  function botFailureSummary(stage) {
+    return stage.diagnostic
+      || stage.details
+      || stage.reason
+      || stage.message
+      || stage.failure_summary
+      || `${String(stage.status || "Error").replaceAll("_", " ")} in the current run chain.`;
+  }
+
+  function runChainQueue(chain) {
+    return chain.queue_counts || chain.queue || {};
+  }
+
+  function runChainCount(queue, key) {
+    const value = Number(queue[key] ?? queue[`${key}_count`] ?? 0);
+    return Number.isFinite(value) ? value : 0;
+  }
+
+  function runChainStatusClass(status) {
+    if (/fail|block|error/i.test(status || "")) return "error";
+    if (/degrad|warn|partial/i.test(status || "")) return "warning";
+    if (/complete|healthy|success|no.?op/i.test(status || "")) return "success";
+    return "";
+  }
+
+  function renderRunChain() {
+    const chain = data.run_chain || {};
+    const stages = runChainStages(chain);
+    const queue = runChainQueue(chain);
+    const elim = chain.elim || chain.elim_decision || {};
+    const epoch = chain.review_epoch || {};
+    const usage = chain.usage || chain.usage_summary || {};
+    const chainId = chain.chain_id || chain.id || "Awaiting baseline";
+    const status = chain.status || chain.outcome || (stages.length ? "In progress" : "Not yet published");
+    const queueTotal = runChainCount(queue, "total")
+      || ["human", "llm", "agent", "bot", "blocked"].reduce((sum, key) => sum + runChainCount(queue, key), 0);
+    const failures = Array.isArray(chain.failures) ? chain.failures : [];
+    const degradations = Array.isArray(chain.degradations) ? chain.degradations : [];
+    const launched = elim.launched ?? elim.launch ?? elim.launch_recommended ?? chain.elim_launched;
+    const elimDecision = launched === true ? "Launched" : launched === false ? "Not launched" : (elim.decision || "Awaiting decision");
+    const remaining = usage.remaining_percent ?? usage.remaining ?? usage.applicable_remaining_percent;
+    const consumed = usage.consumed_percent ?? usage.consumed;
+    const usageLabel = remaining !== undefined && remaining !== null
+      ? `${remaining}% remaining`
+      : consumed !== undefined && consumed !== null
+        ? `${consumed}% consumed`
+        : "Not recorded";
+    const nextReview = epoch.next_review_at || epoch.next_review || epoch.next || epoch.due_at;
+
+    const note = byId("automation-chain-note");
+    note.className = `attention-note ${runChainStatusClass(status)}`.trim();
+    note.textContent = stages.length
+      ? `${chainId} · ${String(status).replaceAll("_", " ")} · ${chain.trigger || chain.trigger_type || "trigger not recorded"}`
+      : "Awaiting the first Run Coordinator Bot projection. No chain health conclusion is available yet.";
+
+    byId("automation-chain-summary").replaceChildren(
+      integrityMetric("Chain", chainId, `Baseline ${String(chain.baseline_commit || "not recorded").slice(0, 12)}`),
+      integrityMetric("Health", String(status).replaceAll("_", " "), `${failures.length} failed · ${degradations.length} degraded`),
+      integrityMetric("Work queue", queueTotal, `${runChainCount(queue, "human")} human · ${runChainCount(queue, "llm") || runChainCount(queue, "agent")} LLM · ${runChainCount(queue, "bot")} bot`),
+      integrityMetric("Elim", elimDecision, elim.reason || chain.elim_reason || "No launch reason recorded"),
+      integrityMetric("Review epoch", epoch.review_id || epoch.id || "Not established", nextReview ? `Next ${formatDate(nextReview)}` : "Next review not recorded"),
+      integrityMetric("Usage", usageLabel, usage.stop_reason || usage.gate || "15% reserve applies")
+    );
+
+    byId("automation-chain-stage-count").textContent = stages.length;
+    const stageRows = stages.map((stage, index) => {
+      const item = element("details", "automation-chain-stage");
+      const stageStatus = stage.status || (stage.due === false ? "not_due" : "unknown");
+      const heading = element("summary", "");
+      heading.append(
+        element("span", "automation-stage-order", String(index + 1)),
+        element("strong", "", stage.name || stage.id || `Stage ${index + 1}`),
+        element("span", `status-badge ${runChainStatusClass(stageStatus)}`, String(stageStatus).replaceAll("_", " "))
+      );
+      const details = element("dl", "automation-stage-fields");
+      [
+        ["Due", stage.due === undefined ? "Not recorded" : stage.due ? "Yes" : "No"],
+        ["Started", formatDate(stage.started_at || stage.started || stage.timestamps?.started_at || stage.timestamps?.started)],
+        ["Completed", formatDate(stage.completed_at || stage.completed || stage.timestamps?.completed_at || stage.timestamps?.completed)],
+        ["Retries", stage.retries ?? stage.retry_count ?? 0],
+        ["Output", stage.output || stage.output_path || "No output path recorded"],
+        ["Hash", stage.output_hash || "Not recorded"],
+        ["Diagnostic", stage.diagnostic || stage.reason || stage.message || "No exception recorded"]
+      ].forEach(([label, value]) => details.append(element("dt", "", label), element("dd", "", String(value ?? "Not recorded"))));
+      item.append(heading, details);
+      return item;
+    });
+    byId("automation-chain-stage-list").replaceChildren(...(stageRows.length
+      ? stageRows
+      : [element("p", "empty-state compact-empty", "No run-chain stages have been published.")]));
+  }
+
   function renderAutomation() {
     const records = data.agent_registry;
+    const stageById = new Map(runChainStages(data.run_chain || {}).map((stage) => [stage.id, stage]));
+    const failureById = new Map(failedBotStages().map((stage) => [stage.id, stage]));
     const enabled = records.filter((record) => /^enabled$/i.test(record.status)).length;
     const agents = records.filter((record) => /llm-agent/i.test(record.type)).length;
     const bots = records.filter((record) => /bot/i.test(record.type)).length;
@@ -2343,7 +2552,10 @@
       integrityMetric("Bots", bots, "deterministic programs")
     );
     byId("automation-grid").replaceChildren(...records.map((record) => {
-      const card = element("article", "automation-card");
+      const stage = stageById.get(record.id);
+      const failure = failureById.get(record.id);
+      const card = element("article", `automation-card${failure ? " has-error" : ""}`);
+      card.id = `automation-card-${record.id}`;
       card.dataset.layoutId = `automation-${record.id}`;
       const summary = element("div", "automation-card-summary");
       const summaryMeta = element("span", "automation-card-tags");
@@ -2356,6 +2568,11 @@
         element("span", "badge formal automation-type", typeTag),
         element("span", `status-badge ${automationStatusClass(record.status)}`, String(record.status).replaceAll("-", " "))
       );
+      if (failure) {
+        const errorBadge = element("span", "status-badge error automation-error-badge", "Error");
+        errorBadge.setAttribute("aria-label", `${record.name} automation error`);
+        summaryMeta.append(errorBadge);
+      }
       summary.append(
         element("h3", "automation-card-title", record.name),
         summaryMeta,
@@ -2369,48 +2586,175 @@
         ["Trigger", record.trigger.replaceAll("-", " ")],
         ["Schedule", record.schedule || "Event or manual only"],
         ["Environment", record.execution_environment.replaceAll("-", " ")],
-        ["Runtime", record.runtime_id]
+        ["Runtime", record.runtime_id],
+        ["Chain health", stage ? String(stage.status || "Not recorded").replaceAll("_", " ") : "No current chain stage"],
+        ["Latest result", stage ? formatDate(stage.completed_at || stage.updated_at || data.run_chain?.updated_at) : "Not recorded"]
       ].forEach(([label, value]) => details.append(element("dt", "", label), element("dd", "", value || "Not recorded")));
       const links = element("div", "source-list dossier-actions");
       links.append(linkButton("Open runbook ↗", record.runbook_url, true));
       if (record.runtime_url) links.append(linkButton("Open runtime ↗", record.runtime_url, true));
+      if (record.current_report_url) links.append(linkButton("Open current report ↗", record.current_report_url, true));
+      if (record.current_data) {
+        const dataPath = String(record.current_data).replace(/^project-console-data\//, "");
+        links.append(linkButton(
+          "Open current data ↗",
+          `https://github.com/Thorncrag/ARRP/blob/project-console-data/${dataPath}`,
+          true
+        ));
+      }
       if (record.run_log_path) links.append(consoleLinkButton("Open run reports →", `#logs:${record.id}`));
       if (record.log_path === "framework/logs/AGENT_AUDIT_LOG.md") {
         links.append(consoleLinkButton("Open activity ledger →", "#logs:agents"));
       } else if (record.log_path) {
         links.append(linkButton("Open activity log ↗", `${GITHUB_BLOB_ROOT}${record.log_path}`, true));
       }
-      body.append(element("p", "", record.description || "Authoritative operating configuration."), details);
-      const checks = Array.isArray(record.checks) ? record.checks : [];
-      const logHref = record.log_path ? `${GITHUB_BLOB_ROOT}${record.log_path}` : "";
-      if (checks.length) {
-        const checksSection = element("details", "automation-checks");
-        checksSection.dataset.disclosureId = `automation-${record.id}-checks`;
-        const heading = element("summary", "automation-checks-summary");
-        const headingContent = element("div", "automation-checks-heading");
-        headingContent.append(element("h4", "", `Checks included · ${checks.length}`));
-        heading.append(headingContent);
-        const list = element("ul");
-        checks.forEach((check) => {
-          const row = element("li");
-          const label = typeof check === "string" ? check : check?.label || check?.name || check?.check || "";
-          const href = typeof check === "object" && check && check.log_path ? `${GITHUB_BLOB_ROOT}${check.log_path}` : logHref;
-          if (href) row.append(inlineLink(label || "Open check log", href));
-          else row.textContent = label || "Check present (no linked log path configured)";
-          list.append(row);
-        });
-        checksSection.append(
-          heading,
-          element("p", "", "This inventory comes from the authoritative runbook and is the same scope used by the bot report."),
-          list
+      if (failure) {
+        const error = element("div", "automation-card-error");
+        error.setAttribute("role", "alert");
+        error.append(
+          element("strong", "", "Current automation error"),
+          element("p", "", botFailureSummary(failure))
         );
-        body.append(checksSection);
+        body.append(error);
       }
+      body.append(element("p", "", record.description || "Authoritative operating configuration."), details);
       body.append(links);
       card.append(summary, body);
       return card;
     }));
+    renderRunChain();
     refreshLayoutZones();
+  }
+
+  async function refreshLiveRunChain() {
+    try {
+      const response = await fetch(LIVE_RUN_CHAIN_URL, { cache: "no-store" });
+      if (!response.ok) return;
+      const snapshot = await response.json();
+      if (!snapshot || typeof snapshot !== "object" || Array.isArray(snapshot)) return;
+      data.run_chain = snapshot;
+      renderAutomation();
+      renderActionItems();
+      renderIntegrity();
+      renderOverview();
+    } catch (_error) {
+      // Checked-in data remains usable when the live data branch is unavailable.
+    }
+  }
+
+  function coordinatorControlElements() {
+    return [
+      "coordinator-work-unit",
+      "coordinator-priority",
+      "coordinator-override-reason",
+      "coordinator-request-run",
+      "coordinator-request-review",
+      "coordinator-prioritize",
+      "coordinator-suppress",
+      "coordinator-clear"
+    ].map(byId).filter(Boolean);
+  }
+
+  function coordinatorControlOriginAllowed() {
+    return ["127.0.0.1", "localhost", "::1", "[::1]"].includes(window.location.hostname)
+      && ["http:", "https:"].includes(window.location.protocol);
+  }
+
+  function setCoordinatorControlStatus(message, tone = "") {
+    const status = byId("coordinator-control-status");
+    status.className = tone ? `control-status ${tone}` : "control-status";
+    status.textContent = message;
+  }
+
+  async function coordinatorControlRequest(payload) {
+    const token = sessionStorage.getItem("arrp-run-coordinator-control-token") || "";
+    if (!token) {
+      setCoordinatorControlStatus("The local coordinator did not provide an approved control session.", "warning");
+      return;
+    }
+    setCoordinatorControlStatus("Sending the request…");
+    try {
+      const response = await fetch("http://127.0.0.1:8766/v1/control", {
+        method: "POST",
+        mode: "cors",
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+          "X-ARRP-Control-Token": token
+        },
+        body: JSON.stringify(payload)
+      });
+      let result = {};
+      try {
+        result = await response.json();
+      } catch (_error) {
+        result = {};
+      }
+      if (!response.ok) {
+        throw new Error(result.error || result.message || `Coordinator returned ${response.status}`);
+      }
+      setCoordinatorControlStatus(result.message || "Coordinator request accepted.", "success");
+      window.setTimeout(refreshLiveRunChain, 500);
+    } catch (error) {
+      setCoordinatorControlStatus(`Request not accepted: ${error.message}. Project data was not changed.`, "error");
+    }
+  }
+
+  async function initializeCoordinatorControls() {
+    const controls = coordinatorControlElements();
+    if (!coordinatorControlOriginAllowed()) {
+      controls.forEach((control) => { control.disabled = true; });
+      setCoordinatorControlStatus("Read-only preview. Serve the Console from localhost:8765 and start the coordinator control service to use these controls.");
+      return;
+    }
+    try {
+      const response = await fetch("http://127.0.0.1:8766/v1/status", { cache: "no-store", mode: "cors" });
+      if (!response.ok) throw new Error(`status ${response.status}`);
+      const result = await response.json();
+      if (!result.available || !result.control || !result.control_token) throw new Error("control service unavailable");
+      sessionStorage.setItem("arrp-run-coordinator-control-token", result.control_token);
+      setCoordinatorControlStatus("Local coordinator available.");
+    } catch (_error) {
+      controls.forEach((control) => { control.disabled = true; });
+      setCoordinatorControlStatus("Local coordinator is not running. The Console remains read-only.");
+      return;
+    }
+
+    byId("coordinator-request-run").addEventListener("click", () =>
+      coordinatorControlRequest({ action: "request_run" }));
+    byId("coordinator-request-review").addEventListener("click", () =>
+      coordinatorControlRequest({ action: "request_comprehensive_review", full_context: true }));
+
+    const queuePayload = (action) => {
+      const workUnitId = byId("coordinator-work-unit").value.trim();
+      const reason = byId("coordinator-override-reason").value.trim();
+      if (!workUnitId) {
+        setCoordinatorControlStatus("Enter the exact work-unit ID before changing its queue override.", "warning");
+        return null;
+      }
+      if (action === "suppress" && !reason) {
+        setCoordinatorControlStatus("A reason is required before suppressing a work unit.", "warning");
+        return null;
+      }
+      return {
+        action,
+        work_unit_id: workUnitId,
+        priority: byId("coordinator-priority").value,
+        reason
+      };
+    };
+    byId("coordinator-prioritize").addEventListener("click", () => {
+      const payload = queuePayload("reprioritize");
+      if (payload) coordinatorControlRequest(payload);
+    });
+    byId("coordinator-suppress").addEventListener("click", () => {
+      const payload = queuePayload("suppress");
+      if (payload) coordinatorControlRequest(payload);
+    });
+    byId("coordinator-clear").addEventListener("click", () => {
+      const payload = queuePayload("clear_override");
+      if (payload) coordinatorControlRequest(payload);
+    });
   }
 
   async function refreshLiveProgress() {
@@ -3686,6 +4030,7 @@
     initializeSectionTabs("publication", "assignments");
     initializeWatcherTabs();
     initializeScrollToTop();
+    initializeCoordinatorControls();
     window.addEventListener("hashchange", navigateFromHash);
     renderPreliminary();
     renderProposed();
@@ -3711,6 +4056,7 @@
     refreshBotReviewSignals();
     refreshLiveIntegrity();
     refreshLiveSourceChecker();
+    refreshLiveRunChain();
   }
 
   initialize();

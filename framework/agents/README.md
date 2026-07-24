@@ -12,7 +12,8 @@ ARRP uses **bot** for a deterministic script or program and **agent** for an LLM
 
 | Agent ID | Type | Status | Authoritative runbook | Runtime |
 | --- | --- | --- | --- | --- |
-| `elim` | Scheduled LLM agent | Enabled | [Elim](ELIM.md) | Codex automation `elim`, isolated worktree |
+| `run-coordinator-bot` | Deterministic bot | Enabled | [Run Coordinator Bot](RUN_COORDINATOR_BOT.md) | `.github/workflows/run-coordinator-bot.yml` with local Codex dispatch |
+| `elim` | Conditional LLM agent | Enabled | [Elim](ELIM.md) | Codex automation `elim`, isolated worktree |
 | `project-integrity-bot` | Deterministic bot | Enabled | [Project Integrity Bot](PROJECT_INTEGRITY_BOT.md) | `.github/workflows/project-integrity.yml` |
 | `case-monitor-bot` | Deterministic bot | Enabled | [Case Monitor Bot](CASE_MONITOR_BOT.md) | `.github/workflows/case-monitor-bot.yml` |
 | `presidential-directives-bot` | Deterministic bot | Enabled | [Presidential Directives Bot](PRESIDENTIAL_DIRECTIVES_BOT.md) | `.github/workflows/presidential-directives-bot.yml` |

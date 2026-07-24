@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.thorncrag.arrp-run-coordinator-control</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/python3</string>
+    <string>/Users/benjaminsmith/Documents/ARRP/scripts/run_coordinator_control.py</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/benjaminsmith/Documents/ARRP</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/control.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/control.err.log</string>
+</dict>
+</plist>

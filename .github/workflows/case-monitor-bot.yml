@@ -2,10 +2,14 @@ name: Case Monitor Bot
 
 on:
   workflow_dispatch:
-  schedule:
-    # GitHub cron uses UTC. This is approximately midnight Eastern:
-    # 12:17 a.m. EDT and 11:17 p.m. EST.
-    - cron: "17 4 * * *"
+  workflow_call:
+    outputs:
+      work_count:
+        description: New machine-observed case changes and leads.
+        value: ${{ jobs.check.outputs.work_count }}
+      output_hash:
+        description: SHA-256 of the structured case-monitor report.
+        value: ${{ jobs.check.outputs.output_hash }}
 
 concurrency:
   group: arrp-case-monitor-bot
@@ -18,6 +22,9 @@ permissions:
 
 jobs:
   check:
+    outputs:
+      work_count: ${{ steps.chain-result.outputs.work_count }}
+      output_hash: ${{ steps.chain-result.outputs.output_hash }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -38,8 +45,7 @@ jobs:
         run: |
           bot_branch="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["branch"])')"
           base_branch="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["baseBranch"])')"
-          source_monitor_log="$(python -c 'import json; print(json.load(open(".github/case-monitor-bot.json"))["automation"]["logPath"])')"
-          printf 'BOT_BRANCH=%s\nBASE_BRANCH=%s\nSOURCE_MONITOR_LOG=%s\n' "${bot_branch}" "${base_branch}" "${source_monitor_log}" >> "${GITHUB_ENV}"
+          printf 'BOT_BRANCH=%s\nBASE_BRANCH=%s\n' "${bot_branch}" "${base_branch}" >> "${GITHUB_ENV}"
           git config user.name "arrp-case-monitor[bot]"
           git config user.email "arrp-case-monitor[bot]@users.noreply.github.com"
           git fetch origin "${base_branch}"
@@ -59,7 +65,7 @@ jobs:
         run: >-
           python scripts/check_case_updates.py
           --apply
-          --log "${SOURCE_MONITOR_LOG}"
+          --log "${RUNNER_TEMP}/case-monitor-event.md"
           --summary "${RUNNER_TEMP}/monitoring-summary.md"
           --report-json "${RUNNER_TEMP}/monitoring-report.json"
 
@@ -67,28 +73,11 @@ jobs:
         id: boundary
         if: steps.monitor.outcome == 'success'
         run: |
-          unexpected="$(git diff --name-only | grep -Ev '^(inventory/sources\.csv|inventory/sources-pending\.csv|framework/logs/SOURCE_MONITOR_LOG\.md|research/horizon-source-records/HOR-[0-9]{3}-source-development\.md|areas/[A-Z]+/research/[A-Z]+-[0-9]{3}-source-development\.md)$' || true)"
+          unexpected="$(git diff --name-only | grep -Ev '^(inventory/sources\.csv|inventory/sources-pending\.csv|research/horizon-source-records/HOR-[0-9]{3}-source-development\.md|areas/[A-Z]+/research/[A-Z]+-[0-9]{3}-source-development\.md)$' || true)"
           if [ -n "${unexpected}" ]; then
             printf 'Unexpected files changed:\n%s\n' "${unexpected}" >&2
             exit 1
           fi
-
-      - name: Record shared agent provenance
-        if: steps.monitor.outcome == 'success' && steps.boundary.outcome == 'success'
-        env:
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          RUN_TRIGGER: ${{ github.event_name }}
-        run: |
-          if git diff --quiet; then
-            exit 0
-          fi
-          python scripts/append_agent_audit_log.py \
-            --agent case-monitor-bot --run-id "${RUN_URL}" --trigger "${RUN_TRIGGER}" \
-            --task-type monitoring --outcome Completed --issue-task "Cataloged litigation-source and configured source-development monitoring" \
-            --files-changed '`inventory/sources.csv`; `inventory/sources-pending.csv`; configured issue or candidate source-development records; `framework/logs/SOURCE_MONITOR_LOG.md`; `framework/logs/AGENT_AUDIT_LOG.md`' \
-            --validation "Tracker structure, accepted baselines, configured source-development modules, change boundary, and docket verification passed." \
-            --push-status "Proposed on bot/case-monitor-updates" \
-            --rollback-notes "Close the automation pull request or revert its merge commit."
 
       - name: Commit catalog updates
         id: commit
@@ -97,7 +86,7 @@ jobs:
           git config user.name "arrp-case-monitor[bot]"
           git config user.email "arrp-case-monitor[bot]@users.noreply.github.com"
           mapfile -t source_development_targets < <(python -c 'import json; c=json.load(open(".github/case-monitor-bot.json")); print("\n".join(m["targetPath"] for m in c.get("sourceDevelopmentModules", []) if m.get("enabled"))) ')
-          git add inventory/sources.csv inventory/sources-pending.csv "${SOURCE_MONITOR_LOG}" framework/logs/AGENT_AUDIT_LOG.md "${source_development_targets[@]}"
+          git add inventory/sources.csv inventory/sources-pending.csv "${source_development_targets[@]}"
           if git diff --cached --quiet; then
             echo "new_change=false" >> "${GITHUB_OUTPUT}"
             ahead="$(git rev-list --count "origin/${BASE_BRANCH}..HEAD")"
@@ -165,3 +154,25 @@ jobs:
       - name: Preserve a failed monitoring outcome
         if: always() && (steps.monitor.outcome == 'failure' || steps.boundary.outcome == 'failure')
         run: exit 1
+
+      - name: Expose run-chain result
+        id: chain-result
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          report = Path(os.environ["RUNNER_TEMP"]) / "monitoring-report.json"
+          count = 0
+          digest = ""
+          if report.is_file():
+              payload = json.loads(report.read_text())
+              count = len(payload.get("changes") or [])
+              count += sum(
+                  len(item.get("leads") or [])
+                  for item in payload.get("source_development_modules") or []
+              )
+              digest = "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest()
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a") as output:
+              output.write(f"work_count={count}\noutput_hash={digest}\n")
+          PY

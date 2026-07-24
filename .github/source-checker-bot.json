@@ -1,6 +1,11 @@
 {
   "agentId": "source-checker-bot",
   "mode": "report-only",
+  "schedule": {
+    "mode": "run-chain",
+    "coordinator": ".github/workflows/run-coordinator-bot.yml",
+    "dueEveryHours": 168
+  },
   "catalogs": [
     "inventory/sources.csv",
     "inventory/sources-pending.csv"
