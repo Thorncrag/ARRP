@@ -3,14 +3,16 @@ issue_id: RIGHTS-005
 area_id: A-24
 title: "Civil and Criminal Accountability for Law-Enforcement Constitutional Violations"
 status: in-development
-foundation_status: pending
+foundation_status: approved
+foundation_approved_date: "2026-07-24"
+foundation_approval_note: "Elim determined that the canonical issue states the bounded civil-and-criminal accountability failure and manifestations, selects a modular federal accountability statute as the remedy, and links the Law-Enforcement Constitutional Accountability Act as the concrete vehicle."
 priority: high
 remedy_type: law-enforcement-civil-and-criminal-accountability
 audit_score: 0
-audit_status: "Pending internal foundation-sufficiency review; agent-generated proposal and initial legislative draft preserved for review"
-audit_last_type: "Horizon candidate admission and initial drafting"
-audit_last_date: "2026-07-21"
-audit_next: "Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved"
+audit_status: "Foundation approved; in development; legal-durability and empirical source review is next"
+audit_last_type: "Foundation-sufficiency lifecycle review"
+audit_last_date: "2026-07-24"
+audit_next: "Complete statute-first legal-durability and empirical source development, revise the initial bill, develop implementation and fiscal treatment, and then conduct the first score-bearing audit"
 audit_rubric_version: "2026-06-27.2"
 audit_rebaseline_status: "current-fixed-status"
 change_audit_needed: false
@@ -23,7 +25,7 @@ audit_history: "RIGHTS-005.audit.md"
 # RIGHTS-005 — Civil and Criminal Accountability for Law-Enforcement Constitutional Violations
 
 > ## Issue Snapshot
-> **Problem:** Law-enforcement officers who violate constitutional rights may escape personal civil and criminal accountability because remedies depend on different, incomplete federal and State pathways.<br />**Repair:** Create a uniform civil action, calibrate personal financial responsibility for aggravated violations, strengthen the existing federal criminal statute, and preserve lawful State prosecution.<br />**Vehicle:** [Law-Enforcement Constitutional Accountability Act](../../../legislation/RIGHTS-005.md).
+> **Problem:** Constitutional violations by law enforcement can escape civil and criminal accountability.<br />**Repair:** Create uniform civil action, aggravated personal liability, stronger § 242, and State prosecution.<br />**Vehicle:** [Law-Enforcement Constitutional Accountability Act](../../../legislation/RIGHTS-005.md).
 >
 
 ## Institutional Anomaly
@@ -131,7 +133,7 @@ The next budget pass should separately estimate civil case volume, federal emplo
 >
 > —
 >
-> **Internal Review Status:** Pending internal foundation-sufficiency review; agent-generated proposal and initial legislative draft preserved for review<br />**Last Internal Review:** Horizon candidate admission and initial drafting<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status; **Revision Review Needed:** No<br />**Next Review:** Internal four-part foundation-sufficiency review; human decision only if a foundation remains unresolved<br />**Full Review History:** [RIGHTS-005 review history](RIGHTS-005.audit.md)
+> **Internal Review Status:** Foundation approved; in development; legal-durability and empirical source review is next<br />**Last Internal Review:** Foundation-sufficiency lifecycle review<br />**Scoring Standard:** `2026-06-27.2`; **Scoring Basis:** Current unscored status; the initial package has not completed a score-bearing audit; **Revision Review Needed:** No<br />**Next Review:** Complete statute-first legal-durability and empirical source development, revise the initial bill, develop implementation and fiscal treatment, and then conduct the first score-bearing audit<br />**Full Review History:** [RIGHTS-005 review history](RIGHTS-005.audit.md)
 
 ## Annotation
 

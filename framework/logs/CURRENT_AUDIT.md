@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | None; remaining formal Horizon-candidate adjudications are available backlog, not an exclusive active handoff |
-| Audit type/tier | None |
-| Started | 2026-07-23 |
-| Last checkpoint | 2026-07-23; the prior `HOR-034` / `CIV-010` work and Elim intake authority are merged in `main`. Elim's controlled isolated-worktree launch pilot then passed three official host-context usage checks at Codex 41 percent remaining and Spark 99 percent remaining, consumed 0 percentage points, passed 8 focused tests and `git diff --check`, and preserved only its shared-log entry. |
-| User request | Enable Elim with a protected 15-percent reserve and a 10-percentage-point per-run closeout budget. |
-| Scope | Elim launch configuration, usage gate, pilot record, and activation reconciliation. |
-| Files touched | `framework/agents/ELIM.md`; `framework/agents/README.md`; `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/CURRENT_AUDIT.md`; `scripts/check_codex_usage_reserve.py`; `tests/test_codex_usage_reserve.py`. |
-| Completed steps | Added and validated the first-party Codex usage-reserve gate; merged the implementation; deployed and ran a controlled isolated-worktree pilot; verified fail-closed sandbox behavior and successful approved host-context readings; validated and preserved the pilot log entry; reconciled the runbook and registry for activation. |
-| Next step | No exclusive handoff. Elim may follow its authoritative runbook at the next scheduled run; interactive work may select any eligible backlog item. |
-| Blockers/questions | None. Formal Horizon-candidate dispositions remain human-reserved, but bounded candidate research is available to Elim under the runbook. |
-| Validation status | Pilot passed: three complete and stable official usage readings; Codex 41 percent remaining; Spark 99 percent remaining; 0 percentage points consumed; 8 focused tests; `git diff --check`; isolated worktree clean after commit. Activation reconciliation passed all 131 repository tests, refreshed the Console to include 165 project-log entries, and completed the authenticated Project Consistency Audit with 0 errors and 27 pre-existing Issue Snapshot concision warnings. |
+| Status | Active |
+| Active issue/task | Elim run `ELIM-20260724T060145Z` |
+| Audit type/tier | Project Consistency and lifecycle reconciliation |
+| Started | 2026-07-24 02:01:45 -0400 |
+| Last checkpoint | 2026-07-24 02:17:00 -0400; the Integrity/lifecycle unit is validated and ready for preservation. The latest approved host-context usage check passed at Codex 35 percent remaining and Spark 99 percent remaining with 2 percentage points consumed. |
+| User request | Run Elim in authoritative runbook order with fail-closed usage, validation, synchronization, and closeout controls. |
+| Scope | Unified Console Integrity and Source Checker review; admitted-unscored lifecycle reconciliation; then intake, Change Audits, T-audits, and highest-value eligible development while usage permits. |
+| Files touched | Fifteen issue pages with corrected Issue Snapshots; APPT-001, RIGHTS-005, JUD-012, OVS-009, and REG-002 issue pages and audit sidecars; DOJ-004, ELEC-014, and ELEC-015 foundation metadata; `framework/logs/CURRENT_AUDIT.md`. Shared provenance and generated Console data remain to be appended after the unit commit. |
+| Completed steps | Cleared all 27 current Integrity warnings; approved APPT-001 and RIGHTS-005 foundations; preserved JUD-012, OVS-009, and REG-002 as foundation-pending with defined research; added missing pending metadata to DOJ-004, ELEC-014, and ELEC-015; synchronized and read back five Project rows without changing scores or Runs; completed the authenticated consistency floor with 0 errors and 0 warnings. |
+| Next step | Commit the bounded unit, append its shared Agent Audit Log entry, rebuild Console data, push and reconcile the reviewed branch, then recheck official usage before public-intake triage. |
+| Blockers/questions | Project built-in Title values for renamed issue-backed items cannot be edited through the Project API; live issue identities and canonical links are authoritative. No substantive blocker is presently established. |
+| Validation status | Passed for the bounded unit: 131 repository tests; `git diff --check`; authenticated Project Consistency Audit with 0 errors and 0 warnings; Project lifecycle-field readback matched the repository. |
 
 ## Detailed Findings and Corrections
 

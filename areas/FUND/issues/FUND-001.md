@@ -33,7 +33,7 @@ audit_history: "FUND-001.audit.md"
 # FUND-001 — Fiscal Implementation of Ultra Vires Executive Directives
 
 > ## Issue Snapshot
-> **Problem:** Agencies may use spending, nonspending, or program administration to implement executive directives that exceed lawful authority.<br />**Repair:** Enforce enacted appropriations and program mandates before implementation of ultra vires directives—directives beyond lawful authority—creates irreversible facts.<br />**Vehicle:** [Interbranch Review Framework Act (JUD-011)](../../../legislation/JUD-011.md) alone (preferred); standalone [FUND-001](../../../legislation/FUND-001.md) (independent alternative).
+> **Problem:** Agencies may implement unlawful executive directives through spending, nonspending, or administration.<br />**Repair:** Enforce appropriations and mandates before unlawful directives create irreversible facts.<br />**Vehicle:** [Interbranch Review Framework Act (JUD-011)](../../../legislation/JUD-011.md) alone (preferred); standalone [FUND-001](../../../legislation/FUND-001.md) (independent alternative).
 >
 
 ## Institutional Anomaly
