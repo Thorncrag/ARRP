@@ -17,14 +17,14 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Active issue/task | Elim run `ELIM-20260724T060145Z` |
 | Audit type/tier | Targeted Change Audit and Internal Remedy-Fit Audit |
 | Started | 2026-07-24 02:01:45 -0400 |
-| Last checkpoint | 2026-07-24 02:33:00 -0400; public-intake triage found no Discussions or submissions, and DOJ-002's targeted Change Audit is drafted for validation. The latest approved host-context usage check passed at Codex 34 percent remaining and Spark 99 percent remaining with 3 percentage points consumed. |
+| Last checkpoint | 2026-07-24 02:35:00 -0400; public-intake triage found no Discussions or submissions, and DOJ-002's targeted Change Audit passed local validation and was preserved at `aa16ce8`. The latest approved host-context usage check passed at Codex 33 percent remaining and Spark 99 percent remaining with 4 percentage points consumed. |
 | User request | Run Elim in authoritative runbook order with fail-closed usage, validation, synchronization, and closeout controls. |
 | Scope | Unified Console Integrity and Source Checker review; admitted-unscored lifecycle reconciliation; then intake, Change Audits, T-audits, and highest-value eligible development while usage permits. |
 | Files touched | `areas/DOJ/issues/DOJ-002.md`, `areas/DOJ/issues/DOJ-002.audit.md`, and `framework/logs/CURRENT_AUDIT.md`; shared provenance and generated Console data remain to be appended after the unit commit. |
 | Completed steps | Completed unified Integrity and lifecycle reconciliation; confirmed Source Checker has no current report; found zero public-intake Discussions or submissions; verified DOJ-002's updated manifestation and source posture; confirmed issue-to-vehicle and internal remedy fit; preserved score 78 and four T-audit runs; drafted clearance of the Change Audit marker. |
-| Next step | Validate and preserve DOJ-002, append its shared Agent Audit Log entry, synchronize and read back GitHub Issue/Project/Console state, then recheck official usage before JUD-009. |
+| Next step | Push and merge the reviewed DOJ-002 unit, synchronize and read back GitHub Issue/Project/Console state, then recheck official usage before JUD-009. |
 | Blockers/questions | Project built-in Title values for renamed issue-backed items cannot be edited through the Project API; live issue identities and canonical links are authoritative. No substantive blocker is presently established. |
-| Validation status | Pending for the DOJ-002 unit; current-source and remedy-fit review complete. |
+| Validation status | DOJ-002 local validation passed: live source and docket review; 131 repository tests; `git diff --check`; local Project Consistency Audit with 0 errors. Authenticated synchronization validation remains. |
 
 ## Detailed Findings and Corrections
 

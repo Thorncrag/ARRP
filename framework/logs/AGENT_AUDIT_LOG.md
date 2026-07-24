@@ -1542,3 +1542,27 @@ Prospective template:
 | Push status | Proposed on bot/project-integrity-report |
 | Rollback notes | Close the report pull request or revert its merge commit. |
 | Blockers/skipped checks | None. |
+
+
+### 2026-07-24 — DOJ-002 targeted revision and remedy-fit review — change-audit
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-24T02:33:18-04:00 |
+| Agent | elim |
+| Run ID | ELIM-20260724T060145Z |
+| Unit ID | change-audit-doj-002-001 |
+| Trigger | schedule |
+| Task type | change-audit |
+| Outcome | Completed |
+| Issue/task | DOJ-002 targeted revision and remedy-fit review |
+| Issue page | [DOJ-002](../../areas/DOJ/issues/DOJ-002.md) |
+| Audit history | [DOJ-002 audit history](../../areas/DOJ/issues/DOJ-002.audit.md) |
+| Proposal page | [Proposed Justice Manual section 9-85.115](../../legislation/DOJ-002.md) |
+| Tier | none |
+| Files changed | DOJ-002 issue metadata and reader summary; DOJ-002 audit sidecar; CURRENT_AUDIT handoff; generated Console data |
+| Validation | Live source and docket review; 131 repository tests; git diff --check; local Project Consistency Audit with 0 errors; authenticated synchronization and readback pending reviewed merge |
+| Commit | Complete DOJ-002 change audit (aa16ce8) |
+| Push status | Preserved on codex/elim-20260724-intake; reviewed push and main synchronization pending |
+| Rollback notes | Revert aa16ce8 and this provenance commit; restore DOJ-002 Project Last audit, Next audit, Change audit needed, and Status to their pre-unit values if synchronization has occurred. |
+| Blockers/skipped checks | The July 23 primary withdrawal order and DOJ authorization record were not yet available on the accessible public docket; they remain the next source-verification task and do not prevent the bounded Change Audit finding. |
