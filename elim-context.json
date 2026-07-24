@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T14:36:45+00:00",
-  "repository_revision": "6fcca17ad39c5d6328dd497954aeb1ee22235f30",
+  "generated_at": "2026-07-24T14:42:56+00:00",
+  "repository_revision": "26076075140d14987b6f77c909fffac34a53ab99",
   "profile": "change_audit",
   "manifest": {
     "path": "framework/agents/elim-context-routes.json",
@@ -119,7 +119,7 @@
       "path": "areas/JUD/issues/JUD-009.md",
       "sha256": "8097c7762ebe297b9f10a14a7199de0592a993a6e8182ba40623118155c898ce",
       "bytes": 13079,
-      "modified_at": "2026-07-24T14:36:42+00:00",
+      "modified_at": "2026-07-24T14:42:54+00:00",
       "front_matter": {
         "issue_id": "JUD-009",
         "area_id": "A-04",
@@ -669,11 +669,11 @@
   },
   "review_epoch": {
     "schema_version": 1,
-    "generated_at": "2026-07-24T14:36:44+00:00",
-    "epoch_id": "epoch-arrp-20260724T143530Z",
+    "generated_at": "2026-07-24T14:42:55+00:00",
+    "epoch_id": "epoch-arrp-20260724T144134Z",
     "baseline_revision": "f74d50318e815eae49b51f7194a324eff957d932",
     "last_completed_at": null,
-    "next_due_at": "2026-07-24T14:35:30+00:00",
+    "next_due_at": "2026-07-24T14:41:34+00:00",
     "unresolved_ids": []
   },
   "provenance_complete": true
