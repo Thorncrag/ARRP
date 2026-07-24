@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T18:49:58+00:00",
-  "revision": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
-  "result": "findings",
+  "generated_at": "2026-07-24T19:05:20+00:00",
+  "revision": "fd7cfea9019a74ad5cd772bd7021e1e594685bdd",
+  "result": "clean",
   "counts": {
-    "errors": 1,
+    "errors": 0,
     "warnings": 0,
-    "findings": 1,
+    "findings": 0,
     "issue_pages": 64,
     "proposal_pages": 41
   },
-  "duration_seconds": 14.292,
+  "duration_seconds": 12.722,
   "scope": [
     "Issue and proposal structure, including Issue Snapshot concision",
     "Area and topic routing",
@@ -33,14 +33,5 @@
     "Persistent-agent runbooks and runtime configuration",
     "Structured-file and repository hygiene"
   ],
-  "findings": [
-    {
-      "id": "error-0001",
-      "severity": "error",
-      "category": "GitHub records",
-      "attention": "agent",
-      "message": "latest GitHub Pages deployment is not successful: in_progress",
-      "path": ""
-    }
-  ]
+  "findings": []
 }
