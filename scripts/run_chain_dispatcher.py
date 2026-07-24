@@ -1206,6 +1206,21 @@ def enforce_usage_monitor_closeout(outcome: int, gate: dict[str, Any]) -> int:
     return outcome
 
 
+def enforce_trigger_launch_boundary(payload: dict[str, Any]) -> dict[str, Any]:
+    if payload.get("llm_launch_allowed") is True:
+        return payload
+    payload["elim_decision"]["launch_recommended"] = False
+    payload["elim_decision"]["reason"] = (
+        "Host dispatcher rejected an LLM launch from a deterministic-only "
+        "or unspecified trigger."
+    )
+    payload["next_action"] = (
+        "No Elim launch; wait for the daily schedule, an eligible event, "
+        "or explicit manual dispatch."
+    )
+    return payload
+
+
 def comprehensive_epoch_recorded(repo: Path, chain_id: str) -> bool:
     ledger = repo / "research" / "review-epochs.jsonl"
     if not ledger.is_file():
@@ -1409,6 +1424,7 @@ def main() -> int:
             manifest,
             float(gate["lowestRemainingPercent"]),
         )
+        payload = enforce_trigger_launch_boundary(payload)
         write_json(repo / config["manifest"]["localFallback"], payload)
         if not payload["elim_decision"]["launch_recommended"]:
             control["last_consumed_chain_id"] = payload["chain_id"]

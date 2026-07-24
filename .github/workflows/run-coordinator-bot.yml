@@ -79,6 +79,14 @@ jobs:
           from pathlib import Path
           truth = {"1", "true", "yes", "on"}
           enabled = lambda name: str(os.environ.get(name, "")).casefold() in truth
+          event_name = os.environ.get("EVENT_NAME", "")
+          config = json.loads(
+              Path(".github/run-coordinator-bot.json").read_text()
+          )
+          launch_policy = config["llmLaunchPolicy"]
+          allow_elim_launch = event_name in set(
+              launch_policy["authorizedTriggers"]
+          )
           force = []
           if enabled("INPUT_FORCE_ALL"):
               force = [
@@ -94,8 +102,10 @@ jobs:
                   "project-integrity-bot",
               ]
           payload = {
+              "allow_elim_launch": allow_elim_launch,
+              "elim_launch_trigger": event_name,
               "intake_pending": (
-                  os.environ.get("EVENT_NAME") == "repository_dispatch"
+                  event_name == "repository_dispatch"
                   and (
                       enabled("CLIENT_INTAKE")
                       or os.environ.get("EVENT_ACTION") == "arrp-public-submission"

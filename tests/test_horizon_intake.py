@@ -1233,6 +1233,24 @@ class HorizonIntakeTest(unittest.TestCase):
         }
         self.assertTrue(source_candidate_ids <= active_candidate_ids)
 
+    def test_human_reserved_authority_does_not_remove_agent_review_duty(self) -> None:
+        framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(
+            "These reservations limit decision and implementation authority; "
+            "they do not remove the subject from the agent's duty of review.",
+            framework,
+        )
+        self.assertIn(
+            "state its reasoned recommendation and any important uncertainty",
+            framework,
+        )
+        self.assertIn(
+            "withholding only the reserved decision and actions that depend upon it",
+            framework,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

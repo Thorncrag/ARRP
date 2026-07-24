@@ -446,6 +446,8 @@ Human approval remains required to:
 - authorize final external circulation or publication; or
 - change the project's governing scope, framework, audit rubric, scoring system, or methodology.
 
+These reservations limit decision and implementation authority; they do not remove the subject from the agent's duty of review. Whenever a reserved matter is relevant to the assigned work, the agent must examine the applicable record and evidence, identify the material options and consequences, state its reasoned recommendation and any important uncertainty, formulate the exact decision requiring human authority, and route it for human review. The agent must not omit an applicable issue, audit question, defect, or alternative merely because it cannot make the final choice. It should preserve and continue all nonconflicting work while withholding only the reserved decision and actions that depend upon it.
+
 Every terminal candidate or issue disposition requires a record-specific human decision. Standing, class-wide, or blanket authorization is insufficient. An agent may implement a previously recorded record-specific decision, but it must preserve the candidate or issue, its rationale, and its disposition history rather than deleting the substantive record.
 
 An agent may consolidate duplicative manifestations, remove duplicate sources, replace broken or unsupported citations, update estimates from stronger cited evidence, and shorten prose without separate approval when the action does not materially change substance. The action must remain traceable when it affects evidence, meaning, or a prior project record.
