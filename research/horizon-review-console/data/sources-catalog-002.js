@@ -3,31 +3,6 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "cited_sources_chunk_002": [
     {
-      "id": "SRC-0139",
-      "record_ids": [
-        "HOR-016",
-        "RIGHTS-002"
-      ],
-      "monitoring": "No",
-      "inventory_status": "Relied upon",
-      "type": "News Reporting",
-      "publisher": "NBC News",
-      "title": "Supreme Court allows Trump to remove protections for thousands of Haitian and Syrian migrants",
-      "date": "Accessed June 25, 2026",
-      "url": "https://www.nbcnews.com/politics/supreme-court/supreme-court-allows-trump-remove-protections-thousands-haitian-syrian-rcna263164",
-      "proposition": "User-supplied news lead identifying the Supreme Court TPS decision as a current issue for horizon intake.",
-      "reliability": "Secondary",
-      "reviewed": "Partial",
-      "notes": "Use as a user-supplied current-news lead; pair with the Supreme Court opinion and additional reporting before relying on details.",
-      "retention_rationale": "",
-      "pending_reason": "",
-      "next_action": "",
-      "blocker": "",
-      "monitoring_rationale": "",
-      "monitoring_group": "",
-      "monitoring_baseline_present": false
-    },
-    {
       "id": "SRC-0140",
       "record_ids": [
         "HOR-016",
@@ -3141,6 +3116,54 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "reliability": "Primary",
       "reviewed": "Partial",
       "notes": "Added during ELEC-007 T4; used to revise the bill so it preserves lawful civil-rights monitoring while prohibiting federal-force election-administration participation. Adjudicated 2026-07-18: Cite for the lawful federal-observer and civil-rights-monitoring savings clause already built into ELEC-007. Integrated through areas/ELEC/issues/ELEC-007.md.",
+      "retention_rationale": "",
+      "pending_reason": "",
+      "next_action": "",
+      "blocker": "",
+      "monitoring_rationale": "",
+      "monitoring_group": "",
+      "monitoring_baseline_present": false
+    },
+    {
+      "id": "SRC-0280",
+      "record_ids": [
+        "ELEC-007"
+      ],
+      "monitoring": "No",
+      "inventory_status": "Relied upon",
+      "type": "Federal Statute",
+      "publisher": "U.S. Code",
+      "title": "52 U.S.C. § 10305",
+      "date": "",
+      "url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title52-section10305&num=0&edition=prelim",
+      "proposition": "Primary statutory source for Voting Rights Act observer authority relevant to ELEC-007's civil-rights monitoring savings clause.",
+      "reliability": "Primary",
+      "reviewed": "Partial",
+      "notes": "Added during ELEC-007 T4; T4 follow-up should verify all VRA monitoring and observer provisions implicated by the carveout.",
+      "retention_rationale": "",
+      "pending_reason": "",
+      "next_action": "",
+      "blocker": "",
+      "monitoring_rationale": "",
+      "monitoring_group": "",
+      "monitoring_baseline_present": false
+    },
+    {
+      "id": "SRC-0281",
+      "record_ids": [
+        "ELEC-008"
+      ],
+      "monitoring": "No",
+      "inventory_status": "Relied upon",
+      "type": "Court Filing",
+      "publisher": "U.S. Department of Justice",
+      "title": "Indictment, United States v. Trump, No. 23-cr-257",
+      "date": "Aug. 1, 2023",
+      "url": "https://www.justice.gov/storage/US_v_Trump_23_cr_257.pdf",
+      "proposition": "Identifies alleged multi-channel election-subversion patterns relevant to ELEC-008, including false claims, false-elector efforts, pressure on officials, attempted DOJ use, pressure on the Vice President, and obstruction of federal count processes. Use as allegations, procedural record, institutional-flaw source lead, and remedy stress test, not as proof of the alleged facts.",
+      "reliability": "Primary",
+      "reviewed": "Partial",
+      "notes": "Added during ELEC-008 T2; T3 should pair with superseding indictment, dismissal/current posture, Supreme Court immunity opinion, official docket records, and independently verifiable evidence before relying on any alleged fact.",
       "retention_rationale": "",
       "pending_reason": "",
       "next_action": "",

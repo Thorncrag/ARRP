@@ -18,7 +18,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "current_report": "",
       "current_report_url": "",
       "current_data": "",
-      "description": "Elim is ARRP's scheduled LLM development agent. Its objective is to move eligible proposals toward **Review Ready** and to investigate authorized formal candidates without weakening evidence, remedies, audit depth, admission standards, or human control. It follows the Framework, Agent Operating Rules, and GitHub mechanics in GitHub Workflow.",
+      "description": "Elim is ARRP's scheduled LLM development agent. Its objective is to move eligible proposals through the Framework's Post-Admission Development Gates toward **Review Ready** and to investigate authorized formal candidates under the canonical Issue-Admission Test without weakening evidence, remedies, audit depth, or human control. It follows the Framework, Agent Operating Rules, and GitHub mechanics in GitHub Workflow.",
       "checks": [],
       "runbook_path": "framework/agents/ELIM.md",
       "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/ELIM.md"
@@ -174,13 +174,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "run_chain": {
     "schema_version": 1,
     "bot_id": "run-coordinator-bot",
-    "chain_id": "arrp-20260724T184907Z",
-    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30118386711",
+    "chain_id": "arrp-20260724T201743Z",
+    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30123523566",
     "trigger": "push",
-    "created_at": "2026-07-24T18:49:07+00:00",
-    "updated_at": "2026-07-24T18:55:29+00:00",
+    "created_at": "2026-07-24T20:17:43+00:00",
+    "updated_at": "2026-07-24T20:20:10+00:00",
     "status": "complete",
-    "baseline_commit": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
+    "baseline_commit": "88b70b8a54c7279385a8c83168eef75c278955f8",
     "resume": {
       "count": 0,
       "from_run_id": null
@@ -189,12 +189,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "key": "arrp-run-chain",
       "path": null,
       "status": "released-by-workflow",
-      "owner_chain_id": "arrp-20260724T184907Z"
+      "owner_chain_id": "arrp-20260724T201743Z"
     },
     "repository": {
       "branch": "main",
-      "head": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
-      "origin_main": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
+      "head": "88b70b8a54c7279385a8c83168eef75c278955f8",
+      "origin_main": "88b70b8a54c7279385a8c83168eef75c278955f8",
       "clean": true,
       "dirty_paths": [],
       "dirty_path_count": 0,
@@ -247,7 +247,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T18:49:07+00:00",
+        "completed_at": "2026-07-24T20:17:43+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -263,7 +263,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T18:49:07+00:00",
+        "completed_at": "2026-07-24T20:17:43+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -279,7 +279,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T18:49:07+00:00",
+        "completed_at": "2026-07-24T20:17:43+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -295,15 +295,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "forced",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-24T18:50:16+00:00",
-        "last_success_at": "2026-07-24T18:50:16+00:00",
+        "completed_at": "2026-07-24T20:18:58+00:00",
+        "last_success_at": "2026-07-24T20:18:58+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:c543392318ab1cd773cb956cda96621e6bce73c0f1c84b3c7deb1803e1b9e73c"
+          "sha256": "sha256:a1b486293694c61f3dc91943ab499f97d968739a7261c6fd65bb6dd9beea6eb6"
         },
         "work_count": 0
       },
@@ -315,15 +315,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-24T18:50:16+00:00",
-        "last_success_at": "2026-07-24T18:50:16+00:00",
+        "completed_at": "2026-07-24T20:18:58+00:00",
+        "last_success_at": "2026-07-24T20:18:58+00:00",
         "retry_limit": 1,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:3ccec51164dd95e215c0599798f24d6e12008326a55a429c578ccaf19408160d"
+          "sha256": "sha256:7f4997258df6683d897e5b4f595d68ebcf0b13b7f38a1cc79dcb75ce571822e5"
         },
         "work_count": 0
       },
@@ -335,27 +335,27 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "forced",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-24T18:50:16+00:00",
-        "last_success_at": "2026-07-24T18:50:16+00:00",
+        "completed_at": "2026-07-24T20:18:58+00:00",
+        "last_success_at": "2026-07-24T20:18:58+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:b0081de865dbdb77fdbd8666f2ad7a1e14f925ad01248e5383a1bb55f39461d9"
+          "sha256": "sha256:92312aec1e33c3f80369a5a2b7fbef21f41208e445067cee1d3bd8b731f6d774"
         },
-        "work_count": 1
+        "work_count": 0
       }
     ],
     "failures": [],
     "degradations": [],
     "queue_counts": {
-      "integrity": 1,
+      "integrity": 0,
       "monitoring": 0,
       "sources": 0,
       "intake": 0,
-      "total": 1
+      "total": 0
     },
     "elim_decision": {
       "launch_recommended": true,
@@ -384,15 +384,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "usage": {
       "hard_reserve_percent": 15,
       "soft_run_target_percent": 10,
-      "remaining_percent": 81.0,
+      "remaining_percent": 70.0,
       "status": "available",
       "gate": {
         "blockers": [],
-        "checkedAtUtc": "2026-07-24T18:55:29+00:00",
-        "lowestRemainingPercent": 81,
+        "checkedAtUtc": "2026-07-24T20:20:10+00:00",
+        "lowestRemainingPercent": 70,
         "reservePercent": 15,
         "runBudget": {
-          "baselinePath": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/usage-arrp-20260724T184907Z-20260724T185528Z.json",
+          "baselinePath": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/usage-arrp-20260724T201743Z-20260724T202010Z.json",
           "highestSpentPercent": 0,
           "reserveBufferFloorPercent": 25,
           "softTargetPercent": 10,
@@ -407,10 +407,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           {
             "limitId": "codex",
             "limitName": "codex",
-            "remainingPercent": 81,
+            "remainingPercent": 70,
             "resetsAt": 1785508480,
             "resetsAtUtc": "2026-07-31T14:34:40+00:00",
-            "usedPercent": 19,
+            "usedPercent": 30,
             "window": "primary",
             "windowDurationMins": 10080
           },
@@ -428,16 +428,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "host_monitor": {
         "source": "approved-host-dispatcher",
-        "status_path": ".tmp/run-coordinator/arrp-20260724T184907Z/usage-status-arrp-20260724T184907Z-20260724T185528Z.json",
-        "baseline_path": ".tmp/run-coordinator/usage-arrp-20260724T184907Z-20260724T185528Z.json",
+        "status_path": ".tmp/run-coordinator/arrp-20260724T201743Z/usage-status-arrp-20260724T201743Z-20260724T202010Z.json",
+        "baseline_path": ".tmp/run-coordinator/usage-arrp-20260724T201743Z-20260724T202010Z.json",
         "monitor_interval_seconds": 60,
         "snapshot_max_age_seconds": 120
       }
     },
     "next_action": "Authorized host dispatcher may launch Elim.",
     "action_items": [],
-    "completed_at": "2026-07-24T18:55:29+00:00",
-    "final_revision": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
+    "completed_at": "2026-07-24T20:20:10+00:00",
+    "final_revision": "88b70b8a54c7279385a8c83168eef75c278955f8",
     "bots": [
       {
         "id": "case-monitor-bot",
@@ -445,7 +445,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T18:49:07+00:00",
+        "completed_at": "2026-07-24T20:17:43+00:00",
         "error": null
       },
       {
@@ -454,7 +454,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T18:49:07+00:00",
+        "completed_at": "2026-07-24T20:17:43+00:00",
         "error": null
       },
       {
@@ -463,7 +463,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T18:49:07+00:00",
+        "completed_at": "2026-07-24T20:17:43+00:00",
         "error": null
       },
       {
@@ -472,7 +472,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": true,
         "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-24T18:50:16+00:00",
+        "completed_at": "2026-07-24T20:18:58+00:00",
         "error": null
       },
       {
@@ -481,87 +481,84 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": true,
         "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-24T18:50:16+00:00",
+        "completed_at": "2026-07-24T20:18:58+00:00",
         "error": null
       }
     ],
     "work_queue": {
       "path": "project-console-data:elim-work-queue.json",
-      "sha256": "sha256:7b66abf5a39821e195a093acf546a7ecaa072ab3134c0a09c80ac4d4b23c2b46",
+      "sha256": "sha256:151d99172a9bd5daf9cf09a04dd1e8c21ab0bc2135c36e001d12846d20ddb270",
       "ready_for_elim": true,
       "launch_recommended": true,
       "counts": {
-        "total": 55,
-        "elim_eligible": 55,
+        "total": 54,
+        "elim_eligible": 54,
         "human": 0,
-        "safety": 1
+        "safety": 0
       },
       "problems": [],
       "next_item": {
-        "id": "INTEGRITY-74de064841ba",
-        "kind": "integrity",
-        "title": "latest GitHub Pages deployment is not successful: in_progress",
+        "id": "CHANGE-AUDIT-77bd98919be7",
+        "kind": "change_audit",
+        "title": "JUD-009: Targeted Change Audit and Internal Remedy-Fit Audit",
         "owner": "agent",
         "eligible_for_elim": true,
         "requires_human": false,
-        "safety_class": 0,
-        "base_priority": 900,
-        "age_days": 0,
-        "fairness_boost": 0,
-        "priority_score": 900,
-        "reason": "error integrity finding",
+        "safety_class": 1,
+        "base_priority": 700,
+        "age_days": 26,
+        "fairness_boost": 26,
+        "priority_score": 726,
+        "reason": "explicit workflow route: audit needed",
         "source": {
-          "input": "integrity",
-          "finding": {
-            "id": "error-0001",
-            "severity": "error",
-            "category": "GitHub records",
-            "attention": "agent",
-            "message": "latest GitHub Pages deployment is not successful: in_progress",
-            "path": ""
-          }
+          "input": "progress",
+          "identifier": "JUD-009",
+          "canonical_record": "areas/JUD/issues/JUD-009.md",
+          "workflow_status": "Audit needed",
+          "development_level": "Review ready",
+          "next_audit": "Targeted Change Audit and Internal Remedy-Fit Audit"
         },
         "recovery": null
       },
-      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T184907Z/elim-work-queue.json"
+      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T201743Z/elim-work-queue.json"
     },
     "context_packet": {
       "path": "project-console-data:elim-context.json",
-      "sha256": "sha256:9b85b3be9488f45186758f87d2a747c389ec923aa97ffdf362ff38998ed06073",
-      "profile": "integrity_reconciliation",
-      "repository_revision": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
+      "sha256": "sha256:1a3b7c8d64492df8f1e1a3f20c3520497214dcce2ffb35a66fad82e252aad2b1",
+      "profile": "change_audit",
+      "repository_revision": "88b70b8a54c7279385a8c83168eef75c278955f8",
       "provenance_complete": true,
       "limits": {
-        "max_bytes": 90000,
-        "actual_bytes": 38936
+        "max_bytes": 180000,
+        "actual_bytes": 137990
       },
-      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T184907Z/elim-context.json"
+      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T201743Z/elim-context.json"
     },
     "user_overrides": {},
     "verified_inputs": {
       "integrity": {
-        "path": ".tmp/run-coordinator/arrp-20260724T184907Z/inputs/integrity.json",
-        "sha256": "sha256:b0081de865dbdb77fdbd8666f2ad7a1e14f925ad01248e5383a1bb55f39461d9",
-        "bytes": 1377
+        "path": ".tmp/run-coordinator/arrp-20260724T201743Z/inputs/integrity.json",
+        "sha256": "sha256:92312aec1e33c3f80369a5a2b7fbef21f41208e445067cee1d3bd8b731f6d774",
+        "bytes": 1143
       },
       "progress": {
-        "path": ".tmp/run-coordinator/arrp-20260724T184907Z/inputs/progress.json",
-        "sha256": "sha256:c543392318ab1cd773cb956cda96621e6bce73c0f1c84b3c7deb1803e1b9e73c",
+        "path": ".tmp/run-coordinator/arrp-20260724T201743Z/inputs/progress.json",
+        "sha256": "sha256:a1b486293694c61f3dc91943ab499f97d968739a7261c6fd65bb6dd9beea6eb6",
         "bytes": 161812
       },
       "intake": {
-        "path": ".tmp/run-coordinator/arrp-20260724T184907Z/inputs/intake.json",
-        "sha256": "sha256:3ccec51164dd95e215c0599798f24d6e12008326a55a429c578ccaf19408160d",
+        "path": ".tmp/run-coordinator/arrp-20260724T201743Z/inputs/intake.json",
+        "sha256": "sha256:7f4997258df6683d897e5b4f595d68ebcf0b13b7f38a1cc79dcb75ce571822e5",
         "bytes": 241
       },
       "review_epoch": {
-        "path": ".tmp/run-coordinator/arrp-20260724T184907Z/inputs/review-epoch.json",
-        "sha256": "sha256:7b70059dc29c7c22bbbd20870505881720befdeede3e683d64630bae2a5e1115",
+        "path": ".tmp/run-coordinator/arrp-20260724T201743Z/inputs/review-epoch.json",
+        "sha256": "sha256:fb1cbfdcc6c5b55c40562f913fa86f88add8e60df60a49bab354dfd6b6d3d458",
         "bytes": 307
       },
       "chain": {
-        "path": ".tmp/run-coordinator/arrp-20260724T184907Z/inputs/chain.json",
-        "sha256": "sha256:78f48ee8fd83b8a00cebd7ba69b50b3e0a48baf974770db16f86655f29b2620f",
+        "path": ".tmp/run-coordinator/arrp-20260724T201743Z/inputs/chain.json",
+        "sha256": "sha256:71deaaef14a857a9106ee82994d189bb1ef5632694f36a8367ee0fc4b21b91b4",
         "bytes": 8049
       }
     }

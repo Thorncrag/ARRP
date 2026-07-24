@@ -3,54 +3,6 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "cited_sources_chunk_003": [
     {
-      "id": "SRC-0280",
-      "record_ids": [
-        "ELEC-007"
-      ],
-      "monitoring": "No",
-      "inventory_status": "Relied upon",
-      "type": "Federal Statute",
-      "publisher": "U.S. Code",
-      "title": "52 U.S.C. § 10305",
-      "date": "",
-      "url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title52-section10305&num=0&edition=prelim",
-      "proposition": "Primary statutory source for Voting Rights Act observer authority relevant to ELEC-007's civil-rights monitoring savings clause.",
-      "reliability": "Primary",
-      "reviewed": "Partial",
-      "notes": "Added during ELEC-007 T4; T4 follow-up should verify all VRA monitoring and observer provisions implicated by the carveout.",
-      "retention_rationale": "",
-      "pending_reason": "",
-      "next_action": "",
-      "blocker": "",
-      "monitoring_rationale": "",
-      "monitoring_group": "",
-      "monitoring_baseline_present": false
-    },
-    {
-      "id": "SRC-0281",
-      "record_ids": [
-        "ELEC-008"
-      ],
-      "monitoring": "No",
-      "inventory_status": "Relied upon",
-      "type": "Court Filing",
-      "publisher": "U.S. Department of Justice",
-      "title": "Indictment, United States v. Trump, No. 23-cr-257",
-      "date": "Aug. 1, 2023",
-      "url": "https://www.justice.gov/storage/US_v_Trump_23_cr_257.pdf",
-      "proposition": "Identifies alleged multi-channel election-subversion patterns relevant to ELEC-008, including false claims, false-elector efforts, pressure on officials, attempted DOJ use, pressure on the Vice President, and obstruction of federal count processes. Use as allegations, procedural record, institutional-flaw source lead, and remedy stress test, not as proof of the alleged facts.",
-      "reliability": "Primary",
-      "reviewed": "Partial",
-      "notes": "Added during ELEC-008 T2; T3 should pair with superseding indictment, dismissal/current posture, Supreme Court immunity opinion, official docket records, and independently verifiable evidence before relying on any alleged fact.",
-      "retention_rationale": "",
-      "pending_reason": "",
-      "next_action": "",
-      "blocker": "",
-      "monitoring_rationale": "",
-      "monitoring_group": "",
-      "monitoring_baseline_present": false
-    },
-    {
       "id": "SRC-0282",
       "record_ids": [
         "ELEC-008"
@@ -3183,6 +3135,78 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "reliability": "Primary",
       "reviewed": "Partial",
       "notes": "Added during ELEC-012 T2 legal-durability audit; use with Maine Section 1064 and foreign-money drafting.",
+      "retention_rationale": "",
+      "pending_reason": "",
+      "next_action": "",
+      "blocker": "",
+      "monitoring_rationale": "",
+      "monitoring_group": "",
+      "monitoring_baseline_present": false
+    },
+    {
+      "id": "SRC-0428",
+      "record_ids": [
+        "ELEC-012"
+      ],
+      "monitoring": "No",
+      "inventory_status": "Relied upon",
+      "type": "Judicial Opinion",
+      "publisher": "Justia / U.S. Supreme Court",
+      "title": "McCutcheon v. Federal Election Commission",
+      "date": "2014",
+      "url": "https://supreme.justia.com/cases/federal/us/572/185/",
+      "proposition": "Campaign-finance doctrine source for ELEC-012 because it limits anti-corruption interests to quid pro quo corruption or its appearance and treats disclosure and anti-circumvention as less restrictive tools than aggregate contribution caps.",
+      "reliability": "Secondary",
+      "reviewed": "Partial",
+      "notes": "Added during ELEC-012 T2 legal-durability audit; use for disclosure, earmarking, anti-circumvention, and quid-pro-quo tailoring.",
+      "retention_rationale": "",
+      "pending_reason": "",
+      "next_action": "",
+      "blocker": "",
+      "monitoring_rationale": "",
+      "monitoring_group": "",
+      "monitoring_baseline_present": false
+    },
+    {
+      "id": "SRC-0429",
+      "record_ids": [
+        "ELEC-012"
+      ],
+      "monitoring": "No",
+      "inventory_status": "Relied upon",
+      "type": "Judicial Opinion",
+      "publisher": "Justia / U.S. Supreme Court",
+      "title": "Federal Election Commission v. Ted Cruz for Senate",
+      "date": "2022",
+      "url": "https://supreme.justia.com/cases/federal/us/596/289/",
+      "proposition": "Campaign-finance doctrine source for ELEC-012 because it warns that speculative corruption theories and incumbent-protection effects cannot justify burdens on political speech.",
+      "reliability": "Secondary",
+      "reviewed": "Partial",
+      "notes": "Added during ELEC-012 T2 legal-durability audit; use as a caution for loan, public-financing, and anti-corruption rationales.",
+      "retention_rationale": "",
+      "pending_reason": "",
+      "next_action": "",
+      "blocker": "",
+      "monitoring_rationale": "",
+      "monitoring_group": "",
+      "monitoring_baseline_present": false
+    },
+    {
+      "id": "SRC-0430",
+      "record_ids": [
+        "ELEC-012"
+      ],
+      "monitoring": "No",
+      "inventory_status": "Relied upon",
+      "type": "Judicial Opinion",
+      "publisher": "Justia / U.S. Supreme Court",
+      "title": "Arizona Free Enterprise Club's Freedom Club PAC v. Bennett",
+      "date": "2011",
+      "url": "https://supreme.justia.com/cases/federal/us/564/721/",
+      "proposition": "Public-financing caution source for ELEC-012 because it invalidated opponent-triggered matching-fund structures that burdened nonparticipating speakers.",
+      "reliability": "Secondary",
+      "reviewed": "Partial",
+      "notes": "Added during ELEC-012 T2 legal-durability audit; use before drafting small-donor matching, vouchers, grants, or spending-offset mechanisms.",
       "retention_rationale": "",
       "pending_reason": "",
       "next_action": "",

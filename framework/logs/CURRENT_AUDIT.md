@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Status | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None. |
-| Started | 2026-07-24 15:18:23 -0400 |
-| Last checkpoint | 2026-07-24 16:14:31 -0400 |
-| User request | Implement the approved admission screen, post-admission gates, human-only terminal-disposition and reversed-control rules, and release-candidate standard. |
-| Scope | None. The methodology consolidation is complete. |
-| Files touched | None pending. |
-| Completed steps | Consolidated and synchronized the admission test, four development foundations, post-admission gates, human-only authority boundaries, and Release-candidate standard; committed the implementation as `842964e`; opened PR #398; passed 203 repository tests, public-site preparation, all Elim context-route checks, and an authenticated Project consistency audit with 0 errors and 0 warnings; verified that no live Project item currently has `Development level: Release candidate`, so no migration or score rebaseline was required. |
-| Next step | None. |
-| Blockers/questions | None. |
-| Validation status | Passed. |
+| Status | Active |
+| Active issue/task | JUD-009 |
+| Audit type/tier | Targeted Change Audit and Internal Remedy-Fit Audit |
+| Started | 2026-07-24 16:22:58 -0400 |
+| Last checkpoint | 2026-07-24 16:37:31 -0400 |
+| User request | Process the highest-priority eligible unit from deterministic chain `arrp-20260724T201743Z`. |
+| Scope | Revalidate JUD-009 after methodology commit `88b70b8`; reconcile issue analysis, legislative text, sibling audit history, source inventory, GitHub issue/Project fields, and publication surfaces. |
+| Files touched | `areas/JUD/README.md`; `areas/JUD/issues/JUD-009.md`; `areas/JUD/issues/JUD-009.audit.md`; `framework/logs/CURRENT_AUDIT.md`; `framework/logs/HORIZON_SCAN_LOG.md`; `inventory/sources.csv`; `legislation/JUD-009.md` |
+| Completed steps | Verified the deterministic chain and current legal sources; completed the targeted Change Audit and Internal Remedy-Fit Audit; recalculated the consolidated proposal at 77/100; corrected complaint, recusal-review, appointer-President, confidentiality, response, deadline, and legislative-form mechanics; added `SRC-2648` and `SRC-2649`; passed 41 focused tests, public-site preparation, CSV parsing, and diff hygiene. The score remains current, Runs remains 4, and the marker is cleared. |
+| Next step | Complete full validation, commit and push the unit branch, synchronize GitHub issue #47 and Project fields, merge after checks, refresh Console progress, verify live publication, then record closeout. |
+| Blockers/questions | Human-only decision remains: Would the project want the same categorical appointer-President rule when it disqualifies judges appointed by a President the author supports from proceedings involving that President? This does not block preservation of the completed audit; Project Status must become `Human decision needed`. |
+| Validation status | In progress. |
 
 ## Handoff Rules
 
