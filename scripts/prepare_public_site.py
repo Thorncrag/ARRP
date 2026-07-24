@@ -24,12 +24,20 @@ BUILD_ROOT = ROOT / ".site-build"
 DOCS_ROOT = BUILD_ROOT / "docs"
 SITE_ROOT = BUILD_ROOT / "site"
 PUBLIC_LEVEL = "public-proposal"
+UNDER_REVIEW_PAGE = Path("UNDER_REVIEW.md")
+SUPPORT_PAGE = Path("SUPPORT.md")
+UNDER_REVIEW_DATA_MARKER = "<!-- ARRP_PUBLIC_UNDER_REVIEW_DATA -->"
+CONSOLE_SNAPSHOT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
 PUBLIC_ROOT_PAGES = {
     Path("README.md"),
     Path("PRINT_READERS_GUIDE.md"),
     Path("SUBJECT_INDEX.md"),
     Path("ABOUT.md"),
     Path("LICENSE.md"),
+}
+PUBLIC_SITE_ONLY_ROOT_PAGES = {
+    UNDER_REVIEW_PAGE,
+    SUPPORT_PAGE,
 }
 PUBLIC_DIRECTORIES = {"areas", "legislation", "topics"}
 PUBLIC_SUPPORT_FILES = {Path("CITATION.cff")}
@@ -92,6 +100,219 @@ def page_title(path: Path) -> str:
     return heading.group(1) if heading else path.stem
 
 
+def console_snapshot() -> dict[str, object]:
+    """Read the committed, authenticated Console snapshot without publishing it."""
+    raw = CONSOLE_SNAPSHOT.read_text(encoding="utf-8").strip()
+    prefix = "window.ARRP_HORIZON_REVIEW_DATA="
+    start = raw.find(prefix)
+    if start < 0:
+        raise SystemExit(f"Unexpected Console snapshot wrapper: {relative(CONSOLE_SNAPSHOT)}")
+    payload = raw[start + len(prefix):].rstrip(";")
+    try:
+        data = json.loads(payload)
+    except json.JSONDecodeError as exc:
+        raise SystemExit(f"Invalid Console snapshot JSON: {exc}") from exc
+    if not isinstance(data, dict):
+        raise SystemExit("Console snapshot must contain one JSON object")
+    return data
+
+
+def markdown_cell(value: object) -> str:
+    """Keep generated public-table text on one safe Markdown row."""
+    return re.sub(r"\s+", " ", str(value or "")).strip().replace("|", r"\|")
+
+
+def public_issue_link(record_id: str, fallback: str) -> str:
+    """Prefer a public site page and fall back to the public GitHub issue."""
+    matches = sorted(ROOT.glob(f"areas/*/issues/{record_id}.md"))
+    if len(matches) == 1 and has_public_level(matches[0]):
+        return relative(matches[0]).as_posix()
+    return fallback
+
+
+def under_review_row(record: dict[str, object], include_posture: bool = False) -> str:
+    record_id = markdown_cell(record.get("id"))
+    title = markdown_cell(record.get("title"))
+    url = markdown_cell(record.get("issue_url"))
+    history = record.get("horizon_history")
+    concern = history.get("original_concern") if isinstance(history, dict) else ""
+    detail = markdown_cell(concern or title)
+    item = f"[{record_id} — {title}]({url})"
+    if include_posture:
+        posture = markdown_cell(record.get("workflow_status"))
+        detail = f"**{posture}.** {detail}"
+    return f"| {item} | {detail} |"
+
+
+def preliminary_under_review_row(record: dict[str, object]) -> str:
+    """Render only the reader-safe identity and initial concern."""
+    record_id = markdown_cell(record.get("id"))
+    title = markdown_cell(record.get("title"))
+    summary = markdown_cell(record.get("summary") or title)
+    label = f"{record_id} — {title}" if record_id else title
+    return f"| {label} | {summary} |"
+
+
+def render_under_review_data() -> str:
+    """Render a reader-safe projection of formal candidates and monitored issues."""
+    data = console_snapshot()
+    preliminary = [
+        record
+        for record in data.get("records", [])
+        if isinstance(record, dict)
+        and str(record.get("kind", "")).casefold() == "preliminary_candidate"
+    ]
+    horizon = [
+        record
+        for record in data.get("active_horizon_records", [])
+        if isinstance(record, dict)
+    ]
+    monitored = [
+        record
+        for record in data.get("monitoring_issues", [])
+        if isinstance(record, dict) and not str(record.get("id", "")).startswith("HOR-")
+    ]
+
+    investigations = [
+        record for record in horizon
+        if str(record.get("workflow_status", "")).casefold() == "research"
+    ]
+    held = [
+        record for record in horizon
+        if str(record.get("workflow_status", "")).casefold() in {"blocked", "deferred"}
+    ]
+    developing = [
+        record for record in horizon
+        if record not in investigations and record not in held
+    ]
+
+    synced_at = str(data.get("github_synced_at") or data.get("generated_at") or "")
+    try:
+        current_date = datetime.fromisoformat(
+            synced_at.replace("Z", "+00:00")
+        ).strftime("%B %d, %Y").replace(" 0", " ")
+    except (TypeError, ValueError):
+        current_date = "the latest committed project snapshot"
+
+    summary_lines = [
+        f'<p class="arrp-under-review-current">Current through {current_date}.</p>',
+        "",
+        '<div class="arrp-under-review-summary" markdown>',
+        "",
+    ]
+    if preliminary:
+        summary_lines.append(f"- **{len(preliminary)}** preliminary candidates in early review")
+    summary_lines.extend(
+        [
+            f"- **{len(investigations)}** active investigations",
+            f"- **{len(developing)}** other formal candidates under development or review",
+            f"- **{len(held)}** candidates waiting on evidence or a defined trigger",
+            f"- **{len(monitored)}** established issues watching external developments",
+            "",
+            "</div>",
+            "",
+        ]
+    )
+
+    lines = list(summary_lines)
+    if preliminary:
+        lines.extend(
+            [
+                "## Early Review",
+                "",
+                "These newly logged concerns are undergoing initial scope, overlap, and evidence screening. Their inclusion is not a decision to retain them as formal candidates or admit them as project issues.",
+                "",
+                '<div class="arrp-under-review-table" markdown>',
+                "",
+                "| Preliminary candidate | Initial concern |",
+                "| --- | --- |",
+            ]
+        )
+        lines.extend(preliminary_under_review_row(record) for record in preliminary)
+        lines.extend(["", "</div>", ""])
+
+    lines.extend(
+        [
+        "## Active Investigations",
+        "",
+        "These questions are undergoing defined evidence gathering or empirical research.",
+        "",
+        '<div class="arrp-under-review-table" markdown>',
+        "",
+        "| Investigation | What ARRP is determining |",
+        "| --- | --- |",
+        ]
+    )
+    lines.extend(under_review_row(record) for record in investigations)
+    lines.extend(
+        [
+            "",
+            "</div>",
+            "",
+            "## Other Formal Candidates",
+            "",
+            "These subjects have reached formal candidacy and are being defined, source-developed, or evaluated for admission, merger, or retirement.",
+            "",
+            '<div class="arrp-under-review-table" markdown>',
+            "",
+            "| Candidate | What ARRP is examining |",
+            "| --- | --- |",
+        ]
+    )
+    lines.extend(under_review_row(record) for record in developing)
+    lines.extend(
+        [
+            "",
+            "</div>",
+            "",
+            "## Candidates Waiting on a Trigger",
+            "",
+            "These remain visible, but further work is postponed or cannot responsibly proceed until the stated evidence, decision, expertise, or external event becomes available.",
+            "",
+            '<div class="arrp-under-review-table" markdown>',
+            "",
+            "| Candidate | Present posture and question |",
+            "| --- | --- |",
+        ]
+    )
+    lines.extend(under_review_row(record, include_posture=True) for record in held)
+    lines.extend(
+        [
+            "",
+            "</div>",
+            "",
+            "## Established Issues Being Monitored",
+            "",
+            "These are already part of the project. ARRP is watching a materially relevant court case, official action, implementation record, investigation, or other external development while ordinary work may continue.",
+            "",
+            '<div class="arrp-under-review-table arrp-under-review-table--compact" markdown>',
+            "",
+            "| Area | Issue |",
+            "| --- | --- |",
+        ]
+    )
+    for record in sorted(
+        monitored,
+        key=lambda item: (str(item.get("area", "")), str(item.get("id", ""))),
+    ):
+        record_id = markdown_cell(record.get("id"))
+        title = markdown_cell(record.get("title"))
+        area = markdown_cell(record.get("area") or "Cross-cutting")
+        fallback = str(record.get("issue_url") or "")
+        href = markdown_cell(public_issue_link(record_id, fallback))
+        lines.append(f"| {area} | [{record_id} — {title}]({href}) |")
+    lines.extend(["", "</div>"])
+    return "\n".join(lines)
+
+
+def hydrate_under_review_page(text: str) -> str:
+    if text.count(UNDER_REVIEW_DATA_MARKER) != 1:
+        raise SystemExit(
+            f"{UNDER_REVIEW_PAGE} must contain exactly one {UNDER_REVIEW_DATA_MARKER} marker"
+        )
+    return text.replace(UNDER_REVIEW_DATA_MARKER, render_under_review_data())
+
+
 def git_revision_timestamp(path: Path) -> int:
     """Return the last committed revision time for a canonical source file."""
     result = subprocess.run(
@@ -115,7 +336,7 @@ def localized_revision_date(timestamp: int) -> str:
 
 def is_approved_markdown(path: Path) -> bool:
     rel = relative(path)
-    if rel in PUBLIC_ROOT_PAGES:
+    if rel in PUBLIC_ROOT_PAGES or rel in PUBLIC_SITE_ONLY_ROOT_PAGES:
         return True
     return len(rel.parts) > 1 and rel.parts[0] in PUBLIC_DIRECTORIES
 
@@ -137,7 +358,15 @@ def discover_public_markdown() -> list[Path]:
             "Review the publication policy before building:\n" + rendered
         )
 
-    selected = sorted((path for path in marked if is_approved_markdown(path)), key=relative)
+    selected = {
+        path for path in marked if is_approved_markdown(path)
+    }
+    for rel in PUBLIC_SITE_ONLY_ROOT_PAGES:
+        path = ROOT / rel
+        if not path.exists():
+            raise SystemExit(f"Required public site-only page is missing: {rel.as_posix()}")
+        selected.add(path)
+    selected = sorted(selected, key=relative)
     missing = sorted(
         path.as_posix()
         for path in PUBLIC_ROOT_PAGES
@@ -353,6 +582,8 @@ def generate_navigation(
             label = f"{path.stem} — {page_title(path)}"
             lines.append(f"          - {yaml_label(label)}: legislation/{path.name}")
 
+    lines.append(f"  - {yaml_label('Under Review')}: UNDER_REVIEW.md")
+
     lines.extend(
         [
             f"  - {yaml_label('About')}:",
@@ -360,6 +591,7 @@ def generate_navigation(
             f"      - {yaml_label('Using a Print Edition')}: PRINT_READERS_GUIDE.md",
             f"      - {yaml_label('Technical Record on GitHub')}: https://github.com/Thorncrag/ARRP",
             f"      - {yaml_label('Rights and Reuse')}: LICENSE.md",
+            f"  - {yaml_label('Support')}: SUPPORT.md",
             f"  - {yaml_label('Contact')}: https://arrp-public-intake.vercel.app/",
         ]
     )
@@ -419,9 +651,12 @@ def prepare() -> dict[str, object]:
     for source in public_markdown:
         destination = markdown_map[source.resolve()]
         destination.parent.mkdir(parents=True, exist_ok=True)
+        source_text = source.read_text(encoding="utf-8")
+        if relative(source) == UNDER_REVIEW_PAGE:
+            source_text = hydrate_under_review_page(source_text)
         rewritten = rewrite_markdown(
             source,
-            source.read_text(encoding="utf-8"),
+            source_text,
             markdown_map,
             support_map,
             demoted_links,

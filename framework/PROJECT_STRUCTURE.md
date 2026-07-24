@@ -13,9 +13,11 @@ This file is the single authority for the purpose and placement of project direc
 | Path | Purpose |
 | --- | --- |
 | `README.md` | Public front door, premise, scope, reader guidance, and navigation. |
+| `UNDER_REVIEW.md` | Public, generated-status page listing formal candidates, active investigations, held questions, and established issues with external developments being monitored. |
 | `PRINT_READERS_GUIDE.md` | Front-matter guidance for compiled editions, including generated issue locators and online technical-record access. |
 | `SUBJECT_INDEX.md` | Cross-area subject and institution lookup. |
 | `ABOUT.md` | Public About page, authorship, stewardship, technical-access, and contact information. |
+| `SUPPORT.md` | Public website-only support, funding-independence, access, rights, and tax-status notice. |
 | `CONTRIBUTING.md` | Contribution and review expectations. |
 | `LICENSE.md` | Rights and reuse terms. |
 | `CITATION.cff` | Machine-readable citation metadata. |

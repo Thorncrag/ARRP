@@ -12,12 +12,14 @@ The live site is [https://thorncrag.github.io/ARRP/](https://thorncrag.github.io
 
 ## Publication Boundary
 
-The website build uses two gates:
+The website build ordinarily uses two gates:
 
 1. a Markdown file must declare `public-proposal` in its `print_levels` metadata; and
 2. it must be one of the approved root pages or live under `areas/`, `legislation/`, or `topics/`.
 
-The approved root pages are `README.md`, `PRINT_READERS_GUIDE.md`, `SUBJECT_INDEX.md`, `ABOUT.md`, and `LICENSE.md`. Public pages may also live under `areas/`, `legislation/`, or `topics/`. `CITATION.cff` is copied as an explicitly approved supporting file. Website styling, `robots.txt`, and the not-found page come from this directory.
+The approved print-connected root pages are `README.md`, `PRINT_READERS_GUIDE.md`, `SUBJECT_INDEX.md`, `ABOUT.md`, and `LICENSE.md`. Public pages may also live under `areas/`, `legislation/`, or `topics/`. `UNDER_REVIEW.md` and `SUPPORT.md` are explicitly allowlisted website-only root pages and are excluded from compiled editions through their print metadata. `CITATION.cff` is copied as an explicitly approved supporting file. Website styling, `robots.txt`, and the not-found page come from this directory.
+
+`UNDER_REVIEW.md` is the canonical public shell for the **Issues Under Review** page. During staging, the build replaces its single data marker with a reader-safe projection of formal Horizon candidates and established issues carrying the monitoring designation from the committed, authenticated Project Console snapshot. The generated copy exposes only public identifiers, titles, broad workflow groupings, and public links; it does not publish the Console, internal research records, audit queues, or source catalogs.
 
 The homepage also uses optimized light- and dark-mode emblem derivatives under `assets/branding/`. The original-resolution master and the lossless print derivative remain canonical project assets. The dark-mode derivative preserves the approved artwork while replacing the exterior white field with transparency and a diffuse white edge glow; only the optimized web derivatives are copied into the Pages artifact. The project title remains live text, and the emblem is supplied with alternative text rather than used as a substitute for the title.
 

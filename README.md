@@ -202,6 +202,8 @@ Legislators, legislative staff, and government officials who would like a comple
 
 Readers may [Explore by Topic](topics/README.md) for concise explanations of major public subjects that span several institutional failures or remedies, or use the [Subject and Institution Index](SUBJECT_INDEX.md) to find a particular subject, department, agency, office, court, acronym, or common term. Readers who prefer the project's ordered institutional structure may instead browse the [Project Areas](areas/README.md).
 
+Before requesting a new issue, readers can check [Issues Under Review](UNDER_REVIEW.md) for formal candidates, active investigations, held questions, and established proposals whose external developments ARRP is monitoring. A listed subject may still benefit from new evidence, a materially different framing, or a better remedy.
+
 ## Rights and reuse
 
 Original project materials are copyright (c) 2026 Benjamin Smith. All rights reserved unless otherwise noted. See [`LICENSE.md`](LICENSE.md).

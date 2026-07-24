@@ -41,3 +41,13 @@ Readers who want more detail than appears in the public proposal or a compiled e
 The [public website](https://thorncrag.github.io/ARRP/) is the most accessible reading edition. GitHub is the more complete technical record and should be consulted when a reader needs audit provenance, development context, machine-readable inventories, or the current version of a file omitted from a compiled edition.
 
 For citation metadata, see [CITATION.cff](CITATION.cff). For rights and reuse terms, see [LICENSE.md](LICENSE.md).
+
+<div class="arrp-support-cta" markdown>
+
+## Support This Work
+
+ARRP is independently authored and maintained. Readers who find the project useful may help sustain its research, publication, source-verification, and maintenance work. Support does not confer editorial influence, exclusive access, or tax-deductible charitable status.
+
+[Support ARRP](SUPPORT.md){ .md-button }
+
+</div>
