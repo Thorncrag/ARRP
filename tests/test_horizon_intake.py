@@ -15,6 +15,7 @@ from scripts.build_horizon_review_console import (
     research_for_record,
 )
 from scripts.build_project_integrity_feed import build_feed, existing_feed
+from scripts.project_tree import iter_project_files
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -421,7 +422,7 @@ class HorizonIntakeTest(unittest.TestCase):
         explicit_exceptions = {ROOT / "AGENTS.md", ROOT / "website" / "404.md"}
         expected = {
             path.relative_to(ROOT).as_posix()
-            for path in ROOT.rglob("*.md")
+            for path in iter_project_files(ROOT, "*.md")
             if not excluded_roots.intersection(path.relative_to(ROOT).parts)
             and path not in explicit_exceptions
         }
@@ -867,7 +868,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn("automation-schedule", console_app)
         self.assertNotIn("record.checks", console_app)
         self.assertIn('id="overview-bot-alert"', console_html)
-        self.assertIn("failedBotStages", console_app)
+        self.assertIn("failedAutomationStages", console_app)
         self.assertIn('category: "Automation failure"', console_app)
         self.assertIn('attention: "human"', console_app)
         self.assertIn('status-badge error automation-error-badge', console_app)

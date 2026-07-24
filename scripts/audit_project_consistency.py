@@ -26,6 +26,11 @@ from urllib.parse import parse_qs, unquote, urlsplit
 
 import yaml
 
+try:
+    from project_tree import iter_project_files
+except ModuleNotFoundError:  # Imported as scripts.audit_project_consistency.
+    from scripts.project_tree import iter_project_files
+
 
 ROOT = Path(__file__).resolve().parents[1]
 ISSUE_PATH = ROOT / "areas"
@@ -327,7 +332,7 @@ def active_project_files(*suffixes: str) -> list[Path]:
     allowed = set(suffixes)
     return sorted(
         path
-        for path in ROOT.rglob("*")
+        for path in iter_project_files(ROOT)
         if path.is_file()
         and path.suffix.lower() in allowed
         and not ACTIVE_TREE_EXCLUSIONS.intersection(path.relative_to(ROOT).parts)
@@ -2801,7 +2806,7 @@ def check_duplicate_copy_artifacts(failures: list[str], warnings: list[str]) -> 
     """Flag common Finder-style copies when the unsuffixed sibling still exists."""
     excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
     copy_suffix = re.compile(r"(?: copy| \([0-9]+\)| [0-9]+)$", re.IGNORECASE)
-    for path in ROOT.rglob("*"):
+    for path in iter_project_files(ROOT):
         if not path.is_file() or excluded_roots.intersection(path.relative_to(ROOT).parts):
             continue
         canonical_stem = copy_suffix.sub("", path.stem)
@@ -2875,7 +2880,7 @@ def check_print_assignment_metadata(failures: list[str], warnings: list[str]) ->
         ROOT / "AGENTS.md",
         ROOT / "website" / "404.md",
     }
-    for path in ROOT.rglob("*.md"):
+    for path in iter_project_files(ROOT, "*.md"):
         if excluded_roots.intersection(path.relative_to(ROOT).parts) or path in explicit_exceptions:
             continue
         metadata = front_matter(path)

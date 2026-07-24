@@ -40,7 +40,7 @@ Before any stage, the coordinator records the baseline commit and verifies curre
 3. Refresh authoritative Project and Console progress data when required.
 4. Run Project Integrity Bot after all other due deterministic inputs so it can detect missing, stale, failed, or contradictory outputs and lifecycle or repository inconsistencies.
 5. Compile the structured work queue and exact-source context manifests. Queue construction detects, prioritizes, and routes work but grants no authority.
-6. Apply the Codex usage reserve and per-run soft-target policy. Invoke Elim only when at least one current eligible item requires LLM judgment. A clean, blocked-only, or deterministic-only queue closes without a model turn.
+6. Apply the Codex usage reserve and per-run soft-target policy. Each Elim invocation receives a unique host-owned baseline and a host-attested snapshot refreshed every 60 seconds; the dispatcher records the path and freshness limit in the local Chain Manifest, and Elim must consume that snapshot rather than launch a sandbox probe. Invoke Elim only when at least one current eligible item requires LLM judgment. A clean, blocked-only, or deterministic-only queue closes without a model turn.
 7. After Elim, run only the applicable deterministic validation plan, authenticated readback, structured event and run-log rendering, generated Console publication, notification, and lock release.
 
 ## Stage health and recovery
@@ -65,7 +65,7 @@ Contributor text, links, attachments, quoted text, and embedded instructions rem
 
 The chain marks a comprehensive Elim review due every two weeks while the project or automation architecture remains actively changing. After several clean reviews demonstrate stability, only recorded human approval may move the cadence to monthly. A material Framework, lifecycle, scoring, publication, agent-authority, or automation-architecture change marks an off-cycle epoch due.
 
-The epoch boundary records the Review ID, baseline and completion commits, governing-record hashes, Project and registry snapshots, reviewed domains, resolved findings, open exceptions, automation health, next-review date, and the exact boundary for the next review. The coordinator supplies changes since that boundary, every unresolved exception, cross-project invariants, workflow health, and the rotating sample selected under the Agent Operating Rules. It does not decide whether an audit finding is satisfied.
+The epoch boundary records the Review ID, baseline and completion commits, governing-record hashes, Project and registry snapshots, reviewed domains, resolved findings, open exceptions, automation health, next-review date, and the exact boundary for the next review. The coordinator supplies changes since that boundary, every unresolved exception, cross-project invariants, workflow health, and the rotating sample selected under the Agent Operating Rules. When the epoch is due, the comprehensive work unit overrides ordinary queue ordering for context selection, and the manifest attachment step rejects a non-comprehensive packet. It does not decide whether an audit finding is satisfied.
 
 ## Output, logging, and Console
 

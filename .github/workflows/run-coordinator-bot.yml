@@ -440,6 +440,9 @@ jobs:
           (inputs / "review-epoch.json").write_text(
               json.dumps(epoch, indent=2) + "\n"
           )
+          (inputs / "chain.json").write_text(
+              json.dumps(chain, indent=2) + "\n"
+          )
           PY
 
       - name: Compile the bounded Elim work queue
@@ -449,7 +452,7 @@ jobs:
             --integrity "${CHAIN_WORK}/elim-inputs/integrity.json" \
             --progress "${CHAIN_WORK}/elim-inputs/progress.json" \
             --intake "${CHAIN_WORK}/elim-inputs/intake.json" \
-            --chain "${CHAIN_WORK}/arrp-run-chain/run-chain.json" \
+            --chain "${CHAIN_WORK}/elim-inputs/chain.json" \
             --review-epoch "${CHAIN_WORK}/elim-inputs/review-epoch.json" \
             > "${CHAIN_WORK}/arrp-run-chain/elim-work-queue.json"
           status=$?
@@ -461,30 +464,12 @@ jobs:
       - name: Build the bounded context packet
         id: context
         run: |
-          readarray -t route < <(python3 - <<'PY'
-          import json, os
-          from pathlib import Path
-          queue = json.loads(
-              Path(os.environ["CHAIN_WORK"], "arrp-run-chain", "elim-work-queue.json").read_text()
-          )
-          item = next((item for item in queue.get("items", []) if item.get("eligible_for_elim")), None)
-          if not item:
-              print("")
-              print("")
-          else:
-              profiles = {
-                  "bot_failure": "integrity_reconciliation",
-                  "integrity": "integrity_reconciliation",
-                  "public_intake": "public_intake",
-                  "change_audit": "change_audit",
-                  "issue_audit": "issue_audit",
-                  "issue_development": "issue_development",
-                  "comprehensive_review": "comprehensive_review",
-              }
-              print(profiles[item["kind"]])
-              print((item.get("source") or {}).get("identifier") or "")
-          PY
-          )
+          route_file="${CHAIN_WORK}/elim-context-route.txt"
+          python3 scripts/select_elim_context_route.py \
+            --queue "${CHAIN_WORK}/arrp-run-chain/elim-work-queue.json" \
+            --chain "${CHAIN_WORK}/arrp-run-chain/run-chain.json" \
+            > "${route_file}"
+          readarray -t route < "${route_file}"
           profile="${route[0]}"
           issue="${route[1]}"
           if [ -z "${profile}" ]; then
@@ -513,6 +498,20 @@ jobs:
             args+=(--context "${{ steps.context.outputs.path }}")
           fi
           python3 scripts/run_coordinator.py "${args[@]}"
+
+      - name: Preserve the inputs Elim must independently verify
+        run: |
+          mkdir -p "${CHAIN_WORK}/arrp-run-chain/inputs"
+          cp "${CHAIN_WORK}/elim-inputs/integrity.json" \
+            "${CHAIN_WORK}/arrp-run-chain/inputs/integrity.json"
+          cp "${CHAIN_WORK}/elim-inputs/progress.json" \
+            "${CHAIN_WORK}/arrp-run-chain/inputs/progress.json"
+          cp "${CHAIN_WORK}/elim-inputs/intake.json" \
+            "${CHAIN_WORK}/arrp-run-chain/inputs/intake.json"
+          cp "${CHAIN_WORK}/elim-inputs/review-epoch.json" \
+            "${CHAIN_WORK}/arrp-run-chain/inputs/review-epoch.json"
+          cp "${CHAIN_WORK}/elim-inputs/chain.json" \
+            "${CHAIN_WORK}/arrp-run-chain/inputs/chain.json"
 
       - name: Publish current run-chain projection
         env:

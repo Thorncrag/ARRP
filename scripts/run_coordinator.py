@@ -262,6 +262,16 @@ def validate_config(config: dict[str, Any]) -> None:
         raise ValueError("run-coordinator stage IDs must be unique")
     if ids[-1:] != ["project-integrity-bot"]:
         raise ValueError("project-integrity-bot must be the last deterministic stage")
+    usage = config.get("usage") or {}
+    interval = usage.get("monitorIntervalSeconds")
+    max_age = usage.get("snapshotMaxAgeSeconds")
+    if not isinstance(interval, int) or not 10 <= interval <= 300:
+        raise ValueError("usage monitor interval must be 10 through 300 seconds")
+    if not isinstance(max_age, int) or not interval <= max_age <= 600:
+        raise ValueError(
+            "usage snapshot maximum age must be at least the monitor interval "
+            "and no more than 600 seconds"
+        )
 
 
 def plan(args: argparse.Namespace) -> int:
@@ -664,10 +674,20 @@ def attach_context(args: argparse.Namespace) -> int:
     manifest["queue_counts"]["total"] = int(
         (queue.get("counts") or {}).get("total", 0)
     )
+    full_context = bool(
+        ((manifest.get("elim_decision") or {}).get("profile") or {}).get(
+            "full_context"
+        )
+    )
     if args.context:
         context = read_json(args.context)
         if context.get("schema_version") != 1 or context.get("status") == "blocked":
             raise ValueError("Elim context packet is blocked or unsupported")
+        if full_context and context.get("profile") != "comprehensive_review":
+            raise ValueError(
+                "the chain authorized comprehensive full context, but the attached "
+                f"packet uses profile {context.get('profile')!r}"
+            )
         context_path = args.context.resolve()
         manifest["context_packet"] = {
             "path": "project-console-data:elim-context.json",
@@ -678,6 +698,11 @@ def attach_context(args: argparse.Namespace) -> int:
             "limits": context.get("limits"),
         }
     else:
+        if full_context:
+            raise ValueError(
+                "the chain authorized comprehensive full context, but no context "
+                "packet was attached"
+            )
         manifest["context_packet"] = None
     if not queue.get("ready_for_elim"):
         manifest["elim_decision"]["launch_recommended"] = False

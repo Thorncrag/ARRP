@@ -20,9 +20,12 @@ import time
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
-from arrp_context import ContextError, contained_path
+try:
+    from arrp_context import ContextError, contained_path
+except ModuleNotFoundError:  # Imported as scripts.run_chain_dispatcher.
+    from scripts.arrp_context import ContextError, contained_path
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -338,12 +341,53 @@ def fetch_data_projection(
     return destination
 
 
+def materialize_verified_inputs(
+    config: dict[str, Any],
+    *,
+    repo: Path,
+    manifest_path: Path,
+    queue_path: Path,
+    destination: Path,
+) -> dict[str, dict[str, Any]]:
+    queue = read_json(queue_path, root=repo)
+    inputs = queue.get("inputs") or {}
+    verified: dict[str, dict[str, Any]] = {}
+    for name in ("integrity", "progress", "intake", "review_epoch", "chain"):
+        metadata = inputs.get(name) or {}
+        digest = metadata.get("sha256")
+        if not isinstance(digest, str) or not digest:
+            raise RuntimeError(f"the Elim queue did not preserve a hash for {name}")
+        expected = digest if digest.startswith("sha256:") else "sha256:" + digest
+        target = destination / f"{name}.json"
+        artifact = manifest_path.parent / "inputs" / f"{name}.json"
+        if artifact.is_file():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(artifact.read_bytes())
+            actual = "sha256:" + hashlib.sha256(target.read_bytes()).hexdigest()
+            if actual != expected:
+                raise RuntimeError(
+                    f"preserved {name} input differs from the queue hash"
+                )
+        else:
+            fetch_data_projection(
+                config,
+                f"inputs/{name}.json",
+                target,
+                expected,
+            )
+        verified[name] = {
+            "path": repo_relative(target, repo),
+            "sha256": expected,
+            "bytes": target.stat().st_size,
+        }
+    return verified
+
+
 def usage_gate(
     python: str,
     repo: Path,
     config: dict[str, Any],
-    state_dir: Path,
-    chain_id: str,
+    baseline_path: Path,
 ) -> dict[str, Any]:
     result = command(
         [
@@ -354,7 +398,7 @@ def usage_gate(
             "--soft-target-percent",
             str(config["usage"]["softRunTargetPercent"]),
             "--run-baseline",
-            str(state_dir / f"usage-{chain_id}.json"),
+            str(baseline_path),
         ],
         cwd=repo,
     )
@@ -365,6 +409,39 @@ def usage_gate(
     if result.returncode not in {0, 2, 3}:
         raise RuntimeError("Codex usage gate exited unexpectedly")
     return payload
+
+
+def repo_relative(path: Path, repo: Path) -> str:
+    return contained_path(path, repo).relative_to(repo.resolve()).as_posix()
+
+
+def write_usage_attestation(
+    path: Path,
+    *,
+    repo: Path,
+    chain_id: str,
+    invocation_id: str,
+    baseline_path: Path,
+    gate: dict[str, Any],
+    config: dict[str, Any],
+) -> dict[str, Any]:
+    value = {
+        "schema_version": 1,
+        "chain_id": chain_id,
+        "invocation_id": invocation_id,
+        "source": "approved-host-dispatcher",
+        "checked_at": gate.get("checkedAtUtc"),
+        "status": gate.get("status", "unavailable"),
+        "lowest_remaining_percent": gate.get("lowestRemainingPercent"),
+        "reserve_percent": config["usage"]["hardReservePercent"],
+        "soft_run_target_percent": config["usage"]["softRunTargetPercent"],
+        "monitor_interval_seconds": config["usage"]["monitorIntervalSeconds"],
+        "snapshot_max_age_seconds": config["usage"]["snapshotMaxAgeSeconds"],
+        "baseline_path": repo_relative(baseline_path, repo),
+        "gate": gate,
+    }
+    write_json(path, value, root=repo)
+    return value
 
 
 def refinalize(
@@ -399,6 +476,7 @@ def refinalize(
 
 def elim_prompt(manifest: Path, payload: dict[str, Any]) -> str:
     profile = payload["elim_decision"]["profile"]
+    monitor = (payload.get("usage") or {}).get("host_monitor") or {}
     mode = (
         "Conduct the due comprehensive full-context review and establish the next review epoch."
         if profile["full_context"]
@@ -408,15 +486,37 @@ def elim_prompt(manifest: Path, payload: dict[str, Any]) -> str:
         "You are Elim, the ARRP LLM agent. Follow the authoritative Elim runbook and all "
         "governing project rules. The deterministic run chain completed and its manifest is "
         f"at {manifest}. {mode} Verify the manifest and bot outputs before substantive work; "
+        "the manifest's verified_inputs map identifies locally preserved, hash-checked copies "
+        "of every deterministic input used to build the queue. "
         "bot failures or stale data take priority. Record ordinary issue/audit work in its "
         "canonical location and record this run in Elim's run log. Respect the 15 percent hard "
-        "reserve and ten-point soft run target. For a completed public-intake assessment, "
+        "reserve and ten-point soft run target. The approved host dispatcher, not the Elim "
+        "sandbox, owns the official usage probe. Do not launch a second Codex app-server. "
+        f"Read the host-attested usage snapshot at {monitor.get('status_path')} before "
+        "substantive work, before and after every major unit, between T-audit tiers, and before "
+        "closeout. Fail closed if its status is not pass or if it is older than "
+        f"{monitor.get('snapshot_max_age_seconds')} seconds. For a completed public-intake assessment, "
         "validate the structured result and run scripts/record_intake_review.py against the "
         "pinned work queue before the final commit so the submission is not reviewed again. "
         "For a completed comprehensive review, prepare the complete Review Epoch record and run "
         "scripts/record_review_epoch.py before the final commit; set triggering_run_id to the "
         f"current chain ID {payload.get('chain_id')}."
     )
+
+
+def monitored_usage_probe(
+    probe: Callable[[], dict[str, Any]],
+) -> dict[str, Any]:
+    try:
+        return probe()
+    except (OSError, RuntimeError, ValueError) as exc:
+        return {
+            "status": "unavailable",
+            "checkedAtUtc": datetime.now(timezone.utc)
+            .replace(microsecond=0)
+            .isoformat(),
+            "error": str(exc),
+        }
 
 
 def thread_id_from_jsonl(path: Path) -> str | None:
@@ -445,8 +545,12 @@ def launch_elim(
     manifest: Path,
     payload: dict[str, Any],
     state_dir: Path,
+    usage_probe: Callable[[], dict[str, Any]],
+    usage_status_path: Path,
+    usage_attestation_args: dict[str, Any],
+    monitor_interval_seconds: int,
     existing_thread_id: str | None = None,
-) -> tuple[int, str | None]:
+) -> tuple[int, str | None, dict[str, Any]]:
     profile = payload["elim_decision"]["profile"]
     chain_id = payload["chain_id"]
     output = state_dir / f"elim-{chain_id}.jsonl"
@@ -478,16 +582,55 @@ def launch_elim(
             "-",
         ]
     with output.open("w", encoding="utf-8") as handle:
-        process = subprocess.run(
+        process = subprocess.Popen(
             argv,
             cwd=repo,
-            input=elim_prompt(manifest, payload),
+            stdin=subprocess.PIPE,
             text=True,
             stdout=handle,
             stderr=subprocess.STDOUT,
-            check=False,
         )
-    return process.returncode, thread_id_from_jsonl(output) or existing_thread_id
+        if process.stdin is None:
+            process.kill()
+            raise RuntimeError("Elim process did not expose its prompt input")
+        try:
+            process.stdin.write(elim_prompt(manifest, payload))
+            process.stdin.close()
+        except BrokenPipeError:
+            process.wait()
+        last_gate = read_json(usage_status_path, {}, root=repo).get("gate") or {}
+        next_probe = time.monotonic() + monitor_interval_seconds
+        while process.poll() is None:
+            now_monotonic = time.monotonic()
+            if now_monotonic >= next_probe:
+                gate = monitored_usage_probe(usage_probe)
+                last_gate = gate
+                write_usage_attestation(
+                    usage_status_path,
+                    gate=gate,
+                    **usage_attestation_args,
+                )
+                next_probe = time.monotonic() + monitor_interval_seconds
+            time.sleep(min(1, max(0.1, next_probe - time.monotonic())))
+        return_code = int(process.returncode or 0)
+        final_gate = monitored_usage_probe(usage_probe)
+        last_gate = final_gate
+        write_usage_attestation(
+            usage_status_path,
+            gate=final_gate,
+            **usage_attestation_args,
+        )
+    return (
+        return_code,
+        thread_id_from_jsonl(output) or existing_thread_id,
+        last_gate,
+    )
+
+
+def enforce_usage_monitor_closeout(outcome: int, gate: dict[str, Any]) -> int:
+    if outcome == 0 and gate.get("status") != "pass":
+        return 5
+    return outcome
 
 
 def comprehensive_epoch_recorded(repo: Path, chain_id: str) -> bool:
@@ -498,6 +641,39 @@ def comprehensive_epoch_recorded(repo: Path, chain_id: str) -> bool:
     if not rows:
         return False
     return json.loads(rows[-1]).get("triggering_run_id") == chain_id
+
+
+def record_elim_runtime(
+    *,
+    repo: Path,
+    config: dict[str, Any],
+    control: dict[str, Any],
+    payload: dict[str, Any],
+    outcome: int,
+) -> None:
+    completed_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    runtime = {
+        "id": "elim",
+        "name": "Elim",
+        "status": "completed" if outcome == 0 else "failed",
+        "chain_id": payload.get("chain_id"),
+        "completed_at": completed_at,
+        "exit_code": outcome,
+        "details": (
+            "Elim completed and the dispatcher verified its required closeout."
+            if outcome == 0
+            else control.get("last_failed_reason")
+            or f"Elim exited with code {outcome}; inspect the Elim Run Log."
+        ),
+    }
+    control["elim_runtime"] = runtime
+    local_manifest = read_json(
+        repo / config["manifest"]["localFallback"],
+        payload,
+        root=repo,
+    )
+    local_manifest["elim_runtime"] = runtime
+    write_json(repo / config["manifest"]["localFallback"], local_manifest, root=repo)
 
 
 def main() -> int:
@@ -546,6 +722,14 @@ def main() -> int:
             manifest = fetch_latest_manifest(config, state_dir / "latest-run-chain.json")
         payload = read_json(manifest)
         payload["user_overrides"] = control.get("overrides", {})
+        if control.get("last_consumed_chain_id") == payload.get("chain_id"):
+            return 0
+        if (
+            control.get("last_failed_chain_id") == payload.get("chain_id")
+            and not requested
+            and not comprehensive
+        ):
+            return 0
         if payload.get("work_queue"):
             queue_path = fetch_data_projection(
                 config,
@@ -554,6 +738,13 @@ def main() -> int:
                 payload["work_queue"].get("sha256"),
             )
             payload["work_queue"]["local_path"] = str(queue_path)
+            payload["verified_inputs"] = materialize_verified_inputs(
+                config,
+                repo=repo,
+                manifest_path=manifest,
+                queue_path=queue_path,
+                destination=state_dir / payload["chain_id"] / "inputs",
+            )
         if payload.get("context_packet"):
             context_path = fetch_data_projection(
                 config,
@@ -565,17 +756,48 @@ def main() -> int:
         write_json(manifest, payload)
         if alert_failures(config, control, payload, repo):
             write_json(control_path, control)
-        if control.get("last_consumed_chain_id") == payload.get("chain_id"):
-            return 0
-        gate = usage_gate(python, repo, config, state_dir, payload["chain_id"])
+        invocation_id = (
+            payload["chain_id"]
+            + "-"
+            + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        )
+        baseline_path = state_dir / f"usage-{invocation_id}.json"
+        usage_status_path = (
+            state_dir / payload["chain_id"] / f"usage-status-{invocation_id}.json"
+        )
+        attestation_args = {
+            "repo": repo,
+            "chain_id": payload["chain_id"],
+            "invocation_id": invocation_id,
+            "baseline_path": baseline_path,
+            "config": config,
+        }
+        gate = usage_gate(python, repo, config, baseline_path)
+        attestation = write_usage_attestation(
+            usage_status_path,
+            gate=gate,
+            **attestation_args,
+        )
+        payload.setdefault("usage", {}).update(
+            {
+                "status": gate.get("status", "unavailable"),
+                "remaining_percent": gate.get("lowestRemainingPercent"),
+                "gate": gate,
+                "host_monitor": {
+                    "source": attestation["source"],
+                    "status_path": repo_relative(usage_status_path, repo),
+                    "baseline_path": attestation["baseline_path"],
+                    "monitor_interval_seconds": attestation[
+                        "monitor_interval_seconds"
+                    ],
+                    "snapshot_max_age_seconds": attestation[
+                        "snapshot_max_age_seconds"
+                    ],
+                },
+            }
+        )
+        write_json(manifest, payload)
         if gate.get("status") != "pass":
-            payload.setdefault("usage", {}).update(
-                {
-                    "status": gate.get("status", "unavailable"),
-                    "remaining_percent": gate.get("lowestRemainingPercent"),
-                    "gate": gate,
-                }
-            )
             write_json(repo / config["manifest"]["localFallback"], payload)
             return 0
         payload = refinalize(
@@ -599,33 +821,64 @@ def main() -> int:
             )
             return 0
         synchronize_canonical_repo(git, repo)
-        outcome, elim_thread_id = launch_elim(
+        outcome, elim_thread_id, final_gate = launch_elim(
             codex,
             repo,
             manifest,
             payload,
             state_dir,
+            usage_probe=lambda: usage_gate(
+                python,
+                repo,
+                config,
+                baseline_path,
+            ),
+            usage_status_path=usage_status_path,
+            usage_attestation_args=attestation_args,
+            monitor_interval_seconds=int(
+                config["usage"]["monitorIntervalSeconds"]
+            ),
             existing_thread_id=control.get("elim_thread_id"),
         )
+        outcome = enforce_usage_monitor_closeout(outcome, final_gate)
         if elim_thread_id:
             control["elim_thread_id"] = elim_thread_id
+        epoch_closeout_missing = False
         if (
             outcome == 0
             and payload["elim_decision"]["profile"]["full_context"]
             and not comprehensive_epoch_recorded(repo, payload["chain_id"])
         ):
             outcome = 4
+            epoch_closeout_missing = True
             control["last_failed_reason"] = (
                 "Comprehensive Elim closeout did not record the required Review Epoch."
             )
         if outcome == 0:
             control["last_consumed_chain_id"] = payload["chain_id"]
             control["last_consumed_at"] = payload["updated_at"]
+            control.pop("last_failed_chain_id", None)
+            control.pop("last_failed_exit_code", None)
+            control.pop("last_failed_reason", None)
             control.pop("requested_run", None)
             control.pop("requested_comprehensive_review", None)
         else:
             control["last_failed_chain_id"] = payload["chain_id"]
             control["last_failed_exit_code"] = outcome
+            if not epoch_closeout_missing:
+                control["last_failed_reason"] = (
+                    "The host usage monitor did not end in a passing state; inspect "
+                    "the Elim Run Log and usage attestation."
+                    if outcome == 5
+                    else f"Elim exited with code {outcome}; inspect the Elim Run Log."
+                )
+        record_elim_runtime(
+            repo=repo,
+            config=config,
+            control=control,
+            payload=payload,
+            outcome=outcome,
+        )
         write_json(control_path, control)
         return outcome
     finally:

@@ -7565,12 +7565,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 14534,
+      "word_count": 14912,
       "estimated_pages": 23,
-      "table_count": 84,
+      "table_count": 85,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 65
+      "longest_unbroken_token": 75
     },
     {
       "title": "ARRP Agent Operating Rules",
@@ -7617,7 +7617,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 6813,
+      "word_count": 6898,
       "estimated_pages": 11,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7842,22 +7842,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "invalid_print_levels": [],
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
-      "internal_links": [
-        {
-          "path": "framework/logs/ELIM_RUN_LOG.md",
-          "exists": true
-        },
-        {
-          "path": "framework/logs/AGENT_AUDIT_LOG.md",
-          "exists": true
-        }
-      ],
-      "word_count": 487,
+      "internal_links": [],
+      "word_count": 549,
       "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 23
+      "longest_unbroken_token": 26
     },
     {
       "title": "Current Project Integrity Report",
@@ -7936,9 +7927,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1488,
-      "estimated_pages": 3,
-      "table_count": 3,
+      "word_count": 2325,
+      "estimated_pages": 4,
+      "table_count": 4,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
@@ -7980,7 +7971,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3747,
+      "word_count": 3841,
       "estimated_pages": 6,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8718,7 +8709,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-run coordinator bot runbook",
       "internal_links": [],
-      "word_count": 1354,
+      "word_count": 1423,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10615,7 +10606,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/horizon-review-console-arrp project console",
       "internal_links": [],
-      "word_count": 2773,
+      "word_count": 2814,
       "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,

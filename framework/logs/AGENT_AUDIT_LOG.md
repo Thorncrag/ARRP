@@ -1590,3 +1590,27 @@ Prospective template:
 | Push status | Project field synchronized and read back; shared provenance awaits closeout pull request |
 | Rollback notes | Restore WAR-009 Project Development level to In development only if the canonical audit-readiness finding is also reversed through the ordinary reviewed workflow. |
 | Blockers/skipped checks | None. |
+
+
+### 2026-07-24 — Comprehensive-review launch preflight contradiction — bot-failure
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-24T10:55:24-04:00 |
+| Agent | elim |
+| Run ID | arrp-20260724T144804Z |
+| Unit ID | bot-failure-context-profile-001 |
+| Trigger | Push-triggered chain with a due comprehensive Review Epoch |
+| Task type | bot-failure |
+| Outcome | Routed for human review |
+| Issue/task | Run Coordinator comprehensive-context profile contradiction |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | `framework/logs/AGENT_AUDIT_LOG.md`; `framework/logs/ELIM_RUN_LOG.md`; `research/horizon-review-console/catalog-data.js`; `research/horizon-review-console/data/automation.js`; `research/horizon-review-console/data/logs.js`; `research/horizon-review-console/data/publication.js` |
+| Validation | Verified chain `arrp-20260724T144804Z`, baseline `6dc59640e7c4860464ca08bc5fb2caff84dda8f9`, clean and current repository evidence, successful or current-not-due bot stages, governing and workflow hashes, bot-output-to-queue hash lineage, and exact downloaded queue and context hashes. The manifest selects `profile.id: comprehensive` with `full_context: true`, but the downloaded context packet is `profile: change_audit` and contains the JUD-009 issue dossier. The original ephemeral bot-output paths recorded by the queue were absent from the Elim worktree, so their payloads could not be independently rehashed. Thirty-two focused automation tests and the complete 182-test repository suite passed after the required Project Console rebuild; `git diff --check` passed. |
+| Commit | Not created in this execution context; `git fetch` could not write `.git/FETCH_HEAD`, and the final `git add` / commit attempt could not create `.git/index.lock`. |
+| Push status | Not pushed; closeout records remain local pending an approved writable Git/GitHub context. |
+| Rollback notes | Remove only these two appended closeout entries and regenerate the Project Console if this failed invocation is proven not to have occurred; do not alter any issue or Review Epoch record because none was created. |
+| Blockers/skipped checks | The required Elim usage-reserve read returned `status: unavailable` after the trusted Codex app-server request timed out against unique path `/private/tmp/arrp-elim-20260724T144804Z.B789Lg/codex-usage-baseline.json`. The comprehensive review, public-intake assessment, issue work, and Review Epoch recording did not begin. Repair or regenerate the context packet under the comprehensive profile and relaunch through an approved host context with a fresh unique usage baseline. |

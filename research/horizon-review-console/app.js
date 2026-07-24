@@ -1880,7 +1880,7 @@
       source_url: "#sources:watchers:source-checker"
     });
 
-    failedBotStages().forEach((stage) => {
+    failedAutomationStages().forEach((stage) => {
       const record = data.agent_registry.find((agent) => agent.id === stage.id);
       add({
         category: "Automation failure",
@@ -2339,14 +2339,14 @@
     const dispositions = data.publication?.disposition_counts || {};
     const publicationExceptions = Number(dispositions.unclassified || 0) + Number(dispositions.conflict || 0);
     const currentRecordCount = (data.progress?.proposals || []).length + data.active_horizon_records.length;
-    const botFailures = failedBotStages();
+    const botFailures = failedAutomationStages();
     byId("overview-generated-at").textContent = formatDate(data.generated_at);
     const botAlert = byId("overview-bot-alert");
     botAlert.hidden = botFailures.length === 0;
     if (botFailures.length) {
       byId("overview-bot-alert-heading").textContent = botFailures.length === 1
-        ? "A bot failed or is blocking the run chain"
-        : `${botFailures.length} bots failed or are blocking the run chain`;
+        ? "An automation worker failed or is blocking the run chain"
+        : `${botFailures.length} automation workers failed or are blocking the run chain`;
       byId("overview-bot-alert-summary").textContent = botFailures
         .map((stage) => `${stage.id}: ${botFailureSummary(stage)}`)
         .join(" · ");
@@ -2431,22 +2431,21 @@
     return [];
   }
 
-  function failedBotStages(chain = data.run_chain || {}) {
-    const registeredBots = new Set(
-      data.agent_registry
-        .filter((record) => /bot/i.test(record.type || ""))
-        .map((record) => record.id)
-    );
+  function failedAutomationStages(chain = data.run_chain || {}) {
+    const registeredWorkers = new Set(data.agent_registry.map((record) => record.id));
     const stageMap = new Map(runChainStages(chain).map((stage) => [stage.id, stage]));
+    if (chain.elim_runtime && typeof chain.elim_runtime === "object") {
+      stageMap.set("elim", { id: "elim", ...chain.elim_runtime });
+    }
     [...(Array.isArray(chain.failures) ? chain.failures : []),
       ...(Array.isArray(chain.degradations) ? chain.degradations : [])]
       .filter((failure) => failure && typeof failure === "object")
       .forEach((failure) => {
         const id = failure.stage_id || failure.stage || failure.bot_id || failure.id;
-        if (registeredBots.has(id)) stageMap.set(id, { ...(stageMap.get(id) || { id }), ...failure, id });
+        if (registeredWorkers.has(id)) stageMap.set(id, { ...(stageMap.get(id) || { id }), ...failure, id });
       });
     return [...stageMap.values()].filter((stage) => {
-      if (!registeredBots.has(stage.id)) return false;
+      if (!registeredWorkers.has(stage.id)) return false;
       const status = String(stage.status || "").toLowerCase();
       const classification = String(stage.failure_class || stage.classification || "").toLowerCase();
       const explicitFailure = /fail|error|stale|block|timeout|timed.out|cancel/.test(status);
@@ -2552,7 +2551,10 @@
   function renderAutomation() {
     const records = data.agent_registry;
     const stageById = new Map(runChainStages(data.run_chain || {}).map((stage) => [stage.id, stage]));
-    const failureById = new Map(failedBotStages().map((stage) => [stage.id, stage]));
+    if (data.run_chain?.elim_runtime) {
+      stageById.set("elim", { id: "elim", ...data.run_chain.elim_runtime });
+    }
+    const failureById = new Map(failedAutomationStages().map((stage) => [stage.id, stage]));
     const enabled = records.filter((record) => /^enabled$/i.test(record.status)).length;
     const agents = records.filter((record) => /llm-agent/i.test(record.type)).length;
     const bots = records.filter((record) => /bot/i.test(record.type)).length;
@@ -2725,6 +2727,12 @@
       if (!response.ok) throw new Error(`status ${response.status}`);
       const result = await response.json();
       if (!result.available || !result.control || !result.control_token) throw new Error("control service unavailable");
+      if (result.manifest && typeof result.manifest === "object") {
+        data.run_chain = result.manifest;
+        if (result.control.elim_runtime) data.run_chain.elim_runtime = result.control.elim_runtime;
+        renderAutomation();
+        renderOverview();
+      }
       sessionStorage.setItem("arrp-run-coordinator-control-token", result.control_token);
       setCoordinatorControlStatus("Local coordinator available.");
     } catch (_error) {
