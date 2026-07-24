@@ -10,12 +10,15 @@ an Elim unit.
 from __future__ import annotations
 
 import argparse
+import fcntl
 import hashlib
 import json
 import os
 import re
+import secrets
 import subprocess
 import sys
+import threading
 import time
 import urllib.request
 from datetime import datetime, timezone
@@ -81,6 +84,26 @@ CURRENT_AUDIT_INACTIVE_FIELDS = {
     "Blockers/questions": "None.",
     "Validation status": "Not applicable.",
 }
+
+
+class DispatchLease:
+    def __init__(
+        self,
+        *,
+        lock_path: Path,
+        owner_path: Path,
+        descriptor: int,
+        owner_token: str,
+        repo: Path,
+    ) -> None:
+        self.lock_path = lock_path
+        self.owner_path = owner_path
+        self.descriptor = descriptor
+        self.owner_token = owner_token
+        self.repo = repo
+        self.mutex = threading.Lock()
+        self.heartbeat_stop = threading.Event()
+        self.heartbeat_thread: threading.Thread | None = None
 
 
 def read_json(path: Path, default: Any = None, root: Path = ROOT) -> Any:
@@ -262,6 +285,33 @@ def enforce_elim_result_closeout(
     expected_run_id: str | None = None,
 ) -> tuple[int, bool, str]:
     if outcome != 0:
+        try:
+            handoff = read_current_audit(
+                repo / "framework" / "logs" / "CURRENT_AUDIT.md",
+                repo,
+            )
+        except (ContextError, OSError, TypeError, ValueError) as exc:
+            return (
+                outcome,
+                False,
+                f"Elim exited abnormally and its recovery checkpoint is invalid: {exc}",
+            )
+        state = handoff["Handoff state"]
+        if state == "Open":
+            return (
+                outcome,
+                False,
+                "Elim exited abnormally with an Open recovery checkpoint. Treat the "
+                "checkpoint as unfinished-work evidence, never runtime liveness, and "
+                "reconcile it before retrying the same work unit.",
+            )
+        if state == "Inactive":
+            return (
+                outcome,
+                False,
+                "Elim exited abnormally without a recoverable Paused or Blocked "
+                "checkpoint; inspect its preserved output before retrying.",
+            )
         return outcome, False, ""
     try:
         result = read_elim_result(result_path, repo)
@@ -385,17 +435,40 @@ def process_is_alive(pid: int) -> bool:
 
 
 def write_dispatch_lock_owner(
-    lock: Path,
+    lease: DispatchLease,
     *,
-    repo: Path,
     updates: dict[str, Any],
 ) -> dict[str, Any]:
-    owner_path = lock / "owner.json"
-    owner = read_json(owner_path, {}, root=repo)
-    owner.update(updates)
-    owner["heartbeat_at"] = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-    write_json(owner_path, owner, root=repo)
-    return owner
+    with lease.mutex:
+        owner = read_json(lease.owner_path, {}, root=lease.repo)
+        if owner.get("owner_token") != lease.owner_token:
+            raise RuntimeError("run-chain lock ownership changed unexpectedly")
+        owner.update(updates)
+        owner["heartbeat_at"] = (
+            datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+        )
+        write_json(lease.owner_path, owner, root=lease.repo)
+        return owner
+
+
+def start_dispatch_heartbeat(
+    lease: DispatchLease,
+    *,
+    interval_seconds: int,
+) -> None:
+    def refresh() -> None:
+        while not lease.heartbeat_stop.wait(interval_seconds):
+            try:
+                write_dispatch_lock_owner(lease, updates={})
+            except (OSError, RuntimeError, ValueError):
+                return
+
+    lease.heartbeat_thread = threading.Thread(
+        target=refresh,
+        name="arrp-dispatch-heartbeat",
+        daemon=True,
+    )
+    lease.heartbeat_thread.start()
 
 
 def record_interrupted_dispatch(
@@ -409,46 +482,64 @@ def record_interrupted_dispatch(
     manifest_path = repo / config["manifest"]["localFallback"]
     payload = read_json(manifest_path, {}, root=repo)
     chain_id = owner.get("chain_id") or payload.get("chain_id") or "unknown-chain"
+    owner_status = owner.get("status")
+    elim_started = owner_status in {"elim-running", "elim-closeout"}
     output_path = owner.get("output_path")
-    if not output_path and chain_id != "unknown-chain":
+    if elim_started and not output_path and chain_id != "unknown-chain":
         output_path = f".tmp/run-coordinator/elim-{chain_id}.jsonl"
-    details = (
-        "Elim was interrupted before dispatcher-verified closeout. Its preserved "
-        "task and JSONL output may contain incomplete analysis, but no substantive "
-        "result may be treated as applied until the run is reconciled."
-    )
+    if elim_started:
+        details = (
+            "Elim was interrupted before dispatcher-verified closeout. Its preserved "
+            "task and JSONL output may contain incomplete analysis, but no substantive "
+            "result may be treated as applied until the run is reconciled."
+        )
+        stage = "elim"
+        next_action = (
+            "Review the interrupted Elim task and preserved output, reconcile any "
+            "safe partial work, clear the stale handoff, and launch a fresh current "
+            "chain."
+        )
+    else:
+        details = (
+            "The host run coordinator was interrupted before Elim began. No Elim "
+            "failure or substantive work is inferred from the abandoned dispatcher."
+        )
+        stage = "run-coordinator"
+        next_action = (
+            "Review the interrupted coordinator stage and launch a fresh current chain."
+        )
     if output_path:
         details += f" Preserved output: {output_path}."
-    runtime = {
-        "id": "elim",
-        "name": "Elim",
-        "status": "failed",
-        "chain_id": chain_id,
-        "started_at": owner.get("started_at"),
-        "completed_at": completed_at,
-        "exit_code": 130,
-        "details": details,
-    }
-    control["elim_runtime"] = runtime
+    runtime = None
+    if elim_started:
+        runtime = {
+            "id": "elim",
+            "name": "Elim",
+            "status": "failed",
+            "chain_id": chain_id,
+            "started_at": owner.get("started_at"),
+            "completed_at": completed_at,
+            "exit_code": 130,
+            "details": details,
+        }
+        control["elim_runtime"] = runtime
     control["last_failed_chain_id"] = chain_id
     control["last_failed_exit_code"] = 130
     control["last_failed_reason"] = details
 
     payload["status"] = "failed"
     payload["updated_at"] = completed_at
-    payload["elim_runtime"] = runtime
-    payload["next_action"] = (
-        "Review the interrupted Elim task and preserved output, reconcile any safe "
-        "partial work, clear the stale handoff, and launch a fresh current chain."
-    )
+    if runtime:
+        payload["elim_runtime"] = runtime
+    payload["next_action"] = next_action
     failures = [
         item
         for item in (payload.get("failures") or [])
-        if item.get("stage") != "elim"
+        if item.get("stage") != stage
     ]
     failures.append(
         {
-            "stage": "elim",
+            "stage": stage,
             "classification": "blocking",
             "message": details,
         }
@@ -458,69 +549,131 @@ def record_interrupted_dispatch(
     write_json(manifest_path, payload, root=repo)
 
 
-def acquire_dispatch_lock(
+def recover_legacy_dispatch_lock(
     lock: Path,
     *,
     repo: Path,
     config: dict[str, Any],
     control: dict[str, Any],
 ) -> bool:
-    recovered = False
-    try:
-        lock.mkdir()
-    except FileExistsError as exc:
-        owner_path = lock / "owner.json"
-        owner = read_json(owner_path, {}, root=repo)
-        owner_pid = owner.get("pid")
-        owner_alive = process_is_alive(owner_pid) if isinstance(owner_pid, int) else False
-        age_seconds = max(0.0, time.time() - lock.stat().st_mtime)
-        stale_seconds = int(config["hostDispatcher"]["staleLockSeconds"])
-        recoverable = (isinstance(owner_pid, int) and not owner_alive) or (
-            not isinstance(owner_pid, int) and age_seconds >= stale_seconds
+    if not lock.is_dir():
+        return False
+    owner_path = lock / "owner.json"
+    owner = read_json(owner_path, {}, root=repo)
+    owner_pid = owner.get("pid")
+    owner_alive = process_is_alive(owner_pid) if isinstance(owner_pid, int) else False
+    age_seconds = max(0.0, time.time() - lock.stat().st_mtime)
+    stale_seconds = int(config["hostDispatcher"]["staleLockSeconds"])
+    recoverable = (isinstance(owner_pid, int) and not owner_alive) or (
+        not isinstance(owner_pid, int) and age_seconds >= stale_seconds
+    )
+    if not recoverable:
+        raise RuntimeError("a legacy host dispatcher may own the run-chain lock")
+    allowed = {"owner.json", "owner.json.tmp"}
+    unexpected = {item.name for item in lock.iterdir()} - allowed
+    if unexpected:
+        raise RuntimeError(
+            "stale run-chain lock contains unexpected files; human review required"
         )
-        if not recoverable:
-            raise RuntimeError("another host dispatcher owns the run-chain lock") from exc
-        if owner_path.is_file():
-            owner_path.unlink()
-        try:
-            lock.rmdir()
-        except OSError as removal_error:
-            raise RuntimeError(
-                "stale run-chain lock contains unexpected files; human review required"
-            ) from removal_error
+    for name in allowed:
+        candidate = lock / name
+        if candidate.is_file():
+            candidate.unlink()
+    lock.rmdir()
+    record_interrupted_dispatch(
+        repo=repo,
+        config=config,
+        control=control,
+        owner=owner,
+    )
+    return True
+
+
+def acquire_dispatch_lock(
+    lock: Path,
+    *,
+    repo: Path,
+    config: dict[str, Any],
+    control: dict[str, Any],
+) -> tuple[bool, DispatchLease]:
+    recovered = recover_legacy_dispatch_lock(
+        lock,
+        repo=repo,
+        config=config,
+        control=control,
+    )
+    descriptor = os.open(lock, os.O_RDWR | os.O_CREAT, 0o600)
+    try:
+        fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError as exc:
+        os.close(descriptor)
+        raise RuntimeError("another host dispatcher owns the run-chain lock") from exc
+    owner_path = lock.with_name(f"{lock.name}.owner.json")
+    prior_owner = read_json(owner_path, {}, root=repo)
+    if prior_owner:
         record_interrupted_dispatch(
             repo=repo,
             config=config,
             control=control,
-            owner=owner,
+            owner=prior_owner,
         )
-        lock.mkdir()
         recovered = True
     local_manifest = read_json(
         repo / config["manifest"]["localFallback"],
         {},
         root=repo,
     )
-    write_dispatch_lock_owner(
-        lock,
+    owner_token = secrets.token_hex(24)
+    lease = DispatchLease(
+        lock_path=lock,
+        owner_path=owner_path,
+        descriptor=descriptor,
+        owner_token=owner_token,
         repo=repo,
-        updates={
+    )
+    write_json(
+        owner_path,
+        {
+            "owner_token": owner_token,
             "pid": os.getpid(),
             "started_at": datetime.now(timezone.utc)
             .replace(microsecond=0)
             .isoformat(),
             "status": "dispatcher-running",
             "chain_id": local_manifest.get("chain_id"),
+            "heartbeat_at": datetime.now(timezone.utc)
+            .replace(microsecond=0)
+            .isoformat(),
         },
+        root=repo,
     )
-    return recovered
+    heartbeat_interval = max(
+        5,
+        min(30, int(config["hostDispatcher"]["staleLockSeconds"]) // 3),
+    )
+    start_dispatch_heartbeat(lease, interval_seconds=heartbeat_interval)
+    return recovered, lease
 
 
-def release_dispatch_lock(lock: Path, *, repo: Path) -> None:
-    owner_path = lock / "owner.json"
-    if owner_path.is_file():
-        owner_path.unlink()
-    lock.rmdir()
+def release_dispatch_lock(lease: DispatchLease) -> None:
+    lease.heartbeat_stop.set()
+    if lease.heartbeat_thread is not None:
+        lease.heartbeat_thread.join(timeout=5)
+    ownership_error: RuntimeError | None = None
+    with lease.mutex:
+        owner = read_json(lease.owner_path, {}, root=lease.repo)
+        if owner.get("owner_token") != lease.owner_token:
+            ownership_error = RuntimeError(
+                "refusing to remove a run-chain owner record held by another acquisition"
+            )
+        elif lease.owner_path.is_file():
+            lease.owner_path.unlink()
+    try:
+        fcntl.flock(lease.descriptor, fcntl.LOCK_UN)
+    finally:
+        os.close(lease.descriptor)
+    if ownership_error:
+        raise ownership_error
 
 
 def require_clean_repo(git: str, repo: Path) -> None:
@@ -939,7 +1092,7 @@ def launch_elim(
     usage_status_path: Path,
     usage_attestation_args: dict[str, Any],
     monitor_interval_seconds: int,
-    dispatcher_lock: Path,
+    dispatcher_lock: DispatchLease,
     existing_thread_id: str | None = None,
 ) -> tuple[int, str | None, dict[str, Any]]:
     profile = payload["elim_decision"]["profile"]
@@ -983,7 +1136,6 @@ def launch_elim(
         )
         write_dispatch_lock_owner(
             dispatcher_lock,
-            repo=repo,
             updates={
                 "status": "elim-running",
                 "chain_id": chain_id,
@@ -1015,7 +1167,6 @@ def launch_elim(
                 )
                 write_dispatch_lock_owner(
                     dispatcher_lock,
-                    repo=repo,
                     updates={
                         "status": "elim-running",
                         "elim_thread_id": (
@@ -1036,7 +1187,6 @@ def launch_elim(
         )
         write_dispatch_lock_owner(
             dispatcher_lock,
-            repo=repo,
             updates={
                 "status": "elim-closeout",
                 "elim_thread_id": thread_id_from_jsonl(output) or existing_thread_id,
@@ -1129,7 +1279,7 @@ def main() -> int:
     control_path = state_dir / "control.json"
     control = read_json(control_path, {"requests": [], "overrides": {}})
     lock = state_dir / "host-dispatch.lock"
-    acquire_dispatch_lock(
+    _, dispatch_lease = acquire_dispatch_lock(
         lock,
         repo=repo,
         config=config,
@@ -1137,7 +1287,7 @@ def main() -> int:
     )
     write_json(control_path, control)
     if args.recover_stale_lock_only:
-        release_dispatch_lock(lock, repo=repo)
+        release_dispatch_lock(dispatch_lease)
         return 0
     try:
         synchronize_canonical_repo(git, repo)
@@ -1222,8 +1372,7 @@ def main() -> int:
             **attestation_args,
         )
         write_dispatch_lock_owner(
-            lock,
-            repo=repo,
+            dispatch_lease,
             updates={
                 "chain_id": payload["chain_id"],
                 "invocation_id": invocation_id,
@@ -1291,7 +1440,7 @@ def main() -> int:
             monitor_interval_seconds=int(
                 config["usage"]["monitorIntervalSeconds"]
             ),
-            dispatcher_lock=lock,
+            dispatcher_lock=dispatch_lease,
             existing_thread_id=control.get("elim_thread_id"),
         )
         outcome = enforce_usage_monitor_closeout(outcome, final_gate)
@@ -1351,7 +1500,7 @@ def main() -> int:
         write_json(control_path, control)
         return outcome
     finally:
-        release_dispatch_lock(lock, repo=repo)
+        release_dispatch_lock(dispatch_lease)
 
 
 if __name__ == "__main__":
