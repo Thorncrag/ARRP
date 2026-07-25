@@ -92,6 +92,10 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
             "cloud completion with an eligible Elim unit remains `host_pending`",
             text,
         )
+        self.assertIn(
+            "reconciled-checkout archive mode",
+            text,
+        )
 
     def test_generated_pdf_preserves_status_core_controls_and_diagrams(self):
         source = (

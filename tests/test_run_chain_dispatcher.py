@@ -2760,6 +2760,152 @@ class RunChainDispatcherTests(unittest.TestCase):
             self.assertIn("cwd=execution_repo", launch_source)
             self.assertIn("str(execution_repo)", launch_source)
 
+    def test_reconciled_dirty_checkout_is_archived_only_after_canonical_proof(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            remote = root / "remote.git"
+            repo = root / "canonical"
+
+            def git(cwd: Path, *args: str) -> str:
+                completed = MODULE.subprocess.run(
+                    ["/usr/bin/git", *args],
+                    cwd=cwd,
+                    text=True,
+                    stdout=MODULE.subprocess.PIPE,
+                    stderr=MODULE.subprocess.PIPE,
+                    check=False,
+                )
+                self.assertEqual(
+                    completed.returncode,
+                    0,
+                    msg=f"git {' '.join(args)} failed: {completed.stderr}",
+                )
+                return completed.stdout.strip()
+
+            remote.mkdir()
+            git(remote, "init", "--bare")
+            repo.mkdir()
+            git(repo, "init", "-b", "main")
+            (repo / "framework/logs").mkdir(parents=True)
+            (repo / "framework/logs/ELIM_RUN_LOG.md").write_text(
+                "# Elim Run Log\n\n## Runs\n",
+                encoding="utf-8",
+            )
+            git(repo, "add", "framework/logs/ELIM_RUN_LOG.md")
+            git(
+                repo,
+                "-c",
+                "user.name=Test",
+                "-c",
+                "user.email=test@example.com",
+                "commit",
+                "-m",
+                "baseline",
+            )
+            git(repo, "remote", "add", "origin", str(remote))
+            git(repo, "push", "-u", "origin", "main")
+            checkout = repo / ".tmp/run-coordinator/elim-checkout"
+            checkout.parent.mkdir(parents=True)
+            git(repo, "clone", str(remote), str(checkout))
+            git(checkout, "switch", "main")
+
+            chain_id = "arrp-20260725T063006Z"
+            self.write_elim_run_log(
+                repo,
+                run_id=chain_id,
+                outcome="Failed before substantive work",
+            )
+            git(repo, "add", "framework/logs/ELIM_RUN_LOG.md")
+            git(
+                repo,
+                "-c",
+                "user.name=Test",
+                "-c",
+                "user.email=test@example.com",
+                "commit",
+                "-m",
+                "account failed run",
+            )
+            git(repo, "push", "origin", "main")
+            (checkout / "framework/logs/CURRENT_AUDIT.md").write_text(
+                "Preserved interrupted checkpoint.\n",
+                encoding="utf-8",
+            )
+            reconciliation = (
+                repo / MODULE.ELIM_RUN_LOG_RECONCILIATION_STATE
+            )
+            reconciliation.write_text(
+                json.dumps({"schema_version": 1, "items": []}) + "\n",
+                encoding="utf-8",
+            )
+            config = json.loads(
+                (ROOT / ".github/run-coordinator-bot.json").read_text()
+            )
+            control = {
+                "action_items": [
+                    {
+                        "id": "automation-failure-1",
+                        "chain_id": chain_id,
+                        "resolved": True,
+                    }
+                ],
+                "elim_thread_id": "019f9850-ceef-74f0-8cc4-2457f5322706",
+                "elim_thread_checkout": ".tmp/run-coordinator/elim-checkout",
+            }
+
+            with mock.patch.object(
+                MODULE,
+                "APPROVED_ORIGIN_URLS",
+                frozenset({str(remote)}),
+            ):
+                unresolved = {
+                    **control,
+                    "action_items": [
+                        {
+                            "id": "automation-failure-1",
+                            "chain_id": chain_id,
+                            "resolved": False,
+                        }
+                    ],
+                }
+                with self.assertRaisesRegex(
+                    MODULE.ContextError,
+                    "matching resolved Action Item",
+                ):
+                    MODULE.archive_reconciled_elim_checkout(
+                        "/usr/bin/git",
+                        repo,
+                        config,
+                        unresolved,
+                        chain_id=chain_id,
+                    )
+                self.assertTrue(checkout.exists())
+                record = MODULE.archive_reconciled_elim_checkout(
+                    "/usr/bin/git",
+                    repo,
+                    config,
+                    control,
+                    chain_id=chain_id,
+                )
+
+            archived = repo / record["archive_path"]
+            self.assertFalse(checkout.exists())
+            self.assertTrue((archived / ".git").is_dir())
+            self.assertRegex(archived.name, r"^[0-9a-f]{64}$")
+            self.assertTrue(
+                (archived / ".arrp-reconciled-checkout.json").is_file()
+            )
+            self.assertEqual(
+                record["changed_paths"],
+                ["framework/logs/CURRENT_AUDIT.md"],
+            )
+            self.assertEqual(
+                control["checkout_archive_history"][0]["chain_id"],
+                chain_id,
+            )
+            self.assertNotIn("elim_thread_id", control)
+            self.assertNotIn("elim_thread_checkout", control)
+
     def test_trusted_host_preserves_declared_usage_stop_with_real_git(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
