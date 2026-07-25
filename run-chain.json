@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260725T041524Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30143698926",
-  "trigger": "push",
-  "llm_launch_allowed": false,
-  "llm_launch_trigger": "push",
-  "created_at": "2026-07-25T04:15:24+00:00",
-  "updated_at": "2026-07-25T04:17:47+00:00",
+  "chain_id": "arrp-20260725T041809Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30143751010",
+  "trigger": "workflow_dispatch",
+  "llm_launch_allowed": true,
+  "llm_launch_trigger": "workflow_dispatch",
+  "created_at": "2026-07-25T04:18:09+00:00",
+  "updated_at": "2026-07-25T04:19:17+00:00",
   "status": "complete",
   "baseline_commit": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
   "resume": {
@@ -18,7 +18,7 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260725T041524Z"
+    "owner_chain_id": "arrp-20260725T041809Z"
   },
   "repository": {
     "branch": "main",
@@ -72,359 +72,33 @@
       "id": "case-monitor-bot",
       "order": 1,
       "workflow": ".github/workflows/case-monitor-bot.yml",
-      "due": true,
-      "due_reason": "persistent watcher input is unavailable",
-      "status": "succeeded",
+      "due": false,
+      "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T04:17:45+00:00",
+      "completed_at": "2026-07-25T04:18:09+00:00",
       "last_success_at": "2026-07-25T04:17:45+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
-      "details": "success",
-      "output": {
-        "path": "workflow-output",
-        "sha256": "sha256:3a426262676057e14284c971a76dadce8d9daf306914e7cdd5763b069af6d170"
-      },
-      "work_count": 1,
-      "attempt_key": "primary",
-      "run_id": "github-actions:Thorncrag/ARRP:30143698926:1:primary",
-      "domain_event": {
-        "id": "SDE-93345EDC1D1AC55F8CFA3E44",
-        "sha256": "sha256:05617f06ca5890a04087efa0c0702d66a35120d44d1b045ed7d37ac54450d312",
-        "json": {
-          "acceptance": null,
-          "affected_records": [
-            {
-              "record_id": "HOR-035",
-              "record_type": "candidate"
-            },
-            {
-              "record_id": "SRC-0632",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-0945",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-0965",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-0982",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1004",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1052",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1056",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1093",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1929",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1930",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1932",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1933",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1934",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1940",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1941",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1942",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1943",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1946",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1952",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1957",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1973",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1979",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1982",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2042",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2080",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2081",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2105",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2110",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2136",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2149",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2190",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2216",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2221",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2235",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2238",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2351",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2591",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2649",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2651",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2652",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2653",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2654",
-              "record_type": "source"
-            }
-          ],
-          "agent_id": "case-monitor-bot",
-          "chain_id": "arrp-20260725T041524Z",
-          "event_id": "SDE-93345EDC1D1AC55F8CFA3E44",
-          "idempotency_key": "sha256:93345edc1d1ac55f8cfa3e440073d6b651ecf4bb49dfc26c8b79b1d8bd49758b",
-          "kind": "source-domain-event",
-          "output_hashes": {
-            "files": [
-              {
-                "bytes": 1818034,
-                "path": "inventory/sources.csv",
-                "sha256": "sha256:dd4e572ed54c5d0be25664d9d71ca8aca6e41e20aa039d34f92446b49ee84778"
-              },
-              {
-                "bytes": 180849,
-                "path": "research/horizon-source-records/HOR-035-source-development.md",
-                "sha256": "sha256:bcb66117d0e1557deb4379d1d4979691cbcbb98ad4c2cec26398f837275d57e8"
-              }
-            ],
-            "proposal_diff": "sha256:ca82329205d345662c811596e247f0f43b56b60b6c3f849152b269b95075fde0",
-            "semantic_report": "sha256:11a7e758920934470a4e4b63fbff03a0e00b719aa88bdaf4d1caebbeab08714f"
-          },
-          "proposal": {
-            "base_ref": "main",
-            "head_ref": "bot/case-monitor-updates",
-            "proposal_revision": "ba3dc636710633c25c1f4776cc67059e96d02478",
-            "pull_request_number": 380,
-            "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
-            "repository": "Thorncrag/ARRP"
-          },
-          "run_id": "github-actions:Thorncrag/ARRP:30143698926:1:primary",
-          "schema_uri": ".github/source-domain-event.schema.json",
-          "schema_version": 1,
-          "source_revision": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
-          "state": "proposed",
-          "summary": {
-            "affected_record_count": 43,
-            "counts": {
-              "affected-files": 2,
-              "affected-records": 43,
-              "candidate-records": 1,
-              "source-records": 42
-            },
-            "status": "case monitor proposal delta"
-          },
-          "trigger": "push"
-        }
-      }
+      "details": "",
+      "output": null
     },
     {
       "id": "presidential-directives-bot",
       "order": 2,
       "workflow": ".github/workflows/presidential-directives-bot.yml",
-      "due": true,
-      "due_reason": "persistent watcher input is unavailable",
-      "status": "succeeded",
+      "due": false,
+      "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T04:17:45+00:00",
+      "completed_at": "2026-07-25T04:18:09+00:00",
       "last_success_at": "2026-07-25T04:17:45+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
-      "details": "success",
-      "output": {
-        "path": "workflow-output",
-        "sha256": "sha256:52c846c92e0c0fbe9212e2228d0844f0f1d90327d759378854750b62e05004a5"
-      },
-      "work_count": 2,
-      "attempt_key": "primary",
-      "run_id": "github-actions:Thorncrag/ARRP:30143698926:1:primary",
-      "domain_event": {
-        "id": "SDE-578F200E8E9344ADF613CA76",
-        "sha256": "sha256:e3f4c86015e71de0724000a9eae49cce3f18a85c1d5f44b0ab9de16b2ea54ec7",
-        "json": {
-          "acceptance": null,
-          "affected_records": [
-            {
-              "record_id": "2019-05370",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2019-16383",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14990",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14991",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14992",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14997",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14998",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14999",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-15003",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-15024",
-              "record_type": "presidential-directive"
-            }
-          ],
-          "agent_id": "presidential-directives-bot",
-          "chain_id": "arrp-20260725T041524Z",
-          "event_id": "SDE-578F200E8E9344ADF613CA76",
-          "idempotency_key": "sha256:578f200e8e9344adf613ca76ad175c6b18c3f6faaa884a64b6401105c2233f02",
-          "kind": "source-domain-event",
-          "output_hashes": {
-            "files": [
-              {
-                "bytes": 1854598,
-                "path": "inventory/presidential-directives.csv",
-                "sha256": "sha256:9f14fdb579c9816258688f66f322d62a5f7feaa49410daa3063d3fd9094a7e3c"
-              }
-            ],
-            "proposal_diff": "sha256:21eee92eda009c4db723e0c530931dc0595962f544a6d379ebe2c3c0ee871dc4",
-            "semantic_report": "sha256:eead281dd9bc359cb2a6613c252bbb7c670545fec9c7eb128ab32383e696c968"
-          },
-          "proposal": {
-            "base_ref": "main",
-            "head_ref": "automation/presidential-directives-monitor",
-            "proposal_revision": "71525e1d2bc27c31a5c1b455243259b1b541adff",
-            "pull_request_number": 381,
-            "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/381",
-            "repository": "Thorncrag/ARRP"
-          },
-          "run_id": "github-actions:Thorncrag/ARRP:30143698926:1:primary",
-          "schema_uri": ".github/source-domain-event.schema.json",
-          "schema_version": 1,
-          "source_revision": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
-          "state": "proposed",
-          "summary": {
-            "affected_record_count": 10,
-            "counts": {
-              "affected-files": 1,
-              "affected-records": 10,
-              "presidential-directive-records": 10
-            },
-            "status": "presidential directives proposal delta"
-          },
-          "trigger": "push"
-        }
-      }
+      "details": "",
+      "output": null
     },
     {
       "id": "source-checker-bot",
@@ -434,7 +108,7 @@
       "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T04:15:24+00:00",
+      "completed_at": "2026-07-25T04:18:09+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -446,21 +120,17 @@
       "id": "project-console-progress-bot",
       "order": 4,
       "workflow": ".github/workflows/project-console-progress.yml",
-      "due": true,
-      "due_reason": "forced",
-      "status": "succeeded",
+      "due": false,
+      "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T04:17:45+00:00",
+      "completed_at": "2026-07-25T04:18:09+00:00",
       "last_success_at": "2026-07-25T04:17:45+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
-      "details": "success",
-      "output": {
-        "path": "workflow-output",
-        "sha256": "sha256:8a12962115cdc2a1f056a44a8b7bdce33dc839e35a8a601aef59ab7884a26e4a"
-      },
-      "work_count": 0
+      "details": "",
+      "output": null
     },
     {
       "id": "public-intake",
@@ -470,15 +140,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-25T04:17:45+00:00",
-      "last_success_at": "2026-07-25T04:17:45+00:00",
+      "completed_at": "2026-07-25T04:19:12+00:00",
+      "last_success_at": "2026-07-25T04:19:12+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:06112e18bddeb6e8f91603ea13176a53cbec38a5963dbce65052ac914191fa89"
+        "sha256": "sha256:2967b31cee225ae46571ca594992d4c658be3d11343ba0154c53b04b3e914cc1"
       },
       "work_count": 0
     },
@@ -487,18 +157,18 @@
       "order": 6,
       "workflow": ".github/workflows/project-integrity.yml",
       "due": true,
-      "due_reason": "forced",
+      "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-25T04:17:45+00:00",
-      "last_success_at": "2026-07-25T04:17:45+00:00",
+      "completed_at": "2026-07-25T04:19:12+00:00",
+      "last_success_at": "2026-07-25T04:19:12+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:e522ace4d54ee41f33c085ca97bc0a696215c60ad6ce1cac5d69ebdc1a446505"
+        "sha256": "sha256:363071f4089b22afe870714fe00cd7368789a4ea8f721095988fb859e490ea65"
       },
       "work_count": 0
     }
@@ -507,14 +177,14 @@
   "degradations": [],
   "queue_counts": {
     "integrity": 0,
-    "monitoring": 3,
+    "monitoring": 0,
     "sources": 0,
     "intake": 0,
     "total": 156
   },
   "elim_decision": {
     "launch_recommended": false,
-    "reason": "This trigger authorizes deterministic refresh only; Elim waits for the daily schedule, an eligible event, or explicit manual dispatch.",
+    "reason": "Codex usage reserve has not been measured.",
     "blockers": [],
     "last_substantive_stage": true,
     "predecessors_complete": true,
@@ -523,7 +193,7 @@
       "model": "gpt-5.6-sol",
       "reasoning_effort": "xhigh",
       "full_context": true,
-      "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-8c55e5b01698 and context profile comprehensive_review."
+      "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-b7fe764672c2 and context profile comprehensive_review."
     }
   },
   "review_epoch": {
@@ -615,25 +285,25 @@
   },
   "next_action": "No Elim launch; wait for the next trigger.",
   "action_items": [],
-  "completed_at": "2026-07-25T04:17:45+00:00",
+  "completed_at": "2026-07-25T04:19:12+00:00",
   "final_revision": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
   "bots": [
     {
       "id": "case-monitor-bot",
       "name": "case-monitor-bot",
-      "due": true,
-      "status": "completed",
+      "due": false,
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T04:17:45+00:00",
+      "completed_at": "2026-07-25T04:18:09+00:00",
       "error": null
     },
     {
       "id": "presidential-directives-bot",
       "name": "presidential-directives-bot",
-      "due": true,
-      "status": "completed",
+      "due": false,
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T04:17:45+00:00",
+      "completed_at": "2026-07-25T04:18:09+00:00",
       "error": null
     },
     {
@@ -642,16 +312,16 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T04:15:24+00:00",
+      "completed_at": "2026-07-25T04:18:09+00:00",
       "error": null
     },
     {
       "id": "project-console-progress-bot",
       "name": "project-console-progress-bot",
-      "due": true,
-      "status": "completed",
+      "due": false,
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T04:17:45+00:00",
+      "completed_at": "2026-07-25T04:18:09+00:00",
       "error": null
     },
     {
@@ -660,13 +330,13 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-25T04:17:45+00:00",
+      "completed_at": "2026-07-25T04:19:12+00:00",
       "error": null
     }
   ],
   "work_queue": {
     "path": "project-console-data:elim-work-queue.json",
-    "sha256": "sha256:2da02d371f607025641050776ce393d521d98aa4ff1e86aee4a69f9eb810665d",
+    "sha256": "sha256:712ac764d7661940f0c2978cd47a3993faf2d6886a1b4f66f8ead04429413e71",
     "ready_for_elim": true,
     "launch_recommended": true,
     "counts": {
@@ -678,7 +348,7 @@
     "problems": [],
     "next_item": {
       "schema_version": 1,
-      "id": "COMPREHENSIVE-REVIEW-8c55e5b01698",
+      "id": "COMPREHENSIVE-REVIEW-b7fe764672c2",
       "kind": "comprehensive_review",
       "work_class": "periodic_review",
       "severity": "high",
@@ -688,13 +358,13 @@
       "exact_next_action": "Run the due comprehensive Review Epoch.",
       "required_context_profile": "comprehensive_review",
       "originating_stage": "review_epoch",
-      "source_identity": "epoch-arrp-20260725T041524Z",
-      "canonical_record_identity": "epoch-arrp-20260725T041524Z",
+      "source_identity": "epoch-arrp-20260725T041809Z",
+      "canonical_record_identity": "epoch-arrp-20260725T041809Z",
       "dependencies": [
         "review_epoch"
       ],
       "created_at": "2026-07-24T15:40:02+00:00",
-      "refreshed_at": "2026-07-25T04:17:45+00:00",
+      "refreshed_at": "2026-07-25T04:19:12+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -708,7 +378,7 @@
       "reason": "governing_boundary_changed",
       "source": {
         "input": "review_epoch",
-        "epoch_id": "epoch-arrp-20260725T041524Z",
+        "epoch_id": "epoch-arrp-20260725T041809Z",
         "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
         "next_due_at": "2026-08-07T15:40:02+00:00",
         "due": true,
@@ -785,13 +455,13 @@
         },
         "unresolved_ids": []
       },
-      "source_revision": "3248bbf601ea14e3c80d94f2f07b698ec2010068ca092dedb4f2b0ccbc0f922a",
-      "freshness_timestamp": "2026-07-25T04:17:45+00:00",
-      "source_chain_id": "arrp-20260725T041524Z",
+      "source_revision": "6e5c6ced880b1af6c718b2313e0ff7f4b349bb2fc2a41e8023eb089ca57e0673",
+      "freshness_timestamp": "2026-07-25T04:19:12+00:00",
+      "source_chain_id": "arrp-20260725T041809Z",
       "source_commit": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
       "source_project_snapshot": "sha256:8a12962115cdc2a1f056a44a8b7bdce33dc839e35a8a601aef59ab7884a26e4a",
       "source_input_hashes": {
-        "review_epoch": "sha256:3248bbf601ea14e3c80d94f2f07b698ec2010068ca092dedb4f2b0ccbc0f922a"
+        "review_epoch": "sha256:6e5c6ced880b1af6c718b2313e0ff7f4b349bb2fc2a41e8023eb089ca57e0673"
       },
       "retry_state": {
         "state": "new",
@@ -801,7 +471,7 @@
       },
       "recovery": null
     },
-    "selected_work_item_id": "COMPREHENSIVE-REVIEW-8c55e5b01698",
+    "selected_work_item_id": "COMPREHENSIVE-REVIEW-b7fe764672c2",
     "user_overrides": {
       "applied": [],
       "unmatched": [],
@@ -810,13 +480,13 @@
   },
   "context_packet": {
     "path": "project-console-data:elim-context.json",
-    "sha256": "sha256:a860c480b919de7f11f41e862dd30b93d7687b911ba748aa198a3d4936d08cfc",
+    "sha256": "sha256:a565827ee6128c89862efd868792318316f2b0a3b95de2f3f14a478950a331c4",
     "profile": "comprehensive_review",
-    "work_item_id": "COMPREHENSIVE-REVIEW-8c55e5b01698",
+    "work_item_id": "COMPREHENSIVE-REVIEW-b7fe764672c2",
     "issue_id": null,
     "canonical_record": null,
     "selection": {
-      "work_item_id": "COMPREHENSIVE-REVIEW-8c55e5b01698",
+      "work_item_id": "COMPREHENSIVE-REVIEW-b7fe764672c2",
       "kind": "comprehensive_review",
       "canonical_record": null
     },
