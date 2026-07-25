@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Paused |
-| Active issue/task | Repair and reconcile the failed 2026-07-25 Elim automation chain |
-| Audit type/tier | Automation-architecture implementation and validation |
-| Started | 2026-07-25 05:13:00 -0400 |
-| Last checkpoint | 2026-07-25 06:59:37 -0400 |
-| User request | Proceed with the diagnosed repair and take responsibility for the implementation complexity. |
-| Scope | Correct dormant usage-window accounting, host-owned Elim Git closeout, Console cloud/host truth reconciliation, failed-run accounting, governing documentation, and controlled validation without beginning substantive Elim work. |
-| Files touched | `framework/logs/CURRENT_AUDIT.md` and the automation, test, Console, runbook, reference-product, and generated files required by this repair. |
-| Completed steps | Confirmed the three root causes; preserved the failed-run checkout and reconciliation evidence; kept the coordinator paused; implemented dormant-window accounting, exact-diff trusted-host Git closeout, current-chain runtime projection, and cloud/host Console reconciliation; updated governing runbooks and the nonauthoritative technical-reference source; reconstructed the failed run report without treating its preflight as substantive work; passed full local and authenticated validation; merged protected-branch PR #412 at `ab845391` after remediating CodeQL's six path-injection annotations with hashed invocation IDs under fixed private storage; proved the old failed report new, unique, and complete against `ac9cd510`; cleared its pending reconciliation record and resolved its Action Item; ran a no-LLM pilot whose cloud stages and Integrity check passed but whose host correctly stopped at the still-dirty preserved checkout; implemented, CodeQL-hardened, and merged the proof-gated archive mode through PR #413 at `24f380c`; invoked it for `arrp-20260725T063006Z`, preserving the complete checkout and its three dirty files under the digest-only private archive; completed no-LLM chain `arrp-20260725T105258Z` / workflow 30155231768 through cloud, Integrity, fresh-checkout, local queue/context rebuild, dormant-window-aware usage gate, and exact launch boundary without invoking Elim; resolved the pilot Action Item; regenerated the Console with current local Action Item resolution; regenerated the 29-page nonauthoritative technical-reference PDF against `24f380c` and visually verified its contact sheet and recovery pages. |
-| Next step | Commit and merge the final Console, PDF, and local-control overlay; prepare the exact inactive checkpoint and its regenerated projection; pass its required checks; restore and verify the ten-minute local coordinator schedule immediately before merging that final inactive checkpoint; read back synchronized `main`. |
-| Blockers/questions | None. The due comprehensive Review Epoch must not begin until the repaired safety and closeout paths pass. |
-| Validation status | PRs #412 and #413 passed CodeQL, Actions-language analyses, and Vercel before merge. The final source and generated state passes all 389 repository tests, JavaScript syntax, context hashes, diff hygiene, authenticated Project Consistency with zero findings, a successful controlled no-LLM launch-boundary pilot, PDF metadata/text checks, and visual review of all 29 pages by contact sheet plus full-size recovery and execution-boundary pages. Final artifact PR, scheduler restoration, inactive checkpoint, and synchronized readback remain. |
+| Handoff state | Inactive |
+| Active issue/task | None. |
+| Audit type/tier | None. |
+| Started | None. |
+| Last checkpoint | 2026-07-25 07:03:46 -0400 |
+| User request | None. |
+| Scope | None. |
+| Files touched | None. |
+| Completed steps | None. |
+| Next step | None. |
+| Blockers/questions | None. |
+| Validation status | Not applicable. |
 
 ## Handoff Rules
 
