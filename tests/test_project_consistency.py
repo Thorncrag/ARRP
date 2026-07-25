@@ -548,6 +548,74 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertEqual(failures, [])
         self.assertEqual(warnings, [])
 
+    def test_runbook_runtime_drift_reports_material_invariants_and_owner(self):
+        values = {
+            "runtime_id": ".github/workflows/source-checker-bot.yml",
+            "execution_environment": "github-actions",
+            "trigger": "run-chain-or-manual",
+            "schedule": "Due every 168 hours in the Run Coordinator chain; no independent schedule",
+            "status": "report-only-pilot",
+            "current_report": "framework/reports/SOURCE_CHECKER_REPORT.md",
+            "current_data": "project-console-data:source-checker.json",
+            "offline_cache_path": ".tmp/project-console-source-checker.json",
+        }
+        config = {
+            "agentId": "source-checker-bot",
+            "mode": "report-only",
+            "schedule": {
+                "mode": "run-chain",
+                "coordinator": ".github/workflows/run-coordinator-bot.yml",
+                "dueEveryHours": 168,
+            },
+            "currentReport": "framework/reports/SOURCE_CHECKER_REPORT.md",
+            "currentData": "project-console-data:source-checker.json",
+            "offlineCachePath": ".tmp/project-console-source-checker.json",
+        }
+        coordinator = {
+            "stages": [
+                {
+                    "id": "source-checker-bot",
+                    "workflow": ".github/workflows/source-checker-bot.yml",
+                    "due": {"kind": "interval", "hours": 168},
+                }
+            ]
+        }
+        workflow = "on:\n  workflow_dispatch:\n  workflow_call:\n"
+        self.assertEqual(
+            consistency.agent_runtime_invariant_findings(
+                "source-checker-bot",
+                values,
+                workflow_text=workflow,
+                config=config,
+                coordinator=coordinator,
+            ),
+            [],
+        )
+
+        drifted_values = {
+            **values,
+            "execution_environment": "local-shell",
+            "current_data": "framework/reports/source-checker.json",
+            "offline_cache_path": ".tmp/wrong.json",
+        }
+        drifted_config = {
+            **config,
+            "schedule": {**config["schedule"], "dueEveryHours": 24},
+        }
+        findings = consistency.agent_runtime_invariant_findings(
+            "source-checker-bot",
+            drifted_values,
+            workflow_text=workflow,
+            config=drifted_config,
+            coordinator=coordinator,
+        )
+        self.assertGreaterEqual(len(findings), 4)
+        self.assertTrue(all("owner: source-checker-bot" in item for item in findings))
+        self.assertTrue(any("execution_environment" in item for item in findings))
+        self.assertTrue(any("current_data" in item for item in findings))
+        self.assertTrue(any("offline_cache_path" in item for item in findings))
+        self.assertTrue(any("due interval" in item for item in findings))
+
     def test_pages_in_flight_during_current_publish_grace_is_not_an_error(self):
         failures: list[str] = []
         warnings: list[str] = []

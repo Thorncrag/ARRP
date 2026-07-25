@@ -12,6 +12,8 @@ import argparse
 import hashlib
 import json
 import os
+import secrets
+import shutil
 import subprocess
 import tempfile
 from datetime import datetime, timedelta, timezone
@@ -55,6 +57,29 @@ ISSUE_DOSSIER_WORK_KINDS = {
     "change_audit",
     "issue_audit",
     "issue_development",
+}
+WATCHER_STAGE_ARTIFACTS = {
+    "case-monitor-bot": {
+        "directory": "case-monitor",
+        "report": "monitoring-report.json",
+        "event": "case-monitor-domain-event.json",
+        "attestation": "watcher-attempt.json",
+        "destination": "case-monitor.json",
+    },
+    "presidential-directives-bot": {
+        "directory": "presidential-directives",
+        "report": "directives-report.json",
+        "event": "presidential-directives-domain-event.json",
+        "attestation": "watcher-attempt.json",
+        "destination": "presidential-directives.json",
+    },
+    "source-checker-bot": {
+        "directory": "source-checker",
+        "report": "arrp-source-checker/source-checker.json",
+        "event": "source-checker-domain-event.json",
+        "attestation": "watcher-attempt.json",
+        "destination": "source-checker.json",
+    },
 }
 
 
@@ -135,6 +160,194 @@ def file_hash(path: Path) -> str | None:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def materialize_selected_watcher_artifacts(
+    manifest: dict[str, Any],
+    artifacts_root: Path,
+    destination_root: Path,
+) -> list[str]:
+    """Verify and copy only the successful, chain-bound watcher attempts."""
+
+    chain_id = str(manifest.get("chain_id") or "")
+    if not chain_id:
+        raise ValueError("run-chain manifest lacks its chain identity")
+    stages = {
+        str(stage.get("id") or ""): stage
+        for stage in manifest.get("stages") or []
+        if isinstance(stage, dict)
+    }
+    copied: list[str] = []
+    destination_root.mkdir(parents=True, exist_ok=True)
+    for stage_id, spec in WATCHER_STAGE_ARTIFACTS.items():
+        stage = stages.get(stage_id)
+        if not stage or stage.get("due") is not True:
+            continue
+        if stage.get("status") != "succeeded":
+            continue
+        attempt_key = str(stage.get("attempt_key") or "")
+        if attempt_key not in {"primary", "retry"}:
+            raise ValueError(
+                f"successful stage {stage_id} lacks its exact attempt identity"
+            )
+        expected_run_id = str(stage.get("run_id") or "")
+        if not expected_run_id or not expected_run_id.endswith(
+            ":" + attempt_key
+        ):
+            raise ValueError(
+                f"successful stage {stage_id} has an invalid run-attempt identity"
+            )
+        report = artifacts_root / str(spec["directory"]) / str(spec["report"])
+        if not report.is_file() or report.is_symlink():
+            raise ValueError(
+                f"successful stage {stage_id} lacks its selected {attempt_key} artifact"
+            )
+        expected_report_hash = str(
+            ((stage.get("output") or {}).get("sha256") or "")
+        )
+        actual_report_hash = file_hash(report) or ""
+        if (
+            not expected_report_hash.startswith("sha256:")
+            or len(expected_report_hash) != 71
+            or not secrets.compare_digest(
+                actual_report_hash,
+                expected_report_hash,
+            )
+        ):
+            raise ValueError(
+                f"successful stage {stage_id} report hash differs from its "
+                f"selected {attempt_key} output"
+            )
+
+        event_metadata = stage.get("domain_event")
+        attestation_path = (
+            artifacts_root
+            / str(spec["directory"])
+            / str(spec["attestation"])
+        )
+        if not attestation_path.is_file() or attestation_path.is_symlink():
+            raise ValueError(
+                f"successful stage {stage_id} lacks its selected attempt attestation"
+            )
+        try:
+            attestation = json.loads(
+                attestation_path.read_text(encoding="utf-8")
+            )
+        except json.JSONDecodeError as exc:
+            raise ValueError(
+                f"successful stage {stage_id} attempt attestation is invalid JSON"
+            ) from exc
+        expected_attestation_fields = {
+            "schema_version",
+            "stage_id",
+            "chain_id",
+            "run_id",
+            "attempt_key",
+            "report_sha256",
+            "domain_event",
+        }
+        if (
+            not isinstance(attestation, dict)
+            or set(attestation) != expected_attestation_fields
+            or attestation.get("schema_version") != 1
+            or attestation.get("stage_id") != stage_id
+            or attestation.get("chain_id") != chain_id
+            or attestation.get("run_id") != expected_run_id
+            or attestation.get("attempt_key") != attempt_key
+            or attestation.get("report_sha256") != expected_report_hash
+            or attestation.get("domain_event") != event_metadata
+        ):
+            raise ValueError(
+                f"successful stage {stage_id} attempt attestation is not bound "
+                "to the selected chain, run attempt, report, and event"
+            )
+        event_path = (
+            artifacts_root / str(spec["directory"]) / str(spec["event"])
+        )
+        if event_metadata is None:
+            if event_path.exists():
+                raise ValueError(
+                    f"successful stage {stage_id} supplied an unbound event artifact"
+                )
+        else:
+            if not isinstance(event_metadata, dict) or set(event_metadata) != {
+                "id",
+                "sha256",
+                "json",
+            }:
+                raise ValueError(
+                    f"successful stage {stage_id} has incomplete event identity"
+                )
+            if not event_path.is_file() or event_path.is_symlink():
+                raise ValueError(
+                    f"successful stage {stage_id} lacks its selected event artifact"
+                )
+            expected_event_hash = str(event_metadata["sha256"])
+            actual_event_hash = file_hash(event_path) or ""
+            if (
+                not expected_event_hash.startswith("sha256:")
+                or len(expected_event_hash) != 71
+                or not secrets.compare_digest(
+                    actual_event_hash,
+                    expected_event_hash,
+                )
+            ):
+                raise ValueError(
+                    f"successful stage {stage_id} event hash differs from its "
+                    f"selected {attempt_key} output"
+                )
+            embedded_event = event_metadata["json"]
+            if not isinstance(embedded_event, dict):
+                raise ValueError(
+                    f"successful stage {stage_id} embedded event is not an object"
+                )
+            try:
+                artifact_event = json.loads(event_path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError as exc:
+                raise ValueError(
+                    f"successful stage {stage_id} event artifact is invalid JSON"
+                ) from exc
+            if artifact_event != embedded_event:
+                raise ValueError(
+                    f"successful stage {stage_id} embedded event differs from "
+                    "the selected artifact"
+                )
+            proposal = artifact_event.get("proposal")
+            proposal_revision = (
+                proposal.get("proposal_revision")
+                if isinstance(proposal, dict)
+                else None
+            )
+            if (
+                artifact_event.get("event_id") != event_metadata["id"]
+                or artifact_event.get("chain_id") != chain_id
+                or artifact_event.get("run_id") != expected_run_id
+                or not isinstance(proposal_revision, str)
+                or len(proposal_revision) != 40
+                or any(
+                    character not in "0123456789abcdef"
+                    for character in proposal_revision
+                )
+            ):
+                raise ValueError(
+                    f"successful stage {stage_id} event identity is not bound "
+                    "to the selected chain, run attempt, and proposal revision"
+                )
+
+        destination = destination_root / str(spec["destination"])
+        shutil.copy2(report, destination)
+        copied.append(destination.name)
+    return copied
+
+
+def json_hash(value: Any) -> str:
+    encoded = json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    ).encode("utf-8")
+    return "sha256:" + hashlib.sha256(encoded).hexdigest()
+
+
 def model_profile_for_context(
     config: dict[str, Any],
     context_profile: str,
@@ -162,6 +375,17 @@ def selected_work_item(
         for item in items
         if isinstance(item, dict) and item.get("eligible_for_elim") is True
     ]
+    repair_item = next(
+        (
+            candidate
+            for candidate in eligible
+            if candidate.get("kind") == "bot_failure"
+            and candidate.get("safety_class") == 0
+        ),
+        None,
+    )
+    if repair_item is not None:
+        return repair_item
     if comprehensive_required:
         item = next(
             (
@@ -177,7 +401,36 @@ def selected_work_item(
                 "eligible comprehensive-review work item"
             )
         return item
+    selected_id = str(queue.get("selected_work_item_id") or "").strip()
+    if selected_id:
+        item = next(
+            (
+                candidate
+                for candidate in eligible
+                if candidate.get("id") == selected_id
+            ),
+            None,
+        )
+        if item is None:
+            raise ValueError(
+                "the queue's exact selected work-item ID is not eligible"
+            )
+        return item
     return eligible[0] if eligible else None
+
+
+def selected_repair_unit(gateway: Any) -> dict[str, Any] | None:
+    if not isinstance(gateway, dict):
+        return None
+    selected = gateway.get("next_item")
+    if (
+        isinstance(selected, dict)
+        and selected.get("kind") == "bot_failure"
+        and selected.get("safety_class") == 0
+        and selected.get("eligible_for_elim") is True
+    ):
+        return selected
+    return None
 
 
 def review_epoch_boundary_changes(signals: dict[str, Any]) -> dict[str, list[str]] | None:
@@ -636,13 +889,27 @@ def record(args: argparse.Namespace) -> int:
     return 0
 
 
-def apply_stage_results(manifest: dict[str, Any], results: dict[str, Any], now: datetime) -> None:
+def apply_stage_results(
+    manifest: dict[str, Any],
+    results: dict[str, Any],
+    now: datetime,
+    config: dict[str, Any],
+) -> None:
     config_by_id = {
-        stage["id"]: stage for stage in read_json(DEFAULT_CONFIG, {}).get("stages", [])
+        stage["id"]: stage for stage in config.get("stages", [])
     }
     for stage in manifest["stages"]:
         raw = results.get(stage["id"])
-        if not stage["due"] or stage["status"] == "succeeded":
+        if not stage["due"]:
+            continue
+        if raw is None and stage.get("status") in {
+            "succeeded",
+            "failed",
+            "degraded",
+        }:
+            # A host-side usage check re-finalizes the already completed cloud
+            # manifest with no new stage results. Preserve every terminal
+            # outcome, including an expressly nonblocking degradation.
             continue
         if raw is None:
             stage["status"] = "failed"
@@ -666,6 +933,33 @@ def apply_stage_results(manifest: dict[str, Any], results: dict[str, Any], now: 
                 stage["failure_class"] = fallback
             stage["details"] = str(result.get("details", conclusion))
             stage["work_count"] = max(0, int(result.get("work_count", 0) or 0))
+            attempt_key = str(result.get("attempt_key") or "")
+            if attempt_key:
+                if attempt_key not in {"primary", "retry"}:
+                    raise ValueError(
+                        f"stage {stage['id']} has invalid attempt identity"
+                    )
+                stage["attempt_key"] = attempt_key
+            run_id = str(result.get("run_id") or "")
+            if run_id:
+                if not attempt_key or not run_id.endswith(":" + attempt_key):
+                    raise ValueError(
+                        f"stage {stage['id']} run ID differs from its attempt identity"
+                    )
+                stage["run_id"] = run_id
+            domain_event = result.get("domain_event")
+            if domain_event is not None:
+                if not isinstance(domain_event, dict) or set(domain_event) != {
+                    "id",
+                    "sha256",
+                    "json",
+                }:
+                    raise ValueError(
+                        f"stage {stage['id']} has malformed domain-event identity"
+                    )
+                stage["domain_event"] = domain_event
+            else:
+                stage.pop("domain_event", None)
             if result.get("retried"):
                 stage.setdefault("retries", []).append(
                     {
@@ -689,10 +983,17 @@ def finalize(args: argparse.Namespace) -> int:
     manifest = read_json(args.manifest)
     now = parse_time(args.now) or utc_now()
     results = read_json(args.stage_results, {})
-    apply_stage_results(manifest, results, now)
-    failures = list(manifest.get("failures", []))
+    apply_stage_results(manifest, results, now, config)
+    stage_ids = {stage["id"] for stage in manifest["stages"]}
+    failures = [
+        item
+        for item in manifest.get("failures", [])
+        if item.get("stage") not in stage_ids
+    ]
     degradations = []
     queue = dict(manifest["queue_counts"])
+    for key in ("integrity", "monitoring", "sources"):
+        queue[key] = 0
     for stage in manifest["stages"]:
         count = int(stage.get("work_count", 0))
         if stage["id"] == "project-integrity-bot":
@@ -748,10 +1049,26 @@ def finalize(args: argparse.Namespace) -> int:
     )
     manifest["usage"]["remaining_percent"] = remaining
     manifest["usage"]["status"] = usage_status
-    blockers = [item["message"] for item in failures]
     gateway = manifest.get("work_queue")
+    repair_unit = selected_repair_unit(gateway)
+    blockers = [] if repair_unit is not None else [item["message"] for item in failures]
     if gateway and not gateway.get("ready_for_elim"):
         blockers.extend(str(item) for item in gateway.get("problems") or [])
+    runtime_overrides = manifest.get("user_overrides") or {}
+    attached_overrides = (
+        (gateway.get("user_overrides") or {})
+        if isinstance(gateway, dict)
+        else {}
+    )
+    if not isinstance(runtime_overrides, dict):
+        blockers.append("Local queue overrides are not a valid object.")
+    elif runtime_overrides and (
+        attached_overrides.get("request_sha256") != json_hash(runtime_overrides)
+    ):
+        blockers.append(
+            "Local queue overrides have not been applied to exact queue selection "
+            "and its bound context packet."
+        )
     prior_complete = all(
         stage["status"] in TERMINAL_SUCCESS or stage["status"] == "degraded"
         for stage in manifest["stages"]
@@ -772,7 +1089,7 @@ def finalize(args: argparse.Namespace) -> int:
         )
     elif blockers:
         decision, reason = False, "Blocking bot or preflight failure requires correction."
-    elif not prior_complete:
+    elif not prior_complete and repair_unit is None:
         decision, reason = False, "One or more due deterministic stages is incomplete."
     elif remaining is None:
         decision, reason = False, "Codex usage reserve has not been measured."
@@ -781,11 +1098,18 @@ def finalize(args: argparse.Namespace) -> int:
     elif not needs_llm:
         decision, reason = False, "No LLM-owned work or comprehensive review is due."
     else:
-        decision, reason = True, (
-            "Comprehensive review is due."
-            if manifest["review_epoch"]["due"]
-            else "The refreshed queue contains LLM-owned work."
-        )
+        if repair_unit is not None:
+            decision, reason = (
+                True,
+                "A safety-class-0 bot-failure unit is authorized for repair-only "
+                "work before any other Elim unit.",
+            )
+        else:
+            decision, reason = True, (
+                "Comprehensive review is due."
+                if manifest["review_epoch"]["due"]
+                else "The refreshed queue contains LLM-owned work."
+            )
     attached_context_profile = str(
         ((manifest.get("context_packet") or {}).get("profile") or "")
     )
@@ -838,13 +1162,17 @@ def finalize(args: argparse.Namespace) -> int:
         },
     }
     manifest["status"] = (
-        "blocked" if failures else "degraded" if degradations else "complete"
+        "blocked"
+        if blockers
+        else "degraded"
+        if degradations or (failures and repair_unit is not None)
+        else "complete"
     )
     manifest["next_action"] = (
         "Authorized host dispatcher may launch Elim."
         if decision
-        else "Resolve the blocking run-chain failure."
-        if failures
+        else "Resolve the blocking run-chain or Context Gateway condition."
+        if blockers
         else "No Elim launch; wait for the next trigger."
     )
     manifest["updated_at"] = iso(now)
@@ -891,12 +1219,25 @@ def attach_context(args: argparse.Namespace) -> int:
     config = read_json(getattr(args, "config", DEFAULT_CONFIG))
     validate_config(config)
     comprehensive_due = bool((manifest.get("review_epoch") or {}).get("due"))
+    selected = selected_work_item(
+        queue,
+        comprehensive_required=comprehensive_due,
+    )
+    selected_id = str((selected or {}).get("id") or "")
+    selected_kind = str((selected or {}).get("kind") or "")
+    repair_selected = bool(
+        selected
+        and selected_kind == "bot_failure"
+        and selected.get("safety_class") == 0
+    )
     prior_full_context = bool(
         ((manifest.get("elim_decision") or {}).get("profile") or {}).get(
             "full_context"
         )
     )
-    if prior_full_context != comprehensive_due:
+    if prior_full_context != comprehensive_due and not (
+        repair_selected and comprehensive_due and prior_full_context
+    ):
         raise ValueError(
             "the chain's model profile and Review Epoch state disagree about "
             "whether comprehensive context is required"
@@ -921,12 +1262,6 @@ def attach_context(args: argparse.Namespace) -> int:
         raise ValueError(
             "Elim work queue repository revision differs from the finalized chain"
         )
-    selected = selected_work_item(
-        queue,
-        comprehensive_required=comprehensive_due,
-    )
-    selected_id = str((selected or {}).get("id") or "")
-    selected_kind = str((selected or {}).get("kind") or "")
     if selected and not selected_id:
         raise ValueError("selected Elim work item has no deterministic ID")
     expected_context_profile = (
@@ -945,6 +1280,24 @@ def attach_context(args: argparse.Namespace) -> int:
             f"no reviewed context profile exists for work kind {selected_kind!r}"
         )
     queue_path = args.queue.resolve()
+    queue_overrides = queue.get("user_overrides") or {}
+    if not isinstance(queue_overrides, dict):
+        raise ValueError("Elim work queue user_overrides must be an object")
+    applied_override_ids = queue_overrides.get("applied") or []
+    unmatched_override_ids = queue_overrides.get("unmatched") or []
+    if not all(
+        isinstance(values, list)
+        and all(isinstance(value, str) for value in values)
+        for values in (applied_override_ids, unmatched_override_ids)
+    ):
+        raise ValueError("Elim work queue override IDs must be string arrays")
+    override_hash = str(queue_overrides.get("request_sha256") or "")
+    if override_hash and (
+        len(override_hash) != 71
+        or not override_hash.startswith("sha256:")
+        or any(character not in "0123456789abcdef" for character in override_hash[7:])
+    ):
+        raise ValueError("Elim work queue override request hash is invalid")
     manifest["work_queue"] = {
         "path": "project-console-data:elim-work-queue.json",
         "sha256": file_hash(queue_path),
@@ -954,6 +1307,11 @@ def attach_context(args: argparse.Namespace) -> int:
         "problems": queue.get("problems") or [],
         "next_item": selected,
         "selected_work_item_id": selected_id or None,
+        "user_overrides": {
+            "applied": sorted(applied_override_ids),
+            "unmatched": sorted(unmatched_override_ids),
+            "request_sha256": override_hash or json_hash({}),
+        },
     }
     manifest["queue_counts"]["total"] = int(
         (queue.get("counts") or {}).get("total", 0)
@@ -1151,6 +1509,18 @@ def attach_context(args: argparse.Namespace) -> int:
     return 0
 
 
+def materialize_watcher_inputs(args: argparse.Namespace) -> int:
+    manifest = read_json(args.manifest)
+    if not isinstance(manifest, dict):
+        raise ValueError("run-chain manifest must be a JSON object")
+    materialize_selected_watcher_artifacts(
+        manifest,
+        args.artifacts,
+        args.destination,
+    )
+    return 0
+
+
 def parser() -> argparse.ArgumentParser:
     main = argparse.ArgumentParser(description=__doc__)
     commands = main.add_subparsers(dest="command", required=True)
@@ -1198,6 +1568,12 @@ def parser() -> argparse.ArgumentParser:
     p.add_argument("--context", type=Path)
     p.add_argument("--output", type=Path)
     p.set_defaults(function=attach_context)
+
+    p = commands.add_parser("materialize-watcher-inputs")
+    p.add_argument("--manifest", type=Path, required=True)
+    p.add_argument("--artifacts", type=Path, required=True)
+    p.add_argument("--destination", type=Path, required=True)
+    p.set_defaults(function=materialize_watcher_inputs)
     return main
 
 

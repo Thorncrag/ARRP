@@ -2,7 +2,31 @@ name: Source Checker Bot
 
 on:
   workflow_dispatch:
+    inputs:
+      chain_id:
+        description: Optional Run Coordinator Chain ID.
+        required: false
+        type: string
+      attempt_key:
+        description: Invocation identity used to disambiguate retained artifacts.
+        required: false
+        default: standalone
+        type: choice
+        options:
+          - standalone
+          - primary
+          - retry
   workflow_call:
+    inputs:
+      chain_id:
+        description: Run Coordinator Chain ID.
+        required: false
+        type: string
+      attempt_key:
+        description: Invocation identity (primary, retry, or standalone).
+        required: false
+        default: standalone
+        type: string
     outputs:
       work_count:
         description: Source results requiring human or LLM review.
@@ -10,6 +34,18 @@ on:
       output_hash:
         description: SHA-256 of the source-checker report.
         value: ${{ jobs.check.outputs.output_hash }}
+      domain_event_id:
+        description: Stable ID of the proposed source-domain event, when one exists.
+        value: ${{ jobs.check.outputs.domain_event_id }}
+      domain_event_hash:
+        description: SHA-256 of the proposed source-domain event.
+        value: ${{ jobs.check.outputs.domain_event_hash }}
+      domain_event_json:
+        description: Minimized proposed source-domain event JSON.
+        value: ${{ jobs.check.outputs.domain_event_json }}
+      attempt_key:
+        description: Validated invocation identity used by reports and outputs.
+        value: ${{ jobs.check.outputs.attempt_key }}
 
 concurrency:
   group: arrp-source-checker-bot
@@ -24,11 +60,29 @@ jobs:
     outputs:
       work_count: ${{ steps.chain-result.outputs.work_count }}
       output_hash: ${{ steps.chain-result.outputs.output_hash }}
+      domain_event_id: ${{ steps.domain-event.outputs.domain_event_id }}
+      domain_event_hash: ${{ steps.domain-event.outputs.domain_event_hash }}
+      domain_event_json: ${{ steps.domain-event.outputs.domain_event_json }}
+      attempt_key: ${{ steps.invocation.outputs.attempt_key }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
+      - name: Validate the reusable-workflow invocation identity
+        id: invocation
+        env:
+          ATTEMPT_KEY: ${{ inputs.attempt_key }}
+        run: |
+          case "${ATTEMPT_KEY}" in
+            primary|retry|standalone) ;;
+            *) echo "attempt_key must be primary, retry, or standalone" >&2; exit 1 ;;
+          esac
+          printf 'attempt_key=%s\n' "${ATTEMPT_KEY}" >> "${GITHUB_OUTPUT}"
+
       - name: Check out the repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Pin the reviewed source boundary
+        run: printf 'SOURCE_REVISION=%s\n' "$(git rev-parse HEAD)" >> "${GITHUB_ENV}"
 
       - name: Retrieve bounded prior history
         continue-on-error: true
@@ -55,25 +109,129 @@ jobs:
           --vercel-config participate/vercel.json
 
       - name: Propose a changed current report
+        id: review-pr
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           if git diff --quiet -- framework/reports/SOURCE_CHECKER_REPORT.md; then
             echo "The current Source Checker Bot report is unchanged."
+            echo "pending=false" >> "${GITHUB_OUTPUT}"
             exit 0
           fi
           branch="bot/source-checker-report"
           git config user.name "arrp-source-checker[bot]"
           git config user.email "arrp-source-checker[bot]@users.noreply.github.com"
-          git switch -C "$branch"
+          git switch -C "$branch" "${SOURCE_REVISION}"
+          unexpected="$(git status --short | awk '{print $2}' | grep -Ev '^framework/reports/SOURCE_CHECKER_REPORT\.md$' || true)"
+          if [ -n "${unexpected}" ]; then
+            printf 'Source Checker changed files outside its report-only boundary:\n%s\n' "${unexpected}" >&2
+            exit 1
+          fi
           git add framework/reports/SOURCE_CHECKER_REPORT.md
           git commit -m "Refresh current source-checker report"
+          changed="$(git diff --name-only "${SOURCE_REVISION}...HEAD")"
+          if [ "${changed}" != "framework/reports/SOURCE_CHECKER_REPORT.md" ]; then
+            printf 'Source Checker proposal is not the exact report-only delta: %s\n' "${changed}" >&2
+            exit 1
+          fi
           gh auth setup-git
           git fetch origin "$branch:refs/remotes/origin/$branch" || true
           git push --force-with-lease origin "HEAD:$branch"
           if [ "$(gh pr list --head "$branch" --state open --json number --jq 'length')" = "0" ]; then
-            gh pr create --base main --head "$branch" --title "Refresh current source-checker report" --body "Updates the report-only Source Checker Bot findings. No cataloged citation or source identity is changed."
+            pr_url="$(gh pr create --base main --head "$branch" --title "Refresh current source-checker report" --body "Updates the report-only Source Checker Bot findings. No cataloged citation or source identity is changed.")"
+          else
+            pr_url="$(gh pr list --head "$branch" --state open --json url --jq '.[0].url')"
           fi
+          pr_number="$(gh pr view "${pr_url}" --repo "${GITHUB_REPOSITORY}" --json number --jq '.number')"
+          printf 'pending=true\nnumber=%s\nurl=%s\nbranch=%s\n' "${pr_number}" "${pr_url}" "${branch}" >> "${GITHUB_OUTPUT}"
+
+      - name: Build the proposed source-domain event
+        id: domain-event
+        if: steps.review-pr.outputs.pending == 'true'
+        env:
+          CHAIN_ID: ${{ inputs.chain_id }}
+        run: >-
+          python3 scripts/source_domain_events.py propose
+          --agent source-checker-bot
+          --report "${RUNNER_TEMP}/arrp-source-checker/source-checker.json"
+          --output "${RUNNER_TEMP}/source-checker-domain-event.json"
+          --repository "${GITHUB_REPOSITORY}"
+          --base-ref main
+          --git-base "${SOURCE_REVISION}"
+          --head-ref "${{ steps.review-pr.outputs.branch }}"
+          --pull-request-number "${{ steps.review-pr.outputs.number }}"
+          --pull-request-url "${{ steps.review-pr.outputs.url }}"
+          --chain-id "${CHAIN_ID}"
+          --run-id "github-actions:${GITHUB_REPOSITORY}:${GITHUB_RUN_ID}:${GITHUB_RUN_ATTEMPT}:${{ steps.invocation.outputs.attempt_key }}"
+          --trigger "${{ github.event_name }}"
+          --github-output "${GITHUB_OUTPUT}"
+
+      - name: Preserve the proposed event on the data branch
+        if: steps.review-pr.outputs.pending == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python3 scripts/publish_immutable_data_file.py
+          --repository "${GITHUB_REPOSITORY}"
+          --branch project-console-data
+          --file "${RUNNER_TEMP}/source-checker-domain-event.json"
+          --path "${{ steps.domain-event.outputs.domain_event_path }}"
+
+      - name: Bind the review pull request to the proposed event
+        if: steps.review-pr.outputs.pending == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr view "${{ steps.review-pr.outputs.number }}" --repo "${GITHUB_REPOSITORY}" --json body --jq '.body' > "${RUNNER_TEMP}/source-checker-pr-current.md"
+          python3 scripts/source_domain_events.py attach-marker \
+            --event "${RUNNER_TEMP}/source-checker-domain-event.json" \
+            --body "${RUNNER_TEMP}/source-checker-pr-current.md" \
+            --output "${RUNNER_TEMP}/source-checker-pr-bound.md"
+          gh pr edit "${{ steps.review-pr.outputs.number }}" --repo "${GITHUB_REPOSITORY}" --body-file "${RUNNER_TEMP}/source-checker-pr-bound.md"
+
+      - name: Bind the report artifact to this invocation
+        if: always() && steps.invocation.outputs.attempt_key != ''
+        env:
+          STAGE_ID: source-checker-bot
+          CHAIN_ID: ${{ inputs.chain_id }}
+          ATTEMPT_KEY: ${{ steps.invocation.outputs.attempt_key }}
+          REPORT: ${{ runner.temp }}/arrp-source-checker/source-checker.json
+          DOMAIN_EVENT_ID: ${{ steps.domain-event.outputs.domain_event_id }}
+          DOMAIN_EVENT_HASH: ${{ steps.domain-event.outputs.domain_event_hash }}
+          DOMAIN_EVENT_JSON: ${{ steps.domain-event.outputs.domain_event_json }}
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          report = Path(os.environ["REPORT"])
+          if not report.is_file():
+              raise SystemExit("watcher report is missing")
+          event_values = [
+              os.environ.get("DOMAIN_EVENT_ID", ""),
+              os.environ.get("DOMAIN_EVENT_HASH", ""),
+              os.environ.get("DOMAIN_EVENT_JSON", ""),
+          ]
+          if any(event_values) and not all(event_values):
+              raise SystemExit("domain-event outputs are incomplete")
+          event = (
+              {"id": event_values[0], "sha256": event_values[1], "json": json.loads(event_values[2])}
+              if all(event_values)
+              else None
+          )
+          attempt = os.environ["ATTEMPT_KEY"]
+          payload = {
+              "schema_version": 1,
+              "stage_id": os.environ["STAGE_ID"],
+              "chain_id": os.environ.get("CHAIN_ID", ""),
+              "run_id": f"github-actions:{os.environ['GITHUB_REPOSITORY']}:{os.environ['GITHUB_RUN_ID']}:{os.environ['GITHUB_RUN_ATTEMPT']}:{attempt}",
+              "attempt_key": attempt,
+              "report_sha256": "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest(),
+              "domain_event": event,
+          }
+          Path(os.environ["RUNNER_TEMP"], "watcher-attempt.json").write_text(
+              json.dumps(payload, indent=2, sort_keys=True) + "\n"
+          )
+          PY
 
       - name: Publish run summary
         if: always()
@@ -85,11 +243,14 @@ jobs:
           fi
 
       - name: Preserve the complete machine-readable report
-        if: always()
+        if: always() && steps.invocation.outputs.attempt_key != ''
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: source-checker-report
-          path: ${{ runner.temp }}/arrp-source-checker/source-checker.json
+          name: source-checker-report-${{ steps.invocation.outputs.attempt_key }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/arrp-source-checker/source-checker.json
+            ${{ runner.temp }}/source-checker-domain-event.json
+            ${{ runner.temp }}/watcher-attempt.json
           if-no-files-found: warn
           retention-days: 30
 

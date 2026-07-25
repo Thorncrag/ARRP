@@ -171,6 +171,24 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         self.assertIn("not an approved workflow status", record["warnings"][0])
         self.assertIn("needs: monitoring label", record["warnings"][0])
 
+    def test_noncanonical_development_level_emits_maturity_warning(self):
+        raw = deepcopy(self.raw)
+        for node in raw["items"][0]["fieldValues"]["nodes"]:
+            if (node.get("field") or {}).get("name") == "Development level":
+                node["name"] = "Almost ready"
+        _, items = MODULE.parse_items(raw, self.config, self.registry)
+        record = next(item for item in items if item["identifier"] == "DOJ-007")
+        self.assertFalse(record["ready"])
+        self.assertTrue(
+            any("six canonical maturity values" in warning for warning in record["warnings"])
+        )
+
+    def test_noncanonical_ready_level_configuration_fails_closed(self):
+        config = deepcopy(self.config)
+        config["goal"]["readyDevelopmentLevels"].append("Almost ready")
+        with self.assertRaisesRegex(RuntimeError, "noncanonical Development level"):
+            MODULE.parse_items(self.raw, config, self.registry)
+
     def test_monitoring_label_does_not_replace_workflow_status(self):
         raw = deepcopy(self.raw)
         raw["items"][2]["content"]["labels"]["nodes"].append({"name": "needs: monitoring"})
@@ -185,6 +203,25 @@ class ProjectConsoleProgressTests(unittest.TestCase):
             tuple(config["workflowStatuses"]),
             MODULE.APPROVED_WORKFLOW_STATUSES,
         )
+
+    def test_builder_exposes_only_the_canonical_six_development_levels(self):
+        title, items = MODULE.parse_items(self.raw, self.config, self.registry)
+        payload = MODULE.build_progress_payload(
+            title, items, self.history, self.config, date(2026, 7, 15)
+        )
+        self.assertEqual(
+            tuple(payload["developmentLevels"]),
+            MODULE.APPROVED_DEVELOPMENT_LEVELS,
+        )
+        self.assertEqual(len(payload["developmentLevels"]), 6)
+
+    def test_workflow_fails_closed_when_project_credential_is_missing(self):
+        workflow = (ROOT / ".github" / "workflows" / "project-console-progress.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("::error::ARRP_PROJECT_TOKEN is not configured", workflow)
+        self.assertIn("exit 1", workflow)
+        self.assertNotIn("progress refresh is inactive", workflow)
 
     def test_retrospective_seed_extends_history_without_replacing_live_dates(self):
         config = deepcopy(self.config)

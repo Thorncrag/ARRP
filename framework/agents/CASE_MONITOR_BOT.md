@@ -11,6 +11,8 @@ execution_environment: github-actions
 runtime_config: .github/case-monitor-bot.json
 log_path: framework/logs/AGENT_AUDIT_LOG.md
 domain_event_log: framework/logs/SOURCE_MONITOR_LOG.md
+domain_event_schema: .github/source-domain-event.schema.json
+domain_event_data: project-console-data:source-domain-events/
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
 ---
@@ -69,6 +71,31 @@ An enabled module must name one established source-development path: `research/h
 ## Publication and review
 
 Material changes are committed only to the dedicated `bot/case-monitor-updates` proposal branch and presented through an owner-assigned pull request. The branch is replaceable only with lease protection under the shared branch-safety rule. The pull request must itemize every affected `SRC-####`, the observed field change or generated-lead delta, and the originating Actions run. It is the unresolved human-review task, and merging it accepts the proposed monitoring baseline and other itemized changes. No-change runs create no commit. Every proposed catalog or source-development lead change requires human review before merge.
+
+The workflow emits one schema-versioned, minimized `proposed` source-domain
+event for the complete pending branch delta. Its stable idempotency key binds
+the Chain and Actions run as correlation fields, source revision, pull
+request, delta-derived semantic projection, and proposal-delta hash. The JSON
+event contains only stable affected-record IDs and counts reproducible from
+the exact Git delta, plus output file hashes; the full diagnostic report
+remains in its retained artifact. The event contains no response body, title, case
+narrative, or private data. It is retained as an Actions artifact, projected
+immutably under `source-domain-events/proposed/case-monitor-bot/` on
+`project-console-data`, exposed through the reusable-workflow outputs, and
+bound to the review pull request by its event ID and content hash.
+
+Only a same-repository merge of the exact bot-branch revision into `main` by
+the allowlisted human project owner establishes acceptance. The acceptance workflow must verify the
+pull-request number and branch, proposed-event hash, exact PR head revision,
+source-revision ancestry, complete proposal file set and patch hash,
+delta-derived semantic projection, supported merge topology, exact
+first-parent accepted delta, and every accepted file hash before creating the
+corresponding immutable `accepted` event. It then opens a separate,
+event-specific pull request that renders the accepted event exactly once into
+the Source Monitor Log and Agent Audit Log using stable hidden markers. It
+never merges that pull request or pushes either shared log directly to
+`main`. A closed-unmerged, altered, bot-merged, stale, or hash-mismatched
+proposal remains proposed and receives no accepted log entry.
 
 ## Validation, stop, and output
 

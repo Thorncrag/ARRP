@@ -11,7 +11,11 @@ execution_environment: github-actions
 runtime_config: .github/source-checker-bot.json
 log_path: framework/logs/AGENT_AUDIT_LOG.md
 current_report: framework/reports/SOURCE_CHECKER_REPORT.md
-current_data: project-console-data/source-checker.json
+current_data: project-console-data:source-checker.json
+offline_cache_path: .tmp/project-console-source-checker.json
+domain_event_log: framework/logs/SOURCE_MONITOR_LOG.md
+domain_event_schema: .github/source-domain-event.schema.json
+domain_event_data: project-console-data:source-domain-events/
 exception_review: human-or-llm
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
@@ -53,11 +57,38 @@ The reports contain no response bodies and store only bounded diagnostic text. M
 
 ## Inputs and permitted writes
 
-The bot reads every nonblank URL and its stable source metadata from `inventory/sources.csv` and `inventory/sources-pending.csv`, plus up to 12 prior run summaries from the data branch. It may write only the generated JSON feed/history and replaceable Markdown report, and it emits immutable structured provenance to the Run Coordinator. It does not edit the shared Markdown log from its proposal branch. It may not edit either source catalog, substitute a source, alter a proposition, or decide that a different document is equivalent.
+The bot reads every nonblank URL and its stable source metadata from `inventory/sources.csv` and `inventory/sources-pending.csv`, plus up to 12 prior run summaries from the data branch. It may write only the generated JSON feed/history and replaceable Markdown report, and it emits immutable structured provenance to the Run Coordinator. The published current feed is `source-checker.json` on `project-console-data`; `.tmp/project-console-source-checker.json` is the explicit local/offline cache used by Console builds when supplied and is not canonical. It does not edit the shared Markdown log from its proposal branch. It may not edit either source catalog, substitute a source, alter a proposition, or decide that a different document is equivalent.
 
 ## Publication and review
 
 The structured feed publishes to `project-console-data`. A changed Markdown report is proposed only on `bot/source-checker-report`, using lease-protected replacement, and requires review before merge. Broken, identity-mismatch, and review-required results also appear in the unified Integrity queue; remediation is performed separately by an authorized human or LLM agent.
+
+When the current report produces a review pull request, the workflow also
+emits one schema-versioned, minimized `proposed` source-domain event for that
+complete report delta. Its stable idempotency key binds the Chain and Actions
+run as correlation fields, source revision, pull request, delta-derived
+semantic projection, and proposal-delta hash. The JSON event contains only
+stable affected Source IDs and counts reproducible from the exact Git delta,
+plus output file hashes; the full diagnostic report remains in its retained
+artifact and current feed. The event contains no URL, redirect target, page title,
+diagnostic response body, or private data. It is retained as an Actions
+artifact, projected immutably under
+`source-domain-events/proposed/source-checker-bot/` on
+`project-console-data`, exposed through the reusable-workflow outputs, and
+bound to the report pull request by its event ID and content hash.
+
+Only a same-repository merge of the exact report-branch revision into `main`
+by the allowlisted human project owner establishes acceptance. The acceptance workflow must verify
+the pull-request number and branch, proposed-event hash, exact PR head
+revision, source-revision ancestry, complete proposal file set and patch hash,
+delta-derived semantic projection, supported merge topology, exact
+first-parent accepted delta, and accepted report hash before
+creating the corresponding immutable `accepted` event. It then opens a
+separate, event-specific pull request that renders the accepted event exactly
+once into the Source Monitor Log and Agent Audit Log using stable hidden
+markers. It never merges that pull request or pushes either shared log
+directly to `main`. A closed-unmerged, altered, bot-merged, stale, or
+hash-mismatched proposal remains proposed and receives no accepted log entry.
 
 ## Validation, stop, and output
 

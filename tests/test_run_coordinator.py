@@ -1,9 +1,13 @@
 import importlib.util
+import hashlib
 import json
+import os
 import tempfile
+import textwrap
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,6 +50,323 @@ class RunCoordinatorTests(unittest.TestCase):
         self.assertIn('"governing_boundary_changed"', workflow)
         self.assertIn('"comprehensive_review_boundary_changes"', workflow)
         self.assertIn('"comprehensive_review_unresolved_findings"', workflow)
+        self.assertIn('"due_reason": chain.get("review_epoch"', workflow)
+        self.assertIn('--source-checker "${CHAIN_WORK}/elim-inputs/source-checker.json"', workflow)
+        self.assertIn('--case-monitor "${CHAIN_WORK}/elim-inputs/case-monitor.json"', workflow)
+        self.assertIn(
+            '--presidential-directives "${CHAIN_WORK}/elim-inputs/presidential-directives.json"',
+            workflow,
+        )
+        self.assertIn('--recovery "${CHAIN_WORK}/elim-inputs/recovery.json"', workflow)
+
+    def test_watcher_attempts_are_chain_bound_and_exactly_selected(self):
+        workflow = (
+            ROOT / ".github" / "workflows" / "run-coordinator-bot.yml"
+        ).read_text()
+        self.assertEqual(
+            workflow.count("chain_id: ${{ needs.plan.outputs.chain_id }}"),
+            6,
+        )
+        self.assertEqual(workflow.count("attempt_key: primary"), 3)
+        self.assertEqual(workflow.count("attempt_key: retry"), 3)
+        self.assertIn(
+            "case-monitor-report-${{ needs.case_retry.result == 'success' "
+            "&& 'retry' || 'primary' }}-${{ github.run_attempt }}",
+            workflow,
+        )
+        self.assertIn(
+            "presidential-directives-report-${{ "
+            "needs.directives_retry.result == 'success' && 'retry' || "
+            "'primary' }}-${{ github.run_attempt }}",
+            workflow,
+        )
+        self.assertIn(
+            "source-checker-report-${{ needs.source_retry.result == 'success' "
+            "&& 'retry' || 'primary' }}-${{ github.run_attempt }}",
+            workflow,
+        )
+        self.assertNotIn('pattern: "*-report"', workflow)
+        self.assertNotIn("max(candidates, key=reported_at)", workflow)
+        self.assertIn("materialize-watcher-inputs", workflow)
+        self.assertIn('"domain_event": domain_event', workflow)
+        self.assertIn('"run_id": (', workflow)
+        self.assertIn("def stage(prefix, bind_attempt=False):", workflow)
+        self.assertEqual(workflow.count("bind_attempt=True"), 3)
+        self.assertIn(
+            '"project-console-progress-bot": stage("PROGRESS")',
+            workflow,
+        )
+        self.assertIn(
+            '"project-integrity-bot": stage("INTEGRITY")',
+            workflow,
+        )
+        self.assertIn('"public-intake": stage("INTAKE")', workflow)
+
+    def test_ordinary_stage_compile_does_not_require_watcher_attempt_outputs(self):
+        workflow = (
+            ROOT / ".github" / "workflows" / "run-coordinator-bot.yml"
+        ).read_text()
+        block = workflow.split(
+            "      - name: Compile stage results",
+            1,
+        )[1].split(
+            "      - name: Finalize without launching Codex",
+            1,
+        )[0]
+        script = block.split("          python3 - <<'PY'\n", 1)[1].rsplit(
+            "\n          PY",
+            1,
+        )[0]
+        script = textwrap.dedent(script)
+        with tempfile.TemporaryDirectory() as directory:
+            environment = {
+                "CHAIN_WORK": directory,
+                "CASE_DUE": "false",
+                "DIRECTIVES_DUE": "false",
+                "SOURCE_DUE": "false",
+                "PROGRESS_DUE": "true",
+                "PROGRESS_RESULT": "success",
+                "PROGRESS_RETRY_RESULT": "skipped",
+                "PROGRESS_COUNT": "2",
+                "PROGRESS_HASH": "sha256:progress",
+                "INTEGRITY_DUE": "true",
+                "INTEGRITY_RESULT": "success",
+                "INTEGRITY_RETRY_RESULT": "skipped",
+                "INTEGRITY_COUNT": "1",
+                "INTEGRITY_HASH": "sha256:integrity",
+                "INTAKE_DUE": "true",
+                "INTAKE_RESULT": "success",
+                "INTAKE_COUNT": "3",
+                "INTAKE_HASH": "sha256:intake",
+            }
+            with mock.patch.dict(os.environ, environment, clear=True):
+                exec(compile(script, "<stage-results>", "exec"), {})
+            payload = json.loads(
+                (Path(directory) / "stage-results.json").read_text()
+            )
+        self.assertEqual(
+            payload["project-console-progress-bot"]["result"],
+            "success",
+        )
+        self.assertNotIn(
+            "attempt_key",
+            payload["project-console-progress-bot"],
+        )
+        self.assertNotIn("run_id", payload["project-integrity-bot"])
+        self.assertNotIn("domain_event", payload["public-intake"])
+
+    def test_selected_watcher_artifact_is_hash_and_attempt_bound(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            artifacts = root / "artifacts"
+            selected = artifacts / "case-monitor"
+            selected.mkdir(parents=True)
+            destination = root / "inputs"
+            destination.mkdir()
+            report = selected / "monitoring-report.json"
+            report.write_text('{"selected":"retry"}\n', encoding="utf-8")
+            digest = "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest()
+            run_id = "github-actions:Thorncrag/ARRP:100:2:retry"
+            manifest = {
+                "chain_id": "chain-1",
+                "stages": [
+                    {
+                        "id": "case-monitor-bot",
+                        "due": True,
+                        "status": "succeeded",
+                        "attempt_key": "retry",
+                        "run_id": run_id,
+                        "output": {"sha256": digest},
+                    }
+                ],
+            }
+            attestation = {
+                "schema_version": 1,
+                "stage_id": "case-monitor-bot",
+                "chain_id": "chain-1",
+                "run_id": run_id,
+                "attempt_key": "retry",
+                "report_sha256": digest,
+                "domain_event": None,
+            }
+            (selected / "watcher-attempt.json").write_text(
+                json.dumps(attestation) + "\n",
+                encoding="utf-8",
+            )
+            MODULE.materialize_selected_watcher_artifacts(
+                manifest,
+                artifacts,
+                destination,
+            )
+            self.assertEqual(
+                (destination / "case-monitor.json").read_text(encoding="utf-8"),
+                '{"selected":"retry"}\n',
+            )
+
+            attestation["attempt_key"] = "primary"
+            (selected / "watcher-attempt.json").write_text(
+                json.dumps(attestation) + "\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "attempt attestation"):
+                MODULE.materialize_selected_watcher_artifacts(
+                    manifest,
+                    artifacts,
+                    destination,
+                )
+
+            attestation["attempt_key"] = "retry"
+            (selected / "watcher-attempt.json").write_text(
+                json.dumps(attestation) + "\n",
+                encoding="utf-8",
+            )
+            manifest["stages"][0]["output"]["sha256"] = "sha256:" + "0" * 64
+            with self.assertRaisesRegex(ValueError, "report hash differs"):
+                MODULE.materialize_selected_watcher_artifacts(
+                    manifest,
+                    artifacts,
+                    destination,
+                )
+
+    def test_successful_watcher_cannot_fall_back_when_artifact_is_missing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            destination = root / "inputs"
+            destination.mkdir()
+            prior = destination / "source-checker.json"
+            prior.write_text('{"prior":true}\n', encoding="utf-8")
+            manifest = {
+                "chain_id": "chain-1",
+                "stages": [
+                    {
+                        "id": "source-checker-bot",
+                        "due": True,
+                        "status": "succeeded",
+                        "attempt_key": "primary",
+                        "run_id": "github-actions:Thorncrag/ARRP:100:2:primary",
+                        "output": {"sha256": "sha256:" + "0" * 64},
+                    }
+                ],
+            }
+            with self.assertRaisesRegex(ValueError, "lacks its selected primary artifact"):
+                MODULE.materialize_selected_watcher_artifacts(
+                    manifest,
+                    root / "artifacts",
+                    destination,
+                )
+            self.assertEqual(prior.read_text(encoding="utf-8"), '{"prior":true}\n')
+
+    def test_source_checker_materializes_actual_downloaded_artifact_hierarchy(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            selected = root / "artifacts/source-checker"
+            nested = selected / "arrp-source-checker"
+            nested.mkdir(parents=True)
+            report = nested / "source-checker.json"
+            report.write_text('{"results":[]}\n', encoding="utf-8")
+            digest = "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest()
+            run_id = "github-actions:Thorncrag/ARRP:100:2:primary"
+            attestation = {
+                "schema_version": 1,
+                "stage_id": "source-checker-bot",
+                "chain_id": "chain-1",
+                "run_id": run_id,
+                "attempt_key": "primary",
+                "report_sha256": digest,
+                "domain_event": None,
+            }
+            (selected / "watcher-attempt.json").write_text(
+                json.dumps(attestation) + "\n",
+                encoding="utf-8",
+            )
+            manifest = {
+                "chain_id": "chain-1",
+                "stages": [
+                    {
+                        "id": "source-checker-bot",
+                        "due": True,
+                        "status": "succeeded",
+                        "attempt_key": "primary",
+                        "run_id": run_id,
+                        "output": {"sha256": digest},
+                    }
+                ],
+            }
+            MODULE.materialize_selected_watcher_artifacts(
+                manifest,
+                root / "artifacts",
+                root / "inputs",
+            )
+            self.assertEqual(
+                (root / "inputs/source-checker.json").read_bytes(),
+                report.read_bytes(),
+            )
+
+    def test_watcher_event_is_bound_to_chain_run_and_proposal_revision(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            selected = root / "artifacts/presidential-directives"
+            selected.mkdir(parents=True)
+            report = selected / "directives-report.json"
+            report.write_text('{"counts":{}}\n', encoding="utf-8")
+            report_hash = (
+                "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest()
+            )
+            event = {
+                "event_id": "event-1",
+                "chain_id": "wrong-chain",
+                "run_id": "github-actions:Thorncrag/ARRP:100:2:retry",
+                "proposal": {"proposal_revision": "a" * 40},
+            }
+            event_path = selected / "presidential-directives-domain-event.json"
+            event_path.write_text(
+                json.dumps(event, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            event_hash = (
+                "sha256:" + hashlib.sha256(event_path.read_bytes()).hexdigest()
+            )
+            event_metadata = {
+                "id": "event-1",
+                "sha256": event_hash,
+                "json": event,
+            }
+            run_id = "github-actions:Thorncrag/ARRP:100:2:retry"
+            (selected / "watcher-attempt.json").write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "stage_id": "presidential-directives-bot",
+                        "chain_id": "chain-1",
+                        "run_id": run_id,
+                        "attempt_key": "retry",
+                        "report_sha256": report_hash,
+                        "domain_event": event_metadata,
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            manifest = {
+                "chain_id": "chain-1",
+                "stages": [
+                    {
+                        "id": "presidential-directives-bot",
+                        "due": True,
+                        "status": "succeeded",
+                        "attempt_key": "retry",
+                        "run_id": run_id,
+                        "output": {"sha256": report_hash},
+                        "domain_event": event_metadata,
+                    }
+                ],
+            }
+            with self.assertRaisesRegex(ValueError, "event identity is not bound"):
+                MODULE.materialize_selected_watcher_artifacts(
+                    manifest,
+                    root / "artifacts",
+                    root / "inputs",
+                )
 
     def test_main_pushes_enter_the_chain_not_individual_bots(self):
         coordinator = (
@@ -328,6 +649,270 @@ class RunCoordinatorTests(unittest.TestCase):
         self.assertTrue(available["elim_decision"]["launch_recommended"])
         self.assertTrue(available["elim_decision"]["last_substantive_stage"])
 
+    def test_failed_bot_authorizes_only_selected_safety_zero_repair(self):
+        failed_stage = "source-checker-bot"
+        manifest = {
+            "schema_version": 1,
+            "chain_id": "chain-repair",
+            "llm_launch_allowed": True,
+            "stages": [
+                {
+                    "id": stage["id"],
+                    "due": stage["id"] == failed_stage,
+                    "status": "failed" if stage["id"] == failed_stage else "not_due",
+                    "failure_class": (
+                        "blocking" if stage["id"] == failed_stage else "none"
+                    ),
+                    "details": (
+                        "Source scan failed."
+                        if stage["id"] == failed_stage
+                        else ""
+                    ),
+                    "work_count": 0,
+                }
+                for stage in self.config["stages"]
+            ],
+            "queue_counts": {
+                "integrity": 0,
+                "monitoring": 0,
+                "sources": 0,
+                "intake": 0,
+                "total": 1,
+            },
+            "work_queue": {
+                "ready_for_elim": True,
+                "launch_recommended": True,
+                "problems": [],
+                "next_item": {
+                    "id": "repair-source",
+                    "kind": "bot_failure",
+                    "safety_class": 0,
+                    "eligible_for_elim": True,
+                    "source": {"bot": {"id": failed_stage}},
+                },
+            },
+            "context_packet": {"profile": "integrity_reconciliation"},
+            "review_epoch": {"due": True},
+            "usage": {
+                "hard_reserve_percent": 15,
+                "soft_run_target_percent": 10,
+            },
+            "failures": [],
+            "degradations": [],
+            "lock": {
+                "path": None,
+                "status": "released-by-workflow",
+                "owner_chain_id": "chain-repair",
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            path = directory / "manifest.json"
+            results = directory / "results.json"
+            path.write_text(json.dumps(manifest), encoding="utf-8")
+            results.write_text("{}\n", encoding="utf-8")
+            args = type(
+                "Args",
+                (),
+                {
+                    "config": ROOT / ".github/run-coordinator-bot.json",
+                    "manifest": path,
+                    "stage_results": results,
+                    "output": None,
+                    "usage_remaining": 90.0,
+                    "now": "2026-07-24T08:00:00+00:00",
+                },
+            )()
+            MODULE.finalize(args)
+            final = json.loads(path.read_text(encoding="utf-8"))
+        self.assertTrue(final["elim_decision"]["launch_recommended"])
+        self.assertIn("repair-only", final["elim_decision"]["reason"])
+        self.assertEqual(final["elim_decision"]["blockers"], [])
+        self.assertFalse(final["elim_decision"]["profile"]["full_context"])
+        self.assertTrue(final["review_epoch"]["due"])
+        self.assertEqual(final["status"], "degraded")
+        self.assertEqual(final["failures"][0]["stage"], failed_stage)
+
+    def test_host_refinalize_preserves_degraded_stage_and_queue_counts(self):
+        stages = [
+            {
+                "id": stage["id"],
+                "due": stage["id"] in {
+                    "case-monitor-bot",
+                    "source-checker-bot",
+                },
+                "status": (
+                    "succeeded"
+                    if stage["id"] == "case-monitor-bot"
+                    else "degraded"
+                    if stage["id"] == "source-checker-bot"
+                    else "not_due"
+                ),
+                "failure_class": (
+                    "degraded"
+                    if stage["id"] == "source-checker-bot"
+                    else "none"
+                ),
+                "details": (
+                    "Provider throttled the scan."
+                    if stage["id"] == "source-checker-bot"
+                    else ""
+                ),
+                "work_count": (
+                    2
+                    if stage["id"] == "case-monitor-bot"
+                    else 4
+                    if stage["id"] == "source-checker-bot"
+                    else 0
+                ),
+            }
+            for stage in self.config["stages"]
+        ]
+        manifest = {
+            "schema_version": 1,
+            "chain_id": "chain",
+            "llm_launch_allowed": True,
+            "stages": stages,
+            "queue_counts": {
+                "integrity": 0,
+                "monitoring": 2,
+                "sources": 4,
+                "intake": 0,
+                "total": 6,
+            },
+            "review_epoch": {"due": False},
+            "usage": {
+                "hard_reserve_percent": 15,
+                "soft_run_target_percent": 10,
+            },
+            "failures": [],
+            "degradations": [
+                {
+                    "stage": "source-checker-bot",
+                    "classification": "degraded",
+                    "message": "Provider throttled the scan.",
+                }
+            ],
+            "lock": {
+                "path": None,
+                "status": "released-by-workflow",
+                "owner_chain_id": "chain",
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            path = directory / "manifest.json"
+            results = directory / "results.json"
+            path.write_text(json.dumps(manifest), encoding="utf-8")
+            results.write_text("{}\n", encoding="utf-8")
+            args = type(
+                "Args",
+                (),
+                {
+                    "config": ROOT / ".github" / "run-coordinator-bot.json",
+                    "manifest": path,
+                    "stage_results": results,
+                    "output": None,
+                    "usage_remaining": 80.0,
+                    "now": "2026-07-24T08:00:00+00:00",
+                },
+            )()
+            MODULE.finalize(args)
+            final = json.loads(path.read_text(encoding="utf-8"))
+        source = next(
+            stage
+            for stage in final["stages"]
+            if stage["id"] == "source-checker-bot"
+        )
+        self.assertEqual(source["status"], "degraded")
+        self.assertEqual(final["status"], "degraded")
+        self.assertEqual(final["queue_counts"]["monitoring"], 2)
+        self.assertEqual(final["queue_counts"]["sources"], 4)
+        self.assertEqual(len(final["degradations"]), 1)
+        self.assertEqual(final["failures"], [])
+
+    def test_host_refinalize_blocks_unapplied_local_queue_overrides(self):
+        manifest = {
+            "schema_version": 1,
+            "chain_id": "chain",
+            "llm_launch_allowed": True,
+            "stages": [
+                {
+                    "id": stage["id"],
+                    "due": False,
+                    "status": "not_due",
+                    "failure_class": "none",
+                    "details": "",
+                    "work_count": 0,
+                }
+                for stage in self.config["stages"]
+            ],
+            "queue_counts": {
+                "integrity": 0,
+                "monitoring": 0,
+                "sources": 0,
+                "intake": 0,
+                "total": 1,
+            },
+            "work_queue": {
+                "ready_for_elim": True,
+                "launch_recommended": True,
+                "problems": [],
+                "user_overrides": {
+                    "applied": [],
+                    "unmatched": [],
+                    "request_sha256": MODULE.json_hash({}),
+                },
+            },
+            "user_overrides": {
+                "work-integrity-123456789abc": {
+                    "source": "user-local-console",
+                    "suppressed": True,
+                    "reason": "Review later.",
+                }
+            },
+            "review_epoch": {"due": False},
+            "usage": {
+                "hard_reserve_percent": 15,
+                "soft_run_target_percent": 10,
+            },
+            "failures": [],
+            "degradations": [],
+            "lock": {
+                "path": None,
+                "status": "released-by-workflow",
+                "owner_chain_id": "chain",
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            path = directory / "manifest.json"
+            results = directory / "results.json"
+            path.write_text(json.dumps(manifest), encoding="utf-8")
+            results.write_text("{}\n", encoding="utf-8")
+            args = type(
+                "Args",
+                (),
+                {
+                    "config": ROOT / ".github" / "run-coordinator-bot.json",
+                    "manifest": path,
+                    "stage_results": results,
+                    "output": None,
+                    "usage_remaining": 80.0,
+                    "now": "2026-07-24T08:00:00+00:00",
+                },
+            )()
+            MODULE.finalize(args)
+            final = json.loads(path.read_text(encoding="utf-8"))
+        self.assertFalse(final["elim_decision"]["launch_recommended"])
+        self.assertEqual(final["status"], "blocked")
+        self.assertTrue(
+            any(
+                "exact queue selection" in blocker
+                for blocker in final["elim_decision"]["blockers"]
+            )
+        )
+
     def test_push_trigger_cannot_launch_elim_even_with_ready_work(self):
         manifest = {
             "schema_version": 1,
@@ -452,6 +1037,81 @@ class RunCoordinatorTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "has no context packet"):
                 MODULE.attach_context(args)
 
+    def test_attach_context_lets_safety_zero_repair_preempt_due_epoch(self):
+        manifest = {
+            "schema_version": 1,
+            "final_revision": "a" * 40,
+            "elim_decision": {
+                "launch_recommended": False,
+                "profile": {"full_context": True},
+            },
+            "queue_counts": {"total": 0},
+            "review_epoch": {"due": True},
+            "status": "blocked",
+        }
+        selected = {
+            "id": "repair-source",
+            "kind": "bot_failure",
+            "safety_class": 0,
+            "eligible_for_elim": True,
+            "source": {"bot": {"id": "source-checker-bot"}},
+        }
+        queue = {
+            "schema_version": 1,
+            "repository_revision": "a" * 40,
+            "ready_for_elim": True,
+            "launch_recommended": True,
+            "counts": {"total": 2},
+            "items": [
+                selected,
+                {
+                    "id": "epoch-1",
+                    "kind": "comprehensive_review",
+                    "eligible_for_elim": True,
+                },
+            ],
+            "problems": [],
+        }
+        context = {
+            "schema_version": 2,
+            "status": "ready",
+            "profile": "integrity_reconciliation",
+            "repository_revision": "a" * 40,
+            "provenance_complete": True,
+            "limits": {"actual_bytes": 100, "max_bytes": 1000},
+            "selection": {
+                "work_item_id": "repair-source",
+                "kind": "bot_failure",
+                "canonical_record": None,
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            manifest_path = directory / "manifest.json"
+            queue_path = directory / "queue.json"
+            context_path = directory / "context.json"
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            queue_path.write_text(json.dumps(queue), encoding="utf-8")
+            context_path.write_text(json.dumps(context), encoding="utf-8")
+            args = type(
+                "Args",
+                (),
+                {
+                    "manifest": manifest_path,
+                    "queue": queue_path,
+                    "context": context_path,
+                    "output": None,
+                },
+            )()
+            MODULE.attach_context(args)
+            attached = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(
+            attached["work_queue"]["selected_work_item_id"],
+            "repair-source",
+        )
+        self.assertFalse(attached["elim_decision"]["profile"]["full_context"])
+        self.assertTrue(attached["review_epoch"]["due"])
+
     def test_attach_context_binds_selected_item_context_and_model(self):
         manifest = {
             "schema_version": 1,
@@ -528,6 +1188,10 @@ class RunCoordinatorTests(unittest.TestCase):
 
         self.assertEqual(attached["work_queue"]["next_item"], selected)
         self.assertEqual(attached["work_queue"]["selected_work_item_id"], "change-1")
+        self.assertEqual(
+            attached["work_queue"]["user_overrides"]["request_sha256"],
+            MODULE.json_hash({}),
+        )
         self.assertEqual(attached["context_packet"]["work_item_id"], "change-1")
         self.assertEqual(attached["context_packet"]["issue_id"], "JUD-009")
         self.assertEqual(

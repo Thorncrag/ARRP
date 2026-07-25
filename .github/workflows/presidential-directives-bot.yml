@@ -2,7 +2,31 @@ name: Presidential Directives Bot
 
 on:
   workflow_dispatch:
+    inputs:
+      chain_id:
+        description: Optional Run Coordinator Chain ID.
+        required: false
+        type: string
+      attempt_key:
+        description: Invocation identity used to disambiguate retained artifacts.
+        required: false
+        default: standalone
+        type: choice
+        options:
+          - standalone
+          - primary
+          - retry
   workflow_call:
+    inputs:
+      chain_id:
+        description: Run Coordinator Chain ID.
+        required: false
+        type: string
+      attempt_key:
+        description: Invocation identity (primary, retry, or standalone).
+        required: false
+        default: standalone
+        type: string
     outputs:
       work_count:
         description: New or changed directives requiring screening.
@@ -10,6 +34,18 @@ on:
       output_hash:
         description: SHA-256 of the structured directive report.
         value: ${{ jobs.compare.outputs.output_hash }}
+      domain_event_id:
+        description: Stable ID of the proposed source-domain event, when one exists.
+        value: ${{ jobs.compare.outputs.domain_event_id }}
+      domain_event_hash:
+        description: SHA-256 of the proposed source-domain event.
+        value: ${{ jobs.compare.outputs.domain_event_hash }}
+      domain_event_json:
+        description: Minimized proposed source-domain event JSON.
+        value: ${{ jobs.compare.outputs.domain_event_json }}
+      attempt_key:
+        description: Validated invocation identity used by reports and outputs.
+        value: ${{ jobs.compare.outputs.attempt_key }}
 
 concurrency:
   group: arrp-presidential-directives-bot
@@ -25,9 +61,24 @@ jobs:
     outputs:
       work_count: ${{ steps.chain-result.outputs.work_count }}
       output_hash: ${{ steps.chain-result.outputs.output_hash }}
+      domain_event_id: ${{ steps.domain-event.outputs.domain_event_id }}
+      domain_event_hash: ${{ steps.domain-event.outputs.domain_event_hash }}
+      domain_event_json: ${{ steps.domain-event.outputs.domain_event_json }}
+      attempt_key: ${{ steps.invocation.outputs.attempt_key }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Validate the reusable-workflow invocation identity
+        id: invocation
+        env:
+          ATTEMPT_KEY: ${{ inputs.attempt_key }}
+        run: |
+          case "${ATTEMPT_KEY}" in
+            primary|retry|standalone) ;;
+            *) echo "attempt_key must be primary, retry, or standalone" >&2; exit 1 ;;
+          esac
+          printf 'attempt_key=%s\n' "${ATTEMPT_KEY}" >> "${GITHUB_OUTPUT}"
+
       - name: Check out the repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
@@ -114,7 +165,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add inventory/presidential-directives.csv
           git commit -m "chore: record presidential directive updates"
-          git push --set-upstream origin "${BOT_BRANCH}"
+          git push --force-with-lease --set-upstream origin "HEAD:${BOT_BRANCH}"
 
       - name: Detect a pending review branch
         id: pending
@@ -126,6 +177,7 @@ jobs:
           fi
 
       - name: Create or update the review pull request
+        id: review-pr
         if: steps.pending.outputs.exists == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -146,6 +198,96 @@ jobs:
             gh pr edit "${pr_url}" --repo "${GITHUB_REPOSITORY}" --body-file "${body_file}"
           fi
           gh pr edit "${pr_url}" --repo "${GITHUB_REPOSITORY}" --add-assignee "${ASSIGNEE}"
+          pr_number="$(gh pr view "${pr_url}" --repo "${GITHUB_REPOSITORY}" --json number --jq '.number')"
+          printf 'number=%s\nurl=%s\n' "${pr_number}" "${pr_url}" >> "${GITHUB_OUTPUT}"
+
+      - name: Build the proposed source-domain event
+        id: domain-event
+        if: steps.pending.outputs.exists == 'true'
+        env:
+          CHAIN_ID: ${{ inputs.chain_id }}
+        run: >-
+          python scripts/source_domain_events.py propose
+          --agent presidential-directives-bot
+          --report "${RUNNER_TEMP}/directives-report.json"
+          --output "${RUNNER_TEMP}/presidential-directives-domain-event.json"
+          --repository "${GITHUB_REPOSITORY}"
+          --base-ref main
+          --git-base origin/main
+          --head-ref "${BOT_BRANCH}"
+          --pull-request-number "${{ steps.review-pr.outputs.number }}"
+          --pull-request-url "${{ steps.review-pr.outputs.url }}"
+          --chain-id "${CHAIN_ID}"
+          --run-id "github-actions:${GITHUB_REPOSITORY}:${GITHUB_RUN_ID}:${GITHUB_RUN_ATTEMPT}:${{ steps.invocation.outputs.attempt_key }}"
+          --trigger "${{ github.event_name }}"
+          --github-output "${GITHUB_OUTPUT}"
+
+      - name: Preserve the proposed event on the data branch
+        if: steps.pending.outputs.exists == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python scripts/publish_immutable_data_file.py
+          --repository "${GITHUB_REPOSITORY}"
+          --branch project-console-data
+          --file "${RUNNER_TEMP}/presidential-directives-domain-event.json"
+          --path "${{ steps.domain-event.outputs.domain_event_path }}"
+
+      - name: Bind the review pull request to the proposed event
+        if: steps.pending.outputs.exists == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr view "${{ steps.review-pr.outputs.number }}" --repo "${GITHUB_REPOSITORY}" --json body --jq '.body' > "${RUNNER_TEMP}/presidential-directives-pr-current.md"
+          python scripts/source_domain_events.py attach-marker \
+            --event "${RUNNER_TEMP}/presidential-directives-domain-event.json" \
+            --body "${RUNNER_TEMP}/presidential-directives-pr-current.md" \
+            --output "${RUNNER_TEMP}/presidential-directives-pr-bound.md"
+          gh pr edit "${{ steps.review-pr.outputs.number }}" --repo "${GITHUB_REPOSITORY}" --body-file "${RUNNER_TEMP}/presidential-directives-pr-bound.md"
+
+      - name: Bind the report artifact to this invocation
+        if: always() && steps.invocation.outputs.attempt_key != ''
+        env:
+          STAGE_ID: presidential-directives-bot
+          CHAIN_ID: ${{ inputs.chain_id }}
+          ATTEMPT_KEY: ${{ steps.invocation.outputs.attempt_key }}
+          REPORT: ${{ runner.temp }}/directives-report.json
+          DOMAIN_EVENT_ID: ${{ steps.domain-event.outputs.domain_event_id }}
+          DOMAIN_EVENT_HASH: ${{ steps.domain-event.outputs.domain_event_hash }}
+          DOMAIN_EVENT_JSON: ${{ steps.domain-event.outputs.domain_event_json }}
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          report = Path(os.environ["REPORT"])
+          if not report.is_file():
+              raise SystemExit("watcher report is missing")
+          event_values = [
+              os.environ.get("DOMAIN_EVENT_ID", ""),
+              os.environ.get("DOMAIN_EVENT_HASH", ""),
+              os.environ.get("DOMAIN_EVENT_JSON", ""),
+          ]
+          if any(event_values) and not all(event_values):
+              raise SystemExit("domain-event outputs are incomplete")
+          event = (
+              {"id": event_values[0], "sha256": event_values[1], "json": json.loads(event_values[2])}
+              if all(event_values)
+              else None
+          )
+          attempt = os.environ["ATTEMPT_KEY"]
+          payload = {
+              "schema_version": 1,
+              "stage_id": os.environ["STAGE_ID"],
+              "chain_id": os.environ.get("CHAIN_ID", ""),
+              "run_id": f"github-actions:{os.environ['GITHUB_REPOSITORY']}:{os.environ['GITHUB_RUN_ID']}:{os.environ['GITHUB_RUN_ATTEMPT']}:{attempt}",
+              "attempt_key": attempt,
+              "report_sha256": "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest(),
+              "domain_event": event,
+          }
+          Path(os.environ["RUNNER_TEMP"], "watcher-attempt.json").write_text(
+              json.dumps(payload, indent=2, sort_keys=True) + "\n"
+          )
+          PY
 
       - name: Publish the run summary
         if: always()
@@ -158,13 +300,15 @@ jobs:
           fi
 
       - name: Preserve the machine-readable report
-        if: always()
+        if: always() && steps.invocation.outputs.attempt_key != ''
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: presidential-directives-report
+          name: presidential-directives-report-${{ steps.invocation.outputs.attempt_key }}-${{ github.run_attempt }}
           path: |
             ${{ runner.temp }}/directives-summary.md
             ${{ runner.temp }}/directives-report.json
+            ${{ runner.temp }}/presidential-directives-domain-event.json
+            ${{ runner.temp }}/watcher-attempt.json
           if-no-files-found: warn
           retention-days: 14
 

@@ -64,6 +64,57 @@ SOURCE_CONTEXT_FIELDS = (
     "Next Action",
     "Blocker",
 )
+SOURCE_CHECKER_ACTIONABLE = {
+    "broken",
+    "identity mismatch",
+    "review required",
+}
+USER_PRIORITY_SCORES = {
+    "critical": 2_000,
+    "high": 1_500,
+    "normal": None,
+    "low": -1_000,
+}
+WORK_ITEM_PROFILE_BY_KIND = {
+    "bot_failure": "integrity_reconciliation",
+    "integrity": "integrity_reconciliation",
+    "public_intake": "public_intake",
+    "change_audit": "change_audit",
+    "issue_audit": "issue_audit",
+    "issue_development": "issue_development",
+    "candidate_research": "candidate_research",
+    "comprehensive_review": "comprehensive_review",
+}
+WORK_ITEM_CLASS_BY_KIND = {
+    "bot_failure": "automation_failure",
+    "integrity": "integrity",
+    "public_intake": "public_intake",
+    "change_audit": "audit",
+    "issue_audit": "audit",
+    "issue_development": "development",
+    "candidate_research": "research",
+    "comprehensive_review": "periodic_review",
+}
+WORK_ITEM_DEFAULT_SEVERITY = {
+    "bot_failure": "critical",
+    "integrity": "warning",
+    "public_intake": "normal",
+    "change_audit": "high",
+    "issue_audit": "high",
+    "issue_development": "normal",
+    "candidate_research": "normal",
+    "comprehensive_review": "high",
+}
+WORK_ITEM_NEXT_ACTION_BY_KIND = {
+    "bot_failure": "Diagnose the failed deterministic stage and repair or route it.",
+    "integrity": "Resolve the exact integrity finding or route it for human review.",
+    "public_intake": "Review and disposition the identified public submission.",
+    "change_audit": "Run the required Change Audit against the identified record.",
+    "issue_audit": "Run the due issue audit through the authorized consecutive tier.",
+    "issue_development": "Perform one bounded issue-development operation.",
+    "candidate_research": "Perform one bounded candidate-research operation.",
+    "comprehensive_review": "Run the due comprehensive Review Epoch.",
+}
 
 
 class ContextError(RuntimeError):
@@ -1072,25 +1123,266 @@ def make_item(
     eligible: bool = True,
     reason: str = "",
     recovery: dict[str, Any] | None = None,
+    source_revision: str | None = None,
+    freshness_timestamp: Any = None,
+    severity: str | None = None,
 ) -> dict[str, Any]:
+    if kind not in WORK_ITEM_PROFILE_BY_KIND:
+        raise ContextError(f"unsupported deterministic work kind: {kind!r}")
     age = age_days(created_at, now)
     fairness_boost = min(age, 365)
+    source_input = str(source.get("input") or "").strip()
+    canonical_identity = str(
+        source.get("canonical_record")
+        or source.get("canonicalRecord")
+        or identity
+    ).strip()
+    required_authority = "human" if owner == "human" else "agent-within-runbook"
+    created_text = str(created_at or "").strip() or None
+    refreshed_text = str(freshness_timestamp or created_at or "").strip() or None
     return {
+        "schema_version": 1,
         "id": stable_work_id(kind, identity),
         "kind": kind,
+        "work_class": WORK_ITEM_CLASS_BY_KIND[kind],
+        "severity": severity or WORK_ITEM_DEFAULT_SEVERITY[kind],
         "title": title,
         "owner": owner,
+        "required_authority": required_authority,
+        "exact_next_action": WORK_ITEM_NEXT_ACTION_BY_KIND[kind],
+        "required_context_profile": WORK_ITEM_PROFILE_BY_KIND[kind],
+        "originating_stage": source_input or None,
+        "source_identity": identity,
+        "canonical_record_identity": canonical_identity,
+        "dependencies": [source_input] if source_input else [],
+        "created_at": created_text,
+        "refreshed_at": refreshed_text,
         "eligible_for_elim": bool(eligible and owner != "human"),
         "requires_human": owner == "human",
+        "eligibility_reason": (
+            "eligible under the selected runbook"
+            if eligible and owner != "human"
+            else "reserved for human review"
+            if owner == "human"
+            else "not eligible under the selected runbook"
+        ),
+        "blocking_reason": (
+            "human authority is required" if owner == "human" else None
+        ),
         "safety_class": safety_class,
         "base_priority": base_priority,
         "age_days": age,
         "fairness_boost": fairness_boost,
         "priority_score": base_priority + fairness_boost,
+        "selection_priority_score": base_priority + fairness_boost,
         "reason": reason,
         "source": source,
+        "source_revision": source_revision,
+        "freshness_timestamp": str(freshness_timestamp or "") or None,
+        "source_chain_id": None,
+        "source_commit": None,
+        "source_project_snapshot": None,
+        "source_input_hashes": {},
+        "retry_state": {
+            "state": str((recovery or {}).get("state") or "new"),
+            "attempt_count": int((recovery or {}).get("attempt_count") or 0),
+            "continuation": (recovery or {}).get("continuation"),
+            "next_retry_at": (recovery or {}).get("next_retry_at"),
+        },
         "recovery": recovery,
     }
+
+
+def apply_user_overrides(
+    items: Iterable[dict[str, Any]],
+    overrides: dict[str, Any] | None,
+) -> tuple[list[dict[str, Any]], list[str], list[str]]:
+    """Apply reviewed local-console overrides before deterministic selection."""
+    copied = [dict(item) for item in items]
+    if overrides is None:
+        overrides = {}
+    if not isinstance(overrides, dict):
+        raise ContextError("queue overrides must be an object keyed by work-unit ID")
+    by_id = {str(item.get("id") or ""): item for item in copied}
+    if len(by_id) != len(copied) or "" in by_id:
+        raise ContextError("queue items must have unique nonempty IDs before overrides")
+    applied: list[str] = []
+    unmatched: list[str] = []
+    for work_id, raw in sorted(overrides.items()):
+        if not isinstance(work_id, str) or not WORK_ITEM_ID_RE.fullmatch(work_id):
+            raise ContextError(f"queue override has invalid work-unit ID: {work_id!r}")
+        if not isinstance(raw, dict):
+            raise ContextError(f"queue override {work_id} must be an object")
+        if raw.get("source") != "user-local-console":
+            raise ContextError(
+                f"queue override {work_id} is not an approved local-console override"
+            )
+        suppressed = raw.get("suppressed") is True
+        priority = raw.get("priority")
+        if suppressed and priority is not None:
+            raise ContextError(
+                f"queue override {work_id} cannot suppress and reprioritize simultaneously"
+            )
+        if not suppressed and priority not in USER_PRIORITY_SCORES:
+            raise ContextError(
+                f"queue override {work_id} must suppress or use a reviewed priority"
+            )
+        item = by_id.get(work_id)
+        if item is None:
+            unmatched.append(work_id)
+            continue
+        override = {
+            key: raw.get(key)
+            for key in (
+                "request_id",
+                "source",
+                "created_at",
+                "reason",
+                "priority",
+                "suppressed",
+            )
+            if raw.get(key) is not None
+        }
+        item["user_override"] = override
+        if suppressed:
+            item["eligible_for_elim"] = False
+            item["suppressed"] = True
+            item["blocking_reason"] = str(raw.get("reason") or "Suppressed by the user.")
+        else:
+            score = USER_PRIORITY_SCORES[str(priority)]
+            item["selection_priority_score"] = (
+                item["priority_score"] if score is None else score
+            )
+            item["priority_override"] = priority
+        applied.append(work_id)
+    copied.sort(
+        key=lambda item: (
+            int(item.get("safety_class", 1)),
+            -int(
+                item.get(
+                    "selection_priority_score",
+                    item.get("priority_score", 0),
+                )
+            ),
+            -int(item.get("age_days", 0)),
+            item["id"],
+        )
+    )
+    return copied, applied, unmatched
+
+
+def finalize_work_item_contract(
+    item: dict[str, Any],
+    *,
+    chain_id: str,
+    source_commit: str,
+    project_snapshot: str,
+    input_records: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    """Bind one queue item to the exact chain and verified deterministic inputs."""
+    source_input = str((item.get("source") or {}).get("input") or "").strip()
+    source_record = input_records.get(source_input) or {}
+    source_hash = str(source_record.get("sha256") or "").strip()
+    source_revision = str(item.get("source_revision") or source_hash).strip()
+    refreshed_at = str(
+        item.get("refreshed_at")
+        or item.get("freshness_timestamp")
+        or source_record.get("reported_at")
+        or item.get("created_at")
+        or ""
+    ).strip()
+
+    item["source_chain_id"] = chain_id
+    item["source_commit"] = source_commit
+    item["source_project_snapshot"] = project_snapshot
+    item["source_revision"] = source_revision or None
+    item["freshness_timestamp"] = refreshed_at or None
+    item["refreshed_at"] = refreshed_at or None
+    item["required_authority"] = (
+        "human"
+        if item.get("requires_human") or item.get("owner") == "human"
+        else "agent-within-runbook"
+    )
+    item["source_input_hashes"] = (
+        {source_input: f"sha256:{source_hash}"}
+        if source_input and source_hash
+        else {}
+    )
+
+    dependencies = [
+        str(value).strip()
+        for value in item.get("dependencies", [])
+        if str(value).strip()
+    ]
+    canonical_record = str(item.get("canonical_record_identity") or "").strip()
+    if canonical_record and canonical_record != item.get("source_identity"):
+        dependencies.append(canonical_record)
+    item["dependencies"] = list(dict.fromkeys(dependencies))
+
+    recovery = item.get("recovery") if isinstance(item.get("recovery"), dict) else {}
+    item["retry_state"] = {
+        "state": str(recovery.get("state") or "new"),
+        "attempt_count": int(recovery.get("attempt_count") or 0),
+        "continuation": recovery.get("continuation"),
+        "next_retry_at": recovery.get("next_retry_at"),
+    }
+    if item.get("suppressed"):
+        item["eligibility_reason"] = "suppressed by an approved user override"
+    elif item.get("requires_human"):
+        item["eligibility_reason"] = "human authority is required"
+        item["blocking_reason"] = str(
+            item.get("blocking_reason")
+            or recovery.get("last_error")
+            or recovery.get("continuation")
+            or "human authority is required"
+        )
+    elif item.get("retry_deferred_until"):
+        item["eligibility_reason"] = "retry is deferred until its recorded time"
+        item["blocking_reason"] = (
+            f"retry deferred until {item['retry_deferred_until']}"
+        )
+    elif item.get("eligible_for_elim"):
+        item["eligibility_reason"] = "eligible under the selected runbook"
+        item["blocking_reason"] = None
+    else:
+        item["eligibility_reason"] = str(
+            item.get("eligibility_reason") or "not eligible under the selected runbook"
+        )
+
+    required_nonempty = (
+        "id",
+        "kind",
+        "work_class",
+        "severity",
+        "title",
+        "owner",
+        "required_authority",
+        "exact_next_action",
+        "required_context_profile",
+        "source_identity",
+        "canonical_record_identity",
+        "source_chain_id",
+        "source_commit",
+        "source_project_snapshot",
+        "eligibility_reason",
+    )
+    missing = [
+        key for key in required_nonempty if not str(item.get(key) or "").strip()
+    ]
+    if missing:
+        raise ContextError(
+            f"queue item {item.get('id') or '<unknown>'} lacks contract fields: "
+            + ", ".join(missing)
+        )
+    if not isinstance(item.get("dependencies"), list):
+        raise ContextError(f"queue item {item['id']} dependencies must be an array")
+    if not isinstance(item.get("retry_state"), dict):
+        raise ContextError(f"queue item {item['id']} retry_state must be an object")
+    if not isinstance(item.get("source_input_hashes"), dict):
+        raise ContextError(
+            f"queue item {item['id']} source_input_hashes must be an object"
+        )
+    return item
 
 
 def validate_queue_canonical_record(
@@ -1176,8 +1468,10 @@ def input_record(
     generated = (
         data.get("generated_at")
         or data.get("generatedAt")
+        or data.get("checked_at")
         or data.get("completed_at")
         or data.get("asOf")
+        or data.get("updated_at")
         if isinstance(data, dict)
         else None
     )
@@ -1200,9 +1494,15 @@ def build_work_queue(
     intake_path: Path,
     chain_path: Path,
     recovery_path: Path | None = None,
+    run_log_reconciliation_path: Path | None = None,
     review_epoch_path: Path | None = None,
+    source_checker_path: Path | None = None,
+    case_monitor_path: Path | None = None,
+    presidential_directives_path: Path | None = None,
+    overrides_path: Path | None = None,
     now: datetime | None = None,
     max_age_hours: int = 36,
+    source_checker_max_age_hours: int = 192,
     input_root: Path = ROOT,
 ) -> dict[str, Any]:
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
@@ -1212,8 +1512,39 @@ def build_work_queue(
         "intake": input_record(intake_path, True, now, max_age_hours, input_root),
         "chain": input_record(chain_path, True, now, max_age_hours, input_root),
         "recovery": input_record(recovery_path, False, now, max_age_hours, input_root),
+        "run_log_reconciliation": input_record(
+            run_log_reconciliation_path,
+            False,
+            now,
+            max_age_hours * 3650,
+            input_root,
+        ),
         "review_epoch": input_record(
             review_epoch_path, False, now, max_age_hours * 40, input_root
+        ),
+        "source_checker": input_record(
+            source_checker_path,
+            False,
+            now,
+            source_checker_max_age_hours,
+            input_root,
+        ),
+        "case_monitor": input_record(
+            case_monitor_path, False, now, max_age_hours, input_root
+        ),
+        "presidential_directives": input_record(
+            presidential_directives_path,
+            False,
+            now,
+            max_age_hours,
+            input_root,
+        ),
+        "overrides": input_record(
+            overrides_path,
+            False,
+            now,
+            max_age_hours * 3650,
+            input_root,
         ),
     }
     problems = [
@@ -1223,7 +1554,18 @@ def build_work_queue(
     ]
     items: list[dict[str, Any]] = []
     chain = records["chain"].get("data") or {}
+    chain_id = str(chain.get("chain_id") or chain.get("run_id") or "").strip()
+    if not chain_id:
+        problems.append("chain input has no chain_id")
     expected_revision = str(chain.get("final_revision") or chain.get("revision") or "")
+    if not expected_revision:
+        problems.append("chain input has no final repository revision")
+    project_snapshot_hash = str(records["progress"].get("sha256") or "").strip()
+    project_snapshot = (
+        f"sha256:{project_snapshot_hash}" if project_snapshot_hash else ""
+    )
+    if not project_snapshot:
+        problems.append("progress input has no Project snapshot hash")
     revisions: dict[str, str] = {}
     for name in ("integrity", "progress"):
         data = records[name].get("data") or {}
@@ -1236,6 +1578,54 @@ def build_work_queue(
                 problems.append(
                     f"{name} revision {revision} differs from chain revision {expected_revision}"
                 )
+    stages = {
+        str(stage.get("id") or ""): stage
+        for stage in chain.get("stages", [])
+        if isinstance(stage, dict) and stage.get("id")
+    }
+    typed_inputs = {
+        "source-checker-bot": "source_checker",
+        "case-monitor-bot": "case_monitor",
+        "presidential-directives-bot": "presidential_directives",
+    }
+    trusted_typed_inputs: set[str] = set()
+    for stage_id, input_name in typed_inputs.items():
+        stage = stages.get(stage_id) or {}
+        record = records[input_name]
+        stage_due_now = stage.get("due") is True
+        stage_status = str(stage.get("status") or "").casefold()
+        collection_unavailable = (
+            (record.get("data") or {}).get("collection_status") == "unavailable"
+        )
+        if stage_due_now and stage_status == "succeeded":
+            if record["status"] != "current" or collection_unavailable:
+                problems.append(
+                    f"{input_name} report is unavailable or {record['status']} "
+                    "after a successful due stage"
+                )
+                continue
+            expected_hash = str((stage.get("output") or {}).get("sha256") or "")
+            actual_hash = (
+                "sha256:" + str(record.get("sha256") or "")
+                if record.get("sha256")
+                else ""
+            )
+            if expected_hash and actual_hash != expected_hash:
+                problems.append(
+                    f"{input_name} report hash differs from the due stage output"
+                )
+                continue
+            trusted_typed_inputs.add(input_name)
+        elif stage_due_now:
+            # The bot-failure queue item carries the failure. Partial output is
+            # preserved as evidence but is not trusted for substantive routing.
+            continue
+        elif record["status"] == "current" and not collection_unavailable:
+            trusted_typed_inputs.add(input_name)
+        elif stage.get("last_success_at"):
+            problems.append(
+                f"{input_name} report is {record['status']} despite a recorded prior success"
+            )
     for bot in chain.get("bots", []) if isinstance(chain, dict) else []:
         status = str(bot.get("status") or "").casefold()
         due = bool(bot.get("due", True))
@@ -1252,7 +1642,100 @@ def build_work_queue(
                     source={"input": "chain", "bot": bot},
                     base_priority=1000,
                     safety_class=0,
+                    severity="critical",
                     reason=str(bot.get("error") or status or "missing completion proof"),
+                )
+            )
+    reconciliation = records["run_log_reconciliation"].get("data") or {}
+    if reconciliation:
+        if (
+            not isinstance(reconciliation, dict)
+            or reconciliation.get("schema_version") != 1
+            or not isinstance(reconciliation.get("items"), list)
+        ):
+            raise ContextError("Run Log reconciliation input is malformed")
+        pending_rows: list[dict[str, Any]] = []
+        pending_chain_ids: list[str] = []
+        for row in reconciliation["items"]:
+            if not isinstance(row, dict):
+                raise ContextError(
+                    "Run Log reconciliation input contains a non-object item"
+                )
+            chain_identity = str(row.get("chain_id") or "").strip()
+            invocation_identity = str(row.get("invocation_id") or "").strip()
+            if (
+                not WORK_ITEM_ID_RE.fullmatch(chain_identity)
+                or not WORK_ITEM_ID_RE.fullmatch(invocation_identity)
+            ):
+                raise ContextError(
+                    "Run Log reconciliation input contains an invalid identity"
+                )
+            if chain_identity in pending_chain_ids:
+                raise ContextError(
+                    "Run Log reconciliation input repeats a Chain ID"
+                )
+            pending_chain_ids.append(chain_identity)
+            pending_rows.append(
+                {
+                    "chain_id": chain_identity,
+                    "invocation_id": invocation_identity,
+                    "recorded_at": row.get("recorded_at"),
+                    "spawned_at": row.get("spawned_at"),
+                    "failure_stage": row.get("failure_stage"),
+                    "reason_code": row.get("reason_code"),
+                    "failure_summary": row.get("failure_summary"),
+                    "selected_work_item_id": row.get("selected_work_item_id"),
+                    "selected_kind": row.get("selected_kind"),
+                    "source_revision": row.get("source_revision"),
+                    "execution_checkout": row.get("execution_checkout"),
+                    "artifacts": row.get("artifacts") or {},
+                }
+            )
+        if len(pending_rows) > 128:
+            raise ContextError(
+                "Run Log reconciliation input exceeds its bounded capacity"
+            )
+        if pending_rows:
+            snapshot_hash = str(
+                records["run_log_reconciliation"].get("sha256") or ""
+            )
+            identity = canonical_json(
+                {
+                    "pending_chain_ids": pending_chain_ids,
+                    "snapshot_sha256": snapshot_hash,
+                }
+            ).decode("utf-8")
+            items.append(
+                make_item(
+                    kind="bot_failure",
+                    identity="elim-run-log-reconciliation:" + identity,
+                    title=(
+                        "Reconcile missing Elim Run Log reports "
+                        f"({len(pending_rows)} pending)"
+                    ),
+                    owner="agent",
+                    created_at=pending_rows[0].get("recorded_at"),
+                    now=now,
+                    source={
+                        "input": "run_log_reconciliation",
+                        "finding_type": "elim_run_log_reconciliation",
+                        "pending_chain_ids": pending_chain_ids,
+                        "pending_records": pending_rows,
+                        "reconciliation_snapshot_sha256": (
+                            "sha256:" + snapshot_hash
+                            if snapshot_hash
+                            else None
+                        ),
+                    },
+                    base_priority=1100,
+                    safety_class=0,
+                    severity="critical",
+                    reason=(
+                        "A prior launched Elim invocation lacks a verified canonical "
+                        "Run Log report"
+                    ),
+                    source_revision=snapshot_hash,
+                    freshness_timestamp=reconciliation.get("updated_at"),
                 )
             )
     integrity = records["integrity"].get("data") or {}
@@ -1271,9 +1754,206 @@ def build_work_queue(
                 source={"input": "integrity", "finding": finding},
                 base_priority=900 if severity == "error" else 800,
                 safety_class=0 if severity == "error" else 1,
+                severity="error" if severity == "error" else "warning",
                 reason=f"{severity} integrity finding",
             )
         )
+    source_checker = records["source_checker"].get("data") or {}
+    if "source_checker" in trusted_typed_inputs:
+        source_revision = records["source_checker"].get("sha256")
+        for finding in (
+            source_checker.get("results", [])
+            if isinstance(source_checker, dict)
+            else []
+        ):
+            if not isinstance(finding, dict):
+                problems.append("source_checker report contains a non-object result")
+                continue
+            classification = " ".join(
+                str(finding.get("classification") or "").casefold().split()
+            )
+            if classification not in SOURCE_CHECKER_ACTIONABLE:
+                continue
+            source_id = str(finding.get("source_id") or "").strip()
+            catalog = str(finding.get("catalog") or "").strip()
+            if not source_id or not catalog:
+                problems.append(
+                    "source_checker actionable result lacks source_id or catalog"
+                )
+                continue
+            identity = f"source-checker:{catalog}:{source_id}:{classification}"
+            base = {
+                "identity mismatch": 880,
+                "broken": 860,
+                "review required": 750,
+            }[classification]
+            items.append(
+                make_item(
+                    kind="integrity",
+                    identity=identity,
+                    title=f"{source_id}: {classification}",
+                    owner="agent",
+                    created_at=source_checker.get("checked_at"),
+                    now=now,
+                    source={
+                        "input": "source_checker",
+                        "finding_type": "source_checker",
+                        "source_id": source_id,
+                        "catalog": catalog,
+                        "finding": finding,
+                    },
+                    base_priority=base,
+                    safety_class=0 if classification != "review required" else 1,
+                    severity=(
+                        "error"
+                        if classification in {"broken", "identity mismatch"}
+                        else "warning"
+                    ),
+                    reason=f"Source Checker classified {source_id} as {classification}",
+                    source_revision=source_revision,
+                    freshness_timestamp=source_checker.get("checked_at"),
+                )
+            )
+    case_monitor = records["case_monitor"].get("data") or {}
+    if "case_monitor" in trusted_typed_inputs:
+        source_revision = records["case_monitor"].get("sha256")
+        checked_at = case_monitor.get("checked_at")
+        for finding in (
+            case_monitor.get("changes", [])
+            if isinstance(case_monitor, dict)
+            else []
+        ):
+            if not isinstance(finding, dict):
+                problems.append("case_monitor report contains a non-object change")
+                continue
+            stable_key = str(finding.get("stable_key") or "").strip()
+            if not stable_key:
+                problems.append("case_monitor change lacks stable_key")
+                continue
+            identity_payload = {
+                key: finding.get(key)
+                for key in (
+                    "kind",
+                    "stable_key",
+                    "tracker_status",
+                    "last_case_update",
+                    "changed_fields",
+                )
+            }
+            items.append(
+                make_item(
+                    kind="integrity",
+                    identity="case-monitor:" + canonical_json(identity_payload).decode("utf-8"),
+                    title=(
+                        "Case monitor: "
+                        + str(finding.get("case_name") or stable_key)
+                    ),
+                    owner="agent",
+                    created_at=checked_at,
+                    now=now,
+                    source={
+                        "input": "case_monitor",
+                        "finding_type": "case_monitor_change",
+                        "finding": finding,
+                    },
+                    base_priority=720,
+                    reason="Machine-observed monitored-case change requires review",
+                    source_revision=source_revision,
+                    freshness_timestamp=checked_at,
+                )
+            )
+        for module in (
+            case_monitor.get("source_development_modules", [])
+            if isinstance(case_monitor, dict)
+            else []
+        ):
+            if not isinstance(module, dict):
+                problems.append(
+                    "case_monitor report contains a non-object source-development module"
+                )
+                continue
+            module_id = str(module.get("module_id") or "").strip()
+            for lead_id in module.get("added_lead_ids") or []:
+                lead_id = str(lead_id).strip()
+                if not module_id or not lead_id:
+                    problems.append(
+                        "case_monitor source-development lead lacks module or lead identity"
+                    )
+                    continue
+                items.append(
+                    make_item(
+                        kind="integrity",
+                        identity=f"case-monitor-lead:{module_id}:{lead_id}",
+                        title=f"Review machine-observed case lead {lead_id}",
+                        owner="agent",
+                        created_at=checked_at,
+                        now=now,
+                        source={
+                            "input": "case_monitor",
+                            "finding_type": "case_monitor_lead",
+                            "module": module,
+                            "lead_id": lead_id,
+                            "canonicalRecord": module.get("target_path"),
+                            "canonical_record": module.get("target_path"),
+                        },
+                        base_priority=710,
+                        reason="New source-development lead requires primary-record review",
+                        source_revision=source_revision,
+                        freshness_timestamp=checked_at,
+                    )
+                )
+    directives = records["presidential_directives"].get("data") or {}
+    if "presidential_directives" in trusted_typed_inputs:
+        source_revision = records["presidential_directives"].get("sha256")
+        generated_at = directives.get("generated_at")
+        for directive in (
+            directives.get("directives", [])
+            if isinstance(directives, dict)
+            else []
+        ):
+            if not isinstance(directive, dict):
+                problems.append(
+                    "presidential_directives report contains a non-object directive"
+                )
+                continue
+            disposition = str(directive.get("Bot Status") or "").casefold()
+            if disposition not in {"new", "changed"}:
+                continue
+            directive_id = str(directive.get("Directive ID") or "").strip()
+            if not directive_id:
+                problems.append(
+                    "presidential_directives review item lacks Directive ID"
+                )
+                continue
+            observation = (
+                str(directive.get("Content Fingerprint") or "").strip()
+                or str(directive.get("Last Changed") or "").strip()
+                or disposition
+            )
+            items.append(
+                make_item(
+                    kind="integrity",
+                    identity=(
+                        f"presidential-directive:{directive_id}:{observation}"
+                    ),
+                    title=(
+                        f"Screen {directive_id}: "
+                        + str(directive.get("Title") or "presidential directive")
+                    ),
+                    owner="agent",
+                    created_at=generated_at,
+                    now=now,
+                    source={
+                        "input": "presidential_directives",
+                        "finding_type": "presidential_directive",
+                        "directive": directive,
+                    },
+                    base_priority=700,
+                    reason=f"Presidential directive is {disposition} and requires screening",
+                    source_revision=source_revision,
+                    freshness_timestamp=generated_at,
+                )
+            )
     intake = records["intake"].get("data") or {}
     if intake.get("collection_status") == "unavailable":
         problems.append("intake collection is unavailable")
@@ -1403,6 +2083,14 @@ def build_work_queue(
                 ),
             )
         )
+    for item in items:
+        if item.get("source_revision"):
+            continue
+        source_input = str((item.get("source") or {}).get("input") or "").strip()
+        source_hash = str((records.get(source_input) or {}).get("sha256") or "").strip()
+        if source_hash:
+            item["source_revision"] = source_hash
+
     recovery = records["recovery"].get("data") or {}
     recovery_map: dict[str, dict[str, Any]] = {}
     for retry in recovery.get("items", []) if isinstance(recovery, dict) else []:
@@ -1412,62 +2100,131 @@ def build_work_queue(
     for item in items:
         retry = recovery_map.get(item["id"])
         if retry:
+            recovery_revision = str(retry.get("source_revision") or "")
+            item_revision = str(item.get("source_revision") or "")
+            if (
+                not recovery_revision
+                or not item_revision
+                or recovery_revision != item_revision
+            ):
+                continue
             item["recovery"] = {
                 "state": retry.get("state"),
                 "attempt_count": int(retry.get("attempt_count") or 0),
                 "continuation": retry.get("continuation"),
                 "last_error": retry.get("last_error"),
                 "next_retry_at": retry.get("next_retry_at"),
+                "source_revision": recovery_revision or None,
             }
-            if str(retry.get("state") or "").casefold() in {"human_required", "quarantined"}:
+            recovery_state = str(retry.get("state") or "").casefold()
+            attempt_count = int(retry.get("attempt_count") or 0)
+            if recovery_state in {"complete", "clean", "resolved"}:
+                item["eligible_for_elim"] = False
+                item["resolved_by_recovery"] = True
+            elif recovery_state in {"human_required", "quarantined"} or (
+                recovery_state == "retryable" and attempt_count >= 3
+            ):
                 item["eligible_for_elim"] = False
                 item["requires_human"] = True
                 item["owner"] = "human"
+            else:
+                next_retry_at = parse_time(retry.get("next_retry_at"))
+                if next_retry_at and next_retry_at > now:
+                    item["eligible_for_elim"] = False
+                    item["retry_deferred_until"] = next_retry_at.isoformat(
+                        timespec="seconds"
+                    )
     epoch = records["review_epoch"].get("data") or {}
-    if isinstance(epoch, dict) and epoch:
-        due_at = parse_time(epoch.get("next_due_at"))
-        if due_at and due_at <= now:
-            epoch_id = str(epoch.get("epoch_id") or epoch.get("baseline_revision") or "periodic")
-            items.append(
-                make_item(
-                    kind="comprehensive_review",
-                    identity=epoch_id,
-                    title="Run the due comprehensive consistency review",
-                    owner="agent",
-                    created_at=epoch.get("completed_at") or epoch.get("started_at"),
-                    now=now,
-                    source={
-                        "input": "review_epoch",
-                        "epoch_id": epoch.get("epoch_id"),
-                        "baseline_revision": epoch.get("baseline_revision"),
-                        "next_due_at": epoch.get("next_due_at"),
-                        "unresolved_ids": epoch.get("unresolved_ids") or [],
-                    },
-                    base_priority=650,
-                    reason="periodic review boundary is due",
-                )
+    chain_epoch = chain.get("review_epoch") if isinstance(chain, dict) else None
+    chain_epoch = chain_epoch if isinstance(chain_epoch, dict) else {}
+    due_at = parse_time(epoch.get("next_due_at")) if isinstance(epoch, dict) else None
+    comprehensive_due = bool(chain_epoch.get("due")) or bool(due_at and due_at <= now)
+    if comprehensive_due:
+        due_reason = str(
+            chain_epoch.get("due_reason")
+            or epoch.get("due_reason")
+            or "periodic review boundary is due"
+        ).strip()
+        epoch_id = str(
+            epoch.get("epoch_id")
+            or chain.get("chain_id")
+            or epoch.get("baseline_revision")
+            or "periodic"
+        )
+        items.append(
+            make_item(
+                kind="comprehensive_review",
+                identity=epoch_id,
+                title="Run the due comprehensive consistency review",
+                owner="agent",
+                created_at=(
+                    epoch.get("completed_at")
+                    or epoch.get("last_completed_at")
+                    or epoch.get("started_at")
+                    or chain.get("created_at")
+                ),
+                now=now,
+                source={
+                    "input": "review_epoch",
+                    "epoch_id": epoch.get("epoch_id"),
+                    "baseline_revision": epoch.get("baseline_revision"),
+                    "next_due_at": epoch.get("next_due_at"),
+                    "due": True,
+                    "due_reason": due_reason,
+                    "boundary_changes": (
+                        chain_epoch.get("boundary_changes")
+                        or epoch.get("boundary_changes")
+                        or {}
+                    ),
+                    "unresolved_ids": epoch.get("unresolved_ids") or [],
+                },
+                base_priority=650,
+                reason=due_reason,
+                source_revision=records["review_epoch"].get("sha256"),
+                freshness_timestamp=records["review_epoch"].get("reported_at"),
             )
+        )
     unique: dict[str, dict[str, Any]] = {}
     for item in items:
         if item["id"] in unique:
             raise ContextError(f"duplicate deterministic work identity: {item['id']}")
         unique[item["id"]] = item
-    items = sorted(
+    override_data = records["overrides"].get("data")
+    if override_data is None:
+        override_data = {}
+    if not isinstance(override_data, dict):
+        raise ContextError("queue override input must be a JSON object")
+    if "overrides" in override_data:
+        override_data = override_data.get("overrides")
+        if not isinstance(override_data, dict):
+            raise ContextError("queue override input overrides must be an object")
+    items, applied_overrides, unmatched_overrides = apply_user_overrides(
         unique.values(),
-        key=lambda item: (
-            item["safety_class"],
-            -item["priority_score"],
-            -item["age_days"],
-            item["id"],
-        ),
+        override_data,
     )
+    items = [
+        finalize_work_item_contract(
+            item,
+            chain_id=chain_id,
+            source_commit=expected_revision,
+            project_snapshot=project_snapshot,
+            input_records=records,
+        )
+        for item in items
+    ]
     ready = not problems
+    selected = next(
+        (item for item in items if item["eligible_for_elim"]),
+        None,
+    )
     return {
         "schema_version": 1,
+        "item_schema_version": 1,
         "generated_at": now.isoformat(timespec="seconds"),
         "repository_revision": git_revision(),
         "ready_for_elim": ready,
         "launch_recommended": ready and any(item["eligible_for_elim"] for item in items),
+        "selected_work_item_id": selected.get("id") if selected else None,
         "problems": problems,
         "counts": {
             "total": len(items),
@@ -1478,6 +2235,13 @@ def build_work_queue(
         "fairness_policy": {
             "rule": "priority_score = base_priority + min(age_days, 365)",
             "safety_class_zero_precedes_all_normal work": True,
+        },
+        "user_overrides": {
+            "applied": applied_overrides,
+            "unmatched": unmatched_overrides,
+            "request_sha256": (
+                "sha256:" + sha256_bytes(canonical_json(override_data))
+            ),
         },
         "inputs": {
             name: {key: value for key, value in record.items() if key != "data"}
@@ -1493,6 +2257,11 @@ def build_work_queue(
                 "epoch_id": epoch.get("epoch_id"),
                 "baseline_revision": epoch.get("baseline_revision"),
                 "next_due_at": epoch.get("next_due_at"),
+                "due": comprehensive_due,
+                "due_reason": (
+                    chain_epoch.get("due_reason")
+                    or epoch.get("due_reason")
+                ),
                 "unresolved_ids": epoch.get("unresolved_ids") or [],
             }
             if isinstance(epoch, dict) and epoch

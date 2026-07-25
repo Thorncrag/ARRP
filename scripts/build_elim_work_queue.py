@@ -19,7 +19,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--intake", required=True, type=Path)
     parser.add_argument("--chain", required=True, type=Path)
     parser.add_argument("--recovery", type=Path)
+    parser.add_argument("--run-log-reconciliation", type=Path)
     parser.add_argument("--review-epoch", type=Path)
+    parser.add_argument("--source-checker", type=Path)
+    parser.add_argument("--case-monitor", type=Path)
+    parser.add_argument("--presidential-directives", type=Path)
+    parser.add_argument(
+        "--overrides",
+        type=Path,
+        help=(
+            "Optional approved local-console control state. Overrides are applied "
+            "before the exact work-unit selection."
+        ),
+    )
     parser.add_argument(
         "--input-root",
         type=Path,
@@ -27,6 +39,7 @@ def parse_args() -> argparse.Namespace:
         help="Reviewed root containing every queue input path.",
     )
     parser.add_argument("--max-age-hours", type=int, default=36)
+    parser.add_argument("--source-checker-max-age-hours", type=int, default=192)
     parser.add_argument("--as-of", help="ISO-8601 timestamp for deterministic tests")
     return parser.parse_args()
 
@@ -45,9 +58,15 @@ def main() -> int:
             intake_path=args.intake,
             chain_path=args.chain,
             recovery_path=args.recovery,
+            run_log_reconciliation_path=args.run_log_reconciliation,
             review_epoch_path=args.review_epoch,
+            source_checker_path=args.source_checker,
+            case_monitor_path=args.case_monitor,
+            presidential_directives_path=args.presidential_directives,
+            overrides_path=args.overrides,
             now=now,
             max_age_hours=args.max_age_hours,
+            source_checker_max_age_hours=args.source_checker_max_age_hours,
             input_root=args.input_root,
         )
         json.dump(value, sys.stdout, indent=2, ensure_ascii=False)

@@ -34,6 +34,14 @@ APPROVED_WORKFLOW_STATUSES = (
     "Deferred",
     "Blocked",
 )
+APPROVED_DEVELOPMENT_LEVELS = (
+    "Candidate",
+    "Admitted / undeveloped",
+    "In development",
+    "Developed proposal",
+    "Review ready",
+    "Release candidate",
+)
 
 PROJECT_QUERY = r"""
 query($owner: String!, $number: Int!, $cursor: String) {
@@ -136,6 +144,21 @@ def write_json(path: Path, value: Any) -> None:
 
 def normalize(value: Any) -> str:
     return " ".join(str(value or "").strip().casefold().split())
+
+
+def validate_development_level_config(config: Dict[str, Any]) -> None:
+    configured_ready = {
+        normalize(value)
+        for value in config["goal"]["readyDevelopmentLevels"]
+        if str(value).strip()
+    }
+    approved = {normalize(value) for value in APPROVED_DEVELOPMENT_LEVELS}
+    unknown = configured_ready - approved
+    if unknown:
+        raise RuntimeError(
+            "readyDevelopmentLevels contains a noncanonical Development level: "
+            + ", ".join(sorted(unknown))
+        )
 
 
 def human_date(value: date, full_month: bool = False) -> str:
@@ -267,6 +290,7 @@ def parse_items(
     registry: Sequence[Dict[str, str]],
     repository_root: Optional[Path] = None,
 ) -> Tuple[str, List[Dict[str, Any]]]:
+    validate_development_level_config(config)
     fields = config["projectFields"]
     ready_levels = {normalize(value) for value in config["goal"]["readyDevelopmentLevels"]}
     workflow_statuses = tuple(
@@ -275,6 +299,9 @@ def parse_items(
         if str(value).strip()
     )
     approved_workflow_statuses = {normalize(value) for value in workflow_statuses}
+    approved_development_levels = {
+        normalize(value) for value in APPROVED_DEVELOPMENT_LEVELS
+    }
     threshold = float(config["goal"]["reviewReadyScore"])
     parsed: List[Dict[str, Any]] = []
     project_values_by_identifier: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
@@ -340,6 +367,13 @@ def parse_items(
                 )
         if normalize(development_level) == normalize("Unspecified"):
             warnings.append("Project Development level is missing; the proposal is not counted as ready.")
+        elif normalize(development_level) not in approved_development_levels:
+            warnings.append(
+                f'Project Development level "{development_level}" is not one of the '
+                "six canonical maturity values; assign one of: "
+                + ", ".join(APPROVED_DEVELOPMENT_LEVELS)
+                + "."
+            )
         if level_is_ready and score is None:
             warnings.append(
                 "Ready development level is missing a Project score and is not counted until the Review Ready threshold can be verified."
@@ -706,6 +740,7 @@ def build_progress_payload(
         "workflowStatuses": list(
             config.get("workflowStatuses", APPROVED_WORKFLOW_STATUSES)
         ),
+        "developmentLevels": list(APPROVED_DEVELOPMENT_LEVELS),
         "goal": goal,
         "metrics": compute_metrics(snapshot, merged_history, config, as_of),
         "history": merged_history["snapshots"],

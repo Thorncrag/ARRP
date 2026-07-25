@@ -4,7 +4,7 @@ agent_id: project-console-progress-bot
 display_name: Project Console Progress Bot
 agent_type: deterministic-bot
 status: enabled
-trigger: run-chain-manual-and-config-push
+trigger: run-chain-or-manual
 schedule: "Due every 24 hours in the Run Coordinator chain; no independent schedule"
 runtime_id: .github/workflows/project-console-progress.yml
 execution_environment: github-actions
@@ -23,7 +23,8 @@ Schema, registry, identity, completeness, and publication failures fail closed.
 The bot emits immutable structured stage events to the Run Coordinator; accepted
 material provenance is rendered or recorded in the shared Agent Audit Log under
 the common rule. A clean refresh remains in Actions and bounded Console history.
-A configuration push remains an event/recovery trigger, not a second clock.
+Repository changes are picked up by the next due chain or an explicit manual
+refresh; this bot has no separate push trigger or clock.
 
 The JSON manifest and GitHub workflow are deployed projections of this runbook and must match its identity, status, cadence, data branch, and source paths.
 
@@ -37,4 +38,4 @@ Successful generated output is published directly to the dedicated data-only bra
 
 ## Validation, stop, and output
 
-The bot validates Project authentication, registry joins, unique identifiers, recognized six-stage development levels, score/readiness consistency, complete record accounting, schema, and bounded history before publication. A missing Project credential leaves the refresh inactive with an explicit notice; malformed inputs, unmatched or ambiguous authority records, publication failure, or validation failure stop or visibly flag the run rather than repairing Project state. Outputs are `progress.json`, bounded history, and the Console progress projection. Failures use the configured GitHub workflow notification path.
+The bot validates Project authentication, registry joins, unique identifiers, the canonical six-stage development-level vocabulary, score/readiness consistency, complete record accounting, schema, and bounded history before publication. A missing Project credential fails the refresh closed with an explicit error; malformed inputs, unmatched or ambiguous authority records, publication failure, or validation failure stop or visibly flag the run rather than repairing Project state. Outputs are `progress.json`, bounded history, and the Console progress projection. Failures use the configured GitHub workflow notification path.

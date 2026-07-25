@@ -7199,14 +7199,18 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/PRINT_ASSEMBLY.md",
           "exists": true
+        },
+        {
+          "path": "research/reference-products/agent-automation-technical-spec.md",
+          "exists": true
         }
       ],
-      "word_count": 37,
+      "word_count": 86,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 35
+      "longest_unbroken_token": 48
     },
     {
       "title": "ARRP Adoption and Enactment Pathway Analysis",
@@ -7677,7 +7681,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1594,
+      "word_count": 1639,
       "estimated_pages": 3,
       "table_count": 1,
       "max_table_columns": 2,
@@ -7737,7 +7741,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 237,
+      "word_count": 240,
       "estimated_pages": 1,
       "table_count": 1,
       "max_table_columns": 5,
@@ -8177,8 +8181,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1857,
-      "estimated_pages": 3,
+      "word_count": 2055,
+      "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -8663,7 +8667,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-case monitor bot runbook",
       "internal_links": [],
-      "word_count": 1010,
+      "word_count": 1270,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8718,12 +8722,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 615,
-      "estimated_pages": 1,
+      "word_count": 854,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 23
     },
     {
       "title": "Current Project Integrity Report",
@@ -8870,9 +8874,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 6849,
-      "estimated_pages": 11,
-      "table_count": 9,
+      "word_count": 7379,
+      "estimated_pages": 12,
+      "table_count": 10,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
@@ -8918,7 +8922,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4289,
+      "word_count": 4491,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9876,12 +9880,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-presidential directives bot runbook",
       "internal_links": [],
-      "word_count": 466,
-      "estimated_pages": 1,
+      "word_count": 727,
+      "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 45
+      "longest_unbroken_token": 60
     },
     {
       "title": "Presidential-Directive Completeness and Review",
@@ -9991,7 +9995,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework-project console progress",
       "internal_links": [],
-      "word_count": 1405,
+      "word_count": 1401,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10014,7 +10018,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-project console progress bot runbook",
       "internal_links": [],
-      "word_count": 362,
+      "word_count": 376,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10037,7 +10041,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-project integrity bot runbook",
       "internal_links": [],
-      "word_count": 729,
+      "word_count": 788,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10185,8 +10189,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1279,
-      "estimated_pages": 2,
+      "word_count": 1339,
+      "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -10377,7 +10381,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1633,
+      "word_count": 1671,
       "estimated_pages": 3,
       "table_count": 5,
       "max_table_columns": 2,
@@ -10405,12 +10409,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1849,
-      "estimated_pages": 3,
+      "word_count": 2313,
+      "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 23
+      "longest_unbroken_token": 37
     },
     {
       "title": "Source Catalogs and Monitoring Metadata",
@@ -10487,12 +10491,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-source checker bot runbook",
       "internal_links": [],
-      "word_count": 658,
+      "word_count": 966,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 32
+      "longest_unbroken_token": 51
     },
     {
       "title": "Source Monitor Log",
@@ -12351,6 +12355,56 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 43
+    },
+    {
+      "title": "ARRP Persistent Automation — Technical Specification and Traceability Map",
+      "path": "research/reference-products/agent-automation-technical-spec.md",
+      "section": "Research",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Nonauthoritative internal reference product.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/reference-products/agent-automation-technical-spec.md",
+      "document_type": "research",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {
+        "public-proposal": "appendix-c-research"
+      },
+      "assembly_sort_key": "research/reference-products-arrp persistent automation — technical specification and traceability map",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/AGENT_OPERATING_RULES.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agents/README.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/INTAKE_AGENT_PROCESS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PROJECT_INTERFACE.md",
+          "exists": true
+        }
+      ],
+      "word_count": 9022,
+      "estimated_pages": 14,
+      "table_count": 11,
+      "max_table_columns": 4,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 133
     },
     {
       "title": "ARRP Project Console",
@@ -14939,7 +14993,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 205,
+      "excluded": 206,
       "unclassified": 0,
       "conflict": 0
     },
@@ -14958,6 +15012,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Internal interface-governance documentation.": 1,
       "Online technical documentation.": 1,
       "Replaceable internal automation report.": 1,
+      "Nonauthoritative internal reference product.": 1,
       "Internal planning record.": 1,
       "Website-only current candidacy and monitoring status.": 1,
       "GitHub repository security-reporting policy.": 1,

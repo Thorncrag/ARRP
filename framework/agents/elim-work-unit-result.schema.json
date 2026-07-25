@@ -12,6 +12,7 @@
     "outcome",
     "authority",
     "issue_id",
+    "canonical_record",
     "files_touched",
     "source_ids",
     "validation",
@@ -33,6 +34,7 @@
         "change_audit",
         "issue_audit",
         "issue_development",
+        "candidate_research",
         "comprehensive_review"
       ]
     },
@@ -52,7 +54,8 @@
         "basis": { "type": "string", "minLength": 1 }
       }
     },
-    "issue_id": { "type": ["string", "null"] },
+    "issue_id": { "type": ["string", "null"], "minLength": 1 },
+    "canonical_record": { "type": ["string", "null"], "minLength": 1 },
     "files_touched": {
       "type": "array",
       "items": { "type": "string", "minLength": 1 }

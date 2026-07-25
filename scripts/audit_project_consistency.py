@@ -45,6 +45,7 @@ SOURCE_PATH = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCE_PATH = ROOT / "inventory" / "sources-pending.csv"
 PRELIMINARY_CANDIDATE_PATH = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
 PROJECT_INTEGRITY_RUNBOOK = ROOT / "framework" / "agents" / "PROJECT_INTEGRITY_BOT.md"
+RUN_COORDINATOR_CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
 CONTEXT_MANIFEST = ROOT / "framework" / "context-routes.json"
 CONTEXT_MANAGED_DIRECTORIES = (
     "agent-rules",
@@ -59,6 +60,14 @@ CONTEXT_MANAGED_DIRECTORIES = (
     "operations",
     "scoring",
     "sources",
+)
+CANONICAL_RUN_CHAIN_STAGE_ORDER = (
+    "case-monitor-bot",
+    "presidential-directives-bot",
+    "source-checker-bot",
+    "project-console-progress-bot",
+    "public-intake",
+    "project-integrity-bot",
 )
 GITHUB_REPOSITORY = "Thorncrag/ARRP"
 GITHUB_PROJECT_OWNER = "Thorncrag"
@@ -3364,6 +3373,264 @@ def check_context_registry(failures: list[str], warnings: list[str]) -> None:
             )
 
 
+def _workflow_has_trigger(workflow_text: str, trigger: str) -> bool:
+    return bool(re.search(rf"(?m)^  {re.escape(trigger)}:\s*$", workflow_text))
+
+
+def _configured_current_data(config: dict[str, object]) -> str:
+    current = str(config.get("currentData") or "").strip()
+    if current:
+        return current
+    data_branch = str(config.get("dataBranch") or "").strip()
+    data_path = str(config.get("currentDataPath") or "").strip()
+    manifest = config.get("manifest")
+    if isinstance(manifest, dict):
+        data_branch = data_branch or str(manifest.get("dataBranch") or "").strip()
+        data_path = data_path or str(manifest.get("path") or "").strip()
+    return f"{data_branch}:{data_path}" if data_branch and data_path else ""
+
+
+def _normalized_data_reference(value: str) -> str:
+    value = value.strip()
+    if ":" in value:
+        branch, path = value.split(":", 1)
+        return f"{branch.strip()}:{path.lstrip('/')}"
+    if value.startswith("project-console-data/"):
+        return "project-console-data:" + value.removeprefix("project-console-data/")
+    return value
+
+
+def agent_runtime_invariant_findings(
+    agent_id: str,
+    values: dict[str, str],
+    workflow_text: str = "",
+    config: dict[str, object] | None = None,
+    coordinator: dict[str, object] | None = None,
+) -> list[str]:
+    """Return safely machine-checkable runbook/runtime drift findings."""
+    findings: list[str] = []
+
+    def add(message: str) -> None:
+        findings.append(
+            f"{agent_id} runtime drift (owner: {agent_id}): {message}"
+        )
+
+    runtime = values.get("runtime_id", "")
+    environment = values.get("execution_environment", "").casefold()
+    trigger = values.get("trigger", "").casefold()
+    schedule_text = values.get("schedule", "")
+    status = values.get("status", "").casefold()
+    is_workflow = runtime.endswith((".yml", ".yaml"))
+
+    if is_workflow and "github-actions" not in environment:
+        add(
+            f"execution_environment is {values.get('execution_environment')!r}, "
+            f"but runtime_id {runtime!r} is a GitHub Actions workflow"
+        )
+    if runtime.startswith("codex-automation:") and "github-actions" in environment:
+        add(
+            f"execution_environment is {values.get('execution_environment')!r}, "
+            "but the declared runtime is a Codex automation"
+        )
+
+    if workflow_text:
+        trigger_expectations = (
+            ("manual", "workflow_dispatch"),
+            ("run-chain", "workflow_call"),
+        )
+        for signal, workflow_trigger in trigger_expectations:
+            if signal in trigger and not _workflow_has_trigger(
+                workflow_text, workflow_trigger
+            ):
+                add(
+                    f"trigger declares {signal!r}, but {runtime} lacks "
+                    f"the {workflow_trigger} event"
+                )
+        for push_signal in ("main-push", "config-push"):
+            if (
+                push_signal in trigger
+                and "run-chain" not in trigger
+                and not _workflow_has_trigger(workflow_text, "push")
+            ):
+                add(
+                    f"trigger declares {push_signal!r}, but {runtime} lacks "
+                    "the push event and is not declared as run-chain mediated"
+                )
+        if trigger.startswith("schedule") and not _workflow_has_trigger(
+            workflow_text, "schedule"
+        ):
+            add(f"trigger declares a schedule, but {runtime} has no schedule event")
+        if "event" in trigger and not _workflow_has_trigger(
+            workflow_text, "repository_dispatch"
+        ):
+            add(
+                f"trigger declares event dispatch, but {runtime} lacks "
+                "repository_dispatch"
+            )
+
+    if config is None:
+        return findings
+
+    configured_id = str(config.get("agentId") or config.get("botName") or "")
+    if configured_id and configured_id != agent_id:
+        add(
+            f"runtime_config identifies {configured_id!r} instead of "
+            f"{agent_id!r}"
+        )
+
+    if isinstance(config.get("enabled"), bool):
+        configured_enabled = bool(config["enabled"])
+        runbook_enabled = status not in {"disabled", "inactive", "paused"}
+        if configured_enabled != runbook_enabled:
+            add(
+                f"runbook status {values.get('status')!r} conflicts with "
+                f"runtime_config enabled={configured_enabled}"
+            )
+
+    configured_mode = str(config.get("mode") or "").strip().casefold()
+    if configured_mode and not status.startswith(configured_mode):
+        add(
+            f"runbook status {values.get('status')!r} conflicts with "
+            f"runtime_config mode {configured_mode!r}"
+        )
+
+    configured_report = str(config.get("currentReport") or "").strip()
+    runbook_report = values.get("current_report", "").strip()
+    if configured_report and runbook_report != configured_report:
+        add(
+            f"current_report is {runbook_report!r}; runtime_config publishes "
+            f"{configured_report!r}"
+        )
+
+    configured_data = _normalized_data_reference(
+        _configured_current_data(config)
+    )
+    explicit_data = _normalized_data_reference(
+        str(config.get("currentData") or "")
+    )
+    configured_branch = str(config.get("dataBranch") or "").strip()
+    configured_path = str(config.get("currentDataPath") or "").strip()
+    decomposed_data = _normalized_data_reference(
+        f"{configured_branch}:{configured_path}"
+        if configured_branch and configured_path
+        else ""
+    )
+    if explicit_data and decomposed_data and explicit_data != decomposed_data:
+        add(
+            f"runtime_config currentData {explicit_data!r} conflicts with "
+            f"dataBranch/currentDataPath {decomposed_data!r}"
+        )
+    runbook_data = _normalized_data_reference(
+        values.get("current_data", "")
+    )
+    if configured_data and runbook_data and configured_data != runbook_data:
+        add(
+            f"current_data is {runbook_data!r}; runtime_config publishes "
+            f"{configured_data!r}"
+        )
+
+    configured_cache = str(config.get("offlineCachePath") or "").strip()
+    runbook_cache = values.get("offline_cache_path", "").strip()
+    if configured_cache and runbook_cache != configured_cache:
+        add(
+            f"offline_cache_path is {runbook_cache!r}; runtime_config uses "
+            f"{configured_cache!r}"
+        )
+
+    schedule = config.get("schedule")
+    schedule = schedule if isinstance(schedule, dict) else {}
+    configured_cron = str(schedule.get("cron") or "").strip()
+    if configured_cron:
+        if not schedule_text.startswith(configured_cron):
+            add(
+                f"schedule {schedule_text!r} differs from runtime_config cron "
+                f"{configured_cron!r}"
+            )
+        if workflow_text:
+            cron_match = re.search(
+                r'cron:\s*["\']([^"\']+)', workflow_text
+            )
+            if not cron_match or cron_match.group(1) != configured_cron:
+                add(
+                    f"runtime_config cron {configured_cron!r} differs from "
+                    f"the schedule in {runtime}"
+                )
+
+    schedule_mode = str(schedule.get("mode") or "").strip()
+    due_hours = schedule.get("dueEveryHours")
+    if schedule_mode == "run-chain":
+        try:
+            configured_due_hours = int(due_hours)
+        except (TypeError, ValueError):
+            configured_due_hours = None
+            add(
+                f"runtime_config dueEveryHours={due_hours!r} is not an integer"
+            )
+        match = re.search(r"\bDue every (\d+) hours\b", schedule_text)
+        if not match:
+            add(
+                "runtime_config is run-chain scheduled, but the runbook does "
+                "not declare a machine-checkable 'Due every N hours' interval"
+            )
+        elif (
+            configured_due_hours is None
+            or int(match.group(1)) != configured_due_hours
+        ):
+            add(
+                f"runbook due interval {match.group(1)} hours differs from "
+                f"runtime_config dueEveryHours={due_hours!r}"
+            )
+        if workflow_text and _workflow_has_trigger(workflow_text, "schedule"):
+            add(
+                f"{runtime} has an independent schedule even though the "
+                "runtime_config delegates cadence to the Run Coordinator"
+            )
+        coordinator_path = str(schedule.get("coordinator") or "").strip()
+        if coordinator_path != ".github/workflows/run-coordinator-bot.yml":
+            add(
+                f"runtime_config coordinator is {coordinator_path!r}; expected "
+                "'.github/workflows/run-coordinator-bot.yml'"
+            )
+        stages = (
+            coordinator.get("stages")
+            if isinstance(coordinator, dict)
+            else None
+        )
+        stages = stages if isinstance(stages, list) else []
+        stage = next(
+            (
+                item
+                for item in stages
+                if isinstance(item, dict) and item.get("id") == agent_id
+            ),
+            None,
+        )
+        if stage is None:
+            add("runtime_config is run-chain scheduled but no coordinator stage exists")
+        else:
+            if str(stage.get("workflow") or "") != runtime:
+                add(
+                    f"coordinator stage workflow is {stage.get('workflow')!r}; "
+                    f"runbook runtime_id is {runtime!r}"
+                )
+            stage_due = stage.get("due")
+            stage_due = stage_due if isinstance(stage_due, dict) else {}
+            try:
+                stage_hours = int(stage_due.get("hours"))
+            except (TypeError, ValueError):
+                stage_hours = None
+            if (
+                stage_due.get("kind") != "interval"
+                or stage_hours != configured_due_hours
+            ):
+                add(
+                    f"coordinator due predicate {stage_due!r} differs from "
+                    f"runtime_config dueEveryHours={due_hours!r}"
+                )
+
+    return findings
+
+
 def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
     """Validate persistent-agent identities and deployed configuration projections."""
     directory = ROOT / "framework" / "agents"
@@ -3372,6 +3639,31 @@ def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
         report("ERROR", "persistent-agent registry is missing: framework/agents/README.md", failures, warnings)
         return
     registry_text = read(registry)
+    try:
+        coordinator = json.loads(read(RUN_COORDINATOR_CONFIG))
+    except (OSError, json.JSONDecodeError):
+        coordinator = {}
+        report(
+            "ERROR",
+            "run-coordinator-bot configuration cannot be read for persistent-agent drift validation",
+            failures,
+            warnings,
+        )
+    stages = coordinator.get("stages") if isinstance(coordinator, dict) else None
+    stage_ids = [
+        str(stage.get("id") or "")
+        for stage in (stages if isinstance(stages, list) else [])
+        if isinstance(stage, dict)
+    ]
+    if tuple(stage_ids) != CANONICAL_RUN_CHAIN_STAGE_ORDER:
+        report(
+            "ERROR",
+            "run-coordinator-bot runtime drift (owner: run-coordinator-bot): "
+            f"chain order is {stage_ids!r}; expected "
+            f"{list(CANONICAL_RUN_CHAIN_STAGE_ORDER)!r}",
+            failures,
+            warnings,
+        )
     seen: set[str] = set()
     required = {
         "agent_id", "display_name", "agent_type", "status", "trigger", "schedule",
@@ -3413,17 +3705,15 @@ def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
         if values["log_path"] != "framework/logs/AGENT_AUDIT_LOG.md":
             report("ERROR", f"agent runbook {path.relative_to(ROOT)} does not use the shared Agent Audit Log", failures, warnings)
         runtime = values["runtime_id"]
+        workflow_text = ""
         if runtime not in {"pending"} and not runtime.startswith("codex-automation:"):
             runtime_path = ROOT / runtime
             if not runtime_path.exists():
                 report("ERROR", f"agent runbook {path.relative_to(ROOT)} points to missing runtime {runtime}", failures, warnings)
             elif runtime_path.suffix in {".yml", ".yaml"}:
                 workflow_text = read(runtime_path)
-                cron_match = re.search(r'cron:\s*["\']([^"\']+)', workflow_text)
-                declared_cron = values["schedule"].split(" UTC", 1)[0]
-                if cron_match and declared_cron not in {"pending", cron_match.group(1)}:
-                    report("ERROR", f"agent runbook {path.relative_to(ROOT)} schedule differs from {runtime}", failures, warnings)
         config = values.get("runtime_config")
+        data: dict[str, object] | None = None
         if config:
             config_path = ROOT / config
             if not config_path.exists():
@@ -3432,13 +3722,243 @@ def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
                 try:
                     data = json.loads(read(config_path))
                 except json.JSONDecodeError:
-                    data = {}
-                configured_id = str(data.get("agentId") or data.get("botName") or "")
-                if configured_id != agent_id:
-                    report("ERROR", f"agent runbook {path.relative_to(ROOT)} ID differs from {config}", failures, warnings)
-                configured_cron = str((data.get("schedule") or {}).get("cron") or "")
-                if configured_cron and not values["schedule"].startswith(configured_cron):
-                    report("ERROR", f"agent runbook {path.relative_to(ROOT)} schedule differs from {config}", failures, warnings)
+                    data = None
+                    report(
+                        "ERROR",
+                        f"agent runbook {path.relative_to(ROOT)} points to malformed config {config}",
+                        failures,
+                        warnings,
+                    )
+        for finding in agent_runtime_invariant_findings(
+            agent_id,
+            values,
+            workflow_text=workflow_text,
+            config=data,
+            coordinator=coordinator,
+        ):
+            report("ERROR", finding, failures, warnings)
+
+
+def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
+    """Return critical source-domain-event wiring and safety drift findings."""
+
+    findings: list[str] = []
+
+    def require_file(relative: str) -> str:
+        path = root / relative
+        if not path.is_file():
+            findings.append(f"source-domain event pipeline lacks {relative}")
+            return ""
+        return path.read_text(encoding="utf-8")
+
+    schema_text = require_file(".github/source-domain-event.schema.json")
+    event_tool = require_file("scripts/source_domain_events.py")
+    publisher = require_file("scripts/publish_immutable_data_file.py")
+    coordinator = require_file("scripts/run_coordinator.py")
+    coordinator_workflow = require_file(
+        ".github/workflows/run-coordinator-bot.yml"
+    )
+    acceptance = require_file(
+        ".github/workflows/source-domain-event-acceptance.yml"
+    )
+    if schema_text:
+        try:
+            schema = json.loads(schema_text)
+        except json.JSONDecodeError:
+            findings.append("source-domain event schema is malformed JSON")
+        else:
+            properties = schema.get("properties") or {}
+            states = ((properties.get("state") or {}).get("enum") or [])
+            if (properties.get("schema_version") or {}).get("const") != 1:
+                findings.append("source-domain event schema version is not fixed at 1")
+            if schema.get("additionalProperties") is not False:
+                findings.append("source-domain event schema permits unknown top-level fields")
+            if states != ["proposed", "accepted"]:
+                findings.append(
+                    "source-domain event schema does not preserve the proposed/accepted states"
+                )
+            for identifier in ("chain_id", "run_id", "trigger"):
+                pattern = (properties.get(identifier) or {}).get("pattern")
+                if pattern != "^[A-Za-z0-9][A-Za-z0-9_.:/-]*$":
+                    findings.append(
+                        f"source-domain event schema lacks the safe {identifier} alphabet"
+                    )
+    for label, text, requirements in (
+        (
+            "event tool",
+            event_tool,
+            (
+                "source-domain-events/{event['state']}",
+                "human-pull-request-merge",
+                "merged_by_type",
+                "proposal_revision",
+                "verify_merged_file_hashes",
+                "ARRP_SOURCE_DOMAIN_EVENT:",
+                "non-modification path status",
+            ),
+        ),
+        (
+            "immutable publisher",
+            publisher,
+            (
+                "project-console-data",
+                "immutable source-event path already exists with different content",
+                "return \"unchanged\"",
+                "\"PUT\"",
+            ),
+        ),
+        (
+            "run coordinator",
+            coordinator,
+            (
+                "materialize_selected_watcher_artifacts",
+                "report hash differs from its",
+                "attempt attestation is not bound",
+                "event identity is not bound",
+                "proposal_revision",
+                "watcher-attempt.json",
+            ),
+        ),
+        (
+            "run-coordinator workflow",
+            coordinator_workflow,
+            (
+                "chain_id: ${{ needs.plan.outputs.chain_id }}",
+                "attempt_key: primary",
+                "attempt_key: retry",
+                "domain_event_id",
+                "domain_event_hash",
+                "domain_event_json",
+                "materialize-watcher-inputs",
+                "case-monitor-report-${{",
+                "presidential-directives-report-${{",
+                "source-checker-report-${{",
+            ),
+        ),
+        (
+            "acceptance workflow",
+            acceptance,
+            (
+                "pull_request.merged == true",
+                "pull_request.head.repo.full_name == github.repository",
+                "pull_request.merged_by.type == 'User'",
+                "pull_request.merged_by.login == 'Thorncrag'",
+                "git diff --name-status \"${BASE_SHA}...${HEAD_SHA}\"",
+                "Accepted merge changed trusted execution code",
+                "git checkout -B \"${branch}\" origin/main",
+                "verify-log-branch",
+                "--base-ref origin/main",
+                "trusted-source-domain-events.py",
+                "publish_immutable_data_file.py",
+                "source-event-log-",
+            ),
+        ),
+    ):
+        for required in requirements:
+            if text and required not in text:
+                findings.append(
+                    f"source-domain {label} lacks critical contract: {required}"
+                )
+    if acceptance:
+        if re.search(r"\bgh\s+pr\s+merge\b", acceptance):
+            findings.append("source-domain acceptance workflow may auto-merge a pull request")
+        if any(
+            re.search(r"\bgit\s+push\b.*(?:\s|:)main(?:\s|$)", line)
+            for line in acceptance.splitlines()
+        ):
+            findings.append("source-domain acceptance workflow may push directly to main")
+
+    watcher_specs = {
+        "case-monitor-bot": (
+            ".github/workflows/case-monitor-bot.yml",
+            "framework/agents/CASE_MONITOR_BOT.md",
+            "case-monitor-report-",
+            (
+                'git checkout -B "${bot_branch}" "origin/${bot_branch}"',
+                'git rebase "origin/${base_branch}"',
+                "git push --force-with-lease",
+            ),
+        ),
+        "presidential-directives-bot": (
+            ".github/workflows/presidential-directives-bot.yml",
+            "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
+            "presidential-directives-report-",
+            (
+                'git checkout -B "${BOT_BRANCH}" FETCH_HEAD',
+                "git rebase origin/main",
+                "git push --force-with-lease",
+            ),
+        ),
+        "source-checker-bot": (
+            ".github/workflows/source-checker-bot.yml",
+            "framework/agents/SOURCE_CHECKER_BOT.md",
+            "source-checker-report-",
+            (
+                "SOURCE_REVISION=%s",
+                "git rev-parse HEAD",
+                'git switch -C "$branch" "${SOURCE_REVISION}"',
+                '--git-base "${SOURCE_REVISION}"',
+                "framework/reports/SOURCE_CHECKER_REPORT.md",
+                "exact report-only delta",
+                "git push --force-with-lease",
+            ),
+        ),
+    }
+    for agent_id, (
+        workflow_path,
+        runbook_path,
+        artifact_prefix,
+        branch_requirements,
+    ) in watcher_specs.items():
+        workflow = require_file(workflow_path)
+        runbook = require_file(runbook_path)
+        for required in (
+            "attempt_key",
+            "primary|retry|standalone",
+            "CHAIN_ID: ${{ inputs.chain_id }}",
+            '--chain-id "${CHAIN_ID}"',
+            "GITHUB_RUN_ATTEMPT",
+            "watcher-attempt.json",
+            "report_sha256",
+            "domain_event_json",
+            "source_domain_events.py propose",
+            "publish_immutable_data_file.py",
+            "attach-marker",
+            artifact_prefix + "${{ steps.invocation.outputs.attempt_key }}-",
+            *branch_requirements,
+        ):
+            if workflow and required not in workflow:
+                findings.append(
+                    f"{agent_id} source-domain workflow lacks critical contract: {required}"
+                )
+        for required in (
+            "domain_event_schema: .github/source-domain-event.schema.json",
+            "domain_event_data: project-console-data:source-domain-events/",
+            "`proposed`",
+            "immutable `accepted` event",
+            "allowlisted human project owner",
+            "separate",
+            "never merges",
+        ):
+            if runbook and required not in runbook:
+                findings.append(
+                    f"{agent_id} runbook lacks source-domain contract: {required}"
+                )
+    return findings
+
+
+def check_source_domain_event_pipeline(
+    failures: list[str], warnings: list[str]
+) -> None:
+    """Expose disconnected provenance wiring as live Project Integrity errors."""
+
+    for finding in source_domain_event_pipeline_findings():
+        report(
+            "ERROR",
+            f"source-domain event pipeline drift (owner: project-integrity-bot): {finding}",
+            failures,
+            warnings,
+        )
 
 
 def parse_args() -> argparse.Namespace:
@@ -3659,6 +4179,7 @@ def main() -> int:
     check_print_assembly_configuration(failures, warnings)
     check_context_registry(failures, warnings)
     check_agent_runbooks(failures, warnings)
+    check_source_domain_event_pipeline(failures, warnings)
     check_structured_files_and_repository_hygiene(failures, warnings)
     proposal_count = len(list(LEGISLATION_PATH.glob("*.md"))) - 1
     print(f"Checked {len(issue_map)} issue pages, {proposal_count} proposal pages, and project links/inventories.")

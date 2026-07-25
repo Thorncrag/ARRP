@@ -31,6 +31,7 @@ checks_included:
   - Print-assembly configuration
   - Governing context registry, hashes, and module coverage
   - Persistent-agent runbooks and runtime configuration
+  - Source-domain event preservation and acceptance wiring
   - Structured-file and repository hygiene
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
@@ -91,6 +92,13 @@ formatting do not count, but visible link text does. A field above the
 Framework's guideline of about twelve words produces an agent-owned warning,
 not an error or automatic rewrite, because legal precision may require
 editorial judgment.
+
+The source-domain-event wiring check fails visibly when the schema, event
+builder, immutable data-branch publisher, watcher hooks, attempt-specific
+artifact contract, human-merge acceptance gate, trusted-code diff guards, or
+separate non-auto-merged log-rendering pull request is missing or
+disconnected. It verifies architecture and authority boundaries, not the
+meaning or disposition of a source observation.
 
 ## Inputs and permitted writes
 

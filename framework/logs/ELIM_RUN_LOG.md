@@ -23,7 +23,7 @@ Each run is one `###` section in oldest-to-newest order. The opening table suppl
 | Ended | YYYY-MM-DD HH:MM:SS ±TZ |
 | Run ID | Stable Elim execution identifier |
 | Trigger | Schedule / manual pilot / retry |
-| Outcome | Completed / Clean / Usage stopped / Blocked / Failed |
+| Outcome | Completed / Clean / Human review / Usage stopped / Blocked / Failed |
 | Usage | Applicable windows at start and end; percentage points consumed; reset times |
 | Work summary | Concise account of the run |
 | Material units | Count and links to the shared Agent Audit Log entries |
@@ -290,3 +290,26 @@ The approved host session preserved the completed context repair without beginni
 9. Pushed and merged pull request #399 after all applicable checks passed; synchronized issue #47 and every affected Project field; dispatched and verified the progress-data workflow; and read back the exact current data from `project-console-data/progress.json`.
 10. Verified the successful exact-commit Pages deployment and the current live issue, legislation, and area pages. Preserved final source-accounting, inactive handoff, shared provenance, run report, and generated Console projection in pull request #401.
 11. The required Codex task-archiving tool was unavailable in this execution environment. This housekeeping limitation does not affect the completed audit, human routing, synchronization, or preserved run record and is reported in the final structured result.
+
+### 2026-07-24 — arrp-20260724T211326Z — Failed
+
+| Field | Entry |
+| --- | --- |
+| Started | 2026-07-24 17:17:08 -0400 |
+| Ended | 2026-07-24 17:34:15 -0400 |
+| Run ID | `arrp-20260724T211326Z` |
+| Trigger | Refreshed Run Coordinator chain with EMERG-003's T1 audit at the head of the eligible queue |
+| Outcome | Failed — Codex process terminated before verified closeout |
+| Usage | The approved host dispatcher established a unique baseline with Codex 61 percent and Spark 99 percent remaining. The final preserved host snapshot was fresh and `pass` at 21:34:15 UTC, with Codex 55 percent and Spark 99 percent remaining: 6 percentage points consumed against the ten-point soft target. The 15-percent reserve remained protected. Process termination prevented a normal final closeout reading. |
+| Work summary | Verified the selected EMERG-003 issue-audit packet and performed read-only legal, source, drafting, and lifecycle review. The preserved event stream contains a proposed structured `human_review` result, but the Codex process ended with signal 15 before the dispatcher validated, applied, or canonically logged it. No T1 audit, score, **Runs** change, source change, lifecycle change, Project update, or human decision was completed or routed from this failed invocation. |
+| Material units | None. The preserved analysis and proposed result were not verified or applied project work and receive no shared Agent Audit entry. |
+| Issue audit records | None. EMERG-003's issue page, audit sidecar, legislation, sources, score, **Runs**, lifecycle fields, Project fields, and publication state were not changed by this run. |
+| Commits and synchronization | None. The selected packet recorded repository revision `14b9bf6e6213905bdbcc07688e42940085f79d63`. No result commit, push, pull request, merge, Project readback, or publication readback was completed. The preserved Codex task is `019f948f-ab51-7ac1-8237-4d470576ab53`; its event stream remains at `.tmp/run-coordinator/elim-arrp-20260724T211326Z.jsonl`. |
+| Validation | The selected queue, context, canonical issue dossier, two read-only challenge reviews, and required usage checkpoints were inspected. The event stream ended after emitting a proposed result, but no central result-schema and exact-unit closeout, Run Log verification, canonical diff accounting, complete repository validation, Git synchronization, or GitHub readback completed. |
+| Human review | No decision is routed from this failed invocation. Its preserved output proposed a reversed-control question concerning EMERG-003, but that proposal is incomplete evidence and must be revalidated against current canonical state before it may become a human Action Item. |
+| Stop reason | The reusable Elim task produced no verified last-message artifact, and the host recorded exit code `-15`. Under the fail-safe rule, termination before central closeout makes the invocation failed even when a proposed structured result appears in the event stream. |
+| Exact next action | On a fresh current chain, re-evaluate EMERG-003 from current canonical records. Treat this run's research and proposed question only as leads; if the same human-reserved question remains material, route it through the current validated workflow before any T1 score or lifecycle action. |
+
+#### Reconstructed closeout
+
+This report was reconstructed on 2026-07-24 from the preserved host control state, queue and context packets, invocation baseline, final usage snapshot, and complete JSONL event stream while the dispatcher reconciliation safeguard was being implemented. It repairs the missing run-accounting record only. It does not retroactively validate or apply the interrupted result.

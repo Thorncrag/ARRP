@@ -53,7 +53,7 @@ The reconstructed series begins at zero on June 24, then records 1 on June 25, 3
 
 ## Automation and retention
 
-The [`Project Console Progress Bot`](../.github/workflows/project-console-progress.yml) workflow runs daily, supports manual dispatch, and runs when its implementation or configuration changes. It:
+The [`Project Console Progress Bot`](../.github/workflows/project-console-progress.yml) becomes due every 24 hours in the serialized Run Coordinator chain and also supports a manual or coordinator-invoked refresh. It has no independent schedule. It:
 
 1. reads GitHub Project fields through the GraphQL API;
 2. joins them to active proposal identity from the issue registry;
@@ -62,7 +62,7 @@ The [`Project Console Progress Bot`](../.github/workflows/project-console-progre
 5. calculates the metrics, forecast, area results, backlog, and warnings; and
 6. publishes only `progress.json` and `history.json` to `project-console-data` through non-forced Git data API updates.
 
-The ordinary `main` push trigger watches implementation and configuration files, not every issue or audit. When a scored audit changes an eligible proposal's Project `Development level`, workflow `Status`, `Score`, or goal eligibility, audit closeout must dispatch this workflow after Project readback and the repository push, wait for success, and verify `project-console-data/progress.json`. One final verified dispatch may close an expressly authorized multi-issue or successive-tier batch. The daily schedule is a recovery backstop.
+When a scored audit changes an eligible proposal's Project `Development level`, workflow `Status`, `Score`, or goal eligibility, audit closeout must dispatch this workflow after Project readback and the repository push, wait for success, and verify `project-console-data/progress.json`. One final verified dispatch may close an expressly authorized multi-issue or successive-tier batch. The Run Coordinator's 24-hour due interval is the recovery backstop.
 
 History remains off `main` so automated daily snapshots do not create ordinary development commits. If retained history is unavailable or invalid, the builder safely restarts from the supported retrospective seed and current snapshot. Never edit the data branch manually.
 
@@ -70,7 +70,7 @@ History remains off `main` so automated daily snapshots do not create ordinary d
 
 The workflow requires the repository Actions secret `ARRP_PROJECT_TOKEN`, containing a classic personal access token limited to `read:project`. The GraphQL request reads Project field values and never mutates the Project. GitHub's workflow token receives `contents: write` only to update the data branch. Do not place either token in repository files, generated data, Project fields, or logs.
 
-If the secret is absent, the workflow exits successfully with a visible notice and leaves the existing data unchanged. If the token expires or is revoked, replace the secret and rerun the workflow; retained snapshots remain on the data branch.
+If the secret is absent, expired, or revoked, the workflow fails closed with a visible error and leaves the existing data unchanged. Replace the secret and rerun the workflow; retained snapshots remain on the data branch.
 
 ## Implementation map
 

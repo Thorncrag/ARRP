@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>ARRP Project Console</title>
     <meta name="description" content="ARRP project progress, candidate, source, monitoring, automation, log, and print-planning console.">
-    <link rel="stylesheet" href="styles.css?v=39">
+    <link rel="stylesheet" href="styles.css?v=40">
   </head>
   <body data-interface-theme="arrp-tool">
     <a class="skip-link" href="#console-tabs">Skip to console tabs</a>
@@ -509,7 +509,14 @@
                   <button type="button" id="coordinator-clear" class="secondary">Clear my override</button>
                 </div>
               </div>
-              <p class="muted">Controls create coordinator requests or user-owned queue overrides only. They cannot change project records, and “Clear my override” cannot remove a system or another user's state.</p>
+              <div class="coordinator-queue-controls">
+                <label for="coordinator-action-item">Action-item ID<input id="coordinator-action-item" type="text" placeholder="automation-failure-…" autocomplete="off"></label>
+                <label for="coordinator-resolution-reason">Resolution record<input id="coordinator-resolution-reason" type="text" placeholder="What was reviewed or corrected" autocomplete="off"></label>
+                <div class="coordinator-queue-actions">
+                  <button type="button" id="coordinator-resolve-action" class="secondary">Mark reviewed and resolved</button>
+                </div>
+              </div>
+              <p class="muted">Controls create coordinator requests, user-owned queue overrides, or an explicit human resolution record. They cannot change project records; clearing an override cannot remove system state, and resolving an alert never deletes its history.</p>
             </section>
           </section>
           <section class="automation-change-boundary" aria-labelledby="automation-change-boundary-heading">
@@ -713,46 +720,46 @@
 
     <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
 
-    <script src="catalog-data.js?v=39"></script>
-    <script src="data/candidates.js?v=39"></script>
-    <script src="data/sources.js?v=39"></script>
-    <script src="data/sources-catalog-001.js?v=39"></script>
-    <script src="data/sources-catalog-002.js?v=39"></script>
-    <script src="data/sources-catalog-003.js?v=39"></script>
-    <script src="data/sources-catalog-004.js?v=39"></script>
-    <script src="data/sources-catalog-005.js?v=39"></script>
-    <script src="data/sources-catalog-006.js?v=39"></script>
-    <script src="data/sources-catalog-007.js?v=39"></script>
-    <script src="data/sources-catalog-008.js?v=39"></script>
-    <script src="data/sources-catalog-009.js?v=39"></script>
-    <script src="data/sources-catalog-010.js?v=39"></script>
-    <script src="data/sources-catalog-011.js?v=39"></script>
-    <script src="data/sources-catalog-012.js?v=39"></script>
-    <script src="data/sources-catalog-013.js?v=39"></script>
-    <script src="data/sources-catalog-014.js?v=39"></script>
-    <script src="data/sources-catalog-015.js?v=39"></script>
-    <script src="data/sources-catalog-016.js?v=39"></script>
-    <script src="data/directives-catalog-001.js?v=39"></script>
-    <script src="data/directives-catalog-002.js?v=39"></script>
-    <script src="data/directives-catalog-003.js?v=39"></script>
-    <script src="data/directives-catalog-004.js?v=39"></script>
-    <script src="data/directives-catalog-005.js?v=39"></script>
-    <script src="data/directives-catalog-006.js?v=39"></script>
-    <script src="data/directives-catalog-007.js?v=39"></script>
-    <script src="data/directives-catalog-008.js?v=39"></script>
-    <script src="data/directives-catalog-009.js?v=39"></script>
-    <script src="data/directives-catalog-010.js?v=39"></script>
-    <script src="data/directives-catalog-011.js?v=39"></script>
-    <script src="data/directives-catalog-012.js?v=39"></script>
-    <script src="data/directives-catalog-013.js?v=39"></script>
-    <script src="data/directives-catalog-014.js?v=39"></script>
-    <script src="data/directives-catalog-015.js?v=39"></script>
-    <script src="data/directives-catalog-016.js?v=39"></script>
-    <script src="data/progress.js?v=39"></script>
-    <script src="data/integrity.js?v=39"></script>
-    <script src="data/automation.js?v=39"></script>
-    <script src="data/logs.js?v=39"></script>
-    <script src="data/publication.js?v=39"></script>
-    <script src="app.js?v=39"></script>
+    <script src="catalog-data.js?v=40"></script>
+    <script src="data/candidates.js?v=40"></script>
+    <script src="data/sources.js?v=40"></script>
+    <script src="data/sources-catalog-001.js?v=40"></script>
+    <script src="data/sources-catalog-002.js?v=40"></script>
+    <script src="data/sources-catalog-003.js?v=40"></script>
+    <script src="data/sources-catalog-004.js?v=40"></script>
+    <script src="data/sources-catalog-005.js?v=40"></script>
+    <script src="data/sources-catalog-006.js?v=40"></script>
+    <script src="data/sources-catalog-007.js?v=40"></script>
+    <script src="data/sources-catalog-008.js?v=40"></script>
+    <script src="data/sources-catalog-009.js?v=40"></script>
+    <script src="data/sources-catalog-010.js?v=40"></script>
+    <script src="data/sources-catalog-011.js?v=40"></script>
+    <script src="data/sources-catalog-012.js?v=40"></script>
+    <script src="data/sources-catalog-013.js?v=40"></script>
+    <script src="data/sources-catalog-014.js?v=40"></script>
+    <script src="data/sources-catalog-015.js?v=40"></script>
+    <script src="data/sources-catalog-016.js?v=40"></script>
+    <script src="data/directives-catalog-001.js?v=40"></script>
+    <script src="data/directives-catalog-002.js?v=40"></script>
+    <script src="data/directives-catalog-003.js?v=40"></script>
+    <script src="data/directives-catalog-004.js?v=40"></script>
+    <script src="data/directives-catalog-005.js?v=40"></script>
+    <script src="data/directives-catalog-006.js?v=40"></script>
+    <script src="data/directives-catalog-007.js?v=40"></script>
+    <script src="data/directives-catalog-008.js?v=40"></script>
+    <script src="data/directives-catalog-009.js?v=40"></script>
+    <script src="data/directives-catalog-010.js?v=40"></script>
+    <script src="data/directives-catalog-011.js?v=40"></script>
+    <script src="data/directives-catalog-012.js?v=40"></script>
+    <script src="data/directives-catalog-013.js?v=40"></script>
+    <script src="data/directives-catalog-014.js?v=40"></script>
+    <script src="data/directives-catalog-015.js?v=40"></script>
+    <script src="data/directives-catalog-016.js?v=40"></script>
+    <script src="data/progress.js?v=40"></script>
+    <script src="data/integrity.js?v=40"></script>
+    <script src="data/automation.js?v=40"></script>
+    <script src="data/logs.js?v=40"></script>
+    <script src="data/publication.js?v=40"></script>
+    <script src="app.js?v=40"></script>
   </body>
 </html>

@@ -41,7 +41,7 @@ Each governing rule family has one authoritative home. Kernels, modules, runbook
 | `topics/` | Selective public guides connecting recognizable subjects to authoritative project proposals and final non-inclusion decisions. |
 | `framework/` | Cross-project governing kernels, independently loadable rule modules, specialized authorities, routing records, logs, and templates. |
 | `inventory/` | Canonical source catalogs, presidential-directive screening registry, and stable GitHub issue navigation. |
-| `research/` | Cross-project ARRP-created analyses, crosswalks, transformed datasets, and internal research tools. |
+| `research/` | Cross-project ARRP-created analyses, crosswalks, transformed datasets, internal research tools, and explicitly non-authoritative reference products. |
 | `sources/` | Selectively retained external source files and backup copies; it is not a mirror of the bibliography. |
 | `participate/` | Separately deployed public-input and private-author-contact service. |
 | `website/` | GitHub Pages publication policy and website-only presentation assets. `website/404.md` remains here because it is a website asset, not a print-controlled page. |
@@ -104,6 +104,7 @@ The kernel route table and context registry determine which modules an operation
 | `research/intake-review-ledger.jsonl` | Append-only, content-free processing cursor created after the first completed public-submission assessment; it prevents repeat review without copying submission text or private contact data. |
 | `research/intake-action-ledger.jsonl` | Append-only provenance for actions taken on public submissions; it is created only when the first action occurs. |
 | `research/review-epochs.jsonl` | Append-only boundaries for completed comprehensive automated reviews, including governing hashes, reviewed scope, unresolved exceptions, and the next due date. |
+| `research/reference-products/` | Human-readable integrative specifications and traceability maps. These files describe reviewed systems but do not create or supersede substantive, agent, bot, runtime, or security authority. Generated editions belong in `exports/`. |
 | `framework/templates/` | Reusable project-authored drafting templates. Public input is routed through the separately deployed participation service rather than GitHub issue forms. |
 
 ## Content Placement Rules
