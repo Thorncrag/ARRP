@@ -82,8 +82,10 @@
   const DISCLOSURE_STORAGE_KEY = "arrp-project-console-disclosures-v1";
   const WORKFLOW_SUMMARY_STORAGE_KEY = "arrp-project-console-intro-hidden-v1";
   const layoutZones = new Map();
+  const successfulStageHistory = new Map();
   let layoutEditing = false;
   let draggedLayoutItem = null;
+  let coordinatorControlsAvailable = false;
 
   const PRINT_LEVEL_LABELS = {
     "public-proposal": "Public proposal edition",
@@ -106,6 +108,7 @@
   const LIVE_SOURCE_CHECKER_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/source-checker.json";
   const LIVE_RUN_CHAIN_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/run-chain.json";
   const LIVE_PULL_REQUESTS_URL = "https://api.github.com/repos/Thorncrag/ARRP/pulls?state=open&per_page=100";
+  const OPEN_PULL_REQUESTS_URL = "https://github.com/Thorncrag/ARRP/pulls?q=is%3Apr+is%3Aopen";
   const OPENAI_STATUS_URL = "https://status.openai.com/api/v2/status.json";
   const OPENAI_COMPONENTS_URL = "https://status.openai.com/api/v2/components.json";
   const GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/";
@@ -1631,12 +1634,27 @@
 
   function navigateToConsoleTarget(target) {
     const parts = target.split(":");
+    if (parts[0] === "automation" && parts[1] === "workers") parts[1] = "agents";
     activateTab(parts[0]);
     if (parts[0] === "candidates" && parts[1]) activateSectionTab("candidates", parts[1]);
     if (parts[0] === "sources" && parts[1]) activateSectionTab("sources", parts[1]);
-    if (parts[0] === "logs" && parts[1]) activateSectionTab("logs", parts[1]);
+    if (parts[0] === "logs" && parts[1]) {
+      activateSectionTab("logs", parts[1]);
+      if (parts[1] === "agents" && parts[2]) {
+        const record = data.agent_registry.find((agent) => agent.id === parts[2]);
+        const select = byId("log-agents-agent");
+        const match = [...(select?.options || [])].find((option) =>
+          [parts[2], record?.name].filter(Boolean).some((value) =>
+            String(option.value).localeCompare(String(value), undefined, { sensitivity: "accent" }) === 0));
+        if (select && match) {
+          select.value = match.value;
+          logStates.agents.filters.agent = match.value;
+          renderProjectLog("agents");
+        }
+      }
+    }
     if (parts[0] === "publication" && parts[1]) activateSectionTab("publication", parts[1]);
-    if (parts[0] === "automation" && ["administration", "workers"].includes(parts[1])) {
+    if (parts[0] === "automation" && ["administration", "agents"].includes(parts[1])) {
       activateSectionTab("automation", parts[1]);
     }
     if (parts[0] === "sources" && parts[1] === "watchers" && parts[2]) activateWatcherTab(parts[2]);
@@ -1646,8 +1664,8 @@
       if (section?.tagName === "DETAILS") section.open = true;
       if (section) destination = section;
     }
-    if (parts[0] === "automation" && parts[1] && !["administration", "workers"].includes(parts[1])) {
-      activateSectionTab("automation", "workers");
+    if (parts[0] === "automation" && parts[1] && !["administration", "agents"].includes(parts[1])) {
+      activateSectionTab("automation", "agents");
       const card = byId(`automation-card-${parts[1]}`);
       if (card) {
         destination = card;
@@ -1655,7 +1673,7 @@
         window.setTimeout(() => card.focus({ preventScroll: true }), 350);
       }
     }
-    if (parts[0] === "automation" && parts[1] === "workers" && parts[2]) {
+    if (parts[0] === "automation" && parts[1] === "agents" && parts[2]) {
       const card = byId(`automation-card-${parts[2]}`);
       if (card) {
         destination = card;
@@ -1673,11 +1691,10 @@
   }
 
   function actionItemCard({ label, count, detail, target, updateCount = 0, externalUrl = "", items = [] }) {
-    const card = element("details", `action-item-card${updateCount ? " has-update" : ""}${items.length > 4 ? " dense" : ""}`);
+    const card = element("article", `action-item-card${updateCount ? " has-update" : ""}${items.length > 4 ? " dense" : ""}`);
     const identity = `action-${layoutSlug(label)}`;
     card.dataset.layoutId = identity;
-    card.dataset.disclosureId = `actions-${layoutSlug(label)}`;
-    const summary = element("summary", "action-item-summary");
+    const summary = element("div", "action-item-summary");
     const heading = element("div", "action-item-heading");
     heading.append(element("span", "action-item-title", label), element("strong", "action-item-count", String(count)));
     if (updateCount) heading.append(element("span", "tab-update-count action-update-count", `+${updateCount} new/updated`));
@@ -1694,12 +1711,17 @@
       card.append(list);
     }
     const actions = element("div", "action-item-links");
-    const open = element("a", "record-link secondary", "Open full view →");
-    open.href = `#${target}`;
-    open.addEventListener("click", (event) => {
-      event.preventDefault();
-      navigateToConsoleTarget(target);
-    });
+    const open = element("a", "record-link secondary", target.startsWith("http") ? "Open GitHub queue ↗" : "Open full view →");
+    open.href = target.startsWith("http") ? target : `#${target}`;
+    if (target.startsWith("http")) {
+      open.target = "_blank";
+      open.rel = "noopener noreferrer";
+    } else {
+      open.addEventListener("click", (event) => {
+        event.preventDefault();
+        navigateToConsoleTarget(target);
+      });
+    }
     actions.append(open);
     if (externalUrl) {
       const review = element("a", "record-link", "Review update PR ↗");
@@ -2034,7 +2056,7 @@
     const newOrUpdated = preliminary;
     byId("tab-actions-count").textContent = total;
     byId("action-items-note").textContent = total
-      ? `${total} confirmed item${total === 1 ? "" : "s"} awaiting review or a decision; ${newOrUpdated} new or updated.${pullRequestsKnown ? "" : " Live pull-request status is unavailable."}`
+      ? `${total} confirmed item${total === 1 ? "" : "s"} awaiting review or a decision, all listed in the queues below; ${newOrUpdated} new or updated.${pullRequestsKnown ? "" : " Live pull-request status is unavailable."}`
       : "No items currently await review or a decision.";
     byId("action-items-grid").replaceChildren(
       actionItemCard({
@@ -2078,7 +2100,7 @@
           : pullRequestsKnown
             ? "No pull request currently awaits disposition."
             : "Live GitHub pull-request status is unavailable; no zero is inferred.",
-        target: "automation:administration",
+        target: OPEN_PULL_REQUESTS_URL,
         items: openPullRequests.map(pullRequestActionLink)
       }),
       actionItemCard({
@@ -2108,6 +2130,7 @@
   function renderReviewSignals() {
     const botUpdates = reviewSignals.courts.count + reviewSignals.directives.count;
     setUpdateBadge("tab-candidates-update", data.records.length);
+    setUpdateBadge("candidate-preliminary-update", data.records.length);
     setUpdateBadge("tab-sources-update", botUpdates);
     setUpdateBadge("source-watchers-update", botUpdates);
     setUpdateBadge("court-watch-update", reviewSignals.courts.count);
@@ -2415,7 +2438,11 @@
   function overviewCard(label, value, detail, target, tone = "") {
     const card = element("a", `overview-card ${tone}`.trim());
     card.dataset.layoutId = `overview-${layoutSlug(label)}`;
-    card.href = `#${target}`;
+    card.href = target.startsWith("http") ? target : `#${target}`;
+    if (target.startsWith("http")) {
+      card.target = "_blank";
+      card.rel = "noopener noreferrer";
+    }
     card.append(element("span", "eyebrow", label), element("strong", "", String(value)), element("p", "", detail));
     return card;
   }
@@ -2480,16 +2507,55 @@
 
   function overviewStagePresentation(status) {
     const value = String(status || "unavailable").toLowerCase().replaceAll(" ", "_");
-    if (/fail|error|block|cancel|timeout/.test(value)) return { icon: "×", statusLabel: value.replaceAll("_", " "), tone: "error" };
-    if (/degrad|warn|partial/.test(value)) return { icon: "!", statusLabel: value.replaceAll("_", " "), tone: "warning" };
-    if (/pending|progress|recommended|stopp/.test(value)) return { icon: "◌", statusLabel: value.replaceAll("_", " "), tone: "warning" };
-    if (/success|succeed|complete|healthy|pass/.test(value)) return { icon: "✓", statusLabel: value.replaceAll("_", " "), tone: "success" };
-    if (/not_due|no.?op|current/.test(value)) return { icon: "—", statusLabel: value.replaceAll("_", " "), tone: "not-due" };
-    return { icon: "○", statusLabel: value.replaceAll("_", " "), tone: "unavailable" };
+    if (/fail|error|block|cancel|timeout/.test(value)) {
+      const statusLabel = /block/.test(value)
+        ? "Blocked"
+        : /timeout/.test(value)
+          ? "Timed out"
+          : /cancel/.test(value)
+            ? "Cancelled"
+            : "Failed";
+      return { icon: "×", statusLabel, tone: "error" };
+    }
+    if (/degrad|warn|partial/.test(value)) return { icon: "!", statusLabel: serviceStatusLabel(value), tone: "warning" };
+    if (/pending|progress|recommended|stopp/.test(value)) return { icon: "◌", statusLabel: serviceStatusLabel(value), tone: "warning" };
+    if (/success|succeed|pass/.test(value)) return { icon: "✓", statusLabel: "Succeeded", tone: "success" };
+    if (/complete|healthy/.test(value)) return { icon: "✓", statusLabel: "Succeeded", tone: "success" };
+    if (/operational/.test(value)) return { icon: "✓", statusLabel: "Operational", tone: "success" };
+    if (/not_due|no.?op|current/.test(value)) return { icon: "—", statusLabel: "Not due this chain", tone: "not-due" };
+    return { icon: "○", statusLabel: serviceStatusLabel(value), tone: "unavailable" };
+  }
+
+  function stageExecutionPresentation(stage = {}) {
+    const rawStatus = stage.status || (stage.due === false ? "not_due" : "unavailable");
+    const isNotDue = /^(?:not_due|not due|no.?op)$/i.test(String(rawStatus));
+    const lastSuccessAt = stage.last_success_at || stage.last_success || stage.last_succeeded_at;
+    const explicitCurrentChainLabel = stage.current_chain_label || stage.currentChainLabel;
+    if (isNotDue && lastSuccessAt) {
+      return {
+        rawStatus,
+        currentChainLabel: explicitCurrentChainLabel || "Not due this chain",
+        lastSuccessAt,
+        scheduleDetail: stage.due_reason || "The latest successful result remains current.",
+        ...overviewStagePresentation("succeeded")
+      };
+    }
+    return {
+      rawStatus,
+      currentChainLabel: explicitCurrentChainLabel
+        || (isNotDue ? "Not due this chain" : serviceStatusLabel(rawStatus)),
+      lastSuccessAt,
+      scheduleDetail: stage.due_reason || stage.details || "",
+      ...overviewStagePresentation(rawStatus)
+    };
   }
 
   function overviewRunChainStages(chain) {
     const stages = new Map(runChainStages(chain).map((stage) => [stage.id, stage]));
+    const stageForAgent = (id) => {
+      const record = data.agent_registry.find((agent) => agent.id === id);
+      return record ? agentCurrentStage(record, chain) : stages.get(id) || {};
+    };
     const runtime = matchingElimRuntime(chain.elim_runtime, chain.chain_id);
     const launchRecommended = chain.elim_decision?.launch_recommended === true
       || chain.elim?.launch_recommended === true;
@@ -2502,44 +2568,125 @@
       || (chain.host_closeout?.status)
       || (launchRecommended ? "pending" : /^complete$/i.test(String(chain.status || "")) ? "not due" : chain.status);
     const specs = [
-      ["Plan", planStatus, chain.work_queue?.next_item?.title || chain.chain_id || "No chain plan published"],
-      ["Cases", stages.get("case-monitor-bot")?.status, stages.get("case-monitor-bot")?.due_reason],
-      ["Directives", stages.get("presidential-directives-bot")?.status, stages.get("presidential-directives-bot")?.due_reason],
-      ["Sources", stages.get("source-checker-bot")?.status, stages.get("source-checker-bot")?.due_reason],
-      ["Progress", stages.get("project-console-progress-bot")?.status, stages.get("project-console-progress-bot")?.due_reason],
-      ["Intake", stages.get("public-intake")?.status, stages.get("public-intake")?.details],
-      ["Integrity", stages.get("project-integrity-bot")?.status, stages.get("project-integrity-bot")?.details],
-      ["Elim", elimStatus, runtime?.summary || chain.elim_decision?.reason || "No host Elim result is attached to this chain"],
-      ["Host closeout", hostStatus, chain.host_closeout?.details || chain.next_action || "No host closeout result is attached"]
+      ["Plan", { status: planStatus, details: chain.work_queue?.next_item?.title || chain.chain_id || "No chain plan published" }],
+      ["Cases", stageForAgent("case-monitor-bot")],
+      ["Directives", stageForAgent("presidential-directives-bot")],
+      ["Sources", stageForAgent("source-checker-bot")],
+      ["Progress", stageForAgent("project-console-progress-bot")],
+      ["Intake", stages.get("public-intake") || {}],
+      ["Integrity", stageForAgent("project-integrity-bot")],
+      ["Elim", { ...(runtime || {}), status: elimStatus, details: runtime?.summary || chain.elim_decision?.reason || "No host Elim result is attached to this chain" }],
+      ["Host closeout", { status: hostStatus, details: chain.host_closeout?.details || chain.next_action || "No host closeout result is attached" }]
     ];
-    return specs.map(([label, status, detail]) => ({
-      label,
-      status: status || "unavailable",
-      detail: detail || "No detail recorded",
-      ...overviewStagePresentation(status)
-    }));
+    return specs.map(([label, stage]) => {
+      const presentation = stageExecutionPresentation(stage);
+      const scheduling = presentation.currentChainLabel === "Not due this chain"
+        ? `${presentation.currentChainLabel}${presentation.scheduleDetail ? ` · ${presentation.scheduleDetail}` : ""}`
+        : "";
+      return {
+        label,
+        status: presentation.rawStatus || "unavailable",
+        detail: scheduling || stage.details || stage.due_reason || "No detail recorded",
+        ...presentation
+      };
+    });
   }
 
-  function renderOverviewChain(chain) {
-    const stages = overviewRunChainStages(chain);
-    const chainStatus = effectiveRunChainStatus(chain);
-    const workCounts = chain.work_queue?.counts || {};
-    const total = Number(workCounts.total);
-    byId("overview-chain-title").textContent = chain.chain_id || "Awaiting baseline";
-    byId("overview-chain-summary").textContent = `${String(chainStatus).replaceAll("_", " ")} · ${
-      Number.isFinite(total) ? `${total} work items` : "work count unavailable"
-    } · ${formatDate(chain.updated_at || chain.created_at)}`;
-    byId("overview-chain-stages").replaceChildren(...stages.map((stage) => {
-      const item = element("div", `overview-chain-stage ${stage.tone}`);
-      item.title = `${stage.label}: ${stage.statusLabel} — ${stage.detail}`;
-      item.setAttribute("aria-label", `${stage.label}: ${stage.statusLabel}. ${stage.detail}`);
-      item.append(
-        element("span", "overview-stage-icon", stage.icon),
-        element("strong", "", stage.label),
-        element("span", "overview-stage-status", stage.label === "Plan" && stage.status === "succeeded" ? "ready" : stage.statusLabel)
+  function agentCurrentStage(record, chain = data.run_chain || {}) {
+    if (record.id === "run-coordinator-bot") {
+      const status = effectiveRunChainStatus(chain);
+      return {
+        id: record.id,
+        status,
+        completed_at: chain.host_updated_at || chain.completed_at || chain.updated_at,
+        last_success_at: /success|succeed|complete|healthy/i.test(status)
+          ? chain.host_updated_at || chain.completed_at || chain.updated_at
+          : null,
+        details: chain.host_closeout?.details || chain.next_action || "No coordinator closeout detail is recorded."
+      };
+    }
+    if (record.id === "elim") {
+      const runtime = matchingElimRuntime(chain.elim_runtime, chain.chain_id);
+      if (runtime) return { id: record.id, ...runtime };
+      const entry = latestLogEntry("elim");
+      return entry
+        ? {
+            id: record.id,
+            status: entry.values?.outcome || "completed",
+            completed_at: entry.values?.date,
+            last_success_at: /fail|error|block|cancel/i.test(entry.values?.outcome || "")
+              ? null
+              : entry.values?.date,
+            details: entry.values?.summary || "Open the Elim log for the complete run report."
+          }
+        : { id: record.id, status: "unavailable", details: "No Elim run is recorded." };
+    }
+    const current = runChainStages(chain).find((stage) => stage.id === record.id);
+    const historical = successfulStageHistory.get(record.id);
+    if (current) {
+      const currentStatus = String(current.status || "");
+      if (historical && !current.last_success_at && /not.?due|no.?op/i.test(currentStatus)) {
+        return {
+          ...current,
+          last_success_at: historical.last_success_at
+        };
+      }
+      return current;
+    }
+    if (historical) {
+      return {
+        ...historical,
+        id: record.id,
+        status: "succeeded",
+        current_chain_label: "Not reached this chain",
+        details: "The latest successful execution remains recorded; the current chain did not reach this stage."
+      };
+    }
+    return { id: record.id, status: "unavailable", details: "No successful execution or current run-chain stage is published." };
+  }
+
+  function renderOverviewAutomationActivity(chain = data.run_chain || {}) {
+    const failureById = new Map(failedAutomationStages(chain).map((stage) => [stage.id, stage]));
+    const cards = data.agent_registry.map((record) => {
+      const stage = agentCurrentStage(record, chain);
+      const failure = failureById.get(record.id);
+      const presentation = stageExecutionPresentation(stage);
+      const card = element("a", `overview-automation-card ${failure ? "error" : presentation.tone}`.trim());
+      card.dataset.layoutId = `overview-activity-${record.id}`;
+      card.href = `#automation:agents:${record.id}`;
+      const heading = element("div", "overview-automation-card-heading");
+      heading.append(
+        element("span", "eyebrow", /llm-agent/i.test(record.type) ? "Agent" : "Bot"),
+        element("span", `status-badge ${failure ? "error" : presentation.tone}`, failure ? "Error" : presentation.statusLabel)
       );
-      return item;
-    }));
+      const latestAt = presentation.lastSuccessAt
+        || stage.completed_at
+        || stage.updated_at
+        || chain.updated_at;
+      const currentChain = presentation.currentChainLabel === presentation.statusLabel
+        ? `Current chain: ${presentation.currentChainLabel}`
+        : `Current chain: ${presentation.currentChainLabel}`;
+      let detail = failure
+        ? botFailureSummary(failure)
+        : stage.details || stage.summary || presentation.scheduleDetail || "No recovery action is required.";
+      if (record.id === "elim") {
+        const improvements = elimImprovementRecords(latestLogEntry("elim"));
+        if (improvements.length) {
+          detail = `${improvements.length} issue-level improvement${improvements.length === 1 ? "" : "s"} recorded. ${detail}`;
+        }
+      }
+      card.append(
+        heading,
+        element("h4", "", record.name),
+        element("p", "overview-automation-latest", `${presentation.lastSuccessAt ? "Latest successful execution" : "Latest recorded activity"}: ${formatDate(latestAt)}`),
+        element("span", "overview-automation-chain-state", currentChain),
+        element("p", "overview-automation-recovery", failure ? `Recovery: ${detail}` : detail),
+        element("span", "overview-automation-open", "Open status and recovery →")
+      );
+      card.setAttribute("aria-label", `${record.name}: ${failure ? "Error" : presentation.statusLabel}. Open status and recovery details.`);
+      return card;
+    });
+    byId("overview-automation-activity-grid").replaceChildren(...cards);
   }
 
   function projectLog(logId) {
@@ -2591,57 +2738,6 @@
     });
   }
 
-  function elimMaterialUnits(entry) {
-    const html = String(entry?.details_html || "");
-    const match = html.match(/<tr><td>Material units<\/td><td>([\s\S]*?)<\/td><\/tr>/i);
-    if (!match) return [];
-    const decoder = element("div");
-    decoder.innerHTML = match[1];
-    const value = decoder.textContent.trim();
-    if (!value || /^none\b/i.test(value)) return [];
-    const withoutCount = value.replace(/^(?:one|two|three|four|five|six|\d+)\s*:\s*/i, "");
-    return withoutCount.split(/\s*;\s*/).map((unit) => unit.trim()).filter(Boolean);
-  }
-
-  function renderOverviewElim() {
-    const entry = latestLogEntry("elim");
-    if (!entry) {
-      byId("overview-elim-title").textContent = "No run recorded";
-      byId("overview-elim-summary").textContent = "The dedicated Elim Run Log has no entry.";
-      byId("overview-elim-improvements").replaceChildren(element("p", "empty-state compact-empty", "No improvement record is available."));
-      return;
-    }
-    const values = entry.values || {};
-    const improvements = elimImprovementRecords(entry);
-    const improvementIds = new Set(improvements.map((record) => record.identifier));
-    const materialUnits = elimMaterialUnits(entry)
-      .filter((unit) => ![...improvementIds].some((identifier) => unit.includes(identifier)));
-    const consumed = elimUsageConsumption(entry);
-    byId("overview-elim-title").textContent = `${values.outcome || "Outcome not recorded"} · ${overviewDisplayDate(values.date)}`;
-    byId("overview-elim-summary").textContent = `${values.trigger || "Trigger not recorded"}${consumed == null ? "" : ` · ${consumed} usage point${consumed === 1 ? "" : "s"}`}`;
-    if (!improvements.length && !materialUnits.length) {
-      const empty = element("div", "overview-elim-empty");
-      empty.append(
-        element("strong", "", "No project item was improved in this run."),
-        element("p", "", values.summary || "The run log records no material issue-level change.")
-      );
-      byId("overview-elim-improvements").replaceChildren(empty);
-      return;
-    }
-    const issueRows = improvements.map((record) => {
-      const item = element("div", "overview-improvement-row");
-      const identity = record.href ? inlineLink(record.identifier, record.href) : element("strong", "", record.identifier);
-      item.append(identity, element("span", "overview-improvement-score", record.score), element("p", "", record.impact));
-      return item;
-    });
-    const unitRows = materialUnits.map((unit) => {
-      const item = element("div", "overview-improvement-row project-unit");
-      item.append(element("strong", "", "Project unit"), element("span", "overview-improvement-score", "No issue score"), element("p", "", unit));
-      return item;
-    });
-    byId("overview-elim-improvements").replaceChildren(...issueRows, ...unitRows);
-  }
-
   function overviewLogRow({ title, meta, summary, target, tone = "" }) {
     const row = element("details", `overview-expandable-row ${tone}`.trim());
     row.dataset.disclosureId = `overview-log-${layoutSlug(`${target}-${title}`)}`;
@@ -2675,34 +2771,50 @@
   }
 
   function renderOverviewRecentActivity() {
-    const recent = data.project_logs
-      .map((log) => ({ log, entry: latestLogEntry(log.id) }))
-      .filter((record) => record.entry)
+    const registeredActors = new Set(data.agent_registry.flatMap((record) =>
+      [record.id, record.name].map((value) => String(value).toLowerCase())));
+    const automatedAgentEntry = (entry) => {
+      const actor = String(entry.values?.agent || "").toLowerCase();
+      return registeredActors.has(actor) || /(?:^|\b)(?:bot|elim|autonomous|automation|scheduled)(?:\b|$)/.test(actor);
+    };
+    const recent = [];
+    ["elim", "source-monitor"].forEach((logId) => {
+      const log = projectLog(logId);
+      (log?.entries || []).forEach((entry) => recent.push({ log, entry, target: `logs:${logId}` }));
+    });
+    const agentLog = projectLog("agents");
+    (agentLog?.entries || [])
+      .filter(automatedAgentEntry)
+      .forEach((entry) => recent.push({ log: agentLog, entry, target: "logs:agents" }));
+    (data.integrity?.history || []).forEach((entry, index) => {
+      recent.push({
+        log: { id: "integrity", title: "Integrity" },
+        entry: {
+          id: `integrity-${index}`,
+          values: {
+            date: entry.generated_at,
+            outcome: entry.result,
+            summary: `${entry.counts?.findings || 0} findings · ${entry.counts?.errors || 0} errors · ${entry.counts?.warnings || 0} warnings`
+          }
+        },
+        target: "logs:integrity"
+      });
+    });
+    const rows = recent
       .sort((left, right) => dateTimestamp(right.entry.values?.date) - dateTimestamp(left.entry.values?.date))
-      .slice(0, 6);
-    byId("overview-recent-actions").replaceChildren(...recent.map(({ log, entry }) =>
-      overviewLogRow({
-        title: logEntryHeadline(log, entry),
-        meta: `${log.title} · ${overviewDisplayDate(entry.values?.date)}`,
-        summary: logEntrySummary(log, entry),
-        target: `logs:${log.id}`,
-        tone: /fail|error|block/i.test(String(entry.values?.outcome || entry.values?.result || "")) ? "error" : ""
-      })));
-
-    const horizon = projectLog("horizon");
-    const decisions = [...(horizon?.entries || [])]
-      .filter((entry) => !/deferred|monitoring/i.test(String(entry.values?.disposition || "")))
-      .sort((left, right) => dateTimestamp(right.values?.date) - dateTimestamp(left.values?.date)
-        || String(right.id).localeCompare(String(left.id)))
-      .slice(0, 6);
-    byId("overview-recent-decisions").replaceChildren(...(decisions.length
-      ? decisions.map((entry) => overviewLogRow({
-          title: `${entry.values?.record || entry.id} · ${entry.values?.disposition || "Recorded"}`,
-          meta: overviewDisplayDate(entry.values?.date),
-          summary: entry.values?.destination,
-          target: "logs:horizon"
-        }))
-      : [element("p", "empty-state compact-empty", "No accepted Horizon decision is recorded.")]));
+      .slice(0, 8);
+    byId("overview-recent-actions").replaceChildren(...(rows.length
+      ? rows.map(({ log, entry, target }) =>
+          overviewLogRow({
+            title: log.id === "integrity"
+              ? `Project Integrity Bot · ${serviceStatusLabel(entry.values?.outcome)}`
+              : logEntryHeadline(log, entry),
+            meta: `${log.title} · ${overviewDisplayDate(entry.values?.date)}`,
+            summary: log.id === "integrity" ? entry.values?.summary : logEntrySummary(log, entry),
+            target,
+            tone: /fail|error|block/i.test(String(entry.values?.outcome || entry.values?.result || "")) ? "error" : ""
+          }))
+      : [element("p", "empty-state compact-empty", "No automated action is recorded.")]));
   }
 
   function publicInputSnapshot(chain = data.run_chain || {}) {
@@ -2743,7 +2855,7 @@
       overviewCard("Human actions", snapshot.total, "confirmed decisions, reviews, and dispositions assigned to you", "actions", snapshot.total ? "warning" : ""),
       overviewCard("Integrity findings", problems.length, `${humanProblems} human · ${problems.filter((problem) => problem.attention === "agent").length} agent · ${problems.filter((problem) => problem.attention === "observed").length} observed`, "integrity", problems.some((problem) => problem.severity === "error") ? "error" : ""),
       overviewCard("Monitored issues", data.monitoring_issues.length, "issues with a defined external monitoring predicate", "progress:monitoring"),
-      overviewCard("Open pull requests", pullRequestValue, reviewSignals.pullRequestsStatus === "current" ? `live GitHub check · ${agePosture(reviewSignals.pullRequestsCheckedAt)}` : "live GitHub state is not currently verifiable", "automation:administration", pullRequestTone),
+      overviewCard("Open pull requests", pullRequestValue, reviewSignals.pullRequestsStatus === "current" ? `live GitHub check · ${agePosture(reviewSignals.pullRequestsCheckedAt)}` : "live GitHub state is not currently verifiable", OPEN_PULL_REQUESTS_URL, pullRequestTone),
       overviewCard("Public input", intake.available ? intake.count : "Unavailable", `${intake.detail}${intake.checkedAt ? ` · ${agePosture(intake.checkedAt)}` : ""}`, "candidates:preliminary", intake.available && intake.count ? "warning" : intake.available ? "" : "warning"),
       overviewCard("Elim-eligible work", Number.isFinite(workCount) ? workCount : "Unavailable", chain.work_queue?.next_item?.title || "no current work-queue projection", "automation:administration", effectiveRunChainStatus(chain) === "host_pending" ? "warning" : "")
     );
@@ -2837,20 +2949,80 @@
       element("strong", "", "Elim consumption by run"),
       element("span", "", `${average.toFixed(1)}-point measured average`)
     );
-    const chart = element("div", "usage-trend-chart");
+    const namespace = "http://www.w3.org/2000/svg";
+    const chart = document.createElementNS(namespace, "svg");
+    chart.classList.add("usage-trend-svg");
+    chart.setAttribute("viewBox", "0 0 640 210");
     chart.setAttribute("role", "img");
-    chart.setAttribute("aria-label", points.map((point) =>
-      `${point.id}: ${point.value == null ? "not measured" : `${point.value} percentage points`}`).join("; "));
-    points.forEach((point) => {
-      const column = element("div", `usage-trend-column${point.value == null ? " missing" : ""}`);
-      const value = element("span", "usage-trend-value", point.value == null ? "—" : String(point.value));
-      const track = element("span", "usage-trend-track");
-      const bar = element("span", "usage-trend-bar");
-      bar.style.height = point.value == null ? "0" : `${Math.max(4, point.value / maximum * 100)}%`;
-      track.append(bar);
-      column.append(value, track, element("span", "usage-trend-label", point.id.replace("elim-run-", "#")));
-      chart.append(column);
+    const description = points.map((point) =>
+      `${point.id}: ${point.value == null ? "not measured" : `${point.value} percentage points`}`).join("; ");
+    chart.setAttribute("aria-label", description);
+    const title = document.createElementNS(namespace, "title");
+    title.textContent = `Elim consumption by run. ${description}`;
+    chart.append(title);
+
+    const left = 42;
+    const right = 16;
+    const top = 18;
+    const bottom = 40;
+    const width = 640 - left - right;
+    const height = 210 - top - bottom;
+    const chartMaximum = Math.ceil(maximum / 10) * 10;
+    const xFor = (index) => points.length === 1
+      ? left + width / 2
+      : left + index * width / (points.length - 1);
+    const yFor = (value) => top + height - value / chartMaximum * height;
+    const svgNode = (name, attributes = {}, className = "") => {
+      const node = document.createElementNS(namespace, name);
+      Object.entries(attributes).forEach(([key, value]) => node.setAttribute(key, String(value)));
+      if (className) node.setAttribute("class", className);
+      return node;
+    };
+
+    [0, 0.25, 0.5, 0.75, 1].forEach((fraction) => {
+      const value = chartMaximum * fraction;
+      const y = yFor(value);
+      chart.append(svgNode("line", { x1: left, x2: left + width, y1: y, y2: y }, "usage-trend-grid"));
+      const label = svgNode("text", { x: left - 8, y: y + 4, "text-anchor": "end" }, "usage-trend-axis-label");
+      label.textContent = String(Math.round(value));
+      chart.append(label);
     });
+
+    let segment = [];
+    const appendSegment = () => {
+      if (!segment.length) return;
+      const path = svgNode("path", {
+        d: segment.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(" ")
+      }, "usage-trend-line");
+      const firstPoint = chart.querySelector(".usage-trend-point");
+      if (firstPoint) chart.insertBefore(path, firstPoint);
+      else chart.append(path);
+      segment = [];
+    };
+    points.forEach((point, index) => {
+      const x = xFor(index);
+      const xLabel = svgNode("text", { x, y: 196, "text-anchor": "middle" }, "usage-trend-axis-label usage-trend-run-label");
+      xLabel.textContent = point.id.replace("elim-run-", "#");
+      chart.append(xLabel);
+      if (!Number.isFinite(point.value)) {
+        appendSegment();
+        const missing = svgNode("text", { x, y: top + height / 2, "text-anchor": "middle" }, "usage-trend-missing");
+        missing.textContent = "—";
+        chart.append(missing);
+        return;
+      }
+      const y = yFor(point.value);
+      segment.push({ x, y });
+      const pointNode = svgNode("circle", { cx: x, cy: y, r: 4.5 }, "usage-trend-point");
+      const pointTitle = document.createElementNS(namespace, "title");
+      pointTitle.textContent = `${point.id}: ${point.value} percentage points`;
+      pointNode.append(pointTitle);
+      chart.append(pointNode);
+      const valueLabel = svgNode("text", { x, y: Math.max(12, y - 9), "text-anchor": "middle" }, "usage-trend-value-label");
+      valueLabel.textContent = String(point.value);
+      chart.append(valueLabel);
+    });
+    appendSegment();
     host.replaceChildren(heading, chart);
   }
 
@@ -2907,24 +3079,26 @@
     renderUsageTrend();
   }
 
-  function queueDirectoryRow(queue) {
-    const row = element("details", `overview-queue-row${queue.tone ? ` ${queue.tone}` : ""}`);
-    row.dataset.disclosureId = `overview-queue-${layoutSlug(queue.label)}`;
-    const summary = element("summary", "");
-    const count = queue.count == null ? "Unavailable" : String(queue.count);
-    summary.append(
-      element("strong", "", queue.label),
-      element("span", "overview-queue-count", count),
+  function queueDirectoryCard(queue) {
+    const card = element("a", `overview-queue-card${queue.tone ? ` ${queue.tone}` : ""}`);
+    card.dataset.layoutId = `overview-queue-${layoutSlug(queue.label)}`;
+    const external = queue.target.startsWith("http");
+    card.href = external ? queue.target : `#${queue.target}`;
+    if (external) {
+      card.target = "_blank";
+      card.rel = "noopener noreferrer";
+    }
+    const count = queue.count == null ? "Unavailable" : queue.count === 0 ? "Empty" : String(queue.count);
+    const heading = element("div", "overview-queue-card-heading");
+    heading.append(element("strong", "", queue.label), element("span", "overview-queue-count", count));
+    card.append(
+      heading,
       element("span", "overview-queue-owner", queue.owner),
-      element("span", "overview-queue-posture", queue.posture)
+      element("span", "overview-queue-posture", queue.posture),
+      element("p", "", queue.detail),
+      element("span", "overview-queue-open", external ? "Open GitHub queue ↗" : "Open queue →")
     );
-    const body = element("div", "overview-queue-body");
-    body.append(element("p", "", queue.detail));
-    const link = element("a", "record-link secondary compact-link", "Open queue →");
-    link.href = `#${queue.target}`;
-    body.append(link);
-    row.append(summary, body);
-    return row;
+    return card;
   }
 
   function renderOverviewQueues(snapshot, chain) {
@@ -2937,7 +3111,7 @@
       { label: "Integrity", count: snapshot.problemRecords.length, owner: "Human + Elim", posture: agePosture(data.integrity?.current?.generated_at), target: "integrity", detail: "Every current project-integrity finding, grouped by owner and attention class." },
       { label: "Preliminary intake", count: data.records.length, owner: "You", posture: agePosture(data.generated_at), target: "candidates:preliminary", detail: "Preliminary candidate questions awaiting a human intake disposition." },
       { label: "Pending source routing", count: data.pending_sources.length, owner: "You", posture: agePosture(data.generated_at), target: "sources:pending", detail: "Sources whose project destination still requires a routing choice." },
-      { label: "Open GitHub pull requests", count: snapshot.pullRequestsKnown ? snapshot.pullRequests : null, owner: "You", posture: reviewSignals.pullRequestsStatus === "current" ? agePosture(reviewSignals.pullRequestsCheckedAt) : "Live state unavailable", target: "automation:administration", detail: "Repository changes requiring review, merge, closure, or another explicit disposition." },
+      { label: "Open GitHub pull requests", count: snapshot.pullRequestsKnown ? snapshot.pullRequests : null, owner: "You", posture: reviewSignals.pullRequestsStatus === "current" ? agePosture(reviewSignals.pullRequestsCheckedAt) : "Live state unavailable", target: OPEN_PULL_REQUESTS_URL, detail: "Repository changes requiring review, merge, closure, or another explicit disposition." },
       { label: "Development", count: workflowCount("Development"), owner: "Elim + interactive", posture: "Workflow status", target: "progress", detail: "Admitted work whose recorded next action is substantive development." },
       { label: "Research", count: workflowCount("Research"), owner: "Elim + interactive", posture: "Workflow status", target: "progress", detail: "Issues in active source development, investigation, or another research-bound next action." },
       { label: "Audits", count: workflowCount("Audit needed", "Audit in progress"), owner: "Elim", posture: "Audit needed / in progress", target: "progress", detail: "Issues with an audit as their current workflow action." },
@@ -2954,25 +3128,11 @@
       else if (queue.label === "Automation recovery" && queue.count) queue.tone = "error";
       else if (["Human actions", "Blocked"].includes(queue.label) && queue.count) queue.tone = "warning";
     });
-    const active = queues.filter((queue) => queue.count == null || queue.count > 0);
+    const active = queues.filter((queue) => queue.count != null && queue.count > 0);
     const empty = queues.filter((queue) => queue.count === 0);
-    const rows = active.map(queueDirectoryRow);
-    if (empty.length) {
-      const emptyGroup = element("details", "overview-queue-empty-group");
-      emptyGroup.dataset.disclosureId = "overview-queue-empty";
-      const summary = element("summary", "");
-      summary.append(element("strong", "", `Empty queues (${empty.length})`), element("span", "overview-row-meta", empty.map((queue) => queue.label).join(" · ")));
-      const list = element("div", "overview-empty-queue-list");
-      empty.forEach((queue) => {
-        const link = element("a", "", queue.label);
-        link.href = `#${queue.target}`;
-        list.append(link);
-      });
-      emptyGroup.append(summary, list);
-      rows.push(emptyGroup);
-    }
-    byId("overview-queue-directory").replaceChildren(...rows);
-    byId("overview-queues-summary").textContent = `${active.filter((queue) => queue.count > 0).length} active · ${empty.length} empty · ${active.filter((queue) => queue.count == null).length} unavailable`;
+    const unavailable = queues.filter((queue) => queue.count == null);
+    byId("overview-queue-directory").replaceChildren(...queues.map(queueDirectoryCard));
+    byId("overview-queues-summary").textContent = `${active.length} active · ${empty.length} empty · ${unavailable.length} unavailable`;
   }
 
   function renderOverviewDaily(snapshot, chain) {
@@ -2980,24 +3140,24 @@
     const failed = stages.filter((stage) => stage.tone === "error").length;
     const degraded = stages.filter((stage) => stage.tone === "warning").length;
     const succeeded = stages.filter((stage) => stage.tone === "success").length;
-    const notDue = stages.filter((stage) => stage.tone === "not-due").length;
+    const notDue = stages.filter((stage) => stage.currentChainLabel === "Not due this chain").length;
     const unavailable = stages.filter((stage) => stage.tone === "unavailable").length;
     const chainStatus = effectiveRunChainStatus(chain);
     let posture = "Current";
     let tone = "success";
-    let summary = `${succeeded} stages succeeded and ${notDue} were not due.`;
+    let summary = `${succeeded} latest results succeeded; ${notDue} stage${notDue === 1 ? " was" : "s were"} not due this chain.`;
     if (failed) {
       posture = "Attention required";
       tone = "error";
-      summary = `${failed} stage${failed === 1 ? "" : "s"} failed or blocked. ${succeeded} succeeded and ${notDue} were not due.`;
+      summary = `${failed} stage${failed === 1 ? "" : "s"} failed or blocked. ${succeeded} latest results succeeded; ${notDue} ${notDue === 1 ? "was" : "were"} not due this chain.`;
     } else if (degraded || /pending|progress|stopp/i.test(chainStatus)) {
       posture = "Closeout pending";
       tone = "warning";
-      summary = `${succeeded} stages succeeded and ${notDue} were not due; ${degraded} stage${degraded === 1 ? "" : "s"} still lack${degraded === 1 ? "s" : ""} a final or fully healthy result.`;
+      summary = `${succeeded} latest results succeeded; ${notDue} ${notDue === 1 ? "was" : "were"} not due this chain; ${degraded} stage${degraded === 1 ? "" : "s"} still lack${degraded === 1 ? "s" : ""} a final or fully healthy result.`;
     } else if (unavailable) {
       posture = "Incomplete data";
       tone = "warning";
-      summary = `${succeeded} stages succeeded and ${notDue} were not due; ${unavailable} stage${unavailable === 1 ? "" : "s"} lack${unavailable === 1 ? "s" : ""} a current result.`;
+      summary = `${succeeded} latest results succeeded; ${notDue} ${notDue === 1 ? "was" : "were"} not due this chain; ${unavailable} stage${unavailable === 1 ? "" : "s"} lack${unavailable === 1 ? "s" : ""} a current result.`;
     }
     const badge = byId("overview-daily-status");
     badge.className = `status-badge ${tone}`;
@@ -3033,6 +3193,7 @@
   function renderOverview() {
     if (!byId("overview-daily-section")) return;
     const chain = data.run_chain || {};
+    captureSuccessfulStageHistory(chain);
     const snapshot = actionItemSnapshot();
     const botFailures = overviewAutomationFailures(chain);
     byId("overview-generated-at").textContent = formatDate(data.generated_at);
@@ -3040,20 +3201,20 @@
     botAlert.hidden = botFailures.length === 0;
     if (botFailures.length) {
       byId("overview-bot-alert-heading").textContent = botFailures.length === 1
-        ? "An automation worker failed or is blocking the run chain"
-        : `${botFailures.length} automation workers failed or are blocking the run chain`;
+        ? "An agent or bot failed or is blocking the run chain"
+        : `${botFailures.length} agents or bots failed or are blocking the run chain`;
       byId("overview-bot-alert-summary").textContent = botFailures
         .map((stage) => `${stage.id}: ${botFailureSummary(stage)}`)
         .join(" · ");
       byId("overview-bot-alert-links").replaceChildren(...botFailures.map((stage) => {
         const record = data.agent_registry.find((agent) => agent.id === stage.id);
         const link = element("a", "record-link error-link", `Open ${record?.name || stage.id} →`);
-        link.href = `#automation:workers:${stage.id}`;
+        link.href = `#automation:agents:${stage.id}`;
         link.setAttribute("aria-label", `Open ${record?.name || stage.id} error details on Agents and Bots`);
         link.addEventListener("click", (event) => {
           event.preventDefault();
-          window.history.replaceState(null, "", `#automation:workers:${stage.id}`);
-          navigateToConsoleTarget(`automation:workers:${stage.id}`);
+          window.history.replaceState(null, "", `#automation:agents:${stage.id}`);
+          navigateToConsoleTarget(`automation:agents:${stage.id}`);
         });
         return link;
       }));
@@ -3062,8 +3223,7 @@
       byId("overview-bot-alert-links").replaceChildren();
     }
     renderOverviewDaily(snapshot, chain);
-    renderOverviewChain(chain);
-    renderOverviewElim();
+    renderOverviewAutomationActivity(chain);
     renderOverviewPortals(snapshot, chain);
     renderOverviewRecentActivity();
     byId("overview-freshness").replaceChildren(
@@ -3093,6 +3253,31 @@
       return Object.entries(chain.stages).map(([id, stage]) => ({ id, ...(stage || {}) }));
     }
     return [];
+  }
+
+  function captureSuccessfulStageHistory(chain = {}) {
+    const stages = [
+      ...runChainStages(chain),
+      ...(Array.isArray(chain.last_successful_stages) ? chain.last_successful_stages : [])
+    ];
+    stages.forEach((stage) => {
+      const id = stage?.id || stage?.stage_id;
+      const status = String(stage?.status || "");
+      const lastSuccessAt = stage?.last_success_at
+        || stage?.last_success
+        || stage?.last_succeeded_at
+        || (/success|succeed|complete|healthy|pass/i.test(status) ? stage?.completed_at || stage?.updated_at : null);
+      if (!id || !lastSuccessAt) return;
+      const existing = successfulStageHistory.get(id);
+      if (!existing || dateTimestamp(lastSuccessAt) >= dateTimestamp(existing.last_success_at)) {
+        successfulStageHistory.set(id, {
+          ...stage,
+          id,
+          status: "succeeded",
+          last_success_at: lastSuccessAt
+        });
+      }
+    });
   }
 
   function failedAutomationStages(chain = data.run_chain || {}) {
@@ -3200,19 +3385,22 @@
     byId("automation-chain-stage-count").textContent = stages.length;
     const stageRows = stages.map((stage, index) => {
       const item = element("details", "automation-chain-stage");
-      const stageStatus = stage.status || (stage.due === false ? "not_due" : "unknown");
+      const presentation = stageExecutionPresentation(stage);
       const heading = element("summary", "");
       heading.append(
         element("span", "automation-stage-order", String(index + 1)),
         element("strong", "", stage.name || stage.id || `Stage ${index + 1}`),
-        element("span", `status-badge ${runChainStatusClass(stageStatus)}`, String(stageStatus).replaceAll("_", " "))
+        element("span", `status-badge ${presentation.tone}`, presentation.statusLabel)
       );
       const details = element("dl", "automation-stage-fields");
       [
+        ["Current chain", presentation.currentChainLabel],
         ["Due", stage.due === undefined ? "Not recorded" : stage.due ? "Yes" : "No"],
+        ["Latest successful execution", formatDate(presentation.lastSuccessAt)],
+        ["Schedule detail", presentation.scheduleDetail || "No additional scheduling detail recorded"],
         ["Started", formatDate(stage.started_at || stage.started || stage.timestamps?.started_at || stage.timestamps?.started)],
-        ["Completed", formatDate(stage.completed_at || stage.completed || stage.timestamps?.completed_at || stage.timestamps?.completed)],
-        ["Retries", stage.retries ?? stage.retry_count ?? 0],
+        ["Latest recorded activity", formatDate(stage.completed_at || stage.completed || stage.updated_at || stage.timestamps?.completed_at || stage.timestamps?.completed)],
+        ["Retries", Array.isArray(stage.retries) ? stage.retries.length : stage.retries ?? stage.retry_count ?? 0],
         ["Output", stage.output || stage.output_path || "No output path recorded"],
         ["Hash", stage.output_hash || "Not recorded"],
         ["Diagnostic", stage.diagnostic || stage.reason || stage.message || "No exception recorded"]
@@ -3227,25 +3415,54 @@
 
   function renderAutomation() {
     const records = data.agent_registry;
-    const stageById = new Map(runChainStages(data.run_chain || {}).map((stage) => [stage.id, stage]));
-    if (data.run_chain?.elim_runtime) {
-      stageById.set("elim", { id: "elim", ...data.run_chain.elim_runtime });
-    }
-    const failureById = new Map(failedAutomationStages().map((stage) => [stage.id, stage]));
+    const chain = data.run_chain || {};
+    captureSuccessfulStageHistory(chain);
+    const failureById = new Map(failedAutomationStages(chain).map((stage) => [stage.id, stage]));
     const enabled = records.filter((record) => /^enabled$/i.test(record.status)).length;
     const agents = records.filter((record) => /llm-agent/i.test(record.type)).length;
     const bots = records.filter((record) => /bot/i.test(record.type)).length;
     byId("tab-automation-count").textContent = records.length;
-    byId("automation-workers-count").textContent = records.length;
+    byId("automation-agents-count").textContent = records.length;
     byId("automation-summary").replaceChildren(
-      integrityMetric("Registered", records.length, "persistent named workers"),
+      integrityMetric("Registered", records.length, "persistent agents and bots"),
       integrityMetric("Enabled", enabled, "currently enabled runbooks"),
-      integrityMetric("Agents", agents, "LLM-directed workers"),
+      integrityMetric("Agents", agents, "LLM-directed roles"),
       integrityMetric("Bots", bots, "deterministic programs")
     );
-    byId("automation-grid").replaceChildren(...records.map((record) => {
-      const stage = stageById.get(record.id);
+
+    byId("automation-overview-grid").replaceChildren(...records.map((record) => {
+      const stage = agentCurrentStage(record, chain);
       const failure = failureById.get(record.id);
+      const presentation = stageExecutionPresentation(stage);
+      const card = element("a", `automation-overview-card ${failure ? "error" : presentation.tone}`.trim());
+      card.href = `#automation:agents:${record.id}`;
+      card.dataset.layoutId = `automation-overview-${record.id}`;
+      const heading = element("div", "automation-overview-card-heading");
+      heading.append(
+        element("strong", "", record.name),
+        element("span", `status-badge ${failure ? "error" : presentation.tone}`, failure ? "Error" : presentation.statusLabel)
+      );
+      const latestAt = presentation.lastSuccessAt
+        || stage.completed_at
+        || stage.updated_at
+        || chain.updated_at;
+      card.append(
+        heading,
+        element("span", "record-id", record.id),
+        element("p", "", `${presentation.lastSuccessAt ? "Latest successful execution" : "Latest recorded activity"}: ${formatDate(latestAt)}`),
+        element("span", "automation-overview-chain-state", `Current chain: ${presentation.currentChainLabel}`),
+        element("p", "automation-overview-recovery", failure
+          ? `Recovery: ${botFailureSummary(failure)}`
+          : stage.details || stage.summary || presentation.scheduleDetail || "No recovery action is required."),
+        element("span", "automation-overview-open", "Open complete details →")
+      );
+      return card;
+    }));
+
+    byId("automation-grid").replaceChildren(...records.map((record) => {
+      const stage = agentCurrentStage(record, chain);
+      const failure = failureById.get(record.id);
+      const presentation = stageExecutionPresentation(stage);
       const card = element("article", `automation-card${failure ? " has-error" : ""}`);
       card.id = `automation-card-${record.id}`;
       card.dataset.layoutId = `automation-${record.id}`;
@@ -3275,16 +3492,25 @@
       [
         ["Identity", record.id],
         ["Type", record.type.replaceAll("-", " ")],
+        ["Runbook status", record.status.replaceAll("-", " ")],
         ["Trigger", record.trigger.replaceAll("-", " ")],
         ["Schedule", record.schedule || "Event or manual only"],
         ["Environment", record.execution_environment.replaceAll("-", " ")],
-        ["Runtime", record.runtime_id],
-        ["Chain health", stage ? String(stage.status || "Not recorded").replaceAll("_", " ") : "No current chain stage"],
-        ["Latest result", stage ? formatDate(stage.completed_at || stage.updated_at || data.run_chain?.updated_at) : "Not recorded"]
+        ["Runtime", record.runtime_id || "Not recorded"],
+        ["Runtime configuration", record.runtime_config || "Not recorded"],
+        ["Model policy", record.model_policy || (/llm-agent/i.test(record.type) ? "Not recorded" : "Not applicable")],
+        ["Latest result", failure ? "Error" : presentation.statusLabel],
+        ["Current chain", presentation.currentChainLabel],
+        ["Latest successful execution", formatDate(presentation.lastSuccessAt)],
+        ["Latest recorded activity", formatDate(stage.completed_at || stage.updated_at || chain.updated_at)],
+        ["Recovery posture", failure
+          ? botFailureSummary(failure)
+          : stage.details || stage.summary || presentation.scheduleDetail || "No recovery action is required."]
       ].forEach(([label, value]) => details.append(element("dt", "", label), element("dd", "", value || "Not recorded")));
       const links = element("div", "source-list dossier-actions");
       links.append(linkButton("Open runbook ↗", record.runbook_url, true));
       if (record.runtime_url) links.append(linkButton("Open runtime ↗", record.runtime_url, true));
+      if (record.runtime_config_url) links.append(linkButton("Open runtime configuration ↗", record.runtime_config_url, true));
       if (record.current_report_url) links.append(linkButton("Open current report ↗", record.current_report_url, true));
       if (record.current_data) {
         const currentData = String(record.current_data);
@@ -3301,12 +3527,11 @@
           true
         ));
       }
-      if (record.run_log_path) links.append(consoleLinkButton("Open run reports →", `#logs:${record.id}`));
-      if (record.log_path === "framework/logs/AGENT_AUDIT_LOG.md") {
-        links.append(consoleLinkButton("Open activity ledger →", "#logs:agents"));
-      } else if (record.log_path) {
-        links.append(linkButton("Open activity log ↗", `${GITHUB_BLOB_ROOT}${record.log_path}`, true));
-      }
+      links.append(consoleLinkButton(
+        "Open filtered log →",
+        record.id === "elim" ? "#logs:elim" : `#logs:agents:${record.id}`
+      ));
+      if (record.log_path) links.append(linkButton("Open authoritative log ↗", `${GITHUB_BLOB_ROOT}${record.log_path}`, true));
       if (failure) {
         const error = element("div", "automation-card-error");
         error.setAttribute("role", "alert");
@@ -3318,10 +3543,36 @@
       }
       body.append(element("p", "", record.description || "Authoritative operating configuration."), details);
       body.append(links);
+      const runbook = element("section", "automation-runbook");
+      runbook.append(
+        element("h4", "", "Complete runbook details"),
+        element("p", "muted", "Every section below is parsed from the authoritative runbook; the linked source remains controlling.")
+      );
+      const sections = Array.isArray(record.runbook_sections) ? record.runbook_sections : [];
+      const sectionList = element("div", "automation-runbook-sections");
+      sections.forEach((section, index) => {
+        const disclosure = element("details", "automation-runbook-section");
+        disclosure.dataset.disclosureId = `automation-runbook-${record.id}-${section.id || index}`;
+        const heading = element("summary", "");
+        heading.append(
+          element("strong", "", section.title || `Runbook section ${index + 1}`),
+          element("span", "overview-row-meta", "Authoritative detail")
+        );
+        const content = element("div", "markdown-body automation-runbook-content");
+        // The builder escapes source HTML and emits only allowlisted markup.
+        content.innerHTML = section.html || "";
+        disclosure.append(heading, content);
+        sectionList.append(disclosure);
+      });
+      runbook.append(sections.length
+        ? sectionList
+        : element("p", "empty-state compact-empty", "No second-level runbook sections were available in this snapshot."));
+      body.append(runbook);
       card.append(summary, body);
       return card;
     }));
     renderRunChain();
+    populateCoordinatorControlChoices();
     refreshLayoutZones();
   }
 
@@ -3484,6 +3735,8 @@
       if (!response.ok) return;
       const snapshot = await response.json();
       if (!snapshot || typeof snapshot !== "object" || Array.isArray(snapshot)) return;
+      captureSuccessfulStageHistory(data.run_chain);
+      captureSuccessfulStageHistory(snapshot);
       data.run_chain = reconcileRunChainSnapshot(
         data.run_chain,
         snapshot,
@@ -3513,6 +3766,58 @@
       "coordinator-resolution-reason",
       "coordinator-resolve-action"
     ].map(byId).filter(Boolean);
+  }
+
+  function populateCoordinatorControlChoices() {
+    const workSelect = byId("coordinator-work-unit");
+    const actionSelect = byId("coordinator-action-item");
+    if (!workSelect || !actionSelect) return;
+
+    const workItems = [];
+    const queue = data.run_chain?.work_queue || {};
+    if (Array.isArray(queue.items)) workItems.push(...queue.items);
+    if (queue.next_item) workItems.push(queue.next_item);
+    Object.keys(data.run_chain?.control_overrides || {}).forEach((id) => {
+      workItems.push({ id, title: "Existing user-owned override" });
+    });
+    const uniqueWorkItems = new Map();
+    workItems.filter((item) => item?.id).forEach((item) => uniqueWorkItems.set(String(item.id), item));
+    const previousWork = workSelect.value;
+    const workOptions = [element("option", "", uniqueWorkItems.size ? "Choose a work item…" : "No published work items")];
+    workOptions[0].value = "";
+    uniqueWorkItems.forEach((item, id) => {
+      const option = element("option", "", `${item.title || item.exact_next_action || "Queued work item"} · ${id}`);
+      option.value = id;
+      option.title = item.exact_next_action || item.reason || item.title || id;
+      workOptions.push(option);
+    });
+    workSelect.replaceChildren(...workOptions);
+    if (uniqueWorkItems.has(previousWork)) workSelect.value = previousWork;
+
+    const unresolved = (data.run_chain?.host_action_items || []).filter((item) => item && item.resolved !== true);
+    const previousAction = actionSelect.value;
+    const actionOptions = [element("option", "", unresolved.length ? "Choose an alert…" : "No unresolved alerts")];
+    actionOptions[0].value = "";
+    unresolved.forEach((item) => {
+      const option = element("option", "", `${item.stage || "Automation"} · ${item.summary || item.details || item.id}`);
+      option.value = item.id;
+      option.title = item.details || item.next_action || item.summary || item.id;
+      actionOptions.push(option);
+    });
+    actionSelect.replaceChildren(...actionOptions);
+    if (unresolved.some((item) => item.id === previousAction)) actionSelect.value = previousAction;
+
+    const workSelected = Boolean(workSelect.value);
+    const actionSelected = Boolean(actionSelect.value);
+    workSelect.disabled = !coordinatorControlsAvailable || uniqueWorkItems.size === 0;
+    actionSelect.disabled = !coordinatorControlsAvailable || unresolved.length === 0;
+    byId("coordinator-priority").disabled = !coordinatorControlsAvailable || !workSelected;
+    byId("coordinator-override-reason").disabled = !coordinatorControlsAvailable || !workSelected;
+    byId("coordinator-resolution-reason").disabled = !coordinatorControlsAvailable || !actionSelected;
+    ["coordinator-prioritize", "coordinator-suppress", "coordinator-clear"].forEach((id) => {
+      byId(id).disabled = !coordinatorControlsAvailable || !workSelected;
+    });
+    byId("coordinator-resolve-action").disabled = !coordinatorControlsAvailable || !actionSelected;
   }
 
   function coordinatorControlOriginAllowed() {
@@ -3573,6 +3878,7 @@
           item.resolution_reason = payload.reason;
         }
         renderActionItems();
+        populateCoordinatorControlChoices();
       }
       reportStatus(result.message || "Coordinator request accepted.", "success");
       window.setTimeout(refreshLiveRunChain, 500);
@@ -3584,6 +3890,7 @@
   async function initializeCoordinatorControls() {
     const controls = coordinatorControlElements();
     if (!coordinatorControlOriginAllowed()) {
+      coordinatorControlsAvailable = false;
       controls.forEach((control) => { control.disabled = true; });
       setCoordinatorControlStatus("Read-only preview. Serve the Console from localhost:8765 and start the coordinator control service to use these controls.");
       setOverviewRefreshStatus("Read-only preview; local coordinator unavailable.");
@@ -3595,9 +3902,14 @@
       if (!response.ok) throw new Error(`status ${response.status}`);
       const result = await response.json();
       if (!result.available || !result.control || !result.control_token) throw new Error("control service unavailable");
+      coordinatorControlsAvailable = true;
+      controls.forEach((control) => { control.disabled = false; });
       if (result.manifest && typeof result.manifest === "object") {
         const localManifest = {
           ...result.manifest,
+          control_overrides: result.control.overrides && typeof result.control.overrides === "object"
+            ? result.control.overrides
+            : {},
           host_action_items: Array.isArray(result.control.action_items)
           ? result.control.action_items
           : [],
@@ -3610,6 +3922,8 @@
           localManifest.chain_id
         );
         if (runtime) localManifest.elim_runtime = runtime;
+        captureSuccessfulStageHistory(data.run_chain);
+        captureSuccessfulStageHistory(localManifest);
         data.run_chain = reconcileRunChainSnapshot(
           data.run_chain,
           localManifest,
@@ -3619,10 +3933,12 @@
         renderOverview();
         renderActionItems();
       }
+      populateCoordinatorControlChoices();
       sessionStorage.setItem("arrp-run-coordinator-control-token", result.control_token);
       setCoordinatorControlStatus("Local coordinator available.");
       setOverviewRefreshStatus("Local coordinator available.");
     } catch (_error) {
+      coordinatorControlsAvailable = false;
       controls.forEach((control) => { control.disabled = true; });
       setCoordinatorControlStatus("Local coordinator is not running. The Console remains read-only.");
       setOverviewRefreshStatus("Local coordinator is not running.");
@@ -3635,14 +3951,19 @@
       coordinatorControlRequest({ action: "request_run" }, true));
     byId("coordinator-request-run").addEventListener("click", () =>
       coordinatorControlRequest({ action: "request_run" }));
-    byId("coordinator-request-review").addEventListener("click", () =>
-      coordinatorControlRequest({ action: "request_comprehensive_review", full_context: true }));
+    byId("coordinator-request-review").addEventListener("click", () => {
+      if (window.confirm("Request a full project review? This loads the complete registered project context and can use substantially more resources.")) {
+        coordinatorControlRequest({ action: "request_comprehensive_review", full_context: true });
+      }
+    });
+    byId("coordinator-work-unit").addEventListener("change", populateCoordinatorControlChoices);
+    byId("coordinator-action-item").addEventListener("change", populateCoordinatorControlChoices);
 
     const queuePayload = (action) => {
       const workUnitId = byId("coordinator-work-unit").value.trim();
       const reason = byId("coordinator-override-reason").value.trim();
       if (!workUnitId) {
-        setCoordinatorControlStatus("Enter the exact work-unit ID before changing its queue override.", "warning");
+        setCoordinatorControlStatus("Choose a published work item before changing its queue override.", "warning");
         return null;
       }
       if (action === "suppress" && !reason) {
@@ -3658,28 +3979,36 @@
     };
     byId("coordinator-prioritize").addEventListener("click", () => {
       const payload = queuePayload("reprioritize");
-      if (payload) coordinatorControlRequest(payload);
+      if (payload && window.confirm(`Save a ${payload.priority} user-owned priority for ${payload.work_unit_id}?`)) {
+        coordinatorControlRequest(payload);
+      }
     });
     byId("coordinator-suppress").addEventListener("click", () => {
       const payload = queuePayload("suppress");
-      if (payload) coordinatorControlRequest(payload);
+      if (payload && window.confirm(`Pause ${payload.work_unit_id} in your local automation queue? System state and history remain preserved.`)) {
+        coordinatorControlRequest(payload);
+      }
     });
     byId("coordinator-clear").addEventListener("click", () => {
       const payload = queuePayload("clear_override");
-      if (payload) coordinatorControlRequest(payload);
+      if (payload && window.confirm(`Remove your queue override for ${payload.work_unit_id} and restore system ordering?`)) {
+        coordinatorControlRequest(payload);
+      }
     });
     byId("coordinator-resolve-action").addEventListener("click", () => {
       const actionItemId = byId("coordinator-action-item").value.trim();
       const reason = byId("coordinator-resolution-reason").value.trim();
       if (!actionItemId || !reason) {
-        setCoordinatorControlStatus("Enter both the exact action-item ID and the resolution record.", "warning");
+        setCoordinatorControlStatus("Choose an unresolved alert and enter its resolution record.", "warning");
         return;
       }
-      coordinatorControlRequest({
-        action: "resolve_action_item",
-        action_item_id: actionItemId,
-        reason
-      });
+      if (window.confirm(`Record ${actionItemId} as resolved? Its history will remain preserved.`)) {
+        coordinatorControlRequest({
+          action: "resolve_action_item",
+          action_item_id: actionItemId,
+          reason
+        });
+      }
     });
   }
 
@@ -4829,7 +5158,7 @@
         renderProjectLog(log.id);
       });
       if (log.id === "agents") {
-        [["agent", "All agents"], ["task", "All task types"], ["outcome", "All outcomes"]].forEach(([key, label]) => {
+        [["agent", "All bots and historical automation"], ["task", "All task types"], ["outcome", "All outcomes"]].forEach(([key, label]) => {
           const select = byId(`log-agents-${key}`);
           populateSelect(select, [...new Set(log.entries.map((entry) => (entry.values || {})[key]).filter(Boolean))], label);
           select.addEventListener("change", (event) => {

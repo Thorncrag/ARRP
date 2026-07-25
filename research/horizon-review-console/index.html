@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>ARRP Project Console</title>
     <meta name="description" content="ARRP project progress, candidate, source, monitoring, automation, log, and print-planning console.">
-    <link rel="stylesheet" href="styles.css?v=42">
+    <link rel="stylesheet" href="styles.css?v=43">
   </head>
   <body data-interface-theme="arrp-tool">
     <a class="skip-link" href="#console-tabs">Skip to console tabs</a>
@@ -92,41 +92,20 @@
           </section>
           <section class="overview-section" id="overview-overnight-section" data-layout-id="overview-overnight-section" aria-labelledby="overview-overnight-heading">
             <div class="section-heading-row">
-              <div><h3 id="overview-overnight-heading">Latest automated activity</h3><p>The current chain and the most recently recorded Elim result, with detailed records one click away.</p></div>
+              <div><h3 id="overview-overnight-heading">Latest automated activity</h3><p>One current status portlet for every registered agent and bot, linked to its complete runbook-derived detail and recovery state.</p></div>
             </div>
-            <div class="overview-overnight-grid" id="overview-overnight-grid">
-              <article class="overview-operations-card" data-layout-id="overview-latest-chain">
-                <div class="overview-card-heading">
-                  <div><span class="eyebrow">Latest run-chain</span><h4 id="overview-chain-title">Awaiting baseline</h4></div>
-                  <a class="record-link secondary compact-link" href="#automation:administration">Details →</a>
-                </div>
-                <p id="overview-chain-summary" class="compact-summary"></p>
-                <div id="overview-chain-stages" class="overview-chain-stages" aria-label="Run-chain stage results"></div>
-              </article>
-              <article class="overview-operations-card" data-layout-id="overview-elim-work">
-                <div class="overview-card-heading">
-                  <div><span class="eyebrow">Elim</span><h4 id="overview-elim-title">Latest recorded run</h4></div>
-                  <a class="record-link secondary compact-link" href="#logs:elim">Run log →</a>
-                </div>
-                <p id="overview-elim-summary" class="compact-summary"></p>
-                <div id="overview-elim-improvements" class="overview-elim-improvements"></div>
-              </article>
-            </div>
+            <div class="overview-automation-activity-grid" id="overview-automation-activity-grid"></div>
           </section>
           <section class="overview-section overview-portals-section" id="overview-portals-section" data-layout-id="overview-portals-section" aria-labelledby="overview-portals-heading">
             <div class="section-heading-row"><div><h3 id="overview-portals-heading">Operational portals</h3><p>Authoritative counts or an explicit unavailable state—never a guessed zero.</p></div></div>
             <div class="overview-portals" id="overview-portals"></div>
           </section>
           <section class="overview-section" id="overview-recent-section" data-layout-id="overview-recent-section" aria-labelledby="overview-recent-heading">
-            <div class="section-heading-row"><div><h3 id="overview-recent-heading">Recent actions and accepted decisions</h3><p>Scan the lines first; expand only the entries that warrant context.</p></div></div>
-            <div class="overview-recent-grid">
+            <div class="section-heading-row"><div><h3 id="overview-recent-heading">Recent automated actions</h3><p>Recent agent and bot activity only; human-authored project actions are intentionally excluded for now.</p></div></div>
+            <div class="overview-recent-grid single">
               <div class="overview-list-panel">
-                <h4>Recent project actions</h4>
+                <h4>Agent and bot activity</h4>
                 <div id="overview-recent-actions" class="overview-expandable-list"></div>
-              </div>
-              <div class="overview-list-panel">
-                <h4>Accepted Horizon decisions</h4>
-                <div id="overview-recent-decisions" class="overview-expandable-list"></div>
               </div>
             </div>
           </section>
@@ -161,7 +140,7 @@
           </section>
           <section class="overview-section" id="overview-queues-section" data-layout-id="overview-queues-section" aria-labelledby="overview-queues-heading">
             <div class="section-heading-row">
-              <div><h3 id="overview-queues-heading">Complete queue directory</h3><p>Every operational queue in one compact index, including empty and temporarily unavailable queues.</p></div>
+              <div><h3 id="overview-queues-heading">Operational queues</h3><p>Every queue is visible as its own portlet with a count, owner, posture, and direct destination. Empty queues remain visible as Empty.</p></div>
               <span id="overview-queues-summary" class="disclosure-summary-detail">Counting queues…</span>
             </div>
             <div id="overview-queue-directory" class="overview-queue-directory"></div>
@@ -255,7 +234,7 @@
       <nav class="section-tabs" aria-label="Candidate views">
         <div class="section-tab-list" role="tablist" aria-label="Candidate views">
           <button type="button" id="candidate-tab-formal" role="tab" aria-selected="true" aria-controls="candidate-panel-formal" data-subtab-group="candidates" data-subtab="formal">Candidates <span class="tab-count" id="candidate-formal-count">0</span></button>
-          <button type="button" id="candidate-tab-preliminary" role="tab" aria-selected="false" aria-controls="candidate-panel-preliminary" data-subtab-group="candidates" data-subtab="preliminary" tabindex="-1">Preliminary candidates <span class="tab-count" id="candidate-preliminary-count">0</span></button>
+          <button type="button" id="candidate-tab-preliminary" role="tab" aria-selected="false" aria-controls="candidate-panel-preliminary" data-subtab-group="candidates" data-subtab="preliminary" tabindex="-1">Preliminary candidates <span class="tab-count" id="candidate-preliminary-count">0</span><span class="tab-update-count" id="candidate-preliminary-update" hidden>0</span></button>
         </div>
       </nav>
       <div class="section-panel" id="candidate-panel-formal" role="tabpanel" aria-labelledby="candidate-tab-formal" tabindex="0">
@@ -443,6 +422,13 @@
             <div class="integrity-run-note"><span id="integrity-status" class="status-badge">Awaiting first run</span><p>Integrity feed checked <time id="integrity-as-of">—</time></p></div>
           </div>
           <div class="integrity-metrics" id="integrity-metrics"></div>
+          <section class="integrity-run-portals" id="integrity-run-portals" aria-labelledby="integrity-run-portals-heading">
+            <div class="section-heading-row">
+              <div><h3 id="integrity-run-portals-heading">Integrity run status</h3><p>Current and retained run posture belongs with the Integrity workspace; complete historical entries remain under Logs.</p></div>
+              <a class="record-link secondary" href="#logs:integrity">Open Integrity log →</a>
+            </div>
+            <div class="integrity-log-summary" id="integrity-log-summary"></div>
+          </section>
           <div class="queue-controls problem-controls">
             <label for="problem-search">Search<input id="problem-search" type="search" placeholder="Reference, issue, category, owner, or explanation…"></label>
             <label for="problem-owner">Accountable owner<select id="problem-owner"><option value="all">All owners</option></select></label>
@@ -464,7 +450,7 @@
         <nav class="section-tabs" aria-label="Agent and bot views">
           <div class="section-tab-list" role="tablist" aria-label="Agent and bot views">
             <button type="button" id="automation-tab-administration" role="tab" aria-selected="true" aria-controls="automation-panel-administration" data-subtab-group="automation" data-subtab="administration">Administration</button>
-            <button type="button" id="automation-tab-workers" role="tab" aria-selected="false" aria-controls="automation-panel-workers" data-subtab-group="automation" data-subtab="workers" tabindex="-1">Workers <span class="tab-count" id="automation-workers-count">0</span></button>
+            <button type="button" id="automation-tab-agents" role="tab" aria-selected="false" aria-controls="automation-panel-agents" data-subtab-group="automation" data-subtab="agents" tabindex="-1">Agents &amp; Bots <span class="tab-count" id="automation-agents-count">0</span></button>
           </div>
         </nav>
 
@@ -474,7 +460,7 @@
             <div>
               <span class="eyebrow">Automation administration</span>
               <h2 id="automation-heading">Run-chain control center</h2>
-              <p>The durable operating picture for how ARRP automation starts, proceeds, stops, recovers, and hands work to Elim. The runbooks and reviewed runtime configuration remain authoritative.</p>
+              <p>An at-a-glance overview of registered automation, the current serialized chain, recovery posture, and safe coordinator requests. Complete role details remain under Agents &amp; Bots.</p>
             </div>
             <div class="section-heading-actions">
               <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/agents/RUN_COORDINATOR_BOT.md" target="_blank" rel="noopener noreferrer">Open coordinator runbook ↗</a>
@@ -482,63 +468,17 @@
             </div>
           </div>
 
-          <section class="automation-administration" aria-labelledby="automation-cascade-heading">
+          <section class="automation-administration-overview" aria-labelledby="automation-overview-heading">
             <div class="section-heading-row">
               <div>
-                <span class="eyebrow">One serialized cascade</span>
-                <h3 id="automation-cascade-heading">How every run proceeds</h3>
-                <p>The coordinator evaluates whether each stage is due. A current stage is recorded as not due rather than needlessly rerun.</p>
+                <span class="eyebrow">Registered automation</span>
+                <h3 id="automation-overview-heading">Administration overview</h3>
+                <p>Current identity, availability, and latest execution posture for every persistent agent and bot.</p>
               </div>
-              <span class="status-badge success">Elim runs last</span>
+              <a class="record-link secondary" href="#automation:agents">Open complete agent and bot details →</a>
             </div>
-            <div class="automation-cascade" role="list" aria-label="Run-chain administration sequence">
-              <article class="automation-cascade-step" role="listitem">
-                <span class="automation-step-number">1</span>
-                <div><span class="eyebrow">Trigger</span><h4>Start or join one chain</h4><p><b>Daily at 04:17 UTC</b>, relevant main push, public-intake event, Review Epoch deadline, or manual request.</p></div>
-              </article>
-              <article class="automation-cascade-step" role="listitem">
-                <span class="automation-step-number">2</span>
-                <div><span class="eyebrow">Boundary</span><h4>Reconcile, lock, and preflight</h4><p>On synchronized <code>main</code>, commit and fast-forward push ordinary local changes, then wait for the next poll. Branch or history divergence stops for review. A run then requires one active chain, current credentials, a recorded baseline, and a clean isolated checkout.</p></div>
-              </article>
-              <article class="automation-cascade-step" role="listitem">
-                <span class="automation-step-number">3</span>
-                <div><span class="eyebrow">Observe</span><h4>Run due external checks</h4><p>Cases and directives every 24 hours; source URLs every 168 hours; intake cursor reconciliation every chain.</p></div>
-              </article>
-              <article class="automation-cascade-step" role="listitem">
-                <span class="automation-step-number">4</span>
-                <div><span class="eyebrow">Refresh</span><h4>Update project progress</h4><p>Refresh GitHub Project and Console progress every 24 hours, or when a relevant configuration push requires it.</p></div>
-              </article>
-              <article class="automation-cascade-step" role="listitem">
-                <span class="automation-step-number">5</span>
-                <div><span class="eyebrow">Verify</span><h4>Run Integrity Bot</h4><p>Run after all other deterministic inputs on every chain so stale, missing, failed, or contradictory state is visible.</p></div>
-              </article>
-              <article class="automation-cascade-step" role="listitem">
-                <span class="automation-step-number">6</span>
-                <div><span class="eyebrow">Route</span><h4>Build queue and context</h4><p>Create bounded, provenance-bearing work units and preserve every hash-checked input. A due comprehensive review selects full context even when ordinary work ranks higher.</p></div>
-              </article>
-              <article class="automation-cascade-step" role="listitem">
-                <span class="automation-step-number">7</span>
-                <div><span class="eyebrow">Judge</span><h4>Apply usage gate; maybe run Elim</h4><p>Protect the 15% reserve and 10-point soft target with a fresh host baseline and a 60-second official monitor. Launch Elim only for eligible LLM-owned work; otherwise close with no model turn.</p></div>
-              </article>
-              <article class="automation-cascade-step" role="listitem">
-                <span class="automation-step-number">8</span>
-                <div><span class="eyebrow">Close</span><h4>Validate, publish, and notify</h4><p>After Elim, permit only deterministic validation, readback, structured closeout, Console publication, notification, and lock release.</p></div>
-              </article>
-            </div>
-          </section>
-
-          <section class="automation-rule-section" aria-labelledby="automation-rules-heading">
-            <div class="section-heading-row">
-              <div><h3 id="automation-rules-heading">Administration rules</h3><p>The invariants that prevent overlap, silent drift, runaway usage, and unauthorized decisions.</p></div>
-            </div>
-            <div class="automation-rule-grid">
-              <article><span class="eyebrow">Repository safety</span><h4>Clean, synchronized, exclusive</h4><p>The chain defers rather than absorbing, stashing, overwriting, or committing interactive work. GitHub concurrency and the local lock prevent overlap.</p></article>
-              <article><span class="eyebrow">Failure behavior</span><h4>Fail visibly and preserve recovery</h4><p>Only allowlisted transient or mechanical recovery is automatic. Blocking failures stop unreliable downstream work and create a visible alert and exact next action.</p></article>
-              <article><span class="eyebrow">Authority</span><h4>Detection is not permission</h4><p>Bots write only bounded generated outputs. Elim follows its runbook. Rubrics, foundations, final dispositions, publication, and other reserved judgments remain human-controlled.</p></article>
-              <article><span class="eyebrow">LLM economy</span><h4>No eligible work, no model turn</h4><p>Deterministic collection, validation, routing, and no-op closeout remain script-based. Automated efficiency limits do not restrict comprehensive interactive work with the user.</p></article>
-              <article><span class="eyebrow">Review Epoch</span><h4>Comprehensive review every 14 days</h4><p>Each epoch establishes a look-back boundary. Its full-context unit controls launch routing and must be recorded before the chain can close successfully. Moving to monthly review requires recorded human approval.</p></article>
-              <article><span class="eyebrow">Public intake</span><h4>Event first, content only when needed</h4><p>The chain checks a content-free pending marker and durable cursor before Elim loads any public submission. Missed events are reconciled without repeated semantic review.</p></article>
-            </div>
+            <div class="automation-summary" id="automation-summary"></div>
+            <div class="automation-overview-grid" id="automation-overview-grid"></div>
           </section>
 
           <section class="automation-chain" aria-labelledby="automation-chain-heading">
@@ -565,32 +505,45 @@
               <a class="record-link secondary" href="#logs:elim">Open Elim run reports →</a>
             </div>
             <section class="coordinator-controls" aria-labelledby="coordinator-controls-heading">
-              <div>
+              <div class="coordinator-controls-intro">
                 <h4 id="coordinator-controls-heading">Manual coordinator controls</h4>
-                <p id="coordinator-control-status">Checking for an approved localhost coordinator…</p>
+                <p>Guided requests to the local coordinator. These controls never edit project records or select an agent directly.</p>
+                <p id="coordinator-control-status" role="status" aria-live="polite">Checking for an approved localhost coordinator…</p>
               </div>
-              <div class="coordinator-primary-actions">
-                <button type="button" id="coordinator-request-run">Request run</button>
-                <button type="button" id="coordinator-request-review" class="secondary">Request comprehensive review with full context</button>
-              </div>
-              <div class="coordinator-queue-controls">
-                <label for="coordinator-work-unit">Work-unit ID<input id="coordinator-work-unit" type="text" placeholder="WU-…" autocomplete="off"></label>
-                <label for="coordinator-priority">Priority<select id="coordinator-priority"><option value="critical">Critical</option><option value="high">High</option><option value="normal" selected>Normal</option><option value="low">Low</option></select></label>
-                <label for="coordinator-override-reason">Reason<input id="coordinator-override-reason" type="text" placeholder="Why this override is needed" autocomplete="off"></label>
-                <div class="coordinator-queue-actions">
-                  <button type="button" id="coordinator-prioritize" class="secondary">Set priority</button>
-                  <button type="button" id="coordinator-suppress" class="secondary">Suppress</button>
-                  <button type="button" id="coordinator-clear" class="secondary">Clear my override</button>
+              <fieldset class="coordinator-control-group">
+                <legend>Start automation</legend>
+                <p>Ask the coordinator to evaluate the current queues now. A full review loads the complete registered project context and is substantially larger.</p>
+                <div class="coordinator-primary-actions">
+                  <button type="button" id="coordinator-request-run">Evaluate current queues now</button>
+                  <button type="button" id="coordinator-request-review" class="secondary">Request full project review</button>
                 </div>
-              </div>
-              <div class="coordinator-queue-controls">
-                <label for="coordinator-action-item">Action-item ID<input id="coordinator-action-item" type="text" placeholder="automation-failure-…" autocomplete="off"></label>
-                <label for="coordinator-resolution-reason">Resolution record<input id="coordinator-resolution-reason" type="text" placeholder="What was reviewed or corrected" autocomplete="off"></label>
-                <div class="coordinator-queue-actions">
-                  <button type="button" id="coordinator-resolve-action" class="secondary">Mark reviewed and resolved</button>
+              </fieldset>
+              <fieldset class="coordinator-control-group">
+                <legend>Adjust one queued work item</legend>
+                <p>Choose a published work unit, then save a temporary user-owned priority or pause. Removing the override restores system queue ordering.</p>
+                <div class="coordinator-queue-controls">
+                  <label for="coordinator-work-unit">Queued work item<select id="coordinator-work-unit"><option value="">Choose a work item…</option></select></label>
+                  <label for="coordinator-priority">Requested priority<select id="coordinator-priority"><option value="critical">Critical</option><option value="high">High</option><option value="normal" selected>Normal</option><option value="low">Low</option></select></label>
+                  <label for="coordinator-override-reason">Reason or note<input id="coordinator-override-reason" type="text" placeholder="Why this override is useful" autocomplete="off"></label>
+                  <div class="coordinator-queue-actions">
+                    <button type="button" id="coordinator-prioritize" class="secondary">Save priority</button>
+                    <button type="button" id="coordinator-suppress" class="secondary">Pause this item</button>
+                    <button type="button" id="coordinator-clear" class="secondary">Remove my override</button>
+                  </div>
                 </div>
-              </div>
-              <p class="muted">Controls create coordinator requests, user-owned queue overrides, or an explicit human resolution record. They cannot change project records; clearing an override cannot remove system state, and resolving an alert never deletes its history.</p>
+              </fieldset>
+              <fieldset class="coordinator-control-group">
+                <legend>Record an automation alert as resolved</legend>
+                <p>Choose an unresolved alert and describe what was reviewed or corrected. The history remains preserved.</p>
+                <div class="coordinator-queue-controls resolution">
+                  <label for="coordinator-action-item">Unresolved alert<select id="coordinator-action-item"><option value="">Choose an alert…</option></select></label>
+                  <label for="coordinator-resolution-reason">Resolution record<input id="coordinator-resolution-reason" type="text" placeholder="What was reviewed or corrected" autocomplete="off"></label>
+                  <div class="coordinator-queue-actions">
+                    <button type="button" id="coordinator-resolve-action" class="secondary">Record as resolved</button>
+                  </div>
+                </div>
+              </fieldset>
+              <p class="muted">Consequential requests require confirmation. Clearing an override cannot remove system state, and resolving an alert never deletes its history.</p>
             </section>
           </section>
           <section class="automation-change-boundary" aria-labelledby="automation-change-boundary-heading">
@@ -599,29 +552,28 @@
               <p>The controls above may request a run or comprehensive review and may create or clear only your queue overrides. Schedule, stage order, usage limits, permissions, and runbook rules require a reviewed repository change so the displayed design and deployed behavior cannot silently diverge.</p>
             </div>
             <div class="source-list dossier-actions">
-              <a class="record-link secondary" href="#automation:workers">Inspect registered workers →</a>
-              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/agents/README.md" target="_blank" rel="noopener noreferrer">Open worker registry ↗</a>
+              <a class="record-link secondary" href="#automation:agents">Inspect Agents &amp; Bots →</a>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/agents/README.md" target="_blank" rel="noopener noreferrer">Open agent and bot registry ↗</a>
             </div>
           </section>
         </section>
         </div>
 
-        <div class="section-panel" id="automation-panel-workers" role="tabpanel" aria-labelledby="automation-tab-workers" tabindex="0" hidden>
-          <section class="queue-view automation-view" aria-labelledby="automation-workers-heading">
+        <div class="section-panel" id="automation-panel-agents" role="tabpanel" aria-labelledby="automation-tab-agents" tabindex="0" hidden>
+          <section class="queue-view automation-view" aria-labelledby="automation-agents-heading">
             <div class="queue-view-header">
               <div>
-                <span class="eyebrow">Persistent project workers</span>
-                <h2 id="automation-workers-heading">Agents and bots</h2>
-                <p>The current identity, status, execution environment, cadence, operating boundary, and direct records for every named persistent worker.</p>
+                <span class="eyebrow">Runbook-derived operational directory</span>
+                <h2 id="automation-agents-heading">Agents &amp; Bots</h2>
+                <p>Complete details parsed from each authoritative runbook, together with current status, latest execution, recovery posture, runtime records, and filtered log access.</p>
               </div>
               <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/agents/README.md" target="_blank" rel="noopener noreferrer">Open registry ↗</a>
             </div>
-            <div class="automation-summary" id="automation-summary"></div>
             <div class="automation-grid" id="automation-grid"></div>
             <section class="automation-guidance" aria-labelledby="automation-guidance-heading">
               <h3 id="automation-guidance-heading">Operating distinction</h3>
               <p>Agents use LLM judgment within their runbook authority. Bots execute deterministic programs and use the <code>-bot</code> designation. Every material action records shared provenance; human-reserved decisions remain in Action Items.</p>
-              <div class="source-list dossier-actions"><a class="record-link secondary" href="#automation:administration">Open automation administration →</a><a class="record-link secondary" href="#logs:elim">Open Elim run reports →</a><a class="record-link secondary" href="#logs:agents">Open autonomous actions →</a><a class="record-link secondary" href="#integrity">Open all problems →</a></div>
+              <div class="source-list dossier-actions"><a class="record-link secondary" href="#automation:administration">Open Administration →</a><a class="record-link secondary" href="#logs:elim">Open Elim log →</a><a class="record-link secondary" href="#logs:agents">Open Bots log →</a><a class="record-link secondary" href="#integrity">Open all problems →</a></div>
             </section>
           </section>
         </div>
@@ -631,9 +583,9 @@
         <nav class="section-tabs" aria-label="Project log views">
           <div class="section-tab-list" role="tablist" aria-label="Project logs">
             <button type="button" id="log-tab-horizon" role="tab" aria-selected="true" aria-controls="log-panel-horizon" data-subtab-group="logs" data-subtab="horizon">Horizon <span class="tab-count" id="log-horizon-count">0</span></button>
-            <button type="button" id="log-tab-elim" role="tab" aria-selected="false" aria-controls="log-panel-elim" data-subtab-group="logs" data-subtab="elim" tabindex="-1">Elim Runs <span class="tab-count" id="log-elim-count">0</span></button>
-            <button type="button" id="log-tab-agents" role="tab" aria-selected="false" aria-controls="log-panel-agents" data-subtab-group="logs" data-subtab="agents" tabindex="-1">Actions <span class="tab-count" id="log-agents-count">0</span></button>
-            <button type="button" id="log-tab-source-monitor" role="tab" aria-selected="false" aria-controls="log-panel-source-monitor" data-subtab-group="logs" data-subtab="source-monitor" tabindex="-1">Source Log <span class="tab-count" id="log-source-monitor-count">0</span></button>
+            <button type="button" id="log-tab-elim" role="tab" aria-selected="false" aria-controls="log-panel-elim" data-subtab-group="logs" data-subtab="elim" tabindex="-1">Elim <span class="tab-count" id="log-elim-count">0</span></button>
+            <button type="button" id="log-tab-agents" role="tab" aria-selected="false" aria-controls="log-panel-agents" data-subtab-group="logs" data-subtab="agents" tabindex="-1">Bots <span class="tab-count" id="log-agents-count">0</span></button>
+            <button type="button" id="log-tab-source-monitor" role="tab" aria-selected="false" aria-controls="log-panel-source-monitor" data-subtab-group="logs" data-subtab="source-monitor" tabindex="-1">Sources <span class="tab-count" id="log-source-monitor-count">0</span></button>
             <button type="button" id="log-tab-integrity" role="tab" aria-selected="false" aria-controls="log-panel-integrity" data-subtab-group="logs" data-subtab="integrity" tabindex="-1">Integrity <span class="tab-count" id="log-integrity-count">0</span></button>
             <button type="button" id="log-tab-changes" role="tab" aria-selected="false" aria-controls="log-panel-changes" data-subtab-group="logs" data-subtab="changes" tabindex="-1">Changes <span class="tab-count" id="log-changes-count">0</span></button>
           </div>
@@ -666,10 +618,10 @@
         <div class="section-panel" id="log-panel-agents" role="tabpanel" aria-labelledby="log-tab-agents" tabindex="0" hidden>
           <section class="queue-view log-view" aria-labelledby="log-agents-heading">
             <div class="queue-view-header">
-              <div><span class="eyebrow">Material-unit provenance</span><h2 id="log-agents-heading">Autonomous Action Ledger</h2><p>Cross-agent and bot material actions, validation, commits, rollback references, and unresolved blockers. Detailed issue audits and complete Elim run reports remain in their own records.</p></div>
+              <div><span class="eyebrow">Material-unit provenance</span><h2 id="log-agents-heading">Bot Activity Log</h2><p>Material bot and historical autonomous actions, validation, commits, rollback references, and unresolved blockers. Complete Elim run reports remain in the dedicated Elim log.</p></div>
               <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/AGENT_AUDIT_LOG.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
             </div>
-            <div class="queue-controls"><label for="log-agents-search">Search<input id="log-agents-search" type="search" placeholder="Issue, task, tier, agent, run, commit, or blocker…"></label><label for="log-agents-agent">Agent<select id="log-agents-agent"><option value="all">All agents</option></select></label><label for="log-agents-task">Task type<select id="log-agents-task"><option value="all">All task types</option></select></label><label for="log-agents-outcome">Outcome<select id="log-agents-outcome"><option value="all">All outcomes</option></select></label><label for="log-agents-group">Group by<select id="log-agents-group"><option value="all">No grouping</option></select></label></div>
+            <div class="queue-controls"><label for="log-agents-search">Search<input id="log-agents-search" type="search" placeholder="Issue, task, tier, bot, run, commit, or blocker…"></label><label for="log-agents-agent">Bot or historical automation<select id="log-agents-agent"><option value="all">All bots and historical automation</option></select></label><label for="log-agents-task">Task type<select id="log-agents-task"><option value="all">All task types</option></select></label><label for="log-agents-outcome">Outcome<select id="log-agents-outcome"><option value="all">All outcomes</option></select></label><label for="log-agents-group">Group by<select id="log-agents-group"><option value="all">No grouping</option></select></label></div>
             <p class="result-count"><b id="log-agents-visible">0</b> entries match</p>
             <div id="log-agents-table"></div>
           </section>
@@ -693,7 +645,6 @@
               <div><span class="eyebrow">Deterministic check history</span><h2 id="log-integrity-heading">Project Integrity Bot runs</h2><p>The bounded history of scheduled, push-triggered, and manual integrity runs. Current unresolved findings remain in Integrity; the runbook owns the check inventory.</p></div>
               <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/agents/PROJECT_INTEGRITY_BOT.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/project-integrity.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div>
             </div>
-            <div class="integrity-log-summary" id="integrity-log-summary"></div>
             <span id="log-integrity-visible" hidden>0</span>
             <div class="integrity-history-list" id="integrity-history"></div>
           </section>
@@ -794,46 +745,46 @@
 
     <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
 
-    <script src="catalog-data.js?v=42"></script>
-    <script src="data/candidates.js?v=42"></script>
-    <script src="data/sources.js?v=42"></script>
-    <script src="data/sources-catalog-001.js?v=42"></script>
-    <script src="data/sources-catalog-002.js?v=42"></script>
-    <script src="data/sources-catalog-003.js?v=42"></script>
-    <script src="data/sources-catalog-004.js?v=42"></script>
-    <script src="data/sources-catalog-005.js?v=42"></script>
-    <script src="data/sources-catalog-006.js?v=42"></script>
-    <script src="data/sources-catalog-007.js?v=42"></script>
-    <script src="data/sources-catalog-008.js?v=42"></script>
-    <script src="data/sources-catalog-009.js?v=42"></script>
-    <script src="data/sources-catalog-010.js?v=42"></script>
-    <script src="data/sources-catalog-011.js?v=42"></script>
-    <script src="data/sources-catalog-012.js?v=42"></script>
-    <script src="data/sources-catalog-013.js?v=42"></script>
-    <script src="data/sources-catalog-014.js?v=42"></script>
-    <script src="data/sources-catalog-015.js?v=42"></script>
-    <script src="data/sources-catalog-016.js?v=42"></script>
-    <script src="data/directives-catalog-001.js?v=42"></script>
-    <script src="data/directives-catalog-002.js?v=42"></script>
-    <script src="data/directives-catalog-003.js?v=42"></script>
-    <script src="data/directives-catalog-004.js?v=42"></script>
-    <script src="data/directives-catalog-005.js?v=42"></script>
-    <script src="data/directives-catalog-006.js?v=42"></script>
-    <script src="data/directives-catalog-007.js?v=42"></script>
-    <script src="data/directives-catalog-008.js?v=42"></script>
-    <script src="data/directives-catalog-009.js?v=42"></script>
-    <script src="data/directives-catalog-010.js?v=42"></script>
-    <script src="data/directives-catalog-011.js?v=42"></script>
-    <script src="data/directives-catalog-012.js?v=42"></script>
-    <script src="data/directives-catalog-013.js?v=42"></script>
-    <script src="data/directives-catalog-014.js?v=42"></script>
-    <script src="data/directives-catalog-015.js?v=42"></script>
-    <script src="data/directives-catalog-016.js?v=42"></script>
-    <script src="data/progress.js?v=42"></script>
-    <script src="data/integrity.js?v=42"></script>
-    <script src="data/automation.js?v=42"></script>
-    <script src="data/logs.js?v=42"></script>
-    <script src="data/publication.js?v=42"></script>
-    <script src="app.js?v=42"></script>
+    <script src="catalog-data.js?v=43"></script>
+    <script src="data/candidates.js?v=43"></script>
+    <script src="data/sources.js?v=43"></script>
+    <script src="data/sources-catalog-001.js?v=43"></script>
+    <script src="data/sources-catalog-002.js?v=43"></script>
+    <script src="data/sources-catalog-003.js?v=43"></script>
+    <script src="data/sources-catalog-004.js?v=43"></script>
+    <script src="data/sources-catalog-005.js?v=43"></script>
+    <script src="data/sources-catalog-006.js?v=43"></script>
+    <script src="data/sources-catalog-007.js?v=43"></script>
+    <script src="data/sources-catalog-008.js?v=43"></script>
+    <script src="data/sources-catalog-009.js?v=43"></script>
+    <script src="data/sources-catalog-010.js?v=43"></script>
+    <script src="data/sources-catalog-011.js?v=43"></script>
+    <script src="data/sources-catalog-012.js?v=43"></script>
+    <script src="data/sources-catalog-013.js?v=43"></script>
+    <script src="data/sources-catalog-014.js?v=43"></script>
+    <script src="data/sources-catalog-015.js?v=43"></script>
+    <script src="data/sources-catalog-016.js?v=43"></script>
+    <script src="data/directives-catalog-001.js?v=43"></script>
+    <script src="data/directives-catalog-002.js?v=43"></script>
+    <script src="data/directives-catalog-003.js?v=43"></script>
+    <script src="data/directives-catalog-004.js?v=43"></script>
+    <script src="data/directives-catalog-005.js?v=43"></script>
+    <script src="data/directives-catalog-006.js?v=43"></script>
+    <script src="data/directives-catalog-007.js?v=43"></script>
+    <script src="data/directives-catalog-008.js?v=43"></script>
+    <script src="data/directives-catalog-009.js?v=43"></script>
+    <script src="data/directives-catalog-010.js?v=43"></script>
+    <script src="data/directives-catalog-011.js?v=43"></script>
+    <script src="data/directives-catalog-012.js?v=43"></script>
+    <script src="data/directives-catalog-013.js?v=43"></script>
+    <script src="data/directives-catalog-014.js?v=43"></script>
+    <script src="data/directives-catalog-015.js?v=43"></script>
+    <script src="data/directives-catalog-016.js?v=43"></script>
+    <script src="data/progress.js?v=43"></script>
+    <script src="data/integrity.js?v=43"></script>
+    <script src="data/automation.js?v=43"></script>
+    <script src="data/logs.js?v=43"></script>
+    <script src="data/publication.js?v=43"></script>
+    <script src="app.js?v=43"></script>
   </body>
 </html>

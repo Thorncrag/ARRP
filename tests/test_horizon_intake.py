@@ -100,6 +100,32 @@ class HorizonIntakeTest(unittest.TestCase):
             snapshot_time({"generatedAt": "2026-07-24T21:57:24+00:00"}),
         )
 
+    def test_run_chain_success_history_survives_a_new_preflight_failure(self) -> None:
+        history = console_builder.successful_run_chain_stages(
+            {
+                "stages": [
+                    {
+                        "id": "case-monitor-bot",
+                        "status": "not_due",
+                        "last_success_at": "2026-07-25T04:17:45+00:00",
+                    }
+                ]
+            },
+            {
+                "stages": [
+                    {
+                        "id": "case-monitor-bot",
+                        "status": "succeeded",
+                        "completed_at": "2026-07-25T05:17:45+00:00",
+                    }
+                ]
+            },
+            {"status": "failed", "stages": []},
+        )
+        self.assertEqual(len(history), 1)
+        self.assertEqual(history[0]["status"], "succeeded")
+        self.assertEqual(history[0]["last_success_at"], "2026-07-25T05:17:45+00:00")
+
     def test_local_run_chain_uses_current_control_action_item_resolution(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -349,7 +375,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 24)
+        self.assertEqual(self.console["schema_version"], 25)
         self.assertEqual(
             set(self.console),
             {
@@ -428,6 +454,29 @@ class HorizonIntakeTest(unittest.TestCase):
             },
         )
         self.assertTrue(all(record["runbook_url"] for record in self.console["agent_registry"]))
+        self.assertTrue(all(record["runbook_sections"] for record in self.console["agent_registry"]))
+        self.assertTrue(
+            all(
+                {"id", "title", "html", "text"} <= set(section)
+                for record in self.console["agent_registry"]
+                for section in record["runbook_sections"]
+            )
+        )
+        self.assertTrue(
+            all(
+                "\x00" not in section["html"]
+                for record in self.console["agent_registry"]
+                for section in record["runbook_sections"]
+            )
+        )
+        self.assertTrue(
+            all(
+                "runtime_config" in record
+                and "runtime_config_url" in record
+                and "model_policy" in record
+                for record in self.console["agent_registry"]
+            )
+        )
         elim = next(
             record
             for record in self.console["agent_registry"]
@@ -987,6 +1036,12 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("&lt;script&gt;alert(1)&lt;/script&gt;", rendered)
         self.assertNotIn("<script>", rendered)
         self.assertNotIn("javascript:", rendered)
+        code_link = render_markdown_safe(
+            "[`check_codex_usage_reserve.py`](../scripts/check_codex_usage_reserve.py)"
+        )
+        self.assertIn("<code>check_codex_usage_reserve.py</code>", code_link)
+        self.assertIn('href="../scripts/check_codex_usage_reserve.py"', code_link)
+        self.assertNotIn("\x00", code_link)
 
     def test_standalone_submission_prototype_has_minimal_lookup_and_page_context(self) -> None:
         expected = {
@@ -1045,11 +1100,11 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
-        self.assertIn("catalog-data.js?v=42", console_html)
-        self.assertIn("data/candidates.js?v=42", console_html)
-        self.assertIn("data/automation.js?v=42", console_html)
-        self.assertIn("app.js?v=42", console_html)
-        self.assertIn("styles.css?v=42", console_html)
+        self.assertIn("catalog-data.js?v=43", console_html)
+        self.assertIn("data/candidates.js?v=43", console_html)
+        self.assertIn("data/automation.js?v=43", console_html)
+        self.assertIn("app.js?v=43", console_html)
+        self.assertIn("styles.css?v=43", console_html)
         for tab in {"overview", "progress", "actions", "candidates", "sources", "integrity", "automation", "logs", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)
@@ -1062,15 +1117,14 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertIn(f'id="{subtab}"', console_html)
         self.assertIn("Project data remains read-only here", console_html)
         self.assertIn('id="automation-tab-administration"', console_html)
-        self.assertIn('id="automation-tab-workers"', console_html)
+        self.assertIn('id="automation-tab-agents"', console_html)
         self.assertIn('id="automation-panel-administration"', console_html)
-        self.assertIn('id="automation-panel-workers"', console_html)
-        self.assertIn("How every run proceeds", console_html)
-        self.assertIn("Daily at 04:17 UTC", console_html)
-        self.assertIn("Cases and directives every 24 hours", console_html)
-        self.assertIn("source URLs every 168 hours", console_html)
-        self.assertIn("Protect the 15% reserve and 10-point soft target", console_html)
-        self.assertIn("Comprehensive review every 14 days", console_html)
+        self.assertIn('id="automation-panel-agents"', console_html)
+        self.assertIn('id="automation-overview-grid"', console_html)
+        self.assertNotIn("How every run proceeds", console_html)
+        self.assertNotIn("Administration rules", console_html)
+        self.assertNotIn('id="automation-tab-workers"', console_html)
+        self.assertNotIn('id="automation-panel-workers"', console_html)
         self.assertIn("What can be changed here", console_html)
         self.assertIn('id="automation-chain-summary"', console_html)
         self.assertIn('id="coordinator-request-run"', console_html)
@@ -1078,6 +1132,10 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('id="coordinator-prioritize"', console_html)
         self.assertIn('id="coordinator-suppress"', console_html)
         self.assertIn('id="coordinator-clear"', console_html)
+        self.assertIn('<select id="coordinator-work-unit">', console_html)
+        self.assertIn('<select id="coordinator-action-item">', console_html)
+        self.assertIn("populateCoordinatorControlChoices", console_app)
+        self.assertIn("window.confirm", console_app)
         self.assertIn("http://127.0.0.1:8766/v1/control", console_app)
         self.assertIn('action: "request_run"', console_app)
         self.assertIn('action: "request_comprehensive_review"', console_app)
@@ -1128,6 +1186,18 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('id="log-integrity-count"', console_html)
         self.assertIn('id="log-integrity-visible"', console_html)
         self.assertIn('id="integrity-history"', console_html)
+        self.assertIn('id="integrity-run-portals"', console_html)
+        self.assertIn('id="integrity-log-summary"', console_html)
+        self.assertLess(
+            console_html.index('id="integrity-log-summary"'),
+            console_html.index('id="panel-logs"'),
+        )
+        self.assertIn('data-subtab="elim" tabindex="-1">Elim ', console_html)
+        self.assertIn('data-subtab="agents" tabindex="-1">Bots ', console_html)
+        self.assertIn('data-subtab="source-monitor" tabindex="-1">Sources ', console_html)
+        self.assertNotIn("Elim Runs", console_html)
+        self.assertNotIn("Source Logs", console_html)
+        self.assertNotIn("Autonomous Action Ledger", console_html)
         self.assertIn('"Latest log entry"', console_app)
         self.assertIn('"Earlier entries"', console_app)
         self.assertLess(
@@ -1175,8 +1245,9 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Whole-project overview", console_html)
         self.assertIn("Daily operations briefing", console_html)
         self.assertIn('id="overview-refresh-request"', console_html)
-        self.assertIn('id="overview-chain-stages"', console_html)
-        self.assertIn('id="overview-elim-improvements"', console_html)
+        self.assertIn('id="overview-automation-activity-grid"', console_html)
+        self.assertNotIn('id="overview-chain-stages"', console_html)
+        self.assertNotIn('id="overview-elim-improvements"', console_html)
         self.assertIn('id="overview-openai-status"', console_html)
         self.assertIn('id="overview-usage-trend"', console_html)
         self.assertIn('id="overview-queue-directory"', console_html)
@@ -1186,7 +1257,27 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("actionItemSnapshot", console_app)
         self.assertIn("renderOverviewQueues", console_app)
         self.assertIn("elimUsageConsumption", console_app)
-        self.assertIn("Agents and bots", console_html)
+        self.assertIn("Agents &amp; Bots", console_html)
+        self.assertIn("Recent automated actions", console_html)
+        self.assertIn("renderOverviewAutomationActivity", console_app)
+        self.assertIn("captureSuccessfulStageHistory", console_app)
+        self.assertIn("successfulStageHistory", console_app)
+        self.assertIn('current_chain_label: "Not reached this chain"', console_app)
+        self.assertIn('statusLabel: "Succeeded"', console_app)
+        recent_automation = console_app.split(
+            "function renderOverviewRecentActivity()",
+            1,
+        )[1].split("function publicInputSnapshot", 1)[0]
+        self.assertIn('"elim", "source-monitor"', recent_automation)
+        self.assertNotIn('"horizon"', recent_automation)
+        self.assertNotIn('"changes"', recent_automation)
+        self.assertIn('document.createElementNS(namespace, "svg")', console_app)
+        self.assertIn("usage-trend-line", console_css)
+        self.assertIn("queueDirectoryCard", console_app)
+        self.assertNotIn("queueDirectoryRow", console_app)
+        self.assertIn('queue.count === 0 ? "Empty"', console_app)
+        self.assertIn("OPEN_PULL_REQUESTS_URL", console_app)
+        self.assertIn('setUpdateBadge("candidate-preliminary-update"', console_app)
         for mixed_view in {"overview", "progress", "publication"}:
             self.assertNotIn(f'id="tab-{mixed_view}-count"', console_html)
             self.assertNotIn(f'byId("tab-{mixed_view}-count")', console_app)
@@ -1201,7 +1292,11 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("current[key] = nextDefault", console_app)
         self.assertNotIn('details.addEventListener("toggle"', console_app)
         self.assertIn(".disclosure-default-toggle", console_css)
-        self.assertIn('element("details", `action-item-card', console_app)
+        self.assertIn('element("article", `action-item-card', console_app)
+        self.assertRegex(
+            console_css,
+            r"\.action-items-grid\s*\{[^}]*grid-template-columns:\s*repeat\(2",
+        )
         self.assertIn('category: "Workflow explanation"', console_app)
         self.assertIn("has no recorded explanation or reason", console_app)
         self.assertIn("dense-data-disclosure", console_html)
@@ -1311,11 +1406,14 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("integrity-finding-group", console_css)
         self.assertIn('toggle.setAttribute("aria-expanded"', console_app)
         self.assertIn('element("article", `automation-card${failure ? " has-error" : ""}`)', console_app)
-        self.assertIn('consoleLinkButton("Open run reports →"', console_app)
+        self.assertIn('"Open filtered log →"', console_app)
         self.assertIn('href="#logs:elim"', console_html)
         self.assertNotIn('element("details", "automation-checks")', console_app)
         self.assertNotIn("automation-schedule", console_app)
         self.assertNotIn("record.checks", console_app)
+        self.assertIn("record.runbook_sections", console_app)
+        self.assertIn("Complete runbook details", console_app)
+        self.assertIn("runtime_config_url", console_app)
         self.assertIn('id="overview-bot-alert"', console_html)
         self.assertIn("failedAutomationStages", console_app)
         self.assertIn('category: "Automation failure"', console_app)
@@ -1325,16 +1423,18 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("botFailureSummary(failure)", console_app)
         self.assertIn('card.id = `automation-card-${record.id}`', console_app)
         self.assertIn('initializeSectionTabs("automation", "administration")', console_app)
-        self.assertIn('`#automation:workers:${stage.id}`', console_app)
+        self.assertIn('`#automation:agents:${stage.id}`', console_app)
         self.assertIn("automation-error-alert", console_css)
         self.assertIn("automation-card-error", console_css)
-        self.assertIn(".automation-cascade", console_css)
-        self.assertIn(".automation-rule-grid", console_css)
+        self.assertNotIn(".automation-cascade", console_css)
+        self.assertNotIn(".automation-rule-grid", console_css)
         self.assertNotIn(".automation-checks", console_css)
         self.assertRegex(
             console_css,
-            r"\.automation-grid\s*\{[^}]*grid-template-columns:\s*repeat\(2",
+            r"\.automation-grid\s*\{[^}]*grid-template-columns:\s*1fr",
         )
+        self.assertIn(".automation-overview-grid", console_css)
+        self.assertIn(".automation-runbook-section", console_css)
         self.assertIn("updateDenseDisclosureSummary", console_app)
         source_catalog_disclosure = console_html.split(
             'data-disclosure-id="sources-catalog-results"',
