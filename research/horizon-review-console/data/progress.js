@@ -1481,7 +1481,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Review ready",
       "Release candidate"
     ],
-    "generatedAt": "2026-07-25T04:37:20+00:00",
+    "generatedAt": "2026-07-25T11:46:51+00:00",
     "goal": {
       "baselineDate": "2026-07-13",
       "baselineReady": 23,

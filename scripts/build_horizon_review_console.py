@@ -231,6 +231,59 @@ def markdown_front_matter(content: str) -> dict[str, object]:
     return values
 
 
+def repository_markdown_links(value: str, source_path: Path) -> str:
+    """Resolve runbook-local Markdown links to stable GitHub URLs."""
+
+    def replacement(match: re.Match[str]) -> str:
+        label = match.group(1)
+        target = match.group(2)
+        parsed = urllib.parse.urlsplit(html.unescape(target))
+        if parsed.scheme:
+            return match.group(0)
+        if target.startswith("#"):
+            url = GITHUB_BLOB_ROOT + str(source_path.relative_to(ROOT)) + target
+            return f"[{label}]({url})"
+        target_path, separator, fragment = target.partition("#")
+        if target_path.startswith("/"):
+            resolved = ROOT / target_path.lstrip("/")
+        else:
+            resolved = source_path.parent / target_path
+        try:
+            relative = resolved.resolve().relative_to(ROOT.resolve())
+        except ValueError:
+            return label
+        url = GITHUB_BLOB_ROOT + str(relative)
+        if separator:
+            url += f"#{fragment}"
+        return f"[{label}]({url})"
+
+    return re.sub(r"\[([^]\n]+)\]\(([^)\s]+)\)", replacement, value)
+
+
+def runbook_sections(content: str, source_path: Path) -> list[dict[str, str]]:
+    """Return each complete second-level runbook section for Console display."""
+    body = content.split("\n---\n", 1)[-1]
+    headings = list(re.finditer(r"^##\s+(.+?)\s*$", body, re.MULTILINE))
+    sections: list[dict[str, str]] = []
+    for index, heading in enumerate(headings):
+        start = heading.end()
+        end = headings[index + 1].start() if index + 1 < len(headings) else len(body)
+        section_markdown = body[start:end].strip()
+        if not section_markdown:
+            continue
+        title = strip_markdown(heading.group(1))
+        linked_markdown = repository_markdown_links(section_markdown, source_path)
+        sections.append(
+            {
+                "id": re.sub(r"[^a-z0-9]+", "-", title.casefold()).strip("-"),
+                "title": title,
+                "html": render_markdown_safe(linked_markdown),
+                "text": strip_markdown(section_markdown),
+            }
+        )
+    return sections
+
+
 def agent_registry_records() -> list[dict[str, object]]:
     """Build the Console's operational registry from authoritative runbooks."""
     if not AGENT_RUNBOOKS.exists():
@@ -248,6 +301,7 @@ def agent_registry_records() -> list[dict[str, object]]:
         description_match = re.search(r"^# .+?\n\n(.+?)(?=\n\n|\n#)", body, re.MULTILINE | re.DOTALL)
         description = strip_markdown(description_match.group(1).strip()) if description_match else ""
         runtime_id = str(metadata.get("runtime_id", "")).strip()
+        runtime_config = str(metadata.get("runtime_config", "")).strip()
         run_log_path = str(metadata.get("run_log_path", "")).strip()
         current_report = str(metadata.get("current_report", "")).strip()
         current_data = str(metadata.get("current_data", "")).strip()
@@ -272,7 +326,12 @@ def agent_registry_records() -> list[dict[str, object]]:
                 "schedule": str(metadata.get("schedule", "")).strip(),
                 "runtime_id": runtime_id,
                 "runtime_url": runtime_url,
+                "runtime_config": runtime_config,
+                "runtime_config_url": (
+                    GITHUB_BLOB_ROOT + runtime_config if runtime_config else ""
+                ),
                 "execution_environment": str(metadata.get("execution_environment", "")).strip(),
+                "model_policy": str(metadata.get("model_policy", "")).strip(),
                 "log_path": str(metadata.get("log_path", "")).strip(),
                 "run_log_path": run_log_path,
                 "run_log_url": GITHUB_BLOB_ROOT + run_log_path if run_log_path else "",
@@ -281,6 +340,7 @@ def agent_registry_records() -> list[dict[str, object]]:
                 "current_data": current_data,
                 "description": description,
                 "checks": checks,
+                "runbook_sections": runbook_sections(content, path),
                 "runbook_path": str(path.relative_to(ROOT)),
                 "runbook_url": GITHUB_BLOB_ROOT + str(path.relative_to(ROOT)),
             }
@@ -629,11 +689,6 @@ def render_markdown_inline(value: str) -> str:
         replacements.append(rendered)
         return token
 
-    def code_replacement(match: re.Match[str]) -> str:
-        return preserve(f"<code>{html.escape(match.group(1))}</code>")
-
-    protected = re.sub(r"`([^`\n]+)`", code_replacement, value)
-
     def link_replacement(match: re.Match[str]) -> str:
         label = render_markdown_inline(match.group(1))
         target = safe_markdown_url(match.group(2))
@@ -644,7 +699,15 @@ def render_markdown_inline(value: str) -> str:
             f'rel="noopener noreferrer">{label}</a>'
         )
 
-    protected = re.sub(r"\[([^]\n]+)\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)", link_replacement, protected)
+    # Resolve links before protecting standalone code spans so code-formatted
+    # link labels are rendered recursively without sharing placeholder tokens
+    # with the outer inline pass.
+    protected = re.sub(r"\[([^]\n]+)\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)", link_replacement, value)
+
+    def code_replacement(match: re.Match[str]) -> str:
+        return preserve(f"<code>{html.escape(match.group(1))}</code>")
+
+    protected = re.sub(r"`([^`\n]+)`", code_replacement, protected)
     rendered = html.escape(protected)
     rendered = re.sub(r"\*\*([^*\n]+)\*\*", r"<strong>\1</strong>", rendered)
     rendered = re.sub(r"__([^_\n]+)__", r"<strong>\1</strong>", rendered)
@@ -1481,6 +1544,70 @@ def integrity_snapshot() -> dict[str, object]:
     return cached if isinstance(cached, dict) else {}
 
 
+def successful_run_chain_stages(
+    *snapshots: dict[str, object],
+) -> list[dict[str, object]]:
+    """Retain the newest known successful execution for each automation stage."""
+    latest: dict[str, dict[str, object]] = {}
+    for snapshot in snapshots:
+        if not isinstance(snapshot, dict):
+            continue
+        stage_groups = [
+            snapshot.get("stages", []),
+            snapshot.get("last_successful_stages", []),
+        ]
+        for stages in stage_groups:
+            if not isinstance(stages, list):
+                continue
+            for stage in stages:
+                if not isinstance(stage, dict):
+                    continue
+                stage_id = str(stage.get("id") or stage.get("stage_id") or "").strip()
+                succeeded_at = str(
+                    stage.get("last_success_at")
+                    or (
+                        stage.get("completed_at")
+                        if re.search(
+                            r"success|succeed|complete|healthy|pass",
+                            str(stage.get("status") or ""),
+                            re.IGNORECASE,
+                        )
+                        else ""
+                    )
+                    or ""
+                ).strip()
+                if not stage_id or not succeeded_at:
+                    continue
+                candidate = {
+                    **stage,
+                    "id": stage_id,
+                    "status": "succeeded",
+                    "last_success_at": succeeded_at,
+                }
+                existing = latest.get(stage_id)
+                try:
+                    candidate_time = datetime.fromisoformat(
+                        succeeded_at.replace("Z", "+00:00")
+                    ).astimezone(timezone.utc)
+                except ValueError:
+                    candidate_time = datetime.min.replace(tzinfo=timezone.utc)
+                try:
+                    existing_time = (
+                        datetime.fromisoformat(
+                            str(existing.get("last_success_at") or "").replace(
+                                "Z", "+00:00"
+                            )
+                        ).astimezone(timezone.utc)
+                        if existing
+                        else datetime.min.replace(tzinfo=timezone.utc)
+                    )
+                except ValueError:
+                    existing_time = datetime.min.replace(tzinfo=timezone.utc)
+                if existing is None or candidate_time >= existing_time:
+                    latest[stage_id] = candidate
+    return sorted(latest.values(), key=lambda stage: str(stage["id"]))
+
+
 def run_chain_snapshot() -> dict[str, object]:
     """Read the latest generated run-chain state without making it authoritative."""
     local_chain = os.environ.get("ARRP_RUN_CHAIN_SNAPSHOT", "").strip()
@@ -1508,6 +1635,27 @@ def run_chain_snapshot() -> dict[str, object]:
                     if isinstance(action_items, list):
                         payload = dict(payload)
                         payload["host_action_items"] = action_items
+                history_sources = [payload]
+                try:
+                    published = subprocess.run(
+                        ["git", "show", RUN_CHAIN_DATA_REF],
+                        cwd=ROOT,
+                        check=True,
+                        capture_output=True,
+                        text=True,
+                    )
+                    published_payload = json.loads(published.stdout)
+                    if isinstance(published_payload, dict):
+                        history_sources.append(published_payload)
+                except (OSError, subprocess.CalledProcessError, json.JSONDecodeError):
+                    pass
+                existing = existing_console_payload().get("run_chain", {})
+                if isinstance(existing, dict):
+                    history_sources.append(existing)
+                payload = dict(payload)
+                payload["last_successful_stages"] = successful_run_chain_stages(
+                    *history_sources
+                )
                 return payload
         except (OSError, json.JSONDecodeError):
             pass
@@ -1921,7 +2069,7 @@ def main() -> None:
     ]
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
-        "schema_version": 24,
+        "schema_version": 25,
         "generated_at": generated_at,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),
