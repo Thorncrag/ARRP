@@ -2,8 +2,8 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-25T04:22:18+00:00",
-    "revision": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
+    "generated_at": "2026-07-25T04:38:04+00:00",
+    "revision": "ac9cd510d10824a856f033f8d0e173420ad1b8fd",
     "result": "clean",
     "counts": {
       "errors": 0,
@@ -12,7 +12,7 @@
       "issue_pages": 64,
       "proposal_pages": 41
     },
-    "duration_seconds": 15.251,
+    "duration_seconds": 12.113,
     "scope": [
       "Issue and proposal structure, including Issue Snapshot concision",
       "Area and topic routing",
@@ -40,6 +40,19 @@
     "findings": []
   },
   "history": [
+    {
+      "generated_at": "2026-07-25T04:38:04+00:00",
+      "revision": "ac9cd510d10824a856f033f8d0e173420ad1b8fd",
+      "result": "clean",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "findings": 0,
+        "issue_pages": 64,
+        "proposal_pages": 41
+      },
+      "duration_seconds": 12.113
+    },
     {
       "generated_at": "2026-07-25T04:22:18+00:00",
       "revision": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
@@ -416,19 +429,6 @@
         "proposal_pages": 41
       },
       "duration_seconds": 11.849
-    },
-    {
-      "generated_at": "2026-07-24T14:24:54+00:00",
-      "revision": "e5305cedc392c62cdb0fcf17d8edfb16e36d7990",
-      "result": "clean",
-      "counts": {
-        "errors": 0,
-        "warnings": 0,
-        "findings": 0,
-        "issue_pages": 64,
-        "proposal_pages": 41
-      },
-      "duration_seconds": 14.972
     }
   ]
 }
