@@ -2,8 +2,8 @@
 title: "ARRP Persistent Automation — Technical Specification and Traceability Map"
 status: non-authoritative-reference
 version: "1.0"
-as_of: "2026-07-24"
-implementation_baseline: "3d4d3364a0deb7fd9644761a86b4714401f0d280"
+as_of: "2026-07-25"
+implementation_baseline: "86d7a1b13fb9ac17717e44ed67cc88d00dafbe06"
 print_status: excluded
 print_exclusion_reason: "Nonauthoritative internal reference product."
 ---
@@ -12,7 +12,7 @@ print_exclusion_reason: "Nonauthoritative internal reference product."
 
 ## Technical Specification and Traceability Map
 
-**Version 1.0 — July 24, 2026**
+**Version 1.0 — July 25, 2026**
 
 **NON-AUTHORITATIVE REFERENCE PRODUCT**
 
@@ -248,7 +248,7 @@ The current serialized order is:
 5. public-intake collection and reconciliation; and
 6. Project Integrity Bot.
 
-The Chain Manifest binds every stage to the chain-level baseline revision. For each stage it records the due disposition, bounded attempt count and retry disposition, completion time, output location and hash where applicable, work count, and public outcome. The Case Monitor, Presidential Directives, and Source Checker primary and retry invocations carry distinct caller-supplied attempt keys; the close job retrieves only the selected successful watcher artifact and verifies its report hash before materialization instead of choosing whichever file happens to be newest. A proposed source-domain event is additionally bound by Event ID, content hash, Chain ID, exact Actions run attempt, and proposal revision. A missing or mismatched successful watcher artifact fails the chain; it is never replaced by an older current feed or synthetic empty input. Progress and Integrity use their own bounded retry outputs; public intake has one attempt. A deterministic stage may be `completed`, `not_due`, `degraded`, or `failed`. `Blocked` applies to the overall chain, host, work unit, or Elim continuation, not as a synthetic deterministic-stage state.
+The Chain Manifest binds every stage to the chain-level baseline revision. For each stage it records the due disposition, bounded attempt count and retry disposition, completion time, output location and hash where applicable, work count, and public outcome. The Case Monitor, Presidential Directives, and Source Checker primary and retry invocations carry distinct caller-supplied attempt keys; the close job retrieves only the selected successful watcher artifact and verifies its report hash before materialization instead of choosing whichever file happens to be newest. A missing, malformed, oversized, schema-invalid, undated, stale, materially future-dated, or explicitly unavailable persistent watcher input forces its owning watcher due even when the ordinary success interval remains current. The coordinator validates each watcher against its typed report shape and the same configured interval that governs its due calculation. A proposed source-domain event is additionally bound by Event ID, content hash, Chain ID, exact Actions run attempt, and proposal revision. A missing or mismatched successful watcher artifact fails the chain; it is never replaced by an older current feed or synthetic empty input. Progress and Integrity use their own bounded retry outputs; public intake has one attempt. A deterministic stage may be `completed`, `not_due`, `degraded`, or `failed`. `Blocked` applies to the overall chain, host, work unit, or Elim continuation, not as a synthetic deterministic-stage state.
 
 The case monitor, directive monitor, progress, and integrity stages are blocking when due and unavailable after retry. Source checking and public intake may degrade without preventing unrelated work because an access-limited source or intake service need not make all other project records unreliable. A degraded input remains visible and may restrict work that depends on it.
 

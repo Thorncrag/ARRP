@@ -81,6 +81,38 @@ WATCHER_STAGE_ARTIFACTS = {
         "destination": "source-checker.json",
     },
 }
+PERSISTENT_WATCHER_INPUTS = {
+    "case-monitor-bot": {
+        "filename": "case-monitor.json",
+        "schema_version": 6,
+        "timestamp_field": "checked_at",
+        "required_types": {
+            "changes": list,
+            "source_development_modules": list,
+        },
+    },
+    "presidential-directives-bot": {
+        "filename": "presidential-directives.json",
+        "schema_version": 2,
+        "timestamp_field": "generated_at",
+        "required_types": {
+            "counts": dict,
+            "changes": list,
+            "directives": list,
+        },
+    },
+    "source-checker-bot": {
+        "filename": "source-checker.json",
+        "schema_version": 1,
+        "timestamp_field": "checked_at",
+        "required_types": {
+            "counts": dict,
+            "results": list,
+        },
+    },
+}
+MAX_PERSISTENT_WATCHER_INPUT_BYTES = 20_000_000
+MAX_PERSISTENT_WATCHER_FUTURE_SKEW_SECONDS = 600
 
 
 def utc_now() -> datetime:
@@ -550,6 +582,90 @@ def last_success_at(previous: dict[str, Any], stage_id: str) -> str | None:
     return stage.get("last_success_at")
 
 
+def watcher_input_refresh_requirements(
+    input_root: Path,
+    stage_definitions: list[dict[str, Any]],
+    now: datetime | None = None,
+) -> dict[str, str]:
+    """Return watcher stages whose durable current input cannot be trusted."""
+    requirements: dict[str, str] = {}
+    definitions = {
+        str(definition.get("id") or ""): definition
+        for definition in stage_definitions
+        if isinstance(definition, dict)
+    }
+    checked_at = (now or utc_now()).astimezone(timezone.utc)
+    for stage_id, spec in PERSISTENT_WATCHER_INPUTS.items():
+        definition = definitions.get(stage_id)
+        if not definition:
+            raise ValueError(f"persistent watcher stage is not configured: {stage_id}")
+        due = definition.get("due") or {}
+        if due.get("kind") != "interval":
+            raise ValueError(
+                f"persistent watcher stage must use an interval due rule: {stage_id}"
+            )
+        interval_hours = due.get("hours")
+        if (
+            not isinstance(interval_hours, int)
+            or isinstance(interval_hours, bool)
+            or interval_hours <= 0
+        ):
+            raise ValueError(
+                f"persistent watcher stage has an invalid interval: {stage_id}"
+            )
+
+        path = input_root / str(spec["filename"])
+        if not path.is_file() or path.is_symlink():
+            requirements[stage_id] = "persistent watcher input is missing"
+            continue
+        try:
+            if path.stat().st_size > MAX_PERSISTENT_WATCHER_INPUT_BYTES:
+                requirements[stage_id] = "persistent watcher input is oversized"
+                continue
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            requirements[stage_id] = "persistent watcher input is malformed"
+            continue
+        if not isinstance(payload, dict):
+            requirements[stage_id] = "persistent watcher input is not an object"
+            continue
+        if (
+            str(payload.get("collection_status") or "").strip().casefold()
+            == "unavailable"
+        ):
+            requirements[stage_id] = "persistent watcher input is unavailable"
+            continue
+        schema_version = payload.get("schema_version")
+        if type(schema_version) is not int or schema_version != spec[
+            "schema_version"
+        ] or any(
+            not isinstance(payload.get(field), expected_type)
+            for field, expected_type in spec["required_types"].items()
+        ):
+            requirements[stage_id] = "persistent watcher input schema is invalid"
+            continue
+        timestamp = payload.get(spec["timestamp_field"])
+        if not isinstance(timestamp, str) or not timestamp.strip():
+            requirements[stage_id] = "persistent watcher input is undated"
+            continue
+        try:
+            reported_at = parse_time(timestamp)
+        except (TypeError, ValueError):
+            reported_at = None
+        if reported_at is None:
+            requirements[stage_id] = "persistent watcher input timestamp is malformed"
+            continue
+        reported_at = reported_at.astimezone(timezone.utc)
+        if (
+            reported_at - checked_at
+        ).total_seconds() > MAX_PERSISTENT_WATCHER_FUTURE_SKEW_SECONDS:
+            requirements[stage_id] = "persistent watcher input is future-dated"
+            continue
+        if checked_at - reported_at > timedelta(hours=interval_hours):
+            requirements[stage_id] = "persistent watcher input is stale"
+    return requirements
+
+
 def stage_due(
     definition: dict[str, Any],
     previous: dict[str, Any],
@@ -559,7 +675,9 @@ def stage_due(
     due = definition["due"]
     kind = due["kind"]
     if definition["id"] in set(signals.get("force_stages", [])):
-        return True, "forced"
+        reasons = signals.get("force_stage_reasons") or {}
+        reason = reasons.get(definition["id"]) if isinstance(reasons, dict) else None
+        return True, str(reason).strip() if str(reason or "").strip() else "forced"
     if kind == "always":
         return True, "required every chain"
     if kind == "flag":

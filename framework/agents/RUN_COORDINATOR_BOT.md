@@ -40,7 +40,7 @@ Configuration, executable, state-directory, and lease-setup failures occur befor
 ## Chain order
 
 1. Acquire the exclusive chain lock and establish the Chain ID, trigger set, baseline commit, freshness boundary, and usage-preflight availability.
-2. Evaluate every registered bot against its due predicate. Run due external-observation stages, including Case Monitor Bot, Presidential Directives Bot, Source Checker Bot, and the public-intake collector and reconciliation pass. Record `not_due` when a prior successful result remains current.
+2. Evaluate every registered bot against its due predicate. Run due external-observation stages, including Case Monitor Bot, Presidential Directives Bot, Source Checker Bot, and the public-intake collector and reconciliation pass. A missing, malformed, oversized, schema-invalid, undated, stale, materially future-dated, or explicitly unavailable persistent watcher input forces its owning watcher due even when the ordinary success interval remains current, so the chain repairs its own deterministic evidence boundary before Elim. Record `not_due` only when both the prior success and its typed, current durable input remain usable.
 3. Refresh authoritative Project and Console progress data when required.
 4. Run Project Integrity Bot after all other due deterministic inputs so it can detect missing, stale, failed, or contradictory outputs and lifecycle or repository inconsistencies.
 5. Compile the structured work queue and exact-source context manifests. Queue construction detects, prioritizes, and routes work but grants no authority.

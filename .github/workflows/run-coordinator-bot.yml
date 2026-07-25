@@ -64,6 +64,29 @@ jobs:
           --output "${RUNNER_TEMP}/previous-run-chain.json"
           "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/run-chain.json"
 
+      - name: Retrieve current persistent watcher inputs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          destination="${RUNNER_TEMP}/current-watcher-inputs"
+          mkdir -p "${destination}"
+          for spec in \
+            "case-monitor.json:inputs/case-monitor.json" \
+            "presidential-directives.json:inputs/presidential-directives.json" \
+            "source-checker.json:source-checker.json"; do
+            name="${spec%%:*}"
+            remote="${spec#*:}"
+            if curl --fail --silent --show-error \
+              --header "Accept: application/vnd.github.raw+json" \
+              --header "Authorization: Bearer ${GITHUB_TOKEN}" \
+              --header "X-GitHub-Api-Version: 2022-11-28" \
+              --output "${destination}/${name}" \
+              "https://api.github.com/repos/Thorncrag/ARRP/contents/${remote}?ref=project-console-data"; then
+              continue
+            fi
+            rm -f "${destination}/${name}"
+          done
+
       - name: Build deterministic chain signals
         env:
           EVENT_NAME: ${{ github.event_name }}
@@ -77,7 +100,10 @@ jobs:
           python3 - <<'PY'
           import hashlib, json, os
           from pathlib import Path
-          from scripts.run_coordinator import review_epoch_boundary_status
+          from scripts.run_coordinator import (
+              review_epoch_boundary_status,
+              watcher_input_refresh_requirements,
+          )
           truth = {"1", "true", "yes", "on"}
           enabled = lambda name: str(os.environ.get(name, "")).casefold() in truth
           event_name = os.environ.get("EVENT_NAME", "")
@@ -102,6 +128,15 @@ jobs:
                   "project-console-progress-bot",
                   "project-integrity-bot",
               ]
+          force_stage_reasons = {}
+          input_refresh = watcher_input_refresh_requirements(
+              Path(os.environ["RUNNER_TEMP"], "current-watcher-inputs"),
+              config["stages"],
+          )
+          for stage_id, reason in input_refresh.items():
+              if stage_id not in force:
+                  force.append(stage_id)
+                  force_stage_reasons[stage_id] = reason
           explicit_comprehensive = (
               enabled("INPUT_COMPREHENSIVE")
               or enabled("CLIENT_COMPREHENSIVE")
@@ -118,6 +153,7 @@ jobs:
               ) or enabled("INPUT_INTAKE"),
               "force_comprehensive_review": explicit_comprehensive,
               "force_stages": force,
+              "force_stage_reasons": force_stage_reasons,
           }
           ledger = Path("research/review-epochs.jsonl")
           epoch = None
