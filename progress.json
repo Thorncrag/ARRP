@@ -36,13 +36,6 @@
       "total": 4
     },
     {
-      "area": "FACT",
-      "percentReady": 0.0,
-      "ready": 0,
-      "remaining": 3,
-      "total": 3
-    },
-    {
       "area": "FED",
       "percentReady": 0.0,
       "ready": 0,
@@ -93,6 +86,13 @@
     },
     {
       "area": "EMERG",
+      "percentReady": 0.0,
+      "ready": 0,
+      "remaining": 2,
+      "total": 2
+    },
+    {
+      "area": "FACT",
       "percentReady": 0.0,
       "ready": 0,
       "remaining": 2,
@@ -618,24 +618,6 @@
       "state": null,
       "title": "FACT-001: Scientific, Statistical, and Technical Integrity",
       "url": "https://github.com/Thorncrag/ARRP/issues/168",
-      "warnings": [],
-      "workflowStatus": "Development"
-    },
-    {
-      "area": "FACT",
-      "canonicalRecord": "areas/FACT/README.md",
-      "developmentLevel": "Admitted / undeveloped",
-      "explanation": "",
-      "identifier": "FACT-007",
-      "kind": "proposal",
-      "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Claim-by-claim audit of the July 24 Smithsonian order and report; map NPS property, funding and contract authority and existing Smithsonian correction procedures; then develop neutral anti-circumvention and factual-correction options",
-      "number": 174,
-      "ready": false,
-      "score": 0.0,
-      "state": null,
-      "title": "FACT-007: Official Historical Presentation Integrity",
-      "url": "https://github.com/Thorncrag/ARRP/issues/174",
       "warnings": [],
       "workflowStatus": "Development"
     },
@@ -1472,7 +1454,7 @@
   ],
   "developmentLevelDistribution": [
     {
-      "count": 48,
+      "count": 47,
       "level": "Admitted / undeveloped"
     },
     {
@@ -1488,7 +1470,7 @@
       "level": "In development"
     }
   ],
-  "generatedAt": "2026-07-25T00:50:00+00:00",
+  "generatedAt": "2026-07-25T01:05:16+00:00",
   "goal": {
     "baselineDate": "2026-07-13",
     "baselineReady": 23,
@@ -4306,7 +4288,7 @@
         },
         "FACT": {
           "ready": 0,
-          "total": 3
+          "total": 2
         },
         "FED": {
           "ready": 0,
@@ -4442,7 +4424,6 @@
         "EMOL-001": 0,
         "EMOL-015": 83,
         "FACT-001": 0,
-        "FACT-007": 0,
         "FACT-009": 0,
         "FED-002": 0,
         "FED-003": 0,
@@ -4481,7 +4462,7 @@
         "WAR-001": 77,
         "WAR-009": 0
       },
-      "total": 82
+      "total": 81
     }
   ],
   "metrics": {
@@ -4496,7 +4477,7 @@
       },
       {
         "date": "2026-09-30",
-        "plannedReady": 51
+        "plannedReady": 50
       },
       {
         "date": "2026-10-31",
@@ -4504,26 +4485,26 @@
       },
       {
         "date": "2026-11-30",
-        "plannedReady": 72
+        "plannedReady": 71
       },
       {
         "date": "2026-12-31",
-        "plannedReady": 82
+        "plannedReady": 81
       }
     ],
     "daysRemaining": 159,
-    "forecastDate": "2026-09-28",
-    "forecastLabel": "2026-09-28",
-    "percentReady": 32.9,
+    "forecastDate": "2026-09-26",
+    "forecastLabel": "2026-09-26",
+    "percentReady": 33.3,
     "plannedReadyToday": 28,
     "ready": 27,
-    "remaining": 55,
-    "requiredPerWeek": 2.42,
+    "remaining": 54,
+    "requiredPerWeek": 2.38,
     "rollingWeeklyVelocity": 6.0,
     "scheduleVariance": -1,
-    "scopeChange": -122,
+    "scopeChange": -123,
     "sinceBaselineWeeklyVelocity": 2.33,
-    "total": 82,
+    "total": 81,
     "trackStatus": "On track"
   },
   "movement": {
@@ -4998,24 +4979,6 @@
       "state": null,
       "title": "FACT-001: Scientific, Statistical, and Technical Integrity",
       "url": "https://github.com/Thorncrag/ARRP/issues/168",
-      "warnings": [],
-      "workflowStatus": "Development"
-    },
-    {
-      "area": "FACT",
-      "canonicalRecord": "areas/FACT/README.md",
-      "developmentLevel": "Admitted / undeveloped",
-      "explanation": "",
-      "identifier": "FACT-007",
-      "kind": "proposal",
-      "lastAudit": "Initial inventory audit (2026-06-24)",
-      "nextAudit": "Claim-by-claim audit of the July 24 Smithsonian order and report; map NPS property, funding and contract authority and existing Smithsonian correction procedures; then develop neutral anti-circumvention and factual-correction options",
-      "number": 174,
-      "ready": false,
-      "score": 0.0,
-      "state": null,
-      "title": "FACT-007: Official Historical Presentation Integrity",
-      "url": "https://github.com/Thorncrag/ARRP/issues/174",
       "warnings": [],
       "workflowStatus": "Development"
     },
@@ -6134,13 +6097,13 @@
     },
     {
       "band": "Unscored or fixed zero",
-      "count": 54
+      "count": 53
     }
   ],
   "warnings": [],
   "workflowStatusDistribution": [
     {
-      "count": 43,
+      "count": 42,
       "status": "Development"
     },
     {
