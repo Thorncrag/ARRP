@@ -159,6 +159,7 @@ ELIM_RUN_LOG_RECONCILIATION_STATE = (
 MAX_PENDING_RUN_LOG_RECONCILIATIONS = 128
 MAX_BOOTSTRAP_FAILURE_EVENTS = 128
 HOST_OUTCOME_HISTORY = ".tmp/run-coordinator/run-chain-history.json"
+USAGE_BASELINE_DIRECTORY = ".tmp/run-coordinator/usage-baselines"
 HOST_CLOSEOUT_BRANCH_PREFIX = "codex/elim-"
 HOST_GIT_IDENTITY = {
     "name": "ARRP Run Coordinator",
@@ -3413,11 +3414,21 @@ def mirror_and_rebuild_chain(
     return manifest_path, local_payload, chain_dir
 
 
+def managed_usage_baseline_path(repo: Path, invocation_id: str) -> Path:
+    if SAFE_CHAIN_ID.fullmatch(invocation_id) is None:
+        raise ContextError("usage baseline received an unsafe invocation ID")
+    digest = hashlib.sha256(invocation_id.encode("utf-8")).hexdigest()
+    return contained_path(
+        repo / USAGE_BASELINE_DIRECTORY / f"{digest}.json",
+        repo,
+    )
+
+
 def usage_gate(
     python: str,
     repo: Path,
     config: dict[str, Any],
-    baseline_path: Path,
+    baseline_id: str,
 ) -> dict[str, Any]:
     result = command(
         [
@@ -3427,8 +3438,8 @@ def usage_gate(
             str(config["usage"]["hardReservePercent"]),
             "--soft-target-percent",
             str(config["usage"]["softRunTargetPercent"]),
-            "--run-baseline",
-            str(baseline_path),
+            "--run-baseline-id",
+            baseline_id,
         ],
         cwd=repo,
     )
@@ -4293,7 +4304,10 @@ def main() -> int:
             + "-"
             + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         )
-        baseline_path = execution_state_dir / f"usage-{invocation_id}.json"
+        baseline_path = managed_usage_baseline_path(
+            execution_repo,
+            invocation_id,
+        )
         usage_status_path = (
             execution_state_dir / f"usage-status-{invocation_id}.json"
         )
@@ -4305,7 +4319,7 @@ def main() -> int:
             "config": config,
         }
         current_stage = "usage-gate"
-        gate = usage_gate(python, execution_repo, config, baseline_path)
+        gate = usage_gate(python, execution_repo, config, invocation_id)
         attestation = write_usage_attestation(
             usage_status_path,
             gate=gate,
@@ -4463,7 +4477,7 @@ def main() -> int:
                     python,
                     execution_repo,
                     config,
-                    baseline_path,
+                    invocation_id,
                 ),
                 usage_status_path=usage_status_path,
                 usage_attestation_args=attestation_args,

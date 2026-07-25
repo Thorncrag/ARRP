@@ -18,6 +18,22 @@ SPEC.loader.exec_module(MODULE)
 
 
 class RunChainDispatcherTests(unittest.TestCase):
+    def test_managed_usage_baseline_is_fixed_and_path_safe(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            baseline = MODULE.managed_usage_baseline_path(
+                repo,
+                "arrp-20260725T063006Z-20260725T080739Z",
+            )
+
+            self.assertEqual(
+                baseline.parent,
+                repo.resolve() / MODULE.USAGE_BASELINE_DIRECTORY,
+            )
+            self.assertRegex(baseline.name, r"^[0-9a-f]{64}\.json$")
+            with self.assertRaisesRegex(MODULE.ContextError, "unsafe invocation ID"):
+                MODULE.managed_usage_baseline_path(repo, "../outside")
+
     def write_current_audit(
         self,
         repo: Path,

@@ -5,9 +5,11 @@ from tempfile import TemporaryDirectory
 
 from scripts.check_codex_usage_reserve import (
     RESET_TIME_JITTER_SECONDS,
+    USAGE_BASELINE_ROOT,
     UsageGateError,
     apply_run_budget,
     evaluate_rate_limits,
+    managed_run_baseline_path,
     read_usage_with_window_confirmation,
 )
 
@@ -46,6 +48,22 @@ def payload(*, codex_used: int = 57, spark_used: int = 1) -> dict:
 
 
 class CodexUsageReserveTests(unittest.TestCase):
+    def test_managed_baseline_maps_bounded_id_into_fixed_private_state(self):
+        baseline = managed_run_baseline_path("arrp-20260725T063006Z-20260725T080739Z")
+
+        self.assertEqual(baseline.parent, USAGE_BASELINE_ROOT)
+        self.assertRegex(baseline.name, r"^[0-9a-f]{64}\.json$")
+        self.assertEqual(
+            baseline,
+            managed_run_baseline_path(
+                "arrp-20260725T063006Z-20260725T080739Z"
+            ),
+        )
+
+    def test_managed_baseline_rejects_path_syntax(self):
+        with self.assertRaisesRegex(UsageGateError, "baseline ID is invalid"):
+            managed_run_baseline_path("../outside.json")
+
     def test_all_windows_above_reserve_pass(self):
         result = evaluate_rate_limits(payload(), 15)
 
