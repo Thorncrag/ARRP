@@ -2,8 +2,8 @@
 title: "ARRP Persistent Automation — Technical Specification and Traceability Map"
 status: non-authoritative-reference
 version: "1.0"
-as_of: "2026-07-24"
-implementation_baseline: "3d4d3364a0deb7fd9644761a86b4714401f0d280"
+as_of: "2026-07-25"
+implementation_baseline: "86d7a1b13fb9ac17717e44ed67cc88d00dafbe06"
 print_status: excluded
 print_exclusion_reason: "Nonauthoritative internal reference product."
 ---
@@ -12,7 +12,7 @@ print_exclusion_reason: "Nonauthoritative internal reference product."
 
 ## Technical Specification and Traceability Map
 
-**Version 1.0 — July 24, 2026**
+**Version 1.0 — July 25, 2026**
 
 **NON-AUTHORITATIVE REFERENCE PRODUCT**
 
