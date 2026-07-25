@@ -1,5 +1,6 @@
 import argparse
 import base64
+import io
 import json
 import os
 import shutil
@@ -627,6 +628,18 @@ class SourceDomainEventTests(unittest.TestCase):
 
 
 class ImmutablePublisherTests(unittest.TestCase):
+    @staticmethod
+    def publisher_args() -> argparse.Namespace:
+        return argparse.Namespace(
+            repository="Thorncrag/ARRP",
+            branch="project-console-data",
+            path=(
+                "source-domain-events/proposed/source-checker-bot/"
+                "SDE-AAAAAAAAAAAAAAAAAAAAAAAA.json"
+            ),
+            token_env="GITHUB_TOKEN",
+        )
+
     def valid_event_file(self, directory: str) -> tuple[Path, dict]:
         repository = TemporaryRepository(Path(directory))
         event = repository.proposed_event(
@@ -654,7 +667,7 @@ class ImmutablePublisherTests(unittest.TestCase):
                 result = publisher.publish(
                     repository="Thorncrag/ARRP",
                     branch="project-console-data",
-                    local_file=path,
+                    content=path.read_bytes(),
                     remote_path=events.data_path(event),
                     token="test-token",
                 )
@@ -674,7 +687,7 @@ class ImmutablePublisherTests(unittest.TestCase):
                     publisher.publish(
                         repository="Thorncrag/ARRP",
                         branch="project-console-data",
-                        local_file=path,
+                        content=path.read_bytes(),
                         remote_path=events.data_path(event),
                         token="test-token",
                     )
@@ -687,7 +700,7 @@ class ImmutablePublisherTests(unittest.TestCase):
                 result = publisher.publish(
                     repository="Thorncrag/ARRP",
                     branch="project-console-data",
-                    local_file=path,
+                    content=path.read_bytes(),
                     remote_path=events.data_path(event),
                     token="test-token",
                 )
@@ -697,6 +710,96 @@ class ImmutablePublisherTests(unittest.TestCase):
             self.assertNotIn("sha", payload)
             self.assertEqual(payload["branch"], "project-console-data")
 
+    def test_repository_name_validation_is_linear_and_bounded(self):
+        self.assertTrue(publisher.repository_name_is_safe("Thorncrag/ARRP"))
+        for unsafe in (
+            "Thorncrag",
+            "Thorncrag/ARRP/extra",
+            "Thorncrag/ARRP name",
+            "./ARRP",
+            "Thorncrag/..",
+            f"{'a' * 101}/ARRP",
+            f"Thorncrag/{'-' * 200_000}",
+        ):
+            self.assertFalse(publisher.repository_name_is_safe(unsafe), unsafe[:80])
+
+    def test_publisher_rejects_unbounded_or_non_json_stdin_content(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path, event = self.valid_event_file(directory)
+            arguments = {
+                "repository": "Thorncrag/ARRP",
+                "branch": "project-console-data",
+                "remote_path": events.data_path(event),
+            }
+            for content, expected in (
+                (b"", publisher.PublishError),
+                (b"x" * (publisher.MAX_EVENT_JSON_BYTES + 1), publisher.PublishError),
+                (b"\xff", UnicodeDecodeError),
+                (b"{", json.JSONDecodeError),
+                (b"[]", publisher.PublishError),
+            ):
+                with self.assertRaises(expected):
+                    publisher.validate_inputs(content=content, **arguments)
+            with self.assertRaisesRegex(
+                publisher.PublishError,
+                "does not match",
+            ):
+                publisher.validate_inputs(
+                    content=path.read_bytes(),
+                    remote_path=events.data_path(event).replace(
+                        "/proposed/",
+                        "/accepted/",
+                    ),
+                    repository="Thorncrag/ARRP",
+                    branch="project-console-data",
+                )
+
+    def test_main_forwards_exact_bounded_stdin_bytes(self):
+        content = b'{"exact":"bytes"}\n'
+        stdin = argparse.Namespace(buffer=io.BytesIO(content))
+        with (
+            patch.object(publisher, "parse_args", return_value=self.publisher_args()),
+            patch.object(publisher.sys, "stdin", stdin),
+            patch.dict(os.environ, {"GITHUB_TOKEN": "test-token"}),
+            patch.object(publisher, "publish", return_value="created") as publish,
+            patch("builtins.print"),
+        ):
+            self.assertEqual(publisher.main(), 0)
+        self.assertEqual(publish.call_args.kwargs["content"], content)
+        self.assertEqual(publish.call_args.kwargs["token"], "test-token")
+
+    def test_main_checks_auth_before_attempting_to_read_stdin(self):
+        class UnreadableStdin:
+            @property
+            def buffer(self):
+                raise AssertionError("stdin must not be read before authentication")
+
+        with (
+            patch.object(publisher, "parse_args", return_value=self.publisher_args()),
+            patch.object(publisher.sys, "stdin", UnreadableStdin()),
+            patch.dict(os.environ, {}, clear=True),
+        ):
+            with self.assertRaisesRegex(publisher.PublishError, "missing GITHUB_TOKEN"):
+                publisher.main()
+
+    def test_main_rejects_empty_or_oversized_stdin(self):
+        for content in (b"", b"x" * (publisher.MAX_EVENT_JSON_BYTES + 1)):
+            stdin = argparse.Namespace(buffer=io.BytesIO(content))
+            with (
+                patch.object(
+                    publisher,
+                    "parse_args",
+                    return_value=self.publisher_args(),
+                ),
+                patch.object(publisher.sys, "stdin", stdin),
+                patch.dict(os.environ, {"GITHUB_TOKEN": "test-token"}),
+            ):
+                with self.assertRaisesRegex(
+                    publisher.PublishError,
+                    "must be piped",
+                ):
+                    publisher.main()
+
 
 class SourceDomainWorkflowContractTests(unittest.TestCase):
     def test_watcher_workflows_expose_and_retain_events_without_artifact_collisions(self):
@@ -705,11 +808,26 @@ class SourceDomainWorkflowContractTests(unittest.TestCase):
             ".github/workflows/presidential-directives-bot.yml",
             ".github/workflows/source-checker-bot.yml",
         )
+        published_event_files = {
+            ".github/workflows/case-monitor-bot.yml": "case-monitor-domain-event.json",
+            ".github/workflows/presidential-directives-bot.yml": (
+                "presidential-directives-domain-event.json"
+            ),
+            ".github/workflows/source-checker-bot.yml": (
+                "source-checker-domain-event.json"
+            ),
+        }
         for relative in paths:
             text = (ROOT / relative).read_text(encoding="utf-8")
             self.assertIn("domain_event_json", text, relative)
             self.assertIn("publish_immutable_data_file.py", text, relative)
             self.assertIn("attach-marker", text, relative)
+            self.assertNotIn("\n          --file ", text, relative)
+            self.assertIn(
+                f'< "${{RUNNER_TEMP}}/{published_event_files[relative]}"',
+                text,
+                relative,
+            )
             self.assertIn("attempt_key", text, relative)
             self.assertIn(
                 "${{ steps.invocation.outputs.attempt_key }}-${{ github.run_attempt }}",
@@ -754,6 +872,11 @@ class SourceDomainWorkflowContractTests(unittest.TestCase):
             "verify-log-branch",
         ):
             self.assertIn(required, workflow)
+        self.assertNotIn("\n          --file ", workflow)
+        self.assertIn(
+            '< "${RUNNER_TEMP}/accepted-source-domain-event.json"',
+            workflow,
+        )
         self.assertNotIn("gh pr merge", workflow)
         self.assertNotIn("git push origin main", workflow)
         self.assertNotIn("git push --set-upstream origin main", workflow)

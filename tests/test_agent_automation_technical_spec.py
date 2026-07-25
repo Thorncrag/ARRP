@@ -4,7 +4,14 @@ from pathlib import Path
 
 from pypdf import PdfReader
 
-from scripts.build_agent_automation_technical_spec import ROOT, build, reference_metadata
+from scripts.build_agent_automation_technical_spec import (
+    ROOT,
+    build,
+    heading_parts,
+    inline_markup,
+    list_line_parts,
+    reference_metadata,
+)
 
 
 class AgentAutomationTechnicalSpecTests(unittest.TestCase):
@@ -15,6 +22,34 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
             ),
             ("2.5", "2027-01-03", "January 3, 2027"),
         )
+
+    def test_markdown_parsers_are_bounded_and_preserve_supported_forms(self):
+        self.assertEqual(heading_parts("### Heading"), (3, "Heading"))
+        self.assertIsNone(heading_parts("####### Not a supported heading"))
+        self.assertEqual(list_line_parts("  12. Item"), ("  ", "12.", "Item"))
+        self.assertEqual(list_line_parts("* Item"), ("", "*", "Item"))
+        self.assertEqual(list_line_parts("١٢. Item"), ("", "١٢.", "Item"))
+        self.assertIsNone(list_line_parts("². Not decimal"))
+        self.assertIsNone(list_line_parts(f"{' ' * 200_000}not-a-list"))
+        self.assertIsNone(heading_parts("# " + " " * 200_000))
+        self.assertIsNone(list_line_parts("* " + " " * 200_000))
+        linked = inline_markup(
+            "[Framework](../../framework/FRAMEWORK.md)",
+            ROOT
+            / "research"
+            / "reference-products"
+            / "agent-automation-technical-spec.md",
+        )
+        self.assertIn("<link href=", linked)
+        self.assertIn("Framework</link>", linked)
+        for malformed in ("[" * 200_000, "[x](" * 100_000):
+            self.assertEqual(inline_markup(malformed, ROOT / "README.md"), malformed)
+
+    def test_front_matter_scan_rejects_an_unclosed_large_header(self):
+        with self.assertRaisesRegex(ValueError, "missing YAML front matter"):
+            reference_metadata("---\n" + "\n " * 100_000)
+        with self.assertRaisesRegex(ValueError, "missing YAML front matter"):
+            reference_metadata("  ---\nversion: 1\nas_of: 2026-07-24\n---\n")
 
     def test_reference_source_is_explicitly_nonauthoritative_and_visual(self):
         source = (

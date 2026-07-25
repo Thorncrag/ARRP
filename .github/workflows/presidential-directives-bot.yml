@@ -230,8 +230,8 @@ jobs:
           python scripts/publish_immutable_data_file.py
           --repository "${GITHUB_REPOSITORY}"
           --branch project-console-data
-          --file "${RUNNER_TEMP}/presidential-directives-domain-event.json"
           --path "${{ steps.domain-event.outputs.domain_event_path }}"
+          < "${RUNNER_TEMP}/presidential-directives-domain-event.json"
 
       - name: Bind the review pull request to the proposed event
         if: steps.pending.outputs.exists == 'true'

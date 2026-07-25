@@ -22,13 +22,14 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from source_domain_events import data_path, read_json, validate_event
+    from source_domain_events import data_path, validate_event
 except ModuleNotFoundError:  # Imported as ``scripts.publish_immutable_data_file`` in tests.
-    from scripts.source_domain_events import data_path, read_json, validate_event
+    from scripts.source_domain_events import data_path, validate_event
 
 
 API_ROOT = "https://api.github.com"
 USER_AGENT = "ARRP-immutable-source-event-publisher/1.0"
+MAX_EVENT_JSON_BYTES = 262_144
 REMOTE_PATH_RE = re.compile(
     r"^source-domain-events/(proposed|accepted)/"
     r"(case-monitor-bot|presidential-directives-bot|source-checker-bot)/"
@@ -40,23 +41,38 @@ class PublishError(RuntimeError):
     """An immutable data publication failure."""
 
 
+def repository_name_is_safe(repository: str) -> bool:
+    """Validate owner/name with a fixed alphabet in one forward pass."""
+    parts = repository.split("/")
+    allowed = frozenset(
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-"
+    )
+    return (
+        len(parts) == 2
+        and all(1 <= len(part) <= 100 for part in parts)
+        and all(part not in {".", ".."} for part in parts)
+        and all(character in allowed for part in parts for character in part)
+    )
+
+
 def validate_inputs(
     *,
     repository: str,
     branch: str,
-    local_file: Path,
+    content: bytes,
     remote_path: str,
 ) -> bytes:
-    if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository):
+    if not repository_name_is_safe(repository):
         raise PublishError("repository must use the owner/name form")
     if branch != "project-console-data":
         raise PublishError("immutable source events publish only to project-console-data")
     if not REMOTE_PATH_RE.fullmatch(remote_path) or ".." in Path(remote_path).parts:
         raise PublishError("invalid immutable source-event path")
-    content = local_file.read_bytes()
-    if not content or len(content) > 262_144:
+    if not content or len(content) > MAX_EVENT_JSON_BYTES:
         raise PublishError("immutable source event must be 1-262144 bytes")
-    event = read_json(local_file)
+    event = json.loads(content.decode("utf-8"))
+    if not isinstance(event, dict):
+        raise PublishError("immutable source event must contain one JSON object")
     validate_event(event)
     if data_path(event) != remote_path:
         raise PublishError("remote path does not match the source-domain event identity")
@@ -125,7 +141,7 @@ def publish(
     *,
     repository: str,
     branch: str,
-    local_file: Path,
+    content: bytes,
     remote_path: str,
     token: str,
     attempts: int = 3,
@@ -133,7 +149,7 @@ def publish(
     content = validate_inputs(
         repository=repository,
         branch=branch,
-        local_file=local_file,
+        content=content,
         remote_path=remote_path,
     )
     get_url = contents_url(repository, remote_path, branch)
@@ -151,7 +167,7 @@ def publish(
                 "PUT",
                 create_url(repository, remote_path),
                 {
-                    "message": f"Preserve source-domain event {local_file.stem}",
+                    "message": f"Preserve source-domain event {Path(remote_path).stem}",
                     "content": base64.b64encode(content).decode("ascii"),
                     "branch": branch,
                 },
@@ -170,7 +186,6 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repository", required=True)
     parser.add_argument("--branch", default="project-console-data")
-    parser.add_argument("--file", required=True, type=Path)
     parser.add_argument("--path", required=True)
     parser.add_argument("--token-env", default="GITHUB_TOKEN")
     return parser.parse_args()
@@ -181,10 +196,13 @@ def main() -> int:
     token = os.environ.get(args.token_env, "").strip()
     if not token:
         raise PublishError(f"missing {args.token_env} for immutable event publication")
+    content = sys.stdin.buffer.read(MAX_EVENT_JSON_BYTES + 1)
+    if not content or len(content) > MAX_EVENT_JSON_BYTES:
+        raise PublishError("immutable source event must be piped on standard input")
     result = publish(
         repository=args.repository,
         branch=args.branch,
-        local_file=args.file,
+        content=content,
         remote_path=args.path,
         token=token,
     )

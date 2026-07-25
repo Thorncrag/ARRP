@@ -142,8 +142,8 @@ jobs:
           python scripts/publish_immutable_data_file.py
           --repository "${GITHUB_REPOSITORY}"
           --branch project-console-data
-          --file "${RUNNER_TEMP}/accepted-source-domain-event.json"
           --path "${{ steps.accepted-event.outputs.domain_event_path }}"
+          < "${RUNNER_TEMP}/accepted-source-domain-event.json"
 
       - name: Preserve the accepted event as an Actions artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

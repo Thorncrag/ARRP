@@ -556,6 +556,7 @@ The security model includes:
 - repository-root containment, path normalization, `realpath` checks, symlink-escape rejection, regular-file checks, and exact path spelling validation;
 - source revisions and SHA-256 hashes for manifests, inputs, queues, packets, and Review Epoch boundaries;
 - strict JSON schemas and additional-property rejection;
+- bounded standard-input transfer for immutable source-domain-event publication so workflow-controlled content cannot select an arbitrary local file;
 - complete diff allowlists before any accepted watcher branch or retained log-rendering branch may supply executable code to a write-capable workflow;
 - request timeouts, pagination and response ceilings, retries, backoff, pacing, and bounded provider calls;
 - localhost binding, approved origins, mutation token, request-size limits, transactional control-state locking, and bounded control history;

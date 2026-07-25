@@ -81,11 +81,21 @@ def current_revision() -> str:
 
 def reference_metadata(text: str) -> tuple[str, str, str]:
     """Return the version, ISO date, and display date from source front matter."""
-    match = re.match(r"\A---\s*\n(?P<body>.*?)\n---\s*(?:\n|\Z)", text, re.DOTALL)
-    if not match:
+    lines = text.splitlines()
+    if not lines or lines[0].rstrip() != "---":
+        raise ValueError("technical reference is missing YAML front matter")
+    closing_index = next(
+        (
+            index
+            for index, line in enumerate(lines[1:], start=1)
+            if line.rstrip() == "---"
+        ),
+        None,
+    )
+    if closing_index is None:
         raise ValueError("technical reference is missing YAML front matter")
     values: dict[str, str] = {}
-    for raw_line in match.group("body").splitlines():
+    for raw_line in lines[1:closing_index]:
         key, separator, value = raw_line.partition(":")
         if separator:
             values[key.strip()] = value.strip().strip("\"'")
@@ -336,17 +346,43 @@ def inline_markup(text: str, source: Path) -> str:
         placeholders.append(value)
         return f"@@ARRP{len(placeholders) - 1}@@"
 
-    text = re.sub(
-        r"\[([^\]]+)\]\(([^)]+)\)",
-        lambda match: hold(
-            "<link href='"
-            + html.escape(github_href(match.group(2), source), quote=True)
-            + "' color='#1769AA'>"
-            + html.escape(match.group(1), quote=False)
-            + "</link>"
-        ),
-        text,
-    )
+    rendered: list[str] = []
+    cursor = 0
+    while cursor < len(text):
+        opening = text.find("[", cursor)
+        if opening < 0:
+            rendered.append(text[cursor:])
+            break
+        label_end = text.find("]", opening + 1)
+        if label_end < 0:
+            rendered.append(text[cursor:])
+            break
+        if label_end + 1 >= len(text) or text[label_end + 1] != "(":
+            rendered.append(text[cursor : label_end + 1])
+            cursor = label_end + 1
+            continue
+        target_end = text.find(")", label_end + 2)
+        if target_end < 0:
+            rendered.append(text[cursor:])
+            break
+        label = text[opening + 1 : label_end]
+        target = text[label_end + 2 : target_end]
+        if not label or not target:
+            rendered.append(text[cursor : target_end + 1])
+            cursor = target_end + 1
+            continue
+        rendered.append(text[cursor:opening])
+        rendered.append(
+            hold(
+                "<link href='"
+                + html.escape(github_href(target, source), quote=True)
+                + "' color='#1769AA'>"
+                + html.escape(label, quote=False)
+                + "</link>"
+            )
+        )
+        cursor = target_end + 1
+    text = "".join(rendered)
     text = re.sub(
         r"`([^`]+)`",
         lambda match: hold(
@@ -362,6 +398,49 @@ def inline_markup(text: str, source: Path) -> str:
     for index, value in enumerate(placeholders):
         text = text.replace(f"@@ARRP{index}@@", value)
     return text
+
+
+def heading_parts(line: str) -> tuple[int, str] | None:
+    """Parse one ATX heading without a backtracking expression."""
+    marker_count = 0
+    while marker_count < len(line) and line[marker_count] == "#":
+        marker_count += 1
+    if not 1 <= marker_count <= 6 or marker_count >= len(line):
+        return None
+    if not line[marker_count].isspace():
+        return None
+    title = line[marker_count:].lstrip()
+    return (marker_count, title) if title else None
+
+
+def list_line_parts(line: str) -> tuple[str, str, str] | None:
+    """Parse one Markdown list line in a single forward pass."""
+    marker_start = 0
+    while marker_start < len(line) and line[marker_start].isspace():
+        marker_start += 1
+    if marker_start >= len(line):
+        return None
+
+    marker_end = marker_start
+    if line[marker_start] in "-*":
+        marker_end += 1
+    elif line[marker_start].isdecimal():
+        while marker_end < len(line) and line[marker_end].isdecimal():
+            marker_end += 1
+        if marker_end >= len(line) or line[marker_end] != ".":
+            return None
+        marker_end += 1
+    else:
+        return None
+
+    if marker_end >= len(line) or not line[marker_end].isspace():
+        return None
+    content_start = marker_end
+    while content_start < len(line) and line[content_start].isspace():
+        content_start += 1
+    if content_start >= len(line):
+        return None
+    return line[:marker_start], line[marker_start:marker_end], line[content_start:]
 
 
 def table_cells(line: str) -> list[str]:
@@ -961,12 +1040,13 @@ def markdown_flowables(
             )
             index += 1
             continue
-        match = re.match(r"^(#{1,6})\s+(.+)$", stripped)
-        if match:
+        heading_match = heading_parts(stripped)
+        if heading_match:
+            level, title = heading_match
             story.append(
                 heading(
-                    inline_markup(match.group(2), source),
-                    len(match.group(1)),
+                    inline_markup(title, source),
+                    level,
                     styles,
                     f"heading-{heading_index}",
                 )
@@ -988,17 +1068,17 @@ def markdown_flowables(
             story.append(make_table(rows, styles, source, available_width))
             story.append(Spacer(1, 7))
             continue
-        list_match = re.match(r"^(\s*)([-*]|\d+\.)\s+(.+)$", line)
+        list_match = list_line_parts(line)
         if list_match:
-            ordered = list_match.group(2).endswith(".")
+            ordered = list_match[1].endswith(".")
             items = []
             while index < len(lines):
-                current = re.match(r"^(\s*)([-*]|\d+\.)\s+(.+)$", lines[index])
-                if not current or current.group(2).endswith(".") != ordered:
+                current = list_line_parts(lines[index])
+                if not current or current[1].endswith(".") != ordered:
                     break
                 items.append(
                     ListItem(
-                        Paragraph(inline_markup(current.group(3), source), styles["Bullet"]),
+                        Paragraph(inline_markup(current[2], source), styles["Bullet"]),
                         leftIndent=13,
                     )
                 )

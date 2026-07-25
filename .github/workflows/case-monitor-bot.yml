@@ -212,8 +212,8 @@ jobs:
           python scripts/publish_immutable_data_file.py
           --repository "${GITHUB_REPOSITORY}"
           --branch project-console-data
-          --file "${RUNNER_TEMP}/case-monitor-domain-event.json"
           --path "${{ steps.domain-event.outputs.domain_event_path }}"
+          < "${RUNNER_TEMP}/case-monitor-domain-event.json"
 
       - name: Bind the review pull request to the proposed event
         if: steps.commit.outputs.needs_pr == 'true'
