@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-24T21:58:09+00:00",
-  "revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
+  "generated_at": "2026-07-25T03:54:09+00:00",
+  "revision": "31ad1b233682a7615d57f38c017e8f2598da0207",
   "result": "clean",
   "counts": {
     "errors": 0,
@@ -10,7 +10,7 @@
     "issue_pages": 64,
     "proposal_pages": 41
   },
-  "duration_seconds": 12.634,
+  "duration_seconds": 12.04,
   "scope": [
     "Issue and proposal structure, including Issue Snapshot concision",
     "Area and topic routing",
@@ -30,7 +30,9 @@
     "Intake-workflow terminology",
     "Publication-disposition metadata",
     "Print-assembly configuration",
+    "Governing context registry, hashes, and module coverage",
     "Persistent-agent runbooks and runtime configuration",
+    "Source-domain event preservation and acceptance wiring",
     "Structured-file and repository hygiene"
   ],
   "findings": []
