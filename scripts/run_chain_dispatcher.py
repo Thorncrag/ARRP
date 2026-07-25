@@ -160,6 +160,7 @@ MAX_PENDING_RUN_LOG_RECONCILIATIONS = 128
 MAX_BOOTSTRAP_FAILURE_EVENTS = 128
 HOST_OUTCOME_HISTORY = ".tmp/run-coordinator/run-chain-history.json"
 USAGE_BASELINE_DIRECTORY = ".tmp/run-coordinator/usage-baselines"
+ELIM_CHECKOUT_PATH = ".tmp/run-coordinator/elim-checkout"
 HOST_CLOSEOUT_BRANCH_PREFIX = "codex/elim-"
 HOST_GIT_IDENTITY = {
     "name": "ARRP Run Coordinator",
@@ -2828,9 +2829,9 @@ def archive_reconciled_elim_checkout(
     configured = str(
         config["hostDispatcher"].get("isolatedCheckoutPath") or ""
     )
-    if configured != ".tmp/run-coordinator/elim-checkout":
+    if configured != ELIM_CHECKOUT_PATH:
         raise ContextError("configured Elim isolated checkout path is not approved")
-    checkout = contained_path(repo / configured, repo)
+    checkout = contained_path(repo / ELIM_CHECKOUT_PATH, repo)
     if not checkout.is_dir() or not (checkout / ".git").is_dir():
         raise ContextError("there is no preserved full Elim checkout to archive")
 
@@ -2912,12 +2913,14 @@ def archive_reconciled_elim_checkout(
         repo,
     )
     archive_root.mkdir(parents=True, exist_ok=True)
+    archive_key = hashlib.sha256(
+        (
+            f"{chain_id}\0{checkout_head.stdout.strip()}\0"
+            f"{archived_at.isoformat()}"
+        ).encode("utf-8")
+    ).hexdigest()
     archive_path = contained_path(
-        archive_root
-        / (
-            f"{chain_id}-{checkout_head.stdout.strip()[:12]}-"
-            f"{archived_at.strftime('%Y%m%dT%H%M%SZ')}"
-        ),
+        archive_root / archive_key,
         repo,
     )
     if archive_path.exists():
@@ -2963,9 +2966,9 @@ def prepare_elim_checkout(
     expected_revision: str | None = None,
 ) -> Path:
     configured = str(config["hostDispatcher"].get("isolatedCheckoutPath") or "")
-    if configured != ".tmp/run-coordinator/elim-checkout":
+    if configured != ELIM_CHECKOUT_PATH:
         raise RuntimeError("configured Elim isolated checkout path is not approved")
-    checkout = contained_path(repo / configured, repo)
+    checkout = contained_path(repo / ELIM_CHECKOUT_PATH, repo)
     origin = command([git, "remote", "get-url", "origin"], cwd=repo)
     origin_url = origin.stdout.strip()
     if origin.returncode != 0 or origin_url not in APPROVED_ORIGIN_URLS:

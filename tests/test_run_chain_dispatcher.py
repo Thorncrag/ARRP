@@ -2891,6 +2891,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             archived = repo / record["archive_path"]
             self.assertFalse(checkout.exists())
             self.assertTrue((archived / ".git").is_dir())
+            self.assertRegex(archived.name, r"^[0-9a-f]{64}$")
             self.assertTrue(
                 (archived / ".arrp-reconciled-checkout.json").is_file()
             )
