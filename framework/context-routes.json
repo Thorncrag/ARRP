@@ -297,7 +297,7 @@
     },
     "runbook_run_coordinator_bot": {
       "path": "framework/agents/RUN_COORDINATOR_BOT.md",
-      "sha256": "3c379d49b1333fedea27a6d356d4c5037bc78159e4e8468d27390cba758fa570",
+      "sha256": "59f0ba013b44054c528c42c16256f734c0834eb4f0f4caaf72b188cf433ccab2",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

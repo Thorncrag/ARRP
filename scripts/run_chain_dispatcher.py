@@ -2814,6 +2814,146 @@ def verify_canonical_runtime_boundary(git: str, repo: Path) -> str:
     return revision
 
 
+def archive_reconciled_elim_checkout(
+    git: str,
+    repo: Path,
+    config: dict[str, Any],
+    control: dict[str, Any],
+    *,
+    chain_id: str,
+) -> dict[str, Any]:
+    """Preserve a reconciled dirty checkout and release the fixed launch path."""
+    if SAFE_CHAIN_ID.fullmatch(chain_id) is None:
+        raise ContextError("checkout reconciliation received an unsafe Chain ID")
+    configured = str(
+        config["hostDispatcher"].get("isolatedCheckoutPath") or ""
+    )
+    if configured != ".tmp/run-coordinator/elim-checkout":
+        raise ContextError("configured Elim isolated checkout path is not approved")
+    checkout = contained_path(repo / configured, repo)
+    if not checkout.is_dir() or not (checkout / ".git").is_dir():
+        raise ContextError("there is no preserved full Elim checkout to archive")
+
+    pending = read_json(
+        repo / ELIM_RUN_LOG_RECONCILIATION_STATE,
+        {"schema_version": 1, "items": []},
+        root=repo,
+    )
+    if not isinstance(pending, dict) or reconciliation_chain_ids(pending):
+        raise ContextError(
+            "pending Elim Run Log reconciliation must be cleared by proof first"
+        )
+    action_items = control.get("action_items") or []
+    if not isinstance(action_items, list) or not any(
+        isinstance(item, dict)
+        and item.get("chain_id") == chain_id
+        and item.get("resolved") is True
+        for item in action_items
+    ):
+        raise ContextError(
+            "checkout reconciliation requires the matching resolved Action Item"
+        )
+
+    canonical_origin = command([git, "remote", "get-url", "origin"], cwd=repo)
+    checkout_origin = command([git, "remote", "get-url", "origin"], cwd=checkout)
+    if (
+        canonical_origin.returncode != 0
+        or checkout_origin.returncode != 0
+        or canonical_origin.stdout.strip() not in APPROVED_ORIGIN_URLS
+        or checkout_origin.stdout.strip() != canonical_origin.stdout.strip()
+    ):
+        raise ContextError("preserved Elim checkout origin is not approved")
+    canonical_revision = command(
+        [git, "rev-parse", "refs/remotes/origin/main"],
+        cwd=repo,
+    )
+    checkout_head = command([git, "rev-parse", "HEAD"], cwd=checkout)
+    if (
+        canonical_revision.returncode != 0
+        or checkout_head.returncode != 0
+        or re.fullmatch(
+            r"[0-9a-f]{40}",
+            canonical_revision.stdout.strip(),
+        )
+        is None
+        or re.fullmatch(r"[0-9a-f]{40}", checkout_head.stdout.strip()) is None
+    ):
+        raise ContextError("checkout reconciliation lacks a verifiable Git boundary")
+
+    current_run_log = git_text_at_commit(
+        git,
+        repo,
+        canonical_revision.stdout.strip(),
+        ELIM_RUN_LOG,
+    )
+    prior_run_log = git_text_at_commit(
+        git,
+        checkout,
+        checkout_head.stdout.strip(),
+        ELIM_RUN_LOG,
+    )
+    verify_reconciled_run_log_reports(
+        current_body=current_run_log,
+        prior_body=prior_run_log,
+        pending_chain_ids={chain_id},
+    )
+    changed_paths = worktree_changed_paths(git, checkout)
+    if not changed_paths:
+        raise ContextError(
+            "preserved Elim checkout is already clean and does not require archival"
+        )
+    history = control.setdefault("checkout_archive_history", [])
+    if not isinstance(history, list):
+        raise ContextError("checkout archive history is malformed")
+
+    archived_at = datetime.now(timezone.utc).replace(microsecond=0)
+    archive_root = contained_path(
+        repo / ".tmp/run-coordinator/reconciled-checkouts",
+        repo,
+    )
+    archive_root.mkdir(parents=True, exist_ok=True)
+    archive_path = contained_path(
+        archive_root
+        / (
+            f"{chain_id}-{checkout_head.stdout.strip()[:12]}-"
+            f"{archived_at.strftime('%Y%m%dT%H%M%SZ')}"
+        ),
+        repo,
+    )
+    if archive_path.exists():
+        raise ContextError("reconciled checkout archive path already exists")
+
+    record = {
+        "chain_id": chain_id,
+        "archived_at": archived_at.isoformat(),
+        "source_head": checkout_head.stdout.strip(),
+        "canonical_revision": canonical_revision.stdout.strip(),
+        "archive_path": repo_relative(archive_path, repo),
+        "changed_paths": sorted(changed_paths),
+        "proof": (
+            "Canonical origin/main contains one complete failed-run report that "
+            "is absent from the preserved checkout baseline; the matching Action "
+            "Item is resolved and the pending reconciliation queue is empty."
+        ),
+    }
+    write_json(
+        checkout / ".arrp-reconciled-checkout.json",
+        record,
+        root=checkout,
+    )
+    checkout.replace(archive_path)
+
+    history.append(record)
+    control["checkout_archive_history"] = history[-100:]
+    if control.get("elim_thread_checkout") == configured:
+        if control.get("elim_thread_id"):
+            control["prior_elim_thread_id"] = control["elim_thread_id"]
+        control.pop("elim_thread_id", None)
+        control.pop("elim_thread_checkout", None)
+    control.pop("elim_checkout_synced_head", None)
+    return record
+
+
 def prepare_elim_checkout(
     git: str,
     repo: Path,
@@ -4145,7 +4285,22 @@ def main() -> int:
             "do not fetch, synchronize, trigger a chain, or launch Codex."
         ),
     )
+    parser.add_argument(
+        "--archive-reconciled-checkout",
+        metavar="CHAIN_ID",
+        help=(
+            "After independent reconciliation proof, preserve the dirty isolated "
+            "checkout under the private archive tree and release its fixed path; "
+            "do not trigger a chain or launch Codex."
+        ),
+    )
     args = parser.parse_args()
+    if args.archive_reconciled_checkout and (
+        args.trigger_chain or args.launch_codex or args.recover_stale_lock_only
+    ):
+        parser.error(
+            "--archive-reconciled-checkout cannot be combined with run or lock modes"
+        )
     repo = ROOT
     config: dict[str, Any] = {}
     control: dict[str, Any] = {}
@@ -4224,6 +4379,21 @@ def main() -> int:
     current_stage = "host-repository-preflight"
     try:
         origin_revision = verify_canonical_runtime_boundary(git, repo)
+        if args.archive_reconciled_checkout:
+            current_stage = "reconciled-checkout-archive"
+            record = archive_reconciled_elim_checkout(
+                git,
+                repo,
+                config,
+                control,
+                chain_id=args.archive_reconciled_checkout,
+            )
+            persist_control_state(control_path, control, repo=repo)
+            print(
+                "Archived reconciled Elim checkout at "
+                f"{record['archive_path']} after canonical proof."
+            )
+            return 0
         requested = control.get("requested_run")
         comprehensive = control.get("requested_comprehensive_review")
         current_stage = "chain-manifest"
