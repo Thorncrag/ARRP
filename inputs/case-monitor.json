@@ -1,7 +1,71 @@
 {
+  "baseline_initialization_mode": false,
+  "change_counts": {
+    "changed": 1
+  },
+  "changes": [
+    {
+      "case_name": "Suri v. Trump (E.D. Va.)",
+      "changed_fields": [
+        "last case update"
+      ],
+      "courtlistener_url": "https://www.courtlistener.com/docket/69755722/suri-v-trump/",
+      "courtlistener_verification": {
+        "outcome": "unverified",
+        "reason": "CourtListener token unavailable"
+      },
+      "docket_number": "1:25-cv-00480",
+      "kind": "changed",
+      "last_case_update": "2026-07-23",
+      "source_matches": [
+        {
+          "record_ids": [
+            "RIGHTS-002"
+          ],
+          "source_id": "SRC-2238"
+        }
+      ],
+      "stable_key": "courtlistener:69755722|docket:1:25-cv-00480",
+      "tracker_status": "Government Action Blocked"
+    }
+  ],
+  "checked_at": "2026-07-25T04:15:42+00:00",
+  "coverage": {
+    "case_baselines_initialized": 0,
+    "case_baselines_updated": 1,
+    "mapped_catalog_rows": 490,
+    "mapped_docket_families": 490,
+    "monitored_catalog_rows": 497,
+    "tracker_entries_outside_catalog_scope": 415,
+    "uncovered_catalog_rows": 7,
+    "uncovered_docket_families": 7
+  },
+  "legal_significance_determined": false,
+  "repository_changes_prepared": true,
   "schema_version": 6,
-  "checked_at": "2026-07-25T03:54:26+00:00",
-  "collection_status": "unavailable",
-  "changes": [],
-  "source_development_modules": []
+  "source_development_modules": [
+    {
+      "added_lead_ids": [],
+      "applied": true,
+      "content_changed": true,
+      "lead_count": 214,
+      "lead_fingerprint": "4d9b4c74b2b28271e195c87c554038db11d9c1d6f884f932a2fc1673d07ed5de",
+      "matched_lead_count": 214,
+      "module_id": "judicial-review-disposition-signals",
+      "record_id": "HOR-035",
+      "removed_lead_ids": [],
+      "reviewed_lead_count": 0,
+      "signal_group_counts": {
+        "mootness": 74,
+        "replacement-or-supersession": 18,
+        "settlement-or-stipulated-dismissal": 39,
+        "vacatur": 71,
+        "withdrawal-or-rescission": 118
+      },
+      "target_path": "research/horizon-source-records/HOR-035-source-development.md"
+    }
+  ],
+  "status": "changes_detected",
+  "tracker_entry_count": 906,
+  "tracker_url": "https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/"
 }
