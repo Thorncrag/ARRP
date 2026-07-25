@@ -434,7 +434,7 @@ class Diagram(Flowable):
         "system-context": "System context and trust boundaries",
         "run-chain": "Due-aware persistent run chain",
         "execution-boundary": "Cloud, repository, and host execution boundary",
-        "failure-state": "Public stage outcomes and recovery routing",
+        "failure-state": "Deterministic stage outcomes and separate blocking state",
         "queue-selection": "Derived queue to exact selected unit",
         "context-routing": "Context profile and dependency expansion",
         "write-boundaries": "Three repository write classes",
@@ -632,24 +632,102 @@ class Diagram(Flowable):
         )
 
     def draw_failure_state(self, canvas, width):
-        root_x = width / 2 - 72
-        self.box(canvas, root_x, 151, 144, 38, "Stage attempted", "validated public outcome", fill=SKY, stroke=BLUE)
-        labels = [
-            ("not_due", GREEN_SOFT, GREEN),
-            ("completed", GREEN_SOFT, GREEN),
-            ("degraded", GOLD_SOFT, GOLD),
-            ("failed", RED_SOFT, RED),
-            ("blocked", RED_SOFT, RED),
+        root_w = 160
+        root_x = width / 2 - root_w / 2
+        self.box(
+            canvas,
+            root_x,
+            160,
+            root_w,
+            36,
+            "Deterministic stage evaluated",
+            "apply due predicate",
+            fill=SKY,
+            stroke=BLUE,
+        )
+        self.box(
+            canvas,
+            18,
+            104,
+            105,
+            38,
+            "not_due",
+            "continue",
+            fill=GREEN_SOFT,
+            stroke=GREEN,
+            title_color=GREEN,
+        )
+        self.box(
+            canvas,
+            width / 2 - 72,
+            104,
+            144,
+            38,
+            "Stage attempted",
+            "validate output",
+            fill=SKY,
+            stroke=BLUE,
+        )
+        scope_x = width - 164
+        self.box(
+            canvas,
+            scope_x,
+            104,
+            146,
+            38,
+            "Chain / host / work / Elim",
+            "prerequisite scope",
+            fill=SOFT,
+            stroke=LINE,
+        )
+        self.arrow(canvas, width / 2, 160, 70.5, 142, color=GREEN)
+        self.arrow(canvas, width / 2, 160, width / 2, 142)
+
+        outcome_w = 100
+        outcome_gap = 10
+        outcome_start = 18
+        outcomes = [
+            ("completed", "continue", GREEN_SOFT, GREEN),
+            ("degraded", "restrict", GOLD_SOFT, GOLD),
+            ("failed", "stop + route", RED_SOFT, RED),
         ]
-        gap = 8
-        box_w = (width - 28 - gap * 4) / 5
-        for index, (label, fill, stroke) in enumerate(labels):
-            x = 14 + index * (box_w + gap)
-            self.box(canvas, x, 85, box_w, 33, label, "", fill=fill, stroke=stroke, title_color=stroke)
-            self.arrow(canvas, width / 2, 151, x + box_w / 2, 118, color=stroke)
-        self.box(canvas, 18, 20, 150, 38, "Continue", "healthy or independent work", fill=GREEN_SOFT, stroke=GREEN)
-        self.box(canvas, width / 2 - 75, 20, 150, 38, "Restrict", "do not use degraded input", fill=GOLD_SOFT, stroke=GOLD)
-        self.box(canvas, width - 168, 20, 150, 38, "Stop and route", "preserve · alert · retry/human", fill=RED_SOFT, stroke=RED)
+        attempt_center = width / 2
+        for index, (label, body, fill, stroke) in enumerate(outcomes):
+            x = outcome_start + index * (outcome_w + outcome_gap)
+            self.box(
+                canvas,
+                x,
+                38,
+                outcome_w,
+                40,
+                label,
+                body,
+                fill=fill,
+                stroke=stroke,
+                title_color=stroke,
+            )
+            self.arrow(canvas, attempt_center, 104, x + outcome_w / 2, 78, color=stroke)
+        self.box(
+            canvas,
+            scope_x,
+            38,
+            146,
+            40,
+            "blocked",
+            "preserve exact blocker",
+            fill=RED_SOFT,
+            stroke=RED,
+            title_color=RED,
+        )
+        self.arrow(canvas, scope_x + 73, 104, scope_x + 73, 78, color=RED)
+        self.label(
+            canvas,
+            "A deterministic stage never synthesizes blocked.",
+            width / 2,
+            17,
+            color=RED,
+            size=7,
+        )
 
     def draw_queue_selection(self, canvas, width):
         items = [

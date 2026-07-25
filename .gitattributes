@@ -1,0 +1,2 @@
+# Render generated and retained PDF artifacts as binary repository objects.
+*.pdf binary

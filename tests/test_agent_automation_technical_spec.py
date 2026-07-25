@@ -67,6 +67,15 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
             content = "\n".join(page_text)
             self.assertIn("NON-AUTHORITATIVE REFERENCE PRODUCT", content)
             self.assertIn("Due-aware persistent run chain", content)
+            self.assertIn(
+                "Deterministic stage outcomes and separate blocking state",
+                content,
+            )
+            self.assertIn(
+                "A deterministic stage never synthesizes blocked.",
+                content,
+            )
+            self.assertNotIn("Public stage outcomes and recovery routing", content)
             self.assertIn("15 percent is the absolute protected user reserve", content)
             self.assertIn("Only a human may permanently remove", content)
             self.assertIn(baseline, content)

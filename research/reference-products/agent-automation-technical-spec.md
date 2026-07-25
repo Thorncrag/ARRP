@@ -3,7 +3,7 @@ title: "ARRP Persistent Automation — Technical Specification and Traceability 
 status: non-authoritative-reference
 version: "1.0"
 as_of: "2026-07-24"
-implementation_baseline: "{{GIT_COMMIT}}"
+implementation_baseline: "1d26fe281318601988b22064e5582c38b4bb1c46"
 print_status: excluded
 print_exclusion_reason: "Nonauthoritative internal reference product."
 ---
