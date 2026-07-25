@@ -41,10 +41,16 @@ Material changes are committed only to the dedicated
 through an owner-assigned pull request. The branch is not a shared substantive
 branch. The pull request must itemize each affected directive by its stable
 registry identity, the observed fingerprint, `Last Changed`, or other
-authorized metadata delta, and the originating Actions run. It is the
-unresolved human-review task, and merging it accepts the proposed registry
-baseline and other itemized changes. No-change runs create no commit, and
-every proposed registry change requires human review before merge.
+authorized metadata delta, and the originating Actions run across the complete
+unresolved exact-head delta; a latest-run summary may not conceal changes
+retained from an earlier run. The proposal first enters Elim's source-domain
+review queue. Elim verifies the primary directives, determines relevance and
+routing, and records an exact-head disposition recommendation in the Source
+Monitor Log. Only an expressly reserved or owner-gated choice then enters
+human Action Items with the exact question. Merging remains human-owner gated
+and accepts the proposed registry baseline and other itemized changes.
+No-change runs create no commit, and every proposed registry change requires
+human review before merge.
 
 The workflow emits one schema-versioned, minimized `proposed` source-domain
 event for the complete pending branch delta. Its stable idempotency key binds
@@ -58,6 +64,10 @@ projected immutably under
 `source-domain-events/proposed/presidential-directives-bot/` on
 `project-console-data`, exposed through the reusable-workflow outputs, and
 bound to the review pull request by its event ID and content hash.
+The same complete projection is embedded in the retained current-run report
+for Elim and rendered as a human-readable, marker-bounded pull-request
+section. The current-run work count uses the complete unresolved affected
+record count rather than only changes first observed during that run.
 
 Only a same-repository merge of the exact bot-branch revision into `main` by
 the allowlisted human project owner establishes acceptance. The acceptance workflow must verify the

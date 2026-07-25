@@ -151,6 +151,7 @@ AUTOMATION_RUNTIME_PATHS = (
     "scripts/run_coordinator.py",
     "scripts/run_coordinator_control.py",
     "scripts/select_elim_context_route.py",
+    "scripts/source_monitor_recommendations.py",
 )
 ELIM_RECOVERY_STATE = ".tmp/run-coordinator/elim-recovery.json"
 ELIM_RUN_LOG_RECONCILIATION_STATE = (

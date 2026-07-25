@@ -202,6 +202,7 @@ jobs:
           --chain-id "${CHAIN_ID}"
           --run-id "github-actions:${GITHUB_REPOSITORY}:${GITHUB_RUN_ID}:${GITHUB_RUN_ATTEMPT}:${{ steps.invocation.outputs.attempt_key }}"
           --trigger "${{ github.event_name }}"
+          --enrich-report "${RUNNER_TEMP}/monitoring-report.json"
           --github-output "${GITHUB_OUTPUT}"
 
       - name: Preserve the proposed event on the data branch
@@ -311,11 +312,16 @@ jobs:
           digest = ""
           if report.is_file():
               payload = json.loads(report.read_text())
-              count = len(payload.get("changes") or [])
-              count += sum(
-                  len(item.get("added_lead_ids") or [])
-                  for item in payload.get("source_development_modules") or []
-              )
+              pending = payload.get("pending_proposal") or {}
+              summary = pending.get("summary") or {}
+              if pending:
+                  count = int(summary.get("affected_record_count", 0))
+              else:
+                  count = len(payload.get("changes") or [])
+                  count += sum(
+                      len(item.get("added_lead_ids") or [])
+                      for item in payload.get("source_development_modules") or []
+                  )
               digest = "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest()
           with Path(os.environ["GITHUB_OUTPUT"]).open("a") as output:
               output.write(f"work_count={count}\noutput_hash={digest}\n")

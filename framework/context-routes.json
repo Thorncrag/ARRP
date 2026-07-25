@@ -72,7 +72,7 @@
     },
     "project_structure": {
       "path": "framework/PROJECT_STRUCTURE.md",
-      "sha256": "fcbdd02f6024e5ed256451cc28500bf4f51cce863417f280d5e3da9ace0e7323",
+      "sha256": "04fd10626d4522d72b8a9dcdfd6fbf548f156386988eca8cf9ac1e7a0cc1154f",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -249,7 +249,7 @@
     },
     "runbook_elim": {
       "path": "framework/agents/ELIM.md",
-      "sha256": "fbc6130d6b18c4b054bac0f583ba7dae1fd56be5220c544aaa063deb8f5edbea",
+      "sha256": "ac7b2b40cebd5746cfd5f9cbc08e6a0f75b2ddf70c422cd2e627f66c3ecba145",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -261,7 +261,7 @@
     },
     "runbook_case_monitor_bot": {
       "path": "framework/agents/CASE_MONITOR_BOT.md",
-      "sha256": "239fca127a174bd9056db56e4527006fe7d1c23b3e5c93307bb3843fa72dd3b0",
+      "sha256": "6d7b738aa9d569cf4e04e1ae1de37df20ba100c9096129936dff42fcd0714332",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -270,7 +270,7 @@
     },
     "runbook_presidential_directives_bot": {
       "path": "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
-      "sha256": "6e085d851baabe9130e3949d18a92b0bbb465feadf50c56a43a15797ee33c85e",
+      "sha256": "2c2c5276da552799775479091f66ec6d8cbe16deab71121cc10067692ca8e7c4",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

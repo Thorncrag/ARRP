@@ -99,7 +99,7 @@ The kernel route table and context registry determine which modules an operation
 | `framework/logs/CHANGE_AUDIT_LOG.md` | Preserved historical project-wide Change Audit record. |
 | `framework/logs/AGENT_AUDIT_LOG.md` | Shared provenance and rollback ledger for material actions by every persistent agent and bot. |
 | `framework/logs/ELIM_RUN_LOG.md` | Complete per-run operational reports for Elim, with links to issue audit histories and shared material-action provenance. |
-| `framework/logs/SOURCE_MONITOR_LOG.md` | Source-domain event record for accepted or proposed monitoring changes; it does not replace shared agent provenance. |
+| `framework/logs/SOURCE_MONITOR_LOG.md` | Source-domain event record plus exact-head Elim or interactive disposition recommendations for proposed monitoring changes; it does not replace shared agent provenance. |
 | `framework/logs/PROJECT_INTEGRITY_REPORT.md` | Overwritten current integrity findings; not a running audit log. |
 | `research/intake-review-ledger.jsonl` | Append-only, content-free processing cursor created after the first completed public-submission assessment; it prevents repeat review without copying submission text or private contact data. |
 | `research/intake-action-ledger.jsonl` | Append-only provenance for actions taken on public submissions; it is created only when the first action occurs. |

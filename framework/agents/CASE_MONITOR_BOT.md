@@ -70,7 +70,7 @@ An enabled module must name one established source-development path: `research/h
 
 ## Publication and review
 
-Material changes are committed only to the dedicated `bot/case-monitor-updates` proposal branch and presented through an owner-assigned pull request. The branch is replaceable only with lease protection under the shared branch-safety rule. The pull request must itemize every affected `SRC-####`, the observed field change or generated-lead delta, and the originating Actions run. It is the unresolved human-review task, and merging it accepts the proposed monitoring baseline and other itemized changes. No-change runs create no commit. Every proposed catalog or source-development lead change requires human review before merge.
+Material changes are committed only to the dedicated `bot/case-monitor-updates` proposal branch and presented through an owner-assigned pull request. The branch is replaceable only with lease protection under the shared branch-safety rule. The pull request must itemize the complete unresolved exact-head delta, including every affected `SRC-####`, generated record, and originating Actions run; a latest-run summary may not conceal changes retained from an earlier run. The proposal first enters Elim's source-domain review queue. Elim verifies the primary records, determines relevance and routing, and records an exact-head disposition recommendation in the Source Monitor Log. Only an expressly reserved or owner-gated choice then enters human Action Items with the exact question. Merging remains human-owner gated and accepts the proposed monitoring baseline and other itemized changes. No-change runs create no commit. Every proposed catalog or source-development lead change requires human review before merge.
 
 The workflow emits one schema-versioned, minimized `proposed` source-domain
 event for the complete pending branch delta. Its stable idempotency key binds
@@ -83,6 +83,10 @@ narrative, or private data. It is retained as an Actions artifact, projected
 immutably under `source-domain-events/proposed/case-monitor-bot/` on
 `project-console-data`, exposed through the reusable-workflow outputs, and
 bound to the review pull request by its event ID and content hash.
+The same complete projection is embedded in the retained current-run report
+for Elim and rendered as a human-readable, marker-bounded pull-request
+section. The current-run work count uses the complete unresolved affected
+record count rather than only changes first observed during that run.
 
 Only a same-repository merge of the exact bot-branch revision into `main` by
 the allowlisted human project owner establishes acceptance. The acceptance workflow must verify the

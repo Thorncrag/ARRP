@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>ARRP Project Console</title>
     <meta name="description" content="ARRP project progress, candidate, source, monitoring, automation, log, and print-planning console.">
-    <link rel="stylesheet" href="styles.css?v=43">
+    <link rel="stylesheet" href="styles.css?v=44">
   </head>
   <body data-interface-theme="arrp-tool">
     <a class="skip-link" href="#console-tabs">Skip to console tabs</a>
@@ -221,12 +221,12 @@
             <div>
               <span class="eyebrow">Central review inbox</span>
               <h2 id="action-items-heading">Action items</h2>
-              <p>Everything presently awaiting a decision, routing choice, detected-update review, or Integrity finding explicitly assigned for human attention. Routine issue monitoring and agent-resolvable Integrity work remain in their detailed views.</p>
+              <p>Everything presently assigned for a human decision, routing choice, or Integrity response. Repository proposals are listed here with an exact-head recommendation, rationale, owner, and decision question; an unexplained open pull request remains with Elim and does not count as your action.</p>
             </div>
             <p class="attention-note" id="action-items-note">Loading review queues…</p>
           </div>
           <div class="action-items-grid" id="action-items-grid"></div>
-          <p class="method-note" id="action-items-live-note">Bot-update counts refresh from the repository when network access is available; all other counts come from the checked-in console data.</p>
+          <p class="method-note" id="action-items-live-note">Live pull-request heads refresh from GitHub when available and are matched against checked-in recommendations. GitHub supplies evidence; this screen owns the disposition queue.</p>
         </section>
       </section>
 
@@ -745,46 +745,46 @@
 
     <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
 
-    <script src="catalog-data.js?v=43"></script>
-    <script src="data/candidates.js?v=43"></script>
-    <script src="data/sources.js?v=43"></script>
-    <script src="data/sources-catalog-001.js?v=43"></script>
-    <script src="data/sources-catalog-002.js?v=43"></script>
-    <script src="data/sources-catalog-003.js?v=43"></script>
-    <script src="data/sources-catalog-004.js?v=43"></script>
-    <script src="data/sources-catalog-005.js?v=43"></script>
-    <script src="data/sources-catalog-006.js?v=43"></script>
-    <script src="data/sources-catalog-007.js?v=43"></script>
-    <script src="data/sources-catalog-008.js?v=43"></script>
-    <script src="data/sources-catalog-009.js?v=43"></script>
-    <script src="data/sources-catalog-010.js?v=43"></script>
-    <script src="data/sources-catalog-011.js?v=43"></script>
-    <script src="data/sources-catalog-012.js?v=43"></script>
-    <script src="data/sources-catalog-013.js?v=43"></script>
-    <script src="data/sources-catalog-014.js?v=43"></script>
-    <script src="data/sources-catalog-015.js?v=43"></script>
-    <script src="data/sources-catalog-016.js?v=43"></script>
-    <script src="data/directives-catalog-001.js?v=43"></script>
-    <script src="data/directives-catalog-002.js?v=43"></script>
-    <script src="data/directives-catalog-003.js?v=43"></script>
-    <script src="data/directives-catalog-004.js?v=43"></script>
-    <script src="data/directives-catalog-005.js?v=43"></script>
-    <script src="data/directives-catalog-006.js?v=43"></script>
-    <script src="data/directives-catalog-007.js?v=43"></script>
-    <script src="data/directives-catalog-008.js?v=43"></script>
-    <script src="data/directives-catalog-009.js?v=43"></script>
-    <script src="data/directives-catalog-010.js?v=43"></script>
-    <script src="data/directives-catalog-011.js?v=43"></script>
-    <script src="data/directives-catalog-012.js?v=43"></script>
-    <script src="data/directives-catalog-013.js?v=43"></script>
-    <script src="data/directives-catalog-014.js?v=43"></script>
-    <script src="data/directives-catalog-015.js?v=43"></script>
-    <script src="data/directives-catalog-016.js?v=43"></script>
-    <script src="data/progress.js?v=43"></script>
-    <script src="data/integrity.js?v=43"></script>
-    <script src="data/automation.js?v=43"></script>
-    <script src="data/logs.js?v=43"></script>
-    <script src="data/publication.js?v=43"></script>
-    <script src="app.js?v=43"></script>
+    <script src="catalog-data.js?v=44"></script>
+    <script src="data/candidates.js?v=44"></script>
+    <script src="data/sources.js?v=44"></script>
+    <script src="data/sources-catalog-001.js?v=44"></script>
+    <script src="data/sources-catalog-002.js?v=44"></script>
+    <script src="data/sources-catalog-003.js?v=44"></script>
+    <script src="data/sources-catalog-004.js?v=44"></script>
+    <script src="data/sources-catalog-005.js?v=44"></script>
+    <script src="data/sources-catalog-006.js?v=44"></script>
+    <script src="data/sources-catalog-007.js?v=44"></script>
+    <script src="data/sources-catalog-008.js?v=44"></script>
+    <script src="data/sources-catalog-009.js?v=44"></script>
+    <script src="data/sources-catalog-010.js?v=44"></script>
+    <script src="data/sources-catalog-011.js?v=44"></script>
+    <script src="data/sources-catalog-012.js?v=44"></script>
+    <script src="data/sources-catalog-013.js?v=44"></script>
+    <script src="data/sources-catalog-014.js?v=44"></script>
+    <script src="data/sources-catalog-015.js?v=44"></script>
+    <script src="data/sources-catalog-016.js?v=44"></script>
+    <script src="data/directives-catalog-001.js?v=44"></script>
+    <script src="data/directives-catalog-002.js?v=44"></script>
+    <script src="data/directives-catalog-003.js?v=44"></script>
+    <script src="data/directives-catalog-004.js?v=44"></script>
+    <script src="data/directives-catalog-005.js?v=44"></script>
+    <script src="data/directives-catalog-006.js?v=44"></script>
+    <script src="data/directives-catalog-007.js?v=44"></script>
+    <script src="data/directives-catalog-008.js?v=44"></script>
+    <script src="data/directives-catalog-009.js?v=44"></script>
+    <script src="data/directives-catalog-010.js?v=44"></script>
+    <script src="data/directives-catalog-011.js?v=44"></script>
+    <script src="data/directives-catalog-012.js?v=44"></script>
+    <script src="data/directives-catalog-013.js?v=44"></script>
+    <script src="data/directives-catalog-014.js?v=44"></script>
+    <script src="data/directives-catalog-015.js?v=44"></script>
+    <script src="data/directives-catalog-016.js?v=44"></script>
+    <script src="data/progress.js?v=44"></script>
+    <script src="data/integrity.js?v=44"></script>
+    <script src="data/automation.js?v=44"></script>
+    <script src="data/logs.js?v=44"></script>
+    <script src="data/publication.js?v=44"></script>
+    <script src="app.js?v=44"></script>
   </body>
 </html>

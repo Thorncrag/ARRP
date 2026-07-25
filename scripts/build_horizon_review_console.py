@@ -20,6 +20,13 @@ try:
 except ModuleNotFoundError:  # Imported as scripts.build_horizon_review_console.
     from scripts.project_tree import iter_project_files
 
+try:
+    from source_monitor_recommendations import parse_source_monitor_recommendations
+except ModuleNotFoundError:  # Imported as scripts.build_horizon_review_console.
+    from scripts.source_monitor_recommendations import (
+        parse_source_monitor_recommendations,
+    )
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
@@ -1002,27 +1009,37 @@ def source_monitor_log_view() -> dict[str, object]:
             "date": strip_markdown(parts[0]),
             "watcher": strip_markdown(parts[1] if len(parts) > 1 else ""),
             "result": strip_markdown(fields.get("Result", "")),
-            "affected": strip_markdown(fields.get("Affected source IDs", fields.get("Affected directive IDs", ""))),
-            "activity": strip_markdown(fields.get("Activity code", "")),
+            "affected": strip_markdown(fields.get(
+                "Affected source IDs",
+                fields.get("Affected directive IDs", fields.get("Affected records", "")),
+            )),
+            "activity": strip_markdown(fields.get(
+                "Activity code", fields.get("Recommendation ID", "")
+            )),
         }
         entries.append(log_entry(f"source-monitor-{index:03d}", values, {
             "date": parts[0],
             "watcher": parts[1] if len(parts) > 1 else "",
             "result": fields.get("Result", ""),
-            "affected": fields.get("Affected source IDs", fields.get("Affected directive IDs", "")),
-            "activity": fields.get("Activity code", ""),
+            "affected": fields.get(
+                "Affected source IDs",
+                fields.get("Affected directive IDs", fields.get("Affected records", "")),
+            ),
+            "activity": fields.get(
+                "Activity code", fields.get("Recommendation ID", "")
+            ),
         }, body))
     return {
         "id": "source-monitor",
         "title": "Source Monitor Log",
-        "description": "Material changes detected by deterministic source and directive watchers.",
+        "description": "Material watcher changes and exact-head repository disposition recommendations.",
         "source_url": GITHUB_BLOB_ROOT + "framework/logs/SOURCE_MONITOR_LOG.md",
         "columns": [
             {"key": "date", "label": "Date and time"},
             {"key": "watcher", "label": "Watcher"},
             {"key": "result", "label": "Result"},
             {"key": "affected", "label": "Affected records"},
-            {"key": "activity", "label": "Activity code"},
+            {"key": "activity", "label": "Activity or recommendation"},
         ],
         "group_options": [
             {"key": "watcher", "label": "Watcher"},
@@ -1031,6 +1048,34 @@ def source_monitor_log_view() -> dict[str, object]:
         "default_sort": {"key": "date", "direction": "desc"},
         "entries": entries,
     }
+
+
+def repository_review_recommendations() -> list[dict[str, object]]:
+    records = parse_source_monitor_recommendations(
+        SOURCE_MONITOR_LOG.read_text(encoding="utf-8")
+    )
+    display_fields = {
+        "reviewer",
+        "recommendation",
+        "rationale",
+        "affected_records",
+        "confidence",
+        "human_question",
+        "reassessment_trigger",
+        "heading",
+    }
+    return [
+        {
+            **{
+                key: strip_markdown(str(value)) if key in display_fields else value
+                for key, value in record.items()
+            },
+            "source_url": GITHUB_BLOB_ROOT
+            + "framework/logs/SOURCE_MONITOR_LOG.md",
+            "console_target": "logs:source-monitor",
+        }
+        for record in records
+    ]
 
 
 def project_log_views() -> list[dict[str, object]]:
@@ -2058,6 +2103,7 @@ def main() -> None:
     page_inventory = page_inventory_records()
     publication = publication_data(page_inventory)
     project_logs = project_log_views()
+    review_recommendations = repository_review_recommendations()
     progress = progress_snapshot()
     integrity = integrity_snapshot()
     run_chain = run_chain_snapshot()
@@ -2069,7 +2115,7 @@ def main() -> None:
     ]
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload = {
-        "schema_version": 25,
+        "schema_version": 26,
         "generated_at": generated_at,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),
@@ -2088,6 +2134,7 @@ def main() -> None:
         "page_inventory": page_inventory,
         "publication": publication,
         "project_logs": project_logs,
+        "repository_review_recommendations": review_recommendations,
         "progress": progress,
         "integrity": integrity,
         "run_chain": run_chain,
@@ -2126,6 +2173,7 @@ def main() -> None:
             select(record, ("id", "title", "summary", "issue_url"))
             for record in monitoring_issues
         ],
+        "repository_review_recommendations": review_recommendations,
     }
     source_chunk_count = 16
     source_chunk_size = max(1, math.ceil(len(cited_sources) / source_chunk_count))
@@ -2174,7 +2222,10 @@ def main() -> None:
             "agent_registry": agent_registry,
             "run_chain": run_chain,
         },
-        "logs.js": {"project_logs": project_logs},
+        "logs.js": {
+            "project_logs": project_logs,
+            "repository_review_recommendations": review_recommendations,
+        },
         "publication.js": {
             "page_inventory": page_inventory,
             "publication": publication,

@@ -346,6 +346,50 @@ a { color: var(--blue); }
 .action-item-detail-list { margin: 0; padding: 0 1.2rem .9rem 2.2rem; font-size: .82rem; }
 .action-item-detail-list li + li { margin-top: .35rem; }
 .action-item-links { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; padding: 0 1rem 1rem; }
+.repository-review-item {
+  padding: .7rem .75rem;
+  border: 1px solid var(--line);
+  border-radius: .55rem;
+  background: var(--soft);
+}
+.repository-review-item + .repository-review-item { margin-top: .65rem !important; }
+.repository-review-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .55rem;
+}
+.repository-review-title { line-height: 1.35; }
+.repository-review-state { flex: 0 0 auto; }
+.repository-review-state.current { color: #285c3a; background: #e4f2e8; }
+.repository-review-state.stale { color: #765412; background: #fff0c7; }
+.repository-review-state.warning { color: #7b3e13; background: #fce5d4; }
+.repository-review-meta {
+  margin: .35rem 0 0;
+  color: var(--muted);
+  font-size: .72rem;
+}
+.repository-review-recommendation,
+.repository-review-rationale,
+.repository-review-question {
+  margin: .5rem 0 0;
+  line-height: 1.45;
+}
+.repository-review-question {
+  padding: .5rem .6rem;
+  border-left: 3px solid #d69b2d;
+  color: var(--ink);
+  background: #fff8e9;
+  font-weight: 700;
+}
+.repository-review-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .55rem;
+  margin-top: .6rem;
+}
+.repository-review-links .record-link { padding: .32rem .48rem; font-size: .72rem; }
 .progress-summary-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(160px, 1fr));

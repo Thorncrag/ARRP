@@ -35,6 +35,11 @@ ISO_TIME_RE = re.compile(
     r"(?:\.[0-9]+)?(?:Z|[+-][0-9]{2}:[0-9]{2})$"
 )
 MARKER_RE = re.compile(r"<!-- ARRP_SOURCE_DOMAIN_EVENT (\{[^\r\n]*\}) -->")
+SUMMARY_RE = re.compile(
+    r"\n*<!-- ARRP_SOURCE_DOMAIN_SUMMARY_START -->.*?"
+    r"<!-- ARRP_SOURCE_DOMAIN_SUMMARY_END -->\n*",
+    re.DOTALL,
+)
 SOURCE_ID_RE = re.compile(r"^SRC-[0-9]{4,}$")
 PROJECT_RECORD_RE = re.compile(r"^(?:HOR|[A-Z]+)-[0-9]{3}$")
 
@@ -631,9 +636,62 @@ def marker(event: dict[str, Any], encoded: bytes) -> str:
     return f"<!-- ARRP_SOURCE_DOMAIN_EVENT {canonical_json(payload)} -->"
 
 
+def pending_proposal_projection(event: dict[str, Any]) -> dict[str, Any]:
+    """Return the complete, minimized proposal context needed by Elim."""
+
+    validate_event(event, expected_state="proposed")
+    return {
+        "event_id": event["event_id"],
+        "agent_id": event["agent_id"],
+        "proposal": copy.deepcopy(event["proposal"]),
+        "affected_records": copy.deepcopy(event["affected_records"]),
+        "summary": copy.deepcopy(event["summary"]),
+    }
+
+
+def enrich_report(report: dict[str, Any], event: dict[str, Any]) -> dict[str, Any]:
+    """Bind a current-run report to the complete unresolved branch proposal."""
+
+    enriched = copy.deepcopy(report)
+    enriched["pending_proposal"] = pending_proposal_projection(event)
+    return enriched
+
+
+def proposal_summary(event: dict[str, Any]) -> str:
+    """Render a human-readable summary of the complete pending PR delta."""
+
+    validate_event(event, expected_state="proposed")
+    proposal = event["proposal"]
+    paths = ", ".join(
+        f"`{item['path']}`" for item in event["output_hashes"]["files"]
+    )
+    return f"""<!-- ARRP_SOURCE_DOMAIN_SUMMARY_START -->
+## Complete unresolved proposal
+
+This section describes the complete change currently pending on the persistent
+watcher branch, including changes retained from earlier runs. It—not a
+current-run count by itself—is the review boundary.
+
+- Proposal event: `{event['event_id']}`
+- Exact head revision: `{proposal['proposal_revision']}`
+- Affected files ({len(event['output_hashes']['files'])}): {paths}
+- Affected records ({event['summary']['affected_record_count']}): {display_records(event)}
+- Delta counts: {count_summary(event)}
+- Review boundary: the recommendation must cover this exact head; any later head revision requires reassessment.
+<!-- ARRP_SOURCE_DOMAIN_SUMMARY_END -->"""
+
+
 def attach_marker(body: str, event: dict[str, Any], encoded: bytes) -> str:
-    without = MARKER_RE.sub("", body).rstrip()
-    return without + "\n\n" + marker(event, encoded) + "\n"
+    without_marker = MARKER_RE.sub("", body)
+    without_summary = SUMMARY_RE.sub("\n", without_marker).rstrip()
+    return (
+        without_summary
+        + "\n\n"
+        + proposal_summary(event)
+        + "\n\n"
+        + marker(event, encoded)
+        + "\n"
+    )
 
 
 def marker_payload(body: str) -> dict[str, Any]:
@@ -984,6 +1042,12 @@ def write_github_outputs(path: Path | None, values: dict[str, Any]) -> None:
 def propose_command(args: argparse.Namespace) -> int:
     event = build_proposed_event(args)
     encoded = write_json(args.output, event)
+    if args.enrich_report:
+        report = read_json(args.enrich_report)
+        args.enrich_report.write_text(
+            json.dumps(enrich_report(report, event), indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
     write_github_outputs(
         args.github_output,
         {
@@ -1063,6 +1127,14 @@ def parser() -> argparse.ArgumentParser:
     propose.add_argument("--chain-id", default="")
     propose.add_argument("--run-id", required=True)
     propose.add_argument("--trigger", required=True)
+    propose.add_argument(
+        "--enrich-report",
+        type=Path,
+        help=(
+            "Write the complete unresolved proposal projection into this "
+            "current-run report for downstream Elim queue construction."
+        ),
+    )
     propose.add_argument("--github-output", type=Path)
     propose.set_defaults(handler=propose_command)
 

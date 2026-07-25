@@ -7607,11 +7607,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "legislation/WAR-009.md",
           "exists": true
+        },
+        {
+          "path": "framework/logs/SOURCE_MONITOR_LOG.md",
+          "exists": true
         }
       ],
-      "word_count": 16448,
+      "word_count": 16825,
       "estimated_pages": 26,
-      "table_count": 90,
+      "table_count": 91,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
@@ -8667,8 +8671,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-case monitor bot runbook",
       "internal_links": [],
-      "word_count": 1270,
-      "estimated_pages": 2,
+      "word_count": 1372,
+      "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -8722,12 +8726,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 830,
-      "estimated_pages": 2,
+      "word_count": 615,
+      "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 54
+      "longest_unbroken_token": 21
     },
     {
       "title": "Current Project Integrity Report",
@@ -8910,6 +8914,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/logs/SOURCE_MONITOR_LOG.md",
+          "exists": true
+        },
+        {
           "path": "framework/logs/ELIM_RUN_LOG.md",
           "exists": true
         },
@@ -8922,7 +8930,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4799,
+      "word_count": 5024,
       "estimated_pages": 8,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9880,7 +9888,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-presidential directives bot runbook",
       "internal_links": [],
-      "word_count": 727,
+      "word_count": 836,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10381,7 +10389,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1671,
+      "word_count": 1677,
       "estimated_pages": 3,
       "table_count": 5,
       "max_table_columns": 2,
@@ -10514,8 +10522,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-source monitor log",
       "internal_links": [],
-      "word_count": 576,
-      "estimated_pages": 1,
+      "word_count": 1262,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 6,
       "heading_issue_count": 0,
@@ -12424,7 +12432,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/horizon-review-console-arrp project console",
       "internal_links": [],
-      "word_count": 2904,
+      "word_count": 2921,
       "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,

@@ -534,8 +534,39 @@ class SourceDomainEventTests(unittest.TestCase):
             first = events.attach_marker("Pull request body", event, encoded)
             second = events.attach_marker(first, event, encoded)
             self.assertEqual(len(events.MARKER_RE.findall(second)), 1)
+            self.assertEqual(second.count("ARRP_SOURCE_DOMAIN_SUMMARY_START"), 1)
+            self.assertEqual(second.count("ARRP_SOURCE_DOMAIN_SUMMARY_END"), 1)
+            self.assertIn("## Complete unresolved proposal", second)
+            self.assertIn("2025-01900", second)
             payload = events.marker_payload(second)
             self.assertEqual(payload["event_id"], event["event_id"])
+
+    def test_report_enrichment_carries_the_complete_pending_projection(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repository = TemporaryRepository(Path(directory))
+            report = {
+                "counts": {"new": 0, "changed": 0},
+                "directives": [
+                    {"Directive ID": "2025-01900", "Bot Status": "unchanged"}
+                ],
+            }
+            event = repository.proposed_event(report)
+            enriched = events.enrich_report(report, event)
+            pending = enriched["pending_proposal"]
+            self.assertEqual(pending["event_id"], event["event_id"])
+            self.assertEqual(
+                pending["proposal"]["proposal_revision"],
+                repository.proposal_revision,
+            )
+            self.assertEqual(
+                pending["summary"]["affected_record_count"],
+                1,
+            )
+            self.assertEqual(
+                pending["affected_records"],
+                [{"record_type": "presidential-directive", "record_id": "2025-01900"}],
+            )
+            self.assertNotIn("pending_proposal", report)
 
     def test_unrepresented_deletion_fails_closed(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -848,6 +879,25 @@ class SourceDomainWorkflowContractTests(unittest.TestCase):
         ).read_text(encoding="utf-8")
         self.assertIn('len(item.get("added_lead_ids") or [])', workflow)
         self.assertNotIn('len(item.get("leads") or [])', workflow)
+
+    def test_persistent_watcher_reports_and_counts_use_the_complete_pending_delta(self):
+        for relative, report in (
+            (
+                ".github/workflows/case-monitor-bot.yml",
+                "${RUNNER_TEMP}/monitoring-report.json",
+            ),
+            (
+                ".github/workflows/presidential-directives-bot.yml",
+                "${RUNNER_TEMP}/directives-report.json",
+            ),
+        ):
+            workflow = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn(f'--enrich-report "{report}"', workflow, relative)
+            self.assertIn(
+                'count = int(summary.get("affected_record_count", 0))',
+                workflow,
+                relative,
+            )
 
     def test_acceptance_workflow_has_all_fail_closed_boundaries(self):
         workflow = (

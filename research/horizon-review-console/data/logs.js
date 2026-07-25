@@ -2991,13 +2991,34 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           "details_html": "<div class=\"markdown-table-wrap\"><table><thead><tr><th>Field<\/th><th>Entry<\/th><\/tr><\/thead><tbody><tr><td>Date/time<\/td><td>2026-07-24 16:49:37 -0400<\/td><\/tr><tr><td>Agent<\/td><td>elim<\/td><\/tr><tr><td>Run ID<\/td><td>arrp-20260724T201743Z<\/td><\/tr><tr><td>Unit ID<\/td><td>CHANGE-AUDIT-77bd98919be7<\/td><\/tr><tr><td>Trigger<\/td><td>Required post-merge synchronization and readback for the completed JUD-009 Change Audit<\/td><\/tr><tr><td>Task type<\/td><td>reconciliation<\/td><\/tr><tr><td>Outcome<\/td><td>Completed<\/td><\/tr><tr><td>Issue/task<\/td><td>JUD-009<\/td><\/tr><tr><td>Issue page<\/td><td><a href=\"../../areas/JUD/issues/JUD-009.md\" target=\"_blank\" rel=\"noopener noreferrer\">JUD-009<\/a><\/td><\/tr><tr><td>Audit history<\/td><td><a href=\"../../areas/JUD/issues/JUD-009.audit.md\" target=\"_blank\" rel=\"noopener noreferrer\">JUD-009 audit history<\/a><\/td><\/tr><tr><td>Proposal page<\/td><td><a href=\"../../legislation/JUD-009.md\" target=\"_blank\" rel=\"noopener noreferrer\">Supreme Court Ethics, Recusal, and Transparency Act<\/a><\/td><\/tr><tr><td>Tier<\/td><td>none<\/td><\/tr><tr><td>Files changed<\/td><td><code>areas/JUD/issues/JUD-009.audit.md<\/code>; <code>inventory/sources.csv<\/code>; <code>framework/logs/CURRENT_AUDIT.md<\/code>; <code>framework/logs/AGENT_AUDIT_LOG.md<\/code>; <code>framework/logs/ELIM_RUN_LOG.md<\/code>; generated Project Console data<\/td><\/tr><tr><td>Source actions<\/td><td>Marked secondary reporting row <code>SRC-0227<\/code> <code>Superseded<\/code>, retained it as cited provenance, and confirmed official opinion row <code>SRC-2649<\/code> owns active support for the Eleventh Circuit disposition.<\/td><\/tr><tr><td>Validation<\/td><td>Pull request #399 passed CodeQL and Vercel checks and squash-merged as <code>b769911<\/code>; Issue #47 and its Project row read back with <code>Review ready<\/code>, score 77, Runs 4, <code>Human decision needed<\/code>, <code>Rebaseline status: Current<\/code>, and <code>Change audit needed: No<\/code>; progress workflow run <code>30125230554<\/code> succeeded with no warnings; Pages deployment <code>5595074348<\/code> succeeded for the exact merge commit; authenticated consistency reported 0 errors and 0 warnings across 64 issue pages and 41 proposal pages; live issue, bill, and area pages contain the current result. Final repository validation also passed 203 Python tests, 24 participation-service tests, syntax checks, public-site preparation, CSV parsing, Console reconstruction, and diff hygiene.<\/td><\/tr><tr><td>Commit<\/td><td>Source-accounting commit <code>87b01eb<\/code>; final run closeout is preserved in <a href=\"https://github.com/Thorncrag/ARRP/pull/401\" target=\"_blank\" rel=\"noopener noreferrer\">pull request #401<\/a>.<\/td><\/tr><tr><td>Push status<\/td><td>Unit pull request <a href=\"https://github.com/Thorncrag/ARRP/pull/399\" target=\"_blank\" rel=\"noopener noreferrer\">#399<\/a> merged and local <code>main<\/code> synchronized at <code>b769911<\/code>; source and run closeout pushed through pull request #401 after validation.<\/td><\/tr><tr><td>Rollback notes<\/td><td>Revert <code>b769911<\/code> and the pull request #401 merge, rebuild the Console, restore <code>SRC-0227<\/code> only if active reliance is also restored, and restore issue #47 and Project fields from the pre-run values preserved in the preceding unit entry.<\/td><\/tr><tr><td>Blockers/skipped checks<\/td><td>The human-only application-under-different-control judgment remains intentionally unanswered and is visible on issue #47 and the Project Action Items route. The task-archiving tool was unavailable. No public-intake assessment or comprehensive Review Epoch was performed, so the associated recording scripts were not applicable.<\/td><\/tr><\/tbody><\/table><\/div>",
           "search_text": "agent-089 2026-07-24 16:49:37 -0400 JUD-009 reconciliation elim arrp-20260724T201743Z Completed 2026-07-24 16:49:37 -0400 JUD-009 reconciliation elim arrp-20260724T201743Z Completed"
+        },
+        {
+          "id": "agent-090",
+          "values": {
+            "date": "2026-07-25T22:28:35Z",
+            "record": "Dedicated Action Items repository-review listing, Elim exact-head recommendation protocol, and complete persistent-watcher proposal handoff",
+            "task": "interface governance and automation integrity",
+            "agent": "interactive Codex",
+            "run": "interactive-20260725-repository-review-recommendations",
+            "outcome": "Completed"
+          },
+          "values_html": {
+            "date": "2026-07-25T22:28:35Z",
+            "record": "Dedicated Action Items repository-review listing, Elim exact-head recommendation protocol, and complete persistent-watcher proposal handoff",
+            "task": "interface governance and automation integrity",
+            "agent": "interactive Codex",
+            "run": "interactive-20260725-repository-review-recommendations",
+            "outcome": "Completed"
+          },
+          "details_html": "<div class=\"markdown-table-wrap\"><table><thead><tr><th>Field<\/th><th>Entry<\/th><\/tr><\/thead><tbody><tr><td>Date/time<\/td><td>2026-07-25T22:28:35Z<\/td><\/tr><tr><td>Agent<\/td><td>interactive Codex<\/td><\/tr><tr><td>Run ID<\/td><td>interactive-20260725-repository-review-recommendations<\/td><\/tr><tr><td>Unit ID<\/td><td>console-repository-review-recommendations<\/td><\/tr><tr><td>Trigger<\/td><td>User-directed Console implementation and follow-up clarification that GitHub should be evidence rather than the human disposition screen<\/td><\/tr><tr><td>Task type<\/td><td>interface governance and automation integrity<\/td><\/tr><tr><td>Outcome<\/td><td>Completed<\/td><\/tr><tr><td>Issue/task<\/td><td>Dedicated Action Items repository-review listing, Elim exact-head recommendation protocol, and complete persistent-watcher proposal handoff<\/td><\/tr><tr><td>Issue page<\/td><td>N/A<\/td><\/tr><tr><td>Audit history<\/td><td>N/A<\/td><\/tr><tr><td>Proposal page<\/td><td>Source Monitor Log<\/td><\/tr><tr><td>Tier<\/td><td>none<\/td><\/tr><tr><td>Files changed<\/td><td>Source-domain watcher workflows and event/report handoff; Elim, Case Monitor, and Presidential Directives runbooks; context registry and project-purpose map; Source Monitor Log; Console builder, application, styles, documentation, and generated data; deterministic queue builder and host runtime-attestation boundary; regression tests; this provenance entry<\/td><\/tr><tr><td>Source actions<\/td><td>No source-catalog row changed. Reviewed the exact pending heads and primary records for pull requests #380 and #381; recorded exact-head recommendations <code>SMR-20260725-PR380<\/code> and <code>SMR-20260725-PR381<\/code> in the Source Monitor Log.<\/td><\/tr><tr><td>Validation<\/td><td>Focused recommendation, event, queue, reviewed-runtime-boundary, and Console tests passed; complete repository suite passed 402 tests; JavaScript and Python syntax checks passed; generated Console rebuild and diff hygiene passed; authenticated consistency reported 0 errors and 0 warnings across 64 issue pages and 41 proposal pages. The in-app browser correctly refused a local <code>file:<\/code> preview under its URL policy; final visual/readback verification is assigned to the live Pages deployment after merge.<\/td><\/tr><tr><td>Commit<\/td><td>Preserved on <code>codex/repository-review-recommendations<\/code>; the exact commit and pull request are authoritative in Git history.<\/td><\/tr><tr><td>Push status<\/td><td>Pending the ordinary reviewed pull-request workflow at entry time; required checks, merge, synchronized <code>main<\/code>, and live Pages readback remain closeout steps.<\/td><\/tr><tr><td>Rollback notes<\/td><td>Revert this implementation change, restore the prior pinned governing hashes, and rebuild the Console. Retain the two recommendation records as historical provenance, marking any superseding exact-head recommendation separately rather than deleting them.<\/td><\/tr><tr><td>Blockers/skipped checks<\/td><td>No implementation blocker. Pull requests #380 and #381 were not closed or merged; their exact disposition questions remain intentionally assigned to the user in Action Items. No issue lifecycle, Project field, score, Runs value, candidate disposition, or accepted watcher baseline changed.<\/td><\/tr><\/tbody><\/table><\/div>",
+          "search_text": "agent-090 2026-07-25T22:28:35Z Dedicated Action Items repository-review listing, Elim exact-head recommendation protocol, and complete persistent-watcher proposal handoff interface governance and automation integrity interactive Codex interactive-20260725-repository-review-recommendations Completed 2026-07-25T22:28:35Z Dedicated Action Items repository-review listing, Elim exact-head recommendation protocol, and complete persistent-watcher proposal handoff interface governance and automation integrity interactive Codex interactive-20260725-repository-review-recommendations Completed"
         }
       ]
     },
     {
       "id": "source-monitor",
       "title": "Source Monitor Log",
-      "description": "Material changes detected by deterministic source and directive watchers.",
+      "description": "Material watcher changes and exact-head repository disposition recommendations.",
       "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/SOURCE_MONITOR_LOG.md",
       "columns": [
         {
@@ -3018,7 +3039,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         {
           "key": "activity",
-          "label": "Activity code"
+          "label": "Activity or recommendation"
         }
       ],
       "group_options": [
@@ -3092,6 +3113,44 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           "details_html": "<ul><li>Activity code: <code>CASE-20260723170607-BF336059<\/code><\/li><li>Originating workflow run: Local or manually invoked run<\/li><li>Result: <code>changes_detected<\/code><\/li><li>Affected source IDs: None<\/li><li>Tracker changes: 0 added; 0 changed; 0 removed<\/li><li>Case baselines updated: 0<\/li><li>Coverage: 0 mapped monitored CourtListener rows; 0 monitored CourtListener rows outside tracker coverage<\/li><li>Targeted CourtListener checks: 0 queried; 0 failed; 0 unverified<\/li><li>Source-development modules changed: 1<\/li><li>Interpretation: source-change signal only; no legal significance or project disposition determined.<\/li><li><code>judicial-review-disposition-signals<\/code> → <code>research/horizon-source-records/HOR-035-source-development.md<\/code>: 213 current unreviewed leads; 213 added; 0 removed.<\/li><li>Review handoff: each disposition token binds the stable lead ID to the observed fingerprint so later material changes re-queue the case.<\/li><\/ul>",
           "search_text": "source-monitor-003 2026-07-23T17:06:07+00:00 Case monitor bot changes_detected None CASE-20260723170607-BF336059 2026-07-23T17:06:07+00:00 Case monitor bot changes_detected None CASE-20260723170607-BF336059"
+        },
+        {
+          "id": "source-monitor-004",
+          "values": {
+            "date": "2026-07-25T22:17:39Z",
+            "watcher": "Repository review recommendation SMR-20260725-PR380",
+            "result": "recommendation_recorded",
+            "affected": "43 records in the bound event: HOR-035 and 42 source records, including SRC-2238.",
+            "activity": "SMR-20260725-PR380"
+          },
+          "values_html": {
+            "date": "2026-07-25T22:17:39Z",
+            "watcher": "Repository review recommendation SMR-20260725-PR380",
+            "result": "<code>recommendation_recorded<\/code>",
+            "affected": "43 records in the bound event: HOR-035 and 42 source records, including SRC-2238.",
+            "activity": "<code>SMR-20260725-PR380<\/code>"
+          },
+          "details_html": "<ul><li>Recommendation ID: <code>SMR-20260725-PR380<\/code><\/li><li>Recorded at: <code>2026-07-25T22:17:39Z<\/code><\/li><li>Reviewer: Interactive Codex<\/li><li>Pull request number: <code>380<\/code><\/li><li>Pull request URL: <code>https://github.com/Thorncrag/ARRP/pull/380<\/code><\/li><li>Head revision: <code>ba3dc636710633c25c1f4776cc67059e96d02478<\/code><\/li><li>Proposal event ID: <code>SDE-93345EDC1D1AC55F8CFA3E44<\/code><\/li><li>Recommended disposition: Close without merge; after the complete-delta correction reaches <code>main<\/code>, rerun Case Monitor from current <code>main<\/code> and review the regenerated, fully itemized proposal. Separately route the July 23 Suri appellate decision to RIGHTS-002 and assess it as a possible control example for HOR-035.<\/li><li>Rationale: The pull-request narrative reports one changed source, SRC-2238, while the exact pending head changes 42 source records plus the HOR-035 generated lead set. The July 23 Suri opinion preserves habeas jurisdiction and identifies disagreement among circuits; the watcher&#x27;s settlement-token match does not describe that holding. The present narrative therefore cannot support informed acceptance of the complete branch.<\/li><li>Affected records: 43 records in the bound event: HOR-035 and 42 source records, including SRC-2238.<\/li><li>Confidence and uncertainty: High confidence that the pull-request narrative materially underreports its exact-head delta and that Suri requires substantive review; the final project characterization and any source integration remain subject to ordinary issue-development review.<\/li><li>Action owner: Human<\/li><li>Human question: Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current <code>main<\/code>?<\/li><li>Reassessment trigger: Any change to the pull-request head invalidates this recommendation and returns the complete proposal to Elim review.<\/li><li>Primary record checked: <a href=\"https://www.ca4.uscourts.gov/opinions/251560.P.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">Suri v. Trump, No. 25-1560 (4th Cir. July 23, 2026)<\/a>.<\/li><li>Result: <code>recommendation_recorded<\/code><\/li><\/ul>",
+          "search_text": "source-monitor-004 2026-07-25T22:17:39Z Repository review recommendation SMR-20260725-PR380 recommendation_recorded 43 records in the bound event: HOR-035 and 42 source records, including SRC-2238. SMR-20260725-PR380 2026-07-25T22:17:39Z Repository review recommendation SMR-20260725-PR380 recommendation_recorded 43 records in the bound event: HOR-035 and 42 source records, including SRC-2238. SMR-20260725-PR380"
+        },
+        {
+          "id": "source-monitor-005",
+          "values": {
+            "date": "2026-07-25T22:17:40Z",
+            "watcher": "Repository review recommendation SMR-20260725-PR381",
+            "result": "recommendation_recorded",
+            "affected": "10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024.",
+            "activity": "SMR-20260725-PR381"
+          },
+          "values_html": {
+            "date": "2026-07-25T22:17:40Z",
+            "watcher": "Repository review recommendation SMR-20260725-PR381",
+            "result": "<code>recommendation_recorded<\/code>",
+            "affected": "10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024.",
+            "activity": "<code>SMR-20260725-PR381<\/code>"
+          },
+          "details_html": "<ul><li>Recommendation ID: <code>SMR-20260725-PR381<\/code><\/li><li>Recorded at: <code>2026-07-25T22:17:40Z<\/code><\/li><li>Reviewer: Interactive Codex<\/li><li>Pull request number: <code>381<\/code><\/li><li>Pull request URL: <code>https://github.com/Thorncrag/ARRP/pull/381<\/code><\/li><li>Head revision: <code>71525e1d2bc27c31a5c1b455243259b1b541adff<\/code><\/li><li>Proposal event ID: <code>SDE-578F200E8E9344ADF613CA76<\/code><\/li><li>Recommended disposition: Close without merge; after the complete-delta correction reaches <code>main<\/code>, rerun the Presidential Directives Bot and screen the regenerated full proposal. Route the four trade proclamations to HOR-040 source development, route Executive Order 14415 to FACT-009 source development, and record no separate project action for the two ceremonial proclamations, the Mali continuation, or the two relationship-only metadata updates unless later evidence changes that assessment.<\/li><li>Rationale: The pull-request narrative says <code>New: 0<\/code> and <code>Changed: 2<\/code>, while the exact pending head contains eight new directives and two changed relationship fields. Four new proclamations invoke tariff authorities already owned by HOR-040, and Executive Order 14415 repeatedly uses the disputed Department of War terminology already owned by FACT-009. The other records are ceremonial or continuation metadata on the presently reviewed evidence. The current narrative omits most of the actual acceptance boundary.<\/li><li>Affected records: 10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024.<\/li><li>Confidence and uncertainty: High confidence in the incomplete-delta diagnosis and the existing HOR-040 and FACT-009 routes; ordinary source-development review must still determine what propositions, if any, warrant integration.<\/li><li>Action owner: Human<\/li><li>Human question: Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current <code>main<\/code>?<\/li><li>Reassessment trigger: Any change to the pull-request head invalidates this recommendation and returns the complete proposal to Elim review.<\/li><li>Primary records checked: <a href=\"https://www.federalregister.gov/d/2026-14990\" target=\"_blank\" rel=\"noopener noreferrer\">Proclamation 11045<\/a>, <a href=\"https://www.federalregister.gov/d/2026-14991\" target=\"_blank\" rel=\"noopener noreferrer\">Proclamation 11046<\/a>, <a href=\"https://www.federalregister.gov/d/2026-14997\" target=\"_blank\" rel=\"noopener noreferrer\">Proclamation 11048<\/a>, <a href=\"https://www.federalregister.gov/d/2026-15003\" target=\"_blank\" rel=\"noopener noreferrer\">Executive Order 14415<\/a>, and <a href=\"https://www.federalregister.gov/d/2026-15024\" target=\"_blank\" rel=\"noopener noreferrer\">Mali emergency continuation<\/a>.<\/li><li>Result: <code>recommendation_recorded<\/code><\/li><\/ul>",
+          "search_text": "source-monitor-005 2026-07-25T22:17:40Z Repository review recommendation SMR-20260725-PR381 recommendation_recorded 10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024. SMR-20260725-PR381 2026-07-25T22:17:40Z Repository review recommendation SMR-20260725-PR381 recommendation_recorded 10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024. SMR-20260725-PR381"
         }
       ]
     },
@@ -3810,6 +3869,46 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "search_text": "change-040 2026-06-27 Framework hierarchy reorganization and neutrality/language guidelines Project-wide Markdown and CSV sweep for duplicated framework sections, broken framework links, stale architecture references, and obvious project-authored language conflicts with the new neutrality rules. No score or rubric rebaseline effect. The change clarified structure and language conventions but did not alter the proposal-quality scoring formula, required audit fields, or issue-page scoring template. Existing hard-rebaseline queue remains unchanged. 2026-06-27 Framework hierarchy reorganization and neutrality/language guidelines Project-wide Markdown and CSV sweep for duplicated framework sections, broken framework links, stale architecture references, and obvious project-authored language conflicts with the new neutrality rules. No score or rubric rebaseline effect. The change clarified structure and language conventions but did not alter the proposal-quality scoring formula, required audit fields, or issue-page scoring template. Existing hard-rebaseline queue remains unchanged."
         }
       ]
+    }
+  ],
+  "repository_review_recommendations": [
+    {
+      "id": "SMR-20260725-PR380",
+      "recorded_at": "2026-07-25T22:17:39Z",
+      "reviewer": "Interactive Codex",
+      "pull_request_number": 380,
+      "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
+      "head_revision": "ba3dc636710633c25c1f4776cc67059e96d02478",
+      "proposal_event_id": "SDE-93345EDC1D1AC55F8CFA3E44",
+      "recommendation": "Close without merge; after the complete-delta correction reaches main, rerun Case Monitor from current main and review the regenerated, fully itemized proposal. Separately route the July 23 Suri appellate decision to RIGHTS-002 and assess it as a possible control example for HOR-035.",
+      "rationale": "The pull-request narrative reports one changed source, SRC-2238, while the exact pending head changes 42 source records plus the HOR-035 generated lead set. The July 23 Suri opinion preserves habeas jurisdiction and identifies disagreement among circuits; the watcher's settlement-token match does not describe that holding. The present narrative therefore cannot support informed acceptance of the complete branch.",
+      "affected_records": "43 records in the bound event: HOR-035 and 42 source records, including SRC-2238.",
+      "confidence": "High confidence that the pull-request narrative materially underreports its exact-head delta and that Suri requires substantive review; the final project characterization and any source integration remain subject to ordinary issue-development review.",
+      "action_owner": "Human",
+      "human_question": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
+      "reassessment_trigger": "Any change to the pull-request head invalidates this recommendation and returns the complete proposal to Elim review.",
+      "heading": "2026-07-25T22:17:39Z — Repository review recommendation SMR-20260725-PR380",
+      "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/SOURCE_MONITOR_LOG.md",
+      "console_target": "logs:source-monitor"
+    },
+    {
+      "id": "SMR-20260725-PR381",
+      "recorded_at": "2026-07-25T22:17:40Z",
+      "reviewer": "Interactive Codex",
+      "pull_request_number": 381,
+      "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/381",
+      "head_revision": "71525e1d2bc27c31a5c1b455243259b1b541adff",
+      "proposal_event_id": "SDE-578F200E8E9344ADF613CA76",
+      "recommendation": "Close without merge; after the complete-delta correction reaches main, rerun the Presidential Directives Bot and screen the regenerated full proposal. Route the four trade proclamations to HOR-040 source development, route Executive Order 14415 to FACT-009 source development, and record no separate project action for the two ceremonial proclamations, the Mali continuation, or the two relationship-only metadata updates unless later evidence changes that assessment.",
+      "rationale": "The pull-request narrative says New: 0 and Changed: 2, while the exact pending head contains eight new directives and two changed relationship fields. Four new proclamations invoke tariff authorities already owned by HOR-040, and Executive Order 14415 repeatedly uses the disputed Department of War terminology already owned by FACT-009. The other records are ceremonial or continuation metadata on the presently reviewed evidence. The current narrative omits most of the actual acceptance boundary.",
+      "affected_records": "10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024.",
+      "confidence": "High confidence in the incomplete-delta diagnosis and the existing HOR-040 and FACT-009 routes; ordinary source-development review must still determine what propositions, if any, warrant integration.",
+      "action_owner": "Human",
+      "human_question": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
+      "reassessment_trigger": "Any change to the pull-request head invalidates this recommendation and returns the complete proposal to Elim review.",
+      "heading": "2026-07-25T22:17:40Z — Repository review recommendation SMR-20260725-PR381",
+      "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/SOURCE_MONITOR_LOG.md",
+      "console_target": "logs:source-monitor"
     }
   ]
 });
