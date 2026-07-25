@@ -2844,9 +2844,9 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Matched signal groups: <code>settlement-or-stipulated-dismissal</code>
 - Matched terms: <code>settle, settlement</code>
 - Tracker status: <code>Government Action Blocked</code>
-- Last tracker update: <code>2025-08-05</code>
-- Observation fingerprint: `ca6632ea6a80ab33`
-- Disposition token: `CASELEAD-22423247A6A7@ca6632ea6a80ab33`
+- Last tracker update: <code>2026-07-23</code>
+- Observation fingerprint: `cfbd6ce98ce62a43`
+- Disposition token: `CASELEAD-22423247A6A7@cfbd6ce98ce62a43`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/69755722/suri-v-trump/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
