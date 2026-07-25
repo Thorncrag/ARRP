@@ -313,3 +313,26 @@ The approved host session preserved the completed context repair without beginni
 #### Reconstructed closeout
 
 This report was reconstructed on 2026-07-24 from the preserved host control state, queue and context packets, invocation baseline, final usage snapshot, and complete JSONL event stream while the dispatcher reconciliation safeguard was being implemented. It repairs the missing run-accounting record only. It does not retroactively validate or apply the interrupted result.
+
+### 2026-07-25 — arrp-20260725T063006Z — Failed before substantive work
+
+| Field | Entry |
+| --- | --- |
+| Started | 2026-07-25 04:07:39 -0400 |
+| Ended | 2026-07-25 04:21:06 -0400 |
+| Run ID | `arrp-20260725T063006Z` |
+| Trigger | Scheduled Run Coordinator chain with a governing-boundary-triggered comprehensive Review Epoch due |
+| Outcome | Failed before substantive work — false usage-window change and unavailable Git closeout |
+| Usage | The approved host dispatcher established the unique invocation baseline at 08:07:40 UTC with Codex 77 percent and Spark 100 percent remaining, 0 percentage points consumed, and a passing gate. At the mandatory pre-substantive checkpoint, the then-current checker classified `codex_bengalfox:primary` as materially changed and returned `status: unavailable`, `stop_requested: true`, and `new_substantive_unit_policy: no`; Elim obeyed that fail-closed result and began no substantive unit. Post-run diagnosis established that the changed timestamp was the rolling reset estimate of an unused zero-percent Spark window, not evidence of consumed usage, a reset, or a different active window. The 15-percent reserve was never approached. |
+| Work summary | Performed read-only launch preflight only. Verified the exact manifest-selected comprehensive unit, clean synchronized baseline, workflow health, deterministic stage statuses, every locally preserved input hash and byte count, the pinned queue and comprehensive packet hashes, clean Integrity result, empty public intake, and the due governing-boundary review trigger. The comprehensive review, project-wide sampling, finding adjudication, Review Epoch record, and `scripts/record_review_epoch.py` did not begin. |
+| Material units | None. Read-only preflight, failure diagnosis, and reconstructed terminal run accounting do not create a shared Agent Audit Log entry. |
+| Issue audit records | None. No issue, audit sidecar, proposal, candidate, source, score, **Runs** count, lifecycle field, Project field, or publication surface changed. |
+| Commits and synchronization | Local `HEAD`, local `origin/main`, manifest baseline, and manifest final revision matched `ac9cd510d10824a856f033f8d0e173420ad1b8fd` before closeout. The model-authored workspace could change ordinary files but could not create the required Git ref, so no result commit or synchronized boundary was produced by the failed run. The isolated checkout, JSONL stream, last-message result, usage evidence, and paused checkpoint were preserved. This reconstructed report is being integrated separately through the interactive 2026-07-25 automation repair and does not retroactively convert the run into a success. |
+| Validation | During the run, all 12 preserved deterministic inputs matched their recorded SHA-256 hashes and byte counts; the queue and comprehensive packet matched their recorded hashes; due stages succeeded, not-due stages remained current, and the manifest reported no failure or degradation; the pinned Integrity result reported 0 errors and 0 warnings; intake reported zero eligible and pending submissions; and repository `HEAD` and `origin/main` matched the pinned baseline. Post-run diagnosis reproduced both defects and added focused usage-window, real-Git closeout, current-chain runtime, and Console reconciliation tests before this report was integrated. |
+| Human review | None. No human-reserved judgment was reached or made. |
+| Stop reason | Elim correctly honored a fail-closed checker result, but that result was a false positive caused by treating an unused rolling reset estimate as an active-window identity change. The subsequent central closeout also required model-owned Git mutation that the workspace-write execution boundary could not perform. Both defects were implementation defects, not a usage-reserve event or a substantive Elim blocker. |
+| Exact next action | After the reviewed automation repair is synchronized and the scheduler is safely restored, launch a fresh current chain. Rebuild and revalidate the exact queue, context, usage baseline, deterministic inputs, and repository boundary; the still-due comprehensive Review Epoch may then proceed under the repaired gates. |
+
+#### Reconstructed closeout and correction
+
+This report was reconstructed from the preserved isolated checkout, structured result, JSONL event stream, usage attestations, Chain Manifest, host control state, and bounded reconciliation record. The 2026-07-25 interactive repair distinguishes dormant zero-use windows from active windows, gives trusted-host code exclusive repository Git closeout responsibility, records the actual host result in the local chain projection, and prevents cloud-only completion or a stale Elim runtime from being displayed as current host success. The failed invocation performed no substantive review and established no Review Epoch.

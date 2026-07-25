@@ -1188,6 +1188,12 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("exportPrintLevelChanges", console_app)
         self.assertIn("renderActionItems", console_app)
         self.assertIn("allHostAutomationActions", console_app)
+        self.assertIn("reconcileRunChainSnapshot", console_app)
+        self.assertIn('cloud.status = "host_pending"', console_app)
+        self.assertIn('status_source: reportedHostStatus ? "local-host" : "local-cache"', console_app)
+        self.assertIn("matchingElimRuntime", console_app)
+        self.assertIn("Cloud ${cloudStatus} · Host ${hostStatus}", console_app)
+        self.assertNotIn("data.run_chain = snapshot;", console_app)
         self.assertIn("item.resolved !== true", console_app)
         self.assertIn(
             'String(item.chain_id || "") === String(data.run_chain?.chain_id || "")',

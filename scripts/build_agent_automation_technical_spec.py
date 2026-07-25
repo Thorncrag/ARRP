@@ -516,7 +516,7 @@ class Diagram(Flowable):
         "failure-state": "Deterministic stage outcomes and separate blocking state",
         "queue-selection": "Derived queue to exact selected unit",
         "context-routing": "Context profile and dependency expansion",
-        "write-boundaries": "Three repository write classes",
+        "write-boundaries": "Three write classes and Elim split-closeout",
         "provenance": "Material-unit provenance destinations",
     }
 
@@ -662,7 +662,8 @@ class Diagram(Flowable):
             ("Queue", "select one"),
             ("Usage", "host gate"),
             ("Elim", "conditional"),
-            ("Close", "validate"),
+            ("Host Git", "exact diff"),
+            ("Close", "read back"),
         ]
         x = 24
         box_w = (width - 78) / 2
@@ -676,8 +677,8 @@ class Diagram(Flowable):
             bx = x + actual_col * (box_w + 30)
             by = 232 - row * (box_h + gap_y)
             positions.append((bx, by))
-            fill = GOLD_SOFT if title == "Elim" else SKY if title in {"Plan", "Queue", "Usage", "Close"} else SOFT
-            stroke = GOLD if title == "Elim" else BLUE if title in {"Plan", "Queue", "Usage", "Close"} else LINE
+            fill = GOLD_SOFT if title in {"Elim", "Host Git"} else SKY if title in {"Plan", "Queue", "Usage", "Close"} else SOFT
+            stroke = GOLD if title in {"Elim", "Host Git"} else BLUE if title in {"Plan", "Queue", "Usage", "Close"} else LINE
             self.box(canvas, bx, by, box_w, box_h, title, body, fill=fill, stroke=stroke)
             if index:
                 px, py = positions[index - 1]
@@ -687,14 +688,14 @@ class Diagram(Flowable):
                     self.arrow(canvas, start_x, py + box_h / 2, end_x, by + box_h / 2)
                 else:
                     self.arrow(canvas, px + box_w / 2, py, bx + box_w / 2, by + box_h)
-        self.label(canvas, "Elim is last substantive stage; Close is deterministic.", width / 2, 13)
+        self.label(canvas, "Elim authors files; trusted-host Git and Close add no judgment.", width / 2, 13)
 
     def draw_execution_boundary(self, canvas, width):
         lane_w = (width - 52) / 3
         lanes = [
             (14, "GitHub Actions", "plan · bots · queue · context", SKY, BLUE),
             (26 + lane_w, "Canonical GitHub", "records · Project · PRs · data", SOFT, LINE),
-            (38 + lane_w * 2, "Local host", "flock · full checkout · usage · Codex", GOLD_SOFT, GOLD),
+            (38 + lane_w * 2, "Local host", "flock · usage · Elim files · trusted Git", GOLD_SOFT, GOLD),
         ]
         for x, title, body, fill, stroke in lanes:
             self.box(canvas, x, 56, lane_w, 118, title, body, fill=fill, stroke=stroke)
@@ -703,7 +704,7 @@ class Diagram(Flowable):
         self.arrow(canvas, 38 + lane_w * 2, 82, 26 + lane_w * 2, 82, dashed=True)
         self.label(canvas, "verified manifest + hashes", 26 + lane_w, 126)
         self.label(canvas, "matching reviewed revision", 38 + lane_w * 2, 126)
-        self.label(canvas, "PR/data/host outcome evidence", 26 + lane_w * 2, 69)
+        self.label(canvas, "exact commit + host outcome evidence", 26 + lane_w * 2, 69)
         self.box(
             canvas, width / 2 - 118, 15, 236, 27,
             "Trust rule", "GitHub never launches Codex; the host never creates authority.",
@@ -863,8 +864,8 @@ class Diagram(Flowable):
     def draw_write_boundaries(self, canvas, width):
         lanes = [
             (
-                16, "Substantive work", "ordinary agent branch",
-                "reviewed PR · human merge · canonical readback", SKY, BLUE,
+                16, "Substantive work", "interactive branch / Elim exact files",
+                "host: non-force main or unmerged review PR", SKY, BLUE,
             ),
             (
                 width / 3 + 8, "Bot proposal/report", "dedicated bot branch",

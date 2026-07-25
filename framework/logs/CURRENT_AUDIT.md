@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None. |
-| Started | None. |
-| Last checkpoint | 2026-07-25 00:26:38 -0400 |
-| User request | None. |
-| Scope | None. |
-| Files touched | None. |
-| Completed steps | None. |
-| Next step | None. |
-| Blockers/questions | None. |
-| Validation status | Not applicable. |
+| Handoff state | Paused |
+| Active issue/task | Repair and reconcile the failed 2026-07-25 Elim automation chain |
+| Audit type/tier | Automation-architecture implementation and validation |
+| Started | 2026-07-25 05:13:00 -0400 |
+| Last checkpoint | 2026-07-25 06:27:00 -0400 |
+| User request | Proceed with the diagnosed repair and take responsibility for the implementation complexity. |
+| Scope | Correct dormant usage-window accounting, host-owned Elim Git closeout, Console cloud/host truth reconciliation, failed-run accounting, governing documentation, and controlled validation without beginning substantive Elim work. |
+| Files touched | `framework/logs/CURRENT_AUDIT.md` and the automation, test, Console, runbook, reference-product, and generated files required by this repair. |
+| Completed steps | Confirmed the three root causes; preserved the failed-run checkout and reconciliation evidence; kept the coordinator paused; implemented dormant-window accounting, exact-diff trusted-host Git closeout, current-chain runtime projection, and cloud/host Console reconciliation; updated governing runbooks and the nonauthoritative technical-reference source; reconstructed the failed run report without treating its preflight as substantive work; passed 128 focused tests, all 384 repository tests, JavaScript syntax, context-hash, diff-hygiene, and authenticated Project Consistency validation with zero findings; visually reviewed the interim 29-page reference PDF. |
+| Next step | Commit and synchronize the validated repair sources; prove and clear only the reconciled failed-run record and matching Action Item; run the controlled no-LLM dispatcher pilot; rebuild and verify the final Console projections and PDF against the implementation commit; clear this handoff, commit and read back the final artifacts, then restore the local coordinator. |
+| Blockers/questions | None. The due comprehensive Review Epoch must not begin until the repaired safety and closeout paths pass. |
+| Validation status | Source validation passed: 128 focused tests, all 384 repository tests, JavaScript syntax, context hashes, diff hygiene, authenticated Project Consistency audit with zero findings, and interim PDF visual review. Synchronization, controlled no-LLM pilot, and final generated-artifact readback remain. |
 
 ## Handoff Rules
 

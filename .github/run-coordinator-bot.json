@@ -78,6 +78,13 @@
     "workflow": "run-coordinator-bot.yml",
     "stateDirectory": ".tmp/run-coordinator",
     "isolatedCheckoutPath": ".tmp/run-coordinator/elim-checkout",
+    "repositoryCloseout": {
+      "owner": "trusted-host-dispatcher",
+      "modelGitMutation": "forbidden",
+      "changedPathPolicy": "exact-declared-set",
+      "defaultPublication": "non-force-fast-forward-main",
+      "humanReviewPublication": "open-unmerged-pull-request"
+    },
     "staleLockSeconds": 900,
     "controlHost": "127.0.0.1",
     "controlPort": 8766
