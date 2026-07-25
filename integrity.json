@@ -2,8 +2,8 @@
   "schema_version": 1,
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-24T21:58:09+00:00",
-    "revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
+    "generated_at": "2026-07-25T00:46:56+00:00",
+    "revision": "0925e578e9cc5b1b7ca75e863e1df54b131df704",
     "result": "clean",
     "counts": {
       "errors": 0,
@@ -12,7 +12,7 @@
       "issue_pages": 64,
       "proposal_pages": 41
     },
-    "duration_seconds": 12.634,
+    "duration_seconds": 16.832,
     "scope": [
       "Issue and proposal structure, including Issue Snapshot concision",
       "Area and topic routing",
@@ -32,12 +32,26 @@
       "Intake-workflow terminology",
       "Publication-disposition metadata",
       "Print-assembly configuration",
+      "Governing context registry, hashes, and module coverage",
       "Persistent-agent runbooks and runtime configuration",
       "Structured-file and repository hygiene"
     ],
     "findings": []
   },
   "history": [
+    {
+      "generated_at": "2026-07-25T00:46:56+00:00",
+      "revision": "0925e578e9cc5b1b7ca75e863e1df54b131df704",
+      "result": "clean",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "findings": 0,
+        "issue_pages": 64,
+        "proposal_pages": 41
+      },
+      "duration_seconds": 16.832
+    },
     {
       "generated_at": "2026-07-24T21:58:09+00:00",
       "revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
@@ -414,19 +428,6 @@
         "proposal_pages": 41
       },
       "duration_seconds": 12.546
-    },
-    {
-      "generated_at": "2026-07-24T06:22:23+00:00",
-      "revision": "789a12c03a3ad1e7b1796893ff468fd10093f3d8",
-      "result": "clean",
-      "counts": {
-        "errors": 0,
-        "warnings": 0,
-        "findings": 0,
-        "issue_pages": 64,
-        "proposal_pages": 41
-      },
-      "duration_seconds": 10.884
     }
   ]
 }
