@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260725T035314Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30143042085",
-  "trigger": "push",
-  "llm_launch_allowed": false,
-  "llm_launch_trigger": "push",
-  "created_at": "2026-07-25T03:53:14+00:00",
-  "updated_at": "2026-07-25T03:54:29+00:00",
+  "chain_id": "arrp-20260725T035508Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30143091975",
+  "trigger": "workflow_dispatch",
+  "llm_launch_allowed": true,
+  "llm_launch_trigger": "workflow_dispatch",
+  "created_at": "2026-07-25T03:55:08+00:00",
+  "updated_at": "2026-07-25T03:56:09+00:00",
   "status": "blocked",
   "baseline_commit": "31ad1b233682a7615d57f38c017e8f2598da0207",
   "resume": {
@@ -18,7 +18,7 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260725T035314Z"
+    "owner_chain_id": "arrp-20260725T035508Z"
   },
   "repository": {
     "branch": "main",
@@ -76,7 +76,7 @@
       "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T03:53:14+00:00",
+      "completed_at": "2026-07-25T03:55:08+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -92,7 +92,7 @@
       "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T03:53:14+00:00",
+      "completed_at": "2026-07-25T03:55:08+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -108,7 +108,7 @@
       "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T03:53:14+00:00",
+      "completed_at": "2026-07-25T03:55:08+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -120,21 +120,17 @@
       "id": "project-console-progress-bot",
       "order": 4,
       "workflow": ".github/workflows/project-console-progress.yml",
-      "due": true,
-      "due_reason": "forced",
-      "status": "succeeded",
+      "due": false,
+      "due_reason": "last success remains current until 2026-07-25T21:58:23+00:00",
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T03:54:26+00:00",
-      "last_success_at": "2026-07-25T03:54:26+00:00",
+      "completed_at": "2026-07-25T03:55:08+00:00",
+      "last_success_at": "2026-07-24T21:58:23+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
-      "details": "success",
-      "output": {
-        "path": "workflow-output",
-        "sha256": "sha256:49c4b29f2627e1f89fe73ffbf191eb4758f5d3ab48230c47d4fc4ed1ff88093b"
-      },
-      "work_count": 0
+      "details": "",
+      "output": null
     },
     {
       "id": "public-intake",
@@ -144,15 +140,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-25T03:54:26+00:00",
-      "last_success_at": "2026-07-25T03:54:26+00:00",
+      "completed_at": "2026-07-25T03:56:07+00:00",
+      "last_success_at": "2026-07-25T03:56:07+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:bdf0a179dbd4684c7b266b6532d005c27d63a20d2e7f86a9585933d43d194542"
+        "sha256": "sha256:b5eb6af0c1f75e16cd297df80aa7ce133c59a600ca758f0abcfa1a39ba830d87"
       },
       "work_count": 0
     },
@@ -161,18 +157,18 @@
       "order": 6,
       "workflow": ".github/workflows/project-integrity.yml",
       "due": true,
-      "due_reason": "forced",
+      "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-25T03:54:26+00:00",
-      "last_success_at": "2026-07-25T03:54:26+00:00",
+      "completed_at": "2026-07-25T03:56:07+00:00",
+      "last_success_at": "2026-07-25T03:56:07+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:85de6bf86157a1ee43f8c6a0aa48b6e0e0aa9792bb54998e25edbec302348f37"
+        "sha256": "sha256:fde090446168fe7ebe129ca83017c8ce9f0a8542b10a98ad0a525cc60341d2fd"
       },
       "work_count": 0
     }
@@ -200,7 +196,7 @@
       "model": "gpt-5.6-sol",
       "reasoning_effort": "xhigh",
       "full_context": true,
-      "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-03be2bb1f183 and context profile comprehensive_review."
+      "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-7e93d2448d97 and context profile comprehensive_review."
     }
   },
   "review_epoch": {
@@ -292,7 +288,7 @@
   },
   "next_action": "Refresh or repair the blocked Context Gateway input.",
   "action_items": [],
-  "completed_at": "2026-07-25T03:54:26+00:00",
+  "completed_at": "2026-07-25T03:56:07+00:00",
   "final_revision": "31ad1b233682a7615d57f38c017e8f2598da0207",
   "bots": [
     {
@@ -301,7 +297,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T03:53:14+00:00",
+      "completed_at": "2026-07-25T03:55:08+00:00",
       "error": null
     },
     {
@@ -310,7 +306,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T03:53:14+00:00",
+      "completed_at": "2026-07-25T03:55:08+00:00",
       "error": null
     },
     {
@@ -319,16 +315,16 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T03:53:14+00:00",
+      "completed_at": "2026-07-25T03:55:08+00:00",
       "error": null
     },
     {
       "id": "project-console-progress-bot",
       "name": "project-console-progress-bot",
-      "due": true,
-      "status": "completed",
+      "due": false,
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-25T03:54:26+00:00",
+      "completed_at": "2026-07-25T03:55:08+00:00",
       "error": null
     },
     {
@@ -337,13 +333,13 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-25T03:54:26+00:00",
+      "completed_at": "2026-07-25T03:56:07+00:00",
       "error": null
     }
   ],
   "work_queue": {
     "path": "project-console-data:elim-work-queue.json",
-    "sha256": "sha256:59f8c8690c8bd9c99549811069162c07b5d463bae15466f23e933e3ccfbe47c9",
+    "sha256": "sha256:447e477d377180f9dd7fef180d9c2ae02a0de81fd6e2025e1d91095d4524168d",
     "ready_for_elim": false,
     "launch_recommended": false,
     "counts": {
@@ -358,7 +354,7 @@
     ],
     "next_item": {
       "schema_version": 1,
-      "id": "COMPREHENSIVE-REVIEW-03be2bb1f183",
+      "id": "COMPREHENSIVE-REVIEW-7e93d2448d97",
       "kind": "comprehensive_review",
       "work_class": "periodic_review",
       "severity": "high",
@@ -368,13 +364,13 @@
       "exact_next_action": "Run the due comprehensive Review Epoch.",
       "required_context_profile": "comprehensive_review",
       "originating_stage": "review_epoch",
-      "source_identity": "epoch-arrp-20260725T035314Z",
-      "canonical_record_identity": "epoch-arrp-20260725T035314Z",
+      "source_identity": "epoch-arrp-20260725T035508Z",
+      "canonical_record_identity": "epoch-arrp-20260725T035508Z",
       "dependencies": [
         "review_epoch"
       ],
       "created_at": "2026-07-24T15:40:02+00:00",
-      "refreshed_at": "2026-07-25T03:54:26+00:00",
+      "refreshed_at": "2026-07-25T03:56:07+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -388,7 +384,7 @@
       "reason": "governing_boundary_changed",
       "source": {
         "input": "review_epoch",
-        "epoch_id": "epoch-arrp-20260725T035314Z",
+        "epoch_id": "epoch-arrp-20260725T035508Z",
         "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
         "next_due_at": "2026-08-07T15:40:02+00:00",
         "due": true,
@@ -465,13 +461,13 @@
         },
         "unresolved_ids": []
       },
-      "source_revision": "cb4bf84463d3cae10ebe3bb3c34ffd0e386d64976295111b255a7d50f1309c90",
-      "freshness_timestamp": "2026-07-25T03:54:26+00:00",
-      "source_chain_id": "arrp-20260725T035314Z",
+      "source_revision": "ae5e241187d83cfa70594ffb1e29ce65b1ad0d1d996ff31509bc03684b6322ba",
+      "freshness_timestamp": "2026-07-25T03:56:07+00:00",
+      "source_chain_id": "arrp-20260725T035508Z",
       "source_commit": "31ad1b233682a7615d57f38c017e8f2598da0207",
       "source_project_snapshot": "sha256:49c4b29f2627e1f89fe73ffbf191eb4758f5d3ab48230c47d4fc4ed1ff88093b",
       "source_input_hashes": {
-        "review_epoch": "sha256:cb4bf84463d3cae10ebe3bb3c34ffd0e386d64976295111b255a7d50f1309c90"
+        "review_epoch": "sha256:ae5e241187d83cfa70594ffb1e29ce65b1ad0d1d996ff31509bc03684b6322ba"
       },
       "retry_state": {
         "state": "new",
@@ -481,7 +477,7 @@
       },
       "recovery": null
     },
-    "selected_work_item_id": "COMPREHENSIVE-REVIEW-03be2bb1f183",
+    "selected_work_item_id": "COMPREHENSIVE-REVIEW-7e93d2448d97",
     "user_overrides": {
       "applied": [],
       "unmatched": [],
@@ -490,13 +486,13 @@
   },
   "context_packet": {
     "path": "project-console-data:elim-context.json",
-    "sha256": "sha256:431a42c64b061d68fcf89e5586e8ad2306e0ca342110b2cd107f97f3412fa63b",
+    "sha256": "sha256:d7e65b3bbef472d1e5477755b68155be3c209d445783fa7d33c2c535e334a47e",
     "profile": "comprehensive_review",
-    "work_item_id": "COMPREHENSIVE-REVIEW-03be2bb1f183",
+    "work_item_id": "COMPREHENSIVE-REVIEW-7e93d2448d97",
     "issue_id": null,
     "canonical_record": null,
     "selection": {
-      "work_item_id": "COMPREHENSIVE-REVIEW-03be2bb1f183",
+      "work_item_id": "COMPREHENSIVE-REVIEW-7e93d2448d97",
       "kind": "comprehensive_review",
       "canonical_record": null
     },
