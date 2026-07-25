@@ -176,15 +176,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "run_chain": {
     "schema_version": 1,
     "bot_id": "run-coordinator-bot",
-    "chain_id": "arrp-20260724T215706Z",
-    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30129417648",
-    "trigger": "push",
-    "llm_launch_allowed": false,
-    "llm_launch_trigger": "push",
-    "created_at": "2026-07-24T21:57:06+00:00",
-    "updated_at": "2026-07-24T21:58:25+00:00",
+    "chain_id": "arrp-20260725T042131Z",
+    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30143879377",
+    "trigger": "workflow_dispatch",
+    "llm_launch_allowed": true,
+    "llm_launch_trigger": "workflow_dispatch",
+    "created_at": "2026-07-25T04:21:31+00:00",
+    "updated_at": "2026-07-25T04:22:36+00:00",
     "status": "complete",
-    "baseline_commit": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
+    "baseline_commit": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
     "resume": {
       "count": 0,
       "from_run_id": null
@@ -193,12 +193,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "key": "arrp-run-chain",
       "path": null,
       "status": "released-by-workflow",
-      "owner_chain_id": "arrp-20260724T215706Z"
+      "owner_chain_id": "arrp-20260725T042131Z"
     },
     "repository": {
       "branch": "main",
-      "head": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
-      "origin_main": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
+      "head": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
+      "origin_main": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
       "clean": true,
       "dirty_paths": [],
       "dirty_path_count": 0,
@@ -214,25 +214,25 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "stage": "case-monitor-bot",
           "workflow": ".github/workflows/case-monitor-bot.yml",
           "exists": true,
-          "sha256": "sha256:03d8643675f124b1864d6630a914446907a266ae7f5d6f5c96c48976c6f08662"
+          "sha256": "sha256:e985da5964a7e7c39108c016cf8d8f6218849dbbed3de73cc3911e86ec956d32"
         },
         {
           "stage": "presidential-directives-bot",
           "workflow": ".github/workflows/presidential-directives-bot.yml",
           "exists": true,
-          "sha256": "sha256:1cef9c12894fb5b05243e7e294becc894e8908e5500fbb63853730d5a0e58145"
+          "sha256": "sha256:828648fabeb3c3a152dbfc1ff1db1e2629c605527185822406e3b1c7ac789b19"
         },
         {
           "stage": "source-checker-bot",
           "workflow": ".github/workflows/source-checker-bot.yml",
           "exists": true,
-          "sha256": "sha256:de2974635b2c81740e8f5e967052be4c2d6dceb51febd490c9afc1fb615e8ede"
+          "sha256": "sha256:a97b93f1d6a72f2f43e08c58043887c68d24d384bf7c4b0cb05548edece1f177"
         },
         {
           "stage": "project-console-progress-bot",
           "workflow": ".github/workflows/project-console-progress.yml",
           "exists": true,
-          "sha256": "sha256:9bdd01cb2866c33d9335cfb06bada5908039a599c7e37619a190a1b04c4323bc"
+          "sha256": "sha256:1cc3fdc5491492a29407eb487ce155b708fe232a4a140ce5da6f1516d9917442"
         },
         {
           "stage": "project-integrity-bot",
@@ -248,11 +248,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "order": 1,
         "workflow": ".github/workflows/case-monitor-bot.yml",
         "due": false,
-        "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
+        "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T21:57:06+00:00",
-        "last_success_at": "2026-07-24T14:20:28+00:00",
+        "completed_at": "2026-07-25T04:21:31+00:00",
+        "last_success_at": "2026-07-25T04:17:45+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
@@ -264,11 +264,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "order": 2,
         "workflow": ".github/workflows/presidential-directives-bot.yml",
         "due": false,
-        "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
+        "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T21:57:06+00:00",
-        "last_success_at": "2026-07-24T14:20:28+00:00",
+        "completed_at": "2026-07-25T04:21:31+00:00",
+        "last_success_at": "2026-07-25T04:17:45+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
@@ -283,7 +283,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T21:57:06+00:00",
+        "completed_at": "2026-07-25T04:21:31+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -295,21 +295,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "id": "project-console-progress-bot",
         "order": 4,
         "workflow": ".github/workflows/project-console-progress.yml",
-        "due": true,
-        "due_reason": "forced",
-        "status": "succeeded",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
+        "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T21:58:23+00:00",
-        "last_success_at": "2026-07-24T21:58:23+00:00",
+        "completed_at": "2026-07-25T04:21:31+00:00",
+        "last_success_at": "2026-07-25T04:17:45+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:fe3c6c18f21d585d1d37b6b9f0f3afdbd7905aeb0abbed78ea4afd33fae15743"
-        },
-        "work_count": 0
+        "details": "",
+        "output": null
       },
       {
         "id": "public-intake",
@@ -319,15 +315,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-24T21:58:23+00:00",
-        "last_success_at": "2026-07-24T21:58:23+00:00",
+        "completed_at": "2026-07-25T04:22:34+00:00",
+        "last_success_at": "2026-07-25T04:22:34+00:00",
         "retry_limit": 1,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:eeabc2ed73d06e6c533b5c2cc2c815bfa4504700a24e6a2b32d282e063d36e3d"
+          "sha256": "sha256:10a03463b39345a43645c6d6b9b2d90d3813044dcfa5949d8479f5009ab034ca"
         },
         "work_count": 0
       },
@@ -336,18 +332,18 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "order": 6,
         "workflow": ".github/workflows/project-integrity.yml",
         "due": true,
-        "due_reason": "forced",
+        "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-24T21:58:23+00:00",
-        "last_success_at": "2026-07-24T21:58:23+00:00",
+        "completed_at": "2026-07-25T04:22:34+00:00",
+        "last_success_at": "2026-07-25T04:22:34+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:c4095161b3c2b3b65210360153049f939553892252132495eb96c2b41bc3bfa3"
+          "sha256": "sha256:8bbe8e43d6731c759cb52c43f9c1dff1debce198596849fc74c6e00a222450c0"
         },
         "work_count": 0
       }
@@ -359,31 +355,102 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "monitoring": 0,
       "sources": 0,
       "intake": 0,
-      "total": 53
+      "total": 156
     },
     "elim_decision": {
       "launch_recommended": false,
-      "reason": "This trigger authorizes deterministic refresh only; Elim waits for the daily schedule, an eligible event, or explicit manual dispatch.",
+      "reason": "Codex usage reserve has not been measured.",
       "blockers": [],
       "last_substantive_stage": true,
       "predecessors_complete": true,
       "profile": {
-        "id": "substantive",
+        "id": "comprehensive",
         "model": "gpt-5.6-sol",
         "reasoning_effort": "xhigh",
-        "full_context": false,
-        "reason": "The queue may require substantive project judgment."
+        "full_context": true,
+        "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-3256535a9900 and context profile comprehensive_review."
       }
     },
     "review_epoch": {
       "interval_days": 14,
       "last_completed_at": "2026-07-24T15:40:02+00:00",
       "next_due_at": "2026-08-07T15:40:02+00:00",
-      "due": false,
-      "due_reason": "interval current",
+      "due": true,
+      "due_reason": "governing_boundary_changed",
       "boundary_commit": "d31863cdd38b6ed258ac4754012c91867c8d9487",
       "epoch_id": "epoch-arrp-20260724T153028Z",
-      "stability_status": "evolving"
+      "stability_status": "evolving",
+      "unresolved_findings": [],
+      "boundary_changes": {
+        "extra": [
+          ".github/run-coordinator-bot.json",
+          "framework/agents/elim-context-routes.json"
+        ],
+        "mismatched": [
+          "framework/AGENT_OPERATING_RULES.md",
+          "framework/FRAMEWORK.md",
+          "framework/GITHUB_WORKFLOW.md",
+          "framework/INTAKE_AGENT_PROCESS.md",
+          "framework/PROJECT_STRUCTURE.md",
+          "framework/agents/ELIM.md",
+          "framework/agents/RUN_COORDINATOR_BOT.md"
+        ],
+        "missing": [
+          "AGENTS.md",
+          "README.md",
+          "framework/CONTEXT_ROUTING.md",
+          "framework/INTERBRANCH_REVIEW_COVERAGE_MATRIX.md",
+          "framework/INTERBRANCH_REVIEW_FRAMEWORK.md",
+          "framework/PRINT_ASSEMBLY.md",
+          "framework/PROJECT_CONSOLE_PROGRESS.md",
+          "framework/PROJECT_INTERFACE.md",
+          "framework/PUBLIC_RELEASE.md",
+          "framework/REMEDY_FRAMEWORK.md",
+          "framework/agent-rules/audit-execution.md",
+          "framework/agent-rules/autonomous-execution.md",
+          "framework/agent-rules/context-and-research.md",
+          "framework/agent-rules/handoff.md",
+          "framework/agent-rules/issue-and-candidate-work.md",
+          "framework/agent-rules/multi-agent.md",
+          "framework/agent-rules/provenance-and-logging.md",
+          "framework/agent-rules/validation-and-closeout.md",
+          "framework/agents/CASE_MONITOR_BOT.md",
+          "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
+          "framework/agents/PROJECT_CONSOLE_PROGRESS_BOT.md",
+          "framework/agents/PROJECT_INTEGRITY_BOT.md",
+          "framework/agents/README.md",
+          "framework/agents/SOURCE_CHECKER_BOT.md",
+          "framework/audits/AUDIT_CORE.md",
+          "framework/audits/CHANGE_AUDITS.md",
+          "framework/audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md",
+          "framework/audits/PROJECT_CONSISTENCY_AUDITS.md",
+          "framework/audits/TIERED_AUDITS.md",
+          "framework/audits/VERIFICATION_PROTOCOL.md",
+          "framework/candidates/candidate-adjudication.md",
+          "framework/candidates/horizon-scanning.md",
+          "framework/context-routes.json",
+          "framework/evidence/annotation-and-source-standards.md",
+          "framework/evidence/evidence-records.md",
+          "framework/issues/issue-architecture.md",
+          "framework/lifecycle/development-levels.md",
+          "framework/lifecycle/foundation-and-development-gates.md",
+          "framework/methodology/neutrality-and-language.md",
+          "framework/methodology/partisan-perception-and-public-actors.md",
+          "framework/methodology/scope-and-admission.md",
+          "framework/navigation/inventory-and-indexes.md",
+          "framework/navigation/navigation-synchronization.md",
+          "framework/navigation/topic-guides.md",
+          "framework/operations/issue-development-check.md",
+          "framework/operations/project-update-checklist.md",
+          "framework/scoring/ADOPTION_AND_PATHWAY.md",
+          "framework/scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md",
+          "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
+          "framework/sources/automated-source-adjudication.md",
+          "framework/sources/presidential-directives.md",
+          "framework/sources/project-monitoring.md",
+          "framework/sources/source-catalogs.md"
+        ]
+      }
     },
     "usage": {
       "hard_reserve_percent": 15,
@@ -393,8 +460,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "next_action": "No Elim launch; wait for the next trigger.",
     "action_items": [],
-    "completed_at": "2026-07-24T21:58:23+00:00",
-    "final_revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
+    "completed_at": "2026-07-25T04:22:34+00:00",
+    "final_revision": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
     "bots": [
       {
         "id": "case-monitor-bot",
@@ -402,7 +469,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T21:57:06+00:00",
+        "completed_at": "2026-07-25T04:21:31+00:00",
         "error": null
       },
       {
@@ -411,7 +478,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T21:57:06+00:00",
+        "completed_at": "2026-07-25T04:21:31+00:00",
         "error": null
       },
       {
@@ -420,16 +487,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T21:57:06+00:00",
+        "completed_at": "2026-07-25T04:21:31+00:00",
         "error": null
       },
       {
         "id": "project-console-progress-bot",
         "name": "project-console-progress-bot",
-        "due": true,
-        "status": "completed",
+        "due": false,
+        "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T21:58:23+00:00",
+        "completed_at": "2026-07-25T04:21:31+00:00",
         "error": null
       },
       {
@@ -438,55 +505,171 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": true,
         "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-24T21:58:23+00:00",
+        "completed_at": "2026-07-25T04:22:34+00:00",
         "error": null
       }
     ],
     "work_queue": {
       "path": "project-console-data:elim-work-queue.json",
-      "sha256": "sha256:d379e0a173f8030976f9ccd29dfeea2544435a8035b600129f39a99564d7a6b5",
+      "sha256": "sha256:63804a9afe71e2d2423e6a3de43b50bc4c8e219642757209ed2a42f953502136",
       "ready_for_elim": true,
       "launch_recommended": true,
       "counts": {
-        "total": 53,
-        "elim_eligible": 53,
+        "total": 156,
+        "elim_eligible": 156,
         "human": 0,
-        "safety": 0
+        "safety": 17
       },
       "problems": [],
       "next_item": {
-        "id": "ISSUE-AUDIT-d0c0d75d2729",
-        "kind": "issue_audit",
-        "title": "EMERG-003: T1 audit of IEEPA scope, immigration-authority coordination, judicial review, transition, and implementation",
+        "schema_version": 1,
+        "id": "COMPREHENSIVE-REVIEW-3256535a9900",
+        "kind": "comprehensive_review",
+        "work_class": "periodic_review",
+        "severity": "high",
+        "title": "Run the due comprehensive consistency review",
         "owner": "agent",
+        "required_authority": "agent-within-runbook",
+        "exact_next_action": "Run the due comprehensive Review Epoch.",
+        "required_context_profile": "comprehensive_review",
+        "originating_stage": "review_epoch",
+        "source_identity": "epoch-arrp-20260725T042131Z",
+        "canonical_record_identity": "epoch-arrp-20260725T042131Z",
+        "dependencies": [
+          "review_epoch"
+        ],
+        "created_at": "2026-07-24T15:40:02+00:00",
+        "refreshed_at": "2026-07-25T04:22:34+00:00",
         "eligible_for_elim": true,
         "requires_human": false,
+        "eligibility_reason": "eligible under the selected runbook",
+        "blocking_reason": null,
         "safety_class": 1,
-        "base_priority": 600,
-        "age_days": 10,
-        "fairness_boost": 10,
-        "priority_score": 610,
-        "reason": "explicit workflow route: audit needed",
+        "base_priority": 650,
+        "age_days": 0,
+        "fairness_boost": 0,
+        "priority_score": 650,
+        "selection_priority_score": 650,
+        "reason": "governing_boundary_changed",
         "source": {
-          "input": "progress",
-          "identifier": "EMERG-003",
-          "canonical_record": "areas/EMERG/issues/EMERG-003.md",
-          "workflow_status": "Audit needed",
-          "development_level": "Developed proposal",
-          "next_audit": "T1 audit of IEEPA scope, immigration-authority coordination, judicial review, transition, and implementation"
+          "input": "review_epoch",
+          "epoch_id": "epoch-arrp-20260725T042131Z",
+          "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
+          "next_due_at": "2026-08-07T15:40:02+00:00",
+          "due": true,
+          "due_reason": "governing_boundary_changed",
+          "boundary_changes": {
+            "extra": [
+              ".github/run-coordinator-bot.json",
+              "framework/agents/elim-context-routes.json"
+            ],
+            "mismatched": [
+              "framework/AGENT_OPERATING_RULES.md",
+              "framework/FRAMEWORK.md",
+              "framework/GITHUB_WORKFLOW.md",
+              "framework/INTAKE_AGENT_PROCESS.md",
+              "framework/PROJECT_STRUCTURE.md",
+              "framework/agents/ELIM.md",
+              "framework/agents/RUN_COORDINATOR_BOT.md"
+            ],
+            "missing": [
+              "AGENTS.md",
+              "README.md",
+              "framework/CONTEXT_ROUTING.md",
+              "framework/INTERBRANCH_REVIEW_COVERAGE_MATRIX.md",
+              "framework/INTERBRANCH_REVIEW_FRAMEWORK.md",
+              "framework/PRINT_ASSEMBLY.md",
+              "framework/PROJECT_CONSOLE_PROGRESS.md",
+              "framework/PROJECT_INTERFACE.md",
+              "framework/PUBLIC_RELEASE.md",
+              "framework/REMEDY_FRAMEWORK.md",
+              "framework/agent-rules/audit-execution.md",
+              "framework/agent-rules/autonomous-execution.md",
+              "framework/agent-rules/context-and-research.md",
+              "framework/agent-rules/handoff.md",
+              "framework/agent-rules/issue-and-candidate-work.md",
+              "framework/agent-rules/multi-agent.md",
+              "framework/agent-rules/provenance-and-logging.md",
+              "framework/agent-rules/validation-and-closeout.md",
+              "framework/agents/CASE_MONITOR_BOT.md",
+              "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
+              "framework/agents/PROJECT_CONSOLE_PROGRESS_BOT.md",
+              "framework/agents/PROJECT_INTEGRITY_BOT.md",
+              "framework/agents/README.md",
+              "framework/agents/SOURCE_CHECKER_BOT.md",
+              "framework/audits/AUDIT_CORE.md",
+              "framework/audits/CHANGE_AUDITS.md",
+              "framework/audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md",
+              "framework/audits/PROJECT_CONSISTENCY_AUDITS.md",
+              "framework/audits/TIERED_AUDITS.md",
+              "framework/audits/VERIFICATION_PROTOCOL.md",
+              "framework/candidates/candidate-adjudication.md",
+              "framework/candidates/horizon-scanning.md",
+              "framework/context-routes.json",
+              "framework/evidence/annotation-and-source-standards.md",
+              "framework/evidence/evidence-records.md",
+              "framework/issues/issue-architecture.md",
+              "framework/lifecycle/development-levels.md",
+              "framework/lifecycle/foundation-and-development-gates.md",
+              "framework/methodology/neutrality-and-language.md",
+              "framework/methodology/partisan-perception-and-public-actors.md",
+              "framework/methodology/scope-and-admission.md",
+              "framework/navigation/inventory-and-indexes.md",
+              "framework/navigation/navigation-synchronization.md",
+              "framework/navigation/topic-guides.md",
+              "framework/operations/issue-development-check.md",
+              "framework/operations/project-update-checklist.md",
+              "framework/scoring/ADOPTION_AND_PATHWAY.md",
+              "framework/scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md",
+              "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
+              "framework/sources/automated-source-adjudication.md",
+              "framework/sources/presidential-directives.md",
+              "framework/sources/project-monitoring.md",
+              "framework/sources/source-catalogs.md"
+            ]
+          },
+          "unresolved_ids": []
+        },
+        "source_revision": "07fc0cad6db2bd82e8c3373cbf7e83d4b5c997debdcc3501a61ff1ff23f035c5",
+        "freshness_timestamp": "2026-07-25T04:22:34+00:00",
+        "source_chain_id": "arrp-20260725T042131Z",
+        "source_commit": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
+        "source_project_snapshot": "sha256:8a12962115cdc2a1f056a44a8b7bdce33dc839e35a8a601aef59ab7884a26e4a",
+        "source_input_hashes": {
+          "review_epoch": "sha256:07fc0cad6db2bd82e8c3373cbf7e83d4b5c997debdcc3501a61ff1ff23f035c5"
+        },
+        "retry_state": {
+          "state": "new",
+          "attempt_count": 0,
+          "continuation": null,
+          "next_retry_at": null
         },
         "recovery": null
+      },
+      "selected_work_item_id": "COMPREHENSIVE-REVIEW-3256535a9900",
+      "user_overrides": {
+        "applied": [],
+        "unmatched": [],
+        "request_sha256": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
       }
     },
     "context_packet": {
       "path": "project-console-data:elim-context.json",
-      "sha256": "sha256:467bef18d02a910b86a78d6fff5539da42a9281125de70e3d90cc5b35f5259c8",
-      "profile": "issue_audit",
-      "repository_revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
+      "sha256": "sha256:18c89f0902572f5d760f34f18d6bfc557cd041733802fd065a876c42020bb663",
+      "profile": "comprehensive_review",
+      "work_item_id": "COMPREHENSIVE-REVIEW-3256535a9900",
+      "issue_id": null,
+      "canonical_record": null,
+      "selection": {
+        "work_item_id": "COMPREHENSIVE-REVIEW-3256535a9900",
+        "kind": "comprehensive_review",
+        "canonical_record": null
+      },
+      "repository_revision": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
       "provenance_complete": true,
       "limits": {
-        "max_bytes": 220000,
-        "actual_bytes": 189895
+        "max_bytes": 1000000,
+        "actual_bytes": 675634
       }
     }
   }

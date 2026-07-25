@@ -2662,10 +2662,17 @@
       if (record.runtime_url) links.append(linkButton("Open runtime ↗", record.runtime_url, true));
       if (record.current_report_url) links.append(linkButton("Open current report ↗", record.current_report_url, true));
       if (record.current_data) {
-        const dataPath = String(record.current_data).replace(/^project-console-data\//, "");
+        const currentData = String(record.current_data);
+        const separator = currentData.indexOf(":");
+        const dataBranch = separator >= 0
+          ? currentData.slice(0, separator)
+          : "project-console-data";
+        const dataPath = separator >= 0
+          ? currentData.slice(separator + 1)
+          : currentData.replace(/^project-console-data\//, "");
         links.append(linkButton(
           "Open current data ↗",
-          `https://github.com/Thorncrag/ARRP/blob/project-console-data/${dataPath}`,
+          `https://github.com/Thorncrag/ARRP/blob/${dataBranch}/${dataPath}`,
           true
         ));
       }
