@@ -1,12 +1,15 @@
+import json
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from scripts.check_codex_usage_reserve import (
     RESET_TIME_JITTER_SECONDS,
+    USAGE_BASELINE_ROOT,
     UsageGateError,
     apply_run_budget,
     evaluate_rate_limits,
+    managed_run_baseline_path,
     read_usage_with_window_confirmation,
 )
 
@@ -45,6 +48,22 @@ def payload(*, codex_used: int = 57, spark_used: int = 1) -> dict:
 
 
 class CodexUsageReserveTests(unittest.TestCase):
+    def test_managed_baseline_maps_bounded_id_into_fixed_private_state(self):
+        baseline = managed_run_baseline_path("arrp-20260725T063006Z-20260725T080739Z")
+
+        self.assertEqual(baseline.parent, USAGE_BASELINE_ROOT)
+        self.assertRegex(baseline.name, r"^[0-9a-f]{64}\.json$")
+        self.assertEqual(
+            baseline,
+            managed_run_baseline_path(
+                "arrp-20260725T063006Z-20260725T080739Z"
+            ),
+        )
+
+    def test_managed_baseline_rejects_path_syntax(self):
+        with self.assertRaisesRegex(UsageGateError, "baseline ID is invalid"):
+            managed_run_baseline_path("../outside.json")
+
     def test_all_windows_above_reserve_pass(self):
         result = evaluate_rate_limits(payload(), 15)
 
@@ -137,7 +156,60 @@ class CodexUsageReserveTests(unittest.TestCase):
         self.assertEqual(result["status"], "pass")
         self.assertFalse(result["runBudget"]["softTargetReached"])
 
-    def test_run_budget_fails_closed_if_window_changes_materially(self):
+    def test_dormant_zero_use_window_accepts_rolling_reset_estimate(self):
+        with TemporaryDirectory() as directory:
+            baseline = Path(directory) / "baseline.json"
+            apply_run_budget(
+                evaluate_rate_limits(payload(spark_used=0), 15),
+                baseline,
+                10,
+            )
+            later = payload(spark_used=0)
+            later["rateLimitsByLimitId"]["codex_bengalfox"]["primary"][
+                "resetsAt"
+            ] += 3_600
+
+            result = apply_run_budget(evaluate_rate_limits(later, 15), baseline, 10)
+
+        self.assertEqual(result["status"], "pass")
+        self.assertEqual(result["runBudget"]["spentPercentByWindow"]["codex_bengalfox:primary"], 0)
+        self.assertIn("codex_bengalfox:primary", result["runBudget"]["dormantWindows"])
+
+    def test_first_positive_use_anchors_dormant_window_and_accounts_from_zero(self):
+        with TemporaryDirectory() as directory:
+            baseline = Path(directory) / "baseline.json"
+            apply_run_budget(
+                evaluate_rate_limits(payload(spark_used=0), 15),
+                baseline,
+                10,
+            )
+            activated = payload(spark_used=4)
+            activated_reset = (
+                activated["rateLimitsByLimitId"]["codex_bengalfox"]["primary"]["resetsAt"]
+                + 3_600
+            )
+            activated["rateLimitsByLimitId"]["codex_bengalfox"]["primary"][
+                "resetsAt"
+            ] = activated_reset
+
+            result = apply_run_budget(evaluate_rate_limits(activated, 15), baseline, 10)
+            stored = json.loads(baseline.read_text(encoding="utf-8"))
+
+        self.assertEqual(result["status"], "pass")
+        self.assertEqual(result["runBudget"]["spentPercentByWindow"]["codex_bengalfox:primary"], 4)
+        self.assertEqual(result["runBudget"]["highestSpentPercent"], 4)
+        self.assertIn("codex_bengalfox:primary", result["runBudget"]["activatedWindows"])
+        self.assertTrue(stored["windows"]["codex_bengalfox:primary"]["active"])
+        self.assertEqual(
+            stored["windows"]["codex_bengalfox:primary"]["resetsAt"],
+            activated_reset,
+        )
+        self.assertEqual(
+            stored["windows"]["codex_bengalfox:primary"]["highestObservedUsedPercent"],
+            4,
+        )
+
+    def test_active_nonzero_window_fails_closed_if_reset_changes_materially(self):
         with TemporaryDirectory() as directory:
             baseline = Path(directory) / "baseline.json"
             apply_run_budget(evaluate_rate_limits(payload(), 15), baseline, 10)
@@ -148,6 +220,30 @@ class CodexUsageReserveTests(unittest.TestCase):
 
             with self.assertRaisesRegex(UsageGateError, "changed materially"):
                 apply_run_budget(evaluate_rate_limits(later, 15), baseline, 10)
+
+    def test_reserve_hit_still_aborts_with_dormant_window_reset_drift(self):
+        with TemporaryDirectory() as directory:
+            baseline = Path(directory) / "baseline.json"
+            apply_run_budget(
+                evaluate_rate_limits(payload(codex_used=70, spark_used=0), 15),
+                baseline,
+                10,
+            )
+            later = payload(codex_used=85, spark_used=0)
+            later["rateLimitsByLimitId"]["codex_bengalfox"]["primary"][
+                "resetsAt"
+            ] += 3_600
+
+            result = read_usage_with_window_confirmation(
+                lambda: later,
+                15,
+                baseline,
+                10,
+                recheck_delay_seconds=0,
+            )
+
+        self.assertEqual(result["status"], "abort")
+        self.assertIn("codex primary: 15% remaining", result["blockers"])
 
     def test_transient_material_window_change_is_rechecked(self):
         with TemporaryDirectory() as directory:

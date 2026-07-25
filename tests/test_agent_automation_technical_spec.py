@@ -80,6 +80,18 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
             "retains the 128 newest recognized events",
             text,
         )
+        self.assertIn(
+            "The workspace-write model does not stage, branch, commit, push",
+            text,
+        )
+        self.assertIn(
+            "A window at zero use is dormant",
+            text,
+        )
+        self.assertIn(
+            "cloud completion with an eligible Elim unit remains `host_pending`",
+            text,
+        )
 
     def test_generated_pdf_preserves_status_core_controls_and_diagrams(self):
         source = (
@@ -108,6 +120,10 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
             )
             self.assertIn(
                 "A deterministic stage never synthesizes blocked.",
+                content,
+            )
+            self.assertIn(
+                "Three write classes and Elim split-closeout",
                 content,
             )
             self.assertNotIn("Public stage outcomes and recovery routing", content)

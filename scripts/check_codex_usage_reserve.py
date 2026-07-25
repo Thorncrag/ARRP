@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import re
 import select
 import subprocess
 import sys
@@ -18,9 +20,17 @@ DEFAULT_RESERVE_PERCENT = 15
 DEFAULT_SOFT_TARGET_PERCENT = 10
 DEFAULT_TIMEOUT_SECONDS = 20
 RESET_TIME_JITTER_SECONDS = 5
+RUN_BASELINE_SCHEMA_VERSION = 2
 WINDOW_CHANGE_RECHECKS = 2
 WINDOW_CHANGE_RECHECK_DELAY_SECONDS = 1
 CODEX_EXECUTABLE = Path("/Applications/ChatGPT.app/Contents/Resources/codex")
+USAGE_BASELINE_ROOT = (
+    Path(__file__).resolve().parents[1]
+    / ".tmp"
+    / "run-coordinator"
+    / "usage-baselines"
+)
+SAFE_BASELINE_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,199}$")
 
 
 class UsageGateError(RuntimeError):
@@ -29,6 +39,14 @@ class UsageGateError(RuntimeError):
 
 class RateLimitWindowChanged(UsageGateError):
     """Raised when a material window change requires confirmation."""
+
+
+def managed_run_baseline_path(baseline_id: str) -> Path:
+    """Map an opaque bounded invocation ID into the fixed private state tree."""
+    if SAFE_BASELINE_ID.fullmatch(baseline_id) is None:
+        raise UsageGateError("run-usage baseline ID is invalid")
+    digest = hashlib.sha256(baseline_id.encode("utf-8")).hexdigest()
+    return USAGE_BASELINE_ROOT / f"{digest}.json"
 
 
 def iso_timestamp(unix_seconds: int) -> str:
@@ -205,6 +223,103 @@ def window_key(window: dict[str, Any]) -> str:
     return f"{window['limitId']}:{window['window']}"
 
 
+def create_run_baseline(
+    result: dict[str, Any],
+    current_windows: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    return {
+        "schemaVersion": RUN_BASELINE_SCHEMA_VERSION,
+        "createdAtUtc": result["checkedAtUtc"],
+        "updatedAtUtc": result["checkedAtUtc"],
+        "windows": {
+            key: {
+                "usedPercent": window["usedPercent"],
+                "resetsAt": window["resetsAt"],
+                "active": window["usedPercent"] > 0,
+                "lastObservedUsedPercent": window["usedPercent"],
+                "highestObservedUsedPercent": window["usedPercent"],
+            }
+            for key, window in current_windows.items()
+        },
+    }
+
+
+def write_new_run_baseline(baseline_path: Path, baseline: dict[str, Any]) -> None:
+    try:
+        baseline_path.parent.mkdir(parents=True, exist_ok=True)
+        with baseline_path.open("x", encoding="utf-8") as handle:
+            json.dump(baseline, handle, indent=2, sort_keys=True)
+            handle.write("\n")
+    except OSError as error:
+        raise UsageGateError(f"could not create run-usage baseline: {error}") from error
+
+
+def update_run_baseline(baseline_path: Path, baseline: dict[str, Any]) -> None:
+    temporary_path = baseline_path.with_name(
+        f".{baseline_path.name}.{time.time_ns()}.tmp"
+    )
+    try:
+        with temporary_path.open("x", encoding="utf-8") as handle:
+            json.dump(baseline, handle, indent=2, sort_keys=True)
+            handle.write("\n")
+        temporary_path.replace(baseline_path)
+    except OSError as error:
+        raise UsageGateError(f"could not update run-usage baseline: {error}") from error
+    finally:
+        try:
+            temporary_path.unlink(missing_ok=True)
+        except OSError:
+            pass
+
+
+def normalize_baseline_window(key: str, value: Any, schema_version: int) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        raise UsageGateError(f"run-usage baseline window {key} is unreadable")
+
+    starting_used = value.get("usedPercent")
+    resets_at = value.get("resetsAt")
+    if (
+        not isinstance(starting_used, int)
+        or isinstance(starting_used, bool)
+        or not 0 <= starting_used <= 100
+        or not isinstance(resets_at, int)
+        or isinstance(resets_at, bool)
+        or resets_at <= 0
+    ):
+        raise UsageGateError(f"run-usage baseline window {key} is incomplete")
+
+    if schema_version == 1:
+        return {
+            "usedPercent": starting_used,
+            "resetsAt": resets_at,
+            "active": starting_used > 0,
+            "lastObservedUsedPercent": starting_used,
+            "highestObservedUsedPercent": starting_used,
+        }
+
+    active = value.get("active")
+    last_observed = value.get("lastObservedUsedPercent")
+    highest_observed = value.get("highestObservedUsedPercent")
+    if (
+        not isinstance(active, bool)
+        or not isinstance(last_observed, int)
+        or isinstance(last_observed, bool)
+        or not isinstance(highest_observed, int)
+        or isinstance(highest_observed, bool)
+        or not starting_used <= last_observed <= highest_observed <= 100
+        or (not active and (starting_used != 0 or last_observed != 0 or highest_observed != 0))
+    ):
+        raise UsageGateError(f"run-usage baseline window {key} is incomplete")
+
+    return {
+        "usedPercent": starting_used,
+        "resetsAt": resets_at,
+        "active": active,
+        "lastObservedUsedPercent": last_observed,
+        "highestObservedUsedPercent": highest_observed,
+    }
+
+
 def apply_run_budget(
     result: dict[str, Any],
     baseline_path: Path,
@@ -213,30 +328,21 @@ def apply_run_budget(
     """Create or compare a per-run baseline without weakening the absolute reserve."""
     current_windows = {window_key(window): window for window in result["windows"]}
     if not baseline_path.exists():
-        baseline = {
-            "schemaVersion": 1,
-            "createdAtUtc": result["checkedAtUtc"],
-            "windows": {
-                key: {
-                    "usedPercent": window["usedPercent"],
-                    "resetsAt": window["resetsAt"],
-                }
-                for key, window in current_windows.items()
-            },
-        }
-        try:
-            baseline_path.parent.mkdir(parents=True, exist_ok=True)
-            with baseline_path.open("x", encoding="utf-8") as handle:
-                json.dump(baseline, handle, indent=2, sort_keys=True)
-                handle.write("\n")
-        except OSError as error:
-            raise UsageGateError(f"could not create run-usage baseline: {error}") from error
+        baseline = create_run_baseline(result, current_windows)
+        write_new_run_baseline(baseline_path, baseline)
     else:
         try:
             baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as error:
             raise UsageGateError(f"run-usage baseline is unreadable: {error}") from error
 
+    schema_version = baseline.get("schemaVersion")
+    if (
+        not isinstance(schema_version, int)
+        or isinstance(schema_version, bool)
+        or schema_version not in (1, RUN_BASELINE_SCHEMA_VERSION)
+    ):
+        raise UsageGateError("run-usage baseline has an unsupported schema version")
     baseline_windows = baseline.get("windows")
     if not isinstance(baseline_windows, dict) or not baseline_windows:
         raise UsageGateError("run-usage baseline contains no windows")
@@ -244,24 +350,58 @@ def apply_run_budget(
         raise RateLimitWindowChanged("applicable rate-limit windows changed during the run")
 
     spent_by_window: dict[str, int] = {}
+    dormant_windows: list[str] = []
+    activated_windows: list[str] = []
+    normalized_windows: dict[str, dict[str, Any]] = {}
+    baseline_changed = schema_version == 1
     for key, current in current_windows.items():
-        starting = baseline_windows.get(key)
-        if not isinstance(starting, dict):
-            raise UsageGateError(f"run-usage baseline window {key} is unreadable")
-        starting_used = starting.get("usedPercent")
-        starting_reset = starting.get("resetsAt")
-        if not isinstance(starting_used, int) or not isinstance(starting_reset, int):
-            raise UsageGateError(f"run-usage baseline window {key} is incomplete")
-        reset_difference = abs(current["resetsAt"] - starting_reset)
-        if reset_difference > RESET_TIME_JITTER_SECONDS:
-            raise RateLimitWindowChanged(
-                f"rate-limit window {key} changed materially during the run"
-            )
-        if current["usedPercent"] < starting_used:
+        starting = normalize_baseline_window(key, baseline_windows.get(key), schema_version)
+        current_used = current["usedPercent"]
+
+        if not starting["active"] and current_used == 0:
+            dormant_windows.append(key)
+            spent_by_window[key] = 0
+            normalized_windows[key] = starting
+            continue
+
+        if not starting["active"]:
+            starting["active"] = True
+            starting["resetsAt"] = current["resetsAt"]
+            activated_windows.append(key)
+            baseline_changed = True
+        else:
+            reset_difference = abs(current["resetsAt"] - starting["resetsAt"])
+            if reset_difference > RESET_TIME_JITTER_SECONDS:
+                raise RateLimitWindowChanged(
+                    f"rate-limit window {key} changed materially during the run"
+                )
+
+        if current_used < starting["lastObservedUsedPercent"]:
             raise RateLimitWindowChanged(
                 f"rate-limit usage for {key} moved backward during the run"
             )
-        spent_by_window[key] = current["usedPercent"] - starting_used
+
+        previous_highest = starting["highestObservedUsedPercent"]
+        starting["lastObservedUsedPercent"] = current_used
+        starting["highestObservedUsedPercent"] = max(previous_highest, current_used)
+        if (
+            starting["lastObservedUsedPercent"] != baseline_windows[key].get(
+                "lastObservedUsedPercent"
+            )
+            or starting["highestObservedUsedPercent"]
+            != baseline_windows[key].get("highestObservedUsedPercent")
+        ):
+            baseline_changed = True
+        spent_by_window[key] = (
+            starting["highestObservedUsedPercent"] - starting["usedPercent"]
+        )
+        normalized_windows[key] = starting
+
+    if baseline_changed:
+        baseline["schemaVersion"] = RUN_BASELINE_SCHEMA_VERSION
+        baseline["updatedAtUtc"] = result["checkedAtUtc"]
+        baseline["windows"] = normalized_windows
+        update_run_baseline(baseline_path, baseline)
 
     highest_spent = max(spent_by_window.values(), default=0)
     result["runBudget"] = {
@@ -269,6 +409,8 @@ def apply_run_budget(
         "softTargetPercent": soft_target_percent,
         "highestSpentPercent": highest_spent,
         "spentPercentByWindow": spent_by_window,
+        "dormantWindows": sorted(dormant_windows),
+        "activatedWindows": sorted(activated_windows),
     }
     soft_target_reached = highest_spent >= soft_target_percent
     reserve_buffer_floor = result["reservePercent"] + soft_target_percent
@@ -333,7 +475,7 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=DEFAULT_SOFT_TARGET_PERCENT,
     )
-    parser.add_argument("--run-baseline", type=Path)
+    parser.add_argument("--run-baseline-id")
     parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
     return parser.parse_args()
 
@@ -365,10 +507,15 @@ def main() -> int:
         return 3
 
     try:
+        baseline_path = (
+            managed_run_baseline_path(args.run_baseline_id)
+            if args.run_baseline_id is not None
+            else None
+        )
         result = read_usage_with_window_confirmation(
             lambda: fetch_rate_limits(str(CODEX_EXECUTABLE), args.timeout_seconds),
             args.reserve_percent,
-            args.run_baseline,
+            baseline_path,
             args.soft_target_percent,
         )
     except (OSError, UsageGateError) as error:

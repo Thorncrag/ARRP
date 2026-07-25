@@ -18,6 +18,22 @@ SPEC.loader.exec_module(MODULE)
 
 
 class RunChainDispatcherTests(unittest.TestCase):
+    def test_managed_usage_baseline_is_fixed_and_path_safe(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            baseline = MODULE.managed_usage_baseline_path(
+                repo,
+                "arrp-20260725T063006Z-20260725T080739Z",
+            )
+
+            self.assertEqual(
+                baseline.parent,
+                repo.resolve() / MODULE.USAGE_BASELINE_DIRECTORY,
+            )
+            self.assertRegex(baseline.name, r"^[0-9a-f]{64}\.json$")
+            with self.assertRaisesRegex(MODULE.ContextError, "unsafe invocation ID"):
+                MODULE.managed_usage_baseline_path(repo, "../outside")
+
     def write_current_audit(
         self,
         repo: Path,
@@ -208,6 +224,10 @@ class RunChainDispatcherTests(unittest.TestCase):
         )
         self.assertIn("represents exactly the one manifest-selected unit", prompt)
         self.assertIn("stop_requested", prompt)
+        self.assertIn("trusted host dispatcher", prompt)
+        self.assertIn("Do not run repository Git mutations", prompt)
+        self.assertIn("Authorized GitHub Issue, Project", prompt)
+        self.assertIn("Leave commit null", prompt)
 
     def test_prompt_confines_bot_failure_to_repair_only(self):
         payload = {
@@ -259,6 +279,23 @@ class RunChainDispatcherTests(unittest.TestCase):
             config["hostDispatcher"]["isolatedCheckoutPath"],
             ".tmp/run-coordinator/elim-checkout",
         )
+        self.assertEqual(
+            config["hostDispatcher"]["repositoryCloseout"],
+            MODULE.HOST_CLOSEOUT_POLICY,
+        )
+
+    def test_host_closeout_policy_rejects_runtime_drift(self):
+        config = {
+            "hostDispatcher": {
+                "repositoryCloseout": dict(MODULE.HOST_CLOSEOUT_POLICY),
+            }
+        }
+        MODULE.validate_host_closeout_policy(config)
+        config["hostDispatcher"]["repositoryCloseout"]["modelGitMutation"] = (
+            "allowed"
+        )
+        with self.assertRaisesRegex(RuntimeError, "trusted-host boundary"):
+            MODULE.validate_host_closeout_policy(config)
 
     def test_dispatcher_uses_only_the_reviewed_config_path(self):
         source = (ROOT / "scripts" / "run_chain_dispatcher.py").read_text()
@@ -881,6 +918,36 @@ class RunChainDispatcherTests(unittest.TestCase):
             self.assertIn("current Chain ID", reason)
             clean.assert_not_called()
 
+    def test_closeout_converts_clean_tree_runtime_error_to_failed_verification(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            result_path = repo / ".tmp/result.json"
+            result_path.parent.mkdir()
+            self.write_current_audit(repo, state="Inactive")
+            self.write_elim_run_log(repo)
+            result_path.write_text(
+                json.dumps(self.elim_result()) + "\n",
+                encoding="utf-8",
+            )
+            with (
+                mock.patch.object(
+                    MODULE,
+                    "require_clean_repo",
+                    side_effect=RuntimeError("unexpected dirty checkout"),
+                ),
+                mock.patch.object(MODULE, "verify_successful_elim_evidence"),
+            ):
+                outcome, complete, reason = MODULE.enforce_elim_result_closeout(
+                    0,
+                    repo=repo,
+                    result_path=result_path,
+                    git="/usr/bin/git",
+                    expected_run_id="chain-1",
+                )
+            self.assertEqual(outcome, 6)
+            self.assertFalse(complete)
+            self.assertIn("unexpected dirty checkout", reason)
+
     def test_legacy_active_is_not_an_approved_handoff_state(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
@@ -951,6 +1018,50 @@ class RunChainDispatcherTests(unittest.TestCase):
             )
             self.assertEqual(projected["elim_runtime"]["id"], "elim")
             self.assertIn("Review Epoch", projected["elim_runtime"]["details"])
+
+    def test_elim_runtime_uses_current_chain_and_safe_stop_status(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            config = {"manifest": {"localFallback": ".tmp/run-chain.json"}}
+            control = {}
+            payload = {"chain_id": "chain-current", "status": "complete"}
+            (repo / ".tmp").mkdir()
+            (repo / ".tmp/run-chain.json").write_text(
+                json.dumps(
+                    {
+                        "chain_id": "chain-stale",
+                        "status": "complete",
+                        "elim_runtime": {
+                            "chain_id": "chain-stale",
+                            "status": "failed",
+                        },
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            MODULE.record_elim_runtime(
+                repo=repo,
+                config=config,
+                control=control,
+                payload=payload,
+                outcome=5,
+                result_outcome="usage_stopped",
+            )
+            self.assertEqual(control["elim_runtime"]["chain_id"], "chain-current")
+            self.assertEqual(control["elim_runtime"]["status"], "usage-stopped")
+            self.assertEqual(payload["host_status"], "usage-stopped")
+            projected = json.loads(
+                (repo / ".tmp/run-chain.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(projected["chain_id"], "chain-current")
+            self.assertEqual(projected["elim_runtime"]["chain_id"], "chain-current")
+            self.assertEqual(projected["elim_runtime"]["status"], "usage-stopped")
+            self.assertEqual(projected["host_status"], "usage-stopped")
+            self.assertEqual(
+                projected["host_updated_at"],
+                projected["elim_runtime"]["completed_at"],
+            )
 
     def test_dead_dispatch_owner_is_recovered_as_failed_elim_run(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -2648,6 +2759,147 @@ class RunChainDispatcherTests(unittest.TestCase):
             launch_source = Path(MODULE.__file__).read_text(encoding="utf-8")
             self.assertIn("cwd=execution_repo", launch_source)
             self.assertIn("str(execution_repo)", launch_source)
+
+    def test_trusted_host_preserves_declared_usage_stop_with_real_git(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            remote = root / "remote.git"
+            repo = root / "checkout"
+
+            def git(cwd: Path, *args: str) -> str:
+                completed = MODULE.subprocess.run(
+                    ["/usr/bin/git", *args],
+                    cwd=cwd,
+                    text=True,
+                    stdout=MODULE.subprocess.PIPE,
+                    stderr=MODULE.subprocess.PIPE,
+                    check=False,
+                )
+                self.assertEqual(
+                    completed.returncode,
+                    0,
+                    msg=f"git {' '.join(args)} failed: {completed.stderr}",
+                )
+                return completed.stdout.strip()
+
+            remote.mkdir()
+            git(remote, "init", "--bare")
+            repo.mkdir()
+            git(repo, "init", "-b", "main")
+            (repo / ".gitignore").write_text(".tmp/\n", encoding="utf-8")
+            self.write_current_audit(repo, state="Inactive")
+            logs = repo / "framework/logs"
+            (logs / "ELIM_RUN_LOG.md").write_text(
+                "# Elim Run Log\n\n## Runs\n",
+                encoding="utf-8",
+            )
+            git(repo, "add", ".gitignore", "framework/logs/CURRENT_AUDIT.md", "framework/logs/ELIM_RUN_LOG.md")
+            git(
+                repo,
+                "-c",
+                "user.name=Test",
+                "-c",
+                "user.email=test@example.com",
+                "commit",
+                "-m",
+                "baseline",
+            )
+            git(repo, "remote", "add", "origin", str(remote))
+            git(repo, "push", "-u", "origin", "main")
+            baseline = git(repo, "rev-parse", "HEAD")
+
+            next_action = "Resume the exact selected unit on a fresh chain."
+            self.write_current_audit(
+                repo,
+                state="Paused",
+                next_step=next_action,
+                blocker="The usage boundary requested safe closeout.",
+            )
+            self.write_elim_run_log(
+                repo,
+                outcome="Usage stopped before substantive work",
+            )
+            result = self.elim_result(
+                outcome="usage_stopped",
+                continuation_state="retryable",
+                next_action=next_action,
+            )
+            result["commit"] = None
+            result["synchronization"] = []
+            result["files_touched"] = [
+                "framework/logs/CURRENT_AUDIT.md",
+                "framework/logs/ELIM_RUN_LOG.md",
+            ]
+            result_path = repo / ".tmp/result.json"
+            result_path.parent.mkdir(parents=True)
+            result_path.write_text(json.dumps(result) + "\n", encoding="utf-8")
+            manifest = self.selected_manifest()
+            manifest["final_revision"] = baseline
+
+            with mock.patch.object(
+                MODULE,
+                "APPROVED_ORIGIN_URLS",
+                frozenset({str(remote)}),
+            ):
+                preserved = MODULE.host_preserve_elim_result(
+                    git="/usr/bin/git",
+                    gh=MODULE.EXECUTABLES["githubCliPath"],
+                    repo=repo,
+                    result_path=result_path,
+                    expected_manifest=manifest,
+                    repository="Thorncrag/ARRP",
+                )
+
+            self.assertRegex(preserved["commit"], r"^[0-9a-f]{40}$")
+            self.assertNotEqual(preserved["commit"], baseline)
+            self.assertEqual(
+                git(remote, "rev-parse", "refs/heads/main"),
+                preserved["commit"],
+            )
+            self.assertEqual(git(repo, "status", "--porcelain"), "")
+            self.assertTrue(
+                (repo / ".tmp/result-model-result.json").is_file()
+            )
+            stored = json.loads(result_path.read_text(encoding="utf-8"))
+            self.assertEqual(stored["commit"], preserved["commit"])
+            self.assertTrue(
+                any(
+                    row["check"] == "Trusted-host Git closeout"
+                    and row["status"] == "passed"
+                    for row in stored["validation"]
+                )
+            )
+
+    def test_trusted_host_rejects_an_undeclared_working_tree_path(self):
+        result = self.elim_result(
+            outcome="usage_stopped",
+            continuation_state="retryable",
+            next_action="Resume the selected unit.",
+        )
+        result["commit"] = None
+        result["synchronization"] = []
+        result["files_touched"] = [
+            "framework/logs/CURRENT_AUDIT.md",
+            "framework/logs/ELIM_RUN_LOG.md",
+        ]
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            mock.patch.object(
+                MODULE,
+                "worktree_changed_paths",
+                return_value={
+                    *result["files_touched"],
+                    "areas/OVS/issues/OVS-001.md",
+                },
+            ),
+        ):
+            with self.assertRaisesRegex(MODULE.ContextError, "unreported="):
+                MODULE.verify_uncommitted_elim_evidence(
+                    "/usr/bin/git",
+                    Path(directory),
+                    result,
+                    expected_manifest=self.selected_manifest(),
+                )
 
 
 if __name__ == "__main__":

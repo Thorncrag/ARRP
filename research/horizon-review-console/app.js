@@ -2452,7 +2452,7 @@
       || ["human", "llm", "agent", "bot", "blocked"].reduce((sum, key) => sum + runChainCount(chainQueue, key), 0);
     byId("overview-operations").replaceChildren(
       overviewCard("Agents and bots", data.agent_registry.length, `${enabledAgents} enabled · ${data.agent_registry.length - enabledAgents} paused or pilot`, "automation"),
-      overviewCard("Run chain", chain.status || "Awaiting baseline", `${chainQueueTotal} queued · ${chain.elim_decision?.reason || "Elim decision not recorded"}`, "automation", /fail|block|degrad|warn/i.test(chain.status || "") ? "warning" : ""),
+      overviewCard("Run chain", chain.status || "Awaiting baseline", `${chainQueueTotal} queued · ${chain.elim_decision?.reason || "Elim decision not recorded"}`, "automation", /fail|block|degrad|warn|pending|stopp/i.test(chain.status || "") ? "warning" : ""),
       overviewCard("Issues monitored", data.monitoring_issues.length, "Project records with a defined monitoring predicate", "progress:monitoring"),
       overviewCard("Watcher updates", reviewSignals.courts.count + reviewSignals.directives.count, "Detected external changes awaiting review", "sources:watchers", reviewSignals.courts.count + reviewSignals.directives.count ? "warning" : ""),
       overviewCard("Source-check baseline", sourceResults || "—", sourceResults ? `${sourceResults} URLs represented in the latest run` : "Full baseline not yet established", "sources:watchers:source-checker", sourceResults ? "" : "warning")
@@ -2528,7 +2528,7 @@
 
   function runChainStatusClass(status) {
     if (/fail|block|error/i.test(status || "")) return "error";
-    if (/degrad|warn|partial/i.test(status || "")) return "warning";
+    if (/degrad|warn|partial|pending|stopp/i.test(status || "")) return "warning";
     if (/complete|healthy|success|no.?op/i.test(status || "")) return "success";
     return "";
   }
@@ -2556,16 +2556,26 @@
         ? `${consumed}% consumed`
         : "Not recorded";
     const nextReview = epoch.next_review_at || epoch.next_review || epoch.next || epoch.due_at;
+    const cloudStatus = chain.cloud_status
+      ? String(chain.cloud_status).replaceAll("_", " ")
+      : "not reported";
+    const hostStatus = chain.host_status
+      ? String(chain.host_status).replaceAll("_", " ")
+      : "not yet reported";
+    const hostCommit = chain.host_closeout?.commit
+      ? ` · Commit ${String(chain.host_closeout.commit).slice(0, 12)}`
+      : "";
+    const phaseDetail = `Cloud ${cloudStatus} · Host ${hostStatus}${hostCommit}`;
 
     const note = byId("automation-chain-note");
     note.className = `attention-note ${runChainStatusClass(status)}`.trim();
     note.textContent = stages.length
-      ? `${chainId} · ${String(status).replaceAll("_", " ")} · ${chain.trigger || chain.trigger_type || "trigger not recorded"}`
+      ? `${chainId} · ${String(status).replaceAll("_", " ")} · ${phaseDetail} · ${chain.trigger || chain.trigger_type || "trigger not recorded"}`
       : "Awaiting the first Run Coordinator Bot projection. No chain health conclusion is available yet.";
 
     byId("automation-chain-summary").replaceChildren(
       integrityMetric("Chain", chainId, `Baseline ${String(chain.baseline_commit || "not recorded").slice(0, 12)}`),
-      integrityMetric("Health", String(status).replaceAll("_", " "), `${failures.length} failed · ${degradations.length} degraded`),
+      integrityMetric("Health", String(status).replaceAll("_", " "), `${phaseDetail} · ${failures.length} failed · ${degradations.length} degraded`),
       integrityMetric("Work queue", queueTotal, `${runChainCount(queue, "human")} human · ${runChainCount(queue, "llm") || runChainCount(queue, "agent")} LLM · ${runChainCount(queue, "bot")} bot`),
       integrityMetric("Elim", elimDecision, elim.reason || chain.elim_reason || "No launch reason recorded"),
       integrityMetric("Review epoch", epoch.review_id || epoch.id || "Not established", nextReview ? `Next ${formatDate(nextReview)}` : "Next review not recorded"),
@@ -2700,21 +2710,170 @@
     refreshLayoutZones();
   }
 
+  function runChainTimestamp(snapshot) {
+    if (!snapshot || typeof snapshot !== "object") return 0;
+    for (const value of [
+      snapshot.host_updated_at,
+      snapshot.updated_at,
+      snapshot.completed_at,
+      snapshot.created_at
+    ]) {
+      const parsed = Date.parse(value || "");
+      if (Number.isFinite(parsed)) return parsed;
+    }
+    return 0;
+  }
+
+  function matchingElimRuntime(runtime, chainId) {
+    return runtime
+      && typeof runtime === "object"
+      && String(runtime.chain_id || "") === String(chainId || "")
+      ? runtime
+      : undefined;
+  }
+
+  function mergeRunChainRows(left = [], right = []) {
+    const rows = new Map();
+    [...left, ...right]
+      .filter((row) => row && typeof row === "object")
+      .forEach((row) => {
+        const key = JSON.stringify([
+          row.stage_id || row.stage || row.id || "",
+          row.recorded_at || row.completed_at || "",
+          row.message || row.details || ""
+        ]);
+        rows.set(key, row);
+      });
+    return [...rows.values()];
+  }
+
+  function cloudRunChainSnapshot(snapshot) {
+    const cloud = {
+      ...snapshot,
+      cloud_status: snapshot.status,
+      cloud_updated_at: snapshot.updated_at || snapshot.completed_at || snapshot.created_at,
+      status_source: "cloud"
+    };
+    const launchRecommended = snapshot.elim_decision?.launch_recommended === true
+      || snapshot.elim?.launch_recommended === true;
+    if (/^complete$/i.test(String(snapshot.status || "")) && launchRecommended) {
+      cloud.status = "host_pending";
+      cloud.cloud_next_action = snapshot.next_action;
+      cloud.next_action = "The deterministic cloud chain completed; the final host and Elim result is not yet available on this surface.";
+    }
+    return cloud;
+  }
+
+  function reconcileRunChainSnapshot(current, incoming, source) {
+    if (!incoming || typeof incoming !== "object" || Array.isArray(incoming)) {
+      return current || {};
+    }
+    const currentSnapshot = current && typeof current === "object" ? current : {};
+    const reportedHostStatus = source === "local"
+      ? String(incoming.host_status || "")
+      : "";
+    const candidate = source === "local"
+      ? {
+          ...incoming,
+          status: reportedHostStatus || incoming.status,
+          host_status: reportedHostStatus || undefined,
+          host_updated_at: reportedHostStatus
+            ? incoming.host_updated_at || incoming.updated_at || incoming.completed_at
+            : undefined,
+          status_source: reportedHostStatus ? "local-host" : "local-cache"
+        }
+      : cloudRunChainSnapshot(incoming);
+    const sameChain = String(currentSnapshot.chain_id || "") === String(candidate.chain_id || "");
+    const sharedHostState = {
+      host_action_items: source === "local"
+        ? candidate.host_action_items
+        : currentSnapshot.host_action_items,
+      host_action_item_history: source === "local"
+        ? candidate.host_action_item_history
+        : currentSnapshot.host_action_item_history
+    };
+
+    if (!sameChain) {
+      const newer = runChainTimestamp(candidate) >= runChainTimestamp(currentSnapshot)
+        ? candidate
+        : currentSnapshot;
+      const merged = { ...newer };
+      Object.entries(sharedHostState).forEach(([key, value]) => {
+        if (value !== undefined) merged[key] = value;
+      });
+      const runtime = matchingElimRuntime(
+        newer.elim_runtime,
+        newer.chain_id
+      );
+      if (runtime) merged.elim_runtime = runtime;
+      else delete merged.elim_runtime;
+      return merged;
+    }
+
+    const currentIsHost = currentSnapshot.status_source === "local-host"
+      || Boolean(currentSnapshot.host_status);
+    const candidateIsHost = candidate.status_source === "local-host";
+    const hostSnapshot = candidateIsHost
+      ? candidate
+      : currentIsHost
+        ? currentSnapshot
+        : null;
+    const cloudSnapshot = candidateIsHost ? currentSnapshot : candidate;
+    const merged = {
+      ...cloudSnapshot,
+      ...currentSnapshot,
+      ...candidate,
+      failures: mergeRunChainRows(
+        currentSnapshot.failures,
+        candidate.failures
+      ),
+      degradations: mergeRunChainRows(
+        currentSnapshot.degradations,
+        candidate.degradations
+      )
+    };
+    if (hostSnapshot) {
+      merged.status = hostSnapshot.host_status || hostSnapshot.status;
+      merged.host_status = hostSnapshot.host_status || hostSnapshot.status;
+      merged.host_updated_at = hostSnapshot.host_updated_at
+        || hostSnapshot.updated_at
+        || hostSnapshot.completed_at;
+      merged.status_source = "local-host";
+    } else if (
+      runChainTimestamp(currentSnapshot) > runChainTimestamp(candidate)
+    ) {
+      merged.status = currentSnapshot.status;
+      merged.status_source = currentSnapshot.status_source;
+    }
+    if (cloudSnapshot.cloud_status || cloudSnapshot.status_source === "cloud") {
+      merged.cloud_status = cloudSnapshot.cloud_status || cloudSnapshot.status;
+      merged.cloud_updated_at = cloudSnapshot.cloud_updated_at
+        || cloudSnapshot.updated_at
+        || cloudSnapshot.completed_at;
+    }
+    Object.entries(sharedHostState).forEach(([key, value]) => {
+      if (value !== undefined) merged[key] = value;
+    });
+    const runtime = matchingElimRuntime(
+      candidateIsHost ? candidate.elim_runtime : currentSnapshot.elim_runtime,
+      merged.chain_id
+    );
+    if (runtime) merged.elim_runtime = runtime;
+    else delete merged.elim_runtime;
+    return merged;
+  }
+
   async function refreshLiveRunChain() {
     try {
       const response = await fetch(LIVE_RUN_CHAIN_URL, { cache: "no-store" });
       if (!response.ok) return;
       const snapshot = await response.json();
       if (!snapshot || typeof snapshot !== "object" || Array.isArray(snapshot)) return;
-      const localHostState = {
-        host_action_items: data.run_chain?.host_action_items,
-        host_action_item_history: data.run_chain?.host_action_item_history,
-        elim_runtime: data.run_chain?.elim_runtime
-      };
-      data.run_chain = snapshot;
-      Object.entries(localHostState).forEach(([key, value]) => {
-        if (value !== undefined) data.run_chain[key] = value;
-      });
+      data.run_chain = reconcileRunChainSnapshot(
+        data.run_chain,
+        snapshot,
+        "cloud"
+      );
       renderAutomation();
       renderActionItems();
       renderIntegrity();
@@ -2800,6 +2959,7 @@
     if (!coordinatorControlOriginAllowed()) {
       controls.forEach((control) => { control.disabled = true; });
       setCoordinatorControlStatus("Read-only preview. Serve the Console from localhost:8765 and start the coordinator control service to use these controls.");
+      await refreshLiveRunChain();
       return;
     }
     try {
@@ -2808,14 +2968,25 @@
       const result = await response.json();
       if (!result.available || !result.control || !result.control_token) throw new Error("control service unavailable");
       if (result.manifest && typeof result.manifest === "object") {
-        data.run_chain = result.manifest;
-        if (result.control.elim_runtime) data.run_chain.elim_runtime = result.control.elim_runtime;
-        data.run_chain.host_action_items = Array.isArray(result.control.action_items)
+        const localManifest = {
+          ...result.manifest,
+          host_action_items: Array.isArray(result.control.action_items)
           ? result.control.action_items
-          : [];
-        data.run_chain.host_action_item_history = Array.isArray(result.control.action_item_history)
+          : [],
+          host_action_item_history: Array.isArray(result.control.action_item_history)
           ? result.control.action_item_history
-          : [];
+          : []
+        };
+        const runtime = matchingElimRuntime(
+          result.control.elim_runtime,
+          localManifest.chain_id
+        );
+        if (runtime) localManifest.elim_runtime = runtime;
+        data.run_chain = reconcileRunChainSnapshot(
+          data.run_chain,
+          localManifest,
+          "local"
+        );
         renderAutomation();
         renderOverview();
         renderActionItems();
@@ -2825,9 +2996,11 @@
     } catch (_error) {
       controls.forEach((control) => { control.disabled = true; });
       setCoordinatorControlStatus("Local coordinator is not running. The Console remains read-only.");
+      await refreshLiveRunChain();
       return;
     }
 
+    await refreshLiveRunChain();
     byId("coordinator-request-run").addEventListener("click", () =>
       coordinatorControlRequest({ action: "request_run" }));
     byId("coordinator-request-review").addEventListener("click", () =>
@@ -4178,7 +4351,6 @@
     refreshBotReviewSignals();
     refreshLiveIntegrity();
     refreshLiveSourceChecker();
-    refreshLiveRunChain();
   }
 
   initialize();

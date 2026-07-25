@@ -1,9 +1,9 @@
 ---
 title: "ARRP Persistent Automation — Technical Specification and Traceability Map"
 status: non-authoritative-reference
-version: "1.0"
+version: "1.1"
 as_of: "2026-07-25"
-implementation_baseline: "86d7a1b13fb9ac17717e44ed67cc88d00dafbe06"
+implementation_baseline: "render-time Git revision; see generated PDF cover"
 print_status: excluded
 print_exclusion_reason: "Nonauthoritative internal reference product."
 ---
@@ -12,7 +12,7 @@ print_exclusion_reason: "Nonauthoritative internal reference product."
 
 ## Technical Specification and Traceability Map
 
-**Version 1.0 — July 25, 2026**
+**Version 1.1 — July 25, 2026**
 
 **NON-AUTHORITATIVE REFERENCE PRODUCT**
 
@@ -136,7 +136,7 @@ The Console is a derived management interface. An authenticated localhost contro
 | `source-checker-bot` | Deterministic bot | Report-only pilot | Check cataloged URLs and classify reachability and identity posture. |
 | `project-console-progress-bot` | Deterministic bot | Enabled | Reconcile Project and registry records and publish progress projections. |
 | `project-integrity-bot` | Deterministic bot | Enabled | Perform the final deterministic consistency and configuration check. |
-| `elim` | Persistent LLM agent | Enabled, conditional | Perform the selected bounded development, audit, candidate, intake, or comprehensive-review unit. |
+| `elim` | Persistent LLM agent | Enabled, conditional | Author and validate the selected bounded development, audit, candidate, intake, or comprehensive-review unit; trusted-host code owns repository Git closeout. |
 
 Public intake is a permanent chain stage but is not a named bot. The local host dispatcher and localhost control service are persistent runtime components but are not independent substantive workers.
 
@@ -200,9 +200,9 @@ Public intake is a permanent chain stage but is not a named bot. The local host 
 
 - **Authority:** delegated LLM development within the selected unit and governing boundaries.
 - **Trigger:** only a finalized eligible chain and passing host gates.
-- **Workspace:** the fixed dispatcher-managed full checkout at `.tmp/run-coordinator/elim-checkout`; its complete Git metadata remains inside the sandbox root and it must not consume or rewrite interactive user changes.
+- **Workspace:** the fixed dispatcher-managed full checkout at `.tmp/run-coordinator/elim-checkout`; Elim receives working-file access while its Git metadata and closeout remain trusted-host responsibilities, and it must not consume or rewrite interactive user changes.
 - **Inputs:** the chain manifest, exact queue selection, bound context packet, preserved deterministic inputs, host usage attestation, and canonical records.
-- **Writes:** only records required by the selected authorized unit, using ordinary branch, review, validation, synchronization, and rollback rules.
+- **Writes:** only working-tree and authorized semantic GitHub records required by the selected unit. Elim declares the exact file set; the host validates, commits, synchronizes without force, and reads back the repository boundary.
 - **Logs:** one Elim Run Log entry for every invocation; shared Agent Audit provenance for each material unit; detailed audit findings in the issue audit sidecar.
 
 ## 6. Trigger and cadence model
@@ -282,9 +282,12 @@ The local dispatcher:
 8. enforces trigger permission;
 9. launches or resumes Elim only if an eligible unit remains;
 10. refreshes usage and the diagnostic heartbeat while Elim runs;
-11. validates the structured result against the exact selected unit, reported commit tree, and required durable records;
-12. records host success or failure, alerts, bounded history, and continuation; and
-13. releases the lease.
+11. validates the model-authored structured result against the exact selected unit, exact changed-path set, and required durable records;
+12. refetches the approved remote and requires the checkout and `origin/main` to remain at the pinned baseline;
+13. creates a bounded branch, stages only the declared paths, commits under the coordinator identity, and performs non-forced synchronization;
+14. reads back the resulting `main` boundary or open human-review pull request and records the actual commit in the host result and local projection;
+15. records host success or failure, alerts, bounded history, and continuation; and
+16. releases the lease.
 
 GitHub Actions never launches Codex. The approved local dispatcher is the only LLM launch boundary.
 
@@ -304,9 +307,9 @@ The lease owner record contains an acquisition token, process ID, Chain ID, invo
 
 `CURRENT_AUDIT.md` is a continuation failsafe. It records enough information to resume after abrupt interruption. It must never be treated as a mutex, process-liveness signal, run history, or authority.
 
-The automation workspace is isolated from the user's interactive checkout. The dispatcher may inspect the canonical checkout, but it must not stash, reset, absorb, reinterpret, or overwrite user changes. A linked Git worktree is deliberately not used: its `.git` file would point into the canonical checkout's metadata outside the Elim sandbox root. Instead, the dispatcher maintains one fixed ignored full checkout at `.tmp/run-coordinator/elim-checkout`, with its own real `.git` directory inside the workspace-write boundary. It validates the allowlisted `Thorncrag/ARRP` origin, fetches the reviewed `origin/main` boundary, advances only from a previously recorded successful checkout head, verifies the selected manifest revision, and launches Elim there. A dirty or unrecorded divergent checkout is preserved and fails closed rather than reset.
+The automation workspace is isolated from the user's interactive checkout. The dispatcher may inspect the canonical checkout, but it must not stash, reset, absorb, reinterpret, or overwrite user changes. A linked Git worktree is deliberately not used: its `.git` file would point into the canonical checkout's metadata outside the controlled full checkout. Instead, the dispatcher maintains one fixed ignored full checkout at `.tmp/run-coordinator/elim-checkout`, with its own real `.git` directory available to the trusted host. It validates the allowlisted `Thorncrag/ARRP` origin, fetches the reviewed `origin/main` boundary, advances only from a previously recorded successful checkout head, verifies the selected manifest revision, and launches Elim there. A dirty or unrecorded divergent checkout is preserved and fails closed rather than reset.
 
-An automated material change follows the ordinary reviewed branch and pull-request process unless a governing rule expressly permits a deterministic data-branch write. The dispatcher does not merge substantive work. A successful closeout must prove that the reported commit and synchronization state are real and that any required human-review boundary remains intact.
+The workspace-write model does not stage, branch, commit, push, or create a pull request. Its result must report `commit: null`, an empty synchronization list, and every changed working-tree path exactly once. The host rejects an undeclared or missing path; validates run, provenance, intake, handoff, selected-unit, and Review Epoch evidence as applicable; stages only the declared set; and creates the commit. Before any network write, it requires a clean tree, the pinned baseline as the commit's sole parent, and a committed path set identical to the verified pre-commit declaration. A `human_review` result is pushed to an open, unmerged bounded pull request. Another accountably closed result uses a non-forced fast-forward push to `main`. Remote movement, branch protection, authentication failure, or a readback mismatch preserves the checkout and fails closed. The original model result and host-enriched result remain distinguishable.
 
 ## 9. Stage status and failure semantics
 
@@ -416,7 +419,7 @@ The approved host reads first-party Codex rate-limit data without starting a mod
 - The host refreshes the attestation every 60 seconds.
 - An attestation older than 120 seconds is stale.
 
-Missing, malformed, unavailable, wrong-chain, stale, or nonpassing usage data fails closed. Material window-identity or reset changes require confirmation rechecks.
+Missing, malformed, unavailable, wrong-chain, stale, or nonpassing usage data fails closed. A window at zero use is dormant: its rolling reset estimate may move without indicating a new usage period. The first positive reading activates and anchors that window while accounting for all consumption from zero. After activation, material window-identity or reset changes and backward-moving use require confirmation rechecks and then fail closed if they persist.
 
 The reserve is policy-hard but checkpoint-cooperative: the host refreshes the official state, and Elim must read it before and after major units, between T-audit tiers, before large research or validation, and before closeout. If the reserve is crossed, Elim finishes only the already-started atomic operation, validates and preserves it, begins no new operation, and closes. The host converts an otherwise successful exit with a nonpassing final gate into failure. It does not promise that the process can be stopped at exactly 15 percent between checkpoints.
 
@@ -444,14 +447,14 @@ The selected queue identity is bound to the structured result. A result cannot p
 - files touched;
 - source IDs;
 - validation results;
-- real commit and synchronization evidence when material work occurred;
+- a null model-authored commit and empty synchronization list, followed by host-enriched real commit and readback evidence;
 - human questions;
 - outcome; and
 - exact continuation.
 
 Completed, clean, or fully routed human-review outcomes require an inactive, cleared `CURRENT_AUDIT.md`. A retryable blocked, failed, or usage-stopped result requires a `Paused` or `Blocked` handoff whose next step exactly matches the result.
 
-Every invocation must create one Elim Run Log entry under its Chain ID. Every material unit must create shared Agent Audit provenance and preserve detailed audit findings in the owning issue audit sidecar. Public-intake assessment must advance the content-free intake review ledger; comprehensive success must append and validate one Review Epoch.
+Every invocation must create one Elim Run Log entry under its Chain ID. The report describes the host-closeout disposition without predicting the hash of its own enclosing commit; the host result and current local chain projection record the actual commit and synchronization readback. Every material unit must create shared Agent Audit provenance and preserve detailed audit findings in the owning issue audit sidecar. Public-intake assessment must advance the content-free intake review ledger; comprehensive success must append and validate one Review Epoch.
 
 ## 14. Public-intake pipeline
 
@@ -496,7 +499,7 @@ It does not automatically rerun every issue's T-audits. The new record is append
 
 There are three distinct write classes:
 
-1. **Substantive repository or Project work.** An agent uses an ordinary reviewed branch and pull request, with validation, human merge where required, and GitHub/Project readback.
+1. **Substantive repository or Project work.** Interactive work uses the ordinary reviewed Git boundary. Automated Elim authors an exact working-tree set and performs authorized semantic GitHub operations; trusted-host code creates and reads back the repository commit, using an unmerged pull request when human review is required and a non-forced fast-forward `main` update only for an accountably closed outcome.
 2. **Bot proposal or report work.** A deterministic bot may update only its expressly dedicated branch and file boundary. Replaceable bot branches use `--force-with-lease`; they never force-push `main`, a protected branch, a human branch, or a shared branch.
 3. **Generated data publication.** Deterministic feeds commit directly to `project-console-data`, preserving unrelated files through the prior base tree. This branch is data-only and must not deploy the public site.
 
@@ -516,6 +519,7 @@ The macOS Keychain owns GitHub CLI credentials for host work. GitHub Actions use
 | `SOURCE_MONITOR_LOG.md` | Accepted source-domain events and monitoring history. | Canonical domain-event record. |
 | `CURRENT_AUDIT.md` | Abrupt-interruption continuation checkpoint. | Failsafe only; not liveness or history. |
 | `.tmp/run-coordinator/elim-run-log-reconciliation.json` | Bounded obligations for launched Elim invocations that lack verified canonical run reports. | Host-local recovery state; never a substitute for the Run Log. |
+| Host-enriched Elim result and local chain projection | Actual trusted-host commit, synchronization evidence, cloud status, host status, and current-chain Elim runtime. | Host-local operational evidence; the original model result remains separately preserved. |
 | `review-epochs.jsonl` | Append-only comprehensive-review boundaries and findings. | Canonical epoch evidence. |
 | Current Integrity/Source reports | Replaceable latest finding set. | Current projection, not history. |
 | `project-console-data` | Console-ready feeds, queue, packet, preserved inputs, bounded histories. | Generated projection. |
@@ -660,14 +664,14 @@ This section describes the reviewed implementation as of the date on the cover. 
 | Serialized chain | Implemented | Raw direct worker dispatch is diagnostic and does not reset the full-chain due boundary. |
 | Deterministic-before-LLM order | Implemented | External monitoring remains bounded and non-exhaustive. |
 | Host lease and diagnostic owner | Implemented | The owner record is evidence only; same-user local malware is outside the controller's threat boundary. |
-| Isolated Elim workspace | Reviewed implementation | Validate the installed host path and complete an end-to-end production run before treating operational readiness as proven. |
+| Isolated Elim workspace and trusted-host Git closeout | Implemented and integration-tested with a real temporary remote | Complete one production Elim unit before treating operational readiness as proven. |
 | Candidate-research closeout | Implemented in schema and validator | Requires a real end-to-end candidate run before operational proof. |
 | Queue/source watcher handoff | Implemented where structured source data is available | Provider artifacts remain bounded; accepted source-event rendering depends on the human merge event. |
 | Context dynamic-expansion telemetry | Source and changed-file provenance implemented | There is no separate inventory of every canonical file read after packet construction. |
 | Console overrides | Implemented and audited | Overrides cannot force eligibility or authority. |
-| Usage reserve | Implemented at checkpoints and final gate | Cooperative checkpoint enforcement cannot guarantee an exact unused percentage. |
+| Usage reserve | Implemented at checkpoints and final gate; dormant zero-use windows are distinguished from anchored active windows | Cooperative checkpoint enforcement cannot guarantee an exact unused percentage. |
 | Elim run/shared-log verification | Implemented for normal closeout and bounded post-spawn reconciliation | The repair path is proof-gated and requires a real interruption exercise before operational proof; task archiving remains interface housekeeping and is not a success criterion. |
-| Host outcome projection | Local-first | Static remote Console freshness may lag local host state until the next safe projection. |
+| Host outcome projection | Local-first, same-chain reconciled | Static remote Console freshness may lag; cloud completion with an eligible Elim unit remains `host_pending` until matching host evidence arrives. |
 | Bounded chain history | Implemented as configured or retained through explicit artifacts | Git history is not itself an immutable semantic event ledger. |
 | Full runbook/runtime drift audit | Expanded | Newly added runtime fields must be added to the traceability check when configuration evolves. |
 | Review Epochs | Implemented | The first post-architecture epoch remains necessary to establish operational stability. |
