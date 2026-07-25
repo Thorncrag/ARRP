@@ -553,15 +553,36 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(any(row["supporting_sources"] for row in active))
         self.assertTrue(all(not row["evidence_records"] for row in active))
 
-        methodology = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
-        self.assertIn("decision dossier assembled from existing authoritative records", methodology)
-        self.assertIn("must not become a manually maintained narrative ledger", methodology)
+        framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
+        interface = (ROOT / "framework" / "PROJECT_INTERFACE.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertEqual(
+            framework.count("### Project-Operated Interface Visual Standard"),
+            1,
+        )
+        self.assertIn(
+            "[`PROJECT_INTERFACE.md`](PROJECT_INTERFACE.md"
+            "#project-operated-interface-visual-standard)",
+            framework,
+        )
+        self.assertIn(
+            "decision dossier assembled from existing authoritative records",
+            interface,
+        )
+        self.assertIn(
+            "must not become a manually maintained narrative ledger",
+            interface,
+        )
 
     def test_foundational_principle_is_public_and_governing(self) -> None:
         homepage = (ROOT / "README.md").read_text(encoding="utf-8")
         framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
         agent_rules = (
             ROOT / "framework" / "AGENT_OPERATING_RULES.md"
+        ).read_text(encoding="utf-8")
+        issue_agent_rules = (
+            ROOT / "framework" / "agent-rules" / "issue-and-candidate-work.md"
         ).read_text(encoding="utf-8")
         principle = (
             "No person should suffer grave, arbitrary harm merely because institutional "
@@ -605,17 +626,34 @@ class HorizonIntakeTest(unittest.TestCase):
         for language in retained_language:
             self.assertIn(language, framework)
         self.assertIn("## Guiding-Principle Check", agent_rules)
-        self.assertIn("human manifestation and diagnostic symptom", agent_rules)
-        self.assertIn(retained_language[3], agent_rules)
+        self.assertIn(
+            "[`issue-and-candidate-work.md`]"
+            "(agent-rules/issue-and-candidate-work.md#guiding-principle-check)",
+            agent_rules,
+        )
+        self.assertIn(
+            "human manifestation and diagnostic symptom",
+            issue_agent_rules,
+        )
+        self.assertIn(retained_language[3], issue_agent_rules)
 
     def test_issue_admission_is_single_canonical_three_part_screen(self) -> None:
         framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
+        admission_authority = (
+            ROOT / "framework" / "methodology" / "scope-and-admission.md"
+        ).read_text(encoding="utf-8")
 
         self.assertEqual(framework.count("### Issue-Admission Test"), 1)
         self.assertNotIn("## Adding or Promoting Issues", framework)
-        admission_match = re.search(
-            r"(?ms)^### Issue-Admission Test\s*$\n(?P<body>.*?)(?=^#{1,3}\s|\Z)",
+        self.assertIn(
+            "[`methodology/scope-and-admission.md`]"
+            "(methodology/scope-and-admission.md#issue-admission-test)",
             framework,
+        )
+        self.assertEqual(admission_authority.count("## Issue-Admission Test"), 1)
+        admission_match = re.search(
+            r"(?ms)^## Issue-Admission Test\s*$\n(?P<body>.*?)(?=^##\s|\Z)",
+            admission_authority,
         )
         self.assertIsNotNone(admission_match)
         admission = admission_match.group("body")
@@ -631,12 +669,18 @@ class HorizonIntakeTest(unittest.TestCase):
         agent_rules = (
             ROOT / "framework" / "AGENT_OPERATING_RULES.md"
         ).read_text(encoding="utf-8")
+        issue_agent_rules = (
+            ROOT / "framework" / "agent-rules" / "issue-and-candidate-work.md"
+        ).read_text(encoding="utf-8")
+        admission_authority = (
+            ROOT / "framework" / "methodology" / "scope-and-admission.md"
+        ).read_text(encoding="utf-8")
         intake_process = (
             ROOT / "framework" / "INTAKE_AGENT_PROCESS.md"
         ).read_text(encoding="utf-8")
         admission_match = re.search(
-            r"(?ms)^### Issue-Admission Test\s*$\n(?P<body>.*?)(?=^#{1,3}\s|\Z)",
-            framework,
+            r"(?ms)^## Issue-Admission Test\s*$\n(?P<body>.*?)(?=^##\s|\Z)",
+            admission_authority,
         )
         self.assertIsNotNone(admission_match)
         admission = admission_match.group("body")
@@ -651,17 +695,26 @@ class HorizonIntakeTest(unittest.TestCase):
             framework,
         )
         self.assertIn("may not answer the question or represent it as satisfied", framework)
-        self.assertIn("reversed-control question is a human-only judgment", agent_rules)
+        self.assertIn("## Guiding-Principle Check", agent_rules)
+        self.assertIn(
+            "[`issue-and-candidate-work.md`]"
+            "(agent-rules/issue-and-candidate-work.md#guiding-principle-check)",
+            agent_rules,
+        )
+        self.assertIn(
+            "reversed-control question is a human-only judgment",
+            issue_agent_rules,
+        )
         self.assertIn(
             "A deterministic bot may verify only whether a record-specific human answer exists",
-            agent_rules,
+            issue_agent_rules,
         )
         self.assertIn(
             "An agent may apply an already recorded human answer to the affected record.",
-            agent_rules,
+            issue_agent_rules,
         )
-        self.assertIn("it may not answer the question", agent_rules)
-        self.assertIn("or infer the human's answer", agent_rules)
+        self.assertIn("it may not answer the question", issue_agent_rules)
+        self.assertIn("or infer the human's answer", issue_agent_rules)
 
         self.assertIn("Only the human author may approve", admission)
         self.assertIn("or another permanent disposition", admission)
@@ -674,28 +727,36 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Agents and bots must preserve the record", admission)
         self.assertIn("historically traceable and is not deleted", admission)
         self.assertIn(
-            "Every terminal candidate or issue disposition requires a record-specific "
-            "human decision.",
+            "Only the human author may make a permanent candidate or issue disposition",
             framework,
         )
         self.assertIn(
-            "Standing, class-wide, or blanket authorization is insufficient.",
+            "Only the human author may approve admission, rejection, retirement, "
+            "removal from active scope",
+            admission,
+        )
+        self.assertIn(
+            "rather than inferred from standing or class-wide authority",
+            admission,
+        )
+        self.assertIn(
+            "permanent candidate or issue disposition",
             framework,
         )
         self.assertIn(
             "Every terminal or permanent candidate or issue disposition requires a recorded "
             "human decision that identifies the specific record and approved disposition.",
-            agent_rules,
+            issue_agent_rules,
         )
         self.assertIn(
             "Blanket authority, standing authority, or class-level preauthorization "
             "is insufficient.",
-            agent_rules,
+            issue_agent_rules,
         )
         self.assertIn(
             "preserving the original identifier, provenance, decision rationale, and "
             "disposition history",
-            agent_rules,
+            issue_agent_rules,
         )
         self.assertIn("`human_consequence_assessment`", intake_process)
         self.assertIn("`material_risk_supported`", intake_process)
@@ -703,12 +764,24 @@ class HorizonIntakeTest(unittest.TestCase):
 
     def test_post_admission_development_gates_are_single_and_complete(self) -> None:
         framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
+        gate_authority = (
+            ROOT / "framework" / "lifecycle" / "foundation-and-development-gates.md"
+        ).read_text(encoding="utf-8")
+        tier_authority = (
+            ROOT / "framework" / "audits" / "TIERED_AUDITS.md"
+        ).read_text(encoding="utf-8")
 
         self.assertEqual(framework.count("### Post-Admission Development Gates"), 1)
-        gates_match = re.search(
-            r"(?ms)^### Post-Admission Development Gates\s*$\n"
-            r"(?P<body>.*?)(?=^#{1,3}\s|\Z)",
+        self.assertIn(
+            "[`lifecycle/foundation-and-development-gates.md`]"
+            "(lifecycle/foundation-and-development-gates.md"
+            "#post-admission-development-gates)",
             framework,
+        )
+        gates_match = re.search(
+            r"(?ms)^## Post-Admission Development Gates\s*$\n"
+            r"(?P<body>.*?)(?=^##\s|\Z)",
+            gate_authority,
         )
         self.assertIsNotNone(gates_match)
         gates = gates_match.group("body")
@@ -737,9 +810,15 @@ class HorizonIntakeTest(unittest.TestCase):
             gates,
         )
 
-        tier_match = re.search(
-            r"(?ms)^### Audit Depth Tiers\s*$\n(?P<body>.*?)(?=^#{1,3}\s|\Z)",
+        self.assertEqual(framework.count("### Audit Depth Tiers"), 1)
+        self.assertIn(
+            "[`audits/TIERED_AUDITS.md`]"
+            "(audits/TIERED_AUDITS.md#audit-depth-tiers)",
             framework,
+        )
+        tier_match = re.search(
+            r"(?ms)^## Audit Depth Tiers\s*$\n(?P<body>.*?)(?=^##\s|\Z)",
+            tier_authority,
         )
         self.assertIsNotNone(tier_match)
         tiers = tier_match.group("body")
@@ -1237,28 +1316,51 @@ class HorizonIntakeTest(unittest.TestCase):
         framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(
             encoding="utf-8"
         )
+        agent_rules = (
+            ROOT / "framework" / "AGENT_OPERATING_RULES.md"
+        ).read_text(encoding="utf-8")
+        foundation_authority = (
+            ROOT / "framework" / "lifecycle" / "foundation-and-development-gates.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn(
+            "Human-reserved judgment remains human.",
+            framework,
+        )
+        self.assertIn(
+            "## Universal Authority and Human-Reserved Boundaries",
+            agent_rules,
+        )
         self.assertIn(
             "These reservations limit decision and implementation authority; "
             "they do not remove the subject from the agent's duty of review.",
-            framework,
+            foundation_authority,
         )
         self.assertIn(
             "state its reasoned recommendation and any important uncertainty",
-            framework,
+            foundation_authority,
         )
         self.assertIn(
             "withholding only the reserved decision and actions that depend upon it",
-            framework,
+            foundation_authority,
         )
 
     def test_development_lifecycle_has_six_maturity_levels_only(self) -> None:
         framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(
             encoding="utf-8"
         )
-        match = re.search(
-            r"(?ms)^### Development-Level Lifecycle\s*$\n"
-            r"(?P<body>.*?)(?=^### Intake Before the Development-Level Lifecycle)",
+        lifecycle = (
+            ROOT / "framework" / "lifecycle" / "development-levels.md"
+        ).read_text(encoding="utf-8")
+        self.assertEqual(framework.count("### Development-Level Lifecycle"), 1)
+        self.assertIn(
+            "[`lifecycle/development-levels.md`]"
+            "(lifecycle/development-levels.md#development-level-lifecycle)",
             framework,
+        )
+        match = re.search(
+            r"(?ms)^## Development-Level Lifecycle\s*$\n"
+            r"(?P<body>.*?)(?=^## Intake Before the Development-Level Lifecycle)",
+            lifecycle,
         )
         self.assertIsNotNone(match)
         levels = re.findall(r"(?m)^\d+\. \*\*(.+?)\.\*\*", match.group("body"))
@@ -1275,7 +1377,7 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         self.assertIn(
             "They are repeatable reviews, not development levels.",
-            framework,
+            lifecycle,
         )
         console = (
             ROOT / "research" / "horizon-review-console" / "index.html"

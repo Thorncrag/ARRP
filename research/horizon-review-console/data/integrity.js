@@ -5,17 +5,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 1,
     "current": {
       "schema_version": 1,
-      "generated_at": "2026-07-23T15:00:32+00:00",
-      "revision": "4a19ce703aa35d0a19c3971dc7613c872a4364ce",
-      "result": "findings",
+      "generated_at": "2026-07-25T00:08:04+00:00",
+      "revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
+      "result": "clean",
       "counts": {
         "errors": 0,
-        "warnings": 27,
-        "findings": 27,
+        "warnings": 0,
+        "findings": 0,
         "issue_pages": 64,
         "proposal_pages": 41
       },
-      "duration_seconds": 11.866,
+      "duration_seconds": 9.549,
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -35,245 +35,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "Intake-workflow terminology",
         "Publication-disposition metadata",
         "Print-assembly configuration",
+        "Governing context registry, hashes, and module coverage",
         "Persistent-agent runbooks and runtime configuration",
         "Structured-file and repository hygiene"
       ],
-      "findings": [
-        {
-          "id": "warning-0001",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/APPT/issues/APPT-001.md Issue Snapshot Problem line is 25 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/APPT/issues/APPT-001.md"
-        },
-        {
-          "id": "warning-0002",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/APPT/issues/APPT-001.md Issue Snapshot Repair line is 25 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/APPT/issues/APPT-001.md"
-        },
-        {
-          "id": "warning-0003",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/CIV/issues/CIV-010.md Issue Snapshot Problem line is 29 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/CIV/issues/CIV-010.md"
-        },
-        {
-          "id": "warning-0004",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/CIV/issues/CIV-010.md Issue Snapshot Repair line is 21 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/CIV/issues/CIV-010.md"
-        },
-        {
-          "id": "warning-0005",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/CIV/issues/CIV-010.md Issue Snapshot Vehicle line is 15 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/CIV/issues/CIV-010.md"
-        },
-        {
-          "id": "warning-0006",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/DOJ/issues/DOJ-007.md Issue Snapshot Vehicle line is 24 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/DOJ/issues/DOJ-007.md"
-        },
-        {
-          "id": "warning-0007",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/DOM/issues/DOM-005.md Issue Snapshot Problem line is 21 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/DOM/issues/DOM-005.md"
-        },
-        {
-          "id": "warning-0008",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/DOM/issues/DOM-005.md Issue Snapshot Repair line is 17 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/DOM/issues/DOM-005.md"
-        },
-        {
-          "id": "warning-0009",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/ELEC/issues/ELEC-008.md Issue Snapshot Vehicle line is 16 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/ELEC/issues/ELEC-008.md"
-        },
-        {
-          "id": "warning-0010",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/ELEC/issues/ELEC-012.md Issue Snapshot Vehicle line is 20 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/ELEC/issues/ELEC-012.md"
-        },
-        {
-          "id": "warning-0011",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/EMERG/issues/EMERG-003.md Issue Snapshot Problem line is 14 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/EMERG/issues/EMERG-003.md"
-        },
-        {
-          "id": "warning-0012",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/EMERG/issues/EMERG-003.md Issue Snapshot Repair line is 19 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/EMERG/issues/EMERG-003.md"
-        },
-        {
-          "id": "warning-0013",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/FUND/issues/FUND-001.md Issue Snapshot Problem line is 16 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/FUND/issues/FUND-001.md"
-        },
-        {
-          "id": "warning-0014",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/FUND/issues/FUND-001.md Issue Snapshot Repair line is 19 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/FUND/issues/FUND-001.md"
-        },
-        {
-          "id": "warning-0015",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/JUD/issues/JUD-005.md Issue Snapshot Problem line is 13 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/JUD/issues/JUD-005.md"
-        },
-        {
-          "id": "warning-0016",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/JUD/issues/JUD-005.md Issue Snapshot Vehicle line is 13 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/JUD/issues/JUD-005.md"
-        },
-        {
-          "id": "warning-0017",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/JUD/issues/JUD-009.md Issue Snapshot Problem line is 14 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/JUD/issues/JUD-009.md"
-        },
-        {
-          "id": "warning-0018",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/JUD/issues/JUD-012.md Issue Snapshot Problem line is 25 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/JUD/issues/JUD-012.md"
-        },
-        {
-          "id": "warning-0019",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/JUD/issues/JUD-012.md Issue Snapshot Repair line is 15 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/JUD/issues/JUD-012.md"
-        },
-        {
-          "id": "warning-0020",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/OVS/issues/OVS-009.md Issue Snapshot Problem line is 21 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/OVS/issues/OVS-009.md"
-        },
-        {
-          "id": "warning-0021",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/OVS/issues/OVS-009.md Issue Snapshot Repair line is 18 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/OVS/issues/OVS-009.md"
-        },
-        {
-          "id": "warning-0022",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/REG/issues/REG-002.md Issue Snapshot Problem line is 22 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/REG/issues/REG-002.md"
-        },
-        {
-          "id": "warning-0023",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/REG/issues/REG-002.md Issue Snapshot Repair line is 15 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/REG/issues/REG-002.md"
-        },
-        {
-          "id": "warning-0024",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/RIGHTS/issues/RIGHTS-004.md Issue Snapshot Problem line is 17 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/RIGHTS/issues/RIGHTS-004.md"
-        },
-        {
-          "id": "warning-0025",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/RIGHTS/issues/RIGHTS-004.md Issue Snapshot Repair line is 16 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/RIGHTS/issues/RIGHTS-004.md"
-        },
-        {
-          "id": "warning-0026",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/RIGHTS/issues/RIGHTS-005.md Issue Snapshot Problem line is 23 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/RIGHTS/issues/RIGHTS-005.md"
-        },
-        {
-          "id": "warning-0027",
-          "severity": "warning",
-          "category": "Issue structure",
-          "attention": "agent",
-          "message": "issue page areas/RIGHTS/issues/RIGHTS-005.md Issue Snapshot Repair line is 23 words; the concision guideline is about 12 words or fewer",
-          "path": "areas/RIGHTS/issues/RIGHTS-005.md"
-        }
-      ]
+      "findings": []
     },
     "history": [
       {
-        "generated_at": "2026-07-23T15:00:32+00:00",
-        "revision": "4a19ce703aa35d0a19c3971dc7613c872a4364ce",
-        "result": "findings",
-        "counts": {
-          "errors": 0,
-          "warnings": 27,
-          "findings": 27,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 11.866
-      },
-      {
-        "generated_at": "2026-07-23T14:53:05+00:00",
-        "revision": "4a19ce703aa35d0a19c3971dc7613c872a4364ce",
+        "generated_at": "2026-07-25T00:08:04+00:00",
+        "revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
         "result": "clean",
         "counts": {
           "errors": 0,
@@ -282,11 +53,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "duration_seconds": 13.023
+        "duration_seconds": 9.549
       },
       {
-        "generated_at": "2026-07-23T14:48:34+00:00",
-        "revision": "44d56fd7fe5918f5f1e7f691e83a3bd7d77c9760",
+        "generated_at": "2026-07-24T21:58:09+00:00",
+        "revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
         "result": "clean",
         "counts": {
           "errors": 0,
@@ -295,280 +66,371 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "duration_seconds": 11.3
+        "duration_seconds": 12.634
       },
       {
-        "generated_at": "2026-07-23T07:57:30+00:00",
-        "revision": "c97bc2c11b80971b089347628dcfd2cf1ba6e663",
+        "generated_at": "2026-07-24T21:44:48+00:00",
+        "revision": "0a9d79320bcaa532f001372c92a6bf51939d6fec",
         "result": "clean",
         "counts": {
           "errors": 0,
           "warnings": 0,
           "findings": 0,
-          "issue_pages": 63,
+          "issue_pages": 64,
           "proposal_pages": 41
         },
-        "duration_seconds": 11.747
+        "duration_seconds": 15.028
       },
       {
-        "generated_at": "2026-07-22T23:58:17+00:00",
-        "revision": "c97bc2c11b80971b089347628dcfd2cf1ba6e663",
+        "generated_at": "2026-07-24T21:32:14+00:00",
+        "revision": "5d57449693fc9893b9a980933248191e1327c41c",
         "result": "clean",
         "counts": {
           "errors": 0,
           "warnings": 0,
           "findings": 0,
-          "issue_pages": 63,
+          "issue_pages": 64,
           "proposal_pages": 41
         },
-        "duration_seconds": 12.846
+        "duration_seconds": 12.03
       },
       {
-        "generated_at": "2026-07-22T23:38:59+00:00",
-        "revision": "a645c4ceaed8d141fb21e2e1f7798728ec85f433",
+        "generated_at": "2026-07-24T21:14:22+00:00",
+        "revision": "14b9bf6e6213905bdbcc07688e42940085f79d63",
         "result": "clean",
         "counts": {
           "errors": 0,
           "warnings": 0,
           "findings": 0,
-          "issue_pages": 63,
+          "issue_pages": 64,
           "proposal_pages": 41
         },
-        "duration_seconds": 12.024
+        "duration_seconds": 12.284
       },
       {
-        "generated_at": "2026-07-22T23:22:56+00:00",
-        "revision": "97447aff2c8329aa14c141fd047d7dc936d0a887",
+        "generated_at": "2026-07-24T21:02:43+00:00",
+        "revision": "da5e2cdb85c8d1d04a98b4165278c73636ffd2e4",
         "result": "clean",
         "counts": {
           "errors": 0,
           "warnings": 0,
           "findings": 0,
-          "issue_pages": 63,
+          "issue_pages": 64,
           "proposal_pages": 41
         },
-        "duration_seconds": 11.45
+        "duration_seconds": 13.04
       },
       {
-        "generated_at": "2026-07-22T23:05:17+00:00",
-        "revision": "63cdc2a0458ead04292280873057904d42d158c3",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 63,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 11.313
-      },
-      {
-        "generated_at": "2026-07-22T22:26:27+00:00",
-        "revision": "fe29aef634ac51ae9d07e78b236be834a74f62ff",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 63,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 11.801
-      },
-      {
-        "generated_at": "2026-07-22T22:21:22+00:00",
-        "revision": "34977e1c6845c9cd3e42d023ca938a076b7777ad",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 63,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.855
-      },
-      {
-        "generated_at": "2026-07-22T19:07:19+00:00",
-        "revision": "be9761054ed54c0cf289c34fd05ed24cd1b43bfb",
-        "result": "findings",
-        "counts": {
-          "errors": 0,
-          "warnings": 28,
-          "findings": 28,
-          "issue_pages": 63,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 14.062
-      },
-      {
-        "generated_at": "2026-07-22T18:10:07+00:00",
-        "revision": "23cd15bc2a6860594434649d66370b4df24e9873",
-        "result": "findings",
-        "counts": {
-          "errors": 0,
-          "warnings": 28,
-          "findings": 28,
-          "issue_pages": 63,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 13.335
-      },
-      {
-        "generated_at": "2026-07-22T17:01:38+00:00",
-        "revision": "6104ba1c949d9d2a382eda2742ef23968d6dad73",
-        "result": "findings",
-        "counts": {
-          "errors": 0,
-          "warnings": 29,
-          "findings": 29,
-          "issue_pages": 62,
-          "proposal_pages": 40
-        },
-        "duration_seconds": 10.54
-      },
-      {
-        "generated_at": "2026-07-22T16:22:10+00:00",
-        "revision": "35abd10b40f099a5cc9f976cd25f60b709883283",
-        "result": "findings",
-        "counts": {
-          "errors": 0,
-          "warnings": 29,
-          "findings": 29,
-          "issue_pages": 62,
-          "proposal_pages": 40
-        },
-        "duration_seconds": 12.826
-      },
-      {
-        "generated_at": "2026-07-22T15:13:23+00:00",
-        "revision": "0ac942ac93658ed20332779e9206c8e46ce867c7",
-        "result": "findings",
-        "counts": {
-          "errors": 0,
-          "warnings": 29,
-          "findings": 29,
-          "issue_pages": 62,
-          "proposal_pages": 40
-        },
-        "duration_seconds": 12.359
-      },
-      {
-        "generated_at": "2026-07-22T15:10:53+00:00",
-        "revision": "48f7e089f38b9ab08cc3b5ed7920f9ff722197f3",
-        "result": "findings",
-        "counts": {
-          "errors": 0,
-          "warnings": 29,
-          "findings": 29,
-          "issue_pages": 62,
-          "proposal_pages": 40
-        },
-        "duration_seconds": 11.243
-      },
-      {
-        "generated_at": "2026-07-22T11:45:56+00:00",
-        "revision": "cc8cf6122871d0f1e1a703d6c8c09e87eb631b5c",
-        "result": "findings",
-        "counts": {
-          "errors": 2,
-          "warnings": 0,
-          "findings": 2,
-          "issue_pages": 61,
-          "proposal_pages": 40
-        },
-        "duration_seconds": 12.818
-      },
-      {
-        "generated_at": "2026-07-22T11:42:13+00:00",
-        "revision": "0a6eeb1360cbdc90b29ccd7e9ed2eefd8da90280",
-        "result": "findings",
-        "counts": {
-          "errors": 2,
-          "warnings": 0,
-          "findings": 2,
-          "issue_pages": 61,
-          "proposal_pages": 40
-        },
-        "duration_seconds": 10.793
-      },
-      {
-        "generated_at": "2026-07-22T10:36:52+00:00",
-        "revision": "33000ea1199ac1be9836fdb4ca0a0bc4c65ab12c",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 61,
-          "proposal_pages": 40
-        },
-        "duration_seconds": 11.567
-      },
-      {
-        "generated_at": "2026-07-22T10:27:29+00:00",
-        "revision": "2b645ec13caf49df3bd007601bbb7ae6b59c08f1",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 61,
-          "proposal_pages": 40
-        },
-        "duration_seconds": 11.779
-      },
-      {
-        "generated_at": "2026-07-22T07:54:56+00:00",
-        "revision": "464840cb4c2f51ea52ef3a1d9957d71cab2a0f74",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 61,
-          "proposal_pages": 40
-        },
-        "duration_seconds": 10.053
-      },
-      {
-        "generated_at": "2026-07-22T00:38:33+00:00",
-        "revision": "464840cb4c2f51ea52ef3a1d9957d71cab2a0f74",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 61,
-          "proposal_pages": 40
-        },
-        "duration_seconds": 11.567
-      },
-      {
-        "generated_at": "2026-07-22T00:34:34+00:00",
-        "revision": "b3d7d62756c5853b71c60d1a9703938710d9045e",
+        "generated_at": "2026-07-24T20:50:57+00:00",
+        "revision": "c2ee287497f592718d858ae3263f2debb931a8fb",
         "result": "findings",
         "counts": {
           "errors": 0,
           "warnings": 1,
           "findings": 1,
-          "issue_pages": 61,
-          "proposal_pages": 40
+          "issue_pages": 64,
+          "proposal_pages": 41
         },
-        "duration_seconds": 7.724
+        "duration_seconds": 12.91
       },
       {
-        "generated_at": "2026-07-21T23:50:12+00:00",
-        "revision": "4a15fe15d1a8db26ed572d1064cd6190877cd11b",
+        "generated_at": "2026-07-24T20:44:48+00:00",
+        "revision": "b7699119c2a26f164e8c117e35799739ba7901a4",
+        "result": "findings",
+        "counts": {
+          "errors": 0,
+          "warnings": 1,
+          "findings": 1,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 12.732
+      },
+      {
+        "generated_at": "2026-07-24T20:18:42+00:00",
+        "revision": "88b70b8a54c7279385a8c83168eef75c278955f8",
         "result": "clean",
         "counts": {
           "errors": 0,
           "warnings": 0,
           "findings": 0,
-          "issue_pages": 61,
-          "proposal_pages": 40
+          "issue_pages": 64,
+          "proposal_pages": 41
         },
-        "duration_seconds": 8.322
+        "duration_seconds": 11.076
+      },
+      {
+        "generated_at": "2026-07-24T19:09:35+00:00",
+        "revision": "d8cceb3b7d104581b245b41ff68f670c5507ab3b",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 11.834
+      },
+      {
+        "generated_at": "2026-07-24T19:05:20+00:00",
+        "revision": "fd7cfea9019a74ad5cd772bd7021e1e594685bdd",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 12.722
+      },
+      {
+        "generated_at": "2026-07-24T18:49:58+00:00",
+        "revision": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
+        "result": "findings",
+        "counts": {
+          "errors": 1,
+          "warnings": 0,
+          "findings": 1,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 14.292
+      },
+      {
+        "generated_at": "2026-07-24T16:48:15+00:00",
+        "revision": "1bd2cd0c6c567bc144140c9ff007d069a755f0f5",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 21.178
+      },
+      {
+        "generated_at": "2026-07-24T16:33:06+00:00",
+        "revision": "6fa1493138a603490836c6fa15fb92a8f11e9a31",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 20.275
+      },
+      {
+        "generated_at": "2026-07-24T16:04:16+00:00",
+        "revision": "2eec0d8680705b0092632e7dfeb97300b5dddc3d",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 12.552
+      },
+      {
+        "generated_at": "2026-07-24T15:31:28+00:00",
+        "revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 13.841
+      },
+      {
+        "generated_at": "2026-07-24T15:28:22+00:00",
+        "revision": "addfd85e247288f5c7b1967f479c6b37fc717a77",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 12.643
+      },
+      {
+        "generated_at": "2026-07-24T15:22:53+00:00",
+        "revision": "075318e498860804409853db769a3beb2dbbaea2",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 13.901
+      },
+      {
+        "generated_at": "2026-07-24T14:49:06+00:00",
+        "revision": "6dc59640e7c4860464ca08bc5fb2caff84dda8f9",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 12.296
+      },
+      {
+        "generated_at": "2026-07-24T14:42:38+00:00",
+        "revision": "26076075140d14987b6f77c909fffac34a53ab99",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 13.94
+      },
+      {
+        "generated_at": "2026-07-24T14:36:29+00:00",
+        "revision": "6fcca17ad39c5d6328dd497954aeb1ee22235f30",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 13.669
+      },
+      {
+        "generated_at": "2026-07-24T14:31:09+00:00",
+        "revision": "1bc58bbe74a27dd64425c9af3a2e3ffd7b70ef07",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 11.849
+      },
+      {
+        "generated_at": "2026-07-24T14:24:54+00:00",
+        "revision": "e5305cedc392c62cdb0fcf17d8edfb16e36d7990",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 14.972
+      },
+      {
+        "generated_at": "2026-07-24T14:20:09+00:00",
+        "revision": "f74d50318e815eae49b51f7194a324eff957d932",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 11.217
+      },
+      {
+        "generated_at": "2026-07-24T14:05:57+00:00",
+        "revision": "8f7ec328cfaed369ea260e8a1675cec4a2bb1b8c",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 14.998
+      },
+      {
+        "generated_at": "2026-07-24T09:36:49+00:00",
+        "revision": "f69112b0ea9d04a9e62204109100cca49a480a44",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 13.66
+      },
+      {
+        "generated_at": "2026-07-24T07:54:13+00:00",
+        "revision": "9c798bc31452c4f1ce08dcc8d3645874c4e97319",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 11.49
+      },
+      {
+        "generated_at": "2026-07-24T06:45:16+00:00",
+        "revision": "9c798bc31452c4f1ce08dcc8d3645874c4e97319",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 14.28
+      },
+      {
+        "generated_at": "2026-07-24T06:35:41+00:00",
+        "revision": "45057af4499bb6cb957ff51c8818ba7d692b2949",
+        "result": "findings",
+        "counts": {
+          "errors": 3,
+          "warnings": 0,
+          "findings": 3,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 11.836
+      },
+      {
+        "generated_at": "2026-07-24T06:24:37+00:00",
+        "revision": "8287d7798c82b487f5032a6dabdcce4f1cff8f61",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 12.546
       }
     ]
   }

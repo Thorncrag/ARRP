@@ -29,6 +29,7 @@ checks_included:
   - Intake-workflow terminology
   - Publication-disposition metadata
   - Print-assembly configuration
+  - Governing context registry, hashes, and module coverage
   - Persistent-agent runbooks and runtime configuration
   - Structured-file and repository hygiene
 print_status: excluded

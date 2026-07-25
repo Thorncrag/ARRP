@@ -17,8 +17,10 @@ PROFILE_BY_KIND = {
     "change_audit": "change_audit",
     "issue_audit": "issue_audit",
     "issue_development": "issue_development",
+    "candidate_research": "candidate_research",
     "comprehensive_review": "comprehensive_review",
 }
+ISSUE_DOSSIER_KINDS = {"change_audit", "issue_audit", "issue_development"}
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -55,17 +57,72 @@ def select_context_route(
         item = eligible[0] if eligible else None
 
     if item is None:
-        return {"profile": None, "issue": None, "work_item_id": None}
+        return {
+            "profile": None,
+            "issue": None,
+            "work_item_id": None,
+            "kind": None,
+            "canonical_record": None,
+        }
+    work_item_id = str(item.get("id") or "").strip()
+    if not work_item_id:
+        raise ValueError("selected Elim work item has no deterministic ID")
     kind = str(item.get("kind") or "")
     profile = PROFILE_BY_KIND.get(kind)
     if profile is None:
         raise ValueError(f"no reviewed context profile exists for work kind {kind!r}")
     source = item.get("source") or {}
-    issue = source.get("identifier") if isinstance(source, dict) else None
+    if not isinstance(source, dict):
+        raise ValueError(f"selected Elim work item {work_item_id} has invalid source metadata")
+    identifier = str(source.get("identifier") or "").strip()
+    canonical_record = str(
+        source.get("canonicalRecord") or source.get("canonical_record") or ""
+    ).strip()
+    canonical_error = str(source.get("canonical_record_error") or "").strip()
+    if canonical_error:
+        raise ValueError(
+            f"selected {kind} work item {work_item_id} has no usable canonical "
+            f"record: {canonical_error}"
+        )
+    issue = None
+    if kind in ISSUE_DOSSIER_KINDS:
+        if not identifier or not canonical_record:
+            raise ValueError(
+                f"selected {kind} work item {work_item_id} lacks its identifier "
+                "or canonical record"
+            )
+        area = identifier.split("-", 1)[0]
+        expected = f"areas/{area}/issues/{identifier}.md"
+        area_readme = f"areas/{area}/README.md"
+        development_level = " ".join(
+            str(source.get("development_level") or "").casefold().split()
+        )
+        workflow_status = " ".join(
+            str(source.get("workflow_status") or "").casefold().split()
+        )
+        undeveloped_area_record = (
+            kind == "issue_development"
+            and development_level == "admitted / undeveloped"
+            and workflow_status in {"development", "research"}
+            and canonical_record == area_readme
+        )
+        if canonical_record != expected and not undeveloped_area_record:
+            raise ValueError(
+                f"selected {kind} work item {work_item_id} has canonical record "
+                f"{canonical_record!r}; expected {expected!r}"
+            )
+        issue = identifier
+    elif kind == "candidate_research" and not canonical_record:
+        raise ValueError(
+            f"selected candidate_research work item {work_item_id} lacks its "
+            "canonical record"
+        )
     return {
         "profile": profile,
-        "issue": str(issue) if issue else None,
-        "work_item_id": str(item.get("id") or "") or None,
+        "issue": issue,
+        "work_item_id": work_item_id,
+        "kind": kind,
+        "canonical_record": canonical_record or None,
     }
 
 
@@ -81,6 +138,9 @@ def main() -> int:
         return 2
     print(route["profile"] or "")
     print(route["issue"] or "")
+    print(route["work_item_id"] or "")
+    print(route["kind"] or "")
+    print(route["canonical_record"] or "")
     return 0
 
 

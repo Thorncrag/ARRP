@@ -75,8 +75,9 @@ jobs:
           CLIENT_COMPREHENSIVE: ${{ github.event.client_payload.force_comprehensive_review }}
         run: |
           python3 - <<'PY'
-          import json, os
+          import hashlib, json, os
           from pathlib import Path
+          from scripts.run_coordinator import review_epoch_boundary_status
           truth = {"1", "true", "yes", "on"}
           enabled = lambda name: str(os.environ.get(name, "")).casefold() in truth
           event_name = os.environ.get("EVENT_NAME", "")
@@ -101,6 +102,10 @@ jobs:
                   "project-console-progress-bot",
                   "project-integrity-bot",
               ]
+          explicit_comprehensive = (
+              enabled("INPUT_COMPREHENSIVE")
+              or enabled("CLIENT_COMPREHENSIVE")
+          )
           payload = {
               "allow_elim_launch": allow_elim_launch,
               "elim_launch_trigger": event_name,
@@ -111,10 +116,11 @@ jobs:
                       or os.environ.get("EVENT_ACTION") == "arrp-public-submission"
                   )
               ) or enabled("INPUT_INTAKE"),
-              "force_comprehensive_review": enabled("INPUT_COMPREHENSIVE") or enabled("CLIENT_COMPREHENSIVE"),
+              "force_comprehensive_review": explicit_comprehensive,
               "force_stages": force,
           }
           ledger = Path("research/review-epochs.jsonl")
+          epoch = None
           if ledger.is_file():
               rows = [line for line in ledger.read_text().splitlines() if line.strip()]
               if rows:
@@ -125,7 +131,42 @@ jobs:
                       "comprehensive_review_boundary_commit": epoch["completion_commit"],
                       "comprehensive_review_epoch_id": epoch["epoch_id"],
                       "comprehensive_review_stability_status": epoch["stability_status"],
+                      "comprehensive_review_unresolved_findings": (
+                          epoch.get("unresolved_findings") or []
+                      ),
                   })
+          registry_path = Path("framework/context-routes.json")
+          registry_bytes = registry_path.read_bytes()
+          registry = json.loads(registry_bytes)
+          for document_id, spec in registry.get("documents", {}).items():
+              if spec.get("governing") is not True:
+                  continue
+              if spec.get("hash_policy") != "pinned":
+                  raise RuntimeError(
+                      f"governing context document {document_id} is not pinned"
+                  )
+              actual = hashlib.sha256(Path(spec["path"]).read_bytes()).hexdigest()
+              if actual != spec.get("sha256"):
+                  raise RuntimeError(
+                      f"governing context document {document_id} differs from "
+                      "its integration-pinned hash"
+                  )
+          boundary = review_epoch_boundary_status(
+              epoch,
+              registry,
+              hashlib.sha256(registry_bytes).hexdigest(),
+          )
+          if boundary["off_cycle_required"]:
+              payload["force_comprehensive_review"] = True
+              payload["comprehensive_review_trigger_reason"] = (
+                  "governing_boundary_changed"
+              )
+              payload["comprehensive_review_boundary_changes"] = {
+                  key: boundary[key]
+                  for key in ("missing", "extra", "mismatched")
+              }
+          elif explicit_comprehensive:
+              payload["comprehensive_review_trigger_reason"] = "forced"
           Path(os.environ["RUNNER_TEMP"], "run-chain-signals.json").write_text(
               json.dumps(payload, indent=2) + "\n"
           )
@@ -445,7 +486,24 @@ jobs:
               "baseline_revision": chain.get("review_epoch", {}).get("boundary_commit"),
               "last_completed_at": chain.get("review_epoch", {}).get("last_completed_at"),
               "next_due_at": chain.get("review_epoch", {}).get("next_due_at"),
-              "unresolved_ids": [],
+              "boundary_changes": (
+                  chain.get("review_epoch", {}).get("boundary_changes") or {}
+              ),
+              "unresolved_findings": (
+                  chain.get("review_epoch", {}).get("unresolved_findings") or []
+              ),
+              "unresolved_ids": [
+                  finding.get("id")
+                  if isinstance(finding, dict)
+                  else str(finding)
+                  for finding in (
+                      chain.get("review_epoch", {}).get("unresolved_findings") or []
+                  )
+                  if (
+                      (isinstance(finding, dict) and finding.get("id"))
+                      or (not isinstance(finding, dict) and str(finding).strip())
+                  )
+              ],
           }
           (inputs / "review-epoch.json").write_text(
               json.dumps(epoch, indent=2) + "\n"
@@ -482,6 +540,9 @@ jobs:
           readarray -t route < "${route_file}"
           profile="${route[0]}"
           issue="${route[1]}"
+          work_item_id="${route[2]}"
+          work_kind="${route[3]}"
+          canonical_record="${route[4]}"
           if [ -z "${profile}" ]; then
             echo "path=" >> "${GITHUB_OUTPUT}"
             exit 0
@@ -489,6 +550,9 @@ jobs:
           args=(
             --profile "${profile}"
             --review-epoch "${CHAIN_WORK}/elim-inputs/review-epoch.json"
+            --work-item-id "${work_item_id}"
+            --work-kind "${work_kind}"
+            --canonical-record "${canonical_record}"
           )
           if [ -n "${issue}" ]; then
             args+=(--issue "${issue}")

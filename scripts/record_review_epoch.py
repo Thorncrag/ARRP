@@ -6,8 +6,25 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS = Path(__file__).resolve().parent
+if str(SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS))
+
+from arrp_context import (  # noqa: E402
+    ContextError,
+    _profile_document_ids,
+    extract_exact_heading,
+    load_route_manifest,
+    repository_file,
+    sha256_path,
+    within_root,
+)
 
 
 REQUIRED = {
@@ -16,9 +33,13 @@ REQUIRED = {
     "baseline_commit",
     "completion_commit",
     "governing_hashes",
+    "project_snapshot",
+    "registry_snapshot",
     "reviewed_domains",
+    "resolved_findings",
     "unresolved_findings",
     "sampling_record",
+    "automation_health",
     "completed_at",
     "next_due_at",
     "cadence_status",
@@ -27,28 +48,439 @@ REQUIRED = {
 }
 CADENCE = {"biweekly", "monthly", "event-triggered"}
 STABILITY = {"evolving", "stable", "drift-detected"}
+SHA256_PREFIX = "sha256:"
+COMPREHENSIVE_PROFILE = "comprehensive_review"
+DEFAULT_MANIFEST = ROOT / "framework" / "context-routes.json"
+AUTOMATION_HEALTH = {"healthy", "degraded", "failed"}
 
 
-def validate(value: dict) -> dict:
+def _prefixed_sha256(value: str) -> str:
+    return SHA256_PREFIX + value
+
+
+def _valid_sha256(value: object, *, prefixed: bool) -> bool:
+    if not isinstance(value, str):
+        return False
+    digest = value
+    if prefixed:
+        if not digest.startswith(SHA256_PREFIX):
+            return False
+        digest = digest[len(SHA256_PREFIX) :]
+    return len(digest) == 64 and all(character in "0123456789abcdef" for character in digest)
+
+
+def _valid_commit(value: object) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == 40
+        and all(character in "0123456789abcdef" for character in value)
+    )
+
+
+def _validate_snapshot(value: object, name: str) -> None:
+    if not isinstance(value, dict):
+        raise ValueError(f"{name} must be an object")
+    source = value.get("source")
+    if not isinstance(source, str) or not source.strip():
+        raise ValueError(f"{name}.source must be a nonblank string")
+    if not _valid_sha256(value.get("sha256"), prefixed=True):
+        raise ValueError(f"{name}.sha256 must be a prefixed SHA-256 digest")
+    record_count = value.get("record_count")
+    if (
+        isinstance(record_count, bool)
+        or not isinstance(record_count, int)
+        or record_count < 0
+    ):
+        raise ValueError(f"{name}.record_count must be a nonnegative integer")
+
+
+def _validate_entries(value: object, name: str, *, nonempty: bool) -> None:
+    if not isinstance(value, list):
+        raise ValueError(f"{name} must be an array")
+    if nonempty and not value:
+        raise ValueError(f"{name} must not be empty")
+    for entry in value:
+        if isinstance(entry, str):
+            valid = bool(entry.strip())
+        elif isinstance(entry, dict):
+            valid = bool(entry)
+        else:
+            valid = False
+        if not valid:
+            raise ValueError(
+                f"{name} entries must be nonblank strings or nonempty objects"
+            )
+
+
+def _finding_ids(value: object, name: str) -> set[str]:
+    if not isinstance(value, list):
+        raise ValueError(f"{name} must be an array")
+    identifiers: list[str] = []
+    for finding in value:
+        if not isinstance(finding, dict):
+            raise ValueError(f"{name} entries must be objects with stable IDs")
+        identifier = finding.get("id")
+        if (
+            not isinstance(identifier, str)
+            or not identifier.strip()
+            or identifier != identifier.strip()
+        ):
+            raise ValueError(
+                f"{name} entries must have a nonblank stable id without outer whitespace"
+            )
+        identifiers.append(identifier)
+    duplicates = sorted(
+        identifier
+        for identifier in set(identifiers)
+        if identifiers.count(identifier) > 1
+    )
+    if duplicates:
+        raise ValueError(f"{name} repeats finding IDs: {duplicates}")
+    return set(identifiers)
+
+
+def _validate_finding_lists(record: dict) -> tuple[set[str], set[str]]:
+    resolved = _finding_ids(record.get("resolved_findings"), "resolved_findings")
+    unresolved = _finding_ids(
+        record.get("unresolved_findings"),
+        "unresolved_findings",
+    )
+    overlap = sorted(resolved & unresolved)
+    if overlap:
+        raise ValueError(
+            "finding IDs may not appear in both resolved_findings and "
+            f"unresolved_findings: {overlap}"
+        )
+    return resolved, unresolved
+
+
+def _historical_unresolved_ids(epoch: dict) -> set[str]:
+    """Read unresolved IDs without imposing the current schema on old rows."""
+    entries = epoch.get("unresolved_findings", [])
+    if not isinstance(entries, list):
+        raise ValueError("prior epoch unresolved_findings must be an array")
+    identifiers: set[str] = set()
+    for finding in entries:
+        if isinstance(finding, dict):
+            identifier = finding.get("id")
+        elif isinstance(finding, str):
+            # Early append-only rows allowed unstructured strings. Treat the
+            # complete historical text as its carried-forward identity rather
+            # than rewriting or silently dropping it.
+            identifier = finding
+        else:
+            identifier = None
+        if not isinstance(identifier, str) or not identifier.strip():
+            raise ValueError(
+                "prior epoch contains an unresolved finding without a stable ID"
+            )
+        identifiers.add(identifier.strip())
+    return identifiers
+
+
+def validate_finding_continuity(
+    latest_prior_epoch: dict | None,
+    current_epoch: dict,
+) -> dict:
+    """Require every prior unresolved finding to remain open or be resolved."""
+    resolved, unresolved = _validate_finding_lists(current_epoch)
+    if latest_prior_epoch is None:
+        return current_epoch
+    if not isinstance(latest_prior_epoch, dict):
+        raise ValueError("latest prior Review Epoch must be an object")
+    prior_unresolved = _historical_unresolved_ids(latest_prior_epoch)
+    omitted = sorted(prior_unresolved - resolved - unresolved)
+    if omitted:
+        raise ValueError(
+            "Review Epoch omits prior unresolved finding IDs: "
+            f"{omitted}; carry each forward or record it as resolved"
+        )
+    return current_epoch
+
+
+def _validate_automation_health(value: object) -> None:
+    if not isinstance(value, dict):
+        raise ValueError("automation_health must be an object")
+    chain_id = value.get("chain_id")
+    if not isinstance(chain_id, str) or not chain_id.strip():
+        raise ValueError("automation_health.chain_id must be a nonblank string")
+    if value.get("status") not in AUTOMATION_HEALTH:
+        raise ValueError(
+            "automation_health.status must be healthy, degraded, or failed"
+        )
+    for field in ("failures", "degradations"):
+        if not isinstance(value.get(field), list):
+            raise ValueError(f"automation_health.{field} must be an array")
+
+
+def _context_manifest(
+    manifest_path: Path,
+    *,
+    root: Path,
+) -> tuple[dict, Path, str]:
+    try:
+        if manifest_path.is_absolute():
+            try:
+                manifest_relative = manifest_path.relative_to(
+                    root.absolute()
+                ).as_posix()
+            except ValueError as exc:
+                raise ContextError(
+                    f"path escapes allowed root: {manifest_path}"
+                ) from exc
+        else:
+            manifest_relative = manifest_path.as_posix()
+        safe_manifest_path = repository_file(root, manifest_relative)
+        if safe_manifest_path is None:  # required=True makes this unreachable.
+            raise ContextError(
+                f"repository file is missing: {manifest_relative}"
+            )
+        manifest = load_route_manifest(
+            safe_manifest_path,
+            root=root,
+            verify_hashes=True,
+        )
+        manifest_sha = sha256_path(safe_manifest_path, root)
+    except (ContextError, OSError, ValueError) as exc:
+        raise ValueError(f"current context manifest is invalid: {exc}") from exc
+    if manifest.get("schema_version") != 2:
+        raise ValueError("Review Epoch closeout requires a schema-version-2 context manifest")
+    profile = (manifest.get("profiles") or {}).get(COMPREHENSIVE_PROFILE)
+    if not isinstance(profile, dict) or profile.get("include_all_governing") is not True:
+        raise ValueError(
+            "comprehensive_review must include every governing context document"
+        )
+    return manifest, safe_manifest_path, manifest_relative
+
+
+def _packet_modules(
+    packet: dict,
+    manifest: dict,
+    *,
+    root: Path,
+) -> dict[str, dict]:
+    profile = manifest["profiles"][COMPREHENSIVE_PROFILE]
+    try:
+        expected_ids = set(_profile_document_ids(manifest, profile))
+    except ContextError as exc:
+        raise ValueError(f"comprehensive context route is invalid: {exc}") from exc
+    modules = packet.get("modules")
+    if not isinstance(modules, list):
+        raise ValueError("comprehensive context packet modules must be an array")
+    by_id: dict[str, dict] = {}
+    for module in modules:
+        if not isinstance(module, dict):
+            raise ValueError("comprehensive context packet contains a non-object module")
+        document_id = module.get("document")
+        if not isinstance(document_id, str) or not document_id:
+            raise ValueError("comprehensive context packet module has no document identity")
+        if document_id in by_id:
+            raise ValueError(
+                f"comprehensive context packet duplicates module {document_id}"
+            )
+        by_id[document_id] = module
+    actual_ids = set(by_id)
+    if actual_ids != expected_ids:
+        raise ValueError(
+            "comprehensive context packet module boundary differs; "
+            f"missing={sorted(expected_ids-actual_ids)}, "
+            f"extra={sorted(actual_ids-expected_ids)}"
+        )
+    for document_id, module in by_id.items():
+        spec = manifest["documents"][document_id]
+        expected_path = str(spec["path"])
+        if module.get("path") != expected_path:
+            raise ValueError(
+                f"comprehensive context packet path differs for {document_id}"
+            )
+        digest = module.get("sha256")
+        if not _valid_sha256(digest, prefixed=False):
+            raise ValueError(
+                f"comprehensive context packet has an invalid hash for {document_id}"
+            )
+        content = module.get("content")
+        if not isinstance(content, str):
+            raise ValueError(
+                f"comprehensive context packet has no exact content for {document_id}"
+            )
+        content_bytes = content.encode("utf-8")
+        if module.get("bytes") != len(content_bytes):
+            raise ValueError(
+                f"comprehensive context packet byte count differs for {document_id}"
+            )
+        if hashlib.sha256(content_bytes).hexdigest() != digest:
+            raise ValueError(
+                f"comprehensive context packet content hash differs for {document_id}"
+            )
+        policy = str(spec.get("hash_policy") or "pinned")
+        if module.get("hash_policy") != policy:
+            raise ValueError(
+                f"comprehensive context packet hash policy differs for {document_id}"
+            )
+        if policy == "pinned":
+            current = sha256_path(within_root(root, expected_path), root)
+            if digest != current:
+                raise ValueError(
+                    f"comprehensive context packet is stale for {document_id}"
+                )
+    return by_id
+
+
+def _validate_packet_sections(packet: dict, manifest: dict, *, root: Path) -> None:
+    profile = manifest["profiles"][COMPREHENSIVE_PROFILE]
+    expected_routes = {
+        (str(route["document"]), str(route["heading"])): route
+        for route in profile.get("sections") or []
+    }
+    sections = packet.get("sections")
+    if not isinstance(sections, list):
+        raise ValueError("comprehensive context packet sections must be an array")
+    actual_routes: dict[tuple[str, str], dict] = {}
+    for section in sections:
+        if not isinstance(section, dict):
+            raise ValueError("comprehensive context packet contains a non-object section")
+        identity = (str(section.get("document") or ""), str(section.get("heading") or ""))
+        if identity in actual_routes:
+            raise ValueError(
+                "comprehensive context packet duplicates section "
+                f"{identity[0]}: {identity[1]}"
+            )
+        actual_routes[identity] = section
+    if set(actual_routes) != set(expected_routes):
+        raise ValueError(
+            "comprehensive context packet section boundary differs; "
+            f"missing={sorted(set(expected_routes)-set(actual_routes))}, "
+            f"extra={sorted(set(actual_routes)-set(expected_routes))}"
+        )
+    for (document_id, heading), section in actual_routes.items():
+        spec = manifest["documents"][document_id]
+        expected_path = str(spec["path"])
+        if section.get("path") != expected_path:
+            raise ValueError(
+                f"comprehensive context packet section path differs for {document_id}"
+            )
+        source = within_root(root, expected_path)
+        expected_content, _, _ = extract_exact_heading(
+            source.read_text(encoding="utf-8"), heading
+        )
+        content = section.get("content")
+        if content != expected_content:
+            raise ValueError(
+                f"comprehensive context packet section content differs for {document_id}: {heading}"
+            )
+        content_bytes = expected_content.encode("utf-8")
+        digest = sha256_path(source, root)
+        if section.get("sha256") != digest or section.get("bytes") != len(content_bytes):
+            raise ValueError(
+                f"comprehensive context packet section provenance differs for {document_id}: {heading}"
+            )
+
+
+def _validate_governing_boundary(
+    hashes: dict,
+    *,
+    manifest_path: Path,
+    context_packet: dict,
+    root: Path,
+) -> None:
+    manifest, safe_manifest_path, manifest_relative = _context_manifest(
+        manifest_path,
+        root=root,
+    )
+    if not isinstance(context_packet, dict):
+        raise ValueError("comprehensive context packet must be an object")
+    if context_packet.get("schema_version") != 2:
+        raise ValueError("Review Epoch closeout requires a schema-version-2 context packet")
+    if context_packet.get("profile") != COMPREHENSIVE_PROFILE:
+        raise ValueError(
+            "Review Epoch closeout requires the comprehensive_review context packet"
+        )
+    if context_packet.get("provenance_complete") is not True:
+        raise ValueError("comprehensive context packet provenance is not complete")
+
+    manifest_identity = context_packet.get("manifest")
+    if not isinstance(manifest_identity, dict):
+        raise ValueError("comprehensive context packet has no manifest identity")
+    manifest_sha = sha256_path(safe_manifest_path, root)
+    expected_identity = {"path": manifest_relative, "sha256": manifest_sha}
+    if manifest_identity != expected_identity:
+        raise ValueError(
+            "comprehensive context packet manifest identity does not match the current manifest"
+        )
+
+    _packet_modules(context_packet, manifest, root=root)
+    _validate_packet_sections(context_packet, manifest, root=root)
+
+    expected_hashes = {
+        str(spec["path"]): _prefixed_sha256(
+            sha256_path(within_root(root, str(spec["path"])), root)
+        )
+        for spec in manifest["documents"].values()
+        if spec.get("governing") is True
+    }
+    if manifest_relative in expected_hashes:
+        raise ValueError(
+            "the context manifest must be represented by packet identity, not self-registered"
+        )
+    expected_hashes[manifest_relative] = _prefixed_sha256(manifest_sha)
+    if hashes != expected_hashes:
+        missing = sorted(set(expected_hashes) - set(hashes))
+        extra = sorted(set(hashes) - set(expected_hashes))
+        mismatched = sorted(
+            path
+            for path in set(hashes) & set(expected_hashes)
+            if hashes[path] != expected_hashes[path]
+        )
+        raise ValueError(
+            "Review Epoch governing boundary is incomplete or stale; "
+            f"missing={missing}, extra={extra}, mismatched={mismatched}"
+        )
+
+
+def validate(
+    value: dict,
+    *,
+    manifest_path: Path,
+    context_packet: dict,
+    root: Path = ROOT,
+) -> dict:
     if set(value) != REQUIRED:
         raise ValueError(
             f"review epoch fields differ; missing={sorted(REQUIRED-set(value))}, "
             f"extra={sorted(set(value)-REQUIRED)}"
         )
-    for key in ("epoch_id", "triggering_run_id", "baseline_commit", "completion_commit", "triggering_reason"):
+    for key in ("epoch_id", "triggering_run_id", "triggering_reason"):
         if not isinstance(value[key], str) or not value[key].strip():
             raise ValueError(f"{key} must be a nonblank string")
+    for key in ("baseline_commit", "completion_commit"):
+        if not _valid_commit(value[key]):
+            raise ValueError(f"{key} must be a 40-character Git commit hash")
+    packet_revision = context_packet.get("repository_revision")
+    if value["completion_commit"] != packet_revision:
+        raise ValueError(
+            "completion_commit must equal the comprehensive context packet "
+            "repository_revision"
+        )
     if value["cadence_status"] not in CADENCE or value["stability_status"] not in STABILITY:
         raise ValueError("review epoch cadence or stability status is invalid")
     hashes = value["governing_hashes"]
     if not isinstance(hashes, dict) or not hashes:
         raise ValueError("governing_hashes must be a nonempty object")
     for path, digest in hashes.items():
-        if not isinstance(path, str) or not isinstance(digest, str) or not digest.startswith("sha256:"):
+        if not isinstance(path, str) or not path or not _valid_sha256(digest, prefixed=True):
             raise ValueError("governing hash entries require path and sha256 digest")
-    for key in ("reviewed_domains", "unresolved_findings", "sampling_record"):
-        if not isinstance(value[key], list):
-            raise ValueError(f"{key} must be an array")
+    _validate_governing_boundary(
+        hashes,
+        manifest_path=manifest_path,
+        context_packet=context_packet,
+        root=root,
+    )
+    _validate_snapshot(value["project_snapshot"], "project_snapshot")
+    _validate_snapshot(value["registry_snapshot"], "registry_snapshot")
+    _validate_entries(value["reviewed_domains"], "reviewed_domains", nonempty=True)
+    _validate_finding_lists(value)
+    _validate_entries(value["sampling_record"], "sampling_record", nonempty=True)
+    _validate_automation_health(value["automation_health"])
     completed = datetime.fromisoformat(value["completed_at"].replace("Z", "+00:00"))
     due = datetime.fromisoformat(value["next_due_at"].replace("Z", "+00:00"))
     if due <= completed:
@@ -73,9 +505,37 @@ def append(ledger: Path, current: Path, record: dict) -> bool:
     return True
 
 
+def _latest_epoch(ledger: Path) -> dict | None:
+    if not ledger.is_file():
+        return None
+    rows = [
+        json.loads(line)
+        for line in ledger.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    if not rows:
+        return None
+    latest = rows[-1]
+    if not isinstance(latest, dict):
+        raise ValueError("latest prior Review Epoch must be an object")
+    return latest
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, required=True)
+    parser.add_argument(
+        "--manifest",
+        type=Path,
+        default=DEFAULT_MANIFEST,
+        help="Current schema-version-2 context registry.",
+    )
+    parser.add_argument(
+        "--context-packet",
+        type=Path,
+        required=True,
+        help="Complete comprehensive_review packet used for this Review Epoch.",
+    )
     parser.add_argument(
         "--ledger", type=Path, default=Path("research/review-epochs.jsonl")
     )
@@ -83,7 +543,12 @@ def main() -> int:
         "--current", type=Path, default=Path(".tmp/run-coordinator/review-epoch.json")
     )
     args = parser.parse_args()
-    record = validate(json.loads(args.input.read_text()))
+    record = validate(
+        json.loads(args.input.read_text()),
+        manifest_path=args.manifest,
+        context_packet=json.loads(args.context_packet.read_text()),
+    )
+    validate_finding_continuity(_latest_epoch(args.ledger), record)
     changed = append(args.ledger, args.current, record)
     print(json.dumps({"recorded": changed, "epoch_id": record["epoch_id"]}))
     return 0

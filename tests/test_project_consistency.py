@@ -13,6 +13,7 @@ from scripts.audit_project_consistency import (
     ROOT,
     active_project_files,
     check_agent_runbooks,
+    check_context_registry,
     check_github_pages_deployment,
     check_issue_pages,
     external_review_action_missing_components,
@@ -87,6 +88,364 @@ def lifecycle_findings(
 
 
 class GitHubIssueLinkTests(unittest.TestCase):
+    def context_registry_fixture(self, root: Path) -> dict[str, object]:
+        framework = root / "framework"
+        framework.mkdir(parents=True)
+        (root / "AGENTS.md").write_text(
+            "---\n"
+            "module_id: codex_bootstrap\n"
+            "dependencies:\n"
+            '  - "framework/FRAMEWORK.md"\n'
+            '  - "framework/AGENT_OPERATING_RULES.md"\n'
+            "---\n\n"
+            "# Bootstrap\n",
+            encoding="utf-8",
+        )
+        (framework / "FRAMEWORK.md").write_text("# Framework\n", encoding="utf-8")
+        (framework / "AGENT_OPERATING_RULES.md").write_text(
+            "# Agent rules\n",
+            encoding="utf-8",
+        )
+        (framework / "EXTRA.md").write_text("# Extra authority\n", encoding="utf-8")
+        (framework / "logs").mkdir()
+        (framework / "logs/CURRENT_AUDIT.md").write_text(
+            "# Current audit\n",
+            encoding="utf-8",
+        )
+        return {
+            "required_modules": [
+                "framework_kernel",
+                "agent_rules_kernel",
+                "current_audit",
+            ],
+            "documents": {
+                "codex_bootstrap": {
+                    "path": "AGENTS.md",
+                    "hash_policy": "pinned",
+                    "governing": True,
+                    "requires": [
+                        "framework_kernel",
+                        "agent_rules_kernel",
+                    ],
+                },
+                "framework_kernel": {
+                    "path": "framework/FRAMEWORK.md",
+                    "hash_policy": "pinned",
+                    "governing": True,
+                },
+                "agent_rules_kernel": {
+                    "path": "framework/AGENT_OPERATING_RULES.md",
+                    "hash_policy": "pinned",
+                    "governing": True,
+                },
+                "current_audit": {
+                    "path": "framework/logs/CURRENT_AUDIT.md",
+                    "hash_policy": "runtime",
+                    "governing": False,
+                },
+                "extra": {
+                    "path": "framework/EXTRA.md",
+                    "hash_policy": "pinned",
+                    "governing": True,
+                },
+            },
+            "profiles": {
+                "comprehensive_review": {
+                    "include_all_governing": True,
+                }
+            },
+        }
+
+    def test_context_registry_requires_kernels_runtime_checkpoint_and_full_review(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            baseline = self.context_registry_fixture(root)
+
+            failures: list[str] = []
+            warnings: list[str] = []
+            with (
+                patch.object(consistency, "ROOT", root),
+                patch.object(
+                    consistency,
+                    "CONTEXT_MANIFEST",
+                    root / "framework/context-routes.json",
+                ),
+                patch.object(
+                    consistency,
+                    "load_route_manifest",
+                    return_value=baseline,
+                ),
+            ):
+                check_context_registry(failures, warnings)
+            self.assertEqual(failures, [])
+            self.assertEqual(warnings, [])
+
+            variants = []
+            missing_kernel = {
+                **baseline,
+                "required_modules": ["framework_kernel", "current_audit"],
+            }
+            variants.append((missing_kernel, "required floor omits: agent_rules_kernel"))
+
+            wrong_current = {
+                **baseline,
+                "documents": {
+                    **baseline["documents"],
+                    "current_audit": {
+                        "path": "framework/logs/CURRENT_AUDIT.md",
+                        "hash_policy": "pinned",
+                        "governing": True,
+                    },
+                },
+            }
+            variants.append(
+                (
+                    wrong_current,
+                    "CURRENT_AUDIT must be the required runtime-hashed",
+                )
+            )
+
+            incomplete_review = {
+                **baseline,
+                "profiles": {
+                    "comprehensive_review": {
+                        "include_all_governing": False,
+                    }
+                },
+            }
+            variants.append(
+                (
+                    incomplete_review,
+                    "comprehensive_review must include every governing",
+                )
+            )
+
+            for manifest, expected in variants:
+                with self.subTest(expected=expected):
+                    failures = []
+                    warnings = []
+                    with (
+                        patch.object(consistency, "ROOT", root),
+                        patch.object(
+                            consistency,
+                            "CONTEXT_MANIFEST",
+                            root / "framework/context-routes.json",
+                        ),
+                        patch.object(
+                            consistency,
+                            "load_route_manifest",
+                            return_value=manifest,
+                        ),
+                    ):
+                        check_context_registry(failures, warnings)
+                    self.assertTrue(
+                        any(expected in failure for failure in failures),
+                        failures,
+                    )
+            self.assertEqual(warnings, [])
+
+    def test_context_registry_checks_root_agents_declarations(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = self.context_registry_fixture(root)
+            (root / "AGENTS.md").write_text(
+                "---\n"
+                "module_id: wrong_bootstrap\n"
+                "dependencies:\n"
+                '  - "framework/FRAMEWORK.md"\n'
+                "---\n\n"
+                "# Bootstrap\n",
+                encoding="utf-8",
+            )
+            failures: list[str] = []
+            warnings: list[str] = []
+            with (
+                patch.object(consistency, "ROOT", root),
+                patch.object(
+                    consistency,
+                    "CONTEXT_MANIFEST",
+                    root / "framework/context-routes.json",
+                ),
+                patch.object(
+                    consistency,
+                    "load_route_manifest",
+                    return_value=manifest,
+                ),
+            ):
+                check_context_registry(failures, warnings)
+
+            self.assertTrue(
+                any(
+                    "AGENTS.md front-matter module_id differs" in failure
+                    and "wrong_bootstrap" in failure
+                    and "codex_bootstrap" in failure
+                    for failure in failures
+                ),
+                failures,
+            )
+            self.assertTrue(
+                any(
+                    "codex_bootstrap front-matter dependencies differ" in failure
+                    and "framework/AGENT_OPERATING_RULES.md" in failure
+                    for failure in failures
+                ),
+                failures,
+            )
+            self.assertEqual(warnings, [])
+
+    def test_context_registry_flags_unregistered_managed_markdown(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = self.context_registry_fixture(root)
+            manifest["documents"] = {
+                key: value
+                for key, value in manifest["documents"].items()
+                if key != "extra"
+            }
+            failures: list[str] = []
+            warnings: list[str] = []
+            with (
+                patch.object(consistency, "ROOT", root),
+                patch.object(
+                    consistency,
+                    "CONTEXT_MANIFEST",
+                    root / "framework/context-routes.json",
+                ),
+                patch.object(
+                    consistency,
+                    "load_route_manifest",
+                    return_value=manifest,
+                ),
+            ):
+                check_context_registry(failures, warnings)
+            self.assertTrue(
+                any(
+                    "governing framework Markdown is absent" in failure
+                    and "framework/EXTRA.md" in failure
+                    for failure in failures
+                ),
+                failures,
+            )
+            self.assertEqual(warnings, [])
+
+    def test_context_registry_checks_top_level_framework_yaml_dependency_arrays(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = self.context_registry_fixture(root)
+            module = root / "framework/PROJECT_INTERFACE.md"
+            module.write_text(
+                "---\n"
+                "module_id: project_interface\n"
+                "dependencies:\n"
+                '  - "AGENT_OPERATING_RULES.md"\n'
+                "---\n\n"
+                "# Interface\n",
+                encoding="utf-8",
+            )
+            manifest["documents"]["project_interface"] = {
+                "path": "framework/PROJECT_INTERFACE.md",
+                "hash_policy": "pinned",
+                "governing": True,
+                "requires": ["framework_kernel"],
+            }
+            failures: list[str] = []
+            warnings: list[str] = []
+            with (
+                patch.object(consistency, "ROOT", root),
+                patch.object(
+                    consistency,
+                    "CONTEXT_MANIFEST",
+                    root / "framework/context-routes.json",
+                ),
+                patch.object(
+                    consistency,
+                    "load_route_manifest",
+                    return_value=manifest,
+                ),
+            ):
+                check_context_registry(failures, warnings)
+
+            self.assertTrue(
+                any(
+                    "project_interface front-matter dependencies differ" in failure
+                    and "framework/AGENT_OPERATING_RULES.md" in failure
+                    and "framework/FRAMEWORK.md" in failure
+                    for failure in failures
+                ),
+                failures,
+            )
+            self.assertFalse(
+                any("module_id differs" in failure for failure in failures),
+                failures,
+            )
+            self.assertEqual(warnings, [])
+
+    def test_context_registry_requires_module_front_matter_to_match_route_dependencies(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = self.context_registry_fixture(root)
+            module = root / "framework/methodology/test-rule.md"
+            module.parent.mkdir()
+            module.write_text(
+                "---\n"
+                'title: "Test Rule"\n'
+                "dependencies: ../AGENT_OPERATING_RULES.md\n"
+                "---\n\n"
+                "# Test Rule\n",
+                encoding="utf-8",
+            )
+            manifest["documents"]["test_rule"] = {
+                "path": "framework/methodology/test-rule.md",
+                "hash_policy": "pinned",
+                "governing": True,
+                "requires": ["framework_kernel"],
+            }
+            failures: list[str] = []
+            warnings: list[str] = []
+            with (
+                patch.object(consistency, "ROOT", root),
+                patch.object(
+                    consistency,
+                    "CONTEXT_MANIFEST",
+                    root / "framework/context-routes.json",
+                ),
+                patch.object(
+                    consistency,
+                    "load_route_manifest",
+                    return_value=manifest,
+                ),
+            ):
+                check_context_registry(failures, warnings)
+            self.assertTrue(
+                any(
+                    "test_rule front-matter dependencies differ" in failure
+                    and "framework/AGENT_OPERATING_RULES.md" in failure
+                    and "framework/FRAMEWORK.md" in failure
+                    for failure in failures
+                ),
+                failures,
+            )
+            self.assertEqual(warnings, [])
+
+    def test_context_registry_fails_closed_for_stale_or_placeholder_hashes(self):
+        for error in (
+            "document framework_kernel hash changed: expected old, found new",
+            "document framework_kernel has no integration-pinned sha256",
+        ):
+            with self.subTest(error=error):
+                failures: list[str] = []
+                warnings: list[str] = []
+                with patch.object(
+                    consistency,
+                    "load_route_manifest",
+                    side_effect=consistency.ContextError(error),
+                ):
+                    check_context_registry(failures, warnings)
+                self.assertEqual(len(failures), 1)
+                self.assertIn("context registry validation failed", failures[0])
+                self.assertIn(error, failures[0])
+                self.assertEqual(warnings, [])
+
     def test_current_audit_handoff_state_is_coherent(self):
         current_audit = (ROOT / "framework/logs/CURRENT_AUDIT.md").read_text(
             encoding="utf-8"
@@ -147,7 +506,9 @@ class GitHubIssueLinkTests(unittest.TestCase):
         agent_rules = (ROOT / "framework/AGENT_OPERATING_RULES.md").read_text(
             encoding="utf-8"
         )
-        framework = (ROOT / "framework/FRAMEWORK.md").read_text(encoding="utf-8")
+        handoff_rules = (
+            ROOT / "framework/agent-rules/handoff.md"
+        ).read_text(encoding="utf-8")
         elim = (ROOT / "framework/agents/ELIM.md").read_text(encoding="utf-8")
         coordinator = (ROOT / "framework/agents/RUN_COORDINATOR_BOT.md").read_text(
             encoding="utf-8"
@@ -161,9 +522,19 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertIn("records continuation state only", current_audit)
         self.assertIn("It is not evidence that an agent", current_audit)
         self.assertIn("This file is not a completion ledger.", current_audit)
-        self.assertIn("Successful task closeout requires", agent_rules)
-        self.assertIn("none establishes runtime liveness", agent_rules)
-        self.assertIn("Do not mark the handoff `Inactive`", framework)
+        self.assertIn("## Context Handoff", agent_rules)
+        self.assertIn(
+            "[`handoff.md`](agent-rules/handoff.md#context-handoff)",
+            agent_rules,
+        )
+        self.assertIn("Successful task closeout requires", handoff_rules)
+        self.assertIn("none establishes runtime liveness", handoff_rules)
+        self.assertIn(
+            "A required commit, push, review or merge, synchronization, publication, "
+            "validation, or human-reserved decision that remains part of the same task "
+            "means the task is not complete",
+            handoff_rules,
+        )
         self.assertIn("continuation state, not proof", elim)
         self.assertIn("identifies unfinished continuation state only", coordinator)
         self.assertIn("A successfully completed task requires an `Inactive` handoff", coordinator)

@@ -28,9 +28,17 @@ from typing import Any, Callable
 try:
     from arrp_context import ContextError, contained_path
     from elim_execution import validate_work_unit
+    from record_review_epoch import (
+        validate as validate_review_epoch,
+        validate_finding_continuity,
+    )
 except ModuleNotFoundError:  # Imported as scripts.run_chain_dispatcher.
     from scripts.arrp_context import ContextError, contained_path
     from scripts.elim_execution import validate_work_unit
+    from scripts.record_review_epoch import (
+        validate as validate_review_epoch,
+        validate_finding_continuity,
+    )
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -1020,6 +1028,7 @@ def refinalize(
 def elim_prompt(manifest: Path, payload: dict[str, Any]) -> str:
     profile = payload["elim_decision"]["profile"]
     monitor = (payload.get("usage") or {}).get("host_monitor") or {}
+    context_packet = (payload.get("context_packet") or {}).get("local_path")
     mode = (
         "Conduct the due comprehensive full-context review and establish the next review epoch."
         if profile["full_context"]
@@ -1042,8 +1051,9 @@ def elim_prompt(manifest: Path, payload: dict[str, Any]) -> str:
         "validate the structured result and run scripts/record_intake_review.py against the "
         "pinned work queue before the final commit so the submission is not reviewed again. "
         "For a completed comprehensive review, prepare the complete Review Epoch record and run "
-        "scripts/record_review_epoch.py before the final commit; set triggering_run_id to the "
-        f"current chain ID {payload.get('chain_id')}."
+        "scripts/record_review_epoch.py before the final commit, passing the reviewed packet with "
+        f"--context-packet {context_packet}; set triggering_run_id to the current chain ID "
+        f"{payload.get('chain_id')}."
     )
 
 
@@ -1221,14 +1231,73 @@ def enforce_trigger_launch_boundary(payload: dict[str, Any]) -> dict[str, Any]:
     return payload
 
 
-def comprehensive_epoch_recorded(repo: Path, chain_id: str) -> bool:
+def comprehensive_epoch_recorded(
+    repo: Path,
+    chain_id: str,
+    context_packet_path: Path | None,
+) -> bool:
     ledger = repo / "research" / "review-epochs.jsonl"
-    if not ledger.is_file():
+    if not ledger.is_file() or context_packet_path is None:
         return False
-    rows = [line for line in ledger.read_text(encoding="utf-8").splitlines() if line.strip()]
-    if not rows:
+    try:
+        rows = [
+            line
+            for line in ledger.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        if not rows:
+            return False
+        persisted = json.loads(rows[-1])
+        if not isinstance(persisted, dict):
+            return False
+        if persisted.get("schema_version") != 1:
+            return False
+        if persisted.get("triggering_run_id") != chain_id:
+            return False
+        recorded_digest = persisted.get("record_sha256")
+        if not isinstance(recorded_digest, str) or not recorded_digest.startswith(
+            "sha256:"
+        ):
+            return False
+        unsigned = {
+            key: value
+            for key, value in persisted.items()
+            if key != "record_sha256"
+        }
+        actual_digest = "sha256:" + hashlib.sha256(
+            json.dumps(
+                unsigned,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode()
+        ).hexdigest()
+        if not secrets.compare_digest(recorded_digest, actual_digest):
+            return False
+        recorder_input = {
+            key: value
+            for key, value in unsigned.items()
+            if key != "schema_version"
+        }
+        packet_path = contained_path(context_packet_path, repo)
+        packet = json.loads(packet_path.read_text(encoding="utf-8"))
+        validate_review_epoch(
+            recorder_input,
+            manifest_path=repo / "framework" / "context-routes.json",
+            context_packet=packet,
+            root=repo,
+        )
+        prior = json.loads(rows[-2]) if len(rows) > 1 else None
+        validate_finding_continuity(prior, recorder_input)
+    except (
+        ContextError,
+        KeyError,
+        OSError,
+        TypeError,
+        ValueError,
+        json.JSONDecodeError,
+    ):
         return False
-    return json.loads(rows[-1]).get("triggering_run_id") == chain_id
+    return True
 
 
 def record_elim_runtime(
@@ -1479,7 +1548,13 @@ def main() -> int:
             outcome == 0
             and semantic_closeout_complete
             and payload["elim_decision"]["profile"]["full_context"]
-            and not comprehensive_epoch_recorded(repo, payload["chain_id"])
+            and not comprehensive_epoch_recorded(
+                repo,
+                payload["chain_id"],
+                Path((payload.get("context_packet") or {}).get("local_path"))
+                if (payload.get("context_packet") or {}).get("local_path")
+                else None,
+            )
         ):
             outcome = 4
             epoch_closeout_missing = True

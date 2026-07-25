@@ -34,8 +34,27 @@ The bot reads `inventory/presidential-directives.csv`, its accepted fingerprints
 
 ## Publication and review
 
-Material changes are committed only to the dedicated `automation/presidential-directives-monitor` proposal branch and presented through an owner-assigned pull request. The branch is not a shared substantive branch. No-change runs create no commit, and every proposed registry change requires human review before merge.
+Material changes are committed only to the dedicated
+`automation/presidential-directives-monitor` proposal branch and presented
+through an owner-assigned pull request. The branch is not a shared substantive
+branch. The pull request must itemize each affected directive by its stable
+registry identity, the observed fingerprint, `Last Changed`, or other
+authorized metadata delta, and the originating Actions run. It is the
+unresolved human-review task, and merging it accepts the proposed registry
+baseline and other itemized changes. No-change runs create no commit, and
+every proposed registry change requires human review before merge.
 
 ## Validation, stop, and output
 
-Before publication, the bot validates the configured administration coverage, Federal Register host and response structure, document identity, pagination bounds, fingerprints, last-changed values, and its authorized file boundary. Missing or malformed inputs, provider/schema failure, identity ambiguity, boundary violations, commit/push failure, or validation failure stop the run without publishing a misleading update. Outputs are the proposed registry delta, immutable structured stage and source-domain events, Actions summary, and retained diagnostic artifact. Workflow failures enter the Run Coordinator failure state and notification path; routed content changes rely on the assigned pull request.
+Before publication, the bot validates the configured administration coverage,
+Federal Register host and response structure, document identity, pagination
+bounds, fingerprints, last-changed values, and its authorized file boundary.
+Missing or malformed inputs, provider/schema failure, identity ambiguity,
+boundary violations, commit/push failure, or validation failure stop the run
+without publishing a misleading update. Every run reports new, changed,
+unchanged, and not-seen registry records in the Actions summary and retained
+diagnostic artifact. Outputs are the proposed registry delta, immutable
+structured stage and source-domain events, Actions summary, and retained
+diagnostic artifact. Workflow failures enter the Run Coordinator failure state
+and notification path; routed content changes rely on the assigned pull
+request.

@@ -6,6 +6,32 @@ print_exclusion_reason: "Online technical or workflow documentation."
 
 # Remedy Framework
 
+This file is the authoritative detailed statement of ARRP remedy selection, repair and prevention, constitutional-amendment treatment, shared remedy categories, and institutional-failure triggers. Load it whenever an issue is being admitted, developed, audited for remedy fit, or materially revised in a way that could affect its diagnosis, remedy, vehicle, safeguards, or implementation.
+
+## Least-Complex Adequate Remedy
+
+The Least-Complex Adequate Remedy is mandatory in every developed issue and functions as the project’s provisional preferred remedy.
+
+Complexity should be assessed by legal difficulty, administrative burden, implementation speed, enforceability, durability, cost, and need for constitutional change. Simplicity is not sufficient where the simpler measure would be ineffective, temporary, unenforceable, or easily evaded.
+
+The main text need not catalogue every conceivable remedy. It should identify the least-complex adequate measure or package and explain why it is adequate. Annotation should briefly note materially simpler but insufficient options and more complex fallback options that may be necessary for completeness, durability, or constitutional reasons.
+
+Adequacy should be evaluated against the remedy’s proper function. Where prevention is feasible, the remedy should prevent. Where necessary discretion or constitutional structure makes complete prevention impracticable, adequacy may instead require reliable detection, evidence preservation, independent review, mandatory reporting, correction, discipline, compensation, legislative response, or another credible self-corrective mechanism.
+
+The assessment remains provisional rather than irrevocable and may be revised as the record develops.
+
+## Repair and Prevention
+
+Every issue must consider both repair and prevention. Some issues may require restoration, investigation, disclosure, recovery, correction of the public record, rebuilding of capacity, or compensation. Prevention may require substantive legal limits, structural independence, professional safeguards, oversight, enforcement, transparency, procedural reform, or constitutional change.
+
+The distinction is mandatory to consider but need not receive equal prose where one side is not materially relevant. Issues should also identify whether the proposed safeguard primarily prevents, detects, corrects, deters, or contains institutional abuse.
+
+## Constitutional Amendments
+
+Constitutional amendments are within scope and must not be excluded. Adequate non-amendment remedies should generally receive greater emphasis because Article V is unusually difficult and slow. Amendment options must nevertheless be preserved where lesser measures cannot lawfully, completely, or durably solve the problem.
+
+## Remedy Taxonomy
+
 | Level | Remedy Category | Typical Examples | Default Emphasis | Framework Rule |
 |---|---|---|---|---|
 | 1 | Executive action | Directives, executive-branch practice, voluntary compliance measures | High where lawful and durable | Consider first, but do not rely on voluntary restraint where enforceable safeguards are needed. |
@@ -22,6 +48,12 @@ print_exclusion_reason: "Online technical or workflow documentation."
 For Level 6 remedies involving alleged executive displacement, suspension, nullification, or evasion of enacted federal commands, apply the [General Anti-Nullification Review Framework](INTERBRANCH_REVIEW_FRAMEWORK.md) and record the result in the [Coverage and Independent Alternatives Matrix](INTERBRANCH_REVIEW_COVERAGE_MATRIX.md). Urgency, national uniformity, political inhibition, or possible benefit from specialized administration does not independently establish JUD-011 civil coverage. When the test is met, JUD-011 alone supplies the preferred general cause and remedial apparatus; the issue must also provide a separate standalone alternative with its own complete substantive, procedural, remedial, administrative, and funding structure. A different function supported by independent constitutional authority may reuse JUD-011's roster and nondecisional infrastructure only through an express later Act, separate jurisdiction and decisional firewalls, and a fully independent alternative.
 
 ## Trigger Stages
+
+A constitutional system should not permit persistent failure of essential governing processes to continue indefinitely without changing the legal allocation of power.
+
+Trigger mechanisms are a limited, cross-cutting remedial tool. They may include mandatory notice, fixed deadlines, compulsory votes, expiration of temporary authority, caretaker succession, expedited review, temporary contraction of discretionary authority, or constitutional mechanisms for extraordinary cumulative failure.
+
+Triggers are not a universal solution and do not organize or subsume the rest of the project. Apply them only where persistent institutional failure can be addressed through objective, measurable, proportionate, manipulation-resistant escalation or reallocation mechanisms. Many issues will instead require substantive limits, structural independence, disclosure, professional safeguards, enforcement, oversight, funding reform, or constitutional change.
 
 | Trigger Stage | Illustrative Consequence | Typical Threshold | Safeguard | Notes |
 |---|---|---|---|---|

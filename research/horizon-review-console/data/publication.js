@@ -7209,6 +7209,46 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 35
     },
     {
+      "title": "ARRP Adoption and Enactment Pathway Analysis",
+      "path": "framework/scoring/ADOPTION_AND_PATHWAY.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/scoring/ADOPTION_AND_PATHWAY.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/scoring-arrp adoption and enactment pathway analysis",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/AUDIT_CORE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/VERIFICATION_PROTOCOL.md",
+          "exists": true
+        },
+        {
+          "path": "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
+          "exists": true
+        }
+      ],
+      "word_count": 2898,
+      "estimated_pages": 5,
+      "table_count": 6,
+      "max_table_columns": 3,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 44
+    },
+    {
       "title": "ARRP Agent Audit Log",
       "path": "framework/logs/AGENT_AUDIT_LOG.md",
       "section": "Framework and process",
@@ -7601,28 +7641,48 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/logs/AGENT_AUDIT_LOG.md",
+          "path": "framework/agent-rules/issue-and-candidate-work.md",
           "exists": true
         },
         {
-          "path": "framework/logs/CURRENT_AUDIT.md",
+          "path": "framework/agent-rules/autonomous-execution.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agent-rules/context-and-research.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agent-rules/handoff.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agent-rules/audit-execution.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agent-rules/validation-and-closeout.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agent-rules/provenance-and-logging.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agent-rules/multi-agent.md",
           "exists": true
         },
         {
           "path": "framework/agents/README.md",
           "exists": true
-        },
-        {
-          "path": "framework/logs/HORIZON_SCAN_LOG.md",
-          "exists": true
         }
       ],
-      "word_count": 7602,
-      "estimated_pages": 12,
-      "table_count": 0,
-      "max_table_columns": 0,
+      "word_count": 1594,
+      "estimated_pages": 3,
+      "table_count": 1,
+      "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 37
+      "longest_unbroken_token": 32
     },
     {
       "title": "ARRP Agent and Bot Registry",
@@ -7685,6 +7745,633 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 51
     },
     {
+      "title": "ARRP Audit Core",
+      "path": "framework/audits/AUDIT_CORE.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/audits/AUDIT_CORE.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/audits-arrp audit core",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/AGENT_OPERATING_RULES.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/REMEDY_FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PRINT_ASSEMBLY.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/TIERED_AUDITS.md",
+          "exists": true
+        }
+      ],
+      "word_count": 3985,
+      "estimated_pages": 7,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 37
+    },
+    {
+      "title": "ARRP Change Audits",
+      "path": "framework/audits/CHANGE_AUDITS.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/audits/CHANGE_AUDITS.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/audits-arrp change audits",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/AUDIT_CORE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/PROJECT_CONSISTENCY_AUDITS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/REMEDY_FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PRINT_ASSEMBLY.md",
+          "exists": true
+        }
+      ],
+      "word_count": 2356,
+      "estimated_pages": 4,
+      "table_count": 4,
+      "max_table_columns": 3,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 31
+    },
+    {
+      "title": "ARRP External and International Review",
+      "path": "framework/scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/scoring-arrp external and international review",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/AUDIT_CORE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/VERIFICATION_PROTOCOL.md",
+          "exists": true
+        },
+        {
+          "path": "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1117,
+      "estimated_pages": 2,
+      "table_count": 3,
+      "max_table_columns": 2,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 32
+    },
+    {
+      "title": "ARRP Hallucination-Resistance and Verification Protocol",
+      "path": "framework/audits/VERIFICATION_PROTOCOL.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/audits/VERIFICATION_PROTOCOL.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/audits-arrp hallucination-resistance and verification protocol",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/AUDIT_CORE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/TIERED_AUDITS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1338,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 25
+    },
+    {
+      "title": "ARRP Legal and Prior-Proposal Review",
+      "path": "framework/audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/audits-arrp legal and prior-proposal review",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/AUDIT_CORE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/VERIFICATION_PROTOCOL.md",
+          "exists": true
+        },
+        {
+          "path": "framework/REMEDY_FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/TIERED_AUDITS.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1306,
+      "estimated_pages": 3,
+      "table_count": 1,
+      "max_table_columns": 2,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 21
+    },
+    {
+      "title": "ARRP Project Consistency Audits",
+      "path": "framework/audits/PROJECT_CONSISTENCY_AUDITS.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/audits/PROJECT_CONSISTENCY_AUDITS.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/audits-arrp project consistency audits",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/AUDIT_CORE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/CHANGE_AUDITS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/logs/PROJECT_INTEGRITY_REPORT.md",
+          "exists": true
+        }
+      ],
+      "word_count": 825,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 36
+    },
+    {
+      "title": "ARRP Proposal Quality and Rubric Governance",
+      "path": "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/scoring-arrp proposal quality and rubric governance",
+      "internal_links": [
+        {
+          "path": "framework/lifecycle/foundation-and-development-gates.md",
+          "exists": true
+        },
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/AUDIT_CORE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/TIERED_AUDITS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/VERIFICATION_PROTOCOL.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/CHANGE_AUDITS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        }
+      ],
+      "word_count": 2033,
+      "estimated_pages": 4,
+      "table_count": 5,
+      "max_table_columns": 3,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 24
+    },
+    {
+      "title": "ARRP Tiered Audit and Formatting Requirements",
+      "path": "framework/audits/TIERED_AUDITS.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/audits/TIERED_AUDITS.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/audits-arrp tiered audit and formatting requirements",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/AUDIT_CORE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
+          "exists": true
+        }
+      ],
+      "word_count": 3684,
+      "estimated_pages": 6,
+      "table_count": 1,
+      "max_table_columns": 4,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 31
+    },
+    {
+      "title": "Agent Rules — Audit Execution",
+      "path": "framework/agent-rules/audit-execution.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agent-rules/audit-execution.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/agent-rules-agent rules — audit execution",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/TIERED_AUDITS.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1354,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 36
+    },
+    {
+      "title": "Agent Rules — Autonomous and Scheduled Execution",
+      "path": "framework/agent-rules/autonomous-execution.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agent-rules/autonomous-execution.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/agent-rules-agent rules — autonomous and scheduled execution",
+      "internal_links": [
+        {
+          "path": "framework/AGENT_OPERATING_RULES.md",
+          "exists": true
+        },
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/logs/HORIZON_SCAN_LOG.md",
+          "exists": true
+        },
+        {
+          "path": "framework/logs/AGENT_AUDIT_LOG.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agent-rules/audit-execution.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agent-rules/issue-and-candidate-work.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1857,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 31
+    },
+    {
+      "title": "Agent Rules — Context Handoff",
+      "path": "framework/agent-rules/handoff.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agent-rules/handoff.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/agent-rules-agent rules — context handoff",
+      "internal_links": [
+        {
+          "path": "framework/logs/CURRENT_AUDIT.md",
+          "exists": true
+        }
+      ],
+      "word_count": 599,
+      "estimated_pages": 1,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 21
+    },
+    {
+      "title": "Agent Rules — Context and Research",
+      "path": "framework/agent-rules/context-and-research.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agent-rules/context-and-research.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/agent-rules-agent rules — context and research",
+      "internal_links": [
+        {
+          "path": "framework/AGENT_OPERATING_RULES.md",
+          "exists": true
+        },
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        }
+      ],
+      "word_count": 254,
+      "estimated_pages": 1,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 28
+    },
+    {
+      "title": "Agent Rules — Issue and Candidate Work",
+      "path": "framework/agent-rules/issue-and-candidate-work.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agent-rules/issue-and-candidate-work.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/agent-rules-agent rules — issue and candidate work",
+      "internal_links": [
+        {
+          "path": "framework/AGENT_OPERATING_RULES.md",
+          "exists": true
+        },
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1989,
+      "estimated_pages": 4,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 28
+    },
+    {
+      "title": "Agent Rules — Multi-Agent Work",
+      "path": "framework/agent-rules/multi-agent.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agent-rules/multi-agent.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/agent-rules-agent rules — multi-agent work",
+      "internal_links": [],
+      "word_count": 252,
+      "estimated_pages": 1,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 24
+    },
+    {
+      "title": "Agent Rules — Provenance and Logging",
+      "path": "framework/agent-rules/provenance-and-logging.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agent-rules/provenance-and-logging.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/agent-rules-agent rules — provenance and logging",
+      "internal_links": [
+        {
+          "path": "framework/logs/AGENT_AUDIT_LOG.md",
+          "exists": true
+        },
+        {
+          "path": "framework/logs/CURRENT_AUDIT.md",
+          "exists": true
+        }
+      ],
+      "word_count": 724,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 22
+    },
+    {
+      "title": "Agent Rules — Validation and Closeout",
+      "path": "framework/agent-rules/validation-and-closeout.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agent-rules/validation-and-closeout.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/agent-rules-agent rules — validation and closeout",
+      "internal_links": [
+        {
+          "path": "framework/logs/CURRENT_AUDIT.md",
+          "exists": true
+        },
+        {
+          "path": "framework/logs/AGENT_AUDIT_LOG.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agent-rules/handoff.md",
+          "exists": true
+        }
+      ],
+      "word_count": 771,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 37
+    },
+    {
       "title": "American Restoration and Resilience Project — Framework and Methodology",
       "path": "framework/FRAMEWORK.md",
       "section": "Framework and process",
@@ -7725,52 +8412,240 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/CONTEXT_ROUTING.md",
+          "exists": true
+        },
+        {
           "path": "framework/REMEDY_FRAMEWORK.md",
           "exists": true
         },
         {
-          "path": "topics/project-2025.md",
+          "path": "framework/PUBLIC_RELEASE.md",
           "exists": true
         },
         {
-          "path": "SUBJECT_INDEX.md",
+          "path": "framework/methodology/scope-and-admission.md",
           "exists": true
         },
         {
-          "path": "framework/logs/HORIZON_SCAN_LOG.md",
+          "path": "framework/methodology/neutrality-and-language.md",
           "exists": true
         },
         {
-          "path": "areas/README.md",
+          "path": "framework/methodology/partisan-perception-and-public-actors.md",
           "exists": true
         },
         {
-          "path": "framework/templates/TOPIC_PAGE_TEMPLATE.md",
+          "path": "framework/issues/issue-architecture.md",
           "exists": true
         },
         {
-          "path": "topics/README.md",
+          "path": "framework/evidence/annotation-and-source-standards.md",
           "exists": true
         },
         {
-          "path": "framework/templates/ISSUE_EVIDENCE_TEMPLATE.md",
+          "path": "framework/evidence/evidence-records.md",
           "exists": true
         },
         {
-          "path": "framework/logs/SOURCE_MONITOR_LOG.md",
+          "path": "framework/INTERBRANCH_REVIEW_FRAMEWORK.md",
           "exists": true
         },
         {
-          "path": "framework/logs/PROJECT_INTEGRITY_REPORT.md",
+          "path": "framework/INTERBRANCH_REVIEW_COVERAGE_MATRIX.md",
+          "exists": true
+        },
+        {
+          "path": "framework/lifecycle/development-levels.md",
+          "exists": true
+        },
+        {
+          "path": "framework/lifecycle/foundation-and-development-gates.md",
+          "exists": true
+        },
+        {
+          "path": "framework/operations/issue-development-check.md",
+          "exists": true
+        },
+        {
+          "path": "framework/operations/project-update-checklist.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/source-catalogs.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/project-monitoring.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/automated-source-adjudication.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/presidential-directives.md",
+          "exists": true
+        },
+        {
+          "path": "framework/candidates/horizon-scanning.md",
+          "exists": true
+        },
+        {
+          "path": "framework/candidates/candidate-adjudication.md",
+          "exists": true
+        },
+        {
+          "path": "framework/navigation/inventory-and-indexes.md",
+          "exists": true
+        },
+        {
+          "path": "framework/navigation/topic-guides.md",
+          "exists": true
+        },
+        {
+          "path": "framework/navigation/navigation-synchronization.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/AUDIT_CORE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/TIERED_AUDITS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/CHANGE_AUDITS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/PROJECT_CONSISTENCY_AUDITS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/VERIFICATION_PROTOCOL.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
+          "exists": true
+        },
+        {
+          "path": "framework/scoring/ADOPTION_AND_PATHWAY.md",
+          "exists": true
+        },
+        {
+          "path": "framework/scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PROJECT_INTERFACE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PROJECT_CONSOLE_PROGRESS.md",
           "exists": true
         }
       ],
-      "word_count": 40545,
-      "estimated_pages": 63,
-      "table_count": 22,
-      "max_table_columns": 4,
+      "word_count": 3307,
+      "estimated_pages": 6,
+      "table_count": 5,
+      "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 80
+      "longest_unbroken_token": 57
+    },
+    {
+      "title": "Annotation, Claims, and Source Standards",
+      "path": "framework/evidence/annotation-and-source-standards.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/evidence/annotation-and-source-standards.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/evidence-annotation, claims, and source standards",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/neutrality-and-language.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/source-catalogs.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/AUDIT_CORE.md",
+          "exists": true
+        }
+      ],
+      "word_count": 666,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 45
+    },
+    {
+      "title": "Automated Source Adjudication",
+      "path": "framework/sources/automated-source-adjudication.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/sources/automated-source-adjudication.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/sources-automated source adjudication",
+      "internal_links": [
+        {
+          "path": "framework/sources/source-catalogs.md",
+          "exists": true
+        },
+        {
+          "path": "framework/evidence/evidence-records.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/scope-and-admission.md",
+          "exists": true
+        },
+        {
+          "path": "framework/candidates/candidate-adjudication.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/CHANGE_AUDITS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PROJECT_INTERFACE.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1347,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 43
     },
     {
       "title": "Case Monitor Bot Runbook",
@@ -7788,7 +8663,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-case monitor bot runbook",
       "internal_links": [],
-      "word_count": 705,
+      "word_count": 1010,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7843,12 +8718,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 607,
-      "estimated_pages": 1,
+      "word_count": 884,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 35
+      "longest_unbroken_token": 37
     },
     {
       "title": "Current Project Integrity Report",
@@ -7877,6 +8752,50 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 13
+    },
+    {
+      "title": "Development Levels and Lifecycle",
+      "path": "framework/lifecycle/development-levels.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/lifecycle/development-levels.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/lifecycle-development levels and lifecycle",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/lifecycle/foundation-and-development-gates.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/scope-and-admission.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/candidates/candidate-adjudication.md",
+          "exists": true
+        }
+      ],
+      "word_count": 857,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 42
     },
     {
       "title": "Elim Run Log",
@@ -7993,9 +8912,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/INTAKE_AGENT_PROCESS.md",
           "exists": true
+        },
+        {
+          "path": "framework/agent-rules/autonomous-execution.md",
+          "exists": true
         }
       ],
-      "word_count": 4237,
+      "word_count": 4289,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8091,12 +9014,100 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4007,
+      "word_count": 4068,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 42
+    },
+    {
+      "title": "Governing Context Routing",
+      "path": "framework/CONTEXT_ROUTING.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/CONTEXT_ROUTING.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework-governing context routing",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/AGENT_OPERATING_RULES.md",
+          "exists": true
+        },
+        {
+          "path": "framework/logs/CURRENT_AUDIT.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1440,
+      "estimated_pages": 3,
+      "table_count": 1,
+      "max_table_columns": 2,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 29
+    },
+    {
+      "title": "Horizon Candidate Adjudication",
+      "path": "framework/candidates/candidate-adjudication.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/candidates/candidate-adjudication.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/candidates-horizon candidate adjudication",
+      "internal_links": [
+        {
+          "path": "framework/methodology/scope-and-admission.md",
+          "exists": true
+        },
+        {
+          "path": "framework/lifecycle/development-levels.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/source-catalogs.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/navigation/navigation-synchronization.md",
+          "exists": true
+        },
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/logs/HORIZON_SCAN_LOG.md",
+          "exists": true
+        }
+      ],
+      "word_count": 945,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 47
     },
     {
       "title": "Horizon Scan Log",
@@ -8311,6 +9322,138 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 34
     },
     {
+      "title": "Horizon Scanning",
+      "path": "framework/candidates/horizon-scanning.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/candidates/horizon-scanning.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/candidates-horizon scanning",
+      "internal_links": [
+        {
+          "path": "framework/methodology/scope-and-admission.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/partisan-perception-and-public-actors.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/automated-source-adjudication.md",
+          "exists": true
+        },
+        {
+          "path": "framework/candidates/candidate-adjudication.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/logs/HORIZON_SCAN_LOG.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1010,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 83
+    },
+    {
+      "title": "Human-Governed Foundation and Development Gates",
+      "path": "framework/lifecycle/foundation-and-development-gates.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/lifecycle/foundation-and-development-gates.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/lifecycle-human-governed foundation and development gates",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/scope-and-admission.md",
+          "exists": true
+        },
+        {
+          "path": "framework/issues/issue-architecture.md",
+          "exists": true
+        },
+        {
+          "path": "framework/REMEDY_FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/TIERED_AUDITS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1641,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 42
+    },
+    {
+      "title": "Institutional Scope and Issue Admission",
+      "path": "framework/methodology/scope-and-admission.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/methodology/scope-and-admission.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/methodology-institutional scope and issue admission",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/neutrality-and-language.md",
+          "exists": true
+        },
+        {
+          "path": "framework/lifecycle/foundation-and-development-gates.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1090,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 53
+    },
+    {
       "title": "Interbranch Review Coverage and Independent Alternatives Matrix",
       "path": "framework/INTERBRANCH_REVIEW_COVERAGE_MATRIX.md",
       "section": "Framework and process",
@@ -8419,6 +9562,98 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 33
     },
     {
+      "title": "Issue Evidence and Source-Development Records",
+      "path": "framework/evidence/evidence-records.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/evidence/evidence-records.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/evidence-issue evidence and source-development records",
+      "internal_links": [
+        {
+          "path": "framework/evidence/annotation-and-source-standards.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/source-catalogs.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/project-monitoring.md",
+          "exists": true
+        },
+        {
+          "path": "framework/issues/issue-architecture.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PROJECT_STRUCTURE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/templates/ISSUE_EVIDENCE_TEMPLATE.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1311,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 65
+    },
+    {
+      "title": "Issue and Project-Wide Monitoring",
+      "path": "framework/sources/project-monitoring.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/sources/project-monitoring.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/sources-issue and project-wide monitoring",
+      "internal_links": [
+        {
+          "path": "framework/sources/source-catalogs.md",
+          "exists": true
+        },
+        {
+          "path": "framework/evidence/evidence-records.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agents/CASE_MONITOR_BOT.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PROJECT_CONSOLE_PROGRESS.md",
+          "exists": true
+        }
+      ],
+      "word_count": 673,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 36
+    },
+    {
       "title": "Issue title",
       "path": "framework/templates/SOURCE_DEVELOPMENT_STUB_TEMPLATE.md",
       "section": "Framework and process",
@@ -8442,6 +9677,190 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 45
     },
     {
+      "title": "Issue-Development Lifecycle Check",
+      "path": "framework/operations/issue-development-check.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/operations/issue-development-check.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/operations-issue-development lifecycle check",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/lifecycle/development-levels.md",
+          "exists": true
+        },
+        {
+          "path": "framework/lifecycle/foundation-and-development-gates.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/AGENT_OPERATING_RULES.md",
+          "exists": true
+        }
+      ],
+      "word_count": 273,
+      "estimated_pages": 1,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 53
+    },
+    {
+      "title": "Issue-Page Architecture and Concision",
+      "path": "framework/issues/issue-architecture.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/issues/issue-architecture.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/issues-issue-page architecture and concision",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/scope-and-admission.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/neutrality-and-language.md",
+          "exists": true
+        },
+        {
+          "path": "framework/evidence/annotation-and-source-standards.md",
+          "exists": true
+        },
+        {
+          "path": "framework/REMEDY_FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/INTERBRANCH_REVIEW_FRAMEWORK.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1607,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 50
+    },
+    {
+      "title": "Navigation Synchronization",
+      "path": "framework/navigation/navigation-synchronization.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/navigation/navigation-synchronization.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/navigation-navigation synchronization",
+      "internal_links": [
+        {
+          "path": "framework/navigation/inventory-and-indexes.md",
+          "exists": true
+        },
+        {
+          "path": "framework/navigation/topic-guides.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "README.md",
+          "exists": true
+        },
+        {
+          "path": "areas/README.md",
+          "exists": true
+        },
+        {
+          "path": "SUBJECT_INDEX.md",
+          "exists": true
+        },
+        {
+          "path": "topics/README.md",
+          "exists": true
+        }
+      ],
+      "word_count": 404,
+      "estimated_pages": 1,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 46
+    },
+    {
+      "title": "Neutral Characterization and Reader-Facing Language",
+      "path": "framework/methodology/neutrality-and-language.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/methodology/neutrality-and-language.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/methodology-neutral characterization and reader-facing language",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/scope-and-admission.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/partisan-perception-and-public-actors.md",
+          "exists": true
+        },
+        {
+          "path": "framework/evidence/annotation-and-source-standards.md",
+          "exists": true
+        }
+      ],
+      "word_count": 740,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 50
+    },
+    {
       "title": "Presidential Directives Bot Runbook",
       "path": "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
       "section": "Framework and process",
@@ -8457,12 +9876,56 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-presidential directives bot runbook",
       "internal_links": [],
-      "word_count": 400,
+      "word_count": 466,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 45
+    },
+    {
+      "title": "Presidential-Directive Completeness and Review",
+      "path": "framework/sources/presidential-directives.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/sources/presidential-directives.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/sources-presidential-directive completeness and review",
+      "internal_links": [
+        {
+          "path": "framework/sources/source-catalogs.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/automated-source-adjudication.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/scope-and-admission.md",
+          "exists": true
+        },
+        {
+          "path": "framework/evidence/evidence-records.md",
+          "exists": true
+        },
+        {
+          "path": "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
+          "exists": true
+        }
+      ],
+      "word_count": 912,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 47
     },
     {
       "title": "Print Assembly Framework",
@@ -8582,6 +10045,154 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 42
     },
     {
+      "title": "Project Inventory, Area Lists, and Cross-References",
+      "path": "framework/navigation/inventory-and-indexes.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/navigation/inventory-and-indexes.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/navigation-project inventory, area lists, and cross-references",
+      "internal_links": [
+        {
+          "path": "framework/PROJECT_STRUCTURE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/lifecycle/development-levels.md",
+          "exists": true
+        },
+        {
+          "path": "framework/navigation/navigation-synchronization.md",
+          "exists": true
+        },
+        {
+          "path": "SUBJECT_INDEX.md",
+          "exists": true
+        },
+        {
+          "path": "framework/navigation/topic-guides.md",
+          "exists": true
+        },
+        {
+          "path": "README.md",
+          "exists": true
+        },
+        {
+          "path": "areas/README.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1246,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 39
+    },
+    {
+      "title": "Project Update Checklist",
+      "path": "framework/operations/project-update-checklist.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/operations/project-update-checklist.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/operations-project update checklist",
+      "internal_links": [
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PROJECT_STRUCTURE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PRINT_ASSEMBLY.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PUBLIC_RELEASE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/audits/CHANGE_AUDITS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/logs/HORIZON_SCAN_LOG.md",
+          "exists": true
+        },
+        {
+          "path": "SUBJECT_INDEX.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1010,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 39
+    },
+    {
+      "title": "Project-Operated Interface Standard",
+      "path": "framework/PROJECT_INTERFACE.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal interface-governance documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/PROJECT_INTERFACE.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework-project-operated interface standard",
+      "internal_links": [
+        {
+          "path": "framework/sources/automated-source-adjudication.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/project-monitoring.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/source-catalogs.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1279,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 45
+    },
+    {
       "title": "Public Release Process",
       "path": "framework/PUBLIC_RELEASE.md",
       "section": "Framework and process",
@@ -8620,6 +10231,50 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 27
+    },
+    {
+      "title": "Public Topic Guide Standard",
+      "path": "framework/navigation/topic-guides.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/navigation/topic-guides.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/navigation-public topic guide standard",
+      "internal_links": [
+        {
+          "path": "framework/navigation/inventory-and-indexes.md",
+          "exists": true
+        },
+        {
+          "path": "framework/navigation/navigation-synchronization.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/neutrality-and-language.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PRINT_ASSEMBLY.md",
+          "exists": true
+        },
+        {
+          "path": "framework/templates/TOPIC_PAGE_TEMPLATE.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1557,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 45
     },
     {
       "title": "Public-Intake Review Process",
@@ -8678,12 +10333,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 568,
-      "estimated_pages": 1,
+      "word_count": 1040,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 5,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 22
+      "longest_unbroken_token": 24
     },
     {
       "title": "Repository Structure",
@@ -8706,6 +10361,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/AGENT_OPERATING_RULES.md",
+          "exists": true
+        },
+        {
+          "path": "framework/CONTEXT_ROUTING.md",
+          "exists": true
+        },
+        {
           "path": "framework/GITHUB_WORKFLOW.md",
           "exists": true
         },
@@ -8714,9 +10377,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1087,
-      "estimated_pages": 2,
-      "table_count": 4,
+      "word_count": 1633,
+      "estimated_pages": 3,
+      "table_count": 5,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 49
@@ -8736,13 +10399,54 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "invalid_print_levels": [],
       "assembly_sections": {},
       "assembly_sort_key": "framework/agents-run coordinator bot runbook",
-      "internal_links": [],
-      "word_count": 1516,
+      "internal_links": [
+        {
+          "path": "framework/agent-rules/autonomous-execution.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1849,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 23
+    },
+    {
+      "title": "Source Catalogs and Monitoring Metadata",
+      "path": "framework/sources/source-catalogs.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/sources/source-catalogs.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/sources-source catalogs and monitoring metadata",
+      "internal_links": [
+        {
+          "path": "framework/evidence/annotation-and-source-standards.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PROJECT_STRUCTURE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/sources/presidential-directives.md",
+          "exists": true
+        }
+      ],
+      "word_count": 954,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 51
     },
     {
       "title": "Source Checker Bot Current Report",
@@ -8812,6 +10516,46 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 6,
       "heading_issue_count": 0,
       "longest_unbroken_token": 64
+    },
+    {
+      "title": "Substantive Positions, Partisan Perception, and Public Actors",
+      "path": "framework/methodology/partisan-perception-and-public-actors.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online technical framework and methodology.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/methodology/partisan-perception-and-public-actors.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/methodology-substantive positions, partisan perception, and public actors",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/neutrality-and-language.md",
+          "exists": true
+        },
+        {
+          "path": "framework/methodology/scope-and-admission.md",
+          "exists": true
+        },
+        {
+          "path": "topics/project-2025.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1346,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 30
     },
     {
       "title": "Topic Page Template",
@@ -10626,7 +12370,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/horizon-review-console-arrp project console",
       "internal_links": [],
-      "word_count": 2814,
+      "word_count": 2839,
       "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,
@@ -13195,7 +14939,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 167,
+      "excluded": 205,
       "unclassified": 0,
       "conflict": 0
     },
@@ -13203,14 +14947,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Internal proposal-review history retained in the GitHub technical record.": 49,
       "Internal source-development record.": 62,
       "Supporting research retained in the GitHub technical record.": 13,
-      "Internal workflow or tool documentation.": 16,
+      "Internal workflow or tool documentation.": 28,
+      "Online technical framework and methodology.": 26,
       "Internal operational log.": 4,
       "Internal automation configuration.": 8,
-      "Online technical framework and methodology.": 1,
       "Internal operational report.": 1,
       "Internal scheduled-agent run history.": 1,
       "Online technical or workflow documentation.": 3,
       "Internal drafting template.": 3,
+      "Internal interface-governance documentation.": 1,
       "Online technical documentation.": 1,
       "Replaceable internal automation report.": 1,
       "Internal planning record.": 1,
