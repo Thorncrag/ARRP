@@ -16,6 +16,7 @@ from scripts.build_horizon_review_console import (
     monitoring_issue_snapshot,
     monitoring_rationale_for_record,
     project_log_views,
+    repository_review_recommendations,
     render_markdown_safe,
     research_for_record,
     run_chain_snapshot,
@@ -375,7 +376,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 25)
+        self.assertEqual(self.console["schema_version"], 26)
         self.assertEqual(
             set(self.console),
             {
@@ -399,6 +400,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 "source_checker",
                 "agent_registry",
                 "project_logs",
+                "repository_review_recommendations",
                 "progress",
                 "horizon_records",
             },
@@ -552,6 +554,24 @@ class HorizonIntakeTest(unittest.TestCase):
                 edition["id"],
             )
         self.assertEqual(self.console["project_logs"], project_log_views())
+        self.assertEqual(
+            self.console["repository_review_recommendations"],
+            repository_review_recommendations(),
+        )
+        self.assertEqual(
+            {
+                (record["pull_request_number"], record["action_owner"])
+                for record in self.console["repository_review_recommendations"]
+            },
+            {(380, "Human"), (381, "Human")},
+        )
+        self.assertTrue(
+            all(
+                len(record["head_revision"]) == 40
+                and record["human_question"] != "None"
+                for record in self.console["repository_review_recommendations"]
+            )
+        )
         self.assertEqual(
             [record["id"] for record in self.console["project_logs"]],
             ["horizon", "elim", "agents", "source-monitor", "changes"],
@@ -1100,11 +1120,11 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
-        self.assertIn("catalog-data.js?v=43", console_html)
-        self.assertIn("data/candidates.js?v=43", console_html)
-        self.assertIn("data/automation.js?v=43", console_html)
-        self.assertIn("app.js?v=43", console_html)
-        self.assertIn("styles.css?v=43", console_html)
+        self.assertIn("catalog-data.js?v=44", console_html)
+        self.assertIn("data/candidates.js?v=44", console_html)
+        self.assertIn("data/automation.js?v=44", console_html)
+        self.assertIn("app.js?v=44", console_html)
+        self.assertIn("styles.css?v=44", console_html)
         for tab in {"overview", "progress", "actions", "candidates", "sources", "integrity", "automation", "logs", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)
@@ -1276,7 +1296,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("queueDirectoryCard", console_app)
         self.assertNotIn("queueDirectoryRow", console_app)
         self.assertIn('queue.count === 0 ? "Empty"', console_app)
-        self.assertIn("OPEN_PULL_REQUESTS_URL", console_app)
+        self.assertNotIn("OPEN_PULL_REQUESTS_URL", console_app)
+        self.assertIn("repository_review_recommendations", console_app)
         self.assertIn('setUpdateBadge("candidate-preliminary-update"', console_app)
         for mixed_view in {"overview", "progress", "publication"}:
             self.assertNotIn(f'id="tab-{mixed_view}-count"', console_html)
@@ -1358,10 +1379,12 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('id="coordinator-resolve-action"', console_html)
         self.assertIn('label: "Integrity decisions requiring you"', console_app)
         self.assertIn('label: "Human decisions"', console_app)
-        self.assertIn('label: "Open pull requests awaiting disposition"', console_app)
+        self.assertIn('label: "Repository review recommendations"', console_app)
         self.assertIn("reviewSignals.pullRequests", console_app)
-        self.assertIn("openPullRequests.map(pullRequestActionLink)", console_app)
-        self.assertIn("Every open repository change requiring review", console_app)
+        self.assertIn("openPullRequests.map(repositoryReviewEntry)", console_app)
+        self.assertIn("GitHub is supporting evidence, not the action queue", console_app)
+        self.assertIn("repositoryHumanActions.length", console_app)
+        self.assertIn("Open recommendation log", console_app)
         self.assertIn('record.workflowStatus === "Human decision needed"', console_app)
         self.assertIn("integrityFindingNeedsHuman", console_app)
         self.assertNotIn('"foundation decision"', console_app)

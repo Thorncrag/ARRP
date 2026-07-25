@@ -77,6 +77,9 @@
   data.source_checker = data.source_checker || {};
   data.run_chain = data.run_chain || {};
   data.agent_registry = Array.isArray(data.agent_registry) ? data.agent_registry : [];
+  data.repository_review_recommendations = Array.isArray(
+    data.repository_review_recommendations
+  ) ? data.repository_review_recommendations : [];
 
   const LAYOUT_STORAGE_KEY = "arrp-project-console-layout-v1";
   const DISCLOSURE_STORAGE_KEY = "arrp-project-console-disclosures-v1";
@@ -108,7 +111,6 @@
   const LIVE_SOURCE_CHECKER_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/source-checker.json";
   const LIVE_RUN_CHAIN_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/run-chain.json";
   const LIVE_PULL_REQUESTS_URL = "https://api.github.com/repos/Thorncrag/ARRP/pulls?state=open&per_page=100";
-  const OPEN_PULL_REQUESTS_URL = "https://github.com/Thorncrag/ARRP/pulls?q=is%3Apr+is%3Aopen";
   const OPENAI_STATUS_URL = "https://status.openai.com/api/v2/status.json";
   const OPENAI_COMPONENTS_URL = "https://status.openai.com/api/v2/components.json";
   const GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/";
@@ -1690,7 +1692,16 @@
     navigateToConsoleTarget(target);
   }
 
-  function actionItemCard({ label, count, detail, target, updateCount = 0, externalUrl = "", items = [] }) {
+  function actionItemCard({
+    label,
+    count,
+    detail,
+    target,
+    updateCount = 0,
+    externalUrl = "",
+    items = [],
+    openLabel = ""
+  }) {
     const card = element("article", `action-item-card${updateCount ? " has-update" : ""}${items.length > 4 ? " dense" : ""}`);
     const identity = `action-${layoutSlug(label)}`;
     card.dataset.layoutId = identity;
@@ -1704,14 +1715,65 @@
       const list = element("ol", "action-item-detail-list");
       items.forEach((item) => {
         const row = element("li");
-        if (item && typeof item === "object" && item.href) row.append(inlineLink(item.label, item.href));
+        if (item && typeof item === "object" && item.kind === "repository-review") {
+          row.className = "repository-review-item";
+          const header = element("div", "repository-review-header");
+          const title = element("strong", "repository-review-title", item.label);
+          const state = element(
+            "span",
+            `badge repository-review-state ${item.tone || ""}`.trim(),
+            item.status
+          );
+          header.append(title, state);
+          row.append(
+            header,
+            element(
+              "p",
+              "repository-review-meta",
+              `${item.owner} · head ${item.headRevision.slice(0, 10)} · ${item.reviewer}`
+            ),
+            element(
+              "p",
+              "repository-review-recommendation",
+              `Recommendation: ${item.recommendation}`
+            ),
+            element("p", "repository-review-rationale", `Why: ${item.rationale}`)
+          );
+          if (item.humanQuestion && item.humanQuestion.toLowerCase() !== "none") {
+            row.append(
+              element(
+                "p",
+                "repository-review-question",
+                `Decision requested: ${item.humanQuestion}`
+              )
+            );
+          }
+          const links = element("div", "repository-review-links");
+          const logLink = element("a", "inline-link", "Open recommendation log →");
+          logLink.href = "#logs:source-monitor";
+          logLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            navigateToConsoleTarget("logs:source-monitor");
+          });
+          links.append(logLink);
+          if (item.evidenceUrl) {
+            links.append(linkButton("View GitHub evidence ↗", item.evidenceUrl, true));
+          }
+          row.append(links);
+        } else if (item && typeof item === "object" && item.href) {
+          row.append(inlineLink(item.label, item.href));
+        }
         else row.textContent = typeof item === "object" ? item.label : item;
         list.append(row);
       });
       card.append(list);
     }
     const actions = element("div", "action-item-links");
-    const open = element("a", "record-link secondary", target.startsWith("http") ? "Open GitHub queue ↗" : "Open full view →");
+    const open = element(
+      "a",
+      "record-link secondary",
+      openLabel || (target.startsWith("http") ? "Open GitHub queue ↗" : "Open full view →")
+    );
     open.href = target.startsWith("http") ? target : `#${target}`;
     if (target.startsWith("http")) {
       open.target = "_blank";
@@ -1962,7 +2024,7 @@
     return { label: `${finding.reference || "Problem"}: ${message}`, href };
   }
 
-  function pullRequestActionLink(pullRequest) {
+  function repositoryReviewEntry(pullRequest) {
     const branch = String(pullRequest.head?.ref || "");
     const kind = branch.startsWith("dependabot/")
       ? "dependency update"
@@ -1971,10 +2033,46 @@
         : branch.startsWith("codex/")
           ? "Codex change"
           : "repository change";
-    const state = pullRequest.draft ? "draft" : kind;
+    const headRevision = String(pullRequest.head?.sha || "");
+    const recommendations = data.repository_review_recommendations
+      .filter((record) => Number(record.pull_request_number) === Number(pullRequest.number))
+      .sort((left, right) => String(right.recorded_at || "").localeCompare(String(left.recorded_at || "")));
+    const exact = recommendations.find((record) => record.head_revision === headRevision);
+    const stale = !exact && recommendations[0];
+    const owner = exact?.action_owner || "Elim";
+    const status = exact
+      ? "Recommendation current"
+      : stale
+        ? "Recommendation stale"
+        : "Awaiting Elim review";
+    const recommendation = exact
+      ? exact.recommendation
+      : stale
+        ? "Elim must reassess the complete current head before any disposition; the earlier recommendation is retained only as history."
+        : "Elim must review the complete pull-request head and record a reasoned disposition before this can become a human action.";
+    const rationale = exact
+      ? exact.rationale
+      : stale
+        ? `The logged recommendation is bound to ${String(stale.head_revision || "").slice(0, 10)}, not the live head.`
+        : "An open pull request is repository evidence, not by itself a decision assigned to the project owner.";
     return {
-      label: `PR #${pullRequest.number}: ${pullRequest.title} — ${state}`,
-      href: pullRequest.html_url
+      kind: "repository-review",
+      label: `PR #${pullRequest.number}: ${pullRequest.title} — ${pullRequest.draft ? "draft" : kind}`,
+      status,
+      tone: exact ? (owner === "Human" ? "warning" : "current") : "stale",
+      owner: owner === "Human" ? "Assigned to you" : owner === "None" ? "No further action" : "Owned by Elim",
+      actionOwner: owner,
+      countsAsHuman: Boolean(exact && owner === "Human"),
+      recommendation,
+      rationale,
+      humanQuestion: exact?.human_question || "None",
+      reviewer: exact
+        ? `${exact.reviewer} · ${exact.recorded_at}`
+        : stale
+          ? `Prior review ${stale.recorded_at}`
+          : "Recommendation not yet recorded",
+      headRevision: headRevision || "unknown",
+      evidenceUrl: pullRequest.html_url
     };
   }
 
@@ -2018,6 +2116,11 @@
     const { integrityHumanFindings, automationActions } = unresolvedAutomationActionItems(problemRecords);
     const pullRequestsKnown = ["current", "stale"].includes(reviewSignals.pullRequestsStatus);
     const openPullRequests = pullRequestsKnown ? reviewSignals.pullRequests : [];
+    const repositoryReviews = openPullRequests.map(repositoryReviewEntry);
+    const repositoryHumanActions = repositoryReviews.filter((item) => item.countsAsHuman);
+    const repositoryElimActions = repositoryReviews.filter(
+      (item) => item.actionOwner === "Elim"
+    );
     return {
       decisionRecords,
       decisions: decisionRecords.length,
@@ -2027,13 +2130,15 @@
       integrityHumanFindings,
       integrityHuman: integrityHumanFindings.length,
       automationActions,
-      openPullRequests,
       pullRequests: openPullRequests.length,
       pullRequestsKnown,
+      repositoryReviews,
+      repositoryHumanActions,
+      repositoryElimActions,
       total: decisionRecords.length
         + data.records.length
         + data.pending_sources.length
-        + openPullRequests.length
+        + repositoryHumanActions.length
         + integrityHumanFindings.length
         + automationActions.length
     };
@@ -2048,16 +2153,20 @@
       integrityHumanFindings,
       integrityHuman,
       automationActions,
-      openPullRequests,
       pullRequests,
       pullRequestsKnown,
+      repositoryReviews,
+      repositoryHumanActions,
+      repositoryElimActions,
       total
     } = actionItemSnapshot();
     const newOrUpdated = preliminary;
     byId("tab-actions-count").textContent = total;
     byId("action-items-note").textContent = total
-      ? `${total} confirmed item${total === 1 ? "" : "s"} awaiting review or a decision, all listed in the queues below; ${newOrUpdated} new or updated.${pullRequestsKnown ? "" : " Live pull-request status is unavailable."}`
-      : "No items currently await review or a decision.";
+      ? `${total} confirmed item${total === 1 ? "" : "s"} assigned to you, all listed below; ${newOrUpdated} new or updated.${repositoryElimActions.length ? ` ${repositoryElimActions.length} repository proposal${repositoryElimActions.length === 1 ? " remains" : "s remain"} with Elim and do not count as your action.` : ""}${pullRequestsKnown ? "" : " Live pull-request status is unavailable."}`
+      : repositoryElimActions.length
+        ? `No confirmed human action is pending; ${repositoryElimActions.length} repository proposal${repositoryElimActions.length === 1 ? " awaits" : "s await"} Elim's recommendation.`
+        : "No items currently await a human review or decision.";
     byId("action-items-grid").replaceChildren(
       actionItemCard({
         label: "Integrity decisions requiring you",
@@ -2093,15 +2202,16 @@
         }))
       }),
       actionItemCard({
-        label: "Open pull requests awaiting disposition",
+        label: "Repository review recommendations",
         count: pullRequestsKnown ? pullRequests : "—",
-        detail: pullRequests
-          ? "Every open repository change requiring review, merge, closure, or another explicit disposition."
+        detail: repositoryReviews.length
+          ? `${repositoryHumanActions.length} assigned to you · ${repositoryElimActions.length} owned by Elim · GitHub is supporting evidence, not the action queue.`
           : pullRequestsKnown
-            ? "No pull request currently awaits disposition."
-            : "Live GitHub pull-request status is unavailable; no zero is inferred.",
-        target: OPEN_PULL_REQUESTS_URL,
-        items: openPullRequests.map(pullRequestActionLink)
+            ? "No open repository proposal currently requires a recommendation."
+            : "Live pull-request state is unavailable; checked-in recommendations are not counted as current without exact-head verification.",
+        target: "logs:source-monitor",
+        openLabel: "Open recommendation log →",
+        items: repositoryReviews
       }),
       actionItemCard({
         label: "Preliminary candidates",
@@ -2124,6 +2234,11 @@
 
   function parseCount(body, label) {
     const match = String(body || "").match(new RegExp(`${label}:\\s*\\*\\*(\\d+)\\*\\*`, "i"));
+    return match ? Number(match[1]) : 0;
+  }
+
+  function completeProposalCount(body) {
+    const match = String(body || "").match(/Affected records\s*\((\d+)\):/i);
     return match ? Number(match[1]) : 0;
   }
 
@@ -2169,21 +2284,22 @@
         reviewSignals.courts.ids = new Set();
       }
       if (directives) {
-        const proposed = parseCount(directives.body, "Added directives")
+        const proposed = completeProposalCount(directives.body)
+          || parseCount(directives.body, "Added directives")
           + parseCount(directives.body, "Changed directives");
         reviewSignals.directives.count = Math.max(reviewSignals.directives.count, proposed || 1);
         reviewSignals.directives.url = directives.html_url || "";
       } else {
         reviewSignals.directives.url = "";
       }
-      byId("action-items-live-note").textContent = "Open pull requests and bot-update counts were refreshed from GitHub. Other counts come from the checked-in Console data.";
+      byId("action-items-live-note").textContent = "Live pull-request heads were refreshed from GitHub and matched against checked-in exact-head recommendations. GitHub remains supporting evidence; Action Items is the disposition queue.";
       renderReviewSignals();
     } catch (_error) {
       reviewSignals.pullRequestsStatus = reviewSignals.pullRequests.length ? "stale" : "unavailable";
       reviewSignals.pullRequestsCheckedAt = new Date().toISOString();
       byId("action-items-live-note").textContent = reviewSignals.pullRequests.length
-        ? "Open pull requests could not be refreshed; the last successful in-session result is shown as stale."
-        : "Open pull requests and live bot-update status could not be refreshed; the Console shows that queue as unavailable rather than zero.";
+        ? "Pull-request heads could not be refreshed; the last successful in-session recommendation match is shown as stale."
+        : "Pull-request heads could not be refreshed, so checked-in recommendations are not counted as current human actions.";
       renderActionItems();
       renderOverview();
     }
@@ -2855,7 +2971,15 @@
       overviewCard("Human actions", snapshot.total, "confirmed decisions, reviews, and dispositions assigned to you", "actions", snapshot.total ? "warning" : ""),
       overviewCard("Integrity findings", problems.length, `${humanProblems} human · ${problems.filter((problem) => problem.attention === "agent").length} agent · ${problems.filter((problem) => problem.attention === "observed").length} observed`, "integrity", problems.some((problem) => problem.severity === "error") ? "error" : ""),
       overviewCard("Monitored issues", data.monitoring_issues.length, "issues with a defined external monitoring predicate", "progress:monitoring"),
-      overviewCard("Open pull requests", pullRequestValue, reviewSignals.pullRequestsStatus === "current" ? `live GitHub check · ${agePosture(reviewSignals.pullRequestsCheckedAt)}` : "live GitHub state is not currently verifiable", OPEN_PULL_REQUESTS_URL, pullRequestTone),
+      overviewCard(
+        "Repository reviews",
+        pullRequestValue,
+        reviewSignals.pullRequestsStatus === "current"
+          ? `${snapshot.repositoryHumanActions.length} yours · ${snapshot.repositoryElimActions.length} Elim · ${agePosture(reviewSignals.pullRequestsCheckedAt)}`
+          : "exact-head recommendation state is not currently verifiable",
+        "actions",
+        pullRequestTone
+      ),
       overviewCard("Public input", intake.available ? intake.count : "Unavailable", `${intake.detail}${intake.checkedAt ? ` · ${agePosture(intake.checkedAt)}` : ""}`, "candidates:preliminary", intake.available && intake.count ? "warning" : intake.available ? "" : "warning"),
       overviewCard("Elim-eligible work", Number.isFinite(workCount) ? workCount : "Unavailable", chain.work_queue?.next_item?.title || "no current work-queue projection", "automation:administration", effectiveRunChainStatus(chain) === "host_pending" ? "warning" : "")
     );
@@ -3107,11 +3231,11 @@
     const intake = publicInputSnapshot(chain);
     const failures = snapshot.automationActions.length;
     const queues = [
-      { label: "Human actions", count: snapshot.total, owner: "You", posture: `${agePosture(data.generated_at)} projection`, target: "actions", detail: "The central human-review inbox: Integrity decisions, automation recovery, human workflow decisions, open pull requests, preliminary candidates, and pending source routing." },
+      { label: "Human actions", count: snapshot.total, owner: "You", posture: `${agePosture(data.generated_at)} projection`, target: "actions", detail: "The central human-review inbox: Integrity decisions, automation recovery, reserved workflow decisions, exact-head repository recommendations assigned to you, preliminary candidates, and pending source routing." },
       { label: "Integrity", count: snapshot.problemRecords.length, owner: "Human + Elim", posture: agePosture(data.integrity?.current?.generated_at), target: "integrity", detail: "Every current project-integrity finding, grouped by owner and attention class." },
       { label: "Preliminary intake", count: data.records.length, owner: "You", posture: agePosture(data.generated_at), target: "candidates:preliminary", detail: "Preliminary candidate questions awaiting a human intake disposition." },
       { label: "Pending source routing", count: data.pending_sources.length, owner: "You", posture: agePosture(data.generated_at), target: "sources:pending", detail: "Sources whose project destination still requires a routing choice." },
-      { label: "Open GitHub pull requests", count: snapshot.pullRequestsKnown ? snapshot.pullRequests : null, owner: "You", posture: reviewSignals.pullRequestsStatus === "current" ? agePosture(reviewSignals.pullRequestsCheckedAt) : "Live state unavailable", target: OPEN_PULL_REQUESTS_URL, detail: "Repository changes requiring review, merge, closure, or another explicit disposition." },
+      { label: "Repository reviews", count: snapshot.pullRequestsKnown ? snapshot.pullRequests : null, owner: "Elim first; you when routed", posture: reviewSignals.pullRequestsStatus === "current" ? agePosture(reviewSignals.pullRequestsCheckedAt) : "Live state unavailable", target: "actions", detail: `${snapshot.repositoryHumanActions.length} exact-head recommendation${snapshot.repositoryHumanActions.length === 1 ? "" : "s"} assigned to you; ${snapshot.repositoryElimActions.length} proposal${snapshot.repositoryElimActions.length === 1 ? "" : "s"} remain with Elim. GitHub holds the evidence, while Action Items holds the disposition queue.` },
       { label: "Development", count: workflowCount("Development"), owner: "Elim + interactive", posture: "Workflow status", target: "progress", detail: "Admitted work whose recorded next action is substantive development." },
       { label: "Research", count: workflowCount("Research"), owner: "Elim + interactive", posture: "Workflow status", target: "progress", detail: "Issues in active source development, investigation, or another research-bound next action." },
       { label: "Audits", count: workflowCount("Audit needed", "Audit in progress"), owner: "Elim", posture: "Audit needed / in progress", target: "progress", detail: "Issues with an audit as their current workflow action." },

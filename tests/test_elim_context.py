@@ -1188,6 +1188,145 @@ class QueueTests(unittest.TestCase):
             queue["items"][0]["id"],
         )
 
+    def test_complete_source_domain_proposal_is_one_elim_unit_until_recommended(self):
+        common = {"generated_at": "2026-07-24T11:00:00Z"}
+        integrity = self.path(
+            "integrity.json",
+            {**common, "revision": "abc", "findings": []},
+        )
+        progress = self.path(
+            "progress.json",
+            {**common, "repositoryRevision": "abc", "proposals": []},
+        )
+        intake = self.path(
+            "intake.json",
+            {**common, "pending": False, "items": []},
+        )
+        chain = self.path(
+            "chain.json",
+            {
+                **common,
+                "chain_id": "source-domain-chain",
+                "final_revision": "abc",
+                "stages": [
+                    {
+                        "id": "presidential-directives-bot",
+                        "due": True,
+                        "status": "succeeded",
+                    }
+                ],
+            },
+        )
+        head = "a" * 40
+        affected = [
+            {
+                "record_type": "presidential-directive",
+                "record_id": f"2026-{index:05d}",
+            }
+            for index in range(1, 11)
+        ]
+        directives = self.path(
+            "directives.json",
+            {
+                **common,
+                "directives": [
+                    {
+                        "Directive ID": "2026-00001",
+                        "Title": "Latest-run change only",
+                        "Bot Status": "changed",
+                    }
+                ],
+                "pending_proposal": {
+                    "event_id": "SDE-1234567890ABCDEF12345678",
+                    "agent_id": "presidential-directives-bot",
+                    "proposal": {
+                        "repository": "Thorncrag/ARRP",
+                        "base_ref": "main",
+                        "head_ref": "automation/presidential-directives-monitor",
+                        "pull_request_number": 9,
+                        "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/9",
+                        "proposal_revision": head,
+                    },
+                    "affected_records": affected,
+                    "summary": {
+                        "status": "presidential directives proposal delta",
+                        "affected_record_count": 10,
+                        "counts": {
+                            "affected-files": 1,
+                            "affected-records": 10,
+                            "presidential-directive-records": 10,
+                        },
+                    },
+                },
+            },
+        )
+        recommendation_text = f"""# Source Monitor Log
+
+## 2026-07-24T11:30:00Z — Repository review recommendation SMR-20260724-PR9
+
+- Recommendation ID: `SMR-20260724-PR9`
+- Recorded at: `2026-07-24T11:30:00Z`
+- Reviewer: Elim
+- Pull request number: `9`
+- Pull request URL: `https://github.com/Thorncrag/ARRP/pull/9`
+- Head revision: `{head}`
+- Proposal event ID: `SDE-1234567890ABCDEF12345678`
+- Recommended disposition: Hold for the owner-gated merge decision.
+- Rationale: The exact head was reviewed against all ten primary records.
+- Affected records: 10 directives.
+- Confidence and uncertainty: High confidence; final acceptance remains owner-gated.
+- Action owner: Human
+- Human question: Approve the exact reviewed head for merge?
+- Reassessment trigger: Any head change invalidates this recommendation.
+"""
+        untrusted_log = self.root / "framework/logs/SOURCE_MONITOR_LOG.md"
+        untrusted_log.parent.mkdir(parents=True)
+        untrusted_log.write_text(recommendation_text, encoding="utf-8")
+        runtime_root = self.root / "reviewed-runtime"
+        with patch("arrp_context.ROOT", runtime_root):
+            queue = build_work_queue(
+                integrity_path=integrity,
+                progress_path=progress,
+                intake_path=intake,
+                chain_path=chain,
+                presidential_directives_path=directives,
+                now=self.now,
+                input_root=self.root,
+            )
+        source_items = [
+            item
+            for item in queue["items"]
+            if item["source"].get("finding_type") == "source_domain_proposal"
+        ]
+        self.assertEqual(len(source_items), 1)
+        self.assertIn("10 affected records", source_items[0]["title"])
+        self.assertFalse(
+            any(
+                item["source"].get("finding_type") == "presidential_directive"
+                for item in queue["items"]
+            )
+        )
+
+        source_log = runtime_root / "framework/logs/SOURCE_MONITOR_LOG.md"
+        source_log.parent.mkdir(parents=True)
+        source_log.write_text(recommendation_text, encoding="utf-8")
+        with patch("arrp_context.ROOT", runtime_root):
+            recommended_queue = build_work_queue(
+                integrity_path=integrity,
+                progress_path=progress,
+                intake_path=intake,
+                chain_path=chain,
+                presidential_directives_path=directives,
+                now=self.now,
+                input_root=self.root,
+            )
+        self.assertFalse(
+            any(
+                item["source"].get("finding_type") == "source_domain_proposal"
+                for item in recommended_queue["items"]
+            )
+        )
+
     def test_recovery_and_user_override_apply_before_exact_selection(self):
         first = {
             "id": "INTEGRITY-FIRST",

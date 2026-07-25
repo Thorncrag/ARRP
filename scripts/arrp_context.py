@@ -21,6 +21,19 @@ try:
 except ModuleNotFoundError:  # The repository .venv includes PyYAML; keep read-only tools portable.
     yaml = None
 
+try:
+    from source_monitor_recommendations import (
+        RecommendationError,
+        exact_head_recommendation,
+        parse_source_monitor_recommendations,
+    )
+except ModuleNotFoundError:  # Imported as scripts.arrp_context.
+    from scripts.source_monitor_recommendations import (
+        RecommendationError,
+        exact_head_recommendation,
+        parse_source_monitor_recommendations,
+    )
+
 
 ROOT = Path(__file__).resolve().parents[1]
 ISSUE_ID_RE = re.compile(r"\b(?:[A-Z][A-Z0-9]*-\d{3}|HOR-\d{3})\b")
@@ -1487,6 +1500,60 @@ def input_record(
     }
 
 
+def pending_source_domain_proposal(
+    report: Any,
+    expected_agent: str,
+) -> dict[str, Any] | None:
+    """Validate the minimized complete-PR projection carried by a watcher report."""
+
+    if not isinstance(report, dict) or "pending_proposal" not in report:
+        return None
+    pending = report["pending_proposal"]
+    if not isinstance(pending, dict) or set(pending) != {
+        "event_id",
+        "agent_id",
+        "proposal",
+        "affected_records",
+        "summary",
+    }:
+        raise ContextError(f"{expected_agent} has a malformed pending proposal")
+    if pending["agent_id"] != expected_agent:
+        raise ContextError(f"{expected_agent} pending proposal names another agent")
+    event_id = str(pending["event_id"])
+    if not re.fullmatch(r"SDE-[A-F0-9]{24}", event_id):
+        raise ContextError(f"{expected_agent} pending proposal has an invalid event ID")
+    proposal = pending["proposal"]
+    if not isinstance(proposal, dict) or set(proposal) != {
+        "repository",
+        "base_ref",
+        "head_ref",
+        "pull_request_number",
+        "pull_request_url",
+        "proposal_revision",
+    }:
+        raise ContextError(f"{expected_agent} pending proposal has malformed PR data")
+    number = proposal["pull_request_number"]
+    if not isinstance(number, int) or number < 1:
+        raise ContextError(f"{expected_agent} pending proposal has an invalid PR number")
+    if proposal["pull_request_url"] != f"https://github.com/Thorncrag/ARRP/pull/{number}":
+        raise ContextError(f"{expected_agent} pending proposal has an invalid PR URL")
+    if not re.fullmatch(r"[a-f0-9]{40}", str(proposal["proposal_revision"])):
+        raise ContextError(
+            f"{expected_agent} pending proposal has an invalid head revision"
+        )
+    affected = pending["affected_records"]
+    summary = pending["summary"]
+    if not isinstance(affected, list) or not isinstance(summary, dict):
+        raise ContextError(
+            f"{expected_agent} pending proposal has malformed affected records"
+        )
+    if summary.get("affected_record_count") != len(affected):
+        raise ContextError(
+            f"{expected_agent} pending proposal affected-record count disagrees"
+        )
+    return pending
+
+
 def build_work_queue(
     *,
     integrity_path: Path,
@@ -1552,6 +1619,18 @@ def build_work_queue(
         for name, record in records.items()
         if record["required"] and record["status"] != "current"
     ]
+    source_monitor_recommendations: list[dict[str, Any]] = []
+    source_monitor_log = contained_path(
+        ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md",
+        ROOT,
+    )
+    if source_monitor_log.is_file():
+        try:
+            source_monitor_recommendations = parse_source_monitor_recommendations(
+                source_monitor_log.read_text(encoding="utf-8")
+            )
+        except (OSError, RecommendationError) as exc:
+            problems.append(f"source-monitor recommendation log is invalid: {exc}")
     items: list[dict[str, Any]] = []
     chain = records["chain"].get("data") or {}
     chain_id = str(chain.get("chain_id") or chain.get("run_id") or "").strip()
@@ -1818,8 +1897,52 @@ def build_work_queue(
     if "case_monitor" in trusted_typed_inputs:
         source_revision = records["case_monitor"].get("sha256")
         checked_at = case_monitor.get("checked_at")
+        pending = pending_source_domain_proposal(case_monitor, "case-monitor-bot")
+        recommendation = (
+            exact_head_recommendation(
+                source_monitor_recommendations,
+                pending["proposal"]["pull_request_number"],
+                pending["proposal"]["proposal_revision"],
+            )
+            if pending
+            else None
+        )
+        if pending and (not recommendation or recommendation["action_owner"] == "Elim"):
+            proposal = pending["proposal"]
+            recommendation_reason = (
+                f"Implement exact-head recommendation {recommendation['id']}"
+                if recommendation
+                else "Complete watcher proposal requires source and relevance review"
+            )
+            items.append(
+                make_item(
+                    kind="integrity",
+                    identity=f"source-domain-proposal:{pending['event_id']}:{recommendation['id'] if recommendation else 'review'}",
+                    title=(
+                        f"Review complete Case Monitor PR #{proposal['pull_request_number']} "
+                        f"({pending['summary']['affected_record_count']} affected records)"
+                    ),
+                    owner="agent",
+                    created_at=checked_at,
+                    now=now,
+                    source={
+                        "input": "case_monitor",
+                        "finding_type": "source_domain_proposal",
+                        "pending_proposal": pending,
+                        "recommendation": recommendation,
+                        "canonicalRecord": "framework/logs/SOURCE_MONITOR_LOG.md",
+                        "canonical_record": "framework/logs/SOURCE_MONITOR_LOG.md",
+                    },
+                    base_priority=730,
+                    reason=recommendation_reason,
+                    source_revision=source_revision,
+                    freshness_timestamp=checked_at,
+                )
+            )
         for finding in (
-            case_monitor.get("changes", [])
+            []
+            if pending
+            else case_monitor.get("changes", [])
             if isinstance(case_monitor, dict)
             else []
         ):
@@ -1863,7 +1986,9 @@ def build_work_queue(
                 )
             )
         for module in (
-            case_monitor.get("source_development_modules", [])
+            []
+            if pending
+            else case_monitor.get("source_development_modules", [])
             if isinstance(case_monitor, dict)
             else []
         ):
@@ -1906,8 +2031,54 @@ def build_work_queue(
     if "presidential_directives" in trusted_typed_inputs:
         source_revision = records["presidential_directives"].get("sha256")
         generated_at = directives.get("generated_at")
+        pending = pending_source_domain_proposal(
+            directives, "presidential-directives-bot"
+        )
+        recommendation = (
+            exact_head_recommendation(
+                source_monitor_recommendations,
+                pending["proposal"]["pull_request_number"],
+                pending["proposal"]["proposal_revision"],
+            )
+            if pending
+            else None
+        )
+        if pending and (not recommendation or recommendation["action_owner"] == "Elim"):
+            proposal = pending["proposal"]
+            recommendation_reason = (
+                f"Implement exact-head recommendation {recommendation['id']}"
+                if recommendation
+                else "Complete watcher proposal requires directive screening and routing"
+            )
+            items.append(
+                make_item(
+                    kind="integrity",
+                    identity=f"source-domain-proposal:{pending['event_id']}:{recommendation['id'] if recommendation else 'review'}",
+                    title=(
+                        f"Review complete Presidential Directives PR #{proposal['pull_request_number']} "
+                        f"({pending['summary']['affected_record_count']} affected records)"
+                    ),
+                    owner="agent",
+                    created_at=generated_at,
+                    now=now,
+                    source={
+                        "input": "presidential_directives",
+                        "finding_type": "source_domain_proposal",
+                        "pending_proposal": pending,
+                        "recommendation": recommendation,
+                        "canonicalRecord": "framework/logs/SOURCE_MONITOR_LOG.md",
+                        "canonical_record": "framework/logs/SOURCE_MONITOR_LOG.md",
+                    },
+                    base_priority=725,
+                    reason=recommendation_reason,
+                    source_revision=source_revision,
+                    freshness_timestamp=generated_at,
+                )
+            )
         for directive in (
-            directives.get("directives", [])
+            []
+            if pending
+            else directives.get("directives", [])
             if isinstance(directives, dict)
             else []
         ):

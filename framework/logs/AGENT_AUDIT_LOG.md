@@ -1736,3 +1736,28 @@ Prospective template:
 | Push status | Unit pull request [#399](https://github.com/Thorncrag/ARRP/pull/399) merged and local `main` synchronized at `b769911`; source and run closeout pushed through pull request #401 after validation. |
 | Rollback notes | Revert `b769911` and the pull request #401 merge, rebuild the Console, restore `SRC-0227` only if active reliance is also restored, and restore issue #47 and Project fields from the pre-run values preserved in the preceding unit entry. |
 | Blockers/skipped checks | The human-only application-under-different-control judgment remains intentionally unanswered and is visible on issue #47 and the Project Action Items route. The task-archiving tool was unavailable. No public-intake assessment or comprehensive Review Epoch was performed, so the associated recording scripts were not applicable. |
+
+
+### 2026-07-25 — Exact-head repository recommendation queue — interface governance
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-25T22:28:35Z |
+| Agent | interactive Codex |
+| Run ID | interactive-20260725-repository-review-recommendations |
+| Unit ID | console-repository-review-recommendations |
+| Trigger | User-directed Console implementation and follow-up clarification that GitHub should be evidence rather than the human disposition screen |
+| Task type | interface governance and automation integrity |
+| Outcome | Completed |
+| Issue/task | Dedicated Action Items repository-review listing, Elim exact-head recommendation protocol, and complete persistent-watcher proposal handoff |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | [Source Monitor Log](SOURCE_MONITOR_LOG.md) |
+| Tier | none |
+| Files changed | Source-domain watcher workflows and event/report handoff; Elim, Case Monitor, and Presidential Directives runbooks; context registry and project-purpose map; Source Monitor Log; Console builder, application, styles, documentation, and generated data; deterministic queue builder and host runtime-attestation boundary; regression tests; this provenance entry |
+| Source actions | No source-catalog row changed. Reviewed the exact pending heads and primary records for pull requests #380 and #381; recorded exact-head recommendations `SMR-20260725-PR380` and `SMR-20260725-PR381` in the Source Monitor Log. |
+| Validation | Focused recommendation, event, queue, reviewed-runtime-boundary, and Console tests passed; complete repository suite passed 402 tests; JavaScript and Python syntax checks passed; generated Console rebuild and diff hygiene passed; authenticated consistency reported 0 errors and 0 warnings across 64 issue pages and 41 proposal pages. The in-app browser correctly refused a local `file:` preview under its URL policy; final visual/readback verification is assigned to the live Pages deployment after merge. |
+| Commit | Preserved on `codex/repository-review-recommendations`; the exact commit and pull request are authoritative in Git history. |
+| Push status | Pending the ordinary reviewed pull-request workflow at entry time; required checks, merge, synchronized `main`, and live Pages readback remain closeout steps. |
+| Rollback notes | Revert this implementation change, restore the prior pinned governing hashes, and rebuild the Console. Retain the two recommendation records as historical provenance, marking any superseding exact-head recommendation separately rather than deleting them. |
+| Blockers/skipped checks | No implementation blocker. Pull requests #380 and #381 were not closed or merged; their exact disposition questions remain intentionally assigned to the user in Action Items. No issue lifecycle, Project field, score, Runs value, candidate disposition, or accepted watcher baseline changed. |

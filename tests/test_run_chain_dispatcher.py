@@ -18,6 +18,12 @@ SPEC.loader.exec_module(MODULE)
 
 
 class RunChainDispatcherTests(unittest.TestCase):
+    def test_exact_head_recommendation_parser_is_runtime_attested(self):
+        self.assertIn(
+            "scripts/source_monitor_recommendations.py",
+            MODULE.AUTOMATION_RUNTIME_PATHS,
+        )
+
     def test_managed_usage_baseline_is_fixed_and_path_safe(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
