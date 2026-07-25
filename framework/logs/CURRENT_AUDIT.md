@@ -17,7 +17,7 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Active issue/task | Project-wide Framework and agent-context modularization |
 | Audit type/tier | Governing-structure Change Audit |
 | Started | 2026-07-24 18:26:48 -0400 |
-| Last checkpoint | 2026-07-24 20:37:41 -0400 |
+| Last checkpoint | 2026-07-24 20:43:18 -0400 |
 | User request | Modularize the oversized Framework and agent rules into independently loadable authoritative files while preserving the existing Framework entry point, references, substance, and comprehensive interactive work. |
 | Scope | `framework/FRAMEWORK.md`; `framework/AGENT_OPERATING_RULES.md`; new domain and agent-rule modules; context routing; repository-structure documentation; references, validators, and tests implicated by the migration. |
 | Files touched | Governing kernels and specialized modules under `framework/`; persistent-agent runbooks; root `AGENTS.md`; context registry and routing; coordinator, context, Review Epoch, consistency, and Console-data scripts; workflow configuration; generated Console and intake projections; tests. |

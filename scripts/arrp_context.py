@@ -208,20 +208,21 @@ def repository_file(
         return None
     except OSError as exc:
         raise ContextError(f"cannot inspect repository file {relative}: {exc}") from exc
-    current = safe_root
+    current = candidate
     try:
-        for component in parts:
-            if component not in os.listdir(current):
+        for component in reversed(parts):
+            parent = os.path.dirname(current)
+            if component not in os.listdir(parent):
                 raise ContextError(
                     "path must use the exact repository entry spelling: "
                     f"{relative!r}"
                 )
-            current = os.path.realpath(os.path.join(current, component))
-            if not current.startswith(safe_root + os.sep):
+            if parent != safe_root and not parent.startswith(safe_root + os.sep):
                 raise ContextError(f"path escapes allowed root: {relative}")
+            current = parent
     except OSError as exc:
         raise ContextError(f"cannot inspect repository file {relative}: {exc}") from exc
-    if current != candidate:
+    if current != safe_root:
         raise ContextError(
             f"path must be an exact normalized repository-relative path: {relative!r}"
         )
