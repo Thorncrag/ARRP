@@ -313,13 +313,6 @@ const records = Object.freeze([
     "issue_url": "https://github.com/Thorncrag/ARRP/issues/168"
   },
   {
-    "id": "FACT-007",
-    "title": "Official Historical Presentation Integrity",
-    "area": "FACT",
-    "canonical_page": "../areas/FACT/README.md",
-    "issue_url": "https://github.com/Thorncrag/ARRP/issues/174"
-  },
-  {
     "id": "FACT-009",
     "title": "Misleading Official Terminology, Titles, or Institutional Labels",
     "area": "FACT",

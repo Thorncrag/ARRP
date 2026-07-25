@@ -87,7 +87,7 @@ class HorizonIntakeTest(unittest.TestCase):
             "Candidate", "Admitted / undeveloped", "In development",
             "Developed proposal", "Review ready", "Release candidate",
         }
-        self.assertEqual(len(records), 99)
+        self.assertEqual(len(records), 98)
         self.assertEqual(len(identifiers), len(set(identifiers)))
         self.assertTrue(set(levels) <= expected_levels)
 

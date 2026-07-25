@@ -2773,6 +2773,126 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "monitoring_rationale": "",
       "monitoring_group": "",
       "monitoring_baseline_present": false
+    },
+    {
+      "id": "SRC-2650",
+      "record_ids": [
+        "INTAKE-GAP-013"
+      ],
+      "monitoring": "No",
+      "inventory_status": "Relied upon",
+      "type": "Executive Order",
+      "publisher": "The White House",
+      "title": "Restoring Trust in the Smithsonian Institution",
+      "date": "2026-07-24",
+      "url": "https://www.whitehouse.gov/presidential-actions/2026/07/restoring-trust-in-the-smithsonian-institution-e061/",
+      "proposition": "Documents the direction to Interior, OMB, GSA, and the Domestic Policy Council to identify and use available authorities; directs NPS signage and temporary exhibits on NPS-maintained access property; and contains no citation to a specific statute granting those powers.",
+      "reliability": "Primary",
+      "reviewed": "Yes",
+      "notes": "Anchor source for the preliminary candidate. The generic opening recital, reference to EO 14253, and applicable-law and appropriations clauses do not by themselves establish either lawful authority or an ultra vires action. Federal Register and GovInfo publication remains to be captured through the presidential-directives workflow.",
+      "retention_rationale": "",
+      "pending_reason": "",
+      "next_action": "",
+      "blocker": "",
+      "monitoring_rationale": "",
+      "monitoring_group": "",
+      "monitoring_baseline_present": false
+    },
+    {
+      "id": "SRC-2651",
+      "record_ids": [
+        "INTAKE-GAP-013"
+      ],
+      "monitoring": "No",
+      "inventory_status": "Relied upon",
+      "type": "Institutional Legal Reference",
+      "publisher": "Smithsonian Institution Office of General Counsel",
+      "title": "Legal History — Legal Nature of the Smithsonian",
+      "date": "Current through 2026",
+      "url": "https://www.si.edu/ogc/legalhistory",
+      "proposition": "Describes the Smithsonian as a congressionally created trust instrumentality whose authority was delegated to the Board of Regents; explains that it is not generally an executive-branch agency and that application of federal agency statutes is law-specific.",
+      "reliability": "Primary",
+      "reviewed": "Yes",
+      "notes": "Supports the institution-classification and authority-allocation baseline. The Smithsonian's own legal characterization is corroborated by the governing statutes and should not be treated as resolving every statute-specific question.",
+      "retention_rationale": "",
+      "pending_reason": "",
+      "next_action": "",
+      "blocker": "",
+      "monitoring_rationale": "",
+      "monitoring_group": "",
+      "monitoring_baseline_present": false
+    },
+    {
+      "id": "SRC-2652",
+      "record_ids": [
+        "INTAKE-GAP-013"
+      ],
+      "monitoring": "No",
+      "inventory_status": "Relied upon",
+      "type": "Institutional Governance Record",
+      "publisher": "Smithsonian Institution",
+      "title": "The Board of Regents",
+      "date": "Current through 2026",
+      "url": "https://www.si.edu/regents",
+      "proposition": "States that Congress vested responsibility for administration of the Smithsonian in the Board of Regents and identifies its cross-branch and citizen composition.",
+      "reliability": "Primary",
+      "reviewed": "Yes",
+      "notes": "Supports the governance baseline and the distinction between Board administration and presidential supervision.",
+      "retention_rationale": "",
+      "pending_reason": "",
+      "next_action": "",
+      "blocker": "",
+      "monitoring_rationale": "",
+      "monitoring_group": "",
+      "monitoring_baseline_present": false
+    },
+    {
+      "id": "SRC-2653",
+      "record_ids": [
+        "INTAKE-GAP-013"
+      ],
+      "monitoring": "No",
+      "inventory_status": "Relied upon",
+      "type": "Federal Statute",
+      "publisher": "U.S. Code",
+      "title": "20 U.S.C. §§ 42–48 — Smithsonian Institution charter provisions",
+      "date": "Current through 2026",
+      "url": "https://uscode.house.gov/view.xhtml?edition=prelim&path=%2Fprelim%40title20%2Fchapter3%2Fsubchapter1",
+      "proposition": "Provides that the Institution's business is conducted by the Board of Regents; the Board selects the Secretary; the Secretary acts under the Board's direction; and the Board may remove the Secretary.",
+      "reliability": "Primary",
+      "reviewed": "Yes",
+      "notes": "Controlling statutory baseline for the preliminary allocation-of-control question; it does not alone resolve NPS property, appropriations, procurement, contract, standing, or remedial questions.",
+      "retention_rationale": "",
+      "pending_reason": "",
+      "next_action": "",
+      "blocker": "",
+      "monitoring_rationale": "",
+      "monitoring_group": "",
+      "monitoring_baseline_present": false
+    },
+    {
+      "id": "SRC-2654",
+      "record_ids": [
+        "INTAKE-GAP-013"
+      ],
+      "monitoring": "No",
+      "inventory_status": "Relied upon",
+      "type": "Institutional Governance Record",
+      "publisher": "Smithsonian Institution Board of Regents",
+      "title": "Minutes of the June 9 2025 Meeting of the Board of Regents",
+      "date": "2025-06-09",
+      "url": "https://www.si.edu/sites/default/files/unit/regents/APPROVED_BOARD_MINUTES_June_9_2025.pdf",
+      "proposition": "Records the Board's exercise of authority and responsibility for managing the Smithsonian, its content, and its workforce through directions to the Secretary concerning museum content and personnel reporting.",
+      "reliability": "Primary",
+      "reviewed": "Yes",
+      "notes": "Supports the current institutional practice that content oversight proceeds from the Board through the Secretary and museum directors; it does not establish that every outside request or executive action is unlawful.",
+      "retention_rationale": "",
+      "pending_reason": "",
+      "next_action": "",
+      "blocker": "",
+      "monitoring_rationale": "",
+      "monitoring_group": "",
+      "monitoring_baseline_present": false
     }
   ]
 });
