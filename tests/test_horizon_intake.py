@@ -18,6 +18,7 @@ from scripts.build_horizon_review_console import (
     project_log_views,
     render_markdown_safe,
     research_for_record,
+    run_chain_snapshot,
     snapshot_time,
     source_checker_snapshot,
 )
@@ -97,6 +98,53 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertGreater(
             snapshot_time(part["progress"]),
             snapshot_time({"generatedAt": "2026-07-24T21:57:24+00:00"}),
+        )
+
+    def test_local_run_chain_uses_current_control_action_item_resolution(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            chain = root / "run-chain.json"
+            control = root / "control.json"
+            chain.write_text(
+                json.dumps(
+                    {
+                        "chain_id": "chain-current",
+                        "host_action_items": [
+                            {"id": "failure-1", "resolved": False}
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            control.write_text(
+                json.dumps(
+                    {
+                        "action_items": [
+                            {
+                                "id": "failure-1",
+                                "resolved": True,
+                                "resolution_reason": "Verified recovery passed.",
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with (
+                patch.object(console_builder, "LOCAL_RUN_CHAIN_FEED", chain),
+                patch.object(
+                    console_builder,
+                    "LOCAL_RUN_COORDINATOR_CONTROL",
+                    control,
+                ),
+            ):
+                snapshot = run_chain_snapshot()
+
+        self.assertTrue(snapshot["host_action_items"][0]["resolved"])
+        self.assertEqual(
+            snapshot["host_action_items"][0]["resolution_reason"],
+            "Verified recovery passed.",
         )
 
     def test_progress_board_accounts_for_every_current_record_exactly_once(self) -> None:

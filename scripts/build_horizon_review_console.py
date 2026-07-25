@@ -48,6 +48,9 @@ INTEGRITY_DATA_REF = "origin/project-console-data:integrity.json"
 RUN_CHAIN_DATA_REF = "origin/project-console-data:run-chain.json"
 LOCAL_INTEGRITY_FEED = ROOT / ".tmp" / "project-console-integrity.json"
 LOCAL_RUN_CHAIN_FEED = ROOT / ".tmp" / "run-chain.json"
+LOCAL_RUN_COORDINATOR_CONTROL = (
+    ROOT / ".tmp" / "run-coordinator" / "control.json"
+)
 PRINT_LEVEL_ORDER = (
     "public-proposal",
     "legislative-appendix",
@@ -1488,6 +1491,23 @@ def run_chain_snapshot() -> dict[str, object]:
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
             if isinstance(payload, dict):
+                if not local_chain and path == LOCAL_RUN_CHAIN_FEED:
+                    try:
+                        control = json.loads(
+                            LOCAL_RUN_COORDINATOR_CONTROL.read_text(
+                                encoding="utf-8"
+                            )
+                        )
+                    except (OSError, json.JSONDecodeError):
+                        control = {}
+                    action_items = (
+                        control.get("action_items")
+                        if isinstance(control, dict)
+                        else None
+                    )
+                    if isinstance(action_items, list):
+                        payload = dict(payload)
+                        payload["host_action_items"] = action_items
                 return payload
         except (OSError, json.JSONDecodeError):
             pass

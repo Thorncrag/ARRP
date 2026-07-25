@@ -146,7 +146,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "current_report": "",
       "current_report_url": "",
       "current_data": "project-console-data/run-chain.json",
-      "description": "The Run Coordinator Bot serializes ARRP's persistent automation into one due-aware chain. It prevents overlapping processes, establishes a reviewed remote boundary and an isolated execution checkout, runs every due deterministic stage, compiles the bounded work queue and context manifests, and invokes Elim only when refreshed project state contains an eligible LLM-owned unit. Elim is the last substantive, change-producing stage. Only deterministic validation, synchronization readback, structured closeout, and generated-view publication may follow it.",
+      "description": "The Run Coordinator Bot serializes ARRP's persistent automation into one due-aware chain. It prevents overlapping processes, establishes a reviewed remote boundary and an isolated execution checkout, runs every due deterministic stage, compiles the bounded work queue and context manifests, and invokes Elim only when refreshed project state contains an eligible LLM-owned unit. Elim is the last LLM-directed substantive stage. Trusted-host Git preservation, deterministic validation, synchronization readback, structured closeout, and generated-view publication may follow it without introducing new substantive judgment.",
       "checks": [],
       "runbook_path": "framework/agents/RUN_COORDINATOR_BOT.md",
       "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/RUN_COORDINATOR_BOT.md"
@@ -176,15 +176,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "run_chain": {
     "schema_version": 1,
     "bot_id": "run-coordinator-bot",
-    "chain_id": "arrp-20260725T042131Z",
-    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30143879377",
+    "chain_id": "arrp-20260725T105258Z",
+    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30155231768",
     "trigger": "workflow_dispatch",
     "llm_launch_allowed": true,
     "llm_launch_trigger": "workflow_dispatch",
-    "created_at": "2026-07-25T04:21:31+00:00",
-    "updated_at": "2026-07-25T04:22:36+00:00",
+    "created_at": "2026-07-25T10:52:58+00:00",
+    "updated_at": "2026-07-25T10:54:18+00:00",
     "status": "complete",
-    "baseline_commit": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
+    "baseline_commit": "24f380c275440940d0af80be9b17842c04de37e6",
     "resume": {
       "count": 0,
       "from_run_id": null
@@ -193,12 +193,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "key": "arrp-run-chain",
       "path": null,
       "status": "released-by-workflow",
-      "owner_chain_id": "arrp-20260725T042131Z"
+      "owner_chain_id": "arrp-20260725T105258Z"
     },
     "repository": {
       "branch": "main",
-      "head": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
-      "origin_main": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
+      "head": "24f380c275440940d0af80be9b17842c04de37e6",
+      "origin_main": "24f380c275440940d0af80be9b17842c04de37e6",
       "clean": true,
       "dirty_paths": [],
       "dirty_path_count": 0,
@@ -251,7 +251,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-25T04:21:31+00:00",
+        "completed_at": "2026-07-25T10:52:58+00:00",
         "last_success_at": "2026-07-25T04:17:45+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -267,7 +267,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-25T04:21:31+00:00",
+        "completed_at": "2026-07-25T10:52:58+00:00",
         "last_success_at": "2026-07-25T04:17:45+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -283,7 +283,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-25T04:21:31+00:00",
+        "completed_at": "2026-07-25T10:52:58+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -296,11 +296,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "order": 4,
         "workflow": ".github/workflows/project-console-progress.yml",
         "due": false,
-        "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
+        "due_reason": "last success remains current until 2026-07-26T10:52:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-25T04:21:31+00:00",
-        "last_success_at": "2026-07-25T04:17:45+00:00",
+        "completed_at": "2026-07-25T10:52:58+00:00",
+        "last_success_at": "2026-07-25T10:52:28+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
@@ -315,15 +315,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-25T04:22:34+00:00",
-        "last_success_at": "2026-07-25T04:22:34+00:00",
+        "completed_at": "2026-07-25T10:53:56+00:00",
+        "last_success_at": "2026-07-25T10:53:56+00:00",
         "retry_limit": 1,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:10a03463b39345a43645c6d6b9b2d90d3813044dcfa5949d8479f5009ab034ca"
+          "sha256": "sha256:ac781378c4fe36eb2b857c1ac24610659e547b6fc6ead91d65300194450abf5f"
         },
         "work_count": 0
       },
@@ -335,15 +335,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-25T04:22:34+00:00",
-        "last_success_at": "2026-07-25T04:22:34+00:00",
+        "completed_at": "2026-07-25T10:53:56+00:00",
+        "last_success_at": "2026-07-25T10:53:56+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:8bbe8e43d6731c759cb52c43f9c1dff1debce198596849fc74c6e00a222450c0"
+          "sha256": "sha256:50408c972431ea0ffaea7e0d9bbb45343e74d510619a1db8107a98f72b46757c"
         },
         "work_count": 0
       }
@@ -355,11 +355,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "monitoring": 0,
       "sources": 0,
       "intake": 0,
-      "total": 156
+      "total": 0
     },
     "elim_decision": {
-      "launch_recommended": false,
-      "reason": "Codex usage reserve has not been measured.",
+      "launch_recommended": true,
+      "reason": "Comprehensive review is due.",
       "blockers": [],
       "last_substantive_stage": true,
       "predecessors_complete": true,
@@ -368,7 +368,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "model": "gpt-5.6-sol",
         "reasoning_effort": "xhigh",
         "full_context": true,
-        "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-3256535a9900 and context profile comprehensive_review."
+        "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-870e422e0706 and context profile comprehensive_review."
       }
     },
     "review_epoch": {
@@ -455,13 +455,64 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "usage": {
       "hard_reserve_percent": 15,
       "soft_run_target_percent": 10,
-      "remaining_percent": null,
-      "status": "unknown"
+      "remaining_percent": 73.0,
+      "status": "available",
+      "gate": {
+        "blockers": [],
+        "checkedAtUtc": "2026-07-25T10:54:18+00:00",
+        "lowestRemainingPercent": 73,
+        "reservePercent": 15,
+        "runBudget": {
+          "activatedWindows": [],
+          "baselinePath": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/elim-checkout/.tmp/run-coordinator/usage-baselines/5d69f6a53b6bdf17e1099045e852441d89882e533fe5e2387f4d0a1b2f4f5cb8.json",
+          "dormantWindows": [
+            "codex_bengalfox:primary"
+          ],
+          "highestSpentPercent": 0,
+          "reserveBufferFloorPercent": 25,
+          "softTargetPercent": 10,
+          "softTargetReached": false,
+          "spentPercentByWindow": {
+            "codex:primary": 0,
+            "codex_bengalfox:primary": 0
+          }
+        },
+        "status": "pass",
+        "windows": [
+          {
+            "limitId": "codex",
+            "limitName": "codex",
+            "remainingPercent": 73,
+            "resetsAt": 1785533757,
+            "resetsAtUtc": "2026-07-31T21:35:57+00:00",
+            "usedPercent": 27,
+            "window": "primary",
+            "windowDurationMins": 10080
+          },
+          {
+            "limitId": "codex_bengalfox",
+            "limitName": "GPT-5.3-Codex-Spark",
+            "remainingPercent": 100,
+            "resetsAt": 1785581658,
+            "resetsAtUtc": "2026-08-01T10:54:18+00:00",
+            "usedPercent": 0,
+            "window": "primary",
+            "windowDurationMins": 10080
+          }
+        ]
+      },
+      "host_monitor": {
+        "source": "approved-host-dispatcher",
+        "status_path": ".tmp/run-coordinator/arrp-20260725T105258Z/usage-status-arrp-20260725T105258Z-20260725T105417Z.json",
+        "baseline_path": ".tmp/run-coordinator/usage-baselines/5d69f6a53b6bdf17e1099045e852441d89882e533fe5e2387f4d0a1b2f4f5cb8.json",
+        "monitor_interval_seconds": 60,
+        "snapshot_max_age_seconds": 120
+      }
     },
-    "next_action": "No Elim launch; wait for the next trigger.",
+    "next_action": "Authorized host dispatcher may launch Elim.",
     "action_items": [],
-    "completed_at": "2026-07-25T04:22:34+00:00",
-    "final_revision": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
+    "completed_at": "2026-07-25T10:54:18+00:00",
+    "final_revision": "24f380c275440940d0af80be9b17842c04de37e6",
     "bots": [
       {
         "id": "case-monitor-bot",
@@ -469,7 +520,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-25T04:21:31+00:00",
+        "completed_at": "2026-07-25T10:52:58+00:00",
         "error": null
       },
       {
@@ -478,7 +529,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-25T04:21:31+00:00",
+        "completed_at": "2026-07-25T10:52:58+00:00",
         "error": null
       },
       {
@@ -487,7 +538,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-25T04:21:31+00:00",
+        "completed_at": "2026-07-25T10:52:58+00:00",
         "error": null
       },
       {
@@ -496,7 +547,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-25T04:21:31+00:00",
+        "completed_at": "2026-07-25T10:52:58+00:00",
         "error": null
       },
       {
@@ -505,13 +556,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": true,
         "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-25T04:22:34+00:00",
+        "completed_at": "2026-07-25T10:53:56+00:00",
         "error": null
       }
     ],
     "work_queue": {
       "path": "project-console-data:elim-work-queue.json",
-      "sha256": "sha256:63804a9afe71e2d2423e6a3de43b50bc4c8e219642757209ed2a42f953502136",
+      "sha256": "sha256:7a3b0eadec6d0503cf44b2306c83d4af9672d841fed7e010b47008586706ce51",
       "ready_for_elim": true,
       "launch_recommended": true,
       "counts": {
@@ -523,7 +574,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "problems": [],
       "next_item": {
         "schema_version": 1,
-        "id": "COMPREHENSIVE-REVIEW-3256535a9900",
+        "id": "COMPREHENSIVE-REVIEW-870e422e0706",
         "kind": "comprehensive_review",
         "work_class": "periodic_review",
         "severity": "high",
@@ -533,13 +584,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "exact_next_action": "Run the due comprehensive Review Epoch.",
         "required_context_profile": "comprehensive_review",
         "originating_stage": "review_epoch",
-        "source_identity": "epoch-arrp-20260725T042131Z",
-        "canonical_record_identity": "epoch-arrp-20260725T042131Z",
+        "source_identity": "epoch-arrp-20260725T105258Z",
+        "canonical_record_identity": "epoch-arrp-20260725T105258Z",
         "dependencies": [
           "review_epoch"
         ],
         "created_at": "2026-07-24T15:40:02+00:00",
-        "refreshed_at": "2026-07-25T04:22:34+00:00",
+        "refreshed_at": "2026-07-25T10:53:56+00:00",
         "eligible_for_elim": true,
         "requires_human": false,
         "eligibility_reason": "eligible under the selected runbook",
@@ -553,7 +604,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reason": "governing_boundary_changed",
         "source": {
           "input": "review_epoch",
-          "epoch_id": "epoch-arrp-20260725T042131Z",
+          "epoch_id": "epoch-arrp-20260725T105258Z",
           "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
           "next_due_at": "2026-08-07T15:40:02+00:00",
           "due": true,
@@ -630,13 +681,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           "unresolved_ids": []
         },
-        "source_revision": "07fc0cad6db2bd82e8c3373cbf7e83d4b5c997debdcc3501a61ff1ff23f035c5",
-        "freshness_timestamp": "2026-07-25T04:22:34+00:00",
-        "source_chain_id": "arrp-20260725T042131Z",
-        "source_commit": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
-        "source_project_snapshot": "sha256:8a12962115cdc2a1f056a44a8b7bdce33dc839e35a8a601aef59ab7884a26e4a",
+        "source_revision": "be3b591b901c036150d682dbf4bc19cc37681a5cbb12b278474d44117220207b",
+        "freshness_timestamp": "2026-07-25T10:53:56+00:00",
+        "source_chain_id": "arrp-20260725T105258Z",
+        "source_commit": "24f380c275440940d0af80be9b17842c04de37e6",
+        "source_project_snapshot": "sha256:4597a66c9e68e8a3cd0a2bcc981c6540aeb9760463cc62d74c76ab463d498809",
         "source_input_hashes": {
-          "review_epoch": "sha256:07fc0cad6db2bd82e8c3373cbf7e83d4b5c997debdcc3501a61ff1ff23f035c5"
+          "review_epoch": "sha256:be3b591b901c036150d682dbf4bc19cc37681a5cbb12b278474d44117220207b"
         },
         "retry_state": {
           "state": "new",
@@ -646,31 +697,302 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         "recovery": null
       },
-      "selected_work_item_id": "COMPREHENSIVE-REVIEW-3256535a9900",
+      "selected_work_item_id": "COMPREHENSIVE-REVIEW-870e422e0706",
       "user_overrides": {
         "applied": [],
         "unmatched": [],
         "request_sha256": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
-      }
+      },
+      "local_path": ".tmp/run-coordinator/arrp-20260725T105258Z/elim-work-queue.json"
     },
     "context_packet": {
       "path": "project-console-data:elim-context.json",
-      "sha256": "sha256:18c89f0902572f5d760f34f18d6bfc557cd041733802fd065a876c42020bb663",
+      "sha256": "sha256:12ef3413472ccd21a9a7d82ff84b3d1a68ff116fabc12719cc93be755028f550",
       "profile": "comprehensive_review",
-      "work_item_id": "COMPREHENSIVE-REVIEW-3256535a9900",
+      "work_item_id": "COMPREHENSIVE-REVIEW-870e422e0706",
       "issue_id": null,
       "canonical_record": null,
       "selection": {
-        "work_item_id": "COMPREHENSIVE-REVIEW-3256535a9900",
+        "work_item_id": "COMPREHENSIVE-REVIEW-870e422e0706",
         "kind": "comprehensive_review",
         "canonical_record": null
       },
-      "repository_revision": "f0cbf5267540b5dbf4f0a9264ea771b6662cd537",
+      "repository_revision": "24f380c275440940d0af80be9b17842c04de37e6",
       "provenance_complete": true,
       "limits": {
         "max_bytes": 1000000,
-        "actual_bytes": 675634
+        "actual_bytes": 681647
+      },
+      "local_path": ".tmp/run-coordinator/arrp-20260725T105258Z/elim-context.json"
+    },
+    "user_overrides": {},
+    "verified_inputs": {
+      "case_monitor": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/case-monitor.json",
+        "sha256": "sha256:3a426262676057e14284c971a76dadce8d9daf306914e7cdd5763b069af6d170",
+        "bytes": 2203
+      },
+      "chain": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/chain.json",
+        "sha256": "sha256:01e1011a0f336d67c0dd0d799cdf9da797b5ae38ee9949af64fe8850a102e289",
+        "bytes": 11347
+      },
+      "intake": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/intake.json",
+        "sha256": "sha256:ac781378c4fe36eb2b857c1ac24610659e547b6fc6ead91d65300194450abf5f",
+        "bytes": 241
+      },
+      "integrity": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/integrity.json",
+        "sha256": "sha256:50408c972431ea0ffaea7e0d9bbb45343e74d510619a1db8107a98f72b46757c",
+        "bytes": 1267
+      },
+      "presidential_directives": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/presidential-directives.json",
+        "sha256": "sha256:52c846c92e0c0fbe9212e2228d0844f0f1d90327d759378854750b62e05004a5",
+        "bytes": 3717614
+      },
+      "progress": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/progress.json",
+        "sha256": "sha256:4597a66c9e68e8a3cd0a2bcc981c6540aeb9760463cc62d74c76ab463d498809",
+        "bytes": 180326
+      },
+      "recovery": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/recovery.json",
+        "sha256": "sha256:fe90b676ea2c5898e1a276e6eb38da41a9449234baa2a8d652ca305abade7437",
+        "bytes": 88
+      },
+      "review_epoch": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/review-epoch.json",
+        "sha256": "sha256:be3b591b901c036150d682dbf4bc19cc37681a5cbb12b278474d44117220207b",
+        "bytes": 3526
+      },
+      "source_checker": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/source-checker.json",
+        "sha256": "sha256:46707d215cfaa833a08f8fc74391e40732ed158a05796ee636c99464ed1bf1bc",
+        "bytes": 1131725
+      },
+      "recovery_effective": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/recovery-effective.json",
+        "sha256": "sha256:6b7003f808285793b51bdb3f5820cbcf164fbc6e0de4be0109d2301a070b7dae",
+        "bytes": 88
+      },
+      "run_log_reconciliation": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/run-log-reconciliation.json",
+        "sha256": "sha256:1f4eab03745ef5a3afcee30d938ddc5a146c785a7ee97a9d689f9319b8d06767",
+        "bytes": 86
+      },
+      "overrides": {
+        "path": ".tmp/run-coordinator/arrp-20260725T105258Z/inputs/user-overrides.json",
+        "sha256": "sha256:9c3fb5e89aa40a0364258e831d5aa34a2a4b72dbbbd067b356ada825fa6cc271",
+        "bytes": 22
       }
-    }
+    },
+    "host_action_items": [
+      {
+        "id": "automation-failure-daa8fd879c18d723a729",
+        "chain_id": "host-dispatch-20260725T013637Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T01:36:37+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: ARRP working tree is not clean; automated dispatch deferred",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-0b74e35daea3a71d"
+      },
+      {
+        "id": "automation-failure-1d35ce7ae6e1c8c03ecd",
+        "chain_id": "host-dispatch-20260725T014638Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T01:46:38+00:00",
+        "failure_count": 2,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-15a4e8917300c3b6"
+      },
+      {
+        "id": "automation-failure-713d698964a3375df404",
+        "chain_id": "host-dispatch-20260725T015639Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T01:56:39+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-b44480a540faadd7"
+      },
+      {
+        "id": "automation-failure-e8305a1d92876a2ac27f",
+        "chain_id": "host-dispatch-20260725T020640Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:06:40+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-ec4cfe2a37d30fa2"
+      },
+      {
+        "id": "automation-failure-1c042a07bf323d6f43bc",
+        "chain_id": "host-dispatch-20260725T021641Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:16:41+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-6892c15145558c39"
+      },
+      {
+        "id": "automation-failure-41e3ca616ec07fde465a",
+        "chain_id": "host-dispatch-20260725T022642Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:26:42+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-322dfb6087f80e4b"
+      },
+      {
+        "id": "automation-failure-87178723928a1caa5a72",
+        "chain_id": "host-dispatch-20260725T023644Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:36:44+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-3d0d51f7c2490bb3"
+      },
+      {
+        "id": "automation-failure-44509282a6ee45e123bf",
+        "chain_id": "host-dispatch-20260725T024645Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:46:45+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-d9ca62a37e4f1cb0"
+      },
+      {
+        "id": "automation-failure-4cd5993c673ae809eec3",
+        "chain_id": "arrp-20260725T035508Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T03:56:27+00:00",
+        "failure_count": 2,
+        "stage": "run-coordinator",
+        "details": "case_monitor report is current despite a recorded prior success; presidential_directives report is current despite a recorded prior success",
+        "next_action": "Refresh or repair the blocked Context Gateway input.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-bdd592100cec7778"
+      },
+      {
+        "id": "automation-failure-15ec577346abf4e1a2c0",
+        "chain_id": "arrp-20260725T041809Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T04:19:40+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-906c3c638f443370"
+      },
+      {
+        "id": "automation-failure-85c83d4f36008c7690f3",
+        "chain_id": "arrp-20260725T063006Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T08:21:06+00:00",
+        "failure_count": 1,
+        "stage": "elim-closeout",
+        "details": "elim-closeout failed: ARRP working tree is not clean; automated dispatch deferred",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T10:37:25+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Failed chain report reconstructed, validated as new and unique against ac9cd510, merged through PR #412 at ab845391, and read back from origin/main; no substantive Elim work was lost.",
+        "resolution_request_id": "control-5c9945e00875f4db"
+      },
+      {
+        "id": "automation-failure-e5c6d3dec24fb2885346",
+        "chain_id": "arrp-20260725T103811Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T10:39:28+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: ARRP working tree is not clean; automated dispatch deferred",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T10:55:09+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "PR #413 merged at 24f380c2; the original dirty checkout was archived intact after canonical proof, and no-LLM chain arrp-20260725T105258Z (workflow 30155231768) then passed cloud, Integrity, fresh-checkout, local rebuild, usage, and exact launch-boundary validation without invoking Elim.",
+        "resolution_request_id": "control-a488b94b1b8ba78f"
+      }
+    ]
   }
 });

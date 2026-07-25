@@ -8181,7 +8181,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2055,
+      "word_count": 2241,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8722,12 +8722,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 615,
-      "estimated_pages": 1,
+      "word_count": 1051,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 33
     },
     {
       "title": "Current Project Integrity Report",
@@ -8874,9 +8874,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 7379,
-      "estimated_pages": 12,
-      "table_count": 10,
+      "word_count": 8062,
+      "estimated_pages": 13,
+      "table_count": 11,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
@@ -8922,8 +8922,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4491,
-      "estimated_pages": 7,
+      "word_count": 4799,
+      "estimated_pages": 8,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -10409,12 +10409,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2361,
-      "estimated_pages": 4,
+      "word_count": 2859,
+      "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 37
+      "longest_unbroken_token": 45
     },
     {
       "title": "Source Catalogs and Monitoring Metadata",
@@ -12399,8 +12399,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 9092,
-      "estimated_pages": 14,
+      "word_count": 9717,
+      "estimated_pages": 15,
       "table_count": 11,
       "max_table_columns": 4,
       "heading_issue_count": 0,
