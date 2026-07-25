@@ -12,7 +12,7 @@ import re
 import subprocess
 from dataclasses import dataclass
 from datetime import date, datetime, timezone
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
 
 try:
@@ -29,6 +29,9 @@ HORIZON_ISSUE_URL_RE = re.compile(
 )
 WORK_ITEM_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$")
 WORK_KIND_RE = re.compile(r"^[a-z][a-z0-9_]{0,63}$")
+MAX_ISSUE_ID_LENGTH = 64
+MAX_REPOSITORY_RELATIVE_PATH_LENGTH = 1024
+MAX_REPOSITORY_PATH_PARTS = 32
 GITHUB_CANONICAL_PREFIXES = (
     "https://github.com/Thorncrag/ARRP/blob/main/",
     "https://github.com/Thorncrag/ARRP/blob/master/",
@@ -125,6 +128,103 @@ def within_root(root: Path, relative: str) -> Path:
     if resolved != resolved_root and resolved_root not in resolved.parents:
         raise ContextError(f"path escapes repository root: {relative}")
     return resolved
+
+
+def canonical_issue_area(issue_id: str) -> str:
+    """Parse one bounded AREA-NNN identifier without regex backtracking."""
+    if (
+        not isinstance(issue_id, str)
+        or len(issue_id) > MAX_ISSUE_ID_LENGTH
+        or len(issue_id) < 5
+    ):
+        raise ContextError(f"invalid canonical issue identifier: {issue_id!r}")
+    area, separator, sequence = issue_id.partition("-")
+    valid_area = (
+        bool(area)
+        and "A" <= area[0] <= "Z"
+        and all(
+            ("A" <= character <= "Z") or ("0" <= character <= "9")
+            for character in area
+        )
+    )
+    valid_sequence = len(sequence) == 3 and all(
+        "0" <= character <= "9" for character in sequence
+    )
+    if separator != "-" or not valid_area or not valid_sequence:
+        raise ContextError(f"invalid canonical issue identifier: {issue_id!r}")
+    return area
+
+
+def repository_relative_parts(relative: str) -> tuple[str, ...]:
+    """Validate one bounded, normalized repository-relative POSIX file path."""
+    if (
+        not isinstance(relative, str)
+        or not relative
+        or len(relative) > MAX_REPOSITORY_RELATIVE_PATH_LENGTH
+        or "\\" in relative
+        or "\x00" in relative
+    ):
+        raise ContextError(
+            f"path must be a bounded repository-relative POSIX path: {relative!r}"
+        )
+    parsed = PurePosixPath(relative)
+    parts = parsed.parts
+    if (
+        parsed.is_absolute()
+        or parsed.as_posix() != relative
+        or not parts
+        or len(parts) > MAX_REPOSITORY_PATH_PARTS
+        or any(part in {"", ".", ".."} for part in parts)
+    ):
+        raise ContextError(
+            f"path must be an exact normalized repository-relative path: {relative!r}"
+        )
+    return parts
+
+
+def repository_file(
+    root: Path,
+    relative: str,
+    *,
+    required: bool = True,
+) -> Path | None:
+    """Resolve a repository file by bounded component lookup, rejecting symlink escape."""
+    parts = repository_relative_parts(relative)
+    safe_root = contained_path(root, root)
+    current = safe_root
+    for index, component in enumerate(parts):
+        if not current.is_dir():
+            if required:
+                raise ContextError(f"repository file is missing: {relative}")
+            return None
+        try:
+            candidate = next(
+                (entry for entry in current.iterdir() if entry.name == component),
+                None,
+            )
+        except OSError as exc:
+            raise ContextError(
+                f"cannot inspect repository path {relative}: {exc}"
+            ) from exc
+        if candidate is None:
+            if required:
+                raise ContextError(f"repository file is missing: {relative}")
+            return None
+        current = contained_path(candidate, safe_root)
+        if index < len(parts) - 1 and not current.is_dir():
+            if required:
+                raise ContextError(f"repository file is missing: {relative}")
+            return None
+    if not current.is_file():
+        if required:
+            raise ContextError(f"repository file is missing: {relative}")
+        return None
+    actual_relative = current.relative_to(safe_root).as_posix()
+    if actual_relative != relative:
+        raise ContextError(
+            f"path must be an exact normalized repository-relative path: {relative!r}"
+        )
+    return current
 
 
 def path_is_excluded(relative: str, exclusions: Iterable[str]) -> bool:
@@ -538,9 +638,32 @@ def registry_rows(path: Path, issue_id: str) -> list[dict[str, str]]:
         return rows
 
 
+def issue_page_matches(root: Path, issue_id: str) -> list[Path]:
+    """Find exact issue-page names through controlled repository traversal."""
+    canonical_issue_area(issue_id)
+    areas_root = contained_path(root / "areas", root)
+    if not areas_root.is_dir():
+        return []
+    expected_name = f"{issue_id}.md"
+    matches: list[Path] = []
+    for area_entry in areas_root.iterdir():
+        safe_area = contained_path(area_entry, root)
+        if not safe_area.is_dir():
+            continue
+        issues_directory = contained_path(safe_area / "issues", root)
+        if not issues_directory.is_dir():
+            continue
+        for entry in issues_directory.iterdir():
+            if entry.name != expected_name:
+                continue
+            safe_entry = contained_path(entry, root)
+            if safe_entry.is_file() and not safe_entry.name.endswith(".audit.md"):
+                matches.append(safe_entry)
+    return sorted(matches)
+
+
 def find_issue_page(root: Path, issue_id: str) -> Path:
-    matches = sorted((root / "areas").glob(f"*/issues/{issue_id}.md"))
-    matches = [path for path in matches if not path.name.endswith(".audit.md")]
+    matches = issue_page_matches(root, issue_id)
     if len(matches) != 1:
         raise ContextError(f"expected exactly one canonical page for {issue_id}; found {len(matches)}")
     return matches[0]
@@ -553,21 +676,22 @@ def resolve_issue_context_record(
     allow_area_readme: bool,
 ) -> tuple[str, Path]:
     """Resolve either a standalone issue page or the approved undeveloped area record."""
-    if not re.fullmatch(r"[A-Z][A-Z0-9]*-\d{3}", issue_id):
-        raise ContextError(f"invalid canonical issue identifier: {issue_id!r}")
-    matches = sorted((root / "areas").glob(f"*/issues/{issue_id}.md"))
-    matches = [path for path in matches if not path.name.endswith(".audit.md")]
+    area = canonical_issue_area(issue_id)
+    matches = issue_page_matches(root, issue_id)
     if len(matches) == 1:
         return "issue_page", matches[0]
     if len(matches) > 1:
         raise ContextError(
             f"expected exactly one canonical page for {issue_id}; found {len(matches)}"
         )
-    if allow_area_readme and re.fullmatch(r"[A-Z][A-Z0-9]*-\d{3}", issue_id):
-        area = issue_id.split("-", 1)[0]
-        area_readme = root / "areas" / area / "README.md"
-        if area_readme.is_file():
-            return "area_readme", area_readme.resolve()
+    if allow_area_readme:
+        area_readme = repository_file(
+            root,
+            f"areas/{area}/README.md",
+            required=False,
+        )
+        if area_readme is not None:
+            return "area_readme", area_readme
     raise ContextError(
         f"expected a canonical issue page for {issue_id}; found no eligible record"
     )
@@ -646,14 +770,17 @@ def context_packet_selection(
                 raise ContextError(
                     "--canonical-record must use a repository-relative POSIX path"
                 )
-            record_path = within_root(root, canonical_record)
-            exact_relative = record_path.relative_to(root.resolve()).as_posix()
-            if exact_relative != canonical_record:
-                raise ContextError(
-                    "--canonical-record must be an exact normalized "
-                    "repository-relative path"
+            try:
+                record_path = repository_file(
+                    root,
+                    canonical_record,
+                    required=False,
                 )
-            if not record_path.is_file():
+            except ContextError as exc:
+                raise ContextError(
+                    f"--canonical-record is unsafe: {exc}"
+                ) from exc
+            if record_path is None:
                 raise ContextError(
                     f"--canonical-record is missing: {canonical_record}"
                 )
@@ -757,27 +884,42 @@ def build_context_packet(
         generic_record = None
         vehicles: list[Path] = []
         latest_audit_record = None
+        canonical_provenance = file_provenance(canonical_path, root)
         if record_kind == "issue_page":
             metadata = front_matter(canonical_path)
-            audit_value = str(metadata.get("audit_history") or f"{issue_id}.audit.md")
-            audit_path = (canonical_path.parent / audit_value).resolve()
-            if root.resolve() not in audit_path.parents:
-                raise ContextError(f"audit path escapes repository: {audit_value}")
+            expected_audit_name = f"{issue_id}.audit.md"
+            audit_value = str(
+                metadata.get("audit_history") or expected_audit_name
+            )
+            if audit_value != expected_audit_name:
+                raise ContextError(
+                    f"audit_history for {issue_id} must name its exact sibling "
+                    f"{expected_audit_name}: {audit_value!r}"
+                )
+            audit_relative = (
+                PurePosixPath(canonical_provenance["path"]).parent
+                / expected_audit_name
+            ).as_posix()
+            audit_path = repository_file(
+                root,
+                audit_relative,
+                required=False,
+            )
             latest_audit = None
-            if audit_path.is_file():
+            if audit_path is not None:
                 latest_audit = latest_markdown_entry(
                     audit_path, "## Audit History", entry_level=3, order="newest-first"
                 )
             vehicles = resolve_linked_vehicles(root, canonical_path, metadata)
             issue_page = {
-                **file_provenance(canonical_path, root),
+                **canonical_provenance,
                 "front_matter": metadata,
                 "content": canonical_path.read_text(encoding="utf-8"),
             }
             latest_audit_record = (
                 {
                     **latest_audit,
-                    "path": audit_path.relative_to(root.resolve()).as_posix(),
+                    "path": file_provenance(audit_path, root)["path"],
                     "sha256": sha256_path(audit_path, root),
                 }
                 if latest_audit
@@ -785,17 +927,13 @@ def build_context_packet(
             )
         else:
             generic_record = {
-                **file_provenance(canonical_path, root),
+                **canonical_provenance,
                 "content": canonical_path.read_text(encoding="utf-8"),
             }
         dossier = {
             "issue_id": issue_id,
             "canonical_record_kind": record_kind,
-            "canonical_record_path": Path(
-                os.path.realpath(os.fspath(canonical_path))
-            )
-            .relative_to(Path(os.path.realpath(os.fspath(root))))
-            .as_posix(),
+            "canonical_record_path": canonical_provenance["path"],
             "canonical_record": generic_record,
             "issue_page": issue_page,
             "linked_vehicles": [
@@ -974,12 +1112,12 @@ def validate_queue_canonical_record(
     while text.startswith("./"):
         text = text[2:]
     try:
-        path = within_root(root, text)
+        path = repository_file(root, text, required=False)
     except ContextError as exc:
         return None, f"{identifier} has an unsafe canonicalRecord: {exc}"
-    if not path.is_file():
+    if path is None:
         return None, f"{identifier} canonicalRecord is missing: {text}"
-    normalized = path.relative_to(root.resolve()).as_posix()
+    normalized = file_provenance(path, root)["path"]
     if re.fullmatch(r"areas/[^/]+/README\.md", normalized, re.IGNORECASE):
         area = identifier.split("-", 1)[0]
         expected_area_readme = f"areas/{area}/README.md"

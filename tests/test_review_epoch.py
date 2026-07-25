@@ -216,6 +216,61 @@ class ReviewEpochTests(unittest.TestCase):
                     root=root,
                 )
 
+    def test_manifest_argument_must_resolve_inside_the_reviewed_root(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            root = base / "repo"
+            root.mkdir()
+            manifest, packet, hashes = boundary(root)
+            outside = base / "outside-context-routes.json"
+            outside.write_bytes(manifest.read_bytes())
+            linked = root / "framework" / "linked-context-routes.json"
+            linked.symlink_to(outside)
+
+            for candidate in (outside, linked):
+                with self.subTest(candidate=candidate.name):
+                    with self.assertRaisesRegex(
+                        ValueError,
+                        "path escapes allowed root",
+                    ):
+                        MODULE.validate(
+                            record(hashes),
+                            manifest_path=candidate,
+                            context_packet=packet,
+                            root=root,
+                        )
+
+    def test_manifest_argument_accepts_relative_and_in_root_absolute_paths(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest, packet, hashes = boundary(root)
+            for candidate in (
+                Path("framework/context-routes.json"),
+                manifest,
+            ):
+                with self.subTest(candidate=str(candidate)):
+                    validated = MODULE.validate(
+                        record(hashes),
+                        manifest_path=candidate,
+                        context_packet=packet,
+                        root=root,
+                    )
+                    self.assertEqual(validated["epoch_id"], "REVIEW-2026-07-24")
+
+    def test_packet_manifest_path_cannot_redirect_boundary_hashing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest, packet, hashes = boundary(root)
+            redirected = copy.deepcopy(packet)
+            redirected["manifest"]["path"] = "../outside-context-routes.json"
+            with self.assertRaisesRegex(ValueError, "manifest identity"):
+                MODULE.validate(
+                    record(hashes),
+                    manifest_path=manifest,
+                    context_packet=redirected,
+                    root=root,
+                )
+
     def test_noncomprehensive_packet_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

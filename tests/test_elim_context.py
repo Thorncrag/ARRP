@@ -15,9 +15,12 @@ from arrp_context import (  # noqa: E402
     ContextError,
     build_context_packet,
     build_work_queue,
+    canonical_issue_area,
     extract_exact_heading,
     load_route_manifest,
+    repository_file,
     stable_work_id,
+    validate_queue_canonical_record,
 )
 from select_elim_context_route import select_context_route  # noqa: E402
 
@@ -275,6 +278,110 @@ class ExactContextTests(unittest.TestCase):
                 "issue",
                 canonical_record="https://example.com/record",
                 **common,
+            )
+
+    def test_bounded_issue_identifier_parser_rejects_adversarial_input(self):
+        self.assertEqual(canonical_issue_area("TEST-001"), "TEST")
+        for value in (
+            "A" * 100_000 + "-001",
+            "../TEST-001",
+            "test-001",
+            "TEST-0001",
+            "TEST-00A",
+        ):
+            with self.subTest(value=value[:80]):
+                with self.assertRaisesRegex(
+                    ContextError,
+                    "invalid canonical issue identifier",
+                ):
+                    canonical_issue_area(value)
+
+    def test_repository_file_rejects_traversal_and_symlink_escape(self):
+        self.assertEqual(
+            repository_file(
+                self.root,
+                "areas/TEST/issues/TEST-001.md",
+            ),
+            (self.root / "areas/TEST/issues/TEST-001.md").resolve(),
+        )
+        with self.assertRaisesRegex(ContextError, "exact normalized"):
+            repository_file(
+                self.root,
+                "areas/TEST/issues/../issues/TEST-001.md",
+            )
+
+        with tempfile.TemporaryDirectory() as outside_directory:
+            outside = Path(outside_directory) / "outside.md"
+            outside.write_text("outside\n", encoding="utf-8")
+            escape = self.root / "areas/TEST/issues/TEST-002.md"
+            escape.symlink_to(outside)
+            with self.assertRaisesRegex(ContextError, "escapes allowed root"):
+                repository_file(
+                    self.root,
+                    "areas/TEST/issues/TEST-002.md",
+                )
+
+    def test_context_packet_rejects_symlinked_canonical_records(self):
+        with tempfile.TemporaryDirectory() as outside_directory:
+            outside = Path(outside_directory) / "outside.md"
+            outside.write_text("outside\n", encoding="utf-8")
+            escape = self.root / "areas/TEST/issues/TEST-002.md"
+            escape.symlink_to(outside)
+
+            with self.assertRaisesRegex(ContextError, "escapes allowed root"):
+                build_context_packet(
+                    self.manifest,
+                    "issue",
+                    root=self.root,
+                    issue_id="TEST-002",
+                )
+            canonical, problem = validate_queue_canonical_record(
+                self.root,
+                "TEST-002",
+                "areas/TEST/issues/TEST-002.md",
+                formal_horizon=False,
+            )
+            self.assertIsNone(canonical)
+            self.assertIn("unsafe canonicalRecord", problem)
+            self.assertIn("escapes allowed root", problem)
+
+    def test_context_packet_rejects_symlinked_area_readme(self):
+        manifest = json.loads(self.manifest.read_text(encoding="utf-8"))
+        manifest["profiles"]["issue_development"] = deepcopy(
+            manifest["profiles"]["issue"]
+        )
+        write_json(self.manifest, manifest)
+        with tempfile.TemporaryDirectory() as outside_directory:
+            outside = Path(outside_directory) / "README.md"
+            outside.write_text("# Outside\n", encoding="utf-8")
+            (self.root / "areas/TEST/README.md").symlink_to(outside)
+            with self.assertRaisesRegex(ContextError, "escapes allowed root"):
+                build_context_packet(
+                    self.manifest,
+                    "issue_development",
+                    root=self.root,
+                    issue_id="TEST-003",
+                )
+
+    def test_context_packet_requires_the_exact_sibling_audit_history(self):
+        issue = self.root / "areas/TEST/issues/TEST-001.md"
+        issue.write_text(
+            "---\n"
+            "issue_id: TEST-001\n"
+            'audit_history: "../../../outside.md"\n'
+            "---\n"
+            "# TEST-001\n",
+            encoding="utf-8",
+        )
+        with self.assertRaisesRegex(
+            ContextError,
+            "must name its exact sibling TEST-001.audit.md",
+        ):
+            build_context_packet(
+                self.manifest,
+                "issue",
+                root=self.root,
+                issue_id="TEST-001",
             )
 
     def test_yaml_dates_are_normalized_for_packet_serialization(self):

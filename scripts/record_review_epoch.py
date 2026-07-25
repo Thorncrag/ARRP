@@ -21,6 +21,7 @@ from arrp_context import (  # noqa: E402
     _profile_document_ids,
     extract_exact_heading,
     load_route_manifest,
+    repository_file,
     sha256_path,
     within_root,
 )
@@ -218,10 +219,28 @@ def _context_manifest(
     root: Path,
 ) -> tuple[dict, Path, str]:
     try:
-        manifest_path = manifest_path.resolve()
-        manifest = load_route_manifest(manifest_path, root=root, verify_hashes=True)
-        manifest_relative = manifest_path.relative_to(root.resolve()).as_posix()
-        manifest_sha = sha256_path(manifest_path, root)
+        if manifest_path.is_absolute():
+            try:
+                manifest_relative = manifest_path.relative_to(
+                    root.absolute()
+                ).as_posix()
+            except ValueError as exc:
+                raise ContextError(
+                    f"path escapes allowed root: {manifest_path}"
+                ) from exc
+        else:
+            manifest_relative = manifest_path.as_posix()
+        safe_manifest_path = repository_file(root, manifest_relative)
+        if safe_manifest_path is None:  # required=True makes this unreachable.
+            raise ContextError(
+                f"repository file is missing: {manifest_relative}"
+            )
+        manifest = load_route_manifest(
+            safe_manifest_path,
+            root=root,
+            verify_hashes=True,
+        )
+        manifest_sha = sha256_path(safe_manifest_path, root)
     except (ContextError, OSError, ValueError) as exc:
         raise ValueError(f"current context manifest is invalid: {exc}") from exc
     if manifest.get("schema_version") != 2:
@@ -231,7 +250,7 @@ def _context_manifest(
         raise ValueError(
             "comprehensive_review must include every governing context document"
         )
-    return manifest, manifest_path, manifest_relative
+    return manifest, safe_manifest_path, manifest_relative
 
 
 def _packet_modules(
@@ -364,7 +383,10 @@ def _validate_governing_boundary(
     context_packet: dict,
     root: Path,
 ) -> None:
-    manifest, _, manifest_relative = _context_manifest(manifest_path, root=root)
+    manifest, safe_manifest_path, manifest_relative = _context_manifest(
+        manifest_path,
+        root=root,
+    )
     if not isinstance(context_packet, dict):
         raise ValueError("comprehensive context packet must be an object")
     if context_packet.get("schema_version") != 2:
@@ -379,7 +401,7 @@ def _validate_governing_boundary(
     manifest_identity = context_packet.get("manifest")
     if not isinstance(manifest_identity, dict):
         raise ValueError("comprehensive context packet has no manifest identity")
-    manifest_sha = sha256_path(manifest_path.resolve(), root)
+    manifest_sha = sha256_path(safe_manifest_path, root)
     expected_identity = {"path": manifest_relative, "sha256": manifest_sha}
     if manifest_identity != expected_identity:
         raise ValueError(
