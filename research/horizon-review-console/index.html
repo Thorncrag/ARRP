@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>ARRP Project Console</title>
     <meta name="description" content="ARRP project progress, candidate, source, monitoring, automation, log, and print-planning console.">
-    <link rel="stylesheet" href="styles.css?v=41">
+    <link rel="stylesheet" href="styles.css?v=42">
   </head>
   <body data-interface-theme="arrp-tool">
     <a class="skip-link" href="#console-tabs">Skip to console tabs</a>
@@ -59,13 +59,17 @@
 
       <section class="tab-panel" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" tabindex="0">
         <section class="queue-view overview-view" aria-labelledby="overview-heading">
-          <div class="queue-view-header">
+          <div class="queue-view-header overview-header">
             <div>
-              <span class="eyebrow">Project command center</span>
+              <span class="eyebrow">Daily operations briefing</span>
               <h2 id="overview-heading">Whole-project overview</h2>
-              <p>A compact operational picture of human decisions, open problems, proposal maturity, monitoring, automation, publication, and data freshness. Open any card for the complete owning view.</p>
+              <p>A compact account of what happened, what needs attention, and where to look next. Detailed progress remains on the Progress screen.</p>
             </div>
-            <p class="refresh-note">Console built <time id="overview-generated-at">—</time></p>
+            <div class="overview-header-actions">
+              <p class="refresh-note">Console built <time id="overview-generated-at">—</time></p>
+              <button type="button" id="overview-refresh-request" class="secondary">Request fresh overview</button>
+              <span id="overview-refresh-status" class="overview-refresh-status" role="status" aria-live="polite">Checking local coordinator…</span>
+            </div>
           </div>
           <section class="automation-error-alert" id="overview-bot-alert" role="alert" aria-labelledby="overview-bot-alert-heading" hidden>
             <div>
@@ -75,22 +79,92 @@
             </div>
             <div class="automation-error-links" id="overview-bot-alert-links"></div>
           </section>
-          <div class="overview-metrics" id="overview-metrics"></div>
-          <section class="overview-section" id="overview-attention-section" aria-labelledby="overview-attention-heading">
-            <div class="section-heading-row"><div><h3 id="overview-attention-heading">Attention and risk</h3><p>Human decisions remain separate from agent-owned and observed problems.</p></div></div>
-            <div class="overview-attention-grid" id="overview-attention"></div>
+          <section class="overview-section overview-daily-brief" id="overview-daily-section" data-layout-id="overview-daily-section" aria-labelledby="overview-daily-heading">
+            <div class="overview-daily-heading">
+              <div>
+                <span class="eyebrow">Operational posture</span>
+                <h3 id="overview-daily-heading">Daily brief</h3>
+              </div>
+              <span id="overview-daily-status" class="status-badge">Awaiting data</span>
+            </div>
+            <p id="overview-daily-summary" class="overview-daily-summary">Assembling the current operational picture…</p>
+            <div class="overview-daily-facts" id="overview-daily-facts"></div>
           </section>
-          <section class="overview-section" id="overview-pipeline-section" aria-labelledby="overview-pipeline-heading">
-            <div class="section-heading-row"><div><h3 id="overview-pipeline-heading">Proposal pipeline</h3><p>Every active proposal and candidate by substantive maturity.</p></div><a class="record-link secondary" href="#progress">Open development board →</a></div>
-            <div class="pipeline-visual" id="overview-pipeline" role="img" aria-label="Proposal maturity distribution"></div>
+          <section class="overview-section" id="overview-overnight-section" data-layout-id="overview-overnight-section" aria-labelledby="overview-overnight-heading">
+            <div class="section-heading-row">
+              <div><h3 id="overview-overnight-heading">Latest automated activity</h3><p>The current chain and the most recently recorded Elim result, with detailed records one click away.</p></div>
+            </div>
+            <div class="overview-overnight-grid" id="overview-overnight-grid">
+              <article class="overview-operations-card" data-layout-id="overview-latest-chain">
+                <div class="overview-card-heading">
+                  <div><span class="eyebrow">Latest run-chain</span><h4 id="overview-chain-title">Awaiting baseline</h4></div>
+                  <a class="record-link secondary compact-link" href="#automation:administration">Details →</a>
+                </div>
+                <p id="overview-chain-summary" class="compact-summary"></p>
+                <div id="overview-chain-stages" class="overview-chain-stages" aria-label="Run-chain stage results"></div>
+              </article>
+              <article class="overview-operations-card" data-layout-id="overview-elim-work">
+                <div class="overview-card-heading">
+                  <div><span class="eyebrow">Elim</span><h4 id="overview-elim-title">Latest recorded run</h4></div>
+                  <a class="record-link secondary compact-link" href="#logs:elim">Run log →</a>
+                </div>
+                <p id="overview-elim-summary" class="compact-summary"></p>
+                <div id="overview-elim-improvements" class="overview-elim-improvements"></div>
+              </article>
+            </div>
           </section>
-          <section class="overview-section" id="overview-operations-section" aria-labelledby="overview-operations-heading">
-            <div class="section-heading-row"><div><h3 id="overview-operations-heading">Operations</h3><p>Current persistent agents, bots, monitored issues, and source-check posture.</p></div></div>
-            <div class="overview-operations-grid" id="overview-operations"></div>
+          <section class="overview-section overview-portals-section" id="overview-portals-section" data-layout-id="overview-portals-section" aria-labelledby="overview-portals-heading">
+            <div class="section-heading-row"><div><h3 id="overview-portals-heading">Operational portals</h3><p>Authoritative counts or an explicit unavailable state—never a guessed zero.</p></div></div>
+            <div class="overview-portals" id="overview-portals"></div>
           </section>
-          <section class="overview-section" id="overview-freshness-section" aria-labelledby="overview-freshness-heading">
-            <div class="section-heading-row"><div><h3 id="overview-freshness-heading">Data freshness</h3><p>When each major Console projection was last refreshed.</p></div></div>
-            <div class="freshness-grid" id="overview-freshness"></div>
+          <section class="overview-section" id="overview-recent-section" data-layout-id="overview-recent-section" aria-labelledby="overview-recent-heading">
+            <div class="section-heading-row"><div><h3 id="overview-recent-heading">Recent actions and accepted decisions</h3><p>Scan the lines first; expand only the entries that warrant context.</p></div></div>
+            <div class="overview-recent-grid">
+              <div class="overview-list-panel">
+                <h4>Recent project actions</h4>
+                <div id="overview-recent-actions" class="overview-expandable-list"></div>
+              </div>
+              <div class="overview-list-panel">
+                <h4>Accepted Horizon decisions</h4>
+                <div id="overview-recent-decisions" class="overview-expandable-list"></div>
+              </div>
+            </div>
+          </section>
+          <section class="overview-section" id="overview-system-section" data-layout-id="overview-system-section" aria-labelledby="overview-system-heading">
+            <div class="section-heading-row"><div><h3 id="overview-system-heading">System currency</h3><p>Project-data age, official OpenAI service health, and private host-attested Codex usage.</p></div></div>
+            <div class="overview-system-grid" id="overview-system-grid">
+              <article class="overview-system-card" data-layout-id="overview-project-currency">
+                <div class="overview-card-heading"><div><span class="eyebrow">Project data</span><h4>Freshness</h4></div></div>
+                <div class="freshness-grid" id="overview-freshness"></div>
+              </article>
+              <article class="overview-system-card" data-layout-id="overview-openai-health">
+                <div class="overview-card-heading">
+                  <div><span class="eyebrow">Official service status</span><h4>OpenAI</h4></div>
+                  <a class="record-link secondary compact-link" href="https://status.openai.com/" target="_blank" rel="noopener noreferrer">Status page ↗</a>
+                </div>
+                <div id="overview-openai-status" class="overview-service-status"></div>
+                <p id="overview-openai-checked" class="micro-note">Checking official status…</p>
+              </article>
+              <article class="overview-system-card overview-usage-card" data-layout-id="overview-codex-usage">
+                <div class="overview-card-heading">
+                  <div><span class="eyebrow">Private host reading</span><h4>Codex usage</h4></div>
+                  <span id="overview-usage-posture" class="status-badge">Unavailable</span>
+                </div>
+                <div id="overview-usage-summary" class="overview-usage-summary"></div>
+                <details class="overview-usage-details" data-disclosure-id="overview-usage-windows">
+                  <summary><span>Usage windows and Elim trend</span><span id="overview-usage-detail-summary" class="disclosure-summary-detail">No reading</span></summary>
+                  <div id="overview-usage-windows" class="overview-usage-windows"></div>
+                  <div id="overview-usage-trend" class="overview-usage-trend"></div>
+                </details>
+              </article>
+            </div>
+          </section>
+          <section class="overview-section" id="overview-queues-section" data-layout-id="overview-queues-section" aria-labelledby="overview-queues-heading">
+            <div class="section-heading-row">
+              <div><h3 id="overview-queues-heading">Complete queue directory</h3><p>Every operational queue in one compact index, including empty and temporarily unavailable queues.</p></div>
+              <span id="overview-queues-summary" class="disclosure-summary-detail">Counting queues…</span>
+            </div>
+            <div id="overview-queue-directory" class="overview-queue-directory"></div>
           </section>
         </section>
       </section>
@@ -424,7 +498,7 @@
               </article>
               <article class="automation-cascade-step" role="listitem">
                 <span class="automation-step-number">2</span>
-                <div><span class="eyebrow">Boundary</span><h4>Lock and preflight</h4><p>Require one active chain, synchronized <code>main</code>, a clean worktree, current credentials, and a recorded baseline commit.</p></div>
+                <div><span class="eyebrow">Boundary</span><h4>Reconcile, lock, and preflight</h4><p>On synchronized <code>main</code>, commit and fast-forward push ordinary local changes, then wait for the next poll. Branch or history divergence stops for review. A run then requires one active chain, current credentials, a recorded baseline, and a clean isolated checkout.</p></div>
               </article>
               <article class="automation-cascade-step" role="listitem">
                 <span class="automation-step-number">3</span>
@@ -720,46 +794,46 @@
 
     <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
 
-    <script src="catalog-data.js?v=41"></script>
-    <script src="data/candidates.js?v=41"></script>
-    <script src="data/sources.js?v=41"></script>
-    <script src="data/sources-catalog-001.js?v=41"></script>
-    <script src="data/sources-catalog-002.js?v=41"></script>
-    <script src="data/sources-catalog-003.js?v=41"></script>
-    <script src="data/sources-catalog-004.js?v=41"></script>
-    <script src="data/sources-catalog-005.js?v=41"></script>
-    <script src="data/sources-catalog-006.js?v=41"></script>
-    <script src="data/sources-catalog-007.js?v=41"></script>
-    <script src="data/sources-catalog-008.js?v=41"></script>
-    <script src="data/sources-catalog-009.js?v=41"></script>
-    <script src="data/sources-catalog-010.js?v=41"></script>
-    <script src="data/sources-catalog-011.js?v=41"></script>
-    <script src="data/sources-catalog-012.js?v=41"></script>
-    <script src="data/sources-catalog-013.js?v=41"></script>
-    <script src="data/sources-catalog-014.js?v=41"></script>
-    <script src="data/sources-catalog-015.js?v=41"></script>
-    <script src="data/sources-catalog-016.js?v=41"></script>
-    <script src="data/directives-catalog-001.js?v=41"></script>
-    <script src="data/directives-catalog-002.js?v=41"></script>
-    <script src="data/directives-catalog-003.js?v=41"></script>
-    <script src="data/directives-catalog-004.js?v=41"></script>
-    <script src="data/directives-catalog-005.js?v=41"></script>
-    <script src="data/directives-catalog-006.js?v=41"></script>
-    <script src="data/directives-catalog-007.js?v=41"></script>
-    <script src="data/directives-catalog-008.js?v=41"></script>
-    <script src="data/directives-catalog-009.js?v=41"></script>
-    <script src="data/directives-catalog-010.js?v=41"></script>
-    <script src="data/directives-catalog-011.js?v=41"></script>
-    <script src="data/directives-catalog-012.js?v=41"></script>
-    <script src="data/directives-catalog-013.js?v=41"></script>
-    <script src="data/directives-catalog-014.js?v=41"></script>
-    <script src="data/directives-catalog-015.js?v=41"></script>
-    <script src="data/directives-catalog-016.js?v=41"></script>
-    <script src="data/progress.js?v=41"></script>
-    <script src="data/integrity.js?v=41"></script>
-    <script src="data/automation.js?v=41"></script>
-    <script src="data/logs.js?v=41"></script>
-    <script src="data/publication.js?v=41"></script>
-    <script src="app.js?v=41"></script>
+    <script src="catalog-data.js?v=42"></script>
+    <script src="data/candidates.js?v=42"></script>
+    <script src="data/sources.js?v=42"></script>
+    <script src="data/sources-catalog-001.js?v=42"></script>
+    <script src="data/sources-catalog-002.js?v=42"></script>
+    <script src="data/sources-catalog-003.js?v=42"></script>
+    <script src="data/sources-catalog-004.js?v=42"></script>
+    <script src="data/sources-catalog-005.js?v=42"></script>
+    <script src="data/sources-catalog-006.js?v=42"></script>
+    <script src="data/sources-catalog-007.js?v=42"></script>
+    <script src="data/sources-catalog-008.js?v=42"></script>
+    <script src="data/sources-catalog-009.js?v=42"></script>
+    <script src="data/sources-catalog-010.js?v=42"></script>
+    <script src="data/sources-catalog-011.js?v=42"></script>
+    <script src="data/sources-catalog-012.js?v=42"></script>
+    <script src="data/sources-catalog-013.js?v=42"></script>
+    <script src="data/sources-catalog-014.js?v=42"></script>
+    <script src="data/sources-catalog-015.js?v=42"></script>
+    <script src="data/sources-catalog-016.js?v=42"></script>
+    <script src="data/directives-catalog-001.js?v=42"></script>
+    <script src="data/directives-catalog-002.js?v=42"></script>
+    <script src="data/directives-catalog-003.js?v=42"></script>
+    <script src="data/directives-catalog-004.js?v=42"></script>
+    <script src="data/directives-catalog-005.js?v=42"></script>
+    <script src="data/directives-catalog-006.js?v=42"></script>
+    <script src="data/directives-catalog-007.js?v=42"></script>
+    <script src="data/directives-catalog-008.js?v=42"></script>
+    <script src="data/directives-catalog-009.js?v=42"></script>
+    <script src="data/directives-catalog-010.js?v=42"></script>
+    <script src="data/directives-catalog-011.js?v=42"></script>
+    <script src="data/directives-catalog-012.js?v=42"></script>
+    <script src="data/directives-catalog-013.js?v=42"></script>
+    <script src="data/directives-catalog-014.js?v=42"></script>
+    <script src="data/directives-catalog-015.js?v=42"></script>
+    <script src="data/directives-catalog-016.js?v=42"></script>
+    <script src="data/progress.js?v=42"></script>
+    <script src="data/integrity.js?v=42"></script>
+    <script src="data/automation.js?v=42"></script>
+    <script src="data/logs.js?v=42"></script>
+    <script src="data/publication.js?v=42"></script>
+    <script src="app.js?v=42"></script>
   </body>
 </html>

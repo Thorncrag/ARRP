@@ -85,6 +85,15 @@
       "defaultPublication": "non-force-fast-forward-main",
       "humanReviewPublication": "open-unmerged-pull-request"
     },
+    "canonicalWorkspaceReconciliation": {
+      "requiredBranch": "main",
+      "dirtyMainAction": "commit-fast-forward-push-and-defer",
+      "changedPathPolicy": "complete-workspace",
+      "commitMessage": "Preserve local ARRP changes before automated run",
+      "requireConflictFree": true,
+      "requireStagedDiffCheck": true,
+      "divergentHistoryAction": "fail-closed"
+    },
     "staleLockSeconds": 900,
     "controlHost": "127.0.0.1",
     "controlPort": 8766

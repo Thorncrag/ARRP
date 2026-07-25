@@ -283,11 +283,18 @@ class RunChainDispatcherTests(unittest.TestCase):
             config["hostDispatcher"]["repositoryCloseout"],
             MODULE.HOST_CLOSEOUT_POLICY,
         )
+        self.assertEqual(
+            config["hostDispatcher"]["canonicalWorkspaceReconciliation"],
+            MODULE.CANONICAL_WORKSPACE_RECONCILIATION_POLICY,
+        )
 
     def test_host_closeout_policy_rejects_runtime_drift(self):
         config = {
             "hostDispatcher": {
                 "repositoryCloseout": dict(MODULE.HOST_CLOSEOUT_POLICY),
+                "canonicalWorkspaceReconciliation": dict(
+                    MODULE.CANONICAL_WORKSPACE_RECONCILIATION_POLICY
+                ),
             }
         }
         MODULE.validate_host_closeout_policy(config)
@@ -297,6 +304,24 @@ class RunChainDispatcherTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "trusted-host boundary"):
             MODULE.validate_host_closeout_policy(config)
 
+    def test_workspace_reconciliation_policy_rejects_runtime_drift(self):
+        config = {
+            "hostDispatcher": {
+                "repositoryCloseout": dict(MODULE.HOST_CLOSEOUT_POLICY),
+                "canonicalWorkspaceReconciliation": dict(
+                    MODULE.CANONICAL_WORKSPACE_RECONCILIATION_POLICY
+                ),
+            }
+        }
+        config["hostDispatcher"]["canonicalWorkspaceReconciliation"][
+            "divergentHistoryAction"
+        ] = "auto-merge"
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "canonical-workspace reconciliation",
+        ):
+            MODULE.validate_host_closeout_policy(config)
+
     def test_dispatcher_uses_only_the_reviewed_config_path(self):
         source = (ROOT / "scripts" / "run_chain_dispatcher.py").read_text()
         self.assertNotIn('parser.add_argument("--config"', source)
@@ -304,6 +329,10 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertIn('"--recover-stale-lock-only"', source)
         self.assertIn("do not fetch, synchronize, trigger a chain", source)
         self.assertIn("record_bootstrap_failure_best_effort(", source)
+        self.assertIn(
+            "Committed and synchronized canonical workspace changes as",
+            source,
+        )
 
     def test_bootstrap_failure_projects_action_item_when_host_lock_is_free(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -580,7 +609,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                 "019f9999-1234-7000-8000-123456789abc",
             )
 
-    def test_runtime_preflight_allows_feature_branch_and_unrelated_dirty_files(self):
+    def test_runtime_preflight_requires_reconciled_main(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
             for relative in MODULE.AUTOMATION_RUNTIME_PATHS:
@@ -592,6 +621,11 @@ class RunChainDispatcherTests(unittest.TestCase):
                 MODULE.subprocess.CompletedProcess(
                     [], 0, stdout="https://github.com/Thorncrag/ARRP.git\n", stderr=""
                 ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout="a" * 40 + "\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="main\n", stderr=""),
                 MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
                 MODULE.subprocess.CompletedProcess(
                     [], 0, stdout="a" * 40 + "\n", stderr=""
@@ -613,19 +647,184 @@ class RunChainDispatcherTests(unittest.TestCase):
                 "command",
                 side_effect=responses,
             ) as invoked:
-                revision = MODULE.verify_canonical_runtime_boundary(
+                revision, workspace_commit = MODULE.verify_canonical_runtime_boundary(
                     "/usr/bin/git",
                     repo,
                 )
             self.assertEqual(revision, "a" * 40)
+            self.assertIsNone(workspace_commit)
             argument_vectors = [call.args[0] for call in invoked.mock_calls]
-            self.assertFalse(
+            self.assertIn(
+                ["/usr/bin/git", "branch", "--show-current"],
+                argument_vectors,
+            )
+            self.assertIn(
+                ["/usr/bin/git", "status", "--porcelain"],
+                argument_vectors,
+            )
+            self.assertFalse(any("merge" in vector for vector in argument_vectors))
+
+    def test_runtime_preflight_blocks_unreconciled_workspace(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            responses = [
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout="https://github.com/Thorncrag/ARRP.git\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout="a" * 40 + "\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="codex/in-progress\n", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="a" * 40 + "\n", stderr=""),
+            ]
+            with mock.patch.object(MODULE, "command", side_effect=responses):
+                with self.assertRaisesRegex(
+                    RuntimeError,
+                    "current branch is codex/in-progress instead of main",
+                ):
+                    MODULE.verify_canonical_runtime_boundary("/usr/bin/git", repo)
+
+    def test_runtime_preflight_commits_and_pushes_dirty_main(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            for relative in MODULE.AUTOMATION_RUNTIME_PATHS:
+                path = repo / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(relative + "\n", encoding="utf-8")
+            original = "a" * 40
+            committed = "c" * 40
+            same_blob = "b" * 40 + "\n"
+            responses = [
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout="https://github.com/Thorncrag/ARRP.git\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout=original + "\n", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="main\n", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout=" M areas/FACT/README.md\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout=original + "\n", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout="areas/FACT/README.md\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout=committed + "\n", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout=committed + "\n", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+            ]
+            for _relative in MODULE.AUTOMATION_RUNTIME_PATHS:
+                responses.extend(
+                    [
+                        MODULE.subprocess.CompletedProcess(
+                            [], 0, stdout=same_blob, stderr=""
+                        ),
+                        MODULE.subprocess.CompletedProcess(
+                            [], 0, stdout=same_blob, stderr=""
+                        ),
+                    ]
+                )
+            with mock.patch.object(
+                MODULE,
+                "command",
+                side_effect=responses,
+            ) as invoked:
+                revision, workspace_commit = (
+                    MODULE.verify_canonical_runtime_boundary("/usr/bin/git", repo)
+                )
+            self.assertEqual((revision, workspace_commit), (committed, committed))
+            argument_vectors = [call.args[0] for call in invoked.mock_calls]
+            self.assertIn(["/usr/bin/git", "add", "-A"], argument_vectors)
+            self.assertIn(
+                ["/usr/bin/git", "push", "origin", "main:main"],
+                argument_vectors,
+            )
+            self.assertTrue(
                 any(
-                    vector[1:3] in (["status", "--porcelain"], ["branch", "--show-current"])
+                    vector[-2:] == [
+                        "-m",
+                        MODULE.CANONICAL_WORKSPACE_RECONCILIATION_POLICY[
+                            "commitMessage"
+                        ],
+                    ]
                     for vector in argument_vectors
                 )
             )
-            self.assertFalse(any("merge" in vector for vector in argument_vectors))
+
+    def test_runtime_preflight_reconciles_a_real_git_workspace(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            remote = root / "origin.git"
+            repo = root / "repo"
+
+            def run(arguments, *, cwd):
+                return MODULE.subprocess.run(
+                    ["/usr/bin/git", *arguments],
+                    cwd=cwd,
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+
+            run(["init", "--bare", str(remote)], cwd=root)
+            repo.mkdir()
+            run(["init", "-b", "main"], cwd=repo)
+            for relative in MODULE.AUTOMATION_RUNTIME_PATHS:
+                path = repo / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(relative + "\n", encoding="utf-8")
+            readme = repo / "README.md"
+            readme.write_text("baseline\n", encoding="utf-8")
+            run(["add", "-A"], cwd=repo)
+            run(
+                [
+                    "-c",
+                    "user.name=Test User",
+                    "-c",
+                    "user.email=test@example.com",
+                    "commit",
+                    "-m",
+                    "Baseline",
+                ],
+                cwd=repo,
+            )
+            run(["remote", "add", "origin", str(remote)], cwd=repo)
+            run(["push", "-u", "origin", "main"], cwd=repo)
+            original = run(["rev-parse", "HEAD"], cwd=repo).stdout.strip()
+            readme.write_text("preserved\n", encoding="utf-8")
+
+            with mock.patch.object(
+                MODULE,
+                "APPROVED_ORIGIN_URLS",
+                frozenset({str(remote)}),
+            ):
+                revision, workspace_commit = (
+                    MODULE.verify_canonical_runtime_boundary("/usr/bin/git", repo)
+                )
+
+            self.assertIsNotNone(workspace_commit)
+            self.assertNotEqual(revision, original)
+            self.assertEqual(revision, workspace_commit)
+            self.assertEqual(
+                run(["rev-parse", "refs/remotes/origin/main"], cwd=repo)
+                .stdout.strip(),
+                revision,
+            )
+            self.assertEqual(
+                run(["status", "--porcelain"], cwd=repo).stdout,
+                "",
+            )
+            self.assertIn(
+                "Preserve local ARRP changes before automated run",
+                run(["log", "-1", "--pretty=%s"], cwd=repo).stdout,
+            )
 
     def test_runtime_preflight_blocks_automation_file_drift(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -638,6 +837,11 @@ class RunChainDispatcherTests(unittest.TestCase):
                 MODULE.subprocess.CompletedProcess(
                     [], 0, stdout="https://github.com/Thorncrag/ARRP.git\n", stderr=""
                 ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout="a" * 40 + "\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="main\n", stderr=""),
                 MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
                 MODULE.subprocess.CompletedProcess(
                     [], 0, stdout="a" * 40 + "\n", stderr=""

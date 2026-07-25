@@ -106,6 +106,8 @@
   const LIVE_SOURCE_CHECKER_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/source-checker.json";
   const LIVE_RUN_CHAIN_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/run-chain.json";
   const LIVE_PULL_REQUESTS_URL = "https://api.github.com/repos/Thorncrag/ARRP/pulls?state=open&per_page=100";
+  const OPENAI_STATUS_URL = "https://status.openai.com/api/v2/status.json";
+  const OPENAI_COMPONENTS_URL = "https://status.openai.com/api/v2/components.json";
   const GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/";
   const LIVE_SITE_ROOT = "https://thorncrag.github.io/ARRP/";
   const DEVELOPMENT_LEVELS = [
@@ -137,7 +139,15 @@
         .filter((record) => /^(New|Changed) since/.test(record.review_status || ""))
         .map((record) => record.id))
     },
-    pullRequests: []
+    pullRequests: [],
+    pullRequestsStatus: "pending",
+    pullRequestsCheckedAt: null
+  };
+  const serviceSignals = {
+    status: "pending",
+    checkedAt: null,
+    overall: null,
+    components: []
   };
 
   function text(value, fallback = "—") {
@@ -728,9 +738,9 @@
     });
     registerLayoutZone(document.querySelector(".watcher-tab-list"), "watcher-tabs", ":scope > button", "horizontal");
     registerLayoutZone(document.querySelector(".overview-view"), "sections-overview", ":scope > .overview-section");
-    registerLayoutZone(byId("overview-metrics"), "cards-overview-metrics", ":scope > article");
-    registerLayoutZone(byId("overview-attention"), "cards-overview-attention", ":scope > a");
-    registerLayoutZone(byId("overview-operations"), "cards-overview-operations", ":scope > a");
+    registerLayoutZone(byId("overview-overnight-grid"), "cards-overview-overnight", ":scope > article");
+    registerLayoutZone(byId("overview-portals"), "cards-overview-portals", ":scope > a");
+    registerLayoutZone(byId("overview-system-grid"), "cards-overview-system", ":scope > article");
     registerLayoutZone(byId("overview-freshness"), "cards-overview-freshness", ":scope > a");
     registerLayoutZone(byId("progress-sections"), "sections-progress-v2", ":scope > .development-board-section, :scope > .progress-disclosure");
     registerLayoutZone(byId("progress-summary-grid"), "cards-progress-summary", ":scope > article");
@@ -1946,19 +1956,11 @@
     };
   }
 
-  function renderActionItems() {
-    const decisionRecords = humanDecisionRecords();
-    const decisions = decisionRecords.length;
-    const preliminary = data.records.length;
-    const pending = data.pending_sources.length;
-    const openPullRequests = reviewSignals.pullRequests;
-    const pullRequests = openPullRequests.length;
-    const problemRecords = allProblemRecords();
+  function unresolvedAutomationActionItems(problemRecords = allProblemRecords()) {
     const integrityHumanFindings = problemRecords
       .filter((finding) => finding.attention === "human")
       .filter((finding) => finding.category !== "Automation failure")
       .sort((left, right) => String(left.message || "").localeCompare(String(right.message || "")));
-    const integrityHuman = integrityHumanFindings.length;
     const allHostAutomationActions = (data.run_chain?.host_action_items || [])
       .filter((item) => item);
     const hostAutomationActions = allHostAutomationActions
@@ -1982,12 +1984,57 @@
       const key = String(item.id || `${item.chain_id || ""}:${item.stage || ""}:${item.summary || ""}`);
       if (!automationByKey.has(key)) automationByKey.set(key, item);
     });
-    const automationActions = [...automationByKey.values()];
-    const total = decisions + preliminary + pending + pullRequests + integrityHuman + automationActions.length;
+    return {
+      integrityHumanFindings,
+      automationActions: [...automationByKey.values()]
+    };
+  }
+
+  function actionItemSnapshot() {
+    const decisionRecords = humanDecisionRecords();
+    const problemRecords = allProblemRecords();
+    const { integrityHumanFindings, automationActions } = unresolvedAutomationActionItems(problemRecords);
+    const pullRequestsKnown = ["current", "stale"].includes(reviewSignals.pullRequestsStatus);
+    const openPullRequests = pullRequestsKnown ? reviewSignals.pullRequests : [];
+    return {
+      decisionRecords,
+      decisions: decisionRecords.length,
+      preliminary: data.records.length,
+      pending: data.pending_sources.length,
+      problemRecords,
+      integrityHumanFindings,
+      integrityHuman: integrityHumanFindings.length,
+      automationActions,
+      openPullRequests,
+      pullRequests: openPullRequests.length,
+      pullRequestsKnown,
+      total: decisionRecords.length
+        + data.records.length
+        + data.pending_sources.length
+        + openPullRequests.length
+        + integrityHumanFindings.length
+        + automationActions.length
+    };
+  }
+
+  function renderActionItems() {
+    const {
+      decisionRecords,
+      decisions,
+      preliminary,
+      pending,
+      integrityHumanFindings,
+      integrityHuman,
+      automationActions,
+      openPullRequests,
+      pullRequests,
+      pullRequestsKnown,
+      total
+    } = actionItemSnapshot();
     const newOrUpdated = preliminary;
     byId("tab-actions-count").textContent = total;
     byId("action-items-note").textContent = total
-      ? `${total} item${total === 1 ? "" : "s"} awaiting review or a decision; ${newOrUpdated} new or updated.`
+      ? `${total} confirmed item${total === 1 ? "" : "s"} awaiting review or a decision; ${newOrUpdated} new or updated.${pullRequestsKnown ? "" : " Live pull-request status is unavailable."}`
       : "No items currently await review or a decision.";
     byId("action-items-grid").replaceChildren(
       actionItemCard({
@@ -2025,10 +2072,12 @@
       }),
       actionItemCard({
         label: "Open pull requests awaiting disposition",
-        count: pullRequests,
+        count: pullRequestsKnown ? pullRequests : "—",
         detail: pullRequests
           ? "Every open repository change requiring review, merge, closure, or another explicit disposition."
-          : "No pull request currently awaits disposition.",
+          : pullRequestsKnown
+            ? "No pull request currently awaits disposition."
+            : "Live GitHub pull-request status is unavailable; no zero is inferred.",
         target: "automation:administration",
         items: openPullRequests.map(pullRequestActionLink)
       }),
@@ -2082,6 +2131,8 @@
       reviewSignals.pullRequests = pullRequests
         .filter((record) => record && Number.isInteger(record.number) && record.html_url)
         .sort((left, right) => right.number - left.number);
+      reviewSignals.pullRequestsStatus = "current";
+      reviewSignals.pullRequestsCheckedAt = new Date().toISOString();
       const court = pullRequests.find((record) => record.head?.ref === "bot/case-monitor-updates");
       const directives = pullRequests.find((record) => record.head?.ref === "automation/presidential-directives-monitor");
       if (court) {
@@ -2105,7 +2156,13 @@
       byId("action-items-live-note").textContent = "Open pull requests and bot-update counts were refreshed from GitHub. Other counts come from the checked-in Console data.";
       renderReviewSignals();
     } catch (_error) {
-      byId("action-items-live-note").textContent = "Open pull requests and live bot-update status could not be refreshed; checked-in queue counts remain available.";
+      reviewSignals.pullRequestsStatus = reviewSignals.pullRequests.length ? "stale" : "unavailable";
+      reviewSignals.pullRequestsCheckedAt = new Date().toISOString();
+      byId("action-items-live-note").textContent = reviewSignals.pullRequests.length
+        ? "Open pull requests could not be refreshed; the last successful in-session result is shown as stale."
+        : "Open pull requests and live bot-update status could not be refreshed; the Console shows that queue as unavailable rather than zero.";
+      renderActionItems();
+      renderOverview();
     }
   }
 
@@ -2380,18 +2437,604 @@
     return card;
   }
 
-  function renderOverview() {
-    if (!byId("overview-metrics")) return;
-    const metrics = data.progress?.metrics || {};
-    const problems = allProblemRecords();
+  function dateTimestamp(value) {
+    if (!value) return 0;
+    const matches = String(value).match(/\d{4}-\d{2}-\d{2}(?:[T ][0-9:]+(?:Z| ?[+-]\d{4})?)?/g) || [];
+    for (const candidate of matches.reverse()) {
+      const parsed = Date.parse(candidate);
+      if (Number.isFinite(parsed)) return parsed;
+    }
+    const parsed = Date.parse(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+
+  function overviewDisplayDate(value) {
+    const matches = String(value || "").match(/\d{4}-\d{2}-\d{2}(?:[T ][0-9:]+(?:Z| ?[+-]\d{4})?)?/g) || [];
+    const candidate = matches[matches.length - 1] || value;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(String(candidate || ""))) {
+      const parsed = new Date(`${candidate}T12:00:00`);
+      return Number.isNaN(parsed.valueOf())
+        ? String(candidate)
+        : new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(parsed);
+    }
+    return formatDate(candidate);
+  }
+
+  function agePosture(value) {
+    const timestamp = dateTimestamp(value);
+    if (!timestamp) return "No timestamp";
+    const hours = Math.max(0, (Date.now() - timestamp) / 3600000);
+    if (hours < 1) return "Within the hour";
+    if (hours < 24) return `${Math.round(hours)}h old`;
+    return `${Math.round(hours / 24)}d old`;
+  }
+
+  function effectiveRunChainStatus(chain) {
+    const raw = String(chain.host_status || chain.status || chain.outcome || "");
+    const launchRecommended = chain.elim_decision?.launch_recommended === true
+      || chain.elim?.launch_recommended === true;
+    const currentRuntime = matchingElimRuntime(chain.elim_runtime, chain.chain_id);
+    if (/^complete$/i.test(raw) && launchRecommended && !currentRuntime && !chain.host_status) return "host_pending";
+    return raw || (runChainStages(chain).length ? "in_progress" : "unavailable");
+  }
+
+  function overviewStagePresentation(status) {
+    const value = String(status || "unavailable").toLowerCase().replaceAll(" ", "_");
+    if (/fail|error|block|cancel|timeout/.test(value)) return { icon: "×", statusLabel: value.replaceAll("_", " "), tone: "error" };
+    if (/degrad|warn|partial/.test(value)) return { icon: "!", statusLabel: value.replaceAll("_", " "), tone: "warning" };
+    if (/pending|progress|recommended|stopp/.test(value)) return { icon: "◌", statusLabel: value.replaceAll("_", " "), tone: "warning" };
+    if (/success|succeed|complete|healthy|pass/.test(value)) return { icon: "✓", statusLabel: value.replaceAll("_", " "), tone: "success" };
+    if (/not_due|no.?op|current/.test(value)) return { icon: "—", statusLabel: value.replaceAll("_", " "), tone: "not-due" };
+    return { icon: "○", statusLabel: value.replaceAll("_", " "), tone: "unavailable" };
+  }
+
+  function overviewRunChainStages(chain) {
+    const stages = new Map(runChainStages(chain).map((stage) => [stage.id, stage]));
+    const runtime = matchingElimRuntime(chain.elim_runtime, chain.chain_id);
+    const launchRecommended = chain.elim_decision?.launch_recommended === true
+      || chain.elim?.launch_recommended === true;
+    const planStatus = chain.chain_id
+      ? chain.repository?.fresh === false ? "degraded" : "succeeded"
+      : "unavailable";
+    const elimStatus = runtime?.status
+      || (launchRecommended ? "launch recommended" : chain.elim_decision ? "not due" : "not launched");
+    const hostStatus = chain.host_status
+      || (chain.host_closeout?.status)
+      || (launchRecommended ? "pending" : /^complete$/i.test(String(chain.status || "")) ? "not due" : chain.status);
+    const specs = [
+      ["Plan", planStatus, chain.work_queue?.next_item?.title || chain.chain_id || "No chain plan published"],
+      ["Cases", stages.get("case-monitor-bot")?.status, stages.get("case-monitor-bot")?.due_reason],
+      ["Directives", stages.get("presidential-directives-bot")?.status, stages.get("presidential-directives-bot")?.due_reason],
+      ["Sources", stages.get("source-checker-bot")?.status, stages.get("source-checker-bot")?.due_reason],
+      ["Progress", stages.get("project-console-progress-bot")?.status, stages.get("project-console-progress-bot")?.due_reason],
+      ["Intake", stages.get("public-intake")?.status, stages.get("public-intake")?.details],
+      ["Integrity", stages.get("project-integrity-bot")?.status, stages.get("project-integrity-bot")?.details],
+      ["Elim", elimStatus, runtime?.summary || chain.elim_decision?.reason || "No host Elim result is attached to this chain"],
+      ["Host closeout", hostStatus, chain.host_closeout?.details || chain.next_action || "No host closeout result is attached"]
+    ];
+    return specs.map(([label, status, detail]) => ({
+      label,
+      status: status || "unavailable",
+      detail: detail || "No detail recorded",
+      ...overviewStagePresentation(status)
+    }));
+  }
+
+  function renderOverviewChain(chain) {
+    const stages = overviewRunChainStages(chain);
+    const chainStatus = effectiveRunChainStatus(chain);
+    const workCounts = chain.work_queue?.counts || {};
+    const total = Number(workCounts.total);
+    byId("overview-chain-title").textContent = chain.chain_id || "Awaiting baseline";
+    byId("overview-chain-summary").textContent = `${String(chainStatus).replaceAll("_", " ")} · ${
+      Number.isFinite(total) ? `${total} work items` : "work count unavailable"
+    } · ${formatDate(chain.updated_at || chain.created_at)}`;
+    byId("overview-chain-stages").replaceChildren(...stages.map((stage) => {
+      const item = element("div", `overview-chain-stage ${stage.tone}`);
+      item.title = `${stage.label}: ${stage.statusLabel} — ${stage.detail}`;
+      item.setAttribute("aria-label", `${stage.label}: ${stage.statusLabel}. ${stage.detail}`);
+      item.append(
+        element("span", "overview-stage-icon", stage.icon),
+        element("strong", "", stage.label),
+        element("span", "overview-stage-status", stage.label === "Plan" && stage.status === "succeeded" ? "ready" : stage.statusLabel)
+      );
+      return item;
+    }));
+  }
+
+  function projectLog(logId) {
+    return data.project_logs.find((log) => log.id === logId);
+  }
+
+  function latestLogEntry(logId) {
+    const log = projectLog(logId);
+    return [...(log?.entries || [])].sort((left, right) =>
+      dateTimestamp(right.values?.date) - dateTimestamp(left.values?.date))[0] || null;
+  }
+
+  function elimUsageConsumption(entry) {
+    const usage = String(entry?.values?.usage || "");
+    const patterns = [
+      /highest valid consumption was\s+(\d+(?:\.\d+)?)\s+percentage points?/i,
+      /(\d+(?:\.\d+)?)\s+percentage points?\s+as (?:the )?highest consumption/i,
+      /for\s+(\d+(?:\.\d+)?)\s+percentage points? consumed/i,
+      /for\s+(\d+(?:\.\d+)?)\s+recorded percentage points? consumed/i,
+      /(\d+(?:\.\d+)?)\s+percentage points? consumed/i
+    ];
+    for (const pattern of patterns) {
+      const match = usage.match(pattern);
+      if (match) return Number(match[1]);
+    }
+    return null;
+  }
+
+  function elimImprovementRecords(entry) {
+    const summary = String(entry?.values?.summary || "");
+    if (!summary || /preflight only|did not begin|no .* (?:change|completed|performed)|no substantive/i.test(summary)) return [];
+    const identifiers = [...new Set(summary.match(/\b(?:HOR|[A-Z]{2,})-\d{3}\b/g) || [])];
+    const sentences = summary.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [summary];
+    const scoreMatch = summary.match(/\b(?:at|to)\s+(\d{1,3})\/100\b/i);
+    const deltaMatch = summary.match(/\bfrom\s+(\d{1,3})(?:\/100)?\s+to\s+(\d{1,3})\/100\b/i);
+    return identifiers.map((identifier) => {
+      const record = currentLifecycleRecords().find((candidate) => candidate.identifier === identifier);
+      const impact = sentences
+        .filter((sentence) => sentence.includes(identifier))
+        .slice(0, 2)
+        .join(" ")
+        .trim() || "The run summary identifies this record but does not isolate its impact.";
+      let score = "Score effect not recorded";
+      if (/no score|score .* unchanged|preserved .* score/i.test(summary)) score = "Score unchanged";
+      else if (deltaMatch && identifiers.length === 1) score = `Score ${deltaMatch[1]} → ${deltaMatch[2]} (${Number(deltaMatch[2]) - Number(deltaMatch[1]) >= 0 ? "+" : ""}${Number(deltaMatch[2]) - Number(deltaMatch[1])})`;
+      else if (scoreMatch && identifiers.length === 1) score = `Score ${scoreMatch[1]} · change not separately recorded`;
+      else if (record?.score > 0) score = `Current score ${record.score} · run delta not recorded`;
+      return { identifier, impact, score, href: record?.canonicalRecord ? `${GITHUB_BLOB_ROOT}${record.canonicalRecord}` : record?.url };
+    });
+  }
+
+  function elimMaterialUnits(entry) {
+    const html = String(entry?.details_html || "");
+    const match = html.match(/<tr><td>Material units<\/td><td>([\s\S]*?)<\/td><\/tr>/i);
+    if (!match) return [];
+    const decoder = element("div");
+    decoder.innerHTML = match[1];
+    const value = decoder.textContent.trim();
+    if (!value || /^none\b/i.test(value)) return [];
+    const withoutCount = value.replace(/^(?:one|two|three|four|five|six|\d+)\s*:\s*/i, "");
+    return withoutCount.split(/\s*;\s*/).map((unit) => unit.trim()).filter(Boolean);
+  }
+
+  function renderOverviewElim() {
+    const entry = latestLogEntry("elim");
+    if (!entry) {
+      byId("overview-elim-title").textContent = "No run recorded";
+      byId("overview-elim-summary").textContent = "The dedicated Elim Run Log has no entry.";
+      byId("overview-elim-improvements").replaceChildren(element("p", "empty-state compact-empty", "No improvement record is available."));
+      return;
+    }
+    const values = entry.values || {};
+    const improvements = elimImprovementRecords(entry);
+    const improvementIds = new Set(improvements.map((record) => record.identifier));
+    const materialUnits = elimMaterialUnits(entry)
+      .filter((unit) => ![...improvementIds].some((identifier) => unit.includes(identifier)));
+    const consumed = elimUsageConsumption(entry);
+    byId("overview-elim-title").textContent = `${values.outcome || "Outcome not recorded"} · ${overviewDisplayDate(values.date)}`;
+    byId("overview-elim-summary").textContent = `${values.trigger || "Trigger not recorded"}${consumed == null ? "" : ` · ${consumed} usage point${consumed === 1 ? "" : "s"}`}`;
+    if (!improvements.length && !materialUnits.length) {
+      const empty = element("div", "overview-elim-empty");
+      empty.append(
+        element("strong", "", "No project item was improved in this run."),
+        element("p", "", values.summary || "The run log records no material issue-level change.")
+      );
+      byId("overview-elim-improvements").replaceChildren(empty);
+      return;
+    }
+    const issueRows = improvements.map((record) => {
+      const item = element("div", "overview-improvement-row");
+      const identity = record.href ? inlineLink(record.identifier, record.href) : element("strong", "", record.identifier);
+      item.append(identity, element("span", "overview-improvement-score", record.score), element("p", "", record.impact));
+      return item;
+    });
+    const unitRows = materialUnits.map((unit) => {
+      const item = element("div", "overview-improvement-row project-unit");
+      item.append(element("strong", "", "Project unit"), element("span", "overview-improvement-score", "No issue score"), element("p", "", unit));
+      return item;
+    });
+    byId("overview-elim-improvements").replaceChildren(...issueRows, ...unitRows);
+  }
+
+  function overviewLogRow({ title, meta, summary, target, tone = "" }) {
+    const row = element("details", `overview-expandable-row ${tone}`.trim());
+    row.dataset.disclosureId = `overview-log-${layoutSlug(`${target}-${title}`)}`;
+    const heading = element("summary", "");
+    heading.append(element("strong", "", title), element("span", "overview-row-meta", meta));
+    const body = element("div", "overview-row-body");
+    body.append(element("p", "", summary || "No summary recorded."));
+    const link = element("a", "record-link secondary compact-link", "Open complete record →");
+    link.href = `#${target}`;
+    body.append(link);
+    row.append(heading, body);
+    return row;
+  }
+
+  function logEntryHeadline(log, entry) {
+    const values = entry.values || {};
+    if (log.id === "elim") return values.outcome || entry.id;
+    if (log.id === "agents") return `${values.record || "Project"} · ${values.task || "agent activity"}`;
+    if (log.id === "source-monitor") return `${values.watcher || "Source monitor"} · ${String(values.result || "result").replaceAll("_", " ")}`;
+    if (log.id === "changes") return values.change || entry.id;
+    return `${values.record || entry.id} · ${values.disposition || "decision"}`;
+  }
+
+  function logEntrySummary(log, entry) {
+    const values = entry.values || {};
+    if (log.id === "elim") return values.summary;
+    if (log.id === "agents") return `${values.agent || "Agent"} recorded ${values.outcome || "an outcome"} for run ${values.run || "not identified"}.`;
+    if (log.id === "source-monitor") return `Affected: ${values.affected || "not recorded"} · Activity: ${values.activity || "not recorded"}.`;
+    if (log.id === "changes") return `${values.scope || ""} ${values.effect || ""}`.trim();
+    return values.destination || values.disposition;
+  }
+
+  function renderOverviewRecentActivity() {
+    const recent = data.project_logs
+      .map((log) => ({ log, entry: latestLogEntry(log.id) }))
+      .filter((record) => record.entry)
+      .sort((left, right) => dateTimestamp(right.entry.values?.date) - dateTimestamp(left.entry.values?.date))
+      .slice(0, 6);
+    byId("overview-recent-actions").replaceChildren(...recent.map(({ log, entry }) =>
+      overviewLogRow({
+        title: logEntryHeadline(log, entry),
+        meta: `${log.title} · ${overviewDisplayDate(entry.values?.date)}`,
+        summary: logEntrySummary(log, entry),
+        target: `logs:${log.id}`,
+        tone: /fail|error|block/i.test(String(entry.values?.outcome || entry.values?.result || "")) ? "error" : ""
+      })));
+
+    const horizon = projectLog("horizon");
+    const decisions = [...(horizon?.entries || [])]
+      .filter((entry) => !/deferred|monitoring/i.test(String(entry.values?.disposition || "")))
+      .sort((left, right) => dateTimestamp(right.values?.date) - dateTimestamp(left.values?.date)
+        || String(right.id).localeCompare(String(left.id)))
+      .slice(0, 6);
+    byId("overview-recent-decisions").replaceChildren(...(decisions.length
+      ? decisions.map((entry) => overviewLogRow({
+          title: `${entry.values?.record || entry.id} · ${entry.values?.disposition || "Recorded"}`,
+          meta: overviewDisplayDate(entry.values?.date),
+          summary: entry.values?.destination,
+          target: "logs:horizon"
+        }))
+      : [element("p", "empty-state compact-empty", "No accepted Horizon decision is recorded.")]));
+  }
+
+  function publicInputSnapshot(chain = data.run_chain || {}) {
+    const stage = runChainStages(chain).find((record) => record.id === "public-intake");
+    if (stage && Number.isFinite(Number(stage.work_count))) {
+      return {
+        count: Number(stage.work_count),
+        available: true,
+        checkedAt: stage.completed_at || chain.updated_at,
+        detail: stage.work_count ? "eligible public submissions awaiting Elim triage" : "latest intake check found no eligible submission"
+      };
+    }
+    if (chain.queue_counts && Object.prototype.hasOwnProperty.call(chain.queue_counts, "intake")) {
+      return {
+        count: runChainCount(chain.queue_counts, "intake"),
+        available: true,
+        checkedAt: chain.updated_at,
+        detail: "published run-chain intake count"
+      };
+    }
+    return { count: null, available: false, checkedAt: null, detail: "no current intake count is published" };
+  }
+
+  function renderOverviewPortals(snapshot, chain) {
+    const problems = snapshot.problemRecords;
     const humanProblems = problems.filter((problem) => problem.attention === "human").length;
-    const decisions = humanDecisionRecords().length;
-    const actionCount = humanProblems + decisions + data.records.length + data.pending_sources.length
-      + reviewSignals.pullRequests.length;
-    const dispositions = data.publication?.disposition_counts || {};
-    const publicationExceptions = Number(dispositions.unclassified || 0) + Number(dispositions.conflict || 0);
-    const currentRecordCount = (data.progress?.proposals || []).length + data.active_horizon_records.length;
-    const botFailures = failedAutomationStages();
+    const intake = publicInputSnapshot(chain);
+    const workCount = Number(chain.work_queue?.counts?.total);
+    const pullRequestTone = reviewSignals.pullRequestsStatus === "current"
+      ? (snapshot.pullRequests ? "warning" : "")
+      : "warning";
+    const pullRequestValue = snapshot.pullRequestsKnown
+      ? snapshot.pullRequests
+      : reviewSignals.pullRequestsStatus === "stale"
+        ? `${snapshot.pullRequests} stale`
+        : "Unavailable";
+    byId("overview-portals").replaceChildren(
+      overviewCard("Human actions", snapshot.total, "confirmed decisions, reviews, and dispositions assigned to you", "actions", snapshot.total ? "warning" : ""),
+      overviewCard("Integrity findings", problems.length, `${humanProblems} human · ${problems.filter((problem) => problem.attention === "agent").length} agent · ${problems.filter((problem) => problem.attention === "observed").length} observed`, "integrity", problems.some((problem) => problem.severity === "error") ? "error" : ""),
+      overviewCard("Monitored issues", data.monitoring_issues.length, "issues with a defined external monitoring predicate", "progress:monitoring"),
+      overviewCard("Open pull requests", pullRequestValue, reviewSignals.pullRequestsStatus === "current" ? `live GitHub check · ${agePosture(reviewSignals.pullRequestsCheckedAt)}` : "live GitHub state is not currently verifiable", "automation:administration", pullRequestTone),
+      overviewCard("Public input", intake.available ? intake.count : "Unavailable", `${intake.detail}${intake.checkedAt ? ` · ${agePosture(intake.checkedAt)}` : ""}`, "candidates:preliminary", intake.available && intake.count ? "warning" : intake.available ? "" : "warning"),
+      overviewCard("Elim-eligible work", Number.isFinite(workCount) ? workCount : "Unavailable", chain.work_queue?.next_item?.title || "no current work-queue projection", "automation:administration", effectiveRunChainStatus(chain) === "host_pending" ? "warning" : "")
+    );
+  }
+
+  function serviceStatusLabel(status) {
+    return String(status || "unavailable")
+      .replaceAll("_", " ")
+      .replace(/\b\w/g, (letter) => letter.toUpperCase());
+  }
+
+  function aggregateServiceStatus(names) {
+    const ranks = { major_outage: 5, partial_outage: 4, degraded_performance: 3, under_maintenance: 2, operational: 1 };
+    const components = serviceSignals.components.filter((component) => names.includes(component.name));
+    if (!components.length) return { status: "unavailable", detail: "Component not returned" };
+    const worst = [...components].sort((left, right) => (ranks[right.status] || 99) - (ranks[left.status] || 99))[0];
+    return {
+      status: worst.status,
+      detail: components.map((component) => `${component.name}: ${serviceStatusLabel(component.status)}`).join(" · ")
+    };
+  }
+
+  function renderOpenAIStatus() {
+    const host = byId("overview-openai-status");
+    if (serviceSignals.status !== "current") {
+      const state = serviceSignals.status === "pending" ? "Checking" : "Unavailable";
+      host.replaceChildren(...["GPTs", "Codex", "API platform"].map((label) => {
+        const row = element("div", "overview-service-row unavailable");
+        row.append(element("strong", "", label), element("span", "", state));
+        return row;
+      }));
+      byId("overview-openai-checked").textContent = serviceSignals.status === "pending"
+        ? "Checking the official OpenAI status feed…"
+        : `Official status could not be refreshed · checked ${formatDate(serviceSignals.checkedAt)}`;
+      return;
+    }
+    const services = [
+      ["GPTs", aggregateServiceStatus(["GPTs"])],
+      ["Codex", aggregateServiceStatus(["Codex in ChatGPT Desktop", "Codex API", "Codex Web", "CLI", "VS Code extension"])],
+      ["API platform", aggregateServiceStatus(["Responses", "Chat Completions", "Realtime", "Files", "Embeddings"])]
+    ];
+    host.replaceChildren(...services.map(([label, service]) => {
+      const presentation = overviewStagePresentation(service.status);
+      const row = element("div", `overview-service-row ${presentation.tone}`);
+      row.title = service.detail;
+      row.append(element("strong", "", label), element("span", "", serviceStatusLabel(service.status)));
+      return row;
+    }));
+    byId("overview-openai-checked").textContent = `${serviceSignals.overall?.description || "Official status checked"} · ${formatDate(serviceSignals.checkedAt)}`;
+  }
+
+  async function refreshOpenAIStatus() {
+    try {
+      const [statusResponse, componentResponse] = await Promise.all([
+        fetch(OPENAI_STATUS_URL, { cache: "no-store" }),
+        fetch(OPENAI_COMPONENTS_URL, { cache: "no-store" })
+      ]);
+      if (!statusResponse.ok || !componentResponse.ok) throw new Error("Official status feed unavailable");
+      const [statusData, componentData] = await Promise.all([statusResponse.json(), componentResponse.json()]);
+      if (!statusData?.status || !Array.isArray(componentData?.components)) throw new Error("Official status feed incomplete");
+      serviceSignals.status = "current";
+      serviceSignals.checkedAt = new Date().toISOString();
+      serviceSignals.overall = statusData.status;
+      serviceSignals.components = componentData.components;
+    } catch (_error) {
+      serviceSignals.status = "unavailable";
+      serviceSignals.checkedAt = new Date().toISOString();
+      serviceSignals.overall = null;
+      serviceSignals.components = [];
+    }
+    renderOpenAIStatus();
+  }
+
+  function renderUsageTrend() {
+    const log = projectLog("elim");
+    const points = (log?.entries || []).map((entry) => ({
+      id: entry.id,
+      date: entry.values?.date,
+      value: elimUsageConsumption(entry)
+    })).slice(-10);
+    const measured = points.filter((point) => Number.isFinite(point.value));
+    const host = byId("overview-usage-trend");
+    if (!points.length || !measured.length) {
+      host.replaceChildren(element("p", "empty-state compact-empty", "No comparable Elim usage readings are recorded."));
+      return;
+    }
+    const maximum = Math.max(10, ...measured.map((point) => point.value));
+    const average = measured.reduce((sum, point) => sum + point.value, 0) / measured.length;
+    const heading = element("div", "usage-trend-heading");
+    heading.append(
+      element("strong", "", "Elim consumption by run"),
+      element("span", "", `${average.toFixed(1)}-point measured average`)
+    );
+    const chart = element("div", "usage-trend-chart");
+    chart.setAttribute("role", "img");
+    chart.setAttribute("aria-label", points.map((point) =>
+      `${point.id}: ${point.value == null ? "not measured" : `${point.value} percentage points`}`).join("; "));
+    points.forEach((point) => {
+      const column = element("div", `usage-trend-column${point.value == null ? " missing" : ""}`);
+      const value = element("span", "usage-trend-value", point.value == null ? "—" : String(point.value));
+      const track = element("span", "usage-trend-track");
+      const bar = element("span", "usage-trend-bar");
+      bar.style.height = point.value == null ? "0" : `${Math.max(4, point.value / maximum * 100)}%`;
+      track.append(bar);
+      column.append(value, track, element("span", "usage-trend-label", point.id.replace("elim-run-", "#")));
+      chart.append(column);
+    });
+    host.replaceChildren(heading, chart);
+  }
+
+  function renderOverviewUsage(chain) {
+    const usage = chain.usage || {};
+    const gate = usage.gate || {};
+    const windows = Array.isArray(gate.windows) ? gate.windows : [];
+    const remainingValue = gate.lowestRemainingPercent ?? usage.remaining_percent;
+    const remaining = remainingValue === null || remainingValue === undefined || remainingValue === ""
+      ? NaN
+      : Number(remainingValue);
+    const reserve = Number(gate.reservePercent ?? usage.hard_reserve_percent ?? 15);
+    const softTarget = Number(gate.runBudget?.softTargetPercent ?? usage.soft_run_target_percent ?? 10);
+    let posture = "Unavailable";
+    let tone = "";
+    if (Number.isFinite(remaining)) {
+      if (remaining <= reserve) {
+        posture = "Protected reserve";
+        tone = "error";
+      } else if (remaining <= reserve + softTarget) {
+        posture = "Approaching reserve";
+        tone = "warning";
+      } else {
+        posture = "Safe";
+        tone = "success";
+      }
+    }
+    const postureNode = byId("overview-usage-posture");
+    postureNode.className = `status-badge ${tone}`.trim();
+    postureNode.textContent = posture;
+    const summary = byId("overview-usage-summary");
+    if (!Number.isFinite(remaining)) {
+      summary.replaceChildren(element("p", "empty-state compact-empty", "No current host-attested usage reading is available."));
+    } else {
+      const lowestWindow = windows.find((window) => Number(window.remainingPercent) === remaining);
+      summary.replaceChildren(
+        element("strong", "overview-usage-remaining", `${remaining}% remaining`),
+        element("p", "", `${reserve}% hard reserve · ${softTarget}-point soft run target${lowestWindow?.resetsAtUtc ? ` · resets ${formatDate(lowestWindow.resetsAtUtc)}` : ""}`),
+        element("span", "micro-note", `Checked ${formatDate(gate.checkedAtUtc || chain.updated_at)}`)
+      );
+    }
+    byId("overview-usage-windows").replaceChildren(...(windows.length
+      ? windows.map((window) => {
+          const row = element("div", "overview-usage-window");
+          row.append(
+            element("strong", "", window.limitName || window.limitId || "Usage window"),
+            element("span", "", `${window.remainingPercent}% remaining`),
+            element("time", "", window.resetsAtUtc ? `Reset ${formatDate(window.resetsAtUtc)}` : "Reset not recorded")
+          );
+          return row;
+        })
+      : [element("p", "empty-state compact-empty", "No individual usage windows are recorded.")]));
+    byId("overview-usage-detail-summary").textContent = `${windows.length} window${windows.length === 1 ? "" : "s"} · ${Number.isFinite(remaining) ? `${remaining}% lowest` : "reading unavailable"}`;
+    renderUsageTrend();
+  }
+
+  function queueDirectoryRow(queue) {
+    const row = element("details", `overview-queue-row${queue.tone ? ` ${queue.tone}` : ""}`);
+    row.dataset.disclosureId = `overview-queue-${layoutSlug(queue.label)}`;
+    const summary = element("summary", "");
+    const count = queue.count == null ? "Unavailable" : String(queue.count);
+    summary.append(
+      element("strong", "", queue.label),
+      element("span", "overview-queue-count", count),
+      element("span", "overview-queue-owner", queue.owner),
+      element("span", "overview-queue-posture", queue.posture)
+    );
+    const body = element("div", "overview-queue-body");
+    body.append(element("p", "", queue.detail));
+    const link = element("a", "record-link secondary compact-link", "Open queue →");
+    link.href = `#${queue.target}`;
+    body.append(link);
+    row.append(summary, body);
+    return row;
+  }
+
+  function renderOverviewQueues(snapshot, chain) {
+    const lifecycle = currentLifecycleRecords();
+    const workflowCount = (...statuses) => lifecycle.filter((record) => statuses.includes(record.workflowStatus)).length;
+    const intake = publicInputSnapshot(chain);
+    const failures = snapshot.automationActions.length;
+    const queues = [
+      { label: "Human actions", count: snapshot.total, owner: "You", posture: `${agePosture(data.generated_at)} projection`, target: "actions", detail: "The central human-review inbox: Integrity decisions, automation recovery, human workflow decisions, open pull requests, preliminary candidates, and pending source routing." },
+      { label: "Integrity", count: snapshot.problemRecords.length, owner: "Human + Elim", posture: agePosture(data.integrity?.current?.generated_at), target: "integrity", detail: "Every current project-integrity finding, grouped by owner and attention class." },
+      { label: "Preliminary intake", count: data.records.length, owner: "You", posture: agePosture(data.generated_at), target: "candidates:preliminary", detail: "Preliminary candidate questions awaiting a human intake disposition." },
+      { label: "Pending source routing", count: data.pending_sources.length, owner: "You", posture: agePosture(data.generated_at), target: "sources:pending", detail: "Sources whose project destination still requires a routing choice." },
+      { label: "Open GitHub pull requests", count: snapshot.pullRequestsKnown ? snapshot.pullRequests : null, owner: "You", posture: reviewSignals.pullRequestsStatus === "current" ? agePosture(reviewSignals.pullRequestsCheckedAt) : "Live state unavailable", target: "automation:administration", detail: "Repository changes requiring review, merge, closure, or another explicit disposition." },
+      { label: "Development", count: workflowCount("Development"), owner: "Elim + interactive", posture: "Workflow status", target: "progress", detail: "Admitted work whose recorded next action is substantive development." },
+      { label: "Research", count: workflowCount("Research"), owner: "Elim + interactive", posture: "Workflow status", target: "progress", detail: "Issues in active source development, investigation, or another research-bound next action." },
+      { label: "Audits", count: workflowCount("Audit needed", "Audit in progress"), owner: "Elim", posture: "Audit needed / in progress", target: "progress", detail: "Issues with an audit as their current workflow action." },
+      { label: "External review", count: workflowCount("External review"), owner: "External reviewer", posture: "Workflow status", target: "progress", detail: "Developed work routed for qualified professional or subject-matter review." },
+      { label: "Publication approval", count: workflowCount("Publication approval"), owner: "You", posture: "Workflow status", target: "publication:assignments", detail: "Release candidates awaiting the human publication decision." },
+      { label: "Monitoring", count: data.monitoring_issues.length, owner: "Elim + bots", posture: agePosture(data.generated_at), target: "progress:monitoring", detail: "Issues with a defined external predicate being watched while ordinary work may continue." },
+      { label: "Deferred", count: workflowCount("Deferred"), owner: "Human", posture: "Hold with reason", target: "progress:holds", detail: "Project work deliberately postponed under a recorded explanation." },
+      { label: "Blocked", count: workflowCount("Blocked"), owner: "Human + dependency", posture: "Blocked with reason", target: "progress:holds", detail: "Pertinent work that cannot proceed until its recorded external or factual prerequisite changes." },
+      { label: "Public input", count: intake.available ? intake.count : null, owner: "Elim", posture: intake.checkedAt ? agePosture(intake.checkedAt) : "Not checked", target: "candidates:preliminary", detail: "Eligible public submissions awaiting structured intake review and any warranted reply or candidate generation." },
+      { label: "Automation recovery", count: failures, owner: "Human / coordinator", posture: failures ? "Action required" : agePosture(chain.updated_at), target: "automation:administration", detail: "Unresolved run-chain or host failures requiring repair and an explicit resolution record." }
+    ];
+    queues.forEach((queue) => {
+      if (queue.count == null) queue.tone = "unavailable";
+      else if (queue.label === "Automation recovery" && queue.count) queue.tone = "error";
+      else if (["Human actions", "Blocked"].includes(queue.label) && queue.count) queue.tone = "warning";
+    });
+    const active = queues.filter((queue) => queue.count == null || queue.count > 0);
+    const empty = queues.filter((queue) => queue.count === 0);
+    const rows = active.map(queueDirectoryRow);
+    if (empty.length) {
+      const emptyGroup = element("details", "overview-queue-empty-group");
+      emptyGroup.dataset.disclosureId = "overview-queue-empty";
+      const summary = element("summary", "");
+      summary.append(element("strong", "", `Empty queues (${empty.length})`), element("span", "overview-row-meta", empty.map((queue) => queue.label).join(" · ")));
+      const list = element("div", "overview-empty-queue-list");
+      empty.forEach((queue) => {
+        const link = element("a", "", queue.label);
+        link.href = `#${queue.target}`;
+        list.append(link);
+      });
+      emptyGroup.append(summary, list);
+      rows.push(emptyGroup);
+    }
+    byId("overview-queue-directory").replaceChildren(...rows);
+    byId("overview-queues-summary").textContent = `${active.filter((queue) => queue.count > 0).length} active · ${empty.length} empty · ${active.filter((queue) => queue.count == null).length} unavailable`;
+  }
+
+  function renderOverviewDaily(snapshot, chain) {
+    const stages = overviewRunChainStages(chain);
+    const failed = stages.filter((stage) => stage.tone === "error").length;
+    const degraded = stages.filter((stage) => stage.tone === "warning").length;
+    const succeeded = stages.filter((stage) => stage.tone === "success").length;
+    const notDue = stages.filter((stage) => stage.tone === "not-due").length;
+    const unavailable = stages.filter((stage) => stage.tone === "unavailable").length;
+    const chainStatus = effectiveRunChainStatus(chain);
+    let posture = "Current";
+    let tone = "success";
+    let summary = `${succeeded} stages succeeded and ${notDue} were not due.`;
+    if (failed) {
+      posture = "Attention required";
+      tone = "error";
+      summary = `${failed} stage${failed === 1 ? "" : "s"} failed or blocked. ${succeeded} succeeded and ${notDue} were not due.`;
+    } else if (degraded || /pending|progress|stopp/i.test(chainStatus)) {
+      posture = "Closeout pending";
+      tone = "warning";
+      summary = `${succeeded} stages succeeded and ${notDue} were not due; ${degraded} stage${degraded === 1 ? "" : "s"} still lack${degraded === 1 ? "s" : ""} a final or fully healthy result.`;
+    } else if (unavailable) {
+      posture = "Incomplete data";
+      tone = "warning";
+      summary = `${succeeded} stages succeeded and ${notDue} were not due; ${unavailable} stage${unavailable === 1 ? "" : "s"} lack${unavailable === 1 ? "s" : ""} a current result.`;
+    }
+    const badge = byId("overview-daily-status");
+    badge.className = `status-badge ${tone}`;
+    badge.textContent = posture;
+    byId("overview-daily-summary").textContent = `${summary} ${snapshot.total} confirmed human action${snapshot.total === 1 ? "" : "s"} remain${snapshot.total === 1 ? "s" : ""}.`;
+    const epoch = chain.review_epoch || {};
+    const facts = [
+      ["Current activity", chain.work_queue?.next_item?.title || "No current work item is published"],
+      ["What happens next", chain.next_action || chain.elim_decision?.reason || "Await the next scheduled or requested chain"],
+      ["Review epoch", epoch.due ? `Due now · ${String(epoch.due_reason || "reason not recorded").replaceAll("_", " ")}` : epoch.next_due_at ? `Next ${formatDate(epoch.next_due_at)}` : "No review boundary recorded"],
+      ["Human queue", `${snapshot.total} confirmed item${snapshot.total === 1 ? "" : "s"} · open Action Items for detail`]
+    ];
+    byId("overview-daily-facts").replaceChildren(...facts.map(([label, value]) => {
+      const fact = element("div", "overview-daily-fact");
+      fact.append(element("strong", "", label), element("span", "", value));
+      return fact;
+    }));
+  }
+
+  function overviewAutomationFailures(chain) {
+    const failures = failedAutomationStages(chain);
+    if (/fail|error|block|cancel|timeout/i.test(effectiveRunChainStatus(chain))
+      && !failures.some((stage) => stage.id === "run-coordinator-bot")) {
+      failures.push({
+        id: "run-coordinator-bot",
+        status: effectiveRunChainStatus(chain),
+        details: chain.host_closeout?.details || chain.next_action || "The current chain lacks a successful host closeout."
+      });
+    }
+    return failures;
+  }
+
+  function renderOverview() {
+    if (!byId("overview-daily-section")) return;
+    const chain = data.run_chain || {};
+    const snapshot = actionItemSnapshot();
+    const botFailures = overviewAutomationFailures(chain);
     byId("overview-generated-at").textContent = formatDate(data.generated_at);
     const botAlert = byId("overview-bot-alert");
     botAlert.hidden = botFailures.length === 0;
@@ -2418,45 +3061,11 @@
       byId("overview-bot-alert-summary").textContent = "";
       byId("overview-bot-alert-links").replaceChildren();
     }
-    byId("overview-metrics").replaceChildren(
-      watcherSummaryCard("Current records", currentRecordCount, `${(data.progress?.proposals || []).length} proposals plus ${data.active_horizon_records.length} active candidates in this build`),
-      watcherSummaryCard("Review Ready", metrics.ready ?? "—", `of ${metrics.total ?? "—"} eligible proposals`),
-      watcherSummaryCard("Remaining", metrics.remaining ?? "—", metrics.trackStatus || "Schedule unavailable"),
-      watcherSummaryCard("Human actions", actionCount, "decisions and reviews assigned to you"),
-      watcherSummaryCard("All problems", problems.length, `${problems.filter((problem) => problem.severity !== "info").length} errors or warnings`),
-      watcherSummaryCard("Monitored issues", data.monitoring_issues.length, "defined external predicates")
-    );
-    byId("overview-attention").replaceChildren(
-      overviewCard("Needs you", actionCount, "Human review, disposition, routing, or approval", "actions", actionCount ? "warning" : ""),
-      overviewCard("Integrity", problems.length, `${humanProblems} human · ${problems.filter((problem) => problem.attention === "agent").length} agent · ${problems.filter((problem) => problem.attention === "observed").length} observed`, "integrity", problems.some((problem) => problem.severity === "error") ? "error" : ""),
-      overviewCard("Publication exceptions", publicationExceptions, publicationExceptions ? "Unclassified or conflicting page metadata" : "Every controlled page is classified", "publication:assignments", publicationExceptions ? "error" : "")
-    );
-
-    const proposalDistribution = new Map((data.progress?.developmentLevelDistribution || []).map((record) => [record.level, Number(record.count) || 0]));
-    proposalDistribution.set("Candidate", data.active_horizon_records.length);
-    const maxCount = Math.max(1, ...DEVELOPMENT_LEVELS.map((level) => proposalDistribution.get(level) || 0));
-    byId("overview-pipeline").replaceChildren(...DEVELOPMENT_LEVELS.map((level) => {
-      const count = proposalDistribution.get(level) || 0;
-      const stage = element("div", "pipeline-stage");
-      const bar = element("div", "pipeline-stage-bar", String(count));
-      bar.style.height = `${Math.max(1.5, 7 * count / maxCount)}rem`;
-      stage.append(bar, element("span", "", level));
-      return stage;
-    }));
-
-    const enabledAgents = data.agent_registry.filter((agent) => /^enabled$/i.test(agent.status)).length;
-    const sourceResults = sourceCheckerRecords().length;
-    const chain = data.run_chain || {};
-    const chainQueue = runChainQueue(chain);
-    const chainQueueTotal = runChainCount(chainQueue, "total")
-      || ["human", "llm", "agent", "bot", "blocked"].reduce((sum, key) => sum + runChainCount(chainQueue, key), 0);
-    byId("overview-operations").replaceChildren(
-      overviewCard("Agents and bots", data.agent_registry.length, `${enabledAgents} enabled · ${data.agent_registry.length - enabledAgents} paused or pilot`, "automation"),
-      overviewCard("Run chain", chain.status || "Awaiting baseline", `${chainQueueTotal} queued · ${chain.elim_decision?.reason || "Elim decision not recorded"}`, "automation", /fail|block|degrad|warn|pending|stopp/i.test(chain.status || "") ? "warning" : ""),
-      overviewCard("Issues monitored", data.monitoring_issues.length, "Project records with a defined monitoring predicate", "progress:monitoring"),
-      overviewCard("Watcher updates", reviewSignals.courts.count + reviewSignals.directives.count, "Detected external changes awaiting review", "sources:watchers", reviewSignals.courts.count + reviewSignals.directives.count ? "warning" : ""),
-      overviewCard("Source-check baseline", sourceResults || "—", sourceResults ? `${sourceResults} URLs represented in the latest run` : "Full baseline not yet established", "sources:watchers:source-checker", sourceResults ? "" : "warning")
-    );
+    renderOverviewDaily(snapshot, chain);
+    renderOverviewChain(chain);
+    renderOverviewElim();
+    renderOverviewPortals(snapshot, chain);
+    renderOverviewRecentActivity();
     byId("overview-freshness").replaceChildren(
       freshnessCard("Console bundle", data.generated_at, "overview"),
       freshnessCard("GitHub Project", data.github_synced_at, "progress"),
@@ -2465,6 +3074,9 @@
       freshnessCard("Run chain", chain.updated_at || chain.created_at, "automation"),
       freshnessCard("Source checks", data.source_checker.checked_at || data.source_checker.generated_at, "sources:watchers:source-checker", 192)
     );
+    renderOpenAIStatus();
+    renderOverviewUsage(chain);
+    renderOverviewQueues(snapshot, chain);
     refreshLayoutZones();
   }
 
@@ -2518,7 +3130,7 @@
   }
 
   function runChainQueue(chain) {
-    return chain.queue_counts || chain.queue || {};
+    return chain.work_queue?.counts || chain.queue_counts || chain.queue || {};
   }
 
   function runChainCount(queue, key) {
@@ -2544,6 +3156,9 @@
     const status = chain.status || chain.outcome || (stages.length ? "In progress" : "Not yet published");
     const queueTotal = runChainCount(queue, "total")
       || ["human", "llm", "agent", "bot", "blocked"].reduce((sum, key) => sum + runChainCount(queue, key), 0);
+    const elimEligible = runChainCount(queue, "elim_eligible")
+      || runChainCount(queue, "llm")
+      || runChainCount(queue, "agent");
     const failures = Array.isArray(chain.failures) ? chain.failures : [];
     const degradations = Array.isArray(chain.degradations) ? chain.degradations : [];
     const launched = elim.launched ?? elim.launch ?? elim.launch_recommended ?? chain.elim_launched;
@@ -2576,7 +3191,7 @@
     byId("automation-chain-summary").replaceChildren(
       integrityMetric("Chain", chainId, `Baseline ${String(chain.baseline_commit || "not recorded").slice(0, 12)}`),
       integrityMetric("Health", String(status).replaceAll("_", " "), `${phaseDetail} · ${failures.length} failed · ${degradations.length} degraded`),
-      integrityMetric("Work queue", queueTotal, `${runChainCount(queue, "human")} human · ${runChainCount(queue, "llm") || runChainCount(queue, "agent")} LLM · ${runChainCount(queue, "bot")} bot`),
+      integrityMetric("Work queue", queueTotal, `${runChainCount(queue, "human")} human · ${elimEligible} Elim-eligible · ${runChainCount(queue, "safety")} safety-sensitive`),
       integrityMetric("Elim", elimDecision, elim.reason || chain.elim_reason || "No launch reason recorded"),
       integrityMetric("Review epoch", epoch.review_id || epoch.id || "Not established", nextReview ? `Next ${formatDate(nextReview)}` : "Next review not recorded"),
       integrityMetric("Usage", usageLabel, usage.stop_reason || usage.gate || "15% reserve applies")
@@ -2885,6 +3500,7 @@
 
   function coordinatorControlElements() {
     return [
+      "overview-refresh-request",
       "coordinator-work-unit",
       "coordinator-priority",
       "coordinator-override-reason",
@@ -2910,13 +3526,24 @@
     status.textContent = message;
   }
 
-  async function coordinatorControlRequest(payload) {
+  function setOverviewRefreshStatus(message, tone = "") {
+    const status = byId("overview-refresh-status");
+    if (!status) return;
+    status.className = tone ? `overview-refresh-status ${tone}` : "overview-refresh-status";
+    status.textContent = message;
+  }
+
+  async function coordinatorControlRequest(payload, mirrorOverview = false) {
+    const reportStatus = (message, tone = "") => {
+      setCoordinatorControlStatus(message, tone);
+      if (mirrorOverview) setOverviewRefreshStatus(message, tone);
+    };
     const token = sessionStorage.getItem("arrp-run-coordinator-control-token") || "";
     if (!token) {
-      setCoordinatorControlStatus("The local coordinator did not provide an approved control session.", "warning");
+      reportStatus("The local coordinator did not provide an approved control session.", "warning");
       return;
     }
-    setCoordinatorControlStatus("Sending the request…");
+    reportStatus("Sending the request…");
     try {
       const response = await fetch("http://127.0.0.1:8766/v1/control", {
         method: "POST",
@@ -2947,10 +3574,10 @@
         }
         renderActionItems();
       }
-      setCoordinatorControlStatus(result.message || "Coordinator request accepted.", "success");
+      reportStatus(result.message || "Coordinator request accepted.", "success");
       window.setTimeout(refreshLiveRunChain, 500);
     } catch (error) {
-      setCoordinatorControlStatus(`Request not accepted: ${error.message}. Project data was not changed.`, "error");
+      reportStatus(`Request not accepted: ${error.message}. Project data was not changed.`, "error");
     }
   }
 
@@ -2959,6 +3586,7 @@
     if (!coordinatorControlOriginAllowed()) {
       controls.forEach((control) => { control.disabled = true; });
       setCoordinatorControlStatus("Read-only preview. Serve the Console from localhost:8765 and start the coordinator control service to use these controls.");
+      setOverviewRefreshStatus("Read-only preview; local coordinator unavailable.");
       await refreshLiveRunChain();
       return;
     }
@@ -2993,14 +3621,18 @@
       }
       sessionStorage.setItem("arrp-run-coordinator-control-token", result.control_token);
       setCoordinatorControlStatus("Local coordinator available.");
+      setOverviewRefreshStatus("Local coordinator available.");
     } catch (_error) {
       controls.forEach((control) => { control.disabled = true; });
       setCoordinatorControlStatus("Local coordinator is not running. The Console remains read-only.");
+      setOverviewRefreshStatus("Local coordinator is not running.");
       await refreshLiveRunChain();
       return;
     }
 
     await refreshLiveRunChain();
+    byId("overview-refresh-request").addEventListener("click", () =>
+      coordinatorControlRequest({ action: "request_run" }, true));
     byId("coordinator-request-run").addEventListener("click", () =>
       coordinatorControlRequest({ action: "request_run" }));
     byId("coordinator-request-review").addEventListener("click", () =>
@@ -4349,6 +4981,7 @@
     refreshLayoutZones();
     refreshLiveProgress();
     refreshBotReviewSignals();
+    refreshOpenAIStatus();
     refreshLiveIntegrity();
     refreshLiveSourceChecker();
   }

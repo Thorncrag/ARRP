@@ -107,6 +107,10 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
             "reconciled-checkout archive mode",
             text,
         )
+        self.assertIn(
+            "automatically commits and fast-forward pushes ordinary uncommitted paths",
+            text,
+        )
 
     def test_generated_pdf_preserves_status_core_controls_and_diagrams(self):
         source = (
@@ -147,6 +151,10 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
             )
             self.assertIn(
                 "The scheduler and deterministic bots never author the audit handoff.",
+                content,
+            )
+            self.assertIn(
+                "automatically commits and fast-forward pushes ordinary uncommitted paths",
                 content,
             )
             self.assertNotIn("Public stage outcomes and recovery routing", content)
