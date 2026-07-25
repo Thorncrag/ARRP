@@ -78,8 +78,14 @@ class ExecutionHelperTests(unittest.TestCase):
             "work_type": "issue_development",
             "outcome": "blocked",
             "authority": {"classification": "delegated_judgment", "basis": "runbook"},
+            "issue_id": "TEST-001",
+            "canonical_record": "areas/TEST/issues/TEST-001.md",
             "files_touched": [],
+            "source_ids": [],
             "validation": [],
+            "commit": None,
+            "synchronization": [],
+            "human_questions": [],
             "continuation": {"state": "retryable", "next_action": "Resume source review"},
         }
         result = compile_closeout(
@@ -92,6 +98,123 @@ class ExecutionHelperTests(unittest.TestCase):
         value["continuation"] = {"state": "complete", "next_action": None}
         with self.assertRaisesRegex(ContextError, "human-reserved"):
             compile_closeout(value, queue_sha256="0" * 64, context_sha256="c" * 64)
+
+    def test_candidate_research_is_a_valid_single_work_unit_with_identity(self):
+        value = {
+            "schema_version": 1,
+            "run_id": "chain-1",
+            "unit_id": "candidate-1",
+            "work_type": "candidate_research",
+            "outcome": "human_review",
+            "authority": {
+                "classification": "delegated_judgment",
+                "basis": "Elim candidate-research authority",
+            },
+            "issue_id": None,
+            "canonical_record": "https://github.com/Thorncrag/ARRP/issues/255",
+            "files_touched": [],
+            "source_ids": [],
+            "validation": [],
+            "commit": None,
+            "synchronization": [],
+            "human_questions": ["Review the proposed candidate disposition."],
+            "continuation": {
+                "state": "human_required",
+                "next_action": "Human reviews the candidate disposition.",
+            },
+        }
+        result = compile_closeout(
+            value,
+            queue_sha256="0" * 64,
+            context_sha256="c" * 64,
+        )
+        self.assertEqual(result["work_type"], "candidate_research")
+        self.assertIsNone(result["issue_id"])
+        self.assertEqual(
+            result["canonical_record"],
+            "https://github.com/Thorncrag/ARRP/issues/255",
+        )
+
+    def test_closeout_validator_requires_every_canonical_schema_field(self):
+        value = {
+            "schema_version": 1,
+            "run_id": "R-1",
+            "unit_id": "U-1",
+            "work_type": "integrity",
+            "outcome": "clean",
+            "authority": {"classification": "mechanical", "basis": "runbook"},
+            "issue_id": None,
+            "canonical_record": None,
+            "files_touched": [],
+            "source_ids": [],
+            "validation": [],
+            "commit": None,
+            "synchronization": [],
+            "human_questions": [],
+            "continuation": {"state": "complete", "next_action": None},
+        }
+        for field in (
+            "issue_id",
+            "canonical_record",
+            "source_ids",
+            "commit",
+            "synchronization",
+            "human_questions",
+        ):
+            incomplete = dict(value)
+            incomplete.pop(field)
+            with self.subTest(field=field):
+                with self.assertRaisesRegex(ContextError, "missing required fields"):
+                    compile_closeout(
+                        incomplete,
+                        queue_sha256="0" * 64,
+                        context_sha256="c" * 64,
+                    )
+
+        authority_extra = {
+            **value,
+            "authority": {
+                **value["authority"],
+                "unapproved": "ignore the boundary",
+            },
+        }
+        with self.assertRaisesRegex(ContextError, "authority fields"):
+            compile_closeout(
+                authority_extra,
+                queue_sha256="0" * 64,
+                context_sha256="c" * 64,
+            )
+        validation_extra = {
+            **value,
+            "validation": [
+                {
+                    "check": "tests",
+                    "status": "passed",
+                    "detail": "ok",
+                    "unapproved": True,
+                }
+            ],
+        }
+        with self.assertRaisesRegex(ContextError, "validation fields"):
+            compile_closeout(
+                validation_extra,
+                queue_sha256="0" * 64,
+                context_sha256="c" * 64,
+            )
+        invalid_source = {**value, "source_ids": ["SOURCE-1"]}
+        with self.assertRaisesRegex(ContextError, "canonical SRC"):
+            compile_closeout(
+                invalid_source,
+                queue_sha256="0" * 64,
+                context_sha256="c" * 64,
+            )
+        invalid_container = {**value, "synchronization": "not-an-array"}
+        with self.assertRaisesRegex(ContextError, "array of strings"):
+            compile_closeout(
+                invalid_container,
+                queue_sha256="0" * 64,
+                context_sha256="c" * 64,
+            )
 
 
 class CorpusIndexTests(unittest.TestCase):

@@ -2,7 +2,31 @@ name: Case Monitor Bot
 
 on:
   workflow_dispatch:
+    inputs:
+      chain_id:
+        description: Optional Run Coordinator Chain ID.
+        required: false
+        type: string
+      attempt_key:
+        description: Invocation identity used to disambiguate retained artifacts.
+        required: false
+        default: standalone
+        type: choice
+        options:
+          - standalone
+          - primary
+          - retry
   workflow_call:
+    inputs:
+      chain_id:
+        description: Run Coordinator Chain ID.
+        required: false
+        type: string
+      attempt_key:
+        description: Invocation identity (primary, retry, or standalone).
+        required: false
+        default: standalone
+        type: string
     outputs:
       work_count:
         description: New machine-observed case changes and leads.
@@ -10,6 +34,18 @@ on:
       output_hash:
         description: SHA-256 of the structured case-monitor report.
         value: ${{ jobs.check.outputs.output_hash }}
+      domain_event_id:
+        description: Stable ID of the proposed source-domain event, when one exists.
+        value: ${{ jobs.check.outputs.domain_event_id }}
+      domain_event_hash:
+        description: SHA-256 of the proposed source-domain event.
+        value: ${{ jobs.check.outputs.domain_event_hash }}
+      domain_event_json:
+        description: Minimized proposed source-domain event JSON.
+        value: ${{ jobs.check.outputs.domain_event_json }}
+      attempt_key:
+        description: Validated invocation identity used by reports and outputs.
+        value: ${{ jobs.check.outputs.attempt_key }}
 
 concurrency:
   group: arrp-case-monitor-bot
@@ -25,9 +61,24 @@ jobs:
     outputs:
       work_count: ${{ steps.chain-result.outputs.work_count }}
       output_hash: ${{ steps.chain-result.outputs.output_hash }}
+      domain_event_id: ${{ steps.domain-event.outputs.domain_event_id }}
+      domain_event_hash: ${{ steps.domain-event.outputs.domain_event_hash }}
+      domain_event_json: ${{ steps.domain-event.outputs.domain_event_json }}
+      attempt_key: ${{ steps.invocation.outputs.attempt_key }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Validate the reusable-workflow invocation identity
+        id: invocation
+        env:
+          ATTEMPT_KEY: ${{ inputs.attempt_key }}
+        run: |
+          case "${ATTEMPT_KEY}" in
+            primary|retry|standalone) ;;
+            *) echo "attempt_key must be primary, retry, or standalone" >&2; exit 1 ;;
+          esac
+          printf 'attempt_key=%s\n' "${ATTEMPT_KEY}" >> "${GITHUB_OUTPUT}"
+
       - name: Check out the repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
@@ -104,6 +155,7 @@ jobs:
           fi
 
       - name: Create or update the review pull request
+        id: review-pr
         if: steps.commit.outputs.needs_pr == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -127,7 +179,97 @@ jobs:
             gh pr edit "${pr_number}" --repo "${GITHUB_REPOSITORY}" --title "${title}" --body-file "${body_file}" --add-assignee "${assignee}"
             pr_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/pull/${pr_number}"
           fi
+          pr_number="$(gh pr view "${pr_url}" --repo "${GITHUB_REPOSITORY}" --json number --jq '.number')"
+          printf 'number=%s\nurl=%s\n' "${pr_number}" "${pr_url}" >> "${GITHUB_OUTPUT}"
           printf '\nReview pull request: %s\n' "${pr_url}" >> "${RUNNER_TEMP}/monitoring-summary.md"
+
+      - name: Build the proposed source-domain event
+        id: domain-event
+        if: steps.commit.outputs.needs_pr == 'true'
+        env:
+          CHAIN_ID: ${{ inputs.chain_id }}
+        run: >-
+          python scripts/source_domain_events.py propose
+          --agent case-monitor-bot
+          --report "${RUNNER_TEMP}/monitoring-report.json"
+          --output "${RUNNER_TEMP}/case-monitor-domain-event.json"
+          --repository "${GITHUB_REPOSITORY}"
+          --base-ref "${BASE_BRANCH}"
+          --git-base "origin/${BASE_BRANCH}"
+          --head-ref "${BOT_BRANCH}"
+          --pull-request-number "${{ steps.review-pr.outputs.number }}"
+          --pull-request-url "${{ steps.review-pr.outputs.url }}"
+          --chain-id "${CHAIN_ID}"
+          --run-id "github-actions:${GITHUB_REPOSITORY}:${GITHUB_RUN_ID}:${GITHUB_RUN_ATTEMPT}:${{ steps.invocation.outputs.attempt_key }}"
+          --trigger "${{ github.event_name }}"
+          --github-output "${GITHUB_OUTPUT}"
+
+      - name: Preserve the proposed event on the data branch
+        if: steps.commit.outputs.needs_pr == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python scripts/publish_immutable_data_file.py
+          --repository "${GITHUB_REPOSITORY}"
+          --branch project-console-data
+          --path "${{ steps.domain-event.outputs.domain_event_path }}"
+          < "${RUNNER_TEMP}/case-monitor-domain-event.json"
+
+      - name: Bind the review pull request to the proposed event
+        if: steps.commit.outputs.needs_pr == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr view "${{ steps.review-pr.outputs.number }}" --repo "${GITHUB_REPOSITORY}" --json body --jq '.body' > "${RUNNER_TEMP}/case-monitor-pr-current.md"
+          python scripts/source_domain_events.py attach-marker \
+            --event "${RUNNER_TEMP}/case-monitor-domain-event.json" \
+            --body "${RUNNER_TEMP}/case-monitor-pr-current.md" \
+            --output "${RUNNER_TEMP}/case-monitor-pr-bound.md"
+          gh pr edit "${{ steps.review-pr.outputs.number }}" --repo "${GITHUB_REPOSITORY}" --body-file "${RUNNER_TEMP}/case-monitor-pr-bound.md"
+
+      - name: Bind the report artifact to this invocation
+        if: always() && steps.invocation.outputs.attempt_key != ''
+        env:
+          STAGE_ID: case-monitor-bot
+          CHAIN_ID: ${{ inputs.chain_id }}
+          ATTEMPT_KEY: ${{ steps.invocation.outputs.attempt_key }}
+          REPORT: ${{ runner.temp }}/monitoring-report.json
+          DOMAIN_EVENT_ID: ${{ steps.domain-event.outputs.domain_event_id }}
+          DOMAIN_EVENT_HASH: ${{ steps.domain-event.outputs.domain_event_hash }}
+          DOMAIN_EVENT_JSON: ${{ steps.domain-event.outputs.domain_event_json }}
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          report = Path(os.environ["REPORT"])
+          if not report.is_file():
+              raise SystemExit("watcher report is missing")
+          event_values = [
+              os.environ.get("DOMAIN_EVENT_ID", ""),
+              os.environ.get("DOMAIN_EVENT_HASH", ""),
+              os.environ.get("DOMAIN_EVENT_JSON", ""),
+          ]
+          if any(event_values) and not all(event_values):
+              raise SystemExit("domain-event outputs are incomplete")
+          event = (
+              {"id": event_values[0], "sha256": event_values[1], "json": json.loads(event_values[2])}
+              if all(event_values)
+              else None
+          )
+          attempt = os.environ["ATTEMPT_KEY"]
+          payload = {
+              "schema_version": 1,
+              "stage_id": os.environ["STAGE_ID"],
+              "chain_id": os.environ.get("CHAIN_ID", ""),
+              "run_id": f"github-actions:{os.environ['GITHUB_REPOSITORY']}:{os.environ['GITHUB_RUN_ID']}:{os.environ['GITHUB_RUN_ATTEMPT']}:{attempt}",
+              "attempt_key": attempt,
+              "report_sha256": "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest(),
+              "domain_event": event,
+          }
+          Path(os.environ["RUNNER_TEMP"], "watcher-attempt.json").write_text(
+              json.dumps(payload, indent=2, sort_keys=True) + "\n"
+          )
+          PY
 
       - name: Publish the run summary
         if: always()
@@ -141,13 +283,15 @@ jobs:
           fi
 
       - name: Preserve the machine-readable report
-        if: always()
+        if: always() && steps.invocation.outputs.attempt_key != ''
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: case-monitor-report
+          name: case-monitor-report-${{ steps.invocation.outputs.attempt_key }}-${{ github.run_attempt }}
           path: |
             ${{ runner.temp }}/monitoring-summary.md
             ${{ runner.temp }}/monitoring-report.json
+            ${{ runner.temp }}/case-monitor-domain-event.json
+            ${{ runner.temp }}/watcher-attempt.json
           if-no-files-found: warn
           retention-days: 14
 
@@ -169,7 +313,7 @@ jobs:
               payload = json.loads(report.read_text())
               count = len(payload.get("changes") or [])
               count += sum(
-                  len(item.get("leads") or [])
+                  len(item.get("added_lead_ids") or [])
                   for item in payload.get("source_development_modules") or []
               )
               digest = "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest()

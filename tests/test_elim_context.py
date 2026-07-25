@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from arrp_context import (  # noqa: E402
     ContextError,
+    apply_user_overrides,
     build_context_packet,
     build_work_queue,
     canonical_issue_area,
@@ -710,6 +711,71 @@ class QueueTests(unittest.TestCase):
         write_json(path, data)
         return path
 
+    def test_pending_run_log_reconciliation_is_selected_as_safety_zero(self):
+        common = {"generated_at": "2026-07-24T11:00:00Z"}
+        integrity = self.path(
+            "integrity.json",
+            {**common, "revision": "abc", "findings": []},
+        )
+        progress = self.path(
+            "progress.json",
+            {**common, "repositoryRevision": "abc", "proposals": []},
+        )
+        intake = self.path(
+            "intake.json",
+            {**common, "pending": False, "items": []},
+        )
+        chain = self.path(
+            "chain.json",
+            {
+                **common,
+                "chain_id": "fresh-chain",
+                "final_revision": "abc",
+                "bots": [],
+            },
+        )
+        reconciliation = self.path(
+            "run-log-reconciliation.json",
+            {
+                "schema_version": 1,
+                "updated_at": "2026-07-24T11:30:00Z",
+                "items": [
+                    {
+                        "chain_id": "failed-chain",
+                        "invocation_id": "failed-chain-20260724T110000Z",
+                        "recorded_at": "2026-07-24T11:05:00Z",
+                        "failure_stage": "elim-execution",
+                        "reason_code": "post-spawn-interruption",
+                        "artifacts": {
+                            "output": ".tmp/run-coordinator/failed-chain/output.jsonl"
+                        },
+                    }
+                ],
+            },
+        )
+        queue = build_work_queue(
+            integrity_path=integrity,
+            progress_path=progress,
+            intake_path=intake,
+            chain_path=chain,
+            run_log_reconciliation_path=reconciliation,
+            now=self.now,
+            input_root=self.root,
+        )
+        selected = queue["items"][0]
+        self.assertEqual(selected["kind"], "bot_failure")
+        self.assertEqual(selected["safety_class"], 0)
+        self.assertEqual(
+            selected["source"]["input"],
+            "run_log_reconciliation",
+        )
+        self.assertEqual(
+            selected["source"]["pending_chain_ids"],
+            ["failed-chain"],
+        )
+        self.assertEqual(queue["selected_work_item_id"], selected["id"])
+        self.assertTrue(queue["launch_recommended"])
+
     def test_queue_uses_flags_cursor_fairness_recovery_and_epoch(self):
         issue_directory = self.root / "areas/TEST/issues"
         issue_directory.mkdir(parents=True)
@@ -779,6 +845,7 @@ class QueueTests(unittest.TestCase):
             "chain.json",
             {
                 "completed_at": "2026-07-24T11:00:00Z",
+                "chain_id": "queue-contract-chain",
                 "final_revision": "abc",
                 "bots": [
                     {"id": "source-checker-bot", "due": True, "status": "failed", "error": "timeout"}
@@ -796,6 +863,9 @@ class QueueTests(unittest.TestCase):
                         "state": "human_required",
                         "attempt_count": 3,
                         "continuation": "Resolve ambiguity",
+                        "source_revision": hashlib.sha256(
+                            progress.read_bytes()
+                        ).hexdigest(),
                     }
                 ],
             },
@@ -832,6 +902,344 @@ class QueueTests(unittest.TestCase):
             development["source"]["canonicalRecord"],
             "areas/TEST/issues/TEST-001.md",
         )
+        self.assertEqual(development["schema_version"], 1)
+        self.assertEqual(development["source_chain_id"], "queue-contract-chain")
+        self.assertEqual(development["source_commit"], "abc")
+        self.assertTrue(
+            development["source_project_snapshot"].startswith("sha256:")
+        )
+        self.assertEqual(development["work_class"], "development")
+        self.assertEqual(development["required_authority"], "human")
+        self.assertEqual(
+            development["required_context_profile"], "issue_development"
+        )
+        self.assertEqual(development["retry_state"]["attempt_count"], 3)
+        self.assertIn(
+            "areas/TEST/issues/TEST-001.md",
+            development["dependencies"],
+        )
+        self.assertTrue(development["blocking_reason"])
+        self.assertTrue(development["source_input_hashes"]["progress"].startswith("sha256:"))
+
+    def test_blank_or_stale_recovery_revision_cannot_suppress_current_work(self):
+        issue_directory = self.root / "areas/TEST/issues"
+        issue_directory.mkdir(parents=True)
+        issue = issue_directory / "TEST-001.md"
+        issue.write_text("# TEST-001\n", encoding="utf-8")
+        common = {"generated_at": "2026-07-24T11:00:00Z"}
+        integrity = self.path(
+            "integrity.json",
+            {**common, "revision": "abc", "findings": []},
+        )
+        progress = self.path(
+            "progress.json",
+            {
+                **common,
+                "repositoryRevision": "abc",
+                "proposals": [
+                    {
+                        "identifier": "TEST-001",
+                        "canonicalRecord": "areas/TEST/issues/TEST-001.md",
+                        "developmentLevel": "In development",
+                        "workflowStatus": "Development",
+                        "nextAudit": "Continue drafting",
+                    }
+                ],
+            },
+        )
+        intake = self.path(
+            "intake.json",
+            {**common, "pending": False, "items": []},
+        )
+        chain = self.path(
+            "chain.json",
+            {
+                **common,
+                "chain_id": "recovery-freshness-chain",
+                "final_revision": "abc",
+                "bots": [],
+            },
+        )
+        work_id = stable_work_id("issue_development", "TEST-001")
+        for label, revision in (("blank", ""), ("mismatched", "stale-revision")):
+            with self.subTest(label=label):
+                recovery = self.path(
+                    "recovery.json",
+                    {
+                        **common,
+                        "items": [
+                            {
+                                "work_id": work_id,
+                                "state": "complete",
+                                "attempt_count": 1,
+                                "source_revision": revision,
+                            }
+                        ],
+                    },
+                )
+                queue = build_work_queue(
+                    integrity_path=integrity,
+                    progress_path=progress,
+                    intake_path=intake,
+                    chain_path=chain,
+                    recovery_path=recovery,
+                    now=self.now,
+                    input_root=self.root,
+                )
+                item = next(row for row in queue["items"] if row["id"] == work_id)
+                self.assertTrue(item["eligible_for_elim"])
+                self.assertIsNone(item["recovery"])
+                self.assertEqual(item["retry_state"]["state"], "new")
+
+    def test_chain_due_state_creates_forced_or_off_cycle_epoch_unit(self):
+        common = {"generated_at": "2026-07-24T11:00:00Z"}
+        integrity = self.path(
+            "integrity.json",
+            {**common, "revision": "abc", "findings": []},
+        )
+        progress = self.path(
+            "progress.json",
+            {
+                **common,
+                "repositoryRevision": "abc",
+                "proposals": [],
+            },
+        )
+        intake = self.path(
+            "intake.json",
+            {**common, "pending": False, "items": []},
+        )
+        chain = self.path(
+            "chain.json",
+            {
+                **common,
+                "chain_id": "chain-off-cycle",
+                "final_revision": "abc",
+                "bots": [],
+                "review_epoch": {
+                    "due": True,
+                    "due_reason": "governing_boundary_changed",
+                    "boundary_changes": {
+                        "missing": ["framework/new.md"],
+                        "extra": [],
+                        "mismatched": [],
+                    },
+                },
+            },
+        )
+        epoch = self.path(
+            "epoch.json",
+            {
+                **common,
+                "epoch_id": "epoch-chain-off-cycle",
+                "next_due_at": "2026-08-07T00:00:00Z",
+                "unresolved_ids": ["FINDING-1"],
+            },
+        )
+        queue = build_work_queue(
+            integrity_path=integrity,
+            progress_path=progress,
+            intake_path=intake,
+            chain_path=chain,
+            review_epoch_path=epoch,
+            now=self.now,
+            input_root=self.root,
+        )
+        unit = next(
+            item
+            for item in queue["items"]
+            if item["kind"] == "comprehensive_review"
+        )
+        self.assertEqual(unit["reason"], "governing_boundary_changed")
+        self.assertEqual(
+            unit["source"]["boundary_changes"]["missing"],
+            ["framework/new.md"],
+        )
+        self.assertTrue(queue["review_epoch"]["due"])
+
+    def test_typed_bot_reports_create_exact_queue_items(self):
+        common = {"generated_at": "2026-07-24T11:00:00Z"}
+        integrity = self.path(
+            "integrity.json",
+            {**common, "revision": "abc", "findings": []},
+        )
+        progress = self.path(
+            "progress.json",
+            {
+                **common,
+                "repositoryRevision": "abc",
+                "proposals": [],
+            },
+        )
+        intake = self.path(
+            "intake.json",
+            {**common, "pending": False, "items": []},
+        )
+        chain = self.path(
+            "chain.json",
+            {
+                **common,
+                "chain_id": "typed-input-chain",
+                "final_revision": "abc",
+                "bots": [],
+                "stages": [
+                    {"id": "source-checker-bot", "due": False, "status": "not_due"},
+                    {"id": "case-monitor-bot", "due": False, "status": "not_due"},
+                    {
+                        "id": "presidential-directives-bot",
+                        "due": False,
+                        "status": "not_due",
+                    },
+                ],
+            },
+        )
+        source_checker = self.path(
+            "source-checker.json",
+            {
+                "checked_at": "2026-07-24T11:00:00Z",
+                "results": [
+                    {
+                        "source_id": "SRC-0001",
+                        "catalog": "inventory/sources.csv",
+                        "classification": "broken",
+                    },
+                    {
+                        "source_id": "SRC-0002",
+                        "catalog": "inventory/sources.csv",
+                        "classification": "verified",
+                    },
+                ],
+            },
+        )
+        case_monitor = self.path(
+            "case-monitor.json",
+            {
+                "checked_at": "2026-07-24T11:00:00Z",
+                "changes": [
+                    {
+                        "kind": "changed",
+                        "stable_key": "docket-1",
+                        "case_name": "Example v. Agency",
+                        "tracker_status": "Pending",
+                        "last_case_update": "2026-07-24",
+                        "changed_fields": ["tracker_status"],
+                    }
+                ],
+                "source_development_modules": [
+                    {
+                        "module_id": "test-module",
+                        "record_id": "HOR-035",
+                        "target_path": (
+                            "research/horizon-source-records/"
+                            "HOR-035-source-development.md"
+                        ),
+                        "added_lead_ids": ["CASELEAD-ABCDEF012345"],
+                    }
+                ],
+            },
+        )
+        directives = self.path(
+            "directives.json",
+            {
+                "generated_at": "2026-07-24T11:00:00Z",
+                "directives": [
+                    {
+                        "Directive ID": "2026-00001",
+                        "Title": "Example directive",
+                        "Bot Status": "new",
+                        "Content Fingerprint": "f" * 64,
+                    },
+                    {
+                        "Directive ID": "2026-00002",
+                        "Title": "Unchanged directive",
+                        "Bot Status": "unchanged",
+                    },
+                ],
+            },
+        )
+        queue = build_work_queue(
+            integrity_path=integrity,
+            progress_path=progress,
+            intake_path=intake,
+            chain_path=chain,
+            source_checker_path=source_checker,
+            case_monitor_path=case_monitor,
+            presidential_directives_path=directives,
+            now=self.now,
+            input_root=self.root,
+        )
+        typed = [
+            item["source"]["finding_type"]
+            for item in queue["items"]
+            if item["source"].get("finding_type")
+        ]
+        self.assertCountEqual(
+            typed,
+            [
+                "source_checker",
+                "case_monitor_change",
+                "case_monitor_lead",
+                "presidential_directive",
+            ],
+        )
+        self.assertTrue(queue["ready_for_elim"])
+        self.assertEqual(
+            queue["selected_work_item_id"],
+            queue["items"][0]["id"],
+        )
+
+    def test_recovery_and_user_override_apply_before_exact_selection(self):
+        first = {
+            "id": "INTEGRITY-FIRST",
+            "kind": "integrity",
+            "eligible_for_elim": True,
+            "requires_human": False,
+            "safety_class": 1,
+            "priority_score": 900,
+            "selection_priority_score": 900,
+            "age_days": 0,
+        }
+        second = {
+            "id": "INTEGRITY-SECOND",
+            "kind": "integrity",
+            "eligible_for_elim": True,
+            "requires_human": False,
+            "safety_class": 1,
+            "priority_score": 800,
+            "selection_priority_score": 800,
+            "age_days": 0,
+        }
+        ordered, applied, unmatched = apply_user_overrides(
+            [first, second],
+            {
+                "INTEGRITY-FIRST": {
+                    "source": "user-local-console",
+                    "suppressed": True,
+                    "reason": "Wait for a source refresh.",
+                },
+                "INTEGRITY-SECOND": {
+                    "source": "user-local-console",
+                    "priority": "critical",
+                },
+                "INTEGRITY-MISSING": {
+                    "source": "user-local-console",
+                    "priority": "low",
+                },
+            },
+        )
+        self.assertEqual(ordered[0]["id"], "INTEGRITY-SECOND")
+        self.assertFalse(
+            next(
+                item
+                for item in ordered
+                if item["id"] == "INTEGRITY-FIRST"
+            )["eligible_for_elim"]
+        )
+        self.assertEqual(
+            applied,
+            ["INTEGRITY-FIRST", "INTEGRITY-SECOND"],
+        )
+        self.assertEqual(unmatched, ["INTEGRITY-MISSING"])
 
     def test_formal_horizon_research_candidate_gets_distinct_queue_kind(self):
         integrity = self.path(
@@ -871,6 +1279,7 @@ class QueueTests(unittest.TestCase):
             "chain.json",
             {
                 "completed_at": "2026-07-24T11:00:00Z",
+                "chain_id": "candidate-research-chain",
                 "final_revision": "abc",
                 "bots": [],
             },
@@ -956,6 +1365,7 @@ class QueueTests(unittest.TestCase):
             "chain.json",
             {
                 "completed_at": "2026-07-24T11:00:00Z",
+                "chain_id": "canonical-record-chain",
                 "final_revision": "abc",
                 "bots": [],
             },
@@ -1085,6 +1495,34 @@ class QueueTests(unittest.TestCase):
 
 
 class ContextRouteTests(unittest.TestCase):
+    def test_safety_zero_bot_repair_preempts_due_comprehensive_review(self):
+        queue = {
+            "items": [
+                {
+                    "id": "repair-source",
+                    "kind": "bot_failure",
+                    "safety_class": 0,
+                    "eligible_for_elim": True,
+                    "source": {"bot": {"id": "source-checker-bot"}},
+                },
+                {
+                    "id": "epoch-1",
+                    "kind": "comprehensive_review",
+                    "eligible_for_elim": True,
+                    "source": {"identifier": "EPOCH-1"},
+                },
+            ]
+        }
+        chain = {
+            "review_epoch": {"due": True},
+            "elim_decision": {"profile": {"full_context": True}},
+        }
+        route = select_context_route(queue, chain)
+        self.assertEqual(route["work_item_id"], "repair-source")
+        self.assertEqual(route["kind"], "bot_failure")
+        self.assertEqual(route["profile"], "integrity_reconciliation")
+        self.assertTrue(chain["review_epoch"]["due"])
+
     def test_comprehensive_chain_overrides_ordinary_queue_priority(self):
         queue = {
             "items": [
@@ -1157,6 +1595,44 @@ class ContextRouteTests(unittest.TestCase):
             route["canonical_record"],
             "areas/JUD/issues/JUD-009.md",
         )
+
+    def test_local_override_is_applied_before_route_selection(self):
+        queue = {
+            "items": [
+                {
+                    "id": "INTEGRITY-FIRST",
+                    "kind": "integrity",
+                    "eligible_for_elim": True,
+                    "safety_class": 1,
+                    "priority_score": 900,
+                    "age_days": 0,
+                    "source": {},
+                },
+                {
+                    "id": "PUBLIC-SECOND",
+                    "kind": "public_intake",
+                    "eligible_for_elim": True,
+                    "safety_class": 1,
+                    "priority_score": 500,
+                    "age_days": 0,
+                    "source": {},
+                },
+            ],
+            "selected_work_item_id": "INTEGRITY-FIRST",
+        }
+        chain = {
+            "elim_decision": {"profile": {"full_context": False}},
+            "user_overrides": {
+                "INTEGRITY-FIRST": {
+                    "source": "user-local-console",
+                    "suppressed": True,
+                    "reason": "Await a refreshed source.",
+                }
+            },
+        }
+        route = select_context_route(queue, chain)
+        self.assertEqual(route["work_item_id"], "PUBLIC-SECOND")
+        self.assertEqual(route["profile"], "public_intake")
 
     def test_candidate_research_route_preserves_identity_without_issue_dossier(self):
         queue = {

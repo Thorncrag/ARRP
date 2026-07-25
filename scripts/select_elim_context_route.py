@@ -9,6 +9,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from arrp_context import ContextError, apply_user_overrides
+
 
 PROFILE_BY_KIND = {
     "bot_failure": "integrity_reconciliation",
@@ -33,17 +35,39 @@ def read_json(path: Path) -> dict[str, Any]:
 def select_context_route(
     queue: dict[str, Any], chain: dict[str, Any]
 ) -> dict[str, str | None]:
+    runtime_overrides = chain.get("user_overrides")
+    if runtime_overrides is not None and not isinstance(runtime_overrides, dict):
+        raise ContextError("chain user_overrides must be an object")
+    items, _, _ = apply_user_overrides(
+        (
+            item
+            for item in queue.get("items", [])
+            if isinstance(item, dict)
+        ),
+        runtime_overrides,
+    )
     eligible = [
         item
-        for item in queue.get("items", [])
-        if isinstance(item, dict) and item.get("eligible_for_elim")
+        for item in items
+        if item.get("eligible_for_elim")
     ]
     full_context = bool(
         ((chain.get("elim_decision") or {}).get("profile") or {}).get(
             "full_context"
         )
     )
-    if full_context:
+    repair_item = next(
+        (
+            candidate
+            for candidate in eligible
+            if candidate.get("kind") == "bot_failure"
+            and candidate.get("safety_class") == 0
+        ),
+        None,
+    )
+    if repair_item is not None:
+        item = repair_item
+    elif full_context:
         item = next(
             (candidate for candidate in eligible if candidate.get("kind") == "comprehensive_review"),
             None,
@@ -54,7 +78,27 @@ def select_context_route(
                 "comprehensive-review unit"
             )
     else:
-        item = eligible[0] if eligible else None
+        selected_id = (
+            None
+            if runtime_overrides
+            else str(queue.get("selected_work_item_id") or "").strip() or None
+        )
+        item = (
+            next(
+                (
+                    candidate
+                    for candidate in eligible
+                    if candidate.get("id") == selected_id
+                ),
+                None,
+            )
+            if selected_id
+            else eligible[0] if eligible else None
+        )
+        if selected_id and item is None:
+            raise ValueError(
+                "the queue's exact selected work-item ID is not eligible"
+            )
 
     if item is None:
         return {
@@ -133,7 +177,7 @@ def main() -> int:
     args = parser.parse_args()
     try:
         route = select_context_route(read_json(args.queue), read_json(args.chain))
-    except (OSError, json.JSONDecodeError, ValueError) as exc:
+    except (ContextError, OSError, json.JSONDecodeError, ValueError) as exc:
         print(f"select-elim-context-route: {exc}", file=sys.stderr)
         return 2
     print(route["profile"] or "")

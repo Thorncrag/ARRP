@@ -195,36 +195,54 @@ jobs:
     needs: plan
     if: needs.plan.outputs.case_due == 'true'
     uses: ./.github/workflows/case-monitor-bot.yml
+    with:
+      chain_id: ${{ needs.plan.outputs.chain_id }}
+      attempt_key: primary
     secrets: inherit
 
   case_retry:
     needs: [plan, case]
     if: always() && needs.plan.outputs.case_due == 'true' && needs.case.result == 'failure'
     uses: ./.github/workflows/case-monitor-bot.yml
+    with:
+      chain_id: ${{ needs.plan.outputs.chain_id }}
+      attempt_key: retry
     secrets: inherit
 
   directives:
     needs: [plan, case, case_retry]
     if: always() && needs.plan.result == 'success' && needs.plan.outputs.directives_due == 'true'
     uses: ./.github/workflows/presidential-directives-bot.yml
+    with:
+      chain_id: ${{ needs.plan.outputs.chain_id }}
+      attempt_key: primary
     secrets: inherit
 
   directives_retry:
     needs: [plan, directives]
     if: always() && needs.plan.outputs.directives_due == 'true' && needs.directives.result == 'failure'
     uses: ./.github/workflows/presidential-directives-bot.yml
+    with:
+      chain_id: ${{ needs.plan.outputs.chain_id }}
+      attempt_key: retry
     secrets: inherit
 
   source:
     needs: [plan, directives, directives_retry]
     if: always() && needs.plan.result == 'success' && needs.plan.outputs.source_due == 'true'
     uses: ./.github/workflows/source-checker-bot.yml
+    with:
+      chain_id: ${{ needs.plan.outputs.chain_id }}
+      attempt_key: primary
     secrets: inherit
 
   source_retry:
     needs: [plan, source]
     if: always() && needs.plan.outputs.source_due == 'true' && needs.source.result == 'failure'
     uses: ./.github/workflows/source-checker-bot.yml
+    with:
+      chain_id: ${{ needs.plan.outputs.chain_id }}
+      attempt_key: retry
     secrets: inherit
 
   progress:
@@ -334,6 +352,36 @@ jobs:
           name: run-chain-plan
           path: ${{ github.workspace }}/.tmp/run-coordinator-workflow/run-chain-plan
 
+      - name: Retrieve the exact successful case-monitor attempt
+        if: >-
+          needs.plan.outputs.case_due == 'true' &&
+          (needs.case_retry.result == 'success' ||
+          (needs.case_retry.result == 'skipped' && needs.case.result == 'success'))
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v8.0.1
+        with:
+          name: case-monitor-report-${{ needs.case_retry.result == 'success' && 'retry' || 'primary' }}-${{ github.run_attempt }}
+          path: ${{ github.workspace }}/.tmp/run-coordinator-workflow/stage-artifacts/case-monitor
+
+      - name: Retrieve the exact successful presidential-directives attempt
+        if: >-
+          needs.plan.outputs.directives_due == 'true' &&
+          (needs.directives_retry.result == 'success' ||
+          (needs.directives_retry.result == 'skipped' && needs.directives.result == 'success'))
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v8.0.1
+        with:
+          name: presidential-directives-report-${{ needs.directives_retry.result == 'success' && 'retry' || 'primary' }}-${{ github.run_attempt }}
+          path: ${{ github.workspace }}/.tmp/run-coordinator-workflow/stage-artifacts/presidential-directives
+
+      - name: Retrieve the exact successful source-checker attempt
+        if: >-
+          needs.plan.outputs.source_due == 'true' &&
+          (needs.source_retry.result == 'success' ||
+          (needs.source_retry.result == 'skipped' && needs.source.result == 'success'))
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v8.0.1
+        with:
+          name: source-checker-report-${{ needs.source_retry.result == 'success' && 'retry' || 'primary' }}-${{ github.run_attempt }}
+          path: ${{ github.workspace }}/.tmp/run-coordinator-workflow/stage-artifacts/source-checker
+
       - name: Compile stage results
         env:
           CASE_DUE: ${{ needs.plan.outputs.case_due }}
@@ -343,6 +391,14 @@ jobs:
           CASE_RETRY_COUNT: ${{ needs.case_retry.outputs.work_count }}
           CASE_HASH: ${{ needs.case.outputs.output_hash }}
           CASE_RETRY_HASH: ${{ needs.case_retry.outputs.output_hash }}
+          CASE_ATTEMPT: ${{ needs.case.outputs.attempt_key }}
+          CASE_RETRY_ATTEMPT: ${{ needs.case_retry.outputs.attempt_key }}
+          CASE_EVENT_ID: ${{ needs.case.outputs.domain_event_id }}
+          CASE_RETRY_EVENT_ID: ${{ needs.case_retry.outputs.domain_event_id }}
+          CASE_EVENT_HASH: ${{ needs.case.outputs.domain_event_hash }}
+          CASE_RETRY_EVENT_HASH: ${{ needs.case_retry.outputs.domain_event_hash }}
+          CASE_EVENT_JSON: ${{ needs.case.outputs.domain_event_json }}
+          CASE_RETRY_EVENT_JSON: ${{ needs.case_retry.outputs.domain_event_json }}
           DIRECTIVES_DUE: ${{ needs.plan.outputs.directives_due }}
           DIRECTIVES_RESULT: ${{ needs.directives.result }}
           DIRECTIVES_RETRY_RESULT: ${{ needs.directives_retry.result }}
@@ -350,6 +406,14 @@ jobs:
           DIRECTIVES_RETRY_COUNT: ${{ needs.directives_retry.outputs.work_count }}
           DIRECTIVES_HASH: ${{ needs.directives.outputs.output_hash }}
           DIRECTIVES_RETRY_HASH: ${{ needs.directives_retry.outputs.output_hash }}
+          DIRECTIVES_ATTEMPT: ${{ needs.directives.outputs.attempt_key }}
+          DIRECTIVES_RETRY_ATTEMPT: ${{ needs.directives_retry.outputs.attempt_key }}
+          DIRECTIVES_EVENT_ID: ${{ needs.directives.outputs.domain_event_id }}
+          DIRECTIVES_RETRY_EVENT_ID: ${{ needs.directives_retry.outputs.domain_event_id }}
+          DIRECTIVES_EVENT_HASH: ${{ needs.directives.outputs.domain_event_hash }}
+          DIRECTIVES_RETRY_EVENT_HASH: ${{ needs.directives_retry.outputs.domain_event_hash }}
+          DIRECTIVES_EVENT_JSON: ${{ needs.directives.outputs.domain_event_json }}
+          DIRECTIVES_RETRY_EVENT_JSON: ${{ needs.directives_retry.outputs.domain_event_json }}
           SOURCE_DUE: ${{ needs.plan.outputs.source_due }}
           SOURCE_RESULT: ${{ needs.source.result }}
           SOURCE_RETRY_RESULT: ${{ needs.source_retry.result }}
@@ -357,6 +421,14 @@ jobs:
           SOURCE_RETRY_COUNT: ${{ needs.source_retry.outputs.work_count }}
           SOURCE_HASH: ${{ needs.source.outputs.output_hash }}
           SOURCE_RETRY_HASH: ${{ needs.source_retry.outputs.output_hash }}
+          SOURCE_ATTEMPT: ${{ needs.source.outputs.attempt_key }}
+          SOURCE_RETRY_ATTEMPT: ${{ needs.source_retry.outputs.attempt_key }}
+          SOURCE_EVENT_ID: ${{ needs.source.outputs.domain_event_id }}
+          SOURCE_RETRY_EVENT_ID: ${{ needs.source_retry.outputs.domain_event_id }}
+          SOURCE_EVENT_HASH: ${{ needs.source.outputs.domain_event_hash }}
+          SOURCE_RETRY_EVENT_HASH: ${{ needs.source_retry.outputs.domain_event_hash }}
+          SOURCE_EVENT_JSON: ${{ needs.source.outputs.domain_event_json }}
+          SOURCE_RETRY_EVENT_JSON: ${{ needs.source_retry.outputs.domain_event_json }}
           PROGRESS_DUE: ${{ needs.plan.outputs.progress_due }}
           PROGRESS_RESULT: ${{ needs.progress.result }}
           PROGRESS_RETRY_RESULT: ${{ needs.progress_retry.result }}
@@ -379,7 +451,7 @@ jobs:
           python3 - <<'PY'
           import json, os
           from pathlib import Path
-          def stage(prefix):
+          def stage(prefix, bind_attempt=False):
               if os.environ.get(prefix + "_DUE") != "true":
                   return None
               first = os.environ.get(prefix + "_RESULT", "skipped")
@@ -388,6 +460,45 @@ jobs:
               result = retry if use_retry else first
               count = os.environ.get(prefix + ("_RETRY_COUNT" if use_retry else "_COUNT"), "0")
               digest = os.environ.get(prefix + ("_RETRY_HASH" if use_retry else "_HASH"), "")
+              suffix = "_RETRY" if use_retry else ""
+              expected_attempt = "retry" if use_retry else "primary"
+              domain_event = None
+              bound = {}
+              if bind_attempt:
+                  attempt = os.environ.get(prefix + suffix + "_ATTEMPT", "")
+                  if result == "success" and attempt != expected_attempt:
+                      raise RuntimeError(
+                          f"{prefix} successful output has attempt {attempt!r}; "
+                          f"expected {expected_attempt!r}"
+                      )
+                  event_id = os.environ.get(prefix + suffix + "_EVENT_ID", "")
+                  event_hash = os.environ.get(prefix + suffix + "_EVENT_HASH", "")
+                  event_json = os.environ.get(prefix + suffix + "_EVENT_JSON", "")
+                  if any((event_id, event_hash, event_json)):
+                      if not all((event_id, event_hash, event_json)):
+                          raise RuntimeError(
+                              f"{prefix} selected attempt has incomplete "
+                              "domain-event outputs"
+                          )
+                      domain_event = {
+                          "id": event_id,
+                          "sha256": event_hash,
+                          "json": json.loads(event_json),
+                      }
+                  bound = {
+                      "attempt_key": expected_attempt,
+                      "run_id": (
+                          "github-actions:"
+                          + os.environ["GITHUB_REPOSITORY"]
+                          + ":"
+                          + os.environ["GITHUB_RUN_ID"]
+                          + ":"
+                          + os.environ["GITHUB_RUN_ATTEMPT"]
+                          + ":"
+                          + expected_attempt
+                      ),
+                      "domain_event": domain_event,
+                  }
               return {
                   "result": result,
                   "work_count": int(count or 0),
@@ -397,11 +508,14 @@ jobs:
                   "details": (
                       f"retry after {first}: {retry}" if use_retry else first
                   ),
+                  **bound,
               }
           payload = {
-              "case-monitor-bot": stage("CASE"),
-              "presidential-directives-bot": stage("DIRECTIVES"),
-              "source-checker-bot": stage("SOURCE"),
+              "case-monitor-bot": stage("CASE", bind_attempt=True),
+              "presidential-directives-bot": stage(
+                  "DIRECTIVES", bind_attempt=True
+              ),
+              "source-checker-bot": stage("SOURCE", bind_attempt=True),
               "project-console-progress-bot": stage("PROGRESS"),
               "project-integrity-bot": stage("INTEGRITY"),
               "public-intake": stage("INTAKE"),
@@ -424,7 +538,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           mkdir -p "${CHAIN_WORK}/elim-inputs"
-          for name in integrity progress intake; do
+          for name in integrity progress intake source-checker; do
             if curl --fail --silent --show-error \
               --header "Accept: application/vnd.github.raw+json" \
               --header "Authorization: Bearer ${GITHUB_TOKEN}" \
@@ -435,6 +549,26 @@ jobs:
             fi
             rm -f "${CHAIN_WORK}/elim-inputs/${name}.json"
           done
+          for spec in \
+            "case-monitor:inputs/case-monitor.json" \
+            "presidential-directives:inputs/presidential-directives.json" \
+            "recovery:inputs/recovery.json"; do
+            name="${spec%%:*}"
+            remote="${spec#*:}"
+            if curl --fail --silent --show-error \
+              --header "Accept: application/vnd.github.raw+json" \
+              --header "Authorization: Bearer ${GITHUB_TOKEN}" \
+              --header "X-GitHub-Api-Version: 2022-11-28" \
+              --output "${CHAIN_WORK}/elim-inputs/${name}.json" \
+              "https://api.github.com/repos/Thorncrag/ARRP/contents/${remote}?ref=project-console-data"; then
+              continue
+            fi
+            rm -f "${CHAIN_WORK}/elim-inputs/${name}.json"
+          done
+          python3 scripts/run_coordinator.py materialize-watcher-inputs \
+            --manifest "${CHAIN_WORK}/arrp-run-chain/run-chain.json" \
+            --artifacts "${CHAIN_WORK}/stage-artifacts" \
+            --destination "${CHAIN_WORK}/elim-inputs"
           python3 - <<'PY'
           import json, os
           from pathlib import Path
@@ -468,6 +602,33 @@ jobs:
                   "items": [],
                   "content_included": False,
               },
+              "source-checker.json": {
+                  "schema_version": 1,
+                  "checked_at": generated,
+                  "collection_status": "unavailable",
+                  "counts": {},
+                  "results": [],
+              },
+              "case-monitor.json": {
+                  "schema_version": 6,
+                  "checked_at": generated,
+                  "collection_status": "unavailable",
+                  "changes": [],
+                  "source_development_modules": [],
+              },
+              "presidential-directives.json": {
+                  "schema_version": 2,
+                  "generated_at": generated,
+                  "collection_status": "unavailable",
+                  "counts": {},
+                  "changes": [],
+                  "directives": [],
+              },
+              "recovery.json": {
+                  "schema_version": 1,
+                  "generated_at": generated,
+                  "items": [],
+              },
           }
           for name, fallback in fallbacks.items():
               path = inputs / name
@@ -486,6 +647,8 @@ jobs:
               "baseline_revision": chain.get("review_epoch", {}).get("boundary_commit"),
               "last_completed_at": chain.get("review_epoch", {}).get("last_completed_at"),
               "next_due_at": chain.get("review_epoch", {}).get("next_due_at"),
+              "due": bool(chain.get("review_epoch", {}).get("due")),
+              "due_reason": chain.get("review_epoch", {}).get("due_reason"),
               "boundary_changes": (
                   chain.get("review_epoch", {}).get("boundary_changes") or {}
               ),
@@ -521,6 +684,10 @@ jobs:
             --progress "${CHAIN_WORK}/elim-inputs/progress.json" \
             --intake "${CHAIN_WORK}/elim-inputs/intake.json" \
             --chain "${CHAIN_WORK}/elim-inputs/chain.json" \
+            --source-checker "${CHAIN_WORK}/elim-inputs/source-checker.json" \
+            --case-monitor "${CHAIN_WORK}/elim-inputs/case-monitor.json" \
+            --presidential-directives "${CHAIN_WORK}/elim-inputs/presidential-directives.json" \
+            --recovery "${CHAIN_WORK}/elim-inputs/recovery.json" \
             --review-epoch "${CHAIN_WORK}/elim-inputs/review-epoch.json" \
             > "${CHAIN_WORK}/arrp-run-chain/elim-work-queue.json"
           status=$?
@@ -582,6 +749,14 @@ jobs:
             "${CHAIN_WORK}/arrp-run-chain/inputs/progress.json"
           cp "${CHAIN_WORK}/elim-inputs/intake.json" \
             "${CHAIN_WORK}/arrp-run-chain/inputs/intake.json"
+          cp "${CHAIN_WORK}/elim-inputs/source-checker.json" \
+            "${CHAIN_WORK}/arrp-run-chain/inputs/source-checker.json"
+          cp "${CHAIN_WORK}/elim-inputs/case-monitor.json" \
+            "${CHAIN_WORK}/arrp-run-chain/inputs/case-monitor.json"
+          cp "${CHAIN_WORK}/elim-inputs/presidential-directives.json" \
+            "${CHAIN_WORK}/arrp-run-chain/inputs/presidential-directives.json"
+          cp "${CHAIN_WORK}/elim-inputs/recovery.json" \
+            "${CHAIN_WORK}/arrp-run-chain/inputs/recovery.json"
           cp "${CHAIN_WORK}/elim-inputs/review-epoch.json" \
             "${CHAIN_WORK}/arrp-run-chain/inputs/review-epoch.json"
           cp "${CHAIN_WORK}/elim-inputs/chain.json" \

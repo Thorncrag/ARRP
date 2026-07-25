@@ -100,6 +100,20 @@ class SourceCheckerTests(unittest.TestCase):
         self.assertEqual(len(result["history"]), 3)
         self.assertEqual(result["history"][0]["checked_at"], "new")
 
+    def test_runtime_config_names_published_data_and_offline_cache(self):
+        config = json.loads(
+            (ROOT / ".github" / "source-checker-bot.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(config["dataBranch"], "project-console-data")
+        self.assertEqual(config["currentDataPath"], "source-checker.json")
+        self.assertEqual(
+            config["currentData"], "project-console-data:source-checker.json"
+        )
+        self.assertEqual(
+            config["offlineCachePath"], ".tmp/project-console-source-checker.json"
+        )
+        self.assertNotIn("framework/reports/source-checker.json", config.values())
+
 
 if __name__ == "__main__":
     unittest.main()

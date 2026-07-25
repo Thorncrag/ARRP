@@ -1,18 +1,25 @@
 import csv
 import json
+import os
 import re
+import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
+import scripts.build_horizon_review_console as console_builder
 from scripts.build_horizon_review_console import (
     agent_audit_log_view,
     existing_console_payload,
+    generated_console_part,
     horizon_snapshot,
     monitoring_issue_snapshot,
     monitoring_rationale_for_record,
     project_log_views,
     render_markdown_safe,
     research_for_record,
+    snapshot_time,
+    source_checker_snapshot,
 )
 from scripts.build_project_integrity_feed import build_feed, existing_feed
 from scripts.project_tree import iter_project_files
@@ -77,6 +84,21 @@ class HorizonIntakeTest(unittest.TestCase):
         pending_ids = {row["Source ID"] for row in pending}
         self.assertFalse(cited_ids & pending_ids)
 
+    def test_generated_console_part_and_snapshot_time_preserve_newer_data(self) -> None:
+        part = generated_console_part(
+            "window.ARRP_HORIZON_REVIEW_DATA={};\n"
+            "Object.assign(window.ARRP_HORIZON_REVIEW_DATA,"
+            '{"progress":{"generatedAt":"2026-07-25T01:00:25+00:00"}});\n'
+        )
+        self.assertEqual(
+            snapshot_time(part["progress"]).isoformat(),
+            "2026-07-25T01:00:25+00:00",
+        )
+        self.assertGreater(
+            snapshot_time(part["progress"]),
+            snapshot_time({"generatedAt": "2026-07-24T21:57:24+00:00"}),
+        )
+
     def test_progress_board_accounts_for_every_current_record_exactly_once(self) -> None:
         candidates = self.console["active_horizon_records"]
         proposals = self.console["progress"]["proposals"]
@@ -101,6 +123,78 @@ class HorizonIntakeTest(unittest.TestCase):
         ):
             with self.subTest(url=url), self.assertRaises(ValueError):
                 existing_feed(url)
+
+    def test_source_checker_snapshot_prefers_explicit_offline_cache(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            cache = Path(directory) / "source-checker.json"
+            config = Path(directory) / "source-checker-config.json"
+            expected = {"schema_version": 1, "counts": {"verified": 2}}
+            cache.write_text(json.dumps(expected), encoding="utf-8")
+            config.write_text(
+                json.dumps(
+                    {
+                        "currentData": "project-console-data:source-checker.json",
+                        "dataBranch": "project-console-data",
+                        "currentDataPath": "source-checker.json",
+                        "offlineCachePath": str(cache),
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with (
+                patch.object(console_builder, "SOURCE_CHECKER_CONFIG", config),
+                patch.dict(
+                    os.environ, {"ARRP_SOURCE_CHECKER_SNAPSHOT": ""}, clear=False
+                ),
+            ):
+                self.assertEqual(source_checker_snapshot(), expected)
+
+    def test_source_checker_snapshot_reads_the_published_data_branch(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            config = Path(directory) / "source-checker-config.json"
+            expected = {"schema_version": 1, "counts": {"verified": 3}}
+            config.write_text(
+                json.dumps(
+                    {
+                        "currentData": "project-console-data:source-checker.json",
+                        "dataBranch": "project-console-data",
+                        "currentDataPath": "source-checker.json",
+                        "offlineCachePath": str(Path(directory) / "missing.json"),
+                    }
+                ),
+                encoding="utf-8",
+            )
+            completed = console_builder.subprocess.CompletedProcess(
+                args=[], returncode=0, stdout=json.dumps(expected)
+            )
+            with (
+                patch.object(console_builder, "SOURCE_CHECKER_CONFIG", config),
+                patch.object(
+                    console_builder.subprocess, "run", return_value=completed
+                ) as run,
+                patch.dict(
+                    os.environ, {"ARRP_SOURCE_CHECKER_SNAPSHOT": ""}, clear=False
+                ),
+            ):
+                self.assertEqual(source_checker_snapshot(), expected)
+            self.assertEqual(
+                run.call_args.args[0],
+                [
+                    "git",
+                    "show",
+                    "origin/project-console-data:source-checker.json",
+                ],
+            )
+
+    def test_console_control_plane_exception_remains_narrow(self) -> None:
+        interface = (ROOT / "framework" / "PROJECT_INTERFACE.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("localhost-only Run Coordinator control plane", interface)
+        self.assertIn("does not directly invoke or select an agent", interface)
+        self.assertIn("does not guarantee execution", interface)
+        self.assertIn("No interface control may bypass", interface)
+        self.assertIn("mutate GitHub or project files", interface)
 
     def test_agent_log_exposes_structured_filter_fields(self) -> None:
         log = agent_audit_log_view()
@@ -315,9 +409,14 @@ class HorizonIntakeTest(unittest.TestCase):
                 "/framework/logs/PROJECT_INTEGRITY_REPORT.md"
             )
         )
-        self.assertEqual(
+        self.assertLessEqual(
+            set(self.console["integrity"]["current"]["scope"]),
+            set(integrity_bot["checks"]),
+        )
+        self.assertEqual(len(integrity_bot["checks"]), len(set(integrity_bot["checks"])))
+        self.assertIn(
+            "Source-domain event preservation and acceptance wiring",
             integrity_bot["checks"],
-            self.console["integrity"]["current"]["scope"],
         )
         self.assertTrue(
             all(
@@ -898,11 +997,11 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
-        self.assertIn("catalog-data.js?v=39", console_html)
-        self.assertIn("data/candidates.js?v=39", console_html)
-        self.assertIn("data/automation.js?v=39", console_html)
-        self.assertIn("app.js?v=39", console_html)
-        self.assertIn("styles.css?v=39", console_html)
+        self.assertIn("catalog-data.js?v=40", console_html)
+        self.assertIn("data/candidates.js?v=40", console_html)
+        self.assertIn("data/automation.js?v=40", console_html)
+        self.assertIn("app.js?v=40", console_html)
+        self.assertIn("styles.css?v=40", console_html)
         for tab in {"overview", "progress", "actions", "candidates", "sources", "integrity", "automation", "logs", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)
@@ -1088,6 +1187,13 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Exclude from print…", console_app)
         self.assertIn("exportPrintLevelChanges", console_app)
         self.assertIn("renderActionItems", console_app)
+        self.assertIn("allHostAutomationActions", console_app)
+        self.assertIn("item.resolved !== true", console_app)
+        self.assertIn(
+            'String(item.chain_id || "") === String(data.run_chain?.chain_id || "")',
+            console_app,
+        )
+        self.assertIn('id="coordinator-resolve-action"', console_html)
         self.assertIn('label: "Integrity decisions requiring you"', console_app)
         self.assertIn('label: "Human decisions"', console_app)
         self.assertIn('label: "Open pull requests awaiting disposition"', console_app)
@@ -1173,6 +1279,20 @@ class HorizonIntakeTest(unittest.TestCase):
             1,
         )[1].split("async function refreshLiveSourceChecker", 1)[0]
         self.assertIn("sortableHeader", source_checker_renderer)
+        self.assertIn(
+            'freshnessCard("Source checks", data.source_checker.checked_at || '
+            "data.source_checker.generated_at",
+            console_app,
+        )
+        self.assertIn(
+            "detected_at: data.source_checker.checked_at || "
+            "data.source_checker.generated_at",
+            console_app,
+        )
+        self.assertIn(
+            "renderSourceChecker();\n      renderIntegrity();\n      renderOverview();",
+            console_app,
+        )
         self.assertIn('element("section", "log-group")', console_app)
         self.assertNotIn('element("details", "log-group")', console_app)
         self.assertNotIn('id="tab-integrity-update"', console_html)

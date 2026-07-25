@@ -1261,6 +1261,7 @@
       populateSourceCheckerFilters();
       renderSourceChecker();
       renderIntegrity();
+      renderOverview();
       byId("source-checker-live-note").textContent = "Source Checker Bot data refreshed from the published Console data branch.";
     } catch (_error) {
       byId("source-checker-live-note").textContent = "Published Source Checker Bot data is not available yet; the checked-in snapshot remains shown.";
@@ -1765,8 +1766,8 @@
         source_url: record.final_url || record.requested_url || "",
         owner_ids: record.owner_ids || [],
         message: `${record.classification}: ${record.error || "the observed URL or identity requires review against the cataloged source."}`,
-        detected_at: data.source_checker.generated_at,
-        checked_at: data.source_checker.generated_at
+        detected_at: data.source_checker.checked_at || data.source_checker.generated_at,
+        checked_at: data.source_checker.checked_at || data.source_checker.generated_at
       }));
 
     (data.active_horizon_records || []).forEach((record) => {
@@ -1952,11 +1953,37 @@
     const pending = data.pending_sources.length;
     const openPullRequests = reviewSignals.pullRequests;
     const pullRequests = openPullRequests.length;
-    const integrityHumanFindings = allProblemRecords()
+    const problemRecords = allProblemRecords();
+    const integrityHumanFindings = problemRecords
       .filter((finding) => finding.attention === "human")
+      .filter((finding) => finding.category !== "Automation failure")
       .sort((left, right) => String(left.message || "").localeCompare(String(right.message || "")));
     const integrityHuman = integrityHumanFindings.length;
-    const total = decisions + preliminary + pending + pullRequests + integrityHuman;
+    const allHostAutomationActions = (data.run_chain?.host_action_items || [])
+      .filter((item) => item);
+    const hostAutomationActions = allHostAutomationActions
+      .filter((item) => item.resolved !== true);
+    const hostStages = new Set(
+      allHostAutomationActions
+        .filter((item) => String(item.chain_id || "") === String(data.run_chain?.chain_id || ""))
+        .map((item) => String(item.stage || ""))
+    );
+    const projectedAutomationActions = problemRecords
+      .filter((finding) => finding.category === "Automation failure")
+      .filter((finding) => !hostStages.has(String(finding.owner_ids?.[0] || finding.reference || "")))
+      .map((finding) => ({
+        id: finding.reference || finding.owner_ids?.[0] || "current-chain-failure",
+        stage: finding.owner_ids?.[0] || finding.reference || "run-coordinator",
+        summary: finding.message,
+        source_url: finding.source_url
+      }));
+    const automationByKey = new Map();
+    [...hostAutomationActions, ...projectedAutomationActions].forEach((item) => {
+      const key = String(item.id || `${item.chain_id || ""}:${item.stage || ""}:${item.summary || ""}`);
+      if (!automationByKey.has(key)) automationByKey.set(key, item);
+    });
+    const automationActions = [...automationByKey.values()];
+    const total = decisions + preliminary + pending + pullRequests + integrityHuman + automationActions.length;
     const newOrUpdated = preliminary;
     byId("tab-actions-count").textContent = total;
     byId("action-items-note").textContent = total
@@ -1971,6 +1998,18 @@
           : "No Integrity finding currently requires a reserved human decision.",
         target: "integrity",
         items: integrityHumanFindings.map(integrityActionLink)
+      }),
+      actionItemCard({
+        label: "Automation failures requiring resolution",
+        count: automationActions.length,
+        detail: automationActions.length
+          ? "Unresolved host and run-chain failures remain here until an explicit human resolution record is entered."
+          : "No unresolved automation failure currently requires attention.",
+        target: "automation:administration",
+        items: automationActions.map((item) => ({
+          label: `${item.id || "Automation"}: ${item.stage || "run coordinator"} — ${item.summary || item.details || "Review the recorded failure."}`,
+          href: item.source_url || "#automation:administration"
+        }))
       }),
       actionItemCard({
         label: "Human decisions",
@@ -2424,7 +2463,7 @@
       freshnessCard("Progress feed", data.progress.generatedAt || data.progress.asOf, "progress"),
       freshnessCard("Integrity feed", data.integrity?.current?.generated_at, "integrity"),
       freshnessCard("Run chain", chain.updated_at || chain.created_at, "automation"),
-      freshnessCard("Source checks", data.source_checker.generated_at, "sources:watchers:source-checker", 192)
+      freshnessCard("Source checks", data.source_checker.checked_at || data.source_checker.generated_at, "sources:watchers:source-checker", 192)
     );
     refreshLayoutZones();
   }
@@ -2660,7 +2699,15 @@
       if (!response.ok) return;
       const snapshot = await response.json();
       if (!snapshot || typeof snapshot !== "object" || Array.isArray(snapshot)) return;
+      const localHostState = {
+        host_action_items: data.run_chain?.host_action_items,
+        host_action_item_history: data.run_chain?.host_action_item_history,
+        elim_runtime: data.run_chain?.elim_runtime
+      };
       data.run_chain = snapshot;
+      Object.entries(localHostState).forEach(([key, value]) => {
+        if (value !== undefined) data.run_chain[key] = value;
+      });
       renderAutomation();
       renderActionItems();
       renderIntegrity();
@@ -2679,7 +2726,10 @@
       "coordinator-request-review",
       "coordinator-prioritize",
       "coordinator-suppress",
-      "coordinator-clear"
+      "coordinator-clear",
+      "coordinator-action-item",
+      "coordinator-resolution-reason",
+      "coordinator-resolve-action"
     ].map(byId).filter(Boolean);
   }
 
@@ -2721,6 +2771,16 @@
       if (!response.ok) {
         throw new Error(result.error || result.message || `Coordinator returned ${response.status}`);
       }
+      if (payload.action === "resolve_action_item") {
+        const item = (data.run_chain?.host_action_items || [])
+          .find((candidate) => candidate.id === payload.action_item_id);
+        if (item) {
+          item.resolved = true;
+          item.resolved_at = new Date().toISOString();
+          item.resolution_reason = payload.reason;
+        }
+        renderActionItems();
+      }
       setCoordinatorControlStatus(result.message || "Coordinator request accepted.", "success");
       window.setTimeout(refreshLiveRunChain, 500);
     } catch (error) {
@@ -2743,8 +2803,15 @@
       if (result.manifest && typeof result.manifest === "object") {
         data.run_chain = result.manifest;
         if (result.control.elim_runtime) data.run_chain.elim_runtime = result.control.elim_runtime;
+        data.run_chain.host_action_items = Array.isArray(result.control.action_items)
+          ? result.control.action_items
+          : [];
+        data.run_chain.host_action_item_history = Array.isArray(result.control.action_item_history)
+          ? result.control.action_item_history
+          : [];
         renderAutomation();
         renderOverview();
+        renderActionItems();
       }
       sessionStorage.setItem("arrp-run-coordinator-control-token", result.control_token);
       setCoordinatorControlStatus("Local coordinator available.");
@@ -2788,6 +2855,19 @@
     byId("coordinator-clear").addEventListener("click", () => {
       const payload = queuePayload("clear_override");
       if (payload) coordinatorControlRequest(payload);
+    });
+    byId("coordinator-resolve-action").addEventListener("click", () => {
+      const actionItemId = byId("coordinator-action-item").value.trim();
+      const reason = byId("coordinator-resolution-reason").value.trim();
+      if (!actionItemId || !reason) {
+        setCoordinatorControlStatus("Enter both the exact action-item ID and the resolution record.", "warning");
+        return;
+      }
+      coordinatorControlRequest({
+        action: "resolve_action_item",
+        action_item_id: actionItemId,
+        reason
+      });
     });
   }
 

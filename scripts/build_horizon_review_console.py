@@ -27,7 +27,7 @@ HORIZON_LOG = ROOT / "framework" / "logs" / "HORIZON_SCAN_LOG.md"
 CHANGE_AUDIT_LOG = ROOT / "framework" / "logs" / "CHANGE_AUDIT_LOG.md"
 AGENT_AUDIT_LOG = ROOT / "framework" / "logs" / "AGENT_AUDIT_LOG.md"
 ELIM_RUN_LOG = ROOT / "framework" / "logs" / "ELIM_RUN_LOG.md"
-SOURCE_CHECKER_DATA = ROOT / "framework" / "reports" / "source-checker.json"
+SOURCE_CHECKER_CONFIG = ROOT / ".github" / "source-checker-bot.json"
 SOURCE_MONITOR_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
 AGENT_RUNBOOKS = ROOT / "framework" / "agents"
 ISSUE_REGISTRY = ROOT / "inventory" / "github_issue_registry.csv"
@@ -1367,6 +1367,51 @@ def existing_console_payload() -> dict[str, object]:
     return payload
 
 
+def generated_console_part(text: str) -> dict[str, object]:
+    marker = "Object.assign(window.ARRP_HORIZON_REVIEW_DATA,"
+    if marker not in text:
+        return {}
+    serialized = text.split(marker, 1)[1].strip()
+    if not serialized.endswith(");"):
+        return {}
+    try:
+        payload = json.loads(serialized[:-2])
+    except json.JSONDecodeError:
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def snapshot_time(payload: dict[str, object]) -> datetime:
+    for field in ("generatedAt", "generated_at", "checked_at", "asOf", "as_of"):
+        raw = str(payload.get(field) or "").strip()
+        if not raw:
+            continue
+        try:
+            return datetime.fromisoformat(raw.replace("Z", "+00:00")).astimezone(
+                timezone.utc
+            )
+        except ValueError:
+            continue
+    return datetime.min.replace(tzinfo=timezone.utc)
+
+
+def tracked_progress_snapshot() -> dict[str, object]:
+    """Recover the committed Console snapshot when it is newer than the data branch."""
+    relative = (CONSOLE_DATA_DIR / "progress.js").relative_to(ROOT).as_posix()
+    completed = subprocess.run(
+        ["git", "show", f"HEAD:{relative}"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode != 0:
+        return {}
+    part = generated_console_part(completed.stdout)
+    payload = part.get("progress", {})
+    return payload if isinstance(payload, dict) else {}
+
+
 def progress_snapshot() -> dict[str, object]:
     """Read the latest generated progress data without making it authoritative."""
     local_progress = os.environ.get("ARRP_PROGRESS_SNAPSHOT", "").strip()
@@ -1377,6 +1422,7 @@ def progress_snapshot() -> dict[str, object]:
                 return payload
         except (OSError, json.JSONDecodeError):
             pass
+    candidates: list[dict[str, object]] = []
     try:
         completed = subprocess.run(
             ["git", "show", PROGRESS_DATA_REF],
@@ -1387,12 +1433,22 @@ def progress_snapshot() -> dict[str, object]:
         )
         payload = json.loads(completed.stdout)
         if isinstance(payload, dict):
-            return payload
+            candidates.append(payload)
     except (subprocess.CalledProcessError, json.JSONDecodeError):
         pass
+    tracked = tracked_progress_snapshot()
+    if tracked:
+        candidates.append(tracked)
     existing = existing_console_payload()
     cached = existing.get("progress", existing.get("progress_dashboard", {}))
-    return cached if isinstance(cached, dict) else {}
+    if isinstance(cached, dict) and cached:
+        candidates.append(cached)
+    if not candidates:
+        return {}
+    return max(
+        enumerate(candidates),
+        key=lambda indexed: (snapshot_time(indexed[1]), indexed[0]),
+    )[1]
 
 
 def integrity_snapshot() -> dict[str, object]:
@@ -1450,6 +1506,57 @@ def run_chain_snapshot() -> dict[str, object]:
         pass
     existing = existing_console_payload()
     cached = existing.get("run_chain", {})
+    return cached if isinstance(cached, dict) else {}
+
+
+def source_checker_snapshot() -> dict[str, object]:
+    """Read the published source-checker feed or its explicit offline cache."""
+    try:
+        config = json.loads(SOURCE_CHECKER_CONFIG.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        config = {}
+
+    local_override = os.environ.get("ARRP_SOURCE_CHECKER_SNAPSHOT", "").strip()
+    configured_cache = str(config.get("offlineCachePath") or "").strip()
+    cache_candidates = [Path(local_override)] if local_override else []
+    if configured_cache:
+        cache_candidates.append(ROOT / configured_cache)
+    for path in cache_candidates:
+        if not path.exists():
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(payload, dict):
+                return payload
+        except (OSError, json.JSONDecodeError):
+            pass
+
+    current_data = str(config.get("currentData") or "").strip()
+    data_branch = str(config.get("dataBranch") or "").strip()
+    data_path = str(config.get("currentDataPath") or "").strip()
+    if current_data and ":" in current_data:
+        configured_branch, configured_path = current_data.split(":", 1)
+        if not data_branch:
+            data_branch = configured_branch
+        if not data_path:
+            data_path = configured_path
+    if data_branch and data_path:
+        try:
+            completed = subprocess.run(
+                ["git", "show", f"origin/{data_branch}:{data_path}"],
+                cwd=ROOT,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            payload = json.loads(completed.stdout)
+            if isinstance(payload, dict):
+                return payload
+        except (subprocess.CalledProcessError, json.JSONDecodeError):
+            pass
+
+    existing = existing_console_payload()
+    cached = existing.get("source_checker", {})
     return cached if isinstance(cached, dict) else {}
 
 
@@ -1786,7 +1893,7 @@ def main() -> None:
     progress = progress_snapshot()
     integrity = integrity_snapshot()
     run_chain = run_chain_snapshot()
-    source_checker = read_json(SOURCE_CHECKER_DATA) if SOURCE_CHECKER_DATA.exists() else {}
+    source_checker = source_checker_snapshot()
     agent_registry = agent_registry_records()
     horizon_records = enrich_horizon_records(horizon_records)
     active_horizon_records = [

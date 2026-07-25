@@ -11,7 +11,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "schedule": "Conditional within the due-aware run chain; Review Epoch cadence is owned by the Run Coordinator Bot runbook",
       "runtime_id": "codex-automation:elim",
       "runtime_url": "",
-      "execution_environment": "isolated-worktree",
+      "execution_environment": "isolated-checkout",
       "log_path": "framework/logs/AGENT_AUDIT_LOG.md",
       "run_log_path": "framework/logs/ELIM_RUN_LOG.md",
       "run_log_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/ELIM_RUN_LOG.md",
@@ -70,7 +70,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "name": "Project Console Progress Bot",
       "type": "deterministic-bot",
       "status": "enabled",
-      "trigger": "run-chain-manual-and-config-push",
+      "trigger": "run-chain-or-manual",
       "schedule": "Due every 24 hours in the Run Coordinator chain; no independent schedule",
       "runtime_id": ".github/workflows/project-console-progress.yml",
       "runtime_url": "https://github.com/Thorncrag/ARRP/blob/main/.github/workflows/project-console-progress.yml",
@@ -124,6 +124,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "Print-assembly configuration",
         "Governing context registry, hashes, and module coverage",
         "Persistent-agent runbooks and runtime configuration",
+        "Source-domain event preservation and acceptance wiring",
         "Structured-file and repository hygiene"
       ],
       "runbook_path": "framework/agents/PROJECT_INTEGRITY_BOT.md",
@@ -145,7 +146,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "current_report": "",
       "current_report_url": "",
       "current_data": "project-console-data/run-chain.json",
-      "description": "The Run Coordinator Bot serializes ARRP's persistent automation into one due-aware chain. It prevents overlapping processes, establishes a clean repository boundary, runs every due deterministic stage, compiles the bounded work queue and context manifests, and invokes Elim only when refreshed project state contains an eligible LLM-owned unit. Elim is the last substantive, change-producing stage. Only deterministic validation, synchronization readback, structured closeout, and generated-view publication may follow it.",
+      "description": "The Run Coordinator Bot serializes ARRP's persistent automation into one due-aware chain. It prevents overlapping processes, establishes a reviewed remote boundary and an isolated execution checkout, runs every due deterministic stage, compiles the bounded work queue and context manifests, and invokes Elim only when refreshed project state contains an eligible LLM-owned unit. Elim is the last substantive, change-producing stage. Only deterministic validation, synchronization readback, structured closeout, and generated-view publication may follow it.",
       "checks": [],
       "runbook_path": "framework/agents/RUN_COORDINATOR_BOT.md",
       "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/RUN_COORDINATOR_BOT.md"
@@ -165,7 +166,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "run_log_url": "",
       "current_report": "framework/reports/SOURCE_CHECKER_REPORT.md",
       "current_report_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/reports/SOURCE_CHECKER_REPORT.md",
-      "current_data": "project-console-data/source-checker.json",
+      "current_data": "project-console-data:source-checker.json",
       "description": "The Source Checker Bot follows the project Framework and Agent Operating Rules. This runbook is its authoritative identity, narrower authority, and operational configuration.",
       "checks": [],
       "runbook_path": "framework/agents/SOURCE_CHECKER_BOT.md",
@@ -181,7 +182,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "llm_launch_allowed": false,
     "llm_launch_trigger": "push",
     "created_at": "2026-07-24T21:57:06+00:00",
-    "updated_at": "2026-07-24T22:06:30+00:00",
+    "updated_at": "2026-07-24T21:58:25+00:00",
     "status": "complete",
     "baseline_commit": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
     "resume": {
@@ -358,11 +359,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "monitoring": 0,
       "sources": 0,
       "intake": 0,
-      "total": 0
+      "total": 53
     },
     "elim_decision": {
       "launch_recommended": false,
-      "reason": "Host dispatcher rejected an LLM launch from a deterministic-only or unspecified trigger.",
+      "reason": "This trigger authorizes deterministic refresh only; Elim waits for the daily schedule, an eligible event, or explicit manual dispatch.",
       "blockers": [],
       "last_substantive_stage": true,
       "predecessors_complete": true,
@@ -387,59 +388,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "usage": {
       "hard_reserve_percent": 15,
       "soft_run_target_percent": 10,
-      "remaining_percent": 99.0,
-      "status": "available",
-      "gate": {
-        "blockers": [],
-        "checkedAtUtc": "2026-07-24T22:06:30+00:00",
-        "lowestRemainingPercent": 99,
-        "reservePercent": 15,
-        "runBudget": {
-          "baselinePath": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/usage-arrp-20260724T215706Z-20260724T220630Z.json",
-          "highestSpentPercent": 0,
-          "reserveBufferFloorPercent": 25,
-          "softTargetPercent": 10,
-          "softTargetReached": false,
-          "spentPercentByWindow": {
-            "codex:primary": 0,
-            "codex_bengalfox:primary": 0
-          }
-        },
-        "status": "pass",
-        "windows": [
-          {
-            "limitId": "codex",
-            "limitName": "codex",
-            "remainingPercent": 99,
-            "resetsAt": 1785533757,
-            "resetsAtUtc": "2026-07-31T21:35:57+00:00",
-            "usedPercent": 1,
-            "window": "primary",
-            "windowDurationMins": 10080
-          },
-          {
-            "limitId": "codex_bengalfox",
-            "limitName": "GPT-5.3-Codex-Spark",
-            "remainingPercent": 100,
-            "resetsAt": 1785535590,
-            "resetsAtUtc": "2026-07-31T22:06:30+00:00",
-            "usedPercent": 0,
-            "window": "primary",
-            "windowDurationMins": 10080
-          }
-        ]
-      },
-      "host_monitor": {
-        "source": "approved-host-dispatcher",
-        "status_path": ".tmp/run-coordinator/arrp-20260724T215706Z/usage-status-arrp-20260724T215706Z-20260724T220630Z.json",
-        "baseline_path": ".tmp/run-coordinator/usage-arrp-20260724T215706Z-20260724T220630Z.json",
-        "monitor_interval_seconds": 60,
-        "snapshot_max_age_seconds": 120
-      }
+      "remaining_percent": null,
+      "status": "unknown"
     },
-    "next_action": "No Elim launch; wait for the daily schedule, an eligible event, or explicit manual dispatch.",
+    "next_action": "No Elim launch; wait for the next trigger.",
     "action_items": [],
-    "completed_at": "2026-07-24T22:06:30+00:00",
+    "completed_at": "2026-07-24T21:58:23+00:00",
     "final_revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
     "bots": [
       {
@@ -522,8 +476,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "next_audit": "T1 audit of IEEPA scope, immigration-authority coordination, judicial review, transition, and implementation"
         },
         "recovery": null
-      },
-      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T215706Z/elim-work-queue.json"
+      }
     },
     "context_packet": {
       "path": "project-console-data:elim-context.json",
@@ -534,35 +487,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "limits": {
         "max_bytes": 220000,
         "actual_bytes": 189895
-      },
-      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T215706Z/elim-context.json"
-    },
-    "user_overrides": {},
-    "verified_inputs": {
-      "integrity": {
-        "path": ".tmp/run-coordinator/arrp-20260724T215706Z/inputs/integrity.json",
-        "sha256": "sha256:c4095161b3c2b3b65210360153049f939553892252132495eb96c2b41bc3bfa3",
-        "bytes": 1143
-      },
-      "progress": {
-        "path": ".tmp/run-coordinator/arrp-20260724T215706Z/inputs/progress.json",
-        "sha256": "sha256:fe3c6c18f21d585d1d37b6b9f0f3afdbd7905aeb0abbed78ea4afd33fae15743",
-        "bytes": 161986
-      },
-      "intake": {
-        "path": ".tmp/run-coordinator/arrp-20260724T215706Z/inputs/intake.json",
-        "sha256": "sha256:eeabc2ed73d06e6c533b5c2cc2c815bfa4504700a24e6a2b32d282e063d36e3d",
-        "bytes": 241
-      },
-      "review_epoch": {
-        "path": ".tmp/run-coordinator/arrp-20260724T215706Z/inputs/review-epoch.json",
-        "sha256": "sha256:619250fe22e2692ddba915c2c171f791d47bca4b807d12adda26b1e30059ce76",
-        "bytes": 307
-      },
-      "chain": {
-        "path": ".tmp/run-coordinator/arrp-20260724T215706Z/inputs/chain.json",
-        "sha256": "sha256:ffab49f5dcceffefa8a7f2d5d9d861cc413f80ed39d914eda99385965d3d0853",
-        "bytes": 8204
       }
     }
   }

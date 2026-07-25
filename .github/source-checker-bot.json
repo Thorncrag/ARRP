@@ -24,5 +24,8 @@
   },
   "historyLimit": 12,
   "currentReport": "framework/reports/SOURCE_CHECKER_REPORT.md",
-  "currentData": "framework/reports/source-checker.json"
+  "dataBranch": "project-console-data",
+  "currentDataPath": "source-checker.json",
+  "currentData": "project-console-data:source-checker.json",
+  "offlineCachePath": ".tmp/project-console-source-checker.json"
 }

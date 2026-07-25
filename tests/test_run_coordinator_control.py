@@ -1,4 +1,5 @@
 import importlib.util
+import json
 import os
 import tempfile
 import unittest
@@ -53,6 +54,95 @@ class RunCoordinatorControlTests(unittest.TestCase):
             )
         with self.assertRaisesRegex(ValueError, "unsupported"):
             MODULE.apply_control(self.state(), {"action": "delete_everything"})
+
+    def test_action_item_resolution_is_explicit_and_append_only(self):
+        state = self.state()
+        state["action_items"] = [
+            {
+                "id": "automation-failure-abc123",
+                "resolved": False,
+                "summary": "Run failed.",
+            }
+        ]
+        record = MODULE.apply_control(
+            state,
+            {
+                "action": "resolve_action_item",
+                "action_item_id": "automation-failure-abc123",
+                "reason": "Reviewed after the corrected chain completed.",
+            },
+        )
+        item = state["action_items"][0]
+        self.assertTrue(item["resolved"])
+        self.assertEqual(item["resolved_by"], "human-local-console")
+        self.assertEqual(
+            record["action_item_id"],
+            "automation-failure-abc123",
+        )
+        self.assertEqual(
+            state["action_item_history"][0]["event"],
+            "resolved",
+        )
+        with self.assertRaisesRegex(ValueError, "already resolved"):
+            MODULE.apply_control(
+                state,
+                {
+                    "action": "resolve_action_item",
+                    "action_item_id": "automation-failure-abc123",
+                    "reason": "Resolve twice.",
+                },
+            )
+
+    def test_action_item_resolution_requires_reason_and_known_id(self):
+        state = self.state()
+        state["action_items"] = []
+        with self.assertRaisesRegex(ValueError, "resolution reason"):
+            MODULE.apply_control(
+                state,
+                {
+                    "action": "resolve_action_item",
+                    "action_item_id": "automation-failure-abc123",
+                },
+            )
+
+    def test_locked_transaction_reads_latest_state_before_mutation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            state_path = root / "control.json"
+            state_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "overrides": {
+                            "unit-one": {
+                                "source": "user-local-console",
+                                "priority": "high",
+                            }
+                        },
+                        "requests": [],
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            _record, state = MODULE.apply_control_transaction(
+                state_path,
+                {"action": "request_run"},
+                root=root,
+            )
+            self.assertIn("unit-one", state["overrides"])
+            persisted = json.loads(state_path.read_text(encoding="utf-8"))
+            self.assertIn("unit-one", persisted["overrides"])
+            self.assertTrue((root / "control.lock").is_file())
+        with self.assertRaisesRegex(ValueError, "no coordinator action item"):
+            MODULE.apply_control(
+                state,
+                {
+                    "action": "resolve_action_item",
+                    "action_item_id": "automation-failure-abc123",
+                    "reason": "Reviewed.",
+                },
+            )
 
     def test_control_token_is_persistent_and_private(self):
         with tempfile.TemporaryDirectory() as directory:

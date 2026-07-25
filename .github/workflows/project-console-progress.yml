@@ -34,7 +34,8 @@ jobs:
             echo "configured=true" >> "${GITHUB_OUTPUT}"
           else
             echo "configured=false" >> "${GITHUB_OUTPUT}"
-            echo "::notice::ARRP_PROJECT_TOKEN is not configured; Project Console progress refresh is inactive."
+            echo "::error::ARRP_PROJECT_TOKEN is not configured; refusing to publish an unauthenticated Project Console progress refresh."
+            exit 1
           fi
 
       - name: Check out the repository

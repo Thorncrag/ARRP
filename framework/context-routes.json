@@ -44,7 +44,7 @@
     },
     "agent_rules_kernel": {
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "c424cda16fc3bd8d3de077d1dab55cd640019cd62e43777bc32631206284e2c2",
+      "sha256": "a00daa630adf4df1f7df0db9e34ee2a4f514ad30c910b1fd5e7c288fe00e6028",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -72,7 +72,7 @@
     },
     "project_structure": {
       "path": "framework/PROJECT_STRUCTURE.md",
-      "sha256": "7f8f284fd5245c9994e6309bfa3e923eb125174530ddecf85822a17a249e58d8",
+      "sha256": "fcbdd02f6024e5ed256451cc28500bf4f51cce863417f280d5e3da9ace0e7323",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -138,7 +138,7 @@
     },
     "project_console_progress": {
       "path": "framework/PROJECT_CONSOLE_PROGRESS.md",
-      "sha256": "a37aea3914ec4862be8d42697ce8874b16ad842e4feac1030e030440241fe098",
+      "sha256": "cd97c024d96deec53cd1c01c112c87ec65300c8df5e1924680906a8496f89520",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -148,7 +148,7 @@
     },
     "project_interface": {
       "path": "framework/PROJECT_INTERFACE.md",
-      "sha256": "019be7714fc5a934af7da5ef802b12d0f8be72d3cd9e6817d082a84ca34c3a3a",
+      "sha256": "6e1d1eeaff3a2993b1fb66dba01bfe894a585ab713c0a8e966200b7a0d88cd46",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -177,7 +177,7 @@
     },
     "agent_autonomous_execution": {
       "path": "framework/agent-rules/autonomous-execution.md",
-      "sha256": "a8d7740e83e39557556e5722bd3eb84839b5ce51780f98750e6bdaabfa2d6073",
+      "sha256": "bbc1d1128ae8ec36634e1b99341f47c46cca2da292c734077fdf1d7f549b4017",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -240,7 +240,7 @@
     },
     "agent_registry": {
       "path": "framework/agents/README.md",
-      "sha256": "89ac42ebbd185fa831f21bba0f49cb1ebfe81743a829fce54d745c6f26afe405",
+      "sha256": "831417cc4329ac03a74081f188eebf97a32843d94d28db9c97759f982c2861fb",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -249,7 +249,7 @@
     },
     "runbook_elim": {
       "path": "framework/agents/ELIM.md",
-      "sha256": "358d82a3b5d26db49ec0a3366cab390c892f5bea556c65bbc77b5e5660524990",
+      "sha256": "47e825044e519a6c0107d30d520189ba7ee44a53670dfb1211239b2d5e9fa00f",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -261,7 +261,7 @@
     },
     "runbook_case_monitor_bot": {
       "path": "framework/agents/CASE_MONITOR_BOT.md",
-      "sha256": "723c3f0aea055ee509ab7d48a9bdc62c92c922b086be4fd4f628fc155e9bf23f",
+      "sha256": "239fca127a174bd9056db56e4527006fe7d1c23b3e5c93307bb3843fa72dd3b0",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -270,7 +270,7 @@
     },
     "runbook_presidential_directives_bot": {
       "path": "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
-      "sha256": "2a88eb7b7b128880a94bceb6862bbef7e06ab583e0564537fbd2cac0135cfc92",
+      "sha256": "6e085d851baabe9130e3949d18a92b0bbb465feadf50c56a43a15797ee33c85e",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -279,7 +279,7 @@
     },
     "runbook_console_progress_bot": {
       "path": "framework/agents/PROJECT_CONSOLE_PROGRESS_BOT.md",
-      "sha256": "562d0b21f269cdc163c1590bcf7c66b786a88e379d5d2c2f354ae766549ee58a",
+      "sha256": "0df4e727d765eb2af8000bd151793282cea2427d195ef0d97b86d7f2eafd37ad",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -288,7 +288,7 @@
     },
     "runbook_integrity_bot": {
       "path": "framework/agents/PROJECT_INTEGRITY_BOT.md",
-      "sha256": "270d8aca6cdad478c37841ef823aef7ac55864169d46d2793a09fe5fe763af06",
+      "sha256": "d98058cc29e524703e44f1656f24f5f5871438766c8f4ba27fbc1b1ee6f13d42",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -297,7 +297,7 @@
     },
     "runbook_run_coordinator_bot": {
       "path": "framework/agents/RUN_COORDINATOR_BOT.md",
-      "sha256": "fe2de9aa5f378a83a76d6e6b6faca550bdeb60e9aeb1b80d31480e144272f529",
+      "sha256": "d75870955a1c37448721c71ce53bff268330046f7023bbe26a00fc9616ef8d55",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -306,7 +306,7 @@
     },
     "runbook_source_checker_bot": {
       "path": "framework/agents/SOURCE_CHECKER_BOT.md",
-      "sha256": "f1d1a2070ce7d9d194e781d4eb4c4e62ce9c497ad0bf29c682759d2e0c1325c5",
+      "sha256": "65c5e3ff47b5c269f47f8c237011e8f0f2255167a392d1d75551173f78c959db",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

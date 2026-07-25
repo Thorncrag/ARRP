@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import fcntl
 import json
 import os
 import re
@@ -31,6 +32,7 @@ ACTIONS = {
     "reprioritize",
     "suppress",
     "clear_override",
+    "resolve_action_item",
 }
 PRIORITIES = {"critical", "high", "normal", "low"}
 
@@ -52,6 +54,37 @@ def write_json(path: Path, payload: dict[str, Any], root: Path = ROOT) -> None:
     temporary = safe_path.with_suffix(safe_path.suffix + ".tmp")
     temporary.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     temporary.replace(safe_path)
+
+
+def apply_control_transaction(
+    state_path: Path,
+    payload: dict[str, Any],
+    *,
+    root: Path = ROOT,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    safe_state = contained_path(state_path, root)
+    lock_path = contained_path(safe_state.with_suffix(".lock"), root)
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor = os.open(
+        lock_path,
+        os.O_CREAT | os.O_RDWR | getattr(os, "O_NOFOLLOW", 0),
+        0o600,
+    )
+    try:
+        fcntl.flock(descriptor, fcntl.LOCK_EX)
+        state = read_json(
+            safe_state,
+            {"schema_version": 1, "overrides": {}, "requests": []},
+            root,
+        )
+        if not isinstance(state, dict):
+            raise ValueError("coordinator control state is malformed")
+        record = apply_control(state, payload)
+        write_json(safe_state, state, root)
+        return record, state
+    finally:
+        fcntl.flock(descriptor, fcntl.LOCK_UN)
+        os.close(descriptor)
 
 
 def load_or_create_token(path: Path, root: Path = ROOT) -> str:
@@ -97,6 +130,12 @@ def apply_control(state: dict[str, Any], payload: dict[str, Any]) -> dict[str, A
         raise ValueError("a valid work_unit_id is required")
     if action == "reprioritize" and payload.get("priority") not in PRIORITIES:
         raise ValueError("priority must be critical, high, normal, or low")
+    action_item_id = payload.get("action_item_id")
+    if action == "resolve_action_item":
+        if not valid_work_unit(action_item_id):
+            raise ValueError("a valid action_item_id is required")
+        if not reason:
+            raise ValueError("a resolution reason is required")
     state.setdefault("schema_version", 1)
     state.setdefault("overrides", {})
     state.setdefault("requests", [])
@@ -126,6 +165,39 @@ def apply_control(state: dict[str, Any], payload: dict[str, Any]) -> dict[str, A
             raise ValueError("no user-created override exists for this work unit")
         record["cleared_request_id"] = existing.get("request_id")
         del state["overrides"][work_unit]
+    elif action == "resolve_action_item":
+        items = state.get("action_items") or []
+        if not isinstance(items, list):
+            raise ValueError("coordinator action items are malformed")
+        item = next(
+            (
+                candidate
+                for candidate in items
+                if isinstance(candidate, dict)
+                and candidate.get("id") == action_item_id
+            ),
+            None,
+        )
+        if item is None:
+            raise ValueError("no coordinator action item exists with that ID")
+        if item.get("resolved") is True:
+            raise ValueError("coordinator action item is already resolved")
+        item["resolved"] = True
+        item["resolved_at"] = record["created_at"]
+        item["resolved_by"] = "human-local-console"
+        item["resolution_reason"] = reason
+        item["resolution_request_id"] = request_id
+        record["action_item_id"] = action_item_id
+        state.setdefault("action_item_history", []).append(
+            {
+                "action_item_id": action_item_id,
+                "event": "resolved",
+                "recorded_at": record["created_at"],
+                "source": "human-local-console",
+                "reason": reason,
+                "request_id": request_id,
+            }
+        )
     state["requests"].append(record)
     state["requests"] = state["requests"][-100:]
     state["updated_at"] = now()
@@ -201,12 +273,10 @@ def handler(
                 payload = json.loads(self.rfile.read(length))
                 if not isinstance(payload, dict):
                     raise ValueError("control request must be a JSON object")
-                state = read_json(
+                record, _state = apply_control_transaction(
                     state_path,
-                    {"schema_version": 1, "overrides": {}, "requests": []},
+                    payload,
                 )
-                record = apply_control(state, payload)
-                write_json(state_path, state)
             except (json.JSONDecodeError, OSError, ValueError) as exc:
                 self.response(400, {"error": str(exc)})
                 return

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import math
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -251,6 +252,8 @@ def summarize_validation(plan: dict[str, Any], results: list[dict[str, Any]]) ->
 
 
 def validate_work_unit(value: dict[str, Any]) -> None:
+    if not isinstance(value, dict):
+        raise ContextError("work-unit result must be an object")
     required = {
         "schema_version",
         "run_id",
@@ -258,25 +261,27 @@ def validate_work_unit(value: dict[str, Any]) -> None:
         "work_type",
         "outcome",
         "authority",
+        "issue_id",
+        "canonical_record",
         "files_touched",
+        "source_ids",
         "validation",
+        "commit",
+        "synchronization",
+        "human_questions",
         "continuation",
     }
     missing = sorted(required - set(value))
     if missing:
         raise ContextError(f"work-unit result is missing required fields: {missing}")
-    if value["schema_version"] != 1:
+    if isinstance(value["schema_version"], bool) or value["schema_version"] != 1:
         raise ContextError("work-unit result schema_version must be 1")
-    allowed = required | {
-        "issue_id",
-        "source_ids",
-        "commit",
-        "synchronization",
-        "human_questions",
-    }
-    extras = sorted(set(value) - allowed)
+    extras = sorted(set(value) - required)
     if extras:
         raise ContextError(f"work-unit result contains unapproved fields: {extras}")
+    for field in ("run_id", "unit_id"):
+        if not isinstance(value[field], str) or not value[field].strip():
+            raise ContextError(f"work-unit {field} must be a nonblank string")
     if value["work_type"] not in {
         "integrity",
         "bot_failure",
@@ -284,6 +289,7 @@ def validate_work_unit(value: dict[str, Any]) -> None:
         "change_audit",
         "issue_audit",
         "issue_development",
+        "candidate_research",
         "comprehensive_review",
     }:
         raise ContextError("work-unit type is invalid")
@@ -297,26 +303,93 @@ def validate_work_unit(value: dict[str, Any]) -> None:
     }:
         raise ContextError("work-unit outcome is invalid")
     authority = value["authority"]
-    if authority.get("classification") not in {"mechanical", "delegated_judgment", "human_reserved"}:
+    if not isinstance(authority, dict) or set(authority) != {
+        "classification",
+        "basis",
+    }:
+        raise ContextError(
+            "work-unit authority fields do not match the approved schema"
+        )
+    if authority.get("classification") not in {
+        "mechanical",
+        "delegated_judgment",
+        "human_reserved",
+    }:
         raise ContextError("work-unit authority classification is invalid")
-    if not str(authority.get("basis") or "").strip():
+    if not isinstance(authority.get("basis"), str) or not authority["basis"].strip():
         raise ContextError("work-unit authority basis is required")
     continuation = value["continuation"]
+    if not isinstance(continuation, dict) or set(continuation) != {
+        "state",
+        "next_action",
+    }:
+        raise ContextError(
+            "work-unit continuation fields do not match the approved schema"
+        )
     if continuation.get("state") not in {"complete", "retryable", "human_required", "none"}:
         raise ContextError("work-unit continuation state is invalid")
+    if continuation.get("next_action") is not None and not isinstance(
+        continuation["next_action"], str
+    ):
+        raise ContextError("work-unit continuation next_action must be null or a string")
     if value["outcome"] == "completed" and continuation.get("state") in {"retryable", "human_required"}:
         raise ContextError("completed outcome contradicts an open continuation state")
     if authority.get("classification") == "human_reserved" and value["outcome"] == "completed":
         raise ContextError("a human-reserved work unit may not be reported as autonomously completed")
+    issue_id = value.get("issue_id")
+    if issue_id is not None and (
+        not isinstance(issue_id, str) or not issue_id.strip()
+    ):
+        raise ContextError("work-unit issue_id must be null or a nonblank string")
+    canonical_record = value.get("canonical_record")
+    if canonical_record is not None and (
+        not isinstance(canonical_record, str) or not canonical_record.strip()
+    ):
+        raise ContextError(
+            "work-unit canonical_record must be null or a nonblank string"
+        )
+    if not isinstance(value["files_touched"], list) or not all(
+        isinstance(path, str) and bool(path)
+        for path in value["files_touched"]
+    ):
+        raise ContextError("work-unit files_touched must be an array of strings")
+    if not isinstance(value["source_ids"], list) or not all(
+        isinstance(source_id, str)
+        and re.fullmatch(r"SRC-[0-9]{4,}", source_id) is not None
+        for source_id in value["source_ids"]
+    ):
+        raise ContextError(
+            "work-unit source_ids must contain only canonical SRC identifiers"
+        )
+    if not isinstance(value["validation"], list):
+        raise ContextError("work-unit validation must be an array")
+    if value["commit"] is not None and not isinstance(value["commit"], str):
+        raise ContextError("work-unit commit must be null or a string")
+    for field in ("synchronization", "human_questions"):
+        if not isinstance(value[field], list) or not all(
+            isinstance(item, str) for item in value[field]
+        ):
+            raise ContextError(f"work-unit {field} must be an array of strings")
     for path in value["files_touched"]:
         if Path(path).is_absolute() or ".." in Path(path).parts:
             raise ContextError(f"work-unit file path is unsafe: {path}")
     if len(value["files_touched"]) != len(set(value["files_touched"])):
         raise ContextError("work-unit file paths must be unique")
     for result in value["validation"]:
-        if result.get("status") not in {"passed", "failed", "skipped"} or not str(
-            result.get("check") or ""
-        ).strip():
+        if not isinstance(result, dict) or set(result) != {
+            "check",
+            "status",
+            "detail",
+        }:
+            raise ContextError(
+                "work-unit validation fields do not match the approved schema"
+            )
+        if (
+            result.get("status") not in {"passed", "failed", "skipped"}
+            or not isinstance(result.get("check"), str)
+            or not result["check"].strip()
+            or not isinstance(result.get("detail"), str)
+        ):
             raise ContextError("work-unit validation requires check and valid status")
 
 
@@ -343,6 +416,8 @@ def compile_closeout(
         "work_type": value["work_type"],
         "outcome": value["outcome"],
         "authority": value["authority"],
+        "issue_id": value.get("issue_id"),
+        "canonical_record": value.get("canonical_record"),
         "files_touched": sorted(set(value["files_touched"])),
         "source_ids": sorted(set(value.get("source_ids") or [])),
         "validation": value["validation"],
