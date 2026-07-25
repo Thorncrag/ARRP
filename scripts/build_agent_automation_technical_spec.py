@@ -518,6 +518,7 @@ class Diagram(Flowable):
         "context-routing": "Context profile and dependency expansion",
         "write-boundaries": "Three write classes and Elim split-closeout",
         "provenance": "Material-unit provenance destinations",
+        "handoff-lifecycle": "Audit handoff ownership through an Elim run",
     }
 
     def __init__(self, kind: str, width: float):
@@ -533,6 +534,7 @@ class Diagram(Flowable):
             "context-routing": 230,
             "write-boundaries": 235,
             "provenance": 235,
+            "handoff-lifecycle": 290,
         }[kind]
 
     def wrap(self, avail_width, avail_height):
@@ -900,6 +902,131 @@ class Diagram(Flowable):
         for x, y, title, body in destinations:
             self.box(canvas, x, y, 150, 34, title, body, fill=SOFT, stroke=LINE)
             self.arrow(canvas, width / 2, 142, x + 75, y + 34, dashed=True)
+
+    def draw_handoff_lifecycle(self, canvas, width):
+        top_width = 142
+        top_gap = (width - 3 * top_width - 32) / 2
+        top_positions = [
+            (
+                16,
+                "Before Elim",
+                "Dispatcher reads only; project state is ordinarily Inactive",
+                SOFT,
+                LINE,
+            ),
+            (
+                16 + top_width + top_gap,
+                "Elim starts work",
+                "Elim sets Open before the first substantive operation",
+                SKY,
+                BLUE,
+            ),
+            (
+                16 + 2 * (top_width + top_gap),
+                "Major phases",
+                "Elim refreshes completed steps and the exact next action",
+                SKY,
+                BLUE,
+            ),
+        ]
+        for x, title, body, fill, stroke in top_positions:
+            self.box(
+                canvas,
+                x,
+                205,
+                top_width,
+                48,
+                title,
+                body,
+                fill=fill,
+                stroke=stroke,
+                title_color=stroke if stroke != LINE else NAVY,
+            )
+        self.arrow(canvas, 16 + top_width, 229, top_positions[1][0], 229)
+        self.arrow(
+            canvas,
+            top_positions[1][0] + top_width,
+            229,
+            top_positions[2][0],
+            229,
+        )
+
+        outcome_width = (width - 52) / 3
+        outcomes = [
+            (
+                16,
+                "Completed / clean / human review",
+                "Elim clears the handoff to Inactive; host verifies synchronization",
+                GREEN_SOFT,
+                GREEN,
+            ),
+            (
+                26 + outcome_width,
+                "Usage stop / blocked",
+                "Elim sets Paused or Blocked with the exact continuation",
+                GOLD_SOFT,
+                GOLD,
+            ),
+            (
+                36 + 2 * outcome_width,
+                "Abrupt termination",
+                "Last Open checkpoint remains evidence; host never fabricates closure",
+                RED_SOFT,
+                RED,
+            ),
+        ]
+        branch_x = top_positions[2][0] + top_width / 2
+        for x, title, body, fill, stroke in outcomes:
+            self.box(
+                canvas,
+                x,
+                104,
+                outcome_width,
+                61,
+                title,
+                body,
+                fill=fill,
+                stroke=stroke,
+                title_color=stroke,
+            )
+            self.arrow(
+                canvas,
+                branch_x,
+                205,
+                x + outcome_width / 2,
+                165,
+                color=stroke,
+            )
+
+        self.box(
+            canvas,
+            width / 2 - 205,
+            28,
+            410,
+            45,
+            "Three distinct authorities",
+            "CURRENT_AUDIT is continuation state; the host lease proves runtime ownership; specialized logs and Git preserve history",
+            fill=WHITE,
+            stroke=NAVY,
+        )
+        for x, _, _, _, stroke in outcomes:
+            self.arrow(
+                canvas,
+                x + outcome_width / 2,
+                104,
+                width / 2,
+                73,
+                color=stroke,
+                dashed=True,
+            )
+        self.label(
+            canvas,
+            "The scheduler and deterministic bots never author the audit handoff.",
+            width / 2,
+            13,
+            color=RED,
+            size=7,
+        )
 
 
 class SpecDocTemplate(BaseDocTemplate):

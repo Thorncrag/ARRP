@@ -61,7 +61,18 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
         text = source.read_text(encoding="utf-8")
         self.assertIn("status: non-authoritative-reference", text)
         self.assertIn("**NON-AUTHORITATIVE REFERENCE PRODUCT**", text)
-        self.assertGreaterEqual(text.count("<!-- diagram:"), 8)
+        self.assertGreaterEqual(text.count("<!-- diagram:"), 9)
+        self.assertIn("### 7.7 Chronological transaction ledger", text)
+        self.assertIn(
+            "Exclusive nonblocking `fcntl.flock` on "
+            "`.tmp/run-coordinator/host-dispatch.lock`",
+            text,
+        )
+        self.assertIn(
+            "Elim itself sets `CURRENT_AUDIT.md` to `Open`",
+            text,
+        )
+        self.assertIn("<!-- diagram:handoff-lifecycle -->", text)
         self.assertIn("Only a human may permanently remove", text)
         self.assertIn("A queue identifies work; it never creates authority.", text)
         self.assertIn(
@@ -128,6 +139,14 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
             )
             self.assertIn(
                 "Three write classes and Elim split-closeout",
+                content,
+            )
+            self.assertIn(
+                "Audit handoff ownership through an Elim run",
+                content,
+            )
+            self.assertIn(
+                "The scheduler and deterministic bots never author the audit handoff.",
                 content,
             )
             self.assertNotIn("Public stage outcomes and recovery routing", content)
