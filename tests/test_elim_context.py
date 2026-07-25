@@ -6,6 +6,7 @@ import unittest
 from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -319,6 +320,32 @@ class ExactContextTests(unittest.TestCase):
                 repository_file(
                     self.root,
                     "areas/TEST/issues/TEST-002.md",
+                )
+
+    def test_repository_file_rejects_wrong_case_alias_on_case_insensitive_filesystems(self):
+        exact = self.root / "areas/TEST/issues/Case-Alias.md"
+        exact.write_text("exact\n", encoding="utf-8")
+        relative_alias = "areas/TEST/issues/case-alias.md"
+        alias = self.root / relative_alias
+
+        if alias.exists():
+            with self.assertRaisesRegex(ContextError, "exact repository entry spelling"):
+                repository_file(self.root, relative_alias)
+        else:
+            self.assertIsNone(
+                repository_file(self.root, relative_alias, required=False)
+            )
+
+    def test_repository_file_never_suppresses_optional_path_inspection_errors(self):
+        with patch(
+            "arrp_context.os.listdir",
+            side_effect=PermissionError("inspection denied"),
+        ):
+            with self.assertRaisesRegex(ContextError, "cannot inspect repository file"):
+                repository_file(
+                    self.root,
+                    "areas/TEST/issues/TEST-001.md",
+                    required=False,
                 )
 
     def test_context_packet_rejects_symlinked_canonical_records(self):

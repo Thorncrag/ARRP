@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 import re
+import stat
 import subprocess
 from dataclasses import dataclass
 from datetime import date, datetime, timezone
@@ -188,43 +189,47 @@ def repository_file(
     *,
     required: bool = True,
 ) -> Path | None:
-    """Resolve a repository file by bounded component lookup, rejecting symlink escape."""
+    """Resolve a bounded repository file while rejecting traversal and aliases."""
     parts = repository_relative_parts(relative)
-    safe_root = contained_path(root, root)
-    current = safe_root
-    for index, component in enumerate(parts):
-        if not current.is_dir():
-            if required:
-                raise ContextError(f"repository file is missing: {relative}")
-            return None
-        try:
-            candidate = next(
-                (entry for entry in current.iterdir() if entry.name == component),
-                None,
-            )
-        except OSError as exc:
-            raise ContextError(
-                f"cannot inspect repository path {relative}: {exc}"
-            ) from exc
-        if candidate is None:
-            if required:
-                raise ContextError(f"repository file is missing: {relative}")
-            return None
-        current = contained_path(candidate, safe_root)
-        if index < len(parts) - 1 and not current.is_dir():
-            if required:
-                raise ContextError(f"repository file is missing: {relative}")
-            return None
-    if not current.is_file():
-        if required:
-            raise ContextError(f"repository file is missing: {relative}")
-        return None
-    actual_relative = current.relative_to(safe_root).as_posix()
+    safe_root = os.path.realpath(os.fspath(root))
+    candidate = os.path.realpath(os.path.join(safe_root, relative))
+    if not candidate.startswith(safe_root + os.sep):
+        raise ContextError(f"path escapes allowed root: {relative}")
+    actual_relative = os.path.relpath(candidate, safe_root).replace(os.sep, "/")
     if actual_relative != relative:
         raise ContextError(
             f"path must be an exact normalized repository-relative path: {relative!r}"
         )
-    return current
+    try:
+        candidate_mode = os.stat(candidate).st_mode
+    except (FileNotFoundError, NotADirectoryError):
+        if required:
+            raise ContextError(f"repository file is missing: {relative}")
+        return None
+    except OSError as exc:
+        raise ContextError(f"cannot inspect repository file {relative}: {exc}") from exc
+    current = safe_root
+    try:
+        for component in parts:
+            if component not in os.listdir(current):
+                raise ContextError(
+                    "path must use the exact repository entry spelling: "
+                    f"{relative!r}"
+                )
+            current = os.path.realpath(os.path.join(current, component))
+            if not current.startswith(safe_root + os.sep):
+                raise ContextError(f"path escapes allowed root: {relative}")
+    except OSError as exc:
+        raise ContextError(f"cannot inspect repository file {relative}: {exc}") from exc
+    if current != candidate:
+        raise ContextError(
+            f"path must be an exact normalized repository-relative path: {relative!r}"
+        )
+    if not stat.S_ISREG(candidate_mode):
+        if required:
+            raise ContextError(f"repository file is missing: {relative}")
+        return None
+    return Path(candidate)
 
 
 def path_is_excluded(relative: str, exclusions: Iterable[str]) -> bool:
