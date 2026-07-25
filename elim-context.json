@@ -1,10 +1,10 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-25T10:52:31+00:00",
+  "generated_at": "2026-07-25T10:53:58+00:00",
   "repository_revision": "24f380c275440940d0af80be9b17842c04de37e6",
   "profile": "comprehensive_review",
   "selection": {
-    "work_item_id": "COMPREHENSIVE-REVIEW-cd7327bbbda7",
+    "work_item_id": "COMPREHENSIVE-REVIEW-870e422e0706",
     "kind": "comprehensive_review",
     "canonical_record": null
   },
@@ -525,8 +525,8 @@
   },
   "review_epoch": {
     "schema_version": 1,
-    "generated_at": "2026-07-25T10:52:28+00:00",
-    "epoch_id": "epoch-arrp-20260725T105118Z",
+    "generated_at": "2026-07-25T10:53:56+00:00",
+    "epoch_id": "epoch-arrp-20260725T105258Z",
     "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
     "last_completed_at": "2026-07-24T15:40:02+00:00",
     "next_due_at": "2026-08-07T15:40:02+00:00",
