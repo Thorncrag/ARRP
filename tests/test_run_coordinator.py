@@ -5,7 +5,7 @@ import os
 import tempfile
 import textwrap
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
@@ -58,6 +58,15 @@ class RunCoordinatorTests(unittest.TestCase):
             workflow,
         )
         self.assertIn('--recovery "${CHAIN_WORK}/elim-inputs/recovery.json"', workflow)
+        self.assertIn("Retrieve current persistent watcher inputs", workflow)
+        self.assertIn("watcher_input_refresh_requirements(", workflow)
+        self.assertIn('"force_stage_reasons": force_stage_reasons', workflow)
+        for path in (
+            "inputs/case-monitor.json",
+            "inputs/presidential-directives.json",
+            "source-checker.json",
+        ):
+            self.assertIn(path, workflow)
 
     def test_watcher_attempts_are_chain_bound_and_exactly_selected(self):
         workflow = (
@@ -404,6 +413,241 @@ class RunCoordinatorTests(unittest.TestCase):
         self.assertFalse(MODULE.stage_due(case, previous, {}, self.now)[0])
         self.assertTrue(MODULE.stage_due(intake, previous, {}, self.now)[0])
         self.assertEqual(intake["due"]["kind"], "always")
+
+    def test_persistent_input_failure_forces_watcher_due_with_exact_reason(self):
+        previous = {
+            "stages": [
+                {
+                    "id": "case-monitor-bot",
+                    "status": "succeeded",
+                    "completed_at": "2026-07-24T00:00:00+00:00",
+                }
+            ]
+        }
+        signals = {
+            "force_stages": ["case-monitor-bot"],
+            "force_stage_reasons": {
+                "case-monitor-bot": "persistent watcher input is unavailable"
+            },
+        }
+        due, reason = MODULE.stage_due(
+            self.config["stages"][0],
+            previous,
+            signals,
+            self.now,
+        )
+        self.assertTrue(due)
+        self.assertEqual(reason, "persistent watcher input is unavailable")
+
+    def test_watcher_input_refresh_requirements_fail_closed_and_self_heal(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.assertEqual(
+                MODULE.watcher_input_refresh_requirements(
+                    root,
+                    self.config["stages"],
+                    self.now,
+                ),
+                {
+                    stage_id: "persistent watcher input is missing"
+                    for stage_id in MODULE.PERSISTENT_WATCHER_INPUTS
+                },
+            )
+
+            (root / "case-monitor.json").write_text(
+                '{"collection_status":"unavailable"}\n',
+                encoding="utf-8",
+            )
+            (root / "presidential-directives.json").write_text(
+                "[]\n",
+                encoding="utf-8",
+            )
+            (root / "source-checker.json").write_text(
+                "{",
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                MODULE.watcher_input_refresh_requirements(
+                    root,
+                    self.config["stages"],
+                    self.now,
+                ),
+                {
+                    "case-monitor-bot": "persistent watcher input is unavailable",
+                    "presidential-directives-bot": (
+                        "persistent watcher input is not an object"
+                    ),
+                    "source-checker-bot": "persistent watcher input is malformed",
+                },
+            )
+
+            valid = {
+                "case-monitor.json": {
+                    "schema_version": 6,
+                    "checked_at": self.now.isoformat(),
+                    "changes": [],
+                    "source_development_modules": [],
+                },
+                "presidential-directives.json": {
+                    "schema_version": 2,
+                    "generated_at": self.now.isoformat(),
+                    "counts": {},
+                    "changes": [],
+                    "directives": [],
+                },
+                "source-checker.json": {
+                    "schema_version": 1,
+                    "checked_at": self.now.isoformat(),
+                    "counts": {},
+                    "results": [],
+                },
+            }
+            for filename, payload in valid.items():
+                (root / filename).write_text(
+                    json.dumps(payload) + "\n",
+                    encoding="utf-8",
+                )
+            self.assertEqual(
+                MODULE.watcher_input_refresh_requirements(
+                    root,
+                    self.config["stages"],
+                    self.now,
+                ),
+                {},
+            )
+
+            for filename in (
+                "case-monitor.json",
+                "presidential-directives.json",
+            ):
+                (root / filename).write_text("{}\n", encoding="utf-8")
+            oversized = root / "source-checker.json"
+            oversized.write_text("x" * 11, encoding="utf-8")
+            with mock.patch.object(
+                MODULE,
+                "MAX_PERSISTENT_WATCHER_INPUT_BYTES",
+                10,
+            ):
+                self.assertEqual(
+                    MODULE.watcher_input_refresh_requirements(
+                        root,
+                        self.config["stages"],
+                        self.now,
+                    ),
+                    {
+                        "case-monitor-bot": (
+                            "persistent watcher input schema is invalid"
+                        ),
+                        "presidential-directives-bot": (
+                            "persistent watcher input schema is invalid"
+                        ),
+                        "source-checker-bot": (
+                            "persistent watcher input is oversized"
+                        ),
+                    },
+                )
+
+    def test_watcher_input_refresh_requires_typed_current_timestamp(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            reports = {
+                "case-monitor.json": {
+                    "schema_version": 5,
+                    "checked_at": self.now.isoformat(),
+                    "changes": [],
+                    "source_development_modules": [],
+                },
+                "presidential-directives.json": {
+                    "schema_version": 2,
+                    "generated_at": "not-a-time",
+                    "counts": {},
+                    "changes": [],
+                    "directives": [],
+                },
+                "source-checker.json": {
+                    "schema_version": True,
+                    "checked_at": (
+                        self.now + timedelta(minutes=11)
+                    ).isoformat(),
+                    "counts": {},
+                    "results": [],
+                },
+            }
+            for filename, payload in reports.items():
+                (root / filename).write_text(
+                    json.dumps(payload) + "\n",
+                    encoding="utf-8",
+                )
+            self.assertEqual(
+                MODULE.watcher_input_refresh_requirements(
+                    root,
+                    self.config["stages"],
+                    self.now,
+                ),
+                {
+                    "case-monitor-bot": (
+                        "persistent watcher input schema is invalid"
+                    ),
+                    "presidential-directives-bot": (
+                        "persistent watcher input timestamp is malformed"
+                    ),
+                    "source-checker-bot": (
+                        "persistent watcher input schema is invalid"
+                    ),
+                },
+            )
+
+            reports["case-monitor.json"]["schema_version"] = 6
+            reports["presidential-directives.json"]["generated_at"] = (
+                self.now.isoformat()
+            )
+            reports["source-checker.json"]["schema_version"] = 1
+            for filename, payload in reports.items():
+                (root / filename).write_text(
+                    json.dumps(payload) + "\n",
+                    encoding="utf-8",
+                )
+            self.assertEqual(
+                MODULE.watcher_input_refresh_requirements(
+                    root,
+                    self.config["stages"],
+                    self.now,
+                ),
+                {
+                    "source-checker-bot": (
+                        "persistent watcher input is future-dated"
+                    ),
+                },
+            )
+
+            reports["case-monitor.json"]["schema_version"] = 6
+            reports["case-monitor.json"]["checked_at"] = (
+                self.now - timedelta(hours=24, seconds=1)
+            ).isoformat()
+            reports["presidential-directives.json"]["generated_at"] = ""
+            reports["source-checker.json"]["schema_version"] = 1
+            reports["source-checker.json"]["checked_at"] = (
+                self.now - timedelta(hours=168, seconds=1)
+            ).isoformat()
+            for filename, payload in reports.items():
+                (root / filename).write_text(
+                    json.dumps(payload) + "\n",
+                    encoding="utf-8",
+                )
+            self.assertEqual(
+                MODULE.watcher_input_refresh_requirements(
+                    root,
+                    self.config["stages"],
+                    self.now,
+                ),
+                {
+                    "case-monitor-bot": "persistent watcher input is stale",
+                    "presidential-directives-bot": (
+                        "persistent watcher input is undated"
+                    ),
+                    "source-checker-bot": "persistent watcher input is stale",
+                },
+            )
 
     def test_review_epoch_is_biweekly_and_boundary_is_preserved(self):
         previous = {
