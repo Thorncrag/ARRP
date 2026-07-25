@@ -173,6 +173,15 @@ HOST_CLOSEOUT_POLICY = {
     "defaultPublication": "non-force-fast-forward-main",
     "humanReviewPublication": "open-unmerged-pull-request",
 }
+CANONICAL_WORKSPACE_RECONCILIATION_POLICY = {
+    "requiredBranch": "main",
+    "dirtyMainAction": "commit-fast-forward-push-and-defer",
+    "changedPathPolicy": "complete-workspace",
+    "commitMessage": "Preserve local ARRP changes before automated run",
+    "requireConflictFree": True,
+    "requireStagedDiffCheck": True,
+    "divergentHistoryAction": "fail-closed",
+}
 
 
 class ControlSelectionChanged(RuntimeError):
@@ -1624,6 +1633,14 @@ def validate_host_closeout_policy(config: dict[str, Any]) -> None:
             "configured repository closeout policy differs from the reviewed "
             "trusted-host boundary"
         )
+    workspace_policy = config.get("hostDispatcher", {}).get(
+        "canonicalWorkspaceReconciliation"
+    )
+    if workspace_policy != CANONICAL_WORKSPACE_RECONCILIATION_POLICY:
+        raise RuntimeError(
+            "configured canonical-workspace reconciliation differs from the "
+            "reviewed trusted-host boundary"
+        )
 
 
 def alert_failures(
@@ -2765,13 +2782,11 @@ def host_preserve_elim_result(
     return host_result
 
 
-def verify_canonical_runtime_boundary(git: str, repo: Path) -> str:
-    """Refresh the remote boundary without changing the user's branch or files.
-
-    The user checkout may be dirty and may be on any branch.  Only the small
-    dispatcher/runtime surface executed by the host must byte-match the
-    reviewed origin/main revision.
-    """
+def verify_canonical_runtime_boundary(
+    git: str,
+    repo: Path,
+) -> tuple[str, str | None]:
+    """Reconcile ordinary main-workspace edits, then verify the host runtime."""
     origin = command([git, "remote", "get-url", "origin"], cwd=repo)
     if (
         origin.returncode != 0
@@ -2790,6 +2805,138 @@ def verify_canonical_runtime_boundary(git: str, repo: Path) -> str:
     revision = remote.stdout.strip()
     if remote.returncode != 0 or re.fullmatch(r"[0-9a-f]{40}", revision) is None:
         raise RuntimeError("could not resolve the reviewed origin/main revision")
+
+    branch = command([git, "branch", "--show-current"], cwd=repo)
+    if branch.returncode != 0:
+        raise RuntimeError("could not identify the canonical ARRP workspace branch")
+    status = command([git, "status", "--porcelain"], cwd=repo)
+    if status.returncode != 0:
+        raise RuntimeError("could not inspect the canonical ARRP working tree")
+    head = command([git, "rev-parse", "HEAD"], cwd=repo)
+    local_revision = head.stdout.strip()
+    if (
+        head.returncode != 0
+        or re.fullmatch(r"[0-9a-f]{40}", local_revision) is None
+    ):
+        raise RuntimeError("could not resolve the canonical ARRP workspace revision")
+
+    current_branch = branch.stdout.strip()
+    required_branch = CANONICAL_WORKSPACE_RECONCILIATION_POLICY["requiredBranch"]
+    if current_branch != required_branch:
+        raise RuntimeError(
+            "canonical ARRP workspace is not reconciled with GitHub: current branch "
+            f"is {current_branch or 'detached HEAD'} instead of {required_branch}. Merge the "
+            "intended branch through GitHub, return local main to origin/main, and "
+            "retry automated dispatch."
+        )
+    if local_revision != revision:
+        raise RuntimeError(
+            "canonical ARRP workspace is not reconciled with GitHub: local HEAD "
+            "does not equal the fetched origin/main revision. Reconcile the "
+            "divergent history through GitHub and retry automated dispatch."
+        )
+
+    changed_paths = [
+        line for line in status.stdout.splitlines() if line.strip()
+    ]
+    workspace_commit: str | None = None
+    if changed_paths:
+        unmerged = command(
+            [git, "diff", "--name-only", "--diff-filter=U"],
+            cwd=repo,
+        )
+        if unmerged.returncode != 0:
+            raise RuntimeError(
+                "could not inspect the canonical ARRP workspace for conflicts"
+            )
+        if unmerged.stdout.strip():
+            raise RuntimeError(
+                "canonical ARRP workspace contains unresolved conflicts; "
+                "automated reconciliation stopped without staging or committing"
+            )
+        staged = command([git, "add", "-A"], cwd=repo)
+        if staged.returncode != 0:
+            raise RuntimeError(
+                "could not stage the canonical ARRP workspace for automated "
+                "reconciliation"
+            )
+        staged_paths = command(
+            [git, "diff", "--cached", "--name-only"],
+            cwd=repo,
+        )
+        if staged_paths.returncode != 0 or not staged_paths.stdout.strip():
+            raise RuntimeError(
+                "canonical ARRP workspace reported changes but produced no staged "
+                "reconciliation boundary"
+            )
+        diff_check = command([git, "diff", "--cached", "--check"], cwd=repo)
+        if diff_check.returncode != 0:
+            raise RuntimeError(
+                "staged canonical ARRP changes failed git diff --check; "
+                "automated reconciliation stopped before commit"
+            )
+        committed = command(
+            [
+                git,
+                "-c",
+                f"user.name={HOST_GIT_IDENTITY['name']}",
+                "-c",
+                f"user.email={HOST_GIT_IDENTITY['email']}",
+                "commit",
+                "-m",
+                CANONICAL_WORKSPACE_RECONCILIATION_POLICY["commitMessage"],
+            ],
+            cwd=repo,
+        )
+        if committed.returncode != 0:
+            raise RuntimeError(
+                "could not commit the staged canonical ARRP workspace"
+            )
+        committed_head = command([git, "rev-parse", "HEAD"], cwd=repo)
+        workspace_commit = committed_head.stdout.strip()
+        if (
+            committed_head.returncode != 0
+            or re.fullmatch(r"[0-9a-f]{40}", workspace_commit) is None
+        ):
+            raise RuntimeError(
+                "could not resolve the automated workspace-reconciliation commit"
+            )
+        pushed = command([git, "push", "origin", "main:main"], cwd=repo)
+        if pushed.returncode != 0:
+            raise RuntimeError(
+                "automated workspace reconciliation created local commit "
+                f"{workspace_commit} but could not fast-forward push it to "
+                "origin/main; preserve and reconcile that commit before retrying"
+            )
+        refreshed = command(
+            [git, "fetch", "--no-tags", "origin", "main"],
+            cwd=repo,
+        )
+        if refreshed.returncode != 0:
+            raise RuntimeError(
+                "automated workspace reconciliation pushed a commit but could not "
+                "refresh origin/main for readback"
+            )
+        remote_readback = command(
+            [git, "rev-parse", "refs/remotes/origin/main"],
+            cwd=repo,
+        )
+        if (
+            remote_readback.returncode != 0
+            or remote_readback.stdout.strip() != workspace_commit
+        ):
+            raise RuntimeError(
+                "automated workspace-reconciliation commit did not read back "
+                "exactly from origin/main"
+            )
+        clean_readback = command([git, "status", "--porcelain"], cwd=repo)
+        if clean_readback.returncode != 0 or clean_readback.stdout.strip():
+            raise RuntimeError(
+                "canonical ARRP workspace is not clean after automated "
+                "reconciliation"
+            )
+        revision = workspace_commit
+
     drifted: list[str] = []
     for relative in AUTOMATION_RUNTIME_PATHS:
         local_path = contained_path(repo / relative, repo)
@@ -2812,7 +2959,7 @@ def verify_canonical_runtime_boundary(git: str, repo: Path) -> str:
             "host automation runtime differs from reviewed origin/main: "
             + ", ".join(drifted)
         )
-    return revision
+    return revision, workspace_commit
 
 
 def archive_reconciled_elim_checkout(
@@ -4381,7 +4528,17 @@ def main() -> int:
     }
     current_stage = "host-repository-preflight"
     try:
-        origin_revision = verify_canonical_runtime_boundary(git, repo)
+        origin_revision, workspace_commit = verify_canonical_runtime_boundary(
+            git,
+            repo,
+        )
+        if workspace_commit is not None:
+            print(
+                "Committed and synchronized canonical workspace changes as "
+                f"{workspace_commit}. Automated dispatch is deferred until the "
+                "next host poll so the reviewed runtime is reloaded."
+            )
+            return 0
         if args.archive_reconciled_checkout:
             current_stage = "reconciled-checkout-archive"
             record = archive_reconciled_elim_checkout(

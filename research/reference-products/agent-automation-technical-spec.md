@@ -1,7 +1,7 @@
 ---
 title: "ARRP Persistent Automation — Technical Specification and Traceability Map"
 status: non-authoritative-reference
-version: "1.2"
+version: "1.3"
 as_of: "2026-07-25"
 implementation_baseline: "render-time Git revision; see generated PDF cover"
 print_status: excluded
@@ -12,7 +12,7 @@ print_exclusion_reason: "Nonauthoritative internal reference product."
 
 ## Technical Specification and Traceability Map
 
-**Version 1.2 - July 25, 2026**
+**Version 1.3 - July 25, 2026**
 
 **NON-AUTHORITATIVE REFERENCE PRODUCT**
 
@@ -273,7 +273,7 @@ A due comprehensive-review unit overrides ordinary eligible work and forces the 
 The local dispatcher:
 
 1. acquires the operating-system lease;
-2. verifies that the local dispatcher runtime byte-matches the canonical remote revision and creates or refreshes the isolated Elim workspace;
+2. fetches `origin/main`, requires the canonical checkout to be on `main` with local `HEAD` exactly equal that revision, automatically commits and fast-forward pushes ordinary uncommitted paths before deferring to the next poll, then verifies that the local dispatcher runtime byte-matches the synchronized revision and creates or refreshes the isolated Elim workspace;
 3. downloads or retrieves the matching manifest and exact deterministic inputs;
 4. mirrors the manifest, inputs, queue, context, usage, and result paths into the isolated checkout;
 5. independently rehashes the inputs and rebuilds the queue and packet there, applying current user overrides and durable recovery state before final selection;
@@ -329,7 +329,7 @@ This ledger follows one ordinary chain from trigger through release. “Invoked�
 | 7 | Project integrity - Project Integrity Bot | Reusable workflow `.github/workflows/project-integrity.yml` runs `audit_project_consistency.py`, `build_project_integrity_feed.py`, and the data publisher. | Final deterministic findings reflect all earlier due inputs; a changed current report is only a review proposal. |
 | 8 | Cloud close - Run Coordinator Bot | `run_coordinator.py finalize`, `build_elim_work_queue.py`, `select_elim_context_route.py`, `build_elim_context.py`, and `run_coordinator.py attach-context`. | Stage results, exact successful watcher artifacts, preserved inputs, queue selection, context packet, hashes, and launch recommendation are bound under one Chain ID and published as the `run-chain-manifest` artifact and data-branch projection. No Codex process exists yet. |
 | 9 | Host acquisition - run-chain dispatcher | The launchd command or a manual dispatcher command loads the reviewed config, acquires `host-dispatch.lock`, starts the owner heartbeat, and transactionally loads `control.json`. | One host process exclusively owns the dispatcher lease. |
-| 10 | Host preflight and manifest retrieval - run-chain dispatcher | The dispatcher verifies the byte-for-byte automation runtime against `origin/main`; it either uses `gh run watch` and `gh run download` for a newly dispatched run or fetches the current data-branch manifest. | The chain baseline equals reviewed `origin/main`, the Chain ID is neither consumed nor terminally failed, and every fetched projection matches its recorded hash. |
+| 10 | Host preflight and manifest retrieval - run-chain dispatcher | The dispatcher fetches `origin/main` and requires the canonical checkout to be on `main` at the exact fetched revision. If ordinary uncommitted paths remain, it rejects conflicts or staged diff-check failure, commits the complete workspace under the coordinator identity, fast-forward pushes and reads it back, then exits until the next poll. Otherwise it verifies the byte-for-byte automation runtime and either uses `gh run watch` and `gh run download` for a newly dispatched run or fetches the current data-branch manifest. It never auto-merges, rebases, switches, resets, force-pushes, or resolves divergent history. | The user workspace and chain baseline both equal reviewed `origin/main`, the Chain ID is neither consumed nor terminally failed, and every fetched projection matches its recorded hash. |
 | 11 | Isolated workspace preparation - run-chain dispatcher | The dispatcher creates or advances the full checkout with reviewed `/usr/bin/git` clone, fetch, and detached-switch operations; it rejects a dirty, divergent, or unsafe checkout. | `.tmp/run-coordinator/elim-checkout` is clean, contains its own `.git` directory, and equals the manifest baseline. |
 | 12 | Local queue and context rebuild - run-chain dispatcher | Inside the isolated checkout, the host reruns `build_elim_work_queue.py`, `select_elim_context_route.py`, `build_elim_context.py`, and `run_coordinator.py attach-context` against copied verified inputs, local recovery state, pending run-log reconciliation, and locked user overrides. | The exact locally controlled selection and packet are rebound to the manifest. A control-state change after selection forces a fresh evaluation. |
 | 13 | Usage preflight - run-chain dispatcher and usage checker | The host runs `check_codex_usage_reserve.py --reserve-percent 15 --soft-target-percent 10 --run-baseline-id INVOCATION_ID`; it writes the unique baseline and host attestation. | Every applicable window is readable and above the reserve, or the chain stops before Elim. |
@@ -421,7 +421,7 @@ The lease owner record contains an acquisition token, process ID, Chain ID, invo
 
 `CURRENT_AUDIT.md` is a continuation failsafe. It records enough information to resume after abrupt interruption. It must never be treated as a mutex, process-liveness signal, run history, or authority.
 
-The automation workspace is isolated from the user's interactive checkout. The dispatcher may inspect the canonical checkout, but it must not stash, reset, absorb, reinterpret, or overwrite user changes. A linked Git worktree is deliberately not used: its `.git` file would point into the canonical checkout's metadata outside the controlled full checkout. Instead, the dispatcher maintains one fixed ignored full checkout at `.tmp/run-coordinator/elim-checkout`, with its own real `.git` directory available to the trusted host. It validates the allowlisted `Thorncrag/ARRP` origin, fetches the reviewed `origin/main` boundary, advances only from a previously recorded successful checkout head, verifies the selected manifest revision, and launches Elim there. A dirty or unrecorded divergent checkout is preserved and fails closed rather than reset.
+The automation workspace is isolated from the user's interactive checkout, but dispatch does not begin while that interactive checkout contains unreconciled work. The dispatcher validates the allowlisted `Thorncrag/ARRP` origin, fetches `origin/main`, and requires the canonical checkout to be on `main` at that exact revision. If ordinary uncommitted paths remain, it rejects unresolved conflicts, stages the complete workspace, requires a clean staged diff check, commits under the coordinator identity, fast-forward pushes and reads back the exact commit, then exits until the next host poll reloads the synchronized runtime. It must not auto-merge, rebase, switch, reset, force-push, or resolve divergent history. A linked Git worktree is deliberately not used: its `.git` file would point into the canonical checkout's metadata outside the controlled full checkout. Instead, the dispatcher maintains one fixed ignored full checkout at `.tmp/run-coordinator/elim-checkout`, with its own real `.git` directory available to the trusted host. It advances that isolated checkout only from a previously recorded successful checkout head, verifies the selected manifest revision, and launches Elim there. A dirty or unrecorded divergent isolated checkout is preserved and fails closed rather than reset.
 
 When a failed launched invocation leaves that fixed checkout dirty, ordinary dispatch remains stopped even after its run report has been repaired. The checkout can be released only through an explicit proof-gated archive operation: synchronized `origin/main` must contain exactly one complete failed-run report that was absent from the checkout baseline, the pending reconciliation queue must be empty, and the matching Action Item must be resolved. The dispatcher then moves the entire checkout intact to `.tmp/run-coordinator/reconciled-checkouts/`, records its Git boundary and dirty paths in local control history, retires its stale task pointer, and lets the next run clone a fresh workspace. It never resets, cleans, overwrites, or deletes the preserved evidence.
 

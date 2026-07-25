@@ -177,7 +177,7 @@
     },
     "agent_autonomous_execution": {
       "path": "framework/agent-rules/autonomous-execution.md",
-      "sha256": "98094cefc6a0868d1675af35a5bb73e6c09296bea6840f9325629306ac544b30",
+      "sha256": "0755f7699d407e7a94daf8a969bbc72926b6131f5419608db1c8c078841c7c33",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -297,7 +297,7 @@
     },
     "runbook_run_coordinator_bot": {
       "path": "framework/agents/RUN_COORDINATOR_BOT.md",
-      "sha256": "59f0ba013b44054c528c42c16256f734c0834eb4f0f4caaf72b188cf433ccab2",
+      "sha256": "0eadfa19ac2dc6f8e8cadb8fe357302f2769d02f277e109f31fe173d78e62cf5",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
