@@ -8,7 +8,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "type": "conditional-llm-agent",
       "status": "enabled",
       "trigger": "conditional-run-chain",
-      "schedule": "Due-aware daily run chain; biweekly comprehensive Review Epoch until stability supports monthly review",
+      "schedule": "Conditional within the due-aware run chain; Review Epoch cadence is owned by the Run Coordinator Bot runbook",
       "runtime_id": "codex-automation:elim",
       "runtime_url": "",
       "execution_environment": "isolated-worktree",
@@ -39,7 +39,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "current_report": "",
       "current_report_url": "",
       "current_data": "",
-      "description": "The Case Monitor Bot performs one respectful comparison when its 24-hour Run Coordinator interval is due, or when manually requested, for cataloged Monitoring = Yes sources mapped to stable entries in the Just Security litigation tracker. It validates tracker structure and accepted baselines before comparing fingerprints. For a changed mapped CourtListener docket it may perform the configured narrow, paced metadata verification. It also evaluates explicitly configured source-development modules against the same validated tracker snapshot. A module may project high-recall, machine-observed leads into the existing source-development record for its named candidate or issue.",
+      "description": "The Case Monitor Bot performs one respectful comparison when its 24-hour Run Coordinator interval is due, or when manually requested, for cataloged Monitoring = Yes sources mapped to stable entries in the Just Security litigation tracker. It validates tracker structure and accepted baselines before comparing fingerprints. The accepted fingerprint for each covered source is stored in that source row's Monitoring Baseline field. For a changed mapped CourtListener docket it may perform the configured narrow, paced metadata verification. It also evaluates explicitly configured source-development modules against the same validated tracker snapshot. A module may project high-recall, machine-observed leads into the existing source-development record for its named candidate or issue.",
       "checks": [],
       "runbook_path": "framework/agents/CASE_MONITOR_BOT.md",
       "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/CASE_MONITOR_BOT.md"
@@ -122,6 +122,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "Intake-workflow terminology",
         "Publication-disposition metadata",
         "Print-assembly configuration",
+        "Governing context registry, hashes, and module coverage",
         "Persistent-agent runbooks and runtime configuration",
         "Structured-file and repository hygiene"
       ],
@@ -174,13 +175,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "run_chain": {
     "schema_version": 1,
     "bot_id": "run-coordinator-bot",
-    "chain_id": "arrp-20260724T201743Z",
-    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30123523566",
+    "chain_id": "arrp-20260724T215706Z",
+    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30129417648",
     "trigger": "push",
-    "created_at": "2026-07-24T20:17:43+00:00",
-    "updated_at": "2026-07-24T20:20:10+00:00",
+    "llm_launch_allowed": false,
+    "llm_launch_trigger": "push",
+    "created_at": "2026-07-24T21:57:06+00:00",
+    "updated_at": "2026-07-24T22:06:30+00:00",
     "status": "complete",
-    "baseline_commit": "88b70b8a54c7279385a8c83168eef75c278955f8",
+    "baseline_commit": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
     "resume": {
       "count": 0,
       "from_run_id": null
@@ -189,12 +192,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "key": "arrp-run-chain",
       "path": null,
       "status": "released-by-workflow",
-      "owner_chain_id": "arrp-20260724T201743Z"
+      "owner_chain_id": "arrp-20260724T215706Z"
     },
     "repository": {
       "branch": "main",
-      "head": "88b70b8a54c7279385a8c83168eef75c278955f8",
-      "origin_main": "88b70b8a54c7279385a8c83168eef75c278955f8",
+      "head": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
+      "origin_main": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
       "clean": true,
       "dirty_paths": [],
       "dirty_path_count": 0,
@@ -247,7 +250,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T20:17:43+00:00",
+        "completed_at": "2026-07-24T21:57:06+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -263,7 +266,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-25T14:20:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T20:17:43+00:00",
+        "completed_at": "2026-07-24T21:57:06+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -279,7 +282,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T20:17:43+00:00",
+        "completed_at": "2026-07-24T21:57:06+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -295,15 +298,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "forced",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-24T20:18:58+00:00",
-        "last_success_at": "2026-07-24T20:18:58+00:00",
+        "completed_at": "2026-07-24T21:58:23+00:00",
+        "last_success_at": "2026-07-24T21:58:23+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:a1b486293694c61f3dc91943ab499f97d968739a7261c6fd65bb6dd9beea6eb6"
+          "sha256": "sha256:fe3c6c18f21d585d1d37b6b9f0f3afdbd7905aeb0abbed78ea4afd33fae15743"
         },
         "work_count": 0
       },
@@ -315,15 +318,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-24T20:18:58+00:00",
-        "last_success_at": "2026-07-24T20:18:58+00:00",
+        "completed_at": "2026-07-24T21:58:23+00:00",
+        "last_success_at": "2026-07-24T21:58:23+00:00",
         "retry_limit": 1,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:7f4997258df6683d897e5b4f595d68ebcf0b13b7f38a1cc79dcb75ce571822e5"
+          "sha256": "sha256:eeabc2ed73d06e6c533b5c2cc2c815bfa4504700a24e6a2b32d282e063d36e3d"
         },
         "work_count": 0
       },
@@ -335,15 +338,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "forced",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-24T20:18:58+00:00",
-        "last_success_at": "2026-07-24T20:18:58+00:00",
+        "completed_at": "2026-07-24T21:58:23+00:00",
+        "last_success_at": "2026-07-24T21:58:23+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:92312aec1e33c3f80369a5a2b7fbef21f41208e445067cee1d3bd8b731f6d774"
+          "sha256": "sha256:c4095161b3c2b3b65210360153049f939553892252132495eb96c2b41bc3bfa3"
         },
         "work_count": 0
       }
@@ -358,8 +361,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "total": 0
     },
     "elim_decision": {
-      "launch_recommended": true,
-      "reason": "The refreshed queue contains LLM-owned work.",
+      "launch_recommended": false,
+      "reason": "Host dispatcher rejected an LLM launch from a deterministic-only or unspecified trigger.",
       "blockers": [],
       "last_substantive_stage": true,
       "predecessors_complete": true,
@@ -384,15 +387,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "usage": {
       "hard_reserve_percent": 15,
       "soft_run_target_percent": 10,
-      "remaining_percent": 70.0,
+      "remaining_percent": 99.0,
       "status": "available",
       "gate": {
         "blockers": [],
-        "checkedAtUtc": "2026-07-24T20:20:10+00:00",
-        "lowestRemainingPercent": 70,
+        "checkedAtUtc": "2026-07-24T22:06:30+00:00",
+        "lowestRemainingPercent": 99,
         "reservePercent": 15,
         "runBudget": {
-          "baselinePath": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/usage-arrp-20260724T201743Z-20260724T202010Z.json",
+          "baselinePath": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/usage-arrp-20260724T215706Z-20260724T220630Z.json",
           "highestSpentPercent": 0,
           "reserveBufferFloorPercent": 25,
           "softTargetPercent": 10,
@@ -407,20 +410,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           {
             "limitId": "codex",
             "limitName": "codex",
-            "remainingPercent": 70,
-            "resetsAt": 1785508480,
-            "resetsAtUtc": "2026-07-31T14:34:40+00:00",
-            "usedPercent": 30,
+            "remainingPercent": 99,
+            "resetsAt": 1785533757,
+            "resetsAtUtc": "2026-07-31T21:35:57+00:00",
+            "usedPercent": 1,
             "window": "primary",
             "windowDurationMins": 10080
           },
           {
             "limitId": "codex_bengalfox",
             "limitName": "GPT-5.3-Codex-Spark",
-            "remainingPercent": 99,
-            "resetsAt": 1785416536,
-            "resetsAtUtc": "2026-07-30T13:02:16+00:00",
-            "usedPercent": 1,
+            "remainingPercent": 100,
+            "resetsAt": 1785535590,
+            "resetsAtUtc": "2026-07-31T22:06:30+00:00",
+            "usedPercent": 0,
             "window": "primary",
             "windowDurationMins": 10080
           }
@@ -428,16 +431,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "host_monitor": {
         "source": "approved-host-dispatcher",
-        "status_path": ".tmp/run-coordinator/arrp-20260724T201743Z/usage-status-arrp-20260724T201743Z-20260724T202010Z.json",
-        "baseline_path": ".tmp/run-coordinator/usage-arrp-20260724T201743Z-20260724T202010Z.json",
+        "status_path": ".tmp/run-coordinator/arrp-20260724T215706Z/usage-status-arrp-20260724T215706Z-20260724T220630Z.json",
+        "baseline_path": ".tmp/run-coordinator/usage-arrp-20260724T215706Z-20260724T220630Z.json",
         "monitor_interval_seconds": 60,
         "snapshot_max_age_seconds": 120
       }
     },
-    "next_action": "Authorized host dispatcher may launch Elim.",
+    "next_action": "No Elim launch; wait for the daily schedule, an eligible event, or explicit manual dispatch.",
     "action_items": [],
-    "completed_at": "2026-07-24T20:20:10+00:00",
-    "final_revision": "88b70b8a54c7279385a8c83168eef75c278955f8",
+    "completed_at": "2026-07-24T22:06:30+00:00",
+    "final_revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
     "bots": [
       {
         "id": "case-monitor-bot",
@@ -445,7 +448,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T20:17:43+00:00",
+        "completed_at": "2026-07-24T21:57:06+00:00",
         "error": null
       },
       {
@@ -454,7 +457,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T20:17:43+00:00",
+        "completed_at": "2026-07-24T21:57:06+00:00",
         "error": null
       },
       {
@@ -463,7 +466,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-24T20:17:43+00:00",
+        "completed_at": "2026-07-24T21:57:06+00:00",
         "error": null
       },
       {
@@ -472,7 +475,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": true,
         "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-24T20:18:58+00:00",
+        "completed_at": "2026-07-24T21:58:23+00:00",
         "error": null
       },
       {
@@ -481,85 +484,85 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": true,
         "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-24T20:18:58+00:00",
+        "completed_at": "2026-07-24T21:58:23+00:00",
         "error": null
       }
     ],
     "work_queue": {
       "path": "project-console-data:elim-work-queue.json",
-      "sha256": "sha256:151d99172a9bd5daf9cf09a04dd1e8c21ab0bc2135c36e001d12846d20ddb270",
+      "sha256": "sha256:d379e0a173f8030976f9ccd29dfeea2544435a8035b600129f39a99564d7a6b5",
       "ready_for_elim": true,
       "launch_recommended": true,
       "counts": {
-        "total": 54,
-        "elim_eligible": 54,
+        "total": 53,
+        "elim_eligible": 53,
         "human": 0,
         "safety": 0
       },
       "problems": [],
       "next_item": {
-        "id": "CHANGE-AUDIT-77bd98919be7",
-        "kind": "change_audit",
-        "title": "JUD-009: Targeted Change Audit and Internal Remedy-Fit Audit",
+        "id": "ISSUE-AUDIT-d0c0d75d2729",
+        "kind": "issue_audit",
+        "title": "EMERG-003: T1 audit of IEEPA scope, immigration-authority coordination, judicial review, transition, and implementation",
         "owner": "agent",
         "eligible_for_elim": true,
         "requires_human": false,
         "safety_class": 1,
-        "base_priority": 700,
-        "age_days": 26,
-        "fairness_boost": 26,
-        "priority_score": 726,
+        "base_priority": 600,
+        "age_days": 10,
+        "fairness_boost": 10,
+        "priority_score": 610,
         "reason": "explicit workflow route: audit needed",
         "source": {
           "input": "progress",
-          "identifier": "JUD-009",
-          "canonical_record": "areas/JUD/issues/JUD-009.md",
+          "identifier": "EMERG-003",
+          "canonical_record": "areas/EMERG/issues/EMERG-003.md",
           "workflow_status": "Audit needed",
-          "development_level": "Review ready",
-          "next_audit": "Targeted Change Audit and Internal Remedy-Fit Audit"
+          "development_level": "Developed proposal",
+          "next_audit": "T1 audit of IEEPA scope, immigration-authority coordination, judicial review, transition, and implementation"
         },
         "recovery": null
       },
-      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T201743Z/elim-work-queue.json"
+      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T215706Z/elim-work-queue.json"
     },
     "context_packet": {
       "path": "project-console-data:elim-context.json",
-      "sha256": "sha256:1a3b7c8d64492df8f1e1a3f20c3520497214dcce2ffb35a66fad82e252aad2b1",
-      "profile": "change_audit",
-      "repository_revision": "88b70b8a54c7279385a8c83168eef75c278955f8",
+      "sha256": "sha256:467bef18d02a910b86a78d6fff5539da42a9281125de70e3d90cc5b35f5259c8",
+      "profile": "issue_audit",
+      "repository_revision": "f6996e2f8f420917e8c5b39fa4a908bd333bcd24",
       "provenance_complete": true,
       "limits": {
-        "max_bytes": 180000,
-        "actual_bytes": 137990
+        "max_bytes": 220000,
+        "actual_bytes": 189895
       },
-      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T201743Z/elim-context.json"
+      "local_path": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/arrp-20260724T215706Z/elim-context.json"
     },
     "user_overrides": {},
     "verified_inputs": {
       "integrity": {
-        "path": ".tmp/run-coordinator/arrp-20260724T201743Z/inputs/integrity.json",
-        "sha256": "sha256:92312aec1e33c3f80369a5a2b7fbef21f41208e445067cee1d3bd8b731f6d774",
+        "path": ".tmp/run-coordinator/arrp-20260724T215706Z/inputs/integrity.json",
+        "sha256": "sha256:c4095161b3c2b3b65210360153049f939553892252132495eb96c2b41bc3bfa3",
         "bytes": 1143
       },
       "progress": {
-        "path": ".tmp/run-coordinator/arrp-20260724T201743Z/inputs/progress.json",
-        "sha256": "sha256:a1b486293694c61f3dc91943ab499f97d968739a7261c6fd65bb6dd9beea6eb6",
-        "bytes": 161812
+        "path": ".tmp/run-coordinator/arrp-20260724T215706Z/inputs/progress.json",
+        "sha256": "sha256:fe3c6c18f21d585d1d37b6b9f0f3afdbd7905aeb0abbed78ea4afd33fae15743",
+        "bytes": 161986
       },
       "intake": {
-        "path": ".tmp/run-coordinator/arrp-20260724T201743Z/inputs/intake.json",
-        "sha256": "sha256:7f4997258df6683d897e5b4f595d68ebcf0b13b7f38a1cc79dcb75ce571822e5",
+        "path": ".tmp/run-coordinator/arrp-20260724T215706Z/inputs/intake.json",
+        "sha256": "sha256:eeabc2ed73d06e6c533b5c2cc2c815bfa4504700a24e6a2b32d282e063d36e3d",
         "bytes": 241
       },
       "review_epoch": {
-        "path": ".tmp/run-coordinator/arrp-20260724T201743Z/inputs/review-epoch.json",
-        "sha256": "sha256:fb1cbfdcc6c5b55c40562f913fa86f88add8e60df60a49bab354dfd6b6d3d458",
+        "path": ".tmp/run-coordinator/arrp-20260724T215706Z/inputs/review-epoch.json",
+        "sha256": "sha256:619250fe22e2692ddba915c2c171f791d47bca4b807d12adda26b1e30059ce76",
         "bytes": 307
       },
       "chain": {
-        "path": ".tmp/run-coordinator/arrp-20260724T201743Z/inputs/chain.json",
-        "sha256": "sha256:71deaaef14a857a9106ee82994d189bb1ef5632694f36a8367ee0fc4b21b91b4",
-        "bytes": 8049
+        "path": ".tmp/run-coordinator/arrp-20260724T215706Z/inputs/chain.json",
+        "sha256": "sha256:ffab49f5dcceffefa8a7f2d5d9d861cc413f80ed39d914eda99385965d3d0853",
+        "bytes": 8204
       }
     }
   }

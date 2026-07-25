@@ -282,7 +282,11 @@ def parse_items(
 
     for node in raw.get("items") or []:
         project_values = extract_field_values(node)
-        project_title = str(project_values.get(fields.get("title", "Title")) or "")
+        project_title = str(
+            project_values.get(fields.get("title", "Title"))
+            or ((node.get("content") or {}).get("title"))
+            or ""
+        )
         project_identifier = issue_identifier(project_title)
         if project_identifier:
             project_values_by_identifier[normalize(project_identifier)].append(project_values)
@@ -291,7 +295,8 @@ def parse_items(
             project_values_by_record[record].append(project_values)
 
     for registry_row in registry:
-        if normalize(registry_row.get("Kind")) != "proposal":
+        record_kind = normalize(registry_row.get("Kind"))
+        if record_kind not in {"proposal", "horizon"}:
             continue
         record = canonical_key(registry_row.get("Canonical Record"), config["repository"])
         title = str(registry_row.get("GitHub Title") or "Untitled proposal")
@@ -329,7 +334,10 @@ def parse_items(
             warnings.append(identity_warning)
         if not project_values:
             if not identity_warning:
-                warnings.append("Proposal registry entry has no matching Project item by Title or Canonical page.")
+                warnings.append(
+                    f"{record_kind.title()} registry entry has no matching Project "
+                    "item by Title or Canonical page."
+                )
         if normalize(development_level) == normalize("Unspecified"):
             warnings.append("Project Development level is missing; the proposal is not counted as ready.")
         if level_is_ready and score is None:
@@ -357,6 +365,7 @@ def parse_items(
         parsed.append(
             {
                 "number": int(registry_row["GitHub Number"]),
+                "kind": record_kind,
                 "identifier": identifier,
                 "title": title,
                 "url": registry_row.get("GitHub Issue"),
@@ -645,17 +654,28 @@ def build_progress_payload(
 ) -> Dict[str, Any]:
     goal = config["goal"]
     threshold = float(goal["reviewReadyScore"])
-    snapshot = build_snapshot(items, as_of)
+    proposal_items = [
+        item for item in items if normalize(item.get("kind") or "proposal") == "proposal"
+    ]
+    candidate_items = [
+        item for item in items if normalize(item.get("kind")) == "horizon"
+    ]
+    snapshot = build_snapshot(proposal_items, as_of)
     merged_history = merge_history(history, snapshot, config)
-    workflow_status_counts = Counter(item["workflowStatus"] for item in items)
-    development_level_counts = Counter(item["developmentLevel"] for item in items)
-    band_counts = Counter(score_band(item, threshold) for item in items)
+    workflow_status_counts = Counter(
+        item["workflowStatus"] for item in proposal_items
+    )
+    development_level_counts = Counter(
+        item["developmentLevel"] for item in proposal_items
+    )
+    band_counts = Counter(score_band(item, threshold) for item in proposal_items)
     area_counts: Dict[str, Dict[str, int]] = defaultdict(lambda: {"total": 0, "ready": 0, "remaining": 0})
     warnings: List[Dict[str, Any]] = []
-    for item in items:
+    for item in proposal_items:
         area_counts[item["area"]]["total"] += 1
         area_counts[item["area"]]["ready"] += int(item["ready"])
         area_counts[item["area"]]["remaining"] += int(not item["ready"])
+    for item in items:
         for warning in item["warnings"]:
             warnings.append({"identifier": item["identifier"], "url": item["url"], "message": warning})
     areas = [
@@ -667,7 +687,7 @@ def build_progress_payload(
         for area, counts in sorted(area_counts.items(), key=lambda pair: (-pair[1]["remaining"], pair[0]))
     ]
     backlog = sorted(
-        (item for item in items if not item["ready"]),
+        (item for item in proposal_items if not item["ready"]),
         key=lambda item: (
             -(item["score"] if item["score"] is not None else -1),
             item["area"],
@@ -699,9 +719,21 @@ def build_progress_payload(
             "Review Ready or higher", "Within 15 points", "Below 60", "Unscored or fixed zero"
         )],
         "areas": areas,
-        "movement": portfolio_movement(items, merged_history, as_of, int(goal["velocityWindowDays"])),
+        "movement": portfolio_movement(
+            proposal_items,
+            merged_history,
+            as_of,
+            int(goal["velocityWindowDays"]),
+        ),
         "warnings": warnings,
-        "proposals": sorted(items, key=lambda item: (item["developmentLevel"], item["identifier"])),
+        "proposals": sorted(
+            proposal_items,
+            key=lambda item: (item["developmentLevel"], item["identifier"]),
+        ),
+        "candidates": sorted(
+            candidate_items,
+            key=lambda item: (item["developmentLevel"], item["identifier"]),
+        ),
         "backlog": backlog,
     }
     return payload

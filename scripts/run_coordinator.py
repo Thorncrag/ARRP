@@ -32,6 +32,30 @@ STAGE_STATUSES = {
     "skipped",
 }
 FAILURE_CLASSES = {"none", "transient", "blocking", "degraded", "configuration"}
+CONTEXT_PROFILE_BY_WORK_KIND = {
+    "bot_failure": "integrity_reconciliation",
+    "integrity": "integrity_reconciliation",
+    "public_intake": "public_intake",
+    "change_audit": "change_audit",
+    "issue_audit": "issue_audit",
+    "issue_development": "issue_development",
+    "candidate_research": "candidate_research",
+    "comprehensive_review": "comprehensive_review",
+}
+MODEL_PROFILE_BY_CONTEXT_PROFILE = {
+    "integrity_reconciliation": "substantive",
+    "public_intake": "read-heavy-triage",
+    "change_audit": "substantive",
+    "issue_audit": "substantive",
+    "issue_development": "substantive",
+    "candidate_research": "substantive",
+    "comprehensive_review": "comprehensive",
+}
+ISSUE_DOSSIER_WORK_KINDS = {
+    "change_audit",
+    "issue_audit",
+    "issue_development",
+}
 
 
 def utc_now() -> datetime:
@@ -109,6 +133,154 @@ def file_hash(path: Path) -> str | None:
     if not path.is_file():
         return None
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def model_profile_for_context(
+    config: dict[str, Any],
+    context_profile: str,
+) -> tuple[str, dict[str, Any]]:
+    profile_id = MODEL_PROFILE_BY_CONTEXT_PROFILE.get(context_profile)
+    profiles = (config.get("llmRouting") or {}).get("profiles") or {}
+    profile = profiles.get(profile_id) if profile_id else None
+    if not isinstance(profile, dict):
+        raise ValueError(
+            f"no reviewed model profile is bound to context profile {context_profile!r}"
+        )
+    return profile_id, profile
+
+
+def selected_work_item(
+    queue: dict[str, Any],
+    *,
+    comprehensive_required: bool,
+) -> dict[str, Any] | None:
+    items = queue.get("items")
+    if not isinstance(items, list):
+        raise ValueError("Elim work queue items must be an array")
+    eligible = [
+        item
+        for item in items
+        if isinstance(item, dict) and item.get("eligible_for_elim") is True
+    ]
+    if comprehensive_required:
+        item = next(
+            (
+                candidate
+                for candidate in eligible
+                if candidate.get("kind") == "comprehensive_review"
+            ),
+            None,
+        )
+        if item is None:
+            raise ValueError(
+                "the chain requires comprehensive context but the queue has no "
+                "eligible comprehensive-review work item"
+            )
+        return item
+    return eligible[0] if eligible else None
+
+
+def review_epoch_boundary_changes(signals: dict[str, Any]) -> dict[str, list[str]] | None:
+    value = signals.get("comprehensive_review_boundary_changes")
+    if value is None:
+        return None
+    fields = {"missing", "extra", "mismatched"}
+    if not isinstance(value, dict) or set(value) != fields:
+        raise ValueError(
+            "Review Epoch boundary changes must contain exactly missing, extra, "
+            "and mismatched"
+        )
+    normalized: dict[str, list[str]] = {}
+    for field in sorted(fields):
+        entries = value[field]
+        if (
+            not isinstance(entries, list)
+            or any(not isinstance(entry, str) or not entry.strip() for entry in entries)
+            or len(entries) != len(set(entries))
+        ):
+            raise ValueError(
+                f"Review Epoch boundary changes {field} must be a unique string array"
+            )
+        normalized[field] = list(entries)
+    return normalized
+
+
+def review_epoch_boundary_status(
+    latest_epoch: dict[str, Any] | None,
+    context_registry: dict[str, Any],
+    context_registry_sha256: str,
+    *,
+    context_registry_path: str = "framework/context-routes.json",
+) -> dict[str, Any]:
+    """Compare one recorded Review Epoch with the current registry boundary."""
+    if context_registry.get("schema_version") != 2:
+        raise ValueError("Review Epoch boundary comparison requires a schema-2 registry")
+    if (
+        len(context_registry_sha256) != 64
+        or any(
+            character not in "0123456789abcdef"
+            for character in context_registry_sha256
+        )
+    ):
+        raise ValueError("context registry hash must be an unprefixed SHA-256 digest")
+    documents = context_registry.get("documents")
+    if not isinstance(documents, dict) or not documents:
+        raise ValueError("context registry has no documents")
+    current: dict[str, str] = {}
+    for document_id, spec in documents.items():
+        if not isinstance(spec, dict):
+            raise ValueError(f"context registry document {document_id} is not an object")
+        if spec.get("governing") is not True:
+            continue
+        if spec.get("hash_policy") != "pinned":
+            raise ValueError(
+                f"governing context registry document {document_id} is not pinned"
+            )
+        path = spec.get("path")
+        digest = spec.get("sha256")
+        if not isinstance(path, str) or not path:
+            raise ValueError(
+                f"governing context registry document {document_id} has no path"
+            )
+        if (
+            not isinstance(digest, str)
+            or len(digest) != 64
+            or any(character not in "0123456789abcdef" for character in digest)
+        ):
+            raise ValueError(
+                f"governing context registry document {document_id} has no valid hash"
+            )
+        if path in current:
+            raise ValueError(f"context registry repeats governing path {path}")
+        current[path] = "sha256:" + digest
+    if context_registry_path in current:
+        raise ValueError(
+            "context registry manifest must not self-register as a governing document"
+        )
+    current[context_registry_path] = "sha256:" + context_registry_sha256
+
+    recorded = (
+        (latest_epoch or {}).get("governing_hashes")
+        if isinstance(latest_epoch, dict)
+        else None
+    )
+    recorded = recorded if isinstance(recorded, dict) else {}
+    missing = sorted(set(current) - set(recorded))
+    extra = sorted(set(recorded) - set(current))
+    mismatched = sorted(
+        path
+        for path in set(current) & set(recorded)
+        if recorded[path] != current[path]
+    )
+    required = bool(missing or extra or mismatched)
+    return {
+        "off_cycle_required": required,
+        "reason": "governing_boundary_changed" if required else "boundary_current",
+        "missing": missing,
+        "extra": extra,
+        "mismatched": mismatched,
+        "current_governing_hashes": current,
+    }
 
 
 def previous_stage(previous: dict[str, Any], stage_id: str) -> dict[str, Any]:
@@ -221,6 +393,11 @@ def review_epoch(
     )
     last = parse_time(completed)
     forced = bool(signals.get("force_comprehensive_review", False))
+    forced_reason = signals.get("comprehensive_review_trigger_reason")
+    if not isinstance(forced_reason, str) or not forced_reason.strip():
+        forced_reason = "forced"
+    else:
+        forced_reason = forced_reason.strip()
     recorded_due = parse_time(signals.get("comprehensive_review_next_due_at"))
     due_at = recorded_due or (last + timedelta(days=interval) if last else now)
     due = forced or last is None or now >= due_at
@@ -229,13 +406,20 @@ def review_epoch(
         or prior.get("boundary_commit")
         or previous.get("baseline_commit")
     )
+    unresolved = signals.get(
+        "comprehensive_review_unresolved_findings",
+        signals.get("unresolved_findings", prior.get("unresolved_findings", [])),
+    )
+    if not isinstance(unresolved, list):
+        raise ValueError("Review Epoch unresolved findings signal must be an array")
+    boundary_changes = review_epoch_boundary_changes(signals)
     return {
         "interval_days": interval,
         "last_completed_at": iso(last) if last else None,
         "next_due_at": iso(due_at),
         "due": due,
         "due_reason": (
-            "forced"
+            forced_reason
             if forced
             else "no completed review epoch"
             if last is None
@@ -249,6 +433,8 @@ def review_epoch(
             signals.get("comprehensive_review_stability_status")
             or prior.get("stability_status")
         ),
+        "unresolved_findings": unresolved,
+        "boundary_changes": boundary_changes,
     }
 
 
@@ -600,9 +786,25 @@ def finalize(args: argparse.Namespace) -> int:
             if manifest["review_epoch"]["due"]
             else "The refreshed queue contains LLM-owned work."
         )
-    if manifest["review_epoch"]["due"]:
+    attached_context_profile = str(
+        ((manifest.get("context_packet") or {}).get("profile") or "")
+    )
+    if attached_context_profile:
+        profile_name, profile = model_profile_for_context(
+            config,
+            attached_context_profile,
+        )
+        selected_id = str(
+            ((manifest.get("work_queue") or {}).get("selected_work_item_id") or "")
+        )
+        profile_reason = (
+            f"Bound to selected work item {selected_id} and context profile "
+            f"{attached_context_profile}."
+        )
+    elif manifest["review_epoch"]["due"]:
         profile_name = "comprehensive"
         profile_reason = "The periodic comprehensive review epoch is due."
+        profile = config["llmRouting"]["profiles"][profile_name]
     else:
         active_classes = {
             key
@@ -620,7 +822,7 @@ def finalize(args: argparse.Namespace) -> int:
         else:
             profile_name = config["llmRouting"]["defaultProfile"]
             profile_reason = "The queue may require substantive project judgment."
-    profile = config["llmRouting"]["profiles"][profile_name]
+        profile = config["llmRouting"]["profiles"][profile_name]
     manifest["elim_decision"] = {
         "launch_recommended": decision,
         "reason": reason,
@@ -686,6 +888,62 @@ def attach_context(args: argparse.Namespace) -> int:
     queue = read_json(args.queue)
     if queue.get("schema_version") != 1:
         raise ValueError("Elim work queue has an unsupported schema")
+    config = read_json(getattr(args, "config", DEFAULT_CONFIG))
+    validate_config(config)
+    comprehensive_due = bool((manifest.get("review_epoch") or {}).get("due"))
+    prior_full_context = bool(
+        ((manifest.get("elim_decision") or {}).get("profile") or {}).get(
+            "full_context"
+        )
+    )
+    if prior_full_context != comprehensive_due:
+        raise ValueError(
+            "the chain's model profile and Review Epoch state disagree about "
+            "whether comprehensive context is required"
+        )
+    finalized_revision = manifest.get("final_revision")
+    if (
+        not isinstance(finalized_revision, str)
+        or len(finalized_revision) != 40
+        or any(character not in "0123456789abcdef" for character in finalized_revision)
+    ):
+        raise ValueError("run-chain final_revision must be a 40-character Git hash")
+    queue_revision = queue.get("repository_revision")
+    if (
+        not isinstance(queue_revision, str)
+        or len(queue_revision) != 40
+        or any(character not in "0123456789abcdef" for character in queue_revision)
+    ):
+        raise ValueError(
+            "Elim work queue repository_revision must be a 40-character Git hash"
+        )
+    if queue_revision != finalized_revision:
+        raise ValueError(
+            "Elim work queue repository revision differs from the finalized chain"
+        )
+    selected = selected_work_item(
+        queue,
+        comprehensive_required=comprehensive_due,
+    )
+    selected_id = str((selected or {}).get("id") or "")
+    selected_kind = str((selected or {}).get("kind") or "")
+    if selected and not selected_id:
+        raise ValueError("selected Elim work item has no deterministic ID")
+    expected_context_profile = (
+        CONTEXT_PROFILE_BY_WORK_KIND.get(selected_kind) if selected else None
+    )
+    launch_ready = bool(
+        queue.get("ready_for_elim")
+        and (queue.get("launch_recommended") or comprehensive_due)
+    )
+    if launch_ready and not selected:
+        raise ValueError(
+            "the launch-ready Elim queue has no selected eligible work item"
+        )
+    if selected and not expected_context_profile:
+        raise ValueError(
+            f"no reviewed context profile exists for work kind {selected_kind!r}"
+        )
     queue_path = args.queue.resolve()
     manifest["work_queue"] = {
         "path": "project-console-data:elim-work-queue.json",
@@ -694,39 +952,185 @@ def attach_context(args: argparse.Namespace) -> int:
         "launch_recommended": bool(queue.get("launch_recommended")),
         "counts": queue.get("counts") or {},
         "problems": queue.get("problems") or [],
-        "next_item": (queue.get("items") or [None])[0],
+        "next_item": selected,
+        "selected_work_item_id": selected_id or None,
     }
     manifest["queue_counts"]["total"] = int(
         (queue.get("counts") or {}).get("total", 0)
     )
-    full_context = bool(
-        ((manifest.get("elim_decision") or {}).get("profile") or {}).get(
-            "full_context"
-        )
-    )
     if args.context:
         context = read_json(args.context)
-        if context.get("schema_version") != 1 or context.get("status") == "blocked":
+        if not isinstance(context, dict):
+            raise ValueError("Elim context packet must be a JSON object")
+        if context.get("schema_version") != 2 or context.get("status") == "blocked":
             raise ValueError("Elim context packet is blocked or unsupported")
-        if full_context and context.get("profile") != "comprehensive_review":
+        if context.get("provenance_complete") is not True:
+            raise ValueError("Elim context packet provenance is incomplete")
+        limits = context.get("limits")
+        if not isinstance(limits, dict):
+            raise ValueError("Elim context packet has no valid limits")
+        actual = limits.get("actual_bytes")
+        maximum = limits.get("max_bytes")
+        if (
+            isinstance(actual, bool)
+            or isinstance(maximum, bool)
+            or not isinstance(actual, int)
+            or not isinstance(maximum, int)
+            or actual <= 0
+            or maximum <= 0
+            or actual > maximum
+        ):
+            raise ValueError("Elim context packet byte limits are invalid")
+        if context.get("repository_revision") != finalized_revision:
             raise ValueError(
-                "the chain authorized comprehensive full context, but the attached "
-                f"packet uses profile {context.get('profile')!r}"
+                "Elim context packet repository revision differs from the finalized chain"
             )
+        if not selected:
+            raise ValueError(
+                "an Elim context packet was attached without a selected eligible work item"
+            )
+        source = selected.get("source") or {}
+        if not isinstance(source, dict):
+            raise ValueError(
+                f"selected work item {selected_id} has invalid source metadata"
+            )
+        canonical_aliases = [
+            str(source.get(key) or "").strip()
+            for key in ("canonical_record", "canonicalRecord")
+            if source.get(key) is not None
+        ]
+        if len(set(canonical_aliases)) > 1:
+            raise ValueError(
+                f"selected work item {selected_id} has conflicting canonical records"
+            )
+        expected_canonical = canonical_aliases[0] if canonical_aliases else ""
+        selection = context.get("selection")
+        if launch_ready and not isinstance(selection, dict):
+            raise ValueError(
+                "launch-ready Elim context packet has no exact work-item selection"
+            )
+        if isinstance(selection, dict):
+            if not {
+                "work_item_id",
+                "kind",
+                "canonical_record",
+            } <= set(selection):
+                raise ValueError(
+                    "Elim context packet selection is missing required identity fields"
+                )
+            selected_canonical = str(selection.get("canonical_record") or "").strip()
+            if (
+                selection.get("work_item_id") != selected_id
+                or selection.get("kind") != selected_kind
+                or selected_canonical != expected_canonical
+            ):
+                raise ValueError(
+                    "Elim context packet selection differs from the selected queue "
+                    f"work item {selected_id}"
+                )
+        if context.get("profile") != expected_context_profile:
+            raise ValueError(
+                f"selected work item {selected_id} requires context profile "
+                f"{expected_context_profile!r}, but the packet uses "
+                f"{context.get('profile')!r}"
+            )
+        expected_issue = (
+            str(source.get("identifier") or "")
+            if selected_kind in ISSUE_DOSSIER_WORK_KINDS
+            else ""
+        )
+        dossier = context.get("issue_dossier")
+        actual_issue = (
+            str(dossier.get("issue_id") or "")
+            if isinstance(dossier, dict)
+            else ""
+        )
+        if expected_issue and actual_issue != expected_issue:
+            raise ValueError(
+                f"selected work item {selected_id} requires issue {expected_issue}, "
+                f"but the context packet carries {actual_issue or 'no issue dossier'}"
+            )
+        if expected_issue:
+            if not expected_canonical:
+                raise ValueError(
+                    f"selected work item {selected_id} has no canonical record"
+                )
+            canonical_record = (
+                dossier.get("canonical_record")
+                if isinstance(dossier, dict)
+                else None
+            )
+            issue_page = (
+                dossier.get("issue_page") if isinstance(dossier, dict) else None
+            )
+            actual_canonical = str(
+                (
+                    canonical_record.get("path")
+                    if isinstance(canonical_record, dict)
+                    else ""
+                )
+                or (
+                    issue_page.get("path")
+                    if isinstance(issue_page, dict)
+                    else ""
+                )
+                or (
+                    dossier.get("canonical_record_path")
+                    if isinstance(dossier, dict)
+                    else ""
+                )
+                or ""
+            ).strip()
+            if actual_canonical != expected_canonical:
+                raise ValueError(
+                    f"selected work item {selected_id} requires canonical record "
+                    f"{expected_canonical!r}, but the context packet carries "
+                    f"{actual_canonical or 'no canonical record'!r}"
+                )
+        if not expected_issue and actual_issue:
+            raise ValueError(
+                f"selected work item {selected_id} is not issue-specific, but the "
+                f"context packet carries issue {actual_issue}"
+            )
+        model_profile_id, model_profile = model_profile_for_context(
+            config,
+            str(expected_context_profile),
+        )
+        manifest["elim_decision"]["profile"] = {
+            "id": model_profile_id,
+            "model": model_profile["model"],
+            "reasoning_effort": model_profile["reasoningEffort"],
+            "full_context": model_profile["fullContext"],
+            "reason": (
+                f"Bound to selected work item {selected_id} and context profile "
+                f"{expected_context_profile}."
+            ),
+        }
         context_path = args.context.resolve()
         manifest["context_packet"] = {
             "path": "project-console-data:elim-context.json",
             "sha256": file_hash(context_path),
             "profile": context.get("profile"),
+            "work_item_id": selected_id,
+            "issue_id": expected_issue or None,
+            "canonical_record": expected_canonical or None,
+            "selection": (
+                {
+                    "work_item_id": selected_id,
+                    "kind": selected_kind,
+                    "canonical_record": expected_canonical or None,
+                }
+                if isinstance(selection, dict)
+                else None
+            ),
             "repository_revision": context.get("repository_revision"),
-            "provenance_complete": bool(context.get("provenance_complete")),
-            "limits": context.get("limits"),
+            "provenance_complete": True,
+            "limits": limits,
         }
     else:
-        if full_context:
+        if launch_ready:
             raise ValueError(
-                "the chain authorized comprehensive full context, but no context "
-                "packet was attached"
+                f"launch-ready work item {selected_id or 'unknown'} has no context packet"
             )
         manifest["context_packet"] = None
     if not queue.get("ready_for_elim"):
@@ -788,6 +1192,7 @@ def parser() -> argparse.ArgumentParser:
     p.set_defaults(function=finalize)
 
     p = commands.add_parser("attach-context")
+    p.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     p.add_argument("--manifest", type=Path, required=True)
     p.add_argument("--queue", type=Path, required=True)
     p.add_argument("--context", type=Path)

@@ -1,6 +1,18 @@
+---
+module_id: codex_bootstrap
+dependencies:
+  - "framework/FRAMEWORK.md"
+  - "framework/AGENT_OPERATING_RULES.md"
+  - "framework/logs/CURRENT_AUDIT.md"
+  - "framework/CONTEXT_ROUTING.md"
+  - "framework/PROJECT_STRUCTURE.md"
+---
+
 # ARRP Codex Guidance
 
-Before substantive ARRP work, read [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md), [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md), and [`framework/logs/CURRENT_AUDIT.md`](framework/logs/CURRENT_AUDIT.md). Read [`framework/GITHUB_WORKFLOW.md`](framework/GITHUB_WORKFLOW.md) whenever GitHub issues, Project fields, lifecycle status, or authenticated synchronization may be affected. Read specialized framework files only when their subject is implicated.
+Before substantive ARRP work, read the compact mandatory kernels in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md) and [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md), plus the live continuation checkpoint in [`framework/logs/CURRENT_AUDIT.md`](framework/logs/CURRENT_AUDIT.md). These files are the required floor, not the complete context for every task.
+
+Use the module route table in the Framework and the routing rules in [`framework/CONTEXT_ROUTING.md`](framework/CONTEXT_ROUTING.md) to load the additive union of every operation and capability implicated by the work, together with each selected module's dependencies. Expand context before taking an action that newly implicates another authority. Read [`framework/GITHUB_WORKFLOW.md`](framework/GITHUB_WORKFLOW.md) whenever GitHub issues, Project fields, lifecycle status, or authenticated synchronization may be affected.
 
 Use parallel agents by default when work divides into independent, non-overlapping responsibilities and the expected gain exceeds coordination risk. The coordinating agent owns reconciliation, validation, and closeout.
 

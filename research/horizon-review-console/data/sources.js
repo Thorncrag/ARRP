@@ -11676,6 +11676,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "updated_at": "2026-07-23T10:48:24Z"
     },
     {
+      "id": "FACT-007",
+      "number": 174,
+      "title": "Official Historical Presentation Integrity",
+      "kind": "Proposal",
+      "area": "FACT",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "High",
+      "source_count": 0,
+      "sources": [],
+      "monitoring_rationale": "Conduct a claim-by-claim source audit of the July 24 order and report; map the governing statutes, property and funding authorities, and existing Smithsonian correction procedures; then develop neutral anti-circumvention and factual-correction options for a recorded foundation and initial vehicle review.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/174",
+      "updated_at": "2026-07-24T22:43:06Z"
+    },
+    {
       "id": "FED-002",
       "number": 186,
       "title": "Selective or Retaliatory Federal Administration Against States",

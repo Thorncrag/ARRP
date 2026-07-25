@@ -26,14 +26,31 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         self.history = MODULE.read_json(ROOT / "tests" / "fixtures" / "progress-history.json")
         self.registry = MODULE.read_registry(ROOT / "tests" / "fixtures" / "progress-registry.csv")
 
-    def test_filters_to_proposals_and_uses_development_level_as_readiness_authority(self):
+    def test_includes_active_horizon_items_without_counting_them_as_proposals(self):
         title, items = MODULE.parse_items(self.raw, self.config, self.registry)
         self.assertEqual(title, "American Restoration and Resilience Project")
-        self.assertEqual(len(items), 4)
+        self.assertEqual(len(items), 5)
         self.assertEqual(sum(item["ready"] for item in items), 1)
         mismatch = next(item for item in items if item["identifier"] == "JUD-011")
         self.assertFalse(mismatch["ready"])
         self.assertEqual(len(mismatch["warnings"]), 1)
+        candidate = next(item for item in items if item["identifier"] == "HOR-029")
+        self.assertEqual(candidate["kind"], "horizon")
+        self.assertEqual(candidate["developmentLevel"], "Candidate")
+        self.assertEqual(candidate["workflowStatus"], "Human decision needed")
+
+        payload = MODULE.build_progress_payload(
+            title,
+            items,
+            self.history,
+            self.config,
+            date(2026, 7, 15),
+        )
+        self.assertEqual(payload["metrics"]["total"], 4)
+        self.assertEqual(
+            [item["identifier"] for item in payload["candidates"]],
+            ["HOR-029"],
+        )
 
     def test_unmatched_registry_proposal_remains_visible_and_warns(self):
         registry = list(self.registry) + [{
@@ -45,7 +62,7 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         }]
         _, items = MODULE.parse_items(self.raw, self.config, registry)
         missing = next(item for item in items if item["identifier"] == "TEST-999")
-        self.assertEqual(len(items), 5)
+        self.assertEqual(len(items), 6)
         self.assertFalse(missing["ready"])
         self.assertEqual(missing["developmentLevel"], "Unspecified")
         self.assertEqual(missing["workflowStatus"], "Unspecified")
@@ -233,6 +250,11 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         self.assertEqual(payload["movement"]["netScoreChange"], 13.0)
         self.assertGreater(payload["metrics"]["requiredPerWeek"], 0)
         self.assertEqual(payload["goal"]["targetDate"], "2026-12-31")
+        self.assertEqual(len(payload["proposals"]), 4)
+        self.assertEqual(
+            [item["identifier"] for item in payload["candidates"]],
+            ["HOR-029"],
+        )
 
     def test_progress_build_writes_data_only_files(self):
         title, items = MODULE.parse_items(self.raw, self.config, self.registry)

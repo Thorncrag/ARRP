@@ -11,7 +11,7 @@ import os
 import re
 import subprocess
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -23,6 +23,16 @@ except ModuleNotFoundError:  # The repository .venv includes PyYAML; keep read-o
 
 ROOT = Path(__file__).resolve().parents[1]
 ISSUE_ID_RE = re.compile(r"\b(?:[A-Z][A-Z0-9]*-\d{3}|HOR-\d{3})\b")
+FORMAL_HORIZON_ID_RE = re.compile(r"^HOR-\d{3}$")
+HORIZON_ISSUE_URL_RE = re.compile(
+    r"^https://github\.com/Thorncrag/ARRP/issues/\d+$"
+)
+WORK_ITEM_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$")
+WORK_KIND_RE = re.compile(r"^[a-z][a-z0-9_]{0,63}$")
+GITHUB_CANONICAL_PREFIXES = (
+    "https://github.com/Thorncrag/ARRP/blob/main/",
+    "https://github.com/Thorncrag/ARRP/blob/master/",
+)
 HEADING_RE = re.compile(r"^(#{1,6})[ \t]+(.+?)[ \t]*#*[ \t]*$")
 PLACEHOLDER_HASHES = {"", "__SET_AT_INTEGRATION__", "AUTO", "PENDING"}
 LINKED_VEHICLE_FIELDS = (
@@ -34,6 +44,22 @@ LINKED_VEHICLE_FIELDS = (
     "proposal_legislation",
     "enabling_legislation",
 )
+SOURCE_CONTEXT_FIELDS = (
+    "Source ID",
+    "Associated Record IDs",
+    "Monitoring",
+    "Source Type",
+    "Authority / Publisher",
+    "Title or Description",
+    "Date",
+    "URL",
+    "Proposition Supported",
+    "Reliability Tier",
+    "Reviewed?",
+    "Pending Reason",
+    "Next Action",
+    "Blocker",
+)
 
 
 class ContextError(RuntimeError):
@@ -42,6 +68,17 @@ class ContextError(RuntimeError):
 
 def canonical_json(value: Any) -> bytes:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+
+
+def json_safe(value: Any) -> Any:
+    """Preserve structured metadata while normalizing YAML-native dates."""
+    if isinstance(value, (datetime, date)):
+        return value.isoformat()
+    if isinstance(value, dict):
+        return {key: json_safe(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [json_safe(item) for item in value]
+    return value
 
 
 def sha256_bytes(value: bytes) -> str:
@@ -176,33 +213,146 @@ def extract_exact_heading(text: str, exact_heading: str) -> tuple[str, int, int]
     return "".join(lines[match.line - 1 : end - 1]), match.line, end - 1
 
 
+def _document_dependency_closure(
+    manifest: dict[str, Any],
+    seeds: Iterable[str],
+) -> list[str]:
+    documents = manifest["documents"]
+    resolved: list[str] = []
+    visiting: list[str] = []
+    visited: set[str] = set()
+
+    def visit(name: str) -> None:
+        if name not in documents:
+            raise ContextError(f"context route references unknown document {name}")
+        if name in visiting:
+            cycle = " -> ".join([*visiting[visiting.index(name) :], name])
+            raise ContextError(f"context document dependency cycle: {cycle}")
+        if name in visited:
+            return
+        visiting.append(name)
+        for dependency in documents[name].get("requires") or []:
+            visit(str(dependency))
+        visiting.pop()
+        visited.add(name)
+        resolved.append(name)
+
+    for seed in seeds:
+        visit(str(seed))
+    return resolved
+
+
+def _profile_document_ids(
+    manifest: dict[str, Any],
+    profile: dict[str, Any],
+    extra_capabilities: Iterable[str] = (),
+) -> list[str]:
+    seeds = [str(item) for item in manifest.get("required_modules") or []]
+    seeds.extend(str(item) for item in profile.get("modules") or [])
+    capabilities = manifest.get("capabilities") or {}
+    selected_capabilities = [
+        *(str(item) for item in profile.get("capabilities") or []),
+        *(str(item) for item in extra_capabilities),
+    ]
+    for capability in selected_capabilities:
+        if capability not in capabilities:
+            raise ContextError(f"unknown context capability: {capability}")
+        seeds.extend(str(item) for item in capabilities[capability])
+    if profile.get("include_all_governing"):
+        seeds.extend(
+            name
+            for name, spec in manifest["documents"].items()
+            if bool(spec.get("governing"))
+        )
+    return _document_dependency_closure(manifest, seeds)
+
+
+def _validate_section_module_conflicts(
+    profile_name: str,
+    profile: dict[str, Any],
+    module_ids: Iterable[str],
+) -> None:
+    """Reject packets that would load one document both whole and by section."""
+    selected_documents = set(module_ids)
+    conflicts = sorted(
+        {
+            str(route.get("document") or "")
+            for route in profile.get("sections") or []
+            if isinstance(route, dict)
+        }
+        & selected_documents
+    )
+    if conflicts:
+        raise ContextError(
+            f"profile {profile_name} loads {', '.join(conflicts)} both as a whole "
+            "module and a section"
+        )
+
+
 def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = True) -> dict[str, Any]:
     path = contained_path(path, root)
     manifest = load_json(path, root)
-    if manifest.get("schema_version") != 1:
-        raise ContextError("context route manifest must use schema_version 1")
+    schema_version = manifest.get("schema_version")
+    if schema_version not in {1, 2}:
+        raise ContextError("context route manifest must use schema_version 1 or 2")
     documents = manifest.get("documents")
     profiles = manifest.get("profiles")
     if not isinstance(documents, dict) or not documents:
         raise ContextError("context route manifest has no documents")
     if not isinstance(profiles, dict) or not profiles:
         raise ContextError("context route manifest has no profiles")
+    required_modules = manifest.get("required_modules") or []
+    if not isinstance(required_modules, list):
+        raise ContextError("context route manifest required_modules must be an array")
     exclusions = manifest.get("generated_path_exclusions") or []
-    seen_paths: dict[str, str] = {}
+    seen_paths: dict[str, tuple[str, str]] = {}
     for name, spec in documents.items():
         if not isinstance(spec, dict):
             raise ContextError(f"document {name} is not an object")
         relative = str(spec.get("path") or "")
+        dependencies = spec.get("requires") or []
+        if not isinstance(dependencies, list):
+            raise ContextError(f"document {name} requires must be an array")
         if path_is_excluded(relative, exclusions):
             raise ContextError(f"document {name} points to an excluded generated path: {relative}")
-        if relative in seen_paths:
-            raise ContextError(f"documents {seen_paths[relative]} and {name} duplicate path {relative}")
-        seen_paths[relative] = name
         source = within_root(root, relative)
+        canonical_source = os.path.realpath(os.fspath(source))
+        if canonical_source in seen_paths:
+            prior_name, prior_relative = seen_paths[canonical_source]
+            raise ContextError(
+                f"documents {prior_name} ({prior_relative}) and {name} ({relative}) "
+                "duplicate one canonical path"
+            )
+        seen_paths[canonical_source] = (name, relative)
         if not source.is_file():
             raise ContextError(f"document {name} is missing: {relative}")
+        if schema_version == 2:
+            if "governing" not in spec or not isinstance(spec["governing"], bool):
+                raise ContextError(
+                    f"schema-2 document {name} governing must be an explicit boolean"
+                )
+        elif "governing" in spec and not isinstance(spec["governing"], bool):
+            raise ContextError(f"document {name} governing must be a boolean")
+        governing = spec.get("governing", False)
+        hash_policy = str(spec.get("hash_policy") or "pinned")
+        if hash_policy not in {"pinned", "runtime"}:
+            raise ContextError(
+                f"document {name} has invalid hash_policy {hash_policy!r}"
+            )
+        if hash_policy == "runtime" and governing is not False:
+            raise ContextError(
+                f"runtime-hashed document {name} must be explicitly non-governing"
+            )
+        if governing is True and hash_policy != "pinned":
+            raise ContextError(
+                f"governing document {name} must use hash_policy 'pinned'"
+            )
         expected = str(spec.get("sha256") or "")
-        if verify_hashes:
+        if hash_policy == "runtime" and expected not in PLACEHOLDER_HASHES:
+            raise ContextError(
+                f"runtime-hashed document {name} must not carry a pinned sha256"
+            )
+        if verify_hashes and hash_policy == "pinned":
             if expected in PLACEHOLDER_HASHES:
                 raise ContextError(f"document {name} has no integration-pinned sha256")
             actual = sha256_path(source, root)
@@ -210,11 +360,44 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
                 raise ContextError(
                     f"document {name} hash changed: expected {expected}, found {actual}"
                 )
+    _document_dependency_closure(manifest, documents)
+    capabilities = manifest.get("capabilities") or {}
+    if not isinstance(capabilities, dict):
+        raise ContextError("context route manifest capabilities must be an object")
+    for capability, members in capabilities.items():
+        if not isinstance(members, list) or not members:
+            raise ContextError(f"context capability {capability} must contain documents")
+        _document_dependency_closure(manifest, (str(item) for item in members))
     for name, profile in profiles.items():
-        if not isinstance(profile, dict) or not isinstance(profile.get("sections"), list):
+        if not isinstance(profile, dict):
+            raise ContextError(f"profile {name} is not an object")
+        sections = profile.get("sections") or []
+        modules = profile.get("modules") or []
+        profile_capabilities = profile.get("capabilities") or []
+        if not isinstance(sections, list):
+            raise ContextError(f"profile {name} sections must be an array")
+        if not isinstance(modules, list):
+            raise ContextError(f"profile {name} modules must be an array")
+        if not isinstance(profile_capabilities, list):
+            raise ContextError(f"profile {name} capabilities must be an array")
+        if "include_all_governing" in profile and not isinstance(
+            profile["include_all_governing"], bool
+        ):
+            raise ContextError(
+                f"profile {name} include_all_governing must be a boolean"
+            )
+        if schema_version == 1 and not sections:
             raise ContextError(f"profile {name} has no sections array")
+        if schema_version == 2 and not (
+            sections
+            or modules
+            or profile_capabilities
+            or profile.get("include_all_governing")
+            or manifest.get("required_modules")
+        ):
+            raise ContextError(f"profile {name} has no context routes")
         identities: set[tuple[str, str]] = set()
-        for route in profile["sections"]:
+        for route in sections:
             if not isinstance(route, dict):
                 raise ContextError(f"profile {name} contains a non-object route")
             document = str(route.get("document") or "")
@@ -230,6 +413,14 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
             maximum = route.get("max_bytes")
             if not isinstance(maximum, int) or maximum <= 0:
                 raise ContextError(f"profile {name} route {heading} has invalid max_bytes")
+        _validate_section_module_conflicts(
+            name,
+            profile,
+            _profile_document_ids(manifest, profile),
+        )
+        maximum = profile.get("max_bytes")
+        if not isinstance(maximum, int) or maximum <= 0:
+            raise ContextError(f"profile {name} has invalid max_bytes")
     return manifest
 
 
@@ -238,6 +429,7 @@ def manifest_hash_updates(path: Path, root: Path = ROOT) -> dict[str, str]:
     return {
         name: sha256_path(within_root(root, str(spec["path"])), root)
         for name, spec in sorted(manifest["documents"].items())
+        if str(spec.get("hash_policy") or "pinned") == "pinned"
     }
 
 
@@ -282,7 +474,7 @@ def front_matter(path: Path) -> dict[str, Any]:
                     parsed[key] = value.strip("\"'")
     if not isinstance(parsed, dict):
         raise ContextError(f"front matter must be a mapping: {path}")
-    return parsed
+    return json_safe(parsed)
 
 
 def latest_markdown_entry(
@@ -306,7 +498,12 @@ def latest_markdown_entry(
     }
 
 
-def source_rows(path: Path, issue_id: str) -> list[dict[str, str]]:
+def source_rows(
+    path: Path,
+    issue_id: str,
+    *,
+    fields: tuple[str, ...] | None = None,
+) -> list[dict[str, str]]:
     if not path.exists():
         return []
     with path.open("r", encoding="utf-8", newline="") as handle:
@@ -315,7 +512,16 @@ def source_rows(path: Path, issue_id: str) -> list[dict[str, str]]:
         for row in reader:
             associated = str(row.get("Associated Record IDs") or "")
             if issue_id in ISSUE_ID_RE.findall(associated):
-                rows.append(dict(row))
+                if fields is None:
+                    rows.append(dict(row))
+                else:
+                    rows.append(
+                        {
+                            field: str(row.get(field) or "")
+                            for field in fields
+                            if str(row.get(field) or "").strip()
+                        }
+                    )
         return rows
 
 
@@ -340,7 +546,38 @@ def find_issue_page(root: Path, issue_id: str) -> Path:
     return matches[0]
 
 
-def resolve_linked_vehicle(root: Path, issue_path: Path, metadata: dict[str, Any]) -> Path | None:
+def resolve_issue_context_record(
+    root: Path,
+    issue_id: str,
+    *,
+    allow_area_readme: bool,
+) -> tuple[str, Path]:
+    """Resolve either a standalone issue page or the approved undeveloped area record."""
+    if not re.fullmatch(r"[A-Z][A-Z0-9]*-\d{3}", issue_id):
+        raise ContextError(f"invalid canonical issue identifier: {issue_id!r}")
+    matches = sorted((root / "areas").glob(f"*/issues/{issue_id}.md"))
+    matches = [path for path in matches if not path.name.endswith(".audit.md")]
+    if len(matches) == 1:
+        return "issue_page", matches[0]
+    if len(matches) > 1:
+        raise ContextError(
+            f"expected exactly one canonical page for {issue_id}; found {len(matches)}"
+        )
+    if allow_area_readme and re.fullmatch(r"[A-Z][A-Z0-9]*-\d{3}", issue_id):
+        area = issue_id.split("-", 1)[0]
+        area_readme = root / "areas" / area / "README.md"
+        if area_readme.is_file():
+            return "area_readme", area_readme.resolve()
+    raise ContextError(
+        f"expected a canonical issue page for {issue_id}; found no eligible record"
+    )
+
+
+def resolve_linked_vehicles(
+    root: Path,
+    issue_path: Path,
+    metadata: dict[str, Any],
+) -> list[Path]:
     candidates: list[Any] = []
     for field in LINKED_VEHICLE_FIELDS:
         value = metadata.get(field)
@@ -358,9 +595,75 @@ def resolve_linked_vehicle(root: Path, issue_path: Path, metadata: dict[str, Any
             raise ContextError(f"linked vehicle is missing: {raw}")
         if path not in resolved:
             resolved.append(path)
-    if len(resolved) > 1:
-        raise ContextError("multiple linked vehicles require an explicit future multi-vehicle profile")
-    return resolved[0] if resolved else None
+    return resolved
+
+
+def context_packet_selection(
+    *,
+    root: Path,
+    work_item_id: str | None,
+    work_kind: str | None,
+    canonical_record: str | None,
+) -> dict[str, str | None] | None:
+    """Validate and preserve the exact queue unit that authorized one packet."""
+    if work_item_id is None and work_kind is None:
+        if canonical_record is not None:
+            raise ContextError(
+                "--canonical-record requires --work-item-id and --work-kind"
+            )
+        return None
+    if work_item_id is None or work_kind is None:
+        raise ContextError(
+            "--work-item-id and --work-kind must be supplied together"
+        )
+    if not isinstance(work_item_id, str) or not WORK_ITEM_ID_RE.fullmatch(
+        work_item_id
+    ):
+        raise ContextError(
+            "--work-item-id must be a nonblank safe identifier without whitespace"
+        )
+    if not isinstance(work_kind, str) or not WORK_KIND_RE.fullmatch(work_kind):
+        raise ContextError(
+            "--work-kind must be a nonblank lower-snake-case identifier"
+        )
+
+    normalized_record: str | None = None
+    if canonical_record is not None and canonical_record != "":
+        if not isinstance(canonical_record, str):
+            raise ContextError("--canonical-record must be text, blank, or null")
+        if canonical_record.strip() != canonical_record:
+            raise ContextError(
+                "--canonical-record must not contain surrounding whitespace"
+            )
+        if HORIZON_ISSUE_URL_RE.fullmatch(canonical_record):
+            normalized_record = canonical_record
+        else:
+            if "://" in canonical_record:
+                raise ContextError(
+                    "--canonical-record contains an unsupported URL"
+                )
+            if "\\" in canonical_record:
+                raise ContextError(
+                    "--canonical-record must use a repository-relative POSIX path"
+                )
+            record_path = within_root(root, canonical_record)
+            exact_relative = record_path.relative_to(root.resolve()).as_posix()
+            if exact_relative != canonical_record:
+                raise ContextError(
+                    "--canonical-record must be an exact normalized "
+                    "repository-relative path"
+                )
+            if not record_path.is_file():
+                raise ContextError(
+                    f"--canonical-record is missing: {canonical_record}"
+                )
+            normalized_record = canonical_record
+
+    return {
+        "work_item_id": work_item_id,
+        "kind": work_kind,
+        "canonical_record": normalized_record,
+    }
 
 
 def build_context_packet(
@@ -371,21 +674,57 @@ def build_context_packet(
     issue_id: str | None = None,
     review_epoch_path: Path | None = None,
     max_total_bytes: int | None = None,
+    capabilities: Iterable[str] = (),
+    work_item_id: str | None = None,
+    work_kind: str | None = None,
+    canonical_record: str | None = None,
 ) -> dict[str, Any]:
+    selection = context_packet_selection(
+        root=root,
+        work_item_id=work_item_id,
+        work_kind=work_kind,
+        canonical_record=canonical_record,
+    )
     manifest_path = contained_path(manifest_path, root)
     manifest = load_route_manifest(manifest_path, root=root, verify_hashes=True)
     profile = manifest["profiles"].get(profile_name)
     if profile is None:
         raise ContextError(f"unknown context profile: {profile_name}")
     manifest_sha = sha256_path(manifest_path, root)
+    requested_capabilities = [str(item) for item in capabilities]
+    module_ids = _profile_document_ids(
+        manifest,
+        profile,
+        extra_capabilities=requested_capabilities,
+    )
+    _validate_section_module_conflicts(profile_name, profile, module_ids)
+    modules: list[dict[str, Any]] = []
     sections: list[dict[str, Any]] = []
     total = 0
-    for route in profile["sections"]:
+    for module_id in module_ids:
+        document = manifest["documents"][module_id]
+        path = within_root(root, document["path"])
+        content = path.read_text(encoding="utf-8")
+        size = len(content.encode("utf-8"))
+        actual_sha = sha256_path(path, root)
+        total += size
+        modules.append(
+            {
+                "document": module_id,
+                "path": document["path"],
+                "sha256": actual_sha,
+                "hash_policy": str(document.get("hash_policy") or "pinned"),
+                "bytes": size,
+                "content": content,
+            }
+        )
+    for route in profile.get("sections") or []:
         document = manifest["documents"][route["document"]]
         path = within_root(root, document["path"])
         text = path.read_text(encoding="utf-8")
         content, start, end = extract_exact_heading(text, route["heading"])
         size = len(content.encode("utf-8"))
+        actual_sha = sha256_path(path, root)
         if size > route["max_bytes"]:
             raise ContextError(
                 f"section exceeds max_bytes ({size} > {route['max_bytes']}): {route['heading']}"
@@ -395,7 +734,8 @@ def build_context_packet(
             {
                 "document": route["document"],
                 "path": document["path"],
-                "sha256": document["sha256"],
+                "sha256": actual_sha,
+                "hash_policy": str(document.get("hash_policy") or "pinned"),
                 "heading": route["heading"],
                 "start_line": start,
                 "end_line": end,
@@ -405,34 +745,36 @@ def build_context_packet(
         )
     dossier: dict[str, Any] | None = None
     if issue_id:
-        issue_path = find_issue_page(root, issue_id)
-        metadata = front_matter(issue_path)
-        audit_value = str(metadata.get("audit_history") or f"{issue_id}.audit.md")
-        audit_path = (issue_path.parent / audit_value).resolve()
-        if root.resolve() not in audit_path.parents:
-            raise ContextError(f"audit path escapes repository: {audit_value}")
-        latest_audit = None
-        if audit_path.is_file():
-            latest_audit = latest_markdown_entry(
-                audit_path, "## Audit History", entry_level=3, order="newest-first"
-            )
-        vehicle = resolve_linked_vehicle(root, issue_path, metadata)
+        record_kind, canonical_path = resolve_issue_context_record(
+            root,
+            issue_id,
+            allow_area_readme=profile_name == "issue_development",
+        )
         sources_path = root / "inventory" / "sources.csv"
         pending_path = root / "inventory" / "sources-pending.csv"
         registry_path = root / "inventory" / "github_issue_registry.csv"
-        dossier = {
-            "issue_id": issue_id,
-            "issue_page": {
-                **file_provenance(issue_path, root),
+        issue_page = None
+        generic_record = None
+        vehicles: list[Path] = []
+        latest_audit_record = None
+        if record_kind == "issue_page":
+            metadata = front_matter(canonical_path)
+            audit_value = str(metadata.get("audit_history") or f"{issue_id}.audit.md")
+            audit_path = (canonical_path.parent / audit_value).resolve()
+            if root.resolve() not in audit_path.parents:
+                raise ContextError(f"audit path escapes repository: {audit_value}")
+            latest_audit = None
+            if audit_path.is_file():
+                latest_audit = latest_markdown_entry(
+                    audit_path, "## Audit History", entry_level=3, order="newest-first"
+                )
+            vehicles = resolve_linked_vehicles(root, canonical_path, metadata)
+            issue_page = {
+                **file_provenance(canonical_path, root),
                 "front_matter": metadata,
-                "content": issue_path.read_text(encoding="utf-8"),
-            },
-            "linked_vehicle": (
-                {**file_provenance(vehicle, root), "content": vehicle.read_text(encoding="utf-8")}
-                if vehicle
-                else None
-            ),
-            "latest_audit_entry": (
+                "content": canonical_path.read_text(encoding="utf-8"),
+            }
+            latest_audit_record = (
                 {
                     **latest_audit,
                     "path": audit_path.relative_to(root.resolve()).as_posix(),
@@ -440,9 +782,52 @@ def build_context_packet(
                 }
                 if latest_audit
                 else None
+            )
+        else:
+            generic_record = {
+                **file_provenance(canonical_path, root),
+                "content": canonical_path.read_text(encoding="utf-8"),
+            }
+        dossier = {
+            "issue_id": issue_id,
+            "canonical_record_kind": record_kind,
+            "canonical_record_path": Path(
+                os.path.realpath(os.fspath(canonical_path))
+            )
+            .relative_to(Path(os.path.realpath(os.fspath(root))))
+            .as_posix(),
+            "canonical_record": generic_record,
+            "issue_page": issue_page,
+            "linked_vehicles": [
+                {
+                    **file_provenance(vehicle, root),
+                    "content": vehicle.read_text(encoding="utf-8"),
+                }
+                for vehicle in vehicles
+            ],
+            "latest_audit_entry": latest_audit_record,
+            "source_catalog": {
+                **file_provenance(sources_path, root),
+                "projection_only": True,
+                "projection_fields": list(SOURCE_CONTEXT_FIELDS),
+                "canonical_row_required_before_reliance": True,
+            },
+            "sources": source_rows(
+                sources_path,
+                issue_id,
+                fields=SOURCE_CONTEXT_FIELDS,
             ),
-            "sources": source_rows(sources_path, issue_id),
-            "pending_sources": source_rows(pending_path, issue_id),
+            "pending_source_catalog": {
+                **file_provenance(pending_path, root),
+                "projection_only": True,
+                "projection_fields": list(SOURCE_CONTEXT_FIELDS),
+                "canonical_row_required_before_reliance": True,
+            },
+            "pending_sources": source_rows(
+                pending_path,
+                issue_id,
+                fields=SOURCE_CONTEXT_FIELDS,
+            ),
             "registry": registry_rows(registry_path, issue_id),
         }
         total += len(canonical_json(dossier))
@@ -464,15 +849,18 @@ def build_context_packet(
         review_epoch_path = contained_path(review_epoch_path, root)
         review_epoch = load_json(review_epoch_path, root)
         total += len(canonical_json(review_epoch))
+    if selection is not None:
+        total += len(canonical_json(selection))
     profile_limit = int(profile["max_bytes"])
     effective_limit = min(profile_limit, max_total_bytes) if max_total_bytes else profile_limit
     if total > effective_limit:
         raise ContextError(f"context packet exceeds max bytes ({total} > {effective_limit})")
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "repository_revision": git_revision(root),
         "profile": profile_name,
+        "selection": selection,
         "manifest": {
             "path": manifest_path.relative_to(
                 Path(os.path.realpath(os.fspath(root)))
@@ -480,6 +868,11 @@ def build_context_packet(
             "sha256": manifest_sha,
         },
         "limits": {"max_bytes": effective_limit, "actual_bytes": total},
+        "capabilities": [
+            *(str(item) for item in profile.get("capabilities") or []),
+            *requested_capabilities,
+        ],
+        "modules": modules,
         "sections": sections,
         "issue_dossier": dossier,
         "latest_logs": logs,
@@ -554,6 +947,67 @@ def make_item(
         "source": source,
         "recovery": recovery,
     }
+
+
+def validate_queue_canonical_record(
+    root: Path,
+    identifier: str,
+    value: Any,
+    *,
+    formal_horizon: bool,
+    allow_area_readme: bool = False,
+) -> tuple[str | None, str | None]:
+    """Return one safe canonical record or a fail-closed queue problem."""
+    text = str(value or "").strip().strip("`")
+    if not text:
+        return None, f"{identifier} has no canonicalRecord in the progress feed"
+
+    if formal_horizon and HORIZON_ISSUE_URL_RE.fullmatch(text):
+        return text, None
+
+    for prefix in GITHUB_CANONICAL_PREFIXES:
+        if text.startswith(prefix):
+            text = text[len(prefix) :]
+            break
+    if "://" in text:
+        return None, f"{identifier} has an unsupported canonicalRecord URL: {text}"
+    while text.startswith("./"):
+        text = text[2:]
+    try:
+        path = within_root(root, text)
+    except ContextError as exc:
+        return None, f"{identifier} has an unsafe canonicalRecord: {exc}"
+    if not path.is_file():
+        return None, f"{identifier} canonicalRecord is missing: {text}"
+    normalized = path.relative_to(root.resolve()).as_posix()
+    if re.fullmatch(r"areas/[^/]+/README\.md", normalized, re.IGNORECASE):
+        area = identifier.split("-", 1)[0]
+        expected_area_readme = f"areas/{area}/README.md"
+        if allow_area_readme and normalized == expected_area_readme:
+            return normalized, None
+        return None, (
+            f"{identifier} canonicalRecord points to an area README that is not "
+            f"eligible for this work: {normalized}"
+        )
+
+    if formal_horizon:
+        if normalized != "framework/logs/HORIZON_SCAN_LOG.md":
+            return (
+                None,
+                f"{identifier} formal-candidate canonicalRecord is not its GitHub Issue "
+                f"or framework/logs/HORIZON_SCAN_LOG.md: {normalized}",
+            )
+        return normalized, None
+
+    area = identifier.split("-", 1)[0]
+    expected = f"areas/{area}/issues/{identifier}.md"
+    if normalized != expected:
+        return (
+            None,
+            f"{identifier} canonicalRecord does not match its canonical issue page "
+            f"{expected}: {normalized}",
+        )
+    return normalized, None
 
 
 def input_record(
@@ -716,17 +1170,48 @@ def build_work_queue(
             )
         )
     progress = records["progress"].get("data") or {}
-    proposals = progress.get("proposals", []) if isinstance(progress, dict) else []
+    proposals = (
+        [
+            *(progress.get("proposals") or []),
+            *(progress.get("candidates") or []),
+        ]
+        if isinstance(progress, dict)
+        else []
+    )
     for proposal in proposals:
-        identifier = str(proposal.get("identifier") or "")
-        status = str(proposal.get("workflowStatus") or proposal.get("status") or "").casefold()
-        next_audit = str(proposal.get("nextAudit") or "")
+        identifier = str(proposal.get("identifier") or "").strip()
+        status = " ".join(
+            str(proposal.get("workflowStatus") or proposal.get("status") or "")
+            .casefold()
+            .split()
+        )
+        development_level = " ".join(
+            str(proposal.get("developmentLevel") or "").casefold().split()
+        )
+        next_audit = str(proposal.get("nextAudit") or "").strip()
         changed = str(proposal.get("changeAuditNeeded") or "").casefold() in {"yes", "true", "needed"}
         if not changed and "change audit" in next_audit.casefold():
             changed = True
         kind = ""
         base = 0
-        if changed:
+        formal_horizon = bool(FORMAL_HORIZON_ID_RE.fullmatch(identifier))
+        candidate_level = development_level == "candidate"
+        if formal_horizon or candidate_level:
+            if not formal_horizon or not candidate_level:
+                problems.append(
+                    f"{identifier or 'unidentified progress item'} has inconsistent "
+                    "formal-candidate identity or Development level"
+                )
+                continue
+            if status != "research":
+                continue
+            if next_audit.casefold() in {"", "not recorded", "none", "n/a"}:
+                problems.append(
+                    f"{identifier} is a Research candidate without a defined Next audit"
+                )
+                continue
+            kind, base = "candidate_research", 300
+        elif changed:
             kind, base = "change_audit", 700
         elif status in {"audit needed", "audit in progress"}:
             kind, base = "issue_audit", 600
@@ -734,6 +1219,20 @@ def build_work_queue(
             kind, base = "issue_development", 300
         if not kind or not identifier:
             continue
+        canonical_record, canonical_problem = validate_queue_canonical_record(
+            input_root,
+            identifier,
+            proposal.get("canonicalRecord"),
+            formal_horizon=formal_horizon,
+            allow_area_readme=(
+                kind == "issue_development"
+                and development_level == "admitted / undeveloped"
+                and status in {"development", "research"}
+            ),
+        )
+        retained_canonical_record = canonical_record or str(
+            proposal.get("canonicalRecord") or ""
+        ).strip()
         items.append(
             make_item(
                 kind=kind,
@@ -745,13 +1244,19 @@ def build_work_queue(
                 source={
                     "input": "progress",
                     "identifier": identifier,
-                    "canonical_record": proposal.get("canonicalRecord"),
+                    "canonicalRecord": retained_canonical_record,
+                    "canonical_record": retained_canonical_record,
+                    "canonical_record_error": canonical_problem,
                     "workflow_status": proposal.get("workflowStatus"),
                     "development_level": proposal.get("developmentLevel"),
                     "next_audit": proposal.get("nextAudit"),
                 },
                 base_priority=base,
-                reason=f"explicit workflow route: {status}",
+                reason=(
+                    "formal Horizon candidate research route"
+                    if kind == "candidate_research"
+                    else f"explicit workflow route: {status}"
+                ),
             )
         )
     recovery = records["recovery"].get("data") or {}

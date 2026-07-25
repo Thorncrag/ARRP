@@ -31,6 +31,11 @@ try:
 except ModuleNotFoundError:  # Imported as scripts.audit_project_consistency.
     from scripts.project_tree import iter_project_files
 
+try:
+    from arrp_context import ContextError, load_route_manifest
+except ModuleNotFoundError:  # Imported as scripts.audit_project_consistency.
+    from scripts.arrp_context import ContextError, load_route_manifest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 ISSUE_PATH = ROOT / "areas"
@@ -40,6 +45,21 @@ SOURCE_PATH = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCE_PATH = ROOT / "inventory" / "sources-pending.csv"
 PRELIMINARY_CANDIDATE_PATH = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
 PROJECT_INTEGRITY_RUNBOOK = ROOT / "framework" / "agents" / "PROJECT_INTEGRITY_BOT.md"
+CONTEXT_MANIFEST = ROOT / "framework" / "context-routes.json"
+CONTEXT_MANAGED_DIRECTORIES = (
+    "agent-rules",
+    "agents",
+    "audits",
+    "candidates",
+    "evidence",
+    "issues",
+    "lifecycle",
+    "methodology",
+    "navigation",
+    "operations",
+    "scoring",
+    "sources",
+)
 GITHUB_REPOSITORY = "Thorncrag/ARRP"
 GITHUB_PROJECT_OWNER = "Thorncrag"
 GITHUB_PROJECT_NUMBER = 2
@@ -3147,6 +3167,203 @@ def check_print_assembly_configuration(failures: list[str], warnings: list[str])
             )
 
 
+def context_registry_front_matter(path: Path) -> dict[str, object]:
+    """Read structured front matter for context-registry declaration checks."""
+    match = FRONT_MATTER_RE.match(read(path))
+    if not match:
+        return {}
+    try:
+        metadata = yaml.safe_load(match.group(1)) or {}
+    except yaml.YAMLError as exc:
+        raise ValueError(f"invalid YAML front matter: {exc}") from exc
+    if not isinstance(metadata, dict):
+        raise ValueError("front matter must be a YAML mapping")
+    return metadata
+
+
+def context_registry_dependency_values(value: object) -> list[str]:
+    """Accept the repository's legacy semicolon string or a YAML path array."""
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [item.strip() for item in value.split(";") if item.strip()]
+    if isinstance(value, list):
+        dependencies: list[str] = []
+        for item in value:
+            if not isinstance(item, str) or not item.strip():
+                raise ValueError(
+                    "dependencies arrays must contain nonblank path strings"
+                )
+            dependencies.append(item.strip())
+        return dependencies
+    raise ValueError("dependencies must be a semicolon-delimited string or YAML array")
+
+
+def check_context_registry(failures: list[str], warnings: list[str]) -> None:
+    """Verify that modular governing context is complete, current, and routable."""
+    try:
+        manifest = load_route_manifest(CONTEXT_MANIFEST, root=ROOT, verify_hashes=True)
+    except ContextError as exc:
+        report(
+            "ERROR",
+            f"context registry validation failed: {exc}",
+            failures,
+            warnings,
+        )
+        return
+
+    required = set(manifest.get("required_modules") or [])
+    expected_required = {"framework_kernel", "agent_rules_kernel", "current_audit"}
+    if not expected_required <= required:
+        report(
+            "ERROR",
+            "context registry required floor omits: "
+            + ", ".join(sorted(expected_required - required)),
+            failures,
+            warnings,
+        )
+
+    documents = manifest["documents"]
+    current = documents.get("current_audit") or {}
+    if (
+        current.get("path") != "framework/logs/CURRENT_AUDIT.md"
+        or current.get("hash_policy") != "runtime"
+        or current.get("governing")
+    ):
+        report(
+            "ERROR",
+            "CURRENT_AUDIT must be the required runtime-hashed, non-governing "
+            "continuation record",
+            failures,
+            warnings,
+        )
+
+    for document_id in ("framework_kernel", "agent_rules_kernel"):
+        spec = documents.get(document_id) or {}
+        if spec.get("hash_policy", "pinned") != "pinned" or not spec.get("governing"):
+            report(
+                "ERROR",
+                f"context registry {document_id} must be pinned and governing",
+                failures,
+                warnings,
+            )
+
+    comprehensive = (manifest.get("profiles") or {}).get("comprehensive_review") or {}
+    if comprehensive.get("include_all_governing") is not True:
+        report(
+            "ERROR",
+            "comprehensive_review must include every governing context document",
+            failures,
+            warnings,
+        )
+
+    framework_root = ROOT / "framework"
+    managed_paths = {
+        path.relative_to(ROOT).as_posix()
+        for path in framework_root.glob("*.md")
+        if path.is_file()
+    }
+    if (ROOT / "AGENTS.md").is_file():
+        managed_paths.add("AGENTS.md")
+    for directory in CONTEXT_MANAGED_DIRECTORIES:
+        managed_paths.update(
+            path.relative_to(ROOT).as_posix()
+            for path in (framework_root / directory).rglob("*.md")
+            if path.is_file()
+        )
+    registered_paths = {
+        str(spec.get("path") or "")
+        for spec in documents.values()
+        if bool(spec.get("governing"))
+    }
+    unregistered = sorted(managed_paths - registered_paths)
+    if unregistered:
+        report(
+            "ERROR",
+            "governing framework Markdown is absent from context-routes.json: "
+            + ", ".join(unregistered),
+            failures,
+            warnings,
+        )
+
+    path_by_id = {
+        document_id: str(spec.get("path") or "")
+        for document_id, spec in documents.items()
+    }
+    root_resolved = ROOT.resolve()
+    for document_id, spec in documents.items():
+        relative = Path(str(spec.get("path") or ""))
+        if relative.suffix.casefold() != ".md":
+            continue
+        path = ROOT / relative
+        try:
+            metadata = context_registry_front_matter(path)
+        except (OSError, ValueError) as exc:
+            report(
+                "ERROR",
+                f"context module {relative.as_posix()} cannot read its "
+                f"front-matter declarations: {exc}",
+                failures,
+                warnings,
+            )
+            continue
+        if "module_id" not in metadata and "dependencies" not in metadata:
+            continue
+
+        if "module_id" in metadata:
+            declared_id = metadata.get("module_id")
+            if not isinstance(declared_id, str) or declared_id != document_id:
+                report(
+                    "ERROR",
+                    f"context module {relative.as_posix()} front-matter module_id "
+                    f"differs from context-routes.json; declared={declared_id!r}, "
+                    f"expected={document_id!r}",
+                    failures,
+                    warnings,
+                )
+
+        try:
+            dependency_values = context_registry_dependency_values(
+                metadata.get("dependencies")
+            )
+        except ValueError as exc:
+            report(
+                "ERROR",
+                f"context module {relative.as_posix()} has invalid front-matter "
+                f"dependencies: {exc}",
+                failures,
+                warnings,
+            )
+            continue
+        declared: list[str] = []
+        for raw in dependency_values:
+            try:
+                resolved = (path.parent / raw).resolve().relative_to(root_resolved)
+            except ValueError:
+                report(
+                    "ERROR",
+                    f"context module {relative.as_posix()} declares a dependency "
+                    f"outside the repository: {raw}",
+                    failures,
+                    warnings,
+                )
+                declared.append(f"<outside>/{raw}")
+                continue
+            declared.append(resolved.as_posix())
+        expected = [
+            path_by_id[required_id]
+            for required_id in spec.get("requires") or []
+        ]
+        if declared != expected:
+            report(
+                "ERROR",
+                f"context module {document_id} front-matter dependencies differ "
+                f"from context-routes.json; declared={declared}, expected={expected}",
+                failures,
+                warnings,
+            )
+
+
 def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
     """Validate persistent-agent identities and deployed configuration projections."""
     directory = ROOT / "framework" / "agents"
@@ -3440,6 +3657,7 @@ def main() -> int:
     check_retired_monitor_identifiers(github_issue_bodies, failures, warnings)
     check_print_assignment_metadata(failures, warnings)
     check_print_assembly_configuration(failures, warnings)
+    check_context_registry(failures, warnings)
     check_agent_runbooks(failures, warnings)
     check_structured_files_and_repository_hygiene(failures, warnings)
     proposal_count = len(list(LEGISLATION_PATH.glob("*.md"))) - 1

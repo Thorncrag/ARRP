@@ -101,6 +101,9 @@ class RunChainDispatcherTests(unittest.TestCase):
                     "snapshot_max_age_seconds": 120,
                 }
             },
+            "context_packet": {
+                "local_path": ".tmp/run-coordinator/chain-1/elim-context.json"
+            },
         }
         prompt = MODULE.elim_prompt(Path("/tmp/run-chain.json"), payload)
         self.assertIn("You are Elim", prompt)
@@ -109,6 +112,10 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertIn("approved host dispatcher", prompt)
         self.assertIn("Do not launch a second Codex app-server", prompt)
         self.assertIn("usage-status.json", prompt)
+        self.assertIn(
+            "--context-packet .tmp/run-coordinator/chain-1/elim-context.json",
+            prompt,
+        )
 
     def test_config_uses_explicit_host_paths_and_conservative_profiles(self):
         config = json.loads(
@@ -191,11 +198,58 @@ class RunChainDispatcherTests(unittest.TestCase):
             repo = Path(directory)
             ledger = repo / "research" / "review-epochs.jsonl"
             ledger.parent.mkdir()
+            packet = repo / "elim-context.json"
+            packet.write_text("{}\n", encoding="utf-8")
             ledger.write_text(
                 json.dumps({"triggering_run_id": "chain-1"}) + "\n",
                 encoding="utf-8",
             )
-            self.assertTrue(MODULE.comprehensive_epoch_recorded(repo, "chain-1"))
+            self.assertFalse(
+                MODULE.comprehensive_epoch_recorded(repo, "chain-1", packet)
+            )
+            record = {
+                "schema_version": 1,
+                "triggering_run_id": "chain-1",
+                "epoch_id": "epoch-chain-1",
+            }
+            digest = hashlib.sha256(
+                json.dumps(
+                    record,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode()
+            ).hexdigest()
+            ledger.write_text(
+                json.dumps(
+                    {**record, "record_sha256": "sha256:" + digest},
+                    sort_keys=True,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            with (
+                mock.patch.object(
+                    MODULE,
+                    "validate_review_epoch",
+                    return_value=record,
+                ) as validate,
+                mock.patch.object(
+                    MODULE,
+                    "validate_finding_continuity",
+                    return_value=record,
+                ) as continuity,
+            ):
+                self.assertTrue(
+                    MODULE.comprehensive_epoch_recorded(repo, "chain-1", packet)
+                )
+                validate.assert_called_once()
+                continuity.assert_called_once()
+            tampered = json.loads(ledger.read_text(encoding="utf-8"))
+            tampered["epoch_id"] = "altered"
+            ledger.write_text(json.dumps(tampered) + "\n", encoding="utf-8")
+            self.assertFalse(
+                MODULE.comprehensive_epoch_recorded(repo, "chain-1", packet)
+            )
             config = json.loads(
                 (ROOT / ".github" / "run-coordinator-bot.json").read_text()
             )

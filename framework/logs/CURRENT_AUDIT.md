@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None. |
-| Started | None. |
-| Last checkpoint | 2026-07-24 16:58:12 -0400 |
-| User request | None. |
-| Scope | None. |
-| Files touched | None. |
-| Completed steps | None. |
-| Next step | None. |
+| Handoff state | Open |
+| Active issue/task | Project-wide Framework and agent-context modularization |
+| Audit type/tier | Governing-structure Change Audit |
+| Started | 2026-07-24 18:26:48 -0400 |
+| Last checkpoint | 2026-07-24 20:10:58 -0400 |
+| User request | Modularize the oversized Framework and agent rules into independently loadable authoritative files while preserving the existing Framework entry point, references, substance, and comprehensive interactive work. |
+| Scope | `framework/FRAMEWORK.md`; `framework/AGENT_OPERATING_RULES.md`; new domain and agent-rule modules; context routing; repository-structure documentation; references, validators, and tests implicated by the migration. |
+| Files touched | Governing kernels and specialized modules under `framework/`; persistent-agent runbooks; root `AGENTS.md`; context registry and routing; coordinator, context, Review Epoch, consistency, and Console-data scripts; workflow configuration; generated Console and intake projections; tests. |
+| Completed steps | Extracted every original Framework and agent-rule domain into one authoritative home; replaced both monoliths with compact mandatory kernels and stable compatibility anchors; independently verified preservation of all original headings and substantive rules; resolved duplicate-authority findings and aligned module front matter with the acyclic registry; preserved Console and bot safeguards; added additive context routing, pinned stable governance including the root Codex bootstrap, runtime-hashed continuation state, comprehensive all-governing review coverage, deterministic registry/module-coverage validation, narrowly bounded ordinary and candidate-research profiles, validated source projections, multi-vehicle and admitted-area dossiers, YAML-date normalization, exact queue-to-packet selection binding, and machine-checkable Review Epoch boundaries with finding continuity; removed the superseded manifest; rebuilt live Console projections; and resolved all three final independent-review blockers concerning bootstrap coverage, top-level metadata validation, and additive profile ceilings. |
+| Next step | Commit and push the reviewed implementation branch, open and merge its pull request after required checks, synchronize local `main`, commit and synchronize the cleared inactive checkpoint, and verify a clean worktree. |
 | Blockers/questions | None. |
-| Validation status | Not applicable. |
+| Validation status | Passed: authenticated project integrity reports 0 errors and 0 warnings; 266 Python and 24 participation-service tests pass; all eight context profiles, 192 issue packets, 19 admitted-area dossiers, the 60-module comprehensive packet, Review Epoch closeout validation, registered hashes and dependency closure, original heading preservation, script/workflow parsing, JavaScript syntax, strict public-site build, generated Console data, and diff hygiene pass; the Console snapshot represents all 99 tracked records as 82 proposals plus 17 candidates with 0 progress warnings. |
 
 ## Handoff Rules
 

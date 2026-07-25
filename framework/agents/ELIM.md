@@ -5,7 +5,7 @@ display_name: Elim
 agent_type: conditional-llm-agent
 status: enabled
 trigger: conditional-run-chain
-schedule: "Due-aware daily run chain; biweekly comprehensive Review Epoch until stability supports monthly review"
+schedule: "Conditional within the due-aware run chain; Review Epoch cadence is owned by the Run Coordinator Bot runbook"
 runtime_id: codex-automation:elim
 execution_environment: isolated-worktree
 model_policy: "Coordinator-routed: gpt-5.6-terra with high reasoning for read-heavy triage; gpt-5.6-sol with xhigh reasoning for substantive and comprehensive work"
@@ -70,9 +70,7 @@ If the Codex task or host dispatcher terminates before Elim emits and validates 
 
 ## Comprehensive Review Epoch
 
-While the project's automation architecture and conventions are actively changing, Elim performs an intensive project-wide consistency review every two weeks. After several clean reviews demonstrate stability, the human may approve a monthly cadence. A material Framework, lifecycle, scoring, publication, agent-authority, or automation-architecture change triggers an off-cycle review.
-
-The review establishes a durable Review Epoch: Review ID; baseline and completion commits; governing-record hashes; Project and registry snapshots; domains and artifacts reviewed; resolved findings; open exceptions and human questions; automation health; next-review date; and the boundary for the following review. The next epoch reviews changes since that boundary, every unresolved exception, cross-project invariants and workflow health, and a rotating sample of nominally unchanged mature records. It does not automatically repeat every issue's T-audits. It determines whether a changed rule, fact, record, or detected drift requires a Change Audit or T-audit and records the exact trigger.
+Elim performs an intensive project-wide consistency review when the Run Coordinator Bot marks a Review Epoch due under its authoritative cadence and trigger configuration. The required epoch record, review boundary, look-back method, and comprehensive-context rule are governed by [`../agent-rules/autonomous-execution.md`](../agent-rules/autonomous-execution.md#comprehensive-review-epochs). Elim must review the supplied delta, unresolved exceptions, cross-project invariants, workflow health, and required sample without automatically repeating every issue's T-audits.
 
 The Review Epoch is the periodic protection against scoped-context creep. It does not authorize Elim to change a rubric, foundation, remedy, disposition, publication decision, or other human-reserved judgment.
 

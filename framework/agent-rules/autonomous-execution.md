@@ -1,0 +1,72 @@
+---
+title: "Agent Rules — Autonomous and Scheduled Execution"
+dependencies: "../AGENT_OPERATING_RULES.md"
+print_status: excluded
+print_exclusion_reason: "Internal workflow or tool documentation."
+---
+
+# Agent Rules — Autonomous and Scheduled Execution
+
+Load this module for every autonomous, scheduled, event-triggered, batched, or persistent-agent run. It supplements the universal rules in [`AGENT_OPERATING_RULES.md`](../AGENT_OPERATING_RULES.md), the applicable persistent-agent runbook, and the operation-specific agent-rule modules. It does not create authority: a runbook may narrow but may not enlarge the Framework or common agent rules.
+
+## Autonomous and Scheduled Execution
+
+Autonomous or scheduled execution is used only when the user expressly authorizes it or enables a persistent agent through its approved runbook and runtime configuration.
+
+The batch objective is to move eligible developed proposals toward T4 readiness while avoiding unsupervised substantive overreach.
+
+### Coordinated run chain
+
+Persistent automation runs through the authoritative Run Coordinator Bot rather than through overlapping independent clocks. One daily kickoff, an eligible event flag, a periodic-review deadline, or a manual dispatch may start the same chain. Closely related triggers are deduplicated into one Chain ID. The coordinator acquires an exclusive automation lock, confirms a clean and current repository boundary, runs each due deterministic stage, compiles the work queue and context manifests, applies the usage gate, and invokes Elim only when an eligible LLM-owned unit exists. When it launches Elim, the approved host dispatcher owns the unique usage baseline and refreshes the official host-attested snapshot throughout the run; Elim reads that snapshot at the runbook checkpoints and never starts a competing sandbox probe. Elim is the final substantive, change-producing stage; only deterministic validation, readback, structured closeout, and generated-view publication may follow it.
+
+The chain must defer rather than stash, overwrite, or absorb human-owned interactive work. GitHub workflow concurrency serializes cloud runs; one operating-system-held local dispatcher lease separately serializes host dispatch and Elim execution. The lease is released automatically by the operating system if its process terminates. Its acquisition-specific owner record stores the dispatcher process, Chain ID, invocation, Elim task when known, preserved output, and a continuously refreshed diagnostic heartbeat; every update and release must prove the same acquisition token. A legacy directory lock may be migrated only through the tested dead-owner or expired-ownerless recovery path. Recovery before Elim starts is a coordinator interruption, not an Elim failure. Recovery after Elim starts must mark Elim failed, preserve incomplete task evidence without treating it as an applied result, project the error to the Console and human Action Items, notify the user, and require a fresh current chain before substantive work resumes. Each stage records whether it was `due`, `not_due`, `completed`, `degraded`, `failed`, or `blocked`; `not_due` is a healthy result when its last successful run remains current. The chain manifest records its trigger, baseline commit, expected stages, timestamps, retry counts, outputs and hashes, repository state, failures or degradation, queue counts, Elim launch decision and reason, review epoch, usage summary, and exact next action.
+
+Before normal issue work, Elim verifies that every bot due in the current chain completed successfully or has an expressly recorded nonblocking degradation. Missing, stale, contradictory, or failed bot results take priority. Known transient or mechanical recovery is attempted by the coordinator first; Elim then diagnoses and corrects any remaining failure within its authority. A blocking failure prevents unrelated substantive work when stale or missing inputs could make that work unreliable. A nonblocking degradation may permit unrelated work, but it remains visible in the closeout. Any repair requiring credentials, unsafe external action, or human-reserved judgment becomes a human Action Item.
+
+### Queue integrity and conditional launch
+
+The deterministic work queue identifies work; it does not create authority. Every item carries a stable identifier, owner, class, severity, source revision, freshness timestamp, required authority, exact next action, retry state, and blocking reason if any. The dispatcher considers severity, contribution to Review Ready, readiness, age, and resolvability; aging prevents lower-severity development, candidate research, or public submissions from being postponed indefinitely. Suppressed, reprioritized, or manually forced items remain traceable.
+
+Elim is not launched merely to discover that no work exists. A clean or entirely deterministic chain closes as a recorded no-op. Interrupted or failed work returns to the queue with its exact continuation state. Repeated failures escalate to a human Action Item rather than retrying indefinitely. A queued record or context packet whose source commit, Project snapshot, governing-record hash, selected work profile, or preserved deterministic input is stale, missing, or contradictory must be rebuilt or fail closed before the LLM acts. When a comprehensive Review Epoch is due, its full-context work unit controls context selection even if an ordinary issue unit has a higher queue score; the coordinator rejects any attached packet that is not the comprehensive profile.
+
+Generated context packets are nonauthoritative projections. They may provide exact heading-selected governing text, issue-specific source rows, the current Project record, the latest relevant audit entry, unresolved findings, and changes since the prior boundary. They must record source paths and hashes and expand to full canonical context on ambiguity, rule change, conflict, or validation failure. They may never summarize away a human-reserved rule.
+
+### Comprehensive review epochs
+
+Efficient conditional runs must be supplemented by a periodic intensive Elim consistency review. The Run Coordinator Bot runbook owns the current cadence and scheduling configuration; only recorded human approval may lengthen that cadence. Material Framework, lifecycle, scoring, publication, agent-authority, or automation-architecture changes require off-cycle review, but a deterministic bot may not decide whether a detected governing change is material. For automated due calculation, the coordinator constructs the current registered governing boundary from every document marked `governing: true`, including its integration-pinned hash, adds the current `context-routes.json` hash, and compares that exact boundary with the latest completed Review Epoch. Any added, removed, moved, or changed registered governing document, or any registry-hash difference, marks an off-cycle epoch due. A governing file that differs from its integration-pinned registry hash, or other runtime-only governing drift that does not form a valid registered boundary, is an integrity failure and must fail closed; intentionally runtime-hashed non-governing records do not alter the epoch boundary. When a review is due, the context registry's comprehensive profile must load every registered governing module rather than a bounded ordinary-work subset.
+
+Each comprehensive review creates one structured Review Epoch containing `epoch_id`, `triggering_run_id`, `baseline_commit`, `completion_commit`, `governing_hashes` including the registry hash, `project_snapshot`, `registry_snapshot`, `reviewed_domains`, `resolved_findings`, `unresolved_findings`, `automation_health`, `sampling_record`, `completed_at`, `next_due_at`, `cadence_status`, `stability_status`, and `triggering_reason`. Before that boundary may be recorded, the Review Epoch recorder must verify the complete `comprehensive_review` packet against the current context registry and require exact hashes for every registered governing document plus the registry itself; a partial, stale, extra, or altered packet fails closed. Every finding unresolved in the preceding epoch must remain in `unresolved_findings` until the review records its resolution in `resolved_findings`; it may not disappear merely because the boundary advances. The following review examines changes since that boundary, carried-forward unresolved findings, all cross-project invariants, workflow health, and the recorded rotating sample of nominally unchanged mature records. It does not automatically rerun every T-audit; it determines whether a changed fact, rule, record, or detected drift triggers a Change Audit or another review. Review epochs prevent settled variables from being re-litigated while preserving project-wide look-back.
+
+**Automation-architecture Change Audit — 2026-07-24.** The human expressly approved replacing overlapping scheduled LLM discovery with the serialized Run Coordinator Bot, conditional Elim launches, bounded exact-source context, deterministic queue and validation work, public-intake event cursoring, and biweekly comprehensive Review Epochs that may move to monthly only after demonstrated stability. The review preserved comprehensive interactive Codex work, full T-audit depth, canonical-source expansion on ambiguity, the 15-percent reserve, every human-reserved decision, and the prohibition on arbitrary or score-directed rubric changes. It changed no Proposal Quality Score, score component, weight, penalty, threshold, band, rebaseline status, Review Ready determination, or `Runs` count. Runtime manifests, runbooks, Console observability, intake rules, context routing, queue freshness, recovery, logging, and tests must remain aligned with this governing record.
+
+### Batch Preflight
+
+Before starting an autonomous batch run, the agent must:
+
+1. confirm the working tree is clean, or stop and report the existing uncommitted files without beginning new audit work;
+2. confirm the current branch and remote target are understood;
+3. confirm the repository can read the latest local project rules, including [`AGENT_OPERATING_RULES.md`](../AGENT_OPERATING_RULES.md), [`FRAMEWORK.md`](../FRAMEWORK.md), [`GITHUB_WORKFLOW.md`](../GITHUB_WORKFLOW.md), [`HORIZON_SCAN_LOG.md`](../logs/HORIZON_SCAN_LOG.md), and [`AGENT_AUDIT_LOG.md`](../logs/AGENT_AUDIT_LOG.md);
+4. check the latest relevant audit record before each issue and skip any issue with unresolved human-review blockers unless the user has expressly authorized proceeding; and
+5. if the user expressly scheduled the run inside a defined work window, respect that user-defined boundary when selecting the next audit unit.
+
+If the preflight fails, do not begin autonomous edits. Record the reason in [`AGENT_AUDIT_LOG.md`](../logs/AGENT_AUDIT_LOG.md) when appropriate and notify the user.
+
+### Eligible Items
+
+For an ordinary audit-only batch, include only developed issues with issue pages and linked proposal vehicles. Exclude retired, merged, candidate, foundation-pending, `Research`, `Deferred`, `Blocked`, or `Human decision needed` issues unless the user expressly includes them. An expressly authorized recurring development run may also include issues whose canonical metadata records `foundation_status: approved`; those items use `Development level: In development` and are eligible for development, not automatically for a score-bearing audit. Before applying that filter, Elim reconciles admitted, unscored issues whose foundation metadata is absent, pending, or inconsistent: it may set `approved` and advance the lifecycle only after recording why the canonical four-part foundation is substantively present, or set or retain `pending`, route a genuinely missing human-reserved choice to `Human decision needed`, and skip the issue. Missing investigation that an agent is authorized to perform uses `Status: Research`; permitted framing, drafting, structural, remedy-design, or revision work uses `Status: Development`; a documented project postponement uses `Deferred`, and an unavailable indispensable prerequisite uses `Blocked`. Mere drafted language, headings, placeholders, or unresolved alternatives are not sufficient.
+
+An Elim development run may separately select a formal Horizon candidate for investigation when its Project row has `Development level: Candidate`, `Status: Research`, a defined candidate-research task in `Next audit`, and no unresolved human-reserved question or hold. This exception authorizes candidate source development and an adjudication recommendation, not a T-audit or proposal development. It does not change `Score` or `Runs`. When the bounded investigation is complete, Elim preserves the candidate level and routes the proposed disposition through `Status: Human decision needed`.
+
+Process issues in the GitHub Project queue unless the user gives a different queue. Use issue-page metadata and audit-history sidecars as the detailed audit-score and next-audit record.
+
+### Tier Progression
+
+Load and follow [`audit-execution.md`](audit-execution.md#tier-progression) before selecting or advancing an audit tier.
+
+### Permitted Autonomous Corrections
+
+Load and follow [`issue-and-candidate-work.md`](issue-and-candidate-work.md#permitted-autonomous-corrections) before applying autonomous changes to issue or candidate records.
+
+### Human-Review Stop Conditions
+
+Load and follow [`issue-and-candidate-work.md`](issue-and-candidate-work.md#human-review-stop-conditions) before issue or candidate work. The stop conditions apply even when a queue, runbook, or successful deterministic stage has selected the item.
