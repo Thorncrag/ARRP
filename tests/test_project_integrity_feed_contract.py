@@ -1,0 +1,79 @@
+import importlib.util
+import unittest
+import urllib.error
+from pathlib import Path
+from unittest import mock
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SCRIPT = ROOT / "scripts" / "build_project_integrity_feed.py"
+SPEC = importlib.util.spec_from_file_location("project_integrity_feed_contract", SCRIPT)
+MODULE = importlib.util.module_from_spec(SPEC)
+assert SPEC.loader is not None
+SPEC.loader.exec_module(MODULE)
+
+
+class ProjectIntegrityFeedContractTests(unittest.TestCase):
+    def report(self):
+        return {
+            "schema_version": 1,
+            "generated_at": "2026-07-25T12:00:00Z",
+            "revision": "abcdef123456",
+            "result": "clean",
+            "counts": {
+                "errors": 0,
+                "warnings": 0,
+                "findings": 0,
+                "issue_pages": 64,
+                "proposal_pages": 41,
+            },
+            "scope": ["repository identity", "Project consistency"],
+            "findings": [],
+            "duration_seconds": 1.5,
+        }
+
+    def test_feed_exposes_uniform_contract_and_bounded_history(self):
+        feed = MODULE.build_feed(
+            self.report(),
+            {
+                "history": [
+                    {
+                        "generated_at": "2026-07-24T12:00:00Z",
+                        "revision": "prior",
+                        "result": "clean",
+                        "counts": {"findings": 0},
+                    }
+                ]
+            },
+            2,
+        )
+        self.assertEqual(feed["schema_version"], 2)
+        self.assertTrue(feed["generation_id"].startswith("project-integrity-"))
+        self.assertEqual(feed["source_revision"], "abcdef123456")
+        self.assertEqual(feed["expected_count"], 2)
+        self.assertEqual(feed["actual_count"], 2)
+        self.assertTrue(feed["completeness"]["complete"])
+        self.assertEqual(len(feed["history"]), 2)
+
+    def test_invalid_existing_history_fails_closed(self):
+        with self.assertRaisesRegex(RuntimeError, "history contract"):
+            MODULE.build_feed(self.report(), {"history": "not-an-array"}, 3)
+        with self.assertRaisesRegex(RuntimeError, "non-object"):
+            MODULE.build_feed(self.report(), {"history": ["invalid"]}, 3)
+
+    def test_network_failure_does_not_erase_integrity_history(self):
+        url = (
+            "https://raw.githubusercontent.com/Thorncrag/ARRP/"
+            "project-console-data/integrity.json"
+        )
+        with mock.patch.object(
+            MODULE.urllib.request,
+            "urlopen",
+            side_effect=urllib.error.URLError("offline"),
+        ):
+            with self.assertRaisesRegex(RuntimeError, "refusing to replace"):
+                MODULE.existing_feed(url)
+
+
+if __name__ == "__main__":
+    unittest.main()

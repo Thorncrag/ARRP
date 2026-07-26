@@ -6,7 +6,7 @@ print_exclusion_reason: "Internal workflow or tool documentation."
 
 # Project Console Progress
 
-The **Progress** tab in the internal [ARRP Project Console](../research/horizon-review-console/index.html) is the project's sole human-facing progress dashboard. It visualizes the goal of bringing every eligible proposal to at least **Review Ready** by **December 31, 2026** and includes a compact six-stage development board. It does not replace the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2), whose `Development level` and `Status` fields remain authoritative, or repository issue pages and audit sidecars, which remain the substantive and audit authorities.
+The **Progress** tab in the internal [ARRP Project Console](../research/horizon-review-console/index.html) is the project's sole human-facing proposal-development progress dashboard. It visualizes the goal of bringing every eligible proposal to at least **Review Ready** by **December 31, 2026** and includes a compact six-stage development board. It does not replace the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2), whose `Development level` and `Status` fields remain authoritative, or repository issue pages and audit sidecars, which remain the substantive and audit authorities. Governance-discovery findings and gap obligations do not enter its target numerator, denominator, attainment velocity, or development backlog; the Console presents them in Integrity or Agents & Bots and routes only actual human-required decisions or interventions to Action Items.
 
 ARRP does not maintain a second Markdown dashboard on GitHub. Automation publishes only `progress.json` and `history.json` to the data-only `project-console-data` branch. The console consumes that feed and retains a checked-in offline snapshot. The data branch is infrastructure, not a second reader interface, and must not contain a rendered dashboard, narrative page, or chart files.
 
@@ -16,7 +16,7 @@ The corrected July 13, 2026 baseline is 23 Review Ready proposals out of 204 eli
 
 The builder joins the proposal identifier in the registry title to the identifier in the GitHub Project's built-in `Title` field. `Canonical page` is a fallback only when it uniquely identifies one Project item. Governance, horizon, source-review, merged-proposal, and other non-active-proposal records are excluded. A proposal without an unambiguous Project identity remains in the denominator, is treated as not ready, and produces a tracking warning.
 
-The official target and calculation settings are stored in [`.github/project-console-progress.json`](../.github/project-console-progress.json). A rolling forecast may move as progress changes, but it does not replace the official target. Changes to eligibility, the readiness rule, or the official target require a project-level Change Audit.
+The official target and calculation settings are stored in [`.github/project-console-progress.json`](../.github/project-console-progress.json). A rolling forecast may move as progress changes, but it does not replace the official target. Project-governance reviews, automation defects, source-monitoring gaps, contributor-readiness checks, and other stable gap obligations are operational stewardship work rather than proposal eligibility. They may affect a proposal only through the ordinary canonical lifecycle or audit update that independently satisfies this dashboard's rules. Changes to eligibility, the readiness rule, or the official target require a project-level Change Audit.
 
 ## Review Ready rule
 
@@ -37,7 +37,7 @@ The board is a visualization of Project and registry data, not an editable or co
 
 ## Metrics and forecast
 
-The console reports eligible, Review Ready, and remaining counts; current portfolio coverage; scope change from baseline; required and rolling weekly pace; forecast completion; schedule variance; compact area coverage; the six-stage development board; issue-level monitoring; workflow holds; and tracking warnings. The board is the primary record-level progress view; the former closest-to-ready list is not maintained as a separate Console presentation. The trajectory graph compares actual attainment with the pace required to reach the official target.
+The console reports eligible, Review Ready, and remaining counts; current portfolio coverage; scope change from baseline; required and rolling weekly pace; forecast completion; schedule variance; compact area coverage; the six-stage development board; issue-level monitoring; workflow holds; and tracking warnings. The board is the primary record-level proposal-progress view; the former closest-to-ready list is not maintained as a separate Console presentation. Governance-discovery and gap-obligation counts must not be blended into these metrics or warnings; their owning views may link to an affected proposal when relevant. The trajectory graph compares actual attainment with the pace required to reach the official target.
 
 Required weekly pace is:
 

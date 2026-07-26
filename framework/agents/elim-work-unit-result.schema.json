@@ -19,7 +19,9 @@
     "commit",
     "synchronization",
     "human_questions",
-    "continuation"
+    "continuation",
+    "discovered_work_units",
+    "gap_obligation_updates"
   ],
   "properties": {
     "schema_version": { "type": "integer", "const": 1 },
@@ -93,6 +95,275 @@
           "enum": ["complete", "retryable", "human_required", "none"]
         },
         "next_action": { "type": ["string", "null"] }
+      }
+    },
+    "discovered_work_units": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "obligation_id",
+          "domain",
+          "discovery_context",
+          "observed_at",
+          "source_revision",
+          "evidence",
+          "reasoning",
+          "uncertainty",
+          "affected_records",
+          "consequence",
+          "authority",
+          "action_rationale",
+          "changed_files",
+          "affected_surfaces",
+          "validation_readback",
+          "disposition",
+          "canonical_detail",
+          "provenance",
+          "owner",
+          "next_action",
+          "next_trigger",
+          "outside_contribution"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+          },
+          "obligation_id": {
+            "type": ["string", "null"],
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+          },
+          "domain": { "type": "string", "minLength": 1 },
+          "discovery_context": { "type": "string", "minLength": 1 },
+          "observed_at": { "type": "string", "minLength": 1 },
+          "source_revision": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{40}|sha256:[0-9a-f]{64}|[0-9a-f]{64})$"
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "reasoning": { "type": "string", "minLength": 1 },
+          "uncertainty": { "type": ["string", "null"], "minLength": 1 },
+          "affected_records": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "consequence": { "type": "string", "minLength": 1 },
+          "authority": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["classification", "basis", "disposition"],
+            "properties": {
+              "classification": {
+                "type": "string",
+                "enum": ["mechanical", "delegated_judgment", "human_reserved"]
+              },
+              "basis": { "type": "string", "minLength": 1 },
+              "disposition": {
+                "type": "string",
+                "enum": [
+                  "permitted",
+                  "human_reserved",
+                  "forbidden",
+                  "unsafe",
+                  "out_of_scope",
+                  "uncertain"
+                ]
+              }
+            }
+          },
+          "action_rationale": { "type": "string", "minLength": 1 },
+          "changed_files": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "affected_surfaces": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "repository",
+                "github_issue",
+                "github_project",
+                "source",
+                "monitoring",
+                "automation",
+                "console",
+                "publication",
+                "public"
+              ]
+            }
+          },
+          "validation_readback": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["check", "status", "evidence"],
+              "properties": {
+                "check": { "type": "string", "minLength": 1 },
+                "status": {
+                  "type": "string",
+                  "enum": ["passed", "failed", "skipped"]
+                },
+                "evidence": { "type": "string", "minLength": 1 }
+              }
+            }
+          },
+          "disposition": {
+            "type": "string",
+            "enum": [
+              "fixed",
+              "reported",
+              "retained",
+              "no_material_finding",
+              "review_completed"
+            ]
+          },
+          "canonical_detail": { "type": "string", "minLength": 1 },
+          "provenance": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "owner": { "type": "string", "minLength": 1 },
+          "next_action": { "type": "string", "minLength": 1 },
+          "next_trigger": { "type": "string", "minLength": 1 },
+          "outside_contribution": {
+            "anyOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "identity",
+                  "revision",
+                  "classification",
+                  "checks",
+                  "integration_posture"
+                ],
+                "properties": {
+                  "identity": { "type": "string", "minLength": 1 },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{40}|sha256:[0-9a-f]{64}|[0-9a-f]{64})$"
+                  },
+                  "classification": { "type": "string", "minLength": 1 },
+                  "checks": {
+                    "type": "array",
+                    "minItems": 9,
+                    "maxItems": 9,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["check", "status", "evidence"],
+                      "properties": {
+                        "check": {
+                          "type": "string",
+                          "enum": [
+                            "identity",
+                            "classification",
+                            "required_fields",
+                            "canonical_linkage",
+                            "evidence_and_provenance",
+                            "lifecycle_and_authority",
+                            "generated_views",
+                            "tests",
+                            "documentation"
+                          ]
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": ["passed", "failed", "blocked"]
+                        },
+                        "evidence": { "type": "string", "minLength": 1 }
+                      }
+                    }
+                  },
+                  "integration_posture": {
+                    "type": "string",
+                    "enum": ["ready", "blocked", "human_review", "not_applicable"]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "gap_obligation_updates": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "obligation_id",
+          "discovered_work_unit_id",
+          "status",
+          "observed_at",
+          "resolution"
+        ],
+        "properties": {
+          "obligation_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+          },
+          "discovered_work_unit_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "investigating",
+              "blocked",
+              "human_required",
+              "resolved",
+              "human_disposition"
+            ]
+          },
+          "observed_at": { "type": "string", "minLength": 1 },
+          "resolution": {
+            "anyOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "kind",
+                  "verified_at",
+                  "evidence",
+                  "source_revision",
+                  "recorded_by"
+                ],
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": ["verified_resolution", "human_disposition"]
+                  },
+                  "verified_at": { "type": "string", "minLength": 1 },
+                  "evidence": { "type": "string", "minLength": 1 },
+                  "source_revision": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{40}|sha256:[0-9a-f]{64}|[0-9a-f]{64})$"
+                  },
+                  "recorded_by": { "type": "string", "minLength": 1 }
+                }
+              }
+            ]
+          }
+        }
       }
     }
   }

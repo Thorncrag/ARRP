@@ -26,6 +26,87 @@ class RunCoordinatorTests(unittest.TestCase):
         )
         self.now = datetime(2026, 7, 24, 8, tzinfo=timezone.utc)
 
+    def governance_projection(
+        self,
+        *,
+        ordinary_count: int = 1,
+        current: bool = False,
+    ):
+        last_review = (
+            {
+                "last_reviewed_at": "2026-07-24T07:00:00+00:00",
+                "run_id": "run-1",
+                "selected_unit_id": "governance-unit-1",
+                "discovered_work_unit_id": "discovery-control-1",
+                "source_revision": "b" * 40,
+                "disposition": "no_material_finding",
+                "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+                "next_trigger": "Repeat at the minimum cadence or when new work appears.",
+            }
+            if current
+            else None
+        )
+        return {
+            "mode": "Project governance review and discovery",
+            "ordinary_selection_policy": "after-ordinary-queue-clears",
+            "minimum_interval_hours": 168,
+            "selected_as_quiet_queue_fallback": False,
+            "ordinary_eligible_count_before_fallback": ordinary_count,
+            "last_review": last_review,
+            "next_due_at": (
+                "2026-07-31T07:00:00+00:00" if current else None
+            ),
+            "current_for_cadence": current,
+            "waiting_for_ordinary_queue": ordinary_count > 0,
+            "reason": (
+                "The last committed governance review remains current for the "
+                "minimum cadence."
+                if current
+                else "Ordinary eligible work remains and is selected first."
+            ),
+        }
+
+    def gap_queue_item(self):
+        projection = {
+            "severity": "warning",
+            "owner": "agent",
+            "authority": {
+                "classification": "delegated_judgment",
+                "basis": "The runbook authorizes investigation but not implementation.",
+            },
+            "authority_disposition": "forbidden",
+            "disposition": "retained",
+            "first_seen": "2026-07-20T08:00:00+00:00",
+            "last_checked": "2026-07-24T08:00:00+00:00",
+            "occurrence_count": 2,
+            "age_days": 4,
+            "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+            "exact_next_action": "Retain the finding until its recorded trigger.",
+            "next_trigger": "A governing rule authorizes the change.",
+            "source_revision": "c" * 40,
+        }
+        return {
+            "id": "INTEGRITY-gap-1",
+            "kind": "integrity",
+            "work_class": "gap_stewardship",
+            "title": "Retained governance gap",
+            "eligible_for_elim": False,
+            "requires_human": False,
+            "eligibility_reason": "not eligible under the selected runbook",
+            "blocking_reason": None,
+            "exact_next_action": projection["exact_next_action"],
+            "gap_obligation_id": "GAP-001",
+            "source": {
+                "input": "gap_obligations",
+                "finding_type": "gap_obligation",
+                "obligation_id": "GAP-001",
+                "obligation_status": "open",
+                "obligation_projection": projection,
+                "canonicalRecord": "framework/logs/ELIM_RUN_LOG.md",
+                "canonical_record": "framework/logs/ELIM_RUN_LOG.md",
+            },
+        }
+
     def test_stage_order_ends_with_integrity_and_elim_is_not_a_bot_stage(self):
         MODULE.validate_config(self.config)
         ids = [stage["id"] for stage in self.config["stages"]]
@@ -1242,6 +1323,7 @@ class RunCoordinatorTests(unittest.TestCase):
                     "eligible_for_elim": True,
                 }
             ],
+            "governance_discovery": self.governance_projection(),
             "problems": [],
         }
         context = {
@@ -1314,6 +1396,9 @@ class RunCoordinatorTests(unittest.TestCase):
                     "eligible_for_elim": True,
                 },
             ],
+            "governance_discovery": self.governance_projection(
+                ordinary_count=2
+            ),
             "problems": [],
         }
         context = {
@@ -1391,6 +1476,7 @@ class RunCoordinatorTests(unittest.TestCase):
                 },
                 selected,
             ],
+            "governance_discovery": self.governance_projection(),
             "problems": [],
         }
         context = {
@@ -1478,6 +1564,7 @@ class RunCoordinatorTests(unittest.TestCase):
                     },
                 }
             ],
+            "governance_discovery": self.governance_projection(),
             "problems": [],
         }
         context = {
@@ -1522,6 +1609,104 @@ class RunCoordinatorTests(unittest.TestCase):
         )
         self.assertEqual(attached["elim_decision"]["profile"]["id"], "substantive")
 
+    def test_attach_context_projects_governance_and_compact_gap_obligations(self):
+        manifest = {
+            "schema_version": 1,
+            "final_revision": "a" * 40,
+            "elim_decision": {
+                "launch_recommended": False,
+                "profile": {"full_context": False},
+            },
+            "queue_counts": {"total": 0},
+            "review_epoch": {"due": False},
+            "status": "complete",
+            "next_action": "Wait.",
+        }
+        gap_item = self.gap_queue_item()
+        governance = self.governance_projection(
+            ordinary_count=0,
+            current=True,
+        )
+        queue = {
+            "schema_version": 1,
+            "repository_revision": "a" * 40,
+            "ready_for_elim": True,
+            "launch_recommended": False,
+            "counts": {
+                "total": 1,
+                "gap_obligations": 1,
+                "governance_discovery": 0,
+            },
+            "items": [gap_item],
+            "governance_discovery": governance,
+            "problems": [],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            manifest_path = directory / "manifest.json"
+            queue_path = directory / "queue.json"
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            queue_path.write_text(json.dumps(queue), encoding="utf-8")
+            args = type(
+                "Args",
+                (),
+                {
+                    "manifest": manifest_path,
+                    "queue": queue_path,
+                    "context": None,
+                    "output": None,
+                },
+            )()
+            MODULE.attach_context(args)
+            attached = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(
+            attached["work_queue"]["governance_discovery"],
+            governance,
+        )
+        self.assertEqual(len(attached["work_queue"]["gap_obligations"]), 1)
+        projected = attached["work_queue"]["gap_obligations"][0]
+        self.assertEqual(projected["obligation_id"], "GAP-001")
+        self.assertEqual(projected["authority_disposition"], "forbidden")
+        self.assertEqual(
+            projected["canonical_detail"],
+            "framework/logs/ELIM_RUN_LOG.md",
+        )
+        self.assertNotIn("evidence", projected)
+        self.assertNotIn("reasoning", projected)
+        self.assertNotIn("consequence", projected)
+
+    def test_gap_and_governance_projections_fail_closed_on_malformed_or_unbounded_data(
+        self,
+    ):
+        gap_item = self.gap_queue_item()
+        with self.assertRaisesRegex(ValueError, "projection bound"):
+            MODULE.gap_obligation_projections(
+                {"items": [gap_item]},
+                maximum=0,
+            )
+
+        malformed_gap = json.loads(json.dumps(gap_item))
+        malformed_gap["source"]["obligation_projection"]["evidence"] = [
+            "Narrative belongs in the canonical detail record."
+        ]
+        with self.assertRaisesRegex(ValueError, "compact canonical projection"):
+            MODULE.gap_obligation_projections(
+                {"items": [malformed_gap]},
+                maximum=512,
+            )
+
+        malformed_governance = self.governance_projection()
+        malformed_governance["minimum_interval_hours"] = 24
+        with self.assertRaisesRegex(ValueError, "differs from coordinator policy"):
+            MODULE.governance_discovery_projection(
+                {
+                    "items": [],
+                    "governance_discovery": malformed_governance,
+                },
+                self.config,
+            )
+
     def test_attach_context_rejects_missing_stale_unbounded_or_unbound_packets(self):
         manifest = {
             "schema_version": 1,
@@ -1551,6 +1736,7 @@ class RunCoordinatorTests(unittest.TestCase):
                     },
                 }
             ],
+            "governance_discovery": self.governance_projection(),
             "problems": [],
         }
         valid = {

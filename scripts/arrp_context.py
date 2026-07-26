@@ -12,7 +12,7 @@ import re
 import stat
 import subprocess
 from dataclasses import dataclass
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
 
@@ -128,6 +128,32 @@ WORK_ITEM_NEXT_ACTION_BY_KIND = {
     "candidate_research": "Perform one bounded candidate-research operation.",
     "comprehensive_review": "Run the due comprehensive Review Epoch.",
 }
+GAP_OBLIGATION_OPEN_STATUSES = {
+    "open",
+    "investigating",
+    "blocked",
+    "human_required",
+}
+GAP_OBLIGATION_CLOSED_STATUSES = {
+    "resolved",
+    "human_disposition",
+}
+GAP_OBLIGATION_STATUSES = (
+    GAP_OBLIGATION_OPEN_STATUSES | GAP_OBLIGATION_CLOSED_STATUSES
+)
+GAP_OBLIGATION_SEVERITY_PRIORITY = {
+    "critical": 950,
+    "error": 900,
+    "high": 800,
+    "warning": 700,
+    "normal": 600,
+    "low": 450,
+}
+MAX_GAP_OBLIGATIONS = 512
+GOVERNANCE_DISCOVERY_MIN_INTERVAL_HOURS = 168
+EXACT_SOURCE_REVISION_RE = re.compile(
+    r"^(?:[0-9a-f]{40}|sha256:[0-9a-f]{64}|[0-9a-f]{64})$"
+)
 
 
 class ContextError(RuntimeError):
@@ -1117,6 +1143,368 @@ def age_days(timestamp: Any, now: datetime) -> int:
     return max(0, int((now - parsed).total_seconds() // 86400))
 
 
+def _nonblank_string(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+def _safe_repository_relative_path(value: Any) -> bool:
+    if not _nonblank_string(value):
+        return False
+    path = Path(str(value))
+    return not path.is_absolute() and ".." not in path.parts
+
+
+def validate_gap_obligation_state(value: Any) -> list[dict[str, Any]]:
+    """Validate the host-retained, exact-history gap-obligation ledger."""
+    if not isinstance(value, dict) or set(value) != {
+        "schema_version",
+        "updated_at",
+        "governance_review",
+        "items",
+    }:
+        raise ContextError("gap-obligation state fields do not match the approved schema")
+    if value.get("schema_version") != 1:
+        raise ContextError("gap-obligation state schema_version must be 1")
+    if value.get("updated_at") is not None and parse_time(value.get("updated_at")) is None:
+        raise ContextError("gap-obligation state updated_at is invalid")
+    governance_review = value.get("governance_review")
+    if governance_review is not None:
+        governance_fields = {
+            "last_reviewed_at",
+            "run_id",
+            "selected_unit_id",
+            "discovered_work_unit_id",
+            "source_revision",
+            "disposition",
+            "canonical_detail",
+            "next_trigger",
+        }
+        if (
+            not isinstance(governance_review, dict)
+            or set(governance_review) != governance_fields
+            or parse_time(governance_review.get("last_reviewed_at")) is None
+            or not all(
+                _nonblank_string(governance_review.get(field))
+                for field in (
+                    "run_id",
+                    "selected_unit_id",
+                    "discovered_work_unit_id",
+                    "source_revision",
+                    "next_trigger",
+                )
+            )
+            or EXACT_SOURCE_REVISION_RE.fullmatch(
+                str(governance_review.get("source_revision") or "")
+            )
+            is None
+            or governance_review.get("disposition")
+            not in {"no_material_finding", "review_completed"}
+            or not _safe_repository_relative_path(
+                governance_review.get("canonical_detail")
+            )
+        ):
+            raise ContextError("gap-obligation governance-review state is malformed")
+    items = value.get("items")
+    if not isinstance(items, list):
+        raise ContextError("gap-obligation state items must be an array")
+    if len(items) > MAX_GAP_OBLIGATIONS:
+        raise ContextError("gap-obligation state exceeds its bounded capacity")
+
+    required = {
+        "obligation_id",
+        "title",
+        "domain",
+        "severity",
+        "status",
+        "owner",
+        "authority",
+        "authority_disposition",
+        "canonical_detail",
+        "provenance",
+        "source_revision",
+        "evidence",
+        "reasoning",
+        "uncertainty",
+        "affected_records",
+        "affected_surfaces",
+        "consequence",
+        "action_rationale",
+        "validation_readback",
+        "disposition",
+        "exact_next_action",
+        "next_trigger",
+        "first_seen",
+        "last_checked",
+        "occurrence_count",
+        "age_days",
+        "last_discovered_work_unit_id",
+        "occurrences",
+        "status_history",
+        "resolution",
+    }
+    identities: set[str] = set()
+    normalized: list[dict[str, Any]] = []
+    for item in items:
+        if not isinstance(item, dict) or set(item) != required:
+            raise ContextError(
+                "gap-obligation item fields do not match the approved schema"
+            )
+        obligation_id = str(item.get("obligation_id") or "")
+        if not WORK_ITEM_ID_RE.fullmatch(obligation_id):
+            raise ContextError("gap-obligation item has an invalid stable identity")
+        if obligation_id in identities:
+            raise ContextError("gap-obligation state repeats a stable identity")
+        identities.add(obligation_id)
+        for field in (
+            "title",
+            "domain",
+            "severity",
+            "owner",
+            "source_revision",
+            "reasoning",
+            "consequence",
+            "exact_next_action",
+            "next_trigger",
+            "last_discovered_work_unit_id",
+        ):
+            if not _nonblank_string(item.get(field)):
+                raise ContextError(f"gap-obligation item requires {field}")
+        if (
+            EXACT_SOURCE_REVISION_RE.fullmatch(item["source_revision"]) is None
+        ):
+            raise ContextError("gap-obligation source revision is not exact")
+        if item.get("status") not in GAP_OBLIGATION_STATUSES:
+            raise ContextError("gap-obligation item has an invalid status")
+        authority = item.get("authority")
+        if not isinstance(authority, dict) or set(authority) != {
+            "classification",
+            "basis",
+        }:
+            raise ContextError("gap-obligation authority is malformed")
+        if authority.get("classification") not in {
+            "mechanical",
+            "delegated_judgment",
+            "human_reserved",
+        } or not _nonblank_string(authority.get("basis")):
+            raise ContextError("gap-obligation authority is invalid")
+        if item.get("authority_disposition") not in {
+            "permitted",
+            "human_reserved",
+            "forbidden",
+            "unsafe",
+            "out_of_scope",
+            "uncertain",
+        }:
+            raise ContextError("gap-obligation authority disposition is invalid")
+        if not _safe_repository_relative_path(item.get("canonical_detail")):
+            raise ContextError("gap-obligation canonical detail path is unsafe")
+        for field in ("provenance", "evidence", "affected_records"):
+            entries = item.get(field)
+            if not isinstance(entries, list) or not all(
+                _nonblank_string(entry) for entry in entries
+            ):
+                raise ContextError(f"gap-obligation {field} must be a string array")
+        if not item["provenance"] or not item["evidence"]:
+            raise ContextError(
+                "gap-obligation provenance and evidence may not be empty"
+            )
+        if item.get("uncertainty") is not None and not _nonblank_string(
+            item.get("uncertainty")
+        ):
+            raise ContextError("gap-obligation uncertainty must be null or nonblank")
+        surfaces = item.get("affected_surfaces")
+        allowed_surfaces = {
+            "repository",
+            "github_issue",
+            "github_project",
+            "source",
+            "monitoring",
+            "automation",
+            "console",
+            "publication",
+            "public",
+        }
+        if (
+            not isinstance(surfaces, list)
+            or not surfaces
+            or len(surfaces) != len(set(surfaces))
+            or not set(surfaces) <= allowed_surfaces
+        ):
+            raise ContextError("gap-obligation affected surfaces are invalid")
+        if not _nonblank_string(item.get("action_rationale")):
+            raise ContextError("gap-obligation action rationale is required")
+        if item.get("disposition") not in {"fixed", "reported", "retained"}:
+            raise ContextError("gap-obligation disposition is invalid")
+        validation = item.get("validation_readback")
+        if not isinstance(validation, list):
+            raise ContextError(
+                "gap-obligation validation and readback must be an array"
+            )
+        validation_fields = {"check", "status", "evidence"}
+        for check in validation:
+            if (
+                not isinstance(check, dict)
+                or set(check) != validation_fields
+                or not _nonblank_string(check.get("check"))
+                or check.get("status") not in {"passed", "failed", "skipped"}
+                or not _nonblank_string(check.get("evidence"))
+            ):
+                raise ContextError(
+                    "gap-obligation validation and readback entry is malformed"
+                )
+        first_seen = parse_time(item.get("first_seen"))
+        last_checked = parse_time(item.get("last_checked"))
+        if first_seen is None or last_checked is None or last_checked < first_seen:
+            raise ContextError("gap-obligation observation times are invalid")
+        if (
+            isinstance(item.get("occurrence_count"), bool)
+            or not isinstance(item.get("occurrence_count"), int)
+            or item["occurrence_count"] < 1
+            or isinstance(item.get("age_days"), bool)
+            or not isinstance(item.get("age_days"), int)
+            or item["age_days"] < 0
+        ):
+            raise ContextError("gap-obligation occurrence or age fields are invalid")
+        occurrences = item.get("occurrences")
+        history = item.get("status_history")
+        if (
+            not isinstance(occurrences, list)
+            or len(occurrences) != item["occurrence_count"]
+            or not isinstance(history, list)
+            or not history
+        ):
+            raise ContextError("gap-obligation retained history is incomplete")
+        occurrence_fields = {
+            "at",
+            "run_id",
+            "discovered_work_unit_id",
+            "source_revision",
+            "status",
+            "canonical_detail",
+        }
+        for occurrence in occurrences:
+            if (
+                not isinstance(occurrence, dict)
+                or set(occurrence) != occurrence_fields
+                or parse_time(occurrence.get("at")) is None
+                or occurrence.get("status") not in GAP_OBLIGATION_STATUSES
+                or not all(
+                    _nonblank_string(occurrence.get(field))
+                    for field in (
+                        "run_id",
+                        "discovered_work_unit_id",
+                        "source_revision",
+                    )
+                )
+                or EXACT_SOURCE_REVISION_RE.fullmatch(
+                    str(occurrence.get("source_revision") or "")
+                )
+                is None
+                or not _safe_repository_relative_path(
+                    occurrence.get("canonical_detail")
+                )
+            ):
+                raise ContextError("gap-obligation occurrence history is malformed")
+        history_fields = {"status", "at", "run_id", "evidence", "resolution"}
+        for transition in history:
+            if (
+                not isinstance(transition, dict)
+                or set(transition) != history_fields
+                or transition.get("status") not in GAP_OBLIGATION_STATUSES
+                or parse_time(transition.get("at")) is None
+                or not _nonblank_string(transition.get("run_id"))
+                or not _nonblank_string(transition.get("evidence"))
+            ):
+                raise ContextError("gap-obligation status history is malformed")
+            transition_resolution = transition.get("resolution")
+            if transition_resolution is not None and (
+                not isinstance(transition_resolution, dict)
+                or set(transition_resolution)
+                != {
+                    "kind",
+                    "verified_at",
+                    "evidence",
+                    "source_revision",
+                    "recorded_by",
+                }
+                or transition_resolution.get("kind")
+                not in {"verified_resolution", "human_disposition"}
+                or parse_time(transition_resolution.get("verified_at")) is None
+                or not _nonblank_string(transition_resolution.get("evidence"))
+                or not _nonblank_string(
+                    transition_resolution.get("source_revision")
+                )
+                or EXACT_SOURCE_REVISION_RE.fullmatch(
+                    str(transition_resolution.get("source_revision") or "")
+                )
+                is None
+                or not _nonblank_string(transition_resolution.get("recorded_by"))
+            ):
+                raise ContextError(
+                    "gap-obligation status history resolution proof is malformed"
+                )
+        resolution = item.get("resolution")
+        if item["status"] in GAP_OBLIGATION_CLOSED_STATUSES:
+            if not isinstance(resolution, dict) or set(resolution) != {
+                "kind",
+                "verified_at",
+                "evidence",
+                "source_revision",
+                "recorded_by",
+            }:
+                raise ContextError(
+                    "closed gap-obligation item lacks exact resolution proof"
+                )
+            if (
+                resolution.get("kind")
+                not in {"verified_resolution", "human_disposition"}
+                or parse_time(resolution.get("verified_at")) is None
+                or not _nonblank_string(resolution.get("evidence"))
+                or not _nonblank_string(resolution.get("source_revision"))
+                or EXACT_SOURCE_REVISION_RE.fullmatch(
+                    str(resolution.get("source_revision") or "")
+                )
+                is None
+                or not _nonblank_string(resolution.get("recorded_by"))
+            ):
+                raise ContextError("gap-obligation resolution proof is invalid")
+            if (
+                item["status"] == "resolved"
+                and resolution["kind"] != "verified_resolution"
+            ) or (
+                item["status"] == "human_disposition"
+                and resolution["kind"] != "human_disposition"
+            ):
+                raise ContextError(
+                    "gap-obligation closed status contradicts its resolution proof"
+                )
+            if item["status"] == "resolved" and item[
+                "authority_disposition"
+            ] in {"forbidden", "unsafe", "out_of_scope", "uncertain"}:
+                raise ContextError(
+                    "a prohibited, unsafe, out-of-scope, or uncertain finding "
+                    "cannot close as a verified repair"
+                )
+            if (
+                item["status"] == "resolved"
+                and (
+                    item["disposition"] != "fixed"
+                    or not validation
+                    or any(check["status"] != "passed" for check in validation)
+                )
+            ):
+                raise ContextError(
+                    "verified gap resolution requires fixed disposition and passing "
+                    "validation/readback proof"
+                )
+        elif resolution is not None:
+            raise ContextError(
+                "open gap-obligation item may not carry resolution proof"
+            )
+        normalized.append(dict(item))
+    return normalized
+
+
 def stable_work_id(kind: str, identity: str) -> str:
     digest = sha256_bytes(f"{kind}\0{identity}".encode("utf-8"))[:12]
     return f"{kind.upper().replace('_', '-')}-{digest}"
@@ -1562,6 +1950,7 @@ def build_work_queue(
     chain_path: Path,
     recovery_path: Path | None = None,
     run_log_reconciliation_path: Path | None = None,
+    gap_obligations_path: Path | None = None,
     review_epoch_path: Path | None = None,
     source_checker_path: Path | None = None,
     case_monitor_path: Path | None = None,
@@ -1570,6 +1959,9 @@ def build_work_queue(
     now: datetime | None = None,
     max_age_hours: int = 36,
     source_checker_max_age_hours: int = 192,
+    governance_minimum_interval_hours: int = (
+        GOVERNANCE_DISCOVERY_MIN_INTERVAL_HOURS
+    ),
     input_root: Path = ROOT,
 ) -> dict[str, Any]:
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
@@ -1581,6 +1973,13 @@ def build_work_queue(
         "recovery": input_record(recovery_path, False, now, max_age_hours, input_root),
         "run_log_reconciliation": input_record(
             run_log_reconciliation_path,
+            False,
+            now,
+            max_age_hours * 3650,
+            input_root,
+        ),
+        "gap_obligations": input_record(
+            gap_obligations_path,
             False,
             now,
             max_age_hours * 3650,
@@ -1817,6 +2216,100 @@ def build_work_queue(
                     freshness_timestamp=reconciliation.get("updated_at"),
                 )
             )
+    gap_state = records["gap_obligations"].get("data")
+    governance_review: dict[str, Any] | None = None
+    if gap_state is not None:
+        gap_items = validate_gap_obligation_state(gap_state)
+        governance_review = gap_state.get("governance_review")
+        gap_snapshot = str(records["gap_obligations"].get("sha256") or "")
+        for obligation in gap_items:
+            if obligation["status"] in GAP_OBLIGATION_CLOSED_STATUSES:
+                continue
+            human_owned = (
+                obligation["status"] == "human_required"
+                or obligation["authority"]["classification"] == "human_reserved"
+                or obligation["authority_disposition"] == "human_reserved"
+                or obligation["owner"].casefold() == "human"
+            )
+            implementation_prohibited = obligation["authority_disposition"] in {
+                "forbidden",
+                "unsafe",
+                "out_of_scope",
+            }
+            eligible = (
+                not human_owned
+                and not implementation_prohibited
+                and obligation["status"] in {"open", "investigating"}
+            )
+            item = make_item(
+                kind="integrity",
+                identity=f"gap-obligation:{obligation['obligation_id']}",
+                title=obligation["title"],
+                owner="human" if human_owned else "agent",
+                created_at=obligation["first_seen"],
+                now=now,
+                source={
+                    "input": "gap_obligations",
+                    "finding_type": "gap_obligation",
+                    "obligation_id": obligation["obligation_id"],
+                    "obligation_status": obligation["status"],
+                    "obligation_projection": {
+                        "severity": obligation["severity"],
+                        "owner": obligation["owner"],
+                        "authority": obligation["authority"],
+                        "authority_disposition": obligation[
+                            "authority_disposition"
+                        ],
+                        "disposition": obligation["disposition"],
+                        "first_seen": obligation["first_seen"],
+                        "last_checked": obligation["last_checked"],
+                        "occurrence_count": obligation["occurrence_count"],
+                        "age_days": obligation["age_days"],
+                        "canonical_detail": obligation["canonical_detail"],
+                        "exact_next_action": obligation["exact_next_action"],
+                        "next_trigger": obligation["next_trigger"],
+                        "source_revision": obligation["source_revision"],
+                    },
+                    "canonicalRecord": obligation["canonical_detail"],
+                    "canonical_record": obligation["canonical_detail"],
+                },
+                base_priority=GAP_OBLIGATION_SEVERITY_PRIORITY.get(
+                    obligation["severity"].casefold(),
+                    GAP_OBLIGATION_SEVERITY_PRIORITY["normal"],
+                ),
+                eligible=eligible,
+                reason=(
+                    "Retained gap obligation; follow the canonical detail record "
+                    "rather than a copied narrative."
+                ),
+                source_revision=obligation["source_revision"] or gap_snapshot,
+                freshness_timestamp=obligation["last_checked"],
+                severity=obligation["severity"],
+            )
+            item["work_class"] = "gap_stewardship"
+            item["exact_next_action"] = obligation["exact_next_action"]
+            item["dependencies"] = list(
+                dict.fromkeys(
+                    [
+                        "gap_obligations",
+                        obligation["canonical_detail"],
+                        *obligation["affected_records"],
+                    ]
+                )
+            )
+            item["gap_obligation_id"] = obligation["obligation_id"]
+            if obligation["status"] == "blocked" and not human_owned:
+                item["eligibility_reason"] = (
+                    "retained until its recorded next trigger occurs"
+                )
+                item["blocking_reason"] = obligation["next_trigger"]
+            elif implementation_prohibited:
+                item["eligibility_reason"] = (
+                    "retained as a non-implementable obligation under the recorded "
+                    f"{obligation['authority_disposition']} authority disposition"
+                )
+                item["blocking_reason"] = obligation["next_trigger"]
+            items.append(item)
     integrity = records["integrity"].get("data") or {}
     for finding in integrity.get("findings", []) if isinstance(integrity, dict) else []:
         identity = str(finding.get("id") or canonical_json(finding).decode("utf-8"))
@@ -2355,6 +2848,74 @@ def build_work_queue(
                 freshness_timestamp=records["review_epoch"].get("reported_at"),
             )
         )
+    ordinary_eligible_count = sum(
+        bool(item.get("eligible_for_elim")) for item in items
+    )
+    governance_discovery_added = False
+    last_governance_review_at = parse_time(
+        (governance_review or {}).get("last_reviewed_at")
+    )
+    governance_next_due_at = (
+        last_governance_review_at
+        + timedelta(hours=governance_minimum_interval_hours)
+        if last_governance_review_at is not None
+        else None
+    )
+    governance_due = (
+        last_governance_review_at is None
+        or (
+            governance_next_due_at is not None
+            and now >= governance_next_due_at
+        )
+    )
+    if (
+        not problems
+        and ordinary_eligible_count == 0
+        and governance_due
+    ):
+        governance_item = make_item(
+            kind="integrity",
+            identity="project-governance-review-and-discovery",
+            title="Project governance review and discovery",
+            owner="agent",
+            created_at=chain.get("created_at") or chain.get("started_at"),
+            now=now,
+            source={
+                "input": "chain",
+                "finding_type": "project_governance_review_and_discovery",
+                "mode": "Project governance review and discovery",
+                "ordinary_eligible_count": 0,
+                "minimum_coverage_not_ceiling": True,
+                "review_domains": [
+                    "project structure",
+                    "governing-rule integration",
+                    "authority boundaries",
+                    "workflow coherence",
+                    "source and monitoring coverage",
+                    "automation",
+                    "publication",
+                    "contributor readiness",
+                    "technical debt",
+                    "cross-surface consistency",
+                ],
+            },
+            base_priority=200,
+            reason=(
+                "No ordinary eligible Elim work remains; the approved quiet-queue "
+                "fallback requires a documented governance review and open discovery pass"
+            ),
+            source_revision=records["chain"].get("sha256"),
+            freshness_timestamp=records["chain"].get("reported_at"),
+            severity="maintenance",
+        )
+        governance_item["work_class"] = "governance_discovery"
+        governance_item["exact_next_action"] = (
+            "Conduct the bounded project-governance review, follow credible connected "
+            "findings, and fix, report, or retain each finding according to authority."
+        )
+        governance_item["governance_discovery_mode"] = True
+        items.append(governance_item)
+        governance_discovery_added = True
     unique: dict[str, dict[str, Any]] = {}
     for item in items:
         if item["id"] in unique:
@@ -2402,6 +2963,39 @@ def build_work_queue(
             "elim_eligible": sum(bool(item["eligible_for_elim"]) for item in items),
             "human": sum(bool(item["requires_human"]) for item in items),
             "safety": sum(item["safety_class"] == 0 for item in items),
+            "gap_obligations": sum(
+                item.get("work_class") == "gap_stewardship" for item in items
+            ),
+            "governance_discovery": sum(
+                item.get("work_class") == "governance_discovery" for item in items
+            ),
+        },
+        "governance_discovery": {
+            "mode": "Project governance review and discovery",
+            "ordinary_selection_policy": "after-ordinary-queue-clears",
+            "minimum_interval_hours": governance_minimum_interval_hours,
+            "selected_as_quiet_queue_fallback": governance_discovery_added,
+            "ordinary_eligible_count_before_fallback": ordinary_eligible_count,
+            "last_review": governance_review,
+            "next_due_at": (
+                governance_next_due_at.isoformat(timespec="seconds")
+                if governance_next_due_at is not None
+                else None
+            ),
+            "current_for_cadence": bool(
+                not governance_due and ordinary_eligible_count == 0
+            ),
+            "waiting_for_ordinary_queue": ordinary_eligible_count > 0,
+            "reason": (
+                "No ordinary eligible Elim work remained."
+                if governance_discovery_added
+                else (
+                    "The last committed governance review remains current for "
+                    "the minimum cadence."
+                    if not governance_due and ordinary_eligible_count == 0
+                    else "Ordinary eligible work remains and is selected first."
+                )
+            ),
         },
         "fairness_policy": {
             "rule": "priority_score = base_priority + min(age_days, 365)",

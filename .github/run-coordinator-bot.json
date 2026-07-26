@@ -55,7 +55,9 @@
           "audit",
           "foundation",
           "candidate",
-          "legal"
+          "legal",
+          "gap-stewardship",
+          "governance-discovery"
         ]
       },
       "comprehensive": {
@@ -100,6 +102,21 @@
   },
   "reviewEpoch": {
     "intervalDays": 14
+  },
+  "governanceDiscovery": {
+    "enabled": true,
+    "mode": "Project governance review and discovery",
+    "ordinarySelectionPolicy": "after-ordinary-queue-clears",
+    "minimumIntervalHours": 168
+  },
+  "gapStewardship": {
+    "statePath": ".tmp/run-coordinator/elim-gap-obligations.json",
+    "stateRole": "replaceable-cache",
+    "durableAuthority": "framework/logs/ELIM_RUN_LOG.md#machine-readable-discovery-markers",
+    "reconstructBeforeQueueBuild": true,
+    "maximumObligations": 512,
+    "closureProofRequired": true,
+    "outsideContributionExactRevisionRequired": true
   },
   "stages": [
     {

@@ -5,12 +5,15 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import html
 import json
 import math
 import os
 import re
+import shutil
 import subprocess
+import tempfile
 import urllib.parse
 from datetime import datetime, timezone
 from pathlib import Path
@@ -25,6 +28,25 @@ try:
 except ModuleNotFoundError:  # Imported as scripts.build_horizon_review_console.
     from scripts.source_monitor_recommendations import (
         parse_source_monitor_recommendations,
+    )
+
+try:
+    from console_data_contracts import (
+        feed_contract,
+        file_sha256,
+        source_hashes,
+        source_revision,
+        utc_timestamp,
+        validate_contract,
+    )
+except ModuleNotFoundError:
+    from scripts.console_data_contracts import (
+        feed_contract,
+        file_sha256,
+        source_hashes,
+        source_revision,
+        utc_timestamp,
+        validate_contract,
     )
 
 
@@ -44,6 +66,7 @@ DIRECTIVES = ROOT / "inventory" / "presidential-directives.csv"
 CASE_MONITOR_CONFIG = ROOT / ".github" / "case-monitor-bot.json"
 DIRECTIVE_MONITOR_CONFIG = ROOT / ".github" / "presidential-directives-bot.json"
 PRINT_ASSEMBLY_MANIFEST = ROOT / "framework" / "print-assembly.json"
+REVIEW_EPOCHS = ROOT / "research" / "review-epochs.jsonl"
 PUBLIC_PROPOSAL_PDF = ROOT / "exports" / "pdf" / "ARRP-public-proposal-draft.pdf"
 OUTPUT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
 CONSOLE_DATA_DIR = ROOT / "research" / "horizon-review-console" / "data"
@@ -607,6 +630,502 @@ def pdf_page_count(path: Path) -> int | None:
     return int(match.group(1)) if match else None
 
 
+def topic_product_records() -> list[dict[str, object]]:
+    """Project internal crosswalk and public Topic stages as one stable product."""
+    index_path = ROOT / "research" / "README.md"
+    content = index_path.read_text(encoding="utf-8")
+    records: list[dict[str, object]] = []
+    pattern = re.compile(
+        r"^-\s+\[([^\]]+)\]\(([^)]+)\)\s+—\s+public topic home:\s+"
+        r"\[([^\]]+)\]\((\.\./topics/[^)]+)\)\s*$",
+        re.MULTILINE,
+    )
+    for match in pattern.finditer(content):
+        internal_title, internal_target, public_title, public_target = match.groups()
+        internal_path = (index_path.parent / internal_target).resolve()
+        public_path = (index_path.parent / public_target).resolve()
+        try:
+            internal_relative = internal_path.relative_to(ROOT).as_posix()
+            public_relative = public_path.relative_to(ROOT).as_posix()
+        except ValueError as exc:
+            raise RuntimeError("Topic-product route escapes the repository.") from exc
+        product_key = Path(public_relative).stem
+        records.append(
+            {
+                "product_id": "topic-product:" + product_key,
+                "title": public_title,
+                "is_issue": False,
+                "issue_identifier": None,
+                "current_stage": "published",
+                "product_status": "published",
+                "stages": [
+                    {
+                        "stage_id": "internal-crosswalk",
+                        "label": internal_title,
+                        "kind": "project_crosswalk",
+                        "path": internal_relative,
+                        "url": GITHUB_BLOB_ROOT + internal_relative,
+                        "available": internal_path.is_file(),
+                    },
+                    {
+                        "stage_id": "published-topic",
+                        "label": public_title,
+                        "kind": "topic_page",
+                        "path": public_relative,
+                        "url": GITHUB_BLOB_ROOT + public_relative,
+                        "available": public_path.is_file(),
+                    },
+                ],
+                "owner": None,
+                "next_action": None,
+                "validation_requirement": None,
+                "completeness": {
+                    "complete": internal_path.is_file() and public_path.is_file(),
+                    "unavailable_fields": [
+                        "owner",
+                        "next_action",
+                        "validation_requirement",
+                    ],
+                },
+            }
+        )
+    converted = re.search(
+        r"former Project 2025 research crosswalk has been converted, without "
+        r"duplication, into the public \[([^\]]+)\]\((\.\./topics/[^)]+)\)",
+        content,
+        re.IGNORECASE,
+    )
+    if converted:
+        public_title, public_target = converted.groups()
+        public_path = (index_path.parent / public_target).resolve()
+        public_relative = public_path.relative_to(ROOT).as_posix()
+        records.append(
+            {
+                "product_id": "topic-product:" + Path(public_relative).stem,
+                "title": public_title,
+                "is_issue": False,
+                "issue_identifier": None,
+                "current_stage": "published",
+                "product_status": "published",
+                "stages": [
+                    {
+                        "stage_id": "internal-crosswalk",
+                        "label": "Former Project 2025 research crosswalk",
+                        "kind": "converted_internal_crosswalk",
+                        "path": None,
+                        "url": None,
+                        "available": False,
+                        "disposition": "converted_without_duplication",
+                    },
+                    {
+                        "stage_id": "published-topic",
+                        "label": public_title,
+                        "kind": "topic_page",
+                        "path": public_relative,
+                        "url": GITHUB_BLOB_ROOT + public_relative,
+                        "available": public_path.is_file(),
+                    },
+                ],
+                "owner": None,
+                "next_action": None,
+                "validation_requirement": None,
+                "completeness": {
+                    "complete": public_path.is_file(),
+                    "unavailable_fields": [
+                        "owner",
+                        "next_action",
+                        "validation_requirement",
+                    ],
+                },
+            }
+        )
+    return sorted(records, key=lambda record: str(record["product_id"]))
+
+
+def repository_revision_for_path(path: Path) -> str | None:
+    if not path.exists():
+        return None
+    completed = subprocess.run(
+        ["git", "log", "-1", "--format=%H", "--", path.relative_to(ROOT).as_posix()],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    revision = completed.stdout.strip()
+    return revision if completed.returncode == 0 and revision else None
+
+
+def publication_release_readiness(
+    page_inventory: list[dict[str, object]],
+    builds: list[dict[str, object]],
+    progress: dict[str, object] | None = None,
+    integrity: dict[str, object] | None = None,
+) -> dict[str, object]:
+    """Project known release prerequisites without inferring approval or readiness."""
+    progress_payload = progress if isinstance(progress, dict) else {}
+    progress_available = bool(
+        progress_payload
+        and isinstance(progress_payload.get("proposals"), list)
+        and isinstance(progress_payload.get("candidates"), list)
+    )
+    progress_contract_available = isinstance(
+        progress_payload.get("completeness"), dict
+    )
+    progress_complete = (
+        (progress_payload.get("completeness") or {}).get("complete") is True
+        if progress_contract_available
+        else False
+    )
+    delivery_available = isinstance(progress_payload.get("delivery_items"), list)
+    delivery_items = (
+        progress_payload.get("delivery_items")
+        if isinstance(progress_payload.get("delivery_items"), list)
+        else []
+    )
+    project_items = [
+        item
+        for collection in (
+            progress_payload.get("proposals") or [],
+            progress_payload.get("candidates") or [],
+            delivery_items,
+        )
+        for item in collection
+        if isinstance(item, dict)
+    ]
+    issue_development_items = [
+        item
+        for collection in (
+            progress_payload.get("proposals") or [],
+            progress_payload.get("candidates") or [],
+        )
+        for item in collection
+        if isinstance(item, dict)
+    ]
+    release_fields_available = progress_available and all(
+        ("releaseBlocker" in item or "release_blocker" in item)
+        for item in project_items
+    )
+    audit_status_available = progress_available and all(
+        "workflowStatus" in item for item in issue_development_items
+    )
+    audit_control_fields_complete = audit_status_available and all(
+        "changeAuditNeeded" in item and "rebaselineStatus" in item
+        for item in issue_development_items
+    )
+
+    def identity(item: dict[str, object]) -> dict[str, object]:
+        return {
+            "identifier": item.get("identifier"),
+            "title": item.get("title"),
+            "url": item.get("url"),
+            "project_item_id": item.get("projectItemId"),
+            "workstream": item.get("workstream"),
+            "priority": item.get("priority"),
+            "status": item.get("workflowStatus"),
+        }
+
+    blockers = [
+        {
+            **identity(item),
+            "release_blocker": item.get("releaseBlocker")
+            or item.get("release_blocker"),
+        }
+        for item in project_items
+        if normalize_console_owner(
+            item.get("releaseBlocker") or item.get("release_blocker")
+        )
+        in {"yes", "true"}
+    ]
+    audit_items: list[dict[str, object]] = []
+    for item in project_items:
+        reasons: list[str] = []
+        status = normalize_console_owner(item.get("workflowStatus"))
+        if status in {"audit needed", "audit in progress"}:
+            reasons.append(str(item.get("workflowStatus")))
+        if normalize_console_owner(item.get("changeAuditNeeded")) in {"yes", "true"}:
+            reasons.append("Change audit needed")
+        rebaseline = normalize_console_owner(item.get("rebaselineStatus"))
+        if rebaseline and rebaseline not in {"current", "not applicable", "n/a"}:
+            reasons.append(
+                "Rebaseline status: " + str(item.get("rebaselineStatus"))
+            )
+        if reasons:
+            audit_items.append(
+                {
+                    **identity(item),
+                    "reasons": reasons,
+                    "last_audit": item.get("lastAudit"),
+                    "next_audit": item.get("nextAudit"),
+                }
+            )
+    external_review_items = [
+        {
+            **identity(item),
+            "last_audit": item.get("lastAudit"),
+            "next_audit": item.get("nextAudit"),
+        }
+        for item in project_items
+        if normalize_console_owner(item.get("workflowStatus")) == "external review"
+    ]
+
+    by_path = {
+        str(record.get("path") or ""): record
+        for record in page_inventory
+        if str(record.get("path") or "")
+    }
+    missing_links: list[dict[str, object]] = []
+    cross_edition: list[dict[str, object]] = []
+    seen_cross: set[tuple[str, str, str]] = set()
+    internal_link_count = 0
+    for source in page_inventory:
+        source_path = str(source.get("path") or "")
+        source_levels = {
+            str(level) for level in source.get("print_levels") or []
+        }
+        for link in source.get("internal_links") or []:
+            if not isinstance(link, dict):
+                continue
+            internal_link_count += 1
+            target_path = str(link.get("path") or "")
+            if link.get("exists") is not True:
+                missing_links.append(
+                    {"source": source_path, "target": target_path}
+                )
+                continue
+            target = by_path.get(target_path)
+            if target is None:
+                continue
+            target_levels = {
+                str(level) for level in target.get("print_levels") or []
+            }
+            for edition in sorted(source_levels - target_levels):
+                key = (source_path, target_path, edition)
+                if key in seen_cross:
+                    continue
+                seen_cross.add(key)
+                cross_edition.append(
+                    {
+                        "source": source_path,
+                        "target": target_path,
+                        "source_edition": edition,
+                        "target_disposition": target.get(
+                            "publication_disposition"
+                        ),
+                        "review_disposition": None,
+                    }
+                )
+
+    public_build = next(
+        (
+            build
+            for build in builds
+            if build.get("edition_id") == "public-proposal"
+        ),
+        None,
+    )
+    artifact_hash = (
+        file_sha256(PUBLIC_PROPOSAL_PDF)
+        if PUBLIC_PROPOSAL_PDF.is_file()
+        else None
+    )
+    license_text = (
+        (ROOT / "LICENSE.md").read_text(encoding="utf-8")
+        if (ROOT / "LICENSE.md").is_file()
+        else ""
+    )
+    all_rights_reserved = bool(
+        re.search(r"\ball rights reserved\b", license_text, re.IGNORECASE)
+    )
+    planned_later_license = bool(
+        re.search(
+            r"planned to be released at a later date.+(?:Creative Commons|reuse license)",
+            license_text,
+            re.IGNORECASE | re.DOTALL,
+        )
+    )
+    integrity_payload = integrity if isinstance(integrity, dict) else {}
+    integrity_current = (
+        integrity_payload.get("current")
+        if isinstance(integrity_payload.get("current"), dict)
+        else {}
+    )
+    disposition_counts = {
+        disposition: sum(
+            1
+            for record in page_inventory
+            if record.get("publication_disposition") == disposition
+        )
+        for disposition in ("included", "excluded", "unclassified", "conflict")
+    }
+    assembly_valid = (
+        disposition_counts["unclassified"] == 0
+        and disposition_counts["conflict"] == 0
+    )
+    return {
+        "status": "not_determined",
+        "status_explanation": (
+            "Structural assembly facts are available, but release readiness "
+            "cannot be declared without lineage-backed export validation, "
+            "completed prerequisites, and a recorded human go/no-go decision."
+        ),
+        "assembly": {
+            "status": "valid" if assembly_valid else "action_required",
+            "label": (
+                "Assembly structurally valid"
+                if assembly_valid
+                else "Assembly structure requires correction"
+            ),
+            "disposition_counts": disposition_counts,
+        },
+        "delivery_tasks": {
+            "available": delivery_available,
+            "source_complete": progress_complete,
+            "count": len(delivery_items) if delivery_available else None,
+            "incomplete_metadata_count": (
+                sum(
+                    1
+                    for item in delivery_items
+                    if not (item.get("completeness") or {}).get("complete")
+                )
+                if delivery_available
+                else None
+            ),
+            "items": [identity(item) for item in delivery_items]
+            if delivery_available
+            else [],
+            "unavailable_reason": (
+                None
+                if delivery_available
+                else "Authenticated Project delivery items are unavailable."
+            ),
+        },
+        "release_blockers": {
+            "available": release_fields_available,
+            "source_complete": progress_complete,
+            "count": len(blockers) if release_fields_available else None,
+            "items": blockers if release_fields_available else [],
+            "unavailable_reason": (
+                None
+                if release_fields_available
+                else "Project Release blocker fields are absent from this projection."
+            ),
+        },
+        "required_audits": {
+            "available": audit_status_available,
+            "source_complete": progress_complete,
+            "control_fields_complete": audit_control_fields_complete,
+            "count": len(audit_items)
+            if audit_control_fields_complete
+            else None,
+            "known_count": len(audit_items) if audit_status_available else None,
+            "items": audit_items,
+            "unavailable_reason": (
+                None
+                if audit_control_fields_complete
+                else "Change-audit and rebaseline controls are incomplete in this projection."
+            ),
+        },
+        "external_review": {
+            "available": progress_available,
+            "source_complete": progress_complete,
+            "count": len(external_review_items)
+            if progress_available
+            else None,
+            "items": external_review_items,
+            "completion_requirement": (
+                "The Project records current External review workflow state; "
+                "it does not itself prove that required external review is complete."
+            ),
+        },
+        "link_export_validation": {
+            "link_inventory_available": True,
+            "internal_link_count": internal_link_count,
+            "missing_link_count": len(missing_links),
+            "missing_links": missing_links,
+            "export_validation_available": False,
+            "export_validation_status": "unavailable",
+            "unavailable_reason": (
+                "No lineage-bearing export validation manifest is recorded."
+            ),
+        },
+        "export_lineage": {
+            "available": False,
+            "artifact_path": (
+                PUBLIC_PROPOSAL_PDF.relative_to(ROOT).as_posix()
+                if PUBLIC_PROPOSAL_PDF.is_file()
+                else None
+            ),
+            "artifact_sha256": artifact_hash,
+            "artifact_repository_revision": repository_revision_for_path(
+                PUBLIC_PROPOSAL_PDF
+            ),
+            "build_source_revision": None,
+            "input_hashes": None,
+            "unavailable_reason": (
+                "The existing PDF has no recorded build source revision and "
+                "complete input-hash manifest."
+            ),
+        },
+        "stale_pdf": {
+            "revision_backed_status": "unavailable",
+            "mtime_indicator": (
+                public_build.get("stale") if isinstance(public_build, dict) else None
+            ),
+            "mtime_indicator_only": True,
+            "explanation": (
+                "Filesystem modification time is retained as a diagnostic only; "
+                "it cannot establish current export lineage."
+            ),
+        },
+        "cross_edition_references": {
+            "available": True,
+            "count": len(cross_edition),
+            "items": cross_edition,
+            "disposition_complete": not cross_edition,
+            "explanation": (
+                "A cross-edition or online-only target requires an explicit "
+                "reader-route disposition; presence alone is not a broken link."
+            ),
+        },
+        "copyright_reuse": {
+            "rights_notice_available": bool(license_text),
+            "all_rights_reserved": all_rights_reserved
+            if license_text
+            else None,
+            "later_public_reuse_license_planned": planned_later_license
+            if license_text
+            else None,
+            "public_reuse_license_adopted": False
+            if all_rights_reserved and planned_later_license
+            else None,
+            "third_party_reuse_review": "unavailable",
+            "status": (
+                "human_decision_required"
+                if all_rights_reserved and planned_later_license
+                else "unavailable"
+            ),
+        },
+        "integrity_validation": {
+            "available": bool(integrity_current),
+            "result": integrity_current.get("result"),
+            "counts": integrity_current.get("counts") or {},
+            "revision": integrity_current.get("revision"),
+            "generated_at": integrity_current.get("generated_at"),
+        },
+        "human_go_no_go": {
+            "available": False,
+            "decision": None,
+            "status": "human_decision_required",
+            "question": (
+                "After all release prerequisites and lineage-backed validation "
+                "are complete, authorize this exact revision for public release?"
+            ),
+            "authority": "Human only",
+        },
+    }
+
+
 def publication_data(page_inventory: list[dict[str, object]]) -> dict[str, object]:
     manifest = publication_manifest()
     builds: list[dict[str, object]] = []
@@ -647,6 +1166,11 @@ def publication_data(page_inventory: list[dict[str, object]]) -> dict[str, objec
         "builds": builds,
         "disposition_counts": disposition_counts,
         "exclusion_reasons": exclusion_reasons,
+        "topic_products": topic_product_records(),
+        "release_readiness": publication_release_readiness(
+            page_inventory,
+            builds,
+        ),
     }
 
 
@@ -731,24 +1255,58 @@ def markdown_table_cells(line: str) -> list[str]:
 
 
 def markdown_table_records(
-    content: str, required_headers: tuple[str, ...]
+    content: str,
+    required_headers: tuple[str, ...],
+    projection_errors: list[dict[str, object]] | None = None,
+    source: str = "",
 ) -> list[dict[str, str]]:
     """Return rows from the first Markdown table matching the requested headers."""
     lines = content.replace("\r\n", "\n").replace("\r", "\n").splitlines()
+    encountered_headers: list[list[str]] = []
     for index in range(len(lines) - 1):
         if "|" not in lines[index] or not is_markdown_table_separator(lines[index + 1]):
             continue
         headers = markdown_table_cells(lines[index])
+        encountered_headers.append(headers)
         if tuple(headers) != required_headers:
             continue
         rows: list[dict[str, str]] = []
         index += 2
         while index < len(lines) and lines[index].strip() and "|" in lines[index]:
             cells = markdown_table_cells(lines[index])
-            cells = cells[: len(headers)] + [""] * max(0, len(headers) - len(cells))
+            if len(cells) != len(headers):
+                if projection_errors is not None:
+                    projection_errors.append(
+                        {
+                            "code": "markdown_table_row_width",
+                            "severity": "error",
+                            "source": source,
+                            "line": index + 1,
+                            "expected_columns": len(headers),
+                            "actual_columns": len(cells),
+                            "message": "Markdown log row width does not match its governed header.",
+                        }
+                    )
+                index += 1
+                continue
             rows.append(dict(zip(headers, cells)))
             index += 1
         return rows
+    if projection_errors is not None:
+        projection_errors.append(
+            {
+                "code": (
+                    "markdown_table_header_drift"
+                    if encountered_headers
+                    else "markdown_table_missing"
+                ),
+                "severity": "error",
+                "source": source,
+                "expected_headers": list(required_headers),
+                "encountered_headers": encountered_headers,
+                "message": "Governed Markdown log table was not found with its exact schema.",
+            }
+        )
     return []
 
 
@@ -785,13 +1343,21 @@ def horizon_disposition(decision: str) -> str:
     return "Other disposition"
 
 
-def horizon_log_view() -> dict[str, object]:
+def horizon_log_view(
+    projection_errors: list[dict[str, object]] | None = None,
+) -> dict[str, object]:
     headers = (
         "Horizon ID", "Decision date", "Original concern", "Decision",
         "Integrated into", "Rationale", "Follow-up",
     )
     entries: list[dict[str, object]] = []
-    for row in markdown_table_records(HORIZON_LOG.read_text(encoding="utf-8"), headers):
+    rows = markdown_table_records(
+        HORIZON_LOG.read_text(encoding="utf-8"),
+        headers,
+        projection_errors,
+        HORIZON_LOG.relative_to(ROOT).as_posix(),
+    )
+    for row in rows:
         disposition = horizon_disposition(row["Decision"])
         values = {
             "record": strip_markdown(row["Horizon ID"]),
@@ -824,19 +1390,30 @@ def horizon_log_view() -> dict[str, object]:
             {"key": "date", "label": "Decision date"},
         ],
         "default_sort": {"key": "record", "direction": "desc"},
+        "projection": {
+            "expected_rows": len(rows),
+            "actual_rows": len(entries),
+            "complete": len(rows) == len(entries),
+        },
         "entries": entries,
     }
 
 
-def change_audit_log_view() -> dict[str, object]:
+def change_audit_log_view(
+    projection_errors: list[dict[str, object]] | None = None,
+) -> dict[str, object]:
     headers = (
         "Date", "Change audited", "Scope", "Score/rebaseline effect",
         "Findings and corrections",
     )
     entries: list[dict[str, object]] = []
-    for index, row in enumerate(
-        markdown_table_records(CHANGE_AUDIT_LOG.read_text(encoding="utf-8"), headers), 1
-    ):
+    rows = markdown_table_records(
+        CHANGE_AUDIT_LOG.read_text(encoding="utf-8"),
+        headers,
+        projection_errors,
+        CHANGE_AUDIT_LOG.relative_to(ROOT).as_posix(),
+    )
+    for index, row in enumerate(rows, 1):
         values = {
             "date": strip_markdown(row["Date"]),
             "change": strip_markdown(row["Change audited"]),
@@ -865,6 +1442,11 @@ def change_audit_log_view() -> dict[str, object]:
         ],
         "group_options": [{"key": "date", "label": "Date"}],
         "default_sort": {"key": "date", "direction": "desc"},
+        "projection": {
+            "expected_rows": len(rows),
+            "actual_rows": len(entries),
+            "complete": len(rows) == len(entries),
+        },
         "entries": entries,
     }
 
@@ -882,16 +1464,34 @@ def section_records(content: str, heading_level: int, start_heading: str = "") -
     ]
 
 
-def two_column_fields(content: str) -> dict[str, str]:
-    rows = markdown_table_records(content, ("Field", "Entry"))
+def two_column_fields(
+    content: str,
+    projection_errors: list[dict[str, object]] | None = None,
+    source: str = "",
+) -> dict[str, str]:
+    rows = markdown_table_records(
+        content,
+        ("Field", "Entry"),
+        projection_errors,
+        source,
+    )
     return {strip_markdown(row["Field"]): row["Entry"] for row in rows}
 
 
-def agent_audit_log_view() -> dict[str, object]:
+def agent_audit_log_view(
+    projection_errors: list[dict[str, object]] | None = None,
+) -> dict[str, object]:
     entries: list[dict[str, object]] = []
     content = AGENT_AUDIT_LOG.read_text(encoding="utf-8")
     for index, (title, body) in enumerate(section_records(content, 3, "## Log"), 1):
-        fields = two_column_fields(body)
+        fields = two_column_fields(
+            body,
+            projection_errors,
+            "{}#{}".format(
+                AGENT_AUDIT_LOG.relative_to(ROOT).as_posix(),
+                strip_markdown(title),
+            ),
+        )
         if not fields:
             continue
         header_parts = [part.strip() for part in title.split("—")]
@@ -944,11 +1544,20 @@ def agent_audit_log_view() -> dict[str, object]:
     }
 
 
-def elim_run_log_view() -> dict[str, object]:
+def elim_run_log_view(
+    projection_errors: list[dict[str, object]] | None = None,
+) -> dict[str, object]:
     entries: list[dict[str, object]] = []
     content = ELIM_RUN_LOG.read_text(encoding="utf-8")
     for index, (title, body) in enumerate(section_records(content, 3, "## Runs"), 1):
-        fields = two_column_fields(body)
+        fields = two_column_fields(
+            body,
+            projection_errors,
+            "{}#{}".format(
+                ELIM_RUN_LOG.relative_to(ROOT).as_posix(),
+                strip_markdown(title),
+            ),
+        )
         if not fields:
             continue
         header_parts = [part.strip() for part in title.split("—")]
@@ -997,7 +1606,9 @@ def bullet_fields(content: str) -> dict[str, str]:
     }
 
 
-def source_monitor_log_view() -> dict[str, object]:
+def source_monitor_log_view(
+    projection_errors: list[dict[str, object]] | None = None,
+) -> dict[str, object]:
     entries: list[dict[str, object]] = []
     content = SOURCE_MONITOR_LOG.read_text(encoding="utf-8")
     for index, (title, body) in enumerate(section_records(content, 2), 1):
@@ -1005,6 +1616,22 @@ def source_monitor_log_view() -> dict[str, object]:
             continue
         parts = [part.strip() for part in title.split("—", 1)]
         fields = bullet_fields(body)
+        missing = [
+            key
+            for key in ("Result",)
+            if not str(fields.get(key) or "").strip()
+        ]
+        if missing and projection_errors is not None:
+            projection_errors.append(
+                {
+                    "code": "source_monitor_entry_schema",
+                    "severity": "error",
+                    "source": SOURCE_MONITOR_LOG.relative_to(ROOT).as_posix(),
+                    "heading": strip_markdown(title),
+                    "missing_fields": missing,
+                    "message": "Source Monitor entry is missing governed projection fields.",
+                }
+            )
         values = {
             "date": strip_markdown(parts[0]),
             "watcher": strip_markdown(parts[1] if len(parts) > 1 else ""),
@@ -1050,10 +1677,149 @@ def source_monitor_log_view() -> dict[str, object]:
     }
 
 
-def repository_review_recommendations() -> list[dict[str, object]]:
+def source_domain_event_index() -> dict[str, str]:
+    completed = subprocess.run(
+        [
+            "git",
+            "ls-tree",
+            "-r",
+            "--name-only",
+            "origin/project-console-data",
+            "source-domain-events/proposed",
+        ],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode != 0:
+        return {}
+    return {
+        Path(path).stem: path
+        for path in completed.stdout.splitlines()
+        if path.strip().endswith(".json")
+    }
+
+
+def load_source_domain_event(
+    event_id: str,
+    event_paths: dict[str, str] | None = None,
+) -> tuple[dict[str, object], str]:
+    paths = event_paths if event_paths is not None else source_domain_event_index()
+    path = paths.get(event_id, "")
+    if not path:
+        raise RuntimeError(
+            f"Structured source-domain event {event_id} is unavailable."
+        )
+    completed = subprocess.run(
+        ["git", "show", f"origin/project-console-data:{path}"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode != 0:
+        raise RuntimeError(
+            f"Structured source-domain event {event_id} could not be read."
+        )
+    try:
+        payload = json.loads(completed.stdout)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(
+            f"Structured source-domain event {event_id} is invalid JSON."
+        ) from exc
+    if not isinstance(payload, dict):
+        raise RuntimeError(
+            f"Structured source-domain event {event_id} is not a JSON object."
+        )
+    return payload, path
+
+
+def structured_affected_set(
+    recommendation: dict[str, object],
+    event: dict[str, object],
+) -> dict[str, object]:
+    event_id = str(recommendation.get("proposal_event_id") or "")
+    if str(event.get("event_id") or "") != event_id:
+        raise RuntimeError("Bound event identity does not match the recommendation.")
+    proposal = event.get("proposal")
+    if not isinstance(proposal, dict):
+        raise RuntimeError("Bound event lacks its proposal identity.")
+    if int(proposal.get("pull_request_number") or 0) != int(
+        recommendation.get("pull_request_number") or 0
+    ):
+        raise RuntimeError("Bound event pull request does not match the recommendation.")
+    if str(proposal.get("proposal_revision") or "") != str(
+        recommendation.get("head_revision") or ""
+    ):
+        raise RuntimeError(
+            "Bound event head revision does not match the recommendation."
+        )
+    affected = event.get("affected_records")
+    if not isinstance(affected, list):
+        raise RuntimeError("Bound event affected_records is not an array.")
+    normalized: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for index, record in enumerate(affected):
+        if not isinstance(record, dict):
+            raise RuntimeError(
+                f"Bound event affected record {index} is not an object."
+            )
+        record_id = str(record.get("record_id") or "").strip()
+        record_type = str(record.get("record_type") or "").strip()
+        if not record_id or not record_type:
+            raise RuntimeError(
+                f"Bound event affected record {index} lacks identity or type."
+            )
+        key = (record_type, record_id)
+        if key in seen:
+            raise RuntimeError(
+                f"Bound event duplicates affected record {record_type}:{record_id}."
+            )
+        seen.add(key)
+        normalized.append({"record_id": record_id, "record_type": record_type})
+    summary = event.get("summary")
+    declared_count = (
+        summary.get("affected_record_count")
+        if isinstance(summary, dict)
+        else None
+    )
+    if declared_count is None or int(declared_count) != len(normalized):
+        raise RuntimeError(
+            "Bound event affected count does not match its exact enumeration."
+        )
+    by_type: dict[str, list[str]] = {}
+    for record in normalized:
+        by_type.setdefault(record["record_type"], []).append(record["record_id"])
+    by_type = {
+        record_type: sorted(identifiers)
+        for record_type, identifiers in sorted(by_type.items())
+    }
+    return {
+        "complete": True,
+        "total_count": len(normalized),
+        "records": normalized,
+        "record_ids": sorted(record["record_id"] for record in normalized),
+        "by_type": by_type,
+        "source_ids": by_type.get("source", []),
+        "directive_ids": by_type.get("presidential-directive", []),
+        "issue_development_ids": sorted(
+            by_type.get("proposal", []) + by_type.get("candidate", [])
+        ),
+        "issue_development_count": len(
+            by_type.get("proposal", []) + by_type.get("candidate", [])
+        ),
+    }
+
+
+def repository_review_recommendations(
+    projection_errors: list[dict[str, object]] | None = None,
+    event_loader: object = None,
+) -> list[dict[str, object]]:
     records = parse_source_monitor_recommendations(
         SOURCE_MONITOR_LOG.read_text(encoding="utf-8")
     )
+    event_paths = source_domain_event_index() if event_loader is None else {}
     display_fields = {
         "reviewer",
         "recommendation",
@@ -1064,27 +1830,75 @@ def repository_review_recommendations() -> list[dict[str, object]]:
         "reassessment_trigger",
         "heading",
     }
-    return [
-        {
+    projected: list[dict[str, object]] = []
+    for record in records:
+        event_id = str(record.get("proposal_event_id") or "")
+        event_path = ""
+        try:
+            if event_loader is None:
+                event, event_path = load_source_domain_event(event_id, event_paths)
+            else:
+                loaded = event_loader(event_id)
+                if isinstance(loaded, tuple):
+                    event, event_path = loaded
+                else:
+                    event = loaded
+            if not isinstance(event, dict):
+                raise RuntimeError("Structured event loader returned a non-object.")
+            affected = structured_affected_set(record, event)
+        except (RuntimeError, TypeError, ValueError) as exc:
+            affected = {
+                "complete": False,
+                "total_count": None,
+                "records": [],
+                "record_ids": [],
+                "by_type": {},
+                "source_ids": [],
+                "directive_ids": [],
+                "issue_development_ids": [],
+                "issue_development_count": None,
+                "error": str(exc),
+            }
+            if projection_errors is not None:
+                projection_errors.append(
+                    {
+                        "code": "recommendation_affected_set_unavailable",
+                        "severity": "error",
+                        "recommendation_id": record.get("id"),
+                        "event_id": event_id,
+                        "message": str(exc),
+                    }
+                )
+        projected.append(
+            {
             **{
                 key: strip_markdown(str(value)) if key in display_fields else value
                 for key, value in record.items()
             },
+            "affected": affected,
+            "event_source_url": (
+                "https://github.com/Thorncrag/ARRP/blob/project-console-data/"
+                + event_path
+                if event_path
+                else None
+            ),
             "source_url": GITHUB_BLOB_ROOT
             + "framework/logs/SOURCE_MONITOR_LOG.md",
             "console_target": "logs:source-monitor",
         }
-        for record in records
-    ]
+        )
+    return projected
 
 
-def project_log_views() -> list[dict[str, object]]:
+def project_log_views(
+    projection_errors: list[dict[str, object]] | None = None,
+) -> list[dict[str, object]]:
     return [
-        horizon_log_view(),
-        elim_run_log_view(),
-        agent_audit_log_view(),
-        source_monitor_log_view(),
-        change_audit_log_view(),
+        horizon_log_view(projection_errors),
+        elim_run_log_view(projection_errors),
+        agent_audit_log_view(projection_errors),
+        source_monitor_log_view(projection_errors),
+        change_audit_log_view(projection_errors),
     ]
 
 
@@ -1277,7 +2091,9 @@ def markdown_links(value: str) -> list[dict[str, str]]:
     ]
 
 
-def horizon_log_records() -> dict[str, dict[str, object]]:
+def horizon_log_records(
+    projection_errors: list[dict[str, object]] | None = None,
+) -> dict[str, dict[str, object]]:
     fields = (
         "id",
         "decision_date",
@@ -1288,11 +2104,25 @@ def horizon_log_records() -> dict[str, dict[str, object]]:
         "follow_up",
     )
     records: dict[str, dict[str, object]] = {}
-    for line in HORIZON_LOG.read_text(encoding="utf-8").splitlines():
+    for line_number, line in enumerate(
+        HORIZON_LOG.read_text(encoding="utf-8").splitlines(), 1
+    ):
         if not re.match(r"^\|\s*HOR-\d+\s*\|", line):
             continue
         cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
         if len(cells) != len(fields):
+            if projection_errors is not None:
+                projection_errors.append(
+                    {
+                        "code": "horizon_log_row_width",
+                        "severity": "error",
+                        "source": HORIZON_LOG.relative_to(ROOT).as_posix(),
+                        "line": line_number,
+                        "expected_columns": len(fields),
+                        "actual_columns": len(cells),
+                        "message": "Horizon log row cannot be projected without loss.",
+                    }
+                )
             continue
         raw = dict(zip(fields, cells))
         record_id = raw["id"]
@@ -1424,6 +2254,33 @@ def run_gh_json(arguments: list[str]) -> object:
     return json.loads(completed.stdout)
 
 
+def require_complete_cli_collection(
+    records: object,
+    *,
+    limit: int,
+    source: str,
+    reported_total: object = None,
+) -> list[dict[str, object]]:
+    if not isinstance(records, list):
+        raise RuntimeError(f"{source} did not return a JSON array.")
+    if len(records) >= limit:
+        raise RuntimeError(
+            f"{source} reached its explicit {limit}-record ceiling; completeness "
+            "cannot be established."
+        )
+    if reported_total is not None:
+        try:
+            total = int(reported_total)
+        except (TypeError, ValueError) as exc:
+            raise RuntimeError(f"{source} returned an invalid totalCount.") from exc
+        if total != len(records):
+            raise RuntimeError(
+                f"{source} pagination is incomplete: totalCount={total}, "
+                f"received={len(records)}."
+            )
+    return records
+
+
 def existing_console_payload() -> dict[str, object]:
     """Assemble the compatibility snapshot and normalized Console data parts."""
     if not OUTPUT.exists():
@@ -1492,18 +2349,493 @@ def generated_console_part(text: str) -> dict[str, object]:
     return payload if isinstance(payload, dict) else {}
 
 
-def snapshot_time(payload: dict[str, object]) -> datetime:
-    for field in ("generatedAt", "generated_at", "checked_at", "asOf", "as_of"):
-        raw = str(payload.get(field) or "").strip()
-        if not raw:
-            continue
-        try:
-            return datetime.fromisoformat(raw.replace("Z", "+00:00")).astimezone(
-                timezone.utc
+CATALOG_PREFIX = (
+    "/* Generated by scripts/build_horizon_review_console.py. */\n"
+    "window.ARRP_HORIZON_REVIEW_DATA="
+)
+PART_PREFIX = (
+    "/* Generated by scripts/build_horizon_review_console.py. */\n"
+    "window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};\n"
+    "Object.assign(window.ARRP_HORIZON_REVIEW_DATA,"
+)
+
+
+def serialized_catalog(payload: dict[str, object]) -> str:
+    serialized = json.dumps(payload, ensure_ascii=False, indent=2).replace(
+        "</", "<\\/"
+    )
+    return f"{CATALOG_PREFIX}{serialized};\n"
+
+
+def serialized_console_part(payload: dict[str, object]) -> str:
+    serialized = json.dumps(payload, ensure_ascii=False, indent=2).replace(
+        "</", "<\\/"
+    )
+    return f"{PART_PREFIX}{serialized});\n"
+
+
+def payload_count(value: object) -> int:
+    if isinstance(value, list):
+        return len(value)
+    if isinstance(value, dict):
+        return sum(payload_count(item) for item in value.values())
+    return 0
+
+
+def atomic_write_text(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
+    )
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
+            handle.write(text)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+    except Exception:
+        temporary.unlink(missing_ok=True)
+        raise
+
+
+def write_console_bundle(
+    compatibility_payload: dict[str, object],
+    parts: dict[str, dict[str, object]],
+    *,
+    generation_contract: dict[str, object],
+    output: Path | None = None,
+    data_dir: Path | None = None,
+) -> dict[str, object]:
+    """Stage, validate, hash, and atomically replace one Console data generation."""
+    output = output or OUTPUT
+    data_dir = data_dir or CONSOLE_DATA_DIR
+    generation_id_value = str(generation_contract.get("generation_id") or "")
+    if not generation_id_value:
+        raise RuntimeError("Console bundle generation lacks a generation_id.")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    stage_root = Path(
+        tempfile.mkdtemp(prefix=".console-generation-", dir=output.parent)
+    )
+    stage_data = stage_root / "data"
+    stage_data.mkdir()
+    try:
+        domain_records: list[dict[str, object]] = []
+        for name, original_part in sorted(parts.items()):
+            if Path(name).name != name or not name.endswith(".js"):
+                raise RuntimeError(f"Unsafe Console domain filename: {name}")
+            part = {
+                **original_part,
+                "domain_generation": {name: generation_id_value},
+            }
+            text = serialized_console_part(part)
+            path = stage_data / name
+            path.write_text(text, encoding="utf-8")
+            parsed = generated_console_part(text)
+            if parsed != part:
+                raise RuntimeError(f"Generated Console domain failed readback: {name}")
+            domain_records.append(
+                {
+                    "file": name,
+                    "sha256": file_sha256(path),
+                    "bytes": path.stat().st_size,
+                    "keys": sorted(original_part),
+                    "record_count": payload_count(original_part),
+                }
             )
-        except ValueError:
-            continue
+        manifest = {
+            "manifest_schema_version": 1,
+            "generation_id": generation_id_value,
+            "generated_at": generation_contract.get("generated_at"),
+            "source_revision": generation_contract.get("source_revision"),
+            "availability": generation_contract.get("availability"),
+            "completeness": generation_contract.get("completeness"),
+            "domain_count": len(domain_records),
+            "domains": domain_records,
+            "files": {
+                str(domain["file"]): {
+                    "generation_id": generation_id_value,
+                    "sha256": domain["sha256"],
+                    "bytes": domain["bytes"],
+                    "keys": domain["keys"],
+                    "record_count": domain["record_count"],
+                }
+                for domain in domain_records
+            },
+        }
+        manifest_path = stage_data / "generation-manifest.json"
+        manifest_path.write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True)
+            + "\n",
+            encoding="utf-8",
+        )
+        for domain in domain_records:
+            path = stage_data / str(domain["file"])
+            if file_sha256(path) != domain["sha256"]:
+                raise RuntimeError(
+                    f"Generated Console domain hash failed readback: {domain['file']}"
+                )
+        staged_compatibility = {
+            **compatibility_payload,
+            **generation_contract,
+            "generation_manifest": manifest,
+        }
+        stage_catalog = stage_root / output.name
+        stage_catalog.write_text(
+            serialized_catalog(staged_compatibility), encoding="utf-8"
+        )
+        catalog_payload = json.loads(
+            stage_catalog.read_text(encoding="utf-8")
+            .removeprefix(CATALOG_PREFIX)
+            .removesuffix(";\n")
+        )
+        if catalog_payload.get("generation_id") != generation_id_value:
+            raise RuntimeError("Generated Console catalog failed generation readback.")
+
+        prior_data = stage_root / "prior-data"
+        prior_catalog = stage_root / "prior-catalog.js"
+        data_replaced = False
+        catalog_replaced = False
+        try:
+            if data_dir.exists():
+                os.replace(data_dir, prior_data)
+            os.replace(stage_data, data_dir)
+            data_replaced = True
+            if output.exists():
+                os.replace(output, prior_catalog)
+            os.replace(stage_catalog, output)
+            catalog_replaced = True
+        except Exception:
+            if catalog_replaced and output.exists():
+                output.unlink()
+            if prior_catalog.exists():
+                os.replace(prior_catalog, output)
+            if data_replaced and data_dir.exists():
+                rollback_new = stage_root / "failed-new-data"
+                os.replace(data_dir, rollback_new)
+            if prior_data.exists():
+                os.replace(prior_data, data_dir)
+            raise
+        return manifest
+    finally:
+        shutil.rmtree(stage_root, ignore_errors=True)
+
+
+def snapshot_time(payload: dict[str, object]) -> datetime:
+    candidates = [payload]
+    current = payload.get("current")
+    if isinstance(current, dict):
+        candidates.append(current)
+    for candidate in candidates:
+        for field in ("generatedAt", "generated_at", "checked_at", "asOf", "as_of"):
+            raw = str(candidate.get(field) or "").strip()
+            if not raw:
+                continue
+            try:
+                return datetime.fromisoformat(raw.replace("Z", "+00:00")).astimezone(
+                    timezone.utc
+                )
+            except ValueError:
+                continue
     return datetime.min.replace(tzinfo=timezone.utc)
+
+
+PRODUCER_CONTRACT_FIELDS = (
+    "contract_schema_version",
+    "generation_id",
+    "source_revision",
+    "expected_count",
+    "actual_count",
+    "source_hashes",
+    "availability",
+    "completeness",
+    "pagination",
+    "projection_errors",
+    "freshness",
+)
+
+
+def snapshot_contract_view(payload: dict[str, object]) -> dict[str, object]:
+    """Return the producer contract, distinct from later currentness overlays."""
+    producer = payload.get("producer_contract")
+    if not isinstance(producer, dict):
+        return payload
+    return {**payload, **producer}
+
+
+def declared_snapshot_revision(payload: dict[str, object]) -> str:
+    contract = snapshot_contract_view(payload)
+    revision = str(
+        contract.get("source_revision")
+        or contract.get("revision")
+        or ""
+    ).strip()
+    current = payload.get("current")
+    if not revision and isinstance(current, dict):
+        revision = str(
+            current.get("source_revision")
+            or current.get("revision")
+            or ""
+        ).strip()
+    return revision
+
+
+def valid_snapshot(
+    payload: object,
+    *,
+    timestamp_fields: tuple[str, ...],
+    required_fields: tuple[str, ...] = (),
+) -> bool:
+    if not isinstance(payload, dict):
+        return False
+    if not all(field in payload for field in required_fields):
+        return False
+    contract = snapshot_contract_view(payload)
+    if "generation_id" in contract:
+        completeness = contract.get("completeness")
+        if not isinstance(completeness, dict) or completeness.get("complete") is not True:
+            return False
+    return validate_contract(
+        contract,
+        timestamp_fields=timestamp_fields,
+        allow_legacy=True,
+    ) or (
+        isinstance(payload.get("current"), dict)
+        and validate_contract(
+            payload["current"],
+            timestamp_fields=timestamp_fields,
+            allow_legacy=True,
+        )
+    )
+
+
+def newest_snapshot(
+    candidates: list[dict[str, object]],
+    *,
+    authority: str = "generation",
+    expected_revision: str | None = None,
+) -> dict[str, object]:
+    """Select by the feed owner rather than treating every HEAD as authority.
+
+    ``generation`` is used for authenticated Project synchronizations,
+    ``repository_revision`` for repository-bound integrity output, and
+    ``catalog`` for Source Checker generations projected against current
+    catalog identity and hashes.
+    """
+    if not candidates:
+        return {}
+    if authority not in {"generation", "repository_revision", "catalog"}:
+        raise ValueError(f"Unknown snapshot authority: {authority}")
+    expected = (
+        (expected_revision or source_revision(ROOT)).strip()
+        if authority == "repository_revision"
+        else ""
+    )
+
+    def revision_epoch(revision: str) -> int:
+        if not revision:
+            return 0
+        completed = subprocess.run(
+            ["git", "show", "-s", "--format=%ct", revision],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        try:
+            return int(completed.stdout.strip()) if completed.returncode == 0 else 0
+        except ValueError:
+            return 0
+
+    def completeness_rank(payload: dict[str, object]) -> int:
+        completeness = snapshot_contract_view(payload).get("completeness")
+        if isinstance(completeness, dict):
+            return 2 if completeness.get("complete") is True else 0
+        return 1
+
+    def key(payload: dict[str, object]) -> tuple[object, ...]:
+        revision = declared_snapshot_revision(payload)
+        contract = snapshot_contract_view(payload)
+        deterministic_identity = str(contract.get("generation_id") or "")
+        if not deterministic_identity:
+            deterministic_identity = hashlib.sha256(
+                json.dumps(
+                    payload, sort_keys=True, separators=(",", ":"), default=str
+                ).encode("utf-8")
+            ).hexdigest()
+        common = (
+            completeness_rank(payload),
+            snapshot_time(payload),
+            deterministic_identity,
+        )
+        if authority == "repository_revision":
+            return (
+                int(bool(expected and revision == expected)),
+                completeness_rank(payload),
+                revision_epoch(revision),
+                snapshot_time(payload),
+                deterministic_identity,
+            )
+        if authority == "catalog":
+            coverage = payload.get("current_catalog_coverage")
+            return (
+                int(
+                    isinstance(coverage, dict)
+                    and coverage.get("complete") is True
+                ),
+                *common,
+            )
+        return common
+
+    return max(candidates, key=key)
+
+
+def with_repository_revision_currentness(
+    payload: dict[str, object],
+    *,
+    expected_revision: str,
+) -> dict[str, object]:
+    """Overlay repository-authority currentness without changing producer validity."""
+    if not payload:
+        return {}
+    projected = dict(payload)
+    expected = expected_revision.strip()
+    declared = declared_snapshot_revision(payload)
+    freshness = dict(projected.get("freshness") or {})
+    equivalent_revisions = {
+        str(value).strip()
+        for value in freshness.get("equivalent_source_revisions") or []
+        if str(value).strip()
+    }
+    equivalent = bool(expected and expected in equivalent_revisions)
+    current = bool(expected and (declared == expected or equivalent))
+    status = "current" if current else "stale" if expected and declared else "unavailable"
+    projected["currentness"] = {
+        "authority": "repository_revision",
+        "status": status,
+        "current": current,
+        "expected_source_revision": expected or None,
+        "producer_source_revision": declared or None,
+        "equivalent_inputs_established": equivalent,
+        "supersession_rule": (
+            "A different authoritative repository revision supersedes this "
+            "integrity generation immediately, regardless of elapsed time."
+        ),
+    }
+    producer_availability = snapshot_contract_view(payload).get("availability")
+    if current:
+        projected["availability"] = (
+            str(producer_availability)
+            if str(producer_availability or "") in {"current", "available"}
+            else "current"
+        )
+    if not current:
+        projected["producer_availability"] = producer_availability
+        projected["availability"] = status
+        errors = [
+            error
+            for error in projected.get("projection_errors") or []
+            if isinstance(error, dict)
+            and error.get("code") != "repository_revision_superseded"
+        ]
+        errors.append(
+            {
+                "code": "repository_revision_superseded",
+                "severity": "warning",
+                "message": (
+                    "Integrity generation is not bound to the authoritative "
+                    "repository revision."
+                    if status == "stale"
+                    else "Integrity currentness cannot be established."
+                ),
+                "expected_source_revision": expected or None,
+                "producer_source_revision": declared or None,
+            }
+        )
+        projected["projection_errors"] = errors
+    freshness.update(
+        {
+            "status": status,
+            "basis": "authoritative repository revision",
+            "supersession_rule": projected["currentness"]["supersession_rule"],
+        }
+    )
+    projected["freshness"] = freshness
+    return projected
+
+
+def with_project_generation_currentness(
+    payload: dict[str, object],
+) -> dict[str, object]:
+    """Describe Project currentness using the latest complete synchronization."""
+    if not payload:
+        return {}
+    projected = dict(payload)
+    contract = snapshot_contract_view(payload)
+    complete = (
+        isinstance(contract.get("completeness"), dict)
+        and contract["completeness"].get("complete") is True
+    )
+    contract_declared = bool(
+        str(contract.get("generation_id") or "").strip()
+        and isinstance(contract.get("completeness"), dict)
+    )
+    status = (
+        str(contract.get("availability") or "current")
+        if complete and contract_declared
+        else "stale"
+        if contract_declared
+        else "unavailable"
+    )
+    projected["availability"] = status
+    projected["currentness"] = {
+        "authority": "authenticated_project_generation",
+        "status": status,
+        "current": (
+            contract_declared
+            and complete
+            and status in {"current", "available"}
+        ),
+        "generation_id": contract.get("generation_id"),
+        "synchronized_at": (
+            payload.get("generatedAt")
+            or payload.get("generated_at")
+            or payload.get("asOf")
+            or payload.get("as_of")
+        ),
+        "supersession_rule": (
+            "A newer complete authenticated Project synchronization supersedes "
+            "an older generation; repository HEAD alone does not."
+        ),
+    }
+    return projected
+
+
+def read_snapshot_override(
+    environment_name: str,
+    *,
+    timestamp_fields: tuple[str, ...],
+    required_fields: tuple[str, ...] = (),
+) -> dict[str, object] | None:
+    raw_path = os.environ.get(environment_name, "").strip()
+    if not raw_path:
+        return None
+    path = Path(raw_path)
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError(
+            f"{environment_name} explicitly selected an unreadable snapshot: {path}"
+        ) from exc
+    if not valid_snapshot(
+        payload,
+        timestamp_fields=timestamp_fields,
+        required_fields=required_fields,
+    ):
+        raise RuntimeError(
+            f"{environment_name} explicitly selected an invalid snapshot: {path}"
+        )
+    return payload
 
 
 def tracked_progress_snapshot() -> dict[str, object]:
@@ -1525,14 +2857,13 @@ def tracked_progress_snapshot() -> dict[str, object]:
 
 def progress_snapshot() -> dict[str, object]:
     """Read the latest generated progress data without making it authoritative."""
-    local_progress = os.environ.get("ARRP_PROGRESS_SNAPSHOT", "").strip()
-    if local_progress:
-        try:
-            payload = json.loads(Path(local_progress).read_text(encoding="utf-8"))
-            if isinstance(payload, dict):
-                return payload
-        except (OSError, json.JSONDecodeError):
-            pass
+    override = read_snapshot_override(
+        "ARRP_PROGRESS_SNAPSHOT",
+        timestamp_fields=("generatedAt", "generated_at", "asOf", "as_of"),
+        required_fields=("metrics",),
+    )
+    if override is not None:
+        return with_project_generation_currentness(override)
     candidates: list[dict[str, object]] = []
     try:
         completed = subprocess.run(
@@ -1543,33 +2874,58 @@ def progress_snapshot() -> dict[str, object]:
             text=True,
         )
         payload = json.loads(completed.stdout)
-        if isinstance(payload, dict):
+        if valid_snapshot(
+            payload,
+            timestamp_fields=("generatedAt", "generated_at", "asOf", "as_of"),
+            required_fields=("metrics",),
+        ):
             candidates.append(payload)
     except (subprocess.CalledProcessError, json.JSONDecodeError):
         pass
     tracked = tracked_progress_snapshot()
-    if tracked:
+    if valid_snapshot(
+        tracked,
+        timestamp_fields=("generatedAt", "generated_at", "asOf", "as_of"),
+        required_fields=("metrics",),
+    ):
         candidates.append(tracked)
     existing = existing_console_payload()
     cached = existing.get("progress", existing.get("progress_dashboard", {}))
-    if isinstance(cached, dict) and cached:
+    if valid_snapshot(
+        cached,
+        timestamp_fields=("generatedAt", "generated_at", "asOf", "as_of"),
+        required_fields=("metrics",),
+    ):
         candidates.append(cached)
-    if not candidates:
-        return {}
-    return max(
-        enumerate(candidates),
-        key=lambda indexed: (snapshot_time(indexed[1]), indexed[0]),
-    )[1]
+    return with_project_generation_currentness(
+        newest_snapshot(candidates, authority="generation")
+    )
 
 
 def integrity_snapshot() -> dict[str, object]:
     """Read the latest generated integrity feed without making it authoritative."""
+    expected_revision = source_revision(ROOT)
+    override = read_snapshot_override(
+        "ARRP_INTEGRITY_SNAPSHOT",
+        timestamp_fields=("generated_at",),
+        required_fields=("current", "history"),
+    )
+    if override is not None:
+        return with_repository_revision_currentness(
+            override,
+            expected_revision=expected_revision,
+        )
+    candidates: list[dict[str, object]] = []
     if LOCAL_INTEGRITY_FEED.exists():
         try:
             payload = json.loads(LOCAL_INTEGRITY_FEED.read_text(encoding="utf-8"))
-            if isinstance(payload, dict):
-                return payload
-        except json.JSONDecodeError:
+            if valid_snapshot(
+                payload,
+                timestamp_fields=("generated_at",),
+                required_fields=("current", "history"),
+            ):
+                candidates.append(payload)
+        except (OSError, json.JSONDecodeError):
             pass
     try:
         completed = subprocess.run(
@@ -1580,13 +2936,30 @@ def integrity_snapshot() -> dict[str, object]:
             text=True,
         )
         payload = json.loads(completed.stdout)
-        if isinstance(payload, dict):
-            return payload
+        if valid_snapshot(
+            payload,
+            timestamp_fields=("generated_at",),
+            required_fields=("current", "history"),
+        ):
+            candidates.append(payload)
     except (subprocess.CalledProcessError, json.JSONDecodeError):
         pass
     existing = existing_console_payload()
     cached = existing.get("integrity", {})
-    return cached if isinstance(cached, dict) else {}
+    if valid_snapshot(
+        cached,
+        timestamp_fields=("generated_at",),
+        required_fields=("current", "history"),
+    ):
+        candidates.append(cached)
+    return with_repository_revision_currentness(
+        newest_snapshot(
+            candidates,
+            authority="repository_revision",
+            expected_revision=expected_revision,
+        ),
+        expected_revision=expected_revision,
+    )
 
 
 def successful_run_chain_stages(
@@ -1729,18 +3102,278 @@ def source_checker_snapshot() -> dict[str, object]:
     except (OSError, json.JSONDecodeError):
         config = {}
 
-    local_override = os.environ.get("ARRP_SOURCE_CHECKER_SNAPSHOT", "").strip()
+    catalog_paths = [
+        ROOT / str(relative) for relative in config.get("catalogs") or []
+    ]
+    current_catalog_ids: set[str] | None = set() if catalog_paths else None
+    id_field = str(config.get("idField") or "Source ID")
+    url_field = str(config.get("urlField") or "URL")
+    for relative in config.get("catalogs") or []:
+        path = ROOT / str(relative)
+        if not path.is_file():
+            current_catalog_ids = None
+            break
+        for row in read_csv(path):
+            if str(row.get(url_field) or "").strip():
+                identifier = str(row.get(id_field) or "").strip()
+                if not identifier or (
+                    current_catalog_ids is not None
+                    and identifier in current_catalog_ids
+                ):
+                    current_catalog_ids = None
+                    break
+                if current_catalog_ids is not None:
+                    current_catalog_ids.add(identifier)
+        if current_catalog_ids is None:
+            break
+    current_catalog_hashes = (
+        source_hashes(ROOT, catalog_paths)
+        if current_catalog_ids is not None
+        else {}
+    )
+
+    def candidate_is_valid(payload: object) -> bool:
+        if not valid_snapshot(
+            payload,
+            timestamp_fields=("checked_at", "generated_at"),
+            required_fields=("results",),
+        ):
+            return False
+        assert isinstance(payload, dict)
+        producer = snapshot_contract_view(payload)
+        results = payload.get("results")
+        counts = payload.get("counts")
+        if not isinstance(results, list) or not isinstance(counts, dict):
+            return False
+        try:
+            expected = int(
+                producer.get("expected_count", payload.get("eligible_urls"))
+            )
+            actual = int(producer.get("actual_count", len(results)))
+            classified = sum(int(value) for value in counts.values())
+        except (TypeError, ValueError):
+            return False
+        identifiers = [
+            str(item.get("source_id") or "").strip()
+            for item in results
+            if isinstance(item, dict)
+        ]
+        return (
+            expected >= 0
+            and actual == len(results)
+            and expected == actual
+            and classified == len(results)
+            and len(identifiers) == len(results)
+            and all(identifiers)
+            and len(identifiers) == len(set(identifiers))
+        )
+
+    def with_current_catalog_coverage(
+        payload: dict[str, object],
+    ) -> dict[str, object]:
+        projected = dict(payload)
+        existing_producer = payload.get("producer_contract")
+        producer_contract = (
+            dict(existing_producer)
+            if isinstance(existing_producer, dict)
+            else {
+                field: payload[field]
+                for field in PRODUCER_CONTRACT_FIELDS
+                if field in payload
+            }
+        )
+        projected["producer_contract"] = producer_contract
+        if current_catalog_ids is None:
+            projected["availability"] = "unavailable"
+            projected["completeness"] = {
+                "complete": False,
+                "expected_count": None,
+                "actual_count": len(payload.get("results") or []),
+                "missing_count": None,
+            }
+            projected["projection_errors"] = [
+                {
+                    "code": "current_catalog_unavailable",
+                    "severity": "error",
+                    "message": "Current source catalogs could not be validated.",
+                }
+            ]
+            projected["currentness"] = {
+                "authority": "source_catalog_identity_and_hashes",
+                "status": "unavailable",
+                "current": False,
+                "supersession_rule": (
+                    "Any catalog identity or content-hash change supersedes a "
+                    "prior Source Checker generation immediately."
+                ),
+            }
+            return projected
+        results = payload.get("results") or []
+        result_ids = {
+            str(item.get("source_id") or "").strip()
+            for item in results
+            if isinstance(item, dict)
+        }
+        missing = sorted(current_catalog_ids - result_ids)
+        unexpected = sorted(result_ids - current_catalog_ids)
+        producer_hashes = producer_contract.get("source_hashes")
+        producer_hashes = (
+            producer_hashes if isinstance(producer_hashes, dict) else {}
+        )
+        missing_hashes = sorted(
+            label
+            for label in current_catalog_hashes
+            if not str(producer_hashes.get(label) or "").strip()
+        )
+        hash_mismatches = sorted(
+            label
+            for label, digest in current_catalog_hashes.items()
+            if str(producer_hashes.get(label) or "").strip()
+            and producer_hashes.get(label) != digest
+        )
+        hash_contract_available = bool(current_catalog_hashes) and not missing_hashes
+        complete = (
+            not missing
+            and not unexpected
+            and hash_contract_available
+            and not hash_mismatches
+        )
+        errors = [
+            error
+            for error in payload.get("projection_errors") or []
+            if isinstance(error, dict)
+            and error.get("code")
+            not in {
+                "current_catalog_source_missing",
+                "superseded_catalog_source",
+                "current_catalog_hash_missing",
+                "current_catalog_hash_superseded",
+            }
+        ]
+        errors.extend(
+            {
+                "code": "current_catalog_source_missing",
+                "severity": "error",
+                "source_id": identifier,
+                "message": "Current source catalog ID is absent from this checker generation.",
+            }
+            for identifier in missing
+        )
+        errors.extend(
+            {
+                "code": "superseded_catalog_source",
+                "severity": "warning",
+                "source_id": identifier,
+                "message": "Checker result is outside the current catalog identity set.",
+            }
+            for identifier in unexpected
+        )
+        errors.extend(
+            {
+                "code": "current_catalog_hash_missing",
+                "severity": "error",
+                "catalog": label,
+                "message": (
+                    "Checker generation does not declare the current catalog hash."
+                ),
+            }
+            for label in missing_hashes
+        )
+        errors.extend(
+            {
+                "code": "current_catalog_hash_superseded",
+                "severity": "error",
+                "catalog": label,
+                "message": (
+                    "Current catalog content differs from the checker generation."
+                ),
+                "producer_hash": producer_hashes.get(label),
+                "current_hash": current_catalog_hashes.get(label),
+            }
+            for label in hash_mismatches
+        )
+        projected.update(
+            {
+                "expected_count": len(current_catalog_ids),
+                "actual_count": len(result_ids & current_catalog_ids),
+                "availability": "current" if complete else "stale",
+                "completeness": {
+                    "complete": complete,
+                    "expected_count": len(current_catalog_ids),
+                    "actual_count": len(result_ids & current_catalog_ids),
+                    "missing_count": len(missing),
+                    "unexpected_count": len(unexpected),
+                    "missing_hash_count": len(missing_hashes),
+                    "hash_mismatch_count": len(hash_mismatches),
+                },
+                "missing_source_ids": missing,
+                "unexpected_source_ids": unexpected,
+                "projection_errors": errors,
+                "current_catalog_coverage": {
+                    "complete": complete,
+                    "expected_count": len(current_catalog_ids),
+                    "actual_count": len(result_ids & current_catalog_ids),
+                    "missing_ids": missing,
+                    "unexpected_ids": unexpected,
+                    "source_hashes": current_catalog_hashes,
+                    "producer_source_hashes": producer_hashes,
+                    "hash_contract_available": hash_contract_available,
+                    "missing_hashes": missing_hashes,
+                    "hash_mismatches": hash_mismatches,
+                },
+                "currentness": {
+                    "authority": "source_catalog_identity_and_hashes",
+                    "status": "current" if complete else "stale",
+                    "current": complete,
+                    "supersession_rule": (
+                        "Any catalog identity or content-hash change supersedes "
+                        "a prior Source Checker generation immediately."
+                    ),
+                },
+            }
+        )
+        freshness = dict(projected.get("freshness") or {})
+        freshness.update(
+            {
+                "status": "current" if complete else "stale",
+                "basis": "current source catalog identity coverage and content hashes",
+                "supersession_rule": projected["currentness"][
+                    "supersession_rule"
+                ],
+            }
+        )
+        projected["freshness"] = freshness
+        return projected
+
+    override_path = os.environ.get("ARRP_SOURCE_CHECKER_SNAPSHOT", "").strip()
+    if override_path:
+        try:
+            override_payload = json.loads(
+                Path(override_path).read_text(encoding="utf-8")
+            )
+        except (OSError, json.JSONDecodeError) as exc:
+            raise RuntimeError(
+                "ARRP_SOURCE_CHECKER_SNAPSHOT explicitly selected an unreadable "
+                f"snapshot: {override_path}"
+            ) from exc
+        if not candidate_is_valid(override_payload):
+            raise RuntimeError(
+                "ARRP_SOURCE_CHECKER_SNAPSHOT explicitly selected a Source "
+                "Checker feed with an invalid producer generation."
+            )
+        return with_current_catalog_coverage(override_payload)
+
+    candidates: list[dict[str, object]] = []
     configured_cache = str(config.get("offlineCachePath") or "").strip()
-    cache_candidates = [Path(local_override)] if local_override else []
-    if configured_cache:
-        cache_candidates.append(ROOT / configured_cache)
+    cache_candidates = [ROOT / configured_cache] if configured_cache else []
+
     for path in cache_candidates:
         if not path.exists():
             continue
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
-            if isinstance(payload, dict):
-                return payload
+            if candidate_is_valid(payload):
+                candidates.append(with_current_catalog_coverage(payload))
         except (OSError, json.JSONDecodeError):
             pass
 
@@ -1763,14 +3396,16 @@ def source_checker_snapshot() -> dict[str, object]:
                 text=True,
             )
             payload = json.loads(completed.stdout)
-            if isinstance(payload, dict):
-                return payload
+            if candidate_is_valid(payload):
+                candidates.append(with_current_catalog_coverage(payload))
         except (subprocess.CalledProcessError, json.JSONDecodeError):
             pass
 
     existing = existing_console_payload()
     cached = existing.get("source_checker", {})
-    return cached if isinstance(cached, dict) else {}
+    if candidate_is_valid(cached):
+        candidates.append(with_current_catalog_coverage(cached))
+    return newest_snapshot(candidates, authority="catalog")
 
 
 def existing_horizon_snapshot() -> tuple[list[dict[str, object]], str]:
@@ -1827,22 +3462,36 @@ def monitoring_issue_snapshot(
             "--refresh-github in an authenticated host context."
         )
 
-    issues = run_gh_json(
+    issue_limit = 1000
+    issues = require_complete_cli_collection(
+        run_gh_json(
         [
             "issue", "list", "--repo", "Thorncrag/ARRP", "--label",
-            "needs: monitoring", "--state", "open", "--limit", "200", "--json",
+            "needs: monitoring", "--state", "open", "--limit", str(issue_limit), "--json",
             "number,title,state,url,labels,updatedAt,body",
         ]
+        ),
+        limit=issue_limit,
+        source="GitHub monitored-issue query",
     )
+    project_limit = 1000
     project = run_gh_json(
         [
-            "project", "item-list", "2", "--owner", "Thorncrag", "--limit", "500",
+            "project", "item-list", "2", "--owner", "Thorncrag", "--limit", str(project_limit),
             "--format", "json",
         ]
     )
+    if not isinstance(project, dict):
+        raise RuntimeError("GitHub Project query did not return a JSON object.")
+    project_items = require_complete_cli_collection(
+        project.get("items"),
+        limit=project_limit,
+        source="GitHub Project item query",
+        reported_total=project.get("totalCount"),
+    )
     project_by_number = {
         item.get("content", {}).get("number"): item
-        for item in project.get("items", [])
+        for item in project_items
         if item.get("content", {}).get("type") == "Issue"
     }
     registry_by_number = {
@@ -1993,22 +3642,36 @@ def horizon_snapshot(refresh: bool) -> tuple[list[dict[str, object]], str]:
             "in an authenticated host context."
         )
 
-    issues = run_gh_json(
+    issue_limit = 1000
+    issues = require_complete_cli_collection(
+        run_gh_json(
         [
             "issue", "list", "--repo", "Thorncrag/ARRP", "--label", "kind: horizon",
-            "--state", "all", "--limit", "200", "--json",
+            "--state", "all", "--limit", str(issue_limit), "--json",
             "number,title,state,url,body,labels,createdAt,updatedAt",
         ]
+        ),
+        limit=issue_limit,
+        source="GitHub Horizon issue query",
     )
+    project_limit = 1000
     project = run_gh_json(
         [
-            "project", "item-list", "2", "--owner", "Thorncrag", "--limit", "500",
+            "project", "item-list", "2", "--owner", "Thorncrag", "--limit", str(project_limit),
             "--format", "json",
         ]
     )
+    if not isinstance(project, dict):
+        raise RuntimeError("GitHub Project query did not return a JSON object.")
+    project_items = require_complete_cli_collection(
+        project.get("items"),
+        limit=project_limit,
+        source="GitHub Project item query",
+        reported_total=project.get("totalCount"),
+    )
     project_by_number = {
         item.get("content", {}).get("number"): item
-        for item in project.get("items", [])
+        for item in project_items
         if "kind: horizon" in (item.get("labels") or [])
         and item.get("content", {}).get("type") == "Issue"
     }
@@ -2052,8 +3715,9 @@ def horizon_snapshot(refresh: bool) -> tuple[list[dict[str, object]], str]:
 
 def enrich_horizon_records(
     records: list[dict[str, object]],
+    projection_errors: list[dict[str, object]] | None = None,
 ) -> list[dict[str, object]]:
-    history_by_id = horizon_log_records()
+    history_by_id = horizon_log_records(projection_errors)
     enriched: list[dict[str, object]] = []
     for original in records:
         record = dict(original)
@@ -2089,8 +3753,481 @@ def enrich_horizon_records(
     return enriched
 
 
+def overview_incident_identity(stage: str, message: str) -> tuple[str, str]:
+    """Return a stable prerequisite/root-cause identity for compact incidents."""
+
+    compact = re.sub(r"\s+", " ", message.casefold()).strip()
+    if (
+        "canonical arrp workspace is not reconciled with github" in compact
+        or re.search(r"current branch (?:is )?.+ instead of main", compact)
+    ):
+        return (
+            "host-repository-preflight",
+            "Canonical ARRP workspace is off main and not reconciled with GitHub.",
+        )
+    if "isolated elim checkout contains a prior unsynchronized baseline" in compact:
+        return (
+            "elim-isolated-checkout",
+            "The isolated Elim checkout contains a prior unsynchronized baseline.",
+        )
+    return (stage, message.strip() or "Unclassified automation incident.")
+
+
+def overview_data(
+    *,
+    candidates: list[dict[str, object]],
+    active_horizon_records: list[dict[str, object]],
+    monitoring_issues: list[dict[str, object]],
+    pending_sources: list[dict[str, object]],
+    review_recommendations: list[dict[str, object]],
+    progress: dict[str, object],
+    integrity: dict[str, object],
+    run_chain: dict[str, object],
+    publication: dict[str, object],
+    project_logs: list[dict[str, object]],
+    agent_registry: list[dict[str, object]],
+    watcher_metadata: dict[str, object],
+    source_checker: dict[str, object],
+) -> dict[str, object]:
+    progress_metrics = (
+        progress.get("metrics") if isinstance(progress.get("metrics"), dict) else {}
+    )
+    integrity_current = (
+        integrity.get("current")
+        if isinstance(integrity.get("current"), dict)
+        else {}
+    )
+    activity: list[dict[str, object]] = []
+    for log in project_logs:
+        for entry in (log.get("entries") or [])[-4:]:
+            if not isinstance(entry, dict):
+                continue
+            values = entry.get("values") if isinstance(entry.get("values"), dict) else {}
+            activity.append(
+                {
+                    "id": entry.get("id"),
+                    "log": log.get("id"),
+                    "date": values.get("date"),
+                    "record": values.get("record"),
+                    "outcome": values.get("outcome") or values.get("result"),
+                    "summary": values.get("summary") or values.get("change"),
+                }
+            )
+    activity.sort(key=lambda item: str(item.get("date") or ""), reverse=True)
+    delivery_items = (
+        progress.get("delivery_items")
+        if isinstance(progress.get("delivery_items"), list)
+        else []
+    )
+    delivery_available = isinstance(progress.get("delivery_items"), list)
+    progress_items = [
+        item
+        for collection in (
+            progress.get("proposals") or [],
+            progress.get("candidates") or [],
+            delivery_items,
+        )
+        for item in collection
+        if isinstance(item, dict)
+    ]
+    release_blocker_items = [
+        {
+            "identifier": item.get("identifier"),
+            "title": item.get("title"),
+            "priority": item.get("priority"),
+            "status": item.get("workflowStatus"),
+            "workstream": item.get("workstream"),
+            "url": item.get("url"),
+            "route": "progress",
+        }
+        for item in progress_items
+        if normalize_console_owner(
+            item.get("releaseBlocker") or item.get("release_blocker")
+        )
+        in {"yes", "true"}
+    ]
+    critical_high_blockers = [
+        item
+        for item in release_blocker_items
+        if normalize_console_owner(item.get("priority")) in {"critical", "high"}
+    ]
+    release_fields_available = bool(progress_items) and all(
+        ("releaseBlocker" in item or "release_blocker" in item)
+        and "priority" in item
+        for item in progress_items
+    )
+    human_actions: list[dict[str, object]] = []
+    for item in review_recommendations:
+        if normalize_console_owner(item.get("action_owner")) != "human":
+            continue
+        human_actions.append(
+            {
+                "id": item.get("id"),
+                "kind": "repository_review_decision",
+                "label": item.get("human_question") or item.get("recommendation"),
+                "priority": "Human decision",
+                "route": item.get("console_target") or "logs:source-monitor",
+                "source_url": item.get("source_url"),
+            }
+        )
+    for item in progress_items:
+        if normalize_console_owner(item.get("workflowStatus")) != "human decision needed":
+            continue
+        human_actions.append(
+            {
+                "id": item.get("identifier") or item.get("projectItemId"),
+                "kind": "project_human_decision",
+                "label": item.get("title"),
+                "priority": item.get("priority"),
+                "route": "progress",
+                "source_url": item.get("url"),
+            }
+        )
+    unresolved_host_actions = [
+        item
+        for item in run_chain.get("host_action_items") or []
+        if isinstance(item, dict)
+        and item.get("resolved") is not True
+        and normalize_console_owner(item.get("owner")) == "human"
+    ]
+    for item in unresolved_host_actions:
+        action_kind = normalize_console_owner(item.get("kind")).replace(" ", "_")
+        if action_kind not in {
+            "approval",
+            "authorization",
+            "credential_required",
+            "go_no_go",
+            "human_decision",
+            "policy_decision",
+            "review_decision",
+        }:
+            # Operational failures belong in the grouped incident projection,
+            # even when their recovery owner is human. Retry rows are not
+            # separate human decisions.
+            continue
+        human_actions.append(
+            {
+                "id": item.get("id"),
+                "kind": action_kind,
+                "label": item.get("next_action") or item.get("summary"),
+                "priority": "Automation attention",
+                "route": "automation",
+                "source_url": None,
+            }
+        )
+    incident_groups: dict[tuple[str, str], dict[str, object]] = {}
+    seen_incident_events: set[tuple[str, str, str]] = set()
+    incident_rows = [
+        item
+        for item in run_chain.get("failures") or []
+        if isinstance(item, dict)
+    ] + unresolved_host_actions
+    for item in incident_rows:
+        stage = str(item.get("stage") or "unknown-stage")
+        message = str(item.get("message") or item.get("details") or item.get("summary") or "")
+        timestamp = str(item.get("recorded_at") or item.get("created_at") or "")
+        event_key = (stage, timestamp, normalize_console_owner(message))
+        if event_key in seen_incident_events:
+            continue
+        seen_incident_events.add(event_key)
+        prerequisite, root_cause = overview_incident_identity(stage, message)
+        key = (prerequisite, normalize_console_owner(root_cause))
+        group = incident_groups.setdefault(
+            key,
+            {
+                "incident_id": "incident-"
+                + hashlib.sha256(
+                    "{}|{}".format(*key).encode("utf-8")
+                ).hexdigest()[:16],
+                "stage": stage,
+                "failed_prerequisite": prerequisite,
+                "root_cause": root_cause,
+                "classification": (
+                    "hold"
+                    if "instead of main" in message.casefold()
+                    or "non-main" in message.casefold()
+                    else item.get("classification") or "blocking"
+                ),
+                "message": root_cause,
+                "occurrence_count": 0,
+                "first_seen": timestamp,
+                "latest_seen": timestamp,
+                "chain_ids": [],
+                "route": "automation",
+            },
+        )
+        group["occurrence_count"] = int(group["occurrence_count"]) + int(
+            item.get("failure_count") or 1
+        )
+        if timestamp and (
+            not group.get("first_seen") or timestamp < str(group["first_seen"])
+        ):
+            group["first_seen"] = timestamp
+        if timestamp and timestamp > str(group.get("latest_seen") or ""):
+            group["latest_seen"] = timestamp
+        chain_id = str(item.get("chain_id") or run_chain.get("chain_id") or "")
+        if chain_id and chain_id not in group["chain_ids"]:
+            group["chain_ids"].append(chain_id)
+    active_incidents = sorted(
+        incident_groups.values(),
+        key=lambda item: str(item.get("latest_seen") or ""),
+        reverse=True,
+    )
+    domain_signals = []
+    for domain, payload, timestamp, route in (
+        (
+            "progress",
+            progress,
+            progress.get("generated_at") or progress.get("generatedAt"),
+            "progress",
+        ),
+        (
+            "integrity",
+            integrity,
+            integrity.get("generated_at") or integrity_current.get("generated_at"),
+            "integrity",
+        ),
+        (
+            "source_checker",
+            source_checker,
+            source_checker.get("checked_at"),
+            "sources:assurance",
+        ),
+    ):
+        availability = str(payload.get("availability") or "")
+        if not payload:
+            status = "unavailable"
+            reason = "No valid feed generation is available."
+        elif availability in {"stale", "unavailable"}:
+            status = availability
+            reason = "The feed does not completely cover its current authoritative source."
+        elif not availability:
+            status = "contract_unavailable"
+            reason = "Legacy feed is present without a declared truth contract."
+        else:
+            status = availability
+            reason = ""
+        if status not in {"current", "available"}:
+            domain_signals.append(
+                {
+                    "domain": domain,
+                    "status": status,
+                    "reason": reason,
+                    "timestamp": timestamp,
+                    "route": route,
+                }
+            )
+    automation_failures = [
+        item for item in run_chain.get("failures") or [] if isinstance(item, dict)
+    ]
+    if not run_chain:
+        domain_signals.append(
+            {
+                "domain": "automation",
+                "status": "unavailable",
+                "reason": "No run-chain snapshot is available.",
+                "timestamp": None,
+                "route": "automation",
+            }
+        )
+    elif automation_failures:
+        domain_signals.append(
+            {
+                "domain": "automation",
+                "status": "attention",
+                "reason": "The current run chain reports an active failure or hold.",
+                "timestamp": run_chain.get("updated_at")
+                or run_chain.get("completed_at"),
+                "route": "automation",
+            }
+        )
+    release_readiness = (
+        publication.get("release_readiness")
+        if isinstance(publication.get("release_readiness"), dict)
+        else {}
+    )
+    if release_readiness.get("status") != "ready":
+        domain_signals.append(
+            {
+                "domain": "publication_release",
+                "status": release_readiness.get("status") or "unavailable",
+                "reason": release_readiness.get("status_explanation")
+                or "Release readiness is unavailable.",
+                "timestamp": None,
+                "route": "publication:analysis",
+            }
+        )
+    material_changes: list[dict[str, object]] = [
+        {
+            "id": item.get("id"),
+            "date": item.get("recorded_at"),
+            "kind": "repository_review_recommendation",
+            "label": item.get("recommendation"),
+            "affected_count": (
+                (item.get("affected") or {}).get("total_count")
+                if isinstance(item.get("affected"), dict)
+                else None
+            ),
+            "route": item.get("console_target") or "logs:source-monitor",
+        }
+        for item in review_recommendations
+    ]
+    material_changes.extend(
+        {**item, "kind": "project_log", "route": f"logs:{item.get('log')}"}
+        for item in activity[:8]
+    )
+    material_changes.sort(
+        key=lambda item: str(item.get("date") or ""), reverse=True
+    )
+    next_reviews: list[dict[str, object]] = []
+    if REVIEW_EPOCHS.is_file():
+        epoch_rows = [
+            json.loads(line)
+            for line in REVIEW_EPOCHS.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        if epoch_rows:
+            epoch = epoch_rows[-1]
+            next_reviews.append(
+                {
+                    "kind": "review_epoch",
+                    "label": "Comprehensive Review Epoch",
+                    "due_at": epoch.get("next_due_at"),
+                    "status": epoch.get("stability_status"),
+                    "trigger": epoch.get("triggering_reason"),
+                    "route": "logs:agents",
+                }
+            )
+    for item in progress_items:
+        next_audit = item.get("nextAudit") or item.get("next_audit")
+        if not str(next_audit or "").strip() or normalize_console_owner(
+            next_audit
+        ) == "not recorded":
+            continue
+        next_reviews.append(
+            {
+                "kind": "project_review_trigger",
+                "label": item.get("identifier") or item.get("title"),
+                "due_at": None,
+                "status": item.get("workflowStatus"),
+                "trigger": next_audit,
+                "route": "progress",
+                "source_url": item.get("url"),
+            }
+        )
+    source_completeness = (
+        source_checker.get("completeness")
+        if isinstance(source_checker.get("completeness"), dict)
+        else {}
+    )
+    integrity_counts = (
+        integrity_current.get("counts")
+        if isinstance(integrity_current.get("counts"), dict)
+        else {}
+    )
+    integrity_findings_value = integrity_counts.get("findings")
+    integrity_findings_available = (
+        bool(integrity)
+        and str(integrity.get("availability") or "") != "unavailable"
+        and isinstance(integrity_findings_value, (int, float))
+        and not isinstance(integrity_findings_value, bool)
+    )
+    return {
+        "manager_focus": {
+            "human_decisions": len(human_actions),
+            "human_actions": human_actions[:20],
+            "active_incidents": len(active_incidents),
+            "incidents": active_incidents[:10],
+            "release_blockers": (
+                len(release_blocker_items) if release_fields_available else None
+            ),
+            "release_blocker_fields_available": release_fields_available,
+            "critical_high_release_blockers": (
+                len(critical_high_blockers) if release_fields_available else None
+            ),
+            "critical_high_blocker_items": critical_high_blockers[:15],
+            "integrity_findings": (
+                int(integrity_findings_value)
+                if integrity_findings_available
+                else None
+            ),
+            "integrity_findings_available": integrity_findings_available,
+            "source_checker_complete": source_completeness.get("complete"),
+            "delivery_items": len(delivery_items) if delivery_available else None,
+            "delivery_items_available": delivery_available,
+            "domain_attention": domain_signals,
+            "next_reviews": next_reviews[:15],
+        },
+        "queue_counts": {
+            "preliminary_candidates": len(candidates),
+            "formal_candidates": len(active_horizon_records),
+            "monitoring_issues": len(monitoring_issues),
+            "pending_sources": len(pending_sources),
+            "repository_recommendations": len(review_recommendations),
+            "delivery_items": len(delivery_items) if delivery_available else None,
+            "human_actions": len(human_actions),
+            "active_incidents": len(active_incidents),
+            "critical_high_release_blockers": (
+                len(critical_high_blockers) if release_fields_available else None
+            ),
+        },
+        "activity": material_changes[:12],
+        "agents": {
+            "registered": len(agent_registry),
+            "last_chain_id": run_chain.get("chain_id") or run_chain.get("id"),
+            "chain_status": run_chain.get("status"),
+        },
+        "services": watcher_metadata,
+        "usage": run_chain.get("usage") or run_chain.get("usage_snapshot"),
+        "progress_summary": {
+            "generated_at": progress.get("generated_at") or progress.get("generatedAt"),
+            "source_revision": progress.get("source_revision"),
+            "availability": progress.get("availability"),
+            "ready": progress_metrics.get("ready"),
+            "total": progress_metrics.get("total"),
+            "remaining": progress_metrics.get("remaining"),
+            "track_status": progress_metrics.get("trackStatus"),
+            "delivery_items": len(delivery_items) if delivery_available else None,
+        },
+        "integrity_summary": {
+            "generated_at": integrity.get("generated_at")
+            or integrity_current.get("generated_at"),
+            "source_revision": integrity.get("source_revision")
+            or integrity_current.get("revision"),
+            "availability": integrity.get("availability"),
+            "result": integrity_current.get("result"),
+            "counts": integrity_current.get("counts") or {},
+        },
+        "automation_summary": {
+            "chain_id": run_chain.get("chain_id") or run_chain.get("id"),
+            "status": run_chain.get("status"),
+            "generated_at": run_chain.get("generated_at")
+            or run_chain.get("completed_at"),
+            "stage_count": len(run_chain.get("stages") or []),
+        },
+        "publication_summary": {
+            "disposition_counts": publication.get("disposition_counts") or {},
+            "build_count": len(publication.get("builds") or []),
+            "topic_product_count": len(publication.get("topic_products") or []),
+        },
+        "source_checker_summary": {
+            "checked_at": source_checker.get("checked_at"),
+            "source_revision": source_checker.get("source_revision"),
+            "availability": source_checker.get("availability"),
+            "expected_count": source_checker.get("expected_count"),
+            "actual_count": source_checker.get("actual_count"),
+            "counts": source_checker.get("counts") or {},
+        },
+    }
+
+
+def normalize_console_owner(value: object) -> str:
+    return " ".join(str(value or "").strip().casefold().split())
+
+
 def main() -> None:
     args = parse_args()
+    projection_errors: list[dict[str, object]] = []
     candidates = candidate_records()
     cited_sources = catalog_source_records(CITED_SOURCES, "Relied upon")
     pending_sources = catalog_source_records(
@@ -2102,21 +4239,189 @@ def main() -> None:
     court_watch_sources, case_watcher_metadata = case_watcher_snapshot()
     page_inventory = page_inventory_records()
     publication = publication_data(page_inventory)
-    project_logs = project_log_views()
-    review_recommendations = repository_review_recommendations()
+    project_logs = project_log_views(projection_errors)
+    review_recommendations = repository_review_recommendations(projection_errors)
     progress = progress_snapshot()
     integrity = integrity_snapshot()
     run_chain = run_chain_snapshot()
     source_checker = source_checker_snapshot()
+    for feed_name, feed in (
+        ("progress", progress),
+        ("integrity", integrity),
+        ("source_checker", source_checker),
+    ):
+        if not feed:
+            projection_errors.append(
+                {
+                    "code": "required_feed_unavailable",
+                    "severity": "error",
+                    "feed": feed_name,
+                    "message": (
+                        f"The {feed_name} feed has no valid complete generation "
+                        "for the current Console build."
+                    ),
+                }
+            )
+        else:
+            if not str(feed.get("generation_id") or "").strip():
+                projection_errors.append(
+                    {
+                        "code": "required_feed_contract_unavailable",
+                        "severity": "error",
+                        "feed": feed_name,
+                        "message": (
+                            f"The {feed_name} feed is preserved as legacy data "
+                            "but lacks a generation truth contract."
+                        ),
+                    }
+                )
+            if str(feed.get("availability") or "") in {"stale", "unavailable"}:
+                projection_errors.append(
+                    {
+                        "code": "required_feed_not_current",
+                        "severity": "error",
+                        "feed": feed_name,
+                        "availability": feed.get("availability"),
+                        "message": (
+                            f"The {feed_name} feed is present but does not completely "
+                            "cover its current authoritative source."
+                        ),
+                    }
+                )
     agent_registry = agent_registry_records()
-    horizon_records = enrich_horizon_records(horizon_records)
+    horizon_records = enrich_horizon_records(horizon_records, projection_errors)
     active_horizon_records = [
         record for record in horizon_records if record["issue_state"] == "Open"
     ]
-    generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    delivery_items = (
+        progress.get("delivery_items")
+        if isinstance(progress.get("delivery_items"), list)
+        else []
+    )
+    publication["release_readiness"] = publication_release_readiness(
+        page_inventory,
+        publication.get("builds") or [],
+        progress,
+        integrity,
+    )
+    publication["delivery_items"] = delivery_items
+    generated_at = utc_timestamp()
+    watcher_metadata = {
+        "case_monitor": case_watcher_metadata,
+        "presidential_directives": directive_watcher_metadata(),
+    }
+    overview = overview_data(
+        candidates=candidates,
+        active_horizon_records=active_horizon_records,
+        monitoring_issues=monitoring_issues,
+        pending_sources=pending_sources,
+        review_recommendations=review_recommendations,
+        progress=progress,
+        integrity=integrity,
+        run_chain=run_chain,
+        publication=publication,
+        project_logs=project_logs,
+        agent_registry=agent_registry,
+        watcher_metadata=watcher_metadata,
+        source_checker=source_checker,
+    )
+    input_paths = [
+        CANDIDATES,
+        HORIZON_LOG,
+        CHANGE_AUDIT_LOG,
+        AGENT_AUDIT_LOG,
+        ELIM_RUN_LOG,
+        SOURCE_MONITOR_LOG,
+        SOURCE_CHECKER_CONFIG,
+        ISSUE_REGISTRY,
+        CITED_SOURCES,
+        PENDING_SOURCES,
+        DIRECTIVES,
+        CASE_MONITOR_CONFIG,
+        DIRECTIVE_MONITOR_CONFIG,
+        PRINT_ASSEMBLY_MANIFEST,
+        ROOT / "research" / "README.md",
+    ]
+    hashes = source_hashes(ROOT, input_paths)
+    for feed_name, feed in (
+        ("progress", progress),
+        ("integrity", integrity),
+        ("run_chain", run_chain),
+        ("source_checker", source_checker),
+    ):
+        if feed:
+            hashes[f"feed:{feed_name}"] = "sha256:" + hashlib.sha256(
+                json.dumps(
+                    feed, sort_keys=True, separators=(",", ":"), default=str
+                ).encode("utf-8")
+            ).hexdigest()
+    actual_count = (
+        len(candidates)
+        + len(horizon_records)
+        + len(cited_sources)
+        + len(pending_sources)
+        + len(presidential_directives)
+        + len(page_inventory)
+        + sum(len(log.get("entries") or []) for log in project_logs)
+        + len(review_recommendations)
+        + len(delivery_items)
+    )
+    pagination_sources: list[dict[str, object]] = [
+        {
+            "source": "horizon-issues",
+            "complete": True,
+            "actual_count": len(horizon_records),
+            "mode": "authenticated-refresh" if args.refresh_github else "preserved-snapshot",
+        },
+        {
+            "source": "monitoring-issues",
+            "complete": True,
+            "actual_count": len(monitoring_issues),
+            "mode": "authenticated-refresh" if args.refresh_github else "preserved-snapshot",
+        },
+    ]
+    for feed_name, feed in (
+        ("progress", progress),
+        ("source-checker", source_checker),
+    ):
+        feed_pagination = feed.get("pagination")
+        pagination_sources.append(
+            {
+                "source": feed_name,
+                "complete": (
+                    isinstance(feed_pagination, dict)
+                    and feed_pagination.get("complete") is True
+                    and (
+                        not isinstance(feed.get("completeness"), dict)
+                        or feed["completeness"].get("complete") is True
+                    )
+                )
+                if feed
+                else False,
+                "details": (
+                    feed_pagination if isinstance(feed_pagination, dict) else None
+                ),
+            }
+        )
+    generation_contract = feed_contract(
+        feed_name="project-console",
+        timestamp_field="generated_at",
+        timestamp=generated_at,
+        revision=source_revision(ROOT),
+        hashes=hashes,
+        expected_count=actual_count,
+        actual_count=actual_count,
+        pagination={
+            "complete": all(
+                item.get("complete") is True for item in pagination_sources
+            ),
+            "sources": pagination_sources,
+        },
+        projection_errors=projection_errors,
+    )
     payload = {
-        "schema_version": 26,
-        "generated_at": generated_at,
+        "schema_version": 27,
+        **generation_contract,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),
         "horizon_issue_count": len(active_horizon_records),
@@ -2126,13 +4431,12 @@ def main() -> None:
         "monitoring_issues": monitoring_issues,
         "court_watch_sources": court_watch_sources,
         "presidential_directives": presidential_directives,
-        "watcher_metadata": {
-            "case_monitor": case_watcher_metadata,
-            "presidential_directives": directive_watcher_metadata(),
-        },
+        "watcher_metadata": watcher_metadata,
         "pending_sources": pending_sources,
         "page_inventory": page_inventory,
         "publication": publication,
+        "topic_products": publication.get("topic_products") or [],
+        "delivery_items": delivery_items,
         "project_logs": project_logs,
         "repository_review_recommendations": review_recommendations,
         "progress": progress,
@@ -2140,6 +4444,7 @@ def main() -> None:
         "run_chain": run_chain,
         "source_checker": source_checker,
         "agent_registry": agent_registry,
+        "overview": overview,
         # The full snapshot is retained only so an ordinary rebuild can preserve
         # authoritative GitHub state without requiring Keychain access.
         "horizon_records": horizon_records,
@@ -2149,7 +4454,7 @@ def main() -> None:
 
     compatibility_payload = {
         "schema_version": payload["schema_version"],
-        "generated_at": generated_at,
+        **generation_contract,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),
         "horizon_issue_count": len(active_horizon_records),
@@ -2174,6 +4479,7 @@ def main() -> None:
             for record in monitoring_issues
         ],
         "repository_review_recommendations": review_recommendations,
+        "overview": overview,
     }
     source_chunk_count = 16
     source_chunk_size = max(1, math.ceil(len(cited_sources) / source_chunk_count))
@@ -2200,6 +4506,9 @@ def main() -> None:
         for bucket in range(directive_chunk_count)
     }
     parts = {
+        "overview.js": {
+            "overview": overview,
+        },
         "candidates.js": {
             "records": candidates,
             "active_horizon_records": active_horizon_records,
@@ -2229,34 +4538,17 @@ def main() -> None:
         "publication.js": {
             "page_inventory": page_inventory,
             "publication": publication,
+            "topic_products": publication.get("topic_products") or [],
+            "delivery_items": delivery_items,
         },
         **source_chunks,
         **directive_chunks,
     }
-
-    serialized = json.dumps(
-        compatibility_payload, ensure_ascii=False, indent=2
-    ).replace("</", "<\\/")
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(
-        "/* Generated by scripts/build_horizon_review_console.py. */\n"
-        f"window.ARRP_HORIZON_REVIEW_DATA={serialized};\n",
-        encoding="utf-8",
+    write_console_bundle(
+        compatibility_payload,
+        parts,
+        generation_contract=generation_contract,
     )
-    CONSOLE_DATA_DIR.mkdir(parents=True, exist_ok=True)
-    part_prefix = (
-        "/* Generated by scripts/build_horizon_review_console.py. */\n"
-        "window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};\n"
-        "Object.assign(window.ARRP_HORIZON_REVIEW_DATA,"
-    )
-    for name, part in parts.items():
-        part_serialized = json.dumps(
-            part, ensure_ascii=False, indent=2
-        ).replace("</", "<\\/")
-        (CONSOLE_DATA_DIR / name).write_text(
-            f"{part_prefix}{part_serialized});\n",
-            encoding="utf-8",
-        )
 
     if args.console_only:
         print(
@@ -2288,11 +4580,10 @@ def main() -> None:
     participation_serialized = json.dumps(
         participation_payload, ensure_ascii=False, separators=(",", ":")
     ).replace("</", "<\\/")
-    PARTICIPATION_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    PARTICIPATION_OUTPUT.write_text(
+    atomic_write_text(
+        PARTICIPATION_OUTPUT,
         "/* Generated by scripts/build_horizon_review_console.py. */\n"
         f"window.ARRP_PARTICIPATION_DATA={participation_serialized};\n",
-        encoding="utf-8",
     )
     print(
         f"Wrote {OUTPUT.relative_to(ROOT)} and {PARTICIPATION_OUTPUT.relative_to(ROOT)} "

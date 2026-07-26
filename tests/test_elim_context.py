@@ -1,5 +1,6 @@
 import hashlib
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -25,6 +26,7 @@ from arrp_context import (  # noqa: E402
     validate_queue_canonical_record,
 )
 from select_elim_context_route import select_context_route  # noqa: E402
+from elim_execution import merge_gap_obligation_state  # noqa: E402
 
 
 def write_json(path: Path, value: object) -> None:
@@ -710,6 +712,397 @@ class QueueTests(unittest.TestCase):
         path = self.root / name
         write_json(path, data)
         return path
+
+    def quiet_inputs(self) -> tuple[Path, Path, Path, Path]:
+        common = {"generated_at": "2026-07-24T11:00:00Z"}
+        return (
+            self.path(
+                "integrity.json",
+                {**common, "revision": "abc", "findings": []},
+            ),
+            self.path(
+                "progress.json",
+                {**common, "repositoryRevision": "abc", "proposals": []},
+            ),
+            self.path(
+                "intake.json",
+                {**common, "pending": False, "items": []},
+            ),
+            self.path(
+                "chain.json",
+                {
+                    **common,
+                    "chain_id": "fresh-chain",
+                    "final_revision": "abc",
+                    "bots": [],
+                },
+            ),
+        )
+
+    def gap_state(self, *, authority_disposition: str = "permitted") -> dict:
+        result = {
+            "run_id": "chain-prior",
+            "unit_id": "selected-gap-prior",
+            "files_touched": ["framework/logs/ELIM_RUN_LOG.md"],
+            "discovered_work_units": [
+                {
+                    "id": "DISC-1",
+                    "obligation_id": "GAP-1",
+                    "domain": "automation",
+                    "discovery_context": "Project governance review and discovery.",
+                    "observed_at": "2026-07-24T11:30:00+00:00",
+                    "source_revision": "a" * 40,
+                    "evidence": ["A canonical route lacks an accountable owner."],
+                    "reasoning": "The omission prevents deterministic stewardship.",
+                    "uncertainty": None,
+                    "affected_records": ["framework/context-routes.json"],
+                    "consequence": "The route gap may leave work undiscovered.",
+                    "authority": {
+                        "classification": "delegated_judgment",
+                        "basis": "Elim governance-discovery runbook.",
+                        "disposition": authority_disposition,
+                    },
+                    "action_rationale": (
+                        "Repair the route."
+                        if authority_disposition == "permitted"
+                        else "Retain evidence without implementing the prohibited change."
+                    ),
+                    "changed_files": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "affected_surfaces": ["repository", "automation", "console"],
+                    "validation_readback": [
+                        {
+                            "check": "canonical detail readback",
+                            "status": "passed",
+                            "evidence": "The Run Log detail was read back.",
+                        }
+                    ],
+                    "disposition": "reported",
+                    "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+                    "provenance": ["framework/logs/ELIM_RUN_LOG.md#gap-1"],
+                    "owner": "Elim",
+                    "next_action": "Recheck the route and apply only an authorized repair.",
+                    "next_trigger": "The route or authority record changes.",
+                    "outside_contribution": None,
+                }
+            ],
+            "gap_obligation_updates": [
+                {
+                    "obligation_id": "GAP-1",
+                    "discovered_work_unit_id": "DISC-1",
+                    "status": "open",
+                    "observed_at": "2026-07-24T11:30:00+00:00",
+                    "resolution": None,
+                }
+            ],
+        }
+        return merge_gap_obligation_state(None, result)
+
+    def governance_review_state(self, reviewed_at: str) -> dict:
+        result = {
+            "run_id": "chain-governance-prior",
+            "unit_id": "governance-review-prior",
+            "files_touched": ["framework/logs/ELIM_RUN_LOG.md"],
+            "discovered_work_units": [
+                {
+                    "id": "DISC-governance-control",
+                    "obligation_id": None,
+                    "domain": "project-governance-review",
+                    "discovery_context": "Completed the minimum governance domains.",
+                    "observed_at": reviewed_at,
+                    "source_revision": "b" * 40,
+                    "evidence": ["All minimum domains were reviewed at the pinned boundary."],
+                    "reasoning": "No material defect was established.",
+                    "uncertainty": None,
+                    "affected_records": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "consequence": "The quiet-queue review is current for its cadence.",
+                    "authority": {
+                        "classification": "delegated_judgment",
+                        "basis": "Elim governance-discovery runbook.",
+                        "disposition": "permitted",
+                    },
+                    "action_rationale": "Record a clean review without inventing work.",
+                    "changed_files": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "affected_surfaces": ["repository", "automation", "console"],
+                    "validation_readback": [
+                        {
+                            "check": "governance review record",
+                            "status": "passed",
+                            "evidence": "The canonical Run Log record was read back.",
+                        }
+                    ],
+                    "disposition": "no_material_finding",
+                    "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+                    "provenance": ["framework/logs/ELIM_RUN_LOG.md#governance-review"],
+                    "owner": "Elim",
+                    "next_action": "Wait for the next due governance review.",
+                    "next_trigger": "The 168-hour minimum interval elapses.",
+                    "outside_contribution": None,
+                }
+            ],
+            "gap_obligation_updates": [],
+        }
+        return merge_gap_obligation_state(None, result)
+
+    def test_quiet_queue_synthesizes_project_governance_discovery(self):
+        integrity, progress, intake, chain = self.quiet_inputs()
+        queue = build_work_queue(
+            integrity_path=integrity,
+            progress_path=progress,
+            intake_path=intake,
+            chain_path=chain,
+            now=self.now,
+            input_root=self.root,
+        )
+        selected = next(
+            item
+            for item in queue["items"]
+            if item["id"] == queue["selected_work_item_id"]
+        )
+        self.assertEqual(selected["work_class"], "governance_discovery")
+        self.assertTrue(selected["governance_discovery_mode"])
+        self.assertEqual(
+            selected["source"]["finding_type"],
+            "project_governance_review_and_discovery",
+        )
+        self.assertTrue(queue["launch_recommended"])
+
+    def test_clean_governance_review_is_visible_but_not_immediately_reselected(self):
+        integrity, progress, intake, chain = self.quiet_inputs()
+        gaps = self.path(
+            "gap-obligations.json",
+            self.governance_review_state("2026-07-24T11:30:00+00:00"),
+        )
+        current = build_work_queue(
+            integrity_path=integrity,
+            progress_path=progress,
+            intake_path=intake,
+            chain_path=chain,
+            gap_obligations_path=gaps,
+            now=self.now,
+            input_root=self.root,
+        )
+        self.assertFalse(current["launch_recommended"])
+        self.assertTrue(current["governance_discovery"]["current_for_cadence"])
+        self.assertEqual(
+            current["governance_discovery"]["last_review"]["disposition"],
+            "no_material_finding",
+        )
+        self.assertEqual(current["counts"]["governance_discovery"], 0)
+
+        due = build_work_queue(
+            integrity_path=integrity,
+            progress_path=progress,
+            intake_path=intake,
+            chain_path=chain,
+            gap_obligations_path=gaps,
+            now=datetime(2026, 8, 1, 12, tzinfo=timezone.utc),
+            max_age_hours=240,
+            input_root=self.root,
+        )
+        self.assertTrue(due["launch_recommended"])
+        self.assertEqual(due["counts"]["governance_discovery"], 1)
+
+    def test_queue_cli_reconstructs_governance_state_when_cache_is_missing(self):
+        integrity, progress, intake, chain = self.quiet_inputs()
+        config = self.root / ".github/run-coordinator-bot.json"
+        config.parent.mkdir(parents=True, exist_ok=True)
+        write_json(
+            config,
+            {
+                "governanceDiscovery": {
+                    "enabled": True,
+                    "mode": "Project governance review and discovery",
+                    "ordinarySelectionPolicy": "after-ordinary-queue-clears",
+                    "minimumIntervalHours": 168,
+                }
+            },
+        )
+        run_log = self.root / "framework/logs/ELIM_RUN_LOG.md"
+        run_log.parent.mkdir(parents=True, exist_ok=True)
+        from elim_execution import render_discovery_markers  # noqa: E402
+
+        run_log.write_text(
+            "# Elim Run Log\n\n"
+            + render_discovery_markers(
+                {
+                    "run_id": "chain-governance-prior",
+                    "unit_id": "governance-review-prior",
+                    "files_touched": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "discovered_work_units": [
+                        {
+                            "id": "DISC-governance-control",
+                            "obligation_id": None,
+                            "domain": "project-governance-review",
+                            "discovery_context": "Reviewed every minimum domain.",
+                            "observed_at": "2026-07-24T11:30:00+00:00",
+                            "source_revision": "b" * 40,
+                            "evidence": ["The complete minimum domain list was reviewed."],
+                            "reasoning": "No material defect was established.",
+                            "uncertainty": None,
+                            "affected_records": ["framework/logs/ELIM_RUN_LOG.md"],
+                            "consequence": "The review is current for its cadence.",
+                            "authority": {
+                                "classification": "delegated_judgment",
+                                "basis": "Elim governance-discovery runbook.",
+                                "disposition": "permitted",
+                            },
+                            "action_rationale": "Record a clean review.",
+                            "changed_files": ["framework/logs/ELIM_RUN_LOG.md"],
+                            "affected_surfaces": [
+                                "repository",
+                                "automation",
+                                "console",
+                            ],
+                            "validation_readback": [
+                                {
+                                    "check": "review record",
+                                    "status": "passed",
+                                    "evidence": "The Run Log record was read back.",
+                                }
+                            ],
+                            "disposition": "no_material_finding",
+                            "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+                            "provenance": [
+                                "framework/logs/ELIM_RUN_LOG.md#governance"
+                            ],
+                            "owner": "Elim",
+                            "next_action": "Wait for the next due review.",
+                            "next_trigger": "The 168-hour interval elapses.",
+                            "outside_contribution": None,
+                        }
+                    ],
+                    "gap_obligation_updates": [],
+                }
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        completed = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "scripts/build_elim_work_queue.py"),
+                "--input-root",
+                str(self.root),
+                "--integrity",
+                str(integrity),
+                "--progress",
+                str(progress),
+                "--intake",
+                str(intake),
+                "--chain",
+                str(chain),
+                "--as-of",
+                "2026-07-24T12:00:00+00:00",
+            ],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        queue = json.loads(completed.stdout)
+        self.assertTrue(queue["governance_discovery"]["current_for_cadence"])
+        self.assertEqual(
+            queue["governance_discovery"]["minimum_interval_hours"],
+            168,
+        )
+        reconstructed = chain.parent / "gap-obligations-reconstructed.json"
+        self.assertTrue(reconstructed.is_file())
+        self.assertEqual(
+            json.loads(reconstructed.read_text())["governance_review"]["disposition"],
+            "no_material_finding",
+        )
+
+    def test_one_remaining_ordinary_item_runs_before_governance_review(self):
+        integrity, progress, intake, chain = self.quiet_inputs()
+        write_json(
+            integrity,
+            {
+                "generated_at": "2026-07-24T11:00:00Z",
+                "revision": "abc",
+                "findings": [
+                    {
+                        "id": "ordinary-integrity-1",
+                        "severity": "warning",
+                        "attention": "agent",
+                        "message": "One ordinary repair remains.",
+                    }
+                ],
+            },
+        )
+        ordinary = build_work_queue(
+            integrity_path=integrity,
+            progress_path=progress,
+            intake_path=intake,
+            chain_path=chain,
+            now=self.now,
+            input_root=self.root,
+        )
+        selected = next(
+            item
+            for item in ordinary["items"]
+            if item["id"] == ordinary["selected_work_item_id"]
+        )
+        self.assertNotEqual(selected.get("work_class"), "governance_discovery")
+        self.assertEqual(ordinary["counts"]["governance_discovery"], 0)
+        self.assertEqual(
+            ordinary["governance_discovery"]["reason"],
+            "Ordinary eligible work remains and is selected first.",
+        )
+
+        write_json(
+            integrity,
+            {
+                "generated_at": "2026-07-24T11:00:00Z",
+                "revision": "abc",
+                "findings": [],
+            },
+        )
+        after_clear = build_work_queue(
+            integrity_path=integrity,
+            progress_path=progress,
+            intake_path=intake,
+            chain_path=chain,
+            now=self.now,
+            input_root=self.root,
+        )
+        selected = next(
+            item
+            for item in after_clear["items"]
+            if item["id"] == after_clear["selected_work_item_id"]
+        )
+        self.assertEqual(selected["work_class"], "governance_discovery")
+
+    def test_gap_queue_is_a_compact_link_projection_and_respects_prohibition(self):
+        integrity, progress, intake, chain = self.quiet_inputs()
+        gaps = self.path(
+            "gap-obligations.json",
+            self.gap_state(authority_disposition="forbidden"),
+        )
+        queue = build_work_queue(
+            integrity_path=integrity,
+            progress_path=progress,
+            intake_path=intake,
+            chain_path=chain,
+            gap_obligations_path=gaps,
+            now=self.now,
+            input_root=self.root,
+        )
+        gap = next(
+            item for item in queue["items"] if item.get("work_class") == "gap_stewardship"
+        )
+        self.assertFalse(gap["eligible_for_elim"])
+        self.assertIn("forbidden", gap["eligibility_reason"])
+        self.assertIn("obligation_projection", gap["source"])
+        self.assertNotIn("evidence", gap["source"])
+        self.assertNotIn("reasoning", gap["source"])
+        self.assertNotIn("consequence", gap["source"])
+        selected = next(
+            item
+            for item in queue["items"]
+            if item["id"] == queue["selected_work_item_id"]
+        )
+        self.assertEqual(selected["work_class"], "governance_discovery")
 
     def test_pending_run_log_reconciliation_is_selected_as_safety_zero(self):
         common = {"generated_at": "2026-07-24T11:00:00Z"}
@@ -1890,6 +2283,15 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                 "agent_autonomous_execution",
                 "agent_provenance_logging",
                 "agent_validation_closeout",
+                "audit_change",
+                "github_workflow",
+                "evidence_standards",
+                "source_project_monitoring",
+                "project_console_progress",
+                "project_interface",
+                "runbook_run_coordinator_bot",
+                "print_assembly",
+                "public_release",
             },
             "issue_development": {
                 "method_scope_admission",
@@ -1959,7 +2361,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         for profile_name in profiles:
             self.assertEqual(
                 manifest["profiles"][profile_name]["max_bytes"],
-                400000,
+                900000 if profile_name == "integrity_reconciliation" else 400000,
             )
             for capability in capabilities:
                 with self.subTest(profile=profile_name, capability=capability):

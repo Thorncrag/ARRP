@@ -203,11 +203,31 @@ class HorizonIntakeTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             cache = Path(directory) / "source-checker.json"
             config = Path(directory) / "source-checker-config.json"
-            expected = {"schema_version": 1, "counts": {"verified": 2}}
+            catalog = Path(directory) / "sources.csv"
+            catalog.write_text(
+                "Source ID,URL,Title or Description,Authority / Publisher\n"
+                "SRC-TEST,https://example.test/source,Test source,Publisher\n",
+                encoding="utf-8",
+            )
+            expected = {
+                "schema_version": 1,
+                "checked_at": "2026-07-26T00:00:00Z",
+                "source_hashes": console_builder.source_hashes(
+                    ROOT, [catalog]
+                ),
+                "eligible_urls": 1,
+                "counts": {"verified": 1},
+                "results": [
+                    {"source_id": "SRC-TEST", "classification": "verified"}
+                ],
+            }
             cache.write_text(json.dumps(expected), encoding="utf-8")
             config.write_text(
                 json.dumps(
                     {
+                        "catalogs": [str(catalog)],
+                        "idField": "Source ID",
+                        "urlField": "URL",
                         "currentData": "project-console-data:source-checker.json",
                         "dataBranch": "project-console-data",
                         "currentDataPath": "source-checker.json",
@@ -222,15 +242,39 @@ class HorizonIntakeTest(unittest.TestCase):
                     os.environ, {"ARRP_SOURCE_CHECKER_SNAPSHOT": ""}, clear=False
                 ),
             ):
-                self.assertEqual(source_checker_snapshot(), expected)
+                projected = source_checker_snapshot()
+            self.assertEqual(projected["checked_at"], expected["checked_at"])
+            self.assertEqual(projected["missing_source_ids"], [])
+            self.assertTrue(projected["completeness"]["complete"])
+            self.assertEqual(projected["actual_count"], 1)
 
     def test_source_checker_snapshot_reads_the_published_data_branch(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             config = Path(directory) / "source-checker-config.json"
-            expected = {"schema_version": 1, "counts": {"verified": 3}}
+            catalog = Path(directory) / "sources.csv"
+            catalog.write_text(
+                "Source ID,URL,Title or Description,Authority / Publisher\n"
+                "SRC-BRANCH,https://example.test/source,Test source,Publisher\n",
+                encoding="utf-8",
+            )
+            expected = {
+                "schema_version": 1,
+                "checked_at": "2026-07-26T00:00:00Z",
+                "source_hashes": console_builder.source_hashes(
+                    ROOT, [catalog]
+                ),
+                "eligible_urls": 1,
+                "counts": {"verified": 1},
+                "results": [
+                    {"source_id": "SRC-BRANCH", "classification": "verified"}
+                ],
+            }
             config.write_text(
                 json.dumps(
                     {
+                        "catalogs": [str(catalog)],
+                        "idField": "Source ID",
+                        "urlField": "URL",
                         "currentData": "project-console-data:source-checker.json",
                         "dataBranch": "project-console-data",
                         "currentDataPath": "source-checker.json",
@@ -251,14 +295,16 @@ class HorizonIntakeTest(unittest.TestCase):
                     os.environ, {"ARRP_SOURCE_CHECKER_SNAPSHOT": ""}, clear=False
                 ),
             ):
-                self.assertEqual(source_checker_snapshot(), expected)
-            self.assertEqual(
-                run.call_args.args[0],
+                projected = source_checker_snapshot()
+            self.assertEqual(projected["checked_at"], expected["checked_at"])
+            self.assertTrue(projected["completeness"]["complete"])
+            self.assertIn(
                 [
                     "git",
                     "show",
                     "origin/project-console-data:source-checker.json",
                 ],
+                [call.args[0] for call in run.call_args_list],
             )
 
     def test_console_control_plane_exception_remains_narrow(self) -> None:
@@ -376,7 +422,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 26)
+        self.assertEqual(self.console["schema_version"], 27)
         self.assertEqual(
             set(self.console),
             {
@@ -403,6 +449,22 @@ class HorizonIntakeTest(unittest.TestCase):
                 "repository_review_recommendations",
                 "progress",
                 "horizon_records",
+                "contract_schema_version",
+                "generation_id",
+                "source_revision",
+                "source_hashes",
+                "expected_count",
+                "actual_count",
+                "availability",
+                "completeness",
+                "pagination",
+                "projection_errors",
+                "freshness",
+                "domain_generation",
+                "generation_manifest",
+                "overview",
+                "delivery_items",
+                "topic_products",
             },
         )
         self.assertEqual(
@@ -418,6 +480,7 @@ class HorizonIntakeTest(unittest.TestCase):
         console_dir = RESEARCH / "horizon-review-console"
         compatibility = console_dir / "catalog-data.js"
         parts = {
+            "overview.js",
             "candidates.js",
             "sources.js",
             "progress.js",
@@ -1120,11 +1183,10 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
-        self.assertIn("catalog-data.js?v=44", console_html)
-        self.assertIn("data/candidates.js?v=44", console_html)
-        self.assertIn("data/automation.js?v=44", console_html)
-        self.assertIn("app.js?v=44", console_html)
-        self.assertIn("styles.css?v=44", console_html)
+        self.assertIn("catalog-data.js?v=45", console_html)
+        self.assertIn("app.js?v=45", console_html)
+        self.assertIn("styles.css?v=45", console_html)
+        self.assertNotIn('<script src="data/', console_html)
         for tab in {"overview", "progress", "actions", "candidates", "sources", "integrity", "automation", "logs", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)
@@ -1182,7 +1244,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn('data-disclosure-id="sources-court-results"', console_html)
         self.assertIn('class="monitoring-list list-at-a-glance" id="court-watch-list"', console_html)
         self.assertIn('`progress-monitoring-${record.id}`', console_app)
-        self.assertIn('`sources-court-${records[0].owner_id}`', console_app)
+        self.assertIn('`sources-court-${records[0].owner_id}-${layoutSlug(records[0].monitoring_group || label)}`', console_app)
         self.assertIn('class="progress-disclosure progress-area-section progress-group-index"', console_html)
         self.assertNotIn('<details class="progress-disclosure progress-area-section"', console_html)
         self.assertNotIn("sources.length <= 4", console_app)
@@ -1278,7 +1340,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("renderOverviewQueues", console_app)
         self.assertIn("elimUsageConsumption", console_app)
         self.assertIn("Agents &amp; Bots", console_html)
-        self.assertIn("Recent automated actions", console_html)
+        self.assertIn("Recent material activity", console_html)
         self.assertIn("renderOverviewAutomationActivity", console_app)
         self.assertIn("captureSuccessfulStageHistory", console_app)
         self.assertIn("successfulStageHistory", console_app)
@@ -1288,9 +1350,8 @@ class HorizonIntakeTest(unittest.TestCase):
             "function renderOverviewRecentActivity()",
             1,
         )[1].split("function publicInputSnapshot", 1)[0]
-        self.assertIn('"elim", "source-monitor"', recent_automation)
-        self.assertNotIn('"horizon"', recent_automation)
-        self.assertNotIn('"changes"', recent_automation)
+        self.assertIn('"elim", "source-monitor", "horizon", "changes"', recent_automation)
+        self.assertIn("Human project governance", recent_automation)
         self.assertIn('document.createElementNS(namespace, "svg")', console_app)
         self.assertIn("usage-trend-line", console_css)
         self.assertIn("queueDirectoryCard", console_app)
@@ -1311,7 +1372,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('element("button", "disclosure-default-toggle")', console_app)
         self.assertIn('button.textContent = `Default: ${defaultOpen ? "open" : "closed"}`', console_app)
         self.assertIn("current[key] = nextDefault", console_app)
-        self.assertNotIn('details.addEventListener("toggle"', console_app)
+        self.assertIn('disclosure.addEventListener("toggle"', console_app)
         self.assertIn(".disclosure-default-toggle", console_css)
         self.assertIn('element("article", `action-item-card', console_app)
         self.assertRegex(
@@ -1354,7 +1415,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('id="reset-print-changes"', console_html)
         self.assertIn("Project progress", console_html)
         self.assertIn("Review Ready trajectory", console_html)
-        self.assertNotIn('id="pages-pagination"', console_html)
+        self.assertIn('id="pages-pagination"', console_html)
         self.assertIn("monitoredSourcesFirst", console_app)
         self.assertIn("sortableHeader", console_app)
         self.assertIn("printLevelDrafts", console_app)
@@ -1364,7 +1425,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Exclude from print…", console_app)
         self.assertIn("exportPrintLevelChanges", console_app)
         self.assertIn("renderActionItems", console_app)
-        self.assertIn("allHostAutomationActions", console_app)
+        self.assertIn("groupAutomationIncidents", console_app)
+        self.assertIn("automationIncidentEventKey", console_app)
         self.assertIn("reconcileRunChainSnapshot", console_app)
         self.assertIn('cloud.status = "host_pending"', console_app)
         self.assertIn('status_source: reportedHostStatus ? "local-host" : "local-cache"', console_app)
@@ -1372,23 +1434,21 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Cloud ${cloudStatus} · Host ${hostStatus}", console_app)
         self.assertNotIn("data.run_chain = snapshot;", console_app)
         self.assertIn("item.resolved !== true", console_app)
-        self.assertIn(
-            'String(item.chain_id || "") === String(data.run_chain?.chain_id || "")',
-            console_app,
-        )
+        self.assertIn('record.chain_id || (currentSource ? chain.chain_id : "")', console_app)
         self.assertIn('id="coordinator-resolve-action"', console_html)
         self.assertIn('label: "Integrity decisions requiring you"', console_app)
         self.assertIn('label: "Human decisions"', console_app)
-        self.assertIn('label: "Repository review recommendations"', console_app)
+        self.assertIn('label: "Repository decisions assigned to you"', console_app)
         self.assertIn("reviewSignals.pullRequests", console_app)
         self.assertIn("openPullRequests.map(repositoryReviewEntry)", console_app)
-        self.assertIn("GitHub is supporting evidence, not the action queue", console_app)
+        self.assertIn("Action Items is a nonauthoritative routing index", console_app)
+        self.assertIn("specialist Console views and canonical records own disposition", console_app)
         self.assertIn("repositoryHumanActions.length", console_app)
-        self.assertIn("Open recommendation log", console_app)
+        self.assertIn("Open specialist administration", console_app)
         self.assertIn('record.workflowStatus === "Human decision needed"', console_app)
         self.assertIn("integrityFindingNeedsHuman", console_app)
         self.assertNotIn('"foundation decision"', console_app)
-        self.assertIn('"human decision"', console_app)
+        self.assertIn('String(finding.attention || "").toLowerCase() === "human"', console_app)
         self.assertIn("integrityHumanFindings.map", console_app)
         self.assertIn('element("ol", "action-item-detail-list")', console_app)
         self.assertIn("integrityActionLink", console_app)
@@ -1470,8 +1530,8 @@ class HorizonIntakeTest(unittest.TestCase):
         )[1].split("async function refreshLiveSourceChecker", 1)[0]
         self.assertIn("sortableHeader", source_checker_renderer)
         self.assertIn(
-            'freshnessCard("Source checks", data.source_checker.checked_at || '
-            "data.source_checker.generated_at",
+            'projectionStatusCard("Source checks", sourceCheckerFeed, '
+            '"sources:watchers:source-checker"',
             console_app,
         )
         self.assertIn(

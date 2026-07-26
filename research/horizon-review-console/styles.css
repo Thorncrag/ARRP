@@ -9,11 +9,38 @@
   --gold: #a56b12;
   --gold-soft: #fff6df;
   --green: #2b6b54;
+  --red: #8e2929;
   --shadow: 0 10px 30px rgba(27, 42, 67, 0.08);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 * { box-sizing: border-box; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+:where(a, button, input, select, summary, [tabindex]):focus-visible {
+  outline: 3px solid rgba(36, 76, 133, .38);
+  outline-offset: 3px;
+}
+
+[aria-busy="true"] {
+  cursor: progress;
+}
+
+[aria-busy="true"] > .queue-view {
+  opacity: .72;
+}
 
 body {
   margin: 0;
@@ -196,7 +223,6 @@ a { color: var(--blue); }
 }
 .tab-update-count[hidden] { display: none; }
 .tab-panel[hidden] { display: none; }
-.tab-panel:focus { outline: none; }
 .layout-status { margin: .45rem .35rem 0; color: var(--muted); font-size: .72rem; text-align: right; }
 .layout-status.is-editing { color: #77500f; font-weight: 750; }
 
@@ -241,7 +267,6 @@ a { color: var(--blue); }
 #panel-logs .section-tab-list button { padding-inline: .25rem; font-size: clamp(.66rem, .74vw, .82rem); }
 #panel-logs .section-tab-list .tab-count { margin-left: .12rem; padding: .06rem .28rem; font-size: .64rem; }
 .section-panel[hidden] { display: none; }
-.section-panel:focus { outline: none; }
 
 .watcher-tabs {
   margin-top: 1.25rem;
@@ -280,7 +305,6 @@ a { color: var(--blue); }
 .watcher-tab-list button:focus-visible { outline: 3px solid rgba(36, 76, 133, .2); outline-offset: 2px; }
 .watcher-panel { padding-top: 1.1rem; }
 .watcher-panel[hidden] { display: none; }
-.watcher-panel:focus { outline: none; }
 .watcher-panel-header {
   display: flex;
   align-items: flex-start;
@@ -1650,6 +1674,61 @@ th[aria-sort="descending"] .sort-indicator { color: var(--blue); }
 .usage-trend-value-label { fill: #34455d; font-size: 10px; font-weight: 800; }
 .usage-trend-missing { fill: #8794a6; font-size: 16px; }
 .overview-queue-directory { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; }
+
+.action-brief {
+  display: grid;
+  gap: .3rem;
+}
+.action-brief > strong { color: var(--ink); }
+.action-brief p { margin: 0; }
+
+.source-checker-assurance {
+  margin-top: .55rem;
+  border-top: 1px solid var(--line);
+  padding-top: .5rem;
+}
+.source-checker-assurance > summary { cursor: pointer; font-weight: 700; }
+.source-checker-assurance-body { display: grid; gap: .65rem; padding-top: .65rem; }
+.source-checker-assurance-fields,
+.governance-review-fields,
+.gap-stewardship-fields {
+  display: grid;
+  grid-template-columns: minmax(9rem, .65fr) minmax(0, 1.35fr);
+  gap: .35rem .75rem;
+  margin: 0;
+}
+.source-checker-assurance-fields dt,
+.governance-review-fields dt,
+.gap-stewardship-fields dt { color: var(--muted); font-weight: 700; }
+.source-checker-assurance-fields dd,
+.governance-review-fields dd,
+.gap-stewardship-fields dd { margin: 0; overflow-wrap: anywhere; }
+.source-checker-catalog-coverage,
+.source-checker-hashes { margin: 0; padding-left: 1.2rem; overflow-wrap: anywhere; }
+
+.governance-review-specialist {
+  margin-bottom: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .85rem;
+  background: #fff;
+  padding: 1rem;
+}
+.governance-review-specialist-detail { display: grid; gap: .75rem; }
+
+.gap-stewardship-card > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  cursor: pointer;
+}
+.gap-stewardship-body { display: grid; gap: .75rem; padding-top: .75rem; }
+.integrity-component-delta { font-weight: 700; color: var(--muted); }
+
+.publication-delivery-card .dossier-field,
+.topic-product-card .dossier-field {
+  margin-top: .35rem;
+}
 .overview-queue-card {
   display: flex;
   min-width: 0;
@@ -1957,6 +2036,226 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
 .status-badge.pilot { color: #75500d; background: var(--gold-soft); }
 .status-badge.enabled { color: var(--green); background: #e9f5ef; }
 
+.overview-manager-focus-grid,
+.portfolio-history-grid,
+.integrity-components,
+.release-readiness-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .65rem;
+}
+
+.overview-manager-focus-grid .overview-card {
+  min-height: 8rem;
+}
+
+.portfolio-history-card,
+.integrity-component,
+.release-readiness-card,
+.publication-delivery-card,
+.topic-product-card,
+.progress-next-work-card,
+.automation-incident-card,
+.gap-stewardship-card {
+  min-width: 0;
+  padding: .85rem;
+  border: 1px solid var(--line);
+  border-radius: .7rem;
+  background: white;
+}
+
+.portfolio-history-card strong,
+.integrity-component > strong {
+  display: block;
+  margin: .18rem 0;
+  color: var(--blue);
+  font-size: 1.55rem;
+}
+
+.portfolio-history-card p,
+.integrity-component p,
+.release-readiness-card p,
+.publication-delivery-card p,
+.topic-product-card p,
+.progress-next-work-card p,
+.automation-incident-card p,
+.gap-stewardship-card p {
+  margin: .25rem 0 0;
+}
+
+.portfolio-delta,
+.source-assurance-value {
+  display: block;
+  margin-top: .45rem;
+  color: var(--muted);
+  font-size: .76rem;
+  font-weight: 750;
+}
+
+.progress-architecture-section,
+.progress-next-work-section,
+.integrity-components-section,
+.automation-incidents-section,
+.gap-stewardship-section,
+.publication-delivery-workbench,
+.publication-release-blockers,
+.topic-products-section,
+.release-readiness-section,
+.action-items-section {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .8rem;
+  background: var(--soft);
+}
+
+.progress-next-work-list,
+.publication-delivery-list,
+.topic-products-list,
+.automation-incidents,
+.gap-stewardship-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+  margin-top: .75rem;
+}
+
+.progress-next-work-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .35rem;
+}
+
+.progress-next-work-card h4,
+.publication-delivery-card h4,
+.topic-product-card h4 {
+  margin: .35rem 0 0;
+}
+
+.primary-actions {
+  border-color: #c9d7ea;
+  background: #f7faff;
+}
+
+.oversight-actions {
+  margin-top: 1rem;
+}
+
+.source-assurance-summary {
+  margin: 1rem 0;
+}
+
+.advanced-filters {
+  margin: .75rem 0;
+  padding: .65rem .75rem;
+  border: 1px solid var(--line);
+  border-radius: .6rem;
+  background: var(--soft);
+}
+
+.advanced-filters summary {
+  color: var(--blue);
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.advanced-filters label {
+  display: block;
+  margin-top: .65rem;
+  color: var(--muted);
+  font-size: .8rem;
+  font-weight: 750;
+}
+
+.advanced-filters select {
+  display: block;
+  width: min(26rem, 100%);
+  margin-top: .25rem;
+  padding: .48rem;
+  border: 1px solid var(--line);
+  border-radius: .45rem;
+  background: white;
+  font: inherit;
+}
+
+.source-checker-completeness {
+  margin: .75rem 0;
+  padding: .65rem .75rem;
+  border-left: 4px solid var(--blue);
+  background: var(--blue-soft);
+  font-size: .82rem;
+}
+
+.feed-state-stale,
+.feed-state-incomplete,
+.feed-state-unavailable,
+.feed-state-undeclared {
+  border-color: #d6ad5a;
+  background: var(--gold-soft);
+}
+
+.integrity-component.feed-state-unavailable,
+.integrity-component.feed-state-incomplete {
+  border-color: #d6ad5a;
+}
+
+.release-readiness-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .35rem;
+}
+
+.release-readiness-card p {
+  grid-column: 1 / -1;
+}
+
+.release-readiness-card.ready {
+  border-color: #9ac9b6;
+  background: #f3fbf7;
+}
+
+.publication-conflict-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin-top: .45rem;
+}
+
+.publication-conflict-controls button {
+  padding: .35rem .5rem;
+  border: 1px solid #bd8d37;
+  border-radius: .4rem;
+  color: #64430b;
+  background: white;
+  cursor: pointer;
+  font: inherit;
+  font-size: .72rem;
+  font-weight: 750;
+}
+
+.development-score.invalid {
+  color: var(--red);
+  background: #fff0ee;
+}
+
+.automation-incidents-section,
+.gap-stewardship-section {
+  margin-top: 1rem;
+}
+
+.automation-incident-card {
+  border-left: 4px solid var(--red);
+}
+
+.gap-stewardship-card {
+  border-left: 4px solid var(--gold);
+}
+
+.micro-note {
+  color: var(--muted);
+  font-size: .73rem;
+}
+
 @media (max-width: 850px) {
   .automation-error-alert { align-items: stretch; flex-direction: column; }
   .workflow-summary { grid-template-columns: 1fr; gap: 1rem; }
@@ -2006,6 +2305,15 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
   .overview-automation-activity-grid,
   .automation-overview-grid,
   .overview-queue-directory { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .overview-manager-focus-grid,
+  .portfolio-history-grid,
+  .integrity-components,
+  .release-readiness-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .progress-next-work-list,
+  .publication-delivery-list,
+  .topic-products-list,
+  .automation-incidents,
+  .gap-stewardship-list { grid-template-columns: 1fr; }
   .overview-portals { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .freshness-grid { grid-template-columns: 1fr; }
   .toc-preview { position: static; max-height: none; }
@@ -2034,6 +2342,10 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
   .integrity-metrics,
   .integrity-log-summary { grid-template-columns: 1fr; }
   .overview-portals,
+  .overview-manager-focus-grid,
+  .portfolio-history-grid,
+  .integrity-components,
+  .release-readiness-grid,
   .freshness-grid,
   .automation-summary,
   .automation-overview-grid,

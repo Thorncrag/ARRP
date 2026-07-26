@@ -38,13 +38,13 @@
     },
     "framework_kernel": {
       "path": "framework/FRAMEWORK.md",
-      "sha256": "244ac58cac353d017f9818b8fb37fb6b0c2ce0c07b25130540924bf39174f6b2",
+      "sha256": "7a398e5a4bd3d5b1d205273adf6771798565d2ca54812d7c669eb1bdd4ba40d6",
       "hash_policy": "pinned",
       "governing": true
     },
     "agent_rules_kernel": {
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "a00daa630adf4df1f7df0db9e34ee2a4f514ad30c910b1fd5e7c288fe00e6028",
+      "sha256": "dd8dba7343f74d14ad8d65528e7a0db26f1aeff3f718bba0267c5a758e0faa90",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -138,7 +138,7 @@
     },
     "project_console_progress": {
       "path": "framework/PROJECT_CONSOLE_PROGRESS.md",
-      "sha256": "cd97c024d96deec53cd1c01c112c87ec65300c8df5e1924680906a8496f89520",
+      "sha256": "d15bd6cb96b13b600d162a4fd2aaed0de7633bafa1309a3fa4e2193221bdf9ce",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -148,7 +148,7 @@
     },
     "project_interface": {
       "path": "framework/PROJECT_INTERFACE.md",
-      "sha256": "6e1d1eeaff3a2993b1fb66dba01bfe894a585ab713c0a8e966200b7a0d88cd46",
+      "sha256": "3872c689992389e849aadf2b7491c4f2e2c8f754b5ad3364871f62a14b79c7df",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -177,7 +177,7 @@
     },
     "agent_autonomous_execution": {
       "path": "framework/agent-rules/autonomous-execution.md",
-      "sha256": "0755f7699d407e7a94daf8a969bbc72926b6131f5419608db1c8c078841c7c33",
+      "sha256": "eeca559d9a6766eed7ec9cc35d797c93158217123ca126e2e653e6ab43410b25",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -249,7 +249,7 @@
     },
     "runbook_elim": {
       "path": "framework/agents/ELIM.md",
-      "sha256": "ac7b2b40cebd5746cfd5f9cbc08e6a0f75b2ddf70c422cd2e627f66c3ecba145",
+      "sha256": "0d6f823c7bbd1140f80e1fe7e6953b6b6055d2ed1c4979596990cf8d68f7d97f",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -297,7 +297,7 @@
     },
     "runbook_run_coordinator_bot": {
       "path": "framework/agents/RUN_COORDINATOR_BOT.md",
-      "sha256": "0eadfa19ac2dc6f8e8cadb8fe357302f2769d02f277e109f31fe173d78e62cf5",
+      "sha256": "ee670e6a127b3fbcddf8ca889257e934781b9102aca6809468a227c1f116915f",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -740,13 +740,27 @@
   },
   "profiles": {
     "integrity_reconciliation": {
-      "max_bytes": 400000,
+      "max_bytes": 900000,
       "modules": [
         "agent_autonomous_execution",
         "agent_provenance_logging",
         "agent_validation_closeout",
         "audit_project_consistency",
         "project_structure"
+      ],
+      "capabilities": [
+        "language_and_neutrality",
+        "scope_and_candidates",
+        "evidence_and_sources",
+        "specialized_source_monitoring",
+        "navigation_and_inventory",
+        "change_control",
+        "github_lifecycle",
+        "autonomous_execution",
+        "public_intake",
+        "publication",
+        "interface_governance",
+        "bot_governance"
       ],
       "sections": [
         {
@@ -758,6 +772,11 @@
           "document": "runbook_elim",
           "heading": "## Work Order",
           "max_bytes": 20000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Governance Discovery and Gap Stewardship",
+          "max_bytes": 30000
         },
         {
           "document": "runbook_elim",

@@ -113,6 +113,49 @@ PERSISTENT_WATCHER_INPUTS = {
 }
 MAX_PERSISTENT_WATCHER_INPUT_BYTES = 20_000_000
 MAX_PERSISTENT_WATCHER_FUTURE_SKEW_SECONDS = 600
+GOVERNANCE_DISCOVERY_FIELDS = {
+    "mode",
+    "ordinary_selection_policy",
+    "minimum_interval_hours",
+    "selected_as_quiet_queue_fallback",
+    "ordinary_eligible_count_before_fallback",
+    "last_review",
+    "next_due_at",
+    "current_for_cadence",
+    "waiting_for_ordinary_queue",
+    "reason",
+}
+GOVERNANCE_REVIEW_FIELDS = {
+    "last_reviewed_at",
+    "run_id",
+    "selected_unit_id",
+    "discovered_work_unit_id",
+    "source_revision",
+    "disposition",
+    "canonical_detail",
+    "next_trigger",
+}
+GAP_OBLIGATION_STATUSES = {
+    "open",
+    "investigating",
+    "blocked",
+    "human_required",
+    "resolved",
+    "human_disposition",
+}
+GAP_AUTHORITY_CLASSIFICATIONS = {
+    "mechanical",
+    "delegated_judgment",
+    "human_reserved",
+}
+GAP_AUTHORITY_DISPOSITIONS = {
+    "permitted",
+    "human_reserved",
+    "forbidden",
+    "unsafe",
+    "out_of_scope",
+    "uncertain",
+}
 
 
 def utc_now() -> datetime:
@@ -392,6 +435,351 @@ def model_profile_for_context(
             f"no reviewed model profile is bound to context profile {context_profile!r}"
         )
     return profile_id, profile
+
+
+def _nonblank_string(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+def _valid_timestamp(value: Any) -> bool:
+    if not _nonblank_string(value):
+        return False
+    try:
+        return parse_time(value) is not None
+    except (TypeError, ValueError):
+        return False
+
+
+def _exact_source_revision(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    if value.startswith("sha256:"):
+        revision = value[7:]
+        expected_lengths = {64}
+    else:
+        revision = value
+        expected_lengths = {40, 64}
+    return (
+        len(revision) in expected_lengths
+        and all(character in "0123456789abcdef" for character in revision)
+    )
+
+
+def _safe_repository_relative_path(value: Any) -> bool:
+    if not _nonblank_string(value):
+        return False
+    path = Path(value)
+    return not path.is_absolute() and ".." not in path.parts
+
+
+def governance_discovery_projection(
+    queue: dict[str, Any],
+    config: dict[str, Any],
+) -> dict[str, Any]:
+    """Validate and retain the typed quiet-queue governance posture."""
+
+    value = queue.get("governance_discovery")
+    if not isinstance(value, dict) or set(value) != GOVERNANCE_DISCOVERY_FIELDS:
+        raise ValueError(
+            "Elim work queue governance_discovery fields do not match the "
+            "approved projection"
+        )
+    policy = config["governanceDiscovery"]
+    if (
+        value.get("mode") != policy["mode"]
+        or value.get("ordinary_selection_policy")
+        != policy["ordinarySelectionPolicy"]
+        or value.get("minimum_interval_hours")
+        != policy["minimumIntervalHours"]
+    ):
+        raise ValueError(
+            "Elim work queue governance_discovery differs from coordinator policy"
+        )
+    for field in (
+        "selected_as_quiet_queue_fallback",
+        "current_for_cadence",
+        "waiting_for_ordinary_queue",
+    ):
+        if not isinstance(value.get(field), bool):
+            raise ValueError(
+                f"Elim work queue governance_discovery {field} must be boolean"
+            )
+    ordinary_count = value.get("ordinary_eligible_count_before_fallback")
+    if (
+        isinstance(ordinary_count, bool)
+        or not isinstance(ordinary_count, int)
+        or ordinary_count < 0
+    ):
+        raise ValueError(
+            "Elim work queue governance_discovery ordinary count is invalid"
+        )
+    if not _nonblank_string(value.get("reason")):
+        raise ValueError(
+            "Elim work queue governance_discovery requires a reason"
+        )
+    next_due_at = value.get("next_due_at")
+    if next_due_at is not None and not _valid_timestamp(next_due_at):
+        raise ValueError(
+            "Elim work queue governance_discovery next_due_at is invalid"
+        )
+    last_review = value.get("last_review")
+    if last_review is not None:
+        if (
+            not isinstance(last_review, dict)
+            or set(last_review) != GOVERNANCE_REVIEW_FIELDS
+            or not _valid_timestamp(last_review.get("last_reviewed_at"))
+            or not all(
+                _nonblank_string(last_review.get(field))
+                for field in (
+                    "run_id",
+                    "selected_unit_id",
+                    "discovered_work_unit_id",
+                    "next_trigger",
+                )
+            )
+            or not _exact_source_revision(last_review.get("source_revision"))
+            or last_review.get("disposition")
+            not in {"no_material_finding", "review_completed"}
+            or not _safe_repository_relative_path(
+                last_review.get("canonical_detail")
+            )
+        ):
+            raise ValueError(
+                "Elim work queue governance_discovery last_review is invalid"
+            )
+        if next_due_at is None:
+            raise ValueError(
+                "Elim work queue governance_discovery reviewed state lacks next_due_at"
+            )
+    elif next_due_at is not None:
+        raise ValueError(
+            "Elim work queue governance_discovery has next_due_at without a review"
+        )
+    selected_fallback = value["selected_as_quiet_queue_fallback"]
+    current = value["current_for_cadence"]
+    waiting = value["waiting_for_ordinary_queue"]
+    if selected_fallback and (current or waiting or ordinary_count != 0):
+        raise ValueError(
+            "Elim work queue governance discovery has contradictory fallback state"
+        )
+    if current and (waiting or ordinary_count != 0 or last_review is None):
+        raise ValueError(
+            "Elim work queue governance discovery has contradictory cadence state"
+        )
+    if waiting != (ordinary_count > 0):
+        raise ValueError(
+            "Elim work queue governance discovery ordinary-work posture is inconsistent"
+        )
+    governance_items = [
+        item
+        for item in queue.get("items") or []
+        if isinstance(item, dict)
+        and item.get("work_class") == "governance_discovery"
+    ]
+    if len(governance_items) != int(selected_fallback):
+        raise ValueError(
+            "Elim work queue governance discovery item count is inconsistent"
+        )
+    return {
+        "mode": value["mode"],
+        "ordinary_selection_policy": value["ordinary_selection_policy"],
+        "minimum_interval_hours": value["minimum_interval_hours"],
+        "selected_as_quiet_queue_fallback": value[
+            "selected_as_quiet_queue_fallback"
+        ],
+        "ordinary_eligible_count_before_fallback": value[
+            "ordinary_eligible_count_before_fallback"
+        ],
+        "last_review": (
+            dict(value["last_review"])
+            if isinstance(value["last_review"], dict)
+            else None
+        ),
+        "next_due_at": value["next_due_at"],
+        "current_for_cadence": value["current_for_cadence"],
+        "waiting_for_ordinary_queue": value["waiting_for_ordinary_queue"],
+        "reason": value["reason"],
+    }
+
+
+def gap_obligation_projections(
+    queue: dict[str, Any],
+    *,
+    maximum: int,
+) -> list[dict[str, Any]]:
+    """Project bounded queue metadata without duplicating gap narratives."""
+
+    items = queue.get("items")
+    if not isinstance(items, list):
+        raise ValueError("Elim work queue items must be an array")
+    gap_items = [
+        item
+        for item in items
+        if isinstance(item, dict) and item.get("work_class") == "gap_stewardship"
+    ]
+    if len(gap_items) > maximum:
+        raise ValueError(
+            "Elim work queue gap obligations exceed the configured projection bound"
+        )
+    required_projection_fields = {
+        "severity",
+        "owner",
+        "authority",
+        "authority_disposition",
+        "disposition",
+        "first_seen",
+        "last_checked",
+        "occurrence_count",
+        "age_days",
+        "canonical_detail",
+        "exact_next_action",
+        "next_trigger",
+        "source_revision",
+    }
+    projected: list[dict[str, Any]] = []
+    identities: set[str] = set()
+    for item in gap_items:
+        source = item.get("source")
+        projection = (
+            source.get("obligation_projection")
+            if isinstance(source, dict)
+            else None
+        )
+        if (
+            not isinstance(source, dict)
+            or source.get("input") != "gap_obligations"
+            or source.get("finding_type") != "gap_obligation"
+            or not isinstance(projection, dict)
+            or set(projection) != required_projection_fields
+        ):
+            raise ValueError(
+                "Elim work queue gap obligation lacks its compact canonical projection"
+            )
+        obligation_id = source.get("obligation_id")
+        queue_item_id = item.get("id")
+        if (
+            not _nonblank_string(obligation_id)
+            or obligation_id in identities
+            or item.get("gap_obligation_id") != obligation_id
+            or not _nonblank_string(queue_item_id)
+            or not _nonblank_string(item.get("title"))
+        ):
+            raise ValueError(
+                "Elim work queue gap obligation has invalid or duplicate identity"
+            )
+        identities.add(obligation_id)
+        status = source.get("obligation_status")
+        if status not in GAP_OBLIGATION_STATUSES - {
+            "resolved",
+            "human_disposition",
+        }:
+            raise ValueError("Elim work queue gap obligation status is invalid")
+        authority = projection.get("authority")
+        if (
+            not isinstance(authority, dict)
+            or set(authority) != {"classification", "basis"}
+            or authority.get("classification")
+            not in GAP_AUTHORITY_CLASSIFICATIONS
+            or not _nonblank_string(authority.get("basis"))
+            or projection.get("authority_disposition")
+            not in GAP_AUTHORITY_DISPOSITIONS
+            or projection.get("disposition")
+            not in {"fixed", "reported", "retained"}
+        ):
+            raise ValueError("Elim work queue gap obligation authority is invalid")
+        for field in (
+            "severity",
+            "owner",
+            "canonical_detail",
+            "exact_next_action",
+            "next_trigger",
+        ):
+            if not _nonblank_string(projection.get(field)):
+                raise ValueError(
+                    f"Elim work queue gap obligation requires {field}"
+                )
+        if (
+            not _safe_repository_relative_path(projection["canonical_detail"])
+            or not _valid_timestamp(projection.get("first_seen"))
+            or not _valid_timestamp(projection.get("last_checked"))
+            or not _exact_source_revision(projection.get("source_revision"))
+        ):
+            raise ValueError(
+                "Elim work queue gap obligation canonical metadata is invalid"
+            )
+        for field in ("occurrence_count", "age_days"):
+            number = projection.get(field)
+            minimum = 1 if field == "occurrence_count" else 0
+            if (
+                isinstance(number, bool)
+                or not isinstance(number, int)
+                or number < minimum
+            ):
+                raise ValueError(
+                    f"Elim work queue gap obligation {field} is invalid"
+                )
+        if (
+            not isinstance(item.get("eligible_for_elim"), bool)
+            or not isinstance(item.get("requires_human"), bool)
+            or not _nonblank_string(item.get("eligibility_reason"))
+            or (
+                item.get("blocking_reason") is not None
+                and not _nonblank_string(item.get("blocking_reason"))
+            )
+            or item.get("exact_next_action") != projection["exact_next_action"]
+        ):
+            raise ValueError(
+                "Elim work queue gap obligation eligibility metadata is invalid"
+            )
+        if (
+            projection["authority_disposition"]
+            in {"forbidden", "unsafe", "out_of_scope"}
+            and item["eligible_for_elim"]
+        ):
+            raise ValueError(
+                "Elim work queue prohibited gap obligation is incorrectly eligible"
+            )
+        human_reserved = (
+            authority["classification"] == "human_reserved"
+            or projection["authority_disposition"] == "human_reserved"
+            or status == "human_required"
+        )
+        if human_reserved and (
+            not item["requires_human"] or item["eligible_for_elim"]
+        ):
+            raise ValueError(
+                "Elim work queue human-reserved gap obligation has invalid eligibility"
+            )
+        if status == "blocked" and item["eligible_for_elim"]:
+            raise ValueError(
+                "Elim work queue blocked gap obligation is incorrectly eligible"
+            )
+        projected.append(
+            {
+                "queue_item_id": queue_item_id,
+                "obligation_id": obligation_id,
+                "title": item["title"],
+                "status": status,
+                "severity": projection["severity"],
+                "owner": projection["owner"],
+                "authority": dict(authority),
+                "authority_disposition": projection["authority_disposition"],
+                "disposition": projection["disposition"],
+                "eligible_for_elim": item["eligible_for_elim"],
+                "requires_human": item["requires_human"],
+                "eligibility_reason": item["eligibility_reason"],
+                "blocking_reason": item.get("blocking_reason"),
+                "first_seen": projection["first_seen"],
+                "last_checked": projection["last_checked"],
+                "occurrence_count": projection["occurrence_count"],
+                "age_days": projection["age_days"],
+                "canonical_detail": projection["canonical_detail"],
+                "exact_next_action": projection["exact_next_action"],
+                "next_trigger": projection["next_trigger"],
+                "source_revision": projection["source_revision"],
+            }
+        )
+    return projected
 
 
 def selected_work_item(
@@ -846,6 +1234,29 @@ def validate_config(config: dict[str, Any]) -> None:
             "usage snapshot maximum age must be at least the monitor interval "
             "and no more than 600 seconds"
         )
+    if config.get("governanceDiscovery") != {
+        "enabled": True,
+        "mode": "Project governance review and discovery",
+        "ordinarySelectionPolicy": "after-ordinary-queue-clears",
+        "minimumIntervalHours": 168,
+    }:
+        raise ValueError(
+            "governanceDiscovery must preserve the reviewed quiet-queue fallback"
+        )
+    if config.get("gapStewardship") != {
+        "statePath": ".tmp/run-coordinator/elim-gap-obligations.json",
+        "stateRole": "replaceable-cache",
+        "durableAuthority": (
+            "framework/logs/ELIM_RUN_LOG.md#machine-readable-discovery-markers"
+        ),
+        "reconstructBeforeQueueBuild": True,
+        "maximumObligations": 512,
+        "closureProofRequired": True,
+        "outsideContributionExactRevisionRequired": True,
+    }:
+        raise ValueError(
+            "gapStewardship must preserve exact history and closure-proof controls"
+        )
 
 
 def plan(args: argparse.Namespace) -> int:
@@ -1199,6 +1610,16 @@ def finalize(args: argparse.Namespace) -> int:
         )
         or manifest["review_epoch"]["due"]
     )
+    governance_current = bool(
+        isinstance(gateway, dict)
+        and isinstance(gateway.get("governance_discovery"), dict)
+        and gateway["governance_discovery"].get("current_for_cadence")
+    )
+    governance_waiting_for_ordinary = bool(
+        isinstance(gateway, dict)
+        and isinstance(gateway.get("governance_discovery"), dict)
+        and gateway["governance_discovery"].get("waiting_for_ordinary_queue")
+    )
     if not manifest.get("llm_launch_allowed", False):
         decision, reason = (
             False,
@@ -1214,7 +1635,24 @@ def finalize(args: argparse.Namespace) -> int:
     elif remaining <= reserve:
         decision, reason = False, "Codex usage is at or below the hard reserve."
     elif not needs_llm:
-        decision, reason = False, "No LLM-owned work or comprehensive review is due."
+        if governance_current:
+            decision, reason = (
+                False,
+                "No ordinary LLM-owned work remains and the last committed "
+                "governance review is current for its minimum cadence.",
+            )
+        elif governance_waiting_for_ordinary:
+            decision, reason = (
+                False,
+                "Ordinary work remains ahead of governance discovery but is not "
+                "currently launchable under the recorded queue controls.",
+            )
+        else:
+            decision, reason = (
+                False,
+                "No LLM-owned work is due because the Context Gateway did not supply "
+                "the required quiet-queue governance-discovery fallback.",
+            )
     else:
         if repair_unit is not None:
             decision, reason = (
@@ -1416,15 +1854,41 @@ def attach_context(args: argparse.Namespace) -> int:
         or any(character not in "0123456789abcdef" for character in override_hash[7:])
     ):
         raise ValueError("Elim work queue override request hash is invalid")
+    governance_discovery = governance_discovery_projection(queue, config)
+    gap_obligations = gap_obligation_projections(
+        queue,
+        maximum=config["gapStewardship"]["maximumObligations"],
+    )
+    queue_counts = queue.get("counts") or {}
+    if not isinstance(queue_counts, dict):
+        raise ValueError("Elim work queue counts must be an object")
+    expected_special_counts = {
+        "gap_obligations": len(gap_obligations),
+        "governance_discovery": int(
+            governance_discovery["selected_as_quiet_queue_fallback"]
+        ),
+    }
+    for field, actual in expected_special_counts.items():
+        declared = queue_counts.get(field)
+        if declared is not None and (
+            isinstance(declared, bool)
+            or not isinstance(declared, int)
+            or declared != actual
+        ):
+            raise ValueError(
+                f"Elim work queue {field} count differs from its typed projection"
+            )
     manifest["work_queue"] = {
         "path": "project-console-data:elim-work-queue.json",
         "sha256": file_hash(queue_path),
         "ready_for_elim": bool(queue.get("ready_for_elim")),
         "launch_recommended": bool(queue.get("launch_recommended")),
-        "counts": queue.get("counts") or {},
+        "counts": queue_counts,
         "problems": queue.get("problems") or [],
         "next_item": selected,
         "selected_work_item_id": selected_id or None,
+        "governance_discovery": governance_discovery,
+        "gap_obligations": gap_obligations,
         "user_overrides": {
             "applied": sorted(applied_override_ids),
             "unmatched": sorted(unmatched_override_ids),
@@ -1620,8 +2084,31 @@ def attach_context(args: argparse.Namespace) -> int:
         manifest["next_action"] = "Refresh or repair the blocked Context Gateway input."
     elif not queue.get("launch_recommended") and not manifest["review_epoch"]["due"]:
         manifest["elim_decision"]["launch_recommended"] = False
-        manifest["elim_decision"]["reason"] = "No LLM-owned work is present."
-        manifest["next_action"] = "No Elim launch; wait for the next trigger."
+        governance = queue.get("governance_discovery") or {}
+        if governance.get("current_for_cadence"):
+            manifest["elim_decision"]["reason"] = (
+                "No ordinary LLM-owned work remains and the last committed "
+                "governance review is current for its minimum cadence."
+            )
+            manifest["next_action"] = (
+                "Wait for the recorded governance next-due time or new ordinary work."
+            )
+        elif governance.get("waiting_for_ordinary_queue"):
+            manifest["elim_decision"]["reason"] = (
+                "Ordinary work remains ahead of governance discovery but is not "
+                "currently launchable under the recorded queue controls."
+            )
+            manifest["next_action"] = (
+                "Wait for or revise the recorded ordinary-work queue control."
+            )
+        else:
+            manifest["elim_decision"]["reason"] = (
+                "No LLM-owned work is present; verify the required quiet-queue "
+                "governance-discovery fallback before treating this as a no-op."
+            )
+            manifest["next_action"] = (
+                "Rebuild the current queue or repair the governance-discovery fallback."
+            )
     manifest["updated_at"] = iso(utc_now())
     atomic_write(args.output or args.manifest, manifest)
     return 0

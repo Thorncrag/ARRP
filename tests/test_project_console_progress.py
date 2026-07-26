@@ -26,6 +26,153 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         self.history = MODULE.read_json(ROOT / "tests" / "fixtures" / "progress-history.json")
         self.registry = MODULE.read_registry(ROOT / "tests" / "fixtures" / "progress-registry.csv")
 
+    def project_response(
+        self,
+        node,
+        *,
+        total_count=1,
+        has_next_page=False,
+        end_cursor=None,
+    ):
+        return {
+            "data": {
+                "user": {
+                    "projectV2": {
+                        "title": "ARRP",
+                        "items": {
+                            "totalCount": total_count,
+                            "nodes": [node],
+                            "pageInfo": {
+                                "hasNextPage": has_next_page,
+                                "endCursor": end_cursor,
+                            },
+                        },
+                    }
+                }
+            }
+        }
+
+    def pagination_node(self):
+        return {
+            "id": "PVTI-PAGINATION",
+            "fieldValues": {
+                "totalCount": 0,
+                "nodes": [],
+                "pageInfo": {"hasNextPage": False, "endCursor": None},
+            },
+            "content": {
+                "__typename": "Issue",
+                "labels": {
+                    "totalCount": 0,
+                    "nodes": [],
+                    "pageInfo": {"hasNextPage": False, "endCursor": None},
+                },
+                "assignees": {
+                    "totalCount": 0,
+                    "nodes": [],
+                    "pageInfo": {"hasNextPage": False, "endCursor": None},
+                },
+                "subIssues": {
+                    "totalCount": 0,
+                    "nodes": [],
+                    "pageInfo": {"hasNextPage": False, "endCursor": None},
+                },
+            },
+        }
+
+    def test_project_item_pagination_fails_closed_on_under_returned_total(self):
+        response = self.project_response(
+            self.pagination_node(),
+            total_count=2,
+        )
+        with (
+            mock.patch.object(MODULE, "graphql_request", return_value=response),
+            self.assertRaisesRegex(
+                RuntimeError,
+                "Project item pagination is incomplete",
+            ),
+        ):
+            MODULE.fetch_project(self.config, "token")
+
+    def test_project_item_pagination_fails_closed_without_next_cursor(self):
+        response = self.project_response(
+            self.pagination_node(),
+            has_next_page=True,
+            end_cursor=None,
+        )
+        with (
+            mock.patch.object(MODULE, "graphql_request", return_value=response),
+            self.assertRaisesRegex(
+                RuntimeError,
+                "another page without a cursor",
+            ),
+        ):
+            MODULE.fetch_project(self.config, "token")
+
+    def test_nested_label_and_assignee_pagination_fail_visibly(self):
+        node = self.pagination_node()
+        node["content"]["labels"] = {
+            "totalCount": 1,
+            "nodes": [{"name": "kind: proposal"}],
+            "pageInfo": {"hasNextPage": True, "endCursor": "cursor"},
+        }
+        node["content"]["assignees"] = {
+            "totalCount": 2,
+            "nodes": [{"login": "Thorncrag"}],
+            "pageInfo": {"hasNextPage": False, "endCursor": None},
+        }
+        response = self.project_response(node)
+        with mock.patch.object(
+            MODULE,
+            "graphql_request",
+            return_value=response,
+        ):
+            with self.assertRaises(RuntimeError) as raised:
+                MODULE.fetch_project(self.config, "token")
+        message = str(raised.exception)
+        self.assertIn("Project item content pagination is incomplete", message)
+        self.assertIn("PVTI-PAGINATION:labels", message)
+        self.assertIn("PVTI-PAGINATION:assignees", message)
+
+    def test_nested_field_value_and_subissue_totals_fail_closed(self):
+        fixtures = (
+            (
+                "fieldValues",
+                "Project item field-value pagination is incomplete",
+            ),
+            (
+                "subIssues",
+                "Project issue sub-issue pagination is incomplete",
+            ),
+        )
+        for connection_name, expected_message in fixtures:
+            with self.subTest(connection=connection_name):
+                node = self.pagination_node()
+                target = (
+                    node["fieldValues"]
+                    if connection_name == "fieldValues"
+                    else node["content"]["subIssues"]
+                )
+                target.update(
+                    {
+                        "totalCount": 2,
+                        "nodes": [{"id": "only-node"}],
+                    }
+                )
+                response = self.project_response(node)
+                with (
+                    mock.patch.object(
+                        MODULE,
+                        "graphql_request",
+                        return_value=response,
+                    ),
+                    self.assertRaisesRegex(
+                        RuntimeError,
+                        expected_message,
+                    ),
+                ):
+                    MODULE.fetch_project(self.config, "token")
+
     def test_includes_active_horizon_items_without_counting_them_as_proposals(self):
         title, items = MODULE.parse_items(self.raw, self.config, self.registry)
         self.assertEqual(title, "American Restoration and Resilience Project")
@@ -280,6 +427,10 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         self.assertEqual(payload["metrics"]["remaining"], 3)
         self.assertEqual(payload["metrics"]["percentReady"], 25.0)
         self.assertEqual(payload["history"][-1]["date"], "2026-07-15")
+        self.assertIn(
+            "repository HEAD alone does not",
+            payload["freshness"]["supersession_rule"],
+        )
         self.assertEqual(len(payload["warnings"]), 1)
         self.assertTrue(payload["movement"]["available"])
         self.assertEqual(payload["movement"]["scoresImproved"], 2)
@@ -292,6 +443,245 @@ class ProjectConsoleProgressTests(unittest.TestCase):
             [item["identifier"] for item in payload["candidates"]],
             ["HOR-029"],
         )
+
+    def test_portfolio_architecture_separates_scope_from_earned_readiness(self):
+        config = MODULE.read_json(ROOT / ".github" / "project-console-progress.json")
+        architecture = MODULE.portfolio_architecture(
+            {
+                "date": "2026-07-25",
+                "total": 81,
+                "ready": 27,
+            },
+            config,
+            ROOT,
+        )
+        self.assertTrue(architecture["available"])
+        self.assertEqual(
+            [step["total"] for step in architecture["steps"]],
+            [204, 198, 77, 81],
+        )
+        self.assertEqual(
+            architecture["steps"][-1]["reasonCode"],
+            "later_admissions",
+        )
+        self.assertEqual(
+            architecture["earnedReadiness"],
+            {
+                "baselineDate": "2026-07-13",
+                "baselineReady": 23,
+                "currentDate": "2026-07-25",
+                "currentReady": 27,
+                "netEarned": 4,
+                "separateFromScope": True,
+            },
+        )
+        self.assertIn("123 fewer", architecture["explanation"])
+
+    def test_projects_nonproposal_project_items_as_typed_delivery_work(self):
+        raw = deepcopy(self.raw)
+        raw["items"].append(
+            {
+                "id": "PVTI_DELIVERY",
+                "fieldValues": {
+                    "nodes": [
+                        {
+                            "name": "Publication approval",
+                            "field": {"name": "Status"},
+                        },
+                        {
+                            "name": "Project governance",
+                            "field": {"name": "Workstream"},
+                        },
+                        {
+                            "name": "Critical",
+                            "field": {"name": "Priority"},
+                        },
+                        {
+                            "name": "Yes",
+                            "field": {"name": "Release blocker"},
+                        },
+                        {
+                            "text": "Confirm every publication prerequisite.",
+                            "field": {"name": "Next action"},
+                        },
+                        {
+                            "text": "Clean final integrity and publication readback.",
+                            "field": {"name": "Validation requirement"},
+                        },
+                    ]
+                },
+                "content": {
+                    "__typename": "Issue",
+                    "number": 900,
+                    "title": "Pre-publication final audit",
+                    "url": "https://github.com/Thorncrag/ARRP/issues/900",
+                    "state": "OPEN",
+                    "repository": {"nameWithOwner": "Thorncrag/ARRP"},
+                    "labels": {"nodes": [{"name": "kind: governance"}]},
+                    "assignees": {"nodes": [{"login": "Thorncrag"}]},
+                    "milestone": {
+                        "title": "Initial release",
+                        "dueOn": "2026-12-31T00:00:00Z",
+                        "url": "https://github.com/Thorncrag/ARRP/milestone/1",
+                    },
+                    "parent": None,
+                    "subIssues": {
+                        "totalCount": 1,
+                        "nodes": [
+                            {
+                                "number": 901,
+                                "title": "Child",
+                                "url": "https://github.com/Thorncrag/ARRP/issues/901",
+                                "state": "CLOSED",
+                            }
+                        ],
+                    },
+                },
+            }
+        )
+        title, items = MODULE.parse_items(raw, self.config, self.registry)
+        delivery = next(item for item in items if item["projectItemId"] == "PVTI_DELIVERY")
+        self.assertFalse(delivery["isIssueDevelopment"])
+        self.assertEqual(delivery["issueIdentity"], "Thorncrag/ARRP#900")
+        self.assertEqual(delivery["priority"], "Critical")
+        self.assertEqual(delivery["releaseBlocker"], "Yes")
+        self.assertEqual(delivery["owner"], "Thorncrag")
+        self.assertEqual(delivery["subissueProgress"]["percent"], 100.0)
+        payload = MODULE.build_progress_payload(
+            title,
+            items,
+            self.history,
+            self.config,
+            date(2026, 7, 15),
+        )
+        self.assertEqual(payload["metrics"]["total"], 4)
+        self.assertEqual(len(payload["delivery_items"]), 1)
+        self.assertEqual(
+            payload["delivery_items"][0]["title"],
+            "Pre-publication final audit",
+        )
+
+    def test_july_25_project_item_reconciliation_fixture(self):
+        title, parsed = MODULE.parse_items(
+            self.raw,
+            self.config,
+            self.registry,
+        )
+        proposal_template = next(
+            item for item in parsed if item["kind"] == "proposal"
+        )
+        candidate_template = next(
+            item for item in parsed if item["kind"] == "horizon"
+        )
+        items = []
+        for index in range(81):
+            item = deepcopy(proposal_template)
+            item.update(
+                {
+                    "identifier": f"PRO-{index + 1:03d}",
+                    "projectItemId": f"PVTI_PRO_{index + 1:03d}",
+                    "releaseBlocker": "Yes" if index < 26 else None,
+                    "warnings": [],
+                }
+            )
+            items.append(item)
+        for index in range(17):
+            item = deepcopy(candidate_template)
+            item.update(
+                {
+                    "identifier": f"HOR-{index + 1:03d}",
+                    "projectItemId": f"PVTI_HOR_{index + 1:03d}",
+                    "releaseBlocker": None,
+                    "warnings": [],
+                }
+            )
+            items.append(item)
+        for index in range(12):
+            item = deepcopy(candidate_template)
+            item.update(
+                {
+                    "kind": "task",
+                    "identifier": f"DEL-{index + 1:03d}",
+                    "projectItemId": f"PVTI_DEL_{index + 1:03d}",
+                    "isIssueDevelopment": False,
+                    "releaseBlocker": None,
+                    "warnings": [],
+                }
+            )
+            items.append(item)
+        payload = MODULE.build_progress_payload(
+            title,
+            items,
+            self.history,
+            self.config,
+            date(2026, 7, 25),
+        )
+        self.assertEqual(len(payload["proposals"]), 81)
+        self.assertEqual(len(payload["candidates"]), 17)
+        self.assertEqual(len(payload["delivery_items"]), 12)
+        self.assertEqual(
+            payload["projectItemReconciliation"],
+            {
+                "totalProjectItems": 110,
+                "proposalItems": 81,
+                "candidateItems": 17,
+                "portfolioItems": 98,
+                "deliveryItems": 12,
+                "releaseBlockers": 26,
+                "partitionComplete": True,
+                "releaseBlockerFieldProjected": True,
+            },
+        )
+
+    def test_progress_history_fails_closed_instead_of_erasing_invalid_rows(self):
+        with self.assertRaisesRegex(RuntimeError, "validation failed"):
+            MODULE.valid_history(
+                {
+                    "schemaVersion": 1,
+                    "snapshots": [
+                        {"date": "not-a-date", "total": 4, "ready": 1}
+                    ],
+                }
+            )
+
+    def test_scope_removal_is_not_reported_as_readiness_regression(self):
+        items = [
+            {
+                "identifier": "TEST-001",
+                "url": "https://example.test/1",
+            }
+        ]
+        history = {
+            "snapshots": [
+                {
+                    "date": "2026-07-01",
+                    "total": 2,
+                    "ready": 2,
+                    "detailAvailable": True,
+                    "eligibleIssues": ["TEST-001", "TEST-002"],
+                    "readyIssues": ["TEST-001", "TEST-002"],
+                    "scores": {},
+                },
+                {
+                    "date": "2026-07-15",
+                    "total": 1,
+                    "ready": 1,
+                    "detailAvailable": True,
+                    "eligibleIssues": ["TEST-001"],
+                    "readyIssues": ["TEST-001"],
+                    "scores": {},
+                },
+            ]
+        }
+        movement = MODULE.portfolio_movement(
+            items, history, date(2026, 7, 15), 28
+        )
+        self.assertEqual(movement["fellBelowReady"], [])
+        self.assertEqual(
+            [item["identifier"] for item in movement["scopeRemoved"]],
+            ["TEST-002"],
+        )
+        self.assertTrue(movement["scopeChangesExcludedFromAttainment"])
 
     def test_progress_build_writes_data_only_files(self):
         title, items = MODULE.parse_items(self.raw, self.config, self.registry)

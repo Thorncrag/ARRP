@@ -100,6 +100,216 @@ class SourceCheckerTests(unittest.TestCase):
         self.assertEqual(len(result["history"]), 3)
         self.assertEqual(result["history"][0]["checked_at"], "new")
 
+    def test_source_result_deltas_distinguish_new_regressed_resolved_and_aging(self):
+        current = {
+            "checked_at": "2026-07-25T12:00:00+00:00",
+            "source_revision": "current-catalog",
+            "results": [
+                {"source_id": "SRC-NEW", "classification": "broken"},
+                {
+                    "source_id": "SRC-REG",
+                    "classification": "access restricted",
+                },
+                {"source_id": "SRC-RES", "classification": "verified"},
+                {"source_id": "SRC-OLD", "classification": "broken"},
+                {"source_id": "SRC-ENTER", "classification": "verified"},
+            ],
+        }
+        prior = {
+            "checked_at": "2026-07-23T12:00:00+00:00",
+            "source_revision": "prior-catalog",
+            "results": [
+                {"source_id": "SRC-REG", "classification": "verified"},
+                {
+                    "source_id": "SRC-RES",
+                    "classification": "review required",
+                },
+                {
+                    "source_id": "SRC-OLD",
+                    "classification": "broken",
+                    "exception_first_seen_at": "2026-07-20T12:00:00+00:00",
+                },
+                {"source_id": "SRC-LEFT", "classification": "verified"},
+            ],
+        }
+        deltas = MODULE.source_result_deltas(current, prior)
+        self.assertTrue(deltas["available"])
+        self.assertEqual(deltas["new_exception_ids"], ["SRC-NEW"])
+        self.assertEqual(deltas["regressed_exception_ids"], ["SRC-REG"])
+        self.assertEqual(deltas["resolved_exception_ids"], ["SRC-RES"])
+        self.assertEqual(deltas["ongoing_exception_ids"], ["SRC-OLD"])
+        self.assertEqual(
+            deltas["entered_scope_ids"],
+            ["SRC-ENTER", "SRC-NEW"],
+        )
+        self.assertEqual(deltas["left_scope_ids"], ["SRC-LEFT"])
+        oldest = next(
+            item
+            for item in deltas["aging_exceptions"]
+            if item["source_id"] == "SRC-OLD"
+        )
+        self.assertEqual(oldest["age_days"], 5.0)
+        current_old = next(
+            item for item in current["results"] if item["source_id"] == "SRC-OLD"
+        )
+        self.assertEqual(
+            current_old["exception_first_seen_at"],
+            "2026-07-20T12:00:00+00:00",
+        )
+
+    def test_source_result_deltas_are_explicitly_unavailable_without_baseline(self):
+        deltas = MODULE.source_result_deltas(
+            {
+                "checked_at": "2026-07-25T12:00:00+00:00",
+                "results": [],
+            },
+            None,
+        )
+        self.assertFalse(deltas["available"])
+        self.assertIn("prior", deltas["reason"])
+
+    def test_report_contract_covers_current_catalog_ids_and_hashes(self):
+        fields = [
+            "Source ID",
+            "URL",
+            "Title or Description",
+            "Authority / Publisher",
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            catalog = root / "sources.csv"
+            with catalog.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=fields)
+                writer.writeheader()
+                writer.writerow(
+                    {
+                        "Source ID": "SRC-1",
+                        "URL": "https://example.test/1",
+                        "Title or Description": "Source one",
+                        "Authority / Publisher": "Publisher",
+                    }
+                )
+                writer.writerow(
+                    {
+                        "Source ID": "SRC-2",
+                        "URL": "https://example.test/2",
+                        "Title or Description": "Source two",
+                        "Authority / Publisher": "Publisher",
+                    }
+                )
+            config = {
+                "agentId": "source-checker-bot",
+                "mode": "report-only",
+                "catalogs": ["sources.csv"],
+                "idField": "Source ID",
+                "urlField": "URL",
+                "titleField": "Title or Description",
+                "publisherField": "Authority / Publisher",
+                "request": {
+                    "minimumDomainIntervalSeconds": 0,
+                    "workers": 1,
+                },
+            }
+
+            def observed(row, settings, pacer):
+                return {
+                    "requested_url": row["URL"],
+                    "attempts": 1,
+                    "status_code": 200,
+                    "final_url": row["URL"],
+                    "content_type": "text/html",
+                    "title": row["Title or Description"],
+                    "error": "",
+                    "error_kind": "",
+                    "classification": "verified",
+                }
+
+            old_root = MODULE.ROOT
+            try:
+                MODULE.ROOT = root
+                rows = MODULE.load_rows(config)
+                with patch.object(MODULE, "fetch", side_effect=observed):
+                    report = MODULE.build_report(
+                        config, rows, "2026-07-25T12:00:00Z"
+                    )
+            finally:
+                MODULE.ROOT = old_root
+        self.assertEqual(report["schema_version"], 2)
+        self.assertEqual(report["expected_count"], 2)
+        self.assertEqual(report["actual_count"], 2)
+        self.assertTrue(report["completeness"]["complete"])
+        self.assertIn(
+            "catalog identity",
+            report["freshness"]["basis"],
+        )
+        self.assertEqual(report["missing_source_ids"], [])
+        self.assertEqual(report["catalog_coverage"][0]["actual_count"], 2)
+        self.assertTrue(
+            report["source_hashes"]["sources.csv"].startswith("sha256:")
+        )
+
+    def test_duplicate_source_identifiers_fail_closed(self):
+        fields = [
+            "Source ID",
+            "URL",
+            "Title or Description",
+            "Authority / Publisher",
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "sources.csv"
+            with path.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=fields)
+                writer.writeheader()
+                for suffix in ("one", "two"):
+                    writer.writerow(
+                        {
+                            "Source ID": "SRC-1",
+                            "URL": f"https://example.test/{suffix}",
+                            "Title or Description": suffix,
+                            "Authority / Publisher": "Publisher",
+                        }
+                    )
+            old_root = MODULE.ROOT
+            try:
+                MODULE.ROOT = root
+                with self.assertRaisesRegex(ValueError, "duplicate source identifier"):
+                    MODULE.load_rows(
+                        {
+                            "catalogs": ["sources.csv"],
+                            "idField": "Source ID",
+                            "urlField": "URL",
+                            "titleField": "Title or Description",
+                            "publisherField": "Authority / Publisher",
+                        }
+                    )
+            finally:
+                MODULE.ROOT = old_root
+
+    def test_missing_or_invalid_prior_history_fails_closed(self):
+        report = {
+            "checked_at": "2026-07-25T12:00:00+00:00",
+            "eligible_urls": 0,
+            "counts": {},
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            missing = Path(directory) / "missing.json"
+            with self.assertRaisesRegex(RuntimeError, "unavailable"):
+                MODULE.with_history(report, missing, 3)
+            invalid = Path(directory) / "invalid.json"
+            invalid.write_text("{}", encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "history contract"):
+                MODULE.with_history(report, invalid, 3)
+
+    def test_workflow_does_not_ignore_missing_prior_history(self):
+        workflow = (
+            ROOT / ".github" / "workflows" / "source-checker-bot.yml"
+        ).read_text(encoding="utf-8")
+        history_step = workflow.split(
+            "- name: Retrieve bounded prior history", 1
+        )[1].split("- name: Check every cataloged source URL", 1)[0]
+        self.assertNotIn("continue-on-error", history_step)
+
     def test_runtime_config_names_published_data_and_offline_cache(self):
         config = json.loads(
             (ROOT / ".github" / "source-checker-bot.json").read_text(encoding="utf-8")
