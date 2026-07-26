@@ -36,6 +36,23 @@ No work was lost or silently accepted. The exact prepared commit was pushed only
 
 The final host contract now enumerates every exact Run Log field in Elim's launch instructions. Every accountably closed result other than `human_review` uses a bounded exact-head and exact-base pull request, waits up to 1,800 seconds for every reported check and the named required `CodeQL` check to pass, confirms that `origin/main` has not moved, squash-merges without bypass, and reads back the exact merge. A clean prepared host commit can be revalidated and resumed without rerunning Elim. Automatic preservation of ordinary canonical-workspace changes uses the same protected-main path and can resume its own exact prepared commit after a network, check-wait, or publication interruption. Recovery proves the commit's one-parent topology, parent-bound branch name, trusted-host author and committer identity, exact message, nonempty safe changed paths, diff hygiene, PR boundary, passing checks, and merge readback. Even an already merged PR must revalidate its checks.
 
+### Final production follow-up
+
+The protected-main correction passed its required checks and [pull request #433](https://github.com/Thorncrag/ARRP/pull/433) squash-merged as `6f3640e2e7a382e9f4763913a52463fc5242c66c`. A new explicit production run then exercised the installed non-File-Provider host path:
+
+- Run Coordinator run [30201992939](https://github.com/Thorncrag/ARRP/actions/runs/30201992939) completed chain `arrp-20260726T122445Z`.
+- Independent workflow-conclusion projection run [30202041348](https://github.com/Thorncrag/ARRP/actions/runs/30202041348) completed successfully.
+- Independent host-status projection run [30202049541](https://github.com/Thorncrag/ARRP/actions/runs/30202049541) published the running host state before Elim closeout.
+- Source Checker was correctly `not_due` against its current schema-v2 persistent input, proving the cadence repair from pull request #432.
+- Elim completed the comprehensive review above the protected usage reserve, passed 481 Python, 24 participation, and 27 Console tests with integrity at 0 errors and 0 warnings, and recorded Review Epoch `epoch-arrp-20260726T122445Z`.
+- The exact Elim commit `35e0925eb7cc8ce91485c4f8a3c34e10ccec7f46` passed all six reported checks and [pull request #434](https://github.com/Thorncrag/ARRP/pull/434) squash-merged as `ef8988414cbdb944a3e2eb6ee5d7942140b6fecc`.
+
+That run also served its intended governance-discovery function and exposed two proof gaps in the trusted-host boundary. A prepared Elim commit retry did not independently recheck exact one-parent topology, coordinator identity and message, or diff hygiene; final merge readback proved the new `origin/main` commit but not that the pinned base was its exact sole parent. Those checks are now mandatory and adversarially tested.
+
+The live closeout exposed two narrower implementation defects as well. GitHub can make a newly opened pull request readable before registering its first check suite; `gh pr checks` then emits a specific `no checks reported` diagnostic instead of JSON. The host now treats only that exact return-code and diagnostic combination as a transient empty pending set, keeps polling, and never treats it as success. All other non-JSON check output still fails closed. After pull request #434 merged, terminal accounting read a nonexistent top-level `next_action` key even though the validated result schema locates it at `continuation.next_action`. The dispatcher now reads and type-checks the schema-defined location in both ordinary and resumed closeout. The merge, model result, and reconciliation state were preserved, so the exact closeout can be resumed without rerunning Elim.
+
+Complete-suite validation also found a capacity defect that already existed at the pull request #434 boundary: combining the `github_sync` profile with the additive `change_control` capability left only 35,509 bytes of the required 50,000-byte packet margin before the current checkpoint grew. No required module was redundant, and removing one would have reduced safety context. The profile ceiling is therefore raised from 400,000 to 450,000 bytes without preloading any additional module; the existing headroom test now enforces that reviewed ceiling and the same minimum reserve. Rebuilding the Console after the checkpoint and report changes repairs the separately detected stale project-log projection.
+
 ## Incident reconstruction
 
 The overnight cloud chain `arrp-20260726T064933Z` completed its deterministic GitHub phase and recommended an Elim comprehensive-review unit. The host later stopped at `elim-isolated-checkout` before usage gating or Codex process creation. Its fixed isolated checkout was clean at commit `24f380c275440940d0af80be9b17842c04de37e6`, while fetched `origin/main` was `a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f`, 16 commits later.
@@ -168,9 +185,9 @@ The File Provider source is established, but the originating cloud-side actor re
 
 ## Validation record
 
-Pre-integration validation passed:
+Current implementation-boundary validation passed:
 
-- 481 Python repository tests, including 95 focused dispatcher tests;
+- 486 Python repository tests, including 100 focused dispatcher tests;
 - 24 participation-service tests;
 - 27 Node frontend tests;
 - File Provider ancestor detection and fail-closed preflight coverage;
@@ -181,4 +198,4 @@ Pre-integration validation passed:
 - real `git fetch origin main` after metadata preservation; and
 - authenticated project consistency across 64 issue pages and 41 proposal pages with 0 errors and 0 warnings.
 
-The implementation branch, repaired isolated-checkout transition, independent cloud projection, independent host projection, explicit Elim launch, comprehensive Review Epoch, Source Checker schema repair, checked recovery merge, and exact recovered host closeout have all been exercised in production. The prepared canonical-workspace recovery has also been exercised against a real temporary Git remote through a forced publication interruption and exact retry. One final fresh-chain readback remains required after the protected-main correction itself merges: it must show Source Checker `not_due`, a clean synchronized canonical and isolated checkout, resolved routine branch-state incidents, mutually consistent independent feeds, and the current Console projection.
+The implementation branch, repaired isolated-checkout transition, independent cloud projection, independent host projection, explicit Elim launch, two comprehensive Review Epochs, Source Checker schema repair, checked recovery merge, and exact recovered host closeout have all been exercised in production. The prepared canonical-workspace recovery has also been exercised against a real temporary Git remote through a forced publication interruption and exact retry. The fresh-chain readback after pull request #433 proved Source Checker `not_due`, clean synchronized checkouts, mutually consistent independent running-state feeds, and successful checked publication of Elim's exact result. It also exposed the remaining proof and terminal-accounting defects described above. After those final corrections merge, the preserved closeout must be reconciled and one scheduled host poll plus one fresh gap-stewardship chain must prove the loaded service, strengthened proofs, resolved obligations, terminal independent feeds, and current Console projection.

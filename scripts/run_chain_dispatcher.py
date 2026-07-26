@@ -3294,6 +3294,26 @@ def host_closeout_branch(chain_id: str) -> str:
     return branch
 
 
+def host_closeout_commit_message(result: dict[str, Any]) -> str:
+    """Return the exact reviewed subject for one trusted-host Elim commit."""
+    return f"Preserve Elim {result['run_id']} {result['outcome']} closeout"
+
+
+def elim_result_next_action(result: dict[str, Any]) -> str | None:
+    """Read the schema-defined action without inventing a top-level alias."""
+    continuation = result.get("continuation")
+    if not isinstance(continuation, dict) or "next_action" not in continuation:
+        raise ContextError(
+            "validated Elim result lacks its continuation next action"
+        )
+    next_action = continuation["next_action"]
+    if next_action is not None and not isinstance(next_action, str):
+        raise ContextError(
+            "validated Elim continuation next action is malformed"
+        )
+    return next_action
+
+
 def matching_closeout_pull_request(
     gh: str,
     repo: Path,
@@ -3463,9 +3483,20 @@ def wait_for_closeout_checks(
         try:
             rows = json.loads(checked.stdout)
         except json.JSONDecodeError as exc:
-            raise ContextError(
-                "closeout pull-request check readback is unreadable"
-            ) from exc
+            diagnostic = " ".join(
+                f"{checked.stdout}\n{checked.stderr}".split()
+            ).casefold()
+            if (
+                checked.returncode in {1, 8}
+                and "no checks reported" in diagnostic
+            ):
+                # GitHub can expose the new pull request before its first check
+                # suite is registered. This is a pending state, never success.
+                rows = []
+            else:
+                raise ContextError(
+                    "closeout pull-request check readback is unreadable"
+                ) from exc
         if not isinstance(rows, list) or any(
             not isinstance(row, dict) for row in rows
         ):
@@ -3710,6 +3741,21 @@ def publish_checked_pull_request(
             "checked closeout merge did not read back as the exact origin/main "
             "boundary"
         )
+    topology = command(
+        [git, "rev-list", "--parents", "-n", "1", merge_commit],
+        cwd=repo,
+    )
+    topology_parts = topology.stdout.strip().split()
+    if (
+        topology.returncode != 0
+        or len(topology_parts) != 2
+        or topology_parts[0] != merge_commit
+        or topology_parts[1] != baseline_commit
+    ):
+        raise ContextError(
+            "checked closeout merge does not have the pinned baseline as its "
+            "exact sole parent"
+        )
     synchronization = [
         (
             f"Trusted host pushed exact commit {commit} to {branch}."
@@ -3774,7 +3820,29 @@ def verify_prepared_host_closeout_commit(
         raise ContextError(
             "preserved host closeout is not on its exact bounded branch"
         )
-    parent = command([git, "rev-parse", f"{commit}^"], cwd=repo)
+    topology = command(
+        [git, "rev-list", "--parents", "-n", "1", commit],
+        cwd=repo,
+    )
+    topology_parts = topology.stdout.strip().split()
+    identity = command(
+        [
+            git,
+            "show",
+            "-s",
+            "--format=%s%x00%an%x00%ae%x00%cn%x00%ce",
+            commit,
+        ],
+        cwd=repo,
+    )
+    identity_fields = identity.stdout.rstrip("\n").split("\0")
+    expected_identity = [
+        host_closeout_commit_message(result),
+        HOST_GIT_IDENTITY["name"],
+        HOST_GIT_IDENTITY["email"],
+        HOST_GIT_IDENTITY["name"],
+        HOST_GIT_IDENTITY["email"],
+    ]
     changed_result = command(
         [git, "diff", "--name-only", "-z", baseline_commit, commit],
         cwd=repo,
@@ -3783,15 +3851,24 @@ def verify_prepared_host_closeout_commit(
         value for value in changed_result.stdout.split("\0") if value
     }
     declared = set(result["files_touched"])
+    hygiene = command(
+        [git, "diff", "--check", baseline_commit, commit],
+        cwd=repo,
+    )
     if (
-        parent.returncode != 0
-        or parent.stdout.strip() != baseline_commit
+        topology.returncode != 0
+        or len(topology_parts) != 2
+        or topology_parts[0] != commit
+        or topology_parts[1] != baseline_commit
+        or identity.returncode != 0
+        or identity_fields != expected_identity
         or changed_result.returncode != 0
         or changed != declared
+        or hygiene.returncode != 0
     ):
         raise ContextError(
-            "preserved host closeout commit topology or file set differs from "
-            "the model-declared boundary"
+            "preserved host closeout commit topology, identity, message, file "
+            "set, or diff hygiene differs from the reviewed boundary"
         )
     verify_elim_authored_content(
         git,
@@ -3937,7 +4014,7 @@ def host_preserve_elim_result(
                 f"user.email={HOST_GIT_IDENTITY['email']}",
                 "commit",
                 "-m",
-                f"Preserve Elim {result['run_id']} {result['outcome']} closeout",
+                host_closeout_commit_message(result),
             ],
             cwd=repo,
         )
@@ -6701,7 +6778,7 @@ def resume_verified_elim_closeout(
         "validated_at": recovered_at,
         "recovered": True,
     }
-    payload["next_action"] = result["next_action"]
+    payload["next_action"] = elim_result_next_action(result)
     write_json(manifest_path, payload, root=execution_repo)
     record_elim_runtime(
         repo=repo,
@@ -7347,7 +7424,9 @@ def main() -> int:
                 .replace(microsecond=0)
                 .isoformat(),
             }
-            payload["next_action"] = preserved_result["next_action"]
+            payload["next_action"] = elim_result_next_action(
+                preserved_result
+            )
             write_json(manifest, payload, root=execution_repo)
             write_json(
                 repo / config["manifest"]["localFallback"],

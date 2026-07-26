@@ -941,7 +941,7 @@
       ]
     },
     "github_sync": {
-      "max_bytes": 400000,
+      "max_bytes": 450000,
       "modules": [
         "agent_autonomous_execution",
         "agent_provenance_logging",

@@ -1,6 +1,6 @@
 ---
 title: "Current Audit Handoff"
-status: inactive
+status: open
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None. |
-| Started | None. |
-| Last checkpoint | 2026-07-26 08:43:00 -0400 |
-| User request | None. |
-| Scope | None. |
-| Files touched | None. |
-| Completed steps | None. |
-| Next step | None. |
+| Handoff state | Open |
+| Active issue/task | Automation failure observability and trusted-host closeout repair |
+| Audit type/tier | Project structural and operations repair |
+| Started | 2026-07-26 09:04:31 -0400 |
+| Last checkpoint | 2026-07-26 09:08:51 -0400 |
+| User request | Make overnight failure reporting independent of successful chain completion and finish the connected architectural repair. |
+| Scope | Independent Console health projection; trusted-host Elim closeout recovery; non-File-Provider launchd installation; production validation. |
+| Files touched | `scripts/run_chain_dispatcher.py`; `tests/test_run_chain_dispatcher.py`; `framework/context-routes.json`; `tests/test_elim_context.py`; generated Console projections; `research/reference-products/automation-failure-observability-repair-2026-07-26.md`; this checkpoint. |
+| Completed steps | Independent cloud and host failure projections are merged and live; the canonical host checkout and installed launchd paths moved outside File Provider; the fresh chain and Elim review completed and merged; two post-merge host-accounting defects were reproduced and repaired with focused tests; full-suite integration exposed and repaired stale generated logs and an insufficient GitHub-sync context-capacity margin. |
+| Next step | Validate, publish, and merge the host-accounting patch; resume the exact preserved closeout; bootstrap and prove the scheduled poll; run one fresh gap-stewardship chain; reconcile final Console and project records; clear this checkpoint. |
 | Blockers/questions | None. |
-| Validation status | Not applicable. |
+| Validation status | Patch validation passed: 486 Python tests, 24 participation-service tests, 27 Console frontend tests, Python compilation, more than 83,000 bytes of routed GitHub-sync/change-control headroom, generated Console reconciliation, and diff hygiene. Production recovery and scheduled-poll proof remain in progress. |
 
 ## Handoff Rules
 

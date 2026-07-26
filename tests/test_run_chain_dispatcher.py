@@ -3979,6 +3979,13 @@ class RunChainDispatcherTests(unittest.TestCase):
                 return MODULE.subprocess.CompletedProcess(
                     argv, 0, stdout=next(remote_readbacks) + "\n", stderr=""
                 )
+            if argv[1] == "rev-list":
+                return MODULE.subprocess.CompletedProcess(
+                    argv,
+                    0,
+                    stdout=f"{merge_commit} {baseline}\n",
+                    stderr="",
+                )
             self.fail(f"unexpected command: {argv}")
 
         with (
@@ -4064,6 +4071,13 @@ class RunChainDispatcherTests(unittest.TestCase):
                 return MODULE.subprocess.CompletedProcess(
                     argv, 0, stdout=merge_commit + "\n", stderr=""
                 )
+            if argv[1] == "rev-list":
+                return MODULE.subprocess.CompletedProcess(
+                    argv,
+                    0,
+                    stdout=f"{merge_commit} {baseline}\n",
+                    stderr="",
+                )
             self.fail(f"unexpected command: {argv}")
 
         with (
@@ -4128,6 +4142,71 @@ class RunChainDispatcherTests(unittest.TestCase):
             with self.assertRaisesRegex(
                 MODULE.ContextError,
                 "checks failed or were cancelled: CodeQL",
+            ):
+                MODULE.wait_for_closeout_checks(
+                    MODULE.EXECUTABLES["githubCliPath"],
+                    Path("/tmp"),
+                    repository="Thorncrag/ARRP",
+                    pull_request="https://github.com/Thorncrag/ARRP/pull/999",
+                )
+
+    def test_closeout_waits_until_github_registers_the_first_check(self):
+        no_checks_yet = MODULE.subprocess.CompletedProcess(
+            [],
+            1,
+            stdout="",
+            stderr="no checks reported on the 'codex/elim-chain-1' branch",
+        )
+        complete = MODULE.subprocess.CompletedProcess(
+            [],
+            0,
+            stdout=json.dumps(
+                [
+                    {
+                        "bucket": "pass",
+                        "name": "CodeQL",
+                        "state": "SUCCESS",
+                    }
+                ]
+            ),
+            stderr="",
+        )
+        with (
+            mock.patch.object(
+                MODULE,
+                "command",
+                side_effect=[no_checks_yet, complete],
+            ) as checked,
+            mock.patch.object(
+                MODULE.time,
+                "monotonic",
+                side_effect=[0.0, 0.0, 1.0],
+            ),
+            mock.patch.object(MODULE.time, "sleep") as slept,
+        ):
+            rows = MODULE.wait_for_closeout_checks(
+                MODULE.EXECUTABLES["githubCliPath"],
+                Path("/tmp"),
+                repository="Thorncrag/ARRP",
+                pull_request="https://github.com/Thorncrag/ARRP/pull/999",
+            )
+        self.assertEqual(rows[0]["name"], "CodeQL")
+        self.assertEqual(checked.call_count, 2)
+        slept.assert_called_once_with(
+            MODULE.HOST_CLOSEOUT_POLICY["checkPollSeconds"]
+        )
+
+    def test_closeout_rejects_unrecognized_non_json_check_output(self):
+        unreadable = MODULE.subprocess.CompletedProcess(
+            [],
+            8,
+            stdout="temporarily unavailable",
+            stderr="",
+        )
+        with mock.patch.object(MODULE, "command", return_value=unreadable):
+            with self.assertRaisesRegex(
+                MODULE.ContextError,
+                "check readback is unreadable",
             ):
                 MODULE.wait_for_closeout_checks(
                     MODULE.EXECUTABLES["githubCliPath"],
@@ -4221,6 +4300,187 @@ class RunChainDispatcherTests(unittest.TestCase):
         slept.assert_called_once_with(
             MODULE.HOST_CLOSEOUT_POLICY["checkPollSeconds"]
         )
+
+    def test_merged_closeout_must_have_the_pinned_baseline_as_sole_parent(self):
+        baseline = "a" * 40
+        commit = "b" * 40
+        merge_commit = "c" * 40
+        moved_parent = "d" * 40
+        branch = "codex/elim-chain-1"
+        merged_pr = {
+            "number": 999,
+            "state": "MERGED",
+            "url": "https://github.com/Thorncrag/ARRP/pull/999",
+            "headRefName": branch,
+            "headRefOid": commit,
+            "baseRefName": "main",
+            "baseRefOid": baseline,
+            "mergeCommit": {"oid": merge_commit},
+        }
+
+        def run_command(argv, **_kwargs):
+            if argv[1] == "fetch":
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout="", stderr=""
+                )
+            if argv[1:3] == ["rev-parse", "refs/remotes/origin/main"]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout=merge_commit + "\n", stderr=""
+                )
+            if argv[1] == "rev-list":
+                return MODULE.subprocess.CompletedProcess(
+                    argv,
+                    0,
+                    stdout=f"{merge_commit} {moved_parent}\n",
+                    stderr="",
+                )
+            self.fail(f"unexpected command: {argv}")
+
+        with (
+            mock.patch.object(
+                MODULE,
+                "matching_closeout_pull_request",
+                return_value=merged_pr,
+            ),
+            mock.patch.object(
+                MODULE,
+                "wait_for_closeout_checks",
+                return_value=[{"name": "CodeQL", "bucket": "pass"}],
+            ),
+            mock.patch.object(MODULE, "command", side_effect=run_command),
+        ):
+            with self.assertRaisesRegex(
+                MODULE.ContextError,
+                "pinned baseline as its exact sole parent",
+            ):
+                MODULE.publish_checked_pull_request(
+                    git="/usr/bin/git",
+                    gh=MODULE.EXECUTABLES["githubCliPath"],
+                    repo=Path("/tmp"),
+                    repository="Thorncrag/ARRP",
+                    branch=branch,
+                    commit=commit,
+                    baseline_commit=baseline,
+                    title="Checked closeout",
+                    body="Exact tested boundary.",
+                )
+
+    def test_prepared_elim_commit_requires_all_reviewed_host_proofs(self):
+        baseline = "a" * 40
+        commit = "b" * 40
+        second_parent = "c" * 40
+        result = self.elim_result()
+        result["run_id"] = "chain-1"
+        result["files_touched"] = ["framework/logs/ELIM_RUN_LOG.md"]
+        branch = MODULE.host_closeout_branch(result["run_id"])
+        expected_identity = "\0".join(
+            [
+                MODULE.host_closeout_commit_message(result),
+                MODULE.HOST_GIT_IDENTITY["name"],
+                MODULE.HOST_GIT_IDENTITY["email"],
+                MODULE.HOST_GIT_IDENTITY["name"],
+                MODULE.HOST_GIT_IDENTITY["email"],
+            ]
+        )
+
+        def command_for(fault):
+            def run_command(argv, **_kwargs):
+                if argv[1:] == ["status", "--porcelain"]:
+                    return MODULE.subprocess.CompletedProcess(
+                        argv, 0, stdout="", stderr=""
+                    )
+                if argv[1:] == ["branch", "--show-current"]:
+                    return MODULE.subprocess.CompletedProcess(
+                        argv, 0, stdout=branch + "\n", stderr=""
+                    )
+                if argv[1:] == ["rev-parse", "HEAD"]:
+                    return MODULE.subprocess.CompletedProcess(
+                        argv, 0, stdout=commit + "\n", stderr=""
+                    )
+                if argv[1] == "rev-list":
+                    parents = (
+                        f"{commit} {baseline} {second_parent}\n"
+                        if fault == "topology"
+                        else f"{commit} {baseline}\n"
+                    )
+                    return MODULE.subprocess.CompletedProcess(
+                        argv, 0, stdout=parents, stderr=""
+                    )
+                if argv[1] == "show":
+                    identity = (
+                        expected_identity.replace(
+                            MODULE.HOST_GIT_IDENTITY["name"],
+                            "Untrusted Author",
+                            1,
+                        )
+                        if fault == "identity"
+                        else expected_identity
+                    )
+                    return MODULE.subprocess.CompletedProcess(
+                        argv, 0, stdout=identity + "\n", stderr=""
+                    )
+                if argv[1:3] == ["diff", "--name-only"]:
+                    return MODULE.subprocess.CompletedProcess(
+                        argv,
+                        0,
+                        stdout="framework/logs/ELIM_RUN_LOG.md\0",
+                        stderr="",
+                    )
+                if argv[1:3] == ["diff", "--check"]:
+                    return MODULE.subprocess.CompletedProcess(
+                        argv,
+                        1 if fault == "hygiene" else 0,
+                        stdout=(
+                            "framework/logs/ELIM_RUN_LOG.md: trailing whitespace\n"
+                            if fault == "hygiene"
+                            else ""
+                        ),
+                        stderr="",
+                    )
+                self.fail(f"unexpected command: {argv}")
+
+            return run_command
+
+        for fault in ("topology", "identity", "hygiene"):
+            with (
+                self.subTest(fault=fault),
+                mock.patch.object(
+                    MODULE,
+                    "command",
+                    side_effect=command_for(fault),
+                ),
+                mock.patch.object(
+                    MODULE,
+                    "verify_elim_authored_content",
+                ),
+            ):
+                with self.assertRaisesRegex(
+                    MODULE.ContextError,
+                    "topology, identity, message, file set, or diff hygiene",
+                ):
+                    MODULE.verify_prepared_host_closeout_commit(
+                        "/usr/bin/git",
+                        Path("/tmp"),
+                        result,
+                        expected_manifest=self.selected_manifest(),
+                        branch=branch,
+                        baseline_commit=baseline,
+                    )
+
+    def test_elim_result_next_action_uses_the_continuation_contract(self):
+        result = self.elim_result(next_action="Use the next current chain.")
+        self.assertEqual(
+            MODULE.elim_result_next_action(result),
+            "Use the next current chain.",
+        )
+        result["continuation"]["next_action"] = None
+        self.assertIsNone(MODULE.elim_result_next_action(result))
+        del result["continuation"]["next_action"]
+        with self.assertRaisesRegex(
+            MODULE.ContextError,
+            "lacks its continuation next action",
+        ):
+            MODULE.elim_result_next_action(result)
 
     def test_verified_recovery_clears_only_its_exact_reconciliation_and_incident(self):
         with tempfile.TemporaryDirectory() as directory:

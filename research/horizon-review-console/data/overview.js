@@ -179,6 +179,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items_available": true,
       "domain_attention": [
         {
+          "domain": "integrity",
+          "status": "stale",
+          "reason": "The feed does not completely cover its current authoritative source.",
+          "timestamp": "2026-07-26T12:25:32+00:00",
+          "route": "integrity"
+        },
+        {
           "domain": "publication_release",
           "status": "not_determined",
           "reason": "Structural assembly facts are available, but release readiness cannot be declared without lineage-backed export validation, completed prerequisites, and a recorded human go/no-go decision.",
@@ -508,7 +515,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "agents": {
       "registered": 7,
-      "last_chain_id": "arrp-20260726T122445Z",
+      "last_chain_id": "arrp-20260726T064933Z",
       "chain_status": "complete"
     },
     "services": {
@@ -530,59 +537,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "usage": {
       "hard_reserve_percent": 15,
       "soft_run_target_percent": 10,
-      "remaining_percent": 75.0,
-      "status": "available",
-      "gate": {
-        "blockers": [],
-        "checkedAtUtc": "2026-07-26T12:26:12+00:00",
-        "lowestRemainingPercent": 75,
-        "reservePercent": 15,
-        "runBudget": {
-          "activatedWindows": [],
-          "baselinePath": "/Users/benjaminsmith/Projects/ARRP/.tmp/run-coordinator/elim-checkout/.tmp/run-coordinator/usage-baselines/78df55e35ab51cd035c2ddfa94f0d86aa7add35b1ac467158c6f9b59613f59b8.json",
-          "dormantWindows": [
-            "codex_bengalfox:primary"
-          ],
-          "highestSpentPercent": 0,
-          "reserveBufferFloorPercent": 25,
-          "softTargetPercent": 10,
-          "softTargetReached": false,
-          "spentPercentByWindow": {
-            "codex:primary": 0,
-            "codex_bengalfox:primary": 0
-          }
-        },
-        "status": "pass",
-        "windows": [
-          {
-            "limitId": "codex",
-            "limitName": "codex",
-            "remainingPercent": 75,
-            "resetsAt": 1785611897,
-            "resetsAtUtc": "2026-08-01T19:18:17+00:00",
-            "usedPercent": 25,
-            "window": "primary",
-            "windowDurationMins": 10080
-          },
-          {
-            "limitId": "codex_bengalfox",
-            "limitName": "GPT-5.3-Codex-Spark",
-            "remainingPercent": 100,
-            "resetsAt": 1785673572,
-            "resetsAtUtc": "2026-08-02T12:26:12+00:00",
-            "usedPercent": 0,
-            "window": "primary",
-            "windowDurationMins": 10080
-          }
-        ]
-      },
-      "host_monitor": {
-        "source": "approved-host-dispatcher",
-        "status_path": ".tmp/run-coordinator/arrp-20260726T122445Z/usage-status-arrp-20260726T122445Z-20260726T122611Z.json",
-        "baseline_path": ".tmp/run-coordinator/usage-baselines/78df55e35ab51cd035c2ddfa94f0d86aa7add35b1ac467158c6f9b59613f59b8.json",
-        "monitor_interval_seconds": 60,
-        "snapshot_max_age_seconds": 120
-      }
+      "remaining_percent": null,
+      "status": "unknown"
     },
     "progress_summary": {
       "generated_at": "2026-07-26T12:17:49+00:00",
@@ -597,7 +553,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "integrity_summary": {
       "generated_at": "2026-07-26T12:25:32+00:00",
       "source_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
-      "availability": "current",
+      "availability": "stale",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -608,9 +564,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       }
     },
     "automation_summary": {
-      "chain_id": "arrp-20260726T122445Z",
+      "chain_id": "arrp-20260726T064933Z",
       "status": "complete",
-      "generated_at": "2026-07-26T12:26:12+00:00",
+      "generated_at": "2026-07-26T06:56:10+00:00",
       "stage_count": 6
     },
     "publication_summary": {
@@ -641,6 +597,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-a410ed76d8d2243eee11"
+    "overview.js": "project-console-23d77bdbb23b90703fb0"
   }
 });
