@@ -1,18 +1,41 @@
 {
-  "chain_id": "arrp-20260726T122445Z",
+  "chain_id": "chain-1",
   "cloud_status": null,
-  "exit_code": 0,
-  "host_status": "running",
-  "host_updated_at": "2026-07-26T12:26:12+00:00",
-  "message": "The trusted host is starting Elim for the selected work unit.",
-  "next_action": "Monitor the host-attested usage and Elim closeout.",
+  "exit_code": 130,
+  "host_status": "failed",
+  "host_updated_at": "2026-07-26T12:36:06+00:00",
+  "message": "The host run coordinator was interrupted before Elim began. No Elim failure or substantive work is inferred from the abandoned dispatcher.",
+  "next_action": "Review the interrupted coordinator stage and launch a fresh current chain.",
   "projection_kind": "host-run-status",
   "schema_version": 1,
-  "source_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
-  "stage": "elim-execution",
-  "status": "running",
-  "updated_at": "2026-07-26T12:26:12+00:00",
-  "usage_status": "available",
-  "work_item_id": "COMPREHENSIVE-REVIEW-e77bca75b716",
-  "host_action_items": []
+  "source_revision": null,
+  "stage": "run-coordinator",
+  "status": "failed",
+  "updated_at": "2026-07-26T12:36:06+00:00",
+  "usage_status": null,
+  "work_item_id": null,
+  "host_action_items": [
+    {
+      "chain_id": "chain-1",
+      "chain_ids": [
+        "chain-1"
+      ],
+      "created_at": "2026-07-26T12:36:06+00:00",
+      "details": "The host run coordinator was interrupted before Elim began. No Elim failure or substantive work is inferred from the abandoned dispatcher.",
+      "failure_count": 1,
+      "first_chain_id": "chain-1",
+      "first_seen": "2026-07-26T12:36:06+00:00",
+      "id": "automation-failure-8cddc506eba52727fc7a",
+      "incident_fingerprint": "bb91202972b70cc2ff1a",
+      "kind": "automation_failure",
+      "last_chain_id": "chain-1",
+      "last_seen": "2026-07-26T12:36:06+00:00",
+      "next_action": "Review the interrupted coordinator stage and launch a fresh current chain.",
+      "occurrence_count": 1,
+      "owner": "human",
+      "resolved": false,
+      "stage": "run-coordinator",
+      "summary": "ARRP run chain requires attention."
+    }
+  ]
 }
