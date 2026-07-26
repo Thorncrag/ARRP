@@ -179,13 +179,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items_available": true,
       "domain_attention": [
         {
-          "domain": "integrity",
-          "status": "stale",
-          "reason": "The feed does not completely cover its current authoritative source.",
-          "timestamp": "2026-07-26T12:25:32+00:00",
-          "route": "integrity"
-        },
-        {
           "domain": "publication_release",
           "status": "not_determined",
           "reason": "Structural assembly facts are available, but release readiness cannot be declared without lineage-backed export validation, completed prerequisites, and a recorded human go/no-go decision.",
@@ -197,9 +190,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "kind": "review_epoch",
           "label": "Comprehensive Review Epoch",
-          "due_at": "2026-08-09T12:39:29+00:00",
+          "due_at": "2026-08-09T14:25:30+00:00",
           "status": "drift-detected",
-          "trigger": "Off-cycle comprehensive review because the governing protected-main, resumable-closeout, independent-observability, and non-File-Provider host boundary changed after epoch-arrp-20260726T102646Z.",
+          "trigger": "Off-cycle comprehensive review because the governing context-packet ceiling and trusted-host automation boundary changed after epoch-arrp-20260726T122445Z.",
           "route": "logs:agents"
         },
         {
@@ -343,6 +336,40 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "activity": [
       {
+        "id": "agent-095",
+        "log": "agents",
+        "date": "2026-07-26 10:27:35 -0400",
+        "record": "Full-context project Review Epoch epoch-arrp-20260726T140914Z",
+        "title": "elim · Full-context project Review Epoch epoch-arrp-20260726T140914Z",
+        "actor": "elim",
+        "source": "Agent Audit Log",
+        "outcome": "Completed",
+        "affected_scope": "Full-context project Review Epoch epoch-arrp-20260726T140914Z",
+        "summary": "comprehensive-review",
+        "manager_effect": null,
+        "owner": "elim",
+        "kind": "project_log",
+        "route": "logs:agents",
+        "collapsed_count": 1
+      },
+      {
+        "id": "elim-run-013",
+        "log": "elim",
+        "date": "2026-07-26 10:12:50 -0400",
+        "record": null,
+        "title": "Elim Run Log · Completed",
+        "actor": "Elim Run Log",
+        "source": "Elim Run Log",
+        "outcome": "Completed",
+        "affected_scope": null,
+        "summary": "Completed full-context Review Epoch epoch-arrp-20260726T140914Z at exact packet revision cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184. Verified the manifest, all preserved deterministic inputs, the complete governing packet, the 53-path epoch delta, eight checked merges, cross-project invariants, and a five-record rotating sample. Verified and closed the two carried host-boundary obligations. Confirmed and reported one connected test-isolation and projection-freshness gap after focused dispatcher tests issued real synthetic GitHub events and overwrote the truthful current host-status feed; no separately queued repair was started.",
+        "manager_effect": null,
+        "owner": null,
+        "kind": "project_log",
+        "route": "logs:elim",
+        "collapsed_count": 1
+      },
+      {
         "id": "agent-094",
         "log": "agents",
         "date": "2026-07-26 10:02:52 -0400",
@@ -406,23 +433,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "summary": "automation-architecture",
         "manager_effect": null,
         "owner": "Codex interactive session with trusted-host and Elim production verification",
-        "kind": "project_log",
-        "route": "logs:agents",
-        "collapsed_count": 1
-      },
-      {
-        "id": "agent-091",
-        "log": "agents",
-        "date": "2026-07-26 06:49:27 -0400",
-        "record": "Full-context project Review Epoch epoch-arrp-20260726T102646Z",
-        "title": "elim · Full-context project Review Epoch epoch-arrp-20260726T102646Z",
-        "actor": "elim",
-        "source": "Agent Audit Log",
-        "outcome": "Completed",
-        "affected_scope": "Full-context project Review Epoch epoch-arrp-20260726T102646Z",
-        "summary": "comprehensive-review",
-        "manager_effect": null,
-        "owner": "elim",
         "kind": "project_log",
         "route": "logs:agents",
         "collapsed_count": 1
@@ -494,28 +504,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "kind": "project_log",
         "route": "logs:elim",
         "collapsed_count": 1
-      },
-      {
-        "id": "elim-run-009",
-        "log": "elim",
-        "date": "2026-07-24 16:20:10 -0400",
-        "record": null,
-        "title": "Elim Run Log · Completed; one human-only decision routed",
-        "actor": "Elim Run Log",
-        "source": "Elim Run Log",
-        "outcome": "Completed; one human-only decision routed",
-        "affected_scope": null,
-        "summary": "Verified the complete deterministic chain and every preserved input, then completed JUD-009's targeted Change Audit and Internal Remedy-Fit Audit. Revalidated current law, direct bills, constitutional uncertainty, the Supreme Court's 2026 conflict-checking improvement, remedy fit, drafting, implementation, abuse resistance, budget, and adoption. Recalculated the consolidated proposal at 77/100, preserved four T-audit Runs, cleared the Change Audit marker, and made bounded complaint, recusal-review, appointer-President, confidentiality, response, deadline, source, and legislative-form corrections. The new Framework requires the material application-under-different-control judgment from the human author, so the synchronized workflow is Human decision needed.",
-        "manager_effect": null,
-        "owner": null,
-        "kind": "project_log",
-        "route": "logs:elim",
-        "collapsed_count": 1
       }
     ],
     "agents": {
       "registered": 7,
-      "last_chain_id": "arrp-20260726T064933Z",
+      "last_chain_id": "arrp-20260726T140914Z",
       "chain_status": "complete"
     },
     "services": {
@@ -537,12 +530,63 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "usage": {
       "hard_reserve_percent": 15,
       "soft_run_target_percent": 10,
-      "remaining_percent": null,
-      "status": "unknown"
+      "remaining_percent": 72.0,
+      "status": "available",
+      "gate": {
+        "blockers": [],
+        "checkedAtUtc": "2026-07-26T14:10:32+00:00",
+        "lowestRemainingPercent": 72,
+        "reservePercent": 15,
+        "runBudget": {
+          "activatedWindows": [],
+          "baselinePath": "/Users/benjaminsmith/Projects/ARRP/.tmp/run-coordinator/elim-checkout/.tmp/run-coordinator/usage-baselines/ed4814f33ec480cc578e5b02ef6d24de2642d5f4d24ac17a00dc460cd35bf7b2.json",
+          "dormantWindows": [
+            "codex_bengalfox:primary"
+          ],
+          "highestSpentPercent": 0,
+          "reserveBufferFloorPercent": 25,
+          "softTargetPercent": 10,
+          "softTargetReached": false,
+          "spentPercentByWindow": {
+            "codex:primary": 0,
+            "codex_bengalfox:primary": 0
+          }
+        },
+        "status": "pass",
+        "windows": [
+          {
+            "limitId": "codex",
+            "limitName": "codex",
+            "remainingPercent": 72,
+            "resetsAt": 1785611897,
+            "resetsAtUtc": "2026-08-01T19:18:17+00:00",
+            "usedPercent": 28,
+            "window": "primary",
+            "windowDurationMins": 10080
+          },
+          {
+            "limitId": "codex_bengalfox",
+            "limitName": "GPT-5.3-Codex-Spark",
+            "remainingPercent": 100,
+            "resetsAt": 1785679832,
+            "resetsAtUtc": "2026-08-02T14:10:32+00:00",
+            "usedPercent": 0,
+            "window": "primary",
+            "windowDurationMins": 10080
+          }
+        ]
+      },
+      "host_monitor": {
+        "source": "approved-host-dispatcher",
+        "status_path": ".tmp/run-coordinator/arrp-20260726T140914Z/usage-status-arrp-20260726T140914Z-20260726T141031Z.json",
+        "baseline_path": ".tmp/run-coordinator/usage-baselines/ed4814f33ec480cc578e5b02ef6d24de2642d5f4d24ac17a00dc460cd35bf7b2.json",
+        "monitor_interval_seconds": 60,
+        "snapshot_max_age_seconds": 120
+      }
     },
     "progress_summary": {
-      "generated_at": "2026-07-26T12:17:49+00:00",
-      "source_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
+      "generated_at": "2026-07-26T14:07:46+00:00",
+      "source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
       "availability": "current",
       "ready": 27,
       "total": 81,
@@ -551,9 +595,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12
     },
     "integrity_summary": {
-      "generated_at": "2026-07-26T12:25:32+00:00",
-      "source_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
-      "availability": "stale",
+      "generated_at": "2026-07-26T14:09:55+00:00",
+      "source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+      "availability": "current",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -564,9 +608,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       }
     },
     "automation_summary": {
-      "chain_id": "arrp-20260726T064933Z",
+      "chain_id": "arrp-20260726T140914Z",
       "status": "complete",
-      "generated_at": "2026-07-26T06:56:10+00:00",
+      "generated_at": "2026-07-26T14:10:32+00:00",
       "stage_count": 6
     },
     "publication_summary": {
@@ -597,6 +641,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-3690924935bb14f4ad80"
+    "overview.js": "project-console-6d2b6218ad9ec5a87537"
   }
 });

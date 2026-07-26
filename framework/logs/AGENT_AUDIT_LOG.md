@@ -1861,3 +1861,28 @@ Prospective template:
 | Push status | Every implementation and recovery correction is merged and read back on `origin/main`. The installed `com.thorncrag.arrp-run-coordinator` LaunchAgent points only to `/Users/benjaminsmith/Projects/ARRP`, declares `StartInterval` 600, and completed one immediate launchd-executed deployment poll with `runs = 1` and exit code 0; it created no failure or Action Item. |
 | Rollback notes | Revert only through the ordinary checked workflow and preserve the independent incident, recovery, Review Epoch, Action Item, and archived File Provider evidence. Rolling back the independent projection, protected-main proofs, non-File-Provider checkout, or replay-safe recovery would restore demonstrated failure modes and is not recommended. |
 | Blockers/skipped checks | No implementation or deployment blocker remains. A fresh current autonomous queue is the separate next trigger for Elim to adjudicate the two recorded gap obligations against the now-merged proof and loaded-service evidence. No Console screen, tool, queue class, Elim authority, or substantive project function was removed. |
+
+
+### 2026-07-26 — Comprehensive Review Epoch epoch-arrp-20260726T140914Z — comprehensive-review
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-26 10:27:35 -0400 |
+| Agent | elim |
+| Run ID | arrp-20260726T140914Z |
+| Unit ID | COMPREHENSIVE-REVIEW-1afaea17f530 |
+| Trigger | Off-cycle comprehensive review because the context-packet capacity and trusted-host automation boundary changed after the preceding epoch |
+| Task type | comprehensive-review |
+| Outcome | Completed |
+| Issue/task | Full-context project Review Epoch `epoch-arrp-20260726T140914Z` |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | Review Epoch ledger; current handoff; Elim Run Log; shared Agent Audit Log; deterministic Project Console projections generated from the exact pinned current chain |
+| Source actions | No source-catalog row changed. The pinned Source Checker covered 2055 of 2055 records; its 17 safety-class-zero and 81 review-required ordinary items remain separately queued and were not reclassified as Review Epoch repairs. |
+| Validation | Verified the manifest, queue, packet, and all 13 preserved deterministic inputs by exact SHA-256 and byte count; validated the complete governing boundary and packet provenance; reviewed the 53-path epoch delta and pull requests #434 through #441; verified both carried host repairs; sampled DOJ-002, ELEC-003, EMOL-015, IMM-001, and REG-001; and recorded the new recurring host-status test-dispatch/freshness gap. Focused dispatcher coverage passed 104 tests but issued two real synthetic host-status events, so those two unsafe cases were not repeated. Safe repository tests excluding those cases, participation and Console tests, authenticated consistency with 0 errors and 0 warnings, generated Console validation, syntax, epoch recording, and diff hygiene passed. |
+| Commit | Elim leaves `commit` null and makes no repository Git mutation. Trusted-host checked pull-request closeout remains pending after the structured result. |
+| Push status | Pending trusted-host exact-file-set staging, bounded branch, required checks, squash merge, and exact `origin/main` readback. Elim performed no GitHub branch or pull-request mutation. |
+| Rollback notes | Preserve the append-only epoch, resolved-obligation evidence, synthetic-event incident, and discovery history. If a closeout correction is required, add a superseding exact-provenance record and revert only the reviewed generated/log projection changes through the checked workflow. |
+| Blockers/skipped checks | The Review Epoch itself is complete. `GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS` remains open for a separately selected automation repair. A truthful host closeout projection can restore current display state but does not close the recurring test-side-effect or stale-event-acceptance defect. |
