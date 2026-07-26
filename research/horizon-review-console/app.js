@@ -153,7 +153,7 @@
   const OPENAI_COMPONENTS_URL = "https://status.openai.com/api/v2/components.json";
   const GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/";
   const LIVE_SITE_ROOT = "https://thorncrag.github.io/ARRP/";
-  const SCRIPT_VERSION = "45";
+  const SCRIPT_VERSION = "46";
   const sourceCatalogScripts = Array.from(
     { length: 16 },
     (_, index) => `data/sources-catalog-${String(index + 1).padStart(3, "0")}.js?v=${SCRIPT_VERSION}`
@@ -167,6 +167,7 @@
     candidates: [`data/candidates.js?v=${SCRIPT_VERSION}`],
     progress: [`data/progress.js?v=${SCRIPT_VERSION}`],
     sources: [`data/sources.js?v=${SCRIPT_VERSION}`, ...sourceCatalogScripts, ...directiveCatalogScripts],
+    "source-checker": [`data/source-checker.js?v=${SCRIPT_VERSION}`],
     integrity: [`data/integrity.js?v=${SCRIPT_VERSION}`],
     automation: [`data/automation.js?v=${SCRIPT_VERSION}`],
     logs: [`data/logs.js?v=${SCRIPT_VERSION}`],
@@ -1429,8 +1430,11 @@
       window.history.replaceState(null, "", `#sources:watchers:${selected.dataset.watcherTab}`);
     }
     if (name === "source-checker") {
-      void ensureDomain("automation").then((loaded) => {
-        if (loaded) {
+      void Promise.all([
+        ensureDomain("source-checker"),
+        ensureDomain("automation")
+      ]).then((loaded) => {
+        if (loaded.every(Boolean)) {
           populateSourceCheckerFilters();
           renderSourceChecker();
           refreshLiveSourceChecker();
@@ -8023,16 +8027,23 @@
       refreshLiveProgress();
     }
     if (domain === "sources") hydrateSourceData();
-    if (domain === "automation") {
+    if (domain === "source-checker") {
       populateSourceCheckerFilters();
       renderSourceChecker();
+      refreshLiveSourceChecker();
+      if (loadedDomains.has("sources")) {
+        populateSelect(byId("sources-health"), [...new Set(sourceCheckerRecords().map((record) => record.classification)), "Unavailable"], "All health states");
+        renderSourceView("sources", data.cited_sources, "type");
+      }
+      if (loadedDomains.has("integrity")) renderIntegrity();
+    }
+    if (domain === "automation") {
       renderAutomation();
       if (loadedDomains.has("sources")) {
         populateSelect(byId("sources-health"), [...new Set(sourceCheckerRecords().map((record) => record.classification)), "Unavailable"], "All health states");
         renderSourceView("sources", data.cited_sources, "type");
       }
       initializeCoordinatorControls();
-      refreshLiveSourceChecker();
     }
     if (domain === "integrity") {
       renderIntegrity();
@@ -8052,10 +8063,10 @@
     const dependencies = {
       overview: [],
       progress: ["candidates", "progress"],
-      actions: ["candidates", "progress", "sources", "automation", "integrity", "publication"],
+      actions: ["candidates", "progress", "sources", "source-checker", "automation", "integrity", "publication"],
       candidates: ["candidates", "progress"],
-      sources: ["sources"],
-      integrity: ["candidates", "progress", "sources", "automation", "integrity", "publication"],
+      sources: ["sources", "source-checker"],
+      integrity: ["candidates", "progress", "sources", "source-checker", "automation", "integrity", "publication"],
       automation: ["automation"],
       logs: ["logs", "integrity"],
       pages: ["publication"],
@@ -8070,7 +8081,10 @@
     if (tab === "sources" && (subtab === "watchers"
       || document.querySelector('[data-subtab-group="sources"][aria-selected="true"]')?.dataset.subtab === "watchers")
       && document.querySelector('[data-watcher-tab][aria-selected="true"]')?.dataset.watcherTab === "source-checker") {
-      await ensureDomain("automation");
+      await Promise.all([
+        ensureDomain("source-checker"),
+        ensureDomain("automation")
+      ]);
     }
     if (tab === "actions") renderActionItems();
     if (panel) panel.setAttribute("aria-busy", "false");

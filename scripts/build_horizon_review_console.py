@@ -4689,8 +4689,8 @@ def main() -> None:
             "presidential_directives": [],
             "watcher_metadata": payload["watcher_metadata"],
             "pending_sources": pending_sources,
-            "source_checker": source_checker,
         },
+        "source-checker.js": {"source_checker": source_checker},
         "progress.js": {"progress": progress},
         "integrity.js": {"integrity": integrity},
         "automation.js": {

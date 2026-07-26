@@ -12432,7 +12432,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/horizon-review-console-arrp project console",
       "internal_links": [],
-      "word_count": 3813,
+      "word_count": 3838,
       "estimated_pages": 6,
       "table_count": 0,
       "max_table_columns": 0,
@@ -12541,8 +12541,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3232,
-      "estimated_pages": 5,
+      "word_count": 3444,
+      "estimated_pages": 6,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -18102,8 +18102,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
-        "generated_at": "2026-07-26T03:50:23+00:00"
+        "revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
+        "generated_at": "2026-07-26T04:19:07+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -19989,6 +19989,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-ea9c7595795a119b767a"
+    "publication.js": "project-console-aff106abfac0bcc81c51"
   }
 });

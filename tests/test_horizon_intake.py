@@ -487,6 +487,7 @@ class HorizonIntakeTest(unittest.TestCase):
             "overview.js",
             "candidates.js",
             "sources.js",
+            "source-checker.js",
             "progress.js",
             "integrity.js",
             "automation.js",
@@ -505,6 +506,17 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertLess(path.stat().st_size, 4_000_000, path)
             self.assertGreater(text.count("\n"), 10, path)
             self.assertLess(max(map(len, text.splitlines())), 250_000, path)
+        sources_projection = generated_console_part(
+            (console_dir / "data" / "sources.js").read_text(encoding="utf-8")
+        )
+        source_checker_projection = generated_console_part(
+            (console_dir / "data" / "source-checker.js").read_text(encoding="utf-8")
+        )
+        self.assertNotIn("source_checker", sources_projection)
+        self.assertEqual(
+            set(source_checker_projection),
+            {"source_checker", "domain_generation"},
+        )
         self.assertEqual(
             len(self.console["presidential_directives"]),
             len(self.presidential_directives),
