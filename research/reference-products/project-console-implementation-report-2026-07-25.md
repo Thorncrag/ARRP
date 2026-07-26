@@ -333,18 +333,32 @@ runtime, governance, or project-structure contract.
 
 ## Validation and synchronized readback
 
-- Source-side contract, Progress, Integrity, Source Checker, bundle-generation,
-  Elim, queue, dispatcher, coordinator, contribution, and Console integration
-  tests cover the repaired failure modes.
-- Frontend executable tests cover zero/absent/invalid scores, Boolean false,
-  timestamp offsets, feed acceptance, mixed generations, candidate merging,
-  exact-head invalidation and pagination, incident grouping, source deltas,
-  filtered deep links, release blockers, accessibility state, and initial-load
-  budgets.
-- The final synchronized readback records the exact test totals, browser route
-  matrix, generated source revision and generation ID, authenticated Project
-  counts, GitHub checks, canonical merge, and public deployment in the
-  completion handoff.
+- All 452 repository Python tests and all 25 executable frontend tests pass.
+  Coverage includes source-side contracts, Progress, Integrity, Source Checker,
+  bundle generation, Elim, queue selection, dispatcher, coordinator,
+  contribution review, zero/absent/invalid scores, Boolean false, timestamp
+  offsets, feed acceptance, mixed generations, candidate merging, exact-head
+  invalidation and pagination, incident grouping, source deltas, filtered deep
+  links, release blockers, compact activity semantics, accessibility state,
+  and initial-load budgets.
+- Python compilation, JavaScript syntax, pinned-context reconstruction, public
+  site preparation, and diff hygiene pass.
+- Authenticated Project Consistency readback reports 0 errors and 0 warnings
+  across 64 issue pages, 41 proposal pages, GitHub issue synchronization,
+  Project synchronization, and Pages synchronization.
+- All 25 primary and nested Console routes pass at both 1280×720 and 390×844,
+  with no route-selection failure, runtime error or warning, or document/main
+  horizontal overflow. Deep-link filters, pagination, and roving keyboard tab
+  navigation were exercised. The final Overview starts with 1,394 elements
+  against its 1,400-element budget.
+- Authenticated Project enumeration reconciles all 110 items: 81 proposals, 17
+  formal candidates, and 12 delivery/governance items. It identifies 26 typed
+  release blockers and preserves 27 of 81 proposals at Review Ready.
+- The final generated manifest and completion handoff record the exact source
+  revision and generation identity. The Source Checker remains explicitly
+  incomplete at 2,048 of 2,055 current catalog rows until a complete post-merge
+  scan is published; this known assurance gap is not represented as current or
+  complete.
 
 ## Files and generated surfaces
 
