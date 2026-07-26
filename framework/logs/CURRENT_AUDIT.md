@@ -17,14 +17,14 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Active issue/task | Automation failure observability and trusted-host closeout repair |
 | Audit type/tier | Project structural and operations repair |
 | Started | 2026-07-26 09:04:31 -0400 |
-| Last checkpoint | 2026-07-26 09:31:19 -0400 |
+| Last checkpoint | 2026-07-26 09:41:15 -0400 |
 | User request | Make overnight failure reporting independent of successful chain completion and finish the connected architectural repair. |
 | Scope | Independent Console health projection; trusted-host Elim closeout recovery; non-File-Provider launchd installation; production validation. |
 | Files touched | `scripts/run_chain_dispatcher.py`; `tests/test_run_chain_dispatcher.py`; `framework/context-routes.json`; `tests/test_elim_context.py`; generated Console projections; `research/reference-products/automation-failure-observability-repair-2026-07-26.md`; this checkpoint. |
-| Completed steps | Independent failure projections and non-File-Provider host migration are live; the fresh chain and Elim review completed and merged; pull requests #435 and #436 closed the proof, schema-location, and partial-transaction replay defects. Production replay correctly retained its original Chain ID but exposed a historical-boundary assumption after later main advances; exact merged-PR, check, tree, parent, and ancestry revalidation now passes focused tests. |
-| Next step | Run complete validation, publish, and merge historical-boundary recovery; replay the exact preserved closeout; bootstrap and prove the scheduled poll; run one fresh gap-stewardship chain; reconcile final Console and project records; clear this checkpoint. |
+| Completed steps | Independent failure projections and non-File-Provider host migration are live; the fresh chain and Elim review completed and merged; pull requests #435 and #436 closed the proof, schema-location, and partial-transaction replay defects; pull request #437 merged the historical-boundary proof. The exact preserved closeout then recovered successfully at its original Elim result and synchronized its isolated checkout to current `main`. Readback exposed one final terminal-state ordering defect: the exact incident resolved, but stale `last_failed_*` fields and the earlier synthetic `'next_action'` incident remained visible. The atomic successful-recovery state transition and regression coverage are implemented. |
+| Next step | Complete validation and merge the terminal-state repair; reconcile the recovered control state; bootstrap and prove the scheduled poll; run one fresh gap-stewardship chain; reconcile final Console and project records; clear this checkpoint. |
 | Blockers/questions | None. |
-| Validation status | Pull requests #435 and #436 each passed six remote checks plus their full local suites. Historical-boundary recovery passes 103 focused dispatcher tests and live readback confirms pull request #434 retains exact base, head, merge, checks, sole parent, and equal head/merge trees; full-suite and production replay remain in progress. |
+| Validation status | Pull requests #435, #436, and #437 each passed six remote checks plus their full local suites. Exact production recovery succeeded for `arrp-20260726T122445Z`; the terminal-state repair passes all 103 focused dispatcher tests, with full-suite and production reconciliation in progress. |
 
 ## Handoff Rules
 
