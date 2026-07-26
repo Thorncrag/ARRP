@@ -24,6 +24,21 @@ CONTRACT_SPEC.loader.exec_module(CONTRACTS)
 
 
 class ConsoleDataContractTests(unittest.TestCase):
+    def test_status_projection_contract_distinguishes_complete_from_partial(self):
+        complete = CONTRACTS.status_projection_contract(6)
+        self.assertEqual(complete["availability"], "current")
+        self.assertTrue(complete["completeness"]["complete"])
+        self.assertEqual(complete["actual_count"], 6)
+
+        partial = CONTRACTS.status_projection_contract(6, 5)
+        self.assertEqual(partial["availability"], "stale")
+        self.assertFalse(partial["completeness"]["complete"])
+        self.assertEqual(partial["completeness"]["missing_count"], 1)
+
+        for invalid in (True, -1, 1.5):
+            with self.assertRaises(ValueError):
+                CONTRACTS.status_projection_contract(invalid)
+
     def test_snapshot_override_rejects_paths_outside_trusted_roots(self):
         with self.assertRaisesRegex(RuntimeError, "fixed repository staging file"):
             MODULE.read_trusted_snapshot_file(

@@ -70,6 +70,9 @@ REVIEW_EPOCHS = ROOT / "research" / "review-epochs.jsonl"
 PUBLIC_PROPOSAL_PDF = ROOT / "exports" / "pdf" / "ARRP-public-proposal-draft.pdf"
 OUTPUT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
 CONSOLE_DATA_DIR = ROOT / "research" / "horizon-review-console" / "data"
+PRIVATE_GITHUB_SECURITY_OUTPUT = (
+    CONSOLE_DATA_DIR / "private-github-security.js"
+)
 PARTICIPATION_OUTPUT = ROOT / "participate" / "intake-data.js"
 GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/"
 HORIZON_LOG_URL = GITHUB_BLOB_ROOT + "framework/logs/HORIZON_SCAN_LOG.md#horizon-integration-log"
@@ -2261,6 +2264,310 @@ def run_gh_json(arguments: list[str]) -> object:
     return json.loads(completed.stdout)
 
 
+def run_gh_paginated_json(endpoint: str) -> list[dict[str, object]]:
+    completed = subprocess.run(
+        ["gh", "api", "--paginate", "--slurp", endpoint],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    pages = json.loads(completed.stdout)
+    if not isinstance(pages, list) or not all(
+        isinstance(page, list) for page in pages
+    ):
+        raise RuntimeError(
+            f"GitHub API pagination returned an invalid collection for {endpoint}."
+        )
+    records: list[dict[str, object]] = []
+    for page in pages:
+        records.extend(
+            record for record in page if isinstance(record, dict)
+        )
+    return records
+
+
+def github_security_action_snapshot() -> dict[str, object]:
+    """Build a private local projection of authenticated GitHub security alerts."""
+    repository = "Thorncrag/ARRP"
+    checked_at = utc_timestamp()
+    alerts: list[dict[str, object]] = []
+
+    code_scanning = run_gh_paginated_json(
+        f"repos/{repository}/code-scanning/alerts?state=open&per_page=100"
+    )
+    for record in code_scanning:
+        rule = record.get("rule") if isinstance(record.get("rule"), dict) else {}
+        instance = (
+            record.get("most_recent_instance")
+            if isinstance(record.get("most_recent_instance"), dict)
+            else {}
+        )
+        location = (
+            instance.get("location")
+            if isinstance(instance.get("location"), dict)
+            else {}
+        )
+        path = str(location.get("path") or "")
+        line = location.get("start_line")
+        location_label = f"{path}:{line}" if path and line else path
+        title = str(
+            rule.get("name") or rule.get("id") or "Code scanning alert"
+        )
+        url = str(record.get("html_url") or "")
+        next_action = (
+            "Reproduce and triage the alert, repair confirmed unsafe path "
+            "handling, add focused regression coverage, and close the GitHub "
+            "alert only after validated remediation."
+        )
+        consequence = (
+            "An unresolved code-scanning finding can conceal an exploitable "
+            "path boundary or a recurring unsafe pattern."
+        )
+        alerts.append(
+            {
+                "id": f"code-scanning-{record.get('number')}",
+                "kind": "code_scanning",
+                "category": "Code scanning",
+                "severity": str(
+                    rule.get("security_severity_level") or "warning"
+                ).lower(),
+                "title": title,
+                "rule_id": str(rule.get("id") or ""),
+                "owner": "Elim",
+                "status": "Open",
+                "location": location_label,
+                "url": url,
+                "created_at": record.get("created_at"),
+                "updated_at": record.get("updated_at"),
+                "next_action": next_action,
+                "consequence": consequence,
+                "label": (
+                    f"code-scanning-{record.get('number')}: Code scanning - "
+                    f"{title}{f' ({location_label})' if location_label else ''}"
+                ),
+                "href": url,
+                "question": next_action,
+                "recommendation": (
+                    "Have Elim triage and repair the alert; retain it here "
+                    "until GitHub records a validated disposition."
+                ),
+                "whyNow": (
+                    f"Open {str(rule.get('security_severity_level') or 'warning').lower()} "
+                    "GitHub security alert"
+                ),
+                "due": (
+                    f"Open since {record.get('created_at')}"
+                    if record.get("created_at")
+                    else "Alert age unavailable"
+                ),
+            }
+        )
+
+    dependabot = run_gh_paginated_json(
+        f"repos/{repository}/dependabot/alerts?state=open&per_page=100"
+    )
+    for record in dependabot:
+        advisory = (
+            record.get("security_advisory")
+            if isinstance(record.get("security_advisory"), dict)
+            else {}
+        )
+        dependency = (
+            record.get("dependency")
+            if isinstance(record.get("dependency"), dict)
+            else {}
+        )
+        package = (
+            dependency.get("package")
+            if isinstance(dependency.get("package"), dict)
+            else {}
+        )
+        title = str(
+            advisory.get("summary")
+            or package.get("name")
+            or "Dependabot alert"
+        )
+        url = str(record.get("html_url") or "")
+        next_action = (
+            "Assess the affected dependency and reachable behavior, apply the "
+            "smallest compatible update, and validate the complete affected "
+            "workflow before closing the alert."
+        )
+        consequence = (
+            "A vulnerable dependency remains available to any reachable "
+            "project execution path until it is upgraded or proved inapplicable."
+        )
+        alerts.append(
+            {
+                "id": f"dependabot-{record.get('number')}",
+                "kind": "dependabot",
+                "category": "Dependency security",
+                "severity": str(advisory.get("severity") or "warning").lower(),
+                "title": title,
+                "owner": "Elim",
+                "status": "Open",
+                "location": str(package.get("name") or ""),
+                "url": url,
+                "created_at": record.get("created_at"),
+                "updated_at": record.get("updated_at"),
+                "next_action": next_action,
+                "consequence": consequence,
+                "label": (
+                    f"dependabot-{record.get('number')}: Dependency security - "
+                    f"{title}"
+                ),
+                "href": url,
+                "question": next_action,
+                "recommendation": (
+                    "Have Elim assess and update the dependency; retain the "
+                    "alert until GitHub records a validated disposition."
+                ),
+                "whyNow": (
+                    f"Open {str(advisory.get('severity') or 'warning').lower()} "
+                    "GitHub security alert"
+                ),
+                "due": (
+                    f"Open since {record.get('created_at')}"
+                    if record.get("created_at")
+                    else "Alert age unavailable"
+                ),
+            }
+        )
+
+    secret_scanning = run_gh_paginated_json(
+        f"repos/{repository}/secret-scanning/alerts?state=open&per_page=100"
+    )
+    for record in secret_scanning:
+        title = str(
+            record.get("secret_type_display_name")
+            or record.get("secret_type")
+            or "Secret-scanning alert"
+        )
+        url = str(record.get("html_url") or "")
+        next_action = (
+            "Open the authoritative GitHub alert, revoke or rotate the "
+            "credential through its provider, then remove the exposed value "
+            "and validate replacement access."
+        )
+        consequence = (
+            "A still-valid exposed credential may permit unauthorized access "
+            "outside the repository."
+        )
+        alerts.append(
+            {
+                "id": f"secret-scanning-{record.get('number')}",
+                "kind": "secret_scanning",
+                "category": "Exposed credential",
+                "severity": "high",
+                "title": title,
+                "owner": "Human",
+                "status": "Open",
+                "location": "GitHub secret-scanning alert",
+                "url": url,
+                "created_at": record.get("created_at"),
+                "updated_at": record.get("updated_at"),
+                "next_action": next_action,
+                "consequence": consequence,
+                "label": (
+                    f"secret-scanning-{record.get('number')}: "
+                    f"Exposed credential - {title}"
+                ),
+                "href": url,
+                "question": next_action,
+                "recommendation": (
+                    "Complete the provider-side credential action first, then "
+                    "have Elim validate repository cleanup and closeout."
+                ),
+                "whyNow": "Open high GitHub security alert",
+                "due": (
+                    f"Open since {record.get('created_at')}"
+                    if record.get("created_at")
+                    else "Alert age unavailable"
+                ),
+            }
+        )
+
+    severity_order = {
+        "critical": 0,
+        "high": 1,
+        "medium": 2,
+        "moderate": 2,
+        "low": 3,
+        "warning": 4,
+    }
+    alerts.sort(
+        key=lambda record: (
+            severity_order.get(str(record.get("severity")), 5),
+            str(record.get("category")),
+            str(record.get("id")),
+        )
+    )
+    problems = [
+        {
+            "reference": f"GHSEC-{str(alert.get('id') or 'ALERT').upper()}",
+            "category": alert.get("category") or "GitHub security",
+            "severity": (
+                "error"
+                if str(alert.get("severity") or "").lower()
+                in {"critical", "high"}
+                else "warning"
+            ),
+            "attention": (
+                "human"
+                if str(alert.get("owner") or "").lower() == "human"
+                else "agent"
+            ),
+            "owner": alert.get("owner") or "Elim",
+            "reported_by": "GitHub Security",
+            "status": alert.get("status") or "Open",
+            "message": alert.get("label") or alert.get("title"),
+            "source_url": alert.get("href") or alert.get("url"),
+            "human_question": alert.get("question"),
+            "recommendation": alert.get("recommendation"),
+            "consequence_of_delay": alert.get("consequence"),
+            "detected_at": alert.get("created_at") or checked_at,
+            "checked_at": checked_at,
+        }
+        for alert in alerts
+    ]
+    return {
+        "schema_version": 1,
+        "repository": repository,
+        "generated_at": checked_at,
+        "availability": "current",
+        "completeness": {
+            "complete": True,
+            "open_alert_count": len(alerts),
+            "sources": [
+                "GitHub code scanning",
+                "GitHub Dependabot",
+                "GitHub secret scanning",
+            ],
+        },
+        "alerts": alerts,
+        "problems": problems,
+        "authoritative_url": f"https://github.com/{repository}/security",
+        "privacy": (
+            "Local authenticated projection. This file is Git-ignored and "
+            "must not be committed or published."
+        ),
+    }
+
+
+def write_private_github_security_actions() -> dict[str, object]:
+    snapshot = github_security_action_snapshot()
+    serialized = json.dumps(
+        snapshot, ensure_ascii=False, separators=(",", ":")
+    ).replace("</", "<\\/")
+    atomic_write_text(
+        PRIVATE_GITHUB_SECURITY_OUTPUT,
+        "/* Private local projection; never commit or publish. */\n"
+        f"window.ARRP_PRIVATE_GITHUB_SECURITY={serialized};\n",
+    )
+    return snapshot
+
+
 def require_complete_cli_collection(
     records: object,
     *,
@@ -4401,6 +4708,11 @@ def main() -> None:
     )
     presidential_directives = presidential_directive_records()
     horizon_records, github_synced_at = horizon_snapshot(args.refresh_github)
+    private_github_security = (
+        write_private_github_security_actions()
+        if args.refresh_github
+        else None
+    )
     monitoring_issues = monitoring_issue_snapshot(args.refresh_github, horizon_records)
     court_watch_sources, case_watcher_metadata = case_watcher_snapshot()
     page_inventory = page_inventory_records()
@@ -4717,6 +5029,12 @@ def main() -> None:
     )
 
     if args.console_only:
+        private_security_note = (
+            f" Private GitHub security snapshot: "
+            f"{len(private_github_security.get('alerts') or [])} open alerts."
+            if private_github_security is not None
+            else ""
+        )
         print(
             f"Wrote {OUTPUT.relative_to(ROOT)} with {len(candidates)} preliminary "
             f"candidates, {len(active_horizon_records)} active proposed candidates, "
@@ -4725,6 +5043,7 @@ def main() -> None:
             f"{len(presidential_directives)} presidential directives, plus "
             f"{len(page_inventory)} publication-controlled pages and "
             f"{sum(len(log['entries']) for log in project_logs)} project-log entries."
+            f"{private_security_note}"
         )
         return
 

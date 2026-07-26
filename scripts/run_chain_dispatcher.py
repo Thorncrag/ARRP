@@ -51,6 +51,11 @@ except ModuleNotFoundError:  # Imported as scripts.run_chain_dispatcher.
         validate_finding_continuity,
     )
 
+try:
+    from console_data_contracts import status_projection_contract
+except ModuleNotFoundError:  # Imported as scripts.run_chain_dispatcher.
+    from scripts.console_data_contracts import status_projection_contract
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
@@ -129,25 +134,24 @@ ELIM_RUN_LOG = "framework/logs/ELIM_RUN_LOG.md"
 AGENT_AUDIT_LOG = "framework/logs/AGENT_AUDIT_LOG.md"
 CURRENT_AUDIT_LOG = "framework/logs/CURRENT_AUDIT.md"
 INTAKE_REVIEW_LEDGER = "research/intake-review-ledger.jsonl"
-ELIM_RUN_REPORT_FIELDS = frozenset(
-    {
-        "Started",
-        "Ended",
-        "Run ID",
-        "Trigger",
-        "Outcome",
-        "Usage",
-        "Work summary",
-        "Discovery and gap obligations",
-        "Material units",
-        "Issue audit records",
-        "Commits and synchronization",
-        "Validation",
-        "Human review",
-        "Stop reason",
-        "Exact next action",
-    }
+ELIM_RUN_REPORT_FIELD_ORDER = (
+    "Started",
+    "Ended",
+    "Run ID",
+    "Trigger",
+    "Outcome",
+    "Usage",
+    "Work summary",
+    "Discovery and gap obligations",
+    "Material units",
+    "Issue audit records",
+    "Commits and synchronization",
+    "Validation",
+    "Human review",
+    "Stop reason",
+    "Exact next action",
 )
+ELIM_RUN_REPORT_FIELDS = frozenset(ELIM_RUN_REPORT_FIELD_ORDER)
 NONMATERIAL_RESULT_PATHS = frozenset(
     {ELIM_RUN_LOG, AGENT_AUDIT_LOG, CURRENT_AUDIT_LOG}
 )
@@ -185,6 +189,10 @@ HOST_OUTCOME_HISTORY = ".tmp/run-coordinator/run-chain-history.json"
 USAGE_BASELINE_DIRECTORY = ".tmp/run-coordinator/usage-baselines"
 ELIM_CHECKOUT_PATH = ".tmp/run-coordinator/elim-checkout"
 HOST_CLOSEOUT_BRANCH_PREFIX = "codex/elim-"
+HOST_WORKSPACE_BRANCH_PREFIX = "codex/host-workspace-"
+HOST_WORKSPACE_BRANCH = re.compile(
+    r"^codex/host-workspace-\d{8}T\d{6}Z-([0-9a-f]{12})$"
+)
 HOST_GIT_IDENTITY = {
     "name": "ARRP Run Coordinator",
     "email": "arrp-run-coordinator@users.noreply.github.com",
@@ -193,12 +201,16 @@ HOST_CLOSEOUT_POLICY = {
     "owner": "trusted-host-dispatcher",
     "modelGitMutation": "forbidden",
     "changedPathPolicy": "exact-declared-set",
-    "defaultPublication": "non-force-fast-forward-main",
+    "defaultPublication": "checked-pull-request-squash-merge",
     "humanReviewPublication": "open-unmerged-pull-request",
+    "checkTimeoutSeconds": 1800,
+    "checkPollSeconds": 10,
+    "requiredCheckNames": ["CodeQL"],
 }
 CANONICAL_WORKSPACE_RECONCILIATION_POLICY = {
     "requiredBranch": "main",
-    "dirtyMainAction": "commit-fast-forward-push-and-defer",
+    "dirtyMainAction": "checked-pull-request-squash-merge-and-defer",
+    "preparedCommitResume": "exact-parent-identity-paths-checks-readback",
     "changedPathPolicy": "complete-workspace",
     "commitMessage": "Preserve local ARRP changes before automated run",
     "requireConflictFree": True,
@@ -2322,6 +2334,7 @@ def build_host_status_projection(
     updated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     projection: dict[str, Any] = {
         "schema_version": 1,
+        **status_projection_contract(1),
         "projection_kind": "host-run-status",
         "chain_id": str(chain_id),
         "host_status": str(status),
@@ -2356,6 +2369,17 @@ def build_host_status_projection(
         and str(runtime.get("chain_id") or "") == str(chain_id)
     ):
         projection["elim_runtime"] = runtime
+    closeout = value.get("host_closeout")
+    if isinstance(closeout, dict):
+        closeout_commit = str(closeout.get("commit") or "")
+        if re.fullmatch(r"[0-9a-f]{40}", closeout_commit):
+            projection["host_closeout"] = {
+                "outcome": str(closeout.get("outcome") or ""),
+                "commit": closeout_commit,
+                "validated_at": str(closeout.get("validated_at") or ""),
+                "recovered": closeout.get("recovered") is True,
+            }
+            projection["result_revision"] = closeout_commit
     return projection
 
 
@@ -3134,32 +3158,15 @@ def worktree_changed_paths(git: str, repo: Path) -> set[str]:
     return changed
 
 
-def verify_uncommitted_elim_evidence(
+def verify_elim_authored_content(
     git: str,
     repo: Path,
     result: dict[str, Any],
+    changed: set[str],
     *,
     expected_manifest: dict[str, Any],
-) -> set[str]:
-    """Verify the model-authored working tree before the trusted host stages it."""
-    if result.get("commit") is not None:
-        raise ContextError(
-            "Elim must leave commit creation to the trusted host dispatcher"
-        )
-    declared = set(result["files_touched"])
-    changed = worktree_changed_paths(git, repo)
-    if changed != declared:
-        missing = sorted(changed - declared)
-        absent = sorted(declared - changed)
-        details: list[str] = []
-        if missing:
-            details.append("unreported=" + ", ".join(missing))
-        if absent:
-            details.append("not_changed=" + ", ".join(absent))
-        raise ContextError(
-            "Elim working-tree changes do not match files_touched"
-            + (": " + "; ".join(details) if details else "")
-        )
+) -> None:
+    """Verify Elim-authored content at either a dirty or prepared commit."""
     if ELIM_RUN_LOG not in changed:
         raise ContextError("every launched Elim outcome must update the Elim Run Log")
 
@@ -3243,6 +3250,41 @@ def verify_uncommitted_elim_evidence(
             )
     if result["work_type"] == "public_intake":
         verify_intake_review_ledger(repo, result)
+
+
+def verify_uncommitted_elim_evidence(
+    git: str,
+    repo: Path,
+    result: dict[str, Any],
+    *,
+    expected_manifest: dict[str, Any],
+) -> set[str]:
+    """Verify the model-authored working tree before the trusted host stages it."""
+    if result.get("commit") is not None:
+        raise ContextError(
+            "Elim must leave commit creation to the trusted host dispatcher"
+        )
+    declared = set(result["files_touched"])
+    changed = worktree_changed_paths(git, repo)
+    if changed != declared:
+        missing = sorted(changed - declared)
+        absent = sorted(declared - changed)
+        details: list[str] = []
+        if missing:
+            details.append("unreported=" + ", ".join(missing))
+        if absent:
+            details.append("not_changed=" + ", ".join(absent))
+        raise ContextError(
+            "Elim working-tree changes do not match files_touched"
+            + (": " + "; ".join(details) if details else "")
+        )
+    verify_elim_authored_content(
+        git,
+        repo,
+        result,
+        changed,
+        expected_manifest=expected_manifest,
+    )
     return changed
 
 
@@ -3253,6 +3295,515 @@ def host_closeout_branch(chain_id: str) -> str:
     if len(branch) > 180:
         raise ContextError("host closeout branch name exceeds its bounded length")
     return branch
+
+
+def matching_closeout_pull_request(
+    gh: str,
+    repo: Path,
+    *,
+    repository: str,
+    branch: str,
+    commit: str,
+) -> dict[str, Any] | None:
+    listed = command(
+        [
+            gh,
+            "pr",
+            "list",
+            "--repo",
+            repository,
+            "--state",
+            "all",
+            "--head",
+            branch,
+            "--json",
+            (
+                "number,state,url,headRefName,headRefOid,baseRefName,"
+                "baseRefOid,mergeCommit"
+            ),
+            "--limit",
+            "20",
+        ],
+        cwd=repo,
+    )
+    if listed.returncode != 0:
+        raise RuntimeError(
+            "trusted host could not inspect existing closeout pull requests: "
+            + listed.stderr.strip()
+        )
+    try:
+        rows = json.loads(listed.stdout)
+    except json.JSONDecodeError as exc:
+        raise ContextError("closeout pull-request listing is unreadable") from exc
+    if not isinstance(rows, list):
+        raise ContextError("closeout pull-request listing is not an array")
+    matches = [
+        row
+        for row in rows
+        if isinstance(row, dict)
+        and row.get("headRefName") == branch
+        and row.get("headRefOid") == commit
+        and row.get("baseRefName") == "main"
+        and str(row.get("url") or "").startswith(
+            f"https://github.com/{repository}/pull/"
+        )
+    ]
+    if len(matches) > 1:
+        raise ContextError(
+            "multiple pull requests claim the exact host closeout boundary"
+        )
+    return matches[0] if matches else None
+
+
+def ensure_host_closeout_branch(
+    git: str,
+    repo: Path,
+    *,
+    branch: str,
+    commit: str,
+) -> bool:
+    remote_ref = f"refs/heads/{branch}"
+    listed = command(
+        [git, "ls-remote", "--heads", "origin", remote_ref],
+        cwd=repo,
+    )
+    if listed.returncode != 0:
+        raise RuntimeError(
+            "trusted host could not inspect the remote closeout branch: "
+            + listed.stderr.strip()
+        )
+    remote_commit = ""
+    if listed.stdout.strip():
+        parts = listed.stdout.strip().split()
+        if len(parts) != 2 or parts[1] != remote_ref:
+            raise ContextError("remote closeout branch readback is malformed")
+        remote_commit = parts[0]
+        if remote_commit != commit:
+            raise ContextError(
+                "remote closeout branch exists at a different commit and will "
+                "not be replaced"
+            )
+        return False
+    pushed = command(
+        [git, "push", "origin", f"{commit}:{remote_ref}"],
+        cwd=repo,
+    )
+    if pushed.returncode != 0:
+        raise RuntimeError(
+            "trusted host could not push the bounded closeout branch: "
+            + pushed.stderr.strip()
+        )
+    return True
+
+
+def read_closeout_pull_request(
+    gh: str,
+    repo: Path,
+    *,
+    repository: str,
+    pull_request: str,
+) -> dict[str, Any]:
+    viewed = command(
+        [
+            gh,
+            "pr",
+            "view",
+            pull_request,
+            "--repo",
+            repository,
+            "--json",
+            (
+                "number,state,url,headRefName,headRefOid,baseRefName,"
+                "baseRefOid,mergeCommit,mergedAt"
+            ),
+        ],
+        cwd=repo,
+    )
+    if viewed.returncode != 0:
+        raise RuntimeError(
+            "trusted host could not read back the closeout pull request: "
+            + viewed.stderr.strip()
+        )
+    try:
+        row = json.loads(viewed.stdout)
+    except json.JSONDecodeError as exc:
+        raise ContextError("closeout pull-request readback is unreadable") from exc
+    if not isinstance(row, dict):
+        raise ContextError("closeout pull-request readback is not an object")
+    return row
+
+
+def wait_for_closeout_checks(
+    gh: str,
+    repo: Path,
+    *,
+    repository: str,
+    pull_request: str,
+) -> list[dict[str, Any]]:
+    timeout = int(HOST_CLOSEOUT_POLICY["checkTimeoutSeconds"])
+    poll = int(HOST_CLOSEOUT_POLICY["checkPollSeconds"])
+    deadline = time.monotonic() + timeout
+    observed: list[dict[str, Any]] = []
+    while time.monotonic() <= deadline:
+        checked = command(
+            [
+                gh,
+                "pr",
+                "checks",
+                pull_request,
+                "--repo",
+                repository,
+                "--json",
+                "bucket,name,state,link",
+            ],
+            cwd=repo,
+        )
+        if checked.returncode not in {0, 1, 8}:
+            raise RuntimeError(
+                "trusted host could not inspect closeout pull-request checks: "
+                + checked.stderr.strip()
+            )
+        try:
+            rows = json.loads(checked.stdout)
+        except json.JSONDecodeError as exc:
+            raise ContextError(
+                "closeout pull-request check readback is unreadable"
+            ) from exc
+        if not isinstance(rows, list) or any(
+            not isinstance(row, dict) for row in rows
+        ):
+            raise ContextError(
+                "closeout pull-request check readback is malformed"
+            )
+        observed = rows
+        buckets = {str(row.get("bucket") or "") for row in rows}
+        unsupported_buckets = buckets - {
+            "pass",
+            "fail",
+            "pending",
+            "skipping",
+            "cancel",
+        }
+        if unsupported_buckets:
+            raise ContextError(
+                "closeout pull-request checks reported unsupported states: "
+                + ", ".join(sorted(unsupported_buckets))
+            )
+        if buckets & {"fail", "cancel"}:
+            failed = ", ".join(
+                sorted(
+                    str(row.get("name") or "unnamed check")
+                    for row in rows
+                    if str(row.get("bucket") or "") in {"fail", "cancel"}
+                )
+            )
+            raise ContextError(
+                "closeout pull-request checks failed or were cancelled: "
+                + failed
+            )
+        required_names = set(HOST_CLOSEOUT_POLICY["requiredCheckNames"])
+        passing_names = {
+            str(row.get("name") or "")
+            for row in rows
+            if str(row.get("bucket") or "") == "pass"
+        }
+        if (
+            rows
+            and "pending" not in buckets
+            and required_names <= passing_names
+        ):
+            return observed
+        time.sleep(poll)
+    raise RuntimeError(
+        "closeout pull-request checks did not finish inside the reviewed "
+        f"{timeout}-second bound"
+    )
+
+
+def publish_checked_pull_request(
+    *,
+    git: str,
+    gh: str,
+    repo: Path,
+    repository: str,
+    branch: str,
+    commit: str,
+    baseline_commit: str,
+    title: str,
+    body: str,
+) -> tuple[str, list[str], str]:
+    """Publish one exact host commit through checks and a squash merge."""
+    existing = matching_closeout_pull_request(
+        gh,
+        repo,
+        repository=repository,
+        branch=branch,
+        commit=commit,
+    )
+    pushed_now = False
+    if existing is None:
+        pushed_now = ensure_host_closeout_branch(
+            git,
+            repo,
+            branch=branch,
+            commit=commit,
+        )
+        created = command(
+            [
+                gh,
+                "pr",
+                "create",
+                "--repo",
+                repository,
+                "--base",
+                "main",
+                "--head",
+                branch,
+                "--title",
+                title[:200],
+                "--body",
+                body,
+            ],
+            cwd=repo,
+        )
+        pull_request = created.stdout.strip()
+        if (
+            created.returncode != 0
+            or not pull_request.startswith(
+                f"https://github.com/{repository}/pull/"
+            )
+        ):
+            raise RuntimeError(
+                "trusted host could not open the closeout pull request: "
+                + created.stderr.strip()
+            )
+        existing = read_closeout_pull_request(
+            gh,
+            repo,
+            repository=repository,
+            pull_request=pull_request,
+        )
+    else:
+        pull_request = str(existing["url"])
+
+    if (
+        existing.get("headRefName") != branch
+        or existing.get("headRefOid") != commit
+        or existing.get("baseRefName") != "main"
+        or existing.get("baseRefOid") != baseline_commit
+    ):
+        raise ContextError(
+            "closeout pull-request head or base differs from the exact reviewed "
+            "boundary"
+        )
+    state = str(existing.get("state") or "").upper()
+    if state == "CLOSED":
+        raise ContextError(
+            "the exact closeout pull request was closed without a verified merge"
+        )
+    if state == "OPEN":
+        checks = wait_for_closeout_checks(
+            gh,
+            repo,
+            repository=repository,
+            pull_request=pull_request,
+        )
+        refreshed = command(
+            [git, "fetch", "--no-tags", "origin", "main"],
+            cwd=repo,
+        )
+        remote = command(
+            [git, "rev-parse", "refs/remotes/origin/main"],
+            cwd=repo,
+        )
+        if (
+            refreshed.returncode != 0
+            or remote.returncode != 0
+            or remote.stdout.strip() != baseline_commit
+        ):
+            raise ContextError(
+                "origin/main advanced while closeout checks ran; the exact pull "
+                "request remains preserved and was not merged"
+            )
+        current_pr = read_closeout_pull_request(
+            gh,
+            repo,
+            repository=repository,
+            pull_request=pull_request,
+        )
+        if (
+            str(current_pr.get("state") or "").upper() != "OPEN"
+            or current_pr.get("headRefOid") != commit
+            or current_pr.get("baseRefOid") != baseline_commit
+        ):
+            raise ContextError(
+                "closeout pull-request state changed before the merge boundary"
+            )
+        merged = command(
+            [
+                gh,
+                "pr",
+                "merge",
+                pull_request,
+                "--repo",
+                repository,
+                "--squash",
+                "--match-head-commit",
+                commit,
+            ],
+            cwd=repo,
+        )
+        if merged.returncode != 0:
+            current_pr = read_closeout_pull_request(
+                gh,
+                repo,
+                repository=repository,
+                pull_request=pull_request,
+            )
+            if str(current_pr.get("state") or "").upper() != "MERGED":
+                raise RuntimeError(
+                    "trusted host could not merge the checked closeout pull "
+                    "request: " + merged.stderr.strip()
+                )
+        existing = read_closeout_pull_request(
+            gh,
+            repo,
+            repository=repository,
+            pull_request=pull_request,
+        )
+    elif state == "MERGED":
+        checks = wait_for_closeout_checks(
+            gh,
+            repo,
+            repository=repository,
+            pull_request=pull_request,
+        )
+    else:
+        raise ContextError(
+            f"closeout pull request has unsupported state {state!r}"
+        )
+
+    merge_commit_value = existing.get("mergeCommit")
+    merge_commit = (
+        str(merge_commit_value.get("oid") or "")
+        if isinstance(merge_commit_value, dict)
+        else ""
+    )
+    if (
+        str(existing.get("state") or "").upper() != "MERGED"
+        or re.fullmatch(r"[0-9a-f]{40}", merge_commit) is None
+    ):
+        raise ContextError(
+            "closeout pull request lacks an exact merged commit readback"
+        )
+    fetched = command(
+        [git, "fetch", "--no-tags", "origin", "main"],
+        cwd=repo,
+    )
+    remote = command(
+        [git, "rev-parse", "refs/remotes/origin/main"],
+        cwd=repo,
+    )
+    if (
+        fetched.returncode != 0
+        or remote.returncode != 0
+        or remote.stdout.strip() != merge_commit
+    ):
+        raise ContextError(
+            "checked closeout merge did not read back as the exact origin/main "
+            "boundary"
+        )
+    synchronization = [
+        (
+            f"Trusted host pushed exact commit {commit} to {branch}."
+            if pushed_now
+            else f"Trusted host read back exact commit {commit} on {branch}."
+        ),
+        f"Trusted host used pull request {pull_request}.",
+        (
+            "Trusted host required every reported pull-request check to finish "
+            f"without failure ({len(checks)} checks observed in this invocation)."
+        ),
+        (
+            f"Trusted host squash-merged and read back exact origin/main "
+            f"boundary {merge_commit}."
+        ),
+    ]
+    return merge_commit, synchronization, pull_request
+
+
+def verify_prepared_host_closeout_commit(
+    git: str,
+    repo: Path,
+    result: dict[str, Any],
+    *,
+    expected_manifest: dict[str, Any],
+    branch: str,
+    baseline_commit: str,
+) -> tuple[str, set[str]]:
+    """Validate an exact host commit left by an interrupted publication."""
+    require_clean_repo(git, repo)
+    current_branch = command([git, "branch", "--show-current"], cwd=repo)
+    if (
+        current_branch.returncode == 0
+        and current_branch.stdout.strip() != branch
+    ):
+        prepared_ref = command(
+            [git, "rev-parse", f"refs/heads/{branch}"],
+            cwd=repo,
+        )
+        if (
+            prepared_ref.returncode != 0
+            or re.fullmatch(r"[0-9a-f]{40}", prepared_ref.stdout.strip())
+            is None
+        ):
+            raise ContextError(
+                "preserved host closeout has no exact bounded branch"
+            )
+        switched = command([git, "switch", branch], cwd=repo)
+        if switched.returncode != 0:
+            raise RuntimeError(
+                "trusted host could not return to the prepared closeout branch"
+            )
+        current_branch = command([git, "branch", "--show-current"], cwd=repo)
+    head = command([git, "rev-parse", "HEAD"], cwd=repo)
+    commit = head.stdout.strip()
+    if (
+        current_branch.returncode != 0
+        or current_branch.stdout.strip() != branch
+        or head.returncode != 0
+        or re.fullmatch(r"[0-9a-f]{40}", commit) is None
+    ):
+        raise ContextError(
+            "preserved host closeout is not on its exact bounded branch"
+        )
+    parent = command([git, "rev-parse", f"{commit}^"], cwd=repo)
+    changed_result = command(
+        [git, "diff", "--name-only", "-z", baseline_commit, commit],
+        cwd=repo,
+    )
+    changed = {
+        value for value in changed_result.stdout.split("\0") if value
+    }
+    declared = set(result["files_touched"])
+    if (
+        parent.returncode != 0
+        or parent.stdout.strip() != baseline_commit
+        or changed_result.returncode != 0
+        or changed != declared
+    ):
+        raise ContextError(
+            "preserved host closeout commit topology or file set differs from "
+            "the model-declared boundary"
+        )
+    verify_elim_authored_content(
+        git,
+        repo,
+        result,
+        changed,
+        expected_manifest=expected_manifest,
+    )
+    return commit, changed
 
 
 def host_preserve_elim_result(
@@ -3269,6 +3820,15 @@ def host_preserve_elim_result(
         raise ContextError("host closeout repository identity is invalid")
     result = read_elim_result(result_path, repo)
     verify_elim_result_binding(expected_manifest, result)
+    if result.get("commit") is not None:
+        verify_successful_elim_evidence(
+            repo,
+            result,
+            git=git,
+            gh=gh,
+            expected_manifest=expected_manifest,
+        )
+        return result
     semantic_complete, _ = verify_elim_closeout(repo, result)
     if (
         semantic_complete
@@ -3286,16 +3846,12 @@ def host_preserve_elim_result(
             raise ContextError(
                 "completed comprehensive review lacks its validated Review Epoch"
             )
-    changed = verify_uncommitted_elim_evidence(
-        git,
-        repo,
-        result,
-        expected_manifest=expected_manifest,
-    )
     baseline_commit = str(
         expected_manifest.get("final_revision")
         or expected_manifest.get("baseline_commit")
     )
+    if re.fullmatch(r"[0-9a-f]{40}", baseline_commit) is None:
+        raise ContextError("host closeout lacks a valid pinned manifest baseline")
 
     origin = command([git, "remote", "get-url", "origin"], cwd=repo)
     if origin.returncode != 0 or origin.stdout.strip() not in APPROVED_ORIGIN_URLS:
@@ -3306,173 +3862,194 @@ def host_preserve_elim_result(
             "trusted host could not refresh origin/main before closeout: "
             + fetched.stderr.strip()
         )
-    head = command([git, "rev-parse", "HEAD"], cwd=repo)
     remote = command([git, "rev-parse", "refs/remotes/origin/main"], cwd=repo)
-    if (
-        head.returncode != 0
-        or remote.returncode != 0
-        or head.stdout.strip() != baseline_commit
-        or remote.stdout.strip() != baseline_commit
-    ):
-        raise ContextError(
-            "origin/main or the isolated checkout advanced beyond the manifest; "
-            "the reviewed Elim changes remain preserved but were not published"
-        )
-
     branch = host_closeout_branch(result["run_id"])
-    branch_exists = command(
-        [git, "show-ref", "--verify", "--quiet", f"refs/heads/{branch}"],
-        cwd=repo,
-    )
-    if branch_exists.returncode == 0:
-        raise ContextError(
-            f"host closeout branch already exists and will not be replaced: {branch}"
-        )
-    switched = command(
-        [git, "switch", "-c", branch, baseline_commit],
-        cwd=repo,
-    )
-    if switched.returncode != 0:
-        raise RuntimeError(
-            "trusted host could not create the bounded Elim closeout branch: "
-            + switched.stderr.strip()
-        )
-    staged = command(
-        [git, "add", "--", *sorted(changed)],
-        cwd=repo,
-    )
-    if staged.returncode != 0:
-        raise RuntimeError(
-            "trusted host could not stage the declared Elim files: "
-            + staged.stderr.strip()
-        )
-    cached = command(
-        [git, "diff", "--cached", "--name-only", "-z"],
-        cwd=repo,
-    )
-    if cached.returncode != 0:
-        raise RuntimeError("trusted host could not inspect the staged Elim boundary")
-    staged_paths = {value for value in cached.stdout.split("\0") if value}
-    if staged_paths != changed:
-        raise ContextError(
-            "trusted-host staged paths differ from the verified Elim working tree"
-        )
-    hygiene = command([git, "diff", "--cached", "--check"], cwd=repo)
-    if hygiene.returncode != 0:
-        raise ContextError(
-            "trusted-host Elim closeout failed staged diff hygiene: "
-            + hygiene.stdout.strip()
-        )
-    committed = command(
-        [
+    working_changes = worktree_changed_paths(git, repo)
+    if working_changes:
+        changed = verify_uncommitted_elim_evidence(
             git,
-            "-c",
-            f"user.name={HOST_GIT_IDENTITY['name']}",
-            "-c",
-            f"user.email={HOST_GIT_IDENTITY['email']}",
-            "commit",
-            "-m",
-            f"Preserve Elim {result['run_id']} {result['outcome']} closeout",
-        ],
-        cwd=repo,
-    )
-    if committed.returncode != 0:
-        raise RuntimeError(
-            "trusted host could not commit the verified Elim boundary: "
-            + committed.stderr.strip()
+            repo,
+            result,
+            expected_manifest=expected_manifest,
         )
-    commit_result = command([git, "rev-parse", "HEAD"], cwd=repo)
-    commit = commit_result.stdout.strip()
-    if (
-        commit_result.returncode != 0
-        or re.fullmatch(r"[0-9a-f]{40}", commit) is None
-    ):
-        raise RuntimeError("trusted host could not resolve the Elim closeout commit")
-    parent = command([git, "rev-parse", f"{commit}^"], cwd=repo)
-    committed_paths = command(
-        [git, "diff", "--name-only", "-z", baseline_commit, commit],
-        cwd=repo,
-    )
-    committed_path_set = {
-        value for value in committed_paths.stdout.split("\0") if value
-    }
-    if (
-        parent.returncode != 0
-        or parent.stdout.strip() != baseline_commit
-        or committed_paths.returncode != 0
-        or committed_path_set != changed
-    ):
-        raise ContextError(
-            "trusted-host commit topology or file set differs from the "
-            "verified pre-commit boundary"
+        head = command([git, "rev-parse", "HEAD"], cwd=repo)
+        if (
+            head.returncode != 0
+            or remote.returncode != 0
+            or head.stdout.strip() != baseline_commit
+            or remote.stdout.strip() != baseline_commit
+        ):
+            raise ContextError(
+                "origin/main or the isolated checkout advanced beyond the "
+                "manifest; the reviewed Elim changes remain preserved but were "
+                "not published"
+            )
+        branch_exists = command(
+            [git, "show-ref", "--verify", "--quiet", f"refs/heads/{branch}"],
+            cwd=repo,
         )
-    require_clean_repo(git, repo)
+        if branch_exists.returncode == 0:
+            raise ContextError(
+                "host closeout branch already exists while uncommitted model "
+                f"changes remain: {branch}"
+            )
+        switched = command(
+            [git, "switch", "-c", branch, baseline_commit],
+            cwd=repo,
+        )
+        if switched.returncode != 0:
+            raise RuntimeError(
+                "trusted host could not create the bounded Elim closeout branch: "
+                + switched.stderr.strip()
+            )
+        staged = command(
+            [git, "add", "--", *sorted(changed)],
+            cwd=repo,
+        )
+        if staged.returncode != 0:
+            raise RuntimeError(
+                "trusted host could not stage the declared Elim files: "
+                + staged.stderr.strip()
+            )
+        cached = command(
+            [git, "diff", "--cached", "--name-only", "-z"],
+            cwd=repo,
+        )
+        if cached.returncode != 0:
+            raise RuntimeError(
+                "trusted host could not inspect the staged Elim boundary"
+            )
+        staged_paths = {value for value in cached.stdout.split("\0") if value}
+        if staged_paths != changed:
+            raise ContextError(
+                "trusted-host staged paths differ from the verified Elim "
+                "working tree"
+            )
+        hygiene = command([git, "diff", "--cached", "--check"], cwd=repo)
+        if hygiene.returncode != 0:
+            raise ContextError(
+                "trusted-host Elim closeout failed staged diff hygiene: "
+                + hygiene.stdout.strip()
+            )
+        committed = command(
+            [
+                git,
+                "-c",
+                f"user.name={HOST_GIT_IDENTITY['name']}",
+                "-c",
+                f"user.email={HOST_GIT_IDENTITY['email']}",
+                "commit",
+                "-m",
+                f"Preserve Elim {result['run_id']} {result['outcome']} closeout",
+            ],
+            cwd=repo,
+        )
+        if committed.returncode != 0:
+            raise RuntimeError(
+                "trusted host could not commit the verified Elim boundary: "
+                + committed.stderr.strip()
+            )
+        commit_result = command([git, "rev-parse", "HEAD"], cwd=repo)
+        commit = commit_result.stdout.strip()
+        if (
+            commit_result.returncode != 0
+            or re.fullmatch(r"[0-9a-f]{40}", commit) is None
+        ):
+            raise RuntimeError(
+                "trusted host could not resolve the Elim closeout commit"
+            )
+        parent = command([git, "rev-parse", f"{commit}^"], cwd=repo)
+        committed_paths = command(
+            [git, "diff", "--name-only", "-z", baseline_commit, commit],
+            cwd=repo,
+        )
+        committed_path_set = {
+            value for value in committed_paths.stdout.split("\0") if value
+        }
+        if (
+            parent.returncode != 0
+            or parent.stdout.strip() != baseline_commit
+            or committed_paths.returncode != 0
+            or committed_path_set != changed
+        ):
+            raise ContextError(
+                "trusted-host commit topology or file set differs from the "
+                "verified pre-commit boundary"
+            )
+        require_clean_repo(git, repo)
+    else:
+        commit, changed = verify_prepared_host_closeout_commit(
+            git,
+            repo,
+            result,
+            expected_manifest=expected_manifest,
+            branch=branch,
+            baseline_commit=baseline_commit,
+        )
 
     synchronization: list[str]
     if result["outcome"] == "human_review":
-        pushed = command(
-            [git, "push", "origin", f"{commit}:refs/heads/{branch}"],
-            cwd=repo,
+        existing_pr = matching_closeout_pull_request(
+            gh,
+            repo,
+            repository=repository,
+            branch=branch,
+            commit=commit,
         )
-        if pushed.returncode != 0:
-            raise RuntimeError(
-                "trusted host could not push the human-review branch: "
-                + pushed.stderr.strip()
+        pushed_now = False
+        if existing_pr is None:
+            pushed_now = ensure_host_closeout_branch(
+                git,
+                repo,
+                branch=branch,
+                commit=commit,
             )
-        title = f"Elim review: {result['unit_id']}"[:200]
-        body = (
-            f"Automated Elim run `{result['run_id']}` preserved a bounded "
-            "human-review result. The host verified the exact declared diff; "
-            "this pull request is intentionally not merged automatically."
-        )
-        created = command(
-            [
-                gh,
-                "pr",
-                "create",
-                "--repo",
-                repository,
-                "--base",
-                "main",
-                "--head",
-                branch,
-                "--title",
-                title,
-                "--body",
-                body,
-            ],
-            cwd=repo,
-        )
-        pr_url = created.stdout.strip()
-        if (
-            created.returncode != 0
-            or not pr_url.startswith(f"https://github.com/{repository}/pull/")
-        ):
-            raise RuntimeError(
-                "trusted host could not open the human-review pull request: "
-                + created.stderr.strip()
+            title = f"Elim review: {result['unit_id']}"[:200]
+            body = (
+                f"Automated Elim run `{result['run_id']}` preserved a bounded "
+                "human-review result. The host verified the exact declared diff; "
+                "this pull request is intentionally not merged automatically."
             )
-        readback = command(
-            [
+            created = command(
+                [
+                    gh,
+                    "pr",
+                    "create",
+                    "--repo",
+                    repository,
+                    "--base",
+                    "main",
+                    "--head",
+                    branch,
+                    "--title",
+                    title,
+                    "--body",
+                    body,
+                ],
+                cwd=repo,
+            )
+            pr_url = created.stdout.strip()
+            if (
+                created.returncode != 0
+                or not pr_url.startswith(
+                    f"https://github.com/{repository}/pull/"
+                )
+            ):
+                raise RuntimeError(
+                    "trusted host could not open the human-review pull request: "
+                    + created.stderr.strip()
+                )
+            pr = read_closeout_pull_request(
                 gh,
-                "pr",
-                "view",
-                pr_url,
-                "--repo",
-                repository,
-                "--json",
-                "state,url,headRefOid,baseRefOid",
-            ],
-            cwd=repo,
-        )
-        try:
-            pr = json.loads(readback.stdout)
-        except json.JSONDecodeError as exc:
-            raise ContextError("human-review pull-request readback is unreadable") from exc
+                repo,
+                repository=repository,
+                pull_request=pr_url,
+            )
+        else:
+            pr = existing_pr
+            pr_url = str(pr["url"])
         if (
-            readback.returncode != 0
-            or not isinstance(pr, dict)
-            or pr.get("state") != "OPEN"
+            str(pr.get("state") or "").upper() != "OPEN"
             or pr.get("headRefOid") != commit
             or pr.get("baseRefOid") != baseline_commit
             or pr.get("url") != pr_url
@@ -3481,31 +4058,34 @@ def host_preserve_elim_result(
                 "human-review pull-request readback differs from the verified boundary"
             )
         synchronization = [
-            f"Trusted host pushed commit {commit} to {branch}.",
+            (
+                f"Trusted host pushed commit {commit} to {branch}."
+                if pushed_now
+                else f"Trusted host read back commit {commit} on {branch}."
+            ),
             f"Trusted host opened pull request {pr_url} without merging it.",
             "Trusted host read back the open pull request head and pinned main base.",
         ]
     else:
-        pushed = command(
-            [git, "push", "origin", f"{commit}:refs/heads/main"],
-            cwd=repo,
+        merge_commit, synchronization, _pull_request = (
+            publish_checked_pull_request(
+                git=git,
+                gh=gh,
+                repo=repo,
+                repository=repository,
+                branch=branch,
+                commit=commit,
+                baseline_commit=baseline_commit,
+                title=f"Elim closeout: {result['unit_id']}",
+                body=(
+                    f"Trusted-host closeout for Elim run `{result['run_id']}`. "
+                    "The dispatcher verified the exact model-declared working-tree "
+                    "boundary, committed only those paths, and requires every "
+                    "reported pull-request check to finish without failure before "
+                    "squash merge."
+                ),
+            )
         )
-        if pushed.returncode != 0:
-            raise RuntimeError(
-                "trusted host compare-and-swap push to origin/main failed; "
-                "the local closeout commit remains preserved: "
-                + pushed.stderr.strip()
-            )
-        fetched = command([git, "fetch", "--no-tags", "origin", "main"], cwd=repo)
-        remote = command([git, "rev-parse", "refs/remotes/origin/main"], cwd=repo)
-        if (
-            fetched.returncode != 0
-            or remote.returncode != 0
-            or remote.stdout.strip() != commit
-        ):
-            raise ContextError(
-                "trusted host could not read back the exact pushed origin/main boundary"
-            )
         detached = command(
             [git, "switch", "--detach", "refs/remotes/origin/main"],
             cwd=repo,
@@ -3514,11 +4094,7 @@ def host_preserve_elim_result(
             raise RuntimeError(
                 "trusted host could not return the isolated checkout to origin/main"
             )
-        synchronization = [
-            f"Trusted host committed the exact declared file set as {commit}.",
-            "Trusted host used a non-forced fast-forward push to origin/main.",
-            "Trusted host fetched and read back the exact origin/main commit.",
-        ]
+        commit = merge_commit
 
     model_result_path = result_path.with_name(
         result_path.stem + "-model-result.json"
@@ -3534,13 +4110,104 @@ def host_preserve_elim_result(
             "status": "passed",
             "detail": (
                 "The dispatcher verified the exact declared working-tree boundary, "
-                "created the commit, synchronized it without force, and read it back."
+                "created the commit, used the reviewed pull-request policy, and "
+                "read back the resulting Git boundary."
             ),
         },
     ]
     write_json(result_path, host_result, root=repo)
     require_clean_repo(git, repo)
     return host_result
+
+
+def clear_verified_run_log_reconciliation(
+    repo: Path,
+    path: Path,
+    *,
+    chain_id: str,
+    result: dict[str, Any],
+) -> None:
+    """Clear one failed-run obligation only after its applied result is verified."""
+    if (
+        result.get("run_id") != chain_id
+        or result.get("outcome") not in {"completed", "clean"}
+        or re.fullmatch(r"[0-9a-f]{40}", str(result.get("commit") or ""))
+        is None
+    ):
+        raise ContextError(
+            "recovered Run Log reconciliation lacks a successful exact result"
+        )
+    state = read_pending_run_log_reconciliations(repo, path)
+    matching = [
+        row for row in state["items"] if row.get("chain_id") == chain_id
+    ]
+    if len(matching) != 1:
+        raise ContextError(
+            "recovered Run Log reconciliation requires exactly one pending "
+            "record for its Chain ID"
+        )
+    retained = [
+        row for row in state["items"] if row.get("chain_id") != chain_id
+    ]
+    write_json(
+        path,
+        {
+            "schema_version": 1,
+            "updated_at": datetime.now(timezone.utc)
+            .replace(microsecond=0)
+            .isoformat(),
+            "items": retained,
+        },
+        root=repo,
+    )
+
+
+def resolve_verified_closeout_incident(
+    control: dict[str, Any],
+    *,
+    chain_id: str,
+    result_commit: str,
+) -> int:
+    """Resolve only the exact host-closeout incident proved by recovery."""
+    items = control.get("action_items") or []
+    if not isinstance(items, list):
+        raise RuntimeError("coordinator action items are malformed")
+    history = control.setdefault("action_item_history", [])
+    if not isinstance(history, list):
+        raise RuntimeError("coordinator action-item history is malformed")
+    resolved_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    evidence = (
+        f"Trusted-host recovery verified, synchronized, and read back exact "
+        f"result commit {result_commit} for Chain ID {chain_id}."
+    )
+    resolved = 0
+    for item in items:
+        if (
+            not isinstance(item, dict)
+            or item.get("resolved") is True
+            or item.get("kind") != "automation_failure"
+            or item.get("chain_id") != chain_id
+            or item.get("stage") not in {"elim-host-git-closeout", "elim-closeout"}
+        ):
+            continue
+        item["resolved"] = True
+        item["resolved_at"] = resolved_at
+        item["resolved_by"] = "verified-host-closeout-recovery"
+        item["resolution_reason"] = evidence
+        history.append(
+            {
+                "action_item_id": item.get("id"),
+                "event": "resolved",
+                "recorded_at": resolved_at,
+                "source": "verified-host-closeout-recovery",
+                "reason": evidence,
+                "incident_fingerprint": item.get("incident_fingerprint"),
+            }
+        )
+        resolved += 1
+    if resolved:
+        control["action_item_history"] = history[-500:]
+    return resolved
 
 
 def git_metadata_foreign_artifacts(repo: Path) -> list[str]:
@@ -3552,12 +4219,14 @@ def git_metadata_foreign_artifacts(repo: Path) -> list[str]:
         r"^(?:HEAD|config|index|packed-refs) [2-9][0-9]*$"
     )
     findings: list[str] = []
+    for entry in git_directory.rglob(".DS_Store"):
+        if entry.is_file():
+            findings.append(repo_relative(entry, repo))
     for entry in git_directory.iterdir():
         if (
             entry.is_file()
             and (
-                entry.name == ".DS_Store"
-                or duplicate_root.fullmatch(entry.name) is not None
+                duplicate_root.fullmatch(entry.name) is not None
             )
         ):
             findings.append(repo_relative(entry, repo))
@@ -3568,8 +4237,7 @@ def git_metadata_foreign_artifacts(repo: Path) -> list[str]:
             if (
                 entry.is_file()
                 and (
-                    entry.name == ".DS_Store"
-                    or duplicate_ref.fullmatch(entry.name) is not None
+                    duplicate_ref.fullmatch(entry.name) is not None
                 )
             ):
                 findings.append(repo_relative(entry, repo))
@@ -3938,10 +4606,157 @@ def status_mentions_numbered_workspace_copy(status: str) -> bool:
     ) is not None
 
 
+def verify_prepared_canonical_workspace_commit(
+    git: str,
+    repo: Path,
+    *,
+    branch: str,
+) -> tuple[str, str]:
+    """Prove a clean host-created workspace commit can resume publication."""
+    matched = HOST_WORKSPACE_BRANCH.fullmatch(branch)
+    if matched is None:
+        raise ContextError(
+            "canonical workspace is not on a recognized host preservation branch"
+        )
+    require_clean_repo(git, repo)
+    head = command([git, "rev-parse", "HEAD"], cwd=repo)
+    commit = head.stdout.strip()
+    topology = command(
+        [git, "rev-list", "--parents", "-n", "1", commit],
+        cwd=repo,
+    )
+    parts = topology.stdout.strip().split()
+    if (
+        head.returncode != 0
+        or re.fullmatch(r"[0-9a-f]{40}", commit) is None
+        or topology.returncode != 0
+        or len(parts) != 2
+        or parts[0] != commit
+        or re.fullmatch(r"[0-9a-f]{40}", parts[1]) is None
+    ):
+        raise ContextError(
+            "prepared canonical-workspace commit lacks the exact one-parent "
+            "topology required for recovery"
+        )
+    baseline_commit = parts[1]
+    if not baseline_commit.startswith(matched.group(1)):
+        raise ContextError(
+            "prepared canonical-workspace branch does not identify its exact "
+            "commit parent"
+        )
+    identity = command(
+        [
+            git,
+            "show",
+            "-s",
+            "--format=%s%x00%an%x00%ae%x00%cn%x00%ce",
+            commit,
+        ],
+        cwd=repo,
+    )
+    identity_fields = identity.stdout.rstrip("\n").split("\0")
+    expected_identity = [
+        CANONICAL_WORKSPACE_RECONCILIATION_POLICY["commitMessage"],
+        HOST_GIT_IDENTITY["name"],
+        HOST_GIT_IDENTITY["email"],
+        HOST_GIT_IDENTITY["name"],
+        HOST_GIT_IDENTITY["email"],
+    ]
+    if identity.returncode != 0 or identity_fields != expected_identity:
+        raise ContextError(
+            "prepared canonical-workspace commit does not match the reviewed "
+            "trusted-host identity and message"
+        )
+    changed = command(
+        [git, "diff", "--name-only", "-z", baseline_commit, commit],
+        cwd=repo,
+    )
+    changed_paths = [value for value in changed.stdout.split("\0") if value]
+    if changed.returncode != 0 or not changed_paths:
+        raise ContextError(
+            "prepared canonical-workspace commit has no verifiable changed paths"
+        )
+    for relative in changed_paths:
+        candidate = Path(relative)
+        if (
+            candidate.is_absolute()
+            or ".." in candidate.parts
+            or relative.startswith(".git/")
+        ):
+            raise ContextError(
+                "prepared canonical-workspace commit contains an unsafe path"
+            )
+        contained_path(repo / candidate, repo)
+    hygiene = command(
+        [git, "diff", "--check", baseline_commit, commit],
+        cwd=repo,
+    )
+    if hygiene.returncode != 0:
+        raise ContextError(
+            "prepared canonical-workspace commit fails diff hygiene"
+        )
+    return commit, baseline_commit
+
+
+def publish_canonical_workspace_commit(
+    *,
+    git: str,
+    gh: str,
+    repo: Path,
+    repository: str,
+    branch: str,
+    commit: str,
+    baseline_commit: str,
+) -> str:
+    """Finish or resume the exact checked PR, then return local main to it."""
+    merge_commit, _synchronization, _pull_request = (
+        publish_checked_pull_request(
+            git=git,
+            gh=gh,
+            repo=repo,
+            repository=repository,
+            branch=branch,
+            commit=commit,
+            baseline_commit=baseline_commit,
+            title="Preserve local ARRP workspace changes",
+            body=(
+                "The trusted host found ordinary uncommitted files in the "
+                "canonical ARRP workspace while local main exactly matched "
+                "origin/main. It preserved the complete conflict-free staged "
+                "boundary and requires every reported pull-request check to "
+                "finish without failure before squash merge."
+            ),
+        )
+    )
+    returned_to_main = command([git, "switch", "main"], cwd=repo)
+    if returned_to_main.returncode != 0:
+        raise RuntimeError(
+            "automated workspace reconciliation merged successfully but "
+            "could not return the canonical checkout to main"
+        )
+    advanced_main = command(
+        [git, "merge", "--ff-only", "refs/remotes/origin/main"],
+        cwd=repo,
+    )
+    if advanced_main.returncode != 0:
+        raise RuntimeError(
+            "automated workspace reconciliation merged successfully but "
+            "could not fast-forward local main to the read-back boundary"
+        )
+    clean_readback = command([git, "status", "--porcelain"], cwd=repo)
+    if clean_readback.returncode != 0 or clean_readback.stdout.strip():
+        raise RuntimeError(
+            "canonical ARRP workspace is not clean after automated reconciliation"
+        )
+    return merge_commit
+
+
 def verify_canonical_runtime_boundary(
     git: str,
     repo: Path,
     *,
+    gh: str = EXECUTABLES["githubCliPath"],
+    repository: str = "Thorncrag/ARRP",
     control: dict[str, Any] | None = None,
 ) -> tuple[str, str | None]:
     """Reconcile ordinary main-workspace edits, then verify the host runtime."""
@@ -3997,7 +4812,36 @@ def verify_canonical_runtime_boundary(
 
     current_branch = branch.stdout.strip()
     required_branch = CANONICAL_WORKSPACE_RECONCILIATION_POLICY["requiredBranch"]
-    if current_branch != required_branch:
+    workspace_commit: str | None = None
+    if current_branch != required_branch and HOST_WORKSPACE_BRANCH.fullmatch(
+        current_branch
+    ):
+        workspace_commit, workspace_baseline = (
+            verify_prepared_canonical_workspace_commit(
+                git,
+                repo,
+                branch=current_branch,
+            )
+        )
+        workspace_commit = publish_canonical_workspace_commit(
+            git=git,
+            gh=gh,
+            repo=repo,
+            repository=repository,
+            branch=current_branch,
+            commit=workspace_commit,
+            baseline_commit=workspace_baseline,
+        )
+        revision = workspace_commit
+        status = command([git, "status", "--porcelain"], cwd=repo)
+        if status.returncode != 0:
+            raise RuntimeError(
+                "could not inspect the canonical workspace after recovered "
+                "publication"
+            )
+        current_branch = required_branch
+        local_revision = workspace_commit
+    elif current_branch != required_branch:
         raise RuntimeError(
             "canonical ARRP workspace is not reconciled with GitHub: current branch "
             f"is {current_branch or 'detached HEAD'} instead of {required_branch}. Merge the "
@@ -4014,7 +4858,6 @@ def verify_canonical_runtime_boundary(
     changed_paths = [
         line for line in status.stdout.splitlines() if line.strip()
     ]
-    workspace_commit: str | None = None
     if changed_paths:
         unmerged = command(
             [git, "diff", "--name-only", "--diff-filter=U"],
@@ -4028,6 +4871,21 @@ def verify_canonical_runtime_boundary(
             raise RuntimeError(
                 "canonical ARRP workspace contains unresolved conflicts; "
                 "automated reconciliation stopped without staging or committing"
+            )
+        workspace_branch = (
+            HOST_WORKSPACE_BRANCH_PREFIX
+            + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+            + "-"
+            + local_revision[:12]
+        )
+        switched = command(
+            [git, "switch", "-c", workspace_branch, local_revision],
+            cwd=repo,
+        )
+        if switched.returncode != 0:
+            raise RuntimeError(
+                "could not create the bounded canonical-workspace preservation "
+                "branch: " + switched.stderr.strip()
             )
         staged = command([git, "add", "-A"], cwd=repo)
         if staged.returncode != 0:
@@ -4091,40 +4949,15 @@ def verify_canonical_runtime_boundary(
             raise RuntimeError(
                 "could not resolve the automated workspace-reconciliation commit"
             )
-        pushed = command([git, "push", "origin", "main:main"], cwd=repo)
-        if pushed.returncode != 0:
-            raise RuntimeError(
-                "automated workspace reconciliation created local commit "
-                f"{workspace_commit} but could not fast-forward push it to "
-                "origin/main; preserve and reconcile that commit before retrying"
-            )
-        refreshed = command(
-            [git, "fetch", "--no-tags", "origin", "main"],
-            cwd=repo,
+        workspace_commit = publish_canonical_workspace_commit(
+            git=git,
+            gh=gh,
+            repo=repo,
+            repository=repository,
+            branch=workspace_branch,
+            commit=workspace_commit,
+            baseline_commit=local_revision,
         )
-        if refreshed.returncode != 0:
-            raise RuntimeError(
-                "automated workspace reconciliation pushed a commit but could not "
-                "refresh origin/main for readback"
-            )
-        remote_readback = command(
-            [git, "rev-parse", "refs/remotes/origin/main"],
-            cwd=repo,
-        )
-        if (
-            remote_readback.returncode != 0
-            or remote_readback.stdout.strip() != workspace_commit
-        ):
-            raise RuntimeError(
-                "automated workspace-reconciliation commit did not read back "
-                "exactly from origin/main"
-            )
-        clean_readback = command([git, "status", "--porcelain"], cwd=repo)
-        if clean_readback.returncode != 0 or clean_readback.stdout.strip():
-            raise RuntimeError(
-                "canonical ARRP workspace is not clean after automated "
-                "reconciliation"
-            )
         revision = workspace_commit
 
     drifted: list[str] = []
@@ -5224,11 +6057,16 @@ def elim_prompt(manifest: Path, payload: dict[str, Any]) -> str:
         "leave synchronization empty, and list every changed working-tree file exactly "
         "once in files_touched. The host will reject any undeclared or missing path, "
         "validate the complete run report and continuation state, stage only that exact "
-        "file set, and use a non-forced compare-and-swap publication. "
+        "file set, and publish accountably closed outcomes through a checked pull "
+        "request with exact-head and exact-base readback. "
         "For human_review, the host pushes a bounded branch and opens but does not merge "
         "its pull request. Every cooperative terminal launched outcome—including "
         "completed, clean, human-review, blocked, failed, and usage-stopped—must leave "
         "one complete current ELIM_RUN_LOG report in the working tree for host closeout. "
+        "That Markdown report must use each of these exact, nonblank field names "
+        "once; synonyms and aliases do not satisfy the host contract: "
+        + ", ".join(ELIM_RUN_REPORT_FIELD_ORDER)
+        + ". "
         "For a completed public-intake assessment, "
         "validate the structured result and run scripts/record_intake_review.py against the "
         "pinned work queue before the final commit so the submission is not reviewed again. "
@@ -5740,6 +6578,137 @@ def record_elim_runtime(
     )
 
 
+def resume_verified_elim_closeout(
+    *,
+    git: str,
+    gh: str,
+    repo: Path,
+    config: dict[str, Any],
+    control: dict[str, Any],
+    control_path: Path,
+    chain_id: str,
+) -> dict[str, Any]:
+    """Resume only the preserved post-model Git closeout for one exact chain."""
+    if SAFE_CHAIN_ID.fullmatch(chain_id) is None:
+        raise ContextError("Elim closeout recovery received an unsafe Chain ID")
+    execution_repo = contained_path(repo / ELIM_CHECKOUT_PATH, repo)
+    state_dir = contained_path(
+        execution_repo / ".tmp/run-coordinator" / chain_id,
+        execution_repo,
+    )
+    manifest_path = contained_path(state_dir / "run-chain.json", execution_repo)
+    result_path = contained_path(
+        state_dir / f"elim-{chain_id}-last-message.txt",
+        execution_repo,
+    )
+    payload = read_json(manifest_path, root=execution_repo)
+    if not isinstance(payload, dict) or payload.get("chain_id") != chain_id:
+        raise ContextError(
+            "Elim closeout recovery lacks the exact preserved Chain Manifest"
+        )
+    result = host_preserve_elim_result(
+        git=git,
+        gh=gh,
+        repo=execution_repo,
+        result_path=result_path,
+        expected_manifest=payload,
+        repository=config["repository"],
+    )
+    verify_successful_elim_evidence(
+        execution_repo,
+        result,
+        git=git,
+        gh=gh,
+        expected_manifest=payload,
+    )
+    clear_verified_run_log_reconciliation(
+        repo,
+        repo / ELIM_RUN_LOG_RECONCILIATION_STATE,
+        chain_id=chain_id,
+        result=result,
+    )
+    persist_validated_recovery(
+        repo,
+        repo / ELIM_RECOVERY_STATE,
+        payload,
+        result,
+    )
+    persist_gap_obligation_updates(
+        repo,
+        repo / ELIM_GAP_OBLIGATION_STATE,
+        result,
+    )
+    resolve_verified_closeout_incident(
+        control,
+        chain_id=chain_id,
+        result_commit=str(result["commit"]),
+    )
+    recovered_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    control["elim_checkout_synced_head"] = result["commit"]
+    control["elim_checkout_synced_at"] = recovered_at
+    control["elim_checkout_synced_chain_id"] = chain_id
+    control["elim_checkout_sync_source"] = "verified-host-closeout-recovery"
+    control["last_consumed_chain_id"] = chain_id
+    control["last_consumed_at"] = recovered_at
+    control["last_successful_chain_id"] = chain_id
+    control["last_successful_at"] = recovered_at
+    control["last_recovered_chain_id"] = chain_id
+    control["last_recovered_at"] = recovered_at
+    if control.get("last_failed_chain_id") == chain_id:
+        control.pop("last_failed_chain_id", None)
+        control.pop("last_failed_reason", None)
+        control.pop("last_failed_at", None)
+    payload["host_closeout"] = {
+        "outcome": result["outcome"],
+        "commit": result["commit"],
+        "synchronization": result["synchronization"],
+        "validated_at": recovered_at,
+        "recovered": True,
+    }
+    payload["next_action"] = result["next_action"]
+    write_json(manifest_path, payload, root=execution_repo)
+    record_elim_runtime(
+        repo=repo,
+        config=config,
+        control=control,
+        payload=payload,
+        outcome=0,
+        result_outcome=str(result["outcome"]),
+        details=(
+            "Elim completed; trusted-host recovery revalidated the prepared "
+            "commit, checked pull request, and exact merged boundary."
+        ),
+    )
+    append_host_outcome_history(
+        config,
+        repo,
+        chain_id=chain_id,
+        status="completed",
+        stage="elim-closeout-recovery",
+        exit_code=0,
+        payload=payload,
+    )
+    project_current_host_status(
+        config,
+        control,
+        repo,
+        payload,
+        status="completed",
+        stage="elim-closeout-recovery",
+        message=(
+            "Elim's exact prepared host commit was recovered through its checked "
+            "pull request and verified at the merged origin/main boundary."
+        ),
+        next_action=str(
+            payload.get("next_action")
+            or "Use the next current chain for ordinary queue evaluation."
+        ),
+        force=True,
+    )
+    persist_control_state(control_path, control, repo=repo)
+    return result
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--trigger-chain", action="store_true")
@@ -5761,12 +6730,26 @@ def main() -> int:
             "do not trigger a chain or launch Codex."
         ),
     )
+    parser.add_argument(
+        "--resume-elim-closeout",
+        metavar="CHAIN_ID",
+        help=(
+            "Revalidate and resume only the preserved trusted-host Git closeout "
+            "for one exact Chain ID; do not relaunch Elim or select new work."
+        ),
+    )
     args = parser.parse_args()
-    if args.archive_reconciled_checkout and (
-        args.trigger_chain or args.launch_codex or args.recover_stale_lock_only
+    special_modes = [
+        bool(args.archive_reconciled_checkout),
+        bool(args.resume_elim_closeout),
+        bool(args.recover_stale_lock_only),
+    ]
+    if sum(special_modes) > 1 or (
+        any(special_modes) and (args.trigger_chain or args.launch_codex)
     ):
         parser.error(
-            "--archive-reconciled-checkout cannot be combined with run or lock modes"
+            "recovery and archive modes cannot be combined with each other or "
+            "with trigger/launch modes"
         )
     repo = ROOT
     config: dict[str, Any] = {}
@@ -5857,6 +6840,8 @@ def main() -> int:
         origin_revision, workspace_commit = verify_canonical_runtime_boundary(
             git,
             repo,
+            gh=gh,
+            repository=config["repository"],
             control=control,
         )
         resolve_observed_automation_incidents(
@@ -5879,6 +6864,21 @@ def main() -> int:
                 "Committed and synchronized canonical workspace changes as "
                 f"{workspace_commit}. Automated dispatch is deferred until the "
                 "next host poll so the reviewed runtime is reloaded."
+            )
+            return 0
+        if args.resume_elim_closeout:
+            recovered = resume_verified_elim_closeout(
+                git=git,
+                gh=gh,
+                repo=repo,
+                config=config,
+                control=control,
+                control_path=control_path,
+                chain_id=args.resume_elim_closeout,
+            )
+            print(
+                "Recovered and accounted Elim closeout "
+                f"{recovered['run_id']} at {recovered['commit']}."
             )
             return 0
         if args.archive_reconciled_checkout:
@@ -6310,6 +7310,7 @@ def main() -> int:
                 .replace(microsecond=0)
                 .isoformat(),
             }
+            payload["next_action"] = preserved_result["next_action"]
             write_json(manifest, payload, root=execution_repo)
             write_json(
                 repo / config["manifest"]["localFallback"],

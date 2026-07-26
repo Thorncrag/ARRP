@@ -13,6 +13,7 @@ Thumbs.db
 .site-build/
 __pycache__/
 *.pyc
+/research/horizon-review-console/data/private-github-security.js
 
 # Local secrets
 .env

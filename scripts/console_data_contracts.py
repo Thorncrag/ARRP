@@ -16,6 +16,35 @@ CONTRACT_SCHEMA_VERSION = 1
 VALID_AVAILABILITY = {"available", "current", "stale", "unavailable"}
 
 
+def status_projection_contract(
+    expected_count: int,
+    actual_count: int | None = None,
+) -> dict[str, Any]:
+    """Declare whether one bounded operational projection is structurally complete."""
+    if (
+        isinstance(expected_count, bool)
+        or not isinstance(expected_count, int)
+        or expected_count < 0
+    ):
+        raise ValueError("expected_count must be a nonnegative integer")
+    actual = expected_count if actual_count is None else actual_count
+    if isinstance(actual, bool) or not isinstance(actual, int) or actual < 0:
+        raise ValueError("actual_count must be a nonnegative integer")
+    complete = expected_count == actual
+    return {
+        "availability": "current" if complete else "stale",
+        "expected_count": expected_count,
+        "actual_count": actual,
+        "completeness": {
+            "complete": complete,
+            "expected_count": expected_count,
+            "actual_count": actual,
+            "missing_count": max(expected_count - actual, 0),
+        },
+        "projection_errors": [],
+    }
+
+
 def utc_timestamp(value: str | None = None) -> str:
     """Return one validated UTC ISO-8601 timestamp."""
     if value:

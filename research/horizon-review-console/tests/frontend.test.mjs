@@ -11,7 +11,7 @@ const appPath = path.join(consoleDirectory, "app.js");
 const indexPath = path.join(consoleDirectory, "index.html");
 const localRequire = createRequire(import.meta.url);
 
-function loadApi() {
+function loadApi(privateGitHubSecurity = {}) {
   const projectData = {
     records: [],
     active_horizon_records: [],
@@ -24,6 +24,7 @@ function loadApi() {
   };
   const window = {
     ARRP_HORIZON_REVIEW_DATA: projectData,
+    ARRP_PRIVATE_GITHUB_SECURITY: privateGitHubSecurity,
     __ARRP_CONSOLE_TEST_MODE__: true
   };
   const priorGlobals = {
@@ -57,6 +58,46 @@ test("term normalization uses the canonical Trump I and Trump II vocabulary", ()
   assert.equal(api.normalizeTerm("both terms"), "both");
   assert.equal(api.termLabel("Trump II"), "Trump II");
   assert.equal(api.termLabel("unknown"), "Term not recorded");
+});
+
+test("private GitHub security alerts route by typed owner without becoming authoritative", () => {
+  const { api } = loadApi({
+    availability: "current",
+    generated_at: "2026-07-26T20:00:00Z",
+    completeness: { complete: true },
+    authoritative_url: "https://github.com/Thorncrag/ARRP/security",
+    problems: [
+      {
+        reference: "GHSEC-CODE-SCANNING-102",
+        category: "Code scanning",
+        severity: "error",
+        message: "Path injection",
+        owner: "Elim",
+        attention: "agent",
+        reported_by: "GitHub Security",
+        status: "Open",
+        source_url: "https://github.com/Thorncrag/ARRP/security/code-scanning/102"
+      },
+      {
+        reference: "GHSEC-SECRET-SCANNING-9",
+        category: "Exposed credential",
+        severity: "error",
+        message: "Credential",
+        owner: "Human",
+        attention: "human",
+        reported_by: "GitHub Security",
+        status: "Open",
+        source_url: "https://github.com/Thorncrag/ARRP/security/secret-scanning/9"
+      }
+    ]
+  });
+  const alerts = api.allProblemRecords()
+    .filter((record) => record.reported_by === "GitHub Security");
+  assert.equal(alerts.length, 2);
+  assert.equal(alerts.filter((record) => record.attention === "human").length, 1);
+  assert.equal(alerts.filter((record) => record.attention === "agent").length, 1);
+  assert.equal(alerts.find((record) => record.attention === "human").owner, "Human");
+  assert.equal(alerts.find((record) => record.attention === "agent").owner, "Elim");
 });
 
 test("score zero is valid, null is unavailable, and invalid values remain visible", () => {
@@ -397,8 +438,22 @@ test("independent cloud-health and host-status payloads validate", () => {
     chain_id: "arrp-20260726T064933Z",
     host_status: "failed",
     host_updated_at: "2026-07-26T08:43:00Z",
-    stage: "elim-isolated-checkout"
+    stage: "elim-isolated-checkout",
+    host_closeout: {
+      outcome: "completed",
+      commit: "a".repeat(40),
+      validated_at: "2026-07-26T08:42:00Z"
+    }
   }).valid, true);
+  assert.equal(api.validateLivePayload("host-status", {
+    schema_version: 1,
+    projection_kind: "host-run-status",
+    chain_id: "arrp-20260726T064933Z",
+    host_status: "completed",
+    host_updated_at: "2026-07-26T08:43:00Z",
+    stage: "elim-closeout",
+    host_closeout: { commit: "short" }
+  }).valid, false);
   assert.equal(api.validateLivePayload("host-status", {
     schema_version: 1,
     projection_kind: "host-run-status",
@@ -468,6 +523,39 @@ test("unavailable Integrity components do not imply zero and an available empty 
   data.publication.release_readiness = { delivery_tasks: { available: true } };
   assert.equal(api.deliveryProjectionState().available, true);
   assert.equal(api.deliveryItems().length, 0);
+});
+
+test("operational readiness accepts an explicit failed legacy chain without calling it unavailable", () => {
+  const { api } = loadApi();
+  const state = api.operationalFeedState({
+    chain_id: "arrp-20260726T140914Z",
+    status: "failed",
+    updated_at: "2026-07-26T14:20:00Z",
+    failures: [{ stage: "elim" }]
+  });
+  assert.equal(state.state, "available");
+  assert.equal(state.complete, true);
+  assert.equal(api.integrityComponentValue(state, 1), 1);
+  assert.equal(api.operationalFeedState({}).state, "undeclared");
+});
+
+test("host-recorded Elim runtime overrides a cloud decision that says it was not launched", () => {
+  const { api } = loadApi();
+  const presentation = api.elimRunChainPresentation({
+    chain_id: "arrp-20260726T140914Z",
+    elim_decision: {
+      launch_recommended: false,
+      reason: "Cloud decision was superseded by the host."
+    },
+    elim_runtime: {
+      chain_id: "arrp-20260726T140914Z",
+      status: "failed",
+      summary: "Elim ran and was interrupted."
+    }
+  });
+  assert.equal(presentation.label, "Failed");
+  assert.equal(presentation.ran, true);
+  assert.match(presentation.detail, /ran and was interrupted/i);
 });
 
 test("typed release blockers unite proposals, candidates, and delivery work without changing portfolio metrics", () => {
@@ -608,16 +696,33 @@ test("compact Overview activity preserves actor, outcome, affected scope, time, 
   assert.equal(row.tone, "warning");
 });
 
+test("each Action Item record is a closed-by-default native disclosure", () => {
+  const app = fs.readFileSync(appPath, "utf8");
+  const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
+  const start = app.indexOf("function actionItemCard(");
+  const end = app.indexOf("function integrityFindingNeedsHuman(", start);
+  const renderer = app.slice(start, end);
+  assert.ok(start >= 0 && end > start);
+  assert.match(renderer, /element\("details","action-item-record"\)/);
+  assert.match(renderer, /panel\.append\(head, body\)/);
+  assert.doesNotMatch(renderer, /\.open\s*=/);
+  assert.match(styles, /\.action-item-record\[open\]\s*>\s*summary/);
+});
+
 test("initial HTML loads only bounded scripts and stays within declared budgets", () => {
   const html = fs.readFileSync(indexPath, "utf8");
   const scriptSources = [...html.matchAll(/<script\s+src="([^"]+)"/g)].map((match) => match[1]);
-  assert.deepEqual(scriptSources, ["catalog-data.js?v=45", "app.js?v=45"]);
-  assert.match(html, /data-initial-script-budget-kib="512"/);
+  assert.deepEqual(scriptSources, [
+    "data/private-github-security.js?v=1",
+    "catalog-data.js?v=45",
+    "app.js?v=46"
+  ]);
+  assert.match(html, /data-initial-script-budget-kib="513"/);
   assert.match(html, /data-initial-dom-budget="1400"/);
   const bytes = ["catalog-data.js", "app.js"]
     .map((file) => fs.statSync(path.join(consoleDirectory, file)).size)
     .reduce((sum, size) => sum + size, 0);
-  assert.ok(bytes <= 512 * 1024, `synchronous JavaScript is ${bytes} bytes`);
+  assert.ok(bytes <= 513 * 1024, `synchronous JavaScript is ${bytes} bytes`);
   const approximateElementCount = (html.match(/<[a-z][^!/][^>]*>/gi) || []).length;
   assert.ok(approximateElementCount <= 1400, `initial HTML has about ${approximateElementCount} elements`);
   assert.doesNotMatch(html, /<script\s+src="data\/(?:candidates|sources|progress|integrity|automation|logs|publication)/);

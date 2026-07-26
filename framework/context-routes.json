@@ -177,7 +177,7 @@
     },
     "agent_autonomous_execution": {
       "path": "framework/agent-rules/autonomous-execution.md",
-      "sha256": "b2b187367fd8b1f6a36a98c14aabdf234171d3fa82b4055385417347ce4de0f1",
+      "sha256": "4c50c33f9ca04d2b7a1f0fae0f8ca57a4de6391d45eb529405950eb7aab0a79b",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -249,7 +249,7 @@
     },
     "runbook_elim": {
       "path": "framework/agents/ELIM.md",
-      "sha256": "0d6f823c7bbd1140f80e1fe7e6953b6b6055d2ed1c4979596990cf8d68f7d97f",
+      "sha256": "7a1170999649e537731dbe26f658c5a5854255e5c45c48c1addd5a1d4c5ec0f8",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -297,7 +297,7 @@
     },
     "runbook_run_coordinator_bot": {
       "path": "framework/agents/RUN_COORDINATOR_BOT.md",
-      "sha256": "39fd740969f4ac299134546137eeabb2d3057abbc5000b0c0d8d3842ee04542c",
+      "sha256": "85dbc8493564d4f9602c207be14293c2fcaab5621e9eb13aba999828d19e762f",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None. |
-| Started | None. |
-| Last checkpoint | 2026-07-26 07:00:53 -0400 |
-| User request | None. |
-| Scope | None. |
-| Files touched | None. |
-| Completed steps | None. |
-| Next step | None. |
+| Handoff state | Open |
+| Active issue/task | Protected-main and resumable Elim closeout correction |
+| Audit type/tier | Project-wide automation Change Audit |
+| Started | 2026-07-26 07:02:53 -0400 |
+| Last checkpoint | 2026-07-26 07:51:04 -0400 |
+| User request | Fix the automation architecture so overnight failures remain independently visible and the chain can complete reliably. |
+| Scope | Independent cloud/host failure publication, isolated-checkout state repair, protected-main publication, exact Elim Run Log contract, prepared-commit retry, Source Checker cadence repair, incident consolidation, governing documentation, and live production verification. |
+| Files touched | Dispatcher/config/tests; independent health workflow and Console runtime/data; governing Elim, Run Coordinator, and autonomous-execution records; technical and implementation reports; Elim and Agent audit logs; Review Epoch; generated Console and participation projections. |
+| Completed steps | Merged independent failure-observability repair through PR #431; verified workflow-run and repository-dispatch health feeds; launched Elim successfully; completed the comprehensive Review Epoch; repaired Source Checker schema-v2 cadence handling; recovered the exact 50-file Elim result after the host field-alias rejection; passed all six PR checks and merged the result through PR #432 as `4988344`; implemented exact Run Log field enumeration, checked protected-main PR publication, prepared Elim and canonical-workspace commit retry, merged-PR check revalidation, and focused real-Git regression coverage. |
+| Next step | Complete governing/hash synchronization, full validation, reviewed merge of the protected-main correction, then run a fresh production chain and verify Source Checker is not due, independent feeds agree, routine incidents resolve, and the Console shows the accounted current state. |
 | Blockers/questions | None. |
-| Validation status | Not applicable. |
+| Validation status | Pre-publication validation passes 94 focused dispatcher tests, 480 full Python tests, 24 participation tests, 27 Console tests, syntax and diff hygiene, authenticated Console refresh, and authenticated consistency with 0 errors and 0 warnings. Post-merge production readback remains pending. |
 
 ## Handoff Rules
 

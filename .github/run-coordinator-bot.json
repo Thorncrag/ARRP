@@ -87,7 +87,7 @@
     }
   },
   "hostDispatcher": {
-    "repositoryPath": "/Users/benjaminsmith/Documents/ARRP",
+    "repositoryPath": "/Users/benjaminsmith/Automation Workspaces/ARRP",
     "pythonPath": "/opt/homebrew/bin/python3",
     "gitPath": "/usr/bin/git",
     "githubCliPath": "/opt/homebrew/bin/gh",
@@ -100,12 +100,18 @@
       "owner": "trusted-host-dispatcher",
       "modelGitMutation": "forbidden",
       "changedPathPolicy": "exact-declared-set",
-      "defaultPublication": "non-force-fast-forward-main",
-      "humanReviewPublication": "open-unmerged-pull-request"
+      "defaultPublication": "checked-pull-request-squash-merge",
+      "humanReviewPublication": "open-unmerged-pull-request",
+      "checkTimeoutSeconds": 1800,
+      "checkPollSeconds": 10,
+      "requiredCheckNames": [
+        "CodeQL"
+      ]
     },
     "canonicalWorkspaceReconciliation": {
       "requiredBranch": "main",
-      "dirtyMainAction": "commit-fast-forward-push-and-defer",
+      "dirtyMainAction": "checked-pull-request-squash-merge-and-defer",
+      "preparedCommitResume": "exact-parent-identity-paths-checks-readback",
       "changedPathPolicy": "complete-workspace",
       "commitMessage": "Preserve local ARRP changes before automated run",
       "requireConflictFree": true,

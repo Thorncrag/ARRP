@@ -9,6 +9,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+try:
+    from console_data_contracts import status_projection_contract
+except ModuleNotFoundError:  # Imported as scripts.build_automation_health_projection.
+    from scripts.console_data_contracts import status_projection_contract
+
 
 FAILED_CONCLUSIONS = frozenset(
     {
@@ -60,6 +65,7 @@ def base_projection(
     run_id = run_identity(run)
     return {
         "schema_version": 1,
+        **status_projection_contract(1),
         "projection_kind": "cloud-automation-health",
         "chain_id": f"{chain_prefix}-{run_id}",
         "workflow_run_id": run_id,

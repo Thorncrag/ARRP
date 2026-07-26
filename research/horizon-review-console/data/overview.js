@@ -30,8 +30,24 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "source_url": "https://github.com/Thorncrag/ARRP/issues/47"
         }
       ],
-      "active_incidents": 0,
-      "incidents": [],
+      "active_incidents": 1,
+      "incidents": [
+        {
+          "incident_id": "incident-33588a859e02e349",
+          "stage": "host-repository-preflight",
+          "failed_prerequisite": "host-repository-preflight",
+          "root_cause": "Canonical ARRP workspace is off main and not reconciled with GitHub.",
+          "classification": "hold",
+          "message": "Canonical ARRP workspace is off main and not reconciled with GitHub.",
+          "occurrence_count": 2,
+          "first_seen": "2026-07-26T11:14:13+00:00",
+          "latest_seen": "2026-07-26T12:14:20+00:00",
+          "chain_ids": [
+            "host-dispatch-20260726T121420Z"
+          ],
+          "route": "automation"
+        }
+      ],
       "release_blockers": 26,
       "release_blocker_fields_available": true,
       "critical_high_release_blockers": 24,
@@ -178,6 +194,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12,
       "delivery_items_available": true,
       "domain_attention": [
+        {
+          "domain": "integrity",
+          "status": "stale",
+          "reason": "The feed does not completely cover its current authoritative source.",
+          "timestamp": "2026-07-26T14:09:55+00:00",
+          "route": "integrity"
+        },
+        {
+          "domain": "automation",
+          "status": "attention",
+          "reason": "The current run chain reports an active failure or hold.",
+          "timestamp": "2026-07-26T12:14:20+00:00",
+          "route": "automation"
+        },
         {
           "domain": "publication_release",
           "status": "not_determined",
@@ -331,10 +361,27 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "repository_recommendations": 2,
       "delivery_items": 12,
       "human_actions": 3,
-      "active_incidents": 0,
+      "active_incidents": 1,
       "critical_high_release_blockers": 24
     },
     "activity": [
+      {
+        "id": "agent-092",
+        "log": "agents",
+        "date": "2026-07-26 07:29:48 -0400",
+        "record": "Independent automation failure observability, isolated-checkout state recovery, incident consolidation, exact Elim Run Log contract, protected-main host publication, and resumable post-agent closeout",
+        "title": "Codex interactive session with trusted-host and Elim production verification · Independent automation failure observability, isolated-checkout state recovery, incident consolidation, exact Elim Run Log contract, protected-main host publication, and resumable post-agent closeout",
+        "actor": "Codex interactive session with trusted-host and Elim production verification",
+        "source": "Agent Audit Log",
+        "outcome": "Routed for human review",
+        "affected_scope": "Independent automation failure observability, isolated-checkout state recovery, incident consolidation, exact Elim Run Log contract, protected-main host publication, and resumable post-agent closeout",
+        "summary": "automation-architecture",
+        "manager_effect": null,
+        "owner": "Codex interactive session with trusted-host and Elim production verification",
+        "kind": "project_log",
+        "route": "logs:agents",
+        "collapsed_count": 1
+      },
       {
         "id": "agent-091",
         "log": "agents",
@@ -459,17 +506,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "log": "agents",
         "date": "2026-07-24 16:49:37 -0400",
         "record": "JUD-009",
-        "title": "2 consecutive clean / no-op activities",
+        "title": "elim · JUD-009",
         "actor": "elim",
         "source": "Agent Audit Log",
         "outcome": "Completed",
-        "affected_scope": "2 retained log activities",
-        "summary": "Consecutive identical routine outcomes are collapsed here; the owning log retains every entry.",
-        "manager_effect": "No manager action is recorded; open the owning log for complete retained history.",
+        "affected_scope": "JUD-009",
+        "summary": "reconciliation",
+        "manager_effect": null,
         "owner": "elim",
-        "kind": "collapsed_activity",
+        "kind": "project_log",
         "route": "logs:agents",
-        "collapsed_count": 2
+        "collapsed_count": 1
       },
       {
         "id": "elim-run-009",
@@ -491,8 +538,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "agents": {
       "registered": 7,
-      "last_chain_id": "arrp-20260726T102646Z",
-      "chain_status": "complete"
+      "last_chain_id": "host-dispatch-20260726T121420Z",
+      "chain_status": "failed"
     },
     "services": {
       "case_monitor": {
@@ -510,66 +557,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "workflow_url": "https://github.com/Thorncrag/ARRP/actions/workflows/presidential-directives-bot.yml"
       }
     },
-    "usage": {
-      "hard_reserve_percent": 15,
-      "soft_run_target_percent": 10,
-      "remaining_percent": 79.0,
-      "status": "available",
-      "gate": {
-        "blockers": [],
-        "checkedAtUtc": "2026-07-26T10:32:50+00:00",
-        "lowestRemainingPercent": 79,
-        "reservePercent": 15,
-        "runBudget": {
-          "activatedWindows": [],
-          "baselinePath": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/elim-checkout/.tmp/run-coordinator/usage-baselines/4b2e8bb1824aec012dc8b3c6acf5a942e32b4ceefb6f313a565f4a48a8d150e6.json",
-          "dormantWindows": [
-            "codex_bengalfox:primary"
-          ],
-          "highestSpentPercent": 0,
-          "reserveBufferFloorPercent": 25,
-          "softTargetPercent": 10,
-          "softTargetReached": false,
-          "spentPercentByWindow": {
-            "codex:primary": 0,
-            "codex_bengalfox:primary": 0
-          }
-        },
-        "status": "pass",
-        "windows": [
-          {
-            "limitId": "codex",
-            "limitName": "codex",
-            "remainingPercent": 79,
-            "resetsAt": 1785611897,
-            "resetsAtUtc": "2026-08-01T19:18:17+00:00",
-            "usedPercent": 21,
-            "window": "primary",
-            "windowDurationMins": 10080
-          },
-          {
-            "limitId": "codex_bengalfox",
-            "limitName": "GPT-5.3-Codex-Spark",
-            "remainingPercent": 100,
-            "resetsAt": 1785666770,
-            "resetsAtUtc": "2026-08-02T10:32:50+00:00",
-            "usedPercent": 0,
-            "window": "primary",
-            "windowDurationMins": 10080
-          }
-        ]
-      },
-      "host_monitor": {
-        "source": "approved-host-dispatcher",
-        "status_path": ".tmp/run-coordinator/arrp-20260726T102646Z/usage-status-arrp-20260726T102646Z-20260726T103249Z.json",
-        "baseline_path": ".tmp/run-coordinator/usage-baselines/4b2e8bb1824aec012dc8b3c6acf5a942e32b4ceefb6f313a565f4a48a8d150e6.json",
-        "monitor_interval_seconds": 60,
-        "snapshot_max_age_seconds": 120
-      }
-    },
+    "usage": null,
     "progress_summary": {
-      "generated_at": "2026-07-26T10:22:35+00:00",
-      "source_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+      "generated_at": "2026-07-26T14:07:46+00:00",
+      "source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
       "availability": "current",
       "ready": 27,
       "total": 81,
@@ -578,9 +569,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12
     },
     "integrity_summary": {
-      "generated_at": "2026-07-26T10:32:06+00:00",
-      "source_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
-      "availability": "current",
+      "generated_at": "2026-07-26T14:09:55+00:00",
+      "source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+      "availability": "stale",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -591,16 +582,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       }
     },
     "automation_summary": {
-      "chain_id": "arrp-20260726T102646Z",
-      "status": "complete",
-      "generated_at": "2026-07-26T10:32:50+00:00",
-      "stage_count": 6
+      "chain_id": "host-dispatch-20260726T121420Z",
+      "status": "failed",
+      "generated_at": "2026-07-26T12:14:20+00:00",
+      "stage_count": 0
     },
     "publication_summary": {
       "disposition_counts": {
         "included": 138,
         "excluded": 210,
-        "unclassified": 0,
+        "unclassified": 1,
         "conflict": 0
       },
       "build_count": 1,
@@ -624,6 +615,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-9e0e00a0acf757e394be"
+    "overview.js": "project-console-ee28aa382281f6dc3f94"
   }
 });

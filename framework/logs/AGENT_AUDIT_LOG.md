@@ -1782,7 +1782,32 @@ Prospective template:
 | Files changed | Review Epoch ledger; Run Coordinator persistent-input contract; Run Coordinator regression tests; current handoff; Elim Run Log; shared Agent Audit Log; deterministic Project Console projections generated from those records |
 | Source actions | No source-catalog row changed. The pinned Source Checker covered 2055 of 2055 records; its 98 ordinary queue items remain separately queued and were not reclassified as Review Epoch discoveries. |
 | Validation | Verified the manifest and all 13 preserved deterministic inputs by exact SHA-256 and byte count; validated the complete 60-entry governing boundary and comprehensive packet provenance; reviewed the 184-file boundary delta and a five-record rotating sample; passed 473 Python tests, 32 focused Run Coordinator tests, 24 participation-service tests, 27 Console frontend tests, exact-input refresh readback, local consistency with 0 errors and 0 warnings, deterministic epoch recording, and diff hygiene. |
-| Commit | Trusted-host closeout pending; the model-authored structured result leaves `commit` null as required. |
-| Push status | Trusted-host staging, compare-and-swap publication, and synchronization readback pending. Elim performed no repository Git or GitHub branch/pull-request mutation. |
+| Commit | Elim correctly left `commit` null. The trusted host verified the exact 50-file declaration, created `ec0def6af8098ef89762f1a97ae29e16fd15eebf`, and preserved the reviewed result through [pull request #432](https://github.com/Thorncrag/ARRP/pull/432), squash-merged as `4988344eacd9eff78d2e93c270e8a6fcb7c16acc`. |
+| Push status | The protected branch rejected the obsolete direct-`main` attempt without changing `main`. The host pushed only the bounded branch, all six reported CodeQL and Vercel checks passed, pull request #432 merged, and canonical local `main` was fast-forwarded to and read back at the exact merge. Elim performed no model-owned repository Git or GitHub branch/pull-request mutation. |
 | Rollback notes | Revert the trusted-host closeout commit, remove only the final `epoch-arrp-20260726T102646Z` ledger row, restore the Source Checker persistent-input schema expectation and its regression fixtures together, then rebuild the Project Console. No issue, Project field, score, Runs value, source record, intake record, or public policy disposition changed. |
-| Blockers/skipped checks | None. The next live chain remains the operational trigger to confirm that a current schema-v2 Source Checker input is `not_due`; deterministic exact-input readback and complete regression coverage establish the repair at the reviewed boundary. |
+| Blockers/skipped checks | No substantive blocker. The next live chain remains the operational trigger to confirm that a current schema-v2 Source Checker input is `not_due`; deterministic exact-input readback and complete regression coverage establish the repair at the reviewed boundary. Live host recovery also exposed and separately corrected the protected-main and exact Run Log field-name closeout contracts. |
+
+
+### 2026-07-26 — Console failure observability and protected-main closeout — automation-architecture
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-26 07:29:48 -0400 |
+| Agent | Codex interactive session with trusted-host and Elim production verification |
+| Run ID | interactive-console-automation-repair-20260726 |
+| Unit ID | CONSOLE-AUTOMATION-OBSERVABILITY-20260726 |
+| Trigger | The project manager identified that a Console update placed last in the ordinary chain could not reliably report an overnight failure that prevented the chain from reaching that update. |
+| Task type | automation-architecture |
+| Outcome | Routed for human review |
+| Issue/task | Independent automation failure observability, isolated-checkout state recovery, incident consolidation, exact Elim Run Log contract, protected-main host publication, and resumable post-agent closeout |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | Project-wide automation Change Audit; no issue-quality T tier |
+| Files changed | Run Coordinator configuration, independent health workflow and builder, host dispatcher, Console live-feed runtime and tests, Console generated projections, governing Elim/autonomous/Run Coordinator rules and pinned hashes, technical specification, implementation report, Review Epoch and operational logs |
+| Source actions | No source row changed. Elim's connected review corrected only the coordinator's accepted Source Checker persistent-input schema from obsolete v1 to current v2; the complete 2055-record Source Checker feed and its 98 ordinary review items remained unchanged. |
+| Validation | Primary repair passed 473 Python tests, 27 Console tests, authenticated consistency with 0 errors and 0 warnings, CodeQL, Vercel, and live workflow/host feed checks. Elim then passed 473 Python, 24 participation, 27 Console, and 32 focused coordinator tests plus 0-error/0-warning consistency. The protected-main correction passes 94 focused dispatcher tests and the complete 480-test Python suite, including failed-publication resume for Elim and canonical-workspace commits with real Git, exact PR head/base/check/merge handling, merged-PR check revalidation, unknown check-state rejection, named required-check enforcement, exact reconciliation clearing, and host closeout projection coverage; 24 participation tests, 27 Console tests, authenticated Console refresh, diff and syntax checks, and authenticated consistency with 0 errors and 0 warnings also pass. |
+| Commit | Primary repair merged through pull request #431 as `c4b1a0d727543e14238d47606aea1c1f8e136045`; Elim review and Source Checker repair merged through pull request #432 as `4988344eacd9eff78d2e93c270e8a6fcb7c16acc`. Protected-main correction commit pending. |
+| Push status | Pull requests #431 and #432 merged after all reported checks passed. The current protected-main correction remains on local branch `codex/elim-protected-closeout` pending full validation, reviewed pull request, merge, and fresh-chain production readback. |
+| Rollback notes | Revert the protected-main correction as one unit to restore the earlier direct-push policy, exact-field prompt omission, and nonresumable prepared-commit behavior; retain the independent observability repair, Elim Review Epoch, Source Checker schema-v2 correction, failure history, and preserved duplicate-artifact archives. Such rollback would knowingly restore incompatibility with protected `main` and is not recommended. |
+| Blockers/skipped checks | No current blocker. Full repository validation, reviewed synchronization of the protected-main correction, and one final fresh-chain/Console readback remain required before this interactive repair closes. No Console screen, tool, queue, Elim authority, issue record, Project field, score, Runs count, source identity, publication disposition, or human-reserved decision was removed or changed. |
