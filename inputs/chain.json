@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260726T140731Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30205430404",
-  "trigger": "push",
-  "llm_launch_allowed": false,
-  "llm_launch_trigger": "push",
-  "created_at": "2026-07-26T14:07:31+00:00",
-  "updated_at": "2026-07-26T14:08:44+00:00",
+  "chain_id": "arrp-20260726T140914Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30205449067",
+  "trigger": "workflow_dispatch",
+  "llm_launch_allowed": true,
+  "llm_launch_trigger": "workflow_dispatch",
+  "created_at": "2026-07-26T14:09:14+00:00",
+  "updated_at": "2026-07-26T14:10:09+00:00",
   "status": "complete",
   "baseline_commit": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
   "resume": {
@@ -18,7 +18,7 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260726T140731Z"
+    "owner_chain_id": "arrp-20260726T140914Z"
   },
   "repository": {
     "branch": "main",
@@ -76,7 +76,7 @@
       "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:07:31+00:00",
+      "completed_at": "2026-07-26T14:09:14+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -92,7 +92,7 @@
       "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:07:31+00:00",
+      "completed_at": "2026-07-26T14:09:14+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -108,7 +108,7 @@
       "due_reason": "last success remains current until 2026-08-02T10:32:24+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:07:31+00:00",
+      "completed_at": "2026-07-26T14:09:14+00:00",
       "last_success_at": "2026-07-26T10:32:24+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -120,21 +120,17 @@
       "id": "project-console-progress-bot",
       "order": 4,
       "workflow": ".github/workflows/project-console-progress.yml",
-      "due": true,
-      "due_reason": "forced",
-      "status": "succeeded",
+      "due": false,
+      "due_reason": "last success remains current until 2026-07-27T14:08:44+00:00",
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:08:44+00:00",
+      "completed_at": "2026-07-26T14:09:14+00:00",
       "last_success_at": "2026-07-26T14:08:44+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
-      "details": "success",
-      "output": {
-        "path": "workflow-output",
-        "sha256": "sha256:783f90be667d38aef36e871c0bc2d5a5ff83c948576533a8c91d02568ee5acd1"
-      },
-      "work_count": 0
+      "details": "",
+      "output": null
     },
     {
       "id": "public-intake",
@@ -144,15 +140,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T14:08:44+00:00",
-      "last_success_at": "2026-07-26T14:08:44+00:00",
+      "completed_at": "2026-07-26T14:10:09+00:00",
+      "last_success_at": "2026-07-26T14:10:09+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:cb877c895ec28dcdeab2e5857a0361c95a4a5f4bf7e6328105cc2ddeeda5ffdf"
+        "sha256": "sha256:7e533a01ea08424b452ef99786f634de98391de64a52e6aacbfd0d87d0e98b6d"
       },
       "work_count": 0
     },
@@ -161,18 +157,18 @@
       "order": 6,
       "workflow": ".github/workflows/project-integrity.yml",
       "due": true,
-      "due_reason": "forced",
+      "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T14:08:44+00:00",
-      "last_success_at": "2026-07-26T14:08:44+00:00",
+      "completed_at": "2026-07-26T14:10:09+00:00",
+      "last_success_at": "2026-07-26T14:10:09+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:32548115675ccb31cc87dd22a98375d0397518c7e9eecffc6454b3a598112ffe"
+        "sha256": "sha256:289e9ea25d53def95982fde7f0363317d069d03195826cb4f7f5b162d303d604"
       },
       "work_count": 0
     }
@@ -188,7 +184,7 @@
   },
   "elim_decision": {
     "launch_recommended": false,
-    "reason": "This trigger authorizes deterministic refresh only; Elim waits for the daily schedule, an eligible event, or explicit manual dispatch.",
+    "reason": "Codex usage reserve has not been measured.",
     "blockers": [],
     "last_substantive_stage": true,
     "predecessors_complete": true,
@@ -245,7 +241,7 @@
   },
   "next_action": "No Elim launch; wait for the next trigger.",
   "action_items": [],
-  "completed_at": "2026-07-26T14:08:44+00:00",
+  "completed_at": "2026-07-26T14:10:09+00:00",
   "final_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
   "bots": [
     {
@@ -254,7 +250,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:07:31+00:00",
+      "completed_at": "2026-07-26T14:09:14+00:00",
       "error": null
     },
     {
@@ -263,7 +259,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:07:31+00:00",
+      "completed_at": "2026-07-26T14:09:14+00:00",
       "error": null
     },
     {
@@ -272,16 +268,16 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:07:31+00:00",
+      "completed_at": "2026-07-26T14:09:14+00:00",
       "error": null
     },
     {
       "id": "project-console-progress-bot",
       "name": "project-console-progress-bot",
-      "due": true,
-      "status": "completed",
+      "due": false,
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:08:44+00:00",
+      "completed_at": "2026-07-26T14:09:14+00:00",
       "error": null
     },
     {
@@ -290,7 +286,7 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T14:08:44+00:00",
+      "completed_at": "2026-07-26T14:10:09+00:00",
       "error": null
     }
   ]
