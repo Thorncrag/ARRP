@@ -7199,18 +7199,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/PRINT_ASSEMBLY.md",
           "exists": true
-        },
-        {
-          "path": "research/reference-products/agent-automation-technical-spec.md",
-          "exists": true
         }
       ],
-      "word_count": 86,
+      "word_count": 37,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 48
+      "longest_unbroken_token": 35
     },
     {
       "title": "ARRP Adoption and Enactment Pathway Analysis",
@@ -8185,12 +8181,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3991,
+      "word_count": 3993,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 37
+      "longest_unbroken_token": 36
     },
     {
       "title": "Agent Rules — Context Handoff",
@@ -10417,7 +10413,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4332,
+      "word_count": 4333,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
@@ -12363,56 +12359,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 43
-    },
-    {
-      "title": "ARRP Persistent Automation — Technical Specification and Traceability Map",
-      "path": "research/reference-products/agent-automation-technical-spec.md",
-      "section": "Research",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Nonauthoritative internal reference product.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/reference-products/agent-automation-technical-spec.md",
-      "document_type": "research",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {
-        "public-proposal": "appendix-c-research"
-      },
-      "assembly_sort_key": "research/reference-products-arrp persistent automation — technical specification and traceability map",
-      "internal_links": [
-        {
-          "path": "framework/FRAMEWORK.md",
-          "exists": true
-        },
-        {
-          "path": "framework/AGENT_OPERATING_RULES.md",
-          "exists": true
-        },
-        {
-          "path": "framework/agents/README.md",
-          "exists": true
-        },
-        {
-          "path": "framework/GITHUB_WORKFLOW.md",
-          "exists": true
-        },
-        {
-          "path": "framework/INTAKE_AGENT_PROCESS.md",
-          "exists": true
-        },
-        {
-          "path": "framework/PROJECT_INTERFACE.md",
-          "exists": true
-        }
-      ],
-      "word_count": 15201,
-      "estimated_pages": 24,
-      "table_count": 17,
-      "max_table_columns": 5,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 133
     },
     {
       "title": "ARRP Project Console",
@@ -15129,13 +15075,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 490,
-        "modified_at": "2026-07-26T12:26:10+00:00",
+        "modified_at": "2026-07-26T22:30:22+00:00",
         "stale": true
       }
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 210,
+      "excluded": 209,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15154,7 +15100,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Internal interface-governance documentation.": 1,
       "Online technical documentation.": 1,
       "Replaceable internal automation report.": 1,
-      "Nonauthoritative internal reference product.": 1,
       "Nonauthoritative internal product review.": 1,
       "Nonauthoritative internal implementation handoff.": 1,
       "Nonauthoritative internal implementation and validation report.": 1,
@@ -15360,7 +15305,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Assembly structurally valid",
         "disposition_counts": {
           "included": 138,
-          "excluded": 210,
+          "excluded": 209,
           "unclassified": 0,
           "conflict": 0
         }
@@ -16356,7 +16301,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "link_export_validation": {
         "link_inventory_available": true,
-        "internal_link_count": 1373,
+        "internal_link_count": 1366,
         "missing_link_count": 2,
         "missing_links": [
           {
@@ -16376,7 +16321,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "available": false,
         "artifact_path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "artifact_sha256": "sha256:ded6ea3b4d0e076a2531cfed123731a74889c85b794d60773f0dbd8424abdd02",
-        "artifact_repository_revision": "e4e91363527ef360b2cc61e65861869a7f262953",
+        "artifact_repository_revision": "d516e7051e47ccde7c40fd68d89476a6c50e898d",
         "build_source_revision": null,
         "input_hashes": null,
         "unavailable_reason": "The existing PDF has no recorded build source revision and complete input-hash manifest."
@@ -20015,6 +19960,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-6d2b6218ad9ec5a87537"
+    "publication.js": "project-console-40fb98644e4d238a672a"
   }
 });

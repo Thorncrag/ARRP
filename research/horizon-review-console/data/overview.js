@@ -179,6 +179,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items_available": true,
       "domain_attention": [
         {
+          "domain": "integrity",
+          "status": "stale",
+          "reason": "The feed does not completely cover its current authoritative source.",
+          "timestamp": "2026-07-26T14:09:55+00:00",
+          "route": "integrity"
+        },
+        {
           "domain": "publication_release",
           "status": "not_determined",
           "reason": "Structural assembly facts are available, but release readiness cannot be declared without lineage-backed export validation, completed prerequisites, and a recorded human go/no-go decision.",
@@ -449,7 +456,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "summary": "Close without merge; after the complete-delta correction reaches main, rerun the Presidential Directives Bot and screen the regenerated full proposal. Route the four trade proclamations to HOR-040 source development, route Executive Order 14415 to FACT-009 source development, and record no separate project action for the two ceremonial proclamations, the Mali continuation, or the two relationship-only metadata updates unless later evidence changes that assessment.",
         "manager_effect": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
         "owner": "Human",
-        "affected_count": 10,
+        "affected_count": null,
         "route": "logs:source-monitor",
         "tone": "warning",
         "collapsed_count": 1
@@ -466,7 +473,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "summary": "Close without merge; after the complete-delta correction reaches main, rerun Case Monitor from current main and review the regenerated, fully itemized proposal. Separately route the July 23 Suri appellate decision to RIGHTS-002 and assess it as a possible control example for HOR-035.",
         "manager_effect": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
         "owner": "Human",
-        "affected_count": 43,
+        "affected_count": null,
         "route": "logs:source-monitor",
         "tone": "warning",
         "collapsed_count": 1
@@ -597,7 +604,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "integrity_summary": {
       "generated_at": "2026-07-26T14:09:55+00:00",
       "source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-      "availability": "current",
+      "availability": "stale",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -616,7 +623,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "publication_summary": {
       "disposition_counts": {
         "included": 138,
-        "excluded": 210,
+        "excluded": 209,
         "unclassified": 0,
         "conflict": 0
       },
@@ -641,6 +648,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-6d2b6218ad9ec5a87537"
+    "overview.js": "project-console-40fb98644e4d238a672a"
   }
 });
