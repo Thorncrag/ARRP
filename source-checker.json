@@ -3,9 +3,9 @@
   "agent_id": "source-checker-bot",
   "mode": "report-only",
   "contract_schema_version": 1,
-  "generation_id": "source-checker-d6af121ac160524c55b8",
-  "source_revision": "2681f26ce7a71dc551bc01a17b5c9ff243aaf3c1",
-  "checked_at": "2026-07-26T03:34:37+00:00",
+  "generation_id": "source-checker-0d70cf869e7d17c20999",
+  "source_revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
+  "checked_at": "2026-07-26T03:44:55+00:00",
   "expected_count": 2055,
   "actual_count": 2055,
   "source_hashes": {
@@ -28191,10 +28191,10 @@
       "title": "",
       "requested_url": "https://www.courtlistener.com/docket/73134602/gibson-brown-v-mullin",
       "attempts": 1,
-      "status_code": 403,
+      "status_code": 429,
       "final_url": "https://www.courtlistener.com/docket/73134602/gibson-brown-v-mullin",
       "content_type": "text/html",
-      "error": "HTTP 403",
+      "error": "HTTP 429",
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-24T14:14:17Z",
@@ -28207,10 +28207,10 @@
       "title": "",
       "requested_url": "https://www.courtlistener.com/docket/72208638/greater-boston-latino-network-v-noem",
       "attempts": 1,
-      "status_code": 403,
+      "status_code": 429,
       "final_url": "https://www.courtlistener.com/docket/72208638/greater-boston-latino-network-v-noem",
       "content_type": "text/html",
-      "error": "HTTP 403",
+      "error": "HTTP 429",
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-24T14:14:17Z",
@@ -28223,10 +28223,10 @@
       "title": "",
       "requested_url": "https://www.courtlistener.com/docket/70870317/hernandez-v-noem",
       "attempts": 1,
-      "status_code": 403,
+      "status_code": 429,
       "final_url": "https://www.courtlistener.com/docket/70870317/hernandez-v-noem",
       "content_type": "text/html",
-      "error": "HTTP 403",
+      "error": "HTTP 429",
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-24T14:14:17Z",
@@ -30564,7 +30564,7 @@
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-26T03:34:37+00:00",
-      "exception_age_days": 0.0
+      "exception_age_days": 0.01
     },
     {
       "source_id": "SRC-2652",
@@ -30580,7 +30580,7 @@
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-26T03:34:37+00:00",
-      "exception_age_days": 0.0
+      "exception_age_days": 0.01
     },
     {
       "source_id": "SRC-2653",
@@ -30613,13 +30613,10 @@
   ],
   "deltas": {
     "available": true,
-    "baseline_checked_at": "2026-07-24T14:14:17Z",
-    "baseline_source_revision": null,
-    "elapsed_days": 1.56,
-    "new_exception_ids": [
-      "SRC-2651",
-      "SRC-2652"
-    ],
+    "baseline_checked_at": "2026-07-26T03:34:37+00:00",
+    "baseline_source_revision": "2681f26ce7a71dc551bc01a17b5c9ff243aaf3c1",
+    "elapsed_days": 0.01,
+    "new_exception_ids": [],
     "regressed_exception_ids": [],
     "resolved_exception_ids": [],
     "ongoing_exception_ids": [
@@ -31501,7 +31498,9 @@
       "SRC-2637",
       "SRC-2639",
       "SRC-2645",
-      "SRC-2646"
+      "SRC-2646",
+      "SRC-2651",
+      "SRC-2652"
     ],
     "changed_exceptions": [],
     "aging_exceptions": [
@@ -37661,38 +37660,70 @@
       {
         "source_id": "SRC-2651",
         "classification": "access restricted",
-        "previous_classification": null,
+        "previous_classification": "access restricted",
         "first_seen_at": "2026-07-26T03:34:37+00:00",
-        "age_days": 0.0
+        "age_days": 0.01
       },
       {
         "source_id": "SRC-2652",
         "classification": "access restricted",
-        "previous_classification": null,
+        "previous_classification": "access restricted",
         "first_seen_at": "2026-07-26T03:34:37+00:00",
-        "age_days": 0.0
+        "age_days": 0.01
       }
     ],
-    "entered_scope_ids": [
-      "SRC-2648",
-      "SRC-2649",
-      "SRC-2650",
-      "SRC-2651",
-      "SRC-2652",
-      "SRC-2653",
-      "SRC-2654"
-    ],
+    "entered_scope_ids": [],
     "left_scope_ids": [],
     "counts": {
-      "new_exceptions": 2,
+      "new_exceptions": 0,
       "regressed_exceptions": 0,
       "resolved_exceptions": 0,
-      "ongoing_exceptions": 879,
-      "entered_scope": 7,
+      "ongoing_exceptions": 881,
+      "entered_scope": 0,
       "left_scope": 0
     }
   },
   "history": [
+    {
+      "checked_at": "2026-07-26T03:44:55+00:00",
+      "generation_id": "source-checker-0d70cf869e7d17c20999",
+      "source_revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
+      "source_hashes": {
+        "inventory/sources-pending.csv": "sha256:c6eafc0d61b601ee1db9c12e9271797eba4c0abd3f7bf75021df916989f5433c",
+        "inventory/sources.csv": "sha256:97f65cc569bc87ca53c9312e31f9702675b2a272c60a38b2c89e4b8a76015b5d"
+      },
+      "expected_count": 2055,
+      "actual_count": 2055,
+      "completeness": {
+        "complete": true,
+        "expected_count": 2055,
+        "actual_count": 2055,
+        "missing_count": 0
+      },
+      "eligible_urls": 2055,
+      "missing_source_ids": [],
+      "counts": {
+        "access restricted": 774,
+        "broken": 14,
+        "identity mismatch": 3,
+        "identity-preserving redirect": 95,
+        "review required": 81,
+        "transient failure": 9,
+        "verified": 1079
+      },
+      "deltas": {
+        "available": true,
+        "counts": {
+          "new_exceptions": 0,
+          "regressed_exceptions": 0,
+          "resolved_exceptions": 0,
+          "ongoing_exceptions": 881,
+          "entered_scope": 0,
+          "left_scope": 0
+        },
+        "baseline_checked_at": "2026-07-26T03:34:37+00:00"
+      }
+    },
     {
       "checked_at": "2026-07-26T03:34:37+00:00",
       "generation_id": "source-checker-d6af121ac160524c55b8",
