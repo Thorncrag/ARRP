@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260726T043422Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30187993603",
+  "chain_id": "arrp-20260726T044932Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30188388605",
   "trigger": "push",
   "llm_launch_allowed": false,
   "llm_launch_trigger": "push",
-  "created_at": "2026-07-26T04:34:22+00:00",
-  "updated_at": "2026-07-26T04:41:35+00:00",
+  "created_at": "2026-07-26T04:49:32+00:00",
+  "updated_at": "2026-07-26T04:55:59+00:00",
   "status": "complete",
-  "baseline_commit": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+  "baseline_commit": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
   "resume": {
     "count": 0,
     "from_run_id": null
@@ -18,12 +18,12 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260726T043422Z"
+    "owner_chain_id": "arrp-20260726T044932Z"
   },
   "repository": {
     "branch": "main",
-    "head": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-    "origin_main": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+    "head": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
+    "origin_main": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
     "clean": true,
     "dirty_paths": [],
     "dirty_path_count": 0,
@@ -72,359 +72,33 @@
       "id": "case-monitor-bot",
       "order": 1,
       "workflow": ".github/workflows/case-monitor-bot.yml",
-      "due": true,
-      "due_reason": "persistent watcher input is stale",
-      "status": "succeeded",
+      "due": false,
+      "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T04:41:32+00:00",
+      "completed_at": "2026-07-26T04:49:32+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
-      "details": "success",
-      "output": {
-        "path": "workflow-output",
-        "sha256": "sha256:f3643db174a6cbd99f29de0c070c917f1bf7072acad086323f09d335aed63341"
-      },
-      "work_count": 43,
-      "attempt_key": "primary",
-      "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-      "domain_event": {
-        "id": "SDE-8B910AA22FBBBCE3E0AE125F",
-        "sha256": "sha256:e28143a40764faf6bdb1630acbc0040d776d2c6bbf8a147af91a76051a73dc1b",
-        "json": {
-          "acceptance": null,
-          "affected_records": [
-            {
-              "record_id": "HOR-035",
-              "record_type": "candidate"
-            },
-            {
-              "record_id": "SRC-0632",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-0945",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-0965",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-0982",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1004",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1052",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1056",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1093",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1929",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1930",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1932",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1933",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1934",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1940",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1941",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1942",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1943",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1946",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1952",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1957",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1973",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1979",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-1982",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2042",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2080",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2081",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2105",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2110",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2136",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2149",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2190",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2216",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2221",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2235",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2238",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2351",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2591",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2649",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2651",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2652",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2653",
-              "record_type": "source"
-            },
-            {
-              "record_id": "SRC-2654",
-              "record_type": "source"
-            }
-          ],
-          "agent_id": "case-monitor-bot",
-          "chain_id": "arrp-20260726T043422Z",
-          "event_id": "SDE-8B910AA22FBBBCE3E0AE125F",
-          "idempotency_key": "sha256:8b910aa22fbbbce3e0ae125f5916e8aca1a3af1fbc6850bafaa3da31df558671",
-          "kind": "source-domain-event",
-          "output_hashes": {
-            "files": [
-              {
-                "bytes": 1818034,
-                "path": "inventory/sources.csv",
-                "sha256": "sha256:dd4e572ed54c5d0be25664d9d71ca8aca6e41e20aa039d34f92446b49ee84778"
-              },
-              {
-                "bytes": 180849,
-                "path": "research/horizon-source-records/HOR-035-source-development.md",
-                "sha256": "sha256:bcb66117d0e1557deb4379d1d4979691cbcbb98ad4c2cec26398f837275d57e8"
-              }
-            ],
-            "proposal_diff": "sha256:ca82329205d345662c811596e247f0f43b56b60b6c3f849152b269b95075fde0",
-            "semantic_report": "sha256:11a7e758920934470a4e4b63fbff03a0e00b719aa88bdaf4d1caebbeab08714f"
-          },
-          "proposal": {
-            "base_ref": "main",
-            "head_ref": "bot/case-monitor-updates",
-            "proposal_revision": "51ab5321424426b78aeef84da03233248dbe4455",
-            "pull_request_number": 380,
-            "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
-            "repository": "Thorncrag/ARRP"
-          },
-          "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-          "schema_uri": ".github/source-domain-event.schema.json",
-          "schema_version": 1,
-          "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-          "state": "proposed",
-          "summary": {
-            "affected_record_count": 43,
-            "counts": {
-              "affected-files": 2,
-              "affected-records": 43,
-              "candidate-records": 1,
-              "source-records": 42
-            },
-            "status": "case monitor proposal delta"
-          },
-          "trigger": "push"
-        }
-      }
+      "details": "",
+      "output": null
     },
     {
       "id": "presidential-directives-bot",
       "order": 2,
       "workflow": ".github/workflows/presidential-directives-bot.yml",
-      "due": true,
-      "due_reason": "persistent watcher input is stale",
-      "status": "succeeded",
+      "due": false,
+      "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T04:41:32+00:00",
+      "completed_at": "2026-07-26T04:49:32+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
-      "details": "success",
-      "output": {
-        "path": "workflow-output",
-        "sha256": "sha256:5d3d40da606c9766232db75a2f2c2da89d4dc5fb838ab6e813ad3aab60d58726"
-      },
-      "work_count": 10,
-      "attempt_key": "primary",
-      "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-      "domain_event": {
-        "id": "SDE-4EDE456327A9D3C616449D75",
-        "sha256": "sha256:9b998a083d4be4f89dc89cb9290942d4d719807b656ce845fb00a53eb1aebb39",
-        "json": {
-          "acceptance": null,
-          "affected_records": [
-            {
-              "record_id": "2019-05370",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2019-16383",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14990",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14991",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14992",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14997",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14998",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-14999",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-15003",
-              "record_type": "presidential-directive"
-            },
-            {
-              "record_id": "2026-15024",
-              "record_type": "presidential-directive"
-            }
-          ],
-          "agent_id": "presidential-directives-bot",
-          "chain_id": "arrp-20260726T043422Z",
-          "event_id": "SDE-4EDE456327A9D3C616449D75",
-          "idempotency_key": "sha256:4ede456327a9d3c616449d75eac08c825a405145a97339ca8cbc51869a3d210f",
-          "kind": "source-domain-event",
-          "output_hashes": {
-            "files": [
-              {
-                "bytes": 1854598,
-                "path": "inventory/presidential-directives.csv",
-                "sha256": "sha256:9f14fdb579c9816258688f66f322d62a5f7feaa49410daa3063d3fd9094a7e3c"
-              }
-            ],
-            "proposal_diff": "sha256:21eee92eda009c4db723e0c530931dc0595962f544a6d379ebe2c3c0ee871dc4",
-            "semantic_report": "sha256:eead281dd9bc359cb2a6613c252bbb7c670545fec9c7eb128ab32383e696c968"
-          },
-          "proposal": {
-            "base_ref": "main",
-            "head_ref": "automation/presidential-directives-monitor",
-            "proposal_revision": "648af039d25490dfc00f55dc7d96136abe3399fa",
-            "pull_request_number": 381,
-            "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/381",
-            "repository": "Thorncrag/ARRP"
-          },
-          "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-          "schema_uri": ".github/source-domain-event.schema.json",
-          "schema_version": 1,
-          "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-          "state": "proposed",
-          "summary": {
-            "affected_record_count": 10,
-            "counts": {
-              "affected-files": 1,
-              "affected-records": 10,
-              "presidential-directive-records": 10
-            },
-            "status": "presidential directives proposal delta"
-          },
-          "trigger": "push"
-        }
-      }
+      "details": "",
+      "output": null
     },
     {
       "id": "source-checker-bot",
@@ -434,22 +108,22 @@
       "due_reason": "persistent watcher input schema is invalid",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T04:41:32+00:00",
-      "last_success_at": "2026-07-26T04:41:32+00:00",
+      "completed_at": "2026-07-26T04:55:55+00:00",
+      "last_success_at": "2026-07-26T04:55:55+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:5729f04dffca26c57b5349407b7f3b9dad0f2a0577f7a990ade391677b50c6a9"
+        "sha256": "sha256:be087f917ffa7fc18b04e58e284075aa7bd9ccf40f15591c5877638e284054e5"
       },
       "work_count": 98,
       "attempt_key": "primary",
-      "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
+      "run_id": "github-actions:Thorncrag/ARRP:30188388605:1:primary",
       "domain_event": {
-        "id": "SDE-27BC0C51D9A59B1018F00352",
-        "sha256": "sha256:627d1d3e59cb225817bae86e34cf24c918dbdaba579e828a413ed80023a4d24e",
+        "id": "SDE-3F4D39AD0BFF9BBA4E4484E8",
+        "sha256": "sha256:12768b359d69bfa0cc6baef2ab28ebf924b487a81f984e170a7057e9aef58557",
         "json": {
           "acceptance": null,
           "affected_records": [
@@ -547,6 +221,10 @@
             },
             {
               "record_id": "SRC-0026",
+              "record_type": "source"
+            },
+            {
+              "record_id": "SRC-0030",
               "record_type": "source"
             },
             {
@@ -1331,6 +1009,10 @@
             },
             {
               "record_id": "SRC-0744",
+              "record_type": "source"
+            },
+            {
+              "record_id": "SRC-0745",
               "record_type": "source"
             },
             {
@@ -3979,40 +3661,40 @@
             }
           ],
           "agent_id": "source-checker-bot",
-          "chain_id": "arrp-20260726T043422Z",
-          "event_id": "SDE-27BC0C51D9A59B1018F00352",
-          "idempotency_key": "sha256:27bc0c51d9a59b1018f00352e38c6781b775dab0c20827073e8375abcafba191",
+          "chain_id": "arrp-20260726T044932Z",
+          "event_id": "SDE-3F4D39AD0BFF9BBA4E4484E8",
+          "idempotency_key": "sha256:3f4d39ad0bff9bba4e4484e85ff67c0903d9f295e3f16a15e0fbf40eeda722db",
           "kind": "source-domain-event",
           "output_hashes": {
             "files": [
               {
-                "bytes": 49910,
+                "bytes": 50012,
                 "path": "framework/reports/SOURCE_CHECKER_REPORT.md",
-                "sha256": "sha256:74115e8255a666f1f41f4de984d6d342af2a0fe35d1a8549d536dbb5008749e0"
+                "sha256": "sha256:216c3897b438e5e11038f4edc053fd1715732decedf1da93082f9269b9da1e07"
               }
             ],
-            "proposal_diff": "sha256:fdae9e37dd8e9c4b2de44e250389aa0e1d7df121848d33789dbc3a2a859e45f8",
-            "semantic_report": "sha256:35bbd10e59c7d2d7ef80f450ec64ff79edecd678dcf1aa931912af8c15de517f"
+            "proposal_diff": "sha256:a3734be24e9619ba0d52b3cd925c6367e6fee050ebab664bedc206689904f85a",
+            "semantic_report": "sha256:f15b7c4a463b23f561d15ea2ba7e625183f1ee8162de8ed7346610fab02dbe3b"
           },
           "proposal": {
             "base_ref": "main",
             "head_ref": "bot/source-checker-report",
-            "proposal_revision": "edc7b7da0cc02f48248c08a44613b9ba9fc335cc",
+            "proposal_revision": "6fb979b240d469faae5dc32d4bc3f33660eeeb66",
             "pull_request_number": 378,
             "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/378",
             "repository": "Thorncrag/ARRP"
           },
-          "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
+          "run_id": "github-actions:Thorncrag/ARRP:30188388605:1:primary",
           "schema_uri": ".github/source-domain-event.schema.json",
           "schema_version": 1,
-          "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+          "source_revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
           "state": "proposed",
           "summary": {
-            "affected_record_count": 881,
+            "affected_record_count": 883,
             "counts": {
               "affected-files": 1,
-              "affected-records": 881,
-              "source-records": 881
+              "affected-records": 883,
+              "source-records": 883
             },
             "status": "source checker proposal delta"
           },
@@ -4028,15 +3710,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T04:41:32+00:00",
-      "last_success_at": "2026-07-26T04:41:32+00:00",
+      "completed_at": "2026-07-26T04:55:55+00:00",
+      "last_success_at": "2026-07-26T04:55:55+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:20f67246e4976b71221cb75f1c3c5d6ef6d76e07a1d1298e36e54935d6692ad7"
+        "sha256": "sha256:a2b4b98c47aac089baefa96e1df61048bc9a04f4e8f7a871e119848960a87d4c"
       },
       "work_count": 0
     },
@@ -4048,15 +3730,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T04:41:32+00:00",
-      "last_success_at": "2026-07-26T04:41:32+00:00",
+      "completed_at": "2026-07-26T04:55:55+00:00",
+      "last_success_at": "2026-07-26T04:55:55+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:28e861a5cc8cc3925e72c94cbc2a5d9ff943386f2e0e00d73d229e5d0dcb2a0c"
+        "sha256": "sha256:2c55469c8fe0fe8cbdbda57e4f13ed626c326741d6be0a79bd8cb82135c5917e"
       },
       "work_count": 0
     },
@@ -4068,15 +3750,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T04:41:32+00:00",
-      "last_success_at": "2026-07-26T04:41:32+00:00",
+      "completed_at": "2026-07-26T04:55:55+00:00",
+      "last_success_at": "2026-07-26T04:55:55+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:bf76950283122d2ab817f0ed06ef9d917d65deeab35eaf600073a16561f1a4ee"
+        "sha256": "sha256:82270f2b517bef750b91aad0e4e4ce5fdd9fd0951f0bc418f3f74f1b61476068"
       },
       "work_count": 0
     }
@@ -4085,7 +3767,7 @@
   "degradations": [],
   "queue_counts": {
     "integrity": 0,
-    "monitoring": 53,
+    "monitoring": 0,
     "sources": 98,
     "intake": 0,
     "total": 155
@@ -4101,7 +3783,7 @@
       "model": "gpt-5.6-sol",
       "reasoning_effort": "xhigh",
       "full_context": true,
-      "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-77c96a30b077 and context profile comprehensive_review."
+      "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-71c3352bc3a4 and context profile comprehensive_review."
     }
   },
   "review_epoch": {
@@ -4193,25 +3875,25 @@
   },
   "next_action": "No Elim launch; wait for the next trigger.",
   "action_items": [],
-  "completed_at": "2026-07-26T04:41:32+00:00",
-  "final_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+  "completed_at": "2026-07-26T04:55:55+00:00",
+  "final_revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
   "bots": [
     {
       "id": "case-monitor-bot",
       "name": "case-monitor-bot",
-      "due": true,
-      "status": "completed",
+      "due": false,
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T04:41:32+00:00",
+      "completed_at": "2026-07-26T04:49:32+00:00",
       "error": null
     },
     {
       "id": "presidential-directives-bot",
       "name": "presidential-directives-bot",
-      "due": true,
-      "status": "completed",
+      "due": false,
+      "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T04:41:32+00:00",
+      "completed_at": "2026-07-26T04:49:32+00:00",
       "error": null
     },
     {
@@ -4220,7 +3902,7 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T04:41:32+00:00",
+      "completed_at": "2026-07-26T04:55:55+00:00",
       "error": null
     },
     {
@@ -4229,7 +3911,7 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T04:41:32+00:00",
+      "completed_at": "2026-07-26T04:55:55+00:00",
       "error": null
     },
     {
@@ -4238,13 +3920,13 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T04:41:32+00:00",
+      "completed_at": "2026-07-26T04:55:55+00:00",
       "error": null
     }
   ],
   "work_queue": {
     "path": "project-console-data:elim-work-queue.json",
-    "sha256": "sha256:42bb960a0617633efd262b929c104ffad510e232fc5968c25ae48449249d3ef7",
+    "sha256": "sha256:d679ba7895a24dee9932cd85b7626db125fa7d0450fa9b97dff9630e3246b9d0",
     "ready_for_elim": true,
     "launch_recommended": true,
     "counts": {
@@ -4258,7 +3940,7 @@
     "problems": [],
     "next_item": {
       "schema_version": 1,
-      "id": "COMPREHENSIVE-REVIEW-77c96a30b077",
+      "id": "COMPREHENSIVE-REVIEW-71c3352bc3a4",
       "kind": "comprehensive_review",
       "work_class": "periodic_review",
       "severity": "high",
@@ -4268,13 +3950,13 @@
       "exact_next_action": "Run the due comprehensive Review Epoch.",
       "required_context_profile": "comprehensive_review",
       "originating_stage": "review_epoch",
-      "source_identity": "epoch-arrp-20260726T043422Z",
-      "canonical_record_identity": "epoch-arrp-20260726T043422Z",
+      "source_identity": "epoch-arrp-20260726T044932Z",
+      "canonical_record_identity": "epoch-arrp-20260726T044932Z",
       "dependencies": [
         "review_epoch"
       ],
       "created_at": "2026-07-24T15:40:02+00:00",
-      "refreshed_at": "2026-07-26T04:41:32+00:00",
+      "refreshed_at": "2026-07-26T04:55:55+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4288,7 +3970,7 @@
       "reason": "governing_boundary_changed",
       "source": {
         "input": "review_epoch",
-        "epoch_id": "epoch-arrp-20260726T043422Z",
+        "epoch_id": "epoch-arrp-20260726T044932Z",
         "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
         "next_due_at": "2026-08-07T15:40:02+00:00",
         "due": true,
@@ -4365,13 +4047,13 @@
         },
         "unresolved_ids": []
       },
-      "source_revision": "179d8dbb5d6230e4cb709799be98f8532d0a21a7c79d252b54e84c3072bf5cad",
-      "freshness_timestamp": "2026-07-26T04:41:32+00:00",
-      "source_chain_id": "arrp-20260726T043422Z",
-      "source_commit": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-      "source_project_snapshot": "sha256:20f67246e4976b71221cb75f1c3c5d6ef6d76e07a1d1298e36e54935d6692ad7",
+      "source_revision": "08342e0f770dc0a4107e6468f04ef5c26660814b50daf0aefa8c2ea497809570",
+      "freshness_timestamp": "2026-07-26T04:55:55+00:00",
+      "source_chain_id": "arrp-20260726T044932Z",
+      "source_commit": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
+      "source_project_snapshot": "sha256:a2b4b98c47aac089baefa96e1df61048bc9a04f4e8f7a871e119848960a87d4c",
       "source_input_hashes": {
-        "review_epoch": "sha256:179d8dbb5d6230e4cb709799be98f8532d0a21a7c79d252b54e84c3072bf5cad"
+        "review_epoch": "sha256:08342e0f770dc0a4107e6468f04ef5c26660814b50daf0aefa8c2ea497809570"
       },
       "retry_state": {
         "state": "new",
@@ -4381,7 +4063,7 @@
       },
       "recovery": null
     },
-    "selected_work_item_id": "COMPREHENSIVE-REVIEW-77c96a30b077",
+    "selected_work_item_id": "COMPREHENSIVE-REVIEW-71c3352bc3a4",
     "governance_discovery": {
       "mode": "Project governance review and discovery",
       "ordinary_selection_policy": "after-ordinary-queue-clears",
@@ -4403,17 +4085,17 @@
   },
   "context_packet": {
     "path": "project-console-data:elim-context.json",
-    "sha256": "sha256:d49e35c001d0ed07ca70de86e68ef1128f6377641658e70af96093feb6033a25",
+    "sha256": "sha256:9810baf702373f327345d3a0bc649f80f9bf39339d5e2ac438889df615859d18",
     "profile": "comprehensive_review",
-    "work_item_id": "COMPREHENSIVE-REVIEW-77c96a30b077",
+    "work_item_id": "COMPREHENSIVE-REVIEW-71c3352bc3a4",
     "issue_id": null,
     "canonical_record": null,
     "selection": {
-      "work_item_id": "COMPREHENSIVE-REVIEW-77c96a30b077",
+      "work_item_id": "COMPREHENSIVE-REVIEW-71c3352bc3a4",
       "kind": "comprehensive_review",
       "canonical_record": null
     },
-    "repository_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+    "repository_revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
     "provenance_complete": true,
     "limits": {
       "max_bytes": 1000000,
