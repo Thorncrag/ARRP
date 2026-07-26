@@ -33,17 +33,36 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "active_incidents": 2,
       "incidents": [
         {
+          "incident_id": "incident-91c7ce76fe32a431",
+          "stage": "elim-isolated-checkout",
+          "failed_prerequisite": "elim-isolated-checkout",
+          "root_cause": "The isolated Elim checkout contains a prior unsynchronized baseline.",
+          "classification": "blocking",
+          "message": "The isolated Elim checkout contains a prior unsynchronized baseline.",
+          "occurrence_count": 6,
+          "first_seen": "2026-07-25T11:17:54+00:00",
+          "latest_seen": "2026-07-26T03:39:48+00:00",
+          "chain_ids": [
+            "arrp-20260726T033003Z",
+            "arrp-20260725T110820Z",
+            "arrp-20260725T114639Z",
+            "arrp-20260725T201420Z",
+            "arrp-20260725T214010Z",
+            "arrp-20260725T224436Z"
+          ],
+          "route": "automation"
+        },
+        {
           "incident_id": "incident-33588a859e02e349",
           "stage": "host-repository-preflight",
           "failed_prerequisite": "host-repository-preflight",
           "root_cause": "Canonical ARRP workspace is off main and not reconciled with GitHub.",
           "classification": "hold",
           "message": "Canonical ARRP workspace is off main and not reconciled with GitHub.",
-          "occurrence_count": 34,
+          "occurrence_count": 36,
           "first_seen": "2026-07-25T20:08:54+00:00",
-          "latest_seen": "2026-07-26T03:09:41+00:00",
+          "latest_seen": "2026-07-26T03:29:43+00:00",
           "chain_ids": [
-            "host-dispatch-20260726T030941Z",
             "host-dispatch-20260725T200854Z",
             "host-dispatch-20260725T210904Z",
             "host-dispatch-20260725T211905Z",
@@ -76,26 +95,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "host-dispatch-20260726T022939Z",
             "host-dispatch-20260726T023939Z",
             "host-dispatch-20260726T024940Z",
-            "host-dispatch-20260726T025941Z"
-          ],
-          "route": "automation"
-        },
-        {
-          "incident_id": "incident-91c7ce76fe32a431",
-          "stage": "elim-isolated-checkout",
-          "failed_prerequisite": "elim-isolated-checkout",
-          "root_cause": "The isolated Elim checkout contains a prior unsynchronized baseline.",
-          "classification": "blocking",
-          "message": "The isolated Elim checkout contains a prior unsynchronized baseline.",
-          "occurrence_count": 5,
-          "first_seen": "2026-07-25T11:17:54+00:00",
-          "latest_seen": "2026-07-25T22:49:21+00:00",
-          "chain_ids": [
-            "arrp-20260725T110820Z",
-            "arrp-20260725T114639Z",
-            "arrp-20260725T201420Z",
-            "arrp-20260725T214010Z",
-            "arrp-20260725T224436Z"
+            "host-dispatch-20260726T025941Z",
+            "host-dispatch-20260726T030941Z",
+            "host-dispatch-20260726T031942Z",
+            "host-dispatch-20260726T032943Z"
           ],
           "route": "automation"
         }
@@ -242,22 +245,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "integrity_findings": 0,
       "integrity_findings_available": true,
-      "source_checker_complete": false,
+      "source_checker_complete": true,
       "delivery_items": 12,
       "delivery_items_available": true,
       "domain_attention": [
         {
-          "domain": "source_checker",
-          "status": "stale",
-          "reason": "The feed does not completely cover its current authoritative source.",
-          "timestamp": "2026-07-24T14:14:17Z",
-          "route": "sources:assurance"
-        },
-        {
           "domain": "automation",
           "status": "attention",
           "reason": "The current run chain reports an active failure or hold.",
-          "timestamp": "2026-07-26T03:09:41+00:00",
+          "timestamp": "2026-07-26T03:39:48+00:00",
           "route": "automation"
         },
         {
@@ -573,7 +569,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "agents": {
       "registered": 7,
-      "last_chain_id": "host-dispatch-20260726T030941Z",
+      "last_chain_id": "arrp-20260726T033003Z",
       "chain_status": "failed"
     },
     "services": {
@@ -592,10 +588,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "workflow_url": "https://github.com/Thorncrag/ARRP/actions/workflows/presidential-directives-bot.yml"
       }
     },
-    "usage": null,
+    "usage": {
+      "hard_reserve_percent": 15,
+      "soft_run_target_percent": 10,
+      "remaining_percent": null,
+      "status": "unknown"
+    },
     "progress_summary": {
-      "generated_at": "2026-07-26T03:14:58+00:00",
-      "source_revision": "e3d7d42e0572576ad3103cecab249ed602990050",
+      "generated_at": "2026-07-26T03:49:39+00:00",
+      "source_revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
       "availability": "current",
       "ready": 27,
       "total": 81,
@@ -604,8 +605,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12
     },
     "integrity_summary": {
-      "generated_at": "2026-07-26T03:15:23+00:00",
-      "source_revision": "e3d7d42e0572576ad3103cecab249ed602990050",
+      "generated_at": "2026-07-26T03:50:23+00:00",
+      "source_revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
       "availability": "current",
       "result": "clean",
       "counts": {
@@ -617,10 +618,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       }
     },
     "automation_summary": {
-      "chain_id": "host-dispatch-20260726T030941Z",
+      "chain_id": "arrp-20260726T033003Z",
       "status": "failed",
-      "generated_at": "2026-07-26T03:09:41+00:00",
-      "stage_count": 0
+      "generated_at": "2026-07-26T03:39:48+00:00",
+      "stage_count": 6
     },
     "publication_summary": {
       "disposition_counts": {
@@ -633,23 +634,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "topic_product_count": 5
     },
     "source_checker_summary": {
-      "checked_at": "2026-07-24T14:14:17Z",
-      "source_revision": null,
-      "availability": "stale",
+      "checked_at": "2026-07-26T03:44:55+00:00",
+      "source_revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
+      "availability": "current",
       "expected_count": 2055,
-      "actual_count": 2048,
+      "actual_count": 2055,
       "counts": {
-        "access restricted": 772,
+        "access restricted": 774,
         "broken": 14,
         "identity mismatch": 3,
         "identity-preserving redirect": 95,
         "review required": 81,
         "transient failure": 9,
-        "verified": 1074
+        "verified": 1079
       }
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-7efc8e2257b5ac7897b7"
+    "overview.js": "project-console-ea9c7595795a119b767a"
   }
 });
