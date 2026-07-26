@@ -1,13 +1,13 @@
 {
   "schema_version": 2,
   "contract_schema_version": 1,
-  "generation_id": "project-integrity-934efcbbdb45645160ed",
-  "source_revision": "4988344eacd9eff78d2e93c270e8a6fcb7c16acc",
-  "generated_at": "2026-07-26T11:10:28+00:00",
+  "generation_id": "project-integrity-4da2a5bfe3df374830b6",
+  "source_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
+  "generated_at": "2026-07-26T12:18:37+00:00",
   "expected_count": 22,
   "actual_count": 22,
   "source_hashes": {
-    "integrity-report.json": "sha256:e41ffad34f88786661cdfa3422dcc62268f8dc1d9100730b4fbb292f79d346d2"
+    "integrity-report.json": "sha256:6daf47483b7a4d5b1608f01703154db318ab5d22225a9519da5150e5ac59c7b5"
   },
   "availability": "current",
   "completeness": {
@@ -35,8 +35,8 @@
   },
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-26T11:10:28+00:00",
-    "revision": "4988344eacd9eff78d2e93c270e8a6fcb7c16acc",
+    "generated_at": "2026-07-26T12:18:37+00:00",
+    "revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
     "result": "clean",
     "counts": {
       "errors": 0,
@@ -45,7 +45,7 @@
       "issue_pages": 64,
       "proposal_pages": 41
     },
-    "duration_seconds": 11.8,
+    "duration_seconds": 11.859,
     "scope": [
       "Issue and proposal structure, including Issue Snapshot concision",
       "Area and topic routing",
@@ -73,6 +73,19 @@
     "findings": []
   },
   "history": [
+    {
+      "generated_at": "2026-07-26T12:18:37+00:00",
+      "revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
+      "result": "clean",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "findings": 0,
+        "issue_pages": 64,
+        "proposal_pages": 41
+      },
+      "duration_seconds": 11.859
+    },
     {
       "generated_at": "2026-07-26T11:10:28+00:00",
       "revision": "4988344eacd9eff78d2e93c270e8a6fcb7c16acc",
@@ -449,19 +462,6 @@
         "proposal_pages": 41
       },
       "duration_seconds": 12.04
-    },
-    {
-      "generated_at": "2026-07-25T01:05:56+00:00",
-      "revision": "0ad64bcdc8d51be8a329618df3316974c746c0d8",
-      "result": "clean",
-      "counts": {
-        "errors": 0,
-        "warnings": 0,
-        "findings": 0,
-        "issue_pages": 64,
-        "proposal_pages": 41
-      },
-      "duration_seconds": 10.372
     }
   ]
 }
