@@ -3,7 +3,7 @@
   "cloud_status": null,
   "elim_runtime": {
     "chain_id": "arrp-20260726T140914Z",
-    "completed_at": "2026-07-26T19:23:26+00:00",
+    "completed_at": "2026-07-26T19:31:17+00:00",
     "details": "Elim completed; trusted-host recovery revalidated the prepared commit, checked pull request, and exact merged boundary.",
     "exit_code": 0,
     "id": "elim",
@@ -12,7 +12,7 @@
   },
   "exit_code": 0,
   "host_status": "completed",
-  "host_updated_at": "2026-07-26T19:23:26+00:00",
+  "host_updated_at": "2026-07-26T19:31:17+00:00",
   "message": "Elim's exact prepared host commit was recovered through its checked pull request and verified at the merged origin/main boundary.",
   "next_action": "Use the next current chain for ordinary queue evaluation.",
   "projection_kind": "host-run-status",
@@ -20,31 +20,8 @@
   "source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
   "stage": "elim-closeout-recovery",
   "status": "completed",
-  "updated_at": "2026-07-26T19:23:26+00:00",
+  "updated_at": "2026-07-26T19:31:17+00:00",
   "usage_status": "available",
   "work_item_id": "COMPREHENSIVE-REVIEW-1afaea17f530",
-  "host_action_items": [
-    {
-      "chain_id": "arrp-20260726T140914Z",
-      "chain_ids": [
-        "arrp-20260726T140914Z"
-      ],
-      "created_at": "2026-07-26T14:44:38+00:00",
-      "details": "elim-execution was interrupted; the child process group was confirmed stopped and preserved evidence requires review.",
-      "failure_count": 1,
-      "first_chain_id": "arrp-20260726T140914Z",
-      "first_seen": "2026-07-26T14:44:38+00:00",
-      "id": "automation-failure-50f70b93f0e97dc8c5db",
-      "incident_fingerprint": "c11194ad5615b6e14f8b",
-      "kind": "automation_failure",
-      "last_chain_id": "arrp-20260726T140914Z",
-      "last_seen": "2026-07-26T14:44:38+00:00",
-      "next_action": "Inspect the preserved isolated checkout, JSONL output, Elim task, usage attestation, and CURRENT_AUDIT checkpoint before retrying.",
-      "occurrence_count": 1,
-      "owner": "human",
-      "resolved": false,
-      "stage": "elim-execution",
-      "summary": "ARRP run chain requires attention."
-    }
-  ]
+  "host_action_items": []
 }
