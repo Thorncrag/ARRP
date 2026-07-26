@@ -444,14 +444,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   ],
   "run_chain": {
     "schema_version": 1,
-    "chain_id": "host-dispatch-20260726T022939Z",
+    "chain_id": "host-dispatch-20260726T024940Z",
     "stages": [],
     "work_queue": null,
     "context_packet": null,
     "action_items": [],
     "status": "failed",
-    "updated_at": "2026-07-26T02:29:39+00:00",
-    "completed_at": "2026-07-26T02:29:39+00:00",
+    "updated_at": "2026-07-26T02:49:40+00:00",
+    "completed_at": "2026-07-26T02:49:40+00:00",
     "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
     "failures": [
       {
@@ -459,7 +459,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "classification": "blocking",
         "message": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "exit_code": 1,
-        "recorded_at": "2026-07-26T02:29:39+00:00"
+        "recorded_at": "2026-07-26T02:49:40+00:00"
       }
     ],
     "host_action_items": [
@@ -1121,6 +1121,32 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
         "resolved": false
+      },
+      {
+        "id": "automation-failure-c44e3b9b45a0b76f5309",
+        "chain_id": "host-dispatch-20260726T023939Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:39:39+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": false
+      },
+      {
+        "id": "automation-failure-cb8c1e4fd9557ac0059c",
+        "chain_id": "host-dispatch-20260726T024940Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:49:40+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": false
       }
     ],
     "last_successful_stages": [
@@ -1235,6 +1261,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ]
   },
   "domain_generation": {
-    "automation.js": "project-console-15af9c2e124d5ff3afeb"
+    "automation.js": "project-console-1d6aef983851e86dd50d"
   }
 });
