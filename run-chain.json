@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260726T032601Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30186152407",
+  "chain_id": "arrp-20260726T033003Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30186255571",
   "trigger": "push",
   "llm_launch_allowed": false,
   "llm_launch_trigger": "push",
-  "created_at": "2026-07-26T03:26:01+00:00",
-  "updated_at": "2026-07-26T03:27:18+00:00",
+  "created_at": "2026-07-26T03:30:03+00:00",
+  "updated_at": "2026-07-26T03:31:20+00:00",
   "status": "complete",
-  "baseline_commit": "6982dd06680b2846464f13142311c9e4b3774f92",
+  "baseline_commit": "2681f26ce7a71dc551bc01a17b5c9ff243aaf3c1",
   "resume": {
     "count": 0,
     "from_run_id": null
@@ -18,12 +18,12 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260726T032601Z"
+    "owner_chain_id": "arrp-20260726T033003Z"
   },
   "repository": {
     "branch": "main",
-    "head": "6982dd06680b2846464f13142311c9e4b3774f92",
-    "origin_main": "6982dd06680b2846464f13142311c9e4b3774f92",
+    "head": "2681f26ce7a71dc551bc01a17b5c9ff243aaf3c1",
+    "origin_main": "2681f26ce7a71dc551bc01a17b5c9ff243aaf3c1",
     "clean": true,
     "dirty_paths": [],
     "dirty_path_count": 0,
@@ -76,7 +76,7 @@
       "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T03:26:01+00:00",
+      "completed_at": "2026-07-26T03:30:03+00:00",
       "last_success_at": "2026-07-25T04:17:45+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -92,7 +92,7 @@
       "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T03:26:01+00:00",
+      "completed_at": "2026-07-26T03:30:03+00:00",
       "last_success_at": "2026-07-25T04:17:45+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -108,7 +108,7 @@
       "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T03:26:01+00:00",
+      "completed_at": "2026-07-26T03:30:03+00:00",
       "last_success_at": "2026-07-24T14:20:28+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -124,15 +124,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T03:27:16+00:00",
-      "last_success_at": "2026-07-26T03:27:16+00:00",
+      "completed_at": "2026-07-26T03:31:17+00:00",
+      "last_success_at": "2026-07-26T03:31:17+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:ae240e6de3c5b9be5d891065cb85217df268ae9576697b7b21c4bdf49c7e5f14"
+        "sha256": "sha256:6bfea06092ce0ba3227d42de4e69983a9c4a3a7ec79256c64224e0f5f5963a4f"
       },
       "work_count": 0
     },
@@ -144,15 +144,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T03:27:16+00:00",
-      "last_success_at": "2026-07-26T03:27:16+00:00",
+      "completed_at": "2026-07-26T03:31:17+00:00",
+      "last_success_at": "2026-07-26T03:31:17+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:441e41f5e8052df3f26ce0e0dd42f7f1ceacd7b3dd65cf2c77c32b2a457b6461"
+        "sha256": "sha256:b78fe0be84d92d4cb26fc39bc0e2a12dc8891f004302f4791cecd6ce518622d2"
       },
       "work_count": 0
     },
@@ -164,15 +164,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T03:27:16+00:00",
-      "last_success_at": "2026-07-26T03:27:16+00:00",
+      "completed_at": "2026-07-26T03:31:17+00:00",
+      "last_success_at": "2026-07-26T03:31:17+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:378176761547ad36d39417c425b31c760bb55765aa0d41875ce590501e891ff3"
+        "sha256": "sha256:4b5455b8872b7a1a2e522d83bd8fa4efce19edcd0209019a314c26c97c75c63f"
       },
       "work_count": 0
     }
@@ -197,7 +197,7 @@
       "model": "gpt-5.6-sol",
       "reasoning_effort": "xhigh",
       "full_context": true,
-      "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-2f4c163996f8 and context profile comprehensive_review."
+      "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-2983a932ba80 and context profile comprehensive_review."
     }
   },
   "review_epoch": {
@@ -289,8 +289,8 @@
   },
   "next_action": "No Elim launch; wait for the next trigger.",
   "action_items": [],
-  "completed_at": "2026-07-26T03:27:16+00:00",
-  "final_revision": "6982dd06680b2846464f13142311c9e4b3774f92",
+  "completed_at": "2026-07-26T03:31:17+00:00",
+  "final_revision": "2681f26ce7a71dc551bc01a17b5c9ff243aaf3c1",
   "bots": [
     {
       "id": "case-monitor-bot",
@@ -298,7 +298,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T03:26:01+00:00",
+      "completed_at": "2026-07-26T03:30:03+00:00",
       "error": null
     },
     {
@@ -307,7 +307,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T03:26:01+00:00",
+      "completed_at": "2026-07-26T03:30:03+00:00",
       "error": null
     },
     {
@@ -316,7 +316,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T03:26:01+00:00",
+      "completed_at": "2026-07-26T03:30:03+00:00",
       "error": null
     },
     {
@@ -325,7 +325,7 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T03:27:16+00:00",
+      "completed_at": "2026-07-26T03:31:17+00:00",
       "error": null
     },
     {
@@ -334,13 +334,13 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T03:27:16+00:00",
+      "completed_at": "2026-07-26T03:31:17+00:00",
       "error": null
     }
   ],
   "work_queue": {
     "path": "project-console-data:elim-work-queue.json",
-    "sha256": "sha256:e436aa25bd129db50d09a34114322675e7a165e3d6c010e89c58c7e2ef7d922e",
+    "sha256": "sha256:cb5cc90bf5ec437b842a65b7658594615b9c6c4a195b65068ebdcce766faa922",
     "ready_for_elim": true,
     "launch_recommended": true,
     "counts": {
@@ -354,7 +354,7 @@
     "problems": [],
     "next_item": {
       "schema_version": 1,
-      "id": "COMPREHENSIVE-REVIEW-2f4c163996f8",
+      "id": "COMPREHENSIVE-REVIEW-2983a932ba80",
       "kind": "comprehensive_review",
       "work_class": "periodic_review",
       "severity": "high",
@@ -364,13 +364,13 @@
       "exact_next_action": "Run the due comprehensive Review Epoch.",
       "required_context_profile": "comprehensive_review",
       "originating_stage": "review_epoch",
-      "source_identity": "epoch-arrp-20260726T032601Z",
-      "canonical_record_identity": "epoch-arrp-20260726T032601Z",
+      "source_identity": "epoch-arrp-20260726T033003Z",
+      "canonical_record_identity": "epoch-arrp-20260726T033003Z",
       "dependencies": [
         "review_epoch"
       ],
       "created_at": "2026-07-24T15:40:02+00:00",
-      "refreshed_at": "2026-07-26T03:27:16+00:00",
+      "refreshed_at": "2026-07-26T03:31:17+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -384,7 +384,7 @@
       "reason": "governing_boundary_changed",
       "source": {
         "input": "review_epoch",
-        "epoch_id": "epoch-arrp-20260726T032601Z",
+        "epoch_id": "epoch-arrp-20260726T033003Z",
         "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
         "next_due_at": "2026-08-07T15:40:02+00:00",
         "due": true,
@@ -461,13 +461,13 @@
         },
         "unresolved_ids": []
       },
-      "source_revision": "518b1a5f6ed88adb453e6ebd36cbc796da1e9ee28661bcfb30ada9e4feefde2f",
-      "freshness_timestamp": "2026-07-26T03:27:16+00:00",
-      "source_chain_id": "arrp-20260726T032601Z",
-      "source_commit": "6982dd06680b2846464f13142311c9e4b3774f92",
-      "source_project_snapshot": "sha256:ae240e6de3c5b9be5d891065cb85217df268ae9576697b7b21c4bdf49c7e5f14",
+      "source_revision": "c4daeb8f764b6fc718740b5545eb8b14dbe68e7ee48d9f5219fe2d5b5f5162f9",
+      "freshness_timestamp": "2026-07-26T03:31:17+00:00",
+      "source_chain_id": "arrp-20260726T033003Z",
+      "source_commit": "2681f26ce7a71dc551bc01a17b5c9ff243aaf3c1",
+      "source_project_snapshot": "sha256:6bfea06092ce0ba3227d42de4e69983a9c4a3a7ec79256c64224e0f5f5963a4f",
       "source_input_hashes": {
-        "review_epoch": "sha256:518b1a5f6ed88adb453e6ebd36cbc796da1e9ee28661bcfb30ada9e4feefde2f"
+        "review_epoch": "sha256:c4daeb8f764b6fc718740b5545eb8b14dbe68e7ee48d9f5219fe2d5b5f5162f9"
       },
       "retry_state": {
         "state": "new",
@@ -477,7 +477,7 @@
       },
       "recovery": null
     },
-    "selected_work_item_id": "COMPREHENSIVE-REVIEW-2f4c163996f8",
+    "selected_work_item_id": "COMPREHENSIVE-REVIEW-2983a932ba80",
     "governance_discovery": {
       "mode": "Project governance review and discovery",
       "ordinary_selection_policy": "after-ordinary-queue-clears",
@@ -499,17 +499,17 @@
   },
   "context_packet": {
     "path": "project-console-data:elim-context.json",
-    "sha256": "sha256:9870d16205ca5a4c28fd595d1c44070377a6c0e5a6772d702d400d62830428f9",
+    "sha256": "sha256:25cdffba35368d85e072a55a66a4acb0e67b84c754f3f98ec6b7f6704da30be1",
     "profile": "comprehensive_review",
-    "work_item_id": "COMPREHENSIVE-REVIEW-2f4c163996f8",
+    "work_item_id": "COMPREHENSIVE-REVIEW-2983a932ba80",
     "issue_id": null,
     "canonical_record": null,
     "selection": {
-      "work_item_id": "COMPREHENSIVE-REVIEW-2f4c163996f8",
+      "work_item_id": "COMPREHENSIVE-REVIEW-2983a932ba80",
       "kind": "comprehensive_review",
       "canonical_record": null
     },
-    "repository_revision": "6982dd06680b2846464f13142311c9e4b3774f92",
+    "repository_revision": "2681f26ce7a71dc551bc01a17b5c9ff243aaf3c1",
     "provenance_complete": true,
     "limits": {
       "max_bytes": 1000000,
