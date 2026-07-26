@@ -381,6 +381,74 @@ test("malformed Source Checker and Progress feeds fail runtime validation", () =
   }).valid, false);
 });
 
+test("independent cloud-health and host-status payloads validate", () => {
+  const { api } = loadApi();
+  assert.equal(api.validateLivePayload("automation-health", {
+    schema_version: 1,
+    projection_kind: "cloud-automation-health",
+    chain_id: "cloud-run-123",
+    workflow_run_id: "123",
+    status: "failed",
+    updated_at: "2026-07-26T08:45:00Z"
+  }).valid, true);
+  assert.equal(api.validateLivePayload("host-status", {
+    schema_version: 1,
+    projection_kind: "host-run-status",
+    chain_id: "arrp-20260726T064933Z",
+    host_status: "failed",
+    host_updated_at: "2026-07-26T08:43:00Z",
+    stage: "elim-isolated-checkout"
+  }).valid, true);
+  assert.equal(api.validateLivePayload("host-status", {
+    schema_version: 1,
+    projection_kind: "host-run-status",
+    chain_id: "arrp-20260726T064933Z",
+    host_status: "failed",
+    host_updated_at: "not-a-timestamp",
+    stage: "elim-isolated-checkout"
+  }).valid, false);
+});
+
+test("newer published host state controls the final chain outcome while retaining cloud state", () => {
+  const { api } = loadApi();
+  const cloud = api.reconcileRunChainSnapshot({}, {
+    schema_version: 1,
+    chain_id: "arrp-20260726T064933Z",
+    status: "complete",
+    updated_at: "2026-07-26T06:56:00Z",
+    elim_decision: { launch_recommended: true },
+    failures: []
+  }, "cloud");
+  assert.equal(cloud.status, "host_pending");
+  assert.equal(cloud.cloud_status, "complete");
+
+  const failedHost = api.reconcileRunChainSnapshot(cloud, {
+    schema_version: 1,
+    projection_kind: "host-run-status",
+    chain_id: "arrp-20260726T064933Z",
+    host_status: "failed",
+    host_updated_at: "2026-07-26T08:43:00Z",
+    stage: "elim-isolated-checkout",
+    host_action_items: [{ id: "incident-1", resolved: false }]
+  }, "host");
+  assert.equal(failedHost.status, "failed");
+  assert.equal(failedHost.host_status, "failed");
+  assert.equal(failedHost.cloud_status, "complete");
+  assert.equal(failedHost.status_source, "published-host");
+  assert.equal(failedHost.host_action_items.length, 1);
+
+  const olderHost = api.reconcileRunChainSnapshot(failedHost, {
+    schema_version: 1,
+    projection_kind: "host-run-status",
+    chain_id: "arrp-20260726T064933Z",
+    host_status: "running",
+    host_updated_at: "2026-07-26T08:00:00Z",
+    stage: "elim-launch"
+  }, "host");
+  assert.equal(olderHost.status, "failed");
+  assert.equal(olderHost.host_updated_at, "2026-07-26T08:43:00Z");
+});
+
 test("delivery aliases remain separate from proposal metrics", () => {
   const { api, data } = loadApi();
   data.progress = {

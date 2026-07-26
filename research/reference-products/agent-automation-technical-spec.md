@@ -1,8 +1,8 @@
 ---
 title: "ARRP Persistent Automation — Technical Specification and Traceability Map"
 status: non-authoritative-reference
-version: "1.3"
-as_of: "2026-07-25"
+version: "1.4"
+as_of: "2026-07-26"
 implementation_baseline: "render-time Git revision; see generated PDF cover"
 print_status: excluded
 print_exclusion_reason: "Nonauthoritative internal reference product."
@@ -12,7 +12,7 @@ print_exclusion_reason: "Nonauthoritative internal reference product."
 
 ## Technical Specification and Traceability Map
 
-**Version 1.3 - July 25, 2026**
+**Version 1.4 - July 26, 2026**
 
 **NON-AUTHORITATIVE REFERENCE PRODUCT**
 
@@ -273,7 +273,7 @@ A due comprehensive-review unit overrides ordinary eligible work and forces the 
 The local dispatcher:
 
 1. acquires the operating-system lease;
-2. fetches `origin/main`, requires the canonical checkout to be on `main` with local `HEAD` exactly equal that revision, automatically commits and fast-forward pushes ordinary uncommitted paths before deferring to the next poll, then verifies that the local dispatcher runtime byte-matches the synchronized revision and creates or refreshes the isolated Elim workspace;
+2. quarantines only tightly allowlisted Finder-style duplicate Git metadata and numbered project-tree copies that map exactly to files tracked at `HEAD`, retains their hashes and bounded history, removes a detected copy from any newly staged boundary, verifies canonical state, and fails closed on unknown or repeatedly regenerated artifacts; then fetches `origin/main`, requires the canonical checkout to be on `main` with local `HEAD` exactly equal that revision, automatically commits and fast-forward pushes ordinary uncommitted paths before deferring to the next poll, verifies that the local dispatcher runtime byte-matches the synchronized revision, creates or refreshes the isolated Elim workspace, and immediately persists the verified clean checkout head before any later launch decision;
 3. downloads or retrieves the matching manifest and exact deterministic inputs;
 4. mirrors the manifest, inputs, queue, context, usage, and result paths into the isolated checkout;
 5. independently rehashes the inputs and rebuilds the queue and packet there, applying current user overrides and durable recovery state before final selection;
@@ -291,6 +291,18 @@ The local dispatcher:
 
 GitHub Actions never launches Codex. The approved local dispatcher is the only LLM launch boundary.
 
+#### 7.4.1 Independent automation-health projection
+
+The ordinary `run-chain.json` publication occurs near the end of the cloud chain and therefore cannot be the sole evidence of whether that chain failed. `.github/workflows/automation-health-projection.yml` is a separate workflow with three independent observation paths:
+
+1. `workflow_run: completed` publishes `automation-health.json` for every Run Coordinator conclusion, including failure, cancellation, timeout, or startup failure before a current Chain Manifest was guaranteed;
+2. a `47 10 * * *` UTC watchdog queries the latest scheduled coordinator run and publishes a failed heartbeat when no scheduled run exists, the latest scheduled run is unsuccessful, or it is more than 18 hours old; and
+3. a minimized trusted-host `repository_dispatch` event of type `arrp-host-status` publishes `host-status.json` at running, launch-deferred, not-launched, accounted-closeout, and terminal-failure boundaries without running Elim or rebuilding the Console.
+
+The Console requests `run-chain.json`, `automation-health.json`, and `host-status.json` with independent acceptance. A failed request or invalid payload does not block an otherwise valid feed. For the same Chain ID, cloud-stage state is retained while the newer validated host projection controls the final host and Elim status. The data-branch publisher retries bounded non-fast-forward races so concurrent health, host, and ordinary feed publication do not lose unrelated branch files.
+
+The host still writes `.tmp/run-chain.json`, bounded history, control state, and a macOS notification when remote status dispatch fails. Identical prerequisite failures consolidate under one unresolved incident with occurrence count and retained Chain IDs. A later poll may resolve that incident automatically only after directly proving the exact routine prerequisite healthy; this proof is appended to Action Item history. A newer generally healthy chain cannot close an unrelated incident or a human-reserved decision.
+
 ### 7.5 Host activation and Elim task lifecycle
 
 The repository contains reviewed launchd templates. The installed dispatcher job polls every 600 seconds with `--launch-codex`; the control service starts at login and remains available on the localhost port. Installed plists live outside Git and are host state, not project authority. A local health check must therefore distinguish the reviewed template, the installed configuration, whether the job is loaded, whether a process is currently live, its last exit status, and the latest successful Chain ID.
@@ -307,6 +319,9 @@ The following table identifies the actual entry points. A trigger does not bypas
 | Public-submission or administrative repository event | GitHub receives `repository_dispatch` type `arrp-public-submission` or `arrp-run-chain` and invokes the same workflow. | The workflow event, privacy-minimized intake signal, chain plan, and ordinary stage artifacts. | Yes, only when the event is authorized and the finalized queue contains eligible LLM work. |
 | Manual GitHub dispatch | A human or the host invokes `workflow_dispatch`; the host uses `gh workflow run run-coordinator-bot.yml --repo Thorncrag/ARRP --ref main` with reviewed boolean fields when applicable. | One GitHub Actions run and its ordinary chain artifacts. | Yes, after all gates. |
 | Push to `main` | GitHub invokes the same workflow from the `push` event. | Deterministic progress, integrity, queue, input, and manifest projections. | No. The manifest records that the push is deterministic-only. |
+| Coordinator workflow conclusion | GitHub invokes `.github/workflows/automation-health-projection.yml` through `workflow_run: completed`. | `project-console-data/automation-health.json` and its Actions run. | None. It reports cloud health even when the ordinary chain never published its final projection. |
+| Daily health watchdog | GitHub invokes the independent health workflow at `47 10 * * *` UTC. | Latest scheduled and latest overall coordinator-run metadata; `automation-health.json`. | None. It detects a missing, unsuccessful, or stale daily chain. |
+| Trusted-host status event | The dispatcher sends `repository_dispatch` type `arrp-host-status` with one bounded schema-validated status object. | `project-console-data/host-status.json` and local dispatch evidence in `control.json`. | None. It reports host state without launching Elim. |
 | Installed host poll | macOS launchd runs `/opt/homebrew/bin/python3 /Users/benjaminsmith/Documents/ARRP/scripts/run_chain_dispatcher.py --launch-codex` every 600 seconds. | Host lease, local control and history, downloaded or fetched manifest, verified inputs, and launch state. | It may consume an already completed authorized chain. It does not manufacture one. |
 | Local Console request | The Console sends an authenticated `POST` to `http://127.0.0.1:8766/v1/control`; `scripts/run_coordinator_control.py` writes the request transactionally to `.tmp/run-coordinator/control.json`. | `control.lock`, `control.json`, the bounded request history, and possibly an override or Action Item resolution. | No immediate launch. The next dispatcher poll evaluates the request and, when appropriate, dispatches a fresh cloud chain. |
 | Direct host maintenance | An operator may run `run_chain_dispatcher.py --trigger-chain --launch-codex`, `--recover-stale-lock-only`, or `--archive-reconciled-checkout CHAIN_ID`. | The ordinary host lease plus only the state allowed by the selected maintenance mode. | Only `--trigger-chain --launch-codex` may reach the normal conditional launch path. Recovery and archive modes never launch Elim. |
@@ -330,7 +345,7 @@ This ledger follows one ordinary chain from trigger through release. “Invoked�
 | 8 | Cloud close - Run Coordinator Bot | `run_coordinator.py finalize`, `build_elim_work_queue.py`, `select_elim_context_route.py`, `build_elim_context.py`, and `run_coordinator.py attach-context`. | Stage results, exact successful watcher artifacts, preserved inputs, queue selection, context packet, hashes, and launch recommendation are bound under one Chain ID and published as the `run-chain-manifest` artifact and data-branch projection. No Codex process exists yet. |
 | 9 | Host acquisition - run-chain dispatcher | The launchd command or a manual dispatcher command loads the reviewed config, acquires `host-dispatch.lock`, starts the owner heartbeat, and transactionally loads `control.json`. | One host process exclusively owns the dispatcher lease. |
 | 10 | Host preflight and manifest retrieval - run-chain dispatcher | The dispatcher fetches `origin/main` and requires the canonical checkout to be on `main` at the exact fetched revision. If ordinary uncommitted paths remain, it rejects conflicts or staged diff-check failure, commits the complete workspace under the coordinator identity, fast-forward pushes and reads it back, then exits until the next poll. Otherwise it verifies the byte-for-byte automation runtime and either uses `gh run watch` and `gh run download` for a newly dispatched run or fetches the current data-branch manifest. It never auto-merges, rebases, switches, resets, force-pushes, or resolves divergent history. | The user workspace and chain baseline both equal reviewed `origin/main`, the Chain ID is neither consumed nor terminally failed, and every fetched projection matches its recorded hash. |
-| 11 | Isolated workspace preparation - run-chain dispatcher | The dispatcher creates or advances the full checkout with reviewed `/usr/bin/git` clone, fetch, and detached-switch operations; it rejects a dirty, divergent, or unsafe checkout. | `.tmp/run-coordinator/elim-checkout` is clean, contains its own `.git` directory, and equals the manifest baseline. |
+| 11 | Isolated workspace preparation - run-chain dispatcher | The dispatcher creates or advances the full checkout with reviewed `/usr/bin/git` clone, fetch, and detached-switch operations; it rejects a dirty, divergent, or unsafe checkout and transactionally persists the verified exact head before continuing. | `.tmp/run-coordinator/elim-checkout` is clean, contains its own `.git` directory, equals the manifest baseline, and has a reusable safe-head attestation even if a later launch decision defers. |
 | 12 | Local queue and context rebuild - run-chain dispatcher | Inside the isolated checkout, the host reruns `build_elim_work_queue.py`, `select_elim_context_route.py`, `build_elim_context.py`, and `run_coordinator.py attach-context` against copied verified inputs, local recovery state, pending run-log reconciliation, and locked user overrides. | The exact locally controlled selection and packet are rebound to the manifest. A control-state change after selection forces a fresh evaluation. |
 | 13 | Usage preflight - run-chain dispatcher and usage checker | The host runs `check_codex_usage_reserve.py --reserve-percent 15 --soft-target-percent 10 --run-baseline-id INVOCATION_ID`; it writes the unique baseline and host attestation. | Every applicable window is readable and above the reserve, or the chain stops before Elim. |
 | 14 | Final launch decision - run-chain dispatcher | The host reruns `run_coordinator.py finalize` with the official remaining percentage and applies the trigger boundary. | A clean, deterministic-only, blocked-only, or ineligible queue closes without a model turn. Only an eligible, authorized, current unit proceeds. |
@@ -342,6 +357,8 @@ This ledger follows one ordinary chain from trigger through release. “Invoked�
 | 20 | Terminal accounting and release - run-chain dispatcher | The host verifies the terminal result again, updates recovery or reconciliation state, writes host runtime and bounded history, consumes the request, persists `control.json`, and sends any required macOS notification. It then deletes the matching owner record and unlocks the lease in `finally`. | The chain is completed, human-review, usage-stopped, blocked, failed, not-launched, or launch-deferred with an exact next action. No lock or `Open` checkpoint is silently treated as success. |
 
 The proposed changes produced by watcher bots may outlive this chain on their dedicated pull requests. Their later human merge, accepted source-domain event, and event-specific log-rendering pull request form a separate acceptance transaction; the original chain does not wait while a human reviews them.
+
+The independent automation-health workflow is deliberately not another numbered step in this transaction. Its workflow-conclusion trigger can run after any cloud conclusion, its watchdog can detect absence of a current transaction, and its host-status trigger can run before or after Elim. Requiring step 8 or step 20 to succeed before health publication would recreate the failure-observability defect this path exists to prevent.
 
 ### 7.8 Per-phase file and state ledger
 
@@ -357,6 +374,7 @@ The proposed changes produced by watcher bots may outlive this chain on their de
 | Public intake collector | Prior `project-console-data/intake.json`; public Discussion comments; `research/intake-review-ledger.jsonl`; `research/intake-action-ledger.jsonl`. | `$RUNNER_TEMP/arrp-intake/intake.json`; `project-console-data/intake.json`. It does not write either ledger. | Actions, current intake feed, and Chain Manifest. Elim later owns assessment and action ledgers. |
 | Project Integrity Bot | Repository and GitHub surfaces named in its runbook; prior `project-console-data/integrity.json`. | `$RUNNER_TEMP/integrity-report.json`; `$RUNNER_TEMP/arrp-project-integrity/integrity.json`; `project-console-data/integrity.json`; `framework/logs/PROJECT_INTEGRITY_REPORT.md` only on `bot/project-integrity-report`; review PR. | Actions, current feed and bounded history, Chain Manifest, and replaceable report proposal. |
 | Cloud close and context gateway | Plan artifact; exact selected watcher artifacts; current integrity, progress, intake, source, recovery, and Review Epoch inputs. | Runner-temporary `stage-results.json`; `arrp-run-chain/run-chain.json`; `elim-work-queue.json`; optional `elim-context.json`; `inputs/{integrity,progress,intake,source-checker,case-monitor,presidential-directives,recovery,review-epoch,chain}.json`; matching files on `project-console-data`; 30-day `run-chain-manifest` artifact. | Completed Chain Manifest, Actions summary, data-branch current projection, and preserved hashes. |
+| Independent automation health | Completed Run Coordinator metadata, latest scheduled and overall workflow metadata, or one minimized trusted-host status event. | Runner-temporary health or host-status JSON; `project-console-data/automation-health.json`; `project-console-data/host-status.json`. | Separate Actions run, data-branch commit, and host-local dispatch result. It does not depend on ordinary cloud close or Elim closeout. |
 | Host bootstrap and control | `.github/run-coordinator-bot.json`; `.tmp/run-coordinator/control.json`; fixed executable paths; canonical Git state. | `.tmp/run-coordinator/host-dispatch.lock`; `host-dispatch.lock.owner.json` while held; `control.lock`; transactional `control.json`; `launchd.out.log`; `launchd.err.log`; bootstrap failures under `.tmp/run-coordinator/bootstrap-failures/` when needed. | Owner heartbeat while live; launchd diagnostics; control state; host failure artifacts. |
 | Host manifest and verified-input retrieval | Cloud `run-chain-manifest` artifact or `project-console-data/run-chain.json`; data-branch queue and inputs. | `.tmp/run-coordinator/latest-run-chain.json` or `.tmp/run-coordinator/ACTIONS_RUN_ID/`; `.tmp/run-coordinator/CHAIN_ID/elim-work-queue.json`; `.tmp/run-coordinator/CHAIN_ID/inputs/*.json`; `.tmp/run-chain.json` local current projection. | Local projection and bounded `run-chain-history.json`; cloud hashes remain the source binding. |
 | Isolated checkout and local rebuild | Approved origin; verified host downloads; `.tmp/run-coordinator/elim-recovery.json`; `.tmp/run-coordinator/elim-run-log-reconciliation.json`; user overrides in `control.json`. | `.tmp/run-coordinator/elim-checkout/` and its private `.git`; inside it, `.tmp/run-coordinator/CHAIN_ID/run-chain.json`, `elim-work-queue.json`, optional `elim-context.json`, `completed-stage-results.json`, and `inputs/` including `recovery-effective.json`, `run-log-reconciliation.json`, and `user-overrides.json`. | Host preflight and manifest hashes; no project log entry merely for rebuilding. |
@@ -439,11 +457,11 @@ The workspace-write model does not stage, branch, commit, push, or create a pull
 | `failed` | The stage or host operation did not satisfy its contract. | Stop dependent work, preserve evidence, alert, and retry or route. |
 | `blocked` | The overall chain, host, work unit, or Elim continuation has a known prerequisite or human action preventing safe progress; deterministic stages do not synthesize this state. | Preserve exact blocker and next action; do not cycle silently. |
 
-Retries are bounded. Case, directive, source, progress, and integrity stages may make at most two total attempts when due; public intake makes one. A retry does not erase the first attempt. Repeated failure becomes a human Action Item rather than an infinite loop.
+Retries are bounded. Case, directive, source, progress, and integrity stages may make at most two total attempts when due; public intake makes one. A retry does not erase the first attempt. Repeated observations of one failure consolidate under a stable Action Item with occurrence count and retained Chain IDs rather than creating an infinite loop or an unbounded managerial list.
 
 A pre-Elim interruption is a coordinator failure, not an Elim run. An interruption after the Codex process begins is an Elim failure even when it performed useful read-only analysis. JSONL messages and an open handoff are incomplete evidence, not an applied result.
 
-After the dispatcher establishes and owns its local control boundary, every terminal failure—including dirty isolated workspace, non-current revision, missing authentication, manifest/hash mismatch, usage unavailability, invalid result, failed synchronization, or Review Epoch omission—updates local health state, retains an unresolved Action Item, and notifies the user. Action Items have stable identities and explicit resolution records. An authenticated local human resolution may close one after review; a newer or healthy Chain ID must not silently delete, close, or conceal it.
+After the dispatcher establishes and owns its local control boundary, every terminal failure—including dirty isolated workspace, non-current revision, missing authentication, manifest/hash mismatch, usage unavailability, invalid result, failed synchronization, or Review Epoch omission—updates local health state, retains an unresolved Action Item, dispatches the independent host projection, and notifies the user. Action Items have stable identities and explicit resolution records. An authenticated local human resolution may close one after review. The dispatcher may close a routine prerequisite incident only when it later proves that exact prerequisite healthy and records the proof; a merely newer or generally healthy Chain ID must not silently delete, close, or conceal an unrelated failure or human-reserved decision.
 
 Resolving an Action Item does not itself make a dirty checkout reusable. The separate archive operation re-verifies canonical report evidence and local reconciliation state under the dispatcher lease; if any predicate fails, the original checkout remains untouched.
 
@@ -639,6 +657,7 @@ The macOS Keychain owns GitHub CLI credentials for host work. GitHub Actions use
 | `.tmp/run-coordinator/elim-run-log-reconciliation.json` | Bounded obligations for launched Elim invocations that lack verified canonical run reports. | Host-local recovery state; never a substitute for the Run Log. |
 | `.tmp/run-coordinator/reconciled-checkouts/` | Full dirty Elim checkouts retired only after canonical failed-run proof and Action Item resolution. | Preserved local evidence; never a reusable launch workspace. |
 | Host-enriched Elim result and local chain projection | Actual trusted-host commit, synchronization evidence, cloud status, host status, and current-chain Elim runtime. | Host-local operational evidence; the original model result remains separately preserved. |
+| `automation-health.json` and `host-status.json` | Independent cloud conclusion, scheduled heartbeat, and trusted-host state. | Generated operational projections; not run history or authority. |
 | `review-epochs.jsonl` | Append-only comprehensive-review boundaries and findings. | Canonical epoch evidence. |
 | Current Integrity/Source reports | Replaceable latest finding set. | Current projection, not history. |
 | `project-console-data` | Console-ready feeds, queue, packet, preserved inputs, bounded histories. | Generated projection. |
@@ -654,6 +673,8 @@ No-change and `not_due` results belong in bounded Actions or Console history. Th
 The Console exposes:
 
 - a project-wide automation-health alert on Overview;
+- independent workflow-conclusion and scheduled-heartbeat state even when ordinary chain publication failed;
+- independently published host and Elim running, deferral, no-launch, closeout, and terminal-failure state;
 - human-owned decisions and unresolved automation failures in Action Items;
 - one card for each registered agent or bot;
 - an error badge on the affected card;

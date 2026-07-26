@@ -27,6 +27,22 @@
     "localFallback": ".tmp/run-chain.json",
     "historyLimit": 24
   },
+  "hostStatusProjection": {
+    "enabled": true,
+    "eventType": "arrp-host-status",
+    "dataBranch": "project-console-data",
+    "path": "host-status.json",
+    "maximumIncidents": 20,
+    "minimumRepeatIntervalSeconds": 1800
+  },
+  "automationHealthProjection": {
+    "enabled": true,
+    "workflow": "run-coordinator-bot.yml",
+    "dataBranch": "project-console-data",
+    "path": "automation-health.json",
+    "watchdogCron": "47 10 * * *",
+    "maximumScheduledRunAgeHours": 18
+  },
   "usage": {
     "hardReservePercent": 15,
     "softRunTargetPercent": 10,
@@ -94,6 +110,12 @@
       "commitMessage": "Preserve local ARRP changes before automated run",
       "requireConflictFree": true,
       "requireStagedDiffCheck": true,
+      "foreignGitMetadataAction": "quarantine-allowlisted-preserve-and-verify",
+      "foreignGitMetadataArchive": ".tmp/run-coordinator/reconciled-git-metadata",
+      "maximumForeignGitMetadataPasses": 3,
+      "foreignWorkspaceCopyAction": "quarantine-numbered-copy-with-tracked-sibling",
+      "foreignWorkspaceCopyArchive": ".tmp/run-coordinator/reconciled-worktree-duplicates",
+      "maximumForeignWorkspaceCopyPasses": 3,
       "divergentHistoryAction": "fail-closed"
     },
     "staleLockSeconds": 900,

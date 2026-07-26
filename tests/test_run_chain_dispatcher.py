@@ -338,10 +338,194 @@ class RunChainDispatcherTests(unittest.TestCase):
             config["hostDispatcher"]["canonicalWorkspaceReconciliation"],
             MODULE.CANONICAL_WORKSPACE_RECONCILIATION_POLICY,
         )
+        self.assertEqual(
+            config["automationHealthProjection"],
+            MODULE.AUTOMATION_HEALTH_PROJECTION_POLICY,
+        )
+
+    def test_git_metadata_hygiene_detects_finder_style_duplicate_refs_and_indexes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            refs = repo / ".git/refs/heads"
+            refs.mkdir(parents=True)
+            (repo / ".git/index").write_bytes(b"canonical")
+            (repo / ".git/index 2").write_bytes(b"duplicate")
+            (refs / "main").write_text("a" * 40 + "\n", encoding="utf-8")
+            (refs / "main 2").write_text("b" * 40 + "\n", encoding="utf-8")
+            (repo / ".git/refs/.DS_Store").write_bytes(b"finder")
+            self.assertEqual(
+                MODULE.git_metadata_foreign_artifacts(repo),
+                [
+                    ".git/index 2",
+                    ".git/refs/.DS_Store",
+                    ".git/refs/heads/main 2",
+                ],
+            )
+            self.assertEqual(
+                MODULE.automation_incident_kind(
+                    "could not refresh origin/main: fatal: bad object "
+                    "refs/heads/main 2"
+                ),
+                "canonical-git-metadata-foreign-artifact",
+            )
+            self.assertEqual(
+                MODULE.automation_incident_kind(
+                    "numbered canonical-workspace copies repeatedly regenerated"
+                ),
+                "canonical-workspace-conflict-copy",
+            )
+
+    def test_runtime_preflight_quarantines_allowlisted_foreign_git_metadata(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            remote = root / "origin.git"
+            repo = root / "repo"
+
+            def run(arguments, *, cwd):
+                return MODULE.subprocess.run(
+                    ["/usr/bin/git", *arguments],
+                    cwd=cwd,
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+
+            run(["init", "--bare", str(remote)], cwd=root)
+            repo.mkdir()
+            run(["init", "-b", "main"], cwd=repo)
+            for relative in MODULE.AUTOMATION_RUNTIME_PATHS:
+                path = repo / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(relative + "\n", encoding="utf-8")
+            canonical_data = repo / "research/horizon-review-console/data/overview.js"
+            canonical_data.parent.mkdir(parents=True, exist_ok=True)
+            canonical_data.write_text("canonical\n", encoding="utf-8")
+            (repo / ".gitignore").write_text(
+                ".tmp/\n",
+                encoding="utf-8",
+            )
+            run(["add", "-A"], cwd=repo)
+            run(
+                [
+                    "-c",
+                    "user.name=Test User",
+                    "-c",
+                    "user.email=test@example.com",
+                    "commit",
+                    "-m",
+                    "Baseline",
+                ],
+                cwd=repo,
+            )
+            run(["remote", "add", "origin", str(remote)], cwd=repo)
+            run(["push", "-u", "origin", "main"], cwd=repo)
+            revision = run(["rev-parse", "HEAD"], cwd=repo).stdout.strip()
+            untracked_copy = canonical_data.with_name("overview 2.js")
+            staged_copy = canonical_data.with_name("overview 3.js")
+            untracked_copy.write_text("untracked conflict\n", encoding="utf-8")
+            staged_copy.write_text("staged conflict\n", encoding="utf-8")
+            run(["add", str(staged_copy.relative_to(repo))], cwd=repo)
+            (repo / ".git/index 2").write_bytes(b"foreign index")
+            (repo / ".git/refs/.DS_Store").write_bytes(b"finder metadata")
+            (repo / ".git/refs/heads/main 2").write_text(
+                revision + "\n",
+                encoding="utf-8",
+            )
+            control = {}
+
+            with mock.patch.object(
+                MODULE,
+                "APPROVED_ORIGIN_URLS",
+                frozenset({str(remote)}),
+            ):
+                resolved, workspace_commit = (
+                    MODULE.verify_canonical_runtime_boundary(
+                        "/usr/bin/git",
+                        repo,
+                        control=control,
+                    )
+                )
+
+            self.assertEqual((resolved, workspace_commit), (revision, None))
+            self.assertEqual(
+                MODULE.git_metadata_foreign_artifacts(repo),
+                [],
+            )
+            history = control["git_metadata_quarantine_history"]
+            self.assertEqual(len(history), 1)
+            self.assertEqual(
+                {
+                    row["original_path"]
+                    for row in history[0]["entries"]
+                },
+                {
+                    ".git/index 2",
+                    ".git/refs/.DS_Store",
+                    ".git/refs/heads/main 2",
+                },
+            )
+            archive = repo / history[0]["archive_path"]
+            self.assertTrue(
+                (archive / "quarantine-record.json").is_file()
+            )
+            self.assertTrue((archive / ".git/index 2").is_file())
+            workspace_history = control[
+                "workspace_conflict_quarantine_history"
+            ]
+            self.assertEqual(len(workspace_history), 1)
+            self.assertEqual(
+                {
+                    row["original_path"]
+                    for row in workspace_history[0]["entries"]
+                },
+                {
+                    "research/horizon-review-console/data/overview 2.js",
+                    "research/horizon-review-console/data/overview 3.js",
+                },
+            )
+            self.assertEqual(
+                {
+                    row["canonical_path"]
+                    for row in workspace_history[0]["entries"]
+                },
+                {
+                    "research/horizon-review-console/data/overview.js",
+                },
+            )
+            workspace_archive = (
+                repo / workspace_history[0]["archive_path"]
+            )
+            self.assertTrue(
+                (
+                    workspace_archive
+                    / "research/horizon-review-console/data/overview 2.js"
+                ).is_file()
+            )
+            self.assertEqual(
+                run(["status", "--porcelain"], cwd=repo).stdout,
+                "",
+            )
+            ambiguous_copy = repo / "untracked note 2.md"
+            ambiguous_copy.write_text("ambiguous\n", encoding="utf-8")
+            with self.assertRaisesRegex(
+                RuntimeError,
+                "lack an exact tracked file sibling",
+            ):
+                MODULE.project_workspace_conflict_copy_artifacts(
+                    "/usr/bin/git",
+                    repo,
+                )
+            ambiguous_copy.unlink()
 
     def test_host_closeout_policy_rejects_runtime_drift(self):
         config = {
             "gapStewardship": dict(MODULE.GAP_STEWARDSHIP_POLICY),
+            "hostStatusProjection": dict(
+                MODULE.HOST_STATUS_PROJECTION_POLICY
+            ),
+            "automationHealthProjection": dict(
+                MODULE.AUTOMATION_HEALTH_PROJECTION_POLICY
+            ),
             "governanceDiscovery": {
                 "enabled": True,
                 "mode": "Project governance review and discovery",
@@ -365,6 +549,12 @@ class RunChainDispatcherTests(unittest.TestCase):
     def test_workspace_reconciliation_policy_rejects_runtime_drift(self):
         config = {
             "gapStewardship": dict(MODULE.GAP_STEWARDSHIP_POLICY),
+            "hostStatusProjection": dict(
+                MODULE.HOST_STATUS_PROJECTION_POLICY
+            ),
+            "automationHealthProjection": dict(
+                MODULE.AUTOMATION_HEALTH_PROJECTION_POLICY
+            ),
             "governanceDiscovery": {
                 "enabled": True,
                 "mode": "Project governance review and discovery",
@@ -641,8 +831,18 @@ class RunChainDispatcherTests(unittest.TestCase):
                 self.assertTrue(MODULE.alert_failures(config, control, manifest, repo))
                 self.assertFalse(MODULE.alert_failures(config, control, manifest, repo))
             self.assertEqual(len(control["action_items"]), 1)
-            healthy = {
+            repeated = {
+                **manifest,
                 "chain_id": "chain-2",
+                "updated_at": "2026-07-24T12:30:00+00:00",
+            }
+            with mock.patch.object(MODULE, "command"):
+                self.assertTrue(MODULE.alert_failures(config, control, repeated, repo))
+            self.assertEqual(len(control["action_items"]), 1)
+            self.assertEqual(control["action_items"][0]["occurrence_count"], 2)
+            self.assertEqual(control["action_items"][0]["last_chain_id"], "chain-2")
+            healthy = {
+                "chain_id": "chain-3",
                 "updated_at": "2026-07-24T13:00:00+00:00",
                 "status": "complete",
                 "failures": [],
@@ -679,6 +879,7 @@ class RunChainDispatcherTests(unittest.TestCase):
     def test_runtime_preflight_requires_reconciled_main(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
+            (repo / ".git").mkdir()
             for relative in MODULE.AUTOMATION_RUNTIME_PATHS:
                 path = repo / relative
                 path.parent.mkdir(parents=True, exist_ok=True)
@@ -734,6 +935,7 @@ class RunChainDispatcherTests(unittest.TestCase):
     def test_runtime_preflight_blocks_unreconciled_workspace(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
+            (repo / ".git").mkdir()
             responses = [
                 MODULE.subprocess.CompletedProcess(
                     [], 0, stdout="https://github.com/Thorncrag/ARRP.git\n", stderr=""
@@ -756,6 +958,7 @@ class RunChainDispatcherTests(unittest.TestCase):
     def test_runtime_preflight_commits_and_pushes_dirty_main(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
+            (repo / ".git").mkdir()
             for relative in MODULE.AUTOMATION_RUNTIME_PATHS:
                 path = repo / relative
                 path.parent.mkdir(parents=True, exist_ok=True)
@@ -896,6 +1099,7 @@ class RunChainDispatcherTests(unittest.TestCase):
     def test_runtime_preflight_blocks_automation_file_drift(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
+            (repo / ".git").mkdir()
             for relative in MODULE.AUTOMATION_RUNTIME_PATHS:
                 path = repo / relative
                 path.parent.mkdir(parents=True, exist_ok=True)
@@ -2801,6 +3005,89 @@ class RunChainDispatcherTests(unittest.TestCase):
             persisted_control = json.loads(control_path.read_text(encoding="utf-8"))
             self.assertEqual(len(persisted_control["action_items"]), 2)
 
+    def test_host_failure_projection_dispatches_independently_and_throttles_repeats(self):
+        config = json.loads(
+            (ROOT / ".github/run-coordinator-bot.json").read_text()
+        )
+        control = {
+            "action_items": [
+                {
+                    "id": "failure-one",
+                    "kind": "automation_failure",
+                    "owner": "human",
+                    "stage": "elim-isolated-checkout",
+                    "details": "checkout baseline unavailable",
+                    "resolved": False,
+                }
+            ]
+        }
+        projection = MODULE.build_host_status_projection(
+            config,
+            control,
+            chain_id="chain-1",
+            status="failed",
+            stage="elim-isolated-checkout",
+            message="checkout baseline unavailable",
+            next_action="Repair the verified checkout boundary.",
+            exit_code=1,
+        )
+        completed = MODULE.subprocess.CompletedProcess(
+            [], 0, stdout="", stderr=""
+        )
+        with (
+            mock.patch.object(
+                MODULE,
+                "executable",
+                return_value="/opt/homebrew/bin/gh",
+            ),
+            mock.patch.object(
+                MODULE,
+                "command",
+                return_value=completed,
+            ) as command,
+        ):
+            self.assertTrue(
+                MODULE.dispatch_host_status_projection(
+                    config,
+                    control,
+                    ROOT,
+                    projection,
+                )
+            )
+            self.assertFalse(
+                MODULE.dispatch_host_status_projection(
+                    config,
+                    control,
+                    ROOT,
+                    projection,
+                )
+            )
+            self.assertTrue(
+                control["host_status_projection"]["repeat_suppressed"]
+            )
+            next_chain = {
+                **projection,
+                "chain_id": "chain-2",
+                "host_updated_at": "2026-07-26T09:00:00+00:00",
+                "updated_at": "2026-07-26T09:00:00+00:00",
+            }
+            self.assertTrue(
+                MODULE.dispatch_host_status_projection(
+                    config,
+                    control,
+                    ROOT,
+                    next_chain,
+                )
+            )
+        self.assertEqual(command.call_count, 2)
+        request = json.loads(command.call_args.kwargs["stdin"])
+        self.assertEqual(request["event_type"], "arrp-host-status")
+        self.assertEqual(
+            request["client_payload"]["status"]["host_status"],
+            "failed",
+        )
+        self.assertFalse(control["host_status_projection"]["repeat_suppressed"])
+
     def test_control_merge_preserves_concurrent_user_updates_and_resolutions(self):
         proposed = {
             "schema_version": 1,
@@ -2855,6 +3142,103 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertEqual(
             merged["action_items"][0]["stage"],
             "integrity",
+        )
+
+    def test_control_merge_retains_dispatcher_incident_updates(self):
+        latest = {
+            "action_items": [
+                {
+                    "id": "automation-failure-one",
+                    "resolved": False,
+                    "occurrence_count": 1,
+                    "last_chain_id": "chain-1",
+                }
+            ]
+        }
+        proposed = {
+            "action_items": [
+                {
+                    "id": "automation-failure-one",
+                    "resolved": False,
+                    "occurrence_count": 2,
+                    "last_chain_id": "chain-2",
+                }
+            ]
+        }
+        merged = MODULE.merge_control_states(latest, proposed)
+        self.assertEqual(merged["action_items"][0]["occurrence_count"], 2)
+        self.assertEqual(merged["action_items"][0]["last_chain_id"], "chain-2")
+
+    def test_repeated_automation_failures_consolidate_without_losing_chains(self):
+        branch_message = (
+            "host-repository-preflight failed: canonical ARRP workspace is not "
+            "reconciled with GitHub: current branch is {} instead of main. "
+            "Merge the intended branch through GitHub, return local main to "
+            "origin/main, and retry automated dispatch."
+        )
+        control = {
+            "action_items": [
+                {
+                    "id": "failure-one",
+                    "kind": "automation_failure",
+                    "chain_id": "host-1",
+                    "created_at": "2026-07-25T20:00:00+00:00",
+                    "stage": "host-repository-preflight",
+                    "details": branch_message.format("codex/one"),
+                    "resolved": False,
+                },
+                {
+                    "id": "failure-two",
+                    "kind": "automation_failure",
+                    "chain_id": "host-2",
+                    "created_at": "2026-07-25T20:10:00+00:00",
+                    "stage": "host-repository-preflight",
+                    "details": branch_message.format("codex/two"),
+                    "resolved": False,
+                },
+            ]
+        }
+        self.assertTrue(
+            MODULE.consolidate_automation_failure_items(
+                control,
+                recorded_at="2026-07-25T20:20:00+00:00",
+            )
+        )
+        unresolved = [
+            item
+            for item in control["action_items"]
+            if item.get("resolved") is not True
+        ]
+        self.assertEqual(len(unresolved), 1)
+        self.assertEqual(unresolved[0]["occurrence_count"], 2)
+        self.assertEqual(unresolved[0]["chain_ids"], ["host-1", "host-2"])
+        duplicate = next(
+            item for item in control["action_items"] if item["id"] == "failure-two"
+        )
+        self.assertEqual(duplicate["superseded_by"], "failure-one")
+        self.assertEqual(
+            control["action_item_history"][-1]["event"],
+            "consolidated",
+        )
+        self.assertEqual(
+            MODULE.resolve_observed_automation_incidents(
+                control,
+                incident_kinds={"canonical-workspace-not-main"},
+                evidence="The canonical workspace is now verified.",
+                recorded_at="2026-07-25T20:30:00+00:00",
+            ),
+            1,
+        )
+        self.assertFalse(
+            [
+                item
+                for item in control["action_items"]
+                if item.get("resolved") is not True
+            ]
+        )
+        self.assertEqual(
+            control["action_item_history"][-1]["source"],
+            "dispatcher-health-proof",
         )
 
     def test_post_selection_override_change_forces_fresh_evaluation(self):
@@ -3142,6 +3526,64 @@ class RunChainDispatcherTests(unittest.TestCase):
             launch_source = Path(MODULE.__file__).read_text(encoding="utf-8")
             self.assertIn("cwd=execution_repo", launch_source)
             self.assertIn("str(execution_repo)", launch_source)
+
+    def test_reconciled_archive_supplies_one_time_safe_checkout_baseline(self):
+        head = "a" * 40
+        control = {
+            "checkout_archive_history": [
+                {
+                    "chain_id": "chain-old",
+                    "canonical_revision": head,
+                }
+            ]
+        }
+        self.assertEqual(
+            MODULE.safe_prior_checkout_head(control),
+            (head, "reconciled-archive-proof"),
+        )
+        control["elim_checkout_synced_head"] = "b" * 40
+        self.assertEqual(
+            MODULE.safe_prior_checkout_head(control),
+            ("b" * 40, "verified-control-state"),
+        )
+
+    def test_prepared_checkout_baseline_is_persisted_before_launch_decision(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            checkout = repo / ".tmp/run-coordinator/elim-checkout"
+            checkout.mkdir(parents=True)
+            control_path = repo / ".tmp/run-coordinator/control.json"
+            head = "a" * 40
+            responses = [
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout=head + "\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout=head + "\n", stderr=""
+                ),
+            ]
+            control = {}
+            with (
+                mock.patch.object(MODULE, "require_clean_repo"),
+                mock.patch.object(MODULE, "command", side_effect=responses),
+            ):
+                recorded = MODULE.persist_verified_checkout_baseline(
+                    "/usr/bin/git",
+                    checkout,
+                    control,
+                    control_path,
+                    repo=repo,
+                    chain_id="chain-1",
+                    source="fresh-clone-or-current-origin-main",
+                )
+            self.assertEqual(recorded, head)
+            self.assertEqual(control["elim_checkout_synced_head"], head)
+            self.assertEqual(
+                control["elim_checkout_synced_chain_id"],
+                "chain-1",
+            )
+            persisted = json.loads(control_path.read_text(encoding="utf-8"))
+            self.assertEqual(persisted["elim_checkout_synced_head"], head)
 
     def test_reconciled_dirty_checkout_is_archived_only_after_canonical_proof(self):
         with tempfile.TemporaryDirectory() as directory:

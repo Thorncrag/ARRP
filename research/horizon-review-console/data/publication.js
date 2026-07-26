@@ -8185,8 +8185,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2892,
-      "estimated_pages": 5,
+      "word_count": 3476,
+      "estimated_pages": 6,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -8726,12 +8726,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 615,
-      "estimated_pages": 1,
+      "word_count": 863,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 22
     },
     {
       "title": "Current Project Integrity Report",
@@ -10417,12 +10417,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3439,
-      "estimated_pages": 6,
+      "word_count": 4065,
+      "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 45
+      "longest_unbroken_token": 54
     },
     {
       "title": "Source Catalogs and Monitoring Metadata",
@@ -12407,8 +12407,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 14087,
-      "estimated_pages": 22,
+      "word_count": 14814,
+      "estimated_pages": 23,
       "table_count": 17,
       "max_table_columns": 5,
       "heading_issue_count": 0,
@@ -12617,6 +12617,31 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 36
+    },
+    {
+      "title": "Automation Failure Observability and Dispatcher-State Repair — July 26, 2026",
+      "path": "research/reference-products/automation-failure-observability-repair-2026-07-26.md",
+      "section": "Research",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal automation implementation report.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/reference-products/automation-failure-observability-repair-2026-07-26.md",
+      "document_type": "research",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {
+        "public-proposal": "appendix-c-research"
+      },
+      "assembly_sort_key": "research/reference-products-automation failure observability and dispatcher-state repair — july 26, 2026",
+      "internal_links": [],
+      "word_count": 1825,
+      "estimated_pages": 3,
+      "table_count": 1,
+      "max_table_columns": 4,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 121
     },
     {
       "title": "Durham Report / ARRP Crosswalk",
@@ -15110,7 +15135,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 209,
+      "excluded": 210,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15133,6 +15158,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Nonauthoritative internal product review.": 1,
       "Nonauthoritative internal implementation handoff.": 1,
       "Nonauthoritative internal implementation and validation report.": 1,
+      "Internal automation implementation report.": 1,
       "Internal planning record.": 1,
       "Website-only current candidacy and monitoring status.": 1,
       "GitHub repository security-reporting policy.": 1,
@@ -15334,7 +15360,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Assembly structurally valid",
         "disposition_counts": {
           "included": 138,
-          "excluded": 209,
+          "excluded": 210,
           "unclassified": 0,
           "conflict": 0
         }
@@ -18102,8 +18128,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-        "generated_at": "2026-07-26T04:41:13+00:00"
+        "revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
+        "generated_at": "2026-07-26T06:55:15+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -19989,6 +20015,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-2114123acf7ea826027d"
+    "publication.js": "project-console-3e4857ba9d39384e87d9"
   }
 });
