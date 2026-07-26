@@ -361,6 +361,45 @@ def merge_control_states(
         proposed_items[item_id] = combined
     merged["action_items"] = [proposed_items[item_id] for item_id in item_order]
 
+    def has_unresolved_failure_for_chain(chain_id: str) -> bool:
+        for item in merged["action_items"]:
+            if (
+                not isinstance(item, dict)
+                or item.get("kind") != "automation_failure"
+                or item.get("resolved") is True
+            ):
+                continue
+            chain_values = [item.get("chain_id"), item.get("last_chain_id")]
+            if isinstance(item.get("chain_ids"), list):
+                chain_values.extend(item["chain_ids"])
+            covered_chains = {
+                str(value)
+                for value in chain_values
+                if str(value or "")
+            }
+            if chain_id in covered_chains:
+                return True
+        return False
+
+    failure_summary_source: dict[str, Any] | None = None
+    for candidate in (proposed, latest):
+        candidate_chain_id = str(candidate.get("last_failed_chain_id") or "")
+        if candidate_chain_id and has_unresolved_failure_for_chain(
+            candidate_chain_id
+        ):
+            failure_summary_source = candidate
+            break
+    for key in (
+        "last_failed_chain_id",
+        "last_failed_exit_code",
+        "last_failed_reason",
+        "last_failed_at",
+    ):
+        if failure_summary_source is not None and key in failure_summary_source:
+            merged[key] = failure_summary_source[key]
+        else:
+            merged.pop(key, None)
+
     history_rows: dict[str, dict[str, Any]] = {}
     for row in [
         *(proposed.get("action_item_history") or []),
