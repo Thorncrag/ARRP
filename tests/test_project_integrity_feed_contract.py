@@ -1,4 +1,5 @@
 import importlib.util
+import tempfile
 import unittest
 import urllib.error
 from pathlib import Path
@@ -73,6 +74,25 @@ class ProjectIntegrityFeedContractTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(RuntimeError, "refusing to replace"):
                 MODULE.existing_feed(url)
+
+    def test_integrity_report_rejects_paths_outside_trusted_roots(self):
+        with self.assertRaisesRegex(ValueError, "repository or system temporary"):
+            MODULE.read_json(Path("/etc/hosts"))
+
+    def test_integrity_report_hashes_trusted_temporary_input(self):
+        with tempfile.TemporaryDirectory() as directory:
+            report_path = Path(directory) / "integrity-report.json"
+            report_path.write_text("{}\n", encoding="utf-8")
+            feed = MODULE.build_feed(
+                self.report(),
+                {},
+                1,
+                report_path=report_path,
+            )
+        self.assertEqual(
+            list(feed["source_hashes"]),
+            ["integrity-report.json"],
+        )
 
 
 if __name__ == "__main__":

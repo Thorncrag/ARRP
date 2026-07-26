@@ -109,6 +109,11 @@ runtime, governance, or project-structure contract.
 - Source Checker generation now validates stable source identities, exact
   current catalog coverage, duplicate/missing/unexpected results, per-catalog
   counts and hashes, baseline validity, and comparable per-source deltas.
+- Environment-, configuration-, and command-line-selected build inputs are
+  realpath-normalized and confined to fixed repository or system-temporary
+  roots before reading or hashing. The Integrity workflow stages its report
+  under the repository-owned temporary tree, and frontend tests import the
+  fixed application module instead of evaluating dynamically read code.
 - The authenticated Project model separately classifies 81 proposals, 17
   formal candidates, and 12 delivery/governance items while proving all 110
   Project items were enumerated.
@@ -281,6 +286,11 @@ runtime, governance, or project-structure contract.
   an empty replacement history.
 - **Enumeration-loss risk.** GitHub Project and nested connection pagination
   must reconcile declared totals before a feed is complete.
+- **Build-input path and test-evaluation exposure.** Console snapshot,
+  Progress, Integrity, source-hash, and architecture-record inputs now resolve
+  through fixed trusted roots and allowlisted records before a file sink is
+  reached. The executable frontend harness now loads one static module path
+  rather than evaluating file content through a dynamic VM context.
 - **Incident identity fragmentation.** Branch-specific wording and duplicated
   current/history projections resolve to stable prerequisite/root-cause
   families while retaining exact occurrence detail.
@@ -333,7 +343,7 @@ runtime, governance, or project-structure contract.
 
 ## Validation and synchronized readback
 
-- All 452 repository Python tests and all 25 executable frontend tests pass.
+- All 459 repository Python tests and all 25 executable frontend tests pass.
   Coverage includes source-side contracts, Progress, Integrity, Source Checker,
   bundle generation, Elim, queue selection, dispatcher, coordinator,
   contribution review, zero/absent/invalid scores, Boolean false, timestamp

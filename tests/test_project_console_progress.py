@@ -477,6 +477,39 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         )
         self.assertIn("123 fewer", architecture["explanation"])
 
+    def test_portfolio_architecture_rejects_noncanonical_record_path(self):
+        config = MODULE.read_json(ROOT / ".github" / "project-console-progress.json")
+        config["portfolioArchitectureRecord"] = "../../outside.md"
+        with self.assertRaisesRegex(ValueError, "canonical allowlisted record"):
+            MODULE.portfolio_architecture(
+                {"date": "2026-07-25", "total": 81, "ready": 27},
+                config,
+                ROOT,
+            )
+
+    def test_builder_rejects_inputs_outside_trusted_roots(self):
+        with self.assertRaisesRegex(ValueError, "within the repository"):
+            MODULE.trusted_input_path(
+                Path("/etc/hosts"),
+                purpose="Project Console config",
+            )
+
+    def test_builder_allows_temporary_fixture_inputs_only_when_declared(self):
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = Path(directory) / "project.json"
+            fixture.write_text("{}\n", encoding="utf-8")
+            trusted = MODULE.trusted_input_path(
+                fixture,
+                purpose="Saved GitHub Project input",
+                allow_system_temp=True,
+            )
+            self.assertEqual(trusted, fixture.resolve())
+            with self.assertRaisesRegex(ValueError, "within the repository"):
+                MODULE.trusted_input_path(
+                    fixture,
+                    purpose="Project Console config",
+                )
+
     def test_projects_nonproposal_project_items_as_typed_delivery_work(self):
         raw = deepcopy(self.raw)
         raw["items"].append(

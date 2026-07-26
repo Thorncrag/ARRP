@@ -201,9 +201,10 @@ class HorizonIntakeTest(unittest.TestCase):
 
     def test_source_checker_snapshot_prefers_explicit_offline_cache(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            cache = Path(directory) / "source-checker.json"
-            config = Path(directory) / "source-checker-config.json"
-            catalog = Path(directory) / "sources.csv"
+            fixture_root = Path(directory)
+            cache = fixture_root / "source-checker.json"
+            config = fixture_root / "source-checker-config.json"
+            catalog = fixture_root / "sources.csv"
             catalog.write_text(
                 "Source ID,URL,Title or Description,Authority / Publisher\n"
                 "SRC-TEST,https://example.test/source,Test source,Publisher\n",
@@ -213,7 +214,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 "schema_version": 1,
                 "checked_at": "2026-07-26T00:00:00Z",
                 "source_hashes": console_builder.source_hashes(
-                    ROOT, [catalog]
+                    fixture_root, [catalog]
                 ),
                 "eligible_urls": 1,
                 "counts": {"verified": 1},
@@ -237,6 +238,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 encoding="utf-8",
             )
             with (
+                patch.object(console_builder, "ROOT", fixture_root),
                 patch.object(console_builder, "SOURCE_CHECKER_CONFIG", config),
                 patch.dict(
                     os.environ, {"ARRP_SOURCE_CHECKER_SNAPSHOT": ""}, clear=False
@@ -250,8 +252,9 @@ class HorizonIntakeTest(unittest.TestCase):
 
     def test_source_checker_snapshot_reads_the_published_data_branch(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            config = Path(directory) / "source-checker-config.json"
-            catalog = Path(directory) / "sources.csv"
+            fixture_root = Path(directory)
+            config = fixture_root / "source-checker-config.json"
+            catalog = fixture_root / "sources.csv"
             catalog.write_text(
                 "Source ID,URL,Title or Description,Authority / Publisher\n"
                 "SRC-BRANCH,https://example.test/source,Test source,Publisher\n",
@@ -261,7 +264,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 "schema_version": 1,
                 "checked_at": "2026-07-26T00:00:00Z",
                 "source_hashes": console_builder.source_hashes(
-                    ROOT, [catalog]
+                    fixture_root, [catalog]
                 ),
                 "eligible_urls": 1,
                 "counts": {"verified": 1},
@@ -287,6 +290,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 args=[], returncode=0, stdout=json.dumps(expected)
             )
             with (
+                patch.object(console_builder, "ROOT", fixture_root),
                 patch.object(console_builder, "SOURCE_CHECKER_CONFIG", config),
                 patch.object(
                     console_builder.subprocess, "run", return_value=completed

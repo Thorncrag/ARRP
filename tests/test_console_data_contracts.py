@@ -24,6 +24,24 @@ CONTRACT_SPEC.loader.exec_module(CONTRACTS)
 
 
 class ConsoleDataContractTests(unittest.TestCase):
+    def test_snapshot_override_rejects_paths_outside_trusted_roots(self):
+        with self.assertRaisesRegex(RuntimeError, "repository or system temporary"):
+            MODULE.read_trusted_snapshot_file(
+                "/etc/hosts",
+                environment_name="ARRP_PROGRESS_SNAPSHOT",
+            )
+
+    def test_hash_helper_rejects_files_outside_declared_root(self):
+        with (
+            tempfile.TemporaryDirectory() as first,
+            tempfile.TemporaryDirectory() as second,
+        ):
+            root = Path(first)
+            outside = Path(second) / "outside.json"
+            outside.write_text("{}", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "outside"):
+                CONTRACTS.file_sha256(root, outside)
+
     def test_repository_authority_prefers_expected_source_revision_before_age(self):
         old = {
             "generated_at": "2026-07-25T13:00:00+00:00",
@@ -139,6 +157,7 @@ class ConsoleDataContractTests(unittest.TestCase):
                 encoding="utf-8",
             )
             with (
+                mock.patch.object(MODULE, "ROOT", root),
                 mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
                 mock.patch.dict(
                     os.environ,
@@ -187,6 +206,7 @@ class ConsoleDataContractTests(unittest.TestCase):
                 encoding="utf-8",
             )
             with (
+                mock.patch.object(MODULE, "ROOT", root),
                 mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
                 mock.patch.dict(
                     os.environ,
@@ -252,6 +272,7 @@ class ConsoleDataContractTests(unittest.TestCase):
             )
             environment = {"ARRP_SOURCE_CHECKER_SNAPSHOT": str(snapshot)}
             with (
+                mock.patch.object(MODULE, "ROOT", root),
                 mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
                 mock.patch.dict(os.environ, environment, clear=False),
             ):
@@ -265,6 +286,7 @@ class ConsoleDataContractTests(unittest.TestCase):
                 encoding="utf-8",
             )
             with (
+                mock.patch.object(MODULE, "ROOT", root),
                 mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
                 mock.patch.dict(os.environ, environment, clear=False),
             ):
@@ -284,8 +306,8 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "SRC-1,https://example.test/1,One,Publisher\n",
                 encoding="utf-8",
             )
-            catalog_label = catalog.resolve().as_posix()
-            digest = CONTRACTS.file_sha256(catalog)
+            catalog_label = "sources.csv"
+            digest = CONTRACTS.file_sha256(root, catalog)
             snapshot = root / "source-checker.json"
             snapshot.write_text(
                 json.dumps(
@@ -330,6 +352,7 @@ class ConsoleDataContractTests(unittest.TestCase):
                 encoding="utf-8",
             )
             with (
+                mock.patch.object(MODULE, "ROOT", root),
                 mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
                 mock.patch.dict(
                     os.environ,
@@ -422,7 +445,7 @@ class ConsoleDataContractTests(unittest.TestCase):
             for name, metadata in manifest["files"].items():
                 self.assertRegex(metadata["sha256"], r"^sha256:[a-f0-9]{64}$")
                 self.assertEqual(
-                    CONTRACTS.file_sha256(data / name),
+                    CONTRACTS.file_sha256(data, data / name),
                     metadata["sha256"],
                 )
                 part = MODULE.generated_console_part(

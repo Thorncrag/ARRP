@@ -1,14 +1,15 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { createRequire } from "node:module";
 import path from "node:path";
 import test from "node:test";
-import vm from "node:vm";
 import { fileURLToPath } from "node:url";
 
 const testDirectory = path.dirname(fileURLToPath(import.meta.url));
 const consoleDirectory = path.resolve(testDirectory, "..");
 const appPath = path.join(consoleDirectory, "app.js");
 const indexPath = path.join(consoleDirectory, "index.html");
+const localRequire = createRequire(import.meta.url);
 
 function loadApi() {
   const projectData = {
@@ -25,28 +26,28 @@ function loadApi() {
     ARRP_HORIZON_REVIEW_DATA: projectData,
     __ARRP_CONSOLE_TEST_MODE__: true
   };
-  const context = {
-    window,
-    document,
-    console,
-    CSS: { escape: String },
-    URL,
-    URLSearchParams,
-    Intl,
-    Date,
-    Map,
-    Set,
-    Number,
-    String,
-    Object,
-    Array,
-    Math,
-    RegExp,
-    JSON
+  const priorGlobals = {
+    window: globalThis.window,
+    document: globalThis.document,
+    CSS: globalThis.CSS
   };
-  vm.createContext(context);
-  vm.runInContext(fs.readFileSync(appPath, "utf8"), context, { filename: appPath });
-  return { api: window.ARRP_CONSOLE_TEST_API, data: window.ARRP_HORIZON_REVIEW_DATA };
+  globalThis.window = window;
+  globalThis.document = document;
+  globalThis.CSS = { escape: String };
+  const appModule = localRequire.resolve("../app.js");
+  delete localRequire.cache[appModule];
+  try {
+    localRequire("../app.js");
+    return {
+      api: window.ARRP_CONSOLE_TEST_API,
+      data: window.ARRP_HORIZON_REVIEW_DATA
+    };
+  } finally {
+    for (const [name, value] of Object.entries(priorGlobals)) {
+      if (value === undefined) delete globalThis[name];
+      else globalThis[name] = value;
+    }
+  }
 }
 
 test("term normalization uses the canonical Trump I and Trump II vocabulary", () => {

@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -20,6 +22,8 @@ except ModuleNotFoundError:
 DEFAULT_HISTORY_LIMIT = 30
 ALLOWED_HISTORY_HOST = "raw.githubusercontent.com"
 ALLOWED_HISTORY_PATH = "/Thorncrag/ARRP/project-console-data/integrity.json"
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+SYSTEM_TEMP_ROOT = Path(tempfile.gettempdir()).resolve()
 
 
 def parse_args() -> argparse.Namespace:
@@ -31,10 +35,30 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def trusted_report_path(path: Path) -> tuple[Path, Path]:
+    """Resolve an integrity report beneath the repository or system temp root."""
+    resolved_path = os.path.realpath(os.fspath(path))
+    for trusted_root in (REPOSITORY_ROOT, SYSTEM_TEMP_ROOT):
+        resolved_root = os.path.realpath(os.fspath(trusted_root))
+        root_prefix = resolved_root.rstrip(os.sep) + os.sep
+        if (
+            resolved_path.startswith(root_prefix)
+            and resolved_path.endswith(".json")
+            and os.path.isfile(resolved_path)
+        ):
+            return Path(resolved_path), Path(resolved_root)
+    raise ValueError(
+        "Integrity report must be a regular JSON file within the repository "
+        "or system temporary directory."
+    )
+
+
 def read_json(path: Path) -> dict[str, Any]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    trusted_path, _ = trusted_report_path(path)
+    with open(os.fspath(trusted_path), encoding="utf-8") as handle:
+        payload = json.load(handle)
     if not isinstance(payload, dict):
-        raise ValueError(f"Expected a JSON object in {path}")
+        raise ValueError(f"Expected a JSON object in {trusted_path}")
     return payload
 
 
@@ -129,11 +153,10 @@ def build_feed(
     scope = report.get("scope") or []
     if not isinstance(scope, list):
         raise RuntimeError("Integrity report scope must be an array.")
-    hashes = (
-        {report_path.name: file_sha256(report_path)}
-        if report_path is not None and report_path.is_file()
-        else {}
-    )
+    hashes: dict[str, str] = {}
+    if report_path is not None:
+        trusted_path, trusted_root = trusted_report_path(report_path)
+        hashes[trusted_path.name] = file_sha256(trusted_root, trusted_path)
     contract = feed_contract(
         feed_name="project-integrity",
         timestamp_field="generated_at",
@@ -167,11 +190,12 @@ def main() -> int:
     args = parse_args()
     if args.history_limit < 1:
         raise ValueError("--history-limit must be positive")
+    report_path, _ = trusted_report_path(args.report)
     feed = build_feed(
-        read_json(args.report),
+        read_json(report_path),
         existing_feed(args.existing_url),
         args.history_limit,
-        report_path=args.report,
+        report_path=report_path,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(feed, indent=2) + "\n", encoding="utf-8")

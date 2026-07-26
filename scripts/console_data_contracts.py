@@ -27,9 +27,15 @@ def utc_timestamp(value: str | None = None) -> str:
     return parsed.astimezone(timezone.utc).replace(microsecond=0).isoformat()
 
 
-def file_sha256(path: Path) -> str:
+def file_sha256(root: Path, path: Path) -> str:
+    """Hash one regular file only after proving it remains within ``root``."""
+    resolved_root = os.path.realpath(os.fspath(root))
+    resolved_path = os.path.realpath(os.fspath(path))
+    root_prefix = resolved_root.rstrip(os.sep) + os.sep
+    if resolved_path != resolved_root and not resolved_path.startswith(root_prefix):
+        raise ValueError(f"Refusing to hash a file outside {resolved_root}: {resolved_path}")
     digest = hashlib.sha256()
-    with path.open("rb") as handle:
+    with open(resolved_path, "rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return "sha256:" + digest.hexdigest()
@@ -37,15 +43,17 @@ def file_sha256(path: Path) -> str:
 
 def source_hashes(root: Path, paths: Iterable[Path]) -> dict[str, str]:
     result: dict[str, str] = {}
-    resolved_root = root.resolve()
+    resolved_root = os.path.realpath(os.fspath(root))
+    root_prefix = resolved_root.rstrip(os.sep) + os.sep
     for path in paths:
-        resolved = path.resolve()
-        try:
-            label = resolved.relative_to(resolved_root).as_posix()
-        except ValueError:
-            label = resolved.as_posix()
-        if resolved.is_file():
-            result[label] = file_sha256(resolved)
+        resolved = os.path.realpath(os.fspath(path))
+        if resolved != resolved_root and not resolved.startswith(root_prefix):
+            raise ValueError(
+                f"Refusing to hash a source outside {resolved_root}: {resolved}"
+            )
+        label = os.path.relpath(resolved, resolved_root).replace(os.sep, "/")
+        if os.path.isfile(resolved):
+            result[label] = file_sha256(Path(resolved_root), Path(resolved))
     return dict(sorted(result.items()))
 
 

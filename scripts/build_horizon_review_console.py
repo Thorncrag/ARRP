@@ -925,7 +925,7 @@ def publication_release_readiness(
         None,
     )
     artifact_hash = (
-        file_sha256(PUBLIC_PROPOSAL_PDF)
+        file_sha256(ROOT, PUBLIC_PROPOSAL_PDF)
         if PUBLIC_PROPOSAL_PDF.is_file()
         else None
     )
@@ -2437,7 +2437,7 @@ def write_console_bundle(
             domain_records.append(
                 {
                     "file": name,
-                    "sha256": file_sha256(path),
+                    "sha256": file_sha256(stage_data, path),
                     "bytes": path.stat().st_size,
                     "keys": sorted(original_part),
                     "record_count": payload_count(original_part),
@@ -2471,7 +2471,7 @@ def write_console_bundle(
         )
         for domain in domain_records:
             path = stage_data / str(domain["file"])
-            if file_sha256(path) != domain["sha256"]:
+            if file_sha256(stage_data, path) != domain["sha256"]:
                 raise RuntimeError(
                     f"Generated Console domain hash failed readback: {domain['file']}"
                 )
@@ -2811,6 +2811,39 @@ def with_project_generation_currentness(
     return projected
 
 
+def read_trusted_snapshot_file(
+    raw_path: str,
+    *,
+    environment_name: str,
+) -> dict[str, object]:
+    """Read one JSON snapshot confined to the repository or system temp root."""
+    full_path = os.path.realpath(raw_path)
+    allowed = False
+    for trusted_root in (ROOT, Path(tempfile.gettempdir())):
+        base_path = os.path.realpath(os.fspath(trusted_root))
+        base_prefix = base_path.rstrip(os.sep) + os.sep
+        if full_path == base_path or full_path.startswith(base_prefix):
+            allowed = True
+            break
+    if not allowed or not full_path.endswith(".json") or not os.path.isfile(full_path):
+        raise RuntimeError(
+            f"{environment_name} must select a regular JSON file within the "
+            "repository or system temporary directory."
+        )
+    try:
+        with open(full_path, encoding="utf-8") as handle:
+            payload = json.load(handle)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError(
+            f"{environment_name} explicitly selected an unreadable snapshot."
+        ) from exc
+    if not isinstance(payload, dict):
+        raise RuntimeError(
+            f"{environment_name} explicitly selected a non-object snapshot."
+        )
+    return payload
+
+
 def read_snapshot_override(
     environment_name: str,
     *,
@@ -2820,20 +2853,17 @@ def read_snapshot_override(
     raw_path = os.environ.get(environment_name, "").strip()
     if not raw_path:
         return None
-    path = Path(raw_path)
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        raise RuntimeError(
-            f"{environment_name} explicitly selected an unreadable snapshot: {path}"
-        ) from exc
+    payload = read_trusted_snapshot_file(
+        raw_path,
+        environment_name=environment_name,
+    )
     if not valid_snapshot(
         payload,
         timestamp_fields=timestamp_fields,
         required_fields=required_fields,
     ):
         raise RuntimeError(
-            f"{environment_name} explicitly selected an invalid snapshot: {path}"
+            f"{environment_name} explicitly selected an invalid snapshot."
         )
     return payload
 
@@ -3347,15 +3377,10 @@ def source_checker_snapshot() -> dict[str, object]:
 
     override_path = os.environ.get("ARRP_SOURCE_CHECKER_SNAPSHOT", "").strip()
     if override_path:
-        try:
-            override_payload = json.loads(
-                Path(override_path).read_text(encoding="utf-8")
-            )
-        except (OSError, json.JSONDecodeError) as exc:
-            raise RuntimeError(
-                "ARRP_SOURCE_CHECKER_SNAPSHOT explicitly selected an unreadable "
-                f"snapshot: {override_path}"
-            ) from exc
+        override_payload = read_trusted_snapshot_file(
+            override_path,
+            environment_name="ARRP_SOURCE_CHECKER_SNAPSHOT",
+        )
         if not candidate_is_valid(override_payload):
             raise RuntimeError(
                 "ARRP_SOURCE_CHECKER_SNAPSHOT explicitly selected a Source "

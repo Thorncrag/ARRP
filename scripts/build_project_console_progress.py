@@ -12,6 +12,7 @@ import os
 import re
 import shutil
 import sys
+import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -39,6 +40,8 @@ except ModuleNotFoundError:
 GRAPHQL_URL = "https://api.github.com/graphql"
 REST_ROOT = "https://api.github.com"
 USER_AGENT = "ARRP-project-console-progress/1.0"
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+SYSTEM_TEMP_ROOT = Path(tempfile.gettempdir()).resolve()
 APPROVED_WORKFLOW_STATUSES = (
     "Research",
     "Development",
@@ -72,6 +75,9 @@ OPTIONAL_PROJECT_FIELDS = {
     "validationRequirement": ("Validation requirement", "Validation"),
     "owner": ("Owner",),
 }
+PORTFOLIO_ARCHITECTURE_RECORD = Path(
+    "research/portfolio-issue-consolidation-review.md"
+)
 
 PROJECT_QUERY = r"""
 query($owner: String!, $number: Int!, $cursor: String) {
@@ -207,6 +213,29 @@ def parse_args() -> argparse.Namespace:
 def read_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def trusted_input_path(
+    path: Path,
+    *,
+    purpose: str,
+    allow_system_temp: bool = False,
+) -> Path:
+    """Resolve one regular input file beneath an explicit trusted root."""
+    resolved_path = os.path.realpath(os.fspath(path))
+    trusted_roots = [REPOSITORY_ROOT]
+    if allow_system_temp:
+        trusted_roots.append(SYSTEM_TEMP_ROOT)
+    for trusted_root in trusted_roots:
+        resolved_root = os.path.realpath(os.fspath(trusted_root))
+        root_prefix = resolved_root.rstrip(os.sep) + os.sep
+        if (
+            resolved_path.startswith(root_prefix)
+            and os.path.isfile(resolved_path)
+        ):
+            return Path(resolved_path)
+    allowed = "the repository or system temporary directory" if allow_system_temp else "the repository"
+    raise ValueError(f"{purpose} must be a regular file within {allowed}.")
 
 
 def read_registry(path: Path) -> List[Dict[str, str]]:
@@ -1198,23 +1227,24 @@ def portfolio_architecture(
     goal = config["goal"]
     baseline_total = int(goal["baselineTotal"])
     baseline_ready = int(goal["baselineReady"])
-    record_path = str(
+    configured_record_path = str(
         config.get(
             "portfolioArchitectureRecord",
-            "research/portfolio-issue-consolidation-review.md",
+            PORTFOLIO_ARCHITECTURE_RECORD.as_posix(),
         )
     )
+    if configured_record_path != PORTFOLIO_ARCHITECTURE_RECORD.as_posix():
+        raise ValueError(
+            "portfolioArchitectureRecord must use the canonical allowlisted record."
+        )
+    record_path = PORTFOLIO_ARCHITECTURE_RECORD.as_posix()
     record_url = "https://github.com/{}/blob/main/{}".format(
         config["repository"], record_path
     )
     appt_total: Optional[int] = None
     consolidated_total: Optional[int] = None
     if repository_root is not None:
-        path = (repository_root / record_path).resolve()
-        try:
-            path.relative_to(repository_root.resolve())
-        except ValueError:
-            path = Path()
+        path = repository_root / PORTFOLIO_ARCHITECTURE_RECORD
         if path.is_file():
             text = path.read_text(encoding="utf-8")
             appt_match = re.search(
@@ -1605,12 +1635,21 @@ def write_progress_data(output: Path, payload: Dict[str, Any]) -> None:
 
 def main() -> int:
     args = parse_args()
-    config = read_json(args.config)
-    registry_path = args.registry or Path(config["registryPath"])
+    config_path = trusted_input_path(args.config, purpose="Project Console config")
+    config = read_json(config_path)
+    registry_path = trusted_input_path(
+        args.registry or Path(config["registryPath"]),
+        purpose="Project issue registry",
+    )
     registry = read_registry(registry_path)
     as_of = date.fromisoformat(args.as_of) if args.as_of else datetime.now(timezone.utc).date()
     if args.input:
-        raw = read_json(args.input)
+        input_path = trusted_input_path(
+            args.input,
+            purpose="Saved GitHub Project input",
+            allow_system_temp=True,
+        )
+        raw = read_json(input_path)
     else:
         token = os.environ.get(args.token_env, "").strip()
         if not token:
@@ -1618,19 +1657,32 @@ def main() -> int:
                 "Missing {}. Add a repository secret containing a token with read:project access.".format(args.token_env)
             )
         raw = fetch_project(config, token)
-    repository_root = registry_path.resolve().parent.parent
+    repository_root = REPOSITORY_ROOT
     project_title, items = parse_items(raw, config, registry, repository_root)
     if not items:
         raise RuntimeError("No eligible proposal issues were returned; refusing to publish an empty progress feed.")
-    retained_history = load_history(config, args.history)
+    history_path = (
+        trusted_input_path(
+            args.history,
+            purpose="Project progress history",
+            allow_system_temp=True,
+        )
+        if args.history
+        else None
+    )
+    retained_history = load_history(config, history_path)
     seed_history = {"schemaVersion": 1, "snapshots": []}
     seed_path = config.get("historySeedPath")
     if seed_path:
-        seed_history = valid_history(read_json(Path(seed_path)))
+        seed_path = trusted_input_path(
+            Path(seed_path),
+            purpose="Project progress history seed",
+        )
+        seed_history = valid_history(read_json(seed_path))
     history = combine_histories(seed_history, retained_history)
-    source_paths = [args.config, registry_path]
+    source_paths = [config_path, registry_path]
     if seed_path:
-        source_paths.append(Path(seed_path))
+        source_paths.append(seed_path)
     payload = build_progress_payload(
         project_title,
         items,
