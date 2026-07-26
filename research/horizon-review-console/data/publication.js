@@ -8726,12 +8726,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 615,
-      "estimated_pages": 1,
+      "word_count": 830,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 84
     },
     {
       "title": "Current Project Integrity Report",
@@ -8883,7 +8883,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "table_count": 13,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 7668
+      "longest_unbroken_token": 8504
     },
     {
       "title": "Elim Runbook",
@@ -12636,7 +12636,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/reference-products-automation failure observability and dispatcher-state repair — july 26, 2026",
       "internal_links": [],
-      "word_count": 2714,
+      "word_count": 3203,
       "estimated_pages": 5,
       "table_count": 1,
       "max_table_columns": 4,
@@ -15129,7 +15129,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 490,
-        "modified_at": "2026-07-26T12:26:10+00:00",
+        "modified_at": "2026-07-22T16:21:44+00:00",
         "stale": true
       }
     ],
@@ -20015,6 +20015,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-a410ed76d8d2243eee11"
+    "publication.js": "project-console-23d77bdbb23b90703fb0"
   }
 });
