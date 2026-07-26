@@ -1,13 +1,19 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-26T12:57:06+00:00",
-  "epoch_id": "epoch-arrp-20260726T125551Z",
+  "generated_at": "2026-07-26T13:15:29+00:00",
+  "epoch_id": "epoch-arrp-20260726T131406Z",
   "baseline_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
   "last_completed_at": "2026-07-26T12:39:29+00:00",
   "next_due_at": "2026-08-09T12:39:29+00:00",
-  "due": false,
-  "due_reason": "interval current",
-  "boundary_changes": {},
+  "due": true,
+  "due_reason": "governing_boundary_changed",
+  "boundary_changes": {
+    "extra": [],
+    "mismatched": [
+      "framework/context-routes.json"
+    ],
+    "missing": []
+  },
   "unresolved_findings": [
     {
       "discovered_work_unit_id": "DISCOVERY-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",

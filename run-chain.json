@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260726T125551Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30203025904",
+  "chain_id": "arrp-20260726T131406Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30203628257",
   "trigger": "push",
   "llm_launch_allowed": false,
   "llm_launch_trigger": "push",
-  "created_at": "2026-07-26T12:55:51+00:00",
-  "updated_at": "2026-07-26T12:57:09+00:00",
+  "created_at": "2026-07-26T13:14:06+00:00",
+  "updated_at": "2026-07-26T13:15:31+00:00",
   "status": "complete",
-  "baseline_commit": "ef8988414cbdb944a3e2eb6ee5d7942140b6fecc",
+  "baseline_commit": "8aa2b745a3e808d7cc4c7d60def486bdb476e0d2",
   "resume": {
     "count": 0,
     "from_run_id": null
@@ -18,12 +18,12 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260726T125551Z"
+    "owner_chain_id": "arrp-20260726T131406Z"
   },
   "repository": {
     "branch": "main",
-    "head": "ef8988414cbdb944a3e2eb6ee5d7942140b6fecc",
-    "origin_main": "ef8988414cbdb944a3e2eb6ee5d7942140b6fecc",
+    "head": "8aa2b745a3e808d7cc4c7d60def486bdb476e0d2",
+    "origin_main": "8aa2b745a3e808d7cc4c7d60def486bdb476e0d2",
     "clean": true,
     "dirty_paths": [],
     "dirty_path_count": 0,
@@ -76,7 +76,7 @@
       "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:55:51+00:00",
+      "completed_at": "2026-07-26T13:14:06+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -92,7 +92,7 @@
       "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:55:51+00:00",
+      "completed_at": "2026-07-26T13:14:06+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -108,7 +108,7 @@
       "due_reason": "last success remains current until 2026-08-02T10:32:24+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:55:51+00:00",
+      "completed_at": "2026-07-26T13:14:06+00:00",
       "last_success_at": "2026-07-26T10:32:24+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -124,15 +124,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T12:57:06+00:00",
-      "last_success_at": "2026-07-26T12:57:06+00:00",
+      "completed_at": "2026-07-26T13:15:29+00:00",
+      "last_success_at": "2026-07-26T13:15:29+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:909f454194b6e954116fb4cae80230d03e8a80be85999c19f55d9523c47a9ac1"
+        "sha256": "sha256:5e270ed7734ff4a3ae81a3b7d88f8e997589b84f653d7ff388c656e57f8edd42"
       },
       "work_count": 0
     },
@@ -144,15 +144,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T12:57:06+00:00",
-      "last_success_at": "2026-07-26T12:57:06+00:00",
+      "completed_at": "2026-07-26T13:15:29+00:00",
+      "last_success_at": "2026-07-26T13:15:29+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:fa35ff7fd88d21d38c99d7108b59ff78a7ac02729a059aff27d1f09a79cbc27a"
+        "sha256": "sha256:5e3f20ce40473fb7e189400a71e2970250fcc4d39f1ba5e1e386791c89cd91be"
       },
       "work_count": 0
     },
@@ -164,15 +164,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T12:57:06+00:00",
-      "last_success_at": "2026-07-26T12:57:06+00:00",
+      "completed_at": "2026-07-26T13:15:29+00:00",
+      "last_success_at": "2026-07-26T13:15:29+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:30479a682a0f79ab863da7019d6f07687c0a0bee0c807f71ff0fd29de5804a8a"
+        "sha256": "sha256:de8d2ade69df3e2c1afc5b259898305c4b24751bf0638db71ec34a70a4f1aaa1"
       },
       "work_count": 0
     }
@@ -184,7 +184,7 @@
     "monitoring": 0,
     "sources": 0,
     "intake": 0,
-    "total": 156
+    "total": 157
   },
   "elim_decision": {
     "launch_recommended": false,
@@ -193,19 +193,19 @@
     "last_substantive_stage": true,
     "predecessors_complete": true,
     "profile": {
-      "id": "substantive",
+      "id": "comprehensive",
       "model": "gpt-5.6-sol",
       "reasoning_effort": "xhigh",
-      "full_context": false,
-      "reason": "Bound to selected work item INTEGRITY-7b81c19899c9 and context profile integrity_reconciliation."
+      "full_context": true,
+      "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-3263aabefeb0 and context profile comprehensive_review."
     }
   },
   "review_epoch": {
     "interval_days": 14,
     "last_completed_at": "2026-07-26T12:39:29+00:00",
     "next_due_at": "2026-08-09T12:39:29+00:00",
-    "due": false,
-    "due_reason": "interval current",
+    "due": true,
+    "due_reason": "governing_boundary_changed",
     "boundary_commit": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
     "epoch_id": "epoch-arrp-20260726T122445Z",
     "stability_status": "drift-detected",
@@ -229,7 +229,13 @@
         "summary": "The reviewed periodic dispatcher plist is installed on the Projects path but its LaunchAgent is not loaded; only the manual current dispatcher and the separate control service are running."
       }
     ],
-    "boundary_changes": null
+    "boundary_changes": {
+      "extra": [],
+      "mismatched": [
+        "framework/context-routes.json"
+      ],
+      "missing": []
+    }
   },
   "usage": {
     "hard_reserve_percent": 15,
@@ -239,8 +245,8 @@
   },
   "next_action": "No Elim launch; wait for the next trigger.",
   "action_items": [],
-  "completed_at": "2026-07-26T12:57:06+00:00",
-  "final_revision": "ef8988414cbdb944a3e2eb6ee5d7942140b6fecc",
+  "completed_at": "2026-07-26T13:15:29+00:00",
+  "final_revision": "8aa2b745a3e808d7cc4c7d60def486bdb476e0d2",
   "bots": [
     {
       "id": "case-monitor-bot",
@@ -248,7 +254,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:55:51+00:00",
+      "completed_at": "2026-07-26T13:14:06+00:00",
       "error": null
     },
     {
@@ -257,7 +263,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:55:51+00:00",
+      "completed_at": "2026-07-26T13:14:06+00:00",
       "error": null
     },
     {
@@ -266,7 +272,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:55:51+00:00",
+      "completed_at": "2026-07-26T13:14:06+00:00",
       "error": null
     },
     {
@@ -275,7 +281,7 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T12:57:06+00:00",
+      "completed_at": "2026-07-26T13:15:29+00:00",
       "error": null
     },
     {
@@ -284,18 +290,18 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T12:57:06+00:00",
+      "completed_at": "2026-07-26T13:15:29+00:00",
       "error": null
     }
   ],
   "work_queue": {
     "path": "project-console-data:elim-work-queue.json",
-    "sha256": "sha256:77469f3753a549d87c790f659b32778a2eac5d8c6363827df00ea6210098c9b7",
+    "sha256": "sha256:aaefbda01217427ca6bedc5d91a5783982934c81f6de29d4f087e3aac194c83d",
     "ready_for_elim": true,
     "launch_recommended": true,
     "counts": {
-      "total": 156,
-      "elim_eligible": 154,
+      "total": 157,
+      "elim_eligible": 155,
       "human": 1,
       "safety": 17,
       "gap_obligations": 2,
@@ -304,63 +310,60 @@
     "problems": [],
     "next_item": {
       "schema_version": 1,
-      "id": "INTEGRITY-7b81c19899c9",
-      "kind": "integrity",
-      "work_class": "integrity",
-      "severity": "error",
-      "title": "SRC-2521: identity mismatch",
+      "id": "COMPREHENSIVE-REVIEW-3263aabefeb0",
+      "kind": "comprehensive_review",
+      "work_class": "periodic_review",
+      "severity": "high",
+      "title": "Run the due comprehensive consistency review",
       "owner": "agent",
       "required_authority": "agent-within-runbook",
-      "exact_next_action": "Resolve the exact integrity finding or route it for human review.",
-      "required_context_profile": "integrity_reconciliation",
-      "originating_stage": "source_checker",
-      "source_identity": "source-checker:inventory/sources.csv:SRC-2521:identity mismatch",
-      "canonical_record_identity": "source-checker:inventory/sources.csv:SRC-2521:identity mismatch",
+      "exact_next_action": "Run the due comprehensive Review Epoch.",
+      "required_context_profile": "comprehensive_review",
+      "originating_stage": "review_epoch",
+      "source_identity": "epoch-arrp-20260726T131406Z",
+      "canonical_record_identity": "epoch-arrp-20260726T131406Z",
       "dependencies": [
-        "source_checker"
+        "review_epoch"
       ],
-      "created_at": "2026-07-26T10:27:00+00:00",
-      "refreshed_at": "2026-07-26T10:27:00+00:00",
+      "created_at": "2026-07-26T12:39:29+00:00",
+      "refreshed_at": "2026-07-26T13:15:29+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
       "blocking_reason": null,
-      "safety_class": 0,
-      "base_priority": 880,
+      "safety_class": 1,
+      "base_priority": 650,
       "age_days": 0,
       "fairness_boost": 0,
-      "priority_score": 880,
-      "selection_priority_score": 880,
-      "reason": "Source Checker classified SRC-2521 as identity mismatch",
+      "priority_score": 650,
+      "selection_priority_score": 650,
+      "reason": "governing_boundary_changed",
       "source": {
-        "input": "source_checker",
-        "finding_type": "source_checker",
-        "source_id": "SRC-2521",
-        "catalog": "inventory/sources.csv",
-        "finding": {
-          "source_id": "SRC-2521",
-          "catalog": "inventory/sources.csv",
-          "catalog_row": 1956,
-          "title": "",
-          "requested_url": "https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/161438.pdf",
-          "attempts": 1,
-          "status_code": 200,
-          "final_url": "https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/161438.pdf",
-          "content_type": "application/pdf",
-          "error": "",
-          "error_kind": "",
-          "classification": "identity mismatch",
-          "exception_first_seen_at": "2026-07-24T14:14:17Z",
-          "exception_age_days": 1.84
-        }
+        "input": "review_epoch",
+        "epoch_id": "epoch-arrp-20260726T131406Z",
+        "baseline_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
+        "next_due_at": "2026-08-09T12:39:29+00:00",
+        "due": true,
+        "due_reason": "governing_boundary_changed",
+        "boundary_changes": {
+          "extra": [],
+          "mismatched": [
+            "framework/context-routes.json"
+          ],
+          "missing": []
+        },
+        "unresolved_ids": [
+          "GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
+          "GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED"
+        ]
       },
-      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
-      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T125551Z",
-      "source_commit": "ef8988414cbdb944a3e2eb6ee5d7942140b6fecc",
-      "source_project_snapshot": "sha256:909f454194b6e954116fb4cae80230d03e8a80be85999c19f55d9523c47a9ac1",
+      "source_revision": "2674659a62fc0addec5d45535f0dbe05fcdf00b612ab479bb477a58ec70052c8",
+      "freshness_timestamp": "2026-07-26T13:15:29+00:00",
+      "source_chain_id": "arrp-20260726T131406Z",
+      "source_commit": "8aa2b745a3e808d7cc4c7d60def486bdb476e0d2",
+      "source_project_snapshot": "sha256:5e270ed7734ff4a3ae81a3b7d88f8e997589b84f653d7ff388c656e57f8edd42",
       "source_input_hashes": {
-        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
+        "review_epoch": "sha256:2674659a62fc0addec5d45535f0dbe05fcdf00b612ab479bb477a58ec70052c8"
       },
       "retry_state": {
         "state": "new",
@@ -370,13 +373,13 @@
       },
       "recovery": null
     },
-    "selected_work_item_id": "INTEGRITY-7b81c19899c9",
+    "selected_work_item_id": "COMPREHENSIVE-REVIEW-3263aabefeb0",
     "governance_discovery": {
       "mode": "Project governance review and discovery",
       "ordinary_selection_policy": "after-ordinary-queue-clears",
       "minimum_interval_hours": 168,
       "selected_as_quiet_queue_fallback": false,
-      "ordinary_eligible_count_before_fallback": 154,
+      "ordinary_eligible_count_before_fallback": 155,
       "last_review": null,
       "next_due_at": null,
       "current_for_cadence": false,
@@ -445,21 +448,21 @@
   },
   "context_packet": {
     "path": "project-console-data:elim-context.json",
-    "sha256": "sha256:91212133f0de4579c4a967240f451179b4199f52975f338ab5a2008825e5e70f",
-    "profile": "integrity_reconciliation",
-    "work_item_id": "INTEGRITY-7b81c19899c9",
+    "sha256": "sha256:d6d89dd57d691beaef543f0ac50efec7b88da386e76898ea4feb18708af917fe",
+    "profile": "comprehensive_review",
+    "work_item_id": "COMPREHENSIVE-REVIEW-3263aabefeb0",
     "issue_id": null,
     "canonical_record": null,
     "selection": {
-      "work_item_id": "INTEGRITY-7b81c19899c9",
-      "kind": "integrity",
+      "work_item_id": "COMPREHENSIVE-REVIEW-3263aabefeb0",
+      "kind": "comprehensive_review",
       "canonical_record": null
     },
-    "repository_revision": "ef8988414cbdb944a3e2eb6ee5d7942140b6fecc",
+    "repository_revision": "8aa2b745a3e808d7cc4c7d60def486bdb476e0d2",
     "provenance_complete": true,
     "limits": {
-      "max_bytes": 900000,
-      "actual_bytes": 597043
+      "max_bytes": 1000000,
+      "actual_bytes": 733281
     }
   }
 }
