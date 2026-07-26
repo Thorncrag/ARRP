@@ -10,19 +10,19 @@
     "name": "Elim",
     "status": "completed"
   },
-  "exit_code": 0,
-  "host_status": "completed",
-  "host_updated_at": "2026-07-26T13:37:35+00:00",
-  "message": "Elim's exact prepared host commit was recovered through its checked pull request and verified at the merged origin/main boundary.",
-  "next_action": "Use the next current chain for ordinary queue evaluation.",
+  "exit_code": 1,
+  "host_status": "failed",
+  "host_updated_at": "2026-07-26T13:47:20+00:00",
+  "message": "elim-closeout-recovery failed: isolated checkout is not at the applied result or current origin/main boundary",
+  "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
   "projection_kind": "host-run-status",
   "schema_version": 1,
-  "source_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
+  "source_revision": null,
   "stage": "elim-closeout-recovery",
-  "status": "completed",
-  "updated_at": "2026-07-26T13:37:35+00:00",
-  "usage_status": "pass",
-  "work_item_id": "COMPREHENSIVE-REVIEW-e77bca75b716",
+  "status": "failed",
+  "updated_at": "2026-07-26T13:47:20+00:00",
+  "usage_status": null,
+  "work_item_id": null,
   "host_action_items": [
     {
       "chain_id": "host-dispatch-20260726T125538Z",
@@ -44,6 +44,28 @@
       "owner": "human",
       "resolved": false,
       "stage": "host-repository-preflight",
+      "summary": "ARRP run chain requires attention."
+    },
+    {
+      "chain_id": "arrp-20260726T122445Z",
+      "chain_ids": [
+        "arrp-20260726T122445Z"
+      ],
+      "created_at": "2026-07-26T13:47:20+00:00",
+      "details": "elim-closeout-recovery failed: isolated checkout is not at the applied result or current origin/main boundary",
+      "failure_count": 1,
+      "first_chain_id": "arrp-20260726T122445Z",
+      "first_seen": "2026-07-26T13:47:20+00:00",
+      "id": "automation-failure-120d448f9800d5882c84",
+      "incident_fingerprint": "3569e492b1f859286d99",
+      "kind": "automation_failure",
+      "last_chain_id": "arrp-20260726T122445Z",
+      "last_seen": "2026-07-26T13:47:20+00:00",
+      "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+      "occurrence_count": 1,
+      "owner": "human",
+      "resolved": false,
+      "stage": "elim-closeout-recovery",
       "summary": "ARRP run chain requires attention."
     }
   ]
