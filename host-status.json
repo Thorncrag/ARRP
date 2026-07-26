@@ -1,43 +1,18 @@
 {
-  "chain_id": "host-dispatch-20260726T232358Z",
+  "chain_id": "arrp-20260726T234612Z",
   "cloud_status": null,
-  "exit_code": 1,
-  "host_status": "failed",
-  "host_updated_at": "2026-07-26T23:23:58+00:00",
-  "message": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: local HEAD does not equal the fetched origin/main revision. Reconcile the divergent history through GitHub and retry automated dispatch.",
-  "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+  "exit_code": 0,
+  "host_status": "not-launched",
+  "host_updated_at": "2026-07-26T23:54:08+00:00",
+  "message": "Host dispatcher rejected an LLM launch from a deterministic-only or unspecified trigger.",
+  "next_action": "No Elim launch; wait for the daily schedule, an eligible event, or explicit manual dispatch.",
   "projection_kind": "host-run-status",
   "schema_version": 1,
-  "source_revision": null,
-  "stage": "host-repository-preflight",
-  "status": "failed",
-  "updated_at": "2026-07-26T23:23:58+00:00",
-  "usage_status": null,
-  "work_item_id": null,
-  "host_action_items": [
-    {
-      "chain_id": "host-dispatch-20260726T232358Z",
-      "chain_ids": [
-        "host-dispatch-20260726T230356Z",
-        "host-dispatch-20260726T231357Z",
-        "host-dispatch-20260726T232358Z"
-      ],
-      "created_at": "2026-07-26T23:03:56+00:00",
-      "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: local HEAD does not equal the fetched origin/main revision. Reconcile the divergent history through GitHub and retry automated dispatch.",
-      "failure_count": 1,
-      "first_chain_id": "host-dispatch-20260726T230356Z",
-      "first_seen": "2026-07-26T23:03:56+00:00",
-      "id": "automation-failure-afe1dbc5b5df3a7e9a6a",
-      "incident_fingerprint": "a0607f320b13fd572507",
-      "kind": "automation_failure",
-      "last_chain_id": "host-dispatch-20260726T232358Z",
-      "last_seen": "2026-07-26T23:23:58+00:00",
-      "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-      "occurrence_count": 3,
-      "owner": "human",
-      "resolved": false,
-      "stage": "host-repository-preflight",
-      "summary": "ARRP run chain requires attention."
-    }
-  ]
+  "source_revision": "1cf67d020d85c0eb408b05112f336f1ec275a29d",
+  "stage": "host-refinalization",
+  "status": "not-launched",
+  "updated_at": "2026-07-26T23:54:08+00:00",
+  "usage_status": "available",
+  "work_item_id": "COMPREHENSIVE-REVIEW-23dfe400c125",
+  "host_action_items": []
 }
