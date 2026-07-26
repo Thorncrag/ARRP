@@ -2111,8 +2111,22 @@ def automation_incident_kind(details: str | None) -> str:
         and " instead of main" in normalized_details
     ):
         incident_kind = "canonical-workspace-not-main"
-    elif "ARRP working tree is not clean" in normalized_details:
+    elif (
+        "ARRP working tree is not clean" in normalized_details
+        or "while the working tree is not clean" in normalized_details
+    ):
         incident_kind = "canonical-workspace-dirty"
+    elif (
+        "local HEAD does not equal the fetched origin/main revision"
+        in normalized_details
+        or "clean local main is not an ancestor of the fetched origin/main revision"
+        in normalized_details
+        or "could not prove that clean local main can be fast-forwarded"
+        in normalized_details
+        or "could not fast-forward clean local main" in normalized_details
+        or "after fast-forward" in normalized_details
+    ):
+        incident_kind = "canonical-workspace-history-mismatch"
     elif "host automation runtime differs from reviewed origin/main" in normalized_details:
         incident_kind = "host-runtime-drift"
     elif (
@@ -7362,6 +7376,7 @@ def main() -> int:
             incident_kinds={
                 "canonical-workspace-not-main",
                 "canonical-workspace-dirty",
+                "canonical-workspace-history-mismatch",
                 "canonical-git-metadata-foreign-artifact",
                 "canonical-workspace-conflict-copy",
                 "host-runtime-drift",
