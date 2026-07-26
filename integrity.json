@@ -1,9 +1,42 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "contract_schema_version": 1,
+  "generation_id": "project-integrity-3c02830831135fc8cb53",
+  "source_revision": "e3d7d42e0572576ad3103cecab249ed602990050",
+  "generated_at": "2026-07-26T03:15:24+00:00",
+  "expected_count": 22,
+  "actual_count": 22,
+  "source_hashes": {
+    "integrity-report.json": "sha256:fb8d600127fd56354a0ab6057818ee051da900a7202f40de7fe2634b61d3d7ab"
+  },
+  "availability": "current",
+  "completeness": {
+    "complete": true,
+    "expected_count": 22,
+    "actual_count": 22,
+    "missing_count": 0
+  },
+  "pagination": {
+    "complete": true,
+    "sources": [
+      {
+        "source": "integrity-check-inventory",
+        "complete": true,
+        "expected_count": 22,
+        "actual_count": 22
+      }
+    ]
+  },
+  "projection_errors": [],
+  "freshness": {
+    "status": "current",
+    "basis": "source revision, completeness, and owning-process synchronization",
+    "supersession_rule": "A newer authoritative source revision or generation supersedes this projection immediately, regardless of elapsed age."
+  },
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-25T22:45:38+00:00",
-    "revision": "e45a0e711aa82ca147cdc827cbf18c8b348e4cdd",
+    "generated_at": "2026-07-26T03:15:24+00:00",
+    "revision": "e3d7d42e0572576ad3103cecab249ed602990050",
     "result": "clean",
     "counts": {
       "errors": 0,
@@ -12,7 +45,7 @@
       "issue_pages": 64,
       "proposal_pages": 41
     },
-    "duration_seconds": 14.536,
+    "duration_seconds": 11.623,
     "scope": [
       "Issue and proposal structure, including Issue Snapshot concision",
       "Area and topic routing",
@@ -40,6 +73,19 @@
     "findings": []
   },
   "history": [
+    {
+      "generated_at": "2026-07-26T03:15:24+00:00",
+      "revision": "e3d7d42e0572576ad3103cecab249ed602990050",
+      "result": "clean",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "findings": 0,
+        "issue_pages": 64,
+        "proposal_pages": 41
+      },
+      "duration_seconds": 11.623
+    },
     {
       "generated_at": "2026-07-25T22:45:38+00:00",
       "revision": "e45a0e711aa82ca147cdc827cbf18c8b348e4cdd",
@@ -416,19 +462,6 @@
         "proposal_pages": 41
       },
       "duration_seconds": 12.722
-    },
-    {
-      "generated_at": "2026-07-24T18:49:58+00:00",
-      "revision": "5a38cf2d0d842357aafeaa96046cdc5ba0a436f3",
-      "result": "findings",
-      "counts": {
-        "errors": 1,
-        "warnings": 0,
-        "findings": 1,
-        "issue_pages": 64,
-        "proposal_pages": 41
-      },
-      "duration_seconds": 14.292
     }
   ]
 }
