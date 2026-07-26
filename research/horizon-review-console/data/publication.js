@@ -7613,9 +7613,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 17809,
-      "estimated_pages": 28,
-      "table_count": 93,
+      "word_count": 18232,
+      "estimated_pages": 29,
+      "table_count": 94,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
@@ -8726,12 +8726,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 937,
-      "estimated_pages": 2,
+      "word_count": 615,
+      "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 37
+      "longest_unbroken_token": 21
     },
     {
       "title": "Current Project Integrity Report",
@@ -8878,9 +8878,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 9151,
-      "estimated_pages": 15,
-      "table_count": 12,
+      "word_count": 10080,
+      "estimated_pages": 16,
+      "table_count": 13,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 7668
@@ -15129,7 +15129,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 490,
-        "modified_at": "2026-07-22T16:21:44+00:00",
+        "modified_at": "2026-07-26T12:26:10+00:00",
         "stale": true
       }
     ],
@@ -18128,8 +18128,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
-        "generated_at": "2026-07-26T06:55:15+00:00"
+        "revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
+        "generated_at": "2026-07-26T12:25:32+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20015,6 +20015,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-28b8479fca33f20a391a"
+    "publication.js": "project-console-a410ed76d8d2243eee11"
   }
 });

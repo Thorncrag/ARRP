@@ -1811,3 +1811,28 @@ Prospective template:
 | Push status | Pull requests #431 and #432 merged after all reported checks passed. The current protected-main correction remains on local branch `codex/elim-protected-closeout` pending full validation, reviewed pull request, merge, and fresh-chain production readback. |
 | Rollback notes | Revert the protected-main and storage correction as one unit to restore the earlier direct-push policy, exact-field prompt omission, nonresumable prepared-commit behavior, and File Provider-managed host path; retain the independent observability repair, Elim Review Epoch, Source Checker schema-v2 correction, failure history, and preserved duplicate-artifact archives. Such rollback would knowingly restore incompatibility with protected `main` and demonstrated CloudDocs deletion risk and is not recommended. |
 | Blockers/skipped checks | No current blocker. Full repository validation, reviewed synchronization, verified non-synced checkout and launchd migration, and one final fresh-chain/Console readback remain required before this interactive repair closes. No Console screen, tool, queue, Elim authority, issue record, Project field, score, Runs count, source identity, publication disposition, or human-reserved decision was removed or changed. |
+
+
+### 2026-07-26 — Comprehensive Review Epoch epoch-arrp-20260726T122445Z — comprehensive-review
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-26 08:39:29 -0400 |
+| Agent | elim |
+| Run ID | arrp-20260726T122445Z |
+| Unit ID | COMPREHENSIVE-REVIEW-e77bca75b716 |
+| Trigger | Off-cycle comprehensive review because the protected-main, resumable-closeout, independent-observability, and non-File-Provider governing boundary changed after the preceding epoch |
+| Task type | comprehensive-review |
+| Outcome | Completed |
+| Issue/task | Full-context project Review Epoch `epoch-arrp-20260726T122445Z` |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | Review Epoch ledger; current handoff; Elim Run Log; shared Agent Audit Log; deterministic Project Console projections generated from the pinned current chain |
+| Source actions | No source-catalog row changed. The pinned Source Checker covered 2055 of 2055 records and correctly remained `not_due` inside its 168-hour cadence; its ordinary exception items remain separately queued. |
+| Validation | Verified the manifest and all 13 preserved deterministic inputs by exact SHA-256 and byte count; validated the complete 60-entry governing boundary and comprehensive packet provenance; reviewed the 64-file epoch delta; read back pull request #433, exact parent topology, independent cloud and host feeds, the non-File-Provider path, and installed launchd state; sampled DOJ-005, ELEC-005, FUND-001, JUD-001, and WAR-001; passed 481 Python tests, 24 participation-service tests, 27 Console tests, syntax, plist parsing, epoch recording, and diff hygiene. The passing suite and sound pull request #433 do not close the separately recorded missing-proof and unloaded-service gaps. |
+| Commit | Elim leaves `commit` null and makes no repository Git mutation. Trusted-host checked pull-request closeout remains pending after the structured result. |
+| Push status | Pending trusted-host exact-file-set staging, bounded branch, checks, squash merge, and exact `origin/main` readback. Elim performed no GitHub branch or pull-request mutation. |
+| Rollback notes | If this closeout is later found defective, preserve the append-only epoch and discovery history, add a superseding correction with exact provenance, revert only the reviewed generated/log projection changes through the ordinary checked workflow, and rebuild the Console. No issue, Project field, score, Runs value, source record, intake record, or public policy disposition changed. |
+| Blockers/skipped checks | The Review Epoch itself is complete. `GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION` remains open for a separately selected agent repair because discovery did not authorize another substantive unit. `GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED` requires the trusted-host operator to load the reviewed main LaunchAgent only after this live manual dispatcher finishes, then prove its Projects path and a successful scheduled poll. |
