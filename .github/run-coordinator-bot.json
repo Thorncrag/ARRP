@@ -112,6 +112,7 @@
     "canonicalWorkspaceReconciliation": {
       "requiredBranch": "main",
       "storageBoundary": "non-file-provider-local-filesystem",
+      "cleanMainBehindAction": "verified-fast-forward-only",
       "dirtyMainAction": "checked-pull-request-squash-merge-and-defer",
       "preparedCommitResume": "exact-parent-identity-paths-checks-readback",
       "changedPathPolicy": "complete-workspace",
