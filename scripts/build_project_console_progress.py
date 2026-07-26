@@ -9,8 +9,10 @@ import csv
 import json
 import math
 import os
+import re
 import shutil
 import sys
+import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -19,10 +21,27 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
+try:
+    from console_data_contracts import (
+        feed_contract,
+        source_hashes,
+        source_revision,
+        utc_timestamp,
+    )
+except ModuleNotFoundError:
+    from scripts.console_data_contracts import (
+        feed_contract,
+        source_hashes,
+        source_revision,
+        utc_timestamp,
+    )
+
 
 GRAPHQL_URL = "https://api.github.com/graphql"
 REST_ROOT = "https://api.github.com"
 USER_AGENT = "ARRP-project-console-progress/1.0"
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+SYSTEM_TEMP_ROOT = Path(tempfile.gettempdir()).resolve()
 APPROVED_WORKFLOW_STATUSES = (
     "Research",
     "Development",
@@ -42,6 +61,23 @@ APPROVED_DEVELOPMENT_LEVELS = (
     "Review ready",
     "Release candidate",
 )
+OPTIONAL_PROJECT_FIELDS = {
+    "workstream": ("Workstream",),
+    "priority": ("Priority",),
+    "releaseBlocker": ("Release blocker",),
+    "runs": ("Runs",),
+    "rebaselineStatus": ("Rebaseline status",),
+    "changeAuditNeeded": ("Change audit needed",),
+    "parentIssue": ("Parent issue",),
+    "subIssuesProgress": ("Sub-issues progress",),
+    "dependency": ("Dependency", "Dependencies", "Blocked by"),
+    "nextAction": ("Next action",),
+    "validationRequirement": ("Validation requirement", "Validation"),
+    "owner": ("Owner",),
+}
+PORTFOLIO_ARCHITECTURE_RECORD = Path(
+    "research/portfolio-issue-consolidation-review.md"
+)
 
 PROJECT_QUERY = r"""
 query($owner: String!, $number: Int!, $cursor: String) {
@@ -49,13 +85,19 @@ query($owner: String!, $number: Int!, $cursor: String) {
     projectV2(number: $number) {
       title
       items(first: 100, after: $cursor) {
+        totalCount
         pageInfo {
           hasNextPage
           endCursor
         }
         nodes {
           id
-          fieldValues(first: 50) {
+          fieldValues(first: 100) {
+            totalCount
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
             nodes {
               __typename
               ... on ProjectV2ItemFieldSingleSelectValue {
@@ -78,6 +120,54 @@ query($owner: String!, $number: Int!, $cursor: String) {
                 title
                 field { ... on ProjectV2FieldCommon { name } }
               }
+            }
+          }
+          content {
+            __typename
+            ... on Issue {
+              number
+              title
+              url
+              state
+              repository { nameWithOwner }
+              labels(first: 100) {
+                totalCount
+                pageInfo { hasNextPage endCursor }
+                nodes { name }
+              }
+              assignees(first: 20) {
+                totalCount
+                pageInfo { hasNextPage endCursor }
+                nodes { login }
+              }
+              milestone { title dueOn url }
+              parent { number title url }
+              subIssues(first: 100) {
+                totalCount
+                pageInfo { hasNextPage endCursor }
+                nodes { number title url state }
+              }
+            }
+            ... on PullRequest {
+              number
+              title
+              url
+              state
+              repository { nameWithOwner }
+              labels(first: 100) {
+                totalCount
+                pageInfo { hasNextPage endCursor }
+                nodes { name }
+              }
+              assignees(first: 20) {
+                totalCount
+                pageInfo { hasNextPage endCursor }
+                nodes { login }
+              }
+              milestone { title dueOn url }
+            }
+            ... on DraftIssue {
+              title
             }
           }
         }
@@ -123,6 +213,29 @@ def parse_args() -> argparse.Namespace:
 def read_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def trusted_input_path(
+    path: Path,
+    *,
+    purpose: str,
+    allow_system_temp: bool = False,
+) -> Path:
+    """Resolve one regular input file beneath an explicit trusted root."""
+    resolved_path = os.path.realpath(os.fspath(path))
+    trusted_roots = [REPOSITORY_ROOT]
+    if allow_system_temp:
+        trusted_roots.append(SYSTEM_TEMP_ROOT)
+    for trusted_root in trusted_roots:
+        resolved_root = os.path.realpath(os.fspath(trusted_root))
+        root_prefix = resolved_root.rstrip(os.sep) + os.sep
+        if (
+            resolved_path.startswith(root_prefix)
+            and os.path.isfile(resolved_path)
+        ):
+            return Path(resolved_path)
+    allowed = "the repository or system temporary directory" if allow_system_temp else "the repository"
+    raise ValueError(f"{purpose} must be a regular file within {allowed}.")
 
 
 def read_registry(path: Path) -> List[Dict[str, str]]:
@@ -193,6 +306,7 @@ def fetch_project(config: Dict[str, Any], token: str) -> Dict[str, Any]:
     cursor: Optional[str] = None
     items: List[Dict[str, Any]] = []
     title = ""
+    reported_project_total: Optional[int] = None
     while True:
         payload = graphql_request(
             token,
@@ -208,13 +322,118 @@ def fetch_project(config: Dict[str, Any], token: str) -> Dict[str, Any]:
         title = project.get("title") or title
         connection = project.get("items") or {}
         items.extend(connection.get("nodes") or [])
+        raw_total = connection.get("totalCount")
+        if raw_total is not None:
+            try:
+                page_total = int(raw_total)
+            except (TypeError, ValueError) as exc:
+                raise RuntimeError(
+                    "Project item pagination returned an invalid totalCount."
+                ) from exc
+            if reported_project_total is None:
+                reported_project_total = page_total
+            elif page_total != reported_project_total:
+                raise RuntimeError(
+                    "Project item pagination changed totalCount between pages."
+                )
         page_info = connection.get("pageInfo") or {}
         if not page_info.get("hasNextPage"):
             break
         cursor = page_info.get("endCursor")
         if not cursor:
             raise RuntimeError("Project pagination reported another page without a cursor.")
-    return {"projectTitle": title, "items": items}
+    if (
+        reported_project_total is not None
+        and reported_project_total != len(items)
+    ):
+        raise RuntimeError(
+            "Project item pagination is incomplete: expected {} nodes but "
+            "received {}.".format(reported_project_total, len(items))
+        )
+
+    def connection_is_incomplete(connection: Any) -> bool:
+        if not isinstance(connection, dict):
+            return False
+        if ((connection.get("pageInfo") or {}).get("hasNextPage")):
+            return True
+        raw_total = connection.get("totalCount")
+        if raw_total is None:
+            return False
+        try:
+            total = int(raw_total)
+        except (TypeError, ValueError):
+            return True
+        nodes = connection.get("nodes")
+        return not isinstance(nodes, list) or total != len(nodes)
+
+    incomplete_field_values = sorted(
+        str(node.get("id") or "unknown")
+        for node in items
+        if connection_is_incomplete(node.get("fieldValues"))
+    )
+    if incomplete_field_values:
+        raise RuntimeError(
+            "Project item field-value pagination is incomplete for: "
+            + ", ".join(incomplete_field_values)
+        )
+    incomplete_subissues = sorted(
+        str(node.get("id") or "unknown")
+        for node in items
+        if connection_is_incomplete(
+            (node.get("content") or {}).get("subIssues")
+        )
+    )
+    if incomplete_subissues:
+        raise RuntimeError(
+            "Project issue sub-issue pagination is incomplete for: "
+            + ", ".join(incomplete_subissues)
+        )
+    incomplete_content_connections = sorted(
+        "{}:{}".format(node.get("id") or "unknown", connection_name)
+        for node in items
+        for connection_name in ("labels", "assignees")
+        if connection_is_incomplete(
+            (node.get("content") or {}).get(connection_name)
+        )
+    )
+    if incomplete_content_connections:
+        raise RuntimeError(
+            "Project item content pagination is incomplete for: "
+            + ", ".join(incomplete_content_connections)
+        )
+    return {
+        "projectTitle": title,
+        "items": items,
+        "_pagination": {
+            "complete": True,
+            "sources": [
+                {
+                    "source": "github-project-items",
+                    "complete": True,
+                    "actual_count": len(items),
+                },
+                {
+                    "source": "github-project-field-values",
+                    "complete": True,
+                    "item_count": len(items),
+                    "page_size": 100,
+                },
+                {
+                    "source": "github-project-sub-issues",
+                    "complete": True,
+                    "item_count": len(items),
+                    "page_size": 100,
+                },
+                {
+                    "source": "github-project-labels-and-assignees",
+                    "complete": True,
+                    "item_count": len(items),
+                    "label_page_size": 100,
+                    "assignee_page_size": 20,
+                },
+            ],
+        },
+    }
 
 
 def extract_field_values(node: Dict[str, Any]) -> Dict[str, Any]:
@@ -228,6 +447,130 @@ def extract_field_values(node: Dict[str, Any]) -> Dict[str, Any]:
                 values[field_name] = value[key]
                 break
     return values
+
+
+def field_value(
+    values: Dict[str, Any],
+    config_fields: Dict[str, Any],
+    key: str,
+    default: Any = None,
+) -> Any:
+    """Read a configured or well-known Project field without case sensitivity."""
+    names: List[str] = []
+    configured = config_fields.get(key)
+    if configured:
+        names.append(str(configured))
+    names.extend(OPTIONAL_PROJECT_FIELDS.get(key, ()))
+    normalized_values = {normalize(name): value for name, value in values.items()}
+    for name in names:
+        if normalize(name) in normalized_values:
+            return normalized_values[normalize(name)]
+    return default
+
+
+def content_metadata(node: Dict[str, Any]) -> Dict[str, Any]:
+    content = node.get("content") or {}
+    repository = ((content.get("repository") or {}).get("nameWithOwner") or "").strip()
+    number = content.get("number")
+    issue_identity = (
+        "{}#{}".format(repository, number)
+        if repository and isinstance(number, int)
+        else None
+    )
+    assignees = sorted(
+        {
+            str(entry.get("login") or "").strip()
+            for entry in ((content.get("assignees") or {}).get("nodes") or [])
+            if str(entry.get("login") or "").strip()
+        }
+    )
+    labels = sorted(
+        {
+            str(entry.get("name") or "").strip()
+            for entry in ((content.get("labels") or {}).get("nodes") or [])
+            if str(entry.get("name") or "").strip()
+        }
+    )
+    milestone = content.get("milestone") or None
+    parent = content.get("parent") or None
+    subissues = (content.get("subIssues") or {}).get("nodes") or []
+    completed_subissues = sum(
+        1 for entry in subissues if normalize(entry.get("state")) == "closed"
+    )
+    total_subissues = int((content.get("subIssues") or {}).get("totalCount") or 0)
+    return {
+        "projectItemId": node.get("id"),
+        "contentType": content.get("__typename"),
+        "issueIdentity": issue_identity,
+        "number": number,
+        "title": content.get("title"),
+        "url": content.get("url"),
+        "state": content.get("state"),
+        "repository": repository or None,
+        "assignees": assignees,
+        "labels": labels,
+        "milestone": milestone,
+        "parentIssue": parent,
+        "subissueProgress": {
+            "complete": True,
+            "completed": completed_subissues,
+            "total": total_subissues,
+            "percent": (
+                round(completed_subissues / total_subissues * 100.0, 1)
+                if total_subissues
+                else None
+            ),
+            "items": subissues,
+        },
+    }
+
+
+def operational_fields(
+    project_values: Dict[str, Any],
+    config_fields: Dict[str, Any],
+    metadata: Dict[str, Any],
+) -> Dict[str, Any]:
+    assignees = metadata.get("assignees") or []
+    owner = field_value(project_values, config_fields, "owner")
+    if not owner and assignees:
+        owner = ", ".join(assignees)
+    parent = metadata.get("parentIssue") or field_value(
+        project_values, config_fields, "parentIssue"
+    )
+    subissue_progress = metadata.get("subissueProgress")
+    configured_subissue_progress = field_value(
+        project_values, config_fields, "subIssuesProgress"
+    )
+    if configured_subissue_progress and subissue_progress:
+        subissue_progress = {
+            **subissue_progress,
+            "projectValue": configured_subissue_progress,
+        }
+    return {
+        "workstream": field_value(project_values, config_fields, "workstream"),
+        "priority": field_value(project_values, config_fields, "priority"),
+        "releaseBlocker": field_value(
+            project_values, config_fields, "releaseBlocker"
+        ),
+        "runs": field_value(project_values, config_fields, "runs"),
+        "rebaselineStatus": field_value(
+            project_values, config_fields, "rebaselineStatus"
+        ),
+        "changeAuditNeeded": field_value(
+            project_values, config_fields, "changeAuditNeeded"
+        ),
+        "owner": owner,
+        "assignees": assignees,
+        "milestone": metadata.get("milestone"),
+        "parentIssue": parent,
+        "subissueProgress": subissue_progress,
+        "dependencies": field_value(project_values, config_fields, "dependency"),
+        "nextAction": field_value(project_values, config_fields, "nextAction"),
+        "validationRequirement": field_value(
+            project_values, config_fields, "validationRequirement"
+        ),
+        "labels": metadata.get("labels") or [],
+    }
 
 
 def issue_identifier(title: str) -> str:
@@ -304,22 +647,34 @@ def parse_items(
     }
     threshold = float(config["goal"]["reviewReadyScore"])
     parsed: List[Dict[str, Any]] = []
+    project_records: List[Dict[str, Any]] = []
     project_values_by_identifier: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     project_values_by_record: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
 
     for node in raw.get("items") or []:
         project_values = extract_field_values(node)
+        metadata = content_metadata(node)
         project_title = str(
             project_values.get(fields.get("title", "Title"))
-            or ((node.get("content") or {}).get("title"))
+            or metadata.get("title")
             or ""
         )
         project_identifier = issue_identifier(project_title)
-        if project_identifier:
-            project_values_by_identifier[normalize(project_identifier)].append(project_values)
         record = canonical_key(project_values.get(fields["canonicalPage"]), config["repository"])
+        project_record = {
+            "node": node,
+            "values": project_values,
+            "metadata": metadata,
+            "title": project_title,
+            "identifier": project_identifier,
+            "canonicalRecord": record,
+            "matched": False,
+        }
+        project_records.append(project_record)
+        if project_identifier:
+            project_values_by_identifier[normalize(project_identifier)].append(project_record)
         if record:
-            project_values_by_record[record].append(project_values)
+            project_values_by_record[record].append(project_record)
 
     for registry_row in registry:
         record_kind = normalize(registry_row.get("Kind"))
@@ -332,26 +687,39 @@ def parse_items(
         record_matches = project_values_by_record.get(record) or []
         identity_warning: Optional[str] = None
         if len(identifier_matches) == 1:
-            project_values = identifier_matches[0]
+            project_record = identifier_matches[0]
+            project_values = project_record["values"]
+            project_record["matched"] = True
         elif len(identifier_matches) > 1:
+            project_record = None
             project_values = {}
             identity_warning = "Multiple Project items use this proposal identifier; identity is ambiguous."
         elif len(record_matches) == 1:
-            project_values = record_matches[0]
+            project_record = record_matches[0]
+            project_values = project_record["values"]
+            project_record["matched"] = True
         elif len(record_matches) > 1:
+            project_record = None
             project_values = {}
             identity_warning = (
                 "Project Title did not identify this proposal and Canonical page matches multiple items."
             )
         else:
+            project_record = None
             project_values = {}
+        metadata = project_record["metadata"] if project_record else {}
         workflow_status = str(project_values.get(fields["status"], "Unspecified"))
         development_level = str(project_values.get(fields["developmentLevel"], "Unspecified"))
         score_value = project_values.get(fields["score"])
+        score_state = "missing" if score_value is None else "valid"
         try:
             score = float(score_value) if score_value is not None else None
         except (TypeError, ValueError):
             score = None
+            score_state = "invalid"
+        if score is not None and (not math.isfinite(score) or score < 0 or score > 100):
+            score = None
+            score_state = "invalid"
         area = str(project_values.get(fields["area"]) or area_from_title(title))
         level_is_ready = normalize(development_level) in ready_levels
         threshold_is_met = score is not None and score >= threshold
@@ -365,6 +733,12 @@ def parse_items(
                     f"{record_kind.title()} registry entry has no matching Project "
                     "item by Title or Canonical page."
                 )
+        if score_state == "invalid":
+            warnings.append(
+                'Project Score "{}" is invalid; use a finite number from 0 through 100.'.format(
+                    score_value
+                )
+            )
         if normalize(development_level) == normalize("Unspecified"):
             warnings.append("Project Development level is missing; the proposal is not counted as ready.")
         elif normalize(development_level) not in approved_development_levels:
@@ -402,8 +776,11 @@ def parse_items(
                 "kind": record_kind,
                 "identifier": identifier,
                 "title": title,
-                "url": registry_row.get("GitHub Issue"),
-                "state": None,
+                "url": metadata.get("url") or registry_row.get("GitHub Issue"),
+                "state": metadata.get("state"),
+                "projectItemId": metadata.get("projectItemId"),
+                "issueIdentity": metadata.get("issueIdentity")
+                or "{}#{}".format(config["repository"], registry_row["GitHub Number"]),
                 "canonicalRecord": record,
                 "area": area,
                 "developmentLevel": development_level,
@@ -412,10 +789,118 @@ def parse_items(
                     repository_root, record, "workflow_hold_reason"
                 ),
                 "score": score,
+                "rawScore": score_value,
+                "scoreState": score_state,
                 "lastAudit": project_values.get(fields["lastAudit"]),
                 "nextAudit": project_values.get(fields["nextAudit"]),
                 "ready": is_ready,
+                "isIssueDevelopment": True,
                 "warnings": warnings,
+                **operational_fields(project_values, fields, metadata),
+            }
+        )
+
+    registry_by_number = {
+        str(row.get("GitHub Number") or "").strip(): row
+        for row in registry
+        if str(row.get("GitHub Number") or "").strip()
+    }
+    registry_by_identifier = {
+        normalize(issue_identifier(str(row.get("GitHub Title") or ""))): row
+        for row in registry
+        if str(row.get("GitHub Title") or "").strip()
+    }
+    for project_record in project_records:
+        if project_record["matched"]:
+            continue
+        metadata = project_record["metadata"]
+        registry_row = registry_by_number.get(str(metadata.get("number") or ""))
+        if registry_row is None:
+            registry_row = registry_by_identifier.get(
+                normalize(project_record["identifier"])
+            )
+        if normalize((registry_row or {}).get("Kind")) in {"proposal", "horizon"}:
+            # Active issue-development records are already projected from the
+            # authoritative registry, including identity-ambiguity warnings.
+            continue
+        project_values = project_record["values"]
+        title = str(
+            (registry_row or {}).get("GitHub Title")
+            or project_record["title"]
+            or "Untitled Project item"
+        )
+        identifier = issue_identifier(title)
+        record_kind = normalize((registry_row or {}).get("Kind")) or normalize(
+            metadata.get("contentType")
+        ) or "project item"
+        workflow_status = str(project_values.get(fields["status"], "Unspecified"))
+        missing_fields = [
+            name
+            for name, value in (
+                ("status", workflow_status if workflow_status != "Unspecified" else None),
+                ("workstream", field_value(project_values, fields, "workstream")),
+                ("priority", field_value(project_values, fields, "priority")),
+                (
+                    "release_blocker",
+                    field_value(project_values, fields, "releaseBlocker"),
+                ),
+                ("owner", field_value(project_values, fields, "owner") or metadata.get("assignees")),
+                ("next_action", field_value(project_values, fields, "nextAction")),
+                (
+                    "validation_requirement",
+                    field_value(project_values, fields, "validationRequirement"),
+                ),
+            )
+            if value in (None, "", [])
+        ]
+        project_url = metadata.get("url") or (registry_row or {}).get("GitHub Issue")
+        canonical_record = project_record["canonicalRecord"] or canonical_key(
+            (registry_row or {}).get("Canonical Record"), config["repository"]
+        )
+        parsed.append(
+            {
+                "number": (
+                    int(metadata["number"])
+                    if isinstance(metadata.get("number"), int)
+                    else (
+                        int(registry_row["GitHub Number"])
+                        if registry_row and str(registry_row.get("GitHub Number") or "").isdigit()
+                        else None
+                    )
+                ),
+                "kind": record_kind,
+                "identifier": identifier,
+                "title": title,
+                "url": project_url,
+                "state": metadata.get("state"),
+                "projectItemId": metadata.get("projectItemId"),
+                "issueIdentity": metadata.get("issueIdentity"),
+                "canonicalRecord": canonical_record,
+                "area": str(project_values.get(fields["area"]) or area_from_title(title)),
+                "developmentLevel": None,
+                "workflowStatus": workflow_status,
+                "score": None,
+                "rawScore": None,
+                "scoreState": "not_applicable",
+                "lastAudit": None,
+                "nextAudit": None,
+                "ready": False,
+                "isIssueDevelopment": False,
+                "warnings": [],
+                "links": {
+                    "projectItem": (
+                        "https://github.com/users/{}/projects/{}".format(
+                            config["projectOwner"], config["projectNumber"]
+                        )
+                    ),
+                    "issue": project_url,
+                    "canonical": canonical_record or None,
+                },
+                "completeness": {
+                    "complete": not missing_fields,
+                    "missingFields": missing_fields,
+                },
+                **operational_fields(project_values, fields, metadata),
             }
         )
     return str(raw.get("projectTitle") or "ARRP GitHub Project"), parsed
@@ -443,6 +928,7 @@ def build_snapshot(items: Sequence[Dict[str, Any]], snapshot_date: date) -> Dict
         "ready": sum(1 for item in items if item["ready"]),
         "byArea": dict(sorted(by_area.items())),
         "detailAvailable": True,
+        "eligibleIssues": sorted(item["identifier"] for item in items),
         "readyIssues": sorted(item["identifier"] for item in items if item["ready"]),
         "scores": {
             item["identifier"]: int(item["score"]) if item["score"].is_integer() else item["score"]
@@ -452,18 +938,42 @@ def build_snapshot(items: Sequence[Dict[str, Any]], snapshot_date: date) -> Dict
     }
 
 
-def valid_history(payload: Any) -> Dict[str, Any]:
+def valid_history(payload: Any, *, strict: bool = True) -> Dict[str, Any]:
     if not isinstance(payload, dict) or not isinstance(payload.get("snapshots"), list):
+        if strict:
+            raise RuntimeError("Progress history is not a JSON object with a snapshots array.")
         return {"schemaVersion": 1, "snapshots": []}
     cleaned = []
-    for snapshot in payload["snapshots"]:
+    errors: List[str] = []
+    for index, snapshot in enumerate(payload["snapshots"]):
         try:
             date.fromisoformat(str(snapshot["date"]))
             total = int(snapshot["total"])
             ready = int(snapshot["ready"])
         except (KeyError, TypeError, ValueError):
+            errors.append("snapshot {} has invalid date/total/ready fields".format(index))
             continue
         if total < 0 or ready < 0 or ready > total:
+            errors.append("snapshot {} has impossible total/ready counts".format(index))
+            continue
+        eligible_issues = sorted(
+            {
+                str(value)
+                for value in snapshot.get("eligibleIssues") or []
+                if str(value).strip()
+            }
+        )
+        ready_issues = sorted(
+            {
+                str(value)
+                for value in snapshot.get("readyIssues") or []
+                if str(value).strip()
+            }
+        )
+        if eligible_issues and not set(ready_issues).issubset(eligible_issues):
+            errors.append(
+                "snapshot {} contains ready issues outside its eligibility set".format(index)
+            )
             continue
         cleaned.append(
             {
@@ -474,9 +984,8 @@ def valid_history(payload: Any) -> Dict[str, Any]:
                 "detailAvailable": bool(
                     snapshot.get("detailAvailable", "readyIssues" in snapshot or "scores" in snapshot)
                 ),
-                "readyIssues": sorted(
-                    {str(value) for value in snapshot.get("readyIssues") or [] if str(value).strip()}
-                ),
+                "eligibleIssues": eligible_issues,
+                "readyIssues": ready_issues,
                 "scores": {
                     str(key): value
                     for key, value in (snapshot.get("scores") or {}).items()
@@ -484,6 +993,8 @@ def valid_history(payload: Any) -> Dict[str, Any]:
                 },
             }
         )
+    if errors and strict:
+        raise RuntimeError("Progress history validation failed: " + "; ".join(errors))
     unique = {snapshot["date"]: snapshot for snapshot in cleaned}
     return {"schemaVersion": 1, "snapshots": [unique[key] for key in sorted(unique)]}
 
@@ -495,7 +1006,10 @@ def load_history(config: Dict[str, Any], local_path: Optional[Path]) -> Dict[str
     branch = config.get("dataBranch")
     history_path = config.get("historyPath")
     if not token or not branch or not history_path:
-        return {"schemaVersion": 1, "snapshots": []}
+        raise RuntimeError(
+            "Progress history cannot be retained because GITHUB_TOKEN, dataBranch, "
+            "or historyPath is unavailable."
+        )
     url = "{}/repos/{}/contents/{}?ref={}".format(
         REST_ROOT,
         config["repository"],
@@ -516,8 +1030,11 @@ def load_history(config: Dict[str, Any], local_path: Optional[Path]) -> Dict[str
             payload = json.load(response)
         encoded = str(payload.get("content") or "").replace("\n", "")
         return valid_history(json.loads(base64.b64decode(encoded).decode("utf-8")))
-    except (OSError, ValueError, urllib.error.URLError, json.JSONDecodeError):
-        return {"schemaVersion": 1, "snapshots": []}
+    except (OSError, ValueError, urllib.error.URLError, json.JSONDecodeError) as exc:
+        raise RuntimeError(
+            "Progress history could not be fetched and validated; refusing to "
+            "replace it with an empty history: {}".format(exc)
+        ) from exc
 
 
 def combine_histories(*histories: Dict[str, Any]) -> Dict[str, Any]:
@@ -545,6 +1062,7 @@ def merge_history(history: Dict[str, Any], snapshot: Dict[str, Any], config: Dic
             "ready": int(goal["baselineReady"]),
             "byArea": {},
             "detailAvailable": False,
+            "eligibleIssues": [],
             "readyIssues": [],
             "scores": {},
         },
@@ -580,7 +1098,24 @@ def weekly_velocity(
     elapsed = (current_date - date.fromisoformat(start["date"])).days
     if elapsed < minimum_days:
         return None
-    return (current["ready"] - start["ready"]) / (elapsed / 7.0)
+    start_eligible = set(start.get("eligibleIssues") or [])
+    current_eligible = set(current.get("eligibleIssues") or [])
+    if (
+        start.get("detailAvailable")
+        and current.get("detailAvailable")
+        and start_eligible
+        and current_eligible
+    ):
+        comparable = start_eligible & current_eligible
+        start_ready = set(start.get("readyIssues") or []) & comparable
+        current_ready = set(current.get("readyIssues") or []) & comparable
+        attainment = len(current_ready - start_ready)
+        regression = len(start_ready - current_ready)
+        net_ready_change = attainment - regression
+    else:
+        # Compatibility fallback for historical aggregate-only snapshots.
+        net_ready_change = current["ready"] - start["ready"]
+    return net_ready_change / (elapsed / 7.0)
 
 
 def iso_forecast(current_date: date, remaining: int, weekly_rate: Optional[float]) -> Optional[str]:
@@ -675,7 +1210,151 @@ def compute_metrics(
         "scheduleVariance": variance,
         "trackStatus": track_status,
         "scopeChange": snapshot["total"] - int(goal["baselineTotal"]),
+        "scopeChangeMeaning": (
+            "Change in separately counted eligible proposal records; it is not "
+            "a completion, failure, or substantive-readiness measure."
+        ),
+        "forecastScopeLabel": "On track for current scope",
         "checkpoints": month_end_checkpoints(baseline, target, int(goal["baselineReady"]), snapshot["total"]),
+    }
+
+
+def portfolio_architecture(
+    snapshot: Dict[str, Any],
+    config: Dict[str, Any],
+    repository_root: Optional[Path],
+) -> Dict[str, Any]:
+    goal = config["goal"]
+    baseline_total = int(goal["baselineTotal"])
+    baseline_ready = int(goal["baselineReady"])
+    configured_record_path = str(
+        config.get(
+            "portfolioArchitectureRecord",
+            PORTFOLIO_ARCHITECTURE_RECORD.as_posix(),
+        )
+    )
+    if configured_record_path != PORTFOLIO_ARCHITECTURE_RECORD.as_posix():
+        raise ValueError(
+            "portfolioArchitectureRecord must use the canonical allowlisted record."
+        )
+    record_path = PORTFOLIO_ARCHITECTURE_RECORD.as_posix()
+    record_url = "https://github.com/{}/blob/main/{}".format(
+        config["repository"], record_path
+    )
+    appt_total: Optional[int] = None
+    consolidated_total: Optional[int] = None
+    if repository_root is not None:
+        path = repository_root / PORTFOLIO_ARCHITECTURE_RECORD
+        if path.is_file():
+            text = path.read_text(encoding="utf-8")
+            appt_match = re.search(
+                r"review baseline contained \*\*(\d+) active proposal records\*\*",
+                text,
+                flags=re.IGNORECASE,
+            )
+            adopted_match = re.search(
+                r"to \*\*(\d+) active proposals\*\*",
+                text,
+                flags=re.IGNORECASE,
+            )
+            if appt_match:
+                appt_total = int(appt_match.group(1))
+            if adopted_match:
+                consolidated_total = int(adopted_match.group(1))
+    steps: List[Dict[str, Any]] = [
+        {
+            "date": goal["baselineDate"],
+            "total": baseline_total,
+            "delta": None,
+            "reasonCode": "baseline",
+            "label": "Baseline active proposal architecture",
+            "countsAsAttainment": False,
+            "source": None,
+        }
+    ]
+    if appt_total is not None:
+        steps.append(
+            {
+                "date": "2026-07-16",
+                "total": appt_total,
+                "delta": appt_total - baseline_total,
+                "reasonCode": "approved_appt_consolidation",
+                "label": "After approved APPT consolidation",
+                "countsAsAttainment": False,
+                "source": record_url,
+            }
+        )
+    if consolidated_total is not None:
+        prior_total = appt_total if appt_total is not None else baseline_total
+        steps.append(
+            {
+                "date": "2026-07-16",
+                "total": consolidated_total,
+                "delta": consolidated_total - prior_total,
+                "reasonCode": "approved_portfolio_consolidation",
+                "label": "After approved portfolio consolidation",
+                "countsAsAttainment": False,
+                "source": record_url,
+            }
+        )
+    prior_total = (
+        consolidated_total
+        if consolidated_total is not None
+        else appt_total if appt_total is not None else baseline_total
+    )
+    current_delta = snapshot["total"] - prior_total
+    current_reason = (
+        "later_admissions"
+        if current_delta > 0 and consolidated_total is not None
+        else "later_scope_reductions"
+        if current_delta < 0 and consolidated_total is not None
+        else "current_scope"
+    )
+    steps.append(
+        {
+            "date": snapshot["date"],
+            "total": snapshot["total"],
+            "delta": current_delta,
+            "reasonCode": current_reason,
+            "label": (
+                "Current eligible proposal scope after later admissions"
+                if current_reason == "later_admissions"
+                else "Current eligible proposal scope"
+            ),
+            "countsAsAttainment": False,
+            "source": None,
+        }
+    )
+    net_change = snapshot["total"] - baseline_total
+    return {
+        "available": appt_total is not None and consolidated_total is not None,
+        "record": {"path": record_path, "url": record_url},
+        "steps": steps,
+        "netScopeChange": net_change,
+        "explanation": (
+            "{} means {} {} separately counted eligible proposal records than the "
+            "baseline; this is not a count of completions, failures, or deletions."
+        ).format(
+            "{:+d}".format(net_change),
+            abs(net_change),
+            "fewer" if net_change < 0 else "more",
+        ),
+        "earnedReadiness": {
+            "baselineDate": goal["baselineDate"],
+            "baselineReady": baseline_ready,
+            "currentDate": snapshot["date"],
+            "currentReady": snapshot["ready"],
+            "netEarned": snapshot["ready"] - baseline_ready,
+            "separateFromScope": True,
+        },
+        "reasonCodes": {
+            "baseline": "Starting eligible portfolio count.",
+            "approved_appt_consolidation": "Human-approved APPT consolidation.",
+            "approved_portfolio_consolidation": "Human-approved portfolio architecture consolidation.",
+            "later_admissions": "Record-specific admissions after consolidation.",
+            "later_scope_reductions": "Later reason-coded removal, merger, retirement, or reroute.",
+            "current_scope": "Current eligible proposal denominator.",
+        },
     }
 
 
@@ -685,6 +1364,8 @@ def build_progress_payload(
     history: Dict[str, Any],
     config: Dict[str, Any],
     as_of: date,
+    repository_root: Optional[Path] = None,
+    contract_metadata: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     goal = config["goal"]
     threshold = float(goal["reviewReadyScore"])
@@ -693,6 +1374,16 @@ def build_progress_payload(
     ]
     candidate_items = [
         item for item in items if normalize(item.get("kind")) == "horizon"
+    ]
+    delivery_items = [
+        item
+        for item in items
+        if normalize(item.get("kind")) not in {"proposal", "horizon"}
+    ]
+    release_blockers = [
+        item
+        for item in items
+        if normalize(item.get("releaseBlocker")) in {"yes", "true"}
     ]
     snapshot = build_snapshot(proposal_items, as_of)
     merged_history = merge_history(history, snapshot, config)
@@ -728,9 +1419,62 @@ def build_progress_payload(
             item["identifier"],
         ),
     )
+    generated_at = utc_timestamp()
+    contract_metadata = contract_metadata or {}
+    projection_errors = list(contract_metadata.get("projection_errors") or [])
+    for item in items:
+        if item.get("projectItemId") is None:
+            projection_errors.append(
+                {
+                    "code": "missing_project_item",
+                    "severity": "error",
+                    "identifier": item.get("identifier"),
+                    "message": "Registry item has no unambiguous authenticated Project item.",
+                }
+            )
+        if item.get("scoreState") == "invalid":
+            projection_errors.append(
+                {
+                    "code": "invalid_score",
+                    "severity": "error",
+                    "identifier": item.get("identifier"),
+                    "message": "Project Score is outside the accepted numeric contract.",
+                }
+            )
+    expected_count = int(contract_metadata.get("expected_count", len(items)))
+    actual_count = int(
+        contract_metadata.get(
+            "actual_count",
+            sum(1 for item in items if item.get("projectItemId") is not None),
+        )
+    )
+    contract = feed_contract(
+        feed_name="project-console-progress",
+        timestamp_field="generated_at",
+        timestamp=generated_at,
+        revision=str(contract_metadata.get("source_revision") or ""),
+        hashes=contract_metadata.get("source_hashes") or {},
+        expected_count=expected_count,
+        actual_count=actual_count,
+        pagination=contract_metadata.get("pagination")
+        or {"complete": True, "sources": []},
+        projection_errors=projection_errors,
+    )
+    contract["freshness"] = {
+        "status": contract["availability"],
+        "basis": (
+            "latest complete authenticated GitHub Project synchronization "
+            "and declared generation inputs"
+        ),
+        "supersession_rule": (
+            "A newer complete authenticated Project synchronization supersedes "
+            "an older generation; repository HEAD alone does not."
+        ),
+    }
     payload = {
         "schemaVersion": 2,
-        "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        "generatedAt": generated_at,
+        **contract,
         "asOf": as_of.isoformat(),
         "project": {
             "title": project_title,
@@ -743,6 +1487,32 @@ def build_progress_payload(
         "developmentLevels": list(APPROVED_DEVELOPMENT_LEVELS),
         "goal": goal,
         "metrics": compute_metrics(snapshot, merged_history, config, as_of),
+        "portfolioArchitecture": portfolio_architecture(
+            snapshot, config, repository_root
+        ),
+        "earnedReadiness": {
+            "baseline": int(goal["baselineReady"]),
+            "current": snapshot["ready"],
+            "net": snapshot["ready"] - int(goal["baselineReady"]),
+            "scopeChangesExcluded": True,
+        },
+        "projectItemReconciliation": {
+            "totalProjectItems": len(items),
+            "proposalItems": len(proposal_items),
+            "candidateItems": len(candidate_items),
+            "portfolioItems": len(proposal_items) + len(candidate_items),
+            "deliveryItems": len(delivery_items),
+            "releaseBlockers": len(release_blockers),
+            "partitionComplete": (
+                len(items)
+                == len(proposal_items)
+                + len(candidate_items)
+                + len(delivery_items)
+            ),
+            "releaseBlockerFieldProjected": all(
+                "releaseBlocker" in item for item in items
+            ),
+        },
         "history": merged_history["snapshots"],
         "workflowStatusDistribution": [
             {"status": name, "count": count} for name, count in workflow_status_counts.most_common()
@@ -768,6 +1538,14 @@ def build_progress_payload(
         "candidates": sorted(
             candidate_items,
             key=lambda item: (item["developmentLevel"], item["identifier"]),
+        ),
+        "delivery_items": sorted(
+            delivery_items,
+            key=lambda item: (
+                normalize(item.get("priority")),
+                normalize(item.get("workstream")),
+                item.get("identifier") or "",
+            ),
         ),
         "backlog": backlog,
     }
@@ -795,6 +1573,22 @@ def portfolio_movement(
 
     previous_ready = set(start.get("readyIssues") or [])
     current_ready = set(current.get("readyIssues") or [])
+    previous_eligible = set(start.get("eligibleIssues") or [])
+    current_eligible = set(current.get("eligibleIssues") or [])
+    eligibility_available = bool(previous_eligible and current_eligible)
+    comparable_eligible = (
+        previous_eligible & current_eligible if eligibility_available else None
+    )
+    if comparable_eligible is not None:
+        newly_ready = (current_ready - previous_ready) & comparable_eligible
+        fell_below_ready = (previous_ready - current_ready) & comparable_eligible
+        scope_added = current_eligible - previous_eligible
+        scope_removed = previous_eligible - current_eligible
+    else:
+        newly_ready = current_ready - previous_ready
+        fell_below_ready = previous_ready - current_ready
+        scope_added = set()
+        scope_removed = set()
     current_scores = current.get("scores") or {}
     previous_scores = start.get("scores") or {}
     comparable_scores = set(current_scores) & set(previous_scores)
@@ -818,8 +1612,12 @@ def portfolio_movement(
         "windowDays": window_days,
         "periodStart": start["date"],
         "elapsedDays": elapsed,
-        "newlyReady": linked(current_ready - previous_ready),
-        "fellBelowReady": linked(previous_ready - current_ready),
+        "newlyReady": linked(newly_ready),
+        "fellBelowReady": linked(fell_below_ready),
+        "eligibilityDetailAvailable": eligibility_available,
+        "scopeAdded": linked(scope_added),
+        "scopeRemoved": linked(scope_removed),
+        "scopeChangesExcludedFromAttainment": eligibility_available,
         "scoresAvailable": bool(comparable_scores),
         "scoresImproved": sum(1 for value in deltas.values() if value > 0),
         "scoresDeclined": sum(1 for value in deltas.values() if value < 0),
@@ -837,12 +1635,21 @@ def write_progress_data(output: Path, payload: Dict[str, Any]) -> None:
 
 def main() -> int:
     args = parse_args()
-    config = read_json(args.config)
-    registry_path = args.registry or Path(config["registryPath"])
+    config_path = trusted_input_path(args.config, purpose="Project Console config")
+    config = read_json(config_path)
+    registry_path = trusted_input_path(
+        args.registry or Path(config["registryPath"]),
+        purpose="Project issue registry",
+    )
     registry = read_registry(registry_path)
     as_of = date.fromisoformat(args.as_of) if args.as_of else datetime.now(timezone.utc).date()
     if args.input:
-        raw = read_json(args.input)
+        input_path = trusted_input_path(
+            args.input,
+            purpose="Saved GitHub Project input",
+            allow_system_temp=True,
+        )
+        raw = read_json(input_path)
     else:
         token = os.environ.get(args.token_env, "").strip()
         if not token:
@@ -850,17 +1657,50 @@ def main() -> int:
                 "Missing {}. Add a repository secret containing a token with read:project access.".format(args.token_env)
             )
         raw = fetch_project(config, token)
-    repository_root = registry_path.resolve().parent.parent
+    repository_root = REPOSITORY_ROOT
     project_title, items = parse_items(raw, config, registry, repository_root)
     if not items:
         raise RuntimeError("No eligible proposal issues were returned; refusing to publish an empty progress feed.")
-    retained_history = load_history(config, args.history)
+    history_path = (
+        trusted_input_path(
+            args.history,
+            purpose="Project progress history",
+            allow_system_temp=True,
+        )
+        if args.history
+        else None
+    )
+    retained_history = load_history(config, history_path)
     seed_history = {"schemaVersion": 1, "snapshots": []}
     seed_path = config.get("historySeedPath")
     if seed_path:
-        seed_history = valid_history(read_json(Path(seed_path)))
+        seed_path = trusted_input_path(
+            Path(seed_path),
+            purpose="Project progress history seed",
+        )
+        seed_history = valid_history(read_json(seed_path))
     history = combine_histories(seed_history, retained_history)
-    payload = build_progress_payload(project_title, items, history, config, as_of)
+    source_paths = [config_path, registry_path]
+    if seed_path:
+        source_paths.append(seed_path)
+    payload = build_progress_payload(
+        project_title,
+        items,
+        history,
+        config,
+        as_of,
+        repository_root,
+        {
+            "source_revision": source_revision(repository_root),
+            "source_hashes": source_hashes(repository_root, source_paths),
+            "expected_count": len(items),
+            "actual_count": sum(
+                1 for item in items if item.get("projectItemId") is not None
+            ),
+            "pagination": raw.get("_pagination")
+            or {"complete": True, "sources": []},
+        },
+    )
     write_progress_data(args.output, payload)
     print(
         "Built Project Console progress data: {ready}/{total} ready; status={status}".format(

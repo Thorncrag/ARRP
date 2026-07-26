@@ -15,7 +15,13 @@ from elim_execution import (  # noqa: E402
     RUBRIC_VERSION,
     calculate_score,
     compile_closeout,
+    parse_discovery_markers,
+    merge_gap_obligation_state,
+    reconstruct_gap_obligation_state,
+    render_discovery_markers,
     summarize_validation,
+    validate_discovery_records,
+    verify_discovery_markers,
     validation_plan,
 )
 
@@ -35,6 +41,115 @@ class ExecutionHelperTests(unittest.TestCase):
                     "evidence_ref": "finding-1",
                 }
             ],
+        }
+
+    def discovery_result(
+        self,
+        *,
+        disposition="retained",
+        authority_disposition="uncertain",
+        status="open",
+        observed_at="2026-07-25T12:00:00+00:00",
+        resolution=None,
+    ):
+        unit = {
+            "id": "DISC-gap-1",
+            "obligation_id": "GAP-structure-1",
+            "domain": "project-structure",
+            "discovery_context": "Quiet-queue governance review.",
+            "observed_at": observed_at,
+            "source_revision": "a" * 40,
+            "evidence": ["framework/PROJECT_STRUCTURE.md documents the expected owner."],
+            "reasoning": "The current record omits the required canonical linkage.",
+            "uncertainty": "The intended owner is not yet conclusive.",
+            "affected_records": ["framework/PROJECT_STRUCTURE.md"],
+            "consequence": "The gap can evade ordinary deterministic routing.",
+            "authority": {
+                "classification": "delegated_judgment",
+                "basis": "Elim governance-discovery runbook.",
+                "disposition": authority_disposition,
+            },
+            "action_rationale": "Retain the gap until the ownership evidence is conclusive.",
+            "changed_files": ["framework/logs/ELIM_RUN_LOG.md"],
+            "affected_surfaces": ["repository", "automation", "console"],
+            "validation_readback": [
+                {
+                    "check": "canonical detail readback",
+                    "status": "passed",
+                    "evidence": "The Run Log contains the linked detail.",
+                }
+            ],
+            "disposition": disposition,
+            "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+            "provenance": ["framework/logs/ELIM_RUN_LOG.md#gap-structure-1"],
+            "owner": "Elim",
+            "next_action": "Recheck the owning record at the next current revision.",
+            "next_trigger": "A governing or ownership record changes.",
+            "outside_contribution": None,
+        }
+        return {
+            "run_id": "chain-1",
+            "files_touched": ["framework/logs/ELIM_RUN_LOG.md"],
+            "discovered_work_units": [unit],
+            "gap_obligation_updates": [
+                {
+                    "obligation_id": "GAP-structure-1",
+                    "discovered_work_unit_id": "DISC-gap-1",
+                    "status": status,
+                    "observed_at": observed_at,
+                    "resolution": resolution,
+                }
+            ],
+        }
+
+    def governance_review_result(
+        self,
+        *,
+        observed_at="2026-07-25T12:00:00+00:00",
+        disposition="no_material_finding",
+    ):
+        return {
+            "run_id": "chain-governance",
+            "unit_id": "selected-governance",
+            "files_touched": ["framework/logs/ELIM_RUN_LOG.md"],
+            "discovered_work_units": [
+                {
+                    "id": "DISC-governance-control",
+                    "obligation_id": None,
+                    "domain": "project-governance-review",
+                    "discovery_context": "Reviewed every minimum governance domain.",
+                    "observed_at": observed_at,
+                    "source_revision": "c" * 40,
+                    "evidence": ["The bounded review covered every required domain."],
+                    "reasoning": "The review outcome is recorded without inventing work.",
+                    "uncertainty": None,
+                    "affected_records": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "consequence": "Governance discovery is current for its cadence.",
+                    "authority": {
+                        "classification": "delegated_judgment",
+                        "basis": "Elim governance-discovery runbook.",
+                        "disposition": "permitted",
+                    },
+                    "action_rationale": "Record the review result and next trigger.",
+                    "changed_files": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "affected_surfaces": ["repository", "automation", "console"],
+                    "validation_readback": [
+                        {
+                            "check": "review-control readback",
+                            "status": "passed",
+                            "evidence": "The current Run Log section was read back.",
+                        }
+                    ],
+                    "disposition": disposition,
+                    "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+                    "provenance": ["framework/logs/ELIM_RUN_LOG.md#governance"],
+                    "owner": "Elim",
+                    "next_action": "Wait for the recorded next trigger.",
+                    "next_trigger": "The 168-hour minimum interval elapses.",
+                    "outside_contribution": None,
+                }
+            ],
+            "gap_obligation_updates": [],
         }
 
     def test_score_calculator_only_accepts_rubric_ratings_and_does_arithmetic(self):
@@ -87,6 +202,8 @@ class ExecutionHelperTests(unittest.TestCase):
             "synchronization": [],
             "human_questions": [],
             "continuation": {"state": "retryable", "next_action": "Resume source review"},
+            "discovered_work_units": [],
+            "gap_obligation_updates": [],
         }
         result = compile_closeout(
             value, queue_sha256="0" * 64, context_sha256="c" * 64
@@ -122,6 +239,8 @@ class ExecutionHelperTests(unittest.TestCase):
                 "state": "human_required",
                 "next_action": "Human reviews the candidate disposition.",
             },
+            "discovered_work_units": [],
+            "gap_obligation_updates": [],
         }
         result = compile_closeout(
             value,
@@ -152,6 +271,8 @@ class ExecutionHelperTests(unittest.TestCase):
             "synchronization": [],
             "human_questions": [],
             "continuation": {"state": "complete", "next_action": None},
+            "discovered_work_units": [],
+            "gap_obligation_updates": [],
         }
         for field in (
             "issue_id",
@@ -215,6 +336,177 @@ class ExecutionHelperTests(unittest.TestCase):
                 queue_sha256="0" * 64,
                 context_sha256="c" * 64,
             )
+
+    def test_gap_obligation_retains_stable_identity_and_full_occurrence_history(self):
+        first = self.discovery_result()
+        state = merge_gap_obligation_state(None, first)
+        retained = state["items"][0]
+        self.assertEqual(retained["first_seen"], "2026-07-25T12:00:00+00:00")
+        self.assertEqual(retained["occurrence_count"], 1)
+        self.assertEqual(retained["authority_disposition"], "uncertain")
+        self.assertIn("canonical_detail", retained)
+        self.assertIn("affected_surfaces", retained)
+        self.assertIn("validation_readback", retained)
+
+        second = self.discovery_result(observed_at="2026-07-27T12:00:00+00:00")
+        second["run_id"] = "chain-2"
+        state = merge_gap_obligation_state(state, second)
+        retained = state["items"][0]
+        self.assertEqual(retained["first_seen"], "2026-07-25T12:00:00+00:00")
+        self.assertEqual(retained["last_checked"], "2026-07-27T12:00:00+00:00")
+        self.assertEqual(retained["occurrence_count"], 2)
+        self.assertEqual(retained["age_days"], 2)
+        self.assertEqual(len(retained["occurrences"]), 2)
+        self.assertEqual(len(retained["status_history"]), 2)
+
+        absent = {
+            "run_id": "chain-3",
+            "files_touched": [],
+            "discovered_work_units": [],
+            "gap_obligation_updates": [],
+        }
+        self.assertEqual(merge_gap_obligation_state(state, absent), state)
+
+    def test_committed_markers_reconstruct_ledger_after_cache_loss(self):
+        first = self.discovery_result()
+        second = self.discovery_result(observed_at="2026-07-27T12:00:00+00:00")
+        first["unit_id"] = "selected-1"
+        second["run_id"] = "chain-2"
+        second["unit_id"] = "selected-2"
+        run_log = "\n".join(
+            (
+                "# Elim Run Log",
+                render_discovery_markers(first),
+                render_discovery_markers(second),
+            )
+        )
+        markers = parse_discovery_markers(run_log)
+        self.assertEqual(len(markers), 2)
+        reconstructed = reconstruct_gap_obligation_state(run_log)
+        item = reconstructed["items"][0]
+        self.assertEqual(item["obligation_id"], "GAP-structure-1")
+        self.assertEqual(item["occurrence_count"], 2)
+        self.assertEqual(item["first_seen"], "2026-07-25T12:00:00+00:00")
+        self.assertEqual(item["last_checked"], "2026-07-27T12:00:00+00:00")
+        verify_discovery_markers(render_discovery_markers(second), second)
+
+        tampered = json.loads(json.dumps(second))
+        tampered["discovered_work_units"][0]["reasoning"] = "Different reasoning."
+        with self.assertRaisesRegex(ContextError, "exactly match"):
+            verify_discovery_markers(render_discovery_markers(second), tampered)
+
+    def test_governance_review_control_is_durable_without_creating_a_gap(self):
+        result = self.governance_review_result()
+        run_log = "# Elim Run Log\n\n" + render_discovery_markers(result)
+        reconstructed = reconstruct_gap_obligation_state(run_log)
+        self.assertEqual(reconstructed["items"], [])
+        self.assertEqual(
+            reconstructed["governance_review"]["last_reviewed_at"],
+            "2026-07-25T12:00:00+00:00",
+        )
+        self.assertEqual(
+            reconstructed["governance_review"]["disposition"],
+            "no_material_finding",
+        )
+        self.assertEqual(
+            reconstructed["governance_review"]["selected_unit_id"],
+            "selected-governance",
+        )
+
+    def test_reporting_or_prohibited_authority_cannot_close_a_gap(self):
+        reported = self.discovery_result(
+            disposition="reported",
+            authority_disposition="forbidden",
+            status="resolved",
+            resolution={
+                "kind": "verified_resolution",
+                "verified_at": "2026-07-25T12:05:00+00:00",
+                "evidence": "The finding was reported.",
+                "source_revision": "a" * 40,
+                "recorded_by": "Elim",
+            },
+        )
+        with self.assertRaisesRegex(
+            ContextError,
+            "prohibited|reporting a finding|permitted repair",
+        ):
+            validate_discovery_records(reported)
+
+        human_closed = self.discovery_result(
+            disposition="reported",
+            authority_disposition="forbidden",
+            status="human_disposition",
+            resolution={
+                "kind": "human_disposition",
+                "verified_at": "2026-07-25T12:05:00+00:00",
+                "evidence": "Recorded human disposition HD-1.",
+                "source_revision": "a" * 40,
+                "recorded_by": "project owner",
+            },
+        )
+        validate_discovery_records(human_closed)
+
+    def test_discovery_cannot_close_without_documentation_and_readback_floor(self):
+        fixed = self.discovery_result(
+            disposition="fixed",
+            authority_disposition="permitted",
+            status="resolved",
+            resolution={
+                "kind": "verified_resolution",
+                "verified_at": "2026-07-25T12:05:00+00:00",
+                "evidence": "Focused tests and canonical readback passed.",
+                "source_revision": "a" * 40,
+                "recorded_by": "Elim",
+            },
+        )
+        fixed["discovered_work_units"][0]["changed_files"] = [
+            "framework/logs/ELIM_RUN_LOG.md"
+        ]
+        validate_discovery_records(fixed)
+        for missing in (
+            "action_rationale",
+            "affected_surfaces",
+            "validation_readback",
+            "canonical_detail",
+            "owner",
+            "next_trigger",
+        ):
+            broken = json.loads(json.dumps(fixed))
+            broken["discovered_work_units"][0].pop(missing)
+            with self.subTest(missing=missing):
+                with self.assertRaisesRegex(ContextError, "fields"):
+                    validate_discovery_records(broken)
+
+    def test_outside_contribution_requires_exact_revision_and_complete_check_floor(self):
+        result = self.discovery_result()
+        result["discovered_work_units"][0]["outside_contribution"] = {
+            "identity": "PR-42",
+            "revision": "b" * 40,
+            "classification": "outside contribution",
+            "checks": [
+                {
+                    "check": check,
+                    "status": "passed",
+                    "evidence": f"{check} verified at exact head.",
+                }
+                for check in (
+                    "identity",
+                    "classification",
+                    "required_fields",
+                    "canonical_linkage",
+                    "evidence_and_provenance",
+                    "lifecycle_and_authority",
+                    "generated_views",
+                    "tests",
+                    "documentation",
+                )
+            ],
+            "integration_posture": "ready",
+        }
+        validate_discovery_records(result)
+        result["discovered_work_units"][0]["outside_contribution"]["checks"].pop()
+        with self.assertRaisesRegex(ContextError, "required floor"):
+            validate_discovery_records(result)
 
 
 class CorpusIndexTests(unittest.TestCase):

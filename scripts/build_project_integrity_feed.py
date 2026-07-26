@@ -5,16 +5,25 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any
 
+try:
+    from console_data_contracts import feed_contract, file_sha256, utc_timestamp
+except ModuleNotFoundError:
+    from scripts.console_data_contracts import feed_contract, file_sha256, utc_timestamp
+
 
 DEFAULT_HISTORY_LIMIT = 30
 ALLOWED_HISTORY_HOST = "raw.githubusercontent.com"
 ALLOWED_HISTORY_PATH = "/Thorncrag/ARRP/project-console-data/integrity.json"
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+SYSTEM_TEMP_ROOT = Path(tempfile.gettempdir()).resolve()
 
 
 def parse_args() -> argparse.Namespace:
@@ -26,10 +35,30 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def trusted_report_path(path: Path) -> tuple[Path, Path]:
+    """Resolve an integrity report beneath the repository or system temp root."""
+    resolved_path = os.path.realpath(os.fspath(path))
+    for trusted_root in (REPOSITORY_ROOT, SYSTEM_TEMP_ROOT):
+        resolved_root = os.path.realpath(os.fspath(trusted_root))
+        root_prefix = resolved_root.rstrip(os.sep) + os.sep
+        if (
+            resolved_path.startswith(root_prefix)
+            and resolved_path.endswith(".json")
+            and os.path.isfile(resolved_path)
+        ):
+            return Path(resolved_path), Path(resolved_root)
+    raise ValueError(
+        "Integrity report must be a regular JSON file within the repository "
+        "or system temporary directory."
+    )
+
+
 def read_json(path: Path) -> dict[str, Any]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    trusted_path, _ = trusted_report_path(path)
+    with open(os.fspath(trusted_path), encoding="utf-8") as handle:
+        payload = json.load(handle)
     if not isinstance(payload, dict):
-        raise ValueError(f"Expected a JSON object in {path}")
+        raise ValueError(f"Expected a JSON object in {trusted_path}")
     return payload
 
 
@@ -52,9 +81,18 @@ def existing_feed(url: str | None) -> dict[str, Any]:
     try:
         with urllib.request.urlopen(request, timeout=20) as response:
             payload = json.load(response)
-            return payload if isinstance(payload, dict) else {}
-    except (OSError, ValueError, urllib.error.HTTPError, urllib.error.URLError):
-        return {}
+            if not isinstance(payload, dict):
+                raise RuntimeError(
+                    "Existing integrity history endpoint returned a non-object payload."
+                )
+            return payload
+    except RuntimeError:
+        raise
+    except (OSError, ValueError, urllib.error.HTTPError, urllib.error.URLError) as exc:
+        raise RuntimeError(
+            "Existing integrity history could not be fetched and validated; "
+            "refusing to replace it with an empty history."
+        ) from exc
 
 
 def history_summary(report: dict[str, Any]) -> dict[str, Any]:
@@ -68,22 +106,81 @@ def history_summary(report: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_feed(
-    report: dict[str, Any], existing: dict[str, Any], history_limit: int
+    report: dict[str, Any],
+    existing: dict[str, Any],
+    history_limit: int,
+    *,
+    report_path: Path | None = None,
 ) -> dict[str, Any]:
+    raw_generated_at = str(report.get("generated_at") or "").strip()
+    if not raw_generated_at:
+        raise RuntimeError("Integrity report lacks a generated_at timestamp.")
+    generated_at = utc_timestamp(raw_generated_at)
+    revision = str(report.get("revision") or "").strip()
+    if not revision:
+        raise RuntimeError("Integrity report lacks its checked source revision.")
+    counts = report.get("counts")
+    findings = report.get("findings")
+    if not isinstance(counts, dict) or not isinstance(findings, list):
+        raise RuntimeError(
+            "Integrity report lacks structured counts or findings."
+        )
+    if int(counts.get("findings", -1)) != len(findings):
+        raise RuntimeError(
+            "Integrity report finding count does not match its finding array."
+        )
+    if existing and not isinstance(existing.get("history"), list):
+        raise RuntimeError(
+            "Existing integrity feed does not satisfy the history contract."
+        )
     prior = existing.get("history", [])
     history = [history_summary(report)]
-    if isinstance(prior, list):
-        seen = {str(report.get("generated_at", ""))}
-        for item in prior:
-            if not isinstance(item, dict):
-                continue
-            timestamp = str(item.get("generated_at", ""))
-            if not timestamp or timestamp in seen:
-                continue
-            seen.add(timestamp)
-            history.append(item)
+    seen = {str(report.get("generated_at", ""))}
+    for item in prior:
+        if not isinstance(item, dict):
+            raise RuntimeError(
+                "Existing integrity history contains a non-object snapshot."
+            )
+        timestamp = str(item.get("generated_at", ""))
+        if not timestamp:
+            raise RuntimeError(
+                "Existing integrity history contains an undated snapshot."
+            )
+        if timestamp in seen:
+            continue
+        seen.add(timestamp)
+        history.append(item)
+    scope = report.get("scope") or []
+    if not isinstance(scope, list):
+        raise RuntimeError("Integrity report scope must be an array.")
+    hashes: dict[str, str] = {}
+    if report_path is not None:
+        trusted_path, trusted_root = trusted_report_path(report_path)
+        hashes[trusted_path.name] = file_sha256(trusted_root, trusted_path)
+    contract = feed_contract(
+        feed_name="project-integrity",
+        timestamp_field="generated_at",
+        timestamp=generated_at,
+        revision=revision,
+        hashes=hashes,
+        expected_count=len(scope),
+        actual_count=len(scope),
+        pagination={
+            "complete": True,
+            "sources": [
+                {
+                    "source": "integrity-check-inventory",
+                    "complete": True,
+                    "expected_count": len(scope),
+                    "actual_count": len(scope),
+                }
+            ],
+        },
+        projection_errors=[],
+    )
     return {
-        "schema_version": 1,
+        "schema_version": 2,
+        **contract,
         "current": report,
         "history": history[: max(1, history_limit)],
     }
@@ -93,7 +190,13 @@ def main() -> int:
     args = parse_args()
     if args.history_limit < 1:
         raise ValueError("--history-limit must be positive")
-    feed = build_feed(read_json(args.report), existing_feed(args.existing_url), args.history_limit)
+    report_path, _ = trusted_report_path(args.report)
+    feed = build_feed(
+        read_json(report_path),
+        existing_feed(args.existing_url),
+        args.history_limit,
+        report_path=report_path,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(feed, indent=2) + "\n", encoding="utf-8")
     print(

@@ -106,6 +106,8 @@ class RunChainDispatcherTests(unittest.TestCase):
                 "state": continuation_state,
                 "next_action": next_action,
             },
+            "discovered_work_units": [],
+            "gap_obligation_updates": [],
         }
 
     def selected_manifest(self, *, kind="issue_development", issue_id="TEST-001"):
@@ -157,6 +159,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             f"| Outcome | {outcome} |\n"
             "| Usage | 90 percent remaining; 1 percentage point consumed. |\n"
             "| Work summary | Completed the selected bounded unit. |\n"
+            "| Discovery and gap obligations | None. |\n"
             + (
                 "| Material units | [Shared entry](AGENT_AUDIT_LOG.md#entry) |\n"
                 if material
@@ -268,6 +271,42 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertIn("Process only the selected safety-class-0", prompt)
         self.assertIn("Review Epoch remains due", prompt)
 
+    def test_prompt_exposes_governance_discovery_and_full_gap_documentation_floor(self):
+        payload = {
+            "chain_id": "chain-1",
+            "elim_decision": {
+                "profile": {
+                    "full_context": False,
+                    "model": "gpt-5.6-sol",
+                    "reasoning_effort": "xhigh",
+                }
+            },
+            "usage": {"host_monitor": {}},
+            "context_packet": {
+                "local_path": ".tmp/run-coordinator/chain-1/context.json",
+                "issue_id": None,
+                "canonical_record": None,
+            },
+            "work_queue": {
+                "selected_work_item_id": "governance-review",
+                "next_item": {
+                    "id": "governance-review",
+                    "kind": "integrity",
+                    "source": {
+                        "finding_type": "project_governance_review_and_discovery"
+                    },
+                },
+            },
+        }
+        prompt = MODULE.elim_prompt(Path("/tmp/run-chain.json"), payload)
+        self.assertIn("Project governance review and discovery mode", prompt)
+        self.assertIn("minimum coverage, not an exhaustive whitelist", prompt)
+        self.assertIn("no_material_finding", prompt)
+        self.assertIn("forbidden/unsafe/out-of-scope/uncertain", prompt)
+        self.assertIn("nested discovered_work_units", prompt)
+        self.assertIn("Outside contributions require", prompt)
+        self.assertIn("render-discovery-markers", prompt)
+
     def test_config_uses_explicit_host_paths_and_conservative_profiles(self):
         config = json.loads(
             (ROOT / ".github" / "run-coordinator-bot.json").read_text()
@@ -281,6 +320,12 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertEqual(config["usage"]["monitorIntervalSeconds"], 60)
         self.assertEqual(config["usage"]["snapshotMaxAgeSeconds"], 120)
         self.assertEqual(config["hostDispatcher"]["staleLockSeconds"], 900)
+        self.assertEqual(config["gapStewardship"], MODULE.GAP_STEWARDSHIP_POLICY)
+        self.assertEqual(
+            config["governanceDiscovery"]["ordinarySelectionPolicy"],
+            "after-ordinary-queue-clears",
+        )
+        self.assertEqual(config["governanceDiscovery"]["minimumIntervalHours"], 168)
         self.assertEqual(
             config["hostDispatcher"]["isolatedCheckoutPath"],
             ".tmp/run-coordinator/elim-checkout",
@@ -296,6 +341,13 @@ class RunChainDispatcherTests(unittest.TestCase):
 
     def test_host_closeout_policy_rejects_runtime_drift(self):
         config = {
+            "gapStewardship": dict(MODULE.GAP_STEWARDSHIP_POLICY),
+            "governanceDiscovery": {
+                "enabled": True,
+                "mode": "Project governance review and discovery",
+                "ordinarySelectionPolicy": "after-ordinary-queue-clears",
+                "minimumIntervalHours": 168,
+            },
             "hostDispatcher": {
                 "repositoryCloseout": dict(MODULE.HOST_CLOSEOUT_POLICY),
                 "canonicalWorkspaceReconciliation": dict(
@@ -312,6 +364,13 @@ class RunChainDispatcherTests(unittest.TestCase):
 
     def test_workspace_reconciliation_policy_rejects_runtime_drift(self):
         config = {
+            "gapStewardship": dict(MODULE.GAP_STEWARDSHIP_POLICY),
+            "governanceDiscovery": {
+                "enabled": True,
+                "mode": "Project governance review and discovery",
+                "ordinarySelectionPolicy": "after-ordinary-queue-clears",
+                "minimumIntervalHours": 168,
+            },
             "hostDispatcher": {
                 "repositoryCloseout": dict(MODULE.HOST_CLOSEOUT_POLICY),
                 "canonicalWorkspaceReconciliation": dict(
@@ -472,6 +531,8 @@ class RunChainDispatcherTests(unittest.TestCase):
         )
         self.assertIn("canonical_record", schema["required"])
         self.assertNotIn("uniqueItems", json.dumps(schema))
+        self.assertNotIn('"format"', json.dumps(schema))
+        self.assertNotIn('"oneOf"', json.dumps(schema))
         self.assertEqual(schema["properties"]["schema_version"]["type"], "integer")
         for name in ("work_type", "outcome"):
             self.assertEqual(schema["properties"][name]["type"], "string")
@@ -1856,6 +1917,45 @@ class RunChainDispatcherTests(unittest.TestCase):
         )
         MODULE.verify_elim_result_binding(manifest, result)
 
+    def test_source_domain_proposal_binding_requires_exact_head_review(self):
+        canonical = "framework/logs/SOURCE_MONITOR_LOG.md"
+        manifest = {
+            "chain_id": "chain-1",
+            "work_queue": {
+                "selected_work_item_id": "unit-1",
+                "next_item": {
+                    "id": "unit-1",
+                    "kind": "integrity",
+                    "source": {
+                        "finding_type": "source_domain_proposal",
+                        "canonicalRecord": canonical,
+                        "canonical_record": canonical,
+                        "pending_proposal": {
+                            "proposal": {"proposal_revision": "d" * 40}
+                        },
+                    },
+                },
+            },
+            "context_packet": {
+                "work_item_id": "unit-1",
+                "issue_id": None,
+                "canonical_record": canonical,
+            },
+        }
+        result = self.elim_result()
+        result.update(
+            {
+                "work_type": "integrity",
+                "issue_id": None,
+                "canonical_record": canonical,
+            }
+        )
+        with self.assertRaisesRegex(
+            MODULE.ContextError,
+            "outside-contribution review",
+        ):
+            MODULE.verify_elim_result_binding(manifest, result)
+
     def test_successful_closeout_requires_current_chain_run_log(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
@@ -2906,6 +3006,79 @@ class RunChainDispatcherTests(unittest.TestCase):
                     manifest,
                     changed,
                 )
+
+    def test_gap_obligation_persistence_retains_history_and_does_not_close_on_absence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            path = repo / MODULE.ELIM_GAP_OBLIGATION_STATE
+            result = self.elim_result()
+            result["discovered_work_units"] = [
+                {
+                    "id": "DISC-1",
+                    "obligation_id": "GAP-1",
+                    "domain": "automation",
+                    "discovery_context": "Quiet-queue governance review.",
+                    "observed_at": "2026-07-25T12:00:00+00:00",
+                    "source_revision": "a" * 40,
+                    "evidence": ["The canonical route omits a required owner."],
+                    "reasoning": "The omission prevents deterministic routing.",
+                    "uncertainty": "The owner remains uncertain.",
+                    "affected_records": ["framework/context-routes.json"],
+                    "consequence": "The gap can persist without a selected queue unit.",
+                    "authority": {
+                        "classification": "delegated_judgment",
+                        "basis": "Elim runbook.",
+                        "disposition": "uncertain",
+                    },
+                    "action_rationale": "Retain and recheck; do not guess the owner.",
+                    "changed_files": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "affected_surfaces": ["repository", "automation", "console"],
+                    "validation_readback": [
+                        {
+                            "check": "canonical detail",
+                            "status": "passed",
+                            "evidence": "Run Log detail read back.",
+                        }
+                    ],
+                    "disposition": "retained",
+                    "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+                    "provenance": ["framework/logs/ELIM_RUN_LOG.md#gap-1"],
+                    "owner": "Elim",
+                    "next_action": "Recheck ownership at the next revision.",
+                    "next_trigger": "Context routes or ownership rules change.",
+                    "outside_contribution": None,
+                }
+            ]
+            result["gap_obligation_updates"] = [
+                {
+                    "obligation_id": "GAP-1",
+                    "discovered_work_unit_id": "DISC-1",
+                    "status": "open",
+                    "observed_at": "2026-07-25T12:00:00+00:00",
+                    "resolution": None,
+                }
+            ]
+            saved = MODULE.persist_gap_obligation_updates(repo, path, result)
+            self.assertEqual(saved["items"][0]["occurrence_count"], 1)
+            self.assertEqual(saved["items"][0]["authority_disposition"], "uncertain")
+
+            result["run_id"] = "chain-2"
+            result["gap_obligation_updates"][0][
+                "observed_at"
+            ] = "2026-07-26T12:00:00+00:00"
+            result["discovered_work_units"][0][
+                "observed_at"
+            ] = "2026-07-26T12:00:00+00:00"
+            saved = MODULE.persist_gap_obligation_updates(repo, path, result)
+            self.assertEqual(saved["items"][0]["occurrence_count"], 2)
+            first_seen = saved["items"][0]["first_seen"]
+
+            result["run_id"] = "chain-3"
+            result["discovered_work_units"] = []
+            result["gap_obligation_updates"] = []
+            unchanged = MODULE.persist_gap_obligation_updates(repo, path, result)
+            self.assertEqual(unchanged["items"][0]["first_seen"], first_seen)
+            self.assertEqual(unchanged["items"][0]["status"], "open")
 
     def test_permanent_checkout_keeps_git_metadata_inside_sandbox_and_advances_safely(self):
         with tempfile.TemporaryDirectory() as directory:

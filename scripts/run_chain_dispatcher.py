@@ -28,14 +28,24 @@ from typing import Any, Callable
 
 try:
     from arrp_context import ContextError, contained_path
-    from elim_execution import validate_work_unit
+    from elim_execution import (
+        merge_gap_obligation_state,
+        reconstruct_gap_obligation_state,
+        validate_work_unit,
+        verify_discovery_markers,
+    )
     from record_review_epoch import (
         validate as validate_review_epoch,
         validate_finding_continuity,
     )
 except ModuleNotFoundError:  # Imported as scripts.run_chain_dispatcher.
     from scripts.arrp_context import ContextError, contained_path
-    from scripts.elim_execution import validate_work_unit
+    from scripts.elim_execution import (
+        merge_gap_obligation_state,
+        reconstruct_gap_obligation_state,
+        validate_work_unit,
+        verify_discovery_markers,
+    )
     from scripts.record_review_epoch import (
         validate as validate_review_epoch,
         validate_finding_continuity,
@@ -82,6 +92,8 @@ ELIM_RESULT_FIELDS = frozenset(
         "synchronization",
         "human_questions",
         "continuation",
+        "discovered_work_units",
+        "gap_obligation_updates",
     }
 )
 ELIM_RESULT_OUTCOMES = frozenset(
@@ -126,6 +138,7 @@ ELIM_RUN_REPORT_FIELDS = frozenset(
         "Outcome",
         "Usage",
         "Work summary",
+        "Discovery and gap obligations",
         "Material units",
         "Issue audit records",
         "Commits and synchronization",
@@ -141,6 +154,11 @@ NONMATERIAL_RESULT_PATHS = frozenset(
 SAFE_CHAIN_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
 AUTOMATION_RUNTIME_PATHS = (
     ".github/run-coordinator-bot.json",
+    "framework/agent-rules/autonomous-execution.md",
+    "framework/agents/ELIM.md",
+    "framework/agents/RUN_COORDINATOR_BOT.md",
+    "framework/agents/elim-work-unit-result.schema.json",
+    "framework/context-routes.json",
     "scripts/arrp_context.py",
     "scripts/build_elim_context.py",
     "scripts/build_elim_work_queue.py",
@@ -157,6 +175,7 @@ ELIM_RECOVERY_STATE = ".tmp/run-coordinator/elim-recovery.json"
 ELIM_RUN_LOG_RECONCILIATION_STATE = (
     ".tmp/run-coordinator/elim-run-log-reconciliation.json"
 )
+ELIM_GAP_OBLIGATION_STATE = ".tmp/run-coordinator/elim-gap-obligations.json"
 MAX_PENDING_RUN_LOG_RECONCILIATIONS = 128
 MAX_BOOTSTRAP_FAILURE_EVENTS = 128
 HOST_OUTCOME_HISTORY = ".tmp/run-coordinator/run-chain-history.json"
@@ -182,6 +201,15 @@ CANONICAL_WORKSPACE_RECONCILIATION_POLICY = {
     "requireConflictFree": True,
     "requireStagedDiffCheck": True,
     "divergentHistoryAction": "fail-closed",
+}
+GAP_STEWARDSHIP_POLICY = {
+    "statePath": ELIM_GAP_OBLIGATION_STATE,
+    "stateRole": "replaceable-cache",
+    "durableAuthority": f"{ELIM_RUN_LOG}#machine-readable-discovery-markers",
+    "reconstructBeforeQueueBuild": True,
+    "maximumObligations": 512,
+    "closureProofRequired": True,
+    "outsideContributionExactRevisionRequired": True,
 }
 
 
@@ -502,6 +530,72 @@ def verify_elim_result_binding(
         raise ContextError(
             "Elim structured result issue identity differs from the selected work item"
         )
+    if source.get("finding_type") == "project_governance_review_and_discovery":
+        discoveries = result.get("discovered_work_units") or []
+        controls = [
+            item
+            for item in discoveries
+            if isinstance(item, dict)
+            and item.get("domain") == "project-governance-review"
+        ]
+        if len(controls) != 1:
+            raise ContextError(
+                "project-governance discovery closeout requires exactly one "
+                "documented review-control record"
+            )
+        control = controls[0]
+        confirmed = [
+            item
+            for item in discoveries
+            if isinstance(item, dict)
+            and item is not control
+            and item.get("disposition")
+            not in {"no_material_finding", "review_completed"}
+        ]
+        expected_disposition = (
+            "review_completed" if confirmed else "no_material_finding"
+        )
+        if control.get("disposition") != expected_disposition:
+            raise ContextError(
+                "project-governance review-control disposition contradicts its "
+                "confirmed discovered findings"
+            )
+        selected_revision = str(selected.get("source_revision") or "").removeprefix(
+            "sha256:"
+        )
+        control_revision = str(control.get("source_revision") or "").removeprefix(
+            "sha256:"
+        )
+        if selected_revision and control_revision != selected_revision:
+            raise ContextError(
+                "project-governance review-control source revision differs from "
+                "the selected exact queue revision"
+            )
+    if source.get("finding_type") == "source_domain_proposal":
+        pending = source.get("pending_proposal") or {}
+        proposal = pending.get("proposal") if isinstance(pending, dict) else {}
+        exact_head = str(
+            (proposal or {}).get("proposal_revision") or ""
+        ).removeprefix("sha256:")
+        outside_reviews = [
+            item.get("outside_contribution")
+            for item in result.get("discovered_work_units") or []
+            if isinstance(item, dict)
+            and item.get("outside_contribution") is not None
+        ]
+        if len(outside_reviews) != 1:
+            raise ContextError(
+                "source-domain proposal closeout requires exactly one complete "
+                "outside-contribution review"
+            )
+        reviewed_head = str(
+            outside_reviews[0].get("revision") or ""
+        ).removeprefix("sha256:")
+        if not exact_head or reviewed_head != exact_head:
+            raise ContextError(
+                "outside-contribution review does not match the current exact "
+                "pull-request revision"
+            )
 
 
 def persist_validated_recovery(
@@ -544,6 +638,30 @@ def persist_validated_recovery(
         },
         root=repo,
     )
+
+
+def persist_gap_obligation_updates(
+    repo: Path,
+    path: Path,
+    result: dict[str, Any],
+) -> dict[str, Any]:
+    """Retain exact gap history; absence or reporting alone never closes an item."""
+    prior = read_json(
+        path,
+        {
+            "schema_version": 1,
+            "updated_at": None,
+            "governance_review": None,
+            "items": [],
+        },
+        root=repo,
+    )
+    if not isinstance(prior, dict):
+        raise ContextError("local Elim gap-obligation state is malformed")
+    merged = merge_gap_obligation_state(prior, result)
+    if merged != prior:
+        write_json(path, merged, root=repo)
+    return merged
 
 
 def read_pending_run_log_reconciliations(
@@ -1366,6 +1484,7 @@ def verify_successful_elim_evidence(
         raise ContextError(
             "current Elim Run Log outcome does not match the structured result"
         )
+    verify_discovery_markers(run_sections[0], result)
     pending_chain_ids = reconciliation_chain_ids(expected_manifest or {})
     if pending_chain_ids and result["outcome"] == "completed":
         verify_reconciled_run_log_reports(
@@ -1641,6 +1760,22 @@ def validate_host_closeout_policy(config: dict[str, Any]) -> None:
         raise RuntimeError(
             "configured canonical-workspace reconciliation differs from the "
             "reviewed trusted-host boundary"
+        )
+    if config.get("gapStewardship") != GAP_STEWARDSHIP_POLICY:
+        raise RuntimeError(
+            "configured gap-stewardship policy differs from the reviewed "
+            "closed-loop obligation boundary"
+        )
+    discovery = config.get("governanceDiscovery")
+    if discovery != {
+        "enabled": True,
+        "mode": "Project governance review and discovery",
+        "ordinarySelectionPolicy": "after-ordinary-queue-clears",
+        "minimumIntervalHours": 168,
+    }:
+        raise RuntimeError(
+            "configured governance-discovery fallback differs from the reviewed "
+            "quiet-queue boundary"
         )
 
 
@@ -2462,6 +2597,7 @@ def verify_uncommitted_elim_evidence(
         raise ContextError(
             "current Elim Run Log outcome does not match the structured result"
         )
+    verify_discovery_markers(run_sections[0], result)
 
     pending_chain_ids = reconciliation_chain_ids(expected_manifest)
     if pending_chain_ids and result["outcome"] == "completed":
@@ -3480,6 +3616,7 @@ def mirror_and_rebuild_chain(
     overrides: dict[str, Any],
     local_recovery_path: Path,
     local_run_log_reconciliation_path: Path,
+    local_gap_obligations_path: Path,
 ) -> tuple[Path, dict[str, Any], Path]:
     """Build the exact locally controlled queue/context inside Elim's sandbox."""
     chain_id = str(payload.get("chain_id") or "")
@@ -3555,6 +3692,37 @@ def mirror_and_rebuild_chain(
         + hashlib.sha256(run_log_reconciliation.read_bytes()).hexdigest(),
         "bytes": run_log_reconciliation.stat().st_size,
     }
+    gap_obligations = inputs_dir / "gap-obligations.json"
+    canonical_run_log = contained_path(
+        execution_repo / ELIM_RUN_LOG,
+        execution_repo,
+    )
+    if not canonical_run_log.is_file():
+        raise RuntimeError(
+            "committed Elim Run Log is required to reconstruct gap obligations"
+        )
+    reconstructed_gap_state = reconstruct_gap_obligation_state(
+        canonical_run_log.read_text(encoding="utf-8")
+    )
+    # The committed Run Log is the authority. Replace both the isolated input
+    # and local host cache on every queue build so deletion, corruption, or
+    # unmerged human-review state cannot redefine obligation continuity.
+    write_json(
+        gap_obligations,
+        reconstructed_gap_state,
+        root=execution_repo,
+    )
+    write_json(
+        local_gap_obligations_path,
+        reconstructed_gap_state,
+        root=repo,
+    )
+    mirrored_inputs["gap_obligations"] = {
+        "path": repo_relative(gap_obligations, execution_repo),
+        "sha256": "sha256:"
+        + hashlib.sha256(gap_obligations.read_bytes()).hexdigest(),
+        "bytes": gap_obligations.stat().st_size,
+    }
     overrides_path = inputs_dir / "user-overrides.json"
     write_json(
         overrides_path,
@@ -3591,6 +3759,8 @@ def mirror_and_rebuild_chain(
         str(effective_recovery),
         "--run-log-reconciliation",
         str(run_log_reconciliation),
+        "--gap-obligations",
+        str(gap_obligations),
         "--review-epoch",
         str(inputs_dir / "review-epoch.json"),
         "--overrides",
@@ -3861,6 +4031,21 @@ def elim_prompt(manifest: Path, payload: dict[str, Any]) -> str:
             "Do not begin a due comprehensive review or any other work; the Review "
             "Epoch remains due for a later clean chain."
         )
+    elif selected_source.get(
+        "finding_type"
+    ) == "project_governance_review_and_discovery":
+        mode = (
+            "Run the selected Project governance review and discovery mode. The "
+            "listed domains are minimum coverage, not an exhaustive whitelist. "
+            "Review project structure, governing integration, authority boundaries, "
+            "workflow coherence, source and monitoring coverage, automation, "
+            "publication, contributor readiness, technical debt, and cross-surface "
+            "consistency; follow credible connected findings. Preserve a documented "
+            "review-control record with domain `project-governance-review`, the exact "
+            "observation time and selected source revision, and disposition "
+            "`no_material_finding` when no defect is established or `review_completed` "
+            "when separate confirmed findings are recorded."
+        )
     elif profile["full_context"]:
         mode = (
             "Conduct the due comprehensive full-context review and establish the "
@@ -3896,10 +4081,31 @@ def elim_prompt(manifest: Path, payload: dict[str, Any]) -> str:
         "The required structured result represents exactly the one manifest-selected "
         f"unit: run_id={payload.get('chain_id')!r}, unit_id={selected.get('id')!r}, "
         f"work_type={selected.get('kind')!r}, issue_id={selected_issue!r}, and "
-        f"canonical_record={selected_canonical!r}. Do not report a different or "
-        "additional queue item in that result; consecutive audit tiers for the same "
+        f"canonical_record={selected_canonical!r}. Do not replace that top-level "
+        "selection with a different queue item. Credible connected findings may and "
+        "must be reported as nested discovered_work_units with linked "
+        "gap_obligation_updates; those records do not authorize another queued unit. "
+        "For every confirmed finding, preserve exact source revision, evidence, "
+        "observation time, reasoning and uncertainty, affected records and surfaces, consequence, "
+        "authority classification plus permitted/human-reserved/forbidden/unsafe/"
+        "out-of-scope/uncertain disposition, action or non-action rationale, canonical "
+        "detail, linked provenance, validation/readback, actual owner, exact next "
+        "action, and next trigger. A fixed finding requires verified repair proof; "
+        "reporting or temporary absence is not closure. A human disposition closes "
+        "only when its recorded evidence is supplied. Forbidden, unsafe, out-of-scope, "
+        "or uncertain findings remain open or blocked unless authority/conditions "
+        "change or a human disposition is recorded. Outside contributions require "
+        "the full exact-revision identity, classification, required-field, canonical-"
+        "linkage, evidence/provenance, lifecycle/authority, generated-view, test, and "
+        "documentation checks before integration. Consecutive audit tiers for the same "
         "selected issue remain one selected unit and retain their detailed canonical "
-        "audit records. The trusted host dispatcher—not this workspace-write sandbox—"
+        "audit records. Before final output, save the intended structured result to an "
+        "ignored temporary JSON file, run `python3 scripts/elim_execution.py "
+        "render-discovery-markers --result <that-file>`, and place the exact output "
+        "inside the current ELIM_RUN_LOG run section after the Discovery and gap "
+        "obligations row. Do not hand-edit, omit, duplicate, or reuse those markers; "
+        "the host requires them to match the final structured result exactly. "
+        "The trusted host dispatcher—not this workspace-write sandbox—"
         "owns repository Git staging, branch creation, commit, push, pull-request "
         "creation, and synchronization readback. Do not run repository Git mutations "
         "or GitHub branch or pull-request mutations. Authorized GitHub Issue, Project, "
@@ -4627,6 +4833,7 @@ def main() -> int:
             local_run_log_reconciliation_path=(
                 repo / ELIM_RUN_LOG_RECONCILIATION_STATE
             ),
+            local_gap_obligations_path=repo / ELIM_GAP_OBLIGATION_STATE,
         )
         if alert_failures(config, control, payload, repo):
             persist_control_state(control_path, control, repo=repo)
@@ -4915,6 +5122,11 @@ def main() -> int:
                 payload,
                 validated_result,
             )
+            persist_gap_obligation_updates(
+                repo,
+                repo / ELIM_GAP_OBLIGATION_STATE,
+                validated_result,
+            )
             clear_reconciled_run_log_items(
                 repo,
                 repo / ELIM_RUN_LOG_RECONCILIATION_STATE,
@@ -4935,6 +5147,11 @@ def main() -> int:
                         repo,
                         repo / ELIM_RECOVERY_STATE,
                         payload,
+                        retryable_result,
+                    )
+                    persist_gap_obligation_updates(
+                        repo,
+                        repo / ELIM_GAP_OBLIGATION_STATE,
                         retryable_result,
                     )
             except (ContextError, OSError, RuntimeError, TypeError, ValueError):

@@ -3099,5 +3099,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "monitoring_group": "Removal of Career Personnel",
       "monitoring_baseline_present": true
     }
-  ]
+  ],
+  "domain_generation": {
+    "sources-catalog-015.js": "project-console-cac8dee5a4b49219074c"
+  }
 });

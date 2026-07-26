@@ -39,6 +39,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "key": "record",
         "direction": "desc"
       },
+      "projection": {
+        "expected_rows": 45,
+        "actual_rows": 45,
+        "complete": true
+      },
       "entries": [
         {
           "id": "HOR-001",
@@ -3187,6 +3192,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "key": "date",
         "direction": "desc"
       },
+      "projection": {
+        "expected_rows": 40,
+        "actual_rows": 40,
+        "complete": true
+      },
       "entries": [
         {
           "id": "change-001",
@@ -3888,6 +3898,328 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "human_question": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
       "reassessment_trigger": "Any change to the pull-request head invalidates this recommendation and returns the complete proposal to Elim review.",
       "heading": "2026-07-25T22:17:39Z — Repository review recommendation SMR-20260725-PR380",
+      "affected": {
+        "complete": true,
+        "total_count": 43,
+        "records": [
+          {
+            "record_id": "HOR-035",
+            "record_type": "candidate"
+          },
+          {
+            "record_id": "SRC-0632",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-0945",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-0965",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-0982",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1004",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1052",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1056",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1093",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1929",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1930",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1932",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1933",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1934",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1940",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1941",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1942",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1943",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1946",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1952",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1957",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1973",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1979",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-1982",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2042",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2080",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2081",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2105",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2110",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2136",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2149",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2190",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2216",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2221",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2235",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2238",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2351",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2591",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2649",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2651",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2652",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2653",
+            "record_type": "source"
+          },
+          {
+            "record_id": "SRC-2654",
+            "record_type": "source"
+          }
+        ],
+        "record_ids": [
+          "HOR-035",
+          "SRC-0632",
+          "SRC-0945",
+          "SRC-0965",
+          "SRC-0982",
+          "SRC-1004",
+          "SRC-1052",
+          "SRC-1056",
+          "SRC-1093",
+          "SRC-1929",
+          "SRC-1930",
+          "SRC-1932",
+          "SRC-1933",
+          "SRC-1934",
+          "SRC-1940",
+          "SRC-1941",
+          "SRC-1942",
+          "SRC-1943",
+          "SRC-1946",
+          "SRC-1952",
+          "SRC-1957",
+          "SRC-1973",
+          "SRC-1979",
+          "SRC-1982",
+          "SRC-2042",
+          "SRC-2080",
+          "SRC-2081",
+          "SRC-2105",
+          "SRC-2110",
+          "SRC-2136",
+          "SRC-2149",
+          "SRC-2190",
+          "SRC-2216",
+          "SRC-2221",
+          "SRC-2235",
+          "SRC-2238",
+          "SRC-2351",
+          "SRC-2591",
+          "SRC-2649",
+          "SRC-2651",
+          "SRC-2652",
+          "SRC-2653",
+          "SRC-2654"
+        ],
+        "by_type": {
+          "candidate": [
+            "HOR-035"
+          ],
+          "source": [
+            "SRC-0632",
+            "SRC-0945",
+            "SRC-0965",
+            "SRC-0982",
+            "SRC-1004",
+            "SRC-1052",
+            "SRC-1056",
+            "SRC-1093",
+            "SRC-1929",
+            "SRC-1930",
+            "SRC-1932",
+            "SRC-1933",
+            "SRC-1934",
+            "SRC-1940",
+            "SRC-1941",
+            "SRC-1942",
+            "SRC-1943",
+            "SRC-1946",
+            "SRC-1952",
+            "SRC-1957",
+            "SRC-1973",
+            "SRC-1979",
+            "SRC-1982",
+            "SRC-2042",
+            "SRC-2080",
+            "SRC-2081",
+            "SRC-2105",
+            "SRC-2110",
+            "SRC-2136",
+            "SRC-2149",
+            "SRC-2190",
+            "SRC-2216",
+            "SRC-2221",
+            "SRC-2235",
+            "SRC-2238",
+            "SRC-2351",
+            "SRC-2591",
+            "SRC-2649",
+            "SRC-2651",
+            "SRC-2652",
+            "SRC-2653",
+            "SRC-2654"
+          ]
+        },
+        "source_ids": [
+          "SRC-0632",
+          "SRC-0945",
+          "SRC-0965",
+          "SRC-0982",
+          "SRC-1004",
+          "SRC-1052",
+          "SRC-1056",
+          "SRC-1093",
+          "SRC-1929",
+          "SRC-1930",
+          "SRC-1932",
+          "SRC-1933",
+          "SRC-1934",
+          "SRC-1940",
+          "SRC-1941",
+          "SRC-1942",
+          "SRC-1943",
+          "SRC-1946",
+          "SRC-1952",
+          "SRC-1957",
+          "SRC-1973",
+          "SRC-1979",
+          "SRC-1982",
+          "SRC-2042",
+          "SRC-2080",
+          "SRC-2081",
+          "SRC-2105",
+          "SRC-2110",
+          "SRC-2136",
+          "SRC-2149",
+          "SRC-2190",
+          "SRC-2216",
+          "SRC-2221",
+          "SRC-2235",
+          "SRC-2238",
+          "SRC-2351",
+          "SRC-2591",
+          "SRC-2649",
+          "SRC-2651",
+          "SRC-2652",
+          "SRC-2653",
+          "SRC-2654"
+        ],
+        "directive_ids": [],
+        "issue_development_ids": [
+          "HOR-035"
+        ],
+        "issue_development_count": 1
+      },
+      "event_source_url": "https://github.com/Thorncrag/ARRP/blob/project-console-data/source-domain-events/proposed/case-monitor-bot/SDE-93345EDC1D1AC55F8CFA3E44.json",
       "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/SOURCE_MONITOR_LOG.md",
       "console_target": "logs:source-monitor"
     },
@@ -3907,8 +4239,99 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "human_question": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
       "reassessment_trigger": "Any change to the pull-request head invalidates this recommendation and returns the complete proposal to Elim review.",
       "heading": "2026-07-25T22:17:40Z — Repository review recommendation SMR-20260725-PR381",
+      "affected": {
+        "complete": true,
+        "total_count": 10,
+        "records": [
+          {
+            "record_id": "2019-05370",
+            "record_type": "presidential-directive"
+          },
+          {
+            "record_id": "2019-16383",
+            "record_type": "presidential-directive"
+          },
+          {
+            "record_id": "2026-14990",
+            "record_type": "presidential-directive"
+          },
+          {
+            "record_id": "2026-14991",
+            "record_type": "presidential-directive"
+          },
+          {
+            "record_id": "2026-14992",
+            "record_type": "presidential-directive"
+          },
+          {
+            "record_id": "2026-14997",
+            "record_type": "presidential-directive"
+          },
+          {
+            "record_id": "2026-14998",
+            "record_type": "presidential-directive"
+          },
+          {
+            "record_id": "2026-14999",
+            "record_type": "presidential-directive"
+          },
+          {
+            "record_id": "2026-15003",
+            "record_type": "presidential-directive"
+          },
+          {
+            "record_id": "2026-15024",
+            "record_type": "presidential-directive"
+          }
+        ],
+        "record_ids": [
+          "2019-05370",
+          "2019-16383",
+          "2026-14990",
+          "2026-14991",
+          "2026-14992",
+          "2026-14997",
+          "2026-14998",
+          "2026-14999",
+          "2026-15003",
+          "2026-15024"
+        ],
+        "by_type": {
+          "presidential-directive": [
+            "2019-05370",
+            "2019-16383",
+            "2026-14990",
+            "2026-14991",
+            "2026-14992",
+            "2026-14997",
+            "2026-14998",
+            "2026-14999",
+            "2026-15003",
+            "2026-15024"
+          ]
+        },
+        "source_ids": [],
+        "directive_ids": [
+          "2019-05370",
+          "2019-16383",
+          "2026-14990",
+          "2026-14991",
+          "2026-14992",
+          "2026-14997",
+          "2026-14998",
+          "2026-14999",
+          "2026-15003",
+          "2026-15024"
+        ],
+        "issue_development_ids": [],
+        "issue_development_count": 0
+      },
+      "event_source_url": "https://github.com/Thorncrag/ARRP/blob/project-console-data/source-domain-events/proposed/presidential-directives-bot/SDE-578F200E8E9344ADF613CA76.json",
       "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/SOURCE_MONITOR_LOG.md",
       "console_target": "logs:source-monitor"
     }
-  ]
+  ],
+  "domain_generation": {
+    "logs.js": "project-console-cac8dee5a4b49219074c"
+  }
 });

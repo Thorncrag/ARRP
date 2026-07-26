@@ -4031,7 +4031,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/86",
       "updated_at": "2026-07-23T10:46:40Z"
     },
@@ -4384,7 +4384,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/94",
       "updated_at": "2026-07-23T10:47:58Z"
     },
@@ -6673,7 +6673,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/135",
       "updated_at": "2026-07-23T10:48:19Z"
     },
@@ -11671,7 +11671,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/168",
       "updated_at": "2026-07-23T10:48:24Z"
     },
@@ -13820,7 +13820,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/188",
       "updated_at": "2026-07-23T10:48:39Z"
     },
@@ -18667,7 +18667,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/95",
       "updated_at": "2026-07-23T10:48:04Z"
     },
@@ -18867,7 +18867,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/201",
       "updated_at": "2026-07-23T10:48:45Z"
     },
@@ -71161,6 +71161,125 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "verified": 1073
         }
       }
-    ]
+    ],
+    "producer_contract": {},
+    "expected_count": 2055,
+    "actual_count": 2048,
+    "availability": "stale",
+    "completeness": {
+      "complete": false,
+      "expected_count": 2055,
+      "actual_count": 2048,
+      "missing_count": 7,
+      "unexpected_count": 0,
+      "missing_hash_count": 2,
+      "hash_mismatch_count": 0
+    },
+    "missing_source_ids": [
+      "SRC-2648",
+      "SRC-2649",
+      "SRC-2650",
+      "SRC-2651",
+      "SRC-2652",
+      "SRC-2653",
+      "SRC-2654"
+    ],
+    "unexpected_source_ids": [],
+    "projection_errors": [
+      {
+        "code": "current_catalog_source_missing",
+        "severity": "error",
+        "source_id": "SRC-2648",
+        "message": "Current source catalog ID is absent from this checker generation."
+      },
+      {
+        "code": "current_catalog_source_missing",
+        "severity": "error",
+        "source_id": "SRC-2649",
+        "message": "Current source catalog ID is absent from this checker generation."
+      },
+      {
+        "code": "current_catalog_source_missing",
+        "severity": "error",
+        "source_id": "SRC-2650",
+        "message": "Current source catalog ID is absent from this checker generation."
+      },
+      {
+        "code": "current_catalog_source_missing",
+        "severity": "error",
+        "source_id": "SRC-2651",
+        "message": "Current source catalog ID is absent from this checker generation."
+      },
+      {
+        "code": "current_catalog_source_missing",
+        "severity": "error",
+        "source_id": "SRC-2652",
+        "message": "Current source catalog ID is absent from this checker generation."
+      },
+      {
+        "code": "current_catalog_source_missing",
+        "severity": "error",
+        "source_id": "SRC-2653",
+        "message": "Current source catalog ID is absent from this checker generation."
+      },
+      {
+        "code": "current_catalog_source_missing",
+        "severity": "error",
+        "source_id": "SRC-2654",
+        "message": "Current source catalog ID is absent from this checker generation."
+      },
+      {
+        "code": "current_catalog_hash_missing",
+        "severity": "error",
+        "catalog": "inventory/sources-pending.csv",
+        "message": "Checker generation does not declare the current catalog hash."
+      },
+      {
+        "code": "current_catalog_hash_missing",
+        "severity": "error",
+        "catalog": "inventory/sources.csv",
+        "message": "Checker generation does not declare the current catalog hash."
+      }
+    ],
+    "current_catalog_coverage": {
+      "complete": false,
+      "expected_count": 2055,
+      "actual_count": 2048,
+      "missing_ids": [
+        "SRC-2648",
+        "SRC-2649",
+        "SRC-2650",
+        "SRC-2651",
+        "SRC-2652",
+        "SRC-2653",
+        "SRC-2654"
+      ],
+      "unexpected_ids": [],
+      "source_hashes": {
+        "inventory/sources-pending.csv": "sha256:c6eafc0d61b601ee1db9c12e9271797eba4c0abd3f7bf75021df916989f5433c",
+        "inventory/sources.csv": "sha256:97f65cc569bc87ca53c9312e31f9702675b2a272c60a38b2c89e4b8a76015b5d"
+      },
+      "producer_source_hashes": {},
+      "hash_contract_available": false,
+      "missing_hashes": [
+        "inventory/sources-pending.csv",
+        "inventory/sources.csv"
+      ],
+      "hash_mismatches": []
+    },
+    "currentness": {
+      "authority": "source_catalog_identity_and_hashes",
+      "status": "stale",
+      "current": false,
+      "supersession_rule": "Any catalog identity or content-hash change supersedes a prior Source Checker generation immediately."
+    },
+    "freshness": {
+      "status": "stale",
+      "basis": "current source catalog identity coverage and content hashes",
+      "supersession_rule": "Any catalog identity or content-hash change supersedes a prior Source Checker generation immediately."
+    }
+  },
+  "domain_generation": {
+    "sources.js": "project-console-cac8dee5a4b49219074c"
   }
 });

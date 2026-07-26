@@ -7685,7 +7685,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1639,
+      "word_count": 1759,
       "estimated_pages": 3,
       "table_count": 1,
       "max_table_columns": 2,
@@ -8185,8 +8185,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2421,
-      "estimated_pages": 4,
+      "word_count": 2892,
+      "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -8560,7 +8560,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3307,
+      "word_count": 3390,
       "estimated_pages": 6,
       "table_count": 5,
       "max_table_columns": 2,
@@ -8930,8 +8930,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 5024,
-      "estimated_pages": 8,
+      "word_count": 5746,
+      "estimated_pages": 9,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -10003,7 +10003,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework-project console progress",
       "internal_links": [],
-      "word_count": 1401,
+      "word_count": 1513,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10197,7 +10197,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1339,
+      "word_count": 1669,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10417,8 +10417,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3020,
-      "estimated_pages": 5,
+      "word_count": 3439,
+      "estimated_pages": 6,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -12432,12 +12432,121 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/horizon-review-console-arrp project console",
       "internal_links": [],
-      "word_count": 2921,
-      "estimated_pages": 5,
+      "word_count": 3813,
+      "estimated_pages": 6,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 40
+    },
+    {
+      "title": "ARRP Project Console — Comprehensive Review and Assessment",
+      "path": "research/reference-products/project-console-comprehensive-review-2026-07-25.md",
+      "section": "Research",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Nonauthoritative internal product review.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/reference-products/project-console-comprehensive-review-2026-07-25.md",
+      "document_type": "research",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {
+        "public-proposal": "appendix-c-research"
+      },
+      "assembly_sort_key": "research/reference-products-arrp project console — comprehensive review and assessment",
+      "internal_links": [
+        {
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "framework/AGENT_OPERATING_RULES.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PROJECT_INTERFACE.md",
+          "exists": true
+        },
+        {
+          "path": "framework/PROJECT_CONSOLE_PROGRESS.md",
+          "exists": true
+        },
+        {
+          "path": "framework/GITHUB_WORKFLOW.md",
+          "exists": true
+        },
+        {
+          "path": "research/portfolio-issue-consolidation-review.md",
+          "exists": true
+        }
+      ],
+      "word_count": 9745,
+      "estimated_pages": 15,
+      "table_count": 7,
+      "max_table_columns": 4,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 43
+    },
+    {
+      "title": "ARRP Project Console — Implementation Prompt",
+      "path": "research/reference-products/project-console-implementation-prompt-2026-07-25.md",
+      "section": "Research",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Nonauthoritative internal implementation handoff.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/reference-products/project-console-implementation-prompt-2026-07-25.md",
+      "document_type": "research",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {
+        "public-proposal": "appendix-c-research"
+      },
+      "assembly_sort_key": "research/reference-products-arrp project console — implementation prompt",
+      "internal_links": [],
+      "word_count": 4725,
+      "estimated_pages": 8,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 80
+    },
+    {
+      "title": "ARRP Project Console — Implementation Report",
+      "path": "research/reference-products/project-console-implementation-report-2026-07-25.md",
+      "section": "Research",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Nonauthoritative internal implementation and validation report.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/reference-products/project-console-implementation-report-2026-07-25.md",
+      "document_type": "research",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {
+        "public-proposal": "appendix-c-research"
+      },
+      "assembly_sort_key": "research/reference-products-arrp project console — implementation report",
+      "internal_links": [
+        {
+          "path": "research/reference-products/project-console-comprehensive-review-2026-07-25.md",
+          "exists": true
+        },
+        {
+          "path": "research/reference-products/project-console-implementation-prompt-2026-07-25.md",
+          "exists": true
+        }
+      ],
+      "word_count": 3063,
+      "estimated_pages": 5,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 64
     },
     {
       "title": "ARRP Research and Development Work Product",
@@ -13610,12 +13719,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 519,
-      "estimated_pages": 1,
+      "word_count": 659,
+      "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 19
+      "longest_unbroken_token": 21
     },
     {
       "title": "Issues Under Review",
@@ -15001,7 +15110,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 206,
+      "excluded": 209,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15021,10 +15130,4865 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Online technical documentation.": 1,
       "Replaceable internal automation report.": 1,
       "Nonauthoritative internal reference product.": 1,
+      "Nonauthoritative internal product review.": 1,
+      "Nonauthoritative internal implementation handoff.": 1,
+      "Nonauthoritative internal implementation and validation report.": 1,
       "Internal planning record.": 1,
       "Website-only current candidacy and monitoring status.": 1,
       "GitHub repository security-reporting policy.": 1,
       "Website support and funding information.": 1
+    },
+    "topic_products": [
+      {
+        "product_id": "topic-product:classified-documents",
+        "title": "Classified Documents",
+        "is_issue": false,
+        "issue_identifier": null,
+        "current_stage": "published",
+        "product_status": "published",
+        "stages": [
+          {
+            "stage_id": "internal-crosswalk",
+            "label": "Jack Smith Volume Two / Source Status and ARRP Crosswalk",
+            "kind": "project_crosswalk",
+            "path": "research/jack-smith-volume-2-source-status-and-arrp-crosswalk.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/research/jack-smith-volume-2-source-status-and-arrp-crosswalk.md",
+            "available": true
+          },
+          {
+            "stage_id": "published-topic",
+            "label": "Classified Documents",
+            "kind": "topic_page",
+            "path": "topics/classified-documents.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/topics/classified-documents.md",
+            "available": true
+          }
+        ],
+        "owner": null,
+        "next_action": null,
+        "validation_requirement": null,
+        "completeness": {
+          "complete": true,
+          "unavailable_fields": [
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        }
+      },
+      {
+        "product_id": "topic-product:january-6",
+        "title": "January 6",
+        "is_issue": false,
+        "issue_identifier": null,
+        "current_stage": "published",
+        "product_status": "published",
+        "stages": [
+          {
+            "stage_id": "internal-crosswalk",
+            "label": "Jack Smith Volume One / ARRP Crosswalk",
+            "kind": "project_crosswalk",
+            "path": "research/jack-smith-volume-1-arrp-crosswalk.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/research/jack-smith-volume-1-arrp-crosswalk.md",
+            "available": true
+          },
+          {
+            "stage_id": "published-topic",
+            "label": "January 6",
+            "kind": "topic_page",
+            "path": "topics/january-6.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/topics/january-6.md",
+            "available": true
+          }
+        ],
+        "owner": null,
+        "next_action": null,
+        "validation_requirement": null,
+        "completeness": {
+          "complete": true,
+          "unavailable_fields": [
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        }
+      },
+      {
+        "product_id": "topic-product:presidential-accountability",
+        "title": "Presidential Accountability",
+        "is_issue": false,
+        "issue_identifier": null,
+        "current_stage": "published",
+        "product_status": "published",
+        "stages": [
+          {
+            "stage_id": "internal-crosswalk",
+            "label": "Mueller Report / ARRP Crosswalk",
+            "kind": "project_crosswalk",
+            "path": "research/mueller-report-arrp-crosswalk.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/research/mueller-report-arrp-crosswalk.md",
+            "available": true
+          },
+          {
+            "stage_id": "published-topic",
+            "label": "Presidential Accountability",
+            "kind": "topic_page",
+            "path": "topics/presidential-accountability.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/topics/presidential-accountability.md",
+            "available": true
+          }
+        ],
+        "owner": null,
+        "next_action": null,
+        "validation_requirement": null,
+        "completeness": {
+          "complete": true,
+          "unavailable_fields": [
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        }
+      },
+      {
+        "product_id": "topic-product:project-2025",
+        "title": "Project 2025 — ARRP Topic Guide and Crosswalk",
+        "is_issue": false,
+        "issue_identifier": null,
+        "current_stage": "published",
+        "product_status": "published",
+        "stages": [
+          {
+            "stage_id": "internal-crosswalk",
+            "label": "Former Project 2025 research crosswalk",
+            "kind": "converted_internal_crosswalk",
+            "path": null,
+            "url": null,
+            "available": false,
+            "disposition": "converted_without_duplication"
+          },
+          {
+            "stage_id": "published-topic",
+            "label": "Project 2025 — ARRP Topic Guide and Crosswalk",
+            "kind": "topic_page",
+            "path": "topics/project-2025.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/topics/project-2025.md",
+            "available": true
+          }
+        ],
+        "owner": null,
+        "next_action": null,
+        "validation_requirement": null,
+        "completeness": {
+          "complete": true,
+          "unavailable_fields": [
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        }
+      },
+      {
+        "product_id": "topic-product:weaponization-of-justice",
+        "title": "Weaponization of Justice",
+        "is_issue": false,
+        "issue_identifier": null,
+        "current_stage": "published",
+        "product_status": "published",
+        "stages": [
+          {
+            "stage_id": "internal-crosswalk",
+            "label": "Durham Report / ARRP Crosswalk",
+            "kind": "project_crosswalk",
+            "path": "research/durham-report-arrp-crosswalk.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/research/durham-report-arrp-crosswalk.md",
+            "available": true
+          },
+          {
+            "stage_id": "published-topic",
+            "label": "Weaponization of Justice",
+            "kind": "topic_page",
+            "path": "topics/weaponization-of-justice.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/topics/weaponization-of-justice.md",
+            "available": true
+          }
+        ],
+        "owner": null,
+        "next_action": null,
+        "validation_requirement": null,
+        "completeness": {
+          "complete": true,
+          "unavailable_fields": [
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        }
+      }
+    ],
+    "release_readiness": {
+      "status": "not_determined",
+      "status_explanation": "Structural assembly facts are available, but release readiness cannot be declared without lineage-backed export validation, completed prerequisites, and a recorded human go/no-go decision.",
+      "assembly": {
+        "status": "valid",
+        "label": "Assembly structurally valid",
+        "disposition_counts": {
+          "included": 138,
+          "excluded": 209,
+          "unclassified": 0,
+          "conflict": 0
+        }
+      },
+      "delivery_tasks": {
+        "available": true,
+        "source_complete": true,
+        "count": 12,
+        "incomplete_metadata_count": 12,
+        "items": [
+          {
+            "identifier": "Copyright infringement check",
+            "title": "Copyright infringement check",
+            "url": "https://github.com/Thorncrag/ARRP/issues/230",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkQH4",
+            "workstream": "Project governance and operations",
+            "priority": null,
+            "status": "Development"
+          },
+          {
+            "identifier": "Final link and export validation",
+            "title": "Final link and export validation",
+            "url": "https://github.com/Thorncrag/ARRP/issues/229",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4GQ",
+            "workstream": "Project governance and operations",
+            "priority": null,
+            "status": "Development"
+          },
+          {
+            "identifier": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+            "title": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+            "url": "https://github.com/Thorncrag/ARRP/issues/233",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkyug",
+            "workstream": "Project governance and operations",
+            "priority": null,
+            "status": "Development"
+          },
+          {
+            "identifier": "Horizon proposal resolution for public release",
+            "title": "Horizon proposal resolution for public release",
+            "url": "https://github.com/Thorncrag/ARRP/issues/226",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4FI",
+            "workstream": "Project governance and operations",
+            "priority": null,
+            "status": "Development"
+          },
+          {
+            "identifier": "Jack Smith reports crosswalks",
+            "title": "Jack Smith reports crosswalks",
+            "url": "https://github.com/Thorncrag/ARRP/issues/232",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkpD4",
+            "workstream": "Project governance and operations",
+            "priority": null,
+            "status": "Development"
+          },
+          {
+            "identifier": "Modify or add an audit to add an executive summary to each issue page",
+            "title": "Modify or add an audit to add an executive summary to each issue page",
+            "url": "https://github.com/Thorncrag/ARRP/issues/231",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
+            "workstream": "Project governance and operations",
+            "priority": null,
+            "status": "Development"
+          },
+          {
+            "identifier": "Neutrality and bipartisan adoption review",
+            "title": "Neutrality and bipartisan adoption review",
+            "url": "https://github.com/Thorncrag/ARRP/issues/225",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Eo",
+            "workstream": "Project governance and operations",
+            "priority": null,
+            "status": "Development"
+          },
+          {
+            "identifier": "Publication assembly workflow",
+            "title": "Publication assembly workflow",
+            "url": "https://github.com/Thorncrag/ARRP/issues/228",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Gk",
+            "workstream": "Project governance and operations",
+            "priority": null,
+            "status": "Development"
+          },
+          {
+            "identifier": "Release-blocker audit posture review",
+            "title": "Release-blocker audit posture review",
+            "url": "https://github.com/Thorncrag/ARRP/issues/227",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Fg",
+            "workstream": "Project governance and operations",
+            "priority": null,
+            "status": "Development"
+          },
+          {
+            "identifier": "Source and external-reference hardening",
+            "title": "Source and external-reference hardening",
+            "url": "https://github.com/Thorncrag/ARRP/issues/224",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4EU",
+            "workstream": "Project governance and operations",
+            "priority": null,
+            "status": "Development"
+          },
+          {
+            "identifier": "Pre-publication final audit",
+            "title": "Pre-publication final audit",
+            "url": "https://github.com/Thorncrag/ARRP/issues/7",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxYpvY",
+            "workstream": "Project governance and operations",
+            "priority": "Critical",
+            "status": "Development"
+          },
+          {
+            "identifier": "Pre-publication technical",
+            "title": "Pre-publication technical",
+            "url": "https://github.com/Thorncrag/ARRP/issues/9",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxYpzQ",
+            "workstream": "Project governance and operations",
+            "priority": "Critical",
+            "status": "Development"
+          }
+        ],
+        "unavailable_reason": null
+      },
+      "release_blockers": {
+        "available": true,
+        "source_complete": true,
+        "count": 26,
+        "items": [
+          {
+            "identifier": "DOJ-001",
+            "title": "DOJ-001: Recent Presidential Personal Counsel in Senior DOJ Leadership",
+            "url": "https://github.com/Thorncrag/ARRP/issues/22",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam2A",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "DOJ-002",
+            "title": "DOJ-002: White House Direction or Interference in Particular Federal Criminal Matters",
+            "url": "https://github.com/Thorncrag/ARRP/issues/23",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam2U",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Research",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "DOJ-003",
+            "title": "DOJ-003: Politically Selective Enforcement, Charging, and Favoritism",
+            "url": "https://github.com/Thorncrag/ARRP/issues/24",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam3Y",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "DOJ-005",
+            "title": "DOJ-005: Weak Enforcement and Internal Control of DOJ Recusal Duties",
+            "url": "https://github.com/Thorncrag/ARRP/issues/26",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam4o",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "DOJ-007",
+            "title": "DOJ-007: Independent Investigation of Presidential and Senior Executive Misconduct",
+            "url": "https://github.com/Thorncrag/ARRP/issues/27",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam5M",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "DOJ-009",
+            "title": "DOJ-009: Insufficient Professional-Qualification Requirements for Senior DOJ Leadership",
+            "url": "https://github.com/Thorncrag/ARRP/issues/28",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam6A",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "ELEC-001",
+            "title": "ELEC-001: Federal Executive Interference with State and Local Election Administration",
+            "url": "https://github.com/Thorncrag/ARRP/issues/29",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam6s",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "ELEC-002",
+            "title": "ELEC-002: Pressure on Certification and Canvassing Officials",
+            "url": "https://github.com/Thorncrag/ARRP/issues/30",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam7g",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "ELEC-003",
+            "title": "ELEC-003: Insufficient Protection for Election Workers and Officials",
+            "url": "https://github.com/Thorncrag/ARRP/issues/31",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam8I",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "ELEC-004",
+            "title": "ELEC-004: Abuse of Election Litigation and Civil Process",
+            "url": "https://github.com/Thorncrag/ARRP/issues/32",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam8o",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "ELEC-005",
+            "title": "ELEC-005: Weak Safeguards Against False Presidential Result-Transmission Documents",
+            "url": "https://github.com/Thorncrag/ARRP/issues/33",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam9E",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "ELEC-006",
+            "title": "ELEC-006: Insufficiently Automatic Presidential-Transition Procedures",
+            "url": "https://github.com/Thorncrag/ARRP/issues/34",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam94",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "ELEC-007",
+            "title": "ELEC-007: Improper Federal-Force Presence in Election Administration",
+            "url": "https://github.com/Thorncrag/ARRP/issues/35",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam-0",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "ELEC-008",
+            "title": "ELEC-008: Accountability for Coordinated Federal Election-Subversion Schemes",
+            "url": "https://github.com/Thorncrag/ARRP/issues/36",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanAA",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "ELEC-009",
+            "title": "ELEC-009: Electoral College Structure and National Popular Vote",
+            "url": "https://github.com/Thorncrag/ARRP/issues/37",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanAY",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "ELEC-010",
+            "title": "ELEC-010: Mail-In Voting Access, Reliability, and Trust",
+            "url": "https://github.com/Thorncrag/ARRP/issues/38",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanBU",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "ELEC-011",
+            "title": "ELEC-011: Algorithmic Redistricting Baseline and Representation Safeguards",
+            "url": "https://github.com/Thorncrag/ARRP/issues/39",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanCQ",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "EMOL-015",
+            "title": "EMOL-015: Executive Self-Litigation and Settlement Conflicts",
+            "url": "https://github.com/Thorncrag/ARRP/issues/73",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanio",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "FUND-001",
+            "title": "FUND-001: Fiscal Implementation of Ultra Vires Executive Directives",
+            "url": "https://github.com/Thorncrag/ARRP/issues/111",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxaoE8",
+            "workstream": "Proposal development",
+            "priority": "Medium",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "IMM-001",
+            "title": "IMM-001: Criminal Immunity for Presidential Official Acts",
+            "url": "https://github.com/Thorncrag/ARRP/issues/152",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxaor4",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "JUD-001",
+            "title": "JUD-001: Executive Dependence of Judicial Enforcement",
+            "url": "https://github.com/Thorncrag/ARRP/issues/43",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanGQ",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "JUD-009",
+            "title": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
+            "url": "https://github.com/Thorncrag/ARRP/issues/47",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgzlq_o",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Human decision needed",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "WAR-001",
+            "title": "WAR-001: Comprehensive War Powers and Use-of-Force Authorization Reform",
+            "url": "https://github.com/Thorncrag/ARRP/issues/42",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanFE",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Modify or add an audit to add an executive summary to each issue page",
+            "title": "Modify or add an audit to add an executive summary to each issue page",
+            "url": "https://github.com/Thorncrag/ARRP/issues/231",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
+            "workstream": "Project governance and operations",
+            "priority": null,
+            "status": "Development",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Pre-publication final audit",
+            "title": "Pre-publication final audit",
+            "url": "https://github.com/Thorncrag/ARRP/issues/7",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxYpvY",
+            "workstream": "Project governance and operations",
+            "priority": "Critical",
+            "status": "Development",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Pre-publication technical",
+            "title": "Pre-publication technical",
+            "url": "https://github.com/Thorncrag/ARRP/issues/9",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxYpzQ",
+            "workstream": "Project governance and operations",
+            "priority": "Critical",
+            "status": "Development",
+            "release_blocker": "Yes"
+          }
+        ],
+        "unavailable_reason": null
+      },
+      "required_audits": {
+        "available": true,
+        "source_complete": true,
+        "control_fields_complete": true,
+        "count": 22,
+        "known_count": 22,
+        "items": [
+          {
+            "identifier": "APPT-004",
+            "title": "APPT-004: Exercise of Governmental Authority by Unappointed or Insufficiently Accountable Individuals",
+            "url": "https://github.com/Thorncrag/ARRP/issues/122",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgzFxjg",
+            "workstream": "Proposal development",
+            "priority": "Medium",
+            "status": "Development",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Candidate reframing and HOR-028 integration (2026-07-16)",
+            "next_audit": "Source and boundary review of advice, representation, appointment status, supervision, ethics, records, security, and foreign-affairs limits"
+          },
+          {
+            "identifier": "DOJ-004",
+            "title": "DOJ-004: Protection of Career DOJ Personnel from Politically Motivated Removal or Reassignment",
+            "url": "https://github.com/Thorncrag/ARRP/issues/25",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam34",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Blocked",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "T1 predicate check (2026-06-27)",
+            "next_audit": "When a merits ruling or other controlling authority resolves the Article II predicate, reassess the available statutory remedy"
+          },
+          {
+            "identifier": "DOM-009",
+            "title": "DOM-009: Federal Law-Enforcement Surveillance Procurement and Deployment",
+            "url": "https://github.com/Thorncrag/ARRP/issues/143",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxaokw",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Development",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Horizon integration decision (2026-06-25)",
+            "next_audit": "Source-development pass"
+          },
+          {
+            "identifier": "ELEC-014",
+            "title": "ELEC-014: Limiting Federal Criminal Investigations into State-Administered Elections",
+            "url": "https://github.com/Thorncrag/ARRP/issues/236",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxqXn4",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Blocked",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Civil record-demand routing to ELEC-004 (2026-07-09)",
+            "next_audit": "Monitor for unsealed indictments, warrants, affidavits, returns, subpoenas, orders, DOJ letters, state responses, no-bill records, OIG/OPR findings, congressional records, and Arizona lead verification; then identify exact alleged statutes or offense theories and run T2 remedy-selection and legitimacy assessment"
+          },
+          {
+            "identifier": "ELEC-015",
+            "title": "ELEC-015: Ranked-Choice Voting and Majority-Choice Election Methods",
+            "url": "https://github.com/Thorncrag/ARRP/issues/237",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgx4btM",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Deferred",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Deferred status update (2026-07-10)",
+            "next_audit": "After the next midterm election cycle, update certified outcome data for RCV jurisdictions and obtain additional expert or stakeholder input; then reassess whether ELEC-015 should remain deferred, become an implementation-safeguards issue, or be retired in favor of upstream competition reforms"
+          },
+          {
+            "identifier": "FED-002",
+            "title": "FED-002: Selective or Retaliatory Federal Administration Against States",
+            "url": "https://github.com/Thorncrag/ARRP/issues/186",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxapTo",
+            "workstream": "Proposal development",
+            "priority": "Medium",
+            "status": "Development",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Source-development review (2026-07-20)",
+            "next_audit": "Comparator, authority, cause-of-action, and remedy-selection review"
+          },
+          {
+            "identifier": "FED-003",
+            "title": "FED-003: Federal Funding, Waiver, and Approval Coercion of States",
+            "url": "https://github.com/Thorncrag/ARRP/issues/187",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxapU0",
+            "workstream": "Proposal development",
+            "priority": "Medium",
+            "status": "Development",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Source-adjudication update (2026-07-21)",
+            "next_audit": "Existing-law, Spending Clause, delegation, waiver, approval, grant-condition, and remedy-selection review"
+          },
+          {
+            "identifier": "FUND-002",
+            "title": "FUND-002: Pocket Rescissions and Strategic Delay",
+            "url": "https://github.com/Thorncrag/ARRP/issues/112",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxaoF4",
+            "workstream": "Proposal development",
+            "priority": "Medium",
+            "status": "Development",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Initial candidate development (2026-06-29)",
+            "next_audit": "Source-development pass"
+          },
+          {
+            "identifier": "JUD-012",
+            "title": "JUD-012: Government Action Insulated from Judicial Review",
+            "url": "https://github.com/Thorncrag/ARRP/issues/256",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgzHE64",
+            "workstream": "Proposal development",
+            "priority": "Medium",
+            "status": "Research",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+            "next_audit": "Expand the supporting-case survey and complete the statute-first review of existing review routes and barriers, then route remedy and vehicle selection"
+          },
+          {
+            "identifier": "OVS-009",
+            "title": "OVS-009: Enforcement of Political-Activity Restrictions for Senior Officials",
+            "url": "https://github.com/Thorncrag/ARRP/issues/252",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgzHE3Q",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Research",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+            "next_audit": "Review 5 U.S.C. chapters 12 and 73, MSPB jurisdiction, sanctions, judicial review, former-employee authority, covered categories, exclusions, and constitutional limits, then route remedy and vehicle selection"
+          },
+          {
+            "identifier": "REG-002",
+            "title": "REG-002: Executive Influence over Federal Regulatory Enforcement",
+            "url": "https://github.com/Thorncrag/ARRP/issues/161",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgzmWoo",
+            "workstream": "Proposal development",
+            "priority": "Medium",
+            "status": "Research",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+            "next_audit": "Map executive-contact, ethics, recusal, inspector-general, whistleblower, Tunney Act, and confidentiality authorities across representative agencies, then test government-wide remedy and vehicle fit"
+          },
+          {
+            "identifier": "REG-003",
+            "title": "REG-003: Control of Administrative Adjudication",
+            "url": "https://github.com/Thorncrag/ARRP/issues/162",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxaozc",
+            "workstream": "Proposal development",
+            "priority": "Medium",
+            "status": "Development",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Source-adjudication update (2026-07-21)",
+            "next_audit": "Adjudicatory-system comparator and remedy-selection review"
+          },
+          {
+            "identifier": "RIGHTS-001",
+            "title": "RIGHTS-001: Civil-Rights Administration, Identity Records, and Federal Definition Control",
+            "url": "https://github.com/Thorncrag/ARRP/issues/221",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxap3A",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Development",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "SCOTUS doctrine update (2026-07-02)",
+            "next_audit": "Post-B.P.J. source-development pass"
+          },
+          {
+            "identifier": "RIGHTS-002",
+            "title": "RIGHTS-002: Temporary Protected Status, Asylum Access, and Humanitarian Reviewability",
+            "url": "https://github.com/Thorncrag/ARRP/issues/222",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxap34",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Development",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Horizon integration decision (2026-06-25)",
+            "next_audit": "Source-development pass"
+          },
+          {
+            "identifier": "RIGHTS-003",
+            "title": "RIGHTS-003: Birthright Citizenship Statutory Recognition and Federal Identity Records",
+            "url": "https://github.com/Thorncrag/ARRP/issues/223",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxap4g",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Development",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Post-Barbara statutory-vulnerability update (2026-07-06)",
+            "next_audit": "Draft or source-develop a statutory citizenship-recognition and records-continuity backstop"
+          },
+          {
+            "identifier": "DOM-005",
+            "title": "DOM-005: State Investigative Access to Federal Critical-Incident Evidence",
+            "url": "https://github.com/Thorncrag/ARRP/issues/139",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxaoh0",
+            "workstream": "Proposal development",
+            "priority": "Medium",
+            "status": "Audit needed",
+            "reasons": [
+              "Audit needed",
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "FBI-HSI investigative-responsibility internal review (2026-07-21)",
+            "next_audit": "Initial internal review of coverage, deadlines, withholding safeguards, remedies, and implementation"
+          },
+          {
+            "identifier": "EMERG-003",
+            "title": "EMERG-003: Emergency Economic Powers as a Substitute for Legislation",
+            "url": "https://github.com/Thorncrag/ARRP/issues/105",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxan-8",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Audit needed",
+            "reasons": [
+              "Audit needed",
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "HOR-030 integration and initial statutory draft (2026-07-14)",
+            "next_audit": "T1 audit of IEEPA scope, immigration-authority coordination, judicial review, transition, and implementation"
+          },
+          {
+            "identifier": "JUD-005",
+            "title": "JUD-005: No Automatic Public Notice of Executive Noncompliance",
+            "url": "https://github.com/Thorncrag/ARRP/issues/44",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanHE",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Audit needed",
+            "reasons": [
+              "Audit needed"
+            ],
+            "last_audit": "Portfolio-consolidation and Epstein-files targeted Change Audit (2026-07-16)",
+            "next_audit": "T2 review of Title 28 coverage, trigger precision, protected information, distribution, workload, current proposals, and JUD-001 fit"
+          },
+          {
+            "identifier": "WAR-009",
+            "title": "WAR-009: Executive Lethal Targeting and Accountability",
+            "url": "https://github.com/Thorncrag/ARRP/issues/347",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgzvdc4",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Audit needed",
+            "reasons": [
+              "Audit needed",
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Issue admission and initial proposal development (2026-07-22)",
+            "next_audit": "Conduct a T0 triage scan, followed by statute-first, constitutional, operational, fiscal, and stakeholder review"
+          },
+          {
+            "identifier": "APPT-001",
+            "title": "APPT-001: Evasion of Senate Confirmation and Statutory Appointment Safeguards",
+            "url": "https://github.com/Thorncrag/ARRP/issues/119",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgzFxeU",
+            "workstream": "Proposal development",
+            "priority": "Medium",
+            "status": "Research",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+            "next_audit": "Complete statutory and historical source development, then conduct T1 framework, legal-durability, enactment-pathway, evidence, abuse-resistance, drafting, fiscal, and issue-to-legislation review"
+          },
+          {
+            "identifier": "CIV-010",
+            "title": "CIV-010: Congressional Authorization for Secondary Use of Government-Held Personal Data",
+            "url": "https://github.com/Thorncrag/ARRP/issues/254",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgzHE54",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Development",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Horizon candidate admission and foundation decision (2026-07-23)",
+            "next_audit": "Complete a statute-by-statute purpose, retention, disclosure, remedy, and constitutional review; then draft the Privacy Act and conforming amendments"
+          },
+          {
+            "identifier": "RIGHTS-005",
+            "title": "RIGHTS-005: Civil and Criminal Accountability for Law-Enforcement Constitutional Violations",
+            "url": "https://github.com/Thorncrag/ARRP/issues/20",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxaqEE",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "Research",
+            "reasons": [
+              "Rebaseline status: Current fixed status"
+            ],
+            "last_audit": "Foundation-sufficiency lifecycle review (2026-07-24)",
+            "next_audit": "Complete statute-first legal-durability and empirical source development, revise the initial bill, develop implementation and fiscal treatment, and then conduct the first score-bearing audit"
+          }
+        ],
+        "unavailable_reason": null
+      },
+      "external_review": {
+        "available": true,
+        "source_complete": true,
+        "count": 25,
+        "items": [
+          {
+            "identifier": "DOJ-001",
+            "title": "DOJ-001: Recent Presidential Personal Counsel in Senior DOJ Leadership",
+            "url": "https://github.com/Thorncrag/ARRP/issues/22",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam2A",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "SCOTUS current-status update (2026-07-02)",
+            "next_audit": "Qualified review by a constitutional-law attorney, a DOJ ethics practitioner, and legislative counsel focused on post-Slaughter enforcement design, J.G.G. contempt posture, the official Attorney General nomination record, closer prior-legislation analogues, and staged disclosure, oversight, or confirmation-process fallbacks"
+          },
+          {
+            "identifier": "DOJ-003",
+            "title": "DOJ-003: Politically Selective Enforcement, Charging, and Favoritism",
+            "url": "https://github.com/Thorncrag/ARRP/issues/24",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam3Y",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "Targeted source-adjudication Change Audit (2026-07-21)",
+            "next_audit": "Qualified criminal-law, prosecutorial-ethics, and equal-protection review focused on selective-enforcement standards, evidentiary thresholds, remedy fit, and abuse resistance; then a targeted follow-up internal review"
+          },
+          {
+            "identifier": "DOJ-005",
+            "title": "DOJ-005: Weak Enforcement and Internal Control of DOJ Recusal Duties",
+            "url": "https://github.com/Thorncrag/ARRP/issues/26",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam4o",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T3 readiness audit (2026-06-28)",
+            "next_audit": "Qualified professional-responsibility, administrative-law, and DOJ-governance review focused on recusal triggers, enforcement independence, reviewability, and anti-evasion design; then a targeted follow-up internal review"
+          },
+          {
+            "identifier": "DOJ-007",
+            "title": "DOJ-007: Independent Investigation of Presidential and Senior Executive Misconduct",
+            "url": "https://github.com/Thorncrag/ARRP/issues/27",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam5M",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "Review Ready manifestation-polish Change Audit (2026-07-15)",
+            "next_audit": "Qualified criminal-law, executive-power, federal-courts, and special-counsel review focused on appointment design, independence, accountability, remedy fit, and constitutional risk; then a targeted follow-up internal review"
+          },
+          {
+            "identifier": "DOJ-009",
+            "title": "DOJ-009: Insufficient Professional-Qualification Requirements for Senior DOJ Leadership",
+            "url": "https://github.com/Thorncrag/ARRP/issues/28",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam6A",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T4 publication-ready audit (2026-07-02)",
+            "next_audit": "Qualified review by a public-law attorney, legislative counsel, and a professional-responsibility specialist focused on proposed 28 U.S.C. § 506A placement, Appointments Clause and nomination-authority limits, post-Slaughter removal-power risk, Federal Vacancies Reform Act and 28 U.S.C. § 508 interaction, reviewer assignment, professional definitions, and nonratification and action-validity rules"
+          },
+          {
+            "identifier": "ELEC-001",
+            "title": "ELEC-001: Federal Executive Interference with State and Local Election Administration",
+            "url": "https://github.com/Thorncrag/ARRP/issues/29",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam6s",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "Targeted source and remedy-fit review (2026-07-18)",
+            "next_audit": "Qualified election-law, federalism, and state-election-administration review focused on federal-interference predicates, state remedies, implementation, and constitutional fit; then a targeted follow-up internal review"
+          },
+          {
+            "identifier": "ELEC-002",
+            "title": "ELEC-002: Pressure on Certification and Canvassing Officials",
+            "url": "https://github.com/Thorncrag/ARRP/issues/30",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam7g",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T4 publication-ready audit (2026-06-28)",
+            "next_audit": "Qualified election-law, criminal-law, and election-administration review focused on coercion definitions, certification safeguards, enforcement, and First Amendment constraints; then a targeted follow-up internal review"
+          },
+          {
+            "identifier": "ELEC-003",
+            "title": "ELEC-003: Insufficient Protection for Election Workers and Officials",
+            "url": "https://github.com/Thorncrag/ARRP/issues/31",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam8I",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T4 publication-ready audit (2026-06-28)",
+            "next_audit": "Qualified election-law, criminal-law, workplace-safety, and election-administration review focused on threat coverage, enforcement, implementation, and federalism; then a targeted follow-up internal review"
+          },
+          {
+            "identifier": "ELEC-004",
+            "title": "ELEC-004: Abuse of Election Litigation and Civil Process",
+            "url": "https://github.com/Thorncrag/ARRP/issues/32",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam8o",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "Manifestation chronology and type reorganization (2026-07-09)",
+            "next_audit": "Qualified review by a federal-courts attorney, an election-law attorney, and legislative counsel focused on source verification for the DOJ civil voter-data and state-election-record demand campaign, retrieval of the Nevada primary order, a representative state comparison, Title 28 codification, and Petition Clause limits"
+          },
+          {
+            "identifier": "ELEC-005",
+            "title": "ELEC-005: Weak Safeguards Against False Presidential Result-Transmission Documents",
+            "url": "https://github.com/Thorncrag/ARRP/issues/33",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam9E",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T4 publication-ready audit (2026-06-28)",
+            "next_audit": "Qualified election-law, criminal-law, records-authentication, and legislative-counsel review focused on false result-transmission documents, coverage, penalties, and federalism; then a targeted follow-up internal review"
+          },
+          {
+            "identifier": "ELEC-006",
+            "title": "ELEC-006: Insufficiently Automatic Presidential-Transition Procedures",
+            "url": "https://github.com/Thorncrag/ARRP/issues/34",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam94",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T4 publication-ready audit (2026-06-28)",
+            "next_audit": "Qualified election-law, transition-administration, appropriations, and separation-of-powers review focused on automatic triggers, continuity, implementation, and enforcement; then a targeted follow-up internal review"
+          },
+          {
+            "identifier": "ELEC-007",
+            "title": "ELEC-007: Improper Federal-Force Presence in Election Administration",
+            "url": "https://github.com/Thorncrag/ARRP/issues/35",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxam-0",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T4 publication-ready audit (2026-06-28)",
+            "next_audit": "Qualified election-law, domestic-deployment, federalism, and civil-liberties review focused on covered forces, activation triggers, enforcement, and emergency exceptions; then a targeted follow-up internal review"
+          },
+          {
+            "identifier": "ELEC-008",
+            "title": "ELEC-008: Accountability for Coordinated Federal Election-Subversion Schemes",
+            "url": "https://github.com/Thorncrag/ARRP/issues/36",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanAA",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "Internal check of Title 18 amendment restructure (2026-07-04)",
+            "next_audit": "Qualified review by criminal-law, election-law, and federal-courts attorneys, First Amendment and Speech or Debate Clause specialists, and legislative counsel focused on predicate-act definitions, mens rea and protected-advocacy boundaries, federalism and legislative-immunity limits, Title 18 placement, enforcement safeguards, and any source-backed revisions identified by the review"
+          },
+          {
+            "identifier": "ELEC-009",
+            "title": "ELEC-009: Electoral College Structure and National Popular Vote",
+            "url": "https://github.com/Thorncrag/ARRP/issues/37",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanAY",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "First draft enabling legislation (2026-07-04)",
+            "next_audit": "Qualified review by constitutional-law and election-law attorneys, election administrators, and legislative counsel focused on selection and defense of the national-majority mechanism, contingent-election design, official state-by-state compact verification, ballot and counting administration, fiscal and workload analogues, and amendment-to-enabling-statute alignment"
+          },
+          {
+            "identifier": "ELEC-010",
+            "title": "ELEC-010: Mail-In Voting Access, Reliability, and Trust",
+            "url": "https://github.com/Thorncrag/ARRP/issues/38",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanBU",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T4 publication-ready audit (2026-06-28)",
+            "next_audit": "Qualified election-administration, voting-rights, postal-operations, and election-security review focused on access, reliability standards, implementation costs, and federalism; then a targeted follow-up internal review"
+          },
+          {
+            "identifier": "ELEC-011",
+            "title": "ELEC-011: Algorithmic Redistricting Baseline and Representation Safeguards",
+            "url": "https://github.com/Thorncrag/ARRP/issues/39",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanCQ",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T4 publication and external-review readiness review (2026-07-04)",
+            "next_audit": "Qualified review by election-law and voting-rights attorneys, redistricting-methodology and algorithm-audit specialists, state election administrators, fiscal analysts, affected stakeholders, and legislative counsel focused on state-specific algorithm certification, implementation and auditability, Voting Rights Act and constitutional safeguards, fiscal workload, and proposal-specific adoption evidence"
+          },
+          {
+            "identifier": "ELEC-012",
+            "title": "ELEC-012: Campaign Finance, Dark Money, and Corporate Political Spending",
+            "url": "https://github.com/Thorncrag/ARRP/issues/40",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanC4",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T4 FECA drafting-conversion follow-up (2026-07-04)",
+            "next_audit": "T4 legal-readiness follow-up focused on legislative-counsel codification check, full Dinner Table Action merits-document review, Hawaii Act 011 legal-theory comparison, H.J.Res. 54 narrowing or rule-of-construction language, source-backed federal cost model, and external constitutional/election-law review"
+          },
+          {
+            "identifier": "ELEC-013",
+            "title": "ELEC-013: Federal Candidate Access, Ballot Access, and Debate Gatekeeping",
+            "url": "https://github.com/Thorncrag/ARRP/issues/41",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanDs",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "External-review readiness push / Review Ready source-development review (2026-07-09)",
+            "next_audit": "Qualified review by election-law and First Amendment attorneys, FEC and EAC practitioners, state election administrators, fiscal analysts, and legislative counsel focused on FEC matter-file verification, a broader official state sample, debate-sponsor and ballot-access administration, fiscal and workload validation, enforcement design, and proposal-specific adoption evidence"
+          },
+          {
+            "identifier": "EMOL-015",
+            "title": "EMOL-015: Executive Self-Litigation and Settlement Conflicts",
+            "url": "https://github.com/Thorncrag/ARRP/issues/73",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanio",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T4 publication-ready audit (2026-07-13)",
+            "next_audit": "Qualified review by constitutional and federal-courts attorneys, a federal tax practitioner, an appropriations specialist, a judicial-administration practitioner, and legislative counsel focused on the automatic adversity screen and Rule 41 treatment, controlled maintenance and the D.D.C. cause of action, 26 U.S.C. § 7217 placement, remedy and protected-information boundaries, appellate routes, and workload and fiscal effects"
+          },
+          {
+            "identifier": "FUND-001",
+            "title": "FUND-001: Fiscal Implementation of Ultra Vires Executive Directives",
+            "url": "https://github.com/Thorncrag/ARRP/issues/111",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxaoE8",
+            "workstream": "Proposal development",
+            "priority": "Medium",
+            "status": "External review",
+            "last_audit": "Targeted source-adjudication Change Audit (2026-07-21)",
+            "next_audit": "Qualified review by appropriations and administrative-law attorneys, a federal-courts attorney, OMB or GAO program-administration practitioners, a budget analyst, a national-security specialist, and legislative counsel focused on Impoundment Control Act and claim-channeling design, JUD-011 and standalone routes, NASA apportionment, reprogramming, obligation, and contract-termination records, deadline and workload effects, and current litigation"
+          },
+          {
+            "identifier": "IMM-001",
+            "title": "IMM-001: Criminal Immunity for Presidential Official Acts",
+            "url": "https://github.com/Thorncrag/ARRP/issues/152",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxaor4",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "Portfolio-consolidation targeted Change Audit (2026-07-16)",
+            "next_audit": "Qualified constitutional-law, federal-courts, criminal-law, and separation-of-powers review focused on official-act immunity boundaries, remedies, reviewability, and abuse resistance; then a targeted follow-up internal review"
+          },
+          {
+            "identifier": "JUD-001",
+            "title": "JUD-001: Executive Dependence of Judicial Enforcement",
+            "url": "https://github.com/Thorncrag/ARRP/issues/43",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanGQ",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "Portfolio-consolidation targeted Change Audit (2026-07-16)",
+            "next_audit": "Qualified review by a federal-courts attorney, legislative counsel, a court-administration practitioner, and an appropriations specialist focused on civil-contempt standards and officer liability, the public register and protected-information procedures, Administrative Office workload, Judgment Fund and indemnification treatment, and continued Phang docket posture"
+          },
+          {
+            "identifier": "JUD-011",
+            "title": "JUD-011: Executive Nullification of Congressional Mandates",
+            "url": "https://github.com/Thorncrag/ARRP/issues/246",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgyqCOE",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "Review Ready manifestation-polish Change Audit (2026-07-15)",
+            "next_audit": "Qualified review by a constitutional and public-law attorney, legislative counsel, D.D.C. and D.C. Circuit practitioners, an Administrative Office or Judicial Conference practitioner, an appropriations specialist, and a CBO budget analyst focused on Article II and Article III, standing and presidential relief, codification and appellate jurisdiction, panel assignment and court administration, protected-record and facilities and technology workload, appropriations and PAYGO, current-case and Code currency, and proposal-specific cost"
+          },
+          {
+            "identifier": "REG-001",
+            "title": "REG-001: Agency Independence and Functional Nullification",
+            "url": "https://github.com/Thorncrag/ARRP/issues/160",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxaox0",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "Targeted source-adjudication Change Audit (2026-07-21)",
+            "next_audit": "Qualified review by constitutional and administrative-law attorneys, federal-courts and congressional-litigation specialists, affected-agency and records-security practitioners, judicial administrators, appropriations and budget analysts, and legislative counsel focused on Article II boundaries across organic statutes, standing, panel, and appeal design, mixed claims and relief, inventory, notice, and protected-information feasibility, workload and cost, current rosters and removal records, and alignment between JUD-011 and the standalone alternative"
+          },
+          {
+            "identifier": "WAR-001",
+            "title": "WAR-001: Comprehensive War Powers and Use-of-Force Authorization Reform",
+            "url": "https://github.com/Thorncrag/ARRP/issues/42",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxanFE",
+            "workstream": "Proposal development",
+            "priority": "High",
+            "status": "External review",
+            "last_audit": "T4 publication-ready audit (2026-06-28)",
+            "next_audit": "Qualified constitutional war-powers, national-security, military-operations, and congressional-procedure review focused on authorization triggers, emergency response, enforcement, and judicial review; then a targeted follow-up internal review"
+          }
+        ],
+        "completion_requirement": "The Project records current External review workflow state; it does not itself prove that required external review is complete."
+      },
+      "link_export_validation": {
+        "link_inventory_available": true,
+        "internal_link_count": 1373,
+        "missing_link_count": 2,
+        "missing_links": [
+          {
+            "source": "framework/templates/ISSUE_EVIDENCE_TEMPLATE.md",
+            "target": "framework/issues/ISSUE-000.md"
+          },
+          {
+            "source": "framework/templates/TOPIC_PAGE_TEMPLATE.md",
+            "target": "areas/AREA/issues/ISSUE-ID.md"
+          }
+        ],
+        "export_validation_available": false,
+        "export_validation_status": "unavailable",
+        "unavailable_reason": "No lineage-bearing export validation manifest is recorded."
+      },
+      "export_lineage": {
+        "available": false,
+        "artifact_path": "exports/pdf/ARRP-public-proposal-draft.pdf",
+        "artifact_sha256": "sha256:ded6ea3b4d0e076a2531cfed123731a74889c85b794d60773f0dbd8424abdd02",
+        "artifact_repository_revision": "e4e91363527ef360b2cc61e65861869a7f262953",
+        "build_source_revision": null,
+        "input_hashes": null,
+        "unavailable_reason": "The existing PDF has no recorded build source revision and complete input-hash manifest."
+      },
+      "stale_pdf": {
+        "revision_backed_status": "unavailable",
+        "mtime_indicator": true,
+        "mtime_indicator_only": true,
+        "explanation": "Filesystem modification time is retained as a diagnostic only; it cannot establish current export lineage."
+      },
+      "cross_edition_references": {
+        "available": true,
+        "count": 245,
+        "items": [
+          {
+            "source": "areas/ELEC/issues/ELEC-004.md",
+            "target": "areas/ELEC/research/ELEC-004-civil-process-catalog.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-004.md",
+            "target": "areas/ELEC/issues/ELEC-004.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-008.md",
+            "target": "areas/ELEC/issues/ELEC-008.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/issues/REG-001.md",
+            "target": "areas/REG/issues/REG-006.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/issues/REG-001.md",
+            "target": "areas/REG/issues/REG-001.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/issues/REG-001.md",
+            "target": "areas/REG/research/REG-001-independent-agency-removal-catalog.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-011.md",
+            "target": "areas/ELEC/issues/ELEC-011.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/APPT/README.md",
+            "target": "areas/APPT/issues/APPT-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/APPT/README.md",
+            "target": "areas/REG/issues/REG-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/issues/RIGHTS-003.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-003.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-012.md",
+            "target": "areas/ELEC/issues/ELEC-012.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/README.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/README.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-002.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/README.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-003.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/README.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-005.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/README.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-004.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/README.md",
+            "target": "areas/DOM/issues/DOM-005.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/README.md",
+            "target": "areas/JUD/issues/JUD-012.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/README.md",
+            "target": "topics/immigration-system-reform.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CIV/README.md",
+            "target": "areas/CIV/issues/CIV-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CIV/README.md",
+            "target": "areas/CIV/issues/CIV-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CIV/README.md",
+            "target": "areas/CIV/issues/CIV-009.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CIV/README.md",
+            "target": "areas/CIV/issues/CIV-009.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CIV/README.md",
+            "target": "areas/CIV/issues/CIV-010.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CIV/README.md",
+            "target": "areas/REG/issues/REG-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CIV/README.md",
+            "target": "areas/ELEC/issues/ELEC-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/issues/RIGHTS-005.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-005.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/issues/RIGHTS-001.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-001.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CLASS/README.md",
+            "target": "areas/CLASS/issues/CLASS-011.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CLASS/README.md",
+            "target": "areas/CLASS/issues/CLASS-011.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/issues/RIGHTS-004.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-004.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/WAR/issues/WAR-001.md",
+            "target": "areas/WAR/issues/WAR-001.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/WAR/issues/WAR-001.md",
+            "target": "areas/WAR/research/WAR-001-source-development.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CIV/issues/CIV-010.md",
+            "target": "areas/CIV/issues/CIV-009.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CIV/issues/CIV-010.md",
+            "target": "areas/REC/issues/REC-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CIV/issues/CIV-010.md",
+            "target": "areas/CIV/issues/CIV-010.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CIV/issues/CIV-010.md",
+            "target": "areas/CIV/research/CIV-010-source-development.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/CONG/README.md",
+            "target": "areas/JUD/issues/JUD-005.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/issues/REG-003.md",
+            "target": "areas/REG/issues/REG-003.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/IMM/issues/IMM-001.md",
+            "target": "areas/IMM/issues/IMM-001.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/README.md",
+            "target": "areas/DOJ/issues/DOJ-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/README.md",
+            "target": "areas/DOJ/issues/DOJ-002.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/README.md",
+            "target": "areas/DOJ/issues/DOJ-003.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/README.md",
+            "target": "areas/DOJ/issues/DOJ-004.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/README.md",
+            "target": "areas/DOJ/issues/DOJ-005.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/README.md",
+            "target": "areas/DOJ/issues/DOJ-007.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/README.md",
+            "target": "areas/DOJ/issues/DOJ-009.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/README.md",
+            "target": "areas/REG/issues/REG-002.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-002.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-003.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-004.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-005.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-006.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-007.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-008.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-009.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-010.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-011.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-012.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-013.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-014.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/issues/ELEC-015.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "legislation/ELEC-013.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/research/ELEC-013-presidential-debate-ballot-access-explainer.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/research/ELEC-013-presidential-debate-ballot-access-explainer.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/research/ELEC-004-civil-process-catalog.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/research/ELEC-004-civil-process-catalog.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/research/ELEC-014-criminal-process-catalog.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/README.md",
+            "target": "areas/ELEC/research/ELEC-014-criminal-process-catalog.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-009.md",
+            "target": "areas/ELEC/issues/ELEC-009.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/EMERG/issues/EMERG-003.md",
+            "target": "areas/EMERG/issues/EMERG-003.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/EMERG/README.md",
+            "target": "areas/EMERG/issues/EMERG-003.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/EMERG/README.md",
+            "target": "areas/FUND/issues/FUND-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/OVS/issues/OVS-009.md",
+            "target": "areas/OVS/issues/OVS-009.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/APPT/issues/APPT-001.md",
+            "target": "areas/APPT/issues/APPT-001.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/issues/JUD-001.md",
+            "target": "areas/JUD/issues/JUD-001.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FUND/README.md",
+            "target": "areas/FUND/issues/FUND-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FUND/README.md",
+            "target": "areas/FUND/issues/FUND-002.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FUND/README.md",
+            "target": "areas/FED/issues/FED-003.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/issues/REG-002.md",
+            "target": "areas/REG/issues/REG-006.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/issues/REG-002.md",
+            "target": "areas/RET/issues/RET-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/issues/REG-002.md",
+            "target": "areas/REG/issues/REG-002.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/WAR/issues/WAR-009.md",
+            "target": "areas/WAR/issues/WAR-009.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/WAR/issues/WAR-009.md",
+            "target": "areas/WAR/research/WAR-009-source-development.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/issues/JUD-011.md",
+            "target": "framework/INTERBRANCH_REVIEW_FRAMEWORK.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/issues/JUD-011.md",
+            "target": "framework/INTERBRANCH_REVIEW_COVERAGE_MATRIX.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/issues/JUD-011.md",
+            "target": "areas/JUD/issues/JUD-011.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/EMOL/issues/EMOL-015.md",
+            "target": "areas/EMOL/research/EMOL-015-procedural-and-enforcement-analysis.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/EMOL/issues/EMOL-015.md",
+            "target": "areas/EMOL/issues/EMOL-015.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-013.md",
+            "target": "areas/ELEC/issues/ELEC-013.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-013.md",
+            "target": "areas/ELEC/research/ELEC-013-presidential-debate-ballot-access-explainer.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RET/README.md",
+            "target": "areas/RET/issues/RET-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RET/README.md",
+            "target": "areas/RET/issues/RET-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RET/README.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RET/README.md",
+            "target": "areas/JUD/issues/JUD-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RET/README.md",
+            "target": "areas/DOJ/issues/DOJ-003.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-001.md",
+            "target": "areas/ELEC/issues/ELEC-001.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FED/issues/FED-003.md",
+            "target": "areas/FED/issues/FED-003.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/HER/README.md",
+            "target": "areas/HER/issues/HER-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/HER/README.md",
+            "target": "areas/HER/issues/HER-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/HER/README.md",
+            "target": "areas/JUD/issues/JUD-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/HER/README.md",
+            "target": "areas/HER/research/HER-001-source-development.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/HER/README.md",
+            "target": "areas/HER/research/HER-001-source-development.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOM/issues/DOM-009.md",
+            "target": "framework/logs/HORIZON_SCAN_LOG.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOM/issues/DOM-009.md",
+            "target": "areas/DOM/issues/DOM-009.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOM/README.md",
+            "target": "areas/DOM/issues/DOM-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOM/README.md",
+            "target": "areas/DOM/issues/DOM-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOM/README.md",
+            "target": "areas/DOM/issues/DOM-005.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOM/README.md",
+            "target": "areas/DOM/issues/DOM-009.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOM/README.md",
+            "target": "areas/DOJ/issues/DOJ-007.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOM/README.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-005.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FED/README.md",
+            "target": "areas/FED/issues/FED-002.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FED/README.md",
+            "target": "areas/FED/issues/FED-003.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FUND/issues/FUND-001.md",
+            "target": "areas/FUND/issues/FUND-001.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FUND/issues/FUND-001.md",
+            "target": "areas/FUND/research/FUND-001-executive-order-judicial-review-comparator.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/PRESS/README.md",
+            "target": "areas/PRESS/issues/PRESS-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/PRESS/README.md",
+            "target": "areas/PRESS/issues/PRESS-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/PRESS/README.md",
+            "target": "areas/PRESS/issues/PRESS-003.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/PRESS/README.md",
+            "target": "areas/PRESS/issues/PRESS-003.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/PRESS/README.md",
+            "target": "areas/PRESS/issues/PRESS-006.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/PRESS/README.md",
+            "target": "areas/PRESS/issues/PRESS-006.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/PRESS/README.md",
+            "target": "areas/PRESS/research/PRESS-003-source-development.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/PRESS/README.md",
+            "target": "areas/PRESS/research/PRESS-003-source-development.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/issues/JUD-012.md",
+            "target": "areas/REC/issues/REC-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/issues/JUD-012.md",
+            "target": "areas/JUD/research/JUD-012-judicial-review-foreclosure-case-review.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/issues/JUD-012.md",
+            "target": "areas/REG/issues/REG-006.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/issues/JUD-012.md",
+            "target": "areas/JUD/issues/JUD-012.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FACT/README.md",
+            "target": "areas/FACT/issues/FACT-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FACT/README.md",
+            "target": "areas/FACT/issues/FACT-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FACT/README.md",
+            "target": "areas/APPT/issues/APPT-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-007.md",
+            "target": "areas/ELEC/issues/ELEC-007.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/README.md",
+            "target": "areas/REG/issues/REG-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/README.md",
+            "target": "areas/REG/issues/REG-002.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/README.md",
+            "target": "areas/REG/issues/REG-003.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/README.md",
+            "target": "areas/REG/issues/REG-006.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/README.md",
+            "target": "areas/REG/issues/REG-006.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/README.md",
+            "target": "legislation/JUD-011.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/README.md",
+            "target": "legislation/REG-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/README.md",
+            "target": "areas/REG/research/REG-001-independent-agency-removal-catalog.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REG/README.md",
+            "target": "areas/REG/research/REG-001-independent-agency-removal-catalog.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/issues/DOJ-007.md",
+            "target": "areas/DOJ/issues/DOJ-007.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/OVS/README.md",
+            "target": "areas/OVS/issues/OVS-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/OVS/README.md",
+            "target": "areas/OVS/issues/OVS-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/OVS/README.md",
+            "target": "areas/OVS/issues/OVS-009.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/OVS/README.md",
+            "target": "areas/APPT/issues/APPT-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/issues/DOJ-009.md",
+            "target": "areas/DOJ/issues/DOJ-009.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-003.md",
+            "target": "areas/ELEC/issues/ELEC-003.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-006.md",
+            "target": "areas/ELEC/issues/ELEC-006.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/README.md",
+            "target": "areas/JUD/issues/JUD-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/README.md",
+            "target": "areas/JUD/issues/JUD-005.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/README.md",
+            "target": "areas/JUD/issues/JUD-009.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/README.md",
+            "target": "areas/JUD/issues/JUD-011.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/README.md",
+            "target": "areas/JUD/issues/JUD-012.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/README.md",
+            "target": "areas/REG/issues/REG-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/README.md",
+            "target": "areas/FUND/issues/FUND-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/README.md",
+            "target": "areas/DOJ/issues/DOJ-007.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-014.md",
+            "target": "areas/ELEC/research/ELEC-014-criminal-process-catalog.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-014.md",
+            "target": "areas/ELEC/research/ELEC-004-civil-process-catalog.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-014.md",
+            "target": "areas/ELEC/issues/ELEC-014.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-010.md",
+            "target": "areas/ELEC/issues/ELEC-010.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/issues/JUD-005.md",
+            "target": "areas/JUD/issues/JUD-005.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FUND/issues/FUND-002.md",
+            "target": "areas/FUND/issues/FUND-002.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/issues/DOJ-003.md",
+            "target": "areas/DOJ/issues/DOJ-003.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/PAR/README.md",
+            "target": "areas/PAR/issues/PAR-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/PAR/README.md",
+            "target": "areas/PAR/issues/PAR-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/EMOL/README.md",
+            "target": "areas/EMOL/issues/EMOL-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/EMOL/README.md",
+            "target": "areas/EMOL/issues/EMOL-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/EMOL/README.md",
+            "target": "areas/EMOL/issues/EMOL-015.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/IMM/README.md",
+            "target": "areas/IMM/issues/IMM-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/IMM/README.md",
+            "target": "areas/DOJ/issues/DOJ-007.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REC/README.md",
+            "target": "areas/REC/issues/REC-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/REC/README.md",
+            "target": "areas/REC/issues/REC-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-002.md",
+            "target": "areas/ELEC/issues/ELEC-002.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/README.md",
+            "target": "SUBJECT_INDEX.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/issues/DOJ-004.md",
+            "target": "areas/DOJ/issues/DOJ-004.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-015.md",
+            "target": "areas/ELEC/research/ELEC-015-maine-rcv-participation-data.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-015.md",
+            "target": "areas/ELEC/issues/ELEC-015.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/issues/DOJ-001.md",
+            "target": "areas/DOJ/issues/DOJ-001.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/FED/issues/FED-002.md",
+            "target": "areas/FED/issues/FED-002.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOM/issues/DOM-005.md",
+            "target": "areas/DOM/issues/DOM-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOM/issues/DOM-005.md",
+            "target": "areas/DOM/issues/DOM-005.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/JUD/issues/JUD-009.md",
+            "target": "areas/JUD/issues/JUD-009.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/RIGHTS/issues/RIGHTS-002.md",
+            "target": "areas/RIGHTS/issues/RIGHTS-002.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/WAR/README.md",
+            "target": "areas/WAR/issues/WAR-001.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/WAR/README.md",
+            "target": "areas/WAR/issues/WAR-009.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/issues/DOJ-005.md",
+            "target": "areas/DOJ/issues/DOJ-005.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/ELEC/issues/ELEC-005.md",
+            "target": "areas/ELEC/issues/ELEC-005.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/issues/DOJ-002.md",
+            "target": "areas/PRESS/research/PRESS-003-source-development.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "areas/DOJ/issues/DOJ-002.md",
+            "target": "areas/DOJ/issues/DOJ-002.audit.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "README.md",
+            "target": "topics/project-2025.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "README.md",
+            "target": "UNDER_REVIEW.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "README.md",
+            "target": "UNDER_REVIEW.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "README.md",
+            "target": "framework/FRAMEWORK.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "README.md",
+            "target": "framework/FRAMEWORK.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "README.md",
+            "target": "SUBJECT_INDEX.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "README.md",
+            "target": "framework/PROJECT_STRUCTURE.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "README.md",
+            "target": "framework/PROJECT_STRUCTURE.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "README.md",
+            "target": "framework/AGENT_OPERATING_RULES.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "README.md",
+            "target": "framework/AGENT_OPERATING_RULES.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "legislation/ELEC-004.md",
+            "target": "areas/ELEC/issues/ELEC-014.md",
+            "source_edition": "legislative-appendix",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "legislation/DOJ-007-amendment.md",
+            "target": "areas/IMM/issues/IMM-001.md",
+            "source_edition": "legislative-appendix",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "legislation/ELEC-004-state.md",
+            "target": "areas/ELEC/issues/ELEC-014.md",
+            "source_edition": "legislative-appendix",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "SUBJECT_INDEX.md",
+            "target": "areas/RET/issues/RET-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "SUBJECT_INDEX.md",
+            "target": "areas/DOM/issues/DOM-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "SUBJECT_INDEX.md",
+            "target": "areas/CIV/issues/CIV-009.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "SUBJECT_INDEX.md",
+            "target": "areas/HER/issues/HER-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "SUBJECT_INDEX.md",
+            "target": "areas/REG/issues/REG-006.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "SUBJECT_INDEX.md",
+            "target": "framework/FRAMEWORK.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "SUBJECT_INDEX.md",
+            "target": "framework/logs/HORIZON_SCAN_LOG.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "ABOUT.md",
+            "target": "topics/project-2025.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "ABOUT.md",
+            "target": "topics/project-2025.md",
+            "source_edition": "legislative-appendix",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "ABOUT.md",
+            "target": "SUPPORT.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "ABOUT.md",
+            "target": "SUPPORT.md",
+            "source_edition": "legislative-appendix",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "ABOUT.md",
+            "target": "SUPPORT.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "PRINT_READERS_GUIDE.md",
+            "target": "SUBJECT_INDEX.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "PRINT_READERS_GUIDE.md",
+            "target": "SUBJECT_INDEX.md",
+            "source_edition": "legislative-appendix",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/classified-documents.md",
+            "target": "areas/CLASS/issues/CLASS-011.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/classified-documents.md",
+            "target": "areas/REC/issues/REC-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/doge-and-agency-dismantling.md",
+            "target": "areas/CIV/issues/CIV-009.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/doge-and-agency-dismantling.md",
+            "target": "areas/CIV/issues/CIV-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/campaign-finance.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/civil-rights.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/classified-documents.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/doge-and-agency-dismantling.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/elections.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/epstein-files.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/executive-orders-and-presidential-power.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/federal-pressure-on-states-and-cities.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/government-spending-and-impoundment.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/immigration-system-reform.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/january-6.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/military-force.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/presidential-accountability.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/project-2025.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/README.md",
+            "target": "topics/weaponization-of-justice.md",
+            "source_edition": "executive-summary",
+            "target_disposition": "included",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/federal-pressure-on-states-and-cities.md",
+            "target": "areas/DOM/issues/DOM-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/immigration-system-reform.md",
+            "target": "areas/DOM/issues/DOM-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/january-6.md",
+            "target": "areas/PAR/issues/PAR-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/presidential-accountability.md",
+            "target": "areas/PAR/issues/PAR-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/project-2025.md",
+            "target": "areas/CIV/issues/CIV-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/project-2025.md",
+            "target": "areas/DOM/issues/DOM-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/project-2025.md",
+            "target": "areas/FACT/issues/FACT-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/project-2025.md",
+            "target": "areas/PRESS/issues/PRESS-001.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          },
+          {
+            "source": "topics/project-2025.md",
+            "target": "areas/PRESS/issues/PRESS-006.md",
+            "source_edition": "public-proposal",
+            "target_disposition": "excluded",
+            "review_disposition": null
+          }
+        ],
+        "disposition_complete": false,
+        "explanation": "A cross-edition or online-only target requires an explicit reader-route disposition; presence alone is not a broken link."
+      },
+      "copyright_reuse": {
+        "rights_notice_available": true,
+        "all_rights_reserved": true,
+        "later_public_reuse_license_planned": true,
+        "public_reuse_license_adopted": false,
+        "third_party_reuse_review": "unavailable",
+        "status": "human_decision_required"
+      },
+      "integrity_validation": {
+        "available": true,
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "revision": "d5daa0619d98129e8af10ceb81f73546f413e5ef",
+        "generated_at": "2026-07-26T03:05:00+00:00"
+      },
+      "human_go_no_go": {
+        "available": false,
+        "decision": null,
+        "status": "human_decision_required",
+        "question": "After all release prerequisites and lineage-backed validation are complete, authorize this exact revision for public release?",
+        "authority": "Human only"
+      }
+    },
+    "delivery_items": [
+      {
+        "area": "Governance",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "priority",
+            "release_blocker",
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Copyright infringement check",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#230",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/230",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 230,
+        "owner": null,
+        "parentIssue": {
+          "number": 7,
+          "title": "Pre-publication final audit",
+          "url": "https://github.com/Thorncrag/ARRP/issues/7"
+        },
+        "priority": null,
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkQH4",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": null,
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Copyright infringement check",
+        "url": "https://github.com/Thorncrag/ARRP/issues/230",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Export",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "priority",
+            "release_blocker",
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Final link and export validation",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#229",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/229",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 229,
+        "owner": null,
+        "parentIssue": {
+          "number": 9,
+          "title": "Pre-publication technical",
+          "url": "https://github.com/Thorncrag/ARRP/issues/9"
+        },
+        "priority": null,
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4GQ",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": null,
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Final link and export validation",
+        "url": "https://github.com/Thorncrag/ARRP/issues/229",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Source development",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "priority",
+            "release_blocker",
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#233",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/233",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": null,
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 233,
+        "owner": null,
+        "parentIssue": null,
+        "priority": null,
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkyug",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": null,
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+        "url": "https://github.com/Thorncrag/ARRP/issues/233",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Governance",
+        "assignees": [],
+        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "priority",
+            "release_blocker",
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Horizon proposal resolution for public release",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#226",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": "framework/logs/HORIZON_SCAN_LOG.md",
+          "issue": "https://github.com/Thorncrag/ARRP/issues/226",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 226,
+        "owner": null,
+        "parentIssue": {
+          "number": 7,
+          "title": "Pre-publication final audit",
+          "url": "https://github.com/Thorncrag/ARRP/issues/7"
+        },
+        "priority": null,
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4FI",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": null,
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Horizon proposal resolution for public release",
+        "url": "https://github.com/Thorncrag/ARRP/issues/226",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Source development",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "priority",
+            "release_blocker",
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Jack Smith reports crosswalks",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#232",
+        "kind": "source review",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/232",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": null,
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 232,
+        "owner": null,
+        "parentIssue": null,
+        "priority": null,
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkpD4",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": null,
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Jack Smith reports crosswalks",
+        "url": "https://github.com/Thorncrag/ARRP/issues/232",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Governance",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "priority",
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Modify or add an audit to add an executive summary to each issue page",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#231",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/231",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": null,
+          "title": "0.3 - Core Proposal Development",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/4"
+        },
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 231,
+        "owner": null,
+        "parentIssue": null,
+        "priority": null,
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Modify or add an audit to add an executive summary to each issue page",
+        "url": "https://github.com/Thorncrag/ARRP/issues/231",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Governance",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "priority",
+            "release_blocker",
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Neutrality and bipartisan adoption review",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#225",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/225",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 225,
+        "owner": null,
+        "parentIssue": {
+          "number": 7,
+          "title": "Pre-publication final audit",
+          "url": "https://github.com/Thorncrag/ARRP/issues/7"
+        },
+        "priority": null,
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Eo",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": null,
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Neutrality and bipartisan adoption review",
+        "url": "https://github.com/Thorncrag/ARRP/issues/225",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Export",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "priority",
+            "release_blocker",
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Publication assembly workflow",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#228",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/228",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 228,
+        "owner": null,
+        "parentIssue": {
+          "number": 9,
+          "title": "Pre-publication technical",
+          "url": "https://github.com/Thorncrag/ARRP/issues/9"
+        },
+        "priority": null,
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Gk",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": null,
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Publication assembly workflow",
+        "url": "https://github.com/Thorncrag/ARRP/issues/228",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Governance",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "priority",
+            "release_blocker",
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Release-blocker audit posture review",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#227",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/227",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 227,
+        "owner": null,
+        "parentIssue": {
+          "number": 7,
+          "title": "Pre-publication final audit",
+          "url": "https://github.com/Thorncrag/ARRP/issues/7"
+        },
+        "priority": null,
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Fg",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": null,
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Release-blocker audit posture review",
+        "url": "https://github.com/Thorncrag/ARRP/issues/227",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Source development",
+        "assignees": [],
+        "canonicalRecord": "inventory/sources.csv",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "priority",
+            "release_blocker",
+            "owner",
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Source and external-reference hardening",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#224",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": "inventory/sources.csv",
+          "issue": "https://github.com/Thorncrag/ARRP/issues/224",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 224,
+        "owner": null,
+        "parentIssue": {
+          "number": 7,
+          "title": "Pre-publication final audit",
+          "url": "https://github.com/Thorncrag/ARRP/issues/7"
+        },
+        "priority": null,
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4EU",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": null,
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Source and external-reference hardening",
+        "url": "https://github.com/Thorncrag/ARRP/issues/224",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Governance",
+        "assignees": [
+          "Thorncrag"
+        ],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Pre-publication final audit",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#7",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/7",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 7,
+        "owner": "Thorncrag",
+        "parentIssue": null,
+        "priority": "Critical",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxYpvY",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [
+            {
+              "number": 1,
+              "state": "OPEN",
+              "title": "Review and develop all undeveloped issues",
+              "url": "https://github.com/Thorncrag/ARRP/issues/1"
+            },
+            {
+              "number": 6,
+              "state": "OPEN",
+              "title": "Conduct cross-proposal unitary-executive review",
+              "url": "https://github.com/Thorncrag/ARRP/issues/6"
+            },
+            {
+              "number": 8,
+              "state": "OPEN",
+              "title": "Project 2025 — ARRP Topic Guide and Crosswalk",
+              "url": "https://github.com/Thorncrag/ARRP/issues/8"
+            },
+            {
+              "number": 224,
+              "state": "OPEN",
+              "title": "Source and external-reference hardening",
+              "url": "https://github.com/Thorncrag/ARRP/issues/224"
+            },
+            {
+              "number": 225,
+              "state": "OPEN",
+              "title": "Neutrality and bipartisan adoption review",
+              "url": "https://github.com/Thorncrag/ARRP/issues/225"
+            },
+            {
+              "number": 226,
+              "state": "OPEN",
+              "title": "Horizon proposal resolution for public release",
+              "url": "https://github.com/Thorncrag/ARRP/issues/226"
+            },
+            {
+              "number": 227,
+              "state": "OPEN",
+              "title": "Release-blocker audit posture review",
+              "url": "https://github.com/Thorncrag/ARRP/issues/227"
+            },
+            {
+              "number": 230,
+              "state": "OPEN",
+              "title": "Copyright infringement check",
+              "url": "https://github.com/Thorncrag/ARRP/issues/230"
+            }
+          ],
+          "percent": 0.0,
+          "total": 8
+        },
+        "title": "Pre-publication final audit",
+        "url": "https://github.com/Thorncrag/ARRP/issues/7",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Governance",
+        "assignees": [
+          "Thorncrag"
+        ],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": false,
+          "missingFields": [
+            "next_action",
+            "validation_requirement"
+          ]
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Pre-publication technical",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#9",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/9",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": null,
+        "nextAudit": null,
+        "number": 9,
+        "owner": "Thorncrag",
+        "parentIssue": null,
+        "priority": "Critical",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxYpzQ",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [
+            {
+              "number": 10,
+              "state": "OPEN",
+              "title": "Implement release-ready PDF/DOCX export",
+              "url": "https://github.com/Thorncrag/ARRP/issues/10"
+            },
+            {
+              "number": 11,
+              "state": "OPEN",
+              "title": "Improve GitHub/web navigation and project table of contents",
+              "url": "https://github.com/Thorncrag/ARRP/issues/11"
+            },
+            {
+              "number": 12,
+              "state": "OPEN",
+              "title": "Select public reuse license",
+              "url": "https://github.com/Thorncrag/ARRP/issues/12"
+            },
+            {
+              "number": 228,
+              "state": "OPEN",
+              "title": "Publication assembly workflow",
+              "url": "https://github.com/Thorncrag/ARRP/issues/228"
+            },
+            {
+              "number": 229,
+              "state": "OPEN",
+              "title": "Final link and export validation",
+              "url": "https://github.com/Thorncrag/ARRP/issues/229"
+            }
+          ],
+          "percent": 0.0,
+          "total": 5
+        },
+        "title": "Pre-publication technical",
+        "url": "https://github.com/Thorncrag/ARRP/issues/9",
+        "validationRequirement": null,
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      }
+    ]
+  },
+  "topic_products": [
+    {
+      "product_id": "topic-product:classified-documents",
+      "title": "Classified Documents",
+      "is_issue": false,
+      "issue_identifier": null,
+      "current_stage": "published",
+      "product_status": "published",
+      "stages": [
+        {
+          "stage_id": "internal-crosswalk",
+          "label": "Jack Smith Volume Two / Source Status and ARRP Crosswalk",
+          "kind": "project_crosswalk",
+          "path": "research/jack-smith-volume-2-source-status-and-arrp-crosswalk.md",
+          "url": "https://github.com/Thorncrag/ARRP/blob/main/research/jack-smith-volume-2-source-status-and-arrp-crosswalk.md",
+          "available": true
+        },
+        {
+          "stage_id": "published-topic",
+          "label": "Classified Documents",
+          "kind": "topic_page",
+          "path": "topics/classified-documents.md",
+          "url": "https://github.com/Thorncrag/ARRP/blob/main/topics/classified-documents.md",
+          "available": true
+        }
+      ],
+      "owner": null,
+      "next_action": null,
+      "validation_requirement": null,
+      "completeness": {
+        "complete": true,
+        "unavailable_fields": [
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      }
+    },
+    {
+      "product_id": "topic-product:january-6",
+      "title": "January 6",
+      "is_issue": false,
+      "issue_identifier": null,
+      "current_stage": "published",
+      "product_status": "published",
+      "stages": [
+        {
+          "stage_id": "internal-crosswalk",
+          "label": "Jack Smith Volume One / ARRP Crosswalk",
+          "kind": "project_crosswalk",
+          "path": "research/jack-smith-volume-1-arrp-crosswalk.md",
+          "url": "https://github.com/Thorncrag/ARRP/blob/main/research/jack-smith-volume-1-arrp-crosswalk.md",
+          "available": true
+        },
+        {
+          "stage_id": "published-topic",
+          "label": "January 6",
+          "kind": "topic_page",
+          "path": "topics/january-6.md",
+          "url": "https://github.com/Thorncrag/ARRP/blob/main/topics/january-6.md",
+          "available": true
+        }
+      ],
+      "owner": null,
+      "next_action": null,
+      "validation_requirement": null,
+      "completeness": {
+        "complete": true,
+        "unavailable_fields": [
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      }
+    },
+    {
+      "product_id": "topic-product:presidential-accountability",
+      "title": "Presidential Accountability",
+      "is_issue": false,
+      "issue_identifier": null,
+      "current_stage": "published",
+      "product_status": "published",
+      "stages": [
+        {
+          "stage_id": "internal-crosswalk",
+          "label": "Mueller Report / ARRP Crosswalk",
+          "kind": "project_crosswalk",
+          "path": "research/mueller-report-arrp-crosswalk.md",
+          "url": "https://github.com/Thorncrag/ARRP/blob/main/research/mueller-report-arrp-crosswalk.md",
+          "available": true
+        },
+        {
+          "stage_id": "published-topic",
+          "label": "Presidential Accountability",
+          "kind": "topic_page",
+          "path": "topics/presidential-accountability.md",
+          "url": "https://github.com/Thorncrag/ARRP/blob/main/topics/presidential-accountability.md",
+          "available": true
+        }
+      ],
+      "owner": null,
+      "next_action": null,
+      "validation_requirement": null,
+      "completeness": {
+        "complete": true,
+        "unavailable_fields": [
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      }
+    },
+    {
+      "product_id": "topic-product:project-2025",
+      "title": "Project 2025 — ARRP Topic Guide and Crosswalk",
+      "is_issue": false,
+      "issue_identifier": null,
+      "current_stage": "published",
+      "product_status": "published",
+      "stages": [
+        {
+          "stage_id": "internal-crosswalk",
+          "label": "Former Project 2025 research crosswalk",
+          "kind": "converted_internal_crosswalk",
+          "path": null,
+          "url": null,
+          "available": false,
+          "disposition": "converted_without_duplication"
+        },
+        {
+          "stage_id": "published-topic",
+          "label": "Project 2025 — ARRP Topic Guide and Crosswalk",
+          "kind": "topic_page",
+          "path": "topics/project-2025.md",
+          "url": "https://github.com/Thorncrag/ARRP/blob/main/topics/project-2025.md",
+          "available": true
+        }
+      ],
+      "owner": null,
+      "next_action": null,
+      "validation_requirement": null,
+      "completeness": {
+        "complete": true,
+        "unavailable_fields": [
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      }
+    },
+    {
+      "product_id": "topic-product:weaponization-of-justice",
+      "title": "Weaponization of Justice",
+      "is_issue": false,
+      "issue_identifier": null,
+      "current_stage": "published",
+      "product_status": "published",
+      "stages": [
+        {
+          "stage_id": "internal-crosswalk",
+          "label": "Durham Report / ARRP Crosswalk",
+          "kind": "project_crosswalk",
+          "path": "research/durham-report-arrp-crosswalk.md",
+          "url": "https://github.com/Thorncrag/ARRP/blob/main/research/durham-report-arrp-crosswalk.md",
+          "available": true
+        },
+        {
+          "stage_id": "published-topic",
+          "label": "Weaponization of Justice",
+          "kind": "topic_page",
+          "path": "topics/weaponization-of-justice.md",
+          "url": "https://github.com/Thorncrag/ARRP/blob/main/topics/weaponization-of-justice.md",
+          "available": true
+        }
+      ],
+      "owner": null,
+      "next_action": null,
+      "validation_requirement": null,
+      "completeness": {
+        "complete": true,
+        "unavailable_fields": [
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      }
     }
+  ],
+  "delivery_items": [
+    {
+      "area": "Governance",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "priority",
+          "release_blocker",
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Copyright infringement check",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#230",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/230",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 230,
+      "owner": null,
+      "parentIssue": {
+        "number": 7,
+        "title": "Pre-publication final audit",
+        "url": "https://github.com/Thorncrag/ARRP/issues/7"
+      },
+      "priority": null,
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkQH4",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": null,
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Copyright infringement check",
+      "url": "https://github.com/Thorncrag/ARRP/issues/230",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Export",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "priority",
+          "release_blocker",
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Final link and export validation",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#229",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/229",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 229,
+      "owner": null,
+      "parentIssue": {
+        "number": 9,
+        "title": "Pre-publication technical",
+        "url": "https://github.com/Thorncrag/ARRP/issues/9"
+      },
+      "priority": null,
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4GQ",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": null,
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Final link and export validation",
+      "url": "https://github.com/Thorncrag/ARRP/issues/229",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Source development",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "priority",
+          "release_blocker",
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#233",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/233",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": null,
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 233,
+      "owner": null,
+      "parentIssue": null,
+      "priority": null,
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkyug",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": null,
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+      "url": "https://github.com/Thorncrag/ARRP/issues/233",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Governance",
+      "assignees": [],
+      "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "priority",
+          "release_blocker",
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Horizon proposal resolution for public release",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#226",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": "framework/logs/HORIZON_SCAN_LOG.md",
+        "issue": "https://github.com/Thorncrag/ARRP/issues/226",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 226,
+      "owner": null,
+      "parentIssue": {
+        "number": 7,
+        "title": "Pre-publication final audit",
+        "url": "https://github.com/Thorncrag/ARRP/issues/7"
+      },
+      "priority": null,
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4FI",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": null,
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Horizon proposal resolution for public release",
+      "url": "https://github.com/Thorncrag/ARRP/issues/226",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Source development",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "priority",
+          "release_blocker",
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Jack Smith reports crosswalks",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#232",
+      "kind": "source review",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/232",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": null,
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 232,
+      "owner": null,
+      "parentIssue": null,
+      "priority": null,
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkpD4",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": null,
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Jack Smith reports crosswalks",
+      "url": "https://github.com/Thorncrag/ARRP/issues/232",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Governance",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "priority",
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Modify or add an audit to add an executive summary to each issue page",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#231",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/231",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": null,
+        "title": "0.3 - Core Proposal Development",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/4"
+      },
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 231,
+      "owner": null,
+      "parentIssue": null,
+      "priority": null,
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Modify or add an audit to add an executive summary to each issue page",
+      "url": "https://github.com/Thorncrag/ARRP/issues/231",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Governance",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "priority",
+          "release_blocker",
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Neutrality and bipartisan adoption review",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#225",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/225",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 225,
+      "owner": null,
+      "parentIssue": {
+        "number": 7,
+        "title": "Pre-publication final audit",
+        "url": "https://github.com/Thorncrag/ARRP/issues/7"
+      },
+      "priority": null,
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Eo",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": null,
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Neutrality and bipartisan adoption review",
+      "url": "https://github.com/Thorncrag/ARRP/issues/225",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Export",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "priority",
+          "release_blocker",
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Publication assembly workflow",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#228",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/228",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 228,
+      "owner": null,
+      "parentIssue": {
+        "number": 9,
+        "title": "Pre-publication technical",
+        "url": "https://github.com/Thorncrag/ARRP/issues/9"
+      },
+      "priority": null,
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Gk",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": null,
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Publication assembly workflow",
+      "url": "https://github.com/Thorncrag/ARRP/issues/228",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Governance",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "priority",
+          "release_blocker",
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Release-blocker audit posture review",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#227",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/227",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 227,
+      "owner": null,
+      "parentIssue": {
+        "number": 7,
+        "title": "Pre-publication final audit",
+        "url": "https://github.com/Thorncrag/ARRP/issues/7"
+      },
+      "priority": null,
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Fg",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": null,
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Release-blocker audit posture review",
+      "url": "https://github.com/Thorncrag/ARRP/issues/227",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Source development",
+      "assignees": [],
+      "canonicalRecord": "inventory/sources.csv",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "priority",
+          "release_blocker",
+          "owner",
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Source and external-reference hardening",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#224",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": "inventory/sources.csv",
+        "issue": "https://github.com/Thorncrag/ARRP/issues/224",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 224,
+      "owner": null,
+      "parentIssue": {
+        "number": 7,
+        "title": "Pre-publication final audit",
+        "url": "https://github.com/Thorncrag/ARRP/issues/7"
+      },
+      "priority": null,
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4EU",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": null,
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Source and external-reference hardening",
+      "url": "https://github.com/Thorncrag/ARRP/issues/224",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Governance",
+      "assignees": [
+        "Thorncrag"
+      ],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Pre-publication final audit",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#7",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/7",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 7,
+      "owner": "Thorncrag",
+      "parentIssue": null,
+      "priority": "Critical",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxYpvY",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [
+          {
+            "number": 1,
+            "state": "OPEN",
+            "title": "Review and develop all undeveloped issues",
+            "url": "https://github.com/Thorncrag/ARRP/issues/1"
+          },
+          {
+            "number": 6,
+            "state": "OPEN",
+            "title": "Conduct cross-proposal unitary-executive review",
+            "url": "https://github.com/Thorncrag/ARRP/issues/6"
+          },
+          {
+            "number": 8,
+            "state": "OPEN",
+            "title": "Project 2025 — ARRP Topic Guide and Crosswalk",
+            "url": "https://github.com/Thorncrag/ARRP/issues/8"
+          },
+          {
+            "number": 224,
+            "state": "OPEN",
+            "title": "Source and external-reference hardening",
+            "url": "https://github.com/Thorncrag/ARRP/issues/224"
+          },
+          {
+            "number": 225,
+            "state": "OPEN",
+            "title": "Neutrality and bipartisan adoption review",
+            "url": "https://github.com/Thorncrag/ARRP/issues/225"
+          },
+          {
+            "number": 226,
+            "state": "OPEN",
+            "title": "Horizon proposal resolution for public release",
+            "url": "https://github.com/Thorncrag/ARRP/issues/226"
+          },
+          {
+            "number": 227,
+            "state": "OPEN",
+            "title": "Release-blocker audit posture review",
+            "url": "https://github.com/Thorncrag/ARRP/issues/227"
+          },
+          {
+            "number": 230,
+            "state": "OPEN",
+            "title": "Copyright infringement check",
+            "url": "https://github.com/Thorncrag/ARRP/issues/230"
+          }
+        ],
+        "percent": 0.0,
+        "total": 8
+      },
+      "title": "Pre-publication final audit",
+      "url": "https://github.com/Thorncrag/ARRP/issues/7",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Governance",
+      "assignees": [
+        "Thorncrag"
+      ],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": false,
+        "missingFields": [
+          "next_action",
+          "validation_requirement"
+        ]
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Pre-publication technical",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#9",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/9",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": null,
+      "nextAudit": null,
+      "number": 9,
+      "owner": "Thorncrag",
+      "parentIssue": null,
+      "priority": "Critical",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxYpzQ",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [
+          {
+            "number": 10,
+            "state": "OPEN",
+            "title": "Implement release-ready PDF/DOCX export",
+            "url": "https://github.com/Thorncrag/ARRP/issues/10"
+          },
+          {
+            "number": 11,
+            "state": "OPEN",
+            "title": "Improve GitHub/web navigation and project table of contents",
+            "url": "https://github.com/Thorncrag/ARRP/issues/11"
+          },
+          {
+            "number": 12,
+            "state": "OPEN",
+            "title": "Select public reuse license",
+            "url": "https://github.com/Thorncrag/ARRP/issues/12"
+          },
+          {
+            "number": 228,
+            "state": "OPEN",
+            "title": "Publication assembly workflow",
+            "url": "https://github.com/Thorncrag/ARRP/issues/228"
+          },
+          {
+            "number": 229,
+            "state": "OPEN",
+            "title": "Final link and export validation",
+            "url": "https://github.com/Thorncrag/ARRP/issues/229"
+          }
+        ],
+        "percent": 0.0,
+        "total": 5
+      },
+      "title": "Pre-publication technical",
+      "url": "https://github.com/Thorncrag/ARRP/issues/9",
+      "validationRequirement": null,
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    }
+  ],
+  "domain_generation": {
+    "publication.js": "project-console-cac8dee5a4b49219074c"
   }
 });

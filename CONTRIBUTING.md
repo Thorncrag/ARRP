@@ -48,3 +48,7 @@ Contributors retain any rights they have in their own original contributions, su
 ## Review Standard
 
 Contributions may be revised for consistency with the project's governing documents before acceptance. A contribution may also be deferred if it raises a useful issue but requires additional sourcing, audit work, restructuring, or owner review before integration.
+
+Review is performed against the contribution's exact current revision rather than an earlier description, branch name, or previously reviewed patch. Before integration, the project checks the contribution's record identity and classification, required fields and canonical links, evidence and provenance, lifecycle and authority boundaries, affected generated and publication surfaces, and applicable validation. A merge or later clean aggregate check does not by itself prove that a contribution-specific defect was resolved.
+
+Any confirmed gap found during review remains a traceable project obligation until the exact revision containing the repair is validated or the project owner records a disposition. The obligation identifies its evidence, affected records, accountable owner, required action or decision, validation, and resolution proof. Routine agent- or automation-owned review work does not become a contributor or project-owner action item merely because it is visible in the Project Console.

@@ -3133,5 +3133,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "monitoring_group": "",
       "monitoring_baseline_present": false
     }
-  ]
+  ],
+  "domain_generation": {
+    "sources-catalog-005.js": "project-console-cac8dee5a4b49219074c"
+  }
 });

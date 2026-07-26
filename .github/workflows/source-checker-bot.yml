@@ -85,7 +85,6 @@ jobs:
         run: printf 'SOURCE_REVISION=%s\n' "$(git rev-parse HEAD)" >> "${GITHUB_ENV}"
 
       - name: Retrieve bounded prior history
-        continue-on-error: true
         run: >-
           curl --fail --silent --show-error
           --output "${RUNNER_TEMP}/source-checker-existing.json"
