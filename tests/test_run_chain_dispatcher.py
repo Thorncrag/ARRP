@@ -3571,6 +3571,58 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertEqual(merged["action_items"][0]["occurrence_count"], 2)
         self.assertEqual(merged["action_items"][0]["last_chain_id"], "chain-2")
 
+    def test_control_merge_does_not_resurrect_resolved_failure_summary(self):
+        latest = {
+            "last_failed_chain_id": "chain-1",
+            "last_failed_exit_code": 1,
+            "last_failed_reason": "closeout failed",
+            "action_items": [
+                {
+                    "id": "automation-failure-one",
+                    "kind": "automation_failure",
+                    "chain_id": "chain-1",
+                    "resolved": False,
+                }
+            ],
+        }
+        proposed = {
+            "action_items": [
+                {
+                    "id": "automation-failure-one",
+                    "kind": "automation_failure",
+                    "chain_id": "chain-1",
+                    "resolved": True,
+                    "resolved_by": "verified-host-closeout-recovery",
+                }
+            ]
+        }
+        merged = MODULE.merge_control_states(latest, proposed)
+        self.assertTrue(merged["action_items"][0]["resolved"])
+        self.assertNotIn("last_failed_chain_id", merged)
+        self.assertNotIn("last_failed_exit_code", merged)
+        self.assertNotIn("last_failed_reason", merged)
+
+        concurrent = {
+            **latest,
+            "last_failed_chain_id": "chain-2",
+            "last_failed_reason": "new independent failure",
+            "action_items": [
+                *latest["action_items"],
+                {
+                    "id": "automation-failure-two",
+                    "kind": "automation_failure",
+                    "chain_id": "chain-2",
+                    "resolved": False,
+                },
+            ],
+        }
+        merged = MODULE.merge_control_states(concurrent, proposed)
+        self.assertEqual(merged["last_failed_chain_id"], "chain-2")
+        self.assertEqual(
+            merged["last_failed_reason"],
+            "new independent failure",
+        )
+
     def test_repeated_automation_failures_consolidate_without_losing_chains(self):
         branch_message = (
             "host-repository-preflight failed: canonical ARRP workspace is not "

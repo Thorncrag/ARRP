@@ -193,6 +193,8 @@ The exact preserved chain `arrp-20260726T122445Z` then recovered successfully at
 
 After pull request #438 merged that terminal transition, the deliberate idempotent replay failed closed because the isolated checkout was at the previously verified `main` commit while the new repair merge had advanced `origin/main` again. The verifier had accepted only the historical Elim result itself or the latest remote tip. It now also accepts a clean intermediate checkout only when Git proves both that the exact Elim result is its ancestor and that it is an ancestor of current `origin/main`; a divergent, rewound, or unrelated checkout remains rejected. The regression case exercises both acceptance and divergent-history rejection. Incident reconciliation also links the exact legacy partial-transaction signature to the existence of the recovered chain's closeout incident and its verified recovery fields, so a newer failed replay cannot strand the earlier synthetic incident merely by replacing the summary's latest failed Chain ID.
 
+Pull request #439 merged that bounded ancestry correction, and the next exact replay completed: all recovery-related Action Items were resolved, the Run Log reconciliation queue was empty, the recovery marker retained the original work identity and result commit, one idempotent recovery event remained, and both canonical and isolated checkouts matched current `main`. The locked control-state persistence merge nevertheless restored absent `last_failed_*` keys from its pre-write snapshot. Persistence now retains a failure summary only when its Chain ID is still covered by an unresolved automation incident, including a consolidated incident's bounded Chain ID list. This makes a resolved-summary deletion durable while preserving a genuinely concurrent newer unresolved failure.
+
 ## Residual limitations
 
 No same-provider design can guarantee real-time reporting during a complete GitHub Actions and raw-content outage. The separate host path provides cross-runtime evidence, local notification, and later publication when GitHub is reachable. If the Mac is asleep or offline at the same time, host detection waits for the next launchd poll. These are explicit availability limits, not states presented as healthy.
@@ -203,7 +205,7 @@ The File Provider source is established, but the originating cloud-side actor re
 
 Current implementation-boundary validation passed:
 
-- 489 Python repository tests, including 103 focused dispatcher tests;
+- 490 Python repository tests, including 104 focused dispatcher tests;
 - 24 participation-service tests;
 - 27 Node frontend tests;
 - File Provider ancestor detection and fail-closed preflight coverage;
