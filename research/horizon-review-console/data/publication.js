@@ -12636,8 +12636,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/reference-products-automation failure observability and dispatcher-state repair — july 26, 2026",
       "internal_links": [],
-      "word_count": 3203,
-      "estimated_pages": 5,
+      "word_count": 3431,
+      "estimated_pages": 6,
       "table_count": 1,
       "max_table_columns": 4,
       "heading_issue_count": 0,
@@ -20015,6 +20015,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-23d77bdbb23b90703fb0"
+    "publication.js": "project-console-4e5d4ce62380b733b4b6"
   }
 });
