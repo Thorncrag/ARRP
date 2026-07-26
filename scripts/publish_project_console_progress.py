@@ -18,6 +18,14 @@ API_ROOT = "https://api.github.com"
 USER_AGENT = "ARRP-project-console-progress-publisher/1.0"
 
 
+class GitHubApiError(RuntimeError):
+    def __init__(self, status: int, detail: str) -> None:
+        super().__init__(
+            "GitHub REST request failed: {} {}".format(status, detail)
+        )
+        self.status = status
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", required=True, type=Path)
@@ -61,7 +69,7 @@ def api_request(
         if allow_not_found and exc.code == 404:
             return None
         detail = exc.read().decode("utf-8", errors="replace")
-        raise RuntimeError("GitHub REST request failed: {} {}".format(exc.code, detail))
+        raise GitHubApiError(exc.code, detail)
 
 
 def collect_files(source: Path, vercel_config: Optional[Path] = None) -> List[Tuple[str, str]]:
@@ -96,9 +104,12 @@ def publish(
     vercel_config: Optional[Path] = None,
 ) -> str:
     files = collect_files(source, vercel_config)
-    existing = api_request(token, "GET", get_ref_path(repository, branch), allow_not_found=True)
-    parents = [str((existing.get("object") or {})["sha"])] if existing else []
-
+    initial_existing = api_request(
+        token,
+        "GET",
+        get_ref_path(repository, branch),
+        allow_not_found=True,
+    )
     tree_entries = []
     for path, content in files:
         blob = api_request(
@@ -109,21 +120,6 @@ def publish(
         ) or {}
         tree_entries.append({"path": path, "mode": "100644", "type": "blob", "sha": blob["sha"]})
 
-    tree_payload: Dict[str, Any] = {"tree": tree_entries}
-    if parents:
-        parent_commit = api_request(
-            token,
-            "GET",
-            "/repos/{}/git/commits/{}".format(repository, parents[0]),
-        ) or {}
-        if parent_commit.get("tree", {}).get("sha"):
-            tree_payload["base_tree"] = parent_commit["tree"]["sha"]
-    tree = api_request(
-        token,
-        "POST",
-        "/repos/{}/git/trees".format(repository),
-        tree_payload,
-    ) or {}
     if (source / "progress.json").exists():
         data = json.loads((source / "progress.json").read_text(encoding="utf-8"))
         label = "progress {}".format(data.get("asOf", "data"))
@@ -132,35 +128,68 @@ def publish(
         label = "integrity {}".format(
             (data.get("current") or {}).get("generated_at", "data")
         )
+    elif (source / "host-status.json").exists():
+        data = json.loads((source / "host-status.json").read_text(encoding="utf-8"))
+        label = "host status {}".format(data.get("chain_id", "data"))
+    elif (source / "automation-health.json").exists():
+        data = json.loads((source / "automation-health.json").read_text(encoding="utf-8"))
+        label = "automation health {}".format(data.get("workflow_run_id", "data"))
     else:
         label = "data"
-    commit = api_request(
-        token,
-        "POST",
-        "/repos/{}/git/commits".format(repository),
-        {
-            "message": "Refresh Project Console {}".format(label),
-            "tree": tree["sha"],
-            "parents": parents,
-        },
-    ) or {}
-    commit_sha = str(commit["sha"])
-
-    if existing:
-        api_request(
+    for attempt in range(3):
+        existing = initial_existing if attempt == 0 else api_request(
             token,
-            "PATCH",
-            update_ref_path(repository, branch),
-            {"sha": commit_sha, "force": False},
+            "GET",
+            get_ref_path(repository, branch),
+            allow_not_found=True,
         )
-    else:
-        api_request(
+        parents = [str((existing.get("object") or {})["sha"])] if existing else []
+        tree_payload: Dict[str, Any] = {"tree": tree_entries}
+        if parents:
+            parent_commit = api_request(
+                token,
+                "GET",
+                "/repos/{}/git/commits/{}".format(repository, parents[0]),
+            ) or {}
+            if parent_commit.get("tree", {}).get("sha"):
+                tree_payload["base_tree"] = parent_commit["tree"]["sha"]
+        tree = api_request(
             token,
             "POST",
-            "/repos/{}/git/refs".format(repository),
-            {"ref": "refs/heads/{}".format(branch), "sha": commit_sha},
-        )
-    return commit_sha
+            "/repos/{}/git/trees".format(repository),
+            tree_payload,
+        ) or {}
+        commit = api_request(
+            token,
+            "POST",
+            "/repos/{}/git/commits".format(repository),
+            {
+                "message": "Refresh Project Console {}".format(label),
+                "tree": tree["sha"],
+                "parents": parents,
+            },
+        ) or {}
+        commit_sha = str(commit["sha"])
+        try:
+            if existing:
+                api_request(
+                    token,
+                    "PATCH",
+                    update_ref_path(repository, branch),
+                    {"sha": commit_sha, "force": False},
+                )
+            else:
+                api_request(
+                    token,
+                    "POST",
+                    "/repos/{}/git/refs".format(repository),
+                    {"ref": "refs/heads/{}".format(branch), "sha": commit_sha},
+                )
+            return commit_sha
+        except GitHubApiError as exc:
+            if exc.status not in {409, 422} or attempt == 2:
+                raise
+    raise RuntimeError("Project Console publication retry boundary was exhausted")
 
 
 def main() -> int:

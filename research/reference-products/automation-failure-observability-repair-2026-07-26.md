@@ -1,0 +1,153 @@
+---
+title: "Automation Failure Observability and Dispatcher-State Repair — July 26, 2026"
+status: non-authoritative-implementation-report
+as_of: "2026-07-26"
+print_status: excluded
+print_exclusion_reason: "Internal automation implementation report."
+---
+
+# Automation Failure Observability and Dispatcher-State Repair
+
+## Result
+
+The repair removes the Console's dependency on successful completion of the ordinary automation chain. Cloud-workflow failure, absence of the expected daily chain, and trusted-host or Elim failure now have separate publication paths. The same change repairs the isolated-checkout state transition that prevented the July 26 Elim launch, bounds repeated managerial incidents, preserves complete history, and adds a host preflight for noncanonical duplicate Git metadata.
+
+No project issue, candidate, Project field, score, `Runs` value, source record, publication disposition, or human-reserved decision changed.
+
+## Incident reconstruction
+
+The overnight cloud chain `arrp-20260726T064933Z` completed its deterministic GitHub phase and recommended an Elim comprehensive-review unit. The host later stopped at `elim-isolated-checkout` before usage gating or Codex process creation. Its fixed isolated checkout was clean at commit `24f380c275440940d0af80be9b17842c04de37e6`, while fetched `origin/main` was `a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f`, 16 commits later.
+
+The safety rule correctly refused to advance a clean but different checkout without proof that its prior head was synchronized. The defect was that a previously verified checkout head was recorded only after a completed Elim closeout. A dry, deferred, or no-launch dispatcher path could prepare and verify the checkout but return before persisting `elim_checkout_synced_head`. Archiving an earlier reconciled checkout also cleared that marker. The next run therefore saw a legitimate prior baseline as unverified and failed closed.
+
+The diagnosis also exposed an observability defect: the ordinary `run-chain.json` feed is published near the end of the cloud chain, while host/Elim state was projected through later normal closeout. A failure that prevented either final step could leave the Console showing an older apparently current state.
+
+During repair, two additional structural conditions were confirmed:
+
+- 90 untracked Finder-style duplicate names were present across generated Console data, reference products, and test/script paths. They caused repository inventory tests and host dirty-workspace preflight to fail.
+- canonical Git metadata contained `.git/refs/heads/main 2`, `.git/refs/.DS_Store`, and four duplicate index files. Git interpreted the first two as refs; `git fetch origin main` failed with `fatal: bad object refs/heads/main 2`.
+
+The filename pattern is consistent with filesystem or synchronization conflict copies, but this review did not establish which application created them.
+
+## Repaired architecture
+
+| Signal | Independent trigger | Published feed | What it proves |
+| --- | --- | --- | --- |
+| Ordinary chain | Successful Run Coordinator close path | `run-chain.json` | Detailed deterministic stages, queue, context, and normal chain decision |
+| Cloud conclusion | `workflow_run: completed` for every Run Coordinator conclusion | `automation-health.json` | Whether the cloud workflow itself completed successfully, even if no current Chain Manifest was published |
+| Missing-run watchdog | Separate `47 10 * * *` UTC schedule and manual dispatch | `automation-health.json` | Whether the expected scheduled coordinator run exists, succeeded, and is no more than 18 hours old at the watchdog boundary |
+| Trusted host | Minimized `repository_dispatch` event `arrp-host-status` | `host-status.json` | Running, launch-deferred, not-launched, accounted-closeout, usage-stop, or terminal host/Elim state |
+| Host-local fallback | Every host status or failure boundary | `.tmp/run-chain.json`, control state, bounded history, and macOS notification | Evidence remains on the workstation if GitHub dispatch or publication is unavailable |
+
+The Console loads the three remote feeds independently with `Promise.allSettled`. It accepts every valid available feed instead of failing the entire refresh when one URL is absent. For one Chain ID, detailed cloud state is retained while the newer validated host projection controls the final host and Elim result. A cloud-health failure with no usable Chain Manifest becomes a synthetic failed automation incident linked to the Actions run.
+
+The data-branch publisher now retries bounded Git Data API branch races. Each attempt rereads the current data-branch ref and rebuilds its tree and commit, preserving unrelated files published by another workflow.
+
+## Dispatcher-state repair
+
+Immediately after the fixed isolated checkout is clean and exactly equal to `origin/main`, the dispatcher now persists:
+
+- `elim_checkout_synced_head`;
+- verification time;
+- Chain ID; and
+- proof source, either current verified control state, a retained reconciled-checkout archive boundary, or a fresh exact clone.
+
+This happens before local queue reconstruction, usage gating, final launch selection, or any deferred/no-launch return. A clean checkout may advance only when its current head equals that attested prior boundary. A dirty or otherwise unproved checkout remains preserved and fails closed.
+
+The retained reconciled-checkout history provides one conservative recovery source for the July 26 state gap. It cannot authorize a dirty checkout, a different current head, or an origin mismatch. Once the current checkout is verified, ordinary control state becomes the preferred proof.
+
+## Incident and Action Item behavior
+
+Repeated host failures are grouped by normalized prerequisite and stage instead of by branch name or retry timestamp. One unresolved incident retains:
+
+- first and latest Chain IDs;
+- a bounded list of affected Chain IDs;
+- first and last observation;
+- occurrence count;
+- latest diagnostic; and
+- exact next action.
+
+Earlier duplicate rows are marked resolved as consolidated, linked to the continuing incident, and retained in Action Item history. A later operation may automatically resolve only a routine incident whose exact prerequisite it directly proves healthy, such as:
+
+- acquisition of the reviewed dispatcher lease;
+- clean canonical `main` with exact remote readback and matching runtime blobs;
+- absence of noncanonical duplicate Git metadata; or
+- a clean isolated checkout at exact `origin/main`.
+
+A generally healthy newer chain cannot resolve an unrelated failure or any human-reserved decision.
+
+## Git-metadata and duplicate-artifact preservation
+
+No duplicate artifact was deleted.
+
+The 90 untracked project-tree files were moved intact to:
+
+`/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/reconciled-console-duplicates/20260726T094431Z`
+
+Five were byte-identical to their canonical counterparts and 85 differed. All have their original repository-relative path under the archive. Canonical files were not overwritten.
+
+During the subsequent staging operation, 19 of the numbered Console data copies reappeared and were caught in the staged-boundary review before commit. They were unstaged and moved intact to:
+
+`/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/reconciled-worktree-duplicates/20260726T100930947044Z-81b0f778`
+
+Their original paths, canonical tracked siblings, hashes, sizes, and prior staged status are retained in the archive record and bounded dispatcher control history. No numbered copy entered repository history.
+
+The seven noncanonical Git-metadata files were moved intact to:
+
+`/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/reconciled-git-metadata/20260726T094800Z`
+
+Canonical `.git/index`, `refs/heads/main`, and `refs/remotes/origin/main` were not changed. Before the move, both canonical main refs resolved to `a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f`. The invalid `main 2` file pointed to historical commit `e45a0e711aa82ca147cdc827cbf18c8b348e4cdd`, which remains in the object database and repository history. After preservation, a real `git fetch origin main` and Git integrity check completed without invalid-ref errors.
+
+During integration, `.git/.DS_Store` and `.git/index 6` reappeared with the original June 24 and July 25 file timestamps after the first evidence-preserving move. That recurrence demonstrated that detection-only handling would leave the overnight chain repeatedly blocked.
+
+Those two reappearing files were moved intact under the new policy to:
+
+`/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/reconciled-git-metadata/20260726T100304587912Z-ae12a66e`
+
+The archive contains a machine-readable record of their original paths, SHA-256 hashes, and sizes; the same record is retained in bounded dispatcher control history. Canonical `.git/index` and refs were again left untouched.
+
+Future host preflight therefore moves only tightly allowlisted Finder-style duplicate ref/index files and `.DS_Store` files intact to a timestamped reconciliation archive before fetch. It separately recognizes a numbered project-tree copy only when it is untracked or newly staged and its name maps exactly to an existing file tracked at `HEAD`; it removes any such copy from the staged boundary and preserves it in the private worktree archive. It records original, canonical, and archive paths, hashes, sizes, timestamps, prior staged status, and bounded control history, verifies canonical state, and makes at most three passes when a synchronization process immediately regenerates either artifact class. It never deletes or rewrites canonical Git metadata or project files. Symlinks, unknown names, numbered paths without an exact tracked sibling, failed preservation, invalid canonical state, and continued regeneration beyond the bound still fail closed and use the independent failure path.
+
+## Files and contracts changed
+
+- `.github/run-coordinator-bot.json` — reviewed cloud-health and host-status policy.
+- `.github/workflows/automation-health-projection.yml` — independent conclusion, watchdog, and host-event workflow.
+- `scripts/build_automation_health_projection.py` — schema-closed conclusion and watchdog builder.
+- `scripts/run_chain_dispatcher.py` — safe-head persistence, archive-proof recovery, status dispatch, incident consolidation/resolution, and Git-metadata hygiene.
+- `scripts/publish_project_console_progress.py` — bounded non-fast-forward retry.
+- `research/horizon-review-console/app.js` — independent feed validation, refresh, and same-chain reconciliation.
+- governing autonomous rules, Run Coordinator runbook, pinned context hashes, and the nonauthoritative technical specification.
+- focused Python, publisher, workflow, host-state, and frontend regression tests.
+
+## Functionality removed or changed
+
+No Console tool, screen, action, queue class, Elim authority, or substantive project function was removed.
+
+Behavior intentionally changed:
+
+- an ordinary final chain publication is no longer required for failure visibility;
+- repeated equivalent failures no longer create an unbounded Action Item list;
+- exact machine-proven routine recovery can close its own incident;
+- a verified isolated checkout head is recorded before launch selection rather than only after Elim closeout; and
+- tightly allowlisted noncanonical Git metadata and numbered tracked-sibling workspace copies are preserved outside the live repository boundary and verified automatically; unknown or repeatedly regenerated artifacts still fail closed.
+
+## Residual limitations
+
+No same-provider design can guarantee real-time reporting during a complete GitHub Actions and raw-content outage. The separate host path provides cross-runtime evidence, local notification, and later publication when GitHub is reachable. If the Mac is asleep or offline at the same time, host detection waits for the next launchd poll. These are explicit availability limits, not states presented as healthy.
+
+The duplicate-name artifacts indicate an unresolved environmental source even though their operational effect is now contained. The repeated files retained old creation/modification timestamps, which is consistent with restoration or conflict-copy behavior, but does not prove which process created them. Investigate whether macOS Documents synchronization, a backup/sync utility, Finder copy behavior, or another tool is writing conflict copies inside repositories. Moving the repository outside a synchronized Documents location may be appropriate, but that filesystem relocation was not performed by this repair.
+
+## Validation record
+
+Pre-integration validation passed:
+
+- 473 Python repository tests;
+- 27 Node frontend tests;
+- workflow YAML structure and all three independent jobs;
+- Python compilation and JavaScript syntax;
+- deterministic authenticated Console refresh;
+- `git diff --check`;
+- real `git fetch origin main` after metadata preservation; and
+- authenticated project consistency across 64 issue pages and 41 proposal pages with 0 errors and 0 warnings.
+
+Reviewed merge, end-to-end chain execution, independent feed publication, and live Console readback remain required. The implementation is not considered complete until the repaired branch is synchronized, the dispatcher advances the isolated checkout from its proven prior boundary, both independent feeds publish, and a fresh chain reaches an accounted host outcome.

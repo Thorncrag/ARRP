@@ -148,12 +148,14 @@
   const LIVE_INTEGRITY_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/integrity.json";
   const LIVE_SOURCE_CHECKER_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/source-checker.json";
   const LIVE_RUN_CHAIN_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/run-chain.json";
+  const LIVE_AUTOMATION_HEALTH_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/automation-health.json";
+  const LIVE_HOST_STATUS_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/host-status.json";
   const LIVE_PULL_REQUESTS_URL = "https://api.github.com/repos/Thorncrag/ARRP/pulls?state=open&per_page=100";
   const OPENAI_STATUS_URL = "https://status.openai.com/api/v2/status.json";
   const OPENAI_COMPONENTS_URL = "https://status.openai.com/api/v2/components.json";
   const GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/";
   const LIVE_SITE_ROOT = "https://thorncrag.github.io/ARRP/";
-  const SCRIPT_VERSION = "46";
+  const SCRIPT_VERSION = "47";
   const sourceCatalogScripts = Array.from(
     { length: 16 },
     (_, index) => `data/sources-catalog-${String(index + 1).padStart(3, "0")}.js?v=${SCRIPT_VERSION}`
@@ -426,6 +428,8 @@
         ? payload.current?.generated_at
         : kind === "source-checker"
           ? contract.checked_at
+          : kind === "host-status"
+            ? contract.host_updated_at || contract.updated_at
           : contract.updated_at || contract.completed_at || contract.created_at;
     if (parseTimestamp(timestamp) === null) errors.push("A valid producer timestamp is required.");
     if (kind === "source-checker") {
@@ -481,6 +485,20 @@
         const ids = stages.map((stage) => String(stage.id || stage.stage_id || ""));
         if (ids.some((id) => !id) || new Set(ids).size !== ids.length) errors.push("Run-chain stage IDs must be present and unique.");
       }
+    } else if (kind === "host-status") {
+      if (payload.projection_kind !== "host-run-status") errors.push("Host-status projection kind is invalid.");
+      if (!String(payload.chain_id || "")) errors.push("Host-status chain identity is required.");
+      if (!["blocked", "completed", "failed", "human-review", "launch-deferred", "not-launched", "running", "usage-stopped"]
+        .includes(String(payload.host_status || ""))) errors.push("Host-status value is invalid.");
+      if (!String(payload.stage || "")) errors.push("Host-status stage is required.");
+      if (payload.host_action_items !== undefined && !Array.isArray(payload.host_action_items)) {
+        errors.push("Host-status action items must be an array.");
+      }
+    } else if (kind === "automation-health") {
+      if (payload.projection_kind !== "cloud-automation-health") errors.push("Automation-health projection kind is invalid.");
+      if (!String(payload.chain_id || "")) errors.push("Automation-health chain identity is required.");
+      if (!["healthy", "failed"].includes(String(payload.status || ""))) errors.push("Automation-health status is invalid.");
+      if (!String(payload.workflow_run_id || "")) errors.push("Automation-health workflow run identity is required.");
     }
     const currentForFreshness = current;
     const incomingForFreshness = payload;
@@ -5749,10 +5767,11 @@
       return current || {};
     }
     const currentSnapshot = current && typeof current === "object" ? current : {};
-    const reportedHostStatus = source === "local"
+    const hostSource = source === "local" || source === "host";
+    const reportedHostStatus = hostSource
       ? String(incoming.host_status || "")
       : "";
-    const candidate = source === "local"
+    const candidate = hostSource
       ? {
           ...incoming,
           status: reportedHostStatus || incoming.status,
@@ -5760,15 +5779,17 @@
           host_updated_at: reportedHostStatus
             ? incoming.host_updated_at || incoming.updated_at || incoming.completed_at
             : undefined,
-          status_source: reportedHostStatus ? "local-host" : "local-cache"
+          status_source: reportedHostStatus
+            ? source === "local" ? "local-host" : "published-host"
+            : source === "local" ? "local-cache" : "published-host-cache"
         }
       : cloudRunChainSnapshot(incoming);
     const sameChain = String(currentSnapshot.chain_id || "") === String(candidate.chain_id || "");
     const sharedHostState = {
-      host_action_items: source === "local"
+      host_action_items: hostSource
         ? candidate.host_action_items
         : currentSnapshot.host_action_items,
-      host_action_item_history: source === "local"
+      host_action_item_history: hostSource
         ? candidate.host_action_item_history
         : currentSnapshot.host_action_item_history
     };
@@ -5790,14 +5811,24 @@
       return merged;
     }
 
-    const currentIsHost = currentSnapshot.status_source === "local-host"
+    const currentIsHost = ["local-host", "published-host"].includes(currentSnapshot.status_source)
       || Boolean(currentSnapshot.host_status);
-    const candidateIsHost = candidate.status_source === "local-host";
+    const candidateIsHost = ["local-host", "published-host"].includes(candidate.status_source);
     const hostSnapshot = candidateIsHost
-      ? candidate
+      ? currentIsHost && runChainTimestamp(currentSnapshot) > runChainTimestamp(candidate)
+        ? currentSnapshot
+        : candidate
       : currentIsHost
         ? currentSnapshot
         : null;
+    if (hostSnapshot) {
+      if (hostSnapshot.host_action_items !== undefined) {
+        sharedHostState.host_action_items = hostSnapshot.host_action_items;
+      }
+      if (hostSnapshot.host_action_item_history !== undefined) {
+        sharedHostState.host_action_item_history = hostSnapshot.host_action_item_history;
+      }
+    }
     const cloudSnapshot = candidateIsHost ? currentSnapshot : candidate;
     const merged = {
       ...cloudSnapshot,
@@ -5818,7 +5849,7 @@
       merged.host_updated_at = hostSnapshot.host_updated_at
         || hostSnapshot.updated_at
         || hostSnapshot.completed_at;
-      merged.status_source = "local-host";
+      merged.status_source = hostSnapshot.status_source || "published-host";
     } else if (
       runChainTimestamp(currentSnapshot) > runChainTimestamp(candidate)
     ) {
@@ -5835,7 +5866,7 @@
       if (value !== undefined) merged[key] = value;
     });
     const runtime = matchingElimRuntime(
-      candidateIsHost ? candidate.elim_runtime : currentSnapshot.elim_runtime,
+      hostSnapshot?.elim_runtime || currentSnapshot.elim_runtime,
       merged.chain_id
     );
     if (runtime) merged.elim_runtime = runtime;
@@ -5844,29 +5875,102 @@
   }
 
   async function refreshLiveRunChain() {
-    try {
-      const response = await fetch(LIVE_RUN_CHAIN_URL, { cache: "no-store" });
+    const readFeed = async (url) => {
+      const response = await fetch(url, { cache: "no-store" });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const snapshot = await response.json();
+      return response.json();
+    };
+    const [chainResult, healthResult, hostResult] = await Promise.allSettled([
+      readFeed(LIVE_RUN_CHAIN_URL),
+      readFeed(LIVE_AUTOMATION_HEALTH_URL),
+      readFeed(LIVE_HOST_STATUS_URL)
+    ]);
+    const notes = [];
+    let accepted = 0;
+    if (chainResult.status === "fulfilled") {
+      const snapshot = chainResult.value;
       const validation = validateLivePayload("run-chain", snapshot, data.run_chain);
-      if (!validation.valid) {
-        byId("run-chain-live-note").textContent = `The live run-chain feed was rejected; the valid checked-in projection remains shown. ${validation.errors.join(" ")}`;
-        return;
+      if (validation.valid) {
+        captureSuccessfulStageHistory(data.run_chain);
+        captureSuccessfulStageHistory(snapshot);
+        data.run_chain = reconcileRunChainSnapshot(
+          data.run_chain,
+          snapshot,
+          "cloud"
+        );
+        accepted += 1;
+      } else {
+        notes.push(`run-chain rejected: ${validation.errors.join(" ")}`);
       }
-      captureSuccessfulStageHistory(data.run_chain);
-      captureSuccessfulStageHistory(snapshot);
-      data.run_chain = reconcileRunChainSnapshot(
-        data.run_chain,
-        snapshot,
-        "cloud"
-      );
+    } else {
+      notes.push("run-chain unavailable");
+    }
+    if (healthResult.status === "fulfilled") {
+      const health = healthResult.value;
+      const validation = validateLivePayload("automation-health", health);
+      if (!validation.valid) {
+        notes.push(`cloud health rejected: ${validation.errors.join(" ")}`);
+      } else if (health.status === "failed") {
+        const failure = health.failure && typeof health.failure === "object"
+          ? health.failure
+          : {};
+        const failedProjection = {
+          schema_version: 1,
+          chain_id: health.chain_id,
+          status: "failed",
+          updated_at: health.updated_at,
+          completed_at: health.completed_at,
+          final_revision: health.source_revision,
+          run_id: health.run_url,
+          stages: [],
+          failures: [{
+            stage: failure.stage || "github-actions-run-coordinator",
+            classification: failure.classification || "blocking",
+            message: failure.message || `The Run Coordinator workflow ended ${health.conclusion || "unsuccessfully"}.`,
+            recorded_at: health.updated_at,
+            run_url: health.run_url
+          }],
+          degradations: [],
+          next_action: health.next_action
+        };
+        data.run_chain = reconcileRunChainSnapshot(
+          data.run_chain,
+          failedProjection,
+          "cloud"
+        );
+        accepted += 1;
+      } else {
+        accepted += 1;
+      }
+    } else {
+      notes.push("cloud health unavailable");
+    }
+    if (hostResult.status === "fulfilled") {
+      const hostStatus = hostResult.value;
+      const validation = validateLivePayload("host-status", hostStatus);
+      if (validation.valid) {
+        data.run_chain = reconcileRunChainSnapshot(
+          data.run_chain,
+          hostStatus,
+          "host"
+        );
+        accepted += 1;
+      } else {
+        notes.push(`host status rejected: ${validation.errors.join(" ")}`);
+      }
+    } else {
+      notes.push("published host status unavailable");
+    }
+    if (accepted) {
       renderAutomation();
       renderActionItems();
       renderIntegrity();
       renderOverview();
-      byId("run-chain-live-note").textContent = "The run-chain projection was refreshed from a valid newer live feed.";
-    } catch (_error) {
-      byId("run-chain-live-note").textContent = "Live run-chain data could not be refreshed; the checked-in projection remains shown.";
+      byId("run-chain-live-note").textContent = notes.length
+        ? `Independent automation feeds refreshed with limitations: ${notes.join("; ")}.`
+        : "Run-chain, cloud health, and host-status projections were refreshed independently.";
+    } else {
+      byId("run-chain-live-note").textContent = "No independent live automation feed could be accepted; the checked-in projection remains shown.";
     }
   }
 
@@ -8132,6 +8236,7 @@
     feedContractState,
     shouldAcceptLiveFeed,
     validateLivePayload,
+    reconcileRunChainSnapshot,
     domainGenerationStatus,
     hasNextLink,
     repositorySpecialistRoute,

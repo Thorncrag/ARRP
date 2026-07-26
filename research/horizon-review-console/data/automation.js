@@ -318,32 +318,38 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "current_report": "",
       "current_report_url": "",
       "current_data": "project-console-data/run-chain.json",
-      "description": "The Run Coordinator Bot serializes ARRP's persistent automation into one due-aware chain. It prevents overlapping processes, establishes a reviewed remote boundary and an isolated execution checkout, runs every due deterministic stage, compiles the bounded work queue and context manifests, and invokes Elim when refreshed project state contains an eligible ordinary LLM-owned unit or the required quiet-queue Project governance review and discovery unit. Elim is the last LLM-directed substantive stage. Trusted-host Git preservation, deterministic validation, synchronization readback, structured closeout, and generated-view publication may follow it without introducing new substantive judgment.",
+      "description": "The Run Coordinator Bot serializes ARRP's persistent automation into one due-aware chain. It prevents overlapping processes, establishes a reviewed remote boundary and an isolated execution checkout, runs every due deterministic stage, compiles the bounded work queue and context manifests, and invokes Elim when refreshed project state contains an eligible ordinary LLM-owned unit or the required quiet-queue Project governance review and discovery unit. Elim is the last LLM-directed substantive stage. Trusted-host Git preservation, deterministic validation, synchronization readback, structured closeout, and ordinary generated-view publication may follow it without introducing new substantive judgment. Failure visibility is deliberately outside that ordered closeout: independent cloud and host health projections can update the Console even when the ordinary chain or Elim never reaches its final publication step.",
       "checks": [],
       "runbook_sections": [
         {
           "id": "inputs-and-permitted-writes",
           "title": "Inputs and permitted writes",
-          "html": "<p>The coordinator reads the persistent-agent registry and runbooks, reviewed runtime manifest, prior <code>run-chain.json<\/code> boundary, due and event signals, stage workflow status and outputs, Project and repository freshness state, deterministic work queue and context manifests, the committed Elim Run Log discovery records, public-intake pending-event cursor, approved user-created queue overrides, the model-authored exact file declaration and structured result, and the official Codex usage-reserve result available in the local host context. It may write only its local lock and temporary control state, replaceable reconstructed gap cache, immutable structured chain events, bounded generated <code>run-chain.json<\/code> projection on <code>project-console-data<\/code>, the exact host-owned Git closeout of a validated Elim boundary, and the ordinary material provenance required by the shared logging rule. The committed Run Log, not the temporary gap cache, is the durable discovery and obligation-reconstruction authority.<\/p>\n<p>It may dispatch registered workflows and conditionally invoke Elim under this runbook. It may not edit issue or candidate substance, source identity or meaning, GitHub Project fields, audit histories, scores, Runs, foundations, remedies, rubrics, dispositions, publication state, or contributor content. A user-created priority or suppression override changes queue selection only and remains distinguishable from system state; only that user&#x27;s override may be cleared through the control endpoint.<\/p>",
-          "text": "The coordinator reads the persistent-agent registry and runbooks, reviewed runtime manifest, prior run-chain.json boundary, due and event signals, stage workflow status and outputs, Project and repository freshness state, deterministic work queue and context manifests, the committed Elim Run Log discovery records, public-intake pending-event cursor, approved user-created queue overrides, the model-authored exact file declaration and structured result, and the official Codex usage-reserve result available in the local host context. It may write only its local lock and temporary control state, replaceable reconstructed gap cache, immutable structured chain events, bounded generated run-chain.json projection on project-console-data, the exact host-owned Git closeout of a validated Elim boundary, and the ordinary material provenance required by the shared logging rule. The committed Run Log, not the temporary gap cache, is the durable discovery and obligation-reconstruction authority. It may dispatch registered workflows and conditionally invoke Elim under this runbook. It may not edit issue or candidate substance, source identity or meaning, GitHub Project fields, audit histories, scores, Runs, foundations, remedies, rubrics, dispositions, publication state, or contributor content. A user-created priority or suppression override changes queue selection only and remains distinguishable from system state; only that user's override may be cleared through the control endpoint."
+          "html": "<p>The coordinator reads the persistent-agent registry and runbooks, reviewed runtime manifest, prior <code>run-chain.json<\/code> boundary, due and event signals, stage workflow status and outputs, Project and repository freshness state, deterministic work queue and context manifests, the committed Elim Run Log discovery records, public-intake pending-event cursor, approved user-created queue overrides, the model-authored exact file declaration and structured result, and the official Codex usage-reserve result available in the local host context. It may write only its local lock and temporary control state, replaceable reconstructed gap cache, immutable structured chain events, bounded generated <code>run-chain.json<\/code> projection on <code>project-console-data<\/code>, bounded independent <code>automation-health.json<\/code> and <code>host-status.json<\/code> projections through their reviewed workflows, the exact host-owned Git closeout of a validated Elim boundary, and the ordinary material provenance required by the shared logging rule. The committed Run Log, not the temporary gap cache, is the durable discovery and obligation-reconstruction authority.<\/p>\n<p>It may dispatch registered workflows and conditionally invoke Elim under this runbook. It may not edit issue or candidate substance, source identity or meaning, GitHub Project fields, audit histories, scores, Runs, foundations, remedies, rubrics, dispositions, publication state, or contributor content. A user-created priority or suppression override changes queue selection only and remains distinguishable from system state; only that user&#x27;s override may be cleared through the control endpoint.<\/p>",
+          "text": "The coordinator reads the persistent-agent registry and runbooks, reviewed runtime manifest, prior run-chain.json boundary, due and event signals, stage workflow status and outputs, Project and repository freshness state, deterministic work queue and context manifests, the committed Elim Run Log discovery records, public-intake pending-event cursor, approved user-created queue overrides, the model-authored exact file declaration and structured result, and the official Codex usage-reserve result available in the local host context. It may write only its local lock and temporary control state, replaceable reconstructed gap cache, immutable structured chain events, bounded generated run-chain.json projection on project-console-data, bounded independent automation-health.json and host-status.json projections through their reviewed workflows, the exact host-owned Git closeout of a validated Elim boundary, and the ordinary material provenance required by the shared logging rule. The committed Run Log, not the temporary gap cache, is the durable discovery and obligation-reconstruction authority. It may dispatch registered workflows and conditionally invoke Elim under this runbook. It may not edit issue or candidate substance, source identity or meaning, GitHub Project fields, audit histories, scores, Runs, foundations, remedies, rubrics, dispositions, publication state, or contributor content. A user-created priority or suppression override changes queue selection only and remains distinguishable from system state; only that user's override may be cleared through the control endpoint."
         },
         {
           "id": "triggers-locking-and-execution-boundary",
           "title": "Triggers, locking, and execution boundary",
-          "html": "<p>One daily kickoff, a pending public-submission event, a manual dispatch, or a due periodic Review Epoch may authorize the complete chain, including a conditional Elim launch. A push to <code>main<\/code> starts only the deterministic refresh portion: it may update integrity and progress inputs, but it must set <code>launch_recommended: false<\/code> even when the refreshed queue contains LLM-owned work. That work waits for the daily schedule, an eligible event, or explicit manual dispatch. Events arriving while a chain is active or within its configured debounce window are consolidated into the current or next Chain ID. GitHub concurrency serializes cloud workflow runs. The sole host-side liveness authority is one operating-system-held dispatcher lease, which serializes local dispatch and Elim execution and is automatically released if its owning process terminates.<\/p>\n<p>Before any cloud stage, the coordinator records the exact <code>origin/main<\/code> baseline and verifies the authentication required by the due stages. Before host dispatch, it fetches <code>origin/main<\/code> and requires the user&#x27;s canonical checkout to be on <code>main<\/code> with local <code>HEAD<\/code> exactly equal that fetched revision. If ordinary uncommitted paths remain at that safe boundary, the dispatcher verifies that no conflict exists, stages the complete workspace, requires <code>git diff --cached --check<\/code>, creates one <code>Preserve local ARRP changes before automated run<\/code> commit under the coordinator identity, fast-forward pushes <code>main:main<\/code>, and reads back the exact commit from <code>origin/main<\/code>. It then exits successfully without triggering a cloud chain or launching Elim; the next poll reloads the reviewed runtime from the synchronized boundary. A staging, diff-check, commit, push, or readback failure stops with the exact local preservation state. The dispatcher must not auto-merge, rebase, switch, reset, force-push, or resolve divergent history. After workspace reconciliation passes on a later poll, it verifies that the reviewed automation runtime in the canonical checkout exactly matches the same <code>origin/main<\/code>, then prepares the fixed ignored full checkout at <code>.tmp/run-coordinator/elim-checkout<\/code>. That checkout must use the reviewed remote, contain its own real <code>.git<\/code> directory for trusted-host use, start from the recorded remote boundary, and be clean before work. A linked Git worktree is prohibited because its metadata escapes the controlled checkout boundary.<\/p>\n<p>Elim runs in <code>workspace-write<\/code> and may create or modify only working-tree files required by its selected authority. It must not stage, branch, commit, push, or create a pull request. After Elim emits its schema-validated result, the dispatcher requires <code>commit: null<\/code>, an empty model-authored synchronization list, and an exact <code>files_touched<\/code> set. It independently compares that declaration with the complete working tree, validates the required Elim Run Log, shared provenance when material, intake ledger when applicable, current handoff state, selected-unit binding, and comprehensive Review Epoch when applicable. It then refetches the allowlisted remote, requires both the checkout and <code>origin/main<\/code> to equal the pinned manifest baseline, creates a bounded chain-specific branch, stages only the declared paths, checks the staged boundary, and creates the commit under the coordinator identity. Before any network write it requires a clean tree, the pinned baseline as the commit&#x27;s sole parent, and the committed path set to equal the pre-commit declaration. A <code>human_review<\/code> outcome is pushed to an open, unmerged pull request whose head and base are read back. Every other accountably closed outcome uses a non-forced fast-forward push to <code>main<\/code> and exact remote readback. The original model result and enriched host result remain distinguishable. A mismatch or race preserves the checkout and fails closed; no reset, force push, or undeclared absorption is permitted.<\/p>\n<p>The coordinator must not overlap a queued unit with an expressly active interactive task affecting the same issue or files; an unrelated or abandoned non-Inactive handoff is not a global liveness lock. <code>CURRENT_AUDIT.md<\/code> identifies unfinished continuation state only and never proves that an agent, bot, chain, task, or process is live. The dispatcher lease is the host-liveness authority. Its acquisition-specific owner record stores the dispatcher process, current Chain ID, invocation, Elim task when known, preserved output path, and a continuously refreshed heartbeat for diagnosis and Console display; the owner record is not a second lock. Every owner update and release must present the same acquisition token. Legacy directory locks use only the tested dead-owner or expired-ownerless migration path. An abandoned operating-system lease is available automatically to the next dispatcher. Recovery before Elim begins records a coordinator failure without fabricating an Elim run. Recovery after Elim begins marks Elim failed, preserves the task and JSONL output as incomplete evidence, creates a human Action Item and notification, projects the error to the Console, and requires a fresh current chain before substantive work resumes. When that launched invocation lacks a verified canonical Elim Run Log report, the dispatcher persists a bounded reconciliation record keyed to its exact Chain and invocation identities. The next queue exposes one safety-class-0 repair unit for the pending set. The dispatcher clears selected records only after a completed result proves an unchanged reconciliation-state hash and a reviewed Git boundary containing exactly one newly added, complete report for each selected prior Chain ID.<\/p>\n<p>A failed launched invocation may leave the fixed isolated checkout dirty even after its canonical run report has been repaired elsewhere. That checkout may be released only through the dispatcher&#x27;s explicit reconciled-checkout archive mode. The host first refreshes and verifies the reviewed runtime, requires an empty pending run-log reconciliation queue and a matching resolved Action Item, and proves from Git objects that synchronized <code>origin/main<\/code> contains exactly one complete failed-run report that was absent from the preserved checkout baseline. It then moves the entire checkout intact—Git metadata, dirty files, and all—to <code>.tmp/run-coordinator/reconciled-checkouts/<\/code>, records the archive boundary and changed paths in local control history, and retires the stale task-reuse pointer. It never resets, cleans, overwrites, or deletes the evidence. Any failed predicate leaves the original checkout in place and fails closed; the next ordinary run creates a fresh full checkout at the fixed path.<\/p>\n<p>Configuration, executable, state-directory, and lease-setup failures occur before ordinary dispatcher state ownership. The bootstrap handler preserves a unique host-local failure artifact, retains the 128 newest recognized events, and notifies the user. When it can prove the dispatcher lease is free, it briefly acquires that lease and also writes the ordinary failure history and human Action Item. When another live dispatcher owns the lease, it must not race that owner by mutating shared control or history; the separate artifact and notification remain the failure evidence.<\/p>",
-          "text": "One daily kickoff, a pending public-submission event, a manual dispatch, or a due periodic Review Epoch may authorize the complete chain, including a conditional Elim launch. A push to main starts only the deterministic refresh portion: it may update integrity and progress inputs, but it must set launch_recommended: false even when the refreshed queue contains LLM-owned work. That work waits for the daily schedule, an eligible event, or explicit manual dispatch. Events arriving while a chain is active or within its configured debounce window are consolidated into the current or next Chain ID. GitHub concurrency serializes cloud workflow runs. The sole host-side liveness authority is one operating-system-held dispatcher lease, which serializes local dispatch and Elim execution and is automatically released if its owning process terminates. Before any cloud stage, the coordinator records the exact origin/main baseline and verifies the authentication required by the due stages. Before host dispatch, it fetches origin/main and requires the user's canonical checkout to be on main with local HEAD exactly equal that fetched revision. If ordinary uncommitted paths remain at that safe boundary, the dispatcher verifies that no conflict exists, stages the complete workspace, requires git diff --cached --check, creates one Preserve local ARRP changes before automated run commit under the coordinator identity, fast-forward pushes main:main, and reads back the exact commit from origin/main. It then exits successfully without triggering a cloud chain or launching Elim; the next poll reloads the reviewed runtime from the synchronized boundary. A staging, diff-check, commit, push, or readback failure stops with the exact local preservation state. The dispatcher must not auto-merge, rebase, switch, reset, force-push, or resolve divergent history. After workspace reconciliation passes on a later poll, it verifies that the reviewed automation runtime in the canonical checkout exactly matches the same origin/main, then prepares the fixed ignored full checkout at .tmp/run-coordinator/elim-checkout. That checkout must use the reviewed remote, contain its own real .git directory for trusted-host use, start from the recorded remote boundary, and be clean before work. A linked Git worktree is prohibited because its metadata escapes the controlled checkout boundary. Elim runs in workspace-write and may create or modify only working-tree files required by its selected authority. It must not stage, branch, commit, push, or create a pull request. After Elim emits its schema-validated result, the dispatcher requires commit: null, an empty model-authored synchronization list, and an exact files_touched set. It independently compares that declaration with the complete working tree, validates the required Elim Run Log, shared provenance when material, intake ledger when applicable, current handoff state, selected-unit binding, and comprehensive Review Epoch when applicable. It then refetches the allowlisted remote, requires both the checkout and origin/main to equal the pinned manifest baseline, creates a bounded chain-specific branch, stages only the declared paths, checks the staged boundary, and creates the commit under the coordinator identity. Before any network write it requires a clean tree, the pinned baseline as the commit's sole parent, and the committed path set to equal the pre-commit declaration. A human_review outcome is pushed to an open, unmerged pull request whose head and base are read back. Every other accountably closed outcome uses a non-forced fast-forward push to main and exact remote readback. The original model result and enriched host result remain distinguishable. A mismatch or race preserves the checkout and fails closed; no reset, force push, or undeclared absorption is permitted. The coordinator must not overlap a queued unit with an expressly active interactive task affecting the same issue or files; an unrelated or abandoned non-Inactive handoff is not a global liveness lock. CURRENT_AUDIT.md identifies unfinished continuation state only and never proves that an agent, bot, chain, task, or process is live. The dispatcher lease is the host-liveness authority. Its acquisition-specific owner record stores the dispatcher process, current Chain ID, invocation, Elim task when known, preserved output path, and a continuously refreshed heartbeat for diagnosis and Console display; the owner record is not a second lock. Every owner update and release must present the same acquisition token. Legacy directory locks use only the tested dead-owner or expired-ownerless migration path. An abandoned operating-system lease is available automatically to the next dispatcher. Recovery before Elim begins records a coordinator failure without fabricating an Elim run. Recovery after Elim begins marks Elim failed, preserves the task and JSONL output as incomplete evidence, creates a human Action Item and notification, projects the error to the Console, and requires a fresh current chain before substantive work resumes. When that launched invocation lacks a verified canonical Elim Run Log report, the dispatcher persists a bounded reconciliation record keyed to its exact Chain and invocation identities. The next queue exposes one safety-class-0 repair unit for the pending set. The dispatcher clears selected records only after a completed result proves an unchanged reconciliation-state hash and a reviewed Git boundary containing exactly one newly added, complete report for each selected prior Chain ID. A failed launched invocation may leave the fixed isolated checkout dirty even after its canonical run report has been repaired elsewhere. That checkout may be released only through the dispatcher's explicit reconciled-checkout archive mode. The host first refreshes and verifies the reviewed runtime, requires an empty pending run-log reconciliation queue and a matching resolved Action Item, and proves from Git objects that synchronized origin/main contains exactly one complete failed-run report that was absent from the preserved checkout baseline. It then moves the entire checkout intact—Git metadata, dirty files, and all—to .tmp/run-coordinator/reconciled-checkouts/, records the archive boundary and changed paths in local control history, and retires the stale task-reuse pointer. It never resets, cleans, overwrites, or deletes the evidence. Any failed predicate leaves the original checkout in place and fails closed; the next ordinary run creates a fresh full checkout at the fixed path. Configuration, executable, state-directory, and lease-setup failures occur before ordinary dispatcher state ownership. The bootstrap handler preserves a unique host-local failure artifact, retains the 128 newest recognized events, and notifies the user. When it can prove the dispatcher lease is free, it briefly acquires that lease and also writes the ordinary failure history and human Action Item. When another live dispatcher owns the lease, it must not race that owner by mutating shared control or history; the separate artifact and notification remain the failure evidence."
+          "html": "<p>One daily kickoff, a pending public-submission event, a manual dispatch, or a due periodic Review Epoch may authorize the complete chain, including a conditional Elim launch. A push to <code>main<\/code> starts only the deterministic refresh portion: it may update integrity and progress inputs, but it must set <code>launch_recommended: false<\/code> even when the refreshed queue contains LLM-owned work. That work waits for the daily schedule, an eligible event, or explicit manual dispatch. Events arriving while a chain is active or within its configured debounce window are consolidated into the current or next Chain ID. GitHub concurrency serializes cloud workflow runs. The sole host-side liveness authority is one operating-system-held dispatcher lease, which serializes local dispatch and Elim execution and is automatically released if its owning process terminates.<\/p>\n<p>Before any cloud stage, the coordinator records the exact <code>origin/main<\/code> baseline and verifies the authentication required by the due stages. Before host dispatch, it detects only the tightly allowlisted Finder-style duplicate indexes, numbered duplicate refs, and <code>.DS_Store<\/code> files inside the canonical <code>.git<\/code> metadata. The trusted host moves those files intact to <code>.tmp/run-coordinator/reconciled-git-metadata/<\/code>, records their paths, hashes, sizes, timestamps, and archive in bounded control history, and verifies the canonical refs and index before continuing. It separately detects an untracked or newly staged numbered project-tree file only when removing the number maps its name exactly to an existing file tracked at <code>HEAD<\/code>. It removes any such copy from the staged boundary, moves it intact to <code>.tmp/run-coordinator/reconciled-worktree-duplicates/<\/code> with the same evidence, and rechecks after staging so a synchronization race cannot enter the preservation commit. It makes no more than three passes if a synchronization process regenerates either artifact class. A symlink, unknown name, numbered copy without an exact tracked sibling, failed move, malformed history, invalid canonical metadata, or continued regeneration fails closed; canonical Git metadata and project files are never deleted or rewritten by this recovery. The dispatcher then fetches <code>origin/main<\/code> and requires the user&#x27;s canonical checkout to be on <code>main<\/code> with local <code>HEAD<\/code> exactly equal that fetched revision. If ordinary uncommitted paths remain at that safe boundary, the dispatcher verifies that no conflict exists, stages the complete workspace, requires <code>git diff --cached --check<\/code>, creates one <code>Preserve local ARRP changes before automated run<\/code> commit under the coordinator identity, fast-forward pushes <code>main:main<\/code>, and reads back the exact commit from <code>origin/main<\/code>. It then exits successfully without triggering a cloud chain or launching Elim; the next poll reloads the reviewed runtime from the synchronized boundary. A staging, diff-check, commit, push, or readback failure stops with the exact local preservation state. The dispatcher must not auto-merge, rebase, switch, reset, force-push, or resolve divergent history. After workspace reconciliation passes on a later poll, it verifies that the reviewed automation runtime in the canonical checkout exactly matches the same <code>origin/main<\/code>, then prepares the fixed ignored full checkout at <code>.tmp/run-coordinator/elim-checkout<\/code>. That checkout must use the reviewed remote, contain its own real <code>.git<\/code> directory for trusted-host use, start from the recorded remote boundary, and be clean before work. A linked Git worktree is prohibited because its metadata escapes the controlled checkout boundary.<\/p>\n<p>Elim runs in <code>workspace-write<\/code> and may create or modify only working-tree files required by its selected authority. It must not stage, branch, commit, push, or create a pull request. After Elim emits its schema-validated result, the dispatcher requires <code>commit: null<\/code>, an empty model-authored synchronization list, and an exact <code>files_touched<\/code> set. It independently compares that declaration with the complete working tree, validates the required Elim Run Log, shared provenance when material, intake ledger when applicable, current handoff state, selected-unit binding, and comprehensive Review Epoch when applicable. It then refetches the allowlisted remote, requires both the checkout and <code>origin/main<\/code> to equal the pinned manifest baseline, creates a bounded chain-specific branch, stages only the declared paths, checks the staged boundary, and creates the commit under the coordinator identity. Before any network write it requires a clean tree, the pinned baseline as the commit&#x27;s sole parent, and the committed path set to equal the pre-commit declaration. A <code>human_review<\/code> outcome is pushed to an open, unmerged pull request whose head and base are read back. Every other accountably closed outcome uses a non-forced fast-forward push to <code>main<\/code> and exact remote readback. The original model result and enriched host result remain distinguishable. A mismatch or race preserves the checkout and fails closed; no reset, force push, or undeclared absorption is permitted.<\/p>\n<p>The coordinator must not overlap a queued unit with an expressly active interactive task affecting the same issue or files; an unrelated or abandoned non-Inactive handoff is not a global liveness lock. <code>CURRENT_AUDIT.md<\/code> identifies unfinished continuation state only and never proves that an agent, bot, chain, task, or process is live. The dispatcher lease is the host-liveness authority. Its acquisition-specific owner record stores the dispatcher process, current Chain ID, invocation, Elim task when known, preserved output path, and a continuously refreshed heartbeat for diagnosis and Console display; the owner record is not a second lock. Every owner update and release must present the same acquisition token. Legacy directory locks use only the tested dead-owner or expired-ownerless migration path. An abandoned operating-system lease is available automatically to the next dispatcher. Recovery before Elim begins records a coordinator failure without fabricating an Elim run. Recovery after Elim begins marks Elim failed, preserves the task and JSONL output as incomplete evidence, creates a human Action Item and notification, projects the error to the Console, and requires a fresh current chain before substantive work resumes. When that launched invocation lacks a verified canonical Elim Run Log report, the dispatcher persists a bounded reconciliation record keyed to its exact Chain and invocation identities. The next queue exposes one safety-class-0 repair unit for the pending set. The dispatcher clears selected records only after a completed result proves an unchanged reconciliation-state hash and a reviewed Git boundary containing exactly one newly added, complete report for each selected prior Chain ID.<\/p>\n<p>A failed launched invocation may leave the fixed isolated checkout dirty even after its canonical run report has been repaired elsewhere. That checkout may be released only through the dispatcher&#x27;s explicit reconciled-checkout archive mode. The host first refreshes and verifies the reviewed runtime, requires an empty pending run-log reconciliation queue and a matching resolved Action Item, and proves from Git objects that synchronized <code>origin/main<\/code> contains exactly one complete failed-run report that was absent from the preserved checkout baseline. It then moves the entire checkout intact—Git metadata, dirty files, and all—to <code>.tmp/run-coordinator/reconciled-checkouts/<\/code>, records the archive boundary and changed paths in local control history, and retires the stale task-reuse pointer. It never resets, cleans, overwrites, or deletes the evidence. Any failed predicate leaves the original checkout in place and fails closed; the next ordinary run creates a fresh full checkout at the fixed path.<\/p>\n<p>Configuration, executable, state-directory, and lease-setup failures occur before ordinary dispatcher state ownership. The bootstrap handler preserves a unique host-local failure artifact, retains the 128 newest recognized events, and notifies the user. When it can prove the dispatcher lease is free, it briefly acquires that lease and also writes the ordinary failure history and human Action Item. When another live dispatcher owns the lease, it must not race that owner by mutating shared control or history; the separate artifact and notification remain the failure evidence.<\/p>",
+          "text": "One daily kickoff, a pending public-submission event, a manual dispatch, or a due periodic Review Epoch may authorize the complete chain, including a conditional Elim launch. A push to main starts only the deterministic refresh portion: it may update integrity and progress inputs, but it must set launch_recommended: false even when the refreshed queue contains LLM-owned work. That work waits for the daily schedule, an eligible event, or explicit manual dispatch. Events arriving while a chain is active or within its configured debounce window are consolidated into the current or next Chain ID. GitHub concurrency serializes cloud workflow runs. The sole host-side liveness authority is one operating-system-held dispatcher lease, which serializes local dispatch and Elim execution and is automatically released if its owning process terminates. Before any cloud stage, the coordinator records the exact origin/main baseline and verifies the authentication required by the due stages. Before host dispatch, it detects only the tightly allowlisted Finder-style duplicate indexes, numbered duplicate refs, and .DS_Store files inside the canonical .git metadata. The trusted host moves those files intact to .tmp/run-coordinator/reconciled-git-metadata/, records their paths, hashes, sizes, timestamps, and archive in bounded control history, and verifies the canonical refs and index before continuing. It separately detects an untracked or newly staged numbered project-tree file only when removing the number maps its name exactly to an existing file tracked at HEAD. It removes any such copy from the staged boundary, moves it intact to .tmp/run-coordinator/reconciled-worktree-duplicates/ with the same evidence, and rechecks after staging so a synchronization race cannot enter the preservation commit. It makes no more than three passes if a synchronization process regenerates either artifact class. A symlink, unknown name, numbered copy without an exact tracked sibling, failed move, malformed history, invalid canonical metadata, or continued regeneration fails closed; canonical Git metadata and project files are never deleted or rewritten by this recovery. The dispatcher then fetches origin/main and requires the user's canonical checkout to be on main with local HEAD exactly equal that fetched revision. If ordinary uncommitted paths remain at that safe boundary, the dispatcher verifies that no conflict exists, stages the complete workspace, requires git diff --cached --check, creates one Preserve local ARRP changes before automated run commit under the coordinator identity, fast-forward pushes main:main, and reads back the exact commit from origin/main. It then exits successfully without triggering a cloud chain or launching Elim; the next poll reloads the reviewed runtime from the synchronized boundary. A staging, diff-check, commit, push, or readback failure stops with the exact local preservation state. The dispatcher must not auto-merge, rebase, switch, reset, force-push, or resolve divergent history. After workspace reconciliation passes on a later poll, it verifies that the reviewed automation runtime in the canonical checkout exactly matches the same origin/main, then prepares the fixed ignored full checkout at .tmp/run-coordinator/elim-checkout. That checkout must use the reviewed remote, contain its own real .git directory for trusted-host use, start from the recorded remote boundary, and be clean before work. A linked Git worktree is prohibited because its metadata escapes the controlled checkout boundary. Elim runs in workspace-write and may create or modify only working-tree files required by its selected authority. It must not stage, branch, commit, push, or create a pull request. After Elim emits its schema-validated result, the dispatcher requires commit: null, an empty model-authored synchronization list, and an exact files_touched set. It independently compares that declaration with the complete working tree, validates the required Elim Run Log, shared provenance when material, intake ledger when applicable, current handoff state, selected-unit binding, and comprehensive Review Epoch when applicable. It then refetches the allowlisted remote, requires both the checkout and origin/main to equal the pinned manifest baseline, creates a bounded chain-specific branch, stages only the declared paths, checks the staged boundary, and creates the commit under the coordinator identity. Before any network write it requires a clean tree, the pinned baseline as the commit's sole parent, and the committed path set to equal the pre-commit declaration. A human_review outcome is pushed to an open, unmerged pull request whose head and base are read back. Every other accountably closed outcome uses a non-forced fast-forward push to main and exact remote readback. The original model result and enriched host result remain distinguishable. A mismatch or race preserves the checkout and fails closed; no reset, force push, or undeclared absorption is permitted. The coordinator must not overlap a queued unit with an expressly active interactive task affecting the same issue or files; an unrelated or abandoned non-Inactive handoff is not a global liveness lock. CURRENT_AUDIT.md identifies unfinished continuation state only and never proves that an agent, bot, chain, task, or process is live. The dispatcher lease is the host-liveness authority. Its acquisition-specific owner record stores the dispatcher process, current Chain ID, invocation, Elim task when known, preserved output path, and a continuously refreshed heartbeat for diagnosis and Console display; the owner record is not a second lock. Every owner update and release must present the same acquisition token. Legacy directory locks use only the tested dead-owner or expired-ownerless migration path. An abandoned operating-system lease is available automatically to the next dispatcher. Recovery before Elim begins records a coordinator failure without fabricating an Elim run. Recovery after Elim begins marks Elim failed, preserves the task and JSONL output as incomplete evidence, creates a human Action Item and notification, projects the error to the Console, and requires a fresh current chain before substantive work resumes. When that launched invocation lacks a verified canonical Elim Run Log report, the dispatcher persists a bounded reconciliation record keyed to its exact Chain and invocation identities. The next queue exposes one safety-class-0 repair unit for the pending set. The dispatcher clears selected records only after a completed result proves an unchanged reconciliation-state hash and a reviewed Git boundary containing exactly one newly added, complete report for each selected prior Chain ID. A failed launched invocation may leave the fixed isolated checkout dirty even after its canonical run report has been repaired elsewhere. That checkout may be released only through the dispatcher's explicit reconciled-checkout archive mode. The host first refreshes and verifies the reviewed runtime, requires an empty pending run-log reconciliation queue and a matching resolved Action Item, and proves from Git objects that synchronized origin/main contains exactly one complete failed-run report that was absent from the preserved checkout baseline. It then moves the entire checkout intact—Git metadata, dirty files, and all—to .tmp/run-coordinator/reconciled-checkouts/, records the archive boundary and changed paths in local control history, and retires the stale task-reuse pointer. It never resets, cleans, overwrites, or deletes the evidence. Any failed predicate leaves the original checkout in place and fails closed; the next ordinary run creates a fresh full checkout at the fixed path. Configuration, executable, state-directory, and lease-setup failures occur before ordinary dispatcher state ownership. The bootstrap handler preserves a unique host-local failure artifact, retains the 128 newest recognized events, and notifies the user. When it can prove the dispatcher lease is free, it briefly acquires that lease and also writes the ordinary failure history and human Action Item. When another live dispatcher owns the lease, it must not race that owner by mutating shared control or history; the separate artifact and notification remain the failure evidence."
+        },
+        {
+          "id": "independent-failure-visibility",
+          "title": "Independent failure visibility",
+          "html": "<p><code>run-chain.json<\/code> remains the detailed normal-chain projection, but it is not the sole automation-health signal. <code>.github/workflows/automation-health-projection.yml<\/code> operates outside the coordinator&#x27;s ordered stage graph and publishes two small feeds to <code>project-console-data<\/code>:<\/p>\n<ul><li>every completed Run Coordinator workflow, including a failed or cancelled workflow that never published a current Chain Manifest, triggers an unconditional <code>automation-health.json<\/code> projection;<\/li><li>a separate daily watchdog at <code>47 10 * * *<\/code> UTC queries the latest scheduled coordinator run and reports a missing, unsuccessful, or older-than-18-hours heartbeat;<\/li><li>the trusted host sends a minimized <code>arrp-host-status<\/code> repository event when it starts Elim, defers or declines launch, reaches an accounted closeout, or records a terminal host failure; the independent workflow validates and publishes that event as <code>host-status.json<\/code> without running Elim or rebuilding the Console.<\/li><\/ul>\n<p>The Console requests <code>run-chain.json<\/code>, <code>automation-health.json<\/code>, and <code>host-status.json<\/code> independently. Failure or rejection of one request does not prevent it from accepting the others. For the same Chain ID, the cloud projection preserves deterministic-stage state while the newer validated host projection controls the final host/Elim status. The data-branch publisher retries bounded non-fast-forward branch races.<\/p>\n<p>Host projection failure cannot be made invisible locally: the dispatcher still writes <code>.tmp/run-chain.json<\/code>, bounded host history, control state, and a macOS notification. Repeated instances of the same prerequisite failure consolidate under one unresolved incident while preserving the affected Chain IDs and occurrence count. A later poll may resolve that incident automatically only when it directly proves the exact prerequisite healthy—for example, verified canonical <code>main<\/code>, exact runtime blobs, a free dispatcher lease, or a clean isolated checkout at <code>origin/main<\/code>. A merely newer chain never erases an unrelated failure or a human-reserved decision.<\/p>\n<p>After preparing the isolated checkout, the dispatcher immediately persists its clean exact <code>origin/main<\/code> head before usage gating, queue deferral, or any no-launch return. A later poll may advance that checkout only from the persisted head or from a retained archive record that independently proves the prior canonical boundary. This state is launch-safety evidence, not evidence that Elim ran.<\/p>",
+          "text": "run-chain.json remains the detailed normal-chain projection, but it is not the sole automation-health signal. .github/workflows/automation-health-projection.yml operates outside the coordinator's ordered stage graph and publishes two small feeds to project-console-data: - every completed Run Coordinator workflow, including a failed or cancelled workflow that never published a current Chain Manifest, triggers an unconditional automation-health.json projection; - a separate daily watchdog at 47 10 * * * UTC queries the latest scheduled coordinator run and reports a missing, unsuccessful, or older-than-18-hours heartbeat; - the trusted host sends a minimized arrp-host-status repository event when it starts Elim, defers or declines launch, reaches an accounted closeout, or records a terminal host failure; the independent workflow validates and publishes that event as host-status.json without running Elim or rebuilding the Console. The Console requests run-chain.json, automation-health.json, and host-status.json independently. Failure or rejection of one request does not prevent it from accepting the others. For the same Chain ID, the cloud projection preserves deterministic-stage state while the newer validated host projection controls the final host/Elim status. The data-branch publisher retries bounded non-fast-forward branch races. Host projection failure cannot be made invisible locally: the dispatcher still writes .tmp/run-chain.json, bounded host history, control state, and a macOS notification. Repeated instances of the same prerequisite failure consolidate under one unresolved incident while preserving the affected Chain IDs and occurrence count. A later poll may resolve that incident automatically only when it directly proves the exact prerequisite healthy—for example, verified canonical main, exact runtime blobs, a free dispatcher lease, or a clean isolated checkout at origin/main. A merely newer chain never erases an unrelated failure or a human-reserved decision. After preparing the isolated checkout, the dispatcher immediately persists its clean exact origin/main head before usage gating, queue deferral, or any no-launch return. A later poll may advance that checkout only from the persisted head or from a retained archive record that independently proves the prior canonical boundary. This state is launch-safety evidence, not evidence that Elim ran."
         },
         {
           "id": "chain-order",
           "title": "Chain order",
-          "html": "<ol><li>Acquire the exclusive chain lock and establish the Chain ID, trigger set, baseline commit, freshness boundary, and usage-preflight availability.<\/li><li>Evaluate every registered bot against its due predicate. Run due external-observation stages, including Case Monitor Bot, Presidential Directives Bot, Source Checker Bot, and the public-intake collector and reconciliation pass. A missing, malformed, oversized, schema-invalid, undated, stale, materially future-dated, or explicitly unavailable persistent watcher input forces its owning watcher due even when the ordinary success interval remains current, so the chain repairs its own deterministic evidence boundary before Elim. Record <code>not_due<\/code> only when both the prior success and its typed, current durable input remain usable.<\/li><li>Refresh authoritative Project and Console progress data when required.<\/li><li>Run Project Integrity Bot after all other due deterministic inputs so it can detect missing, stale, failed, or contradictory outputs and lifecycle or repository inconsistencies.<\/li><li>Reconstruct stable gap obligations and the latest governance-review control from exact machine-readable records in the committed Elim Run Log, replace the host cache from that authority, and compile the structured work queue and exact-source context manifests. Queue construction detects, prioritizes, and routes work but grants no authority. Ordinary items remain ahead of governance discovery. After they clear, the builder synthesizes one bounded Project governance review and discovery item only when no committed review remains current under the 168-hour minimum interval; otherwise it exposes the last review and next-due time without selecting it.<\/li><li>Apply the Codex usage reserve and per-run soft-target policy. Each Elim invocation receives a unique host-owned baseline and a host-attested snapshot refreshed every 60 seconds; the dispatcher records the path and freshness limit in the local Chain Manifest, and Elim must consume that snapshot rather than launch a sandbox probe. Invoke Elim only for the current selected eligible item, including the quiet-queue governance-discovery fallback. A chain closes without a model turn only when a blocking condition prevents safe launch, the trigger authorizes deterministic refresh only, or an approved user control suppresses selection; absence of ordinary work is not itself a no-op.<\/li><li>After Elim, validate and preserve the exact model-authored boundary through trusted-host Git closeout, then run only the applicable deterministic validation plan, authenticated readback, structured event and run-log rendering, generated Console publication, notification, and lock release.<\/li><\/ol>",
-          "text": "1. Acquire the exclusive chain lock and establish the Chain ID, trigger set, baseline commit, freshness boundary, and usage-preflight availability. 2. Evaluate every registered bot against its due predicate. Run due external-observation stages, including Case Monitor Bot, Presidential Directives Bot, Source Checker Bot, and the public-intake collector and reconciliation pass. A missing, malformed, oversized, schema-invalid, undated, stale, materially future-dated, or explicitly unavailable persistent watcher input forces its owning watcher due even when the ordinary success interval remains current, so the chain repairs its own deterministic evidence boundary before Elim. Record not_due only when both the prior success and its typed, current durable input remain usable. 3. Refresh authoritative Project and Console progress data when required. 4. Run Project Integrity Bot after all other due deterministic inputs so it can detect missing, stale, failed, or contradictory outputs and lifecycle or repository inconsistencies. 5. Reconstruct stable gap obligations and the latest governance-review control from exact machine-readable records in the committed Elim Run Log, replace the host cache from that authority, and compile the structured work queue and exact-source context manifests. Queue construction detects, prioritizes, and routes work but grants no authority. Ordinary items remain ahead of governance discovery. After they clear, the builder synthesizes one bounded Project governance review and discovery item only when no committed review remains current under the 168-hour minimum interval; otherwise it exposes the last review and next-due time without selecting it. 6. Apply the Codex usage reserve and per-run soft-target policy. Each Elim invocation receives a unique host-owned baseline and a host-attested snapshot refreshed every 60 seconds; the dispatcher records the path and freshness limit in the local Chain Manifest, and Elim must consume that snapshot rather than launch a sandbox probe. Invoke Elim only for the current selected eligible item, including the quiet-queue governance-discovery fallback. A chain closes without a model turn only when a blocking condition prevents safe launch, the trigger authorizes deterministic refresh only, or an approved user control suppresses selection; absence of ordinary work is not itself a no-op. 7. After Elim, validate and preserve the exact model-authored boundary through trusted-host Git closeout, then run only the applicable deterministic validation plan, authenticated readback, structured event and run-log rendering, generated Console publication, notification, and lock release."
+          "html": "<ol><li>Acquire the exclusive chain lock and establish the Chain ID, trigger set, baseline commit, freshness boundary, and usage-preflight availability.<\/li><li>Evaluate every registered bot against its due predicate. Run due external-observation stages, including Case Monitor Bot, Presidential Directives Bot, Source Checker Bot, and the public-intake collector and reconciliation pass. A missing, malformed, oversized, schema-invalid, undated, stale, materially future-dated, or explicitly unavailable persistent watcher input forces its owning watcher due even when the ordinary success interval remains current, so the chain repairs its own deterministic evidence boundary before Elim. Record <code>not_due<\/code> only when both the prior success and its typed, current durable input remain usable.<\/li><li>Refresh authoritative Project and Console progress data when required.<\/li><li>Run Project Integrity Bot after all other due deterministic inputs so it can detect missing, stale, failed, or contradictory outputs and lifecycle or repository inconsistencies.<\/li><li>Reconstruct stable gap obligations and the latest governance-review control from exact machine-readable records in the committed Elim Run Log, replace the host cache from that authority, and compile the structured work queue and exact-source context manifests. Queue construction detects, prioritizes, and routes work but grants no authority. Ordinary items remain ahead of governance discovery. After they clear, the builder synthesizes one bounded Project governance review and discovery item only when no committed review remains current under the 168-hour minimum interval; otherwise it exposes the last review and next-due time without selecting it.<\/li><li>Apply the Codex usage reserve and per-run soft-target policy. Each Elim invocation receives a unique host-owned baseline and a host-attested snapshot refreshed every 60 seconds; the dispatcher records the path and freshness limit in the local Chain Manifest, and Elim must consume that snapshot rather than launch a sandbox probe. Invoke Elim only for the current selected eligible item, including the quiet-queue governance-discovery fallback. A chain closes without a model turn only when a blocking condition prevents safe launch, the trigger authorizes deterministic refresh only, or an approved user control suppresses selection; absence of ordinary work is not itself a no-op.<\/li><li>After Elim, validate and preserve the exact model-authored boundary through trusted-host Git closeout, then run only the applicable deterministic validation plan, authenticated readback, structured event and run-log rendering, ordinary generated Console publication, notification, and lock release. Independent cloud and host health publication is not conditioned on reaching this step.<\/li><\/ol>",
+          "text": "1. Acquire the exclusive chain lock and establish the Chain ID, trigger set, baseline commit, freshness boundary, and usage-preflight availability. 2. Evaluate every registered bot against its due predicate. Run due external-observation stages, including Case Monitor Bot, Presidential Directives Bot, Source Checker Bot, and the public-intake collector and reconciliation pass. A missing, malformed, oversized, schema-invalid, undated, stale, materially future-dated, or explicitly unavailable persistent watcher input forces its owning watcher due even when the ordinary success interval remains current, so the chain repairs its own deterministic evidence boundary before Elim. Record not_due only when both the prior success and its typed, current durable input remain usable. 3. Refresh authoritative Project and Console progress data when required. 4. Run Project Integrity Bot after all other due deterministic inputs so it can detect missing, stale, failed, or contradictory outputs and lifecycle or repository inconsistencies. 5. Reconstruct stable gap obligations and the latest governance-review control from exact machine-readable records in the committed Elim Run Log, replace the host cache from that authority, and compile the structured work queue and exact-source context manifests. Queue construction detects, prioritizes, and routes work but grants no authority. Ordinary items remain ahead of governance discovery. After they clear, the builder synthesizes one bounded Project governance review and discovery item only when no committed review remains current under the 168-hour minimum interval; otherwise it exposes the last review and next-due time without selecting it. 6. Apply the Codex usage reserve and per-run soft-target policy. Each Elim invocation receives a unique host-owned baseline and a host-attested snapshot refreshed every 60 seconds; the dispatcher records the path and freshness limit in the local Chain Manifest, and Elim must consume that snapshot rather than launch a sandbox probe. Invoke Elim only for the current selected eligible item, including the quiet-queue governance-discovery fallback. A chain closes without a model turn only when a blocking condition prevents safe launch, the trigger authorizes deterministic refresh only, or an approved user control suppresses selection; absence of ordinary work is not itself a no-op. 7. After Elim, validate and preserve the exact model-authored boundary through trusted-host Git closeout, then run only the applicable deterministic validation plan, authenticated readback, structured event and run-log rendering, ordinary generated Console publication, notification, and lock release. Independent cloud and host health publication is not conditioned on reaching this step."
         },
         {
           "id": "stage-health-and-recovery",
           "title": "Stage health and recovery",
-          "html": "<p>The Chain Manifest binds every deterministic stage to the chain-level baseline revision. Each expected stage records <code>due<\/code>, <code>not_due<\/code>, <code>completed<\/code>, <code>degraded<\/code>, or <code>failed<\/code>, together with its due and retry disposition, completion time, attempt count, output location and hash where applicable, work count, and concise diagnostic. The three source-watcher reports retain their own source identity and revision evidence. <code>Blocked<\/code> describes the overall chain, host, work unit, or Elim continuation when a known prerequisite or human action prevents safe progress; it is not a synthetic deterministic-stage result. The coordinator retries only configured transient failures and applies only allowlisted, idempotent mechanical recovery. It never repairs substantive records or widens its own authority.<\/p>\n<p>A failure is <code>blocking<\/code> when missing or stale data could make downstream judgment unreliable. Elim may then be invoked only to diagnose or repair the failure within its authority. A <code>degraded<\/code> result may permit unrelated work when the absent input cannot affect it, but the exception remains visible. Credentials, unsafe external actions, ambiguous correction, and human-reserved choices become human Action Items. Repeated failure stops retrying at the configured ceiling and preserves an exact continuation record.<\/p>\n<p>The host-local Elim Run Log reconciliation file is bounded to 128 unique pending Chain IDs and is not a substitute run log. A record is created only after the Codex process was actually spawned and only while that invocation lacks verified run-log accounting. The obligation does not expire with age. Missing or malformed state, over-capacity input, an exact-snapshot change after selection, partial output, or duplicate or pre-existing report evidence fails closed; the coordinator never deletes an obligation merely because a newer chain ran.<\/p>",
-          "text": "The Chain Manifest binds every deterministic stage to the chain-level baseline revision. Each expected stage records due, not_due, completed, degraded, or failed, together with its due and retry disposition, completion time, attempt count, output location and hash where applicable, work count, and concise diagnostic. The three source-watcher reports retain their own source identity and revision evidence. Blocked describes the overall chain, host, work unit, or Elim continuation when a known prerequisite or human action prevents safe progress; it is not a synthetic deterministic-stage result. The coordinator retries only configured transient failures and applies only allowlisted, idempotent mechanical recovery. It never repairs substantive records or widens its own authority. A failure is blocking when missing or stale data could make downstream judgment unreliable. Elim may then be invoked only to diagnose or repair the failure within its authority. A degraded result may permit unrelated work when the absent input cannot affect it, but the exception remains visible. Credentials, unsafe external actions, ambiguous correction, and human-reserved choices become human Action Items. Repeated failure stops retrying at the configured ceiling and preserves an exact continuation record. The host-local Elim Run Log reconciliation file is bounded to 128 unique pending Chain IDs and is not a substitute run log. A record is created only after the Codex process was actually spawned and only while that invocation lacks verified run-log accounting. The obligation does not expire with age. Missing or malformed state, over-capacity input, an exact-snapshot change after selection, partial output, or duplicate or pre-existing report evidence fails closed; the coordinator never deletes an obligation merely because a newer chain ran."
+          "html": "<p>The Chain Manifest binds every deterministic stage to the chain-level baseline revision. Each expected stage records <code>due<\/code>, <code>not_due<\/code>, <code>completed<\/code>, <code>degraded<\/code>, or <code>failed<\/code>, together with its due and retry disposition, completion time, attempt count, output location and hash where applicable, work count, and concise diagnostic. The three source-watcher reports retain their own source identity and revision evidence. <code>Blocked<\/code> describes the overall chain, host, work unit, or Elim continuation when a known prerequisite or human action prevents safe progress; it is not a synthetic deterministic-stage result. The coordinator retries only configured transient failures and applies only allowlisted, idempotent mechanical recovery. It never repairs substantive records or widens its own authority.<\/p>\n<p>A failure is <code>blocking<\/code> when missing or stale data could make downstream judgment unreliable. Elim may then be invoked only to diagnose or repair the failure within its authority. A <code>degraded<\/code> result may permit unrelated work when the absent input cannot affect it, but the exception remains visible. Credentials, unsafe external actions, ambiguous correction, and human-reserved choices become human Action Items. Repeated failure stops retrying at the configured ceiling, consolidates identical observations without discarding their Chain history, and preserves an exact continuation record. Machine-observed prerequisite recovery may close only its matching routine incident with explicit proof; it cannot close a human-reserved decision.<\/p>\n<p>The host-local Elim Run Log reconciliation file is bounded to 128 unique pending Chain IDs and is not a substitute run log. A record is created only after the Codex process was actually spawned and only while that invocation lacks verified run-log accounting. The obligation does not expire with age. Missing or malformed state, over-capacity input, an exact-snapshot change after selection, partial output, or duplicate or pre-existing report evidence fails closed; the coordinator never deletes an obligation merely because a newer chain ran.<\/p>",
+          "text": "The Chain Manifest binds every deterministic stage to the chain-level baseline revision. Each expected stage records due, not_due, completed, degraded, or failed, together with its due and retry disposition, completion time, attempt count, output location and hash where applicable, work count, and concise diagnostic. The three source-watcher reports retain their own source identity and revision evidence. Blocked describes the overall chain, host, work unit, or Elim continuation when a known prerequisite or human action prevents safe progress; it is not a synthetic deterministic-stage result. The coordinator retries only configured transient failures and applies only allowlisted, idempotent mechanical recovery. It never repairs substantive records or widens its own authority. A failure is blocking when missing or stale data could make downstream judgment unreliable. Elim may then be invoked only to diagnose or repair the failure within its authority. A degraded result may permit unrelated work when the absent input cannot affect it, but the exception remains visible. Credentials, unsafe external actions, ambiguous correction, and human-reserved choices become human Action Items. Repeated failure stops retrying at the configured ceiling, consolidates identical observations without discarding their Chain history, and preserves an exact continuation record. Machine-observed prerequisite recovery may close only its matching routine incident with explicit proof; it cannot close a human-reserved decision. The host-local Elim Run Log reconciliation file is bounded to 128 unique pending Chain IDs and is not a substitute run log. A record is created only after the Codex process was actually spawned and only while that invocation lacks verified run-log accounting. The obligation does not expire with age. Missing or malformed state, over-capacity input, an exact-snapshot change after selection, partial output, or duplicate or pre-existing report evidence fails closed; the coordinator never deletes an obligation merely because a newer chain ran."
         },
         {
           "id": "queue-integrity",
@@ -444,4426 +450,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   ],
   "run_chain": {
     "schema_version": 1,
-    "bot_id": "run-coordinator-bot",
-    "chain_id": "arrp-20260726T043422Z",
-    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30187993603",
-    "trigger": "push",
-    "llm_launch_allowed": false,
-    "llm_launch_trigger": "push",
-    "created_at": "2026-07-26T04:34:22+00:00",
-    "updated_at": "2026-07-26T04:41:35+00:00",
-    "status": "complete",
-    "baseline_commit": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-    "resume": {
-      "count": 0,
-      "from_run_id": null
-    },
-    "lock": {
-      "key": "arrp-run-chain",
-      "path": null,
-      "status": "released-by-workflow",
-      "owner_chain_id": "arrp-20260726T043422Z"
-    },
-    "repository": {
-      "branch": "main",
-      "head": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-      "origin_main": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-      "clean": true,
-      "dirty_paths": [],
-      "dirty_path_count": 0,
-      "ahead_of_origin_main": 0,
-      "behind_origin_main": 0,
-      "fresh": true
-    },
-    "workflow_health": {
-      "healthy": true,
-      "missing": [],
-      "checks": [
-        {
-          "stage": "case-monitor-bot",
-          "workflow": ".github/workflows/case-monitor-bot.yml",
-          "exists": true,
-          "sha256": "sha256:e007e3b1b332f1e623e3e16267d692b120e52163b1018bfae39670d0101b4001"
-        },
-        {
-          "stage": "presidential-directives-bot",
-          "workflow": ".github/workflows/presidential-directives-bot.yml",
-          "exists": true,
-          "sha256": "sha256:f015060695166dcfb3ffcae673639372076bd1cc833bd64c7137a5a5e520b44d"
-        },
-        {
-          "stage": "source-checker-bot",
-          "workflow": ".github/workflows/source-checker-bot.yml",
-          "exists": true,
-          "sha256": "sha256:215ebc77aa27987b20f2b52d84188a217e16cf4baa967e2ca9887d1a3eacfe41"
-        },
-        {
-          "stage": "project-console-progress-bot",
-          "workflow": ".github/workflows/project-console-progress.yml",
-          "exists": true,
-          "sha256": "sha256:1cc3fdc5491492a29407eb487ce155b708fe232a4a140ce5da6f1516d9917442"
-        },
-        {
-          "stage": "project-integrity-bot",
-          "workflow": ".github/workflows/project-integrity.yml",
-          "exists": true,
-          "sha256": "sha256:12181df885ff6d6faaa574e2773dcbd8546074febf7541cf1130eaf40c083b96"
-        }
-      ]
-    },
-    "stages": [
-      {
-        "id": "case-monitor-bot",
-        "order": 1,
-        "workflow": ".github/workflows/case-monitor-bot.yml",
-        "due": true,
-        "due_reason": "persistent watcher input is stale",
-        "status": "succeeded",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
-        "retry_limit": 2,
-        "retries": [],
-        "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:f3643db174a6cbd99f29de0c070c917f1bf7072acad086323f09d335aed63341"
-        },
-        "work_count": 43,
-        "attempt_key": "primary",
-        "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-        "domain_event": {
-          "id": "SDE-8B910AA22FBBBCE3E0AE125F",
-          "sha256": "sha256:e28143a40764faf6bdb1630acbc0040d776d2c6bbf8a147af91a76051a73dc1b",
-          "json": {
-            "acceptance": null,
-            "affected_records": [
-              {
-                "record_id": "HOR-035",
-                "record_type": "candidate"
-              },
-              {
-                "record_id": "SRC-0632",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0945",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0965",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0982",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1004",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1052",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1056",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1093",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1929",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1930",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1932",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1933",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1934",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1940",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1941",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1942",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1943",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1946",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1952",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1957",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1973",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1979",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1982",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2042",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2080",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2081",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2105",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2110",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2136",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2149",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2190",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2216",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2221",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2235",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2238",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2351",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2591",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2649",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2651",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2652",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2653",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2654",
-                "record_type": "source"
-              }
-            ],
-            "agent_id": "case-monitor-bot",
-            "chain_id": "arrp-20260726T043422Z",
-            "event_id": "SDE-8B910AA22FBBBCE3E0AE125F",
-            "idempotency_key": "sha256:8b910aa22fbbbce3e0ae125f5916e8aca1a3af1fbc6850bafaa3da31df558671",
-            "kind": "source-domain-event",
-            "output_hashes": {
-              "files": [
-                {
-                  "bytes": 1818034,
-                  "path": "inventory/sources.csv",
-                  "sha256": "sha256:dd4e572ed54c5d0be25664d9d71ca8aca6e41e20aa039d34f92446b49ee84778"
-                },
-                {
-                  "bytes": 180849,
-                  "path": "research/horizon-source-records/HOR-035-source-development.md",
-                  "sha256": "sha256:bcb66117d0e1557deb4379d1d4979691cbcbb98ad4c2cec26398f837275d57e8"
-                }
-              ],
-              "proposal_diff": "sha256:ca82329205d345662c811596e247f0f43b56b60b6c3f849152b269b95075fde0",
-              "semantic_report": "sha256:11a7e758920934470a4e4b63fbff03a0e00b719aa88bdaf4d1caebbeab08714f"
-            },
-            "proposal": {
-              "base_ref": "main",
-              "head_ref": "bot/case-monitor-updates",
-              "proposal_revision": "51ab5321424426b78aeef84da03233248dbe4455",
-              "pull_request_number": 380,
-              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
-              "repository": "Thorncrag/ARRP"
-            },
-            "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-            "schema_uri": ".github/source-domain-event.schema.json",
-            "schema_version": 1,
-            "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-            "state": "proposed",
-            "summary": {
-              "affected_record_count": 43,
-              "counts": {
-                "affected-files": 2,
-                "affected-records": 43,
-                "candidate-records": 1,
-                "source-records": 42
-              },
-              "status": "case monitor proposal delta"
-            },
-            "trigger": "push"
-          }
-        }
-      },
-      {
-        "id": "presidential-directives-bot",
-        "order": 2,
-        "workflow": ".github/workflows/presidential-directives-bot.yml",
-        "due": true,
-        "due_reason": "persistent watcher input is stale",
-        "status": "succeeded",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
-        "retry_limit": 2,
-        "retries": [],
-        "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:5d3d40da606c9766232db75a2f2c2da89d4dc5fb838ab6e813ad3aab60d58726"
-        },
-        "work_count": 10,
-        "attempt_key": "primary",
-        "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-        "domain_event": {
-          "id": "SDE-4EDE456327A9D3C616449D75",
-          "sha256": "sha256:9b998a083d4be4f89dc89cb9290942d4d719807b656ce845fb00a53eb1aebb39",
-          "json": {
-            "acceptance": null,
-            "affected_records": [
-              {
-                "record_id": "2019-05370",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2019-16383",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14990",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14991",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14992",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14997",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14998",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14999",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-15003",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-15024",
-                "record_type": "presidential-directive"
-              }
-            ],
-            "agent_id": "presidential-directives-bot",
-            "chain_id": "arrp-20260726T043422Z",
-            "event_id": "SDE-4EDE456327A9D3C616449D75",
-            "idempotency_key": "sha256:4ede456327a9d3c616449d75eac08c825a405145a97339ca8cbc51869a3d210f",
-            "kind": "source-domain-event",
-            "output_hashes": {
-              "files": [
-                {
-                  "bytes": 1854598,
-                  "path": "inventory/presidential-directives.csv",
-                  "sha256": "sha256:9f14fdb579c9816258688f66f322d62a5f7feaa49410daa3063d3fd9094a7e3c"
-                }
-              ],
-              "proposal_diff": "sha256:21eee92eda009c4db723e0c530931dc0595962f544a6d379ebe2c3c0ee871dc4",
-              "semantic_report": "sha256:eead281dd9bc359cb2a6613c252bbb7c670545fec9c7eb128ab32383e696c968"
-            },
-            "proposal": {
-              "base_ref": "main",
-              "head_ref": "automation/presidential-directives-monitor",
-              "proposal_revision": "648af039d25490dfc00f55dc7d96136abe3399fa",
-              "pull_request_number": 381,
-              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/381",
-              "repository": "Thorncrag/ARRP"
-            },
-            "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-            "schema_uri": ".github/source-domain-event.schema.json",
-            "schema_version": 1,
-            "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-            "state": "proposed",
-            "summary": {
-              "affected_record_count": 10,
-              "counts": {
-                "affected-files": 1,
-                "affected-records": 10,
-                "presidential-directive-records": 10
-              },
-              "status": "presidential directives proposal delta"
-            },
-            "trigger": "push"
-          }
-        }
-      },
-      {
-        "id": "source-checker-bot",
-        "order": 3,
-        "workflow": ".github/workflows/source-checker-bot.yml",
-        "due": true,
-        "due_reason": "persistent watcher input schema is invalid",
-        "status": "succeeded",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
-        "retry_limit": 2,
-        "retries": [],
-        "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:5729f04dffca26c57b5349407b7f3b9dad0f2a0577f7a990ade391677b50c6a9"
-        },
-        "work_count": 98,
-        "attempt_key": "primary",
-        "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-        "domain_event": {
-          "id": "SDE-27BC0C51D9A59B1018F00352",
-          "sha256": "sha256:627d1d3e59cb225817bae86e34cf24c918dbdaba579e828a413ed80023a4d24e",
-          "json": {
-            "acceptance": null,
-            "affected_records": [
-              {
-                "record_id": "SRC-0002",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0003",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0004",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0006",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0007",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0008",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0009",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0010",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0011",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0012",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0013",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0014",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0015",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0016",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0017",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0018",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0019",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0020",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0021",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0022",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0023",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0024",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0025",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0026",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0035",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0036",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0037",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0045",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0047",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0048",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0049",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0050",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0054",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0055",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0056",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0057",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0060",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0062",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0063",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0068",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0069",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0070",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0071",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0072",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0073",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0110",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0117",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0119",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0120",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0123",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0125",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0135",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0156",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0164",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0167",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0168",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0172",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0173",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0174",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0175",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0178",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0182",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0183",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0192",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0193",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0195",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0201",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0218",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0219",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0220",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0226",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0228",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0229",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0230",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0231",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0232",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0233",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0236",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0237",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0238",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0239",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0240",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0243",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0244",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0251",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0253",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0255",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0256",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0261",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0265",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0266",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0272",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0273",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0285",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0286",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0287",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0288",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0290",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0292",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0294",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0301",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0302",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0305",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0307",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0308",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0310",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0311",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0313",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0314",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0320",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0339",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0350",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0357",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0358",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0359",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0360",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0370",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0371",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0372",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0373",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0375",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0376",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0377",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0378",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0379",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0380",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0381",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0382",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0383",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0384",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0385",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0386",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0400",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0407",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0408",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0409",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0410",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0411",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0412",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0417",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0418",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0419",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0428",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0429",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0430",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0432",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0435",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0437",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0442",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0445",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0448",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0449",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0457",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0458",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0459",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0468",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0469",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0470",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0471",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0472",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0473",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0474",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0475",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0478",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0479",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0480",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0487",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0500",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0501",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0508",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0516",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0517",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0519",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0520",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0534",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0537",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0539",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0542",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0545",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0546",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0547",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0553",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0554",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0555",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0556",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0560",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0567",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0595",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0608",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0610",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0614",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0617",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0618",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0627",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0653",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0654",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0655",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0666",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0667",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0668",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0678",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0680",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0681",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0682",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0683",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0684",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0689",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0692",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0693",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0694",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0695",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0703",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0709",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0717",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0726",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0727",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0738",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0739",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0743",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0744",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0754",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0755",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0756",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0758",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0761",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0764",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0780",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0787",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0788",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0791",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0792",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0793",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0796",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0797",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0798",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0799",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0800",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0801",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0802",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0803",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0804",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0805",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0806",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0807",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0808",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0810",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0811",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0831",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0835",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0851",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0894",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0895",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0913",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0916",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0918",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0919",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0921",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0923",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0924",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0925",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0929",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0930",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0931",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0932",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0933",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0934",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0937",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0940",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0944",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0945",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0946",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0948",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0949",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0952",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0956",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0957",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0958",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0959",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0961",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0962",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0963",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0965",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0966",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0967",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0969",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0972",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0973",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0975",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0976",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0977",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0979",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0980",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0981",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0982",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0983",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0985",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0986",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0987",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0988",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0989",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0991",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0993",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0994",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0996",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0997",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0998",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1000",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1004",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1005",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1007",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1008",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1009",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1010",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1011",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1013",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1015",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1016",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1017",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1018",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1020",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1021",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1023",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1024",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1025",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1026",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1027",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1029",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1030",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1032",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1034",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1035",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1036",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1037",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1040",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1044",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1045",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1046",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1047",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1049",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1050",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1052",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1056",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1059",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1060",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1061",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1062",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1063",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1064",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1066",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1067",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1069",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1071",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1074",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1075",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1076",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1077",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1078",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1079",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1081",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1082",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1084",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1085",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1086",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1087",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1088",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1090",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1092",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1093",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1094",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1096",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1097",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1098",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1140",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1143",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1149",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1187",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1197",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1221",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1227",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1228",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1230",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1232",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1233",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1236",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1237",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1249",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1250",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1253",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1363",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1364",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1368",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1370",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1372",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1374",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1377",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1380",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1382",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1384",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1386",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1388",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1390",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1392",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1397",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1399",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1403",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1407",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1409",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1410",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1418",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1420",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1422",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1424",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1426",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1430",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1438",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1440",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1442",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1444",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1446",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1461",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1481",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1487",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1493",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1499",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1509",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1517",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1520",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1528",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1542",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1547",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1785",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1786",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1787",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1788",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1789",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1790",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1791",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1792",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1793",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1794",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1795",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1796",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1798",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1800",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1801",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1802",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1814",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1839",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1846",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1857",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1909",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1911",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1913",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1917",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1919",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1920",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1921",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1922",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1923",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1924",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1926",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1927",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1929",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1930",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1931",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1932",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1933",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1934",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1935",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1936",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1937",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1938",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1940",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1941",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1942",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1943",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1944",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1945",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1946",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1947",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1948",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1949",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1952",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1953",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1954",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1955",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1956",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1957",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1958",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1959",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1960",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1961",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1962",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1964",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1966",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1968",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1970",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1971",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1972",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1973",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1974",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1975",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1976",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1977",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1978",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1979",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1980",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1981",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1982",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1983",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1984",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1985",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1986",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1987",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1988",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1989",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1991",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1992",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2007",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2008",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2009",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2010",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2011",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2012",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2013",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2014",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2015",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2016",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2017",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2018",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2019",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2020",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2021",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2022",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2023",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2024",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2026",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2027",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2028",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2030",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2031",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2032",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2033",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2034",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2035",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2036",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2037",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2038",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2039",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2040",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2041",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2042",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2043",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2044",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2045",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2046",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2047",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2048",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2049",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2050",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2051",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2052",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2053",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2054",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2055",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2056",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2057",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2058",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2059",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2060",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2061",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2062",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2063",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2064",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2065",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2066",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2067",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2068",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2069",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2070",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2071",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2072",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2073",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2074",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2075",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2076",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2077",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2078",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2079",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2080",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2081",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2082",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2083",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2084",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2085",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2086",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2087",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2088",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2089",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2090",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2091",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2092",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2093",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2094",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2095",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2096",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2097",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2098",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2099",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2100",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2101",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2102",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2103",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2104",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2105",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2106",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2107",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2108",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2109",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2110",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2111",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2112",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2113",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2114",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2115",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2116",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2117",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2118",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2119",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2120",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2121",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2122",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2123",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2124",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2125",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2126",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2127",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2128",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2129",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2130",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2131",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2132",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2133",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2134",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2135",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2136",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2137",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2139",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2140",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2141",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2142",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2143",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2145",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2147",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2149",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2150",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2152",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2157",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2182",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2183",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2184",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2188",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2190",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2192",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2193",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2195",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2196",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2197",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2198",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2201",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2202",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2204",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2205",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2206",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2207",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2208",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2209",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2210",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2211",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2212",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2213",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2216",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2217",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2218",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2219",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2221",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2223",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2224",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2225",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2228",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2229",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2230",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2231",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2232",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2233",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2234",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2235",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2236",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2237",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2238",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2239",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2240",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2241",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2242",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2243",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2244",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2245",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2246",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2247",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2248",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2249",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2250",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2251",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2252",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2253",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2254",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2255",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2256",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2257",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2258",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2259",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2260",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2261",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2262",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2263",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2264",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2265",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2266",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2267",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2268",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2269",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2270",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2271",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2272",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2273",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2274",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2275",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2276",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2277",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2278",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2279",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2280",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2281",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2282",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2283",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2284",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2285",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2286",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2287",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2288",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2289",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2290",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2293",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2294",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2295",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2296",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2297",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2298",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2299",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2301",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2302",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2303",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2304",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2305",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2306",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2307",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2308",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2309",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2310",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2311",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2312",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2315",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2316",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2327",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2328",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2330",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2333",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2334",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2335",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2338",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2339",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2341",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2342",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2343",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2344",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2345",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2346",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2348",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2349",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2350",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2351",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2356",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2357",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2358",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2359",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2360",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2361",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2362",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2363",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2366",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2379",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2381",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2385",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2399",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2406",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2407",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2408",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2409",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2411",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2412",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2420",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2446",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2465",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2501",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2521",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2530",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2531",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2532",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2533",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2534",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2535",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2536",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2537",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2538",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2539",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2540",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2542",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2543",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2544",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2545",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2546",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2547",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2548",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2549",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2550",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2552",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2553",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2554",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2555",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2556",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2557",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2558",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2559",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2560",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2569",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2570",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2571",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2573",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2574",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2575",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2576",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2580",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2587",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2589",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2591",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2592",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2594",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2597",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2598",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2599",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2600",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2601",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2602",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2603",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2608",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2609",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2610",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2611",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2612",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2613",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2622",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2623",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2633",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2634",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2636",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2637",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2639",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2645",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2646",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2651",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2652",
-                "record_type": "source"
-              }
-            ],
-            "agent_id": "source-checker-bot",
-            "chain_id": "arrp-20260726T043422Z",
-            "event_id": "SDE-27BC0C51D9A59B1018F00352",
-            "idempotency_key": "sha256:27bc0c51d9a59b1018f00352e38c6781b775dab0c20827073e8375abcafba191",
-            "kind": "source-domain-event",
-            "output_hashes": {
-              "files": [
-                {
-                  "bytes": 49910,
-                  "path": "framework/reports/SOURCE_CHECKER_REPORT.md",
-                  "sha256": "sha256:74115e8255a666f1f41f4de984d6d342af2a0fe35d1a8549d536dbb5008749e0"
-                }
-              ],
-              "proposal_diff": "sha256:fdae9e37dd8e9c4b2de44e250389aa0e1d7df121848d33789dbc3a2a859e45f8",
-              "semantic_report": "sha256:35bbd10e59c7d2d7ef80f450ec64ff79edecd678dcf1aa931912af8c15de517f"
-            },
-            "proposal": {
-              "base_ref": "main",
-              "head_ref": "bot/source-checker-report",
-              "proposal_revision": "edc7b7da0cc02f48248c08a44613b9ba9fc335cc",
-              "pull_request_number": 378,
-              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/378",
-              "repository": "Thorncrag/ARRP"
-            },
-            "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-            "schema_uri": ".github/source-domain-event.schema.json",
-            "schema_version": 1,
-            "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-            "state": "proposed",
-            "summary": {
-              "affected_record_count": 881,
-              "counts": {
-                "affected-files": 1,
-                "affected-records": 881,
-                "source-records": 881
-              },
-              "status": "source checker proposal delta"
-            },
-            "trigger": "push"
-          }
-        }
-      },
-      {
-        "id": "project-console-progress-bot",
-        "order": 4,
-        "workflow": ".github/workflows/project-console-progress.yml",
-        "due": true,
-        "due_reason": "forced",
-        "status": "succeeded",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
-        "retry_limit": 2,
-        "retries": [],
-        "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:20f67246e4976b71221cb75f1c3c5d6ef6d76e07a1d1298e36e54935d6692ad7"
-        },
-        "work_count": 0
-      },
-      {
-        "id": "public-intake",
-        "order": 5,
-        "workflow": null,
-        "due": true,
-        "due_reason": "required every chain",
-        "status": "succeeded",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
-        "retry_limit": 1,
-        "retries": [],
-        "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:28e861a5cc8cc3925e72c94cbc2a5d9ff943386f2e0e00d73d229e5d0dcb2a0c"
-        },
-        "work_count": 0
-      },
-      {
-        "id": "project-integrity-bot",
-        "order": 6,
-        "workflow": ".github/workflows/project-integrity.yml",
-        "due": true,
-        "due_reason": "forced",
-        "status": "succeeded",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
-        "retry_limit": 2,
-        "retries": [],
-        "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:bf76950283122d2ab817f0ed06ef9d917d65deeab35eaf600073a16561f1a4ee"
-        },
-        "work_count": 0
-      }
-    ],
-    "failures": [],
-    "degradations": [],
-    "queue_counts": {
-      "integrity": 0,
-      "monitoring": 53,
-      "sources": 98,
-      "intake": 0,
-      "total": 155
-    },
-    "elim_decision": {
-      "launch_recommended": false,
-      "reason": "This trigger authorizes deterministic refresh only; Elim waits for the daily schedule, an eligible event, or explicit manual dispatch.",
-      "blockers": [],
-      "last_substantive_stage": true,
-      "predecessors_complete": true,
-      "profile": {
-        "id": "comprehensive",
-        "model": "gpt-5.6-sol",
-        "reasoning_effort": "xhigh",
-        "full_context": true,
-        "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-77c96a30b077 and context profile comprehensive_review."
-      }
-    },
-    "review_epoch": {
-      "interval_days": 14,
-      "last_completed_at": "2026-07-24T15:40:02+00:00",
-      "next_due_at": "2026-08-07T15:40:02+00:00",
-      "due": true,
-      "due_reason": "governing_boundary_changed",
-      "boundary_commit": "d31863cdd38b6ed258ac4754012c91867c8d9487",
-      "epoch_id": "epoch-arrp-20260724T153028Z",
-      "stability_status": "evolving",
-      "unresolved_findings": [],
-      "boundary_changes": {
-        "extra": [
-          ".github/run-coordinator-bot.json",
-          "framework/agents/elim-context-routes.json"
-        ],
-        "mismatched": [
-          "framework/AGENT_OPERATING_RULES.md",
-          "framework/FRAMEWORK.md",
-          "framework/GITHUB_WORKFLOW.md",
-          "framework/INTAKE_AGENT_PROCESS.md",
-          "framework/PROJECT_STRUCTURE.md",
-          "framework/agents/ELIM.md",
-          "framework/agents/RUN_COORDINATOR_BOT.md"
-        ],
-        "missing": [
-          "AGENTS.md",
-          "README.md",
-          "framework/CONTEXT_ROUTING.md",
-          "framework/INTERBRANCH_REVIEW_COVERAGE_MATRIX.md",
-          "framework/INTERBRANCH_REVIEW_FRAMEWORK.md",
-          "framework/PRINT_ASSEMBLY.md",
-          "framework/PROJECT_CONSOLE_PROGRESS.md",
-          "framework/PROJECT_INTERFACE.md",
-          "framework/PUBLIC_RELEASE.md",
-          "framework/REMEDY_FRAMEWORK.md",
-          "framework/agent-rules/audit-execution.md",
-          "framework/agent-rules/autonomous-execution.md",
-          "framework/agent-rules/context-and-research.md",
-          "framework/agent-rules/handoff.md",
-          "framework/agent-rules/issue-and-candidate-work.md",
-          "framework/agent-rules/multi-agent.md",
-          "framework/agent-rules/provenance-and-logging.md",
-          "framework/agent-rules/validation-and-closeout.md",
-          "framework/agents/CASE_MONITOR_BOT.md",
-          "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
-          "framework/agents/PROJECT_CONSOLE_PROGRESS_BOT.md",
-          "framework/agents/PROJECT_INTEGRITY_BOT.md",
-          "framework/agents/README.md",
-          "framework/agents/SOURCE_CHECKER_BOT.md",
-          "framework/audits/AUDIT_CORE.md",
-          "framework/audits/CHANGE_AUDITS.md",
-          "framework/audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md",
-          "framework/audits/PROJECT_CONSISTENCY_AUDITS.md",
-          "framework/audits/TIERED_AUDITS.md",
-          "framework/audits/VERIFICATION_PROTOCOL.md",
-          "framework/candidates/candidate-adjudication.md",
-          "framework/candidates/horizon-scanning.md",
-          "framework/context-routes.json",
-          "framework/evidence/annotation-and-source-standards.md",
-          "framework/evidence/evidence-records.md",
-          "framework/issues/issue-architecture.md",
-          "framework/lifecycle/development-levels.md",
-          "framework/lifecycle/foundation-and-development-gates.md",
-          "framework/methodology/neutrality-and-language.md",
-          "framework/methodology/partisan-perception-and-public-actors.md",
-          "framework/methodology/scope-and-admission.md",
-          "framework/navigation/inventory-and-indexes.md",
-          "framework/navigation/navigation-synchronization.md",
-          "framework/navigation/topic-guides.md",
-          "framework/operations/issue-development-check.md",
-          "framework/operations/project-update-checklist.md",
-          "framework/scoring/ADOPTION_AND_PATHWAY.md",
-          "framework/scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md",
-          "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
-          "framework/sources/automated-source-adjudication.md",
-          "framework/sources/presidential-directives.md",
-          "framework/sources/project-monitoring.md",
-          "framework/sources/source-catalogs.md"
-        ]
-      }
-    },
-    "usage": {
-      "hard_reserve_percent": 15,
-      "soft_run_target_percent": 10,
-      "remaining_percent": null,
-      "status": "unknown"
-    },
-    "next_action": "No Elim launch; wait for the next trigger.",
+    "chain_id": "host-dispatch-20260726T100402Z",
+    "stages": [],
+    "work_queue": null,
+    "context_packet": null,
     "action_items": [],
-    "completed_at": "2026-07-26T04:41:32+00:00",
-    "final_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-    "bots": [
+    "status": "failed",
+    "host_status": "failed",
+    "host_updated_at": "2026-07-26T10:04:02+00:00",
+    "updated_at": "2026-07-26T10:04:02+00:00",
+    "completed_at": "2026-07-26T10:04:02+00:00",
+    "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+    "failures": [
       {
-        "id": "case-monitor-bot",
-        "name": "case-monitor-bot",
-        "due": true,
-        "status": "completed",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "error": null
-      },
-      {
-        "id": "presidential-directives-bot",
-        "name": "presidential-directives-bot",
-        "due": true,
-        "status": "completed",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "error": null
-      },
-      {
-        "id": "source-checker-bot",
-        "name": "source-checker-bot",
-        "due": true,
-        "status": "completed",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "error": null
-      },
-      {
-        "id": "project-console-progress-bot",
-        "name": "project-console-progress-bot",
-        "due": true,
-        "status": "completed",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "error": null
-      },
-      {
-        "id": "project-integrity-bot",
-        "name": "project-integrity-bot",
-        "due": true,
-        "status": "completed",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "error": null
+        "stage": "host-repository-preflight",
+        "classification": "blocking",
+        "message": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/elim-dispatcher-state-repair instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "exit_code": 1,
+        "recorded_at": "2026-07-26T10:04:02+00:00"
       }
     ],
-    "work_queue": {
-      "path": "project-console-data:elim-work-queue.json",
-      "sha256": "sha256:42bb960a0617633efd262b929c104ffad510e232fc5968c25ae48449249d3ef7",
-      "ready_for_elim": true,
-      "launch_recommended": true,
-      "counts": {
-        "total": 155,
-        "elim_eligible": 155,
-        "human": 0,
-        "safety": 17,
-        "gap_obligations": 0,
-        "governance_discovery": 0
-      },
-      "problems": [],
-      "next_item": {
-        "schema_version": 1,
-        "id": "COMPREHENSIVE-REVIEW-77c96a30b077",
-        "kind": "comprehensive_review",
-        "work_class": "periodic_review",
-        "severity": "high",
-        "title": "Run the due comprehensive consistency review",
-        "owner": "agent",
-        "required_authority": "agent-within-runbook",
-        "exact_next_action": "Run the due comprehensive Review Epoch.",
-        "required_context_profile": "comprehensive_review",
-        "originating_stage": "review_epoch",
-        "source_identity": "epoch-arrp-20260726T043422Z",
-        "canonical_record_identity": "epoch-arrp-20260726T043422Z",
-        "dependencies": [
-          "review_epoch"
-        ],
-        "created_at": "2026-07-24T15:40:02+00:00",
-        "refreshed_at": "2026-07-26T04:41:32+00:00",
-        "eligible_for_elim": true,
-        "requires_human": false,
-        "eligibility_reason": "eligible under the selected runbook",
-        "blocking_reason": null,
-        "safety_class": 1,
-        "base_priority": 650,
-        "age_days": 1,
-        "fairness_boost": 1,
-        "priority_score": 651,
-        "selection_priority_score": 651,
-        "reason": "governing_boundary_changed",
-        "source": {
-          "input": "review_epoch",
-          "epoch_id": "epoch-arrp-20260726T043422Z",
-          "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
-          "next_due_at": "2026-08-07T15:40:02+00:00",
-          "due": true,
-          "due_reason": "governing_boundary_changed",
-          "boundary_changes": {
-            "extra": [
-              ".github/run-coordinator-bot.json",
-              "framework/agents/elim-context-routes.json"
-            ],
-            "mismatched": [
-              "framework/AGENT_OPERATING_RULES.md",
-              "framework/FRAMEWORK.md",
-              "framework/GITHUB_WORKFLOW.md",
-              "framework/INTAKE_AGENT_PROCESS.md",
-              "framework/PROJECT_STRUCTURE.md",
-              "framework/agents/ELIM.md",
-              "framework/agents/RUN_COORDINATOR_BOT.md"
-            ],
-            "missing": [
-              "AGENTS.md",
-              "README.md",
-              "framework/CONTEXT_ROUTING.md",
-              "framework/INTERBRANCH_REVIEW_COVERAGE_MATRIX.md",
-              "framework/INTERBRANCH_REVIEW_FRAMEWORK.md",
-              "framework/PRINT_ASSEMBLY.md",
-              "framework/PROJECT_CONSOLE_PROGRESS.md",
-              "framework/PROJECT_INTERFACE.md",
-              "framework/PUBLIC_RELEASE.md",
-              "framework/REMEDY_FRAMEWORK.md",
-              "framework/agent-rules/audit-execution.md",
-              "framework/agent-rules/autonomous-execution.md",
-              "framework/agent-rules/context-and-research.md",
-              "framework/agent-rules/handoff.md",
-              "framework/agent-rules/issue-and-candidate-work.md",
-              "framework/agent-rules/multi-agent.md",
-              "framework/agent-rules/provenance-and-logging.md",
-              "framework/agent-rules/validation-and-closeout.md",
-              "framework/agents/CASE_MONITOR_BOT.md",
-              "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
-              "framework/agents/PROJECT_CONSOLE_PROGRESS_BOT.md",
-              "framework/agents/PROJECT_INTEGRITY_BOT.md",
-              "framework/agents/README.md",
-              "framework/agents/SOURCE_CHECKER_BOT.md",
-              "framework/audits/AUDIT_CORE.md",
-              "framework/audits/CHANGE_AUDITS.md",
-              "framework/audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md",
-              "framework/audits/PROJECT_CONSISTENCY_AUDITS.md",
-              "framework/audits/TIERED_AUDITS.md",
-              "framework/audits/VERIFICATION_PROTOCOL.md",
-              "framework/candidates/candidate-adjudication.md",
-              "framework/candidates/horizon-scanning.md",
-              "framework/context-routes.json",
-              "framework/evidence/annotation-and-source-standards.md",
-              "framework/evidence/evidence-records.md",
-              "framework/issues/issue-architecture.md",
-              "framework/lifecycle/development-levels.md",
-              "framework/lifecycle/foundation-and-development-gates.md",
-              "framework/methodology/neutrality-and-language.md",
-              "framework/methodology/partisan-perception-and-public-actors.md",
-              "framework/methodology/scope-and-admission.md",
-              "framework/navigation/inventory-and-indexes.md",
-              "framework/navigation/navigation-synchronization.md",
-              "framework/navigation/topic-guides.md",
-              "framework/operations/issue-development-check.md",
-              "framework/operations/project-update-checklist.md",
-              "framework/scoring/ADOPTION_AND_PATHWAY.md",
-              "framework/scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md",
-              "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
-              "framework/sources/automated-source-adjudication.md",
-              "framework/sources/presidential-directives.md",
-              "framework/sources/project-monitoring.md",
-              "framework/sources/source-catalogs.md"
-            ]
-          },
-          "unresolved_ids": []
-        },
-        "source_revision": "179d8dbb5d6230e4cb709799be98f8532d0a21a7c79d252b54e84c3072bf5cad",
-        "freshness_timestamp": "2026-07-26T04:41:32+00:00",
-        "source_chain_id": "arrp-20260726T043422Z",
-        "source_commit": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-        "source_project_snapshot": "sha256:20f67246e4976b71221cb75f1c3c5d6ef6d76e07a1d1298e36e54935d6692ad7",
-        "source_input_hashes": {
-          "review_epoch": "sha256:179d8dbb5d6230e4cb709799be98f8532d0a21a7c79d252b54e84c3072bf5cad"
-        },
-        "retry_state": {
-          "state": "new",
-          "attempt_count": 0,
-          "continuation": null,
-          "next_retry_at": null
-        },
-        "recovery": null
-      },
-      "selected_work_item_id": "COMPREHENSIVE-REVIEW-77c96a30b077",
-      "governance_discovery": {
-        "mode": "Project governance review and discovery",
-        "ordinary_selection_policy": "after-ordinary-queue-clears",
-        "minimum_interval_hours": 168,
-        "selected_as_quiet_queue_fallback": false,
-        "ordinary_eligible_count_before_fallback": 155,
-        "last_review": null,
-        "next_due_at": null,
-        "current_for_cadence": false,
-        "waiting_for_ordinary_queue": true,
-        "reason": "Ordinary eligible work remains and is selected first."
-      },
-      "gap_obligations": [],
-      "user_overrides": {
-        "applied": [],
-        "unmatched": [],
-        "request_sha256": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
-      }
-    },
-    "context_packet": {
-      "path": "project-console-data:elim-context.json",
-      "sha256": "sha256:d49e35c001d0ed07ca70de86e68ef1128f6377641658e70af96093feb6033a25",
-      "profile": "comprehensive_review",
-      "work_item_id": "COMPREHENSIVE-REVIEW-77c96a30b077",
-      "issue_id": null,
-      "canonical_record": null,
-      "selection": {
-        "work_item_id": "COMPREHENSIVE-REVIEW-77c96a30b077",
-        "kind": "comprehensive_review",
-        "canonical_record": null
-      },
-      "repository_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-      "provenance_complete": true,
-      "limits": {
-        "max_bytes": 1000000,
-        "actual_bytes": 700336
-      }
-    },
     "host_action_items": [
       {
         "id": "automation-failure-daa8fd879c18d723a729",
@@ -5071,7 +677,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       {
         "id": "automation-failure-0eb33e10d9ebd209b591",
-        "chain_id": "arrp-20260725T110820Z",
+        "chain_id": "arrp-20260726T064933Z",
         "kind": "automation_failure",
         "owner": "human",
         "summary": "ARRP run chain requires attention.",
@@ -5080,7 +686,24 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "elim-isolated-checkout",
         "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": false,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "occurrence_count": 9,
+        "first_seen": "2026-07-25T11:17:54+00:00",
+        "last_seen": "2026-07-26T08:43:37+00:00",
+        "first_chain_id": "arrp-20260725T110820Z",
+        "last_chain_id": "arrp-20260726T064933Z",
+        "chain_ids": [
+          "arrp-20260725T110820Z",
+          "arrp-20260725T114639Z",
+          "arrp-20260725T201420Z",
+          "arrp-20260725T214010Z",
+          "arrp-20260725T224436Z",
+          "arrp-20260726T033003Z",
+          "arrp-20260726T041310Z",
+          "arrp-20260726T044932Z",
+          "arrp-20260726T064933Z"
+        ]
       },
       {
         "id": "automation-failure-971a1d67c2f71b23c470",
@@ -5093,20 +716,53 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "elim-isolated-checkout",
         "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
       },
       {
         "id": "automation-failure-5e4ce8945788af36c1da",
-        "chain_id": "host-dispatch-20260725T200854Z",
+        "chain_id": "host-dispatch-20260726T100402Z",
         "kind": "automation_failure",
         "owner": "human",
         "summary": "ARRP run chain requires attention.",
         "created_at": "2026-07-25T20:08:54+00:00",
         "failure_count": 1,
         "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-workspace-preflight instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/elim-dispatcher-state-repair instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": false,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "occurrence_count": 39,
+        "first_seen": "2026-07-25T20:08:54+00:00",
+        "last_seen": "2026-07-26T10:04:02+00:00",
+        "first_chain_id": "host-dispatch-20260725T200854Z",
+        "last_chain_id": "host-dispatch-20260726T100402Z",
+        "chain_ids": [
+          "host-dispatch-20260726T005931Z",
+          "host-dispatch-20260726T010932Z",
+          "host-dispatch-20260726T011932Z",
+          "host-dispatch-20260726T012933Z",
+          "host-dispatch-20260726T013935Z",
+          "host-dispatch-20260726T014936Z",
+          "host-dispatch-20260726T015936Z",
+          "host-dispatch-20260726T020937Z",
+          "host-dispatch-20260726T021938Z",
+          "host-dispatch-20260726T022939Z",
+          "host-dispatch-20260726T023939Z",
+          "host-dispatch-20260726T024940Z",
+          "host-dispatch-20260726T025941Z",
+          "host-dispatch-20260726T030941Z",
+          "host-dispatch-20260726T031942Z",
+          "host-dispatch-20260726T032943Z",
+          "host-dispatch-20260726T040952Z",
+          "host-dispatch-20260726T042958Z",
+          "host-dispatch-20260725T200854Z",
+          "host-dispatch-20260726T100402Z"
+        ]
       },
       {
         "id": "automation-failure-0cb740337952952e993c",
@@ -5119,7 +775,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "elim-isolated-checkout",
         "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
       },
       {
         "id": "automation-failure-62c0ca81696fa1ea1772",
@@ -5132,7 +793,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-1453943de7cf9e7bc65b",
@@ -5145,7 +811,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-76d15df5ce3b488efb2b",
@@ -5158,7 +829,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-b89607df4d8c20819d58",
@@ -5171,7 +847,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-43b7c75312eef6c0a248",
@@ -5184,7 +865,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "elim-isolated-checkout",
         "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
       },
       {
         "id": "automation-failure-6d28c3a80b5f16f09648",
@@ -5197,7 +883,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-d9bb2f2ab411f91c050a",
@@ -5210,7 +901,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-53d6cff484ca2b63b5eb",
@@ -5223,7 +919,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-bf29478fa4f9e899345a",
@@ -5236,7 +937,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "elim-isolated-checkout",
         "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
       },
       {
         "id": "automation-failure-66bc8d62a07f23ffdf75",
@@ -5249,7 +955,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-93a087525179e3761c26",
@@ -5262,7 +973,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-1013222a1feec565d1fb",
@@ -5275,7 +991,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-b130454f419fa41188a6",
@@ -5288,7 +1009,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-4bf691f155bcd449a12c",
@@ -5301,7 +1027,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-46f4f53cb5900d3940c4",
@@ -5314,7 +1045,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-deb31d9597b16b2f9643",
@@ -5327,7 +1063,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-c66fe5bbc78b322d60eb",
@@ -5340,7 +1081,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-03e6a59463ad469c60c1",
@@ -5353,7 +1099,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-ee653d9899eee360b57d",
@@ -5366,7 +1117,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-adf84171d785975289c8",
@@ -5379,7 +1135,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-6de12c9fdc51582ccb6d",
@@ -5392,7 +1153,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-d4b29947b3e12030b4f9",
@@ -5405,7 +1171,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-740a28512bc098a7a148",
@@ -5418,7 +1189,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-7d5ec797c439346759af",
@@ -5431,7 +1207,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-d9e5cf70a19d34b1ae47",
@@ -5444,7 +1225,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-3e9e2f9e60e1db6ea3ef",
@@ -5457,7 +1243,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-a477e24ca9134c002a0a",
@@ -5470,7 +1261,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-d1162666236a82f9f93a",
@@ -5483,7 +1279,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-385e426d01eb2ce4936d",
@@ -5496,7 +1297,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-f5b5fd35c5ecf05d0110",
@@ -5509,7 +1315,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-8cf34da613b869d7fe6b",
@@ -5522,7 +1333,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-c44e3b9b45a0b76f5309",
@@ -5535,7 +1351,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-cb8c1e4fd9557ac0059c",
@@ -5548,7 +1369,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-25c1ea4721d9f8a9f8fa",
@@ -5561,7 +1387,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-fdd78f2e20b0762704bd",
@@ -5574,7 +1405,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-ea5699470342782f4d49",
@@ -5587,7 +1423,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-canonical-regeneration instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-bc5d4c31187f4193ed69",
@@ -5600,7 +1441,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/pages-deploy-node24 instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-f11346748196105e1b4e",
@@ -5613,7 +1459,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "elim-isolated-checkout",
         "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
       },
       {
         "id": "automation-failure-8b0d923c5ae9f6c2df3f",
@@ -5626,7 +1477,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/update-pypdf-security instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
       },
       {
         "id": "automation-failure-0a52d28d47fb7cd1d8d2",
@@ -5639,7 +1495,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "elim-isolated-checkout",
         "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
       },
       {
         "id": "automation-failure-545f76e8f2a88440fe68",
@@ -5652,7 +1513,93 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "stage": "host-repository-preflight",
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-security-complete-regeneration instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-56e5d1b84839ba993540",
+        "chain_id": "arrp-20260726T044932Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T05:15:39+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-d08451c633223e2e030e",
+        "chain_id": "arrp-20260726T064933Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T08:43:37+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-1953ff6dff0fb53d0903",
+        "chain_id": "host-dispatch-20260726T095401Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T09:03:56+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical Git metadata contains noncanonical duplicate artifacts: .git/.DS_Store, .git/index 6. Preserve them outside .git, verify canonical refs and index, then retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": false,
+        "incident_fingerprint": "9fc268c731adbcda25d1",
+        "occurrence_count": 6,
+        "first_seen": "2026-07-26T09:03:56+00:00",
+        "last_seen": "2026-07-26T09:54:01+00:00",
+        "first_chain_id": "host-dispatch-20260726T090356Z",
+        "last_chain_id": "host-dispatch-20260726T095401Z",
+        "chain_ids": [
+          "host-dispatch-20260726T090356Z",
+          "host-dispatch-20260726T091357Z",
+          "host-dispatch-20260726T092358Z",
+          "host-dispatch-20260726T093359Z",
+          "host-dispatch-20260726T094400Z",
+          "host-dispatch-20260726T095401Z"
+        ]
+      },
+      {
+        "id": "automation-failure-6bc54c2203c87d61871d",
+        "chain_id": "host-dispatch-20260726T091357Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T09:13:57+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: could not refresh origin/main: fatal: bad object refs/heads/main 2\nerror: https://github.com/Thorncrag/ARRP.git did not send all necessary objects",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "7a27605a0510eb819e70",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-1953ff6dff0fb53d0903 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-1953ff6dff0fb53d0903"
       }
     ],
     "last_successful_stages": [
@@ -6018,39 +1965,35 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "id": "project-console-progress-bot",
         "order": 4,
         "workflow": ".github/workflows/project-console-progress.yml",
-        "due": true,
-        "due_reason": "forced",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-27T04:55:55+00:00",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
+        "completed_at": "2026-07-26T06:49:33+00:00",
+        "last_success_at": "2026-07-26T04:55:55+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:20f67246e4976b71221cb75f1c3c5d6ef6d76e07a1d1298e36e54935d6692ad7"
-        },
-        "work_count": 0
+        "details": "",
+        "output": null
       },
       {
         "id": "project-integrity-bot",
         "order": 6,
         "workflow": ".github/workflows/project-integrity.yml",
         "due": true,
-        "due_reason": "forced",
+        "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
+        "completed_at": "2026-07-26T06:56:10+00:00",
+        "last_success_at": "2026-07-26T06:56:10+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:bf76950283122d2ab817f0ed06ef9d917d65deeab35eaf600073a16561f1a4ee"
+          "sha256": "sha256:90f9ec000cc89045f1b23ffa94d98e4f8a80d53ec08ff3d30850bc1c7575eb01"
         },
         "work_count": 0
       },
@@ -6062,15 +2005,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
+        "completed_at": "2026-07-26T06:56:10+00:00",
+        "last_success_at": "2026-07-26T06:56:10+00:00",
         "retry_limit": 1,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:28e861a5cc8cc3925e72c94cbc2a5d9ff943386f2e0e00d73d229e5d0dcb2a0c"
+          "sha256": "sha256:cf5a5871a1b8d1cf6af9002558790586077d2c67bfe199481ea7d09ccd7e5806"
         },
         "work_count": 0
       },
@@ -6082,22 +2025,22 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "persistent watcher input schema is invalid",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
+        "completed_at": "2026-07-26T06:56:10+00:00",
+        "last_success_at": "2026-07-26T06:56:10+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:5729f04dffca26c57b5349407b7f3b9dad0f2a0577f7a990ade391677b50c6a9"
+          "sha256": "sha256:2f7b2fb44063e307bf10805ab27b782a404e09023202f9fc02b5e6b14834692a"
         },
         "work_count": 98,
         "attempt_key": "primary",
-        "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
+        "run_id": "github-actions:Thorncrag/ARRP:30191703134:1:primary",
         "domain_event": {
-          "id": "SDE-27BC0C51D9A59B1018F00352",
-          "sha256": "sha256:627d1d3e59cb225817bae86e34cf24c918dbdaba579e828a413ed80023a4d24e",
+          "id": "SDE-D82A0F9232ECA2CB6890222C",
+          "sha256": "sha256:4207476e3018e325c5832e713d76c98a7bb651e8af7484433c5baa82c948df21",
           "json": {
             "acceptance": null,
             "affected_records": [
@@ -6854,6 +2797,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "record_type": "source"
               },
               {
+                "record_id": "SRC-0598",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0601",
+                "record_type": "source"
+              },
+              {
                 "record_id": "SRC-0608",
                 "record_type": "source"
               },
@@ -6979,6 +2930,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               {
                 "record_id": "SRC-0744",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0747",
                 "record_type": "source"
               },
               {
@@ -9627,50 +5582,50 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               }
             ],
             "agent_id": "source-checker-bot",
-            "chain_id": "arrp-20260726T043422Z",
-            "event_id": "SDE-27BC0C51D9A59B1018F00352",
-            "idempotency_key": "sha256:27bc0c51d9a59b1018f00352e38c6781b775dab0c20827073e8375abcafba191",
+            "chain_id": "arrp-20260726T064933Z",
+            "event_id": "SDE-D82A0F9232ECA2CB6890222C",
+            "idempotency_key": "sha256:d82a0f9232eca2cb6890222cc565827a459772389f4d81a9bb9323731e9ee115",
             "kind": "source-domain-event",
             "output_hashes": {
               "files": [
                 {
-                  "bytes": 49910,
+                  "bytes": 50060,
                   "path": "framework/reports/SOURCE_CHECKER_REPORT.md",
-                  "sha256": "sha256:74115e8255a666f1f41f4de984d6d342af2a0fe35d1a8549d536dbb5008749e0"
+                  "sha256": "sha256:0e1596d21e13f03941ca68eaeed8fd73a946d7d7d17de6180b9a4fe82b0cc126"
                 }
               ],
-              "proposal_diff": "sha256:fdae9e37dd8e9c4b2de44e250389aa0e1d7df121848d33789dbc3a2a859e45f8",
-              "semantic_report": "sha256:35bbd10e59c7d2d7ef80f450ec64ff79edecd678dcf1aa931912af8c15de517f"
+              "proposal_diff": "sha256:3bc78f8362113444da6e006165b48f772468d1767cde9249820800edce416506",
+              "semantic_report": "sha256:8bc629297038e6567c612a54f38cd16d3b4afcf21c91fcbc1e3d94131a97bbcf"
             },
             "proposal": {
               "base_ref": "main",
               "head_ref": "bot/source-checker-report",
-              "proposal_revision": "edc7b7da0cc02f48248c08a44613b9ba9fc335cc",
+              "proposal_revision": "9e930e7bce07c9ce388660a82bb42b3654965b18",
               "pull_request_number": 378,
               "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/378",
               "repository": "Thorncrag/ARRP"
             },
-            "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
+            "run_id": "github-actions:Thorncrag/ARRP:30191703134:1:primary",
             "schema_uri": ".github/source-domain-event.schema.json",
             "schema_version": 1,
-            "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+            "source_revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
             "state": "proposed",
             "summary": {
-              "affected_record_count": 881,
+              "affected_record_count": 884,
               "counts": {
                 "affected-files": 1,
-                "affected-records": 881,
-                "source-records": 881
+                "affected-records": 884,
+                "source-records": 884
               },
               "status": "source checker proposal delta"
             },
-            "trigger": "push"
+            "trigger": "schedule"
           }
         }
       }
     ]
   },
   "domain_generation": {
-    "automation.js": "project-console-2114123acf7ea826027d"
+    "automation.js": "project-console-3e4857ba9d39384e87d9"
   }
 });

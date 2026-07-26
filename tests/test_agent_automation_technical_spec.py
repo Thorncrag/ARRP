@@ -131,6 +131,7 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
             )
             page_text = [page.extract_text() or "" for page in reader.pages]
             content = "\n".join(page_text)
+            normalized_content = " ".join(content.split())
             self.assertIn("NON-AUTHORITATIVE REFERENCE PRODUCT", content)
             self.assertIn("Due-aware persistent run chain", content)
             self.assertIn(
@@ -155,7 +156,11 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
             )
             self.assertIn(
                 "automatically commits and fast-forward pushes ordinary uncommitted paths",
-                content,
+                normalized_content,
+            )
+            self.assertIn(
+                "quarantines only tightly allowlisted Finder-style duplicate Git metadata",
+                normalized_content,
             )
             self.assertNotIn("Public stage outcomes and recovery routing", content)
             self.assertIn("15 percent is the absolute protected user reserve", content)

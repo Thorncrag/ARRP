@@ -154,12 +154,14 @@ NONMATERIAL_RESULT_PATHS = frozenset(
 SAFE_CHAIN_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
 AUTOMATION_RUNTIME_PATHS = (
     ".github/run-coordinator-bot.json",
+    ".github/workflows/automation-health-projection.yml",
     "framework/agent-rules/autonomous-execution.md",
     "framework/agents/ELIM.md",
     "framework/agents/RUN_COORDINATOR_BOT.md",
     "framework/agents/elim-work-unit-result.schema.json",
     "framework/context-routes.json",
     "scripts/arrp_context.py",
+    "scripts/build_automation_health_projection.py",
     "scripts/build_elim_context.py",
     "scripts/build_elim_work_queue.py",
     "scripts/check_codex_usage_reserve.py",
@@ -168,6 +170,7 @@ AUTOMATION_RUNTIME_PATHS = (
     "scripts/run_chain_dispatcher.py",
     "scripts/run_coordinator.py",
     "scripts/run_coordinator_control.py",
+    "scripts/publish_project_console_progress.py",
     "scripts/select_elim_context_route.py",
     "scripts/source_monitor_recommendations.py",
 )
@@ -200,6 +203,18 @@ CANONICAL_WORKSPACE_RECONCILIATION_POLICY = {
     "commitMessage": "Preserve local ARRP changes before automated run",
     "requireConflictFree": True,
     "requireStagedDiffCheck": True,
+    "foreignGitMetadataAction": "quarantine-allowlisted-preserve-and-verify",
+    "foreignGitMetadataArchive": (
+        ".tmp/run-coordinator/reconciled-git-metadata"
+    ),
+    "maximumForeignGitMetadataPasses": 3,
+    "foreignWorkspaceCopyAction": (
+        "quarantine-numbered-copy-with-tracked-sibling"
+    ),
+    "foreignWorkspaceCopyArchive": (
+        ".tmp/run-coordinator/reconciled-worktree-duplicates"
+    ),
+    "maximumForeignWorkspaceCopyPasses": 3,
     "divergentHistoryAction": "fail-closed",
 }
 GAP_STEWARDSHIP_POLICY = {
@@ -210,6 +225,22 @@ GAP_STEWARDSHIP_POLICY = {
     "maximumObligations": 512,
     "closureProofRequired": True,
     "outsideContributionExactRevisionRequired": True,
+}
+HOST_STATUS_PROJECTION_POLICY = {
+    "enabled": True,
+    "eventType": "arrp-host-status",
+    "dataBranch": "project-console-data",
+    "path": "host-status.json",
+    "maximumIncidents": 20,
+    "minimumRepeatIntervalSeconds": 1800,
+}
+AUTOMATION_HEALTH_PROJECTION_POLICY = {
+    "enabled": True,
+    "workflow": "run-coordinator-bot.yml",
+    "dataBranch": "project-console-data",
+    "path": "automation-health.json",
+    "watchdogCron": "47 10 * * *",
+    "maximumScheduledRunAgeHours": 18,
 }
 
 
@@ -298,10 +329,26 @@ def merge_control_states(
         item_id = str(item["id"])
         if item_id not in item_order:
             item_order.append(item_id)
-        proposed_items[item_id] = {
-            **proposed_items.get(item_id, {}),
-            **item,
-        }
+        proposed_item = proposed_items.get(item_id)
+        if proposed_item is None:
+            proposed_items[item_id] = dict(item)
+            continue
+        # Dispatcher-owned incident counters and timestamps may advance between
+        # locked writes, so the proposed update ordinarily wins. A concurrent
+        # human resolution is the exception: once the latest locked state marks
+        # an item resolved, stale dispatcher state may not reopen it.
+        combined = {**item, **proposed_item}
+        if item.get("resolved") is True and proposed_item.get("resolved") is not True:
+            combined["resolved"] = True
+            for key in (
+                "resolved_at",
+                "resolved_by",
+                "resolution_reason",
+                "resolution_request_id",
+            ):
+                if key in item:
+                    combined[key] = item[key]
+        proposed_items[item_id] = combined
     merged["action_items"] = [proposed_items[item_id] for item_id in item_order]
 
     history_rows: dict[str, dict[str, Any]] = {}
@@ -1766,6 +1813,19 @@ def validate_host_closeout_policy(config: dict[str, Any]) -> None:
             "configured gap-stewardship policy differs from the reviewed "
             "closed-loop obligation boundary"
         )
+    if config.get("hostStatusProjection") != HOST_STATUS_PROJECTION_POLICY:
+        raise RuntimeError(
+            "configured host-status projection differs from the reviewed "
+            "failure-observability boundary"
+        )
+    if (
+        config.get("automationHealthProjection")
+        != AUTOMATION_HEALTH_PROJECTION_POLICY
+    ):
+        raise RuntimeError(
+            "configured automation-health projection differs from the reviewed "
+            "cloud-watchdog boundary"
+        )
     discovery = config.get("governanceDiscovery")
     if discovery != {
         "enabled": True,
@@ -1777,6 +1837,229 @@ def validate_host_closeout_policy(config: dict[str, Any]) -> None:
             "configured governance-discovery fallback differs from the reviewed "
             "quiet-queue boundary"
         )
+
+
+def automation_incident_kind(details: str | None) -> str:
+    normalized_details = " ".join(str(details or "Unclassified automation failure.").split())
+    if (
+        "canonical ARRP workspace is not reconciled with GitHub: current branch is "
+        in normalized_details
+        and " instead of main" in normalized_details
+    ):
+        incident_kind = "canonical-workspace-not-main"
+    elif "ARRP working tree is not clean" in normalized_details:
+        incident_kind = "canonical-workspace-dirty"
+    elif "host automation runtime differs from reviewed origin/main" in normalized_details:
+        incident_kind = "host-runtime-drift"
+    elif (
+        "canonical Git metadata contains noncanonical duplicate artifacts"
+        in normalized_details
+        or "bad object refs/heads/" in normalized_details
+        or "badRefName" in normalized_details
+    ):
+        incident_kind = "canonical-git-metadata-foreign-artifact"
+    elif (
+        "numbered canonical-workspace" in normalized_details
+        or "workspace-copy quarantine" in normalized_details
+        or "numbered conflict copies" in normalized_details
+    ):
+        incident_kind = "canonical-workspace-conflict-copy"
+    elif (
+        "isolated Elim checkout contains a prior unsynchronized baseline"
+        in normalized_details
+    ):
+        incident_kind = "isolated-checkout-unverified-baseline"
+    elif "another host dispatcher owns the run-chain lock" in normalized_details:
+        incident_kind = "host-dispatcher-lock-owned"
+    else:
+        incident_kind = normalized_details
+    return incident_kind
+
+
+def automation_incident_fingerprint(
+    stage: str | None,
+    details: str | None,
+) -> str:
+    normalized_stage = " ".join(str(stage or "run-coordinator").split())
+    incident_kind = automation_incident_kind(details)
+    material = json.dumps(
+        {"stage": normalized_stage, "incident": incident_kind},
+        sort_keys=True,
+    )
+    return hashlib.sha256(material.encode()).hexdigest()[:20]
+
+
+def _incident_chain_ids(item: dict[str, Any]) -> list[str]:
+    values = [
+        *(item.get("chain_ids") or []),
+        item.get("first_chain_id"),
+        item.get("chain_id"),
+        item.get("last_chain_id"),
+    ]
+    result: list[str] = []
+    for value in values:
+        text = str(value or "").strip()
+        if text and text not in result:
+            result.append(text)
+    return result[-20:]
+
+
+def consolidate_automation_failure_items(
+    control: dict[str, Any],
+    *,
+    recorded_at: str | None = None,
+) -> bool:
+    """Collapse repeated unresolved failures without erasing their provenance."""
+    items = control.get("action_items") or []
+    if not isinstance(items, list):
+        raise RuntimeError("coordinator action items are malformed")
+    groups: dict[str, list[dict[str, Any]]] = {}
+    changed = False
+    for item in items:
+        if (
+            not isinstance(item, dict)
+            or item.get("kind") != "automation_failure"
+            or item.get("resolved") is True
+        ):
+            continue
+        fingerprint = automation_incident_fingerprint(
+            str(item.get("stage") or ""),
+            str(item.get("details") or ""),
+        )
+        if item.get("incident_fingerprint") != fingerprint:
+            item["incident_fingerprint"] = fingerprint
+            changed = True
+        groups.setdefault(fingerprint, []).append(item)
+
+    consolidated_at = recorded_at or datetime.now(timezone.utc).replace(
+        microsecond=0
+    ).isoformat()
+    history = control.setdefault("action_item_history", [])
+    if not isinstance(history, list):
+        raise RuntimeError("coordinator action-item history is malformed")
+    for fingerprint, group in groups.items():
+        if len(group) < 2:
+            item = group[0]
+            if "occurrence_count" not in item:
+                item["occurrence_count"] = 1
+                item["first_seen"] = item.get("created_at")
+                item["last_seen"] = item.get("created_at")
+                item["first_chain_id"] = item.get("chain_id")
+                item["last_chain_id"] = item.get("chain_id")
+                item["chain_ids"] = _incident_chain_ids(item)
+                changed = True
+            continue
+        ordered = sorted(
+            group,
+            key=lambda item: (
+                str(item.get("created_at") or ""),
+                str(item.get("id") or ""),
+            ),
+        )
+        keeper = ordered[0]
+        latest = ordered[-1]
+        chain_ids: list[str] = []
+        occurrence_count = 0
+        for item in ordered:
+            occurrence = item.get("occurrence_count", 1)
+            occurrence_count += (
+                int(occurrence)
+                if isinstance(occurrence, int)
+                and not isinstance(occurrence, bool)
+                and occurrence > 0
+                else 1
+            )
+            for chain_id in _incident_chain_ids(item):
+                if chain_id not in chain_ids:
+                    chain_ids.append(chain_id)
+        keeper.update(
+            {
+                "incident_fingerprint": fingerprint,
+                "occurrence_count": occurrence_count,
+                "first_seen": keeper.get("first_seen") or keeper.get("created_at"),
+                "last_seen": latest.get("last_seen") or latest.get("created_at"),
+                "first_chain_id": (
+                    keeper.get("first_chain_id") or keeper.get("chain_id")
+                ),
+                "last_chain_id": (
+                    latest.get("last_chain_id") or latest.get("chain_id")
+                ),
+                "chain_id": latest.get("chain_id"),
+                "chain_ids": chain_ids[-20:],
+                "details": latest.get("details"),
+                "next_action": latest.get("next_action"),
+            }
+        )
+        for duplicate in ordered[1:]:
+            duplicate["resolved"] = True
+            duplicate["resolved_at"] = consolidated_at
+            duplicate["resolved_by"] = "dispatcher-incident-consolidation"
+            duplicate["resolution_reason"] = (
+                "Consolidated into continuing automation incident "
+                f"{keeper.get('id')} without discarding its chain provenance."
+            )
+            duplicate["superseded_by"] = keeper.get("id")
+            history.append(
+                {
+                    "action_item_id": duplicate.get("id"),
+                    "event": "consolidated",
+                    "recorded_at": consolidated_at,
+                    "source": "dispatcher-incident-consolidation",
+                    "reason": duplicate["resolution_reason"],
+                    "incident_fingerprint": fingerprint,
+                    "superseded_by": keeper.get("id"),
+                }
+            )
+        changed = True
+    if changed:
+        control["action_item_history"] = history[-500:]
+    return changed
+
+
+def resolve_observed_automation_incidents(
+    control: dict[str, Any],
+    *,
+    incident_kinds: set[str],
+    evidence: str,
+    recorded_at: str | None = None,
+) -> int:
+    """Resolve only failures whose exact prerequisite is now machine-proven."""
+    items = control.get("action_items") or []
+    if not isinstance(items, list):
+        raise RuntimeError("coordinator action items are malformed")
+    history = control.setdefault("action_item_history", [])
+    if not isinstance(history, list):
+        raise RuntimeError("coordinator action-item history is malformed")
+    resolved_at = recorded_at or datetime.now(timezone.utc).replace(
+        microsecond=0
+    ).isoformat()
+    resolved = 0
+    for item in items:
+        if (
+            not isinstance(item, dict)
+            or item.get("kind") != "automation_failure"
+            or item.get("resolved") is True
+            or automation_incident_kind(item.get("details")) not in incident_kinds
+        ):
+            continue
+        item["resolved"] = True
+        item["resolved_at"] = resolved_at
+        item["resolved_by"] = "dispatcher-health-proof"
+        item["resolution_reason"] = evidence
+        history.append(
+            {
+                "action_item_id": item.get("id"),
+                "event": "resolved",
+                "recorded_at": resolved_at,
+                "source": "dispatcher-health-proof",
+                "reason": evidence,
+                "incident_fingerprint": item.get("incident_fingerprint"),
+            }
+        )
+        resolved += 1
+    if resolved:
+        control["action_item_history"] = history[-500:]
+    return resolved
 
 
 def alert_failures(
@@ -1791,41 +2074,113 @@ def alert_failures(
     control["action_items"] = action_items
     if not failures and not problems and manifest.get("status") != "blocked":
         return False
-    material = json.dumps(
+    stage = (
+        failures[-1].get("stage")
+        if failures and isinstance(failures[-1], dict)
+        else "run-coordinator"
+    )
+    details = (
+        failures[-1].get("message")
+        if failures and isinstance(failures[-1], dict)
+        else "; ".join(str(problem) for problem in problems)
+    )
+    fingerprint = automation_incident_fingerprint(
+        str(stage or ""),
+        str(details or ""),
+    )
+    chain_id = str(manifest.get("chain_id") or "")
+    observed_at = str(
+        manifest.get("updated_at")
+        or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    )
+    for existing in action_items:
+        if (
+            not isinstance(existing, dict)
+            or existing.get("kind") != "automation_failure"
+            or existing.get("resolved") is True
+        ):
+            continue
+        existing_fingerprint = str(
+            existing.get("incident_fingerprint")
+            or automation_incident_fingerprint(
+                str(existing.get("stage") or ""),
+                str(existing.get("details") or ""),
+            )
+        )
+        if existing_fingerprint != fingerprint:
+            continue
+        chain_ids = _incident_chain_ids(existing)
+        if chain_id and chain_id in chain_ids:
+            return False
+        if chain_id:
+            chain_ids.append(chain_id)
+        occurrence = existing.get("occurrence_count", 1)
+        existing.update(
+            {
+                "incident_fingerprint": fingerprint,
+                "chain_id": chain_id or existing.get("chain_id"),
+                "last_chain_id": chain_id or existing.get("last_chain_id"),
+                "chain_ids": chain_ids[-20:],
+                "last_seen": observed_at,
+                "occurrence_count": (
+                    int(occurrence) + 1
+                    if isinstance(occurrence, int)
+                    and not isinstance(occurrence, bool)
+                    and occurrence > 0
+                    else 2
+                ),
+                "failure_count": len(failures) + len(problems),
+                "details": details,
+                "next_action": manifest.get("next_action"),
+            }
+        )
+        control["alert_fingerprints"] = [
+            *[
+                value
+                for value in control.get("alert_fingerprints") or []
+                if str(value) != fingerprint
+            ],
+            fingerprint,
+        ][-100:]
+        return True
+    event_material = json.dumps(
         {
-            "chain_id": manifest.get("chain_id"),
-            "failures": failures,
-            "problems": problems,
+            "incident_fingerprint": fingerprint,
+            "chain_id": chain_id,
+            "observed_at": observed_at,
         },
         sort_keys=True,
     )
-    fingerprint = hashlib.sha256(material.encode()).hexdigest()[:20]
-    seen = set(control.get("alert_fingerprints") or [])
-    if fingerprint in seen:
-        return False
+    item_fingerprint = hashlib.sha256(event_material.encode()).hexdigest()[:20]
     item = {
-        "id": "automation-failure-" + fingerprint,
+        "id": "automation-failure-" + item_fingerprint,
+        "incident_fingerprint": fingerprint,
         "chain_id": manifest.get("chain_id"),
+        "first_chain_id": manifest.get("chain_id"),
+        "last_chain_id": manifest.get("chain_id"),
+        "chain_ids": [manifest.get("chain_id")] if manifest.get("chain_id") else [],
         "kind": "automation_failure",
         "owner": "human",
         "summary": "ARRP run chain requires attention.",
-        "created_at": manifest.get("updated_at"),
+        "created_at": observed_at,
+        "first_seen": observed_at,
+        "last_seen": observed_at,
+        "occurrence_count": 1,
         "failure_count": len(failures) + len(problems),
-        "stage": (
-            failures[-1].get("stage")
-            if failures and isinstance(failures[-1], dict)
-            else "run-coordinator"
-        ),
-        "details": (
-            failures[-1].get("message")
-            if failures and isinstance(failures[-1], dict)
-            else "; ".join(str(problem) for problem in problems)
-        ),
+        "stage": stage,
+        "details": details,
         "next_action": manifest.get("next_action"),
         "resolved": False,
     }
     control.setdefault("action_items", []).append(item)
-    control["alert_fingerprints"] = [*sorted(seen), fingerprint][-100:]
+    control["alert_fingerprints"] = [
+        *[
+            value
+            for value in control.get("alert_fingerprints") or []
+            if str(value) != fingerprint
+        ],
+        fingerprint,
+    ][-100:]
     try:
         notification = executable(config, "notificationPath")
         notified = command(
@@ -1896,6 +2251,250 @@ def append_host_outcome_history(
     )
 
 
+def compact_host_action_items(
+    control: dict[str, Any],
+    *,
+    limit: int,
+) -> list[dict[str, Any]]:
+    items = [
+        item
+        for item in control.get("action_items") or []
+        if isinstance(item, dict) and item.get("resolved") is not True
+    ]
+    items.sort(
+        key=lambda item: str(
+            item.get("last_seen") or item.get("created_at") or ""
+        )
+    )
+    fields = (
+        "id",
+        "incident_fingerprint",
+        "chain_id",
+        "first_chain_id",
+        "last_chain_id",
+        "chain_ids",
+        "kind",
+        "owner",
+        "summary",
+        "stage",
+        "details",
+        "next_action",
+        "created_at",
+        "first_seen",
+        "last_seen",
+        "occurrence_count",
+        "failure_count",
+        "resolved",
+    )
+    return [
+        {
+            key: (
+                " ".join(str(item[key]).split())[:2000]
+                if key in {"details", "next_action", "summary"}
+                else item[key]
+            )
+            for key in fields
+            if key in item
+        }
+        for item in items[-limit:]
+    ]
+
+
+def build_host_status_projection(
+    config: dict[str, Any],
+    control: dict[str, Any],
+    *,
+    chain_id: str,
+    status: str,
+    stage: str,
+    message: str,
+    next_action: str,
+    exit_code: int,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    policy = config.get("hostStatusProjection") or {}
+    maximum = policy.get("maximumIncidents")
+    if isinstance(maximum, bool) or not isinstance(maximum, int) or maximum < 1:
+        raise RuntimeError("host-status incident limit is invalid")
+    value = payload if isinstance(payload, dict) else {}
+    selected = ((value.get("work_queue") or {}).get("next_item") or {})
+    usage = value.get("usage") or {}
+    updated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    projection: dict[str, Any] = {
+        "schema_version": 1,
+        "projection_kind": "host-run-status",
+        "chain_id": str(chain_id),
+        "host_status": str(status),
+        "status": str(status),
+        "host_updated_at": updated_at,
+        "updated_at": updated_at,
+        "stage": str(stage),
+        "message": " ".join(str(message).split())[:2000],
+        "next_action": " ".join(str(next_action).split())[:2000],
+        "exit_code": int(exit_code),
+        "source_revision": (
+            str(value.get("final_revision") or value.get("baseline_commit") or "")
+            or None
+        ),
+        "cloud_status": (
+            str(value.get("cloud_status") or "") or None
+        ),
+        "work_item_id": (
+            str(selected.get("id") or "") or None
+            if isinstance(selected, dict)
+            else None
+        ),
+        "usage_status": str(usage.get("status") or "") or None,
+        "host_action_items": compact_host_action_items(
+            control,
+            limit=maximum,
+        ),
+    }
+    runtime = value.get("elim_runtime") or control.get("elim_runtime")
+    if (
+        isinstance(runtime, dict)
+        and str(runtime.get("chain_id") or "") == str(chain_id)
+    ):
+        projection["elim_runtime"] = runtime
+    return projection
+
+
+def dispatch_host_status_projection(
+    config: dict[str, Any],
+    control: dict[str, Any],
+    repo: Path,
+    projection: dict[str, Any],
+    *,
+    force: bool = False,
+) -> bool:
+    """Dispatch a bounded status event without depending on Console generation."""
+    policy = config.get("hostStatusProjection") or {}
+    if policy.get("enabled") is not True:
+        return False
+    now_value = str(projection.get("host_updated_at") or projection.get("updated_at"))
+    incident = automation_incident_fingerprint(
+        str(projection.get("stage") or ""),
+        str(projection.get("message") or ""),
+    )
+    prior = (
+        control.get("host_status_projection")
+        if isinstance(control.get("host_status_projection"), dict)
+        else {}
+    )
+    repeat_seconds = policy.get("minimumRepeatIntervalSeconds")
+    if (
+        not force
+        and isinstance(repeat_seconds, int)
+        and not isinstance(repeat_seconds, bool)
+        and repeat_seconds > 0
+        and prior.get("incident_fingerprint") == incident
+        and prior.get("status") == projection.get("host_status")
+        and prior.get("last_chain_id") == projection.get("chain_id")
+    ):
+        try:
+            prior_at = datetime.fromisoformat(
+                str(prior.get("dispatched_at") or "").replace("Z", "+00:00")
+            )
+            current_at = datetime.fromisoformat(now_value.replace("Z", "+00:00"))
+            if (current_at - prior_at).total_seconds() < repeat_seconds:
+                control["host_status_projection"] = {
+                    **prior,
+                    "last_observed_at": now_value,
+                    "last_chain_id": projection.get("chain_id"),
+                    "repeat_suppressed": True,
+                }
+                return False
+        except ValueError:
+            pass
+    body = {
+        "event_type": policy.get("eventType"),
+        "client_payload": {"status": projection},
+    }
+    try:
+        github = executable(config, "githubCliPath")
+        dispatched = command(
+            [
+                github,
+                "api",
+                "--method",
+                "POST",
+                f"repos/{config['repository']}/dispatches",
+                "--input",
+                "-",
+            ],
+            cwd=repo,
+            stdin=json.dumps(body),
+        )
+        if dispatched.returncode != 0:
+            raise RuntimeError(
+                dispatched.stderr.strip()
+                or "GitHub rejected the host-status dispatch"
+            )
+    except (KeyError, OSError, RuntimeError, TypeError, ValueError) as exc:
+        control["host_status_projection"] = {
+            **prior,
+            "status": "dispatch-failed",
+            "failed_at": now_value,
+            "last_observed_at": now_value,
+            "last_chain_id": projection.get("chain_id"),
+            "incident_fingerprint": incident,
+            "error": " ".join(str(exc).split())[:1000],
+        }
+        return False
+    control["host_status_projection"] = {
+        "status": projection.get("host_status"),
+        "dispatched_at": now_value,
+        "last_observed_at": now_value,
+        "chain_id": projection.get("chain_id"),
+        "last_chain_id": projection.get("chain_id"),
+        "incident_fingerprint": incident,
+        "repeat_suppressed": False,
+    }
+    return True
+
+
+def project_current_host_status(
+    config: dict[str, Any],
+    control: dict[str, Any],
+    repo: Path,
+    payload: dict[str, Any],
+    *,
+    status: str,
+    stage: str,
+    message: str,
+    next_action: str,
+    exit_code: int = 0,
+    force: bool = False,
+) -> bool:
+    updated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    payload["host_status"] = status
+    payload["host_updated_at"] = updated_at
+    payload["host_action_items"] = list(control.get("action_items") or [])
+    write_json(
+        repo / config["manifest"]["localFallback"],
+        payload,
+        root=repo,
+    )
+    projection = build_host_status_projection(
+        config,
+        control,
+        chain_id=str(payload.get("chain_id") or ""),
+        status=status,
+        stage=stage,
+        message=message,
+        next_action=next_action,
+        exit_code=exit_code,
+        payload=payload,
+    )
+    return dispatch_host_status_projection(
+        config,
+        control,
+        repo,
+        projection,
+        force=force,
+    )
+
+
 def record_terminal_failure(
     config: dict[str, Any],
     control: dict[str, Any],
@@ -1931,7 +2530,12 @@ def record_terminal_failure(
     )
     projection["schema_version"] = 1
     projection["chain_id"] = resolved_chain_id
+    cloud_status = projection.get("cloud_status") or projection.get("status")
     projection["status"] = "failed"
+    projection["host_status"] = "failed"
+    projection["host_updated_at"] = recorded_at
+    if cloud_status:
+        projection["cloud_status"] = cloud_status
     projection["updated_at"] = recorded_at
     projection["completed_at"] = recorded_at
     projection["next_action"] = next_action
@@ -1956,6 +2560,7 @@ def record_terminal_failure(
     control["last_failed_exit_code"] = exit_code
     control["last_failed_reason"] = message
     control["updated_at"] = recorded_at
+    consolidate_automation_failure_items(control, recorded_at=recorded_at)
     alert_failures(config, control, projection, repo)
     projection["host_action_items"] = list(control.get("action_items") or [])
     write_json(fallback_path, projection, root=repo)
@@ -1968,6 +2573,23 @@ def record_terminal_failure(
         exit_code=exit_code,
         payload=projection,
     )
+    host_projection = build_host_status_projection(
+        config,
+        control,
+        chain_id=resolved_chain_id,
+        status="failed",
+        stage=stage,
+        message=message,
+        next_action=next_action,
+        exit_code=exit_code,
+        payload=projection,
+    )
+    dispatch_host_status_projection(
+        config,
+        control,
+        repo,
+        host_projection,
+    )
     if control_path is not None:
         persist_control_state(control_path, control, repo=repo)
     return projection
@@ -1979,7 +2601,9 @@ def bootstrap_failure_config(repo: Path) -> dict[str, Any]:
         "hostDispatcher": {
             "repositoryPath": str(repo),
             "notificationPath": EXECUTABLES["notificationPath"],
+            "githubCliPath": EXECUTABLES["githubCliPath"],
         },
+        "hostStatusProjection": HOST_STATUS_PROJECTION_POLICY,
         "manifest": {
             "localFallback": ".tmp/run-chain.json",
             "historyLimit": 24,
@@ -2919,9 +3543,406 @@ def host_preserve_elim_result(
     return host_result
 
 
+def git_metadata_foreign_artifacts(repo: Path) -> list[str]:
+    """Identify Finder-style files that Git can misread as refs or indexes."""
+    git_directory = contained_path(repo / ".git", repo)
+    if not git_directory.is_dir():
+        raise RuntimeError("canonical ARRP workspace has no full Git directory")
+    duplicate_root = re.compile(
+        r"^(?:HEAD|config|index|packed-refs) [2-9][0-9]*$"
+    )
+    findings: list[str] = []
+    for entry in git_directory.iterdir():
+        if (
+            entry.is_file()
+            and (
+                entry.name == ".DS_Store"
+                or duplicate_root.fullmatch(entry.name) is not None
+            )
+        ):
+            findings.append(repo_relative(entry, repo))
+    refs = contained_path(git_directory / "refs", repo)
+    if refs.is_dir():
+        duplicate_ref = re.compile(r"^.+ [2-9][0-9]*$")
+        for entry in refs.rglob("*"):
+            if (
+                entry.is_file()
+                and (
+                    entry.name == ".DS_Store"
+                    or duplicate_ref.fullmatch(entry.name) is not None
+                )
+            ):
+                findings.append(repo_relative(entry, repo))
+    return sorted(set(findings))
+
+
+def quarantine_git_metadata_foreign_artifacts(
+    git: str,
+    repo: Path,
+    *,
+    control: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    """Preserve tightly allowlisted foreign Git metadata outside ``.git``."""
+    maximum_passes = int(
+        CANONICAL_WORKSPACE_RECONCILIATION_POLICY[
+            "maximumForeignGitMetadataPasses"
+        ]
+    )
+    archive_root = contained_path(
+        repo
+        / str(
+            CANONICAL_WORKSPACE_RECONCILIATION_POLICY[
+                "foreignGitMetadataArchive"
+            ]
+        ),
+        repo,
+    )
+    records: list[dict[str, Any]] = []
+    for _pass_number in range(1, maximum_passes + 1):
+        findings = git_metadata_foreign_artifacts(repo)
+        if not findings:
+            break
+        ignored = command(
+            [
+                git,
+                "check-ignore",
+                "-q",
+                "--",
+                repo_relative(archive_root, repo),
+            ],
+            cwd=repo,
+        )
+        if ignored.returncode != 0:
+            raise RuntimeError(
+                "foreign Git metadata quarantine directory is not excluded "
+                "from repository tracking"
+            )
+        quarantined_at = datetime.now(timezone.utc)
+        archive_key = (
+            quarantined_at.strftime("%Y%m%dT%H%M%S%fZ")
+            + "-"
+            + secrets.token_hex(4)
+        )
+        archive_path = contained_path(archive_root / archive_key, repo)
+        if archive_path.exists():
+            raise RuntimeError(
+                "foreign Git metadata quarantine path already exists"
+            )
+        entries: list[dict[str, Any]] = []
+        for relative in findings:
+            if not relative.startswith(".git/"):
+                raise RuntimeError(
+                    "foreign Git metadata detector returned an unsafe path"
+                )
+            source = contained_path(repo / relative, repo)
+            if source.is_symlink() or not source.is_file():
+                raise RuntimeError(
+                    "foreign Git metadata changed before quarantine: "
+                    + relative
+                )
+            body = source.read_bytes()
+            destination = contained_path(archive_path / relative, repo)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            source.replace(destination)
+            entries.append(
+                {
+                    "original_path": relative,
+                    "archive_path": repo_relative(destination, repo),
+                    "sha256": hashlib.sha256(body).hexdigest(),
+                    "size_bytes": len(body),
+                }
+            )
+        record = {
+            "quarantined_at": quarantined_at.isoformat(),
+            "archive_path": repo_relative(archive_path, repo),
+            "reason": (
+                "Tightly allowlisted Finder-style foreign files were moved "
+                "intact outside canonical Git metadata before Git operations."
+            ),
+            "entries": entries,
+        }
+        write_json(
+            archive_path / "quarantine-record.json",
+            record,
+            root=repo,
+        )
+        records.append(record)
+
+    remaining = git_metadata_foreign_artifacts(repo)
+    if remaining:
+        raise RuntimeError(
+            "canonical Git metadata repeatedly regenerated noncanonical "
+            "artifacts during bounded quarantine: "
+            + ", ".join(remaining)
+        )
+    if records:
+        refs = command(
+            [git, "for-each-ref", "--format=%(refname)"],
+            cwd=repo,
+        )
+        if refs.returncode != 0:
+            raise RuntimeError(
+                "canonical refs remain invalid after preserving foreign Git "
+                "metadata: "
+                + refs.stderr.strip()
+            )
+        index = command([git, "status", "--porcelain"], cwd=repo)
+        if index.returncode != 0:
+            raise RuntimeError(
+                "canonical index remains invalid after preserving foreign Git "
+                "metadata: "
+                + index.stderr.strip()
+            )
+        if control is not None:
+            history = control.setdefault(
+                "git_metadata_quarantine_history",
+                [],
+            )
+            if not isinstance(history, list):
+                raise RuntimeError(
+                    "Git metadata quarantine history is malformed"
+                )
+            history.extend(records)
+            control["git_metadata_quarantine_history"] = history[-100:]
+    return records
+
+
+def _numbered_workspace_copy_canonical(relative: str) -> str | None:
+    path = Path(relative)
+    match = re.fullmatch(
+        r"(?P<stem>.+?) (?P<number>[2-9][0-9]*)(?P<suffix>(?:\.[^/]*)*)",
+        path.name,
+    )
+    if match is None:
+        return None
+    canonical_name = match.group("stem") + match.group("suffix")
+    return (path.parent / canonical_name).as_posix()
+
+
+def _nul_git_paths(
+    result: subprocess.CompletedProcess[str],
+    *,
+    description: str,
+) -> list[str]:
+    if result.returncode != 0:
+        raise RuntimeError(f"could not inspect {description}: {result.stderr.strip()}")
+    return [path for path in result.stdout.split("\0") if path]
+
+
+def project_workspace_conflict_copy_artifacts(
+    git: str,
+    repo: Path,
+) -> list[dict[str, Any]]:
+    """Identify untracked/staged numbered copies of tracked canonical files."""
+    untracked = _nul_git_paths(
+        command(
+            [git, "ls-files", "--others", "--exclude-standard", "-z"],
+            cwd=repo,
+        ),
+        description="untracked canonical-workspace paths",
+    )
+    staged_additions = _nul_git_paths(
+        command(
+            [
+                git,
+                "diff",
+                "--cached",
+                "--name-only",
+                "--diff-filter=A",
+                "-z",
+            ],
+            cwd=repo,
+        ),
+        description="staged canonical-workspace additions",
+    )
+    tracked_at_head = set(
+        _nul_git_paths(
+            command(
+                [git, "ls-tree", "-r", "-z", "--name-only", "HEAD"],
+                cwd=repo,
+            ),
+            description="tracked canonical-workspace paths",
+        )
+    )
+    staged_set = set(staged_additions)
+    candidates = sorted(set(untracked) | staged_set)
+    findings: list[dict[str, Any]] = []
+    ambiguous: list[str] = []
+    for relative in candidates:
+        canonical = _numbered_workspace_copy_canonical(relative)
+        if canonical is None:
+            continue
+        source = contained_path(repo / relative, repo)
+        canonical_path = contained_path(repo / canonical, repo)
+        if source.is_symlink():
+            raise RuntimeError(
+                "numbered canonical-workspace copy is a symlink and cannot be "
+                "quarantined automatically: "
+                + relative
+            )
+        if (
+            canonical not in tracked_at_head
+            or not canonical_path.is_file()
+            or not source.is_file()
+        ):
+            ambiguous.append(relative)
+            continue
+        findings.append(
+            {
+                "path": relative,
+                "canonical_path": canonical,
+                "staged": relative in staged_set,
+            }
+        )
+    if ambiguous:
+        raise RuntimeError(
+            "numbered canonical-workspace copies lack an exact tracked file "
+            "sibling and require review: "
+            + ", ".join(ambiguous)
+        )
+    if len(findings) > 256:
+        raise RuntimeError(
+            "numbered canonical-workspace copy inventory exceeds the bounded "
+            "automatic quarantine limit"
+        )
+    return findings
+
+
+def quarantine_project_workspace_conflict_copies(
+    git: str,
+    repo: Path,
+    *,
+    control: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    """Preserve numbered project-tree conflict copies outside the worktree."""
+    maximum_passes = int(
+        CANONICAL_WORKSPACE_RECONCILIATION_POLICY[
+            "maximumForeignWorkspaceCopyPasses"
+        ]
+    )
+    archive_root = contained_path(
+        repo
+        / str(
+            CANONICAL_WORKSPACE_RECONCILIATION_POLICY[
+                "foreignWorkspaceCopyArchive"
+            ]
+        ),
+        repo,
+    )
+    ignored = command(
+        [
+            git,
+            "check-ignore",
+            "-q",
+            "--",
+            repo_relative(archive_root, repo),
+        ],
+        cwd=repo,
+    )
+    if ignored.returncode != 0:
+        raise RuntimeError(
+            "workspace-copy quarantine directory is not excluded from "
+            "repository tracking"
+        )
+    records: list[dict[str, Any]] = []
+    for _pass_number in range(1, maximum_passes + 1):
+        findings = project_workspace_conflict_copy_artifacts(git, repo)
+        if not findings:
+            break
+        staged_paths = [
+            str(item["path"]) for item in findings if item["staged"]
+        ]
+        if staged_paths:
+            unstaged = command(
+                [git, "restore", "--staged", "--", *staged_paths],
+                cwd=repo,
+            )
+            if unstaged.returncode != 0:
+                raise RuntimeError(
+                    "could not remove numbered conflict copies from the staged "
+                    "repository boundary"
+                )
+        quarantined_at = datetime.now(timezone.utc)
+        archive_key = (
+            quarantined_at.strftime("%Y%m%dT%H%M%S%fZ")
+            + "-"
+            + secrets.token_hex(4)
+        )
+        archive_path = contained_path(archive_root / archive_key, repo)
+        entries: list[dict[str, Any]] = []
+        for item in findings:
+            relative = str(item["path"])
+            source = contained_path(repo / relative, repo)
+            if source.is_symlink() or not source.is_file():
+                raise RuntimeError(
+                    "numbered canonical-workspace copy changed before "
+                    "quarantine: "
+                    + relative
+                )
+            body = source.read_bytes()
+            destination = contained_path(archive_path / relative, repo)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            source.replace(destination)
+            entries.append(
+                {
+                    "original_path": relative,
+                    "canonical_path": item["canonical_path"],
+                    "archive_path": repo_relative(destination, repo),
+                    "sha256": hashlib.sha256(body).hexdigest(),
+                    "size_bytes": len(body),
+                    "was_staged": bool(item["staged"]),
+                }
+            )
+        record = {
+            "quarantined_at": quarantined_at.isoformat(),
+            "archive_path": repo_relative(archive_path, repo),
+            "reason": (
+                "Numbered Finder-style copies with exact tracked canonical "
+                "siblings were moved intact outside the worktree."
+            ),
+            "entries": entries,
+        }
+        write_json(
+            archive_path / "quarantine-record.json",
+            record,
+            root=repo,
+        )
+        records.append(record)
+
+    remaining = project_workspace_conflict_copy_artifacts(git, repo)
+    if remaining:
+        raise RuntimeError(
+            "numbered canonical-workspace copies repeatedly regenerated during "
+            "bounded quarantine: "
+            + ", ".join(str(item["path"]) for item in remaining)
+        )
+    if records and control is not None:
+        history = control.setdefault(
+            "workspace_conflict_quarantine_history",
+            [],
+        )
+        if not isinstance(history, list):
+            raise RuntimeError(
+                "workspace conflict-copy quarantine history is malformed"
+            )
+        history.extend(records)
+        control["workspace_conflict_quarantine_history"] = history[-100:]
+    return records
+
+
+def status_mentions_numbered_workspace_copy(status: str) -> bool:
+    return re.search(
+        r" [2-9][0-9]*(?:\.[^\"\\r\\n]+)?(?:\"|$)",
+        status,
+        re.MULTILINE,
+    ) is not None
+
+
 def verify_canonical_runtime_boundary(
     git: str,
     repo: Path,
+    *,
+    control: dict[str, Any] | None = None,
 ) -> tuple[str, str | None]:
     """Reconcile ordinary main-workspace edits, then verify the host runtime."""
     origin = command([git, "remote", "get-url", "origin"], cwd=repo)
@@ -2932,6 +3953,11 @@ def verify_canonical_runtime_boundary(
         raise RuntimeError(
             "canonical ARRP origin does not match the reviewed GitHub repository"
         )
+    quarantine_git_metadata_foreign_artifacts(
+        git,
+        repo,
+        control=control,
+    )
     fetched = command(
         [git, "fetch", "--no-tags", "origin", "main"],
         cwd=repo,
@@ -2949,6 +3975,18 @@ def verify_canonical_runtime_boundary(
     status = command([git, "status", "--porcelain"], cwd=repo)
     if status.returncode != 0:
         raise RuntimeError("could not inspect the canonical ARRP working tree")
+    if status_mentions_numbered_workspace_copy(status.stdout):
+        quarantine_project_workspace_conflict_copies(
+            git,
+            repo,
+            control=control,
+        )
+        status = command([git, "status", "--porcelain"], cwd=repo)
+        if status.returncode != 0:
+            raise RuntimeError(
+                "could not reinspect the canonical ARRP working tree after "
+                "numbered-copy preservation"
+            )
     head = command([git, "rev-parse", "HEAD"], cwd=repo)
     local_revision = head.stdout.strip()
     if (
@@ -3006,6 +4044,21 @@ def verify_canonical_runtime_boundary(
                 "canonical ARRP workspace reported changes but produced no staged "
                 "reconciliation boundary"
             )
+        if status_mentions_numbered_workspace_copy(staged_paths.stdout):
+            quarantine_project_workspace_conflict_copies(
+                git,
+                repo,
+                control=control,
+            )
+            staged_paths = command(
+                [git, "diff", "--cached", "--name-only"],
+                cwd=repo,
+            )
+            if staged_paths.returncode != 0 or not staged_paths.stdout.strip():
+                raise RuntimeError(
+                    "canonical ARRP workspace produced no staged boundary after "
+                    "numbered-copy preservation"
+                )
         diff_check = command([git, "diff", "--cached", "--check"], cwd=repo)
         if diff_check.returncode != 0:
             raise RuntimeError(
@@ -3238,7 +4291,64 @@ def archive_reconciled_elim_checkout(
         control.pop("elim_thread_id", None)
         control.pop("elim_thread_checkout", None)
     control.pop("elim_checkout_synced_head", None)
+    control.pop("elim_checkout_synced_at", None)
+    control.pop("elim_checkout_synced_chain_id", None)
+    control.pop("elim_checkout_sync_source", None)
     return record
+
+
+def safe_prior_checkout_head(control: dict[str, Any]) -> tuple[str | None, str]:
+    recorded = control.get("elim_checkout_synced_head")
+    if isinstance(recorded, str) and re.fullmatch(r"[0-9a-f]{40}", recorded):
+        return recorded, "verified-control-state"
+    history = control.get("checkout_archive_history") or []
+    if isinstance(history, list):
+        for item in reversed(history):
+            if not isinstance(item, dict):
+                continue
+            canonical = item.get("canonical_revision")
+            if (
+                isinstance(canonical, str)
+                and re.fullmatch(r"[0-9a-f]{40}", canonical)
+            ):
+                return canonical, "reconciled-archive-proof"
+    return None, "unavailable"
+
+
+def persist_verified_checkout_baseline(
+    git: str,
+    execution_repo: Path,
+    control: dict[str, Any],
+    control_path: Path,
+    *,
+    repo: Path,
+    chain_id: str,
+    source: str,
+) -> str:
+    """Persist the clean exact remote boundary before any launch can defer."""
+    require_clean_repo(git, execution_repo)
+    current = command([git, "rev-parse", "HEAD"], cwd=execution_repo)
+    remote = command(
+        [git, "rev-parse", "refs/remotes/origin/main"],
+        cwd=execution_repo,
+    )
+    head = current.stdout.strip()
+    if (
+        current.returncode != 0
+        or remote.returncode != 0
+        or re.fullmatch(r"[0-9a-f]{40}", head) is None
+        or head != remote.stdout.strip()
+    ):
+        raise RuntimeError(
+            "could not attest the prepared isolated checkout at exact origin/main"
+        )
+    recorded_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    control["elim_checkout_synced_head"] = head
+    control["elim_checkout_synced_at"] = recorded_at
+    control["elim_checkout_synced_chain_id"] = str(chain_id)
+    control["elim_checkout_sync_source"] = str(source)
+    persist_control_state(control_path, control, repo=repo)
+    return head
 
 
 def prepare_elim_checkout(
@@ -4704,6 +5814,15 @@ def main() -> int:
             config=config,
             control=control,
         )
+        consolidate_automation_failure_items(control)
+        resolve_observed_automation_incidents(
+            control,
+            incident_kinds={"host-dispatcher-lock-owned"},
+            evidence=(
+                "The dispatcher acquired the reviewed host lock and established "
+                "a live heartbeat."
+            ),
+        )
         persist_control_state(control_path, control, repo=repo)
     except (KeyError, OSError, RuntimeError, TypeError, ValueError) as exc:
         if dispatch_lease is not None:
@@ -4738,7 +5857,23 @@ def main() -> int:
         origin_revision, workspace_commit = verify_canonical_runtime_boundary(
             git,
             repo,
+            control=control,
         )
+        resolve_observed_automation_incidents(
+            control,
+            incident_kinds={
+                "canonical-workspace-not-main",
+                "canonical-workspace-dirty",
+                "canonical-git-metadata-foreign-artifact",
+                "canonical-workspace-conflict-copy",
+                "host-runtime-drift",
+            },
+            evidence=(
+                "The canonical workspace is clean on main, origin/main was read "
+                "back exactly, and every reviewed automation-runtime blob matches."
+            ),
+        )
+        persist_control_state(control_path, control, repo=repo)
         if workspace_commit is not None:
             print(
                 "Committed and synchronized canonical workspace changes as "
@@ -4813,14 +5948,36 @@ def main() -> int:
         else:
             raise RuntimeError("current Chain Manifest has no Elim work queue")
         current_stage = "elim-isolated-checkout"
+        safe_prior_head, safe_prior_source = safe_prior_checkout_head(control)
         execution_repo = prepare_elim_checkout(
             git,
             repo,
             config,
-            safe_prior_head=control.get("elim_checkout_synced_head"),
+            safe_prior_head=safe_prior_head,
             expected_revision=origin_revision,
         )
         execution_checkout = repo_relative(execution_repo, repo)
+        resolve_observed_automation_incidents(
+            control,
+            incident_kinds={"isolated-checkout-unverified-baseline"},
+            evidence=(
+                "The clean isolated checkout was advanced from a previously "
+                "attested baseline and verified at exact origin/main."
+            ),
+        )
+        persist_verified_checkout_baseline(
+            git,
+            execution_repo,
+            control,
+            control_path,
+            repo=repo,
+            chain_id=str(payload.get("chain_id") or ""),
+            source=(
+                safe_prior_source
+                if safe_prior_head is not None
+                else "fresh-clone-or-current-origin-main"
+            ),
+        )
         current_stage = "local-queue-context-rebuild"
         manifest, payload, execution_state_dir = mirror_and_rebuild_chain(
             python,
@@ -4944,6 +6101,17 @@ def main() -> int:
                 )
                 if isinstance(value, dict) and value.get("request_id")
             }
+            project_current_host_status(
+                config,
+                control,
+                repo,
+                payload,
+                status="not-launched",
+                stage="host-refinalization",
+                message=str(payload["elim_decision"].get("reason") or "No launch."),
+                next_action=str(payload.get("next_action") or "Wait for the next trigger."),
+                force=True,
+            )
             persist_control_state(
                 control_path,
                 control,
@@ -4964,6 +6132,24 @@ def main() -> int:
             print(
                 "Elim launch is recommended, but --launch-codex was not supplied; no LLM was invoked."
             )
+            project_current_host_status(
+                config,
+                control,
+                repo,
+                payload,
+                status="launch-deferred",
+                stage="elim-launch-boundary",
+                message=(
+                    "Elim launch is recommended, but the dispatcher invocation "
+                    "did not authorize a Codex process."
+                ),
+                next_action=(
+                    "Run the trusted dispatcher with --launch-codex on a fresh "
+                    "current chain."
+                ),
+                force=True,
+            )
+            persist_control_state(control_path, control, repo=repo)
             append_host_outcome_history(
                 config,
                 repo,
@@ -4982,6 +6168,21 @@ def main() -> int:
                 "Coordinator controls changed after exact queue selection; "
                 "Elim launch deferred for a fresh queue/context evaluation."
             )
+            project_current_host_status(
+                config,
+                control,
+                repo,
+                payload,
+                status="launch-deferred",
+                stage="post-selection-control-check",
+                message=(
+                    "Coordinator controls changed after exact queue selection; "
+                    "the stale selection was not launched."
+                ),
+                next_action="Build a fresh current queue and context packet.",
+                force=True,
+            )
+            persist_control_state(control_path, control, repo=repo)
             append_host_outcome_history(
                 config,
                 repo,
@@ -5003,6 +6204,18 @@ def main() -> int:
             control["prior_elim_thread_id"] = control["elim_thread_id"]
             control.pop("elim_thread_id", None)
         current_stage = "elim-execution"
+        project_current_host_status(
+            config,
+            control,
+            repo,
+            payload,
+            status="running",
+            stage="elim-execution",
+            message="The trusted host is starting Elim for the selected work unit.",
+            next_action="Monitor the host-attested usage and Elim closeout.",
+            force=True,
+        )
+        persist_control_state(control_path, control, repo=repo)
         try:
             outcome, elim_thread_id, final_gate = launch_elim(
                 codex,
@@ -5033,6 +6246,21 @@ def main() -> int:
                 "Coordinator controls changed at the exact launch boundary; "
                 "Elim was not started and a fresh queue/context evaluation is required."
             )
+            project_current_host_status(
+                config,
+                control,
+                repo,
+                payload,
+                status="launch-deferred",
+                stage="post-selection-control-check",
+                message=(
+                    "Coordinator controls changed at the exact launch boundary; "
+                    "Elim was not started."
+                ),
+                next_action="Build a fresh current queue and context packet.",
+                force=True,
+            )
+            persist_control_state(control_path, control, repo=repo)
             append_host_outcome_history(
                 config,
                 repo,
@@ -5192,6 +6420,11 @@ def main() -> int:
                     "could not preserve the successful Elim checkout boundary"
                 )
             control["elim_checkout_synced_head"] = checkout_head.stdout.strip()
+            control["elim_checkout_synced_at"] = (
+                datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+            )
+            control["elim_checkout_synced_chain_id"] = payload["chain_id"]
+            control["elim_checkout_sync_source"] = "verified-elim-closeout"
             control["last_consumed_chain_id"] = payload["chain_id"]
             control["last_consumed_at"] = payload["updated_at"]
             if outcome == 0:
@@ -5254,6 +6487,24 @@ def main() -> int:
             result_outcome=result_outcome or None,
         )
         if outcome == 0 or accounted_noncomplete:
+            project_current_host_status(
+                config,
+                control,
+                repo,
+                payload,
+                status=str(payload.get("host_status") or "completed"),
+                stage="elim-closeout",
+                message=str(
+                    (payload.get("elim_runtime") or {}).get("details")
+                    or "Elim reached an accounted host closeout."
+                ),
+                next_action=str(
+                    payload.get("next_action")
+                    or "Use the current queue for the next bounded unit."
+                ),
+                exit_code=outcome,
+                force=True,
+            )
             consumed = {
                 key: str(value.get("request_id"))
                 for key, value in (

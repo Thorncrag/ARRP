@@ -4,13 +4,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "contract_schema_version": 1,
-    "generation_id": "project-integrity-31ebbf822e5ce8b92197",
-    "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-    "generated_at": "2026-07-26T04:41:13+00:00",
+    "generation_id": "project-integrity-6431d5eb802153825c20",
+    "source_revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
+    "generated_at": "2026-07-26T06:55:15+00:00",
     "expected_count": 22,
     "actual_count": 22,
     "source_hashes": {
-      "integrity-report.json": "sha256:bf76950283122d2ab817f0ed06ef9d917d65deeab35eaf600073a16561f1a4ee"
+      "integrity-report.json": "sha256:90f9ec000cc89045f1b23ffa94d98e4f8a80d53ec08ff3d30850bc1c7575eb01"
     },
     "availability": "current",
     "completeness": {
@@ -38,8 +38,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "current": {
       "schema_version": 1,
-      "generated_at": "2026-07-26T04:41:13+00:00",
-      "revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+      "generated_at": "2026-07-26T06:55:15+00:00",
+      "revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -48,7 +48,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "issue_pages": 64,
         "proposal_pages": 41
       },
-      "duration_seconds": 11.688,
+      "duration_seconds": 14.104,
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -76,6 +76,32 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "findings": []
     },
     "history": [
+      {
+        "generated_at": "2026-07-26T06:55:15+00:00",
+        "revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 14.104
+      },
+      {
+        "generated_at": "2026-07-26T04:55:36+00:00",
+        "revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 13.007
+      },
       {
         "generated_at": "2026-07-26T04:41:13+00:00",
         "revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
@@ -439,45 +465,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "proposal_pages": 41
         },
         "duration_seconds": 12.634
-      },
-      {
-        "generated_at": "2026-07-24T21:44:48+00:00",
-        "revision": "0a9d79320bcaa532f001372c92a6bf51939d6fec",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 15.028
-      },
-      {
-        "generated_at": "2026-07-24T21:32:14+00:00",
-        "revision": "5d57449693fc9893b9a980933248191e1327c41c",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.03
       }
     ],
     "currentness": {
       "authority": "repository_revision",
       "status": "current",
       "current": true,
-      "expected_source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-      "producer_source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+      "expected_source_revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
+      "producer_source_revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
       "equivalent_inputs_established": false,
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
     }
   },
   "domain_generation": {
-    "integrity.js": "project-console-2114123acf7ea826027d"
+    "integrity.js": "project-console-3e4857ba9d39384e87d9"
   }
 });

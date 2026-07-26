@@ -781,6 +781,46 @@ class ProjectConsoleProgressTests(unittest.TestCase):
             create_ref_payload = request.call_args_list[6].args[3]
             self.assertEqual(create_ref_payload["ref"], "refs/heads/project-console-data")
 
+    def test_publisher_retries_non_fast_forward_data_branch_race(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "host"
+            source.mkdir()
+            (source / "host-status.json").write_text(
+                json.dumps({"chain_id": "chain-1"}),
+                encoding="utf-8",
+            )
+            responses = [
+                {"object": {"sha": "parent-one"}},
+                {"sha": "blob-one"},
+                {"tree": {"sha": "base-tree-one"}},
+                {"sha": "tree-one"},
+                {"sha": "commit-one"},
+                PUBLISH_MODULE.GitHubApiError(422, "reference update failed"),
+                {"object": {"sha": "parent-two"}},
+                {"tree": {"sha": "base-tree-two"}},
+                {"sha": "tree-two"},
+                {"sha": "commit-two"},
+                {},
+            ]
+            with mock.patch.object(
+                PUBLISH_MODULE,
+                "api_request",
+                side_effect=responses,
+            ) as request:
+                commit = PUBLISH_MODULE.publish(
+                    source,
+                    "Thorncrag/ARRP",
+                    "project-console-data",
+                    "token",
+                )
+            self.assertEqual(commit, "commit-two")
+            self.assertEqual(request.call_count, 11)
+            second_tree_payload = request.call_args_list[8].args[3]
+            self.assertEqual(
+                second_tree_payload["base_tree"],
+                "base-tree-two",
+            )
+
     def test_vercel_config_excludes_data_branch_from_application_previews(self):
         config = json.loads((ROOT / "participate" / "vercel.json").read_text(encoding="utf-8"))
         self.assertFalse(config["git"]["deploymentEnabled"]["project-console-data"])
