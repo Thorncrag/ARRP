@@ -635,6 +635,83 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertIsNone(focus["integrity_findings"])
         self.assertFalse(focus["integrity_findings_available"])
 
+    def test_overview_activity_is_typed_deduplicated_and_collapses_clean_retries(self):
+        overview = MODULE.overview_data(
+            candidates=[],
+            active_horizon_records=[],
+            monitoring_issues=[],
+            pending_sources=[],
+            review_recommendations=[
+                {
+                    "id": "SMR-1",
+                    "recorded_at": "2026-07-25T12:01:00Z",
+                    "reviewer": "Interactive Codex",
+                    "pull_request_number": 381,
+                    "recommendation": "Review the complete exact-head delta.",
+                    "affected_records": "10 directive records",
+                    "action_owner": "Human",
+                    "human_question": "Approve the recorded disposition?",
+                    "console_target": "sources:watchers:directives",
+                }
+            ],
+            progress={},
+            integrity={},
+            run_chain={},
+            publication={},
+            project_logs=[
+                {
+                    "id": "source-monitor",
+                    "title": "Source Monitor Log",
+                    "entries": [
+                        {
+                            "id": "source-monitor-1",
+                            "values": {
+                                "date": "2026-07-25T12:01:00Z",
+                                "watcher": "Repository review recommendation SMR-1",
+                                "result": "recommendation_recorded",
+                                "activity": "SMR-1",
+                            },
+                        }
+                    ],
+                },
+                {
+                    "id": "agents",
+                    "title": "Agent Audit Log",
+                    "entries": [
+                        {
+                            "id": "agent-1",
+                            "values": {
+                                "date": "2026-07-25T12:00:00Z",
+                                "record": "TEST-001",
+                                "agent": "Elim",
+                                "outcome": "Completed",
+                            },
+                        },
+                        {
+                            "id": "agent-2",
+                            "values": {
+                                "date": "2026-07-25T11:59:00Z",
+                                "record": "TEST-001",
+                                "agent": "Elim",
+                                "outcome": "Completed",
+                            },
+                        },
+                    ],
+                },
+            ],
+            agent_registry=[],
+            watcher_metadata={},
+            source_checker={},
+        )
+        activity = overview["activity"]
+        self.assertEqual(len(activity), 2)
+        self.assertEqual(activity[0]["kind"], "repository_review_recommendation")
+        self.assertEqual(activity[0]["actor"], "Interactive Codex")
+        self.assertEqual(activity[0]["route"], "sources:watchers:directives")
+        self.assertEqual(activity[1]["kind"], "collapsed_activity")
+        self.assertEqual(activity[1]["collapsed_count"], 2)
+        self.assertEqual(activity[1]["affected_scope"], "2 retained log activities")
+
     def test_overview_groups_branch_specific_retries_and_deduplicates_one_event(self):
         message_a = (
             "host-repository-preflight failed: canonical ARRP workspace is not "

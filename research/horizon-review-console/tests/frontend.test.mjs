@@ -509,6 +509,34 @@ test("recent issue-development impact preserves a valid current score of zero", 
   assert.equal(records[0].score, "Current score 0 · run delta not recorded");
 });
 
+test("compact Overview activity preserves actor, outcome, affected scope, time, owner, and specialist route", () => {
+  const { api } = loadApi();
+  const row = api.compactActivityPresentation({
+    id: "SMR-1",
+    log: "source-monitor",
+    date: "2026-07-25T22:17:40Z",
+    title: "Interactive Codex · PR #381",
+    actor: "Interactive Codex",
+    source: "Source Monitor Log",
+    outcome: "Recommendation recorded",
+    affected_scope: "10 directive records",
+    summary: "Review the complete exact-head delta.",
+    manager_effect: "Approve the recorded disposition?",
+    owner: "Human",
+    route: "sources:watchers:directives",
+    tone: "warning"
+  });
+  assert.equal(row.title, "Interactive Codex · PR #381");
+  assert.match(row.meta, /Source Monitor Log/);
+  assert.doesNotMatch(row.meta, /Not recorded/);
+  assert.match(row.summary, /Outcome: Recommendation recorded/);
+  assert.match(row.summary, /Affected: 10 directive records/);
+  assert.match(row.summary, /Manager effect: Approve the recorded disposition/);
+  assert.match(row.summary, /Owner: Human/);
+  assert.equal(row.target, "sources:watchers:directives");
+  assert.equal(row.tone, "warning");
+});
+
 test("initial HTML loads only bounded scripts and stays within declared budgets", () => {
   const html = fs.readFileSync(indexPath, "utf8");
   const scriptSources = [...html.matchAll(/<script\s+src="([^"]+)"/g)].map((match) => match[1]);

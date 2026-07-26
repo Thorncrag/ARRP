@@ -3797,20 +3797,80 @@ def overview_data(
         if isinstance(integrity.get("current"), dict)
         else {}
     )
+    recommendation_ids = {
+        str(item.get("id") or "").strip()
+        for item in review_recommendations
+        if isinstance(item, dict) and str(item.get("id") or "").strip()
+    }
     activity: list[dict[str, object]] = []
     for log in project_logs:
+        log_id = str(log.get("id") or "").strip()
+        log_title = str(log.get("title") or log_id or "Project log").strip()
         for entry in (log.get("entries") or [])[-4:]:
             if not isinstance(entry, dict):
                 continue
             values = entry.get("values") if isinstance(entry.get("values"), dict) else {}
+            # The typed repository-review projection already owns these Source
+            # Monitor events. Keeping the corresponding generic log row would
+            # show one governance action twice in the compact Overview.
+            if (
+                log_id == "source-monitor"
+                and str(values.get("activity") or "").strip() in recommendation_ids
+            ):
+                continue
+            actor = (
+                values.get("agent")
+                or values.get("actor")
+                or (
+                    "Human project governance"
+                    if log_id in {"horizon", "changes"}
+                    else log_title
+                )
+            )
+            outcome = values.get("outcome") or values.get("result")
+            affected_scope = (
+                values.get("affected")
+                or values.get("record")
+                or values.get("record_ids")
+            )
+            summary = (
+                values.get("summary")
+                or values.get("change")
+                or values.get("activity")
+                or values.get("task")
+            )
+            manager_effect = (
+                values.get("manager_action")
+                or values.get("manager_effect")
+                or values.get("next_action")
+            )
+            headline = (
+                values.get("record")
+                or values.get("watcher")
+                or values.get("change")
+                or outcome
+                or entry.get("id")
+            )
             activity.append(
                 {
                     "id": entry.get("id"),
-                    "log": log.get("id"),
+                    "log": log_id,
                     "date": values.get("date"),
                     "record": values.get("record"),
-                    "outcome": values.get("outcome") or values.get("result"),
-                    "summary": values.get("summary") or values.get("change"),
+                    "title": " · ".join(
+                        str(value).strip()
+                        for value in (actor, headline)
+                        if str(value or "").strip()
+                    ),
+                    "actor": actor,
+                    "source": log_title,
+                    "outcome": outcome,
+                    "affected_scope": affected_scope,
+                    "summary": summary,
+                    "manager_effect": manager_effect,
+                    "owner": values.get("owner") or values.get("agent"),
+                    "kind": "project_log",
+                    "route": f"logs:{log_id}",
                 }
             )
     activity.sort(key=lambda item: str(item.get("date") or ""), reverse=True)
@@ -4062,23 +4122,96 @@ def overview_data(
             "id": item.get("id"),
             "date": item.get("recorded_at"),
             "kind": "repository_review_recommendation",
-            "label": item.get("recommendation"),
+            "title": (
+                f"{item.get('reviewer') or 'Repository reviewer'} · "
+                f"PR #{item.get('pull_request_number')}"
+            ),
+            "actor": item.get("reviewer") or "Repository reviewer",
+            "source": "Source Monitor Log",
+            "outcome": "Recommendation recorded",
+            "affected_scope": item.get("affected_records")
+            or (
+                f"{(item.get('affected') or {}).get('total_count')} affected records"
+                if isinstance(item.get("affected"), dict)
+                and (item.get("affected") or {}).get("total_count") is not None
+                else None
+            ),
+            "summary": item.get("recommendation"),
+            "manager_effect": item.get("human_question"),
+            "owner": item.get("action_owner"),
             "affected_count": (
                 (item.get("affected") or {}).get("total_count")
                 if isinstance(item.get("affected"), dict)
                 else None
             ),
             "route": item.get("console_target") or "logs:source-monitor",
+            "tone": "warning",
         }
         for item in review_recommendations
     ]
-    material_changes.extend(
-        {**item, "kind": "project_log", "route": f"logs:{item.get('log')}"}
-        for item in activity[:8]
-    )
+    material_changes.extend(activity[:8])
     material_changes.sort(
         key=lambda item: str(item.get("date") or ""), reverse=True
     )
+    collapsed_material_changes: list[dict[str, object]] = []
+    for item in material_changes:
+        outcome_summary = " ".join(
+            str(item.get(key) or "") for key in ("outcome", "summary")
+        )
+        clean_noop = bool(
+            re.search(
+                r"clean|no.?op|no material|no change|unchanged|succeed|complete",
+                outcome_summary,
+                re.IGNORECASE,
+            )
+        ) and not bool(
+            re.search(
+                r"fail|error|block|warn|finding|changed|update",
+                outcome_summary,
+                re.IGNORECASE,
+            )
+        )
+        collapse_identity = (
+            str(item.get("log") or ""),
+            str(item.get("actor") or ""),
+            str(item.get("outcome") or ""),
+            str(item.get("affected_scope") or ""),
+        )
+        prior = collapsed_material_changes[-1] if collapsed_material_changes else None
+        if (
+            clean_noop
+            and prior
+            and prior.get("_collapse_identity") == collapse_identity
+        ):
+            count = int(prior.get("collapsed_count") or 1) + 1
+            prior.update(
+                {
+                    "kind": "collapsed_activity",
+                    "collapsed_count": count,
+                    "title": f"{count} consecutive clean / no-op activities",
+                    "affected_scope": f"{count} retained log activities",
+                    "summary": (
+                        "Consecutive identical routine outcomes are collapsed "
+                        "here; the owning log retains every entry."
+                    ),
+                    "manager_effect": (
+                        "No manager action is recorded; open the owning log for "
+                        "complete retained history."
+                    ),
+                }
+            )
+            continue
+        collapsed_material_changes.append(
+            {
+                **item,
+                "collapsed_count": 1,
+                "_collapse_identity": collapse_identity if clean_noop else None,
+            }
+        )
+    material_changes = [
+        {key: value for key, value in item.items() if key != "_collapse_identity"}
+        for item in collapsed_material_changes
+    ]
     next_reviews: list[dict[str, object]] = []
     if REVIEW_EPOCHS.is_file():
         epoch_rows = [

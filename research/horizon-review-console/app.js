@@ -4177,6 +4177,51 @@
     return row;
   }
 
+  function compactActivityPresentation(activity = {}) {
+    const logLabels = {
+      agents: "Agents & Bots",
+      elim: "Elim",
+      horizon: "Horizon",
+      "source-monitor": "Source monitoring",
+      integrity: "Integrity",
+      changes: "Change Audit"
+    };
+    const actor = activity.actor || logLabels[activity.log] || activity.source || "Project activity";
+    const headline = activity.record || activity.label || activity.outcome || activity.id || "Activity";
+    const title = activity.title || `${actor} · ${headline}`;
+    const source = activity.source || logLabels[activity.log] || activity.kind || "Overview projection";
+    const occurredAt = activity.at || activity.date || activity.generated_at;
+    const outcome = activity.outcome || activity.result;
+    const affected = activity.affected_scope || activity.affected || activity.affected_count;
+    const detail = activity.summary || activity.detail || activity.label;
+    const managerEffect = activity.manager_effect || activity.manager_action || activity.next_action;
+    const owner = activity.owner;
+    const summary = [
+      outcome ? `Outcome: ${outcome}.` : "",
+      affected !== undefined && affected !== null && String(affected).trim()
+        ? `Affected: ${affected}.`
+        : "",
+      detail || "",
+      `Manager effect: ${managerEffect || "No manager action recorded"}.`,
+      owner ? `Owner: ${owner}.` : ""
+    ].filter(Boolean).join(" ");
+    const outcomeText = `${outcome || ""} ${activity.tone || ""} ${activity.severity || ""}`;
+    const tone = activity.tone
+      || activity.severity
+      || (/fail|error|block/i.test(outcomeText)
+        ? "error"
+        : /warn|attention|recommendation/i.test(outcomeText)
+          ? "warning"
+          : "");
+    return {
+      title,
+      meta: `${source} · ${overviewDisplayDate(occurredAt)}`,
+      summary: summary || "No summary recorded.",
+      target: String(activity.route || activity.target || "logs").replace(/^#/, ""),
+      tone
+    };
+  }
+
   function logEntryHeadline(log, entry) {
     const values = entry.values || {};
     if (log.id === "elim") return values.outcome || entry.id;
@@ -4261,13 +4306,8 @@
             tone: /fail|error|block/i.test(String(entry.values?.outcome || entry.values?.result || "")) ? "error" : ""
           }))
       : compactActivity.length
-        ? compactActivity.slice(0, 8).map((activity) => overviewLogRow({
-            title: activity.title || activity.actor || "Automated activity",
-            meta: `${activity.source || "Overview projection"} · ${overviewDisplayDate(activity.at || activity.generated_at)}`,
-            summary: activity.summary || activity.detail || "No summary recorded.",
-            target: activity.target || "logs",
-            tone: activity.tone || activity.severity || ""
-          }))
+        ? compactActivity.slice(0, 8).map((activity) =>
+            overviewLogRow(compactActivityPresentation(activity)))
         : [element("p", "empty-state compact-empty", "Detailed activity has not been loaded and the compact Overview projection contains no activity rows.")]));
   }
 
@@ -8089,6 +8129,7 @@
     releaseBlockerProjectionState,
     topicProducts,
     elimImprovementRecords,
+    compactActivityPresentation,
     pluralizeWord,
     overviewStagePresentation
   });
