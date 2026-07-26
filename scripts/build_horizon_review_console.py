@@ -78,6 +78,13 @@ INTEGRITY_DATA_REF = "origin/project-console-data:integrity.json"
 RUN_CHAIN_DATA_REF = "origin/project-console-data:run-chain.json"
 LOCAL_INTEGRITY_FEED = ROOT / ".tmp" / "project-console-integrity.json"
 LOCAL_RUN_CHAIN_FEED = ROOT / ".tmp" / "run-chain.json"
+SNAPSHOT_OVERRIDE_PATHS = {
+    "ARRP_PROGRESS_SNAPSHOT": Path(
+        ".tmp/project-console-progress-snapshot.json"
+    ),
+    "ARRP_INTEGRITY_SNAPSHOT": Path(".tmp/project-console-integrity.json"),
+    "ARRP_SOURCE_CHECKER_SNAPSHOT": Path(".tmp/source-checker.json"),
+}
 LOCAL_RUN_COORDINATOR_CONTROL = (
     ROOT / ".tmp" / "run-coordinator" / "control.json"
 )
@@ -2816,22 +2823,23 @@ def read_trusted_snapshot_file(
     *,
     environment_name: str,
 ) -> dict[str, object]:
-    """Read one JSON snapshot confined to the repository or system temp root."""
+    """Read one JSON snapshot from its fixed repository staging location."""
+    relative_path = SNAPSHOT_OVERRIDE_PATHS.get(environment_name)
+    if relative_path is None:
+        raise RuntimeError(f"{environment_name} is not an approved snapshot override.")
+    trusted_path = os.path.realpath(os.fspath(ROOT / relative_path))
     full_path = os.path.realpath(raw_path)
-    allowed = False
-    for trusted_root in (ROOT, Path(tempfile.gettempdir())):
-        base_path = os.path.realpath(os.fspath(trusted_root))
-        base_prefix = base_path.rstrip(os.sep) + os.sep
-        if full_path == base_path or full_path.startswith(base_prefix):
-            allowed = True
-            break
-    if not allowed or not full_path.endswith(".json") or not os.path.isfile(full_path):
+    if full_path != trusted_path:
         raise RuntimeError(
-            f"{environment_name} must select a regular JSON file within the "
-            "repository or system temporary directory."
+            f"{environment_name} must select its fixed repository staging file "
+            f"{relative_path.as_posix()}."
+        )
+    if not os.path.isfile(trusted_path):
+        raise RuntimeError(
+            f"{environment_name} must select an existing regular JSON snapshot."
         )
     try:
-        with open(full_path, encoding="utf-8") as handle:
+        with open(trusted_path, encoding="utf-8") as handle:
             payload = json.load(handle)
     except (OSError, json.JSONDecodeError) as exc:
         raise RuntimeError(

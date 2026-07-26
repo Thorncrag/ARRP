@@ -25,7 +25,7 @@ CONTRACT_SPEC.loader.exec_module(CONTRACTS)
 
 class ConsoleDataContractTests(unittest.TestCase):
     def test_snapshot_override_rejects_paths_outside_trusted_roots(self):
-        with self.assertRaisesRegex(RuntimeError, "repository or system temporary"):
+        with self.assertRaisesRegex(RuntimeError, "fixed repository staging file"):
             MODULE.read_trusted_snapshot_file(
                 "/etc/hosts",
                 environment_name="ARRP_PROGRESS_SNAPSHOT",
@@ -126,7 +126,8 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "SRC-2,https://example.test/2,Two,Publisher\n",
                 encoding="utf-8",
             )
-            snapshot = root / "source-checker.json"
+            snapshot = root / ".tmp" / "source-checker.json"
+            snapshot.parent.mkdir()
             snapshot.write_text(
                 json.dumps(
                     {
@@ -181,7 +182,8 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "SRC-1,https://example.test/1,One,Publisher\n",
                 encoding="utf-8",
             )
-            snapshot = root / "source-checker.json"
+            snapshot = root / ".tmp" / "source-checker.json"
+            snapshot.parent.mkdir()
             snapshot.write_text(
                 json.dumps(
                     {
@@ -227,7 +229,8 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "SRC-2,https://example.test/2,Two,Publisher\n",
                 encoding="utf-8",
             )
-            snapshot = root / "source-checker.json"
+            snapshot = root / ".tmp" / "source-checker.json"
+            snapshot.parent.mkdir()
             snapshot.write_text(
                 json.dumps(
                     {
@@ -308,7 +311,8 @@ class ConsoleDataContractTests(unittest.TestCase):
             )
             catalog_label = "sources.csv"
             digest = CONTRACTS.file_sha256(root, catalog)
-            snapshot = root / "source-checker.json"
+            snapshot = root / ".tmp" / "source-checker.json"
+            snapshot.parent.mkdir()
             snapshot.write_text(
                 json.dumps(
                     {

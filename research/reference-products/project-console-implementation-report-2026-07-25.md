@@ -109,11 +109,12 @@ runtime, governance, or project-structure contract.
 - Source Checker generation now validates stable source identities, exact
   current catalog coverage, duplicate/missing/unexpected results, per-catalog
   counts and hashes, baseline validity, and comparable per-source deltas.
-- Environment-, configuration-, and command-line-selected build inputs are
-  realpath-normalized and confined to fixed repository or system-temporary
-  roots before reading or hashing. The Integrity workflow stages its report
-  under the repository-owned temporary tree, and frontend tests import the
-  fixed application module instead of evaluating dynamically read code.
+- Environment-selected Console snapshots must resolve to their specific fixed
+  repository staging files; configuration- and command-line-selected build
+  inputs are confined to fixed repository or system-temporary roots before
+  reading or hashing. The Integrity workflow stages its report under the
+  repository-owned temporary tree, and frontend tests import the fixed
+  application module instead of evaluating dynamically read code.
 - The authenticated Project model separately classifies 81 proposals, 17
   formal candidates, and 12 delivery/governance items while proving all 110
   Project items were enumerated.
