@@ -519,7 +519,7 @@ test("compact Overview activity preserves actor, outcome, affected scope, time, 
     actor: "Interactive Codex",
     source: "Source Monitor Log",
     outcome: "Recommendation recorded",
-    affected_scope: "10 directive records",
+    affected_scope: "10 directive records.",
     summary: "Review the complete exact-head delta.",
     manager_effect: "Approve the recorded disposition?",
     owner: "Human",
@@ -533,6 +533,8 @@ test("compact Overview activity preserves actor, outcome, affected scope, time, 
   assert.match(row.summary, /Affected: 10 directive records/);
   assert.match(row.summary, /Manager effect: Approve the recorded disposition/);
   assert.match(row.summary, /Owner: Human/);
+  assert.doesNotMatch(row.summary, /\.\./);
+  assert.doesNotMatch(row.summary, /\?\./);
   assert.equal(row.target, "sources:watchers:directives");
   assert.equal(row.tone, "warning");
 });

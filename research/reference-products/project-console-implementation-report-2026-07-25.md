@@ -318,7 +318,9 @@ runtime, governance, or project-structure contract.
 - Consolidated repeated automation retry rows into stable incident families.
   No occurrence or recovery history was deleted.
 - Consolidated consecutive clean/no-op Overview activity and routine clean
-  worker cards. Complete run history remains in Logs and Agents & Bots.
+  worker cards, and bounded the compact startup preview to the seven most
+  recent material rows. Complete run history remains in Logs and Agents &
+  Bots.
 - Removed eager loading and rendering of hidden full-domain datasets and
   closed runbook bodies; the same records load on demand with pagination.
 - Replaced the unwieldy primary raw source-type selector with derived families;

@@ -4196,14 +4196,19 @@
     const detail = activity.summary || activity.detail || activity.label;
     const managerEffect = activity.manager_effect || activity.manager_action || activity.next_action;
     const owner = activity.owner;
+    const labeledSentence = (label, value) => {
+      const rendered = String(value ?? "").trim();
+      if (!rendered) return "";
+      return `${label}: ${rendered}${/[.!?]$/.test(rendered) ? "" : "."}`;
+    };
     const summary = [
-      outcome ? `Outcome: ${outcome}.` : "",
+      labeledSentence("Outcome", outcome),
       affected !== undefined && affected !== null && String(affected).trim()
-        ? `Affected: ${affected}.`
+        ? labeledSentence("Affected", affected)
         : "",
       detail || "",
-      `Manager effect: ${managerEffect || "No manager action recorded"}.`,
-      owner ? `Owner: ${owner}.` : ""
+      labeledSentence("Manager effect", managerEffect || "No manager action recorded"),
+      labeledSentence("Owner", owner)
     ].filter(Boolean).join(" ");
     const outcomeText = `${outcome || ""} ${activity.tone || ""} ${activity.severity || ""}`;
     const tone = activity.tone
@@ -4306,7 +4311,7 @@
             tone: /fail|error|block/i.test(String(entry.values?.outcome || entry.values?.result || "")) ? "error" : ""
           }))
       : compactActivity.length
-        ? compactActivity.slice(0, 8).map((activity) =>
+        ? compactActivity.slice(0, 7).map((activity) =>
             overviewLogRow(compactActivityPresentation(activity)))
         : [element("p", "empty-state compact-empty", "Detailed activity has not been loaded and the compact Overview projection contains no activity rows.")]));
   }
