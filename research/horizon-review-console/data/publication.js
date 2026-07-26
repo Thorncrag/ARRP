@@ -7613,9 +7613,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 18232,
+      "word_count": 18691,
       "estimated_pages": 29,
-      "table_count": 94,
+      "table_count": 95,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
@@ -8726,12 +8726,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 914,
-      "estimated_pages": 2,
+      "word_count": 615,
+      "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 84
+      "longest_unbroken_token": 21
     },
     {
       "title": "Current Project Integrity Report",
@@ -12636,7 +12636,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/reference-products-automation failure observability and dispatcher-state repair — july 26, 2026",
       "internal_links": [],
-      "word_count": 4074,
+      "word_count": 4216,
       "estimated_pages": 7,
       "table_count": 1,
       "max_table_columns": 4,
@@ -20015,6 +20015,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-d59c9d5f9cfec86eaea4"
+    "publication.js": "project-console-3690924935bb14f4ad80"
   }
 });

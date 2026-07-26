@@ -343,6 +343,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "activity": [
       {
+        "id": "agent-094",
+        "log": "agents",
+        "date": "2026-07-26 10:02:52 -0400",
+        "record": "Independent failure reporting, checked protected-main closeout, exact replay-safe recovery, non-File-Provider host deployment, and terminal control-state reconciliation",
+        "title": "Codex interactive session with trusted-host production verification · Independent failure reporting, checked protected-main closeout, exact replay-safe recovery, non-File-Provider host deployment, and terminal control-state reconciliation",
+        "actor": "Codex interactive session with trusted-host production verification",
+        "source": "Agent Audit Log",
+        "outcome": "Completed",
+        "affected_scope": "Independent failure reporting, checked protected-main closeout, exact replay-safe recovery, non-File-Provider host deployment, and terminal control-state reconciliation",
+        "summary": "automation-architecture",
+        "manager_effect": null,
+        "owner": "Codex interactive session with trusted-host production verification",
+        "kind": "project_log",
+        "route": "logs:agents",
+        "collapsed_count": 1
+      },
+      {
         "id": "agent-093",
         "log": "agents",
         "date": "2026-07-26 08:39:29 -0400",
@@ -406,23 +423,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "summary": "comprehensive-review",
         "manager_effect": null,
         "owner": "elim",
-        "kind": "project_log",
-        "route": "logs:agents",
-        "collapsed_count": 1
-      },
-      {
-        "id": "agent-090",
-        "log": "agents",
-        "date": "2026-07-25T22:28:35Z",
-        "record": "Dedicated Action Items repository-review listing, Elim exact-head recommendation protocol, and complete persistent-watcher proposal handoff",
-        "title": "interactive Codex · Dedicated Action Items repository-review listing, Elim exact-head recommendation protocol, and complete persistent-watcher proposal handoff",
-        "actor": "interactive Codex",
-        "source": "Agent Audit Log",
-        "outcome": "Completed",
-        "affected_scope": "Dedicated Action Items repository-review listing, Elim exact-head recommendation protocol, and complete persistent-watcher proposal handoff",
-        "summary": "interface governance and automation integrity",
-        "manager_effect": null,
-        "owner": "interactive Codex",
         "kind": "project_log",
         "route": "logs:agents",
         "collapsed_count": 1
@@ -597,6 +597,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-d59c9d5f9cfec86eaea4"
+    "overview.js": "project-console-3690924935bb14f4ad80"
   }
 });

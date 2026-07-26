@@ -1836,3 +1836,28 @@ Prospective template:
 | Push status | Pending trusted-host exact-file-set staging, bounded branch, checks, squash merge, and exact `origin/main` readback. Elim performed no GitHub branch or pull-request mutation. |
 | Rollback notes | If this closeout is later found defective, preserve the append-only epoch and discovery history, add a superseding correction with exact provenance, revert only the reviewed generated/log projection changes through the ordinary checked workflow, and rebuild the Console. No issue, Project field, score, Runs value, source record, intake record, or public policy disposition changed. |
 | Blockers/skipped checks | The Review Epoch itself is complete. `GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION` remains open for a separately selected agent repair because discovery did not authorize another substantive unit. `GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED` requires the trusted-host operator to load the reviewed main LaunchAgent only after this live manual dispatcher finishes, then prove its Projects path and a successful scheduled poll. |
+
+
+### 2026-07-26 — Console failure observability production closeout — automation-architecture
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-26 10:02:52 -0400 |
+| Agent | Codex interactive session with trusted-host production verification |
+| Run ID | interactive-console-automation-closeout-20260726 |
+| Unit ID | CONSOLE-AUTOMATION-OBSERVABILITY-CLOSEOUT-20260726 |
+| Trigger | Completion of the project manager-authorized repair after the initial independent-observability implementation and Elim Review Epoch exposed connected closeout, storage, recovery, and deployment defects |
+| Task type | automation-architecture |
+| Outcome | Completed |
+| Issue/task | Independent failure reporting, checked protected-main closeout, exact replay-safe recovery, non-File-Provider host deployment, and terminal control-state reconciliation |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | Project-wide automation Change Audit; no issue-quality T tier |
+| Files changed | Independent health workflow and projection builder; Run Coordinator and Elim governing contracts; host dispatcher, control-state and recovery contracts; launchd examples and installed Projects-path jobs; Console live-feed runtime, generated projections, tests, current handoff, and implementation report |
+| Source actions | No source-catalog row, issue record, Project field, score, Runs value, candidate disposition, publication disposition, or human-reserved decision changed. |
+| Validation | Pull requests #431 through #440 passed their required CodeQL and Vercel checks and merged through exact-head protected-main closeout. Final local validation passed 490 Python tests, including 104 focused dispatcher tests, 24 participation-service tests, 27 Console tests, Python and JavaScript syntax, deterministic Console generation, and diff hygiene. Exact replay of chain `arrp-20260726T122445Z` preserved Elim result `ef8988414cbdb944a3e2eb6ee5d7942140b6fecc`, left one recovery-history event, emptied Run Log reconciliation, resolved all Action Items, removed every stale `last_failed_*` field, and synchronized both canonical and isolated checkouts to `1f0183c68196968d392b3813d5a380d33d7929fa`. Independent host-status workflow run `30205184945` succeeded. |
+| Commit | The terminal control-summary correction merged through pull request #440 as `1f0183c68196968d392b3813d5a380d33d7929fa`; the preceding bounded fixes are preserved in pull requests #431 through #439. |
+| Push status | Every implementation and recovery correction is merged and read back on `origin/main`. The installed `com.thorncrag.arrp-run-coordinator` LaunchAgent points only to `/Users/benjaminsmith/Projects/ARRP`, declares `StartInterval` 600, and completed one immediate launchd-executed deployment poll with `runs = 1` and exit code 0; it created no failure or Action Item. |
+| Rollback notes | Revert only through the ordinary checked workflow and preserve the independent incident, recovery, Review Epoch, Action Item, and archived File Provider evidence. Rolling back the independent projection, protected-main proofs, non-File-Provider checkout, or replay-safe recovery would restore demonstrated failure modes and is not recommended. |
+| Blockers/skipped checks | No implementation or deployment blocker remains. A fresh current autonomous queue is the separate next trigger for Elim to adjudicate the two recorded gap obligations against the now-merged proof and loaded-service evidence. No Console screen, tool, queue class, Elim authority, or substantive project function was removed. |
