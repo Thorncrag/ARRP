@@ -4539,6 +4539,7 @@ def resolve_verified_closeout_incident(
         and item.get("chain_id") == chain_id
         and item.get("stage")
         in {
+            "elim-execution",
             "elim-host-git-closeout",
             "elim-closeout",
             "elim-closeout-recovery",
@@ -4553,6 +4554,7 @@ def resolve_verified_closeout_incident(
             item.get("chain_id") == chain_id
             and item.get("stage")
             in {
+                "elim-execution",
                 "elim-host-git-closeout",
                 "elim-closeout",
                 "elim-closeout-recovery",

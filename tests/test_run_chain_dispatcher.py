@@ -4850,6 +4850,13 @@ class RunChainDispatcherTests(unittest.TestCase):
                         "resolved": False,
                     },
                     {
+                        "id": "recover-interrupted-execution",
+                        "kind": "automation_failure",
+                        "chain_id": "chain-1",
+                        "stage": "elim-execution",
+                        "resolved": False,
+                    },
+                    {
                         "id": "retain-me",
                         "kind": "automation_failure",
                         "chain_id": "chain-2",
@@ -4881,13 +4888,18 @@ class RunChainDispatcherTests(unittest.TestCase):
                     synchronized_head="d" * 40,
                     recovered_at="2026-07-26T13:37:35+00:00",
                 ),
-                2,
+                3,
             )
             self.assertTrue(control["action_items"][0]["resolved"])
-            self.assertFalse(control["action_items"][1]["resolved"])
-            self.assertTrue(control["action_items"][2]["resolved"])
+            self.assertTrue(control["action_items"][1]["resolved"])
+            self.assertFalse(control["action_items"][2]["resolved"])
+            self.assertTrue(control["action_items"][3]["resolved"])
             self.assertEqual(
                 control["action_items"][0]["resolved_by"],
+                "verified-host-closeout-recovery",
+            )
+            self.assertEqual(
+                control["action_items"][1]["resolved_by"],
                 "verified-host-closeout-recovery",
             )
             self.assertNotIn("last_failed_chain_id", control)
