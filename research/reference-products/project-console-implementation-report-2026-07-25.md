@@ -1,7 +1,7 @@
 ---
 title: "ARRP Project Console — Implementation Report"
 status: non-authoritative-reference
-version: "1.0"
+version: "1.1"
 as_of: "2026-07-25"
 implementation_baseline: "e45a0e711aa82ca147cdc827cbf18c8b348e4cdd"
 print_status: excluded
@@ -301,9 +301,10 @@ runtime, governance, or project-structure contract.
 ## Deferred or unresolved items
 
 - No accepted Console implementation recommendation is intentionally deferred.
-- The current Source Checker evidence remains a valid but incomplete historical
-  scan until the post-merge bot generation checks all current sources. The
-  Console reports that condition rather than concealing it.
+- The post-merge Source Checker run completed against all 2,055 current catalog
+  rows. Its report-only pull request identifies the complete source-health
+  exception set for later substantive review; the scan does not itself decide
+  source identity, reliability, retention, or routing.
 - Human publication approval, qualified external review, unresolved release
   work, source exceptions, candidate-development gaps, and other substantive
   project work remain open where their authoritative records say they are open.
@@ -366,10 +367,30 @@ runtime, governance, or project-structure contract.
   formal candidates, and 12 delivery/governance items. It identifies 26 typed
   release blockers and preserves 27 of 81 proposals at Review Ready.
 - The final generated manifest and completion handoff record the exact source
-  revision and generation identity. The Source Checker remains explicitly
-  incomplete at 2,048 of 2,055 current catalog rows until a complete post-merge
-  scan is published; this known assurance gap is not represented as current or
-  complete.
+  revision and generation identity. Post-merge Source Checker run
+  `30186380681` published a current complete generation covering 2,055 of
+  2,055 catalog rows with no projection errors.
+
+## Post-merge publication readback
+
+- The implementation merged through pull request `#422`; a generated-only
+  follow-up in `#423` rebuilt the 40 route-loaded domains from the canonical
+  implementation merge.
+- GitHub Pages published successfully from final `main`, and the public
+  interaction service returned HTTP 200. The Pages workflow's three official
+  actions were upgraded to exact Node 24 release commits after the first live
+  deployment exposed their Node 20 deprecation warnings; the final deployment
+  completed without those annotations.
+- The final coordinator chain completed without launching Codex, published
+  current complete Progress and Integrity feeds, and reported 110 Project
+  items, 27 of 81 proposals at Review Ready, and 0 Integrity errors, warnings,
+  or findings.
+- The complete Source Checker generation reports 1,079 verified, 95
+  identity-preserving redirects, 774 access restrictions, 81 review-required
+  results, 14 broken links, 9 transient failures, and 3 identity mismatches.
+  Pull request `#378` remains open as the exact-head report-only review surface
+  for 881 affected source records; no catalog row or source disposition was
+  changed by this implementation.
 
 ## Files and generated surfaces
 
