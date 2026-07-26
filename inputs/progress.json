@@ -4353,9 +4353,9 @@
     "status": "current",
     "supersession_rule": "A newer complete authenticated Project synchronization supersedes an older generation; repository HEAD alone does not."
   },
-  "generatedAt": "2026-07-26T03:14:41+00:00",
-  "generated_at": "2026-07-26T03:14:41+00:00",
-  "generation_id": "project-console-progress-2b7d0f08b09c1b9232b3",
+  "generatedAt": "2026-07-26T03:20:48+00:00",
+  "generated_at": "2026-07-26T03:20:48+00:00",
+  "generation_id": "project-console-progress-457cae1112c665938790",
   "goal": {
     "baselineDate": "2026-07-13",
     "baselineReady": 23,
@@ -11664,7 +11664,7 @@
     ".github/project-console-progress.json": "sha256:019fe104362dcca4cebb4c3a3f253c7e4cb9981ca0f4207a6effe282d259bbb5",
     "inventory/github_issue_registry.csv": "sha256:3e85d2b624fa507dce13adba047a515c3f5c87e146957213bcf8848bf11d483c"
   },
-  "source_revision": "e3d7d42e0572576ad3103cecab249ed602990050",
+  "source_revision": "88c16c0a5cf7cca093877d1d320ae49e47c65da4",
   "warnings": [],
   "workflowStatusDistribution": [
     {
