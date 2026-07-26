@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-26T19:25:01+00:00",
-  "repository_revision": "2b15786f671fde5017e70b5e19950abd6c6ac770",
+  "generated_at": "2026-07-26T19:32:03+00:00",
+  "repository_revision": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
   "profile": "integrity_reconciliation",
   "selection": {
     "work_item_id": "INTEGRITY-7b81c19899c9",
@@ -490,8 +490,8 @@
   },
   "review_epoch": {
     "schema_version": 1,
-    "generated_at": "2026-07-26T19:24:57+00:00",
-    "epoch_id": "epoch-arrp-20260726T192339Z",
+    "generated_at": "2026-07-26T19:32:01+00:00",
+    "epoch_id": "epoch-arrp-20260726T193040Z",
     "baseline_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
     "last_completed_at": "2026-07-26T14:25:30+00:00",
     "next_due_at": "2026-08-09T14:25:30+00:00",

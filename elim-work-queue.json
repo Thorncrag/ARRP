@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "item_schema_version": 1,
-  "generated_at": "2026-07-26T19:25:01+00:00",
-  "repository_revision": "2b15786f671fde5017e70b5e19950abd6c6ac770",
+  "generated_at": "2026-07-26T19:32:03+00:00",
+  "repository_revision": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
   "ready_for_elim": true,
   "launch_recommended": true,
   "selected_work_item_id": "INTEGRITY-7b81c19899c9",
@@ -50,37 +50,37 @@
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/integrity.json",
-      "sha256": "8c80cb0363d2115be8877e1b5e44c04154203c57b4ec9ccb361246b7c8cd35ae",
+      "sha256": "d10588854a0b5be82461b41654b99b09b31795cbfbe532ec68698b31145200e4",
       "bytes": 1268,
-      "modified_at": "2026-07-26T19:25:01+00:00",
-      "reported_at": "2026-07-26T19:24:41+00:00"
+      "modified_at": "2026-07-26T19:32:03+00:00",
+      "reported_at": "2026-07-26T19:31:43+00:00"
     },
     "progress": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/progress.json",
-      "sha256": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "sha256": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "bytes": 337403,
-      "modified_at": "2026-07-26T19:24:58+00:00",
-      "reported_at": "2026-07-26T19:23:55+00:00"
+      "modified_at": "2026-07-26T19:32:01+00:00",
+      "reported_at": "2026-07-26T19:30:55+00:00"
     },
     "intake": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/intake.json",
-      "sha256": "3642fc0679b8713d4bdacbb2a292d8d70193f4da28736de078a85366ee77b888",
+      "sha256": "f536dd9cb6779cda06099d5b538208f10e9a3c39845ecf7e5e5320dcc1c3d2a8",
       "bytes": 241,
-      "modified_at": "2026-07-26T19:24:58+00:00",
-      "reported_at": "2026-07-26T19:24:10+00:00"
+      "modified_at": "2026-07-26T19:32:02+00:00",
+      "reported_at": "2026-07-26T19:31:11+00:00"
     },
     "chain": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/chain.json",
-      "sha256": "9173716fd803afd4edf7b1068b5611837f0d33b0abc50368cb50ed84509f73f3",
+      "sha256": "bbfa191ff97b80654d3df2e1493924f501423985fe514362c9ad03a54ae1b828",
       "bytes": 9254,
-      "modified_at": "2026-07-26T19:25:01+00:00",
-      "reported_at": "2026-07-26T19:24:57+00:00"
+      "modified_at": "2026-07-26T19:32:03+00:00",
+      "reported_at": "2026-07-26T19:32:01+00:00"
     },
     "recovery": {
       "required": false,
@@ -88,7 +88,7 @@
       "path": ".tmp/run-coordinator-workflow/elim-inputs/recovery.json",
       "sha256": "fe90b676ea2c5898e1a276e6eb38da41a9449234baa2a8d652ca305abade7437",
       "bytes": 88,
-      "modified_at": "2026-07-26T19:25:00+00:00",
+      "modified_at": "2026-07-26T19:32:03+00:00",
       "reported_at": "2026-07-25T03:54:26+00:00"
     },
     "run_log_reconciliation": {
@@ -102,17 +102,17 @@
       "path": ".tmp/run-coordinator-workflow/elim-inputs/gap-obligations-reconstructed.json",
       "sha256": "affcc1f3688a1d4c84e91cf41b9eb0697f038ae329402cd2b721edde4a8a53ed",
       "bytes": 28165,
-      "modified_at": "2026-07-26T19:25:01+00:00",
+      "modified_at": "2026-07-26T19:32:03+00:00",
       "reported_at": "2026-07-26T14:25:30+00:00"
     },
     "review_epoch": {
       "required": false,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/review-epoch.json",
-      "sha256": "b04897260d5a48ca2fabdcc9620630477564775a8a7c6943332d2d340d243255",
+      "sha256": "e272c8bdb7bc64276e3e98d902cf58d27b3b9167608c82f6886098919a45b735",
       "bytes": 1431,
-      "modified_at": "2026-07-26T19:25:01+00:00",
-      "reported_at": "2026-07-26T19:24:57+00:00"
+      "modified_at": "2026-07-26T19:32:03+00:00",
+      "reported_at": "2026-07-26T19:32:01+00:00"
     },
     "source_checker": {
       "required": false,
@@ -120,7 +120,7 @@
       "path": ".tmp/run-coordinator-workflow/elim-inputs/source-checker.json",
       "sha256": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "bytes": 1445290,
-      "modified_at": "2026-07-26T19:24:59+00:00",
+      "modified_at": "2026-07-26T19:32:02+00:00",
       "reported_at": "2026-07-26T10:27:00+00:00"
     },
     "case_monitor": {
@@ -129,7 +129,7 @@
       "path": ".tmp/run-coordinator-workflow/elim-inputs/case-monitor.json",
       "sha256": "f3643db174a6cbd99f29de0c070c917f1bf7072acad086323f09d335aed63341",
       "bytes": 5693,
-      "modified_at": "2026-07-26T19:24:59+00:00",
+      "modified_at": "2026-07-26T19:32:02+00:00",
       "reported_at": "2026-07-26T04:34:38+00:00"
     },
     "presidential_directives": {
@@ -138,7 +138,7 @@
       "path": ".tmp/run-coordinator-workflow/elim-inputs/presidential-directives.json",
       "sha256": "5d3d40da606c9766232db75a2f2c2da89d4dc5fb838ab6e813ad3aab60d58726",
       "bytes": 3719132,
-      "modified_at": "2026-07-26T19:25:00+00:00",
+      "modified_at": "2026-07-26T19:32:03+00:00",
       "reported_at": "2026-07-26T04:35:03+00:00"
     },
     "overrides": {
@@ -148,15 +148,15 @@
     }
   },
   "revision_evidence": {
-    "chain": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-    "integrity": "2b15786f671fde5017e70b5e19950abd6c6ac770"
+    "chain": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+    "integrity": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a"
   },
   "intake_cursor": {
     "last_processed_id": null,
     "pending_flag": false
   },
   "review_epoch": {
-    "epoch_id": "epoch-arrp-20260726T192339Z",
+    "epoch_id": "epoch-arrp-20260726T193040Z",
     "baseline_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
     "next_due_at": "2026-08-09T14:25:30+00:00",
     "due": false,
@@ -220,9 +220,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -288,9 +288,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -356,9 +356,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -424,9 +424,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -492,9 +492,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -560,9 +560,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -628,9 +628,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -696,9 +696,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -764,9 +764,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -832,9 +832,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -900,9 +900,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -968,9 +968,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1036,9 +1036,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1104,9 +1104,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1172,9 +1172,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1240,9 +1240,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1308,9 +1308,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1376,9 +1376,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1444,9 +1444,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1512,9 +1512,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1580,9 +1580,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1648,9 +1648,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1716,9 +1716,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1784,9 +1784,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1852,9 +1852,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1920,9 +1920,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -1988,9 +1988,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2056,9 +2056,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2124,9 +2124,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2192,9 +2192,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2260,9 +2260,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2328,9 +2328,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2396,9 +2396,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2464,9 +2464,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2532,9 +2532,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2600,9 +2600,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2668,9 +2668,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2736,9 +2736,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2804,9 +2804,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2872,9 +2872,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -2940,9 +2940,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3008,9 +3008,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3076,9 +3076,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3144,9 +3144,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3212,9 +3212,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3280,9 +3280,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3348,9 +3348,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3416,9 +3416,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3484,9 +3484,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3552,9 +3552,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3620,9 +3620,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3688,9 +3688,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3756,9 +3756,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3824,9 +3824,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3892,9 +3892,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -3960,9 +3960,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4028,9 +4028,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4096,9 +4096,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4164,9 +4164,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4232,9 +4232,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4300,9 +4300,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4368,9 +4368,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4436,9 +4436,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4504,9 +4504,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4572,9 +4572,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4640,9 +4640,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4708,9 +4708,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4776,9 +4776,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4844,9 +4844,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4912,9 +4912,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -4980,9 +4980,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5048,9 +5048,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5116,9 +5116,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5184,9 +5184,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5252,9 +5252,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5320,9 +5320,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5388,9 +5388,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5456,9 +5456,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5524,9 +5524,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5592,9 +5592,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5660,9 +5660,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5728,9 +5728,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5796,9 +5796,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5864,9 +5864,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -5932,9 +5932,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6000,9 +6000,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6068,9 +6068,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6136,9 +6136,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6204,9 +6204,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6272,9 +6272,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6340,9 +6340,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6408,9 +6408,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6476,9 +6476,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6544,9 +6544,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6612,9 +6612,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6680,9 +6680,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6748,9 +6748,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -6816,9 +6816,9 @@
       },
       "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
       "freshness_timestamp": "2026-07-26T10:27:00+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
@@ -7066,9 +7066,9 @@
       },
       "source_revision": "f3643db174a6cbd99f29de0c070c917f1bf7072acad086323f09d335aed63341",
       "freshness_timestamp": "2026-07-26T04:34:38+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "case_monitor": "sha256:f3643db174a6cbd99f29de0c070c917f1bf7072acad086323f09d335aed63341"
       },
@@ -7183,9 +7183,9 @@
       },
       "source_revision": "5d3d40da606c9766232db75a2f2c2da89d4dc5fb838ab6e813ad3aab60d58726",
       "freshness_timestamp": "2026-07-26T04:35:03+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "presidential_directives": "sha256:5d3d40da606c9766232db75a2f2c2da89d4dc5fb838ab6e813ad3aab60d58726"
       },
@@ -7238,13 +7238,13 @@
         "development_level": "Developed proposal",
         "next_audit": "T1 audit of IEEPA scope, immigration-authority coordination, judicial review, transition, and implementation"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "HOR-030 integration and initial statutory draft (2026-07-14)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -7295,13 +7295,13 @@
         "development_level": "Developed proposal",
         "next_audit": "T2 review of Title 28 coverage, trigger precision, protected information, distribution, workload, current proposals, and JUD-001 fit"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Portfolio-consolidation and Epstein-files targeted Change Audit (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -7352,13 +7352,13 @@
         "development_level": "Developed proposal",
         "next_audit": "Initial internal review of coverage, deadlines, withholding safeguards, remedies, and implementation"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "FBI-HSI investigative-responsibility internal review (2026-07-21)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -7409,13 +7409,13 @@
         "development_level": "Developed proposal",
         "next_audit": "Conduct a T0 triage scan, followed by statute-first, constitutional, operational, fiscal, and stakeholder review"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue admission and initial proposal development (2026-07-22)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -7492,9 +7492,9 @@
       },
       "source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
       "freshness_timestamp": "2026-07-26T14:15:24+00:00",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
         "gap_obligations": "sha256:affcc1f3688a1d4c84e91cf41b9eb0697f038ae329402cd2b721edde4a8a53ed"
       },
@@ -7548,13 +7548,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -7605,13 +7605,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -7662,13 +7662,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -7719,13 +7719,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -7776,13 +7776,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -7833,13 +7833,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -7890,13 +7890,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -7947,13 +7947,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8004,13 +8004,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8061,13 +8061,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8118,13 +8118,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8175,13 +8175,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Horizon integration decision (2026-06-25)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8232,13 +8232,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Horizon integration decision (2026-06-25)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8289,13 +8289,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source-development pass"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Horizon integration decision (2026-06-25)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8346,13 +8346,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source-development pass"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Horizon integration decision (2026-06-25)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8403,13 +8403,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source-development pass"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Initial candidate development (2026-06-29)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8460,13 +8460,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Post-B.P.J. source-development pass"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "SCOTUS doctrine update (2026-07-02)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8517,13 +8517,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Draft or source-develop a statutory citizenship-recognition and records-continuity backstop"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Post-Barbara statutory-vulnerability update (2026-07-06)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8574,13 +8574,13 @@
         "development_level": "Candidate",
         "next_audit": "Systematic cross-administration docket study of government-caused mootness, withdrawal, replacement, settlement, vacatur, recurrence, retained authority, lost review or relief, and adequacy of existing remedies; then apply the HOR-035 admission test."
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Preliminary candidate promotion (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8631,13 +8631,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8688,13 +8688,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8745,13 +8745,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8802,13 +8802,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8859,13 +8859,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8916,13 +8916,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -8973,13 +8973,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9030,13 +9030,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9087,13 +9087,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9144,13 +9144,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9201,13 +9201,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9258,13 +9258,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9315,13 +9315,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9372,13 +9372,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source and boundary review of advice, representation, appointment status, supervision, ethics, records, security, and foreign-affairs limits"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Candidate reframing and HOR-028 integration (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9429,13 +9429,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9486,13 +9486,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9543,13 +9543,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9600,13 +9600,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9657,13 +9657,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9714,13 +9714,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Source development and initial vehicle drafting"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9771,13 +9771,13 @@
         "development_level": "Candidate",
         "next_audit": "Cross-administration incident and process study: distinguish isolated violations of adequate law from recurring procedural gaps; test notice, counsel, habeas, stay verification, custody review, transfers, relief timing and adequacy, recurrence after Abrego Garcia and A.A.R.P., and public DHS/ICE procedures; then recommend standalone admission, subject-specific routing, or retirement."
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "ATRC monitoring update (2026-07-18)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9828,13 +9828,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Comparator, authority, cause-of-action, and remedy-selection review"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Source-development review (2026-07-20)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9885,13 +9885,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Adjudicatory-system comparator and remedy-selection review"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Source-adjudication update (2026-07-21)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9942,13 +9942,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Existing-law, Spending Clause, delegation, waiver, approval, grant-condition, and remedy-selection review"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Source-adjudication update (2026-07-21)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -9999,13 +9999,13 @@
         "development_level": "In development",
         "next_audit": "Complete a statute-by-statute purpose, retention, disclosure, remedy, and constitutional review; then draft the Privacy Act and conforming amendments"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Horizon candidate admission and foundation decision (2026-07-23)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -10056,13 +10056,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Review 5 U.S.C. chapters 12 and 73, MSPB jurisdiction, sanctions, judicial review, former-employee authority, covered categories, exclusions, and constitutional limits, then route remedy and vehicle selection"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Foundation-sufficiency lifecycle review (2026-07-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -10113,13 +10113,13 @@
         "development_level": "In development",
         "next_audit": "Complete statute-first legal-durability and empirical source development, revise the initial bill, develop implementation and fiscal treatment, and then conduct the first score-bearing audit"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Foundation-sufficiency lifecycle review (2026-07-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -10170,13 +10170,13 @@
         "development_level": "In development",
         "next_audit": "Complete statutory and historical source development, then conduct T1 framework, legal-durability, enactment-pathway, evidence, abuse-resistance, drafting, fiscal, and issue-to-legislation review"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Foundation-sufficiency lifecycle review (2026-07-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -10227,13 +10227,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Map executive-contact, ethics, recusal, inspector-general, whistleblower, Tunney Act, and confidentiality authorities across representative agencies, then test government-wide remedy and vehicle fit"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Foundation-sufficiency lifecycle review (2026-07-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -10284,13 +10284,13 @@
         "development_level": "Review ready",
         "next_audit": "Obtain and verify the July 23 primary withdrawal order and available authorization record, then seek qualified review by a DOJ Public Integrity or other career-component practitioner, a public-law attorney, and legislative counsel"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "targeted Change Audit and Internal Remedy-Fit Audit (2026-07-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
@@ -10341,13 +10341,13 @@
         "development_level": "Admitted / undeveloped",
         "next_audit": "Expand the supporting-case survey and complete the statute-first review of existing review routes and barriers, then route remedy and vehicle selection"
       },
-      "source_revision": "231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_revision": "f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "freshness_timestamp": "Foundation-sufficiency lifecycle review (2026-07-24)",
-      "source_chain_id": "arrp-20260726T192339Z",
-      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
+      "source_chain_id": "arrp-20260726T193040Z",
+      "source_commit": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
+      "source_project_snapshot": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1",
       "source_input_hashes": {
-        "progress": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+        "progress": "sha256:f73eecda7af34000413af0728159bdb8ab1c8a9fc53eb8ab9f9c60831fd784c1"
       },
       "retry_state": {
         "state": "new",
