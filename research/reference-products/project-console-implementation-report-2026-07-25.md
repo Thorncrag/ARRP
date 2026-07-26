@@ -1,7 +1,7 @@
 ---
 title: "ARRP Project Console — Implementation Report"
 status: non-authoritative-reference
-version: "1.1"
+version: "1.2"
 as_of: "2026-07-25"
 implementation_baseline: "e45a0e711aa82ca147cdc827cbf18c8b348e4cdd"
 print_status: excluded
@@ -292,6 +292,12 @@ runtime, governance, or project-structure contract.
   through fixed trusted roots and allowlisted records before a file sink is
   reached. The executable frontend harness now loads one static module path
   rather than evaluating file content through a dynamic VM context.
+- **Document-tool dependency exposure.** The final GitHub security readback
+  identified four current advisories against the project-local
+  `pypdf==6.13.3` pin, including two high-severity denial-of-service classes.
+  The reproducible local-tool requirement now pins `pypdf==6.14.2`, the first
+  version covering every reported advisory, and the installed dependency set
+  is revalidated with `pip check` and the repository test suite.
 - **Incident identity fragmentation.** Branch-specific wording and duplicated
   current/history projections resolve to stable prerequisite/root-cause
   families while retaining exact occurrence detail.
@@ -355,6 +361,9 @@ runtime, governance, or project-structure contract.
   and initial-load budgets.
 - Python compilation, JavaScript syntax, pinned-context reconstruction, public
   site preparation, and diff hygiene pass.
+- The project-local document-tool dependency set installs with
+  `pypdf==6.14.2`, passes `pip check`, and leaves no open Dependabot alert
+  applicable to the current pin after GitHub refreshes the default branch.
 - Authenticated Project Consistency readback reports 0 errors and 0 warnings
   across 64 issue pages, 41 proposal pages, GitHub issue synchronization,
   Project synchronization, and Pages synchronization.
@@ -385,12 +394,12 @@ runtime, governance, or project-structure contract.
   current complete Progress and Integrity feeds, and reported 110 Project
   items, 27 of 81 proposals at Review Ready, and 0 Integrity errors, warnings,
   or findings.
-- The complete Source Checker generation reports 1,079 verified, 95
-  identity-preserving redirects, 774 access restrictions, 81 review-required
-  results, 14 broken links, 9 transient failures, and 3 identity mismatches.
-  Pull request `#378` remains open as the exact-head report-only review surface
-  for 881 affected source records; no catalog row or source disposition was
-  changed by this implementation.
+- The complete Source Checker generation remains a point-in-time observation;
+  its status-class counts may change between otherwise complete scans as
+  access controls and transient responses change. Pull request `#378` remains
+  open as the exact-head report-only review surface and regenerates its
+  complete affected-record enumeration with each accepted scan. No catalog row
+  or source disposition was changed by this implementation.
 
 ## Files and generated surfaces
 
@@ -421,6 +430,7 @@ The implementation affects these owning groups:
   `research/horizon-review-console/catalog-data.js`,
   `research/horizon-review-console/data/generation-manifest.json`, and the
   route-loaded domain files under `research/horizon-review-console/data/`;
+- reproducible local document tooling: `requirements-local-tools.txt`;
 - focused and integration tests under `tests/` and
   `research/horizon-review-console/tests/`; and
 - this implementation report, the accepted comprehensive review, the
