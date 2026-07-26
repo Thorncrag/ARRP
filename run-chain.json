@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260726T140914Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30205449067",
-  "trigger": "workflow_dispatch",
-  "llm_launch_allowed": true,
-  "llm_launch_trigger": "workflow_dispatch",
-  "created_at": "2026-07-26T14:09:14+00:00",
-  "updated_at": "2026-07-26T14:10:11+00:00",
+  "chain_id": "arrp-20260726T192339Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30216746229",
+  "trigger": "push",
+  "llm_launch_allowed": false,
+  "llm_launch_trigger": "push",
+  "created_at": "2026-07-26T19:23:39+00:00",
+  "updated_at": "2026-07-26T19:25:01+00:00",
   "status": "complete",
-  "baseline_commit": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+  "baseline_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
   "resume": {
     "count": 0,
     "from_run_id": null
@@ -18,12 +18,12 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260726T140914Z"
+    "owner_chain_id": "arrp-20260726T192339Z"
   },
   "repository": {
     "branch": "main",
-    "head": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-    "origin_main": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+    "head": "2b15786f671fde5017e70b5e19950abd6c6ac770",
+    "origin_main": "2b15786f671fde5017e70b5e19950abd6c6ac770",
     "clean": true,
     "dirty_paths": [],
     "dirty_path_count": 0,
@@ -76,7 +76,7 @@
       "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:09:14+00:00",
+      "completed_at": "2026-07-26T19:23:39+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -92,7 +92,7 @@
       "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:09:14+00:00",
+      "completed_at": "2026-07-26T19:23:39+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -108,7 +108,7 @@
       "due_reason": "last success remains current until 2026-08-02T10:32:24+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:09:14+00:00",
+      "completed_at": "2026-07-26T19:23:39+00:00",
       "last_success_at": "2026-07-26T10:32:24+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -120,17 +120,21 @@
       "id": "project-console-progress-bot",
       "order": 4,
       "workflow": ".github/workflows/project-console-progress.yml",
-      "due": false,
-      "due_reason": "last success remains current until 2026-07-27T14:08:44+00:00",
-      "status": "not_due",
+      "due": true,
+      "due_reason": "forced",
+      "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T14:09:14+00:00",
-      "last_success_at": "2026-07-26T14:08:44+00:00",
+      "completed_at": "2026-07-26T19:24:57+00:00",
+      "last_success_at": "2026-07-26T19:24:57+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
-      "details": "",
-      "output": null
+      "details": "success",
+      "output": {
+        "path": "workflow-output",
+        "sha256": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f"
+      },
+      "work_count": 0
     },
     {
       "id": "public-intake",
@@ -140,15 +144,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T14:10:09+00:00",
-      "last_success_at": "2026-07-26T14:10:09+00:00",
+      "completed_at": "2026-07-26T19:24:57+00:00",
+      "last_success_at": "2026-07-26T19:24:57+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:7e533a01ea08424b452ef99786f634de98391de64a52e6aacbfd0d87d0e98b6d"
+        "sha256": "sha256:3642fc0679b8713d4bdacbb2a292d8d70193f4da28736de078a85366ee77b888"
       },
       "work_count": 0
     },
@@ -157,18 +161,18 @@
       "order": 6,
       "workflow": ".github/workflows/project-integrity.yml",
       "due": true,
-      "due_reason": "required every chain",
+      "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T14:10:09+00:00",
-      "last_success_at": "2026-07-26T14:10:09+00:00",
+      "completed_at": "2026-07-26T19:24:57+00:00",
+      "last_success_at": "2026-07-26T19:24:57+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:289e9ea25d53def95982fde7f0363317d069d03195826cb4f7f5b162d303d604"
+        "sha256": "sha256:8c80cb0363d2115be8877e1b5e44c04154203c57b4ec9ccb361246b7c8cd35ae"
       },
       "work_count": 0
     }
@@ -180,58 +184,43 @@
     "monitoring": 0,
     "sources": 0,
     "intake": 0,
-    "total": 157
+    "total": 155
   },
   "elim_decision": {
     "launch_recommended": false,
-    "reason": "Codex usage reserve has not been measured.",
+    "reason": "This trigger authorizes deterministic refresh only; Elim waits for the daily schedule, an eligible event, or explicit manual dispatch.",
     "blockers": [],
     "last_substantive_stage": true,
     "predecessors_complete": true,
     "profile": {
-      "id": "comprehensive",
+      "id": "substantive",
       "model": "gpt-5.6-sol",
       "reasoning_effort": "xhigh",
-      "full_context": true,
-      "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-1afaea17f530 and context profile comprehensive_review."
+      "full_context": false,
+      "reason": "Bound to selected work item INTEGRITY-7b81c19899c9 and context profile integrity_reconciliation."
     }
   },
   "review_epoch": {
     "interval_days": 14,
-    "last_completed_at": "2026-07-26T12:39:29+00:00",
-    "next_due_at": "2026-08-09T12:39:29+00:00",
-    "due": true,
-    "due_reason": "governing_boundary_changed",
-    "boundary_commit": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
-    "epoch_id": "epoch-arrp-20260726T122445Z",
+    "last_completed_at": "2026-07-26T14:25:30+00:00",
+    "next_due_at": "2026-08-09T14:25:30+00:00",
+    "due": false,
+    "due_reason": "interval current",
+    "boundary_commit": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+    "epoch_id": "epoch-arrp-20260726T140914Z",
     "stability_status": "drift-detected",
     "unresolved_findings": [
       {
-        "discovered_work_unit_id": "DISCOVERY-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
-        "id": "GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
-        "next_action": "In a separately selected authorized automation repair, enforce sole-parent topology, coordinator author/committer and expected message, diff hygiene, and exact squash-merge parent readback, then add adversarial regression cases.",
-        "next_trigger": "A fresh queue selects this stable gap obligation for an agent-within-runbook repair.",
+        "discovered_work_unit_id": "DISCOVERY-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
+        "id": "GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
+        "next_action": "In a separately selected automation repair, disable or mock every external host-status and notification effect in tests, add a runtime test-mode side-effect guard and a no-network regression, then require current-chain, exact-source-revision, and monotonic freshness acceptance before host-status publication.",
+        "next_trigger": "A fresh current queue selects GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS under agent-within-runbook repair authority after this reviewed host closeout.",
         "owner": "Elim",
         "status": "open",
-        "summary": "Trusted-host retry and checked-merge acceptance omit required exact topology, identity, message, hygiene, and post-merge parent proofs."
-      },
-      {
-        "discovered_work_unit_id": "DISCOVERY-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED",
-        "id": "GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED",
-        "next_action": "After this atomic run and its trusted-host closeout finish, bootstrap the reviewed main LaunchAgent and read back its Projects path plus one successful scheduled poll.",
-        "next_trigger": "The current manual dispatcher exits and the host operator can load the service without overlapping the live run.",
-        "owner": "Benjamin / trusted-host operator",
-        "status": "human_required",
-        "summary": "The reviewed periodic dispatcher plist is installed on the Projects path but its LaunchAgent is not loaded; only the manual current dispatcher and the separate control service are running."
+        "summary": "Dispatcher unit tests can issue real repository_dispatch mutations under active credentials, and the host-status publisher can let a stale synthetic chain with no source revision overwrite the current truthful projection."
       }
     ],
-    "boundary_changes": {
-      "extra": [],
-      "mismatched": [
-        "framework/context-routes.json"
-      ],
-      "missing": []
-    }
+    "boundary_changes": null
   },
   "usage": {
     "hard_reserve_percent": 15,
@@ -241,8 +230,8 @@
   },
   "next_action": "No Elim launch; wait for the next trigger.",
   "action_items": [],
-  "completed_at": "2026-07-26T14:10:09+00:00",
-  "final_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+  "completed_at": "2026-07-26T19:24:57+00:00",
+  "final_revision": "2b15786f671fde5017e70b5e19950abd6c6ac770",
   "bots": [
     {
       "id": "case-monitor-bot",
@@ -250,7 +239,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:09:14+00:00",
+      "completed_at": "2026-07-26T19:23:39+00:00",
       "error": null
     },
     {
@@ -259,7 +248,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:09:14+00:00",
+      "completed_at": "2026-07-26T19:23:39+00:00",
       "error": null
     },
     {
@@ -268,16 +257,16 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T14:09:14+00:00",
+      "completed_at": "2026-07-26T19:23:39+00:00",
       "error": null
     },
     {
       "id": "project-console-progress-bot",
       "name": "project-console-progress-bot",
-      "due": false,
-      "status": "not_due",
+      "due": true,
+      "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T14:09:14+00:00",
+      "completed_at": "2026-07-26T19:24:57+00:00",
       "error": null
     },
     {
@@ -286,80 +275,83 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T14:10:09+00:00",
+      "completed_at": "2026-07-26T19:24:57+00:00",
       "error": null
     }
   ],
   "work_queue": {
     "path": "project-console-data:elim-work-queue.json",
-    "sha256": "sha256:b10eb7ab21146a6a4e7443216419d9a18b14915491825e3e83f8217bb7807171",
+    "sha256": "sha256:13bcdd980abaf843cb118af36bc3e7a29e69dee315ec709155995d5777bc10fb",
     "ready_for_elim": true,
     "launch_recommended": true,
     "counts": {
-      "total": 157,
-      "elim_eligible": 155,
-      "human": 1,
+      "total": 155,
+      "elim_eligible": 154,
+      "human": 0,
       "safety": 17,
-      "gap_obligations": 2,
+      "gap_obligations": 1,
       "governance_discovery": 0
     },
     "problems": [],
     "next_item": {
       "schema_version": 1,
-      "id": "COMPREHENSIVE-REVIEW-1afaea17f530",
-      "kind": "comprehensive_review",
-      "work_class": "periodic_review",
-      "severity": "high",
-      "title": "Run the due comprehensive consistency review",
+      "id": "INTEGRITY-7b81c19899c9",
+      "kind": "integrity",
+      "work_class": "integrity",
+      "severity": "error",
+      "title": "SRC-2521: identity mismatch",
       "owner": "agent",
       "required_authority": "agent-within-runbook",
-      "exact_next_action": "Run the due comprehensive Review Epoch.",
-      "required_context_profile": "comprehensive_review",
-      "originating_stage": "review_epoch",
-      "source_identity": "epoch-arrp-20260726T140914Z",
-      "canonical_record_identity": "epoch-arrp-20260726T140914Z",
+      "exact_next_action": "Resolve the exact integrity finding or route it for human review.",
+      "required_context_profile": "integrity_reconciliation",
+      "originating_stage": "source_checker",
+      "source_identity": "source-checker:inventory/sources.csv:SRC-2521:identity mismatch",
+      "canonical_record_identity": "source-checker:inventory/sources.csv:SRC-2521:identity mismatch",
       "dependencies": [
-        "review_epoch"
+        "source_checker"
       ],
-      "created_at": "2026-07-26T12:39:29+00:00",
-      "refreshed_at": "2026-07-26T14:10:09+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
       "blocking_reason": null,
-      "safety_class": 1,
-      "base_priority": 650,
+      "safety_class": 0,
+      "base_priority": 880,
       "age_days": 0,
       "fairness_boost": 0,
-      "priority_score": 650,
-      "selection_priority_score": 650,
-      "reason": "governing_boundary_changed",
+      "priority_score": 880,
+      "selection_priority_score": 880,
+      "reason": "Source Checker classified SRC-2521 as identity mismatch",
       "source": {
-        "input": "review_epoch",
-        "epoch_id": "epoch-arrp-20260726T140914Z",
-        "baseline_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
-        "next_due_at": "2026-08-09T12:39:29+00:00",
-        "due": true,
-        "due_reason": "governing_boundary_changed",
-        "boundary_changes": {
-          "extra": [],
-          "mismatched": [
-            "framework/context-routes.json"
-          ],
-          "missing": []
-        },
-        "unresolved_ids": [
-          "GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
-          "GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED"
-        ]
+        "input": "source_checker",
+        "finding_type": "source_checker",
+        "source_id": "SRC-2521",
+        "catalog": "inventory/sources.csv",
+        "finding": {
+          "source_id": "SRC-2521",
+          "catalog": "inventory/sources.csv",
+          "catalog_row": 1956,
+          "title": "",
+          "requested_url": "https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/161438.pdf",
+          "attempts": 1,
+          "status_code": 200,
+          "final_url": "https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/161438.pdf",
+          "content_type": "application/pdf",
+          "error": "",
+          "error_kind": "",
+          "classification": "identity mismatch",
+          "exception_first_seen_at": "2026-07-24T14:14:17Z",
+          "exception_age_days": 1.84
+        }
       },
-      "source_revision": "9bdbb2533a925dd7f351005045ba3086ea973af6fd292c6ce1720bdfa7e23fb5",
-      "freshness_timestamp": "2026-07-26T14:10:09+00:00",
-      "source_chain_id": "arrp-20260726T140914Z",
-      "source_commit": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-      "source_project_snapshot": "sha256:783f90be667d38aef36e871c0bc2d5a5ff83c948576533a8c91d02568ee5acd1",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T192339Z",
+      "source_commit": "2b15786f671fde5017e70b5e19950abd6c6ac770",
+      "source_project_snapshot": "sha256:231e482ce933b03e9e0310cef4f6fc2e60c68a513ff1cfc062e1e654b228bf4f",
       "source_input_hashes": {
-        "review_epoch": "sha256:9bdbb2533a925dd7f351005045ba3086ea973af6fd292c6ce1720bdfa7e23fb5"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -369,29 +361,38 @@
       },
       "recovery": null
     },
-    "selected_work_item_id": "COMPREHENSIVE-REVIEW-1afaea17f530",
+    "selected_work_item_id": "INTEGRITY-7b81c19899c9",
     "governance_discovery": {
       "mode": "Project governance review and discovery",
       "ordinary_selection_policy": "after-ordinary-queue-clears",
       "minimum_interval_hours": 168,
       "selected_as_quiet_queue_fallback": false,
-      "ordinary_eligible_count_before_fallback": 155,
-      "last_review": null,
-      "next_due_at": null,
+      "ordinary_eligible_count_before_fallback": 154,
+      "last_review": {
+        "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+        "discovered_work_unit_id": "REVIEW-PROJECT-GOVERNANCE-20260726T140914Z",
+        "disposition": "review_completed",
+        "last_reviewed_at": "2026-07-26T14:25:30+00:00",
+        "next_trigger": "A material governing-boundary change or the next biweekly due time 2026-08-09T14:25:30+00:00, whichever comes first.",
+        "run_id": "arrp-20260726T140914Z",
+        "selected_unit_id": "COMPREHENSIVE-REVIEW-1afaea17f530",
+        "source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184"
+      },
+      "next_due_at": "2026-08-02T14:25:30+00:00",
       "current_for_cadence": false,
       "waiting_for_ordinary_queue": true,
       "reason": "Ordinary eligible work remains and is selected first."
     },
     "gap_obligations": [
       {
-        "queue_item_id": "INTEGRITY-120b41ba5787",
-        "obligation_id": "GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
-        "title": "An interrupted closeout could resume from a commit whose first parent and paths look valid but whose topology, identity, message, or whitespace hygiene violates the reviewed boundary; a moved-base squash merge could also be accepted without proving that the pinned baseline remained the sole parent.",
+        "queue_item_id": "INTEGRITY-cf25416d0785",
+        "obligation_id": "GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
+        "title": "Offline or focused unit tests can perform real GitHub semantic mutations, publish a false failure, overwrite current host status, and create a false managerial Action Item; stale or out-of-order events can supersede correct current state.",
         "status": "open",
         "severity": "normal",
         "owner": "Elim",
         "authority": {
-          "basis": "The required parent topology, fixed coordinator identity/message, path set, diff hygiene, and exact merge-parent relationship are deterministic reviewed invariants that do not require a policy, issue, source, score, publication, or human disposition judgment.",
+          "basis": "Test isolation, credential-side-effect guards, event chain/revision binding, timestamp ordering, exact workflow commits, and no-network regression proof are deterministic automation properties.",
           "classification": "mechanical"
         },
         "authority_disposition": "out_of_scope",
@@ -399,41 +400,15 @@
         "eligible_for_elim": false,
         "requires_human": false,
         "eligibility_reason": "retained as a non-implementable obligation under the recorded out_of_scope authority disposition",
-        "blocking_reason": "A fresh current queue selects GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION under agent-within-runbook repair authority.",
-        "first_seen": "2026-07-26T12:38:11+00:00",
-        "last_checked": "2026-07-26T12:38:11+00:00",
+        "blocking_reason": "A fresh current queue selects GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS under agent-within-runbook repair authority after this trusted-host closeout.",
+        "first_seen": "2026-07-26T14:15:24+00:00",
+        "last_checked": "2026-07-26T14:15:24+00:00",
         "occurrence_count": 1,
         "age_days": 0,
         "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
-        "exact_next_action": "In a separately selected authorized automation repair, enforce exact one-parent topology, coordinator author/committer and expected message, diff hygiene, and exact squash-merge parent readback, then add adversarial regression cases and rerun the complete closeout suite.",
-        "next_trigger": "A fresh current queue selects GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION under agent-within-runbook repair authority.",
-        "source_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c"
-      },
-      {
-        "queue_item_id": "INTEGRITY-bc57e9417ad2",
-        "obligation_id": "GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED",
-        "title": "After the live manual dispatcher exits, no verified 600-second host poll remains to consume and close future eligible Run Coordinator chains, so cloud work may appear healthy while host-side Elim execution and closeout do not start.",
-        "status": "human_required",
-        "severity": "normal",
-        "owner": "Benjamin / trusted-host operator",
-        "authority": {
-          "basis": "Installed-path, launchd loaded state, process identity, and a successful scheduled poll are objective host-deployment facts. Loading must occur only after the live manual dispatcher exits to preserve the exclusive atomic run boundary.",
-          "classification": "mechanical"
-        },
-        "authority_disposition": "out_of_scope",
-        "disposition": "reported",
-        "eligible_for_elim": false,
-        "requires_human": true,
-        "eligibility_reason": "human authority is required",
-        "blocking_reason": "The current manual dispatcher exits and the trusted-host operator can load the periodic service without overlap.",
-        "first_seen": "2026-07-26T12:38:11+00:00",
-        "last_checked": "2026-07-26T12:38:11+00:00",
-        "occurrence_count": 1,
-        "age_days": 0,
-        "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
-        "exact_next_action": "After this atomic run and its trusted-host closeout finish, bootstrap the reviewed com.thorncrag.arrp-run-coordinator LaunchAgent, read back its Projects-path configuration, and verify one successful scheduled poll.",
-        "next_trigger": "The current manual dispatcher exits and the trusted-host operator can load the periodic service without overlap.",
-        "source_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c"
+        "exact_next_action": "In a separately selected automation repair, disable or mock every external host-status and notification effect in tests; add a runtime test-mode or credential-side-effect guard and a full-suite no-network regression; require current-chain, exact-source-revision, and monotonic freshness acceptance before host-status publication; then run focused and complete tests under active gh credentials and prove no repository dispatch occurs.",
+        "next_trigger": "A fresh current queue selects GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS under agent-within-runbook repair authority after this trusted-host closeout.",
+        "source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184"
       }
     ],
     "user_overrides": {
@@ -444,21 +419,21 @@
   },
   "context_packet": {
     "path": "project-console-data:elim-context.json",
-    "sha256": "sha256:e5886adc1c3b93f74165acec9156628b0c0c2bb39c32f91836f743f53a397c96",
-    "profile": "comprehensive_review",
-    "work_item_id": "COMPREHENSIVE-REVIEW-1afaea17f530",
+    "sha256": "sha256:bdf5fc0276203bbdfd7efe740f25f4d5ea3337159644d7f3032994f0bac0ed80",
+    "profile": "integrity_reconciliation",
+    "work_item_id": "INTEGRITY-7b81c19899c9",
     "issue_id": null,
     "canonical_record": null,
     "selection": {
-      "work_item_id": "COMPREHENSIVE-REVIEW-1afaea17f530",
-      "kind": "comprehensive_review",
+      "work_item_id": "INTEGRITY-7b81c19899c9",
+      "kind": "integrity",
       "canonical_record": null
     },
-    "repository_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+    "repository_revision": "2b15786f671fde5017e70b5e19950abd6c6ac770",
     "provenance_complete": true,
     "limits": {
-      "max_bytes": 1000000,
-      "actual_bytes": 732297
+      "max_bytes": 900000,
+      "actual_bytes": 611735
     }
   }
 }
