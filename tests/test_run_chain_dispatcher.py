@@ -3936,6 +3936,47 @@ class RunChainDispatcherTests(unittest.TestCase):
             "dispatcher-health-proof",
         )
 
+    def test_reconciled_main_resolves_prior_head_mismatch_incident(self):
+        details = (
+            "host-repository-preflight failed: canonical ARRP workspace is not "
+            "reconciled with GitHub: local HEAD does not equal the fetched "
+            "origin/main revision. Reconcile the divergent history through "
+            "GitHub and retry automated dispatch."
+        )
+        self.assertEqual(
+            MODULE.automation_incident_kind(details),
+            "canonical-workspace-history-mismatch",
+        )
+        control = {
+            "action_items": [
+                {
+                    "id": "automation-failure-head-mismatch",
+                    "kind": "automation_failure",
+                    "chain_id": "host-dispatch-one",
+                    "stage": "host-repository-preflight",
+                    "details": details,
+                    "resolved": False,
+                }
+            ]
+        }
+        self.assertEqual(
+            MODULE.resolve_observed_automation_incidents(
+                control,
+                incident_kinds={"canonical-workspace-history-mismatch"},
+                evidence=(
+                    "The canonical workspace is clean on main and exactly "
+                    "matches origin/main."
+                ),
+                recorded_at="2026-07-26T23:45:00+00:00",
+            ),
+            1,
+        )
+        self.assertTrue(control["action_items"][0]["resolved"])
+        self.assertEqual(
+            control["action_items"][0]["resolved_by"],
+            "dispatcher-health-proof",
+        )
+
     def test_post_selection_override_change_forces_fresh_evaluation(self):
         original = {
             "unit-one": {
