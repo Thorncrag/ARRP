@@ -39,11 +39,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "root_cause": "Canonical ARRP workspace is off main and not reconciled with GitHub.",
           "classification": "hold",
           "message": "Canonical ARRP workspace is off main and not reconciled with GitHub.",
-          "occurrence_count": 33,
+          "occurrence_count": 34,
           "first_seen": "2026-07-25T20:08:54+00:00",
-          "latest_seen": "2026-07-26T02:59:41+00:00",
+          "latest_seen": "2026-07-26T03:09:41+00:00",
           "chain_ids": [
-            "host-dispatch-20260726T025941Z",
+            "host-dispatch-20260726T030941Z",
             "host-dispatch-20260725T200854Z",
             "host-dispatch-20260725T210904Z",
             "host-dispatch-20260725T211905Z",
@@ -75,7 +75,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "host-dispatch-20260726T021938Z",
             "host-dispatch-20260726T022939Z",
             "host-dispatch-20260726T023939Z",
-            "host-dispatch-20260726T024940Z"
+            "host-dispatch-20260726T024940Z",
+            "host-dispatch-20260726T025941Z"
           ],
           "route": "automation"
         },
@@ -256,7 +257,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "domain": "automation",
           "status": "attention",
           "reason": "The current run chain reports an active failure or hold.",
-          "timestamp": "2026-07-26T02:59:41+00:00",
+          "timestamp": "2026-07-26T03:09:41+00:00",
           "route": "automation"
         },
         {
@@ -572,7 +573,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "agents": {
       "registered": 7,
-      "last_chain_id": "host-dispatch-20260726T025941Z",
+      "last_chain_id": "host-dispatch-20260726T030941Z",
       "chain_status": "failed"
     },
     "services": {
@@ -593,8 +594,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "usage": null,
     "progress_summary": {
-      "generated_at": "2026-07-26T03:02:23+00:00",
-      "source_revision": "d5daa0619d98129e8af10ceb81f73546f413e5ef",
+      "generated_at": "2026-07-26T03:14:58+00:00",
+      "source_revision": "e3d7d42e0572576ad3103cecab249ed602990050",
       "availability": "current",
       "ready": 27,
       "total": 81,
@@ -603,8 +604,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12
     },
     "integrity_summary": {
-      "generated_at": "2026-07-26T03:05:00+00:00",
-      "source_revision": "d5daa0619d98129e8af10ceb81f73546f413e5ef",
+      "generated_at": "2026-07-26T03:15:23+00:00",
+      "source_revision": "e3d7d42e0572576ad3103cecab249ed602990050",
       "availability": "current",
       "result": "clean",
       "counts": {
@@ -616,9 +617,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       }
     },
     "automation_summary": {
-      "chain_id": "host-dispatch-20260726T025941Z",
+      "chain_id": "host-dispatch-20260726T030941Z",
       "status": "failed",
-      "generated_at": "2026-07-26T02:59:41+00:00",
+      "generated_at": "2026-07-26T03:09:41+00:00",
       "stage_count": 0
     },
     "publication_summary": {
@@ -649,6 +650,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-cac8dee5a4b49219074c"
+    "overview.js": "project-console-7efc8e2257b5ac7897b7"
   }
 });
