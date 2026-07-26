@@ -444,14 +444,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   ],
   "run_chain": {
     "schema_version": 1,
-    "chain_id": "host-dispatch-20260726T024940Z",
+    "chain_id": "host-dispatch-20260726T025941Z",
     "stages": [],
     "work_queue": null,
     "context_packet": null,
     "action_items": [],
     "status": "failed",
-    "updated_at": "2026-07-26T02:49:40+00:00",
-    "completed_at": "2026-07-26T02:49:40+00:00",
+    "updated_at": "2026-07-26T02:59:41+00:00",
+    "completed_at": "2026-07-26T02:59:41+00:00",
     "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
     "failures": [
       {
@@ -459,7 +459,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "classification": "blocking",
         "message": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "exit_code": 1,
-        "recorded_at": "2026-07-26T02:49:40+00:00"
+        "recorded_at": "2026-07-26T02:59:41+00:00"
       }
     ],
     "host_action_items": [
@@ -1147,6 +1147,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
         "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
         "resolved": false
+      },
+      {
+        "id": "automation-failure-25c1ea4721d9f8a9f8fa",
+        "chain_id": "host-dispatch-20260726T025941Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:59:41+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": false
       }
     ],
     "last_successful_stages": [
@@ -1158,7 +1171,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-25T11:46:39+00:00",
+        "completed_at": "2026-07-25T22:44:36+00:00",
         "last_success_at": "2026-07-25T04:17:45+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -1174,7 +1187,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-26T04:17:45+00:00",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-25T11:46:39+00:00",
+        "completed_at": "2026-07-25T22:44:36+00:00",
         "last_success_at": "2026-07-25T04:17:45+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -1250,7 +1263,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-07-31T14:20:28+00:00",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-25T11:46:39+00:00",
+        "completed_at": "2026-07-25T22:44:36+00:00",
         "last_success_at": "2026-07-24T14:20:28+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -1261,6 +1274,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ]
   },
   "domain_generation": {
-    "automation.js": "project-console-1d6aef983851e86dd50d"
+    "automation.js": "project-console-cac8dee5a4b49219074c"
   }
 });
