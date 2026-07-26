@@ -1,13 +1,21 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-26T19:32:01+00:00",
-  "epoch_id": "epoch-arrp-20260726T193040Z",
+  "generated_at": "2026-07-26T23:43:55+00:00",
+  "epoch_id": "epoch-arrp-20260726T234236Z",
   "baseline_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
   "last_completed_at": "2026-07-26T14:25:30+00:00",
   "next_due_at": "2026-08-09T14:25:30+00:00",
-  "due": false,
-  "due_reason": "interval current",
-  "boundary_changes": {},
+  "due": true,
+  "due_reason": "governing_boundary_changed",
+  "boundary_changes": {
+    "extra": [],
+    "mismatched": [
+      "framework/agent-rules/autonomous-execution.md",
+      "framework/agents/RUN_COORDINATOR_BOT.md",
+      "framework/context-routes.json"
+    ],
+    "missing": []
+  },
   "unresolved_findings": [
     {
       "discovered_work_unit_id": "DISCOVERY-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
