@@ -1441,15 +1441,18 @@ def verify_commit_and_synchronization(
         raise ContextError(
             "applied Elim result commit is not reachable from origin/main"
         )
+    head_commit = head.stdout.strip()
+    remote_commit = remote.stdout.strip()
     if (
         head.returncode != 0
         or remote.returncode != 0
-        or head.stdout.strip() != remote.stdout.strip()
+        or re.fullmatch(r"[0-9a-f]{40}", head_commit) is None
+        or re.fullmatch(r"[0-9a-f]{40}", remote_commit) is None
+        or head_commit not in {commit, remote_commit}
     ):
-        raise ContextError("isolated checkout is not synchronized with origin/main")
-    if commit != remote.stdout.strip():
         raise ContextError(
-            "applied Elim result must report the exact reviewed origin/main boundary"
+            "isolated checkout is not at the applied result or current "
+            "origin/main boundary"
         )
     if not any(
         marker in normalized
@@ -1458,6 +1461,74 @@ def verify_commit_and_synchronization(
         raise ContextError(
             "Elim synchronization evidence does not identify a reviewed Git boundary"
         )
+    historical_pr: dict[str, Any] | None = None
+    if commit != remote_commit:
+        pull_requests = sorted(
+            set(
+                re.findall(
+                    r"https://github\.com/Thorncrag/ARRP/pull/[0-9]+",
+                    " ".join(str(item) for item in synchronization),
+                )
+            )
+        )
+        if gh is None or len(pull_requests) != 1:
+            raise ContextError(
+                "applied Elim result must report the exact reviewed origin/main "
+                "boundary or one revalidated historical pull request"
+            )
+        historical_pr = read_closeout_pull_request(
+            gh,
+            repo,
+            repository="Thorncrag/ARRP",
+            pull_request=pull_requests[0],
+        )
+        merge_value = historical_pr.get("mergeCommit")
+        merge_commit = (
+            str(merge_value.get("oid") or "")
+            if isinstance(merge_value, dict)
+            else ""
+        )
+        historical_head = str(historical_pr.get("headRefOid") or "")
+        if (
+            str(historical_pr.get("state") or "").upper() != "MERGED"
+            or historical_pr.get("baseRefName") != "main"
+            or historical_pr.get("baseRefOid") != baseline_commit
+            or merge_commit != commit
+            or re.fullmatch(r"[0-9a-f]{40}", historical_head) is None
+            or historical_pr.get("url") != pull_requests[0]
+        ):
+            raise ContextError(
+                "historical Elim pull-request readback differs from its exact "
+                "pinned closeout boundary"
+            )
+        wait_for_closeout_checks(
+            gh,
+            repo,
+            repository="Thorncrag/ARRP",
+            pull_request=pull_requests[0],
+        )
+        head_exists = command(
+            [git, "cat-file", "-e", f"{historical_head}^{{commit}}"],
+            cwd=repo,
+        )
+        merge_tree = command(
+            [git, "rev-parse", f"{commit}^{{tree}}"],
+            cwd=repo,
+        )
+        head_tree = command(
+            [git, "rev-parse", f"{historical_head}^{{tree}}"],
+            cwd=repo,
+        )
+        if (
+            head_exists.returncode != 0
+            or merge_tree.returncode != 0
+            or head_tree.returncode != 0
+            or merge_tree.stdout.strip() != head_tree.stdout.strip()
+        ):
+            raise ContextError(
+                "historical Elim merge tree differs from its exact reviewed "
+                "pull-request head"
+            )
     topology = command(
         [git, "rev-list", "--parents", "-n", "1", commit],
         cwd=repo,
@@ -1473,7 +1544,14 @@ def verify_commit_and_synchronization(
         raise ContextError(
             "applied Elim result has an unsupported or unverifiable commit topology"
         )
-    if len(topology_parts) == 3:
+    if historical_pr is not None:
+        if topology_parts != [commit, baseline_commit]:
+            raise ContextError(
+                "historical Elim merge does not have the pinned baseline as "
+                "its exact sole parent"
+            )
+        comparison_base = baseline_commit
+    elif len(topology_parts) == 3:
         comparison_base = topology_parts[1]
         baseline_ancestry = command(
             [
@@ -1520,6 +1598,54 @@ def verify_commit_and_synchronization(
         },
         comparison_base,
     )
+
+
+def synchronize_verified_elim_checkout(
+    git: str,
+    repo: Path,
+    *,
+    result_commit: str,
+) -> str:
+    """Advance a clean, verified historical checkout to current origin/main."""
+    require_clean_repo(git, repo)
+    remote = command(
+        [git, "rev-parse", "refs/remotes/origin/main"],
+        cwd=repo,
+    )
+    remote_commit = remote.stdout.strip()
+    ancestry = command(
+        [
+            git,
+            "merge-base",
+            "--is-ancestor",
+            result_commit,
+            "refs/remotes/origin/main",
+        ],
+        cwd=repo,
+    )
+    if (
+        remote.returncode != 0
+        or re.fullmatch(r"[0-9a-f]{40}", remote_commit) is None
+        or ancestry.returncode != 0
+    ):
+        raise ContextError(
+            "verified Elim result is not contained in current origin/main"
+        )
+    switched = command(
+        [git, "switch", "--detach", "refs/remotes/origin/main"],
+        cwd=repo,
+    )
+    head = command([git, "rev-parse", "HEAD"], cwd=repo)
+    if (
+        switched.returncode != 0
+        or head.returncode != 0
+        or head.stdout.strip() != remote_commit
+    ):
+        raise RuntimeError(
+            "trusted host could not synchronize the verified Elim checkout"
+        )
+    require_clean_repo(git, repo)
+    return remote_commit
 
 
 def verify_successful_elim_evidence(
@@ -6858,6 +6984,11 @@ def resume_verified_elim_closeout(
         gh=gh,
         expected_manifest=payload,
     )
+    synchronized_head = synchronize_verified_elim_checkout(
+        git,
+        execution_repo,
+        result_commit=str(result["commit"]),
+    )
     recovery_path = repo / ELIM_RECOVERY_STATE
     persist_validated_recovery(
         repo,
@@ -6884,7 +7015,7 @@ def resume_verified_elim_closeout(
         result_commit=str(result["commit"]),
     )
     recovered_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-    control["elim_checkout_synced_head"] = result["commit"]
+    control["elim_checkout_synced_head"] = synchronized_head
     control["elim_checkout_synced_at"] = recovered_at
     control["elim_checkout_synced_chain_id"] = chain_id
     control["elim_checkout_sync_source"] = "verified-host-closeout-recovery"

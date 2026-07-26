@@ -2649,6 +2649,167 @@ class RunChainDispatcherTests(unittest.TestCase):
                         expected_manifest=self.selected_manifest(),
                     )
 
+    def test_historical_closeout_revalidates_exact_pr_checks_tree_and_parent(self):
+        commit = "a" * 40
+        baseline = "b" * 40
+        current = "c" * 40
+        pr_head = "d" * 40
+        tree = "e" * 40
+        pull_request = "https://github.com/Thorncrag/ARRP/pull/999"
+        result = self.elim_result()
+        result["commit"] = commit
+        result["synchronization"] = [
+            f"Trusted host read back exact commit {pr_head}.",
+            f"Trusted host used pull request {pull_request}.",
+            "Trusted host required every reported check to finish.",
+            f"Trusted host read back exact origin/main boundary {commit}.",
+        ]
+        manifest = self.selected_manifest()
+        manifest["baseline_commit"] = baseline
+
+        def run_command(argv, **_kwargs):
+            if argv[1] == "cat-file":
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout="", stderr=""
+                )
+            if argv[1] == "fetch":
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout="", stderr=""
+                )
+            if argv[1:3] == ["rev-parse", "HEAD"]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout=commit + "\n", stderr=""
+                )
+            if argv[1:3] == [
+                "rev-parse",
+                "refs/remotes/origin/main",
+            ]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout=current + "\n", stderr=""
+                )
+            if argv[1] == "merge-base":
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout="", stderr=""
+                )
+            if argv[1:3] == ["rev-parse", f"{commit}^{{tree}}"]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout=tree + "\n", stderr=""
+                )
+            if argv[1:3] == ["rev-parse", f"{pr_head}^{{tree}}"]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout=tree + "\n", stderr=""
+                )
+            if argv[1] == "rev-list":
+                return MODULE.subprocess.CompletedProcess(
+                    argv,
+                    0,
+                    stdout=f"{commit} {baseline}\n",
+                    stderr="",
+                )
+            if argv[1] == "diff":
+                return MODULE.subprocess.CompletedProcess(
+                    argv,
+                    0,
+                    stdout=MODULE.ELIM_RUN_LOG + "\n",
+                    stderr="",
+                )
+            self.fail(f"unexpected command: {argv}")
+
+        pr = {
+            "state": "MERGED",
+            "baseRefName": "main",
+            "baseRefOid": baseline,
+            "headRefOid": pr_head,
+            "mergeCommit": {"oid": commit},
+            "url": pull_request,
+        }
+        with (
+            mock.patch.object(MODULE, "command", side_effect=run_command),
+            mock.patch.object(
+                MODULE,
+                "read_closeout_pull_request",
+                return_value=pr,
+            ),
+            mock.patch.object(
+                MODULE,
+                "wait_for_closeout_checks",
+                return_value=[{"name": "CodeQL", "bucket": "pass"}],
+            ) as checks,
+        ):
+            reviewed, comparison = MODULE.verify_commit_and_synchronization(
+                "/usr/bin/git",
+                "/opt/homebrew/bin/gh",
+                Path("/tmp"),
+                result,
+                baseline_commit=baseline,
+            )
+        self.assertEqual(reviewed, {MODULE.ELIM_RUN_LOG})
+        self.assertEqual(comparison, baseline)
+        checks.assert_called_once_with(
+            "/opt/homebrew/bin/gh",
+            Path("/tmp"),
+            repository="Thorncrag/ARRP",
+            pull_request=pull_request,
+        )
+        with (
+            mock.patch.object(MODULE, "command", side_effect=run_command),
+            mock.patch.object(
+                MODULE,
+                "read_closeout_pull_request",
+                return_value={**pr, "baseRefOid": "f" * 40},
+            ),
+            mock.patch.object(MODULE, "wait_for_closeout_checks"),
+        ):
+            with self.assertRaisesRegex(
+                MODULE.ContextError,
+                "differs from its exact pinned closeout boundary",
+            ):
+                MODULE.verify_commit_and_synchronization(
+                    "/usr/bin/git",
+                    "/opt/homebrew/bin/gh",
+                    Path("/tmp"),
+                    result,
+                    baseline_commit=baseline,
+                )
+
+    def test_verified_historical_checkout_advances_to_current_origin(self):
+        result_commit = "a" * 40
+        current = "c" * 40
+
+        def run_command(argv, **_kwargs):
+            if argv[1:3] == [
+                "rev-parse",
+                "refs/remotes/origin/main",
+            ]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout=current + "\n", stderr=""
+                )
+            if argv[1] == "merge-base":
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout="", stderr=""
+                )
+            if argv[1:3] == ["switch", "--detach"]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout="", stderr=""
+                )
+            if argv[1:3] == ["rev-parse", "HEAD"]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout=current + "\n", stderr=""
+                )
+            self.fail(f"unexpected command: {argv}")
+
+        with (
+            mock.patch.object(MODULE, "require_clean_repo") as clean,
+            mock.patch.object(MODULE, "command", side_effect=run_command),
+        ):
+            synchronized = MODULE.synchronize_verified_elim_checkout(
+                "/usr/bin/git",
+                Path("/tmp"),
+                result_commit=result_commit,
+            )
+        self.assertEqual(synchronized, current)
+        self.assertEqual(clean.call_count, 2)
+
     def test_material_closeout_rejects_hidden_extra_changed_file(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
