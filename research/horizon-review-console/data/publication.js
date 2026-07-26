@@ -7613,9 +7613,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 16825,
-      "estimated_pages": 26,
-      "table_count": 91,
+      "word_count": 17176,
+      "estimated_pages": 27,
+      "table_count": 92,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
@@ -8726,12 +8726,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 863,
-      "estimated_pages": 2,
+      "word_count": 615,
+      "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 22
+      "longest_unbroken_token": 21
     },
     {
       "title": "Current Project Integrity Report",
@@ -8878,12 +8878,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 8062,
-      "estimated_pages": 13,
-      "table_count": 11,
+      "word_count": 9090,
+      "estimated_pages": 14,
+      "table_count": 12,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 75
+      "longest_unbroken_token": 7668
     },
     {
       "title": "Elim Runbook",
@@ -15129,7 +15129,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 490,
-        "modified_at": "2026-07-22T16:21:44+00:00",
+        "modified_at": "2026-07-25T10:54:16+00:00",
         "stale": true
       }
     ],
@@ -18128,8 +18128,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
-        "generated_at": "2026-07-26T06:55:15+00:00"
+        "revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+        "generated_at": "2026-07-26T10:32:06+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20015,6 +20015,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-3e4857ba9d39384e87d9"
+    "publication.js": "project-console-9e0e00a0acf757e394be"
   }
 });

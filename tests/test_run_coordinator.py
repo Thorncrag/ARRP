@@ -577,7 +577,7 @@ class RunCoordinatorTests(unittest.TestCase):
                     "directives": [],
                 },
                 "source-checker.json": {
-                    "schema_version": 1,
+                    "schema_version": 2,
                     "checked_at": self.now.isoformat(),
                     "counts": {},
                     "results": [],
@@ -595,6 +595,29 @@ class RunCoordinatorTests(unittest.TestCase):
                     self.now,
                 ),
                 {},
+            )
+
+            valid["source-checker.json"]["schema_version"] = 1
+            (root / "source-checker.json").write_text(
+                json.dumps(valid["source-checker.json"]) + "\n",
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                MODULE.watcher_input_refresh_requirements(
+                    root,
+                    self.config["stages"],
+                    self.now,
+                ),
+                {
+                    "source-checker-bot": (
+                        "persistent watcher input schema is invalid"
+                    )
+                },
+            )
+            valid["source-checker.json"]["schema_version"] = 2
+            (root / "source-checker.json").write_text(
+                json.dumps(valid["source-checker.json"]) + "\n",
+                encoding="utf-8",
             )
 
             for filename in (
@@ -682,7 +705,7 @@ class RunCoordinatorTests(unittest.TestCase):
             reports["presidential-directives.json"]["generated_at"] = (
                 self.now.isoformat()
             )
-            reports["source-checker.json"]["schema_version"] = 1
+            reports["source-checker.json"]["schema_version"] = 2
             for filename, payload in reports.items():
                 (root / filename).write_text(
                     json.dumps(payload) + "\n",
@@ -706,7 +729,7 @@ class RunCoordinatorTests(unittest.TestCase):
                 self.now - timedelta(hours=24, seconds=1)
             ).isoformat()
             reports["presidential-directives.json"]["generated_at"] = ""
-            reports["source-checker.json"]["schema_version"] = 1
+            reports["source-checker.json"]["schema_version"] = 2
             reports["source-checker.json"]["checked_at"] = (
                 self.now - timedelta(hours=168, seconds=1)
             ).isoformat()

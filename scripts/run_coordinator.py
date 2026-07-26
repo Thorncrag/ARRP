@@ -103,7 +103,7 @@ PERSISTENT_WATCHER_INPUTS = {
     },
     "source-checker-bot": {
         "filename": "source-checker.json",
-        "schema_version": 1,
+        "schema_version": 2,
         "timestamp_field": "checked_at",
         "required_types": {
             "counts": dict,
