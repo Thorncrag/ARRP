@@ -1,0 +1,3568 @@
+{
+  "acceptance": null,
+  "affected_records": [
+    {
+      "record_id": "SRC-0002",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0003",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0004",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0006",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0007",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0008",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0009",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0010",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0011",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0012",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0013",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0014",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0015",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0016",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0017",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0018",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0019",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0020",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0021",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0022",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0023",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0024",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0025",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0026",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0035",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0036",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0037",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0045",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0047",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0048",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0049",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0050",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0054",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0055",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0056",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0057",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0060",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0062",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0063",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0068",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0069",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0070",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0071",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0072",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0073",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0110",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0117",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0119",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0120",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0123",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0125",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0135",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0156",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0164",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0167",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0168",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0172",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0173",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0174",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0175",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0178",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0182",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0183",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0192",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0193",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0195",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0201",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0218",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0219",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0220",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0226",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0228",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0229",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0230",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0231",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0232",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0233",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0236",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0237",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0238",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0239",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0240",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0243",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0244",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0251",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0253",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0255",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0256",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0261",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0265",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0266",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0272",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0273",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0285",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0286",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0287",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0288",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0290",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0292",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0294",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0301",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0302",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0305",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0307",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0308",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0310",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0311",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0313",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0314",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0320",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0339",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0350",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0357",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0358",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0359",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0360",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0370",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0371",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0372",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0373",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0375",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0376",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0377",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0378",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0379",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0380",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0381",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0382",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0383",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0384",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0385",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0386",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0400",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0407",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0408",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0409",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0410",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0411",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0412",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0417",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0418",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0419",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0428",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0429",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0430",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0432",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0435",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0437",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0442",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0445",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0448",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0449",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0457",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0458",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0459",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0468",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0469",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0470",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0471",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0472",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0473",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0474",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0475",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0478",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0479",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0480",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0487",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0500",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0501",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0508",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0516",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0517",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0519",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0520",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0534",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0537",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0539",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0542",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0545",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0546",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0547",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0553",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0554",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0555",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0556",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0560",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0567",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0595",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0608",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0610",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0614",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0617",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0618",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0627",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0653",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0654",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0655",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0666",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0667",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0668",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0678",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0680",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0681",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0682",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0683",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0684",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0689",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0692",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0693",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0694",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0695",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0703",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0709",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0717",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0726",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0727",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0738",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0739",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0743",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0744",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0754",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0755",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0756",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0758",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0761",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0764",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0780",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0787",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0788",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0791",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0792",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0793",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0796",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0797",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0798",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0799",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0800",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0801",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0802",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0803",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0804",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0805",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0806",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0807",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0808",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0810",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0811",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0831",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0835",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0851",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0894",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0895",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0913",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0916",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0918",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0919",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0921",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0923",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0924",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0925",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0929",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0930",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0931",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0932",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0933",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0934",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0937",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0940",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0944",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0945",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0946",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0948",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0949",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0952",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0956",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0957",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0958",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0959",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0961",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0962",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0963",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0965",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0966",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0967",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0969",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0972",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0973",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0975",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0976",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0977",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0979",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0980",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0981",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0982",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0983",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0985",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0986",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0987",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0988",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0989",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0991",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0993",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0994",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0996",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0997",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0998",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1000",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1004",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1005",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1007",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1008",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1009",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1010",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1011",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1013",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1015",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1016",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1017",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1018",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1020",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1021",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1023",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1024",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1025",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1026",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1027",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1029",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1030",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1032",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1034",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1035",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1036",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1037",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1040",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1044",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1045",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1046",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1047",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1049",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1050",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1052",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1056",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1059",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1060",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1061",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1062",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1063",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1064",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1066",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1067",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1069",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1071",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1074",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1075",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1076",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1077",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1078",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1079",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1081",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1082",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1084",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1085",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1086",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1087",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1088",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1090",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1092",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1093",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1094",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1096",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1097",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1098",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1140",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1143",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1149",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1187",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1197",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1221",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1227",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1228",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1230",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1232",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1233",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1236",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1237",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1249",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1250",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1253",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1363",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1364",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1368",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1370",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1372",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1374",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1377",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1380",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1382",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1384",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1386",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1388",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1390",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1392",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1397",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1399",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1403",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1407",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1409",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1410",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1418",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1420",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1422",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1424",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1426",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1430",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1438",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1440",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1442",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1444",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1446",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1461",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1481",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1487",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1493",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1499",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1509",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1517",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1520",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1528",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1542",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1547",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1785",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1786",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1787",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1788",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1789",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1790",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1791",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1792",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1793",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1794",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1795",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1796",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1798",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1800",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1801",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1802",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1814",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1839",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1846",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1857",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1909",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1911",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1913",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1917",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1919",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1920",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1921",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1922",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1923",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1924",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1926",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1927",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1929",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1930",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1931",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1932",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1933",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1934",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1935",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1936",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1937",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1938",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1940",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1941",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1942",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1943",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1944",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1945",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1946",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1947",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1948",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1949",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1952",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1953",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1954",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1955",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1956",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1957",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1958",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1959",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1960",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1961",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1962",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1964",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1966",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1968",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1970",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1971",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1972",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1973",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1974",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1975",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1976",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1977",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1978",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1979",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1980",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1981",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1982",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1983",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1984",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1985",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1986",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1987",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1988",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1989",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1991",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1992",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2007",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2008",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2009",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2010",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2011",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2012",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2013",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2014",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2015",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2016",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2017",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2018",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2019",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2020",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2021",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2022",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2023",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2024",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2026",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2027",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2028",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2030",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2031",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2032",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2033",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2034",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2035",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2036",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2037",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2038",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2039",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2040",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2041",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2042",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2043",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2044",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2045",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2046",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2047",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2048",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2049",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2050",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2051",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2052",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2053",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2054",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2055",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2056",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2057",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2058",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2059",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2060",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2061",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2062",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2063",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2064",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2065",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2066",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2067",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2068",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2069",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2070",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2071",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2072",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2073",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2074",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2075",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2076",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2077",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2078",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2079",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2080",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2081",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2082",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2083",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2084",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2085",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2086",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2087",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2088",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2089",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2090",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2091",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2092",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2093",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2094",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2095",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2096",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2097",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2098",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2099",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2100",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2101",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2102",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2103",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2104",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2105",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2106",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2107",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2108",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2109",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2110",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2111",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2112",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2113",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2114",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2115",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2116",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2117",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2118",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2119",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2120",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2121",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2122",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2123",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2124",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2125",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2126",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2127",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2128",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2129",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2130",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2131",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2132",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2133",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2134",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2135",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2136",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2137",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2139",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2140",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2141",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2142",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2143",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2145",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2147",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2149",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2150",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2152",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2157",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2182",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2183",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2184",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2188",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2190",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2192",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2193",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2195",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2196",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2197",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2198",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2201",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2202",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2204",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2205",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2206",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2207",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2208",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2209",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2210",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2211",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2212",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2213",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2216",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2217",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2218",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2219",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2221",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2223",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2224",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2225",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2228",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2229",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2230",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2231",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2232",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2233",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2234",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2235",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2236",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2237",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2238",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2239",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2240",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2241",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2242",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2243",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2244",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2245",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2246",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2247",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2248",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2249",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2250",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2251",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2252",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2253",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2254",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2255",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2256",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2257",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2258",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2259",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2260",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2261",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2262",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2263",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2264",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2265",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2266",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2267",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2268",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2269",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2270",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2271",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2272",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2273",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2274",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2275",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2276",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2277",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2278",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2279",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2280",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2281",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2282",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2283",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2284",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2285",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2286",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2287",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2288",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2289",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2290",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2293",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2294",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2295",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2296",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2297",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2298",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2299",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2301",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2302",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2303",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2304",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2305",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2306",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2307",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2308",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2309",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2310",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2311",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2312",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2315",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2316",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2327",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2328",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2330",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2333",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2334",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2335",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2338",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2339",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2341",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2342",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2343",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2344",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2345",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2346",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2348",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2349",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2350",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2351",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2356",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2357",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2358",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2359",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2360",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2361",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2362",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2363",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2366",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2379",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2381",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2385",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2399",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2406",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2407",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2408",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2409",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2411",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2412",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2420",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2446",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2465",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2501",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2521",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2530",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2531",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2532",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2533",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2534",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2535",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2536",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2537",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2538",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2539",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2540",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2542",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2543",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2544",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2545",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2546",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2547",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2548",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2549",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2550",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2552",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2553",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2554",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2555",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2556",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2557",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2558",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2559",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2560",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2569",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2570",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2571",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2573",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2574",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2575",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2576",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2580",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2587",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2589",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2591",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2592",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2594",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2597",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2598",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2599",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2600",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2601",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2602",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2603",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2608",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2609",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2610",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2611",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2612",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2613",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2622",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2623",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2633",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2634",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2636",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2637",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2639",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2645",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2646",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2651",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2652",
+      "record_type": "source"
+    }
+  ],
+  "agent_id": "source-checker-bot",
+  "chain_id": "standalone:github-actions:Thorncrag/ARRP:30186380681:1:standalone",
+  "event_id": "SDE-C58E8BCF36FBDD2F7BB8D066",
+  "idempotency_key": "sha256:c58e8bcf36fbdd2f7bb8d066a0e3a7cf3067a07ee9b8aea75e9e10ead64cff44",
+  "kind": "source-domain-event",
+  "output_hashes": {
+    "files": [
+      {
+        "bytes": 49910,
+        "path": "framework/reports/SOURCE_CHECKER_REPORT.md",
+        "sha256": "sha256:0498c2c4a975a50b47677ad51518847b83826095a46bf080af951669b6da25da"
+      }
+    ],
+    "proposal_diff": "sha256:be226c1e6360046270cf45ccb4cd819cfe90e2b9d919191e5d1cf630a5d9a09a",
+    "semantic_report": "sha256:35bbd10e59c7d2d7ef80f450ec64ff79edecd678dcf1aa931912af8c15de517f"
+  },
+  "proposal": {
+    "base_ref": "main",
+    "head_ref": "bot/source-checker-report",
+    "proposal_revision": "d7563b2901607dda25e918e556297b0f58e7f817",
+    "pull_request_number": 378,
+    "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/378",
+    "repository": "Thorncrag/ARRP"
+  },
+  "run_id": "github-actions:Thorncrag/ARRP:30186380681:1:standalone",
+  "schema_uri": ".github/source-domain-event.schema.json",
+  "schema_version": 1,
+  "source_revision": "2681f26ce7a71dc551bc01a17b5c9ff243aaf3c1",
+  "state": "proposed",
+  "summary": {
+    "affected_record_count": 881,
+    "counts": {
+      "affected-files": 1,
+      "affected-records": 881,
+      "source-records": 881
+    },
+    "status": "source checker proposal delta"
+  },
+  "trigger": "workflow_dispatch"
+}
