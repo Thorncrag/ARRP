@@ -983,7 +983,165 @@ class RunChainDispatcherTests(unittest.TestCase):
                 ["/usr/bin/git", "status", "--porcelain"],
                 argument_vectors,
             )
-            self.assertFalse(any("merge" in vector for vector in argument_vectors))
+            self.assertFalse(
+                any(
+                    len(vector) > 1 and vector[1] == "merge"
+                    for vector in argument_vectors
+                )
+            )
+
+    def test_runtime_preflight_fast_forwards_clean_main_after_ancestor_proof(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            (repo / ".git").mkdir()
+            for relative in MODULE.AUTOMATION_RUNTIME_PATHS:
+                path = repo / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(relative + "\n", encoding="utf-8")
+            local = "a" * 40
+            remote = "b" * 40
+            same_blob = "c" * 40 + "\n"
+            responses = [
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout="https://github.com/Thorncrag/ARRP.git\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout=remote + "\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="main\n", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout=local + "\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout=remote + "\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+            ]
+            for _relative in MODULE.AUTOMATION_RUNTIME_PATHS:
+                responses.extend(
+                    [
+                        MODULE.subprocess.CompletedProcess(
+                            [], 0, stdout=same_blob, stderr=""
+                        ),
+                        MODULE.subprocess.CompletedProcess(
+                            [], 0, stdout=same_blob, stderr=""
+                        ),
+                    ]
+                )
+            with mock.patch.object(
+                MODULE,
+                "command",
+                side_effect=responses,
+            ) as invoked:
+                revision, workspace_commit = MODULE.verify_canonical_runtime_boundary(
+                    "/usr/bin/git",
+                    repo,
+                )
+            self.assertEqual((revision, workspace_commit), (remote, None))
+            argument_vectors = [call.args[0] for call in invoked.mock_calls]
+            self.assertIn(
+                [
+                    "/usr/bin/git",
+                    "merge-base",
+                    "--is-ancestor",
+                    local,
+                    remote,
+                ],
+                argument_vectors,
+            )
+            self.assertIn(
+                ["/usr/bin/git", "merge", "--ff-only", remote],
+                argument_vectors,
+            )
+
+    def test_runtime_preflight_does_not_fast_forward_dirty_main(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            (repo / ".git").mkdir()
+            local = "a" * 40
+            remote = "b" * 40
+            responses = [
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout="https://github.com/Thorncrag/ARRP.git\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout=remote + "\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="main\n", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout=" M README.md\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout=local + "\n", stderr=""
+                ),
+            ]
+            with mock.patch.object(
+                MODULE,
+                "command",
+                side_effect=responses,
+            ) as invoked:
+                with self.assertRaisesRegex(
+                    RuntimeError,
+                    "working tree is not clean",
+                ):
+                    MODULE.verify_canonical_runtime_boundary(
+                        "/usr/bin/git",
+                        repo,
+                    )
+            argument_vectors = [call.args[0] for call in invoked.mock_calls]
+            self.assertFalse(
+                any(
+                    len(vector) > 1 and vector[1] == "merge"
+                    for vector in argument_vectors
+                )
+            )
+
+    def test_runtime_preflight_does_not_fast_forward_divergent_main(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            (repo / ".git").mkdir()
+            local = "a" * 40
+            remote = "b" * 40
+            responses = [
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout="https://github.com/Thorncrag/ARRP.git\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout=remote + "\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="main\n", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess(
+                    [], 0, stdout=local + "\n", stderr=""
+                ),
+                MODULE.subprocess.CompletedProcess([], 1, stdout="", stderr=""),
+            ]
+            with mock.patch.object(
+                MODULE,
+                "command",
+                side_effect=responses,
+            ) as invoked:
+                with self.assertRaisesRegex(
+                    RuntimeError,
+                    "not an ancestor",
+                ):
+                    MODULE.verify_canonical_runtime_boundary(
+                        "/usr/bin/git",
+                        repo,
+                    )
+            argument_vectors = [call.args[0] for call in invoked.mock_calls]
+            self.assertFalse(
+                any(
+                    len(vector) > 1 and vector[1] == "merge"
+                    for vector in argument_vectors
+                )
+            )
 
     def test_runtime_preflight_blocks_unreconciled_workspace(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -1182,6 +1340,89 @@ class RunChainDispatcherTests(unittest.TestCase):
                 "Preserve local ARRP changes before automated run",
                 run(["log", "-1", "--pretty=%s"], cwd=repo).stdout,
             )
+
+    def test_runtime_preflight_fast_forwards_a_real_clean_workspace(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            remote = root / "origin.git"
+            repo = root / "repo"
+            publisher = root / "publisher"
+
+            def run(arguments, *, cwd):
+                return MODULE.subprocess.run(
+                    ["/usr/bin/git", *arguments],
+                    cwd=cwd,
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+
+            run(["init", "--bare", str(remote)], cwd=root)
+            repo.mkdir()
+            run(["init", "-b", "main"], cwd=repo)
+            for relative in MODULE.AUTOMATION_RUNTIME_PATHS:
+                path = repo / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(relative + "\n", encoding="utf-8")
+            readme = repo / "README.md"
+            readme.write_text("baseline\n", encoding="utf-8")
+            run(["add", "-A"], cwd=repo)
+            run(
+                [
+                    "-c",
+                    "user.name=Test User",
+                    "-c",
+                    "user.email=test@example.com",
+                    "commit",
+                    "-m",
+                    "Baseline",
+                ],
+                cwd=repo,
+            )
+            run(["remote", "add", "origin", str(remote)], cwd=repo)
+            run(["push", "-u", "origin", "main"], cwd=repo)
+            baseline = run(["rev-parse", "HEAD"], cwd=repo).stdout.strip()
+
+            run(["clone", "-b", "main", str(remote), str(publisher)], cwd=root)
+            (publisher / "README.md").write_text(
+                "baseline\nremote update\n",
+                encoding="utf-8",
+            )
+            run(["add", "README.md"], cwd=publisher)
+            run(
+                [
+                    "-c",
+                    "user.name=Test Publisher",
+                    "-c",
+                    "user.email=publisher@example.com",
+                    "commit",
+                    "-m",
+                    "Advance remote",
+                ],
+                cwd=publisher,
+            )
+            run(["push", "origin", "main"], cwd=publisher)
+            expected = run(["rev-parse", "HEAD"], cwd=publisher).stdout.strip()
+
+            with mock.patch.object(
+                MODULE,
+                "APPROVED_ORIGIN_URLS",
+                frozenset({str(remote)}),
+            ):
+                revision, workspace_commit = (
+                    MODULE.verify_canonical_runtime_boundary(
+                        "/usr/bin/git",
+                        repo,
+                    )
+                )
+
+            self.assertNotEqual(baseline, expected)
+            self.assertEqual((revision, workspace_commit), (expected, None))
+            self.assertEqual(
+                run(["rev-parse", "HEAD"], cwd=repo).stdout.strip(),
+                expected,
+            )
+            self.assertEqual(run(["status", "--porcelain"], cwd=repo).stdout, "")
 
     def test_runtime_preflight_resumes_a_prepared_workspace_commit(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -207,6 +207,7 @@ HOST_CLOSEOUT_POLICY = {
 CANONICAL_WORKSPACE_RECONCILIATION_POLICY = {
     "requiredBranch": "main",
     "storageBoundary": "non-file-provider-local-filesystem",
+    "cleanMainBehindAction": "verified-fast-forward-only",
     "dirtyMainAction": "checked-pull-request-squash-merge-and-defer",
     "preparedCommitResume": "exact-parent-identity-paths-checks-readback",
     "changedPathPolicy": "complete-workspace",
@@ -5322,11 +5323,52 @@ def verify_canonical_runtime_boundary(
             "retry automated dispatch."
         )
     if local_revision != revision:
-        raise RuntimeError(
-            "canonical ARRP workspace is not reconciled with GitHub: local HEAD "
-            "does not equal the fetched origin/main revision. Reconcile the "
-            "divergent history through GitHub and retry automated dispatch."
+        if status.stdout.strip():
+            raise RuntimeError(
+                "canonical ARRP workspace is not reconciled with GitHub: local "
+                "HEAD differs from the fetched origin/main revision while the "
+                "working tree is not clean. Preserve or reconcile the local work "
+                "before retrying automated dispatch."
+            )
+        ancestry = command(
+            [git, "merge-base", "--is-ancestor", local_revision, revision],
+            cwd=repo,
         )
+        if ancestry.returncode == 1:
+            raise RuntimeError(
+                "canonical ARRP workspace is not reconciled with GitHub: clean "
+                "local main is not an ancestor of the fetched origin/main "
+                "revision. Reconcile the divergent history through GitHub and "
+                "retry automated dispatch."
+            )
+        if ancestry.returncode != 0:
+            raise RuntimeError(
+                "could not prove that clean local main can be fast-forwarded to "
+                "the fetched origin/main revision"
+            )
+        advanced = command(
+            [git, "merge", "--ff-only", revision],
+            cwd=repo,
+        )
+        if advanced.returncode != 0:
+            raise RuntimeError(
+                "could not fast-forward clean local main to the fetched "
+                "origin/main revision"
+            )
+        advanced_head = command([git, "rev-parse", "HEAD"], cwd=repo)
+        advanced_status = command([git, "status", "--porcelain"], cwd=repo)
+        if (
+            advanced_head.returncode != 0
+            or advanced_head.stdout.strip() != revision
+            or advanced_status.returncode != 0
+            or advanced_status.stdout.strip()
+        ):
+            raise RuntimeError(
+                "canonical ARRP workspace did not read back as clean at the "
+                "verified origin/main revision after fast-forward"
+            )
+        local_revision = revision
+        status = advanced_status
 
     changed_paths = [
         line for line in status.stdout.splitlines() if line.strip()
