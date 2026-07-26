@@ -1448,12 +1448,30 @@ def verify_commit_and_synchronization(
         or remote.returncode != 0
         or re.fullmatch(r"[0-9a-f]{40}", head_commit) is None
         or re.fullmatch(r"[0-9a-f]{40}", remote_commit) is None
-        or head_commit not in {commit, remote_commit}
     ):
         raise ContextError(
-            "isolated checkout is not at the applied result or current "
-            "origin/main boundary"
+            "isolated checkout boundary is unreadable or malformed"
         )
+    if head_commit not in {commit, remote_commit}:
+        result_to_head = command(
+            [git, "merge-base", "--is-ancestor", commit, head_commit],
+            cwd=repo,
+        )
+        head_to_remote = command(
+            [
+                git,
+                "merge-base",
+                "--is-ancestor",
+                head_commit,
+                "refs/remotes/origin/main",
+            ],
+            cwd=repo,
+        )
+        if result_to_head.returncode != 0 or head_to_remote.returncode != 0:
+            raise ContextError(
+                "isolated checkout is not on the verified Elim result-to-current "
+                "origin/main ancestry path"
+            )
     if not any(
         marker in normalized
         for marker in ("origin/main", "merged", "synchronized", "readback")
@@ -4476,6 +4494,18 @@ def resolve_verified_closeout_incident(
         f"Trusted-host recovery verified, synchronized, and read back exact "
         f"result commit {result_commit} for Chain ID {chain_id}."
     )
+    recovered_chain_incident_exists = any(
+        isinstance(item, dict)
+        and item.get("kind") == "automation_failure"
+        and item.get("chain_id") == chain_id
+        and item.get("stage")
+        in {
+            "elim-host-git-closeout",
+            "elim-closeout",
+            "elim-closeout-recovery",
+        }
+        for item in items
+    )
     resolved = 0
     for item in items:
         if not isinstance(item, dict):
@@ -4490,10 +4520,10 @@ def resolve_verified_closeout_incident(
             }
         )
         legacy_partial_transaction = (
-            item.get("chain_id") == control.get("last_failed_chain_id")
-            and item.get("stage") == "host-repository-preflight"
+            item.get("stage") == "host-repository-preflight"
             and item.get("details")
             == "host-repository-preflight failed: 'next_action'"
+            and recovered_chain_incident_exists
             and control.get("last_recovered_chain_id") == chain_id
             and control.get("last_successful_chain_id") == chain_id
             and control.get("elim_checkout_synced_chain_id") == chain_id

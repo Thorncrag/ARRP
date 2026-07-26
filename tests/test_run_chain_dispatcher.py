@@ -2655,6 +2655,7 @@ class RunChainDispatcherTests(unittest.TestCase):
         current = "c" * 40
         pr_head = "d" * 40
         tree = "e" * 40
+        intermediate = "9" * 40
         pull_request = "https://github.com/Thorncrag/ARRP/pull/999"
         result = self.elim_result()
         result["commit"] = commit
@@ -2678,7 +2679,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                 )
             if argv[1:3] == ["rev-parse", "HEAD"]:
                 return MODULE.subprocess.CompletedProcess(
-                    argv, 0, stdout=commit + "\n", stderr=""
+                    argv, 0, stdout=intermediate + "\n", stderr=""
                 )
             if argv[1:3] == [
                 "rev-parse",
@@ -2714,6 +2715,18 @@ class RunChainDispatcherTests(unittest.TestCase):
                     stderr="",
                 )
             self.fail(f"unexpected command: {argv}")
+
+        def divergent_checkout(argv, **kwargs):
+            if argv[1:] == [
+                "merge-base",
+                "--is-ancestor",
+                commit,
+                intermediate,
+            ]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 1, stdout="", stderr=""
+                )
+            return run_command(argv, **kwargs)
 
         pr = {
             "state": "MERGED",
@@ -2763,6 +2776,26 @@ class RunChainDispatcherTests(unittest.TestCase):
             with self.assertRaisesRegex(
                 MODULE.ContextError,
                 "differs from its exact pinned closeout boundary",
+            ):
+                MODULE.verify_commit_and_synchronization(
+                    "/usr/bin/git",
+                    "/opt/homebrew/bin/gh",
+                    Path("/tmp"),
+                    result,
+                    baseline_commit=baseline,
+                )
+        with (
+            mock.patch.object(
+                MODULE,
+                "command",
+                side_effect=divergent_checkout,
+            ),
+            mock.patch.object(MODULE, "read_closeout_pull_request"),
+            mock.patch.object(MODULE, "wait_for_closeout_checks"),
+        ):
+            with self.assertRaisesRegex(
+                MODULE.ContextError,
+                "not on the verified Elim result-to-current",
             ):
                 MODULE.verify_commit_and_synchronization(
                     "/usr/bin/git",
@@ -4780,10 +4813,13 @@ class RunChainDispatcherTests(unittest.TestCase):
                         "resolved": False,
                     },
                 ],
-                "last_failed_chain_id": "host-dispatch-20260726T125538Z",
+                "last_failed_chain_id": "chain-1",
                 "last_failed_exit_code": 1,
-                "last_failed_reason": "host-repository-preflight failed: 'next_action'",
-                "last_failed_at": "2026-07-26T12:55:38+00:00",
+                "last_failed_reason": (
+                    "elim-closeout-recovery failed: isolated checkout is not "
+                    "at the current boundary"
+                ),
+                "last_failed_at": "2026-07-26T13:47:00+00:00",
             }
             self.assertEqual(
                 MODULE.record_verified_closeout_recovery(
