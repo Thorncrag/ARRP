@@ -675,17 +675,47 @@ def persist_validated_recovery(
     state = str((result.get("continuation") or {}).get("state") or "none")
     if result["outcome"] in {"completed", "clean"}:
         state = "complete"
+    continuation = result.get("continuation") or {}
+    source_revision = selected.get("source_revision")
+    result_commit = str(result.get("commit") or "") or None
+    exact_prior_attempt = (
+        previous.get("last_run_id") == result["run_id"]
+        and previous.get("result_commit") == result_commit
+        and previous.get("state") == state
+        and previous.get("continuation") == continuation
+        and previous.get("last_outcome") == result["outcome"]
+        and previous.get("source_revision") == source_revision
+    )
+    legacy_exact_attempt = (
+        bool(previous)
+        and result_commit is not None
+        and "last_run_id" not in previous
+        and "result_commit" not in previous
+        and previous.get("state") == state
+        and previous.get("continuation") == continuation
+        and previous.get("last_outcome") == result["outcome"]
+        and previous.get("source_revision") == source_revision
+    )
+    same_attempt = exact_prior_attempt or legacy_exact_attempt
     by_id[result["unit_id"]] = {
         "work_id": result["unit_id"],
         "state": state,
-        "attempt_count": int(previous.get("attempt_count") or 0) + 1,
-        "continuation": result.get("continuation") or {},
+        "attempt_count": (
+            int(previous.get("attempt_count") or 1)
+            if same_attempt
+            else int(previous.get("attempt_count") or 0) + 1
+        ),
+        "continuation": continuation,
         "last_outcome": result["outcome"],
         "next_retry_at": None,
-        "source_revision": selected.get("source_revision"),
-        "recorded_at": datetime.now(timezone.utc)
-        .replace(microsecond=0)
-        .isoformat(),
+        "source_revision": source_revision,
+        "last_run_id": result["run_id"],
+        "result_commit": result_commit,
+        "recorded_at": (
+            previous.get("recorded_at")
+            if same_attempt and previous.get("recorded_at")
+            else datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+        ),
     }
     write_json(
         path,
@@ -694,6 +724,46 @@ def persist_validated_recovery(
             "items": [by_id[key] for key in sorted(by_id)],
         },
         root=repo,
+    )
+
+
+def validated_recovery_record_matches(
+    repo: Path,
+    path: Path,
+    payload: dict[str, Any],
+    result: dict[str, Any],
+) -> bool:
+    """Prove that the exact closeout already has a durable recovery marker."""
+    verify_elim_result_binding(payload, result)
+    state = read_json(path, root=repo)
+    if not isinstance(state, dict) or not isinstance(state.get("items"), list):
+        raise ContextError("local Elim recovery state is malformed")
+    matching = [
+        item
+        for item in state["items"]
+        if isinstance(item, dict)
+        and item.get("work_id") == result["unit_id"]
+    ]
+    if len(matching) != 1:
+        return False
+    item = matching[0]
+    selected = selected_manifest_unit(payload)
+    expected_state = str(
+        (result.get("continuation") or {}).get("state") or "none"
+    )
+    if result["outcome"] in {"completed", "clean"}:
+        expected_state = "complete"
+    return (
+        item.get("state") == expected_state
+        and item.get("continuation") == (result.get("continuation") or {})
+        and item.get("last_outcome") == result["outcome"]
+        and item.get("source_revision") == selected.get("source_revision")
+        and item.get("last_run_id") == result["run_id"]
+        and item.get("result_commit")
+        == (str(result.get("commit") or "") or None)
+        and isinstance(item.get("attempt_count"), int)
+        and not isinstance(item.get("attempt_count"), bool)
+        and item["attempt_count"] > 0
     )
 
 
@@ -2222,6 +2292,7 @@ def append_host_outcome_history(
     stage: str,
     exit_code: int,
     payload: dict[str, Any] | None = None,
+    event_id: str | None = None,
 ) -> None:
     limit = config.get("manifest", {}).get("historyLimit")
     if isinstance(limit, bool) or not isinstance(limit, int) or not 1 <= limit <= 100:
@@ -2248,11 +2319,17 @@ def append_host_outcome_history(
         "usage_status": str(usage.get("status") or "") or None,
         "action_required": status in {"failed", "blocked"},
     }
+    if event_id is not None:
+        if not event_id or len(event_id) > 200:
+            raise ContextError("host-outcome event identity is invalid")
+        record["event_id"] = event_id
     history_path = repo / HOST_OUTCOME_HISTORY
     value = read_json(history_path, {"schema_version": 1, "items": []}, root=repo)
     if not isinstance(value, dict) or not isinstance(value.get("items"), list):
         raise RuntimeError("local host-outcome history is malformed")
     items = [item for item in value["items"] if isinstance(item, dict)]
+    if event_id is not None:
+        items = [item for item in items if item.get("event_id") != event_id]
     items.append(record)
     write_json(
         history_path,
@@ -4200,6 +4277,8 @@ def clear_verified_run_log_reconciliation(
     *,
     chain_id: str,
     result: dict[str, Any],
+    recovery_path: Path | None = None,
+    payload: dict[str, Any] | None = None,
 ) -> None:
     """Clear one failed-run obligation only after its applied result is verified."""
     if (
@@ -4215,6 +4294,22 @@ def clear_verified_run_log_reconciliation(
     matching = [
         row for row in state["items"] if row.get("chain_id") == chain_id
     ]
+    if not matching:
+        if (
+            recovery_path is not None
+            and payload is not None
+            and validated_recovery_record_matches(
+                repo,
+                recovery_path,
+                payload,
+                result,
+            )
+        ):
+            return
+        raise ContextError(
+            "recovered Run Log reconciliation is absent without an exact "
+            "durable recovery marker"
+        )
     if len(matching) != 1:
         raise ContextError(
             "recovered Run Log reconciliation requires exactly one pending "
@@ -4256,12 +4351,30 @@ def resolve_verified_closeout_incident(
     )
     resolved = 0
     for item in items:
+        if not isinstance(item, dict):
+            continue
+        exact_chain_failure = (
+            item.get("chain_id") == chain_id
+            and item.get("stage")
+            in {
+                "elim-host-git-closeout",
+                "elim-closeout",
+                "elim-closeout-recovery",
+            }
+        )
+        legacy_partial_transaction = (
+            item.get("chain_id") == control.get("last_failed_chain_id")
+            and item.get("stage") == "host-repository-preflight"
+            and item.get("details")
+            == "host-repository-preflight failed: 'next_action'"
+            and control.get("last_recovered_chain_id") == chain_id
+            and control.get("last_successful_chain_id") == chain_id
+            and control.get("elim_checkout_synced_head") == result_commit
+        )
         if (
-            not isinstance(item, dict)
-            or item.get("resolved") is True
+            item.get("resolved") is True
             or item.get("kind") != "automation_failure"
-            or item.get("chain_id") != chain_id
-            or item.get("stage") not in {"elim-host-git-closeout", "elim-closeout"}
+            or not (exact_chain_failure or legacy_partial_transaction)
         ):
             continue
         item["resolved"] = True
@@ -4281,6 +4394,17 @@ def resolve_verified_closeout_incident(
         resolved += 1
     if resolved:
         control["action_item_history"] = history[-500:]
+        failed_chain_id = control.get("last_failed_chain_id")
+        if failed_chain_id and not any(
+            isinstance(item, dict)
+            and item.get("kind") == "automation_failure"
+            and item.get("resolved") is not True
+            and item.get("chain_id") == failed_chain_id
+            for item in items
+        ):
+            control.pop("last_failed_chain_id", None)
+            control.pop("last_failed_reason", None)
+            control.pop("last_failed_at", None)
     return resolved
 
 
@@ -6734,17 +6858,20 @@ def resume_verified_elim_closeout(
         gh=gh,
         expected_manifest=payload,
     )
+    recovery_path = repo / ELIM_RECOVERY_STATE
+    persist_validated_recovery(
+        repo,
+        recovery_path,
+        payload,
+        result,
+    )
     clear_verified_run_log_reconciliation(
         repo,
         repo / ELIM_RUN_LOG_RECONCILIATION_STATE,
         chain_id=chain_id,
         result=result,
-    )
-    persist_validated_recovery(
-        repo,
-        repo / ELIM_RECOVERY_STATE,
-        payload,
-        result,
+        recovery_path=recovery_path,
+        payload=payload,
     )
     persist_gap_obligation_updates(
         repo,
@@ -6800,6 +6927,7 @@ def resume_verified_elim_closeout(
         stage="elim-closeout-recovery",
         exit_code=0,
         payload=payload,
+        event_id=f"elim-closeout-recovery:{chain_id}:{result['commit']}",
     )
     project_current_host_status(
         config,
@@ -6981,6 +7109,7 @@ def main() -> int:
             )
             return 0
         if args.resume_elim_closeout:
+            current_stage = "elim-closeout-recovery"
             recovered = resume_verified_elim_closeout(
                 git=git,
                 gh=gh,
@@ -7663,19 +7792,22 @@ def main() -> int:
             f"{current_stage} was interrupted; the child process group was "
             "confirmed stopped and preserved evidence requires review."
         )
-        try:
-            persist_pending_run_log_reconciliation(
-                repo,
-                repo / ELIM_RUN_LOG_RECONCILIATION_STATE,
-                payload=payload,
-                invocation_id=invocation_id,
-                failure_stage=current_stage,
-                reason_code="post-spawn-interruption",
-                failure_summary=message,
-                launch_state=launch_state,
-            )
-        except (ContextError, OSError, TypeError, ValueError) as exc:
-            message += f" Run Log reconciliation persistence also failed: {exc}"
+        if not args.resume_elim_closeout:
+            try:
+                persist_pending_run_log_reconciliation(
+                    repo,
+                    repo / ELIM_RUN_LOG_RECONCILIATION_STATE,
+                    payload=payload,
+                    invocation_id=invocation_id,
+                    failure_stage=current_stage,
+                    reason_code="post-spawn-interruption",
+                    failure_summary=message,
+                    launch_state=launch_state,
+                )
+            except (ContextError, OSError, TypeError, ValueError) as exc:
+                message += (
+                    f" Run Log reconciliation persistence also failed: {exc}"
+                )
         if launch_state.get("spawned") is True and payload:
             control["last_failed_reason"] = message
             try:
@@ -7703,9 +7835,9 @@ def main() -> int:
             ),
             payload=payload or None,
             chain_id=(
-                payload.get("chain_id")
-                if payload
-                else "host-dispatch-"
+                args.resume_elim_closeout
+                or (payload.get("chain_id") if payload else None)
+                or "host-dispatch-"
                 + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
             ),
             control_path=control_path,
@@ -7714,22 +7846,28 @@ def main() -> int:
         return 130
     except (KeyError, OSError, RuntimeError, ValueError) as exc:
         message = f"{current_stage} failed: {exc}"
-        try:
-            persist_pending_run_log_reconciliation(
-                repo,
-                repo / ELIM_RUN_LOG_RECONCILIATION_STATE,
-                payload=payload,
-                invocation_id=invocation_id,
-                failure_stage=current_stage,
-                reason_code="post-spawn-dispatcher-failure",
-                failure_summary=message,
-                launch_state=launch_state,
-            )
-        except (ContextError, OSError, TypeError, ValueError) as reconciliation_exc:
-            message += (
-                " Run Log reconciliation persistence also failed: "
-                f"{reconciliation_exc}"
-            )
+        if not args.resume_elim_closeout:
+            try:
+                persist_pending_run_log_reconciliation(
+                    repo,
+                    repo / ELIM_RUN_LOG_RECONCILIATION_STATE,
+                    payload=payload,
+                    invocation_id=invocation_id,
+                    failure_stage=current_stage,
+                    reason_code="post-spawn-dispatcher-failure",
+                    failure_summary=message,
+                    launch_state=launch_state,
+                )
+            except (
+                ContextError,
+                OSError,
+                TypeError,
+                ValueError,
+            ) as reconciliation_exc:
+                message += (
+                    " Run Log reconciliation persistence also failed: "
+                    f"{reconciliation_exc}"
+                )
         if launch_state.get("spawned") is True and payload:
             control["last_failed_reason"] = message
             try:
@@ -7757,9 +7895,9 @@ def main() -> int:
             ),
             payload=payload or None,
             chain_id=(
-                payload.get("chain_id")
-                if payload
-                else "host-dispatch-"
+                args.resume_elim_closeout
+                or (payload.get("chain_id") if payload else None)
+                or "host-dispatch-"
                 + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
             ),
             control_path=control_path,

@@ -3565,6 +3565,31 @@ class RunChainDispatcherTests(unittest.TestCase):
                 all(set(item) == allowed for item in value["items"])
             )
 
+    def test_host_outcome_history_replays_one_exact_recovery_event(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            config = {"manifest": {"historyLimit": 10}}
+            manifest = self.selected_manifest()
+            for _ in range(2):
+                MODULE.append_host_outcome_history(
+                    config,
+                    repo,
+                    chain_id="chain-1",
+                    status="completed",
+                    stage="elim-closeout-recovery",
+                    exit_code=0,
+                    payload=manifest,
+                    event_id="elim-closeout-recovery:chain-1:" + "a" * 40,
+                )
+            value = json.loads(
+                (repo / MODULE.HOST_OUTCOME_HISTORY).read_text(encoding="utf-8")
+            )
+            self.assertEqual(len(value["items"]), 1)
+            self.assertEqual(
+                value["items"][0]["event_id"],
+                "elim-closeout-recovery:chain-1:" + "a" * 40,
+            )
+
     def test_validated_recovery_is_bound_and_persisted_for_next_queue(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
@@ -3589,6 +3614,21 @@ class RunChainDispatcherTests(unittest.TestCase):
             self.assertEqual(
                 saved["items"][0]["source_revision"],
                 "sha256:abc",
+            )
+            self.assertEqual(saved["items"][0]["last_run_id"], "chain-1")
+            self.assertEqual(saved["items"][0]["result_commit"], "a" * 40)
+            recorded_at = saved["items"][0]["recorded_at"]
+            MODULE.persist_validated_recovery(repo, path, manifest, result)
+            replayed = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(replayed["items"][0]["attempt_count"], 1)
+            self.assertEqual(replayed["items"][0]["recorded_at"], recorded_at)
+            self.assertTrue(
+                MODULE.validated_recovery_record_matches(
+                    repo,
+                    path,
+                    manifest,
+                    result,
+                )
             )
             changed = {**result, "unit_id": "other-unit"}
             with self.assertRaisesRegex(MODULE.ContextError, "work-unit ID"):
@@ -4522,6 +4562,37 @@ class RunChainDispatcherTests(unittest.TestCase):
                 [row["chain_id"] for row in retained["items"]],
                 ["chain-2"],
             )
+            with self.assertRaisesRegex(
+                MODULE.ContextError,
+                "absent without an exact durable recovery marker",
+            ):
+                MODULE.clear_verified_run_log_reconciliation(
+                    repo,
+                    state_path,
+                    chain_id="chain-1",
+                    result=result,
+                )
+            recovery_path = repo / MODULE.ELIM_RECOVERY_STATE
+            manifest = self.selected_manifest()
+            MODULE.persist_validated_recovery(
+                repo,
+                recovery_path,
+                manifest,
+                result,
+            )
+            MODULE.clear_verified_run_log_reconciliation(
+                repo,
+                state_path,
+                chain_id="chain-1",
+                result=result,
+                recovery_path=recovery_path,
+                payload=manifest,
+            )
+            retained = json.loads(state_path.read_text(encoding="utf-8"))
+            self.assertEqual(
+                [row["chain_id"] for row in retained["items"]],
+                ["chain-2"],
+            )
 
             control = {
                 "action_items": [
@@ -4539,7 +4610,21 @@ class RunChainDispatcherTests(unittest.TestCase):
                         "stage": "elim-host-git-closeout",
                         "resolved": False,
                     },
-                ]
+                    {
+                        "id": "legacy-partial-transaction",
+                        "kind": "automation_failure",
+                        "chain_id": "host-dispatch-20260726T125538Z",
+                        "stage": "host-repository-preflight",
+                        "details": "host-repository-preflight failed: 'next_action'",
+                        "resolved": False,
+                    },
+                ],
+                "last_failed_chain_id": "host-dispatch-20260726T125538Z",
+                "last_failed_reason": "host-repository-preflight failed: 'next_action'",
+                "last_failed_at": "2026-07-26T12:55:38+00:00",
+                "last_recovered_chain_id": "chain-1",
+                "last_successful_chain_id": "chain-1",
+                "elim_checkout_synced_head": "c" * 40,
             }
             self.assertEqual(
                 MODULE.resolve_verified_closeout_incident(
@@ -4547,14 +4632,16 @@ class RunChainDispatcherTests(unittest.TestCase):
                     chain_id="chain-1",
                     result_commit="c" * 40,
                 ),
-                1,
+                2,
             )
             self.assertTrue(control["action_items"][0]["resolved"])
             self.assertFalse(control["action_items"][1]["resolved"])
+            self.assertTrue(control["action_items"][2]["resolved"])
             self.assertEqual(
                 control["action_items"][0]["resolved_by"],
                 "verified-host-closeout-recovery",
             )
+            self.assertNotIn("last_failed_chain_id", control)
 
     def test_trusted_host_preserves_declared_usage_stop_with_real_git(self):
         with tempfile.TemporaryDirectory() as directory:

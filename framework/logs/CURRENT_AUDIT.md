@@ -17,14 +17,14 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Active issue/task | Automation failure observability and trusted-host closeout repair |
 | Audit type/tier | Project structural and operations repair |
 | Started | 2026-07-26 09:04:31 -0400 |
-| Last checkpoint | 2026-07-26 09:08:51 -0400 |
+| Last checkpoint | 2026-07-26 09:21:45 -0400 |
 | User request | Make overnight failure reporting independent of successful chain completion and finish the connected architectural repair. |
 | Scope | Independent Console health projection; trusted-host Elim closeout recovery; non-File-Provider launchd installation; production validation. |
 | Files touched | `scripts/run_chain_dispatcher.py`; `tests/test_run_chain_dispatcher.py`; `framework/context-routes.json`; `tests/test_elim_context.py`; generated Console projections; `research/reference-products/automation-failure-observability-repair-2026-07-26.md`; this checkpoint. |
-| Completed steps | Independent cloud and host failure projections are merged and live; the canonical host checkout and installed launchd paths moved outside File Provider; the fresh chain and Elim review completed and merged; two post-merge host-accounting defects were reproduced and repaired with focused tests; full-suite integration exposed and repaired stale generated logs and an insufficient GitHub-sync context-capacity margin. |
-| Next step | Validate, publish, and merge the host-accounting patch; resume the exact preserved closeout; bootstrap and prove the scheduled poll; run one fresh gap-stewardship chain; reconcile final Console and project records; clear this checkpoint. |
+| Completed steps | Independent cloud and host failure projections are merged and live; the canonical host checkout and installed launchd paths moved outside File Provider; the fresh chain and Elim review completed and merged; pull request #435 closed the post-merge proof and schema-location defects; exact replay then exposed a partially applied recovery transaction, which is now idempotent under focused tests. |
+| Next step | Run complete validation, publish, and merge the idempotent-recovery patch; replay the exact preserved closeout; bootstrap and prove the scheduled poll; run one fresh gap-stewardship chain; reconcile final Console and project records; clear this checkpoint. |
 | Blockers/questions | None. |
-| Validation status | Patch validation passed: 486 Python tests, 24 participation-service tests, 27 Console frontend tests, Python compilation, more than 83,000 bytes of routed GitHub-sync/change-control headroom, generated Console reconciliation, and diff hygiene. Production recovery and scheduled-poll proof remain in progress. |
+| Validation status | Pull request #435 passed 486 Python tests, 24 participation-service tests, 27 Console tests, six remote checks, compilation, context-capacity, generation, and diff checks. The follow-up recovery patch passes 101 focused dispatcher tests; its full-suite and production replay remain in progress. |
 
 ## Handoff Rules
 
