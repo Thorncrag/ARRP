@@ -1,13 +1,13 @@
 {
   "schema_version": 2,
   "contract_schema_version": 1,
-  "generation_id": "project-integrity-eb8c2b8e074bd6b0b8f3",
+  "generation_id": "project-integrity-cbb3fdb533104c7d640f",
   "source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-  "generated_at": "2026-07-26T14:08:29+00:00",
+  "generated_at": "2026-07-26T14:09:55+00:00",
   "expected_count": 22,
   "actual_count": 22,
   "source_hashes": {
-    "integrity-report.json": "sha256:32548115675ccb31cc87dd22a98375d0397518c7e9eecffc6454b3a598112ffe"
+    "integrity-report.json": "sha256:289e9ea25d53def95982fde7f0363317d069d03195826cb4f7f5b162d303d604"
   },
   "availability": "current",
   "completeness": {
@@ -35,7 +35,7 @@
   },
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-26T14:08:29+00:00",
+    "generated_at": "2026-07-26T14:09:55+00:00",
     "revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
     "result": "clean",
     "counts": {
@@ -45,7 +45,7 @@
       "issue_pages": 64,
       "proposal_pages": 41
     },
-    "duration_seconds": 14.531,
+    "duration_seconds": 12.817,
     "scope": [
       "Issue and proposal structure, including Issue Snapshot concision",
       "Area and topic routing",
@@ -74,7 +74,7 @@
   },
   "history": [
     {
-      "generated_at": "2026-07-26T14:08:29+00:00",
+      "generated_at": "2026-07-26T14:09:55+00:00",
       "revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
       "result": "clean",
       "counts": {
@@ -84,7 +84,7 @@
         "issue_pages": 64,
         "proposal_pages": 41
       },
-      "duration_seconds": 14.531
+      "duration_seconds": 12.817
     },
     {
       "generated_at": "2026-07-26T14:01:41+00:00",
