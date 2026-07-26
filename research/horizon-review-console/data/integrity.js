@@ -4,13 +4,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "contract_schema_version": 1,
-    "generation_id": "project-integrity-0cdc81aa37e3c9522779",
-    "source_revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
-    "generated_at": "2026-07-26T04:19:07+00:00",
+    "generation_id": "project-integrity-31ebbf822e5ce8b92197",
+    "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+    "generated_at": "2026-07-26T04:41:13+00:00",
     "expected_count": 22,
     "actual_count": 22,
     "source_hashes": {
-      "integrity-report.json": "sha256:fd7533b6df8637b40f3ab8b4f9f461ba0347df1bc6375037baaaec083aa37ebb"
+      "integrity-report.json": "sha256:bf76950283122d2ab817f0ed06ef9d917d65deeab35eaf600073a16561f1a4ee"
     },
     "availability": "current",
     "completeness": {
@@ -38,8 +38,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "current": {
       "schema_version": 1,
-      "generated_at": "2026-07-26T04:19:07+00:00",
-      "revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
+      "generated_at": "2026-07-26T04:41:13+00:00",
+      "revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -48,7 +48,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "issue_pages": 64,
         "proposal_pages": 41
       },
-      "duration_seconds": 12.527,
+      "duration_seconds": 11.688,
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -76,6 +76,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "findings": []
     },
     "history": [
+      {
+        "generated_at": "2026-07-26T04:41:13+00:00",
+        "revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 11.688
+      },
       {
         "generated_at": "2026-07-26T04:19:07+00:00",
         "revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
@@ -452,32 +465,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "proposal_pages": 41
         },
         "duration_seconds": 12.03
-      },
-      {
-        "generated_at": "2026-07-24T21:14:22+00:00",
-        "revision": "14b9bf6e6213905bdbcc07688e42940085f79d63",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.284
       }
     ],
     "currentness": {
       "authority": "repository_revision",
       "status": "current",
       "current": true,
-      "expected_source_revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
-      "producer_source_revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
+      "expected_source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+      "producer_source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
       "equivalent_inputs_established": false,
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
     }
   },
   "domain_generation": {
-    "integrity.js": "project-console-aff106abfac0bcc81c51"
+    "integrity.js": "project-console-2114123acf7ea826027d"
   }
 });

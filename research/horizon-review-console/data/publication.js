@@ -18102,8 +18102,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
-        "generated_at": "2026-07-26T04:19:07+00:00"
+        "revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
+        "generated_at": "2026-07-26T04:41:13+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -19989,6 +19989,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-aff106abfac0bcc81c51"
+    "publication.js": "project-console-2114123acf7ea826027d"
   }
 });

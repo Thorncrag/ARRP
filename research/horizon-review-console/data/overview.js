@@ -33,36 +33,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "active_incidents": 2,
       "incidents": [
         {
-          "incident_id": "incident-91c7ce76fe32a431",
-          "stage": "elim-isolated-checkout",
-          "failed_prerequisite": "elim-isolated-checkout",
-          "root_cause": "The isolated Elim checkout contains a prior unsynchronized baseline.",
-          "classification": "blocking",
-          "message": "The isolated Elim checkout contains a prior unsynchronized baseline.",
-          "occurrence_count": 7,
-          "first_seen": "2026-07-25T11:17:54+00:00",
-          "latest_seen": "2026-07-26T04:19:57+00:00",
-          "chain_ids": [
-            "arrp-20260726T041310Z",
-            "arrp-20260725T110820Z",
-            "arrp-20260725T114639Z",
-            "arrp-20260725T201420Z",
-            "arrp-20260725T214010Z",
-            "arrp-20260725T224436Z",
-            "arrp-20260726T033003Z"
-          ],
-          "route": "automation"
-        },
-        {
           "incident_id": "incident-33588a859e02e349",
           "stage": "host-repository-preflight",
           "failed_prerequisite": "host-repository-preflight",
           "root_cause": "Canonical ARRP workspace is off main and not reconciled with GitHub.",
           "classification": "hold",
           "message": "Canonical ARRP workspace is off main and not reconciled with GitHub.",
-          "occurrence_count": 37,
+          "occurrence_count": 38,
           "first_seen": "2026-07-25T20:08:54+00:00",
-          "latest_seen": "2026-07-26T04:09:52+00:00",
+          "latest_seen": "2026-07-26T04:29:58+00:00",
           "chain_ids": [
             "host-dispatch-20260725T200854Z",
             "host-dispatch-20260725T210904Z",
@@ -100,7 +79,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "host-dispatch-20260726T030941Z",
             "host-dispatch-20260726T031942Z",
             "host-dispatch-20260726T032943Z",
-            "host-dispatch-20260726T040952Z"
+            "host-dispatch-20260726T040952Z",
+            "host-dispatch-20260726T042958Z"
+          ],
+          "route": "automation"
+        },
+        {
+          "incident_id": "incident-91c7ce76fe32a431",
+          "stage": "elim-isolated-checkout",
+          "failed_prerequisite": "elim-isolated-checkout",
+          "root_cause": "The isolated Elim checkout contains a prior unsynchronized baseline.",
+          "classification": "blocking",
+          "message": "The isolated Elim checkout contains a prior unsynchronized baseline.",
+          "occurrence_count": 7,
+          "first_seen": "2026-07-25T11:17:54+00:00",
+          "latest_seen": "2026-07-26T04:19:57+00:00",
+          "chain_ids": [
+            "arrp-20260725T110820Z",
+            "arrp-20260725T114639Z",
+            "arrp-20260725T201420Z",
+            "arrp-20260725T214010Z",
+            "arrp-20260725T224436Z",
+            "arrp-20260726T033003Z",
+            "arrp-20260726T041310Z"
           ],
           "route": "automation"
         }
@@ -251,13 +252,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12,
       "delivery_items_available": true,
       "domain_attention": [
-        {
-          "domain": "automation",
-          "status": "attention",
-          "reason": "The current run chain reports an active failure or hold.",
-          "timestamp": "2026-07-26T04:19:57+00:00",
-          "route": "automation"
-        },
         {
           "domain": "publication_release",
           "status": "not_determined",
@@ -571,8 +565,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "agents": {
       "registered": 7,
-      "last_chain_id": "arrp-20260726T041310Z",
-      "chain_status": "failed"
+      "last_chain_id": "arrp-20260726T043422Z",
+      "chain_status": "complete"
     },
     "services": {
       "case_monitor": {
@@ -597,8 +591,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "status": "unknown"
     },
     "progress_summary": {
-      "generated_at": "2026-07-26T04:18:23+00:00",
-      "source_revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
+      "generated_at": "2026-07-26T04:40:31+00:00",
+      "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
       "availability": "current",
       "ready": 27,
       "total": 81,
@@ -607,8 +601,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12
     },
     "integrity_summary": {
-      "generated_at": "2026-07-26T04:19:07+00:00",
-      "source_revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
+      "generated_at": "2026-07-26T04:41:13+00:00",
+      "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
       "availability": "current",
       "result": "clean",
       "counts": {
@@ -620,9 +614,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       }
     },
     "automation_summary": {
-      "chain_id": "arrp-20260726T041310Z",
-      "status": "failed",
-      "generated_at": "2026-07-26T04:19:57+00:00",
+      "chain_id": "arrp-20260726T043422Z",
+      "status": "complete",
+      "generated_at": "2026-07-26T04:41:32+00:00",
       "stage_count": 6
     },
     "publication_summary": {
@@ -636,8 +630,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "topic_product_count": 5
     },
     "source_checker_summary": {
-      "checked_at": "2026-07-26T04:13:23+00:00",
-      "source_revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
+      "checked_at": "2026-07-26T04:35:39+00:00",
+      "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
       "availability": "current",
       "expected_count": 2055,
       "actual_count": 2055,
@@ -647,12 +641,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "identity mismatch": 3,
         "identity-preserving redirect": 95,
         "review required": 81,
-        "transient failure": 10,
-        "verified": 1078
+        "transient failure": 9,
+        "verified": 1079
       }
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-aff106abfac0bcc81c51"
+    "overview.js": "project-console-2114123acf7ea826027d"
   }
 });
